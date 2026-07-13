@@ -79,6 +79,10 @@ echo %WINDIR%
 * `EXEDIR` is the parent directory of the executable program that MariaDB Connector/C is linked with.
 * `MYSQL_HOME` is the [environment variable](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-environment-variables) containing the path to the directory holding the server-specific `my.cnf` file.
 
+{% hint style="info" %}
+**Environment variable precedence:** If the `%MARIADB_HOME%` environment variable is set, MariaDB Connector/C reads `%MARIADB_HOME%\my.ini` (or `%MARIADB_HOME%\my.cnf`) and ignores `%MYSQL_HOME%` entirely. Only if `%MARIADB_HOME%` is not set will the connector fall back to `%MYSQL_HOME%`.
+{% endhint %}
+
 #### Default Option File Hierarchy
 
 MariaDB Connector/C will look in all of the above locations, in order, even if has already found an option file, and it's possible for more than one option file to exist. For example, you could have an option file in `/etc/my.cnf` with global settings for all servers, and then you could another option file in `~/.my.cnf` (i.e.your user account's home directory) which will specify additional settings (or override previously specified setting) that are specific only to that user.
@@ -145,7 +149,7 @@ mysql_optionsv(mysql, MYSQL_READ_DEFAULT_GROUP, (void *)"my_section");
 ```
 
 {% hint style="info" %}
-`MYSQL_READ_DEFAULT_GROUP` is an exclusive option: calling it more than once replaces the previously specified custom group name. Only one non‑default group can be defined in this way. When a custom group is provided, it is processed **after** the built‑in default groups (`[client]`, `[client-server]`, `[client-mariadb]`), so values in the custom group override those defined in the defaults. Passing an empty string causes only the default groups to be read, with no custom group applied:
+`MYSQL_READ_DEFAULT_GROUP` is an exclusive option: calling it more than once replaces the previously specified custom group name. Only one non‑default group can be defined in this way. Options are applied in the order their `[group]` sections appear in the option file, with a later section's values overriding earlier ones — the custom group does not have inherent precedence over the built‑in default groups (`[client]`, `[client-server]`, `[client-mariadb]`); its effect depends on where its section appears relative to theirs. Passing an empty string causes only the default groups to be read, with no custom group applied:
 
 ```
 mysql_optionsv(mysql, MYSQL_READ_DEFAULT_GROUP, (void *)"");
@@ -231,7 +235,7 @@ MariaDB Connector/C does not support this. The passwords in MySQL's `.mylogin.cn
 
 MariaDB Connector/C options can be set in client [option groups](configuring-mariadb-connectorc-with-option-files.md#option-groups).
 
-Unlike with the server, dashes (`-`) and underscores (`_`) in options are **not** interchangeable for MariaDB Connector/C. Options must be specified exactly as they are defined. See [CONC-395](https://jira.mariadb.org/browse/CONC-395) for more information.
+Underscores (`_`) in option names are treated the same as dashes (`-`) for MariaDB Connector/C. See [CONC-395](https://jira.mariadb.org/browse/CONC-395) for more information.
 
 Unlike with the server, the `loose` prefix has **no** meaning for MariaDB Connector/C. Unknown options will simply be ignored.
 
@@ -358,14 +362,14 @@ Unlike most options, `init-command` is a **multi-element** option. Each occurren
 
 * Description: Indicates that the client is able to handle multiple result sets from stored procedures or multi statements. This option will be automatically set if `multi-statements` is set.
 * mysql\_optionsv: `MARIADB_OPT_MULTI_RESULTS`
-* Data Type: `none`
+* Data Type: `boolean`
 * Default Value:
 
 **`multi-statements`, `multi-queries`**
 
 * Description: Allows the client to send multiple statements in one command. Statements will be divided by a semicolon.
 * mysql\_optionsv: `MARIADB_OPT_MULTI_STATEMENTS`
-* Data Type: `string`
+* Data Type: `boolean`
 * Default Value:
 
 **`net-buffer-length`**

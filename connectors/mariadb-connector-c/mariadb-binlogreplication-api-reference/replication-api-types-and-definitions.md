@@ -27,7 +27,13 @@ enum mariadb_rpl_option {
   MARIADB_RPL_FLAGS,          /* Protocol flags */
   MARIADB_RPL_GTID_CALLBACK,  /* GTID callback function */
   MARIADB_RPL_GTID_DATA,      /* GTID data */
-  MARIADB_RPL_BUFFER
+  MARIADB_RPL_BUFFER,
+  MARIADB_RPL_VERIFY_CHECKSUM,
+  MARIADB_RPL_UNCOMPRESS,
+  MARIADB_RPL_HOST,
+  MARIADB_RPL_PORT,
+  MARIADB_RPL_EXTRACT_VALUES,
+  MARIADB_RPL_SEMI_SYNC,
 };
 ```
 
@@ -88,6 +94,7 @@ enum mariadb_rpl_event {
   TRANSACTION_CONTEXT_EVENT= 36,
   VIEW_CHANGE_EVENT= 37,
   XA_PREPARE_LOG_EVENT= 38,
+  PARTIAL_UPDATE_ROWS_EVENT = 39,
 
   /*
     Add new events here - right above this comment!

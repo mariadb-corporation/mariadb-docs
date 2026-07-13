@@ -9,7 +9,7 @@ description: >-
 ## Syntax
 
 ```c
-const char * mysql_stat(MYSQL * mysql);
+char * mysql_stat(MYSQL * mysql);
 ```
 
 ## Parameter

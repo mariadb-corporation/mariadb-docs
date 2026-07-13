@@ -5,7 +5,7 @@
 ```bnf
 #include <mysql.h>
 
-int *mariadb_field_attr(MARIADB_CONST_STRING *attr,
+int mariadb_field_attr(MARIADB_CONST_STRING *attr,
                         const MYSQL_FIELD *field,
                         enum mariadb_field_attr_t type)
 ```
@@ -14,7 +14,7 @@ int *mariadb_field_attr(MARIADB_CONST_STRING *attr,
 
 * `attr`: A pointer which returns extended metadata information
 * `field`: Specifies the field which contains extended metadata information
-* `type:` Specifies type of metadata information. Supported types are `MARIADB_FIELD_METADATA_DATA_TYPE_NAME` and `MARIADB_FIELD_METADATA_FORMAT_NAME`.
+* `type:` Specifies type of metadata information. Supported types are `MARIADB_FIELD_ATTR_DATA_TYPE_NAME` and `MARIADB_FIELD_ATTR_FORMAT_NAME`.
 
 ## Description
 

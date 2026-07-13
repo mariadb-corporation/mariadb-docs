@@ -5,7 +5,7 @@
 ```bnf
 #include <mysql.h>
 
-ulong mysql_net_field_length(unsigned char **packet)
+unsigned long mysql_net_field_length(unsigned char **packet)
 ```
 
 ## Parameter

@@ -15,11 +15,11 @@ my_bool mysql_thread_init(void );
 
 ## Description
 
-Thread initialization for multi-threaded clients. Multi-threaded clients should call `mysql_thread_init()` at the beginning of the thread initialization to initialize thread specific client library variables. If <sub>`mysql_thread_init()`</sub> was not called explicitly, it will be called automatically by [mysql\_init()](mysql_init.md) or [mysql\_real\_connect()](mysql_real_connect.md).
+Thread initialization for multi-threaded clients. `mysql_thread_init()` is now an empty no-op; it is not called automatically by [mysql\_init()](mysql_init.md) or [mysql\_real\_connect()](mysql_real_connect.md).
 
 ## Return Value
 
-Returns zero if successful or 1 if an error occurred.
+Always returns 0 (no-op).
 
 {% hint style="info" %}
 Before a client thread ends the [mysql\_thread\_end()](mysql_thread_end.md) function must be called to release memory - otherwise the client library will report an error.

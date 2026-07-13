@@ -10,7 +10,7 @@ description: >-
 ## Syntax
 
 ```c
-my_bool mysql_ssl_set(MYSQL *mysql, const char *key, const char *cert,
+int mysql_ssl_set(MYSQL *mysql, const char *key, const char *cert,
   const char *ca, const char *capath, const char *cipher)
 ```
 

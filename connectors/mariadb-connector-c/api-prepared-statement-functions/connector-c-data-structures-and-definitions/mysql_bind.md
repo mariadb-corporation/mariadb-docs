@@ -11,8 +11,8 @@ The `MYSQL_BIND` structure is used to bind parameters (which will be sent to the
 
 ### Members of MYSQL\_BIND structure
 
-* `enum enum_field_types` field\_type: Type of the buffer for in- or output. For a complete list of types see the [types and definitions](connectorc-types-and-definitions.md) section.
-* `void` buffer: Address of a variable, array or structure used for data transfer.
+* `enum enum_field_types` buffer\_type: Type of the buffer for in- or output. For a complete list of types see the [types and definitions](connectorc-types-and-definitions.md) section.
+* `void *` buffer: Address of a variable, array or structure used for data transfer.
 * `unsigned long` buffer\_length: Size of buffer in bytes.
 * `unsigned long *` length: Pointer to a length variable for output or array of length elements for input (array binding).
 * `my_bool *` error: Pointer to an error variable for output.

@@ -25,16 +25,16 @@ MariaDB Connector/C provides the following types and definitions.
 * `MYSQL_TIMESTAMP_DATETIME`
 * `MYSQL_TIMESTAMP_TIME`
 
-#### enum mysql\_set\_option
+#### enum enum\_mysql\_set\_option
 
-`enum mysql_set_option` is used as a parameter in [mysql\_set\_server\_option()](api-functions/mysql_set_server_option.md) and has the following constants:
+`enum enum_mysql_set_option` is used as a parameter in [mysql\_set\_server\_option()](api-functions/mysql_set_server_option.md) and has the following constants:
 
-* `MYSQL_OPTIONS_MULTI_STATEMENTS_ON`
-* `MYSQL_OPTIONS_MULTI_STATEMENTS_OFF`
+* `MYSQL_OPTION_MULTI_STATEMENTS_ON`
+* `MYSQL_OPTION_MULTI_STATEMENTS_OFF`
 
 #### enum enum\_field\_types
 
-`enum field_types` describes the different field types used by MariaDB and has the following constants:
+`enum enum_field_types` describes the different field types used by MariaDB and has the following constants:
 
 * `MYSQL_TYPE_DECIMAL`
 * `MYSQL_TYPE_TINY`
@@ -112,7 +112,7 @@ The following field flags are used in [MYSQL\_FIELD](mariadb-connectorc-data-str
 
 The server\_status can be obtained by the [mariadb\_get\_infov()](api-functions/mariadb_get_infov.md) function using the `MARIADB_CONNECTION_SERVER_STATUS` option.
 
-<table><thead><tr><th></th><th width="91"></th><th></th></tr></thead><tbody><tr><td><code>SERVER_STATUS_IN_TRANS</code></td><td>1</td><td>A transaction is currently active</td></tr><tr><td><code>SERVER_STATUS_AUTOCOMMIT</code></td><td>2</td><td>Autocommit mode is set</td></tr><tr><td><code>SERVER_MORE_RESULTS_EXISTS</code></td><td>8</td><td>more results exists (more packet follow)</td></tr><tr><td><code>SERVER_QUERY_NO_GOOD_INDEX_USED</code></td><td>16</td><td></td></tr><tr><td><code>SERVER_QUERY_NO_INDEX_USED</code></td><td>32</td><td></td></tr><tr><td><code>SERVER_STATUS_CURSOR_EXISTS</code></td><td>64</td><td>when using <code>COM_STMT_FETCH</code>, indicate that current cursor still has result</td></tr><tr><td><code>SERVER_STATUS_LAST_ROW_SENT</code></td><td>128</td><td>when using <code>COM_STMT_FETCH</code>, indicate that current cursor has finished to send results</td></tr><tr><td><code>SERVER_STATUS_DB_DROPPED</code></td><td>1&#x3C;&#x3C;8</td><td>database has been dropped</td></tr><tr><td><code>SERVER_STATUS_NO_BACKSLASH_ESCAPES</code></td><td>1&#x3C;&#x3C;9</td><td>current escape mode is "no backslash escape"</td></tr><tr><td><code>SERVER_STATUS_METADATA_CHANGED</code></td><td>1&#x3C;&#x3C;10</td><td>A DDL change did have an impact on an existing PREPARE (an automatic reprepare has been executed)</td></tr><tr><td><code>SERVER_QUERY_WAS_SLOW</code></td><td>1&#x3C;&#x3C;11</td><td>Last statement took more than the time value specified in server variable <code>long_query_time</code>.</td></tr><tr><td><code>SERVER_PS_OUT_PARAMS</code></td><td>1&#x3C;&#x3C;12</td><td>this <code>resultset</code> contain stored procedure output parameter</td></tr><tr><td><code>SERVER_STATUS_IN_TRANS_READONLY</code></td><td>1&#x3C;&#x3C;13</td><td>current transaction is a read-only transaction</td></tr><tr><td><code>SERVER_SESSION_STATE_CHANGED</code></td><td>1&#x3C;&#x3C;14</td><td>session state change. see Session change type for more information</td></tr></tbody></table>
+<table><thead><tr><th></th><th width="91"></th><th></th></tr></thead><tbody><tr><td><code>SERVER_STATUS_IN_TRANS</code></td><td>1</td><td>A transaction is currently active</td></tr><tr><td><code>SERVER_STATUS_AUTOCOMMIT</code></td><td>2</td><td>Autocommit mode is set</td></tr><tr><td><code>SERVER_MORE_RESULTS_EXIST</code></td><td>8</td><td>more results exists (more packet follow)</td></tr><tr><td><code>SERVER_QUERY_NO_GOOD_INDEX_USED</code></td><td>16</td><td></td></tr><tr><td><code>SERVER_QUERY_NO_INDEX_USED</code></td><td>32</td><td></td></tr><tr><td><code>SERVER_STATUS_CURSOR_EXISTS</code></td><td>64</td><td>when using <code>COM_STMT_FETCH</code>, indicate that current cursor still has result</td></tr><tr><td><code>SERVER_STATUS_LAST_ROW_SENT</code></td><td>128</td><td>when using <code>COM_STMT_FETCH</code>, indicate that current cursor has finished to send results</td></tr><tr><td><code>SERVER_STATUS_DB_DROPPED</code></td><td>1&#x3C;&#x3C;8</td><td>database has been dropped</td></tr><tr><td><code>SERVER_STATUS_NO_BACKSLASH_ESCAPES</code></td><td>1&#x3C;&#x3C;9</td><td>current escape mode is "no backslash escape"</td></tr><tr><td><code>SERVER_STATUS_METADATA_CHANGED</code></td><td>1&#x3C;&#x3C;10</td><td>A DDL change did have an impact on an existing PREPARE (an automatic reprepare has been executed)</td></tr><tr><td><code>SERVER_QUERY_WAS_SLOW</code></td><td>1&#x3C;&#x3C;11</td><td>Last statement took more than the time value specified in server variable <code>long_query_time</code>.</td></tr><tr><td><code>SERVER_PS_OUT_PARAMS</code></td><td>1&#x3C;&#x3C;12</td><td>this <code>resultset</code> contain stored procedure output parameter</td></tr><tr><td><code>SERVER_STATUS_IN_TRANS_READONLY</code></td><td>1&#x3C;&#x3C;13</td><td>current transaction is a read-only transaction</td></tr><tr><td><code>SERVER_SESSION_STATE_CHANGED</code></td><td>1&#x3C;&#x3C;14</td><td>session state change. see Session change type for more information</td></tr></tbody></table>
 
 #### Macros
 
