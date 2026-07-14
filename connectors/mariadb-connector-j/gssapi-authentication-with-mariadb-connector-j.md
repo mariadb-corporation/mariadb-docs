@@ -128,11 +128,11 @@ If waffle-jna (and dependencies) is in the classpath, the native implementation 
 
 Dependencies:
 
-* [waffle-jna 1.8.1](https://maven-badges.herokuapp.com/maven-central/com.github.dblock.waffle/waffle-jna)
+* [waffle-jna 3.5.1](https://maven-badges.herokuapp.com/maven-central/com.github.dblock.waffle/waffle-jna)
 * [jna 4.2.1](https://maven-badges.herokuapp.com/maven-central/net.java.dev.jna/jna)
 * [jna-platform 4.2.1](https://maven-badges.herokuapp.com/maven-central/net.java.dev.jna/jna-platform)
 * [jcl-over-slf4j 1.7.14](https://maven-badges.herokuapp.com/maven-central/org.slf4j/jcl-over-slf4j)
-* [slf4j-api 1.7.14](https://maven-badges.herokuapp.com/maven-central/org.slf4j/slf4j-api)
+* [slf4j-api 2.0.17](https://maven-badges.herokuapp.com/maven-central/org.slf4j/slf4j-api)
 * [guava 19.0](https://maven-badges.herokuapp.com/com.google.guava/guava)
 
 ## Possible errors
