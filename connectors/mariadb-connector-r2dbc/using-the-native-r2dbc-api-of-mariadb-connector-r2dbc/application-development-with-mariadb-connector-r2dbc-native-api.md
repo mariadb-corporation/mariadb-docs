@@ -31,7 +31,7 @@ Building with JAR
 2. Add your application and the JAR for MariaDB Connector/R2DBC to the Java CLASSPATH:
 
 ```bash
-$ export CLASSPATH="/path/to/application:/path/to/r2dbc-mariadb-1.2.0.jar"
+$ export CLASSPATH="/path/to/application:/path/to/r2dbc-mariadb-1.4.1.jar"
 ```
 
 1. Compile your application:

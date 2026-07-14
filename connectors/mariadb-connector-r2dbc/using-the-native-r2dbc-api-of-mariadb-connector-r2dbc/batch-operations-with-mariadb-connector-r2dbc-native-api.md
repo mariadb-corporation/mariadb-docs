@@ -95,9 +95,9 @@ public class App {
 ## Example Output:
 
 ```
-- Walker Percy <w.percy@example.com>
- - Flannery OConnor <f.oconnor@example.com>
- - Kate Chopin <k.chopin@example.com>
+- Kai Devi <kai.devi@example.com>
+- Lee Wang <lee.wang@example.com>
+- Dani Smith <dani.smith@example.com>
 ```
 
 ## Code Example: Batching DDL

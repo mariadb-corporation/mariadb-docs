@@ -5,7 +5,7 @@ description: >-
   dependency.
 ---
 
-# Application Development with MariaDB/Connector/R2DBC (Spring Data)
+# Application Development with MariaDB Connector/R2DBC (Spring Data)
 
 ## Overview
 

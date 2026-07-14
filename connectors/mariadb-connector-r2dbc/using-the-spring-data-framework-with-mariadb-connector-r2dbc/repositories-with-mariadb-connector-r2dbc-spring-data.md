@@ -1,6 +1,6 @@
 ---
 description: >-
-  Spring Data repositories with MariaDB Connector/R2DBC use R2dbcRepository
+  Spring Data repositories with MariaDB Connector/R2DBC use ReactiveCrudRepository
   and JavaConfig to implement reactive CRUD, with ApplicationConfig, Entity,
   Repository, and Service classes.
 ---
@@ -192,7 +192,7 @@ class ApplicationConfig extends AbstractR2dbcConfiguration {
 * The ApplicationConfig class is annotated with @ComponentScan, which configures component scanning directives for use with @Configuration classes. A base package class is specified as RepositoryService.class using the basePackageClasses annotation attribute. With the @ComponentScan set, the RepositoryService.class is used within the Spring Data Repositories framework. If no base package is configured through either value(), basePackages(), or basePackageClasses() it will scan the package of the annotated class, which must be a named package and not the default package.
 * The connectionFactory() method returns a ConnectionFactory instance and is annotated with @Bean to indicate that the method produces a bean to be managed by the Spring container. A new ConnectionFactory is created using the static method ConnectionFactories.get(String url).
 
-The R2DBC Connection URL format is `r2dbc:driver[:protocol]}://[user:password@]host[:port][/path][?option=value.`
+The R2DBC Connection URL format is `r2dbc:driver[:protocol]://[user:password@]host[:port][/path][?option=value]`
 
 ## Create a Service
 
