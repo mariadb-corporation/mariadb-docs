@@ -79,7 +79,7 @@ Ticket cache: FILE:/tmp/krb5cc_0
 
 ### Implementations
 
-On Windows, the GSSAPI implementation is SSPI. The Java 8 native implementation has many limitations ([see java ticket](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=6722928)).
+On Windows, the GSSAPI implementation is SSPI. The Java 8 native implementation has many limitations ([see java ticket](https://bugs.openjdk.org/browse/JDK-6722928)).
 
 The driver contains 2 different implementations:
 
@@ -128,12 +128,12 @@ If waffle-jna (and dependencies) is in the classpath, the native implementation 
 
 Dependencies:
 
-* [waffle-jna 3.5.1](https://maven-badges.herokuapp.com/maven-central/com.github.dblock.waffle/waffle-jna)
-* [jna 4.2.1](https://maven-badges.herokuapp.com/maven-central/net.java.dev.jna/jna)
-* [jna-platform 4.2.1](https://maven-badges.herokuapp.com/maven-central/net.java.dev.jna/jna-platform)
-* [jcl-over-slf4j 1.7.14](https://maven-badges.herokuapp.com/maven-central/org.slf4j/jcl-over-slf4j)
-* [slf4j-api 2.0.17](https://maven-badges.herokuapp.com/maven-central/org.slf4j/slf4j-api)
-* [guava 19.0](https://maven-badges.herokuapp.com/com.google.guava/guava)
+* [waffle-jna 3.5.1](https://central.sonatype.com/artifact/com.github.dblock.waffle/waffle-jna)
+* [jna 4.2.1](https://central.sonatype.com/artifact/net.java.dev.jna/jna)
+* [jna-platform 4.2.1](https://central.sonatype.com/artifact/net.java.dev.jna/jna-platform)
+* [jcl-over-slf4j 1.7.14](https://central.sonatype.com/artifact/org.slf4j/jcl-over-slf4j)
+* [slf4j-api 2.0.17](https://central.sonatype.com/artifact/org.slf4j/slf4j-api)
+* [guava 19.0](https://central.sonatype.com/artifact/com.google.guava/guava)
 
 ## Possible errors
 
