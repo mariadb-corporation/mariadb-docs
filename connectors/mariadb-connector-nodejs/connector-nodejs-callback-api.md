@@ -65,7 +65,7 @@ For compatibility with the previous version or MySQL/mysql driver, four options 
 | **insertIdAsNumber** | Whether the query should return the last insert ID from the INSERT/UPDATE command as BigInt or Number. default return BigInt                                                |  _boolean_ |  false  |
 |  **decimalAsNumber** | Whether the query should return a decimal as a number. If enabled, it might return approximate values.                                                                      |  _boolean_ |  false  |
 |   **bigIntAsNumber** | Whether the query should return the BigInt data type as a number. If enabled, it might return approximate values.                                                           |  _boolean_ |  false  |
-| **checkNumberRange** | when used in conjunction with decimalAsNumber, insertIdAsNumber, or bigIntAsNumber, if conversion to a number is not exact, the connector will throw an error (since 3.0.1) | _function_ |         |
+| **checkNumberRange** | when used in conjunction with decimalAsNumber, insertIdAsNumber, or bigIntAsNumber, if conversion to a number is not exact, the connector will throw an error (since 3.0.1) | _boolean_ |  false   |
 
 Previous options `supportBigNumbers` and `bigNumberStrings` still exist for compatibility, but are now deprecated.
 
@@ -189,7 +189,7 @@ The Connector with the Callback API is similar to the one using Promise, but wit
 **Base:**
 
 * [`createConnection(options) → Connection`](connector-nodejs-callback-api.md#createconnectionoptions--connection): Creates a connection to a MariaDB Server.
-* [`createPooUsingions) → Pool`](connector-nodejs-callback-api.md#createpooloptions--pool) : Creates a new Pool.
+* [`createPool(options) → Pool`](connector-nodejs-callback-api.md#createpooloptions--pool) : Creates a new Pool.
 * [`createPoolCluster(options) → PoolCluster`](connector-nodejs-callback-api.md#createpoolclusteroptions--poolcluster) : Creates a new pool cluster.
 * [`importFile(options [, callback])`](connector-nodejs-callback-api.md#importfileoptions-callback) : import Sql file
 * [`version → String`](connector-nodejs-callback-api.md#version--string) : Return library version.
@@ -351,7 +351,7 @@ Pool options includes [connection option documentation](connector-nodejs-callbac
 
 Specific options for pools are :
 
-<table><thead><tr><th align="right">option</th><th width="272">description</th><th width="95" align="center">type</th><th align="center">default</th></tr></thead><tbody><tr><td align="right"><strong><code>acquireTimeout</code></strong></td><td>Timeout to get a new connection from pool in ms.</td><td align="center"><em>integer</em></td><td align="center">10000</td></tr><tr><td align="right"><strong><code>connectionLimit</code></strong></td><td>Maximum number of connection in pool.</td><td align="center"><em>integer</em></td><td align="center">10</td></tr><tr><td align="right"><strong><code>idleTimeout</code></strong></td><td>Indicate idle time after which a pool connection is released. Value must be lower than <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout">@@wait_timeout</a>. In seconds (0 means never release)</td><td align="center"><em>integer</em></td><td align="center">1800</td></tr><tr><td align="right"><strong><code>initializationTimeout</code></strong></td><td>Pool will retry creating connection in loop, emitting 'error' event when reaching this timeout. In milliseconds</td><td align="center"><em>integer</em></td><td align="center"><code>acquireTimeout</code> value</td></tr><tr><td align="right"><strong><code>minimumIdle</code></strong></td><td>Permit to set a minimum number of connection in pool. <strong>Recommendation is to use fixed pool, so not setting this value</strong>.</td><td align="center"><em>integer</em></td><td align="center"><em>set to connectionLimit value</em></td></tr><tr><td align="right"><strong><code>minDelayValidation</code></strong></td><td>When asking a connection to pool, the pool will validate the connection state. "minDelayValidation" permits disabling this validation if the connection has been borrowed recently avoiding useless verifications in case of frequent reuse of connections. 0 means validation is done each time the connection is asked. (in ms)</td><td align="center"><em>integer</em></td><td align="center">500</td></tr><tr><td align="right"><strong><code>noControlAfterUse</code></strong></td><td>After giving back connection to pool (connection.end) connector will reset or rollback connection to ensure a valid state. This option permit to disable those controls</td><td align="center"><em>boolean</em></td><td align="center">false</td></tr><tr><td align="right"><strong><code>resetAfterUse</code></strong></td><td>When a connection is given back to pool, reset the connection if the server allows it (only for MariaDB version >= 10.2.22 /10.3.13). If disabled or server version doesn't allows reset, pool will only rollback open transaction if any</td><td align="center"><em>boolean</em></td><td align="center">true</td></tr><tr><td align="right"><strong><code>leakDetectionTimeout</code></strong></td><td>Permit to indicate a timeout to log connection borrowed from pool. When a connection is borrowed from pool and this timeout is reached, a message will be logged to console indicating a possible connection leak. Another message will tell if the possible logged leak has been released. A value of 0 (default) meaning Leak detection is disable</td><td align="center"><em>integer</em></td><td align="center">0</td></tr></tbody></table>
+<table><thead><tr><th align="right">option</th><th width="272">description</th><th width="95" align="center">type</th><th align="center">default</th></tr></thead><tbody><tr><td align="right"><strong><code>acquireTimeout</code></strong></td><td>Timeout to get a new connection from pool in ms.</td><td align="center"><em>integer</em></td><td align="center">10000</td></tr><tr><td align="right"><strong><code>connectionLimit</code></strong></td><td>Maximum number of connection in pool.</td><td align="center"><em>integer</em></td><td align="center">10</td></tr><tr><td align="right"><strong><code>idleTimeout</code></strong></td><td>Indicate idle time after which a pool connection is released. Value must be lower than <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout">@@wait_timeout</a>. In seconds (0 means never release)</td><td align="center"><em>integer</em></td><td align="center">1800</td></tr><tr><td align="right"><strong><code>initializationTimeout</code></strong></td><td>Pool will retry creating connection in loop, emitting 'error' event when reaching this timeout. In milliseconds</td><td align="center"><em>integer</em></td><td align="center"><code>acquireTimeout</code> − 100 ms (min 100 ms)</td></tr><tr><td align="right"><strong><code>minimumIdle</code></strong></td><td>Permit to set a minimum number of connection in pool. <strong>Recommendation is to use fixed pool, so not setting this value</strong>.</td><td align="center"><em>integer</em></td><td align="center"><em>set to connectionLimit value</em></td></tr><tr><td align="right"><strong><code>minDelayValidation</code></strong></td><td>When asking a connection to pool, the pool will validate the connection state. "minDelayValidation" permits disabling this validation if the connection has been borrowed recently avoiding useless verifications in case of frequent reuse of connections. 0 means validation is done each time the connection is asked. (in ms)</td><td align="center"><em>integer</em></td><td align="center">500</td></tr><tr><td align="right"><strong><code>noControlAfterUse</code></strong></td><td>After giving back connection to pool (connection.end) connector will reset or rollback connection to ensure a valid state. This option permit to disable those controls</td><td align="center"><em>boolean</em></td><td align="center">false</td></tr><tr><td align="right"><strong><code>resetAfterUse</code></strong></td><td>When a connection is given back to pool, reset the connection if the server allows it (only for MariaDB version >= 10.2.22 /10.3.13). If disabled or server version doesn't allows reset, pool will only rollback open transaction if any</td><td align="center"><em>boolean</em></td><td align="center">false</td></tr><tr><td align="right"><strong><code>leakDetectionTimeout</code></strong></td><td>Permit to indicate a timeout to log connection borrowed from pool. When a connection is borrowed from pool and this timeout is reached, a message will be logged to console indicating a possible connection leak. Another message will tell if the possible logged leak has been released. A value of 0 (default) meaning Leak detection is disable</td><td align="center"><em>integer</em></td><td align="center">0</td></tr></tbody></table>
 
 #### Pool events
 
@@ -458,7 +458,7 @@ console.log(mariadb.defaultOptions({ timezone: '+00:00' }));
 > Returns an Emitter object that can emit four different types of event:
 >
 > * error: Emits an [Error](connector-nodejs-callback-api.md#error) object, when query failed.
-> * columns: Emits when columns metadata from result-set are received (parameter is an array of [Metadata fields](connector-nodejs-callback-api.md#metadata-field)).
+> * fields: Emits when column metadata from the result-set are received (parameter is an array of [Metadata fields](connector-nodejs-callback-api.md#metadata-field)).
 > * data: Emits each time a row is received (parameter is a row).
 > * end: Emits when the query ends (no parameter).
 
@@ -767,7 +767,7 @@ escape per type:
 * Date: String representation using `YYYY-MM-DD HH:mm:ss.SSS` format
 * Buffer: \_binary''
 * object with toSqlString function: String an escaped result of toSqlString
-* Array: list of escaped values. ex: `[true, "o'o"]` => `('true', 'o\'o')`
+* Array: list of escaped values. ex: `[true, "o'o"]` => `(true, 'o\'o')`
 * geoJson: MariaDB transformation to corresponding geotype. ex: `{ type: 'Point', coordinates: [20, 10] }` => `"ST_PointFromText('POINT(20 10)')"`
 * JSON: Stringification of JSON, or if `permitSetMultiParamEntries` is enable, key escaped as identifier + value
 * String: escaped value, (\u0000, ', ", \b, \n, \r, \t, \u001A, and \ characters are escaped with '')
@@ -784,10 +784,7 @@ const cmd = 'SELECT * FROM ' + conn.escapeId(myTable) + ' where myCol = ' + conn
 
 ### `connection.escapeId(value) → String`
 
-This function permits escaping an Identifier properly. See [Identifier Names](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/identifier-names) for escaping. Value will be enclosed by '\`' character if content doesn't satisfy:
-
-* ASCII: \[0-9,a-z,A-Z$\_] (numerals 0–9, basic Latin letters, both lowercase and uppercase, dollar sign, underscore)
-* Extended: U+0080 .. U+FFFF and escaping '\`' character if needed.
+This function permits escaping an Identifier properly. See [Identifier Names](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/identifier-names) for escaping. The value is **always** enclosed by '\`' characters (even when it contains no special characters), so that reserved words can be used as identifiers; any '\`' character inside the value is escaped by doubling it.
 
 ```javascript
 const myColVar = "let'go";
@@ -932,7 +929,7 @@ pool.query("SELECT NOW()", (err, results, metadata) => {
   if (err) {
     //handle error
   } else {
-    console.log(rows); //[ { 'NOW()': 2018-07-02T17:06:38.000Z }, meta: [ ... ] ]
+    console.log(results); //[ { 'NOW()': 2018-07-02T17:06:38.000Z }, meta: [ ... ] ]
   }
 });
 ```
@@ -1097,7 +1094,7 @@ cluster.getConnection("^slave", (err, conn) => {
 
 ### `poolCluster events`
 
-PoolCluster object inherits from the Node.js [`EventEmitter`](https://nodejs.org/api/events.html). Emits 'remove' event when a node is removed from configuration if the option `removeNodeErrorCount` is defined (default to 5) and connector fails to connect more than `removeNodeErrorCount` times. (if other nodes are present, each attempt will wait for value of the option `restoreNodeTimeout`)
+PoolCluster object inherits from the Node.js [`EventEmitter`](https://nodejs.org/api/events.html). Emits 'remove' event when a node is removed from configuration once the node's consecutive connection failures reach `removeNodeErrorCount` (default `Infinity`, so removal is disabled unless this option is set). (if other nodes are present, each attempt will wait for value of the option `restoreNodeTimeout`)
 
 ```javascript
 const mariadb = require('mariadb/callback');
