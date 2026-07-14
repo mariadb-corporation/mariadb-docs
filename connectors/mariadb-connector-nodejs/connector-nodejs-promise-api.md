@@ -79,7 +79,7 @@ For compatibility with previous version or mysql/mysql driver, 4 options have be
 | **insertIdAsNumber** | Whether the query should return last insert id from INSERT/UPDATE command as BigInt or Number. default return BigInt                                               |  _boolean_ |  false  |
 |  **decimalAsNumber** | Whether the query should return decimal as Number. If enabled, this might return approximate values.                                                               |  _boolean_ |  false  |
 |   **bigIntAsNumber** | Whether the query should return BigInt data type as Number. If enabled, this might return approximate values.                                                      |  _boolean_ |  false  |
-| **checkNumberRange** | when used in conjunction of decimalAsNumber, insertIdAsNumber or bigIntAsNumber, if conversion to number is not exact, connector will throw an error (since 3.0.1) | _function_ |         |
+| **checkNumberRange** | when used in conjunction of decimalAsNumber, insertIdAsNumber or bigIntAsNumber, if conversion to number is not exact, connector will throw an error (since 3.0.1) | _boolean_ |  false   |
 
 Previous options `supportBigNumbers` and `bigNumberStrings` still exist for compatibility but are now deprecated.
 
@@ -430,7 +430,7 @@ Specific options for pools are:
 |        **`acquireTimeout`** | Timeout to get a new connection from pool. In order to have connection error information, must be higher than connectTimeout. In milliseconds.                                                                                                                                                                                                   | _integer_ |                10000               |
 |       **`connectionLimit`** | Maximum number of connection in pool.                                                                                                                                                                                                                                                                                                            | _integer_ |                 10                 |
 |           **`idleTimeout`** | Indicate idle time after which a pool connection is released. Value must be lower than [@@wait\_timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout). In seconds. 0 means never release.                                                                          | _integer_ |                1800                |
-| **`initializationTimeout`** | Pool will retry creating connection in loop, emitting 'error' event when reaching this timeout. In milliseconds.                                                                                                                                                                                                                                 | _integer_ |       `acquireTimeout` value       |
+| **`initializationTimeout`** | Pool will retry creating connection in loop, emitting 'error' event when reaching this timeout. In milliseconds.                                                                                                                                                                                                                                 | _integer_ |       `acquireTimeout` − 100 ms (min 100 ms)       |
 |           **`minimumIdle`** | Permit to set a minimum number of connection in pool. **Recommendation is to use fixed pool, so not setting this value**.                                                                                                                                                                                                                        | _integer_ |   _set to connectionLimit value_   |
 |    **`minDelayValidation`** | When asking a connection to pool, the pool will validate the connection state. "minDelayValidation" permits disabling this validation if the connection has been borrowed recently avoiding useless verifications in case of frequent reuse of connections. In milliseconds. 0 means validation is done each time the connection is asked.       | _integer_ |                 500                |
 |     **`noControlAfterUse`** | After giving back connection to pool (connection.end) connector will reset or rollback connection to ensure a valid state. This option permit to disable those controls                                                                                                                                                                          | _boolean_ |                false               |
@@ -997,7 +997,7 @@ Public variables :
 * `id`: Prepare statement Identifier
 * `query`: sql command
 * `database`: database it applies to.
-* `parameters`: parameter array information.
+* `parameterCount`: number of parameters.
 * `columns`: column array information.
 
 Public methods :
@@ -2130,7 +2130,7 @@ cluster.remove('analytics');
 
 #### `poolCluster.getConnection([pattern], [selector]) → Promise`
 
-> * `pattern`: _string_ used to match pool node identifiers. Internally, the value is considered as a Regex. Default: \* (matches every pool).
+> * `pattern`: _string_ used to match pool node identifiers. Internally, the value is compiled as a regular expression (`RegExp(pattern)`), so use a valid regex such as `'.*'` — the bare string `'*'` is not valid and throws. When omitted, every pool is matched (internally `/^/`).
 > * `selector`: _string_ Selection strategy: 'RR' (round-robin), 'RANDOM', or 'ORDER'. Default: value of the `defaultSelector` option
 >
 > Returns a promise that:
@@ -2188,7 +2188,7 @@ async function executeQueryWithRetry(sql, params, maxRetries = 3) {
     attempts++;
     
     try {
-      conn = await cluster.getConnection('*', 'ORDER');  // Try nodes in order
+      conn = await cluster.getConnection('.*', 'ORDER');  // Try nodes in order
       const result = await conn.query(sql, params);
       return result;
     } catch (err) {
@@ -2210,7 +2210,7 @@ async function executeQueryWithRetry(sql, params, maxRetries = 3) {
 ```
 
 {% hint style="info" %}
-The pattern `*` matches every node in the cluster. Use regular expression patterns like `^replica` for more precise matching.
+The pattern `.*` matches every node in the cluster (the bare string `*` is not a valid regular expression and throws). Use patterns like `^replica` for more precise matching.
 {% endhint %}
 
 #### `poolCluster.of(pattern, [selector]) → FilteredPoolCluster`
@@ -2375,7 +2375,7 @@ The pool cluster inherits from Node.js [EventEmitter](https://nodejs.org/api/eve
 
 **`remove`**
 
-Emitted when a node is removed from the cluster configuration. This happens when a node fails to connect more than `removeNodeErrorCount` times (if this option is defined).
+Emitted when a node is removed from the cluster configuration. This happens when a node's consecutive connection failures reach `removeNodeErrorCount` (if this option is defined; it defaults to `Infinity`, so removal is disabled unless set).
 
 ```javascript
 cluster.on('remove', (nodeId) => {
