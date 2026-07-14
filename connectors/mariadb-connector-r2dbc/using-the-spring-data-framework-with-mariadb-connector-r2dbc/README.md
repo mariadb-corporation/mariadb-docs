@@ -142,7 +142,7 @@ Complete Java code example using MariaDB Connector/R2DBC with Spring Data R2DBC 
 {% endcolumn %}
 
 {% column %}
-Spring Data repositories with MariaDB Connector/R2DBC use `R2dbcRepository` and JavaConfig to implement reactive CRUD, with ApplicationConfig, Entity, Repository, and Service classes.
+Spring Data repositories with MariaDB Connector/R2DBC use `ReactiveCrudRepository` and JavaConfig to implement reactive CRUD, with ApplicationConfig, Entity, Repository, and Service classes.
 {% endcolumn %}
 {% endcolumns %}
 

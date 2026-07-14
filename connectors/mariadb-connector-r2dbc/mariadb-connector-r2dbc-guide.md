@@ -44,7 +44,7 @@ Current connector supporting 1.0.0 R2DBC spec is:
 <dependency>
     <groupId>org.mariadb</groupId>
     <artifactId>r2dbc-mariadb</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
 </dependency>
 ```
 

@@ -40,7 +40,7 @@ It should also be possible to install Spring Data R2DBC and MariaDB Connector/R2
 <dependency>
     <groupId>org.mariadb</groupId>
     <artifactId>r2dbc-mariadb-0.9.1-spec</artifactId>
-    <version>1.2.2</version>
+    <version>1.4.1</version>
 </dependency>
 ```
 

@@ -18,14 +18,14 @@ XML
 <dependency>
     <groupId>org.mariadb</groupId>
     <artifactId>r2dbc-mariadb</artifactId>
-    <version>1.2.x</version> </dependency>
+    <version>1.4.1</version> </dependency>
 ```
 
 Gradle
 
 ```gradle
 // Gradle
-implementation 'org.mariadb:r2dbc-mariadb:1.2.x' // Use the latest stable version
+implementation 'org.mariadb:r2dbc-mariadb:1.4.1' // Use the latest stable version
 ```
 
 **b. For R2DBC 0.9.1 Specification (for compatibility):**
@@ -36,14 +36,14 @@ XML
 <dependency>
     <groupId>org.mariadb</groupId>
     <artifactId>r2dbc-mariadb-0.9.1-spec</artifactId>
-    <version>1.2.x</version> </dependency>
+    <version>1.4.1</version> </dependency>
 ```
 
 Gradle
 
 ```gradle
 // Gradle
-implementation 'org.mariadb:r2dbc-mariadb-0.9.1-spec:1.2.x' // Use the latest stable version
+implementation 'org.mariadb:r2dbc-mariadb-0.9.1-spec:1.4.1' // Use the latest stable version
 ```
 
 #### 2. Basic Usage (Native R2DBC)
