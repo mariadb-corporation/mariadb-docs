@@ -145,11 +145,16 @@ Like the TOI method, NBO replicates DDL statements to all nodes in the cluster s
 
 ### **Key Considerations for NBO Syntax**
 
-To utilize NBO, the DDL statement must meet specific criteria:
+NBO supports only a specific set of DDL statements. To use NBO, the statement must meet these criteria:
 
-* Explicit Locking: `ALTER TABLE` statements must include an explicit `LOCK SHARED` or `LOCK EXCLUSIVE` clause. Statements without a `LOCK` clause default to `DEFAULT` and are not supported.
-* Supported Commands: Beyond specific `ALTER` statements, `ANALYZE TABLE` and `OPTIMIZE TABLE` are also supported.
-* Single Table Limitation: Do not use NBO with statements that operate on more than one table at a time.
+* **Explicit locking:** `ALTER TABLE` statements must include an explicit `LOCK = SHARED` or `LOCK = EXCLUSIVE` clause. A statement with no `LOCK` clause, or with `LOCK = DEFAULT` or `LOCK = NONE`, is **not** supported.
+* **Supported statements:** `ALTER TABLE ... LOCK = {SHARED | EXCLUSIVE}` (including the partition-management form), `ANALYZE TABLE`, and `OPTIMIZE TABLE`.
+* **Unsupported statements:** `CREATE`, `RENAME`, `DROP`, and `REPAIR`.
+* **Single-table only:** do not use NBO with statements that operate on more than one table.
+
+{% hint style="warning" %}
+Running an unsupported statement while `wsrep_OSU_method = 'NBO'` **returns an error** rather than falling back to another method. For this reason, set NBO at the session level for the specific statements that support it — never server-wide — and run `CREATE`, `DROP`, and similar statements under the default `TOI` method.
+{% endhint %}
 
 ### **When to Use NBO**
 
