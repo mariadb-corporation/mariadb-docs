@@ -18,7 +18,7 @@ Create the example database and table:
 ```sql
 CREATE DATABASE IF NOT EXISTS todo;
 
-CREATE TABLE todo. tasks (
+CREATE TABLE todo.tasks (
    id INT AUTO_INCREMENT PRIMARY KEY,
    description VARCHAR(200),
    completed BOOLEAN DEFAULT FALSE);
@@ -45,8 +45,8 @@ sql::SQLString url("jdbc:mariadb://example.skysql.net:5509/todo");
 sql::Properties properties({
       {"user", "db_user"},
       {"password", "db_user_password"},
-      {"autocommit", false},
-      {"useTls", true},
+      {"autocommit", "false"},
+      {"useTls", "true"},
       {"tlsCert", "classpath:static/skysql_chain.pem"}
    });
 ```
