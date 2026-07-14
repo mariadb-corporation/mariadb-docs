@@ -83,7 +83,7 @@ asyncFunction().then(() => {
 
 The MariaDB Connector has a [Promise](connector-nodejs-promise-api.md) *(Default)* and [callback](connector-nodejs-callback-api.md)[^1] API.
 
-[Typescript specific docs are also available](../mariadb-connector-nodejs/connector-nodejs-promise-api#typescript-usage).
+[Typescript specific docs are also available](../mariadb-connector-nodejs/connector-nodejs-promise-api.md#typescript-usage).
 
 [^1]: The callback API is provided for compatibility with the mysql and mysql2 APIs.
 

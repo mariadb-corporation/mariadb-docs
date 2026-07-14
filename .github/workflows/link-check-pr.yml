@@ -61,6 +61,8 @@ jobs:
             --exclude manpages\.ubuntu\.com
             --exclude packages\.ubuntu\.com
             --exclude www\.canonware\.com
+            --exclude www\.npmjs\.com
+            --exclude npmjs\.org
             ${{ steps.changes.outputs.all_changed_files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

@@ -44,7 +44,7 @@ If you're using Linux, the simplest way to install MariaDB Connector/C is via yo
 You can set up your repository using:
 
 * MariaDB Corporation's [MariaDB Package Repository setup script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
-* MariaDB Foundation's [MariaDB Repository Configuration Tool](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/0B9HhpsUkjLe15Lk8wbL).
+* MariaDB Foundation's MariaDB Repository Configuration Tool.
 
 **Install with `yum`/`dnf` (RHEL, CentOS, Fedora)**
 
