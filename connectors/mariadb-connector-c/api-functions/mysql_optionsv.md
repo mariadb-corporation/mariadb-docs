@@ -64,7 +64,7 @@ The following table shows the C variable type required for the `arg` parameter o
     unsigned int timeout= 5;
     mysql_optionsv(mysql, MYSQL_OPT_CONNECT_TIMEOUT, (void *)&timeout);
     ```
-*   `MYSQL_PROGRESS_CALLBACK`: Specifies a callback function which will be able to visualize the progress of certain long running statements (i.e. [LOAD DATA LOCAL INFILE]({server}/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) or [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table)).
+*   `MYSQL_PROGRESS_CALLBACK`: Specifies a callback function which will be able to visualize the progress of certain long running statements (i.e. [LOAD DATA LOCAL INFILE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) or [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table)).
 
     ```c
     static void report_progress(const MYSQL *mysql __attribute__((unused)),
@@ -200,7 +200,7 @@ Some of these options can also be set as arguments to the [mysql\_real\_connect]
     mysql_optionsv(mysql, MYSQL_OPT_COMPRESS, NULL);
     ```
 * `MYSQL_OPT_ZSTD_COMPRESSION_LEVEL`: The compression level to use for connections that use the `zstd` compression algorithm. Acceptable values are integers in the range 1 (fastest) to 22 (maximum compression). This option has no effect if `zstd` compression is not in use. Added in MariaDB Connector/C 3.3.14 and 3.4.4 versions.
-*   `MYSQL_OPT_LOCAL_INFILE`: Enable or disable the use of [LOAD DATA LOCAL INFILE]({server}/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile)
+*   `MYSQL_OPT_LOCAL_INFILE`: Enable or disable the use of [LOAD DATA LOCAL INFILE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile)
 
     ```c
     unsigned int enable= 1, disable= 0;
