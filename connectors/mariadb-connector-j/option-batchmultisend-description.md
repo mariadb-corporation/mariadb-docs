@@ -5,7 +5,7 @@ description: >-
   between client and server.
 ---
 
-# Option batchMultiSend Description
+# Option useBatchMultiSend Description
 
 ### Definition
 
