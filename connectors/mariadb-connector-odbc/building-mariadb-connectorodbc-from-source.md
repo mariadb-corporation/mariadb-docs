@@ -73,7 +73,7 @@ This example will put your source tree into the 3.0.8 version state.
 You can build MariaDB Connector/ODBC by executing the [cmake](https://cmake.org/cmake/help/latest/manual/cmake.1.html) command like the following:
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCONC_WITH_UNIT_TESTS=Off -DCONC_WITH_MSI=OFF -DCMAKE_INSTALL_PREFIX=/usr/local .
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCONC_WITH_UNIT_TESTS=Off -DCMAKE_INSTALL_PREFIX=/usr/local .
 cmake --build . --config RelWithDebInfo
 ```
 
