@@ -10,7 +10,7 @@ description: >-
 **MariaDB Connector/ODBC** is a database driver that uses the industry standard [Open Database Connectivity (ODBC) API](https://en.wikipedia.org/wiki/Open_Database_Connectivity). Some of the key features of the driver are:
 
 * It is [LGPL-licensed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/faq/licensing-questions/licensing-faq).
-* It is compliant with the ODBC 3.5 standard.
+* It is compliant with the ODBC 3.8 standard.
 * It can be used as a drop-in replacement for MySQL Connector/ODBC.
 * It supports both Unicode and ANSI modes.
 * It primarily uses the MariaDB/MySQL binary protocol (i.e. server-side [prepared statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/prepared-statements)).
@@ -60,8 +60,8 @@ The first step is to configure UnixODBC to recognize MariaDB Connector/ODBC as a
 For example, create a template file similar to the following, with a name like `MariaDB_odbc_driver_template.ini`:
 
 ```
-[MariaDB ODBC 3.0 Driver]
-Description = MariaDB Connector/ODBC v.3.0
+[MariaDB ODBC 3.2 Driver]
+Description = MariaDB Connector/ODBC v.3.2
 Driver = /usr/lib64/libmaodbc.so
 ```
 
@@ -71,7 +71,7 @@ And then install it to the system's global `/etc/odbcinst.ini` file with the fol
 sudo odbcinst -i -d -f MariaDB_odbc_driver_template.ini
 ```
 
-At this point, you should be able to connect to MariaDB by using the `Driver` with the `SQLDriverConnect` function. To connect with `SQLDriverConnect`, you would need to specify `Driver={MariaDB ODBC 3.0 Driver}` in your connection string along with your other connection parameters.
+At this point, you should be able to connect to MariaDB by using the `Driver` with the `SQLDriverConnect` function. To connect with `SQLDriverConnect`, you would need to specify `Driver={MariaDB ODBC 3.2 Driver}` in your connection string along with your other connection parameters.
 
 See [Parameters](mariadb-connector-odbc-guide.md#parameters) for connection string options.
 
@@ -84,7 +84,7 @@ For example, create a template file similar to the following, with a name like `
 ```
 [MariaDB-server]
 Description=MariaDB server
-Driver=MariaDB ODBC 3.0 Driver
+Driver=MariaDB ODBC 3.2 Driver
 SERVER=<your server>
 USER=<your user>
 PASSWORD=<your password>
@@ -188,10 +188,10 @@ To add MariaDB Connector/ODBC as a `Driver`, the configuration file would look s
 
 ```
 [ODBC Drivers]
-MariaDB ODBC 3.1 Driver = installed
+MariaDB ODBC 3.2 Unicode Driver = installed
 
-[MariaDB ODBC 3.1 Driver]
-Description=MariaDB Connector/ODBC v.3.1
+[MariaDB ODBC 3.2 Unicode Driver]
+Description=MariaDB Connector/ODBC v.3.2
 Driver=/Library/MariaDB/MariaDB-Connector-ODBC/libmaodbc.dylib
 Threading=0
 ```
@@ -219,7 +219,7 @@ TraceFile = /tmp/odbc-tracefile.log
 TraceAutoStop = 1
 
 [ODBC Data Sources]
-MariaDB-server = MariaDB ODBC 3.1 Driver
+MariaDB-server = MariaDB ODBC 3.2 Unicode Driver
 
 [MariaDB-server]
 Description = MariaDB server

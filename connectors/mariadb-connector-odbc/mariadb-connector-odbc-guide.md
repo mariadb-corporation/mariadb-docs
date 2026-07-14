@@ -12,7 +12,7 @@ description: >-
 **MariaDB Connector/ODBC** is a database driver that uses the industry standard [Open Database Connectivity (ODBC) API](https://en.wikipedia.org/wiki/Open_Database_Connectivity). Some of the key features of the driver are:
 
 * It is [LGPL-licensed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/faq/licensing-questions/licensing-faq).
-* It is compliant with the ODBC 3.5 standard.
+* It is compliant with the ODBC 3.8 standard.
 * It can be used as a drop-in replacement for MySQL Connector/ODBC.
 * It supports both Unicode and ANSI modes.
 * It primarily uses the MariaDB/MySQL binary protocol (i.e. server-side [prepared statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/prepared-statements)).
@@ -169,7 +169,7 @@ The connector will need to use client authentication plugins in the following sc
 
 If you need client authentication plugins in a version which does not bundle them with the connector, then you will also need to install [MariaDB Connector/C](../connectors-quickstart-guides/mariadb-connector-c-guide.md), which installs the client authentication plugins as shared libraries, which can be used by MariaDB Connector/ODBC.
 
-MariaDB Connector/ODBC can be configured to use MariaDB Connector/C's client authentication plugins by setting the `PLUGINDIR` parameter to the MariaDB Connector/C's plugin directory. The plugin directory can also be specified with the `MARIADB_PLUGIN_DIR` environment variable.
+MariaDB Connector/ODBC can be configured to use MariaDB Connector/C's client authentication plugins by setting the `PLUGIN_DIR` parameter to the MariaDB Connector/C's plugin directory. The plugin directory can also be specified with the `MARIADB_PLUGIN_DIR` environment variable.
 
 On Windows, MariaDB Connector/C often installs plugins to one of the following directories:
 
@@ -188,7 +188,7 @@ When you install the client authentication plugins, ensure that they are for the
 ### DSN-Related Parameters
 
 * `DSN`: Name of the DSN
-* `Driver`: The name of the MariaDB ODBC Driver. On Windows, this must be `{MariaDB ODBC 3.1 Driver}` for 3.1 drivers, or for versions from other release series, you must use the corresponding version number for that release series. On Linux, either this must be a path to the driver's shared library or it must match the `Driver` name that you provided when you [configured the Driver with UnixODBC](creating-a-data-source-with-mariadb-connectorodbc.md#configuring-mariadb-connectorodbc-as-a-unixodbc-driver-on-linux).
+* `Driver`: The name of the MariaDB ODBC Driver. On Windows, this must be `{MariaDB ODBC 3.2 Driver}` for 3.2 drivers, or for versions from other release series, you must use the corresponding version number for that release series. On Linux, either this must be a path to the driver's shared library or it must match the `Driver` name that you provided when you [configured the Driver with UnixODBC](creating-a-data-source-with-mariadb-connectorodbc.md#configuring-mariadb-connectorodbc-as-a-unixodbc-driver-on-linux).
 * `Description`: Description of the data source.
 * `SaveFile`: Save a string representation of the DSN to this file.
 * `FileDSN`: The file where the string representation of the DSN can be read.
@@ -211,7 +211,7 @@ When you install the client authentication plugins, ensure that they are for the
   * 4(16) - See `NO_PROMPT`
   * 5(32) - Forces use of dynamic cursor
   * 6(64) - Forbids the use of database.tablename.column syntax
-  * 7(128) Allows `[load-data-infile|LOAD DATA INFILE LOCAL]`
+  * 7(128) - No default cursor
   * 11(2048) - Tells connector to use compression protocol
   * 13(8192) - See `NAMEDPIPE`
   * 16(65536) - See `USE_MYCNF`
