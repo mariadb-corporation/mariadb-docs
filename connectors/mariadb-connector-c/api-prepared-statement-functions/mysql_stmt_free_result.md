@@ -23,7 +23,7 @@ Frees stored result memory of a prepared statement.
 
 ## Return Value
 
-Returns void.
+Returns zero on success, non-zero on failure.
 
 ## See Also
 

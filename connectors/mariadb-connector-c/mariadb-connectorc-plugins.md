@@ -11,8 +11,6 @@ MariaDB Connector/C functionality can be extended via loadable (or statically co
 
 ## connection plugins
 
-### aurora
-
 ### replication
 
 ## pvio plugins

@@ -10,13 +10,13 @@ description: >-
 
 ```c
 int mysql_kill(MYSQL * mysql,
-               unsigned long);
+               unsigned long pid);
 ```
 
 ## Parameters
 
 * `mysql` - a mysql handle, which was previously allocated by [mysql\_init()](mysql_init.md) or [mysql\_real\_connect()](mysql_real_connect.md).
-* `long` - process id
+* `unsigned long` - process id
 
 ## Description
 

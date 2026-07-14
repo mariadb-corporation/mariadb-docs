@@ -11,9 +11,9 @@ description: >-
 
 ```c
 my_bool mysql_stmt_send_long_data(MYSQL_STMT * stmt,
-                                  unsigned int,
+                                  unsigned int param_number,
                                   const char * data,
-                                  unsigned long);
+                                  unsigned long length);
 ```
 
 ## Parameter
@@ -21,7 +21,7 @@ my_bool mysql_stmt_send_long_data(MYSQL_STMT * stmt,
 * `stmt` - a statement handle, which was previously allocated by [mysql\_stmt\_init()](mysql_stmt_init.md).
 * `param_no` - indicates which parameter to associate the data with. Parameters are numbered beginning with 0.
 * `data` - a buffer containing the data to send.
-* `long` - size of the data buffer.
+* `length` - size, in bytes, of the data buffer.
 
 ## Description
 

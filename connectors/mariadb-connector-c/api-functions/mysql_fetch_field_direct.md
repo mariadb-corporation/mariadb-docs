@@ -24,7 +24,7 @@ Returns a pointer to a `MYSQL_FIELD` structure which contains field information 
 
 ## Return Value
 
-Pointer to a `MYSQL_FIELD` structure or `NULL` if an invalid field number was specified
+Pointer to a `MYSQL_FIELD` structure. The caller must ensure that `fieldnr` is less than `mysql_field_count()`; specifying an out-of-range value results in undefined behavior, not a `NULL` return.
 
 {% hint style="info" %}
 The total number of fields can be obtained by `mysql_field_count()`.

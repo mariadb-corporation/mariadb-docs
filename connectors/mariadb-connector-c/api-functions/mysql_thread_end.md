@@ -15,7 +15,7 @@ void mysql_thread_end(void );
 
 ## Description
 
-The `mysql_thread_end()` function needs to be called before a client thread ends. It will release thread-specific memory, which was allocated by a previous [mysql\_thread\_init()](mysql_thread_init.md) call.&#x20;
+The `mysql_thread_end()` function is now an empty no-op, retained only for API/ABI compatibility.
 
 ## Return Value
 

@@ -64,8 +64,8 @@ It has the following members:
 | unsigned int            | catalog\_length    | The length of catalog name                  |
 | char \*                 | def                | default value                               |
 | unsigned int            | def\_length        | The length of default value                 |
-| unsigned int            | length             | The length (width) of the column definition |
-| unsigned int            | max\_length        | The maximum length of the column value      |
+| unsigned long           | length             | The length (width) of the column definition |
+| unsigned long           | max\_length        | The maximum length of the column value      |
 | unsigned int            | flags              | Flags                                       |
 | unsigned int            | decimals           | Number of decimals                          |
 | enum enum\_field\_types | type               | Field type                                  |
@@ -113,9 +113,9 @@ The `MARIADB_X509_INFO` structure contains information about the peer certificat
 | `int`       | `version`     | Peer certificate version            |
 | `char *`    | `issuer`      | Issuer of peer certificate          |
 | `char *`    | `subject`     | Subject of peer certificate         |
-| `char *`    | `fingerprint` | Fingerprint (SHA256, 384 or 512)    |
-| `struct tm` | `notBefore`   | Start date of peer certificate      |
-| `struct tm` | `notAfter`    | Expiration date of peer certificate |
+| `char[129]` | `fingerprint` | Fingerprint (SHA256, 384 or 512)    |
+| `struct tm` | `not_before`  | Start date of peer certificate      |
+| `struct tm` | `not_after`   | Expiration date of peer certificate |
 
 MARIADB\_X509\_INFO was added in MariaDB Connector/C 3.4.1
 

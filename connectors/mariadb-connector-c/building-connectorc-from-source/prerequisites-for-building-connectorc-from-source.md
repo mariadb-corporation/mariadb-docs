@@ -10,7 +10,7 @@ description: >-
 #### Windows
 
 * Visual Studio 2013 or newer (older versions of Visual Studio may also work but have not been tested).
-* cmake 2.8.12 or newer, available from the [CMake website](https://www.cmake.org).
+* cmake 3.12.0 or newer, available from the [CMake website](https://www.cmake.org).
 * for Connector/C 2.x: OpenSSL libraries and include files.
 * for Connector/C 3.0 remote-io plugin: [Curl](https://curl.haxx.se) libraries and include files
 
@@ -21,8 +21,8 @@ The following is a list of tools that are required for building MariaDB Connecto
 * gcc 3.4.6 or newer C compiler
 * TLS/SSL libraries and include files
   * OpenSSL 1.0.1 or newer or
-  * GnuTLS 3.4 or newer
-* cmake 2.8.12 or newer, available from the [CMake website](https://www.cmake.org).
+  * GnuTLS 3.4.2 or newer
+* cmake 3.12.0 or newer, available from the [CMake website](https://www.cmake.org).
 * for Connector/C 3.0 remote-io plugin: [Curl](https://curl.haxx.se) libraries and include files
 * For GSSAPI plugin: [Kerberos V5](https://web.mit.edu/kerberos/dist/) libraries
 

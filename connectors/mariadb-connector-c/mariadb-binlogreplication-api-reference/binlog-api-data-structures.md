@@ -37,8 +37,8 @@ typedef struct {
 ```sql
 typedef struct {
   uint32_t second;
-  uint32_r second_part;
-} MARIADB_STRING;
+  uint32_t second_part;
+} MARIADB_TIMESTAMP;
 ```
 
 * `second` → Represents the whole seconds portion of the timestamp.
@@ -99,7 +99,6 @@ typedef struct st_mariadb_rpl_event
     struct st_mariadb_rpl_annotate_rows_event annotate_rows;
     struct st_mariadb_rpl_table_map_event table_map;
     struct st_mariadb_rpl_rand_event rand;
-    struct st_mariadb_rpl_encryption_event encryption;
     struct st_mariadb_rpl_intvar_event intvar;
     struct st_mariadb_rpl_uservar_event uservar;
     struct st_mariadb_rpl_rows_event rows;
@@ -172,10 +171,10 @@ struct st_mariadb_rpl_checkpoint_event {
 Written to the binary log when encryption is enabled on the source server. This event records the encryption scheme and key version used for subsequent event
 
 ```sql
-struct st_mariadb_rpl_encryption_event {
-  char scheme;
-  unsigned int key_version;
-  char *nonce;
+struct st_mariadb_start_encryption_event {
+  uint8_t scheme;
+  uint32_t key_version;
+  char nonce[12];
 };
 ```
 
@@ -229,6 +228,10 @@ struct st_mariadb_rpl_gtid_event {
   uint32_t domain_id;
   uint8_t flags;
   uint64_t commit_id;
+  uint32_t format_id;
+  uint8_t gtrid_len;
+  uint8_t bqual_len;
+  MARIADB_STRING xid;
 };
 ```
 
@@ -236,6 +239,10 @@ struct st_mariadb_rpl_gtid_event {
 * `domain_id` → Identifier of the replication domain.
 * `flags` → Bitmask of event flags.
 * `commit_id` → Commit ID used to coordinate parallel replication.
+* `format_id` → Format identifier of the XA transaction, when the group commits an XA transaction.
+* `gtrid_len` → Length of the global transaction identifier part of the XID.
+* `bqual_len` → Length of the branch qualifier part of the XID.
+* `xid` → XA transaction identifier associated with the transaction.
 
 **Notes**:
 
@@ -271,17 +278,11 @@ Sent over the network by the source server to replicas when there are no binary 
 
 ```sql
 struct st_mariadb_rpl_heartbeat_event {
-  uint32_t timestamp;
-  uint32_t next_position;
-  uint8_t type;
-  uint16_t flags;
+  MARIADB_STRING filename;
 };
 ```
 
-* `timestamp` → Always `0` for heartbeat events.
-* `next_position` → Always points to the last known binary log position.
-* `type` → Always `0x1B`, the constant identifying heartbeat events.
-* `flags` → Always `LOG_EVENT_ARTIFICIAL_F (0x20)`, marking the event as artificial.
+* `filename` → Name of the current binary log file on the source server.
 
 **INTVAR\_EVENT**
 
@@ -398,10 +399,15 @@ struct st_mariadb_rpl_rows_event {
   uint64_t table_id;
   uint16_t flags;
   uint32_t column_count;
-  char *column_bitmap;
-  char *column_update_bitmap;
+  unsigned char *column_bitmap;
+  unsigned char *column_update_bitmap;
+  unsigned char *null_bitmap;
   size_t row_data_size;
   void *row_data;
+  size_t extra_data_size;
+  void *extra_data;
+  uint8_t compressed;
+  uint32_t row_count;
 };
 ```
 
@@ -411,8 +417,13 @@ struct st_mariadb_rpl_rows_event {
 * `column_count` → Number of columns in the table.
 * `column_bitmap` → Bitmap of columns present in the row image; one bit per column.
 * `column_update_bitmap` → For `UPDATE_ROWS_EVENT`: bitmap of columns present in the after‑image. `NULL` for write and delete events.
+* `null_bitmap` → Bitmap indicating which columns hold a `NULL` value in the row image.
 * `row_data_size` → Size in bytes of `row_data`.
 * `row_data` → Raw encoded row data. Use `mariadb_rpl_extract_rows()` to decode.
+* `extra_data_size` → Size in bytes of `extra_data`.
+* `extra_data` → Raw encoded extra row-event data, when present.
+* `compressed` → Non‑zero if the row data is compressed.
+* `row_count` → Number of rows contained in the event.
 
 \
 **TABLE\_MAP\_EVENT**
@@ -426,10 +437,21 @@ struct st_mariadb_rpl_table_map_event {
   unsigned long long table_id;
   MARIADB_STRING database;
   MARIADB_STRING table;
-  unsigned int column_count;
+  uint32_t column_count;
   MARIADB_STRING column_types;
   MARIADB_STRING metadata;
-  char *null_indicator;
+  unsigned char *null_indicator;
+  unsigned char *signed_indicator;
+  MARIADB_CONST_DATA column_names;
+  MARIADB_CONST_DATA geometry_types;
+  uint32_t default_charset;
+  MARIADB_CONST_DATA column_charsets;
+  MARIADB_CONST_DATA simple_primary_keys;
+  MARIADB_CONST_DATA prefixed_primary_keys;
+  MARIADB_CONST_DATA set_values;
+  MARIADB_CONST_DATA enum_values;
+  uint8_t enum_set_default_charset;
+  MARIADB_CONST_DATA enum_set_column_charsets;
 };
 ```
 
@@ -440,6 +462,17 @@ struct st_mariadb_rpl_table_map_event {
 * `column_types` → Array of column type identifiers, one byte per column.
 * `metadata` → Type‑specific metadata for each column (length varies by column type).
 * `null_indicator` → Bitmap indicating which columns are nullable; one bit per column.
+* `signed_indicator` → Bitmap indicating which numeric columns are signed.
+* `column_names` → Optional metadata listing the column names.
+* `geometry_types` → Optional metadata listing the geometry subtypes for spatial columns.
+* `default_charset` → Default character set applied to string columns.
+* `column_charsets` → Optional metadata listing per‑column character sets.
+* `simple_primary_keys` → Optional metadata listing primary-key columns without a prefix length.
+* `prefixed_primary_keys` → Optional metadata listing primary-key columns that use a prefix length.
+* `set_values` → Optional metadata listing the possible values for `SET` columns.
+* `enum_values` → Optional metadata listing the possible values for `ENUM` columns.
+* `enum_set_default_charset` → Default character set applied to `ENUM` and `SET` columns.
+* `enum_set_column_charsets` → Optional metadata listing per‑column character sets for `ENUM` and `SET` columns.
 
 **USERVAR\_EVENT**
 

@@ -9,7 +9,7 @@ description: >-
 ## Syntax
 
 ```c
-void mysql_server_init(void );
+int mysql_server_init(int argc, char **argv, char **groups);
 ```
 
 ## Description

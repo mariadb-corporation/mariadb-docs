@@ -41,8 +41,7 @@ If you want to use a different generator, e.g. for nmake on Windows, you need to
 |               |                                       |                                                                                                                        |
 | ------------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | Option        | Default                               | Description                                                                                                            |
-| WITH\_OPENSSL | ON                                    | Possible values are ON or OFF. Not supported anymore since Connector/C 3.0                                             |
-| WITH\_SSL     | SCHANNEL (windows), otherwise OPENSSL | Specifies type of TLS/SSL library. E.g. GNUTLS, OPENSSL or SCHANNEL (Windows only). OFF disables TLS/SSL functionality |
+| WITH\_SSL     | SCHANNEL (windows), otherwise OPENSSL | Specifies type of TLS/SSL library. Valid values are OPENSSL, GNUTLS, and SCHANNEL (Windows only). |
 
 #### Client plugins
 
@@ -62,19 +61,18 @@ cmake .. -DCLIENT_PLUGIN_{PLUGIN_NAME}=[STATIC|DYNAMIC|OFF]
 
 Connector/C 3.0 supports the following plugins:
 
-|                  |                |         |                                                            |
-| ---------------- | -------------- | ------- | ---------------------------------------------------------- |
-| Plugin           | Type           | Default | Description                                                |
-| SOCKET           | IO             | static  | plugin for client server communication via socket          |
-| SHMEM            | IO             | static  | plugin for client server communication via shared memory   |
-| NPIPE            | IO             | static  | plugin for client server communication via named pipe      |
-| DIALOG           | Authentication | dynamic | Authentication for user input, e.g. for PAM authentication |
-| OLDPASSWORD      | Authentication | static  | Pre. 4.1 authentication (deprecated)                       |
-| NATIVE           | Authentication | static  | Default authentication                                     |
-| CLEARTEXT        | Authentication | dynamic | Sends password without hashing or encryption               |
-| AUTH\_GSSAPI     | Authentication | dynamic | Kerberos/GSSAPI authentication plugin                      |
-| SHA256\_PASSWORD | Authentication | dynamic | SHA256 password authentication plugin                      |
-| AURORA           | Connection     | OFF     | Fail over plugin for Aurora (experimental)                 |
-| REPLICATION      | Connection     | OFF     | Replication/fail over plugin (experimental)                |
+|                            |                |         |                                                            |
+| -------------------------- | -------------- | ------- | ---------------------------------------------------------- |
+| Plugin                     | Type           | Default | Description                                                |
+| PVIO\_SOCKET               | IO             | static  | plugin for client server communication via socket          |
+| PVIO\_SHMEM                | IO             | dynamic | plugin for client server communication via shared memory   |
+| PVIO\_NPIPE                | IO             | static  | plugin for client server communication via named pipe      |
+| DIALOG                     | Authentication | dynamic | Authentication for user input, e.g. for PAM authentication |
+| MYSQL\_OLD\_PASSWORD       | Authentication | static  | Pre. 4.1 authentication (deprecated). Disabled by default in current versions; not built unless explicitly enabled. |
+| MYSQL\_NATIVE\_PASSWORD    | Authentication | static  | Default authentication                                     |
+| MYSQL\_CLEAR\_PASSWORD     | Authentication | dynamic | Sends password without hashing or encryption               |
+| AUTH\_GSSAPI\_CLIENT       | Authentication | dynamic | Kerberos/GSSAPI authentication plugin                      |
+| SHA256\_PASSWORD           | Authentication | dynamic | SHA256 password authentication plugin                      |
+| REPLICATION                | Connection     | OFF     | Replication/fail over plugin (experimental)                |
 
 {% @marketo/form formId="4316" %}

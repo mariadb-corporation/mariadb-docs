@@ -10,7 +10,7 @@ description: >-
 ## Syntax
 
 ```c
-unsigned int mysql_stmt_warning_count(MYSQL_STMT * stmt);
+int mysql_stmt_warning_count(MYSQL_STMT * stmt);
 ```
 
 ## Parameter
