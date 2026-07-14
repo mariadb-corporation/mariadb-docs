@@ -20,7 +20,7 @@ MARIADB_RPL_EVENT *mariadb_rpl_fetch(MARIADB_RPL *rpl,
 
 ### Return Value
 
-Returns a pointer to a [`MARIADB_RPL_EVENT`](http://replication-api-data-structures.md/#mariadb_rpl_event) structure containing the next event on success, or `NULL` when the EOF packet is received or an error occurs.
+Returns a pointer to a [`MARIADB_RPL_EVENT`](../binlog-api-data-structures.md#mariadb_rpl_event) structure containing the next event on success, or `NULL` when the EOF packet is received or an error occurs.
 
 ### Note
 

@@ -7,7 +7,7 @@ description: >-
 
 # General MariaDB Jupyter Kernel Usage Information
 
-If you installed the kernel, installed its [kernelspec](https://jupyter-client.readthedocs.io/en/stable/api/kernelspec.html) and you have MariaDB installed on your system, you just need to open [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/), and when you create a new notebook, pick MariaDB as your kernel.
+If you installed the kernel, installed its kernelspec and you have MariaDB installed on your system, you just need to open [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/), and when you create a new notebook, pick MariaDB as your kernel.
 
 ![](../../../.gitbook/assets/lab_open.png)
 

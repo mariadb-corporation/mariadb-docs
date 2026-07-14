@@ -64,7 +64,7 @@ Here's a summary of our autocompletion capabilities, but we strongly recommend y
 ## Introspection
 
 Code introspection in Jupyter can be triggered with the `SHIFT-TAB` combination.\
-This feature was designed to help you understand your database environment faster whilst typing SQL statements, for instance checking the table schema by inspecting on the table name before selecting a bunch of columns, or even checking the documentation of a SQL function to see the function signature and some practical examples and spare you an extra search on [MariaDB Documentation](broken-reference).
+This feature was designed to help you understand your database environment faster whilst typing SQL statements, for instance checking the table schema by inspecting on the table name before selecting a bunch of columns, or even checking the documentation of a SQL function to see the function signature and some practical examples and spare you an extra search on MariaDB Documentation.
 
 Although we tried to make introspection look exactly the same in both classic Jupyter Notebook and Jupyterlab interfaces, it wasn't possible due to some fundamental difference in how Notebook renders the introspection tooltip in comparison to the newer JupyterLab interface.\
 For the moment, to see the full introspection information in Notebook that the MariaDB kernel sends to the frontend, you'll need to hit `shift-tab` then click on the expand button from the tooltip to get the `HTML` representation of the introspection information.

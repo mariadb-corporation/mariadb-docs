@@ -41,7 +41,7 @@ connection.query("INSERT INTO BASKET(customerId) values (?)", [1], (err, res) =>
 ### Performance comparison
 
 Some benchmark to do some 100 inserts with one parameter of 100 characters:
-(benchmark source - see [standard insert](https://github.com/mariadb-corporation/mariadb-connector-nodejs/benchmarks/benchs/insert_pipelining.js) and [batch insert](https://github.com/mariadb-corporation/mariadb-connector-nodejs/benchmarks/benchs/insert_batch.js) )
+(benchmark source - see [standard insert](https://github.com/mariadb-corporation/mariadb-connector-nodejs/blob/master/benchmarks/benchs/insert_pipelining.js) and [batch insert](https://github.com/mariadb-corporation/mariadb-connector-nodejs/blob/master/benchmarks/benchs/insert_batch.js) )
 
 ![pipelining](../.gitbook/assets/batch-bench.png)
 

@@ -73,7 +73,27 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude '127\.0\.0\.1' \
       --exclude 'http://localhost:[0-9]+.*' \
       --exclude 'https://localhost:[0-9]+.*' \
+      --exclude 'access\.redhat\.com' \
+      --exclude 'docs\.redhat\.com' \
+      --exclude 'blogs\.oracle\.com' \
+      --exclude 'bugs\.mysql\.com' \
+      --exclude 'forums\.mysql\.com' \
+      --exclude 'www\.mysql\.com' \
+      --exclude 'en\.opensuse\.org' \
+      --exclude 'www\.cyberciti\.biz' \
+      --exclude 'linux\.die\.net' \
+      --exclude 'mariadb\.org\/feedback_plugin' \
       --exclude 'r\.mariadb\.com' \
+      --exclude 'security-certs\.docs\.ubuntu\.com' \
+      --exclude 'www\.linux-pam\.org' \
+      --exclude 'www\.bzip\.org' \
+      --exclude 'selinuxproject\.org' \
+      --exclude 'www\.gnu\.org' \
+      --exclude 'manpages\.ubuntu\.com' \
+      --exclude 'packages\.ubuntu\.com' \
+      --exclude 'www\.canonware\.com' \
+      --exclude 'www\.npmjs\.com' \
+      --exclude 'npmjs\.org' \
       "${files[@]}" 2>&1)"; then
     # Mirror the workflow's failIfEmpty: false — lychee exits non-zero with
     # "No links were found" when the changed files contain no links, which is a

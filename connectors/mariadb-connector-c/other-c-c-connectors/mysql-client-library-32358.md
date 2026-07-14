@@ -41,7 +41,7 @@ Monty Program AB is about to start a project for creating a new free client libr
 
 If you want to be part of this development effort, you can discuss this on the [maria-developers mailing list](https://launchpad.net/~maria-developers).
 
-If you are interested in sponsoring this effort, you can [contact Monty Program](https://montyprogram.com/contact).
+If you are interested in sponsoring this effort, you can contact Monty Program.
 
 ## See also:
 

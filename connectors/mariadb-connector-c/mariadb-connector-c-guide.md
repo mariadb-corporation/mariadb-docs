@@ -136,7 +136,7 @@ The function reference is available at:
 * [MariaDB Client Library for C API Functions](api-functions/)
 * [MariaDB Client Library for C API Prepared Statement Functions](api-prepared-statement-functions/)
 
-It is also downloadable in html format from [mariadb-client-doc.zip](https://mariadb.org/files/mariadb-client-doc.zip)
+It is also downloadable in html format from mariadb-client-doc.zip
 
 ## Configuring MariaDB Connector/C with Option Files
 
