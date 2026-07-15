@@ -92,6 +92,43 @@ need to change behavior across the workload.
 [optimizer-switch.md](query-optimizations/optimizer-switch.md)
 {% endcontent-ref %}
 
+## Queries pushed down to a smart storage engine
+
+Some engines — MariaDB ColumnStore is the main example — can execute an entire
+`SELECT` themselves rather than returning rows for the server to join, filter,
+and sort. An engine advertises this by providing a *select handler*. When the
+whole statement is handed off this way, the roles change:
+
+* **The server still parses and prepares the statement.** Name and column
+  resolution happen as usual, before the server looks for an engine that can
+  take the query. Only a top-level `SELECT` is eligible for full pushdown — a
+  subquery is not pushed down on its own.
+* **The engine decides whether it can run the query.** The server walks the
+  query's tables looking for one whose engine offers a select handler, then asks
+  that engine to accept the statement. Checking that the query is something the
+  engine can actually execute — for example, that it does not mix tables from
+  different engines — is the engine's responsibility, not the server's.
+* **The server's cost-based optimizer is bypassed.** Once an engine accepts the
+  query, the server does not perform its usual join-order search, index
+  selection, or optimization-strategy selection. Deciding how to execute the
+  query — and producing the rows — is entirely the engine's own planner. The
+  server simply streams back the result.
+
+Because there is no server-side plan for a pushed-down query, the tracing tools
+above behave differently:
+
+{% hint style="info" %}
+For a fully pushed-down statement, `EXPLAIN` reports `PUSHED SELECT` (or
+`PUSHED DERIVED` for a pushed-down derived table) instead of a normal plan, and
+optimizer trace, optimizer hints, and `optimizer_switch` do not apply to the
+pushed-down part — there is no server-side plan for them to describe or change.
+To understand or tune how such a query runs, use the engine's own tooling and
+documentation.
+{% endhint %}
+
+In a `UNION`, pushdown can be *partial*: branches that an engine can run are
+pushed down, while the remaining branches are executed by the server.
+
 ## See also
 
 * [Query Optimizer](query-optimizer/README.md) — internals of how the optimizer works
