@@ -135,7 +135,7 @@ This extended column type information can be used to find out more specific deta
 
 * For a [POINT](../../sql-statements/geometry-constructors/geometry-constructors/point.md) column, the column type field is `MYSQL_TYPE_GEOMETRY`, but the extended type indicates 'point'.
 * For a [JSON](../../data-types/string-data-types/json.md) column, the column type field is `MYSQL_TYPE_STRING`, but the extended type indicates 'json'.
-* For an [XML](../../data-types/string-data-types/xmltype.md) (`XMLTYPE`) column, the column type field is `MYSQL_TYPE_BLOB`, but the extended type indicates 'xml'. This was added in [MariaDB 12.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/12.3.2).
+* For an [XML](../../data-types/string-data-types/xmltype.md) (`XMLTYPE`) column, the column type field is `MYSQL_TYPE_LONG_BLOB`, but the extended type indicates 'xml'. This was added in [MariaDB 12.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/12.3.2).
 * While string has data:
   * [int<1>](../protocol-data-types.md#fixed-length-integers) data type: 0x00:type, 0x01: format.
   * [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) value.
