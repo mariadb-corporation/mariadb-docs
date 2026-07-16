@@ -20,13 +20,23 @@ MariaDB MaxScale is an advanced database proxy and query router.
 
 ## Backing Up Configuration
 
-Upgrades can move or change configuration files. Before starting an upgrade, always back up your configuration files to ensure you can revert to the working system in the event that you encounter any issues during the upgrade.
+Upgrades can move or change configuration files. Before starting an upgrade, always back up your configuration so you can revert to the working system if you encounter any issues during the upgrade.
 
-To back up a configuration file, create a copy:
+A complete backup must include both the static configuration and any configuration MaxScale has persisted at runtime:
+
+* The main configuration file, `/etc/maxscale.cnf`.
+* Any auxiliary static configuration files in `/etc/maxscale.cnf.d/`.
+* The persisted configuration directory. Changes made at runtime through MaxCtrl, the REST API, or the GUI are saved here as individual `.cnf` files and override the static configuration when MaxScale restarts. This directory defaults to `/var/lib/maxscale/maxscale.cnf.d/` and is set by the [`persistdir`](../installation-and-configuration/maxscale-configuration-guide.md#persistdir) parameter in the `[maxscale]` section.
 
 ```bash
 sudo cp /etc/maxscale.cnf /data/backups/config/maxscale.cnf
+sudo cp -r /etc/maxscale.cnf.d /data/backups/config/maxscale.cnf.d
+sudo cp -r /var/lib/maxscale/maxscale.cnf.d /data/backups/config/persisted.cnf.d
 ```
+
+{% hint style="info" %}
+If you set `persistdir` to a non-default location in `/etc/maxscale.cnf`, back up that directory instead of `/var/lib/maxscale/maxscale.cnf.d/`.
+{% endhint %}
 
 ## Upgrade
 
