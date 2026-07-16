@@ -1,8 +1,8 @@
 ---
 description: >-
   Explains how to deploy and operate multi-cluster MariaDB Enterprise
-  topologies, replicating data between clusters across multiple Kubernetes
-  clusters or within a single one for high availability and d
+  topologies, replicating data between clusters across one or many Kubernetes
+  clusters for high availability and disaster recovery.
 ---
 
 # Multi-cluster
