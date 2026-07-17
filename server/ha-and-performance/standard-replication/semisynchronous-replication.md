@@ -149,9 +149,13 @@ The effects of the `AFTER_SYNC` wait point are:
 * However, if the primary crashes, then its [binary log](../../server-management/server-monitoring-logs/binary-log/) may also contain events for transactions that were prepared by the storage engine and written to the binary log, but that were never actually committed by the storage engine. As part of the server's [automatic crash recovery](../../server-management/server-monitoring-logs/transaction-coordinator-log/heuristic-recovery-with-the-transaction-coordinator-log.md) process, the server may recover these prepared transactions when the server is restarted. This could cause the "old" crashed primary to become inconsistent with its former replicas when they have\
   been reconfigured to replace the old primary with a new one.\
   The old primary in such a scenario can be re-introduced only as a [semisync replica](semisynchronous-replication.md#rpl_semi_sync_slave_enabled).\
-  The server post-crash recovery of the server configured with `rpl_semi_sync_slave_enabled = ON`\
-  ensures through [MDEV-21117](https://jira.mariadb.org/browse/MDEV-21117) that the server will not have extra transactions.\
-  The reconfigured as semisync replica server's binlog gets truncated to discard transactions proven\
+  To recover it safely, start the server with `--init-rpl-role=SLAVE`. This tells the server its\
+  role in the replication topology, so that post-crash recovery discards transactions proven not\
+  to be committed and the server will not have extra transactions ([MDEV-21117](https://jira.mariadb.org/browse/MDEV-21117),\
+  [MDEV-33465](https://jira.mariadb.org/browse/MDEV-33465)). Before MDEV-33465, this recovery was\
+  instead deduced from the semisync variables (`rpl_semi_sync_slave_enabled = ON`), which did not\
+  work reliably in mixed topologies; setting `--init-rpl-role=SLAVE` is now required.\
+  The server's binlog gets truncated to discard transactions proven\
   not to be committed, in any of their branches if they are multi-engine.\
   Truncation does not occur though when there exists a non-transactional group of events beyond the truncation position in which case recovery reports an error.\
   When the semisync replica recovery can't be carried out, the crashed primary may need to be rebuilt.
