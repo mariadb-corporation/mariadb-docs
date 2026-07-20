@@ -67,13 +67,23 @@ authenticator_options=pam_use_cleartext_plugin=1
 * Mandatory: No
 * Dynamic: No
 * Values: `password`, `password_2FA`, `suid`
-* Default: `password`
+* Default: `suid`
 
-This setting defines the authentication mode used. Two values are supported:
+This setting defines the authentication mode used. The values are:
 
 * `password` Normal password-based authentication
 * `password_2FA` Password + 2FA-code based authentication
 * `suid` Authenticate using suid sandbox subprocess
+
+{% tabs %}
+{% tab title="Current" %}
+The default value of `pam_mode` is `suid`, as it is the most flexible option.
+{% endtab %}
+
+{% tab title="< 26.10" %}
+The default value of `pam_mode` is `password`.
+{% endtab %}
+{% endtabs %}
 
 ```
 authenticator_options=pam_mode=password_2FA
