@@ -43,6 +43,9 @@ CATEGORIES = {
     "mariadb-date-time-functions": "date-time-functions",
     "mariadb-numeric-functions": "numeric-functions",
     "mariadb-aggregate-functions": "aggregate-functions",
+    "mariadb-control-flow-functions": "control-flow-functions",
+    "mariadb-window-functions": "special-functions/window-functions",
+    "mariadb-information-functions": "secondary-functions/information-functions",
 }
 
 MARKER_RE = re.compile(
