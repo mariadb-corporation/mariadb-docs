@@ -33,7 +33,11 @@
         { "name": "mariadb-call", "path": "granular/statements/mariadb-call/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
         { "name": "mariadb-create-sequence", "path": "granular/statements/mariadb-create-sequence/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
         { "name": "mariadb-truncate-table", "path": "granular/statements/mariadb-truncate-table/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
-        { "name": "mariadb-rename-table", "path": "granular/statements/mariadb-rename-table/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" }
+        { "name": "mariadb-rename-table", "path": "granular/statements/mariadb-rename-table/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
+        { "name": "mariadb-set", "path": "granular/statements/mariadb-set/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
+        { "name": "mariadb-show", "path": "granular/statements/mariadb-show/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
+        { "name": "mariadb-explain", "path": "granular/statements/mariadb-explain/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
+        { "name": "mariadb-prepare", "path": "granular/statements/mariadb-prepare/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" }
       ]
     },
     "granular-functions": {
