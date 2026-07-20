@@ -46,6 +46,8 @@ CATEGORIES = {
     "mariadb-control-flow-functions": "control-flow-functions",
     "mariadb-window-functions": "special-functions/window-functions",
     "mariadb-information-functions": "secondary-functions/information-functions",
+    "mariadb-vector-functions": "vector-functions",
+    "mariadb-encryption-functions": "secondary-functions/encryption-hashing-and-compression-functions",
 }
 
 MARKER_RE = re.compile(
