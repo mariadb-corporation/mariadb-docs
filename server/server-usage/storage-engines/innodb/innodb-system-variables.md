@@ -2695,6 +2695,28 @@ If you set a target that is unreachable in the other direction (for example, low
 * Data Type: `boolean`
 * Default Value: `ON`
 
+#### `innodb_tablespace_size_warning_pct`
+
+* Description: Percentage of [innodb\_tablespace\_size\_warning\_threshold](innodb-system-variables.md#innodb_tablespace_size_warning_threshold) at which InnoDB starts emitting tablespace size warnings to the [error log](../../../server-management/server-monitoring-logs/error-log.md) as a tablespace grows. Once a tablespace reaches this percentage, a warning is written on each further one-percent increase, up to 100%. Has no effect when the threshold is `0`.
+* Command line: `--innodb-tablespace-size-warning-pct=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `85`
+* Range: `0` to `100`
+* Introduced: MariaDB 13.1
+
+#### `innodb_tablespace_size_warning_threshold`
+
+* Description: Size threshold in bytes at which InnoDB begins emitting tablespace size warnings to the [error log](../../../server-management/server-monitoring-logs/error-log.md) as a tablespace file grows. `0`, the default, disables the warnings entirely (no overhead). The percentage of this threshold at which warnings start is controlled by [innodb\_tablespace\_size\_warning\_pct](innodb-system-variables.md#innodb_tablespace_size_warning_pct). Warnings are emitted per tablespace and tracked individually, resetting when the tablespace is truncated or dropped, or when either variable is changed. The warning message has the form `Tablespace '<name>' size <N> bytes reached <P>% of configured threshold of <T> bytes`.
+* Command line: `--innodb-tablespace-size-warning-threshold=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `18446744073709551615`
+* Introduced: MariaDB 13.1
+
 #### `innodb_thread_concurrency`
 
 * Description: Once this number of threads is reached (excluding threads waiting for locks), XtraDB/InnoDB will place new threads in a wait state in a first-in, first-out queue for execution, in order to limit the number of threads running concurrently. A setting of `0`, the default, permits as many threads as necessary. A suggested setting is twice the number of CPU's plus the number of disks. Deprecated and ignored from [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5).
