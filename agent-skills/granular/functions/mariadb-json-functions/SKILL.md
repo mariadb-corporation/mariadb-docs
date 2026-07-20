@@ -32,7 +32,7 @@ Auto-generated from the canonical `server/reference/sql-functions/special-functi
 
 <!-- BEGIN GENERATED -->
 <!-- Extracted from server/reference/sql-functions/special-functions/json-functions -->
-<!-- 40 functions, 3 pages skipped on extraction failure -->
+<!-- 40 functions, 4 pages skipped on extraction failure -->
 
 ### JSON_ARRAY
 `JSON_ARRAY([value[, value2] ...])`  
