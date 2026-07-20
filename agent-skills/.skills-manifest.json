@@ -18,7 +18,10 @@
         { "name": "mariadb-create-index", "path": "granular/statements/mariadb-create-index/SKILL.md", "status": "pilot", "last_reviewed": "2026-06-24", "baseline_version": "11.8" },
         { "name": "mariadb-drop-table", "path": "granular/statements/mariadb-drop-table/SKILL.md", "status": "pilot", "last_reviewed": "2026-06-24", "baseline_version": "11.8" },
         { "name": "mariadb-create-database", "path": "granular/statements/mariadb-create-database/SKILL.md", "status": "pilot", "last_reviewed": "2026-06-24", "baseline_version": "11.8" },
-        { "name": "mariadb-load-data", "path": "granular/statements/mariadb-load-data/SKILL.md", "status": "pilot", "last_reviewed": "2026-06-24", "baseline_version": "11.8" }
+        { "name": "mariadb-load-data", "path": "granular/statements/mariadb-load-data/SKILL.md", "status": "pilot", "last_reviewed": "2026-06-24", "baseline_version": "11.8" },
+        { "name": "mariadb-transactions", "path": "granular/statements/mariadb-transactions/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
+        { "name": "mariadb-set-transaction", "path": "granular/statements/mariadb-set-transaction/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
+        { "name": "mariadb-lock-tables", "path": "granular/statements/mariadb-lock-tables/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" }
       ]
     },
     "granular-functions": {
@@ -30,7 +33,10 @@
         { "name": "mariadb-string-functions", "path": "granular/functions/mariadb-string-functions/SKILL.md", "status": "pilot", "last_reviewed": "2026-06-24", "baseline_version": "11.8" },
         { "name": "mariadb-date-time-functions", "path": "granular/functions/mariadb-date-time-functions/SKILL.md", "status": "pilot", "last_reviewed": "2026-06-24", "baseline_version": "11.8" },
         { "name": "mariadb-numeric-functions", "path": "granular/functions/mariadb-numeric-functions/SKILL.md", "status": "pilot", "last_reviewed": "2026-06-24", "baseline_version": "11.8" },
-        { "name": "mariadb-aggregate-functions", "path": "granular/functions/mariadb-aggregate-functions/SKILL.md", "status": "pilot", "last_reviewed": "2026-06-24", "baseline_version": "11.8" }
+        { "name": "mariadb-aggregate-functions", "path": "granular/functions/mariadb-aggregate-functions/SKILL.md", "status": "pilot", "last_reviewed": "2026-06-24", "baseline_version": "11.8" },
+        { "name": "mariadb-control-flow-functions", "path": "granular/functions/mariadb-control-flow-functions/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
+        { "name": "mariadb-window-functions", "path": "granular/functions/mariadb-window-functions/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
+        { "name": "mariadb-information-functions", "path": "granular/functions/mariadb-information-functions/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" }
       ]
     },
     "granular-tools": {
