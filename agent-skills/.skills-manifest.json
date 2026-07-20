@@ -26,7 +26,11 @@
         { "name": "mariadb-grant", "path": "granular/statements/mariadb-grant/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
         { "name": "mariadb-revoke", "path": "granular/statements/mariadb-revoke/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
         { "name": "mariadb-alter-user", "path": "granular/statements/mariadb-alter-user/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
-        { "name": "mariadb-drop-user", "path": "granular/statements/mariadb-drop-user/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" }
+        { "name": "mariadb-drop-user", "path": "granular/statements/mariadb-drop-user/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
+        { "name": "mariadb-create-procedure", "path": "granular/statements/mariadb-create-procedure/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
+        { "name": "mariadb-create-function", "path": "granular/statements/mariadb-create-function/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
+        { "name": "mariadb-create-trigger", "path": "granular/statements/mariadb-create-trigger/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" },
+        { "name": "mariadb-call", "path": "granular/statements/mariadb-call/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" }
       ]
     },
     "granular-functions": {
