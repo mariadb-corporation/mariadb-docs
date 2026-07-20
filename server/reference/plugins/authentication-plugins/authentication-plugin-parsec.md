@@ -21,7 +21,7 @@ It signs the response with `ed25519`, but it uses stock unmodified `ed25519` as 
 
 * The KDF function is pbkdf2 (supported by everything, including [windows native](https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptderivekeypbkdf2), Java, javascript, PHP, .NET.
 * Parameters to the pbkdf2 are stored in with authentication plugin data : hash function (SHA512,SHA256), iteration count, salt, key\_length, together with derived key = `PBKDF2(func, password, salt, iteration_count, key_length).`
-* The number of iterations is a power of 2, greater than 9.
+* The number of iterations is a power of two, at least 1024. From MariaDB 13.1, it is configurable through the [`parsec_iterations`](#parsec_iterations) system variable.
 * The algorithm is ed25519, "hash" is the public key generated using ed25519 from the PBKDF2(password).
 
 The authentication string, stored by the server, is this:
@@ -62,6 +62,43 @@ There is no need to pass additional command-line options or have config files to
 ```sql
 CREATE USER test1@'%' IDENTIFIED VIA parsec USING PASSWORD('pwd');
 ```
+
+## Configuring the Number of Iterations
+
+{% hint style="info" %}
+The `parsec_iterations` system variable is available from MariaDB 13.1.
+{% endhint %}
+
+The number of PBKDF2 iterations used to derive the key from a password is controlled by the [`parsec_iterations`](#parsec_iterations) system variable. A higher value increases the cost of deriving the key, which strengthens resistance to brute-force attacks at the expense of more work per authentication.
+
+The iteration count is baked into an account's stored credentials when its password is set. The value in effect at that time — the session value if set, otherwise the global value — is the one recorded for the account. Changing `parsec_iterations` afterwards does not alter existing accounts; they keep the iteration count they were created with until their password is set again.
+
+```sql
+SET SESSION parsec_iterations = 262144;
+CREATE USER test1@'%' IDENTIFIED VIA parsec USING PASSWORD('pwd');
+```
+
+The value must be a power of two. If a value that is not a power of two is supplied, it is rounded up to the next power of two and a warning is issued:
+
+```sql
+SET GLOBAL parsec_iterations = 5000;
+```
+
+```
+Warning (1231): parsec_iterations rounded up to 8192
+```
+
+### `parsec_iterations`
+
+* Description: Number of iterations used when generating the key corresponding to the password (PBKDF2-HMAC-SHA512). Rounded up to a power of two. This variable is only available when the PARSEC plugin is loaded.
+* Commandline: `--parsec-iterations=#`
+* Scope: Global, Session
+* Dynamic: Yes
+* Data Type: `INT UNSIGNED`
+* Default Value: `1024`
+* Minimum Value: `1024`
+* Maximum Value: `1073741824`
+* Introduced: MariaDB 13.1
 
 ## Future
 
