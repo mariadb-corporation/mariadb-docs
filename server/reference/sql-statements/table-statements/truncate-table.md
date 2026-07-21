@@ -51,7 +51,13 @@ For other storage engines, `TRUNCATE TABLE` differs from`DELETE` in the followin
 
 For the purposes of binary logging and [replication](../../../server-usage/storage-engines/myrocks/myrocks-and-replication.md), `TRUNCATE TABLE` is treated as [DROP TABLE](../data-definition/drop/drop-table.md) followed by [CREATE TABLE](../data-definition/create/create-table.md) (DDL rather than DML).
 
-`TRUNCATE TABLE` does not work on [views](../../../server-usage/views/). Currently, `TRUNCATE TABLE` drops all historical records from a [system-versioned table](../../sql-structure/temporal-tables/system-versioned-tables.md).
+`TRUNCATE TABLE` does not work on [views](../../../server-usage/views/). It also cannot be used on a [system-versioned table](../../sql-structure/temporal-tables/system-versioned-tables.md), returning the error:
+
+```sql
+ERROR 4137 (HY000): System-versioned tables do not support TRUNCATE TABLE
+```
+
+To remove historical records from a system-versioned table, use [DELETE HISTORY](../data-manipulation/changing-deleting-data/delete.md#delete-history) instead.
 
 #### WAIT/NOWAIT
 
