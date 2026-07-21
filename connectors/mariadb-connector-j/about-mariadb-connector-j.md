@@ -956,7 +956,7 @@ Even using setFetchSize, the server will send all results to the client.
 
 If another query is executed on the same connection when a streaming resultset has not been fully read, the connector will put the whole remaining streaming resultset in memory in order to execute the next query. This can lead to OutOfMemoryError if not handled.
 
-Before version 1.4.0, the only accepted value for fetch size was `Statement.setFetchSize(Integer.MIN_VALUE)` (equivalent to `Statement.setFetchSize(1)`). This value is still accepted for compatibility reasons, but rather use `Statement.setFetchSize(1)`, since according to JDBC the value must be >= 0.
+Older drivers used `Statement.setFetchSize(Integer.MIN_VALUE)` as a streaming sentinel (equivalent to `Statement.setFetchSize(1)`). That value is no longer accepted: per JDBC the fetch size must be `>= 0`, and `setFetchSize` throws an `SQLException` for a negative value. Use a positive value such as `Statement.setFetchSize(1)`.
 
 ### Prepared Statements
 

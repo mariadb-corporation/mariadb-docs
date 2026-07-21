@@ -13,7 +13,7 @@ description: >-
 * It is compliant with the ODBC 3.8 standard.
 * It can be used as a drop-in replacement for MySQL Connector/ODBC.
 * It supports both Unicode and ANSI modes.
-* It primarily uses the MariaDB/MySQL binary protocol (i.e. server-side [prepared statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/prepared-statements)).
+* It uses the MariaDB/MySQL binary protocol (server-side [prepared statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/prepared-statements)) for `SQLPrepare`. One-shot `SQLExecDirect` queries default to the client-side text protocol unless the `SQL_ATTR_EXECDIRECT_ON_SERVER` attribute (or the `EDSERVER` connection option) is set.
 
 The current release series are:
 
