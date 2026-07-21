@@ -1159,6 +1159,7 @@
           * [System Variables Added in MariaDB 10.0](ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-and-status-variables-added-by-major-unmaintained-release/system-variables-added-in-mariadb-100.md)
           * [Status Variables Added in MariaDB 10.0](ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-and-status-variables-added-by-major-unmaintained-release/status-variables-added-in-mariadb-100.md)
           * [System Variables Added in MariaDB 5.5](ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-and-status-variables-added-by-major-unmaintained-release/system-variables-added-in-mariadb-55.md)
+    * [Understanding and Influencing Optimizer Decisions](ha-and-performance/optimization-and-tuning/understanding-and-influencing-optimizer-decisions.md)
   * [Replication](ha-and-performance/standard-replication/README.md)
     * [Replication Overview](ha-and-performance/standard-replication/replication-overview.md)
     * [Choosing a Replication Strategy](ha-and-performance/standard-replication/choosing-a-replication-strategy.md)
