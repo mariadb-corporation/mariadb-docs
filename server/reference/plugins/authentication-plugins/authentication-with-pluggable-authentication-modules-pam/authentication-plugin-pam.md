@@ -340,7 +340,11 @@ Even when using the `pam` authentication plugin, the authenticating PAM user acc
 
 ## PAM Modules
 
-There are many PAM modules. The ones described below are the ones that have been seen most often by MariaDB.
+There are many PAM modules. The ones described below are the ones that have been seen most often by MariaDB. Several of them — including [pam\_sss](authentication-plugin-pam.md#pam_sss), [pam\_winbind](authentication-plugin-pam.md#pam_winbind), [pam\_lsass](authentication-plugin-pam.md#pam_lsass), [pam\_centrifydc](authentication-plugin-pam.md#pam_centrifydc), and [pam\_krb5](authentication-plugin-pam.md#pam_krb5) — can authenticate against Microsoft Active Directory.
+
+{% hint style="info" %}
+MariaDB supports the `pam` authentication plugin itself, not the individual PAM modules described below. These modules are third-party software, and the links to their documentation are provided for convenience only. MariaDB doesn't test, validate, or maintain them and can't list specific modules as officially supported. Consult each module's own documentation, and validate the configuration in your environment before relying on it in production.
+{% endhint %}
 
 ### pam\_unix
 
