@@ -75,7 +75,11 @@ From [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 
 ### UTF8\_IS\_UTF8MB3
 
-From [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1), the main name of the previous 3 byte `utf` [character set](../../reference/data-types/string-data-types/character-sets/) has been changed to `utf8mb3`. If set, the default, `utf8` is an alias for `utf8mb3`. If not set, `utf8` would be an alias for `utf8mb4`.
+From [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1), the main name of the previous 3-byte `utf8` [character set](../../reference/data-types/string-data-types/character-sets/) was changed to `utf8mb3`. When this flag is set, `utf8` is an alias for `utf8mb3`; when it is not set, `utf8` is an alias for `utf8mb4`.
+
+{% hint style="warning" %}
+From MariaDB 13.1, `UTF8_IS_UTF8MB3` is no longer set by default. The default `old_mode` is now empty, so `utf8` is an alias for `utf8mb4` by default. The flag is also deprecated from MariaDB 13.1, and setting it raises a deprecation warning.
+{% endhint %}
 
 ### ZERO\_DATE\_TIME\_CAST
 
