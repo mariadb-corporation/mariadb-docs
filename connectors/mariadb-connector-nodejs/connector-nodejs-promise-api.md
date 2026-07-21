@@ -246,9 +246,7 @@ Assuming the presence of the same .env file as previously described.
 
 **Default options consideration**
 
-For new projects, enabling option `supportBigInt` is recommended (It will be in a future 3.x version).
-
-This option permits to avoid exact value for big integer (value > 2^53) (see [javascript ES2020 BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt))
+By default, the Connector returns `BIGINT` column values (and `insertId`) as JavaScript ES2020 [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt), so values above 2^53 keep their exact value. Set `bigIntAsNumber: true` if you would rather receive plain `Number`s (values above the safe integer range may then be approximate).
 
 ### Promise API
 
@@ -770,9 +768,9 @@ Whether you want the Connector to retrieve date values as strings, rather than `
 
 **`bigIntAsNumber`**
 
-_boolean, default: true_
+_boolean, default: false_
 
-Whether the query should return JavaScript ES2020 [BigInt](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) for [BIGINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) data type. This ensures having the expected value even for value > 2^53 (see [safe](node-js-connection-options.md#big-integer-support) range). This option can be set to query level, supplanting connection option `supportBigInt` value.
+Whether the query should return JavaScript ES2020 [BigInt](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) for [BIGINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) data type. This ensures having the expected value even for value > 2^53 (see [safe](node-js-connection-options.md#big-integer-support) range). This option can be set at query level, overriding the connection-level value.
 
 this option is for compatibility for driver version < 3
 
@@ -781,7 +779,7 @@ await shareConn.query('CREATE TEMPORARY TABLE bigIntTable(id BIGINT)');
 await shareConn.query("INSERT INTO bigIntTable value ('9007199254740993')");
 const res = await shareConn.query('select * from bigIntTable');
 // res :  [{ id: 9007199254740993n }] (exact value)
-const res2 = await shareConn.query({sql: 'select * from bigIntTable', supportBigInt: false});
+const res2 = await shareConn.query({sql: 'select * from bigIntTable', bigIntAsNumber: true});
 // res :  [{ id: 9007199254740992 }] (not exact value)
 ```
 
