@@ -20,26 +20,7 @@ The Enterprise Manager installation generates a self-signed TLS certificate and 
 {% step %}
 **Place custom certificates**
 
-Copy your custom certificate and private key files into the `enterprise-manager/certs/` directory on the host machine.
-{% endstep %}
-
-{% step %}
-**Update the configuration**
-
-Open the `enterprise-manager/.env` file and modify the `MEMA_TLS_CERTPATH` and `MEMA_TLS_KEYPATH` variables to point to your new files.
-
-Example: if your files are `my-host.crt` and `my-host.key`, your configuration should be:
-
-{% code title=".env (example)" %}
-```
-MEMA_TLS_CERTPATH=/certs/my-host.crt
-MEMA_TLS_KEYPATH=/certs/my-host.key
-```
-{% endcode %}
-
-{% hint style="info" %}
-The path you provide must begin with `/certs/`. This is because the host's `certs/` directory is mounted inside the containers at the `/certs` path.
-{% endhint %}
+Copy your custom certificate and private key into `enterprise-manager/certs/`, using the names `cert.pem` and `key.pem`
 {% endstep %}
 
 {% step %}
