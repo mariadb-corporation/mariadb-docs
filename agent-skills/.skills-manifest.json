@@ -67,6 +67,21 @@
         { "name": "mariadb-binlog", "path": "granular/tools/mariadb-binlog/SKILL.md", "status": "draft", "last_reviewed": "2026-07-20", "baseline_version": "11.8" }
       ]
     },
+    "granular-connectors": {
+      "$comment": "Tier 1 (connectors) — one skill per client connector, focused on application-development usage (connect, query, params, transactions, pooling, error handling) rather than install/config. Consumed by the AI Plugin (DOCS-6345). baseline_version tracks the connector release line, which is independent of the MariaDB server version.",
+      "tier": 1,
+      "path": "granular/connectors",
+      "author": "docs-team",
+      "skills": [
+        { "name": "mariadb-connector-python", "path": "granular/connectors/mariadb-connector-python/SKILL.md", "status": "draft", "last_reviewed": "2026-07-21", "baseline_version": "1.1" },
+        { "name": "mariadb-connector-j", "path": "granular/connectors/mariadb-connector-j/SKILL.md", "status": "draft", "last_reviewed": "2026-07-21", "baseline_version": "3.5" },
+        { "name": "mariadb-connector-nodejs", "path": "granular/connectors/mariadb-connector-nodejs/SKILL.md", "status": "draft", "last_reviewed": "2026-07-21", "baseline_version": "3.5" },
+        { "name": "mariadb-connector-odbc", "path": "granular/connectors/mariadb-connector-odbc/SKILL.md", "status": "draft", "last_reviewed": "2026-07-21", "baseline_version": "3.2" },
+        { "name": "mariadb-connector-r2dbc", "path": "granular/connectors/mariadb-connector-r2dbc/SKILL.md", "status": "draft", "last_reviewed": "2026-07-21", "baseline_version": "1.4" },
+        { "name": "mariadb-connector-cpp", "path": "granular/connectors/mariadb-connector-cpp/SKILL.md", "status": "draft", "last_reviewed": "2026-07-21", "baseline_version": "1.0" },
+        { "name": "mariadb-connector-c", "path": "granular/connectors/mariadb-connector-c/SKILL.md", "status": "draft", "last_reviewed": "2026-07-21", "baseline_version": "3.4" }
+      ]
+    },
     "topical": {
       "path": "topical",
       "author": "mariadb-foundation",
