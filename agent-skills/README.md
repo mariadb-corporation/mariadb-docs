@@ -22,6 +22,7 @@ nothing here depends on a submodule fetch or a separate repository.
 | `granular/statements/` | **Tier 1** — one skill per SQL statement family (`mariadb-create-table`, `mariadb-alter-table`, `mariadb-select`, …) | Docs team, hand-curated | Source of truth, here |
 | `granular/functions/` | **Tier 2** — one skill per function category (`mariadb-json-functions`, …); machine-extracted entries wrapped in a hand-written scaffold | Docs team + `extractor/` | Source of truth, here |
 | `granular/tools/` | **Tier 1 (tools)** — one skill per client utility (`mariadb-dump`, `mariadb-import`, …) | Docs team, hand-curated | Source of truth, here |
+| `granular/connectors/` | **Tier 1 (connectors)** — one skill per client connector (`mariadb-connector-python`, …), focused on application-development *usage* rather than install/config | Docs team, hand-curated | Source of truth, here |
 | `topical/` | **Topical** — feature-area deep dives (`mariadb-features`, `mariadb-vector`, …) | Robert Silen / MariaDB Foundation | **Vendored** from [`MariaDB/skills`](https://github.com/MariaDB/skills) — see `topical/VENDORED.md`; do not hand-edit |
 
 Each skill is a directory containing a `SKILL.md` (Claude Code skill convention),
