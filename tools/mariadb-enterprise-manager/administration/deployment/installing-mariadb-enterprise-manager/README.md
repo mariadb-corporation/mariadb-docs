@@ -6,8 +6,6 @@ description: >-
 
 # Installing MariaDB Enterprise Manager
 
-
-
 {% hint style="info" %}
 Prerequisites
 
@@ -70,7 +68,7 @@ chmod +x install-enterprise-manager.sh
 Run the installer from a directory that does not already contain an `enterprise-manager` folder, otherwise the installer treats it as an existing installation and initiates an update process.
 {% endhint %}
 
-Install Enterprise Manager by running the installer.&#x20;
+Install Enterprise Manager by running the installer.
 
 {% code title="# Run installer" %}
 ```bash
@@ -128,7 +126,7 @@ Prerequisites
 
 * A private registry that supports OCI artifacts (for example, Harbor, Zot, or JFrog Artifactory).
 * A staging host with internet access and access to private registry, with docker (or podman) and the ORAS CLI installed.
-* Obtain container image versions from the [Enterprise Manager release notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-manager) and substitute them wherever a version placeholder appears below.
+* Obtain container image versions from the [Enterprise Manager release notes](https://mariadb.com/docs/release-notes/enterprise-manager) and substitute them wherever a version placeholder appears below.
 * Preparation of air-gapped machine for Enterprise Manager installation:
   * The latest version of installer is downloaded and placed on the machine as an executable
   * A supported [container engine](../hardware-and-system-requirements.md#system-requirements) is installed
@@ -239,7 +237,7 @@ podman login --compat-auth-file .docker/config.json <private-registry>
 {% step %}
 **Set the container image locations for installer**
 
-Export the image variables so the installer pulls the container images from your registry instead of the internet. Use the versions from the release notes and replace the registry prefix with yours.&#x20;
+Export the image variables so the installer pulls the container images from your registry instead of the internet. Use the versions from the release notes and replace the registry prefix with yours.
 
 {% code title="# Set variables for image locations" %}
 ```bash
