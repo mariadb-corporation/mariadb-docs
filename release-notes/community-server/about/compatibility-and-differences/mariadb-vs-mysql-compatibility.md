@@ -53,17 +53,17 @@ See [Replication Compatibility Between MariaDB and MySQL](replication-compatibil
 * [Function Differences Between MariaDB Rolling and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-rolling-and-mysql-8-0.md)
 * [System Variable Differences Between MariaDB Rolling and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-rolling-and-mysql-8-0.md)
 
+### Incompatibilities between [MariaDB 11.8](../../11.8/what-is-mariadb-118.md) and MySQL 8.0
+
+* See [Incompatibilities and Feature Differences Between MariaDB 11.8 and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-11-8-and-mysql-8.md) for details.
+* [Function Differences Between MariaDB 11.8 and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-11.8-and-mysql-8.0.md)
+* [System Variable Differences Between MariaDB 11.8 and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-11.8-and-mysql-8.0.md)
+
 ### Incompatibilities between [MariaDB 11.4](../../11.4/what-is-mariadb-114.md) and MySQL 8.0
 
 * See [Incompatibilities and Feature Differences Between MariaDB 11.4 and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-11-4-and-mysql-8.md) for details.
 * [Function Differences Between MariaDB 11.4 and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-11-4-and-mysql-8-0.md)
 * [System Variable Differences Between MariaDB 11.4 and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-11-4-and-mysql-8-0.md)
-
-### Incompatibilities between [MariaDB 11.2](../../old-releases/11.2/what-is-mariadb-112.md) and MySQL 8.0
-
-* See [Incompatibilities and Feature Differences Between MariaDB 11.2 and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-11-2-and-mysql-8.md) for details.
-* [Function Differences Between MariaDB 11.2 and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-11-2-and-mysql-8-0.md)
-* [System Variable Differences Between MariaDB 11.2 and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-11-2-and-mysql-8-0.md)
 
 ### Incompatibilities between [MariaDB 10.11](../../10.11/what-is-mariadb-1011.md) and MySQL 8.0
 
