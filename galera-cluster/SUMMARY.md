@@ -36,6 +36,7 @@
     * [Upgrading from MariaDB 10.11 to MariaDB 11.4 with Galera Cluster](galera-management/upgrading-galera-cluster/upgrading-from-mariadb-10.11-to-mariadb-11.4-with-galera-cluster.md)
     * [Upgrading from MariaDB 11.4 to MariaDB 11.8 with Galera Cluster](galera-management/upgrading-galera-cluster/upgrading-from-mariadb-10.11-to-mariadb-11.4-with-galera-cluster-1.md)
     * [Upgrading from MariaDB 11.8 to MariaDB 12.3 with Galera Cluster](galera-management/upgrading-galera-cluster/upgrading-from-mariadb-10.11-to-mariadb-11.4-with-galera-cluster-2.md)
+    * [Upgrading from MariaDB Enterprise Server 10.6 to 11.8 with Galera Cluster](galera-management/upgrading-galera-cluster/upgrading-from-mariadb-enterprise-server-10.6-to-11.8-with-galera-cluster.md)
   * [Performance Tuning](galera-management/performance-tuning/README.md)
     * [Flow Control in Galera Cluster](galera-management/performance-tuning/flow-control-in-galera-cluster.md)
     * [Using Streaming Replication for Large Transactions](galera-management/performance-tuning/using-streaming-replication-for-large-transactions.md)

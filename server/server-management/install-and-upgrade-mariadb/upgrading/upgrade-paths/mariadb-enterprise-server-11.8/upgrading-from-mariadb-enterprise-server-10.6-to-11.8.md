@@ -6,6 +6,10 @@ This guide outlines the process for performing a major version upgrade from Mari
 This guide assumes you are running on a variant of Linux that uses `systemd` to manage services (such as RHEL, CentOS, AlmaLinux, Rocky Linux, Debian, Ubuntu, or SLES).
 {% endhint %}
 
+{% hint style="info" %}
+Running MariaDB Enterprise Server in a **Galera Cluster**? See [Upgrading from MariaDB Enterprise Server 10.6 to 11.8 with Galera Cluster]({galera}/galera-management/upgrading-galera-cluster/upgrading-from-mariadb-enterprise-server-10.6-to-11.8-with-galera-cluster) for the cluster-specific procedure (packages, shutdown order, and bootstrapping). The configuration changes below apply to every node.
+{% endhint %}
+
 ## Prerequisites
 
 Before beginning the upgrade, ensure these precautionary measures and environment checks are completed to protect your data.
