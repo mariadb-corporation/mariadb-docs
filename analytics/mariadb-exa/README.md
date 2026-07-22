@@ -1,7 +1,7 @@
 ---
 description: >-
   MariaDB Exa is an Exasol-powered MPP analytical database integrated with
-  MariaDB Enterprise Server via Debezium CDC, with docs on architecture,
+  MariaDB Enterprise Server via MaxScale CDC, with docs on architecture,
   deployment, monitoring, and limitations.
 icon: chart-pie-simple-circle-currency
 ---

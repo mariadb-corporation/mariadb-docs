@@ -1,8 +1,8 @@
 ---
 description: >-
   MariaDB Exa limitations: architecture and query-flow constraints, datatype
-  mapping gaps in Debezium, SQL-dialect gaps in the SQLglot preprocessor, and
-  the CDC primary-key requirement.
+  mapping gaps in MaxScale CDC, SQL-dialect gaps in the SQLglot preprocessor,
+  and the CDC primary-key requirement.
 hidden: true
 noIndex: true
 icon: road-barrier
@@ -24,14 +24,14 @@ The MariaDB Exa environment utilizes a Hybrid Transactional and Analytical Proce
 
 ### 2. The Replication Path (Write)
 
-* Debezium CDC Bridge: Manages background synchronization of DDL and DML changes from the MariaDB Binary Log directly to Exasol.
+* MaxScale CDC (binlogrouter): Manages background synchronization of DDL and DML changes from the MariaDB Binary Log directly to Exasol over the Exasol ODBC driver.
 * Direct Sync: This pathway is a raw data stream and does not utilize the SQLglot preprocessor.
 
 ## II. Schema & Replication Management
 
 ### Primary Key Requirement
 
-Every table being captured by CDC must define a primary key. Tables without primary keys are not supported by the JDBC Sink for upsert operations.
+Every table being captured by CDC must define a primary key. Tables without primary keys are not supported by the CDC pipeline's `MERGE`-based upsert into Exasol.
 
 ### Unsupported Schema Features
 
@@ -51,6 +51,10 @@ The following schema features are not supported:
 ## III. Datatype Compatibility Matrix
 
 Compatibility is tiered based on the level of automated support provided between the engines.
+
+{% hint style="warning" %}
+The datatype and function compatibility tables in this page were captured during earlier MariaDB Exa testing and are pending re-validation against MaxScale-native CDC (binlogrouter → ODBC). Treat specific failure modes as indicative rather than authoritative.
+{% endhint %}
 
 | **Compatibility Tier** | **Data Types**                                                                                                                                         |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -104,9 +108,9 @@ The following details how MariaDB types are interpreted by Exasol during automat
 | `TIMESTAMP`           | `TIMESTAMP`                          | `TIMESTAMP(3)`                       | ⚠️ mismatch                       |
 | `TIMESTAMP(6)`        | `TIMESTAMP(6)`                       | `TIMESTAMP(6)`                       | ✅                                 |
 | `YEAR(4)`             | `DECIMAL(4,0)`                       | `DECIMAL(18,0)`                      | ⚠️ mismatch                       |
-| `INET6`               | —                                    | —                                    | 🛑 Debezium Fatal Crash           |
-| `UUID`                | —                                    | —                                    | 🛑 Debezium Fatal Crash           |
-| `XMLTYPE`             | —                                    | —                                    | 🛑 Debezium Fatal Crash           |
+| `INET6`               | —                                    | —                                    | 🛑 Not supported (not replicated)           |
+| `UUID`                | —                                    | —                                    | 🛑 Not supported (not replicated)           |
+| `XMLTYPE`             | —                                    | —                                    | 🛑 Not supported (not replicated)           |
 
 ### 2. Data Value Replication Results (INSERT)
 

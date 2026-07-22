@@ -1,8 +1,8 @@
 ---
 description: >-
-  MariaDB Exa compatibility reference (early draft): unsupported data types
-  (INET6, UUID, XMLTYPE) crash Debezium replication, and some SQL functions
-  fail in Exasol preprocessing.
+  MariaDB Exa compatibility reference (early draft): data-type mapping and
+  behavioral differences between MariaDB and Exasol, and SQL functions that
+  fail in the Exasol preprocessor.
 hidden: true
 noIndex: true
 ---
@@ -22,16 +22,16 @@ graph TD
     User([User SQL Query]) --> MariaDB[MariaDB Server]
     
     %% The Routing Path
-    MariaDB -- "DQL (SELECT)" --> Router[MariaDB Exa Router]
+    MariaDB -- "DQL (SELECT)" --> Router[MaxScale Exasolrouter]
     Router -- "Analytical Routing" --> Preprocessor
     
     %% The Replication Path
     MariaDB -- "DDL/DML (Changes)" --> BinLog[MariaDB Binary Log]
-    BinLog --> Debezium[Debezium CDC Bridge]
+    BinLog --> CDC[MaxScale CDC binlogrouter]
     
-    %% Debezium Failure Point
-    Debezium -- "Unsupported: INET6, UUID, XMLTYPE" --> DebCrash{{"CRASH: Replication Stops"}}
-    Debezium -- "Supported Data" --> Preprocessor
+    %% Unsupported-type handling
+    CDC -- "Unsupported: INET6, UUID, XMLTYPE" --> DebCrash{{"Not replicated"}}
+    CDC -- "Supported data (bulk load)" --> Engine
     
     %% The Gatekeeper
     subgraph Exasol ["Exasol Environment"]
@@ -48,29 +48,33 @@ graph TD
 ```
 
 * MariaDB Server (Source Layer): The primary environment for transactional workloads (OLTP). It records every data modification (DML) and schema change (DDL) in the Binary Log, which serves as the authoritative record of the system state.
-* Debezium CDC & Replication (Integration Layer): A service that monitors the Binary Log and replicates changes to Exasol. It processes specific data types; encountering unrecognized MariaDB-native types can result in service failure or system crashes.
-* Exa Router (Routing Layer): A component that intercepts incoming SQL and identifies Analytical Queries (DQL/SELECT). It routes these queries directly to Exasol to utilize its in-memory performance, bypassing the background replication pipeline.
+* MaxScale CDC (Integration Layer): MaxScale's `binlogrouter` module reads the MariaDB Binary Log and bulk-loads changes into Exasol over the Exasol ODBC driver. It replicates the data types it supports; unsupported MariaDB-native types are not replicated.
+* MaxScale Exasolrouter (Routing Layer): A component that intercepts incoming SQL and identifies Analytical Queries (DQL/SELECT). It routes these queries directly to Exasol to utilize its in-memory performance, bypassing the background replication pipeline.
 * SQLglot Preprocessor (Translation Layer): An Exasol-side script that translates MariaDB SQL syntax into native Exasol SQL. It manages identifier normalization (such as uppercasing table names) and maps MariaDB functions to Exasol equivalents.
 
 #### SQL Compatibility Framework
 
 Compatibility is determined by three primary factors:
 
-* Replication Compatibility: The ability of Debezium to interpret and transport data changes through the integration layer.
+* Replication Compatibility: The ability of the MaxScale CDC pipeline to interpret and transport data changes through the integration layer.
 * Translation Compatibility: The ability of the Preprocessor to identify and map MariaDB functions to Exasol equivalents.
 * Engine Logic: The degree to which MariaDB and Exasol engines interpret data (such as `NULL`, empty strings, or identity functions) identically.
 
 #### The Ideal Flow: An Example
 
-1. DDL Execution: A user executes `CREATE TABLE sales (id INT PRIMARY KEY, amount DECIMAL(10,2));` in MariaDB. Debezium replicates the schema structure to Exasol.
-2. DML Execution: A user executes `INSERT INTO sales VALUES (1, 500.00);`. Debezium mirrors the data modification to Exasol.
-3. DQL Routing: A user executes `SELECT TRUNCATE(amount, 0) FROM sales;`. The Exa Router identifies this as an analytical query.
+1. DDL Execution: A user executes `CREATE TABLE sales (id INT PRIMARY KEY, amount DECIMAL(10,2));` in MariaDB. MaxScale CDC replicates the schema structure to Exasol.
+2. DML Execution: A user executes `INSERT INTO sales VALUES (1, 500.00);`. MaxScale CDC mirrors the data modification to Exasol.
+3. DQL Routing: A user executes `SELECT TRUNCATE(amount, 0) FROM sales;`. The Exasolrouter identifies this as an analytical query.
 4. Translation: The Preprocessor maps the MariaDB `TRUNCATE()` function to the native Exasol equivalent, `TRUNC()`.
 5. Result: Exasol executes the translated query and returns the results through the MariaDB interface.
 
-### 2. Replication Compatibility: Debezium & Data Type Mapping
+### 2. Replication Compatibility: Data Type Mapping
 
-Incompatibility at the replication level affects background synchronization. If a data type is incompatible with Debezium or the replication pipeline, the integration layer may fail, leading to desynchronization between MariaDB and Exasol.
+Incompatibility at the replication level affects background synchronization. If a data type is incompatible with the replication pipeline, the integration layer may fail, leading to desynchronization between MariaDB and Exasol.
+
+{% hint style="warning" %}
+The data-type and function compatibility tables below were captured during earlier MariaDB Exa testing (references MSQA-39/41/48) and are pending re-validation against MaxScale-native CDC (binlogrouter → ODBC). Treat specific failure modes as indicative rather than authoritative.
+{% endhint %}
 
 #### Data Type Compatibility (Reference: MSQA-39)
 
@@ -80,13 +84,13 @@ Incompatibility at the replication level affects background synchronization. If 
 | `SMALLINT`, `TINYINT`         | ✅ Supported            | `DECIMAL(9,0)` (Upcast)                                                      |
 | `FLOAT`, `REAL`               | ✅ Supported            | `DOUBLE` (Potential for minor precision distortion)                          |
 | `CHAR(N)`, `VARCHAR(N)`       | ✅ Supported            | `CHAR(N)` (Exasol right-pads `CHAR` with spaces)                             |
-| `INET6`, `UUID`, `XMLTYPE`    | 🛑 CRASH               | Fatal Error: Debezium crashes and halts replication.                         |
+| `INET6`, `UUID`, `XMLTYPE`    | 🛑 Not supported       | Not replicated to Exasol; capturing a table using these types halts replication for that table. |
 | `TIME`, `TIME(6)`             | ❌ Failed               | Casting Error: Misinterpreted as `DECIMAL(36,0)`, causing ingestion failure. |
 | `ENUM`, `SET`                 | ❌ Failed               | Java Error: Casting exception (`Character` to `String`) in worker.           |
 | `BLOB`, `BINARY`, `VARBINARY` | ❌ Failed               | Syntax Error: Not recognized by current replication syntax.                  |
 | `SERIAL`, `BIT`               | ❌ Failed               | Syntax Error: Incompatible with current replication bridge.                  |
 
-Example of a System Crash: Executing `CREATE TABLE logs (session_id UUID);` succeeds in MariaDB but results in an immediate crash of the Debezium connector, halting all data synchronization until the offending table is removed from the source.
+Example: Executing `CREATE TABLE logs (session_id UUID);` succeeds in MariaDB, but the unsupported type prevents that table from being replicated to Exasol.
 
 ### 3. Query Translation: SQLglot Function Matrix
 
