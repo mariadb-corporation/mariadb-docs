@@ -99,7 +99,7 @@ docker compose ps
 {% step %}
 **Copy new installer tarball and container images to a private registry**
 
-Copy the new installer tarball and container images to your private registry, exactly as during [installation](deployment/installing-mariadb-enterprise-manager/#staging-host), using the versions from the [Enterprise Manager release notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-manager) for the target release.
+Copy the new installer tarball and container images to your private registry, exactly as during [installation](deployment/installing-mariadb-enterprise-manager/#staging-host), using the versions from the [Enterprise Manager release notes](https://mariadb.com/docs/release-notes/enterprise-manager) for the target release.
 {% endstep %}
 
 {% step %}
