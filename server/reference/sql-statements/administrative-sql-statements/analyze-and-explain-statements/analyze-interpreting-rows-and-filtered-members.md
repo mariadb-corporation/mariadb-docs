@@ -116,7 +116,48 @@ The selectivity counters are:
 * `r_filtered` is the selectivity of `attached_condition` check, as before.
 * `r_total_filtered` is the combined selectivity of all checks.
 
-![index-read-stats-new](../../../../.gitbook/assets/index-read-stats-new.png)
+```mermaid
+flowchart TD
+    accTitle: r_rows and r_filtered counter placement in MariaDB 11.5 and later
+    accDescr { This diagram overlays where MariaDB 11.5 and later versions update ANALYZE row counters on the storage engine index-read flow. Inside the storage engine, r_index_rows is counted right after the index tuple is read, before any checks are made. After the index_condition check passes, r_icp_filtered is counted, showing the selectivity of that check. The Rowid Filter check, as before, counts rowid_filter.r_selectivity_pct. A tuple passing both checks has its full row read, exiting the storage engine, where r_rows is counted. The server then checks attached_condition outside the storage engine, counting r_filtered at that point. r_icp_filtered and r_filtered both feed into r_total_filtered, the combined selectivity of the index_condition, Rowid Filter, and attached_condition checks together. }
+
+    A(( )) --> Read["Read index tuple"]
+    subgraph SE["Storage Engine"]
+        Read --> ICP{"check<br/>index_condition"}
+        Read -.->|counts| CntIndexRows(["Count<br/>r_index_rows"])
+        ICP -->|true| RF{"Check<br/>Rowid Filter"}
+        ICP -.->|counts| CntICP(["Count<br/>r_icp_filtered"])
+        RF -.->|counts| CntRowidSel(["Count<br/>rowid_filter.<br/>r_selectivity_pct"])
+        RF -->|match| Full["Read full row"]
+    end
+    ICP -->|false| B(( ))
+    RF -->|"no match"| C(( ))
+    Full --> CntRows(["Count r_rows"])
+    CntRows --> AC{"Check<br/>attached_condition"}
+    AC -.->|counts| CntFiltered(["Count r_filtered"])
+    AC -->|false| D(( ))
+    AC -->|true| E(( ))
+
+    CntICP -.-> CntTotal(["Count<br/>r_total_filtered"])
+    CntFiltered -.-> CntTotal
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+
+    class Read,Full proc;
+    class ICP,RF,AC node;
+    class CntIndexRows,CntICP,CntRowidSel,CntRows,CntFiltered,CntTotal file;
+
+    style CntIndexRows fill:#ffb3b3,stroke:#a30000,color:#111
+    style CntICP fill:#ffb3b3,stroke:#a30000,color:#111
+    style CntTotal fill:#ffb3b3,stroke:#a30000,color:#111
+    style CntRowidSel fill:#ffff66,stroke:#b8860b,color:#111
+    style CntRows fill:#ffff66,stroke:#b8860b,color:#111
+    style CntFiltered fill:#ffff66,stroke:#b8860b,color:#111
+```
+
+_MariaDB 11.5 and later add `r_index_rows`, `r_icp_filtered`, and `r_total_filtered` (highlighted in red) alongside the existing `rowid_filter.r_selectivity_pct`, `r_rows`, and `r_filtered` counters (highlighted in yellow)._
 
 ### ANALYZE output members
 

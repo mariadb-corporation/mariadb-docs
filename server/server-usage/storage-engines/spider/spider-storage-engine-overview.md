@@ -9,7 +9,48 @@ description: >-
 
 ## About
 
-![spider\_overview](../../../.gitbook/assets/spider_overview.png)
+```mermaid
+flowchart TD
+    accTitle: Spider storage engine architecture
+    accDescr { Three clients connect down into the MariaDB Server box. The MariaDB Server sits above a Storage Engine Interface box. Below the interface are three storage engine columns side by side: InnoDB, ColumnStore, and Partition. The Partition column contains the Spider storage engine. From Spider, arrows fan out down to three separate MariaDB Spider Node database cylinders, showing that the Partition/Spider engine links out to multiple remote MariaDB Spider Node servers. }
+
+    CLIENT1["Client"]
+    CLIENT2["Client"]
+    CLIENT3["Client"]
+    SERVER["MariaDB Server"]
+    IFACE["Storage Engine Interface"]
+
+    subgraph ENGINES["Storage Engines"]
+        INNODB["InnoDB"]
+        COLUMNSTORE["ColumnStore"]
+        PARTITION["Partition<br/>Spider"]
+    end
+
+    NODE1[("MariaDB<br/>Spider Node")]
+    NODE2[("MariaDB<br/>Spider Node")]
+    NODE3[("MariaDB<br/>Spider Node")]
+
+    CLIENT1 --> SERVER
+    CLIENT2 --> SERVER
+    CLIENT3 --> SERVER
+    SERVER --> IFACE
+    IFACE --> INNODB
+    IFACE --> COLUMNSTORE
+    IFACE --> PARTITION
+    PARTITION --> NODE1
+    PARTITION --> NODE2
+    PARTITION --> NODE3
+
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+
+    class CLIENT1,CLIENT2,CLIENT3 client
+    class SERVER,IFACE,INNODB,COLUMNSTORE,PARTITION proc
+    class NODE1,NODE2,NODE3 node
+```
+
+_The Spider storage engine sits alongside InnoDB and ColumnStore in the MariaDB Server's storage engine interface, and links out to multiple remote MariaDB Spider Node servers via Partition._
 
 The Spider storage engine is a [storage engine](../) with built-in sharding features. It supports partitioning and [xa transactions](../../../reference/sql-statements/transactions/xa-transactions.md), and allows tables of different MariaDB instances to be handled as if they were on the same instance. It refers to one possible implementation of ISO/IEC 9075-9:2008 SQL/MED.
 
@@ -718,7 +759,38 @@ Checking the state of the nodes:
 +---------+--------------+----------+
 ```
 
-![spiderha](../../../.gitbook/assets/spiderha.png)
+```mermaid
+flowchart TD
+    accTitle: Spider link monitoring during a backend failure
+    accDescr { A SQL client sends queries into the Spider node SPIDER1 at 192.168.0.201. Inside SPIDER1, the SPIDER_TABLES catalog tracks PART1 with link_status 1 and PART2 with link_status 3. The SBTEST table's PART 1 and PART 2 are linked to two backend servers. SPIDER_LINK_MON_SERVER lists SPIDER1 itself as the monitoring node, and exchanges MAJORITY quorum votes with SBTEST to decide link status. A MONITORING process runs background checks with monitoring_bg_kind 1 calling mysql_ping, monitoring_bg_kind 2 running select 1 from SBTEST limit 1, and monitoring_bg_kind 3 running select 1 from SBTEST where a condition. Backend1 at 192.168.0.202 holds SBTEST PART 1 and PART 2 and is reachable, but an ERROR is reported between SBTEST and Backend1. Backend2 at 192.168.0.203 has failed, shown crossed out, and the MONITORING process reports an ERROR trying to reach Backend2's SBTEST PART 2. }
+
+    SQL["SQL"]
+
+    subgraph SPIDERNODE["Spider Node: SPIDER1 — 192.168.0.201"]
+        SPIDER_TABLES["SPIDER_TABLES<br/>PART1, link_status 1<br/>PART2, link_status 3"]
+        SBTEST_S["SBTEST<br/>PART 1 | PART 2"]
+        LINKMON["SPIDER_LINK_MON_SERVER<br/>SPIDER1"]
+        MONITORING["MONITORING<br/>monitoring_bg_kind =1: mysql_ping()<br/>monitoring_bg_kind =2: select 1 from SBTEST limit 1<br/>monitoring_bg_kind =3: select 1 from SBTEST where ?"]
+    end
+
+    BACKEND1[("Backend1<br/>192.168.0.202<br/>SBTEST: PART 1, PART 2")]
+    BACKEND2[("Backend2 (down)<br/>192.168.0.203<br/>SBTEST: PART 2 (failed), PART 1")]
+
+    SQL --> SPIDERNODE
+    SBTEST_S <-.->|MAJORITY| LINKMON
+    SBTEST_S <-.->|ERROR| BACKEND1
+    MONITORING -.->|ERROR| BACKEND2
+
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+
+    class SQL client
+    class SPIDER_TABLES,SBTEST_S,LINKMON,MONITORING proc
+    class BACKEND1,BACKEND2 node
+```
+
+_Spider's link monitoring: SPIDER1 tracks link\_status for each partition, uses SPIDER\_LINK\_MON\_SERVER and MAJORITY quorum voting to detect Backend1 vs. the failed Backend2, while a background MONITORING process pings and probes SBTEST on each backend._
 
 No change has been made to cluster, so let's create a divergence:
 

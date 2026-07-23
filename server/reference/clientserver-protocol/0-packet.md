@@ -44,7 +44,24 @@ The principle is to split data by chunks of 16M bytes. When the server receives 
 
 Example: `max_allowed_packet` is set to a value > to 40M bytes. Sending a 40M bytes packet body:
 
-<figure><img src="../../.gitbook/assets/standard_packet.png" alt=""><figcaption></figcaption></figure>
+```mermaid
+flowchart TD
+    accTitle: Standard packet splitting of a 40 Mbyte payload
+    accDescr {
+        A 40-megabyte data payload is split into three standard packets sent in sequence, each incrementing the sequence number. Packet 1 has a 4-byte header followed by a 16-megabyte chunk. Packet 2 has a 4-byte header followed by a 16-megabyte chunk. Packet 3 has a 4-byte header followed by an 8-megabyte chunk. The three chunks, 16 plus 16 plus 8 megabytes, reconstitute the original 40 megabytes of data.
+    }
+    DATA["40Mbytes data"]:::hdr
+    P1["4 byte header<br/>16 Mbytes chunk"]:::field
+    P2["4 byte header<br/>16 Mbytes chunk"]:::field
+    P3["4 byte header<br/>8 Mbytes chunk"]:::field
+    DATA --> P1
+    DATA --> P2
+    DATA --> P3
+
+    classDef field fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef hdr fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+```
+_A 40 Mbyte packet body split across three standard packets: 4-byte header + 16 Mbytes, 4-byte header + 16 Mbytes, 4-byte header + 8 Mbytes._
 
 First packet:
 
@@ -102,7 +119,27 @@ The server returns an [OK\_Packet](4-server-response-packets/ok_packet.md) respo
 
 The server uncompresses data, and then must have the same packet as if there was no compression. If data size needs splitting, it's better to separate compress packet.
 
-![compress\_packet](../../.gitbook/assets/compress_packet.png)
+```mermaid
+flowchart TD
+    accTitle: Compressed packet splitting of a 40 Mbyte payload
+    accDescr {
+        A 40-megabyte data payload is split into three standard packets, each of which is then wrapped in its own compressed packet. Standard packet 1: 4-byte header plus 16-megabyte chunk, wrapped by compressed packet 1: 7-byte header plus a compressed body of 8 megabytes, representing the compressed 16-megabyte chunk plus its 4-byte header. Standard packet 2: 4-byte header plus 16-megabyte chunk, wrapped by compressed packet 2: 7-byte header plus a compressed body of 8 megabytes, representing the compressed 16-megabyte chunk plus its 4-byte header. Standard packet 3: 4-byte header plus 8-megabyte chunk, wrapped by compressed packet 3: 7-byte header plus a compressed body of 4 megabytes, representing the compressed 8-megabyte chunk plus its 4-byte header.
+    }
+    DATA["40Mbytes data"]:::hdr
+    SP1["4 byte header<br/>16 Mbytes chunk"]:::field
+    SP2["4 byte header<br/>16 Mbytes chunk"]:::field
+    SP3["4 byte header<br/>8 Mbytes chunk"]:::field
+    CP1["7 byte header<br/>8Mbytes (= compress 16<br/>Mbytes chunk + 4)"]:::hdr
+    CP2["7 byte header<br/>8Mbytes (= compress 16<br/>Mbytes chunk + 4)"]:::hdr
+    CP3["7 byte header<br/>4Mbytes (= compress 8<br/>Mbytes chunk + 4)"]:::hdr
+    DATA --> SP1 --> CP1
+    DATA --> SP2 --> CP2
+    DATA --> SP3 --> CP3
+
+    classDef field fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef hdr fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+```
+_Each standard packet from the 40 Mbyte split is re-wrapped in a 7-byte-header compressed packet whose body size equals the compressed chunk plus its 4-byte header._
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
