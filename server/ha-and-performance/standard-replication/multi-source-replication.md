@@ -13,7 +13,30 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 Multi-source replication means that one server has many primaries from which it replicates.
 
-![multi\_source\_replication\_small](../../.gitbook/assets/multi_source_replication_small.png)
+```mermaid
+flowchart TD
+    accTitle: Multi-source replication
+    accDescr {
+        One replica receives from two primaries on separate replication domains
+        (Domain 1 and Domain 2) and applies both domains in parallel. That replica in
+        turn replicates to a downstream replica.
+    }
+    P1[("MariaDB Primary<br/>Domain 1")]
+    P2[("MariaDB Primary<br/>Domain 2")]
+    R1[("MariaDB<br/>Replica")]
+    R2[("MariaDB<br/>Replica")]
+    P1 --> R1
+    P2 --> R1
+    R1 --> R2
+    classDef d1 fill:#3aa0e6,stroke:#1f6fa8,stroke-width:2px,color:#111;
+    classDef d2 fill:#5cb85c,stroke:#2f7d2f,stroke-width:2px,color:#111;
+    classDef replica fill:#f0932b,stroke:#b5701d,stroke-width:2px,color:#111;
+    class P1 d1
+    class P2 d2
+    class R1,R2 replica
+```
+
+_Multi-source replication: one replica pulls from two primaries on separate domains and applies them in parallel._
 
 ## New Syntax
 
