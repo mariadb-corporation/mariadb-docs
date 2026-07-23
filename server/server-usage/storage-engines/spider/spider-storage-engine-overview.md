@@ -187,7 +187,28 @@ EOF
 
 #### Federation Setup
 
-![Spider7](../../../.gitbook/assets/Spider7.png)
+```mermaid
+flowchart TD
+    accTitle: Spider federated single-backend topology
+    accDescr { A client connects to a single Spider node, SPIDER1 at 192.168.0.201, which exposes the sbtest table. The Spider node forwards all reads and writes for sbtest to one remote backend server, BACKEND1 at 192.168.0.202, which stores the actual data. This is the simplest Spider federation setup: one Spider node linked to one backend, with no sharding or replication involved. }
+
+    CLIENT["Client"]
+    SPIDER1["Spider Node: SPIDER1<br/>192.168.0.201<br/>sbtest"]
+    BACKEND1[("Backend1<br/>192.168.0.202<br/>sbtest")]
+
+    CLIENT --> SPIDER1
+    SPIDER1 --> BACKEND1
+
+    classDef clientNode fill:#f4b8a5,stroke:#b35900,stroke-width:1px,color:#111;
+    classDef spiderNode fill:#f7941d,stroke:#b35900,stroke-width:2px,color:#111;
+    classDef backendNode fill:#f4b8a5,stroke:#b35900,stroke-width:1px,color:#111;
+
+    class CLIENT clientNode
+    class SPIDER1 spiderNode
+    class BACKEND1 backendNode
+```
+
+_A client talks to a single Spider node (SPIDER1), which federates the sbtest table to one remote backend server (BACKEND1)._
 
 ```sql
 spider1 << EOF
@@ -220,7 +241,37 @@ Without connection pool or MariaDB thread pool, HaProxy and Spider have been pro
 
 #### Sharding Setup
 
-![spider8](../../../.gitbook/assets/Spider8.png)
+```mermaid
+flowchart TD
+    accTitle: Spider single-node sharded topology across two backends
+    accDescr { A single Spider node, SPIDER1 at 192.168.0.201, shards the sbtest table into two partitions. Part 1 is routed to Backend1 at 192.168.0.202, and Part 2 is routed to Backend2 at 192.168.0.203. The two backend servers coordinate an XA two-phase commit (XA 2PC) between themselves so that writes spanning both shards stay consistent. }
+
+    CLIENT["Client"]
+    SPIDER1["Spider Node: SPIDER1<br/>192.168.0.201<br/>sbtest"]
+
+    subgraph SHARD1["Shard: Part 1"]
+        BACKEND1[("Backend1<br/>192.168.0.202<br/>sbtest — Part 1")]
+    end
+
+    subgraph SHARD2["Shard: Part 2"]
+        BACKEND2[("Backend2<br/>192.168.0.203<br/>sbtest — Part 2")]
+    end
+
+    CLIENT --> SPIDER1
+    SPIDER1 --> BACKEND1
+    SPIDER1 --> BACKEND2
+    BACKEND1 <-.->|XA 2PC| BACKEND2
+
+    classDef clientNode fill:#f4b8a5,stroke:#b35900,stroke-width:1px,color:#111;
+    classDef spiderNode fill:#f7941d,stroke:#b35900,stroke-width:2px,color:#111;
+    classDef backendNode fill:#f4b8a5,stroke:#b35900,stroke-width:1px,color:#111;
+
+    class CLIENT clientNode
+    class SPIDER1 spiderNode
+    class BACKEND1,BACKEND2 backendNode
+```
+
+_A single Spider node (SPIDER1) shards sbtest across two backends, Backend1 (Part 1) and Backend2 (Part 2), coordinated by XA 2PC._
 
 Create the spider table on the Spider Node
 
@@ -501,7 +552,47 @@ mysql> SELECT sum(k) FROM sbtest;
 
 Spider's high availability feature has been deprecated ([MDEV-28479](https://jira.mariadb.org/browse/MDEV-28479)), and are deleted. Please use other high availability solutions like [replication](../myrocks/myrocks-and-replication.md) or [galera-cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide).
 
-![spider9](../../../.gitbook/assets/spider9.png)
+```mermaid
+flowchart TD
+    accTitle: Spider sharded topology with cross-backend replication for high availability
+    accDescr { A single Spider node, SPIDER1 at 192.168.0.201, shards the sbtest table into two partitions, Part 1 and Part 2. Backend1, at 192.168.0.202, holds Part 1 as primary and keeps a replica of Part 2; Backend2, at 192.168.0.203, holds Part 2 as primary and keeps a replica of Part 1. The two backends coordinate an XA two-phase commit (XA 2PC) and replicate each other's shard, so that if one backend fails, the other still holds a full replica of both partitions. }
+
+    CLIENT["Client"]
+    SPIDER1["Spider Node: SPIDER1<br/>192.168.0.201<br/>sbtest"]
+
+    subgraph SHARD1["Shard: Part 1 + Part 2 replica"]
+        BACKEND1[("Backend1<br/>192.168.0.202")]
+        B1P1["sbtest — Part 1 (Primary)"]
+        B1P2["sbtest — Part 2 (Replica)"]
+        BACKEND1 --- B1P1
+        BACKEND1 --- B1P2
+    end
+
+    subgraph SHARD2["Shard: Part 2 + Part 1 replica"]
+        BACKEND2[("Backend2<br/>192.168.0.203")]
+        B2P2["sbtest — Part 2 (Primary)"]
+        B2P1["sbtest — Part 1 (Replica)"]
+        BACKEND2 --- B2P2
+        BACKEND2 --- B2P1
+    end
+
+    CLIENT --> SPIDER1
+    SPIDER1 --> BACKEND1
+    SPIDER1 --> BACKEND2
+    BACKEND1 <-.->|XA 2PC replication| BACKEND2
+
+    classDef clientNode fill:#f4b8a5,stroke:#b35900,stroke-width:1px,color:#111;
+    classDef spiderNode fill:#f7941d,stroke:#b35900,stroke-width:2px,color:#111;
+    classDef backendNode fill:#f4b8a5,stroke:#b35900,stroke-width:1px,color:#111;
+    classDef tableNode fill:#cfe2f3,stroke:#6699cc,stroke-width:1px,color:#111;
+
+    class CLIENT clientNode
+    class SPIDER1 spiderNode
+    class BACKEND1,BACKEND2 backendNode
+    class B1P1,B1P2,B2P2,B2P1 tableNode
+```
+
+_For high availability, Backend1 and Backend2 each hold their own primary shard plus a replica of the other's shard, kept in sync via XA 2PC._
 
 ```sql
 #backend1 -e "CREATE DATABASE backend_rpl"

@@ -20,7 +20,23 @@ All the following Dockerfile directives are compiled into a new Docker image, id
 
 The following diagram shows the relationship between Dockerfiles, images and containers:
 
-![dockerfiles-images-containers](../../../.gitbook/assets/dockerfiles-images-containers.png)
+```mermaid
+flowchart LR
+    accTitle: Dockerfile to image to containers build flow
+    accDescr { A Dockerfile is compiled into a single image using a build step. That one image is then used to run multiple containers, shown here as three separate container instances fanning out from the same image. Each container is an independent running instance of the same underlying image. }
+    Dockerfile[Dockerfile] -->|build| Image[image]
+    Image -->|run| Container1[container]
+    Image -->|run| Container2[container]
+    Image -->|run| Container3[container]
+
+    style Dockerfile fill:#cfe2f3,stroke:#333,stroke-width:1px,color:#111;
+    style Image fill:#fce5cd,stroke:#333,stroke-width:1px,color:#111;
+    style Container1 fill:#d9ead3,stroke:#333,stroke-width:1px,color:#111;
+    style Container2 fill:#d9ead3,stroke:#333,stroke-width:1px,color:#111;
+    style Container3 fill:#d9ead3,stroke:#333,stroke-width:1px,color:#111;
+```
+
+_A Dockerfile is built into an image, which can then be run to create multiple containers._
 
 ## Dockerfile Syntax
 
