@@ -33,7 +33,45 @@ The Cassandra Storage Engine allows access to data in a Cassandra cluster from\
 MariaDB. The overall architecture is shown in the picture below and is similar\
 to that of the NDB cluster storage engine.
 
-![cassandra-se-overview](../../../../.gitbook/assets/cassandra-se-overview.png)
+```mermaid
+flowchart TD
+    accTitle: Cassandra storage engine architecture in MariaDB
+    accDescr { An SQL client sends queries to MariaDB, which contains the parser, optimizer, and pluggable storage engines, including the Cassandra storage engine, the XtraDB storage engine, and other storage engines. The Cassandra storage engine connects out to an external Cassandra cluster. The XtraDB storage engine reads and writes local InnoDB data files, while other storage engines connect to their own data stores. }
+
+    Client(["SQL client"])
+
+    subgraph MariaDB["MariaDB"]
+        Parser["parser"]
+        Optimizer["optimizer"]
+        Dots1["..."]
+        CassandraSE["Cassandra storage engine"]
+        XtraDBSE["XtraDB storage engine"]
+        OtherSE["other storage engine"]
+    end
+
+    CassandraCluster[("Cassandra cluster")]
+    InnoDBFiles[("InnoDB data files")]
+    OtherStore[("...")]
+
+    Client --> MariaDB
+    CassandraSE --> CassandraCluster
+    XtraDBSE --> InnoDBFiles
+    OtherSE --> OtherStore
+
+    style Client fill:#ffffff,stroke:#333333,stroke-width:1px,color:#111
+    style MariaDB fill:#7FFFF9,stroke:#333333,stroke-width:1px,color:#111
+    style Parser fill:#e8eef7,stroke:#333333,stroke-width:1px,color:#111
+    style Optimizer fill:#e8eef7,stroke:#333333,stroke-width:1px,color:#111
+    style Dots1 fill:#e8eef7,stroke:#333333,stroke-width:1px,color:#111
+    style CassandraSE fill:#ffff66,stroke:#333333,stroke-width:1px,color:#111
+    style XtraDBSE fill:#ffff66,stroke:#333333,stroke-width:1px,color:#111
+    style OtherSE fill:#ffff66,stroke:#333333,stroke-width:1px,color:#111
+    style CassandraCluster fill:#ffffff,stroke:#333333,stroke-width:1px,color:#111
+    style InnoDBFiles fill:#ffffff,stroke:#333333,stroke-width:1px,color:#111
+    style OtherStore fill:#ffffff,stroke:#333333,stroke-width:1px,color:#111
+```
+
+_MariaDB's pluggable storage engines, including the Cassandra storage engine, sit behind the parser and optimizer, each mapping SQL to its own backing store._
 
 You can access the same Cassandra cluster from multiple MariaDB instances,\
 provided each of them runs the Cassandra Storage Engine:

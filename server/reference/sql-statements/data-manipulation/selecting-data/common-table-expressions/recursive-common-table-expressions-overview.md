@@ -18,7 +18,32 @@ MariaDB supports two types of CTEs:
 
 A recursive CTE will repeatedly execute subsets of the data until it obtains the complete result set. This makes it particularly useful for handling hierarchical or tree-structured data, such as organizational charts, category trees, or parent-child relationships. [max\_recursive\_iterations](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_recursive_iterations) avoids infinite loops. CTEs permit a query to reference itself. SQL is generally poor at recursive structures.
 
-![trees\_and\_graphs](../../../../../.gitbook/assets/trees_and_graphs.png)
+```mermaid
+flowchart TD
+    accTitle: A tree structure compared to a graph structure
+    accDescr { Two small diagrams side by side. The tree, labeled Trees, shows a wheel node with three children: spokes, tire, and rim; tire has a single child, tire valve, which in turn has three children: nut, cap, and bolt. Every edge points from a parent down to exactly one child, so no node has more than one parent and there are no cycles. The graph, labeled Graphs, shows four cities: Chicago, Nashville, Atlanta, and Orlando. Chicago and Atlanta connect to each other in both directions, Nashville and Atlanta connect to each other in both directions, Chicago connects one-way to Nashville, and Atlanta connects one-way to Orlando, so nodes can have multiple parents and the connections can form cycles. }
+
+    subgraph Trees["- Trees"]
+        wheel --> spokes
+        wheel --> tire
+        wheel --> rim
+        tire --> tirevalve["tire valve"]
+        tirevalve --> nut
+        tirevalve --> cap
+        tirevalve --> bolt
+    end
+
+    subgraph Graphs["- Graphs"]
+        Chicago --> Nashville
+        Chicago --> Atlanta
+        Atlanta --> Chicago
+        Nashville --> Atlanta
+        Atlanta --> Nashville
+        Atlanta --> Orlando
+    end
+```
+
+_A tree has exactly one path from root to any node, while a graph can have multiple paths and cycles, such as the bidirectional Chicago-Atlanta and Nashville-Atlanta connections._
 
 ### Recursive CTE Syntax
 
@@ -73,7 +98,32 @@ SELECT ...
 
 Sample data:
 
-![tc\_1](../../../../../.gitbook/assets/tc_1.png)
+| origin | dst |
+| ------ | --- |
+| New York | Boston |
+| Boston | New York |
+| New York | Washington |
+| Washington | Boston |
+| Washington | Raleigh |
+
+```mermaid
+flowchart TD
+    accTitle: bus_routes represented as a directed graph
+    accDescr { Four cities connected by directed bus routes matching the bus_routes table. New York and Boston connect to each other in both directions. New York connects one-way to Washington. Washington connects one-way to Boston. Washington connects one-way to Raleigh. }
+
+    NewYork["New York"]
+    Boston["Boston"]
+    Washington["Washington"]
+    Raleigh["Raleigh"]
+
+    NewYork --> Boston
+    Boston --> NewYork
+    NewYork --> Washington
+    Washington --> Boston
+    Washington --> Raleigh
+```
+
+_The `bus_routes` table as a directed graph: New York and Boston connect both ways, while New York → Washington → Boston/Raleigh are one-way routes._
 
 ```sql
 CREATE TABLE bus_routes (origin VARCHAR(50), dst VARCHAR(50));

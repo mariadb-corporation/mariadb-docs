@@ -38,7 +38,24 @@ The following components are deployed during this procedure:
 
 ## Topology
 
-<figure><img src="../../../../.gitbook/assets/ent-col-single-node-topology-object-no-title.png" alt=""><figcaption></figcaption></figure>
+```mermaid
+flowchart TD
+    accTitle: Single-Node Enterprise Server with ColumnStore Object Storage
+    accDescr {
+        A single MariaDB Enterprise Server node runs the Enterprise ColumnStore
+        storage engine. Enterprise ColumnStore reads and writes its data to and
+        from S3-compatible object storage. This topology has no
+        high-availability layer.
+    }
+    ES[("ES")] --> CS[("ColumnStore")]
+    CS --> S3[("S3")]
+    S3 --> CS
+
+    classDef node fill:#ffe28a,stroke:#8a6d1a,stroke-width:2px,color:#111;
+    class ES,CS,S3 node
+```
+
+_A single MariaDB Enterprise Server node running the Enterprise ColumnStore engine, which reads and writes data to and from S3-compatible object storage._
 
 The Single-Node Enterprise ColumnStore topology provides support for Online Analytical Processing (OLAP) workloads to MariaDB Enterprise Server.
 

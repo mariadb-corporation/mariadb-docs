@@ -15,7 +15,24 @@ Multi Range Read can be used with
 
 as shown in this diagram:
 
-![possible-mrr-uses](../../../.gitbook/assets/possible-mrr-uses.png)
+```mermaid
+flowchart TD
+  accTitle: Possible ways to use MRR
+  accDescr { This diagram shows the possible access methods that can feed into Multi Range Read (MRR). Range access and ref or eq_ref access are the two options; ref and eq_ref access first go through Batched Key Access. Both paths converge on Multi Range Read, which then reads from the storage engine. }
+  A{"Access method"} -->|"ref, eq_ref access"| B["ref, eq_ref access"]
+  A -->|"range access"| C["range access"]
+  B --> D["Batched Key Access"]
+  D --> E["Multi Range Read"]
+  C --> E
+  E --> F["Storage Engine"]
+
+  classDef box fill:#eef2ff,stroke:#33415c,stroke-width:1px,color:#111;
+  classDef decision fill:#fff3cd,stroke:#8a6d00,stroke-width:1px,color:#111;
+  class A decision;
+  class B,C,D,E,F box;
+```
+
+_Possible ways to use MRR: range access, or ref/eq\_ref access via Batched Key Access, both feed into Multi Range Read._
 
 ## The Idea
 

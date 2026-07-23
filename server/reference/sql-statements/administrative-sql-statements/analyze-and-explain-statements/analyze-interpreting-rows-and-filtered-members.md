@@ -45,13 +45,56 @@ The access is performed as follows:
 
 ### Access diagram
 
-![index-read-diagram-3](../../../../.gitbook/assets/index-read-diagram-3.png)
+```mermaid
+flowchart TD
+    accTitle: Storage engine index-read access flow
+    accDescr { The storage engine reads an index tuple, checks it against the pushed index_condition, then against the Rowid Filter; tuples failing either check are excluded. A tuple passing both has its full row read, exiting the storage engine. The server then checks the row against the attached_condition outside the storage engine, excluding it on failure and returning it on success. }
+
+    A(( )) --> Read["Read index tuple"]
+    subgraph SE["Storage Engine"]
+        Read --> ICP{"check<br/>index_condition"}
+        ICP -->|true| RF{"Check<br/>Rowid Filter"}
+        RF -->|match| Full["Read full row"]
+    end
+    ICP -->|false| B(( ))
+    RF -->|"no match"| C(( ))
+    Full --> AC{"Check<br/>attached_condition"}
+    AC -->|false| D(( ))
+    AC -->|true| E(( ))
+```
+
+_The storage engine applies Index Condition Pushdown and the Rowid Filter internally; the server checks `attached_condition` afterwards, outside the storage engine._
 
 ## Statistics values in MariaDB before 11.5
 
 In MariaDB versions before 11.5, the counters were counted as follows:
 
-![index-read-stats-old](../../../../.gitbook/assets/index-read-stats-old.png)
+```mermaid
+flowchart TD
+    accTitle: r_rows and r_filtered counter placement before MariaDB 11.5
+    accDescr { This diagram overlays where MariaDB, before version 11.5, updates its ANALYZE row counters on the storage engine index-read flow. The Rowid Filter's selectivity is counted at the Rowid Filter check inside the storage engine. r_rows is counted once a row has passed the index_condition and Rowid Filter checks and its full row has been read. r_filtered is counted at the attached_condition check outside the storage engine. }
+
+    A(( )) --> Read["Read index tuple"]
+    subgraph SE["Storage Engine"]
+        Read --> ICP{"check<br/>index_condition"}
+        ICP -->|true| RF{"Check<br/>Rowid Filter"}
+        RF -.->|counts| CntRF(["Count<br/>rowid_filter.r_selectivity_pct"])
+        RF -->|match| Full["Read full row"]
+    end
+    ICP -->|false| B(( ))
+    RF -->|"no match"| C(( ))
+    Full --> CntRows(["Count r_rows"])
+    CntRows --> AC{"Check<br/>attached_condition"}
+    AC -.->|counts| CntFiltered(["Count r_filtered"])
+    AC -->|false| D(( ))
+    AC -->|true| E(( ))
+
+    style CntRF fill:#ffff66,stroke:#b8860b,color:#111
+    style CntRows fill:#ffff66,stroke:#b8860b,color:#111
+    style CntFiltered fill:#ffff66,stroke:#b8860b,color:#111
+```
+
+_Before MariaDB 11.5, `r_rows` is counted after the index and Rowid Filter checks, while `r_filtered` counts only the `attached_condition` selectivity._
 
 that is,
 

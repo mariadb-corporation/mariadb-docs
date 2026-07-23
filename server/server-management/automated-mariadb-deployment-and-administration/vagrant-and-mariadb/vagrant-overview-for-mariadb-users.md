@@ -34,7 +34,24 @@ We can use an Ubuntu box as a base to build a Vagrant machine with MariaDB. So w
 
 The following diagram should make the example clear:
 
-![vagrant-virtalbox-ansible](../../../.gitbook/assets/vagrant-virtalbox-ansible.png)
+```mermaid
+flowchart TD
+    accTitle: Vagrant, VirtualBox, and Ansible provisioning flow for MariaDB
+    accDescr { A Vagrantfile is built from the ubuntu/bionic64 base box. The Vagrantfile specifies VirtualBox as the provider and Ansible as the provisioner. VirtualBox creates the virtual machine, and Ansible provisions it with MariaDB, together producing a MariaDB on Ubuntu virtual machine. }
+    A["ubuntu/bionic64"] --> B["Vagrantfile"]
+    B --> C["VirtualBox (provider)"]
+    B --> D["Ansible (provisioner)"]
+    C --> E["MariaDB on Ubuntu (VM)"]
+    D --> E
+
+    style A fill:#d9cee0,stroke:#6b5b73,stroke-width:2px,color:#111
+    style B fill:#c3d6fb,stroke:#1a56e8,stroke-width:2px,color:#111
+    style C fill:#ffe0b3,stroke:#c77f1a,stroke-width:2px,color:#111
+    style D fill:#cfe9fb,stroke:#3a7fb5,stroke-width:2px,color:#111
+    style E fill:#c3e6c3,stroke:#1e7d1e,stroke-width:2px,color:#111
+```
+
+_Vagrant builds a machine from the ubuntu/bionic64 box using a Vagrantfile, which selects VirtualBox as the provider and Ansible as the provisioner to install MariaDB on the resulting VM._
 
 ### Vagrantfiles
 
