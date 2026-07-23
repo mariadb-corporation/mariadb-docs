@@ -14,7 +14,43 @@ MyRocks is an open source storage engine that was originally developed by Facebo
 MyRocks has been extended by the MariaDB engineering team to be a pluggable storage engine that you use in your MariaDB solutions. It works seamlessly with MariaDB features. This openness in the storage layer allows you to use the right storage engine to optimize your usage requirements, which provides optimum performance. Community contributions are one of MariaDB’s greatest advantages over other databases. Under the lead of our developer Sergey Petrunia, MyRocks in MariaDB is occasionally being merged with upstream MyRocks from Facebook.\
 See more at: [facebook-myrocks-mariadb#sthash.ZlEr7kNq.dpuf](https://mariadb.com/resources/blog/facebook-myrocks-mariadb#sthash.ZlEr7kNq.dpuf)
 
-![storage engine options](../../../.gitbook/assets/mariaDBstorageEngineOpt.png)
+```mermaid
+flowchart LR
+    accTitle: MariaDB storage layer extensibility
+    accDescr {
+        MariaDB's pluggable storage engines grouped by purpose. Lightweight engines are MyISAM,
+        Memory, and Aria. Transactional engines are InnoDB and XtraDB. Performance and
+        scalability engines are Spider and MyRocks. The analytics engine is ColumnStore. The
+        interoperability engine is CONNECT. Graph and search engines are OQGRAPH and Mroonga.
+    }
+    subgraph LW["Lightweight"]
+        MyISAM["MyISAM"]
+        Memory["Memory"]
+        Aria["Aria"]
+    end
+    subgraph TX["Transactional"]
+        InnoDB["InnoDB"]
+        XtraDB["XtraDB"]
+    end
+    subgraph PS["Performance &amp; Scalability"]
+        Spider["Spider"]
+        MyRocks["MyRocks"]
+    end
+    subgraph AN["Analytics"]
+        ColumnStore["ColumnStore"]
+    end
+    subgraph IO["Interoperability"]
+        CONNECT["CONNECT"]
+    end
+    subgraph GS["Graph &amp; Search"]
+        OQGRAPH["OQGRAPH"]
+        Mroonga["Mroonga"]
+    end
+    classDef engine fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    class MyISAM,Memory,Aria,InnoDB,XtraDB,Spider,MyRocks,ColumnStore,CONNECT,OQGRAPH,Mroonga engine
+```
+
+_MariaDB's pluggable storage layer: engines grouped by purpose, with MyRocks among the performance-and-scalability engines._
 
 MyRocks, typically, gives greater performance for web scale type applications. It can be an ideal storage engine solution when you have workloads that require greater compression and IO efficiency. It uses a Log Structured Merge (LSM) architecture, which has advantages over B-Tree algorithms, to provide efficient data ingestion, like read-free replication slaves, or fast bulk data loading.\
 MyRocks distinguishing features include:
