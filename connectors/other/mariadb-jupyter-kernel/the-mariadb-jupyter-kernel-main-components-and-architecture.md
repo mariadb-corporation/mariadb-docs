@@ -13,7 +13,53 @@ The [mariadb\_kernel](https://github.com/MariaDB/mariadb_kernel) project is made
 
 Here’s a diagram displaying the relationship between all the main components of the kernel.
 
-![architecture](../../.gitbook/assets/architecture.jpg)
+```mermaid
+flowchart TD
+    accTitle: MariaDB Jupyter kernel component architecture
+    accDescr {
+        MariaDBKernel is the central component. It creates a CodeParser and connects to
+        ClientConfig, MariaDBClient, and MariaDBServer. CodeParser uses a MagicFactory to create
+        magic objects. MariaMagic is the parent of LineMagic and CellMagic; LineMagic provides
+        the LSMagic, Line, and DF magic commands. ClientConfig and MariaDBClient exchange
+        configuration, and MariaDBClient communicates with the MariaDB server. The magic
+        commands use MariaDBClient to obtain query results.
+    }
+    Kernel["MariaDBKernel"]
+    CodeParser["CodeParser"]
+    MagicFactory["MagicFactory"]
+    ClientConfig["ClientConfig"]
+    Client["MariaDBClient"]
+    Server["MariaDBServer"]
+    MariaMagic["MariaMagic"]
+    LineMagic["LineMagic"]
+    CellMagic["CellMagic"]
+    LSMagic["LSMagic"]
+    Line["Line"]
+    DF["DF"]
+    Kernel --> CodeParser
+    Kernel --> ClientConfig
+    Kernel --> Client
+    Kernel --> Server
+    CodeParser --> MagicFactory
+    MariaMagic --> LineMagic
+    MariaMagic --> CellMagic
+    LineMagic --> LSMagic
+    LineMagic --> Line
+    LineMagic --> DF
+    ClientConfig <--> Client
+    Client <--> Server
+    LSMagic -.-> Client
+    Line -.-> Client
+    DF -.-> Client
+    classDef kernel fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef infra fill:#dbe7f5,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    classDef comp fill:#e2efda,stroke:#548235,stroke-width:2px,color:#111;
+    class Kernel kernel
+    class ClientConfig,Client,Server infra
+    class CodeParser,MagicFactory,MariaMagic,LineMagic,CellMagic,LSMagic,Line,DF comp
+```
+
+_The main components of the kernel: MariaDBKernel creates the parser and client/server abstractions; CodeParser builds magic objects through MagicFactory; LineMagic provides the LSMagic, Line, and DF commands, which use MariaDBClient for query results._
 
 When you start a notebook in [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/), Jupyter spawns an instance of [MariaDBKernel](the-mariadb-jupyter-kernel-main-components-and-architecture.md).\
 The kernel then creates a [ClientConfig](the-mariadb-jupyter-kernel-main-components-and-architecture.md) object to read `mariadb_config.json`. If the kernel detects based on the configuration settings that a MariaDB server is up and running, it creates a [MariaDBClient](the-mariadb-jupyter-kernel-main-components-and-architecture.md) object that is responsible for talking to the server. 
@@ -34,7 +80,49 @@ The [CodeParser](the-mariadb-jupyter-kernel-main-components-and-architecture.md)
 
 Now that you have the bottom-up picture of how the components of the kernel interact with each other internally, here's a diagram showing how the kernel fits within the entire picture:
 
-![jupyter\_interaction](../../.gitbook/assets/jupyter_interaction.png)
+```mermaid
+flowchart TD
+    accTitle: How the MariaDB Jupyter kernel fits into JupyterLab
+    accDescr {
+        In the browser, JupyterLab communicates with a Notebook Server. The Notebook Server runs
+        the Matplotlib library, the MariaDB Jupyter kernel, and the Python Jupyter kernel. The
+        MariaDB kernel's magic commands send plotting output to Matplotlib (%pie and %bar) and
+        pass data frames to the Python kernel. The MariaDB kernel drives a MariaDB command-line
+        client and writes to the mariadb.ipynb notebook; the Python kernel writes python.ipynb.
+        The MariaDB command-line client connects to a local server, a remote server, or MariaDB
+        in the cloud.
+    }
+    subgraph Browser["Browser"]
+        JL["JupyterLab"]
+    end
+    subgraph NB["Notebook Server"]
+        MPL["Matplotlib Library<br/>%pie · %bar"]
+        MK["MariaDB Jupyter kernel<br/>%magic"]
+        PK["Python Jupyter kernel<br/>DataFrame"]
+    end
+    CMD["MariaDB CLI client<br/>MariaDB [ ] > ..."]
+    MDBNB["mariadb.ipynb"]
+    PYNB["python.ipynb"]
+    JL <--> NB
+    MK -->|"%pie · %bar"| MPL
+    MK -->|"DataFrame"| PK
+    MK --> CMD
+    MK --> MDBNB
+    PK --> PYNB
+    CMD --> Local[("Local Server")]
+    CMD --> Remote[("Remote Server")]
+    CMD --> Cloud[("MariaDB in the cloud")]
+    classDef ui fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef comp fill:#e2efda,stroke:#548235,stroke-width:2px,color:#111;
+    classDef file fill:#eaeaf5,stroke:#5b4b8a,stroke-width:2px,color:#111;
+    classDef server fill:#dbe7f5,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    class JL ui
+    class MPL,MK,PK comp
+    class CMD,MDBNB,PYNB file
+    class Local,Remote,Cloud server
+```
+
+_The bigger picture: JupyterLab talks to the Notebook Server, where the MariaDB kernel drives a command-line client (reaching local, remote, or cloud servers) and exchanges plots and data frames with Matplotlib and the Python kernel._
 
 ## Components
 

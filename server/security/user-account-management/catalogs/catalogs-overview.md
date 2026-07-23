@@ -27,7 +27,51 @@ The other option is to have a MariaDB container for each tenant. The problem wit
 
 The suggested solution is to solve all of the above and thus create a better multi-tenant database is to add support for catalogs to MariaDB.
 
-The following picture shows the change:![moving-to-catalogs](../../../.gitbook/assets/moving-to-catalogs.png)
+The following picture shows the change:
+
+```mermaid
+flowchart TB
+    accTitle: Moving to catalogs
+    accDescr {
+        A comparison of multi-tenant approaches. In the container or VM approach, one physical
+        machine runs several containers or virtual machines, each with its own database,
+        requiring at least 1 GB per VM. In the shared-server, separate-schema approach, a single
+        MySQL or MariaDB server holds one schema per customer, so customers have a limited number
+        of schemas. The catalogs approach places many customer catalogs on a single MariaDB
+        server, and each catalog can contain many schemas for a single customer, such as WebApp,
+        WordPress, Messaging, Historical Data, Analytics, and MySQL schemas.
+    }
+    subgraph VM["Container / VM approach — 1 GB minimum per VM"]
+        VM1[("Container or VM<br/>database")]
+        VM2[("Container or VM<br/>database")]
+        VM3[("Container or VM<br/>database")]
+    end
+    subgraph SH["Shared Server / Separate Schema — customers have limited schemas"]
+        SHDB[("MySQL / MariaDB Server")]
+        SHDB --- S1["Schema Customer 1"] & S2["Schema Customer 2"] & S3["Schema Customer 3"] & S4["Schema Customer 4"] & S5["Schema Customer 5"] & SMY["MySQL schema"]
+    end
+    subgraph CAT["Catalogs — many customer catalogs on one MariaDB server"]
+        CATDB[("MariaDB Server")]
+        CATDB --- C1["Catalog Customer 1"] & C2["Catalog Customer 2"] & C3["Catalog Customer 3"] & C4["Catalog Customer 4"] & C5["Catalog Customer 5"] & C6["Catalog Customer 6"]
+    end
+    subgraph ONE["Catalog for a single customer"]
+        W["WebApp Schema"]
+        WP["WordPress Schema"]
+        MSG["Messaging Schema"]
+        HD["Historical Data Schema"]
+        AN["Analytics Schema"]
+        CMY["MySQL schema"]
+    end
+    VM -->|Catalogs| CAT
+    SH -->|Catalogs| CAT
+    C3 -.-> ONE
+    classDef db fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef schema fill:#eaeaf5,stroke:#5b4b8a,stroke-width:2px,color:#111;
+    class VM1,VM2,VM3,SHDB,CATDB db
+    class S1,S2,S3,S4,S5,SMY,C1,C2,C3,C4,C5,C6,W,WP,MSG,HD,AN,CMY schema
+```
+
+_Moving to catalogs: instead of one VM or one schema per customer, a single MariaDB server hosts many customer catalogs, and each catalog holds all of that customer's schemas._
 
 By each user having their own catalog, they will get very close to the same user experience as if they would have the MariaDB server for themselves.
 
