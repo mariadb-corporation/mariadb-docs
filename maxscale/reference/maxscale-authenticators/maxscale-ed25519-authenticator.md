@@ -11,7 +11,7 @@ description: >-
 
 Ed25519 is a highly secure authentication method based on public key cryptography. It is used with the `auth_ed25519` plugin of MariaDB Server.
 
-When a client authenticates via ed25519, MaxScale first sends them a random message. The client signs the message using their password as private key and sends the signature back. MaxScale then checks the signature using the public key fetched from the `mysql.user` table. The client password or an equivalent token is never exposed. For more information, see the [ed25519 plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-ed25519) documentation.
+When a client authenticates via ed25519, MaxScale first sends them a random message. The client signs the message using their password as private key and sends the signature back. MaxScale then checks the signature using the public key fetched from the `mysql.user` table. The client password or an equivalent token is never exposed. For more information, see the [ed25519 plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-ed25519) documentation.
 
 The security of this authentication scheme presents a problem for a proxy such as MaxScale since MaxScale needs to log in to backend servers on behalf of the client. Since each server generates their own random messages, MaxScale cannot simply forward the original signature. Either the real password is required, or a different authentication scheme must be used between MaxScale and backends. The MaxScale `ed25519auth` plugin supports both alternatives.
 
