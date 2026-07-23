@@ -31,6 +31,10 @@ jobs:
         uses: lycheeverse/lychee-action@v2.3.0
         with:
           # ADDED: Excludes for both raw '{' and encoded '%7B'
+          # Flaky/example external hosts (bottom of the list): mcs1 is a
+          # placeholder hostname in ColumnStore cmapi curl samples; the rest
+          # time out, rate-limit (429), or return cert errors from CI but are
+          # otherwise valid links.
           args: >-
             --no-progress
             --exclude dev\.mysql\.com
@@ -63,6 +67,11 @@ jobs:
             --exclude www\.canonware\.com
             --exclude www\.npmjs\.com
             --exclude npmjs\.org
+            --exclude mcs1
+            --exclude s\.petrunia\.net
+            --exclude mysql\.taobao\.org
+            --exclude www\.shannon-sys\.com
+            --exclude www\.hashicorp\.com
             ${{ steps.changes.outputs.all_changed_files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
