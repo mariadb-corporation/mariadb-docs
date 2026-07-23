@@ -13,9 +13,47 @@ The relational database model uses certain terms to describe its components:
 * A key accesses specific records in a table.
 * An index is a mechanism to improve the performance of a database. Indexes are often confused with keys. Indexes are, strictly speaking, part of the physical structure, and keys are part of the logical structure. You'll often see the terms used interchangeably, however, including throughout this documentation.
 * A view is a virtual table made up of a subset of the actual tables.
-* A one-to-one (1:1) relationship is where for each instance of the first table in a relationship, only one instance of the second table exists, An example of this would be a case where a chain of stores carries a vending machine. Each vending machine can only be in one store, and each store carries only one vending machine.![one\_to\_one\_relationship](../.gitbook/assets/one_to_one_relationship.png)
-* A one-to-many (1:N) relationship is where for each instance of the first table in a relationship, many instances of the second table exist. This is a common kind of relationship. An example is the relationship between a sculptor and their sculptures. Each sculptor may have created many sculptures, but each sculpture has been created by only one sculptor.![one\_to\_many\_relationship](../.gitbook/assets/one_to_many_relationship.png)
-* A many-to-many (M:N) relationship occurs where, for each instance of the first table, there are many instances of the second table, and for each instance of the second table, there are many instances of the first. For example, a student can have many lecturers, and a lecturer can have many students.![many\_to\_many\_relationship](../.gitbook/assets/many_to_many_relationship.png)
+* A one-to-one (1:1) relationship is where for each instance of the first table in a relationship, only one instance of the second table exists, An example of this would be a case where a chain of stores carries a vending machine. Each vending machine can only be in one store, and each store carries only one vending machine.
+
+```mermaid
+erDiagram
+    accTitle: Vending machine to store relationship
+    accDescr {
+        Each vending machine appears in exactly one store, and each store carries
+        exactly one vending machine. This is a one-to-one relationship.
+    }
+    VENDING_MACHINE ||--|| STORE : "appears in"
+```
+
+_A vending machine appears in exactly one store (one-to-one)._
+
+* A one-to-many (1:N) relationship is where for each instance of the first table in a relationship, many instances of the second table exist. This is a common kind of relationship. An example is the relationship between a sculptor and their sculptures. Each sculptor may have created many sculptures, but each sculpture has been created by only one sculptor.
+
+```mermaid
+erDiagram
+    accTitle: Sculptor to sculpture relationship
+    accDescr {
+        One sculptor sculpts many sculptures; each sculpture is made by exactly one
+        sculptor. This is a one-to-many relationship.
+    }
+    SCULPTOR ||--o{ SCULPTURE : sculpts
+```
+
+_A sculptor sculpts many sculptures, but each sculpture has only one sculptor (one-to-many)._
+
+* A many-to-many (M:N) relationship occurs where, for each instance of the first table, there are many instances of the second table, and for each instance of the second table, there are many instances of the first. For example, a student can have many lecturers, and a lecturer can have many students.
+
+```mermaid
+erDiagram
+    accTitle: Student to lecturer relationship
+    accDescr {
+        Each student is taught by one or more lecturers, and each lecturer teaches
+        one or more students. This is a many-to-many relationship.
+    }
+    STUDENT }|--|{ LECTURER : "is taught by"
+```
+
+_A student is taught by many lecturers, and a lecturer teaches many students (many-to-many)._
 * A mandatory relationship exists where for each instance of the first table in a relationship, one or more instances of the second must exist. For example, for a music group to exist, there must exist at least one musician in that group.
 * An optional relationship is where for each instance of the first table in a relationship, there may exist instances of the second. For example, if an author can be listed in the database without having written a book (in other words, a prospective author), that relationship is optional. The reverse isn't necessarily true though. For example, for a book to be listed, it must have an author.
 * Data integrity refers to the condition where data is accurate, valid, and consistent. An example of poor integrity would be if a customer telephone number is stored differently in two different locations. Another is where a course record contains a reference to a lecturer who is no longer present at the school. [Database normalization](database-normalization/) is a technique that assists you to minimize the risk of these sorts of problems.
