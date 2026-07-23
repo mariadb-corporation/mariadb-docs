@@ -1093,7 +1093,44 @@ If a MaxScale instance tries to acquire the locks but fails to get majority (per
 
 The flowchart below illustrates the lock handling logic.
 
-![](../../.gitbook/assets/coop_lock_flowchart.svg.svg)
+```mermaid
+flowchart TD
+    accTitle: MaxScale cooperative monitoring — acquiring the primary lock majority
+    accDescr {
+        The MariaDB Monitor's cooperative-locking decision on each monitor tick. The monitor
+        tick starts and checks lock status on all servers. If this MaxScale already has a
+        majority of locks, it acquires any remaining free locks and continues as the primary
+        MaxScale. If it does not have a majority, it checks whether it can get a majority. If it
+        cannot, it continues as a secondary MaxScale. If it can, it acquires all free locks and
+        rechecks whether it got a majority: if yes, it continues as the primary MaxScale; if no,
+        it releases all acquired locks and continues as a secondary MaxScale.
+    }
+    Start(["Monitor tick start"])
+    Check["Check lock status on all servers"]
+    Have{"Have majority?"}
+    CanGet{"Can get majority?"}
+    AcqRemaining["Acquire any remaining free locks"]
+    AcqAll["Acquire all free locks"]
+    Got{"Got majority?"}
+    Release["Release all acquired locks"]
+    Primary(["Continue as primary MaxScale"])
+    Secondary(["Continue as secondary MaxScale"])
+    Start --> Check --> Have
+    Have -->|Yes| AcqRemaining --> Primary
+    Have -->|No| CanGet
+    CanGet -->|Yes| AcqAll --> Got
+    CanGet -->|No| Secondary
+    Got -->|Yes| Primary
+    Got -->|No| Release --> Secondary
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef decision fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef terminal fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    class Check,AcqRemaining,AcqAll,Release proc
+    class Have,CanGet,Got decision
+    class Start,Primary,Secondary terminal
+```
+
+_MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds (or can acquire) a majority of server locks becomes primary; otherwise it releases any locks and continues as secondary._
 
 ### Releasing locks
 

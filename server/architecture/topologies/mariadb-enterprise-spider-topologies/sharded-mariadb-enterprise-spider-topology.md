@@ -28,7 +28,32 @@ The Spider Sharded topology:
 
 ## Sharded MariaDB Enterprise Spider Topology
 
-<figure><img src="../../../.gitbook/assets/spider-sharded (1).svg" alt=""><figcaption></figcaption></figure>
+```mermaid
+flowchart LR
+    accTitle: Sharded Spider topology
+    accDescr {
+        A client connects to a Spider Node, a MariaDB Enterprise Server running the Spider
+        storage engine and holding a partitioned virtual Sharded Spider Table. Using the
+        MariaDB foreign data wrapper, the Spider Node reads from and writes to a Data Table on
+        each of several Data Nodes, one per partition (shard); every Data Node is a MariaDB
+        Enterprise Server running a non-Spider storage engine.
+    }
+    Client["Client"]
+    Spider[("Spider Node<br/>Enterprise Server")]
+    S1[("Data Node<br/>shard 1")]
+    S2[("Data Node<br/>shard 2")]
+    S3[("Data Node<br/>shard 3")]
+    Client --> Spider
+    Spider <-->|"rw · Spider sharding"| S1
+    Spider <-->|"rw · Spider sharding"| S2
+    Spider <-->|"rw · Spider sharding"| S3
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    class Spider,S1,S2,S3 node
+    class Client client
+```
+
+_Sharded Spider: a Spider Node distributes the partitions of a virtual sharded table across multiple Data Nodes (shards) via the Spider foreign data wrapper._
 
 In the Spider Sharded topology, a Spider Node contains one or more "virtual" Spider Tables. A Spider Table does not store data. When a Spider Table is queried in this topology, the Enterprise Spider storage engine uses a MariaDB foreign data wrapper to read from and write to Data Tables on Data Nodes. The data for the Spider Table is partitioned among the Data Nodes using the regular partitioning syntax.
 
