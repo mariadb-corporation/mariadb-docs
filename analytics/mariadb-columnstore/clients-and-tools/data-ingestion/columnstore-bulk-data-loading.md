@@ -98,7 +98,27 @@ Options:
 
 In this mode, you run the cpimport from your primary node (`mcs1`). The source file is located at this primary location and the data from cpimport is distributed across all the nodes. If no mode is specified, then this is the default.
 
-![cpimport-mode1](../../../.gitbook/assets/cpimport-mode1.png)
+```mermaid
+flowchart LR
+    accTitle: cpimport Mode 1 — bulk load from a central location with a single data source file
+    accDescr {
+        A single source file (text, JSON, or XML) is read by one cpimport process running at a
+        central location. cpimport loads the data into the first ColumnStore node, MCS 1, which
+        then distributes the data across the cluster to nodes MCS 2 and MCS 3.
+    }
+    Src["Source File<br/>txt / json / xml"] --> CP{{cpimport}}
+    CP --> MCS1[("MCS 1")]
+    MCS1 --> MCS2[("MCS 2")]
+    MCS1 --> MCS3[("MCS 3")]
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    class MCS1,MCS2,MCS3 node
+    class CP proc
+    class Src file
+```
+
+_Mode 1: one cpimport process at a central location loads a single source file into MCS 1, which distributes the data to the other nodes._
 
 Example:
 
@@ -110,7 +130,30 @@ cpimport -m1 mytest mytable mytable.tbl
 
 In this mode, you run the cpimport from your primary node (mcs1). The source data is in already partitioned data files residing on the PMs. Each PM should have the source data file of the same name but containing the partitioned data for the PM
 
-![cpimport-mode2](../../../.gitbook/assets/cpimport-mode2.png)
+```mermaid
+flowchart LR
+    accTitle: cpimport Mode 2 — bulk load from a central location with distributed data source files
+    accDescr {
+        One cpimport process runs at a central location and loads into the first ColumnStore
+        node, MCS 1, which distributes data across the cluster to MCS 2 and MCS 3. In addition,
+        each node reads its own partitioned source file: MCS 1 reads partitioned source file 1,
+        MCS 2 reads partitioned source file 2, and MCS 3 reads partitioned source file 3.
+    }
+    CP{{cpimport}} --> MCS1[("MCS 1")]
+    SF1["Partitioned<br/>Source File 1"] --> MCS1
+    MCS1 --> MCS2[("MCS 2")]
+    MCS1 --> MCS3[("MCS 3")]
+    SF2["Partitioned<br/>Source File 2"] --> MCS2
+    SF3["Partitioned<br/>Source File 3"] --> MCS3
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    class MCS1,MCS2,MCS3 node
+    class CP proc
+    class SF1,SF2,SF3 file
+```
+
+_Mode 2: cpimport runs centrally through MCS 1, while each node also reads its own partitioned source file._
 
 Example:
 
@@ -122,7 +165,27 @@ cpimport -m2 mytest mytable -l /home/mydata/mytable.tbl
 
 In this mode, you run cpimport from the individual nodes independently, which will import the source file that exists on that node. Concurrent imports can be executed on every node for the same table.
 
-![cpimport-mode3](../../../.gitbook/assets/cpimport-mode3.png)
+```mermaid
+flowchart LR
+    accTitle: cpimport Mode 3 — parallel distributed bulk load
+    accDescr {
+        Each ColumnStore node runs its own cpimport process in parallel, loading its own
+        partitioned source file locally. Partitioned source file 1 is loaded by a cpimport
+        process into MCS 1, partitioned source file 2 into MCS 2, and partitioned source file 3
+        into MCS 3. There is no central node and no cluster-wide redistribution.
+    }
+    SF1["Partitioned<br/>Source File 1"] --> CP1{{cpimport}} --> MCS1[("MCS 1")]
+    SF2["Partitioned<br/>Source File 2"] --> CP2{{cpimport}} --> MCS2[("MCS 2")]
+    SF3["Partitioned<br/>Source File 3"] --> CP3{{cpimport}} --> MCS3[("MCS 3")]
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    class MCS1,MCS2,MCS3 node
+    class CP1,CP2,CP3 proc
+    class SF1,SF2,SF3 file
+```
+
+_Mode 3: every node runs its own cpimport in parallel on its own partitioned source file, with no central node._
 
 Example:
 

@@ -108,11 +108,85 @@ MariaDB ColumnStore supports multiple storage types:
 
 ### Deployment with S3-Compatible Storage
 
-![EntColumnStoreTopologyS3-Network-Diagram](../../.gitbook/assets/entcolumnstoretopologys3-network-diagram.png)
+```mermaid
+flowchart TD
+    accTitle: MariaDB Enterprise ColumnStore using S3-compatible storage
+    accDescr {
+        Client and application queries reach a highly available pair of MaxScale instances,
+        which coordinate their configuration through a shared Redis cache. MaxScale routes
+        queries and handles failover to a ColumnStore cluster made up of one primary node and
+        two replica nodes. The cluster stores Enterprise ColumnStore metadata on shared storage
+        and stores the ColumnStore data on S3-compatible object storage.
+    }
+    Client["Client"]
+    Redis[("Shared Redis Cache")]
+    subgraph MX["MaxScale (highly available)"]
+        MX1["MaxScale Instance"]
+        MX2["MaxScale Instance"]
+    end
+    subgraph CS["ColumnStore cluster"]
+        P[("ColumnStore<br/>Primary Node")]
+        R1[("ColumnStore<br/>Replica Node")]
+        R2[("ColumnStore<br/>Replica Node")]
+        P --> R1
+        P --> R2
+    end
+    Meta[("Shared Storage")]
+    S3[("S3-Compatible Storage")]
+    Client -->|"Client / application queries"| MX
+    MX <-->|"Deployment configuration"| Redis
+    MX -->|"Query routing and failover"| CS
+    CS <-->|"Enterprise ColumnStore metadata"| Meta
+    CS <-->|"Enterprise ColumnStore data"| S3
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    class MX1,MX2,P,R1,R2 node
+    class Redis,Meta,S3 storage
+    class Client client
+```
+
+_MaxScale (an HA pair sharing a Redis cache) routes queries to a ColumnStore primary and two replicas; metadata lives on shared storage and data on S3-compatible object storage._
 
 ### Deployment with Shared Storage
 
-![EntColStoreTopologySharedStorageNetworkDiagram](../../.gitbook/assets/entcolstoretopologysharedstoragenetworkdiagram.png)
+```mermaid
+flowchart TD
+    accTitle: MariaDB Enterprise ColumnStore using shared storage
+    accDescr {
+        Client and application queries reach a highly available pair of MaxScale instances,
+        which coordinate their configuration through a shared Redis cache. MaxScale routes
+        queries and handles failover to a ColumnStore cluster made up of one primary node and
+        two replica nodes. The cluster stores both Enterprise ColumnStore metadata and data on
+        shared storage.
+    }
+    Client["Client"]
+    Redis[("Shared Redis Cache")]
+    subgraph MX["MaxScale (highly available)"]
+        MX1["MaxScale Instance"]
+        MX2["MaxScale Instance"]
+    end
+    subgraph CS["ColumnStore cluster"]
+        P[("ColumnStore<br/>Primary Node")]
+        R1[("ColumnStore<br/>Replica Node")]
+        R2[("ColumnStore<br/>Replica Node")]
+        P --> R1
+        P --> R2
+    end
+    Shared[("Shared Storage")]
+    Client -->|"Client / application queries"| MX
+    MX <-->|"Deployment configuration"| Redis
+    MX -->|"Query routing and failover"| CS
+    CS <-->|"Enterprise ColumnStore metadata and data"| Shared
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    class MX1,MX2,P,R1,R2 node
+    class Redis,Shared storage
+    class Client client
+```
+
+_The same topology using shared storage for both ColumnStore metadata and data._
 
 ## S3-Compatible Object Storage
 

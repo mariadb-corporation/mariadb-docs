@@ -6,7 +6,32 @@ description: Deploy Spider Federated Topology
 
 ## Overview
 
-<table><thead><tr><th valign="top">Software Version</th><th>Diagram</th><th valign="top">Features</th></tr></thead><tbody><tr><td valign="top"><ul><li>Enterprise Server 10.4</li><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul></td><td><img src="../../../.gitbook/assets/spider-federated.svg" alt=""></td><td valign="top"><p><strong>Read from and write to tables on remote ES nodes</strong></p><ul><li>Spider Node uses Spider storage engine for Federated Spider Tables</li><li>Federated Spider Table is a "virtual" table</li><li>Spider uses MariaDB foreign data wrapper to query Data Table on Data Node</li><li>Data Node uses non-Spider storage engine for Data Tables</li><li>Supports transactions</li><li>Enterprise Server 10.3+, Enterprise Spider</li></ul></td></tr></tbody></table>
+```mermaid
+flowchart LR
+    accTitle: Spider Federated topology
+    accDescr {
+        A client connects to a Spider Node, a MariaDB Enterprise Server running the Spider
+        storage engine and holding virtual Spider Tables. Using the MariaDB Spider federation
+        (a foreign data wrapper), the Spider Node reads from and writes to a Data Table on a
+        separate Data Node, which is another MariaDB Enterprise Server running a non-Spider
+        storage engine.
+    }
+    Client["Client"]
+    Spider[("Spider Node<br/>Enterprise Server")]
+    Data[("Data Node<br/>Enterprise Server")]
+    Client --> Spider
+    Spider <-->|"rw · Spider MariaDB federation"| Data
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    class Spider,Data node
+    class Client client
+```
+
+_In the Spider Federated topology, a Spider Node uses the MariaDB Spider federation to read from and write to a Data Table on a separate Data Node._
+
+<ul><li>Enterprise Server 10.4</li><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul>
+
+<p><strong>Read from and write to tables on remote ES nodes</strong></p><ul><li>Spider Node uses Spider storage engine for Federated Spider Tables</li><li>Federated Spider Table is a "virtual" table</li><li>Spider uses MariaDB foreign data wrapper to query Data Table on Data Node</li><li>Data Node uses non-Spider storage engine for Data Tables</li><li>Supports transactions</li><li>Enterprise Server 10.3+, Enterprise Spider</li></ul>
 
 This procedure describes the deployment of the **Spider Federated topology** with MariaDB Enterprise Server
 
@@ -43,8 +68,6 @@ The following components are deployed during this procedure:
 <table><thead><tr><th width="240.073974609375">Term</th><th>Definition</th></tr></thead><tbody><tr><td>Data Node</td><td>A Data Node is a MariaDB Enterprise Server node that contains one or more Data Tables.</td></tr><tr><td>Data Table</td><td>A Data Table stores data for a Spider Table. When a Spider Table is queried, the Enterprise Spider storage engine uses the MariaDB foreign data wrapper to read from and write to the Data Table on a Data Node. The Data Table must be created on the Data Node with the same structure as the Spider Table. The Data Table must use a non-Spider storage engine, such as <a href="../../../server-usage/storage-engines/innodb/">InnoDB</a> or <a href="https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-engine-overview">ColumnStore</a>.</td></tr><tr><td>ODBC Data Source</td><td>An ODBC Data Source relies on an ODBC Driver and an ODBC Driver Manager to query an external data source.</td></tr><tr><td>ODBC Driver</td><td>An ODBC Driver is a library that integrates with a ODBC Driver Manager to query an external data source.</td></tr><tr><td>ODBC Driver Manager</td><td>An ODBC Driver Manager allows applications to use ODBC Drivers.</td></tr><tr><td>Spider Node</td><td>A Spider Node is a MariaDB Enterprise Server node that contains one or more Spider Tables.</td></tr><tr><td>Spider Node</td><td>A Spider Table is a virtual table that does not store data. When a Spider Table is queried, the <a href="../../../server-usage/storage-engines/spider/">Enterprise Spider storage engine</a> uses foreign data wrappers to read from and write to Data Tables on Data Nodes or ODBC Data Sources.</td></tr></tbody></table>
 
 ## Topology
-
-<figure><img src="../../../.gitbook/assets/spider-federated.svg" alt=""><figcaption></figcaption></figure>
 
 In the Spider Federated topology, a Spider Node contains one or more "virtual" Spider Tables. A Spider Table does not store data. When a Spider Table is queried, the Enterprise Spider storage engine uses a MariaDB foreign data wrapper to read from and write to a Data Table on a Data Node.
 

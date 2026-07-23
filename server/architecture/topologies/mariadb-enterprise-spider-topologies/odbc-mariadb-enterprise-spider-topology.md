@@ -24,9 +24,29 @@ The Spider ODBC topology:
 * Can be used to join ODBC Data Sources with tables on the Spider Node using the ODBC foreign data wrapper.
 * Can be used to migrate table data from ODBC Data Sources to the Spider Node using the ODBC foreign data wrapper.
 
-ODBC MariaDB Enterprise Spider Topology
+```mermaid
+flowchart LR
+    accTitle: ODBC Spider topology
+    accDescr {
+        A client connects to a Spider Node, a MariaDB Enterprise Server running the Spider
+        storage engine and holding virtual Spider Tables. Using the Spider ODBC federation
+        (an ODBC foreign data wrapper), the Spider Node reads from and writes to an external
+        ODBC Data Source, such as Microsoft SQL Server, Oracle, or PostgreSQL.
+    }
+    Client["Client"]
+    Spider[("Spider Node<br/>Enterprise Server")]
+    ODBC[("ODBC Data Source<br/>SQL Server · Oracle · PostgreSQL")]
+    Client --> Spider
+    Spider <-->|"rw · Spider ODBC federation"| ODBC
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef external fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    class Spider node
+    class ODBC external
+    class Client client
+```
 
-<figure><img src="../../../.gitbook/assets/spider-federated-odbc.svg" alt=""><figcaption></figcaption></figure>
+_In the Spider ODBC topology, a Spider Node uses an ODBC foreign data wrapper to read from and write to an external ODBC Data Source._
 
 In the Spider ODBC topology, a Spider Node contains one or more "virtual" Spider Tables. A Spider Table does not store data. When the Spider Table is queried in this topology, the Enterprise Spider storage engine uses an ODBC foreign data wrapper to read from and write to an ODBC Data Source.
 
