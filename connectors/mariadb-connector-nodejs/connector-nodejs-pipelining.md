@@ -38,7 +38,45 @@ connection.query("INSERT INTO BASKET(customerId) values (?)", [1], (err, res) =>
 
 ## Network Exchanges
 
-![pipelining](../.gitbook/assets/pipelining.png)
+```mermaid
+sequenceDiagram
+    accTitle: Standard ping-pong versus pipelining request/response exchanges
+    accDescr {
+        In the standard ping-pong pattern, the connector sends one query and waits for
+        its response before sending the next, so each INSERT and the COMMIT round-trip
+        individually. With pipelining, the connector sends the three basket_item INSERT
+        queries back to back without waiting, then receives their three responses in
+        turn, before finally sending COMMIT and waiting for its response.
+    }
+    participant C as Connector
+    participant D as Database
+
+    Note over C,D: Standard "ping-pong"
+    C->>D: send INSERT INTO BASKET
+    D-->>C: INSERT INTO BASKET response
+    C->>D: send INSERT INTO BASKET_ITEM
+    D-->>C: INSERT INTO BASKET_ITEM response
+    C->>D: send INSERT INTO BASKET_ITEM
+    D-->>C: INSERT INTO BASKET_ITEM response
+    C->>D: send INSERT INTO BASKET_ITEM
+    D-->>C: INSERT INTO BASKET_ITEM response
+    C->>D: send COMMIT
+    D-->>C: COMMIT response
+
+    Note over C,D: Pipelining
+    C->>D: send INSERT INTO BASKET
+    D-->>C: INSERT INTO BASKET response
+    C->>D: send INSERT INTO BASKET_ITEM
+    C->>D: send INSERT INTO BASKET_ITEM
+    C->>D: send INSERT INTO BASKET_ITEM
+    D-->>C: INSERT INTO BASKET_ITEM response
+    D-->>C: INSERT INTO BASKET_ITEM response
+    D-->>C: INSERT INTO BASKET_ITEM response
+    C->>D: send COMMIT
+    D-->>C: COMMIT response
+```
+
+_Standard ping-pong waits for each response before sending the next query; pipelining sends the basket_item queries back to back and receives their responses afterward._
 
 Using the standard client-server protocol, the Connector communicates with the database following a request-response messaging pattern. The Connector sends a command, then doesn't send another until it receives a response from the input socket.
 
