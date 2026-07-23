@@ -371,7 +371,53 @@ The CMAPI server has a role in automatic failover. After MaxScale performs autom
 
 ## Data Loading
 
-![ECStoreDataLoadingS3FlowChart](../../.gitbook/assets/ecstoredataloadings3flowchart.png)
+```mermaid
+flowchart LR
+    accTitle: Data loading flow from an application to S3-compatible storage in MariaDB Enterprise ColumnStore
+    accDescr {
+        An application sends a LOAD DATA INFILE query to the MariaDB Enterprise
+        Server client TCP port, which executes the query on the accounts.contacts
+        table. The table passes the query to the ColumnStore storage engine, which
+        streams the source file to the Shell, where cpimport.bin executes on
+        contacts.tsv. cpimport.bin sends the new data to the WriteEngine process,
+        bypassing the SQL layer, which passes it to the Storage Manager. The
+        Storage Manager writes the new data to the local cache, which appends it
+        to the existing table in S3-compatible storage.
+    }
+    App["Application"]
+    subgraph MES["MariaDB Enterprise Server"]
+        Client["MariaDB Enterprise<br/>Server client<br/>TCP port"]
+        Table["accounts.contacts"]
+    end
+    subgraph MCS["MariaDB Enterprise ColumnStore"]
+        CSEngine{{"ColumnStore<br/>Storage Engine"}}
+        WE{{"WriteEngine<br/>process"}}
+        SM{{"Storage Manager"}}
+        Cache[("Local Cache")]
+    end
+    S3[("S3-Compatible<br/>Storage")]
+    subgraph Shell["Shell"]
+        CPImport{{"cpimport.bin"}}
+        TSV["contacts.tsv<br/>&lt;stream&gt;"]
+    end
+    App -->|"1. Query<br/>LOAD DATA INFILE 'contacts.tsv'<br/>INTO TABLE accounts.contacts;"| Client
+    Client -->|"2. Query executed on table"| Table
+    Table -->|"3. Passes query to ColumnStore storage engine"| CSEngine
+    CSEngine -->|"4. Streams file from client"| TSV
+    TSV -->|"5. Executes cpimport.bin and<br/>pipes file to command"| CPImport
+    CPImport -->|"6. Sends new data to WriteEngine process.<br/>Bypasses SQL layer"| WE
+    WE -->|"7. Passes new data to the Storage Manager"| SM
+    SM -->|"8. Writes new data to local cache"| Cache
+    Cache -->|"9. Appends new data to existing table<br/>in S3-compatible storage"| S3
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    class App,Client,Table,Cache,S3 node
+    class CSEngine,WE,SM,CPImport proc
+    class TSV file
+```
+
+_Data loading with MariaDB Enterprise ColumnStore: a client query streams contacts.tsv through cpimport into the WriteEngine process, the Storage Manager, and the local cache, which appends the new data to S3-compatible storage._
 
 MariaDB ColumnStore performs bulk data loads very efficiently using a variety of mechanisms including the cpimport tool, specialized handling of certain SQL statements, and minimal locking during data import.
 

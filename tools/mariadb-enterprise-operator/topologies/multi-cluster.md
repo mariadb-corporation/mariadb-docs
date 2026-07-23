@@ -54,7 +54,79 @@ Place replica clusters closer to your application instances to reduce network la
 
 ## Architecture
 
-![Multi-cluster architecture](../../.gitbook/assets/multi-cluster.png)
+```mermaid
+flowchart TD
+    accTitle: Multi-cluster MariaDB Enterprise Kubernetes Operator topology
+    accDescr {
+      A Client connects through an external LoadBalancer, which routes traffic
+      into the Primary Cluster (Kubernetes cluster eu-south) MaxScale Service.
+      Inside the Primary Cluster, the MaxScale Service routes to pods
+      maxscale-0 and maxscale-1, which route into the MariaDB Cluster
+      containing mariadb-0 (Primary) and mariadb-1 (Replica). A
+      mariadb-operator pod provisions, configures, and monitors the MariaDB
+      Cluster, and separately takes physical backups from mariadb-1
+      (Replica). The Replica Cluster (Kubernetes cluster eu-central) mirrors
+      this structure: its MaxScale Service routes to its own maxscale-0 and
+      maxscale-1 pods, which route into its MariaDB Cluster containing
+      mariadb-0 (Primary Replica) and mariadb-1 (Secondary Replica). Its own
+      mariadb-operator pod provisions, configures, and monitors that MariaDB
+      Cluster, but takes no backups there. The Replica Cluster's mariadb-0
+      (Primary Replica) pod replicates from the Primary Cluster's MaxScale
+      Service, forming the cross-cluster replication connection.
+    }
+
+    client(["Client"]):::client
+    lb["LoadBalancer"]:::client
+
+    subgraph primary["Primary Cluster @ eu-south"]
+        p_svc["MaxScale Service"]:::node
+        p_ms0["maxscale-0<br/>pod"]:::node
+        p_ms1["maxscale-1<br/>pod"]:::node
+        p_op["mariadb-operator<br/>pod"]:::proc
+
+        p_svc --> p_ms0
+        p_svc --> p_ms1
+
+        subgraph p_cluster["MariaDB Cluster"]
+            p_db0[("mariadb-0<br/>pod<br/>Primary")]:::node
+            p_db1[("mariadb-1<br/>pod<br/>Replica")]:::node
+        end
+
+        p_ms0 --> p_cluster
+        p_ms1 --> p_cluster
+        p_op -- "Provision, configure and monitor cluster" --> p_cluster
+        p_op -- "Take physical backups" --> p_db1
+    end
+
+    subgraph replica["Replica Cluster @ eu-central"]
+        r_svc["MaxScale Service"]:::node
+        r_ms0["maxscale-0<br/>pod"]:::node
+        r_ms1["maxscale-1<br/>pod"]:::node
+        r_op["mariadb-operator<br/>pod"]:::proc
+
+        r_svc --> r_ms0
+        r_svc --> r_ms1
+
+        subgraph r_cluster["MariaDB Cluster"]
+            r_db0[("mariadb-0<br/>pod<br/>Primary Replica")]:::node
+            r_db1[("mariadb-1<br/>pod<br/>Secondary Replica")]:::node
+        end
+
+        r_ms0 --> r_cluster
+        r_ms1 --> r_cluster
+        r_op -- "Provision, configure and monitor cluster" --> r_cluster
+    end
+
+    client --> lb
+    lb --> p_svc
+    r_db0 -- "Replicate from" --> p_svc
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+```
+
+_A client connects via a LoadBalancer to the Primary Cluster's MaxScale Service in eu-south, which routes to the Primary Cluster's MariaDB pods managed by its own mariadb-operator. The Replica Cluster in eu-central mirrors this structure, and its primary replica Pod replicates from the Primary Cluster's MaxScale Service._
 
 The multi-cluster architecture consists of the following components:
 

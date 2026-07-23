@@ -31,7 +31,46 @@ While hardware failures are a possibility, a more common scenario we see in prac
 
 Behind the scenes, MariaDB Cloud consistently directs SQL through its intelligent proxy. This proxy not only continuously monitors servers for failures but also remains acutely aware of any replication lags in the replica servers. Should a primary server fail, an immediate election process ensues to select a replica with the least lag. Simultaneously, attempts are made to flush any pending events, ensuring synchronization and full data consistency. Any pending transactions on the primary server are also replayed. Collectively, these measures enable applications to operate without connection-level interruptions or SQL exceptions. Achieving heightened levels of High Availability (HA) is effortlessly attainable by expanding the number of replicas. Replication can even extend across different cloud providers or to a self-managed (ˮpeace of mindˮ) replica within a customerʼs own environment.
 
-<figure><img src="../.gitbook/assets/HA_in_single_region.drawio.png" alt=""><figcaption></figcaption></figure>
+```mermaid
+flowchart TD
+    accTitle: HA within a single region
+    accDescr {
+      Architecture diagram of MariaDB Cloud High Availability within a single cloud region, split into Availability Zone 1 and Availability Zone 2.
+      In Availability Zone 1: a Data Center Storage Server holds the primary disk and is bidirectionally connected to the primary MariaDB Server pod; the storage server keeps a redundant copy of the disk on a second Data Center Storage Server (relationship 1). If the primary MariaDB Server pod's instance fails, it is auto-recovered into a new pod within the same zone (relationship 2, shown dashed).
+      The SkySQL Intelligent Proxy connects bidirectionally to the primary MariaDB Server and to the App Clients.
+      In Availability Zone 2: a MariaDB Server Replica pod, and a second, standby SkySQL Intelligent Proxy.
+      Relationship 3: if the primary MariaDB Server fails, the SkySQL Intelligent Proxy elects the MariaDB Server Replica in Availability Zone 2 as the new Primary and fails over to it.
+      Relationship 4: the primary SkySQL Intelligent Proxy is itself protected against failure by the second, standby SkySQL Intelligent Proxy in Availability Zone 2.
+    }
+
+    AppClients[App Clients]:::client
+    Proxy1[SkySQL Intelligent Proxy]:::proc
+
+    subgraph AZ1["Availability Zone 1"]
+        Storage1["Data Center<br/>Storage Server"]:::storage
+        Storage2["Data Center<br/>Storage Server"]:::storage
+        DBPrimary[("MariaDB Server")]:::node
+        DBRecovered[("MariaDB Server<br/>(auto-recovered pod)")]:::node
+    end
+
+    subgraph AZ2["Availability Zone 2"]
+        DBReplica[("MariaDB Server<br/>(Replica)")]:::node
+        Proxy2[SkySQL Intelligent Proxy]:::proc
+    end
+
+    Storage1 <--> DBPrimary
+    Storage1 -->|"1. Redundant copy of Disk"| Storage2
+    DBPrimary -.->|"2. Auto recover pod if Instance fails"| DBRecovered
+    DBPrimary <--> Proxy1
+    Proxy1 <--> AppClients
+    Proxy1 -.->|"3. Elect new Primary and fail over if the primary fails"| DBReplica
+    Proxy1 -.->|"4. Protect against proxy failures"| Proxy2
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+```
 
 _HA in a single region_
 
@@ -116,7 +155,47 @@ The major cloud providers tout disaster recovery across regions, ensuring resili
 
 One effective strategy to mitigate such risks is to replicate data to a data center owned by a different cloud provider within the same geographical area, minimizing network latencies. Disaster recovery across cloud providers is, of course, something an individual provider, such as AWS or GCP, simply doesn't support. Alternatively, customers can maintain their own “standby” database for emergencies—an environment entirely under their control, ensuring a near real-time copy of the data at all times.
 
-<figure><img src="../.gitbook/assets/Failover_to_another_region.drawio.png" alt=""><figcaption></figcaption></figure>
+```mermaid
+flowchart TD
+    accTitle: Failover when an entire region or cloud provider fails
+    accDescr {
+      Architecture diagram of MariaDB Cloud disaster recovery across cloud regions, cloud providers, and on-premises environments.
+      An AWS region hosts the primary MariaDB Server (running as multiple pods, one active). It replicates data (relationship 1) to a MariaDB Server in a Google Cloud region and to a MariaDB Server pod in an on-premises data center.
+      A shield-and-flame icon positioned between the AWS and Google Cloud regions represents the region- or cloud-provider-outage event the diagram illustrates.
+      The primary SkySQL Intelligent Proxy connects bidirectionally to a MariaDB Connector / APPLICATION Client box. A second, standby SkySQL Intelligent Proxy connects to the same client via a dotted failover path (relationship 2): when a region or cloud goes offline, the client fails over to another cloud using DNS or the client connector, following the example JDBC connection string shown alongside: jdbc:mariadb:[sequential://&lt;primary-endpoint&gt;,&lt;alternate-endpoint&gt;...]/[database].
+    }
+
+    subgraph AWSRegion["AWS Region"]
+        DBAWS[("MariaDB Server")]:::node
+    end
+
+    subgraph GCPRegion["Google Cloud Region"]
+        DBGCP[("MariaDB Server")]:::node
+    end
+
+    subgraph OnPrem["On-Prem Data Center"]
+        DBOnPrem[("MariaDB Server")]:::node
+    end
+
+    Outage["Region / cloud provider<br/>outage event"]:::client
+
+    Proxy1[SkySQL Intelligent Proxy]:::proc
+    Proxy2[SkySQL Intelligent Proxy]:::proc
+    ConnectorClient["MariaDB Connector /<br/>APPLICATION Client"]:::client
+    JDBCNote["jdbc:mariadb:[sequential://&lt;primary-endpoint&gt;,&lt;alternate-endpoint&gt;...]/[database]"]:::client
+
+    DBAWS -->|"1. Replicate from Primary to other clouds or on-prem DC"| DBGCP
+    DBAWS --> DBOnPrem
+
+    Proxy1 <--> ConnectorClient
+    Proxy2 -.->|"2. Fail over using DNS or client connector"| ConnectorClient
+    ConnectorClient -.- JDBCNote
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+```
 
 _Failover when the entire region becomes unavailable_
 
