@@ -35,7 +35,31 @@ MariaDB products can be deployed to form other topologies that leverage advanced
 
 ### ColumnStore with Object Storage
 
-![columnstore-topology-s3](../../.gitbook/assets/columnstore-topology-s3.png)
+```mermaid
+flowchart TD
+    accTitle: MaxScale routing to a three-node ColumnStore cluster on S3 storage
+    accDescr {
+        A MaxScale proxy routes client connections to three MariaDB Enterprise
+        Server and ColumnStore nodes: one read-write route and two read-only
+        routes. All three nodes use a shared Amazon S3 object storage backend
+        for their table data.
+    }
+    MX["MariaDB MaxScale"]
+    N1[("ES + ColumnStore")]
+    N2[("ES + ColumnStore")]
+    N3[("ES + ColumnStore")]
+    S3[("S3 object storage")]
+    MX -->|ro| N1
+    MX -->|rw| N2
+    MX -->|ro| N3
+    S3 -.-> N1
+    S3 -.-> N2
+    S3 -.-> N3
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    class MX,N1,N2,N3,S3 node
+```
+
+_MaxScale routes read/write traffic to three ES + ColumnStore nodes backed by S3 object storage._
 
 The MariaDB ColumnStore topology with Object Storage delivers production analytics with high availability, fault tolerance, and limitless data storage by leveraging S3-compatible storage.
 

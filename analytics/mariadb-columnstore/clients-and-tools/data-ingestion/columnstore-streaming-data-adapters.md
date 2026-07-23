@@ -129,7 +129,54 @@ The `-c` flag is optional if you are running the adapter on the server where Col
 
 The Kafka data adapter streams all messages published to Apache Kafka topics in Avro format to MariaDB ColumnStore automatically and continuously - enabling data from many sources to be streamed and collected for analysis without complex code. The Kafka adapter is built using [librdkafka](https://cwiki.apache.org/confluence/display/KAFKA/Clients#Clients-C/C++) and the MariaDB ColumnStore bulk write SDK
 
-![kafka-data-adapter](../../../.gitbook/assets/kafka-data-adapter.jpg)
+```mermaid
+flowchart LR
+    accTitle: Kafka streaming data adapter feeding ColumnStore
+    accDescr {
+        Three Apache Kafka topics publish messages that are consumed by the Kafka
+        Streaming Data Adapter, a Kafka client built on the Bulk Data Adapter API.
+        The adapter fans the incoming messages out to three ColumnStore PM nodes in
+        parallel. Each PM node has its own write engine that loads the data into its
+        local ColumnStore storage.
+    }
+    subgraph Kafka["Apache Kafka"]
+        T1["Topic"]
+        T2["Topic"]
+        T3["Topic"]
+    end
+    subgraph Adapter["Kafka Streaming Data Adapter (Kafka Client)"]
+        API["Bulk Data Adapter API"]
+    end
+    subgraph PM1["PM node"]
+        WE1["Write Engine"] --> CS1[("ColumnStore Storage")]
+    end
+    subgraph PM2["PM node"]
+        WE2["Write Engine"] --> CS2[("ColumnStore Storage")]
+    end
+    subgraph PM3["PM node"]
+        WE3["Write Engine"] --> CS3[("ColumnStore Storage")]
+    end
+    T1 --> API
+    T2 --> API
+    T3 --> API
+    API --> WE1
+    API --> WE2
+    API --> WE3
+
+    classDef srcNode fill:#d9f2d0,stroke:#2e7d32,stroke-width:2px,color:#111;
+    classDef adapterNode fill:#cfe8f3,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef storageNode fill:#e0e0e0,stroke:#333333,stroke-width:2px,color:#111;
+    class T1,T2,T3,WE1,WE2,WE3 srcNode
+    class API adapterNode
+    class CS1,CS2,CS3 storageNode
+    style Kafka fill:#eef6fb,stroke:#0a5a6b,color:#111;
+    style Adapter fill:#eef6fb,stroke:#0a5a6b,color:#111;
+    style PM1 fill:#f5f5f5,stroke:#333333,color:#111;
+    style PM2 fill:#f5f5f5,stroke:#333333,color:#111;
+    style PM3 fill:#f5f5f5,stroke:#333333,color:#111;
+```
+
+_Kafka topics feed the Kafka Streaming Data Adapter, which fans messages out to the write engines and storage of three ColumnStore PM nodes._
 
 A tutorial for the Kafka adapter for ingesting Avro formatted data can be found in the [kafka-to-columnstore-data-adapter](columnstore-streaming-data-adapters.md#kafka-to-columnstore-adapter) document.
 
@@ -137,7 +184,54 @@ A tutorial for the Kafka adapter for ingesting Avro formatted data can be found 
 
 Starting with MariaDB ColumnStore 1.1.4, a data adapter for Pentaho Data Integration (PDI) / Kettle is available to import data directly into ColumnStore’s WriteEngine. It is built on MariaDB’s rapid-paced Bulk Write SDK.
 
-![PDI Plugin Block info graphic](../../../.gitbook/assets/cs_pdi_diagram.png)
+```mermaid
+flowchart LR
+    accTitle: Pentaho Data Integration feeding ColumnStore through the Bulk Loader Plugin
+    accDescr {
+        Three Pentaho Data Integration data sources feed into the ColumnStore Bulk
+        Loader Plugin, which calls the Bulk Data Adapter API. The API fans the
+        incoming rows out to three ColumnStore PM nodes in parallel. Each PM node
+        has its own write engine that loads the data into its local ColumnStore
+        storage.
+    }
+    subgraph PDI["Pentaho Data Integration"]
+        DS1["Data Source"]
+        DS2["Data Source"]
+        DS3["Data Source"]
+    end
+    subgraph Plugin["ColumnStore Bulk Loader Plugin"]
+        API["Bulk Data Adapter API"]
+    end
+    subgraph PM1["PM node"]
+        WE1["Write Engine"] --> CS1[("ColumnStore Storage")]
+    end
+    subgraph PM2["PM node"]
+        WE2["Write Engine"] --> CS2[("ColumnStore Storage")]
+    end
+    subgraph PM3["PM node"]
+        WE3["Write Engine"] --> CS3[("ColumnStore Storage")]
+    end
+    DS1 --> API
+    DS2 --> API
+    DS3 --> API
+    API --> WE1
+    API --> WE2
+    API --> WE3
+
+    classDef srcNode fill:#d9f2d0,stroke:#2e7d32,stroke-width:2px,color:#111;
+    classDef adapterNode fill:#cfe8f3,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef storageNode fill:#e0e0e0,stroke:#333333,stroke-width:2px,color:#111;
+    class DS1,DS2,DS3,WE1,WE2,WE3 srcNode
+    class API adapterNode
+    class CS1,CS2,CS3 storageNode
+    style PDI fill:#eef6fb,stroke:#0a5a6b,color:#111;
+    style Plugin fill:#eef6fb,stroke:#0a5a6b,color:#111;
+    style PM1 fill:#f5f5f5,stroke:#333333,color:#111;
+    style PM2 fill:#f5f5f5,stroke:#333333,color:#111;
+    style PM3 fill:#f5f5f5,stroke:#333333,color:#111;
+```
+
+_Pentaho Data Integration data sources feed the Bulk Loader Plugin, which writes into the write engines and storage of three ColumnStore PM nodes._
 
 ### Compatibility notice
 

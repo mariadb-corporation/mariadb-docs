@@ -36,10 +36,61 @@ With S3: an S3 snapshot of the [S3-compatible object storage](../../architecture
 
 To see the procedure to perform a full backup and restore, choose the storage type:
 
-| Storage Type                                                                                                                                                  | Diagram                                                                          |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| [ColumnStore with Object Storage](mariadb-enterprise-columnstore-backup-and-restore-with-object-storage.md)                                        | ![columnstore-topology-s3](../../../.gitbook/assets/columnstore-topology-s3.png) |
-| [ColumnStore with Shared Local Storage](../../architecture/columnstore-architectural-overview.md#enterprise-columnstore-with-shared-local-storage) | ![columnstore-topology](../../../.gitbook/assets/columnstore-topology.png)       |
+**[ColumnStore with Object Storage](mariadb-enterprise-columnstore-backup-and-restore-with-object-storage.md)**
+
+```mermaid
+flowchart TD
+    accTitle: MaxScale routing to a three-node ColumnStore cluster on S3 storage
+    accDescr {
+        A MaxScale proxy routes client connections to three MariaDB Enterprise
+        Server and ColumnStore nodes: one read-write route and two read-only
+        routes. All three nodes use a shared S3-compatible object storage
+        backend for their table data.
+    }
+    MX["MariaDB MaxScale"]
+    N1[("ES + ColumnStore")]
+    N2[("ES + ColumnStore")]
+    N3[("ES + ColumnStore")]
+    S3[("S3-compatible object storage")]
+    MX -->|ro| N1
+    MX -->|rw| N2
+    MX -->|ro| N3
+    S3 -.-> N1
+    S3 -.-> N2
+    S3 -.-> N3
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    class MX,N1,N2,N3,S3 node
+```
+
+_MaxScale routes read/write traffic to three ES + ColumnStore nodes backed by S3-compatible object storage._
+
+**[ColumnStore with Shared Local Storage](../../architecture/columnstore-architectural-overview.md#enterprise-columnstore-with-shared-local-storage)**
+
+```mermaid
+flowchart TD
+    accTitle: MaxScale routing to a three-node ColumnStore cluster on NFS shared storage
+    accDescr {
+        A MaxScale proxy routes client connections to three MariaDB Enterprise
+        Server and ColumnStore nodes: one read-write route and two read-only
+        routes. All three nodes share their table data over an NFS shared
+        storage backend.
+    }
+    MX["MariaDB MaxScale"]
+    N1[("ES + ColumnStore")]
+    N2[("ES + ColumnStore")]
+    N3[("ES + ColumnStore")]
+    NFS[("NFS shared storage")]
+    MX -->|ro| N1
+    MX -->|rw| N2
+    MX -->|ro| N3
+    NFS -.-> N1
+    NFS -.-> N2
+    NFS -.-> N3
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    class MX,N1,N2,N3,NFS node
+```
+
+_MaxScale routes read/write traffic to three ES + ColumnStore nodes backed by NFS shared storage._
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

@@ -44,7 +44,33 @@ The following components are deployed during this procedure:
 
 ## Topology
 
-<figure><img src="../../../../../.gitbook/assets/es-columnstore-topology-s3-no-title.png" alt=""><figcaption></figcaption></figure>
+```mermaid
+flowchart TD
+    accTitle: MaxScale routing to a three-node ColumnStore cluster on S3 storage
+    accDescr {
+        A MaxScale node routes client connections to three MariaDB Enterprise Server
+        ColumnStore nodes, sending one read-write connection and two read-only
+        connections. Each ColumnStore node reads and writes table data to a shared
+        S3-compatible object storage bucket.
+    }
+    MX["MariaDB MaxScale"]
+    N1[("ES + ColumnStore")]
+    N2[("ES + ColumnStore")]
+    N3[("ES + ColumnStore")]
+    S3[("S3 Object Storage")]
+    MX -- ro --> N1
+    MX -- rw --> N2
+    MX -- ro --> N3
+    N1 --> S3
+    N2 --> S3
+    N3 --> S3
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef store fill:#fdf3d8,stroke:#8a6d1d,stroke-width:2px,color:#111;
+    class MX,N1,N2,N3 node
+    class S3 store
+```
+
+_A MaxScale node routes read-write and read-only connections to three ColumnStore nodes backed by S3-compatible object storage._
 
 The MariaDB ColumnStore topology with Object Storage delivers production analytics with high availability, fault tolerance, and limitless data storage by leveraging S3-compatible storage.
 
