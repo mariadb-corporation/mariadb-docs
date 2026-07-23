@@ -19,7 +19,29 @@ The benefit of asynchronous replication compared to [Galera Cluster](https://app
 
 The following picture shows one of the more advanced Multi-Master setups that is resilient against any master going down but can also handle 'human failures', like an accidental drop table, thanks to the addition of [delayed slaves](delayed-replication.md).
 
-![](../../.gitbook/assets/multi-master-ring-replication1.png)
+```mermaid
+flowchart TD
+    accTitle: Ring replication with replicas and delayed replicas
+    accDescr {
+        Two primaries, on separate replication domains, replicate to each other in a
+        ring. Each primary also feeds a replica, and each replica feeds a delayed
+        replica, which lags intentionally to guard against human error such as an
+        accidental DROP TABLE.
+    }
+    P1[("MariaDB Primary<br/>Domain 1")]
+    P2[("MariaDB Primary<br/>Domain 2")]
+    P1 <--> P2
+    P1 --> S1[("MariaDB<br/>Replica")]
+    P2 --> S2[("MariaDB<br/>Replica")]
+    S1 --> D1[("MariaDB<br/>Delayed Replica")]
+    S2 --> D2[("MariaDB<br/>Delayed Replica")]
+    classDef d1 fill:#3aa0e6,stroke:#1f6fa8,stroke-width:2px,color:#111;
+    classDef d2 fill:#5cb85c,stroke:#2f7d2f,stroke-width:2px,color:#111;
+    class P1,S1,D1 d1
+    class P2,S2,D2 d2
+```
+
+_Multi-master ring with replicas: two primaries replicate to each other; each also has a replica and a delayed replica._
 
 One should [setup replication](setting-up-replication.md) on each master like one does in [standard MariaDB replication](./). The replication setup among the masters should be a ring. In other words, each master should replicate to one other master and each master should only have one other master as a slave.
 
@@ -119,7 +141,29 @@ To fix this:
 An alternative setup to use for Multi-master ring replications is to replicate to the other\
 masters through slaves. The following setup shows how this can be done.
 
-![](../../.gitbook/assets/multi-master-ring-replication2.png)
+```mermaid
+flowchart TD
+    accTitle: Ring replication relayed through replicas
+    accDescr {
+        Two primaries on separate domains form a ring that is relayed through their
+        replicas: each primary feeds a replica, and each replica forwards changes to the
+        other domain's primary. Each replica also feeds a delayed replica.
+    }
+    M1[("MariaDB Primary 1<br/>Domain 1")]
+    M2[("MariaDB Primary 2<br/>Domain 2")]
+    M1 --> S1[("MariaDB<br/>Replica 1")]
+    M2 --> S2[("MariaDB<br/>Replica 2")]
+    S1 --> M2
+    S2 --> M1
+    S1 --> D1[("MariaDB<br/>Delayed Replica 1")]
+    S2 --> D2[("MariaDB<br/>Delayed Replica 2")]
+    classDef d1 fill:#3aa0e6,stroke:#1f6fa8,stroke-width:2px,color:#111;
+    classDef d2 fill:#5cb85c,stroke:#2f7d2f,stroke-width:2px,color:#111;
+    class M1,S1,D1 d1
+    class M2,S2,D2 d2
+```
+
+_Multi-master ring relayed through replicas: each replica forwards to the other domain's primary, closing the ring._
 
 ### Benefits of replication through slaves
 
