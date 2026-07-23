@@ -10,7 +10,59 @@ These records can then consumed by the avrorouter directly from the binlog cache
 of the Binlog Server. This allows MariaDB MaxScale to automatically transform\
 binlog events on the primary to local Avro format files.
 
-![](../../../../.gitbook/assets/Binlog-Avro.png.png)
+```mermaid
+flowchart LR
+    accTitle: MariaDB MaxScale Avro Router Data Flow
+    accDescr {
+      Diagram of binlog-to-Avro conversion in MariaDB MaxScale. A Primary
+      database server exchanges Binlog events bidirectionally with the
+      Binlog Server running inside MaxScale. The Binlog Server writes
+      Binlog events to the Binlog File. The Avro Router Plugin reads
+      Binlog events from the Binlog File. The Avro Router Plugin produces
+      Avro Schema files and Avro Log files, and records transaction IDs in
+      the transactionId-avrolog database. The Avro Router Plugin exchanges
+      data bidirectionally with the Change Data Listener Protocol Plugin.
+      The Change Data Listener Protocol Plugin communicates over the
+      Change Data Request API bidirectionally with two client paths: a
+      CDC Client Library paired with a Kafka Producer, and a CDC Client
+      Library paired with a CDC Client. The Kafka Producer path sends
+      data to Kafka, which forwards data to Hadoop.
+    }
+
+    primary[(Primary)]:::node
+
+    subgraph maxscale [MaxScale]
+      binlogServer[Binlog Server]:::proc
+      binlogFile[Binlog File]:::file
+      avroRouter[Avro Router Plugin]:::proc
+      avscFiles[Avro Schema Files]:::file
+      avroLogFiles[Avro Log Files]:::file
+      txnDb[(transactionId-avrolog DB)]:::node
+      cdlp[Change Data Listener<br/>Protocol Plugin]:::proc
+    end
+
+    kafkaPath[CDC Client Library<br/>+ Kafka Producer]:::proc
+    cdcPath[CDC Client Library<br/>+ CDC Client]:::proc
+    kafka[Kafka]:::node
+    hadoop[Hadoop]:::node
+
+    primary <-->|Binlog events| binlogServer
+    binlogServer -->|Write to| binlogFile
+    binlogFile -->|Read From| avroRouter
+    avroRouter --> avscFiles
+    avroRouter --> avroLogFiles
+    avroRouter --> txnDb
+    avroRouter <--> cdlp
+    cdlp <-->|Change Data<br/>Request API| kafkaPath
+    cdlp <--> cdcPath
+    kafkaPath --> kafka
+    kafka --> hadoop
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+```
+_Data flow through the MariaDB MaxScale Avro router: the Primary server's binlog events are converted to Avro-formatted change data and streamed to CDC clients, Kafka, and Hadoop._
 
 The avrorouter can also consume binary logs straight from the primary. This will\
 remove the need to configure the Binlog Server but it will increase the disk space\
