@@ -36,7 +36,22 @@ The following components are deployed during this procedure:
 
 ## Topology
 
-<figure><img src="../../../../.gitbook/assets/ent-col-single-node-topology-local-no-title.png" alt=""><figcaption></figcaption></figure>
+```mermaid
+flowchart TD
+    accTitle: Single-node Enterprise Server with ColumnStore on local storage
+    accDescr {
+        A single MariaDB Enterprise Server node runs the Enterprise ColumnStore storage engine,
+        which stores its table data on the node's own local storage. This topology has no
+        high-availability layer.
+    }
+    ES[("MariaDB Enterprise Server")]
+    CS[("Enterprise ColumnStore")]
+    ES --- CS
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    class ES,CS node
+```
+
+_A single Enterprise Server node runs ColumnStore on local storage._
 
 The Single-Node Enterprise ColumnStore topology provides support for Online Analytical Processing (OLAP) workloads to MariaDB Enterprise Server.
 

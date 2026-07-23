@@ -8,9 +8,42 @@ description: >-
 
 ## Overview
 
-| Software Version                                                                                       | Diagram                                                                | Features                                                                                                                                                                                                                                                                                                                                                            |
-| ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <ul><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul> | ![](../../../.gitbook/assets/es-columnstore-topology-nfs-no-title.png) | <p>Columnar storage engine with S3-compatible object storage</p><ul><li>Highly available</li><li>Automatic failover via MaxScale and CMAPI</li><li>Scales reads via MaxScale</li><li>Bulk data import</li><li>Enterprise Server 10.5, Enterprise ColumnStore 5, MaxScale 2.5</li><li>Enterprise Server 10.6, Enterprise ColumnStore 23.02, MaxScale 22.08</li></ul> |
+```mermaid
+flowchart TD
+    accTitle: MaxScale routing to a three-node ColumnStore cluster on shared NFS storage
+    accDescr {
+        A MaxScale proxy routes read-write traffic to one MariaDB Enterprise Server node and
+        read-only traffic to two others. Each node runs Enterprise ColumnStore, and all three
+        ColumnStore instances read and write their table data over shared NFS storage.
+    }
+    MX["MariaDB MaxScale"]
+    E1["ES"]
+    E2["ES"]
+    E3["ES"]
+    C1["ColumnStore"]
+    C2["ColumnStore"]
+    C3["ColumnStore"]
+    NFS[("NFS")]
+    MX -->|ro| E1
+    MX -->|rw| E2
+    MX -->|ro| E3
+    E1 --- C1
+    E2 --- C2
+    E3 --- C3
+    NFS -.-> C1
+    NFS -.-> C2
+    NFS -.-> C3
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
+    class MX,E1,E2,E3,C1,C2,C3 node
+    class NFS storage
+```
+
+_MaxScale routes to a three-node ColumnStore cluster sharing NFS storage._
+
+<ul><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul>
+
+<p>Columnar storage engine with S3-compatible object storage</p><ul><li>Highly available</li><li>Automatic failover via MaxScale and CMAPI</li><li>Scales reads via MaxScale</li><li>Bulk data import</li><li>Enterprise Server 10.5, Enterprise ColumnStore 5, MaxScale 2.5</li><li>Enterprise Server 10.6, Enterprise ColumnStore 23.02, MaxScale 22.08</li></ul>
 
 This procedure describes the deployment of the ColumnStore Shared Local Storage topology with MariaDB Enterprise Server 10.5, MariaDB Enterprise ColumnStore 5, and MariaDB MaxScale 2.5.
 
