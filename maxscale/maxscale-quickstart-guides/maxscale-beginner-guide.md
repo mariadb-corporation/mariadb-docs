@@ -21,7 +21,47 @@ Stop MaxScale with `sudo systemctl stop maxscale`. The log file is written at `/
 
 A functional configuration of MaxScale should include a listener, a service, a monitor and one or more servers. An incoming client connects to a listener port. Once the connection is established, the listener passes the client to a service. The service then handles all client traffic, from authentication to disconnection. Client queries are routed to servers and query results from servers back to the client. A monitor regularly checks the status of the servers.
 
-![MaxScale service structure](../.gitbook/assets/service_example.png)
+```mermaid
+flowchart LR
+  accTitle: MaxScale service architecture
+  accDescr { A client connects to a listener, which hands the connection to a service. Inside the service, an optional filter processes traffic before passing it to the router. The router forwards client queries to one or more backend servers, while a separate monitor regularly checks the status of those same servers. }
+
+  Client([Client])
+
+  subgraph MaxScale
+    Listener[Listener]
+    subgraph Service
+      Filter["Filter (optional)"]
+      Router[Router]
+      Filter --> Router
+    end
+    Listener --> Filter
+    Monitor([Monitor])
+  end
+
+  Server1[(Server1)]
+  Server2[(Server2)]
+  Server3[(Server3)]
+
+  Client --> Listener
+  Router --> Server1
+  Router --> Server2
+  Router --> Server3
+  Monitor --> Server1
+  Monitor --> Server2
+  Monitor --> Server3
+
+  style Client fill:#ffffff,stroke:#111111,stroke-width:1px,color:#111111;
+  style Listener fill:#ffffff,stroke:#111111,stroke-width:1px,color:#111111;
+  style Filter fill:#ffffff,stroke:#111111,stroke-width:1px,color:#111111;
+  style Router fill:#ffffff,stroke:#111111,stroke-width:1px,color:#111111;
+  style Monitor fill:#ffffff,stroke:#111111,stroke-width:1px,color:#111111;
+  style Server1 fill:#ffffff,stroke:#111111,stroke-width:1px,color:#111111;
+  style Server2 fill:#ffffff,stroke:#111111,stroke-width:1px,color:#111111;
+  style Server3 fill:#ffffff,stroke:#111111,stroke-width:1px,color:#111111;
+```
+
+_A client connects through a listener into the service, where an optional filter feeds the router, which distributes queries across the backend servers monitored separately by the monitor._
 
 MaxScale configuration files use the common [INI](https://en.wikipedia.org/wiki/INI_file) file format. The files contain sections and each section can contain multiple key-value pairs. The MaxScale installer creates an example configuration file to `/etc/maxscale.cnf`.
 
