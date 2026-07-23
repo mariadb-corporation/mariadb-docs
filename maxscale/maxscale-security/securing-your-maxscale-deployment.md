@@ -70,7 +70,7 @@ To properly secure the MaxScale REST-API, enable TLS encryption for data in tran
 
 **1. Generate SSL key and certificate:**
 
-* See [Certificate Creation with OpenSSL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/certificate-creation-with-openssl.md) for information on certificate creation.
+* See [Certificate Creation with OpenSSL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/certificate-creation-with-openssl) for information on certificate creation.
 * Move the generated files to a secure location MaxScale can access.
 
 **2. Update MaxScale configuration:**
@@ -132,7 +132,7 @@ admin_audit_file = /var/log/maxscale/audit_files/audit.csv
 
 This configuration activates auditing and specifies the location of the audit file. Ensure that the specified directory exists before restarting MaxScale.
 
-Implement log rotation to manage the size and number of audit files. This can be achieved using standard Linux log rotation tools. See [Rotating Logs on Unix and Linux](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/rotating-logs-on-unix-and-linux.md)
+Implement log rotation to manage the size and number of audit files. This can be achieved using standard Linux log rotation tools. See [Rotating Logs on Unix and Linux](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/rotating-logs-on-unix-and-linux)
 
 For manual log rotation, use the following MaxCtrl command:
 
@@ -179,7 +179,7 @@ ssl_ca=/certs/my_ca_cert.pem
 
 ### Encrypt Outgoing Database Connections
 
-Outgoing database connections are the connections MaxScale makes to MariaDB Servers on behalf of incoming clients. If MaxScale and the servers are running in the same network, and you consider the network already secure, then encrypting these connections may not be necessary. If this is not the case, both MaxScale and the servers need to be configured to use TLS. To configure MariaDB Server for encryption, see [Secure Connections Overview](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md).
+Outgoing database connections are the connections MaxScale makes to MariaDB Servers on behalf of incoming clients. If MaxScale and the servers are running in the same network, and you consider the network already secure, then encrypting these connections may not be necessary. If this is not the case, both MaxScale and the servers need to be configured to use TLS. To configure MariaDB Server for encryption, see [Secure Connections Overview](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview).
 
 To enable MaxScale to connect securely to MariaDB Servers:
 
