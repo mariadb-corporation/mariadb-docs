@@ -2915,7 +2915,32 @@ The use of monitors in MaxScale is not absolutely mandatory: it is possible to r
 
 ### Filter Modules
 
-![](../../../.gitbook/assets/image_10.png.png)
+```mermaid
+flowchart LR
+    accTitle: Client query flowing through the QLA and Regex filters to the backend server
+    accDescr {
+        The Client connects to a MaxScale router session. Inside the router
+        session the query passes in order through the QLA filter and then the
+        Regex filter before the router session forwards it to the backend
+        server. The QLA filter also writes a copy of each query to the query
+        log.
+    }
+    Client((Client)):::client -.-> QLA
+    subgraph RS["Router session"]
+        direction LR
+        QLA["QLA"]:::proc
+        Regex["Regex"]:::proc
+        QLA -.-> Regex
+    end
+    Regex -.-> Backend[("Backend<br/>server")]:::node
+    QLA -.-> QueryLog[["Query log"]]:::file
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+```
+_A client's query passes through the router session's QLA and Regex filters on its way to the backend server, with QLA also logging the query._
 
 Filters provide a means to manipulate or process requests as they pass through MariaDB MaxScale between the client side protocol and the query router. A full explanation of each filter's functionality can be found in its documentation.
 

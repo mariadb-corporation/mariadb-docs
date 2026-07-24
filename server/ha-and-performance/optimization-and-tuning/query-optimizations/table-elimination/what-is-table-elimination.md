@@ -7,7 +7,18 @@ The sample queries were drawn from “Anchor Modeling”, a database modeling te
 
 Suppose the database stores information about actors, together with their names, birthdays, and ratings, where ratings can change over time:
 
-![actor-attrs](../../../../.gitbook/assets/actor-attrs.png)
+```mermaid
+erDiagram
+    accTitle: Actor entity with Name, Date of Birth, and Rating attributes
+    accDescr { The Actor entity has three attributes: Name, Date of Birth, and Rating. Name and Date of Birth are single-valued attributes. Rating is drawn as a stack of bubbles because it is historized, meaning several rating values are recorded for the same actor over time. }
+    ACTOR {
+        string Name
+        date DateOfBirth
+        int Rating "historized: multiple values over time"
+    }
+```
+
+_The Actor entity with its Name, Date of Birth, and Rating attributes; Rating is historized, so it can hold multiple values over time._
 
 According to anchor modeling, each attribute should go into its own table:
 

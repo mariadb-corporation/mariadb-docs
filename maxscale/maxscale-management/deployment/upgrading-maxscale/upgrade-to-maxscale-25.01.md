@@ -7,7 +7,7 @@ description: >-
 
 # Upgrade to MaxScale 25.01
 
-These instructions detail the upgrade to **MariaDB MaxScale 25.01** in a **MaxScale Instance** configuration on a range of [supported Operating Systems](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/compatibility).
+These instructions detail the upgrade to **MariaDB MaxScale 25.01** in a **MaxScale Instance** configuration on a range of [supported Operating Systems](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/compatibility).
 
 MariaDB MaxScale is an advanced database proxy and query router.
 
@@ -15,7 +15,7 @@ MariaDB MaxScale is an advanced database proxy and query router.
 
 | Term              | Definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| MaxScale instance | <ul><li>MariaDB MaxScale running by itself on a single host.</li><li>It interacts with other hosts, such as deployments using <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication">MariaDB Replication</a>, <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/">Galera Cluster</a>, and <a href="https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore">ColumnStore</a>.</li><li>It serves as the database proxy and load balancer.</li></ul> |
+| MaxScale instance | <ul><li>MariaDB MaxScale running by itself on a single host.</li><li>It interacts with other hosts, such as deployments using <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication">MariaDB Replication</a>, <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/">Galera Cluster</a>, and <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore">ColumnStore</a>.</li><li>It serves as the database proxy and load balancer.</li></ul> |
 | upgrade           | <ul><li>A change from lower-versioned release of MariaDB MaxScale to a higher-versioned release of MariaDB MaxScale.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 ## Backing Up Configuration
@@ -70,7 +70,7 @@ Retrieve your Customer Download Token at [https://customers.mariadb.com/download
 {% step %}
 **Configure YUM / DNF package repository**
 
-Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
+Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
 
 To configure YUM package repositories:
 
@@ -121,7 +121,7 @@ Retrieve your Customer Download Token at [https://customers.mariadb.com/download
 {% step %}
 **Configure APT package repository**
 
-Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
+Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
 
 To configure APT package repositories:
 
@@ -176,7 +176,7 @@ Retrieve your Customer Download Token at [https://customers.mariadb.com/download
 {% step %}
 **Configure ZYpp package repository**
 
-Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
+Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
 
 To configure ZYpp package repositories:
 

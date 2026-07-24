@@ -64,7 +64,43 @@ This number is fine but if your IN-list are thousands then the number of ranges 
 
 Internally, the Range Optimizer builds this kind of graph:
 
-![](../../../.gitbook/assets/sel-arg-graph1.png)
+```mermaid
+flowchart LR
+    accTitle: SEL_ARG graph for a three-key-part range condition
+    accDescr {
+        A SEL_ARG graph for a WHERE clause on three key parts. In keypart1, ten interval nodes
+        numbered 1 to 10 are linked in a vertical chain, with nodes 4 to 8 omitted and shown as
+        an ellipsis. In keypart2, three interval nodes 'a', 'b', and 'c' are linked in a
+        vertical chain. In keypart3, four interval nodes 1 to 4 are linked in a vertical chain.
+        Every keypart1 node has a red "next key part" edge pointing to node 'a' in keypart2, and
+        every keypart2 node has a red "next key part" edge pointing to node 1 in keypart3.
+    }
+    subgraph KP1["keypart1"]
+        direction TB
+        A1["1"] --- A2["2"] --- A3["3"] --- AE["..."] --- A9["9"] --- A10["10"]
+    end
+    subgraph KP2["keypart2"]
+        direction TB
+        B1["'a'"] --- B2["'b'"] --- B3["'c'"]
+    end
+    subgraph KP3["keypart3"]
+        direction TB
+        C1["1"] --- C2["2"] --- C3["3"] --- C4["4"]
+    end
+    A1 --> B1
+    A2 --> B1
+    A3 --> B1
+    A9 --> B1
+    A10 --> B1
+    B1 --> C1
+    B2 --> C1
+    B3 --> C1
+    linkStyle 10,11,12,13,14,15,16,17 stroke:#c00020,stroke-width:2px;
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    class A1,A2,A3,AE,A9,A10,B1,B2,B3,C1,C2,C3,C4 node
+```
+
+_The SEL\_ARG graph built for `keypart1 IN (1,2,...,10) AND keypart2 IN ('a','b','c') AND keypart3 IN (1,2,3,4)`. Black links chain adjacent intervals on the same key part; red links connect a key part to the next key part._
 
 Vertical black lines connect adjacent "intervals" on the same key part.\
 Red lines connect a key part to a subsequent key part.
@@ -84,7 +120,45 @@ Due to the way the graph is constructed, we cannot tell how many ranges it would
 we introduce a parameter "weight" which is easy to compute and is roughly proportional to the number of\
 ranges we estimate to produce.
 
-![](../../../.gitbook/assets/sel-arg-subgraphs.png)
+```mermaid
+flowchart LR
+    accTitle: SEL_ARG subgraphs used to compute graph weight
+    accDescr {
+        The same SEL_ARG graph as before, now annotated with three nested dotted subgraphs used
+        to compute its weight. Subgraph3 contains only the four keypart3 nodes. Subgraph2
+        contains the three keypart2 nodes plus subgraph3, since every keypart2 node has a red
+        "next key part" edge into subgraph3. Subgraph1 contains the ten keypart1 nodes plus
+        subgraph2, since every keypart1 node has a red "next key part" edge into subgraph2.
+    }
+    subgraph SG1["subgraph1 (keypart1 + subgraph2)"]
+        direction LR
+        A1["1"] --- A2["2"] --- A3["3"] --- AE["..."] --- A9["9"] --- A10["10"]
+        subgraph SG2["subgraph2 (keypart2 + subgraph3)"]
+            direction LR
+            B1["'a'"] --- B2["'b'"] --- B3["'c'"]
+            subgraph SG3["subgraph3 (keypart3)"]
+                direction TB
+                C1["1"] --- C2["2"] --- C3["3"] --- C4["4"]
+            end
+        end
+    end
+    A1 --> B1
+    A2 --> B1
+    A3 --> B1
+    A9 --> B1
+    A10 --> B1
+    B1 --> C1
+    B2 --> C1
+    B3 --> C1
+    linkStyle 10,11,12,13,14,15,16,17 stroke:#c00020,stroke-width:2px;
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    class A1,A2,A3,AE,A9,A10,B1,B2,B3,C1,C2,C3,C4 node
+    style SG1 fill:transparent,stroke:#555,stroke-width:1.5px,stroke-dasharray:4 3;
+    style SG2 fill:transparent,stroke:#555,stroke-width:1.5px,stroke-dasharray:4 3;
+    style SG3 fill:transparent,stroke:#555,stroke-width:1.5px,stroke-dasharray:4 3;
+```
+
+_The same graph annotated with the nested subgraphs used to compute its weight: subgraph3 (keypart3) sits inside subgraph2 (keypart2 + subgraph3), which sits inside subgraph1 (keypart1 + subgraph2)._
 
 Here is how the weight is computed:
 

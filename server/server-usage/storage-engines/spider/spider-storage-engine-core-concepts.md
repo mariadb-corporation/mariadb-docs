@@ -15,7 +15,95 @@ The `Spider Proxy Nodes` are instances running at least MariaDB 10. `Spider Prox
 
 ### Spider Common Usage
 
-![Spider3](../../../.gitbook/assets/Spider3.png) ![Spider4](../../../.gitbook/assets/Spider4.png)
+```mermaid
+flowchart TB
+    accTitle: Spider Federation Topology Compared with Federation-and-HA Topology
+    accDescr {
+        Diagram A shows a basic federation topology where a client connects to a single Spider node holding Table 1, which forwards requests to one backend data node holding the same table. Diagram B extends this to a federation-with-high-availability topology, where the client-to-Spider path is unchanged, but the Spider node fans out to two backend data nodes, each holding a copy of Table 1, so it can fail over between backends.
+    }
+
+    subgraph A["A - Federation"]
+        direction TB
+        CA[Client]
+        SA[Spider<br/>Table 1]
+        BA[(Backend<br/>Table 1)]
+        CA --> SA --> BA
+    end
+
+    subgraph B["B - Federation and HA"]
+        direction TB
+        CB[Client]
+        SB[Spider<br/>Table 1]
+        BB1[(Backend<br/>Table 1)]
+        BB2[(Backend<br/>Table 1)]
+        CB --> SB
+        SB --> BB1
+        SB --> BB2
+    end
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    class BA,BB1,BB2 node;
+```
+
+_Topology A (federation) routes a client through Spider to a single backend node; topology B (federation with HA) routes the same client through Spider to two redundant backend nodes._
+
+```mermaid
+flowchart TB
+    accTitle: Spider Sharding Topology Compared with Sharding-and-HA Topology
+    accDescr {
+        Diagram C shows a sharding topology where a client connects to three Spider nodes, each holding the full definition of Table 1 with Part 1, Part 2, and Part 3. Only the first Spider node forwards requests to three backend nodes, each holding one non-overlapping partition: Backend 1 holds Part 1, Backend 2 holds Part 2, and Backend 3 holds Part 3. Diagram D extends this to a sharding-and-HA topology with the same client-to-Spider structure, but each backend now holds two overlapping partitions for redundancy: Backend 1 holds Part 1 and Part 2, Backend 2 holds Part 2 and Part 3, and Backend 3 holds Part 3 and Part 1. In both topologies the backend nodes coordinate consistency among themselves using XA two-phase commit.
+    }
+
+    subgraph C["C - Sharding"]
+        direction TB
+        CC[Client]
+        CS1[Spider<br/>Table 1<br/>Part 1<br/>Part 2<br/>Part 3]
+        CS2[Spider<br/>Table 1<br/>Part 1<br/>Part 2<br/>Part 3]
+        CS3[Spider<br/>Table 1<br/>Part 1<br/>Part 2<br/>Part 3]
+        CB1[(Backend<br/>Table 1<br/>Part 1)]
+        CB2[(Backend<br/>Table 1<br/>Part 2)]
+        CB3[(Backend<br/>Table 1<br/>Part 3)]
+        CC --> CS1
+        CC --> CS2
+        CC --> CS3
+        CS1 --> CB1
+        CS1 --> CB2
+        CS1 --> CB3
+        CB1 -.- CB2
+        CB2 -.- CB3
+        CB3 -. XA 2PC .- CB1
+    end
+
+    subgraph D["D - Sharding and HA"]
+        direction TB
+        DC[Client]
+        DS1[Spider<br/>Table 1<br/>Part 1<br/>Part 2<br/>Part 3]
+        DS2[Spider<br/>Table 1<br/>Part 1<br/>Part 2<br/>Part 3]
+        DS3[Spider<br/>Table 1<br/>Part 1<br/>Part 2<br/>Part 3]
+        DB1[(Backend<br/>Table 1<br/>Part 1<br/>Part 2)]
+        DB2[(Backend<br/>Table 1<br/>Part 2<br/>Part 3)]
+        DB3[(Backend<br/>Table 1<br/>Part 3<br/>Part 1)]
+        DC --> DS1
+        DC --> DS2
+        DC --> DS3
+        DS1 --> DB1
+        DS1 --> DB2
+        DS1 --> DB3
+        DB1 -.- DB2
+        DB2 -.- DB3
+        DB3 -. XA 2PC .- DB1
+    end
+
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+
+    class CC,DC client;
+    class CS1,CS2,CS3,DS1,DS2,DS3 proc;
+    class CB1,CB2,CB3,DB1,DB2,DB3 node;
+```
+
+_Topology C (sharding) routes a client through three Spider nodes to three non-overlapping backend shards; topology D (sharding with HA) uses the same Spider layer but stores each partition redundantly across two backend shards, all coordinated via XA two-phase commit._
 
 In the default high availability setup Spider Nodes produce SQL errors when a backend server is not responding. Per table monitoring can be setup to enable availability in case of unresponsive backends `monotoring_bg_kind=1` or `monotoring_bg_kind=2`. The Monitoring Spider Nodes are inter-connected with usage of the system table `mysql.link_mon_servers` to manage network partitioning. Better known as split brain, an even number of `Spider Monitor Nodes` should be setup to allow a consensus based on the majority. Rather a single separated shared `Monitoring Node` instance or a minimum set of 3 `Spider Nodes`. More information can be found [here](https://fr.slideshare.net/Kentoku/spider-ha-20100922dtt7).
 
@@ -30,13 +118,126 @@ Preserving atomic operation during execution is used at multiple levels in the a
 
 Costly queries can be more efficient when it is possible to fully push down part of the execution plan on each backend and reduce the result afterwards. Spider enables such execution with some direct execution shortcuts.
 
-![Spider1](../../../.gitbook/assets/Spider1.png)
+```mermaid
+flowchart TB
+    accTitle: Spider Storage Engine Federation Architecture
+    accDescr {
+        The Client sends requests into the Spider proxy node, reaching three client-facing interfaces: HS, Handler, and SQL. Inside the proxy node these sit alongside the Parse Tree, Optimizer, Partition and Table Storage Engine API, Handler Index (point, range, and multi-range access), and Handler Table (random first, next, and previous access) layers, plus the Spider Map Reduce and Spider Direct SQL UDF extensions, all layered above the core Spider engine. The Spider engine forwards requests to remote node interfaces: it connects to a remote Handler and a remote HS, while Spider Direct SQL UDF connects to the remote HS and a remote SQL interface. Those remote interfaces front four backend shards: a MariaDB backend (Shard 1), a MySQL backend (Shard 2), a MySQL backend copy (Shard 2), and an Oracle backend (Shard 3), which coordinate consistency among themselves using XA two-phase commit.
+    }
+
+    CLIENT[Client]
+
+    subgraph PROXY["Spider Proxy Node"]
+        direction TB
+        HS1[HS]
+        PT[Parse Tree]
+        HDLC[Handler]
+        SQLC[SQL]
+        OPTZ[Optimizer]
+        SMR[Spider Map Reduce]
+        PAPI[Partition and Table Storage Engine API]
+        HIDX["Handler Index<br/>Point &amp; Range &amp; Multi Range"]
+        HTBL["Handler Table<br/>Rnd First &amp; Next &amp; Prev"]
+        SDSU["Spider Direct<br/>SQL UDF"]
+        SPD[Spider]
+    end
+
+    CLIENT --> HS1
+    CLIENT --> HDLC
+    CLIENT --> SQLC
+
+    subgraph REMOTE["Remote Node Interfaces"]
+        direction LR
+        HDLR2[Handler]
+        HS2[HS]
+        SQLR2[SQL]
+    end
+
+    SPD --> HDLR2
+    SPD --> HS2
+    SDSU --> HS2
+    SDSU --> SQLR2
+
+    subgraph BACKENDS["Backend Shards"]
+        direction LR
+        B1[(MariaDB<br/>Backend<br/>Shard 1)]
+        B2[(MySQL<br/>Backend<br/>Shard 2)]
+        B3[(MySQL<br/>Backend Copy<br/>Shard 2)]
+        B4[(Oracle<br/>Backend<br/>Shard 3)]
+    end
+
+    B1 -.- B2
+    B2 -.- B3
+    B3 -. XA 2PC .- B4
+    B4 -.- B1
+
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+
+    class CLIENT client;
+    class PT,HDLC,SQLC,OPTZ,PAPI,HIDX,HTBL,HS1 file;
+    class SMR,SDSU,SPD,HDLR2,HS2,SQLR2 proc;
+    class B1,B2,B3,B4 node;
+```
+
+_The Spider proxy node layers client-facing Handler, HS, and SQL interfaces (plus the optimizer, partition API, and Spider Map Reduce/Direct SQL UDF extensions) over the core Spider engine, which forwards to remote node interfaces fronting four backend shards kept consistent via XA two-phase commit._
 
 ### Spider Threading Model
 
 Spider uses the per partitions and per table model to concurrently access the remote backend nodes. For memory workload that property can be used to define multiple partitions on a single remote backend node to better adapt the concurrency to available CPUs in the hardware.
 
-![Spider2](../../../.gitbook/assets/Spider2.png)
+```mermaid
+flowchart TB
+    accTitle: Spider Engine Threading and Request-Flow Architecture
+    accDescr {
+        A client sends SQL through per-statement SQL1 and SQL2 threads running inside the Spider proxy node. Each statement thread dispatches a pool of worker threads, SQL1 Worker Threads 1 through 3 and SQL2 Worker Threads 3, 5 and 6, that act on Table 1's partitions Part1, Part2 and Part3 through a shared Spider connection pool. Background stat threads separately poll cardinality and status statistics. The worker threads open XA two-phase-commit transactions against three backend data nodes, each holding one partition of Table 1, to keep the distributed operation atomic.
+    }
+
+    CLIENT[Client]
+
+    subgraph SPIDER["Spider Proxy Node"]
+        SQL1T[SQL1 Thread]
+        SQL2T[SQL2 Thread]
+        POOL[Spider Connection Pool]
+        subgraph TABLE1["Table 1"]
+            PART1[Part1]
+            PART2[Part2]
+            PART3[Part3]
+        end
+        WT1["SQL1 Worker Threads 1/2/3"]
+        WT2["SQL2 Worker Threads 3/5/6"]
+        STAT["Stat Threads 1/2/3"]
+    end
+
+    B1[(Backend Node 1<br/>Table1 Part1)]
+    B2[(Backend Node 2<br/>Table1 Part2)]
+    B3[(Backend Node 3<br/>Table1 Part3)]
+
+    CLIENT --> SQL1T
+    CLIENT --> SQL2T
+    SQL1T --> WT1
+    SQL2T --> WT2
+    WT1 --> PART1
+    WT2 --> PART2
+    WT1 -.-> POOL
+    WT2 -.-> POOL
+    STAT -.-> POOL
+
+    WT1 -->|XA/2PC| B1
+    WT1 -->|XA/2PC| B2
+    WT2 -->|XA/2PC| B2
+    WT2 -->|XA/2PC| B3
+    STAT -. stats poll .-> B1
+    STAT -. stats poll .-> B2
+    STAT -. stats poll .-> B3
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    class B1,B2,B3 node;
+```
+
+_Spider's per-partition, per-table threading model: SQL1/SQL2 worker threads coordinate over a shared connection pool and commit via XA two-phase commit across three backend nodes, while stat threads poll statistics independently._
 
 Spider maintains an internal dictionary of Table and Index statistics based on separated threads. The statistics are pulled per default on a time line basis and refer to `crd` for cardinality and `sts` for table status.
 

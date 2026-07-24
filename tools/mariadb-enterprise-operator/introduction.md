@@ -24,7 +24,41 @@ Kubernetes brings several key benefits to the table when managing applications i
 
 Kubernetes has been designed with flexibility in mind, allowing developers to extend its capabilities through custom resources and operators.
 
-<figure><img src="../.gitbook/assets/operator-overview.png" alt=""><figcaption></figcaption></figure>
+```mermaid
+flowchart LR
+  accTitle: MariaDB Enterprise Operator reconciliation loop
+  accDescr { A user creates MariaDB and MaxScale resources that define the desired state. The MariaDB Enterprise Operator watches those resources and continuously watches the current state of the cluster's compute, storage, and network resources. When the desired state changes, or the current state drifts from it, the Operator updates the compute, storage, and network resources so the current state matches the desired state again. }
+
+  classDef actorStyle fill:#ffffff,stroke:#333333,stroke-width:1.5px,color:#111;
+  classDef resourceStyle fill:#e8f0fe,stroke:#1a73e8,stroke-width:1.5px,color:#111;
+  classDef operatorStyle fill:#fdecc8,stroke:#b8860b,stroke-width:1.5px,color:#111;
+  classDef stateStyle fill:#f1f1f1,stroke:#555555,stroke-width:1.5px,color:#111;
+
+  User(["User"]):::actorStyle
+
+  subgraph Desired["Desired State"]
+    Resources["MariaDB resources"]:::resourceStyle
+  end
+
+  Operator["MariaDB Enterprise Operator"]:::operatorStyle
+
+  subgraph Current["Current State"]
+    Compute["Compute"]:::stateStyle
+    Storage["Storage"]:::stateStyle
+    Network["Network"]:::stateStyle
+  end
+
+  User -->|Creates| Resources
+  Resources -->|Watch| Operator
+  Operator -->|Watch| Resources
+  Current -->|Watch| Operator
+  Operator -->|Update| Current
+
+  style Desired fill:#ffffff,stroke:#333333,color:#111;
+  style Current fill:#ffffff,stroke:#333333,color:#111;
+```
+
+_The Operator watches the desired state (`MariaDB`/`MaxScale` resources) and the current state (compute, storage, network), then updates resources to reconcile the two._
 
 In particular, MariaDB Enterprise Kubernetes Operator, watches the desired state defined by users via `MariaDB` and `MaxScale` resources, and takes actions to ensure that the actual state of the system matches the desired state. This includes managing compute, storage and network resources, as well as the full lifecycle of the MariaDB and MaxScale instances. Whenever the desired state changes or the underlying infrastructure is modified, the Operator takes the necessary actions to reconcile the actual state with the desired state.
 

@@ -1,6 +1,26 @@
 # Simple Sharding with Two Servers
 
-![](../../../../.gitbook/assets/Simple-Sharding.png.png)
+```mermaid
+flowchart LR
+    accTitle: Client traffic sharded by MariaDB MaxScale across two servers
+    accDescr { A client connects to MariaDB MaxScale, which sits between the client and two backend database servers. MaxScale routes queries to the server holding the Customers and Orders schemas or to the server holding the Statistics and Inventory schemas, based on the schema being accessed. To the client, MaxScale appears as a single combined database. }
+
+    Client["Client"]
+    MaxScale["MaxScale"]
+    Shard1[("Customers<br/>Orders")]
+    Shard2[("Statistics<br/>Inventory")]
+
+    Client --> MaxScale
+    MaxScale --> Shard1
+    MaxScale --> Shard2
+
+    style Client fill:#6699cc,stroke:#1a1a1a,stroke-width:2px,color:#111;
+    style MaxScale fill:#6699cc,stroke:#1a1a1a,stroke-width:2px,color:#111;
+    style Shard1 fill:#6699cc,stroke:#1a1a1a,stroke-width:2px,color:#111;
+    style Shard2 fill:#6699cc,stroke:#1a1a1a,stroke-width:2px,color:#111;
+```
+
+_A client connects through MariaDB MaxScale, which shards queries between two backend servers holding different schemas._
 
 Sharding is the method of splitting a single database server into separate parts. This tutorial describes a very simple way of sharding. Each schema is located on a different database server and MariaDB MaxScale's **schemarouter** module is used to combine them into a single database server.
 

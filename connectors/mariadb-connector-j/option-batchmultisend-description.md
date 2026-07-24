@@ -19,7 +19,21 @@ Here is a benchmark using a client and server on 2 different hosts (ping of 0.35
 
 By default, the driver interacts with the server using a request–response messaging pattern.
 
-![standard](../.gitbook/assets/standard.png)
+```mermaid
+sequenceDiagram
+    accTitle: Standard client-server request-response protocol
+    accDescr {
+        The client sends a query to the server and then blocks, waiting for a response.
+        The server processes the query and sends the results back to the client before
+        the client can send another request.
+    }
+    participant C as Client
+    participant S as Server
+    C->>S: send QUERY
+    S-->>C: receive results
+```
+
+_Standard protocol: the client blocks after sending a query until the server's results arrive._
 
 Once the driver sends data, it will remain blocked until data becomes available from the input socket.
 
@@ -41,11 +55,71 @@ PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO t
 When the `useBatchMultiSend` option is turned off, batches are processed sequentially, sending each item individually using the traditional request–response messaging pattern.\
 Below is an example with a prepared statement (`useServerPrepStmts` enabled):
 
-![standard\_batch](../.gitbook/assets/standard_batch.png)
+```mermaid
+sequenceDiagram
+    accTitle: Standard batch execution with useBatchMultiSend disabled
+    accDescr {
+        The application submits a batch of statements to the client. The client first
+        sends COM_STMT_PREPARE and waits for COM_STMT_PREPARE_OK from the server. It then
+        sends each COM_STMT_EXECUTE one at a time, waiting for that item's result before
+        sending the next: first data, then second data, then third data, each followed by
+        its own result. After the third result is received, the client returns the
+        combined results to the application.
+    }
+    participant C as Client
+    participant S as Server
+    Note over C: Application batch
+    C->>S: send COM_STMT_PREPARE
+    Note over S: PREPARING query
+    S-->>C: receive COM_STMT_PREPARE_OK
+    C->>S: send COM_STMT_EXECUTE for first data
+    Note over S: EXECUTE query
+    S-->>C: receive COM_STMT_EXECUTE first result
+    C->>S: send COM_STMT_EXECUTE for 2nd data
+    Note over S: EXECUTE query
+    S-->>C: receive COM_STMT_EXECUTE 2nd result
+    C->>S: send COM_STMT_EXECUTE for 3rd data
+    Note over S: EXECUTE query
+    S-->>C: receive COM_STMT_EXECUTE 3rd result
+    Note over C: return results
+```
+
+_Standard batch (`useBatchMultiSend` disabled): each statement is prepared once, then executed and acknowledged one at a time before the next is sent._
 
 Same example with "useBatchMultiSend" enabled. Requests are sent in bulk, saving network latency:
 
-![bulk\_batch](../.gitbook/assets/bulk_batch.png)
+```mermaid
+sequenceDiagram
+    accTitle: Bulk batch execution with useBatchMultiSend enabled
+    accDescr {
+        The application submits a batch of statements to the client. The client sends
+        COM_STMT_PREPARE and waits for COM_STMT_PREPARE_OK, as in the standard case. It
+        then sends four COM_STMT_EXECUTE requests back to back, without waiting for any
+        result in between. The server processes each EXECUTE query and streams back four
+        results in order: first, second, third, and fourth. Only after all four results
+        have arrived does the client return the combined results to the application.
+    }
+    participant C as Client
+    participant S as Server
+    Note over C: Application batch
+    C->>S: send COM_STMT_PREPARE
+    Note over S: PREPARING query
+    S-->>C: receive COM_STMT_PREPARE_OK
+    loop send COM_STMT_EXECUTE for 4 executions
+        C->>S: send COM_STMT_EXECUTE
+    end
+    Note over S: EXECUTE query
+    S-->>C: receive COM_STMT_EXECUTE first result
+    Note over S: EXECUTE query
+    S-->>C: receive COM_STMT_EXECUTE 2nd result
+    Note over S: EXECUTE query
+    S-->>C: receive COM_STMT_EXECUTE 3rd result
+    Note over S: EXECUTE query
+    S-->>C: receive COM_STMT_EXECUTE 4th result
+    Note over C: return results
+```
+
+_Bulk batch (`useBatchMultiSend` enabled): all EXECUTE requests are sent up front, and results stream back afterward, saving round-trip latency._
 
 Advantages:
 

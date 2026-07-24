@@ -1229,7 +1229,33 @@ are running when three are needed for majority. Although both MaxScales see both
 running servers, neither is certain they have majority and the cluster stays in\
 read-only mode. If the primary server is down, no failover is performed either.
 
-![](../../../../.gitbook/assets/coop_lock_no_majority.png.png)
+```mermaid
+flowchart TD
+    accTitle: MaxScale cooperative lock - no majority scenario
+    accDescr {
+      MaxScale A (secondary) and MaxScale B (secondary) each maintain a solid, reachable connection to Server 1 (read-only) and Server 2 (read-only), but neither MaxScale holds an exclusive lock because both see the same pair of reachable servers, so neither reaches a majority. MaxScale A and MaxScale B each have a dashed, unreachable connection to Server 3 (down) and Server 4 (down). Because no MaxScale instance can secure a majority lock, no server is promoted to primary and Server 1 and Server 2 stay read-only.
+    }
+    MXA["MaxScale A<br/>secondary"]:::node
+    MXB["MaxScale B<br/>secondary"]:::node
+    S1["Server 1<br/>read-only<br/>(unlocked)"]:::node
+    S2["Server 2<br/>read-only<br/>(unlocked)"]:::node
+    S3["Server 3<br/>down"]:::warn
+    S4["Server 4<br/>down"]:::warn
+
+    MXA -- reachable --> S1
+    MXA -- reachable --> S2
+    MXB -- reachable --> S1
+    MXB -- reachable --> S2
+    MXA -. unreachable .-> S3
+    MXA -. unreachable .-> S4
+    MXB -. unreachable .-> S3
+    MXB -. unreachable .-> S4
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+```
+_No majority: both MaxScale instances see the same two reachable servers, so neither can lock a majority and both remain secondary._
 
 Setting `cooperative_monitoring_locks=majority_of_running` changes the way\_n\_servers\_ is calculated. Instead of using the total number of servers, only\
 servers currently \[Running] are considered. This scheme adapts to multiple\
@@ -1244,7 +1270,35 @@ Both MaxScales claim two locks out of two available and assume that they have\
 lock majority. Both MaxScales may then promote their own primaries and route\
 writes to different servers.
 
-![](../../../../.gitbook/assets/coop_lock_split_brain.png.png)
+```mermaid
+flowchart TD
+    accTitle: MaxScale cooperative lock - split-brain scenario
+    accDescr {
+      In Datacenter A, MaxScale A is primary and holds locks on Server 1 (read-write) and Server 2 (read-only). In Datacenter B, MaxScale B is also primary and holds locks on Server 3 (read-write) and Server 4 (read-only). The link between MaxScale A and MaxScale B is shown as a broken, dashed, bidirectional connection, meaning the two MaxScale instances cannot exchange heartbeats across datacenters. Because each MaxScale independently holds a lock and neither can see the other, both simultaneously act as primary, producing a split-brain condition with two independent read-write servers.
+    }
+    subgraph DCA["Datacenter A"]
+      MXA["MaxScale A<br/>primary"]:::warn
+      SA1["Server 1<br/>read-write<br/>(locked)"]:::node
+      SA2["Server 2<br/>read-only<br/>(locked)"]:::node
+    end
+    subgraph DCB["Datacenter B"]
+      MXB["MaxScale B<br/>primary"]:::warn
+      SB1["Server 3<br/>read-write<br/>(locked)"]:::node
+      SB2["Server 4<br/>read-only<br/>(locked)"]:::node
+    end
+
+    MXA -- locked --> SA1
+    MXA -- locked --> SA2
+    MXB -- locked --> SB1
+    MXB -- locked --> SB2
+    MXA -. broken heartbeat .-> MXB
+    MXB -. broken heartbeat .-> MXA
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+```
+_Split brain: a broken heartbeat between datacenters lets both MaxScale A and MaxScale B act as primary at once, each locking its own read-write server._
 
 The recommended strategy depends on which failure scenario is more likely and/or\
 more destructive. If it's unlikely that multiple servers are ever down\
@@ -1267,7 +1321,44 @@ can be further decreased by configuring each monitor with a different\_monitor\_
 
 The flowchart below illustrates the lock handling logic.
 
-![](../../../../.gitbook/assets/coop_lock_flowchart.svg.svg)
+```mermaid
+flowchart TD
+    accTitle: MaxScale cooperative monitoring — acquiring the primary lock majority
+    accDescr {
+        The MariaDB Monitor's cooperative-locking decision on each monitor tick. The monitor
+        tick starts and checks lock status on all servers. If this MaxScale already has a
+        majority of locks, it acquires any remaining free locks and continues as the primary
+        MaxScale. If it does not have a majority, it checks whether it can get a majority. If it
+        cannot, it continues as a secondary MaxScale. If it can, it acquires all free locks and
+        rechecks whether it got a majority: if yes, it continues as the primary MaxScale; if no,
+        it releases all acquired locks and continues as a secondary MaxScale.
+    }
+    Start(["Monitor tick start"])
+    Check["Check lock status on all servers"]
+    Have{"Have majority?"}
+    CanGet{"Can get majority?"}
+    AcqRemaining["Acquire any remaining free locks"]
+    AcqAll["Acquire all free locks"]
+    Got{"Got majority?"}
+    Release["Release all acquired locks"]
+    Primary(["Continue as primary MaxScale"])
+    Secondary(["Continue as secondary MaxScale"])
+    Start --> Check --> Have
+    Have -->|Yes| AcqRemaining --> Primary
+    Have -->|No| CanGet
+    CanGet -->|Yes| AcqAll --> Got
+    CanGet -->|No| Secondary
+    Got -->|Yes| Primary
+    Got -->|No| Release --> Secondary
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef decision fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef terminal fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    class Check,AcqRemaining,AcqAll,Release proc
+    class Have,CanGet,Got decision
+    class Start,Primary,Secondary terminal
+```
+
+_MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds (or can acquire) a majority of server locks becomes primary; otherwise it releases any locks and continues as secondary._
 
 #### Releasing locks
 

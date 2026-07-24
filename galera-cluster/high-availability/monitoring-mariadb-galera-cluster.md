@@ -37,7 +37,29 @@ You can monitor the status of individual nodes to ensure they are in working ord
 
 ## Understanding Galera Node States
 
-<div align="left"><figure><img src="../.gitbook/assets/galerafsm.png" alt=""><figcaption></figcaption></figure></div>
+```mermaid
+stateDiagram-v2
+    accTitle: Galera Cluster node state machine
+    accDescr {
+        A Galera node progresses through six states. From OPEN it joins the Primary
+        Component (1), becomes a JOINER while it requests a state transfer (2), then
+        JOINED once the transfer completes and it applies queued transactions (3). It
+        reaches SYNCED when fully caught up and operational (4). A SYNCED node may
+        become a DONOR to serve a State Snapshot Transfer to another node (5),
+        returning to JOINED afterward (6) before it syncs again.
+    }
+    [*] --> OPEN
+    OPEN --> PRIMARY: 1
+    PRIMARY --> JOINER: 2
+    JOINER --> JOINED: 3
+    JOINED --> SYNCED: 4
+    SYNCED --> DONOR: 5
+    DONOR --> JOINED: 6
+    classDef synced fill:#fff3a5,stroke:#333,stroke-width:2px,color:#111;
+    class SYNCED synced
+```
+
+_Galera node state transitions. `SYNCED` (highlighted) is the healthy, fully operational state._
 
 The value of `wsrep_local_state_comment` tells you exactly what a node is doing. The most common states include:
 

@@ -23,7 +23,7 @@ cluster manipulation operations. Cooperative monitoring only affects MaxScale
 itself; it does not control which MaxScale the application talks to. Both
 MaxScales process queries equally. The application can utilize multiple
 MaxScales with a connector that supports connection failover, e.g.
-[Connector/J](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-j/failover-and-high-availability-with-mariadb-connector-j-for-2x-driver)
+[Connector/J](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-j/failover-and-high-availability-with-mariadb-connector-j-for-2x-driver)
 
 The setup described above is not applicable to all situations:
 

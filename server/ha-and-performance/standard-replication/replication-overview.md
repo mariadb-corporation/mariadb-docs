@@ -46,7 +46,30 @@ Replication is used in a number of common scenarios. Uses include:
 
 ### Standard Replication
 
-![standard\_replication](../../.gitbook/assets/standard_replication.png)
+```mermaid
+flowchart TD
+    accTitle: Standard primary/replica replication
+    accDescr {
+        A single primary replicates asynchronously to several replicas. One replica in
+        turn acts as a primary for a further downstream replica, forming a replication
+        chain.
+    }
+    P[("MariaDB<br/>Primary")]
+    R1[("MariaDB<br/>Replica")]
+    R2[("MariaDB<br/>Replica")]
+    R3[("MariaDB<br/>Replica")]
+    R4[("MariaDB<br/>Replica")]
+    P --> R1
+    P --> R2
+    P --> R3
+    R3 --> R4
+    classDef primary fill:#5cb85c,stroke:#2f7d2f,stroke-width:2px,color:#111;
+    classDef replica fill:#f0932b,stroke:#b5701d,stroke-width:2px,color:#111;
+    class P primary
+    class R1,R2,R3,R4 replica
+```
+
+_Standard replication: one primary fans out to multiple replicas; a replica can chain to a further downstream replica._
 
 * Provides infinite read scale out.
 * Provides high-availability by upgrading replica to primary.
@@ -54,7 +77,37 @@ Replication is used in a number of common scenarios. Uses include:
 
 ### Ring Replication
 
-![ring\_replication](../../.gitbook/assets/ring_replication.png)
+```mermaid
+flowchart LR
+    accTitle: Ring replication
+    accDescr {
+        Four primaries replicate in a closed ring, each forwarding its changes to the
+        next node, so writes propagate all the way around. One node additionally
+        replicates to a replica outside the ring.
+    }
+    A[("MariaDB")]
+    B[("MariaDB")]
+    C[("MariaDB")]
+    D[("MariaDB")]
+    S[("MariaDB<br/>Replica")]
+    A --> B
+    B --> C
+    C --> D
+    D --> A
+    D --> S
+    classDef n1 fill:#5cb85c,stroke:#2f7d2f,stroke-width:2px,color:#111;
+    classDef n2 fill:#e2453c,stroke:#a52a24,stroke-width:2px,color:#111;
+    classDef n3 fill:#3aa0e6,stroke:#1f6fa8,stroke-width:2px,color:#111;
+    classDef n4 fill:#9b59b6,stroke:#6f3d84,stroke-width:2px,color:#111;
+    classDef replica fill:#f0932b,stroke:#b5701d,stroke-width:2px,color:#111;
+    class A n1
+    class B n2
+    class C n3
+    class D n4
+    class S replica
+```
+
+_Ring replication: each primary replicates to the next in a closed loop; here one node also feeds a replica._
 
 * Provides read and write scaling.
 * Doesn’t handle conflicts.
@@ -63,7 +116,29 @@ Replication is used in a number of common scenarios. Uses include:
 
 ### Ring Replication with slaves
 
-![](../../.gitbook/assets/multi-master-ring-replication1.png)
+```mermaid
+flowchart TD
+    accTitle: Ring replication with replicas and delayed replicas
+    accDescr {
+        Two primaries, on separate replication domains, replicate to each other in a
+        ring. Each primary also feeds a replica, and each replica feeds a delayed
+        replica, which lags intentionally to guard against human error such as an
+        accidental DROP TABLE.
+    }
+    P1[("MariaDB Primary<br/>Domain 1")]
+    P2[("MariaDB Primary<br/>Domain 2")]
+    P1 <--> P2
+    P1 --> S1[("MariaDB<br/>Replica")]
+    P2 --> S2[("MariaDB<br/>Replica")]
+    S1 --> D1[("MariaDB<br/>Delayed Replica")]
+    S2 --> D2[("MariaDB<br/>Delayed Replica")]
+    classDef d1 fill:#3aa0e6,stroke:#1f6fa8,stroke-width:2px,color:#111;
+    classDef d2 fill:#5cb85c,stroke:#2f7d2f,stroke-width:2px,color:#111;
+    class P1,S1,D1 d1
+    class P2,S2,D2 d2
+```
+
+_Multi-master ring with replicas: two primaries replicate to each other; each also has a replica and a delayed replica._
 
 * Provides read and write scaling.
 * Doesn’t handle conflicts.
@@ -72,7 +147,29 @@ Replication is used in a number of common scenarios. Uses include:
 
 ### Ring Replication with replication through slaves
 
-![](../../.gitbook/assets/multi-master-ring-replication2.png)
+```mermaid
+flowchart TD
+    accTitle: Ring replication relayed through replicas
+    accDescr {
+        Two primaries on separate domains form a ring that is relayed through their
+        replicas: each primary feeds a replica, and each replica forwards changes to the
+        other domain's primary. Each replica also feeds a delayed replica.
+    }
+    M1[("MariaDB Primary 1<br/>Domain 1")]
+    M2[("MariaDB Primary 2<br/>Domain 2")]
+    M1 --> S1[("MariaDB<br/>Replica 1")]
+    M2 --> S2[("MariaDB<br/>Replica 2")]
+    S1 --> M2
+    S2 --> M1
+    S1 --> D1[("MariaDB<br/>Delayed Replica 1")]
+    S2 --> D2[("MariaDB<br/>Delayed Replica 2")]
+    classDef d1 fill:#3aa0e6,stroke:#1f6fa8,stroke-width:2px,color:#111;
+    classDef d2 fill:#5cb85c,stroke:#2f7d2f,stroke-width:2px,color:#111;
+    class M1,S1,D1 d1
+    class M2,S2,D2 d2
+```
+
+_Multi-master ring relayed through replicas: each replica forwards to the other domain's primary, closing the ring._
 
 * Provides read and write scaling.
 * Doesn’t handle conflicts.
@@ -81,7 +178,35 @@ Replication is used in a number of common scenarios. Uses include:
 
 ### Star Replication
 
-![star\_replication](../../.gitbook/assets/star_replication.png)
+```mermaid
+flowchart TD
+    accTitle: Star (all-to-all) replication
+    accDescr {
+        Four primaries are fully meshed: every node replicates to and from every other
+        node, so each node holds all changes. Replication filters are needed to avoid
+        duplicating data.
+    }
+    A[("MariaDB")]
+    B[("MariaDB")]
+    C[("MariaDB")]
+    D[("MariaDB")]
+    A <--> B
+    A <--> C
+    A <--> D
+    B <--> C
+    B <--> D
+    C <--> D
+    classDef n1 fill:#5cb85c,stroke:#2f7d2f,stroke-width:2px,color:#111;
+    classDef n2 fill:#e2453c,stroke:#a52a24,stroke-width:2px,color:#111;
+    classDef n3 fill:#f0932b,stroke:#b5701d,stroke-width:2px,color:#111;
+    classDef n4 fill:#3aa0e6,stroke:#1f6fa8,stroke-width:2px,color:#111;
+    class A n1
+    class B n2
+    class C n3
+    class D n4
+```
+
+_Star replication: every primary replicates with every other, so all nodes converge to the same data._
 
 * Provides read and write scaling.
 * Doesn’t handle conflicts.
@@ -90,7 +215,30 @@ Replication is used in a number of common scenarios. Uses include:
 
 ### Multi-Source Replication
 
-![multi\_source\_replication](../../.gitbook/assets/multi_source_replication.png)
+```mermaid
+flowchart TD
+    accTitle: Multi-source replication
+    accDescr {
+        One replica receives from two primaries on separate replication domains
+        (Domain 1 and Domain 2) and applies both domains in parallel. That replica in
+        turn replicates to a downstream replica.
+    }
+    P1[("MariaDB Primary<br/>Domain 1")]
+    P2[("MariaDB Primary<br/>Domain 2")]
+    R1[("MariaDB<br/>Replica")]
+    R2[("MariaDB<br/>Replica")]
+    P1 --> R1
+    P2 --> R1
+    R1 --> R2
+    classDef d1 fill:#3aa0e6,stroke:#1f6fa8,stroke-width:2px,color:#111;
+    classDef d2 fill:#5cb85c,stroke:#2f7d2f,stroke-width:2px,color:#111;
+    classDef replica fill:#f0932b,stroke:#b5701d,stroke-width:2px,color:#111;
+    class P1 d1
+    class P2 d2
+    class R1,R2 replica
+```
+
+_Multi-source replication: one replica pulls from two primaries on separate domains and applies them in parallel._
 
 * Allows you to combine data from different sources.
 * Different domains executed independently in parallel on all replicas.

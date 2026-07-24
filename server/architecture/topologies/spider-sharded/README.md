@@ -6,7 +6,36 @@ description: Deploy Spider Sharded Topology
 
 ## Overview
 
-<table><thead><tr><th valign="top">Software Version</th><th>Diagram</th><th valign="top">Features</th></tr></thead><tbody><tr><td valign="top"><ul><li>Enterprise Server 10.4</li><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul></td><td><img src="../../../.gitbook/assets/spider-sharded (1).svg" alt=""></td><td valign="top"><p><strong>Shard tables for horizontal scalability</strong></p><ul><li>Spider Node uses Spider storage engine for Sharded Spider Tables</li><li>Sharded Spider Table is a partitioned "virtual" table</li><li>Spider uses MariaDB foreign data wrapper to query Data Tables on Data Nodes for each partition</li><li>Data Node uses non-Spider storage engine for Data Tables</li><li>Supports transactions</li><li>Enterprise Server 10.3+, Enterprise Spider</li></ul></td></tr></tbody></table>
+```mermaid
+flowchart LR
+    accTitle: Spider Sharded topology
+    accDescr {
+        A client connects to a Spider Node, a MariaDB Enterprise Server running the Spider
+        storage engine and holding a partitioned virtual Sharded Spider Table. Using the
+        MariaDB foreign data wrapper, the Spider Node reads from and writes to a Data Table on
+        each of several Data Nodes, one per partition (shard); every Data Node is a MariaDB
+        Enterprise Server running a non-Spider storage engine.
+    }
+    Client["Client"]
+    Spider[("Spider Node<br/>Enterprise Server")]
+    S1[("Data Node<br/>shard 1")]
+    S2[("Data Node<br/>shard 2")]
+    S3[("Data Node<br/>shard 3")]
+    Client --> Spider
+    Spider <-->|"rw · Spider sharding"| S1
+    Spider <-->|"rw · Spider sharding"| S2
+    Spider <-->|"rw · Spider sharding"| S3
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    class Spider,S1,S2,S3 node
+    class Client client
+```
+
+_Spider Sharded: a Spider Node distributes the partitions of a virtual sharded table across multiple Data Nodes (shards) via the Spider foreign data wrapper._
+
+<ul><li>Enterprise Server 10.4</li><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul>
+
+<p><strong>Shard tables for horizontal scalability</strong></p><ul><li>Spider Node uses Spider storage engine for Sharded Spider Tables</li><li>Sharded Spider Table is a partitioned "virtual" table</li><li>Spider uses MariaDB foreign data wrapper to query Data Tables on Data Nodes for each partition</li><li>Data Node uses non-Spider storage engine for Data Tables</li><li>Supports transactions</li><li>Enterprise Server 10.3+, Enterprise Spider</li></ul>
 
 This procedure describes the deployment of the **Spider Sharded topology** with MariaDB Enterprise Server.
 
@@ -43,8 +72,6 @@ The following components are deployed during this procedure:
 <table><thead><tr><th width="223.4814453125">Term</th><th>Definition</th></tr></thead><tbody><tr><td>Data Node</td><td>A Data Node is a MariaDB Enterprise Server node that contains one or more Data Tables.</td></tr><tr><td>Data Table</td><td>A Data Table stores data for a Spider Table. When a Spider Table is queried, the Enterprise Spider storage engine uses the MariaDB foreign data wrapper to read from and write to the Data Table on a Data Node. The Data Table must be created on the Data Node with the same structure as the Spider Table. The Data Table must use a non-Spider storage engine, such as <a href="../../../server-usage/storage-engines/innodb/">InnoDB</a> or <a href="https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-engine-overview">ColumnStore</a>.</td></tr><tr><td>ODBC Data Source</td><td>An ODBC Data Source relies on an ODBC Driver and an ODBC Driver Manager to query an external data source.</td></tr><tr><td>ODBC Driver</td><td>An ODBC Driver is a library that integrates with a ODBC Driver Manager to query an external data source.</td></tr><tr><td>ODBC Driver Manager</td><td>An ODBC Driver Manager allows applications to use ODBC Drivers.</td></tr><tr><td>Spider Node</td><td>A Spider Node is a MariaDB Enterprise Server node that contains one or more Spider Tables.</td></tr><tr><td>Spider Node</td><td>A Spider Table is a virtual table that does not store data. When a Spider Table is queried, the <a href="../../../server-usage/storage-engines/spider/">Enterprise Spider storage engine</a> uses foreign data wrappers to read from and write to Data Tables on Data Nodes or ODBC Data Sources.</td></tr></tbody></table>
 
 ## Topology
-
-<figure><img src="../../../.gitbook/assets/spider-sharded (1).svg" alt=""><figcaption></figcaption></figure>
 
 In the Spider Sharded topology, a Spider Node contains one or more "virtual" Spider Tables. A Spider Table does not store data. When a Spider Table is queried, the Enterprise Spider storage engine uses a MariaDB foreign data wrapper to read from and write to Data Tables on Data Nodes. The data for the Spider Table is partitioned among the Data Nodes using the regular partitioning syntax.
 

@@ -23,7 +23,33 @@ Database replication is the process of continuously copying data from one databa
 
 #### **Primary/Replica**
 
-<div align="left"><figure><img src="../.gitbook/assets/asynchronousreplication.png" alt=""><figcaption><p>Primary/Primary Replication</p></figcaption></figure></div>
+```mermaid
+flowchart TD
+    accTitle: Primary/Replica replication
+    accDescr {
+        A client sends a write (transaction A) to the Primary node, which commits it
+        locally. The Primary then propagates transaction A through the replication layer
+        to one or more Replica nodes, which apply the same transaction to their own copy
+        of the data.
+    }
+    Client["Client<br/>writes trx A"]
+    Primary[("Primary<br/>trx A")]
+    Replica1[("Replica<br/>trx A")]
+    Replica2[("Replica<br/>trx A")]
+    Repl["Replication"]
+    Client --> Primary
+    Primary --> Repl
+    Repl --> Replica1
+    Repl --> Replica2
+    classDef primary fill:#d4edda,stroke:#28a745,stroke-width:2px,color:#111;
+    classDef replica fill:#fff3cd,stroke:#ffc107,stroke-width:2px,color:#111;
+    classDef node fill:#f5f5f5,stroke:#333,stroke-width:1px,color:#111;
+    class Primary primary
+    class Replica1,Replica2 replica
+    class Client,Repl node
+```
+
+_Primary/Replica replication: one node accepts writes and propagates them to the replicas._
 
 The most common replication architecture is Primary/Replica (also known as Master/Slave). In this model:
 
@@ -33,7 +59,37 @@ The most common replication architecture is Primary/Replica (also known as Maste
 
 #### **Multi-Primary Replication**
 
-<div align="left"><figure><img src="../.gitbook/assets/synchronousreplication.png" alt=""><figcaption><p>Multi-primary Replication</p></figcaption></figure></div>
+```mermaid
+flowchart TD
+    accTitle: Multi-primary (synchronous) replication
+    accDescr {
+        Client applications connect transparently to any of three DBMS nodes. Every node
+        is a primary and accepts writes. All nodes are kept consistent by a synchronous
+        replication layer that applies each transaction on every node, so a commit is
+        confirmed only once the data exists on all of them.
+    }
+    subgraph Clients [Clients]
+        C1["Client"]
+        C2["Client"]
+        C3["Client"]
+    end
+    N1[("DBMS")]
+    N2[("DBMS")]
+    N3[("DBMS")]
+    Repl["Replication"]
+    C1 <--> N1
+    C2 <--> N2
+    C3 <--> N3
+    N1 <--> Repl
+    N2 <--> Repl
+    N3 <--> Repl
+    classDef node fill:#fff3cd,stroke:#ffc107,stroke-width:2px,color:#111;
+    classDef bar fill:#f5f5f5,stroke:#333,stroke-width:1px,color:#111;
+    class N1,N2,N3 node
+    class Repl bar
+```
+
+_Multi-primary replication: every node accepts writes and stays consistent through synchronous replication._
 
 In a multi-primary system, every node in the cluster acts as a primary. This means any node can accept write operations. When a node receives an update, it automatically propagates that change to all other primary nodes in the cluster. Each primary node logs its own changes and communicates them to its peers to maintain synchronization.
 
