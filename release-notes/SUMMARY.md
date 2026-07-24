@@ -191,6 +191,7 @@
     * [Release Model](community-server/about/release-model.md)
     * [Compatibility and Differences](community-server/about/compatibility-and-differences/README.md)
       * [Incompatibilities and Feature Differences Between MariaDB Rolling and MySQL 8.0](community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-rolling-and-mysql.md)
+      * [Incompatibilities and Feature Differences Between MariaDB 11.8 and MySQL 8.0](community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-11-8-and-mysql-8.md)
       * [Incompatibilities and Feature Differences Between MariaDB 11.4 and MySQL 8.0](community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-11-4-and-mysql-8.md)
       * [Incompatibilities and Feature Differences Between MariaDB 10.11 and MySQL 8.0](community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-10-11-and-mysql-8.md)
       * [Incompatibilities and Feature Differences Between MariaDB 10.6 and MySQL 8.0](community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-10-6-and-mysql-8.md)
