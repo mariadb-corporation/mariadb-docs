@@ -20,14 +20,15 @@ The MariaDB project builds packages for the following:
 | CentOS Stream 9                              | May 2027                 |
 | Ubuntu 22.04 "Jammy"                         | Jun 2027                 |
 | Fedora 44                                    | Aug 2027                 |
-| OpenSUSE Leap 16.00                          | Oct 2027                 |
+| OpenSUSE Leap 16.0                           | Nov 2027                 |
+| SLES Enterprise Linux 16.0                   | Dec 2027                 |
 | Debian 12 "Bookworm"                         | Jun 2028                 |
 | Red Hat Enterprise Linux 8.x                 | Jun 2029                 |
 | Ubuntu 24.04 "Noble"                         | Jun 2029                 |
 | CentOS Stream 10                             | Jan 2030                 |
 | Debian 13 "Trixie"                           | Jun 2030                 |
 | Ubuntu 26.04 "Resolute Raccoon"              | Apr 2031                 |
-| SLES 15 SP7                                  | Jun 2031                 |
+| SLES Enterprise Linux 15 SP7                 | Jun 2031                 |
 | Red Hat Enterprise Linux 9.x                 | Jun 2032                 |
 | Red Hat Enterprise Linux 10.x                | May 2035                 |
 
