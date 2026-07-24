@@ -3,6 +3,7 @@ description: >-
   Upgrading a MariaDB Enterprise Server 10.6 Galera Cluster directly to 11.8 -
   the cluster-specific procedure (packages, bootstrap, state transfer) layered
   on top of the standalone 10.6-to-11.8 upgrade guide.
+hidden: true
 ---
 
 # Upgrading from MariaDB Enterprise Server 10.6 to 11.8 with Galera Cluster
@@ -24,13 +25,10 @@ The direct upgrade from 10.6 to 11.8, skipping 11.4, is a supported Enterprise S
 There are two ways to move a Galera Cluster from 10.6 to 11.8. Which one you choose depends on whether you can tolerate a maintenance window.
 
 * **Full cluster shutdown (recommended for the direct 10.6-to-11.8 jump).** Stop every node, upgrade all nodes to 11.8, then bootstrap the cluster again. Because no 10.6 and 11.8 nodes are ever running at the same time, there is no mixed-version window to reason about - each node performs exactly the standalone 10.6-to-11.8 upgrade. This method requires a maintenance window.
-* **Rolling upgrade through intermediate versions (for zero downtime).** Galera guarantees mixed-version replication only between *adjacent* major releases, so a no-downtime rolling upgrade is performed one major version at a time: 10.6 → 10.11 → 11.4 → 11.8. Follow each hop in turn:
-  * [Upgrading from MariaDB 10.6 to MariaDB 10.11 with Galera Cluster](upgrading-from-mariadb-10-6-to-mariadb-10-11-with-galeracluster.md)
-  * [Upgrading from MariaDB 10.11 to MariaDB 11.4 with Galera Cluster](upgrading-from-mariadb-10.11-to-mariadb-11.4-with-galera-cluster.md)
-  * [Upgrading from MariaDB 11.4 to MariaDB 11.8 with Galera Cluster](upgrading-from-mariadb-10.11-to-mariadb-11.4-with-galera-cluster-1.md)
+* **Rolling upgrade through the intermediate LTS release (for zero downtime).** Galera guarantees mixed-version replication only between *adjacent* releases, so a no-downtime rolling upgrade goes through the intermediate Enterprise Server LTS release rather than jumping straight to 11.8: **10.6 → 11.4 → 11.8**. Enterprise Server has no 10.11 release — its LTS releases are 10.6, 11.4, and 11.8. Upgrade 10.6 to 11.4 first, then follow [Upgrading from MariaDB 11.4 to MariaDB 11.8 with Galera Cluster](upgrading-from-mariadb-10.11-to-mariadb-11.4-with-galera-cluster-1.md).
 
 {% hint style="warning" %}
-Do not run a **rolling** upgrade that skips major versions (for example, keeping some nodes on 10.6 while others are already on 11.8). Galera negotiates the highest protocol version common to all cluster members, and mixed-version replication is only validated between adjacent major releases. To skip versions, use the full-cluster-shutdown method so that no two major versions are ever live at once.
+Confirm the rolling-upgrade path with MariaDB Support before you begin. For a **rolling** upgrade, never keep nodes on non-adjacent releases live at the same time (for example, some on 10.6 while others are already on 11.8): Galera negotiates the highest protocol version common to all members, and mixed-version replication is only validated between adjacent releases. To make the direct 10.6-to-11.8 jump, use the full-cluster-shutdown method so that no two major versions are ever live at once.
 {% endhint %}
 
 The rest of this page describes the **full-cluster-shutdown** method.
