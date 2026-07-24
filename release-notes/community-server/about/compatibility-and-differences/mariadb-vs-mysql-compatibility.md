@@ -100,7 +100,7 @@ For unmaintained versions, see:
 * MySQL 5.7 features a new implementation of the `performance_schema` and a `sys` schema wrapper. These are not yet supported in MariaDB.
 * MySQL 5.7 adds multi-source replication and replication channels. [Multi-source replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/multi-source-replication) was added to MariaDB previously, in [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md), and uses a different syntax.
 * MySQL 5.7 adds group replication. This feature is incompatible with MariaDB's [galera-cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) replication.
-* [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's, `ACCOUNT LOCK/UNLOCK` synax for `CREATE USER` and `ALTER USER` statements.
+* [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's, `ACCOUNT LOCK/UNLOCK` syntax for `CREATE USER` and `ALTER USER` statements.
 * [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's `ALTER TABLE...RENAME INDEX` statements.
 * [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's `STACKED` operation for [GET DIAGNOSTICS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-diagnostics/get-diagnostics) statements.
 * [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's `{WITH|WITHOUT} VALIDATION` syntax for `ALTER TABLE.. EXCHANGE PARTITION` statements.
