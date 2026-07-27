@@ -366,8 +366,9 @@ The following table shows a list of example account as sorted by these criteria:
 +---------+-------------+
 ```
 
-Once connected, you only have the privileges granted on a particular object to the account that matched, not all accounts that could have matched. For example, consider the following\
-commands:
+The account that matched determines your identity and your global privileges. Privileges below the global level are looked up separately, and at each level only the most specific matching grant applies — grants belonging to less specific accounts are not added to it. For the full rule, see [Account Name Matching for Privilege Checks](grant.md#account-name-matching-for-privilege-checks) on the `GRANT` page.
+
+For example, consider the following commands:
 
 ```sql
 CREATE USER 'joffrey'@'192.168.0.3';
@@ -376,7 +377,9 @@ GRANT SELECT ON test.t1 TO 'joffrey'@'192.168.0.3';
 GRANT INSERT ON test.t1 TO 'joffrey'@'%';
 ```
 
-If you connect as joffrey from `192.168.0.3`, you will have the `SELECT` privilege on the table `test.t1`, but not INSERT. If you connect as joffrey from any other IP address, you will have the `INSERT` privilege on the table `test.t1`, but not `SELECT`.
+If you connect as joffrey from `192.168.0.3`, you will have the `SELECT` privilege on the table `test.t1`, but not `INSERT`. If you connect as joffrey from any other IP address, you will have the `INSERT` privilege on the table `test.t1`, but not `SELECT`.
+
+If the matching account has no grant at all at a given level, a grant belonging to a less specific account can still apply. Without the `test.t1` grant to `'joffrey'@'192.168.0.3'`, the grant to `'joffrey'@'%'` would be the only match, and a connection from `192.168.0.3` would have the `INSERT` privilege on `test.t1`.
 
 Usernames can be up to 80 characters long before 10.6 and starting from 10.6 it can be 128 characters long.
 
