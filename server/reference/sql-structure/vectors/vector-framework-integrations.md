@@ -32,7 +32,7 @@ MariaDB Vector has integrations in several frameworks.
 * [Open WebUI](https://github.com/open-webui/open-webui) - AI Interface, Python & Javascript
 * [Vanna AI](https://github.com/vanna-ai/vanna) - Vector search and text2sql, Python
 
-For further alternatives, see [Qdrant's list of framework integrations](https://qdrant.tech/documentation/frameworks/).
+For the full, continuously updated catalog of AI frameworks, platforms, and tools that work with MariaDB, see the [AI & Application Development category of the MariaDB Ecosystem Hub](https://ecohub.mariadb.org/ai-application-development).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
