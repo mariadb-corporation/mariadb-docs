@@ -30,7 +30,7 @@ New to MariaDB? Start here to set up your environment, connect to your first dat
 
 * [Installation Guides](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/installing-mariadb-server-guide)
 * [Basic Concepts](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/basics-guide)
-* [Connecting to MariaDB](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/aUF70dDKMyaR6xBiNmrt)
+* [Connecting to MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/mariadb-connecting-guide)
 * [First SQL Queries](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/mariadb-advanced-sql-guide)
 
 ### Product Documentation
@@ -48,6 +48,12 @@ Dedicated resources for specific MariaDB products and tools.
   * [MariaDB Enterprise Kubernetes Operator](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-enterprise-operator)
   * [MariaDB Enterprise MCP Server](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-enterprise-mcp-server)
   * [MariaDB AI RAG](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-ai-rag)
+
+### Ecosystem
+
+Discover the tools, services, platforms, and partners that work with MariaDB Server.
+
+* [MariaDB Server Ecosystem Hub](mariadb-server-ecosystem-hub.md)
 
 ### Release Notes
 
