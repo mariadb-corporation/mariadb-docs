@@ -127,8 +127,9 @@ Privileges below the global level are resolved separately. For each level, Maria
 * Database privileges are matched in the [mysql.db table](../../system-tables/the-mysql-database-tables/mysql-db-table.md).
 * Table privileges are matched in the [mysql.tables\_priv table](../../system-tables/the-mysql-database-tables/mysql-tables_priv-table.md).
 * Column privileges are matched in the [mysql.columns\_priv table](../../system-tables/the-mysql-database-tables/mysql-columns_priv-table.md).
+* Function and procedure privileges are matched in the [mysql.procs\_priv table](../../system-tables/the-mysql-database-tables/mysql-procs_priv-table.md).
 
-At each of these levels, the single most specific matching entry applies, and it applies on its own. Entries with less specific host patterns are not merged into it.
+Each of these tables is searched independently, so the account whose privileges apply can differ from one level to the next. At each level, the single most specific matching entry applies, and it applies on its own. Entries with less specific host patterns are not merged into it.
 
 A privilege granted to one account can therefore apply to a connection that authenticated as a different account with the same user name:
 
