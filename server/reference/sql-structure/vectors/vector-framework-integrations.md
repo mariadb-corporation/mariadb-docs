@@ -20,6 +20,15 @@ MariaDB Vector has integrations in several frameworks. For a general overview of
 * [Spring AI, MariaDB Vector Store](https://docs.spring.io/spring-ai/reference/api/vectordbs/mariadb.html) - Java
 * [VectorDBBench](https://github.com/zilliztech/VectorDBBench) - benchmarking for vector databases
 
+## Web Framework and ORM Integrations
+
+* [Laravel, vector columns and vector indexes in the schema builder](https://laravel.com/docs/13.x/migrations#column-method-vector) - PHP, since Laravel 13; `$table->vectorIndex('embedding')` compiles to a MariaDB `VECTOR INDEX` with `M=6 DISTANCE=cosine` ([laravel/framework#60334](https://github.com/laravel/framework/pull/60334))
+* [laravel-mariadb-vector, vector casts and similarity search for Eloquent models](https://packagist.org/packages/devilsberg/laravel-mariadb-vector) - PHP, community package
+* [TypeORM, MariaDB vector columns](https://typeorm.io/docs/drivers/mysql/) - TypeScript/Node.js, since TypeORM 0.3.28
+* [Hibernate ORM, MariaDB vector type](https://hibernate.atlassian.net/browse/HHH-18900) - Java, since Hibernate ORM 7.0
+
+For a worked example of picking an embedding model for MariaDB Vector in a Laravel application, see [MariaDB Vector in Laravel: insights on choosing an embedding model](https://mariadb.org/mariadb-vector-in-laravel-insights-on-choosing-an-embedding-model/).
+
 ## Potential Future Vector or AI Integrations
 * [AutoGen](https://github.com/microsoft/autogen) - Agent to agent, Python
 * [DB-GPT](https://github.com/eosphoros-ai/DB-GPT) - private LLM, vector search and text2sql, see [integration docs](http://docs.dbgpt.cn/docs/installation), Python
