@@ -116,6 +116,68 @@ Use the [SHOW GRANTS](../administrative-sql-statements/show/show-grants.md) stat
 
 For `GRANT` statements, account names are specified as the `username` argument in the same way as they are for [CREATE USER](create-user.md) statements. See [account names](create-user.md#account-names) from the `CREATE USER` page for details on how account names are specified.
 
+#### Account Name Matching for Privilege Checks
+
+An account is a user name together with a host pattern, and the two parts are matched at two different times.
+
+When a client connects, MariaDB selects exactly one account: the one whose user name matches exactly and whose host pattern is the most specific match for the client's host. That account authenticates the connection, it is what [CURRENT\_USER()](../../sql-functions/secondary-functions/information-functions/current_user.md) returns, and its row in the [mysql.global\_priv table](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md) is the only source of the connection's global privileges. For the rules that decide which account is the most specific match, see [account names](create-user.md#account-names) on the `CREATE USER` page.
+
+Privileges below the global level are resolved separately. For each level, MariaDB searches that level's grant table again, using the user name of the account that authenticated the connection together with the host the client actually connected from. The host pattern of the account itself is not used:
+
+* Database privileges are matched in the [mysql.db table](../../system-tables/the-mysql-database-tables/mysql-db-table.md).
+* Table privileges are matched in the [mysql.tables\_priv table](../../system-tables/the-mysql-database-tables/mysql-tables_priv-table.md).
+* Column privileges are matched in the [mysql.columns\_priv table](../../system-tables/the-mysql-database-tables/mysql-columns_priv-table.md).
+
+At each of these levels, the single most specific matching entry applies, and it applies on its own. Entries with less specific host patterns are not merged into it.
+
+A privilege granted to one account can therefore apply to a connection that authenticated as a different account with the same user name:
+
+```sql
+CREATE USER foo@localhost;
+CREATE USER foo@'%';
+CREATE DATABASE db;
+CREATE TABLE db.t1 (a INT);
+INSERT INTO db.t1 VALUES (1),(2),(3);
+GRANT SELECT ON db.* TO foo@'%';
+```
+
+Connecting as `foo` from the local host authenticates as `foo@localhost`, because `localhost` is a more specific match than `%`:
+
+```sql
+SELECT CURRENT_USER();
+```
+
+```
++----------------+
+| CURRENT_USER() |
++----------------+
+| foo@localhost  |
++----------------+
+```
+
+No privilege was granted to `foo@localhost`, but the `mysql.db` entry granted to `foo@'%'` matches, because `%` matches the host the client connected from. The `SELECT` succeeds:
+
+```sql
+SELECT * FROM db.t1;
+```
+
+Granting any database privilege to `foo@localhost` changes the result. The `mysql.db` table then holds a more specific matching entry, and that entry applies instead of the one granted to `foo@'%'`, not in addition to it:
+
+```sql
+GRANT INSERT ON db.* TO foo@localhost;
+SELECT * FROM db.t1;
+```
+
+```
+ERROR 1142 (42000): SELECT command denied to user 'foo'@'localhost' for table `db`.`t1`
+```
+
+Global privileges do not work this way. They come only from the account that authenticated the connection, so a global privilege granted to `foo@'%'` has no effect on a connection that authenticated as `foo@localhost`.
+
+{% hint style="info" %}
+[SHOW GRANTS](../administrative-sql-statements/show/show-grants.md) lists the privileges recorded for the account that authenticated the connection. Privileges that reach the connection through an entry belonging to another account, as in the example above, are not listed, so `SHOW GRANTS` can report fewer privileges than the connection actually has.
+{% endhint %}
+
 #### Database Name Wildcard Matching Order
 
 When multiple `GRANT` entries match a database name (since database names in `GRANT` can contain `%` and `_` wildcards), MariaDB applies the most specific matching grant. Specificity is determined by how many database names a pattern can match, a pattern matching fewer databases is more specific and takes precedence.
