@@ -9,13 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Get changed files
         id: changes
-        uses: tj-actions/changed-files@v45
+        # SHA-pinned rather than tag-pinned: this action was compromised in
+        # March 2025 (CVE-2025-30066), when tags in the v1-v45 range were
+        # repointed at code that leaked runner secrets. Pinning the commit
+        # removes the retag vector. Dependabot keeps the SHA and the comment
+        # in sync. See DOCS-6362.
+        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
         with:
           files: |
             **.md
