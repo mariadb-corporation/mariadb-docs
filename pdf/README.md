@@ -78,7 +78,7 @@ SUMMARY.md ─▶ manifest ─▶ preprocess ─▶ pandoc (md→html) ─▶ Ch
 | `{% @marketo/form %}` and other integrations | ~9,000 | dropped |
 | `{% include %}` | ~9,000 | local files inlined; remote and boilerplate dropped |
 | `{% column %}` / `{% columns %}` | ~6,200 | linearized (a PDF page is one column) |
-| `{% content-ref %}` | ~2,400 | collapsed to the link it contains |
+| `{% content-ref %}` | ~2,400 | collapsed to a link labelled with the target's title |
 | `{% hint %}` | ~1,690 | callout styled per severity |
 | `{% tab %}` / `{% tabs %}` | ~1,400 | sequential labeled subsections |
 | `{% step %}` / `{% stepper %}` | ~730 | explicitly numbered steps |
@@ -168,6 +168,24 @@ Unlike an in-space link, an outbound link **keeps its `#fragment`**: the target
 page is not in this PDF, so the section anchor still does useful work on the
 site. 405 links were losing one — `server-system-variables.md#wait_timeout`
 dropped the reader at the top of a very long page rather than at the variable.
+
+### Reference labels come from page titles
+
+GitBook stores a `{% content-ref %}` with the target's *filename* as its link
+text and renders the real page title from its own database, so 2,298 of the
+corpus's 2,377 refs carry a label like
+`backup-and-restore-via-dbforge-studio.md`. Printed verbatim, that is the one
+place a PDF reference reads worse than the website.
+
+The title is taken from `SUMMARY.md` first, so a reference names a page exactly
+as the contents list and the PDF outline do; a page outside the navigation falls
+back to its own H1. Only the label changes — the block's own URL is still what
+gets linked.
+
+Plain inline links are deliberately left alone. Five in the corpus have a label
+ending in `.md`, and every one is a genuine reference to a repository file
+(`CONTRIBUTING.md`, `install.md`), so blanket-rewriting labels would corrupt
+them.
 
 Two findings from this that are **source** bugs, not PDF bugs:
 

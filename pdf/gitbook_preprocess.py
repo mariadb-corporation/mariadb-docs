@@ -156,7 +156,69 @@ def unescape_markers(text):
             lambda m: m.group(1) or (m.group(2) + m.group(3)), ln))
 
 
-def convert_blocks(text):
+# ---------------------------------------------------------------------------
+# Page titles, for reference labels
+# ---------------------------------------------------------------------------
+
+# SUMMARY.md titles carry Markdown escapes from the GitBook migration
+# (`wsrep\_provider\_options`), which must come off before the title is used as
+# display text.
+MD_ESCAPE_RE = re.compile(r"\\([\\`*_{}\[\]()#+\-.!<>|~])")
+
+
+def unescape_md(text):
+    return MD_ESCAPE_RE.sub(r"\1", text).strip()
+
+
+# GitBook stores a `{% content-ref %}` with the target's *filename* as the link
+# text and renders the real page title from its own database, so 2,298 of the
+# corpus's 2,377 refs carry a label like
+# `backup-and-restore-via-dbforge-studio.md`. Printed verbatim that is the one
+# place a PDF reference reads worse than the website, so the title is recovered
+# from SUMMARY.md, or from the page's own H1 when it is not in the navigation.
+H1_RE = re.compile(r"^#[ \t]+(.+?)[ \t]*$", re.M)
+_title_cache = {}
+
+
+def page_title_from_file(abs_path):
+    """First H1 of a page, or None. Cached -- pages are referenced repeatedly."""
+    if abs_path not in _title_cache:
+        try:
+            with open(abs_path, encoding="utf-8") as fh:
+                _, body = split_frontmatter(fh.read())
+        except OSError:
+            body = ""
+        m = H1_RE.search(body)
+        _title_cache[abs_path] = unescape_md(m.group(1)) if m else None
+    return _title_cache[abs_path]
+
+
+def make_ref_label(page_path, space_dir, titles):
+    """Build a resolver mapping a reference URL to the target page's title."""
+    page_dir = os.path.dirname(page_path)
+
+    def resolve(url):
+        if not url or url.startswith(ABSOLUTE):
+            return None
+        raw = unquote(url.partition("#")[0])
+        if not raw:
+            return None
+        target = os.path.normpath(os.path.join(page_dir, raw))
+        rel = os.path.relpath(target, space_dir).replace(os.sep, "/")
+        # SUMMARY.md first: it is what the PDF's own outline and contents use,
+        # so a reference matches the heading the reader will land on.
+        for cand in (rel, f"{rel}/README.md", f"{rel}.md"):
+            if cand in titles:
+                return titles[cand]
+        for cand in (target, os.path.join(target, "README.md"), f"{target}.md"):
+            if os.path.isfile(cand):
+                return page_title_from_file(cand)
+        return None
+
+    return resolve
+
+
+def convert_blocks(text, ref_label=None):
     """Rewrite every GitBook block marker into Pandoc fenced divs.
 
     Runs as one pass because blocks nest and span code fences; a stack tracks
@@ -194,8 +256,14 @@ def convert_blocks(text):
             if CREF_CLOSE.search(line):
                 url, body = cref[0], "\n".join(cref[1])
                 inner = MD_LINK_INLINE.search(body)
-                label = inner.group(1) if inner else \
-                    (url.rstrip("/").split("/")[-1] or url)
+                # The target's real title first, because that is what GitBook
+                # shows -- it ignores the label stored in the block body, which
+                # is almost always just the filename.
+                label = ref_label(url) if ref_label else None
+                if not label and inner:
+                    label = inner.group(1)
+                if not label:
+                    label = url.rstrip("/").split("/")[-1] or url
                 out.append(f"\nSee [{_esc_inline(label)}]({url}).\n")
                 cref = None
             else:
@@ -639,12 +707,13 @@ def _first_heading_matches(body, title):
 
 
 def preprocess(text, *, page_path, space_dir, anchors, heading_offset,
-               web_base, anchor_id, title):
+               web_base, anchor_id, title, titles=None):
     """Turn one GitBook page into PDF-ready Markdown."""
     _, body = split_frontmatter(text)
 
     body = resolve_includes(body, page_path)
-    body = convert_blocks(body)
+    body = convert_blocks(
+        body, ref_label=make_ref_label(page_path, space_dir, titles or {}))
     body = namespace_footnotes(body, anchor_id)
     body = expand_aliases(body)
     body = convert_mermaid(body)

@@ -30,7 +30,7 @@ from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gitbook_preprocess import (  # noqa: E402
-    INLINE_CODE_RE, iter_lines, preprocess)
+    INLINE_CODE_RE, iter_lines, preprocess, unescape_md)
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PDF_DIR = os.path.join(REPO_ROOT, "pdf")
@@ -147,6 +147,9 @@ def build_markdown(space, entries, limit=None):
         entries = entries[:limit]
 
     anchors = {path: anchor_for(path) for _, _, path in entries}
+    # Reference labels come from these, so a `{% content-ref %}` names the page
+    # the same way the contents list and the PDF outline do.
+    titles = {path: clean_title(title) for _, title, path in entries}
 
     chunks = []
     for depth, title, path in entries:
@@ -166,6 +169,7 @@ def build_markdown(space, entries, limit=None):
             web_base=WEB_BASE,
             anchor_id=anchors[path],
             title=title,
+            titles=titles,
         ))
     return "\n\n".join(chunks), entries
 
@@ -173,11 +177,8 @@ def build_markdown(space, entries, limit=None):
 # SUMMARY.md titles carry Markdown escapes from the GitBook migration
 # (`wsrep\_provider\_options`). The TOC is emitted as raw HTML, so they have to
 # be unescaped here or the backslashes show up in the rendered contents list.
-MD_ESCAPE_RE = re.compile(r"\\([\\`*_{}\[\]()#+\-.!<>|~])")
-
-
 def clean_title(title):
-    return MD_ESCAPE_RE.sub(r"\1", title).strip()
+    return unescape_md(title)
 
 
 # Only count markers naming a real GitBook block. A bare `{%` also occurs in
