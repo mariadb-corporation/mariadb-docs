@@ -23,3 +23,11 @@
 .claude/bulk-campaign.local.json
 # per-task research paper trail (source-verification notes, one file per Jira ID):
 research/
+
+# PDF generation (pdf/, DOCS-5710)
+# Mermaid bundle is ~3.5 MB and fetched by pdf/fetch-deps.sh, not committed:
+/pdf/vendor/
+# Default --out-dir for the generated PDFs and their intermediate HTML.
+# Anchored to the repo root so it cannot shadow a documentation page path:
+/dist/
+/pdf/__pycache__/

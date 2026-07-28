@@ -1,0 +1,376 @@
+/* Print stylesheet for the per-space documentation PDFs.
+ *
+ * Targets Chrome's print engine (see pdf/build.py). Sizing is in points and
+ * page geometry is driven by @page, so the output is device-independent.
+ */
+
+@page {
+  size: A4;
+  margin: 20mm 18mm 20mm 18mm;
+}
+
+/* Long code samples and wide tables must not be split mid-token. */
+@page :first {
+  margin: 0;
+}
+
+:root {
+  --ink: #1c1e21;
+  --muted: #5c6670;
+  --rule: #d8dee4;
+  --accent: #002b5c;      /* MariaDB deep blue */
+  --accent-soft: #eaf0f7;
+  --code-bg: #f5f7f9;
+  --code-ink: #24292f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10.5pt;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  hyphens: auto;
+}
+
+/* ------------------------------------------------------------------ cover */
+
+.cover {
+  height: 297mm;
+  padding: 55mm 22mm 22mm;
+  background: var(--accent);
+  color: #fff;
+  page-break-after: always;
+  break-after: page;
+}
+
+.cover h1 {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  font-size: 34pt;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.4pt;
+  color: #fff;
+}
+
+.cover .subtitle {
+  margin: 6pt 0 0;
+  font-size: 15pt;
+  font-weight: 300;
+  opacity: 0.85;
+}
+
+.cover .meta {
+  margin: 26pt 0 0;
+  font-size: 10pt;
+  opacity: 0.8;
+}
+
+.cover .legal {
+  position: absolute;
+  top: 245mm;
+  width: 165mm;
+  font-size: 8.5pt;
+  line-height: 1.45;
+  opacity: 0.75;
+}
+
+.cover a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* -------------------------------------------------------------------- toc */
+
+.toc {
+  page-break-after: always;
+  break-after: page;
+}
+
+.toc h1 {
+  margin: 0 0 12pt;
+  border-bottom: 1.5pt solid var(--accent);
+  padding-bottom: 5pt;
+  font-size: 20pt;
+  color: var(--accent);
+}
+
+.toc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* Two columns keeps a 4,000-entry TOC from dominating the document. */
+  column-count: 2;
+  column-gap: 10mm;
+}
+
+.toc li {
+  margin: 0 0 1.5pt;
+  font-size: 8pt;
+  line-height: 1.35;
+  break-inside: avoid;
+}
+
+.toc a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.toc-d0 {
+  margin-top: 5pt !important;
+  font-weight: 700;
+  font-size: 9pt !important;
+}
+
+.toc-d1 { padding-left: 6pt; }
+.toc-d2 { padding-left: 13pt; color: var(--muted); }
+.toc-d3 { padding-left: 20pt; color: var(--muted); }
+.toc-d4 { padding-left: 27pt; color: var(--muted); }
+.toc-d5 { padding-left: 34pt; color: var(--muted); }
+
+/* --------------------------------------------------------------- headings */
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 16pt 0 6pt;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--accent);
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+/* Each top-level topic starts a fresh page; deeper ones flow inline. */
+main > h1 {
+  margin-top: 0;
+  border-bottom: 1.2pt solid var(--accent);
+  padding-bottom: 4pt;
+  font-size: 21pt;
+  page-break-before: always;
+  break-before: page;
+}
+
+main > h1:first-child {
+  page-break-before: avoid;
+  break-before: avoid;
+}
+
+h2 { font-size: 15pt; border-bottom: 0.5pt solid var(--rule); padding-bottom: 3pt; }
+h3 { font-size: 12.5pt; }
+h4 { font-size: 11pt; }
+h5, h6 { font-size: 10.5pt; color: var(--muted); }
+
+p {
+  margin: 0 0 7pt;
+  orphans: 2;
+  widows: 2;
+}
+
+a {
+  color: #0b5cad;
+  text-decoration: none;
+}
+
+/* ------------------------------------------------------------------- code */
+
+code, kbd, samp, pre {
+  font-family: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+code {
+  padding: 0.5pt 2.5pt;
+  border-radius: 2pt;
+  background: var(--code-bg);
+  color: var(--code-ink);
+  font-size: 0.87em;
+  /* SQL identifiers and long option names must wrap rather than overflow. */
+  overflow-wrap: break-word;
+}
+
+pre {
+  margin: 0 0 8pt;
+  padding: 6pt 8pt;
+  border: 0.5pt solid var(--rule);
+  border-left: 2.5pt solid var(--accent);
+  border-radius: 2pt;
+  background: var(--code-bg);
+  font-size: 8.2pt;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  break-inside: avoid-page;
+}
+
+pre code {
+  padding: 0;
+  background: none;
+  font-size: inherit;
+}
+
+/* ----------------------------------------------------------------- tables */
+
+table {
+  width: 100%;
+  margin: 0 0 9pt;
+  border-collapse: collapse;
+  font-size: 8.5pt;
+  /* Auto layout: Pandoc's own column widths are derived from the source
+   * table's separator-row widths, which say nothing about content. */
+  table-layout: auto;
+}
+
+/* Discard those derived widths -- honoring them collapses columns to a single
+ * character. Content-driven sizing plus cell wrapping is what we want. */
+table colgroup {
+  display: none;
+}
+
+table col {
+  width: auto !important;
+}
+
+th, td {
+  padding: 3pt 5pt;
+  border: 0.5pt solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+th {
+  background: var(--accent-soft);
+  font-weight: 700;
+}
+
+thead {
+  display: table-header-group; /* repeat headers across page breaks */
+}
+
+tr {
+  break-inside: avoid;
+}
+
+/* ------------------------------------------------------------------ hints */
+
+.hint {
+  margin: 8pt 0;
+  padding: 6pt 9pt;
+  border-left: 2.5pt solid var(--muted);
+  border-radius: 2pt;
+  background: #f6f8fa;
+  font-size: 9.5pt;
+  break-inside: avoid;
+}
+
+.hint > :last-child { margin-bottom: 0; }
+
+.hint-info    { border-left-color: #0b5cad; background: #eef5fc; }
+.hint-success { border-left-color: #1a7f4b; background: #eef8f2; }
+.hint-warning { border-left-color: #b26a00; background: #fdf5e8; }
+.hint-danger  { border-left-color: #b3261e; background: #fdeeed; }
+
+/* ----------------------------------------------------- tabs and steppers */
+
+/* Tabs cannot be interactive in print, so each panel is shown in sequence. */
+.tabs {
+  margin: 8pt 0;
+  padding: 4pt 0 4pt 8pt;
+  border-left: 1pt dashed var(--rule);
+}
+
+.tab {
+  margin: 5pt 0;
+}
+
+.tab > p:first-child {
+  color: var(--accent);
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 0.4pt;
+}
+
+.stepper { margin: 8pt 0; }
+
+.step {
+  margin: 6pt 0;
+  padding-left: 9pt;
+  border-left: 2pt solid var(--accent-soft);
+  break-inside: avoid;
+}
+
+.step > p:first-child {
+  margin-bottom: 4pt;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ----------------------------------------------------------------- images */
+
+img, svg {
+  max-width: 100%;
+  height: auto;
+  break-inside: avoid;
+}
+
+figure {
+  margin: 9pt 0;
+  text-align: center;
+  break-inside: avoid;
+}
+
+figcaption {
+  margin-top: 3pt;
+  color: var(--muted);
+  font-size: 8.5pt;
+  font-style: italic;
+}
+
+pre.mermaid {
+  border: 0;
+  background: none;
+  text-align: center;
+  white-space: normal;
+}
+
+/* ------------------------------------------------------------------ lists */
+
+ul, ol {
+  margin: 0 0 7pt;
+  padding-left: 16pt;
+}
+
+li { margin-bottom: 2pt; }
+
+blockquote {
+  margin: 8pt 0;
+  padding-left: 9pt;
+  border-left: 2pt solid var(--rule);
+  color: var(--muted);
+}
+
+hr {
+  height: 0;
+  margin: 10pt 0;
+  border: 0;
+  border-top: 0.5pt solid var(--rule);
+}
+
+/* Pandoc emits footnote sections per page chunk; keep them compact. */
+.footnotes {
+  margin-top: 10pt;
+  border-top: 0.5pt solid var(--rule);
+  padding-top: 4pt;
+  font-size: 8.5pt;
+  color: var(--muted);
+}
