@@ -1,0 +1,26 @@
+version: 2
+
+# Keeps the pinned GitHub Actions in .github/workflows/ current, so runtime
+# deprecations (e.g. the Node 20 -> Node 24 move that prompted DOCS-6362) arrive
+# as a reviewable PR instead of accumulating as a warning on every job.
+#
+# Scoped to the github-actions ecosystem on purpose. The Python used by the
+# help-tables and PDF pipelines is invoked from the runner's stock interpreter
+# with no pinned requirements file, so there is nothing for a pip ecosystem
+# entry to track.
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    # One PR per batch rather than per action: these bumps are reviewed together
+    # and almost always land together.
+    groups:
+      actions:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "CI"
+    labels:
+      - dependencies
+    open-pull-requests-limit: 3
