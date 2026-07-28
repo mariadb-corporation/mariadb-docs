@@ -119,6 +119,50 @@ the space point at `mariadb.com/docs`, since the target is not in this PDF.
 Image paths are made absolute `file://` URLs and percent-decoded first, because
 the source encodes them (`15%20(1).PNG`) while the filesystem does not.
 
+## Brand colors and contrast
+
+`style.css` uses the MariaDB brand palette (slide 26 of the corporate deck), and
+every text/background pair is checked against WCAG 2.1 AA:
+
+```bash
+python3 pdf/check_contrast.py     # exits non-zero on any failure; runs in CI
+```
+
+| Color | Hex | On white | Used for |
+|-------|-----|---------:|----------|
+| Blue Azure | `#0E6488` | 6.57:1 AA | headings, links, default cover |
+| Deep Ocean | `#003545` | 13.16:1 AAA | top-level headings, step labels |
+| Granite | `#424F62` | 8.31:1 AAA | secondary and deep-TOC text |
+| Open Seas | `#00838F` | 4.52:1 AA | rules; small text uses `#00707a` (5.84:1) |
+| Sea Fresh | `#96DDCF` | 1.55:1 | fills only — table headers, step rules, alt cover |
+| Electric Eel | `#ABC74A` | 1.91:1 | decorative rules only, never text |
+
+Three deliberate decisions:
+
+- **Never `opacity` for secondary text.** Dimming white to 75% over Blue Azure
+  looks fine on screen and measures 4.45:1 — under the AA floor, and it landed
+  on the 8.5pt legal line where contrast matters most. Secondary cover text uses
+  explicit verified colors instead.
+- **Warning and Important are intentionally off-palette.** The brand has no
+  amber or red; forcing them into blues and greens would make a warning
+  indistinguishable from a note. Being slightly off-brand is the better
+  accessibility outcome. Color is never the only signal regardless — every
+  callout carries a bold `Note:` / `Tip:` / `Warning:` / `Important:` label, so
+  the distinction survives greyscale printing and color-vision deficiency.
+- **Open Seas is darkened for small text.** At 4.52:1 it passes AA by 0.02,
+  which is too fragile for 9pt labels; `#00707a` keeps the hue (185°) and
+  saturation at 5.84:1.
+
+### Cover treatments
+
+```bash
+python3 pdf/build.py server                      # Blue Azure, white text (default)
+python3 pdf/build.py server --cover sea-fresh    # Sea Fresh, Deep Ocean text
+```
+
+Both exceed AA at every size: Blue Azure/white is 6.57:1, Sea Fresh/Deep Ocean
+is 8.49:1.
+
 ## Size
 
 Chrome emits no object streams and leaves roughly half its streams
@@ -130,6 +174,28 @@ with `--no-optimize`.
 **Do not substitute Ghostscript.** It compresses harder but strips every
 `/Link` and `/Dest` — on `galera-cluster`, 3,575 links and 743 destinations all
 became zero — which destroys cross-reference navigation.
+
+## Chrome does not reliably exit
+
+Headless Chrome writes a complete, valid PDF and then *sometimes* keeps
+running — observed on `tools` and `mariadb-cloud`, where the finished file sat
+on disk while the process idled for tens of minutes. So `build.py` treats **the
+output file as the completion signal, not process exit**: it polls the PDF's
+size and terminates Chrome once that size has been stable for a few checks.
+Verified equivalent to letting Chrome exit on its own — same 611 pages, 3,859
+links and 1,397 destinations on `tools`, final page intact.
+
+Two related traps:
+
+- **`--virtual-time-budget` bounds nothing in wall-clock terms.** It advances a
+  virtual clock; it will not stop a hung render. `CHROME_TIMEOUT_S` is the only
+  real ceiling.
+- **Always pass `--user-data-dir`.** Without it Chrome shares the default
+  profile and can block on the singleton lock when another instance exists.
+
+A space that still fails is reported and skipped rather than aborting the run,
+matching `fail-fast: false` in the workflow — a full build is tens of minutes
+and one bad space should not discard the rest.
 
 ## Known limitations
 
@@ -157,5 +223,6 @@ became zero — which destroys cross-reference navigation.
 |------|---------|
 | `build.py` | manifest, assembly, Pandoc/Chrome/qpdf pipeline, CLI |
 | `gitbook_preprocess.py` | GitBook-block rewriting, link and asset rewriting |
-| `style.css` | print stylesheet (cover, TOC, callouts, tables, code) |
+| `style.css` | print stylesheet: brand palette, cover, TOC, callouts, tables, code |
+| `check_contrast.py` | asserts every text pair meets WCAG 2.1 AA (runs in CI) |
 | `fetch-deps.sh` | fetches the Mermaid bundle into `pdf/vendor/` (gitignored) |

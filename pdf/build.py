@@ -24,6 +24,8 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
+import time
 from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -251,7 +253,8 @@ def load_mermaid():
     return None
 
 
-def build_html(space, body_html, toc_html, entries, version_label):
+def build_html(space, body_html, toc_html, entries, version_label,
+               cover="azure"):
     with open(os.path.join(PDF_DIR, "style.css"), encoding="utf-8") as fh:
         css = fh.read()
     mermaid_js = load_mermaid()
@@ -269,12 +272,13 @@ def build_html(space, body_html, toc_html, entries, version_label):
     )
 
     title = SPACE_TITLES.get(space, space)
+    cover_class = COVER_CLASS[cover]
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <title>{html.escape(title)}</title>
 <style>{css}</style>
 </head><body>
-<section class="cover">
+<section class="cover cover-{cover_class}">
   <h1>{html.escape(title)}</h1>
   <p class="subtitle">Documentation</p>
   <p class="meta">{html.escape(version_label)}<br>{len(entries)} pages</p>
@@ -291,7 +295,26 @@ def build_html(space, body_html, toc_html, entries, version_label):
 """
 
 
+class RenderError(RuntimeError):
+    """Chrome failed to produce a PDF for one space."""
+
+
+# Headless Chrome writes a complete, valid PDF and then sometimes fails to
+# exit -- observed on `tools` and `mariadb-cloud`, where the finished file was
+# already on disk while the process sat idle for tens of minutes. So the PDF on
+# disk is the completion signal, not the process exit, and Chrome is terminated
+# once its output stops growing. `--virtual-time-budget` is virtual-clock only
+# and bounds nothing in wall-clock terms.
+CHROME_TIMEOUT_S = 1800
+STABLE_CHECKS = 3          # consecutive equal sizes before the file is settled
+POLL_INTERVAL_S = 2.0
+
+
 def html_to_pdf(html_path, pdf_path, chrome):
+    if os.path.exists(pdf_path):
+        os.remove(pdf_path)     # a stale file would look like instant success
+
+    profile = tempfile.mkdtemp(prefix="mariadb-pdf-chrome-")
     cmd = [
         chrome,
         "--headless",
@@ -299,19 +322,58 @@ def html_to_pdf(html_path, pdf_path, chrome):
         "--no-sandbox",
         "--no-pdf-header-footer",
         "--allow-file-access-from-files",
+        # Private profile: never contend with another instance's singleton lock.
+        f"--user-data-dir={profile}",
+        "--no-first-run",
+        "--disable-extensions",
         "--virtual-time-budget=600000",
         f"--print-to-pdf={pdf_path}",
         # Percent-encode: an --out-dir containing spaces would otherwise
         # truncate the URL and Chrome would print an error page.
         "file://" + quote(os.path.abspath(html_path)),
     ]
-    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=3600)
-    if not os.path.isfile(pdf_path):
-        sys.exit(f"error: Chrome produced no PDF:\n{proc.stderr[:4000]}")
+
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE, text=True)
+    deadline = time.monotonic() + CHROME_TIMEOUT_S
+    last_size, stable = -1, 0
+    try:
+        while True:
+            if proc.poll() is not None:
+                break           # exited on its own: the normal path
+            size = os.path.getsize(pdf_path) if os.path.isfile(pdf_path) else -1
+            if size >= 0 and size == last_size:
+                stable += 1
+                if stable >= STABLE_CHECKS:
+                    break       # output settled; Chrome is just not leaving
+            else:
+                stable = 0
+            last_size = size
+            if time.monotonic() > deadline:
+                raise RenderError(
+                    f"Chrome exceeded {CHROME_TIMEOUT_S}s with no complete PDF")
+            time.sleep(POLL_INTERVAL_S)
+    finally:
+        if proc.poll() is None:
+            proc.terminate()
+            try:
+                proc.wait(timeout=30)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                proc.wait(timeout=30)
+        shutil.rmtree(profile, ignore_errors=True)
+
+    if not os.path.isfile(pdf_path) or os.path.getsize(pdf_path) == 0:
+        stderr = (proc.stderr.read() if proc.stderr else "")[:2000]
+        raise RenderError(f"Chrome produced no PDF:\n{stderr}")
+
+
+# Cover treatments, both verified against WCAG (see pdf/style.css).
+COVER_CLASS = {"azure": "azure", "sea-fresh": "sea"}
 
 
 def build_space(space, out_dir, version_label, limit=None, keep_html=False,
-                no_optimize=False):
+                no_optimize=False, cover="azure"):
     print(f"[{space}] parsing SUMMARY.md")
     entries = parse_summary(space)
     print(f"[{space}] {len(entries)} pages in navigation order")
@@ -327,7 +389,7 @@ def build_space(space, out_dir, version_label, limit=None, keep_html=False,
     print(f"[{space}] pandoc")
     body_html = run_pandoc(markdown, SPACE_TITLES.get(space, space))
     page = build_html(space, body_html, build_toc_html(entries), entries,
-                      version_label)
+                      version_label, cover)
 
     os.makedirs(out_dir, exist_ok=True)
     html_path = os.path.join(out_dir, f"mariadb-{space}.html")
@@ -413,6 +475,9 @@ def main():
                     help="retain the intermediate HTML for debugging")
     ap.add_argument("--no-optimize", action="store_true",
                     help="skip the qpdf lossless size pass")
+    ap.add_argument("--cover", choices=sorted(COVER_CLASS), default="azure",
+                    help="cover treatment: Blue Azure with white text "
+                         "(default) or Sea Fresh with Deep Ocean text")
     ap.add_argument("--list-spaces", action="store_true",
                     help="print the buildable spaces as JSON and exit; with "
                          "space arguments, validate them first (CI matrix)")
@@ -441,8 +506,17 @@ def main():
     if not shutil.which("pandoc"):
         sys.exit("error: pandoc is not installed")
 
-    results = [build_space(s, args.out_dir, args.version_label, args.limit,
-                           args.keep_html, args.no_optimize) for s in spaces]
+    # One space failing must not discard the others: a full run is tens of
+    # minutes, and the CI matrix has fail-fast disabled for the same reason.
+    results, failed = [], []
+    for space in spaces:
+        try:
+            results.append(build_space(
+                space, args.out_dir, args.version_label, args.limit,
+                args.keep_html, args.no_optimize, args.cover))
+        except RenderError as exc:
+            print(f"[{space}] FAILED: {exc}", file=sys.stderr)
+            failed.append(space)
 
     print("\n=== summary ===")
     for r in results:
@@ -450,6 +524,11 @@ def main():
               f"{str(r['pdf_pages']):>6} pages  {r['size_mb']:6.1f} MB"
               + (f"  ({r['leaked_markers']} leaked)" if r["leaked_markers"] else ""))
 
+    if failed:
+        print(f"\nFAILED: {', '.join(failed)}", file=sys.stderr)
+        return 1
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

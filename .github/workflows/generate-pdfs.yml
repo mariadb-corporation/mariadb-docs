@@ -47,6 +47,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Runs once rather than per space: it is a property of the stylesheet, and
+      # failing here costs seconds instead of an hour of rendering.
+      - name: Verify WCAG AA contrast
+        run: python3 pdf/check_contrast.py
+
       - id: plan
         name: Resolve spaces and cover label
         env:
