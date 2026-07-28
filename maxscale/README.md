@@ -7,6 +7,10 @@ icon: maximize
 
 # MariaDB MaxScale
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-maxscale.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-maxscale.pdf) (~5,800 pages, 50 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 {% content-ref url="maxscale-quickstart-guides/" %}
 [maxscale-quickstart-guides](maxscale-quickstart-guides/)
 {% endcontent-ref %}

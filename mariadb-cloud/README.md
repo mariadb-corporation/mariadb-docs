@@ -8,6 +8,10 @@ icon: cloud-sun
 
 # MariaDB Cloud
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-mariadb-cloud.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-mariadb-cloud.pdf) (~300 pages, 5.5 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 ## Overview
 
 MariaDB Cloud (previously called SkySQL) is an AI-driven, fully managed Database-as-a-Service (DBaaS), designed to deploy MariaDB and MySQL-compatible workloads across diverse environments including multiple data centers, regions, and cloud providers. It now offers both traditional provisioned and serverless deployment options, catering to a wide range of use cases and workload patterns while preventing over-provisioning. With the addition of the no-code AI Agent builder, developers can easily provide natural language interfaces to their end users to ask questions of the data without SQL expertise.

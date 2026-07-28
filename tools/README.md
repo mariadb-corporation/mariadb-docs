@@ -7,6 +7,10 @@ description: >-
 
 # Tools
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-tools.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-tools.pdf) (~610 pages, 23 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 ## MariaDB Enterprise Manager
 
 {% columns %}

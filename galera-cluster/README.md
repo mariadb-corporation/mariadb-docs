@@ -7,6 +7,10 @@ icon: circle-nodes
 
 # MariaDB Galera Cluster
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-galera-cluster.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-galera-cluster.pdf) (~270 pages, 4.7 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 {% content-ref url="galera-cluster-quickstart-guides/" %}
 [galera-cluster-quickstart-guides](galera-cluster-quickstart-guides/)
 {% endcontent-ref %}

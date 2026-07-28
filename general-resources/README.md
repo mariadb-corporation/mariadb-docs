@@ -1,5 +1,9 @@
 # About MariaDB Documentation
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-general-resources.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-general-resources.pdf) (~220 pages, 2.5 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 The documentation for MariaDB products is
 
 * written in standard American English,
