@@ -1,14 +1,21 @@
 name: Generate Help Tables SQL
 
 on:
+  # Manual runs: the path filters below mean an unrelated change can never
+  # exercise this pipeline, so verifying it after a dependency bump or a
+  # runner change previously required faking a commit under one of them.
+  workflow_dispatch:
   push:
     paths:
       - 'server/reference/**/*.md'
       - 'help-tables/markdown_extractor.py'
+      # A change to the pipeline should re-run the pipeline.
+      - '.github/workflows/generate-help-tables.yml'
   pull_request:
     paths:
       - 'server/reference/**/*.md'
       - 'help-tables/markdown_extractor.py'
+      - '.github/workflows/generate-help-tables.yml'
 
 jobs:
   generate:
