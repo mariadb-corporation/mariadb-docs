@@ -47,6 +47,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # The tag becomes a Git ref when the release is published, so reject
+      # anything git would refuse. A draft release accepts an invalid name (it
+      # creates no ref), which hides the problem until publish time -- an hour
+      # of rendering later. check-ref-format needs no repository, just git.
+      - name: Validate the release tag
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          if ! git check-ref-format "refs/tags/$TAG"; then
+            echo "::error::'$TAG' is not a usable tag name: no spaces, no '..'," \
+                 "no trailing '.lock', no control characters."
+            exit 1
+          fi
+          # check-ref-format allows a leading '-', but gh would then parse the
+          # tag as an option.
+          case "$TAG" in
+            -*) echo "::error::'$TAG' must not start with '-'"; exit 1 ;;
+          esac
+          echo "Tag OK: $TAG"
+
       # Runs once rather than per space: it is a property of the stylesheet, and
       # failing here costs seconds instead of an hour of rendering.
       - name: Verify WCAG AA contrast
@@ -185,6 +206,15 @@ jobs:
       - name: Summarize
         run: |
           set -euo pipefail
+          # This job runs with if: always(), so it is reached even when every
+          # build failed. Say so plainly instead of letting an unexpanded
+          # dist/*.pdf glob reach gh release as a literal filename.
+          shopt -s nullglob
+          pdfs=(dist/*.pdf)
+          if [[ ${#pdfs[@]} -eq 0 ]]; then
+            echo "::error::no PDFs were produced -- every build job failed"
+            exit 1
+          fi
           ls -lh dist/
           {
             echo "## Documentation PDFs"
@@ -201,6 +231,10 @@ jobs:
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
+          # This job downloads artifacts and never checks out, so there is no
+          # git remote for gh to infer the repository from -- without GH_REPO
+          # every gh call fails with "not a git repository".
+          GH_REPO: ${{ github.repository }}
           TAG: ${{ inputs.tag }}
         run: |
           set -euo pipefail
@@ -215,7 +249,11 @@ jobs:
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" dist/*.pdf --clobber
           else
+            # --target pins the tag to the commit the PDFs were built from;
+            # with no git context gh would otherwise tag the default branch
+            # head, contradicting the $GITHUB_SHA the notes above cite.
             gh release create "$TAG" dist/*.pdf \
+              --target "$GITHUB_SHA" \
               --title "Documentation PDFs — ${{ needs.plan.outputs.label }}" \
               --notes "$notes" \
               ${{ inputs.draft && '--draft' || '' }}
