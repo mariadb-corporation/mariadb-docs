@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -33,7 +33,7 @@ jobs:
 
       - name: Scan for broken links
         if: steps.changes.outputs.any_changed == 'true'
-        uses: lycheeverse/lychee-action@v2.3.0
+        uses: lycheeverse/lychee-action@v2.9.0
         with:
           # ADDED: Excludes for both raw '{' and encoded '%7B'
           # Flaky/example external hosts (bottom of the list): mcs1 is a
