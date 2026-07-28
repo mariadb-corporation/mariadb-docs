@@ -455,6 +455,13 @@ GITBOOK_SPACE_IDS = {
     "2I4jZ8pGq8bT4w5n3q6r": "columnstore",
 }
 
+# A published URL carries no source suffix, and a directory's `README.md`
+# publishes as the directory itself. Leaving the `.md` on gives a soft 404: the
+# site answers HTTP 200 with an error page, so a status-code check calls it fine
+# while the reader gets nothing.
+PUBLISHED_SUFFIX_RE = re.compile(r"(?:(?:^|/)README)?\.md$", re.I)
+PARENT_PREFIX_RE = re.compile(r"^(?:\.\./)+")
+
 IS_GITBOOK_URL = re.compile(r"^https?://app\.gitbook\.com/", re.I)
 GITBOOK_SPACE_URL_RE = re.compile(
     r"^https?://app\.gitbook\.com/(?:o/[A-Za-z0-9]+/)?s/([A-Za-z0-9]+)([^#?]*)",
@@ -497,7 +504,7 @@ def parse_gitbook_url(url):
     space = GITBOOK_SPACE_IDS.get(m.group(1))
     if space is None:
         return None
-    path = m.group(2).strip("/").removesuffix(".md")
+    path = PUBLISHED_SUFFIX_RE.sub("", m.group(2).strip("/"))
     # `~/reusable/...` and `~/changes/...` address GitBook internals that have
     # no public URL at all, so the space root is the closest honest target.
     if path.startswith("~"):
@@ -538,7 +545,7 @@ def rewrite_links(text, page_path, space_dir, anchors, web_base):
             return gitbook
         if url.startswith(ABSOLUTE):
             return None
-        raw, _, _frag = url.partition("#")
+        raw, _, frag = url.partition("#")
         if not raw:
             return None
         rel = os.path.relpath(
@@ -549,8 +556,13 @@ def rewrite_links(text, page_path, space_dir, anchors, web_base):
             if cand in anchors:
                 return "#" + anchors[cand]
         if rel.startswith(".."):
-            # Another space: send the reader to the published site.
-            return web_base.rstrip("/") + "/" + rel.lstrip("./")
+            # Another space: send the reader to the published site, translating
+            # the repo path into its published form. The fragment is kept here,
+            # unlike an in-space link -- the target page is not in this PDF, so
+            # its section anchor still does useful work on the site.
+            path = PUBLISHED_SUFFIX_RE.sub("", PARENT_PREFIX_RE.sub("", rel))
+            base = f"{web_base.rstrip('/')}/{path}" if path else web_base
+            return base + (f"#{frag}" if frag else "")
         return None
 
     def asset_target(url):

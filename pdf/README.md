@@ -154,6 +154,21 @@ the link looks fine until someone clicks it. `build.py` warns if any editor URL
 survives in prose, and the workflow fails the build if one reaches the PDF's own
 link annotations. Both should always be zero; a hit means an unmapped space ID.
 
+### Outbound URLs must drop the `.md`
+
+A link that leaves the space is turned into a site URL, and the published URL is
+the repo path **without** its suffix — `README.md` publishes as its own
+directory. Leaving the `.md` on produces a **soft 404**: the site answers
+`HTTP 200` with a 46 KB error page instead of the real 3 MB one, so a status-code
+link check calls it healthy while the reader gets nothing. That affected 183
+links (mostly `maxscale` and `release-notes`), which is why `build.py` counts
+`.md`-suffixed site URLs and CI fails on them.
+
+Unlike an in-space link, an outbound link **keeps its `#fragment`**: the target
+page is not in this PDF, so the section anchor still does useful work on the
+site. 405 links were losing one — `server-system-variables.md#wait_timeout`
+dropped the reader at the top of a very long page rather than at the variable.
+
 Two findings from this that are **source** bugs, not PDF bugs:
 
 - `expand-gitbook-aliases.yml` maps both `{skysql}` and `{release-notes}` to

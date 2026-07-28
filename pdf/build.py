@@ -192,28 +192,42 @@ def count_leaked_markers(markdown):
     return len(LEAK_RE.findall(markdown))
 
 
-# Cross-space links reach the checkout already expanded to app.gitbook.com
-# editor URLs (see `GITBOOK_SPACE_IDS`), which demand a login and are useless in
-# a PDF. The preprocessor reverses them; this asserts none survived, because the
-# failure is invisible in a 6,000-page PDF -- the link looks fine until clicked.
+# Two ways an outbound link can be built wrong, both of which look like a
+# working link in the PDF and so cannot be caught by eye in 6,000 pages:
+#
+# - an app.gitbook.com *editor* URL that escaped the rewriter (see
+#   `GITBOOK_SPACE_IDS`), which demands a login;
+# - a published URL still carrying its `.md` source suffix, which the site
+#   answers with an HTTP 200 soft-404 -- so even a link checker calls it fine
+#   while the reader gets an error page.
 EDITOR_URL_RE = re.compile(r"app\.gitbook\.com", re.I)
+SUFFIXED_URL_RE = re.compile(r"https?://mariadb\.com/docs/[^\s)\"'<>]*\.md\b",
+                             re.I)
 
 
-def count_editor_urls(markdown):
-    """Count editor URLs left in prose, ignoring code.
+def _count_in_prose(markdown, pattern):
+    """Count `pattern` outside fenced and inline code.
 
-    Code is skipped for the same reason the preprocessor skips it: an editor URL
-    inside a fence is content, not a broken link. `general-resources` documents
-    the `app.gitbook.com/s/<id>` prefixes literally, and MaxScale has one in a
-    SQL comment -- counting those would make this warning fire on every build
-    and so train readers to ignore it.
+    Code is skipped for the same reason the preprocessor skips it: a URL inside
+    a fence is content, not a link. `general-resources` documents both the
+    `app.gitbook.com/s/<id>` prefixes and a `.md` alias example literally, and
+    MaxScale has an editor URL in a SQL comment -- counting those would make
+    these warnings fire on every build and train readers to ignore them.
     """
     count = 0
     for line, in_code in iter_lines(markdown):
         if in_code:
             continue
-        count += len(EDITOR_URL_RE.findall(INLINE_CODE_RE.sub("", line)))
+        count += len(pattern.findall(INLINE_CODE_RE.sub("", line)))
     return count
+
+
+def count_editor_urls(markdown):
+    return _count_in_prose(markdown, EDITOR_URL_RE)
+
+
+def count_suffixed_urls(markdown):
+    return _count_in_prose(markdown, SUFFIXED_URL_RE)
 
 
 def build_toc_html(entries):
@@ -416,6 +430,11 @@ def build_space(space, out_dir, version_label, limit=None, keep_html=False,
         print(f"[{space}] warn: {editor_urls} app.gitbook.com editor URLs "
               f"remain (unmapped space ID?)", file=sys.stderr)
 
+    suffixed_urls = count_suffixed_urls(markdown)
+    if suffixed_urls:
+        print(f"[{space}] warn: {suffixed_urls} site URLs still end in .md "
+              f"(soft-404 on the site)", file=sys.stderr)
+
     print(f"[{space}] pandoc")
     body_html = run_pandoc(markdown, SPACE_TITLES.get(space, space))
     page = build_html(space, body_html, build_toc_html(entries), entries,
@@ -442,7 +461,8 @@ def build_space(space, out_dir, version_label, limit=None, keep_html=False,
     print(f"[{space}] done: {pdf_path} ({size_mb:.1f} MB, {pages} PDF pages)")
     return {"space": space, "pdf": pdf_path, "size_mb": size_mb,
             "pdf_pages": pages, "doc_pages": len(entries),
-            "leaked_markers": leaked, "editor_urls": editor_urls}
+            "leaked_markers": leaked, "editor_urls": editor_urls,
+            "suffixed_urls": suffixed_urls}
 
 
 def optimize_pdf(path):
@@ -553,7 +573,8 @@ def main():
         print(f"{r['space']:20} {r['doc_pages']:5} docs  "
               f"{str(r['pdf_pages']):>6} pages  {r['size_mb']:6.1f} MB"
               + (f"  ({r['leaked_markers']} leaked)" if r["leaked_markers"] else "")
-              + (f"  ({r['editor_urls']} editor URLs)" if r["editor_urls"] else ""))
+              + (f"  ({r['editor_urls']} editor URLs)" if r["editor_urls"] else "")
+              + (f"  ({r['suffixed_urls']} .md URLs)" if r["suffixed_urls"] else ""))
 
     if failed:
         print(f"\nFAILED: {', '.join(failed)}", file=sys.stderr)
