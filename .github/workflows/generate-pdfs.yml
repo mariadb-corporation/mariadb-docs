@@ -135,6 +135,22 @@ jobs:
             exit 1
           fi
 
+          # Cross-space links arrive in the checkout as app.gitbook.com *editor*
+          # URLs, which demand a login; the preprocessor maps them to
+          # mariadb.com/docs. A survivor is invisible in a 6,000-page PDF -- it
+          # looks like a working link until someone clicks it -- so assert on the
+          # artifact's own link annotations. Code samples that mention the URL
+          # legitimately are page text, not /URI annotations, so they don't trip
+          # this. A hit means an unmapped space ID in GITBOOK_SPACE_IDS.
+          qpdf --qdf --object-streams=disable "$pdf" - 2>/dev/null \
+            | grep -aoE '/URI *\([^)]*app\.gitbook\.com[^)]*\)' \
+            | sort -u > editor-urls.txt || true
+          if [[ -s editor-urls.txt ]]; then
+            echo "::error::$(wc -l < editor-urls.txt) app.gitbook.com link(s) survived into $pdf"
+            head -5 editor-urls.txt
+            exit 1
+          fi
+
       - uses: actions/upload-artifact@v4
         with:
           name: pdf-${{ matrix.space }}

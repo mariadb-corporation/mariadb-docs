@@ -119,6 +119,55 @@ the space point at `mariadb.com/docs`, since the target is not in this PDF.
 Image paths are made absolute `file://` URLs and percent-decoded first, because
 the source encodes them (`15%20(1).PNG`) while the filesystem does not.
 
+### Cross-space links must be un-expanded first
+
+`expand-gitbook-aliases.yml` rewrites every `{server}`-style alias into an
+app.gitbook.com **editor** URL and commits that back to the branch. So in any
+checkout, a cross-space link already looks like:
+
+```
+https://app.gitbook.com/o/<org>/s/SsmexDFPv2xG2OTyO5yV/server-management/…
+```
+
+GitBook resolves those to `mariadb.com/docs` when it renders the site. Nothing
+else does — so a PDF built from source has to reverse the mapping, or **every**
+cross-space link sends the reader to the editor, which demands a login. That was
+38,462 links across the corpus. `GITBOOK_SPACE_IDS` maps space ID → space, and a
+page's published URL path is its repo-relative path minus `.md`.
+
+Two cases need more than the obvious substitution:
+
+- **Some links are invisible to a link regex.** Link text containing an escaped
+  bracket (`[SHOW \[FULL\] PROCESSLIST](…)`) and links split over two lines by a
+  migration hard break both occur in the corpus. A fallback pass rewrites the
+  bare URL, which still lands the reader on the right page. It skips fenced *and*
+  inline code, because `general-resources` documents the
+  `app.gitbook.com/s/<id>` prefixes literally and rewriting them there would
+  turn an explanation into a false statement.
+- **Unmappable spaces are unlinked, not guessed.** A few links name a legacy
+  pre-split space with no public equivalent; the link text is kept and the dead
+  destination dropped, since sending a reader to a login screen is worse than
+  not linking.
+
+This is checked twice, because the failure is invisible in a 6,000-page PDF —
+the link looks fine until someone clicks it. `build.py` warns if any editor URL
+survives in prose, and the workflow fails the build if one reaches the PDF's own
+link annotations. Both should always be zero; a hit means an unmapped space ID.
+
+Two findings from this that are **source** bugs, not PDF bugs:
+
+- `expand-gitbook-aliases.yml` maps both `{skysql}` and `{release-notes}` to
+  `aEnK0ZXmUbJzqQrTjFyb`. Every path under that ID resolves under
+  `release-notes/`, so `{skysql}` links land in the wrong space.
+- 669 distinct cross-space targets (6,063 of 37,601 references) do not exist at
+  the linked path in the checkout — for example error-code pages that moved out
+  of `reference/mariadb-internals/using-mariadb-with-your-programs-api/`. Most
+  still reach a page on the live site through a redirect: of a 40-target sample,
+  33 resolved after following redirects and 7 ended in a 404, which puts the
+  genuinely dead subset near 120. The PDF reproduces each link faithfully rather
+  than guessing a replacement, so those few are dead in the PDF exactly as they
+  are on the site.
+
 ## Brand colors and contrast
 
 `style.css` uses the MariaDB brand palette (slide 26 of the corporate deck), and

@@ -29,7 +29,8 @@ import time
 from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from gitbook_preprocess import preprocess  # noqa: E402
+from gitbook_preprocess import (  # noqa: E402
+    INLINE_CODE_RE, iter_lines, preprocess)
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PDF_DIR = os.path.join(REPO_ROOT, "pdf")
@@ -189,6 +190,30 @@ LEAK_RE = re.compile(
 
 def count_leaked_markers(markdown):
     return len(LEAK_RE.findall(markdown))
+
+
+# Cross-space links reach the checkout already expanded to app.gitbook.com
+# editor URLs (see `GITBOOK_SPACE_IDS`), which demand a login and are useless in
+# a PDF. The preprocessor reverses them; this asserts none survived, because the
+# failure is invisible in a 6,000-page PDF -- the link looks fine until clicked.
+EDITOR_URL_RE = re.compile(r"app\.gitbook\.com", re.I)
+
+
+def count_editor_urls(markdown):
+    """Count editor URLs left in prose, ignoring code.
+
+    Code is skipped for the same reason the preprocessor skips it: an editor URL
+    inside a fence is content, not a broken link. `general-resources` documents
+    the `app.gitbook.com/s/<id>` prefixes literally, and MaxScale has one in a
+    SQL comment -- counting those would make this warning fire on every build
+    and so train readers to ignore it.
+    """
+    count = 0
+    for line, in_code in iter_lines(markdown):
+        if in_code:
+            continue
+        count += len(EDITOR_URL_RE.findall(INLINE_CODE_RE.sub("", line)))
+    return count
 
 
 def build_toc_html(entries):
@@ -386,6 +411,11 @@ def build_space(space, out_dir, version_label, limit=None, keep_html=False,
         print(f"[{space}] warn: {leaked} unconverted GitBook markers remain",
               file=sys.stderr)
 
+    editor_urls = count_editor_urls(markdown)
+    if editor_urls:
+        print(f"[{space}] warn: {editor_urls} app.gitbook.com editor URLs "
+              f"remain (unmapped space ID?)", file=sys.stderr)
+
     print(f"[{space}] pandoc")
     body_html = run_pandoc(markdown, SPACE_TITLES.get(space, space))
     page = build_html(space, body_html, build_toc_html(entries), entries,
@@ -412,7 +442,7 @@ def build_space(space, out_dir, version_label, limit=None, keep_html=False,
     print(f"[{space}] done: {pdf_path} ({size_mb:.1f} MB, {pages} PDF pages)")
     return {"space": space, "pdf": pdf_path, "size_mb": size_mb,
             "pdf_pages": pages, "doc_pages": len(entries),
-            "leaked_markers": leaked}
+            "leaked_markers": leaked, "editor_urls": editor_urls}
 
 
 def optimize_pdf(path):
@@ -522,7 +552,8 @@ def main():
     for r in results:
         print(f"{r['space']:20} {r['doc_pages']:5} docs  "
               f"{str(r['pdf_pages']):>6} pages  {r['size_mb']:6.1f} MB"
-              + (f"  ({r['leaked_markers']} leaked)" if r["leaked_markers"] else ""))
+              + (f"  ({r['leaked_markers']} leaked)" if r["leaked_markers"] else "")
+              + (f"  ({r['editor_urls']} editor URLs)" if r["editor_urls"] else ""))
 
     if failed:
         print(f"\nFAILED: {', '.join(failed)}", file=sys.stderr)

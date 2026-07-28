@@ -423,6 +423,88 @@ HTML_HREF_RE = re.compile(r'href="([^"]+)"')
 HTML_SRC_RE = re.compile(r'src="([^"]+)"')
 ABSOLUTE = ("http://", "https://", "mailto:", "data:", "#", "tel:")
 
+# `.github/workflows/expand-gitbook-aliases.yml` rewrites every `{server}`-style
+# alias into an app.gitbook.com *editor* URL and commits that back to the branch,
+# so in any checkout cross-space links already look like
+# `https://app.gitbook.com/o/<org>/s/<space-id>/<path>`. GitBook resolves those
+# to mariadb.com/docs when it renders the site; nothing else does. A PDF built
+# from source therefore has to reverse the mapping, or every cross-space link
+# sends the reader to the editor (which demands a login) instead of the docs.
+#
+# IDs come from that workflow, and each was confirmed against the checkout: the
+# paths following a given ID resolve under exactly one space, and a page's
+# published URL path is its repo-relative path (spot-checked live). Note the
+# workflow maps BOTH `{skysql}` and `{release-notes}` to aEnK0ZXmUbJzqQrTjFyb;
+# 7,220 of its paths resolve under `release-notes/` and none under a SkySQL
+# tree, so that ID is treated as release-notes.
+GITBOOK_SPACE_IDS = {
+    "SsmexDFPv2xG2OTyO5yV": "server",
+    "aEnK0ZXmUbJzqQrTjFyb": "release-notes",
+    "CjGYMsT2MVP4nd3IyW2L": "connectors",
+    "WCInJQ9cmGjq1lsTG91E": "general-resources",
+    "3VYeeVGUV4AMqrA3zwy7": "galera-cluster",
+    "0pSbu5DcMSW4KwAkUcmX": "maxscale",
+    "rBEU9juWLfTDcdwF3Q14": "analytics",
+    "kuTXWg0NDbRx6XUeYpGD": "tools",
+    "JqgUabdZsoY5EiaJmqgn": "platform",
+    "vPz15Lz0Iw3P3yKR3Prd": "mariadb-cloud",
+    # These two have no space directory of their own; the site redirects them
+    # (`/docs/home` -> `/docs/`, `/docs/columnstore` -> `/docs/analytics`).
+    # Neither is linked from the corpus, so only the roots are exercised.
+    "gmXC0YXB3rRhXvpg5mb1": "home",
+    "2I4jZ8pGq8bT4w5n3q6r": "columnstore",
+}
+
+IS_GITBOOK_URL = re.compile(r"^https?://app\.gitbook\.com/", re.I)
+GITBOOK_SPACE_URL_RE = re.compile(
+    r"^https?://app\.gitbook\.com/(?:o/[A-Za-z0-9]+/)?s/([A-Za-z0-9]+)([^#?]*)",
+    re.I)
+
+# Same URL shape, unanchored, for the fallback sweep below. Trailing sentence
+# punctuation is excluded so `...see <url>.` does not fold the period into the
+# path.
+BARE_GITBOOK_URL_RE = re.compile(
+    r"https?://app\.gitbook\.com/(?:o/[A-Za-z0-9]+/)?s/[A-Za-z0-9]+"
+    r"(?:[^\s)\"'<>\]]*[^\s)\"'<>\].,;:!])?", re.I)
+
+# Backtick spans are content, not markup: `general-resources` documents the
+# `https://app.gitbook.com/s/` prefix literally, and rewriting it there would
+# turn an explanation of the alias system into a false statement.
+INLINE_CODE_RE = re.compile(r"`+[^`]*`+")
+
+
+def _outside_inline_code(line, fn):
+    """Apply `fn` to the parts of `line` that are not inside a backtick span."""
+    out, pos = [], 0
+    for m in INLINE_CODE_RE.finditer(line):
+        out.append(fn(line[pos:m.start()]))
+        out.append(m.group(0))
+        pos = m.end()
+    out.append(fn(line[pos:]))
+    return "".join(out)
+
+
+def parse_gitbook_url(url):
+    """Split a GitBook editor URL into `(space, path, fragment)`.
+
+    Returns None when the URL is not a space URL or names a space that is not in
+    `GITBOOK_SPACE_IDS` -- the caller drops such a link rather than inventing a
+    destination for it.
+    """
+    m = GITBOOK_SPACE_URL_RE.match(url)
+    if not m:
+        return None
+    space = GITBOOK_SPACE_IDS.get(m.group(1))
+    if space is None:
+        return None
+    path = m.group(2).strip("/").removesuffix(".md")
+    # `~/reusable/...` and `~/changes/...` address GitBook internals that have
+    # no public URL at all, so the space root is the closest honest target.
+    if path.startswith("~"):
+        path = ""
+    frag = url.partition("#")[2]
+    return space, path, ("#" + frag if frag else "")
+
 
 def rewrite_links(text, page_path, space_dir, anchors, web_base):
     """Point in-space links at PDF anchors, out-of-space links at the website.
@@ -432,8 +514,28 @@ def rewrite_links(text, page_path, space_dir, anchors, web_base):
     so Chrome can load them from the checkout.
     """
     page_dir = os.path.dirname(page_path)
+    this_space = os.path.basename(space_dir.rstrip("/") or space_dir)
+
+    def gitbook_target(url, prefer_anchor=True):
+        """Map a GitBook editor URL to a PDF anchor or a public site URL."""
+        parsed = parse_gitbook_url(url)
+        if parsed is None:
+            return None
+        space, path, frag = parsed
+        if prefer_anchor and space == this_space and path:
+            # A page addressing its own space by absolute URL: prefer the
+            # internal anchor so the cross-reference still works offline. The
+            # section fragment is dropped, matching relative in-space links.
+            for cand in (f"{path}.md", f"{path}/README.md"):
+                if cand in anchors:
+                    return "#" + anchors[cand]
+        base = f"{web_base.rstrip('/')}/{space}"
+        return f"{base}/{path}{frag}" if path else f"{base}{frag}"
 
     def anchor_target(url):
+        gitbook = gitbook_target(url)
+        if gitbook is not None:
+            return gitbook
         if url.startswith(ABSOLUTE):
             return None
         raw, _, _frag = url.partition("#")
@@ -473,17 +575,41 @@ def rewrite_links(text, page_path, space_dir, anchors, web_base):
 
         def md_sub(m):
             new = anchor_target(m.group(2))
-            return f"[{m.group(1)}]({new})" if new else m.group(0)
+            if new:
+                return f"[{m.group(1)}]({new})"
+            if IS_GITBOOK_URL.match(m.group(2)):
+                # An editor URL naming a space that no longer maps to a public
+                # one (a legacy pre-split space). Keep the text, drop the
+                # destination -- linking a reader to a login screen is worse
+                # than not linking at all.
+                return m.group(1)
+            return m.group(0)
 
         def href_sub(m):
             new = anchor_target(m.group(1))
-            return f'href="{new}"' if new else m.group(0)
+            if new:
+                return f'href="{new}"'
+            if IS_GITBOOK_URL.match(m.group(1)):
+                return f'href="{web_base}"'
+            return m.group(0)
+
+        def bare_sub(m):
+            # Never an anchor here: this substitutes the URL in place, and a
+            # bare `#pg-...` sitting in prose would be meaningless.
+            new = gitbook_target(m.group(0), prefer_anchor=False)
+            return new or m.group(0)
 
         line = IMG_LINK_RE.sub(img_sub, line)
         line = HTML_SRC_RE.sub(src_sub, line)
         line = MD_LINK_RE.sub(md_sub, line)
         line = HTML_HREF_RE.sub(href_sub, line)
-        return line
+        # Fallback for editor URLs the link regexes above cannot see: link text
+        # holding an escaped bracket (`[SHOW \[FULL\] PROCESSLIST](...)`), and
+        # links split over two lines by a migration hard break -- both real in
+        # this corpus, and both leave a working destination once the bare URL is
+        # mapped, even though the surrounding Markdown never matched.
+        return _outside_inline_code(line, lambda s: BARE_GITBOOK_URL_RE.sub(
+            bare_sub, s))
 
     return map_prose_lines(text, fix_line)
 
