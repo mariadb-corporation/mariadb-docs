@@ -6,6 +6,10 @@ on:
   # runner change previously required faking a commit under one of them.
   workflow_dispatch:
   push:
+    # main only: pull_request already covers branch pushes, and without this
+    # a branch with an open PR runs the whole pipeline twice per push --
+    # two mariadb:11.4 bootstraps for one change.
+    branches: [main]
     paths:
       - 'server/reference/**/*.md'
       - 'help-tables/markdown_extractor.py'
