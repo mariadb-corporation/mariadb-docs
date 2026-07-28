@@ -245,6 +245,20 @@ python3 pdf/build.py server --cover sea-fresh    # Sea Fresh, Deep Ocean text
 Both exceed AA at every size: Blue Azure/white is 6.57:1, Sea Fresh/Deep Ocean
 is 8.49:1.
 
+The cover also carries a snapshot label, which **defaults to today's date** —
+documentation here is continuously updated, so an undated PDF cannot be placed
+in time. The workflow resolves it identically, so a local build and a CI build
+label the cover the same way.
+
+```bash
+python3 pdf/build.py server                                  # Snapshot <today>
+python3 pdf/build.py server --version-label "Snapshot July 2026"
+python3 pdf/build.py server --version-label ""               # omit deliberately
+```
+
+The build echoes `cover label: …` before it starts, because an empty default
+used to drop the date silently whenever the flag was forgotten.
+
 ## Size
 
 Chrome emits no object streams and leaves roughly half its streams

@@ -16,6 +16,7 @@ contains raw HTML tables and Mermaid diagrams that a TeX engine cannot render.
 """
 
 import argparse
+import datetime
 import hashlib
 import html
 import json
@@ -520,8 +521,9 @@ def main():
     ap.add_argument("--all", action="store_true", help="build every space")
     ap.add_argument("--out-dir", default=os.path.join(REPO_ROOT, "dist"))
     ap.add_argument("--limit", type=int, help="only the first N pages (testing)")
-    ap.add_argument("--version-label", default="",
-                    help="text for the cover page, e.g. 'Snapshot 2026-07-28'")
+    ap.add_argument("--version-label", default=None,
+                    help="cover-page text, e.g. 'Snapshot 2026-07-28'; "
+                         "defaults to today's date. Pass '' to omit it.")
     ap.add_argument("--keep-html", action="store_true",
                     help="retain the intermediate HTML for debugging")
     ap.add_argument("--no-optimize", action="store_true",
@@ -557,13 +559,22 @@ def main():
     if not shutil.which("pandoc"):
         sys.exit("error: pandoc is not installed")
 
+    # An undated snapshot of continuously-updated documentation is close to
+    # useless -- and with an empty default, forgetting the flag dropped the date
+    # silently. The workflow resolves it the same way, so a local build and a CI
+    # build now label the cover identically. `--version-label ''` still omits it.
+    label = args.version_label
+    if label is None:
+        label = "Snapshot " + datetime.date.today().isoformat()
+    print(f"cover label: {label or '(none)'}")
+
     # One space failing must not discard the others: a full run is tens of
     # minutes, and the CI matrix has fail-fast disabled for the same reason.
     results, failed = [], []
     for space in spaces:
         try:
             results.append(build_space(
-                space, args.out_dir, args.version_label, args.limit,
+                space, args.out_dir, label, args.limit,
                 args.keep_html, args.no_optimize, args.cover))
         except RenderError as exc:
             print(f"[{space}] FAILED: {exc}", file=sys.stderr)
