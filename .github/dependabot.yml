@@ -19,6 +19,23 @@ updates:
       actions:
         patterns:
           - "*"
+    # Two majors are held back on purpose, because they change behavior rather
+    # than just the Node runtime. Without these entries every monthly run
+    # re-proposes them (PR #802 did on day one) and the reasoning below gets
+    # undone by a routine-looking bump. Revisit deliberately, not by deleting
+    # the entry to make a PR go green.
+    ignore:
+      # v8 makes an artifact digest mismatch a hard failure and stops
+      # auto-unzipping based on Content-Type. The PDF release job downloads
+      # eleven artifacts up to ~94 MB each, so both changes need a real run
+      # behind them first. See DOCS-5710.
+      - dependency-name: actions/download-artifact
+        versions: [">=8"]
+      # v4 pulls in js-yaml v5, which parses multi-line values more strictly.
+      # generate-help-tables.yml passes its Slack message as a multi-line
+      # payload: block, which is exactly that shape.
+      - dependency-name: slackapi/slack-github-action
+        versions: [">=4"]
     commit-message:
       prefix: "CI"
     labels:
