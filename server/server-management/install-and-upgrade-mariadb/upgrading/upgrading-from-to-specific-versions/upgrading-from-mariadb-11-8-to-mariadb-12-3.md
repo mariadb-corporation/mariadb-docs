@@ -56,7 +56,7 @@ The following options should be removed or renamed if you use them in your [opti
 #### Changes in Replication Behavior
 
 {% hint style="warning" %}
-When upgrading a replica from a pre-12.3 release to MariaDB 12.3, the [CHANGE MASTER TO ... master\_use\_gtid](../../../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) setting is not currently carried over and is reset to `DEFAULT`. After upgrading, check the replication configuration and re-apply `master_use_gtid` if you rely on it. Downgrading is not affected. See [MDEV-39788](https://jira.mariadb.org/browse/MDEV-39788).
+When upgrading a replica from a pre-12.3 release to MariaDB 12.3.2, the [CHANGE MASTER TO ... master\_use\_gtid](../../../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) setting is not carried over and is reset to `DEFAULT`. This is fixed in 12.3.3 via [MDEV-39788](https://jira.mariadb.org/browse/MDEV-39788). After upgrading, check the replication configuration and re-apply `master_use_gtid` if you rely on it. Downgrading is not affected.
 {% endhint %}
 
 #### Deprecated Options
