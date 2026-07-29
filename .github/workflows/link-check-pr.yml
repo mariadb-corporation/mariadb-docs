@@ -22,6 +22,19 @@ jobs:
         # in sync. See DOCS-6362.
         uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
         with:
+          # JSON output preserves path boundaries. The default space-separated
+          # form escapes parentheses but NOT spaces, so a filename like
+          # "most-recent-12.0 (1).md" splits into two bogus inputs and lychee
+          # aborts with "Cannot parse inputs from arguments" before checking
+          # anything. See DOCS-6361.
+          json: true
+          escape_json: false
+          # safe_output backslash-escapes shell metacharacters inside the JSON
+          # strings, which makes the JSON itself invalid ("\(" is not a legal
+          # JSON escape) and jq refuses to parse it. We do our own quoting in
+          # the next step instead, and pass the JSON via env rather than
+          # interpolating it into the script, so filenames cannot inject shell.
+          safe_output: false
           files: |
             **.md
             **.html
@@ -30,6 +43,20 @@ jobs:
           # here. Our own authored skills under agent-skills/granular/ stay in scope.
           files_ignore: |
             agent-skills/topical/**
+
+      - name: Build a shell-safe file list
+        id: list
+        if: steps.changes.outputs.any_changed == 'true'
+        env:
+          CHANGED_JSON: ${{ steps.changes.outputs.all_changed_files }}
+        run: |
+          # jq's @sh emits each path as a single-quoted shell token, so paths
+          # containing spaces survive word splitting in the args string below.
+          {
+            printf 'files='
+            jq -r '.[] | @sh' <<< "$CHANGED_JSON" | tr '\n' ' '
+            printf '\n'
+          } >> "$GITHUB_OUTPUT"
 
       - name: Scan for broken links
         if: steps.changes.outputs.any_changed == 'true'
@@ -77,7 +104,7 @@ jobs:
             --exclude mysql\.taobao\.org
             --exclude www\.shannon-sys\.com
             --exclude www\.hashicorp\.com
-            ${{ steps.changes.outputs.all_changed_files }}
+            ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
           # otherwise exits non-zero with "No links were found", which is a false
