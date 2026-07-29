@@ -64,6 +64,10 @@ fi
 #  is preserved. Keep the --exclude set character-for-character identical to the workflow.)
 if command -v lychee >/dev/null 2>&1; then
   if ! out="$(lychee --no-progress --max-concurrency 8 \
+      --exclude 'bazaar\.launchpad\.net' \
+      --exclude 'github\.com/mariadb-corporation/mariadb-connector-[a-z0-9]+/commit/' \
+      --exclude 'lists\.askmonty\.org' \
+      --exclude 'support2\.microsoft\.com' \
       --exclude 'dev\.mysql\.com' \
       --exclude 'docs\.oracle\.com' \
       --exclude 'kubernetes\.io\/docs' \

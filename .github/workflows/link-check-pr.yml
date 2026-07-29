@@ -73,8 +73,21 @@ jobs:
           # Note for editors: the args block below is a YAML folded scalar, so
           # a '#' line inside it is NOT a comment -- it would be passed to
           # lychee as arguments. Document new excludes up here.
+          #
+          # DOCS-6377: historical-reference excludes for the connector release
+          # notes. bazaar.launchpad.net is the decommissioned bzr host (revision
+          # links 404). The github connector /commit/ links are changelog
+          # entries whose SHAs predate history rewrites, so ~5% now 404 with no
+          # valid replacement. lists.askmonty.org (a mailing-list archive) and
+          # support2.microsoft.com (a decommissioned Microsoft domain) are cited
+          # in old changelog commit text and are unreachable with no modern
+          # equivalent. All are unmaintainable historical refs, not fixable links.
           args: >-
             --no-progress
+            --exclude 'bazaar\.launchpad\.net'
+            --exclude 'github\.com/mariadb-corporation/mariadb-connector-[a-z0-9]+/commit/'
+            --exclude 'lists\.askmonty\.org'
+            --exclude 'support2\.microsoft\.com'
             --exclude dev\.mysql\.com
             --exclude docs\.oracle\.com
             --exclude kubernetes\.io\/docs
