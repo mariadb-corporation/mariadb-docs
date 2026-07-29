@@ -5,7 +5,7 @@
 ## About this Release
 
 * MariaDB Server 11.4.0 was released on 24 Dec 2025
-* [What's new in this release?]({release-notes}/community-server/11.4/11.4.0)
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Release Candidate (RC) maturity, only Stable (GA) releases should be used in production
 
@@ -13,7 +13,7 @@
 
 * This release is part of the MariaDB 11.4 release series
 * MariaDB 11.4 is a long-term maintenance release series, the first stable release was in May 2024, and it will be maintained until May 2029
-* [What's new in this release series?]({release-notes}/community-server/11.4/what-is-mariadb-114)
+* [What's new in this release series?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
 
 ## Release History
 

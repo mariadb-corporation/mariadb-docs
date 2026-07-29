@@ -8,22 +8,22 @@ noIndex: true
 
 ## About this Release
 
-* [MariaDB 11.0.5]({release-notes}/community-server/old-releases/11.0/11.0.5) was released on 7 Feb 2024
-* [What's new in this release?]({release-notes}/community-server/old-releases/11.0/11.0.5)
+* [MariaDB 11.0.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.5) was released on 7 Feb 2024
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.5)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity
 
 ## About this Release Series
 
-* This release is part of the [MariaDB 11.0]({release-notes}/community-server/old-releases/11.0/what-is-mariadb-110) release series
-* [MariaDB 11.0]({release-notes}/community-server/old-releases/11.0/what-is-mariadb-110) is a short-term release series, maintained until June 2024
-* [What's new in this release series?]({release-notes}/community-server/old-releases/11.0/what-is-mariadb-110)
+* This release is part of the [MariaDB 11.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) release series
+* [MariaDB 11.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) is a short-term release series, maintained until June 2024
+* [What's new in this release series?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)
 
 ## Release History
 
-* The prior release in this series was [MariaDB 11.0.4]({release-notes}/community-server/old-releases/11.0/11.0.4), released on 13 Nov 2023
-* This release ([MariaDB 11.0.5]({release-notes}/community-server/old-releases/11.0/11.0.5)) was released on 7 Feb 2024
-* The latest release in this series is [MariaDB 11.0.6]({release-notes}/community-server/old-releases/11.0/11.0.6), released on 16 May 2024
+* The prior release in this series was [MariaDB 11.0.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.4), released on 13 Nov 2023
+* This release ([MariaDB 11.0.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.5)) was released on 7 Feb 2024
+* The latest release in this series is [MariaDB 11.0.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.6), released on 16 May 2024
 
 ## Useful Resources
 

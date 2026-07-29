@@ -10,16 +10,16 @@ noIndex: true
 
 * MariaDB Server 10.0.22 was released on 29 Oct 2015.
 * Please note: Newer releases exist within the MariaDB Server 10.0 release series.
-* [What's new in this release?]({release-notes}/community-server/old-releases/10.0/10.0.22)
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.22)
 * MariaDB Server is open source software. [Source code is available.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity.
-* This release contains [security content]({release-notes}/community-server/old-releases/10.0/10.0.22)
+* This release contains [security content](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.22)
 
 ## About this Release Series
 
 * This release is part of the MariaDB Server 10.0 release series.
 * The MariaDB Server 10.0 release series will be supported until March 2019.
-* [What's new in this release series?]({release-notes}/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
+* [What's new in this release series?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
 ## Release History
 

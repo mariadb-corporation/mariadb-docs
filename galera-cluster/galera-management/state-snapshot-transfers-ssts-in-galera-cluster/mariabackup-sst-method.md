@@ -31,7 +31,7 @@ For an SST to work properly, the donor and joiner node must use the same SST met
 
 ## Major version upgrades
 
-The InnoDB redo log format has been changed in [MariaDB 10.5]({release-notes}/community-server/old-releases/10.5/what-is-mariadb-105) and [MariaDB 10.8]({release-notes}/community-server/old-releases/10.8/what-is-mariadb-108) in a way that will not allow the crash recovery or the preparation of a backup from an older major version. Because of this, the `mariadb-backup` SST method cannot be used for some major version upgrades, unless you temporarily edit the `wsrep_sst_mariadb-backup` script so that the `--prepare` step on the newer-major-version joiner will be executed using the older-major-version `mariadb-backup` tool.
+The InnoDB redo log format has been changed in [MariaDB 10.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) and [MariaDB 10.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108) in a way that will not allow the crash recovery or the preparation of a backup from an older major version. Because of this, the `mariadb-backup` SST method cannot be used for some major version upgrades, unless you temporarily edit the `wsrep_sst_mariadb-backup` script so that the `--prepare` step on the newer-major-version joiner will be executed using the older-major-version `mariadb-backup` tool.
 
 The default method `wsrep_sst_method=rsync` will work for major version upgrades; see [MDEV-27437](https://jira.mariadb.org/browse/MDEV-27437).
 

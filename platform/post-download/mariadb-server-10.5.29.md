@@ -9,21 +9,21 @@ noIndex: true
 ## About this Release
 
 * MariaDB Server 10.5.29 was released on 6 May 2025.
-* [What's new in this release?]({release-notes}/community-server/old-releases/10.5/10.5.29)
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.29)
 * MariaDB Server is open source software. [Source code is available.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity.
 
 ## About this Release Series
 
-* This release is part of the [MariaDB 10.5]({release-notes}/community-server/old-releases/10.5/what-is-mariadb-105) release series
-* [MariaDB 10.5]({release-notes}/community-server/old-releases/10.5/what-is-mariadb-105) is a previous major stable version, the first stable release was in June 2020, and it will be maintained until June 2025
-* [What's new in this release series?]({release-notes}/community-server/old-releases/10.5/what-is-mariadb-105)
+* This release is part of the [MariaDB 10.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) release series
+* [MariaDB 10.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) is a previous major stable version, the first stable release was in June 2020, and it will be maintained until June 2025
+* [What's new in this release series?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)
 
 ## Release History
 
-* The prior release in this series was [MariaDB 10.5.28]({release-notes}/community-server/old-releases/10.5/10.5.28), released on 4 Feb 2025
-* This release ([MariaDB 10.5.29]({release-notes}/community-server/old-releases/10.5/10.5.29)) was released on 6 May 2025
-* The latest release in this series is [MariaDB 10.5.29]({release-notes}/community-server/old-releases/10.5/10.5.29), released on 6 May 2025
+* The prior release in this series was [MariaDB 10.5.28](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.28), released on 4 Feb 2025
+* This release ([MariaDB 10.5.29](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.29)) was released on 6 May 2025
+* The latest release in this series is [MariaDB 10.5.29](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.29), released on 6 May 2025
 
 ## Useful Resources
 

@@ -1,6 +1,6 @@
 # Red Hat 6 Process Limit a Errors
 
-When upgrading from MySQL 5.1 to [MariaDB 5.5]({release-notes}/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) you may encounter a process limit problem with your MariaDB installation. This is not MariaDB at fault. The issue is likely triggered with high connection counts to the database and possibly exacerbated by not using [Thread pooling]({server}/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb).
+When upgrading from MySQL 5.1 to [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) you may encounter a process limit problem with your MariaDB installation. This is not MariaDB at fault. The issue is likely triggered with high connection counts to the database and possibly exacerbated by not using [Thread pooling](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb).
 
 You might encounter the following error message if you are not out of available memory:
 

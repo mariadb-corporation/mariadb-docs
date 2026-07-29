@@ -9,7 +9,7 @@ noIndex: true
 ## About this Release
 
 * MariaDB Server 10.11.12 was released on 6 May 2025
-* [What's new in this release?]({release-notes}/community-server/10.11/10.11.12)
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.12)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity
 
@@ -17,7 +17,7 @@ noIndex: true
 
 * This release is part of the MariaDB Server 10.11 release series
 * The MariaDB Server 10.11 release series will be supported until 16 Feb 2028
-* [What's new in this release series?]({release-notes}/community-server/10.11/what-is-mariadb-1011)
+* [What's new in this release series?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011)
 
 ## Release History
 

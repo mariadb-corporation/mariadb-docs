@@ -257,7 +257,7 @@ In version 3.x, enabling this option (or relying on defaults) often results in a
     Starting with **MariaDB 10.6** ([MDEV-19237](https://jira.mariadb.org/browse/MDEV-19237)), the server can skip resending metadata for result-set–returning SQL commands when `useServerPrepStmts` is enabled and the metadata hasn’t changed. This eliminates unnecessary network traffic and metadata parsing, which can yield **significant improvements (around 10–30%)**—especially when metadata is large compared to the result set itself.
 
     **Recommendation:**\
-    If you are using [MariaDB 10.6]({release-notes}/enterprise-server/10.6) or later and your application runs mostly repeated queries (not constantly changing), enabling the Binary protocol with `useServerPrepStmts` is generally recommended.
+    If you are using [MariaDB 10.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/10.6) or later and your application runs mostly repeated queries (not constantly changing), enabling the Binary protocol with `useServerPrepStmts` is generally recommended.
 * Data Type: `boolean`
 * Default Value: `false`
 * Introduced: 1.3.0
@@ -467,7 +467,7 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 
 #### **connectionCollation**
 
-* Description: Connector force `utf8mb4` charset at connection. Indicate what utf8mb4 collation to use if set. if not set, the server default collation for `utf8mb4` will be used. Useful only for the server before [MariaDB 11.4]({release-notes}/enterprise-server/11.4), because then a better solution would be to set `character_set_collations`
+* Description: Connector force `utf8mb4` charset at connection. Indicate what utf8mb4 collation to use if set. if not set, the server default collation for `utf8mb4` will be used. Useful only for the server before [MariaDB 11.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.4), because then a better solution would be to set `character_set_collations`
 * Data Type: `string`
 * Default Value: `null`
 * Introduced: 3.5.0
@@ -989,7 +989,7 @@ Statement stmt = sharedConn.createStatement();
 
 Only the first generated key will be returned, meaning that for multi-insert the generated key retrieved will correspond to the first generated value of the command.
 
-If retrieving all generated values for multiple insert is needed, please use [INSERT...RETURNING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning) command (since [MariaDB 10.5]({release-notes}/enterprise-server/old-releases/10.5)).
+If retrieving all generated values for multiple insert is needed, please use [INSERT...RETURNING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning) command (since [MariaDB 10.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.5)).
 
 ### Optional JDBC Classes
 

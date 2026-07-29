@@ -1,8 +1,8 @@
 # ST\_Collect
 
-**MariaDB starting with** [**11.8**]({release-notes}/community-server/11.8/what-is-mariadb-118)
+**MariaDB starting with** [**11.8**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118)
 
-ST\_Collect was added in [MariaDB 11.8]({release-notes}/community-server/11.8/what-is-mariadb-118).
+ST\_Collect was added in [MariaDB 11.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118).
 
 ## Syntax
 

@@ -9,7 +9,7 @@ noIndex: true
 ## About this Release
 
 * MariaDB Server 10.6.21 was released on 4 Feb 2025
-* [What's new in this release?]({release-notes}/community-server/10.6/10.6.21)
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.21)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity
 
@@ -17,12 +17,12 @@ noIndex: true
 
 * This release is part of the MariaDB 10.6 release series
 * MariaDB 10.6 is a long-term maintenance release series, the first stable release was in July 2021, and it will be maintained until July 2026
-* [What's new in this release series?]({release-notes}/community-server/10.6/what-is-mariadb-106)
+* [What's new in this release series?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106)
 
 ## Release History
 
-* The prior release in this series was [MariaDB 10.6.20]({release-notes}/community-server/10.6/10.6.20), released on 1 Nov 2024
-* This release ([MariaDB 10.6.21]({release-notes}/community-server/10.6/10.6.21)) was released on 4 Feb 2025
+* The prior release in this series was [MariaDB 10.6.20](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.20), released on 1 Nov 2024
+* This release ([MariaDB 10.6.21](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.21)) was released on 4 Feb 2025
 
 {% include "../.gitbook/includes/most-recent-10.6.md" %}
 

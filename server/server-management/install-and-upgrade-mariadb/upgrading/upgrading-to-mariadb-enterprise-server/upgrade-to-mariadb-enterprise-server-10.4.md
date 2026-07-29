@@ -6,7 +6,7 @@ These instructions detail the **upgrade** from a previous version of **MariaDB E
 
 When MariaDB Enterprise Server is upgraded, the old version needs to be uninstalled, and the new version needs to be installed.
 
-See [What's New in MariaDB Enterprise Server 10.4]({release-notes}/enterprise-server/old-releases/10.4/whats-new-in-mariadb-enterprise-server-10-4).
+See [What's New in MariaDB Enterprise Server 10.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.4/whats-new-in-mariadb-enterprise-server-10-4).
 
 ## Data Backup <a href="#data-backup" id="data-backup"></a>
 

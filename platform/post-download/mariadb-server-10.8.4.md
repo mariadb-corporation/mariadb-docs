@@ -10,16 +10,16 @@ noIndex: true
 
 * MariaDB Server 10.8.4 was released on 15 Aug 2022.
 * Please note: Newer releases exist within the MariaDB Server 10.8 release series.
-* [What's new in this release?]({release-notes}/community-server/old-releases/10.8/10.8.4)
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.4)
 * MariaDB Server is open source software. [Source code is available.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity.
-* This release contains [security content]({release-notes}/community-server/old-releases/10.8/10.8.4)
+* This release contains [security content](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.4)
 
 ## About this Release Series
 
 * This release is part of the MariaDB Server 10.8 release series.
 * The MariaDB Server 10.8 release series will be supported until FUTURE.
-* [What's new in this release series?]({release-notes}/community-server/old-releases/10.8)
+* [What's new in this release series?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8)
 
 ## Release History
 

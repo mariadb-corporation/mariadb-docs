@@ -1,8 +1,8 @@
 # ST\_DISTANCE\_SPHERE
 
-**MariaDB starting with** [**10.5.10**]({release-notes}/community-server/old-releases/10.5/10.5.10)
+**MariaDB starting with** [**10.5.10**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.10)
 
-`ST_DISTANCE_SPHERE` was introduced in [MariaDB 10.2.38]({release-notes}/community-server/old-releases/10.2/10.2.38), [MariaDB 10.3.29]({release-notes}/community-server/old-releases/10.3/10.3.29), [MariaDB 10.4.19]({release-notes}/community-server/old-releases/10.4/10.4.19) and [MariaDB 10.5.10]({release-notes}/community-server/old-releases/10.5/10.5.10).
+`ST_DISTANCE_SPHERE` was introduced in [MariaDB 10.2.38](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.38), [MariaDB 10.3.29](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.29), [MariaDB 10.4.19](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.19) and [MariaDB 10.5.10](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.10).
 
 ## Syntax
 

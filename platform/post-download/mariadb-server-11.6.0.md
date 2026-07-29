@@ -6,21 +6,21 @@
 
 * MariaDB Server 11.6.0 was released on 26 Jun 2024
 * MariaDB Server 11.6.0 Vector was released on 29 Jul 2024
-* [What's new in 11.6.0?]({release-notes}/community-server/old-releases/11.6/11.6.0)
-* [What's new in 11.6.0 Vector?]({release-notes}/community-server/old-releases/11.6/11.6.0-vector)
+* [What's new in 11.6.0?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.0)
+* [What's new in 11.6.0 Vector?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.0-vector)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 
 ## About this Release Series
 
 * This release is part of the MariaDB 11.6 release series
 * MariaDB 11.6 is a rolling release series
-* [What's new in this release series?]({release-notes}/community-server/old-releases/11.6/what-is-mariadb-116)
+* [What's new in this release series?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/what-is-mariadb-116)
 
 ## Release History
 
 * MariaDB 11.6.0 was released on 26 Jun 2024
 * MariaDB 11.6.0 Vector was released on 29 Jul 2024
-* The latest release in this series is [MariaDB 11.6.2]({release-notes}/community-server/old-releases/11.6/11.6.2), released on 21 Nov 2024
+* The latest release in this series is [MariaDB 11.6.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.2), released on 21 Nov 2024
 
 ## Useful Resources
 
