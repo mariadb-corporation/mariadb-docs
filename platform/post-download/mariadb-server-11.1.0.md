@@ -10,7 +10,7 @@ noIndex: true
 
 * MariaDB Server 11.1.0 was released on 27 Mar 2023.
 * Please note: Newer releases exist within the MariaDB Server 11.1 release series.
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-0-release-notes)
+* [What's new in this release?]({release-notes}/community-server/old-releases/11.1/11.1.0)
 * MariaDB Server is open source software. [Source code is available.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is UNKNOWN maturity. Only Stable (GA) releases should be used in production.
 
@@ -18,7 +18,7 @@ noIndex: true
 
 * This release is part of the MariaDB Server 11.1 release series.
 * The MariaDB Server 11.1 release series will be supported until 21 Nov 2024.
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111)
+* [What's new in this release series?]({release-notes}/community-server/old-releases/11.1/what-is-mariadb-111)
 
 ## Release History
 

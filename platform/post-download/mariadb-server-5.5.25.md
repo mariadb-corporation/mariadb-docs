@@ -10,7 +10,7 @@ noIndex: true
 
 * MariaDB Server 5.5.25 was released on 22 Jun 2012.
 * Please note: Newer releases exist within the MariaDB Server 5.5 release series.
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5525-release-notes)
+* [What's new in this release?]({release-notes}/community-server/old-releases/5.5/5.5.25)
 * MariaDB Server is open source software. [Source code is available.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity.
 
@@ -18,7 +18,7 @@ noIndex: true
 
 * This release is part of the MariaDB Server 5.5 release series.
 * The MariaDB Server 5.5 release series will be supported until April 2020.
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+* [What's new in this release series?]({release-notes}/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 ## Release History
 

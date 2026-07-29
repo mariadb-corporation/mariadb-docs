@@ -9,7 +9,7 @@ noIndex: true
 ## About this Release
 
 * MariaDB Server 11.8.3 was released on 6 Aug 2025
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/mariadb-11.8.3-release-notes)
+* [What's new in this release?]({release-notes}/community-server/11.8/11.8.3)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity
 
@@ -17,12 +17,12 @@ noIndex: true
 
 * This release is part of the MariaDB 11.8 release series
 * MariaDB 11.8 is a long-term maintenance release series, the first stable release was in Jun 2025, and it will be maintained until Jun 2028
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/what-is-mariadb-118)
+* [What's new in this release series?]({release-notes}/community-server/11.8/what-is-mariadb-118)
 
 ## Release History
 
-* The prior release in this series was [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/mariadb-11-8-2-release-notes), released on 4 Jun 2025
-* This release ([MariaDB 11.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/mariadb-11.8.3-release-notes)) was released on 6 Aug 2025
+* The prior release in this series was [MariaDB 11.8.2]({release-notes}/community-server/11.8/11.8.2), released on 4 Jun 2025
+* This release ([MariaDB 11.8.3]({release-notes}/community-server/11.8/11.8.3)) was released on 6 Aug 2025
 
 {% include "../.gitbook/includes/most-recent-11.8.md" %}
 

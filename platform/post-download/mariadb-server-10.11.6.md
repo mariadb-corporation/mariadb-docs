@@ -5,7 +5,7 @@
 ## About this Release
 
 * MariaDB Server 10.11.6 was released on 13 Nov 2023
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-6-release-notes)
+* [What's new in this release?]({release-notes}/community-server/10.11/10.11.6)
 * MariaDB Server is open source software, [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity
 
@@ -13,7 +13,7 @@
 
 * This release is part of the MariaDB Server 10.11 release series
 * The MariaDB Server 10.11 release series will be supported until 16 Feb 2028
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011)
+* [What's new in this release series?]({release-notes}/community-server/10.11/what-is-mariadb-1011)
 
 ## Release History
 

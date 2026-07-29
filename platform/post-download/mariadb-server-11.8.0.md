@@ -5,14 +5,14 @@
 ## About this Release
 
 * MariaDB Server 11.8.0 was released on 18 Dec 2024
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/mariadb-11-8-0-release-notes)
+* [What's new in this release?]({release-notes}/community-server/11.8/11.8.0)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 
 ## About this Release Series
 
 * This release is part of the MariaDB 11.8 release series
 * MariaDB 11.8 is a rolling release series
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/what-is-mariadb-118)
+* [What's new in this release series?]({release-notes}/community-server/11.8/what-is-mariadb-118)
 
 ## Release History
 

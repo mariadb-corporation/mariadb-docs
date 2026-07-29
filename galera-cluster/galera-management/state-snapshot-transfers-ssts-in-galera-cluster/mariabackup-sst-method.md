@@ -31,7 +31,7 @@ For an SST to work properly, the donor and joiner node must use the same SST met
 
 ## Major version upgrades
 
-The InnoDB redo log format has been changed in [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/mariadb-10-5-series/what-is-mariadb-105) and [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108) in a way that will not allow the crash recovery or the preparation of a backup from an older major version. Because of this, the `mariadb-backup` SST method cannot be used for some major version upgrades, unless you temporarily edit the `wsrep_sst_mariadb-backup` script so that the `--prepare` step on the newer-major-version joiner will be executed using the older-major-version `mariadb-backup` tool.
+The InnoDB redo log format has been changed in [MariaDB 10.5]({release-notes}/community-server/old-releases/10.5/what-is-mariadb-105) and [MariaDB 10.8]({release-notes}/community-server/old-releases/10.8/what-is-mariadb-108) in a way that will not allow the crash recovery or the preparation of a backup from an older major version. Because of this, the `mariadb-backup` SST method cannot be used for some major version upgrades, unless you temporarily edit the `wsrep_sst_mariadb-backup` script so that the `--prepare` step on the newer-major-version joiner will be executed using the older-major-version `mariadb-backup` tool.
 
 The default method `wsrep_sst_method=rsync` will work for major version upgrades; see [MDEV-27437](https://jira.mariadb.org/browse/MDEV-27437).
 
@@ -133,7 +133,7 @@ The trailing comma tells the server to allow any other node as donor when the pr
 
 ## Socat Dependency
 
-During the SST process, the donor node uses [socat](https://www.dest-unreach.org/socat/doc/socat.html) to stream the backup to the joiner node. Then the joiner node prepares the backup before restoring it. The socat utility must be installed on both the donor node and the joiner node in order for this to work. Otherwise, the MariaDB error log will contain an error like:
+During the SST process, the donor node uses [socat](http://www.dest-unreach.org/socat/doc/socat.html) to stream the backup to the joiner node. Then the joiner node prepares the backup before restoring it. The socat utility must be installed on both the donor node and the joiner node in order for this to work. Otherwise, the MariaDB error log will contain an error like:
 
 ```
 WSREP_SST: [ERROR] socat not found in path: /usr/sbin:/sbin:/usr//bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin (20180122 14:55:32.993)
@@ -154,7 +154,7 @@ Note that `encrypt=1` refers to a TLS encryption method that has been deprecated
 
 ### TLS Using OpenSSL Encryption Built into Socat
 
-To generate keys compatible with this encryption method, you can follow [these directions](https://www.dest-unreach.org/socat/doc/socat-openssltunnel.html).
+To generate keys compatible with this encryption method, you can follow [these directions](http://www.dest-unreach.org/socat/doc/socat-openssltunnel.html).
 
 For example:
 
@@ -280,7 +280,7 @@ See [MDEV-18797](https://jira.mariadb.org/browse/MDEV-18797) for more informatio
 
 In some cases, if Galera Cluster's automatic SSTs repeatedly fail, then it can be helpful to perform a "manual SST". See the following page on how to do that:
 
-* [Manual SST of Galera Cluster node with mariadb-backup](manual-sst-of-galera-cluster-node-with-mariadb-backup.md)
+* [Manual SST of Galera Cluster node with mariabackup](manual-sst-of-galera-cluster-node-with-mariabackup.md)
 
 ## See Also
 

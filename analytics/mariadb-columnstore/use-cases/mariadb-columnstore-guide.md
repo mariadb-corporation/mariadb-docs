@@ -9,7 +9,7 @@ description: >-
 
 MariaDB ColumnStore is a columnar storage engine that utilizes a massively parallel distributed data architecture. It's a columnar storage system built by porting InfiniDB 4.6.7 to MariaDB and released under the GPL license.
 
-[MariaDB 10.5.4 ](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes)is available as a storage engine for MariaDB Server. Before then, it is available as a separate download.
+[MariaDB 10.5.4 ]({release-notes}/community-server/old-releases/10.5/10.5.4)is available as a storage engine for MariaDB Server. Before then, it is available as a separate download.
 
 {% hint style="info" %}
 Release notes and other documentation for ColumnStore is also available in the Enterprise docs section of the MariaDB website. For example:

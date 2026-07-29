@@ -10,16 +10,16 @@ noIndex: true
 
 * MariaDB Server 10.0.26 was released on 24 Jun 2016.
 * Please note: Newer releases exist within the MariaDB Server 10.0 release series.
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10026-release-notes)
+* [What's new in this release?]({release-notes}/community-server/old-releases/10.0/10.0.26)
 * MariaDB Server is open source software. [Source code is available.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity.
-* This release contains [security content](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10026-release-notes)
+* This release contains [security content]({release-notes}/community-server/old-releases/10.0/10.0.26)
 
 ## About this Release Series
 
 * This release is part of the MariaDB Server 10.0 release series.
 * The MariaDB Server 10.0 release series will be supported until March 2019.
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
+* [What's new in this release series?]({release-notes}/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
 ## Release History
 
