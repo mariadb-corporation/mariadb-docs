@@ -1,10 +1,16 @@
+---
+description: >-
+  Full changelog for MariaDB Connector/Node.js 3.5.0-rc, listing every commit in
+  the release.
+---
+
 # Connector/Node.js 3.5.0-rc Changelog
 
-<a href="https://mariadb.com/downloads/connectors/connectors-data-access/nodejs-connector" class="button primary">Download</a> <a href="../../mariadb-connector-nodejs-3x-release-notes/mariadb-connector-node-js-3-5-0-rc-release-notes.md" class="button secondary">Release Notes</a> <a href="mariadb-connector-node-js-3-5-0-rc-changelog.md" class="button secondary">Changelog</a> <a href="https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-nodejs/mariadb-connector-node-js-guide" class="button secondary">Connector/Node.js Overview</a>
+<a href="https://mariadb.com/downloads/connectors/connectors-data-access/nodejs-connector" class="button primary">Download</a> <a href="../../3.x/3.5.0.md" class="button secondary">Release Notes</a> <a href="mariadb-connector-node-js-3-5-0-rc-changelog.md" class="button secondary">Changelog</a> <a href="https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-nodejs/mariadb-connector-node-js-guide" class="button secondary">Connector/Node.js Overview</a>
 
 **Release date:** 06 Oct 2025
 
-For the highlights of this release, see the [release notes](../../mariadb-connector-nodejs-3x-release-notes/mariadb-connector-node-js-3-4-5-release-notes.md).
+For the highlights of this release, see the [release notes](../../3.x/3.4.5.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/mariadb-connector-nodejs) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -34,7 +40,7 @@ details of the revision and view diffs of the code modified in that revision.
 * [Revision #5aba13d](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/5aba13d)  \[[CONJS-326](https://jira.mariadb.org/browse/CONJS-326)] test correction to have  test concurrency for one test file at a time
 * [Revision #ab665d8](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/ab665d8)  Set already processed error to true
 * [Revision #6d1c8c2](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/6d1c8c2)  Remove unused variable
-* [Revision #dc83f3e](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/dc83f3e)  Fix issue with connections breaking due to subsequent errors occuring during kill process
+* [Revision #dc83f3e](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/dc83f3e)  Fix issue with connections breaking due to subsequent errors occurring during kill process
 * [Revision #1bbbb41](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/1bbbb41)  \[misc] migrate CI to corporation account
 * [Revision #90c9dff](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/90c9dff)  \[misc] migrate CI to corporation account
 * [Revision #4a4e81c](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/4a4e81c)  Add caching SHA-2 socket tests
