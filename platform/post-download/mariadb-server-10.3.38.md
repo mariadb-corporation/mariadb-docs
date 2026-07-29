@@ -10,7 +10,7 @@ noIndex: true
 
 * MariaDB Server 10.3.38 was released on 6 Feb 2023.
 * Please note: Newer releases exist within the MariaDB Server 10.3 release series.
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-38-release-notes)
+* [What's new in this release?]({release-notes}/community-server/old-releases/10.3/10.3.38)
 * MariaDB Server is open source software. [Source code is available.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity.
 
@@ -18,7 +18,7 @@ noIndex: true
 
 * This release is part of the MariaDB Server 10.3 release series.
 * The MariaDB Server 10.3 release series will be supported until 25 May 2023.
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+* [What's new in this release series?]({release-notes}/community-server/old-releases/10.3/what-is-mariadb-103)
 
 ## Release History
 

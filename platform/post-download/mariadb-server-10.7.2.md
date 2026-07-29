@@ -10,16 +10,16 @@ noIndex: true
 
 * MariaDB Server 10.7.2 was released on 9 Feb 2022.
 * Please note: Newer releases exist within the MariaDB Server 10.7 release series.
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1072-release-notes)
+* [What's new in this release?]({release-notes}/community-server/old-releases/10.7/10.7.2)
 * MariaDB Server is open source software. [Source code is available.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity.
-* This release contains [security content](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1072-release-notes)
+* This release contains [security content]({release-notes}/community-server/old-releases/10.7/10.7.2)
 
 ## About this Release Series
 
 * This release is part of the MariaDB Server 10.7 release series.
 * The MariaDB Server 10.7 release series will be supported until FUTURE.
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series)
+* [What's new in this release series?]({release-notes}/community-server/old-releases/10.7)
 
 ## Release History
 

@@ -5,13 +5,13 @@
 ## About this Release
 
 * MariaDB Server 5.2.14 was released on 30 Jan 2013
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/mariadb-5214-release-notes)
+* [What's new in this release?]({release-notes}/community-server/old-releases/5.2/5.2.14)
 * MariaDB Server is open source software, [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 
 ## About this Release Series
 
 * This release is part of the MariaDB Server 5.2 release series.
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2)
+* [What's new in this release series?]({release-notes}/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2)
 
 ## Release History
 

@@ -199,10 +199,10 @@ Here are some examples of Markdown links to various pages using space links:
 [Options, System & Status Variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables)
 ```
 
-#### [MariaDB 12.1 Changes & Improvements](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1) in the Release Notes space
+#### [MariaDB 12.1 Changes & Improvements](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1) in the Release Notes space
 
 ```markdown
-[MariaDB 12.1 Changes & Improvements](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1)
+[MariaDB 12.1 Changes & Improvements](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1)
 ```
 
 #### [MariaDB Connector/C Guide](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/mariadb-connector-c-guide) in the Connectors space

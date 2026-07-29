@@ -5,7 +5,7 @@
 ## About this Release
 
 * MariaDB Server 11.7.0 was released on 25 Sep 2024
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-1-release-notes)
+* [What's new in this release?]({release-notes}/community-server/old-releases/11.7/11.7.0)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Release Candidate (RC) maturity
 
@@ -13,12 +13,12 @@
 
 * This release is part of the MariaDB 11.7 release series
 * MariaDB 11.7 is a rolling release series
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117)
+* [What's new in this release series?]({release-notes}/community-server/old-releases/11.7/what-is-mariadb-117)
 
 ## Release History
 
 * This release (MariaDB 11.7.0) was released on 25 Sep 2024
-* The latest release in this series is [MariaDB 11.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-2-release-notes), released on 13 Feb 2025
+* The latest release in this series is [MariaDB 11.7.2]({release-notes}/community-server/old-releases/11.7/11.7.2), released on 13 Feb 2025
 
 ## Useful Resources
 

@@ -10,7 +10,7 @@ noIndex: true
 
 * MariaDB Server 10.2.0 was released on 18 Apr 2016.
 * Please note: Newer releases exist within the MariaDB Server 10.2 release series.
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1020-release-notes)
+* [What's new in this release?]({release-notes}/community-server/old-releases/10.2/10.2.0)
 * MariaDB Server is open source software. [Source code is available.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Alpha maturity. Only Stable (GA) releases should be used in production.
 
@@ -18,7 +18,7 @@ noIndex: true
 
 * This release is part of the MariaDB Server 10.2 release series.
 * The MariaDB Server 10.2 release series will be supported until May 2022.
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102)
+* [What's new in this release series?]({release-notes}/community-server/old-releases/10.2/what-is-mariadb-102)
 
 ## Release History
 
