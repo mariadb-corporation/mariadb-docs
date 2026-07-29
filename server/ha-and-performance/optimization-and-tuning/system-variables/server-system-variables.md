@@ -691,7 +691,7 @@ The suffix can be upper or lower-case.
 
 #### `foreign_key_checks`
 
-* Description: If set to 1 (the default) [foreign key constraints](../optimization-and-indexes/foreign-keys.md) (including ON UPDATE and ON DELETE behavior) [InnoDB](../../../server-usage/storage-engines/innodb/) tables are checked, while if set to 0, they are not checked. `0` is not recommended for normal use, though it can be useful in situations where you know the data is consistent, but want to reload data in a different order from that specified by parent/child relationships. Setting this variable to 1 does not retrospectively check for inconsistencies introduced while set to 0.
+* Description: If set to 1 (the default) [foreign key constraints](../optimization-and-indexes/foreign-keys.md) (including ON UPDATE and ON DELETE behavior) [InnoDB](../../../server-usage/storage-engines/innodb/) tables are checked, while if set to 0, they are not checked. `0` is not recommended for normal use, though it can be useful in situations where you know the data is consistent, but want to reload data in a different order from that specified by parent/child relationships. Setting this variable to 1 does not retrospectively check for inconsistencies introduced while set to 0. Setting it to 0 suspends the checks on data only; it does not permit schema changes that would leave a constraint invalid, so a column used in a foreign key still cannot be dropped, renamed, or changed in type, character set, or collation. See [Changing the Character Set or Collation of a Foreign Key Column](../optimization-and-indexes/foreign-keys.md#changing-the-character-set-or-collation-of-a-foreign-key-column).
 * Command line: None
 * Scope: Global, Session
 * Dynamic: Yes

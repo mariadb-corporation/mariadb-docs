@@ -54,6 +54,7 @@ Foreign keys have the following requirements:
 
 * Referenced columns in the parent table must be a an index or a prefix of an index.
 * Foreign key columns and referenced columns must be of the same type, or similar types. For integer types, the size and sign must also be the same.
+* For string types, the foreign key column and the referenced column must use the same character set **and** the same collation. Two columns that differ only in collation, such as `utf8mb4_general_ci` and `utf8mb4_uca1400_ai_ci`, cannot be compared, so a foreign key between them is rejected. See [Changing the Character Set or Collation of a Foreign Key Column](foreign-keys.md#changing-the-character-set-or-collation-of-a-foreign-key-column).
 * Both foreign key columns and referenced columns can be [PERSISTENT](../../../reference/sql-statements/data-definition/create/generated-columns.md) columns. However, the `ON UPDATE CASCADE`, `ON UPDATE SET NULL`, `ON DELETE SET NULL` clauses are not allowed in this case.
 * The parent and the child table must use the same storage engine, and must not be `TEMPORARY` or partitioned tables. However, they can be the same table.
 
@@ -102,8 +103,57 @@ The allowed actions for `ON DELETE` and `ON UPDATE` are:
 
 Foreign key constraints can be disabled by setting the [foreign\_key\_checks](../system-variables/server-system-variables.md#foreign_key_checks) server system variable to `0`. This speeds up the insertion of large quantities of data.
 
+Setting `foreign_key_checks` to `0` suspends the checks on data, but it does not permit schema changes that would leave the constraint itself invalid. Regardless of the setting, a column used in a foreign key cannot be dropped, renamed, or changed in a way that alters how its values compare, including a change of type, character set, or collation. See [Changing the Character Set or Collation of a Foreign Key Column](foreign-keys.md#changing-the-character-set-or-collation-of-a-foreign-key-column).
+
 {% hint style="info" %}
 For detailed information about constraints, see [this page](../../../reference/sql-statements/data-definition/constraint.md).
+{% endhint %}
+
+## Changing the Character Set or Collation of a Foreign Key Column
+
+Because a foreign key requires both string columns to share a character set and collation, converting one table without the other breaks the constraint. MariaDB refuses the conversion rather than allowing it:
+
+* Converting the child table fails with [error 1832](../../../reference/error-codes/mariadb-error-codes-1800-to-1899/e1832.md), `Cannot change column '...': used in a foreign key constraint '...'`.
+* Converting the parent table fails with [error 1833](../../../reference/error-codes/mariadb-error-codes-1800-to-1899/e1833.md), `Cannot change column '...': used in a foreign key constraint '...' of table '...'`.
+
+{% hint style="warning" %}
+Setting `foreign_key_checks` to `0` does not lift this restriction, and neither does requesting `ALGORITHM=COPY` or `ALGORITHM=INPLACE`. The conversion is rejected in every combination of the two. This is deliberate: allowing it would leave a foreign key whose columns can no longer be compared, producing a schema that cannot be restored from a dump.
+{% endhint %}
+
+Instead, drop the constraint, convert both tables, and re-create the constraint. Dropping it in the **same** `ALTER TABLE` statement as the column change is supported, so the child table needs only one statement:
+
+```sql
+SET FOREIGN_KEY_CHECKS=0;
+
+ALTER TABLE child
+  DROP FOREIGN KEY fk_name,
+  MODIFY col VARCHAR(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+ALTER TABLE parent
+  MODIFY col VARCHAR(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+ALTER TABLE child
+  ADD CONSTRAINT fk_name FOREIGN KEY (col) REFERENCES parent (col);
+
+SET FOREIGN_KEY_CHECKS=1;
+```
+
+The order matters. The parent table cannot be converted while a child foreign key still references it, and a child's constraint cannot be dropped from within the parent's `ALTER TABLE`. Across a whole schema, drop every affected constraint first, convert all the tables, then re-create the constraints.
+
+Re-creating a constraint while `foreign_key_checks` is `0` does not validate the existing rows against it. To have them validated, restore `foreign_key_checks` to `1` before the `ADD CONSTRAINT` statement.
+
+To list the constraints that need dropping and re-creating, query the [KEY\_COLUMN\_USAGE](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-key_column_usage-table.md) table:
+
+```sql
+SELECT TABLE_NAME, COLUMN_NAME, CONSTRAINT_NAME,
+       REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME
+  FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+ WHERE TABLE_SCHEMA = DATABASE()
+   AND REFERENCED_TABLE_NAME IS NOT NULL;
+```
+
+{% hint style="info" %}
+Converting a table to a different collation changes how its values compare and sort, which also changes what counts as a duplicate in a unique index. Where a conversion is only needed to make two tables match, converting the older tables **forward** to the newer collation is usually preferable to moving the newer ones back. See [Setting Character Sets and Collations](../../../reference/data-types/string-data-types/character-sets/setting-character-sets-and-collations.md).
 {% endhint %}
 
 ## Metadata
