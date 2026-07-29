@@ -18,9 +18,20 @@ recommended: `qpdf` (lossless size pass), `poppler-utils` (page-count
 reporting), `npm` (only for `fetch-deps.sh`).
 
 In CI, `.github/workflows/generate-pdfs.yml` builds every space in parallel and
-attaches the results to a GitHub Release. It is `workflow_dispatch`-only: a full
-run produces several hundred MB, so it is cut per documentation snapshot rather
-than per push.
+attaches the results to a GitHub Release. A full run produces several hundred MB,
+so it is cut per documentation snapshot rather than per push:
+
+- **Automatically**, at 04:00 UTC on the 15th of each month, so a current
+  snapshot exists even in a month when nobody remembers to cut one. Scheduled
+  runs publish immediately, because a draft release does not move
+  `releases/latest`, which the documentation home page links to.
+- **Manually** (`workflow_dispatch`), to re-cut after a Server release lands.
+  Manual runs default to a draft so the output can be checked before it is
+  published.
+
+Both default to the tag `docs-pdf-YYYY-MM` — one release per calendar month, so
+a mid-month re-cut replaces that month's assets rather than adding a
+near-identical release. Pass an explicit `tag` to keep a snapshot separate.
 
 ## Output
 

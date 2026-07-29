@@ -2,9 +2,15 @@ name: Generate documentation PDFs
 
 # Builds one PDF per GitBook space and attaches them to a GitHub Release.
 #
-# Manual by design (DOCS-5710): a full run produces ~450 MB across 11 files, so
-# it is tied to a documentation snapshot -- typically cut alongside a Server
-# release -- rather than to every push.
+# Snapshot-based (DOCS-5710), never per-push: a full run produces ~450 MB across
+# 11 files. Two ways in:
+#
+#   * monthly cron, so a dated snapshot exists even in a month nobody cuts one;
+#   * manual dispatch, to re-cut after a Server release lands.
+#
+# Both resolve to one release per calendar month (docs-pdf-YYYY-MM), so a manual
+# re-cut updates that month's assets in place instead of piling up near-identical
+# releases.
 #
 # There is deliberately no combined all-spaces PDF: concatenating every space
 # yields ~16,000 pages, which no reader handles usefully.
@@ -13,8 +19,8 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Release tag to create or update (e.g. docs-pdf-2026-07)'
-        required: true
+        description: 'Release tag to create or update. Defaults to docs-pdf-YYYY-MM.'
+        required: false
         type: string
       label:
         description: 'Cover-page label (e.g. "Snapshot July 2026"). Defaults to the run date.'
@@ -31,21 +37,84 @@ on:
         default: true
         type: boolean
 
+  # 04:00 UTC on the 15th of every month. Off-hours for CET/CEST reviewers, and
+  # mid-month so it never collides with month-boundary release work.
+  #
+  # Cron only fires on the default branch, and GitHub suspends a schedule after
+  # 60 days without a repository push -- not a risk at this repo's commit rate,
+  # but the reason to check the Actions tab if a month goes by with no release.
+  schedule:
+    - cron: '0 4 15 * *'
+
 permissions:
   contents: write   # required to create the release and upload assets
+
+# A scheduled run and a manual one could otherwise target the same monthly tag
+# concurrently, and `gh release upload --clobber` is not atomic. Queue instead of
+# cancelling: a run that has already spent an hour rendering should finish.
+concurrency:
+  group: generate-pdfs
+  cancel-in-progress: false
 
 env:
   PANDOC_VERSION: '3.10.1'
 
 jobs:
-  # Resolve the space list once so the build matrix and the release job agree.
+  # Resolve every input once -- a scheduled run supplies none of them -- so the
+  # build matrix and the release job agree on one set of values.
   plan:
     runs-on: ubuntu-latest
     outputs:
       spaces: ${{ steps.plan.outputs.spaces }}
       label: ${{ steps.plan.outputs.label }}
+      tag: ${{ steps.plan.outputs.tag }}
+      draft: ${{ steps.plan.outputs.draft }}
     steps:
       - uses: actions/checkout@v7
+
+      - id: plan
+        name: Resolve tag, spaces, cover label, and draft state
+        env:
+          TAG_INPUT: ${{ inputs.tag }}
+          REQUESTED: ${{ inputs.spaces }}
+          LABEL_INPUT: ${{ inputs.label }}
+          DRAFT_INPUT: ${{ inputs.draft }}
+        run: |
+          set -euo pipefail
+          # One release per calendar month, so the monthly cron and a mid-month
+          # manual re-cut land on the same tag.
+          tag="$TAG_INPUT"
+          [[ -n "$tag" ]] || tag="docs-pdf-$(date -u +%Y-%m)"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+          # --list-spaces validates its arguments, so a typo fails here rather
+          # than after the matrix has already fanned out. A scheduled run leaves
+          # REQUESTED empty, which the script already reads as every space.
+          if [[ -z "$REQUESTED" || "$REQUESTED" == "all" ]]; then
+            spaces=$(python3 pdf/build.py --list-spaces)
+          else
+            spaces=$(python3 pdf/build.py --list-spaces $REQUESTED)
+          fi
+          echo "spaces=$spaces" >> "$GITHUB_OUTPUT"
+
+          label="$LABEL_INPUT"
+          [[ -n "$label" ]] || label="Snapshot $(date -u +%Y-%m-%d)"
+          echo "label=$label" >> "$GITHUB_OUTPUT"
+
+          # A draft release does not move `releases/latest`, which the docs home
+          # page links to -- so an unattended run has to publish, or the monthly
+          # rebuild silently never reaches readers. Manual runs keep the draft
+          # default, so a hand-cut snapshot can still be eyeballed first.
+          if [[ "$GITHUB_EVENT_NAME" == "schedule" ]]; then
+            draft=false
+          else
+            draft="${DRAFT_INPUT:-true}"
+          fi
+          echo "draft=$draft" >> "$GITHUB_OUTPUT"
+
+          echo "Tag: $tag (draft: $draft)"
+          echo "Building: $spaces"
+          echo "Label: $label"
 
       # The tag becomes a Git ref when the release is published, so reject
       # anything git would refuse. A draft release accepts an invalid name (it
@@ -53,7 +122,7 @@ jobs:
       # of rendering later. check-ref-format needs no repository, just git.
       - name: Validate the release tag
         env:
-          TAG: ${{ inputs.tag }}
+          TAG: ${{ steps.plan.outputs.tag }}
         run: |
           set -euo pipefail
           if ! git check-ref-format "refs/tags/$TAG"; then
@@ -72,29 +141,6 @@ jobs:
       # failing here costs seconds instead of an hour of rendering.
       - name: Verify WCAG AA contrast
         run: python3 pdf/check_contrast.py
-
-      - id: plan
-        name: Resolve spaces and cover label
-        env:
-          REQUESTED: ${{ inputs.spaces }}
-          LABEL_INPUT: ${{ inputs.label }}
-        run: |
-          set -euo pipefail
-          # --list-spaces validates its arguments, so a typo fails here rather
-          # than after the matrix has already fanned out.
-          if [[ "$REQUESTED" == "all" ]]; then
-            spaces=$(python3 pdf/build.py --list-spaces)
-          else
-            spaces=$(python3 pdf/build.py --list-spaces $REQUESTED)
-          fi
-          echo "spaces=$spaces" >> "$GITHUB_OUTPUT"
-
-          label="$LABEL_INPUT"
-          [[ -n "$label" ]] || label="Snapshot $(date -u +%Y-%m-%d)"
-          echo "label=$label" >> "$GITHUB_OUTPUT"
-
-          echo "Building: $spaces"
-          echo "Label: $label"
 
   build:
     needs: plan
@@ -235,7 +281,7 @@ jobs:
           # git remote for gh to infer the repository from -- without GH_REPO
           # every gh call fails with "not a git repository".
           GH_REPO: ${{ github.repository }}
-          TAG: ${{ inputs.tag }}
+          TAG: ${{ needs.plan.outputs.tag }}
         run: |
           set -euo pipefail
           notes="MariaDB documentation PDFs — ${{ needs.plan.outputs.label }}
@@ -256,5 +302,5 @@ jobs:
               --target "$GITHUB_SHA" \
               --title "Documentation PDFs — ${{ needs.plan.outputs.label }}" \
               --notes "$notes" \
-              ${{ inputs.draft && '--draft' || '' }}
+              ${{ needs.plan.outputs.draft == 'true' && '--draft' || '' }}
           fi
