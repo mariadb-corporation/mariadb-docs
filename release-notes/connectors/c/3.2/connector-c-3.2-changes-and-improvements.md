@@ -1,3 +1,7 @@
+---
+description: Overview of the changes and improvements in MariaDB Connector/C 3.2.
+---
+
 # Connector/C 3.2 Changes & Improvements
 
 {% include "../../../.gitbook/includes/latest-c.md" %}
