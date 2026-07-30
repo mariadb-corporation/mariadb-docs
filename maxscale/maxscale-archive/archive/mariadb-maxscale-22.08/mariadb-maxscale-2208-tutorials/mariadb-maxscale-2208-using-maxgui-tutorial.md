@@ -219,7 +219,7 @@ A SQL editor tool to run queries and perform other SQL operations.
     works on Chrome or any browsers based on Chromium served over a secure\
     connection (https)
 17. Save Script As button. Save the content as a new file.
-18. [sql\_select\_limit]({server}/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables#sql_select_limit)\
+18. [sql\_select\_limit](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables#sql_select_limit)\
     input. Changing the maximum number of rows to return from SELECT statements.
 19. Add a new session button.
 20. Query Editor settings button. Open `Query configuration` dialog to change\
