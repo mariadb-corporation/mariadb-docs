@@ -100,7 +100,6 @@ The repository setup only configures the source; you must explicitly install the
 * APT: `sudo apt update && sudo apt install mariadb-server mariadb-backup`
 *   ZYpp: `sudo zypper install MariaDB-server MariaDB-backup`
 
-    \{% endstep %\}
 {% endstep %}
 
 {% step %}

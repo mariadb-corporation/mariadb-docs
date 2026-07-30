@@ -45,8 +45,6 @@ GRANT CONNECTION ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
 
 [Topology scan](mariadb-monitor.md#scan-topology), [discover replicas](mariadb-monitor.md#discover-replicas) and [bootstrap](mariadb-monitor.md#bootstrap) require the following privilege:
 
-% tabs %\}
-
 ```sql
 GRANT REPLICATION MASTER ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
 ```

@@ -835,7 +835,9 @@ Adding a primary key for an [application-time period table](../../../../sql-stru
 ALTER TABLE rooms ADD PRIMARY KEY(room_number, p WITHOUT OVERLAPS);
 ```
 
-\{% tabs %\} \{% tab title="Current" %\} An `ALTER` query can be replicated faster with this statement, which must be run before the `ALTER` statement:
+{% tabs %}
+{% tab title="Current" %}
+An `ALTER` query can be replicated faster with this statement, which must be run before the `ALTER` statement:
 
 ```sql
 SET @@SESSION.binlog_alter_two_phase = TRUE;
@@ -850,15 +852,16 @@ Binlog would contain two event groups, of which the first one gets delivered to 
 | master-bin.000001 | 700 | Query             |         1 |    
 ```
 
-\{% endtab %\}
+{% endtab %}
 
-\{% tab title="< 10.8.1" %\} This statement is not available:
+{% tab title="< 10.8.1" %}
+This statement is not available:
 
-```
-
-sql
+```sql
 SET @@SESSION.binlog_alter_two_phase = true;
 ```
+{% endtab %}
+{% endtabs %}
 
 ## See Also
 
