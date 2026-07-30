@@ -63,7 +63,7 @@ The `wsrep_sst_mariadbbackup` script parses the following options:
 
 * &#x20;`use-extra` (uextra)
   * Default: `0`
-  * Description: Controls the SST connection method that `mariabackup` uses to connect to the local MariaDB server.  By default _(_`uextra=0`_),_ mariabackup connects through the standard database por&#x74;_._ When `uextra=1` is enabled, the connection attempts to use either:
+  * Description: Controls the SST connection method that `mariabackup` uses to connect to the local MariaDB server.  By default (`uextra=0`), mariabackup connects through the standard database port. When `uextra=1` is enabled, the connection attempts to use either:
     * The unix socket (if available), or&#x20;
     * The extra\_port (if specified in MariaDB server settings).
 

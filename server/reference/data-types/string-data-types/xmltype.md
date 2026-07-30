@@ -26,14 +26,14 @@ XMLTYPE
 * Ensure compatibility with Oracle databases
 * Support future XML validation and processing capabilities
 
-In its initial implementation&#x6E;_,_ `XMLTYPE` provides basic XML storage capabilities only&#x79;_,_ without validation or specialized XML-specific functionalit&#x79;_._ When using string functions, the data type is effectively converted to strings and is maintained in temporary tables.
+In its initial implementation, `XMLTYPE` provides basic XML storage capabilities only, without validation or specialized XML-specific functionality. When using string functions, the data type is effectively converted to strings and is maintained in temporary tables.
 
 ## Characteristics
 
 * Maximum storage capacity: 4GB (same as `LONGBLOB`)
-* Compatibilit&#x79;**:** Designed to be compatible with Oracle’s `XMLTYPE`
-* Validatio&#x6E;**:** XML validation or schema enforcement is not supported
-* Length restrictio&#x6E;**:** Length cannot be specified.
+* Compatibility: Designed to be compatible with Oracle’s `XMLTYPE`
+* Validation: XML validation or schema enforcement is not supported
+* Length restriction: Length cannot be specified.
 
 **Example (invalid usage):**
 

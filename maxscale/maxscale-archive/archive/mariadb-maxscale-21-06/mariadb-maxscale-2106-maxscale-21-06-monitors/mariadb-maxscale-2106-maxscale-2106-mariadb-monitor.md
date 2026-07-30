@@ -360,8 +360,7 @@ Deprecated. Ignore any servers that are not monitored by\
 this monitor but are a part of the replication topology.
 
 An external server is a server not monitored by this monitor. If a server is\
-replicating from an external server, it typically gains the _Slave of External_\
-\&#xNAN;_Server_-status. If this setting is enabled, the status is not set.
+replicating from an external server, it typically gains the _Slave of External Server_-status. If this setting is enabled, the status is not set.
 
 #### `failcount`
 
@@ -1183,7 +1182,7 @@ checks the status of a lock named _maxscale\_mariadbmonitor_ on every server and
 acquires it if free. If the monitor acquires a majority of locks, it is the\
 primary. If a monitor cannot claim majority locks, it is a secondary monitor.
 
-The primary monitor of a cluster also acquires the loc&#x6B;_&#x6D;axscale\_mariadbmonitor\_master_ on the master server. Secondary monitors check\
+The primary monitor of a cluster also acquires the lock _maxscale\_mariadbmonitor\_master_ on the master server. Secondary monitors check\
 which server this lock is taken on and only accept that server as the master.\
 This arrangement is required so that multiple monitors can agree on which server\
 is the master regardless of replication topology. If a secondary monitor does\

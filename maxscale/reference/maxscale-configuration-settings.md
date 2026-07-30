@@ -742,7 +742,7 @@ description: >-
 * Dynamic: No
 * Values: `default`, `oracle`
 * Default: `default`&#x20;
-* Description: Defines which SQL language mode the query classifier should ex&#x70;_&#x65;ct._
+* Description: Defines which SQL language mode the query classifier should expect.
 
 **sql\_batch\_size**
 
@@ -1141,7 +1141,7 @@ description: >-
 * Dynamic: Yes
 * Default: `28800s` (>= MaxScale 24.02.5, 25.01.2), `0s` (<= MaxScale 24.02.4, 25.01.1)
 * Auto tune: [Yes](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#auto_tune)
-* Description: Specifies the idle timeout for client sessions before terminatio&#x6E;**.**
+* Description: Specifies the idle timeout for client sessions before termination.
 
 #### Settings for File-based Key Manager
 
@@ -1230,7 +1230,7 @@ description: >-
 * Type: path
 * Mandatory: Yes
 * Dynamic: Yes
-* Description: Specifies the client private key used for connecting to the KMIP serve&#x72;**.**
+* Description: Specifies the client private key used for connecting to the KMIP server.
 
 [**kmip.port**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#kmip.port)
 

@@ -63,13 +63,14 @@ There is no automated way as of yet for the binlogrouter to use archived files,\
 but should the need arise files can be copied from the archive to the binlog\
 directory. See ['Modifying binlog files manually'](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#modifying-binlog-files-manually).
 
-The related configuration options, which are explained in more detail in the\
-configuration section are:[_expiration\_mode_](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#expiration_mode) _Select purge or archive._ [datadir](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#datadir) Directory where binlog files are stored (the default is usually fine).[_archivedir_](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#archivedir) _Directory to which files are archived. This directory_\
-&#xNAN;_&#x6D;ust exist when MaxScale is started._ [expire\_log\_minimum\_files](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#expire_log_minimum_files) The minimum number of\
-binlogs to keep before purge or archive is allowed.[_expire\_log\_duration_](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#expire_log_duration) _Duration from the last file_\
-&#xNAN;_&#x6D;odification until the binlog is eligible for purge or archive._ [compression\_algorithm](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#compression_algorithm) Select a compression algorithm\
-or `none` for no compression. Currently only zstandard is supported.
+The related configuration options, which are explained in more detail in the configuration section are:
 
+* [expiration\_mode](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#expiration_mode) Select purge or archive.
+* [datadir](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#datadir) Directory where binlog files are stored (the default is usually fine).
+* [archivedir](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#archivedir) Directory to which files are archived. This directory must exist when MaxScale is started.
+* [expire\_log\_minimum\_files](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#expire_log_minimum_files) The minimum number of binlogs to keep before purge or archive is allowed.
+* [expire\_log\_duration](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#expire_log_duration) Duration from the last file modification until the binlog is eligible for purge or archive.
+* [compression\_algorithm](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#compression_algorithm) Select a compression algorithm or `none` for no compression. Currently only zstandard is supported.
 * [number\_of\_noncompressed\_files](mariadb-maxscale-2402-maxscale-2402-binlogrouter.md#number_of_noncompressed_files) The minimum number of\
   binlogs not to compress.
 

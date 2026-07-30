@@ -102,7 +102,7 @@ In general, an in-place downgrade to a previous major version is only allowed if
 
 If you have to attempt an in-place downgrade process, perform the following steps:
 
-1. Shut down MariaDB cleanl&#x79;**.** Ensure:
+1. Shut down MariaDB cleanly. Ensure:
    1. [innodb\_fast\_shutdown≠2](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_shutdown).
    2. You use [SHUTDOWN](../../reference/sql-statements/administrative-sql-statements/shutdown.md) command, [mariadb-admin shutdown](../../clients-and-utilities/administrative-tools/mariadb-admin.md) or the operating system official commands, like [systemctl stop mariadb.service](../starting-and-stopping-mariadb/systemd/starting.md#stopping-the-mariadb-server-process).
 2. Start the old server binary with [--skip-privilege-tables](../starting-and-stopping-mariadb/mariadbd-options.md#-skip-grant-tables) to bypass the incompatible privilege tables.

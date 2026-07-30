@@ -1042,7 +1042,7 @@ that has been verified to work is version 3.6 of _MongoDB Node.JS Driver_.
 ## Parameters
 
 Using the following parameters, the behavior of _nosqlprotocol_ can be\
-adjusted. As they are not generic listener parameters, but specific t&#x6F;_&#x6E;osqlprotocol_ they must be qualified with the `nosqlprotocol`-prefix.
+adjusted. As they are not generic listener parameters, but specific to _nosqlprotocol_ they must be qualified with the `nosqlprotocol`-prefix.
 
 For instance:
 
@@ -1653,7 +1653,7 @@ with the value of `true` will cause the command to fail.
 
 **Behavior**
 
-Currently only updating using _update operator expressions_ or with a\_replacement document\_ is supported. In particular, updating using a&#x6E;_&#x61;ggregation pipeline_ is not supported.
+Currently only updating using _update operator expressions_ or with a _replacement document_ is supported. In particular, updating using an _aggregation pipeline_ is not supported.
 
 **Update with an Update Operator Expressions document**
 

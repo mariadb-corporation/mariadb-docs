@@ -96,10 +96,12 @@ $ maxctrl call command mariadbmon failover TheMonitor
 OK
 ```
 
-There are quite a few arguments, so let's look at each one separately_`call command` indicates that it is a module command that is to be_\
-&#xNAN;_invoked,_ `mariadbmon` indicates the module whose command we want to invoke (that\
-is the MariaDB Monitor),_`failover` is the command we want to invoke, and_ `TheMonitor` is the first and only argument to that command, the name of\
-the monitor as specified in the configuration file.
+There are quite a few arguments, so let's look at each one separately:
+
+* `call command` indicates that it is a module command that is to be invoked,
+* `mariadbmon` indicates the module whose command we want to invoke (that is the MariaDB Monitor),
+* `failover` is the command we want to invoke, and
+* `TheMonitor` is the first and only argument to that command, the name of the monitor as specified in the configuration file.
 
 The MariaDB Monitor will now autonomously deduce which slave is the most\
 appropriate one to be promoted to master, promote it to master and modify\
@@ -292,10 +294,14 @@ $ maxctrl call command mariadbmon switchover TheMonitor server1 server2
 OK
 ```
 
-There are quite a few arguments, so let's look at each one separately_`call command` indicates that it is a module command that is to be_\
-&#xNAN;_invoked,_ `mariadbmon` indicates the module whose command we want to invoke,_`switchover` is the command we want to invoke, and_ `TheMonitor` is the first argument to the command, the name of the monitor\
-as specified in the configuration file,_`server1` is the second argument to the command, the name of the server we_\
-&#xNAN;_want to make into master, and_ `server2` is the third argument to the command, the name of the _currentmaster_.
+There are quite a few arguments, so let's look at each one separately:
+
+* `call command` indicates that it is a module command that is to be invoked,
+* `mariadbmon` indicates the module whose command we want to invoke,
+* `switchover` is the command we want to invoke, and
+* `TheMonitor` is the first argument to the command, the name of the monitor as specified in the configuration file,
+* `server1` is the second argument to the command, the name of the server we want to make into _master_, and
+* `server2` is the third argument to the command, the name of the _current master_.
 
 If the command executes successfully, we will end up with the following\
 cluster state:

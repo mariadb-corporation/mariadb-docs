@@ -633,7 +633,7 @@ However, during the development of _nosqlprotocol_, the _only_ client library th
 
 ## Settings
 
-Using the following parameters, the behavior of _nosqlprotocol_ can be adjusted. As they are not generic listener parameters, but specific t&#x6F;_&#x6E;osqlprotocol_ they must be qualified with the `nosqlprotocol`-prefix.
+Using the following parameters, the behavior of _nosqlprotocol_ can be adjusted. As they are not generic listener parameters, but specific to _nosqlprotocol_ they must be qualified with the `nosqlprotocol`-prefix.
 
 For instance:
 

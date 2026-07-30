@@ -1308,18 +1308,16 @@ process, it is very fast and provides almost always a performance benefit.
 Currently there are two _shared_ storages; `storage_memcached` and`storage_redis` that are implemented using [memcached](https://memcached.org/)\
 and [redis](https://redis.io/) respectively.
 
-The shared storages are accessed across the network and consequently it is_&#x6E;ot_ self-evident that their use will provide any performance benefit.\
+The shared storages are accessed across the network and consequently it is _not_ self-evident that their use will provide any performance benefit.\
 Namely, irrespective of whether the data is fetched from the cache or from\
 the server there will be a network hop and often that network hop is, as far\
 as the performance goes, what costs the most.
 
-The presence of a shared cache _may_ provide a performance benefit_if the network between MaxScale and the storage server (memcached or_\
-&#xNAN;_Redis) is faster than the network between MaxScale and the database_\
-&#xNAN;_server,_ if the used SELECT statements are heavy (that is, take a significant\
-amount of time) to process for the database server, or
+The presence of a shared cache _may_ provide a performance benefit
 
-* if the presence of the cache reduces the overall load of an\
-  otherwise overloaded database server.
+* if the network between MaxScale and the storage server (memcached or Redis) is faster than the network between MaxScale and the database server,
+* if the used SELECT statements are heavy (that is, take a significant amount of time) to process for the database server, or
+* if the presence of the cache reduces the overall load of an otherwise overloaded database server.
 
 As a general rule a _shared_ storage should not be used without first\
 assessing its value using a realistic workload.

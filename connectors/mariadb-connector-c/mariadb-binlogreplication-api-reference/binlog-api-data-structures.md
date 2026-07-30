@@ -385,7 +385,7 @@ struct st_mariadb_rpl_rotate_event {
 \
 **WRITE\_ROWS\_EVENT\_V1, UPDATE\_ROWS\_EVENT\_V1, DELETE\_ROWS\_EVENT\_V1**
 
-**Event Types** with value&#x73;**:**
+**Event Types** with values:
 
 * `WRITE_ROWS_EVENT_V1` → `23 (0x17)`
 * `UPDATE_ROWS_EVENT_V1` → `24 (0x18)`
