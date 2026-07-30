@@ -3,33 +3,6 @@
 
 # Galera Monitor
 
-
-
-
-* [Galera Monitor](#galera-monitor)
-
-  * [Overview](#overview)
-
-    * [WSREP Variables and Their Effects](#wsrep-variables-and-their-effects)
-    * [Galera clusters and replicas replicating from it](#galera-clusters-and-replicas-replicating-from-it)
-  * [Required Grants](#required-grants)
-  * [Configuration](#configuration)
-  * [Common Monitor Parameters](#common-monitor-parameters)
-  * [Galera Monitor optional parameters](#galera-monitor-optional-parameters)
-
-    * [disable_master_failback](#disable_master_failback)
-    * [available_when_donor](#available_when_donor)
-    * [disable_master_role_setting](#disable_master_role_setting)
-    * [use_priority](#use_priority)
-    * [root_node_as_master](#root_node_as_master)
-    * [set_donor_nodes](#set_donor_nodes)
-  * [Interaction with Server Priorities](#interaction-with-server-priorities)
-
-    * [Switchover](#switchover)
-
-
-
-
 ## Overview
 
 
@@ -368,7 +341,7 @@ maxctrl alter server server2 priority=1
 
 This does not affect the Galera Cluster itself, just the roles MaxScale assigns
 to the servers. If multiple MaxScales monitor the same Galera Cluster without
-[configuration synchronization](/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#configuration-synchronization),
+[configuration synchronization](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#configuration-synchronization),
 the commands should be run on all MaxScales.
 
 

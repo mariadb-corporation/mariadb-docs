@@ -2,17 +2,6 @@
 
 This filter was added in MariaDB MaxScale 2.3
 
-* [Throttle](mariadb-maxscale-2106-maxscale-2106-throttle.md#throttle)
-  * [Overview](mariadb-maxscale-2106-maxscale-2106-throttle.md#overview)
-  * [Configuration](mariadb-maxscale-2106-maxscale-2106-throttle.md#configuration)
-    * [Basic Configuration](mariadb-maxscale-2106-maxscale-2106-throttle.md#basic-configuration)
-    * [Allowing high frequency bursts](mariadb-maxscale-2106-maxscale-2106-throttle.md#allowing-high-frequency-bursts)
-    * [Filter Parameters](mariadb-maxscale-2106-maxscale-2106-throttle.md#filter-parameters)
-      * [max\_qps](mariadb-maxscale-2106-maxscale-2106-throttle.md#max_qps)
-      * [throttling\_duration](mariadb-maxscale-2106-maxscale-2106-throttle.md#throttling_duration)
-    * [sampling\_duration](mariadb-maxscale-2106-maxscale-2106-throttle.md#sampling_duration)
-    * [continuous\_duration](mariadb-maxscale-2106-maxscale-2106-throttle.md#continuous_duration)
-
 ### Overview
 
 The throttle filter replaces and extends on the limit\_queries functionality of [the Database Firewall filter](mariadb-maxscale-2106-maxscale-2106-database-firewall-filter.md).

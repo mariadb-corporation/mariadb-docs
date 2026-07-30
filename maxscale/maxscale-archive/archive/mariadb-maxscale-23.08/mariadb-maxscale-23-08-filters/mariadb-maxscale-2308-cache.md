@@ -6,82 +6,6 @@
 
 This filter was introduced in MariaDB MaxScale 2.1.
 
-* [Cache](mariadb-maxscale-2308-cache.md#cache)
-  * [Overview](mariadb-maxscale-2308-cache.md#overview)
-  * [Limitations](mariadb-maxscale-2308-cache.md#limitations)
-    * [Prepared Statements](mariadb-maxscale-2308-cache.md#prepared-statements)
-    * [Multi-statements](mariadb-maxscale-2308-cache.md#multi-statements)
-    * [Security](mariadb-maxscale-2308-cache.md#security)
-    * [information\_schema](mariadb-maxscale-2308-cache.md#information_schema)
-  * [Invalidation](mariadb-maxscale-2308-cache.md#invalidation)
-    * [Best Efforts](mariadb-maxscale-2308-cache.md#best-efforts)
-  * [Configuration](mariadb-maxscale-2308-cache.md#configuration)
-    * [Filter Parameters](mariadb-maxscale-2308-cache.md#filter-parameters)
-      * [storage](mariadb-maxscale-2308-cache.md#storage)
-      * [storage\_options](mariadb-maxscale-2308-cache.md#storage_options)
-      * [hard\_ttl](mariadb-maxscale-2308-cache.md#hard_ttl)
-      * [soft\_ttl](mariadb-maxscale-2308-cache.md#soft_ttl)
-      * [max\_resultset\_rows](mariadb-maxscale-2308-cache.md#max_resultset_rows)
-      * [max\_resultset\_size](mariadb-maxscale-2308-cache.md#max_resultset_size)
-      * [max\_count](mariadb-maxscale-2308-cache.md#max_count)
-      * [max\_size](mariadb-maxscale-2308-cache.md#max_size)
-      * [rules](mariadb-maxscale-2308-cache.md#rules)
-      * [cached\_data](mariadb-maxscale-2308-cache.md#cached_data)
-      * [selects](mariadb-maxscale-2308-cache.md#selects)
-      * [cache\_in\_transactions](mariadb-maxscale-2308-cache.md#cache_in_transactions)
-      * [debug](mariadb-maxscale-2308-cache.md#debug)
-      * [enabled](mariadb-maxscale-2308-cache.md#enabled)
-      * [invalidate](mariadb-maxscale-2308-cache.md#invalidate)
-      * [clear\_cache\_on\_parse\_errors](mariadb-maxscale-2308-cache.md#clear_cache_on_parse_errors)
-      * [users](mariadb-maxscale-2308-cache.md#users)
-      * [timeout](mariadb-maxscale-2308-cache.md#timeout)
-    * [Runtime Configuration](mariadb-maxscale-2308-cache.md#runtime-configuration)
-      * [@maxscale.cache.populate](mariadb-maxscale-2308-cache.md#maxscalecachepopulate)
-      * [@maxscale.cache.use](mariadb-maxscale-2308-cache.md#maxscalecacheuse)
-      * [@maxscale.cache.soft\_ttl](mariadb-maxscale-2308-cache.md#maxscalecachesoft_ttl)
-      * [@maxscale.cache.hard\_ttl](mariadb-maxscale-2308-cache.md#maxscalecachehard_ttl)
-      * [Client Driven Caching](mariadb-maxscale-2308-cache.md#client-driven-caching)
-  * [Threads, Users and Invalidation](mariadb-maxscale-2308-cache.md#threads-users-and-invalidation)
-    * [Invalidation](mariadb-maxscale-2308-cache.md#invalidation_1)
-      * [cached\_data=thread\_specific](mariadb-maxscale-2308-cache.md#cached_datathread_specific)
-      * [cache\_data=shared](mariadb-maxscale-2308-cache.md#cache_datashared)
-  * [Rules](mariadb-maxscale-2308-cache.md#rules_1)
-    * [When to Store](mariadb-maxscale-2308-cache.md#when-to-store)
-      * [Qualified Names](mariadb-maxscale-2308-cache.md#qualified-names)
-      * [Implication of the default database](mariadb-maxscale-2308-cache.md#implication-of-the-default-database)
-      * [Regexp Matching](mariadb-maxscale-2308-cache.md#regexp-matching)
-      * [Examples](mariadb-maxscale-2308-cache.md#examples)
-    * [When to Use](mariadb-maxscale-2308-cache.md#when-to-use)
-      * [Examples](mariadb-maxscale-2308-cache.md#examples_1)
-  * [Security](mariadb-maxscale-2308-cache.md#security_1)
-  * [Storage](mariadb-maxscale-2308-cache.md#storage_1)
-    * [storage\_inmemory](mariadb-maxscale-2308-cache.md#storage_inmemory)
-    * [storage\_memcached](mariadb-maxscale-2308-cache.md#storage_memcached)
-      * [server](mariadb-maxscale-2308-cache.md#server)
-      * [max\_value\_size](mariadb-maxscale-2308-cache.md#max_value_size)
-      * [Example](mariadb-maxscale-2308-cache.md#example)
-      * [Limitations](mariadb-maxscale-2308-cache.md#limitations_1)
-      * [Security](mariadb-maxscale-2308-cache.md#security_2)
-    * [storage\_redis](mariadb-maxscale-2308-cache.md#storage_redis)
-      * [server](mariadb-maxscale-2308-cache.md#server_1)
-      * [username](mariadb-maxscale-2308-cache.md#username)
-      * [password](mariadb-maxscale-2308-cache.md#password)
-      * [ssl](mariadb-maxscale-2308-cache.md#ssl)
-      * [ssl\_cert](mariadb-maxscale-2308-cache.md#ssl_cert)
-      * [ssl\_key](mariadb-maxscale-2308-cache.md#ssl_key)
-      * [ssl\_ca](mariadb-maxscale-2308-cache.md#ssl_ca)
-      * [Authentication](mariadb-maxscale-2308-cache.md#authentication)
-      * [SSL](mariadb-maxscale-2308-cache.md#ssl_1)
-      * [Example](mariadb-maxscale-2308-cache.md#example_1)
-      * [Limitations](mariadb-maxscale-2308-cache.md#limitations_2)
-      * [Invalidation](mariadb-maxscale-2308-cache.md#invalidation_2)
-      * [Security](mariadb-maxscale-2308-cache.md#security_3)
-  * [Example](mariadb-maxscale-2308-cache.md#example_2)
-    * [Configuration](mariadb-maxscale-2308-cache.md#configuration_1)
-    * [cache\_rules.json](mariadb-maxscale-2308-cache.md#cache_rulesjson)
-  * [Performance](mariadb-maxscale-2308-cache.md#performance)
-    * [Summary](mariadb-maxscale-2308-cache.md#summary)
-
 ### Overview
 
 From MaxScale version 2.2.11 onwards, the cache filter is no longer\
@@ -316,7 +240,7 @@ nested parameters.
 
 **`hard_ttl`**
 
-* Type: [duration](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `0s` (no limit)
@@ -331,7 +255,7 @@ hard_ttl=60s
 
 **`soft_ttl`**
 
-* Type: [duration](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `0s` (no limit)
@@ -369,14 +293,14 @@ max_resultset_rows=1000
 
 **`max_resultset_size`**
 
-* Type: [size](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#sizes)
+* Type: [size](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
 
 Specifies the maximum size of a resultset, for it to be stored in the cache.\
 A resultset larger than this, will not be stored. The size can be specified\
-as described [here](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#sizes).
+as described [here](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#sizes).
 
 ```
 max_resultset_size=128Ki
@@ -406,7 +330,7 @@ max_count=1000
 
 **`max_size`**
 
-* Type: [size](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#sizes)
+* Type: [size](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
@@ -446,7 +370,7 @@ maxctrl alter filter MyCache rules='/path/to/rules-file'
 
 **`cached_data`**
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `shared`, `thread_specific`
@@ -472,7 +396,7 @@ changing this setting to `shared` has.
 
 **`selects`**
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `assume_cacheable`, `verify_cacheable`
@@ -511,7 +435,7 @@ cost. Please read [performance](mariadb-maxscale-2308-cache.md#performance) for 
 
 **`cache_in_transactions`**
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `never`, `read_only_transactions`, `all_transactions`
@@ -569,7 +493,7 @@ debug=31
 
 **`enabled`**
 
-* Type: [boolean](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
@@ -587,7 +511,7 @@ for details.
 
 **`invalidate`**
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `never`, `current`
@@ -620,7 +544,7 @@ and `cached_data=shared` _must_ be used.
 
 **`clear_cache_on_parse_errors`**
 
-* Type: [boolean](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
@@ -641,7 +565,7 @@ affects entries in the cache.
 
 **`users`**
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `mixed`, `isolated`
@@ -667,7 +591,7 @@ cause more traffic to the backend compared to a `mixed` cache.
 
 **`timeout`**
 
-* Type: [duration](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `5s`
@@ -1361,7 +1285,7 @@ If no port is provided, then the default port `11211` will be used.
 
 **`max_value_size`**
 
-* Type: [size](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#sizes)
+* Type: [size](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: No
 * Default: 1Mi
@@ -1468,7 +1392,7 @@ Please see [authentication](mariadb-maxscale-2308-cache.md#authentication) for m
 
 **`ssl`**
 
-* Type: [boolean](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`

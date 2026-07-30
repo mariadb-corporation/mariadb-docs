@@ -9,13 +9,6 @@ This filter was introduced in MariaDB MaxScale 2.1.
 **Note**: This filter has been deprecated in MaxScale 22.08.2 and will be\
 removed in MaxScale 23.02.
 
-* [Insert Stream Filter](mariadb-maxscale-2208-insert-stream-filter.md#insert-stream-filter)
-  * [Overview](mariadb-maxscale-2208-insert-stream-filter.md#overview)
-  * [Filter Parameters](mariadb-maxscale-2208-insert-stream-filter.md#filter-parameters)
-  * [Details of Operation](mariadb-maxscale-2208-insert-stream-filter.md#details-of-operation)
-    * [Estimating Network Bandwidth Reduction](mariadb-maxscale-2208-insert-stream-filter.md#estimating-network-bandwidth-reduction)
-  * [Example Configuration](mariadb-maxscale-2208-insert-stream-filter.md#example-configuration)
-
 ### Overview
 
 The _insertstream_ filter converts bulk inserts into CSV data streams that are\

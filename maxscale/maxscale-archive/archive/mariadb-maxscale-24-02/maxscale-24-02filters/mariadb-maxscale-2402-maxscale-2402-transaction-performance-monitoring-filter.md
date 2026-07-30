@@ -4,21 +4,6 @@ _Note:_ This module is experimental and must be built from source. The\
 module is deprecated in MaxScale 23.08 and might be removed in a future\
 release.
 
-* [Transaction Performance Monitoring Filter](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#transaction-performance-monitoring-filter)
-  * [Overview](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#overview)
-  * [Configuration](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#configuration)
-  * [Filter Options](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#filter-options)
-  * [Filter Parameters](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#filter-parameters)
-    * [Filename](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#filename)
-    * [Source](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#source)
-    * [User](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#user)
-    * [Delimiter](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#delimiter)
-    * [Query\_delimiter](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#query_delimiter)
-    * [Named\_pipe](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#named_pipe)
-  * [Log Output Format](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#log-output-format)
-  * [Examples](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#examples)
-    * [Example 1 - Log Transactions for Performance Analysis](mariadb-maxscale-2402-maxscale-2402-transaction-performance-monitoring-filter.md#example-1-log-transactions-for-performance-analysis)
-
 ### Overview
 
 The Transaction Performance Monitoring (TPM) filter is a filter module for MaxScale\

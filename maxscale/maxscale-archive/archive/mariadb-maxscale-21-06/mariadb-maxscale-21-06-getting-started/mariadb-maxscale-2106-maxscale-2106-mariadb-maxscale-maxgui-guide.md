@@ -1,27 +1,5 @@
 # MariaDB MaxScale MaxGUI Guide
 
-* [MariaDB MaxScale MaxGUI Guide](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#mariadb-maxscale-maxgui-guide)
-* [Introduction](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#introduction)
-* [Enabling MaxGUI](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#enabling-maxgui)
-  * [Securing the GUI](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#securing-the-gui)
-* [Authentication](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#authentication)
-* [Features](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#features)
-  * [Dashboard page](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#dashboard-page)
-  * [Detail page](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#detail-page)
-  * [SQL editor page](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#sql-editor-page)
-    * [Worksheet tab bar](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#worksheet-tab-bar)
-    * [Taskbar](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#taskbar)
-    * [Schema sidebar](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#schema-sidebar)
-    * [SQL editor](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#sql-editor)
-    * [Query result](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#query-result)
-    * [Query result visualization](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#query-result-visualization)
-    * [DDL Editor](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#ddl-editor)
-    * [Current limitations](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#current-limitations)
-  * [Logs Viewer](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#logs-viewer)
-  * [Resource creation](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#resource-creation)
-  * [Viewing and modifying Maxscale parameters](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#viewing-and-modifying-maxscale-parameters)
-  * [Global search](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-maxgui-guide.md#global-search)
-
 ## Introduction
 
 _MaxGUI_ is a browser-based interface for MaxScale REST-API and query execution.

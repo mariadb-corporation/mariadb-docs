@@ -3,40 +3,6 @@
 The MaxScale resource represents a MaxScale instance and it is the core on top\
 of which the modules build upon.
 
-* [MaxScale Resource](mariadb-maxscale-2302-maxscale-resource.md#maxscale-resource)
-  * [Resource Operations](mariadb-maxscale-2302-maxscale-resource.md#resource-operations)
-  * [Get global information](mariadb-maxscale-2302-maxscale-resource.md#get-global-information)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response)
-  * [Update MaxScale parameters](mariadb-maxscale-2302-maxscale-resource.md#update-maxscale-parameters)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_1)
-  * [Get thread information](mariadb-maxscale-2302-maxscale-resource.md#get-thread-information)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_2)
-  * [Get information for all threads](mariadb-maxscale-2302-maxscale-resource.md#get-information-for-all-threads)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_3)
-  * [Get logging information](mariadb-maxscale-2302-maxscale-resource.md#get-logging-information)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_4)
-  * [Get log data](mariadb-maxscale-2302-maxscale-resource.md#get-log-data)
-    * [Parameters](mariadb-maxscale-2302-maxscale-resource.md#parameters)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_5)
-  * [Stream log data](mariadb-maxscale-2302-maxscale-resource.md#stream-log-data)
-    * [Limitations](mariadb-maxscale-2302-maxscale-resource.md#limitations)
-      * [Parameters](mariadb-maxscale-2302-maxscale-resource.md#parameters_1)
-      * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_6)
-  * [Update logging parameters](mariadb-maxscale-2302-maxscale-resource.md#update-logging-parameters)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_7)
-  * [Flush and rotate log files](mariadb-maxscale-2302-maxscale-resource.md#flush-and-rotate-log-files)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_8)
-  * [Reload TLS certificates](mariadb-maxscale-2302-maxscale-resource.md#reload-tls-certificates)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_9)
-  * [Get a loaded module](mariadb-maxscale-2302-maxscale-resource.md#get-a-loaded-module)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_10)
-  * [Get all loaded modules](mariadb-maxscale-2302-maxscale-resource.md#get-all-loaded-modules)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_11)
-  * [Call a module command](mariadb-maxscale-2302-maxscale-resource.md#call-a-module-command)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_12)
-  * [Classify a statement](mariadb-maxscale-2302-maxscale-resource.md#classify-a-statement)
-    * [Response](mariadb-maxscale-2302-maxscale-resource.md#response_13)
-
 ### Resource Operations
 
 ### Get global information

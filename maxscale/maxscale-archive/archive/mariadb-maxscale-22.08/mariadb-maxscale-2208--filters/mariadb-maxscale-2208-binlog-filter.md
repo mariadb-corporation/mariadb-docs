@@ -6,15 +6,6 @@
 
 This filter was introduced in MariaDB MaxScale 2.3.0.
 
-* [Binlog Filter](mariadb-maxscale-2208-binlog-filter.md#binlog-filter)
-  * [Overview](mariadb-maxscale-2208-binlog-filter.md#overview)
-  * [Configuration](mariadb-maxscale-2208-binlog-filter.md#configuration)
-    * [match](mariadb-maxscale-2208-binlog-filter.md#match)
-    * [exclude](mariadb-maxscale-2208-binlog-filter.md#exclude)
-    * [rewrite\_src](mariadb-maxscale-2208-binlog-filter.md#rewrite_src)
-    * [rewrite\_dest](mariadb-maxscale-2208-binlog-filter.md#rewrite_dest)
-  * [Example Configuration](mariadb-maxscale-2208-binlog-filter.md#example-configuration)
-
 ### Overview
 
 The `binlogfilter` can be combined with a `binlogrouter` service to selectively\
@@ -39,7 +30,7 @@ that there are no ambiguities in the event filtering.
 
 #### `match`
 
-* Type: [regex](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
@@ -48,7 +39,7 @@ Include queries that match the regex. See next entry, `exclude`, for more inform
 
 #### `exclude`
 
-* Type: [regex](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
@@ -71,7 +62,7 @@ not replicated.
 
 #### `rewrite_src`
 
-* Type: [regex](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
@@ -80,7 +71,7 @@ See the next entry, `rewrite_dest`, for more information.
 
 #### `rewrite_dest`
 
-* Type: [regex](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None

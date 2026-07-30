@@ -5,22 +5,6 @@ developers the MariaDB MaxScale plugin API and also present and explain some\
 best practices and possible pitfalls in module development. We predict that_filters_ and _routers_ are the module types developers are most likely to work\
 on, so the APIs of these two are discussed in detail.
 
-* [MariaDB MaxScale plugin development guide](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#mariadb-maxscale-plugin-development-guide)
-  * [Introduction](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#introduction)
-  * [Module categories](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#module-categories)
-  * [Common definitions and headers](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#common-definitions-and-headers)
-    * [Module information container](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#module-information-container)
-  * [Module API](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#module-api)
-    * [Overview](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#overview)
-    * [General module management](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#general-module-management)
-    * [Protocol](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#protocol)
-    * [Authenticator](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#authenticator)
-    * [Filter and Router](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#filter-and-router)
-    * [Monitor](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#monitor)
-  * [Compiling, installing and running](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#compiling-installing-and-running)
-    * [Hands-on example: RoundRobinRouter](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#hands-on-example-roundrobinrouter)
-  * [Summary and conclusion](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#summary-and-conclusion)
-
 ### Introduction
 
 MariaDB MaxScale is designed to be an extensible program. Much, if not most, of\

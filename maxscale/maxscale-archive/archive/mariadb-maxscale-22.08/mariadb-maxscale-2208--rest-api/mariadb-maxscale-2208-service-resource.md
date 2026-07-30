@@ -7,32 +7,6 @@
 A service resource represents a service inside MaxScale. A service is a\
 collection of network listeners, filters, a router and a set of backend servers.
 
-* [Service Resource](mariadb-maxscale-2208-service-resource.md#service-resource)
-  * [Resource Operations](mariadb-maxscale-2208-service-resource.md#resource-operations)
-    * [Get a service](mariadb-maxscale-2208-service-resource.md#get-a-service)
-      * [Response](mariadb-maxscale-2208-service-resource.md#response)
-    * [Get all services](mariadb-maxscale-2208-service-resource.md#get-all-services)
-      * [Response](mariadb-maxscale-2208-service-resource.md#response_1)
-    * [Create a service](mariadb-maxscale-2208-service-resource.md#create-a-service)
-      * [Response](mariadb-maxscale-2208-service-resource.md#response_2)
-    * [Destroy a service](mariadb-maxscale-2208-service-resource.md#destroy-a-service)
-      * [Response](mariadb-maxscale-2208-service-resource.md#response_3)
-    * [Update a service](mariadb-maxscale-2208-service-resource.md#update-a-service)
-      * [Response](mariadb-maxscale-2208-service-resource.md#response_4)
-    * [Update service relationships](mariadb-maxscale-2208-service-resource.md#update-service-relationships)
-      * [Response](mariadb-maxscale-2208-service-resource.md#response_5)
-    * [Stop a service](mariadb-maxscale-2208-service-resource.md#stop-a-service)
-      * [Parameters](mariadb-maxscale-2208-service-resource.md#parameters)
-      * [Response](mariadb-maxscale-2208-service-resource.md#response_6)
-    * [Start a service](mariadb-maxscale-2208-service-resource.md#start-a-service)
-      * [Response](mariadb-maxscale-2208-service-resource.md#response_7)
-    * [Reload users of a service](mariadb-maxscale-2208-service-resource.md#reload-users-of-a-service)
-      * [Response](mariadb-maxscale-2208-service-resource.md#response_8)
-    * [Get service listeners](mariadb-maxscale-2208-service-resource.md#get-service-listeners)
-    * [Get a single service listener](mariadb-maxscale-2208-service-resource.md#get-a-single-service-listener)
-    * [Create a new listener](mariadb-maxscale-2208-service-resource.md#create-a-new-listener)
-    * [Destroy a listener](mariadb-maxscale-2208-service-resource.md#destroy-a-listener)
-
 ### Resource Operations
 
 The _:name_ in all of the URIs must be the name of a service in MaxScale.
@@ -763,7 +737,7 @@ least the following fields.
 * `data.attributes.parameters.user`
 * The [user](https://mariadb.com/kb/en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#password) to use
 * `data.attributes.parameters.password`
-* The [password](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#password) to use
+* The [password](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#password) to use
 
 The `data.attributes.parameters` object is used to define router and service\
 parameters. All configuration parameters that can be defined in the\
@@ -863,7 +837,7 @@ PATCH /v1/services/:name
 The request body must be a JSON object which represents a set of new definitions\
 for the service.
 
-All standard service parameters can be modified. Refer to the [service](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#service) documentation on\
+All standard service parameters can be modified. Refer to the [service](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#service) documentation on\
 the details of these parameters.
 
 In addition to the standard service parameters, router parameters can be updated\
@@ -908,7 +882,7 @@ existing relationships of this type for the service.
 _Note:_ The order of the values in the `filters` relationship will define the\
 order the filters are set up in. The order in which the filters appear in the\
 array will be the order in which the filters are applied to each query. Refer\
-to the [filters](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#filters) parameter\
+to the [filters](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#filters) parameter\
 for more details.
 
 The following is an example request and request body that defines a single\

@@ -1,23 +1,5 @@
 # Galera Monitor
 
-
-
-* [Galera Monitor](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#galera-monitor)
-  * [Overview](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#overview)
-    * [WSREP Variables and Their Effects](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#wsrep-variables-and-their-effects)
-    * [Galera clusters and replicas replicating from it](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#galera-clusters-and-replicas-replicating-from-it)
-  * [Required Grants](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#required-grants)
-  * [Configuration](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#configuration)
-  * [Common Monitor Settings](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#common-monitor-settings)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#settings)
-    * [disable\_master\_failback](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#disable_master_failback)
-    * [available\_when\_donor](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#available_when_donor)
-    * [disable\_master\_role\_setting](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#disable_master_role_setting)
-    * [use\_priority](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#use_priority)
-    * [root\_node\_as\_master](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#root_node_as_master)
-    * [set\_donor\_nodes](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#set_donor_nodes)
-  * [Interaction with Server Priorities](mariadb-maxscale-2501-maxscale-2501-galera-monitor.md#interaction-with-server-priorities)
-
 ### Overview
 
 The Galera Monitor is a monitoring module for MaxScale that monitors a Galera\

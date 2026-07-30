@@ -4,32 +4,6 @@
 
 ## Query Log All Filter
 
-* [Query Log All Filter](mariadb-maxscale-2302-query-log-all-filter.md#query-log-all-filter)
-  * [Overview](mariadb-maxscale-2302-query-log-all-filter.md#overview)
-  * [Configuration](mariadb-maxscale-2302-query-log-all-filter.md#configuration)
-  * [Log Rotation](mariadb-maxscale-2302-query-log-all-filter.md#log-rotation)
-  * [Filter Parameters](mariadb-maxscale-2302-query-log-all-filter.md#filter-parameters)
-    * [filebase](mariadb-maxscale-2302-query-log-all-filter.md#filebase)
-    * [match](mariadb-maxscale-2302-query-log-all-filter.md#match)
-    * [exclude](mariadb-maxscale-2302-query-log-all-filter.md#exclude)
-    * [options](mariadb-maxscale-2302-query-log-all-filter.md#options)
-    * [user](mariadb-maxscale-2302-query-log-all-filter.md#user)
-    * [source](mariadb-maxscale-2302-query-log-all-filter.md#source)
-    * [user\_match](mariadb-maxscale-2302-query-log-all-filter.md#user_match)
-    * [user\_exclude](mariadb-maxscale-2302-query-log-all-filter.md#user_exclude)
-    * [source\_match](mariadb-maxscale-2302-query-log-all-filter.md#source_match)
-    * [source\_exclude](mariadb-maxscale-2302-query-log-all-filter.md#source_exclude)
-    * [log\_type](mariadb-maxscale-2302-query-log-all-filter.md#log_type)
-    * [log\_data](mariadb-maxscale-2302-query-log-all-filter.md#log_data)
-    * [duration\_unit](mariadb-maxscale-2302-query-log-all-filter.md#duration_unit)
-    * [use\_canonical\_form](mariadb-maxscale-2302-query-log-all-filter.md#use_canonical_form)
-    * [flush](mariadb-maxscale-2302-query-log-all-filter.md#flush)
-    * [append](mariadb-maxscale-2302-query-log-all-filter.md#append)
-    * [separator](mariadb-maxscale-2302-query-log-all-filter.md#separator)
-    * [newline\_replacement](mariadb-maxscale-2302-query-log-all-filter.md#newline_replacement)
-  * [Examples](mariadb-maxscale-2302-query-log-all-filter.md#examples)
-    * [Example 1 - Query without primary key](mariadb-maxscale-2302-query-log-all-filter.md#example-1-query-without-primary-key)
-
 ### Overview
 
 The Query Log All (QLA) filter logs query content. Logs are written to a file in\

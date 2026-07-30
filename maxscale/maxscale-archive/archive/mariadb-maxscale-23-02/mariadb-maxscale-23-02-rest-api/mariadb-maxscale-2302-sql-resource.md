@@ -2,40 +2,6 @@
 
 The SQL resource represents a database connection.
 
-* [SQL Resource](mariadb-maxscale-2302-sql-resource.md#sql-resource)
-  * [SQL Connection Interface](mariadb-maxscale-2302-sql-resource.md#sql-connection-interface)
-  * [Request Parameters](mariadb-maxscale-2302-sql-resource.md#request-parameters)
-    * [Get one SQL connection](mariadb-maxscale-2302-sql-resource.md#get-one-sql-connection)
-      * [Response](mariadb-maxscale-2302-sql-resource.md#response)
-    * [Get all SQL connections](mariadb-maxscale-2302-sql-resource.md#get-all-sql-connections)
-      * [Response](mariadb-maxscale-2302-sql-resource.md#response_1)
-    * [Open SQL connection to server](mariadb-maxscale-2302-sql-resource.md#open-sql-connection-to-server)
-      * [Request Parameters](mariadb-maxscale-2302-sql-resource.md#request-parameters_1)
-      * [Response](mariadb-maxscale-2302-sql-resource.md#response_2)
-    * [Close an opened SQL connection](mariadb-maxscale-2302-sql-resource.md#close-an-opened-sql-connection)
-      * [Response](mariadb-maxscale-2302-sql-resource.md#response_3)
-    * [Reconnect an opened SQL connection](mariadb-maxscale-2302-sql-resource.md#reconnect-an-opened-sql-connection)
-      * [Response](mariadb-maxscale-2302-sql-resource.md#response_4)
-    * [Clone an existing SQL connection](mariadb-maxscale-2302-sql-resource.md#clone-an-existing-sql-connection)
-      * [Request Parameters](mariadb-maxscale-2302-sql-resource.md#request-parameters_2)
-      * [Response](mariadb-maxscale-2302-sql-resource.md#response_5)
-    * [Execute SQL query](mariadb-maxscale-2302-sql-resource.md#execute-sql-query)
-      * [Request Parameters](mariadb-maxscale-2302-sql-resource.md#request-parameters_3)
-      * [Response](mariadb-maxscale-2302-sql-resource.md#response_6)
-    * [Get Asynchronous Query Results](mariadb-maxscale-2302-sql-resource.md#get-asynchronous-query-results)
-      * [Response](mariadb-maxscale-2302-sql-resource.md#response_7)
-    * [Erase Asynchronous Query Results](mariadb-maxscale-2302-sql-resource.md#erase-asynchronous-query-results)
-      * [Response](mariadb-maxscale-2302-sql-resource.md#response_8)
-    * [Cancel a Query](mariadb-maxscale-2302-sql-resource.md#cancel-a-query)
-      * [Response](mariadb-maxscale-2302-sql-resource.md#response_9)
-    * [List ODBC Drivers](mariadb-maxscale-2302-sql-resource.md#list-odbc-drivers)
-      * [Response](mariadb-maxscale-2302-sql-resource.md#response_10)
-    * [Prepare ETL Operation](mariadb-maxscale-2302-sql-resource.md#prepare-etl-operation)
-  * [Request Parameters](mariadb-maxscale-2302-sql-resource.md#request-parameters_4)
-    * [Response](mariadb-maxscale-2302-sql-resource.md#response_11)
-    * [Start ETL Operation](mariadb-maxscale-2302-sql-resource.md#start-etl-operation)
-      * [Response](mariadb-maxscale-2302-sql-resource.md#response_12)
-
 ### SQL Connection Interface
 
 The following endpoints provide a simple REST API interface for executing\

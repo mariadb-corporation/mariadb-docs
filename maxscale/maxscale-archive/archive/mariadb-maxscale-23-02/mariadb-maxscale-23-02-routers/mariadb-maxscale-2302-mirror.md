@@ -1,18 +1,5 @@
 # Mirror
 
-* [Mirror](mariadb-maxscale-2302-mirror.md#mirror)
-  * [Overview](mariadb-maxscale-2302-mirror.md#overview)
-  * [Configuration Parameters](mariadb-maxscale-2302-mirror.md#configuration-parameters)
-    * [main](mariadb-maxscale-2302-mirror.md#main)
-    * [exporter](mariadb-maxscale-2302-mirror.md#exporter)
-    * [file](mariadb-maxscale-2302-mirror.md#file)
-    * [kafka\_broker](mariadb-maxscale-2302-mirror.md#kafka_broker)
-    * [kafka\_topic](mariadb-maxscale-2302-mirror.md#kafka_topic)
-    * [on\_error](mariadb-maxscale-2302-mirror.md#on_error)
-    * [report](mariadb-maxscale-2302-mirror.md#report)
-  * [Example Configuration](mariadb-maxscale-2302-mirror.md#example-configuration)
-  * [Limitations](mariadb-maxscale-2302-mirror.md#limitations)
-
 ### Overview
 
 The `mirror` router is designed for data consistency and database behavior\

@@ -40,23 +40,6 @@ From 2.3.0 onwards, SchemaRouter is capable of limited table family sharding.
 * The `auth_all_servers` parameter is no longer automatically enabled by the\
   schemarouter. To retain the old behavior that was present in 2.5, explicitly\
   define `auth_all_servers=true` for all schemarouter services.
-* [SchemaRouter](mariadb-maxscale-2208-schemarouter.md#schemarouter)
-  * [Changes in Version 6](mariadb-maxscale-2208-schemarouter.md#changes-in-version-6)
-  * [Routing Logic](mariadb-maxscale-2208-schemarouter.md#routing-logic)
-    * [Custom SQL Commands](mariadb-maxscale-2208-schemarouter.md#custom-sql-commands)
-    * [Database Mapping](mariadb-maxscale-2208-schemarouter.md#database-mapping)
-  * [Configuration](mariadb-maxscale-2208-schemarouter.md#configuration)
-  * [Router Parameters](mariadb-maxscale-2208-schemarouter.md#router-parameters)
-    * [ignore\_tables](mariadb-maxscale-2208-schemarouter.md#ignore_tables)
-    * [ignore\_tables\_regex](mariadb-maxscale-2208-schemarouter.md#ignore_tables_regex)
-    * [max\_sescmd\_history](mariadb-maxscale-2208-schemarouter.md#max_sescmd_history)
-    * [disable\_sescmd\_history](mariadb-maxscale-2208-schemarouter.md#disable_sescmd_history)
-    * [refresh\_databases](mariadb-maxscale-2208-schemarouter.md#refresh_databases)
-    * [refresh\_interval](mariadb-maxscale-2208-schemarouter.md#refresh_interval)
-  * [Table Family Sharding](mariadb-maxscale-2208-schemarouter.md#table-family-sharding)
-  * [Router Diagnostics](mariadb-maxscale-2208-schemarouter.md#router-diagnostics)
-  * [Limitations](mariadb-maxscale-2208-schemarouter.md#limitations)
-  * [Examples](mariadb-maxscale-2208-schemarouter.md#examples)
 
 ### Routing Logic
 
@@ -198,12 +181,12 @@ This parameter was once called `ignore_databases`.
 
 #### `ignore_tables_regex`
 
-* Type: [regex](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
 
-A [PCRE2 regular expression](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)\
+A [PCRE2 regular expression](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#regular-expressions)\
 that is matched against database names when checking for duplicate databases.\
 By default no tables are ignored.
 
@@ -224,17 +207,17 @@ This parameter was once called `ignore_databases_regex`.
 
 #### `max_sescmd_history`
 
-This parameter has been moved to [the MaxScale core](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#max_sescmd_history)\
+This parameter has been moved to [the MaxScale core](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#max_sescmd_history)\
 in MaxScale 6.0.
 
 #### `disable_sescmd_history`
 
-This parameter has been moved to [the MaxScale core](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#disable_sescmd_history)\
+This parameter has been moved to [the MaxScale core](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#disable_sescmd_history)\
 in MaxScale 6.0.
 
 #### `refresh_databases`
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -248,7 +231,7 @@ to retain the same behavior as in older releases.
 
 #### `refresh_interval`
 
-* Type: [duration](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `300s`
@@ -256,7 +239,7 @@ to retain the same behavior as in older releases.
 The minimum interval between database map refreshes in seconds. The default\
 value is 300 seconds.
 
-The interval is specified as documented [here](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#durations). If no explicit unit\
+The interval is specified as documented [here](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#durations). If no explicit unit\
 is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent\
 versions a value without a unit may be rejected. Note that since the granularity\
 of the intervaltimeout is seconds, a timeout specified in milliseconds will be rejected,\

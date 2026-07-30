@@ -6,16 +6,6 @@
 
 This filter was introduced in MariaDB MaxScale 2.1.
 
-* [Maxrows](mariadb-maxscale-2308-maxrows.md#maxrows)
-  * [Overview](mariadb-maxscale-2308-maxrows.md#overview)
-  * [Configuration](mariadb-maxscale-2308-maxrows.md#configuration)
-    * [Filter Parameters](mariadb-maxscale-2308-maxrows.md#filter-parameters)
-      * [max\_resultset\_rows](mariadb-maxscale-2308-maxrows.md#max_resultset_rows)
-      * [max\_resultset\_size](mariadb-maxscale-2308-maxrows.md#max_resultset_size)
-      * [max\_resultset\_return](mariadb-maxscale-2308-maxrows.md#max_resultset_return)
-      * [debug](mariadb-maxscale-2308-maxrows.md#debug)
-  * [Example Configuration](mariadb-maxscale-2308-maxrows.md#example-configuration)
-
 ### Overview
 
 The Maxrows filter is capable of restricting the amount of rows that a SELECT,\
@@ -63,7 +53,7 @@ max_resultset_rows=1000
 
 **`max_resultset_size`**
 
-* Type: [size](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#sizes)
+* Type: [size](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `64Ki`
@@ -78,7 +68,7 @@ max_resultset_size=128Ki
 
 **`max_resultset_return`**
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `empty`, `error`, `ok`

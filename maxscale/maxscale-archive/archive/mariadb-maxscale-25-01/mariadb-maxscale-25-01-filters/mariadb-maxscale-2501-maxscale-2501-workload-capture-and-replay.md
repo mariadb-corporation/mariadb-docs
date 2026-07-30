@@ -10,33 +10,6 @@ _In essence, the WCAR module not only preserves detailed and valuable traffic da
 
 ## Workload Capture and Replay
 
-* [Workload Capture and Replay](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#workload-capture-and-replay)
-  * [Overview](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#overview)
-  * [Prerequisites](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#prerequisites)
-  * [Capture](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#capture)
-    * [Quick start](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#quick-start)
-    * [File based configuration](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#file-based-configuration)
-    * [Example configuration file](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#example-configuration-file)
-    * [Capturing Traffic](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#capturing-traffic)
-    * [Stopping the Capture](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#stopping-the-capture)
-  * [Commands](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#commands)
-    * [start \[options\]](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#start-filter-options)
-    * [stop](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#stop-filter)
-  * [Replay](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#replay)
-    * [Installation](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#installation)
-    * [Preparing the Replay MariaDB Database](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#preparing-the-replay-mariadb-database)
-      * [Full Restore](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#full-restore)
-      * [Restore for read-only Replay](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#restore-for-read-only-replay)
-    * [Replaying the Capture](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#replaying-the-capture)
-  * [Visualizing](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#visualizing)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#settings)
-    * [capture\_dir](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#capture_dir)
-    * [start\_capture](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#start_capture)
-    * [capture\_duration](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#capture_duration)
-    * [capture\_size](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#capture_size)
-  * [maxplayer command line options](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#maxplayer-command-line-options)
-  * [Limitations](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#limitations)
-
 ### Overview
 
 The _WCAR_ filter (module `wcar`) captures client traffic and stores it in a replayable format.
@@ -219,7 +192,7 @@ the configuration file the command line options have priority. The supported key
 
 * **prefix** The prefix added to capture files. The default value is `capture`.
 * **duration** Limit capture to this duration. See also configuration file value ['capture\_duration'](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#capture_duration).
-* **size** Limit capture to approximately this many bytes in the file system. See also configuration file value ['capture\_size'](https://github.com/mariadb-corporation/docs-server/blob/test/maxscale/mariadb-maxscale-25-01/mariadb-maxscale-25-01-filters/capture_size/README.md).
+* **size** Limit capture to approximately this many bytes in the file system. See also configuration file value ['capture\_size'](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#capture_size).
 
 The start command options are not persistent, and only apply to the capture that was thus started.
 

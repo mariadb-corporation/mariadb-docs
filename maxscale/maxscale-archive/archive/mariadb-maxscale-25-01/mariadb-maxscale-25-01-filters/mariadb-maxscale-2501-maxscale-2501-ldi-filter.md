@@ -4,23 +4,6 @@
 
 ## LDI Filter
 
-* [LDI Filter](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#ldi-filter)
-  * [How to Upload Data](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#how-to-upload-data)
-    * [Data Uploads with MariaDB Xpand](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#data-uploads-with-mariadb-xpand)
-  * [Common Problems With Data Loading](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#common-problems-with-data-loading)
-    * [Missing Files](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#missing-files)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#settings)
-    * [key](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#key)
-    * [secret](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#secret)
-    * [region](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#region)
-    * [host](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#host)
-    * [port](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#port)
-    * [no\_verify](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#no_verify)
-    * [use\_http](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#use_http)
-    * [protocol\_version](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#protocol_version)
-    * [import\_user](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#import_user)
-    * [import\_password](mariadb-maxscale-2501-maxscale-2501-ldi-filter.md#import_password)
-
 The `ldi` (LOAD DATA INFILE) filter was introduced in MaxScale 23.08.0 and it\
 extends the MariaDB `LOAD DATA INFILE` syntax to support loading data from any\
 object storage that supports the S3 API. This includes cloud offerings like AWS\

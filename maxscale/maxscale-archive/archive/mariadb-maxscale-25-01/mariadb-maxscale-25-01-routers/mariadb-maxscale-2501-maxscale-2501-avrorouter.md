@@ -80,43 +80,6 @@ should be used to communicate with the avrorouter and currently it is the only\
 supported protocol. The clients can request either Avro or JSON format data\
 streams from a database table.
 
-* [Avrorouter](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#avrorouter)
-  * [Direct Replication Mode](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#direct-replication-mode)
-  * [Configuration](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#configuration)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#settings)
-    * [gtid\_start\_pos](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#gtid_start_pos)
-    * [server\_id](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#server_id)
-    * [codec](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#codec)
-    * [match](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#match)
-    * [exclude](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#exclude)
-    * [binlogdir](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#binlogdir)
-    * [avrodir](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#avrodir)
-    * [filestem](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#filestem)
-    * [start\_index](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#start_index)
-    * [cooperative\_replication](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#cooperative_replication)
-  * [Settings for Avro File](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#settings-for-avro-file)
-    * [group\_trx](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#group_trx)
-    * [group\_rows](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#group_rows)
-    * [block\_size](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#block_size)
-    * [max\_file\_size](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#max_file_size)
-    * [max\_data\_age](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#max_data_age)
-  * [Example configuration](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#example-configuration)
-  * [Module commands](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#module-commands)
-    * [avrorouter::convert SERVICE {start | stop}](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#avrorouterconvert-service-start-stop)
-    * [avrorouter::purge SERVICE](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#avrorouterpurge-service)
-  * [Files Created by the Avrorouter](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#files-created-by-the-avrorouter)
-  * [Resetting the Conversion Process](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#resetting-the-conversion-process)
-  * [Stopping the Avrorouter](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#stopping-the-avrorouter)
-  * [Example Client](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#example-client)
-  * [Avro Schema Generator](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#avro-schema-generator)
-    * [Simple Schema Generator](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#simple-schema-generator)
-    * [Python Schema Generator](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#python-schema-generator)
-    * [Go Schema Generator](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#go-schema-generator)
-  * [Examples](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#examples)
-  * [Building Avrorouter](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#building-avrorouter)
-  * [Router Diagnostics](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#router-diagnostics)
-  * [Limitations](mariadb-maxscale-2501-maxscale-2501-avrorouter.md#limitations)
-
 ### Direct Replication Mode
 
 MaxScale 2.4.0 added a direct replication mode that connects the avrorouter\
@@ -217,7 +180,7 @@ The compression codec to use. By default, the avrorouter does not use compressio
 
 This parameter takes one of the following two values; _null_ or\_deflate\_. These are the mandatory compression algorithms required by the\
 Avro specification. For more information about the compression types,\
-refer to the [Avro specification](https://avro.apache.org/docs/current/spec.html#Required+Codecs).
+refer to the [Avro specification](https://avro.apache.org/docs/1.11.1/specification/#required-codecs).
 
 #### `match`
 
@@ -637,7 +600,7 @@ and `cdc_kafka_producer.py -h`.
 
 ### Building Avrorouter
 
-To build the avrorouter from source, you will need the [Avro C](https://avro.apache.org/docs/current/api/c/) library, liblzma,[the Jansson library](https://www.digip.org/jansson/) and sqlite3 development\
+To build the avrorouter from source, you will need the [Avro C](https://avro.apache.org/docs/1.11.1/api/c/) library, liblzma,[the Jansson library](https://www.digip.org/jansson/) and sqlite3 development\
 headers. When configuring MaxScale with CMake, you will need to add`-DBUILD_CDC=Y` to build the CDC module set.
 
 The Avro C library needs to be build with position independent code enabled. You\

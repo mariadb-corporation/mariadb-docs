@@ -3,33 +3,6 @@
 
 # Galera Monitor
 
-
-
-
-* [Galera Monitor](#galera-monitor)
-
-  * [Overview](#overview)
-
-    * [WSREP Variables and Their Effects](#wsrep-variables-and-their-effects)
-    * [Galera clusters and slaves replicating from it](#galera-clusters-and-slaves-replicating-from-it)
-  * [Required Grants](#required-grants)
-  * [Configuration](#configuration)
-  * [Common Monitor Parameters](#common-monitor-parameters)
-  * [Galera Monitor optional parameters](#galera-monitor-optional-parameters)
-
-    * [disable_master_failback](#disable_master_failback)
-    * [available_when_donor](#available_when_donor)
-    * [disable_master_role_setting](#disable_master_role_setting)
-    * [use_priority](#use_priority)
-    * [root_node_as_master](#root_node_as_master)
-    * [set_donor_nodes](#set_donor_nodes)
-  * [Interaction with Server Priorities](#interaction-with-server-priorities)
-
-    * [Switchover](#switchover)
-
-
-
-
 ## Overview
 
 

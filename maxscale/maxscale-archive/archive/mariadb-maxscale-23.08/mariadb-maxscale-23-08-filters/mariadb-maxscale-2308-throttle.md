@@ -6,17 +6,6 @@
 
 This filter was added in MariaDB MaxScale 2.3
 
-* [Throttle](mariadb-maxscale-2308-throttle.md#throttle)
-  * [Overview](mariadb-maxscale-2308-throttle.md#overview)
-  * [Configuration](mariadb-maxscale-2308-throttle.md#configuration)
-    * [Basic Configuration](mariadb-maxscale-2308-throttle.md#basic-configuration)
-    * [Allowing high frequency bursts](mariadb-maxscale-2308-throttle.md#allowing-high-frequency-bursts)
-    * [Filter Parameters](mariadb-maxscale-2308-throttle.md#filter-parameters)
-      * [max\_qps](mariadb-maxscale-2308-throttle.md#max_qps)
-      * [throttling\_duration](mariadb-maxscale-2308-throttle.md#throttling_duration)
-    * [sampling\_duration](mariadb-maxscale-2308-throttle.md#sampling_duration)
-    * [continuous\_duration](mariadb-maxscale-2308-throttle.md#continuous_duration)
-
 ### Overview
 
 The throttle filter is used to limit the maximum query frequency (QPS - queries\
@@ -88,7 +77,7 @@ sampling duration (see `sampling_duration`).
 
 **`throttling_duration`**
 
-* Type: [duration](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: Yes
 * Dynamic: Yes
 
@@ -97,7 +86,7 @@ disconnects the session.
 
 #### `sampling_duration`
 
-* Type: [duration](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 250ms
@@ -111,7 +100,7 @@ longer this time is, the longer bursts of high frequency querying is allowed.
 
 #### `continuous_duration`
 
-* Type: [duration](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 2s

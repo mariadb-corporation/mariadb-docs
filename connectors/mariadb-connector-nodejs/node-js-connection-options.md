@@ -7,16 +7,6 @@ description: >-
 
 # Node.js Connection Options
 
-* [Essential options](node-js-connection-options.md#essential-option)
-* [Support for big integer](node-js-connection-options.md#support-for-big-integer)
-* [Ssl](node-js-connection-options.md#ssl)
-  * [Configuration](node-js-connection-options.md#configuration)
-  * [Certificate validation](node-js-connection-options.md#certificate-validation)
-  * [One-way SSL authentication](node-js-connection-options.md#one-way-ssl-authentication)
-  * [Two-way SSL authentication](node-js-connection-options.md#two-way-ssl-authentication)
-* [Other options](node-js-connection-options.md#other-options)
-* [F.A.Q.](node-js-connection-options.md#faq)
-
 ## Essential Options
 
 |                 option | description                                                                                                                                                                                                                                                                                                                                                                                                                           |    type   |   default   |

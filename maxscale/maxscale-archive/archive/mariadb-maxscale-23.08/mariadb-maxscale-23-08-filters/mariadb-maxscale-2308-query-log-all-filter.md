@@ -4,32 +4,6 @@
 
 ## Query Log All Filter
 
-* [Query Log All Filter](mariadb-maxscale-2308-query-log-all-filter.md#query-log-all-filter)
-  * [Overview](mariadb-maxscale-2308-query-log-all-filter.md#overview)
-  * [Configuration](mariadb-maxscale-2308-query-log-all-filter.md#configuration)
-  * [Log Rotation](mariadb-maxscale-2308-query-log-all-filter.md#log-rotation)
-  * [Filter Parameters](mariadb-maxscale-2308-query-log-all-filter.md#filter-parameters)
-    * [filebase](mariadb-maxscale-2308-query-log-all-filter.md#filebase)
-    * [match](mariadb-maxscale-2308-query-log-all-filter.md#match)
-    * [exclude](mariadb-maxscale-2308-query-log-all-filter.md#exclude)
-    * [options](mariadb-maxscale-2308-query-log-all-filter.md#options)
-    * [user](mariadb-maxscale-2308-query-log-all-filter.md#user)
-    * [source](mariadb-maxscale-2308-query-log-all-filter.md#source)
-    * [user\_match](mariadb-maxscale-2308-query-log-all-filter.md#user_match)
-    * [user\_exclude](mariadb-maxscale-2308-query-log-all-filter.md#user_exclude)
-    * [source\_match](mariadb-maxscale-2308-query-log-all-filter.md#source_match)
-    * [source\_exclude](mariadb-maxscale-2308-query-log-all-filter.md#source_exclude)
-    * [log\_type](mariadb-maxscale-2308-query-log-all-filter.md#log_type)
-    * [log\_data](mariadb-maxscale-2308-query-log-all-filter.md#log_data)
-    * [duration\_unit](mariadb-maxscale-2308-query-log-all-filter.md#duration_unit)
-    * [use\_canonical\_form](mariadb-maxscale-2308-query-log-all-filter.md#use_canonical_form)
-    * [flush](mariadb-maxscale-2308-query-log-all-filter.md#flush)
-    * [append](mariadb-maxscale-2308-query-log-all-filter.md#append)
-    * [separator](mariadb-maxscale-2308-query-log-all-filter.md#separator)
-    * [newline\_replacement](mariadb-maxscale-2308-query-log-all-filter.md#newline_replacement)
-  * [Examples](mariadb-maxscale-2308-query-log-all-filter.md#examples)
-    * [Example 1 - Query without primary key](mariadb-maxscale-2308-query-log-all-filter.md#example-1-query-without-primary-key)
-
 ### Overview
 
 The Query Log All (QLA) filter logs query content. Logs are written to a file in\
@@ -81,7 +55,7 @@ filebase=/tmp/SqlQueryLog
 
 #### `match`
 
-* Type: [regex](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
@@ -90,7 +64,7 @@ Include queries that match the regex.
 
 #### `exclude`
 
-* Type: [regex](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
@@ -99,7 +73,7 @@ Exclude queries that match the regex.
 
 #### `options`
 
-* Type: [enum\_mask](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum\_mask](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `case`, `ignorecase`, `extended`
@@ -127,7 +101,7 @@ Limit logging to sessions with this client source address.
 
 #### `user_match`
 
-* Type: [regex](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 
@@ -142,7 +116,7 @@ user_match=/(^alice$)|(^bob$)/
 
 #### `user_exclude`
 
-* Type: [regex](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 
@@ -157,7 +131,7 @@ user_exclude=/(^alice$)|(^bob$)/
 
 #### `source_match`
 
-* Type: [regex](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 
@@ -173,7 +147,7 @@ source_match=/(^127[.]0[.]0[.]1)|(^192[.]168[.]0[.]109)/
 
 #### `source_exclude`
 
-* Type: [regex](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 
@@ -189,7 +163,7 @@ source_exclude=/(^127[.]0[.]0[.]1)|(^192[.]168[.]0[.]109)/
 
 #### `log_type`
 
-* Type: [enum\_mask](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum\_mask](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `session`, `unified`, `stdout`
@@ -205,7 +179,7 @@ The type of log file to use.
 
 #### `log_data`
 
-* Type: [enum\_mask](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum\_mask](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `service`, `session`, `date`, `user`, `reply_time`, `total_reply_time`, `query`, `default_db`, `num_rows`, `reply_size`, `transaction`, `transaction_time`, `num_warnings`, `error_msg`
@@ -261,7 +235,7 @@ This option is available as of MaxScale version 6.2.
 
 #### `use_canonical_form`
 
-* Type: [bool](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [bool](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -272,7 +246,7 @@ This option is available as of MaxScale version 6.2.
 
 #### `flush`
 
-* Type: [bool](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [bool](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -281,7 +255,7 @@ Flush log files after every write.
 
 #### `append`
 
-* Type: [bool](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [bool](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`

@@ -1,21 +1,5 @@
 # MaxScale 21.06 Top Filter
 
-* [Top Filter](mariadb-maxscale-2106-maxscale-2106-top-filter.md#top-filter)
-  * [Overview](mariadb-maxscale-2106-maxscale-2106-top-filter.md#overview)
-  * [Configuration](mariadb-maxscale-2106-maxscale-2106-top-filter.md#configuration)
-    * [Filter Parameters](mariadb-maxscale-2106-maxscale-2106-top-filter.md#filter-parameters)
-      * [filebase](mariadb-maxscale-2106-maxscale-2106-top-filter.md#filebase)
-      * [count](mariadb-maxscale-2106-maxscale-2106-top-filter.md#count)
-      * [match](mariadb-maxscale-2106-maxscale-2106-top-filter.md#match)
-      * [exclude](mariadb-maxscale-2106-maxscale-2106-top-filter.md#exclude)
-      * [options](mariadb-maxscale-2106-maxscale-2106-top-filter.md#options)
-      * [source](mariadb-maxscale-2106-maxscale-2106-top-filter.md#source)
-      * [user](mariadb-maxscale-2106-maxscale-2106-top-filter.md#user)
-  * [Examples](mariadb-maxscale-2106-maxscale-2106-top-filter.md#examples)
-    * [Example 1 - Heavily Contended Table](mariadb-maxscale-2106-maxscale-2106-top-filter.md#example-1-heavily-contended-table)
-    * [Example 2 - One Application Server is Slow](mariadb-maxscale-2106-maxscale-2106-top-filter.md#example-2-one-application-server-is-slow)
-  * [Output Report](mariadb-maxscale-2106-maxscale-2106-top-filter.md#output-report)
-
 ### Overview
 
 The top filter is a filter module for MariaDB MaxScale that monitors every SQL\

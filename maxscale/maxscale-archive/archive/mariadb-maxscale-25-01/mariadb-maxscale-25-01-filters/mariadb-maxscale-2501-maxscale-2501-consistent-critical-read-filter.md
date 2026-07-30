@@ -6,18 +6,6 @@
 
 This filter was introduced in MariaDB MaxScale 2.1.
 
-* [Consistent Critical Read Filter](mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md#consistent-critical-read-filter)
-  * [Overview](mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md#overview)
-    * [Controlling the Filter with SQL Comments](mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md#controlling-the-filter-with-sql-comments)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md#settings)
-    * [time](mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md#time)
-    * [count](mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md#count)
-    * [match](mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md#match)
-    * [ignore](mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md#ignore)
-    * [options](mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md#options)
-    * [global](mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md#global)
-  * [Example Configuration](mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md#example-configuration)
-
 ### Overview
 
 The Consistent Critical Read (CCR) filter allows consistent critical reads to be\

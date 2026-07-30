@@ -2,25 +2,6 @@
 
 ## KafkaImporter
 
-* [KafkaImporter](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#kafkaimporter)
-  * [Overview](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#overview)
-    * [Required Grants](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#required-grants)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#settings)
-    * [bootstrap\_servers](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#bootstrap_servers)
-    * [topics](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#topics)
-    * [batch\_size](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#batch_size)
-    * [kafka\_sasl\_mechanism](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#kafka_sasl_mechanism)
-    * [kafka\_sasl\_user](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#kafka_sasl_user)
-    * [kafka\_sasl\_password](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#kafka_sasl_password)
-    * [kafka\_ssl](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#kafka_ssl)
-    * [kafka\_ssl\_ca](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#kafka_ssl_ca)
-    * [kafka\_ssl\_cert](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#kafka_ssl_cert)
-    * [kafka\_ssl\_key](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#kafka_ssl_key)
-    * [table\_name\_in](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#table_name_in)
-    * [timeout](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#timeout)
-    * [engine](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#engine)
-  * [Limitations](mariadb-maxscale-2501-maxscale-2501-kafkaimporter.md#limitations)
-
 ### Overview
 
 The KafkaImporter module reads messages from Kafka and streams them into a\

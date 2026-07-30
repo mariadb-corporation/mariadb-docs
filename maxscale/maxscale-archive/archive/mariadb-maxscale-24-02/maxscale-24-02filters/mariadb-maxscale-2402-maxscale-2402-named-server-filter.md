@@ -1,18 +1,5 @@
 # MaxScale 24.02 Named Server Filter
 
-* [Named Server Filter](mariadb-maxscale-2402-maxscale-2402-named-server-filter.md#named-server-filter)
-  * [Overview](mariadb-maxscale-2402-maxscale-2402-named-server-filter.md#overview)
-  * [Configuration](mariadb-maxscale-2402-maxscale-2402-named-server-filter.md#configuration)
-  * [Filter Parameters](mariadb-maxscale-2402-maxscale-2402-named-server-filter.md#filter-parameters)
-    * [matchXY](mariadb-maxscale-2402-maxscale-2402-named-server-filter.md#matchxy)
-      * [options](mariadb-maxscale-2402-maxscale-2402-named-server-filter.md#options)
-    * [targetXY](mariadb-maxscale-2402-maxscale-2402-named-server-filter.md#targetxy)
-    * [source](mariadb-maxscale-2402-maxscale-2402-named-server-filter.md#source)
-    * [user](mariadb-maxscale-2402-maxscale-2402-named-server-filter.md#user)
-  * [Additional remarks](mariadb-maxscale-2402-maxscale-2402-named-server-filter.md#additional-remarks)
-  * [Examples](mariadb-maxscale-2402-maxscale-2402-named-server-filter.md#examples)
-    * [Example 1 - Route queries targeting a specific table to a server](mariadb-maxscale-2402-maxscale-2402-named-server-filter.md#example-1-route-queries-targeting-a-specific-table-to-a-server)
-
 ### Overview
 
 The **namedserverfilter** is a MariaDB MaxScale filter module able to route\

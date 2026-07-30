@@ -2,42 +2,6 @@
 
 ## Diff - router for comparing servers
 
-* [Diff - router for comparing servers](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#diff-router-for-comparing-servers)
-  * [Overview](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#overview)
-    * [Histogram](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#histogram)
-    * [Discrepancies](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#discrepancies)
-    * [EXPLAIN](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#explain)
-    * [QPS](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#qps)
-    * [Reporting](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#reporting)
-  * [Setup](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#setup)
-    * [Prerequisites](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#prerequisites)
-    * [Running Diff](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#running-diff)
-      * [Create](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#create)
-      * [Start](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#start)
-      * [Status](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#status)
-      * [Summary](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#summary)
-      * [Stop](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#stop)
-      * [Destroy](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#destroy)
-  * [Visualizing](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#visualizing)
-  * [Continuous Reporting](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#continuous-reporting)
-  * [Mode](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#mode)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#settings)
-    * [main](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#main)
-    * [service](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#service)
-    * [explain](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#explain_1)
-    * [explain\_entries](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#explain_entries)
-    * [explain\_period](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#explain_period)
-    * [max\_request\_lag](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#max_request_lag)
-    * [on\_error](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#on_error)
-    * [percentile](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#percentile)
-    * [qps\_window](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#qps_window)
-    * [report](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#report)
-    * [reset\_replication](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#reset_replication)
-    * [retain\_faster\_statements](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#retain_faster_statements)
-    * [retain\_slower\_statements](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#retain_slower_statements)
-    * [samples](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#samples)
-  * [Limitations](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#limitations)
-
 ### Overview
 
 The `diff`-router, hereafter referred to as _Diff_, compares the\

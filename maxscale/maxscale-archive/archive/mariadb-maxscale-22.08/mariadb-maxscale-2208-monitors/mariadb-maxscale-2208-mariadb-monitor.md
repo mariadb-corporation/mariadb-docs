@@ -4,72 +4,6 @@
 
 ## MariaDB Monitor
 
-* [MariaDB Monitor](mariadb-maxscale-2208-mariadb-monitor.md#mariadb-monitor)
-  * [Overview](mariadb-maxscale-2208-mariadb-monitor.md#overview)
-  * [Required Grants](mariadb-maxscale-2208-mariadb-monitor.md#required-grants)
-    * [Cluster Manipulation Grants](mariadb-maxscale-2208-mariadb-monitor.md#cluster-manipulation-grants)
-  * [Master selection](mariadb-maxscale-2208-mariadb-monitor.md#master-selection)
-  * [Configuration](mariadb-maxscale-2208-mariadb-monitor.md#configuration)
-  * [Common Monitor Parameters](mariadb-maxscale-2208-mariadb-monitor.md#common-monitor-parameters)
-  * [MariaDB Monitor optional parameters](mariadb-maxscale-2208-mariadb-monitor.md#mariadb-monitor-optional-parameters)
-    * [assume\_unique\_hostnames](mariadb-maxscale-2208-mariadb-monitor.md#assume_unique_hostnames)
-    * [master\_conditions](mariadb-maxscale-2208-mariadb-monitor.md#master_conditions)
-    * [slave\_conditions](mariadb-maxscale-2208-mariadb-monitor.md#slave_conditions)
-    * [failcount](mariadb-maxscale-2208-mariadb-monitor.md#failcount)
-    * [enforce\_writable\_master](mariadb-maxscale-2208-mariadb-monitor.md#enforce_writable_master)
-    * [enforce\_read\_only\_slaves](mariadb-maxscale-2208-mariadb-monitor.md#enforce_read_only_slaves)
-    * [enforce\_read\_only\_servers](mariadb-maxscale-2208-mariadb-monitor.md#enforce_read_only_servers)
-    * [maintenance\_on\_low\_disk\_space](mariadb-maxscale-2208-mariadb-monitor.md#maintenance_on_low_disk_space)
-    * [cooperative\_monitoring\_locks](mariadb-maxscale-2208-mariadb-monitor.md#cooperative_monitoring_locks)
-    * [script\_max\_replication\_lag](mariadb-maxscale-2208-mariadb-monitor.md#script_max_replication_lag)
-  * [Cluster manipulation operations](mariadb-maxscale-2208-mariadb-monitor.md#cluster-manipulation-operations)
-    * [Operation details](mariadb-maxscale-2208-mariadb-monitor.md#operation-details)
-    * [Manual activation](mariadb-maxscale-2208-mariadb-monitor.md#manual-activation)
-      * [Queued switchover](mariadb-maxscale-2208-mariadb-monitor.md#queued-switchover)
-    * [Automatic activation](mariadb-maxscale-2208-mariadb-monitor.md#automatic-activation)
-    * [Limitations and requirements](mariadb-maxscale-2208-mariadb-monitor.md#limitations-and-requirements)
-    * [External master support](mariadb-maxscale-2208-mariadb-monitor.md#external-master-support)
-    * [Configuration parameters](mariadb-maxscale-2208-mariadb-monitor.md#configuration-parameters)
-      * [auto\_failover](mariadb-maxscale-2208-mariadb-monitor.md#auto_failover)
-      * [auto\_rejoin](mariadb-maxscale-2208-mariadb-monitor.md#auto_rejoin)
-      * [switchover\_on\_low\_disk\_space](mariadb-maxscale-2208-mariadb-monitor.md#switchover_on_low_disk_space)
-      * [enforce\_simple\_topology](mariadb-maxscale-2208-mariadb-monitor.md#enforce_simple_topology)
-      * [replication\_user and replication\_password](mariadb-maxscale-2208-mariadb-monitor.md#replication_user-and-replication_password)
-      * [replication\_master\_ssl](mariadb-maxscale-2208-mariadb-monitor.md#replication_master_ssl)
-      * [failover\_timeout and switchover\_timeout](mariadb-maxscale-2208-mariadb-monitor.md#failover_timeout-and-switchover_timeout)
-      * [verify\_master\_failure](mariadb-maxscale-2208-mariadb-monitor.md#verify_master_failure)
-      * [master\_failure\_timeout](mariadb-maxscale-2208-mariadb-monitor.md#master_failure_timeout)
-      * [servers\_no\_promotion](mariadb-maxscale-2208-mariadb-monitor.md#servers_no_promotion)
-      * [promotion\_sql\_file and demotion\_sql\_file](mariadb-maxscale-2208-mariadb-monitor.md#promotion_sql_file-and-demotion_sql_file)
-      * [handle\_events](mariadb-maxscale-2208-mariadb-monitor.md#handle_events)
-  * [Cooperative monitoring](mariadb-maxscale-2208-mariadb-monitor.md#cooperative-monitoring)
-    * [Releasing locks](mariadb-maxscale-2208-mariadb-monitor.md#releasing-locks)
-  * [Rebuild server](mariadb-maxscale-2208-mariadb-monitor.md#rebuild-server)
-    * [Settings](mariadb-maxscale-2208-mariadb-monitor.md#settings)
-      * [ssh\_user](mariadb-maxscale-2208-mariadb-monitor.md#ssh_user)
-      * [ssh\_keyfile](mariadb-maxscale-2208-mariadb-monitor.md#ssh_keyfile)
-      * [ssh\_check\_host\_key](mariadb-maxscale-2208-mariadb-monitor.md#ssh_check_host_key)
-      * [ssh\_timeout](mariadb-maxscale-2208-mariadb-monitor.md#ssh_timeout)
-      * [ssh\_port](mariadb-maxscale-2208-mariadb-monitor.md#ssh_port)
-      * [rebuild\_port](mariadb-maxscale-2208-mariadb-monitor.md#rebuild_port)
-    * [sudoers.d configuration](mariadb-maxscale-2208-mariadb-monitor.md#sudoersd-configuration)
-  * [ColumnStore commands](mariadb-maxscale-2208-mariadb-monitor.md#columnstore-commands)
-    * [Get status](mariadb-maxscale-2208-mariadb-monitor.md#get-status)
-    * [Add or remove node](mariadb-maxscale-2208-mariadb-monitor.md#add-or-remove-node)
-    * [Start and stop cluster](mariadb-maxscale-2208-mariadb-monitor.md#start-and-stop-cluster)
-    * [Set read-only or readwrite](mariadb-maxscale-2208-mariadb-monitor.md#set-read-only-or-readwrite)
-    * [Settings](mariadb-maxscale-2208-mariadb-monitor.md#settings_1)
-      * [cs\_admin\_port](mariadb-maxscale-2208-mariadb-monitor.md#cs_admin_port)
-      * [cs\_admin\_api\_key](mariadb-maxscale-2208-mariadb-monitor.md#cs_admin_api_key)
-      * [cs\_admin\_base\_path](mariadb-maxscale-2208-mariadb-monitor.md#cs_admin_base_path)
-  * [Other commands](mariadb-maxscale-2208-mariadb-monitor.md#other-commands)
-    * [fetch-cmd-result](mariadb-maxscale-2208-mariadb-monitor.md#fetch-cmd-result)
-    * [cancel-cmd](mariadb-maxscale-2208-mariadb-monitor.md#cancel-cmd)
-  * [Troubleshooting](mariadb-maxscale-2208-mariadb-monitor.md#troubleshooting)
-    * [Failover/switchover fails](mariadb-maxscale-2208-mariadb-monitor.md#failoverswitchover-fails)
-    * [Slave detection shows external masters](mariadb-maxscale-2208-mariadb-monitor.md#slave-detection-shows-external-masters)
-  * [Using the MariaDB Monitor With Binlogrouter](mariadb-maxscale-2208-mariadb-monitor.md#using-the-mariadb-monitor-with-binlogrouter)
-
 ### Overview
 
 MariaDB Monitor monitors a Master-Slave replication cluster. It probes the\
@@ -307,7 +241,7 @@ master_conditions=connected_slave,running_slave
 
 #### `slave_conditions`
 
-* Type: [enum\_mask](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum\_mask](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `linked_master`, `running_master`, `writable_master`, `primary_monitor_master`
@@ -369,7 +303,7 @@ multiplying that by `failcount`:
 
 #### `enforce_writable_master`
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -391,7 +325,7 @@ prefers to select a writable server as master if possible.
 
 #### `enforce_read_only_slaves`
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -412,7 +346,7 @@ marked \[Slave].
 
 #### `enforce_read_only_servers`
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -427,7 +361,7 @@ unclear which servers should be altered.
 
 #### `maintenance_on_low_disk_space`
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -450,7 +384,7 @@ maxctrl clear server server2 Maint
 
 #### `cooperative_monitoring_locks`
 
-* Type: [enum](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `majority_of_all`, `majority_of_running`
@@ -864,7 +798,7 @@ master.
 
 **`auto_failover`**
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -885,7 +819,7 @@ setups.
 
 **`auto_rejoin`**
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -920,7 +854,7 @@ cluster if possible.
 
 **`switchover_on_low_disk_space`**
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -942,7 +876,7 @@ switchover_on_low_disk_space=true
 
 **`enforce_simple_topology`**
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -990,7 +924,7 @@ encrypted with the same key to avoid erroneous decryption.
 
 **`replication_master_ssl`**
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -1015,7 +949,7 @@ values are 90 seconds for both. `switchover_timeout` is also used as the time\
 limit for a rejoin operation. Rejoin should rarely time out, since it is a\
 faster operation than switchover.
 
-The timeouts are specified as documented [here](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#durations). If no explicit unit\
+The timeouts are specified as documented [here](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#durations). If no explicit unit\
 is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent\
 versions a value without a unit may be rejected. Note that since the granularity\
 of the timeouts is seconds, a timeout specified in milliseconds will be rejected,\
@@ -1027,7 +961,7 @@ further automatic modifications to the misbehaving cluster.
 
 **`verify_master_failure`**
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -1050,12 +984,12 @@ met.
 
 **`master_failure_timeout`**
 
-* Type: [duration](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10s`
 
-The master failure timeout is specified as documented [here](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#durations). If no explicit unit\
+The master failure timeout is specified as documented [here](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#durations). If no explicit unit\
 is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent\
 versions a value without a unit may be rejected. Note that since the granularity\
 of the timeout is seconds, a timeout specified in milliseconds will be rejected,\
@@ -1120,7 +1054,7 @@ demotion_sql_file=/home/root/scripts/demotion.sql
 
 **`handle_events`**
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -1360,7 +1294,7 @@ run commands.
 
 **`ssh_check_host_key`**
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -1370,7 +1304,7 @@ already listed in the known\_hosts-file of the user running MaxScale.
 
 **`ssh_timeout`**
 
-* Type: [duration](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10s`
@@ -1628,7 +1562,7 @@ A typical failure reason is that a command such as `STOP SLAVE` takes longer tha
 monitor will retry most such queries if the failure was caused by a timeout. The retrying\
 continues until the total time for a failover or switchover has been spent. If the log\
 shows warnings or errors about commands timing out, increasing the backend timeout\
-settings of the monitor should help. Other settings to look at are `query_retries` and`query_retry_timeout`. These are general MaxScale settings described in the [Configuration guide](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/). Setting`query_retries` to 2 is a reasonable first try.
+settings of the monitor should help. Other settings to look at are `query_retries` and`query_retry_timeout`. These are general MaxScale settings described in the [Configuration guide](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md). Setting`query_retries` to 2 is a reasonable first try.
 
 If switchover causes the old master (now slave) to fail replication, then most\
 likely a user or perhaps a scheduled event performed a write while monitor\

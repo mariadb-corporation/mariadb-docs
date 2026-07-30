@@ -19,28 +19,6 @@ will create a separate connection. This reduces the amount of work the primary\
 database has to do which can be significant if there are a large number of\
 replicating replicas.
 
-* [Binlogrouter](mariadb-maxscale-2308-binlogrouter.md#binlogrouter)
-  * [Supported SQL Commands](mariadb-maxscale-2308-binlogrouter.md#supported-sql-commands)
-  * [Semi-sync replication](mariadb-maxscale-2308-binlogrouter.md#semi-sync-replication)
-  * [Configuration Parameters](mariadb-maxscale-2308-binlogrouter.md#configuration-parameters)
-    * [datadir](mariadb-maxscale-2308-binlogrouter.md#datadir)
-    * [server\_id](mariadb-maxscale-2308-binlogrouter.md#server_id)
-    * [net\_timeout](mariadb-maxscale-2308-binlogrouter.md#net_timeout)
-    * [select\_master](mariadb-maxscale-2308-binlogrouter.md#select_master)
-    * [expire\_log\_duration](mariadb-maxscale-2308-binlogrouter.md#expire_log_duration)
-    * [expire\_log\_minimum\_files](mariadb-maxscale-2308-binlogrouter.md#expire_log_minimum_files)
-    * [ddl\_only](mariadb-maxscale-2308-binlogrouter.md#ddl_only)
-    * [encryption\_key\_id](mariadb-maxscale-2308-binlogrouter.md#encryption_key_id)
-    * [encryption\_cipher](mariadb-maxscale-2308-binlogrouter.md#encryption_cipher)
-    * [rpl\_semi\_sync\_slave\_enabled](mariadb-maxscale-2308-binlogrouter.md#rpl_semi_sync_slave_enabled)
-  * [New installation](mariadb-maxscale-2308-binlogrouter.md#new-installation)
-  * [Upgrading from legacy versions](mariadb-maxscale-2308-binlogrouter.md#upgrading-from-legacy-versions)
-    * [Before you start](mariadb-maxscale-2308-binlogrouter.md#before-you-start)
-    * [Deployment](mariadb-maxscale-2308-binlogrouter.md#deployment)
-  * [Galera cluster](mariadb-maxscale-2308-binlogrouter.md#galera-cluster)
-  * [Example](mariadb-maxscale-2308-binlogrouter.md#example)
-  * [Limitations](mariadb-maxscale-2308-binlogrouter.md#limitations)
-
 ### Supported SQL Commands
 
 The binlogrouter supports a subset of the SQL constructs that the MariaDB server\
@@ -193,7 +171,7 @@ binary logs to the slaves.
 
 #### `net_timeout`
 
-* Type: [duration](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `10s`
@@ -202,7 +180,7 @@ Network connection and read timeout in seconds for the connection to the master.
 
 #### `select_master`
 
-* Type: [boolean](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -233,7 +211,7 @@ replication manually with `CHANGE MASTER TO`.
 
 #### `expire_log_duration`
 
-* Type: [duration](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `0s`
@@ -297,7 +275,7 @@ binlogs.
 
 #### `encryption_cipher`
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `AES_CBC`, `AES_CTR`, `AES_GCM`
@@ -317,7 +295,7 @@ Possible values are:
 
 #### `rpl_semi_sync_slave_enabled`
 
-* Type: [boolean](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Default: false
 * Dynamic: Yes
 

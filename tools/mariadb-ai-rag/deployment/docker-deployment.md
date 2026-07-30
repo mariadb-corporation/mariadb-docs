@@ -9,18 +9,6 @@ noIndex: true
 
 # Docker Deployment Guide
 
-## 📋 Quick Navigation
-
-* [System Overview](docker-deployment.md#system-overview)
-* [Prerequisites](docker-deployment.md#prerequisites)
-* [Deployment - Standalone Mode](docker-deployment.md#deployment---standalone-mode)
-* [Deployment - Vault Mode](docker-deployment.md#deployment---vault-mode)
-* [Post-Deployment](docker-deployment.md#post-deployment)
-* [Usage Guide](docker-deployment.md#usage-guide)
-* [Troubleshooting](docker-deployment.md#troubleshooting)
-
-***
-
 ## System Overview
 
 ### What is MariaDB AI RAG?

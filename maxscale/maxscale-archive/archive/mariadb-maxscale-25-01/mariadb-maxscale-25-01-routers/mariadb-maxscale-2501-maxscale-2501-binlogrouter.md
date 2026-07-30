@@ -15,35 +15,6 @@ will create a separate connection. This reduces the amount of work the primary\
 database has to do which can be significant if there are a large number of\
 replicating replicas.
 
-* [Binlogrouter](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#binlogrouter)
-  * [Binlog purge, archive and compress](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#binlog-purge-archive-and-compress)
-  * [Modifying binlog files manually](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#modifying-binlog-files-manually)
-  * [Supported SQL Commands](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#supported-sql-commands)
-  * [Semi-sync replication](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#semi-sync-replication)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#settings)
-    * [datadir](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#datadir)
-    * [archivedir](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#archivedir)
-    * [server\_id](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#server_id)
-    * [net\_timeout](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#net_timeout)
-    * [select\_master](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#select_master)
-    * [expiration\_mode](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#expiration_mode)
-    * [expire\_log\_duration](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#expire_log_duration)
-    * [expire\_log\_minimum\_files](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#expire_log_minimum_files)
-    * [compression\_algorithm](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#compression_algorithm)
-    * [number\_of\_noncompressed\_files](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#number_of_noncompressed_files)
-    * [ddl\_only](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#ddl_only)
-    * [encryption\_key\_id](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#encryption_key_id)
-    * [encryption\_cipher](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#encryption_cipher)
-    * [rpl\_semi\_sync\_slave\_enabled](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#rpl_semi_sync_slave_enabled)
-  * [New installation](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#new-installation)
-  * [Upgrading from legacy versions](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#upgrading-from-legacy-versions)
-    * [Before you start](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#before-you-start)
-    * [Deployment](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#deployment)
-    * [Bootstrap binlogrouter](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#bootstrap-binlogrouter)
-  * [Galera cluster](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#galera-cluster)
-  * [Example](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#example)
-  * [Limitations](mariadb-maxscale-2501-maxscale-2501-binlogrouter.md#limitations)
-
 ### Binlog purge, archive and compress
 
 File purge and archive are mutually exclusive. Archiving simply means that\

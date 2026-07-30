@@ -6,16 +6,6 @@ This document provides an overview of the **readconnroute** router module\
 and its intended use case scenarios. It also displays all router\
 configuration parameters with their descriptions.
 
-* [Readconnroute](mariadb-maxscale-2501-maxscale-2501-readconnroute.md#readconnroute)
-  * [Overview](mariadb-maxscale-2501-maxscale-2501-readconnroute.md#overview)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-readconnroute.md#settings)
-    * [router\_options](mariadb-maxscale-2501-maxscale-2501-readconnroute.md#router_options)
-    * [master\_accept\_reads](mariadb-maxscale-2501-maxscale-2501-readconnroute.md#master_accept_reads)
-    * [max\_replication\_lag](mariadb-maxscale-2501-maxscale-2501-readconnroute.md#max_replication_lag)
-  * [Examples](mariadb-maxscale-2501-maxscale-2501-readconnroute.md#examples)
-  * [Router Diagnostics](mariadb-maxscale-2501-maxscale-2501-readconnroute.md#router-diagnostics)
-  * [Limitations](mariadb-maxscale-2501-maxscale-2501-readconnroute.md#limitations)
-
 ### Overview
 
 The readconnroute router provides simple and lightweight load balancing\

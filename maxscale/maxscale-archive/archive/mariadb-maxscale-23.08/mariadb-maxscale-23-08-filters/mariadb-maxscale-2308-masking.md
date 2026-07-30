@@ -6,33 +6,6 @@
 
 This filter was introduced in MariaDB MaxScale 2.1.
 
-* [Masking](mariadb-maxscale-2308-masking.md#masking)
-  * [Overview](mariadb-maxscale-2308-masking.md#overview)
-  * [Security](mariadb-maxscale-2308-masking.md#security)
-  * [Limitations](mariadb-maxscale-2308-masking.md#limitations)
-  * [Configuration](mariadb-maxscale-2308-masking.md#configuration)
-    * [Filter Parameters](mariadb-maxscale-2308-masking.md#filter-parameters)
-      * [rules](mariadb-maxscale-2308-masking.md#rules)
-      * [warn\_type\_mismatch](mariadb-maxscale-2308-masking.md#warn_type_mismatch)
-      * [large\_payload](mariadb-maxscale-2308-masking.md#large_payload)
-      * [prevent\_function\_usage](mariadb-maxscale-2308-masking.md#prevent_function_usage)
-      * [require\_fully\_parsed](mariadb-maxscale-2308-masking.md#require_fully_parsed)
-      * [treat\_string\_arg\_as\_field](mariadb-maxscale-2308-masking.md#treat_string_arg_as_field)
-      * [check\_user\_variables](mariadb-maxscale-2308-masking.md#check_user_variables)
-      * [check\_unions](mariadb-maxscale-2308-masking.md#check_unions)
-      * [check\_subqueries](mariadb-maxscale-2308-masking.md#check_subqueries)
-  * [Rules](mariadb-maxscale-2308-masking.md#rules_1)
-    * [replace](mariadb-maxscale-2308-masking.md#replace)
-    * [obfuscate](mariadb-maxscale-2308-masking.md#obfuscate)
-    * [with](mariadb-maxscale-2308-masking.md#with)
-    * [applies\_to](mariadb-maxscale-2308-masking.md#applies_to)
-    * [exempted](mariadb-maxscale-2308-masking.md#exempted)
-  * [Module commands](mariadb-maxscale-2308-masking.md#module-commands)
-    * [reload](mariadb-maxscale-2308-masking.md#reload)
-  * [Example](mariadb-maxscale-2308-masking.md#example)
-    * [Configuration](mariadb-maxscale-2308-masking.md#configuration_1)
-    * [masking\_rules.json](mariadb-maxscale-2308-masking.md#masking_rulesjson)
-
 ### Overview
 
 With the _masking_ filter it is possible to obfuscate the returned\
@@ -197,7 +170,7 @@ rules=/path/to/rules-file
 
 **`warn_type_mismatch`**
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `never`, `always`
@@ -213,7 +186,7 @@ warn_type_mismatch=always
 
 **`large_payload`**
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `ignore`, `abort`
@@ -238,7 +211,7 @@ large_payload=ignore
 
 **`prevent_function_usage`**
 
-* Type: [bool](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [bool](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -268,7 +241,7 @@ prevent_function_usage=false
 
 **`require_fully_parsed`**
 
-* Type: [bool](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [bool](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -290,7 +263,7 @@ possible to bypass the protection that they are intended to provide.
 
 **`treat_string_arg_as_field`**
 
-* Type: [bool](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [bool](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -306,7 +279,7 @@ treat_string_arg_as_field=false
 
 **`check_user_variables`**
 
-* Type: [bool](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [bool](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -326,7 +299,7 @@ check_user_variables=false
 
 **`check_unions`**
 
-* Type: [bool](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [bool](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -346,7 +319,7 @@ check_unions=false
 
 **`check_subqueries`**
 
-* Type: [bool](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [bool](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`

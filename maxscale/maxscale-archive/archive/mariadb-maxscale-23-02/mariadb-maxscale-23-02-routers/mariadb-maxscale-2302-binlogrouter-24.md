@@ -4,36 +4,6 @@
 MaxScale 2.4 and is only provided for reference. The documentation\
 for the binlogrouter in MaxScale 2.5 is provided [here](mariadb-maxscale-2302-binlogrouter.md).
 
-* [Binlogrouter 2.4](mariadb-maxscale-2302-binlogrouter-24.md#binlogrouter-24)
-  * [Introduction](mariadb-maxscale-2302-binlogrouter-24.md#introduction)
-  * [Configuration](mariadb-maxscale-2302-binlogrouter-24.md#configuration)
-    * [Mandatory Router Parameters](mariadb-maxscale-2302-binlogrouter-24.md#mandatory-router-parameters)
-    * [Router Parameters](mariadb-maxscale-2302-binlogrouter-24.md#router-parameters)
-      * [binlogdir](mariadb-maxscale-2302-binlogrouter-24.md#binlogdir)
-      * [server\_id](mariadb-maxscale-2302-binlogrouter-24.md#server_id)
-      * [master\_id](mariadb-maxscale-2302-binlogrouter-24.md#master_id)
-      * [uuid](mariadb-maxscale-2302-binlogrouter-24.md#uuid)
-      * [master\_uuid](mariadb-maxscale-2302-binlogrouter-24.md#master_uuid)
-      * [master\_version](mariadb-maxscale-2302-binlogrouter-24.md#master_version)
-      * [master\_hostname](mariadb-maxscale-2302-binlogrouter-24.md#master_hostname)
-      * [slave\_hostname](mariadb-maxscale-2302-binlogrouter-24.md#slave_hostname)
-      * [user](mariadb-maxscale-2302-binlogrouter-24.md#user)
-      * [password](mariadb-maxscale-2302-binlogrouter-24.md#password)
-      * [heartbeat](mariadb-maxscale-2302-binlogrouter-24.md#heartbeat)
-      * [burstsize](mariadb-maxscale-2302-binlogrouter-24.md#burstsize)
-      * [mariadb10-compatibility](mariadb-maxscale-2302-binlogrouter-24.md#mariadb10-compatibility)
-      * [transaction\_safety](mariadb-maxscale-2302-binlogrouter-24.md#transaction_safety)
-      * [send\_slave\_heartbeat](mariadb-maxscale-2302-binlogrouter-24.md#send_slave_heartbeat)
-      * [semisync](mariadb-maxscale-2302-binlogrouter-24.md#semisync)
-      * [ssl\_cert\_verification\_depth](mariadb-maxscale-2302-binlogrouter-24.md#ssl_cert_verification_depth)
-      * [encrypt\_binlog](mariadb-maxscale-2302-binlogrouter-24.md#encrypt_binlog)
-      * [encryption\_algorithm](mariadb-maxscale-2302-binlogrouter-24.md#encryption_algorithm)
-      * [encryption\_key\_file](mariadb-maxscale-2302-binlogrouter-24.md#encryption_key_file)
-      * [mariadb10\_master\_gtid](mariadb-maxscale-2302-binlogrouter-24.md#mariadb10_master_gtid)
-      * [master\_retry\_count](mariadb-maxscale-2302-binlogrouter-24.md#master_retry_count)
-      * [connect\_retry](mariadb-maxscale-2302-binlogrouter-24.md#connect_retry)
-    * [Using secondary masters](mariadb-maxscale-2302-binlogrouter-24.md#using-secondary-masters)
-
 ### Introduction
 
 The binlogrouter is a replication protocol proxy module for MariaDB\

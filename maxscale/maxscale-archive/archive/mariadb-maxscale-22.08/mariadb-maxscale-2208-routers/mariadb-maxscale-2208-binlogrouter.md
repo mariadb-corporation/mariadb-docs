@@ -23,27 +23,6 @@ will create a separate connection. This reduces the amount of work the master\
 database has to do which can be significant if there are a large number of\
 replicating slaves.
 
-* [Binlogrouter](mariadb-maxscale-2208-binlogrouter.md#binlogrouter)
-  * [Differences Between Old and New Binlogrouter Implementations](mariadb-maxscale-2208-binlogrouter.md#differences-between-old-and-new-binlogrouter-implementations)
-  * [Supported SQL Commands](mariadb-maxscale-2208-binlogrouter.md#supported-sql-commands)
-  * [Configuration Parameters](mariadb-maxscale-2208-binlogrouter.md#configuration-parameters)
-    * [datadir](mariadb-maxscale-2208-binlogrouter.md#datadir)
-    * [server\_id](mariadb-maxscale-2208-binlogrouter.md#server_id)
-    * [net\_timeout](mariadb-maxscale-2208-binlogrouter.md#net_timeout)
-    * [select\_master](mariadb-maxscale-2208-binlogrouter.md#select_master)
-    * [expire\_log\_duration](mariadb-maxscale-2208-binlogrouter.md#expire_log_duration)
-    * [expire\_log\_minimum\_files](mariadb-maxscale-2208-binlogrouter.md#expire_log_minimum_files)
-    * [ddl\_only](mariadb-maxscale-2208-binlogrouter.md#ddl_only)
-    * [encryption\_key\_id](mariadb-maxscale-2208-binlogrouter.md#encryption_key_id)
-    * [encryption\_cipher](mariadb-maxscale-2208-binlogrouter.md#encryption_cipher)
-  * [New installation](mariadb-maxscale-2208-binlogrouter.md#new-installation)
-  * [Upgrading to version 2.5](mariadb-maxscale-2208-binlogrouter.md#upgrading-to-version-25)
-    * [Before you start](mariadb-maxscale-2208-binlogrouter.md#before-you-start)
-    * [Deployment](mariadb-maxscale-2208-binlogrouter.md#deployment)
-  * [Galera cluster](mariadb-maxscale-2208-binlogrouter.md#galera-cluster)
-  * [Example](mariadb-maxscale-2208-binlogrouter.md#example)
-  * [Limitations](mariadb-maxscale-2208-binlogrouter.md#limitations)
-
 ### Differences Between Old and New Binlogrouter Implementations
 
 The binlogrouter in MaxScale 2.5.0 is a new and improved version of the original\
@@ -54,7 +33,7 @@ were removed as they were either redundant or not useful.
 The major differences between the new and old binlog router are:
 
 * The list of servers where the database users for authentication are loaded\
-  must be explicitly configured with the `cluster`, `servers` or`targets` parameter. Alternatively, the users can be read from a file. See [user\_accounts\_file](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#user_accounts_file)\
+  must be explicitly configured with the `cluster`, `servers` or`targets` parameter. Alternatively, the users can be read from a file. See [user\_accounts\_file](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#user_accounts_file)\
   for more information.
 * The old binlog router had both `server_id` and `master_id`, the new only`server_id`.
 * No need to configure heartbeat and burst interval anymore as they are\
@@ -216,7 +195,7 @@ binary logs to the slaves.
 
 #### `net_timeout`
 
-* Type: [duration](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `10s`
@@ -225,7 +204,7 @@ Network connection and read timeout in seconds for the connection to the master.
 
 #### `select_master`
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -256,7 +235,7 @@ replication manually with `CHANGE MASTER TO`.
 
 #### `expire_log_duration`
 
-* Type: [duration](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `0s`
@@ -320,7 +299,7 @@ binlogs.
 
 #### `encryption_cipher`
 
-* Type: [enum](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `AES_CBC`, `AES_CTR`, `AES_GCM`
