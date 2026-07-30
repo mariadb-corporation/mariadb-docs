@@ -338,3 +338,37 @@ This panel shows the current resident set size (RSS) of the MaxScale process.
 ## Stack size (server, cluster)
 
 This panel shows the current stack size of the MaxScale node.
+
+The following panels appear on the **Cache** view, available when the [Query Cache](../quickstart/query-cache-gridgain-8.md) add-on is enabled on the service. Select the cache node (or **Cache** in the top-right) on the Monitoring tab to open it.
+
+<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-1.png" alt=""><figcaption><p>Monitoring—Cache</p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-2.png" alt=""><figcaption><p>Monitoring—Cache</p></figcaption></figure>
+
+## Cache Hit Ratio
+
+This panel shows the ratio of cache hits to total lookups (gets) for the GridGain 8 query result cache during the selected time interval.
+
+## Cache Throughput
+
+This panel shows the number of cache gets, hits, and misses per second during the selected time interval.
+
+## Cache Entries
+
+This panel shows the number of entries currently held in the query result cache.
+
+## Off-Heap Used
+
+This panel shows the percentage of the cache node's off-heap memory currently in use.
+
+## Data Region Memory
+
+This panel shows the memory allocated to the cache data region against its maximum size during the selected time interval.
+
+## Evictions / sec
+
+This panel shows the number of cache entries evicted per second.
+
+## Eviction Rate
+
+This panel shows the number of cache entries evicted per second during the selected time interval.
