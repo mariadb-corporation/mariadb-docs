@@ -1287,7 +1287,7 @@ process, it is very fast and provides almost always a performance benefit.
 Currently there are two _shared_ storages; `storage_memcached` and`storage_redis` that are implemented using [memcached](https://memcached.org/)\
 and [redis](https://redis.io/) respectively.
 
-The shared storages are accessed across the network and consequently it is _not_ self-evident that their use will provide any performance benefit.\
+The shared storages are accessed across the network and consequently it is _not_ self-evident that their use will provide any performance benefit.
 Namely, irrespective of whether the data is fetched from the cache or from\
 the server there will be a network hop and often that network hop is, as far\
 as the performance goes, what costs the most.

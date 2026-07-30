@@ -105,7 +105,7 @@ for `matchXY`.
 * Dynamic: Yes
 * Default: None
 
-The hint which is attached to the queries matching the regular expression defined by _matchXY_. If a compatible router is used in the service the query will be routed\
+The hint which is attached to the queries matching the regular expression defined by _matchXY_. If a compatible router is used in the service the query will be routed
 accordingly. The target can be one of the following:
 
 * a server or service name (adds a `HINT_ROUTE_TO_NAMED_SERVER` hint)

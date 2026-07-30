@@ -333,7 +333,7 @@ Limitations:
 
 A router module is capable of routing requests to backend servers according to\
 the characteristics of a request and/or the algorithm the router\
-implements. Examples of routers are `readconnroute` that provides _connection routing_, that is, the server is chosen according to specified rules when the\
+implements. Examples of routers are `readconnroute` that provides _connection routing_, that is, the server is chosen according to specified rules when the
 session is created and all requests are subsequently routed to that server,\
 and `readwritesplit` that provides _statement routing_, that is, each\
 individual request is routed to the most appropriate server.
@@ -1455,7 +1455,7 @@ some_parameter=$SOME_VALUE
 ```
 
 is encountered, then `$SOME_VALUE` will be replaced with the actual value\
-of the environment variable `SOME_VALUE`. Note: _Variable substitution will be made only if '$' is the first character of the value._ _Everything_ following '$' is interpreted as the name of the environment\
+of the environment variable `SOME_VALUE`. Note: _Variable substitution will be made only if '$' is the first character of the value._ _Everything_ following '$' is interpreted as the name of the environment
 variable.
 
 * Referring to a non-existing environment variable is a fatal error.
@@ -3284,12 +3284,12 @@ settings should be tuned according to the use case.
 _persistpoolmax_ limits how many connections can be kept in a pool for a given\
 server. If the pool is full, no more connections are detached from sessions even\
 if they are idle and required. The pool size should be large enough to contain\
-any connections being transferred between sessions, but not be greater than _max\_routing\_connections_. Using the value of _max\_routing\_connections_ is a\
+any connections being transferred between sessions, but not be greater than _max\_routing\_connections_. Using the value of _max\_routing\_connections_ is a
 reasonable starting point.
 
 _persistmaxtime_ limits the time a connection may stay in the pool. This should\
 be high enough so that pooled connections are not unnecessarily closed. Cleaning\
-up clearly unneeded connections from the pool may be useful when _max\_routing\_connections_ is restrictively tuned. Because each MaxScale routing\
+up clearly unneeded connections from the pool may be useful when _max\_routing\_connections_ is restrictively tuned. Because each MaxScale routing
 thread has its own connection pool, one thread can monopolize access to a\
 server. For example, if the pool of thread 1 has 100 connections to _ServerA_\
 with `max_routing_connections=100`, other threads can no longer connect to the\
@@ -3307,7 +3307,7 @@ pruning means that old session commands will not be replayed when a pooled\
 connection is reused. If the pruned commands are important\
 (e.g. statement preparations), the session may fail later on.
 
-If the number of clients actively running queries is greater than _max\_routing\_connections_, query throughput will suffer as clients will need to\
+If the number of clients actively running queries is greater than _max\_routing\_connections_, query throughput will suffer as clients will need to
 take turns. In this situation, it's imperative to minimize the number of\
 backend connections a single session uses. The settings to achieve this depend\
 on the router. For ReadWriteSplit the following should be used:
@@ -5082,7 +5082,7 @@ $ bin/maxctrl show threads
 ```
 
 that is, the number of threads was 4 but has been reduced to 2, and while\
-thread 2 has become drained it stays as _Dormant_ since thread 3 is still _Draining_, it is possible to make thread 2 _Active_ again by increasing the\
+thread 2 has become drained it stays as _Dormant_ since thread 3 is still _Draining_, it is possible to make thread 2 _Active_ again by increasing the
 number of threads to 3.
 
 ```

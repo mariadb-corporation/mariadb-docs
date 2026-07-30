@@ -281,7 +281,7 @@ SELECT histogram FROM mysql.column_stats WHERE TABLE_NAME='t1' ;
 ```
 
 this should produce {"hello":"world"}.\
-h2. Milestone-2: produce JSON with histogram(\*)\
+h2. Milestone-2: produce JSON with histogram(\*)
 (\*) - the exact format is not specified, for now, print the bucket endpoints and produce output like this:
 
 ```

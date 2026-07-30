@@ -1169,7 +1169,7 @@ checks the status of a lock named _maxscale\_mariadbmonitor_ on every server and
 acquires it if free. If the monitor acquires a majority of locks, it is the\
 primary. If a monitor cannot claim majority locks, it is a secondary monitor.
 
-The primary monitor of a cluster also acquires the lock _maxscale\_mariadbmonitor\_master_ on the master server. Secondary monitors check\
+The primary monitor of a cluster also acquires the lock _maxscale\_mariadbmonitor\_master_ on the master server. Secondary monitors check
 which server this lock is taken on and only accept that server as the master.\
 This arrangement is required so that multiple monitors can agree on which server\
 is the master regardless of replication topology. If a secondary monitor does\

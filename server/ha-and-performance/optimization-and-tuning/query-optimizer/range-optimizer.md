@@ -219,7 +219,7 @@ two IN-lists produce 3\*4 =12 ranges:
                         ],
 ```
 
-if one adds `and keypart3 IN (1,2,3,4,5)`, the amount of ranges will be 3\*4\*5=60 and so forth.\
+if one adds `and keypart3 IN (1,2,3,4,5)`, the amount of ranges will be 3\*4\*5=60 and so forth.
 See [optimizer\_max\_sel\_arg\_weight](optimizer_max_sel_arg_weight.md) on how to combat this.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

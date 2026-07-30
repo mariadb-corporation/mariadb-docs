@@ -61,7 +61,7 @@ argument is an optional string.
 Arguments are passed to the parsing function as an array of void pointers. They\
 are interpreted as the types the command expects.
 
-When the module command is executed, the _argv_ parameter for the _my\_simple\_cmd_ contains the parsed arguments received from the caller of the\
+When the module command is executed, the _argv_ parameter for the _my\_simple\_cmd_ contains the parsed arguments received from the caller of the
 command.
 
 CC BY-SA / Gnu FDL

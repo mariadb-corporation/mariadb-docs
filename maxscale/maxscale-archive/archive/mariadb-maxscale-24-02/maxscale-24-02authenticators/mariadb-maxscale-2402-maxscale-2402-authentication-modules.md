@@ -88,7 +88,7 @@ for additional information on how to solve authentication issues.
 #### Wildcard database grants
 
 MaxScale supports wildcards `_` and `%` for database-level grants. As with\
-MariaDB Server, `grant select on test_.* to 'alice'@'%';` gives access to _test\__ as well as _test1_, _test2_ and so on. If the GRANT command escapes the\
+MariaDB Server, `grant select on test_.* to 'alice'@'%';` gives access to _test\__ as well as _test1_, _test2_ and so on. If the GRANT command escapes the
 wildcard (`grant select on` test\_`.* to 'alice'@'%';`) both MaxScale and the\
 MariaDB Server interpret it as only allowing access to _test\__. `_` and `%`\
 are only interpreted as wildcards when the grant is to a database:`grant select on` test\_`.t1 to 'alice'@'%';` only grants access to the_test\_.t1_-table, not to _test1.t1_.
@@ -145,7 +145,7 @@ hostname/IP is ignored.
 
 This setting may be used to force clients to connect through MaxScale. Normally,\
 creating the user _jdoe@%_ will allow the user _jdoe_ to connect from any\
-IP-address. By disabling _match\_host_ and replacing the user with _jdoe@maxscale-IP_, the user can still connect from any client IP but will be\
+IP-address. By disabling _match\_host_ and replacing the user with _jdoe@maxscale-IP_, the user can still connect from any client IP but will be
 forced to go through MaxScale.
 
 ```

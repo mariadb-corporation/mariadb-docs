@@ -61,8 +61,8 @@ the router itself.
 
 #### Histogram
 
-Diff collects latency information separately for each _canonical statement_, which simply means a statement where all literals have been\
-replaced with question marks. For instance, the canonical statement of `SELECT f FROM t WHERE f = 10` and `SELECT f FROM t WHERE f = 20` is\
+Diff collects latency information separately for each _canonical statement_, which simply means a statement where all literals have been
+replaced with question marks. For instance, the canonical statement of `SELECT f FROM t WHERE f = 10` and `SELECT f FROM t WHERE f = 20` is
 in both cases `SELECT f FROM t WHERE f = ?`. The latency information\
 of both of those statements will be collected under the same canonical\
 statement.
@@ -648,7 +648,7 @@ START SLAVE
 If Diff has started in read-only mode, the value of `reset_replication`\
 will be ignored.
 
-Note that since Diff writes updates directly to both _main_ and _other_ there is no guarantee that it will be possible to simply\
+Note that since Diff writes updates directly to both _main_ and _other_ there is no guarantee that it will be possible to simply
 start the replication. Especially not if `gtid_strict_mode`\
 is on.
 

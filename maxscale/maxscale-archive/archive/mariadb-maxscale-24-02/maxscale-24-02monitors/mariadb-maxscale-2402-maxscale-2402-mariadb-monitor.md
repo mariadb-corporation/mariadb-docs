@@ -1206,7 +1206,7 @@ checks the status of a lock named _maxscale\_mariadbmonitor_ on every server and
 acquires it if free. If the monitor acquires a majority of locks, it is the\
 primary. If a monitor cannot claim majority locks, it is a secondary monitor.
 
-The primary monitor of a cluster also acquires the lock _maxscale\_mariadbmonitor\_master_ on the primary server. Secondary monitors check\
+The primary monitor of a cluster also acquires the lock _maxscale\_mariadbmonitor\_master_ on the primary server. Secondary monitors check
 which server this lock is taken on and only accept that server as the primary.\
 This arrangement is required so that multiple monitors can agree on which server\
 is the primary regardless of replication topology. If a secondary monitor does\
@@ -1547,7 +1547,7 @@ directory name. The command
 maxctrl call command mariadbmon async-create-backup MyMonitor MySourceServer wednesday_161122
 ```
 
-would save the backup of MySourceServer to `<backup_storage_path>/wednesday_161122` on the host defined in _backup\_storage\_address_. _ssh\_user_ needs to have read and write access\
+would save the backup of MySourceServer to `<backup_storage_path>/wednesday_161122` on the host defined in _backup\_storage\_address_. _ssh\_user_ needs to have read and write access
 to the main storage directory. The source server must be a primary or replica.
 
 Similar to rebuild-server, the monitor will continue monitoring the servers\
@@ -1603,7 +1603,7 @@ maxctrl call command mariadbmon async-restore-from-backup MyMonitor MyTargetServ
 ```
 
 would erase the contents of MyTargetServer and replace them with the backup\
-contained in `<backup_storage_path>/wednesday_161122` on the host defined in _backup\_storage\_address_. _ssh\_user_ needs to have read access\
+contained in `<backup_storage_path>/wednesday_161122` on the host defined in _backup\_storage\_address_. _ssh\_user_ needs to have read access
 to the main storage directory and the backup. The target server must not be\
 a primary or replica.
 
