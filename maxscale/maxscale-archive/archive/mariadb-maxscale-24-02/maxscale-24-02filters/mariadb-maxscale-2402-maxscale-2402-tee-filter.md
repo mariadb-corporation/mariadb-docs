@@ -1,24 +1,5 @@
 # MaxScale 24.02 Tee Filter
 
-* [Tee Filter](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#tee-filter)
-  * [Overview](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#overview)
-  * [Configuration](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#configuration)
-  * [Filter Parameters](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#filter-parameters)
-    * [target](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#target)
-    * [service](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#service)
-    * [match](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#match)
-    * [exclude](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#exclude)
-  * [options](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#options)
-    * [source](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#source)
-    * [user](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#user)
-    * [sync](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#sync)
-  * [Limitations](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#limitations)
-  * [Module commands](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#module-commands)
-    * [tee disable \[FILTER\]](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#tee-disable-filter)
-    * [tee enable \[FILTER\]](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#tee-enable-filter)
-  * [Examples](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#examples)
-    * [Example 1 - Replicate all inserts into the orders table](mariadb-maxscale-2402-maxscale-2402-tee-filter.md#example-1-replicate-all-inserts-into-the-orders-table)
-
 ### Overview
 
 The tee filter is a "plumbing" fitting in the MariaDB MaxScale filter toolkit.\

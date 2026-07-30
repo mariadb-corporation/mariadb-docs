@@ -4,17 +4,6 @@
 
 This filter was added in MariaDB MaxScale 2.3
 
-* [Throttle](mariadb-maxscale-2501-maxscale-2501-throttle.md#throttle)
-  * [Overview](mariadb-maxscale-2501-maxscale-2501-throttle.md#overview)
-  * [Configuration](mariadb-maxscale-2501-maxscale-2501-throttle.md#configuration)
-    * [Basic Configuration](mariadb-maxscale-2501-maxscale-2501-throttle.md#basic-configuration)
-    * [Allowing high frequency bursts](mariadb-maxscale-2501-maxscale-2501-throttle.md#allowing-high-frequency-bursts)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-throttle.md#settings)
-    * [max\_qps](mariadb-maxscale-2501-maxscale-2501-throttle.md#max_qps)
-    * [throttling\_duration](mariadb-maxscale-2501-maxscale-2501-throttle.md#throttling_duration)
-    * [sampling\_duration](mariadb-maxscale-2501-maxscale-2501-throttle.md#sampling_duration)
-    * [continuous\_duration](mariadb-maxscale-2501-maxscale-2501-throttle.md#continuous_duration)
-
 ### Overview
 
 The throttle filter is used to limit the maximum query frequency (QPS - queries\

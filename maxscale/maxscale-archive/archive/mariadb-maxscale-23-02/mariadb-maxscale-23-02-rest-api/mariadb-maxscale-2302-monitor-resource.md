@@ -3,26 +3,6 @@
 A monitor resource represents a monitor inside MaxScale that monitors one or\
 more servers.
 
-* [Monitor Resource](mariadb-maxscale-2302-monitor-resource.md#monitor-resource)
-  * [Resource Operations](mariadb-maxscale-2302-monitor-resource.md#resource-operations)
-    * [Get a monitor](mariadb-maxscale-2302-monitor-resource.md#get-a-monitor)
-      * [Response](mariadb-maxscale-2302-monitor-resource.md#response)
-    * [Get all monitors](mariadb-maxscale-2302-monitor-resource.md#get-all-monitors)
-      * [Response](mariadb-maxscale-2302-monitor-resource.md#response_1)
-    * [Create a monitor](mariadb-maxscale-2302-monitor-resource.md#create-a-monitor)
-      * [Response](mariadb-maxscale-2302-monitor-resource.md#response_2)
-    * [Update a monitor](mariadb-maxscale-2302-monitor-resource.md#update-a-monitor)
-    * [Modifiable Fields](mariadb-maxscale-2302-monitor-resource.md#modifiable-fields)
-      * [Response](mariadb-maxscale-2302-monitor-resource.md#response_3)
-    * [Update monitor relationships](mariadb-maxscale-2302-monitor-resource.md#update-monitor-relationships)
-      * [Response](mariadb-maxscale-2302-monitor-resource.md#response_4)
-    * [Destroy a monitor](mariadb-maxscale-2302-monitor-resource.md#destroy-a-monitor)
-      * [Response](mariadb-maxscale-2302-monitor-resource.md#response_5)
-    * [Stop a monitor](mariadb-maxscale-2302-monitor-resource.md#stop-a-monitor)
-      * [Response](mariadb-maxscale-2302-monitor-resource.md#response_6)
-    * [Start a monitor](mariadb-maxscale-2302-monitor-resource.md#start-a-monitor)
-      * [Response](mariadb-maxscale-2302-monitor-resource.md#response_7)
-
 ### Resource Operations
 
 The _:name_ in all of the URIs must be the name of a monitor in MaxScale.

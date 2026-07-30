@@ -4,28 +4,6 @@
 
 ## Using MaxGUI Tutorial
 
-* [Using MaxGUI Tutorial](mariadb-maxscale-2208-using-maxgui-tutorial.md#using-maxgui-tutorial)
-* [Introduction](mariadb-maxscale-2208-using-maxgui-tutorial.md#introduction)
-* [Dashboard](mariadb-maxscale-2208-using-maxgui-tutorial.md#dashboard)
-  * [Annotation](mariadb-maxscale-2208-using-maxgui-tutorial.md#annotation)
-  * [Create a new MaxScale object](mariadb-maxscale-2208-using-maxgui-tutorial.md#create-a-new-maxscale-object)
-  * [View Replication Status](mariadb-maxscale-2208-using-maxgui-tutorial.md#view-replication-status)
-* [Detail](mariadb-maxscale-2208-using-maxgui-tutorial.md#detail)
-  * [Annotation](mariadb-maxscale-2208-using-maxgui-tutorial.md#annotation_1)
-* [Visualization](mariadb-maxscale-2208-using-maxgui-tutorial.md#visualization)
-  * [Configuration](mariadb-maxscale-2208-using-maxgui-tutorial.md#configuration)
-    * [Annotation](mariadb-maxscale-2208-using-maxgui-tutorial.md#annotation_2)
-  * [Clusters](mariadb-maxscale-2208-using-maxgui-tutorial.md#clusters)
-    * [Annotation](mariadb-maxscale-2208-using-maxgui-tutorial.md#annotation_3)
-* [Settings](mariadb-maxscale-2208-using-maxgui-tutorial.md#settings)
-  * [Annotation](mariadb-maxscale-2208-using-maxgui-tutorial.md#annotation_4)
-* [Logs Archive](mariadb-maxscale-2208-using-maxgui-tutorial.md#logs-archive)
-  * [Annotation](mariadb-maxscale-2208-using-maxgui-tutorial.md#annotation_5)
-* [Query Editor](mariadb-maxscale-2208-using-maxgui-tutorial.md#query-editor)
-  * [Annotation](mariadb-maxscale-2208-using-maxgui-tutorial.md#annotation_6)
-* [How to kill a session](mariadb-maxscale-2208-using-maxgui-tutorial.md#how-to-kill-a-session)
-  * [Annotation](mariadb-maxscale-2208-using-maxgui-tutorial.md#annotation_7)
-
 ## Introduction
 
 This tutorial is an overview of what the MaxGUI offers as an alternative\
@@ -241,7 +219,7 @@ A SQL editor tool to run queries and perform other SQL operations.
     works on Chrome or any browsers based on Chromium served over a secure\
     connection (https)
 17. Save Script As button. Save the content as a new file.
-18. [sql\_select\_limit](https://mariadb.com/docs/reference/mdb/system-variables/sql_select_limit/)\
+18. [sql\_select\_limit]({server}/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables#sql_select_limit)\
     input. Changing the maximum number of rows to return from SELECT statements.
 19. Add a new session button.
 20. Query Editor settings button. Open `Query configuration` dialog to change\

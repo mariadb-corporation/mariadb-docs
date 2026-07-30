@@ -77,42 +77,6 @@ should be used to communicate with the avrorouter and currently it is the only\
 supported protocol. The clients can request either Avro or JSON format data\
 streams from a database table.
 
-* [Avrorouter](mariadb-maxscale-2308-avrorouter.md#avrorouter)
-  * [Direct Replication Mode](mariadb-maxscale-2308-avrorouter.md#direct-replication-mode)
-  * [Configuration](mariadb-maxscale-2308-avrorouter.md#configuration)
-    * [Router Parameters](mariadb-maxscale-2308-avrorouter.md#router-parameters)
-      * [gtid\_start\_pos](mariadb-maxscale-2308-avrorouter.md#gtid_start_pos)
-      * [server\_id](mariadb-maxscale-2308-avrorouter.md#server_id)
-      * [codec](mariadb-maxscale-2308-avrorouter.md#codec)
-      * [match and exclude](mariadb-maxscale-2308-avrorouter.md#match-and-exclude)
-      * [binlogdir](mariadb-maxscale-2308-avrorouter.md#binlogdir)
-      * [avrodir](mariadb-maxscale-2308-avrorouter.md#avrodir)
-        * [filestem](mariadb-maxscale-2308-avrorouter.md#filestem)
-      * [start\_index](mariadb-maxscale-2308-avrorouter.md#start_index)
-    * [cooperative\_replication](mariadb-maxscale-2308-avrorouter.md#cooperative_replication)
-      * [Avro File Related Parameters](mariadb-maxscale-2308-avrorouter.md#avro-file-related-parameters)
-        * [group\_trx](mariadb-maxscale-2308-avrorouter.md#group_trx)
-        * [group\_rows](mariadb-maxscale-2308-avrorouter.md#group_rows)
-        * [block\_size](mariadb-maxscale-2308-avrorouter.md#block_size)
-        * [max\_file\_size](mariadb-maxscale-2308-avrorouter.md#max_file_size)
-        * [max\_data\_age](mariadb-maxscale-2308-avrorouter.md#max_data_age)
-        * [Example configuration](mariadb-maxscale-2308-avrorouter.md#example-configuration)
-  * [Module commands](mariadb-maxscale-2308-avrorouter.md#module-commands)
-    * [avrorouter::convert SERVICE {start | stop}](mariadb-maxscale-2308-avrorouter.md#avrorouterconvert-service-start-stop)
-    * [avrorouter::purge SERVICE](mariadb-maxscale-2308-avrorouter.md#avrorouterpurge-service)
-  * [Files Created by the Avrorouter](mariadb-maxscale-2308-avrorouter.md#files-created-by-the-avrorouter)
-  * [Resetting the Conversion Process](mariadb-maxscale-2308-avrorouter.md#resetting-the-conversion-process)
-  * [Stopping the Avrorouter](mariadb-maxscale-2308-avrorouter.md#stopping-the-avrorouter)
-  * [Example Client](mariadb-maxscale-2308-avrorouter.md#example-client)
-  * [Avro Schema Generator](mariadb-maxscale-2308-avrorouter.md#avro-schema-generator)
-    * [Simple Schema Generator](mariadb-maxscale-2308-avrorouter.md#simple-schema-generator)
-    * [Python Schema Generator](mariadb-maxscale-2308-avrorouter.md#python-schema-generator)
-    * [Go Schema Generator](mariadb-maxscale-2308-avrorouter.md#go-schema-generator)
-  * [Examples](mariadb-maxscale-2308-avrorouter.md#examples)
-  * [Building Avrorouter](mariadb-maxscale-2308-avrorouter.md#building-avrorouter)
-  * [Router Diagnostics](mariadb-maxscale-2308-avrorouter.md#router-diagnostics)
-  * [Limitations](mariadb-maxscale-2308-avrorouter.md#limitations)
-
 ### Direct Replication Mode
 
 MaxScale 2.4.0 added a direct replication mode that connects the avrorouter\
@@ -160,7 +124,7 @@ tables is not contained in the binlogs.
 
 ### Configuration
 
-For information about common service parameters, refer to the [Configuration Guide](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/).
+For information about common service parameters, refer to the [Configuration Guide](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md).
 
 #### Router Parameters
 
@@ -192,7 +156,7 @@ used when replicating from the primary in direct replication mode.
 
 **`codec`**
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `null`, `deflate`
@@ -202,11 +166,11 @@ The compression codec to use. By default, the avrorouter does not use compressio
 
 This parameter takes one of the following two values; _null_ or\_deflate\_. These are the mandatory compression algorithms required by the\
 Avro specification. For more information about the compression types,\
-refer to the [Avro specification](https://avro.apache.org/docs/current/spec.html#Required+Codecs).
+refer to the [Avro specification](https://avro.apache.org/docs/1.11.1/specification/#required-codecs).
 
 **`match` and `exclude`**
 
-* Type: [regex](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
@@ -285,7 +249,7 @@ beginning of the binary log file.
 
 #### `cooperative_replication`
 
-* Type: [boolean](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -347,7 +311,7 @@ data block.
 
 **`block_size`**
 
-* Type: [size](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#sizes)
+* Type: [size](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `16KiB`
@@ -355,12 +319,12 @@ data block.
 The Avro data block size in bytes. The default is 16 kilobytes. Increase this\
 value if individual events in the binary logs are very large. The value is a\
 size type parameter which means that it can also be defined with an SI suffix.\
-Refer to the [Configuration Guide](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/)\
+Refer to the [Configuration Guide](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md)\
 for more details about size type parameters and how to use them.
 
 **`max_file_size`**
 
-* Type: [size](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#sizes)
+* Type: [size](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: No
 * Default: 0
@@ -380,7 +344,7 @@ replication mode does not support this.
 
 **`max_data_age`**
 
-* Type: [duration](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: 0s
@@ -612,7 +576,7 @@ and `cdc_kafka_producer.py -h`.
 
 ### Building Avrorouter
 
-To build the avrorouter from source, you will need the [Avro C](https://avro.apache.org/docs/current/api/c/) library, liblzma,[the Jansson library](https://www.digip.org/jansson/) and sqlite3 development\
+To build the avrorouter from source, you will need the [Avro C](https://avro.apache.org/docs/1.11.1/api/c/) library, liblzma,[the Jansson library](https://www.digip.org/jansson/) and sqlite3 development\
 headers. When configuring MaxScale with CMake, you will need to add`-DBUILD_CDC=Y` to build the CDC module set.
 
 The Avro C library needs to be build with position independent code enabled. You\

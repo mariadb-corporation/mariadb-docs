@@ -7,19 +7,6 @@
 A filter resource represents an instance of a filter inside MaxScale. Multiple\
 services can use the same filter and a single service can use multiple filters.
 
-* [Filter Resource](mariadb-maxscale-2208-filter-resource.md#filter-resource)
-  * [Resource Operations](mariadb-maxscale-2208-filter-resource.md#resource-operations)
-    * [Get a filter](mariadb-maxscale-2208-filter-resource.md#get-a-filter)
-      * [Response](mariadb-maxscale-2208-filter-resource.md#response)
-    * [Get all filters](mariadb-maxscale-2208-filter-resource.md#get-all-filters)
-      * [Response](mariadb-maxscale-2208-filter-resource.md#response_1)
-    * [Create a filter](mariadb-maxscale-2208-filter-resource.md#create-a-filter)
-      * [Response](mariadb-maxscale-2208-filter-resource.md#response_2)
-    * [Update a filter](mariadb-maxscale-2208-filter-resource.md#update-a-filter)
-      * [Response](mariadb-maxscale-2208-filter-resource.md#response_3)
-    * [Destroy a filter](mariadb-maxscale-2208-filter-resource.md#destroy-a-filter)
-      * [Response](mariadb-maxscale-2208-filter-resource.md#response_4)
-
 ### Resource Operations
 
 The _:name_ in all of the URIs must be the name of a filter in MaxScale.

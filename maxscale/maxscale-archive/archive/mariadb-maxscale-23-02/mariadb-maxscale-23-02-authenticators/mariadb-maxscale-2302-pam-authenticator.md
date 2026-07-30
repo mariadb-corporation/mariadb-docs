@@ -1,16 +1,5 @@
 # PAM Authenticator
 
-* [PAM Authenticator](mariadb-maxscale-2302-pam-authenticator.md#pam-authenticator)
-  * [Configuration](mariadb-maxscale-2302-pam-authenticator.md#configuration)
-    * [pam\_use\_cleartext\_plugin](mariadb-maxscale-2302-pam-authenticator.md#pam_use_cleartext_plugin)
-    * [pam\_mode](mariadb-maxscale-2302-pam-authenticator.md#pam_mode)
-    * [pam\_backend\_mapping](mariadb-maxscale-2302-pam-authenticator.md#pam_backend_mapping)
-    * [pam\_mapped\_pw\_file](mariadb-maxscale-2302-pam-authenticator.md#pam_mapped_pw_file)
-  * [Anonymous user mapping](mariadb-maxscale-2302-pam-authenticator.md#anonymous-user-mapping)
-  * [Implementation details and limitations](mariadb-maxscale-2302-pam-authenticator.md#implementation-details-and-limitations)
-    * [Two-factor authentication support](mariadb-maxscale-2302-pam-authenticator.md#two-factor-authentication-support)
-  * [Test tool](mariadb-maxscale-2302-pam-authenticator.md#test-tool)
-
 Pluggable authentication module (PAM) is a general purpose authentication API.\
 An application using PAM can authenticate a user without knowledge about the\
 underlying authentication implementation. The actual authentication scheme is\

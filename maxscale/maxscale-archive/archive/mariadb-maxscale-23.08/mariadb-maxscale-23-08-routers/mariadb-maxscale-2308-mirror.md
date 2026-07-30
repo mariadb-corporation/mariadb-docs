@@ -4,19 +4,6 @@
 
 ## Mirror
 
-* [Mirror](mariadb-maxscale-2308-mirror.md#mirror)
-  * [Overview](mariadb-maxscale-2308-mirror.md#overview)
-  * [Configuration Parameters](mariadb-maxscale-2308-mirror.md#configuration-parameters)
-    * [main](mariadb-maxscale-2308-mirror.md#main)
-    * [exporter](mariadb-maxscale-2308-mirror.md#exporter)
-    * [file](mariadb-maxscale-2308-mirror.md#file)
-    * [kafka\_broker](mariadb-maxscale-2308-mirror.md#kafka_broker)
-    * [kafka\_topic](mariadb-maxscale-2308-mirror.md#kafka_topic)
-    * [on\_error](mariadb-maxscale-2308-mirror.md#on_error)
-    * [report](mariadb-maxscale-2308-mirror.md#report)
-  * [Example Configuration](mariadb-maxscale-2308-mirror.md#example-configuration)
-  * [Limitations](mariadb-maxscale-2308-mirror.md#limitations)
-
 ### Overview
 
 The `mirror` router is designed for data consistency and database behavior\
@@ -64,7 +51,7 @@ does not create new connections after the initial connections are created.
 
 #### `exporter`
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: Yes
 * Dynamic: Yes
 * Values: `log`, `file`, `kafka`
@@ -122,7 +109,7 @@ This is a mandatory parameter when configured with `exporter=kafka`.
 
 #### `on_error`
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Default: `ignore`
 * Mandatory: No
 * Dynamic: Yes
@@ -141,7 +128,7 @@ failing backends.
 
 #### `report`
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Default: `always`
 * Mandatory: No
 * Dynamic: Yes

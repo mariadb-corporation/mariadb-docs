@@ -1,29 +1,5 @@
 # MaxScale 21.06 KafkaCDC
 
-* [KafkaCDC](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#kafkacdc)
-  * [Overview](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#overview)
-  * [Configuration](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#configuration)
-  * [Parameters](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#parameters)
-    * [bootstrap\_servers](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#bootstrap_servers)
-    * [topic](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#topic)
-    * [enable\_idempotence](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#enable_idempotence)
-    * [timeout](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#timeout)
-    * [gtid](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#gtid)
-    * [server\_id](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#server_id)
-    * [match](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#match)
-    * [exclude](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#exclude)
-    * [cooperative\_replication](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#cooperative_replication)
-    * [read\_gtid\_from\_kafka](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#read_gtid_from_kafka)
-    * [kafka\_ssl](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#kafka_ssl)
-    * [kafka\_ssl\_ca](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#kafka_ssl_ca)
-    * [kafka\_ssl\_cert](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#kafka_ssl_cert)
-    * [kafka\_ssl\_key](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#kafka_ssl_key)
-    * [kafka\_sasl\_user](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#kafka_sasl_user)
-    * [kafka\_sasl\_password](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#kafka_sasl_password)
-    * [kafka\_sasl\_mechanism](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#kafka_sasl_mechanism)
-  * [Example Configuration](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#example-configuration)
-  * [Limitations](mariadb-maxscale-2106-maxscale-2106-kafkacdc.md#limitations)
-
 ### Overview
 
 The KafkaCDC module reads data changes in MariaDB via replication and converts\
@@ -180,7 +156,7 @@ duplication due to broker outages or other network errors. In HA scenarios where
 there are more than two MaxScale instances, event duplication can still happen\
 as there is no synchronization between the MaxScale instances.
 
-The Kafka C library,[librdkafka](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION),\
+The Kafka C library,[librdkafka](https://github.com/confluentinc/librdkafka/blob/master/CONFIGURATION.md),\
 describes the parameter as follows:
 
 When set to true, the producer will ensure that messages are successfully\

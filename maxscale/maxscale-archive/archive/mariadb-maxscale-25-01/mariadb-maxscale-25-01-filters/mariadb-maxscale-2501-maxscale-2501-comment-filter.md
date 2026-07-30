@@ -2,13 +2,6 @@
 
 ## Comment Filter
 
-* [Comment Filter](mariadb-maxscale-2501-maxscale-2501-comment-filter.md#comment-filter)
-  * [Overview](mariadb-maxscale-2501-maxscale-2501-comment-filter.md#overview)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-comment-filter.md#settings)
-    * [inject](mariadb-maxscale-2501-maxscale-2501-comment-filter.md#inject)
-  * [Examples](mariadb-maxscale-2501-maxscale-2501-comment-filter.md#examples)
-    * [Example 1 - Inject IP address of the connected client into statements](mariadb-maxscale-2501-maxscale-2501-comment-filter.md#example-1-inject-ip-address-of-the-connected-client-into-statements)
-
 ### Overview
 
 With the _comment_ filter it is possible to define comments that are\

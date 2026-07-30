@@ -6,17 +6,6 @@
 
 This filter was introduced in MariaDB MaxScale 2.1.
 
-* [Consistent Critical Read Filter](mariadb-maxscale-2208-consistent-critical-read-filter.md#consistent-critical-read-filter)
-  * [Overview](mariadb-maxscale-2208-consistent-critical-read-filter.md#overview)
-    * [Controlling the Filter with SQL Comments](mariadb-maxscale-2208-consistent-critical-read-filter.md#controlling-the-filter-with-sql-comments)
-  * [Filter Parameters](mariadb-maxscale-2208-consistent-critical-read-filter.md#filter-parameters)
-    * [time](mariadb-maxscale-2208-consistent-critical-read-filter.md#time)
-    * [count](mariadb-maxscale-2208-consistent-critical-read-filter.md#count)
-    * [match, ignore](mariadb-maxscale-2208-consistent-critical-read-filter.md#match-ignore)
-    * [options](mariadb-maxscale-2208-consistent-critical-read-filter.md#options)
-    * [global](mariadb-maxscale-2208-consistent-critical-read-filter.md#global)
-  * [Example Configuration](mariadb-maxscale-2208-consistent-critical-read-filter.md#example-configuration)
-
 ### Overview
 
 The Consistent Critical Read (CCR) filter allows consistent critical reads to be\
@@ -40,7 +29,7 @@ parameter might give a different result. Even a comment cannot cause a\
 SELECT-query to trigger the filter. Such a comment is considered an error and\
 ignored.
 
-The comments must follow the [MaxScale hint syntax](../../../../../en/mariadb-maxscale-2208-maxscale-2208-hint-syntax/)\
+The comments must follow the [MaxScale hint syntax](../mariadb-maxscale-2208-reference/mariadb-maxscale-2208-hint-syntax.md)\
 and the _HintFilter_ needs to be in the filter chain before the CCR-filter. If a\
 query has a MaxScale supported comment line which defines the parameter `ccr`,\
 that comment is caught by the CCR-filter. Parameter values `match` and `ignore`\
@@ -62,13 +51,13 @@ The CCR filter has no mandatory parameters.
 
 #### `time`
 
-* Type: [duration](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `60s`
 
 The time window during which queries are routed to the master. The duration\
-can be specified as documented [here](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#durations)\
+can be specified as documented [here](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#durations)\
 but the value will always be rounded to the nearest second.\
 If no explicit unit has been specified, the value is interpreted as seconds\
 in MaxScale 2.4. In subsequent versions a value without a unit may be rejected.\
@@ -100,12 +89,12 @@ modifying SQL statement is processed, the counter is reset to the value of_count
 
 #### `match`, `ignore`
 
-* Type: [regex](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
 
-These [regular expression settings](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#standard-regular-expression-settings-for-filters)\
+These [regular expression settings](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters)\
 control which statements trigger statement re-routing. Only non-SELECT statements are\
 inspected. For CCRFilter, the _exclude_-parameter is instead named _ignore_, yet works\
 similarly.
@@ -118,7 +107,7 @@ options=case,extended
 
 #### `options`
 
-* Type: [enum](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `ignorecase`, `case`, `extended`
@@ -128,7 +117,7 @@ Regular expression options for `match` and `ignore`.
 
 #### `global`
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`

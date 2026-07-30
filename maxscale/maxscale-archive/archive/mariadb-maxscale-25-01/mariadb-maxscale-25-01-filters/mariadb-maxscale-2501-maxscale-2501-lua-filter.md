@@ -13,16 +13,6 @@ _Note:_ This module is experimental and must be built from source. The\
 module is deprecated in MaxScale 23.08 and might be removed in a future\
 release.
 
-* [Lua Filter](mariadb-maxscale-2501-maxscale-2501-lua-filter.md#lua-filter)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-lua-filter.md#settings)
-    * [global\_script](mariadb-maxscale-2501-maxscale-2501-lua-filter.md#global_script)
-    * [session\_script](mariadb-maxscale-2501-maxscale-2501-lua-filter.md#session_script)
-  * [Lua Script Calling Convention](mariadb-maxscale-2501-maxscale-2501-lua-filter.md#lua-script-calling-convention)
-    * [Script Template](mariadb-maxscale-2501-maxscale-2501-lua-filter.md#script-template)
-    * [Functions Exposed by the Luafilter](mariadb-maxscale-2501-maxscale-2501-lua-filter.md#functions-exposed-by-the-luafilter)
-  * [Example Configuration and Script](mariadb-maxscale-2501-maxscale-2501-lua-filter.md#example-configuration-and-script)
-  * [Limitations](mariadb-maxscale-2501-maxscale-2501-lua-filter.md#limitations)
-
 ### Settings
 
 The luafilter has two parameters. They control which scripts will be called by\

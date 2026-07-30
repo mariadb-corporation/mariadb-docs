@@ -3,32 +3,6 @@
 A service resource represents a service inside MaxScale. A service is a\
 collection of network listeners, filters, a router and a set of backend servers.
 
-* [Service Resource](mariadb-maxscale-2402-maxscale-2402-service-resource.md#service-resource)
-  * [Resource Operations](mariadb-maxscale-2402-maxscale-2402-service-resource.md#resource-operations)
-    * [Get a service](mariadb-maxscale-2402-maxscale-2402-service-resource.md#get-a-service)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-service-resource.md#response)
-    * [Get all services](mariadb-maxscale-2402-maxscale-2402-service-resource.md#get-all-services)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-service-resource.md#response_1)
-    * [Create a service](mariadb-maxscale-2402-maxscale-2402-service-resource.md#create-a-service)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-service-resource.md#response_2)
-    * [Destroy a service](mariadb-maxscale-2402-maxscale-2402-service-resource.md#destroy-a-service)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-service-resource.md#response_3)
-    * [Update a service](mariadb-maxscale-2402-maxscale-2402-service-resource.md#update-a-service)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-service-resource.md#response_4)
-    * [Update service relationships](mariadb-maxscale-2402-maxscale-2402-service-resource.md#update-service-relationships)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-service-resource.md#response_5)
-    * [Stop a service](mariadb-maxscale-2402-maxscale-2402-service-resource.md#stop-a-service)
-      * [Parameters](mariadb-maxscale-2402-maxscale-2402-service-resource.md#parameters)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-service-resource.md#response_6)
-    * [Start a service](mariadb-maxscale-2402-maxscale-2402-service-resource.md#start-a-service)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-service-resource.md#response_7)
-    * [Reload users of a service](mariadb-maxscale-2402-maxscale-2402-service-resource.md#reload-users-of-a-service)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-service-resource.md#response_8)
-    * [Get service listeners](mariadb-maxscale-2402-maxscale-2402-service-resource.md#get-service-listeners)
-    * [Get a single service listener](mariadb-maxscale-2402-maxscale-2402-service-resource.md#get-a-single-service-listener)
-    * [Create a new listener](mariadb-maxscale-2402-maxscale-2402-service-resource.md#create-a-new-listener)
-    * [Destroy a listener](mariadb-maxscale-2402-maxscale-2402-service-resource.md#destroy-a-listener)
-
 ### Resource Operations
 
 The _:name_ in all of the URIs must be the name of a service in MaxScale.

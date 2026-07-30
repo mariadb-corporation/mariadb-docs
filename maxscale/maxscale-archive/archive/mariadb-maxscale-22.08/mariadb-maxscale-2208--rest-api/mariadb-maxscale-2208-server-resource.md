@@ -6,26 +6,6 @@
 
 A server resource represents a backend database server.
 
-* [Server Resource](mariadb-maxscale-2208-server-resource.md#server-resource)
-  * [Resource Operations](mariadb-maxscale-2208-server-resource.md#resource-operations)
-    * [Get a server](mariadb-maxscale-2208-server-resource.md#get-a-server)
-      * [Response](mariadb-maxscale-2208-server-resource.md#response)
-    * [Get all servers](mariadb-maxscale-2208-server-resource.md#get-all-servers)
-      * [Response](mariadb-maxscale-2208-server-resource.md#response_1)
-    * [Create a server](mariadb-maxscale-2208-server-resource.md#create-a-server)
-      * [Response](mariadb-maxscale-2208-server-resource.md#response_2)
-    * [Update a server](mariadb-maxscale-2208-server-resource.md#update-a-server)
-    * [Modifiable Fields](mariadb-maxscale-2208-server-resource.md#modifiable-fields)
-      * [Response](mariadb-maxscale-2208-server-resource.md#response_3)
-    * [Update server relationships](mariadb-maxscale-2208-server-resource.md#update-server-relationships)
-      * [Response](mariadb-maxscale-2208-server-resource.md#response_4)
-    * [Destroy a server](mariadb-maxscale-2208-server-resource.md#destroy-a-server)
-      * [Response](mariadb-maxscale-2208-server-resource.md#response_5)
-    * [Set server state](mariadb-maxscale-2208-server-resource.md#set-server-state)
-      * [Response](mariadb-maxscale-2208-server-resource.md#response_6)
-    * [Clear server state](mariadb-maxscale-2208-server-resource.md#clear-server-state)
-      * [Response](mariadb-maxscale-2208-server-resource.md#response_7)
-
 ### Resource Operations
 
 The _:name_ in all of the URIs must be the name of a server in MaxScale.
@@ -856,7 +836,7 @@ new servers to be created and immediately taken into use.
 }
 ```
 
-Refer to the [Configuration Guide](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/)\
+Refer to the [Configuration Guide](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md)\
 for a full list of server parameters.
 
 **Response**

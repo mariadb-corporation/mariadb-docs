@@ -4,20 +4,6 @@
 
 ## Regex Filter
 
-* [Regex Filter](mariadb-maxscale-2308-regex-filter.md#regex-filter)
-  * [Overview](mariadb-maxscale-2308-regex-filter.md#overview)
-  * [Configuration](mariadb-maxscale-2308-regex-filter.md#configuration)
-  * [Filter Parameters](mariadb-maxscale-2308-regex-filter.md#filter-parameters)
-    * [match](mariadb-maxscale-2308-regex-filter.md#match)
-    * [options](mariadb-maxscale-2308-regex-filter.md#options)
-    * [replace](mariadb-maxscale-2308-regex-filter.md#replace)
-    * [source](mariadb-maxscale-2308-regex-filter.md#source)
-    * [user](mariadb-maxscale-2308-regex-filter.md#user)
-    * [log\_file](mariadb-maxscale-2308-regex-filter.md#log_file)
-    * [log\_trace](mariadb-maxscale-2308-regex-filter.md#log_trace)
-  * [Examples](mariadb-maxscale-2308-regex-filter.md#examples)
-    * [Example 1 - Replace MySQL 5.1 create table syntax with that for later versions](mariadb-maxscale-2308-regex-filter.md#example-1-replace-mysql-51-create-table-syntax-with-that-for-later-versions)
-
 ### Overview
 
 The Regex filter is a filter module for MariaDB MaxScale that is able to rewrite\
@@ -55,7 +41,7 @@ The Regex filter has two mandatory parameters: _match_ and _replace_.
 
 #### `match`
 
-* Type: [regex](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: Yes
 * Dynamic: Yes
 
@@ -68,13 +54,13 @@ options=case
 
 #### `options`
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
 
-The _options_-parameter affects how the patterns are compiled as [usual](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#standard-regular-expression-settings-for-filters).
+The _options_-parameter affects how the patterns are compiled as [usual](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters).
 
 #### `replace`
 

@@ -4,22 +4,6 @@ A session is an abstraction of a client connection, any number of related backen
 connections, a router module session and possibly filter module sessions. Each\
 session is created on a service and each service can have multiple sessions.
 
-* [Session Resource](mariadb-maxscale-2402-maxscale-2402-session-resource.md#session-resource)
-  * [Resource Operations](mariadb-maxscale-2402-maxscale-2402-session-resource.md#resource-operations)
-    * [Get a session](mariadb-maxscale-2402-maxscale-2402-session-resource.md#get-a-session)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-session-resource.md#response)
-    * [Get all sessions](mariadb-maxscale-2402-maxscale-2402-session-resource.md#get-all-sessions)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-session-resource.md#response_1)
-    * [Update a Session](mariadb-maxscale-2402-maxscale-2402-session-resource.md#update-a-session)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-session-resource.md#response_2)
-    * [Restart a Session](mariadb-maxscale-2402-maxscale-2402-session-resource.md#restart-a-session)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-session-resource.md#response_3)
-    * [Restart all Sessions](mariadb-maxscale-2402-maxscale-2402-session-resource.md#restart-all-sessions)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-session-resource.md#response_4)
-    * [Kill a Session](mariadb-maxscale-2402-maxscale-2402-session-resource.md#kill-a-session)
-      * [Request Parameters](mariadb-maxscale-2402-maxscale-2402-session-resource.md#request-parameters)
-      * [Response](mariadb-maxscale-2402-maxscale-2402-session-resource.md#response_5)
-
 ### Resource Operations
 
 #### Get a session

@@ -6,16 +6,6 @@
 
 This filter was introduced in MariaDB MaxScale 2.1.
 
-* [Maxrows](mariadb-maxscale-2402-maxscale-2402-maxrows.md#maxrows)
-  * [Overview](mariadb-maxscale-2402-maxscale-2402-maxrows.md#overview)
-  * [Configuration](mariadb-maxscale-2402-maxscale-2402-maxrows.md#configuration)
-    * [Filter Parameters](mariadb-maxscale-2402-maxscale-2402-maxrows.md#filter-parameters)
-      * [max\_resultset\_rows](mariadb-maxscale-2402-maxscale-2402-maxrows.md#max_resultset_rows)
-      * [max\_resultset\_size](mariadb-maxscale-2402-maxscale-2402-maxrows.md#max_resultset_size)
-      * [max\_resultset\_return](mariadb-maxscale-2402-maxscale-2402-maxrows.md#max_resultset_return)
-      * [debug](mariadb-maxscale-2402-maxscale-2402-maxrows.md#debug)
-  * [Example Configuration](mariadb-maxscale-2402-maxscale-2402-maxrows.md#example-configuration)
-
 ### Overview
 
 The Maxrows filter is capable of restricting the amount of rows that a SELECT,\

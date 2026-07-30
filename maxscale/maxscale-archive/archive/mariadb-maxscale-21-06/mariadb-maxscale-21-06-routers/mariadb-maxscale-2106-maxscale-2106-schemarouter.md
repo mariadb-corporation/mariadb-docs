@@ -36,23 +36,6 @@ From 2.3.0 onwards, SchemaRouter is capable of limited table family sharding.
 * The `auth_all_servers` parameter is no longer automatically enabled by the\
   schemarouter. To retain the old behavior that was present in 2.5, explicitly\
   define `auth_all_servers=true` for all schemarouter services.
-* [SchemaRouter](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#schemarouter)
-  * [Changes in Version 6](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#changes-in-version-6)
-  * [Routing Logic](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#routing-logic)
-    * [Custom SQL Commands](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#custom-sql-commands)
-    * [Database Mapping](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#database-mapping)
-  * [Configuration](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#configuration)
-  * [Router Parameters](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#router-parameters)
-    * [ignore\_tables](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#ignore_tables)
-    * [ignore\_tables\_regex](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#ignore_tables_regex)
-    * [max\_sescmd\_history](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#max_sescmd_history)
-    * [disable\_sescmd\_history](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#disable_sescmd_history)
-    * [refresh\_databases](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#refresh_databases)
-    * [refresh\_interval](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#refresh_interval)
-  * [Table Family Sharding](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#table-family-sharding)
-  * [Router Diagnostics](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#router-diagnostics)
-  * [Limitations](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#limitations)
-  * [Examples](mariadb-maxscale-2106-maxscale-2106-schemarouter.md#examples)
 
 ### Routing Logic
 

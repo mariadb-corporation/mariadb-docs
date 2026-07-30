@@ -2,15 +2,6 @@
 
 This filter was introduced in MariaDB MaxScale 2.3.0.
 
-* [Binlog Filter](mariadb-maxscale-2302-binlog-filter.md#binlog-filter)
-  * [Overview](mariadb-maxscale-2302-binlog-filter.md#overview)
-  * [Configuration](mariadb-maxscale-2302-binlog-filter.md#configuration)
-    * [match](mariadb-maxscale-2302-binlog-filter.md#match)
-    * [exclude](mariadb-maxscale-2302-binlog-filter.md#exclude)
-    * [rewrite\_src](mariadb-maxscale-2302-binlog-filter.md#rewrite_src)
-    * [rewrite\_dest](mariadb-maxscale-2302-binlog-filter.md#rewrite_dest)
-  * [Example Configuration](mariadb-maxscale-2302-binlog-filter.md#example-configuration)
-
 ### Overview
 
 The `binlogfilter` can be combined with a `binlogrouter` service to selectively\

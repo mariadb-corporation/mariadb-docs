@@ -3,24 +3,6 @@
 A listener resource represents a listener of a service in MaxScale. All\
 listeners point to a service in MaxScale.
 
-* [Listener Resource](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#listener-resource)
-  * [Resource Operations](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#resource-operations)
-    * [Get a listener](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#get-a-listener)
-      * [Response](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#response)
-    * [Get all listeners](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#get-all-listeners)
-      * [Response](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#response_1)
-    * [Create a new listener](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#create-a-new-listener)
-      * [Response](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#response_2)
-    * [Update a listener](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#update-a-listener)
-      * [Response](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#response_3)
-    * [Destroy a listener](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#destroy-a-listener)
-      * [Response](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#response_4)
-    * [Stop a listener](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#stop-a-listener)
-      * [Parameters](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#parameters)
-      * [Response](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#response_5)
-    * [Start a listener](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#start-a-listener)
-      * [Response](mariadb-maxscale-2106-maxscale-2106-listener-resource.md#response_6)
-
 ### Resource Operations
 
 #### Get a listener

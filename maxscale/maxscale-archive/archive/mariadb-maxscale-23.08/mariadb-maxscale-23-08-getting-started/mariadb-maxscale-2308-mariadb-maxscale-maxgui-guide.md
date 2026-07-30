@@ -4,22 +4,6 @@
 
 ## MariaDB MaxScale MaxGUI Guide
 
-* [MariaDB MaxScale MaxGUI Guide](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#mariadb-maxscale-maxgui-guide)
-* [Introduction](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#introduction)
-* [Enabling MaxGUI](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#enabling-maxgui)
-  * [Securing the GUI](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#securing-the-gui)
-* [Authentication](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#authentication)
-* [Pages](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#pages)
-  * [Dashboard](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#dashboard)
-  * [Detail](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#detail)
-  * [Visualization](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#visualization)
-  * [Settings](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#settings)
-  * [Logs Archive](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#logs-archive)
-  * [Workspace](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#workspace)
-    * [1. Run Queries](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#1-run-queries)
-    * [2. Data Migration](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#2-data-migration)
-    * [3. Create an ERD](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#3-create-an-erd)
-
 ## Introduction
 
 _MaxGUI_ is a browser-based interface for MaxScale REST-API and query execution.
@@ -33,7 +17,7 @@ configuration file. Once enabled, MaxGUI will be available on port 8989:`http://
 
 To make MaxGUI secure, set `admin_secure_gui=true` and configure both the`admin_ssl_key` and `admin_ssl_cert` parameters.
 
-See [Configuration Guide](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/) and [Configuration and Hardening](../mariadb-maxscale-23-08-tutorials/mariadb-maxscale-2308-rest-api-tutorial.md#configuration-and-hardening)\
+See [Configuration Guide](mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md) and [Configuration and Hardening](../mariadb-maxscale-23-08-tutorials/mariadb-maxscale-2308-rest-api-tutorial.md#configuration-and-hardening)\
 for instructions on how to harden your MaxScale installation for production use.
 
 ## Authentication
@@ -60,7 +44,7 @@ By default, the refresh interval is 10 seconds.
 
 ### Detail
 
-This page shows information on each [MaxScale object](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#objects) and allow to edit its\
+This page shows information on each [MaxScale object](mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#objects) and allow to edit its\
 parameter, relationships and perform other manipulation operations.
 
 Access this page by clicking on the MaxScale object name on the [dashboard page](mariadb-maxscale-2308-mariadb-maxscale-maxgui-guide.md#dashboard)

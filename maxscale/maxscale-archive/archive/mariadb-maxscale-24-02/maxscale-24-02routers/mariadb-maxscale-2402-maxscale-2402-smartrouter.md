@@ -1,14 +1,5 @@
 # MaxScale 24.02 SmartRouter
 
-* [SmartRouter](mariadb-maxscale-2402-maxscale-2402-smartrouter.md#smartrouter)
-  * [Overview](mariadb-maxscale-2402-maxscale-2402-smartrouter.md#overview)
-  * [Configuration](mariadb-maxscale-2402-maxscale-2402-smartrouter.md#configuration)
-    * [master](mariadb-maxscale-2402-maxscale-2402-smartrouter.md#master)
-      * [Example](mariadb-maxscale-2402-maxscale-2402-smartrouter.md#example)
-  * [Cluster selection - how queries are routed](mariadb-maxscale-2402-maxscale-2402-smartrouter.md#cluster-selection-how-queries-are-routed)
-  * [Limitations](mariadb-maxscale-2402-maxscale-2402-smartrouter.md#limitations)
-  * [Complete configuration example](mariadb-maxscale-2402-maxscale-2402-smartrouter.md#complete-configuration-example)
-
 ### Overview
 
 SmartRouter is the query router of the SmartQuery framework. Based on the type\

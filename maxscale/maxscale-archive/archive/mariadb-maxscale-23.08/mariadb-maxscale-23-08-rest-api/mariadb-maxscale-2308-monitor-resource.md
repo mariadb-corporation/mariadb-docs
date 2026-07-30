@@ -7,42 +7,6 @@
 A monitor resource represents a monitor inside MaxScale that monitors one or
 more servers.
 
-
-
-
-* [Monitor Resource](#monitor-resource)
-
-  * [Resource Operations](#resource-operations)
-
-    * [Get a monitor](#get-a-monitor)
-
-      * [Response](#response)
-    * [Get all monitors](#get-all-monitors)
-
-      * [Response](#response_1)
-    * [Create a monitor](#create-a-monitor)
-
-      * [Response](#response_2)
-    * [Update a monitor](#update-a-monitor)
-    * [Modifiable Fields](#modifiable-fields)
-
-      * [Response](#response_3)
-    * [Update monitor relationships](#update-monitor-relationships)
-
-      * [Response](#response_4)
-    * [Destroy a monitor](#destroy-a-monitor)
-
-      * [Response](#response_5)
-    * [Stop a monitor](#stop-a-monitor)
-
-      * [Response](#response_6)
-    * [Start a monitor](#start-a-monitor)
-
-      * [Response](#response_7)
-
-
-
-
 ## Resource Operations
 
 
@@ -424,7 +388,7 @@ fields.
 * `data.attributes.parameters.user`
 * The [user](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#password) to use
 * `data.attributes.parameters.password`
-* The [password](/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#password) to use
+* The [password](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#password) to use
 
 
 All monitor parameters can be defined at creation time.

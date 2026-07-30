@@ -4,23 +4,6 @@
 
 This filter adds routing hints to a service. The filter has no parameters.
 
-* [Hintfilter](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#hintfilter)
-* [Hint Syntax](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#hint-syntax)
-  * [Comments and comment types](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#comments-and-comment-types)
-  * [Hint body](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#hint-body)
-    * [Routing destination hints](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#routing-destination-hints)
-      * [Route to primary](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#route-to-primary)
-      * [Route to replica](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#route-to-replica)
-      * [Route to named server](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#route-to-named-server)
-      * [Route to last used server](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#route-to-last-used-server)
-      * [Name-value hints](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#name-value-hints)
-  * [Hint stack](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#hint-stack)
-* [Prepared Statements](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#prepared-statements)
-  * [Binary Protocol](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#binary-protocol)
-  * [Text Protocol](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#text-protocol)
-* [Examples](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#examples)
-  * [Routing SELECT queries to primary](mariadb-maxscale-2501-maxscale-2501-hintfilter.md#routing-select-queries-to-primary)
-
 ## Hint Syntax
 
 **Note:** If a query has more than one comment only the first comment is\

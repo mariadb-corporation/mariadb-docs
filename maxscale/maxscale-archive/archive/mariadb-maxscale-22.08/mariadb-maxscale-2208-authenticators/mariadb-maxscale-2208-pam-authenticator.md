@@ -4,17 +4,6 @@
 
 ## PAM Authenticator
 
-* [PAM Authenticator](mariadb-maxscale-2208-pam-authenticator.md#pam-authenticator)
-  * [Configuration](mariadb-maxscale-2208-pam-authenticator.md#configuration)
-    * [pam\_use\_cleartext\_plugin](mariadb-maxscale-2208-pam-authenticator.md#pam_use_cleartext_plugin)
-    * [pam\_mode](mariadb-maxscale-2208-pam-authenticator.md#pam_mode)
-    * [pam\_backend\_mapping](mariadb-maxscale-2208-pam-authenticator.md#pam_backend_mapping)
-    * [pam\_mapped\_pw\_file](mariadb-maxscale-2208-pam-authenticator.md#pam_mapped_pw_file)
-  * [Anonymous user mapping](mariadb-maxscale-2208-pam-authenticator.md#anonymous-user-mapping)
-  * [Implementation details and limitations](mariadb-maxscale-2208-pam-authenticator.md#implementation-details-and-limitations)
-    * [Two-factor authentication support](mariadb-maxscale-2208-pam-authenticator.md#two-factor-authentication-support)
-  * [Test tool](mariadb-maxscale-2208-pam-authenticator.md#test-tool)
-
 Pluggable authentication module (PAM) is a general purpose authentication API.\
 An application using PAM can authenticate a user without knowledge about the\
 underlying authentication implementation. The actual authentication scheme is\
@@ -57,7 +46,7 @@ account         required        pam_unix.so
 
 #### `pam_use_cleartext_plugin`
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -74,7 +63,7 @@ authenticator_options=pam_use_cleartext_plugin=1
 
 #### `pam_mode`
 
-* Type: [enumeration](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enumeration](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `password`, `password_2FA`
@@ -98,7 +87,7 @@ for more details. Two-factor mode is incompatible with\_pam\_use\_cleartext\_plu
 
 #### `pam_backend_mapping`
 
-* Type: [enumeration](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enumeration](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `none`, `mariadb`
@@ -125,7 +114,7 @@ users cannot be used on the same listener.
 
 Because the client still needs to authenticate to MaxScale normally, an\
 anonymous user may be required. If the backends do not allow such a user, one\
-can be manually added using the service setting [user\_accounts\_file](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#user_accounts_file).
+can be manually added using the service setting [user\_accounts\_file](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#user_accounts_file).
 
 To map usernames, the PAM service needs to use a module such as\_pam\_user\_map.so\_. This module is not a standard Linux component and needs to be\
 installed separately. It is included in recent MariaDB Server packages and can\
@@ -134,7 +123,7 @@ for more information on how to configure the module. If the goal is to only map\
 users from PAM to MariaDB in MaxScale, then configuring user mapping\
 on just the machine running MaxScale is enough.
 
-Instead of using `pam_backend_mapping`, consider using the listener setting [user\_mapping\_file](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#user_mapping_file),\
+Instead of using `pam_backend_mapping`, consider using the listener setting [user\_mapping\_file](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#user_mapping_file),\
 as it is easier to configure. `pam_backend_mapping` should only be used when\
 the user mapping needs to be defined by pam.
 

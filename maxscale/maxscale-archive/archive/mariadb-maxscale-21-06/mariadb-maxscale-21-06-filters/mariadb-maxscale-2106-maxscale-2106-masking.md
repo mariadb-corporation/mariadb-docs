@@ -2,33 +2,6 @@
 
 This filter was introduced in MariaDB MaxScale 2.1.
 
-* [Masking](mariadb-maxscale-2106-maxscale-2106-masking.md#masking)
-  * [Overview](mariadb-maxscale-2106-maxscale-2106-masking.md#overview)
-  * [Security](mariadb-maxscale-2106-maxscale-2106-masking.md#security)
-  * [Limitations](mariadb-maxscale-2106-maxscale-2106-masking.md#limitations)
-  * [Configuration](mariadb-maxscale-2106-maxscale-2106-masking.md#configuration)
-    * [Filter Parameters](mariadb-maxscale-2106-maxscale-2106-masking.md#filter-parameters)
-      * [rules](mariadb-maxscale-2106-maxscale-2106-masking.md#rules)
-      * [warn\_type\_mismatch](mariadb-maxscale-2106-maxscale-2106-masking.md#warn_type_mismatch)
-      * [large\_payload](mariadb-maxscale-2106-maxscale-2106-masking.md#large_payload)
-      * [prevent\_function\_usage](mariadb-maxscale-2106-maxscale-2106-masking.md#prevent_function_usage)
-      * [require\_fully\_parsed](mariadb-maxscale-2106-maxscale-2106-masking.md#require_fully_parsed)
-      * [treat\_string\_arg\_as\_field](mariadb-maxscale-2106-maxscale-2106-masking.md#treat_string_arg_as_field)
-      * [check\_user\_variables](mariadb-maxscale-2106-maxscale-2106-masking.md#check_user_variables)
-      * [check\_unions](mariadb-maxscale-2106-maxscale-2106-masking.md#check_unions)
-      * [check\_subqueries](mariadb-maxscale-2106-maxscale-2106-masking.md#check_subqueries)
-  * [Rules](mariadb-maxscale-2106-maxscale-2106-masking.md#rules_1)
-    * [replace](mariadb-maxscale-2106-maxscale-2106-masking.md#replace)
-    * [obfuscate](mariadb-maxscale-2106-maxscale-2106-masking.md#obfuscate)
-    * [with](mariadb-maxscale-2106-maxscale-2106-masking.md#with)
-    * [applies\_to](mariadb-maxscale-2106-maxscale-2106-masking.md#applies_to)
-    * [exempted](mariadb-maxscale-2106-maxscale-2106-masking.md#exempted)
-  * [Module commands](mariadb-maxscale-2106-maxscale-2106-masking.md#module-commands)
-    * [reload](mariadb-maxscale-2106-maxscale-2106-masking.md#reload)
-  * [Example](mariadb-maxscale-2106-maxscale-2106-masking.md#example)
-    * [Configuration](mariadb-maxscale-2106-maxscale-2106-masking.md#configuration_1)
-    * [masking\_rules.json](mariadb-maxscale-2106-maxscale-2106-masking.md#masking_rulesjson)
-
 ### Overview
 
 With the _masking_ filter it is possible to obfuscate the returned\

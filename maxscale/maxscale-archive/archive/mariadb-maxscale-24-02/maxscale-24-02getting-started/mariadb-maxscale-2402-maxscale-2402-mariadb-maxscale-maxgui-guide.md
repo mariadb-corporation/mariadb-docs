@@ -1,21 +1,5 @@
 # MaxScale 24.02 MariaDB MaxScale MaxGUI Guide
 
-* [MariaDB MaxScale MaxGUI Guide](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#mariadb-maxscale-maxgui-guide)
-* [Introduction](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#introduction)
-* [Enabling MaxGUI](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#enabling-maxgui)
-  * [Securing the GUI](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#securing-the-gui)
-* [Authentication](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#authentication)
-* [Pages](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#pages)
-  * [Dashboard](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#dashboard)
-  * [Detail](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#detail)
-  * [Visualization](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#visualization)
-  * [Settings](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#settings)
-  * [Logs Archive](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#logs-archive)
-  * [Workspace](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#workspace)
-    * [1. Run Queries](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#1-run-queries)
-    * [2. Data Migration](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#2-data-migration)
-    * [3. Create an ERD](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-maxgui-guide.md#3-create-an-erd)
-
 ## Introduction
 
 _MaxGUI_ is a browser-based interface for MaxScale REST-API and query execution.

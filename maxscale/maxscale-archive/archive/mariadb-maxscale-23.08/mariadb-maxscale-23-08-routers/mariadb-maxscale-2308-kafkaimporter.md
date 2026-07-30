@@ -4,25 +4,6 @@
 
 ## KafkaImporter
 
-* [KafkaImporter](mariadb-maxscale-2308-kafkaimporter.md#kafkaimporter)
-  * [Overview](mariadb-maxscale-2308-kafkaimporter.md#overview)
-    * [Required Grants](mariadb-maxscale-2308-kafkaimporter.md#required-grants)
-  * [Parameters](mariadb-maxscale-2308-kafkaimporter.md#parameters)
-    * [bootstrap\_servers](mariadb-maxscale-2308-kafkaimporter.md#bootstrap_servers)
-    * [topics](mariadb-maxscale-2308-kafkaimporter.md#topics)
-    * [batch\_size](mariadb-maxscale-2308-kafkaimporter.md#batch_size)
-    * [kafka\_sasl\_mechanism](mariadb-maxscale-2308-kafkaimporter.md#kafka_sasl_mechanism)
-    * [kafka\_sasl\_user](mariadb-maxscale-2308-kafkaimporter.md#kafka_sasl_user)
-    * [kafka\_sasl\_password](mariadb-maxscale-2308-kafkaimporter.md#kafka_sasl_password)
-    * [kafka\_ssl](mariadb-maxscale-2308-kafkaimporter.md#kafka_ssl)
-    * [kafka\_ssl\_ca](mariadb-maxscale-2308-kafkaimporter.md#kafka_ssl_ca)
-    * [kafka\_ssl\_cert](mariadb-maxscale-2308-kafkaimporter.md#kafka_ssl_cert)
-    * [kafka\_ssl\_key](mariadb-maxscale-2308-kafkaimporter.md#kafka_ssl_key)
-    * [table\_name\_in](mariadb-maxscale-2308-kafkaimporter.md#table_name_in)
-    * [timeout](mariadb-maxscale-2308-kafkaimporter.md#timeout)
-    * [engine](mariadb-maxscale-2308-kafkaimporter.md#engine)
-  * [Limitations](mariadb-maxscale-2308-kafkaimporter.md#limitations)
-
 ### Overview
 
 The KafkaImporter module reads messages from Kafka and streams them into a\
@@ -110,7 +91,7 @@ will be read again if a reconnection to either Kafka or MariaDB occurs.
 
 #### `kafka_sasl_mechanism`
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`
@@ -140,7 +121,7 @@ also be provided.
 
 #### `kafka_ssl`
 
-* Type: [boolean](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -177,7 +158,7 @@ SSL private key file in PEM format. If this parameter is defined,`kafka_ssl_cert
 
 #### `table_name_in`
 
-* Type: [enum](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `topic`, `key`
@@ -204,7 +185,7 @@ the name would be:
 
 #### `timeout`
 
-* Type: [duration](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `5000ms`

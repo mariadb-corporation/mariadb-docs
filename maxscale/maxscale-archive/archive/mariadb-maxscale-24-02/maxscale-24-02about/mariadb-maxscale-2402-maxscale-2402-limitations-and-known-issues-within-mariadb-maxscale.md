@@ -4,30 +4,6 @@ This document lists known issues and limitations in MariaDB MaxScale and its\
 plugins. Since limitations are related to specific plugins, this document is\
 divided into several sections.
 
-* [Limitations and Known Issues within MariaDB MaxScale](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#limitations-and-known-issues-within-mariadb-maxscale)
-  * [Configuration limitations](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#configuration-limitations)
-    * [Multiple MaxScales on same server](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#multiple-maxscales-on-same-server)
-  * [Security limitations](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#security-limitations)
-    * [MariaDB 10.2](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#mariadb-102)
-  * [MariaDB Default Values](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#mariadb-default-values)
-  * [Query Classification](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#query-classification)
-    * [Transaction Boundary Detection](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#transaction-boundary-detection)
-    * [XA Transactions](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#xa-transactions)
-  * [Prepared Statements](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#prepared-statements)
-  * [Protocol limitations](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#protocol-limitations)
-    * [Limitations with MySQL/MariaDB Protocol support (MariaDBClient)](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#limitations-with-mysqlmariadb-protocol-support-mariadbclient)
-  * [Authenticator limitations](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#authenticator-limitations)
-    * [Limitations in the MySQL authenticator (MariaDBAuth)](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#limitations-in-the-mysql-authenticator-mariadbauth)
-  * [Filter limitations](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#filter-limitations)
-    * [Tee filter limitations (tee)](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#tee-filter-limitations-tee)
-  * [Monitor limitations](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#monitor-limitations)
-    * [Limitations with Galera Cluster Monitoring (galeramon)](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#limitations-with-galera-cluster-monitoring-galeramon)
-  * [Router limitations](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#router-limitations)
-* [ETL Limitations](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#etl-limitations)
-  * [ETL Limitations with PostgreSQL as the Source](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#etl-limitations-with-postgresql-as-the-source)
-    * [Limitations in Automatic SQL Generation](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#limitations-in-automatic-sql-generation)
-  * [ETL Limitations with Generic ODBC Targets](mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md#etl-limitations-with-generic-odbc-targets)
-
 ### Configuration limitations
 
 In versions 2.1.2 and earlier, the configuration files are limited to 1024\

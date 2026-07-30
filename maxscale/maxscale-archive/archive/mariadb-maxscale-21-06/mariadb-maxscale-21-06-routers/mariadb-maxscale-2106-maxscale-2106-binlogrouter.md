@@ -19,24 +19,6 @@ will create a separate connection. This reduces the amount of work the master\
 database has to do which can be significant if there are a large number of\
 replicating slaves.
 
-* [Binlogrouter](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#binlogrouter)
-  * [Differences Between Old and New Binlogrouter Implementations](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#differences-between-old-and-new-binlogrouter-implementations)
-  * [Supported SQL Commands](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#supported-sql-commands)
-  * [Configuration Parameters](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#configuration-parameters)
-    * [datadir](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#datadir)
-    * [server\_id](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#server_id)
-    * [net\_timeout](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#net_timeout)
-    * [select\_master](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#select_master)
-    * [expire\_log\_duration](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#expire_log_duration)
-    * [expire\_log\_minimum\_files](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#expire_log_minimum_files)
-  * [New installation](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#new-installation)
-  * [Upgrading to version 2.5](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#upgrading-to-version-25)
-    * [Before you start](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#before-you-start)
-    * [Deployment](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#deployment)
-  * [Galera cluster](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#galera-cluster)
-  * [Example](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#example)
-  * [Limitations](mariadb-maxscale-2106-maxscale-2106-binlogrouter.md#limitations)
-
 ### Differences Between Old and New Binlogrouter Implementations
 
 The binlogrouter in MaxScale 2.5.0 is a new and improved version of the original\

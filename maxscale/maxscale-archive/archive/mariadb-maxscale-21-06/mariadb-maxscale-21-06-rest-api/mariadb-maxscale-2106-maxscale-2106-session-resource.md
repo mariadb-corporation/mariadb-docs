@@ -4,15 +4,6 @@ A session is an abstraction of a client connection, any number of related backen
 connections, a router module session and possibly filter module sessions. Each\
 session is created on a service and each service can have multiple sessions.
 
-* [Session Resource](mariadb-maxscale-2106-maxscale-2106-session-resource.md#session-resource)
-  * [Resource Operations](mariadb-maxscale-2106-maxscale-2106-session-resource.md#resource-operations)
-    * [Get a session](mariadb-maxscale-2106-maxscale-2106-session-resource.md#get-a-session)
-      * [Response](mariadb-maxscale-2106-maxscale-2106-session-resource.md#response)
-    * [Get all sessions](mariadb-maxscale-2106-maxscale-2106-session-resource.md#get-all-sessions)
-      * [Response](mariadb-maxscale-2106-maxscale-2106-session-resource.md#response_1)
-    * [Update a Session](mariadb-maxscale-2106-maxscale-2106-session-resource.md#update-a-session)
-      * [Response](mariadb-maxscale-2106-maxscale-2106-session-resource.md#response_2)
-
 ### Resource Operations
 
 #### Get a session

@@ -41,28 +41,6 @@ schemarouter automatically fetches the authentication data from all servers and\
 joins it together. At the same time, the `auth_all_servers` parameter has been\
 deprecated and is ignored if present in the configuration.
 
-* [SchemaRouter](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#schemarouter)
-  * [Routing Logic](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#routing-logic)
-    * [Custom SQL Commands](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#custom-sql-commands)
-    * [Database Mapping](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#database-mapping)
-  * [Configuration](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#configuration)
-  * [Settings](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#settings)
-    * [allow\_duplicates](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#allow_duplicates)
-    * [ignore\_tables](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#ignore_tables)
-    * [ignore\_tables\_regex](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#ignore_tables_regex)
-    * [max\_sescmd\_history](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#max_sescmd_history)
-    * [disable\_sescmd\_history](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#disable_sescmd_history)
-    * [refresh\_databases](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#refresh_databases)
-    * [refresh\_interval](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#refresh_interval)
-    * [max\_staleness](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#max_staleness)
-  * [Table Family Sharding](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#table-family-sharding)
-  * [Router Diagnostics](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#router-diagnostics)
-  * [Module commands](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#module-commands)
-    * [invalidate SERVICE](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#invalidate-service)
-    * [clear SERVICE](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#clear-service)
-  * [Limitations](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#limitations)
-  * [Examples](mariadb-maxscale-2501-maxscale-2501-schemarouter.md#examples)
-
 ### Routing Logic
 
 * If a command modifies the session state by modifying any session or user\

@@ -7,62 +7,6 @@
 The MaxScale resource represents a MaxScale instance and it is the core on top
 of which the modules build upon.
 
-
-
-
-* [MaxScale Resource](#maxscale-resource)
-
-  * [Resource Operations](#resource-operations)
-  * [Get global information](#get-global-information)
-
-    * [Response](#response)
-  * [Update MaxScale parameters](#update-maxscale-parameters)
-
-    * [Response](#response_1)
-  * [Get thread information](#get-thread-information)
-
-    * [Response](#response_2)
-  * [Get information for all threads](#get-information-for-all-threads)
-
-    * [Response](#response_3)
-  * [Get logging information](#get-logging-information)
-
-    * [Response](#response_4)
-  * [Get log data](#get-log-data)
-
-    * [Parameters](#parameters)
-    * [Response](#response_5)
-  * [Stream log data](#stream-log-data)
-
-    * [Limitations](#limitations)
-
-      * [Parameters](#parameters_1)
-      * [Response](#response_6)
-  * [Update logging parameters](#update-logging-parameters)
-
-    * [Response](#response_7)
-  * [Flush and rotate log files](#flush-and-rotate-log-files)
-
-    * [Response](#response_8)
-  * [Reload TLS certificates](#reload-tls-certificates)
-
-    * [Response](#response_9)
-  * [Get a loaded module](#get-a-loaded-module)
-
-    * [Response](#response_10)
-  * [Get all loaded modules](#get-all-loaded-modules)
-
-    * [Response](#response_11)
-  * [Call a module command](#call-a-module-command)
-
-    * [Response](#response_12)
-  * [Classify a statement](#classify-a-statement)
-
-    * [Response](#response_13)
-
-
-
-
 ## Resource Operations
 
 

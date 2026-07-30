@@ -8,16 +8,6 @@ This document provides an overview of the **readconnroute** router module\
 and its intended use case scenarios. It also displays all router\
 configuration parameters with their descriptions.
 
-* [Readconnroute](mariadb-maxscale-2308-readconnroute.md#readconnroute)
-  * [Overview](mariadb-maxscale-2308-readconnroute.md#overview)
-  * [Configuration](mariadb-maxscale-2308-readconnroute.md#configuration)
-    * [router\_options](mariadb-maxscale-2308-readconnroute.md#router_options)
-    * [master\_accept\_reads](mariadb-maxscale-2308-readconnroute.md#master_accept_reads)
-    * [max\_replication\_lag](mariadb-maxscale-2308-readconnroute.md#max_replication_lag)
-  * [Examples](mariadb-maxscale-2308-readconnroute.md#examples)
-  * [Router Diagnostics](mariadb-maxscale-2308-readconnroute.md#router-diagnostics)
-  * [Limitations](mariadb-maxscale-2308-readconnroute.md#limitations)
-
 ### Overview
 
 The readconnroute router provides simple and lightweight load balancing across a\
@@ -44,11 +34,11 @@ choice.
 
 ### Configuration
 
-For more details about the standard service parameters, refer to the [Configuration Guide](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/).
+For more details about the standard service parameters, refer to the [Configuration Guide](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md).
 
 #### `router_options`
 
-* Type: [enum\_mask](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum\_mask](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `master`, `slave`, `synced`, `running`
@@ -92,7 +82,7 @@ server.
 
 #### `master_accept_reads`
 
-* Type: [boolean](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
@@ -108,13 +98,13 @@ By default `master_accept_reads=true`.
 
 #### `max_replication_lag`
 
-* Type: [duration](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 0s
 
 The maximum acceptable replication lag. The value is in seconds and is specified\
-as documented [here](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations). The\
+as documented [here](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations). The\
 default value is `0s`, which means that the lag is ignored.
 
 The replication lag of a server must be less than the configured value in order\

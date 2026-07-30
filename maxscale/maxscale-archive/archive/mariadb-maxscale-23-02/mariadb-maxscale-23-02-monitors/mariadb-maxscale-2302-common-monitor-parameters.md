@@ -3,26 +3,6 @@
 This document settings supported by all monitors. These should be defined\
 in the monitor section of the configuration file.
 
-* [Common Monitor Parameters](mariadb-maxscale-2302-common-monitor-parameters.md#common-monitor-parameters)
-  * [Parameters](mariadb-maxscale-2302-common-monitor-parameters.md#parameters)
-    * [module](mariadb-maxscale-2302-common-monitor-parameters.md#module)
-    * [user](mariadb-maxscale-2302-common-monitor-parameters.md#user)
-    * [password](mariadb-maxscale-2302-common-monitor-parameters.md#password)
-    * [servers](mariadb-maxscale-2302-common-monitor-parameters.md#servers)
-    * [monitor\_interval](mariadb-maxscale-2302-common-monitor-parameters.md#monitor_interval)
-    * [backend\_connect\_timeout](mariadb-maxscale-2302-common-monitor-parameters.md#backend_connect_timeout)
-    * [backend\_write\_timeout](mariadb-maxscale-2302-common-monitor-parameters.md#backend_write_timeout)
-    * [backend\_read\_timeout](mariadb-maxscale-2302-common-monitor-parameters.md#backend_read_timeout)
-    * [backend\_connect\_attempts](mariadb-maxscale-2302-common-monitor-parameters.md#backend_connect_attempts)
-    * [disk\_space\_threshold](mariadb-maxscale-2302-common-monitor-parameters.md#disk_space_threshold)
-    * [disk\_space\_check\_interval](mariadb-maxscale-2302-common-monitor-parameters.md#disk_space_check_interval)
-    * [script](mariadb-maxscale-2302-common-monitor-parameters.md#script)
-    * [script\_timeout](mariadb-maxscale-2302-common-monitor-parameters.md#script_timeout)
-    * [events](mariadb-maxscale-2302-common-monitor-parameters.md#events)
-    * [journal\_max\_age](mariadb-maxscale-2302-common-monitor-parameters.md#journal_max_age)
-  * [Monitor Crash Safety](mariadb-maxscale-2302-common-monitor-parameters.md#monitor-crash-safety)
-  * [Script example](mariadb-maxscale-2302-common-monitor-parameters.md#script-example)
-
 ### Parameters
 
 #### `module`

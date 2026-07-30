@@ -6,26 +6,6 @@
 
 The SQL resource represents a database connection.
 
-* [SQL Resource](mariadb-maxscale-2208-sql-resource.md#sql-resource)
-  * [SQL Connection Interface](mariadb-maxscale-2208-sql-resource.md#sql-connection-interface)
-  * [Request Parameters](mariadb-maxscale-2208-sql-resource.md#request-parameters)
-    * [Get one SQL connection](mariadb-maxscale-2208-sql-resource.md#get-one-sql-connection)
-      * [Response](mariadb-maxscale-2208-sql-resource.md#response)
-    * [Get all SQL connections](mariadb-maxscale-2208-sql-resource.md#get-all-sql-connections)
-      * [Response](mariadb-maxscale-2208-sql-resource.md#response_1)
-    * [Open SQL connection to server](mariadb-maxscale-2208-sql-resource.md#open-sql-connection-to-server)
-      * [Request Parameters](mariadb-maxscale-2208-sql-resource.md#request-parameters_1)
-      * [Response](mariadb-maxscale-2208-sql-resource.md#response_2)
-    * [Close an opened SQL connection](mariadb-maxscale-2208-sql-resource.md#close-an-opened-sql-connection)
-      * [Response](mariadb-maxscale-2208-sql-resource.md#response_3)
-    * [Reconnect an opened SQL connection](mariadb-maxscale-2208-sql-resource.md#reconnect-an-opened-sql-connection)
-      * [Response](mariadb-maxscale-2208-sql-resource.md#response_4)
-    * [Clone an existing SQL connection](mariadb-maxscale-2208-sql-resource.md#clone-an-existing-sql-connection)
-      * [Request Parameters](mariadb-maxscale-2208-sql-resource.md#request-parameters_2)
-      * [Response](mariadb-maxscale-2208-sql-resource.md#response_5)
-    * [Execute SQL query](mariadb-maxscale-2208-sql-resource.md#execute-sql-query)
-      * [Response](mariadb-maxscale-2208-sql-resource.md#response_6)
-
 ### SQL Connection Interface
 
 The following endpoints provide a simple REST API interface for executing\

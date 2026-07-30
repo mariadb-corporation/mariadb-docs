@@ -5,27 +5,6 @@
 Admin users represent administrative users that are able to query and change\
 MaxScale's configuration.
 
-* [Admin User Resource](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#admin-user-resource)
-  * [Resource Operations](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#resource-operations)
-    * [Get network user](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#get-network-user)
-      * [Response](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#response)
-    * [Get all network users](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#get-all-network-users)
-      * [Response](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#response_1)
-    * [Get enabled UNIX account](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#get-enabled-unix-account)
-    * [Get all enabled UNIX accounts](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#get-all-enabled-unix-accounts)
-    * [Get all users](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#get-all-users)
-      * [Response](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#response_2)
-    * [Create a network user](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#create-a-network-user)
-      * [Response](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#response_3)
-    * [Enable a UNIX account](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#enable-a-unix-account)
-      * [Response](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#response_4)
-    * [Delete a network user](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#delete-a-network-user)
-      * [Response](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#response_5)
-    * [Disable a UNIX account](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#disable-a-unix-account)
-      * [Response](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#response_6)
-    * [Update a network user](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#update-a-network-user)
-      * [Response](mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md#response_7)
-
 ### Resource Operations
 
 #### Get network user
