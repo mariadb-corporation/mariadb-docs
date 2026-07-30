@@ -69,6 +69,10 @@ jobs:
           # otherwise valid links. The newest two are from DOCS-6361:
           # blogspot.com answers CI with 429, and www.poliarch.org times out
           # from the runners; both serve 200 promptly from a normal client.
+          # DOCS-6369 adds two more of the same kind: www.reddit.com blocks the
+          # Actions runners outright (serves 200 to a normal client), and
+          # csm.mariadb.com is the customer support portal, which answers 403 to
+          # anyone not logged in. Both links are valid for readers.
           #
           # Note for editors: the args block below is a YAML folded scalar, so
           # a '#' line inside it is NOT a comment -- it would be passed to
@@ -146,6 +150,8 @@ jobs:
             --exclude www\.hashicorp\.com
             --exclude blogspot\.com
             --exclude www\.poliarch\.org
+            --exclude www\.reddit\.com
+            --exclude csm\.mariadb\.com
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
