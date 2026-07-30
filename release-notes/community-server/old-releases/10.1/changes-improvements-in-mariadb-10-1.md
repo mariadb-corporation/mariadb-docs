@@ -14,7 +14,7 @@ The following lists the major new features in [MariaDB 10.1](changes-improvement
 
 ### Galera
 
-* [Galera]({galera}), a true multi-master solution, is a standard part of [MariaDB 10.1](changes-improvements-in-mariadb-10-1.md).
+* [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7), a true multi-master solution, is a standard part of [MariaDB 10.1](changes-improvements-in-mariadb-10-1.md).
 * Two new Information Schema tables for examining wsrep information, [WSREP\_MEMBERSHIP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-wsrep_membership-table) and [WSREP\_STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-wsrep_status-table) ([MDEV-7053](https://jira.mariadb.org/browse/MDEV-7053))
 
 ### Encryption
@@ -80,7 +80,7 @@ The following lists the major new features in [MariaDB 10.1](changes-improvement
   * [CREATE EVENT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-event) and [DROP EVENT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-event) ([MDEV-7281](https://jira.mariadb.org/browse/MDEV-7281))
   * [CREATE INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-index) and [DROP INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-index) ([MDEV-7284](https://jira.mariadb.org/browse/MDEV-7284))
   * [CREATE TRIGGER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/triggers-events/triggers/create-trigger) and [DROP TRIGGER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-trigger) ([MDEV-7286](https://jira.mariadb.org/browse/MDEV-7286))
-* [Information Schema plugins can now support SHOW and FLUSH]({server}/reference/product-development/plugin-development/information-schema-plugins-show-and-flush-statements) statements. New statements include:
+* [Information Schema plugins can now support SHOW and FLUSH](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/plugin-development/information-schema-plugins-show-and-flush-statements) statements. New statements include:
   * [SHOW QUERY\_RESPONSE\_TIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-query_response_time)
   * [FLUSH QUERY\_RESPONSE\_TIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/other-plugins/query-response-time-plugin)
   * [SHOW LOCALES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-locales)
@@ -122,7 +122,7 @@ For a list of all new variables, see [System Variables Added in MariaDB 10.1](ht
 
 ### Plugins
 
-* [Password validation plugin API]({server}/reference/plugins/password-validation-plugins/password-validation) ([MDEV-6431](https://jira.mariadb.org/browse/MDEV-6431)).
+* [Password validation plugin API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/password-validation-plugins/password-validation) ([MDEV-6431](https://jira.mariadb.org/browse/MDEV-6431)).
 * [simple\_password\_check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/password-validation-plugins/simple-password-check-plugin) password validation plugin. It can enforce a minimum password length and guarantee that a password contains at least a specified number of uppercase and lowercase letters, digits, and punctuation characters.
 * [cracklib\_password\_check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/password-validation-plugins/cracklib-password-check-plugin) password validation plugin. It only allows passwords that are strong enough to pass [CrackLib](https://sourceforge.net/projects/cracklib/) test. This is the same test that `pam_cracklib.so` does, installed by default on many Linux distributions.
 * [ed25519 authentication plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-ed25519) for traditional password-based authentication. A new, secure alternative to the old `mysql_native_password` plugin.

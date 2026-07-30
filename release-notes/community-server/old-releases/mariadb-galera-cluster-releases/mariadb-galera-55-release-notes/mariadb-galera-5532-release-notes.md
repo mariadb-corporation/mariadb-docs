@@ -1,8 +1,8 @@
 # MariaDB Galera 5.5.32 Release Notes
 
-The most recent [MariaDB Galera Cluster 5.5]({galera}) release is:[**MariaDB Galera Cluster 5.5.63**](mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
+The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) release is:[**MariaDB Galera Cluster 5.5.63**](mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/5.5.32) |**Release Notes** |[Changelog](../mariadb-galera-55-changelogs/mariadb-galera-5532-changelog.md) |[Overview of Galera]({galera}/readme/mariadb-galera-cluster-guide)
+[Download](https://downloads.mariadb.org/mariadb-galera/5.5.32) |**Release Notes** |[Changelog](../mariadb-galera-55-changelogs/mariadb-galera-5532-changelog.md) |[Overview of Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 30 Aug 2013
 
@@ -11,7 +11,7 @@ It is a merge of [MariaDB 5.5.32](mariadb-galera-5532-release-notes.md) and [Gal
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
-available in the [**Galera**]({galera}) section of the Knowledgebase.
+available in the [**Galera**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) section of the Knowledgebase.
 
 For a list of changes made in [MariaDB Galera 5.5.32](mariadb-galera-5532-release-notes.md), with links to detailed\
 information on each push, see the [MariaDB Galera 5.5.32 Changelog](../mariadb-galera-55-changelogs/mariadb-galera-5532-changelog.md).

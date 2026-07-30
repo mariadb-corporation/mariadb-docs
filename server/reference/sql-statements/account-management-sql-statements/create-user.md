@@ -461,7 +461,7 @@ The _lock\_option_ and _password\_option_ clauses can occur in either order.
 {% endtab %}
 
 {% tab title="<10.4.7, <10.5.8" %}
-Prior to [MariaDB 10.4.7]({release-notes}/community-server/old-releases/10.4/10.4.7) and [MariaDB 10.5.8]({release-notes}/community-server/old-releases/10.5/10.5.8), the _lock\_option_ must be placed before the _password\_option_.
+Prior to [MariaDB 10.4.7](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7) and [MariaDB 10.5.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.8), the _lock\_option_ must be placed before the _password\_option_.
 {% endtab %}
 {% endtabs %}
 

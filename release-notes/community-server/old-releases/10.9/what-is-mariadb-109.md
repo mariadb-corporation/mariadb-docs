@@ -15,8 +15,8 @@ The most recent release of [MariaDB 10.9](what-is-mariadb-109.md) is:[**MariaDB 
 ### JSON
 
 * [JSON\_OVERLAPS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_overlaps) function ([MDEV-27677](https://jira.mariadb.org/browse/MDEV-27677))
-* Implement range notation for [JSONPath]({server}/reference/sql-functions/special-functions/json-functions/jsonpath-expressions) ([MDEV-27911](https://jira.mariadb.org/browse/MDEV-27911))
-* Support [JSONPath]({server}/reference/sql-functions/special-functions/json-functions/jsonpath-expressions) negative index ([MDEV-22224](https://jira.mariadb.org/browse/MDEV-22224))
+* Implement range notation for [JSONPath](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/jsonpath-expressions) ([MDEV-27911](https://jira.mariadb.org/browse/MDEV-27911))
+* Support [JSONPath](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/jsonpath-expressions) negative index ([MDEV-22224](https://jira.mariadb.org/browse/MDEV-22224))
 
 ### InnoDB
 

@@ -10,7 +10,7 @@ description: >-
 This page is obsolete. The information is old, outdated, or otherwise currently incorrect. We are keeping the page for historical reasons only. **Do not** rely on the information in this article.
 {% endhint %}
 
-[MariaDB 10.1]({release-notes}/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) is now the default mysql server in Debian 9 "Stretch". This page provides information on this change and instructions to help with upgrading your Debian 8 "Jessie" version of MySQL or MariaDB to [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) in Debian 9 "Stretch".
+[MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) is now the default mysql server in Debian 9 "Stretch". This page provides information on this change and instructions to help with upgrading your Debian 8 "Jessie" version of MySQL or MariaDB to [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) in Debian 9 "Stretch".
 
 ## Background information
 
@@ -18,21 +18,21 @@ The version of MySQL in Debian 8 "Jessie" is 5.5. When installing, most users wi
 
 In both Jessie and Stretch there is also a `mariadb-server` package which is a MariaDB-specific analog to the `mysql-server` package. In Jessie this package depends on `mariadb-server-10.0` and in Stretch this package depends on `mariadb-server-10.1` (the same as the `default-mysql-server` package).
 
-So, the main repository difference in Debian 9 "Stretch" is that when you install the `mysql-server` package on Stretch you will get [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) instead of MySQL, like you would with previous versions of Debian. Note that `mysql-server` is just an empty transitional meta-package and users are encouraged to install MariaDB using the actual package `mariadb-server`.
+So, the main repository difference in Debian 9 "Stretch" is that when you install the `mysql-server` package on Stretch you will get [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) instead of MySQL, like you would with previous versions of Debian. Note that `mysql-server` is just an empty transitional meta-package and users are encouraged to install MariaDB using the actual package `mariadb-server`.
 
 All apps and tools, such as the popular LAMP stack, in the repositories that depend on the `mysql-server` package will continue to work using MariaDB as the database. For new installs there is nothing different that needs to be done when installing the mysql-server or mariadb-server packages.
 
 ## Before you upgrade
 
-If you are currently running MySQL 5.5 on Debian 8 "Jessie" and are planning an upgrade to [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) on Debian 9 "Stretch", there are some things to keep in mind:
+If you are currently running MySQL 5.5 on Debian 8 "Jessie" and are planning an upgrade to [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) on Debian 9 "Stretch", there are some things to keep in mind:
 
 ### Backup before you begin
 
-This is a major upgrade, and so complete database backups are strongly suggested before you begin. [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) is compatible on disk and wire with MySQL 5.5, and the MariaDB developer team has done extensive development and testing to make upgrades as painless and trouble-free as possible. Even so, it's always a good idea to do regular backups, especially before an upgrade. As the database has to shut down anyway for the upgrade, this is a good opportunity to do a backup!
+This is a major upgrade, and so complete database backups are strongly suggested before you begin. [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) is compatible on disk and wire with MySQL 5.5, and the MariaDB developer team has done extensive development and testing to make upgrades as painless and trouble-free as possible. Even so, it's always a good idea to do regular backups, especially before an upgrade. As the database has to shut down anyway for the upgrade, this is a good opportunity to do a backup!
 
 ### Changed, renamed, and removed options
 
-Some default values have been changed, some have been renamed, and others have been removed between MySQL 5.5 and [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1). The following sections detail them.
+Some default values have been changed, some have been renamed, and others have been removed between MySQL 5.5 and [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1). The following sections detail them.
 
 #### Options with changed default values
 
@@ -117,11 +117,11 @@ If you have a [master-slave setup](../../../../../ha-and-performance/standard-re
 
 ### Other resources to consult before beginning your upgrade
 
-It may also be useful to check out the [Upgrading MariaDB](../../../upgrading/) section. It contains several articles on upgrading from MySQL to MariaDB and from one version of MariaDB to another. For upgrade purposes, MySQL 5.5 and [MariaDB 5.5]({release-notes}/community-server/old-releases/5.5) are very similar. In particular, see the [Upgrading from MariaDB 5.5 to MariaDB 10.0](../../../upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-4-to-mariadb-10-5.md) and [Upgrading from MariaDB 10.0 to MariaDB 10.1](../../../upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-100-to-mariadb-101.md) articles.
+It may also be useful to check out the [Upgrading MariaDB](../../../upgrading/) section. It contains several articles on upgrading from MySQL to MariaDB and from one version of MariaDB to another. For upgrade purposes, MySQL 5.5 and [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5) are very similar. In particular, see the [Upgrading from MariaDB 5.5 to MariaDB 10.0](../../../upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-4-to-mariadb-10-5.md) and [Upgrading from MariaDB 10.0 to MariaDB 10.1](../../../upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-100-to-mariadb-101.md) articles.
 
 If you need help with upgrading or setting up replication, you can always [contact the MariaDB corporation](https://mariadb.com/contact) to find experts to help you with this.
 
-## Upgrading to [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1) from MySQL 5.5
+## Upgrading to [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1) from MySQL 5.5
 
 #### Pre-Upgrade Preparation
 
@@ -155,21 +155,21 @@ If you need help with upgrading or setting up replication, you can always [conta
     sudo service mariadb restart
     ```
 
-## Upgrading to [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1) from an older version of MariaDB
+## Upgrading to [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1) from an older version of MariaDB
 
-If you have installed [MariaDB 5.5]({release-notes}/community-server/old-releases/5.5) or [MariaDB 10.0]({release-notes}/community-server/old-releases/10.0) on your Debian 8 "Jessie" machine from the MariaDB repositories you will need to upgrade to [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1) when upgrading to Debian 9 "Stretch". You can choose to continue using the MariaDB repositories or move to using the Debian repositories.
+If you have installed [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5) or [MariaDB 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0) on your Debian 8 "Jessie" machine from the MariaDB repositories you will need to upgrade to [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1) when upgrading to Debian 9 "Stretch". You can choose to continue using the MariaDB repositories or move to using the Debian repositories.
 
 If you want to continue using the MariaDB repositories edit the MariaDB entry in your sources.list and change every instance of 5.5 or 10.0 to 10.1. Then upgrade as suggested [above](moving-from-mysql-to-mariadb-in-debian-9.md#upgrading-to-mariadb-101-from-mysql-55).
 
-If you want to move to using [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1) from the Debian repositories, delete or comment out the MariaDB entries in your sources.list file. Then upgrade as suggested [above](moving-from-mysql-to-mariadb-in-debian-9.md#upgrading-to-mariadb-101-from-mysql-55).
+If you want to move to using [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1) from the Debian repositories, delete or comment out the MariaDB entries in your sources.list file. Then upgrade as suggested [above](moving-from-mysql-to-mariadb-in-debian-9.md#upgrading-to-mariadb-101-from-mysql-55).
 
-If you are already using [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1) on your Debian 8 "Jessie" machine, you can choose to continue to use the MariaDB repositories or move to using the Debian repositories as with [MariaDB 5.5]({release-notes}/community-server/old-releases/5.5) and 10.0. In either case, the upgrade will at most be just a minor upgrade from one version of [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1) to a newer version. In the case that you are already on the current version of MariaDB that exists in the Debian repositories or a newer one) MariaDB will not be upgraded during the system upgrade but will be upgraded when future versions of MariaDB are released.
+If you are already using [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1) on your Debian 8 "Jessie" machine, you can choose to continue to use the MariaDB repositories or move to using the Debian repositories as with [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5) and 10.0. In either case, the upgrade will at most be just a minor upgrade from one version of [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1) to a newer version. In the case that you are already on the current version of MariaDB that exists in the Debian repositories or a newer one) MariaDB will not be upgraded during the system upgrade but will be upgraded when future versions of MariaDB are released.
 
 You should always perform a compete backup of your data prior to performing any major system upgrade, even if MariaDB itself is not being upgraded!
 
 ## MariaDB Galera Cluster
 
-If you have been using MariaDB Galera Cluster 5.5 or 10.0 on Debian 8 "Jessie" it is worth mentioning that [Galera Cluster](../../../../../architecture/topologies/galera-cluster/README.md) is included by default in [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1) , there is no longer a need to install a separate `mariadb-galera-server` package.
+If you have been using MariaDB Galera Cluster 5.5 or 10.0 on Debian 8 "Jessie" it is worth mentioning that [Galera Cluster](../../../../../architecture/topologies/galera-cluster/README.md) is included by default in [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1) , there is no longer a need to install a separate `mariadb-galera-server` package.
 
 ## Configuration options for advanced database users
 
@@ -187,7 +187,7 @@ The reason for the above change is that MariaDB is using the newer [Aria](../../
 
 ## Secure passwordless root accounts only on new installs
 
-Unlike the old MySQL packages in Debian, [MariaDB 10.0]({release-notes}/community-server/old-releases/10.0) onwards in Debian uses unix socket authentication on new installs to avoid root password management issues and thus be more secure and easier to use with provision systems of the cloud age.
+Unlike the old MySQL packages in Debian, [MariaDB 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0) onwards in Debian uses unix socket authentication on new installs to avoid root password management issues and thus be more secure and easier to use with provision systems of the cloud age.
 
 This only affects new installs. Upgrades from old versions will continue to use whatever authentication and user accounts already existed. This is however good to know, because it can affect upgrades of dependent systems, typically e.g. require users to rewrite their Ansible scripts and similar tasks. The new feature is much easier than the old, so adjusting for it requires little work.
 
@@ -196,7 +196,7 @@ This only affects new installs. Upgrades from old versions will continue to use 
 * [Differences in MariaDB in Debian (and Ubuntu)](differences-in-mariadb-in-debian-and-ubuntu.md)
 * [Configuring MariaDB for optimal performance](../../../configuring-mariadb/mariadb-performance-advanced-configurations/configuring-mariadb-for-optimal-performance.md)
 * [New features in MariaDB you should considering using](https://mariadb.com/docs/release-notes/compatibility-and-differences/mariadb-vs-mysql-features)
-* [What is MariaDB 10.1]({release-notes}/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1)
+* [What is MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1)
 * [General instructions for upgrading from MySQL to MariaDB](../../../upgrading/upgrading-mariadb-upgrading-from-mysql-to-mariadb.md)
 
 ## Comments and suggestions

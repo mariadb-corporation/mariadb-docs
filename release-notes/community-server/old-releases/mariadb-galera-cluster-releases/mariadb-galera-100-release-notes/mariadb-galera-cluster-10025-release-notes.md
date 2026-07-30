@@ -1,15 +1,15 @@
 # MariaDB Galera Cluster 10.0.25 Release Notes
 
-The most recent [MariaDB Galera Cluster 10.0]({galera}) release is:[**MariaDB Galera Cluster 10.0.38**](mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
+The most recent [MariaDB Galera Cluster 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) release is:[**MariaDB Galera Cluster 10.0.38**](mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.25)[Release Notes](mariadb-galera-cluster-10025-release-notes.md)[Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10025-changelog.md)[Overview of MariaDB Galera Cluster]({galera}/readme/mariadb-galera-cluster-guide)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.25)[Release Notes](mariadb-galera-cluster-10025-release-notes.md)[Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10025-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 3 May 2016
 
 MariaDB Galera Cluster 10.0.25 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
 release. It is a merge of [MariaDB 10.0.25](mariadb-galera-cluster-10025-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with additional bug fixes.
 
-Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are available in the [**Galera**]({galera}) section of the documentation.
+Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are available in the [**Galera**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) section of the documentation.
 
 For a list of changes made in MariaDB Galera Cluster 10.0.25, with links to\
 detailed information on each push, see the [MariaDB Galera Cluster 10.0.25 Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10025-changelog.md).

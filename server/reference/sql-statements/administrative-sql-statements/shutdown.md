@@ -24,7 +24,7 @@ The `WAIT FOR ALL REPLICAS` statement can be used as an alias for `WAIT FOR ALL 
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
-The `WAIT FOR ALL SLAVES` option was first added in [MariaDB 10.4.4]({release-notes}/community-server/old-releases/10.4/10.4.4).
+The `WAIT FOR ALL SLAVES` option was first added in [MariaDB 10.4.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.4).
 {% endtab %}
 {% endtabs %}
 
