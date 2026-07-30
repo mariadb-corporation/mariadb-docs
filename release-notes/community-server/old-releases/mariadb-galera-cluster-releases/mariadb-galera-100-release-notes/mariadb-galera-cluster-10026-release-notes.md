@@ -1,8 +1,8 @@
 # MariaDB Galera Cluster 10.0.26 Release Notes
 
-The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) release is:[**MariaDB Galera Cluster 10.0.38**](mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
+The most recent [MariaDB Galera Cluster 10.0]({galera}) release is:[**MariaDB Galera Cluster 10.0.38**](mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.26)[Release Notes](mariadb-galera-cluster-10026-release-notes.md)[Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10026-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.26)[Release Notes](mariadb-galera-cluster-10026-release-notes.md)[Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10026-changelog.md)[Overview of MariaDB Galera Cluster]({galera}/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 1 Jul 2016
 
@@ -11,7 +11,7 @@ release. It is a merge of [MariaDB 10.0.26](../../10.0/10.0.26.md) and [Galera C
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
-available in the [**Galera**](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) section of the documentation.
+available in the [**Galera**]({galera}) section of the documentation.
 
 For a list of changes made in MariaDB Galera Cluster 10.0.26, with links to\
 detailed information on each push, see the [MariaDB Galera Cluster 10.0.26 Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10026-changelog.md).
@@ -33,7 +33,7 @@ detailed information on each push, see the [MariaDB Galera Cluster 10.0.26 Chang
   MariaDB Galera Cluster can be used with either a 25.2.x or 25.3.x\
   Galera `wsrep` provider. A 25.3.x `wsrep` provider is included in the\
   MariaDB repositories and is also available from the [downloads](https://downloads.mariadb.org/mariadb-galera/10.0) page.
-* See the [MariaDB 10.0.25 Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/mariadb-galera-cluster-releases/mariadb-galera-100-release-notes/mariadb-galera-cluster-10025-release-notes) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10025-changelog.md) for more information on the changes in\
+* See the [MariaDB 10.0.25 Release Notes](mariadb-galera-cluster-10025-release-notes.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10025-changelog.md) for more information on the changes in\
   MariaDB.
 * On Ubuntu and Debian, the Galera Arbitrator daemon (garbd) and the galera\
   library are in two separate packages. The packages are named galera-3\

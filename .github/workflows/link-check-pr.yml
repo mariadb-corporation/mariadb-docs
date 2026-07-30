@@ -82,10 +82,31 @@ jobs:
           # support2.microsoft.com (a decommissioned Microsoft domain) are cited
           # in old changelog commit text and are unreachable with no modern
           # equivalent. All are unmaintainable historical refs, not fixable links.
+          #
+          # DOCS-6369: the same problem in the *server* changelogs. Those pages
+          # cite one github.com/MariaDB/server/commit/<short-sha> per revision --
+          # 12,278 distinct links across the release-notes tree. Sampling 250 of
+          # them found 1.2% dead (~150 repo-wide): abbreviated SHAs that no
+          # longer resolve after history rewrites. Same class as the connector
+          # excludes above -- historical citations, not fixable links -- and they
+          # only surface when a PR happens to touch a changelog page.
+          #
+          # DOCS-6369: decommissioned hosts cited in the pre-1.0/5.x release
+          # notes. downloads.askmonty.org was the download host before the
+          # rename to MariaDB; montyprogram.com was the company domain;
+          # forge.mysql.com and lists.mysql.com were retired by Oracle
+          # (forge now serves a cert for another host); blogs.msdn.com folded
+          # into learn.microsoft.com. None have a modern equivalent to point at.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
             --exclude 'github\.com/mariadb-corporation/mariadb-connector-[a-z0-9]+/commit/'
+            --exclude 'github\.com/MariaDB/server/commit/'
+            --exclude 'downloads\.askmonty\.org'
+            --exclude 'montyprogram\.com'
+            --exclude 'forge\.mysql\.com'
+            --exclude 'lists\.mysql\.com'
+            --exclude 'blogs\.msdn\.com'
             --exclude 'lists\.askmonty\.org'
             --exclude 'support2\.microsoft\.com'
             --exclude dev\.mysql\.com

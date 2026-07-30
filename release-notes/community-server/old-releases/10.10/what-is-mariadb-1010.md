@@ -8,7 +8,7 @@ The most recent release of [MariaDB 10.10](what-is-mariadb-1010.md) is:[**MariaD
 
 ## Upgrading
 
-* See [Upgrading Between Major MariaDB Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/platform-specific-upgrade-guides/upgrading-on-linux/upgrading-between-major-mariadb-versions) and [Upgrading from MariaDB 10.9 to MariaDB 10.10](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-10-series/upgrading-from-mariadb-108-to-mariadb-109/README.md).
+* See [Upgrading Between Major MariaDB Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/platform-specific-upgrade-guides/upgrading-on-linux/upgrading-between-major-mariadb-versions) and Upgrading from MariaDB 10.9 to MariaDB 10.10.
 
 ## New Features & Improvements
 
@@ -88,8 +88,8 @@ page.
 | 7 Jun 2023  | [MariaDB 10.10.5](10.10.5.md)                                                                                                                                                  | Stable (GA) | [Release Notes](10.10.5.md)                                                                                                                    | [Changelog](../../changelogs/10.10/10.10.5.md) |
 | 10 May 2023 | [MariaDB 10.10.4](10.10.4.md)                                                                                                                                                  | Stable (GA) | [Release Notes](10.10.4.md)                                                                                                                    | [Changelog](../../changelogs/10.10/10.10.4.md) |
 | 6 Feb 2023  | [MariaDB 10.10.3](10.10.3.md)                                                                                                                                                  | Stable (GA) | [Release Notes](10.10.3.md)                                                                                                                    | [Changelog](../../changelogs/10.10/10.10.3.md) |
-| 17 Nov 2022 | [MariaDB 10.10.2](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-10-series/mariadb-10-10-2-release-notes) | Stable (GA) | [Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-10-series) | [Changelog](../../changelogs/10.10/10.10.2.md) |
-| 22 Aug 2022 | [MariaDB 10.10.1](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-10-series/mariadb-10101-release-notes)   | RC          | [Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-10-series) | [Changelog](../../changelogs/10.10/10.10.1.md) |
+| 17 Nov 2022 | [MariaDB 10.10.2](10.10.2.md) | Stable (GA) | [Release Notes](./) | [Changelog](../../changelogs/10.10/10.10.2.md) |
+| 22 Aug 2022 | [MariaDB 10.10.1](10.10.1.md)   | RC          | [Release Notes](./) | [Changelog](../../changelogs/10.10/10.10.1.md) |
 | 23 Jun 2022 | [MariaDB 10.10.0](10.10.0.md)                                                                                                                                                  | Alpha       | [Release Notes](10.10.0.md)                                                                                                                    |                                                |
 
 {% include "../../../.gitbook/includes/announce.md" %}

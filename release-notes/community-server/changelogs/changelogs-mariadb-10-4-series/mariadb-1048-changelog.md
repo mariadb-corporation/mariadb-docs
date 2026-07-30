@@ -1,8 +1,8 @@
 # MariaDB 10.4.8 Changelog
 
-The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
+The most recent release of [MariaDB 10.4](../../old-releases/10.4/what-is-mariadb-104.md) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.4.8/)[Release Notes](../../old-releases/10.4/10.4.8.md)[Changelog](mariadb-1048-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+[Download](https://downloads.mariadb.org/mariadb/10.4.8/)[Release Notes](../../old-releases/10.4/10.4.8.md)[Changelog](mariadb-1048-changelog.md)[Overview of 10.4](../../old-releases/10.4/what-is-mariadb-104.md)
 
 **Release date:** 11 Sep 2019
 
@@ -29,7 +29,7 @@ details of the revision and view diffs of the code modified in that revision.
 * Merge [Revision #4f10d0918d](https://github.com/MariaDB/server/commit/4f10d0918d) 2019-09-02 14:57:05 +0200 - Merge branch '10.3' into 10.4
 * [Revision #3ca68794c0](https://github.com/MariaDB/server/commit/3ca68794c0)\
   2019-08-06 00:11:05 +0200
-  * [MDEV-20231](https://jira.mariadb.org/browse/MDEV-20231): [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) HELP Tables
+  * [MDEV-20231](https://jira.mariadb.org/browse/MDEV-20231): [MariaDB 10.4](../../old-releases/10.4/what-is-mariadb-104.md) HELP Tables
 * [Revision #de5f7348bd](https://github.com/MariaDB/server/commit/de5f7348bd)\
   2019-09-02 14:22:19 +0300
   * Make main.subselect\_sj2\* tests stable

@@ -2,7 +2,7 @@
 
 [Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**\
 (page:[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md) 4 [5](mariadb-530-changelog-p5.md)[6](mariadb-530-changelog-p6.md)\
-) |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
+) |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
 **Release date:** 26 July 2011
 
@@ -328,7 +328,7 @@
 * [Revision #2905](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2905)\
   Sat 2011-02-12 17:17:19 +0100
   * Fix [MySQL Bug #60057](https://bugs.mysql.com/bug.php?id=60057) : sel\_arg\_range\_seq\_next loops in optimized compilation/VS2010
-    * When [mariadb 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/changelogs/changelogs-mariadb-53-series) is compiler with VS2010, several tests would enter infinite loop in\
+    * When [mariadb 5.3](./) is compiler with VS2010, several tests would enter infinite loop in\
       sel\_arg\_range\_seq\_next(). The reason is compiler backend bug. This bug is not\
       present in either VS2008 or VS2010 SP1 RC.
     * Workaround is to compile this function without most aggresive optimization flag\

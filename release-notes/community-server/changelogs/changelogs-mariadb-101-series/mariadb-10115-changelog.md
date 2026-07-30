@@ -1,6 +1,6 @@
 # MariaDB 10.1.15 Changelog
 
-**MariaDB-10.1.15 was never released,** [**MariaDB 10.1.16**](../../old-releases/10.1/10.1.16.md) **is the release that followed** [**MariaDB 10.1.14**](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-15-release-notes)**.**
+**MariaDB-10.1.15 was never released,** [**MariaDB 10.1.16**](../../old-releases/10.1/10.1.16.md) **is the release that followed** [**MariaDB 10.1.14**](../../old-releases/10.1/10.1.15.md)**.**
 
 The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 

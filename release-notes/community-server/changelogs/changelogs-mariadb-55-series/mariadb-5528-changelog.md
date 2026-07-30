@@ -2,7 +2,7 @@
 
 The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.28) |[Release Notes](../../old-releases/5.5/5.5.28.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.28) |[Release Notes](../../old-releases/5.5/5.5.28.md) |**Changelog** |\[[Overview of 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
 
 **Release date:** 22 Oct 2012
 
@@ -26,7 +26,7 @@ modified in that revision.
     Wed 2012-10-10 09:21:22 +0400
     * Backport of: olav.sandstaa@oracle.com-20120516074923-vd0dhp183vqcp2ql\
       .. into [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
-    * Fix for [Bug #12667154](https://bugs.launchpad.net/bugs/12667154) SAME QUERY EXEC AS WHERE SUBQ GIVES DIFFERENT\
+    * Fix for Bug #12667154 SAME QUERY EXEC AS WHERE SUBQ GIVES DIFFERENT\
       RESULTS ON IN() & NOT IN() COMP #3
     * This bug causes a wrong result in mysql-trunk when ICP is used\
       and bad performance in mysql-5.5 and mysql-trunk.

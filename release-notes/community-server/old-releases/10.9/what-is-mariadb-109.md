@@ -15,8 +15,8 @@ The most recent release of [MariaDB 10.9](what-is-mariadb-109.md) is:[**MariaDB 
 ### JSON
 
 * [JSON\_OVERLAPS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_overlaps) function ([MDEV-27677](https://jira.mariadb.org/browse/MDEV-27677))
-* Implement range notation for [JSONPath](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series/JSONPath_Expressions/README.md) ([MDEV-27911](https://jira.mariadb.org/browse/MDEV-27911))
-* Support [JSONPath](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series/JSONPath_Expressions/README.md) negative index ([MDEV-22224](https://jira.mariadb.org/browse/MDEV-22224))
+* Implement range notation for [JSONPath]({server}/reference/sql-functions/special-functions/json-functions/jsonpath-expressions) ([MDEV-27911](https://jira.mariadb.org/browse/MDEV-27911))
+* Support [JSONPath]({server}/reference/sql-functions/special-functions/json-functions/jsonpath-expressions) negative index ([MDEV-22224](https://jira.mariadb.org/browse/MDEV-22224))
 
 ### InnoDB
 
@@ -59,13 +59,13 @@ versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https:/
 page.
 
 * [CVE-2022-47015](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-47015): [MariaDB 10.9.6](10.9.6.md)
-* [CVE-2022-38791](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-38791): [MariaDB 10.9.2](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series/mariadb-1092-release-notes)
-* [CVE-2022-32091](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32091): [MariaDB 10.9.2](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series/mariadb-1092-release-notes)
-* [CVE-2022-32089](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32089): [MariaDB 10.9.2](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series/mariadb-1092-release-notes)
-* [CVE-2022-32084](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32084): [MariaDB 10.9.2](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series/mariadb-1092-release-notes)
-* [CVE-2022-32082](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32082): [MariaDB 10.9.2](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series/mariadb-1092-release-notes)
-* [CVE-2022-32081](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32081): [MariaDB 10.9.2](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series/mariadb-1092-release-notes)
-* [CVE-2018-25032](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-25032): [MariaDB 10.9.2](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series/mariadb-1092-release-notes)
+* [CVE-2022-38791](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-38791): [MariaDB 10.9.2](10.9.2.md)
+* [CVE-2022-32091](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32091): [MariaDB 10.9.2](10.9.2.md)
+* [CVE-2022-32089](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32089): [MariaDB 10.9.2](10.9.2.md)
+* [CVE-2022-32084](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32084): [MariaDB 10.9.2](10.9.2.md)
+* [CVE-2022-32082](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32082): [MariaDB 10.9.2](10.9.2.md)
+* [CVE-2022-32081](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32081): [MariaDB 10.9.2](10.9.2.md)
+* [CVE-2018-25032](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-25032): [MariaDB 10.9.2](10.9.2.md)
 
 ## List of All [MariaDB 10.9](what-is-mariadb-109.md) Releases
 
@@ -75,9 +75,9 @@ page.
 | 7 Jun 2023  | [MariaDB 10.9.7](10.9.7.md)                                                                                                                                                 | Stable (GA) | [Release Notes](10.9.7.md)                                                                                                                                                                                   | [Changelog](../../changelogs/10.9/10.9.7.md) |
 | 10 May 2023 | [MariaDB 10.9.6](10.9.6.md)                                                                                                                                                 | Stable (GA) | [Release Notes](10.9.6.md)                                                                                                                                                                                   | [Changelog](../../changelogs/10.9/10.9.6.md) |
 | 6 Feb 2023  | [MariaDB 10.9.5](10.9.5.md)                                                                                                                                                 | Stable (GA) | [Release Notes](10.9.5.md)                                                                                                                                                                                   | [Changelog](../../changelogs/10.9/10.9.5.md) |
-| 7 Nov 2022  | [MariaDB 10.9.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series/mariadb-10-9-4-release-notes) | Stable (GA) | [Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series)                                                                | [Changelog](../../changelogs/10.9/10.9.4.md) |
+| 7 Nov 2022  | [MariaDB 10.9.4](10.9.4.md) | Stable (GA) | [Release Notes](./)                                                                | [Changelog](../../changelogs/10.9/10.9.4.md) |
 | 19 Sep 2022 | [MariaDB 10.9.3](10.9.3.md)                                                                                                                                                 | Stable (GA) | [Release Notes](10.9.3.md)                                                                                                                                                                                   | [Changelog](../../changelogs/10.9/10.9.3.md) |
-| 22 Aug 2022 | [MariaDB 10.9.2](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series/mariadb-1092-release-notes)   | Stable (GA) | [Release Notes](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-9-series/broken-reference/README.md) | [Changelog](../../changelogs/10.9/10.9.2.md) |
+| 22 Aug 2022 | [MariaDB 10.9.2](10.9.2.md)   | Stable (GA) | [Release Notes](10.9.2.md) | [Changelog](../../changelogs/10.9/10.9.2.md) |
 | 20 May 2022 | [MariaDB 10.9.1](10.9.1.md)                                                                                                                                                 | RC          | [Release Notes](10.9.1.md)                                                                                                                                                                                   | [Changelog](../../changelogs/10.9/10.9.1.md) |
 | 23 Mar 2022 | [MariaDB 10.9.0](10.9.0.md)                                                                                                                                                 | Alpha       | [Release Notes](10.9.0.md)                                                                                                                                                                                   |                                              |
 

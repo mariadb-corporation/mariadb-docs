@@ -2,11 +2,11 @@
 
 The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.0)[Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-2-series/mariadb-1020-release-notes)[Changelog](mariadb-1020-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.0)[Release Notes](../../old-releases/10.2/10.2.0.md)[Changelog](mariadb-1020-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 18 Apr 2016
 
-For the highlights of this release, see the [release notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-2-series).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2) you can view more details of the revision and view diffs of the code modified in that revision.
 

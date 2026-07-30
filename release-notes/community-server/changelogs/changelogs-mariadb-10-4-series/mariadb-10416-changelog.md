@@ -1,8 +1,8 @@
 # MariaDB 10.4.16 Changelog
 
-The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
+The most recent release of [MariaDB 10.4](../../old-releases/10.4/what-is-mariadb-104.md) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
 
-[Download 10.4.16](https://downloads.mariadb.org/mariadb/10.4.16/)[Release Notes](../../old-releases/10.4/10.4.16.md)[Changelog](mariadb-10416-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+[Download 10.4.16](https://downloads.mariadb.org/mariadb/10.4.16/)[Release Notes](../../old-releases/10.4/10.4.16.md)[Changelog](mariadb-10416-changelog.md)[Overview of 10.4](../../old-releases/10.4/what-is-mariadb-104.md)
 
 **Release date:** 3 Nov 2020
 
@@ -164,7 +164,7 @@ details of the revision and view diffs of the code modified in that revision.
   * Backported setting of transcation.on=1 in THD::reset\_for\_reuse()
 * [Revision #a50ce94458](https://github.com/MariaDB/server/commit/a50ce94458)\
   2020-09-02 20:38:25 +0200
-  * [MDEV-23559](https://jira.mariadb.org/browse/MDEV-23559): Galera LeakSanitizer: detected memory leaks in galera.[GAL-419](https://github.com/codership/galera/issues/419)
+  * [MDEV-23559](https://jira.mariadb.org/browse/MDEV-23559): Galera LeakSanitizer: detected memory leaks in galera.GAL-419
 * [Revision #8370a38dc0](https://github.com/MariaDB/server/commit/8370a38dc0)\
   2020-09-23 15:42:11 +0200
   * Window , MTR : fix lookup for mysql\_install\_db.exe

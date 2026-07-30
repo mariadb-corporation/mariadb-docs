@@ -2,7 +2,7 @@
 
 The most recent release of [MariaDB 10.4](../../old-releases/10.4/10.4.31.md) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.4.10/)[Release Notes](../../old-releases/10.4/10.4.10.md)[Changelog](mariadb-10410-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+[Download](https://downloads.mariadb.org/mariadb/10.4.10/)[Release Notes](../../old-releases/10.4/10.4.10.md)[Changelog](mariadb-10410-changelog.md)[Overview of 10.4](../../old-releases/10.4/what-is-mariadb-104.md)
 
 **Release date:** 8 Nov 2019
 

@@ -2,7 +2,7 @@
 
 The most recent release of [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/10.3/10.3.39.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.3.5)[Release Notes](../../old-releases/10.3/10.3.5.md)[Changelog](mariadb-1035-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download](https://downloads.mariadb.org/mariadb/10.3.5)[Release Notes](../../old-releases/10.3/10.3.5.md)[Changelog](mariadb-1035-changelog.md)[Overview of 10.3](../../old-releases/10.3/what-is-mariadb-103.md)
 
 **Release date:** 26 Feb 2018
 
@@ -516,7 +516,7 @@ details of the revision and view diffs of the code modified in that revision.
 * Merge [Revision #c6e35276f1](https://github.com/MariaDB/server/commit/c6e35276f1) 2018-02-14 10:01:16 +0200 - Merge 10.1 into 10.2
 * [Revision #a33c9a07e5](https://github.com/MariaDB/server/commit/a33c9a07e5)\
   2017-11-13 11:36:21 +0000
-  * [GAL-506](https://github.com/codership/galera/issues/506) breaks galera\_defaults MTR test by upping repl.proto\_max again. Fix this once and for all by overwriting it with constant string since it makes little sense to check for it in this test.
+  * GAL-506 breaks galera\_defaults MTR test by upping repl.proto\_max again. Fix this once and for all by overwriting it with constant string since it makes little sense to check for it in this test.
 * [Revision #ab8ea23a75](https://github.com/MariaDB/server/commit/ab8ea23a75)\
   2018-02-13 11:23:14 -0500
   * bump the VERSION

@@ -2,7 +2,7 @@
 
 [Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**\
 (page:`1 [2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md)[6](mariadb-530-changelog-p6.md)`\
-) |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
+) |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
 **Release date:** 26 July 2011
 
@@ -415,7 +415,7 @@
   * [Revision #3095.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3095.1.2)\
     Mon 2011-07-11 23:48:35 +0400
     * Port of code for: (part of testcase is in mysql-test/t/subquery\*.test and will be ported separately)
-      * [Bug #11766642](https://bugs.launchpad.net/bugs/11766642): crash in Item\_field::register\_field\_in\_read\_map\
+      * Bug #11766642: crash in Item\_field::register\_field\_in\_read\_map\
         with view
       * (Former [MySQL Bug #59793](https://bugs.mysql.com/bug.php?id=59793))
       * Prior to the refactoring in this patch, Item\_cond\_xor behaved\

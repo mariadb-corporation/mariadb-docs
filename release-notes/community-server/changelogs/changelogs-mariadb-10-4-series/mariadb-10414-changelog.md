@@ -1,8 +1,8 @@
 # MariaDB 10.4.14 Changelog
 
-The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
+The most recent release of [MariaDB 10.4](../../old-releases/10.4/what-is-mariadb-104.md) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.4.14/)[Release Notes](../../old-releases/10.4/10.4.14.md)[Changelog](mariadb-10414-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+[Download](https://downloads.mariadb.org/mariadb/10.4.14/)[Release Notes](../../old-releases/10.4/10.4.14.md)[Changelog](mariadb-10414-changelog.md)[Overview of 10.4](../../old-releases/10.4/what-is-mariadb-104.md)
 
 **Release date:** 10 Aug 2020
 
@@ -50,7 +50,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-23351](https://jira.mariadb.org/browse/MDEV-23351) Rounding functions return wrong data types for DATE input
 * [Revision #a773d93267](https://github.com/MariaDB/server/commit/a773d93267)\
   2020-07-31 11:10:41 +0200
-  * [MDEV-19603](https://jira.mariadb.org/browse/MDEV-19603) [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) does not build on OpenBSD due to the use of libdl
+  * [MDEV-19603](https://jira.mariadb.org/browse/MDEV-19603) [MariaDB 10.4](../../old-releases/10.4/what-is-mariadb-104.md) does not build on OpenBSD due to the use of libdl
 * [Revision #153cd6a27f](https://github.com/MariaDB/server/commit/153cd6a27f)\
   2020-07-23 18:57:40 +0200
   * [MDEV-23237](https://jira.mariadb.org/browse/MDEV-23237) mariadb.sys has too many privileges

@@ -1,12 +1,12 @@
 # MariaDB Galera 5.5.29 Changelog
 
-The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/galera/README.md) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
+The most recent [MariaDB Galera Cluster 5.5]({galera}) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/5.5.29) |[Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/mariadb-galera-cluster-releases/mariadb-galera-55-release-notes/mariadb-galera-5529-release-notes) |**Changelog** |[Overview of Galera](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/5.5.29) |[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-5529-release-notes.md) |**Changelog** |[Overview of Galera]({galera}/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 5 Mar 2013
 
-For the highlights of this release, see the [release notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/mariadb-galera-cluster-releases/mariadb-galera-55-release-notes).
+For the highlights of this release, see the [release notes](../mariadb-galera-55-release-notes/).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -220,7 +220,7 @@ message:
         * [Revision #2502.571.1](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/2502.571.1)\
           Mon 2013-01-21 11:47:45 -0800
           * Fixed bug [MDEV-4063](https://jira.mariadb.org/browse/MDEV-4063) (bug #56927). This bug could result in returning 0 for the expressions of the form \<aggregate\_function>(distinct field) when the system variable max\_heap\_table\_size was set to a small enough number. It happened because the method Unique::walk() did not support the case when more than one pass was needed to merge the trees of distinct values saved in an external file.
-          * Backported a fix in grant\_lowercase.test from [mariadb 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/mariadb-galera-cluster-releases/mariadb-galera-55-release-notes).
+          * Backported a fix in grant\_lowercase.test from [mariadb 5.5](../mariadb-galera-55-release-notes/).
       * [Revision #2502.565.26](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/2502.565.26)\
         Mon 2013-01-21 10:52:39 +0100
         * [MDEV-4029](https://jira.mariadb.org/browse/MDEV-4029) SELECT on information\_schema using a subquery locks up the information\_schema table due to incorrect mutexes handling

@@ -1,8 +1,8 @@
 # MariaDB 10.4.0 Changelog
 
-The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
+The most recent release of [MariaDB 10.4](../../old-releases/10.4/what-is-mariadb-104.md) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.4.1/)[Release Notes](../../old-releases/10.4/10.4.1.md)[Changelog](mariadb-1041-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+[Download](https://downloads.mariadb.org/mariadb/10.4.1/)[Release Notes](../../old-releases/10.4/10.4.1.md)[Changelog](mariadb-1041-changelog.md)[Overview of 10.4](../../old-releases/10.4/what-is-mariadb-104.md)
 
 **Release date:** 20 Dec 2018
 
@@ -385,7 +385,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-17255](https://jira.mariadb.org/browse/MDEV-17255): New optimizer defaults and ANALYZE TABLE
 * [Revision #93c360e3a5](https://github.com/MariaDB/server/commit/93c360e3a5)\
   2018-05-31 15:51:59 +0530
-  * [MDEV-15253](https://jira.mariadb.org/browse/MDEV-15253): Default optimizer setting changes for [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/)
+  * [MDEV-15253](https://jira.mariadb.org/browse/MDEV-15253): Default optimizer setting changes for [MariaDB 10.4](../../old-releases/10.4/what-is-mariadb-104.md)
 * [Revision #a25ce5ab4b](https://github.com/MariaDB/server/commit/a25ce5ab4b)\
   2018-12-08 16:10:44 +0400
   * [MDEV-17928](https://jira.mariadb.org/browse/MDEV-17928) Conversion from TIMESTAMP to VARCHAR SP variables does not work well on fractional digits

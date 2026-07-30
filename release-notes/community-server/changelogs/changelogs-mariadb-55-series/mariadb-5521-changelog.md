@@ -2,7 +2,7 @@
 
 The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.askmonty.org/mariadb/5.5.21) |[Release Notes](../../old-releases/5.5/5.5.21.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.askmonty.org/mariadb/5.5.21) |[Release Notes](../../old-releases/5.5/5.5.21.md) |**Changelog** |\[[Overview of 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
 
 **Release date:** 16 Mar 2012
 
@@ -117,7 +117,7 @@ modified in that revision.
     * Merge
   * [Revision #3307.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3307.1.1) \[merge]\
     Fri 2012-03-02 15:03:20 -0800
-    * Merge [MWL#247](https://askmonty.org/worklog/?tid=247) from [mariadb 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series) -> [mariadb 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series).
+    * Merge [MWL#247](https://askmonty.org/worklog/?tid=247) from [mariadb 5.3](../../old-releases/5.3/) -> [mariadb 5.5](../../old-releases/5.5/).
     * [Revision #2502.539.6](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.539.6)\
       Tue 2012-02-28 13:03:10 -0800
       * Addressed all review feedbacks for [MWL#247](https://askmonty.org/worklog/?tid=247).

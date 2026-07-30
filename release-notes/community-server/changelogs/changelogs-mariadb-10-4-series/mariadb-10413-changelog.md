@@ -1,8 +1,8 @@
 # MariaDB 10.4.13 Changelog
 
-The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
+The most recent release of [MariaDB 10.4](../../old-releases/10.4/what-is-mariadb-104.md) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.4.13/)[Release Notes](../../old-releases/10.4/10.4.13.md)[Changelog](mariadb-10413-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+[Download](https://downloads.mariadb.org/mariadb/10.4.13/)[Release Notes](../../old-releases/10.4/10.4.13.md)[Changelog](mariadb-10413-changelog.md)[Overview of 10.4](../../old-releases/10.4/what-is-mariadb-104.md)
 
 **Release date:** 12 May 2020
 
@@ -27,7 +27,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-21794](https://jira.mariadb.org/browse/MDEV-21794): Optimizer flag rowid\_filter leads to long query
 * [Revision #0253ea7f22](https://github.com/MariaDB/server/commit/0253ea7f22)\
   2020-02-19 17:50:30 +0100
-  * [MDEV-19650](https://jira.mariadb.org/browse/MDEV-19650): Privilege bug on [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/)
+  * [MDEV-19650](https://jira.mariadb.org/browse/MDEV-19650): Privilege bug on [MariaDB 10.4](../../old-releases/10.4/what-is-mariadb-104.md)
 * Merge [Revision #2c3c851d2c](https://github.com/MariaDB/server/commit/2c3c851d2c) 2020-05-05 20:33:10 +0300 - Merge 10.3 into 10.4
 * [Revision #474290540a](https://github.com/MariaDB/server/commit/474290540a)\
   2020-05-05 14:20:47 +0300

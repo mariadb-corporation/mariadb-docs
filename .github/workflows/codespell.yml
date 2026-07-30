@@ -37,6 +37,12 @@ jobs:
             # spelling fixes go upstream, not here. Our own authored skills under
             # agent-skills/granular/ stay in scope.
             agent-skills/topical/**
+            # Changelog pages transcribe upstream MDEV/git commit messages
+            # verbatim, so their misspellings belong to the commit history, not
+            # to us -- "correcting" them rewrites a quotation. The release-notes
+            # prose that surrounds them stays in scope. See DOCS-6369.
+            release-notes/**/changelogs/**
+            release-notes/**/*-changelogs/**
 
       - name: Scan for for common misspellings in text files
         if: steps.changes.outputs.any_changed == 'true'

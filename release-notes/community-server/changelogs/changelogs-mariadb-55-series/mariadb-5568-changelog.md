@@ -1,6 +1,6 @@
 # MariaDB 5.5.68 Changelog
 
-[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/5.5/5.5.68.md)[Changelog](mariadb-5568-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/5.5/5.5.68.md)[Changelog](mariadb-5568-changelog.md)\[[Overview of 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/5.5.68/)
 

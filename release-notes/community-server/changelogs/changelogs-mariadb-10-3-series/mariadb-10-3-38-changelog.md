@@ -1,6 +1,6 @@
 # MariaDB 10.3.38 Changelog
 
-[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/10.3/10.3.38.md)[Changelog](mariadb-10-3-38-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/10.3/10.3.38.md)[Changelog](mariadb-10-3-38-changelog.md)[Overview of 10.3](../../old-releases/10.3/what-is-mariadb-103.md)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.3.38/)
 

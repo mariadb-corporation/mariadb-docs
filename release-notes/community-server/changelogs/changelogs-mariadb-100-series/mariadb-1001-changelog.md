@@ -802,7 +802,7 @@ Fri 2012-08-17 21:13:20 +0400
   * After-merge fixes for merge 10.0-base -> 10.0.
 * [Revision #3488](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3488) \[merge]\
   Tue 2012-12-18 15:01:58 +0100
-  * Merge [MariaDB 10.0](../../mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)-base to [MariaDB 10.0](../../mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+  * Merge [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)-base to [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
   * [Revision #3427.1.26](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.26)\
     Mon 2012-12-17 21:00:36 +0100
     * fix have\_debug\_sync.inc remove unused require files
@@ -868,7 +868,7 @@ Improved bootstrap error handling:
 
 * [Revision #3485](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3485)\
   Sat 2012-12-15 21:55:04 +0100
-  * [MDEV-3834](https://jira.mariadb.org/browse/MDEV-3834) Crossgrade from MySQL 5.6.7 to [MariaDB 10.0](../../mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) fails due to non-existing mysql.host table Treat the host table as optional, don't abort when it's missing
+  * [MDEV-3834](https://jira.mariadb.org/browse/MDEV-3834) Crossgrade from MySQL 5.6.7 to [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) fails due to non-existing mysql.host table Treat the host table as optional, don't abort when it's missing
 * [Revision #3484](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3484)\
   Sat 2012-12-15 21:54:18 +0100
   * [MDEV-3837](https://jira.mariadb.org/browse/MDEV-3837) Assertion \`table->read\_set == \&table->def\_read\_set' failed on updating a performance\_schema table This was failing not only for P\_S, but for any engine that had HA\_PRIMARY\_KEY\_REQUIRED\_FOR\_DELETE flag set (in the tree - only P\_S and federated). Because of this flag, read\_set and write\_set were (possibly) changed on update. But later the code modified these bitmaps and restored them to the default state, losing HA\_PRIMARY\_KEY\_REQUIRED\_FOR\_DELETE related changes.
@@ -913,7 +913,7 @@ and --plugin-load-add are mentioned in it.
   * [MDEV-3862](https://jira.mariadb.org/browse/MDEV-3862) Lift limitation for merging VIEWS with Subqueries in SELECT list.
 * [Revision #3480](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3480) \[merge]\
   Tue 2012-11-20 14:22:51 +0100
-  * Merge [MariaDB 10.0](../../mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)-base -> 10.0
+  * Merge [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)-base -> 10.0
   * [Revision #3427.1.18](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.18)\
     Tue 2012-11-20 14:20:26 +0100
     * [MDEV-3861](https://jira.mariadb.org/browse/MDEV-3861): Assertion in TC\_LOG\_MMAP.

@@ -11,7 +11,7 @@ Sharding is the method of splitting a single logical database server into separa
 
 ### Environment
 
-This tutorial was written for Ubuntu 22.04, MaxScale 23.08 and [MariaDB 10.11](../../release-notes/community-server/mariadb-10-11-series/). In addition to the MaxScale server, you'll need two MariaDB servers which will be used for the sharding. The installation of MariaDB is not covered by this tutorial.
+This tutorial was written for Ubuntu 22.04, MaxScale 23.08 and [MariaDB 10.11]({release-notes}/community-server/10.11/what-is-mariadb-1011). In addition to the MaxScale server, you'll need two MariaDB servers which will be used for the sharding. The installation of MariaDB is not covered by this tutorial.
 
 ### Installing MaxScale
 

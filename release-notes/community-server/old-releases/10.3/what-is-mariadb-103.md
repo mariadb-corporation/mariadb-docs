@@ -163,14 +163,14 @@ For a complete list of security vulnerabilities (CVEs) fixed across all\
 versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
 page.
 
-* [CVE-2023-5157](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5157): [MariaDB 10.3.36](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/mariadb-10336-release-notes)
+* [CVE-2023-5157](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5157): [MariaDB 10.3.36](10.3.36.md)
 * [CVE-2022-47015](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-47015): [MariaDB 10.3.39](10.3.39.md)
-* [CVE-2022-38791](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-38791): [MariaDB 10.3.36](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/mariadb-10336-release-notes)
-* [CVE-2022-32091](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32091): [MariaDB 10.3.36](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/mariadb-10336-release-notes)
+* [CVE-2022-38791](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-38791): [MariaDB 10.3.36](10.3.36.md)
+* [CVE-2022-32091](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32091): [MariaDB 10.3.36](10.3.36.md)
 * [CVE-2022-32088](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32088): [MariaDB 10.3.35](10.3.35.md)
 * [CVE-2022-32087](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32087): [MariaDB 10.3.35](10.3.35.md)
 * [CVE-2022-32085](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32085): [MariaDB 10.3.35](10.3.35.md)
-* [CVE-2022-32084](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32084): [MariaDB 10.3.36](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/mariadb-10336-release-notes)
+* [CVE-2022-32084](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32084): [MariaDB 10.3.36](10.3.36.md)
 * [CVE-2022-32083](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32083): [MariaDB 10.3.35](10.3.35.md)
 * [CVE-2022-31624](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-31624): [MariaDB 10.3.32](10.3.32.md)
 * [CVE-2022-27458](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27458): [MariaDB 10.3.35](10.3.35.md)
@@ -264,7 +264,7 @@ page.
 * [CVE-2018-3063](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-3063): [MariaDB 10.3.9](10.3.9.md)
 * [CVE-2018-3060](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-3060): [MariaDB 10.3.9](10.3.9.md)
 * [CVE-2018-3058](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-3058): [MariaDB 10.3.9](10.3.9.md)
-* [CVE-2018-25032](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-25032): [MariaDB 10.3.36](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/mariadb-10336-release-notes)
+* [CVE-2018-25032](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-25032): [MariaDB 10.3.36](10.3.36.md)
 * [CVE-2016-9843](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-9843): [MariaDB 10.3.11](10.3.11.md)
 
 ## Comparison with MySQL
@@ -280,8 +280,8 @@ page.
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | 10 May 2023 | [MariaDB 10.3.39](10.3.39.md)                                                                                                                                                 | Stable (GA)            | [Release Notes](10.3.39.md)                                                                                                                                               | [Changelog](../../changelogs/changelogs-mariadb-10-3-series/mariadb-10-3-39-changelog.md) |
 | 6 Feb 2023  | [MariaDB 10.3.38](10.3.38.md)                                                                                                                                                 | Stable (GA)            | [Release Notes](10.3.38.md)                                                                                                                                               | [Changelog](../../changelogs/changelogs-mariadb-10-3-series/mariadb-10-3-38-changelog.md) |
-| 7 Nov 2022  | [MariaDB 10.3.37](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-37-release-notes) | Stable (GA)            | [Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series)                             | [Changelog](../../changelogs/changelogs-mariadb-10-3-series/mariadb-10-3-37-changelog.md) |
-| 15 Aug 2022 | [MariaDB 10.3.36](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/mariadb-10336-release-notes)   | Stable (GA)            | [Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/mariadb-10336-release-notes) | [Changelog](../../changelogs/changelogs-mariadb-10-3-series/mariadb-10336-changelog.md)   |
+| 7 Nov 2022  | [MariaDB 10.3.37](10.3.37.md) | Stable (GA)            | [Release Notes](./)                             | [Changelog](../../changelogs/changelogs-mariadb-10-3-series/mariadb-10-3-37-changelog.md) |
+| 15 Aug 2022 | [MariaDB 10.3.36](10.3.36.md)   | Stable (GA)            | [Release Notes](10.3.36.md) | [Changelog](../../changelogs/changelogs-mariadb-10-3-series/mariadb-10336-changelog.md)   |
 | 20 May 2022 | [MariaDB 10.3.35](10.3.35.md)                                                                                                                                                 | Stable (GA)            | [Release Notes](10.3.35.md)                                                                                                                                               | [Changelog](../../changelogs/changelogs-mariadb-10-3-series/mariadb-10335-changelog.md)   |
 | 12 Feb 2022 | [MariaDB 10.3.34](10.3.34.md)                                                                                                                                                 | Stable (GA)            | [Release Notes](10.3.34.md)                                                                                                                                               | [Changelog](../../changelogs/changelogs-mariadb-10-3-series/mariadb-10334-changelog.md)   |
 | 9 Feb 2022  | [MariaDB 10.3.33](10.3.33.md)                                                                                                                                                 | Stable (GA)            | [Release Notes](10.3.33.md)                                                                                                                                               | [Changelog](../../changelogs/changelogs-mariadb-10-3-series/mariadb-10333-changelog.md)   |

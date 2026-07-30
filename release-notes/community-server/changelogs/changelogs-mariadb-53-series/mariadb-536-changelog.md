@@ -1,6 +1,6 @@
 # MariaDB 5.3.6 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.6) |[Release Notes](../../old-releases/5.3/5.3.6.md) |**Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
+[Download](https://downloads.askmonty.org/mariadb/5.3.6) |[Release Notes](../../old-releases/5.3/5.3.6.md) |**Changelog** |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
 **Release date:** 9 Apr 2012
 
