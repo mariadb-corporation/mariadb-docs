@@ -8,7 +8,7 @@ icon: bolt
 
 # Query Cache Using GridGain 8
 
-Query Cache is a provisioning **add-on** for MariaDB Provisioned services that adds an in-memory cache for SQL query results, powered by **GridGain 8**. Repeated read queries are served from memory instead of the database, reducing read latency for workloads such as dashboards, catalog lookups, session reads, and reporting. It integrates with the Semi-Sync HA topology and uses the same MaxScale endpoint, so applications continue connecting to the existing MariaDB Cloud endpoint.
+Query Cache is a provisioning **add-on** for MariaDB Provisioned services that adds an in-memory cache for SQL query results, powered by **GridGain 8**. Repeated read queries are served from the GridGain in-memory cache instead of the underlying database, reducing read latency for read-intensive workloads with high query reuse. The add-on integrates with the Semi-Sync HA topology and uses the same MaxScale endpoint, so applications continue connecting to the existing MariaDB Cloud endpoint.
 
 {% hint style="warning" %}
 This feature requires **Semi-Sync HA**, is available on Power and PowerPlus tiers only, and cannot be enabled on trial accounts.
