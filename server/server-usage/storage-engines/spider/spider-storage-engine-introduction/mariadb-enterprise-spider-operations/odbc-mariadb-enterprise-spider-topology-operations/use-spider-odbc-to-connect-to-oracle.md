@@ -162,6 +162,6 @@ You should now be able to select data from `spider_test.contacts` table. That da
 * [Connecting to Oracle from MariaDB Enterprise Server using Spider](https://mariadb.com/resources/blog/connecting-to-oracle-from-mariadb-enterprise-server-using-spider/)\
   Blog post by Anders Karlsson, January 2024 - 13 minute read
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

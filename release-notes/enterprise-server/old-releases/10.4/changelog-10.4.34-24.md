@@ -80,6 +80,6 @@ MariaDB Enterprise Server 10.4.34-24 was released on 2024-06-11.
 * ([MDEV-28992](https://jira.mariadb.org/browse/MDEV-28992)) Spider: Push down TIMESTAMPDIFF function
 * ([MDEV-33214](https://jira.mariadb.org/browse/MDEV-33214)) Table is getting rebuild with ALTER TABLE ADD COLUMN
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

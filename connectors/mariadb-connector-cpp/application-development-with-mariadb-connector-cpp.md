@@ -68,7 +68,7 @@ Most C++ applications developed using MariaDB Connector/C++ will use some of the
 | sql::ResultSetMetaData | Provides detailed information about a result set, such as schema name, table name, column names and types, and column attributes; whether a column is auto increment, and nullable.                                                                                                                                                                                                                                                                                                                                   |
 | sql::Statement         | Execute a query that does not contain variable text. A Statement can be closed by calling close(), or there is an implicit close when using a smart pointer.                                                                                                                                                                                                                                                                                                                                                          |
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 
 {% @marketo/form formId="4316" %}

@@ -29,6 +29,6 @@ MariaDB MaxScale follows the MariaDB Enterprise release schedule, which can be f
 
 The supported MaxScale versions can be found in the latest [MariaDB Engineering Policy](https://mariadb.com/engineering-policies/).
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

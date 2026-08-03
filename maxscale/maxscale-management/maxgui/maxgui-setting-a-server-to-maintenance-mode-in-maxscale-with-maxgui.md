@@ -52,6 +52,6 @@ MaxGUI is a graphical utility that can perform administrative tasks using MaxSca
     <figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 9. Click the "Set" button. When the "Force closing" checkbox is specified, MaxScale immediately close all connections, even if the server is a primary server that has open transactions.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

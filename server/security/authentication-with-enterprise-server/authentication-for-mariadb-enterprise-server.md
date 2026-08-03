@@ -57,6 +57,6 @@ MariaDB Enterprise Server uses authentication plugins to support different authe
 * [Authentication with unix\_socket](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md)
 * [Authentication with PARSEC](../../reference/plugins/authentication-plugins/authentication-plugin-parsec.md)
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -24,6 +24,6 @@ MariaDB MaxScale is a database proxy that extends the high availability, scalabi
 | Reduces bandwidth requirements of primary server in environments with many replica servers | No                      |
 | Replicates from MariaDB to a Kafka broker                                                  | No                      |
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

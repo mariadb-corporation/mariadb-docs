@@ -19,6 +19,6 @@ description: >-
 * Operations
   * [Setting a Server to Maintenance Mode with MaxGUI](administrative-tools-for-mariadb-maxscale-maxctrl/maxctrl-setting-a-server-to-maintenance-mode-in-maxscale-with-maxctrl.md)
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

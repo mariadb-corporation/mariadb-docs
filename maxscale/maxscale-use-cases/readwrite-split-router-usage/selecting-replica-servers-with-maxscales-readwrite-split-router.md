@@ -47,6 +47,6 @@ slave_selection_criteria = LEAST_GLOBAL_CONNECTIONS
 $ sudo systemctl restart maxscale
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

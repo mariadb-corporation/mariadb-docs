@@ -1584,6 +1584,6 @@ INSERT INTO mysql.server_audit_users (host, user, filtername)
 {% endstep %}
 {% endstepper %}
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

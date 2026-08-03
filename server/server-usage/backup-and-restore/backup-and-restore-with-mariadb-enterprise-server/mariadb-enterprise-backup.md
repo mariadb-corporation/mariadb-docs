@@ -517,6 +517,6 @@ Create Table: CREATE TABLE `t1` (
 
 Point-in-time recovery (PITR) is [documented here](../mariadb-backup/point-in-time-recovery-pitr-mariadb-backup.md).
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

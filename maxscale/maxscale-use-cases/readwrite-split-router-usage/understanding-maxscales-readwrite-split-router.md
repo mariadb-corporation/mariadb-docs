@@ -29,6 +29,6 @@ The [Read/Write Split Router (readwritesplit)](../../reference/maxscale-routers/
 * Automatically retry failed queries.
 * Enforce causal reads to avoid reading stale data caused by slave lag.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

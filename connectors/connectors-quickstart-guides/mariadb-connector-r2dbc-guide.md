@@ -152,6 +152,6 @@ MariaDB Connector/R2DBC also integrates seamlessly with the Spring Data R2DBC fr
 * [R2DBC Specification](https://r2dbc.io/spec/)
 * [Spring Data R2DBC Documentation](https://www.google.com/search?q=https://docs.spring.io/spring-data/relational/reference/r2dbc/index.html\&authuser=1)
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

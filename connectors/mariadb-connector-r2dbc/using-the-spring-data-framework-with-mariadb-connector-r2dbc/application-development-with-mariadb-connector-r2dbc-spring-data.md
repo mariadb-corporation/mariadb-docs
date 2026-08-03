@@ -88,7 +88,7 @@ public class Contact {
 * For the test.contact table, the entity class is called Contact.
 * The entity class must declare an identifier (i.e., primary key) field by annotating the field declaration or its getter method declaration with @Id.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 
 {% @marketo/form formId="4316" %}

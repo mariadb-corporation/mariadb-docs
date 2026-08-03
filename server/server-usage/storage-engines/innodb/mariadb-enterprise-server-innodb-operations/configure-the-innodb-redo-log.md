@@ -170,6 +170,6 @@ For the standard upgrade procedure between major versions, see [Upgrading Betwee
 
 This capability was added under [MDEV-39303](https://jira.mariadb.org/browse/MDEV-39303), available in MariaDB 11.4.11, MariaDB 11.8.7, and later releases.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -378,4 +378,4 @@ Navigation in the procedure Shared Local Storage topology
 
 Next: Step 1: Prepare ColumnStore Nodes.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
