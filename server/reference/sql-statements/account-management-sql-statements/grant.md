@@ -112,6 +112,10 @@ Use the [REVOKE](revoke.md) statement to revoke privileges granted with the `GRA
 
 Use the [SHOW GRANTS](../administrative-sql-statements/show/show-grants.md) statement to determine what privileges an account has.
 
+{% hint style="info" %}
+From [MariaDB 13.1](https://jira.mariadb.org/browse/MDEV-14443), a privilege blocked with [DENY](deny.md) cannot be granted back. A deny takes precedence over every `GRANT` at every privilege level, whatever order the statements are issued in, and is only lifted by `REVOKE DENY`.
+{% endhint %}
+
 ### Account Names
 
 For `GRANT` statements, account names are specified as the `username` argument in the same way as they are for [CREATE USER](create-user.md) statements. See [account names](create-user.md#account-names) from the `CREATE USER` page for details on how account names are specified.
@@ -1027,6 +1031,7 @@ GRANT ALL PRIVILEGES ON  *.* TO 'alexander'@'localhost' WITH GRANT OPTION;
 * [CREATE USER](create-user.md)
 * [ALTER USER](alter-user.md)
 * [DROP USER](drop-user.md)
+* [DENY](deny.md) blocks a privilege so that no `GRANT` can restore it.
 * [SET PASSWORD](set-password.md)
 * [SHOW CREATE USER](../administrative-sql-statements/show/show-create-user.md)
 * [mysql.global\_priv table](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md)

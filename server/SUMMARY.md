@@ -1299,6 +1299,7 @@
       * [ALTER USER](reference/sql-statements/account-management-sql-statements/alter-user.md)
       * [CREATE ROLE](reference/sql-statements/account-management-sql-statements/create-role.md)
       * [CREATE USER](reference/sql-statements/account-management-sql-statements/create-user.md)
+      * [DENY](reference/sql-statements/account-management-sql-statements/deny.md)
       * [DROP ROLE](reference/sql-statements/account-management-sql-statements/drop-role.md)
       * [DROP USER](reference/sql-statements/account-management-sql-statements/drop-user.md)
       * [GRANT](reference/sql-statements/account-management-sql-statements/grant.md)

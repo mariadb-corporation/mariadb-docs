@@ -22,15 +22,22 @@ REVOKE
 REVOKE ALL [PRIVILEGES], GRANT OPTION
     FROM account_or_role [, account_or_role] ...
 
-/* 3. Revoking Proxy Access */
+/* 3. Revoking a Deny (from MariaDB 13.1) */
+REVOKE DENY
+    priv_type [(column_list)]
+      [, priv_type [(column_list)]] ...
+    ON [object_type] priv_level
+    FROM account_or_role [, account_or_role] ...
+
+/* 4. Revoking Proxy Access */
 REVOKE PROXY ON user_or_role
     FROM account_or_role [, account_or_role] ...
 
-/* 4. Revoking Roles */
+/* 5. Revoking Roles */
 REVOKE role [, role] ...
     FROM account_or_role [, account_or_role] ...
 
-/* 5. Revoking Admin Option for Roles */
+/* 6. Revoking Admin Option for Roles */
 REVOKE ADMIN OPTION FOR role [, role] ...
     FROM account_or_role [, account_or_role] ...
 
@@ -93,6 +100,8 @@ To use this `REVOKE` syntax, you must have the global [CREATE USER](create-user.
 Revoking all privileges doesn't remove _all_ privileges, not even with the second syntax. The user still keeps the `USAGE` privilege, making it possible to connect to the server (but nothing else). To remove that privilege, too, remove the user entirely with a `DROP USER` statement.
 {% endhint %}
 
+Revoking a privilege is not the same as blocking it. A privilege that a broader grant still covers remains in effect after the narrower grant is revoked, and any later `GRANT` restores it. To block a privilege outright, use [DENY](deny.md) instead.
+
 ### Examples
 
 Revoking a particular privilege (`SUPER`):
@@ -116,6 +125,16 @@ REVOKE ALL, GRANT OPTION FROM 'myuser'@'localhost';
 {% hint style="info" %}
 The `PRIVILEGES` keyword is optional for `ALL PRIVILEGES`.
 {% endhint %}
+
+## Denies
+
+From [MariaDB 13.1](https://jira.mariadb.org/browse/MDEV-14443), `REVOKE DENY` removes a negative privilege created with [DENY](deny.md). It is the only way to restore a denied privilege.
+
+```sql
+REVOKE DENY SELECT ON hr.staff FROM 'alice'@'localhost';
+```
+
+The privileges, object type, and privilege level must match the deny that is being removed, and the statement fails if no such deny exists — even when a positive grant does. `REVOKE ALL PRIVILEGES, GRANT OPTION` clears an account's denies together with its grants. See [DENY](deny.md#removing-a-deny) for details.
 
 ## Roles
 

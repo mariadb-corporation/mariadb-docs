@@ -20,6 +20,8 @@ The `mysql.global_priv` table contains the following fields:
 
 From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), in order to help the server understand which version a privilege record was written by, the `priv` field contains a new JSON field, `version_id` ([MDEV-21704](https://jira.mariadb.org/browse/MDEV-21704)).
 
+From [MariaDB 13.1](https://jira.mariadb.org/browse/MDEV-14443), the `Priv` field also holds a `denies` array, recording the negative privileges created with [DENY](../../sql-statements/account-management-sql-statements/deny.md). Denies are stored here for every privilege level, not in `mysql.db`, `mysql.tables_priv`, or `mysql.columns_priv`. See [The denies Field](mysql-global_priv-table.md#the-denies-field).
+
 ## Examples
 
 ```sql
@@ -141,6 +143,50 @@ The `access` field contains the grants of the user which can be mapped to indivi
 | BINLOG\_REPLAY        | (1ULL << 37) |
 | SLAVE\_MONITOR        | (1ULL << 38) |
 | SHOW\_CREATE\_ROUTINE | (1ULL << 39) |
+
+## The `denies` Field
+
+From [MariaDB 13.1](https://jira.mariadb.org/browse/MDEV-14443), the `denies` array records the privileges that [DENY](../../sql-statements/account-management-sql-statements/deny.md) blocks for an account or role. Each element describes one privilege level:
+
+```sql
+DENY SELECT ON hr.* TO user1@localhost;
+DENY SELECT (salary) ON hr.staff TO user1@localhost;
+SELECT JSON_PRETTY(JSON_EXTRACT(Priv, '$.denies')) FROM mysql.global_priv
+  WHERE User='user1'\G
+
+*************************** 1. row ***************************
+JSON_PRETTY(JSON_EXTRACT(Priv, '$.denies')): [
+    {
+        "type": "db",
+        "db": "hr",
+        "bits": 1
+    },
+    {
+        "type": "column",
+        "db": "hr",
+        "table": "staff",
+        "column": "salary",
+        "bits": 1
+    }
+]
+```
+
+The fields of an element are:
+
+| Field | Description |
+| ----- | ----------- |
+| `type` | The privilege level: `global`, `db`, `table`, `column`, `function`, `procedure`, `package`, or `package body`. |
+| `db` | Database name. Absent for `global`. |
+| `table` | Table name, for `table` and `column` entries. |
+| `column` | Column name, for `column` entries. |
+| `function`, `procedure`, `package`, `package body` | Routine name, named after the entry's `type`. |
+| `bits` | The denied privileges, using the same bit values as the `access` field. |
+
+An account with no denies has either no `denies` key or an empty array.
+
+{% hint style="warning" %}
+Do not edit the `denies` array with `UPDATE`. A malformed entry is skipped when privileges are loaded, with a `Malformed DENY entry in mysql.global_priv` warning written to the [error log](../../../server-management/server-monitoring-logs/error-log.md), which leaves the privilege allowed. Use `DENY` and `REVOKE DENY` instead.
+{% endhint %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
