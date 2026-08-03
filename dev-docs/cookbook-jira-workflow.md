@@ -26,19 +26,37 @@ All transitions are **global** (available from any status) and have **no require
 Transition by **name** (ids are stable hints): IN PROGRESS=21, Review=2, Closed=31, On Hold=6,
 Needs Feedback=5, TODO=11, CANCELED=3, DUPLICATED=4.
 
-## Connecting the MariaDB Jira (two-account setup)
+## Connecting the MariaDB Jira
 
-DOCS lives in MariaDB's Atlassian, which is a **separate account** from GridGain's. We use a
-**second** Rovo MCP connection so both work side by side:
+DOCS lives in MariaDB's Atlassian (`mariadbcorp.atlassian.net`). What the tooling needs is **one
+Atlassian MCP connection that reaches that site** — it does not care what the connection is called.
 
-1. `claude mcp add --transport http atlassian-mariadb https://mcp.atlassian.com/v1/mcp`
-2. In a browser signed in to `mariadbcorp.atlassian.net` (incognito / separate profile if your
-   default session is GridGain), run `/mcp` → `atlassian-mariadb` → authenticate.
-3. Verify: `getAccessibleAtlassianResources()` on that server lists `mariadbcorp.atlassian.net`.
+There are two ways to have one, and both talk to the same endpoint
+(`https://mcp.atlassian.com/v1/mcp`):
 
-If it ever shows only `ggsystems`, the connection bound to the wrong account — log out of that
-server in `/mcp` and re-auth under a MariaDB browser session. The `jira` skill checks this before
-every operation.
+| Connection | How you get it | Tool prefix |
+|------------|----------------|-------------|
+| `claude.ai Atlassian Rovo` | the account-level Atlassian integration on claude.ai | `mcp__claude_ai_Atlassian_Rovo__*` |
+| `atlassian-mariadb` | `claude mcp add --transport http atlassian-mariadb https://mcp.atlassian.com/v1/mcp` | `mcp__atlassian-mariadb__*` |
+
+**If your account-level connection already reaches `mariadbcorp`, you are done — you do not need
+to add a second server.** Add `atlassian-mariadb` only when you need MariaDB *alongside* another
+Atlassian account (e.g. GridGain) in the same session: authenticate it in a browser signed in to
+`mariadbcorp.atlassian.net` (incognito or a separate profile if your default session is the other
+account), via `/mcp` → `atlassian-mariadb` → authenticate.
+
+Either way, **verify before trusting it**:
+
+```
+getAccessibleAtlassianResources()
+```
+
+It must list `mariadbcorp.atlassian.net` (cloudId `164b0d33-…`) with a `write:jira-work` scope.
+
+> **The connection's name proves nothing about which account it reaches.** Only this call does.
+> If it returns some other site (e.g. only `ggsystems`), that connection bound to the wrong
+> account — log out of it in `/mcp` and re-authenticate under a MariaDB browser session. The
+> `jira` skill runs this check before every operation.
 
 ## The end-to-end flow
 

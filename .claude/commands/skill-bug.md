@@ -1,7 +1,7 @@
 ---
 description: Report a broken Claude Code skill — file a DOCS Jira Task labeled claude-skill-bug and return the URL.
 argument-hint: <skill name> (e.g. jira, doc-from-ticket)
-allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__createJiraIssue, mcp__atlassian-mariadb__atlassianUserInfo, mcp__atlassian-mariadb__lookupJiraAccountId, mcp__atlassian-mariadb__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__createJiraIssue, mcp__claude_ai_Atlassian_Rovo__createJiraIssue, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__lookupJiraAccountId, mcp__claude_ai_Atlassian_Rovo__lookupJiraAccountId, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 ---
 
 # /skill-bug

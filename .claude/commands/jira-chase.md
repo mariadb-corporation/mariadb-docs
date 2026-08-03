@@ -1,7 +1,7 @@
 ---
 description: Remind reviewers of DOCS tickets waiting in Review — draft Slack nudges and confirm before sending.
 argument-hint: "(optional) DOCS-XXXX to chase one ticket; omit to chase all Review tickets"
-allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__getJiraIssue, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Slack__slack_search_users, mcp__claude_ai_Slack__slack_send_message, mcp__claude_ai_Slack__slack_send_message_draft
+allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__claude_ai_Atlassian_Rovo__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources, mcp__claude_ai_Slack__slack_search_users, mcp__claude_ai_Slack__slack_send_message, mcp__claude_ai_Slack__slack_send_message_draft
 ---
 
 # /jira-chase

@@ -1,9 +1,9 @@
 ---
 name: jira
 description: Work with the MariaDB DOCS Jira project. Shared plumbing for the /jira-start, /jira-create, /jira-resolve, /jira-close, /jira-comment, /jira-mine, and /jira-chase slash commands — fetch/transition/create DOCS tickets, manage the feature-branch workflow, and chase reviewers of tickets waiting in Review. Use when asked to start work on a DOCS ticket, file one, move one through the workflow, comment, list assigned tickets, or remind reviewers.
-allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__getJiraIssue, mcp__atlassian-mariadb__getTransitionsForJiraIssue, mcp__atlassian-mariadb__transitionJiraIssue, mcp__atlassian-mariadb__editJiraIssue, mcp__atlassian-mariadb__addCommentToJiraIssue, mcp__atlassian-mariadb__createJiraIssue, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__atlassianUserInfo, mcp__atlassian-mariadb__getJiraIssueTypeMetaWithFields, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Slack__slack_search_users, mcp__claude_ai_Slack__slack_send_message, mcp__claude_ai_Slack__slack_send_message_draft
+allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getTransitionsForJiraIssue, mcp__claude_ai_Atlassian_Rovo__getTransitionsForJiraIssue, mcp__atlassian-mariadb__transitionJiraIssue, mcp__claude_ai_Atlassian_Rovo__transitionJiraIssue, mcp__atlassian-mariadb__editJiraIssue, mcp__claude_ai_Atlassian_Rovo__editJiraIssue, mcp__atlassian-mariadb__addCommentToJiraIssue, mcp__claude_ai_Atlassian_Rovo__addCommentToJiraIssue, mcp__atlassian-mariadb__createJiraIssue, mcp__claude_ai_Atlassian_Rovo__createJiraIssue, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__claude_ai_Atlassian_Rovo__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__getJiraIssueTypeMetaWithFields, mcp__claude_ai_Atlassian_Rovo__getJiraIssueTypeMetaWithFields, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources, mcp__claude_ai_Slack__slack_search_users, mcp__claude_ai_Slack__slack_send_message, mcp__claude_ai_Slack__slack_send_message_draft
 owners: [igusev]
-last_verified: 2026-06-12
+last_verified: 2026-08-03
 status: active
 ---
 
@@ -18,15 +18,28 @@ each delegate here so the connection check, project config, and field/transition
 
 | Setting | Value |
 |---------|-------|
-| MCP server | **`atlassian-mariadb`** (tools are `mcp__atlassian-mariadb__*`) |
+| MCP server | **whichever Atlassian connection reaches `mariadbcorp`** — see below |
 | cloudId | `164b0d33-ee39-4b4d-b1d5-e71a97376560` (site `mariadbcorp.atlassian.net`) |
 | Project key | `DOCS` (project id `10037`, **team-managed**) |
 | Issue types | **Task** (`10083`, default), Epic (`11292`), Subtask (`10280`) — no Bug/Improvement |
 | Priority | defaults to **Major** (`10003`) |
 
-> The MariaDB site is reached through a **second** Rovo MCP connection (`atlassian-mariadb`),
-> separate from the GridGain one. Always use the `mcp__atlassian-mariadb__*` tools here — never
-> `mcp__claude_ai_Atlassian_Rovo__*` (that's GridGain) — or you'll hit the wrong instance.
+> **A connection's name does not tell you which Atlassian account it reaches.** Two registrations
+> are in use across the team, and both point at the *same* endpoint
+> (`https://mcp.atlassian.com/v1/mcp`):
+>
+> | Connection | Tool prefix |
+> |------------|-------------|
+> | `claude.ai Atlassian Rovo` — account-level, via claude.ai integrations | `mcp__claude_ai_Atlassian_Rovo__*` |
+> | `atlassian-mariadb` — added locally with `claude mcp add` | `mcp__atlassian-mariadb__*` |
+>
+> Use whichever one the **Setup check** below shows reaching `mariadbcorp.atlassian.net`; if both
+> are connected and both reach it, either is fine. **Never pick by name alone.** On a machine whose
+> single account-level connection is authenticated to MariaDB, `atlassian-mariadb` does not exist,
+> and assuming it does is what breaks these commands.
+>
+> Tool names are written **unprefixed** from here on (e.g. `getJiraIssue`) — prepend whichever
+> prefix from this table applies on your machine.
 
 ### Workflow transitions (verified 2026-06-12)
 
@@ -52,28 +65,30 @@ components, no fix versions, no mandatory custom fields.** Optional: `descriptio
 (`customfield_10021`) exists but is a team-managed board field — don't set it on create (it
 usually 400s); add the sprint from the board afterward.
 
-## Setup — verify the MariaDB Rovo connection (MANDATORY, run first)
+## Setup — verify the connection reaches MariaDB (MANDATORY, run first)
 
 The **authoritative** check is the accessible-resources call (not `claude mcp list`, whose
 output format is version-dependent and easy to misparse):
 
 ```
-mcp__atlassian-mariadb__getAccessibleAtlassianResources()
+getAccessibleAtlassianResources()
 ```
 
-The result **must** contain `mariadbcorp.atlassian.net` (cloudId `164b0d33-…`). If that call
-errors (server not connected) or returns a result **without** `mariadbcorp`, stop. (`claude mcp
-list` is fine as an optional human diagnostic, but a parse of its output must never gate the
-work — only the resource call above does.)
+Run it on whichever Atlassian connection you have (see the table above; if both exist, check the
+one you intend to use). The result **must** contain `mariadbcorp.atlassian.net` (cloudId
+`164b0d33-…`) carrying a `write:jira-work` scope. **That call — never the connection's name — is
+what establishes you are on the right instance.** If it errors (server not connected) or returns a
+result **without** `mariadbcorp`, stop. (`claude mcp list` is fine as an optional human diagnostic,
+but a parse of its output must never gate the work — only the resource call above does.)
 
-If it shows only `ggsystems`, the second connection got bound to the GridGain account — tell the
-user:
+If it returns sites but none is `mariadbcorp` (e.g. only `ggsystems`), that connection is
+authenticated as the wrong account — tell the user:
 
-> The `atlassian-mariadb` MCP is authenticated as the wrong account (GridGain). Re-auth it under
-> your MariaDB account: in a browser signed in to `mariadbcorp.atlassian.net`, run `/mcp` →
-> `atlassian-mariadb` → log out → re-authenticate. Then retry.
+> The Atlassian MCP connection is authenticated as the wrong account. Re-authenticate it under
+> your MariaDB account: in a browser signed in to `mariadbcorp.atlassian.net`, run `/mcp` → select
+> the Atlassian connection → log out → re-authenticate. Then retry.
 
-If the server is missing entirely, point the user at `dev-docs/cookbook-jira-workflow.md` ›
+If no Atlassian connection exists at all, point the user at `dev-docs/cookbook-jira-workflow.md` ›
 *Connecting the MariaDB Jira*. Do not proceed with any Jira call until the resource check passes.
 
 Every Rovo call below takes `cloudId="164b0d33-ee39-4b4d-b1d5-e71a97376560"`.
@@ -277,8 +292,9 @@ confirmed in chat before it is sent**.
 
 ## Guardrails
 
-- **MariaDB instance only.** Use `mcp__atlassian-mariadb__*` + cloudId `164b0d33-…`. Never the
-  GridGain Rovo tools.
+- **MariaDB instance only.** Always pass cloudId `164b0d33-…`, and only through a connection the
+  Setup check has confirmed reaches `mariadbcorp`. If a connection resolves to any other site
+  (e.g. `ggsystems`), never write through it — regardless of what the connection is called.
 - **Never `git push`, commit, or open a PR as a side effect** of a Jira command unless the user
   explicitly asked — these commands manage *Jira state and the branch*, not your commits.
 - **Match transitions by name** against the live `getTransitionsForJiraIssue` list; the ids here

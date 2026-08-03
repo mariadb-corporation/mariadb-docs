@@ -1,7 +1,7 @@
 ---
 description: Analyze a MariaDB source change (MDEV ticket, DOCS ticket, or MariaDB/server PR/commit) for its documentation impact — what's user-facing, whether docs are needed, which pages, and claims to verify. Produces a report; does not edit.
 argument-hint: MDEV-XXXXX | DOCS-XXXX | a MariaDB/server PR URL or commit SHA
-allowed-tools: Bash, Read, Grep, Glob, WebFetch, mcp__atlassian-mariadb__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, WebFetch, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 ---
 
 # /impact

@@ -1,7 +1,7 @@
 ---
 description: Turn a MariaDB DOCS ticket into a source-verified documentation edit (verifies claims against local MariaDB source, then drafts the page edit).
 argument-hint: DOCS-XXXX
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write, WebFetch, mcp__atlassian-mariadb__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, Edit, Write, WebFetch, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 ---
 
 # /doc-ticket

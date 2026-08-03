@@ -30,12 +30,21 @@ commands. What you *do* set up is the per-user, gitignored pieces below.
    settings — the committed `PreToolUse` hook (see *Trust model* below). Approve it to enable the
    pre-commit doc check.
 3. **Connect the MariaDB Jira** (needed for `/jira-*`, `/doc-ticket`, `/impact`, `/skill-bug`,
-   `/propose-improvement`). This is a **second** MCP connection, separate from any GridGain one:
+   `/propose-improvement`). You need **one** Atlassian MCP connection that reaches
+   `mariadbcorp.atlassian.net`; the tooling doesn't care what it's called. Check what you already
+   have:
+   ```bash
+   claude mcp list          # look for an Atlassian entry
+   ```
+   If the account-level **`claude.ai Atlassian Rovo`** connection is present and authenticated to
+   your MariaDB account, you're done. Only if you need MariaDB *alongside* another Atlassian
+   account (e.g. GridGain) in the same session, add a second, separately-authenticated server:
    ```bash
    claude mcp add --transport http atlassian-mariadb https://mcp.atlassian.com/v1/mcp
    ```
    then `/mcp` → `atlassian-mariadb` → authenticate **in a browser signed in to your MariaDB
-   account** (`mariadbcorp.atlassian.net`). Full steps + the wrong-account pitfall:
+   account**. Either way, verify with `getAccessibleAtlassianResources()` — it must list
+   `mariadbcorp`. Full steps + the wrong-account pitfall:
    `dev-docs/cookbook-jira-workflow.md › Connecting the MariaDB Jira`.
 4. **Configure local source repos** (for `/doc-ticket` and `/impact` verification). Clone the
    MariaDB source you work on (e.g. `MariaDB/server`); the **first run** of those commands prompts

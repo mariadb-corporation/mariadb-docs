@@ -1,7 +1,7 @@
 ---
 name: propose-improvement
 description: File an agent-tooling proposal for mariadb-docs. Use when the user says "propose an improvement", "propose a new skill", "draft a skill proposal", or "file a proposal". Asks whether it's a new Claude Code skill or a broader change, files a DOCS Jira Task (labeled claude-skill), and interviews the proposer to write the proposal MD (dev-docs/skill-proposals/ for skills, dev-docs/agent-improvements/ for everything else). The skill is the scribe; the proposer is the source. Does not open the PR.
-allowed-tools: Bash, Read, Write, Glob, mcp__atlassian-mariadb__createJiraIssue, mcp__atlassian-mariadb__atlassianUserInfo, mcp__atlassian-mariadb__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Write, Glob, mcp__atlassian-mariadb__createJiraIssue, mcp__claude_ai_Atlassian_Rovo__createJiraIssue, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 owners: [igusev]
 last_verified: 2026-06-12
 status: active
@@ -14,7 +14,8 @@ skill is the scribe; the proposer is the source** — every body word in the MD 
 proposer answer (or `_TBD — fill before opening PR_` when skipped). Pairs with
 `report-skill-bug`. **Does not open the PR.**
 
-Jira plumbing uses the `jira` skill's config (server `atlassian-mariadb`, cloudId `164b0d33-…`,
+Jira plumbing uses the `jira` skill's config (whichever Atlassian connection reaches
+`mariadbcorp`, cloudId `164b0d33-…`,
 project `DOCS`). Run that skill's **Setup** connection check before any Jira write.
 
 ## When to use
@@ -93,7 +94,7 @@ Run the `jira` skill **Setup** check. Then create a **Task** (DOCS has no Improv
 labeled **`claude-skill`**:
 
 ```
-mcp__atlassian-mariadb__createJiraIssue(
+createJiraIssue(   # tool prefix per the `jira` skill's connection table
   cloudId="164b0d33-ee39-4b4d-b1d5-e71a97376560",
   projectKey="DOCS",
   issueTypeName="Task",
@@ -174,7 +175,8 @@ Next:
 
 ## Don't
 
-- Don't call the GridGain Rovo connection — use `mcp__atlassian-mariadb__*` only.
+- Only write through a connection the `jira` skill's Setup check has confirmed reaches
+  `mariadbcorp` — never one that resolves to another site (e.g. `ggsystems`).
 - Don't open the PR; don't fabricate body content; don't suggest the proposal subject.
 - Don't put the long-form proposal in the Jira description — the MD is the proposal.
 - Don't conflate the branches — a new skill always uses the skill branch (it has the overlap

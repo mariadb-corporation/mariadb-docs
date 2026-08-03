@@ -1,7 +1,7 @@
 ---
 description: Start work on a DOCS ticket — create a DOCS-XXXX feature branch from main and move the ticket to IN PROGRESS.
 argument-hint: DOCS-XXXX (or a mariadbcorp.atlassian.net/browse/ URL)
-allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__getJiraIssue, mcp__atlassian-mariadb__getTransitionsForJiraIssue, mcp__atlassian-mariadb__transitionJiraIssue, mcp__atlassian-mariadb__editJiraIssue, mcp__atlassian-mariadb__atlassianUserInfo, mcp__atlassian-mariadb__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getTransitionsForJiraIssue, mcp__claude_ai_Atlassian_Rovo__getTransitionsForJiraIssue, mcp__atlassian-mariadb__transitionJiraIssue, mcp__claude_ai_Atlassian_Rovo__transitionJiraIssue, mcp__atlassian-mariadb__editJiraIssue, mcp__claude_ai_Atlassian_Rovo__editJiraIssue, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 ---
 
 # /jira-start
@@ -9,7 +9,7 @@ allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__getJiraIssue, mcp
 Run the **START** procedure in `.claude/skills/jira/SKILL.md` for the ticket in `$ARGUMENTS`.
 
 Steps (see the skill for full detail and the exact tool payloads):
-1. Run the skill's **Setup** connection check first (confirm `atlassian-mariadb` reaches
+1. Run the skill's **Setup** connection check first (confirm the Atlassian connection reaches
    `mariadbcorp.atlassian.net`).
 2. Fetch the ticket, display it, assign to the current user if unassigned.
 3. Reuse the current branch if it's already `DOCS-XXXX-…`, else confirm and cut
