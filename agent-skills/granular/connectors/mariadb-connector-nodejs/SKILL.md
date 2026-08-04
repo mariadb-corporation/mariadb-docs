@@ -9,7 +9,7 @@ description: "MariaDB-specific behavior of MariaDB Connector/Node.js (the `maria
 
 MariaDB Connector/Node.js is the official Node.js driver for MariaDB — the `mariadb` package on npm (`npm install mariadb`), LGPL-licensed and non-blocking. This skill covers the connector-specific behavior and the traps that bite generated application code. It is **pure JavaScript** and does **not** depend on MariaDB Connector/C — no native build step, no C toolchain required.
 
-> **Default context:** Assume the **3.5.x** line (current: 3.5.3) unless the user states otherwise; it requires **Node.js >= 20**. Connector versions are independent of the MariaDB server version — a 3.5.x connector talks to any currently supported MariaDB server release.
+> **Default context:** Assume the **3.5.x** line (current: 3.5.4) unless the user states otherwise; it requires **Node.js >= 20**. Connector versions are independent of the MariaDB server version — a 3.5.x connector talks to any currently supported MariaDB server release.
 
 ## What LLMs Often Miss
 
