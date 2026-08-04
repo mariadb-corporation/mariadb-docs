@@ -78,25 +78,25 @@ The plugin accepts any standard client authentication plugin, so no client-side 
 
 ## Security
 
-* Support for passphrase-protected SSL keys, via the [ssl\_passphrase]({server}/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_passphrase) system variable ([MDEV-14091](https://jira.mariadb.org/browse/MDEV-14091))
-* New [SET SESSION AUTHORIZATION]({server}/reference/sql-statements/account-management-sql-statements/set-session-authorization) statement, for performing actions as another user ([MDEV-20299](https://jira.mariadb.org/browse/MDEV-20299))
-* SHA-256 support for the [file\_key\_management]({server}/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin) encryption plugin ([MDEV-34712](https://jira.mariadb.org/browse/MDEV-34712))
-* The [Hashicorp Key Management plugin]({server}/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin) can flush its cache to force key rotation ([MDEV-30847](https://jira.mariadb.org/browse/MDEV-30847))
-* [DROP USER]({server}/reference/sql-statements/account-management-sql-statements/drop-user) now warns by default if the user has active sessions, and fails in Oracle mode ([MDEV-35617](https://jira.mariadb.org/browse/MDEV-35617))
+* Support for passphrase-protected SSL keys, via the [ssl\_passphrase](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_passphrase) system variable ([MDEV-14091](https://jira.mariadb.org/browse/MDEV-14091))
+* New [SET SESSION AUTHORIZATION](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/set-session-authorization) statement, for performing actions as another user ([MDEV-20299](https://jira.mariadb.org/browse/MDEV-20299))
+* SHA-256 support for the [file\_key\_management](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin) encryption plugin ([MDEV-34712](https://jira.mariadb.org/browse/MDEV-34712))
+* The [Hashicorp Key Management plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin) can flush its cache to force key rotation ([MDEV-30847](https://jira.mariadb.org/browse/MDEV-30847))
+* [DROP USER](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/drop-user) now warns by default if the user has active sessions, and fails in Oracle mode ([MDEV-35617](https://jira.mariadb.org/browse/MDEV-35617))
 
 ## Compatibility Features
 
-* Oracle [`TO_DATE()`]({server}/reference/sql-functions/date-time-functions/to_date) ([MDEV-19683](https://jira.mariadb.org/browse/MDEV-19683)), [`TO_NUMBER()`]({server}/reference/sql-functions/numeric-functions/to_number) ([MDEV-20022](https://jira.mariadb.org/browse/MDEV-20022)), and [`TRUNC()`]({server}/reference/sql-functions/date-time-functions/trunc) ([MDEV-20023](https://jira.mariadb.org/browse/MDEV-20023)) functions
-* `( + )` outer join syntax in [Oracle mode]({server}/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax#oracle-mode) ([MDEV-13817](https://jira.mariadb.org/browse/MDEV-13817))
-* Support for [cursors]({server}/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors) on prepared statements ([MDEV-33830](https://jira.mariadb.org/browse/MDEV-33830))
-* SQL standard [`SET PATH`]({server}/reference/sql-statements/administrative-sql-statements/set-commands/set-path) statement ([MDEV-34391](https://jira.mariadb.org/browse/MDEV-34391))
-* SQL standard [`IS JSON`]({server}/reference/sql-structure/operators/comparison-operators/is-json) predicate ([MDEV-37072](https://jira.mariadb.org/browse/MDEV-37072))
-* Basic [XML data type]({server}/reference/data-types/string-data-types/xmltype) ([MDEV-37261](https://jira.mariadb.org/browse/MDEV-37261))
-* `UPDATE` and `DELETE` can read from a [common table expression]({server}/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions) ([MDEV-37220](https://jira.mariadb.org/browse/MDEV-37220))
+* Oracle [`TO_DATE()`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/to_date) ([MDEV-19683](https://jira.mariadb.org/browse/MDEV-19683)), [`TO_NUMBER()`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/numeric-functions/to_number) ([MDEV-20022](https://jira.mariadb.org/browse/MDEV-20022)), and [`TRUNC()`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/trunc) ([MDEV-20023](https://jira.mariadb.org/browse/MDEV-20023)) functions
+* `( + )` outer join syntax in [Oracle mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax#oracle-mode) ([MDEV-13817](https://jira.mariadb.org/browse/MDEV-13817))
+* Support for [cursors](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors) on prepared statements ([MDEV-33830](https://jira.mariadb.org/browse/MDEV-33830))
+* SQL standard [`SET PATH`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set-path) statement ([MDEV-34391](https://jira.mariadb.org/browse/MDEV-34391))
+* SQL standard [`IS JSON`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/operators/comparison-operators/is-json) predicate ([MDEV-37072](https://jira.mariadb.org/browse/MDEV-37072))
+* Basic [XML data type](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/xmltype) ([MDEV-37261](https://jira.mariadb.org/browse/MDEV-37261))
+* `UPDATE` and `DELETE` can read from a [common table expression](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions) ([MDEV-37220](https://jira.mariadb.org/browse/MDEV-37220))
 
 ## Optimizer Hints
 
-MariaDB Enterprise Server 12.3 introduces [optimizer hints]({server}/ha-and-performance/optimization-and-tuning/optimizer-hints), which let a query override optimizer decisions inline:
+MariaDB Enterprise Server 12.3 introduces [optimizer hints](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints), which let a query override optimizer decisions inline:
 
 * Query block naming and table-level hints: `QB_NAME`, `NO_RANGE_OPTIMIZATION`, `NO_ICP`, `MRR`/`NO_MRR`, `BKA`/`NO_BKA`, `BNL`/`NO_BNL` ([MDEV-35504](https://jira.mariadb.org/browse/MDEV-35504))
 * Subquery hints: `SEMIJOIN`, `SUBQUERY` ([MDEV-34888](https://jira.mariadb.org/browse/MDEV-34888))
@@ -108,61 +108,61 @@ MariaDB Enterprise Server 12.3 introduces [optimizer hints]({server}/ha-and-perf
 
 ## Optimizer
 
-* [Rowid Filtering]({server}/ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization) can now be applied to reverse-ordered scans ([MDEV-36094](https://jira.mariadb.org/browse/MDEV-36094))
-* [Index Condition Pushdown]({server}/ha-and-performance/optimization-and-tuning/query-optimizations/index-condition-pushdown) can now be applied to reverse-ordered scans ([MDEV-34413](https://jira.mariadb.org/browse/MDEV-34413))
+* [Rowid Filtering](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization) can now be applied to reverse-ordered scans ([MDEV-36094](https://jira.mariadb.org/browse/MDEV-36094))
+* [Index Condition Pushdown](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/index-condition-pushdown) can now be applied to reverse-ordered scans ([MDEV-34413](https://jira.mariadb.org/browse/MDEV-34413))
 * Loose index scan ("use index for group-by") can now use indexes with `DESC` key parts ([MDEV-32732](https://jira.mariadb.org/browse/MDEV-32732))
 * `GROUP BY` and `ORDER BY` optimizations can use indexes on virtual columns ([MDEV-36132](https://jira.mariadb.org/browse/MDEV-36132))
-* The [optimizer trace]({server}/ha-and-performance/optimization-and-tuning/query-optimizer/optimizer-trace) can include table and view definitions, controlled by the [optimizer\_record\_context]({server}/server-management/variables-and-modes/server-system-variables#optimizer_record_context) system variable ([MDEV-36483](https://jira.mariadb.org/browse/MDEV-36483))
+* The [optimizer trace](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/optimizer-trace) can include table and view definitions, controlled by the [optimizer\_record\_context](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_record_context) system variable ([MDEV-36483](https://jira.mariadb.org/browse/MDEV-36483))
 * The join optimizer can infer that a derived table with a `GROUP BY` clause has distinct `GROUP BY` columns ([MDEV-36321](https://jira.mariadb.org/browse/MDEV-36321))
-* Reorderable [LEFT JOINs]({server}/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax) are optimized ([MDEV-36055](https://jira.mariadb.org/browse/MDEV-36055))
+* Reorderable [LEFT JOINs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax) are optimized ([MDEV-36055](https://jira.mariadb.org/browse/MDEV-36055))
 
 ## Binary Logging and Replication
 
-* The binary log can be stored in InnoDB, removing the need to sync it and improving binary logging performance ([MDEV-34705](https://jira.mariadb.org/browse/MDEV-34705)). New system variables include [binlog\_storage\_engine]({server}/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_storage_engine), [binlog\_directory]({server}/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_directory), and [innodb\_binlog\_state\_interval]({server}/server-usage/storage-engines/innodb/innodb-system-variables#innodb_binlog_state_interval)
-* Row replication events larger than `max_packet_size` are fragmented, controlled by [binlog\_row\_event\_fragment\_threshold]({server}/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_row_event_fragment_threshold) ([MDEV-32570](https://jira.mariadb.org/browse/MDEV-32570))
-* Creation and use of temporary tables in replication is now predictable, via the [create\_tmp\_table\_binlog\_formats]({server}/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#create_tmp_table_binlog_formats) system variable ([MDEV-36099](https://jira.mariadb.org/browse/MDEV-36099))
+* The binary log can be stored in InnoDB, removing the need to sync it and improving binary logging performance ([MDEV-34705](https://jira.mariadb.org/browse/MDEV-34705)). New system variables include [binlog\_storage\_engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_storage_engine), [binlog\_directory](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_directory), and [innodb\_binlog\_state\_interval](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_binlog_state_interval)
+* Row replication events larger than `max_packet_size` are fragmented, controlled by [binlog\_row\_event\_fragment\_threshold](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_row_event_fragment_threshold) ([MDEV-32570](https://jira.mariadb.org/browse/MDEV-32570))
+* Creation and use of temporary tables in replication is now predictable, via the [create\_tmp\_table\_binlog\_formats](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#create_tmp_table_binlog_formats) system variable ([MDEV-36099](https://jira.mariadb.org/browse/MDEV-36099))
 * Configurable defaults for the `MASTER_SSL_*` settings used by `CHANGE MASTER` ([MDEV-28302](https://jira.mariadb.org/browse/MDEV-28302))
-* [show\_slave\_auth\_info]({server}/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#show_slave_auth_info) and [replicate\_same\_server\_id]({server}/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#replicate_same_server_id) are now system variables, not just startup options
-* The server reports whether it was started with the [skip-slave-start]({server}/server-management/starting-and-stopping-mariadb/mariadbd-options#skip-slave-start) option ([MDEV-27669](https://jira.mariadb.org/browse/MDEV-27669))
+* [show\_slave\_auth\_info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#show_slave_auth_info) and [replicate\_same\_server\_id](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#replicate_same_server_id) are now system variables, not just startup options
+* The server reports whether it was started with the [skip-slave-start](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#skip-slave-start) option ([MDEV-27669](https://jira.mariadb.org/browse/MDEV-27669))
 
 ## MariaDB Enterprise Cluster (Galera)
 
 * Asynchronous replication between two Galera clusters can use parallel replication, managed by `slave_parallel_threads` ([MDEV-20065](https://jira.mariadb.org/browse/MDEV-20065))
-* Write sets can be retried on Galera nodes, controlled by the [wsrep\_applier\_retry\_count]({galera}/reference/galera-cluster-system-variables#wsrep_applier_retry_count) system variable ([MDEV-36077](https://jira.mariadb.org/browse/MDEV-36077))
+* Write sets can be retried on Galera nodes, controlled by the [wsrep\_applier\_retry\_count](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_applier_retry_count) system variable ([MDEV-36077](https://jira.mariadb.org/browse/MDEV-36077))
 * Needless foreign key checks during Incremental State Transfers are avoided ([MDEV-34822](https://jira.mariadb.org/browse/MDEV-34822))
 
 ## Stored Routines and Triggers
 
 * Support for the predefined weak `SYS_REFCURSOR` cursor type ([MDEV-20034](https://jira.mariadb.org/browse/MDEV-20034))
-* [Triggers]({server}/server-usage/triggers-events/triggers/create-trigger#trigger_event) can fire on multiple events ([MDEV-10164](https://jira.mariadb.org/browse/MDEV-10164))
+* [Triggers](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/triggers-events/triggers/create-trigger#trigger_event) can fire on multiple events ([MDEV-10164](https://jira.mariadb.org/browse/MDEV-10164))
 
 ## GIS
 
 New GIS functions, improving compatibility with MySQL 8:
 
-* [ST\_Validate]({server}/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_validate) ([MDEV-34137](https://jira.mariadb.org/browse/MDEV-34137)) and [ST\_IsValid]({server}/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_isvalid) ([MDEV-34276](https://jira.mariadb.org/browse/MDEV-34276))
-* [ST\_Simplify]({server}/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_simplify) ([MDEV-34141](https://jira.mariadb.org/browse/MDEV-34141))
-* [ST\_Collect]({server}/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_collect) ([MDEV-34278](https://jira.mariadb.org/browse/MDEV-34278))
-* [MBRCoveredBy]({server}/reference/sql-statements/geometry-constructors/mbr-minimum-bounding-rectangle/mbrcoveredby) ([MDEV-34138](https://jira.mariadb.org/browse/MDEV-34138))
-* Geohash functions: [ST\_GeoHash]({server}/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_geohash) ([MDEV-34158](https://jira.mariadb.org/browse/MDEV-34158)), [ST\_LatFromGeoHash]({server}/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_latfromgeohash) ([MDEV-34159](https://jira.mariadb.org/browse/MDEV-34159)), [ST\_LongFromGeoHash]({server}/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_longfromgeohash) ([MDEV-34160](https://jira.mariadb.org/browse/MDEV-34160)), [ST\_PointFromGeoHash]({server}/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_pointfromgeohash) ([MDEV-34277](https://jira.mariadb.org/browse/MDEV-34277))
+* [ST\_Validate](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_validate) ([MDEV-34137](https://jira.mariadb.org/browse/MDEV-34137)) and [ST\_IsValid](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_isvalid) ([MDEV-34276](https://jira.mariadb.org/browse/MDEV-34276))
+* [ST\_Simplify](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_simplify) ([MDEV-34141](https://jira.mariadb.org/browse/MDEV-34141))
+* [ST\_Collect](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_collect) ([MDEV-34278](https://jira.mariadb.org/browse/MDEV-34278))
+* [MBRCoveredBy](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/mbr-minimum-bounding-rectangle/mbrcoveredby) ([MDEV-34138](https://jira.mariadb.org/browse/MDEV-34138))
+* Geohash functions: [ST\_GeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_geohash) ([MDEV-34158](https://jira.mariadb.org/browse/MDEV-34158)), [ST\_LatFromGeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_latfromgeohash) ([MDEV-34159](https://jira.mariadb.org/browse/MDEV-34159)), [ST\_LongFromGeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_longfromgeohash) ([MDEV-34160](https://jira.mariadb.org/browse/MDEV-34160)), [ST\_PointFromGeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_pointfromgeohash) ([MDEV-34277](https://jira.mariadb.org/browse/MDEV-34277))
 
 ## Observability and Information Schema
 
-* New [INFORMATION\_SCHEMA.TRIGGERED\_UPDATE\_COLUMNS]({server}/reference/system-tables/information-schema/information-schema-tables/information-schema-triggered_update_columns) table ([MDEV-36996](https://jira.mariadb.org/browse/MDEV-36996))
-* New [INFORMATION\_SCHEMA.PARAMETERS]({server}/reference/system-tables/information-schema/information-schema-tables/information-schema-parameters-table)`.PARAMETER_DEFAULT` column ([MDEV-37054](https://jira.mariadb.org/browse/MDEV-37054))
+* New [INFORMATION\_SCHEMA.TRIGGERED\_UPDATE\_COLUMNS](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-triggered_update_columns) table ([MDEV-36996](https://jira.mariadb.org/browse/MDEV-36996))
+* New [INFORMATION\_SCHEMA.PARAMETERS](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-parameters-table)`.PARAMETER_DEFAULT` column ([MDEV-37054](https://jira.mariadb.org/browse/MDEV-37054))
 * Advanced Cluster adds `raft_*` status variables and the `RAFT_*` Information Schema tables described above
 
 ## Data Types and SQL
 
-* New hash algorithms for [`PARTITION BY KEY`]({server}/server-usage/partitioning-tables/partitioning-types/key-partitioning-type) ([MDEV-9826](https://jira.mariadb.org/browse/MDEV-9826))
-* [Foreign key]({server}/ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys) constraint names now need to be unique per table rather than per database ([MDEV-28933](https://jira.mariadb.org/browse/MDEV-28933))
-* The [depth limit of 32 on JSON functions]({server}/reference/error-codes/mariadb-error-codes-4000-to-4099/e4043) has been removed ([MDEV-32854](https://jira.mariadb.org/browse/MDEV-32854))
+* New hash algorithms for [`PARTITION BY KEY`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/partitioning-tables/partitioning-types/key-partitioning-type) ([MDEV-9826](https://jira.mariadb.org/browse/MDEV-9826))
+* [Foreign key](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys) constraint names now need to be unique per table rather than per database ([MDEV-28933](https://jira.mariadb.org/browse/MDEV-28933))
+* The [depth limit of 32 on JSON functions](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-4000-to-4099/e4043) has been removed ([MDEV-32854](https://jira.mariadb.org/browse/MDEV-32854))
 
 ## Tool Improvements
 
-* [mariadb-dump]({server}/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump) supports wildcards with the `-L` or `--wildcards` option ([MDEV-21376](https://jira.mariadb.org/browse/MDEV-21376))
-* [mariadb-check]({server}/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE]({server}/reference/sql-statements/table-statements/check-table) support [SEQUENCE tables]({server}/server-usage/storage-engines/sequence-storage-engine) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
-* The [mariadb client]({server}/clients-and-utilities/mariadb-client/mariadb-command-line-client#script-dir) can set an alternative directory for scripts invoked with the `source` command, using `--script-dir` ([MDEV-23818](https://jira.mariadb.org/browse/MDEV-23818))
+* [mariadb-dump](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump) supports wildcards with the `-L` or `--wildcards` option ([MDEV-21376](https://jira.mariadb.org/browse/MDEV-21376))
+* [mariadb-check](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) support [SEQUENCE tables](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sequence-storage-engine) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
+* The [mariadb client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#script-dir) can set an alternative directory for scripts invoked with the `source` command, using `--script-dir` ([MDEV-23818](https://jira.mariadb.org/browse/MDEV-23818))
 
 ## MariaDB Enterprise Audit
 
@@ -194,8 +194,8 @@ For the full list of differences, see [MariaDB Enterprise Server Differences](..
 
 ## New System and Status Variables
 
-* [System Variables Added in Enterprise Server 12.3]({server}/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/enterprise-server/system-variables-added-in-enterprise-server-12.3)
-* [Status Variables Added in Enterprise Server 12.3]({server}/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/enterprise-server/status-variables-added-in-enterprise-server-12.3)
+* [System Variables Added in Enterprise Server 12.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/enterprise-server/system-variables-added-in-enterprise-server-12.3)
+* [Status Variables Added in Enterprise Server 12.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/enterprise-server/status-variables-added-in-enterprise-server-12.3)
 
 ## Incompatible Changes
 
@@ -203,7 +203,7 @@ Because MariaDB Enterprise Server 12.3 is the first long-term release series aft
 
 ### New Reserved Words
 
-The following keywords are now [reserved words]({server}/reference/sql-structure/sql-language-structure/reserved-words) and can no longer be used as [identifiers]({server}/reference/sql-structure/sql-language-structure/identifier-names) without being quoted:
+The following keywords are now [reserved words](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/reserved-words) and can no longer be used as [identifiers](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/identifier-names) without being quoted:
 
 * `CONVERSION`
 * `ST_COLLECT`
@@ -213,9 +213,9 @@ The following keywords are now [reserved words]({server}/reference/sql-structure
 
 The following deprecated system variables have been removed:
 
-* [big\_tables]({server}/server-management/variables-and-modes/server-system-variables#big_tables)
-* [large\_page\_size]({server}/server-management/variables-and-modes/server-system-variables#large_page_size)
-* [storage\_engine]({server}/server-management/variables-and-modes/server-system-variables#storage_engine)
+* [big\_tables](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#big_tables)
+* [large\_page\_size](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#large_page_size)
+* [storage\_engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#storage_engine)
 
 ### Replication
 
@@ -231,9 +231,9 @@ See also: [All MariaDB Enterprise Releases](../all-releases.md)
 
 ## Installation Instructions
 
-* [Deploy MariaDB Enterprise with Repositories]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage)
-* [Deploy MariaDB Enterprise with Package Tarballs]({server}/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/package-tarballs)
-* [Deploy MariaDB Enterprise with Docker]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker)
+* [Deploy MariaDB Enterprise with Repositories](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage)
+* [Deploy MariaDB Enterprise with Package Tarballs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/package-tarballs)
+* [Deploy MariaDB Enterprise with Docker](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker)
 
 ## What's new in older release series
 
