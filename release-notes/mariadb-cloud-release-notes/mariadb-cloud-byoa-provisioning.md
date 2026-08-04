@@ -6,9 +6,10 @@
     1. Release date (YYYY.MM.DD) — from Zhanna / Cloud UAT calendar.
     2. `enable-portal-provisioning-v2` enabled in prod (currently OFF).
   When both land: set the date + filename, add the SUMMARY.md nav entry, and
-  convert the cross-links back to {mariadb-cloud} aliases (they are currently
-  GitHub blob URLs so they are clickable during review; direct-main commits are
-  not auto-expanded).
+  convert the cross-links back to `mariadb-cloud` aliases, in braces (they are
+  currently GitHub blob URLs so they are clickable during review). Do not write
+  the braced token here: the expand-gitbook-aliases workflow seds the whole
+  tree, so it would rewrite this note itself on the next PR (see DOCS-6401).
 
   Tickets: DOCS-6320 (BYOA) + DOCS-6340 (provisioning UI) · MCDEV-2374, MCDEV-3304
 -->
