@@ -9,7 +9,7 @@ description: "MariaDB-specific behavior of MariaDB Connector/J (the `org.mariadb
 
 MariaDB Connector/J is the official JDBC driver for MariaDB and MySQL — Maven coordinates `org.mariadb.jdbc:mariadb-java-client`, LGPL-licensed. This skill covers the connector-specific behavior and the traps that bite generated application code. It is **pure Java** — it implements the client/server protocol itself and does **not** depend on MariaDB Connector/C (unlike Connector/Python or Connector/ODBC).
 
-> **Default context:** Assume the **3.5.x** line (current release `3.5.9`) unless the user states otherwise. Connector versions are independent of the MariaDB server version — a 3.x connector routinely talks to a 10.6/10.11/11.x server.
+> **Default context:** Assume the **3.5.x** line (current release `3.5.10`) unless the user states otherwise. Connector versions are independent of the MariaDB server version — a 3.x connector routinely talks to a 10.6/10.11/11.x server.
 
 ## What LLMs Often Miss
 
