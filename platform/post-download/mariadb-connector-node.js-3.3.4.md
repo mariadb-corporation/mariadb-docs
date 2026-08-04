@@ -1,18 +1,18 @@
-# MariaDB Connector/Node.js 3.2.4
+# MariaDB Connector/Node.js 3.3.4
 
 {% @marketo/form formId="4279" %}
 
 ## About this Release
 
-* MariaDB Connector/Node.js 3.2.4 was released on 9 Jun 2026
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/connectors/node.js/3.x/3.2.4)
+* MariaDB Connector/Node.js 3.3.4 was released on 31 Jul 2026
+* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/connectors/node.js/3.x/3.3.4)
 * This release is Stable (GA) maturity
 * For more information, see the [product documentation](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-nodejs)
 
 ## Release History
 
-* The prior release in this series was MariaDB Connector/Node.js 3.2.3, released on 19 Dec 2023
-* This release (MariaDB Connector/Node.js 3.2.4) was released on 9 Jun 2026
+* The prior release in this series was MariaDB Connector/Node.js 3.3.3, released on 9 Jun 2026
+* This release (MariaDB Connector/Node.js 3.3.4) was released on 31 Jul 2026
 
 {% include "../.gitbook/includes/most-recent-nodejs.md" %}
 
