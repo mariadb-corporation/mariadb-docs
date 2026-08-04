@@ -41,34 +41,31 @@ echo
 upgrade_version="$major.$minor"
 
 cat <<EOF > $output
-# MariaDB MaxScale ${VERSION} Release Notes
+# MaxScale ${VERSION} Release Notes
 
 Release ${VERSION} is a ${maturity} release.
 
-This document describes the changes in release ${VERSION}, when compared to the
-previous release in the same series.
+This document describes the changes in release ${VERSION}, when compared to the previous release in the same series.
 
-If you are upgrading from an older major version of MaxScale, please read the
-[upgrading document](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/upgrading-maxscale)
-for this MaxScale version.
+If you are upgrading from an older major version of MaxScale, please read the [upgrading document](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/upgrading-maxscale) for this MaxScale version.
 
-For any problems you encounter, please consider submitting a bug
-report on [our Jira](https://jira.mariadb.org/projects/MXS).
+For any problems you encounter, please consider submitting a bug report on [our Jira](https://jira.mariadb.org/projects/MXS).
 
 `${SCRIPT_DIR}/list_fixed.sh ${VERSION}`
 
 ## Known Issues and Limitations
 
-There are some limitations and known issues within this version of MaxScale.
-For more information, please refer to the
-[Limitations](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/mariadb-maxscale-limitations-guide)
-document.
+There are some limitations and known issues within this version of MaxScale. For more information, please refer to the [Limitations](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/mariadb-maxscale-limitations-guide) document.
 
 ## Packaging
 
 RPM and Debian packages are provided for the supported Linux distributions.
 
 Packages can be downloaded [here](https://mariadb.com/downloads).
+
+{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+
+{% @marketo/form formid="4316" formId="4316" %}
 EOF
 
 echo Manually update the following files:
