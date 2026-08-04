@@ -4,6 +4,11 @@ import sys
 import csv
 import itertools
 
+# Escape Markdown metacharacters in free-form text (e.g. Jira summaries) so
+# they render literally instead of as Markdown formatting.
+def md_escape(s):
+    return s.replace("_", r"\_")
+
 # Loop over issues. If an issue has a label that starts with 'CVE-',
 # assume the label is a CVE id. If an issue has multiple CVE labels,
 # the issue will be added multiple times (by design).
@@ -31,7 +36,7 @@ def print_cves(header, cves):
     for cve in cves:
         id = cve['Id']
         i = cve['Issue']
-        print("* [" + id + "](https://www.cve.org/CVERecord?id=" + id + ") Fixed by [" + i['Issue key'] + "](https://jira.mariadb.org/browse/" + i['Issue key'] + ") " + i['Summary'])
+        print("* [" + id + "](https://www.cve.org/CVERecord?id=" + id + ") Fixed by [" + i['Issue key'] + "](https://jira.mariadb.org/browse/" + i['Issue key'] + ") " + md_escape(i['Summary']))
 
     print()
 
@@ -75,7 +80,7 @@ if len(new_features) > 0:
     print()
 
     for f in new_features:
-        print("* [" + f['Issue key'] + "](https://jira.mariadb.org/browse/" + f['Issue key'] + ") " + f['Summary'])
+        print("* [" + f['Issue key'] + "](https://jira.mariadb.org/browse/" + f['Issue key'] + ") " + md_escape(f['Summary']))
     print()
 
 
@@ -83,6 +88,6 @@ print("## Bug fixes")
 print()
 
 for b in bugs:
-    print("* [" + b['Issue key'] + "](https://jira.mariadb.org/browse/" + b['Issue key'] + ") " + b['Summary'])
+    print("* [" + b['Issue key'] + "](https://jira.mariadb.org/browse/" + b['Issue key'] + ") " + md_escape(b['Summary']))
 
 print()
