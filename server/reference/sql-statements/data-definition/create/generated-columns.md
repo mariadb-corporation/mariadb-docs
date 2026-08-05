@@ -428,6 +428,7 @@ You can also use virtual columns to implement a "poor man's partial index". See 
 
 ## See Also
 
+* [Generated Columns](../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#generated-columns) in `mariadb-dump`, for how generated columns appear in dump output.
 * [Putting Virtual Columns to good use](https://mariadb.com/blog/putting-virtual-columns-good-use) on the mariadb.com blog.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
