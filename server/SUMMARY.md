@@ -1021,7 +1021,7 @@
       * [OQGRAPH System and Status Variables](ha-and-performance/optimization-and-tuning/system-variables/oqgraph-system-and-status-variables.md)
       * [Sample my.cnf Files](ha-and-performance/optimization-and-tuning/system-variables/sample-mycnf-files.md)
       * [Segmented Key Cache](ha-and-performance/optimization-and-tuning/system-variables/segmented-key-cache.md)
-      * [Semisynchronous Replication Plugin Status Variables](ha-and-performance/optimization-and-tuning/system-variables/semisynchronous-replication-plugin-status-variables.md)
+      * [Semisynchronous Replication Status Variables](ha-and-performance/optimization-and-tuning/system-variables/semisynchronous-replication-plugin-status-variables.md)
       * [InnoDB Server Status Variables](ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md)
       * [Setting Innodb Buffer Pool Size Dynamically](ha-and-performance/optimization-and-tuning/system-variables/setting-innodb-buffer-pool-size-dynamically.md)
       * [Sphinx Status Variables](ha-and-performance/optimization-and-tuning/system-variables/sphinx-status-variables.md)
