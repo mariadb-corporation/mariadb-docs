@@ -136,7 +136,7 @@ New [GIS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure
 ### Server <a href="#server" id="server"></a>
 
 * Add the FM format to [TO\_CHAR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/to_char), which suppresses following padding ([MDEV-36216](https://jira.mariadb.org/browse/MDEV-36216))
-* [mariadb-check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) now support [sequences]({server}/reference/sql-structure/sequences/) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
+* [mariadb-check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) now support [sequences](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences/) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
 
 ### Trigger <a href="#trigger" id="trigger"></a>
 
