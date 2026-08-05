@@ -15,7 +15,7 @@ skill, which runs them for you; this page documents what it does and how to run 
 
 Only the first two can fail your PR; aliases and help-tables are regenerated automatically.
 
-## 1. Spelling + links — `doc-lint.sh`
+## 1. Spelling + links + includes — `doc-lint.sh`
 
 The codespell and lychee invocations that mirror CI live in **one** place,
 `.claude/hooks/doc-lint.sh`. Run it instead of re-typing the flags:
@@ -33,6 +33,12 @@ git diff --name-only origin/main...HEAD -- '*.md' '*.html' \
 `doc-lint.sh` runs codespell and lychee with the exact CI-mirroring flags/excludes (defined
 only in that script), exits non-zero on a real failure, and prints a `SKIPPED` notice for any
 tool that isn't installed (CI still runs it).
+
+It also resolves every relative `{% include %}` in the file set and fails on a **missing target**
+or one that **crosses a space boundary**. That check has **no CI counterpart** — `{% include %}`
+is GitBook template syntax, not a Markdown link, so lychee is blind to it and a dead include just
+renders as nothing, silently dropping a section from the page. It needs no external tool, so it
+never SKIPs. (Added in DOCS-6372, which found two live cases this way.)
 
 - A real term flagged as a typo? Add it to `.codespellignore` (one word per line) — sparingly.
 - The lychee exclude set skips **any URL containing `{` or `%7B`** — which covers `{alias}`
