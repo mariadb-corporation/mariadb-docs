@@ -60,9 +60,20 @@ Worth knowing, because it explains why the setup looks heavier than "add a DNS r
 
 Once the placeholders above are filled in.
 
+Install the publisher CLI. Prebuilt binaries exist for macOS, Linux and Windows, so nothing
+here assumes a Mac:
+
 ```bash
+# macOS
 brew install mcp-publisher
+
+# Linux x86_64 (swap in _linux_arm64 on ARM)
+curl -sL https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz \
+    | tar -xz mcp-publisher && sudo install -m 0755 mcp-publisher /usr/local/bin/
 ```
+
+Windows: take `mcp-publisher_windows_amd64.tar.gz` from the same releases page. Every tarball
+ships with a Sigstore attestation and an SBOM if you need to verify provenance first.
 
 Create `server.json`. Generating the skeleton rather than copying the one below keeps the
 `$schema` version current:
