@@ -601,7 +601,8 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `relay_log_purge`
 
-* Description: If set to `1` (the default), [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md) is purged as soon as they are no longer necessary.
+* Description: If set to `1` (the default), [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md) are purged as soon as they are no longer necessary.
+  * A relay log only becomes unnecessary once the [replica's SQL thread](replication-threads.md#slave-sql-thread) has applied all of its events, so the default value does not discard events that a semisynchronous replica has acknowledged but not yet applied. Both values are therefore safe with [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), with one exception: `relay_log_purge=0` combined with `relay_log_recovery=1` can lead to data inconsistencies. See [relay\_log\_recovery](replication-and-binary-log-system-variables.md#relay_log_recovery).
 * Command line: `--relay-log-purge={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -612,6 +613,8 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 #### `relay_log_recovery`
 
 * Description: If set to `1` (`0` is default), on startup the replica drops all [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md) that haven't yet been processed, and retrieve relay logs from the primary. Can be useful after the replica has crashed to prevent the processing of corrupt relay logs. relay\_log\_recovery should always be set together with [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay_log_purge). Setting `relay-log-recovery=1` with `relay-log-purge=0` can cause the relay log to be read from files that were not purged, leading to data inconsistencies.
+  * This variable only has an effect on replicas that connect using binary log file and position coordinates. A replica that connects using [GTIDs](gtid.md) purges its relay logs every time the replication threads start, including after a restart, regardless of this setting.
+  * With [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), setting this variable to `1` discards transactions that the replica has already acknowledged to the primary. Those transactions are refetched from the primary, so this is only a problem if the primary has lost them as well. Use `relay_log_recovery=0` on semisynchronous replicas that connect using binary log coordinates.
 * Command line: `--relay-log-recovery`
 * Scope: Global
 * Dynamic: Yes
@@ -1095,12 +1098,17 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `sync_relay_log`
 
-* Description: The MariaDB server synchronizes its [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) to disk after the specified number of writes to the log. `1` is the safest, but slowest, choice, since the file is flushed after each write. If autocommit is enabled, there is one write per statement, otherwise there's one write per transaction. If the disk has cache backed by battery, synchronization is fast and a more conservative number can be chosen.
+* Description: The number of events after which the replica synchronizes its [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) to disk. `1` is the safest, but slowest, choice, since the relay log is synced after every event. `0` disables explicit synchronization and leaves the timing to the operating system.
+  * The replica's IO thread writes each event to the relay log file as soon as it receives it, but the file is only synced to disk every `sync_relay_log` events. Events that have been written but not yet synced can be lost if the replica's host or operating system crashes.
+  * This matters for [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), where the replica acknowledges a transaction to the primary as soon as the transaction's events have been written to the relay log. Unless the relay log has been synced, an acknowledged transaction can still be lost by the replica although the primary has already treated it as safely replicated. Set `sync_relay_log=1` on semisynchronous replicas so that every event is synced before it is acknowledged.
+  * A single transaction consists of several events, so `sync_relay_log=1` means several syncs per transaction. If the disk has a write cache backed by battery, synchronization is fast and a larger value can be chosen.
+  * See `Syncing the Relay Log to Disk` on the Relay Log page for more information.
 * Command line: `--sync-relay-log=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `10000`
+* Range: `0` to `4294967295`
 
 #### `sync_relay_log_info`
 

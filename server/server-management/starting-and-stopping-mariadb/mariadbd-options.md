@@ -1653,19 +1653,11 @@ The options related to the [WSREP\_MEMBERSHIP](../../reference/system-tables/inf
 
 The options related to the [WSREP\_STATUS](../../reference/system-tables/information-schema/information-schema-tables/information-schema-wsrep_status-table.md) information schema plugin can be found [here](../../reference/plugins/mariadb-replication-cluster-plugins/wsrep_info-plugin.md#options).
 
-## Replication Plugins - Options and System Variables
+## Replication - Options and System Variables
 
-### Replication Plugin - `rpl_semi_sync_master`
+### Semisynchronous Replication
 
-The system variables related to the [rpl\_semi\_sync\_master](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl-semi-sync_master) replication plugin can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#system-variables).
-
-The options related to the [rpl\_semi\_sync\_master](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl-semi-sync_master) replication plugin can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#options).
-
-### Replication Plugin - `rpl_semi_sync_slave`
-
-The system variables related to the [rpl\_semi\_sync\_slave](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl-semi-sync_slave) replication plugin can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#system-variables).
-
-The options related to the [rpl\_semi\_sync\_slave](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl-semi-sync_slave) replication plugin can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#options).
+The system variables and options related to [semisynchronous replication](../../ha-and-performance/standard-replication/semisynchronous-replication.md), which is built into the server, can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#system-variables).
 
 ## Default Values
 
