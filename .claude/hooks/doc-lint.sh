@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #
 # doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
-# CI (.github/workflows/codespell.yml and link-check-pr.yml).
+# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus a GitBook include resolver
+# that has no CI counterpart (see below).
 #
 # The pre-commit hook, the /precommit command, the docs-check skill, and dev-docs/cookbook-pre-pr.md
 # all delegate here instead of re-spelling the flags, so the CI-mirroring options live in exactly
@@ -11,7 +12,7 @@
 #          (paths are filtered to existing *.md / *.html; run from the repo root so that
 #           .codespellignore resolves)
 # Exit:    0 = all runnable checks passed (a check whose tool is missing is SKIPPED, not failed)
-#          1 = a real failure (misspelling or broken link)
+#          1 = a real failure (misspelling, broken link, or unresolvable include)
 # Output:  failures and "tool missing / SKIPPED" notices go to stderr.
 #
 # Portability: no `mapfile` here — takes files as args — so it runs under bash 3.2 (macOS) too.
@@ -113,5 +114,78 @@ if command -v lychee >/dev/null 2>&1; then
 else
   echo "doc-lint: lychee not installed — SKIPPED (CI will run it). Install: https://github.com/lycheeverse/lychee" >&2
 fi
+
+# --- GitBook include resolver — NO CI counterpart -------------------------------------------
+# `{% include "../.gitbook/includes/foo.md" %}` is GitBook template syntax, not a Markdown link,
+# so lychee cannot see it: a dead include renders as *nothing* and the page silently loses a
+# section. DOCS-6372 found two live cases that way (a 13.1 post-download page missing its
+# "most recent release" bullet, and a MaxScale CVE page missing its copyright footnote).
+#
+# Two failure modes are checked:
+#   1. target does not exist;
+#   2. target exists but lies in a different space. Each top-level directory is a separate
+#      GitBook space with its own Git-sync root, so a relative include may not cross that
+#      boundary even though the path resolves fine on disk. Cross-space reuse must instead use
+#      the by-ID form, `{% include "https://app.gitbook.com/s/<space>/~/reusable/<id>/" %}`.
+#
+# Needs no external tool, so unlike the two checks above it can never be silently SKIPPED.
+# `.claude/` and `dev-docs/` are exempt: they document the syntax with deliberate placeholders
+# (`<snippet>.md`, `rc12345`) that are not meant to resolve.
+
+# Normalize a path's `.` and `..` segments textually — the target need not exist, which rules
+# out `realpath` (BSD realpath has no portable `-m`). A `..` that climbs above the repo root is
+# left in place, so the path simply fails the existence test below.
+norm_path() {
+  local seg out=() n
+  local IFS='/'
+  for seg in $1; do
+    case "$seg" in
+      ''|.) ;;
+      ..) n=${#out[@]}
+          if [ "$n" -gt 0 ] && [ "${out[$((n-1))]}" != ".." ]; then
+            unset "out[$((n-1))]"; out=("${out[@]}")   # compact: bash 3.2 leaves a hole
+          else
+            out+=("..")
+          fi ;;
+      *) out+=("$seg") ;;
+    esac
+  done
+  printf '%s' "${out[*]}"
+}
+
+# Space = first path component (`server/...` -> `server`); a file at the repo root has none.
+space_of() {
+  case "$1" in
+    */*) printf '%s' "${1%%/*}" ;;
+    *)   printf '%s' '<root>' ;;
+  esac
+}
+
+# `grep | while` puts the loop body in a subshell, so it cannot set `rc` directly — failures are
+# tallied in a temp file instead.
+inc_fail="$(mktemp -t doclint-inc)" || { echo "doc-lint: mktemp failed" >&2; exit 2; }
+trap 'rm -f "$inc_fail"' EXIT
+
+for f in "${files[@]}"; do
+  f="${f#./}"
+  case "$f" in .claude/*|dev-docs/*) continue ;; esac
+  grep -n -o '{%[[:space:]]*include[[:space:]]*"[^"]*"' "$f" 2>/dev/null | while IFS= read -r hit; do
+    lineno="${hit%%:*}"
+    target="${hit#*\"}"; target="${target%\"}"   # strip both quotes, not just the opening one
+    case "$target" in http*) continue ;; esac
+    dir="${f%/*}"; [ "$dir" = "$f" ] && dir='.'
+    resolved="$(norm_path "$dir/$target")"
+    if [ ! -f "$resolved" ]; then
+      echo "doc-lint: unresolvable include at $f:$lineno -> $target (no such file: $resolved)" >&2
+      echo x >>"$inc_fail"
+    elif [ "$(space_of "$resolved")" != "$(space_of "$f")" ]; then
+      echo "doc-lint: cross-space include at $f:$lineno -> $target" >&2
+      echo "          resolves into space '$(space_of "$resolved")' but the page is in '$(space_of "$f")';" >&2
+      echo "          use the by-ID form instead: {% include \"https://app.gitbook.com/s/<space>/~/reusable/<id>/\" %}" >&2
+      echo x >>"$inc_fail"
+    fi
+  done
+done
+[ -s "$inc_fail" ] && rc=1
 
 exit "$rc"

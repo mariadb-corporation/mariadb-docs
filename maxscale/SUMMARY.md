@@ -40,6 +40,7 @@
   * [Authentication Modules](maxscale-security/authentication-modules.md)
   * [MaxScale Authentication](maxscale-security/maxscale-authentication/README.md)
     * [Native Authenticator](maxscale-security/maxscale-authentication/native-authenticator.md)
+  * [Security Vulnerabilities Fixed in MariaDB MaxScale](maxscale-security/fixed-security-vulnerabilities.md)
 * [MaxScale Use Cases](maxscale-use-cases/README.md)
   * [MaxScale Overview](maxscale-use-cases/maxscale-overview.md)
   * [MaxScale Trial](maxscale-use-cases/maxscale-trial.md)
