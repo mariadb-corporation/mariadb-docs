@@ -14,7 +14,7 @@ DAYNAME(date)
 
 ## Description
 
-Returns the name of the weekday for date. The language used for the name is controlled by the value\
+Returns the name of the weekday for date. The language used for the name is controlled by the value
 of the [lc\_time\_names](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lc_time_names) system variable. See [server locale](../../data-types/string-data-types/character-sets/internationalization-and-localization/server-locale.md) for more on the supported locales.
 
 ## Examples

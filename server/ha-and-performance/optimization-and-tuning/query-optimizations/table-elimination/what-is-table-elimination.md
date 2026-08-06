@@ -1,6 +1,6 @@
 # What is Table Elimination?
 
-The basic idea behind table elimination is that sometimes it is possible to resolve a query without even accessing some of the tables that the query refers to. One can invent many kinds of such cases, but in Table Elimination we targeted only a certain class of SQL constructs that one ends up writing when\
+The basic idea behind table elimination is that sometimes it is possible to resolve a query without even accessing some of the tables that the query refers to. One can invent many kinds of such cases, but in Table Elimination we targeted only a certain class of SQL constructs that one ends up writing when
 they are querying [highly-normalized](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/database-theory/database-normalization) data.
 
 The sample queries were drawn from “Anchor Modeling”, a database modeling technique which takes normalization to the extreme. The [slides](https://www.anchormodeling.com/tiedostot/SU_KTH_Course_Presentation.pdf) at the [anchor modeling website](https://www.anchormodeling.com) have an in-depth explanation of Anchor modeling and its merits, but the part that's important for table elimination can be shown with an example.

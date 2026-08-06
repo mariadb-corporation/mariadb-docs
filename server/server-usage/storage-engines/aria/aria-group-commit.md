@@ -21,7 +21,7 @@ Information on setting server variables can be found on the [Server System Varia
 
 ## Non Group commit logic (aria\_group\_commit="none")
 
-The thread which first started the `commit` is performing the actual flush of logs. Other threads set the new goal (LSN)\
+The thread which first started the `commit` is performing the actual flush of logs. Other threads set the new goal (LSN)
 of the next pass (if it is maximum) and wait for the pass end or just wait for the pass end.
 
 The effect of this is that a flush (write of logs + sync) will save all data for all threads/transactions that have been waiting since the last flush.
@@ -30,7 +30,7 @@ The effect of this is that a flush (write of logs + sync) will save all data for
 
 ### If hard commit and aria\_group\_commit\_interval=0
 
-The first thread sends all changed buffers to disk. This is repeated as long as there are new LSNs added. The process can not loop\
+The first thread sends all changed buffers to disk. This is repeated as long as there are new LSNs added. The process can not loop
 forever because we have a limited number of threads and they will wait for the data to be synced.
 
 Pseudo code:

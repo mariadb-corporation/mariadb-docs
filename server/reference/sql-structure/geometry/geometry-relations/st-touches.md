@@ -8,8 +8,8 @@ ST_TOUCHES(g1,g2)
 
 ## Description
 
-Returns `1` or `0` to indicate whether geometry _`g1`_ spatially touches geometry _`g2`_. Two geometries spatially touch if the interiors of the geometries do not intersect,\
-but the boundary of one of the geometries intersects either the boundary or the\
+Returns `1` or `0` to indicate whether geometry _`g1`_ spatially touches geometry _`g2`_. Two geometries spatially touch if the interiors of the geometries do not intersect,
+but the boundary of one of the geometries intersects either the boundary or the
 interior of the other.
 
 ST\_TOUCHES() uses object shapes, while [TOUCHES()](touches.md), based on the original MySQL implementation, uses object bounding rectangles.

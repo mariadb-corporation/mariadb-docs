@@ -4,7 +4,7 @@ The dgcov tool helps you check the coverage for new code. The dgcov.pl script is
 
 ## Overview
 
-The dgcov program runs gcov for code coverage analysis, aggregates the coverage data,\
+The dgcov program runs gcov for code coverage analysis, aggregates the coverage data,
 and (optionally) reports coverage only for those lines that are changed by the commit(s).\
 Commits are specified in the `git diff` format.
 
@@ -38,14 +38,14 @@ Prior to running this tool, MariaDB should be built with
 cmake -DENABLE_GCOV=ON
 ```
 
-and the testsuite should be run. dgcov will report the coverage\
+and the testsuite should be run. dgcov will report the coverage
 for all lines modified in the specified commits.
 
 ## Output
 
 Output .dgcov files have a conventional gcov format:\
-lines not covered are prefixed with `#####`, lines without generated code are\
-prefixed with `-`, and other lines are prefixed with the number of times they\
+lines not covered are prefixed with `#####`, lines without generated code are
+prefixed with `-`, and other lines are prefixed with the number of times they
 were executed. See `info gcov` for more information.
 
 The patch-like coverage for commits uses gcov format (as above) for lines, changed in these commits, and no prefix at all for lines that were not changed.

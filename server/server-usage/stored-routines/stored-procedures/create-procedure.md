@@ -105,10 +105,10 @@ If the `IF NOT EXISTS` clause is used, then the procedure will only be created i
 
 Each parameter is an `IN` parameter by default. To specify otherwise for a parameter, use the keyword `OUT` or `INOUT` before the parameter name.
 
-An `IN` parameter passes a value into a procedure. The procedure might modify the value, but the modification is not visible to the caller when the procedure returns. An `OUT` parameter passes a value from the procedure back to the caller. Its initial value is `NULL` within the procedure, and its value is visible to the caller when the procedure returns. An `INOUT` parameter is initialized by the caller, can be\
+An `IN` parameter passes a value into a procedure. The procedure might modify the value, but the modification is not visible to the caller when the procedure returns. An `OUT` parameter passes a value from the procedure back to the caller. Its initial value is `NULL` within the procedure, and its value is visible to the caller when the procedure returns. An `INOUT` parameter is initialized by the caller, can be
 modified by the procedure, and any change made by the procedure is visible to the caller when the procedure returns.
 
-For each `OUT` or `INOUT` parameter, pass a user-defined variable in the`CALL` statement that invokes the procedure so that you can obtain its value when the procedure returns. If you are calling the procedure\
+For each `OUT` or `INOUT` parameter, pass a user-defined variable in the`CALL` statement that invokes the procedure so that you can obtain its value when the procedure returns. If you are calling the procedure
 from within another stored procedure or function, you can also pass a routine parameter or local routine variable as an `IN` or `INOUT` parameter.
 
 ### DEFAULT value or expression

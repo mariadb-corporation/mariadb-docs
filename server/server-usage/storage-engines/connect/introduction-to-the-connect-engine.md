@@ -36,7 +36,7 @@ The main features of CONNECT are:
 15. Can execute complex queries on remote servers.
 16. Provides an API that allows writing additional FDW in C++.
 
-With CONNECT, MariaDB has one of the most advanced implementations of MED and NoSQL,\
+With CONNECT, MariaDB has one of the most advanced implementations of MED and NoSQL,
 without the need for complex additions to the SQL syntax (foreign tables are "normal" tables using the CONNECT engine).
 
 Giving MariaDB easy and natural access to external data enables the use of all of its powerful functions and SQL-handling abilities for developing business intelligence applications.

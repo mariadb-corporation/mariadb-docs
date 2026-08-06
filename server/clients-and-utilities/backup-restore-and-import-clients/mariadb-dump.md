@@ -670,11 +670,11 @@ Dump a database as well-formed XML.
 
 Some `mariadb-dump` options are shorthand for groups of other options:
 
-* Use of `--opt` is the same as specifying`--add-drop-table`, `--add-locks`, `--create-options`, `--disable-keys`, `--extended-insert`, `--lock-tables`, `--quick`, and `--set-charset`. All of the\
+* Use of `--opt` is the same as specifying`--add-drop-table`, `--add-locks`, `--create-options`, `--disable-keys`, `--extended-insert`, `--lock-tables`, `--quick`, and `--set-charset`. All of the
   options that `--opt` stands for are also on by default because `--opt` is on by default.
 * Use of `--compact` is the same as specifying `--skip-add-drop-table`, `--skip-add-locks`, `--skip-comments`, `--skip-disable-keys`, and `--skip-set-charset` options.
 
-To reverse the effect of a group option, use its `--skip-xxx` form (`--skip-opt` or `--skip-compact`). It\
+To reverse the effect of a group option, use its `--skip-xxx` form (`--skip-opt` or `--skip-compact`). It
 is also possible to select only part of the effect of a group option by following it with options that enable or disable specific features. Here are some examples:
 
 * To select the effect of `--opt` except for some features, use the `--skip` option for each feature. To disable extended inserts and memory buffering, use `--opt--skip-extended-insert` `--skip-quick`.\
@@ -945,7 +945,7 @@ Or:
 shell> mariadb-dump --all-databases --flush-logs --master-data=2 > all_databases.sql
 ```
 
-The `--master-data` and `--single-transaction` options can be used simultaneously, which provides a convenient way to make an online backup suitable for use prior to point-in-time recovery if tables are\
+The `--master-data` and `--single-transaction` options can be used simultaneously, which provides a convenient way to make an online backup suitable for use prior to point-in-time recovery if tables are
 stored that use the InnoDB storage engine.
 
 ## See Also

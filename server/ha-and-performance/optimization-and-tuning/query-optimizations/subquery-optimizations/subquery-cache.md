@@ -41,7 +41,7 @@ SHOW WARNINGS;
 1 row in set (0.00 sec)
 ```
 
-In the example above the presence of`"<expr_cache><`test`.`t1`.`a`>(...)"` is how you know you are\
+In the example above the presence of`"<expr_cache><`test`.`t1`.`a`>(...)"` is how you know you are
 using the subquery cache.
 
 ## Implementation

@@ -88,7 +88,7 @@ When using multiple instances, each instance also needs their own [datadir](../.
 
 Because users may want to do many various things with their multiple instances, we've provided a way to let the user define how they wish their multiple instances to run. The systemd environment variable `MYSQLD_MULTI_INSTANCE` can be set to anything that [mariadbd](../mariadbd.md) and [mariadb-install-db](../../../clients-and-utilities/deployment-tools/mariadb-install-db.md) recognize.
 
-A hosting environment where each user has their own instance looks like this\
+A hosting environment where each user has their own instance looks like this
 (with `sudo systemctl edit mariadb@.service`):
 
 ```ini

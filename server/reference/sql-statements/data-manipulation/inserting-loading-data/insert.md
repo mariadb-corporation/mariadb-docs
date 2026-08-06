@@ -46,7 +46,7 @@ INSERT [LOW_PRIORITY | HIGH_PRIORITY] [IGNORE]
       [, select_expr ...]]
 ```
 
-The `INSERT` statement is used to insert new rows into an existing table. The `INSERT ... VALUES`\
+The `INSERT` statement is used to insert new rows into an existing table. The `INSERT ... VALUES`
 and `INSERT ... SET` forms of the statement insert rows based on explicitly specified values. The `INSERT ... SELECT` form inserts rows selected from another table or tables. `INSERT ... SELECT` is discussed further in the [INSERT ... SELECT](insert-select.md) article.
 
 The table name can be specified in the form `db_name`.`tbl_name` or, if a default database is selected, in the form `tbl_name` (see [Identifier Qualifiers](../../../sql-structure/sql-language-structure/identifier-qualifiers.md)). This allows to use [INSERT ... SELECT](insert-select.md) to copy rows between different databases.

@@ -20,7 +20,7 @@ When the primary is a newer version with checksums enabled in the binlog, but th
 Replicating from a new MySQL primary with checksums enabled to a new MariaDB which also understands checksums works, and the MariaDB replica will verify checksums on replicated events.
 
 There is however a problem when a newer MySQL replica replicates against a newer MariaDB primary with checksums enabled. The replica server looks at the primary server version to know whether events include checksums or not, and MySQL has not yet been updated to learn that MariaDB does this already from version 5.3.0 (as of the time of writing, MySQL 5.6.2). Thus, if MariaDB at least version\
-5.3.0 but less that 5.6.1 is used as a primary with binlog checksums enabled, a MySQL replica will interpret the received events incorrectly as it does not realise the last part of the events is the checksum. So replication will fail with an error about corrupt events or even silent corruption of replicated data\
+5.3.0 but less that 5.6.1 is used as a primary with binlog checksums enabled, a MySQL replica will interpret the received events incorrectly as it does not realise the last part of the events is the checksum. So replication will fail with an error about corrupt events or even silent corruption of replicated data
 in unlucky cases. This requires changes to the MySQL server to fix.
 
 Here is a summary table of the status of replication between different combination of primary and replica servers and checksum enabled/disabled:
@@ -50,7 +50,7 @@ When using the [mariadb-binlog](../../clients-and-utilities/logging-tools/mariad
 
 A version of `mariadb-binlog` which understands checksums can read binlog files from either old or new servers, with or without checksums enabled.
 
-An old version of `mariadb-binlog` can read binlog files produced by a new server version **if** checksums were disabled when the log was produced. Old versions of `mariadb-binlog` reading a new binlog file containing checksums will be confused, and output will be garbled, with the added checksums being\
+An old version of `mariadb-binlog` can read binlog files produced by a new server version **if** checksums were disabled when the log was produced. Old versions of `mariadb-binlog` reading a new binlog file containing checksums will be confused, and output will be garbled, with the added checksums being
 interpreted as extra garbage at the end of query strings and similar entries. No error will be reported in this case, just wrong output.
 
 A version of `mysqlbinlog` (the MySQL equivalent to mariadb-binlog and the old MariaDB name for the binary) from MySQL >= 5.6.1 will have similar problems as a replica until this is fixed in MySQL. When reading a binlog file with checksums produced by MariaDB >= 5.3.0 but < 5.6.1, it will not realise that checksums are included, and will produce garbled output just like an old version of`mysqlbinlog`. The MariaDB version of `mariadb-binlog` can read binlog files produced by either MySQL or MariaDB just fine.

@@ -6,11 +6,11 @@ description: >-
 
 # MariaDB Optimization for MySQL Users
 
-MariaDB contains many new options and optimizations which, for\
+MariaDB contains many new options and optimizations which, for
 compatibility or other reasons, are not enabled in the default install.\
-Enabling them helps you gain extra performance from the same hardware\
-when upgrading from MySQL to MariaDB. This article contains information\
-on options and settings which you should enable, or at least look in\
+Enabling them helps you gain extra performance from the same hardware
+when upgrading from MySQL to MariaDB. This article contains information
+on options and settings which you should enable, or at least look in
 to, when making the switch.
 
 ```

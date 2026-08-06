@@ -1,27 +1,27 @@
 # DBT3 Automation Scripts
 
 DBT-3 (OSDL Database Test 3) is a workload tool for the Linux kernel that OSDL\
-(Open Source Development Labs, inc) developed based on TPC-H which is provided\
+(Open Source Development Labs, inc) developed based on TPC-H which is provided
 by the Transaction Performance Processing Council (TPC).
 
-DBT-3, like TPC-H, simulates an actual decision-making support system and\
-models complex business analysis applications that perform data processing jobs\
-for making better business decisions. By running the workload that DBT-3\
-simulates, it is possible to verify and measure the performances of the Linux\
+DBT-3, like TPC-H, simulates an actual decision-making support system and
+models complex business analysis applications that perform data processing jobs
+for making better business decisions. By running the workload that DBT-3
+simulates, it is possible to verify and measure the performances of the Linux
 kernel in an actual decision-making support system.
 
-DBT-3 uses the "scale factor (SF)" as a stress indicator of the system. By\
-varying the SF, it becomes possible to make the size of a database the SF times\
+DBT-3 uses the "scale factor (SF)" as a stress indicator of the system. By
+varying the SF, it becomes possible to make the size of a database the SF times
 its size.
 
-The tests performed by DBT-3 comprise the three tests listed below. DBT-3\
-obtains the execution times of these three tests as well as the system status\
+The tests performed by DBT-3 comprise the three tests listed below. DBT-3
+obtains the execution times of these three tests as well as the system status
 information and database statistics information.
 
 1. Load test
 
-* Enters the data to be used for the Power and Throughput tests into the\
-  database. Makes a bulk insert of the huge CSV data corresponding to the\
+* Enters the data to be used for the Power and Throughput tests into the
+  database. Makes a bulk insert of the huge CSV data corresponding to the
   scale factor into the database.
 
 1. Power test
@@ -30,7 +30,7 @@ information and database statistics information.
 
 1. Throughput test
 
-* Performs the same 22 queries as in the Power test simultaneously in more\
+* Performs the same 22 queries as in the Power test simultaneously in more
   than one process.
 
 For the purpose of this task, only the Power test is performed over preliminary\
@@ -45,16 +45,16 @@ it to different configurations.
 
 The user that will run the benchmark must have sudo rights on the machine.
 
-For clearing the system caches between query runs, the automation script uses\
+For clearing the system caches between query runs, the automation script uses
 the following command:
 
 ```
 sudo /sbin/sysctl vm.drop_caches=3
 ```
 
-This command must be run with superuser rights. Even if a user supplies a\
-password to sudo, this password expires after some timeout. In order for this\
-command to be run without requiring password, the following line should be\
+This command must be run with superuser rights. Even if a user supplies a
+password to sudo, this password expires after some timeout. In order for this
+command to be run without requiring password, the following line should be
 added to the sudoers file (edit it with the `"sudo visudo"` command):
 
 ```
@@ -76,23 +76,23 @@ The automated DBT3 benchmark requires the following software:
   * Download location:
 * [Gnuplot 4.4](http://www.gnuplot.info/) — graphics output program.
   * Project home:
-* [Config::Auto](https://search.cpan.org/~simon/Config-Auto-0.03/Auto.pm) —\
-  a Perl module that reads configuration files. To install it use the following\
+* [Config::Auto](https://search.cpan.org/~simon/Config-Auto-0.03/Auto.pm) —
+  a Perl module that reads configuration files. To install it use the following
   command:
 
 ```
 sudo cpan Config::Auto
 ```
 
-* [DBD::mysql](https://search.cpan.org/~capttofu/DBD-mysql-4.020/lib/DBD/mysql.pm) —\
-  a Perl module to connect to MariaDB/MySQL and PostgreSQL. To install it use\
+* [DBD::mysql](https://search.cpan.org/~capttofu/DBD-mysql-4.020/lib/DBD/mysql.pm) —
+  a Perl module to connect to MariaDB/MySQL and PostgreSQL. To install it use
   the following command:
 
 ```
 sudo cpan DBD::mysql
 ```
 
-**NOTE:** You may receive an error saying that CPAN could not find`mysql_config`. In this case you have to install the mysql client development\
+**NOTE:** You may receive an error saying that CPAN could not find`mysql_config`. In this case you have to install the mysql client development
 library. In OpenSuse the command is:
 
 ```
@@ -126,12 +126,12 @@ export LD_LIBRARY_PATH="/path/to/unzipped_DBD_mysql/DBD-mysql-4.020/blib/arch/au
 * [MySQL 5.5.x](https://dev.mysql.com/downloads/mysql/#downloads)
   * Download location: [#downloads](https://dev.mysql.com/downloads/mysql/#downloads) →\
     Generally Available (GA) Releases → Linux - Generic 2.6 (x86, 64-bit),\
-    Compressed TAR Archive - downloads mysql-5.5.x-linux2.6-x86\_64.tar.gz -\
+    Compressed TAR Archive - downloads mysql-5.5.x-linux2.6-x86\_64.tar.gz -
     gzipped tar file for Linux x86
 * [MySQL 5.6.x](https://dev.mysql.com/downloads/mysql/#downloads)
   * Download location: [#downloads](https://dev.mysql.com/downloads/mysql/#downloads) →\
     Development Releases → Linux - Generic 2.6 (x86, 64-bit), Compressed TAR\
-    Archive - downloads mysql-5.6.x-m5-linux2.6-x86\_64.tar.gz - gzipped tar file\
+    Archive - downloads mysql-5.6.x-m5-linux2.6-x86\_64.tar.gz - gzipped tar file
     for Linux x86
 * [MariaDB 5.3.x](https://launchpad.net/maria/5.3)
   * Download location: [5.3](https://launchpad.net/maria/5.3) , downloaded with Bazaar:
@@ -151,15 +151,15 @@ bzr branch lp:maria/5.5
   * Download location:
 
 **NOTE:** The DBT3 benchmark requires a lot of disk space (for example MySQL\
-5.5.x + MyISAM database with scale factor 30 takes about 50 GB). Also some\
-queries require the utilization of temp tables under the directory set by the`--tmpdir` startup parameter passed to `mysqld`. In the\
-prepared configuration files the temp directory is pointed to the `mysql`\
-system directory of the binary distribution, but one should reassure that there\
+5.5.x + MyISAM database with scale factor 30 takes about 50 GB). Also some
+queries require the utilization of temp tables under the directory set by the`--tmpdir` startup parameter passed to `mysqld`. In the
+prepared configuration files the temp directory is pointed to the `mysql`
+system directory of the binary distribution, but one should reassure that there
 is enough free space available for the temp directory.
 
 ## Installation instructions
 
-**NOTE:** The directory where all the files will be downloaded or installed\
+**NOTE:** The directory where all the files will be downloaded or installed
 will be referred as `$PROJECT_HOME`. This could be for example `~/benchmark/dbt3`.
 
 ### Download [mariadb-tools](https://launchpad.net/mariadb-tools)
@@ -184,23 +184,23 @@ $PROJECT_HOME/mariadb-tools/dbt3_benchmark/
 
 The project `dbt3_benchmark` has the following directories and files:
 
-* config — a folder where the configuration files\
-  for MariaDB, MySQL and PostgreSQL are stored. They are divided into\
+* config — a folder where the configuration files
+  for MariaDB, MySQL and PostgreSQL are stored. They are divided into
   subfolders named '`sXX`', where `XX` is the scale factor.
-* dbt3\_mysql — a folder with all the necessary\
+* dbt3\_mysql — a folder with all the necessary
   files for preparing DBT3 databases and queries for the tests with MySQL and\
   MariaDB
-* tests — a folder where the different test\
+* tests — a folder where the different test
   configurations are stored. It contains the following directories:
-  * db\_conf — here are stored the database\
+  * db\_conf — here are stored the database
     configuration files
-  * queries\_conf — here are stored the different\
+  * queries\_conf — here are stored the different
     queries configuration files
-  * results\_db\_conf — here is stored the\
+  * results\_db\_conf — here is stored the
     configuration of the results database
   * test\_conf — here are the test configurations
-  * launcher.pl — a perl script that automates the\
-    test. Details about calling and functionality of this file are listed later\
+  * launcher.pl — a perl script that automates the
+    test. Details about calling and functionality of this file are listed later
     on this page.
 
 ### Prepare benchmark workload and queries
@@ -226,9 +226,9 @@ cp $PROJECT_HOME/mariadb-tools/dbt3_benchmark/dbt3_mysql/tpcd.h $PROJECT_HOME/db
 
 1. Copy the file Makefile under `$PROJECT_HOME/mariadb-tools/dbt3_benchmark/dbt3_mysql/` into the dbt3 folder
 
-* NOTE: This step is executed only if you want to overwrite the default\
-  behavior of PostgreSQL settings. After copying this Makefile and building the\
-  project, QGEN will be set to generate queries for MariaDB/MySQL. If you skip\
+* NOTE: This step is executed only if you want to overwrite the default
+  behavior of PostgreSQL settings. After copying this Makefile and building the
+  project, QGEN will be set to generate queries for MariaDB/MySQL. If you skip
   this step, QGEN will generate queries for PostgreSQL by default.
 
 ```
@@ -263,7 +263,7 @@ mkdir $PROJECT_HOME/gen_query
 
 1. Generate the queries
 
-**NOTE:** The examples use scale factor 30. If you want different scale, change\
+**NOTE:** The examples use scale factor 30. If you want different scale, change
 the value of `-s` parameter
 
 * ```

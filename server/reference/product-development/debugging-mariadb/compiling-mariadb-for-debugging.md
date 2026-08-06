@@ -60,7 +60,7 @@ The packages created will have these flags set.
 
 ### Temporarily Installing your Debug Build
 
-The commands shown below replace the release `mariadbd` binary with the debug `mariadbd` binary that you compiled. Most importantly, they replace the binary in a way which makes it trivial to revert back to the\
+The commands shown below replace the release `mariadbd` binary with the debug `mariadbd` binary that you compiled. Most importantly, they replace the binary in a way which makes it trivial to revert back to the
 original release `mariadbd` binary.
 
 First, [stop MariaDB](https://mariadb.com/kb/en/).

@@ -18,7 +18,7 @@ yum install MariaDB-cassandra-engine
 
 If using the Debian or Ubuntu repositories, the Cassandra plugin is in the main MariaDB server package.
 
-To install/activate the storage engine into MariaDB, issue the following\
+To install/activate the storage engine into MariaDB, issue the following
 command:
 
 ```
@@ -30,7 +30,7 @@ You can also activate the storage engine by using the `--plugin-load` command on
 ## Introduction
 
 The Cassandra Storage Engine allows access to data in a Cassandra cluster from\
-MariaDB. The overall architecture is shown in the picture below and is similar\
+MariaDB. The overall architecture is shown in the picture below and is similar
 to that of the NDB cluster storage engine.
 
 ```mermaid
@@ -73,7 +73,7 @@ flowchart TD
 
 _MariaDB's pluggable storage engines, including the Cassandra storage engine, sit behind the parser and optimizer, each mapping SQL to its own backing store._
 
-You can access the same Cassandra cluster from multiple MariaDB instances,\
+You can access the same Cassandra cluster from multiple MariaDB instances,
 provided each of them runs the Cassandra Storage Engine:
 
 ![mariadb-and-cassandra](../../../../.gitbook/assets/mariadb-and-cassandra.png)
@@ -134,10 +134,10 @@ The name of the table can be arbitrary. However, primary key, column names, and 
 
 The table must define a column that corresponds to the Column Family's rowkey.
 
-* If Cassandra's `rowkey` has an alias (or name), then MariaDB's column must\
+* If Cassandra's `rowkey` has an alias (or name), then MariaDB's column must
   have the same name.
   * Otherwise, it must be named "rowkey".
-* The type of MariaDB's column must match the validation\_class of Cassandra's\
+* The type of MariaDB's column must match the validation\_class of Cassandra's
   rowkey (datatype matching is covered in more detail below).
 
 Note: Multi-column primary keys are currently not supported. Support may be added in a future version, depending on whether there is a demand for it.
@@ -164,7 +164,7 @@ Here is an example:
 dynamic_cols blob DYNAMIC_COLUMN_STORAGE=yes
 ```
 
-Once define, one can access individual columns with the new variant of the Dynamic Column functions,\
+Once define, one can access individual columns with the new variant of the Dynamic Column functions,
 which now support string names (they used to support integers only).
 
 ### Super columns

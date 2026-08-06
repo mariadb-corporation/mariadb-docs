@@ -40,8 +40,8 @@ vncviewer -via <vmhost> localhost
 
 Midway through booting you'll have to reconnect
 
-1. Use gparted to either expand the existing primary partition or, especially\
-   on VMs with LVM, add a new partition (since GParted can't change LVM\
+1. Use gparted to either expand the existing primary partition or, especially
+   on VMs with LVM, add a new partition (since GParted can't change LVM
    partitions). Exit when finished and shutdown the VM.
 2. Boot the VM again, this time without a VNC server:
 

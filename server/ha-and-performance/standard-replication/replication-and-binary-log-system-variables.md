@@ -847,7 +847,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 #### `slave_connections_needed_for_purge`
 
 * Description: Minimum number of connected replicas required for automatic [binary log](../../server-management/server-monitoring-logs/binary-log/) purge with [max\_binlog\_total\_size](replication-and-binary-log-system-variables.md#max_binlog_total_size), [binlog\_expire\_logs\_seconds](replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) or [expire\_logs\_days](replication-and-binary-log-system-variables.md#expire_logs_days).\
-  Change of the value triggers an attempt to purging, though without binlog rotation, with the purged set of\
+  Change of the value triggers an attempt to purging, though without binlog rotation, with the purged set of
   files satisfying the above two parameters and the value that is set itself.
 * Command line: `--slave-connections-needed-for-purge=#`
 * Scope: Global
@@ -869,7 +869,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `slave_domain_parallel_threads`
 
-* Description: When set to a non-zero value, each [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) domain in one primary connection can reserve at most that many worker threads at any one time, leaving the rest (up to the value of [slave\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_parallel_threads)) free for other primary connections\
+* Description: When set to a non-zero value, each [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) domain in one primary connection can reserve at most that many worker threads at any one time, leaving the rest (up to the value of [slave\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_parallel_threads)) free for other primary connections
   or replication domains to use in parallel. See [Parallel Replication](parallel-replication.md#configuration-variable-slave_domain_parallel_threads) for details.
 * Command line: `--slave-domain-parallel-threads=#`
 * Scope: Global
@@ -933,7 +933,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Description: When [parallel\_replication](parallel-replication.md) is used, the [SQL thread](replication-threads.md#slave-sql-thread) reads ahead in the relay logs, queueing events in memory while looking for opportunities for executing events in parallel. This system variable sets a limit for how much memory it uses for this.
   * The configured value of this system variable is actually allocated for each [worker thread](replication-threads.md#worker-threads), so the total allocation is actually equivalent to the following:
     * [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) \* [slave\_parallel\_threads](replication-and-binary-log-system-variables.md)
-  * This system variable is only meaningful when parallel\
+  * This system variable is only meaningful when parallel
     replication is configured (i.e. when [slave\_parallel\_threads](replication-and-binary-log-system-variables.md) > `0`).
   * See [Parallel Replication: Configuring the Maximum Size of the Parallel Replica Queue](parallel-replication.md#configuring-the-maximum-size-of-the-parallel-slave-queue) for more information.
 * Command line: `--slave-parallel-max-queued=#`

@@ -73,7 +73,7 @@ If `Aria_pagecache_reads` is much smaller than `Aria_pagecache_read_request` and
 ## Using in memory temporary tables
 
 Using memory tables for internal temporary results can speed up execution.\
-However, if the memory table gets full, then the memory table will be moved to\
+However, if the memory table gets full, then the memory table will be moved to
 disk, which can hurt performance.
 
 You can check how the internal memory tables are performing by executing:

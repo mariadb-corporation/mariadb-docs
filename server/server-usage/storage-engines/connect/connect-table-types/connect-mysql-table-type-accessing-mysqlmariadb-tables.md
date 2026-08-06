@@ -4,9 +4,9 @@ description: The CONNECT storage engine.
 
 # CONNECT MYSQL Table Type: Accessing MySQL/MariaDB Tables
 
-This table type uses libmysql API to access a MySQL or MariaDB table or view. This\
-table must be created on the current server or on another local or remote\
-server. This is similar to what the [FederatedX](../../federatedx-storage-engine/) storage engine provides with some\
+This table type uses libmysql API to access a MySQL or MariaDB table or view. This
+table must be created on the current server or on another local or remote
+server. This is similar to what the [FederatedX](../../federatedx-storage-engine/) storage engine provides with some
 differences.
 
 Currently the Federated-like syntax can be used to create such a table, for instance:
@@ -72,7 +72,7 @@ The specific connection items are:
 
 **Caution:** Take care not to refer to the MYSQL table itself to avoid an infinite loop!
 
-MYSQL table can refer to the current server as well as to another server. Views\
+MYSQL table can refer to the current server as well as to another server. Views
 can be referred by name or directly giving a source definition, for instance:
 
 ```sql
@@ -104,7 +104,7 @@ This means that it is not possible to correctly retrieve a remote table if it co
 
 ## Indexing of MYSQL tables
 
-Indexes are rarely useful with MYSQL tables. This is because CONNECT tries to access only the\
+Indexes are rarely useful with MYSQL tables. This is because CONNECT tries to access only the
 requested rows. For instance if you ask:
 
 ```sql
@@ -117,7 +117,7 @@ CONNECT will construct and send to the server the query:
 SELECT num, line FROM people WHERE num = 23
 ```
 
-If the _people_ table is indexed on _num_, indexing are used on the remote server. This, in all cases,\
+If the _people_ table is indexed on _num_, indexing are used on the remote server. This, in all cases,
 will limit the amount of data to retrieve on the network.
 
 However, an index can be specified for columns that are prone to be used to join another table to the\
@@ -135,26 +135,26 @@ indexing as does FEDERATED, only the useful rows of the remote table are retriev
 join process. However, because these rows are retrieved by separate [SELECT](../../../../reference/sql-statements/data-manipulation/selecting-data/select.md) statements, this is\
 useful only when retrieving a few rows of a big table.
 
-In particular, you should not specify an index for columns not used for joining and above all DO NOT\
-index a joined column if it is not indexed in the remote table. This would cause multiple scans of the\
+In particular, you should not specify an index for columns not used for joining and above all DO NOT
+index a joined column if it is not indexed in the remote table. This would cause multiple scans of the
 remote table to retrieve the joined rows one by one.
 
 ## Data Modifying Operations
 
-The CONNECT MYSQL type supports [SELECT](../../../../reference/sql-statements/data-manipulation/selecting-data/select.md) and [INSERT](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) and a somewhat limited form\
+The CONNECT MYSQL type supports [SELECT](../../../../reference/sql-statements/data-manipulation/selecting-data/select.md) and [INSERT](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) and a somewhat limited form
 of [UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md). These are described below.
 
-The MYSQL type uses similar methods than the ODBC type to implement the [INSERT](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md),[UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) commands. Refer to the ODBC chapter for the restrictions\
+The MYSQL type uses similar methods than the ODBC type to implement the [INSERT](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md),[UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) commands. Refer to the ODBC chapter for the restrictions
 concerning them.
 
-For the [UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) commands, there are fewer restrictions because the\
-remote server being a MySQL server, the syntax of the command are always\
+For the [UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) commands, there are fewer restrictions because the
+remote server being a MySQL server, the syntax of the command are always
 acceptable by the remote server.
 
-For instance, you can freely use keywords like IGNORE or LOW\_PRIORITY as well\
+For instance, you can freely use keywords like IGNORE or LOW\_PRIORITY as well
 as scalar functions in the SET and WHERE clauses.
 
-However, there is still an issue on multi-table statements. Let us suppose you\
+However, there is still an issue on multi-table statements. Let us suppose you
 have a _t1_ table on the remote server and want to execute a query such as:
 
 ```sql
@@ -162,21 +162,21 @@ UPDATE essai AS x SET line = (SELECT msg FROM t1 WHERE id = x.num)
 WHERE num = 2;
 ```
 
-When parsed locally, you will have errors if no _t1_ table exists or if it\
-does not have the referenced columns. When _t1_ does not exist, you can\
+When parsed locally, you will have errors if no _t1_ table exists or if it
+does not have the referenced columns. When _t1_ does not exist, you can
 overcome this issue by creating a local dummy _t1_ table:
 
 ```
 CREATE TABLE t1 (id INT, msg CHAR(1)) ENGINE=BLACKHOLE;
 ```
 
-This will make the local parser happy and permit to execute the command on the\
-remote server. Note however that having a local MySQL table defined on the\
-remote _t1_ table does not solve the problem unless it is also names _t1_\
+This will make the local parser happy and permit to execute the command on the
+remote server. Note however that having a local MySQL table defined on the
+remote _t1_ table does not solve the problem unless it is also names _t1_
 locally.
 
-This is why, to permit to have all types of commands executed by the data\
-source without any restriction, CONNECT provides a specific MySQL table subtype\
+This is why, to permit to have all types of commands executed by the data
+source without any restriction, CONNECT provides a specific MySQL table subtype
 described now.
 
 ## Sending commands to a MariaDB Server
@@ -197,9 +197,9 @@ option_list='Execsrc=1,Maxerr=2';
 The key points in this create statement are the EXECSRC option and the column definition.
 
 The EXECSRC option tells that this table are used to send commands to the\
-MariaDB server. Most of the sent commands do not return result set. Therefore,\
-the table columns are used to specify the command to be executed and to get the\
-result of the execution. The name of these columns can be chosen arbitrarily,\
+MariaDB server. Most of the sent commands do not return result set. Therefore,
+the table columns are used to specify the command to be executed and to get the
+result of the execution. The name of these columns can be chosen arbitrarily,
 their function coming from the FLAG value:
 
 |         |                                                                                                        |
@@ -215,8 +215,8 @@ How to use this table and specify the command to send? By executing a command su
 SELECT * FROM send WHERE command = 'a command';
 ```
 
-This will send the command specified in the WHERE clause to the data source and\
-return the result of its execution. The syntax of the WHERE clause must be\
+This will send the command specified in the WHERE clause to the data source and
+return the result of its execution. The syntax of the WHERE clause must be
 exactly as shown above. For instance:
 
 ```sql
@@ -234,7 +234,7 @@ This command returns:
 
 ### Sending several commands in one call
 
-It can be faster to execute because there are only one connection for all\
+It can be faster to execute because there are only one connection for all
 of them. To send several commands in one call, use the following syntax:
 
 ```sql
@@ -243,32 +243,32 @@ SELECT * FROM send WHERE command IN (
 "update people set line = 'Three' where id = 3");
 ```
 
-When several commands are sent, the execution stops at the end of them or after\
-a command that is in error. To continue after n errors, set the option\
+When several commands are sent, the execution stops at the end of them or after
+a command that is in error. To continue after n errors, set the option
 maxerr=_n_ (0 by default) in the option list.
 
 **Note 1:** It is possible to specify the SRCDEF option when creating an\
-EXECSRC table. It are the command sent by default when a WHERE clause is\
+EXECSRC table. It are the command sent by default when a WHERE clause is
 not specified.
 
-**Note 2:** Backslashes inside commands must be escaped. Simple quotes must be\
-escaped if the command is specified between simple quotes, and double quotes if\
+**Note 2:** Backslashes inside commands must be escaped. Simple quotes must be
+escaped if the command is specified between simple quotes, and double quotes if
 it is specified between double quotes.
 
-**Note 3:** Sent commands apply in the specified database. However, they can\
+**Note 3:** Sent commands apply in the specified database. However, they can
 address any table within this database.
 
 **Note 4:** Currently, all commands are executed in mode AUTOCOMMIT.
 
 ### Retrieving Warnings and Notes
 
-If a sent command causes warnings to be issued, it is useless to resend a “show\
-warnings” command because the MariaDB server is opened and closed when sending\
+If a sent command causes warnings to be issued, it is useless to resend a “show
+warnings” command because the MariaDB server is opened and closed when sending
 commands. Therefore, getting warnings requires a specific (and tricky) way.
 
-To indicate that warning text must be added to the returned result, you must\
-send a multi-command query containing “pseudo” commands that are not sent to\
-the server but directly interpreted by the EXECSRC table. These “pseudo”\
+To indicate that warning text must be added to the returned result, you must
+send a multi-command query containing “pseudo” commands that are not sent to
+the server but directly interpreted by the EXECSRC table. These “pseudo”
 commands are:
 
 |         |                                        |
@@ -309,11 +309,11 @@ This can return something like this:
 | update try set msg = 'Four' where id = 4              | 0        | 1      | Affected rows                            |
 | select \* from try                                    | 0        | 2      | Result set columns                       |
 
-The execution continued after the command in error because of the MAXERR\
+The execution continued after the command in error because of the MAXERR
 option. Normally this would have stopped the execution.
 
-Of course, the last “select” command is useless here because it cannot return\
-the table contain. Another MYSQL table without the EXECSRC option and with\
+Of course, the last “select” command is useless here because it cannot return
+the table contain. Another MYSQL table without the EXECSRC option and with
 proper column definition should be used instead.
 
 ## Connection Engine Limitations
@@ -343,25 +343,25 @@ The following SQL queries are not supported
 
 ## CONNECT MYSQL versus FEDERATED
 
-The CONNECT MYSQL table type should not be regarded as a replacement for the [FEDERATED(X)](../../federatedx-storage-engine/) engine. The main use of the MYSQL type is to access other engine tables as if they were CONNECT tables. This was necessary when accessing tables\
-from some CONNECT table types such as [TBL](connect-tbl-table-type-table-list.md), [XCOL](connect-xcol-table-type.md), [OCCUR](connect-occur-table-type.md), or [PIVOT](connect-pivot-table-type.md) that are\
+The CONNECT MYSQL table type should not be regarded as a replacement for the [FEDERATED(X)](../../federatedx-storage-engine/) engine. The main use of the MYSQL type is to access other engine tables as if they were CONNECT tables. This was necessary when accessing tables
+from some CONNECT table types such as [TBL](connect-tbl-table-type-table-list.md), [XCOL](connect-xcol-table-type.md), [OCCUR](connect-occur-table-type.md), or [PIVOT](connect-pivot-table-type.md) that are
 designed to access CONNECT tables only. When their target table is not a\
-CONNECT table, these types are silently using internally an intermediate MYSQL\
+CONNECT table, these types are silently using internally an intermediate MYSQL
 table.
 
 However, there are cases where you can use MYSQL CONNECT tables yourself, for instance:
 
-1. When the table are used by a [TBL](connect-tbl-table-type-table-list.md) table. This enables you to specify the connection parameters for each sub-table and is more efficient than using a\
+1. When the table are used by a [TBL](connect-tbl-table-type-table-list.md) table. This enables you to specify the connection parameters for each sub-table and is more efficient than using a
    local FEDERATED sub-table.
 2. When the desired returned data is directly specified by the SRCDEF option.\
-   This is great to let the remote server do most of the job, such as grouping\
+   This is great to let the remote server do most of the job, such as grouping
    and/or joining tables. This cannot be done with the FEDERATED engine.
 3. To take advantage of the push\_cond facility that adds a where clause to the command sent to the remote table. This restricts the size of the result set and can be crucial for big tables.
 4. For tables with the EXECSRC option on.
 5. When doing tests. For instance to check a connection string.
 
-If you need multi-table updating, deleting, or bulk inserting on a remote\
-table, you can alternatively use the FEDERATED engine or a “send” table\
+If you need multi-table updating, deleting, or bulk inserting on a remote
+table, you can alternatively use the FEDERATED engine or a “send” table
 specifying the EXECSRC option on.
 
 ## See also

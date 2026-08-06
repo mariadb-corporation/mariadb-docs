@@ -2043,7 +2043,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `optimizer_use_condition_selectivity`
 
-* Description: Controls which statistics can be used by the optimizer when looking for\
+* Description: Controls which statistics can be used by the optimizer when looking for
   the best query execution plan. In most cases, the default value, `4` will be suitable. However, if you are hitting some of the rare cases where this does not work well (see [MDEV-23707](https://jira.mariadb.org/browse/MDEV-23707)), you can usually work around this by setting this variable to `1`.
   * `1` Use selectivity of predicates as in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5).
   * `2` Use selectivity of all range predicates supported by indexes.

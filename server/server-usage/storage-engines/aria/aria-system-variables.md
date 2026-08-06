@@ -72,13 +72,13 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 * Data Type: `string`
 * Valid values:
   * `none` - Group commit is disabled.
-  * `hard` - Wait the number of microseconds specified by\
-    aria\_group\_commit\_interval before actually doing the commit. If the interval\
-    is 0 then just check if any other threads have requested a commit during the\
-    time this commit was preparing (just before sync() file) and send their data to\
+  * `hard` - Wait the number of microseconds specified by
+    aria\_group\_commit\_interval before actually doing the commit. If the interval
+    is 0 then just check if any other threads have requested a commit during the
+    time this commit was preparing (just before sync() file) and send their data to
     disk also before sync().
-  * `soft` - The service thread will wait the specified time and then sync()\
-    to the log. If the interval is 0 then it won't wait for any commits (this is\
+  * `soft` - The service thread will wait the specified time and then sync()
+    to the log. If the interval is 0 then it won't wait for any commits (this is
     dangerous and should generally not be used in production)
 * Default Value: `none`
 

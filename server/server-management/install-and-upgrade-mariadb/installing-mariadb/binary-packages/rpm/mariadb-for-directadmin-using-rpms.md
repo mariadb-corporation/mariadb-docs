@@ -43,7 +43,7 @@ To install the RPMs, there is a quick and easy guide to [Installing MariaDB with
 
 ## Necessary Edits
 
-We do not want DirectAdmin's custombuild to remove/overwrite our MariaDB\
+We do not want DirectAdmin's custombuild to remove/overwrite our MariaDB
 installation whenever an update is performed. To rectify this, disable automatic MySQL installation.
 
 Edit `/usr/local/directadmin/custombuild/options.conf` and replace `mysql_inst=yes` with `mysql_inst=no`
@@ -53,7 +53,7 @@ sudo sed -i 's/^mysql_inst=yes/mysql_inst=no/' /usr/local/directadmin/custombuil
 ```
 
 {% hint style="warning" %}
-When MariaDB is installed manually (i.e. not using YUM), updates are not\
+When MariaDB is installed manually (i.e. not using YUM), updates are not
 automatic. You will need to update the RPMs yourself.
 {% endhint %}
 

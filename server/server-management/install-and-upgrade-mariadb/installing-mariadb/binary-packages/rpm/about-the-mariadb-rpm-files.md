@@ -140,7 +140,7 @@ Some examples of removed RPMs are:
 
 ## Installing RPM Packages
 
-Preferably, you should install MariaDB RPM packages using the package manager\
+Preferably, you should install MariaDB RPM packages using the package manager
 of your Linux distribution, for example `yum` or`zypper`. But you can also use the lower-level `rpm` tool.
 
 ## Actions Performed by RPM Packages

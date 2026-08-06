@@ -10,7 +10,7 @@ description: >-
 
 CVE® stands for _Common Vulnerabilities and Exposures_. It is a publicly available and free-to-use database of known software vulnerabilities maintained at [https://cve.mitre.org/](https://cve.mitre.org/).
 
-CPU stands for _Critical Patch Update_. Oracle publishes Critical Patch Update Advisories\
+CPU stands for _Critical Patch Update_. Oracle publishes Critical Patch Update Advisories
 four times a year, [on the Tuesday closest to the 17th day of January, April, July and October](https://www.oracle.com/technetwork/topics/security/alerts-086861.html#CriticalPatchUpdates). MySQL vulnerabilities are included in these CPU Advisories.
 
 Some vulnerabilities found in MySQL apply to MariaDB as well, they are listed on the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](enterprise-server.md) and [Security Vulnerabilities Fixed in MariaDB Community Server](community-server.md) pages.

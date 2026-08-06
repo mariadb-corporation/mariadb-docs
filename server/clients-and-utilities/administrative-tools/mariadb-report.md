@@ -4,7 +4,7 @@
 
 Previously, the client was called `mysqlreport`. It can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.
 
-`mariadb-report` makes a report of nearly every status value from [SHOW STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-status.md). Unlike `SHOW STATUS` , which simply dumps over 100 values to the screen in one long list, `mariadb-report` interprets and\
+`mariadb-report` makes a report of nearly every status value from [SHOW STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-status.md). Unlike `SHOW STATUS` , which simply dumps over 100 values to the screen in one long list, `mariadb-report` interprets and
 formats the values, and presents the basic values and many more inferred values in a human-readable format. Numerous example reports are available in this report: [hackmysql.com/mysqlreport](https://hackmysql.com/mysqlreport), [archived here](https://github.com/daniel-nichter/hackmysql.com/tree/master/mysqlreport).
 
 The benefit of mariadb-report is that it allows you to very quickly see a wide array of performance indicators for your MariaDB server which would otherwise need to be calculated by hand from all the various `SHOW STATUS` values. For example, the Index Read Ratio is an important value but it's not present in `SHOW STATUS`; it's an inferred value (the ratio of `Key_reads` to `Key_read_requests`).

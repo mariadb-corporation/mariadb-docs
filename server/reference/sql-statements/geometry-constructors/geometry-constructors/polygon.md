@@ -14,8 +14,8 @@ Polygon(ls1,ls2,...)
 
 ## Description
 
-Constructs a WKB Polygon value from a number of [WKB](../wkb/) [LineString](linestring.md)\
-arguments. If any argument does not represent the WKB of a LinearRing (that is,\
+Constructs a WKB Polygon value from a number of [WKB](../wkb/) [LineString](linestring.md)
+arguments. If any argument does not represent the WKB of a LinearRing (that is,
 not a closed and simple LineString) the return value is `NULL`.
 
 Note that according to the OpenGIS standard, a POLYGON should have exactly one ExteriorRing and all other rings should lie within that ExteriorRing and thus be the InteriorRings. Practically, however, some systems, including MariaDB's, permit polygons to have several 'ExteriorRings'. In the case of there being multiple, non-overlapping exterior rings [ST\_NUMINTERIORRINGS()](../polygon-properties/st_numinteriorrings.md) will return 1.

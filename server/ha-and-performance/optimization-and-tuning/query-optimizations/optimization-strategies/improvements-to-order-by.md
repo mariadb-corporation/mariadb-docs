@@ -27,8 +27,8 @@ The [ORDER BY](../../../../reference/sql-statements/data-manipulation/selecting-
 
 In [MySQL 5.7 changelog](https://mysqlserverteam.com/whats-new-in-mysql-5-7-generally-available/), one can find this passage:
 
-Make switching of index due to small limit cost-based ([WL#6986](https://askmonty.org/worklog/?tid=6986)) : We have made\
-the decision in make\_join\_select() of whether to switch to a new index in order to\
+Make switching of index due to small limit cost-based ([WL#6986](https://askmonty.org/worklog/?tid=6986)) : We have made
+the decision in make\_join\_select() of whether to switch to a new index in order to
 support "ORDER BY ... LIMIT N" cost-based. This work fixes Bug#73837.
 
 MariaDB is not using Oracle's fix (we believe `make_join_select` is not the right place to do ORDER BY optimization), but the effect is the same.

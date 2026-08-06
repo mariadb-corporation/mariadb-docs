@@ -9,7 +9,7 @@ NumPoints(ls)
 
 ## Description
 
-Returns the number of [Point](../../../sql-statements/geometry-constructors/geometry-constructors/point.md) objects in the [LineString](../../../sql-statements/geometry-constructors/geometry-constructors/linestring.md)\
+Returns the number of [Point](../../../sql-statements/geometry-constructors/geometry-constructors/point.md) objects in the [LineString](../../../sql-statements/geometry-constructors/geometry-constructors/linestring.md)
 value `ls`.
 
 `ST_NumPoints()` and `NumPoints()` are synonyms.
