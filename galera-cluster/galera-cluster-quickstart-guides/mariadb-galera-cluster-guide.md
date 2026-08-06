@@ -117,8 +117,7 @@ Start MariaDB on the first node with the --wsrep-new-cluster option. This tells 
 
 ```bash
 sudo systemctl stop mariadb # Ensure it's stopped
-sudo galera_new_cluster    # This command often wraps the systemctl start --wsrep-new-cluster
-                           # Alternatively: sudo systemctl start mariadb --wsrep-new-cluster
+sudo galera_new_cluster    # This command often wraps the mariadbd --wsrep-new-cluster
 ```
 
 b. Starting Subsequent Nodes:
