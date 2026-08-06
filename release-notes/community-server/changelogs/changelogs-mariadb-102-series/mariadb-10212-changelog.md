@@ -8,8 +8,8 @@ The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariad
 
 For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.12.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
-you can view more details of the revision and view diffs of the code modified\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)
+you can view more details of the revision and view diffs of the code modified
 in that revision.
 
 * Merge [Revision #d361401bc2](https://github.com/MariaDB/server/commit/d361401bc2) 2018-01-03 11:46:31 +0200 - Merge 10.1 into 10.2, with some [MDEV-14799](https://jira.mariadb.org/browse/MDEV-14799) fixups

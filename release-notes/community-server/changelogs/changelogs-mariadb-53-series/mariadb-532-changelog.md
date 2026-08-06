@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.2.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3231](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3231)\
@@ -38,11 +38,11 @@ modified in that revision.
 * [Revision #3225](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3225)\
   Wed 2011-10-12 13:19:37 +0400
   * [Bug #869001](https://bugs.launchpad.net/bugs/869001): Wrong result with semijoin + materialization + firstmatch + multipart key
-  * Make advance\_sj\_state() not to attempt building duplicate removal strategies\
+  * Make advance\_sj\_state() not to attempt building duplicate removal strategies
     when we're doing optimization of an SJM-nest.
 * [Revision #3224](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3224)\
   Wed 2011-10-12 02:04:03 +0400
-  * Update subselect\_sj{,2}\_mat.result with changes that were lost when\
+  * Update subselect\_sj{,2}\_mat.result with changes that were lost when
     they were deleted and re-created.
 * [Revision #3223](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3223)\
   Tue 2011-10-11 23:38:26 +0200
@@ -77,9 +77,9 @@ modified in that revision.
   * [Revision #3216.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3216.1.1)\
     Tue 2011-10-11 21:34:00 +0400
     * [Bug #869012](https://bugs.launchpad.net/bugs/869012): Wrong result with semijoin + materialization + AND in WHERE
-    * in make\_join\_select(), use the correct condition to check whether the\
-      current table is a SJM nest (the previous condition used to be correct\
-      before, but then sj-materialization temp table creation was moved to happen\
+    * in make\_join\_select(), use the correct condition to check whether the
+      current table is a SJM nest (the previous condition used to be correct
+      before, but then sj-materialization temp table creation was moved to happen
       before make\_join\_select was called)
 * [Revision #3218](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3218) \[merge]\
   Tue 2011-10-11 12:55:42 +0200
@@ -152,10 +152,10 @@ modified in that revision.
 * [Revision #3217](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3217)\
   Tue 2011-10-11 02:36:08 -0700
   * Fixed [Bug #870046](https://bugs.launchpad.net/bugs/870046).
-  * This bug is a consequence of the fix in the function add\_ref\_to\_table\_cond\
-    for [Bug #826935](https://bugs.launchpad.net/bugs/826935) that turned out to be not quite correct: it tried to AND\
+  * This bug is a consequence of the fix in the function add\_ref\_to\_table\_cond
+    for [Bug #826935](https://bugs.launchpad.net/bugs/826935) that turned out to be not quite correct: it tried to AND
     the same generated condition with two different other conditions.
-  * This patch creates a copy of the generated condition if the condition needs\
+  * This patch creates a copy of the generated condition if the condition needs
     to be ANDed with two different items.
 * [Revision #3216](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3216) \[merge]\
   Mon 2011-10-10 23:34:32 +0300
@@ -177,15 +177,15 @@ modified in that revision.
     Thu 2011-10-06 01:11:08 +0400
     * [Bug #860580](https://bugs.launchpad.net/bugs/860580): Sporadic crash / valgrind warning in register\_field\_in\_read\_map() with semijoin
     * The problem:
-      * in an uncorrelated subquery, JOIN execution code may make\
-        irreversible cleanups after it has been executed (because the subquery\
+      * in an uncorrelated subquery, JOIN execution code may make
+        irreversible cleanups after it has been executed (because the subquery
         won't be executed again). In particular, JTBM nests and their injected\
-        IN-equalities will be invalidated (the materialized table will be dropped\
+        IN-equalities will be invalidated (the materialized table will be dropped
         and TABLE structure freed).
     * Solution:
-      * don't walk into Item\_subselect if represents an uncorrelated\
-        subselect that has already been executed. The idea is that the subselect\
-        will not be executed again (calling Item\_subselect\_xxx::val\_int() will fetch\
+      * don't walk into Item\_subselect if represents an uncorrelated
+        subselect that has already been executed. The idea is that the subselect
+        will not be executed again (calling Item\_subselect\_xxx::val\_int() will fetch
         the cached value), so it should not matter what is inside the subselect.
 * [Revision #3212](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3212) \[merge]\
   Wed 2011-10-05 16:56:17 +0300
@@ -212,19 +212,19 @@ modified in that revision.
   Tue 2011-10-04 23:57:46 +0300
   * Fix [Bug #856152](https://bugs.launchpad.net/bugs/856152)
   * Analysis:
-    * The cause of the bug was that the method\
-      subselect\_rowid\_merge\_engine::partial\_match()\
-      was not designed for re-execution within the\
-      same query. Specifically, it didn't cleanup\
+    * The cause of the bug was that the method
+      subselect\_rowid\_merge\_engine::partial\_match()
+      was not designed for re-execution within the
+      same query. Specifically, it didn't cleanup
       the bitmap of matching keys after completion.
-    * The test query requires double execution of\
-      the IN predicate because it first checks the\
-      predicate as a constant condition. The second\
-      execution during regular execution used the bitmap\
-      of matching keys produced by the first execution\
+    * The test query requires double execution of
+      the IN predicate because it first checks the
+      predicate as a constant condition. The second
+      execution during regular execution used the bitmap
+      of matching keys produced by the first execution
       instead of starting with a clean one.
   * Solution:
-    * Cleanup the bitmap of matching keys at the end of\
+    * Cleanup the bitmap of matching keys at the end of
       the partial matching procedure.
 * [Revision #3209](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3209)\
   Tue 2011-10-04 12:00:55 -0700
@@ -242,20 +242,20 @@ modified in that revision.
   * Merge.
   * [Revision #3190.2.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3190.2.2)\
     Fri 2011-09-30 21:53:59 -0700
-    * The previous correction of the cost estimate to access a joined table\
-      in the function best\_access\_path revealed another bug: currently\
-      table scans on NULL keys used for NOT IN subqueries cannot work\
-      together with employment of join caches for inner tables of these\
-      subqueries. Otherwise the result can be wrong as it could be seen\
-      with the result of the test case constructed for bug #37894\
+    * The previous correction of the cost estimate to access a joined table
+      in the function best\_access\_path revealed another bug: currently
+      table scans on NULL keys used for NOT IN subqueries cannot work
+      together with employment of join caches for inner tables of these
+      subqueries. Otherwise the result can be wrong as it could be seen
+      with the result of the test case constructed for bug #37894
       in the file subselect3\_jcl6.result.
   * [Revision #3190.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3190.2.1)\
     Fri 2011-09-30 18:55:02 -0700
-    * Fixed a cost estimation bug introduced into in the function best\_access\_path\
-      of the 5.3 code line after a merge with 5.2 on 2010-10-28\
-      in order not to allow the cost to access a joined table to be equal\
+    * Fixed a cost estimation bug introduced into in the function best\_access\_path
+      of the 5.3 code line after a merge with 5.2 on 2010-10-28
+      in order not to allow the cost to access a joined table to be equal
       to 0 ever.
-    * Expanded data sets for many test cases to get the same execution plans\
+    * Expanded data sets for many test cases to get the same execution plans
       as before.
 * [Revision #3205](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3205) \[merge]\
   Tue 2011-10-04 02:24:04 +0400
@@ -268,25 +268,25 @@ modified in that revision.
   Mon 2011-10-03 22:48:15 +0300
   * Fix [Bug #858038](https://bugs.launchpad.net/bugs/858038)
   * Analysis:
-    * The cause of the bug was the changed meaning of\
+    * The cause of the bug was the changed meaning of
       subselect\_partial\_match\_engine::has\_covering\_null\_row.\
-      Previously it meant that there is row with NULLs in\
+      Previously it meant that there is row with NULLs in
       all nullable fields of the materialized subquery table.\
-      Later it was changed to mean a row with NULLs in all\
+      Later it was changed to mean a row with NULLs in all
       fields of this table.
-    * At the same time there was a shortcut in\
-      subselect\_rowid\_merge\_engine::partial\_match() that\
+    * At the same time there was a shortcut in
+      subselect\_rowid\_merge\_engine::partial\_match() that
       detected a special case where:
       * there is no match in any of the columns with NULLs, and
       * there is no NULL-only row that covers all columns with\
         NULLs.
-    * With the change in the meaning of has\_covering\_null\_row,\
+    * With the change in the meaning of has\_covering\_null\_row,
       the condition that detected this special case was incomplete.
-    * This resulted in an incorrect FALSE, when the result was a\
+    * This resulted in an incorrect FALSE, when the result was a
       partial match.
   * Solution:
-    * Expand the condition that detected the special case with the\
-      correct test for the existence of a row with NULL values in\
+    * Expand the condition that detected the special case with the
+      correct test for the existence of a row with NULL values in
       all columns that contain NULLs (a kind of parially covering\
       NULL-row).
 * [Revision #3203](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3203) \[merge]\
@@ -295,8 +295,8 @@ modified in that revision.
   * [Revision #3199.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3199.1.3)\
     Sat 2011-10-01 00:55:57 +0400
     * [Bug #861147](https://bugs.launchpad.net/bugs/861147): Assertion \`fixed == 1' failed in Item\_func\_eq::val\_int() with semijoin + materialization
-    * convert\_subq\_to\_jtbm() didn't check that subuqery optimization was successful. If it wasn't (in this\
-      example because of @@max\_join\_size violation), it would proceed further and eventually crash when\
+    * convert\_subq\_to\_jtbm() didn't check that subuqery optimization was successful. If it wasn't (in this
+      example because of @@max\_join\_size violation), it would proceed further and eventually crash when
       trying to execute the un-optimized subquery.
 * [Revision #3202](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3202) \[merge]\
   Sat 2011-10-01 00:20:01 +0400
@@ -304,14 +304,14 @@ modified in that revision.
   * [Revision #3199.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3199.1.2)\
     Sat 2011-10-01 00:10:03 +0400
     * [Bug #860553](https://bugs.launchpad.net/bugs/860553): Crash in create\_ref\_for\_key with semijoin + materialization
-      * The problem was that JOIN::save/restore\_query\_plan() did not save/restore parts of\
-        the query plan that are located inside SJ\_MATERIALIZATION\_INFO structures. This could\
-        cause parts of one plan to be used with another, which led get\_best\_combination() to\
+      * The problem was that JOIN::save/restore\_query\_plan() did not save/restore parts of
+        the query plan that are located inside SJ\_MATERIALIZATION\_INFO structures. This could
+        cause parts of one plan to be used with another, which led get\_best\_combination() to
         constructing non-sensical join plans (and crash).\
         Fixed by saving/restoring SJM parts of the query plans.
-      * check\_and\_do\_in\_subquery\_rewrites() will not set SUBS\_MATERIALIZATION flag when it\
+      * check\_and\_do\_in\_subquery\_rewrites() will not set SUBS\_MATERIALIZATION flag when it
         records that the subquery predicate is to be converted into semi-join.\
-        If convert\_join\_subqueries\_to\_semijoins() later decides not to convert to semi-join,\
+        If convert\_join\_subqueries\_to\_semijoins() later decides not to convert to semi-join,
         let it set SUBS\_MATERIALIZATION flag, if appropriate.
 * [Revision #3201](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3201) \[merge]\
   Thu 2011-09-29 17:07:43 +0400
@@ -319,8 +319,8 @@ modified in that revision.
   * [Revision #3199.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3199.1.1)\
     Thu 2011-09-29 17:03:12 +0400
     * [Bug #860535](https://bugs.launchpad.net/bugs/860535): Assertion \`keypart\_map' failed in mi\_rkey with semijoin
-      * are\_tables\_local() failed to recognize the fact that OUTER\_REF\_TABLE\_BIT is ok\
-        for SJ-Materialization. This caused zero-length ref access to be constructed, which\
+      * are\_tables\_local() failed to recognize the fact that OUTER\_REF\_TABLE\_BIT is ok
+        for SJ-Materialization. This caused zero-length ref access to be constructed, which
         led to an assert.
 * [Revision #3200](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3200)\
   Thu 2011-09-29 12:58:20 +0200
@@ -331,23 +331,23 @@ modified in that revision.
   Wed 2011-09-28 17:20:43 +0300
   * Fix [Bug #858148](https://bugs.launchpad.net/bugs/858148).
   * Analysis:
-    * The crash is a result of the same cause as all similar\
-      bugs ([Bug #827416](https://bugs.launchpad.net/bugs/827416), [Bug #718763](https://bugs.launchpad.net/bugs/718763), [Bug #778413](https://bugs.launchpad.net/bugs/778413), [Bug #806943](https://bugs.launchpad.net/bugs/806943),[Bug #611690](https://bugs.launchpad.net/bugs/611690)). The general pattern is that some optimization\
-      requires the evaluation of some condition (e.g. the WHERE\
-      clause), and this condition contains a subquery, such that\
-      the subquery itself requires a temporary table for its\
-      execution. During the subquery execution the original\
-      tables in the FROM clause are replaced by the temporary\
-      table needed for the final GROUP or ORDER operation. All\
-      this happens during optimization of the outer query. Later\
-      when EXPLAIN is run for the subquery, explain attempts to\
-      print the name of the tables in the FROM clause, but it\
+    * The crash is a result of the same cause as all similar
+      bugs ([Bug #827416](https://bugs.launchpad.net/bugs/827416), [Bug #718763](https://bugs.launchpad.net/bugs/718763), [Bug #778413](https://bugs.launchpad.net/bugs/778413), [Bug #806943](https://bugs.launchpad.net/bugs/806943),[Bug #611690](https://bugs.launchpad.net/bugs/611690)). The general pattern is that some optimization
+      requires the evaluation of some condition (e.g. the WHERE
+      clause), and this condition contains a subquery, such that
+      the subquery itself requires a temporary table for its
+      execution. During the subquery execution the original
+      tables in the FROM clause are replaced by the temporary
+      table needed for the final GROUP or ORDER operation. All
+      this happens during optimization of the outer query. Later
+      when EXPLAIN is run for the subquery, explain attempts to
+      print the name of the tables in the FROM clause, but it
       finds there a temporary table without a corresponding\
       TABLE\_LIST object. The attempt to print the name of a\
       NULL table list results in a crash.
   * Solution:
-    * This patch extends the fix to bug [Bug #702301](https://bugs.launchpad.net/bugs/702301), and dissalows\
-      constant substitution of aggregate functions if the filter\
+    * This patch extends the fix to bug [Bug #702301](https://bugs.launchpad.net/bugs/702301), and dissalows
+      constant substitution of aggregate functions if the filter
       condition used to check MIN/MAX keys is an expensive condition.
 * [Revision #3198](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3198) \[merge]\
   Wed 2011-09-28 13:01:47 +0400
@@ -401,7 +401,7 @@ modified in that revision.
   * [Revision #3190.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3190.1.1)\
     Fri 2011-09-23 01:25:08 +0400
     * [Bug #849776](https://bugs.launchpad.net/bugs/849776): Wrong result with semijoin + "Impossible where"
-      * Provide fix\_after\_pullout() function for Item\_in\_optimizer and other Item\_XXX classes (basically, all of them\
+      * Provide fix\_after\_pullout() function for Item\_in\_optimizer and other Item\_XXX classes (basically, all of them
         that have eval\_not\_null\_tables, which means they have special rules for calculating not\_null\_tables\_cache value)
 * [Revision #3191](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3191)\
   Thu 2011-09-22 11:04:00 +0200
@@ -415,7 +415,7 @@ modified in that revision.
   * [Revision #3184.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3184.1.2)\
     Tue 2011-09-20 20:40:07 +0400
     * [Bug #849763](https://bugs.launchpad.net/bugs/849763): Wrong result with second execution of prepared statement with semijoin + view
-      * The problem was that Item\_direct\_view\_ref and its embedded Item\_field were getting incorrect\
+      * The problem was that Item\_direct\_view\_ref and its embedded Item\_field were getting incorrect
         value of item->used\_tables() after fix\_fields() in the second and subsequent EXECUTE.
       * Made relevant fixes in Item\_field::fix\_fields() and find\_field\_in\_tables(), so that the\
         Item\_field gets the correct attributes.
@@ -425,7 +425,7 @@ modified in that revision.
   * [Revision #3184.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3184.1.1)\
     Sat 2011-09-17 23:53:50 +0400
     * LPBUG`849717: Crash in Item_func::fix_fields on second execution of a prepared statement with semijoin`
-      * If convert\_join\_subqueries\_to\_semijoins() decides to wrap Item\_in\_subselect in Item\_in\_optimizer,\
+      * If convert\_join\_subqueries\_to\_semijoins() decides to wrap Item\_in\_subselect in Item\_in\_optimizer,
         it should do so in prep\_on\_expr/prep\_where, too, as long as they are present.
       * There seems to be two possibilities of how we arrive in this function:
         * prep\_on\_expr/prep\_where==NULL, and will be set later by simplify\_joins()
@@ -467,10 +467,10 @@ modified in that revision.
   * [Revision #3182.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3182.1.1)\
     Tue 2011-09-13 23:45:02 +0400
     * [Bug #730133](https://bugs.launchpad.net/bugs/730133): Wrong result with jkl = 7, BKA, ICP in maria-5.3 + compound index
-    * Mrr\_ordered\_index\_reader::interrupt\_read() and resume\_read() should\
+    * Mrr\_ordered\_index\_reader::interrupt\_read() and resume\_read() should
       save/restore not just index lookup tuple, but entire index tuple.
-    * Key parts that are not used for index lookup can be still used in\
-      pushed index condition. Failure to save/restore will cause the index\
+    * Key parts that are not used for index lookup can be still used in
+      pushed index condition. Failure to save/restore will cause the index
       condition to be evaluated over the wrong values.
 * [Revision #3183](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3183) \[merge]\
   branch nick: maria-5.3\
@@ -493,9 +493,9 @@ modified in that revision.
   * [Revision #2732.44.29](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.44.29)\
     Thu 2011-09-08 16:57:46 +0300
     * [Bug #813418](https://bugs.launchpad.net/bugs/813418) fix.
-    * The problem was that optimization code did not take into account later\
+    * The problem was that optimization code did not take into account later
       feature when instad of NOT before BETWEEN it has negated flag into the\
-      Item\_func\_between inherited from Item\_func\_neg\_opt. So optimizer tried\
+      Item\_func\_between inherited from Item\_func\_neg\_opt. So optimizer tried
       process NOT BETWEEN as BETWEEN.
     * The patch just switches off the optimisation for NOT BETWEEN as it was before when NOT function was really used.
 

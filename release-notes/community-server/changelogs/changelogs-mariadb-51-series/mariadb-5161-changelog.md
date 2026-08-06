@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.1/5.1.61.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3142](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3142)\
@@ -59,7 +59,7 @@ modified in that revision.
   Mon 2012-02-20 18:07:38 +0100
   * Fix compilation on Windows, and various Windows related mistakes introduced by\
     "safe exception patch".
-  * Remove misleading comments suggesting about signal() Windows, the routine here\
+  * Remove misleading comments suggesting about signal() Windows, the routine here
     is part of a exception handler, and sig parameter is an exception code.
 * [Revision #3130](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3130)\
   Mon 2012-02-20 17:56:47 +0200
@@ -76,17 +76,17 @@ modified in that revision.
     Sat 2012-02-11 03:25:49 +0100
     * fixes [Bug #930145](https://bugs.launchpad.net/bugs/930145)
     * A recent change in the server protocol code broke SSL connection for some client libraries.
-    * Protocol documentation ([MySQL\_Internals\_ClientServer\_Protocol](https://forge.mysql.com/wiki/MySQL_Internals_ClientServer_Protocol))\
+    * Protocol documentation ([MySQL\_Internals\_ClientServer\_Protocol](https://forge.mysql.com/wiki/MySQL_Internals_ClientServer_Protocol))
       says that initial packet sent by client if client wants SSL, consists of client capability flags only\
       (4 bytes or 2 bytes edependent on protocol versionl).\
       Some clients happen to send more in the initial SSL packet (C client, Python connector), while others (Java, .NET) follow the docs and send only client capability flags.
-    * A change that broke Java client was a newly introduced check that frst client packet\
+    * A change that broke Java client was a newly introduced check that frst client packet
       has 32 or more bytes. This is generally wrong, if client capability flags contains CLIENT\_SSL.
-    * Also, fixed the code such that read max client packet size and charset in\
-      the first packet prior to SSL handshake. With SSL, clients do not have to\
+    * Also, fixed the code such that read max client packet size and charset in
+      the first packet prior to SSL handshake. With SSL, clients do not have to
       send this info, they can only send client flags.
-    * This is now fixed such that max packet size and charset are not read prior\
-      to SSL handshake, in case of SSL they are read from the "complete" client\
+    * This is now fixed such that max packet size and charset are not read prior
+      to SSL handshake, in case of SSL they are read from the "complete" client
       authentication packet after SSL initialization.
 * [Revision #3127](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3127)\
   Wed 2012-01-25 11:34:43 +0100

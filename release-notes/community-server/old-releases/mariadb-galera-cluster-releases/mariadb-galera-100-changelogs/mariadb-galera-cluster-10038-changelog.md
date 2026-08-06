@@ -8,7 +8,7 @@ For the highlights of this release, see the [release notes](../mariadb-galera-10
 For changes made in MariaDB, see the [MariaDB 10.0.38 Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10038-changelog.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code\
+Github you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #8aa4cff7b5](https://github.com/MariaDB/server/commit/8aa4cff7b5)\

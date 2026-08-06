@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.1/5.1.47.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #2833](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2833): Fix for [Bug #544173](https://bugs.launchpad.net/bugs/544173) Server crash for multi-engine transaction with binlog disabled

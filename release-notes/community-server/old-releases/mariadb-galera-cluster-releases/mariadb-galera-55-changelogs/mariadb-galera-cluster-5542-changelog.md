@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5542-release-notes.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code\
+Github you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #6c19f51](https://github.com/MariaDB/server/commit/6c19f51)\

@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.8.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3019](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3019)\
@@ -22,7 +22,7 @@ modified in that revision.
   * This is useful when trying to find out why an automatic myisam repair failes.
 * [Revision #3016](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3016)\
   Tue 2011-08-16 12:32:06 +0300
-  * Fixed bug that `MAX_USER_CONNECTIONS` was not working properly in all situations (which could cause aborted connects)\
+  * Fixed bug that `MAX_USER_CONNECTIONS` was not working properly in all situations (which could cause aborted connects)
     thd->user\_connect is now handled in `thd->clenup()` which will ensure that it works in all context (including slaves).
   * I added also some `DBUG_ASSERT()` to ensure that things are working correctly.
 * [Revision #3015](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3015)\
@@ -61,7 +61,7 @@ modified in that revision.
 * [Revision #3009](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3009)\
   Wed 2011-08-10 13:08:19 +0300
   * Fixes MySQL bug#48972: `mysqldump --insert-ignore` leaves set unique\_checks=0.
-  * This fixes a bug that when you use `mysqldump --no-create-info` to generate a dump that you want to merge with an existing table,\
+  * This fixes a bug that when you use `mysqldump --no-create-info` to generate a dump that you want to merge with an existing table,
     you can get an innodb table with duplicated unique keys.
   * Patch orignally by Eric Bergen.
 * [Revision #3008](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3008)\
@@ -77,13 +77,13 @@ modified in that revision.
       Sun 2011-07-31 22:25:37 +0200
       * Speed up mysql-test-run.pl.
       * Problem was the parsing of test suite files for various tags and options.\
-        This was done inefficiently, and include files were re-parsed for every\
-        place they were included. This caused a delay of 20 seconds or so before\
+        This was done inefficiently, and include files were re-parsed for every
+        place they were included. This caused a delay of 20 seconds or so before
         the first test started to run.
-      * By parsing more efficiently and re-using first parse for subsequent\
+      * By parsing more efficiently and re-using first parse for subsequent
         inclusion of the same file, time spent parsing is reduced to less than\
         1 second, and start appears instantaneous.
-      * (With this patch, full ./mtr runs in 3 minutes on my laptop (release\
+      * (With this patch, full ./mtr runs in 3 minutes on my laptop (release
         build.)
 * [Revision #3005](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3005) \[merge]\
   Mon 2011-07-25 21:52:15 -0700
@@ -118,11 +118,11 @@ modified in that revision.
     * [Revision #2643.127.25](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.127.25)\
       Thu 2011-07-21 11:20:55 +0300
       * Fix of [Bug #777809](https://bugs.launchpad.net/bugs/777809)
-      * There are 2 volatile condition constructions `AND/OR` constructions and fields(references) when first\
-        good supported to be top elements of conditions because it is normal practice\
-        (see copy\_andor\_structure for example) fields without any expression in the condition is really rare\
-        and mostly useless case however it could lead to problems when optimiser changes/moves them unaware\
-        of other variables referring to them. An easy solution of this problem is just to replace single field\
+      * There are 2 volatile condition constructions `AND/OR` constructions and fields(references) when first
+        good supported to be top elements of conditions because it is normal practice
+        (see copy\_andor\_structure for example) fields without any expression in the condition is really rare
+        and mostly useless case however it could lead to problems when optimiser changes/moves them unaware
+        of other variables referring to them. An easy solution of this problem is just to replace single field
         in a condition with equivalent expression well supported by the server (`<field> -> <field> != 0`).
 * [Revision #3002](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3002) \[merge]\
   Tue 2011-07-12 22:42:00 +0200
@@ -147,12 +147,12 @@ modified in that revision.
     * [Revision #2643.127.21](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.127.21)\
       Thu 2011-07-07 22:37:38 +0200
       * protocol safety fix:
-      * before strlen(db) we need to be sure that\
+      * before strlen(db) we need to be sure that
         db lies within packet boundaries
 * [Revision #3001](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3001)\
   Fri 2011-07-08 00:13:24 +0200
   * protocol safety fix:
-    * before strlen(db) we need to be sure that\
+    * before strlen(db) we need to be sure that
       db lies within packet boundaries.
     * same for client\_plugin.
 * [Revision #3000](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3000)\
@@ -207,7 +207,7 @@ modified in that revision.
           * `./mtr --suite funcs_1 --ps-protocol`
         * [Revision #2643.127.15](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.127.15)\
           Wed 2011-06-15 19:44:00 +0200
-          * fix "`./configure --with-debug`" builds\
+          * fix "`./configure --with-debug`" builds
             (without CFLAGS=-DSAFEMALLOC).
     * [Revision #2993.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2993.1.2)\
       Fri 2011-06-24 12:08:45 +0300

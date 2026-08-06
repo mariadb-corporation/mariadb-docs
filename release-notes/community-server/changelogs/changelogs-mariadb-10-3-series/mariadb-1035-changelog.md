@@ -8,7 +8,7 @@ The most recent release of [MariaDB 10.3](../../old-releases/10.3/what-is-mariad
 
 For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.5.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #583eb96c24](https://github.com/MariaDB/server/commit/583eb96c24)\

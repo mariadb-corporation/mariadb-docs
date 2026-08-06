@@ -9,7 +9,7 @@ The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corpora
 For the highlights of this release, see the [release notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10-0-22-release-notes.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code\
+Github you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #f4421c8](https://github.com/MariaDB/server/commit/f4421c8)\

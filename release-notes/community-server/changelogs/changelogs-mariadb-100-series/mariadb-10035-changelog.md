@@ -8,7 +8,7 @@ The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-im
 
 For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.35.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Merge [Revision #42fac32413](https://github.com/MariaDB/server/commit/42fac32413) 2018-05-01 11:47:43 +0200 - Merge branch '5.5' into 10.0

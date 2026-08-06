@@ -8,7 +8,7 @@ The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-impr
 
 For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.62.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details
 of the revision and view diffs of the code modified in that revision.
 
 * Merge [Revision #893ebb739e](https://github.com/MariaDB/server/commit/893ebb739e) 2018-10-24 10:43:39 +0200 - Merge branch 'merge/merge-xtradb-5.5' into 5.5
