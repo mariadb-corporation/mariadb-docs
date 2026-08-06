@@ -31,13 +31,13 @@ filters=MyLogFilter
 
 ### Log Rotation
 
-The `qlafilter` logs can be rotated by executing the `maxctrl rotate logs`\
-command. This will cause the log files to be reopened when the next message is\
+The `qlafilter` logs can be rotated by executing the `maxctrl rotate logs`
+command. This will cause the log files to be reopened when the next message is
 written to the file. This applies to both unified and session type logging.
 
 ### Filter Parameters
 
-The QLA filter has one mandatory parameter, `filebase`, and a number of optional\
+The QLA filter has one mandatory parameter, `filebase`, and a number of optional
 parameters. These were introduced in the 1.0 release of MariaDB MaxScale.
 
 #### `filebase`
@@ -46,7 +46,7 @@ parameters. These were introduced in the 1.0 release of MariaDB MaxScale.
 * Mandatory: Yes
 * Dynamic: No
 
-The basename of the output file created for each session. A session index is\
+The basename of the output file created for each session. A session index is
 added to the filename for each written session file. For unified log files,_.unified_ is appended.
 
 ```
@@ -105,7 +105,7 @@ Limit logging to sessions with this client source address.
 * Mandatory: No
 * Dynamic: Yes
 
-Only log queries from users that match this pattern. If the `user` parameter is\
+Only log queries from users that match this pattern. If the `user` parameter is
 used, the value of `user_match` is ignored.
 
 Here is an example pattern that matches the users `alice` and `bob`:
@@ -120,7 +120,7 @@ user_match=/(^alice$)|(^bob$)/
 * Mandatory: No
 * Dynamic: Yes
 
-Exclude all queries from users that match this pattern. If the `user` parameter\
+Exclude all queries from users that match this pattern. If the `user` parameter
 is used, the value of `user_exclude` is ignored.
 
 Here is an example pattern that excludes the users `alice` and `bob`:
@@ -135,10 +135,10 @@ user_exclude=/(^alice$)|(^bob$)/
 * Mandatory: No
 * Dynamic: Yes
 
-Only log queries from hosts that match this pattern. If the `source` parameter\
+Only log queries from hosts that match this pattern. If the `source` parameter
 is used, the value of `source_match` is ignored.
 
-Here is an example pattern that matches the loopback interface as well as the\
+Here is an example pattern that matches the loopback interface as well as the
 address `192.168.0.109`:
 
 ```
@@ -151,10 +151,10 @@ source_match=/(^127[.]0[.]0[.]1)|(^192[.]168[.]0[.]109)/
 * Mandatory: No
 * Dynamic: Yes
 
-Exclude all queries from hosts that match this pattern. If the `source`\
+Exclude all queries from hosts that match this pattern. If the `source`
 parameter is used, the value of `source_exclude` is ignored.
 
-Here is an example pattern that excludes the loopback interface as well as the\
+Here is an example pattern that excludes the loopback interface as well as the
 address `192.168.0.109`:
 
 ```
@@ -205,14 +205,14 @@ Type of data to log in the log files.
 | error\_msg         | Error message from the server (if any) (v6.2)           |
 | server             | The server where the query was routed (if any) (v22.08) |
 
-The durations _reply\_time_ and _total\_reply\_time_ are by default in milliseconds,\
+The durations _reply\_time_ and _total\_reply\_time_ are by default in milliseconds,
 but can be specified to another unit using _duration\_unit_.
 
 The log entry is written when the last reply from the server is received.\
-Prior to version 6.2 the entry was written when the query was received from\
+Prior to version 6.2 the entry was written when the query was received from
 the client, or if _reply\_time_ was specified, on first reply from the server.
 
-**NOTE** The _error\_msg_ is the raw message from the server. Even if _use\_canonical\_form_\
+**NOTE** The _error\_msg_ is the raw message from the server. Even if _use\_canonical\_form_
 is set the error message may contain user defined constants. For example:
 
 ```
@@ -240,7 +240,7 @@ This option is available as of MaxScale version 6.2.
 * Dynamic: Yes
 * Default: `false`
 
-When this option is true the canonical form of the query is logged. In the\
+When this option is true the canonical form of the query is logged. In the
 canonical form all user defined constants are replaced with question marks.\
 This option is available as of MaxScale version 6.2.
 
@@ -267,7 +267,7 @@ Flush log files after every write.
 * Dynamic: Yes
 * Default: `","`
 
-Defines the separator string between elements of\
+Defines the separator string between elements of
 log entries. The value should be enclosed in quotes.
 
 #### `newline_replacement`
@@ -277,19 +277,19 @@ log entries. The value should be enclosed in quotes.
 * Dynamic: Yes
 * Default: `" "`
 
-Default value is `" "` (one space). SQL-queries may include line breaks, which, if\
-printed directly to the log, may break automatic parsing. This parameter defines\
-what should be written in the place of a newline sequence (\r, \n or \r\n). If\
-this is set as the empty string, then newlines are not replaced and printed as\
+Default value is `" "` (one space). SQL-queries may include line breaks, which, if
+printed directly to the log, may break automatic parsing. This parameter defines
+what should be written in the place of a newline sequence (\r, \n or \r\n). If
+this is set as the empty string, then newlines are not replaced and printed as
 is to the output. The value should be enclosed in quotes.
 
 ### Examples
 
 #### Example 1 - Query without primary key
 
-Imagine you have observed an issue with a particular table and you want to\
-determine if there are queries that are accessing that table but not using the\
-primary key of the table. Let's assume the table name is PRODUCTS and the\
+Imagine you have observed an issue with a particular table and you want to
+determine if there are queries that are accessing that table but not using the
+primary key of the table. Let's assume the table name is PRODUCTS and the
 primary key is called PRODUCT\_ID. Add a filter with the following definition:
 
 ```
@@ -309,7 +309,7 @@ password=mypasswd
 filters=ProductsSelectLogger
 ```
 
-The result of using this filter with the service used by the application would\
+The result of using this filter with the service used by the application would
 be a log file of all select queries querying PRODUCTS without using the\
 PRODUCT\_ID primary key in the predicates of the query. Executing `SELECT * FROM PRODUCTS` would log the following into `/var/logs/qla/SelectProducts`:
 

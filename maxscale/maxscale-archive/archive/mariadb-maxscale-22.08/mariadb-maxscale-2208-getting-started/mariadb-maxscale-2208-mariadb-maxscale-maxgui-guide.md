@@ -10,27 +10,27 @@ _MaxGUI_ is a browser-based interface for MaxScale REST-API and query execution.
 
 ## Enabling MaxGUI
 
-To enable MaxGUI in a testing mode, add `admin_host=0.0.0.0` and`admin_secure_gui=false` under the `[maxscale]` section of the MaxScale\
+To enable MaxGUI in a testing mode, add `admin_host=0.0.0.0` and`admin_secure_gui=false` under the `[maxscale]` section of the MaxScale
 configuration file. Once enabled, MaxGUI will be available on port 8989:`http://127.0.0.1:8989/`
 
 ### Securing the GUI
 
 To make MaxGUI secure, set `admin_secure_gui=true` and configure both the`admin_ssl_key` and `admin_ssl_cert` parameters.
 
-See [Configuration Guide](mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md) and [Configuration and Hardening](../mariadb-maxscale-2208-tutorials/mariadb-maxscale-2208-rest-api-tutorial.md#configuration-and-hardening)\
+See [Configuration Guide](mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md) and [Configuration and Hardening](../mariadb-maxscale-2208-tutorials/mariadb-maxscale-2208-rest-api-tutorial.md#configuration-and-hardening)
 for instructions on how to harden your MaxScale installation for production use.
 
 ## Authentication
 
-MaxGUI uses the same credentials as `maxctrl`. The default username is `admin`\
+MaxGUI uses the same credentials as `maxctrl`. The default username is `admin`
 with `mariadb` as the password.
 
-Internally, MaxGUI uses [JSON Web Tokens](https://jwt.io/introduction/) as the\
-authentication method for persisting the user's session. If the _Remember me_\
-checkbox is ticked, the session will persist for 24 hours. Otherwise, the\
+Internally, MaxGUI uses [JSON Web Tokens](https://jwt.io/introduction/) as the
+authentication method for persisting the user's session. If the _Remember me_
+checkbox is ticked, the session will persist for 24 hours. Otherwise, the
 session will expire as soon as MaxGUI is closed.
 
-To log out, simply click the username section in the top right corner of the\
+To log out, simply click the username section in the top right corner of the
 page header to access the logout menu.
 
 ## Pages
@@ -44,7 +44,7 @@ By default, the refresh interval is 10 seconds.
 
 ### Detail
 
-This page shows information on each [MaxScale object](mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#objects) and allow to edit its\
+This page shows information on each [MaxScale object](mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#objects) and allow to edit its
 parameter, relationships and perform other manipulation operations.
 
 Access this page by clicking on the MaxScale object name on the [dashboard page](mariadb-maxscale-2208-mariadb-maxscale-maxgui-guide.md#dashboard)
@@ -54,8 +54,8 @@ Access this page by clicking on the MaxScale object name on the [dashboard page]
 This page visualizes MaxScale configuration and clusters.
 
 * Configuration: Visualizing MaxScale configuration.
-* Cluster: Visualizing a replication cluster into a tree graph and provides\
-  manual cluster manipulation operations such as`switchover, reset-replication, release-locks, failover, rejoin` . At the\
+* Cluster: Visualizing a replication cluster into a tree graph and provides
+  manual cluster manipulation operations such as`switchover, reset-replication, release-locks, failover, rejoin` . At the
   moment, it supports only servers monitored by Monitor using [mariadbmon](../mariadb-maxscale-2208-monitors/mariadb-maxscale-2208-mariadb-monitor.md) module.
 
 Access this page by clicking the graph icon on the sidebar navigation.
@@ -68,13 +68,13 @@ Access this page by clicking the gear icon on the sidebar navigation.
 
 ### Logs Archive
 
-Realtime MaxScale logs can be accessed by clicking the logs icon on the sidebar\
+Realtime MaxScale logs can be accessed by clicking the logs icon on the sidebar
 navigation.
 
 ### Query Editor
 
-Query Editor is a SQL editor tool allowing to run queries on a server, service,\
-or listener. The query results can be visualized into a line, bar, or scatter\
+Query Editor is a SQL editor tool allowing to run queries on a server, service,
+or listener. The query results can be visualized into a line, bar, or scatter
 graph and exported as CSV or JSON.
 
 CC BY-SA / Gnu FDL
