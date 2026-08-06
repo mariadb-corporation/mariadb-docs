@@ -6,8 +6,8 @@
 
 ### Overview
 
-With the _comment_ filter it is possible to define comments that are\
-injected before the actual statements. These comments appear as sql\
+With the _comment_ filter it is possible to define comments that are
+injected before the actual statements. These comments appear as sql
 comments when they are received by the server.
 
 ```

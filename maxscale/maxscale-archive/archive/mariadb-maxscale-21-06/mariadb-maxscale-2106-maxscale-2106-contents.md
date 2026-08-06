@@ -1,8 +1,8 @@
 # MaxScale 21.06 Contents
 
-**NOTE** MaxScale 6.4 was renamed to 21.06 in May 2024. Thus, what would have\
-been released as 6.4.16 in June, was released as 21.06.16. The purpose of this\
-change is to make the versioning scheme used by all MaxScale series\
+**NOTE** MaxScale 6.4 was renamed to 21.06 in May 2024. Thus, what would have
+been released as 6.4.16 in June, was released as 21.06.16. The purpose of this
+change is to make the versioning scheme used by all MaxScale series
 identical. 21.06 denotes the year and month when the first 6 release was made.\
 Anything referring to MaxScale 6 applies to MaxScale 21.06.
 
@@ -52,8 +52,8 @@ Here are tutorials on monitoring and managing MariaDB MaxScale in cluster enviro
 
 ### Routers
 
-The routing module is the core of a MariaDB MaxScale service. The router documentation\
-contains all module specific configuration options and detailed explanations\
+The routing module is the core of a MariaDB MaxScale service. The router documentation
+contains all module specific configuration options and detailed explanations
 of their use.
 
 * [Avrorouter](mariadb-maxscale-21-06-routers/mariadb-maxscale-2106-maxscale-2106-avrorouter.md)
@@ -115,7 +115,7 @@ The MaxScale CDC Connector provides a C++ API for consuming data from a CDC syst
 
 ### Authenticators
 
-A short description of the authentication module type can be found in the [Authentication Modules](mariadb-maxscale-21-06-authenticators/mariadb-maxscale-2106-maxscale-2106-authentication-modules.md)\
+A short description of the authentication module type can be found in the [Authentication Modules](mariadb-maxscale-21-06-authenticators/mariadb-maxscale-2106-maxscale-2106-authentication-modules.md)
 document.
 
 * [MariaDB/MySQL Authenticator](mariadb-maxscale-21-06-authenticators/mariadb-maxscale-2106-maxscale-2106-mariadbmysql-authenticator.md)

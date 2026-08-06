@@ -6,7 +6,7 @@
 
 The `mariadbprotocol` module implements the MariaDB client-server protocol.
 
-The legacy protocol names `mysqlclient`, `mariadb` and `mariadbclient` are all\
+The legacy protocol names `mysqlclient`, `mariadb` and `mariadbclient` are all
 aliases to `mariadbprotocol`.
 
 * [MariaDB Protocol Module](mariadb-maxscale-2208-mariadb-protocol-module.md#mariadb-protocol-module)
@@ -15,7 +15,7 @@ aliases to `mariadbprotocol`.
 
 ### Configuration
 
-Protocol level parameters are defined in the listeners. They must be defined\
+Protocol level parameters are defined in the listeners. They must be defined
 using the scoped parameter syntax where the protocol name is used as the prefix.
 
 ```
@@ -36,8 +36,8 @@ For the MariaDB protocol module, the prefix is always `mariadbprotocol`.
 * Dynamic: Yes
 * Default: true
 
-Whether the use of the replication protocol is allowed through this listener. If\
-disabled with `mariadbprotocol.allow_replication=false`, all attempts to start\
+Whether the use of the replication protocol is allowed through this listener. If
+disabled with `mariadbprotocol.allow_replication=false`, all attempts to start
 replication will be rejected with a ER\_FEATURE\_DISABLED error (error number\
 1289\).
 

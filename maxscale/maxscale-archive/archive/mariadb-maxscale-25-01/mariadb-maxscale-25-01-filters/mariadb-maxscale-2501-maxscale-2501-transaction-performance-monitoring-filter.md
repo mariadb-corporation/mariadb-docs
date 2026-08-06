@@ -2,22 +2,22 @@
 
 ## Transaction Performance Monitoring Filter
 
-_Note:_ This module is experimental and must be built from source. The\
-module is deprecated in MaxScale 23.08 and might be removed in a future\
+_Note:_ This module is experimental and must be built from source. The
+module is deprecated in MaxScale 23.08 and might be removed in a future
 release.
 
 ### Overview
 
-The Transaction Performance Monitoring (TPM) filter is a filter module for MaxScale\
+The Transaction Performance Monitoring (TPM) filter is a filter module for MaxScale
 that monitors every SQL statement that passes through the filter.\
 The filter groups a series of SQL statements into a transaction by detecting\
-'commit' or 'rollback' statements. It logs all committed transactions with necessary\
-information, such as timestamp, client, SQL statements, latency, etc., which\
+'commit' or 'rollback' statements. It logs all committed transactions with necessary
+information, such as timestamp, client, SQL statements, latency, etc., which
 can be used later for transaction performance analysis.
 
 ### Configuration
 
-The configuration block for the TPM filter requires the minimal filter\
+The configuration block for the TPM filter requires the minimal filter
 options in it's section within the maxscale.cnf file, stored in /etc/maxscale.cnf.
 
 ```
@@ -53,9 +53,9 @@ filename=/tmp/SqlQueryLog
 
 #### Source
 
-The optional `source` parameter defines an address that is used\
-to match against the address from which the client connection\
-to MaxScale originates. Only sessions that originate from this\
+The optional `source` parameter defines an address that is used
+to match against the address from which the client connection
+to MaxScale originates. Only sessions that originate from this
 address will be logged.
 
 ```
@@ -64,9 +64,9 @@ source=127.0.0.1
 
 #### User
 
-The optional `user` parameter defines a user name that is used\
+The optional `user` parameter defines a user name that is used
 to match against the user from which the client connection to\
-MaxScale originates. Only sessions that are connected using\
+MaxScale originates. Only sessions that are connected using
 this username are logged.
 
 ```
@@ -75,7 +75,7 @@ user=john
 
 #### Delimiter
 
-The optional `delimiter` parameter defines a delimiter that is used to\
+The optional `delimiter` parameter defines a delimiter that is used to
 distinguish columns in the log. The default delimiter is **`:::`**.
 
 ```
@@ -84,7 +84,7 @@ delimiter=:::
 
 #### Query\_delimiter
 
-The optional `query_delimiter` defines a delimiter that is used to\
+The optional `query_delimiter` defines a delimiter that is used to
 distinguish different SQL statements in a transaction.\
 The default query delimiter is **`@@@`**.
 
@@ -94,9 +94,9 @@ query_delimiter=@@@
 
 #### Named\_pipe
 
-**`named_pipe`** is the path to a named pipe, which TPM filter uses to\
+**`named_pipe`** is the path to a named pipe, which TPM filter uses to
 communicate with 3rd-party applications (e.g., [DBSeer](https://dbseer.org)).\
-Logging is enabled when the router receives the character '1' and logging is\
+Logging is enabled when the router receives the character '1' and logging is
 disabled when the router receives the character '0' from this named pipe.\
 The default named pipe is **`/tmp/tpmfilter`** and logging is **disabled** by default.
 
@@ -126,7 +126,7 @@ For each transaction, the TPM filter prints its log in the following format:
 
 #### Example 1 - Log Transactions for Performance Analysis
 
-You want to log every transaction with its SQL statements and latency\
+You want to log every transaction with its SQL statements and latency
 for future transaction performance analysis.
 
 Add a filter with the following definition:
@@ -149,7 +149,7 @@ password=mypasswd
 filters=PerformanceLogger
 ```
 
-After the filter reads the character '1' from its named pipe, the following\
+After the filter reads the character '1' from its named pipe, the following
 is an example log that is generated from the above TPM filter with the above configuration:
 
 ```

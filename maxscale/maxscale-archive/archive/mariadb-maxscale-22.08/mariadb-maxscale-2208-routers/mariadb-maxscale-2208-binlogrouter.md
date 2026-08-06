@@ -5,56 +5,56 @@
 ## Binlogrouter
 
 **NOTE:** The binlog router delivered with 2.5 is completely new and is **not**\
-100% backward compatible with the binlog router delivered with earlier\
+100% backward compatible with the binlog router delivered with earlier
 versions of MaxScale.
 
-The binlogrouter is a router that acts as a replication proxy for MariaDB\
-master-slave replication. The router connects to a master, retrieves the binary\
-logs and stores them locally. Slave servers can connect to MaxScale like they\
-would connect to a normal master server. If the master server goes down,\
-replication between MaxScale and the slaves can still continue up to the latest\
-point to which the binlogrouter replicated to. The master can be changed without\
-disconnecting the slaves and without them noticing that the master server has\
+The binlogrouter is a router that acts as a replication proxy for MariaDB
+master-slave replication. The router connects to a master, retrieves the binary
+logs and stores them locally. Slave servers can connect to MaxScale like they
+would connect to a normal master server. If the master server goes down,
+replication between MaxScale and the slaves can still continue up to the latest
+point to which the binlogrouter replicated to. The master can be changed without
+disconnecting the slaves and without them noticing that the master server has
 changed. This allows for a more highly available replication setup.
 
-In addition to the high availability benefits, the binlogrouter creates only one\
-connection to the master whereas with normal replication each individual slave\
-will create a separate connection. This reduces the amount of work the master\
-database has to do which can be significant if there are a large number of\
+In addition to the high availability benefits, the binlogrouter creates only one
+connection to the master whereas with normal replication each individual slave
+will create a separate connection. This reduces the amount of work the master
+database has to do which can be significant if there are a large number of
 replicating slaves.
 
 ### Differences Between Old and New Binlogrouter Implementations
 
-The binlogrouter in MaxScale 2.5.0 is a new and improved version of the original\
-binlogrouter found in older MaxScale versions. The new implementation contains\
-most of the features that were in the original binlogrouter but some of them\
+The binlogrouter in MaxScale 2.5.0 is a new and improved version of the original
+binlogrouter found in older MaxScale versions. The new implementation contains
+most of the features that were in the original binlogrouter but some of them
 were removed as they were either redundant or not useful.
 
 The major differences between the new and old binlog router are:
 
-* The list of servers where the database users for authentication are loaded\
-  must be explicitly configured with the `cluster`, `servers` or`targets` parameter. Alternatively, the users can be read from a file. See [user\_accounts\_file](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#user_accounts_file)\
+* The list of servers where the database users for authentication are loaded
+  must be explicitly configured with the `cluster`, `servers` or`targets` parameter. Alternatively, the users can be read from a file. See [user\_accounts\_file](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#user_accounts_file)
   for more information.
 * The old binlog router had both `server_id` and `master_id`, the new only`server_id`.
-* No need to configure heartbeat and burst interval anymore as they are\
+* No need to configure heartbeat and burst interval anymore as they are
   now automatically configured.
-* Traditional replication that uses the binary log name and file offset to\
+* Traditional replication that uses the binary log name and file offset to
   start the replication process is not supported.
 * Semi-sync support is not implemented.
 * Secondary masters are not supported, but the functionality provided by`select_master` is roughly equivalent.
-* The new binlogrouter will write its own binlog files to prevent problems that\
-  could happen when the master changes. This causes the binlog names to be\
+* The new binlogrouter will write its own binlog files to prevent problems that
+  could happen when the master changes. This causes the binlog names to be
   different in the binlogrouter when compared to the ones on the master.
 
 The documentation for the binlogrouter in MaxScale 2.4 is provided for reference [here](mariadb-maxscale-2208-binlogrouter-24.md).
 
 ### Supported SQL Commands
 
-The binlogrouter supports a subset of the SQL constructs that the MariaDB server\
+The binlogrouter supports a subset of the SQL constructs that the MariaDB server
 supports. The following commands are supported:
 
 * `CHANGE MASTER TO`
-* The binlogrouter supports the same syntax as the MariaDB server but only the\
+* The binlogrouter supports the same syntax as the MariaDB server but only the
   following values are allowed:
   * `MASTER_HOST`
   * `MASTER_PORT`
@@ -71,7 +71,7 @@ supports. The following commands are supported:
   * `MASTER_SSL_CIPHER`
   * `MASTER_SSL_VERIFY_SERVER_CERT`
 
-NOTE: `MASTER_LOG_FILE` and `MASTER_LOG_POS` are not supported\
+NOTE: `MASTER_LOG_FILE` and `MASTER_LOG_POS` are not supported
 as binlogrouter only supports GTID based replication.
 
 * `STOP SLAVE`
@@ -79,56 +79,56 @@ as binlogrouter only supports GTID based replication.
 * `START SLAVE`
 * Starts replication, same as MariaDB.
 * `RESET SLAVE`
-* Resets replication. Note that the `RESET SLAVE ALL` form that is supported\
+* Resets replication. Note that the `RESET SLAVE ALL` form that is supported
   by MariaDB isn't supported by the binlogrouter.
 * `SHOW BINARY LOGS`
-* Lists the current files and their sizes. These will be different from the\
-  ones listed by the original master where the binlogrouter is replicating\
+* Lists the current files and their sizes. These will be different from the
+  ones listed by the original master where the binlogrouter is replicating
   from.
 * `PURGE { BINARY | MASTER } LOGS TO <filename>`
-* Purges binary logs up to but not including the given file. The file name\
-  must be one of the names shown in `SHOW BINARY LOGS`. The version of this\
+* Purges binary logs up to but not including the given file. The file name
+  must be one of the names shown in `SHOW BINARY LOGS`. The version of this
   command which accepts a timestamp is not currently supported.\
-  Automatic purging is supported using the configuration\
+  Automatic purging is supported using the configuration
   parameter [expire\_log\_duration](mariadb-maxscale-2208-binlogrouter.md#expire_log_duration).\
-  The files are purged in the order they were created. If a file to be purged\
-  is detected to be in use, the purge stops. This means that the purge will\
+  The files are purged in the order they were created. If a file to be purged
+  is detected to be in use, the purge stops. This means that the purge will
   stop at the oldest file that a slave is still reading.\
-  NOTE: You should still take precaution not to purge files that a potential\
-  slave will need in the future. MaxScale can only detect that a file is\
+  NOTE: You should still take precaution not to purge files that a potential
+  slave will need in the future. MaxScale can only detect that a file is
   in active use when a slave is connected, and requesting events from it.
 * `SHOW MASTER STATUS`
-* Shows the name and position of the file to which the binlogrouter will write\
-  the next replicated data. The name and position do not correspond to the\
+* Shows the name and position of the file to which the binlogrouter will write
+  the next replicated data. The name and position do not correspond to the
   name and position in the master.
 * `SHOW SLAVE STATUS`
-* Shows the slave status information similar to what a normal MariaDB slave\
-  server shows. Some of the values are replaced with constants values that\
+* Shows the slave status information similar to what a normal MariaDB slave
+  server shows. Some of the values are replaced with constants values that
   never change. The following values are not constant:
-  * `Slave_IO_State`: Set to `Waiting for master to send event` when\
+  * `Slave_IO_State`: Set to `Waiting for master to send event` when
     replication is ongoing.
   * `Master_Host`: Address of the current master.
   * `Master_User`: The user used to replicate.
   * `Master_Port`: The port the master is listening on.
-  * `Master_Log_File`: The name of the latest file that the binlogrouter is\
+  * `Master_Log_File`: The name of the latest file that the binlogrouter is
     writing to.
-  * `Read_Master_Log_Pos`: The current position where the last event was\
+  * `Read_Master_Log_Pos`: The current position where the last event was
     written in the latest binlog.
-  * `Slave_IO_Running`: Set to `Yes` if replication running and `No` if it's\
+  * `Slave_IO_Running`: Set to `Yes` if replication running and `No` if it's
     not.
-  * `Slave_SQL_Running` Set to `Yes` if replication running and `No` if it's\
+  * `Slave_SQL_Running` Set to `Yes` if replication running and `No` if it's
     not.
   * `Exec_Master_Log_Pos`: Same as `Read_Master_Log_Pos`.
   * `Gtid_IO_Pos`: The latest replicated GTID.
 * `SELECT { Field } ...`
-* The binlogrouter implements a small subset of the MariaDB SELECT syntax as\
-  it is mainly used by the replicating slaves to query various parameters. If\
-  a field queried by a client is not known to the binlogrouter, the value\
-  will be returned back as-is. The following list of functions and variables\
+* The binlogrouter implements a small subset of the MariaDB SELECT syntax as
+  it is mainly used by the replicating slaves to query various parameters. If
+  a field queried by a client is not known to the binlogrouter, the value
+  will be returned back as-is. The following list of functions and variables
   are understood by the binlogrouter and are replaced with actual values:
-  * `@@gtid_slave_pos`, `@@gtid_current_pos` or `@@gtid_binlog_pos`: All of\
+  * `@@gtid_slave_pos`, `@@gtid_current_pos` or `@@gtid_binlog_pos`: All of
     these return the latest GTID replicated from the master.
-  * `version()` or `@@version`: The version string returned by MaxScale when\
+  * `version()` or `@@version`: The version string returned by MaxScale when
     a client connects to it.
   * `UNIX_TIMESTAMP()`: The current timestamp.
   * `@@version_comment`: Always `pinloki`.
@@ -156,22 +156,22 @@ as binlogrouter only supports GTID based replication.
   * `@@tx_isolation`: Always `REPEATABLE-READ`
   * `@@wait_timeout`: Always `28800`
 * `SET`
-* `@@global.gtid_slave_pos`: Set the position from which binlogrouter should\
+* `@@global.gtid_slave_pos`: Set the position from which binlogrouter should
   start replicating. E.g. `SET @@global.gtid_slave_pos="0-1000-1234,1-1001-5678"`
 * `SHOW VARIABLES LIKE '...'`
-* Shows variables matching a string. The `LIKE` operator in `SHOW VARIABLES`\
-  is mandatory for the binlogrouter. This means that a plain `SHOW VARIABLES`\
-  is not currently supported. In addition, the `LIKE` operator in\
+* Shows variables matching a string. The `LIKE` operator in `SHOW VARIABLES`
+  is mandatory for the binlogrouter. This means that a plain `SHOW VARIABLES`
+  is not currently supported. In addition, the `LIKE` operator in
   binlogrouter only supports exact matches.\
-  Currently the only variables that are returned are `gtid_slave_pos`,`gtid_current_pos` and `gtid_binlog_pos` which return the current GTID\
-  coordinates of the binlogrouter. In addition to these, the `server_id`\
+  Currently the only variables that are returned are `gtid_slave_pos`,`gtid_current_pos` and `gtid_binlog_pos` which return the current GTID
+  coordinates of the binlogrouter. In addition to these, the `server_id`
   variable will return the configured server ID of the binlogrouter.
 
 ### Configuration Parameters
 
 The binlogrouter is configured similarly to how normal routers are configured in\
-MaxScale. It requires at least one listener where clients can connect to and one\
-server from which the database user information can be retrieved. An example\
+MaxScale. It requires at least one listener where clients can connect to and one
+server from which the database user information can be retrieved. An example
 configuration can be found in the [example](mariadb-maxscale-2208-binlogrouter.md#example) section of this document.
 
 #### `datadir`
@@ -190,7 +190,7 @@ Directory where binary log files are stored.
 * Dynamic: No
 * Default: `1234`
 
-The server ID that MaxScale uses when connecting to the master and when serving\
+The server ID that MaxScale uses when connecting to the master and when serving
 binary logs to the slaves.
 
 #### `net_timeout`
@@ -211,26 +211,26 @@ Network connection and read timeout in seconds for the connection to the master.
 
 Automatically select the master server to replicate from.
 
-When this feature is enabled, the master which binlogrouter will replicate\
+When this feature is enabled, the master which binlogrouter will replicate
 from will be selected from the servers defined by a monitor `cluster=TheMonitor`.\
-Alternatively servers can be listed in `servers`. The servers should be monitored\
-by a monitor. Only servers with the `Master` status are used. If multiple master\
+Alternatively servers can be listed in `servers`. The servers should be monitored
+by a monitor. Only servers with the `Master` status are used. If multiple master
 servers are available, the first available master server will be used.
 
-If a `CHANGE MASTER TO` command is received while `select_master` is on, the\
+If a `CHANGE MASTER TO` command is received while `select_master` is on, the
 command will be honored and `select_master` turned off until the next reboot.\
 This allows the Monitor to perform failover, and more importantly, switchover.\
-It also allows the user to manually redirect the Binlogrouter. The current\
+It also allows the user to manually redirect the Binlogrouter. The current
 master is "sticky", meaning that the same master will be chosen on reboot.
 
-**NOTE:** Do not use the `mariadbmon` parameter [auto\_rejoin](https://mariadb.com/kb/Monitor/MariaDB-Monitor#auto_rejoin) if the monitor is\
-monitoring a binlogrouter. The binlogrouter does not support all the SQL\
-commands that the monitor will send and the rejoin will fail. This restriction\
+**NOTE:** Do not use the `mariadbmon` parameter [auto\_rejoin](https://mariadb.com/kb/Monitor/MariaDB-Monitor#auto_rejoin) if the monitor is
+monitoring a binlogrouter. The binlogrouter does not support all the SQL
+commands that the monitor will send and the rejoin will fail. This restriction
 will be lifted in a future version.
 
 The GTID the replication will start from, will be based on the latest replicated\
-GTID. If no GTID has been replicated, the router will start replication from the\
-start. Manual configuration of the GTID can be done by first configuring the\
+GTID. If no GTID has been replicated, the router will start replication from the
+start. Manual configuration of the GTID can be done by first configuring the
 replication manually with `CHANGE MASTER TO`.
 
 #### `expire_log_duration`
@@ -242,9 +242,9 @@ replication manually with `CHANGE MASTER TO`.
 
 Duration after which a binary log file can be automatically removed.
 
-The duration is measured from the last modification of the log file. Files are\
-purged in the order they were created. The automatic purge works in a similar\
-manner to `PURGE BINARY LOGS TO <filename>` in that it will stop the purge if\
+The duration is measured from the last modification of the log file. Files are
+purged in the order they were created. The automatic purge works in a similar
+manner to `PURGE BINARY LOGS TO <filename>` in that it will stop the purge if
 an eligible file is in active use, i.e. being read by a slave.
 
 #### `expire_log_minimum_files`
@@ -254,7 +254,7 @@ an eligible file is in active use, i.e. being read by a slave.
 * Dynamic: No
 * Default: `2`
 
-The minimum number of log files the automatic purge keeps. At least one file\
+The minimum number of log files the automatic purge keeps. At least one file
 is always kept.
 
 #### `ddl_only`
@@ -265,9 +265,9 @@ is always kept.
 
 When enabled, only DDL events are written to the binary logs. This means that`CREATE`, `ALTER` and `DROP` events are written but `INSERT`, `UPDATE` and`DELETE` events are not.
 
-This mode can be used to keep a record of all the schema changes that occur on a\
-database. As only the DDL events are stored, it becomes very easy to set up an\
-empty server with no data in it by simply pointing it at a binlogrouter instance\
+This mode can be used to keep a record of all the schema changes that occur on a
+database. As only the DDL events are stored, it becomes very easy to set up an
+empty server with no data in it by simply pointing it at a binlogrouter instance
 that has `ddl_only` enabled.
 
 #### `encryption_key_id`
@@ -278,23 +278,23 @@ that has `ddl_only` enabled.
 * Default: `""`
 
 Encryption key ID used to encrypt the binary logs. If configured, an [Encryption\
-Key Manager](https://mariadb.com/kb/en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#encryption-key-managers)\
-must also be configured and it must contain the key with the given ID. If the\
-encryption key manager supports versioning, new binary logs will be encrypted\
-using the latest encryption key. Old binlogs will remain encrypted with older\
-key versions and remain readable as long as the key versions used to encrypt\
+Key Manager](https://mariadb.com/kb/en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#encryption-key-managers)
+must also be configured and it must contain the key with the given ID. If the
+encryption key manager supports versioning, new binary logs will be encrypted
+using the latest encryption key. Old binlogs will remain encrypted with older
+key versions and remain readable as long as the key versions used to encrypt
 them are available.
 
-Once binary log encryption has been enabled, the encryption key ID cannot be\
-changed and the key must remain available to MaxScale in order for replication\
-to work. If an encryption key is not available or the key manager fails to\
-retrieve it, the replication from the currently selected master server will\
-stop. If the replication is restarted manually, the encryption key retrieval is\
+Once binary log encryption has been enabled, the encryption key ID cannot be
+changed and the key must remain available to MaxScale in order for replication
+to work. If an encryption key is not available or the key manager fails to
+retrieve it, the replication from the currently selected master server will
+stop. If the replication is restarted manually, the encryption key retrieval is
 attempted again.
 
-Re-encryption of binlogs using another encryption key is not possible. However,\
-this is possible if the data is replicated to a second MaxScale server that uses\
-a different encryption key. The same approach can also be used to decrypt\
+Re-encryption of binlogs using another encryption key is not possible. However,
+this is possible if the data is replicated to a second MaxScale server that uses
+a different encryption key. The same approach can also be used to decrypt
 binlogs.
 
 #### `encryption_cipher`
@@ -305,7 +305,7 @@ binlogs.
 * Values: `AES_CBC`, `AES_CTR`, `AES_GCM`
 * Default: `AES_GCM`
 
-The encryption cipher to use. The encryption key size also affects which mode is\
+The encryption cipher to use. The encryption key size also affects which mode is
 used: only 128, 192 and 256 bit encryption keys are currently supported.
 
 Possible values are:
@@ -320,7 +320,7 @@ Possible values are:
 ### New installation
 
 1. Configure and start MaxScale.
-2. If you have not configured `select_master=true` (automatic\
+2. If you have not configured `select_master=true` (automatic
    master selection), issue a `CHANGE MASTER TO` command to binlogrouter.
 
 ```
@@ -342,29 +342,29 @@ SHOW SLAVE STATUS \G
 
 ### Upgrading to version 2.5
 
-Binlogrouter does not read any of the data that a version prior to 2.5\
-has saved. By default binlogrouter will request the replication stream\
-from the blank state (from the start of time), which is basically meant\
-for new systems. If a system is live, the entire replication data probably\
-does not exist, and if it does, it is not necessary for binlogrouter to read\
+Binlogrouter does not read any of the data that a version prior to 2.5
+has saved. By default binlogrouter will request the replication stream
+from the blank state (from the start of time), which is basically meant
+for new systems. If a system is live, the entire replication data probably
+does not exist, and if it does, it is not necessary for binlogrouter to read
 and store all the data.
 
 #### Before you start
 
 * Note that binlogrouter only supports GTID based replication.
-* Make sure that the configured data directory for the new binlogrouter\
+* Make sure that the configured data directory for the new binlogrouter
   is different from the old one, or move old data away.\
   See [datadir](mariadb-maxscale-2208-binlogrouter.md#datadir).
-* If the master contains binlogs from the blank state, and there\
+* If the master contains binlogs from the blank state, and there
   is a large amount of data, consider purging old binlogs.\
   See [Using and Maintaining the Binary Log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/using-and-maintaining-the-binary-log).
 
 #### Deployment
 
-The method described here inflicts the least downtime. Assuming you have\
+The method described here inflicts the least downtime. Assuming you have
 configured version 2.5, and it is ready to go:
 
-1. Redirect each slave that replicates from Binlogrouter to replicate from the\
+1. Redirect each slave that replicates from Binlogrouter to replicate from the
    master.
 
 ```
@@ -387,7 +387,7 @@ master_user=USER,master_password="PASSWORD", master_use_gtid=slave_pos;
 ```
 
 1. Run `maxctrl list servers`. Make sure all your servers are accounted for.\
-   Pick the lowest gtid state (e.g. 0-1000-1234,1-1001-5678) on display and\
+   Pick the lowest gtid state (e.g. 0-1000-1234,1-1001-5678) on display and
    issue this command to Binlogrouter:
 
 ```
@@ -396,8 +396,8 @@ SET @@global.gtid_slave_pos = "0-1000-1234,1-1001-5678";
 START SLAVE
 ```
 
-**NOTE:** Even with `select_master=true` you have to set @@global.gtid\_slave\_pos\
-if any binlog files have been purged on the master. The server will only stream\
+**NOTE:** Even with `select_master=true` you have to set @@global.gtid\_slave\_pos
+if any binlog files have been purged on the master. The server will only stream
 from the start of time if the first binlog file is present.\
 See [select\_master](mariadb-maxscale-2208-binlogrouter.md#select_master).
 
@@ -415,7 +415,7 @@ SHOW SLAVE STATUS \G
 
 ### Galera cluster
 
-When replicating from a Galera cluster, [select\_master](mariadb-maxscale-2208-binlogrouter.md#select_master) must be\
+When replicating from a Galera cluster, [select\_master](mariadb-maxscale-2208-binlogrouter.md#select_master) must be
 set to true, and the servers must be monitored by the [Galera Monitor](../mariadb-maxscale-2208-monitors/mariadb-maxscale-2208-galera-monitor.md).\
 Configuring binlogrouter is the same as described above.
 
@@ -480,8 +480,8 @@ port=3306
 
 ### Limitations
 
-* Old-style replication with binlog name and file offset is not supported\
-  and the replication must be started by setting up the GTID to replicate\
+* Old-style replication with binlog name and file offset is not supported
+  and the replication must be started by setting up the GTID to replicate
   from.
 * Only replication from MariaDB servers (including Galera) is supported.
 * Old encrypted binary logs are not re-encrypted with newer key versions ([MXS-4140](https://jira.mariadb.org/browse/MXS-4140))

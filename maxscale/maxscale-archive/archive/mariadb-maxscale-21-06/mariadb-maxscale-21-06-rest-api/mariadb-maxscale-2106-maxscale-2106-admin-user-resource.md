@@ -11,7 +11,7 @@ MaxScale's configuration.
 GET /v1/users/inet/:name
 ```
 
-Get a single network user. The _:name_ in the URI must be a valid network\
+Get a single network user. The _:name_ in the URI must be a valid network
 user name.
 
 **Response**
@@ -122,7 +122,7 @@ Get all administrative users.
 POST /v1/users/inet
 ```
 
-Create a new network user. The request body must define at least the\
+Create a new network user. The request body must define at least the
 following fields.
 
 * `data.id`
@@ -134,11 +134,11 @@ following fields.
 * `data.attributes.account`
 * Set to `admin` for administrative users and `basic` to read-only users
 
-Only admin accounts can perform POST, PUT, DELETE and PATCH requests. If a basic\
-account performs one of the aforementioned request, the REST API will respond\
+Only admin accounts can perform POST, PUT, DELETE and PATCH requests. If a basic
+account performs one of the aforementioned request, the REST API will respond
 with a `401 Unauthorized` error.
 
-Here is an example request body defining the network user _my-user_ with the\
+Here is an example request body defining the network user _my-user_ with the
 password _my-password_ that is allowed to execute only read-only operations.
 
 ```
@@ -166,7 +166,7 @@ Status: 204 No Content
 POST /v1/users/unix
 ```
 
-This enables an existing UNIX account on the system for administrative\
+This enables an existing UNIX account on the system for administrative
 operations. The request body must define at least the following fields.
 
 * `data.id`
@@ -230,8 +230,8 @@ Status: 204 No Content
 PATCH /v1/users/inet/:name
 ```
 
-Update network user. Currently, only the password can be updated. This\
-means that the request body must define the `data.attributes.password`\
+Update network user. Currently, only the password can be updated. This
+means that the request body must define the `data.attributes.password`
 field.
 
 Here is an example request body that updates the password.
