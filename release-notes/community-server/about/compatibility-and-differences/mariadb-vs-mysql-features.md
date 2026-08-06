@@ -165,7 +165,7 @@ For a full list, please see [features for each release](https://github.com/maria
 
 #### Related Links
 
-* [Compatiblity between MariaDB and MySQL](mariadb-vs-mysql-compatibility.md)
+* [Compatibility between MariaDB and MySQL](mariadb-vs-mysql-compatibility.md)
 * [Moving from MySQL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql)
 * [Troubleshooting Installation Issues](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues)
 
