@@ -3,6 +3,7 @@ description: >-
   Resolve row-based replication conflicts directly on the replica with Conflict
   Detection and Resolution (CDR) triggers, available in MariaDB Enterprise
   Server 12.3.
+hidden: true
 ---
 
 # Conflict Detection and Resolution (CDR) Triggers
