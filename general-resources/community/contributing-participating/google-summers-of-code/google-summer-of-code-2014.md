@@ -112,7 +112,7 @@ Mentor: Sergei Golubchik
 
 The `mysqlbinlog` tool needs to understand global transaction ids. In particular, it should be possible to start and end the dump at the specified GTID. Both when reading binlog files and when connecting to a running server. See [MDEV-4989](https://jira.mariadb.org/browse/MDEV-4989).
 
-If time permits, other client programs could be extended similarly, like\
+If time permits, other client programs could be extended similarly, like
 mysqldump --master-data or the --sync-with-master command in mysqltest.
 
 Skills: C++

@@ -30,8 +30,8 @@ In supported builds, Galera Cluster functionality can be enabled by setting some
 
 ### Swap Size Requirements
 
-During normal operation, a MariaDB Galera node consumes no more memory than a regular MariaDB server. Additional memory is consumed for the\
-certification index and uncommitted write sets, but normally, this should not be\
+During normal operation, a MariaDB Galera node consumes no more memory than a regular MariaDB server. Additional memory is consumed for the
+certification index and uncommitted write sets, but normally, this should not be
 noticeable in a typical application. There is one exception, though:
 
 #### Writeset caching during state transfer
@@ -65,7 +65,7 @@ You can also configure your package manager to install it from MariaDB Foundatio
 
 #### Installing MariaDB Galera Cluster with yum/dnf
 
-On RHEL, CentOS, Fedora, and other similar Linux distributions, it is highly recommended to install the relevant [RPM packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/mariadb-rpm-packages) from MariaDB's\
+On RHEL, CentOS, Fedora, and other similar Linux distributions, it is highly recommended to install the relevant [RPM packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/mariadb-rpm-packages) from MariaDB's
 repository using [yum](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum) or [dnf](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum#adding-the-mariadb-yum-repository). Starting with RHEL 8 and Fedora 22, `yum` has been replaced by `dnf`, which is the next major version of `yum`. However, `yum` commands still work on many systems that use `dnf`.
 
 To install MariaDB Galera Cluster with `yum` or `dnf`, follow the instructions at [Installing MariaDB Galera Cluster with yum](getting-started-with-mariadb-galera-cluster.md#installing-mariadb-galera-cluster-with-yum-dnf).

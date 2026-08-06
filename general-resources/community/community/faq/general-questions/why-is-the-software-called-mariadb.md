@@ -1,7 +1,7 @@
 # Why is the Software Called MariaDB?
 
-The 'MySQL' name is trademarked by Oracle, and\
-they have chosen to keep that trademark to themselves. The name MySQL (just\
+The 'MySQL' name is trademarked by Oracle, and
+they have chosen to keep that trademark to themselves. The name MySQL (just
 like the MyISAM storage engine) comes from Monty's first daughter My. The first part of 'MySQL' is pronounced like the English adjective, even if this doesn't match the correct pronunciation of the Finnish name.
 
 MariaDB continues this tradition by being named after his younger daughter, Maria.

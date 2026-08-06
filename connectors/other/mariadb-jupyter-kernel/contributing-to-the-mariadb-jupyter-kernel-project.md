@@ -11,7 +11,7 @@ Welcome! <3\
 The MariaDB Jupyter Kernel is an Open-Source project licensed under BSD-new. Feel free to create new Issues for feature requests or bug reports. Code, tests, and documentation contributions are welcome :-)\
 Friendly advice or feedback about the project counts as a contribution too!
 
-Please check out the [CONTRIBUTING.md](https://github.com/MariaDB/mariadb_kernel/blob/master/CONTRIBUTING.md)\
+Please check out the [CONTRIBUTING.md](https://github.com/MariaDB/mariadb_kernel/blob/master/CONTRIBUTING.md)
 file for information on:
 
 1. How to set up development environment

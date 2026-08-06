@@ -12,11 +12,11 @@ Instructions on how to build a mysqld that contains all the information we need 
 
 Compiling with **-g** should not cause any notable slowdown of the server.
 
-You can of course also do **make install**, but the above way allows\
+You can of course also do **make install**, but the above way allows
 you to go back to your old binary if needed.
 
-If you get any errors about a wrong number of error messages, you can\
-fix that by copying the corresponding language file from **sql/share**\
+If you get any errors about a wrong number of error messages, you can
+fix that by copying the corresponding language file from **sql/share**
 over your old ones (this should be reasonably safe to do).
 
 ```

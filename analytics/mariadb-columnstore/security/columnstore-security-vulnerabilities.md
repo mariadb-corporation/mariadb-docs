@@ -18,8 +18,8 @@ Sensitive security issues can be sent directly to the persons responsible for Ma
 
 ## About CVEs
 
-CVE® stands for _"Common Vulnerabilities and Exposures"_. It is\
-a publicly available and free-to-use database of known software\
+CVE® stands for _"Common Vulnerabilities and Exposures"_. It is
+a publicly available and free-to-use database of known software
 vulnerabilities maintained at
 
 ## CVEs fixed in ColumnStore
