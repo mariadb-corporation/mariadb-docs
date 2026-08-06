@@ -51,7 +51,7 @@
 
 ### Processlist
 
-* Added a `SENT_ROWS` column to the [Information Schema PROCESSLIST](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table) table, as well as extended the display size for the columns in processlist to ensure\
+* Added a `SENT_ROWS` column to the [Information Schema PROCESSLIST](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table) table, as well as extended the display size for the columns in processlist to ensure
   that most results will fit in display ([MDEV-3953](https://jira.mariadb.org/browse/MDEV-3953))
 
 ### OLD\_MODE
@@ -82,8 +82,8 @@ The following deprecated features and system variables have been removed ([MDEV-
 
 ## Security Vulnerabilities Fixed in [MariaDB 11.3](what-is-mariadb-113.md)
 
-For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
+For a complete list of security vulnerabilities (CVEs) fixed across all
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)
 page.
 
 ## List of All [MariaDB 11.3](what-is-mariadb-113.md) Releases

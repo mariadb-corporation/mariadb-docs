@@ -34,7 +34,7 @@ t 1    CREATE TABLE "t 1" (
 )
 ```
 
-You can use '\[' in identifiers. If you want to use ']' in identifiers\
+You can use '\[' in identifiers. If you want to use ']' in identifiers
 you have to specify it twice.
 
 ## See Also

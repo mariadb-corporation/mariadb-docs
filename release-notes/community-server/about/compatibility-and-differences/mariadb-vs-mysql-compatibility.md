@@ -21,7 +21,7 @@ Until [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.m
 * MariaDB's client protocol is binary compatible with MySQL's client protocol.
   * All client APIs and structs are identical.
   * All ports and sockets are generally the same.
-  * All MySQL connectors (PHP, Perl, Python, Java, .NET, MyODBC, Ruby, MySQL C\
+  * All MySQL connectors (PHP, Perl, Python, Java, .NET, MyODBC, Ruby, MySQL C
     connector etc) work unchanged with MariaDB.
   * There are some [installation issues with PHP5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-with-php5) that you should be aware of (a bug in how the old PHP5 client checks library compatibility).
 
@@ -144,23 +144,23 @@ For unmaintained versions, see:
 ### Incompatibilities between [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md) and MySQL 5.1
 
 * Views with definition ALGORITHM=MERGE or ALGORITHM=TEMPTABLE got accidentally swapped between [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) and [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)! You have to re-create views created with either of these definitions!
-* A few error messages related to wrong conversions are different as MariaDB\
+* A few error messages related to wrong conversions are different as MariaDB
   provides more information in the message about what went wrong.
 * Error numbers for MariaDB-specific errors have been moved to start from 1900 so as not to conflict with MySQL errors.
 * Microseconds now work in all contexts; MySQL, in some contexts, lost the microsecond part from datetime and time.
 * [UNIX\_TIMESTAMP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/unix_timestamp)(constant-date-string) returns a timestamp with 6 decimals in MariaDB while MySQL returns it without a decimal. This can cause a problem if you are using UNIX\_TIMESTAMP() as a partitioning function. You can fix this by using [FLOOR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/numeric-functions/floor)(UNIX\_TIMESTAMP(..)) or changing the date string to a date number, like 20080101000000.
 * MariaDB performs stricter checking of date, datetime and timestamp values. For example [UNIX\_TIMESTAMP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/unix_timestamp)('x') now returns NULL instead of 0.
-* The old `--maria-` startup options are removed. You should use\
-  the `--aria-` prefix instead. ([MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) supports both `--maria-`\
+* The old `--maria-` startup options are removed. You should use
+  the `--aria-` prefix instead. ([MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) supports both `--maria-`
   and `--aria-`)
-* [SHOW PROCESSLIST](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-processlist) has an extra `Progress` column\
-  which shows progress for some commands. You can disable it by\
+* [SHOW PROCESSLIST](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-processlist) has an extra `Progress` column
+  which shows progress for some commands. You can disable it by
   starting `mysqld` with either `--old-mode=NO_PROGRESS_INFO` or with the `--old` flag (see [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old_mode)).
-* `INFORMATION_SCHEMA.PROCESSLIST` has three new columns for progress\
+* `INFORMATION_SCHEMA.PROCESSLIST` has three new columns for progress
   reporting: `STAGE`, `MAX_STAGE`, and `PROGRESS`.
-* [Long comments](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/comment-syntax) which start with `/*M!`\
+* [Long comments](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/comment-syntax) which start with `/*M!`
   or `/*M!#####` are executed.
-* If you use [max\_user\_connections=0](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_user_connections) (which means any number of connections) when starting mysqld, you can't change the global variable anymore while mysqld remains running. This is because when mysqld is started with `max_user_connections=0` it does not allocate counting\
+* If you use [max\_user\_connections=0](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_user_connections) (which means any number of connections) when starting mysqld, you can't change the global variable anymore while mysqld remains running. This is because when mysqld is started with `max_user_connections=0` it does not allocate counting
   structures (which also involve a mutex for each connection). This would lead to wrong counters if you later changed the variable. If you want to be able to change this variable at runtime, set it to a high value at startup.
 * You can set `max_user_connections` (both the global variable and the `GRANT` option) to `-1` to stop users from connecting to the server. The global `max_user_connections` variable does not affect users with the `SUPER` privilege.
 * The [IGNORE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/ignore) directive does not ignore all errors (like fatal errors), only things that are safe to ignore.
@@ -169,7 +169,7 @@ For unmaintained versions, see:
 
 The list is the same as between [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md) and MySQL 5.1, with one addition:
 
-* A new [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) value was added:`IGNORE_BAD_TABLE_OPTIONS`. If it is not set, using a table,\
+* A new [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) value was added:`IGNORE_BAD_TABLE_OPTIONS`. If it is not set, using a table,
   field, or index attribute (option) that is not supported by the chosen storage engine will cause an error. This change might cause warnings in the error log about incorrectly defined tables from the `mysql` database, fix that with [mysql\_upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade).
 
 For all practical purposes, [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) is a drop in replacement for [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md) and MySQL 5.1.
@@ -182,13 +182,13 @@ Here is the list of all known user level incompatibilities you may see when usin
 
 * The installation package names start with MariaDB instead of MySQL.
 * Timings may be different as MariaDB is in many cases faster than MySQL.
-* mysqld in MariaDB also reads the `[mariadb]` sections of your\
+* mysqld in MariaDB also reads the `[mariadb]` sections of your
   my.cnf files.
 * You can't use a binary only storage engine library with MariaDB if it's not compiled for exactly the same MariaDB version. (This is because the server internal structure THD is different between MySQL and MariaDB. This is common also between different MySQL versions). This should not be a problem as most people don't load new storage engines and MariaDB comes with [more storage engines](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines) than MySQL.
-* `CHECKSUM TABLE` may give different result as MariaDB doesn't ignore NULLs in the columns as MySQL 5.1 does (Future MySQL versions should calculate checksums the same way as MariaDB). You can get the 'old style' checksum in MariaDB by starting mysqld with the `--old` option. Note however that that the MyISAM and Aria storage engines in MariaDB are using the new checksum\
+* `CHECKSUM TABLE` may give different result as MariaDB doesn't ignore NULLs in the columns as MySQL 5.1 does (Future MySQL versions should calculate checksums the same way as MariaDB). You can get the 'old style' checksum in MariaDB by starting mysqld with the `--old` option. Note however that that the MyISAM and Aria storage engines in MariaDB are using the new checksum
   internally, so if you are using `--old`, the `CHECKSUM` command will be slower as it needs to calculate the checksum row by row.
 * The slow query log has [more information](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/slow-query-log-extended-statistics) about the query, which may be a problem if you have a script which parses the slow query log.
-* MariaDB by default takes a bit more memory than MySQL because we have by default enabled the [Aria storage engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria) for handling internal temporary tables. If you need MariaDB to take very little\
+* MariaDB by default takes a bit more memory than MySQL because we have by default enabled the [Aria storage engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria) for handling internal temporary tables. If you need MariaDB to take very little
   memory (at the expense of performance), you can set the value of `aria_pagecache_buffer_size` to `1M` (the default is `128M`).
 * If you are using [new command options](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files),[new features of MariaDB](mariadb-vs-mysql-features.md) or [new storage engines](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines), you can't move easily back and forth between MySQL and MariaDB anymore.
 
@@ -202,7 +202,7 @@ If you are using any of the following options in your `/etc/my.cnf` or other`my.
 
 If you uninstalled a MySQL RPM to install MariaDB, note that the MySQL RPM on uninstall renames `/etc/my.cnf` to `/etc/my.cnf.rpmsave`.
 
-After installing MariaDB you should do the following to restore your old\
+After installing MariaDB you should do the following to restore your old
 configuration options:
 
 ```bash
