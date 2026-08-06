@@ -13,22 +13,21 @@ The MariaDB project builds packages for the following:
 | -------------------------------------------- | ------------------------ |
 | Windows 10 22H2                              | Oct 2025                 |
 | Windows 11 23H2                              | Nov 2025                 |
-| Debian 11 "Bullseye" (i386, amd64 and arm64) | Jun 2026                 |
 | Windows Server 2022                          | Oct 2026                 |
 | Windows 11 24H2                              | Oct 2026                 |
 | Fedora 43                                    | Dec 2026                 |
 | CentOS Stream 9                              | May 2027                 |
 | Ubuntu 22.04 "Jammy"                         | Jun 2027                 |
-| Fedora 44                                    | Jun 2027                 |
-| OpenSUSE Leap 16.00                          | Oct 2027                 |
-| Debian 12 "Bookworm" (i386, amd64 and arm64) | Jun 2028                 |
-| Debian 13 "Trixie" (ppc64el)                 | Jun 2028                 |
+| Fedora 44                                    | Aug 2027                 |
+| OpenSUSE Leap 16.0                           | Nov 2027                 |
+| SLES Enterprise Linux 16.0                   | Dec 2027                 |
+| Debian 12 "Bookworm"                         | Jun 2028                 |
 | Red Hat Enterprise Linux 8.x                 | Jun 2029                 |
 | Ubuntu 24.04 "Noble"                         | Jun 2029                 |
 | CentOS Stream 10                             | Jan 2030                 |
-| Debian 13 "Trixie" (i386, amd64 and arm64)   | Jun 2030                 |
+| Debian 13 "Trixie"                           | Jun 2030                 |
 | Ubuntu 26.04 "Resolute Raccoon"              | Apr 2031                 |
-| SLES 15 SP7                                  | Jun 2031                 |
+| SLES Enterprise Linux 15 SP7                 | Jun 2031                 |
 | Red Hat Enterprise Linux 9.x                 | Jun 2032                 |
 | Red Hat Enterprise Linux 10.x                | May 2035                 |
 
@@ -49,6 +48,7 @@ The MariaDB project no longer builds packages for the following Operating System
 
 | Platform                                    | Deprecation Date                              | Final MariaDB Version(s)                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Debian 11 "Bullseye" (i386, amd64 and arm64) | Jul 2026                                     | [10.6.28](../10.6/10.6.28.md), [10.11.19](../10.11.10.11.19.md), [11.4.13](../11.4/11.4.13.md), [11.8.9](../11.8/11.8.9.md), [12.3.3](../12.3/12.3.3.md), [13.0.2](../13.0/13.0.2.md), [13.1.1](../13.1/13.1.1.md) |
 | OpenSUSE Leap 15.6                          | May 2026                                      | [10.11.18](../10.11/10.11.18.md), [11.4.12](../11.4/11.4.12.md), [11.8.8](../11.8/11.8.8.md), [12.3.2](../12.3/12.3.2.md), [13.0.1](../13.0/13.0.1.md)                                                                                                                                                                                                                                              |
 | Ubuntu 25.10 "Questing Quokka"              | May 2026                                      | [11.8.8](../11.8/11.8.8.md), [12.3.2](../12.3/12.3.2.md), [13.0.1](../13.0/13.0.1.md)                                                                                                                                                                                                                                                                                                               |
 | Ubuntu 25.04 "Plucky Puffin"                | May 2026                                      | [11.4.12](../11.4/11.4.12.md), [11.8.8](../11.8/11.8.8.md), [12.3.2](../12.3/12.3.2.md), [13.0.1](../13.0/13.0.1.md)                                                                                                                                                                                                                                                                                 |
