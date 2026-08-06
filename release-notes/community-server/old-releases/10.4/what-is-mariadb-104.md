@@ -116,23 +116,23 @@ The [mysql](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-stateme
 
 End users may read but not modify these tables.
 
-The new streaming replication feature allows replicating transactions of\
-unlimited size. With streaming replication, a cluster is replicating a\
-transaction in small fragments during transaction execution. This transaction\
+The new streaming replication feature allows replicating transactions of
+unlimited size. With streaming replication, a cluster is replicating a
+transaction in small fragments during transaction execution. This transaction
 fragmenting is controlled by two new configuration variables:
 
-* [wsrep\_trx\_fragment\_unit](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_trx_fragment_unit) (bytes, rows, statements) defines the metrics for\
+* [wsrep\_trx\_fragment\_unit](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_trx_fragment_unit) (bytes, rows, statements) defines the metrics for
   how to measure transaction size limit for fragmenting. Possible values are:
   * `bytes`: transaction’s binlog events buffer size in bytes
   * `rows`: number of rows affected by the transaction
-  * `statements`: number of SQL statements executed in the multi-statement\
+  * `statements`: number of SQL statements executed in the multi-statement
     transaction
-* [wsrep\_trx\_fragment\_size](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_trx_fragment_size) defines the limit for fragmenting. When a\
-  transaction’s size, in terms of the configured fragment unit, has grown over\
+* [wsrep\_trx\_fragment\_size](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_trx_fragment_size) defines the limit for fragmenting. When a
+  transaction’s size, in terms of the configured fragment unit, has grown over
   this limit, a new fragment will be replicated.
 
-Transactions replicated through galera replication will now process the commit\
-phase using MariaDB's group commit logic. This will affect transaction\
+Transactions replicated through galera replication will now process the commit
+phase using MariaDB's group commit logic. This will affect transaction
 throughput, especially when binary logging is enabled in the cluster.
 
 #### Limitations in Galera 4
@@ -154,22 +154,22 @@ For more detailed information on how to upgrade, see [Upgrading from MariaDB 10.
 * Enabled C++11 ([MDEV-16410](https://jira.mariadb.org/browse/MDEV-16410))
 * Performance improvements in [Unicode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets/unicode) collations ([MDEV-17534](https://jira.mariadb.org/browse/MDEV-17534), [MDEV-17511](https://jira.mariadb.org/browse/MDEV-17511), [MDEV-17502](https://jira.mariadb.org/browse/MDEV-17502), [MDEV-17474](https://jira.mariadb.org/browse/MDEV-17474))
 * User data type plugins ([MDEV-4912](https://jira.mariadb.org/browse/MDEV-4912), in progress)
-* Improvements with SQL standard INTERVAL support to help functions [TIMESTAMP()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/timestamp)\
+* Improvements with SQL standard INTERVAL support to help functions [TIMESTAMP()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/timestamp)
   and [ADDTIME()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/addtime) return more predictable results.
-  * Historically, MariaDB uses the TIME data type for both "time of the day"\
-    values and "duration" values. In the first meaning the natural value range\
-    is from '00:00:00' to '23:59:59.999999', in the second meaning the range is\
+  * Historically, MariaDB uses the TIME data type for both "time of the day"
+    values and "duration" values. In the first meaning the natural value range
+    is from '00:00:00' to '23:59:59.999999', in the second meaning the range is
     from '-838:59:59.999999' to '+838:59:59.999999'.
-  * To remove this ambiguity and for the SQL standard conformance we plan to\
-    introduce a dedicated data type INTERVAL that will be able to store values\
+  * To remove this ambiguity and for the SQL standard conformance we plan to
+    introduce a dedicated data type INTERVAL that will be able to store values
     in the range at least from '-87649415:59:59.999999' to\
-    '+87649415:59:59.999999', which will be enough to represent the time\
+    '+87649415:59:59.999999', which will be enough to represent the time
     difference between TIMESTAMP'0001-01-01 00:00:00' and TIMESTAMP'9999-12-31\
     23:59:59.999999'.
-  * As a first step we support this range of values for intermediate\
-    calculations when TIME-alike string and numeric values are used in INTERVAL\
+  * As a first step we support this range of values for intermediate
+    calculations when TIME-alike string and numeric values are used in INTERVAL
     (i.e. duration) context, e.g. as the second argument of SQL functions\
-    TIMESTAMP(ts,interval) and ADDTIME(ts,interval), so the following can now be\
+    TIMESTAMP(ts,interval) and ADDTIME(ts,interval), so the following can now be
     calculated:
 
 ```sql
@@ -192,8 +192,8 @@ SELECT ADDTIME(TIME'-838:59:59.999999', '1677:59:59.999998');
 
 ## Security Vulnerabilities Fixed in [MariaDB 10.4](what-is-mariadb-104.md)
 
-For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
+For a complete list of security vulnerabilities (CVEs) fixed across all
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)
 page.
 
 * [CVE-2023-5157](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5157): [MariaDB 10.4.26](10.4.26.md)

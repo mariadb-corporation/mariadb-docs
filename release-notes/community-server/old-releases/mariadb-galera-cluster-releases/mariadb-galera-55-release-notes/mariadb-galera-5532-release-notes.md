@@ -7,13 +7,13 @@ The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5W
 **Release date:** 30 Aug 2013
 
 [MariaDB Galera 5.5.32](mariadb-galera-5532-release-notes.md) is a [_**Stable**_](../../../about/release-criteria.md) (GA) release.\
-It is a merge of [MariaDB 5.5.32](mariadb-galera-5532-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+It is a merge of [MariaDB 5.5.32](mariadb-galera-5532-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with
 additional bug fixes.
 
-Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
+Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are
 available in the [**Galera**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) section of the Knowledgebase.
 
-For a list of changes made in [MariaDB Galera 5.5.32](mariadb-galera-5532-release-notes.md), with links to detailed\
+For a list of changes made in [MariaDB Galera 5.5.32](mariadb-galera-5532-release-notes.md), with links to detailed
 information on each push, see the [MariaDB Galera 5.5.32 Changelog](../mariadb-galera-55-changelogs/mariadb-galera-5532-changelog.md).
 
 ## Includes [MariaDB 5.5.32](../../5.5/5.5.32.md) and Galera Cluster
@@ -27,17 +27,17 @@ The Galera library on Ubuntu/Debian, and x86\_64 versions of Red Hat 6, CentOS\
 
 ## Packaging Fixes
 
-This version includes several packaging fixes including a fix for [MDEV-4229](https://jira.mariadb.org/browse/MDEV-4229)\
+This version includes several packaging fixes including a fix for [MDEV-4229](https://jira.mariadb.org/browse/MDEV-4229)
 regarding binaries for Debian Wheezy.
 
-One packaging fix that still exists is one that prevents the installation of\
+One packaging fix that still exists is one that prevents the installation of
 the wsrep package on Fedora systems ([MDEV-4141](https://jira.mariadb.org/browse/MDEV-4141)). It is hoped this issue will be fixed soon. When it is this paragraph will be updated. For now, Fedora packages are in the repository, but the galera package must be installed manually, and may not work even then.
 
 ## Other fixes
 
 * [MDEV-4953](https://jira.mariadb.org/browse/MDEV-4953) Delete on a partitioned table is not replicated
-* LOAD DATA INFILE now supports big data files by introducing transaction\
-  splitting, which is controlled via the [wsrep\_load\_data\_splitting](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables) global\
+* LOAD DATA INFILE now supports big data files by introducing transaction
+  splitting, which is controlled via the [wsrep\_load\_data\_splitting](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables) global
   variable
 
 Thanks, and enjoy MariaDB Galera Cluster!

@@ -145,8 +145,8 @@ For a list of all new status variables, see [Status Variables Added in MariaDB 1
 
 #### Security Vulnerabilities Fixed in [MariaDB 10.2](what-is-mariadb-102.md)
 
-For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
+For a complete list of security vulnerabilities (CVEs) fixed across all
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)
 page.
 
 * [CVE-2022-32088](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32088): [MariaDB 10.2.44](10.2.44.md)

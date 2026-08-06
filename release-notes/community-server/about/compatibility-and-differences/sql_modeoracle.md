@@ -165,7 +165,7 @@ IF a=10 THEN NULL; ELSE NULL; END IF
 
 In Oracle, empty string ('') and NULL are the same thing,
 
-By using `sql_mode=EMPTY_STRING_IS_NULL` you can get a similar\
+By using `sql_mode=EMPTY_STRING_IS_NULL` you can get a similar
 experience in MariaDB:
 
 ```sql

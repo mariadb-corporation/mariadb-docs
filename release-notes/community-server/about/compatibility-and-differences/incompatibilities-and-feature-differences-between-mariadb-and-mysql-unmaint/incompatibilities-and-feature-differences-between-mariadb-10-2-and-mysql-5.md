@@ -25,24 +25,24 @@ In addition to the standard [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO
 * [Segmented Key Cache](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/segmented-key-cache) for MyISAM. Can speed up MyISAM tables with up to 4x
 * [Adjustable hash size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine/myisam-system-variables#key_cache_file_hash_size) for MyISAM and Aria. This can greatly improve shutdown time (from hours to minutes) if you are using a lot of MyISAM/Aria tables with delayed keys.
 * [CHECKSUM TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/checksum-table) is faster.
-* We improved the performance of character set conversions (and removed\
+* We improved the performance of character set conversions (and removed
   conversions when they were not really needed).\
   Overall speed improvement is 1-5 % (according to sql-bench) but can be higher for big result sets with all characters between 0x00-0x7f.
 * [MariaDB Thread pool](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb) allows MariaDB to run with 200,000+ connections and with a notable speed improvement when using many connections.
 * Lots of speed improvements when a client connects to MariaDB.
 * There are some improvements to the DBUG code to make its execution faster when debug is compiled in but not used.
-* Our use of the Aria storage engine enables faster complex queries (queries\
-  which normally use disk-based temporary tables). The [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria) storage\
-  engine is used for internal temporary tables, which should give a speedup\
-  when doing complex selects. Aria is usually faster for temporary tables when\
-  compared to MyISAM because Aria caches row data in memory and normally\
+* Our use of the Aria storage engine enables faster complex queries (queries
+  which normally use disk-based temporary tables). The [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria) storage
+  engine is used for internal temporary tables, which should give a speedup
+  when doing complex selects. Aria is usually faster for temporary tables when
+  compared to MyISAM because Aria caches row data in memory and normally
   doesn't have to write the temporary rows to disk.
 * The test suite has been extended and faster than before, even though it tests more things.
 
 ## Extensions and New Features
 
-We've added a lot of [new features to MariaDB](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-in-the-different-mariadb-releases/README.md). If a\
-patch or feature is useful, safe, and stable — we make\
+We've added a lot of [new features to MariaDB](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-in-the-different-mariadb-releases/README.md). If a
+patch or feature is useful, safe, and stable — we make
 every effort to include it in MariaDB. The most notable features are:
 
 * [Galera](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera-cluster/README.md) is a standard part of MariaDB Server.

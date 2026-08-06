@@ -43,21 +43,21 @@ See also:
 
 * [CHECKSUM TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/checksum-table) is faster.
 * We have eliminated/improved some not needed character set conversions.\
-  Overall speed improvements is 1-5 % (according to sql-bench) but can be\
+  Overall speed improvements is 1-5 % (according to sql-bench) but can be
   higher for big result sets with all characters between 0x00-0x7f.
-* Our use of the Aria storage engine enables faster complex queries (queries\
-  which normally use disk-based temporary tables). The [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria) storage\
-  engine is used for internal temporary tables, which should give you a speedup\
-  when doing complex selects. Aria is usually faster for temporary tables when\
-  compared to MyISAM because Aria caches row data in memory and normally\
+* Our use of the Aria storage engine enables faster complex queries (queries
+  which normally use disk-based temporary tables). The [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria) storage
+  engine is used for internal temporary tables, which should give you a speedup
+  when doing complex selects. Aria is usually faster for temporary tables when
+  compared to MyISAM because Aria caches row data in memory and normally
   doesn't have to write the temporary rows to disk.
-* There are some improvements to DBUG code to make its execution faster when\
+* There are some improvements to DBUG code to make its execution faster when
   debug is compiled in but not used.
 
 ### Extensions & new features
 
 * [Table Elimination](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/table-elimination) (New optimization) (MWL#17)
-* [Pool of Threads](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb-51-53) (Allows you to have 200,000+ connections\
+* [Pool of Threads](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb-51-53) (Allows you to have 200,000+ connections
   to MariadB)
 * MariaDB can handle up to 32 key segments per key (up from 16)
 * Added `--abort-source-on-error` to the mysql client.
@@ -66,37 +66,37 @@ See also:
 
 ### Easier to upgrade
 
-We have made it easy to upgrade from MySQL 5.0\
+We have made it easy to upgrade from MySQL 5.0
 to [MariaDB 5.1](changes-improvements-in-mariadb-5-1.md)
 
 * InnoDB and Archive tables are now upgraded properly.
-* More options to [mysql\_upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade) and [mysqlcheck](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqlcheck) to find out what's going\
+* More options to [mysql\_upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade) and [mysqlcheck](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqlcheck) to find out what's going
   on.
 * Cleaned up wrong warnings from mysqlcheck.
 
-(Upgrading from MySQL 5.1 to MariaDB 5.1 is a trivial 1 min exercise as MariaDB\
-is a binary drop in replacement of MySQL. Just remove MySQL and install MariaDB\
+(Upgrading from MySQL 5.1 to MariaDB 5.1 is a trivial 1 min exercise as MariaDB
+is a binary drop in replacement of MySQL. Just remove MySQL and install MariaDB
 and things will **just work** )
 
 ### Better Testing
 
 * More tests in the test suite.
-* All tests runs now clean without having to restart test. (Oracle re-runs\
+* All tests runs now clean without having to restart test. (Oracle re-runs
   tests 3 times and assumes things are ok if one tests works)
 * Test builds with different configure options to get better feature testing.
-* Remove invalid tests. (e.g. Don't test feature "X" if that feature is not\
+* Remove invalid tests. (e.g. Don't test feature "X" if that feature is not
   in the build you are testing.)
 
 ### Fewer warnings and bugs
 
 * A build is not regarded ok if there are any errors or compiler warnings.
-* We have fixed a lot of bugs in the MySQL code which we have found while\
+* We have fixed a lot of bugs in the MySQL code which we have found while
   merging the MySQL code into MariaDB and by running the extended test suite.
 
 ### Security Vulnerabilities Fixed in [MariaDB 5.1](changes-improvements-in-mariadb-5-1.md)
 
-For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
+For a complete list of security vulnerabilities (CVEs) fixed across all
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)
 page.
 
 * [CVE-2013-1548](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1548): [MariaDB 5.1.66](5.1.66.md)[CVE-2013-1531](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1531): [MariaDB 5.1.67](5.1.67.md)[CVE-2013-0389](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-0389): [MariaDB 5.1.67](5.1.67.md)[CVE-2013-0385](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-0385): [MariaDB 5.1.67](5.1.67.md)[CVE-2013-0384](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-0384): [MariaDB 5.1.67](5.1.67.md)[CVE-2013-0383](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-0383): [MariaDB 5.1.67](5.1.67.md)[CVE-2013-0375](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-0375): [MariaDB 5.1.67](5.1.67.md)[CVE-2012-5612](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-5612): [MariaDB 5.1.67](5.1.67.md)[CVE-2012-5611](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-5611): [MariaDB 5.1.67](5.1.67.md), [MariaDB 5.1.66](5.1.66.md)[CVE-2012-5060](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-5060): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-4414](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-4414): [MariaDB 5.1.66](5.1.66.md) [CVE-2012-3197](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3197): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-3180](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3180): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-3177](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3177): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-3173](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3173): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-3167](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3167): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-3166](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3166): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-3163](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3163): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-3160](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3160): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-3158](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3158): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-3150](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3150): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-1734](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-1734): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-1705](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-1705): [MariaDB 5.1.67](5.1.67.md)[CVE-2012-1703](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-1703): [MariaDB 5.1.62](5.1.62.md)[CVE-2012-1702](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-1702): [MariaDB 5.1.67](5.1.67.md)[CVE-2012-1690](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-1690): [MariaDB 5.1.62](5.1.62.md)[CVE-2012-1689](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-1689): [MariaDB 5.1.66](5.1.66.md)[CVE-2012-1688](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-1688): [MariaDB 5.1.62](5.1.62.md)[CVE-2012-0574](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-0574): [MariaDB 5.1.67](5.1.67.md)[CVE-2012-0572](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-0572): [MariaDB 5.1.67](5.1.67.md)[CVE-2012-0540](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-0540): [MariaDB 5.1.66](5.1.66.md)[CVE-2009-4484](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-4484): [MariaDB 5.1.42](../../changelogs/changelogs-mariadb-51-series/mariadb-5142-changelog.md)

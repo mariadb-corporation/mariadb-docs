@@ -159,8 +159,8 @@ For a list of all new variables, see [System Variables Added in MariaDB 10.3](ht
 
 ## Security Vulnerabilities Fixed in [MariaDB 10.3](what-is-mariadb-103.md)
 
-For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
+For a complete list of security vulnerabilities (CVEs) fixed across all
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)
 page.
 
 * [CVE-2023-5157](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5157): [MariaDB 10.3.36](10.3.36.md)

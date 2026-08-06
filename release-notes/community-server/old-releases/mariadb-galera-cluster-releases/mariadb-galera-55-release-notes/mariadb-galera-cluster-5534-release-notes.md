@@ -7,13 +7,13 @@ The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5W
 **Release date:** 18 Dec 2013
 
 MariaDB Galera Cluster 5.5.34 is a [_**Stable**_](../../../about/release-criteria.md) (GA) release.\
-It is a merge of [MariaDB 5.5.34](mariadb-galera-cluster-5534-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+It is a merge of [MariaDB 5.5.34](mariadb-galera-cluster-5534-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with
 additional bug fixes.
 
-Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
+Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are
 available in the [**Galera**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) section of the Knowledgebase.
 
-For a list of changes made in MariaDB Galera Cluster 5.5.34, with links to detailed\
+For a list of changes made in MariaDB Galera Cluster 5.5.34, with links to detailed
 information on each push, see the [MariaDB Galera Cluster 5.5.34 Changelog](../mariadb-galera-55-changelogs/mariadb-galera-cluster-5534-changelog.md).
 
 ## Includes [MariaDB 5.5.34](../../5.5/5.5.34.md) and Galera Cluster
@@ -23,24 +23,24 @@ MariaDB.
 
 ## Bug Fixes
 
-This release contains fixes for some crashing bugs, memory leaks, compiler\
+This release contains fixes for some crashing bugs, memory leaks, compiler
 errors/warnings and improvements in existing scripts.
 
 * [MDEV-5408](https://jira.mariadb.org/browse/MDEV-5408): Crash in mariadb-wsrep during plugin load at startup
-* [MDEV-5386](https://jira.mariadb.org/browse/MDEV-5386): Server crashes in thd\_get\_ha\_data on maria-5.5-galera tree while\
+* [MDEV-5386](https://jira.mariadb.org/browse/MDEV-5386): Server crashes in thd\_get\_ha\_data on maria-5.5-galera tree while
   running 'check testcase before test
-* [MDEV-443](https://jira.mariadb.org/browse/MDEV-443): Galera: Server crashes on flushing tables for SST if started with\
+* [MDEV-443](https://jira.mariadb.org/browse/MDEV-443): Galera: Server crashes on flushing tables for SST if started with
   character\_set\_server utf16 or utf32 or ucs2, and with wsrep\_sst\_method=rsync
 * [MDEV-4227](https://jira.mariadb.org/browse/MDEV-4227): Galera server should stop crashing on setting binlog\_format\
   STATEMENT
-* [MDEV-4222](https://jira.mariadb.org/browse/MDEV-4222): Assertion \`( ((global\_system\_variables.wsrep\_on) && (thd &&\
+* [MDEV-4222](https://jira.mariadb.org/browse/MDEV-4222): Assertion \`( ((global\_system\_variables.wsrep\_on) && (thd &&
   thd->variables.wsrep\_on)) && wsrep\_emulate\_bin\_log) || mysql\_bin\_log\
   .is\_open()' fails on SAVEPOINT with disabled wsrep\_provider
-* [MDEV-4235](https://jira.mariadb.org/browse/MDEV-4235): Galera: Assertion \`0' fails in tdc\_remove\_table on creating a\
+* [MDEV-4235](https://jira.mariadb.org/browse/MDEV-4235): Galera: Assertion \`0' fails in tdc\_remove\_table on creating a
   trigger
-* [MDEV-4223](https://jira.mariadb.org/browse/MDEV-4223): Galera: InnoDB assertion failure !mutex\_own(mutex) in file\
+* [MDEV-4223](https://jira.mariadb.org/browse/MDEV-4223): Galera: InnoDB assertion failure !mutex\_own(mutex) in file
   sync0sync.ic line 207
-* [MDEV-4233](https://jira.mariadb.org/browse/MDEV-4233): Galera: assertion: (lock->trx)->wait\_lock == lock fails in file\
+* [MDEV-4233](https://jira.mariadb.org/browse/MDEV-4233): Galera: assertion: (lock->trx)->wait\_lock == lock fails in file
   lock0lock.c line 796
 
 A list of all the bugs fixed can be found in the [changelog](../mariadb-galera-55-changelogs/mariadb-galera-cluster-5534-changelog.md).

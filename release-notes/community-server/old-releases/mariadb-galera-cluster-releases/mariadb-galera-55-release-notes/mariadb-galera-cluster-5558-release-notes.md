@@ -6,36 +6,36 @@ The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporat
 
 **Release date:** 25 Oct 2017
 
-MariaDB Galera Cluster 5.5.58 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
-release. It is a merge of [MariaDB 5.5.58](../../5.5/5.5.58.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+MariaDB Galera Cluster 5.5.58 is a [_**Stable**_](../../../about/release-criteria.md) (GA)
+release. It is a merge of [MariaDB 5.5.58](../../5.5/5.5.58.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with
 additional bug fixes.
 
-Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
+Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are
 available in the [**Galera**](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/galera/README.md) section of the documentation.
 
 ## Updates and fixes in this version
 
 * This release is a bug-fix release.
-* Codership changes:[github.com/codership/mysql-wsrep/tree/5.5](https://github.com/codership/mysql-wsrep/tree/5.5)\
+* Codership changes:[github.com/codership/mysql-wsrep/tree/5.5](https://github.com/codership/mysql-wsrep/tree/5.5)
   (till commit `9949137`)
-* The [Galera library](https://codership.com/content/using-galera-cluster) used\
-  by MariaDB Galera Cluster and included in the MariaDB repositories is\
+* The [Galera library](https://codership.com/content/using-galera-cluster) used
+  by MariaDB Galera Cluster and included in the MariaDB repositories is
   currently at version 25.3.20.
 * Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve):
   * [CVE-2017-10378](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-10378), [MDEV-13819](https://jira.mariadb.org/browse/MDEV-13819)
   * [CVE-2017-10268](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-10268)
 
-See the [MariaDB 5.5.58 Release Notes](../../5.5/5.5.58.md) for more\
+See the [MariaDB 5.5.58 Release Notes](../../5.5/5.5.58.md) for more
 information on fixes in this version.
 
 ## Changelog
 
-A full list of all changes is in the [MariaDB Galera Cluster 5.5.58 Changelog](../mariadb-galera-55-changelogs/mariadb-galera-cluster-5558-changelog.md)\
+A full list of all changes is in the [MariaDB Galera Cluster 5.5.58 Changelog](../mariadb-galera-55-changelogs/mariadb-galera-cluster-5558-changelog.md)
 and the [MariaDB 5.5.58 Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5558-changelog.md).
 
 ## Notes
 
-* Running MariaDB Galera Cluster 5.5 and 10.0 nodes in a cluster is not\
+* Running MariaDB Galera Cluster 5.5 and 10.0 nodes in a cluster is not
   supported ([MDEV-6257](https://jira.mariadb.org/browse/MDEV-6257))
 * This version of MariaDB Galera Cluster supports `wsrep` API v25 which means\
   MariaDB Galera Cluster can be used with either a 25.2.x or 25.3.x
