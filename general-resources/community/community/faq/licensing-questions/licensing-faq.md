@@ -46,7 +46,7 @@ The above have licenses that allow you to use them freely, without you being bou
 
 ### Using a Database-Source-Independent Framework
 
-If you are using a framework that allows you to connect dynamically to different RDBMS systems, any GPL licensed module loaded by the framework will not affect the\
+If you are using a framework that allows you to connect dynamically to different RDBMS systems, any GPL licensed module loaded by the framework will not affect the
 application. Such frameworks are
 
 * ODBC (Open Database Connectivity)
@@ -60,7 +60,7 @@ Any software can be connected to the GPL v2 licensed MySQL Connector/ODBC, witho
 
 ### Using the MariaDB Client Library for C
 
-If your application is using a license that is not covered by the [FLOSS exception](mariadb-licenses.md), you\
+If your application is using a license that is not covered by the [FLOSS exception](mariadb-licenses.md), you
 should use the new [LGPL client libraries or C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c).
 
 The LGPL license allows you to distribute these MariaDB client library freely with any application. If you modify the client library, you need to publish the new source code.

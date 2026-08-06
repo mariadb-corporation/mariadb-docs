@@ -11,7 +11,7 @@ License:  MCA or BSD
 Reviewer: ....
 ```
 
-For those cases this is not done, please add to this page a short line for each\
+For those cases this is not done, please add to this page a short line for each
 push into MariaDB that includes code from contributors not employed by the MariaDB Foundation or the MariaDB Corporation. The purpose of this is to properly track that all such patches are submitted either under [MCA](../community/legal-documents/mca.md) or BSD-new and to ensure that the developer gets credit for his work.
 
 Example:

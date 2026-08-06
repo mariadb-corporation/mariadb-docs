@@ -116,15 +116,15 @@ This task is about re-implementing Cassandra Storage Engine using DataStax C++ D
 
 ### ColumnStore: Add proper NULL support
 
-At the moment NULL is just the maximum integer for a column (or empty string\
-for VARCHAR/CHAR). We need a mechanism to store NULLs separately to give us\
+At the moment NULL is just the maximum integer for a column (or empty string
+for VARCHAR/CHAR). We need a mechanism to store NULLs separately to give us
 full type ranges.
 
 ### ColumnStore: Add full support for DECIMAL
 
-Right now it is cast to double which is not great for obvious reasons. It will\
-mean modifying a lot of ColumnStore's version of MariaDB's function\
-implementations and allowing column files to store more than 8 bytes per\
+Right now it is cast to double which is not great for obvious reasons. It will
+mean modifying a lot of ColumnStore's version of MariaDB's function
+implementations and allowing column files to store more than 8 bytes per
 field.
 
 | Details:             | Skills:                                              | Mentor: | Students Interested: |

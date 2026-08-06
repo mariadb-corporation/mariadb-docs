@@ -30,31 +30,31 @@ Also see the [List of beginner friendly issues](https://jira.mariadb.org/issues/
   * Skills needed: C/C++, understanding of regression functions and mathematics, APIs, OOP. Project difficulty: medium\
     Mentor Vicențiu Ciorbaru
 * [MDEV-23251](https://jira.mariadb.org/browse/MDEV-23251) Client compatible delimiter for mysqltest (Full-time project - potential part-time (175 - 350h, depending on scope))\
-  We have a DELIMITER command that has a different syntax in client and mysqltest\
-  mysqltest needs an additional (previous) delimiter in the end of the DELIMITER expression,\
-  which confuses and makes it hard to copy and paste simple scripts with stored procedures\
+  We have a DELIMITER command that has a different syntax in client and mysqltest
+  mysqltest needs an additional (previous) delimiter in the end of the DELIMITER expression,
+  which confuses and makes it hard to copy and paste simple scripts with stored procedures
   from one to another.\
   We would like to have a new command (--delimiter=client|mysqltest) with current behavior as default.
   * Expected outcomes: You will learn the C command line tools development minors. You'll get familiar with a part of MariaDB server infrastructure -- testing framework, which is written in C and Perl.
   * Skills required: good C knowledge; ability to use console terminal, ability to build from console. Project difficulty: easy\
     Mentor Nikita Malyavin
 * [MDEV-25774](https://jira.mariadb.org/browse/MDEV-25774) Improve build speed of the server code base (Full-time project - 350h)\
-  We have already learned that precompiling the headers\
-  improves the build speed five times, however, the\
-  standard CMake solution doesn't fit for our comfort of\
-  development: CMake PCH generates one "header of headers"\
+  We have already learned that precompiling the headers
+  improves the build speed five times, however, the
+  standard CMake solution doesn't fit for our comfort of
+  development: CMake PCH generates one "header of headers"
   and pre-includes it into the each of compilation units.\
-  This makes everything that wasn't included by the unit\
+  This makes everything that wasn't included by the unit
   itself be available across the precompiled set.\
   There are the alternative ways of unit precompiling:\
-  clang modules and gcc .gch files. We want to prefer\
+  clang modules and gcc .gch files. We want to prefer
   it on the per-comiler header.
   * Expected outcomes:\
-    You will make a strong practical impact of a high need\
+    You will make a strong practical impact of a high need
     and show off your mix of analysis and programming skills.
   * Skills required: good C knowledge, some CMake knowledge; ability to use console terminal, ability to build from console. Project difficulty: medium\
     Mentor Nikita Malyavin
-* [MDEV-12130](https://jira.mariadb.org/browse/MDEV-12130) Improve mysqltest language(Full-time project - 350h)\
+* [MDEV-12130](https://jira.mariadb.org/browse/MDEV-12130) Improve mysqltest language(Full-time project - 350h)
   mysqltest has a lot of historical problems: ad hoc parser, weird limitations commands added as needed with no view over the total language structure, etc. The purpose of this work would be improvement of the language.
   * Expected outcomes : Rewrite mysqltest interpreter using either a real parser generator, e.g bison, or cleanly hand-written parser, e. recursive descent, that can be easily extended with new functionality. Added missing control structures, for example "else" for an existing "if". Simple expression evaluations without contacting server, i.e math and string comparisons. Added functionality for minimal string manipulation ,e.g substr function.
   * Skills required: good C/C++ knowledge, interest in parsers/interpreter. Project difficulty: medium\

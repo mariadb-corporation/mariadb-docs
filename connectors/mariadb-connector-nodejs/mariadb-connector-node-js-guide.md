@@ -14,7 +14,7 @@ description: >-
 <p align="center"><a href="https://mariadb.com/downloads/connectors/connectors-data-access/nodejs-connector" class="button primary">Download MariaDB Connector/Node.js</a></p>
 
 MariaDB Connector/Node.js is used to connect applications developed on Node.js to\
-MariaDB and MySQL databases. The library is LGPL\
+MariaDB and MySQL databases. The library is LGPL
 licensed.
 
 ## About MariaDB Connector/Node.js
