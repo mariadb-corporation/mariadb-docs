@@ -33,7 +33,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-430](https://jira.mariadb.org/browse/MCOL-430) - invalid null date values for cross engine join query
 * [MCOL-433](https://jira.mariadb.org/browse/MCOL-433) - Small row results can cause CrossEngine buffer underflow
 * [MCOL-434](https://jira.mariadb.org/browse/MCOL-434) - DecomSvr fails to cleanly start when a Amazon Instance is stopped/started
-* [MCOL-435](https://jira.mariadb.org/browse/MCOL-435) - Amazon AMi multi-node system didnt successfully restart after a stop/start
+* [MCOL-435](https://jira.mariadb.org/browse/MCOL-435) - Amazon AMi multi-node system didn't successfully restart after a stop/start
 * [MCOL-441](https://jira.mariadb.org/browse/MCOL-441) - Segfault on query after an error
 * [MCOL-442](https://jira.mariadb.org/browse/MCOL-442) - Default date value doesn't allow zero date
 * [MCOL-457](https://jira.mariadb.org/browse/MCOL-457) - null bit header error when the number of NULL columns is divisible by 8 and the last column is a NOT NULL
@@ -59,7 +59,7 @@ There are a number bugs and known limitations within this beta version of MariaD
 * [MCOL-364](https://jira.mariadb.org/browse/MCOL-364): In a multi UM configuration where the default storage engine has been set to columnstore replicated tables are not created as columnstore tables. Avoid overriding the default storage engine and specify engine=columnstore on all table DDL.
 * [MCOL-365](https://jira.mariadb.org/browse/MCOL-365): Log files created by load data infile remain in the bulk/data/log and /tmp directories. If storage is a concern these can safely be removed.
 * [MCOL-454](https://jira.mariadb.org/browse/MCOL-454) : columnstore\_info's total\_usage() and table\_usage() reported 0 usage on multi-node configuration. The stored procedures and information\_schema.columnstore\_files return incorrect path and size information for a multi node install.
-* [MCOL-463](https://jira.mariadb.org/browse/MCOL-463) : gluster storage option in installer fails withe error. The installer option to install optimized for gluster storage will fail with an error. Manually set up gluster volumes can be used with the 'External' storage option.
+* [MCOL-463](https://jira.mariadb.org/browse/MCOL-463) : gluster storage option in installer fails with error. The installer option to install optimized for gluster storage will fail with an error. Manually set up gluster volumes can be used with the 'External' storage option.
 * The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](/broken/spaces/rBEU9juWLfTDcdwF3Q14/pages/dXPqB8aK1YApDlya8q3W).
 * While Millisecond and Microsecond storage is supported for datetime, time and timestamp columns, at this time the query results cannot return millisecond and microseconds.
 * UTF-8 Limitation

@@ -82,7 +82,7 @@ Features that are in a release.
 * Online [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) ([MDEV-3933](https://jira.mariadb.org/browse/MDEV-3933)) (ALGORITHM=INPLACE, etc)
 * [InnoDB persistent statistics](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics).
 * privileges on temporary tables
-* character set related extenstions
+* character set related extensions
 * [GET DIAGNOSTICS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-diagnostics/get-diagnostics)
 * [EXCHANGE PARTITION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table)
 * Partition selection
