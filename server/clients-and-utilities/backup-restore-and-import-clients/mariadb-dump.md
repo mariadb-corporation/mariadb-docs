@@ -61,6 +61,47 @@ To see a list of the options your version of `mariadb-dump` supports, execute `m
 
 `mariadb-dump` includes logic to cater for the [mysql.transaction\_registry table](../../reference/system-tables/the-mysql-database-tables/mysql-transaction_registry-table.md).
 
+## Generated Columns
+
+From MariaDB 13.1, `mariadb-dump` no longer writes the computed values of [generated columns](../../reference/sql-statements/data-definition/create/generated-columns.md) into the `INSERT` statements it produces. The values are redundant, because the server recalculates them when the dump is reloaded.
+
+Given this table:
+
+```sql
+CREATE TABLE t1 (pk INTEGER, a INTEGER, b INTEGER, c VARCHAR(16),
+                 sum INTEGER GENERATED ALWAYS AS (a+b) VIRTUAL,
+                 sub VARCHAR(4) GENERATED ALWAYS AS (SUBSTRING(c, 1, 4)) VIRTUAL);
+```
+
+by default a generated column keeps its position in the row, and its value is written as `DEFAULT`:
+
+```sql
+INSERT INTO `t1` VALUES
+(1,11,12,'oneone',DEFAULT,DEFAULT),
+(2,21,22,'twotwo',DEFAULT,DEFAULT);
+```
+
+With `--complete-insert`, generated columns are left out of both the column list and the values:
+
+```sql
+INSERT INTO `t1` (`pk`, `a`, `b`, `c`) VALUES (1,11,12,'oneone'),
+(2,21,22,'twotwo');
+```
+
+An [INVISIBLE](../../reference/sql-statements/data-definition/create/invisible-columns.md) column anywhere in the table enables `--complete-insert`, so a table that has one produces the second form even when the option is not given.
+
+If every column in a table is generated, `--complete-insert` writes an empty column list, which preserves the row count:
+
+```sql
+INSERT INTO `t5` () VALUES (),
+(),
+();
+```
+
+{% hint style="info" %}
+This applies to the SQL output only. The `--xml` output is unchanged, and still contains generated columns with their computed values. `--tab` and `--dir` are also unaffected, because the server writes those data files with `SELECT ... INTO OUTFILE`. [System-versioned](../../reference/sql-structure/temporal-tables/system-versioned-tables.md) `row_start` and `row_end` columns are not treated as generated columns.
+{% endhint %}
+
 ## Old Versions of MySQL
 
 If you are using a recent version of `mariadb-dump` to generate a dump to be reloaded into a very old MySQL server, you should _not_ use the `--opt` or `--extended-insert` option. Use `--skip-opt` instead.
@@ -155,7 +196,7 @@ Change the dump to be compatible with a given mode. By default, tables are dumpe
 
 #### -c, --complete-insert
 
-Use complete [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) statements that include column names.
+Use complete [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) statements that include column names. From MariaDB 13.1, [generated columns](#generated-columns) are omitted from the column list.
 
 #### -C, --compress
 
