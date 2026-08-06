@@ -42,6 +42,10 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
 
 {% include "../../.gitbook/includes/backports-11.8.5-2-and-11.4.9-6.md" %}
 
+### [MariaDB Enterprise Server 11.8.6-3](11.8.6-3.md)
+
+{% include "../../.gitbook/includes/backports-11.8.6-3-and-11.4.10-7.md" %}
+
 ### Emergency Recovery Across Major Versions
 
 * **Behavioral change:** A MariaDB 11.x server can now start with data files from MariaDB 10.x when [innodb\_force\_recovery](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_force_recovery) is set to `6`

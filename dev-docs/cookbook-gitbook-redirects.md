@@ -4,9 +4,15 @@
 redirects file that Git controls. When you rename, move, split, or consolidate pages, the old
 URLs die and external bookmarks / search-engine results dead-end.
 
-GitBook itself **does** support redirects, but they are configured **manually** in the GitBook
-site UI (there is no API or MCP for it). So the repo-side job is to **produce a redirect CSV**
-and hand it to whoever administers the GitBook site; they import it.
+GitBook itself **does** support redirects, configured two ways:
+
+- **The GitBook site UI** — one rule at a time, or a CSV import. This is the normal path, and the
+  repo-side job for it is to **produce a redirect CSV** and hand it to whoever administers the
+  GitBook site.
+- **The GitBook API**, reachable through the `gitbook-api` MCP server: `listSiteRedirects`,
+  `getSiteRedirectBySource`, `createSiteRedirect`, `updateSiteRedirectById`,
+  `bulkUpsertSiteRedirects`. Useful for bulk loads and, above all, for **verifying** what is
+  actually configured — see [Troubleshooting](#troubleshooting-a-redirect-that-looks-broken).
 
 ## When to produce a redirect CSV
 
@@ -80,6 +86,63 @@ The person with GitBook site admin access does this — it is not a Git operatio
 3. If rows error, read the message: `Invalid destination URL` → destination isn't a full URL;
    a header error → it isn't `source,destination`.
 
+## Troubleshooting a redirect that looks broken
+
+A redirect that misbehaves in a browser is usually **not** a broken GitBook rule.
+`mariadb.com/docs` sits behind Cloudflare, and Cloudflare answers some requests itself — GitBook
+never sees them. So before concluding anything, establish **which layer answered**.
+
+### Step 1: Find out who answered
+
+Request both slash forms and look for `x-gitbook-*` response headers:
+
+```bash
+curl -s -o /dev/null -D - "https://mariadb.com/docs/<path>"   # no trailing slash
+curl -s -o /dev/null -D - "https://mariadb.com/docs/<path>/"  # trailing slash
+```
+
+| `x-gitbook-*` headers | Who answered |
+|-----------------------|--------------|
+| present | **GitBook** — the redirect config is in play; continue to step 2 |
+| absent | **Cloudflare** — the request never reached GitBook; nothing you configure in GitBook can affect it |
+
+The two forms routinely disagree, so check both. Add `?cb=$RANDOM` to bypass edge caching, and use
+`curl -D - -L` to see the **whole hop chain** — the first hop is the one that matters.
+
+### Step 2: Find out whether the rule is stored
+
+Don't infer this from the live URL. Ask the API:
+
+- `getSiteRedirectBySource` (`GET /orgs/{org}/sites/{site}/redirect?source=<site-relative-path>`)
+  returns the rule and its resolved `target`.
+- `listSiteRedirects` with `search=<slug>` finds rules by path.
+
+If the rule is present, `draft: false`, with the right destination, but the live URL goes somewhere
+else — the rule is fine and something in front of GitBook is intercepting it.
+
+### Two failure modes that look like GitBook bugs but are Cloudflare's
+
+Both were misdiagnosed on DOCS-6370 before the header check was applied:
+
+- **Self-redirect loop.** The no-slash form 301s to *the identical URL* — `ERR_TOO_MANY_REDIRECTS`,
+  no error page, just a hang. Worse than a 404 for readers, and invisible to link checkers.
+- **Silent wrong page.** The no-slash form 301s to a *different* page's old slug; GitBook then
+  faithfully resolves that wrong slug, so the reader gets **HTTP 200 on the wrong page**. No link
+  checker will ever flag this.
+
+In both cases the trailing-slash form 307s to the correct target, because the GitBook rule was
+always right. **The fix is to remove the Cloudflare rule** (an IT request) — adding or editing a
+GitBook rule cannot win a race it never enters.
+
+Two corollaries worth remembering:
+
+- **Don't measure whether an import "took" using the no-slash form.** DOCS-6370 concluded that 10 of
+  18 imported rows had silently failed. All 18 had applied; the 10 were simply unobservable behind
+  Cloudflare.
+- **A `site-page` destination is not a workaround.** Switching a rule's destination from
+  `external` (absolute URL) to `site-page` (internal page reference) changes nothing here. Tested
+  and reverted on DOCS-6370 — don't spend time on it again.
+
 ## Checklist
 
 - [ ] In-repo inbound links to the old paths already repointed (separate from redirects).
@@ -88,4 +151,6 @@ The person with GitBook site admin access does this — it is not a Git operatio
 - [ ] `destination` = full `https://mariadb.com/docs/server/…` URL.
 - [ ] Base URL verified against one real live page.
 - [ ] A row for every retired page **and** every retired section landing.
-- [ ] Handed to a GitBook site admin to import (you can't do it via Git/API/MCP).
+- [ ] Handed to a GitBook site admin to import (or loaded via the API — but not via Git).
+- [ ] **Re-probed every row after import**, on **both** slash forms, checking `x-gitbook-*` to see
+      which layer answered. A CSV import reports no error for a row that ends up unobservable.

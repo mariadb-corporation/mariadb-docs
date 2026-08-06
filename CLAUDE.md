@@ -27,6 +27,7 @@ Guidance for Claude Code (and other AI agents) working in the **MariaDB document
 | DOCS Jira workflow (project facts, transitions, branch model) | `dev-docs/cookbook-jira-workflow.md` |
 | Fact-check paper trail (report format, where it lives, lifecycle) | `dev-docs/cookbook-fact-trail.md` |
 | GitBook redirects (CSV format for retired/moved URLs) | `dev-docs/cookbook-gitbook-redirects.md` |
+| Publishing the docs-site MCP server to the official registry | `dev-docs/cookbook-mcp-registry.md` |
 | Claude Code status line (Roel's script) | `dev-docs/cookbook-statusline.md` |
 
 ## Skills

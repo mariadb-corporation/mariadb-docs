@@ -14,6 +14,6 @@ The list is updated continuously. CVEs may be added retroactively to already-rel
 | ----------------------------------------------------------------- | ---------------------------------------------------- | ------------------------------- |
 | [CVE-2023-40354](https://nvd.nist.gov/vuln/detail/CVE-2023-40354) | [MXS-4681](https://jira.mariadb.org/browse/MXS-4681) | 2.5.28, 6.4.9, 22.08.8, 23.02.3 |
 
-{% include "../../.gitbook/includes/license-copyright-mariadb.md" %}
+{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 
 {% @marketo/form formId="4316" %}
