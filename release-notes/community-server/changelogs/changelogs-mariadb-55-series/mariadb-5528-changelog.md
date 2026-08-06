@@ -9,7 +9,7 @@ The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-impr
 For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.28.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3562](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3562)\
@@ -28,69 +28,69 @@ modified in that revision.
       .. into [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
     * Fix for Bug #12667154 SAME QUERY EXEC AS WHERE SUBQ GIVES DIFFERENT\
       RESULTS ON IN() & NOT IN() COMP #3
-    * This bug causes a wrong result in mysql-trunk when ICP is used\
+    * This bug causes a wrong result in mysql-trunk when ICP is used
       and bad performance in mysql-5.5 and mysql-trunk.
-    * Using the query from bug report to explain what happens and causes\
+    * Using the query from bug report to explain what happens and causes
       the wrong result from the query when ICP is enabled:
-      1. The t3 table contains four records. The outer query will read\
+      1. The t3 table contains four records. The outer query will read
          these and for each of these it will execute the subquery.
-      2. Before the first execution of the subquery it will be optimized. In\
+      2. Before the first execution of the subquery it will be optimized. In
          this case the important is what happens to the first table t1:
-      3. make\_join\_select() will call the range optimizer which decides\
+      3. make\_join\_select() will call the range optimizer which decides
          that t1 should be accessed using a range scan on the k1 index\
          It creates a QUICK\_RANGE\_SELECT object for this.
-      4. As the last part of optimization the ICP code pushes the\
+      4. As the last part of optimization the ICP code pushes the
          condition down to the storage engine for table t1 on the k1 index.
       5. This produces the following information in the explain for this table:
          * 2 DEPENDENT SUBQUERY t1 range k1 k1 5 NULL 3 Using index condition; Using filesort
       6. Note the use of filesort.
-      7. The first execution of the subquery does (among other things) due\
+      7. The first execution of the subquery does (among other things) due
          to the need for sorting:
       8. Call create\_sort\_index() which again will call find\_all\_keys():
-      9. find\_all\_keys() will read the required keys for all qualifying\
-         rows from the storage engine. To do this it checks if it has a\
-         quick-select for the table. It will use the quick-select for\
-         reading records. In this case it will read four records from the\
-         storage engine (based on the range criteria). The storage engine\
+      9. find\_all\_keys() will read the required keys for all qualifying
+         rows from the storage engine. To do this it checks if it has a
+         quick-select for the table. It will use the quick-select for
+         reading records. In this case it will read four records from the
+         storage engine (based on the range criteria). The storage engine
          will evaluate the pushed index condition for each record.
-      10. At the end of create\_sort\_index() there is code that cleans up a\
-          lot of stuff on the join tab. One of the things that is cleaned\
-          is the select object. The result of this is that the\
+      10. At the end of create\_sort\_index() there is code that cleans up a
+          lot of stuff on the join tab. One of the things that is cleaned
+          is the select object. The result of this is that the
           quick-select object created in make\_join\_select is deleted.
-      11. The second execution of the subquery does the same as the first but\
+      11. The second execution of the subquery does the same as the first but
           the result is different:
-      12. Call create\_sort\_index() which again will call find\_all\_keys()\
+      12. Call create\_sort\_index() which again will call find\_all\_keys()
           (same as for the first execution)
-      13. find\_all\_keys() will read the keys from the storage engine. To\
-          do this it checks if it has a quick-select for the table. Now\
-          there is NO quick-select object(!) (since it was deleted in\
-          step 3c). So find\_all\_keys defaults to read the table using a\
-          table scan instead. So instead of reading the four relevant records\
-          in the range it reads the entire table (6 records). It then\
-          evaluates the table's condition (and here it goes wrong). Since\
-          the entire condition has been pushed down to the storage engine\
-          using ICP all 6 records qualify. (Note that the storage engine\
-          will not evaluate the pushed index condition in this case since\
-          it was pushed for the k1 index and now we do a table scan\
+      13. find\_all\_keys() will read the keys from the storage engine. To
+          do this it checks if it has a quick-select for the table. Now
+          there is NO quick-select object(!) (since it was deleted in
+          step 3c). So find\_all\_keys defaults to read the table using a
+          table scan instead. So instead of reading the four relevant records
+          in the range it reads the entire table (6 records). It then
+          evaluates the table's condition (and here it goes wrong). Since
+          the entire condition has been pushed down to the storage engine
+          using ICP all 6 records qualify. (Note that the storage engine
+          will not evaluate the pushed index condition in this case since
+          it was pushed for the k1 index and now we do a table scan
           without any index being used).\
-          The result is that here we return six qualifying key values\
+          The result is that here we return six qualifying key values
           instead of four due to not evaluating the table's condition.
       14. As above.
-      15. The two last execution of the subquery will also produce wrong results\
+      15. The two last execution of the subquery will also produce wrong results
           for the same reason.
-      16. Summary: The problem occurs due to all but the first executions of the\
-          subquery is done as a table scan without evaluating the table's\
-          condition (which is pushed to the storage engine on a different\
-          index). This is caused by the create\_sort\_index() function deleting\
-          the quick-select object that should have been used for executing the\
+      16. Summary: The problem occurs due to all but the first executions of the
+          subquery is done as a table scan without evaluating the table's
+          condition (which is pushed to the storage engine on a different
+          index). This is caused by the create\_sort\_index() function deleting
+          the quick-select object that should have been used for executing the
           subquery as a range scan.
-      17. Note that this bug in addition to causing wrong results also can\
-          result in bad performance due to executing the subquery using a table\
+      17. Note that this bug in addition to causing wrong results also can
+          result in bad performance due to executing the subquery using a table
           scan instead of a range scan. This is an issue in MySQL 5.5.
-      18. The fix for this problem is to avoid that the Quick-select-object that\
-          the optimizer created is deleted when create\_sort\_index() is doing\
-          clean-up of the join-tab. This will ensure that the quick-select\
-          object and the corresponding pushed index condition will be available\
+      18. The fix for this problem is to avoid that the Quick-select-object that
+          the optimizer created is deleted when create\_sort\_index() is doing
+          clean-up of the join-tab. This will ensure that the quick-select
+          object and the corresponding pushed index condition will be available
           and used by all following executions of the subquery.
   * [Revision #2502.567.29](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.29)\
     Fri 2012-10-05 12:26:55 +0300
@@ -105,10 +105,10 @@ modified in that revision.
   * [Revision #2502.567.26](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.26)\
     Sat 2012-09-29 22:44:13 -0700
     * Fixed LP bug #1058071 ([MDEV-564](https://jira.mariadb.org/browse/MDEV-564)).
-    * In some rare cases when the value of the system variable join\_buffer\_size\
-      was set to a number less than 256 the function JOIN\_CACHE::set\_constants\
-      determined the size of an offset in the join buffer equal to 1 though\
-      the minimal join buffer required more than 256 bytes. This could cause\
+    * In some rare cases when the value of the system variable join\_buffer\_size
+      was set to a number less than 256 the function JOIN\_CACHE::set\_constants
+      determined the size of an offset in the join buffer equal to 1 though
+      the minimal join buffer required more than 256 bytes. This could cause
       a crash of the server when records from the join buffer were read.
   * [Revision #2502.567.25](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.25)\
     Fri 2012-09-28 09:54:43 +0200
@@ -226,18 +226,18 @@ modified in that revision.
   * Fix by Sergey Petrunia.
   * This patch only prevents the evaluation of expensive subqueries during optimization.
   * The crash reported in this bug has been fixed by some other patch.
-  * The fix is to call value->is\_null() only when !value->is\_expensive(), because is\_null()\
+  * The fix is to call value->is\_null() only when !value->is\_expensive(), because is\_null()
     may trigger evaluation of the Item, which in turn triggers subquery evaluation if the\
     Item is a subquery.
 * [Revision #3551](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3551)\
   Fri 2012-10-12 10:54:46 +0200
   * [MDEV-3802](https://jira.mariadb.org/browse/MDEV-3802). Millisecond timeout support in non-blocking client library.
-  * In 10.0, VIO timeouts can be in milliseconds, so we add a new function\
-    mysql\_get\_timeout\_value\_ms() which can return millisecond-precision\
+  * In 10.0, VIO timeouts can be in milliseconds, so we add a new function
+    mysql\_get\_timeout\_value\_ms() which can return millisecond-precision
     timeout values.
-  * In 5.5, we do not have millisecond precision for timeouts. But we still\
-    provide the mysql\_get\_timeout\_value\_ms() function; this makes it easier\
-    for applications as they can use the millisecond function in 10.0 and\
+  * In 5.5, we do not have millisecond precision for timeouts. But we still
+    provide the mysql\_get\_timeout\_value\_ms() function; this makes it easier
+    for applications as they can use the millisecond function in 10.0 and
     still work with the 5.5 version of the client library.
 * [Revision #3550](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3550)\
   Thu 2012-10-11 12:09:21 +0300
@@ -261,7 +261,7 @@ modified in that revision.
   * [MDEV-519](https://jira.mariadb.org/browse/MDEV-519): mariadb-client-5.5 conflicts with package mytop
   * Do not include mytop in mariadb-client-5.5 .deb package.
   * There is already a Debian mytop package, so we get a package conflict.\
-    And there is no reason for the MariaDB project to guerrilla-take-over\
+    And there is no reason for the MariaDB project to guerrilla-take-over
     mytop maintenance.
 * [Revision #3544](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3544)\
   Thu 2012-10-04 23:52:11 +0300
@@ -290,24 +290,24 @@ modified in that revision.
 * [Revision #3538](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3538)\
   Tue 2012-09-18 23:34:16 +0300
   * This fix+comments was originally made by Alexey Kopytov
-  * [Bug #1035225](https://bugs.launchpad.net/bugs/1035225) / MySQL bug #66301: INSERT ... ON DUPLICATE KEY UPDATE +\
+  * [Bug #1035225](https://bugs.launchpad.net/bugs/1035225) / MySQL bug #66301: INSERT ... ON DUPLICATE KEY UPDATE +
     innodb\_autoinc\_lock\_mode=1 is broken
-  * The problem was that when certain INSERT ... ON DUPLICATE KEY UPDATE\
-    were executed concurrently on a table containing an AUTO\_INCREMENT\
+  * The problem was that when certain INSERT ... ON DUPLICATE KEY UPDATE
+    were executed concurrently on a table containing an AUTO\_INCREMENT
     column as a primary key, InnoDB would correctly reserve non-overlapping\
-    AUTO\_INCREMENT intervals for each statement, but when the server\
-    encountered the first duplicate key error on the secondary key in one of\
+    AUTO\_INCREMENT intervals for each statement, but when the server
+    encountered the first duplicate key error on the secondary key in one of
     the statements and performed an UPDATE, it also updated the internal\
-    AUTO\_INCREMENT value to the one from the existing row that caused a\
-    duplicate key error, even though the AUTO\_INCREMENT value was not\
-    specified explicitly in the UPDATE clause. It would then proceed with\
-    using AUTO\_INCREMENT values the range reserved previously by another\
+    AUTO\_INCREMENT value to the one from the existing row that caused a
+    duplicate key error, even though the AUTO\_INCREMENT value was not
+    specified explicitly in the UPDATE clause. It would then proceed with
+    using AUTO\_INCREMENT values the range reserved previously by another
     statement, causing duplicate key errors on the AUTO\_INCREMENT column.
-  * Fixed by changing write\_record() to ensure that in case of a duplicate\
+  * Fixed by changing write\_record() to ensure that in case of a duplicate
     key error the internal AUTO\_INCREMENT counter is only updated when the\
-    AUTO\_INCREMENT value was explicitly updated by the UPDATE\
-    clause. Otherwise it is restored to what it was before the duplicate key\
-    error, as that value is unused and can be reused for subsequent\
+    AUTO\_INCREMENT value was explicitly updated by the UPDATE
+    clause. Otherwise it is restored to what it was before the duplicate key
+    error, as that value is unused and can be reused for subsequent
     successfully inserted rows.
 * [Revision #3537](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3537) \[merge]\
   Tue 2012-09-18 15:32:08 +0300
@@ -319,7 +319,7 @@ modified in that revision.
         * insert into t1 values(32767);
         * insert into t1 values(NULL);
         * ERROR 1062 (23000): Duplicate entry '32767' for key 'PRIMARY
-      * Now on always gets error HA\_ERR\_AUTOINC\_RANGE=167 "Out of range value for column", independent of\
+      * Now on always gets error HA\_ERR\_AUTOINC\_RANGE=167 "Out of range value for column", independent of
         store engine, SQL Mode or number of inserted rows. This is an unique error that is easier to test for in replication.
       * Another bug fix is that we now get an error when trying to insert a too big auto-generated value, even in non-strict mode.
         * Before one get insted the max column value inserted.
@@ -351,23 +351,23 @@ modified in that revision.
       * Fix [Bug #1009187](https://bugs.launchpad.net/bugs/1009187), [MDEV-373](https://jira.mariadb.org/browse/MDEV-373), mysql bug#58628
       * Analysis:
         * The queries in question use the \[unique | index]\_subquery execution methods.\
-          These methods reuse the ref keys constructed by create\_ref\_for\_key(). The\
-          way create\_ref\_for\_key() works is that it doesn't store in ref.key\_copy\[]\
-          store\_key elements that represent constants. In particular it doesn't store\
+          These methods reuse the ref keys constructed by create\_ref\_for\_key(). The
+          way create\_ref\_for\_key() works is that it doesn't store in ref.key\_copy\[]
+          store\_key elements that represent constants. In particular it doesn't store
           the store\_key for NULL constants.
-        * The execution of \[unique | index]\_subquery calls\
-          subselect\_uniquesubquery\_engine::copy\_ref\_key, which in addition to copy\
-          the left IN argument into a index lookup key, is supposed to detect if\
-          the left IN argument contains NULLs. Since the store\_key for the NULL\
-          constant is not copied into the key array, the null is not detected, and\
+        * The execution of \[unique | index]\_subquery calls
+          subselect\_uniquesubquery\_engine::copy\_ref\_key, which in addition to copy
+          the left IN argument into a index lookup key, is supposed to detect if
+          the left IN argument contains NULLs. Since the store\_key for the NULL
+          constant is not copied into the key array, the null is not detected, and
           execution erroneously proceeds as if it should look for a complete match.
       * Solution:
         * The solution (unlike MySQL) is to reuse already computed information about\
-          NULL presence. Item\_in\_optimizer::val\_int already finds out if the left IN\
-          operand contains NULLs. The fix propagates this to the execution methods\
+          NULL presence. Item\_in\_optimizer::val\_int already finds out if the left IN
+          operand contains NULLs. The fix propagates this to the execution methods
           subselect\_\[unique | index]subquery\_engine::exec so it knows if there were\
           NULL values independent of the presence of keys.
-        * In addition the patch siplifies copy\_ref\_key() and the logic that hanldes\
+        * In addition the patch siplifies copy\_ref\_key() and the logic that hanldes
           the case of NULLs in the left IN operand.
   * [Revision #2502.567.19](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.19)\
     Fri 2012-09-07 09:39:51 +0300

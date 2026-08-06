@@ -8,7 +8,7 @@ The most recent release of [MariaDB 11.1](../../old-releases/11.1/what-is-mariad
 
 For the highlights of this release, see the [release notes](../../old-releases/11.1/11.1.5.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.1) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.1) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Includes all fixes from [MariaDB 11.0.6](../11.0/mariadb-11-0-6-changelog.md)

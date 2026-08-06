@@ -9,7 +9,7 @@ The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-impr
 For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.33.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3896.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3896.1.1)\

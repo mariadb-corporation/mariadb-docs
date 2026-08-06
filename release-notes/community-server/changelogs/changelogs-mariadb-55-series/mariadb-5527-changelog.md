@@ -9,7 +9,7 @@ The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-impr
 For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.27.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3527](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3527)\
@@ -53,11 +53,11 @@ modified in that revision.
   Tue 2012-09-04 19:11:06 +0200
   * [MDEV-481](https://jira.mariadb.org/browse/MDEV-481) Assertion \`pins->pin\[i] == 0' failed in \_lf\_pinbox\_put\_pins on concurrent OPTIMIZE TABLE and DML with Aria tables
   * A bug in the lock-free hash implementation!
-  * when lsearch() has not found the key, the caller needs to unpin all the three pins,\
+  * when lsearch() has not found the key, the caller needs to unpin all the three pins,
     because lsearch() was using all the three.
 * [Revision #3522](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3522)\
   Tue 2012-09-04 12:12:28 +0200
-  1. fix an old typo. A purgatory must be cleaned on every LF\_PURGATORY\_SIZE freeing,\
+  1. fix an old typo. A purgatory must be cleaned on every LF\_PURGATORY\_SIZE freeing,
      not every time.
   2. Increase purgatory size.
 * [Revision #3521](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3521)\
@@ -78,16 +78,16 @@ modified in that revision.
   * [Revision #2502.567.15](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.15)\
     Thu 2012-08-30 10:53:49 +0200
     * [MDEV-381](https://jira.mariadb.org/browse/MDEV-381): fdatasync() does not correctly flush growing binlog file.
-    * When we append data to the binlog file, we use fdatasync() to ensure\
+    * When we append data to the binlog file, we use fdatasync() to ensure
       the data gets to disk so that crash recovery can work.
-    * Unfortunately there seems to be a bug in ext3/ext4 on linux, so that\
-      fdatasync() does not correctly sync all data when the size of a file\
-      is increased. This causes crash recovery to not work correctly (it\
+    * Unfortunately there seems to be a bug in ext3/ext4 on linux, so that
+      fdatasync() does not correctly sync all data when the size of a file
+      is increased. This causes crash recovery to not work correctly (it
       loses transactions from the binlog).
-    * As a work-around, use fsync() for the binlog, not fdatasync(). Since\
-      we are increasing the file size, (correct) fdatasync() will most\
-      likely not be faster than fsync() on any file system, and fsync()\
-      does work correctly on ext3/ext4. This avoids the need to try to\
+    * As a work-around, use fsync() for the binlog, not fdatasync(). Since
+      we are increasing the file size, (correct) fdatasync() will most
+      likely not be faster than fsync() on any file system, and fsync()
+      does work correctly on ext3/ext4. This avoids the need to try to
       detect if we are running on buggy ext3/ext4.
   * [Revision #2502.567.14](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.14)\
     Thu 2012-08-30 09:05:27 +0200
@@ -103,13 +103,13 @@ modified in that revision.
     * [MDEV-454](https://jira.mariadb.org/browse/MDEV-454) Addition of a time interval reduces the resulting value
       1. Field\_newdate::get\_date should refuse to return a date with zeros when\
          TIME\_NO\_ZERO\_IN\_DATE is set, not when TIME\_FUZZY\_DATE is unset
-      2. Item\_func\_to\_days and Item\_date\_add\_interval can only work with valid dates,\
+      2. Item\_func\_to\_days and Item\_date\_add\_interval can only work with valid dates,
          no zeros allowed.
   * [Revision #2502.567.11](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.11)\
     Wed 2012-08-29 10:59:51 +0200
     * [MDEV-456](https://jira.mariadb.org/browse/MDEV-456) An out-of-range datetime value (with a 5-digit year) can be created and cause troubles
     * fix Item\_func\_add\_time::get\_date() to generate valid dates.
-    * Move the validity check inside get\_date\_from\_daynr()\
+    * Move the validity check inside get\_date\_from\_daynr()
       instead of relying on callers
     * (5 that had it, and 2 that did not, but should've)
   * [Revision #2502.567.10](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.10)\
@@ -117,7 +117,7 @@ modified in that revision.
     * [MDEV-492](https://jira.mariadb.org/browse/MDEV-492): fixed incorrect error check.
   * [Revision #2502.567.9](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.9)\
     Tue 2012-08-28 13:51:01 +0400
-    * Fix bugs in BatchedKeyAccess that show up when working with a\
+    * Fix bugs in BatchedKeyAccess that show up when working with a
       storage engine in HA\_MRR\_NO\_ASSOCIATION mode.
     * (there is no testcase because we don't ship any such engines currently)
 * [Revision #3517](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3517)\
@@ -208,7 +208,7 @@ modified in that revision.
     * 5.2 merge.
     * two tests still fail:
       * main.innodb\_icp and main.range\_vs\_index\_merge\_innodb
-      * call records\_in\_range() with both range ends being open\
+      * call records\_in\_range() with both range ends being open
         (which triggers an assert)
     * [Revision #2502.566.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.566.1) \[merge]\
       Wed 2012-08-22 16:13:54 +0200
@@ -232,7 +232,7 @@ modified in that revision.
       * [Revision #2502.554.10](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.554.10)\
         Fri 2012-08-24 10:06:16 +0200
         * [MDEV-382](https://jira.mariadb.org/browse/MDEV-382): Incorrect quoting ([CVE-2012-4414](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-4414))
-        * Various places in the server replication code was incorrectly quoting\
+        * Various places in the server replication code was incorrectly quoting
           strings, which could lead to incorrect SQL on the slave/mysqlbinlog.
 * [Revision #3507](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3507) \[merge]\
   Fri 2012-08-24 13:57:39 +0200
@@ -256,14 +256,14 @@ modified in that revision.
     * Fixed bug [MDEV-449](https://jira.mariadb.org/browse/MDEV-449).
     * The bug could caused a crash when the server executed a query with\
       ORDER by and sort\_buffer\_size was set to a small enough number.
-    * It happened because the small sort buffer did not allow to allocate\
+    * It happened because the small sort buffer did not allow to allocate
       all merge buffers in it.
-    * Made sure that the allocated sort buffer would be big enough\
+    * Made sure that the allocated sort buffer would be big enough
       to contain all possible merge buffers.
 * [Revision #3506](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3506)\
   Thu 2012-08-23 15:36:38 +0200
   * [MDEV-439](https://jira.mariadb.org/browse/MDEV-439) cmake -DWITHOUT\_SERVER does not work
-  * fix mysys/waiting\_threads.c to compile w/o performance schema\
+  * fix mysys/waiting\_threads.c to compile w/o performance schema
     include clients. scripts and manpages in -DWITHOUT\_SERVER
 * [Revision #3505](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3505)\
   Thu 2012-08-23 15:32:03 +0200
@@ -287,10 +287,10 @@ modified in that revision.
 * [Revision #3500](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3500)\
   Tue 2012-08-21 15:24:43 +0300
   * Fix bug [MDEV-447](https://jira.mariadb.org/browse/MDEV-447): Wrong output from the EXPLAIN command of the test case for [Bug #714999](https://bugs.launchpad.net/bugs/714999)
-  * The fix backports from [MWL#182](https://askmonty.org/worklog/?tid=182): Explain running statements the logic that\
-    saves the original JOIN\_TAB array of a query plan after optimization. This\
-    array is later used during EXPLAIN to iterate over the original JOIN plan\
-    nodes in the cases when this plan could be changed by early subquery\
+  * The fix backports from [MWL#182](https://askmonty.org/worklog/?tid=182): Explain running statements the logic that
+    saves the original JOIN\_TAB array of a query plan after optimization. This
+    array is later used during EXPLAIN to iterate over the original JOIN plan
+    nodes in the cases when this plan could be changed by early subquery
     execution during the optimization phase of the outer query.
 * [Revision #3499](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3499)\
   Tue 2012-08-21 08:46:32 +0300
@@ -337,19 +337,19 @@ modified in that revision.
 * [Revision #3492](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3492)\
   Tue 2012-08-14 12:40:40 +0200
   * [MDEV-450](https://jira.mariadb.org/browse/MDEV-450): Deadlock between starting a slave and reading system variables
-  * Starting the SQL thread might deadlock with reading the values of the\
+  * Starting the SQL thread might deadlock with reading the values of the
     replication filtering options.
-  * The deadlock is due to a lock order violation when the variables are\
-    read or set. For example, reading replicate\_ignore\_table first\
-    acquires LOCK\_global\_system\_variables in sys\_var::value\_ptr and later\
-    acquires LOCK\_active\_mi in Sys\_var\_rpl\_filter::global\_value\_ptr. This\
+  * The deadlock is due to a lock order violation when the variables are
+    read or set. For example, reading replicate\_ignore\_table first
+    acquires LOCK\_global\_system\_variables in sys\_var::value\_ptr and later
+    acquires LOCK\_active\_mi in Sys\_var\_rpl\_filter::global\_value\_ptr. This
     violates the order established when starting a SQL thread, where\
-    LOCK\_active\_mi is acquired before start\_slave, and ends up creating a\
-    thread (handle\_slave\_sql) that allocates a THD handle whose\
+    LOCK\_active\_mi is acquired before start\_slave, and ends up creating a
+    thread (handle\_slave\_sql) that allocates a THD handle whose
     constructor acquires LOCK\_global\_system\_variables in THD::init.
-  * The solution is to unlock LOCK\_global\_system\_variables before the\
-    replication filtering options are set or read. This way the lock\
-    order is preserved and the data being read/set is still protected\
+  * The solution is to unlock LOCK\_global\_system\_variables before the
+    replication filtering options are set or read. This way the lock
+    order is preserved and the data being read/set is still protected
     given that it acquires LOCK\_active\_mi.
 * [Revision #3491](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3491)\
   Mon 2012-08-13 11:14:43 +0200
@@ -392,7 +392,7 @@ modified in that revision.
 * [Revision #3483](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3483)\
   Wed 2012-08-01 19:57:36 +0200
   * [MDEV-399](https://jira.mariadb.org/browse/MDEV-399) Combinations defined in the base suite cannot be skipped by overlay
-  * When appliying parent combinations to the overlay,\
+  * When appliying parent combinations to the overlay,
     filter them through the %skip\_combinations using the overlayed filename
 * [Revision #3482](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3482)\
   Thu 2012-08-02 23:17:27 +0200
@@ -427,9 +427,9 @@ modified in that revision.
 * [Revision #3479](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3479)\
   Tue 2012-07-31 22:39:33 +0200
   * [MDEV-336](https://jira.mariadb.org/browse/MDEV-336) oqgraph 5.5 crashes in buildbot
-  * make CMakeLists.txt to detect if the installed boost can be compiled with the\
+  * make CMakeLists.txt to detect if the installed boost can be compiled with the
     installed compile and specified set of compiler options.
-  * Background: even sufficiently new Boost cannot be compiled with the sufficiently old gcc\
+  * Background: even sufficiently new Boost cannot be compiled with the sufficiently old gcc
     in the presence of -fno-rtti
 * [Revision #3478](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3478)\
   Tue 2012-07-31 19:29:07 +0200
@@ -445,8 +445,8 @@ modified in that revision.
   Tue 2012-07-31 16:21:53 +0500
   * [MDEV-340](https://jira.mariadb.org/browse/MDEV-340) Save replication comments for DROP TABLE.
   * mysql\_rm\_table\_no\_locks() function was modified.
-  * When we construct log record for the DROP TABLE, now we\
-    look if there's a comment before the first table name and\
+  * When we construct log record for the DROP TABLE, now we
+    look if there's a comment before the first table name and
     add it to the record if so.
   * per-file comments:
     * sql/sql\_table.cc
@@ -470,7 +470,7 @@ modified in that revision.
 * [Revision #3473](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3473)\
   Wed 2012-07-25 20:41:48 +0400
   * [MDEV-410](https://jira.mariadb.org/browse/MDEV-410): EXPLAIN shows type=range, while SHOW EXPLAIN and userstat show full table scan is used
-  * Make Item\_subselect::fix\_fields() ignore UNCACHEABLE\_EXPLAIN flag when deciding whether\
+  * Make Item\_subselect::fix\_fields() ignore UNCACHEABLE\_EXPLAIN flag when deciding whether
     the subquery item should be marked as constant.
 * [Revision #3472](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3472)\
   Tue 2012-07-24 17:50:06 +0300
@@ -503,10 +503,10 @@ modified in that revision.
     * [MDEV-398](https://jira.mariadb.org/browse/MDEV-398): Sergv related to spacial queries
     * index\_merge/intersection is unable to work on GIS indexes, because:
       1. index scans have no Rowid-Ordered-Retrieval property
-      2. When one does an index-only read over a GIS index, they do not\
+      2. When one does an index-only read over a GIS index, they do not
          get the index tuple, because index only contains bounding box of the geometry.\
          This is why key\_copy() call crashed.
-    * This patch fixes #1, which makes the problem go away. Theoretically, it would\
+    * This patch fixes #1, which makes the problem go away. Theoretically, it would
       be nice to check #2, too, but SE API semantics is not sufficiently precise to do it.
 * [Revision #3468](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3468) \[merge]\
   Wed 2012-07-18 22:36:20 +0400
@@ -514,7 +514,7 @@ modified in that revision.
   * [Revision #2502.561.12](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.561.12)\
     Tue 2012-06-26 21:43:34 +0300
     * Fix for [Bug #1007622](https://bugs.launchpad.net/bugs/1007622)
-    * TABLE\_LIST::check\_single\_table made aware about fact that now if table attached to a merged view it can be (unopened) temporary table\
+    * TABLE\_LIST::check\_single\_table made aware about fact that now if table attached to a merged view it can be (unopened) temporary table
       (in 5.2 it was always leaf table or non (in case of several tables)).
 * [Revision #3467](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3467)\
   Mon 2012-07-16 10:48:03 +0300
@@ -541,7 +541,7 @@ modified in that revision.
   * [Revision #3457.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3457.1.1)\
     Wed 2012-07-04 14:34:45 +0400
     * [MDEV-376](https://jira.mariadb.org/browse/MDEV-376): Wrong result (missing rows) with index\_merge+index\_merge\_intersection, join
-    * Let QUICK\_RANGE\_SELECT::init\_ror\_merged\_scan() call quick->reset() only\
+    * Let QUICK\_RANGE\_SELECT::init\_ror\_merged\_scan() call quick->reset() only
       after we've set the column read bitmaps.
 * [Revision #3461](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3461)\
   Thu 2012-07-05 09:29:34 +0200
@@ -568,12 +568,12 @@ modified in that revision.
     * [Revision #2502.562.8](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.562.8)\
       Mon 2012-06-18 22:32:17 -0700
       * Fixed bug [MDEV-354](https://jira.mariadb.org/browse/MDEV-354).
-      * Virtual columns of ENUM and SET data types were not supported properly\
+      * Virtual columns of ENUM and SET data types were not supported properly
         in the original patch that introduced virtual columns into [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md).
-      * The problem was that for any virtual column the patch used the\
-        interval\_id field of the definition of the column in the frm file as\
+      * The problem was that for any virtual column the patch used the
+        interval\_id field of the definition of the column in the frm file as
         a reference to the virtual column expression.
-      * The fix stores the optional interval\_id of the virtual column in the\
+      * The fix stores the optional interval\_id of the virtual column in the
         extended header of the virtual column expression.
   * [Revision #2502.561.10](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.561.10)\
     Fri 2012-06-22 14:14:22 +0400

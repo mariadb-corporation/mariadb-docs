@@ -9,7 +9,7 @@ The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporat
 For the highlights of this release, see the [release notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5535-release-notes.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3465](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3465)\
@@ -17,7 +17,7 @@ modified in that revision.
   * Reverting the change that erroneously got introduced during merge.
 * [Revision #3464](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3464)\
   Wed 2014-02-05 00:28:11 -0500
-  * Merged the missing revision 3934 from codership-mysql/5.5 (missed in the\
+  * Merged the missing revision 3934 from codership-mysql/5.5 (missed in the
     last merge).
   * Merged changes from Innodb to xtradb.
   * Updated WSREP\_PATCH\_REVNO
@@ -32,8 +32,8 @@ modified in that revision.
   * Merge of maria/5.5 into maria-5.5-galera. bzr merge -r tag:mariadb-5.5.35 maria/5.5
 * [Revision #3460](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3460)\
   Thu 2014-01-23 15:57:47 -0500
-  * The bzr revision visible in [@@version\_comment](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#version_comment) should represent the last\
-    merged revision from codership branch and not the revision of the MGC tree\
+  * The bzr revision visible in [@@version\_comment](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#version_comment) should represent the last
+    merged revision from codership branch and not the revision of the MGC tree
     itself.
 * [Revision #3459](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3459)\
   Thu 2014-01-09 23:22:10 -0500

@@ -8,7 +8,7 @@ The most recent release of [MariaDB 10.4](../../old-releases/10.4/what-is-mariad
 
 For the highlights of this release, see the [release notes](../../old-releases/10.4/10.4.0.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.4) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.4) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Merge [Revision #c761b43451](https://github.com/MariaDB/server/commit/c761b43451) 2018-11-08 09:50:56 +0200 - Merge 10.3 into 10.4

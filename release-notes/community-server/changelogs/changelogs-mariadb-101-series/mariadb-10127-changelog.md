@@ -10,7 +10,7 @@ A regression was discovered after the release of [MariaDB 10.1.27](../../old-rel
 
 For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.27.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #d8fe5fa131](https://github.com/MariaDB/server/commit/d8fe5fa131)\

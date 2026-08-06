@@ -8,7 +8,7 @@ The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-im
 
 For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.34.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #d01dbe66a8](https://github.com/MariaDB/server/commit/d01dbe66a8)\

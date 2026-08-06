@@ -63,7 +63,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
     Wed 2013-01-30 15:11:36 +0100
     * [MDEV-3984](https://jira.mariadb.org/browse/MDEV-3984): Double free of Master\_info \* when CHANGE MASTER fails.
     * When CHANGE MASTER fails, it may or may not have already added the\
-      Master\_info to the index. Implement logic that properly handles removal and\
+      Master\_info to the index. Implement logic that properly handles removal and
       freeing in both cases.
   * [Revision #3427.1.62](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.62)\
     Tue 2013-01-29 19:14:43 +0100
@@ -114,8 +114,8 @@ The revision number links will take you to the revision's page on Launchpad. On 
     Wed 2013-01-23 16:16:14 +0100
     * [MDEV-4011](https://jira.mariadb.org/browse/MDEV-4011) Added per thread memory counting and usage Base code and idea from a patch from by plinux at Taobao.
     * The idea is that we mark all memory that are thread specific with\
-      MY\_THREAD\_SPECIFIC. Memory counting is done per thread in the\
-      my\_malloc\_size\_cb\_func callback function from my\_malloc(). There are plenty of\
+      MY\_THREAD\_SPECIFIC. Memory counting is done per thread in the
+      my\_malloc\_size\_cb\_func callback function from my\_malloc(). There are plenty of
       new asserts to ensure that for a debug server the counting is correct.
     * Information\_schema.processlist gets two new columns: MEMORY\_USED and\
       EXAMINED\_ROWS.
@@ -854,9 +854,9 @@ Fri 2012-08-17 21:13:20 +0400
 
 ```
 
-revno: 3768.1.1\
-committer: Christopher Powers [chris.powers@oracle.com](mailto:chris.powers@oracle.com)\
-timestamp: Wed 2012-05-02 22:16:40 -0500\
+revno: 3768.1.1
+committer: Christopher Powers [chris.powers@oracle.com](mailto:chris.powers@oracle.com)
+timestamp: Wed 2012-05-02 22:16:40 -0500
 message:\
 Bug#11766342 INITIAL DB CREATION FAILS ON WINDOWS WITH AN ASSERT IN SQL\_ERROR.CC\
 Improved bootstrap error handling:
@@ -878,29 +878,29 @@ Improved bootstrap error handling:
 
 ```
 
-revno: 3383\
-revision-id: georgi.kodinov@oracle.com-20110818083108-qa3h3ufqu4zne80a\
-committer: Georgi Kodinov [Georgi.Kodinov@Oracle.com](mailto:Georgi.Kodinov@Oracle.com)\
-timestamp: Thu 2011-08-18 11:31:08 +0300\
+revno: 3383
+revision-id: georgi.kodinov@oracle.com-20110818083108-qa3h3ufqu4zne80a
+committer: Georgi Kodinov [Georgi.Kodinov@Oracle.com](mailto:Georgi.Kodinov@Oracle.com)
+timestamp: Thu 2011-08-18 11:31:08 +0300
 message:\
 .\
 Bug #11766001: 59026: ALLOW MULTIPLE --PLUGIN-LOAD OPTIONS\
 .\
 Implemented support for a new command line option :\
 \--plugin-load-add=\
-This option takes the same type of arguments that --plugin-load does\
-and complements --plugin-load (that continues to operate as before) by\
+This option takes the same type of arguments that --plugin-load does
+and complements --plugin-load (that continues to operate as before) by
 appending its argument to the list specified by --plugin-load.\
-So --plugin-load can be considered a composite option consisting of\
-resetting the plugin load list and then calling --plugin-load-add to process\
+So --plugin-load can be considered a composite option consisting of
+resetting the plugin load list and then calling --plugin-load-add to process
 the argument.\
-Note that the order in which you specify --plugin-load and --plugin-load-add\
+Note that the order in which you specify --plugin-load and --plugin-load-add
 is important : "--plugin-load=x --plugin-load-add=y" will be equivalent to\
-"--plugin-load=x,y" whereas "--plugin-load-add=y --plugin-load=x" will be\
+"--plugin-load=x,y" whereas "--plugin-load-add=y --plugin-load=x" will be
 equivalent to "plugin-load=x".\
 .\
 Incompatible change : the --help --verbose command will no longer print the\
-\--plugin-load variable's values (as it doesn't have one). Otherwise both --plugin-load\
+\--plugin-load variable's values (as it doesn't have one). Otherwise both --plugin-load
 and --plugin-load-add are mentioned in it.
 
 ```

@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.9.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3033](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3033) \[merge]\
@@ -38,7 +38,7 @@ modified in that revision.
   * Automatic merge
     * [Revision #3024.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3024.1.2)\
       Fri 2011-09-09 19:44:07 +0300
-      * Fixed that automatic killing of delayed insert thread (in flush, alter\
+      * Fixed that automatic killing of delayed insert thread (in flush, alter
         table etc) will not abort auto-repair of MyISAM table.
       * Give more information when finding an error in a MyISAM table.
       * When killing system thread, use KILL\_SYSTEM\_THREAD instead of KILL\_CONNECTION to make it easier to ignore the signal in sensitive context (like auto-repair)
@@ -56,15 +56,15 @@ modified in that revision.
 * [Revision #3026](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3026)\
   : Mon 2011-09-05 09:29:49 +0300
   * Fix of [Bug #780386](https://bugs.launchpad.net/bugs/780386).
-    * ALL subquery should return TRUE if subquery rowa set is empty independently\
-      of left part. The problem was that Item\_func\_(eq,ne,gt,ge,lt,le) do not\
-      call execution of second argument if first is NULL no in this case subquery\
-      will not be executed and when Item\_func\_not\_all calls any\_value() of the\
+    * ALL subquery should return TRUE if subquery rowa set is empty independently
+      of left part. The problem was that Item\_func\_(eq,ne,gt,ge,lt,le) do not
+      call execution of second argument if first is NULL no in this case subquery
+      will not be executed and when Item\_func\_not\_all calls any\_value() of the
       subquery or aggregation function which report that there was rows. So for\
       NULL < ALL (SELECT...) result was FALSE instead of TRUE.
-    * Fix is just swapping of arguments of Item\_func\_(eq,ne,gt,ge,lt,le) (with\
-      changing the operation if it is needed) so that result will be the same\
-      (for examole a < b is equal to b > a). This fix exploit the fact that\
+    * Fix is just swapping of arguments of Item\_func\_(eq,ne,gt,ge,lt,le) (with
+      changing the operation if it is needed) so that result will be the same
+      (for examole a < b is equal to b > a). This fix exploit the fact that
       first argument will be executed in any case.
 * [Revision #3025](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3025)\
   : Mon 2011-09-05 08:15:46 +0300

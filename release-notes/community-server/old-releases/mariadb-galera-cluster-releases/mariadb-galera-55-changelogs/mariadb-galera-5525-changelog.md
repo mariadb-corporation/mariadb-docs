@@ -9,7 +9,7 @@ The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporat
 For the highlights of this release, see the [release notes](../mariadb-galera-55-release-notes/mariadb-galera-5525-release-notes.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3344](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3344)\
@@ -26,7 +26,7 @@ modified in that revision.
   * [Revision #3334.1.149](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.149)\
     Wed 2012-08-01 19:57:36 +0200
     * [MDEV-399](https://jira.mariadb.org/browse/MDEV-399) Combinations defined in the base suite cannot be skipped by overlay
-    * When appliying parent combinations to the overlay,\
+    * When appliying parent combinations to the overlay,
       filter them through the %skip\_combinations using the overlayed filename
   * [Revision #3334.1.148](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.148)\
     Thu 2012-08-02 23:17:27 +0200
@@ -61,9 +61,9 @@ modified in that revision.
   * [Revision #3334.1.145](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.145)\
     Tue 2012-07-31 22:39:33 +0200
     * [MDEV-336](https://jira.mariadb.org/browse/MDEV-336) oqgraph 5.5 crashes in buildbot
-    * make CMakeLists.txt to detect if the installed boost can be compiled with the\
+    * make CMakeLists.txt to detect if the installed boost can be compiled with the
       installed compile and specified set of compiler options.
-    * Background: even sufficiently new Boost cannot be compiled with the sufficiently old gcc\
+    * Background: even sufficiently new Boost cannot be compiled with the sufficiently old gcc
       in the presence of -fno-rtti
   * [Revision #3334.1.144](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.144)\
     Tue 2012-07-31 19:29:07 +0200
@@ -79,13 +79,13 @@ modified in that revision.
     Tue 2012-07-31 16:21:53 +0500
     * [MDEV-340](https://jira.mariadb.org/browse/MDEV-340) Save replication comments for DROP TABLE.
     * mysql\_rm\_table\_no\_locks() function was modified.
-    * When we construct log record for the DROP TABLE, now we\
-      look if there's a comment before the first table name and\
+    * When we construct log record for the DROP TABLE, now we
+      look if there's a comment before the first table name and
       add it to the record if so.
     * per-file comments:
       * sql/sql\_table.cc
         * [MDEV-340](https://jira.mariadb.org/browse/MDEV-340) Save replication comments for DROP TABLE.
-          * comment\_length() function implemented to find comments in the query,\
+          * comment\_length() function implemented to find comments in the query,
             call it in mysql\_rm\_table\_no\_locks() and use the result to form log record.
       * mysql-test/suite/binlog/r/binlog\_drop\_if\_exists.result
         * [MDEV-340](https://jira.mariadb.org/browse/MDEV-340) Save replication comments for DROP TABLE.
@@ -104,7 +104,7 @@ modified in that revision.
   * [Revision #3334.1.139](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.139)\
     Wed 2012-07-25 20:41:48 +0400
     * [MDEV-410](https://jira.mariadb.org/browse/MDEV-410): EXPLAIN shows type=range, while SHOW EXPLAIN and userstat show full table scan is used
-    * Make Item\_subselect::fix\_fields() ignore UNCACHEABLE\_EXPLAIN flag when deciding whether\
+    * Make Item\_subselect::fix\_fields() ignore UNCACHEABLE\_EXPLAIN flag when deciding whether
       the subquery item should be marked as constant.
   * [Revision #3334.1.138](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.138)\
     Tue 2012-07-24 17:50:06 +0300
@@ -136,10 +136,10 @@ modified in that revision.
       * [MDEV-398](https://jira.mariadb.org/browse/MDEV-398): Sergv related to spacial queries
       * index\_merge/intersection is unable to work on GIS indexes, because:
         1. index scans have no Rowid-Ordered-Retrieval property
-        2. When one does an index-only read over a GIS index, they do not\
+        2. When one does an index-only read over a GIS index, they do not
            get the index tuple, because index only contains bounding box of the geometry.\
            This is why key\_copy() call crashed.
-      * This patch fixes #1, which makes the problem go away. Theoretically, it would\
+      * This patch fixes #1, which makes the problem go away. Theoretically, it would
         be nice to check #2, too, but SE API semantics is not sufficiently precise to do it.
   * [Revision #3334.1.134](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.134) \[merge]\
     Wed 2012-07-18 22:36:20 +0400
@@ -147,7 +147,7 @@ modified in that revision.
     * [Revision #2502.561.12](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/2502.561.12)\
       Tue 2012-06-26 21:43:34 +0300
       * Fix for [Bug #1007622](https://bugs.launchpad.net/bugs/1007622)
-      * TABLE\_LIST::check\_single\_table made aware about fact that now if table attached to a merged view it can be (unopened) temporary table\
+      * TABLE\_LIST::check\_single\_table made aware about fact that now if table attached to a merged view it can be (unopened) temporary table
         (in 5.2 it was always leaf table or non (in case of several tables)).
   * [Revision #3334.1.133](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.133)\
     Mon 2012-07-16 10:48:03 +0300
@@ -174,7 +174,7 @@ modified in that revision.
     * [Revision #3334.21.1](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.21.1)\
       Wed 2012-07-04 14:34:45 +0400
       * [MDEV-376](https://jira.mariadb.org/browse/MDEV-376): Wrong result (missing rows) with index\_merge+index\_merge\_intersection, join
-      * Let QUICK\_RANGE\_SELECT::init\_ror\_merged\_scan() call quick->reset() only\
+      * Let QUICK\_RANGE\_SELECT::init\_ror\_merged\_scan() call quick->reset() only
         after we've set the column read bitmaps.
   * [Revision #3334.1.127](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.127)\
     Thu 2012-07-05 09:29:34 +0200
@@ -201,12 +201,12 @@ modified in that revision.
       * [Revision #2502.562.8](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/2502.562.8)\
         Mon 2012-06-18 22:32:17 -0700
         * Fixed bug [MDEV-354](https://jira.mariadb.org/browse/MDEV-354).
-        * Virtual columns of ENUM and SET data types were not supported properly\
+        * Virtual columns of ENUM and SET data types were not supported properly
           in the original patch that introduced virtual columns into [MariaDB 5.2](../../5.2/changes-improvements-in-mariadb-5-2.md).
-        * The problem was that for any virtual column the patch used the\
-          interval\_id field of the definition of the column in the frm file as\
+        * The problem was that for any virtual column the patch used the
+          interval\_id field of the definition of the column in the frm file as
           a reference to the virtual column expression.
-        * The fix stores the optional interval\_id of the virtual column in the\
+        * The fix stores the optional interval\_id of the virtual column in the
           extended header of the virtual column expression.
     * [Revision #2502.561.10](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/2502.561.10)\
       Fri 2012-06-22 14:14:22 +0400
@@ -225,9 +225,9 @@ modified in that revision.
     * [MDEV-342](https://jira.mariadb.org/browse/MDEV-342): fix two race conditions in the test case that could occasionally cause spurious failures.
   * [Revision #3334.1.121](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.121)\
     Thu 2012-06-21 21:17:34 +0200
-    * [MDEV-342](https://jira.mariadb.org/browse/MDEV-342): Do not mark old binlog file as cleanly closed during rotate until\
-      the new file is fully synced to disk and binlog index. This fixes a window\
-      where a crash would leave next server restart unable to detect that a crash\
+    * [MDEV-342](https://jira.mariadb.org/browse/MDEV-342): Do not mark old binlog file as cleanly closed during rotate until
+      the new file is fully synced to disk and binlog index. This fixes a window
+      where a crash would leave next server restart unable to detect that a crash
       occured, causing recovery to fail.
   * [Revision #3334.1.120](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.120)\
     Thu 2012-06-21 19:02:53 +0200
@@ -242,9 +242,9 @@ modified in that revision.
   * [Revision #3334.1.117](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.117)\
     Thu 2012-06-21 11:52:54 +0200
     * [MDEV-359](https://jira.mariadb.org/browse/MDEV-359): Server crash when SET GLOBAL rpl\_semi\_sync\_master\_enabled = OFF
-    * The semisync code does a fast-but-unsafe check for enabled or not without lock,\
-      followed by a slow-but-safe check under lock. However, if the slow check failed,\
-      the code still referenced not valid data (in an assert() expression), causing a\
+    * The semisync code does a fast-but-unsafe check for enabled or not without lock,
+      followed by a slow-but-safe check under lock. However, if the slow check failed,
+      the code still referenced not valid data (in an assert() expression), causing a
       crash.
     * Fixed by not running the incorrect assert when semisync is disabled.
   * [Revision #3334.1.116](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.116)\

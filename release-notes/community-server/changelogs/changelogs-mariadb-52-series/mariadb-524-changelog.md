@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.4.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #2894](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2894)
@@ -20,8 +20,8 @@ modified in that revision.
         * Flush page cache before closing files (in maria\_pack)
       * Fixed test suite failure for PBXT
     * [Revision #2643.96.42](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.96.42)
-      * The assert removed because it do not take into account case when previous\
-        and this buffers used for first time but previous buffer was not sent to\
+      * The assert removed because it do not take into account case when previous
+        and this buffers used for first time but previous buffer was not sent to
         disk yet (i.e. previous buffer was never sent to disk yet).
 * [Revision #2892](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2892) \[merge]
   * Automatic merge
@@ -66,7 +66,7 @@ modified in that revision.
       * address review comments
     * [Revision #2643.105.43](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.105.43)
       * Adapt fix\_vs\_config\_dir () for VS2010
-      * MTR\_VS\_CONFIG is now determined by looking at parent directory\
+      * MTR\_VS\_CONFIG is now determined by looking at parent directory
         of sql\*\mysqld.exe, instead of looking at \*\*\BuildLog.htm
       * Reason : VS2010 does not create BuildLog.htm, hence prior method did not work.
     * [Revision #2643.105.42](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.105.42)
@@ -86,19 +86,19 @@ modified in that revision.
     * [Revision #2643.96.33](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.96.33)
       * [MySQL Bug #54201](https://bugs.mysql.com/bug.php?id=54201): "SET INSERT\_ID" event must be ignored if corresponding event is ignored
       * An INSERT query log event is preceeded by an INSERT\_ID intvar event if the\
-        INSERT allocates a new auto\_increment value. But if we ignore the INSERT\
-        due to `--replicate-ignore-table` or similar, then the INSERT\_ID event is\
-        still executed, and the set value of INSERT\_ID lingers around in the\
-        slave sql thread THD object indefinitely until the next INSERT that\
+        INSERT allocates a new auto\_increment value. But if we ignore the INSERT
+        due to `--replicate-ignore-table` or similar, then the INSERT\_ID event is
+        still executed, and the set value of INSERT\_ID lingers around in the
+        slave sql thread THD object indefinitely until the next INSERT that
         happens to need allocation of a new auto\_increment value.
-      * Normally this does not cause problems as such following INSERT would\
-        normally come with its own INSERT\_ID event. In this bug, the user had\
-        a trigger on the slave which was missing on the master, and this\
-        trigger had an INSERT which could be affected. In any case, it seems\
+      * Normally this does not cause problems as such following INSERT would
+        normally come with its own INSERT\_ID event. In this bug, the user had
+        a trigger on the slave which was missing on the master, and this
+        trigger had an INSERT which could be affected. In any case, it seems
         better to not leave a stray INSERT\_ID hanging around in the sql thread\
         THD indefinitely.
       * Note that events can also be skipped from apply\_event\_and\_update\_pos();\
-        however it is not possible in that code to skip the INSERT without also\
+        however it is not possible in that code to skip the INSERT without also
         skipping the INSERT\_ID event.
 * [Revision #2889](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2889)
   * Fixed compiler warnings
@@ -122,8 +122,8 @@ modified in that revision.
         * [Revision #2643.96.29](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.96.29)
           * Patch from Sergey Petrunya:
           * Fix post-merge failure in 5.1-merge
-            * Let QUICK\_RANGE\_INTERSECT\_SELECT not make assumption that HA\_EXTRA\_KEYREAD\
-              scans do not touch parts of table->record\[0] that refer to fields that are\
+            * Let QUICK\_RANGE\_INTERSECT\_SELECT not make assumption that HA\_EXTRA\_KEYREAD
+              scans do not touch parts of table->record\[0] that refer to fields that are
               not covered by the used index.
             * This assumption is not true for XtraDB (e.g. grep row/row0sel.c for\
               "init null bytes with default values as they might be").
@@ -137,8 +137,8 @@ modified in that revision.
           * Added back resetting of null bitmap but now in row\_search\_for\_mysql()
         * [Revision #2643.96.25](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.96.25)
           * A proper fix for [MySQL Bug #57688](https://bugs.mysql.com/bug.php?id=57688).
-          * Introduced a new flag in the class Item. The flag is set\
-            to 1 only for items that are used in GROUP BY lists of\
+          * Introduced a new flag in the class Item. The flag is set
+            to 1 only for items that are used in GROUP BY lists of
             queries with ROLLUP.
         * [Revision #2643.96.24](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.96.24) \[merge]
           * Automatic merge with base
@@ -177,47 +177,47 @@ modified in that revision.
       * Fix of the debugging print.
     * [Revision #2643.105.35](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.105.35)
       * [MWL#74](https://askmonty.org/worklog/?tid=74): Shared libmysqld.so library.
-      * Switch makefiles to use libtool to build libmysqld.so, as well as all its\
+      * Switch makefiles to use libtool to build libmysqld.so, as well as all its
         dependencies.
-      * The previous MYSQL\_PLUGIN\_DEPENDS\_ON\_MYSQL\_INTERNALS() declaration is removed,\
-        as it does not work well with a libtool build. Instead, plugins that need it\
-        can specify an alternate object in MYSQL\_PLUGIN\_STATIC() that will be used for\
-        embedded library. The plugin must then take care itself of compiling the\
+      * The previous MYSQL\_PLUGIN\_DEPENDS\_ON\_MYSQL\_INTERNALS() declaration is removed,
+        as it does not work well with a libtool build. Instead, plugins that need it
+        can specify an alternate object in MYSQL\_PLUGIN\_STATIC() that will be used for
+        embedded library. The plugin must then take care itself of compiling the
         special object for embedded, rebuilding the source files previously listed in\
         MYSQL\_PLUGIN\_DEPENDS\_ON\_MYSQL\_INTERNALS() with @plugin\_embedded\_defs@ in\
-        CFLAGS/CXXFLAGS. The extra target @XXX\_embedded\_static\_target@ is available\
+        CFLAGS/CXXFLAGS. The extra target @XXX\_embedded\_static\_target@ is available
         for the special object, this will be empty when `--without-embedded-server`.
       * All in-tree plugins are changed to build their static targets with libtool.\
-        Additional plugins that want to work with libmysqld.so will need to be\
-        similarly modified to build with libtool (or otherwise provide an -fPIC\
+        Additional plugins that want to work with libmysqld.so will need to be
+        similarly modified to build with libtool (or otherwise provide an -fPIC
         object). Dynamically loaded plugins are not affected.
-      * The old libraries like libmysys.a, libmyisam.a and similar libraries, which\
-        were installed by `make install` though this is of little use, are still built\
-        and installed to not break package scripts etc. that expect them. These\
+      * The old libraries like libmysys.a, libmyisam.a and similar libraries, which
+        were installed by `make install` though this is of little use, are still built
+        and installed to not break package scripts etc. that expect them. These
         libraries are kept static to avoid introducing new .so dependencies.
-      * The patch also fixes a handfull of duplicate symbol linker errors, where we\
-        included some object twice during linking; these for one reason or another did\
-        not produce errors before but caused problems on some platforms with this\
+      * The patch also fixes a handfull of duplicate symbol linker errors, where we
+        included some object twice during linking; these for one reason or another did
+        not produce errors before but caused problems on some platforms with this
         patch (eg. Mac OS X linker is more strict for shared objects).
-      * This patch only does what is necessary to build libmysqld.so. There are some\
-        more cleanups that are possible now that we are using libtool more fully,\
-        which could done in subsequent patches (though we may not bother as we are\
+      * This patch only does what is necessary to build libmysqld.so. There are some
+        more cleanups that are possible now that we are using libtool more fully,
+        which could done in subsequent patches (though we may not bother as we are
         switching from autotools to CMake anyway):
-        * In libmysql\_r/, we should be able to just link libmysys.la etc, instead of\
+        * In libmysql\_r/, we should be able to just link libmysys.la etc, instead of
           symlinking and re-compiling sources into the directory.
-        * In libmysql/, we can similarly avoid symlinking and recompiling sources if\
-          we instead build a libmysys\_nothread.la library with appropriate CFLAGS and\
+        * In libmysql/, we can similarly avoid symlinking and recompiling sources if
+          we instead build a libmysys\_nothread.la library with appropriate CFLAGS and
           link that.
         * In sql/, we can build a separate target libmysql\_int.la with appropriate\
-          CFLAGS for embedded and use that in libmysqld/ instead of symlinking\
+          CFLAGS for embedded and use that in libmysqld/ instead of symlinking
           sources.
-        * libmysys.a, libmyisam.a and similar libraries could be installed as .so\
+        * libmysys.a, libmyisam.a and similar libraries could be installed as .so
           also to save on code size; or alternatively could be not installed at all.
     * [Revision #2643.105.34](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.105.34)
       * [Bug #643463](https://bugs.launchpad.net/bugs/643463): Slow XtraDB shutdown: Fix more sleeps delaying shutdown.
-      * This patch removes most remaining delays due to uninteruptible sleep()\
-        during shutdown, as found using PMP. This makes standard test run very\
-        close in speed to with `--loose-innodb-fast-shutdown=2`, and greatly\
+      * This patch removes most remaining delays due to uninteruptible sleep()
+        during shutdown, as found using PMP. This makes standard test run very
+        close in speed to with `--loose-innodb-fast-shutdown=2`, and greatly
         speeds up running the test suite.
     * [Revision #2643.105.33](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.105.33)\
       Fix flags for non-debug builds

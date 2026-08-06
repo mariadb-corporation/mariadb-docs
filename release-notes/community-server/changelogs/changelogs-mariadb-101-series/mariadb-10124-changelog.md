@@ -8,7 +8,7 @@ The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improv
 
 For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.24.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #af4421e82d](https://github.com/MariaDB/server/commit/af4421e82d)\

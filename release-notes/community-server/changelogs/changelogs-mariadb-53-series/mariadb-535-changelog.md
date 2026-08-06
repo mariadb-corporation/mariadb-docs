@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.5.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3450](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3450)\
@@ -37,8 +37,8 @@ modified in that revision.
     * [Revision #2732.53.9](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.9)\
       Sat 2012-02-25 17:10:07 -0800
       * Fixed LP bug #939866.
-      * The field key\_cache\_mem\_size of the KEY\_CACHE structure must be\
-        initialized in the function init\_key\_cache() and updated in the\
+      * The field key\_cache\_mem\_size of the KEY\_CACHE structure must be
+        initialized in the function init\_key\_cache() and updated in the
         function resize\_key\_cache().
     * [Revision #2732.53.8](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.8)\
       Sat 2012-02-25 09:03:06 +0200
@@ -57,26 +57,26 @@ modified in that revision.
   * [Revision #3439.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3439.2.1)\
     Fri 2012-02-24 16:50:22 -0800
     * Fixed [Bug #939009](https://bugs.launchpad.net/bugs/939009).
-    * The result of materialization of the right part of an IN subquery predicate\
-      is placed into a temporary table. Each row of the materialized table is\
-      distinct. A unique key over all fields of the temporary table is defined and\
+    * The result of materialization of the right part of an IN subquery predicate
+      is placed into a temporary table. Each row of the materialized table is
+      distinct. A unique key over all fields of the temporary table is defined and
       created. It allows to perform key look-ups into the table.\
-      The table created for a materialized subquery can be accessed by key as\
-      any other table. The function best\_access-path search for the best access\
-      to join a table to a given partial join. With some where conditions this\
-      function considers a possibility of a ref\_or\_null access. If such access\
-      employs the unique key on the temporary table then when estimating\
-      the cost this access the function tries to use the array rec\_per\_key. Yet,\
+      The table created for a materialized subquery can be accessed by key as
+      any other table. The function best\_access-path search for the best access
+      to join a table to a given partial join. With some where conditions this
+      function considers a possibility of a ref\_or\_null access. If such access
+      employs the unique key on the temporary table then when estimating
+      the cost this access the function tries to use the array rec\_per\_key. Yet,
       such array is not built for this unique key. This causes a crash of the server.
-    * Rows returned by the subquery that contain nulls don't have to be placed\
-      into temporary table, as they cannot be match any row produced by the\
-      left part of the subquery predicate. So all fields of the temporary table\
-      can be defined as non-nullable. In this case any ref\_or\_null access\
-      to the temporary table does not make any sense and it does not make sense\
+    * Rows returned by the subquery that contain nulls don't have to be placed
+      into temporary table, as they cannot be match any row produced by the
+      left part of the subquery predicate. So all fields of the temporary table
+      can be defined as non-nullable. In this case any ref\_or\_null access
+      to the temporary table does not make any sense and it does not make sense
       to estimate such an access.
-    * The fix makes sure that the temporary table for a materialized IN subquery\
-      is defined with columns that are all non-nullable. The also ensures that\
-      any row with nulls returned by the subquery is not placed into the\
+    * The fix makes sure that the temporary table for a materialized IN subquery
+      is defined with columns that are all non-nullable. The also ensures that
+      any row with nulls returned by the subquery is not placed into the
       temporary table.
 * [Revision #3445](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3445)\
   Sat 2012-02-25 01:42:28 +0400
@@ -97,7 +97,7 @@ modified in that revision.
       * Problem was a crash in internal temporary (Maria) files when row length exceeded 65535
   * [Revision #2732.53.6](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.6)\
     Wed 2012-02-22 00:10:39 -0800
-    * Back-ported the fix and test cases for [MySQL Bug #59487](https://bugs.mysql.com/bug.php?id=59487) and [MySQL Bug #43368](https://bugs.mysql.com/bug.php?id=43368) from\
+    * Back-ported the fix and test cases for [MySQL Bug #59487](https://bugs.mysql.com/bug.php?id=59487) and [MySQL Bug #43368](https://bugs.mysql.com/bug.php?id=43368) from
       the mysql-5.6 code line.
 * [Revision #3442](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3442) \[merge]\
   Fri 2012-02-24 17:13:04 +0400
@@ -106,7 +106,7 @@ modified in that revision.
     Fri 2012-02-24 17:09:13 +0400
     * [Bug #934597](https://bugs.launchpad.net/bugs/934597): Assertion \`! is\_set()' failed in Diagnostics\_area::set\_ok\_status(THD...
     * After the exec\_const\_cond->val\_int() call, check for error and return.\
-      (if we don't do it, we will eventually hit an error when trying to set status OK in\
+      (if we don't do it, we will eventually hit an error when trying to set status OK in
       the diagnostics area, which already has an error status).
 * [Revision #3441](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3441)\
   Fri 2012-02-24 12:34:47 +0200
@@ -123,7 +123,7 @@ modified in that revision.
     * This also fixes a (not likely) crashing bug when forcing a thread that was doing a table lock to re-open it's files, for example by creating a trigger.
 * [Revision #3439](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3439)\
   Wed 2012-02-22 17:38:24 +0400
-  * Don't run test for BUG#933412 with embedded server, as it requires concurrent query\
+  * Don't run test for BUG#933412 with embedded server, as it requires concurrent query
     execution which `mtr --embedded` does not support
 * [Revision #3438](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3438)\
   Wed 2012-02-22 17:11:33 +0400
@@ -154,7 +154,7 @@ modified in that revision.
 * [Revision #3432](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3432)\
   Mon 2012-02-20 21:30:23 +0100
   * fix for\
-    "relocation R\_X86\_64\_PC32 against \`handler\_index\_cond\_check' can not be used when making a shared object; recompile with -fPIC"\
+    "relocation R\_X86\_64\_PC32 against \`handler\_index\_cond\_check' can not be used when making a shared object; recompile with -fPIC"
     don't use visibility=hidden for external functions
 * [Revision #3431](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3431) \[merge]\
   Tue 2012-02-21 09:43:36 +0200
@@ -191,7 +191,7 @@ modified in that revision.
         Mon 2012-02-20 18:07:38 +0100
         * Fix compilation on Windows, and various Windows related mistakes introduced by\
           "safe exception patch".
-        * Remove misleading comments suggesting about signal() Windows, the routine here\
+        * Remove misleading comments suggesting about signal() Windows, the routine here
           is part of a exception handler, and sig parameter is an exception code.
   * [Revision #3429.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3429.1.2) \[merge]\
     Tue 2012-02-21 01:58:50 +0200
@@ -227,7 +227,7 @@ modified in that revision.
         * [Revision #2732.46.72](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.46.72)\
           Thu 2012-02-16 16:06:49 -0800
           * Fixed [Bug #933117](https://bugs.launchpad.net/bugs/933117).
-          * The bug was fixed with the code back-ported from the patch for LP bug 800184\
+          * The bug was fixed with the code back-ported from the patch for LP bug 800184
             pushed into mariadb-5.3.
   * [Revision #3429.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3429.1.1)\
     Mon 2012-02-20 17:59:42 +0200
@@ -235,8 +235,8 @@ modified in that revision.
 * [Revision #3430](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3430)\
   Mon 2012-02-20 20:38:05 +0400
   * [Bug #933412](https://bugs.launchpad.net/bugs/933412): Server crashes in \_mi\_put\_key\_in\_record on KILL QUERY with ICP, STRAIGHT\_JOIN
-    * In mi\_rkey(), do correct handling of case where mi\_yield\_and\_check\_if\_killed()\
-      detects that the thread was killed (all other similar functions in MyISAM/Aria have\
+    * In mi\_rkey(), do correct handling of case where mi\_yield\_and\_check\_if\_killed()
+      detects that the thread was killed (all other similar functions in MyISAM/Aria have
       slightly different code and do not have this problem).
     * Also fixed assignment in DBUG\_ASSERT
     * this is 2nd variant of the fix:
@@ -249,7 +249,7 @@ modified in that revision.
   * [Revision #3419.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3419.1.1)\
     Mon 2012-02-20 15:30:54 +0400
     * [Bug #933407](https://bugs.launchpad.net/bugs/933407): Valgrind warnings in mark\_as\_null\_row with materialization+semijoin, STRAIGHT\_JOIN, impossible WHERE
-      * In return\_zero\_rows(), don't call mark\_as\_null\_row() for semi-join\
+      * In return\_zero\_rows(), don't call mark\_as\_null\_row() for semi-join
         materialized tables, because 1) they may have been already freed, and\
         2\)there is no real need to call mark\_as\_null\_row() for them.
 * [Revision #3428](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3428)\
@@ -262,33 +262,33 @@ modified in that revision.
 * [Revision #3427](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3427)\
   Sat 2012-02-18 16:06:38 -0800
   * Fixed [Bug #934342](https://bugs.launchpad.net/bugs/934342).
-  * An outer join query with a semi-join subquery could return a wrong result\
+  * An outer join query with a semi-join subquery could return a wrong result
     if the optimizer chose to materialize the subquery.
-  * It happened because when substituting for the best field into a ref item\
-    used to build access keys not all `COND_EQUAL` objects that could be employed\
+  * It happened because when substituting for the best field into a ref item
+    used to build access keys not all `COND_EQUAL` objects that could be employed
     at substitution were checked.
-  * Also refined some code in the function check\_join\_cache\_usage to make it\
+  * Also refined some code in the function check\_join\_cache\_usage to make it
     safer.
 * [Revision #3426](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3426)\
   Fri 2012-02-17 13:27:41 +0100
-  * Remove engine-specific (but identical) icp callbacks. create one reusable\
+  * Remove engine-specific (but identical) icp callbacks. create one reusable
     common icp callback in the handler.cc.
-  * It can also increment status counters, without making the engine\
+  * It can also increment status counters, without making the engine
     dependent on the exact THD layout (that is different in embedded).
 * [Revision #3425](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3425)\
   Thu 2012-02-16 20:13:28 -0800
   * Fixed [Bug #928352](https://bugs.launchpad.net/bugs/928352).
-  * This bug led to wrong values of the use\_count fields in some SEL\_ARG\
-    trees that triggered complains on the server side when executing the\
+  * This bug led to wrong values of the use\_count fields in some SEL\_ARG
+    trees that triggered complains on the server side when executing the
     test case for LP bug 800184 if a debug build of the server was used.
   * This was the result of the incomplete fix for [Bug #800184](https://bugs.launchpad.net/bugs/800184).
   * To complete it the following corrections had to be made:
-    * the copy constructor for SEL\_TREE must call the new function incr\_refs\_all()\
-      instead of the function incr\_refs(), because references to next key parts\
-      from any SEL\_ARG tree belonging to the list of the first key part has to be\
+    * the copy constructor for SEL\_TREE must call the new function incr\_refs\_all()
+      instead of the function incr\_refs(), because references to next key parts
+      from any SEL\_ARG tree belonging to the list of the first key part has to be
       adjusted.
-    * the method and\_sel\_tree of the class SEL\_IMERGE must use the copy constructor\
-      of the SEL\_TREE class to make a copy of its second argument before it ANDs it\
+    * the method and\_sel\_tree of the class SEL\_IMERGE must use the copy constructor
+      of the SEL\_TREE class to make a copy of its second argument before it ANDs it
       with any SEL\_TREE tree from the processed SEL\_IMERGE object.
 * [Revision #3424](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3424)\
   Thu 2012-02-16 20:15:57 +0400

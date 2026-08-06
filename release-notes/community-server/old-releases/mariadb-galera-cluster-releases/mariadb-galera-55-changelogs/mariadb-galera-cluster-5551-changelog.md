@@ -10,7 +10,7 @@ For the highlights of this release, see the [release notes](../mariadb-galera-55
 MariaDB, see the [MariaDB 5.5.51 Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5551-changelog.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code\
+Github you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #d40d3f4](https://github.com/MariaDB/server/commit/d40d3f4)\

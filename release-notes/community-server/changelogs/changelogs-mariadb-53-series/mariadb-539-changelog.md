@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.9.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3583](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3583)\
@@ -16,10 +16,10 @@ modified in that revision.
 * [Revision #3582](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3582)\
   Sat 2012-09-29 22:44:13 -0700
   * Fixed [Bug #1058071](https://bugs.launchpad.net/bugs/1058071) ([MDEV-564](https://jira.mariadb.org/browse/MDEV-564)).
-  * In some rare cases when the value of the system variable join\_buffer\_size\
-    was set to a number less than 256 the function JOIN\_CACHE::set\_constants\
-    determined the size of an offset in the join buffer equal to 1 though\
-    the minimal join buffer required more than 256 bytes. This could cause\
+  * In some rare cases when the value of the system variable join\_buffer\_size
+    was set to a number less than 256 the function JOIN\_CACHE::set\_constants
+    determined the size of an offset in the join buffer equal to 1 though
+    the minimal join buffer required more than 256 bytes. This could cause
     a crash of the server when records from the join buffer were read.
 * [Revision #3581](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3581)\
   Fri 2012-09-28 09:54:43 +0200
@@ -110,23 +110,23 @@ modified in that revision.
     * Fix [Bug #1009187](https://bugs.launchpad.net/bugs/1009187), [MDEV-373](https://jira.mariadb.org/browse/MDEV-373), [MySQL Bug #58628](https://bugs.mysql.com/bug.php?id=58628)
     * Analysis:
       * The queries in question use the \[unique | index]\_subquery execution methods.\
-        These methods reuse the ref keys constructed by create\_ref\_for\_key(). The\
-        way create\_ref\_for\_key() works is that it doesn't store in ref.key\_copy\[]\
-        store\_key elements that represent constants. In particular it doesn't store\
+        These methods reuse the ref keys constructed by create\_ref\_for\_key(). The
+        way create\_ref\_for\_key() works is that it doesn't store in ref.key\_copy\[]
+        store\_key elements that represent constants. In particular it doesn't store
         the store\_key for NULL constants.
-      * The execution of \[unique | index]\_subquery calls\
-        subselect\_uniquesubquery\_engine::copy\_ref\_key, which in addition to copy\
-        the left IN argument into a index lookup key, is supposed to detect if\
-        the left IN argument contains NULLs. Since the store\_key for the NULL\
-        constant is not copied into the key array, the null is not detected, and\
+      * The execution of \[unique | index]\_subquery calls
+        subselect\_uniquesubquery\_engine::copy\_ref\_key, which in addition to copy
+        the left IN argument into a index lookup key, is supposed to detect if
+        the left IN argument contains NULLs. Since the store\_key for the NULL
+        constant is not copied into the key array, the null is not detected, and
         execution erroneously proceeds as if it should look for a complete match.
     * Solution:
       * The solution (unlike MySQL) is to reuse already computed information about\
-        NULL presence. Item\_in\_optimizer::val\_int already finds out if the left IN\
-        operand contains NULLs. The fix propagates this to the execution methods\
+        NULL presence. Item\_in\_optimizer::val\_int already finds out if the left IN
+        operand contains NULLs. The fix propagates this to the execution methods
         subselect\_\[unique | index]subquery\_engine::exec so it knows if there were\
         NULL values independent of the presence of keys.
-      * In addition the patch siplifies copy\_ref\_key() and the logic that hanldes\
+      * In addition the patch siplifies copy\_ref\_key() and the logic that hanldes
         the case of NULLs in the left IN operand.
 * [Revision #3575](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3575)\
   Fri 2012-09-07 09:39:51 +0300
@@ -159,16 +159,16 @@ modified in that revision.
 * [Revision #3571](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3571)\
   Thu 2012-08-30 10:53:49 +0200
   * [MDEV-381](https://jira.mariadb.org/browse/MDEV-381): fdatasync() does not correctly flush growing binlog file.
-  * When we append data to the binlog file, we use fdatasync() to ensure\
+  * When we append data to the binlog file, we use fdatasync() to ensure
     the data gets to disk so that crash recovery can work.
-  * Unfortunately there seems to be a bug in ext3/ext4 on linux, so that\
-    fdatasync() does not correctly sync all data when the size of a file\
-    is increased. This causes crash recovery to not work correctly (it\
+  * Unfortunately there seems to be a bug in ext3/ext4 on linux, so that
+    fdatasync() does not correctly sync all data when the size of a file
+    is increased. This causes crash recovery to not work correctly (it
     loses transactions from the binlog).
-  * As a work-around, use fsync() for the binlog, not fdatasync(). Since\
-    we are increasing the file size, (correct) fdatasync() will most\
-    likely not be faster than fsync() on any file system, and fsync()\
-    does work correctly on ext3/ext4. This avoids the need to try to\
+  * As a work-around, use fsync() for the binlog, not fdatasync(). Since
+    we are increasing the file size, (correct) fdatasync() will most
+    likely not be faster than fsync() on any file system, and fsync()
+    does work correctly on ext3/ext4. This avoids the need to try to
     detect if we are running on buggy ext3/ext4.
 * [Revision #3570](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3570)\
   Thu 2012-08-30 09:05:27 +0200
@@ -184,13 +184,13 @@ modified in that revision.
   * [MDEV-454](https://jira.mariadb.org/browse/MDEV-454) Addition of a time interval reduces the resulting value
     1. Field\_newdate::get\_date should refuse to return a date with zeros when\
        TIME\_NO\_ZERO\_IN\_DATE is set, not when TIME\_FUZZY\_DATE is unset
-    2. Item\_func\_to\_days and Item\_date\_add\_interval can only work with valid dates,\
+    2. Item\_func\_to\_days and Item\_date\_add\_interval can only work with valid dates,
        no zeros allowed.
 * [Revision #3567](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3567)\
   Wed 2012-08-29 10:59:51 +0200
   * [MDEV-456](https://jira.mariadb.org/browse/MDEV-456) An out-of-range datetime value (with a 5-digit year) can be created and cause troubles
     * fix Item\_func\_add\_time::get\_date() to generate valid dates.
-    * Move the validity check inside get\_date\_from\_daynr()\
+    * Move the validity check inside get\_date\_from\_daynr()
       instead of relying on callers
     * (5 that had it, and 2 that did not, but should've)
 * [Revision #3566](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3566)\
@@ -198,7 +198,7 @@ modified in that revision.
   * [MDEV-492](https://jira.mariadb.org/browse/MDEV-492): fixed incorrect error check.
 * [Revision #3565](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3565)\
   Tue 2012-08-28 13:51:01 +0400
-  * Fix bugs in BatchedKeyAccess that show up when working with a\
+  * Fix bugs in BatchedKeyAccess that show up when working with a
     storage engine in HA\_MRR\_NO\_ASSOCIATION mode.
   * (there is no testcase because we don't ship any such engines currently)
 

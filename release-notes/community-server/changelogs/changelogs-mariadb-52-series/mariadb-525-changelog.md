@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.5.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #2929](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2929)\
@@ -85,7 +85,7 @@ modified in that revision.
 * [Revision #2917](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2917)\
   Thu 2011-01-20 13:00:46 +0100
   * [Bug #705210](https://bugs.launchpad.net/bugs/705210) - Compiling with BUILD/compile-pentium64-debug fails
-  * support building with -all-static (no dlopen and dlclose make few\
+  * support building with -all-static (no dlopen and dlclose make few
     related declarations unused or "statement have no effect") and -Werror
 * [Revision #2916](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2916)\
   Thu 2011-01-20 12:59:47 +0100
@@ -149,7 +149,7 @@ modified in that revision.
   Mon 2010-12-27 10:53:02 +0100
   * fixes bug: [Bug #683112](https://bugs.launchpad.net/bugs/683112)
   * [Bug #665028](https://bugs.launchpad.net/bugs/665028) SHOW STORAGE ENGINES shows incorrect Transaction support for Aria
-  * don't fill in handlerton::commit member, as it's not used\
+  * don't fill in handlerton::commit member, as it's not used
     and makes MySQL believe that Aria is transactional.
   * Fix the TRANSACTIONAL=1 warning.
 * [Revision #2901](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2901)\

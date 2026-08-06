@@ -9,7 +9,7 @@ The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-impr
 For the highlights of this release, see the[release notes](../../old-releases/5.5/5.5.24.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3425](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3425)\
@@ -21,7 +21,7 @@ modified in that revision.
 * [Revision #3423](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3423)\
   Tue 2012-05-29 21:38:51 +0200
   * RPM packages should not obsolete themselves.
-  * Otherwise yum on fedora will not install them\
+  * Otherwise yum on fedora will not install them
     (rpm will, yum on centos and rhel will).
 * [Revision #3422](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3422)\
   Tue 2012-05-29 21:38:35 +0200
@@ -33,7 +33,7 @@ modified in that revision.
   * Don't install debug plugins and don't populate unused "plugins.files" file.
 * [Revision #3420](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3420)\
   Fri 2012-05-25 21:08:26 +0200
-  * [MDEV-295](https://jira.mariadb.org/browse/MDEV-295) Do NOT start mysql when installing MariaDB rpms\
+  * [MDEV-295](https://jira.mariadb.org/browse/MDEV-295) Do NOT start mysql when installing MariaDB rpms
     but restart it on upgrade, if it was already running
 * [Revision #3419](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3419)\
   Fri 2012-05-25 19:18:29 +0200
@@ -76,7 +76,7 @@ modified in that revision.
     * [Revision #2502.558.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.558.1)\
       Fri 2012-05-18 16:24:12 +0400
       * [Bug #1000269](https://bugs.launchpad.net/bugs/1000269): Wrong result (extra rows) with semijoin+materialization, IN subqueries, join\_cache\_level>0
-      * make make\_cond\_after\_sjm() correctly handle OR clauses where one branch refers to the semi-join table\
+      * make make\_cond\_after\_sjm() correctly handle OR clauses where one branch refers to the semi-join table
         while the other branch refers to the non-semijoin table.
   * [Revision #2502.546.64](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.64)\
     Thu 2012-05-17 10:45:20 +0300
@@ -92,7 +92,7 @@ modified in that revision.
     * Let fix\_semijoin\_strategies\_for\_picked\_join\_order() set\
       POSITION::prefix\_record\_count for POSITION records that it copies from\
       SJ\_MATERIALIZATION\_INFO::tables.
-    * (These records do not have prefix\_record\_count set, because they are optimized\
+    * (These records do not have prefix\_record\_count set, because they are optimized
       as joins-inside-semijoin-nests, without full advance\_sj\_state() processing).
   * [Revision #2502.546.61](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.61) \[merge]\
     Sat 2012-05-12 12:27:26 +0400
@@ -102,7 +102,7 @@ modified in that revision.
       * Merge 5.2->5.3
       * [Revision #2502.554.6](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.554.6)\
         Sat 2012-05-12 11:53:14 +0400
-        * [Bug #997747](https://bugs.launchpad.net/bugs/997747): Assertion \`join->best\_read < ((double)1.79..5e+308L)' failed\
+        * [Bug #997747](https://bugs.launchpad.net/bugs/997747): Assertion \`join->best\_read < ((double)1.79..5e+308L)' failed
           in greedy\_search with LEFT JOINs and unique keys
         * Backport the fix for [Bug #806524](https://bugs.launchpad.net/bugs/806524) from [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
   * [Revision #2502.546.60](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.60) \[merge]\
@@ -112,8 +112,8 @@ modified in that revision.
       Fri 2012-05-11 09:35:46 +0300
       * fix for [Bug #994392](https://bugs.launchpad.net/bugs/994392)
       * The not\_null\_tables() of Item\_func\_not\_all and Item\_in\_optimizer was inherited from\
-        Item\_func by mistake. It made the optimizer think that subquery\
-        predicates with ALL/ANY/IN were null-rejecting. This could trigger invalid\
+        Item\_func by mistake. It made the optimizer think that subquery
+        predicates with ALL/ANY/IN were null-rejecting. This could trigger invalid
         conversions of outer joins into inner joins.
     * [Revision #2502.528.43](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.528.43)\
       Thu 2012-05-10 09:00:21 +0300
@@ -126,10 +126,10 @@ modified in that revision.
     * [Revision #2502.528.41](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.528.41)\
       Tue 2012-05-08 00:26:41 +0200
       * fixes [Bug #994156](https://bugs.launchpad.net/bugs/994156)
-      * [MDEV-261](https://jira.mariadb.org/browse/MDEV-261) : mysqtest crashes when assigning variable to result of select , like\
+      * [MDEV-261](https://jira.mariadb.org/browse/MDEV-261) : mysqtest crashes when assigning variable to result of select , like
         let x = `SELECT <something>`
       * The fix is to detect the condition "no active connection", to report error and die.
-      * Note, that the check for no active connection was already in place for ordinary commands,\
+      * Note, that the check for no active connection was already in place for ordinary commands,
         and was missing only for assign-variable command.
     * [Revision #2502.528.40](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.528.40)\
       Mon 2012-05-07 13:26:34 +0300
@@ -145,30 +145,30 @@ modified in that revision.
           * 3714 Jorgen Loland 2012-03-01
           * BUG#12640437 - USING SQL\_BUFFER\_RESULT RESULTS IN A DIFFERENT\
             QUERY OUTPUT
-          * For all but simple grouped queries, temporary tables are used to\
-            resolve grouping. In these cases, the list of grouping fields is\
-            stored in the temporary table and grouping is resolved\
-            there (e.g. by adding a unique constraint on the involved\
-            fields). Because of this, grouping is already done when the rows\
+          * For all but simple grouped queries, temporary tables are used to
+            resolve grouping. In these cases, the list of grouping fields is
+            stored in the temporary table and grouping is resolved
+            there (e.g. by adding a unique constraint on the involved
+            fields). Because of this, grouping is already done when the rows
             are read from the temporary table.
           *
-          * In the case where a group clause may be optimized away, grouping\
-            does not have to be resolved using a temporary table. However, if\
+          * In the case where a group clause may be optimized away, grouping
+            does not have to be resolved using a temporary table. However, if
             a temporary table is explicitly requested (e.g. because the\
             SQL\_BUFFER\_RESULT hint is used, or the statement is\
-            INSERT...SELECT), a temporary table is used anyway. In this case,\
-            the temporary table is created with an empty group list (because\
-            the group clause was optimized away) and it will therefore not\
-            create groups. Since the temporary table does not take care of\
-            grouping, JOIN::group shall not be set to false in\
+            INSERT...SELECT), a temporary table is used anyway. In this case,
+            the temporary table is created with an empty group list (because
+            the group clause was optimized away) and it will therefore not
+            create groups. Since the temporary table does not take care of
+            grouping, JOIN::group shall not be set to false in
             make\_simple\_join(). This was fixed in bug 12578908.
           *
-          * However, there is an exception where make\_simple\_join() should\
-            set JOIN::group to false even if the query uses a temporary table\
-            that was explicitly requested but is not strictly needed. That\
-            exception is if the loose index scan access method (explain\
-            says "Using index for group-by") is used to read into the\
-            temporary table. With loose index scan, grouping is resolved\
+          * However, there is an exception where make\_simple\_join() should
+            set JOIN::group to false even if the query uses a temporary table
+            that was explicitly requested but is not strictly needed. That
+            exception is if the loose index scan access method (explain
+            says "Using index for group-by") is used to read into the
+            temporary table. With loose index scan, grouping is resolved
             by the access method. This is exactly what happens in this bug.
     * [Revision #2502.528.38](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.528.38)\
       Thu 2012-05-03 14:49:52 +0300
@@ -176,24 +176,24 @@ modified in that revision.
       * This is a backport of the fix for MySQL bug #13723054 in 5.6.
       * Original comment:
         * The crash is caused by arbitrary memory area owerwriting in case of\
-          BLOB fields during attempt to copy BLOB field key image into record\
+          BLOB fields during attempt to copy BLOB field key image into record
           buffer(record buffer is too small to get BLOB key part image).\
           note:
         *
-        * QUICK\_GROUP\_MIN\_MAX\_SELECT can not work with BLOB fields\
-          because it uses record buffer as temporary buffer for key values\
-          however this case is filtered out by covering\_keys() check\
-          in get\_best\_group\_min\_max() as BLOBs always require key length\
-          modificator in the key declaration and if the key has a BLOB\
+        * QUICK\_GROUP\_MIN\_MAX\_SELECT can not work with BLOB fields
+          because it uses record buffer as temporary buffer for key values
+          however this case is filtered out by covering\_keys() check
+          in get\_best\_group\_min\_max() as BLOBs always require key length
+          modificator in the key declaration and if the key has a BLOB
           then it can not be covered key.\
           The fix is to use 'max\_used\_key\_length' key length instead of 0.
         *
         * Analysis:
-        * Spcifically the crash in this bug was a result of the call to key\_copy()\
-          that copied the whole key, inlcuding the BLOB field which is not used\
-          for index access. Copying the blob field overwrote memory as far as the\
-          function parameter 'key\_info'. As a result the contents of key\_info was\
-          all 0, which resulted in a crash when this key\_info was accessed few\
+        * Spcifically the crash in this bug was a result of the call to key\_copy()
+          that copied the whole key, inlcuding the BLOB field which is not used
+          for index access. Copying the blob field overwrote memory as far as the
+          function parameter 'key\_info'. As a result the contents of key\_info was
+          all 0, which resulted in a crash when this key\_info was accessed few
           lines below in key\_cmp().
   * [Revision #2502.546.59](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.59)\
     Tue 2012-05-08 20:58:41 +0300
@@ -241,11 +241,11 @@ modified in that revision.
   * [Revision #3403.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3403.1.1)\
     Wed 2012-05-16 20:39:03 -0700
   * Fixed [Bug #999251](https://bugs.launchpad.net/bugs/999251): Q13 from DBT3 uses table scan instead of covering index scan.
-  * The optimizer chose a less efficient execution plan due to the following\
+  * The optimizer chose a less efficient execution plan due to the following
     defects of the code:
-    1. the generic handler function handler::keyread\_time did not take into account\
+    1. the generic handler function handler::keyread\_time did not take into account
        that in clustered primary keys record data is included into each index entry
-    2. the function make\_join\_readinfo erroneously decided that index only scan\
+    2. the function make\_join\_readinfo erroneously decided that index only scan
        could not be used if join cache was empoyed.
   * Added no additional test case.
   * Adjusted some of the test results.
@@ -266,13 +266,13 @@ modified in that revision.
 * [Revision #3403](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3403)\
   Tue 2012-05-15 19:35:57 +0200
   * Added `--continue-on-error` to mysqltest and mysql-test-run
-  * This will contune the test case even if there was an error\
+  * This will contune the test case even if there was an error
     and makes it easier to run a test that contains many sub tests against one engine.
   * (originally by Monty)
 * [Revision #3402](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3402)\
   Tue 2012-05-08 14:27:44 +0200
   * [MDEV-254](https://jira.mariadb.org/browse/MDEV-254): Server hang with FLUSH TABLES WITH READ LOCK AND DISABLE CHECKPOINT
-  * The code to re-enable checkpointing after UNLOCK TABLES was lost in the 5.5\
+  * The code to re-enable checkpointing after UNLOCK TABLES was lost in the 5.5
     merge, so re-add it back in.
 * [Revision #3401](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3401)\
   Mon 2012-05-07 12:47:29 +0200
@@ -308,9 +308,9 @@ modified in that revision.
       * [Revision #2502.528.36](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.528.36)\
         Wed 2012-05-02 18:11:02 +0200
         * [MDEV-214](https://jira.mariadb.org/browse/MDEV-214) [Bug #967242](https://bugs.launchpad.net/bugs/967242) Wrong result with JOIN, AND in ON condition, multi-part key, GROUP BY, subquery and OR in WHERE
-        * The problem was in the code (update\_const\_equal\_items()) which marked\
+        * The problem was in the code (update\_const\_equal\_items()) which marked
           index parts constant independently of the place where the equality was used.
-        * In the test suite it marked t2\_1.c part constant despite the fact that\
+        * In the test suite it marked t2\_1.c part constant despite the fact that
           it connected by OR with other expression.
         * Solution is to mark constant only top equalities connected with AND.
       * [Revision #2502.528.35](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.528.35) \[merge]\
@@ -322,14 +322,14 @@ modified in that revision.
   * remove a redundant line in Makefile.am
     * [Revision #2502.546.53](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.53)\
       Wed 2012-05-02 15:23:49 +0200
-      * implement Item\_singlerow\_subselect::get\_date() to avoid\
+      * implement Item\_singlerow\_subselect::get\_date() to avoid
         unnecessary date->string->date conversion
     * [Revision #2502.546.52](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.52)\
       Wed 2012-05-02 15:22:47 +0200
       * [MDEV-241](https://jira.mariadb.org/browse/MDEV-241) [Bug #992722](https://bugs.launchpad.net/bugs/992722) - Server crashes in get\_datetime\_value
-      * Create an Item\_cache based on item's cmp\_type, not result\_type in\
+      * Create an Item\_cache based on item's cmp\_type, not result\_type in
         subselect\_engine.
-      * Use result\_field in Item\_cache\_temporal::cache\_value(),\
+      * Use result\_field in Item\_cache\_temporal::cache\_value(),
         just like all other Item\_cache\*::cache\_value() do.
     * [Revision #2502.546.51](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.51) \[merge]\
       Wed 2012-05-02 17:04:28 +0200
@@ -343,14 +343,14 @@ modified in that revision.
         * [MDEV-233](https://jira.mariadb.org/browse/MDEV-233) - Support Wix3.6 for MSI
       * [Revision #2502.528.32](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.528.32)\
         Wed 2012-04-18 20:04:50 +0200
-        * [Bug #982664](https://bugs.launchpad.net/bugs/982664) there are few broken clients that lie about their capabilities\
+        * [Bug #982664](https://bugs.launchpad.net/bugs/982664) there are few broken clients that lie about their capabilities
           (for example, one of them sets client capabilities by copying server capabilities)
         * We cannot fix them - let's tolerate them
     * [Revision #2502.546.50](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.50)\
       Sun 2012-04-29 18:08:11 +0500
       * [Bug #977021](https://bugs.launchpad.net/bugs/977021) ST\_BUFFER fails with the negative D.
       * Points and lines should disappear if we got negative D.
-        * To make it work properly inside the GEOMETRYCOLLECTION,\
+        * To make it work properly inside the GEOMETRYCOLLECTION,
           we add the empty operation there.
         *
         * [Bug #986977](https://bugs.launchpad.net/bugs/986977) Assertion \`!cur\_p->event' failed in Gcalc\_scan\_iterator::arrange\_event(int, int).
@@ -376,32 +376,32 @@ modified in that revision.
       Fri 2012-04-27 12:59:17 +0300
       * Fix [Bug #985667](https://bugs.launchpad.net/bugs/985667), [MDEV-229](https://jira.mariadb.org/browse/MDEV-229)
       * Analysis:
-        * The reason for the wrong result is the interaction between constant\
+        * The reason for the wrong result is the interaction between constant
           optimization (in this case 1-row table) and subquery optimization.
-        * First the outer query is optimized, and 'make\_join\_statistics' finds that\
+        * First the outer query is optimized, and 'make\_join\_statistics' finds that
           table t2 has one row, reads that row, and marks the whole table as constant.\
           This also means that all fields of t2 are constant.
         *
         * Next, we optimize the subquery in the end of the outer 'make\_join\_statistics'.\
-          The field 'f2' is considered constant, with value '3'. The subquery predicate\
+          The field 'f2' is considered constant, with value '3'. The subquery predicate
           is rewritten as the constant TRUE.
         *
-        * The outer query execution detects early that the whole query result is empty\
-          and calls 'return\_zero\_rows'. Since the query is with implicit grouping, we\
-          have to produce one row with special values for the aggregates (depending on\
-          each aggregate function), and NULL values for all non-aggregate fields. This\
-          function calls 'no\_rows\_in\_result' to set each aggregate function to the\
+        * The outer query execution detects early that the whole query result is empty
+          and calls 'return\_zero\_rows'. Since the query is with implicit grouping, we
+          have to produce one row with special values for the aggregates (depending on
+          each aggregate function), and NULL values for all non-aggregate fields. This
+          function calls 'no\_rows\_in\_result' to set each aggregate function to the
           default value when it aggregates over an empty result, and then calls\
           'send\_data', which in turn evaluates each Item in the SELECT list.
         *
-        * When evaluation reaches the subquery predicate, it executes the subquery\
-          with field 'f2' having a constant value '3', and the subquery produces the\
+        * When evaluation reaches the subquery predicate, it executes the subquery
+          with field 'f2' having a constant value '3', and the subquery produces the
           incorrect result '7'.
       * Solution:
-        * Implement Item::no\_rows\_in\_result for all subquery predicates. In order to\
-          make this work, it is also needed to make all val\_\* methods of all subquery\
-          predicates respect the Item\_subselect::forced\_const flag. Otherwise subqueries\
-          are executed anyways, and override the default value set by no\_rows\_in\_result\
+        * Implement Item::no\_rows\_in\_result for all subquery predicates. In order to
+          make this work, it is also needed to make all val\_\* methods of all subquery
+          predicates respect the Item\_subselect::forced\_const flag. Otherwise subqueries
+          are executed anyways, and override the default value set by no\_rows\_in\_result
           with whatever result is produced from the subquery evaluation.
     * [Revision #2502.546.47](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.47) \[merge]\
       Mon 2012-04-23 20:37:44 +0200
@@ -425,13 +425,13 @@ modified in that revision.
     * [Revision #2502.546.44](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.44)\
       Thu 2012-04-19 05:37:16 +0400
       * [Bug #978479](https://bugs.launchpad.net/bugs/978479): Wrong result (extra rows) with derived\_with\_keys+loosescan+semijoin=ON, materialization=OFF
-      * Part#2: Don't try to construct a LooseScan access on indexes that do not guarantee\
+      * Part#2: Don't try to construct a LooseScan access on indexes that do not guarantee
         index-ordered reads.
     * [Revision #2502.546.43](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.43)\
       Thu 2012-04-19 04:50:32 +0400
       * [Bug #978479](https://bugs.launchpad.net/bugs/978479): Wrong result (extra rows) with derived\_with\_keys+loosescan+semijoin=ON, materialization=OFF
       * Part#1: make EXPLAIN's plan match the one by actual execution:\
-        Item\_subselect::used\_tables() should return the same value irrespectively\
+        Item\_subselect::used\_tables() should return the same value irrespectively
         of whether we're running an EXPLAIN or a SELECT.
 * [Revision #3398](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3398)\
   Sat 2012-05-05 02:36:10 +0200
@@ -441,7 +441,7 @@ modified in that revision.
   * FreeBSD : Extend CMAKE\_REQUIRED\_LIBRARIES with ${LIBEXECINFO} , for backtrace\_symbols & Co
 * [Revision #3396](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3396)\
   Fri 2012-05-04 14:46:18 +0200
-  * Resolve opt\_vardir in MTR with realpath. Server resolves some directory names, thus\
+  * Resolve opt\_vardir in MTR with realpath. Server resolves some directory names, thus
     mtr should do it as well, to avoid differences in test output.
   * This fixes sys\_vars.secure\_file\_priv on FreeBSD9.0 buildbot.
 * [Revision #3395](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3395)\
@@ -452,7 +452,7 @@ modified in that revision.
   * support same version upgrade for MSI
 * [Revision #3393](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3393)\
   Thu 2012-05-03 18:58:48 +0200
-  * Fix (hopefully) a race condition in a test. Wait until killed connection\
+  * Fix (hopefully) a race condition in a test. Wait until killed connection
     is gone.
 * [Revision #3392](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3392) \[merge]\
   Thu 2012-05-03 16:00:41 +0300
@@ -475,7 +475,7 @@ modified in that revision.
   Sun 2012-04-29 17:18:38 +0500
   * [Bug #977021](https://bugs.launchpad.net/bugs/977021) ST\_BUFFER fails with the negative D.
     * Points and lines should disappear if we got negative D.
-    * To make it work properly inside the GEOMETRYCOLLECTION,\
+    * To make it work properly inside the GEOMETRYCOLLECTION,
       we add the empty operation there.
   * [Bug #986977](https://bugs.launchpad.net/bugs/986977) Assertion \`!cur\_p->event' failed in Gcalc\_scan\_iterator::arrange\_event(int, int).
     * The double->inernal coord conversion produced -0 (minus zero) on some data.
@@ -500,7 +500,7 @@ modified in that revision.
   Wed 2012-04-18 20:48:14 +0200
   * fixes [Bug #976225](https://bugs.launchpad.net/bugs/976225)
   * [MDEV-217](https://jira.mariadb.org/browse/MDEV-217) - Assertion \`thd->stmt\_arena != thd->progress.arena' failed in thd\_progress\_init on OPTIMIZE two tables when replaced by recreate
-  * call thd\_progress\_end() in the copy\_data\_between\_tables(), to match its\
+  * call thd\_progress\_end() in the copy\_data\_between\_tables(), to match its
     thd\_progress\_init().
 * [Revision #3385](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3385)\
   Wed 2012-04-18 04:00:08 +0200
@@ -516,7 +516,7 @@ modified in that revision.
   * update @@have\_innodb variable when innodb plugin is uninstalled
 * [Revision #3381](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3381)\
   Tue 2012-04-17 20:29:43 +0200
-  * better fix for string plugin variables pointing into argv\[]\
+  * better fix for string plugin variables pointing into argv\[]
     for a plugin installed run-time
 * [Revision #3380](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3380)\
   Tue 2012-04-17 20:28:21 +0200
@@ -553,16 +553,16 @@ modified in that revision.
       * [Revision #2502.556.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.556.1)\
         Mon 2012-04-16 15:28:33 +0200
         * fixes [Bug #983047](https://bugs.launchpad.net/bugs/983047)
-        * [MDEV-221](https://jira.mariadb.org/browse/MDEV-221) - Properly escape command line when starting mysql\_install\_db\
+        * [MDEV-221](https://jira.mariadb.org/browse/MDEV-221) - Properly escape command line when starting mysql\_install\_db
           since password characters can contain quotes or spaces.
         * The proper quoting method for command line arguments used here was extracted from[everyone-quotes-arguments-the-wrong-way.aspx](https://blogs.msdn.com/b/twistylittlepassagesallalike/archive/2011/04/23/everyone-quotes-arguments-the-wrong-way.aspx)
-        * Additionally, mysql\_install\_db.exe now passes root password to `"mysqld.exe --bootstrap"`\
+        * Additionally, mysql\_install\_db.exe now passes root password to `"mysqld.exe --bootstrap"`
           in hexadecimal form, to handle potential special chars inside password string literal.
   * [Revision #2502.546.40](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.40)\
     Sat 2012-04-07 17:27:00 -0700
     * Fixed [Bug #972943](https://bugs.launchpad.net/bugs/972943) properly.
     * The previous patch for the bug (that erroneously identified the bug as [Bug #972973](https://bugs.launchpad.net/bugs/972973) in its comment) was incorrect.
-    * It turned out that the code that triggered the abort complain reported for\
+    * It turned out that the code that triggered the abort complain reported for
       the bug was not needed at all.
 * [Revision #3376](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3376)\
   Sun 2012-04-15 01:54:28 +0200
@@ -576,7 +576,7 @@ modified in that revision.
 * [Revision #3373](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3373)\
   Sun 2012-04-15 01:29:17 +0200
   * Use test/db.opt as dummy file in the package, instead of test/.empty
-  * Also, do not package aria log files in the zip package- not required for the database to function,\
+  * Also, do not package aria log files in the zip package- not required for the database to function,
     also will avoid trouble with recovery, if someone accidentially (or on purpose) upgrades by unpacking the zip in the existing install directory.
 * [Revision #3372](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3372)\
   Sun 2012-04-15 01:21:18 +0200
@@ -589,12 +589,12 @@ modified in that revision.
   * Fixed some simple warnings on Windows.
 * [Revision #3369](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3369)\
   Thu 2012-04-12 01:40:44 +0200
-  * Threadpool - use EV\_ONESHOT with kevent, to prevent race condition when 2\
+  * Threadpool - use EV\_ONESHOT with kevent, to prevent race condition when 2
     threads are retrieving events at the same time.
 * [Revision #3368](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3368)\
   Thu 2012-04-12 01:33:43 +0200
   * Fix build on OSX
-    * Workaround linker bug that prevents linking aria test executables\
+    * Workaround linker bug that prevents linking aria test executables
       using -fno-common on OSX
     * Skip system readline detection (OSX readline is incompatible one)
     * Make Xcode generator work

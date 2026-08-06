@@ -8,8 +8,8 @@
 
 For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.44.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
-you can view more details of the revision and view diffs of the code modified\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)
+you can view more details of the revision and view diffs of the code modified
 in that revision.
 
 * [Revision #0ba528fe56](https://github.com/MariaDB/server/commit/0ba528fe56)\

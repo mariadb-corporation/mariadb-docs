@@ -8,7 +8,7 @@ The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-impr
 
 For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.58.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details
 of the revision and view diffs of the code modified in that revision.
 
 * [Revision #b000e16956](https://github.com/MariaDB/server/commit/b000e16956)\

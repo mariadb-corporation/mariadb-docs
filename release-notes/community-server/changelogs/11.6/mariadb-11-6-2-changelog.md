@@ -8,7 +8,7 @@
 
 For the highlights of this release, see the [release notes](../../old-releases/11.6/11.6.2.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.1) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.1) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Includes all fixes from [MariaDB 11.4.4](../11.4/11.4.4.md)

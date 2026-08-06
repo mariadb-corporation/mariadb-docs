@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.12.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3134](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3134) \[merge]\
