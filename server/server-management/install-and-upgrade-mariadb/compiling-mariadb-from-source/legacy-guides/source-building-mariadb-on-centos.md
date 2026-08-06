@@ -56,7 +56,7 @@ yum install galera.x86_64
 
 You can replace `openssl` with `gnutls` above, depending on the TLS implementation you want to use.
 
-If you plan to use the BUILD scripts to make it easier to build different configurations of MariaDB,\
+If you plan to use the BUILD scripts to make it easier to build different configurations of MariaDB,
 then you should also install ccache to speed up your compilations:
 
 ```bash

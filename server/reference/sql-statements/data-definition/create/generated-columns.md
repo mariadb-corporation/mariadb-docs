@@ -313,7 +313,7 @@ Generated columns are subject to various constraints in other DBMSs that are not
 
 ### Implementation Differences Compared to Microsoft SQL Server
 
-MariaDB's generated columns implementation does not enforce the following\
+MariaDB's generated columns implementation does not enforce the following
 restrictions that are present in [Microsoft SQL Server's computed columns](https://docs.microsoft.com/en-us/sql/relational-databases/tables/specify-computed-columns-in-a-table?view=sql-server-2017) implementation:
 
 * MariaDB allows [server variables](../../../../ha-and-performance/optimization-and-tuning/system-variables/) in generated column expressions, including those that change dynamically, such as [warning\_count](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#warning_count).

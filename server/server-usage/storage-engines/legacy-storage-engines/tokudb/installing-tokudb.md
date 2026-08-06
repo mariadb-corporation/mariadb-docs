@@ -18,7 +18,7 @@ TokuDB has been included with MariaDB since [MariaDB 5.5.34](https://app.gitbook
 
 ### Installing TokuDB on Fedora, RedHat, & CentOS
 
-In [MariaDB 5.5.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.33), [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.5), and starting from [MariaDB 10.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.5) TokuDB is in a separate RPM package\
+In [MariaDB 5.5.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.33), [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.5), and starting from [MariaDB 10.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.5) TokuDB is in a separate RPM package
 called `MariaDB-tokudb-engine` and is installed as follows:
 
 ```
@@ -27,7 +27,7 @@ sudo yum install MariaDB-tokudb-engine
 
 ### Installing TokuDB on Ubuntu & Debian
 
-On Ubuntu, TokuDB is available on the 64-bit versions of Ubuntu 12.10 and\
+On Ubuntu, TokuDB is available on the 64-bit versions of Ubuntu 12.10 and
 newer. On Debian, TokuDB is available on the 64-bit versions of Debian 7\
 "Wheezy" and newer.
 
@@ -65,9 +65,9 @@ If you don't do the above, you will get an error similar to the following one in
 
 ## Check for Transparent HugePage Support on Linux
 
-Transparent hugepages is a feature in newer linux kernel versions that causes\
-problems for the memory usage tracking calculations in TokuKV and can lead to\
-memory overcommit. If you have this feature enabled, TokuKV will not start, and\
+Transparent hugepages is a feature in newer linux kernel versions that causes
+problems for the memory usage tracking calculations in TokuKV and can lead to
+memory overcommit. If you have this feature enabled, TokuKV will not start, and
 you should turn it off.
 
 You can check the status of Transparent Hugepages as follows:
@@ -130,7 +130,7 @@ Cannot enable tc-log at run-time. XA features of TokuDB are disabled
 ```
 
 MariaDB's default `my.cnf` files come with a section for\
-TokuDB. To enable TokuDB just remove the '#' comment markers from the options\
+TokuDB. To enable TokuDB just remove the '#' comment markers from the options
 in the TokuDB section.
 
 A typical TokuDB section looks like the following:
@@ -145,7 +145,7 @@ A typical TokuDB section looks like the following:
 plugin-load=ha_tokudb
 ```
 
-By default, the `plugin-load` option is commented out. Simply un-comment it\
+By default, the `plugin-load` option is commented out. Simply un-comment it
 as in the example above.
 
 Don't forget to also enable jemalloc in the config file.
@@ -159,20 +159,20 @@ With these changes done, you can restart MariaDB to activate TokuDB.
 
 ### Enabling TokuDB on Fedora
 
-Instead of putting the TokuDB section in the main `my.cnf` file, it is\
+Instead of putting the TokuDB section in the main `my.cnf` file, it is
 placed in a separate file located at: `/etc/my.cnf.d/tokudb.cnf`
 
 ### Enabling TokuDB on Ubuntu & Debian
 
-Instead of putting the TokuDB section in the main `my.cnf` file, it is\
+Instead of putting the TokuDB section in the main `my.cnf` file, it is
 placed in a separate file located at: `/etc/mysql/conf.d/tokudb.cnf`
 
 ### Enabling TokuDB Manually From the mysql Command Line
 
 Generally, it is recommended to use one of the above methods to enable the\
-TokuDB storage engine, but it is also possible to enable it manually as with\
+TokuDB storage engine, but it is also possible to enable it manually as with
 other plugins. To do so, launch the mysql command-line client and connect to\
-MariaDB as a user with the `SUPER` privilege and execute the following\
+MariaDB as a user with the `SUPER` privilege and execute the following
 command:
 
 ```

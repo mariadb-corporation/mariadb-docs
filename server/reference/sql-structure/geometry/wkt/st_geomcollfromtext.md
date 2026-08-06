@@ -11,7 +11,7 @@ GeometryCollectionFromText(wkt[,srid])
 
 ## Description
 
-Constructs a [GEOMETRYCOLLECTION](../../../sql-statements/geometry-constructors/geometry-constructors/geometrycollection.md) value using its [WKT](wkt-definition.md)\
+Constructs a [GEOMETRYCOLLECTION](../../../sql-statements/geometry-constructors/geometry-constructors/geometrycollection.md) value using its [WKT](wkt-definition.md)
 representation and [SRID](../geometry-properties/st_srid.md).
 
 `ST_GeomCollFromText()`, `ST_GeometryCollectionFromText()`, `GeomCollFromText()` and `GeometryCollectionFromText()` are all synonyms.

@@ -23,12 +23,12 @@ Review these pages for detailed documentation:
 
 ## Tutorials
 
-* [Activating MariaDB Audit Log](https://tunnelix.com/activating-mariadb-audit-log/)\
+* [Activating MariaDB Audit Log](https://tunnelix.com/activating-mariadb-audit-log/)
   by Jaykishan Mutkawoa, May 30, 2016
 * [Installing MariaDB Audit Plugin on Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.MySQL.Options.AuditPlugin.html)\
   Amazon RDS supports using the MariaDB Audit Plugin on MySQL and MariaDB database instances.
 
 ## Blog Posts
 
-* [MySQL Auditing with MariaDB Auditing Plugin](https://planet.mysql.com/entry/?id=5994184)\
+* [MySQL Auditing with MariaDB Auditing Plugin](https://planet.mysql.com/entry/?id=5994184)
   by Peter Zaitsev, February 15, 2016

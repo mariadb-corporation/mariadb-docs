@@ -152,7 +152,7 @@ To install MariaDB Galera Cluster, you could execute the following command:
 sudo zypper install MariaDB-server MariaDB-server-galera MariaDB-client galera-4
 ```
 
-If you haven't yet imported the MariaDB GPG public key, then `zypper` will prompt you to\
+If you haven't yet imported the MariaDB GPG public key, then `zypper` will prompt you to
 import it after it downloads the packages, but before it prompts you to install them.
 
 See [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) for more information on MariaDB Galera Cluster.

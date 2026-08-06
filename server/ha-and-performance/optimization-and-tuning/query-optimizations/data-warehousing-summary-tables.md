@@ -44,7 +44,7 @@ As a rule of thumb, a summary table will have one-tenth the number of rows as th
 ## Example
 
 Let's talk about a large chain of car dealerships.\
-The Fact table has all the sales with columns such as\
+The Fact table has all the sales with columns such as
 datetime, salesman\_id, city, price, customer\_id, make, model, model\_year.\
 One Summary table might focus on sales:
 
@@ -312,7 +312,7 @@ Would one ever PARTITION a Summary Table? Yes, in extreme situations, such as th
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [summarytables](https://mysql.rjweb.org/doc.php/summarytables)

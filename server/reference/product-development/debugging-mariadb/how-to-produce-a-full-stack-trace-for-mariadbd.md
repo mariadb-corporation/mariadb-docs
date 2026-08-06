@@ -408,7 +408,7 @@ podman run --rm --user mysql --volume data:/var/lib/mysql -i mariadb_debug gdb -
 
 ## Running a Copy of the Database Directory
 
-If you are concerned with debuggers running on your production database\
+If you are concerned with debuggers running on your production database
 you can also copy the database to another location.
 
 This is useful when you know which statement crashed the server.

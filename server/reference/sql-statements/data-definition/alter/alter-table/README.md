@@ -408,7 +408,7 @@ WHERE TABLE_NAME = 'account_ledger';
 
 ### DROP CONSTRAINT
 
-`DROP CONSTRAINT` for `UNIQUE` and `FOREIGN KEY` [constraints](../../constraint.md)\
+`DROP CONSTRAINT` for `UNIQUE` and `FOREIGN KEY` [constraints](../../constraint.md)
 and `DROP CONSTRAINT` for `CHECK` constraints were introduced in an earlier version of MariaDB.
 
 Modifies the table, removing the given constraint.

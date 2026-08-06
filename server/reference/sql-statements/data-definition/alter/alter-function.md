@@ -21,7 +21,7 @@ characteristic:
 
 This statement can be used to change the characteristics of a stored function. More than one change may be specified in an `ALTER FUNCTION` statement. However, you cannot change the parameters or body of a stored function using this statement; to make such changes, you must drop and re-create the function using [DROP FUNCTION](../../../../server-usage/stored-routines/stored-functions/drop-function.md) and [CREATE FUNCTION](../create/create-function.md).
 
-You must have the `ALTER ROUTINE` privilege for the function. (That privilege is granted automatically to the function creator.) If binary logging is enabled, the `ALTER FUNCTION` statement might also require\
+You must have the `ALTER ROUTINE` privilege for the function. (That privilege is granted automatically to the function creator.) If binary logging is enabled, the `ALTER FUNCTION` statement might also require
 the `SUPER` privilege, as described in [Binary Logging of Stored Routines](../../../../server-usage/stored-routines/binary-logging-of-stored-routines.md).
 
 ## Example

@@ -32,7 +32,7 @@ Note that for a partitioned table, `DROP TABLE` permanently removes the table de
 
 For each referenced table, `DROP TABLE` drops a temporary table with that name, if it exists. If it does not exist, and the `TEMPORARY` keyword is not used, it drops a non-temporary table with the same name, if it exists. The `TEMPORARY` keyword ensures that a non-temporary table will not accidentally be dropped.
 
-Use `IF EXISTS` to prevent an error from occurring for tables that do not\
+Use `IF EXISTS` to prevent an error from occurring for tables that do not
 exist. A `NOTE` is generated for each non-existent table when using`IF EXISTS`. See [SHOW WARNINGS](../../administrative-sql-statements/show/show-warnings.md).
 
 If a [foreign key](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md) references this table, the table cannot be dropped. In this case, it is necessary to drop the foreign key first.

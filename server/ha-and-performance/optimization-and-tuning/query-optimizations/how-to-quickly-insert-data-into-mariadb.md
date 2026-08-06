@@ -31,10 +31,10 @@ COMMIT;
 ALTER TABLE table_name ENABLE KEYS;
 ```
 
-In many storage engines (at least MyISAM and Aria),`ENABLE KEYS` works by scanning through the row data and collecting keys, sorting them and then creating the index blocks. This is an order of magnitude\
+In many storage engines (at least MyISAM and Aria),`ENABLE KEYS` works by scanning through the row data and collecting keys, sorting them and then creating the index blocks. This is an order of magnitude
 faster than creating the index one row at a time and it also uses less key buffer memory.
 
-**Note:** When you insert into an **empty table** with [INSERT](../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) or [LOAD DATA](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md), MariaDB **automatically** does a [DISABLE KEYS](../../../reference/sql-statements/data-definition/alter/alter-table/) before and an [ENABLE KEYS](../../../reference/sql-statements/data-definition/alter/alter-table/)\
+**Note:** When you insert into an **empty table** with [INSERT](../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) or [LOAD DATA](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md), MariaDB **automatically** does a [DISABLE KEYS](../../../reference/sql-statements/data-definition/alter/alter-table/) before and an [ENABLE KEYS](../../../reference/sql-statements/data-definition/alter/alter-table/)
 afterwards.
 
 When inserting big amounts of data, integrity checks are sensibly time-consuming. It is possible to disable the `UNIQUE` indexes and the [foreign keys](../optimization-and-indexes/foreign-keys.md) checks using the [unique\_checks](../system-variables/server-system-variables.md#unique_checks) and the [foreign\_key\_checks](../system-variables/server-system-variables.md#foreign_key_checks) system variables:

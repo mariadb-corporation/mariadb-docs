@@ -15,7 +15,7 @@ expr REGEXP pat, expr RLIKE pat
 
 ## Description
 
-Performs a pattern match of a string expression `expr` against a pattern`pat`. The pattern can be an extended regular expression. See [Regular Expressions Overview](regular-expressions-overview.md) for details on the syntax for\
+Performs a pattern match of a string expression `expr` against a pattern`pat`. The pattern can be an extended regular expression. See [Regular Expressions Overview](regular-expressions-overview.md) for details on the syntax for
 regular expressions (see also [PCRE Regular Expressions](pcre.md)).
 
 Returns `1` if `expr` matches `pat` or `0` if it doesn't match. If either `expr` or `pat` are `NULL`, the result is `NULL`.

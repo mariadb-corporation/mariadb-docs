@@ -8,7 +8,7 @@ description: >-
 
 {% include "../../../../.gitbook/includes/this-page-contains-backgrou....md" %}
 
-When creating a connection, a THD object is created for that connection. This contains\
+When creating a connection, a THD object is created for that connection. This contains
 all connection information and also caches to speed up queries and avoid frequent malloc() calls.
 
 When creating a new connection, the following malloc() calls are done for the THD:

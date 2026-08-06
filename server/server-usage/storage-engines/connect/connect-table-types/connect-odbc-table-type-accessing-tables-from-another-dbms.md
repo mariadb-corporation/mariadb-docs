@@ -56,19 +56,19 @@ ENGINE=CONNECT table_type=ODBC tabname='EMPLOYEE'
 CONNECTION='DSN=firebird';
 ```
 
-This definition ignores the FIRST\_NAME, LAST\_NAME, JOB\_CODE, and JOB\_GRADE\
-columns. It places the FULL\_NAME last column of the original table in second\
+This definition ignores the FIRST\_NAME, LAST\_NAME, JOB\_CODE, and JOB\_GRADE
+columns. It places the FULL\_NAME last column of the original table in second
 position. The type of the HIRE\_DATE column was changed from _timestamp_ to _date_ and the type of the DEPT\_NO column was changed from _char_ to _integer_.
 
 Currently, some restrictions apply to ODBC tables:
 
 1. Cursor type is forward only (sequential reading).
-2. No indexing of ODBC tables (do not specify any columns as key). However,\
-   because CONNECT can often add a where clause to the query sent to the data\
+2. No indexing of ODBC tables (do not specify any columns as key). However,
+   because CONNECT can often add a where clause to the query sent to the data
    source, indexing are used by the data source if it supports it. (Remote indexing is available with version 1.04, released with [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.6))
-3. CONNECT ODBC supports [SELECT](../../../../reference/sql-statements/data-manipulation/selecting-data/select.md) and [INSERT](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md). [UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) are also supported\
-   in a somewhat restricted way (see below). For other operations, use an ODBC\
-   table with the EXECSRC option (see below) to directly send proper commands\
+3. CONNECT ODBC supports [SELECT](../../../../reference/sql-statements/data-manipulation/selecting-data/select.md) and [INSERT](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md). [UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) are also supported
+   in a somewhat restricted way (see below). For other operations, use an ODBC
+   table with the EXECSRC option (see below) to directly send proper commands
    to the data source.
 
 ## Random Access of ODBC Tables
@@ -99,9 +99,9 @@ For tables too large to be stored in memory another possibility is to make your 
 
 With CONNECT version 1.04 (from [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.6)), another way to provide random access is to specify some columns to be indexed. This should be done only when the corresponding column of the source table is also indexed. This should be used for tables too large to be stored in memory and is similar to the remote indexing used by the [MYSQL table type](connect-mysql-table-type-accessing-mysqlmariadb-tables.md) and by the [FEDERATED engine](../../federatedx-storage-engine/).
 
-There remains the possibility to extract data from the external table and to construct\
-another table of any file format from the data source. For instance to construct\
-a fixed formatted DOS table containing the CUSTOMER table data, create the\
+There remains the possibility to extract data from the external table and to construct
+another table of any file format from the data source. For instance to construct
+a fixed formatted DOS table containing the CUSTOMER table data, create the
 table as
 
 ```
@@ -122,8 +122,8 @@ ENGINE=CONNECT table_type=ODBC tabname='CONTACT'
 CONNECTION='DSN=Excel Files;DBQ=D:/Ber/Doc/Contact_BP.xls;';
 ```
 
-This supposes that a tabular zone of the sheet including column headers is\
-defined as a table named CONTACT or using a “named reference”. Refer to the Excel documentation for how to\
+This supposes that a tabular zone of the sheet including column headers is
+defined as a table named CONTACT or using a “named reference”. Refer to the Excel documentation for how to
 specify tables inside sheets. Once done, you can ask:
 
 ```
@@ -151,12 +151,12 @@ Here again, the columns description was left to CONNECT when creating the table.
 
 ## Multiple ODBC tables
 
-The concept of multiple tables can be extended to ODBC tables when they are\
-physically represented by files, for instance to Excel or Access tables. The\
+The concept of multiple tables can be extended to ODBC tables when they are
+physically represented by files, for instance to Excel or Access tables. The
 condition is that the connect string for the table must contain a field\
-DBQ=_filename_, in which wildcard characters can be included as for\
+DBQ=_filename_, in which wildcard characters can be included as for
 multiple=1 tables in their filename. For instance, a table contained in several\
-Excel files CA200401.xls, CA200402.xls, ...CA200412.xls can be created by a\
+Excel files CA200401.xls, CA200402.xls, ...CA200412.xls can be created by a
 command such as:
 
 ```
@@ -168,31 +168,31 @@ CONNECTION='DSN=Excel Files;DBQ=D:/Ber/CA/CA2004*.xls;';
 ```
 
 Providing that in each file the applying information is internally set for\
-Excel as a table named "bank account". This extension to ODBC does not support\_multiple\_=2. The _qchar_ option was specified to make the identifiers\
-quoted in the select statement sent to ODBC, in particular the when the table\
+Excel as a table named "bank account". This extension to ODBC does not support\_multiple\_=2. The _qchar_ option was specified to make the identifiers
+quoted in the select statement sent to ODBC, in particular the when the table
 or column names contain blanks, to avoid SQL syntax errors.
 
 **Caution:** Avoid accessing tables belonging to the currently running MariaDB server via the MySQL ODBC connector. This may not work and may cause the server to be restarted.
 
 ## Performance consideration
 
-To avoid extracting entire tables from an ODBC source, which can be a lengthy\
-process, CONNECT extracts the "compatible" part of query WHERE clauses and adds\
-it to the ODBC query. Compatible means that it must be understood by the data\
-source. In particular, clauses involving scalar functions are not kept because\
-the data source may have different functions than MariaDB or use a different\
-syntax. Of course, clauses involving sub-select are also skipped. This will\
+To avoid extracting entire tables from an ODBC source, which can be a lengthy
+process, CONNECT extracts the "compatible" part of query WHERE clauses and adds
+it to the ODBC query. Compatible means that it must be understood by the data
+source. In particular, clauses involving scalar functions are not kept because
+the data source may have different functions than MariaDB or use a different
+syntax. Of course, clauses involving sub-select are also skipped. This will
 transfer eventual indexing to the data source.
 
-Take care with clauses involving string items because you may not know whether\
-they are treated by the data source as case sensitive or case insensitive. If in\
-doubt, make your queries as if the data source was processing strings as case\
+Take care with clauses involving string items because you may not know whether
+they are treated by the data source as case sensitive or case insensitive. If in
+doubt, make your queries as if the data source was processing strings as case
 sensitive to avoid incomplete results.
 
 ## Using ODBC Tables inside correlated sub-queries
 
-Unlike not correlated subqueries that are executed only once, correlated subqueries are executed many\
-times. It is what ODBC calls a "requery". Several methods can be used by CONNECT to deal with this\
+Unlike not correlated subqueries that are executed only once, correlated subqueries are executed many
+times. It is what ODBC calls a "requery". Several methods can be used by CONNECT to deal with this
 depending on the setting of the MEMORY or SCROLLABLE Boolean options:
 
 | Option         | Description                                                                                           |
@@ -203,8 +203,8 @@ depending on the setting of the MEMORY or SCROLLABLE Boolean options:
 
 Note: the MEMORY and SCROLLABLE options must be specified in the OPTION \_ LIST.
 
-Because the table is accessed several times, this can make queries last very long except for small tables\
-and is almost unacceptable for big tables. However, if it cannot be avoided, using the memory method\
+Because the table is accessed several times, this can make queries last very long except for small tables
+and is almost unacceptable for big tables. However, if it cannot be avoided, using the memory method
 is the best choice and can be more than four times faster than the default method. If it is supported by the driver, using a scrollable cursor is slightly slower than using memory but can be an alternative to avoid memory problems when the sub-query returns a huge result set.
 
 If the result set is of reasonable size, it is also possible to specify the block\_size option equal or slightly larger than the result set. The whole result set being read on the first fetch, can be accessed many times without having to do anything else.
@@ -213,8 +213,8 @@ Another good workaround is to replace within the correlated sub-query the ODBC t
 
 ## Accessing specified views
 
-Instead of specifying a source table name via the TABNAME option, it is\
-possible to retrieve data from a “view” whose definition is given in a new\
+Instead of specifying a source table name via the TABNAME option, it is
+possible to retrieve data from a “view” whose definition is given in a new
 option SRCDEF. For instance:
 
 ```
@@ -240,7 +240,7 @@ Then, when executing for instance:
 SELECT * FROM custnum WHERE customers > 3;
 ```
 
-The processing of the group by is done by the data source, which returns only\
+The processing of the group by is done by the data source, which returns only
 the generated result set on which only the where clause is performed locally.\
 The result:
 
@@ -255,20 +255,20 @@ The result:
 | USA       | 13        |
 | Venezuela | 4         |
 
-This makes possible to let the data source do complicated operations, such as\
-joining several tables or executing procedures returning a result set. This\
+This makes possible to let the data source do complicated operations, such as
+joining several tables or executing procedures returning a result set. This
 minimizes the data transfer through ODBC.
 
 ## Data Modifying Operations
 
 The only data modifying operations are the [INSERT](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) , [UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) commands.\
-They can be executed successfully only if the data source database or tables\
+They can be executed successfully only if the data source database or tables
 are not read/only.
 
 ### INSERT Command
 
 When inserting values to an ODBC table, local values are used and sent to the\
-ODBC table. This does not make any difference when the values are constant but\
+ODBC table. This does not make any difference when the values are constant but
 in a query such as:
 
 ```
@@ -285,13 +285,13 @@ CONNECT does not directly support INSERT commands such as:
 INSERT INTO t1 VALUES(2,'Deux') ON duplicate KEY UPDATE msg = 'Two';
 ```
 
-Sure enough, the “on duplicate key update” part of it is ignored, and will\
+Sure enough, the “on duplicate key update” part of it is ignored, and will
 result in error if the key value is duplicated.
 
 ### UPDATE and DELETE Commands
 
 Unlike the [INSERT](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) command, [UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) are supported in a simplified way. Only simple table commands are supported; CONNECT does not support multi-table commands, commands sent from a procedure, or issued via a trigger.\
-These commands are just rephrased to correspond to the data source syntax and sent to the\
+These commands are just rephrased to correspond to the data source syntax and sent to the
 data source for execution. Let us suppose we created the table:
 
 ```
@@ -312,7 +312,7 @@ INSERT INTO tolite VALUES(1,'Toto',NOW(),'First'),
 (2,'Foo','2012-07-14','Second'),(4,'Machin','1968-05-30','Third');
 ```
 
-The function `now()` are executed by MariaDB and it returned value sent\
+The function `now()` are executed by MariaDB and it returned value sent
 to the ODBC table.
 
 Let us see what happens when updating the table. If we use the query:
@@ -327,50 +327,50 @@ CONNECT will rephrase the command as:
 UPDATE lite SET nom = 'Gillespie' WHERE id = 10;
 ```
 
-What it did is just to replace the local table name with the remote table name\
+What it did is just to replace the local table name with the remote table name
 and change all the back ticks to blanks or to the data source identifier quoting characters if QUOTED is specified.\
 Then this command are sent to the data source to be executed by it.
 
-This is simpler and can be faster than doing a positional update using a cursor\
-and commands such as “select ... for update of ...” that are not supported by\
-all data sources. However, there are some restrictions that must be understood\
+This is simpler and can be faster than doing a positional update using a cursor
+and commands such as “select ... for update of ...” that are not supported by
+all data sources. However, there are some restrictions that must be understood
 due to the way it is handled by MariaDB.
 
-1. MariaDB does not know about all the above. The command are parsed as if\
+1. MariaDB does not know about all the above. The command are parsed as if
    it were to be executed locally. Therefore, it must respect the MariaDB syntax.
-2. Being executed by the data source, the (rephrased) command must also respect\
+2. Being executed by the data source, the (rephrased) command must also respect
    the data source syntax.
 3. All data referenced in the SET and WHERE clause belongs to the data source.
 
-This is possible because both MariaDB and the data source are using the SQL\
+This is possible because both MariaDB and the data source are using the SQL
 language. But you must use only the basic features that are part of the core\
-SQL language. For instance, keywords like IGNORE or LOW\_PRIORITY will cause\
+SQL language. For instance, keywords like IGNORE or LOW\_PRIORITY will cause
 syntax error with many data source.
 
-Scalar function names also can be different, which severely restrict the use of\
+Scalar function names also can be different, which severely restrict the use of
 them. For instance:
 
 ```
 UPDATE tolite SET nais = NOW() WHERE id = 2;
 ```
 
-This will not work with SQLite3, the data source returning an “unknown scalar\
-function” error message. Note that in this particular case, you can rephrase it\
+This will not work with SQLite3, the data source returning an “unknown scalar
+function” error message. Note that in this particular case, you can rephrase it
 to:
 
 ```
 UPDATE tolite SET nais = DATE('now') WHERE id = 2;
 ```
 
-This understood by both parsers, and even if this function would return NULL\
+This understood by both parsers, and even if this function would return NULL
 executed by MariaDB, it does return the current date when executed by SQLite3.\
-But this begins to become too trickery so to overcome all these restrictions,\
-and permit to have all types of commands executed by the data source, CONNECT\
+But this begins to become too trickery so to overcome all these restrictions,
+and permit to have all types of commands executed by the data source, CONNECT
 provides a specific ODBC table subtype described now.
 
 ## Sending commands to a Data Source
 
-This can be done using a special subtype of ODBC table. Let us see this in an\
+This can be done using a special subtype of ODBC table. Let us see this in an
 example:
 
 ```
@@ -383,13 +383,13 @@ CONNECTION='Driver=SQLite3 ODBC Driver;Database=test.sqlite3;NoWCHAR=yes'
 option_list='Execsrc=1';
 ```
 
-The key points in this create statement are the EXECSRC option and the column\
+The key points in this create statement are the EXECSRC option and the column
 definition.
 
-The EXECSRC option tells that this table are used to send a command to the\
-data source. Most of the sent commands do not return result set. Therefore, the\
-table columns are used to specify the command to be executed and to get the\
-result of the execution. The name of these columns can be chosen arbitrarily,\
+The EXECSRC option tells that this table are used to send a command to the
+data source. Most of the sent commands do not return result set. Therefore, the
+table columns are used to specify the command to be executed and to get the
+result of the execution. The name of these columns can be chosen arbitrarily,
 their function coming from the FLAG value:
 
 |         |                                                                                                                |
@@ -398,15 +398,15 @@ their function coming from the FLAG value:
 | Flag=1: | The affected rows, or -1 in case of error, or the result number of column if the command returns a result set. |
 | Flag=2: | The returned (eventually error) message.                                                                       |
 
-How to use this table and specify the command to send? By executing a command\
+How to use this table and specify the command to send? By executing a command
 such as:
 
 ```
 SELECT * FROM crlite WHERE command = 'a command';
 ```
 
-This will send the command specified in the WHERE clause to the data source and\
-return the result of its execution. The syntax of the WHERE clause must be\
+This will send the command specified in the WHERE clause to the data source and
+return the result of its execution. The syntax of the WHERE clause must be
 exactly as shown above. For instance:
 
 ```
@@ -478,7 +478,7 @@ SELECT * FROM tlite WHERE ID = 2;
 | -- | ---- | ---------- | ----- |
 | 2  | Foo  | 2012-07-15 | No ID |
 
-The syntax to send a command is rather strange and may seem unnatural. It is possible to use an easier\
+The syntax to send a command is rather strange and may seem unnatural. It is possible to use an easier
 syntax by defining a stored procedure such as:
 
 ```
@@ -497,8 +497,8 @@ This is possible only when sending one single command.
 
 ### Sending several commands together
 
-Grouping commands uses an easier syntax and is faster because only one\
-connection is made for the all of them. To send several commands in one call,\
+Grouping commands uses an easier syntax and is faster because only one
+connection is made for the all of them. To send several commands in one call,
 use the following syntax:
 
 ```
@@ -507,24 +507,24 @@ SELECT * FROM crlite WHERE command IN (
   'update lite set birth = ''2009-08-10'' where ID = 3');
 ```
 
-When several commands are sent, the execution stops at the end of them or after\
-a command that is in error. To continue after _n_ errors, set the option\
+When several commands are sent, the execution stops at the end of them or after
+a command that is in error. To continue after _n_ errors, set the option
 maxerr=_n_ (0 by default) in the option list.
 
 **Note 1:** It is possible to specify the SRCDEF option when creating an\
-EXECSRC table. It are the command sent by default when a WHERE clause is\
+EXECSRC table. It are the command sent by default when a WHERE clause is
 not specified.
 
-**Note 2:** Most data sources do not allow sending several commands separated\
+**Note 2:** Most data sources do not allow sending several commands separated
 by semi-colons.
 
-**Note 3:** Quotes inside commands must be escaped. This can be avoided by\
+**Note 3:** Quotes inside commands must be escaped. This can be avoided by
 using a different quoting character than the one used in the command
 
 **Note 4:** The sent command must obey the data source syntax.
 
-**Note 5:** Sent commands apply in the specified database. However, they can\
-address any table within this database, or belonging to another database using\
+**Note 5:** Sent commands apply in the specified database. However, they can
+address any table within this database, or belonging to another database using
 the name syntax _schema.tabname_.
 
 ## Connecting to a Data Source
@@ -540,7 +540,7 @@ The second way is a simplified way in which ODBC is just given the name of a DSN
 
 ### Defining the Connection String
 
-Using the first way, the connection string must be specified. This is sometimes the most difficult task when creating ODBC tables because, depending on the\
+Using the first way, the connection string must be specified. This is sometimes the most difficult task when creating ODBC tables because, depending on the
 operating system and the data source, this string can widely differ.
 
 The format of the ODBC Connection String is:
@@ -554,38 +554,38 @@ attribute-value ::= character-string
 driver-defined-attribute-keyword = identifier
 ```
 
-Where character-string has zero or more characters; identifier has one or more\
-characters; attribute- keyword is not case-sensitive; attribute-value may be\
-case-sensitive; and the value of the DSN keyword does not consist solely of\
-blanks. Due to the connection string grammar, keywords and attribute values\
-that contain the characters `[]{}(),;?*=!@` should be avoided. The value of\
-the DSN keyword cannot consist only of blanks, and should not contain leading\
-blanks. Because of the grammar of the system information, keywords and data\
-source names cannot contain the backslash () character. Applications do not\
-have to add braces around the attribute value after the DRIVER keyword unless\
+Where character-string has zero or more characters; identifier has one or more
+characters; attribute- keyword is not case-sensitive; attribute-value may be
+case-sensitive; and the value of the DSN keyword does not consist solely of
+blanks. Due to the connection string grammar, keywords and attribute values
+that contain the characters `[]{}(),;?*=!@` should be avoided. The value of
+the DSN keyword cannot consist only of blanks, and should not contain leading
+blanks. Because of the grammar of the system information, keywords and data
+source names cannot contain the backslash () character. Applications do not
+have to add braces around the attribute value after the DRIVER keyword unless
 the attribute contains a semicolon (;), in which case the braces are required.\
-If the attribute value that the driver receives includes the braces, the driver\
-should not remove them, but they should be part of the returned connection\
+If the attribute value that the driver receives includes the braces, the driver
+should not remove them, but they should be part of the returned connection
 string.
 
 ### ODBC Defined Connection Attributes
 
 The ODBC defined attributes are:
 
-* DSN - the name of the data source to connect to. You must create this before attempting to refer to it. You create new DSNs\
-  through the ODBC Administrator (Windows), ODBCAdmin (unixODBC's GUI manager)\
+* DSN - the name of the data source to connect to. You must create this before attempting to refer to it. You create new DSNs
+  through the ODBC Administrator (Windows), ODBCAdmin (unixODBC's GUI manager)
   or in the odbc.ini file.
-* DRIVER - the name of the driver to connect to. You can use this in DSN-less\
+* DRIVER - the name of the driver to connect to. You can use this in DSN-less
   connections.
 * FILEDSN - the name of a file containing the connection attributes.
 * UID/PWD - any username and password the database requires for authentication.
 * SAVEFILE - request the DSN attributes are saved in this file.
 
-Other attributes are DSN dependent attributes. The connection string can give\
-the name of the driver in the DRIVER field or the data source in the DSN field\
-(attention! meet the spelling and case) and has other fields that depend on the\
-data source. When specifying a file, the DBQ field must give the **full** path\
-and name of the file containing the table. Refer to the specific ODBC connector\
+Other attributes are DSN dependent attributes. The connection string can give
+the name of the driver in the DRIVER field or the data source in the DSN field
+(attention! meet the spelling and case) and has other fields that depend on the
+data source. When specifying a file, the DBQ field must give the **full** path
+and name of the file containing the table. Refer to the specific ODBC connector
 documentation for the exact syntax of the connection string.
 
 ### Using a Predefined DSN
@@ -614,9 +614,9 @@ Error Code: 1105 [unixODBC][Driver Manager]Can't open lib
 '/usr/cachesys/bin/libcacheodbc.so' : file not found
 ```
 
-You must make sure that the user running mysqld (usually "mysql") has enough\
-permission to load the ODBC driver library. It can happen that the driver file\
-does not have enough read privileges (use chmod to fix this), or loading is\
+You must make sure that the user running mysqld (usually "mysql") has enough
+permission to load the ODBC driver library. It can happen that the driver file
+does not have enough read privileges (use chmod to fix this), or loading is
 prevented by SELinux configuration (see below).
 
 Try this command in a shell to check if the driver had enough permission:
@@ -664,27 +664,27 @@ type=AVC msg=audit(1423094175.109:433): avc:  denied  { name_connect } for  pid=
 
 ## ODBC Catalog Information
 
-Depending on the version of the used ODBC driver, some additional information\
-on the tables are existing, such as table QUALIFIER or OWNER for old versions,\
+Depending on the version of the used ODBC driver, some additional information
+on the tables are existing, such as table QUALIFIER or OWNER for old versions,
 now named CATALOG or SCHEMA since version 3.
 
 CATALOG is apparently rarely used by most data sources, but SCHEMA (formerly\
 OWNER) is and corresponds to the DATABASE information of MySQL.
 
-The issue is that if no schema name is specified, some data sources return\
-information for all schemas while some others only return the information of\
-the “default” schema. In addition, the used “schema” or “database” is sometimes\
-implied by the connection string and sometimes is not. Sometimes, it also can\
+The issue is that if no schema name is specified, some data sources return
+information for all schemas while some others only return the information of
+the “default” schema. In addition, the used “schema” or “database” is sometimes
+implied by the connection string and sometimes is not. Sometimes, it also can
 be included in a data source definition.
 
 CONNECT offers two ways to specify this information:
 
-1. When specified, the DBNAME create table option is regarded by ODBC tables as\
+1. When specified, the DBNAME create table option is regarded by ODBC tables as
    the SCHEMA name.
-2. Table names can be specified as “cat.sch.tab” allowing to set the catalog and\
+2. Table names can be specified as “cat.sch.tab” allowing to set the catalog and
    schema info.
 
-When both are used, the qualified table name has precedence over DBNAME . For\
+When both are used, the qualified table name has precedence over DBNAME . For
 instance:
 
 | Tabname | DBname | Description                                                    |
@@ -697,24 +697,24 @@ instance:
 | %.t1    |        | The t1 table in all schemas for all DSN                        |
 | test.%  |        | All tables in the test schema                                  |
 
-When creating a standard ODBC table, you should make sure only one source table\
+When creating a standard ODBC table, you should make sure only one source table
 is specified. Specifying more than one source table must be done only for\
 CONNECT catalog tables (with CATFUNC=tables or columns).
 
 In particular, when column definition is left to the Discovery feature, if tables with the same name are present in several schemas and the schema name is not specified, several columns with the same name are generated. This will make the creation fail with a not very explicit error message.
 
-Note: With some ODBC drivers, the DBNAME option or qualified table name is useless because the\
-schema implied by the connection string or the definition of the data source has priority over the\
+Note: With some ODBC drivers, the DBNAME option or qualified table name is useless because the
+schema implied by the connection string or the definition of the data source has priority over the
 specified DBNAME .
 
 ### Table name case
 
-Another issue when dealing with ODBC tables is the way table and column names\
+Another issue when dealing with ODBC tables is the way table and column names
 are handled regarding of the case.
 
-For instance, Oracle follows to the SQL standard here. It converts non-quoted\
-identifiers to upper case. This is correct and expected. PostgreSQL is not\
-standard. It converts identifiers to lower case. MySQL/MariaDB is not\
+For instance, Oracle follows to the SQL standard here. It converts non-quoted
+identifiers to upper case. This is correct and expected. PostgreSQL is not
+standard. It converts identifiers to lower case. MySQL/MariaDB is not
 standard. They preserve identifiers on Linux, and convert to lower case on\
 Windows.
 

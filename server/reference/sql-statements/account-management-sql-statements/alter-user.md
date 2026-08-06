@@ -141,9 +141,9 @@ For example, if our password is `mariadb`, then we can set the account's passwor
 ALTER USER foo2@test IDENTIFIED BY 'mariadb';
 ```
 
-If you do not specify a password with the `IDENTIFIED BY` clause, the user\
-will be able to connect without a password. A blank password is not a wildcard\
-to match any password. The user must connect without providing a password if no\
+If you do not specify a password with the `IDENTIFIED BY` clause, the user
+will be able to connect without a password. A blank password is not a wildcard
+to match any password. The user must connect without providing a password if no
 password is set.
 
 The only [authentication plugins](../../plugins/authentication-plugins/) that this clause supports are [mysql\_native\_password](../../plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) and [mysql\_old\_password](../../plugins/authentication-plugins/authentication-plugin-mysql_old_password.md).
@@ -173,8 +173,8 @@ ALTER USER foo2@test
   IDENTIFIED BY PASSWORD '*54958E764CE10E50764C2EECBB71D01F08549980';
 ```
 
-If you do not specify a password with the `IDENTIFIED BY` clause, the user\
-will be able to connect without a password. A blank password is not a wildcard\
+If you do not specify a password with the `IDENTIFIED BY` clause, the user
+will be able to connect without a password. A blank password is not a wildcard
 to match any password. The user must connect without providing a password if no password is set.
 
 The only [authentication plugins](../../plugins/authentication-plugins/) that this clause supports are [mysql\_native\_password](../../plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) and [mysql\_old\_password](../../plugins/authentication-plugins/authentication-plugin-mysql_old_password.md).

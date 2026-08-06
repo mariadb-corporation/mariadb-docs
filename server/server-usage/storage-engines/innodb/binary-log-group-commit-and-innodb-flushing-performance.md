@@ -14,7 +14,7 @@ Durability of commits is not decreased — this is because even if the server cr
 
 ## Switching to Old Flushing Behavior
 
-The old behavior, with 3 syncs to disk per (group) commit (and consequently lower performance), can be selected with the new [innodb\_flush\_log\_at\_trx\_commit=3](innodb-system-variables.md#innodb_flush_log_at_trx_commit) option. There is normally no\
+The old behavior, with 3 syncs to disk per (group) commit (and consequently lower performance), can be selected with the new [innodb\_flush\_log\_at\_trx\_commit=3](innodb-system-variables.md#innodb_flush_log_at_trx_commit) option. There is normally no
 benefit to doing this, however there are a couple of edge cases to be aware of.
 
 ### Non-durable Binary Log Settings

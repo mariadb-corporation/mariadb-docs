@@ -167,7 +167,7 @@ s3-use-http=ON
 
 The typical use case would be that there exists tables that after some time would become fairly inactive, but are still important so that they can not be removed. In that case, an option is to move such a table to an archiving service, which is accessible through an S3 API.
 
-Notice that S3 means the Cloud Object Storage API defined by Amazon AWS. Often the whole of Amazon’s Cloud Object Storage is referred to as S3. In the context of the S3 archive storage engine, it refers to the API itself that defines how to store objects in a cloud service,\
+Notice that S3 means the Cloud Object Storage API defined by Amazon AWS. Often the whole of Amazon’s Cloud Object Storage is referred to as S3. In the context of the S3 archive storage engine, it refers to the API itself that defines how to store objects in a cloud service,
 being it Amazon’s or someone else’s. OpenStack for example provides an S3 API for storing objects.
 
 The main benefit of storing things in an S3 compatible storage is that the cost of storage is much cheaper than many other alternatives. Many S3 implementations also provide reliable long-term storage.
@@ -182,18 +182,18 @@ The main benefit of storing things in an S3 compatible storage is that the cost 
 
 ## Discovery
 
-The S3 storage engine supports full [MariaDB discovery](../../../reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md). This means that if\
-you have the S3 storage engine enabled and properly configured, the\
-table stored in S3 will automatically be discovered when it's accessed with [SHOW TABLES](../../../reference/sql-statements/administrative-sql-statements/show/show-tables.md), [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) or any other operation that\
-tries to access it. In the case of SELECT, the .frm file from S3 will\
+The S3 storage engine supports full [MariaDB discovery](../../../reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md). This means that if
+you have the S3 storage engine enabled and properly configured, the
+table stored in S3 will automatically be discovered when it's accessed with [SHOW TABLES](../../../reference/sql-statements/administrative-sql-statements/show/show-tables.md), [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) or any other operation that
+tries to access it. In the case of SELECT, the .frm file from S3 will
 be copied to the local storage to speed up future accesses.
 
-When an S3 table is opened for the first time (it's not in the table cache)\
-and there is a local .frm file, the S3 engine will check if it's still\
+When an S3 table is opened for the first time (it's not in the table cache)
+and there is a local .frm file, the S3 engine will check if it's still
 relevant, and if not, update or delete the .frm file.
 
-This means that if the table definition changes on S3 and it's in the\
-local cache, one has to execute [FLUSH TABLES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush-tables-for-export.md) to\
+This means that if the table definition changes on S3 and it's in the
+local cache, one has to execute [FLUSH TABLES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush-tables-for-export.md) to
 get MariaDB to notice the change and update the .frm file.
 
 If partitioning S3 tables are used, the partition definitions will also be stored on S3 storage and are discovered by other servers.
@@ -218,12 +218,12 @@ S3 works with [replication](../../../ha-and-performance/standard-replication/rep
 ## ANALYZE TABLE
 
 As of [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [ANALYZE TABLE](../../../reference/sql-statements/table-statements/analyze-table.md) is supported for S3 tables.\
-As the S3 tables are read-only, a normal `ANALYZE TABLE` will not do anything. However\
+As the S3 tables are read-only, a normal `ANALYZE TABLE` will not do anything. However
 using `ANALYZE TABLE table_name PERSISTENT FOR...` will now work.
 
 ## CHECK TABLE
 
-As of [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [CHECK TABLE](../../../reference/sql-statements/table-statements/check-table.md) will work. As S3 tables are read only\
+As of [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [CHECK TABLE](../../../reference/sql-statements/table-statements/check-table.md) will work. As S3 tables are read only
 it is very unlikely that they can become corrupted. The only known way an S3 table could be corrupted if either the original table copied to S3 was corrupted or the process of copying the original table to S3 was somehow interrupted.
 
 ## Current Limitations
@@ -241,19 +241,19 @@ All [ALTER PARTITION](../../../reference/sql-statements/data-definition/alter/al
 
 ## Performance Considerations
 
-Depending on your connection speed to your S3 provider, there can be some notable slowdowns in some\
+Depending on your connection speed to your S3 provider, there can be some notable slowdowns in some
 operations.
 
 ### Discovery
 
-As S3 is supporting discovery (automatically making tables available that are in S3) this can cause some\
+As S3 is supporting discovery (automatically making tables available that are in S3) this can cause some
 small performance problems if the S3 engine is enabled. Partitioning S3 tables also support discovery.
 
 * CREATE TABLE is a bit slower as the S3 engine has to check if the to-be-created table is already S3.
 * Queries on information\_schema tables are slower as S3 has to check if there is new tables in S3.
 * DROP of non existing tables are slower as S3 has to check if the table is in S3.
 
-There are no performance degradation's when accessing existing tables on the server. Accessing the S3\
+There are no performance degradation's when accessing existing tables on the server. Accessing the S3
 table the first time will copy the .frm file from S3 to the local disk, speeding up future accesses to the table.
 
 ### Caching

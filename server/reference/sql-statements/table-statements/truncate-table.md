@@ -43,7 +43,7 @@ For other storage engines, `TRUNCATE TABLE` differs from`DELETE` in the followin
 * Truncation operations cannot be performed if the session holds an active table lock.
 * Truncation operations do not return a meaningful value for the number of deleted rows. The usual result is "0 rows affected," which should be interpreted as "no information."
 * As long as the table format file `tbl_name.frm` is valid, the table can be re-created as an empty table with `TRUNCATE TABLE`, even if the data or index files have become corrupted.
-* The table handler does not remember the last used [AUTO\_INCREMENT](../../data-types/auto_increment.md) value, but starts counting\
+* The table handler does not remember the last used [AUTO\_INCREMENT](../../data-types/auto_increment.md) value, but starts counting
   from the beginning. This is true even for MyISAM and InnoDB, which normally do not reuse sequence values.
 * When used with partitioned tables, `TRUNCATE TABLE` preserves the partitioning; that is, the data and index files are dropped and re-created, while the partition definitions (.par) file is unaffected.
 * Since truncation of a table does not make any use of `DELETE`, the `TRUNCATE` statement does not invoke `ON DELETE` triggers.

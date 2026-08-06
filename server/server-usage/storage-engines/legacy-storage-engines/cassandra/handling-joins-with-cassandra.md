@@ -53,7 +53,7 @@ or
 then Cassandra Storage engine is not a good answer. Queries like this are answered in two ways:
 
 1. Design their schema in Cassandra in such a way that allows to get this data in one small select. No kidding. This is what Cassandra is targeted at, they explicitly recommend that Cassandra schema design starts with the queries.
-2. If the query doesn't match Cassandra's schema, they need to run Hive (or Pig), which have some kind of distributed join support. Hive/Pig compile queries to Map/reduce job which are ran across the whole cluster, so they will certainly beat Cassandra Storage Engine which runs on one mysqld node (you can have multiple mysqld nodes of course, but they will not cooperate with one\
+2. If the query doesn't match Cassandra's schema, they need to run Hive (or Pig), which have some kind of distributed join support. Hive/Pig compile queries to Map/reduce job which are ran across the whole cluster, so they will certainly beat Cassandra Storage Engine which runs on one mysqld node (you can have multiple mysqld nodes of course, but they will not cooperate with one
    another).
 
 It is possible to run Hive/Pig on Cassandra.

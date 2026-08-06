@@ -6,7 +6,7 @@ description: >-
 
 # Information Schema INNODB\_SYS\_TABLESPACES Table
 
-The [Information Schema](../../) `INNODB_SYS_TABLESPACES` table contains information about InnoDB tablespaces. Until [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) it was based on the internal `SYS_TABLESPACES` table. This internal table was removed in [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0), so this Information Schema table has been repurposed\
+The [Information Schema](../../) `INNODB_SYS_TABLESPACES` table contains information about InnoDB tablespaces. Until [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) it was based on the internal `SYS_TABLESPACES` table. This internal table was removed in [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0), so this Information Schema table has been repurposed
 to directly reflect the filesystem (fil\_system.space\_list).
 
 The `PROCESS` [privilege](../../../../sql-statements/account-management-sql-statements/grant.md) is required to view the table.

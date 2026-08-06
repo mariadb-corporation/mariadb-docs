@@ -24,22 +24,22 @@ These haven't passed through a full release process; however changes there have 
 
 The [mariadb.org/download](https://mariadb.org/download/) download page contains the source for all released binaries. You can find the latest source code at [server](https://github.com/MariaDB/server)
 
-To retrieve the code, the [Git](../../../reference/product-development/server-development/tools/using-git-with-mariadb/using-git.md) source control software offers\
-the path of least resistance. If you are unfamiliar with git, please refer to\
-the [git documentation](https://git-scm.com/doc) for an understanding\
+To retrieve the code, the [Git](../../../reference/product-development/server-development/tools/using-git-with-mariadb/using-git.md) source control software offers
+the path of least resistance. If you are unfamiliar with git, please refer to
+the [git documentation](https://git-scm.com/doc) for an understanding
 of version control with git.
 
 For instructions on creating a local branch of MariaDB, see the [Getting the MariaDB Source Code](getting-the-mariadb-source-code.md) page.
 
-See the [Generic Build Instructions](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/) page for\
+See the [Generic Build Instructions](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/) page for
 general instructions on compiling MariaDB from the source.\
-The [source](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/) page has links to platform and distribution-specific\
+The [source](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/) page has links to platform and distribution-specific
 information, including information on how we build the release packages.
 
 #### Old Versions
 
-Running the [most recent MariaDB version](https://mariadb.com/kb/en/new-and-old-releases/) is generally the best choice. Note that there are long-term releases, maintained for five years, short-term releases, maintained for one year, and rolling releases. However, some organizations still use old or very old versions of MariaDB. An\
-upgrade would probably require important changes in their applications, and\
+Running the [most recent MariaDB version](https://mariadb.com/kb/en/new-and-old-releases/) is generally the best choice. Note that there are long-term releases, maintained for five years, short-term releases, maintained for one year, and rolling releases. However, some organizations still use old or very old versions of MariaDB. An
+upgrade would probably require important changes in their applications, and
 sometimes they don't even have the sources of those applications.
 
 [mariadb.org/download/](https://mariadb.org/download?t=mariadb\&o=true) contains all historical releases.

@@ -4,9 +4,9 @@ description: The CONNECT storage engine.
 
 # CONNECT Table Types Overview
 
-CONNECT can handle very many table formats; it is indeed one of its main\
-features. The Type option specifies the type and format of the table. The Type\
-options available values and their descriptions are listed in the following\
+CONNECT can handle very many table formats; it is indeed one of its main
+features. The Type option specifies the type and format of the table. The Type
+options available values and their descriptions are listed in the following
 table:
 
 | Type                                                                                                     | Description                                                                                                                                                                                                                                                                                                                          |
@@ -40,10 +40,10 @@ table:
 
 ## Catalog Tables
 
-For all table types marked with a '\*' in the table above, CONNECT is able to\
-analyze the data source to retrieve the column definition. This can be used to\
-define a “catalog” table that display the column description of the source, or\
-to create a table without specifying the column definition that are\
+For all table types marked with a '\*' in the table above, CONNECT is able to
+analyze the data source to retrieve the column definition. This can be used to
+define a “catalog” table that display the column description of the source, or
+to create a table without specifying the column definition that are
 automatically constructed by CONNECT when creating the table.
 
 When marked with a ‘$’ the file can be the result returned by a REST query.

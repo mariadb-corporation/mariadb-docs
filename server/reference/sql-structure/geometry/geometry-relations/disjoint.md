@@ -8,7 +8,7 @@ Disjoint(g1,g2)
 
 ## Description
 
-Returns `1` or `0` to indicate whether `g1` is spatially disjoint from\
+Returns `1` or `0` to indicate whether `g1` is spatially disjoint from
 (does not intersect) `g2`.
 
 DISJOINT() tests the opposite relationship to [INTERSECTS()](intersects.md).

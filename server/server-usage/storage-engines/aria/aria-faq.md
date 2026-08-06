@@ -280,7 +280,7 @@ Note that this automatic detection doesn't work if you copy tables within the sa
 
 If you want to remove the [Aria log files](aria-storage-engine.md#aria-log-files) (`aria_log.%`) with `rm` or delete, then you must first shut down MariaDB cleanly (for example, with [mariadb-admin shutdown](../../../clients-and-utilities/administrative-tools/mariadb-admin.md)) before deleting the old files.
 
-The same rules apply when upgrading MariaDB; When upgrading, first take down MariaDB in a clean way and then upgrade. This will allow you to remove the old log files if there are incompatible problems between\
+The same rules apply when upgrading MariaDB; When upgrading, first take down MariaDB in a clean way and then upgrade. This will allow you to remove the old log files if there are incompatible problems between
 releases.
 
 Don't remove the `aria_log_control` file! This is not a log file, but a file that contains information about the Aria setup (current transaction id, unique id, next log file number etc.).

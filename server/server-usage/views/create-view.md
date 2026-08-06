@@ -33,7 +33,7 @@ The view definition is "frozen" at creation time, so changes to the underlying t
 The view definition must be a query that does not return errors at view creation times. However, the base tables used by the views might be altered later and the query may not be valid anymore. In this case, querying the view will result in an error. [CHECK TABLE](../../reference/sql-statements/table-statements/check-table.md) helps in finding this kind of problems.
 
 The [ALGORITHM clause](view-algorithms.md) affects how MariaDB processes the view. The `DEFINER` and `SQL SECURITY` clauses specify the security context to be used when checking access privileges at view invocation time. The `WITH CHECK`\
-`OPTION` clause can be given to constrain inserts or updates to rows in tables\
+`OPTION` clause can be given to constrain inserts or updates to rows in tables
 referenced by the view. These clauses are described later in this section.
 
 The `CREATE VIEW` statement requires the `CREATE VIEW` privilege for the view, and some privilege for each column selected by the `SELECT` statement. For columns used elsewhere in the `SELECT` statement you must have the `SELECT` privilege. If the `OR REPLACE` clause is present, you must also have the `DROP` privilege for the view.
@@ -52,7 +52,7 @@ Columns retrieved by the `SELECT` statement can be simple references to table co
 
 Unqualified table or view names in the `SELECT` statement are interpreted with respect to the default database. A view can refer to tables or views in other databases by qualifying the table or view name with the proper database name.
 
-A view can be created from many kinds of `SELECT` statements. It can refer to base tables or other views. It can use joins, `UNION`, and subqueries. The `SELECT` need not even refer to any tables. The\
+A view can be created from many kinds of `SELECT` statements. It can refer to base tables or other views. It can use joins, `UNION`, and subqueries. The `SELECT` need not even refer to any tables. The
 following example defines a view that selects two columns from another table, as well as an expression calculated from those columns:
 
 ```sql
@@ -125,7 +125,7 @@ If you specify the `DEFINER` clause, these rules determine the legal `DEFINER` u
 * If you have the [SET USER](../../reference/sql-statements/account-management-sql-statements/grant.md#set-user) privilege, you can specify any syntactically legal account name. If the account does not actually exist, a warning is generated.
 * If the SQL `SECURITY` value is `DEFINER` but the definer account does not exist when the view is referenced, an error occurs.
 
-Within a view definition, `CURRENT_USER` returns the view's `DEFINER` value by default. For views\
+Within a view definition, `CURRENT_USER` returns the view's `DEFINER` value by default. For views
 defined with the `SQL SECURITY INVOKER` characteristic, `CURRENT_USER` returns the account for the view's invoker. For information about user auditing within views, see [account-activity-auditing.html](https://dev.mysql.com/doc/refman/5.1/en/account-activity-auditing.html).
 
 Within a stored routine that is defined with the `SQL SECURITY DEFINER` characteristic, `CURRENT_USER` returns the routine's `DEFINER` value. This also affects a view defined within such a program, if the view definition contains a `DEFINER` value of `CURRENT_USER`.
@@ -154,7 +154,7 @@ The privileges required for executing statements within `f()` need to be checked
 
 The `DEFINER` and `SQL SECURITY` clauses for views are extensions to standard SQL. In standard SQL, views are handled using the rules for `SQL SECURITY INVOKER`.
 
-If you invoke a view that was created before MySQL 5.1.2, it is treated as though it was created with a `SQL SECURITY DEFINER` clause and with a `DEFINER` value that is the same as your account. However,\
+If you invoke a view that was created before MySQL 5.1.2, it is treated as though it was created with a `SQL SECURITY DEFINER` clause and with a `DEFINER` value that is the same as your account. However,
 because the actual definer is unknown, MySQL issues a warning. To make the warning go away, it is sufficient to re-create the view so that the view definition includes a `DEFINER` clause.
 
 The optional `ALGORITHM` clause is an extension to standard SQL. It affects how MariaDB processes the view. `ALGORITHM` takes three values: `MERGE`, `TEMPTABLE`, or `UNDEFINED`. The default algorithm is `UNDEFINED` if no `ALGORITHM` clause is present. See [View Algorithms](view-algorithms.md) for more information.

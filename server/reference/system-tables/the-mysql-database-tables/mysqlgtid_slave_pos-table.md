@@ -16,7 +16,7 @@ Multiple versions of this table are supported, each using a different storage en
 
 When `gtid_pos_auto_engines=innodb,rocksdb` is set, the tables `mysql.gtid_slave_pos_InnoDB` and `mysql.gtid_slave_pos_RocksDB` are created and used, if needed. If there is no match to the storage engine, the default `mysql.gtid_slave_pos` table is used; this also happens if non-transactional updates (like MyISAM) are replicated, since there is then no active transaction at the time of the `mysql.gtid_slave_pos` table update.
 
-The default `mysql.gtid_slave_pos` table is initially created using the default storage engine set for the server (which itself defaults to InnoDB). If the application load is primarily non-transactional MyISAM or Aria tables, it can be beneficial to change the storage engine to avoid including\
+The default `mysql.gtid_slave_pos` table is initially created using the default storage engine set for the server (which itself defaults to InnoDB). If the application load is primarily non-transactional MyISAM or Aria tables, it can be beneficial to change the storage engine to avoid including
 an InnoDB update with every operation:
 
 ```sql

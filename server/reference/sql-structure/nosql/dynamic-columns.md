@@ -284,7 +284,7 @@ The set of possible datatypes is mostly the same as that used by the [CAST](../.
 
 #### A Note About Lengths
 
-If you're running queries without specifying a maximum length (i.e. using #as CHAR#, not `as CHAR(n)`), MariaDB reports the maximum length of the result set column to be`53,6870,911` (bytes or characters?). This may cause excessive memory usage in some client libraries, because they try to pre-allocate a buffer of maximum result set width. If you suspect you're hitting this problem, use `CHAR(n)`\
+If you're running queries without specifying a maximum length (i.e. using #as CHAR#, not `as CHAR(n)`), MariaDB reports the maximum length of the result set column to be`53,6870,911` (bytes or characters?). This may cause excessive memory usage in some client libraries, because they try to pre-allocate a buffer of maximum result set width. If you suspect you're hitting this problem, use `CHAR(n)`
 whenever you're using `COLUMN_GET` in the select list.
 
 ```sql

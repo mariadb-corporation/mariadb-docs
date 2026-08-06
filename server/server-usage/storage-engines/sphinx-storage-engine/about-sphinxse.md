@@ -50,9 +50,9 @@ Despite the name, SphinxSE does not actually store any data itself. It is just a
 Some SphinxSE applications include:
 
 * easier porting of MariaDB/MySQL FTS applications to Sphinx
-* allowing Sphinx use with programming languages for which native APIs are not\
+* allowing Sphinx use with programming languages for which native APIs are not
   available yet
-* optimizations when additional Sphinx result set processing on the MariaDB\
+* optimizations when additional Sphinx result set processing on the MariaDB
   side is required (eg. JOINs with original document tables, additional\
   MariaDB-side filtering, and etc...)
 
@@ -79,7 +79,7 @@ SELECT * FROM t1 WHERE query='test it;mode=any';
 
 The first three columns of the search table must have a type of `BIGINT` for the 1st column (document id),`INTEGER` or `BIGINT` for the 2nd column (match weight), and `VARCHAR` or `TEXT` for the 3rd column (your query), respectively. This mapping is fixed; you cannot omit any of these three required columns, or move them around, or change types. Also, the query column must be indexed; all the others must be kept unindexed. Column names are ignored so you can use arbitrary ones.
 
-Additional columns must be either `INTEGER`,`TIMESTAMP`, `BIGINT`,`VARCHAR`, or `FLOAT`. They are bound to the attributes provided in the Sphinx result set by name, so their names must\
+Additional columns must be either `INTEGER`,`TIMESTAMP`, `BIGINT`,`VARCHAR`, or `FLOAT`. They are bound to the attributes provided in the Sphinx result set by name, so their names must
 match the attribute names specified in `sphinx.conf`. If there's no such attribute name in the Sphinx search results, the additional columns will have `NULL` values.
 
 Special "virtual" attribute names can also be bound to SphinxSE columns.`_sph_` needs to be used instead of `@` for that. For instance, to obtain the values of '`@groupby`', '`@count`', or '`@distinct`' virtual attributes, use '`_sph_groupby`', '`_sph_count`' or '`_sph_distinct`' column names, respectively.
@@ -107,8 +107,8 @@ As seen in the example above, both query text and search options should be put i
 * query - query text;
 * mode - matching mode. Must be one of "all", "any", "phrase", "boolean", or\
   "extended". Default is "all";
-* sort - match sorting mode. Must be one of "relevance", "attr\_desc", "attr\_asc", "time\_segments", or "extended". In all modes besides "relevance"\
-  attribute name (or sorting clause for "extended") is also required after a\
+* sort - match sorting mode. Must be one of "relevance", "attr\_desc", "attr\_asc", "time\_segments", or "extended". In all modes besides "relevance"
+  attribute name (or sorting clause for "extended") is also required after a
   colon:
 
 ```sql
@@ -126,14 +126,14 @@ As seen in the example above, both query text and search options should be put i
 ```
 
 * minid, maxid - min and max document ID to match;
-* weights - comma-separated list of weights to be assigned to Sphinx full-text\
+* weights - comma-separated list of weights to be assigned to Sphinx full-text
   fields:
 
 ```sql
 ... WHERE query='test;weights=1,2,3;';
 ```
 
-* filter, !filter - comma-separated attribute name and a set of values to\
+* filter, !filter - comma-separated attribute name and a set of values to
   match:
 
 ```sql
@@ -144,7 +144,7 @@ As seen in the example above, both query text and search options should be put i
 ... WHERE query='test;!filter=group_id,3,11;';
 ```
 
-* range, !range - comma-separated attribute name, min and max value to\
+* range, !range - comma-separated attribute name, min and max value to
   match:
 
 ```sql
@@ -174,21 +174,21 @@ As seen in the example above, both query text and search options should be put i
 ... WHERE query='test;groupsort=@count desc;';
 ```
 
-* indexweights - comma-separated list of index names and weights to use when\
+* indexweights - comma-separated list of index names and weights to use when
   searching through several indexes:
 
 ```sql
 ... WHERE query='test;indexweights=idx_exact,2,idx_stemmed,1;';
 ```
 
-* comment - a string to mark this query in query log (mapping to $comment\
+* comment - a string to mark this query in query log (mapping to $comment
   parameter in Query() API call):
 
 ```sql
 ... WHERE query='test;comment=marker001;';
 ```
 
-* select - a string with expressions to compute (mapping to SetSelect() API\
+* select - a string with expressions to compute (mapping to SetSelect() API
   call):
 
 ```sql
@@ -205,8 +205,8 @@ It is much more efficient to allow Sphinx to perform sorting, filtering, and sli
 
 ### SHOW ENGINE SPHINX STATUS
 
-Starting with version 0.9.9-rc1, additional query info besides the result set\
-can be retrieved with the '`SHOW ENGINE SPHINX STATUS`'\
+Starting with version 0.9.9-rc1, additional query info besides the result set
+can be retrieved with the '`SHOW ENGINE SPHINX STATUS`'
 statement:
 
 ```sql
@@ -219,7 +219,7 @@ SHOW ENGINE SPHINX STATUS;
 +--------+-------+-------------------------------------------------+
 ```
 
-This information can also be accessed through status variables. Note that this\
+This information can also be accessed through status variables. Note that this
 method does not require super-user privileges.
 
 ```sql

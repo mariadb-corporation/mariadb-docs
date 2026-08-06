@@ -354,7 +354,7 @@ SHOW WARNINGS;
 3 rows in set (0.000 sec)
 ```
 
-* The [PAGE\_COMPRESSION\_LEVEL](../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) table option is set, but\
+* The [PAGE\_COMPRESSION\_LEVEL](../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) table option is set, but
   the [PAGE\_COMPRESSED](innodb-strict-mode.md#page_compressed) table option is set to `0`, so [InnoDB page compression](innodb-page-compression.md) is disabled.
 
 ```sql

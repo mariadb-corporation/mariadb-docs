@@ -22,7 +22,7 @@ insert/4 is a glitch
 (MariaDB q/s / MySQL q/s * 100)
 ```
 
-Benchmark was run on\
+Benchmark was run on
 work: Linux openSUSE 11.1 (x86\_64), daul socket quad-core Intel 3.0GHz. with 6MB L2 cache, 8 GB RAM, data\_dir on single disk.
 
 MariaDB and MySQL were compiled with

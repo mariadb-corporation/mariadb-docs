@@ -1,6 +1,6 @@
 # Subquery Optimizations Map
 
-Below is a map showing all types of subqueries allowed in the SQL language, and\
+Below is a map showing all types of subqueries allowed in the SQL language, and
 the optimizer strategies available to handle them.
 
 * Uncolored areas represent different kinds of subqueries, for example:
@@ -8,12 +8,12 @@ the optimizer strategies available to handle them.
   * Subqueries that are in the `FROM` clause
   * .. and so forth
 * The size of each uncolored area roughly corresponds to how important (i.e.\
-  frequently used) that kind of subquery is. For\
-  example, `x IN (SELECT ...)` queries are the most important,\
+  frequently used) that kind of subquery is. For
+  example, `x IN (SELECT ...)` queries are the most important,
   and `EXISTS (SELECT ...)` are relatively unimportant.
-* Colored areas represent optimizations/execution strategies that are applied\
+* Colored areas represent optimizations/execution strategies that are applied
   to handle various kinds of subqueries.
-* The color of optimization indicates which version of MySQL/MariaDB it was\
+* The color of optimization indicates which version of MySQL/MariaDB it was
   available in (see legend below)
 
 ```mermaid
@@ -98,7 +98,7 @@ _Map of the kinds of subqueries the optimizer recognizes and the strategies avai
 
 Some things are not on the map:
 
-* MariaDB doesn't evaluate expensive subqueries when doing optimization\
+* MariaDB doesn't evaluate expensive subqueries when doing optimization
   (this means, EXPLAIN is always fast). MySQL 5.6 has made a progress in this regard, but its optimizer will still evaluate certain kinds of subqueries (for example, scalar-context subqueries used in range predicates)
 
 ## Links to pages about individual optimizations:

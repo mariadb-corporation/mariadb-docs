@@ -5,13 +5,13 @@ description: >-
 
 # Pausing mariadb-test-run.pl
 
-Sometimes you need to work when your computer is busy running [mariadb-test-run.pl](mariadb-test-run-pl-options.md). The mariadb-test-run.pl script allows you to stop it temporarily so you can use\
+Sometimes you need to work when your computer is busy running [mariadb-test-run.pl](mariadb-test-run-pl-options.md). The mariadb-test-run.pl script allows you to stop it temporarily so you can use
 your computer and then restart the tests when you're ready.
 
 There are two ways to enable this:
 
 1. Command-line: The `--stop-file` and`--stop-keep-alive` options.
-2. Environment Variables: If you are calling mariadb-test-run.pl indirectly\
+2. Environment Variables: If you are calling mariadb-test-run.pl indirectly
    (i.e from a script or program such as buildbot) you can set`MTR_STOP_FILE` and `MTR_STOP_KEEP_ALIVE`.
 
 ### Keep Alive
@@ -22,10 +22,10 @@ If you are calling mariadb-test-run.pl directly, you do not need to specify a ti
 
 ### The mariadb-test-run Stop File
 
-The stop file is a temporary file that you create on your system when you want\
-to pause the execution of mariadb-test-run. When enabled via the command line or\
-environment variable options, mariadb-test-run will periodically check for the\
-existence of the file and if it exists it will stop until the file is no longer\
+The stop file is a temporary file that you create on your system when you want
+to pause the execution of mariadb-test-run. When enabled via the command line or
+environment variable options, mariadb-test-run will periodically check for the
+existence of the file and if it exists it will stop until the file is no longer
 present.
 
 ### Examples

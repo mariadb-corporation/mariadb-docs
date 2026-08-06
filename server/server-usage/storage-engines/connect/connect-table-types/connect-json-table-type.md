@@ -2363,7 +2363,7 @@ UPDATE assets SET dynamic_cols=COLUMN_ADD(dynamic_cols, 'warranty', '3 years')
    WHERE item_name='Thinkpad Laptop';
 ```
 
-/\* You can also list all columns, or\
+/\* You can also list all columns, or
 get them together with their values in JSON format: \*/
 
 ```sql

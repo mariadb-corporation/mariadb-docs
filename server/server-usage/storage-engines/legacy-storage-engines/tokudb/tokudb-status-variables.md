@@ -305,7 +305,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Tokudb_filesystem_fsync_num`
 
-* Description: Total number of times the database has flushed the operating system’s file buffers to\
+* Description: Total number of times the database has flushed the operating system’s file buffers to
   disk.
 
 #### `Tokudb_filesystem_fsync_time`
@@ -314,7 +314,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Tokudb_filesystem_long_fsync_num`
 
-* Description: Total number of times the database has flushed the operating system’s file buffers to\
+* Description: Total number of times the database has flushed the operating system’s file buffers to
   disk when the operation took more than one second.
 
 #### `Tokudb_filesystem_long_fsync_time`

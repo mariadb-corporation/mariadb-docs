@@ -2,7 +2,7 @@
 
 ## Background
 
-Users of "big" database systems are used to using `FROM` subqueries as a way to structure their queries. For example, if one's first thought was to select cities with population greater than 10,000 people, and then that from these cities to select those that are located in Germany, one\
+Users of "big" database systems are used to using `FROM` subqueries as a way to structure their queries. For example, if one's first thought was to select cities with population greater than 10,000 people, and then that from these cities to select those that are located in Germany, one
 could write this SQL:
 
 ```sql
