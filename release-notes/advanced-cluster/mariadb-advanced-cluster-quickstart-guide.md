@@ -267,7 +267,7 @@ SET SESSION wsrep_OSU_method = 'NBO';
 Non-Blocking Operations is exclusive to MariaDB Enterprise Server.
 {% endhint %}
 
-For the full procedure, including the advantages and limitations of each schema upgrade method, see [Performing Schema Upgrades in Galera Cluster]({galera}/galera-management/general-operations/performing-schema-upgrades-in-galera-cluster#non-blocking-operations-nbo).
+For the full procedure, including the advantages and limitations of each schema upgrade method, see [Performing Schema Upgrades in Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-management/general-operations/performing-schema-upgrades-in-galera-cluster#non-blocking-operations-nbo).
 
 ## Monitoring Cluster Connections
 

@@ -432,7 +432,7 @@ Enables verification of the peer's server certificate against the configured CA 
 
 This variable replaces the removed `VERIFY_PEER` value of [raft-have-ssl](raft-system-variables.md#raft-have-ssl).
 
-As with other MariaDB system variables, the underscore and dash forms are interchangeable. By convention, use `raft_ssl_verify_server_cert` in configuration files and `raft-ssl-verify-server-cert` on the command line — see [Setting Server System Variables]({server}/server-management/variables-and-modes/server-system-variables#setting-server-system-variables).
+As with other MariaDB system variables, the underscore and dash forms are interchangeable. By convention, use `raft_ssl_verify_server_cert` in configuration files and `raft-ssl-verify-server-cert` on the command line — see [Setting Server System Variables](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#setting-server-system-variables).
 
 | Property     | Value   |
 | ------------ | ------- |
