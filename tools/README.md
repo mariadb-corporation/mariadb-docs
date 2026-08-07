@@ -50,3 +50,11 @@ MariaDB AI RAG is an enterprise-grade Retrieval-Augmented Generation (RAG) solut
 {% content-ref url="mariadb-ai-rag/" %}
 [mariadb-ai-rag](mariadb-ai-rag/)
 {% endcontent-ref %}
+
+## Control Center
+
+Control Center is the management and monitoring interface for GridGain clusters, providing cluster visibility, metrics, and administrative tooling from a single place. This section is a placeholder while the documentation is migrated.
+
+{% content-ref url="control-center/" %}
+[control-center](control-center/)
+{% endcontent-ref %}

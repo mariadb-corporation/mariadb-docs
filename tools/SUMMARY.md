@@ -129,3 +129,4 @@
     * [Configuration Guide (config.env)](mariadb-ai-rag/reference/configuration-guide-config.env.md)
     * [Citations](mariadb-ai-rag/reference/citations.md)
     * [Secret Management](mariadb-ai-rag/reference/secret-management.md)
+* [Control Center](control-center/README.md)
