@@ -1867,7 +1867,7 @@
   * [All Releases](galera-cluster/all-releases.md)
 * [Advanced Cluster Release Notes](advanced-cluster/README.md)
   * [MariaDB Advanced Cluster Quickstart Guide](advanced-cluster/mariadb-advanced-cluster-quickstart-guide.md)
-  * [RAFT System Variables](advanced-cluster/raft-system-variables.md)
+  * [Raft System Variables](advanced-cluster/raft-system-variables.md)
 * [Connectors Release Notes](connectors/README.md)
   * [Connector/C](connectors/c/README.md)
     * [All Releases](connectors/c/all-releases.md)

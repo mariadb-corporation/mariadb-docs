@@ -1,13 +1,13 @@
 ---
 description: >-
-  A detailed reference for the system variables used by the RAFT consensus
+  A detailed reference for the system variables used by the Raft consensus
   implementation. These variables configure cluster heartbeat behavior, election
   timeouts, log management, and flow control
 ---
 
-# RAFT System Variables
+# Raft System Variables
 
-## List of RAFT System Variables
+## List of Raft System Variables
 
 ### raft-candidate-timeout
 
@@ -125,6 +125,25 @@ Interval at which leader sends heartbeat messages (milliseconds). Shorter interv
 | Data Type    | Numeric (ms)      |
 | Range        | 100 to 4294967295 |
 | Default      | 1000              |
+
+### raft-leadership-priority
+
+Priority for the current node to become leader. Nodes with a higher priority are preferred when a leader is elected. A leader that detects a follower with a higher priority steps down immediately, rather than waiting for the heartbeat timeout to expire.
+
+The priority can also be changed at runtime, without restarting the session — see [Leadership Priority](mariadb-advanced-cluster-quickstart-guide.md#leadership-priority) in the quickstart guide.
+
+| Property     | Value                        |
+| ------------ | ---------------------------- |
+| Command Line |                              |
+| Scope        | Global                       |
+| Dynamic      | Yes                          |
+| Data Type    | Numeric                      |
+| Range        | -2147483647 to 2147483647    |
+| Default      | 0                            |
+
+{% hint style="warning" %}
+Leadership priority changes the cluster protocol, and is **not** backwards compatible with the 0.9.0 technical preview release. All nodes must run the same release.
+{% endhint %}
 
 ### raft-listen-port
 
@@ -262,16 +281,20 @@ Port to listen for SST requests.
 
 ### raft-have-ssl
 
-Indicates whether SSL/TLS is enabled for cluster communication. Possible values are YES, NO, DISABLED, or VERIFY\_PEER. This is a read-only variable that reflects the current SSL state.
+Indicates whether SSL/TLS is enabled for cluster communication. Possible values are YES, NO, or DISABLED. This is a read-only variable that reflects the current SSL state.
 
-| Property     | Value                           |
-| ------------ | ------------------------------- |
-| Command Line |                                 |
-| Scope        | Global                          |
-| Dynamic      | No                              |
-| Data Type    | Enumeration                     |
-| Range        | YES, NO, DISABLED, VERIFY\_PEER |
-| Default      | NO                              |
+| Property     | Value              |
+| ------------ | ------------------ |
+| Command Line |                    |
+| Scope        | Global             |
+| Dynamic      | No                 |
+| Data Type    | Enumeration        |
+| Range        | YES, NO, DISABLED  |
+| Default      | YES                |
+
+{% hint style="info" %}
+The `VERIFY_PEER` value was removed. Peer certificate verification is now controlled by the separate [raft-ssl-verify-server-cert](raft-system-variables.md#raft-ssl-verify-server-cert) variable.
+{% endhint %}
 
 ### raft-ssl-key
 
@@ -405,7 +428,11 @@ Maximum depth for certificate chain verification. This variable is read-only and
 
 ### raft-ssl-verify-server-cert
 
-Enables verification of the peer's TLS certificate to prevent man-in-the-middle attacks. This variable is read-only and must be set at server startup.
+Enables verification of the peer's server certificate against the configured CA certificate or certificates. This variable is read-only and must be set at server startup.
+
+This variable replaces the removed `VERIFY_PEER` value of [raft-have-ssl](raft-system-variables.md#raft-have-ssl).
+
+As with other MariaDB system variables, the underscore and dash forms are interchangeable. By convention, use `raft_ssl_verify_server_cert` in configuration files and `raft-ssl-verify-server-cert` on the command line — see [Setting Server System Variables]({server}/server-management/variables-and-modes/server-system-variables#setting-server-system-variables).
 
 | Property     | Value   |
 | ------------ | ------- |
@@ -414,8 +441,13 @@ Enables verification of the peer's TLS certificate to prevent man-in-the-middle 
 | Dynamic      | No      |
 | Data Type    | Boolean |
 | Range        |         |
-| Default      | OFF     |
+| Default      | NO      |
 
 {% hint style="warning" %}
-The default is `OFF`, so by default Raft inter-node TLS encrypts traffic but does **not** verify the peer's certificate — encryption without peer authentication. Set `raft_ssl_verify_server_cert=ON` (and configure `raft_ssl_ca`) to require certificate verification.
+This variable verifies the **server certificate only**. Two limitations follow from that, and both matter when you are planning cluster security:
+
+* It does **not** provide mutual TLS. The peer accepting a connection does not verify the certificate of the peer initiating it.
+* It does **not** perform hostname verification. All communication in the cluster is bi-directional and there are no fixed client and server roles, so the accepting side has no independent way to verify the other peer's hostname.
+
+The default is `NO`, so unless you set `raft_ssl_verify_server_cert=YES` (and configure `raft_ssl_ca`), Raft inter-node TLS encrypts traffic without authenticating the peer at all. Certificate verification cannot be used with the self-signed certificate generated at startup when no certificate information is provided, because that certificate is not signed by the configured CA.
 {% endhint %}

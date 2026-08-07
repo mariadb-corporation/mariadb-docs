@@ -163,7 +163,7 @@ space_of() {
 
 # `grep | while` puts the loop body in a subshell, so it cannot set `rc` directly — failures are
 # tallied in a temp file instead.
-inc_fail="$(mktemp -t doclint-inc)" || { echo "doc-lint: mktemp failed" >&2; exit 2; }
+inc_fail="$(mktemp -t doclint-inc.XXXXXX)" || { echo "doc-lint: mktemp failed" >&2; exit 2; }
 trap 'rm -f "$inc_fail"' EXIT
 
 for f in "${files[@]}"; do
