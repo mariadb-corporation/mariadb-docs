@@ -16,13 +16,18 @@ orient before searching — the repo is ~9,900 `.md` files.
 | Connectors | `connectors/` | Client connectors (C, C++, Java, ODBC, Python, Node.js, .NET, R2DBC) |
 | Analytics | `analytics/` | ColumnStore and analytics |
 | MariaDB Cloud | `mariadb-cloud/` | Cloud / DBaaS |
-| Tools | `tools/` | Enterprise Manager, MCP server, Kubernetes Operator, AI-RAG |
+| Tools | `tools/` | Enterprise Manager, MCP server, Kubernetes Operator, AI-RAG, Control Center |
+| GridGain | `gridgain/` | GridGain 8 and GridGain 9 — **placeholder**, content being migrated from AsciiDoc |
 | General Resources | `general-resources/` | About, community, style guide, legal, theory |
 | Galera Cluster | `galera-cluster/` | Galera synchronous replication |
 | Help Tables | `help-tables/` | **Generated** SQL `HELP` tables (do not hand-edit) |
 | Home | `home/` | Portal / landing |
 
-(11 browsable spaces + the generated `help-tables/`.)
+(12 browsable spaces + the generated `help-tables/`.)
+
+The `gridgain/` space is new and holds placeholder landing pages only. It is **not** registered in
+`pdf/build.py` (`ALL_SPACES` / `SPACE_TITLES`) — add it there once real content lands, or the PDF
+job will publish a near-empty book.
 
 ## Non-space directories
 
