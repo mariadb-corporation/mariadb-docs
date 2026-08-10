@@ -257,6 +257,6 @@ description: A list of all MariaDB Connector/J releases
 | ------- | ------------ | ----------- | ----------------- |
 | 1.0.0   | 29 Nov 2012  | Stable (GA) | Java 6            |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

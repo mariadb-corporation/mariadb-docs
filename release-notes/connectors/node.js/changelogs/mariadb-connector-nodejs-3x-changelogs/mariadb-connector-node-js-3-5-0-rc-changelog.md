@@ -49,6 +49,6 @@ details of the revision and view diffs of the code modified in that revision.
 * [Revision #ae77fab](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/ae77fab)  Send clear pass for caching SHA-2 on Unix socket
 * [Revision #c8fbc69](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/c8fbc69)  \[[CONJS-326](https://jira.mariadb.org/browse/CONJS-326)] migrate from commonJS to ESM
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}
