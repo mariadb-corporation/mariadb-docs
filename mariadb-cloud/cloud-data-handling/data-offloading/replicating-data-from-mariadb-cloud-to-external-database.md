@@ -171,3 +171,5 @@ SHOW REPLICA STATUS \G
 Slave_Non_Transactional_Groups: 0
     Slave_Transactional_Groups: 0
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

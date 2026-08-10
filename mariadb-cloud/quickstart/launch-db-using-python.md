@@ -211,3 +211,5 @@ if __name__ == "__main__":
 ```
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

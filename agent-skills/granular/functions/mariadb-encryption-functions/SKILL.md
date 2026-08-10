@@ -107,3 +107,5 @@ Returns the length that the compressed string had before being compressed with C
 - **`mariadb-string-functions`** — `HEX()`/`UNHEX()`, `TO_BASE64()`/`FROM_BASE64()` for rendering binary encryption/hash output as text
 - **`mariadb-create-table`** — `VARBINARY`/`BLOB` column types for storing the binary results of `AES_ENCRYPT()`, `COMPRESS()`, `RANDOM_BYTES()`, and `KDF()`
 - Canonical reference on `mariadb.com/docs`: <https://mariadb.com/docs/server/reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

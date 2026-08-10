@@ -321,4 +321,6 @@ try {
 
 The `"ESNext"` entry in `lib` is required for `Symbol.asyncDispose` and the `await using` syntax.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

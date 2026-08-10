@@ -112,3 +112,5 @@ API responses include the key attributes of each item, such as priority, classif
 **Q: Will my data be affected during the upgrade?** A: No. Maintenance activities only update the infrastructure or database engine software — your data remains intact and unchanged. Database upgrades additionally run compatibility and integrity checks, and automatically roll back if an upgrade fails.
 
 **Q: Can I opt out of infrastructure or security upgrades entirely?** A: No, these upgrades are mandatory to maintain SOC 2 compliance, security standards, and cloud provider support.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

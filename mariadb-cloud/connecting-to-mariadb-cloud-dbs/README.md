@@ -114,3 +114,4 @@ Extend the MariaDB Cloud's capabilities by integrating with multiple partner pro
 [partner-integrations](partner-integrations/)
 {% endcontent-ref %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

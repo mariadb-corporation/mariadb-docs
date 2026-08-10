@@ -33,3 +33,5 @@ Learn about MariaDB Cloud Model Context Protocol (MCP) Server, which acts as a s
 {% content-ref url="mcp-server.md" %}
 [mcp-server.md](mcp-server.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

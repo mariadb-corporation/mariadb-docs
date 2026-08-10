@@ -1147,4 +1147,6 @@ northSlaves.getConnection((err, conn) => {
 * `filteredPoolCluster.getConnection(callback)` : Creates a new connection from pools that corresponds to pattern.
 * `filteredPoolCluster.query(sql[, values][, callback])` : this is a shortcut to get a connection from pools that corresponds to pattern, execute a query and release connection.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

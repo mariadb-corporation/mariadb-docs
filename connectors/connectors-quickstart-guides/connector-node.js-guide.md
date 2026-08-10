@@ -133,3 +133,5 @@ mariadb.createConnection({
 * [MariaDB Connector/Node.js GitHub Repository](https://github.com/mariadb-corporation/mariadb-connector-nodejs)
 * [MariaDB Connector/Node.js Documentation](../mariadb-connector-nodejs/mariadb-connector-node-js-guide.md)
 * [npm mariadb package page](https://www.npmjs.com/package/mariadb)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

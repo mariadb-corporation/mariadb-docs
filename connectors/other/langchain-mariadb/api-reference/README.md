@@ -54,3 +54,5 @@ Expression filter reference for langchain-mariadb, documenting the operator enum
 `MariaDBTranslator` converts LangChain internal query language operations and comparisons into valid MariaDB filter dictionaries for use with structured vector store queries.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

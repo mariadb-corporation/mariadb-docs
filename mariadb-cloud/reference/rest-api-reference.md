@@ -14,3 +14,5 @@ You can use the REST API to Provision, get pricing and billing information, fetc
 Please refer to the [API docs](https://apidocs.skysql.com) for examples and a complete list of all the APIs.
 
 The Backup Service API is available [here](https://api.skysql.com/public/services/dbs/docs/swagger/index.html).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

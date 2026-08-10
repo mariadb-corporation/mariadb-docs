@@ -11,5 +11,6 @@ mariadb++ is a client library for C++ development allowing applications to conne
 
 The library was originally developed by Sylvain Rochette and is now maintained [on GitHub](https://github.com/viaduck/mariadbpp).
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

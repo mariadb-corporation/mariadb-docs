@@ -59,3 +59,5 @@ icon: clouds
 * **Native MongoDB/MariaDB/MySQL Support:** Seamlessly integrates with existing applications via native MongoDB and MariaDB/MySQL protocol support.
 
 For more detailed information, you can refer to this [blog post](https://skysql.com/2024/03/12/optimizing-database-resilience-and-cost-a-deep-dive-into-skysqls-unique-features/).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

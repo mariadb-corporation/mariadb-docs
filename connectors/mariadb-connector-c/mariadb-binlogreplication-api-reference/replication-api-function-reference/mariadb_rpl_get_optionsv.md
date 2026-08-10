@@ -41,3 +41,5 @@ Added in [MariaDB Connector/C 3.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTj
 ### See also
 
 * [`mariadb_rpl_optionsv()`](mariadb_rpl_optionsv.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

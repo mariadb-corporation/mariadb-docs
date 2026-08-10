@@ -42,4 +42,6 @@ Queries which do not fall into one of the preceding formats are not supported (e
 * [mysql\_affected\_rows()](mysql_affected_rows.md)
 * [mysql\_warning\_count()](mysql_warning_count.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

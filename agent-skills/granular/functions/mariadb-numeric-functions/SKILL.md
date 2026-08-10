@@ -197,3 +197,5 @@ Returns the number X, truncated to D decimal places.
 - **`mariadb-drop-table`** — the `TRUNCATE TABLE` statement (not the `TRUNCATE()` function above)
 - **`mysql-to-mariadb`** (topical) — division-by-zero `sql_mode` behavior and money-in-`DECIMAL` guidance
 - Canonical reference on `mariadb.com/docs`: <https://mariadb.com/docs/server/reference/sql-functions/numeric-functions>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

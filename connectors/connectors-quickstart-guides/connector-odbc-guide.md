@@ -102,3 +102,5 @@ Replace `{MariaDB ODBC Driver}` with the exact driver name from your `odbcinst.i
 
 * [MariaDB Connector/ODBC Documentation](../mariadb-connector-odbc/)
 * [MariaDB Connector/ODBC Downloads](https://mariadb.com/downloads/#connectors)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

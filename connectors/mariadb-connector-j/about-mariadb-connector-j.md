@@ -1208,4 +1208,6 @@ If you don't expect results to be handled in this amount of time there is anothe
 * Connection.isValid() is doing a ping (ping in mysql protocol, not network ping).
 * Connection pool using JDBC4 Validation are using automatically this Connection.isValid()
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

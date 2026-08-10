@@ -36,4 +36,6 @@ Returns a pointer to a `MYSQL_STMT` structure or NULL if an error occurred.
 * [mysql\_stmt\_close()](mysql_stmt_close.md)
 * [mysql\_stmt\_prepare()](mysql_stmt_prepare.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

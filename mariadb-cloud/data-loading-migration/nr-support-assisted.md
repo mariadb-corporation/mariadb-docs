@@ -12,3 +12,4 @@ MariaDB Cloud customers can receive assistance when importing data into a MariaD
 - Data of large size can be imported efficiently
 - [Contact Support](https://support.skysql.com) to request assistance with a data import
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

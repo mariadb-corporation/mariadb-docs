@@ -305,3 +305,5 @@ Returns year and week for a date.
 - **`mariadb-create-table`** — `DEFAULT CURRENT_TIMESTAMP` / `ON UPDATE CURRENT_TIMESTAMP` auto-timestamp columns, and choosing `DATETIME(6)` vs `TIMESTAMP` (the 2106 range cutoff)
 - **`mariadb-features`** (topical) — `sql_mode=ORACLE` (for `TO_DATE`) and temporal/system-versioning context
 - Canonical reference on `mariadb.com/docs`: <https://mariadb.com/docs/server/reference/sql-functions/date-time-functions>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

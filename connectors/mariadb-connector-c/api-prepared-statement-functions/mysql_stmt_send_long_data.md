@@ -40,6 +40,6 @@ Returns zero on success, nonzero if an error occurred.
 
 * [mysql\_stmt\_execute()](mysql_stmt_execute.md)
 
-
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

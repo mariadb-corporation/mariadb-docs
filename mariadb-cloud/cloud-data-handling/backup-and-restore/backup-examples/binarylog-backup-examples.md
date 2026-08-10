@@ -54,3 +54,5 @@ curl --location 'https://api.skysql.com/skybackup/v1/backups/schedules' \
 {% hint style="info" %}
 Backup status can be fetch using 'https://api.skysql.com/skybackup/v1/backups'. See the 'Backup Status' section for an example.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

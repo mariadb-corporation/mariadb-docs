@@ -39,4 +39,6 @@ In case only information for a specific field is required the field can be selec
 * [mysql\_store\_result()](mysql_store_result.md)
 * [mysql\_use\_result()](mysql_use_result.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

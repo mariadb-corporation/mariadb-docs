@@ -94,3 +94,5 @@ Default is **`READ WRITE`** (`transaction_read_only` defaults to `OFF`; confirme
   - <https://mariadb.com/docs/server/reference/sql-statements/transactions/transactions-read-committed>
   - <https://mariadb.com/docs/server/reference/sql-statements/transactions/transactions-serializable>
   - <https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

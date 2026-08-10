@@ -58,3 +58,5 @@ The error function is called to get an error message in case init, read or end f
 * [mysql\_set\_local\_infile\_default()](mysql_set_local_infile_default.md)
 
 \\
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

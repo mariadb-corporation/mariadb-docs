@@ -152,3 +152,5 @@ During the [Tech Preview phase](../../quickstart/enterprise-cluster.md), MariaDB
 
 * Currently, MariaDB Cloud services deployed in Azure can only be backed up and restored using [MariaDB Cloud Snapshots](./#mariadb-cloud-snapshot-backups).
 * MariaDB Cloud Managed backups can only be restored within the same cloud provider. If you need to restore to a MariaDB Cloud service hosted on a different cloud provider, you must export your backup to S3 or GCS storage and follow the steps described [here](restore-examples/restore-from-your-own-bucket.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -138,3 +138,5 @@ my_print_defaults myapp client client-server client-mariadb
 - **`mariadb-connector-c-usage`** — using the API once it is installed: connecting, prepared statements, transactions, result handling
 - **`mariadb-connector-python-install`**, **`mariadb-connector-cpp-install`**, **`mariadb-connector-odbc-install`** — connectors that depend on this library
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-c>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -34,4 +34,6 @@ Please note that not all client library error codes are mapped to SQLSTATE error
 * [mysql\_stmt\_errno()](mysql_stmt_errno.md)
 * [mysql\_stmt\_error()](mysql_stmt_error.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

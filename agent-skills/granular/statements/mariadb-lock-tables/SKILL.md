@@ -108,3 +108,5 @@ These are **application/advisory locks**, keyed by an arbitrary string name, sco
   - <https://mariadb.com/docs/server/reference/sql-functions/secondary-functions/miscellaneous-functions/release_all_locks>
   - <https://mariadb.com/docs/server/reference/sql-functions/secondary-functions/miscellaneous-functions/is_free_lock>
   - <https://mariadb.com/docs/server/reference/sql-functions/secondary-functions/miscellaneous-functions/is_used_lock>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

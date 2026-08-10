@@ -41,3 +41,5 @@ A popular GUI client that supports multiple operating systems, securely integrat
 {% content-ref url="tableplus.md" %}
 [tableplus.md](tableplus.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -21,3 +21,4 @@ Converts a string in to a different character set
 This function is deprecated.
 {% endhint %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

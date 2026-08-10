@@ -147,3 +147,5 @@ LangChain integration for MariaDB, providing vector stores, chat message history
 The MariaDB Jupyter Kernel lets you run MariaDB directly in Jupyter notebooks. Execute SQL, visualize results with magic commands, and integrate with Python for data analysis.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

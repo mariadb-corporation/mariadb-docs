@@ -73,3 +73,5 @@ int display_extended_field_attribute(MYSQL *mysql)
 * [mysql\_use\_result()](mysql_use_result.md)
 * [mariadb\_get\_info()](mariadb_get_infov.md)
 * [mysql\_fetch\_fields()](mysql_fetch_fields.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

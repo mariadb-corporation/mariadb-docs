@@ -105,3 +105,5 @@ ACCOUNT LOCK | ACCOUNT UNLOCK
   - <https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/set-password>
   - <https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/show/show-create-user>
   - <https://mariadb.com/docs/server/reference/plugins/authentication-plugins>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

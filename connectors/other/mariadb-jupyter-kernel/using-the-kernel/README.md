@@ -69,3 +69,5 @@ Known restrictions of the MariaDB Jupyter Kernel include one SQL statement per c
 The MariaDB Jupyter Kernel provides TAB-triggered SQL autocompletion for keywords, databases, tables, columns, and user accounts, plus SHIFT-TAB introspection for schema and function docs.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

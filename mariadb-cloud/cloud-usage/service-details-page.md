@@ -41,3 +41,5 @@ Service details may include:
 * Configuration settings applied to the service
 * Current charges and hourly costs
 * Scheduled maintenance window
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -34,4 +34,6 @@ This function will not deliver a valid result until [mysql\_stmt\_prepare()](mys
 * [mysql\_stmt\_prepare()](mysql_stmt_prepare.md)
 * [mysql\_stmt\_field\_count()](mysql_stmt_field_count.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

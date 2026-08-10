@@ -69,3 +69,5 @@ Sample AWS account access key and command to encode it:
 ```bash
 echo -n ' { [default] aws_access_key_id = XXXXXXXXXXXXXEXAMPLE aws_secret_access_key = XXXXXXXXXXXXX/XXXXXXXXXXXXX/XXXXXXXXXXXXXEXAMPLEKEY region = XXXXXXXXXXXXX } ' | base64
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

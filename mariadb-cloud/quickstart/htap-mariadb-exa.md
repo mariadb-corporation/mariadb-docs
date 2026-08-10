@@ -209,3 +209,5 @@ For functions such as `GROUP_CONCAT`, add an explicit **`ORDER BY`** inside the 
 
 **Empty Strings**\
 MariaDB Exa interprets an empty string (`''`) as a `NULL` value.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

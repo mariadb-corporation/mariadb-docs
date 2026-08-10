@@ -158,4 +158,6 @@ klist must show the same principal (userTwo@EXAMPLE.COM in this example)
 and server to match: if the system clocks of the client do not match that of the KDC server, authentication will fail with this kind of error.\
 The simplest way to synchronize the system clocks is to use a Network Time Protocol (NTP) server.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

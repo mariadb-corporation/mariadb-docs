@@ -109,3 +109,5 @@ window — require the **Power** or **Power Plus** service tier.
 Click **Create Service**. The new service appears on the Portal Dashboard, and a
 [notification](notifications.md) is sent when launch begins and when it
 completes.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

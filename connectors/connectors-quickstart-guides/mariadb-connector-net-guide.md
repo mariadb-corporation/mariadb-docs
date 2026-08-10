@@ -129,3 +129,5 @@ Use `ExecuteNonQueryAsync` for operations that do not return a result set (like 
         Console.WriteLine($"\nRows inserted: {rowsAffected}");
     }
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

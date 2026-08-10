@@ -29,3 +29,5 @@ This function is part of the low level protocol API.
 ## See also
 
 * [`mysql_net_field_length()`](mysql_net_field_length.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

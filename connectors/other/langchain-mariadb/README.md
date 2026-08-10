@@ -75,3 +75,5 @@ This section contains only the API reference:
 ## Version
 
 Current version: **v0.0.20**
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
