@@ -78,6 +78,6 @@ mariadb -u root -p -e "source /tmp/mariadb-bin.sql"
 * [mariadb-binlog](./)
 * [mariadb-binlog Options](mariadb-binlog-options.md)
 
-{% include "../../../.gitbook/includes/license-gplv2-fill-help-tables.md" %}
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

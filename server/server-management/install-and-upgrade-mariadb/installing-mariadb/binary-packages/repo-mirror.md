@@ -72,6 +72,6 @@ Creating a local mirror of the MariaDB Enterprise Repository or the MariaDB Comm
    * APT: `debmirror`, available at: [Setup#Debian\_Repository\_Mirroring\_Tools](https://wiki.debian.org/DebianRepository/Setup#Debian_Repository_Mirroring_Tools)
 3. Secure the repository mirror to prevent outside access.
 
-{% include "../../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

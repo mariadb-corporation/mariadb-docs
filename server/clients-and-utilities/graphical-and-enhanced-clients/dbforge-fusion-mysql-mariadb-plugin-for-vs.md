@@ -6,6 +6,6 @@
 Note: dbForge Fusion is officially discontinued. However, you can access the features available in dbForge Fusion for MySQL/MariaDB through [dbForge Studio for MySQL](https://www.devart.com/dbforge/mysql/studio/), which is actively supported and regularly updated.
 {% endhint %}
 
-{% include "../../.gitbook/includes/license-cc-by-sa-gnu-fdl.md" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

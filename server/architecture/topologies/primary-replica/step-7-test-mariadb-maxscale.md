@@ -667,6 +667,6 @@ This page was step 7 of 7.
 
 This procedure is complete.
 
-{% include "../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

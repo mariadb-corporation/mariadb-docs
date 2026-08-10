@@ -141,6 +141,6 @@ MariaDB Enterprise Server is an enhanced, hardened, and secured product with:
 * Premium features to meet enterprise scaling and operations requirements
 * Documentation maintained by MariaDB Corporation
 
-{% include "../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

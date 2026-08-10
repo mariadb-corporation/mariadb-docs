@@ -465,4 +465,4 @@ sudo cp -p mysql-connector-java-5.0.8-bin.jar /usr/lib/jvm/java-8-oracle/lib/mar
 
 ***
 
-_This page is licensed: CC BY-SA / Gnu FDL_
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
