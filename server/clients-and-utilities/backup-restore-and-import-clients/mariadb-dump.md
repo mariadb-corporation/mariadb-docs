@@ -88,7 +88,23 @@ INSERT INTO `t1` (`pk`, `a`, `b`, `c`) VALUES (1,11,12,'oneone'),
 (2,21,22,'twotwo');
 ```
 
-An [INVISIBLE](../../reference/sql-statements/data-definition/create/invisible-columns.md) column anywhere in the table enables `--complete-insert`, so a table that has one produces the second form even when the option is not given.
+An [INVISIBLE](../../reference/sql-statements/data-definition/create/invisible-columns.md) column enables `--complete-insert` for that table, so the dump gets a column list even when the option is not given. Generated columns are then only left out from the first `INVISIBLE` column onward: a generated column declared _before_ it stays in the column list, with its value written as `DEFAULT`. Given this table:
+
+```sql
+CREATE TABLE t4 (pk INTEGER, a INTEGER,
+                 b INTEGER GENERATED ALWAYS AS (a+1),
+                 c INTEGER INVISIBLE,
+                 d INTEGER GENERATED ALWAYS AS (a+pk));
+```
+
+`b` precedes the `INVISIBLE` column and is kept, while `d` follows it and is omitted:
+
+```sql
+INSERT INTO `t4` (`pk`, `a`, `b`, `c`) VALUES (1,2,DEFAULT,10),
+(4,5,DEFAULT,20);
+```
+
+Passing `--complete-insert` explicitly leaves out every generated column, whatever its position.
 
 If every column in a table is generated, `--complete-insert` writes an empty column list, which preserves the row count:
 
