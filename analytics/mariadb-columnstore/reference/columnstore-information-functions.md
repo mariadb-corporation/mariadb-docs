@@ -25,6 +25,6 @@ MariaDB ColumnStore information functions are selectable pseudo functions that r
 | idbSegmentDir(column)        | The lowest level directory id for the column file containing the physical row                     |
 | idbSegment(column)           | The number of the segment file containing the physical row                                        |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

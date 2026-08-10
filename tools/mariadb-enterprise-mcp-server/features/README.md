@@ -60,6 +60,6 @@ The server exposes powerful orchestration endpoints that allow an AI agent to ex
 | `rag_ingestion`            | Triggers the full document ingestion pipeline.                                                       | Workflow Orchestration       |
 | `rag_generation`           | Synthesizes retrieved information with the user's query to generate a final, context-aware response. | Workflow Orchestration       |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -410,6 +410,6 @@ At this point, the problem should be fixed.
 
 For more information, check [this comment](https://github.com/kubernetes-sigs/kind/issues/4001#issuecomment-3279083954).
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

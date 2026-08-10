@@ -54,6 +54,6 @@ Whilst this can be useful for development and testing, it is not recommended for
 
 For achieving high availability, we recommend deploying a highly available topology as described in the [high availability guide](high-availability.md).
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -183,6 +183,6 @@ Never execute the bootstrap command on both sides of a partition. This will crea
 * [Getting Started with MariaDB Galera Cluster](../galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md)
 * [MariaDB Galera Cluster - Known Limitations](../reference/mariadb-galera-cluster-known-limitations.md)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
