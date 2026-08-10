@@ -325,4 +325,6 @@ The following is a comparison of variables that either appear only in [MariaDB 1
 
 * [System Variable Differences Between MariaDB 10.6 and MySQL 8.0](../system-variable-differences-between-mariadb-10-6-and-mysql-8-0.md)
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formid="4316" formId="4316" %}

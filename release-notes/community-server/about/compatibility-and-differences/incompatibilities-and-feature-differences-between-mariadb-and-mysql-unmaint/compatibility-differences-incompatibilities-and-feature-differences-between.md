@@ -131,4 +131,6 @@ When upgrading from MySQL 5.7 to [MariaDB 10.3](../../../old-releases/10.3/what-
 * The MySQL binary log includes the thread\_id, while MariaDB's [binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log) does not. ([MDEV-7850](https://jira.mariadb.org/browse/MDEV-7850))
 * Also see [Incompatibilities between MariaDB 10.2 and MySQL 5.7](incompatibilities-and-feature-differences-between-mariadb-10-2-and-mysql-5.md) and [Incompatibilities between MariaDB 10.1 and MySQL 5.7](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/broken-reference/README.md).
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formid="4316" formId="4316" %}

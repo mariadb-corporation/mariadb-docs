@@ -330,4 +330,6 @@ For a more complete list of differences, see [Incompatibilities and Feature Diff
 * [Incompatibilities and Feature Differences Between MariaDB 10.9 and MySQL 8.0](../../incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-10-9-and-mysql-8.md)
 * [Function Differences Between MariaDB 10.4 and MySQL 8.0](../../function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-10-9-and-mysql-8-0.md)
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formid="4316" formId="4316" %}

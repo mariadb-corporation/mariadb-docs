@@ -179,3 +179,5 @@ description: A list of all MariaDB MaxScale releases
 | [2.4.2](old-releases/2.4/2.4.2.md)                     | 2019-08-29   | Stable (GA)    |
 | [2.4.1](../connectors/node.js/changelogs/2.x/2.4.1.md) | 2019-08-20   | Stable (GA)    |
 | [2.4.0](old-releases/2.4/2.4.1.md)                     | 2019-06-28   | Stable (GA)    |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

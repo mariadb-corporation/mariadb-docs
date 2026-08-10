@@ -16,4 +16,6 @@ For a more complete list of differences, see [Incompatibilities and Feature Diff
 * [Incompatibilities and Feature Differences Between MariaDB 11.3 and MySQL 8.0](../incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-11-3-and-mysql-8.md)
 * [Function Differences Between MariaDB Rolling and MySQL 8.0](../function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-11.8-and-mysql-8.0.md)
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formid="4316" formId="4316" %}
