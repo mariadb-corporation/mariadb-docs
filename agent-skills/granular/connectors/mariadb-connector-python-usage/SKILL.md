@@ -1,13 +1,13 @@
 ---
-name: mariadb-connector-python
-description: "MariaDB-specific behavior of MariaDB Connector/Python (the `mariadb` PyPI module, a PEP-249 / DB API 2.0 driver) for application code — that the default paramstyle is qmark (`?`), not format (`%s`), and styles must not be mixed; that string formatting must never build SQL; that autocommit is off by default so DML needs `conn.commit()`; that a single parameter needs a one-tuple `(v,)`; that the text protocol is default and `binary=True` switches to server-side prepared statements; that cursors are buffered by default; connection pooling via `ConnectionPool` (default size 5, max 64); `callproc()` for stored procedures; the DB API exception hierarchy under `mariadb.Error`; and that the module is a C extension built on Connector/C. Use when writing or reviewing Python code that talks to MariaDB with the `mariadb` module."
+name: mariadb-connector-python-usage
+description: "MariaDB-specific behavior of MariaDB Connector/Python (the `mariadb` PyPI module, a PEP-249 / DB API 2.0 driver) for application code — that the default paramstyle is qmark (`?`), not format (`%s`), and styles must not be mixed; that string formatting must never build SQL; that autocommit is off by default so DML needs `conn.commit()`; that a single parameter needs a one-tuple `(v,)`; that the text protocol is default and `binary=True` switches to server-side prepared statements; that cursors are buffered by default; connection pooling via `ConnectionPool` (default size 5, max 64); `callproc()` for stored procedures; and the DB API exception hierarchy under `mariadb.Error`. Use when writing or reviewing Python code that talks to MariaDB with the `mariadb` module."
 ---
 
 # MariaDB Connector/Python
 
-*Last updated: 2026-07-21*
+*Last updated: 2026-08-10*
 
-MariaDB Connector/Python is the official Python driver for MariaDB — the `mariadb` module on PyPI (`pip install mariadb`), implementing the Python DB API 2.0 ([PEP-249](https://peps.python.org/pep-249)). This skill covers the connector-specific behavior and the traps that bite generated application code. It is a **C extension built on MariaDB Connector/C**, so a build needs the C connector's development files (`mariadb_config` on the `PATH`) — it is not pure Python on the 1.1 line.
+MariaDB Connector/Python is the official Python driver for MariaDB — the `mariadb` module on PyPI, implementing the Python DB API 2.0 ([PEP-249](https://peps.python.org/pep-249)). This skill covers the connector-specific behavior and the traps that bite generated application code. For getting the module installed and configured in the first place — install variants, prerequisites, option files, TLS setup — see **`mariadb-connector-python-install`**.
 
 > **Default context:** Assume the **1.1** stable line unless the user states otherwise. Behavior shared with older 1.x releases is shown without annotation; features added in the newer **2.0** line (`mariadb://` URI connection strings, async `asyncConnect`/`create_async_pool`, a pure-Python implementation) are marked *since 2.0*. Connector versions are independent of the MariaDB server version.
 
@@ -28,6 +28,9 @@ MariaDB Connector/Python is the official Python driver for MariaDB — the `mari
 | Hand-rolls a pool, or opens a new connection per request | Use **`mariadb.ConnectionPool(pool_name="app", pool_size=5)`**; borrow with `pool.get_connection()` and return it by `conn.close()`. `pool_size` defaults to 5, **max 64**; `pool_reset_connection=True` (default) resets each connection before reuse |
 | Calls a stored procedure by string-building `CALL ...` with OUT params | Use **`cursor.callproc("proc_name", (in1, in2))`**; read OUT/INOUT results from the returned sequence / a following result set |
 | Catches `Exception` or a MySQL driver's error class | Catch **`mariadb.Error`** (the DB API base). Subclasses: `OperationalError`, `IntegrityError`, `ProgrammingError`, `DataError`, `InterfaceError`, `InternalError`, `NotSupportedError`, `PoolError`. `.errno` / `.sqlstate` are on the exception |
+| Wraps work in `with mariadb.connect(...) as conn:` and expects a commit on exit | The connection's `__exit__` **closes** the connection — it does not commit. Closing without committing **rolls back**, so uncommitted DML is silently lost. Commit explicitly inside the block |
+| Calls `cursor.scroll()` to reposition in a streamed result | `scroll()` raises `ProgrammingError` on an **unbuffered** cursor, and on any cursor with no result set. Repositioning only works on the buffered default |
+| Reads `cursor.rowcount` before fetching, or on a statement that produced nothing | `rowcount` is **`-1`** when no `execute*()` has run or the count cannot be determined. Treat `-1` as "unknown", not as zero |
 
 ## Connection essentials
 
@@ -56,6 +59,48 @@ with conn.cursor() as cur:
 
 Common `connect()` keywords: `host` (default `localhost`; a comma-separated list gives simple failover), `port` (default `3306`), `user`/`username`, `password`/`passwd`, `database`/`db`, `unix_socket`, `autocommit`, and the SSL/TLS options. Result-shape options include `dictionary=True` (rows as dicts) and `named_tuple=True`. Some options apply only to the C extension — see the connection-class reference.
 
+## Transactions
+
+Autocommit is off, so every statement runs inside a transaction whether or not one was opened explicitly:
+
+```python
+try:
+    with conn.cursor() as cur:
+        cur.execute("UPDATE accounts SET balance = balance - ? WHERE id = ?", (100, 1))
+        cur.execute("UPDATE accounts SET balance = balance + ? WHERE id = ?", (100, 2))
+    conn.commit()
+except mariadb.Error:
+    conn.rollback()
+    raise
+```
+
+`conn.begin()` starts a transaction explicitly, which matters when `autocommit=True` was set at connect time and one particular unit of work needs to be atomic. Isolation level is a server-side setting — issue `SET TRANSACTION ISOLATION LEVEL …` or set it on the server; there is no connector-level parameter for it.
+
+## Bulk operations
+
+```python
+rows = [("widget", 5), ("gadget", 3), ("doohickey", 8)]
+with conn.cursor() as cur:
+    cur.executemany("INSERT INTO t (name, qty) VALUES (?, ?)", rows)
+conn.commit()
+```
+
+Every tuple must have the same shape and the same types — the connector binds the batch once and reuses that binding. To mean "use the column default" or "NULL" for one element of one row, use the values in `mariadb.constants.INDICATOR` rather than `None`, which binds a literal NULL.
+
+## Error handling
+
+```python
+try:
+    cur.execute("INSERT INTO t (id, name) VALUES (?, ?)", (1, "widget"))
+except mariadb.IntegrityError as e:
+    print(e.errno, e.sqlstate, e)      # 1062, '23000', "Duplicate entry ..."
+except mariadb.OperationalError:
+    # connection-level problem: server gone, timeout, authentication
+    raise
+```
+
+`errno` carries the MariaDB error number and `sqlstate` the SQLSTATE, which is what to branch on — the message text is not stable.
+
 ## Pooling
 
 ```python
@@ -77,7 +122,8 @@ finally:
 
 ## See Also
 
-- **`mariadb-connector-c`** — the underlying C client library this module wraps (build-time dependency)
+- **`mariadb-connector-python-install`** — installing and configuring the module: install variants, prerequisites, option files, TLS
+- **`mariadb-connector-c-usage`** — the underlying C client library this module wraps on the C-extension build
 - **`mariadb-transactions`** / **`mariadb-set-transaction`** — the server-side semantics behind `conn.commit()` / `conn.rollback()` and isolation levels
 - **`mariadb-prepare`** — server-side prepared statements, what `binary=True` uses under the hood
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-python>

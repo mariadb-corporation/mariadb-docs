@@ -1,13 +1,13 @@
 ---
-name: mariadb-connector-odbc
+name: mariadb-connector-odbc-usage
 description: "MariaDB-specific behavior of MariaDB Connector/ODBC (the ODBC 3.8-compliant driver built on MariaDB Connector/C) for application code — that the DSN-less keyword is `DRIVER={MariaDB ODBC 3.2 Driver}` on Windows, or a registered driver name / `.so` path on Linux and macOS; that parameter markers are always the positional `?` via `SQLBindParameter`, never named; that one Unicode (`SQLWCHAR`) driver binary serves both ANSI and Unicode apps via `SQL_ATTR_ANSI_APP`; that `SQLPrepare`+`SQLExecute` uses server-side prepared statements (binary protocol) while `SQLExecDirect` defaults to client-side text unless `EDSERVER` is set; that autocommit is ON by default so transactional code must switch `SQL_ATTR_AUTOCOMMIT` off; and that TLS turns on implicitly when any of `SSLCA`/`SSLCERT`/`SSLKEY` is set. Use when writing or reviewing application code (C/C++, or via a wrapper like pyodbc) that talks to MariaDB through the ODBC API."
 ---
 
 # MariaDB Connector/ODBC
 
-*Last updated: 2026-07-21*
+*Last updated: 2026-08-10*
 
-MariaDB Connector/ODBC is an ODBC 3.8-compliant driver for MariaDB and MySQL, built on top of **MariaDB Connector/C** (`libmariadb`) for the actual client-server protocol work. Applications never link against it directly — they go through the standard **ODBC API** (`SQLConnect`/`SQLDriverConnect`, `SQLExecDirect`, `SQLBindParameter`, ...) mediated by a **Driver Manager** (unixODBC on Linux, iODBC on macOS, the built-in ODBC Driver Manager on Windows), or through a language wrapper on top of that API — most commonly **pyodbc** from Python. This skill covers the connector-specific behavior and the traps that bite generated application code; it does not cover installing the driver or configuring the server.
+MariaDB Connector/ODBC is an ODBC 3.8-compliant driver for MariaDB and MySQL, built on top of **MariaDB Connector/C** (`libmariadb`) for the actual client-server protocol work. Applications never link against it directly — they go through the standard **ODBC API** (`SQLConnect`/`SQLDriverConnect`, `SQLExecDirect`, `SQLBindParameter`, ...) mediated by a **Driver Manager** (unixODBC on Linux, iODBC on macOS, the built-in ODBC Driver Manager on Windows), or through a language wrapper on top of that API — most commonly **pyodbc** from Python. This skill covers the connector-specific behavior and the traps that bite generated application code. For installing the driver, registering it with the driver manager, and defining a DSN, see **`mariadb-connector-odbc-install`**.
 
 > **Default context:** Assume the **3.2** stable release series (currently 3.2.10 GA) unless the user states otherwise. Connector/ODBC's version is independent of the MariaDB server version it connects to — behavior below applies across the 3.x line unless annotated with a specific version.
 
@@ -27,6 +27,10 @@ MariaDB Connector/ODBC is an ODBC 3.8-compliant driver for MariaDB and MySQL, bu
 | Treats `SQLGetDiagRec`'s native-error field as an ODBC-defined code | It is the raw **MariaDB server error number** (`mysql_errno()`), e.g. `1146` for "table doesn't exist" — cross-reference it against server error codes, not an ODBC error table. `SQLSTATE` is the server's mapped 5-character state |
 | Runs several statements at once on one connection without buffering results first | The MariaDB protocol allows only one command in flight per connection; fetch or discard a statement's result set before issuing another on the **same connection** (no MARS-style interleaving). Use separate statement handles sequentially, a connection pool, or `OPTION` bit 67108864 only for literal multi-statement *batches* (`stmt1; stmt2;`) in a single `SQLExecDirect` call, which has its own limitations for cross-statement dependencies |
 | Connects with `mariadb.connect(...)` (the Python `mariadb` module) when the app is ODBC-based | From Python via ODBC, use **pyodbc**: `pyodbc.connect("DRIVER={MariaDB ODBC 3.2 Driver};SERVER=...;...")`. pyodbc is a generic ODBC wrapper — it is not MariaDB-specific, but it inherits every behavior above (autocommit-on default, `?` markers, native error = server error number) |
+| Loops `SQLExecute` once per row for a bulk insert | Bind arrays instead: set **`SQL_ATTR_PARAMSET_SIZE`** to the row count, point each `SQLBindParameter` at an array, and add **`SQL_ATTR_PARAM_STATUS_PTR`** to see which rows succeeded. One execution covers the whole set |
+| Stops after the first result set from a `CALL` | Loop **`SQLMoreResults(stmt)`** until it returns `SQL_NO_DATA`. A stored procedure returns one result set per `SELECT` plus a final status result |
+| Reads a long `TEXT` or `BLOB` column with a fixed-size bound buffer | Either bind a buffer large enough, or leave the column unbound and pull it in chunks with **`SQLGetData`**, which returns `SQL_SUCCESS_WITH_INFO` and SQLSTATE `01004` while data remains |
+| Trusts `SQLRowCount` after a `SELECT` | It is defined for `INSERT`, `UPDATE`, and `DELETE`. After a `SELECT` it may report `-1`; count rows by fetching them |
 | Assumes pyodbc commits automatically after `execute()` | pyodbc's `Connection.autocommit` defaults to **`False`** at the *pyodbc* layer (distinct from the ODBC/server-level default above) — call `conn.commit()` explicitly, or construct with `pyodbc.connect(..., autocommit=True)` |
 
 ## Connection essentials
@@ -39,18 +43,7 @@ SQLWCHAR *ConnStr = L"DRIVER={MariaDB ODBC 3.2 Driver};"
                      L"SSLCA=/etc/mysql/certs/ca.pem;SSLVERIFY=1";
 ```
 
-```
-# Equivalent unixODBC/iODBC odbc.ini DSN entry
-[MariaDB-appdb]
-Driver   = MariaDB ODBC 3.2 Driver
-SERVER   = 127.0.0.1
-PORT     = 3306
-DATABASE = appdb
-UID      = app
-PASSWORD = secret
-SSLCA    = /etc/mysql/certs/ca.pem
-SSLVERIFY = 1
-```
+The same keywords work in a DSN — see **`mariadb-connector-odbc-install`** for the `odbc.ini` form and for registering the driver in the first place.
 
 ```python
 import pyodbc
@@ -75,9 +68,31 @@ cur.close()
 conn.close()
 ```
 
+## Bulk insert with array-bound parameters
+
+```c
+#define ROWS 3
+SQLINTEGER  ids[ROWS]        = { 1, 2, 3 };
+SQLCHAR     names[ROWS][64]  = { "widget", "gadget", "doohickey" };
+SQLLEN      name_len[ROWS]   = { SQL_NTS, SQL_NTS, SQL_NTS };
+SQLUSMALLINT status[ROWS];
+
+SQLSetStmtAttr(stmt, SQL_ATTR_PARAMSET_SIZE, (SQLPOINTER)ROWS, 0);
+SQLSetStmtAttr(stmt, SQL_ATTR_PARAM_STATUS_PTR, status, 0);
+
+SQLPrepare(stmt, (SQLCHAR *)"INSERT INTO t (id, name) VALUES (?, ?)", SQL_NTS);
+SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_LONG, SQL_INTEGER,
+                 0, 0, ids, 0, NULL);
+SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_VARCHAR,
+                 64, 0, names, sizeof(names[0]), name_len);
+
+SQLExecute(stmt);        /* all three rows in one execution */
+```
+
 ## See Also
 
-- **`mariadb-connector-c`** — the underlying `libmariadb` client library that does the actual protocol work
+- **`mariadb-connector-odbc-install`** — installing the driver, registering it with the driver manager, DSNs, and the TLS keywords
+- **`mariadb-connector-c-usage`** — the underlying `libmariadb` client library that does the actual protocol work
 - **`mariadb-transactions`** — server-side semantics behind `SQLEndTran`/`conn.commit()` and isolation levels (`SQL_ATTR_TXN_ISOLATION` maps directly to `SET SESSION TRANSACTION ISOLATION LEVEL`)
 - **`mariadb-prepare`** — server-side prepared statements, what `SQLPrepare`'s default (and `EDSERVER`) use under the hood
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-odbc>

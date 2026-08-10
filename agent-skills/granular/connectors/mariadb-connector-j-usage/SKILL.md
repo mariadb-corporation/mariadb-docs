@@ -1,13 +1,13 @@
 ---
-name: mariadb-connector-j
+name: mariadb-connector-j-usage
 description: "MariaDB-specific behavior of MariaDB Connector/J (the `org.mariadb.jdbc:mariadb-java-client` JDBC driver) for application code — that JDBC 4 auto-registers the driver so `Class.forName` is unneeded; that the URL scheme is `jdbc:mariadb://host:port/db?opts` (`jdbc:mysql:` needs `permitMysqlScheme`); that `useServerPrepStmts` defaults to false, so `PreparedStatement` substitutes parameters client-side; that batched INSERTs use the `COM_STMT_BULK` protocol by default and `getGeneratedKeys()` then returns all generated ids, one per row, not a single id; that `autocommit` defaults to true so transactions need `setAutoCommit(false)`; that `setFetchSize(Integer.MIN_VALUE)` throws (fetch size must be >= 0); that pooling should use `MariaDbPoolDataSource` or an external pool; and that failover uses multi-host URLs, not driver code. Use when writing or reviewing Java code that talks to MariaDB with the `mariadb-java-client` JDBC driver."
 ---
 
 # MariaDB Connector/J
 
-*Last updated: 2026-07-21*
+*Last updated: 2026-08-10*
 
-MariaDB Connector/J is the official JDBC driver for MariaDB and MySQL — Maven coordinates `org.mariadb.jdbc:mariadb-java-client`, LGPL-licensed. This skill covers the connector-specific behavior and the traps that bite generated application code. It is **pure Java** — it implements the client/server protocol itself and does **not** depend on MariaDB Connector/C (unlike Connector/Python or Connector/ODBC).
+MariaDB Connector/J is the official JDBC driver for MariaDB and MySQL — Maven coordinates `org.mariadb.jdbc:mariadb-java-client`, LGPL-licensed. This skill covers the connector-specific behavior and the traps that bite generated application code. For adding the driver to a build and configuring the URL, TLS, and pooling, see **`mariadb-connector-j-install`**. It is **pure Java** — it implements the client/server protocol itself and does **not** depend on MariaDB Connector/C (unlike Connector/Python or Connector/ODBC).
 
 > **Default context:** Assume the **3.5.x** line (current release `3.5.10`) unless the user states otherwise. Connector versions are independent of the MariaDB server version — a 3.x connector routinely talks to a 10.6/10.11/11.x server.
 
@@ -25,7 +25,10 @@ MariaDB Connector/J is the official JDBC driver for MariaDB and MySQL — Maven 
 | Streams a huge `ResultSet` with `setFetchSize(Integer.MIN_VALUE)` | **Throws `SQLException`** — MariaDB Connector/J requires `rows >= 0`. Use a **positive** value, e.g. `stmt.setFetchSize(1000)`, on a `TYPE_FORWARD_ONLY` statement to stream row-by-row. Even then, the fetch size is capped internally (16384) and **the server still sends all rows** to the client socket — running another statement on the same connection before the stream is fully read pulls the remainder into memory (OOM risk); use a separate connection for concurrent work |
 | Hand-rolls a pool, or opens a new `Connection` per request | Use **`MariaDbPoolDataSource`** (internal pool: `maxPoolSize` default **8**, `minPoolSize` defaults to `maxPoolSize`, `maxIdleTime` default **600s**) or wrap the plain `MariaDbDataSource`/driver URL with an external pool (HikariCP). `connection.close()` on a pooled connection returns it to the pool — it doesn't disconnect — and resets autocommit, isolation level, and any active transaction (rolled back) |
 | Builds a custom failover/round-robin loop over multiple hosts | Multi-host URLs are native: **`jdbc:mariadb:sequential://host1,host2,host3/db`** (also `replication:`, `loadbalance:`, `load-balance-read:` prefixes) — comma-separate hosts in one URL instead of driver-side retry code |
-| Enables TLS with `useSSL=true&verifyServerCertificate=true` (other-driver naming) | Use **`sslMode`**: `disable` (default) / `trust` / `verify-ca` / `verify-full`. Certificate/key material via `serverSslCert`, `trustStore`/`trustStorePassword`, `keyStore`/`keyStorePassword` — not `verifyServerCertificate` |
+| Enables TLS with `useSSL=true&verifyServerCertificate=true` (other-driver naming) | Since 3.0 the option is **`sslMode`**: `disable` (the default) / `trust` / `verify-ca` / `verify-full`. Certificate and key material is configuration — see **`mariadb-connector-j-install`** |
+| Calls a stored procedure with `prepareStatement("CALL …")` and reads `OUT` parameters from a result set | Use **`CallableStatement`** from `conn.prepareCall("{call proc(?, ?)}")`, register `OUT` parameters with `registerOutParameter()`, and read them from the statement after `execute()` |
+| Assumes `executeUpdate()` returns a `long` for very large row counts | It returns `int`. For counts beyond `Integer.MAX_VALUE` use **`executeLargeUpdate()`** / **`executeLargeBatch()`** |
+| Leaves an isolation level to a `SET TRANSACTION` statement | `conn.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ)` applies it through the driver, and a pooled connection resets it on release |
 | Catches a generic `Exception` or expects a MariaDB-specific exception class | The driver throws the **standard `java.sql.SQLException` hierarchy** mapped from the server's SQLSTATE: `SQLIntegrityConstraintViolationException`, `SQLSyntaxErrorException`, `SQLTransactionRollbackException`, `SQLTransientConnectionException`, `SQLNonTransientConnectionException`. Read `.getErrorCode()` / `.getSQLState()` for the MariaDB-specific code, don't string-match `.getMessage()` |
 | Sets `Statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS)` and assumes it "just works" for any statement | `getGeneratedKeys()` only returns rows when `RETURN_GENERATED_KEYS` was explicitly requested on that statement/`prepareStatement()` call — it's not implicit for a plain `INSERT` |
 
@@ -80,9 +83,32 @@ try (MariaDbPoolDataSource pool = new MariaDbPoolDataSource(
 }
 ```
 
+## Batch insert and generated keys
+
+```java
+try (PreparedStatement ps = conn.prepareStatement(
+        "INSERT INTO t (name, qty) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+    for (Row row : rows) {
+        ps.setString(1, row.name());
+        ps.setInt(2, row.qty());
+        ps.addBatch();
+    }
+    ps.executeBatch();
+
+    try (ResultSet keys = ps.getGeneratedKeys()) {
+        while (keys.next()) {
+            System.out.println(keys.getLong(1));   // one id per inserted row
+        }
+    }
+}
+```
+
+`RETURN_GENERATED_KEYS` has to be requested when the statement is prepared; adding it later has no effect.
+
 ## See Also
 
-- **`mariadb-connector-r2dbc`** — the reactive, non-blocking sibling driver for Java (also pure Java, no Connector/C dependency)
+- **`mariadb-connector-j-install`** — adding the driver to a Maven or Gradle build, the URL and datasource wiring, and TLS configuration
+- **`mariadb-connector-r2dbc-usage`** — the reactive, non-blocking sibling driver for Java (also pure Java, no Connector/C dependency)
 - **`mariadb-transactions`** / **`mariadb-set-transaction`** — the server-side semantics behind `conn.commit()` / `conn.rollback()` and isolation levels
 - **`mariadb-prepare`** — server-side prepared statements, what `useServerPrepStmts=true` uses under the hood
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-j>
