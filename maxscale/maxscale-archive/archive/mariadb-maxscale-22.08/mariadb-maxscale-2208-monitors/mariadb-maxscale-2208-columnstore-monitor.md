@@ -560,3 +560,5 @@ removed from the monitor's list of servers (used as bootstrap nodes).\
 If that is not done, then the monitor will log a warning at each startup.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

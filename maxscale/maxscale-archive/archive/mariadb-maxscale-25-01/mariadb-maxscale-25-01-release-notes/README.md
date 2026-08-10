@@ -9,3 +9,4 @@ description: >-
 
 The MaxScale 25.01 release notes have moved here. 
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

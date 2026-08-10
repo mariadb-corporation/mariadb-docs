@@ -176,3 +176,5 @@ Delete the container after use with the following command:
 ```
 docker rm mxs
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

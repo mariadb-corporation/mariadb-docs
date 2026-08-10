@@ -13,4 +13,6 @@
 * Q: Can MariaDB MaxScale be used effectively with databases other than MariaDB?\
   A: While MariaDB MaxScale is primarily designed, optimized, and tested for use with MariaDB Server and its various configurations (like MariaDB Enterprise Cluster and MariaDB Xpand), its underlying architecture allows it to potentially support other databases that are compliant with the MySQL network protocol. However, its most advanced features and integrations are best leveraged when used in conjunction with MariaDB databases.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

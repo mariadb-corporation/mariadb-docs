@@ -385,3 +385,5 @@ then transitions quickly to master state if possible. Calling *release-locks*
 prevents the monitor from acquiring locks for one minute, meaning that for some
 time, the active MaxScale node will not hold the locks even if they are
 unclaimed. The cluster will remain unusable until one MaxScale claims the locks.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

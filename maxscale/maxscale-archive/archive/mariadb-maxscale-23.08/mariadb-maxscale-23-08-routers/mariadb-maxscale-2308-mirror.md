@@ -191,3 +191,5 @@ port=3306
   data is only eventually consistent.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

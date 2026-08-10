@@ -39,3 +39,5 @@ Galera Replication essentially transforms a set of individual MariaDB servers in
 * [MariaDB Galera Cluster Guide](https://mariadb.com/docs/galera-cluster/galera-cluster-quickstart-guides/mariadb-galera-cluster-guides)
 * [Galera Cluster Documentation (Primary Site)](https://www.google.com/search?q=https://galeracluster.com/documentation/html_docs_galera/galera-overview.html\&authuser=1)
 * [MariaDB documentation - Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

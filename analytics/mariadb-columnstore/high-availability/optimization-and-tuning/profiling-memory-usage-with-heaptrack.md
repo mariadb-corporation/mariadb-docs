@@ -87,3 +87,5 @@ The following benchmarking and signal commands are preserved from internal engin
 # kill -SIGHUP $(pidof PrimProc);
 ```
 {% endcode %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

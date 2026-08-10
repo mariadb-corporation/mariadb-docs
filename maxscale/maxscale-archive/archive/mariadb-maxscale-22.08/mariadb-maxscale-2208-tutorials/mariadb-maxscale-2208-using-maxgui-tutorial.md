@@ -237,3 +237,5 @@ found on the [Dashboard](mariadb-maxscale-2208-using-maxgui-tutorial.md#dashboar
 2. Confirm killing the session dialog.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

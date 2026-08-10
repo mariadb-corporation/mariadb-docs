@@ -40,6 +40,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vi
 
 Original form for KB post-download flow - .ORG Download lead source
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="3317" %}
 
 ## Form 4279 below

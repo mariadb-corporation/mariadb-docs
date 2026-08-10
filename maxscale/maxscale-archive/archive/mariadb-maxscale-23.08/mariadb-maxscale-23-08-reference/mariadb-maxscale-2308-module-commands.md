@@ -65,3 +65,5 @@ When the module command is executed, the _argv_ parameter for the _my\_simple\_c
 command.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

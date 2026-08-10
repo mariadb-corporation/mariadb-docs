@@ -15,4 +15,6 @@
 * Q: Is the MariaDB Enterprise Audit Plugin a commercial feature?\
   A: Yes, the MariaDB Enterprise Audit Plugin, with its full suite of advanced functionalities and enterprise-grade capabilities, is a commercial feature and is part of the MariaDB Enterprise Server subscription provided by MariaDB plc.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

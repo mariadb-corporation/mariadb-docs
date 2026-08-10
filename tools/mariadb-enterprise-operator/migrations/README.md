@@ -8,3 +8,5 @@ description: >-
 # Migrations
 
 Specific guidance on migrating database instances into the multi-tenancy Catalog structure within a Kubernetes environment.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

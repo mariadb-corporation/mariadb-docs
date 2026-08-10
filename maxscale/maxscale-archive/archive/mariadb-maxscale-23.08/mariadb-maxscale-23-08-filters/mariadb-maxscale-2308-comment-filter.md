@@ -78,3 +78,5 @@ It would look like
 when received by server.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

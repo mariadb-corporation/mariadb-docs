@@ -343,3 +343,5 @@ curl -X POST "http://localhost:8000/generate-stream" \
     "llm_model": "gpt-4"
   }'
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

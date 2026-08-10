@@ -65,3 +65,5 @@ With packages updated, services must be brought back online in a specific order 
 3. Data Validation: Run data checks (e.g., `sudo bash table_checker.sh -c 6 -m 1`) and compare output counts from before the upgrade. Confirm replication users are connected via `show processlist`.
 4. Restore Configurations: Re-enable the `gtid_strict_mode` system variable on each replica server. Restart MariaDB to apply the changes.
 5. Clear Maintenance Mode: Finally, on the MaxScale node, clear the maintenance mode for each replica using MaxCtrl (e.g., `maxctrl clear server mcs2 maintenance`). Confirm the mode is cleared by checking that the state no longer says `Maintenance` in `maxctrl list servers`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

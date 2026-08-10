@@ -98,3 +98,5 @@ This layer ensures the API remains responsive by offloading resource-intensive t
 2. Reranking: A cross-encoder model (e.g., FlashRank or Cohere) re-scores retrieved chunks to ensure the absolute best context is provided.
 3. Generation: The original query and refined context are sent to an LLM to formulate a response.
 4. Citations: The system automatically inserts raw citation markers into the response, converted by a citation processor into footnotes or superscripts for user verification.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

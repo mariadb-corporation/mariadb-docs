@@ -25,4 +25,6 @@ The ColumnStore Monitor (csmon) supports:
 * Query-based load balancing with the [Read/Write Split Router (readwritesplit)](../../../../../maxscale-use-cases/readwrite-split-router-usage/understanding-maxscales-readwrite-split-router.md)
 * Connection-based load balancing with the Read Connection Router (readconnroute)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

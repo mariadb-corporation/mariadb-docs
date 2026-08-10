@@ -288,3 +288,5 @@ as MaxScale itself to communicate with the OS PAM interface and may be useful
 for diagnosing PAM login issues.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

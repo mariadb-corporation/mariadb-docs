@@ -47,3 +47,5 @@ The API response includes dedicated citation fields:
   * `page_number`: Page where the text was found
   * `snippet`: First 200 characters of the source chunk
 * `citation_spans`: Array with citation start and end positions for frontend highlighting.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

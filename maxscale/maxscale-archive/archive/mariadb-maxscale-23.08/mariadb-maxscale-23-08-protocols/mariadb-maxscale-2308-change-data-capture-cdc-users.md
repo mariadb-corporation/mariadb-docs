@@ -47,3 +47,5 @@ Users can be deleted by removing the related rows in 'cdcusers' file. For
 more details on the format of the _cdcusers_ file, read the [CDC Protocol documentation](mariadb-maxscale-2308-change-data-capture-cdc-protocol.md).
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

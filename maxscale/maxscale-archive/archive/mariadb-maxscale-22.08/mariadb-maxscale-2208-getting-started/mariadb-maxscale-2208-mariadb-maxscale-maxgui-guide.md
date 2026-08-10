@@ -78,3 +78,5 @@ or listener. The query results can be visualized into a line, bar, or scatter
 graph and exported as CSV or JSON.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

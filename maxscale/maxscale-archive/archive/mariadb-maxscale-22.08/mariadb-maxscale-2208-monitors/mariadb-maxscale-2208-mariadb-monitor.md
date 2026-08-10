@@ -1596,3 +1596,5 @@ which includes Binlog Server: the required action is to add the
 binlog server to the list of servers only if _master\_id_ identity is set.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

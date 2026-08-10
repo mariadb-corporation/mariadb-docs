@@ -254,3 +254,5 @@ If set, the `redirect_url` system variable tracker is sent in the final response
 If the [connection metadata](maxscale-listeners.md#connection_metadata) has `redirect_url` in it and the `redirect_url` parameter is defined, the value of the `redirect_url` parameter is used.
 
 For more information about connection redirection and how MaxScale deals with it, read the [Connection Redirection](maxscale-protocols/maxscale-mariadb-protocol-module.md#connection-redirection) section in the MariaDB protocol module documentation.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

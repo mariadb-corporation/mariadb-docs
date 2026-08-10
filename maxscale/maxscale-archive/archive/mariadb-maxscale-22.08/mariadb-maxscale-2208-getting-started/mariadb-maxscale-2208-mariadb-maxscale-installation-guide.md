@@ -122,3 +122,5 @@ If MaxScale is configured to store data in custom locations, these should be
 included in the backup as well.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -639,3 +639,5 @@ data should be replaced with as many _X_ characters as needed.
 ```
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -232,3 +232,5 @@ types and names of the fields. All records that follow it represent the changes
 that have happened on the database.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
