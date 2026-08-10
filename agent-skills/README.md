@@ -65,3 +65,5 @@ for the authoring and per-LTS update workflows. In short:
   hand-written scaffold.
 - **Topical** — re-vendored from upstream; file content bugs against
   `MariaDB/skills`, not here.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -133,3 +133,5 @@ INSERT INTO t1 (b) VALUES (1), (2);
   - <https://mariadb.com/docs/server/reference/sql-structure/sequences/sequence-overview>
   - <https://mariadb.com/docs/server/reference/sql-structure/sequences/alter-sequence>
   - <https://mariadb.com/docs/server/reference/sql-structure/sequences/drop-sequence>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

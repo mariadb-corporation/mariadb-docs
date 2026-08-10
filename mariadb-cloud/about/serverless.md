@@ -114,3 +114,5 @@ MariaDB Cloud Serverless is designed to handle diverse workload types:
 2. [**Launch Service**](../Quickstart/) - Follow our quickstart guide
 3. [**Connect Application**](../connecting-to-mariadb-cloud-dbs/#connecting-from-your-application) - Integrate with your applications
 4. [**Monitor Performance**](../cloud-management/observability.md) - Use built-in monitoring tools
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -130,3 +130,5 @@ Call `pool.end()` on shutdown, or the process will not exit cleanly.
 
 - **`mariadb-connector-nodejs-usage`** — using the connector once installed: queries, parameters, batches, streaming, transactions, error handling
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-nodejs>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

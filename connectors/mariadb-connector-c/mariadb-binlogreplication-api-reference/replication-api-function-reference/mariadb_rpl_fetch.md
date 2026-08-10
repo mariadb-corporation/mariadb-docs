@@ -34,3 +34,5 @@ Added in [MariaDB Connector/C 3.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTj
 
 * [`mariadb_free_rpl_event()`](mariadb_free_rpl_event.md)&#x20;
 * [`mariadb_rpl_extract_rows()`](mariadb_rpl_extract_rows.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

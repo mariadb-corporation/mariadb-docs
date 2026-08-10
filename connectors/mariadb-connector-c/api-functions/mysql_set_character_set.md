@@ -82,4 +82,6 @@ The client library supports the following character sets:
 * [mysql\_real\_escape\_string()](mysql_real_escape_string.md)
 * [mysql\_get\_character\_set\_info()](mysql_get_character_set_info.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

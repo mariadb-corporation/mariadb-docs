@@ -65,3 +65,5 @@ For most small, mid-size and large migrations MariaDB Cloud Managed Migration is
 * [Importing data using Mariadb Import](../data-loading/install-mariadb-import.md)
 * [Importing using CSV Data](../data-loading/import-csv-data.md)
 * [Replicating Data from an External DB](../data-loading/replicating-data-from-external-db.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

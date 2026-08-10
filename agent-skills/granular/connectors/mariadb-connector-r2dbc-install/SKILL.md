@@ -125,3 +125,5 @@ With Spring Boot, the same driver is configured through `spring.r2dbc.url` and f
 - **`mariadb-connector-r2dbc-usage`** — using the driver once installed: statements, parameter binding, result mapping, transactions, batches
 - **`mariadb-connector-j-install`** — the blocking JDBC alternative, when a reactive stack is not in play
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-r2dbc>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

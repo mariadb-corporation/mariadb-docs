@@ -46,4 +46,6 @@ This is the same as [`mysql_optionsv(mysql, MYSQL_OPT_SSL_ENFORCE, &yes)`](mysql
 
 * [mysql\_get\_ssl\_cipher()](mysql_get_ssl_cipher.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

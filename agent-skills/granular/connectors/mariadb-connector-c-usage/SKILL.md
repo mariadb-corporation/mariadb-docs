@@ -159,3 +159,5 @@ Sharing a single `MYSQL` handle across threads corrupts the protocol state rathe
 - **`mariadb-transactions`** — the server-side semantics behind `mysql_commit()`/`mysql_rollback()`
 - **`mariadb-prepare`** — server-side prepared statements, what the `MYSQL_STMT` API drives
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-c>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -140,3 +140,5 @@ These share the `SET` keyword but are documented — and should be reasoned abou
   - <https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/set-commands/set>
   - <https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/set-commands/set-statement>
   - <https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/set-commands/set-sql_log_bin>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

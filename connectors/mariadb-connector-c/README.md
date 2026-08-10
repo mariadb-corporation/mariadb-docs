@@ -134,3 +134,5 @@ Build MariaDB Connector/C from source: download the package from MariaDB downloa
 Detailed documentation on the MariaDB Connector/C API functions for connecting, querying, and managing data in C applications.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

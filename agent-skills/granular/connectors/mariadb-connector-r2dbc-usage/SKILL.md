@@ -103,3 +103,5 @@ Mono.from(factory.create())
 - **`mariadb-transactions`** / **`mariadb-set-transaction`** — server-side semantics behind `beginTransaction()`/`commitTransaction()`/isolation levels
 - **`mariadb-prepare`** — server-side prepared statements, what `useServerPrepStmts=true` uses under the hood
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-r2dbc>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

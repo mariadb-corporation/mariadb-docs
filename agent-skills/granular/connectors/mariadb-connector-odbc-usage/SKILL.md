@@ -96,3 +96,5 @@ SQLExecute(stmt);        /* all three rows in one execution */
 - **`mariadb-transactions`** — server-side semantics behind `SQLEndTran`/`conn.commit()` and isolation levels (`SQL_ATTR_TXN_ISOLATION` maps directly to `SET SESSION TRANSACTION ISOLATION LEVEL`)
 - **`mariadb-prepare`** — server-side prepared statements, what `SQLPrepare`'s default (and `EDSERVER`) use under the hood
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-odbc>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -21,4 +21,6 @@ file for information on:
 
 The reasoning for having the [Contributing](https://github.com/MariaDB/mariadb_kernel/blob/master/CONTRIBUTING.md) documentation on GitHub is that it is closer to the actual code and it feels right to have it there. We also believe it fosters a cozy and welcoming environment for new contributors if both the code and the [Contributing](https://github.com/MariaDB/mariadb_kernel/blob/master/CONTRIBUTING.md) documentation sit near each other.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

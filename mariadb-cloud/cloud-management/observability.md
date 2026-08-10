@@ -275,3 +275,5 @@ We export the following metrics as part of the [metrics](observability.md#metric
 | maxscale\_up                                                 |
 | maxscale\_uptime\_seconds                                    |
 | process\_resident\_memory\_bytes                             |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

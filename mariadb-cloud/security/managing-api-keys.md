@@ -30,3 +30,5 @@ You can use the Swagger API portal to manage the keys.
 2. [Create a new API Key](https://apidocs.skysql.com/#/allowed_roles:ADMIN;MEMBER/post_organization_v1_users__user_id__api_keys)
 3. [Delete a user specific Key](https://apidocs.skysql.com/#/allowed_roles:ADMIN;MEMBER/get_organization_v1_users__user_id__api_keys__key_id_)
 4. [Update a user specific key](https://apidocs.skysql.com/#/allowed_roles:ADMIN;MEMBER/patch_organization_v1_users__user_id__api_keys__key_id_)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

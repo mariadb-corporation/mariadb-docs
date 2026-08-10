@@ -119,3 +119,5 @@ If you encounter an error while importing your users, you may need to uninstall 
 - [MariaDB Backup Documentation](https://mariadb.com/kb/en/mariadb-backup-overview/)
 - [Advanced Backup Techniques](https://mariadb.com/kb/en/backup-and-restore-overview/)
 - [Migrate RDS MySQL to MariaDB Cloud using the AWS Data Migration Service (DMS)](<./migrate-rds-mysql-to-skysql-using-amazon-data-migration-service_whitepaper_1109.pdf>)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -70,3 +70,5 @@ Maps to `ALTER TABLE … DROP INDEX`. Use ``DROP INDEX `PRIMARY` ON t`` to drop 
 - Canonical references on `mariadb.com/docs` (consult only for edge cases not covered here):
   - <https://mariadb.com/docs/server/reference/sql-statements/data-definition/create/create-index>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-definition/drop/drop-index>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

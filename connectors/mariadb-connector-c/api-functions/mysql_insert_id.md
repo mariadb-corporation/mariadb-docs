@@ -35,4 +35,6 @@ When performing a multi-insert statement, `mysql_insert_id()` will return the va
 * [mysql\_stmt\_insert\_id()](../api-prepared-statement-functions/mysql_stmt_insert_id.md)
 * [LAST\_INSERT\_ID()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/information-functions/last_insert_id)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

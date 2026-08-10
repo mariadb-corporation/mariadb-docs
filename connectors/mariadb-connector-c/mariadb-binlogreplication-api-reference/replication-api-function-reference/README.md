@@ -30,3 +30,5 @@ Together, these functions enable developers to build custom replication clients 
 * [MariaDB Binlog/Replication API Reference](../)
 * [Replication API Types and Definitions](../replication-api-types-and-definitions.md)
 * [Replication API Function Reference](./)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -129,3 +129,5 @@ if (res->wasNull()) {
 - **`mariadb-transactions`** — the server-side semantics behind `commit()`/`rollback()` and isolation levels set via `setTransactionIsolation()`
 - **`mariadb-prepare`** — server-side prepared statements, what `useServerPrepStmts=true` uses under the hood
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-cpp>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

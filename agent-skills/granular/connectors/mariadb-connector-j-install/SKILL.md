@@ -127,3 +127,5 @@ The built-in pool cleans connection state on release and drops connections that 
 - **`mariadb-connector-j-usage`** — using the driver once it is on the classpath: statements, batches, generated keys, streaming, transactions
 - **`mariadb-connector-r2dbc-install`** — the reactive alternative for non-blocking applications
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-j>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

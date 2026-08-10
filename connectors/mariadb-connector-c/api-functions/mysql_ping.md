@@ -36,4 +36,6 @@ If a reconnect occurred the `thread_id` will change. Also resources bundled to t
 * [mysql\_options()](mysql_options.md)
 * [mysql\_kill()](mysql_kill.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

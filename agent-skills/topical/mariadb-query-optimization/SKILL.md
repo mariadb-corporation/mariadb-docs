@@ -386,3 +386,5 @@ Before adding indexes or rewriting queries, check these first:
 - [Pagination Optimization — MariaDB Docs](https://mariadb.com/docs/server/ha-and-performance/optimization-and-tuning/query-optimizations/pagination-optimization)
 
 *For topics not covered here, see the official MariaDB documentation at [mariadb.com/docs](https://mariadb.com/docs).*
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

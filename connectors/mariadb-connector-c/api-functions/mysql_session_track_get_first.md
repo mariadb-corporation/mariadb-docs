@@ -48,4 +48,6 @@ Zero for success, nonzero if an error occurred.
 
 [mysql\_session\_track\_get\_next()](mysql_session_track_get_next.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

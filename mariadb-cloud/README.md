@@ -88,3 +88,5 @@ graph TD
 ## See Also
 
 * [MariaDB Cloud Datasheet](https://mariadb.com/resources/datasheets/mariadb-cloud/)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

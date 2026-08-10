@@ -205,3 +205,5 @@ Given a JSON document, returns the scalar specified by the path.
 - **`mariadb-create-table`** — declaring `JSON`-typed columns (alias for `LONGTEXT` with auto `CHECK`)
 - **`mariadb-select`** — `JSON_TABLE` in the `FROM` clause for relational projection of JSON documents
 - Canonical reference on `mariadb.com/docs`: <https://mariadb.com/docs/server/reference/sql-functions/special-functions/json-functions> (the JSON Functions section); JSONPath syntax at <https://mariadb.com/docs/server/reference/sql-functions/special-functions/json-functions/jsonpath-expressions>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

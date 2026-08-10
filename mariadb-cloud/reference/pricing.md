@@ -32,3 +32,4 @@ The cost estimate may vary from your actual costs for several reasons, including
 * **Cross-Region Replicas**: The estimate does not include cross-region replicas.
 * **Currency**: Estimates are provided in either US dollars or Euros, depending on your account address country. Your actual cost will be based on US dollar pricing with a conversion to Euros,  depending on your account address country.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

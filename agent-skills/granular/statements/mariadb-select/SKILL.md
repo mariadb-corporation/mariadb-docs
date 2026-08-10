@@ -200,3 +200,5 @@ Constraints and traps:
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/selecting-data/select-into-dumpfile>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/selecting-data/select-offset-fetch>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/selecting-data/select-with-rollup>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

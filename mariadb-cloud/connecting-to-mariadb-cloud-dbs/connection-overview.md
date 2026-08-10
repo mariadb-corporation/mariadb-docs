@@ -80,3 +80,4 @@ The following GUI clients have been tested to properly connect with MariaDB Clou
 * [Connect using HeidiSQL](database-tools/heidisql.md)
 * [Connect using TablePlus](database-tools/tableplus.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

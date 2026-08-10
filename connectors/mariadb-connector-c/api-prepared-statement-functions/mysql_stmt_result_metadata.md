@@ -36,4 +36,6 @@ Returns a result set that can be used to process metadata information.
 * [mysql\_free\_result()](../api-functions/mysql_free_result.md)
 * [mysql\_stmt\_prepare()](mysql_stmt_prepare.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -112,3 +112,5 @@ try (PreparedStatement ps = conn.prepareStatement(
 - **`mariadb-transactions`** / **`mariadb-set-transaction`** — the server-side semantics behind `conn.commit()` / `conn.rollback()` and isolation levels
 - **`mariadb-prepare`** — server-side prepared statements, what `useServerPrepStmts=true` uses under the hood
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-j>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

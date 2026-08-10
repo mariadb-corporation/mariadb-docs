@@ -135,3 +135,5 @@ A failure at `import mariadb` points at the runtime library or the wheel; a fail
 - **`mariadb-connector-python-usage`** — using the module once it is installed: parameters, transactions, cursors, pooling, error handling
 - **`mariadb-connector-c-install`** — installing and configuring the underlying C client library this module builds against
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-python>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

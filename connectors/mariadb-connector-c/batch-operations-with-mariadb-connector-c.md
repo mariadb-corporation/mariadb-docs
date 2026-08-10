@@ -215,4 +215,6 @@ For additional batch insert examples, see [Prepared Statement Examples](api-prep
 * [Bulk Insert (Row-wise Binding)](api-prepared-statement-functions/prepared-statement-examples/bulk-insert-row-wise-binding.md)
 * [Bulk Insert (Column-wise Binding)](api-prepared-statement-functions/prepared-statement-examples/bulk-insert-column-wise-binding.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

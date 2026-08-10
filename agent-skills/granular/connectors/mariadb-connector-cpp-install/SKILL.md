@@ -124,3 +124,5 @@ A link error points at `-lmariadbcpp` or the library path; a load error at run t
 - **`mariadb-connector-cpp-usage`** — using the API once it is installed: statements, result sets, transactions, batches
 - **`mariadb-connector-c-install`** — installing and configuring the required underlying C client library
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-cpp>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

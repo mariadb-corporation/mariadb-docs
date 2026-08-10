@@ -153,3 +153,5 @@ A "data source name not found" error is a driver-manager registration problem; a
 - **`mariadb-connector-odbc-usage`** — using the driver once it is registered: handles, binding, prepared statements, cursors, diagnostics
 - **`mariadb-connector-c-install`** — the underlying client library, and the TLS behavior it determines
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-odbc>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -31,4 +31,6 @@ The [REPLACE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-state
 
 * [mysql\_stmt\_insert\_id()](mysql_stmt_insert_id.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -65,3 +65,5 @@ Flagged in DOCS-6206; left as-is because this directory is vendored verbatim:
 - `mariadb-vector`: typo "euclidian" → "euclidean"; the "5× faster than
   `VEC_FromText()`" claim should be validated against current builds.
 - `mariadb-system-versioned-tables`: duplicate identical "Sources" link.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

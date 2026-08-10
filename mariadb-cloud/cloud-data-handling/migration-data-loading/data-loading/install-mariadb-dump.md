@@ -162,3 +162,5 @@ For MariaDB Dump 10.3 and older, the binary filename was `mysqldump`. The instru
 ## Temporal Tables
 
 For system-versioned tables and transaction-precise tables, MariaDB Dump only backs up current row versions. It does not back up historical row versions.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

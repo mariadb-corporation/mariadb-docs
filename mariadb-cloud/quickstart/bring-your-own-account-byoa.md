@@ -154,3 +154,5 @@ For the Tech Preview (Jan 2026), onboarding is a guided process.
 1. Contact Sales: Submit a request via the MariaDB Cloud Portal or contact your account representative to validate eligibility.
 2. Onboarding: Our support team will provide the necessary IAM/Service Principal templates and guide you through the account linking process.
 3. Deploy: Once linked, "Bring Your Own Account" will appear as a deployment target in your Create Service wizard.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

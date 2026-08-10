@@ -24,4 +24,6 @@ Call when finished using the library, such as after disconnecting from the serve
 
 * [mysql\_library\_init()](mysql_library_init.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

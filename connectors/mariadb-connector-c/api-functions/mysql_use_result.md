@@ -36,4 +36,6 @@ The `mysql_use_result()` function does not transfer the entire result set. Hence
 * [mysql\_store\_result()](mysql_store_result.md)
 * [mysql\_free\_result()](mysql_free_result.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

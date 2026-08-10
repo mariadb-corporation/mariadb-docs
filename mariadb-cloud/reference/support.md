@@ -40,3 +40,5 @@ A definitive description of MariaDB Cloud support can be found in the [MariaDB C
 Support cases are managed through the [Support Portal](https://support.skysql.com/), which is accessible to all registered users.
 
 Users unable to reach the Support Portal can also use [Support Email](mailto:support@skysql.com).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

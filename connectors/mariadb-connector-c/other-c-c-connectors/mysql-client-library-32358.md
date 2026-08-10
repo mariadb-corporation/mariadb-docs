@@ -57,4 +57,6 @@ Information can be found on the [Distributions Include MariaDB](https://app.gitb
 page.
 {% endhint %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

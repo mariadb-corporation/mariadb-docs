@@ -372,3 +372,5 @@ This panel shows the number of cache entries evicted per second.
 ## Eviction Rate
 
 This panel shows the number of cache entries evicted per second during the selected time interval.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

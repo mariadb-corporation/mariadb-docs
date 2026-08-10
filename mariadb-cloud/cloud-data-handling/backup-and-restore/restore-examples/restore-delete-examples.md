@@ -27,3 +27,5 @@ curl --location 'https://api-test.skysql.com/skybackup/v1/backups?service_id=d<S
 
 * SERVICE\_ID : MariaDB Cloud service identifier, format dbtxxxxxx. You can fetch your service ID from the Fully qualified domain name(FQDN) of your service.\
   E.g: in dbpgf17106534.sysp0000.db2.skysql.com, 'dbpgf17106534' is the service ID. You will find the FQDN in the [Connect window](https://app.skysql.com/dashboard)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -52,5 +52,6 @@ Indicator variables store supplementary information which will be sent to the se
 | STMT\_INDICATOR\_DEFAULT | use columns default value                      |
 | STMT\_INDICATOR\_IGNORE  | do not update column value                     |
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -123,3 +123,5 @@ try {
 - **`mariadb-transactions`** — the server-side semantics behind `beginTransaction()`/`commit()`/`rollback()` and isolation levels
 - **`mariadb-prepare`** — server-side prepared statements, what `execute()` uses under the hood
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-nodejs>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

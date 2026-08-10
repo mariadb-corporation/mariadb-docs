@@ -43,3 +43,5 @@ A pointer to the plugin handle, or `NULL` if an error occurred.
 ## See Also
 
 * [mysql\_optionsv()](mysql_optionsv.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
