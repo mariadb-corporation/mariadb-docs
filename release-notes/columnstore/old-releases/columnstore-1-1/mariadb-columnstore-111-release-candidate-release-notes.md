@@ -42,7 +42,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-944](https://jira.mariadb.org/browse/MCOL-944) - coalesce with count(distinct) can lead to incorrect results
 * [MCOL-945](https://jira.mariadb.org/browse/MCOL-945) - MariaDBReplication slave messages is incorrectly sending updates to PM nodes
 * [MCOL-946](https://jira.mariadb.org/browse/MCOL-946) - migrate to swig for mcsapi python binding
-* [MCOL-951](https://jira.mariadb.org/browse/MCOL-951) - tpcds query 17 fails with invalid colum width
+* [MCOL-951](https://jira.mariadb.org/browse/MCOL-951) - tpcds query 17 fails with invalid column width
 * [MCOL-959](https://jira.mariadb.org/browse/MCOL-959) - invalid LD\_LIBRARY\_PATH for non root install
 * [MCOL-963](https://jira.mariadb.org/browse/MCOL-963) - self join cte queries from tpcds alternately fail with parsing error and succeed but with incorrect results
 * [MCOL-965](https://jira.mariadb.org/browse/MCOL-965) - group\_contact with order by on joined table causes error
@@ -77,7 +77,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 * [MCOL-643](https://jira.mariadb.org/browse/MCOL-643) :Implement ha\_calpont\_impl\_rnd\_pos. Sorting of long text columns may fail.
 * [MCOL-695](https://jira.mariadb.org/browse/MCOL-695) :Implement joins between CHAR/VARCHAR and INT columns. ColumnStore now fails more consistently on incompatible join types. Explicit type casts must be used if this error is hit.
 * [MCOL-713](https://jira.mariadb.org/browse/MCOL-713) : Some functions return "The maximum row size" error when TEXT/LONGTEXT is used in a table
-* [MCOL-912](https://jira.mariadb.org/browse/MCOL-912) : fter adding two PMs with gluster, cpimport failed on newly added PMs. The system must be restarted after adding PM modules with data redundancy / gluster storage.
+* [MCOL-912](https://jira.mariadb.org/browse/MCOL-912) : After adding two PMs with gluster, cpimport failed on newly added PMs. The system must be restarted after adding PM modules with data redundancy / gluster storage.
 * The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](/broken/spaces/rBEU9juWLfTDcdwF3Q14/pages/dXPqB8aK1YApDlya8q3W).
 * While Millisecond and Microsecond storage is supported for datetime, time and timestamp columns, at this time the query results cannot return millisecond and microseconds.
 * UTF-8 Limitation

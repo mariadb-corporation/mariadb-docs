@@ -56,7 +56,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1899](https://jira.mariadb.org/browse/MCOL-1899) - Add tools test suite to buildbot
 * [MCOL-1961](https://jira.mariadb.org/browse/MCOL-1961) - javamcsapi, pymcsapi known isTableLock and TableLockInfo limitations
 * [MCOL-2082](https://jira.mariadb.org/browse/MCOL-2082) - Write Spark and PySpark documentation for mcsapi
-* [MCOL-2110](https://jira.mariadb.org/browse/MCOL-2110) - Cant build engine out-of-source
+* [MCOL-2110](https://jira.mariadb.org/browse/MCOL-2110) - Can't build engine out-of-source
 * [MCOL-2120](https://jira.mariadb.org/browse/MCOL-2120) - Check NUMA devel package is installed on BuildBot instances
 * [MCOL-2176](https://jira.mariadb.org/browse/MCOL-2176) - Use jemalloc as the main memory allocator - testing for 1.2.3-1
 * [MCOL-2218](https://jira.mariadb.org/browse/MCOL-2218) - Rebase 1.2 on [MariaDB 10.3.13](../../../community-server/old-releases/10.3/10.3.13.md)

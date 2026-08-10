@@ -33,7 +33,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-318](https://jira.mariadb.org/browse/MCOL-318) - switch to using os distribution version of snappy
 * [MCOL-356](https://jira.mariadb.org/browse/MCOL-356) - BLOB data type not supported
 * [MCOL-377](https://jira.mariadb.org/browse/MCOL-377) - columnstore queries show as vtable query rather than original query in audit log
-* [MCOL-397](https://jira.mariadb.org/browse/MCOL-397) - binary package install doesnt check for package dependencies
+* [MCOL-397](https://jira.mariadb.org/browse/MCOL-397) - binary package install doesn't check for package dependencies
 * [MCOL-463](https://jira.mariadb.org/browse/MCOL-463) : gluster storage option in installer fails with an error.
 * [MCOL-468](https://jira.mariadb.org/browse/MCOL-468) - update default replication configuration
 * [MCOL-480](https://jira.mariadb.org/browse/MCOL-480) - warning error reported after upgrade to 1.0.6
@@ -47,12 +47,12 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-534](https://jira.mariadb.org/browse/MCOL-534) - postCfg upgrade output refers to calpont
 * [MCOL-550](https://jira.mariadb.org/browse/MCOL-550) - Possible mem leak and crash in columnstore's mysqld
 * [MCOL-553](https://jira.mariadb.org/browse/MCOL-553) - "Too many open files" errors during DBT3 performance test
-* [MCOL-561](https://jira.mariadb.org/browse/MCOL-561) - Can't create view by using ColumnStore's windowing funcion SQL
+* [MCOL-561](https://jira.mariadb.org/browse/MCOL-561) - Can't create view by using ColumnStore's windowing function SQL
 * [MCOL-574](https://jira.mariadb.org/browse/MCOL-574) - Cross Engine step tries to use a bad UDS path for localhost
 * [MCOL-579](https://jira.mariadb.org/browse/MCOL-579) - Enabled harderning compile flags
 * [MCOL-622](https://jira.mariadb.org/browse/MCOL-622) - [MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) create front end for "VAR\_SAMP" window function
 * [MCOL-623](https://jira.mariadb.org/browse/MCOL-623) - [MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) create "STDDEV\_SAMP" Windows function
-* [MCOL-628](https://jira.mariadb.org/browse/MCOL-628) - getSystemResourceUsage doesnt work on non-root install
+* [MCOL-628](https://jira.mariadb.org/browse/MCOL-628) - getSystemResourceUsage doesn't work on non-root install
 * [MCOL-636](https://jira.mariadb.org/browse/MCOL-636) - Performance improvement with string handling
 * [MCOL-642](https://jira.mariadb.org/browse/MCOL-642) - Add BLOB/TEXT detection
 * [MCOL-663](https://jira.mariadb.org/browse/MCOL-663) - Restarting installation fails if installed on secondary interface
@@ -92,9 +92,9 @@ There are a number bugs and known limitations within this version of MariaDB Col
 * [MCOL-713](https://jira.mariadb.org/browse/MCOL-713) : Some functions return "The maximum row size" error when TEXT/LONGTEXT is used in a table
 * [MCOL-783](https://jira.mariadb.org/browse/MCOL-783) : Recursive Common Table Expressions caused mysqld to crash
 * [MCOL-895](https://jira.mariadb.org/browse/MCOL-895) : INSERT after ALTER TABLE can corrupt HWM
-* [MCOL-912](https://jira.mariadb.org/browse/MCOL-912) : fter adding two PMs with gluster, cpimport failed on newly added PMs. The system must be restarted after adding PM modules with data redundancy / gluster storage.
+* [MCOL-912](https://jira.mariadb.org/browse/MCOL-912) : After adding two PMs with gluster, cpimport failed on newly added PMs. The system must be restarted after adding PM modules with data redundancy / gluster storage.
 * [MCOL-916](https://jira.mariadb.org/browse/MCOL-916) : Gluster failover: Stack did not recover completely after PM1 reboot. Under certain topologies (replication count < pm count) failover may not work correctly. Recommend limiting testing to replication count = pm count.
-* [MCOL-926](https://jira.mariadb.org/browse/MCOL-926) : multiple application of a UDAF on the same column will result in a null value except for the first occurence.
+* [MCOL-926](https://jira.mariadb.org/browse/MCOL-926) : multiple application of a UDAF on the same column will result in a null value except for the first occurrence.
 * The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](/broken/spaces/rBEU9juWLfTDcdwF3Q14/pages/dXPqB8aK1YApDlya8q3W).
 * While Millisecond and Microsecond storage is supported for datetime, time and timestamp columns, at this time the query results cannot return millisecond and microseconds.
 * UTF-8 Limitation
