@@ -106,3 +106,5 @@ Implementation guide specifically for developers creating logic to intercept and
 A dedicated resource for engineers to learn how to build or modify storage engines, detailing the pluggable API and data handling at the physical level.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

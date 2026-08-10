@@ -89,3 +89,5 @@ Best practices for handling sensitive information like database passwords and SS
 Demonstrates how to automate the loading of time zone data into MariaDB using the `mysql_tzinfo_to_sql` utility, with techniques to ensure the task is idempotent.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

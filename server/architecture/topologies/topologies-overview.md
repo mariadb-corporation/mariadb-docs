@@ -106,4 +106,6 @@ _MaxScale routes to a three-node ColumnStore cluster sharing NFS storage._
 
 * [Deploy Single Node Topologies](single-node-topologies/)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

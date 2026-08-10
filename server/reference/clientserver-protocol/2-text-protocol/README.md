@@ -198,3 +198,5 @@ This is an internal command used to represent a sleeping connection that is wait
 This command retrieves a human-readable string containing internal server statistics like uptime and thread counts.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

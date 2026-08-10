@@ -126,3 +126,5 @@ The Query Response Time plugin collects and displays the distribution of query e
 The User Variables plugin adds the USER_VARIABLES table to the Information Schema, allowing users to inspect defined user variables and their values.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

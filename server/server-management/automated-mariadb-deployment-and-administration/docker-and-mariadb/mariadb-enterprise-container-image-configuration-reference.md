@@ -92,3 +92,5 @@ To enable this functionality, the MariaDB Custom Resource must be configured to 
 ## MaxScale and MaxScale Enterprise
 
 The core MaxScale images do not rely on Docker-specific environment variables for internal configuration. Instead, MaxScale is configured using standard `.cnf` files or through the REST API. For monitoring deployments, it is paired with the MaxScale Prometheus Exporter as detailed above.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

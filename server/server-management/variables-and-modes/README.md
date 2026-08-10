@@ -118,3 +118,5 @@ SQL_MODE=MSSQL enables Microsoft SQL Server compatibility behaviors in MariaDB.
 SQL_MODE=ORACLE enables Oracle Database compatibility behaviors in MariaDB.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

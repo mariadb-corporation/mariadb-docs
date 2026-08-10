@@ -70,3 +70,5 @@ description: >-
 - [SHOW WARNINGS](show-warnings.md)
 - [SHOW WSREP\_MEMBERSHIP](show-wsrep_membership.md)
 - [SHOW WSREP\_STATUS](show-wsrep_status.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

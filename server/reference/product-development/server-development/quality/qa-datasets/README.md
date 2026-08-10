@@ -53,3 +53,5 @@ Information on the standardized datasets and database dumps used for OpenStreetM
 Information on the standardized datasets and database dumps used for OpenStreetMap.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

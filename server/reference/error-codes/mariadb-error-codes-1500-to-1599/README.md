@@ -100,3 +100,5 @@
 - [Error 1597: Master command failed](e1597.md)
 - [Error 1598: Binary logging not possible](e1598.md)
 - [Error 1599: View has no creation context](e1599.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

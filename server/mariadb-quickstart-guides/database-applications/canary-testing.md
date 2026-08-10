@@ -72,3 +72,5 @@ MariaDB> SELECT * FROM `orders_t`;
 * [Views](../../server-usage/views/)
 * [Replication](../../ha-and-performance/standard-replication/)
 * [Invisible columns](canary-testing.md#invisible-columns)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

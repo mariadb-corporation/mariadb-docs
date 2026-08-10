@@ -102,3 +102,5 @@ Discover additional plugins that extend MariaDB Server functionality, such as th
 Password validation plugins, like simple_password_check and cracklib, enforce strong password policies by checking new passwords against defined complexity rules.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

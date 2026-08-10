@@ -41,3 +41,5 @@ Defragment the query cache to optimize memory usage. This command reorganizes th
 Prepare individual tables for binary backup. This command flushes changes to disk and locks tables, allowing safe copying of .ibd files while the server runs.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

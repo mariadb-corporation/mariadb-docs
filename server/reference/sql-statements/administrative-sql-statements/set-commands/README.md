@@ -137,3 +137,5 @@ Define isolation levels and access modes for transactions. Learn to configure th
 Assign values to user-defined variables. This guide explains how to store data in session-specific variables for reuse in subsequent SQL statements.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

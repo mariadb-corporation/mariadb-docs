@@ -29,3 +29,5 @@ The CSV Storage Engine stores data in comma-separated values format text files, 
 Learn how to use CHECK TABLE and REPAIR TABLE to identify and fix corruptions in CSV tables, discarding rows from the first error onwards.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

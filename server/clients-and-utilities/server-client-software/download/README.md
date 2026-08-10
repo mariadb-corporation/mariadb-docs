@@ -98,3 +98,5 @@ How MariaDB is distributed through mirror sites, and how to volunteer your serve
 Where to download MariaDB tarballs, binaries, and distribution packages, covering the latest releases and historical versions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

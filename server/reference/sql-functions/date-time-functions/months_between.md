@@ -16,3 +16,5 @@ SELECT MONTHS_BETWEEN
 ```
 
 The result is `1.03225806`.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

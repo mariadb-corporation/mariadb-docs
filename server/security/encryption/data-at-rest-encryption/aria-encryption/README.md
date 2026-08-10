@@ -70,3 +70,5 @@ Details how Aria manages encryption keys (using ID 1 for user tables and ID 2 fo
 Instructions for safely disabling encryption on Aria tables, emphasizing the need to rebuild tables to an unencrypted state before removing key management plugins.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -29,3 +29,5 @@ description: >-
 - [SYSTEM\_USER](system_user.md)
 - [USER](user.md)
 - [VERSION](version.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

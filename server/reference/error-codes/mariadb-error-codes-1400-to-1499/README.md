@@ -100,3 +100,5 @@
 - [Error 1497: The mix of handlers in the partitions is not allowed in this version of MariaDB](e1497.md)
 - [Error 1498: For the partitioned engine it is necessary to define all](e1498.md)
 - [Error 1499: Too many partitions (including subpartitions) were defined](e1499.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

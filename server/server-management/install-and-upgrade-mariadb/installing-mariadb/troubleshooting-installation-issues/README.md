@@ -82,3 +82,5 @@ Guidance for dealing with glibc or shared library errors when attempting to inst
 A collection of troubleshooting articles specific to Debian and Ubuntu deployments, covering upgrade failures, repository conflicts, and migration issues.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

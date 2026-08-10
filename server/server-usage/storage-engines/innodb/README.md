@@ -342,3 +342,5 @@ Troubleshoot InnoDB issues in MariaDB Server. Find solutions and best practices 
 Learn about InnoDB operations in MariaDB Enterprise Server. This section covers critical management tasks, including configuration, performance tuning, and troubleshooting for enterprise-grade deploym
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

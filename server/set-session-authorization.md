@@ -45,3 +45,5 @@ SELECT USER(), CURRENT_USER(), DATABASE();
 | foo@localhost | foo@%          | NULL       |
 +---------------+----------------+------------+
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

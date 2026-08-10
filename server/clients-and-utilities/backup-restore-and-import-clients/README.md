@@ -54,3 +54,5 @@ Complete mariadb-import reference: load tables from text files, --fields-termina
 dbForge Studio is a proprietary third-party tool, not included with MariaDB, for backup, restore, and data export and import.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

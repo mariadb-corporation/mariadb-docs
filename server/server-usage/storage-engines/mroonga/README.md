@@ -65,3 +65,5 @@ System variables for the Mroonga storage engine, and how to set them.
 Extend Mroonga's functionality in MariaDB Server with user-defined functions. Learn how to create custom functions to enhance full-text search and data processing capabilities.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

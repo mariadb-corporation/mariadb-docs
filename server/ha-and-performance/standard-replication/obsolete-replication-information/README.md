@@ -54,3 +54,5 @@ An obsolete feature-preview page for early MariaDB replication features (histori
 Documents the obsolete --innodb-release-locks-early XtraDB option.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -129,3 +129,5 @@ mariadb --user="jdoe" --password="$DB_TOKEN"
     _Look for errors regarding "invalid audience," "expired token," or "issuer mismatch."_
 * SELinux/AppArmor: If the database cannot access the PAM configuration, ensure your security context allows `mysqld` to read from `/etc/pam.d/`.
 * Username Mapping: By default, the MariaDB username must match the identity in the token (often the `sub` or `email`claim). Some PAM modules allow you to map these (e.g., mapping `user@example.com` to `user`); check your module's `user_template` or mapping documentation.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

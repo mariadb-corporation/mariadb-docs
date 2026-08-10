@@ -166,3 +166,5 @@ The Information Schema APPLICABLE_ROLES table shows the role authorizations that
 The Information Schema ENABLED_ROLES table lists all roles that are currently enabled for the current session, including nested roles.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

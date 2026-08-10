@@ -49,3 +49,5 @@ Details the various constraints within MariaDB Server, including primary keys, u
 Provides information on different MariaDB Server deployment topologies, including standalone, replication, and clustered configurations.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

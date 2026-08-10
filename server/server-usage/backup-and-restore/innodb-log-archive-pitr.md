@@ -79,3 +79,5 @@ Point-in-time recovery of DDL operations is limited even for an InnoDB-only depl
 * [InnoDB Log Archiving](../storage-engines/innodb/innodb-log-archiving.md) — feature overview, file format, monitoring, and managing archived log files.
 * [`innodb_log_archive`](../storage-engines/innodb/innodb-system-variables.md#innodb_log_archive), [`innodb_log_recovery_start`](../storage-engines/innodb/innodb-system-variables.md#innodb_log_recovery_start), [`innodb_log_recovery_target`](../storage-engines/innodb/innodb-system-variables.md#innodb_log_recovery_target).
 * [Point-In-Time Recovery (PITR, mariadb-backup)](mariadb-backup/point-in-time-recovery-pitr-mariadb-backup.md) — the binary-log-based PITR procedure.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

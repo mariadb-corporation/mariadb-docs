@@ -92,3 +92,5 @@ Migrate from SQL Server to MariaDB. This section provides detailed guidance, too
 {% endcolumns %}
 
 [^1]: DDL (Data Definition Language): The subset of SQL commands used to create, modify, or destroy the structure of database objects (like tables, indexes, and databases) rather than the data itself.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

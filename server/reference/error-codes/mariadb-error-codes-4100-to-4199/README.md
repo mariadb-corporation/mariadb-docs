@@ -99,3 +99,5 @@
 - [Error 4197: Wrong number of columns](e4197.md)
 - [Error 4198: Sequence tables cannot have any keys](e4198.md)
 - [Error 4199: Sequence tables cannot have any constraints](e4199.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

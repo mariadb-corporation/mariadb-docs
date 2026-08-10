@@ -89,3 +89,5 @@ How to pause and resume mariadb-test-run.pl while a test run is in progress.
 The Debug Sync facility for placing synchronization points to coordinate tests.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

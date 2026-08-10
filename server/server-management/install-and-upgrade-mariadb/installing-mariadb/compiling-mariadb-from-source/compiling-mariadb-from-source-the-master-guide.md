@@ -514,3 +514,5 @@ MariaDB uses [CPack](https://cmake.org/cmake/help/latest/module/CPack.html) (par
 A compiling guide aimed at developers & contributors is [available here](https://mariadb.org/get-involved/getting-started-for-developers/get-code-build-test/). It was last updated in 2025. The reading time is 8-10 minutes. Quick summary:
 
 > This guide provides a comprehensive technical walkthrough for developers looking to contribute to MariaDB Server. It covers hardware prerequisites (2GB+ RAM, 4 cores), source code acquisition via GitHub forks, and the build process using CMake and Ninja. Key sections explain how to configure debug builds, execute parallel testing using the mysql-test-run (MTR) framework, and initialize the database from the build directory for local development. It emphasizes using specific branches for features (main) versus bug fixes (earliest maintained branch).
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

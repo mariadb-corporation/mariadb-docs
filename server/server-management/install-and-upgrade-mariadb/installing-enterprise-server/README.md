@@ -78,3 +78,5 @@ Deployment instructions for a single-node MariaDB Enterprise Server instance wit
 Deployment instructions for a single-node MariaDB Enterprise Server instance with the ColumnStore engine using S3-compatible object storage.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

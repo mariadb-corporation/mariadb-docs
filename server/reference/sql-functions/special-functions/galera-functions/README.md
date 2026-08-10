@@ -42,3 +42,5 @@ Return the GTID of the client's last write. This function identifies the specifi
 Wait for a specific GTID to be applied. This function blocks the client until the node has committed the transaction with the specified Global Transaction ID.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -34,3 +34,5 @@ layout:
 Fusion-io develops PCIe based NAND flash memory cards and related software that can be used to speed up MariaDB databases.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -222,3 +222,5 @@ A list of MyRocks-specific status variables providing metrics on cache hits, com
 A comprehensive reference for MyRocks system variables, allowing fine-tuning of performance, memory usage, compaction, and other internal behaviors.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

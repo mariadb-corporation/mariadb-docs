@@ -109,4 +109,6 @@ For Windows, MariaDB provides an `.msi` installer for a straightforward graphica
 * [How To Install MariaDB on Ubuntu 22.04 - DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-22-04)
 * [Install MariaDB - MariaDBTutorial.com](https://www.mariadbtutorial.com/getting-started/install-mariadb/)
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

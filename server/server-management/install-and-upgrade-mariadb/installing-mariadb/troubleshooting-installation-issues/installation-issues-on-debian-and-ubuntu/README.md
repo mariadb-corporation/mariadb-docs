@@ -66,3 +66,5 @@ Information about using MariaDB Debian Live images for testing and offline insta
 A guide on migrating from MySQL 5.5 to MariaDB 10.1 during an operating system upgrade to Debian 9 (Stretch).
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

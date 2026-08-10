@@ -95,3 +95,4 @@ Explains the specific implementation and considerations for unique constraints w
 {% endcolumn %}
 {% endcolumns %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

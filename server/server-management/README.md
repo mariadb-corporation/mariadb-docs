@@ -67,3 +67,5 @@ Learn about MariaDB Server monitoring and logs. This section guides you through 
 Explore MariaDB Server variables and modes. This section explains how to configure global and session variables, and how different SQL modes influence database behavior and compatibility.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

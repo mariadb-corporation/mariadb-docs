@@ -66,3 +66,5 @@ Complete JSON Functions reference: JSON_EXTRACT(), JSON_SET(), JSON_REPLACE(), J
 Explore window functions in MariaDB Server. This section details SQL functions that perform calculations across a set of table rows related to the current row, enabling advanced analytical queries.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

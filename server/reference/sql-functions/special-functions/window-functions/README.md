@@ -23,3 +23,5 @@ description: >-
 - [PERCENTILE\_DISC](percentile_disc.md)
 - [RANK](rank.md)
 - [ROW\_NUMBER](row_number.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
