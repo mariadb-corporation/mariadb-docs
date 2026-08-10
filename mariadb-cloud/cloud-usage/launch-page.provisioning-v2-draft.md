@@ -6,7 +6,7 @@
 
   Before publishing (when enable-portal-provisioning-v2 is ON in prod):
     1. Save the 4 UI screenshots from MCDEV-3304 into mariadb-cloud/.gitbook/assets/
-       as provisioning-v2-01.png / -03.png / -04.png (typo-fixed from "provisoning").
+       as provisioning-v2-01.png / -03.png / -04.png (typo-fixed from "provisioning").
     2. Replace the content of cloud-usage/launch-page.md with this, and delete
        this draft file (keep the same page URL).
 
