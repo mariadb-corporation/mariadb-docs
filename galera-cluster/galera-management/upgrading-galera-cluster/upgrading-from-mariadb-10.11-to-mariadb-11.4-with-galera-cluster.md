@@ -42,7 +42,7 @@ see [Updating the MariaDB YUM repository to a New Major Release](https://app.git
 {% endtab %}
 
 {% tab title="SLES, OpenSUSE, ..." %}
-see [Updating the MariaDB ZYpp repository to a New Major Release](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper) for more information.ser
+see [Updating the MariaDB ZYpp repository to a New Major Release](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper) for more information.
 {% endtab %}
 {% endtabs %}
 {% endstep %}
