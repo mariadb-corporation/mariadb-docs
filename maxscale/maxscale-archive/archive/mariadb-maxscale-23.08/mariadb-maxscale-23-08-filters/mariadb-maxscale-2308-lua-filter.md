@@ -187,3 +187,5 @@ end
   aborted due to a SystemD watchdog timeout.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -163,3 +163,5 @@ is an example log that is generated from the above TPM filter with the above con
 Note that 3 and 6 are latencies of each transaction in milliseconds, while 0.165 and 0.123 are latencies of the first statement of each transaction in milliseconds.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

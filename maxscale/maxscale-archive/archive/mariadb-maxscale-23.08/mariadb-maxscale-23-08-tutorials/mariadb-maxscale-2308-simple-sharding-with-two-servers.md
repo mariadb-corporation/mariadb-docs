@@ -279,3 +279,5 @@ need cross-shard joins, the [Spider](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO
 engine will provide you this.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -120,3 +120,5 @@ document.
 * [Ed25519 Authenticator](mariadb-maxscale-23-08-authenticators/mariadb-maxscale-2308-ed25519-authenticator.md)
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

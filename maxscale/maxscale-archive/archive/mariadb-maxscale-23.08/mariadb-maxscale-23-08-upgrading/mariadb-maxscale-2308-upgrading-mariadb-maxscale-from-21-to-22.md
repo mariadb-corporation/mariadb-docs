@@ -37,3 +37,5 @@ it is in the main `maxscale` package. If you have a previous installation
 of MaxCtrl, please remove it before upgrading to MaxScale 2.2.2.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

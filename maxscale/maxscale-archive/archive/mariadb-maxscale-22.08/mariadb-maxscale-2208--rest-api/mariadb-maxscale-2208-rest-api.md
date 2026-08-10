@@ -629,3 +629,5 @@ API could return them.
   use with rate-limiting schemes.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

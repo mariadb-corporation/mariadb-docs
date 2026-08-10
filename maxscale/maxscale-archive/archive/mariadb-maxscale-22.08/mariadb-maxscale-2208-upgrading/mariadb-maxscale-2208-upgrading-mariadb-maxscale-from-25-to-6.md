@@ -75,3 +75,5 @@ The default value of `prune_sescmd_history` was changed from `false` to`true`. T
 being enabled or are not affected by it.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

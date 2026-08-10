@@ -843,3 +843,5 @@ mariadb-repl   False   Error replaying binlogs: Invalid binary log timeline: err
 There are two ways to solve this issue:
 - Update the `targetRecoveryTime` in the `MariaDB` resource to be earlier than or equal to the last recoverable time, which in this case is `2026-02-27T16:04:15Z`.
 - Disable `strictMode` in the `PointInTimeRecovery` configuration, allowing to restore up until the latest recoverable time, in this case `2026-02-27T16:04:15Z`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

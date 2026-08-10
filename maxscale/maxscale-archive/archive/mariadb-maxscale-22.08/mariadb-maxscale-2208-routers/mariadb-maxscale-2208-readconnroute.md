@@ -148,3 +148,5 @@ The `router_diagnostics` output for readconnroute has the following fields.
 * The router will never reconnect to the server it initially connected to.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

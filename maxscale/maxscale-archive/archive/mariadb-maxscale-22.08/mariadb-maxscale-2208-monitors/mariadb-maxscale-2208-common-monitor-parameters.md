@@ -543,3 +543,5 @@ echo "$MESSAGE" > /path/to/script\_output.txt
 echo "$MESSAGE" | mail -s "MaxScale received $event event for initiator $initiator." mariadb\_admin@domain.com |
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

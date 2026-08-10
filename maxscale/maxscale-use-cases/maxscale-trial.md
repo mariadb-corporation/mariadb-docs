@@ -232,4 +232,6 @@ it is recommended to make a backup of it before the operation.
 
 It is not possible to have MaxScale Trial and MaxScale installed simultaneously on the same machine.\\
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

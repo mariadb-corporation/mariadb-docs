@@ -48,4 +48,6 @@ sftp user@ftp.mariadb.org
 
 or with HTTPS at [https://ftp.mariadb.org](https://ftp.mariadb.org/).
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

@@ -32,4 +32,6 @@ Read our [style guide](documentation-style-guide.md), too. (It's short!)
 
 Also see the [About Links](about-links.md) page. It has useful information for when you are adding links to other pages.
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

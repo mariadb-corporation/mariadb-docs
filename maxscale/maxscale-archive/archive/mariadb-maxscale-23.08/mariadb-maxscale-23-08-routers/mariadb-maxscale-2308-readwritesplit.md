@@ -1467,3 +1467,5 @@ Allow user variable modification in SELECT queries by setting`use_sql_variables_
 variables to the primary.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

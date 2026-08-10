@@ -61,3 +61,5 @@ endpoints configured as MaxScale servers. The monitor will use the_aurora_:_bore
 of the nodes is inspected every 2500 milliseconds.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

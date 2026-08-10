@@ -66,4 +66,6 @@ A list of MariaDB-related social media links and pages. Note that many of them a
 
 \
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

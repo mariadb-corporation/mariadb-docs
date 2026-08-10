@@ -50,3 +50,5 @@ The same guide also provides basic information on running MariaDB MaxScale. More
 detailed information about configuring MariaDB MaxScale can be found in the [Configuration Guide](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/).
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

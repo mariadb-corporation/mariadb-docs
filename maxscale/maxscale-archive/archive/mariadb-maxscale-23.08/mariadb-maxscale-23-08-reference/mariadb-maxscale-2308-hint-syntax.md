@@ -8,3 +8,5 @@ Refer to the [Hintfilter](../mariadb-maxscale-23-08-filters/mariadb-maxscale-230
 MaxScale hint syntax.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

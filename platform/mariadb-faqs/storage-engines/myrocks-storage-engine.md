@@ -11,4 +11,6 @@
 * Q: Is the MyRocks storage engine available in MariaDB Community Server?\
   A: Yes, MyRocks is available as a pluggable storage engine that can be installed and used with MariaDB Community Server, allowing users to leverage its benefits for specific tables or workloads.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

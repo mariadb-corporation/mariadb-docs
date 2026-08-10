@@ -212,3 +212,5 @@ password can be encrypted with `maxpasswd` before use.
 The value can be overridden with `SET @maxscale.ldi.import_password='<password>'` before starting the data load.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

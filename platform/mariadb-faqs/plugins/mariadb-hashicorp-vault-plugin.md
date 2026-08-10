@@ -16,4 +16,6 @@
 * Q: Is the MariaDB HashiCorp Vault Plugin a commercial or open-source feature?\
   A: The MariaDB HashiCorp Vault Plugin for Data-at-Rest Encryption is a commercial, enterprise feature. It is available as part of the MariaDB Enterprise Server subscription offered by MariaDB plc.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

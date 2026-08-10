@@ -13,3 +13,5 @@ Before starting the upgrade, any existing configuration files should be backed
 up.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

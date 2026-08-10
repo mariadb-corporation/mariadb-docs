@@ -38,3 +38,5 @@ icon: maximize
 {% content-ref url="reference/" %}
 [reference](reference/)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

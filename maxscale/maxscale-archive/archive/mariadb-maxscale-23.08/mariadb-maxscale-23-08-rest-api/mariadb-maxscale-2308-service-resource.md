@@ -1005,3 +1005,5 @@ DELETE /v1/services/:service/listeners/:name
 This endpoint is deprecated, use the [this](mariadb-maxscale-2308-listener-resource.md#destroy-a-listener) listeners endpoint instead.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

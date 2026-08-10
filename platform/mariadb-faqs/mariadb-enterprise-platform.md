@@ -21,4 +21,6 @@
 * Q: How can an organization acquire and implement the MariaDB Enterprise Platform?\
   A: The MariaDB Enterprise Platform is available through a commercial subscription directly from MariaDB plc. The specific components, features, support levels, and services included in the platform can often be tailored to meet the unique needs and workload profiles of the organization.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

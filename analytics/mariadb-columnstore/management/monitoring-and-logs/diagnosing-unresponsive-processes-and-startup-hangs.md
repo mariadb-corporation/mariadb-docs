@@ -67,3 +67,5 @@ To inspect active execution blocks, check the system logs in real time:
 
 * `info.log`: Captures high-level service transitions and actions. Review this log during cluster stops and starts to isolate which module or process failed to initialize.
 * `err.log` / `crit.log`: Captures critical software constraints and failure events logged by independent ColumnStore processes.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

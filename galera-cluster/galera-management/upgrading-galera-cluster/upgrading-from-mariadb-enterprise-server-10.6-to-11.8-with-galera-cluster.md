@@ -188,4 +188,6 @@ SHOW GLOBAL STATUS WHERE Variable_name IN
 
 For general cluster health and quorum checks, see [What is MariaDB Galera Cluster](../../readme/mariadb-galera-cluster-guide.md).
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

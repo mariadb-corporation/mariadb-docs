@@ -441,3 +441,5 @@ Fatal connection error:
   lost. The only valid action to take at this point is to close it with the`DELETE /v1/sql/:id` endpoint.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
