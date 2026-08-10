@@ -65,3 +65,5 @@ or at least for indexed columns with only NULL values:
 ```sql
 ANALYZE TABLE table_name PERSISTENT FOR COLUMNS (b) INDEXES (key_b);
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

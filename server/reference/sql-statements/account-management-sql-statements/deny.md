@@ -341,4 +341,6 @@ REVOKE DENY EXECUTE ON FUNCTION hr.bonus FROM app@localhost;
 * [Roles](../../../security/user-account-management/roles/)
 * [mysql.global\_priv Table](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md)
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

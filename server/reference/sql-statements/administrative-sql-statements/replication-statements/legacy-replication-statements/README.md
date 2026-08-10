@@ -63,3 +63,5 @@ Former name for START REPLICA, kept as an alias; starts the replica threads.
 Former name for STOP REPLICA, kept as an alias; stops the replica threads.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

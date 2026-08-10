@@ -83,3 +83,5 @@
 - [Error 1980: Engine-independent statistics are not collected for column](e1980.md)
 - [Error 1981: Aggregate function of SELECT belongs to SELECT](e1981.md)
 - [Error 1982: option ignored for InnoDB partition](e1982.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

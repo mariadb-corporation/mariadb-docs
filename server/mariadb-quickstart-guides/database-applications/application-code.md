@@ -127,3 +127,5 @@ There are situations where the application-level SQL gets really complex, someti
 * [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md)
 * [Reserved words](../../reference/sql-structure/sql-language-structure/reserved-words.md)
 * [JOIN queries](../../reference/sql-statements/data-manipulation/selecting-data/joins/)\\
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

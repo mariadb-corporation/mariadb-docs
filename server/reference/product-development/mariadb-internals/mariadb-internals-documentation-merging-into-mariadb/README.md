@@ -29,3 +29,5 @@ This section contains background information, mostly aimed at engineers developi
 {% content-ref url="merging-with-a-merge-tree.md" %}
 [merging-with-a-merge-tree.md](merging-with-a-merge-tree.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

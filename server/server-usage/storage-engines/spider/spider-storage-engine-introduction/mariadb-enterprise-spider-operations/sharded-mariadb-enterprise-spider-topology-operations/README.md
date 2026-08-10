@@ -42,3 +42,5 @@ Instructions on how to expand a sharded Spider topology by adding new data nodes
 Guidelines for backing up and restoring a sharded Spider topology, ensuring consistency across multiple shards using tools like MariaDB Backup.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

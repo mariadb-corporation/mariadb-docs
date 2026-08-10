@@ -91,3 +91,5 @@ This section helps the DBA avoid "Unknown variable" errors when they first try t
 Now that you've reviewed the compatibility differences, you are ready to begin the migration.
 
 Proceed to [MySQL to MariaDB Migration: The Master Guide](mysql-to-mariadb-migration-the-master-guide.md) for step-by-step instructions on performing an in-place upgrade or a logical migration.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

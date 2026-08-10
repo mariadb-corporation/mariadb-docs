@@ -221,3 +221,5 @@ The DMS Task Console will now show _Zero Activity_ and may report _High Source L
 {% endhint %}
 
 [^1]: In databases, change data capture (CDC) is a set of software design patterns used to determine and track the data that has changed (the "deltas") so that action can be taken using the changed data. The result is a delta-driven dataset.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

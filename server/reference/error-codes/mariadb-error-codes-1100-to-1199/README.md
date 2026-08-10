@@ -100,3 +100,5 @@
 - [Error 1197: Multi-statement transaction required more than 'max\_binlog\_cache\_size' bytes of storage](e1197.md)
 - [Error 1198: This operation cannot be performed with a running slave; run STOP SLAVE first](e1198.md)
 - [Error 1199: This operation requires a running slave; configure slave and do START SLAVE](e1199.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

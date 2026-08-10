@@ -399,3 +399,5 @@ For developers or those compiling from source, the following changes were releva
 
 * [codership-mariadb-server Pull Request #519](https://github.com/mariadb-corporation/codership-mariadb-server/pull/519)
 * [codership-mysql Pull Request #2062](https://github.com/mariadb-corporation/codership-mysql/pull/2062)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

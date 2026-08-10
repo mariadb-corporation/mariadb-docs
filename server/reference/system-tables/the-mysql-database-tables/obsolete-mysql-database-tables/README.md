@@ -30,3 +30,5 @@ Documents the obsolete mysql.host table, which formerly held host-based privileg
 Documents the mysql.ndb_binlog_index table, which MariaDB does not use and retains only for MySQL Cluster compatibility, and lists its fields.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

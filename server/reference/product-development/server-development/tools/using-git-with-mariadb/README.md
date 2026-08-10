@@ -14,3 +14,4 @@ description: >-
 [configuring-git-to-send-commit-notices.md](configuring-git-to-send-commit-notices.md)
 {% endcontent-ref %}
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

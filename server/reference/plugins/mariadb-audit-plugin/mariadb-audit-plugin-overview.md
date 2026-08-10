@@ -32,3 +32,5 @@ Review these pages for detailed documentation:
 
 * [MySQL Auditing with MariaDB Auditing Plugin](https://planet.mysql.com/entry/?id=5994184)
   by Peter Zaitsev, February 15, 2016
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

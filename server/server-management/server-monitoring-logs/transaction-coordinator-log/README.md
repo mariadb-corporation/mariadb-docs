@@ -46,3 +46,5 @@ Explains the purpose of the Transaction Coordinator (TC) log (`tc.log`), which m
 Describes the process of heuristic recovery using the TC log to resolve "in-doubt" transactions that may occur after a server crash during a 2-phase commit.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

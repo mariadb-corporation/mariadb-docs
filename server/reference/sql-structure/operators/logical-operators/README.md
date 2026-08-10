@@ -54,3 +54,5 @@ Evaluate logical OR with OR or ||, returning 1 when any operand is non-zero and 
 Evaluate exclusive OR with XOR, returning NULL if either operand is NULL and otherwise 1 when an odd number of operands is non-zero.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

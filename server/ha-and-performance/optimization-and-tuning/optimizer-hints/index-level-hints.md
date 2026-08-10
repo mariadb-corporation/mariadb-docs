@@ -389,3 +389,5 @@ If `[NO_]INDEX()`, `[NO_]JOIN_INDEX()` hints are specified for the same table, t
 ```sql
 SELECT /*+ index(t1 key_a, key_b) rowid_filter(t1 key_b) */ a FROM t1 ....
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -66,3 +66,5 @@ Replace rows and retrieve the results immediately. This extension returns the va
 Complete UPDATE statement guide for MariaDB. Complete syntax reference with WHERE conditions, JOIN operations, CTEs, and multi-table updates for production use.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

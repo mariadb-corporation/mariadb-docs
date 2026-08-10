@@ -151,4 +151,6 @@ When the `aria-server` RPM package is installed, it will create a user and group
 
 ## See Also
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

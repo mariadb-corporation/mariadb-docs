@@ -29,3 +29,5 @@ description: >-
 - [version\_major](version_major.md)
 - [version\_minor](version_minor.md)
 - [version\_patch](version_patch.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

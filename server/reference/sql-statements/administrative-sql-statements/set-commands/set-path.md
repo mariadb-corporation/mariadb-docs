@@ -50,3 +50,4 @@ SELECT UTL_ENCODE.BASE64_DECODE('data');
 
 * [Preparable statements](../../prepared-statements/prepare-statement.md)
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

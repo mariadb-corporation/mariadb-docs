@@ -18,3 +18,5 @@ description: >-
 Migrate from Oracle to MariaDB Server. This page provides detailed guidance, tools, and best practices for a smooth and efficient transition of your databases and applications.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

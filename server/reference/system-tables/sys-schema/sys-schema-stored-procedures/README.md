@@ -90,3 +90,5 @@ This diagnostic procedure creates a report of the statements currently running o
 The table_exists procedure checks for the existence of a specific table, view, or temporary table within a given database.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

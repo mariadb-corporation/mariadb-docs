@@ -90,3 +90,5 @@ SELECT o.`order_id`, o.`order_date` FROM `orders_t` o;
 * [Data types](../../reference/data-types/)
 * [Character sets and collations](../../reference/data-types/string-data-types/character-sets/)
 * [Views](../../server-usage/views/)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

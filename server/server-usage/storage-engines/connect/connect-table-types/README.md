@@ -33,3 +33,5 @@ description: The CONNECT storage engine.
 - [CONNECT XML Table Type](connect-xml-table-type.md)
 - [CONNECT Zipped File Tables](connect-zipped-file-tables.md)
 - [Inward and Outward Tables](inward-and-outward-tables.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

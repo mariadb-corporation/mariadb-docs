@@ -90,3 +90,5 @@ Explore the CREATE statements used to define new database objects. This guide co
 Find statements to remove database objects. This section details the syntax for deleting databases, tables, users, and other entities when they are no longer needed.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

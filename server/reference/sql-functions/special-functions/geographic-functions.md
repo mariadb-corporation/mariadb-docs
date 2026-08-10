@@ -9,4 +9,6 @@ description: >-
 
 Geographic and geometry functions. See [Geographic Features](../../sql-structure/geometry/) for a full discussion of MariaDB's spatial extensions.
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

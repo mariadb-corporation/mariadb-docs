@@ -41,3 +41,5 @@ An upgrade guide for an older, end-of-life version of MariaDB Enterprise Server,
 An upgrade guide for an older, end-of-life version of MariaDB Enterprise Server, kept for reference purposes for legacy systems.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

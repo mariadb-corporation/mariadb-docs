@@ -30,3 +30,5 @@ Utilize the Event Scheduler in MariaDB Server to automate tasks. Learn how to cr
 Automate actions in MariaDB Server with triggers. Learn how to create and manage triggers that execute automatically before or after data modifications, ensuring data integrity and business logic enfo
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

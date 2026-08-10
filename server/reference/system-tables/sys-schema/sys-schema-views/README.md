@@ -27,3 +27,5 @@ description: >-
 - [privileges\_by\_table\_by\_level Sys Schema View](privileges_by_table_by_level-sys-schema-view.md)
 - [schema\_auto\_increment\_columns Sys Schema View](schema_auto_increment_columns-sys-schema-view.md)
 - [schema\_object\_overview Sys Schema View](schema_object_overview-sys-schema-view.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

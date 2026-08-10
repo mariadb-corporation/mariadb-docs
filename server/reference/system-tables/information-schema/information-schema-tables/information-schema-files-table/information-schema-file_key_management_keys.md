@@ -21,3 +21,5 @@ FLUSH FILE_KEY_MANAGEMENT_KEYS
 This functionality is provided by the `file_key_management` plugin.
 
 This Information Schema table allows to query the key numbers and key versions which are currently in the cache (which can be different to the file). It also allows to verify which keys are in use when joining the table with [INNODB\_TABLESPACES\_ENCRYPTION](../information-schema-innodb-tables/information-schema-innodb_tablespaces_encryption-table.md).
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

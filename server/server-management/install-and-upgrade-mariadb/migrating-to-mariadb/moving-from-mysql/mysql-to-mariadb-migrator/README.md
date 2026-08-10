@@ -113,3 +113,5 @@ For additional legal information, see the [MariaDB Terms](https://mariadb.com/te
 [An Easy Path from MySQL to MariaDB](https://mariadb.com/resources/blog/an-easy-path-from-mysql-to-mariadb-introducing-mariadb-migrator/) • blog post • 2026 • 4 minutes
 
 [Migrating from MySQL to MariaDB? Meet the MariaDB Migrator](https://youtu.be/fggPKN-upGI) • video • 2026 • 8 minutes
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

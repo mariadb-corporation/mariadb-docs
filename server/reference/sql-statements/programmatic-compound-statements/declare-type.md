@@ -426,3 +426,5 @@ END;
 * [Oracle Mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 * [CREATE FUNCTION](../data-definition/create/create-function.md)
 * [CREATE PROCEDURE](../../../server-usage/stored-routines/stored-procedures/create-procedure.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

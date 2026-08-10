@@ -100,3 +100,5 @@
 - [Error 1797: Column is of wrong type for an InnoDB FULLTEXT index](e1797.md)
 - [Error 1798: Index '%s' is of wrong type for an InnoDB FULLTEXT index](e1798.md)
 - [Error 1799: Creating index required more than 'innodb\_online\_alter\_log\_max\_size' bytes of modificati](e1799.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

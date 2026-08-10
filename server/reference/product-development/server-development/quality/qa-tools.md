@@ -20,3 +20,5 @@ Tools used for quality assurance testing include:
 * [RQG Performance Comparisons](benchmarks-and-long-running-tests/benchmarks/rqg-performance-comparisons.md)
 * [RQG Extensions for MariaDB Features](rqg-extensions-for-mariadb.md)
 * [Optimizer Quality](optimizer-quality.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

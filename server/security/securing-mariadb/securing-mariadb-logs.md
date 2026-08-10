@@ -473,3 +473,5 @@ log_slow_admin_statements = ON
 | Availability      | Set `binlog_expire_logs_seconds` for auto-purge.      | Binary Logs            | All           |
 | Audit Trail       | Use `sha256sum` to baseline archived (rotated) logs.  | All Archives           | All           |
 | Replication       | Require SSL/TLS for log transmission to replicas.     | Binary / Relay Logs    | All           |
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

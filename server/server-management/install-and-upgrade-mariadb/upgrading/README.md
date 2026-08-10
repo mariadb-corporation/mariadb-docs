@@ -57,3 +57,5 @@ An overview of supported upgrade paths for MariaDB Community Server, linking to 
 Provides an overview of supported upgrade paths for MariaDB Enterprise Server, linking to specific guides for upgrading between major versions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

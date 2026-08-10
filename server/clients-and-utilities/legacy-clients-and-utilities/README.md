@@ -122,3 +122,5 @@ description: >-
 {% content-ref url="xtstat.md" %}
 [xtstat.md](xtstat.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

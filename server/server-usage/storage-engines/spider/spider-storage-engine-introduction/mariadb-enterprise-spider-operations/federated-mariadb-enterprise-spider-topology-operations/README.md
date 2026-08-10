@@ -41,3 +41,5 @@ Procedures for performing consistent backups and restores in a federated Spider 
 A guide on how to migrate tables from a standard MariaDB deployment to a Federated Spider topology, distributing data across multiple backend nodes.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

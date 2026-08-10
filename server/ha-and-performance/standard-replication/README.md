@@ -370,3 +370,5 @@ Learn techniques to bypass specific replication events. This guide explains how 
 Access documentation for deprecated or removed replication features. Review this historical context when upgrading legacy systems or migrating to newer MariaDB versions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

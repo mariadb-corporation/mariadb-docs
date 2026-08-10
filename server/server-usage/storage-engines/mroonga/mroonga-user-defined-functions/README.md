@@ -102,3 +102,5 @@ This function extracts a snippet of text surrounding a keyword from a document, 
 Similar to mroonga_snippet, this function generates HTML-formatted snippets, automatically wrapping matched keywords in tags for web display.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

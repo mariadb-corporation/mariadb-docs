@@ -23,3 +23,5 @@ The EXPLAIN Analyzer was an online tool for analyzing and sharing EXPLAIN output
 The EXPLAIN Analyzer API let applications submit EXPLAIN output to the online analyzer. It is no longer active.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

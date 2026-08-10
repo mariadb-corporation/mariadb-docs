@@ -54,3 +54,5 @@ Perform a major-version upgrade of MariaDB Enterprise Server directly from 10.6 
 Upgrade directly from MariaDB Community Server 10.6 to MariaDB Enterprise Server 11.8 — combining a product switch (Community to Enterprise) and a major version jump (10.6 to 11.8) in a single upgrade
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

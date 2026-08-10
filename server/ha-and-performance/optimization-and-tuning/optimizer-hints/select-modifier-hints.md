@@ -33,3 +33,5 @@ If the [query\_cache\_type](../system-variables/server-system-variables.md#query
 ## USE/FORCE/IGNORE INDEX
 
 `USE INDEX`, `FORCE INDEX` and `IGNORE INDEX` constrain the query planning to a specific index. For further information about some of these options, see [How to force query plans](../query-optimizations/index-hints-how-to-force-query-plans.md).
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

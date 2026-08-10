@@ -42,3 +42,5 @@ Compress Aria tables into read-only form that is typically 40 to 70 percent smal
 Display and apply records from the Aria transaction log with the aria_read_log tool.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

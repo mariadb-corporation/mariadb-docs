@@ -41,3 +41,5 @@ layout:
 - [Creating the MariaDB Binary Tarball](creating-the-mariadb-binary-tarball.md)
 - [Compiling with the InnoDB Plugin from Oracle](compiling-with-the-innodb-plugin-from-oracle.md)
 - [Compiling MariaDB with Vanilla XtraDB](compiling-mariadb-with-vanilla-xtradb.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
