@@ -48,6 +48,6 @@ For a full list of contributors to MariaDB Galera Cluster 5.5.61, see the [Maria
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

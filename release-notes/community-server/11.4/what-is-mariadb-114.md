@@ -208,6 +208,6 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 | 16 Feb 2024 | MariaDB 11.4.1  | RC          | [Release Notes](11.4.1.md)  | [Changelog](../changelogs/11.4/11.4.1.md)  |
 | 24 Dec 2023 | MariaDB 11.4.0  | Alpha       | [Release Notes](11.4.0.md)  |                                            |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

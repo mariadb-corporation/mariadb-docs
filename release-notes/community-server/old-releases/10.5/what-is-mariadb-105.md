@@ -332,6 +332,6 @@ page.
 | 14 Feb 2020 | [MariaDB 10.5.1](10.5.1.md)   | Beta        | [Release Notes](10.5.1.md)  | [Changelog](../../changelogs/changelogs-mariadb-105-series/mariadb-1051-changelog.md)    |
 | 3 Dec 2019  | [MariaDB 10.5.0](10.5.0.md)   | Alpha       | [Release Notes](10.5.0.md)  | [Changelog](../../changelogs/changelogs-mariadb-105-series/mariadb-1050-changelog.md)    |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}
