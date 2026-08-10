@@ -25,7 +25,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1182](https://jira.mariadb.org/browse/MCOL-1182) - Cross-engine join query failing (single node)
 * [MCOL-1196](https://jira.mariadb.org/browse/MCOL-1196) - Error when using OR in case THEN portion
 * [MCOL-1213](https://jira.mariadb.org/browse/MCOL-1213) - SystemCatalog.getTable("table name") doesn't support uppercase letters
-* [MCOL-1217](https://jira.mariadb.org/browse/MCOL-1217) - newly added user module didnt have mysql replication slave setup
+* [MCOL-1217](https://jira.mariadb.org/browse/MCOL-1217) - newly added user module didn't have mysql replication slave setup
 * [MCOL-1222](https://jira.mariadb.org/browse/MCOL-1222) - ColumnStore start/restart can return before system is ready
 * [MCOL-1228](https://jira.mariadb.org/browse/MCOL-1228) - ALTER TABLE...CHANGE COLUMN broken for TEXT data types
 * [MCOL-1230](https://jira.mariadb.org/browse/MCOL-1230) - Change spark-connector's default compile option to ON
