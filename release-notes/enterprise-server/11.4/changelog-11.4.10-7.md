@@ -102,6 +102,6 @@ hidden: true
 * An issue is fixed where GRANT EXECUTE ON PROCEDURE would fail on the master, but would still be replicated and executed successfully on the slave. ([MDEV-38506](https://jira.mariadb.org/browse/MDEV-38506))
 * MariaDB sometimes reports "index is corrupted" for encrypted Aria tables, but this appears to be a false positive caused by an off-by-one check in the encryption post-read hook ([MDEV-38707](https://jira.mariadb.org/browse/MDEV-38707))
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

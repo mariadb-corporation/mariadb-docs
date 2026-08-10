@@ -97,6 +97,6 @@ MariaDB Enterprise Server 10.6.23-19 is a Stable (GA) maintenance release of [Ma
 * ([MDEV-29157](https://jira.mariadb.org/browse/MDEV-29157)) SELECT using ror\_merged (multi-index) scan could fail with s3 tables with error "Out of memory".
 * ([MDEV-32907](https://jira.mariadb.org/browse/MDEV-32907)) spider incorrectly translates sum() query to a column
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

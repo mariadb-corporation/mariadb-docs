@@ -237,6 +237,6 @@ In alignment to the MariaDB Corporation Engineering Policy, MariaDB ColumnStore 
 
 **Note:** MariaDB ColumnStore 1.4 is no longer supported. If you would like to deploy ColumnStore, please use MariaDB ColumnStore 5 or later. For installation and upgrade instructions, see "Deploy".
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}
