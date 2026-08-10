@@ -38,6 +38,6 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 [legacy-replication-statements](legacy-replication-statements/)
 {% endcontent-ref %}
 
-{% include "../../../../.gitbook/includes/license-cc-by-sa-gnu-fdl.md" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

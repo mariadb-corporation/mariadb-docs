@@ -703,6 +703,6 @@ For the list of changes made in each version, see the changelogs:
 {% endtab %}
 {% endtabs %}
 
-{% include "../../.gitbook/includes/license-cc-by-sa-gnu-fdl.md" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
