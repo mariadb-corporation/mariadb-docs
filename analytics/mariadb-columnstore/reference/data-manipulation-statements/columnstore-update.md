@@ -34,6 +34,6 @@ Only **one** table can be updated from the table list in `table_reference`.\
 However, multiple columns can be updated.
 {% endhint %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

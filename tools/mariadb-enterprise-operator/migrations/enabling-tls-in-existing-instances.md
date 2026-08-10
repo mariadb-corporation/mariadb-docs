@@ -92,6 +92,6 @@ spec:
 
 **8.** `MaxScale` is now accepting TLS connections. Next, you need to [migrate your applications to use TLS](../security/tls.md) by pointing them back to `MaxScale` securely. You have done this previously for `MariaDB`, you just need to update your application configuration to use the [MaxScale Service](../topologies/maxscale.md#kubernetes-services) and its CA bundle.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

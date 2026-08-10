@@ -116,6 +116,6 @@ SELECT custkey FROM customer LIMIT 1000,5;
 When `LIMIT` is used in a nested query, and the inner query contains an `ORDER BY` clause, `LIMIT` is applied before   `ORDER BY` is applied.
 {% endhint %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

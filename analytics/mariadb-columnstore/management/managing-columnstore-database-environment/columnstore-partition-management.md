@@ -259,6 +259,6 @@ A bulk-delete statement can be used to delete the remaining rows that do not fal
 DELETE FROM orders WHERE orderdate <= '1998-12-31';
 ```
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}
