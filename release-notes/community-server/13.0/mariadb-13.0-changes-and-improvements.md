@@ -31,6 +31,6 @@ MariaDB 13.0 is a [rolling release](../about/release-model.md). It is an evoluti
 * [`binlog_row_event_max_size`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_row_event_max_size) default value was increased to 64k ([MDEV-37608](https://jira.mariadb.org/browse/MDEV-37608))
 * [`default_master_connection`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#default_master_connection) can now be set on global level ([MDEV-9247](https://jira.mariadb.org/browse/MDEV-9247))
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -225,6 +225,6 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 | 17 Nov 2022 | MariaDB 10.11.1  | RC          | [Release Notes](10.11.1.md)  | [Changelog](../changelogs/10.11/10.11.1.md)  |
 | 26 Sep 2022 | MariaDB 10.11.0  | Alpha       | [Release Notes](10.11.0.md)  |                                              |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

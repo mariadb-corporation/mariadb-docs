@@ -215,6 +215,6 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 | 12 Feb 2026 | 12.3.1               | RC          | [Release Notes](12.3.1.md) | [Changelog](../changelogs/12.3/12.3.1.md) |
 | 22 Dec 2025 | MariaDB 12.3 Preview | Preview     |                            |                                           |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

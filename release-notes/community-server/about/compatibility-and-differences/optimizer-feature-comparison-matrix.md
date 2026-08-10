@@ -43,6 +43,6 @@ The below is a table view. For a more graphical view of the differences see [Wha
 | Optimizer trace                                                                                                                                                                                                           |                                                                                  |                                                                                 |           |           |
 | Optimizer trace                                                                                                                                                                                                           | -                                                                                | -                                                                               | -         | YES       |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

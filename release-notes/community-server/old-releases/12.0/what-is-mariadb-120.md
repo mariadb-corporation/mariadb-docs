@@ -121,6 +121,6 @@ For a list of all new variables, see [System Variables Added in MariaDB 12.0](ht
 | 5 Jun 2025    | [MariaDB 12.0.1](12.0.1.md) | RC      | [Release Notes](12.0.1.md) | [Changelog](../../changelogs/12.0/12.0.1.md) |
 | 26 March 2025 | [MariaDB 12.0.0](./)        | Preview |                            |                                              |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}
