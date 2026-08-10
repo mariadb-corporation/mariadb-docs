@@ -78,3 +78,5 @@ remains in MariaDB Cloud. This extends BYOA to Google Cloud.
 * BYOA requires the **Power** or **Power Plus** service tier.
 
 For details, see [Bring Your Own Account (BYOA)](https://github.com/mariadb-corporation/mariadb-docs/blob/main/mariadb-cloud/quickstart/bring-your-own-account-byoa.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

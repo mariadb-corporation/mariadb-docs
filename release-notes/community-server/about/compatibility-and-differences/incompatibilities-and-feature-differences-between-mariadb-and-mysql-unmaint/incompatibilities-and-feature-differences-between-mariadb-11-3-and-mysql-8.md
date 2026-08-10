@@ -126,4 +126,6 @@ When moving from MySQL 8.0 to [MariaDB 11.3](../../../old-releases/11.3/what-is-
 
 For protocol differences, see [MariaDB protocol difference with MySQL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/clientserver-protocol/mariadb-protocol-differences-with-mysql).
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formid="4316" formId="4316" %}

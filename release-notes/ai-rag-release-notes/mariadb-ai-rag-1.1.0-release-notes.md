@@ -44,3 +44,4 @@ Packager-based deployments (RPM, DEB, and MSI) provided in version 1.0.0 are no 
 
 * Follow the [Deployment Guide](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-ai-rag/deployment/overview) in the [MariaDB AI RAG documentation](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-ai-rag) for installation and initial setup.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

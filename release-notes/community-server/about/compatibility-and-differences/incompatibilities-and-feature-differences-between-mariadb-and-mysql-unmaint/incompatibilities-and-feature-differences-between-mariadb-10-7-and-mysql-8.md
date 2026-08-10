@@ -122,4 +122,6 @@ When moving from MySQL 8.0 to [MariaDB 10.7](../../../old-releases/10.7/what-is-
 * [MariaDB 10.7](../../../old-releases/10.7/what-is-mariadb-107.md) does not support the RESTART statement - [MDEV-30813](https://jira.mariadb.org/browse/MDEV-30813)
 * [MariaDB 10.7](../../../old-releases/10.7/what-is-mariadb-107.md) does not support the `SELECT FOR UPDATE OF` and `FOR SHARE OF` syntaxes, to only lock rows in the specified tables - [MDEV-17514](https://jira.mariadb.org/browse/MDEV-17514)
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formid="4316" formId="4316" %}

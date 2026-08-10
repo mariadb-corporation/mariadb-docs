@@ -118,4 +118,6 @@ When upgrading from MySQL 5.7 to [MariaDB 10.2](../../../old-releases/10.2/what-
 * Not all [character sets and collations](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets) are [supported](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets/supported-character-sets-and-collations) across both MySQL and MariaDB. As of 10.2.27, MariaDB supports 40 character sets and 322 collations. As of 5.7.29, MySQL supports 41 character sets (`gb18030` being the additional one) and 222 collations.
 * Also see [Incompatibilities between MariaDB 10.1 and MySQL 5.7](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/broken-reference/README.md).
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formid="4316" formId="4316" %}
