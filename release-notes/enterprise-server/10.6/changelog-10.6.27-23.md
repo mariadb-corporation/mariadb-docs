@@ -50,6 +50,6 @@ hidden: true
 * wsrep\_slave\_FK\_checks configuration option was deprecated and from no on has no effect. Slave foreign key checks are always on as otherwise leads to massive data inconsistency on all replicas which subsequently results in master node abort. ([MDEV-39385](https://jira.mariadb.org/browse/MDEV-39385))
 * On a system where RLIMIT\_AS is limited, or in some ARMv8 environments where the virtual address size is 39 bits, InnoDB could fail to start up with the default value of innodb\_buffer\_pool\_size\_max. ([MENT-2560](https://jira.mariadb.org/browse/MENT-2560))
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

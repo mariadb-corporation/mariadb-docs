@@ -49,6 +49,6 @@ hidden: true
 * we are trying to push aggregate into WHERE ([MDEV-38487](https://jira.mariadb.org/browse/MDEV-38487))
 * SET GLOBAL innodb\_buffer\_pool\_size was prone to hang or crash the server, especially when innodb\_adaptive\_hash\_index was enabled. ([MENT-2545](https://jira.mariadb.org/browse/MENT-2545))
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

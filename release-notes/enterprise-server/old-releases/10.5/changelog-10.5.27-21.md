@@ -145,6 +145,6 @@ MariaDB Enterprise Server 10.5.27-21 was released on 2024-12-09.
 * (MENT-2133) backport [MDEV-34483](https://jira.mariadb.org/browse/MDEV-34483) "Backup may copy unnecessarily much log"
 * (MENT-2182) Cherry-pick [MDEV-35470](https://jira.mariadb.org/browse/MDEV-35470) - Internal temporary Aria tables writes blocks to disk at end of query
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}
