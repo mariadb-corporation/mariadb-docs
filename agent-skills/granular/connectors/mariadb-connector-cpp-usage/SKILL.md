@@ -1,13 +1,13 @@
 ---
-name: mariadb-connector-cpp
+name: mariadb-connector-cpp-usage
 description: "MariaDB-specific behavior of MariaDB Connector/C++ (the `sql::` namespace API, modeled on JDBC 4.0) for application code — that a driver comes from `sql::mariadb::get_driver_instance()` and connections from `driver->connect(url, props)`, returning a raw `Connection*` you must own; that the URL is `jdbc:mariadb://host:port/database[?opt=val]`; that `PreparedStatement` parameter indexes and `ResultSet` column indexes are 1-based, not 0-based; that `?` is the only placeholder; that `ResultSet::next()` must be called before the first read; that the API returns raw pointers with no automatic cleanup — wrap them in `std::unique_ptr` or `close()` explicitly, child before parent; that `sql::SQLString` is the parameter/return type throughout; that autocommit defaults to true; that errors surface as `sql::SQLException`; and that it is built on Connector/C. Use when writing or reviewing C++ code that talks to MariaDB via Connector/C++ (the `sql::` API)."
 ---
 
 # MariaDB Connector/C++
 
-*Last updated: 2026-07-21*
+*Last updated: 2026-08-10*
 
-MariaDB Connector/C++ is the official C++ driver for MariaDB, exposing an API modeled on the **JDBC 4.0** object model (`sql::Driver`, `sql::Connection`, `sql::Statement`, `sql::PreparedStatement`, `sql::ResultSet` — the same shapes as MariaDB Connector/J) rather than a procedural C-style API. This skill covers the connector-specific behavior and the traps that bite generated application code; it does not cover installing the library or configuring the server. It is **built on top of MariaDB Connector/C** (`libmariadb`) for the wire protocol, but application code talks only to the `sql::` classes, never to `mysql_*` calls directly.
+MariaDB Connector/C++ is the official C++ driver for MariaDB, exposing an API modeled on the **JDBC 4.0** object model (`sql::Driver`, `sql::Connection`, `sql::Statement`, `sql::PreparedStatement`, `sql::ResultSet` — the same shapes as MariaDB Connector/J) rather than a procedural C-style API. This skill covers the connector-specific behavior and the traps that bite generated application code. For installing the library, linking against it, and configuring the connection, see **`mariadb-connector-cpp-install`**. It is **built on top of MariaDB Connector/C** (`libmariadb`) for the wire protocol, but application code talks only to the `sql::` classes, never to `mysql_*` calls directly.
 
 > **Default context:** Assume the **cpp-1.0** line (`CMakeLists.txt` reports `MACPP_VERSION "1.00.0008"`, i.e. 1.0.8) unless the user states otherwise. Connector/C++ is compatible with current MariaDB and MySQL servers — its version is independent of the server version it connects to.
 
@@ -27,6 +27,10 @@ MariaDB Connector/C++ is the official C++ driver for MariaDB, exposing an API mo
 | Expects server-side prepared statements or a statement cache by default | **Client-side prepared statements are the default** (`useServerPrepStmts=false`); set it `true` to use server-side `PREPARE`/`EXECUTE`. Don't set `cachePrepStmts=true` — on this connector line it throws `sql::SQLFeatureNotImplementedException("Callable/Prepared statement caches are not supported yet")` at connect time |
 | Loops `executeUpdate()` for bulk insert | Use `PreparedStatement::addBatch()` + `executeBatch()`/`executeLargeBatch()`; the `rewriteBatchedStatements` and `useBulkStmts` connection options further optimize batched `INSERT`s (the two are mutually exclusive — `rewriteBatchedStatements` wins if both are set) |
 | Wants the last auto-increment value or a `ResultSetMetaData`/schema introspection call | `Statement::getGeneratedKeys()` returns a `ResultSet` of generated keys after an insert; `ResultSet::getMetaData()` gives column info (`ResultSetMetaData`); `Connection::getMetaData()` gives database/schema info (`DatabaseMetaData`) |
+| Treats a `0` from `getInt()` or an empty string from `getString()` as the stored value | A SQL `NULL` reads back as the type's zero value. Call **`ResultSet::wasNull()`** immediately after the `getXxx()` to tell a real `0` from a `NULL` |
+| Calls a stored procedure by building `CALL …` text | Use **`Connection::prepareCall()`**, which returns a `sql::CallableStatement`. It binds `IN` parameters like a `PreparedStatement` and additionally registers and reads `OUT` parameters |
+| Sets an isolation level by executing `SET TRANSACTION …` | **`Connection::setTransactionIsolation()`** takes the level directly, and `getTransactionIsolation()` reads it back |
+| Rolls back a whole transaction to undo one step | `Connection::setSavepoint()` returns a `sql::Savepoint`; `rollback(savepoint)` unwinds to that point and leaves the rest of the transaction intact |
 | Shares one `Connection`/`Statement`/`ResultSet` across threads without synchronization | `get_driver_instance()` returns a **process-wide singleton** and is safe to call from multiple threads to obtain independent connections, but individual `Connection`/`Statement`/`ResultSet` objects are not documented as safe for concurrent multi-threaded use — give each thread (or task) its own connection |
 
 ## Connect, prepare, iterate, and transact
@@ -92,9 +96,36 @@ int main() {
 }
 ```
 
+## Batching
+
+```c++
+std::unique_ptr<sql::PreparedStatement> stmt(
+    conn->prepareStatement("INSERT INTO t (name, qty) VALUES (?, ?)"));
+
+for (const auto& row : rows) {
+  stmt->setString(1, row.name);
+  stmt->setInt(2, row.qty);
+  stmt->addBatch();                 // no argument on a PreparedStatement
+}
+
+const sql::Ints& counts = stmt->executeBatch();
+```
+
+`Statement::addBatch(sql)` takes a statement string instead, for batching unrelated statements. A failure part-way through surfaces as `sql::BatchUpdateException`, which carries the per-statement counts recorded before the failure.
+
+## Reading NULLs
+
+```c++
+int32_t qty = res->getInt("qty");
+if (res->wasNull()) {
+  // the column was SQL NULL, not the integer 0
+}
+```
+
 ## See Also
 
-- **`mariadb-connector-c`** — the underlying C client library (`libmariadb`) this driver is built on
+- **`mariadb-connector-cpp-install`** — installing the library, its Connector/C prerequisite, linking, and connection properties
+- **`mariadb-connector-c-usage`** — the underlying C client library (`libmariadb`) this driver is built on
 - **`mariadb-transactions`** — the server-side semantics behind `commit()`/`rollback()` and isolation levels set via `setTransactionIsolation()`
 - **`mariadb-prepare`** — server-side prepared statements, what `useServerPrepStmts=true` uses under the hood
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-cpp>

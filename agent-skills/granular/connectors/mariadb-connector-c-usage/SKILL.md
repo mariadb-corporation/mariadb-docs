@@ -1,13 +1,13 @@
 ---
-name: mariadb-connector-c
+name: mariadb-connector-c-usage
 description: "MariaDB-specific behavior of MariaDB Connector/C (the `libmariadb` client library implementing the MariaDB client-server protocol in C) for application code — that the public API is still `mysql_`-prefixed (`mysql_init`, `mysql_real_connect`, `mysql_query`, ...) with only a few `mariadb_`-prefixed extensions; that `mysql_init()` must precede `mysql_real_connect()`, with `mysql_optionsv()` options set in between; the buffered-vs-unbuffered split between `mysql_store_result()` and `mysql_use_result()` plus the mandatory `mysql_free_result()`; that literals need `mysql_real_escape_string()` when not using prepared statements; the `?`-placeholder prepared-statement API (`MYSQL_BIND` arrays, `mysql_stmt_bind_param`/`execute`/`fetch`); and that autocommit is ON by default so transactions need `mysql_autocommit(conn,0)`. Use when writing or reviewing C code that talks to MariaDB via Connector/C (`libmariadb`)."
 ---
 
 # MariaDB Connector/C
 
-*Last updated: 2026-07-21*
+*Last updated: 2026-08-10*
 
-MariaDB Connector/C is the LGPL-licensed C client library (`libmariadb`) implementing the MariaDB/MySQL client-server protocol. It is the foundation other MariaDB connectors build on — Connector/Python's C extension, Connector/ODBC, and Connector/C++ all link against it — and it is API-compatible with the classic MySQL C client library, so `mysql.h` and the `mysql_*` function names carry over directly. This skill covers the connector-specific behavior and the traps that bite generated application code; it does not cover installing the library or configuring the server.
+MariaDB Connector/C is the LGPL-licensed C client library (`libmariadb`) implementing the MariaDB/MySQL client-server protocol. It is the foundation other MariaDB connectors build on — Connector/Python's C extension, Connector/ODBC, and Connector/C++ all link against it — and it is API-compatible with the classic MySQL C client library, so `mysql.h` and the `mysql_*` function names carry over directly. This skill covers the connector-specific behavior and the traps that bite generated application code. For installing the library, compiling against it, and configuring it through option files, see **`mariadb-connector-c-install`**.
 
 > **Default context:** Assume the **3.4** stable release series (GA February 2025; `mariadb_config --cc_version` reports the exact patch, e.g. `3.4.10`) unless the user states otherwise. Connector/C is compatible with all MariaDB and MySQL server versions — its version is independent of the server version it connects to, and behavior below applies across the 3.x line unless annotated.
 
@@ -28,6 +28,10 @@ MariaDB Connector/C is the LGPL-licensed C client library (`libmariadb`) impleme
 | Reads only the first result after `CALL`ing a stored procedure or a multi-statement query | Stored-procedure calls and multi-statement queries (`MARIADB_OPT_MULTI_STATEMENTS`) can return **multiple result sets** — loop with **`mysql_next_result()`** (or `mysql_stmt_next_result()` for prepared statements), calling `mysql_store_result()`/`mysql_use_result()` + `mysql_free_result()` each time, until no more results remain |
 | Passes `-1` as a length to `mysql_real_query()` or `mysql_real_escape_string()`, expecting auto-detection everywhere | Only **`mysql_stmt_prepare()`** treats `length == (unsigned long)-1` as "compute via `strlen()`". The binary-safe functions (`mysql_real_query()`, `mysql_real_escape_string()`) need the **actual** byte length — passing `-1` there is a bug, not a shortcut |
 | Calls `mysql_close()` while `MYSQL_STMT`/`MYSQL_RES` handles from that connection are still open | Free every result with `mysql_free_result()` and close every prepared statement with `mysql_stmt_close()` **before** `mysql_close()` on the connection |
+| Uses one `MYSQL` handle from several threads, or spawns threads without initializing them | A `MYSQL` handle is **not** thread-safe: one connection per thread. Each thread that uses the library must call **`mysql_thread_init()`** on entry and **`mysql_thread_end()`** on exit; the process should call `mysql_library_init()` before the first connection and `mysql_library_end()` at shutdown |
+| Loops `mysql_stmt_execute()` once per row for a bulk insert | Bind arrays instead: set **`STMT_ATTR_ARRAY_SIZE`** with `mysql_stmt_attr_set()` and point each `MYSQL_BIND` at an array of values, then execute **once**. This is a MariaDB extension and collapses the round trips |
+| Prepares a statement it will execute exactly once | **`mariadb_stmt_execute_direct()`** prepares and executes in a single round trip — the right call for one-shot parameterized statements |
+| Treats a `NULL` from `mysql_store_result()` as "no rows" | It means either "no result set" or "an error occurred". Distinguish with **`mysql_field_count()`**: zero means the statement genuinely returned no result set, non-zero means the fetch failed and `mysql_error()` has the reason |
 
 ## Connect, Prepared Statement, and Transaction
 
@@ -97,10 +101,61 @@ else
 mysql_close(conn);
 ```
 
+## Bulk insert with array binding
+
+`STMT_ATTR_ARRAY_SIZE` turns a single prepared statement into a multi-row insert — one execute, one round trip:
+
+```c
+enum { ROWS = 3 };
+unsigned int  ids[ROWS]  = { 1, 2, 3 };
+char         *names[ROWS] = { "widget", "gadget", "doohickey" };
+unsigned long lens[ROWS];
+size_t        i;
+
+for (i = 0; i < ROWS; i++)
+    lens[i] = strlen(names[i]);
+
+MYSQL_STMT *stmt = mysql_stmt_init(conn);
+const char *sql = "INSERT INTO t (id, name) VALUES (?, ?)";
+mysql_stmt_prepare(stmt, sql, strlen(sql));
+
+MYSQL_BIND bind[2];
+memset(bind, 0, sizeof(bind));
+bind[0].buffer_type = MYSQL_TYPE_LONG;
+bind[0].buffer      = ids;
+bind[1].buffer_type = MYSQL_TYPE_STRING;
+bind[1].buffer      = names;
+bind[1].length      = lens;
+
+size_t array_size = ROWS;
+mysql_stmt_attr_set(stmt, STMT_ATTR_ARRAY_SIZE, &array_size);
+mysql_stmt_bind_param(stmt, bind);
+mysql_stmt_execute(stmt);        /* all three rows, one execution */
+mysql_stmt_close(stmt);
+```
+
+## Threading
+
+```c
+mysql_library_init(0, NULL, NULL);      /* once, before any connection */
+
+/* …in each worker thread: */
+mysql_thread_init();
+MYSQL *conn = mysql_init(NULL);         /* one connection per thread */
+/* … */
+mysql_close(conn);
+mysql_thread_end();
+
+mysql_library_end();                    /* once, at shutdown */
+```
+
+Sharing a single `MYSQL` handle across threads corrupts the protocol state rather than merely serializing badly, so a pool of per-thread connections is the only safe arrangement.
+
 ## See Also
 
-- **`mariadb-connector-python`** — the `mariadb` module's C extension links against this library
-- **`mariadb-connector-odbc`** / **`mariadb-connector-cpp`** — also built on top of Connector/C
+- **`mariadb-connector-c-install`** — installing the library, compiling against it, and configuring it through option files and TLS options
+- **`mariadb-connector-python-usage`** — the `mariadb` module's C extension links against this library
+- **`mariadb-connector-odbc-usage`** / **`mariadb-connector-cpp-usage`** — also built on top of Connector/C
 - **`mariadb-transactions`** — the server-side semantics behind `mysql_commit()`/`mysql_rollback()`
 - **`mariadb-prepare`** — server-side prepared statements, what the `MYSQL_STMT` API drives
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-c>

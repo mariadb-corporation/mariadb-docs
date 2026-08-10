@@ -1,13 +1,13 @@
 ---
-name: mariadb-connector-nodejs
+name: mariadb-connector-nodejs-usage
 description: "MariaDB-specific behavior of MariaDB Connector/Node.js (the `mariadb` npm package, a non-blocking driver) for application code — that the Promise API is default, with the Callback API under `require('mariadb/callback')`; that `?` positional placeholders are default and `:name` style needs `namedPlaceholders`; that BIGINT and `insertId` return native BigInt unless `bigIntAsNumber`/`insertIdAsNumber` are set; that `batch()` uses the bulk protocol instead of looping `query()`; that `queryStream()` is needed for large results since `query()` buffers everything in memory; that `pool.getConnection()` needs a `release()` in a `finally`; that autocommit follows the server default (ON) so transactions need explicit `beginTransaction()`/`commit()`/`rollback()`; and that `execute()` uses server-side prepared statements while `query()` uses the text protocol. Use when writing or reviewing Node.js code that talks to MariaDB with the `mariadb` package."
 ---
 
 # MariaDB Connector/Node.js
 
-*Last updated: 2026-07-21*
+*Last updated: 2026-08-10*
 
-MariaDB Connector/Node.js is the official Node.js driver for MariaDB — the `mariadb` package on npm (`npm install mariadb`), LGPL-licensed and non-blocking. This skill covers the connector-specific behavior and the traps that bite generated application code. It is **pure JavaScript** and does **not** depend on MariaDB Connector/C — no native build step, no C toolchain required.
+MariaDB Connector/Node.js is the official Node.js driver for MariaDB — the `mariadb` package on npm, LGPL-licensed and non-blocking. This skill covers the connector-specific behavior and the traps that bite generated application code. For installing it, choosing an entry point, and configuring TLS and pool sizing, see **`mariadb-connector-nodejs-install`**. It is **pure JavaScript** and does **not** depend on MariaDB Connector/C — no native build step, no C toolchain required.
 
 > **Default context:** Assume the **3.5.x** line (current: 3.5.4) unless the user states otherwise; it requires **Node.js >= 20**. Connector versions are independent of the MariaDB server version — a 3.5.x connector talks to any currently supported MariaDB server release.
 
@@ -29,6 +29,11 @@ MariaDB Connector/Node.js is the official Node.js driver for MariaDB — the `ma
 | Catches `Exception`/generic `Error`, or reads `.sqlstate` (lowercase, a DB-API habit) | Thrown errors are `SqlError` instances with **`.code`** (e.g. `ER_PARSE_ERROR`), **`.errno`** (numeric), and **`.sqlState`** (camelCase, capital S) — not `.sqlstate` |
 | Assumes client and server share a timezone, or hand-converts dates | `timezone` defaults to `'local'` (no conversion — fine only if client and server timezones match). Set `timezone: 'auto'` to have the connector detect and align to the server's timezone, or pass an explicit IANA zone/offset |
 | Expects the driver to auto-reconnect after a dropped connection | No automatic reconnection on a plain `Connection`. Use a pool (which validates/replaces connections) rather than assuming a long-lived single connection survives indefinitely |
+| Calls `execute()` in a loop with the same SQL and assumes the prepare is free every time | It is cached, but the explicit form is cheaper and clearer: **`const prep = await conn.prepare(sql)`**, then `prep.execute(values)` per call and **`prep.close()`** when finished. Skipping `close()` leaks a server-side prepared statement |
+| Reads only the first array after `CALL`ing a stored procedure | A `CALL` that returns result sets resolves to an **array of result sets**, with the final element the `OK` packet. Index into it rather than treating the whole value as rows |
+| Shells out to a client binary to load a `.sql` file | **`conn.importFile({ file: '/path/to/dump.sql' })`** runs it through the same connection |
+| Interpolates a value the placeholder syntax cannot take, such as a `LIMIT` built at run time | **`conn.escape(value)`** escapes a literal and `conn.escapeId(name)` an identifier. Both are a fallback for the positions `?` cannot occupy — not a substitute for placeholders |
+| Reuses a connection after an aborted transaction and inherits its session state | **`conn.reset()`** returns the session to its initial state — variables, temporary tables, prepared statements — without reconnecting |
 
 ## Connection essentials
 
@@ -78,8 +83,43 @@ async function insertItems(basketId, itemIds) {
 }
 ```
 
+```javascript
+// Explicit prepared statement, reused across calls
+async function lookupMany(ids) {
+  const conn = await pool.getConnection();
+  try {
+    const prep = await conn.prepare('SELECT id, name FROM users WHERE id = ?');
+    try {
+      const results = [];
+      for (const id of ids) {
+        results.push(await prep.execute([id]));
+      }
+      return results;
+    } finally {
+      prep.close();          // releases the server-side prepared statement
+    }
+  } finally {
+    conn.release();
+  }
+}
+```
+
+```javascript
+// Streaming a large result set
+const stream = conn.queryStream('SELECT id, payload FROM big_table');
+try {
+  for await (const row of stream) {
+    await handle(row);
+  }
+} catch (err) {
+  stream.close();            // otherwise the connection can hang
+  throw err;
+}
+```
+
 ## See Also
 
+- **`mariadb-connector-nodejs-install`** — installing the package, entry points and typings, TLS, and pool configuration
 - **`mariadb-transactions`** — the server-side semantics behind `beginTransaction()`/`commit()`/`rollback()` and isolation levels
 - **`mariadb-prepare`** — server-side prepared statements, what `execute()` uses under the hood
 - Canonical reference on `mariadb.com/docs`, consult for edge cases not covered here: <https://mariadb.com/docs/connectors/mariadb-connector-nodejs>
