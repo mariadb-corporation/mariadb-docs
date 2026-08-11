@@ -87,13 +87,6 @@ SHOW PLUGINS;
 +----------------------------+----------+--------------------+-------------+---------+
 ```
 
-```sql
-SELECT LOAD_OPTION 
-FROM INFORMATION_SCHEMA.PLUGINS 
-WHERE PLUGIN_NAME LIKE 'tokudb';
-Empty SET
-```
-
 The equivalent [SELECT](../../../sql-statements/data-manipulation/selecting-data/select.md) query would be:
 
 ```sql
@@ -171,15 +164,6 @@ PLUGIN_AUTH_VERSION: 1.0
  PLUGIN_DESCRIPTION: Partition Storage Engine Helper
     PLUGIN_MATURITY: Stable
 PLUGIN_AUTH_VERSION: 1.0
-```
-
-Check if a given plugin is available:
-
-```sql
-SELECT LOAD_OPTION 
-FROM INFORMATION_SCHEMA.PLUGINS 
-WHERE PLUGIN_NAME LIKE 'tokudb';
-Empty SET
 ```
 
 Show authentication plugins:
