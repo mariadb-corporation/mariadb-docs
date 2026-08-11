@@ -30,7 +30,7 @@ A **conflict** occurs when the replica's local data has diverged from what the p
 
 By default, these divergences raise a hard applier error (duplicate key, record not found, and so on) and **stop the SQL thread**, requiring an operator to intervene manually or skip the event.
 
-CDR triggers let you encode the resolution policy as SQL, on the replica. When a conflict is detected, the applier diverts the failing row event into a user-defined trigger. Inside the trigger you decide, per row, whether to overwrite, merge, ignore, or deliberately halt.
+Conflict Detection and Resolution (CDR) Triggers let you encode the resolution policy as SQL, on the replica. When a conflict is detected, the applier diverts the failing row event into a user-defined trigger. Inside the trigger you decide, per row, whether to overwrite, merge, ignore, or deliberately halt.
 
 ## Enabling CDR Triggers
 
