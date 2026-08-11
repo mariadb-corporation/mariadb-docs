@@ -72,24 +72,47 @@ SET optimizer_trace = 'enabled=off';
 
 ## 4. Influence the plan
 
-Once you understand the plan, two mechanisms let you change it:
+Once you understand the plan, several mechanisms let you change it:
 
+* **`optimizer_switch`** — a system variable that enables or disables individual
+  optimizations globally or for the session.
 * **Optimizer hints** — `/*+ ... */` comments placed in the query that steer the
   optimizer for that single statement (for example, forcing or forbidding a join
   strategy or an index) without changing server-wide behavior. A hint overrides
   the corresponding `optimizer_switch` setting for that query.
-* **`optimizer_switch`** — a system variable that enables or disables individual
-  optimizations globally or for the session.
+* **`FORCE INDEX`** — an index hint written in the `FROM` clause after a table
+  name, and a separate mechanism from the `/*+ ... */` hints above. It restricts
+  the optimizer to the indexes you list for that table and tells it to prefer
+  one of them over a full table scan — useful when the optimizer scans a table
+  even though you know an index would be faster. The related
+  [USE INDEX](query-optimizations/use-index.md) restricts the candidate indexes
+  without discouraging a scan, and
+  [IGNORE INDEX](query-optimizations/ignore-index.md) excludes indexes instead.
+* **The optimizer cost model** — the optimizer picks a plan by comparing
+  estimated costs, and the constants behind those estimates are themselves
+  configurable: what it costs to read a block from storage, to look up a key, or
+  to evaluate the `WHERE` clause for one row. Engine-level costs are global and
+  are set per storage engine (`SET GLOBAL innodb.optimizer_disk_read_cost=20`),
+  while `optimizer_where_cost` and `optimizer_scan_setup_cost` can also be set
+  per session. A change here shifts the estimates for every query, so treat it
+  as recalibration for hardware the defaults do not fit, rather than a fix for
+  one slow query.
 
-Prefer hints when targeting one problem query; use `optimizer_switch` when you
-need to change behavior across the workload.
+For a single problem query, use an optimizer hint or `FORCE INDEX`. Use
+`optimizer_switch` when the behavior should change across a workload, and adjust
+the cost model only when the optimizer's estimates are systematically wrong for
+your hardware.
+
+{% content-ref url="query-optimizations/optimizer-switch.md" %}
+[optimizer-switch.md](query-optimizations/optimizer-switch.md)
+{% endcontent-ref %}
 
 {% content-ref url="optimizer-hints/README.md" %}
 [README.md](optimizer-hints/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="query-optimizations/optimizer-switch.md" %}
-[optimizer-switch.md](query-optimizations/optimizer-switch.md)
+{% content-ref url="query-optimizations/force-index.md" %}
+[force-index.md](query-optimizations/force-index.md)
 {% endcontent-ref %}
 
 ## Queries pushed down to a smart storage engine
@@ -120,8 +143,9 @@ above behave differently:
 {% hint style="info" %}
 For a fully pushed-down statement, `EXPLAIN` reports `PUSHED SELECT` (or
 `PUSHED DERIVED` for a pushed-down derived table) instead of a normal plan, and
-optimizer trace, optimizer hints, and `optimizer_switch` do not apply to the
-pushed-down part — there is no server-side plan for them to describe or change.
+optimizer trace and the mechanisms in *Influence the plan* above do not apply to
+the pushed-down part — there is no server-side plan for them to describe or
+change.
 To understand or tune how such a query runs, use the engine's own tooling and
 documentation.
 {% endhint %}
@@ -132,4 +156,4 @@ pushed down, while the remaining branches are executed by the server.
 ## See also
 
 * [Query Optimizer](query-optimizer/README.md) — internals of how the optimizer works
-* [The Optimizer Cost Model from MariaDB 11.0](query-optimizer/the-optimizer-cost-model-from-mariadb-11-0.md)
+* [The Optimizer Cost Model from MariaDB 11.0](query-optimizer/the-optimizer-cost-model-from-mariadb-11-0.md) — how storage-engine operations are turned into comparable costs, the full list of cost variables, and how to change them
