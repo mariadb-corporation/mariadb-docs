@@ -30,7 +30,7 @@ Currently, the plugins maintained and supported by MariaDB plc for a given relea
 * [Plugin Overview](../plugin-overview.md)
 * [INSTALL PLUGIN](../../sql-statements/administrative-sql-statements/plugin-sql-statements/install-plugin.md)
 * [INFORMATION\_SCHEMA.PLUGINS Table](../../system-tables/information-schema/information-schema-tables/plugins-table-information-schema.md)
-* [mysql\_plugin](../../../clients-and-utilities/legacy-clients-and-utilities/mysql_plugin.md)
+* [mysql\_plugin](../../../clients-and-utilities/administrative-tools/mariadb-plugin.md)
 * [SHOW PLUGINS](../../sql-statements/administrative-sql-statements/show/show-plugins.md)
 * [INSTALL SONAME](../../sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname.md)
 * [UNINSTALL PLUGIN](../../sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-plugin.md)

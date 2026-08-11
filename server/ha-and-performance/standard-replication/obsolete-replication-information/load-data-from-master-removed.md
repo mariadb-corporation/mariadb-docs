@@ -21,7 +21,7 @@ advanced technique (called "online backup") in a future version. That technique
 will have the additional advantage of working with more storage engines.
 
 For MySQL 5.1 and earlier, the recommended alternative solution to
-using `LOAD DATA FROM MASTER` or`LOAD TABLE FROM MASTER` is using [mysqldump](../../../clients-and-utilities/legacy-clients-and-utilities/mysqldump.md) or [mysqlhotcopy](../../../clients-and-utilities/legacy-clients-and-utilities/mysqlhotcopy.md).\
+using `LOAD DATA FROM MASTER` or`LOAD TABLE FROM MASTER` is using [mysqldump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) or [mysqlhotcopy](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-hotcopy.md).\
 The latter requires Perl and two Perl modules (DBI and DBD:mysql) and works for [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) and [ARCHIVE](../../../server-usage/storage-engines/archive.md) tables only. With mysqldump, you can create SQL dumps on the
 master and pipe (or copy) these to a mysql client on the slave. This has the
 advantage of working for all storage engines, but can be quite slow, since it

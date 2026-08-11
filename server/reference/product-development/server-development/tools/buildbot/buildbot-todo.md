@@ -13,7 +13,7 @@ description: >-
   possible to mark pending builds so not only individually, but also by branch,
   as well as by (branch,revision). The feature should probably interact in a
   meaningful way with the existing "nextBuild" ability to prioritise builds
-  ([full.html#Prioritizing-Builds](https://buildbot.net/buildbot/docs/0.8.4/full.html#Prioritizing-Builds)). Eg.\
+  (see "Prioritizing Builds" in the Buildbot documentation). Eg.\
   it could set appropriate properties somewhere that would be available to the
   nextBuild function.
 * We need a way to kill all running builds, and remove all pending builds, for
@@ -93,13 +93,13 @@ high.
 * Show pending builds for a slave on the 'builders' page,
   eg. [hardy-x86-rtai](https://askmonty.org/buildbot/builders/hardy-x86-rtai)
 * Show dates in local time of the client. One way is with\
-  Javascript: [5100-10878\_11-6016329.html](https://articles.techrepublic.com.com/5100-10878_11-6016329.html)
+  Javascript: a client-side script
   (would be nice if some dates were still shown when javascript is not
   available).
 * Check if InnoDB is fixed sufficiently to have no Valgrind leaks
   with `innodb_use_sys_malloc`; if so remove hack
   in `mysql-test-run.pl` to disable this in valgrind case.
-* Fix problem that illegal regexp causes build exception (example:[err.text](https://buildbot.askmonty.org/buildbot/builders/sol-sparc-32/builds/157/steps/compile/logs/err.text)).\
+* Fix problem that illegal regexp causes build exception (example:the `sol-sparc-32` compile log).\
   The problem is that Buildbot grabs regexps from the suppression file in the\
   MariaDB tree and tries to compile them; if this throws exception, then the
   exception should be caught (and possibly warned about), not crash the whole
@@ -109,7 +109,7 @@ high.
 
 * Add `apt-get source mariadb-server` checking in buildbot (for package
   testing).
-* Add testing of bintar package with real start of server [mysqld\_safe](../../../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) and
+* Add testing of bintar package with real start of server [mysqld\_safe](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md) and
   also test on different distro/version than what was built (eg
   hardy<->jaunty).
 * In package build, sign .debs with dummy key, to more accurately test the real

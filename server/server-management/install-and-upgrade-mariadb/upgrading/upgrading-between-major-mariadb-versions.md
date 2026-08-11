@@ -33,7 +33,7 @@ Note that rpms don't support upgrading between major versions, only minor like 1
 ## Recommended Steps
 
 * If you have a [primary-replica setup](../../../ha-and-performance/standard-replication/), first upgrade one replica and when you have verified that the replica works well, upgrade the rest of the replicas (if any). Then [upgrade one replica to primary](../../../ha-and-performance/standard-replication/changing-a-replica-to-become-the-primary.md), upgrade the primary, and change the replica to a primary.
-* If you don't have a primary-replica setup, then [take a backup](../../../server-usage/backup-and-restore/backup-and-restore-overview.md), [shutdown MariaDB](../../../clients-and-utilities/legacy-clients-and-utilities/mysqladmin.md) and do the upgrade.
+* If you don't have a primary-replica setup, then [take a backup](../../../server-usage/backup-and-restore/backup-and-restore-overview.md), [shutdown MariaDB](../../../clients-and-utilities/administrative-tools/mariadb-admin.md) and do the upgrade.
 
 ### Step by Step Instructions for Upgrades
 
