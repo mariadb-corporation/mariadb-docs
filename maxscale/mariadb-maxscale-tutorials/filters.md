@@ -98,60 +98,6 @@ When the session ends a report will be written for the session into the logfile 
 * The total number of statements executed in the connection.
 * The average execution time for a statement in this connection.
 
-#### Duplicate Data From Your Application Into Cassandra
-
-The scenario we are using in this example is one in which you have an online gaming application that is designed to work with a MariaDB database. The database schema includes a high score table which you would like to have access to in a Cassandra cluster. The application is already using MariaDB MaxScale to connect to a MariaDB Galera cluster, using a service names BubbleGame. The definition of that service is as follows
-
-```ini
-[BubbleGame]
-type=service
-router=readwritesplit
-servers=dbbubble1,dbbubble2,dbbubble3,dbbubble4,dbbubble5
-user=maxscale
-password=6628C50E07CCE1F0392EDEEB9D1203F3
-```
-
-The table you wish to store in Cassandra in called HighScore and will contain the same columns in both the MariaDB table and the Cassandra table. The first step is to install a MariaDB instance with the Cassandra storage engine to act as a bridge server between the relational database and Cassandra. In this bridge server add a table definition for the HighScore table with the engine type set to Cassandra. See Cassandra Storage Engine Overview for details. Add this server into the MariaDB MaxScale configuration and create a service that will connect to this server.
-
-```ini
-[CassandraDB]
-type=server
-address=192.168.4.28
-port=3306
-
-[Cassandra]
-type=service
-router=readconnroute
-router_options=running
-servers=CassandraDB
-user=maxscale
-password=6628C50E07CCE1F0392EDEEB9D1203F3
-```
-
-Next add a filter definition for the tee filter that will duplication insert statements that are destined for the HighScore table to this new service.
-
-```ini
-[HighScores]
-type=filter
-module=teefilter
-match=insert.*HighScore.*values
-service=Cassandra
-```
-
-The above filter definition will cause all statements that match the regular expression inset.\*HighScore.\*values to be duplication and sent not just to the original destination, via the router but also to the service named Cassandra.
-
-The final step is to add the filter to the BubbleGame service to enable the use of the filter.
-
-```ini
-[BubbleGame]
-type=service
-router=readwritesplit
-servers=dbbubble1,dbbubble2,dbbubble3,dbbubble4,dbbubble5
-user=maxscale
-password=6628C50E07CCE1F0392EDEEB9D1203F3
-filters=HighScores
-```
-
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

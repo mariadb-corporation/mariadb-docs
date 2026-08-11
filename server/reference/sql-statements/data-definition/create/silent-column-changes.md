@@ -40,7 +40,7 @@ To ease imports from other RDBMSs, MariaDB also silently maps the following data
 
 Currently, all MySQL types are supported in MariaDB.
 
-For type mapping between Cassandra and MariaDB, see Cassandra storage engine.
+
 
 ## Example
 

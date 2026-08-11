@@ -95,7 +95,7 @@ On production workloads, MyRocks was tested to prove that it provides:
 * MyRocks is available in the MariaDB Server packages for Linux and Windows.
 * Maria DB optimistic parallel replication may not be supported.
 * MyRocks is not available for 32-bit platforms
-* [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) is tightly integrated into InnoDB storage engine (it also supports Percona's XtraDB which is a modified version of InnoDB). Galera Cluster does not work with any other storage engines, including MyRocks (or TokuDB for example).
+* [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) is tightly integrated into InnoDB storage engine (it also supports Percona's XtraDB which is a modified version of InnoDB). Galera Cluster does not work with any other storage engines, including MyRocks.
 
 MyRocks builds are available on platforms that support a sufficiently modern compiler, for example:
 
