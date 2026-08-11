@@ -26,7 +26,7 @@ To compile:
 cmake --build .
 ```
 
-You can find a list of the needed packages/libraries for building on Linux [here](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/build-environment-setup-for-linux.md).
+You can find a list of the needed packages/libraries for building on Linux [here](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md).
 
 ## Building Optimized Build With Debug Symbols
 
@@ -128,10 +128,10 @@ This is achieved by grouping asserts in MariaDB server code into two groups:
 
 ## See Also
 
-* [Build environment setup for Linux](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/build-environment-setup-for-linux.md)
+* [Build environment setup for Linux](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md)
 * [Debugging MariaDB with a debugger](debugging-mariadb-with-a-debugger.md)
 * [Creating a trace file](creating-a-trace-file.md)
-* [Using ASAN with MariaDB](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/compile-and-using-mariadb-with-sanitizers-asan-ubsan-tsan-msan.md)
+* [Using ASAN with MariaDB](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

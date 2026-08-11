@@ -118,7 +118,7 @@ New [reserved words](../../../../reference/sql-structure/sql-language-structure/
 
 #### TokuDB
 
-[TokuDB](../../../../server-usage/storage-engines/legacy-storage-engines/tokudb/) has been split into a separate package, mariadb-plugin-tokudb.
+TokuDB has been split into a separate package, mariadb-plugin-tokudb.
 
 #### Replication
 

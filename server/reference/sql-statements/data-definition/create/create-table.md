@@ -562,7 +562,7 @@ The `COMMENT` index option allows you to specify a comment with user-readable te
 
 #### CLUSTERING Index Option
 
-The `CLUSTERING` index option is only valid for tables using the [TokuDB](../../../../server-usage/storage-engines/legacy-storage-engines/tokudb/) storage engine.
+The `CLUSTERING` index option is only valid for tables using the TokuDB storage engine.
 
 #### IGNORED / NOT IGNORED
 

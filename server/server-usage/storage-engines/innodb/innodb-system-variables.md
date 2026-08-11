@@ -640,7 +640,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Description: Compression algorithm used for [InnoDB page compression](innodb-page-compression.md). The supported values are:
   * `none`: Pages are not compressed.
   * `zlib`: Pages are compressed using the bundled [zlib](https://www.zlib.net/) compression algorithm.
-  * `lz4`: Pages are compressed using the [lz4](https://code.google.com/p/lz4/) compression algorithm.
+  * `lz4`: Pages are compressed using the [lz4](https://lz4.org/) compression algorithm.
   * `lzo`: Pages are compressed using the [lzo](https://www.oberhumer.com/opensource/lzo/) compression algorithm.
   * `lzma`: Pages are compressed using the [lzma](https://tukaani.org/xz/) compression algorithm.
   * `bzip2`: Pages are compressed using the [bzip2](http://www.bzip.org/) compression algorithm.
@@ -1524,7 +1524,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_import_table_from_xtrabackup`
 
-* Description: If set to `1`, permits importing of .ibd files exported with the [XtraBackup](../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md) --export option. Previously named `innodb_expand_import`. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 and replaced with MySQL 5.6's transportable tablespaces.
+* Description: If set to `1`, permits importing of .ibd files exported with the [XtraBackup](../../backup-and-restore/mariadb-backup/README.md) --export option. Previously named `innodb_expand_import`. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 and replaced with MySQL 5.6's transportable tablespaces.
 * Command line: `innodb-import-table-from-xtrabackup=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1968,7 +1968,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 #### `innodb_max_bitmap_file_size`
 
-* Description: Limit in bytes of the changed page bitmap files. For faster incremental backup with [Xtrabackup](../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md), XtraDB tracks pages with changes written to them according to the [XtraDB redo log](innodb-redo-log.md) and writes the information to special changed page bitmap files. These files are rotated when the server restarts or when this limit is reached. XtraDB only. See also [innodb\_track\_changed\_pages](innodb-system-variables.md#innodb_track_changed_pages) and [innodb\_max\_changed\_pages](innodb-system-variables.md#innodb_max_changed_pages).
+* Description: Limit in bytes of the changed page bitmap files. For faster incremental backup with [Xtrabackup](../../backup-and-restore/mariadb-backup/README.md), XtraDB tracks pages with changes written to them according to the [XtraDB redo log](innodb-redo-log.md) and writes the information to special changed page bitmap files. These files are rotated when the server restarts or when this limit is reached. XtraDB only. See also [innodb\_track\_changed\_pages](innodb-system-variables.md#innodb_track_changed_pages) and [innodb\_max\_changed\_pages](innodb-system-variables.md#innodb_max_changed_pages).
   * Deprecated and ignored in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
 * Command line: `innodb-max-bitmap-file-size=#`
 * Scope: Global
@@ -2753,7 +2753,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 #### `innodb_track_changed_pages`
 
-* Description: For faster incremental backup with [Xtrabackup](../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md), XtraDB tracks pages with changes written to them according to the [XtraDB redo log](innodb-redo-log.md) and writes the information to special changed page bitmap files. This read-only variable is used for controlling this feature. See also [innodb\_max\_changed\_pages](innodb-system-variables.md#innodb_max_changed_pages) and [innodb\_max\_bitmap\_file\_size](innodb-system-variables.md#innodb_max_bitmap_file_size). XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
+* Description: For faster incremental backup with [Xtrabackup](../../backup-and-restore/mariadb-backup/README.md), XtraDB tracks pages with changes written to them according to the [XtraDB redo log](innodb-redo-log.md) and writes the information to special changed page bitmap files. This read-only variable is used for controlling this feature. See also [innodb\_max\_changed\_pages](innodb-system-variables.md#innodb_max_changed_pages) and [innodb\_max\_bitmap\_file\_size](innodb-system-variables.md#innodb_max_bitmap_file_size). XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
 * Command line: `innodb-track-changed-pages={0|1}`
 * Scope: Global
 * Dynamic: No

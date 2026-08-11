@@ -22,7 +22,7 @@ Note that if you are using [MariaDB Galera Cluster](https://app.gitbook.com/o/di
 
 * Galera Cluster Users (Upgrading to 12.3+): You must manually install the `mariadb-server-galera` (or `MariaDB-server-galera`) package during the upgrade. Because the automatic dependency has been removed, a standard upgrade will not pull in the necessary cluster management components, which may prevent your cluster from bootstrapping.
 * Go through the individual version upgrade notes (listed below) to look for any major changes or configuration options that have changed.
-* Ensure that the target MariaDB version supports the storage engines you are using. For example, in 10.5 [TokuDB](../../../server-usage/storage-engines/legacy-storage-engines/tokudb/) is not supported.
+* Ensure that the target MariaDB version supports the storage engines you are using. For example, in 10.5 TokuDB is not supported.
 * Back up the database (just in case). At least, take a copy of the `mysql` system database directory under the data directory with [mariadb-dump --add-drop-table mysql](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) (called `mysqldump` in [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) and earlier) as most of the upgrade changes are done there (adding new fields and new system tables etc).
 * Cleanly shutdown the server. This is necessary because even if data files are compatible between versions, recovery logs may not be.
   * Ensure that the [innodb\_fast\_shutdown](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_shutdown) variable is not 2 (fast crash shutdown). The default of this variable is `1`.

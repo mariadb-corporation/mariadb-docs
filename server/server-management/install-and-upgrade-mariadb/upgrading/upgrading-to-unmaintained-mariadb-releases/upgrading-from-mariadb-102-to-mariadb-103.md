@@ -108,7 +108,7 @@ The following options should be removed or renamed if you use them in your [opti
 
 #### MariaDB Backup and Percona XtraBackup
 
-* [Percona XtraBackup](../../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md) is not compatible with [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103). Installations currently using XtraBackup should upgrade to [MariaDB Backup](../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md) before upgrading to [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103).
+* [Percona XtraBackup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) is not compatible with [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103). Installations currently using XtraBackup should upgrade to [MariaDB Backup](../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md) before upgrading to [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103).
 
 #### Privileges
 
