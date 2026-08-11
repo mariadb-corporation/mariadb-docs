@@ -68,15 +68,77 @@ Changing `slave_run_triggers_for_rbr` requires a privilege that permits setting 
 
 ## The Five Conflict Types
 
-A CDR trigger is bound to **one** conflict type. The type names encode _what the primary did_ and _what the replica's local state implies_:
+A CDR trigger is bound to **one** conflict type. The type names encode _what the primary did_ and _what the replica's local state implies_. The examples below use the table `t1 (a INT PRIMARY KEY, b INT, c CHAR(255))`, already in sync on both servers.
 
-| Conflict type   | Primary's operation | Replica's local state                    | Typical underlying error |
-| --------------- | ------------------- | ---------------------------------------- | ------------------------ |
-| `INSERT_INSERT` | `INSERT`            | Row with the same key already exists     | Duplicate key            |
-| `UPDATE_UPDATE` | `UPDATE`            | Row exists but its values differ         | Before-image mismatch    |
-| `DELETE_UPDATE` | `DELETE`            | Row exists but has been changed locally  | Before-image mismatch    |
-| `UPDATE_DELETE` | `UPDATE`            | Row is missing (already deleted locally) | Record not found         |
-| `DELETE_DELETE` | `DELETE`            | Row is missing (already deleted locally) | Record not found         |
+* **`INSERT_INSERT`**
+  * Primary's operation: `INSERT`
+  * Replica's local state: a row with the same key already exists
+  * Typical underlying error: duplicate key
+
+  ```sql
+  -- On the replica (local write):
+  INSERT INTO t1 VALUES (7, 1, 'local row');
+
+  -- On the primary (replicated to the replica afterwards):
+  INSERT INTO t1 VALUES (7, 2, 'primary row');
+  -- The replicated insert collides with the replica's key 7
+  ```
+* **`UPDATE_UPDATE`**
+  * Primary's operation: `UPDATE`
+  * Replica's local state: the row exists but its values differ
+  * Typical underlying error: before-image mismatch
+
+  ```sql
+  -- Both servers hold (7, 300, 'in sync')
+
+  -- On the replica (local write):
+  UPDATE t1 SET b = 900 WHERE a = 7;
+
+  -- On the primary (replicated to the replica afterwards):
+  UPDATE t1 SET b = 500 WHERE a = 7;
+  -- The event's before-image says b = 300; the replica finds b = 900
+  ```
+* **`DELETE_UPDATE`**
+  * Primary's operation: `DELETE`
+  * Replica's local state: the row exists but has been changed locally
+  * Typical underlying error: before-image mismatch
+
+  ```sql
+  -- Both servers hold (7, 300, 'in sync')
+
+  -- On the replica (local write):
+  UPDATE t1 SET b = 900 WHERE a = 7;
+
+  -- On the primary (replicated to the replica afterwards):
+  DELETE FROM t1 WHERE a = 7;
+  -- The event's before-image says b = 300; the replica finds b = 900
+  ```
+* **`UPDATE_DELETE`**
+  * Primary's operation: `UPDATE`
+  * Replica's local state: the row is missing (already deleted locally)
+  * Typical underlying error: record not found
+
+  ```sql
+  -- On the replica (local write):
+  DELETE FROM t1 WHERE a = 7;
+
+  -- On the primary (replicated to the replica afterwards):
+  UPDATE t1 SET b = 500 WHERE a = 7;
+  -- The replica has no row with key 7 to update
+  ```
+* **`DELETE_DELETE`**
+  * Primary's operation: `DELETE`
+  * Replica's local state: the row is missing (already deleted locally)
+  * Typical underlying error: record not found
+
+  ```sql
+  -- On the replica (local write):
+  DELETE FROM t1 WHERE a = 7;
+
+  -- On the primary (replicated to the replica afterwards):
+  DELETE FROM t1 WHERE a = 7;
+  -- The replica has no row with key 7 to delete
+  ```
 
 ## Syntax
 
