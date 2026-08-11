@@ -22,9 +22,9 @@ These SQL Server features are not available in MariaDB:
 
 ## Transactions, Storage Engines and the Binary Log
 
-In MariaDB, transactions are optionally implemented by [storage engines](../../../../server-usage/storage-engines/). The default storage engine, [InnoDB](../../../../server-usage/storage-engines/innodb/), fully supports transactions. Other transactional storage engines include [MyRocks](../../../../server-usage/storage-engines/myrocks/) and [TokuDB](../../../../server-usage/storage-engines/legacy-storage-engines/tokudb/). Most storage engines are not transactional, therefore they should not considered general purpose engines.
+In MariaDB, transactions are optionally implemented by [storage engines](../../../../server-usage/storage-engines/). The default storage engine, [InnoDB](../../../../server-usage/storage-engines/innodb/), fully supports transactions. Other transactional storage engines include [MyRocks](../../../../server-usage/storage-engines/myrocks/) and TokuDB. Most storage engines are not transactional, therefore they should not considered general purpose engines.
 
-Most of the information in this page refers to generic MariaDB server behaviors or InnoDB. For [MyRocks](../../../../server-usage/storage-engines/myrocks/) and [TokuDB](../../../../server-usage/storage-engines/legacy-storage-engines/tokudb/) please check the proper KnowledgeBase sections.
+Most of the information in this page refers to generic MariaDB server behaviors or InnoDB. For [MyRocks](../../../../server-usage/storage-engines/myrocks/) and TokuDB please check the proper KnowledgeBase sections.
 
 Writing into a non-transactional table in a transaction can still be useful. The reason is that a [metadata lock](../../../../reference/sql-statements/transactions/metadata-locking.md) is acquired on the table for the duration of the transaction, so that [ALTER TABLEs](../../../../reference/sql-statements/data-definition/alter/alter-table/) are queued.
 

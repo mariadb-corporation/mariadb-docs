@@ -101,6 +101,12 @@ jobs:
           # forge.mysql.com and lists.mysql.com were retired by Oracle
           # (forge now serves a cert for another host); blogs.msdn.com folded
           # into learn.microsoft.com. None have a modern equivalent to point at.
+          #
+          # DOCS-5976: two more hosts that block automated clients outright,
+          # same class as www.reddit.com above. Verified by requesting the site
+          # ROOT (not just the cited page) with a browser User-Agent: both
+          # stackoverflow.com/ and gitlab.kitware.com/ answer 403, so this is a
+          # host-level block, not a dead page. Both links are valid for readers.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -152,6 +158,8 @@ jobs:
             --exclude www\.poliarch\.org
             --exclude www\.reddit\.com
             --exclude csm\.mariadb\.com
+            --exclude stackoverflow\.com
+            --exclude gitlab\.kitware\.com
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
