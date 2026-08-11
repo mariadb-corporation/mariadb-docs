@@ -43,7 +43,7 @@ Generated columns are also sometimes called computed columns or virtual columns.
 * Generated columns can only be used with storage engines which support them. If you try to use a storage engine that does not support them, then you will see an error similar to the following:
 
 ```sql
-ERROR 1910 (HY000): TokuDB storage engine does not support computed columns
+ERROR 1910 (HY000): <storage engine> storage engine does not support generated columns
 ```
 
 * [InnoDB](../../../../server-usage/storage-engines/innodb/), [Aria](../../../../server-usage/storage-engines/aria/), [MyISAM](../../../../server-usage/storage-engines/myisam-storage-engine/) and [CONNECT](../../../../server-usage/storage-engines/connect/using-connect/using-connect-virtual-and-special-columns.md) support generated columns.

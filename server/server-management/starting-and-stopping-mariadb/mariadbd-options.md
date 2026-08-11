@@ -877,10 +877,6 @@ The options and system variables related to the [Spider](../../server-usage/stor
 
 The options and system variables related to the [Mroonga](../../server-usage/storage-engines/mroonga/) storage engine can be found [here](../../server-usage/storage-engines/mroonga/mroonga-system-variables.md).
 
-### TokuDB Storage Engine Options
-
-The options and system variables related to the TokuDB storage engine can be found [here](../../server-usage/storage-engines/README.md).
-
 ### Vector Options
 
 The options and system variables related to [Vectors](../../reference/sql-structure/vectors/) storage engine (beginning with `mhnsw`) can be found [here](../../reference/sql-structure/vectors/vector-system-variables.md).
