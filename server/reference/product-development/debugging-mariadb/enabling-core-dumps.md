@@ -56,7 +56,7 @@ The resource limits for the `mariadbd` process are printed to the [error log](..
 
 #### Running mariadbd Using mysqld\_safe
 
-If you are starting MariaDB by running [mysqld\_safe](../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md), then configuring the following in the `[mysqld_safe]` option group in an option file should allow for unlimited sized core files:
+If you are starting MariaDB by running [mysqld\_safe](../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md), then configuring the following in the `[mysqld_safe]` option group in an option file should allow for unlimited sized core files:
 
 ```
 [mysqld_safe]
@@ -70,9 +70,9 @@ You can check your current values by executing:
 my_print_defaults mysqld_safe
 ```
 
-See [mysqld\_safe: Configuring the Core File Size](../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) for more details.
+See [mysqld\_safe: Configuring the Core File Size](../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md) for more details.
 
-**Note:** If you are using [mysqld\_safe](../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) and running `mariadbd` as the `root` user, then no
+**Note:** If you are using [mysqld\_safe](../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md) and running `mariadbd` as the `root` user, then no
 core file is created on some systems. The solution is to run `mariadbd` as another user.
 
 #### Running mariadbd Manually

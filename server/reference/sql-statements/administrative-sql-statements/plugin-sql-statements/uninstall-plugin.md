@@ -48,7 +48,7 @@ SHOW WARNINGS;
 ## See Also
 
 * [Plugin Overview](../../../plugins/plugin-overview.md)
-* [mysql\_plugin](../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_plugin.md)
+* [mysql\_plugin](../../../../clients-and-utilities/administrative-tools/mariadb-plugin.md)
 * [INSTALL PLUGIN](install-plugin.md)
 * [List of Plugins](../../../plugins/information-on-plugins/list-of-plugins.md)
 

@@ -207,7 +207,7 @@ The `xtrabackup-v2` SST method uses the [Percona XtraBackup](./) utility for per
 ## See Also
 
 * [mariadb-backup](../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md)
-* [mysqldump](../mysqldump.md)
+* [mysqldump](../../backup-restore-and-import-clients/mariadb-dump.md)
 * [Percona XtraBackup documentation](https://www.percona.com/doc/percona-xtrabackup/)
 * [Percona JIRA](https://jira.percona.com/secure/Dashboard.jspa)
 

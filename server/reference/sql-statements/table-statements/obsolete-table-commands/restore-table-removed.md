@@ -14,7 +14,7 @@ RESTORE TABLE tbl_name [, tbl_name] ... FROM '/path/to/backup/directory'
 
 #### Note:
 
-Like [BACKUP TABLE](backup-table-removed.md), this command was not reliable and has been removed from MariaDB. For doing a backup of MariaDB use [mysqldump](../../../../clients-and-utilities/legacy-clients-and-utilities/mysqldump.md), [mysqlhotcopy](../../../../clients-and-utilities/legacy-clients-and-utilities/mysqlhotcopy.md) or [XtraBackup](../../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md). See [Backing Up and Restoring](../../../../server-usage/backup-and-restore/).
+Like [BACKUP TABLE](backup-table-removed.md), this command was not reliable and has been removed from MariaDB. For doing a backup of MariaDB use [mysqldump](../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md), [mysqlhotcopy](../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-hotcopy.md) or [XtraBackup](../../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md). See [Backing Up and Restoring](../../../../server-usage/backup-and-restore/).
 
 `RESTORE TABLE` restores the table or tables from a backup that was made with [BACKUP TABLE](backup-table-removed.md). The
 directory should be specified as a full path name.
