@@ -980,7 +980,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `slave_run_triggers_for_rbr`
 
-* Description: See [Running triggers on the replica for Row-based events](running-triggers-on-the-replica-for-row-based-events.md) for a description and use-case for this setting.
+* Description: See [Running triggers on the replica for Row-based events](running-triggers-on-the-replica-for-row-based-events.md) for a description and use-case for this setting. In MariaDB Enterprise Server 12.3, this variable also enables [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) on the replica.
 * Command line: `--slave-run-triggers-for-rbr=value`
 * Scope: Global
 * Dynamic: Yes
