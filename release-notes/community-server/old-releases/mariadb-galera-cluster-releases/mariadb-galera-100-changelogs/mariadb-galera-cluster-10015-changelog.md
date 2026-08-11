@@ -9,7 +9,7 @@ The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corpora
 For the highlights of this release, see the [release notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10015-release-notes.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3905](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3905)\
@@ -17,8 +17,8 @@ modified in that revision.
   * empty revision
 * [Revision #3904](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3904)\
   Tue 2014-12-09 10:35:16 -0500
-  * [MDEV-7204](https://jira.mariadb.org/browse/MDEV-7204): mariadb-galera-server el7 rpms packaging issue, no mariadb-server\
-    in provides [MDEV-7233](https://jira.mariadb.org/browse/MDEV-7233): Fix issue with missing dependency socat when\
+  * [MDEV-7204](https://jira.mariadb.org/browse/MDEV-7204): mariadb-galera-server el7 rpms packaging issue, no mariadb-server
+    in provides [MDEV-7233](https://jira.mariadb.org/browse/MDEV-7233): Fix issue with missing dependency socat when
     installing MariaDB-galera-server on RedhatEL/OracleEL/(Others?) RPM based
 * [Revision #3903](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3903)\
   Mon 2014-12-08 23:44:53 -0500
@@ -35,6 +35,6 @@ modified in that revision.
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

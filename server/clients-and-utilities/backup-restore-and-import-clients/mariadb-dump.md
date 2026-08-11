@@ -61,6 +61,63 @@ To see a list of the options your version of `mariadb-dump` supports, execute `m
 
 `mariadb-dump` includes logic to cater for the [mysql.transaction\_registry table](../../reference/system-tables/the-mysql-database-tables/mysql-transaction_registry-table.md).
 
+## Generated Columns
+
+From MariaDB 13.1, `mariadb-dump` no longer writes the computed values of [generated columns](../../reference/sql-statements/data-definition/create/generated-columns.md) into the `INSERT` statements it produces. The values are redundant, because the server recalculates them when the dump is reloaded.
+
+Given this table:
+
+```sql
+CREATE TABLE t1 (pk INTEGER, a INTEGER, b INTEGER, c VARCHAR(16),
+                 sum INTEGER GENERATED ALWAYS AS (a+b) VIRTUAL,
+                 sub VARCHAR(4) GENERATED ALWAYS AS (SUBSTRING(c, 1, 4)) VIRTUAL);
+```
+
+by default a generated column keeps its position in the row, and its value is written as `DEFAULT`:
+
+```sql
+INSERT INTO `t1` VALUES
+(1,11,12,'oneone',DEFAULT,DEFAULT),
+(2,21,22,'twotwo',DEFAULT,DEFAULT);
+```
+
+With `--complete-insert`, generated columns are left out of both the column list and the values:
+
+```sql
+INSERT INTO `t1` (`pk`, `a`, `b`, `c`) VALUES (1,11,12,'oneone'),
+(2,21,22,'twotwo');
+```
+
+An [INVISIBLE](../../reference/sql-statements/data-definition/create/invisible-columns.md) column enables `--complete-insert` for that table, so the dump gets a column list even when the option is not given. Generated columns are then only left out from the first `INVISIBLE` column onward: a generated column declared _before_ it stays in the column list, with its value written as `DEFAULT`. Given this table:
+
+```sql
+CREATE TABLE t4 (pk INTEGER, a INTEGER,
+                 b INTEGER GENERATED ALWAYS AS (a+1),
+                 c INTEGER INVISIBLE,
+                 d INTEGER GENERATED ALWAYS AS (a+pk));
+```
+
+`b` precedes the `INVISIBLE` column and is kept, while `d` follows it and is omitted:
+
+```sql
+INSERT INTO `t4` (`pk`, `a`, `b`, `c`) VALUES (1,2,DEFAULT,10),
+(4,5,DEFAULT,20);
+```
+
+Passing `--complete-insert` explicitly leaves out every generated column, whatever its position.
+
+If every column in a table is generated, `--complete-insert` writes an empty column list, which preserves the row count:
+
+```sql
+INSERT INTO `t5` () VALUES (),
+(),
+();
+```
+
+{% hint style="info" %}
+This applies to the SQL output only. The `--xml` output is unchanged, and still contains generated columns with their computed values. `--tab` and `--dir` are also unaffected, because the server writes those data files with `SELECT ... INTO OUTFILE`. [System-versioned](../../reference/sql-structure/temporal-tables/system-versioned-tables.md) `row_start` and `row_end` columns are not treated as generated columns.
+{% endhint %}
+
 ## Old Versions of MySQL
 
 If you are using a recent version of `mariadb-dump` to generate a dump to be reloaded into a very old MySQL server, you should _not_ use the `--opt` or `--extended-insert` option. Use `--skip-opt` instead.
@@ -155,7 +212,7 @@ Change the dump to be compatible with a given mode. By default, tables are dumpe
 
 #### -c, --complete-insert
 
-Use complete [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) statements that include column names.
+Use complete [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) statements that include column names. From MariaDB 13.1, [generated columns](#generated-columns) are omitted from the column list.
 
 #### -C, --compress
 
@@ -670,11 +727,11 @@ Dump a database as well-formed XML.
 
 Some `mariadb-dump` options are shorthand for groups of other options:
 
-* Use of `--opt` is the same as specifying`--add-drop-table`, `--add-locks`, `--create-options`, `--disable-keys`, `--extended-insert`, `--lock-tables`, `--quick`, and `--set-charset`. All of the\
+* Use of `--opt` is the same as specifying`--add-drop-table`, `--add-locks`, `--create-options`, `--disable-keys`, `--extended-insert`, `--lock-tables`, `--quick`, and `--set-charset`. All of the
   options that `--opt` stands for are also on by default because `--opt` is on by default.
 * Use of `--compact` is the same as specifying `--skip-add-drop-table`, `--skip-add-locks`, `--skip-comments`, `--skip-disable-keys`, and `--skip-set-charset` options.
 
-To reverse the effect of a group option, use its `--skip-xxx` form (`--skip-opt` or `--skip-compact`). It\
+To reverse the effect of a group option, use its `--skip-xxx` form (`--skip-opt` or `--skip-compact`). It
 is also possible to select only part of the effect of a group option by following it with options that enable or disable specific features. Here are some examples:
 
 * To select the effect of `--opt` except for some features, use the `--skip` option for each feature. To disable extended inserts and memory buffering, use `--opt--skip-extended-insert` `--skip-quick`.\
@@ -945,7 +1002,7 @@ Or:
 shell> mariadb-dump --all-databases --flush-logs --master-data=2 > all_databases.sql
 ```
 
-The `--master-data` and `--single-transaction` options can be used simultaneously, which provides a convenient way to make an online backup suitable for use prior to point-in-time recovery if tables are\
+The `--master-data` and `--single-transaction` options can be used simultaneously, which provides a convenient way to make an online backup suitable for use prior to point-in-time recovery if tables are
 stored that use the InnoDB storage engine.
 
 ## See Also

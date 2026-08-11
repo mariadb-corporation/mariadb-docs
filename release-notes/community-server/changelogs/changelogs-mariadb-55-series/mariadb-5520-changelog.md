@@ -9,7 +9,7 @@ The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-impr
 For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.20.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3279](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3279) \[merge]\
@@ -67,7 +67,7 @@ modified in that revision.
           Mon 2012-02-20 18:07:38 +0100
           * Fix compilation on Windows, and various Windows related mistakes introduced by\
             "safe exception patch".
-          * Remove misleading comments suggesting about signal() Windows, the routine here\
+          * Remove misleading comments suggesting about signal() Windows, the routine here
             is part of a exception handler, and sig parameter is an exception code.
     * [Revision #2502.527.2](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.527.2) \[merge]\
       Tue 2012-02-21 01:58:50 +0200
@@ -111,8 +111,8 @@ modified in that revision.
   * [Revision #2502.513.49](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.513.49)\
     Mon 2012-02-20 20:38:05 +0400
     * [Bug #933412](https://bugs.launchpad.net/bugs/933412): Server crashes in \_mi\_put\_key\_in\_record on KILL QUERY with ICP, STRAIGHT\_JOIN
-      * In mi\_rkey(), do correct handling of case where mi\_yield\_and\_check\_if\_killed()\
-        detects that the thread was killed (all other similar functions in MyISAM/Aria have\
+      * In mi\_rkey(), do correct handling of case where mi\_yield\_and\_check\_if\_killed()
+        detects that the thread was killed (all other similar functions in MyISAM/Aria have
         slightly different code and do not have this problem).
       * Also fixed assignment in DBUG\_ASSERT
       * this is 2nd variant of the fix:
@@ -125,7 +125,7 @@ modified in that revision.
     * [Revision #2502.526.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.526.1)\
       Mon 2012-02-20 15:30:54 +0400
       * [Bug #933407](https://bugs.launchpad.net/bugs/933407): Valgrind warnings in mark\_as\_null\_row with materialization+semijoin, STRAIGHT\_JOIN, impossible WHERE
-      * In return\_zero\_rows(), don't call mark\_as\_null\_row() for semi-join\
+      * In return\_zero\_rows(), don't call mark\_as\_null\_row() for semi-join
         materialized tables, because
         1. they may have been already freed, and
         2. there is no real need to call mark\_as\_null\_row() for them
@@ -139,60 +139,60 @@ modified in that revision.
   * [Revision #2502.513.46](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.513.46)\
     Sat 2012-02-18 16:06:38 -0800
     * Fixed [Bug #934342](https://bugs.launchpad.net/bugs/934342).
-    * An outer join query with a semi-join subquery could return a wrong result\
+    * An outer join query with a semi-join subquery could return a wrong result
       if the optimizer chose to materialize the subquery.
-    * It happened because when substituting for the best field into a ref item\
-      used to build access keys not all COND\_EQUAL objects that could be employed\
+    * It happened because when substituting for the best field into a ref item
+      used to build access keys not all COND\_EQUAL objects that could be employed
       at substitution were checked.
-    * Also refined some code in the function check\_join\_cache\_usage to make it\
+    * Also refined some code in the function check\_join\_cache\_usage to make it
       safer.
   * [Revision #2502.513.45](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.513.45)\
     Fri 2012-02-17 13:27:41 +0100
-    * Remove engine-specific (but identical) icp callbacks. create one reusable\
+    * Remove engine-specific (but identical) icp callbacks. create one reusable
       common icp callback in the handler.cc.
-    * It can also increment status counters, without making the engine\
+    * It can also increment status counters, without making the engine
       dependent on the exact THD layout (that is different in embedded).
   * [Revision #2502.513.44](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.513.44)\
     Thu 2012-02-16 20:13:28 -0800
     * Fixed LP bug #928352.
-    * This bug led to wrong values of the use\_count fields in some SEL\_ARG\
-      trees that triggered complains on the server side when executing the\
+    * This bug led to wrong values of the use\_count fields in some SEL\_ARG
+      trees that triggered complains on the server side when executing the
       test case for LP bug 800184 if a debug build of the server was used.
     * This was the result of the incomplete fix for bug 800184.
     * To complete it the following corrections had to be made:
-      * the copy constructor for SEL\_TREE must call the new function incr\_refs\_all()\
-        instead of the function incr\_refs(), because references to next key parts\
-        from any SEL\_ARG tree belonging to the list of the first key part has to be\
+      * the copy constructor for SEL\_TREE must call the new function incr\_refs\_all()
+        instead of the function incr\_refs(), because references to next key parts
+        from any SEL\_ARG tree belonging to the list of the first key part has to be
         adjusted.
-      * the method and\_sel\_tree of the class SEL\_IMERGE must use the copy constructor\
-        of the SEL\_TREE class to make a copy of its second argument before it ANDs it\
+      * the method and\_sel\_tree of the class SEL\_IMERGE must use the copy constructor
+        of the SEL\_TREE class to make a copy of its second argument before it ANDs it
         with any SEL\_TREE tree from the processed SEL\_IMERGE object.
   * [Revision #2502.513.43](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.513.43)\
     Thu 2012-02-16 20:15:57 +0400
     * Backport of:
       * timestamp: Thu 2011-12-01 15:12:10 +0100
       * Fix for Bug#13430436 PERFORMANCE DEGRADATION IN SYSBENCH ON INNODB DUE TO ICP
-      * When running sysbench on InnoDB there is a performance degradation due\
-        to index condition pushdown (ICP). Several of the queries in sysbench\
-        have a WHERE condition that the optimizer uses for executing these\
-        queries as range scans. The upper and lower limit of the range scan\
-        will ensure that the WHERE condition is fulfilled. Still, the WHERE\
-        condition is part of the queries' condition and if ICP is enabled the\
+      * When running sysbench on InnoDB there is a performance degradation due
+        to index condition pushdown (ICP). Several of the queries in sysbench
+        have a WHERE condition that the optimizer uses for executing these
+        queries as range scans. The upper and lower limit of the range scan
+        will ensure that the WHERE condition is fulfilled. Still, the WHERE
+        condition is part of the queries' condition and if ICP is enabled the
         condition will be pushed down to InnoDB as an index condition.
-      * Due to the range scan's upper and lower limits ensure that the WHERE\
-        condition is fulfilled, the pushed index condition will not filter out\
-        any records. As a result the use of ICP for these queries results in a\
-        performance overhead for sysbench. This overhead comes from using\
-        resources for determining the part of the condition that can be pushed\
-        down to InnoDB and overhead in InnoDB for executing the pushed index\
+      * Due to the range scan's upper and lower limits ensure that the WHERE
+        condition is fulfilled, the pushed index condition will not filter out
+        any records. As a result the use of ICP for these queries results in a
+        performance overhead for sysbench. This overhead comes from using
+        resources for determining the part of the condition that can be pushed
+        down to InnoDB and overhead in InnoDB for executing the pushed index
         condition.
-      * With the default configuration for sysbench the range scans will use\
-        the primary key. This is a clustered index in InnoDB. Using ICP on a\
-        clustered index provides the lowest performance benefit since the\
-        entire record is part of the clustered index and in InnoDB it has the\
+      * With the default configuration for sysbench the range scans will use
+        the primary key. This is a clustered index in InnoDB. Using ICP on a
+        clustered index provides the lowest performance benefit since the
+        entire record is part of the clustered index and in InnoDB it has the
         highest relative overhead for executing the pushed index condition.
-      * The fix for removing the overhead ICP introduces when running sysbench\
-        is to disable use of ICP when the index used by the query is a\
+      * The fix for removing the overhead ICP introduces when running sysbench
+        is to disable use of ICP when the index used by the query is a
         clustered index.
       * When [WL#6061](https://askmonty.org/worklog/?tid=6061) is implemented this change should be re-evaluated.
   * [Revision #2502.513.42](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.513.42)\
@@ -207,8 +207,8 @@ modified in that revision.
 * [Revision #3274](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3274)\
   Tue 2012-02-21 01:08:22 +0400
   * [Bug #919878](https://bugs.launchpad.net/bugs/919878): Assertion \`!eliminated\_tables...
-    * In MySQL 5.5, print\_join() was re-worked to print "FROM dual" when all\
-      tables are constant. This change didn't work together with table\
+    * In MySQL 5.5, print\_join() was re-worked to print "FROM dual" when all
+      tables are constant. This change didn't work together with table
       elimination.
 * [Revision #3273](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3273)\
   Mon 2012-02-20 22:25:44 +0100
@@ -240,10 +240,10 @@ modified in that revision.
   * Fix wrong error code in the test case.
   * The replication slave sets first error 1913 and immediately after error
 
-1595. Thus it is possible, but unlikely, to get 1913. The original test\
-      seems to realise this, but uses an invalid error code - my guess is\
-      that this was a temporary code used in a feature tree, which was then\
-      forgotten to be fixed when merged to main. The removed "1923" is\
+1595. Thus it is possible, but unlikely, to get 1913. The original test
+      seems to realise this, but uses an invalid error code - my guess is
+      that this was a temporary code used in a feature tree, which was then
+      forgotten to be fixed when merged to main. The removed "1923" is
       something committed by mistake during tests.
 
 * [Revision #3266](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3266)\
@@ -260,16 +260,16 @@ modified in that revision.
   Thu 2012-02-09 13:10:47 +0100
   * Fix a number of problems in the test suite (no code bugs):
     * `mysql-test-run.pl --valgrind` complains when all tests succeed.
-    * perfschema.all\_instances fail on non-linux, where ENABLE\_TEMP\_POOL\
+    * perfschema.all\_instances fail on non-linux, where ENABLE\_TEMP\_POOL
       is not set and therefore BITMAP mutex is not used.
-    * [MDEV-132](https://jira.mariadb.org/browse/MDEV-132): main.mysqldump fails because it depends on exact size of stdio\
+    * [MDEV-132](https://jira.mariadb.org/browse/MDEV-132): main.mysqldump fails because it depends on exact size of stdio
       buffers.
-    * [MDEV-99](https://jira.mariadb.org/browse/MDEV-99): rpl.rpl\_cant\_read\_event\_incident fails due to a race where the\
-      slave manages to connect while the test case is in the middle of setting up\
+    * [MDEV-99](https://jira.mariadb.org/browse/MDEV-99): rpl.rpl\_cant\_read\_event\_incident fails due to a race where the
+      slave manages to connect while the test case is in the middle of setting up
       the master, causing the slave to replicate extra/wrong events.
     * [MDEV-133](https://jira.mariadb.org/browse/MDEV-133): rpl.rpl\_rotate\_purge\_deadlock fails because it issues a\
-      DEBUG\_SYNC SIGNAL immediately followed by RESET; this means that sometimes\
-      the intended receipient has no time to see the signal before it is cleared\
+      DEBUG\_SYNC SIGNAL immediately followed by RESET; this means that sometimes
+      the intended receipient has no time to see the signal before it is cleared
       by the RESET, causing wait to timeout.
 * [Revision #3262](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3262)\
   Wed 2012-02-08 21:55:40 +0100
@@ -279,7 +279,7 @@ modified in that revision.
   * [MDEV-135](https://jira.mariadb.org/browse/MDEV-135): work-around a GCC bug seen on Debian 5 "lenny" 64-bit.
 * [Revision #3260](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3260)\
   Fri 2012-02-03 21:15:08 +0100
-  * Add SET\_TARGET\_PROPERTIES(ENABLE\_EXPORTS) for mysqltest so plugins.dialog\
+  * Add SET\_TARGET\_PROPERTIES(ENABLE\_EXPORTS) for mysqltest so plugins.dialog
     test passes.
 * [Revision #3259](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3259) \[merge]\
   Fri 2012-02-03 17:02:02 +0100
@@ -287,8 +287,8 @@ modified in that revision.
   * [Revision #3257.1.4](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3257.1.4)\
     Fri 2012-02-03 11:46:40 +0100
     * Various fixes for Solaris compiler.
-    * Also, restrict symbol visibility in statically\
-      built plugins, to minimize the chance for symbol\
+    * Also, restrict symbol visibility in statically
+      built plugins, to minimize the chance for symbol
       name clashes with dynamic plugins.
   * [Revision #3257.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3257.1.3)\
     Thu 2012-02-02 21:50:03 +0100
@@ -301,13 +301,13 @@ modified in that revision.
   * [Revision #3257.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3257.1.1)\
     Thu 2012-02-02 21:12:49 +0100
     * [MDEV-100](https://jira.mariadb.org/browse/MDEV-100) : innodb\_plugin tests fail on Solaris.
-    * The reason for the failure is that the loaded library has the same exported symbols\
-      as the builtin one. So the plugin uses innodb functions e.g srv\_boot from mysqld\
+    * The reason for the failure is that the loaded library has the same exported symbols
+      as the builtin one. So the plugin uses innodb functions e.g srv\_boot from mysqld
       rather than plugin's own. This causes the crash.
-    * On Unix systems with gcc4 later this error was so far worked around using GCC's\
+    * On Unix systems with gcc4 later this error was so far worked around using GCC's
       visibility attribute. However, in our case, we're using gcc3.
     * See related MySQL bug [bug.php?id=48524](https://bugs.mysql.com/bug.php?id=48524) and [bug.php?id=52263](https://bugs.mysql.com/bug.php?id=52263)
-    * The fix is to restrict symbol visibility in the plugin using version script\
+    * The fix is to restrict symbol visibility in the plugin using version script
       (called map file on Solaris).
 * [Revision #3258](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3258)\
   Fri 2012-02-03 10:31:39 +0100
@@ -328,12 +328,12 @@ modified in that revision.
   * remove building pbxt by default in any configuration (need explicit `./configure --with-pbxt-storage-engine` )
 * [Revision #3253](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3253)\
   Sun 2012-01-29 11:33:00 +0100
-  * Do not run PBXT tests by default. They have problems (valgrind failures,\
+  * Do not run PBXT tests by default. They have problems (valgrind failures,
     huge space usage), and there is no upstream support anymore.
 * [Revision #3252](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3252)\
   Sat 2012-01-28 21:22:14 +0100
-  * Add INFO\_SRC and INFO\_BIN to .deb packaging to fix a test failure in\
-    file\_contents.test. Also fix some old references to 5.3 in .deb packaging\
+  * Add INFO\_SRC and INFO\_BIN to .deb packaging to fix a test failure in
+    file\_contents.test. Also fix some old references to 5.3 in .deb packaging
     found while debugging this.
 * [Revision #3251](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3251)\
   Sat 2012-01-28 17:08:42 +0100
@@ -347,7 +347,7 @@ modified in that revision.
 * [Revision #3249](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3249)\
   Sat 2012-01-28 13:52:26 +0400
   * mdev57 5.5 main.file\_contents fails on debian5-i386-fulltest.
-  * The line in the file\_contents.test removes all the '/lib' substrings from the\
+  * The line in the file\_contents.test removes all the '/lib' substrings from the
     path, so file cannot be found if a path contains such a substring.\
     As i didn't find where it is needed, the line was just removed
   * per-file comments:
@@ -358,16 +358,16 @@ modified in that revision.
   Fri 2012-01-27 15:13:38 +0100
   * Fix main.openssl\_1 failures for -DWITH\_SSL=system build.
   * In 5.5, ssl\_do() no longer calls report\_errors() in case of ssl error.\
-    Since report\_errors() iterated over the list of errors, this means that we\
+    Since report\_errors() iterated over the list of errors, this means that we
     now report the first error in the list, rather than the last. Adjust the`--replace_regex` line for OpenSSL build accordingly in the test case.
 * [Revision #3247](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3247)\
   Fri 2012-01-27 12:14:41 +0100
   * Revert some earlier changes to my.cnf and mariadb.cnf.\
-    I want to avoid that upgrades silently change important config parameters\
-    that users have come to rely on. This could happen if users changed their\
-    my.cnf themselves, and then an upgrade introduces mariadb.cnf which silently\
-    overrides the settings in my.cnf. Avoid this by having mariadb.cnf mostly\
-    empty for now, and in the future we can add just new mariadb-specific\
+    I want to avoid that upgrades silently change important config parameters
+    that users have come to rely on. This could happen if users changed their
+    my.cnf themselves, and then an upgrade introduces mariadb.cnf which silently
+    overrides the settings in my.cnf. Avoid this by having mariadb.cnf mostly
+    empty for now, and in the future we can add just new mariadb-specific
     options there that do not break existing installations.
 * [Revision #3246](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3246)\
   Fri 2012-01-27 10:58:59 +0200
@@ -393,15 +393,15 @@ modified in that revision.
     It needs recompilation for embedded server, as layout of THD is different in embedded.
 * [Revision #3240](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3240)\
   Thu 2012-01-26 12:55:12 +0100
-  * .deb packaging fixes: make mariadb-common a real package, which depends on\
+  * .deb packaging fixes: make mariadb-common a real package, which depends on
     mysql-common and places mariadb-specific stuff in /etc/mysql/conf.d/mariadb.cnf.\
-    This should allow to co-exist with default Debian mysql-common package and\
-    help resolve dependencies when installing mariadb among multiple available\
+    This should allow to co-exist with default Debian mysql-common package and
+    help resolve dependencies when installing mariadb among multiple available
     versions of MySQL from different repositories.
 * [Revision #3239](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3239)\
   Thu 2012-01-26 13:38:42 +0100
   * Remove `--plugin-dir` option from mysql\_client\_test test case.\
-    This gives the wrong path when testing installed server, and we\
+    This gives the wrong path when testing installed server, and we
     set the correct path in my.cnf anyway.
 * [Revision #3238](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3238)\
   Wed 2012-01-25 21:23:14 +0100
@@ -441,10 +441,10 @@ modified in that revision.
 * [Revision #3228](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3228)\
   Fri 2012-01-20 22:32:31 +0100
   * Always compile my\_new.cc and safemalloc.c with mysys
-    * Preprocessor macros USE\_MYSYS\_NEW and -DSAFEMALLOC are\
+    * Preprocessor macros USE\_MYSYS\_NEW and -DSAFEMALLOC are
       used to conditionally compile safemalloc or overwritten new/delete.
     * Define dummy symbol in my\_new.cc in case -DUSE\_MYSYS\_NEW is not set.\
-      This avoids compiler/linker warnings about an essentially empty file\
+      This avoids compiler/linker warnings about an essentially empty file
       being compiled.
 * [Revision #3227](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3227)\
   Fri 2012-01-20 16:54:35 +0100
@@ -454,19 +454,19 @@ modified in that revision.
   * Remove debug output
 * [Revision #3225](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3225)\
   Fri 2012-01-20 01:57:58 +0100
-  * Fix rpl\_checksum test. Use basename of file in error messages, not the\
+  * Fix rpl\_checksum test. Use basename of file in error messages, not the
     ones prefixed with .\ or ./
     * Add my\_basename() to mysys.
-    * Do not compile files that are not needed on Windows (my\_addr\_resolve, and\
+    * Do not compile files that are not needed on Windows (my\_addr\_resolve, and
       safemalloc related stuff it is not used)
     * Avoids linker warnings about compilation of essentially empty files.
 * [Revision #3224](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3224)\
   Fri 2012-01-20 01:57:34 +0100
   * [MDEV-103](https://jira.mariadb.org/browse/MDEV-103): 'debug' is disabled in this build warnings causes tests to fail
-  * The root cause is that after recent fixes around `--debug` variable ([Bug #909051](https://bugs.launchpad.net/bugs/909051))\
-    the variable is now available in both release and debug builds, such that MTR\
+  * The root cause is that after recent fixes around `--debug` variable ([Bug #909051](https://bugs.launchpad.net/bugs/909051))
+    the variable is now available in both release and debug builds, such that MTR
     cannot tell a debug compiled server from optimized one.
-  * To fix, assign a special default value 'disabled' for 'debug' variable in optimized build\
+  * To fix, assign a special default value 'disabled' for 'debug' variable in optimized build
     and fix MTR to check for this special value to recognize optimized build.
 * [Revision #3223](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3223)\
   Thu 2012-01-19 18:41:56 +0100
@@ -547,7 +547,7 @@ modified in that revision.
   * 5.3 merge
   * [Revision #2502.1.881](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.1.881)\
     Fri 2012-01-13 13:54:55 +0100
-    * multi-delete should ignore semi-join internal temp tables,\
+    * multi-delete should ignore semi-join internal temp tables,
       when looking for tables to delete from
   * [Revision #2502.1.880](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.1.880) \[merge]\
     Thu 2012-01-12 20:23:02 +0100
@@ -570,9 +570,9 @@ modified in that revision.
   * Fix some failing tests on Windows
     * ensure that mtr supressions table is flushed before doing controlled crash and restart
     * use DBUG\_SUICIDE() rather than abort() in partition tests - avoids a crash message/warning
-    * disable perfschema all\_instances test on Windows- there are legitimate\
-      reasons for output to be different on Unix (some different threads, some\
-      different locks), the differences are expected to grow in the future, e.g\
+    * disable perfschema all\_instances test on Windows- there are legitimate
+      reasons for output to be different on Unix (some different threads, some
+      different locks), the differences are expected to grow in the future, e.g
       with threadpool.
 * [Revision #3203](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3203)\
   Thu 2012-01-05 00:02:57 +0100
@@ -621,25 +621,25 @@ modified in that revision.
   Tue 2011-12-27 01:14:54 +0100
   * Fix [Bug #886378](https://bugs.launchpad.net/bugs/886378) : allow chain certificate files to work.
   * Contributed by Maarten Vanraes (AL13N)
-  * Fix things so that chains of certificates work in the server and client\
+  * Fix things so that chains of certificates work in the server and client
     certificate files.
-  * This only really works for OpenSSL-based builds, as yassl is unable to read\
-    multiple certificates from a file. The patch below to yassl/src/ssl.cpp\
-    doesn't fix that, but just arranges that the viosslfactories.c patch won't\
+  * This only really works for OpenSSL-based builds, as yassl is unable to read
+    multiple certificates from a file. The patch below to yassl/src/ssl.cpp
+    doesn't fix that, but just arranges that the viosslfactories.c patch won't
     have any ill effects in a yassl build.
 * [Revision #3189](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3189)\
   Tue 2011-12-27 00:39:34 +0100
   * [Bug #886526](https://bugs.launchpad.net/bugs/886526): Add propoer shebang to scripts
 * [Revision #3188](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3188)\
   Mon 2011-12-26 15:24:54 +0100
-  * use ADD\_CONVENIENCE\_LIBRARY when building libservices, because\
-    it is a static library that links with shared libraries, so strictly speaking it should\
-    have -fPIC or equivalent flags. Also, it must always build as static no matter\
+  * use ADD\_CONVENIENCE\_LIBRARY when building libservices, because
+    it is a static library that links with shared libraries, so strictly speaking it should
+    have -fPIC or equivalent flags. Also, it must always build as static no matter
     whether BUILD\_SHARED\_LIBS is set.
 * [Revision #3187](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3187)\
   Wed 2011-12-21 23:40:26 +0100
-  * keycache sysvars used to pass incorrect offset into the parent constructor,\
-    that caused the default value to be written into an arbitrary location inside\
+  * keycache sysvars used to pass incorrect offset into the parent constructor,
+    that caused the default value to be written into an arbitrary location inside
     global\_system\_variables
 * [Revision #3186](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3186)\
   Wed 2011-12-21 02:44:50 +0100
@@ -655,7 +655,7 @@ modified in that revision.
   * `./configure` prefers RelWithDebInfo unless the user overrides
 * [Revision #3183](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3183)\
   Thu 2011-12-15 22:07:58 +0100
-  * rename debug variable to debug\_dbug, to make test pass in release builds\
+  * rename debug variable to debug\_dbug, to make test pass in release builds
     (and to follow the naming conventons).\
     keep old debug variable, but mark it as deprecated.
 * [Revision #3182](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3182)\
@@ -689,11 +689,11 @@ modified in that revision.
   * fix new String:realloc\* variants always to zero-terminate the string
 * [Revision #3176](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3176)\
   Wed 2011-12-14 10:59:11 +0100
-  * new valgrind suppression for ld.so\
+  * new valgrind suppression for ld.so
     give mysqld more time to start under valgrind
 * [Revision #3175](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3175)\
   Wed 2011-12-14 10:53:32 +0100
-  * new configure option: NOT\_FOR\_DISTRIBUTION\
+  * new configure option: NOT\_FOR\_DISTRIBUTION
     fix safemalloc to compile w/o libbfd.
 * [Revision #3174](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3174)\
   Tue 2011-12-13 11:07:55 +0100
@@ -701,13 +701,13 @@ modified in that revision.
 * [Revision #3173](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3173)\
   Mon 2011-12-12 23:58:40 +0100
   * after merge changes:
-    * rename all debugging related command-line options\
+    * rename all debugging related command-line options
       and variables to start from "debug-", and made them all\
       OFF by default.
     * replace "MySQL" with "MariaDB" in error messages
-    * "Cast ... converted ... integer to it's ... complement"\
+    * "Cast ... converted ... integer to it's ... complement"
       is now a note, not a warning
-    * @@query\_cache\_strip\_comments now has a session scope,\
+    * @@query\_cache\_strip\_comments now has a session scope,
       not global.
 * [Revision #3172](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3172)\
   Mon 2011-12-12 22:58:24 +0100
@@ -734,7 +734,7 @@ modified in that revision.
   Fri 2011-12-02 15:35:05 +0100
   * Fixed crashes found by application verifier:
     * leaking mutex in lf\_hash\_destroy
-    * pthread\_getspecific() before pthread\_key\_create() in my\_thread\_var\_dbug()\
+    * pthread\_getspecific() before pthread\_key\_create() in my\_thread\_var\_dbug()
       (called by static C++ object constructors called in sys\_vars)
     * perfschema destroys mutexes that were not created.
 * [Revision #3165](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3165)\
@@ -743,13 +743,13 @@ modified in that revision.
 * [Revision #3164](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3164)\
   Fri 2011-12-02 14:35:26 +0100
   * Make it possible to compile without SAFEMALLOC in debug builds\
-    Default to no SAFEMALLOC on Windows, because C runtime malloc\
+    Default to no SAFEMALLOC on Windows, because C runtime malloc
     has this functionslity already
 * [Revision #3163](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3163)\
   Wed 2011-11-30 00:26:32 +0100
   * Fix Aria unit tests on Windows.
   * Replace statements connected with bitwise OR with series of "if"s.
-  * The later is guaranteed to execute in order, bitwise OR does not have\
+  * The later is guaranteed to execute in order, bitwise OR does not have
     specific order for statement execution.
 * [Revision #3162](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3162)\
   Wed 2011-11-30 00:23:50 +0100
@@ -781,14 +781,14 @@ modified in that revision.
     * Fix build and packaging on Windows:
       * build executables we have in 5.3 (mysql\_install\_db.exe, mysq\_upgrade\_service.exe, upgrade wizard), and MSI
       * add some missing headers to windows specific source files.\
-        This needs to be done since 5.5 is using WIN32\_LEAN\_AND\_MEAN preprocessor constant thus windows.h\
+        This needs to be done since 5.5 is using WIN32\_LEAN\_AND\_MEAN preprocessor constant thus windows.h
         no more includes whiole Windows
-      * do not deliver perl scripts (mysql\_install\_db.pl & friends) -they do not work, are not documented, and we\
-        have native executables for this functionality. do not pack echo.exe, replace.exe into MSI, they\
+      * do not deliver perl scripts (mysql\_install\_db.pl & friends) -they do not work, are not documented, and we
+        have native executables for this functionality. do not pack echo.exe, replace.exe into MSI, they
         are not needed. Do not build resolveip on Windows, it is not used.
-      * precache results of system checks in cmake/os/WindowsCache.cmake (like it is alreay done for majority of tests\
+      * precache results of system checks in cmake/os/WindowsCache.cmake (like it is alreay done for majority of tests
         to speed up cmake run with VS)
-      * make feedback plugin DEFAULT on Windows (so MSI works if user enables plugin),\
+      * make feedback plugin DEFAULT on Windows (so MSI works if user enables plugin),
         fix null pointer access in PSI\_register
 * [Revision #3156](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3156) \[merge]\
   Sun 2011-11-27 17:50:50 +0100
@@ -796,12 +796,12 @@ modified in that revision.
   * [Revision #3152.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3152.1.3)\
     Fri 2011-11-25 20:50:14 +0100
     * Avoid mysqld dependency on libaio.so by linking xtradb statically to libaio.
-      * A variable XTRADB\_PREFER\_STATIC\_LIBAIO should be set to 1 (or TRUE\
+      * A variable XTRADB\_PREFER\_STATIC\_LIBAIO should be set to 1 (or TRUE
         or ON) for static linking.
-      * Even if mysqld can avoid dependency on shared libaio, shared libraries\
+      * Even if mysqld can avoid dependency on shared libaio, shared libraries
         libmysqld.so or ha\_innodb.so cannot link without it.
-      * Given that the patch primarily addresses building tar.gz package, and\
-        shared libraries mentioned above deemed less important than mysqld\
+      * Given that the patch primarily addresses building tar.gz package, and
+        shared libraries mentioned above deemed less important than mysqld
         executable, we accept shared lib dependency on libaio.so
   * [Revision #3152.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3152.1.2)\
     Wed 2011-11-23 19:29:39 +0100
@@ -842,10 +842,10 @@ modified in that revision.
 * [Revision #3151](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3151)\
   Tue 2011-11-08 02:14:57 +0100
   * For libmysqld.so, apply patch to the MySQL Bug#39288 found here [102373](https://lists.mysql.com/commits/102373)
-  * It is better than previous attempts to build the libmysqld,\
+  * It is better than previous attempts to build the libmysqld,
     as it also takes care of
     1. `-Wl`,`--no-undefined` for shared libraries and
-    2. `CLEAN_DIRECT_OUTPUT` since there are now 2 libraries with\
+    2. `CLEAN_DIRECT_OUTPUT` since there are now 2 libraries with
        the same base output name
 * [Revision #3150](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3150)\
   Mon 2011-11-07 22:20:44 +0100
@@ -874,7 +874,7 @@ modified in that revision.
   * We must perform system tests with \_GNU\_SOURCE too!
 * [Revision #3142](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3142)\
   Sat 2011-10-29 20:40:03 +0200
-  * fix the build and compiler warnings (few of which were real bugs)\
+  * fix the build and compiler warnings (few of which were real bugs)
     for "cmake ." builds
 * [Revision #3141](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3141)\
   Fri 2011-10-28 20:30:42 +0200
@@ -910,7 +910,7 @@ modified in that revision.
   * embedded tests
 * [Revision #3133](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3133)\
   Sat 2011-10-22 01:07:39 +0200
-  * Sergey Petrunya fixes for subselect\* tests,\
+  * Sergey Petrunya fixes for subselect\* tests,
     and other misc test fixes
 * [Revision #3132](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3132)\
   Fri 2011-10-21 23:07:13 +0200
@@ -924,7 +924,7 @@ modified in that revision.
 * [Revision #3129](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3129)\
   Wed 2011-10-19 22:55:43 +0200
   * bugfix: progress reporting and sub-statements
-  * (a stored function or TRIGGER, that runs LOAD DATA, which, itself,\
+  * (a stored function or TRIGGER, that runs LOAD DATA, which, itself,
     invokes another trigger, that also does LOAD DATA, etc).
 * [Revision #3128](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3128)\
   Wed 2011-10-19 22:52:43 +0200
@@ -955,7 +955,7 @@ modified in that revision.
   * merge with 5.3
 * [Revision #3119](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3119) \[merge]\
   Mon 2011-07-18 23:04:24 +0200
-  * merge with xtradb-5.5.15\
+  * merge with xtradb-5.5.15
     fix test cases
   * [Revision #0.12.49](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/0.12.49)\
     Sun 2011-07-17 11:28:48 +0200
@@ -995,13 +995,13 @@ modified in that revision.
   * use PSI wrappers in aria and other non-MySQL code
 * [Revision #3109](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3109)\
   Tue 2011-07-12 17:41:13 +0200
-  * fix misplaced and non-working if() in the grammar\
+  * fix misplaced and non-working if() in the grammar
     few small post-merge fixes
 * [Revision #3108](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3108)\
   Tue 2011-07-12 14:34:47 +0200
-  * move authentication\_windows\_client and mysql\_clear\_password clear client auth plugins\
+  * move authentication\_windows\_client and mysql\_clear\_password clear client auth plugins
     out of libmysql into separate dynamic plugins in the plugin/ directory.
-  * move dialog and auth\_socket plugins out of the plugin directory with examples into\
+  * move dialog and auth\_socket plugins out of the plugin directory with examples into
     dedicated directories in plugin/
 * [Revision #3107](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3107)\
   Tue 2011-07-12 13:12:07 +0200\
@@ -1026,11 +1026,11 @@ modified in that revision.
   * small dbug cleanup
 * [Revision #3101](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3101)\
   Sun 2011-07-10 19:49:28 +0200
-  * remove remnants of safemalloc and\
+  * remove remnants of safemalloc and
     very old halloca() support
 * [Revision #3100](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3100)\
   Sun 2011-07-10 19:47:24 +0200
-  * only allocate extra-port (in tests) when needed\
+  * only allocate extra-port (in tests) when needed
     (otherwise 10 ports per worker will be not enough)
 * [Revision #3099](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3099)\
   Sun 2011-07-10 17:53:06 +0200
@@ -1044,7 +1044,7 @@ modified in that revision.
 * [Revision #3096](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3096)\
   Sun 2011-07-03 20:00:14 +0200
   * Bug#25679
-  * Ensure that we do not hold the LOCK\_open mutex while attempting\
+  * Ensure that we do not hold the LOCK\_open mutex while attempting
     to establish FederatedX connection to guard against a trivial\
     Denial of Service scenario.
 * [Revision #3095](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3095)\
@@ -1060,7 +1060,7 @@ modified in that revision.
   * lots of post-merge changes
 * [Revision #3092](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3092)\
   Fri 2010-11-26 12:22:40 +0100
-  * updated sys\_vars.cc (converting 5.3 mysqld.cc and set\_var.cc\
+  * updated sys\_vars.cc (converting 5.3 mysqld.cc and set\_var.cc
     changes appropriately)
 * [Revision #3091](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3091) \[merge]\
   Thu 2010-11-25 18:17:28 +0100
@@ -1077,6 +1077,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

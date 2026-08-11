@@ -18,7 +18,7 @@ END [end_label]
 
 ## Description
 
-`BEGIN ... END` syntax is used for writing compound statements. A compound statement can contain multiple statements, enclosed by the `BEGIN` and `END` keywords. statement\_list represents a list of one or more statements, each terminated by a semicolon (i.e., `;`) statement delimiter. statement\_list is\
+`BEGIN ... END` syntax is used for writing compound statements. A compound statement can contain multiple statements, enclosed by the `BEGIN` and `END` keywords. statement\_list represents a list of one or more statements, each terminated by a semicolon (i.e., `;`) statement delimiter. statement\_list is
 optional, which means that the empty compound statement (`BEGIN END`) is legal.
 
 Note that `END` will perform a commit. If you are running in [autocommit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#autocommit) mode, every statement will be committed separately. If you are not running in `autocommit` mode, you must execute a [COMMIT](../transactions/commit.md) or [ROLLBACK](../transactions/rollback.md) after `END` to get the database up to date.

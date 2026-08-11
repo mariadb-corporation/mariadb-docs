@@ -18,7 +18,7 @@ MariaDB automatically negotiates ML-KEM for TLS 1.3 key exchange when linked aga
 
 | Component      | Version Requirement |
 | -------------- | ------------------- |
-| MariaDB Server | -                   |
+| MariaDB Server | 10.8.1 ([source](https://jira.mariadb.org/browse/MDEV-25785)), backported to 10.5.17 ([source](https://jira.mariadb.org/browse/MDEV-29000)) as well as to 10.6.9 and 10.7.5 ([source](https://jira.mariadb.org/browse/MDEV-28133)). (regarding the sources: MariaDB support for OpenSSL 3.0 guarantees support for 3.5.0 and later too due to [API and ABI compatibility](https://www.openssl-library.org/policies/?utm_source=chatgpt.com))            |
 | OpenSSL        | 3.5.0 or later      |
 
 ## How It Works
@@ -70,3 +70,5 @@ Post quantum cryptography secures data while it is transmitted across a network.
 * [Securing Connections for Client and Server](securing-connections-for-client-and-server.md)
 * [NIST FIPS 203 (ML-KEM)](https://csrc.nist.gov/pubs/fips/203/final)&#x20;
 * [NIST FIPS 204 (ML-DSA)](https://csrc.nist.gov/pubs/fips/204/final)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

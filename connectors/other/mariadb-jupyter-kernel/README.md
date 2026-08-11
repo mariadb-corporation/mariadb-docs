@@ -109,3 +109,5 @@ MariaDB Jupyter Kernel architecture and component reference, describing how Mari
 General usage information for the MariaDB Jupyter Kernel, including available features and magic commands.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

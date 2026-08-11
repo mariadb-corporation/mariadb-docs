@@ -36,7 +36,7 @@ The main features of CONNECT are:
 15. Can execute complex queries on remote servers.
 16. Provides an API that allows writing additional FDW in C++.
 
-With CONNECT, MariaDB has one of the most advanced implementations of MED and NoSQL,\
+With CONNECT, MariaDB has one of the most advanced implementations of MED and NoSQL,
 without the need for complex additions to the SQL syntax (foreign tables are "normal" tables using the CONNECT engine).
 
 Giving MariaDB easy and natural access to external data enables the use of all of its powerful functions and SQL-handling abilities for developing business intelligence applications.
@@ -45,6 +45,6 @@ With version 1.07 of CONNECT, retrieving data from REST queries is available in 
 
 1. [↑](introduction-to-the-connect-engine.md#_ref-0) Robin Schumacher is Vice President Products at DataStax and former Director of Product Management at MySQL. He has over 13 years of database experience in DB2, MySQL, Oracle, SQL Server and other database engines.
 
-{% include "../../../.gitbook/includes/license-gplv2.md" %}
+<sub>_This page is licensed: GPLv2_</sub>
 
 {% @marketo/form formId="4316" %}

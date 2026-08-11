@@ -66,3 +66,5 @@ Extends the slow query log with query-plan, EXPLAIN, and storage-engine statisti
 The userstat plugin adds USER, CLIENT, INDEX, and TABLE statistics as INFORMATION_SCHEMA tables plus SHOW and FLUSH statements to track server activity and load.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

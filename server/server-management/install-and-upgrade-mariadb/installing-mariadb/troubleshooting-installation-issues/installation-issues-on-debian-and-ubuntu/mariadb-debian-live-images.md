@@ -10,8 +10,8 @@ description: >-
 This page is obsolete. The information is old, outdated, or otherwise currently incorrect. We are keeping the page for historical reasons only. **Do not** rely on the information in this article.
 {% endhint %}
 
-A member of the MariaDB community, Mark `<ms (at) it-infrastrukturen (dot) org>`,\
-has created some Debian "squeeze" 6.0.4 based, live iso images with [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2)\
+A member of the MariaDB community, Mark `<ms (at) it-infrastrukturen (dot) org>`,
+has created some Debian "squeeze" 6.0.4 based, live iso images with [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2)
 or 5.3 pre-installed on them and some Debian "squeeze" 6.0.5 based, live iso images with [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) pre-installed on them.
 
 These live and install images can be used to quickly run a MariaDB server in live mode for learning or testing purposes, or to simplify and speed up off-line installations of Debian-based MariaDB servers onto harddisk.
@@ -22,7 +22,7 @@ The same usb stick (or CD/DVD media) can be used to install a complete server in
 
 All required MariaDB packages are included on the media, so there is no need for an Internet connection.
 
-Three types of images are provided, text (command line), LXDE, and Gnome. The\
+Three types of images are provided, text (command line), LXDE, and Gnome. The
 text-based live images can be used for testing or server off-line installations. The two gui types, LXDE and Gnome, can be used for testing/learning in live mode or for off-line desktop installations. Debian live images with LXDE (gnome, KDE or awesome) are pretty comfortable for daily work as a replacement for whatever desktop OS is installed on the system.
 
 There are three iso images for each type, one for 32-bit (i386) systems, one for 64-bit (amd64) systems, and one with both.
@@ -64,9 +64,9 @@ There are three iso images for each type, one for 32-bit (i386) systems, one for
 * [video-mariadb5.5-live-images-on-USB.ogv](https://rsync.it-infrastrukturen.org/public-mariadb/video-mariadb5.5-live-images-on-USB.ogv)
 * [video-mariadb5.5-live-images-on-USB.mp4](https://rsync.it-infrastrukturen.org/public-mariadb/video-mariadb5.5-live-images-on-USB.mp4)
 
-The LXDE and Gnome images contain documentation under `/srv/PDF`. Including\
-instructions on how to create your own Debian live images in live mode (you\
-need 16GB RAM or more to be able to do this). See the README, `README.live`, and\
+The LXDE and Gnome images contain documentation under `/srv/PDF`. Including
+instructions on how to create your own Debian live images in live mode (you
+need 16GB RAM or more to be able to do this). See the README, `README.live`, and
 `live-manual.en.pdf` files under `/srv/PDF` for details.
 
 **Note:** Some HP notebooks are not able to boot binary hybrid iso images from a USB stick.
@@ -98,8 +98,8 @@ The iso images have been successfully tested on:
 
 ### Notes
 
-It is possible to add some options on the bootline for special purposes like,\
-for example, the installation of additional packages from a local repository on\
+It is possible to add some options on the bootline for special purposes like,
+for example, the installation of additional packages from a local repository on
 the image or assigning a static IP address and running sshd.
 
 1. To configure a static IP use "`ip=`". For example:\
@@ -107,23 +107,23 @@ the image or assigning a static IP address and running sshd.
 
 * The full format of "`ip=`" is: "`ip=[interface]:[IP_address]:[netmask]:[gateway]`"
 
-1. If you use an empty "`ip=`" value the content of `/etc/network/interfaces`\
-   and `/etc/resolv.conf` will be used. Without the "`ip=`" option, dhcp\
+1. If you use an empty "`ip=`" value the content of `/etc/network/interfaces`
+   and `/etc/resolv.conf` will be used. Without the "`ip=`" option, dhcp
    will be used to get an IP address.
-2. For installing and running sshd (so that the image can act as a server in a\
+2. For installing and running sshd (so that the image can act as a server in a
    test environment) use: "`sshd=on`"
 
-* The live user is "sql" and the password is "live". Please change the\
+* The live user is "sql" and the password is "live". Please change the
   password immediately after first login!
 
-1. Depending on the image [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2) or 5.3 server is installed. There is no\
-   root password for the database set so please set a password immediately\
+1. Depending on the image [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2) or 5.3 server is installed. There is no
+   root password for the database set so please set a password immediately
    after first login!
-2. Run `repo-off-line.sh` to activate local repositories on the image for\
-   apt-get (for off-line installations) or `repo-on-line.sh` for internet\
+2. Run `repo-off-line.sh` to activate local repositories on the image for
+   apt-get (for off-line installations) or `repo-on-line.sh` for internet
    repositories.
-3. The binary hybrid live iso images with multiple-choices inside the boot\
-   menu allow for the assignment of two different IPs. (e.g. for testing of\
+3. The binary hybrid live iso images with multiple-choices inside the boot
+   menu allow for the assignment of two different IPs. (e.g. for testing of
    clustered database operations)
 
 Send any feedback or suggestions related to these images to:

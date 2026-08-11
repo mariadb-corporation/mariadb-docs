@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.2.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #2870](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2870):
@@ -46,12 +46,12 @@ modified in that revision.
   * MYSQL\_PLUGIN\_WITHOUT() macro for plug.in
   * Using it in oqgraph/plug.in to fix [Bug #635633](https://bugs.launchpad.net/bugs/635633)
 * [Revision #2858](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2858):
-  * provide maria\* aliases for aria\* command-line options,\
+  * provide maria\* aliases for aria\* command-line options,
     status and system variables
 * [Revision #2857](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2857):
   * rename maria to aria
 * [Revision #2856](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2856):
-  * always run information\_schema\_all\_engines without safemalloc\
+  * always run information\_schema\_all\_engines without safemalloc
     (otherwise it often times out)
 * [Revision #2855](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2855):
   * add sphinx suite
@@ -112,7 +112,7 @@ modified in that revision.
   * [Revision #2826.3.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2826.3.1):
     * Fixed [Bug #607177](https://bugs.launchpad.net/bugs/607177).
     * Due to an invalid check for NULL of the second argument of the\
-      Item\_func\_round items performed in the code of Item\_func\_round::real\_op\
+      Item\_func\_round items performed in the code of Item\_func\_round::real\_op
       the function ROUND sometimes could return wrong results.
 * [Revision #2832](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2832): \[merge]
   * Merge
@@ -128,17 +128,17 @@ modified in that revision.
   * Merge
     * [Revision #2826.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2826.2.1):
   * none Fixed [Bug #607168](https://bugs.launchpad.net/bugs/607168).
-  * The command CREATE TABLE AS SELECT erroneously preserved the virtual\
+  * The command CREATE TABLE AS SELECT erroneously preserved the virtual
     properties of the virtual fields from the select list.
 * [Revision #2830](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2830): \[merge]
   * Merge
   * [Revision #2826.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2826.1.1):
     * Fixed [Bug #607566](https://bugs.launchpad.net/bugs/607566).
-    * For queries with order by clauses that employed filesort usage of\
-      virtual column references in select lists could trigger assertion\
-      failures. It happened because a wrong vcol\_set bitmap was used for\
+    * For queries with order by clauses that employed filesort usage of
+      virtual column references in select lists could trigger assertion
+      failures. It happened because a wrong vcol\_set bitmap was used for
       filesort. It turned out that filesort required its own vcol\_set bitmap.
-    * Made management of the vcol\_set bitmaps similar to the management\
+    * Made management of the vcol\_set bitmaps similar to the management
       of the read\_set and write\_set bitmaps.
 * [Revision #2829](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2829):
   * Fix for [Bug #588599](https://bugs.launchpad.net/bugs/588599), [MySQL Bug #45377](https://bugs.mysql.com/bug.php?id=45377): ARCHIVE tables aren't discoverable after OPTIMIZE
@@ -152,16 +152,16 @@ modified in that revision.
   * Merge
   * [Revision #2822.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2822.2.1):
     * Fixed [Bug #604503](https://bugs.launchpad.net/bugs/604503).
-    * If the expression for a virtual column of table contained datetime\
-      comparison then the execution of the second query that used this\
-      virtual column caused a crash. It happened because the execution\
-      of the first query that used this virtual column inserted a cached\
-      item into the expression tree. The cached tree was allocated in\
-      the statement memory while the expression tree was allocated in\
+    * If the expression for a virtual column of table contained datetime
+      comparison then the execution of the second query that used this
+      virtual column caused a crash. It happened because the execution
+      of the first query that used this virtual column inserted a cached
+      item into the expression tree. The cached tree was allocated in
+      the statement memory while the expression tree was allocated in
       the table memory.
-    * Now the cached items that are inserted into expressions for virtual\
-      columns with datetime comparisons are always allocated in the same\
-      mem\_root as the expressions for virtual columns. So now the inserted\
+    * Now the cached items that are inserted into expressions for virtual
+      columns with datetime comparisons are always allocated in the same
+      mem\_root as the expressions for virtual columns. So now the inserted
       cached items are valid for any queries that use these virtual columns.
 * [Revision #2825](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2825): \[merge]
   * Merge with [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md):
@@ -177,26 +177,26 @@ modified in that revision.
 * [Revision #2823](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2823):
   * Fixed [Bug #603186](https://bugs.launchpad.net/bugs/603186).
   * There were two problems that caused wrong results reported with this bug.
-    1. In some cases stored(persistent) virtual columns were not marked\
+    1. In some cases stored(persistent) virtual columns were not marked
        in the write\_set and in the vcol\_set bitmaps.
-    2. If the list of fields in an insert command was empty then the values of\
+    2. If the list of fields in an insert command was empty then the values of
        the stored virtual columns were set to default.
-  * To fix the first problem the function st\_table::mark\_virtual\_columns\_for\_write\
-    was modified. Now the function has a parameter that says whether the virtual\
+  * To fix the first problem the function st\_table::mark\_virtual\_columns\_for\_write
+    was modified. Now the function has a parameter that says whether the virtual
     columns are to be marked for insert or for update.
-  * To fix the second problem a special handling of empty insert lists is\
+  * To fix the second problem a special handling of empty insert lists is
     added in the function fill\_record().
 * [Revision #2822](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2822):
   * Fixed [Bug #603654](https://bugs.launchpad.net/bugs/603654).
-  * If a virtual column was used in the ORDER BY clause of a query\
-    and some of the columns this virtual column was based upon were\
-    not referenced anywhere in the query then the execution of the\
+  * If a virtual column was used in the ORDER BY clause of a query
+    and some of the columns this virtual column was based upon were
+    not referenced anywhere in the query then the execution of the
     query could cause an assertion failure.
-  * It happened because in this case the bitmap of the columns used\
+  * It happened because in this case the bitmap of the columns used
     for ordering keys was not formed correctly.
 * [Revision #2821](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2821):
   * Fixed [Bug #604549](https://bugs.launchpad.net/bugs/604549).
-  * There was no error thrown when creating a table with a virtual table\
+  * There was no error thrown when creating a table with a virtual table
     computed by an expression returning a row.
   * This caused a crash when inserting into the table.
   * Removed periods at the end of the error messages for virtual columns.
@@ -207,22 +207,22 @@ modified in that revision.
   * Automerge [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)->5.2.
 * [Revision #2818](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2818):
   * Fixed [Bug #601164](https://bugs.launchpad.net/bugs/601164).
-  * The functions mysql\_delete and mysql\_update lacked calls of\
-    updated\_virtual\_fields(). This caused wrong results for\
+  * The functions mysql\_delete and mysql\_update lacked calls of
+    updated\_virtual\_fields(). This caused wrong results for
     some DELETEs/UPDATEs.
   * Added test cases for this bug.
 * [Revision #2817](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2817):
   * Make MariaDB compile with VS 2010
-  * Most of the changes are backports from MySQL 5.5. Please note\
-    that the 64-bit build fails with VS 2010 and the 32-bit build\
+  * Most of the changes are backports from MySQL 5.5. Please note
+    that the 64-bit build fails with VS 2010 and the 32-bit build
     has problems running mysql-test-run.pl.
-  * Added files for compiling with VS 2010 and added them\
+  * Added files for compiling with VS 2010 and added them
     to Makefile.am.
   * ifdef'ed ETIMEDOUT, because it is defined by VS 2010 now
   * Removed not needed /MAP's from cmake files
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

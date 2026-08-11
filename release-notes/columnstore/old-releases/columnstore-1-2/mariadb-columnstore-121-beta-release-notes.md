@@ -36,7 +36,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1826](https://jira.mariadb.org/browse/MCOL-1826) - PrimProc crash in float/double to string conversion
 * [MCOL-1845](https://jira.mariadb.org/browse/MCOL-1845) - RPM package summary need to be consistent
 * [MCOL-1852](https://jira.mariadb.org/browse/MCOL-1852) - Spark Exporter uses collect() instead of toLocalIterator() on DataFrames to export and therefore uses too much memory on the Driver
-* [MCOL-1858](https://jira.mariadb.org/browse/MCOL-1858) - An `invalid` records indication when loading the table unsing mcsimport
+* [MCOL-1858](https://jira.mariadb.org/browse/MCOL-1858) - An `invalid` records indication when loading the table using mcsimport
 * [MCOL-520](https://jira.mariadb.org/browse/MCOL-520) - true non root install phase 1
 * [MCOL-1158](https://jira.mariadb.org/browse/MCOL-1158) - Support additional Python3 features using Swig's -py3 flag
 * [MCOL-1642](https://jira.mariadb.org/browse/MCOL-1642) - Add SQL command that shows Primary Front-End MariaDB ColumnStore Module
@@ -95,6 +95,6 @@ The source code is available at these locations
 * Write Data API - [Source code for Write Data API /SDK](https://github.com/mariadb-corporation/mariadb-columnstore-api/tree/columnstore-1.2.1)
 * MaxScale CDC and Kafka Data Adapters - [Source Code for data adapters](https://github.com/mariadb-corporation/mariadb-columnstore-data-adapters/tree/columnstore-1.2.1)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

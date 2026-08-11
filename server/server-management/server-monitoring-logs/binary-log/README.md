@@ -148,3 +148,5 @@ Learn techniques to bypass specific replication events. This guide explains how 
 [^1]: DML (Data Manipulation Language): The subset of SQL commands used to add, modify, retrieve, or delete data within existing database tables.
 
 [^2]: DDL (Data Definition Language): The subset of SQL commands used to create, modify, or destroy the structure of database objects (like tables, indexes, and databases) rather than the data itself.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

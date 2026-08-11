@@ -29,4 +29,6 @@ Returns zero on success or a non-zero value on error.
 
 `mariadb_cancel()` was added in Connector/C 3.0
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

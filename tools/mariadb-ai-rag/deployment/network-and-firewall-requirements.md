@@ -28,3 +28,5 @@ For a standard AI RAG 1.1 deployment, ensure the following rules are in place:
 * Inbound Access: Allow traffic from user workstations or applications to the RAG API on port `8000` and the MCP Server on port `8002`.
 * Outbound Access: The host must be able to reach `https://*.mariadb.com` and your configured AI provider endpoints (e.g., `https://generativelanguage.googleapis.com`) on port `443`.
 * Internal Connectivity: If your MariaDB vector database is hosted on a separate machine, ensure the RAG host can communicate with it on port `3306`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

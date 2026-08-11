@@ -21,7 +21,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-379](https://jira.mariadb.org/browse/MCOL-379) - system down and high memory alarm set after install
 * [MCOL-472](https://jira.mariadb.org/browse/MCOL-472) - mysqld not shutdown by shutdownsystem commands, sometimes
 * [MCOL-538](https://jira.mariadb.org/browse/MCOL-538) - Argument in alias circumvents /.my.cnf option file
-* [MCOL-626](https://jira.mariadb.org/browse/MCOL-626) - addModule should not be alowed on single-server installs
+* [MCOL-626](https://jira.mariadb.org/browse/MCOL-626) - addModule should not be allowed on single-server installs
 * [MCOL-674](https://jira.mariadb.org/browse/MCOL-674) - Update a column with a subquery resulted NULLs in the target column
 * [MCOL-699](https://jira.mariadb.org/browse/MCOL-699) - mcsadmin display issue for getModuleDisk
 * [MCOL-711](https://jira.mariadb.org/browse/MCOL-711) - GROUP\_CONCAT function got ColumnStore stuck in "Join or subselect exceeds memory limit" error
@@ -89,6 +89,6 @@ The source code is available at these locations
 * Storage Engine - [Source code for engine specific processes on UM and PM node](https://github.com/mariadb-corporation/mariadb-columnstore-engine)
 * MariaDB Server - [Source code based on MariaDB Server 10.1.25 modified to support the ColumnStore storage engine](https://github.com/mariadb-corporation/mariadb-columnstore-server)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

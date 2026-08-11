@@ -13,7 +13,7 @@ qemu-img create -f qcow2 /kvm/vms/vm-freebsd92-amd64-serial.qcow2 15G
 qemu-img create -f qcow2 /kvm/vms/vm-freebsd92-i386-serial.qcow2 15G
 ```
 
-Start each VM booting from the server install iso one at a time and perform\
+Start each VM booting from the server install iso one at a time and perform
 the following install steps:
 
 ```
@@ -152,7 +152,7 @@ done
 
 ## Add Key to known\_hosts
 
-Do the following on each kvm host server (terrier, terrier2, i7, etc...) to add\
+Do the following on each kvm host server (terrier, terrier2, i7, etc...) to add
 the VMs to known\_hosts.
 
 ```

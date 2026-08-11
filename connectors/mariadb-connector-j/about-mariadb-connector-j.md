@@ -983,7 +983,7 @@ Callable statement implementation won't need to access the stored procedure meta
 * CallableStatement.getMetadata() is not used
 * Parameters are accessed by index, not by name
 
-When possible, following the two rules above provides both better speed and\
+When possible, following the two rules above provides both better speed and
 eliminates concerns about SELECT privileges on the [mysql.proc](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables/mysql-proc-table) table.
 
 ### Generated keys limitation
@@ -1207,5 +1207,7 @@ If you don't expect results to be handled in this amount of time there is anothe
 * Connection.isValid() is a good approach.
 * Connection.isValid() is doing a ping (ping in mysql protocol, not network ping).
 * Connection pool using JDBC4 Validation are using automatically this Connection.isValid()
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

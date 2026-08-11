@@ -53,3 +53,5 @@ An upgrade guide for an older, end-of-life version of MariaDB Enterprise Server,
 Technical reference to the architectural changes and breaking points when upgrading to MariaDB Enterprise Server 10.5, such as the completed switch to MariaDB-prefixed executable names.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

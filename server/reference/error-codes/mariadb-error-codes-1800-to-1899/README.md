@@ -81,3 +81,5 @@
 - [Error 1878: Temporary file write failure](e1878.md)
 - [Error 1879: Upgrade index name failed, please use create index(alter table) algorithm copy to rebuild](e1879.md)
 - [Error 1880: "](e1880.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

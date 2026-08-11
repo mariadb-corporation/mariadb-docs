@@ -248,6 +248,6 @@ MariaDB Enterprise Server 10.6.18-14 was released on 2024-06-11.
 * ([MDEV-33551](https://jira.mariadb.org/browse/MDEV-33551)) Semi-sync Wait Point AFTER\_COMMIT Slow on Workloads with Heavy Concurrency
 * ([MDEV-30660](https://jira.mariadb.org/browse/MDEV-30660)) Aggregation functions fail to leverage uniqueness property
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

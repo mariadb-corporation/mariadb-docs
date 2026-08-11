@@ -74,3 +74,5 @@ The startup parameters [`innodb_log_recovery_start`](innodb-system-variables.md#
 * `innodb_log_recovery_target=0` means replay to the end of the available log.
 
 See [Point-In-Time Recovery (InnoDB log archiving)](../../backup-and-restore/innodb-log-archive-pitr.md) for the full procedure.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

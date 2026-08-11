@@ -391,6 +391,10 @@ MariaDB Enterprise Server now supports descending indexes. Composite indexes can
 
 {% include "../../.gitbook/includes/backports-11.8.5-2-and-11.4.9-6.md" %}
 
+### [MariaDB Enterprise Server 11.4.10-7](11.4.10-7.md)
+
+{% include "../../.gitbook/includes/backports-11.8.6-3-and-11.4.10-7.md" %}
+
 ## Operational Enhancements
 
 ### Schema and Partitioning Management / DDL
@@ -403,7 +407,7 @@ MariaDB Enterprise Server now supports descending indexes. Composite indexes can
   * In MariaDB Enterprise Server 11.4 a default `ALTER` operation will be an OSC operation if possible. If the operation cannot be performed as an OSC then another algorithm will be used. If the option `LOCK=NONE` is explicitly specified in the `ALTER` statement, then the operation will fail if it cannot be done as an OSC.
 {% endhint %}
 
-* `CONVERT PARTITION` and `CONVERT TABLE` used with `ALTER TABLE` can be used to convert a partition into a table or vise versa
+* `CONVERT PARTITION` and `CONVERT TABLE` used with `ALTER TABLE` can be used to convert a partition into a table or vice versa
 * Exchange a Partition or Convert a Table Without Validation
   * The process of exchanging a partition with a table or converting a table to a partition can be a very slow operation, especially for larger tables because for each new data row, the partitioning definitions need to be verified to validate that the new row should indeed be in this partition.
   * This process can now be sped up by disabling this validation. This new feature should be used with care, as it can lead to inconsistencies if the partitioning rules are not met.
@@ -837,7 +841,7 @@ SHOW CREATE PROCEDURE myProc \G
             sql_mode: STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
     Create Procedure: CREATE DEFINER=`root`@`localhost` PROCEDURE `myProc`()
 BEGIN
-    SELECT "My Definiton of a Stored Procedure";
+    SELECT "My Definition of a Stored Procedure";
 END
 character_set_client: utf8mb3
 collation_connection: utf8mb3_general_ci
@@ -1073,6 +1077,6 @@ See also: [All MariaDB Enterprise Releases](../all-releases.md)
 * [Upgrade to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.4/upgrade-to-mariadb-enterprise-server-11.4)
 * [Upgrade from MariaDB Community Server to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.4/upgrade-from-mariadb-community-server-to-mariadb-enterprise-server-11.4)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -21,3 +21,5 @@ description: >-
 - [run-sql-bench.pl](run-sql-benchpl.md)
 - [Segmented Key Cache Performance](segmented-key-cache-performance.md)
 - [sysbench Benchmark Setup](sysbench-benchmark-setup.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -198,3 +198,5 @@ MariaDB server error codes 4100 to 4199, each with its symbolic name and message
 MariaDB server error codes 4200 to 4299, each with its symbolic name and message.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

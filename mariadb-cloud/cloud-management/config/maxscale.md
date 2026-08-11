@@ -29,3 +29,5 @@ MariaDB Cloud Intelligent Proxy represents an optimized iteration of MariaDB Max
 | [transaction\_replay\_max\_size](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-readwritesplit#transaction_replay_max_size)                                                                                  | 10Mi                       |
 | [transaction\_replay\_retry\_on\_deadlock](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-readwritesplit#transaction_replay_retry_on_deadlock)                                                               | true                       |
 | [use\_sql\_variables\_in](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-readwritesplit#use_sql_variables_in)                                                                                                | all                        |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

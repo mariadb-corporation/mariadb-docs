@@ -42,3 +42,5 @@ Complete mariadb-upgrade reference: update mysql system tables, CHECK TABLE FOR 
 Complete MariaDB installation guide. Complete setup instructions for Linux, Windows, and macOS with configuration and verification for production use.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -30,3 +30,5 @@ Assign a value to a user-defined or local variable with the := operator, which, 
 Assign a value with the = operator, which doubles as a comparison operator and is valid for assignment only in SET statements and the SET clause of UPDATE.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -22,3 +22,5 @@ This page includes links to Qlik documentation and interfaces.
 * [Getting started Guide](https://help.qlik.com/en-US/cloud-services/Subsystems/Hub/Content/Sense_Hub/DataIntegration/Introduction/Data-services.htm)
 * [Qlik Replicate Setup and User Guide](https://help.qlik.com/en-US/replicate/May2022/pdf/Replicate-Setup-and-User-Guide.pdf)
 * [Free Qlik Data Integration Trial](https://www.qlik.com/us/trial/replicate?ga-link=qdi-hero)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

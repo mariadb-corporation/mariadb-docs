@@ -30,7 +30,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1554](https://jira.mariadb.org/browse/MCOL-1554) - PDI CS not work in the Pentaho Sever repository
 * [MCOL-1563](https://jira.mariadb.org/browse/MCOL-1563) - Data corruption when inserting out-of-bounds data
 * [MCOL-1606](https://jira.mariadb.org/browse/MCOL-1606) - PDI 8 - variable substitution doesn't work
-* [MCOL-1643](https://jira.mariadb.org/browse/MCOL-1643) - PDI plugin CI tests - minor changes in redme file are needed
+* [MCOL-1643](https://jira.mariadb.org/browse/MCOL-1643) - PDI plugin CI tests - minor changes in readme file are needed
 * [MCOL-1648](https://jira.mariadb.org/browse/MCOL-1648) - pymcsapi3 on Windows depends on the Python 3 release DLL it was compiled with
 * [MCOL-1654](https://jira.mariadb.org/browse/MCOL-1654) - Querystats table is broken
 * [MCOL-1658](https://jira.mariadb.org/browse/MCOL-1658) - support space names in columnstore table column names
@@ -142,6 +142,6 @@ The source code is available at these locations
 * Write Data API - [Source code for Write Data API /SDK](https://github.com/mariadb-corporation/mariadb-columnstore-api/tree/columnstore-1.1.7)
 * MaxScale CDC and Kafka Data Adapters - [Source Code for data adapters](https://github.com/mariadb-corporation/mariadb-columnstore-data-adapters/tree/columnstore-1.1.7)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

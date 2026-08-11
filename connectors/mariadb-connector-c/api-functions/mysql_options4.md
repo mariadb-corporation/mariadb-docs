@@ -41,3 +41,5 @@ This function is deprecated, new implementations should use [`mysql_optionsv()`]
 * [`mysql_optionsv()`](mysql_optionsv.md)
 * [`mysql_options()` ](mysql_options.md)
 * [mysql\_real\_connect()](mysql_real_connect.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

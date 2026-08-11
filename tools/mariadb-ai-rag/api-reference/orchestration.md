@@ -304,6 +304,6 @@ curl -X POST "http://localhost:8000/orchestrate/full-pipeline" \
   -F 'config={"chunking_method":"recursive","llm_model":"gpt-4"}'
 ```
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

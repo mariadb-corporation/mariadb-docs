@@ -1187,6 +1187,7 @@
     * [START TRANSACTION ... WITH CONSISTENT SNAPSHOT](ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot.md)
     * [Restricting Speed of Reading Binlog from Primary by a Replica](ha-and-performance/standard-replication/restricting-speed-of-reading-binlog-from-primary-by-a-replica.md)
     * [Running Triggers on the Replica for Row-based Events](ha-and-performance/standard-replication/running-triggers-on-the-replica-for-row-based-events.md)
+    * [Conflict Detection and Resolution (CDR) Triggers](ha-and-performance/standard-replication/conflict-detection-and-resolution-triggers.md)
     * [Selectively Skipping Replication of Binlog Events](ha-and-performance/standard-replication/selectively-skipping-replication-of-binlog-events.md)
     * [Obsolete Replication Information](ha-and-performance/standard-replication/obsolete-replication-information/README.md)
       * [LOAD DATA FROM MASTER (removed)](ha-and-performance/standard-replication/obsolete-replication-information/load-data-from-master-removed.md)

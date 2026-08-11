@@ -590,4 +590,6 @@ Unlike most options, `init-command` is a **multi-element** option. Each occurren
 
 * [Configuring MariaDB with Option Files](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -303,7 +303,7 @@ Some of these options can also be set as arguments to the [mysql\_real\_connect]
     my_bool enforce_tls= 1;
     mysql_optionsv(mysql, MYSQL_OPT_SSL_ENFORCE, (void *)&enforce_tls);
     ```
-* **Note**: Despite the option name, this does **not** enforce TLS. If the server does not support TLS, the\
+* **Note**: Despite the option name, this does **not** enforce TLS. If the server does not support TLS, the
   connection falls back to unencrypted communication without error. To prevent fallback and enforce TLS, use `MYSQL_OPT_SSL_VERIFY_SERVER_CERT` instead.
 *   `MARIADB_OPT_TLS_CIPHER_STRENGTH`: **Deprecated**. This option is no longer in use and has no effect. Cipher strength. This value will be passed as an unsigned `int` parameter.
 
@@ -478,5 +478,7 @@ If the [Performance Schema](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/refer
 * [mysql\_init()](mysql_init.md)
 * [mysql\_options()](mysql_options.md)
 * [mysql\_real\_connect()](mysql_real_connect.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

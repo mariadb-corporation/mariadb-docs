@@ -49,6 +49,6 @@ Partition a large table across multiple MariaDB Enterprise Server Data Nodes usi
 [mariadb-enterprise-spider-operations](../../../server-usage/storage-engines/spider/spider-storage-engine-introduction/mariadb-enterprise-spider-operations/)
 {% endcontent-ref %}
 
-{% include "../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

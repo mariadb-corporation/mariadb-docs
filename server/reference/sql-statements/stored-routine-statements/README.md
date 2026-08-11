@@ -77,3 +77,5 @@ Remove a stored procedure and its associated privileges from the database.
 Remove a stored function from the database, deleting its definition and associated privileges.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -60,3 +60,5 @@ Configure the MariaDB Connector/C build via CMake options including build type, 
 Compile MariaDB Connector/C after configuration using CMake on Windows or Unix. Supports Visual Studio builds and GNU make, with both IDE and command-line build options.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

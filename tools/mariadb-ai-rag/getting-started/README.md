@@ -74,3 +74,5 @@ Once deployed, you can leverage these advanced features:
 2. Integrate: Connect your cloud storage bucket via the `/integrations` API.
 3. Ingest: Use the Orchestration pipeline to process and vectorize your first documents.
 4. Query: Ask questions against your data and receive citation-backed answers
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -93,3 +93,5 @@ sequenceDiagram
 | `innodb_log_files_in_group`    | `2`              | `1`              | Redo logs are no longer split; additional files are ignored.    |
 | `innodb_buffer_pool_instances` | `8`              | `1`              | Multiple instances no longer reduce contention and are ignored. |
 | `slave_parallel_mode`          | `conservative`   | `optimistic`     | Speeds up replication by default.                               |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

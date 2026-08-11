@@ -36,7 +36,7 @@ Some default values have been changed, some have been renamed, and others have b
 
 #### Options with changed default values
 
-Most of the following options have increased a bit in value to give better\
+Most of the following options have increased a bit in value to give better
 performance. They should not use much additional memory, but some of them do use a bit more disk space. \[[1](moving-from-mysql-to-mariadb-in-debian-9.md#_note-0)]
 
 | Option                                                                                                                                                                    | Old default value | New default value                                                |
@@ -71,7 +71,7 @@ performance. They should not use much additional memory, but some of them do use
 
 #### Options that have been removed or renamed
 
-The following options should be removed or renamed if you use them in your\
+The following options should be removed or renamed if you use them in your
 config files:
 
 | Option                                                                                                                                         | Reason                                                                                                                                                                            |

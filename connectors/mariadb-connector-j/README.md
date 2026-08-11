@@ -146,3 +146,5 @@ MariaDB Connector/J provides `MariaDbDataSource` and `MariaDbPoolDataSource` imp
 Configure TLS and SSL for MariaDB Connector/J using `sslMode`, `serverSslCert`, and `keyStore` options, supporting trust, verify-ca, verify-full, and zero-configuration encryption modes.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

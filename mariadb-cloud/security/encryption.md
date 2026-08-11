@@ -40,3 +40,5 @@ MariaDB Cloud Services on AWS use [Amazon EBS encryption](https://docs.aws.amazo
 MariaDB Cloud Services on GCP benefits from [encryption by default](https://cloud.google.com/security/encryption-at-rest/default-encryption).
 
 MariaDB Cloud Services on Azure use [Azure Disk Encryption](https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption-overview).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -58,6 +58,6 @@ ColumnStore supports the following data types:
   * Unlike other MariaDB storage engines, the actual storage limit for `LONGBLOB/LONGTEXT` is 2,100,000,000 bytes instead of 4 GB per entry. MariaDB's client API is limited to a row length of 1 GB.
 * Timestamp and current\_timestamp are still not supported. ([MCOL-3694](https://jira.mariadb.org/browse/MCOL-3694) / [MCOL-1039](https://jira.mariadb.org/browse/MCOL-1039))
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -111,7 +111,7 @@ rows.forEach(row => console.log(row.label)); // row.label is string
 
 const meta: FieldInfo[] = rows.meta;        // typed column metadata
 console.log(meta[0].name());                // 'id'
-console.log(meta[0].type);                  // column type (Types enum), e.g. 'LONG'
+console.log(meta[0].type);                  // column type (Types enum), e.g. 'INT'
 console.log(meta[0].columnLength);          // declared column length
 ```
 
@@ -154,7 +154,7 @@ const rows = await conn.query<RowsWithMeta<Animal>>('SELECT id, label FROM anima
 
 for (const col of rows.meta) {
   console.log(col.name());          // column name
-  console.log(col.type);            // column type (Types enum), e.g. 'LONG', 'VARCHAR'
+  console.log(col.type);            // column type (Types enum), e.g. 'INT', 'VARCHAR'
   console.log(col.columnLength);    // declared maximum column length
   console.log(col.scale);           // number of decimals (numeric types)
   console.log(col.collation.name);  // collation, e.g. 'utf8mb4_general_ci'
@@ -163,6 +163,20 @@ for (const col of rows.meta) {
 ```
 
 Since 3.5.3, `FieldInfo` additionally exposes the MariaDB extended type name via the `dataTypeName` property (e.g. `'uuid'`, `'inet6'`, `'json'`; MariaDB 10.5+, `undefined` on MySQL) and the `isDataTypeFormatJson()` helper.
+
+Since 3.5.4, the `Types` (name) and `TypeNumbers` (protocol code) enums are real runtime values, so they can be compared against instead of hard-coding strings. Earlier versions declared them in the type definitions only, and importing them threw at runtime:
+
+```ts
+import { Types } from 'mariadb';
+
+if (col.type === Types.INT) {
+  // ...
+}
+```
+
+{% hint style="info" %}
+The name for the 4-byte integer type is `INT` (protocol code 3), not `LONG`. Before 3.5.4, the type definitions declared it as `Types.LONG`, which never matched the `'INT'` value returned at runtime.
+{% endhint %}
 
 ## Connection with Type-Safe Options
 
@@ -306,5 +320,7 @@ try {
 ```
 
 The `"ESNext"` entry in `lib` is required for `Symbol.asyncDispose` and the `await using` syntax.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

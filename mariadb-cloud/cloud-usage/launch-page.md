@@ -57,3 +57,5 @@ To launch a MariaDB Cloud service from the Portal:
 After initiating the launch, the new service will appear on the [Portal](https://app.skysql.com/dashboard) Dashboard.
 
 A [notification](notifications.md) will be sent at the time-of-service launch initiation and when service launch completes.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

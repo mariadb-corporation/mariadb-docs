@@ -51,8 +51,8 @@
 
 ## Security Vulnerabilities Fixed in [MariaDB 11.6](what-is-mariadb-116.md)
 
-For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
+For a complete list of security vulnerabilities (CVEs) fixed across all
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)
 page.\
 Add listcve macro here - removed for performance reasons
 
@@ -67,6 +67,6 @@ Add listcve macro here - removed for performance reasons
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

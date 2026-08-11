@@ -159,3 +159,5 @@ and select the one with the lowest estimated cost.
 * [optimizer\_switch](optimizer-switch.md)
 * [Optimizer Switch](index-hints-how-to-force-query-plans.md#optimizer-switch)
 * [EXPLAIN](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

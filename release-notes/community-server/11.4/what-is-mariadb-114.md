@@ -127,7 +127,7 @@ From [MariaDB 11.4.5](11.4.5.md):
 
 #### Processlist
 
-* Added a `SENT_ROWS` column to the [Information Schema PROCESSLIST](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table) table, as well as extended the display size for the columns in processlist to ensure\
+* Added a `SENT_ROWS` column to the [Information Schema PROCESSLIST](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table) table, as well as extended the display size for the columns in processlist to ensure
   that most results will fit in display ([MDEV-3953](https://jira.mariadb.org/browse/MDEV-3953), [MariaDB 11.3](../old-releases/11.3/what-is-mariadb-113.md))
 
 #### Miscellaneous
@@ -208,6 +208,6 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 | 16 Feb 2024 | MariaDB 11.4.1  | RC          | [Release Notes](11.4.1.md)  | [Changelog](../changelogs/11.4/11.4.1.md)  |
 | 24 Dec 2023 | MariaDB 11.4.0  | Alpha       | [Release Notes](11.4.0.md)  |                                            |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

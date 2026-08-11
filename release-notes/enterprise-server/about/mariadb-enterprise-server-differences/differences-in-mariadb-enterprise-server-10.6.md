@@ -56,6 +56,6 @@ In addition to this there are Enterprise Features and some backported features. 
 * [GTID binlog events now include the thread ID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/binary-log-formats)
 * [**Software Bill of Materials (SBOM)** ](../sbom.md)JSON file generates in the downloads archive.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

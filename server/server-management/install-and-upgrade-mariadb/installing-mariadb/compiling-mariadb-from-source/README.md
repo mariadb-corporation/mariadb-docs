@@ -81,3 +81,5 @@ Compile MariaDB Server with extra modules and options. This section details how 
 This section holds building-MariaDB-from-source instructions for building old versions of MariaDB. Recent instructions are in the Compiling MariaDB From Source: The Master Guide page. width: default title: visible: true description: visible: true tableOfContents: visible: true outline: visible: true pagination: visible: false metadata: visible: true tags: visible: true
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

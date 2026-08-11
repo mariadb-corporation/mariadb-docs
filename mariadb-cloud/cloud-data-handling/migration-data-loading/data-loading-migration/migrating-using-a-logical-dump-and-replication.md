@@ -149,3 +149,5 @@ UNINSTALL PLUGIN simple_password_check;
 * [Backup with mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump)
 * [MariaDB Backup Documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore)
 * [Advanced Backup Techniques](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/backup-optimization)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

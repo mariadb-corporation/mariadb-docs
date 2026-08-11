@@ -27,6 +27,6 @@ Each supported plugin will have a section on how to install it.
 | MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  11.8.6-3.2-standard <br>  11.8.6-3.1-standard <br>  11.8-standard <br>  11.4.10-7.2-standard <br>  11.4.10-7.1-standard <br>  11.4-standard <br>  10.6.25-21.5-standard <br>  10.6.25-21.1-standard <br>  10.6-standard <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

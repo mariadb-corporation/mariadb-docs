@@ -367,3 +367,5 @@ These require MariaDB **12.0 or newer** (many ship with **12.3 LTS**, currently 
 - [FLASHBACK — MariaDB Docs](https://mariadb.com/docs/server/server-management/server-monitoring-logs/binary-log/flashback)
 
 *For topics not covered here, see the official MariaDB documentation at [mariadb.com/docs](https://mariadb.com/docs).*
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

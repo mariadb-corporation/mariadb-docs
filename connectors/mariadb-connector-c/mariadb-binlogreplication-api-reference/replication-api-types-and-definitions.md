@@ -153,3 +153,5 @@ The following flags are passed as a bitmask to the `MARIADB_RPL_FLAGS` option vi
 * [MariaDB Binlog/Replication API Reference](./)
 * [Binlog/API Data Structures](binlog-api-data-structures.md)
 * [Replication API Function Reference](replication-api-function-reference/)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -63,6 +63,6 @@ When a bulk data load is running:
 | Fast        | [LOAD DATA \[ LOCAL \] INFILE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) | SQL       | • Text file.                                        | • Server file system • Client file system | • Translates operation to cpimport command. • Non-blocking                              |
 | Slow        | [INSERT .. SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insert)                                                      | SQL       | • Other table(s).                                   | • Same MariaDB server                     | • Translates operation to cpimport command. • Non-blocking                              |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

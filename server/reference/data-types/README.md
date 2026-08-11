@@ -125,3 +125,5 @@ Store temporal values. This section covers data types for dates, times, and time
 Store text and binary data. This section covers character types like CHAR, VARCHAR, and TEXT, as well as binary types like BLOB and BINARY.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

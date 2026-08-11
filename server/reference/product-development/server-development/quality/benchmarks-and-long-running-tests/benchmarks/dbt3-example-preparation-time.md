@@ -1,6 +1,6 @@
 # DBT3 Example Preparation Time
 
-This page contains database preparation and creation times that were discovered\
+This page contains database preparation and creation times that were discovered
 while working on the [DBT3 Automation Scripts](dbt3-automation-scripts.md).
 
 ## Database creation times

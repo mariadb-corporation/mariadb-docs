@@ -6,7 +6,7 @@
     1. Release date (YYYY.MM.DD) — from Zhanna / Cloud UAT calendar.
     2. `enable-portal-provisioning-v2` enabled in prod (currently OFF).
   When both land: set the date + filename, add the SUMMARY.md nav entry, and
-  convert the cross-links back to {mariadb-cloud} aliases (they are currently
+  convert the cross-links back to https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd aliases (they are currently
   GitHub blob URLs so they are clickable during review; direct-main commits are
   not auto-expanded).
 
@@ -78,3 +78,5 @@ remains in MariaDB Cloud. This extends BYOA to Google Cloud.
 * BYOA requires the **Power** or **Power Plus** service tier.
 
 For details, see [Bring Your Own Account (BYOA)](https://github.com/mariadb-corporation/mariadb-docs/blob/main/mariadb-cloud/quickstart/bring-your-own-account-byoa.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

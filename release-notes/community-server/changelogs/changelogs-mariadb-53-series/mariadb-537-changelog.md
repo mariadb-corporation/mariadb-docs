@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.7.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3516](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3516)\
@@ -25,9 +25,9 @@ modified in that revision.
   * [Revision #2732.53.36](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.36)\
     Wed 2012-05-02 18:11:02 +0200
     * [MDEV-214](https://jira.mariadb.org/browse/MDEV-214) [Bug #967242](https://bugs.launchpad.net/bugs/967242) Wrong result with JOIN, AND in ON condition, multi-part key, GROUP BY, subquery and OR in WHERE
-    * The problem was in the code (update\_const\_equal\_items()) which marked\
+    * The problem was in the code (update\_const\_equal\_items()) which marked
       index parts constant independently of the place where the equality was used.\
-      In the test suite it marked t2\_1.c part constant despite the fact that\
+      In the test suite it marked t2\_1.c part constant despite the fact that
       it connected by OR with other expression.
     * Solution is to mark constant only top equalities connected with AND.
   * [Revision #2732.53.35](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.35) \[merge]\
@@ -39,14 +39,14 @@ modified in that revision.
       * remove a redundant line in Makefile.am
 * [Revision #3513](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3513)\
   Wed 2012-05-02 15:23:49 +0200
-  * implement Item\_singlerow\_subselect::get\_date() to avoid\
+  * implement Item\_singlerow\_subselect::get\_date() to avoid
     unnecessary date->string->date conversion
 * [Revision #3512](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3512)\
   Wed 2012-05-02 15:22:47 +0200
   * [MDEV-241](https://jira.mariadb.org/browse/MDEV-241) [Bug #992722](https://bugs.launchpad.net/bugs/992722) - Server crashes in get\_datetime\_value
-  * Create an Item\_cache based on item's cmp\_type, not result\_type in\
+  * Create an Item\_cache based on item's cmp\_type, not result\_type in
     subselect\_engine.
-  * Use result\_field in Item\_cache\_temporal::cache\_value(),\
+  * Use result\_field in Item\_cache\_temporal::cache\_value(),
     just like all other Item\_cache\*::cache\_value() do.
 * [Revision #3511](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3511) \[merge]\
   Wed 2012-05-02 17:04:28 +0200
@@ -60,14 +60,14 @@ modified in that revision.
     * MDEV233 - Support Wix3.6 for MSI
   * [Revision #2732.53.32](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.32)\
     Wed 2012-04-18 20:04:50 +0200
-    * [Bug #982664](https://bugs.launchpad.net/bugs/982664) there are few broken clients that lie about their capabilities\
+    * [Bug #982664](https://bugs.launchpad.net/bugs/982664) there are few broken clients that lie about their capabilities
       (for example, one of them sets client capabilities by copying server capabilities)
     * We cannot fix them - let's tolerate them
 * [Revision #3510](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3510)\
   Sun 2012-04-29 18:08:11 +0500
   * [Bug #977021](https://bugs.launchpad.net/bugs/977021) ST\_BUFFER fails with the negative D.
     * Points and lines should disappear if we got negative D.
-    * To make it work properly inside the GEOMETRYCOLLECTION,\
+    * To make it work properly inside the GEOMETRYCOLLECTION,
       we add the empty operation there.
   * [Bug #986977](https://bugs.launchpad.net/bugs/986977) Assertion \`!cur\_p->event' failed in Gcalc\_scan\_iterator::arrange\_event(int, int).
     * The double->inernal coord conversion produced -0 (minus zero) on some data.
@@ -91,29 +91,29 @@ modified in that revision.
   Fri 2012-04-27 12:59:17 +0300
   * Fix [Bug #985667](https://bugs.launchpad.net/bugs/985667), [MDEV-229](https://jira.mariadb.org/browse/MDEV-229)
   * Analysis:
-    * The reason for the wrong result is the interaction between constant\
+    * The reason for the wrong result is the interaction between constant
       optimization (in this case 1-row table) and subquery optimization.
-      * First the outer query is optimized, and 'make\_join\_statistics' finds that\
+      * First the outer query is optimized, and 'make\_join\_statistics' finds that
         table t2 has one row, reads that row, and marks the whole table as constant.\
         This also means that all fields of t2 are constant.
       * Next, we optimize the subquery in the end of the outer 'make\_join\_statistics'.\
-        The field 'f2' is considered constant, with value '3'. The subquery predicate\
+        The field 'f2' is considered constant, with value '3'. The subquery predicate
         is rewritten as the constant TRUE.
-      * The outer query execution detects early that the whole query result is empty\
-        and calls 'return\_zero\_rows'. Since the query is with implicit grouping, we\
-        have to produce one row with special values for the aggregates (depending on\
-        each aggregate function), and NULL values for all non-aggregate fields. This\
-        function calls 'no\_rows\_in\_result' to set each aggregate function to the\
+      * The outer query execution detects early that the whole query result is empty
+        and calls 'return\_zero\_rows'. Since the query is with implicit grouping, we
+        have to produce one row with special values for the aggregates (depending on
+        each aggregate function), and NULL values for all non-aggregate fields. This
+        function calls 'no\_rows\_in\_result' to set each aggregate function to the
         default value when it aggregates over an empty result, and then calls\
         'send\_data', which in turn evaluates each Item in the SELECT list.
-      * When evaluation reaches the subquery predicate, it executes the subquery\
-        with field 'f2' having a constant value '3', and the subquery produces the\
+      * When evaluation reaches the subquery predicate, it executes the subquery
+        with field 'f2' having a constant value '3', and the subquery produces the
         incorrect result '7'.
   * Solution:
-    * Implement Item::no\_rows\_in\_result for all subquery predicates. In order to\
-      make this work, it is also needed to make all val\_\* methods of all subquery\
-      predicates respect the Item\_subselect::forced\_const flag. Otherwise subqueries\
-      are executed anyways, and override the default value set by no\_rows\_in\_result\
+    * Implement Item::no\_rows\_in\_result for all subquery predicates. In order to
+      make this work, it is also needed to make all val\_\* methods of all subquery
+      predicates respect the Item\_subselect::forced\_const flag. Otherwise subqueries
+      are executed anyways, and override the default value set by no\_rows\_in\_result
       with whatever result is produced from the subquery evaluation.
 * [Revision #3507](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3507) \[merge]\
   Mon 2012-04-23 20:37:44 +0200
@@ -137,13 +137,13 @@ modified in that revision.
 * [Revision #3504](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3504)\
   Thu 2012-04-19 05:37:16 +0400
   * [Bug #978479](https://bugs.launchpad.net/bugs/978479): Wrong result (extra rows) with derived\_with\_keys+loosescan+semijoin=ON, materialization=OFF
-  * Part#2: Don't try to construct a LooseScan access on indexes that do not guarantee\
+  * Part#2: Don't try to construct a LooseScan access on indexes that do not guarantee
     index-ordered reads.
 * [Revision #3503](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3503)\
   Thu 2012-04-19 04:50:32 +0400
   * BUG#978479: Wrong result (extra rows) with derived\_with\_keys+loosescan+semijoin=ON, materialization=OFF
   * Part#1: make EXPLAIN's plan match the one by actual execution:
-  * Item\_subselect::used\_tables() should return the same value irrespectively\
+  * Item\_subselect::used\_tables() should return the same value irrespectively
     of whether we're running an EXPLAIN or a SELECT.
 * [Revision #3502](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3502) \[merge]\
   Mon 2012-04-16 23:35:38 +0200
@@ -167,7 +167,7 @@ modified in that revision.
     * [Revision #2732.56.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.56.1)\
       Mon 2012-04-16 15:28:33 +0200
       * fixes [Bug #983047](https://bugs.launchpad.net/bugs/983047)
-      * [MDEV-221](https://jira.mariadb.org/browse/MDEV-221) - Properly escape command line when starting mysql\_install\_db\
+      * [MDEV-221](https://jira.mariadb.org/browse/MDEV-221) - Properly escape command line when starting mysql\_install\_db
         since password characters can contain quotes or spaces.
       * The proper quoting method for command line arguments used here was extracted from [everyone-quotes-arguments-the-wrong-way.aspx](https://blogs.msdn.com/b/twistylittlepassagesallalike/archive/2011/04/23/everyone-quotes-arguments-the-wrong-way.aspx)
       * Additionally, mysql\_install\_db.exe now passes root password to "`mysqld.exe --bootstrap`"
@@ -175,6 +175,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

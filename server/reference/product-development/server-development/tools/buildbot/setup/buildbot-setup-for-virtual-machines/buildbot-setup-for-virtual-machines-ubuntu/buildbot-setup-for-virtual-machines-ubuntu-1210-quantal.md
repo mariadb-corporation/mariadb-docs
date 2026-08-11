@@ -13,7 +13,7 @@ qemu-img create -f qcow2 /kvm/vms/vm-quantal-amd64-serial.qcow2 10G
 qemu-img create -f qcow2 /kvm/vms/vm-quantal-i386-serial.qcow2 10G
 ```
 
-Start each VM booting from the server install iso one at a time and perform\
+Start each VM booting from the server install iso one at a time and perform
 the following install steps:
 
 ```
@@ -166,7 +166,7 @@ done
 
 ## Add Key to known\_hosts
 
-Do the following on each kvm host server (terrier, terrier2, i7, etc...) to add\
+Do the following on each kvm host server (terrier, terrier2, i7, etc...) to add
 the VMs to known\_hosts.
 
 ```

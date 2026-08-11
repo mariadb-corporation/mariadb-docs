@@ -34,4 +34,6 @@ This function was added in Connector/C 3.0.
 * [mysql\_real\_connect()](mysql_real_connect.md)
 * [mysql\_options()](mysql_options.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -14,7 +14,7 @@ shell> mysql_zap [-signal] [-?Ift]
 
 A process matches if its output line from the _ps_ command contains the pattern. By default, mysql\_zap asks for confirmation for each process. Respond _y_ to kill the process, or _q_ to exit mysql\_zap. For any other response, mysql\_zap does not attempt to kill the process.
 
-If the _-signal_ option is given, it specifies the name or number of the signal to send to each\
+If the _-signal_ option is given, it specifies the name or number of the signal to send to each
 process. Otherwise, mysql\_zap tries first with TERM (signal 15) and then with KILL (signal 9).
 
 mysql\_zap supports the following additional options:

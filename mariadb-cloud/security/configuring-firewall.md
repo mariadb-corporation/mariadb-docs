@@ -74,3 +74,5 @@ After saving the change, a [notification](../cloud-usage/notifications.md) will 
 * Same workflow as AWS/Azure, but with a limit of 200 IP addresses.
 
 For allowlists requiring more than 30 IP addresses, please contact support.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

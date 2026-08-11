@@ -61,4 +61,6 @@ MySqlConnector is an ADO.NET data provider with support for MariaDB Server. It i
 * MariaDB version parsing evolution: [#1311](https://github.com/mysql-net/MySqlConnector/pull/1311)
 * Permit real prepared stored procedure: [#1314](https://github.com/mysql-net/MySqlConnector/pull/1314)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

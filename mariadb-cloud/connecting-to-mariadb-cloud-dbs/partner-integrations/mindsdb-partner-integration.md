@@ -410,3 +410,5 @@ For more examples on the `INSERT INTO` statement, visit the [MindsDB doc page he
 * [MindsDB: Feature Engineering in MindsDB](https://docs.mindsdb.com/sql/feature-eng)
 * [MindsDB: MindsDB and MLflow](https://docs.mindsdb.com/custom-model/mlflow)
 * [Slack: MindsDB Community](https://mindsdbcommunity.slack.com/signup#/domain-signup)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

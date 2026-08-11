@@ -43,3 +43,5 @@ Control Flow attempts to prevent ExeMgr facility overload. Multiple primprocs bo
 * `RequestSize`: Controls the number of extents retrieved per request/job. Increasing the `RequestSize` means each thread handles more work per job, improving overall throughput by achieving higher concurrency. The default is `1`.
 * `MaxOutstandingRequests`: The number of outstanding request messages sent by UM to PMs, with every message processing up a multiple of 8192 records. The default is `20`.
 * `SystemConfig.DBRMSnapshotInterval`: Controls how often workernode@1 calls `saveState()` to store a copy of the Extent Map. Setting this value to something small implicitly affects `do_confirm()` , which is called synchronously on every Extent Map change and blocks all writes whilst it is working. The default is `100000`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

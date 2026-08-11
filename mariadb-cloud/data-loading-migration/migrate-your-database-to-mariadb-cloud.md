@@ -74,3 +74,5 @@ For most small, mid-size and large migrations MariaDB Cloud Managed Migration is
 - [Importing data using Mariadb Import](./Install-mariadb-import.md)
 - [Importing using CSV Data](./Import-CSV-data.md)
 - [Replicating Data from an External DB](https://skysqlinc.github.io/skysql-docs/Data%20loading,%20Migration/Replicating%20data%20from%20external%20DB/)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -41,3 +41,5 @@ Preload table indexes into the key cache. This command, used for MyISAM tables, 
 Read data from an XML file into a table. This command parses XML content, mapping elements and attributes to table columns for direct data import.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

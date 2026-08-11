@@ -100,3 +100,5 @@
 - [Error 1297: Got temporary error from](e1297.md)
 - [Error 1298: Unknown or incorrect time zone](e1298.md)
 - [Error 1299: Invalid TIMESTAMP value in column at row](e1299.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

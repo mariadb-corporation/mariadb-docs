@@ -27,24 +27,24 @@ In addition to the standard [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO
 * [Segmented Key Cache](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/segmented-key-cache) for MyISAM. Can speed up MyISAM tables with up to 4x
 * [Adjustable hash size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine/myisam-system-variables#key_cache_file_hash_size) for MyISAM and Aria. This can greatly improve shutdown time (from hours to minutes) if you are using a lot of MyISAM/Aria tables with delayed keys.
 * [CHECKSUM TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/checksum-table) is faster.
-* We improved the performance of character set conversions (and removed\
+* We improved the performance of character set conversions (and removed
   conversions when they were not really needed).\
   Overall speed improvement is 1-5 % (according to sql-bench) but can be higher for big result sets with all characters between 0x00-0x7f.
 * [MariaDB Thread pool](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb) allows MariaDB to run with 200,000+ connections and with a notable speed improvement when using many connections.
 * Lots of speed improvements when a client connects to MariaDB.
 * There are some improvements to the DBUG code to make its execution faster when debug is compiled in but not used.
-* Our use of the Aria storage engine enables faster complex queries (queries\
-  which normally use disk-based temporary tables). The [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria) storage\
-  engine is used for internal temporary tables, which should give a speedup\
-  when doing complex selects. Aria is usually faster for temporary tables when\
-  compared to MyISAM because Aria caches row data in memory and normally\
+* Our use of the Aria storage engine enables faster complex queries (queries
+  which normally use disk-based temporary tables). The [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria) storage
+  engine is used for internal temporary tables, which should give a speedup
+  when doing complex selects. Aria is usually faster for temporary tables when
+  compared to MyISAM because Aria caches row data in memory and normally
   doesn't have to write the temporary rows to disk.
 * The test suite has been extended and faster than before, even though it tests more things.
 
 ## Extensions and New Features
 
-We've added a lot of [new features to MariaDB](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-in-the-different-mariadb-releases/README.md). If a\
-patch or feature is useful, safe, and stable — we make\
+We've added a lot of [new features to MariaDB](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-in-the-different-mariadb-releases/README.md). If a
+patch or feature is useful, safe, and stable — we make
 every effort to include it in MariaDB. The most notable features are:
 
 * [Galera](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera-cluster/README.md) is a standard part of MariaDB Server.
@@ -116,7 +116,7 @@ When upgrading from MySQL 5.7 to [MariaDB 10.3](../../../old-releases/10.3/what-
 * [MariaDB 10.3](../../../old-releases/10.3/what-is-mariadb-103.md) does not support MySQL 5.7's ALTER TABLE...RENAME INDEX statements.
 * MySQL's implementation of [aborting statements that exceed a certain time to execute](https://github.com/mariadb-corporation/docs-release-notes/blob/test/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/aborting-statement/README.md) can only kill SELECTs, while MariaDB's can kill any queries (excluding stored procedures).
 * [MariaDB 10.3](../../../old-releases/10.3/what-is-mariadb-103.md) does not support MySQL's `SELECT MAX_STATEMENT_TIME = N ...` for MySQL older than 5.7.8 or `SELECT /*+ MAX_EXECUTION_TIME(n) */ ...` for MySQL 5.7.8 and higher - see [Aborting Statements that Exceed a Certain Time to Execute](https://github.com/mariadb-corporation/docs-release-notes/blob/test/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/aborting-statement/README.md).
-* The MySQL version of [max\_statement\_time](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_statement_time) is defined in millseconds, not seconds.
+* The MySQL version of [max\_statement\_time](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_statement_time) is defined in milliseconds, not seconds.
 * [MariaDB 10.3](../../../old-releases/10.3/what-is-mariadb-103.md) does not support the MySQL Memcached plugin. However, data stored using memcached can be retrieved because the data is stored as InnoDB tables. MariaDB is able to start successfully with an error message of not being able to find libmemcached.so library.
 * Users created with MySQL's SHA256 password algorithm cannot be used in [MariaDB 10.3](../../../old-releases/10.3/what-is-mariadb-103.md) - [MDEV-9804](https://jira.mariadb.org/browse/MDEV-9804).
 * [MariaDB 10.3](../../../old-releases/10.3/what-is-mariadb-103.md) doesn't support user [ACCOUNT LOCKs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/user-account-management/account-locking) or [PASSWORD EXPIRE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/user-account-management/user-password-expiry) ([MariaDB 10.4](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/broken-reference/README.md) does)
@@ -130,5 +130,7 @@ When upgrading from MySQL 5.7 to [MariaDB 10.3](../../../old-releases/10.3/what-
 * Not all [character sets and collations](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets) are [supported](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets/supported-character-sets-and-collations) across both MySQL and MariaDB. As of 10.3.24, MariaDB supports 40 character sets and 322 collations. As of 5.7.29, MySQL supports 41 character sets (`gb18030` being the additional one) and 222 collations.
 * The MySQL binary log includes the thread\_id, while MariaDB's [binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log) does not. ([MDEV-7850](https://jira.mariadb.org/browse/MDEV-7850))
 * Also see [Incompatibilities between MariaDB 10.2 and MySQL 5.7](incompatibilities-and-feature-differences-between-mariadb-10-2-and-mysql-5.md) and [Incompatibilities between MariaDB 10.1 and MySQL 5.7](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/broken-reference/README.md).
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

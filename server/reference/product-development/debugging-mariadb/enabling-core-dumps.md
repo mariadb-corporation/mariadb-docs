@@ -72,7 +72,7 @@ my_print_defaults mysqld_safe
 
 See [mysqld\_safe: Configuring the Core File Size](../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) for more details.
 
-**Note:** If you are using [mysqld\_safe](../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) and running `mariadbd` as the `root` user, then no\
+**Note:** If you are using [mysqld\_safe](../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) and running `mariadbd` as the `root` user, then no
 core file is created on some systems. The solution is to run `mariadbd` as another user.
 
 #### Running mariadbd Manually
@@ -127,14 +127,14 @@ sysctl kernel.core_pattern
 sysctl kernel.core_uses_pid
 ```
 
-If you are using `mysql-test-run` and want to have the core as part of the test result, the optimal\
+If you are using `mysql-test-run` and want to have the core as part of the test result, the optimal
 setting is probably the following (store cores in the current directory as `core.number-of-process-id`):
 
 ```
 sudo sysctl kernel.core_pattern=core.%p kernel.core_uses_pid=0
 ```
 
-If you are using a production system, you probably want to have the core files in a specific directory,\
+If you are using a production system, you probably want to have the core files in a specific directory,
 not in the data directory. They place to store cores can be temporarily altered using the [sysctl](https://linux.die.net/man/8/sysctl) utility, but it is often more common to alter them via the [/proc](https://linux.die.net/man/5/proc) file system. See the following example:
 
 ```

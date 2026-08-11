@@ -7,7 +7,7 @@ description: The CONNECT storage engine.
 ## Overview
 
 The INI type is one of the configuration or initialization files often found on\
-Windows machines. For instance, let us suppose you have the following contact\
+Windows machines. For instance, let us suppose you have the following contact
 file _contact.ini_:
 
 ```ini
@@ -82,12 +82,12 @@ UPDATE contact SET forename = 'Harry' WHERE contact = 'UK1';
 INSERT INTO contact (contact,forename) VALUES('UK1','Harry');
 ```
 
-**Note 2:** Because sections represent one line, a DELETE statement on a\
+**Note 2:** Because sections represent one line, a DELETE statement on a
 section key will delete the whole section.
 
 ## Row Layout
 
-To be a good candidate for tabular representation, an INI file should have often the same keys in all sections. In practice, many files commonly found on computers, such as the _win.ini_ file of the Windows directory or the\_my.ini\_ file cannot be viewed that way because each section has different\
+To be a good candidate for tabular representation, an INI file should have often the same keys in all sections. In practice, many files commonly found on computers, such as the _win.ini_ file of the Windows directory or the\_my.ini\_ file cannot be viewed that way because each section has different
 keys. In this case, a second way is to regard the file as a table having one row per section key and whose columns can be the section name, the key name, and the key value.
 
 For instance, let us define the table:

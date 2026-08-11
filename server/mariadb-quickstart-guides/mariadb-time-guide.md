@@ -139,4 +139,6 @@ DATE_SUB(NOW(), INTERVAL 5 DAY)
 
 Note: With `DATE_SUB`, `expr` is positive for subtraction. A negative `expr` would result in addition.
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

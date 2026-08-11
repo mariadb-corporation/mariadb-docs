@@ -25,7 +25,7 @@ This guide describes steps to install MariaDB Enterprise Manager for evaluation 
 Other requirements:
 
 * 64-bit Linux OS with either of the supported container engines
-  * Docker with Docker Compose\
+  * Docker with Docker Compose
     https://docs.docker.com/engine/install
   * Podman with Podman Compose
     * The podman-docker compatibility package is required to enable the docker CLI for Podman. All commands in this guide documented for Docker work similarly with Podman.
@@ -238,6 +238,6 @@ Wait 1–2 minutes for metrics to start populating in Enterprise Manager from th
 {% endstep %}
 {% endstepper %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -126,3 +126,5 @@ Lists the thread states for connection threads on a replication replica, as show
 Lists the replica SQL thread states shown by Slave_SQL_State in SHOW REPLICA STATUS and by SHOW PROCESSLIST and related tables, including parallel replication states.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

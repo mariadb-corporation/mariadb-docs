@@ -46,3 +46,5 @@ Explains how to use CMake options like `PLUGIN_xxx` to control which plugins are
 Instructions on building and configuring MariaDB to use alternative memory allocators like TCMalloc or jemalloc for improved performance and profiling.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -267,6 +267,6 @@ Attach the resulting `.tar.gz` file to your support ticket. On a multi-node clus
 
 `mcs review` without options runs a read-only health check (version, topology, storage, extent map, locks, open ports, and more) and writes its report to `/tmp/columnstore_review/<hostname>_cs_review.txt`; see `mcs review --help` for the full list of diagnostic options.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

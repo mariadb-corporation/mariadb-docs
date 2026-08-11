@@ -226,3 +226,5 @@ WITH aless100 AS (SELECT /*+ qb_name(aless100) */ a FROM t1 WHERE b <100)
 
 * Only `SELECT` statements support implicit QB names based on aliases. DML operations (`UPDATE`, `DELETE`, `INSERT`) do not support them.
 * Implicit names based on aliases are not supported inside view definitions (`CREATE VIEW ...`).
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

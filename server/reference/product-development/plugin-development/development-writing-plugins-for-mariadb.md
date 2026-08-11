@@ -18,7 +18,7 @@ See [Pluggable Authentication](../../plugins/authentication-plugins/pluggable-au
 
 ## Storage Engine Plugins
 
-Storage engines can extend `CREATE TABLE` syntax with optional\
+Storage engines can extend `CREATE TABLE` syntax with optional
 index, field, and table attribute clauses. See [Extending CREATE TABLE](storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md) for more information. See also [Storage Engine Development](storage-engines-storage-engine-development/).
 
 ## Information Schema Plugins
@@ -35,7 +35,7 @@ Function plugins add new SQL functions to MariaDB. Unlike the old [UDF API](../.
 
 ## Plugin Declaration Structure
 
-The MariaDB plugin declaration differs from\
+The MariaDB plugin declaration differs from
 the MySQL plugin declaration in the following ways:
 
 1. it has no useless 'reserved' field (the very last field in the MySQL plugin declaration)

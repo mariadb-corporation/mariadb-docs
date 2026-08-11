@@ -97,3 +97,5 @@ END;
   - <https://mariadb.com/docs/server/server-usage/stored-routines/stored-procedures/stored-procedure-overview>
   - <https://mariadb.com/docs/server/server-usage/stored-routines/stored-procedures/alter-procedure>
   - <https://mariadb.com/docs/server/server-usage/stored-routines/stored-functions/stored-routine-privileges>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

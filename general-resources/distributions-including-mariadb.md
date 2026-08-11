@@ -78,3 +78,5 @@ The term "default" in the list below refers to the distribution's default relati
 * [MacPorts](https://www.macports.org/) —This provides [mariadb and mariadb-server](https://trac.macports.org/browser/trunk/dports/databases/mariadb/Portfile).
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

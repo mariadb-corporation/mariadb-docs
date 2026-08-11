@@ -44,7 +44,7 @@ The latter query would also run 5.x times slower (from 2.2 to 10.8 seconds) in o
 
 ## How index\_merge/sort\_intersection improves the situation
 
-In [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3), when `index_merge_sort_intersection` is enabled,`index_merge` intersection plans can be constructed from non-equality\
+In [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3), when `index_merge_sort_intersection` is enabled,`index_merge` intersection plans can be constructed from non-equality
 conditions:
 
 ```sql

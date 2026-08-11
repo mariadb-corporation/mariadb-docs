@@ -15,7 +15,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 * [MCOL-506](https://jira.mariadb.org/browse/MCOL-506) - The MariaDB server version has been upgraded to version 10.1.21 including key security fixes. See the [Server Release Notes](../../../community-server/old-releases/10.1/10.1.21.md) for further details.
 * [MCOL-462](https://jira.mariadb.org/browse/MCOL-462) - The AMI Image now supports utilization of the IAM role to manage keys. Please see the [installing-and-configuring-a-columnstore-system-using-the-amazon-ami](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-0/broken-reference/README.md) article for more details.
-* [MCOL-481](https://jira.mariadb.org/browse/MCOL-481) - For a multi node install with mulitple UMs the installer now prompts you whether you want to install "MariaDB ColumnStore Schema Sync feature". If yes is answered then a default master / slave replication setup will be installed. Answer no if you prefer to perform your own setup or utilize another solution for this.
+* [MCOL-481](https://jira.mariadb.org/browse/MCOL-481) - For a multi node install with multiple UMs the installer now prompts you whether you want to install "MariaDB ColumnStore Schema Sync feature". If yes is answered then a default master / slave replication setup will be installed. Answer no if you prefer to perform your own setup or utilize another solution for this.
 
 ## Bugs and issues fixed
 
@@ -91,6 +91,6 @@ The source code is available at these locations
 * Storage Engine - [Source code for engine specific processes on UM and PM node](https://github.com/mariadb-corporation/mariadb-columnstore-engine)
 * MariaDB Server - [Source code based on MariaDB Server 10.1.21 modified to support the ColumnStore storage engine](https://github.com/mariadb-corporation/mariadb-columnstore-server)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

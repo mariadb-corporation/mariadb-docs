@@ -4,9 +4,9 @@ hidden: true
 
 # Changelog for MariaDB Enterprise Server 10.5.28-22
 
-**Note:** This page describes features in an _**unreleased**_ version of MariaDB._**Unreleased**_ means there are no official packages or\
-binaries available for download which contain the features. If you want to try out any of the new features described here you will\
-need to [get](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code) and [compile](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source) the\
+**Note:** This page describes features in an _**unreleased**_ version of MariaDB._**Unreleased**_ means there are no official packages or
+binaries available for download which contain the features. If you want to try out any of the new features described here you will
+need to [get](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code) and [compile](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source) the
 code yourself.
 
 MariaDB Enterprise Server 10.5.28-22 is a maintenance release of [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-enterprise-server/README.md) 10.5. For the categorized highlights and other details of this release, see the [release notes](10.5.28-22.md).\
@@ -173,6 +173,6 @@ MariaDB Enterprise Server 10.5.28-22 was released on 19 Mar 2025.
 * ([MDEV-34665](https://jira.mariadb.org/browse/MDEV-34665)) NULL-aware materialization with IN predicate and single column no longer skips building sorted Ordered\_key structures
 * ([MDEV-35443](https://jira.mariadb.org/browse/MDEV-35443)) During an online table rebuild of an InnoDB statistics table, opt\_search\_plan\_for\_table() no longer sometimes degrades to full table scan
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

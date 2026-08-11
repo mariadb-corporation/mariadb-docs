@@ -147,3 +147,5 @@ SQL
   - <https://mariadb.com/docs/server/clients-and-utilities/mariadb-client/mariadb-command-line-client>
   - <https://mariadb.com/docs/server/clients-and-utilities/mariadb-client/mysql-command-line-client>
   - <https://mariadb.com/docs/server/clients-and-utilities/mariadb-client>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

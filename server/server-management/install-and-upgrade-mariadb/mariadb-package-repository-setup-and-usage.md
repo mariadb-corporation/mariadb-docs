@@ -460,7 +460,7 @@ See the [Usage Example - MariaDB Community Server](mariadb-package-repository-se
 
 By default, the script will configure your system to install from the repository of the latest GA version of MariaDB MaxScale.
 
-If you would like to pin the repository to a specific version of MariaDB MaxScale, then you will need\
+If you would like to pin the repository to a specific version of MariaDB MaxScale, then you will need
 to either manually edit the [repository configuration file](mariadb-package-repository-setup-and-usage.md#platform-specific-behavior) to point to the desired version or use the `--mariadb-maxscale-version` option.
 
 For example, to configure your system to install from the repository of MariaDB MaxScale 6.1, that would be:
@@ -703,6 +703,6 @@ For the list of changes made in each version, see the changelogs:
 {% endtab %}
 {% endtabs %}
 
-{% include "../../.gitbook/includes/license-cc-by-sa-gnu-fdl.md" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

@@ -124,6 +124,6 @@ For protocol differences, see [MariaDB protocol difference with MySQL](https://a
 
 * Also see [Incompatibilities between MariaDB 10.4 and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-10-4-and-mysql-8.md) and [Incompatibilities between MariaDB 10.3 and MySQL 5.7](compatibility-differences-incompatibilities-and-feature-differences-between.md).
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

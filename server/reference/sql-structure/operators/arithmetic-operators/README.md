@@ -66,3 +66,5 @@ Divide operands with the / operator, returning NULL on division by zero and cont
 Return the remainder of N divided by M with the % modulo operator.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -212,3 +212,5 @@ Here are some examples of Markdown links to various pages using space links:
 ```
 
 When Space Links are rendered to the public site, GitBook handles translating Space Links into a link to the correct page. And if a page is moved or renamed then the link will be automatically updated on every page it appears on.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -11,4 +11,6 @@
 * Q: Is the MariaDB Kubernetes Operator a commercial or open-source product?\
   A: The MariaDB Kubernetes Operator is typically a component of the MariaDB Enterprise Platform offering and is available to commercial subscribers of MariaDB plc.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

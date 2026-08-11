@@ -45,3 +45,5 @@ Understanding these limitations helps in designing a robust MaxScale deployment 
 
 * [MariaDB MaxScale Limitations Documentation](../maxscale-management/mariadb-maxscale-limitations-guide.md)
 * [MariaDB MaxScale Documentation (General)](../maxscale-use-cases/maxscale-overview.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

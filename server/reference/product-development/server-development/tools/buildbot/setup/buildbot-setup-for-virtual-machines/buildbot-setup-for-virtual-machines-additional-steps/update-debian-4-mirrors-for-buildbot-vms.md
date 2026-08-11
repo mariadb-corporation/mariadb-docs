@@ -6,8 +6,8 @@ description: >-
 
 # Update Debian 4 Mirrors for Buildbot VMs
 
-Debian 4 has become so old that the apt repository has been moved out of the\
-main Debian 4 mirror servers, and into the archive of old versions. This needs\
+Debian 4 has become so old that the apt repository has been moved out of the
+main Debian 4 mirror servers, and into the archive of old versions. This needs
 to be fixed by pointing the Debian 4 images to a different mirror:
 
 64-bit:
@@ -28,7 +28,7 @@ sudo vi /etc/apt/sources.list
 # replace http://ftp.dk.debian.org/debian/ with http://ftp.de.debian.org/archive/debian/
 ```
 
-After that, it is necessary to re-do from scratch the -update and -update2\
+After that, it is necessary to re-do from scratch the -update and -update2
 debian4 images (as these are built on top of the -install images).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

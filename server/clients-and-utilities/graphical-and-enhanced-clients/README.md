@@ -150,3 +150,5 @@ description: >-
 {% content-ref url="mariadb-direct-query-adapter-for-microsoft-power-bi.md" %}
 [mariadb-direct-query-adapter-for-microsoft-power-bi.md](mariadb-direct-query-adapter-for-microsoft-power-bi.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

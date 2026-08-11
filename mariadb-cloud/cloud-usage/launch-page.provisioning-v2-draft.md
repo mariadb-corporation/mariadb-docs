@@ -6,7 +6,7 @@
 
   Before publishing (when enable-portal-provisioning-v2 is ON in prod):
     1. Save the 4 UI screenshots from MCDEV-3304 into mariadb-cloud/.gitbook/assets/
-       as provisioning-v2-01.png / -03.png / -04.png (typo-fixed from "provisoning").
+       as provisioning-v2-01.png / -03.png / -04.png (typo-fixed from "provisioning").
     2. Replace the content of cloud-usage/launch-page.md with this, and delete
        this draft file (keep the same page URL).
 
@@ -109,3 +109,5 @@ window — require the **Power** or **Power Plus** service tier.
 Click **Create Service**. The new service appears on the Portal Dashboard, and a
 [notification](notifications.md) is sent when launch begins and when it
 completes.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

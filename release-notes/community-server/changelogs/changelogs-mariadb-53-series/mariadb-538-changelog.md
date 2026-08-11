@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.8.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3564](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3564)\
@@ -59,7 +59,7 @@ modified in that revision.
       * [Revision #2643.154.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.154.1)\
         Fri 2012-08-24 10:06:16 +0200
         * [MDEV-382](https://jira.mariadb.org/browse/MDEV-382): Incorrect quoting ([CVE-2012-4414](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-4414))
-        * Various places in the server replication code was incorrectly quoting\
+        * Various places in the server replication code was incorrectly quoting
           strings, which could lead to incorrect SQL on the slave/mysqlbinlog.
   * [Revision #3556.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3556.1.1) \[merge]\
     Fri 2012-08-24 13:51:16 +0200
@@ -76,7 +76,7 @@ modified in that revision.
   * 5.2 merge.
   * two tests still fail:
     * main.innodb\_icp and main.range\_vs\_index\_merge\_innodb
-    * call records\_in\_range() with both range ends being open\
+    * call records\_in\_range() with both range ends being open
       (which triggers an assert)
   * [Revision #2732.57.11](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.57.11) \[merge]\
     Wed 2012-08-22 16:13:54 +0200
@@ -104,9 +104,9 @@ modified in that revision.
   * Fixed bug [MDEV-449](https://jira.mariadb.org/browse/MDEV-449).
   * The bug could caused a crash when the server executed a query with\
     ORDER by and sort\_buffer\_size was set to a small enough number.
-  * It happened because the small sort buffer did not allow to allocate\
+  * It happened because the small sort buffer did not allow to allocate
     all merge buffers in it.
-  * Made sure that the allocated sort buffer would be big enough\
+  * Made sure that the allocated sort buffer would be big enough
     to contain all possible merge buffers.
 * [Revision #3553](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3553) \[merge]\
   Thu 2012-08-02 00:58:13 +0400
@@ -133,15 +133,15 @@ modified in that revision.
   * [MDEV-398](https://jira.mariadb.org/browse/MDEV-398): Sergv related to spacial queries
   * index\_merge/intersection is unable to work on GIS indexes, because:
     1. index scans have no Rowid-Ordered-Retrieval property
-    2. When one does an index-only read over a GIS index, they do not\
+    2. When one does an index-only read over a GIS index, they do not
        get the index tuple, because index only contains bounding box of the geometry.\
        This is why key\_copy() call crashed.
-  * This patch fixes #1, which makes the problem go away. Theoretically, it would\
+  * This patch fixes #1, which makes the problem go away. Theoretically, it would
     be nice to check #2, too, but SE API semantics is not sufficiently precise to do it.
 * [Revision #3551](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3551)\
   Tue 2012-06-26 21:43:34 +0300
   * Fix for [Bug #1007622](https://bugs.launchpad.net/bugs/1007622)
-  * TABLE\_LIST::check\_single\_table made aware about fact that now if table attached to a merged view it can be (unopened) temporary table\
+  * TABLE\_LIST::check\_single\_table made aware about fact that now if table attached to a merged view it can be (unopened) temporary table
     (in 5.2 it was always leaf table or non (in case of several tables)).
 * [Revision #3550](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3550) \[merge]\
   Sat 2012-06-23 15:00:05 -0700
@@ -153,12 +153,12 @@ modified in that revision.
   * [Revision #2732.57.8](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.57.8)\
     Mon 2012-06-18 22:32:17 -0700
     * Fixed bug [MDEV-354](https://jira.mariadb.org/browse/MDEV-354).
-    * Virtual columns of ENUM and SET data types were not supported properly\
+    * Virtual columns of ENUM and SET data types were not supported properly
       in the original patch that introduced virtual columns into [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md).
-    * The problem was that for any virtual column the patch used the\
-      interval\_id field of the definition of the column in the frm file as\
+    * The problem was that for any virtual column the patch used the
+      interval\_id field of the definition of the column in the frm file as
       a reference to the virtual column expression.
-    * The fix stores the optional interval\_id of the virtual column in the\
+    * The fix stores the optional interval\_id of the virtual column in the
       extended header of the virtual column expression.
 * [Revision #3549](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3549)\
   Fri 2012-06-22 14:14:22 +0400
@@ -186,30 +186,30 @@ modified in that revision.
     * [Revision #2732.58.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.58.1)\
       Mon 2012-06-11 22:12:47 -0700
       * Fixed [Bug #1008293](https://bugs.launchpad.net/bugs/1008293).
-        * One of the reported problems manifested itself in the scenario when one\
-          thread tried to get statistics on a key cache while the second thread\
+        * One of the reported problems manifested itself in the scenario when one
+          thread tried to get statistics on a key cache while the second thread
           had not finished initialization of the key cache structure yet.\
-          The problem was resolved by forcing serialization of such operations\
+          The problem was resolved by forcing serialization of such operations
           on key caches.
         *
-        * To serialize function calls to perform certain operations over a key cache\
-          a new mutex associated with the key cache now is used. It is stored in the\
-          field op\_lock of the KEY\_CACHE structure. It is locked when the operation\
-          is performed. Some of the serialized key cache operations utilize calls\
-          for other key cache operations. To avoid recursive locking of op\_lock\
-          the new functions that perform the operations of key cache initialization,\
+        * To serialize function calls to perform certain operations over a key cache
+          a new mutex associated with the key cache now is used. It is stored in the
+          field op\_lock of the KEY\_CACHE structure. It is locked when the operation
+          is performed. Some of the serialized key cache operations utilize calls
+          for other key cache operations. To avoid recursive locking of op\_lock
+          the new functions that perform the operations of key cache initialization,
           destruction and re-partitioning with an additional parameter were introduced.
         *
-        * The parameter says whether the operation over op\_lock are to be performed or\
-          are to be omitted. The old functions for the operations of key cache\
-          initialization, destruction,and re-partitioning now just call the\
-          corresponding new functions with the additional parameter set to true\
-          requesting to use op\_lock while all other calls of these new function\
+        * The parameter says whether the operation over op\_lock are to be performed or
+          are to be omitted. The old functions for the operations of key cache
+          initialization, destruction,and re-partitioning now just call the
+          corresponding new functions with the additional parameter set to true
+          requesting to use op\_lock while all other calls of these new function
           have this parameter set to false.
         *
-        * Another problem reported in the bug entry concerned the operation of\
-          assigning an index to a key cache. This operation can be called\
-          while the key cache structures are not initialized yet. In this\
+        * Another problem reported in the bug entry concerned the operation of
+          assigning an index to a key cache. This operation can be called
+          while the key cache structures are not initialized yet. In this
           case any call of flush\_key\_blocks() should return without any actions.
         *
         * No test case is provided with this patch.
@@ -221,7 +221,7 @@ modified in that revision.
     * 5.1 merge
   * [Revision #2643.153.9](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.153.9)\
     Fri 2012-06-01 17:53:59 +0200
-    * [MDEV-256](https://jira.mariadb.org/browse/MDEV-256) [Bug #995501](https://bugs.launchpad.net/bugs/995501) - mysqltest attempts to parse Perl code inside a block\
+    * [MDEV-256](https://jira.mariadb.org/browse/MDEV-256) [Bug #995501](https://bugs.launchpad.net/bugs/995501) - mysqltest attempts to parse Perl code inside a block
       with false condition, gets confused and throws wrong errors
   * [Revision #2732.57.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.57.3)\
     Fri 2012-05-25 10:29:53 +0300
@@ -232,10 +232,10 @@ modified in that revision.
     * Fix [Bug #1001506](https://bugs.launchpad.net/bugs/1001506)
     * This is a backport of the (unchaged) fix for MySQL bug #11764372, 57197.
     * Analysis:
-      * When the outer query finishes its main execution and computes GROUP BY,\
-        it needs to construct a new temporary table (and a corresponding JOIN) to\
+      * When the outer query finishes its main execution and computes GROUP BY,
+        it needs to construct a new temporary table (and a corresponding JOIN) to
         execute the last DISTINCT operation. At this point JOIN::exec calls\
-        JOIN::join\_free, which calls JOIN::cleanup -> TMP\_TABLE\_PARAM::cleanup\
+        JOIN::join\_free, which calls JOIN::cleanup -> TMP\_TABLE\_PARAM::cleanup
         for both the outer and the inner JOINs. The call to the inner\
         TMP\_TABLE\_PARAM::cleanup sets copy\_field = NULL, but not copy\_field\_end.
       *
@@ -244,17 +244,17 @@ modified in that revision.
         The last function copies the results of all functions into the temp table.\
         copy\_funcs walks over all functions in join->tmp\_table\_param.items\_to\_copy.\
         In this case items\_to\_copy contains both assignments to user variables.\
-        The process of copying user variables invokes Item\_func\_set\_user\_var::check\
+        The process of copying user variables invokes Item\_func\_set\_user\_var::check
         which in turn re-evaluates the arguments of the user variable assignment.\
-        This in turn triggers re-evaluation of the subquery, and ultimately\
+        This in turn triggers re-evaluation of the subquery, and ultimately
         copy\_field.
       *
-      * However, the previous call to TMP\_TABLE\_PARAM::cleanup for the subquery\
-        already set copy\_field to NULL but not its copy\_field\_end. This results\
+      * However, the previous call to TMP\_TABLE\_PARAM::cleanup for the subquery
+        already set copy\_field to NULL but not its copy\_field\_end. This results
         in a null pointer access, and a crash.
       *
     * Fix:
-      * Set copy\_field\_end and save\_copy\_field\_end to null when deleting\
+      * Set copy\_field\_end and save\_copy\_field\_end to null when deleting
         copy fields in TMP\_TABLE\_PARAM::cleanup().
   * [Revision #2732.57.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.57.1)\
     Tue 2012-05-22 08:48:10 +0300
@@ -264,55 +264,55 @@ modified in that revision.
   Fri 2012-06-15 11:33:24 +0300
   * Fix [Bug #1008686](https://bugs.launchpad.net/bugs/1008686)
   * Analysis:
-    * The fix for bug [Bug #985667](https://bugs.launchpad.net/bugs/985667) implements the method Item\_subselect::no\_rows\_in\_result()\
-      for all main kinds of subqueries. The purpose of this method is to be called from\
-      return\_zero\_rows() and set Items to some default value in the case when a query\
+    * The fix for bug [Bug #985667](https://bugs.launchpad.net/bugs/985667) implements the method Item\_subselect::no\_rows\_in\_result()
+      for all main kinds of subqueries. The purpose of this method is to be called from
+      return\_zero\_rows() and set Items to some default value in the case when a query
       returns no rows. Aggregates and subqueries require special treatment in this case.
     *
     * Every implementation of Item\_subselect::no\_rows\_in\_result() called\
-      Item\_subselect::make\_const() to set the subquery predicate to its default value\
-      irrespective of where the predicate was located in the query. Once the predicate\
+      Item\_subselect::make\_const() to set the subquery predicate to its default value
+      irrespective of where the predicate was located in the query. Once the predicate
       was set to a constant it was never executed.
     *
-    * At the same time, the JOIN object of the fake select for UNIONs (the one used for\
-      the final result of the UNION), was set after all subqueries in the union were\
-      executed. Since we set the subquery as constant, it was never executed, and the\
+    * At the same time, the JOIN object of the fake select for UNIONs (the one used for
+      the final result of the UNION), was set after all subqueries in the union were
+      executed. Since we set the subquery as constant, it was never executed, and the
       corresponding JOIN was never created.
     *
-    * In order to decide whether the result of NOT IN is NULL or FALSE, Item\_in\_optimizer\
-      needs to check if the subquery result was empty or not. This is where we got the\
-      crash, because subselect\_union\_engine::no\_rows() checks for\
+    * In order to decide whether the result of NOT IN is NULL or FALSE, Item\_in\_optimizer
+      needs to check if the subquery result was empty or not. This is where we got the
+      crash, because subselect\_union\_engine::no\_rows() checks for
       unit->fake\_select\_lex->join->send\_records, and the join object was NULL.
     *
   * Solution:
-    * If a subquery is in the HAVING clause it must be evaluated in order to know its\
+    * If a subquery is in the HAVING clause it must be evaluated in order to know its
       result, so that we can properly filter the result records. Once subqueries in the\
-      HAVING clause are executed even in the case of no result rows, this specific\
-      crash will be solved, because the UNION will be executed, and its JOIN will be\
-      constructed. Therefore the fix for this crash is to narrow the fix for [Bug #985667](https://bugs.launchpad.net/bugs/985667),\
-      and to apply Item\_subselect::no\_rows\_in\_result() only when the subquery predicate\
+      HAVING clause are executed even in the case of no result rows, this specific
+      crash will be solved, because the UNION will be executed, and its JOIN will be
+      constructed. Therefore the fix for this crash is to narrow the fix for [Bug #985667](https://bugs.launchpad.net/bugs/985667),
+      and to apply Item\_subselect::no\_rows\_in\_result() only when the subquery predicate
       is in the SELECT clause.
 * [Revision #3543](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3543)\
   Thu 2012-06-14 17:03:09 +0300
   * Fix [Bug #1008773](https://bugs.launchpad.net/bugs/1008773)
   * Analysis:
-    * Queries with implicit grouping (there is aggregate, but no group by)\
+    * Queries with implicit grouping (there is aggregate, but no group by)
       follow some non-obvious semantics in the case of empty result set.\
-      Aggregate functions produce some special "natural" value depending on\
+      Aggregate functions produce some special "natural" value depending on
       the function. For instance MIN/MAX return NULL, COUNT returns 0.
     *
     * The complexity comes from non-aggregate expressions in the select list.\
-      If the non-aggregate expression is a constant, it can be computed, so\
-      we should return its value, however if the expression is non-constant,\
-      and depends on columns from the empty result set, then the only meaningful\
+      If the non-aggregate expression is a constant, it can be computed, so
+      we should return its value, however if the expression is non-constant,
+      and depends on columns from the empty result set, then the only meaningful
       value is NULL.
     *
-    * The cause of the wrong result was that for subqueries the optimizer didn't\
-      make a difference between constant and non-constant ones in the case of\
+    * The cause of the wrong result was that for subqueries the optimizer didn't
+      make a difference between constant and non-constant ones in the case of
       empty result for implicit grouping.
   * Solution:
-    * In all implementations of Item\_subselect::no\_rows\_in\_result() check if the\
-      subquery predicate is constant. If it is constant, do not set it to the\
+    * In all implementations of Item\_subselect::no\_rows\_in\_result() check if the
+      subquery predicate is constant. If it is constant, do not set it to the
       default value for implicit grouping, instead let it be evaluated.
 * [Revision #3542](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3542) \[merge]\
   Sun 2012-06-10 14:06:11 +0400
@@ -323,7 +323,7 @@ modified in that revision.
     * [Revision #2732.53.48](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.48)\
       Sun 2012-06-10 13:50:21 +0400
       * [Bug #1010351](https://bugs.launchpad.net/bugs/1010351): New "via" keyword in 5.2+ can't be used as identifier anymore
-      * Add the VIA\_SYM token into keyword\_sp list, which makes it allowed for\
+      * Add the VIA\_SYM token into keyword\_sp list, which makes it allowed for
         use as keyword and SP label.
 * [Revision #3541](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3541)\
   Fri 2012-06-08 19:15:01 +0200
@@ -347,14 +347,14 @@ modified in that revision.
   Tue 2012-06-05 17:25:10 +0300
   * Fixed [Bug #1000649](https://bugs.launchpad.net/bugs/1000649)
   * Analysis:
-    * When the method JOIN::choose\_subquery\_plan() decided to apply\
-      the IN-TO-EXISTS strategy, it set the unit and select\_lex\
+    * When the method JOIN::choose\_subquery\_plan() decided to apply
+      the IN-TO-EXISTS strategy, it set the unit and select\_lex
       uncacheable flag to UNCACHEABLE\_DEPENDENT\_INJECTED unconditionally.
     *
-    * As result, even if IN-TO-EXISTS injected non-correlated predicates,\
+    * As result, even if IN-TO-EXISTS injected non-correlated predicates,
       the subquery was still treated as correlated.
   * Solution:
-    * Set the subquery as correlated only if the injected predicate(s) depend\
+    * Set the subquery as correlated only if the injected predicate(s) depend
       on the outer query.
 * [Revision #3538](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3538)\
   Mon 2012-06-04 23:22:03 +0200
@@ -367,31 +367,31 @@ modified in that revision.
   * [Revision #3532.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3532.1.1)\
     Sat 2012-06-02 03:25:56 +0400
     * [Bug #1006164](https://bugs.launchpad.net/bugs/1006164): Multi-table DELETE that uses innodb + index\_merge/intersect may fail to delete rows
-    * Set index columns to be read when using index\_merge, even if TABLE->no\_keyread is\
+    * Set index columns to be read when using index\_merge, even if TABLE->no\_keyread is
       set for the table (happens for multi-table UPDATEs)
 * [Revision #3536](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3536)\
   Fri 2012-06-01 14:56:47 +0200
   * [MDEV-304](https://jira.mariadb.org/browse/MDEV-304): Insufficient buffer allocation for Query\_log\_event
-  * The constructor for Query\_log\_event allocated 2 bytes too few for\
-    extra space needed by Query cache. (Not sure if this is reproducible\
-    in practice, as there are often a couple of extra bytes allocated\
+  * The constructor for Query\_log\_event allocated 2 bytes too few for
+    extra space needed by Query cache. (Not sure if this is reproducible
+    in practice, as there are often a couple of extra bytes allocated
     for unused string zero terminators, but better safe than sorry).
 * [Revision #3535](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3535)\
   Wed 2012-05-30 19:10:18 +0300
   * Fix for [Bug #1006231](https://bugs.launchpad.net/bugs/1006231)
   * Analysis:
-    * When a subquery that needs a temp table is executed during\
-      the prepare or optimize phase of the outer query, at the end\
-      of the subquery execution all the JOIN\_TABs of the subquery\
+    * When a subquery that needs a temp table is executed during
+      the prepare or optimize phase of the outer query, at the end
+      of the subquery execution all the JOIN\_TABs of the subquery
       are replaced by a new JOIN\_TAB that selects from the temp table.\
       However that temp table has no corresponding TABLE\_LIST.\
-      Once EXPLAIN execution reaches its last phase, it tries to print\
-      the names of the subquery tables through its TABLE\_LISTs, but in\
-      the case of this bug there is no such TABLE\_LIST (it is NULL),\
+      Once EXPLAIN execution reaches its last phase, it tries to print
+      the names of the subquery tables through its TABLE\_LISTs, but in
+      the case of this bug there is no such TABLE\_LIST (it is NULL),
       hence a crash.
   * Solution:
     * The fix is to block subquery evaluation inside\
-      Item\_func\_like::fix\_fields and Item\_func\_like::select\_optimize()\
+      Item\_func\_like::fix\_fields and Item\_func\_like::select\_optimize()
       using the Item::is\_expensive() test.
 * [Revision #3534](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3534)\
   Tue 2012-05-29 09:59:25 +0500
@@ -417,13 +417,13 @@ modified in that revision.
   * Merge.
   * [Revision #3531.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3531.1.1)\
     Fri 2012-05-25 00:07:26 -0700
-    * Fixed a performance problem: calls of the function imerge\_list\_and\_tree\
+    * Fixed a performance problem: calls of the function imerge\_list\_and\_tree
       could lead an to exponential growth of the imerge lists.
 * [Revision #3532](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3532)\
   Fri 2012-05-25 01:20:40 +0400
   * [Bug #1002630](https://bugs.launchpad.net/bugs/1002630): Valgrind warnings 'Invalid read' in subselect\_engine::calc\_const\_tables with SELECT
-    * In JOIN::exec(), make the having->update\_used\_tables() call before we've\
-      made the JOIN::cleanup(full=true) call. The latter frees SJ-Materialization\
+    * In JOIN::exec(), make the having->update\_used\_tables() call before we've
+      made the JOIN::cleanup(full=true) call. The latter frees SJ-Materialization
       structures, which correlated subquery predicate items attempt to walk afterwards.
 * [Revision #3531](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3531)\
   Wed 2012-05-23 21:05:53 +0400
@@ -442,7 +442,7 @@ modified in that revision.
   * Analysis:
     * The optimizer detects an empty result through constant table optimization.\
       Then it calls return\_zero\_rows(), which in turns calls inderctly\
-      Item\_maxmin\_subselect::no\_rows\_in\_result(). The latter method set "value=0",\
+      Item\_maxmin\_subselect::no\_rows\_in\_result(). The latter method set "value=0",
       however "value" is pointer to Item\_cache, and not just an integer value.
     *   All of the Item\_\[maxmin | singlerow]\_subselect::val\_XXX methods does:
 
@@ -474,9 +474,9 @@ modified in that revision.
         * Call close\_cached\_tables\_set\_readonly() for the read\_only::set\_var.
     * sql/sql\_base.cc
       * [MDEV-136](https://jira.mariadb.org/browse/MDEV-136) Non-blocking "set read\_only".
-        * Parameters added to the close\_cached\_tables implementation,\
+        * Parameters added to the close\_cached\_tables implementation,
           close\_cached\_tables\_set\_readonly declared.
-        * Prevent blocking on the transactional tables if the\
+        * Prevent blocking on the transactional tables if the
           set\_readonly\_mode is on.
 * [Revision #3526](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3526) \[merge]\
   Sun 2012-05-20 14:57:29 +0200
@@ -500,7 +500,7 @@ modified in that revision.
   * [Revision #3522.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3522.1.1)\
     Fri 2012-05-18 16:24:12 +0400
     * [Bug #1000269](https://bugs.launchpad.net/bugs/1000269): Wrong result (extra rows) with semijoin+materialization, IN subqueries, join\_cache\_level>0
-      * make make\_cond\_after\_sjm() correctly handle OR clauses where one branch refers to the semi-join table\
+      * make make\_cond\_after\_sjm() correctly handle OR clauses where one branch refers to the semi-join table
         while the other branch refers to the non-semijoin table.
 * [Revision #3524](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3524)\
   Thu 2012-05-17 10:45:20 +0300
@@ -516,7 +516,7 @@ modified in that revision.
   * Let fix\_semijoin\_strategies\_for\_picked\_join\_order() set\
     POSITION::prefix\_record\_count for POSITION records that it copies from\
     SJ\_MATERIALIZATION\_INFO::tables.
-  * (These records do not have prefix\_record\_count set, because they are optimized\
+  * (These records do not have prefix\_record\_count set, because they are optimized
     as joins-inside-semijoin-nests, without full advance\_sj\_state() processing).
 * [Revision #3521](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3521) \[merge]\
   Sat 2012-05-12 12:27:26 +0400
@@ -526,7 +526,7 @@ modified in that revision.
     * Merge 5.2->5.3
     * [Revision #2643.153.6](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.153.6)\
       Sat 2012-05-12 11:53:14 +0400
-      * [Bug #997747](https://bugs.launchpad.net/bugs/997747): Assertion \`join->best\_read < ((double) 1.79..5e+308L)' failed\
+      * [Bug #997747](https://bugs.launchpad.net/bugs/997747): Assertion \`join->best\_read < ((double) 1.79..5e+308L)' failed
         in greedy\_search with LEFT JOINs and unique keys
       * Backport the fix for [Bug #806524](https://bugs.launchpad.net/bugs/806524) from [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 * [Revision #3520](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3520) \[merge]\
@@ -536,8 +536,8 @@ modified in that revision.
     Fri 2012-05-11 09:35:46 +0300
     * fix for [Bug #994392](https://bugs.launchpad.net/bugs/994392)
     * The not\_null\_tables() of Item\_func\_not\_all and Item\_in\_optimizer was inherited from\
-      Item\_func by mistake. It made the optimizer think that subquery\
-      predicates with ALL/ANY/IN were null-rejecting. This could trigger invalid\
+      Item\_func by mistake. It made the optimizer think that subquery
+      predicates with ALL/ANY/IN were null-rejecting. This could trigger invalid
       conversions of outer joins into inner joins.
   * [Revision #2732.53.43](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.43)\
     Thu 2012-05-10 09:00:21 +0300
@@ -545,9 +545,9 @@ modified in that revision.
   * [Revision #2732.53.42](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.42)\
     Tue 2012-05-08 12:38:22 +0200
     * [MDEV-262](https://jira.mariadb.org/browse/MDEV-262) : log\_state occationally fails in buildbot.
-    * The failures are missing entries in the slow query log. The reason for\
-      the failure are sleep() calls with short duration 10ms, which is less\
-      than the default system timer resolution for various WaitForXXXObject\
+    * The failures are missing entries in the slow query log. The reason for
+      the failure are sleep() calls with short duration 10ms, which is less
+      than the default system timer resolution for various WaitForXXXObject
       functions (15.6 ms) and thus can't work reliably.
     * The fix is to make sleeps tiny bit longer (20ms from 10ms) in the test.
   *   [Revision #2732.53.41](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.41)\
@@ -561,13 +561,13 @@ modified in that revision.
       ```
 
       * The fix is to detect the condition "no active connection", to report error and die.
-      * Note, that the check for no active connection was already in place for ordinary commands,\
+      * Note, that the check for no active connection was already in place for ordinary commands,
         and was missing only for assign-variable command.
 * [Revision #2732.53.40](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.40)\
   Mon 2012-05-07 13:26:34 +0300
   * Fix for [Bug #993726](https://bugs.launchpad.net/bugs/993726)
-  * Optimization of aggregate functions detected constant under max() and\
-    evalueted it, but condition in the WHWRE clause (which is always FALSE) was\
+  * Optimization of aggregate functions detected constant under max() and
+    evalueted it, but condition in the WHWRE clause (which is always FALSE) was
     not taken into account
 * [Revision #2732.53.39](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.39)\
   Mon 2012-05-07 11:02:58 +0300
@@ -630,11 +630,11 @@ modified in that revision.
       The fix is to use 'max_used_key_length' key length instead of 0.
       ```
 * Analysis:
-  * Spcifically the crash in this bug was a result of the call to key\_copy()\
-    that copied the whole key, inlcuding the BLOB field which is not used\
-    for index access. Copying the blob field overwrote memory as far as the\
-    function parameter 'key\_info'. As a result the contents of key\_info was\
-    all 0, which resulted in a crash when this key\_info was accessed few\
+  * Spcifically the crash in this bug was a result of the call to key\_copy()
+    that copied the whole key, inlcuding the BLOB field which is not used
+    for index access. Copying the blob field overwrote memory as far as the
+    function parameter 'key\_info'. As a result the contents of key\_info was
+    all 0, which resulted in a crash when this key\_info was accessed few
     lines below in key\_cmp().
 * [Revision #3519](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3519)\
   Tue 2012-05-08 20:58:41 +0300
@@ -650,6 +650,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

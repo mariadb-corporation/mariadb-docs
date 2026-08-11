@@ -8,7 +8,7 @@ description: >-
 
 `aria_chk` is used to check, repair, optimize, sort and get information about [Aria](../../server-usage/storage-engines/aria/aria-storage-engine.md) tables.
 
-With the MariaDB server, you can use [CHECK TABLE](../../reference/sql-statements/table-statements/check-table.md),[REPAIR TABLE](../../reference/sql-statements/table-statements/repair-table.md) and [OPTIMIZE TABLE](../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) to do\
+With the MariaDB server, you can use [CHECK TABLE](../../reference/sql-statements/table-statements/check-table.md),[REPAIR TABLE](../../reference/sql-statements/table-statements/repair-table.md) and [OPTIMIZE TABLE](../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) to do
 similar things.
 
 {% hint style="danger" %}
@@ -21,7 +21,7 @@ Note: `aria_chk` should not be used when MariaDB is running. MariaDB Server assu
 aria_chk [OPTIONS] aria_tables[.MAI]
 ```
 
-Aria table information is stored in 2 files: the `.MAI` file contains base\
+Aria table information is stored in 2 files: the `.MAI` file contains base
 table information and the index and the `.MAD` file contains the data.`aria_chk` takes one or more `.MAI` files as arguments.
 
 The following groups are read from the my.cnf files:
@@ -33,7 +33,7 @@ The following groups are read from the my.cnf files:
 
 ### **Global Options**
 
-The following options to handle option files may be given as the first\
+The following options to handle option files may be given as the first
 argument:
 
 | Option                  | Description                                      |

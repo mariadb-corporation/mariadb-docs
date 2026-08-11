@@ -61,3 +61,5 @@ A transactional grammar that simulates transactions using `LOCK TABLE` statement
 * [Optimizer Quality](optimizer-quality.md)
 * [QA Tools](qa-tools.md)
 * [Worklog Quality Checklist Template](worklog-quality-checklist-template.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -126,8 +126,8 @@ Create a filter which can inject queries before the client executes any queries.
 ### Cassandra Storage Engine V2
 
 Current Cassandra Storage Engine was developed against Cassandra 1.1 and it uses Thrift API to communicate with Cassandra.\
-However, starting from Cassandra 1.2, the preferred way to access Cassandra database is use CQL (Cassandra Query Language)\
-and DataStax C++ Driver ([cpp-driver](https://github.com/datastax/cpp-driver)). Thrift-based access is deprecated and places heavy constraints on\
+However, starting from Cassandra 1.2, the preferred way to access Cassandra database is use CQL (Cassandra Query Language)
+and DataStax C++ Driver ([cpp-driver](https://github.com/datastax/cpp-driver)). Thrift-based access is deprecated and places heavy constraints on
 the schema.
 
 This task is about re-implementing Cassandra Storage Engine using DataStax C++ Driver and CQL.

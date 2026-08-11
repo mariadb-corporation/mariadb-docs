@@ -11,4 +11,6 @@
 * Q: Where can I download MariaDB Community Server?\
   A: You can download official MariaDB Community Server packages from the MariaDB Foundation website (mariadb.org). Additionally, it is readily available in the software repositories of most major Linux distributions for easy installation.
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

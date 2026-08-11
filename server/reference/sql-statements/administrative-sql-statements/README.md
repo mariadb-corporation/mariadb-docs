@@ -186,3 +186,5 @@ Assign values to system variables. Learn to use the SET statement to configure G
 View server metadata and status. This section lists SHOW statements for inspecting databases, tables, variables, and performance metrics.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

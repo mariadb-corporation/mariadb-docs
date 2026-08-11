@@ -77,3 +77,5 @@ The TokuDB storage engine has been removed from MariaDB.
 The TokuDB storage engine has been removed from MariaDB.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

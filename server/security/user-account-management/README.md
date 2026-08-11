@@ -94,3 +94,5 @@ Guide to configuring password expiration policies, including setting global life
 Introduction to Catalogs, a multi-tenancy feature for isolating database objects and users, planned for future MariaDB releases.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

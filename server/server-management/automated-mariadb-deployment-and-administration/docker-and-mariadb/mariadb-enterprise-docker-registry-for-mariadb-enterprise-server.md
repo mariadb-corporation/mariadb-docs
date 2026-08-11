@@ -474,3 +474,5 @@ To view the logs in the Docker container, execute [`docker logs`](https://docs.d
 ```bash
 docker logs mariadb-es-11.8
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

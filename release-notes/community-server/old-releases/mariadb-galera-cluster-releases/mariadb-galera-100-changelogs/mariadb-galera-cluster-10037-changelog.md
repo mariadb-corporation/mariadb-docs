@@ -10,7 +10,7 @@ For the highlights of this release, see the [release notes](../mariadb-galera-10
 For changes made in MariaDB, see the [MariaDB 10.0.37 Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10037-changelog.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code\
+Github you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #b9a69f776d](https://github.com/MariaDB/server/commit/b9a69f776d)\
@@ -62,6 +62,6 @@ modified in that revision.
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -22,7 +22,7 @@ XtraDB is a performance enhanced fork of InnoDB. For compatibility reasons, the 
 
 Some examples of divergences between MariaDB's InnoDB and MySQL's InnoDB are:
 
-* [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) (which is based on MySQL 5.6) included encryption and\
+* [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) (which is based on MySQL 5.6) included encryption and
   variable-size page compression before MySQL 5.7 introduced them.
 * [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) (based on MySQL 5.7) introduced persistent AUTO\_INCREMENT ([MDEV-6076](https://jira.mariadb.org/browse/MDEV-6076)) in a GA release before MySQL 8.0.
 * [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) (based on MySQL 5.7) introduced instant ADD COLUMN ([MDEV-11369](https://jira.mariadb.org/browse/MDEV-11369)) before MySQL.

@@ -20,3 +20,5 @@ A storage engine interface to [Cassandra](https://cassandra.apache.org/). Read t
 - [Cassandra System Variables](cassandra-system-variables.md)
 - [Handling Joins With Cassandra](handling-joins-with-cassandra.md)
 - [Virtual Machine to Test the Cassandra Storage Engine](virtual-machine-to-test-the-cassandra-storage-engine.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

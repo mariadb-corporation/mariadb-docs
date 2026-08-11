@@ -29,3 +29,5 @@ Documents the removed BACKUP TABLE statement, which unreliably copied MyISAM tab
 Documents the removed RESTORE TABLE statement, which unreliably restored MyISAM tables from a BACKUP TABLE backup directory, and points to mysqldump and other tools as replacements.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

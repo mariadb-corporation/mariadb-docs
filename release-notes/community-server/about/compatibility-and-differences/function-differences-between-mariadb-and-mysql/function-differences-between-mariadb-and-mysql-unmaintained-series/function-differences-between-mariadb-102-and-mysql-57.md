@@ -85,4 +85,6 @@ MariaDB and MySQL have differing [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2O
 * [Function Differences Between MariaDB 10.3 and MySQL 5.7](function-differences-between-mariadb-103-and-mysql-57.md)
 * [Function Differences Between MariaDB 10.2 and MySQL 5.6](function-differences-between-mariadb-102-and-mysql-56.md)
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formid="4316" formId="4316" %}

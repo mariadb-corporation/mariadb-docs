@@ -19,7 +19,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 ## Bugs and issues fixed
 
 * [MCOL-1085](https://jira.mariadb.org/browse/MCOL-1085) - Add automatic stack trace to ColumnStore binaries
-* [MCOL-1106](https://jira.mariadb.org/browse/MCOL-1106) - multi-node install fails, mysqld didnt startup in time
+* [MCOL-1106](https://jira.mariadb.org/browse/MCOL-1106) - multi-node install fails, mysqld didn't startup in time
 * [MCOL-1206](https://jira.mariadb.org/browse/MCOL-1206) - Merge [MariaDB 10.1.31](../../../community-server/old-releases/10.1/10.1.31.md)
 * [MCOL-1086](https://jira.mariadb.org/browse/MCOL-1086) - ssh certificates aren't used in postConfigure nonDistributed installation with DataRedundancy between PMs enabled.
 * [MCOL-1114](https://jira.mariadb.org/browse/MCOL-1114) - Set cpack deb minimum version to 3.4
@@ -74,6 +74,6 @@ The source code is available at these locations
 * Storage Engine - [Source code for engine specific processes on UM and PM node](https://github.com/mariadb-corporation/mariadb-columnstore-engine/tree/columnstore-1.0.13)
 * MariaDB Server - [Source code based on MariaDB Server 10.1.31 modified to support the ColumnStore storage engine](https://github.com/mariadb-corporation/mariadb-columnstore-server/tree/columnstore-1.0.13)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

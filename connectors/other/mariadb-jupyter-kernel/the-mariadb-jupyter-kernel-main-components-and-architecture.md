@@ -207,7 +207,7 @@ This magic command prints the list of magics supported by the kernel along with 
 
 #### Line
 
-The whole purpose of this magic command is to allow the user to display the result of the last query (e.g. `SELECT`, `SHOW`,...) in a nice and simple [matplotlib](https://matplotlib.org/) plot. Internally, the Line class receives the data of the last query from the kernel as a [Pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html), it generates a plot `PNG` image, wraps the image into\
+The whole purpose of this magic command is to allow the user to display the result of the last query (e.g. `SELECT`, `SHOW`,...) in a nice and simple [matplotlib](https://matplotlib.org/) plot. Internally, the Line class receives the data of the last query from the kernel as a [Pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html), it generates a plot `PNG` image, wraps the image into
 a nice [display\_data](https://jupyter-client.readthedocs.io/en/stable/messaging.html#display-data) Jupyter message and then sends it further.
 
 #### DF
@@ -226,7 +226,9 @@ Internally, the Bar class receives the data of the last query from the kernel as
 
 #### Pie
 
-The purpose of this magic command is to allow the user to display the result of the last query (e.g. `SELECT`, `SHOW`,...) in a nice and simple [matplotlib](https://matplotlib.org/) plot. Internally, the Pie class receives the data of the last query from the kernel as a [Pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html), it generates a plot `PNG` image, wraps the image into\
+The purpose of this magic command is to allow the user to display the result of the last query (e.g. `SELECT`, `SHOW`,...) in a nice and simple [matplotlib](https://matplotlib.org/) plot. Internally, the Pie class receives the data of the last query from the kernel as a [Pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html), it generates a plot `PNG` image, wraps the image into
 a nice [display\_data](https://jupyter-client.readthedocs.io/en/stable/messaging.html#display-data) Jupyter message and then sends it further.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -1,6 +1,6 @@
 # MariaDB 5.3.0 Changelog p2
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**\
+[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**
 (page:[1](mariadb-530-changelog.md) 2 [3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md)[6](mariadb-530-changelog-p6.md)\
 ) |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
@@ -9,10 +9,10 @@
 * [Revision #3069](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3069)\
   Wed 2011-06-29 16:05:16 -0700
   * Fixed [Bug #803410](https://bugs.launchpad.net/bugs/803410).\
-    Due to this bug in the function generate\_derived\_keys\_for\_table some\
-    key definitions to access materialized derived tables or materialized\
+    Due to this bug in the function generate\_derived\_keys\_for\_table some
+    key definitions to access materialized derived tables or materialized
     views were constructed with invalid info for their key parts.\
-    This could make the server crash when it optimized queries using\
+    This could make the server crash when it optimized queries using
     materialized derived tables or materialized views.
 * [Revision #3068](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3068) \[merge]\
   Tue 2011-06-28 19:56:30 -0700
@@ -20,39 +20,39 @@
   * [Revision #3065.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3065.1.1)\
     Tue 2011-06-28 18:31:54 -0700
     * Fixed [Bug #802860](https://bugs.launchpad.net/bugs/802860).\
-      This crashing bug could manifest itself at execution of join queries\
-      over materialized derived tables with IN subquery predicates in the\
-      where clause. If for such a query the optimizer chose to use duplicate\
-      weed-out with duplicates in a materialized derived table and chose to\
+      This crashing bug could manifest itself at execution of join queries
+      over materialized derived tables with IN subquery predicates in the
+      where clause. If for such a query the optimizer chose to use duplicate
+      weed-out with duplicates in a materialized derived table and chose to
       employ join cache the execution could cause a crash of the server.\
-      It happened because the JOIN\_CACHE::init method assumed that the value\
-      of TABLE::file::ref is set at the moment when the method was called\
-      for the employed join cache. It's true for regular tables, but it's\
-      not true for materialized derived tables that are filled now at the\
+      It happened because the JOIN\_CACHE::init method assumed that the value
+      of TABLE::file::ref is set at the moment when the method was called
+      for the employed join cache. It's true for regular tables, but it's
+      not true for materialized derived tables that are filled now at the
       first access to them, i.e. after the JOIN\_CACHE::init has done its job.
-    * To fix this problem for any ROWID field of materialized derived table\
-      the procedure that copies fields from record buffers into the employed\
-      join buffer first checks whether the value of TABLE::file::ref has\
+    * To fix this problem for any ROWID field of materialized derived table
+      the procedure that copies fields from record buffers into the employed
+      join buffer first checks whether the value of TABLE::file::ref has
       been set for the table, and if it's not so the procedure sets this value.
 * [Revision #3067](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3067)\
   Tue 2011-06-28 15:48:44 +0300
   * Fixed [Bug #800679](https://bugs.launchpad.net/bugs/800679)
     * Analysis:
-      * The failed assert ensured that the choice of subquery strategy\
-        is performed only for queries with at least one table. If there\
-        is a LIMIT 0 clause all tables are removed, and the subquery is\
-        neither optimized, nor executed during actual optimization. However,\
-        if the query is EXPLAIN-ed, the EXPLAIN execution path doesn't remove\
-        the query tables if there is a LIMIT 0 clause. As a result, the\
-        subquery optimization code is called, which violates the ASSERT\
+      * The failed assert ensured that the choice of subquery strategy
+        is performed only for queries with at least one table. If there
+        is a LIMIT 0 clause all tables are removed, and the subquery is
+        neither optimized, nor executed during actual optimization. However,
+        if the query is EXPLAIN-ed, the EXPLAIN execution path doesn't remove
+        the query tables if there is a LIMIT 0 clause. As a result, the
+        subquery optimization code is called, which violates the ASSERT
         condition.
     * Solution:
-      * Transform the assert into a condition, and if the outer query\
-        has no tables assume that there will be at most one subquery\
+      * Transform the assert into a condition, and if the outer query
+        has no tables assume that there will be at most one subquery
         execution.
       * There is potentially a better solution by reengineering the\
-        EXPLAIN/optimize code, so that subquery optimization is not\
-        done if not needed. Such a solution would be a lot bigger and\
+        EXPLAIN/optimize code, so that subquery optimization is not
+        done if not needed. Such a solution would be a lot bigger and
         more complex than a bug fix.
 * [Revision #3066](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3066)\
   Tue 2011-06-28 11:11:26 +0400
@@ -64,7 +64,7 @@
   * [Revision #3062.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3062.2.1)\
     Mon 2011-06-27 23:07:46 -0700
     * Fixed [Bug #800535](https://bugs.launchpad.net/bugs/800535).\
-      The function create\_view\_field in some cases incorrectly set the maybe\_null\
+      The function create\_view\_field in some cases incorrectly set the maybe\_null
       flag for the returned items.
 * [Revision #3064](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3064) \[merge]\
   Tue 2011-06-28 00:18:42 +0300
@@ -105,31 +105,31 @@
 * [Revision #3061](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3061)\
   Sat 2011-06-25 14:02:27 -0700
   * Fixed [Bug #802023](https://bugs.launchpad.net/bugs/802023).\
-    Made mergeable views and mergeable derived tables transparent for\
+    Made mergeable views and mergeable derived tables transparent for
     the MIN/MAX optimization.
 * [Revision #3060](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3060)\
   Fri 2011-06-24 21:18:20 -0700
-  * Added test cases for [Bug #798625](https://bugs.launchpad.net/bugs/798625) and [Bug #800085](https://bugs.launchpad.net/bugs/800085)\
+  * Added test cases for [Bug #798625](https://bugs.launchpad.net/bugs/798625) and [Bug #800085](https://bugs.launchpad.net/bugs/800085)
     fixed by the patch for [Bug #798621](https://bugs.launchpad.net/bugs/798621).
 * [Revision #3059](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3059)\
   Fri 2011-06-24 18:42:14 -0700
   * Fixed [Bug #799499](https://bugs.launchpad.net/bugs/799499).\
     The following were missing in the patch for mwl106:
-    * KEY\_PART\_INFO::fieldnr were not set for generated keys to access\
+    * KEY\_PART\_INFO::fieldnr were not set for generated keys to access
       tmp tables storing the rows of materialized derived tables/views
-    * TABLE\_SHARE::column\_bitmap\_size was not set for tmp tables storing\
+    * TABLE\_SHARE::column\_bitmap\_size was not set for tmp tables storing
       the rows of materialized derived tables/views.
     * These could cause crashes or memory overwrite.
 * [Revision #3058](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3058)\
   Fri 2011-06-24 14:38:53 -0700
   * Fixed [Bug #798576](https://bugs.launchpad.net/bugs/798576).\
-    If a view/derived table is non-mergeable then the definition of the tmp table\
-    to store the rows for it is created at the prepare stage. In this case if the\
-    view definition uses outer joins and a view column belongs to an inner table\
-    of one of them then the column should be considered as nullable independently\
-    on nullability of the underlying column. If the underlying column happens to be\
-    defined as non-nullable then the function create\_tmp\_field\_from\_item rather\
-    than the function create\_tmp\_field\_from\_field should be employed to create\
+    If a view/derived table is non-mergeable then the definition of the tmp table
+    to store the rows for it is created at the prepare stage. In this case if the
+    view definition uses outer joins and a view column belongs to an inner table
+    of one of them then the column should be considered as nullable independently
+    on nullability of the underlying column. If the underlying column happens to be
+    defined as non-nullable then the function create\_tmp\_field\_from\_item rather
+    than the function create\_tmp\_field\_from\_field should be employed to create
     the definition of the interesting column in the tmp table.
 * [Revision #3057](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3057) \[merge]\
   Fri 2011-06-24 21:43:31 +0400
@@ -138,15 +138,15 @@
 * [Revision #3056](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3056)\
   Thu 2011-06-23 22:12:22 -0700
   * Fixed a valgrind problem.\
-    The function setup\_tables should handle table\_list elements for\
-    semijoin materialized tables in a special way when executing\
+    The function setup\_tables should handle table\_list elements for
+    semijoin materialized tables in a special way when executing
     a prepared statement for the second time.
 * [Revision #3055](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3055)\
   Thu 2011-06-23 14:48:45 -0700
   * Fixed [Bug #800518](https://bugs.launchpad.net/bugs/800518).\
-    The function simple\_pred did not take into account that a multiple equality\
+    The function simple\_pred did not take into account that a multiple equality
     could include ref items (more exactly items of the class Item\_direct\_view\_ref).\
-    It caused crashes for queries over derived tables or views if the\
+    It caused crashes for queries over derived tables or views if the
     min/max optimization could be applied to these queries.
 * [Revision #3054](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3054) \[merge]\
   Tue 2011-06-21 18:17:28 -0700
@@ -154,13 +154,13 @@
   * [Revision #3052.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3052.1.1)\
     Tue 2011-06-21 18:00:58 -0700
     * Fixed [Bug #798621](https://bugs.launchpad.net/bugs/798621).
-    * The patch for [Bug #717577](https://bugs.launchpad.net/bugs/717577) and [Bug #724942](https://bugs.launchpad.net/bugs/724942) has missed to make adjustments for the\
-      call item\_equal->add\_const(const\_item, orig\_field\_item) in the function\
+    * The patch for [Bug #717577](https://bugs.launchpad.net/bugs/717577) and [Bug #724942](https://bugs.launchpad.net/bugs/724942) has missed to make adjustments for the
+      call item\_equal->add\_const(const\_item, orig\_field\_item) in the function
       check\_simple\_equality that builds multiple equality for a field and a constant.\
       As a result, when this field happens to be a view field and the corresponding\
       Item\_field object F is wrapped in an Item\_direct\_view\_ref object R the object\
       F is placed in the multiple equality instead of the object R.\
-      A substitution of an equal item for F potentially can cause very serious\
+      A substitution of an equal item for F potentially can cause very serious
       problems and in some cases can lead to crashes of the server.
 * [Revision #3053](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3053)\
   Tue 2011-06-21 23:01:01 +0300
@@ -174,7 +174,7 @@
     Tue 2011-06-21 15:50:07 +0300
     * [MWL#89](https://askmonty.org/worklog/?tid=89)
       * Added regression test with queries over the WORLD database.
-      * Discovered and fixed several bugs in the related cost calculation\
+      * Discovered and fixed several bugs in the related cost calculation
         functionality both in the semijoin and non-semijon subquery code.
       * Added DBUG printing of the cost variables used to decide between\
         IN-EXISTS and MATERIALIZATION.
@@ -194,26 +194,26 @@
   * [Revision #3025.1.5](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3025.1.5)\
     Thu 2011-06-09 12:43:28 -0700
     * Fixed [Bug #794909](https://bugs.launchpad.net/bugs/794909).
-      * The function generate\_derived\_keys did not take into account the fact\
-        that the last element in the array of keyuses could be just a barrier\
+      * The function generate\_derived\_keys did not take into account the fact
+        that the last element in the array of keyuses could be just a barrier
         element. In some cases it could lead to a crash of the server.
-    * Also fixed a couple of other bugs in generate\_derived\_keys: the inner\
-      loop in the body of if this function did not change the cycle variables\
+    * Also fixed a couple of other bugs in generate\_derived\_keys: the inner
+      loop in the body of if this function did not change the cycle variables
       properly.
   * [Revision #3025.1.4](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3025.1.4)\
     Thu 2011-06-09 00:13:00 -0700
     * Fixed [Bug #794038](https://bugs.launchpad.net/bugs/794038).\
-      INSERT/UPDATE/DELETE statement that used a temptable view v1 could lead to\
-      a crash if v1 was defined as a select from a mergeable view v2 that selected\
+      INSERT/UPDATE/DELETE statement that used a temptable view v1 could lead to
+      a crash if v1 was defined as a select from a mergeable view v2 that selected
       rows from a temptable view v3.
-    * When INSERT/UPDATE/DELETE uses a view that is not updatable then field\
+    * When INSERT/UPDATE/DELETE uses a view that is not updatable then field
       translation for the view should be created before the prepare phase.
   * [Revision #3025.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3025.1.3)\
     Mon 2011-06-06 12:19:35 -0700
     * Fixed [Bug #793436](https://bugs.launchpad.net/bugs/793436)
       * When looking for the execution plan of a derived table to be materialized\
-        JOIN::optimize finds out that all joined tables of the derived table\
-        contain not more than one row then the derived table should be maretialized\
+        JOIN::optimize finds out that all joined tables of the derived table
+        contain not more than one row then the derived table should be maretialized
         at the optimization stage.
       * Added a test case for the bug.
       * Adjusted results in other test cases.
@@ -225,13 +225,13 @@
         * if the flag is on then mergeable derived tables are merged
       * 'derived\_with\_keys':
         * if the flag is off then no keys are created for derived tables
-        * if the flag is on then for any derived table a key to access\
+        * if the flag is on then for any derived table a key to access
           the derived table may be created.
       * Now by default both flags are on.\
-        Later the default values for the flags will be off to comply with\
+        Later the default values for the flags will be off to comply with
         the current behaviour of mysql-5.1.
-      * Uncommented previously commented out test case from parts.partition\_repair\_myisam\
-        after having added an explicit requirement to materialize the derived\
+      * Uncommented previously commented out test case from parts.partition\_repair\_myisam
+        after having added an explicit requirement to materialize the derived
         table used in the test case.
   * [Revision #3025.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3025.1.1) \[merge]\
     Sat 2011-06-04 19:56:06 -0700
@@ -261,26 +261,26 @@
 * [Revision #3042](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3042)\
   Tue 2011-06-14 15:21:54 +0200
   * Another attempt at fixing the rare random failures of rpl\_corruption
-  * The previous patch partially fixed things by waiting for the old dump thread\
-    on the master to exit before injecting the DBUG error. This prevents the error\
+  * The previous patch partially fixed things by waiting for the old dump thread
+    on the master to exit before injecting the DBUG error. This prevents the error
     injection going to the wrong thread.
-  * However, there is still the problem that the old dump thread may never exit,\
-    causing the wait to time out. This happens if the dump thread manages to write\
-    all events down the socket before the socket is closed by the slave. The\
-    master dump thread only checks for slave gone when writing a new event, so if\
-    no new events are generated, old dump threads can hang around forever on the\
+  * However, there is still the problem that the old dump thread may never exit,
+    causing the wait to time out. This happens if the dump thread manages to write
+    all events down the socket before the socket is closed by the slave. The
+    master dump thread only checks for slave gone when writing a new event, so if
+    no new events are generated, old dump threads can hang around forever on the
     master after the slave disconnects.
   * Fix by explicitly killing the old dump thread if it is still around.
 * [Revision #3041](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3041)\
   Mon 2011-06-13 12:41:19 +0400
   * Remove redundant code that is a result of a wrong merge.\
-    (Changeset sp1r-igor@olga.mysql.com-20070526173301-38848 moved this loop from one place\
-    to another, then the merge of sp1r-gshchepa/uchum@gleb.loc-20070527192244-26330 have\
+    (Changeset sp1r-igor@olga.mysql.com-20070526173301-38848 moved this loop from one place
+    to another, then the merge of sp1r-gshchepa/uchum@gleb.loc-20070527192244-26330 have
     kept both copies).
 * [Revision #3040](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3040)\
   Sun 2011-06-12 00:35:53 +0400
   * In make\_join\_select():
-    * move attempt to evaluate join->exec\_const\_cond() out of the "Extract constant part of each ON expression" loop\
+    * move attempt to evaluate join->exec\_const\_cond() out of the "Extract constant part of each ON expression" loop
       (it got there by mistake when merging).
 * [Revision #3039](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3039) \[merge]\
   Sat 2011-06-11 12:04:42 +0300
@@ -293,8 +293,8 @@
     * various fixes for buildbot failures
   * [Revision #3027.1.4](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3027.1.4)\
     Fri 2011-06-10 10:14:20 +0200
-    * change test\_if\_equality\_guarantees\_uniqueness()\
-      from an ad hoc set of limitations\
+    * change test\_if\_equality\_guarantees\_uniqueness()
+      from an ad hoc set of limitations
       to a correct rule
   * [Revision #3027.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3027.1.3)\
     Thu 2011-06-09 18:06:29 +0200
@@ -314,7 +314,7 @@
         * revert a suggested "optimization" that introduced a bug
         * compilation error in mysys/my\_getsystime.c fixed
         * some redundant code removed
-        * sec\_to\_time, time\_to\_sec, from\_unixtime, unix\_timestamp, @@timestamp now\
+        * sec\_to\_time, time\_to\_sec, from\_unixtime, unix\_timestamp, @@timestamp now
           use decimal, not double for numbers with a fractional part.
         * purge\_master\_logs\_before\_date() fixed
         * many bugs in corner cases fixed
@@ -363,10 +363,10 @@
 * [Revision #3028](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3028)\
   Mon 2011-06-06 15:50:46 -0700
   * Fixed [Bug #784441](https://bugs.launchpad.net/bugs/784441).\
-    The code that added semi-join transformations missed checking\
-    the state of the fixed flag for the items built with the\
+    The code that added semi-join transformations missed checking
+    the state of the fixed flag for the items built with the
     and\_items function before calls of the fix\_fields method.\
-    This could lead to an abort failure when the first argument\
+    This could lead to an abort failure when the first argument
     of and\_items() happened to be NULL.
 * [Revision #3027](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3027) \[merge]\
   Mon 2011-06-06 19:37:33 +0300
@@ -397,7 +397,7 @@
   * Merge
   * [Revision #3018.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3018.1.1)\
     Fri 2011-06-03 00:25:58 +0400
-    * Change optimizer\_use\_mrr=auto|disable|force\
+    * Change optimizer\_use\_mrr=auto|disable|force
       to be optimizer\_switch flags mrr=on|off and mrr\_cost\_based=on|off.
 * [Revision #3019](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3019) \[merge]\
   Thu 2011-06-02 17:33:08 -0700
@@ -412,9 +412,9 @@
   * [Revision #3015.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3015.1.1)\
     Thu 2011-06-02 23:48:33 +0400
     * [Bug #787299](https://bugs.launchpad.net/bugs/787299): Valgrind complains on a join query with two IN subqueries
-      * Don't attempt to construct FirstMatch access method if we've\
-        just figured three lines above that it can't be used (because join\
-        prefix doesn't have the needed tables), and so have set\
+      * Don't attempt to construct FirstMatch access method if we've
+        just figured three lines above that it can't be used (because join
+        prefix doesn't have the needed tables), and so have set
         pos->first\_firstmatch\_table= MAX\_TABLES
       * Attempts to analyze join->positions\[MAX\_TABLES] caused valgrind warnings
 * [Revision #3017](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3017)\
@@ -426,12 +426,12 @@
   * [Revision #2732.26.25](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.25)\
     Tue 2011-05-31 12:14:21 +0200
     * Attempt to fix rpl.rpl\_corruption failure seen in Buildbot on Windows.
-    * There is a potential race when we stop the slave. It may take some time for\
-      the master to detect that the slave connection is closed (eg. if scheduling\
-      delays the TCP RSET packet or whatever). Since we inject only a single corrupt\
-      binlog event, we may be unfortunate enough to inject it on the wrong\
+    * There is a potential race when we stop the slave. It may take some time for
+      the master to detect that the slave connection is closed (eg. if scheduling
+      delays the TCP RSET packet or whatever). Since we inject only a single corrupt
+      binlog event, we may be unfortunate enough to inject it on the wrong
       connection, to a slave io thread that's already stopped.
-    * Fix by waiting for the old dump thread on the master to go away before\
+    * Fix by waiting for the old dump thread on the master to go away before
       injecting the corrupt event.
 * [Revision #3015](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3015)\
   Mon 2011-05-30 11:19:40 +0400
@@ -442,17 +442,17 @@
   * Merge 5.3-main -> [MWL#90](https://askmonty.org/worklog/?tid=90)
 * [Revision #3013](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3013)\
   Sun 2011-05-29 20:48:14 -0700
-  * Eliminated the member original\_cond from the class SQL\_SELECT\
+  * Eliminated the member original\_cond from the class SQL\_SELECT
     introduced at the latest merge 5.1->5.2->5.3.\
-    It is basically not needed since if SQL\_SELECT::pre\_idx\_push\_select\_cond\
-    is not NULL then SQL\_SELECT::original\_cond would point to the same condition\
-    as SQL\_SELECT::pre\_idx\_push\_select\_cond. Otherwise SQL\_SELECT::original\_cond\
+    It is basically not needed since if SQL\_SELECT::pre\_idx\_push\_select\_cond
+    is not NULL then SQL\_SELECT::original\_cond would point to the same condition
+    as SQL\_SELECT::pre\_idx\_push\_select\_cond. Otherwise SQL\_SELECT::original\_cond
     would be equal to SQL\_SELECT::cond.
 * [Revision #3012](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3012)\
   Sat 2011-05-28 22:07:56 -0700
   * Fixed the abort failure of a test case from vcol.vcol\_misc.\
-    The fix blocks execution of any constant sub-expressions of\
-    the defining expressions for virtual columns when context\
+    The fix blocks execution of any constant sub-expressions of
+    the defining expressions for virtual columns when context
     analysis if these expressions is performed.
   * Fixed a compiler warning.
 * [Revision #3011](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3011)\
@@ -516,16 +516,16 @@
   * [Revision #2982.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2982.1.2)\
     Fri 2011-05-20 01:05:06 +0400
     * [Bug #784723](https://bugs.launchpad.net/bugs/784723): Wrong result with semijoin + nested subqueries in maria-5.3
-      * in advance\_sj\_state(), remember join->cur\_dups\_producing\_tables in\
-        pos->prefix\_dups\_producing\_tables _before_ we modify it, so that\
+      * in advance\_sj\_state(), remember join->cur\_dups\_producing\_tables in
+        pos->prefix\_dups\_producing\_tables _before_ we modify it, so that
         restore\_prev\_sj\_state() restores cur\_dups\_producing\_tables in all cases.
-      * Updated test results in subselect\_sj2\[\_jcl6].result (the original EXPLAIN\
+      * Updated test results in subselect\_sj2\[\_jcl6].result (the original EXPLAIN
         was invalid there)
 
 [MariaDB 5.3.0](../../old-releases/5.3/5.3.0.md) Changelog — page:[1](mariadb-530-changelog.md) 2 [3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md)[6](mariadb-530-changelog-p6.md)
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

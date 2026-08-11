@@ -92,7 +92,7 @@ If you insist on EAV, set [optimizer\_search\_depth=1](../system-variables/serve
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [eav](https://mysql.rjweb.org/doc.php/eav)

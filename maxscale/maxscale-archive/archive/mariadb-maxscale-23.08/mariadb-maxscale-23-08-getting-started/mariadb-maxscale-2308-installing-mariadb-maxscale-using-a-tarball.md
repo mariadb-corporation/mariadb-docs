@@ -4,7 +4,7 @@
 
 ## Installing MariaDB MaxScale using a tarball
 
-MariaDB MaxScale is also made available as a tarball, which is named like`maxscale-x.y.z.OS.tar.gz` where `x.y.z` is the same as the corresponding version and `OS`\
+MariaDB MaxScale is also made available as a tarball, which is named like`maxscale-x.y.z.OS.tar.gz` where `x.y.z` is the same as the corresponding version and `OS`
 identifies the operating system, e.g. `maxscale-2.5.6.centos.7.tar.gz`.
 
 In order to use the tarball, the following libraries are required:
@@ -17,12 +17,12 @@ In order to use the tarball, the following libraries are required:
 * unixODBC
 
 The tarball has been built with the assumption that it will be installed in `/usr/local`.\
-However, it is possible to install it in any directory, but in that case MariaDB MaxScale\
+However, it is possible to install it in any directory, but in that case MariaDB MaxScale
 must be invoked with a flag.
 
 ### Installing as root in `/usr/local`
 
-If you have root access to the system you probably want to install MariaDB MaxScale under\
+If you have root access to the system you probably want to install MariaDB MaxScale under
 the user and group `maxscale`.
 
 The required steps are as follows:
@@ -37,14 +37,14 @@ $ cd maxscale
 $ sudo chown -R maxscale var
 ```
 
-Creating the symbolic link is necessary, since MariaDB MaxScale has been built\
+Creating the symbolic link is necessary, since MariaDB MaxScale has been built
 with the assumption that the plugin directory is `/usr/local/maxscale/lib/maxscale`.
 
 The symbolic link also makes it easy to switch between different versions of\
 MariaDB MaxScale that have been installed side by side in `/usr/local`;\
 just make the symbolic link point to another installation.
 
-In addition, the first time you install MariaDB MaxScale from a tarball\
+In addition, the first time you install MariaDB MaxScale from a tarball
 you need to create the following directories:
 
 ```
@@ -73,14 +73,14 @@ When the configuration file has been created, MariaDB MaxScale can be started.
 $ sudo bin/maxscale --user=maxscale -d
 ```
 
-The `-d` flag causes maxscale _not_ to turn itself into a daemon,\
+The `-d` flag causes maxscale _not_ to turn itself into a daemon,
 which is advisable the first time MariaDB MaxScale is started, as it makes it easier to spot problems.
 
 If you want to place the configuration file somewhere else but in `/etc`\
 you can invoke MariaDB MaxScale with the `--config` flag,\
 for instance, `--config=/usr/local/maxscale/etc/maxscale.cnf`.
 
-Note also that if you want to keep _everything_ under `/usr/local/maxscale`\
+Note also that if you want to keep _everything_ under `/usr/local/maxscale`
 you can invoke MariaDB MaxScale using the flag `--basedir`.
 
 ```
@@ -108,12 +108,12 @@ $ cd maxscale-x.y.z.OS
 $ bin/maxscale -d --basedir=.
 ```
 
-With the flag `--basedir`, MariaDB MaxScale is told where the `lib`, `etc` and `var`\
-directories are found. Unless it is specified, MariaDB MaxScale assumes\
-the `lib` directory is found in `/usr/local/maxscale`,\
+With the flag `--basedir`, MariaDB MaxScale is told where the `lib`, `etc` and `var`
+directories are found. Unless it is specified, MariaDB MaxScale assumes
+the `lib` directory is found in `/usr/local/maxscale`,
 and the `var` and `etc` directories in `/`.
 
-It is also possible to specify the directories and the location of\
+It is also possible to specify the directories and the location of
 the configuration file individually. Invoke MaxScale like
 
 ```
@@ -123,3 +123,5 @@ $ bin/maxscale --help
 to find out the appropriate flags.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

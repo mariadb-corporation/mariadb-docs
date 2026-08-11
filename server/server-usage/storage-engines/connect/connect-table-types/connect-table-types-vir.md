@@ -17,8 +17,8 @@ The optional `BLOCK_SIZE` option gives the size of the table, defaulting to 1 if
 
 ### Displaying constants or expressions
 
-Many DBMS use a no-column one-line table to do this, often call “dual”. MySQL and MariaDB use\
-syntax where no table is specified. With CONNECT, you can achieve the same purpose with a virtual\
+Many DBMS use a no-column one-line table to do this, often call “dual”. MySQL and MariaDB use
+syntax where no table is specified. With CONNECT, you can achieve the same purpose with a virtual
 table, with the noticeable advantage of being able to display several lines:
 
 ```sql
@@ -52,9 +52,9 @@ PRIMARY KEY (`n`)
 `BLOCK_SIZE`=10
 ```
 
-This special column is called “n” and its value is the row number starting from 1. It is purely a virtual\
+This special column is called “n” and its value is the row number starting from 1. It is purely a virtual
 table and no data file exists corresponding to it and to its index.\
-It is possible to specify the columns of a VIR table but they must be CONNECT special columns or\
+It is possible to specify the columns of a VIR table but they must be CONNECT special columns or
 virtual columns. For instance:
 
 ```
@@ -76,7 +76,7 @@ This table shows the sum and the sum of the square of the n first integers:
 | 999  | 499500 | 332833500 |
 | 1000 | 500500 | 333833500 |
 
-Note that the size of the table can be made very big as there no physical data. However, the result\
+Note that the size of the table can be made very big as there no physical data. However, the result
 should be limited in the queries. For instance:
 
 ```
@@ -84,12 +84,12 @@ SELECT * FROM virt2 WHERE n = 1664510;
 ```
 
 Such a query could last very long if the rowid column were not indexed. Note that by default,\
-CONNECT declares the “n” column as a primary key. Actually, VIR tables can be indexed but only on\
+CONNECT declares the “n” column as a primary key. Actually, VIR tables can be indexed but only on
 the ROWID (or ROWNUM) columns of the table. This is a virtual index for which no data is stored.
 
 ### Generating a Table filled with constant values
 
-An interesting use of virtual tables, which often cannot be achieved with a table of any other type, is to\
+An interesting use of virtual tables, which often cannot be achieved with a table of any other type, is to
 generate a table containing constant values.\
 This is easily done with a virtual table. Let us define the table FILLER as:
 
@@ -97,7 +97,7 @@ This is easily done with a virtual table. Let us define the table FILLER as:
 CREATE TABLE filler ENGINE=CONNECT table_type=VIR block_size=5000000;
 ```
 
-Here we choose a size larger than the biggest table we want to generate. Later if we need a table pre-\
+Here we choose a size larger than the biggest table we want to generate. Later if we need a table pre-
 filled with default and/or null values, we can do for example:
 
 ```

@@ -552,3 +552,5 @@ SELECT /*+ MAX_EXECUTION_TIME(milliseconds) */ ...  ;
 A query that doesn't finish in the time specified will be aborted with an error.
 
 However, if `@@max_statement_time` system variable is set, the hint will be ignored and a warning produced. Note that this contradicts the stated principle that "new-style hints are more specific than server variable settings, so they override the server variable settings".
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

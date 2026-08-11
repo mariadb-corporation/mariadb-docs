@@ -182,3 +182,5 @@ For more information, read this blog post: [Reduced operational downtime with ne
 [^1]: Data Modification Language, a part of the SQL language.
 
 [^2]: Data Definition Language, a part of the SQL language.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -54,3 +54,5 @@ Learn about the three storage formats supported by MyISAM: FIXED (static), DYNAM
 A reference for system variables that configure MyISAM behavior, such as key cache sizes, recovery modes, and concurrent insert settings.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

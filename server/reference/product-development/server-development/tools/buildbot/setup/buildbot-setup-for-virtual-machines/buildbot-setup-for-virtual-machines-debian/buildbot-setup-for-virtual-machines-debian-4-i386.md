@@ -16,7 +16,7 @@ kvm -m 2047 -hda /kvm/vms/vm-debian4-i386-serial.qcow2 -cdrom /kvm/debian-40r8-i
 
 ## Serial console and account setup
 
-From base install, setup for serial port, and setup accounts for passwordless\
+From base install, setup for serial port, and setup accounts for passwordless
 ssh login and sudo:
 
 ```
@@ -81,7 +81,7 @@ qemu-img create -b vm-debian4-i386-serial.qcow2 -f qcow2 vm-debian4-i386-install
 kvm -m 2047 -hda /kvm/vms/vm-debian4-i386-install.qcow2 -cdrom /kvm/debian-40r8-i386-netinst.iso -redir 'tcp:2241::22' -boot c -smp 2 -cpu qemu32,-nx -net nic,model=e1000 -net user -nographic
 ```
 
-See the [General Principles](../buildbot-setup-for-virtual-machines-general-principles.md)\
+See the [General Principles](../buildbot-setup-for-virtual-machines-general-principles.md)
 article for how to make the '`my.seed`' file.
 
 ```

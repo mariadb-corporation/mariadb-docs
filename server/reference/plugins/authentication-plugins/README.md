@@ -138,3 +138,5 @@ Official Unix socket authentication: OS user login via SO_PEERCRED/uid matching,
 Learn about authentication with Pluggable Authentication Modules (PAM) in MariaDB Server. This section details how to integrate MariaDB with PAM for centralized and flexible user authentication.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

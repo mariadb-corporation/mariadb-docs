@@ -30,3 +30,5 @@ A guide outlining essential recommendations for stable MariaDB deployments, cove
 Overview of different deployment architectures (single-node, primary/replica) & methods, including manual installation via repositories or tarballs, and automated deployment with tools like Ansible.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

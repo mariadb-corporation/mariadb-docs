@@ -100,3 +100,5 @@
 - [Error 1697: VALUES value for partition must have type INT](e1697.md)
 - [Error 1698: Access denied for user](e1698.md)
 - [Error 1699: SET PASSWORD has no significance for users authenticating via plugins](e1699.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

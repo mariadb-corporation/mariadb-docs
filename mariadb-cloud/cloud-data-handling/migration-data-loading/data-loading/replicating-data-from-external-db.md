@@ -163,3 +163,5 @@ You can reference the replication status procedure [here](../../../reference/sto
 
 * **For MySQL**: Only binary log-based replication is supported; GTID is not available.
 * **For MariaDB**: GTID-based replication can be used.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

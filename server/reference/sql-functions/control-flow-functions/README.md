@@ -90,3 +90,5 @@ Synonym for IFNULL. This Oracle-compatible function returns the first argument i
 Return values based on NULL status. This function returns the second argument if the first is not NULL, and the third argument if the first is NULL.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

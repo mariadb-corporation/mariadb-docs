@@ -15,7 +15,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 * [Beta](../../../community-server/about/release-criteria.md) release of [Apache Spark Adapter](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-1/broken-reference/README.md) for integration of MariaDB ColumnStore utilizing the Spark SQL feature.
 * [GA](../../../community-server/about/release-criteria.md) release of [MaxScale CDC Adapter](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/data-ingestion/columnstore-streaming-data-adapters)
-* [GA](../../../community-server/about/release-criteria.md) release of [Aache Kafka Data Adapter](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/data-ingestion/columnstore-streaming-data-adapters)
+* [GA](../../../community-server/about/release-criteria.md) release of [Apache Kafka Data Adapter](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/data-ingestion/columnstore-streaming-data-adapters)
 * [MCOL-1121](https://jira.mariadb.org/browse/MCOL-1121) - The Kafka adapter has been made to work with more generic streams
 * [MCOL-1214](https://jira.mariadb.org/browse/MCOL-1214) - The base MariaDB server version is now [10.2.13](../../../community-server/old-releases/10.2/10.2.13.md) which include several maintenance and security fixes.
 
@@ -40,7 +40,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1048](https://jira.mariadb.org/browse/MCOL-1048) - debian9 api python bindings built for python3 but installed in python2
 * [MCOL-1061](https://jira.mariadb.org/browse/MCOL-1061) - Post Configure reports incomplete name for script to run
 * [MCOL-1062](https://jira.mariadb.org/browse/MCOL-1062) - High concurrency can lock up PrimProc
-* [MCOL-1066](https://jira.mariadb.org/browse/MCOL-1066) - non-root install- getsystemdisk doesnt show any info
+* [MCOL-1066](https://jira.mariadb.org/browse/MCOL-1066) - non-root install- getsystemdisk doesn't show any info
 * [MCOL-1068](https://jira.mariadb.org/browse/MCOL-1068) - Compression ratio miscalculation when there are uncompressed columns
 * [MCOL-1070](https://jira.mariadb.org/browse/MCOL-1070) - tupleconstantstep assert when query executed as view
 * [MCOL-1078](https://jira.mariadb.org/browse/MCOL-1078) - mcsapi packet stitching can fail
@@ -50,7 +50,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1086](https://jira.mariadb.org/browse/MCOL-1086) - ssh certificates aren't used in postConfigure nonDistributed installation with DataRedundancy between PMs enabled.
 * [MCOL-1087](https://jira.mariadb.org/browse/MCOL-1087) - ColumnStore API is missing dependencies in the documentation for the Debian installation
 * [MCOL-1091](https://jira.mariadb.org/browse/MCOL-1091) - crash with large writes on java binding of write sdk
-* [MCOL-1106](https://jira.mariadb.org/browse/MCOL-1106) - multi-node install fails, mysqld didnt startup in time
+* [MCOL-1106](https://jira.mariadb.org/browse/MCOL-1106) - multi-node install fails, mysqld didn't startup in time
 * [MCOL-1108](https://jira.mariadb.org/browse/MCOL-1108) - After rollback() an active transaction is reported by mcsadmin shutdownSystem
 * [MCOL-1114](https://jira.mariadb.org/browse/MCOL-1114) - Set cpack deb minimum version to 3.4
 * [MCOL-1128](https://jira.mariadb.org/browse/MCOL-1128) - exemgr becomes non responsive
@@ -59,7 +59,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1134](https://jira.mariadb.org/browse/MCOL-1134) - non-root install - columnstoreAlias file not update and reference by postConfigure
 * [MCOL-1135](https://jira.mariadb.org/browse/MCOL-1135) - non-root install - post-install accidentally starts columnstore service
 * [MCOL-1137](https://jira.mariadb.org/browse/MCOL-1137) - Mysql replication master and slave both setup after a masternode failover
-* [MCOL-1138](https://jira.mariadb.org/browse/MCOL-1138) - pm1 failover testing - didnt leave a HOT\_STANDBY ProcMgr on remainng node
+* [MCOL-1138](https://jira.mariadb.org/browse/MCOL-1138) - pm1 failover testing - didn't leave a HOT\_STANDBY ProcMgr on remainng node
 * [MCOL-1147](https://jira.mariadb.org/browse/MCOL-1147) - multiple mcsapi sessions use the same txnID
 * [MCOL-1152](https://jira.mariadb.org/browse/MCOL-1152) - change columnstore debian package name from cmake
 * [MCOL-1153](https://jira.mariadb.org/browse/MCOL-1153) - Small memory leak in mcsapi
@@ -90,7 +90,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1199](https://jira.mariadb.org/browse/MCOL-1199) - Forward Bulk Write API C++ Exceptions to Java
 * [MCOL-1200](https://jira.mariadb.org/browse/MCOL-1200) - Forward Bulk Write API C++ Exceptions to Python
 * [MCOL-304](https://jira.mariadb.org/browse/MCOL-304) - MariaDB ColumnStore Package Repository
-* [MCOL-1060](https://jira.mariadb.org/browse/MCOL-1060) - ColumnStore Cluster Test tool - wording improvmenets
+* [MCOL-1060](https://jira.mariadb.org/browse/MCOL-1060) - ColumnStore Cluster Test tool - wording improvements
 * [MCOL-1069](https://jira.mariadb.org/browse/MCOL-1069) - Merge [MariaDB 10.2.11](../../../community-server/old-releases/10.2/10.2.11.md)
 * [MCOL-1075](https://jira.mariadb.org/browse/MCOL-1075) - Clarifications for the Bulk Write SDK documentation
 * [MCOL-1099](https://jira.mariadb.org/browse/MCOL-1099) - Clarification for the Bulk Write SDK documentation
@@ -161,6 +161,6 @@ The source code is available at these locations
 * Write Data API - [Source code for Write Data API /SDK](https://github.com/mariadb-corporation/mariadb-columnstore-api/tree/columnstore-1.1.3)
 * MaxScale CDC and Kafka Data Adapters - [Source Code for data adapters](https://github.com/mariadb-corporation/mariadb-columnstore-data-adapters/tree/columnstore-1.1.3)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

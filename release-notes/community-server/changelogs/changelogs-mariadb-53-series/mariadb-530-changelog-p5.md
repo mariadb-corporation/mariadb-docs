@@ -1,6 +1,6 @@
 # MariaDB 5.3.0 Changelog p5
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**\
+[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**
 (page:[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md) 5 [6](mariadb-530-changelog-p6.md)\
 ) |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
@@ -15,15 +15,15 @@
   * [Revision #2875.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2875.2.1)\
     Sat 2011-01-15 11:14:36 -0800
     * Fixed [Bug #698882](https://bugs.launchpad.net/bugs/698882).
-    * Made sure that the optimal fields are used by TABLE\_REF objects\
+    * Made sure that the optimal fields are used by TABLE\_REF objects
       when building index access keys to joined tables.
-    * Fixed a bug in the template function that sorts the elements of\
-      a list using the bubble sort algorithm. The bug caused poor\
-      performance of the function. Also added an optimization that\
-      skips comparison with the most heavy elements that has been\
+    * Fixed a bug in the template function that sorts the elements of
+      a list using the bubble sort algorithm. The bug caused poor
+      performance of the function. Also added an optimization that
+      skips comparison with the most heavy elements that has been
       already properly placed in the list.
-    * Made the comparison of the fields belonging to the same Item\_equal\
-      more granular: fields belonging to the same table are also ordered\
+    * Made the comparison of the fields belonging to the same Item\_equal
+      more granular: fields belonging to the same table are also ordered
       according to some rules.
 * [Revision #2878](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2878) \[merge]\
   Fri 2011-01-14 23:53:27 -0800
@@ -31,11 +31,11 @@
   * [Revision #2875.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2875.1.1)\
     Fri 2011-01-14 22:55:56 -0800
     * Ported the fix for [Bug #702310](https://bugs.launchpad.net/bugs/702310) / [MySQL Bug #59493](https://bugs.mysql.com/bug.php?id=59493).
-    * An assertion failure was triggered for a 6-way join query that used two\
+    * An assertion failure was triggered for a 6-way join query that used two
       join buffers.
-    * The failure happened because every call of JOIN\_CACHE::join\_matching\_records\
-      saved and restored status of all tables that were accessed before the table\
-      join\_tab. It must do it only for those of them that follow the last table\
+    * The failure happened because every call of JOIN\_CACHE::join\_matching\_records
+      saved and restored status of all tables that were accessed before the table
+      join\_tab. It must do it only for those of them that follow the last table
       using a join buffer.
 * [Revision #2877](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2877) \[merge]\
   Fri 2011-01-14 13:07:50 +0300
@@ -58,23 +58,23 @@
       * 3272 Roy Lyseng 2010-11-01
       * [MySQL Bug #52068](https://bugs.mysql.com/bug.php?id=52068): Optimizer generates invalid semijoin materialization plan
       *
-      * When MaterializeScan semijoin strategy was used and there were one\
-        or more outer dependent tables before the semijoin tables, the scan\
-        over the materialized table was not properly reset for each row of\
+      * When MaterializeScan semijoin strategy was used and there were one
+        or more outer dependent tables before the semijoin tables, the scan
+        over the materialized table was not properly reset for each row of
         the prefix outer tables.
       *
       * Example: suppose we have a join order:
       *
       * ot1 SJ-Mat-Scan(it2 it3) ot4
       *
-      * Notice that this is called a MaterializeScan, even though there is an\
-        outer table ahead of the materialized tables. Usually a MaterializeScan\
-        has the outer tables after the materialized table, but this is\
-        a special (but legal) case with outer dependent tables both before and\
+      * Notice that this is called a MaterializeScan, even though there is an
+        outer table ahead of the materialized tables. Usually a MaterializeScan
+        has the outer tables after the materialized table, but this is
+        a special (but legal) case with outer dependent tables both before and
         after the materialized table.
       *
-      * For each qualifying row from ot1, a new scan over the materialized\
-        table must be set up. The code failed to do that, so all scans after\
+      * For each qualifying row from ot1, a new scan over the materialized
+        table must be set up. The code failed to do that, so all scans after
         the first one returned zero rows from the materialized table.
   * [Revision #2869.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2869.2.1)\
     Sat 2010-12-25 16:23:16 +0300 [MySQL Bug #46680](https://bugs.mysql.com/bug.php?id=46680): Assertion failed in file item\_subselect.cc, line 305 crashing on HAVING subquery
@@ -82,15 +82,15 @@
 * [Revision #2876](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2876)\
   Wed 2011-01-12 15:00:10 +0300
   * [Bug #665669](https://bugs.launchpad.net/bugs/665669): Result differences on query re-execution
-    * Cause: handler::in\_range\_check\_pushed\_down was not reset when a\
-      command would call handler->idx\_cond\_push() without later calling\
+    * Cause: handler::in\_range\_check\_pushed\_down was not reset when a
+      command would call handler->idx\_cond\_push() without later calling
       handler->index\_end().
     * Fix: reset the variable in handler->reset(), too (like we do with other\
       Index Condition Pushdown members).
 * [Revision #2875](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2875)\
   Wed 2011-01-05 15:03:30 -0800
   * Fixed [Bug #697557](https://bugs.launchpad.net/bugs/697557).\
-    When stored in a key buffer any varchar field has a length prefix\
+    When stored in a key buffer any varchar field has a length prefix
     that always takes 2 bytes.
 * [Revision #2874](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2874)\
   Wed 2010-12-29 18:14:03 -0800
@@ -112,14 +112,14 @@
 * [Revision #2872](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2872)\
   Sun 2010-12-26 16:31:03 -0800
   * Fixed [Bug #694443](https://bugs.launchpad.net/bugs/694443)\
-    One of the hash functions employed by the BNLH join algorithm\
-    calculates the value of hash index for key value utilizing\
-    every byte of the key buffer. To make this calculation valid\
-    one has to ensure that for any key value unused bytes of the\
-    buffer are filled with a certain filler. We choose 0 as\
+    One of the hash functions employed by the BNLH join algorithm
+    calculates the value of hash index for key value utilizing
+    every byte of the key buffer. To make this calculation valid
+    one has to ensure that for any key value unused bytes of the
+    buffer are filled with a certain filler. We choose 0 as
     a filler for these bytes.
-  * Added an optional boolean parameter with\_zerofill to the function\
-    key\_copy. If the value of the parameter is TRUE all unused bytes\
+  * Added an optional boolean parameter with\_zerofill to the function
+    key\_copy. If the value of the parameter is TRUE all unused bytes
     of the key buffer is filled with 0.
 * [Revision #2871](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2871) \[merge]\
   Sat 2010-12-25 18:54:14 -0800
@@ -127,15 +127,15 @@
   * [Revision #2869.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2869.1.1)\
     Fri 2010-12-24 14:36:35 -0800
     * Fixed [Bug #694092](https://bugs.launchpad.net/bugs/694092)
-    * In some cases the function make\_cond\_for\_index() was mistaken\
+    * In some cases the function make\_cond\_for\_index() was mistaken
       when detecting index only pushdown conditions for a table:\
-      a pushdown condition that was not index only could be marked\
+      a pushdown condition that was not index only could be marked
       as such.
-    * It happened because the procedure erroneously used the markers\
-      for index only conditions that remained from the calls of\
-      this function that extracted the index conditions for other\
+    * It happened because the procedure erroneously used the markers
+      for index only conditions that remained from the calls of
+      this function that extracted the index conditions for other
       tables.
-    * Fixed by erasing index only markers as soon as they are need\
+    * Fixed by erasing index only markers as soon as they are need
       anymore.
 * [Revision #2870](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2870) \[merge]\
   Fri 2010-12-24 16:24:20 -0800
@@ -143,7 +143,7 @@
   * [Revision #2867.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2867.1.1)\
     Wed 2010-12-22 00:37:35 -0800
     * Fixed [Bug #670380](https://bugs.launchpad.net/bugs/670380)\
-      Lifted the limitation that hash join could not be used over\
+      Lifted the limitation that hash join could not be used over
       varchar fields with non-binary collation.
 * [Revision #2869](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2869)\
   Wed 2010-12-22 02:26:35 +0300
@@ -195,17 +195,17 @@
   Tue 2010-12-14 14:08:05 +0200
   * Fix [Bug #685411](https://bugs.launchpad.net/bugs/685411)
     * Analysis:
-      * The assert failed because st\_select\_lex::print() was called for subqueries\
+      * The assert failed because st\_select\_lex::print() was called for subqueries
         as follows:
-      * Item\_subselect::print() ->\
+      * Item\_subselect::print() ->
         subselect\_single\_select\_engine::print() -> st\_select\_lex::print()
-      * It was Item\_subselect::fix\_fields() that set the thd by calling set\_thd(),\
-        so when this print() was called before fix\_fields(), subselect\_engine::thd\
+      * It was Item\_subselect::fix\_fields() that set the thd by calling set\_thd(),
+        so when this print() was called before fix\_fields(), subselect\_engine::thd
         was NULL.
     * Solution:
-      * The patch makes all constructors of all subselect\_engine classes to take\
-        a THD parameter. The default subselect\_single\_select\_engine engine is created\
-        early during parse time, in the Item\_subselect::init call, so we pass the\
+      * The patch makes all constructors of all subselect\_engine classes to take
+        a THD parameter. The default subselect\_single\_select\_engine engine is created
+        early during parse time, in the Item\_subselect::init call, so we pass the
         correct THD object already at this point.
 * [Revision #2866](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2866)\
   Sat 2010-12-11 12:50:39 -0800
@@ -215,60 +215,60 @@
   * Merge.
   * [Revision #2850.1.11](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2850.1.11)\
     Fri 2010-11-19 11:03:03 -0800
-    * Got the declarations related to the class JOIN\_CACHE, its derivatives and\
+    * Got the declarations related to the class JOIN\_CACHE, its derivatives and
       companions out of sql\_select.h into a separate file sql\_join\_cache.h.
   * [Revision #2850.1.10](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2850.1.10)\
     Fri 2010-11-19 07:38:02 -0800
     * Fixed [Bug #675922](https://bugs.launchpad.net/bugs/675922).
-    * The bug happened when BKA join algorithm used an incremental buffer\
+    * The bug happened when BKA join algorithm used an incremental buffer
       and some of the fields over which access keys were constructed
       * were allocated in the previous join buffers
       * were non-nullable
       * belonged to inner tables of outer joins.
-    * For such fields an offset to the field value in the record is saved\
-      in the postfix of the record, and a zero offset indicates that the value\
-      is null. Before the key using the field value is constructed the\
-      value is read into the corresponding field of the record buffer and\
-      the null bit is set for the field if the offset is 0. However if\
-      the field is non-nullable the table->null\_row must be set to 1\
-      for null values and to 0 for non-null values to ensure proper reading\
+    * For such fields an offset to the field value in the record is saved
+      in the postfix of the record, and a zero offset indicates that the value
+      is null. Before the key using the field value is constructed the
+      value is read into the corresponding field of the record buffer and
+      the null bit is set for the field if the offset is 0. However if
+      the field is non-nullable the table->null\_row must be set to 1
+      for null values and to 0 for non-null values to ensure proper reading
       of the value from the record buffer.
   * [Revision #2850.1.9](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2850.1.9)\
     Fri 2010-11-19 06:20:28 -0800
     * Fixed [Bug #660963](https://bugs.launchpad.net/bugs/660963).
-    * The condition that was supposed to check whether a join table\
-      is an inner table of a nested outer join or semi-join was not\
+    * The condition that was supposed to check whether a join table
+      is an inner table of a nested outer join or semi-join was not
       quite correct in the code of the function check\_join\_cache\_usage.
-    * That's why some queries with nested outer joins triggered\
+    * That's why some queries with nested outer joins triggered
       an assertion failure.
     * Encapsulated this condition in the new method called\
       JOIN\_TAB::is\_nested\_inner and provided a proper code for it.
-    * Also corrected a bug in the code of check\_join\_cache\_usage()\
-      that caused a downgrade of not first join buffers of the\
+    * Also corrected a bug in the code of check\_join\_cache\_usage()
+      that caused a downgrade of not first join buffers of the
       level 5 and 7 to level 4 and 6 correspondingly.
   * [Revision #2850.1.8](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2850.1.8)\
     Mon 2010-11-15 21:07:32 -0800
     * Fixed [Bug #675516](https://bugs.launchpad.net/bugs/675516).
     * When pushing the condition for a table in the function\
-      JOIN\_TAB::make\_scan\_filter the optimizer must not push\
-      conditions from WHERE if the table is some inner table\
+      JOIN\_TAB::make\_scan\_filter the optimizer must not push
+      conditions from WHERE if the table is some inner table
       of an outer join..
   * [Revision #2850.1.7](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2850.1.7)\
     Sun 2010-11-14 23:38:25 -0800
     * Fixed [Bug #675095](https://bugs.launchpad.net/bugs/675095).
-    * The condition over outer tables extracted from the on expression\
-      for a outer join must be ANDed to the condition pushed to the\
+    * The condition over outer tables extracted from the on expression
+      for a outer join must be ANDed to the condition pushed to the
       first inner table of this outer join only.
-    * Nested outer joins cannot use flat join buffers. So if join\_cache\_level\
-      is set to 1 then any join algorithm employing join buffers cannot be used\
+    * Nested outer joins cannot use flat join buffers. So if join\_cache\_level
+      is set to 1 then any join algorithm employing join buffers cannot be used
       for nested outer joins.
   * [Revision #2850.1.6](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2850.1.6)\
     Sat 2010-11-13 07:47:43 -0800
     * Fixed [Bug #674423](https://bugs.launchpad.net/bugs/674423).
-    * The patch that introduced the new enumeration type Match\_flag\
-      for the values of match flags in the records put into join buffers\
+    * The patch that introduced the new enumeration type Match\_flag
+      for the values of match flags in the records put into join buffers
       missed the necessary modifications in JOIN\_CACHE::set\_match\_flag\_if\_none.
-    * This could cause wrong results for outer joins with on expressions\
+    * This could cause wrong results for outer joins with on expressions
       only over outer tables.
   * [Revision #2850.1.5](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2850.1.5) \[merge]\
     Sat 2010-11-13 06:35:54 -0800
@@ -322,21 +322,21 @@
     Thu 2010-11-25 11:43:23 +0200
     * Fix [Bug #611622](https://bugs.launchpad.net/bugs/611622)
     * Fix [MySQL Bug #52344](https://bugs.mysql.com/bug.php?id=52344) - Subquery materialization: Assertion if subquery in on-clause of outer join
-    * Original fix and comments from Oysten, adjusted for the different\
+    * Original fix and comments from Oysten, adjusted for the different
       subquery optimization in MariaDB.
-    * Problem: If tables of an outer join are constant tables,\
-      the associated on-clause will be evaluated in the optimization\
-      phase. If the on-clause contains a query that is to be\
-      executed with subquery materialization, this will not work\
+    * Problem: If tables of an outer join are constant tables,
+      the associated on-clause will be evaluated in the optimization
+      phase. If the on-clause contains a query that is to be
+      executed with subquery materialization, this will not work
       since the infrastructure for such execution is not yet set up.
-    * Solution: Do not evaluate on-clause in optimization phase if\
-      is\_expensive() returns true for this clause. This is how the\
-      problem is currently avoided for where-clauses. This works\
-      because, Item\_in\_subselect::is\_expensive\_processor returns true\
+    * Solution: Do not evaluate on-clause in optimization phase if
+      is\_expensive() returns true for this clause. This is how the
+      problem is currently avoided for where-clauses. This works
+      because, Item\_in\_subselect::is\_expensive\_processor returns true
       if query is to be executed with subquery materialization.
-    * In addition, after [MWL#89](https://askmonty.org/worklog/?tid=89), in MariaDB if the IN-EXISTS strategy\
-      is chosen, the in-to-exists predicates are insterted after\
-      join\_read\_const\_table() is called, resulting in evaluation of\
+    * In addition, after [MWL#89](https://askmonty.org/worklog/?tid=89), in MariaDB if the IN-EXISTS strategy
+      is chosen, the in-to-exists predicates are insterted after
+      join\_read\_const\_table() is called, resulting in evaluation of
       the subquery without the in-to-exists predicates.
 * [Revision #2855](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2855)\
   Sun 2010-11-28 15:02:12 +0200
@@ -373,14 +373,14 @@
   Thu 2010-11-25 00:34:50 +0200
   * Fix [Bug #680058](https://bugs.launchpad.net/bugs/680058)
   * Analysis:
-    * The send\_data method of the result sink class used to collect\
-      data statistics about materialized subqueries incorrectly assumed\
-      that duplicate rows are removed prior to calling send\_data. As\
-      a result the collected statistics was wrong, which resulted in\
+    * The send\_data method of the result sink class used to collect
+      data statistics about materialized subqueries incorrectly assumed
+      that duplicate rows are removed prior to calling send\_data. As
+      a result the collected statistics was wrong, which resulted in
       an incorrect maximal number of keys in the Ordered\_key buffer.
   * Solution:
-    * Try to insert each row into the materialized temp table before\
-      collecting statistics, and if the insertion results in a duplicate\
+    * Try to insert each row into the materialized temp table before
+      collecting statistics, and if the insertion results in a duplicate
       row, do not count the current row.
 * [Revision #2852](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2852)\
   Tue 2010-11-23 12:35:37 +0200
@@ -391,9 +391,9 @@
   * [Revision #2831.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2831.1.1)\
     Tue 2010-11-02 21:13:53 +0300
     * [Bug #602574](https://bugs.launchpad.net/bugs/602574): RQG: sql\_select.cc:5385: bool greedy\_search... : Assertion \`join->best\_read
-    * Make optimize\_wo\_join\_buffering() handle cases where position->records\_read=0 (this\
+    * Make optimize\_wo\_join\_buffering() handle cases where position->records\_read=0 (this
       happens for outer joins that have constant tables inside them). The number of\
-      0 is not correct (should be 1 because outer join will produce at least a NULL-complemented\
+      0 is not correct (should be 1 because outer join will produce at least a NULL-complemented
       record) but for now we just make it work with incorrect number.
 * [Revision #2850](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2850) \[merge]\
   Tue 2010-11-09 19:40:02 -0800
@@ -401,10 +401,10 @@
   * [Revision #2844.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2844.1.1)\
     Mon 2010-11-08 20:36:32 -0800
     * Fixed [Bug #668644](https://bugs.launchpad.net/bugs/668644).
-    * The pushdown condition for the sorted table in a query can be complemented\
-      by the conditions from HAVING. This transformation is done in JOIN::exec\
-      pretty late after the original pushdown condition have been saved in the\
-      field pre\_idx\_push\_select\_cond for the sorted table. So this field must\
+    * The pushdown condition for the sorted table in a query can be complemented
+      by the conditions from HAVING. This transformation is done in JOIN::exec
+      pretty late after the original pushdown condition have been saved in the
+      field pre\_idx\_push\_select\_cond for the sorted table. So this field must
       be updated after the inclusion of the condition from HAVING.
 * [Revision #2849](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2849)\
   Tue 2010-11-09 13:13:56 +0200
@@ -459,7 +459,7 @@
 * [Revision #2838](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2838)\
   Fri 2010-10-29 18:59:39 -0700
   * Fixed [Bug #665049](https://bugs.launchpad.net/bugs/665049).
-  * The bug could cause wrong results for queries over Maria tables when\
+  * The bug could cause wrong results for queries over Maria tables when
     index condition pushdown was used.
 * [Revision #2837](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2837) \[merge]\
   Thu 2010-10-28 19:04:23 +0200
@@ -467,15 +467,15 @@
 * [Revision #2836](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2836)\
   Wed 2010-10-27 16:28:19 +0300
   * Fixed [Bug #613009](https://bugs.launchpad.net/bugs/613009)
-  * The set of Ordered keys of a rowid merge engine is dense. Thus when\
-    we decide not to create a key for a column that has only NULLs, this\
+  * The set of Ordered keys of a rowid merge engine is dense. Thus when
+    we decide not to create a key for a column that has only NULLs, this
     column shouldn't be counted.
-  * Notice that the caller has already precomputed the correct total\
+  * Notice that the caller has already precomputed the correct total
     number of keys that should be created.
 * [Revision #2835](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2835)\
   Wed 2010-10-27 12:35:15 +0300
   * Fixed [Bug #609121](https://bugs.launchpad.net/bugs/609121)
-  * Post-review fix - avoid re-evaluation of the having clause\
+  * Post-review fix - avoid re-evaluation of the having clause
     when it evaluates to true.
 * [Revision #2834](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2834)\
   Wed 2010-10-27 06:03:59 +0300
@@ -483,25 +483,25 @@
 * [Revision #2833](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2833)\
   Tue 2010-10-26 14:55:42 +0300
   * Fixed [Bug #601156](https://bugs.launchpad.net/bugs/601156)
-  * The cause for this bug is that [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md) still processes derived tables\
-    (subqueries in the FROM clause) by fully executing them during the parse\
+  * The cause for this bug is that [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md) still processes derived tables
+    (subqueries in the FROM clause) by fully executing them during the parse
     phase. This will be remedied by [MWL#106](https://askmonty.org/worklog/?tid=106) once merged into the main 5.3.
   * The assert statement is triggered when MATERIALIZATION is ON for EXPLAIN\
     EXTENDED for derived tables with an IN subquery as follows:
-    * mysql\_parse calls JOIN::exec for the derived table as if it is regular\
+    * mysql\_parse calls JOIN::exec for the derived table as if it is regular
       execution (not explain).
-    * When materialization is ON, this call goes all the way to\
-      subselect\_hash\_sj\_engine::exec, which creates a partial match engine\
+    * When materialization is ON, this call goes all the way to
+      subselect\_hash\_sj\_engine::exec, which creates a partial match engine
       because of NULL presence.
-    * In order to proceed with normal execution, the hash\_sj engine substitutes\
+    * In order to proceed with normal execution, the hash\_sj engine substitutes
       itself with the created partial match engine.
     * After the parse phase it turns out that this execution was part of\
       EXPLAIN EXTENDED, which in turn calls\
-      Item\_cond::print -> ... -> Item\_subselect::print,\
+      Item\_cond::print -> ... -> Item\_subselect::print,
       which calls engine->print().\
       Since subselect\_hash\_sj\_engine::exec substituted the current\
-      Item\_subselect engine with a partial match engine, eventually we call\
-      its ::print() method. However the partial match engines are designed only\
+      Item\_subselect engine with a partial match engine, eventually we call
+      its ::print() method. However the partial match engines are designed only
       for execution, hence there is no implementation of this print() method.
   * The fix temporarily removes the assert, until this code is merged with [MWL#106](https://askmonty.org/worklog/?tid=106).
 
@@ -509,6 +509,6 @@
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

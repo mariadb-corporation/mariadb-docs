@@ -189,6 +189,6 @@ MariaDB Enterprise Server 10.6.20-16 was released on 2024-12-09.
 * ([MDEV-34791](https://jira.mariadb.org/browse/MDEV-34791)) Redundant page lookups hurt performance
 * (MENT-2182) Cherry-pick [MDEV-35470](https://jira.mariadb.org/browse/MDEV-35470) - Internal temporary Aria tables writes blocks to disk at end of query
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

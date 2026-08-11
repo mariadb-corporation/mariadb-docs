@@ -6,7 +6,7 @@ description: The CONNECT storage engine.
 
 ## Overview
 
-CONNECT supports tables represented by XML files. For these tables, the standard input/output functions of the operating system are not used but the parsing and processing of the file is delegated to a specialized library. Currently two such systems are supported: libxml2, a part of the GNOME\
+CONNECT supports tables represented by XML files. For these tables, the standard input/output functions of the operating system are not used but the parsing and processing of the file is delegated to a specialized library. Currently two such systems are supported: libxml2, a part of the GNOME
 framework, but which does not require GNOME and, on Windows, MS-DOM (DOMDOC), the Microsoft standard support of XML documents.
 
 DOMDOC is the default for the Windows version of CONNECT and libxml2 is always used on other systems. On Windows the choice can be specified using the XMLSUP [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) list option, for instance specifying`option_list='xmlsup=libxml2'`.
@@ -101,7 +101,7 @@ It are displayed as:
 | Jean-Christophe Bernadac | Construire une application XML |              | Eyrolles Paris        | 1999    |
 | William J. Pardi         | XML en Action                  | James Guerin | Microsoft Press Paris | 1999    |
 
-Let us try to understand what happened. By default the column names correspond to tag names. Because this file is rather simple, CONNECT was able to default the top tag of the table as the root node `<BIBLIO>` of the file, and the row tags as the `<BOOK>` children of the table tag. In a more complex file, this should have been specified, as we will see later. Note that we didn't have to worry\
+Let us try to understand what happened. By default the column names correspond to tag names. Because this file is rather simple, CONNECT was able to default the top tag of the table as the root node `<BIBLIO>` of the file, and the row tags as the `<BOOK>` children of the table tag. In a more complex file, this should have been specified, as we will see later. Note that we didn't have to worry
 about the sub-tags such as `<FIRSTNAME>` or `<LASTNAME>` because CONNECT automatically retrieves the entire text contained in a tag and its sub-tags\[[2](connect-xml-table-type.md#_note-1)].
 
 Only the first author of the first book appears. This is because only the first occurrence of a column tag has been retrieved so the result has a proper tabular structure. We will see later what we can do about that.
@@ -223,14 +223,14 @@ tabname='BIBLIO' option_list='rownode=BOOK';
 
 This very flexible column parameter serves several purposes:
 
-* To specify the tag name, or the attribute name if different from the column\
+* To specify the tag name, or the attribute name if different from the column
   name.
 * To specify the type (tag or attribute) by a prefix of '@' for attributes.
 * To specify the path for sub-tags using the '/' character.
 
-This path is always relative to the current context (the column top node) and\
-cannot be specified as an absolute path from the document root, therefore a\
-leading '/' cannot be used. The path cannot be variable in node names or depth,\
+This path is always relative to the current context (the column top node) and
+cannot be specified as an absolute path from the document root, therefore a
+leading '/' cannot be used. The path cannot be variable in node names or depth,
 therefore using '`//`' is not allowed.
 
 The query:
@@ -550,16 +550,16 @@ Now the added book, in the XML file, will have the required structure:
 
 ## Multiple Nodes in the XML Document
 
-Let us come back to the above example XML file. We have seen that the author\
-node can be "multiple" meaning that there can be more than one author of a\
-book. What can we do to get the complete information fitting the relational\
-model? CONNECT provides you with two possibilities, but is restricted to only one\
+Let us come back to the above example XML file. We have seen that the author
+node can be "multiple" meaning that there can be more than one author of a
+book. What can we do to get the complete information fitting the relational
+model? CONNECT provides you with two possibilities, but is restricted to only one
 such multiple node per table.
 
-The first and most challenging one is to return as many rows than there are\
-authors, the other columns being repeated as if we had make a join between the\
+The first and most challenging one is to return as many rows than there are
+authors, the other columns being repeated as if we had make a join between the
 author column and the rest of the table. To achieve this, simply specify the\
-“multiple” node name and the “expand” option when creating the table. For\
+“multiple” node name and the “expand” option when creating the table. For
 instance, we can create the _xsamp2_ table like this:
 
 ```
@@ -624,12 +624,12 @@ This last query replies:
 | 9782840825685 | applications | XML en Action                  | Microsoft Press Paris |
 | 9782212090529 | général      | XML, Language et Applications   | Eyrolles Paris        |
 
-Even though the author column does not appear in the result, the corresponding row was\
+Even though the author column does not appear in the result, the corresponding row was
 expanded because the multiple column was used in the where clause.
 
 ## Intermediate Multiple Node
 
-The "multiple" node can be an intermediate node. If we want to do the same\
+The "multiple" node can be an intermediate node. If we want to do the same
 expanding with the _xsampall_ table, there are nothing more to do. The\_xsampall2\_ table can be created with:
 
 From Connect 1.7.0002
@@ -697,7 +697,7 @@ UPDATE xsampall2 SET YEAR = 2002 WHERE authorln = 'Bernadac';
 UPDATE xsampall2 SET authorln = 'Mercier' WHERE YEAR = 2002;
 ```
 
-After these three updates, the first two responding "Affected rows: 1" and the\
+After these three updates, the first two responding "Affected rows: 1" and the
 last one responding "Affected rows: 2", the last query answers:
 
 | subject      | lang | title                          | first           | last    | year |
@@ -731,27 +731,27 @@ We will get the following result:
 | 9782840825685 | applications | William J. Pardi                        | XML en Action                  |
 | 9782212090529 | général      | Alain Michard                           | XML, Language et Applications   |
 
-Note that updating the "multiple" column is not possible because CONNECT does\
+Note that updating the "multiple" column is not possible because CONNECT does
 not know which of the nodes to update.
 
-This could not have been done with the _xsampall2_ table because the author\
-node is intermediate in the path, and making two lists, one of first names and\
+This could not have been done with the _xsampall2_ table because the author
+node is intermediate in the path, and making two lists, one of first names and
 another one of last names would not make sense anyway.
 
 ### What if a table contains several multiple nodes
 
-This can be handled by creating several tables on the same file, each\
-containing only one multiple node and constructing the desired result using\
+This can be handled by creating several tables on the same file, each
+containing only one multiple node and constructing the desired result using
 joins.
 
 ## Support of HTML Tables
 
-Most tables included in HTML documents cannot be processed by CONNECT because the HTML\
-language is often not compatible with the syntax of XML. In particular, XML\
-requires all open tags to be matched by a closing tag while it is sometimes\
+Most tables included in HTML documents cannot be processed by CONNECT because the HTML
+language is often not compatible with the syntax of XML. In particular, XML
+requires all open tags to be matched by a closing tag while it is sometimes
 optional in HTML. This is often the case concerning column tags.
 
-However, you can meet tables that respect the XML syntax but have some of the\
+However, you can meet tables that respect the XML syntax but have some of the
 features of HTML tables. For instance:
 
 ```xml
@@ -773,11 +773,11 @@ features of HTML tables. For instance:
 </Beers>
 ```
 
-Here the different column tags are included in `<td></td>` tags as for HTML\
-tables. You cannot just add this tag in the Xpath of the columns, because the\
-search is done on the first occurrence of each tag, and this would cause this\
-search to fail for all columns except the first one. This case is handled by\
-specifying the _Colnode_ table option that gives the name of these column\
+Here the different column tags are included in `<td></td>` tags as for HTML
+tables. You cannot just add this tag in the Xpath of the columns, because the
+search is done on the first occurrence of each tag, and this would cause this
+search to fail for all columns except the first one. This case is handled by
+specifying the _Colnode_ table option that gives the name of these column
 tags, for example:
 
 From Connect 1.7.0002
@@ -809,7 +809,7 @@ The table are displayed as:
 | Huntsman | Bath, UK | Wonderful hop, light alcohol |
 | Tuborg   | Danmark  | In small bottles             |
 
-However, you can deal with tables even closer to the HTML model. For example\
+However, you can deal with tables even closer to the HTML model. For example
 the _coffee.htm_ file:
 
 ```xml
@@ -896,7 +896,7 @@ option_list='coltype=HTML,encoding=ISO-8859-1,
 attribute=border=1;cellpadding=5,headattr=bgcolor=yellow';
 ```
 
-Supposing the table file does not exist yet, the first insert into that table,\
+Supposing the table file does not exist yet, the first insert into that table,
 for instance by the following statement:
 
 ```sql

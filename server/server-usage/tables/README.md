@@ -98,3 +98,5 @@ The task-oriented table tutorials now live in the [Quickstart Guides](../../mari
 * [Getting Started with Indexes](../../mariadb-quickstart-guides/mariadb-indexes-guide.md)
 * [Creating & Using Views](../../mariadb-quickstart-guides/mariadb-views-guide.md)
 {% endhint %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

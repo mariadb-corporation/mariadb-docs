@@ -6,8 +6,8 @@
 
 ### Overview
 
-With the _comment_ filter it is possible to define comments that are\
-injected before the actual statements. These comments appear as sql\
+With the _comment_ filter it is possible to define comments that are
+injected before the actual statements. These comments appear as sql
 comments when they are received by the server.
 
 ```
@@ -78,3 +78,5 @@ It would look like
 when received by server.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

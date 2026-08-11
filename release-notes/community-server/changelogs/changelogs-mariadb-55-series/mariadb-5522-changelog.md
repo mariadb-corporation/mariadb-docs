@@ -9,7 +9,7 @@ The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-impr
 For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.22.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3357](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3357) \[merge]\
@@ -33,9 +33,9 @@ modified in that revision.
     * [Revision #2502.549.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.549.1)\
       Mon 2012-03-26 21:34:24 +0400
       * [Bug #951283](https://bugs.launchpad.net/bugs/951283): Wrong result (missing rows) with semijoin+firstmatch, IN/ANY subquery
-        * The problem was with execution strategy for cases where FirstMatch's inner tables\
+        * The problem was with execution strategy for cases where FirstMatch's inner tables
           were interleaved with outer-uncorrelated tables.
-        * I was unable to find any cases where such join orders would be practically useful,\
+        * I was unable to find any cases where such join orders would be practically useful,
           so fixed it by disabling them.
   * [Revision #2502.546.17](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.546.17)\
     Mon 2012-03-26 16:06:42 +0300
@@ -53,7 +53,7 @@ modified in that revision.
     * [Revision #2502.548.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.548.1)\
       Mon 2012-03-26 13:47:00 +0400
       * [Bug #951937](https://bugs.launchpad.net/bugs/951937): Wrong result (missing rows) with semijoin+materialization, IN subquery, InnoDB, TEMPTABLE view
-        * Fix equality propagation to work with SJM nests and OR clauses (full descirption of problem and\
+        * Fix equality propagation to work with SJM nests and OR clauses (full descirption of problem and
           solution in the comment in the patch)
         * (The second commit with post-review fixes)
   * [Revision #2502.546.13](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.546.13)\
@@ -65,9 +65,9 @@ modified in that revision.
     * The problem was that
       * we've picked a LooseScan that used full index scan (tab->type==JT\_ALL) on certain index.
       * there was also a quick select (tab->quick!=NULL), that used other indexes.
-      * some old code assumes that (tab->type==JT\_ALL && tab->quick) -> means that the\
+      * some old code assumes that (tab->type==JT\_ALL && tab->quick) -> means that the
         quick select should be used, which is not true.
-    * Fixed by discarding the quick select as soon as we know we're using LooseScan\
+    * Fixed by discarding the quick select as soon as we know we're using LooseScan
       without using the quick select.
 * [Revision #3356](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3356)\
   Wed 2012-03-28 19:26:00 +0200
@@ -79,7 +79,7 @@ modified in that revision.
 * [Revision #3354](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3354)\
   Tue 2012-03-27 16:16:44 +0200
   * [MDEV-201](https://jira.mariadb.org/browse/MDEV-201) - Assertion \`!thd->spcont' failed in net\_send\_error on server shutdown
-  * bug in semisync plugin. It didn't check thd->killed before waiting on mysys->current\_cond,\
+  * bug in semisync plugin. It didn't check thd->killed before waiting on mysys->current\_cond,
     and thus an attepmt to kill the thread (on shutdown) was lost
 * [Revision #3353](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3353)\
   Mon 2012-03-26 14:39:52 +0200
@@ -96,7 +96,7 @@ modified in that revision.
       * Use native memcmp() supplied with C runtime instead of hand-unrolled loop ptr\_compare\_N loop
         * Prior to fix ptr\_compare\_0() has 3.7% samples in OLTP-RO in-memory.
         * Fix brings this down to 1.8% (all memcmp samples)
-      * Innodb : fix UT\_RELAX\_CPU to be defined as YieldProcessor, as was also originally intended\
+      * Innodb : fix UT\_RELAX\_CPU to be defined as YieldProcessor, as was also originally intended
         (but intention was lost in the #ifdef maze
     * This reduces number of ut\_delay() samples in profile from 1.5% to 0.5%
 * [Revision #3350](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3350)\
@@ -129,10 +129,10 @@ modified in that revision.
   * [Revision #2502.546.7](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.546.7)\
     Thu 2012-03-22 19:56:17 -0700
     * Fixed [Bug #954900](https://bugs.launchpad.net/bugs/954900).
-      * If the first component of a ref key happened to be a constant appeared\
-        after constant row substitution then no store\_key element should be\
-        created for such a component. Yet create\_ref\_for\_key() erroneously could\
-        create such an element that caused construction of invalid ref keys and\
+      * If the first component of a ref key happened to be a constant appeared
+        after constant row substitution then no store\_key element should be
+        created for such a component. Yet create\_ref\_for\_key() erroneously could
+        create such an element that caused construction of invalid ref keys and
         wrong results for some joins.
   * [Revision #2502.546.6](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.546.6) \[merge]\
     Thu 2012-03-22 13:23:55 +0100
@@ -159,7 +159,7 @@ modified in that revision.
   * [Revision #2502.546.4](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.546.4)\
     Wed 2012-03-21 10:59:20 +0100
     * [MDEV-191](https://jira.mariadb.org/browse/MDEV-191) SHOW TABLES was unnecessary opening .frm files
-    * mark the corresponding I\_S table as OPTIMIZE\_I\_S\_TABLE, to let the I\_S optimizer\
+    * mark the corresponding I\_S table as OPTIMIZE\_I\_S\_TABLE, to let the I\_S optimizer
       figure out whether files need to be opened, and don't open the tables unless\
       I\_S optimizer says so.
   * [Revision #2502.546.3](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.546.3) \[merge]\
@@ -169,18 +169,18 @@ modified in that revision.
       Sun 2012-03-18 23:58:20 +0400
       * [Bug #952372](https://bugs.launchpad.net/bugs/952372): Server crashes on 2nd execution of PS in find\_field\_in\_tables with semijoin+materialization
         * The problem was that convert\_subq\_to\_jtbm() attached the semi-join\
-          TABLE\_LIST object into the wrong list: they used to attach it to the\
+          TABLE\_LIST object into the wrong list: they used to attach it to the
           end of parent\_lex->leaf\_tables.head()->next\_local->...->next\_local.\
           This was apparently inccorect, as one can construct an example where\
-          JTBM nest is attached to a table that is inside some mergeable VIEW, which\
-          breaks (causes crash) for name resolution on the subsequent statement\
+          JTBM nest is attached to a table that is inside some mergeable VIEW, which
+          breaks (causes crash) for name resolution on the subsequent statement
           re-execution.
-        * Solution: Attach to the "right" list. The "wording" was copied from\
+        * Solution: Attach to the "right" list. The "wording" was copied from
           st\_select\_lex::handle\_derived.
   * [Revision #2502.546.2](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.546.2)\
     Tue 2012-03-20 17:03:28 -0700
   * Fixed [Bug #954262](https://bugs.launchpad.net/bugs/954262).
-  * This bug in the constructor SEL\_IMERGE::SEL\_IMERGE could\
+  * This bug in the constructor SEL\_IMERGE::SEL\_IMERGE could
     cause huge excessive memory requests.
   * [Revision #2502.546.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.546.1)\
     Mon 2012-03-19 01:04:55 +0400
@@ -189,7 +189,7 @@ modified in that revision.
 * [Revision #3348](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3348)\
   Sat 2012-03-24 11:24:20 +0100
   * [MDEV-15](https://jira.mariadb.org/browse/MDEV-15) Log all sql errors.
-    * modified for MySQL 5.5. Logger service moved to the\
+    * modified for MySQL 5.5. Logger service moved to the
       plugin/sql\_errlog directory to be properly used later.
 * [Revision #3347](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3347)\
   Fri 2012-03-23 20:49:47 +0100
@@ -225,13 +225,13 @@ modified in that revision.
   Mon 2012-03-19 15:00:23 -0700
   * author: Davi Arnaut `<davi 'at' twitter (dot) com>`
   * Make Replication filter settings dynamic.
-  * Make the slave options `--replicate-*` dynamic variables so that these\
-    options can be changed dynamically while the server is running,\
-    which enables users to modify replication filtering rules without\
+  * Make the slave options `--replicate-*` dynamic variables so that these
+    options can be changed dynamically while the server is running,
+    which enables users to modify replication filtering rules without
     having to stop and restart the server.
-  * This is accomplished by just requiring that the slave threads are\
-    stopped when these options are set dynamically. Since filtering\
-    rules are only used by the SQL slave thread, setting them while the\
+  * This is accomplished by just requiring that the slave threads are
+    stopped when these options are set dynamically. Since filtering
+    rules are only used by the SQL slave thread, setting them while the
     thread is not running avoids the need for locking.
 * [Revision #3339](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3339) \[merge]\
   Wed 2012-03-21 15:51:13 +0100
@@ -285,11 +285,11 @@ modified in that revision.
       * [Revision #2502.528.16](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.528.16)\
         Fri 2012-03-09 15:37:16 -0800
         * Fixed LP bug #930814.
-        * This bug was introduced into [mariadb 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) in the December 2010 with\
-          the patch that added a new engine property: the ability to support\
+        * This bug was introduced into [mariadb 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) in the December 2010 with
+          the patch that added a new engine property: the ability to support
           virtual columns.
-        * As a result of this bug the information from frm files for tables\
-          that contained virtual columns did not appear in the information schema\
+        * As a result of this bug the information from frm files for tables
+          that contained virtual columns did not appear in the information schema
           tables.
       * [Revision #2502.528.15](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.528.15)\
         Fri 2012-03-09 14:28:02 +0200
@@ -301,14 +301,14 @@ modified in that revision.
       * [Revision #2502.528.13](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.528.13)\
         Thu 2012-03-08 22:33:01 -0800
         * Fixed [Bug #884175](https://bugs.launchpad.net/bugs/884175).
-        * If in the where clause of the a query some comparison conditions on the\
-          field under a MIN/MAX aggregate function contained constants whose sizes\
-          exceeded the size of the field then the query could return a wrong result\
+        * If in the where clause of the a query some comparison conditions on the
+          field under a MIN/MAX aggregate function contained constants whose sizes
+          exceeded the size of the field then the query could return a wrong result
           when the optimizer had chosen to apply the MIN/MAX optimization.
-        * With such conditions the MIN/MAX optimization still could be applied, yet\
-          it would require a more thorough analysis of the keys built to find\
+        * With such conditions the MIN/MAX optimization still could be applied, yet
+          it would require a more thorough analysis of the keys built to find
           the value of MIN/MAX aggregate functions with index look-ups.
-        * The current patch just prohibits using the MIN/MAX optimization in this\
+        * The current patch just prohibits using the MIN/MAX optimization in this
           situation.
       * [Revision #2502.528.12](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.528.12) \[merge]\
         Tue 2012-03-06 01:48:38 +0100
@@ -328,15 +328,15 @@ modified in that revision.
       * [Revision #2502.544.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.544.1)\
         Tue 2012-03-13 13:34:20 -0700
         * Fixed [Bug #953649](https://bugs.launchpad.net/bugs/953649).
-        * Do not call, directly or indirectly, SQL\_SELECT::test\_quick\_select()\
-          for derived materialized tables / views when optimizing joins referring\
+        * Do not call, directly or indirectly, SQL\_SELECT::test\_quick\_select()
+          for derived materialized tables / views when optimizing joins referring
           to these tables / views to get cost estimates of materialization.
-        * The current code does not create B-tree indexes for materialized\
-          derived tables / views. So now it's not possible to get any estimates\
+        * The current code does not create B-tree indexes for materialized
+          derived tables / views. So now it's not possible to get any estimates
           for ranges conditions over the results of the materialization.
-        * The function mysql\_derived\_create() must take into account the fact\
-          that array of the KEY structures specifying the keys over a derived\
-          table / view may be moved after the optimization phase if the\
+        * The function mysql\_derived\_create() must take into account the fact
+          that array of the KEY structures specifying the keys over a derived
+          table / view may be moved after the optimization phase if the
           derived table / view is materialized.
     * [Revision #2502.542.3](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.542.3)\
       Tue 2012-03-13 16:38:43 +0200
@@ -355,7 +355,7 @@ modified in that revision.
         * [Bug #952297](https://bugs.launchpad.net/bugs/952297): Server crashes on 2nd execution of PS in Field::is\_null with semijoin+materialization
         * The bug would show up
           * when using PS (so that we get re-execution)
-          * the left\_expr of the subquery is a reference to viewname.column\_name, so that it crashes\
+          * the left\_expr of the subquery is a reference to viewname.column\_name, so that it crashes
             when one tries to use it without having called fix\_fields for it.
           * when using SJ-Materialization, which makes use of sj\_subq\_pred->left\_expr expression
         * The fix is to have setup\_conds() fix sj\_subq\_pred->left\_expr for semi-join nests it finds.
@@ -366,7 +366,7 @@ modified in that revision.
   Fri 2012-03-16 20:52:17 +0100
   * Reduce size of windows MSI by approx. 50%
     * Mark test components, plugins etc with COMPONENT Test, to get them excluded from the MSI
-    * Only include debug symbols for client and embedded libs and also\
+    * Only include debug symbols for client and embedded libs and also
       mysqld.exe and server plugins (so we can still can get a callstack in case of crash)
   * The rest (all \*.pdbs, test components, MTR) can be obtained from the big ZIP distribution, if required.
 * [Revision #3332](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3332)\
@@ -379,7 +379,7 @@ modified in that revision.
   Thu 2012-03-15 00:37:37 +0100
   * Fix compile error - linker does not find extern variables, in sql\_logger.c
   * The file uses external variables defined in another (C++) source file. Since\
-    MSVC mangles variables and not only functions, either variables in question\
+    MSVC mangles variables and not only functions, either variables in question
     should be extern "C", or sql\_logger should be made C++ for link to succeed.
   * Fixed by renaming sql\_logger.c to sql\_logger.cc
 * [Revision #3330](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3330)\
@@ -389,7 +389,7 @@ modified in that revision.
   Wed 2012-03-14 16:37:49 +0400
   * [MDEV-15](https://jira.mariadb.org/browse/MDEV-15) Log SQL errors.
     * mysys/my\_logger.c was moved to sql/sql\_logger.c
-    * Logger service was rewritten with file functions instead of stream, so it\
+    * Logger service was rewritten with file functions instead of stream, so it
       can handle huge files.
 * [Revision #3328](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3328)\
   Wed 2012-03-14 09:40:54 +0400
@@ -398,12 +398,12 @@ modified in that revision.
   Wed 2012-03-14 00:55:56 +0400
   * [MDEV-15](https://jira.mariadb.org/browse/MDEV-15) Log all SQL errors.
     * Added the logger service that provides us with the rotating logs.
-      * The plugin SQL\_ERROR\_LOG added. It logs the errors using the 'logger service'\
+      * The plugin SQL\_ERROR\_LOG added. It logs the errors using the 'logger service'
         for the rotating log files.
       * the example record from the log:`2012-03-09 15:07:29 root[root] @ localhost [] ERROR 1146: Table 'test.xyz' doesn't exist : select * from test.xyz`
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

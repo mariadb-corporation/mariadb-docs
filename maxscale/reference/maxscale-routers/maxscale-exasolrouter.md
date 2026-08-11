@@ -353,3 +353,5 @@ port=4008
 
 With this setup, it is possible to connect using the regular `mariadb` command line
 utility to the port 4008 and all queries will be sent to Exasol.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

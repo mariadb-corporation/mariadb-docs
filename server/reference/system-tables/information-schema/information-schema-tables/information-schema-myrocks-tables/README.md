@@ -20,3 +20,5 @@ description: >-
 - [Information Schema ROCKSDB\_PERF\_CONTEXT\_GLOBAL Table](information-schema-rocksdb_perf_context_global-table.md)
 - [Information Schema ROCKSDB\_SST\_PROPS Table](information-schema-rocksdb_sst_props-table.md)
 - [Information Schema ROCKSDB\_TRX Table](information-schema-rocksdb_trx-table.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

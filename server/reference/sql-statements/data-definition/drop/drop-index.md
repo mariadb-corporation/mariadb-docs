@@ -45,7 +45,7 @@ Sets the lock wait timeout. See [WAIT and NOWAIT](../../transactions/wait-and-no
 
 ## Progress Reporting
 
-MariaDB provides progress reporting for `DROP INDEX` statement for clients\
+MariaDB provides progress reporting for `DROP INDEX` statement for clients
 that support the new progress reporting protocol. For example, if you were using the [mariadb](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) client, then the progress report might look like this::
 
 ## See Also

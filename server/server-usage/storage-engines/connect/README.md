@@ -197,3 +197,5 @@ The CONNECT storage engine.
 The CONNECT storage engine.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

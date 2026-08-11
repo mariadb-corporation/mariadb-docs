@@ -9,7 +9,7 @@ NumPoints(ls)
 
 ## Description
 
-Returns the number of [Point](../../../sql-statements/geometry-constructors/geometry-constructors/point.md) objects in the [LineString](../../../sql-statements/geometry-constructors/geometry-constructors/linestring.md)\
+Returns the number of [Point](../../../sql-statements/geometry-constructors/geometry-constructors/point.md) objects in the [LineString](../../../sql-statements/geometry-constructors/geometry-constructors/linestring.md)
 value `ls`.
 
 `ST_NumPoints()` and `NumPoints()` are synonyms.
@@ -27,6 +27,6 @@ SELECT NumPoints(GeomFromText(@ls));
 +------------------------------+
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

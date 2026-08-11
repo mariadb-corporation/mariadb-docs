@@ -90,3 +90,5 @@ An overview of supported online schema change operations in InnoDB, detailing wh
 This section provides information about unmaintained or deprecated features related to InnoDB in MariaDB Server. It is advisable to review this content for compatibility and migration planning.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

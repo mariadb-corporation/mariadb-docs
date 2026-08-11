@@ -22,3 +22,5 @@ In MariaDB MaxScale, authenticators perform the following tasks:
 * [PAM Authenticator](../../reference/maxscale-authenticators/maxscale-pam-authenticator.md)
 * [PARSEC Authenticator](../../reference/maxscale-authenticators/maxscale-parsec-authenticator.md)
 * [ed25519 Authenticator](../../reference/maxscale-authenticators/maxscale-ed25519-authenticator.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

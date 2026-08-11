@@ -54,3 +54,5 @@ Learn how to install the SphinxSE plugin in MariaDB and run tests to verify the 
 A guide to configuring the Sphinx daemon (`searchd`) to index data from MariaDB, including setting up `sphinx.conf` and creating necessary users.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

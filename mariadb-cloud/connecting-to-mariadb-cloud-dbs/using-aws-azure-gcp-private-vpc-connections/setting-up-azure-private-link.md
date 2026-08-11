@@ -259,3 +259,5 @@ To disable Azure Private Link on an existing service, you will need to update th
 This payload should then be sent to the API `PATCH` https://api.skysql.com/provisioning/v1/services/{SERVICE\_ID}/endpoints where `{SERVICE_ID}` is the ID of the service you are updating. For more information on using the MariaDB Cloud DBaaS API, see ["MariaDB Cloud DBaaS API"](https://apidocs.skysql.com/#/Services/patch_provisioning_v1_services__service_id__endpoints).
 
 </details>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -66,3 +66,5 @@ Explore MariaDB's support for Unicode, covering the differences between the utf8
 Discover how MariaDB supports internationalization and localization, enabling databases to store and process data in multiple languages.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

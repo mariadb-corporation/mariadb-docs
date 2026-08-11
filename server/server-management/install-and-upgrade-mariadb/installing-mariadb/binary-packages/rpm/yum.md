@@ -6,7 +6,7 @@ description: How to install MariaDB on systems that use the yum or dnf package m
 
 On RHEL, CentOS, Fedora, and other similar Linux RPM based distributions, these provide MariaDB packages. These are supported by those distributions. If you have a particular need for a later version than what is in the distribution, then MariaDB provides repositories for them.
 
-Using repositories rather than installing RPM allows for an ease of update when a new release is made. It is highly recommended to install the relevant [RPM packages](./) from MariaDB's\
+Using repositories rather than installing RPM allows for an ease of update when a new release is made. It is highly recommended to install the relevant [RPM packages](./) from MariaDB's
 repository using [yum](https://en.wikipedia.org/wiki/Yum_\(software\)) or [dnf](https://en.wikipedia.org/wiki/DNF_\(software\)). Centos 7 still uses `yum`, most others use `dnf`, and SUSE/openSUSE use `zypper`.
 
 This page walks you through the simple installation steps using `dnf` and `yum`.
@@ -130,7 +130,7 @@ To install MariaDB Galera Cluster, you could execute the following command:
 sudo dnf install MariaDB-server MariaDB-server-galera MariaDB-client galera-4
 ```
 
-If you haven't yet imported the MariaDB GPG public key, then `yum` will prompt you to\
+If you haven't yet imported the MariaDB GPG public key, then `yum` will prompt you to
 import it after it downloads the packages, but before it prompts you to install them.
 
 See [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) for more information on MariaDB Galera Cluster.
@@ -217,7 +217,7 @@ To install an older version of a package instead of the latest version we just n
 
 However, when installing an older version of a package, if dependencies need to be installed, then it will automatically choose to install the latest versions of those packages, which can sometimes break those dependencies. To ensure that all MariaDB packages are on the same version in this scenario, it is necessary to specify them all.
 
-The MariaDB packages that the `MariaDB-server` package depend on are: `MariaDB-client`, `MariaDB-shared`, and `MariaDB-common`. Therefore, to install MariaDB 12.0.2 from this `yum`\
+The MariaDB packages that the `MariaDB-server` package depend on are: `MariaDB-client`, `MariaDB-shared`, and `MariaDB-common`. Therefore, to install MariaDB 12.0.2 from this `yum`
 repository, we could do the following (putting the version in a variable and each package on its own line so things are cleaner):
 
 ```bash

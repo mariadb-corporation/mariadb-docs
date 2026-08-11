@@ -108,3 +108,5 @@ Understand server response packets in MariaDB's client/server protocol. This sec
 Understand the replication protocol. This section details how primary and replica servers communicate, exchanging binary log events to ensure data consistency and enable high availability.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

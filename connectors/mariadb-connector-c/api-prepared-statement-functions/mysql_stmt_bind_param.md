@@ -36,4 +36,6 @@ Binds variables for parameter markers in the prepared statement that was passed 
 * [mysql\_stmt\_param\_count()](mysql_stmt_param_count.md)
 * [mysql\_stmt\_send\_long\_data()](mysql_stmt_send_long_data.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

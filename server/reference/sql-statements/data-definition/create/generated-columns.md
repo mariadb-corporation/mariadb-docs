@@ -313,7 +313,7 @@ Generated columns are subject to various constraints in other DBMSs that are not
 
 ### Implementation Differences Compared to Microsoft SQL Server
 
-MariaDB's generated columns implementation does not enforce the following\
+MariaDB's generated columns implementation does not enforce the following
 restrictions that are present in [Microsoft SQL Server's computed columns](https://docs.microsoft.com/en-us/sql/relational-databases/tables/specify-computed-columns-in-a-table?view=sql-server-2017) implementation:
 
 * MariaDB allows [server variables](../../../../ha-and-performance/optimization-and-tuning/system-variables/) in generated column expressions, including those that change dynamically, such as [warning\_count](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#warning_count).
@@ -428,6 +428,7 @@ You can also use virtual columns to implement a "poor man's partial index". See 
 
 ## See Also
 
+* [Generated Columns](../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#generated-columns) in `mariadb-dump`, for how generated columns appear in dump output.
 * [Putting Virtual Columns to good use](https://mariadb.com/blog/putting-virtual-columns-good-use) on the mariadb.com blog.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

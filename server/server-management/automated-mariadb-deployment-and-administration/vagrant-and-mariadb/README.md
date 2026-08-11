@@ -42,3 +42,5 @@ Introduction to Vagrant's workflow and terminology for database administrators, 
 Discusses security considerations when using Vagrant with MariaDB, such as default insecure keys, port forwarding risks, and ensuring production-grade settings are not used in dev boxes.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

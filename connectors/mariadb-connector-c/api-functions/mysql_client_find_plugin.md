@@ -32,3 +32,5 @@ If the type of the plugin is not known, -1 needs to be specified for parameter t
 ## See Also
 
 * [mysql\_load\_plugin()](mysql_load_plugin.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

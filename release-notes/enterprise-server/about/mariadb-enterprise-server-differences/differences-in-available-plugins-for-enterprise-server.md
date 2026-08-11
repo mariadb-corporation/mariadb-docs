@@ -76,3 +76,5 @@ SELECT name, dl FROM mysql.plugin;
 ```
 
 _Critical Nuance:_ This table only retains records for plugins explicitly loaded via the `INSTALL SONAME` statement, the `INSTALL PLUGIN` statement, or the offline `mariadb-plugin` utility. It does not contain information about built-in plugins or plugins loaded temporarily at server startup using the `--plugin-load` or `--plugin-load-add` configuration options.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

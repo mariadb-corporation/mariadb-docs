@@ -150,9 +150,9 @@ For example, if our password is `mariadb`, then we can create the user with:
 CREATE USER foo2@test IDENTIFIED BY 'mariadb';
 ```
 
-If you do not specify a password with the `IDENTIFIED BY` clause, the user\
-will be able to connect without a password. A blank password is not a wildcard\
-to match any password. The user must connect without providing a password if no\
+If you do not specify a password with the `IDENTIFIED BY` clause, the user
+will be able to connect without a password. A blank password is not a wildcard
+to match any password. The user must connect without providing a password if no
 password is set.
 
 The only [authentication plugins](../../plugins/authentication-plugins/) that this clause supports are [mysql\_native\_password](../../plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) and [mysql\_old\_password](../../plugins/authentication-plugins/authentication-plugin-mysql_old_password.md).
@@ -293,29 +293,29 @@ Per account resource limits are stored in the [user](../../system-tables/the-mys
 
 Account names have both a user name component and a host name component, and are specified as `'user_name'@'host_name'`.
 
-The user name and host name may be unquoted, quoted as strings using double quotes (`"`) or\
-single quotes (`'`), or quoted as identifiers using backticks (\`\`\`). You must use quotes\
-when using special characters (such as a hyphen) or wildcard characters. If you quote, you\
+The user name and host name may be unquoted, quoted as strings using double quotes (`"`) or
+single quotes (`'`), or quoted as identifiers using backticks (\`\`\`). You must use quotes
+when using special characters (such as a hyphen) or wildcard characters. If you quote, you
 must quote the user name and host name separately (for example `'user_name'@'host_name'`).
 
 ### Host Name Component
 
 If the host name is not provided, it is assumed to be `'%'`.
 
-Host names may contain the wildcard characters `%` and `_`. They are matched as if by\
-the [LIKE](../../sql-functions/string-functions/like.md) clause. If you need to use a wildcard character literally (for example, to\
-match a domain name with an underscore), prefix the character with a backslash. See `LIKE`\
+Host names may contain the wildcard characters `%` and `_`. They are matched as if by
+the [LIKE](../../sql-functions/string-functions/like.md) clause. If you need to use a wildcard character literally (for example, to
+match a domain name with an underscore), prefix the character with a backslash. See `LIKE`
 for more information on escaping wildcard characters.
 
 Before [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog), when multiple host patterns could match a connecting client, the sort order among wildcard patterns was determined only by the position of the first wildcard character. This approach often produced incorrect results or made the outcome dependent on insertion order.
 
 Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog) ([MDEV-14735](https://jira.mariadb.org/browse/MDEV-14735)), the matching algorithm correctly ranks host patterns by specificity, the number of hosts a pattern can match, ensuring deterministic and accurate privilege resolution.
 
-Host name matches are case-insensitive. Host names can match either domain names or IP\
+Host name matches are case-insensitive. Host names can match either domain names or IP
 addresses. Use `'localhost'` as the host name to allow only local client connections. On Linux, the loopback interface (127.0.0.1) will not match 'localhost' as it is not considered a local connection: this means that only connections via UNIX-domain sockets will match 'localhost'.
 
-You can use a netmask to match a range of IP addresses using `'base_ip/netmask'` as the\
-host name. A user with an IP address _ip\_addr_ will be allowed to connect if the following\
+You can use a netmask to match a range of IP addresses using `'base_ip/netmask'` as the
+host name. A user with an IP address _ip\_addr_ will be allowed to connect if the following
 condition is true:
 
 ```bash
@@ -342,10 +342,10 @@ User names must match exactly, including case. A user name that is empty is know
 
 For valid identifiers to use as user names, see [Identifier Names](../../sql-structure/sql-language-structure/identifier-names.md).
 
-It is possible for more than one account to match when a user connects. MariaDB selects\
+It is possible for more than one account to match when a user connects. MariaDB selects
 the first matching account after sorting according to the following criteria:
 
-* Accounts with an exact host name are sorted before accounts using a wildcard in the\
+* Accounts with an exact host name are sorted before accounts using a wildcard in the
   host name. Host names using a netmask are considered to be exact for sorting.
 * Accounts with a wildcard in the host name are sorted by specificity: a hostname that can match fewer hosts is considered more specific and is sorted first. Exact hostnames (no wildcards) are most specific; a bare `%` (matches any host) is least specific. Among patterns with wildcards, those that can match a narrower set of hosts sort before those that match a broader set. For example, `%.foo.bar` sorts before `%.bar` because it matches fewer hosts. \
   \
@@ -366,7 +366,7 @@ The following table shows a list of example account as sorted by these criteria:
 +---------+-------------+
 ```
 
-Once connected, you only have the privileges granted on a particular object to the account that matched, not all accounts that could have matched. For example, consider the following\
+Once connected, you only have the privileges granted on a particular object to the account that matched, not all accounts that could have matched. For example, consider the following
 commands:
 
 ```sql

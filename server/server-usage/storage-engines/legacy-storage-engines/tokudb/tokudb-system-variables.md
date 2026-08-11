@@ -48,8 +48,8 @@ See [Server System Variables](../../../../ha-and-performance/optimization-and-tu
 
 #### `tokudb_cache_size`
 
-* Description: Size in bytes of the TokuDB cache. This variable is read-only and cannot be changed dynamically. To change the value, either set the value in the `my.cnf` file prior to loading TokuDB or\
-  restart MariaDB after modifying the configuration. If you have loaded the\
+* Description: Size in bytes of the TokuDB cache. This variable is read-only and cannot be changed dynamically. To change the value, either set the value in the `my.cnf` file prior to loading TokuDB or
+  restart MariaDB after modifying the configuration. If you have loaded the
   plugin but not used TokuDB yet, you can unload the plugin then reload it and\
   MariaDB will reload the plugin with the setting from the configuration file. Setting to at least half of the available memory is recommended, although if using directIO instead of buffered IO (see [tokudb\_directio](tokudb-system-variables.md#tokudb_directio)) , up to 80% of the available memory is recommended. Decrease if other applications require significant memory or swapping is degrading performance.
 * Dynamic: No

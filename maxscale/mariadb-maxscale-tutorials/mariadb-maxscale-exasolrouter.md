@@ -413,3 +413,5 @@ The MariaDB MaxScale–Exasol integration includes some limitations. It includes
 * [MaxScale SmartRouter](../reference/maxscale-routers/maxscale-smartrouter.md)
 * [MaxScale Binlogrouter](../reference/maxscale-routers/maxscale-binlogrouter.md)
 * [Hint Filter](../reference/maxscale-filters/maxscale-hintfilter.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -7,7 +7,7 @@ description: >-
 
 # Galera Test Repositories
 
-To facilitate development and QA, we have created some test repositories for\
+To facilitate development and QA, we have created some test repositories for
 the Galera wsrep provider.
 
 {% hint style="warning" %}
@@ -16,7 +16,7 @@ These are **test** repositories. There will be periods when they do not work at 
 
 ## Galera Test Repositories for YUM
 
-Replace `${dist}` in the code below for\
+Replace `${dist}` in the code below for
 the YUM-based distribution you are testing. Valid distributions are:
 
 * `centos5-amd64`

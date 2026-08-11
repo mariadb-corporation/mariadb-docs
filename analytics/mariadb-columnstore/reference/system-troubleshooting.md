@@ -199,3 +199,5 @@ controllernode[3928]: TableLockServer::load(): could not open the save file/var/
     ```bash
     sudo -su mysql touch var/lib/columnstore/data1/systemFiles/dbrm/tablelocks
     ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

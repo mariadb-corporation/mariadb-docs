@@ -67,17 +67,17 @@ Every storage engine has to implement derived standard handler class API methods
 ### Internal workings of FederatedX
 
 Normal database files are local and as such: You create a table called\
-'users', a file such as 'users.MYD' is created. A handler reads, inserts,\
-deletes, updates data in this file. The data is stored in particular format,\
-so to read, that data has to be parsed into fields, to write, fields have to\
+'users', a file such as 'users.MYD' is created. A handler reads, inserts,
+deletes, updates data in this file. The data is stored in particular format,
+so to read, that data has to be parsed into fields, to write, fields have to
 be stored in this format to write to this data file.
 
-With the FederatedX storage engine, there are no local files\
-for each table's data (such as .MYD). A foreign database will store\
-the data that would normally be in this file. This will necessitate\
-the use of MySQL client API to read, delete, update, insert this\
+With the FederatedX storage engine, there are no local files
+for each table's data (such as .MYD). A foreign database will store
+the data that would normally be in this file. This will necessitate
+the use of MySQL client API to read, delete, update, insert this
 data. The data will have to be retrieve via an SQL call\
-"`SELECT * FROM users`". Then, to read this data, it will have to be retrieved via `mysql_fetch_row` one row at a time, then converted from the\
+"`SELECT * FROM users`". Then, to read this data, it will have to be retrieved via `mysql_fetch_row` one row at a time, then converted from the
 column in this select into the format that the handler expects.
 
 The basic functionality of how FederatedX works is:
@@ -143,9 +143,9 @@ ENGINE="FEDERATED" DEFAULT CHARSET=latin1
 CONNECTION='server_one';
 ```
 
-(Note that in MariaDB, the original Federated storage engine is replaced with\
-the new FederatedX storage engine. And for backward compatibility, the old\
-name "FEDERATED" is used in create table. So in MariaDB, the engine type\
+(Note that in MariaDB, the original Federated storage engine is replaced with
+the new FederatedX storage engine. And for backward compatibility, the old
+name "FEDERATED" is used in create table. So in MariaDB, the engine type
 should be given as "FEDERATED" without an extra "X", not "FEDERATEDX").
 
 The equivalent of above, if done specifying all the connection parameters
@@ -162,8 +162,8 @@ ALTER SERVER 'server_one' OPTIONS(DATABASE 'db2');
 
 All subsequent calls to any FederatedX table using the 'server\_one' will now be against tables in `db2`! Guess what? You no longer have to perform an alter table in order to point one or more FederatedX tables to a new server!
 
-This `connection="connection string"` is necessary\
-for the handler to be able to connect to the foreign server, either\
+This `connection="connection string"` is necessary
+for the handler to be able to connect to the foreign server, either
 by URL, or by server name.
 
 ### Method calls
@@ -260,13 +260,13 @@ CREATE TABLE federated_test_table ENGINE=FEDERATED
   CONNECTION='mysql://root@127.0.0.1:9306/federated/test_table';
 ```
 
-Notice the "ENGINE" and "CONNECTION" fields? This is where you\
-respectively set the engine type, "FEDERATED" and foreign\
-host information, this being the database your 'client' database\
-will connect to and use as the "data file". Obviously, the foreign\
-database is running on port 9306, so you want to start up your other\
-database so that it is indeed on port 9306, and your FederatedX\
-database on a port other than that. In my setup, I use port 5554\
+Notice the "ENGINE" and "CONNECTION" fields? This is where you
+respectively set the engine type, "FEDERATED" and foreign
+host information, this being the database your 'client' database
+will connect to and use as the "data file". Obviously, the foreign
+database is running on port 9306, so you want to start up your other
+database so that it is indeed on port 9306, and your FederatedX
+database on a port other than that. In my setup, I use port 5554
 for FederatedX, and port 5555 for the foreign database.
 
 Alternatively (or if you're using MariaDB before version 10.0.2) you specify the federated table structure explicitly:
@@ -329,7 +329,7 @@ Next, I open several windows for each:
 
 I would create a table on the client to the foreign server on port 5555, and then to the FederatedX server on port 5554. At this point, I would run whatever queries I wanted to on the FederatedX server, just always remembering that whatever changes I wanted to make on the table, or if I created new tables, that I would have to do that on the foreign server.
 
-Another thing to look for is 'show variables' to show you that you have\
+Another thing to look for is 'show variables' to show you that you have
 support for FederatedX handler support:
 
 ```sql

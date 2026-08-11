@@ -20,7 +20,7 @@ If [Memory\_used](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-manageme
 
 ## Profiling with the MariaDB server
 
-Recent MariaDB versions have a global variable [Memory\_used](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#memory_used) that shows how much memory the MariaDB server has allocated. By monitoring this variable one can find out if\
+Recent MariaDB versions have a global variable [Memory\_used](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#memory_used) that shows how much memory the MariaDB server has allocated. By monitoring this variable one can find out if
 if the MariaDB allocated memory grows.
 
 One can also check memory usage per user with the [information\_schema.processlist](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table):
@@ -29,7 +29,7 @@ One can also check memory usage per user with the [information\_schema.processli
 SELECT id, MEMORY_USED, MAX_MEMORY_USED FROM information_schema.processlist;
 ```
 
-This shows the current memory used per connection and the maximum memory they have\
+This shows the current memory used per connection and the maximum memory they have
 used since the user connected.
 
 The [Performance Schema](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/performance-schema) can also be used to find out who is allocated memory and for what.

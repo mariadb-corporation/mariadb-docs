@@ -29,4 +29,6 @@ Returns zero on success, non-zero on failure.
 
 * [mysql\_stmt\_store\_result()](mysql_stmt_store_result.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

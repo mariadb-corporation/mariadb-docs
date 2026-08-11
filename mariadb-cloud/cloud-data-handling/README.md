@@ -34,3 +34,4 @@ MariaDB Cloud provides complete backup and restore features to protect your data
 [backup-and-restore](backup-and-restore/)
 {% endcontent-ref %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

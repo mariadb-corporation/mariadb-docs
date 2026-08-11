@@ -33,3 +33,5 @@ Overview of Percona XtraBackup for hot backups of MariaDB — now unsupported in
 Build instructions for compiling Percona XtraBackup from source, including platform-specific notes. Percona XtraBackup is unsupported in MariaDB; use mariadb-backup instead.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

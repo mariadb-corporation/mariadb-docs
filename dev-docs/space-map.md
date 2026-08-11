@@ -30,10 +30,26 @@ Top-level directories that look like content but are **not** browsable spaces:
 
 | Path | What it is |
 |------|------------|
-| `mariadb-platform/` | GitBook **includes** container (`.gitbook/includes/`, ~16 reusable "most-recent release" snippets). Holds include files, not pages, so it has no `README.md` or `SUMMARY.md`. Add a new **include file** here when the work requires one; don't author standalone pages. |
-| `.gitbook/includes/` | Repo-level reusable snippets inserted into pages by GitBook. |
+| `<space>/.gitbook/includes/` | A space's reusable snippets, inserted into its pages by GitBook. Belongs to that space only — see *Reusable includes* below. |
 | `dev-docs/` | Agent/contributor playbooks (not published). |
 | `.claude/` | Shared Claude Code config, skills, hooks (not published). |
+
+## Reusable includes
+
+A relative `{% include "../.gitbook/includes/foo.md" %}` resolves **within one space** and may not
+cross a space boundary — each space has its own GitBook Git-sync root, so a path climbing into a
+sibling space fails even though it resolves on disk. Add a new snippet to the
+`.gitbook/includes/` of the space that uses it. Cross-space reuse goes by ID instead:
+
+```
+{% include "https://app.gitbook.com/s/<spaceId>/~/reusable/<reusableId>/" %}
+```
+
+Two containers that belonged to **no** space — `mariadb-platform/.gitbook/includes/` (16 files)
+and the repo-root `.gitbook/includes/` (2 files) — were deleted in DOCS-6372: the GitBook API
+showed no space wired to either, so nothing in them could render, and their contents had gone a
+year stale. `.claude/hooks/doc-lint.sh` now fails on a missing or cross-space include; lychee
+cannot see `{% include %}` at all, because it is template syntax rather than a Markdown link.
 
 ## Sub-structure of the larger spaces
 

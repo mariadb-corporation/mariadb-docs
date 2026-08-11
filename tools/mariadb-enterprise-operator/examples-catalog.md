@@ -41,6 +41,6 @@ If you are looking for production-grade examples, you can check the following ma
 * `mariadb_replication_production.yaml` and `maxscale_replication_production.yaml` for [asynchronous replication](topologies/replication.md)
 * `mariadb_galera_production.yaml` and `maxscale_galera_production.yaml` for [Galera](topologies/galera.md)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

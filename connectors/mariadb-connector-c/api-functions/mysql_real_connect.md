@@ -72,4 +72,6 @@ Returns a connection handle (same as passed for 1st parameter) or `NULL` on erro
 * [mysql\_init()](mysql_init.md)
 * [protocol capabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/clientserver-protocol/1-connecting/connection#capabilities)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

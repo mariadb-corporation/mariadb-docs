@@ -294,3 +294,5 @@ Learn how to integrate MindsDB with MariaDB to train and query machine learning 
 Explore legacy storage engines in MariaDB Server. This section provides information on older engines, their historical context, and considerations for migration or compatibility.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

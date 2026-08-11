@@ -39,3 +39,5 @@ ID	OS_THREAD_ID	MODE	STATE	TRANSACTION_ID	TRANSACTION_STATE	SEQNO	DEPENDS_ON	GTI
 ```
 
 There is also an `INFORMATION_SCHEMA.WSREP_THD_STATE_HISTORY` table that contains the history of execution state information for Galera threads.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

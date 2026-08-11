@@ -24,3 +24,5 @@ description: >-
 * All other versions support all backup types: Full, Incremental, Dump, and Snapshot
 
 Please contact us if you have any questions about backup support for specific MariaDB versions.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

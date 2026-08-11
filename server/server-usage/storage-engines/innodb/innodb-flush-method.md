@@ -102,3 +102,5 @@ FUA can be detrimental for data file write performance, but beneficial for log w
     When the FUA bit is set to 1, the storage device must complete the write operation to the physical media before returning a "good" status, ensuring data durability even in the event of a power failure.
 
 [^2]: Direct Memory Access; see [https://en.wikipedia.org/wiki/Direct\_memory\_access](https://en.wikipedia.org/wiki/Direct_memory_access) for details.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

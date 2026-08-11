@@ -46,7 +46,7 @@ Statements and tables using timestamps or auto\_increment are safe to use with s
 
 This mode can be enabled by setting the [binlog\_format](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_format) system variable to `STATEMENT`.
 
-In certain cases when it would be impossible to execute the statement on the replica, the server will switch to\
+In certain cases when it would be impossible to execute the statement on the replica, the server will switch to
 row-based logging for the statement. Some cases of this are:
 
 * When replication has been changed from row-based to statement-based and a statement uses data from a temporary table created during row-based mode. In this case, the temporary tables are not stored on the replica, so row logging is the only alternative.

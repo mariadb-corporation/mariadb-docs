@@ -30,6 +30,6 @@ Plugins generally follow the same rules, but they have [their own maturity level
 
 See our [security policy](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/mariadb-security-bug-fixing-policy) page for information of how and when emergency security releases are done.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

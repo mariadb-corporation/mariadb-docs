@@ -92,3 +92,5 @@ Priority/queue modifiers: `[LOW_PRIORITY | DELAYED | HIGH_PRIORITY]` on the `VAL
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/insert-delayed>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/insert-select>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/insert-default-duplicate-values>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

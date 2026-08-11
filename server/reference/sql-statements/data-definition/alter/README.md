@@ -90,3 +90,5 @@ Understand the status of tablespace management. This statement, originally for N
 Documentation for the ALTER VIEW statement, which is used to modify an existing view's definition without dropping and recreating it.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

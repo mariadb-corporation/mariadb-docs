@@ -84,3 +84,5 @@ DROP VIEW [IF EXISTS] view_name [, view_name] … [RESTRICT | CASCADE];
   - <https://mariadb.com/docs/server/server-usage/views/inserting-and-updating-with-views>
   - <https://mariadb.com/docs/server/server-usage/views/alter-view>
   - <https://mariadb.com/docs/server/server-usage/views/drop-view>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

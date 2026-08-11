@@ -122,3 +122,5 @@ To modify a Notification Channel, from the Notification Channel settings interfa
 <figure><img src="../.gitbook/assets/notifications-edit.png" alt=""><figcaption></figcaption></figure>
 
 _Notification Channels - Editing a Channel_
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

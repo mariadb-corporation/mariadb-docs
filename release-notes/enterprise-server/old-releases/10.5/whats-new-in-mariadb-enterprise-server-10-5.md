@@ -1113,7 +1113,7 @@ MariaDB Enterprise Server 10.5 includes several [security](https://app.gitbook.c
 * Allows the user to execute START SLAVE statements
 * Allows the user to execute [STOP ALL REPLICAS](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-enterprise-server-release-notes/mariadb-enterprise-server-10-5/stop-all-replicas/README.md) statements
 * Allows the user to execute [STOP ALL SLAVES](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-enterprise-server-release-notes/mariadb-enterprise-server-10-5/stop-all-slaves/README.md) statements
-* Alows the user to execute [STOP REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica) statements
+* Allows the user to execute [STOP REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica) statements
 * Allows the user to execute [STOP SLAVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica) statements
 * Allows the user to set system variables:
   * [gtid\_cleanup\_batch\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid)
@@ -1340,6 +1340,6 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 
 MariaDB CVEs are assigned a word rating instead of a CVSS base score. See the [MariaDB Engineering Policy](https://mariadb.com/engineering-policies/) for details.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -138,7 +138,7 @@ To fix this:
 
 ## Multi-Master Ring Replication through slaves
 
-An alternative setup to use for Multi-master ring replications is to replicate to the other\
+An alternative setup to use for Multi-master ring replications is to replicate to the other
 masters through slaves. The following setup shows how this can be done.
 
 ```mermaid

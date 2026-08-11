@@ -19,16 +19,16 @@ Also see the [List of beginner friendly issues](https://jira.mariadb.org/issues/
 #### Evaluate subquery predicates earlier or later depending on their SELECTIVITY
 
 (Based on conversation with Igor)\
-There are a lot of subquery conditions out there that are inexpensive to\
+There are a lot of subquery conditions out there that are inexpensive to
 evaluate and have good selectivity.\
-If we just implement [MDEV-83](https://jira.mariadb.org/browse/MDEV-83), we may get regressions. We need to take\
+If we just implement [MDEV-83](https://jira.mariadb.org/browse/MDEV-83), we may get regressions. We need to take
 subquery condition's selectivity into account.\
-It is difficult to get a meaningful estimate for an arbitrary, correlated\
+It is difficult to get a meaningful estimate for an arbitrary, correlated
 subquery predicate.\
-One possible solution is to measure selectivity during execution and reattach\
+One possible solution is to measure selectivity during execution and reattach
 predicates on the fly.\
-We don't want to change the query plan all the time, one way to dynamically\
-move items between item trees is to wrap them inside Item\_func\_trig\_cond so\
+We don't want to change the query plan all the time, one way to dynamically
+move items between item trees is to wrap them inside Item\_func\_trig\_cond so
 we can switch them on and off.
 
 | Details: | Mentor:                                              |
@@ -38,10 +38,10 @@ we can switch them on and off.
 
 #### Histograms with equal-width bins in MariaDB
 
-Histograms with equal-width bins are easy to construct using samples. For this it's enough\
+Histograms with equal-width bins are easy to construct using samples. For this it's enough
 to look through the given sample set and for each value from it to figure out what bin this value can be placed in. Each bin requires only one counter.\
-Let f be a column of a table with N rows and n be the number of samples by which the equal-width histogram of k bins for this column is constructed. Let after looking through all sample\
-rows the counters created for the histogram bins contain numbers c\[1],..,c\[k]. Then\
+Let f be a column of a table with N rows and n be the number of samples by which the equal-width histogram of k bins for this column is constructed. Let after looking through all sample
+rows the counters created for the histogram bins contain numbers c\[1],..,c\[k]. Then
 m\[i]= c\[i]/n \* 100 is the percentage of the rows whose values of f are expected to be in the interval
 
 ```
@@ -147,12 +147,12 @@ The mysqlbinlog client program needs to be updated to support GTID.\
 Here is a suggested list of things to be done:
 
 * The `--start-position` and `--stop-position` options should be able to take\
-  GTID positions; or maybe there should be new `--start-gtid` and `--stop-gtid`\
+  GTID positions; or maybe there should be new `--start-gtid` and `--stop-gtid`
   options. Like `--start-gtid=0-1-100,1-2-200,2-1-1000`.
 * A GTID position means the point just after that GTID. So starting from\
-  GTID 0-1-100 and stopping at GTID 0-1-200, the first GTID output will\
-  probably be 0-1-101 and the last one 0-1-200. Note that if some domain is\
-  not specified in the position, it means to start from the beginning,\
+  GTID 0-1-100 and stopping at GTID 0-1-200, the first GTID output will
+  probably be 0-1-101 and the last one 0-1-200. Note that if some domain is
+  not specified in the position, it means to start from the beginning,
   respectively stop immediately in that domain.
 * Starting and stopping GTID should work both with local files, and with `--read-from-remote-server`. For the latter, there are a couple of extra things that need doing in the master-slave protocol, see `get_master_version_and_clock()` in `sql/slave.cc`.
 * At the end of the dump, put these statements, to reduce the risk of those session variables incorrectly spilling into subsequent statements run in the same session:
@@ -227,7 +227,7 @@ mysqltest has a lot of historical problems:
 
 * ad hoc parser, weird limitations
 * commands added as needed with no view over the total language structure
-* historical code issues (e.g. casts that become unnecessary 10 years ago)\
+* historical code issues (e.g. casts that become unnecessary 10 years ago)
   etc
 
 A lot can be done to improve it.\

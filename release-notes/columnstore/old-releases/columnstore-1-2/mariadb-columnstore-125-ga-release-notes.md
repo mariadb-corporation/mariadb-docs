@@ -17,7 +17,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 ## Bugs and issues fixed
 
 * [MCOL-1375](https://jira.mariadb.org/browse/MCOL-1375) - Assertion failure when using HAVING with constant values
-* [MCOL-1985](https://jira.mariadb.org/browse/MCOL-1985) - Fix up regr functions in regrmysql.cpp so regr\_\* funtions work correcly for InnoDB tables
+* [MCOL-1985](https://jira.mariadb.org/browse/MCOL-1985) - Fix up regr functions in regrmysql.cpp so regr\_\* functions work correctly for InnoDB tables
 * [MCOL-2225](https://jira.mariadb.org/browse/MCOL-2225) - cross engine join with space in column names in on condition cause fatal error
 * [MCOL-2230](https://jira.mariadb.org/browse/MCOL-2230) - DATE/TIME type math is broken -- TIMEDIFF, TIMESTAMPDIFF and date math
 * [MCOL-3239](https://jira.mariadb.org/browse/MCOL-3239) - CS incorrectly pushes function filter predicate into a subquery.
@@ -34,7 +34,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-3404](https://jira.mariadb.org/browse/MCOL-3404) - tpcds query #98 failed with an internal error
 * [MCOL-3321](https://jira.mariadb.org/browse/MCOL-3321) - some regr\_\* function tests need order by to make them deterministic
 * [MCOL-3343](https://jira.mariadb.org/browse/MCOL-3343) - Window Functions don't work with arithmetic operators or other functions
-* [MCOL-1968](https://jira.mariadb.org/browse/MCOL-1968) - wrong string comparisation after dataimport and extents
+* [MCOL-1968](https://jira.mariadb.org/browse/MCOL-1968) - wrong string comparison after dataimport and extents
 * [MCOL-1989](https://jira.mariadb.org/browse/MCOL-1989) - Querying view results in internal error: column is not found in info map
 * [MCOL-3398](https://jira.mariadb.org/browse/MCOL-3398) - Rebase 1.2 on [MariaDB 10.3.16](../../../community-server/old-releases/10.3/10.3.16.md)
 
@@ -83,6 +83,6 @@ The source code is available at these locations
 * Write Data API - [Source code for Write Data API /SDK](https://github.com/mariadb-corporation/mariadb-columnstore-api/tree/columnstore-1.2.5)
 * MaxScale CDC and Kafka Data Adapters - [Source Code for data adapters](https://github.com/mariadb-corporation/mariadb-columnstore-data-adapters/tree/columnstore-1.2.5)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

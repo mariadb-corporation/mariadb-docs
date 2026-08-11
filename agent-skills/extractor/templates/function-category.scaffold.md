@@ -32,3 +32,5 @@ to the canonical reference at `server/reference/sql-functions/.../<category>/`.
      CI run. Do not hand-edit between these markers. -->
 
 <!-- END GENERATED -->
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

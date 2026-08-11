@@ -22,3 +22,4 @@ This section contains background information, mostly aimed at engineers developi
 [non-blocking-client-library](non-blocking-client-library/)
 {% endcontent-ref %}
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -52,6 +52,6 @@ Monitors disk performance and utilization for the node’s storage devices.
 | Disk IOPS        | Number of input/output operations per second for reads and writes.   |
 | Disk Utilisation | Percentage of time that disk devices are busy handling I/O requests. |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -67,3 +67,5 @@ SELECT * FROM INFORMATION_SCHEMA.WSREP_BF_ABORT_HISTORY LIMIT 100;
     * Transaction Conflicts: In a multi-master environment where multiple nodes can process transactions simultaneously, a conflict can occur if two transactions try to modify the same data at the same time.
     * Brute Force (BF) Abort: When a conflict is detected, one of the conflicting transactions (the "victim") may be "killed" or aborted to allow the other transaction (the "aggressor") to proceed and maintain data consistency across the cluster. This is referred to as a "Brute Force" approach to conflict resolution.
     * Information Schema Table: The "Information schema table displaying history of BF aborts" is a system table (like `wsrep_local_bf_aborts` in Galera Cluster) that tracks the count or history of these brute force transaction terminations. This is a crucial metric for monitoring cluster health and identifying problematic transactions or high-contention ar
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

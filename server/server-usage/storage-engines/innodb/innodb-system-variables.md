@@ -1206,7 +1206,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
   * `1` The default, the log buffer is written to the [InnoDB redo log](innodb-redo-log.md) file and a flush to disk performed after each transaction. This is required for full ACID[^3] compliance.
   * `0` Nothing is done on commit; rather the log buffer is written and flushed to the [InnoDB redo log](innodb-redo-log.md) once a second. This gives better performance, but a server crash can erase the last second of transactions.
   * `2` The log buffer is written to the [InnoDB redo log](innodb-redo-log.md) after each commit, but flushing takes place every [innodb\_flush\_log\_at\_timeout](innodb-system-variables.md#innodb_flush_log_at_timeout) seconds (by default once a second). Performance is slightly better, but a OS or power outage can cause the last second's transactions to be lost.
-  * `3` Emulates [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) [group commit](../../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) (3 syncs per group commit). See [Binlog group commit and innodb\_flush\_log\_at\_trx\_commit](binary-log-group-commit-and-innodb-flushing-performance.md). This option has not been working correctly since 10.2 and may be removed in future, see [1873](https://github.com/MariaDB/server/pull/1873).
+  * `3` The log buffer is written to the [InnoDB redo log](innodb-redo-log.md) file and flushed to disk at both the prepare and the commit phase of each transaction. This is slower than `1`, and the extra flush at prepare is usually redundant. Like `1`, it guarantees that after a crash, committed transactions are not lost and remain consistent with the binary log and other transactional engines. See [Binlog group commit and innodb\_flush\_log\_at\_trx\_commit](binary-log-group-commit-and-innodb-flushing-performance.md).
 * Command line: `--innodb-flush-log-at-trx-commit[=#]`
 * Scope: Global
 * Dynamic: Yes
@@ -1536,17 +1536,17 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_instant_alter_column_allowed`
 
 * Description:
-  * If a table is altered using `ALGORITHM=INSTANT`, it can force the table to use a non-canonical format: A hidden metadata record at the start of the clustered index is used to store each column's `DEFAULT` value. This makes it possible to add new columns that have default values without rebuilding the table. Starting with [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104), a `BLOB` in the hidden metadata record is used to store column mappings. This makes\
+  * If a table is altered using `ALGORITHM=INSTANT`, it can force the table to use a non-canonical format: A hidden metadata record at the start of the clustered index is used to store each column's `DEFAULT` value. This makes it possible to add new columns that have default values without rebuilding the table. Starting with [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104), a `BLOB` in the hidden metadata record is used to store column mappings. This makes
     it possible to drop or reorder columns without rebuilding the table. This also makes it possible to add columns to any position or drop columns from any position in the table without rebuilding the table. If a column is dropped without rebuilding the table, old records will contain garbage in that column's former position, and new records are written with `NULL` values, empty strings, or dummy values.
-  * This is generally not a problem. However, there may be cases where\
+  * This is generally not a problem. However, there may be cases where
     you want to avoid putting a table into this format. For example, to ensure that future `UPDATE` operations after an `ADD COLUMN` are performed in-place, to reduce write amplification. (Instantly added columns are essentially always variable-length.) Also avoid bugs similar to [MDEV-19916](https://jira.mariadb.org/browse/MDEV-19916), or to be able to export tables to older versions of the server.
   * This variable has been introduced as a result, with the following values:
   * `never` (0): Do not allow instant add/drop/reorder, to maintain format compatibility with MariaDB 10.x and MySQL 5.x. If the table (or partition) is not in the canonical format, then any ALTER TABLE (even one that does not involve instant column operations) will force a table rebuild.
-  * `add_last` (1, default in 10.3): Store a hidden metadata record that\
+  * `add_last` (1, default in 10.3): Store a hidden metadata record that
     allows columns to be appended to the table instantly ([MDEV-11369](https://jira.mariadb.org/browse/MDEV-11369)).\
-    In 10.4 or later, if the table (or partition) is not in this format, then any ALTER TABLE (even one that does not involve column changes)\
+    In 10.4 or later, if the table (or partition) is not in this format, then any ALTER TABLE (even one that does not involve column changes)
     will force a table rebuild.
-  * `add_drop_reorder` (2, default): From [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) only. Like 'add\_last', but allow the metadata record to store a column map, to support instant\
+  * `add_drop_reorder` (2, default): From [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) only. Like 'add\_last', but allow the metadata record to store a column map, to support instant
     add/drop/reorder of columns.
 * Command line: `--innodb-instant-alter-column-allowed=value`
 * Scope: Global
@@ -1811,7 +1811,7 @@ SELECT @@GLOBAL.innodb_log_file_buffering;
 
 #### `innodb_log_file_mmap`
 
-* Description: Whether ib\_logfile0 resides in persistent memory or should initially be memory-mapped. When using the default innodb\_log\_buffer\_size=2m, mariadb-backup --backup would spend a lot of time re-reading and re-parsing the log. For reading the log file during mariadb-backup --backup, it is beneficial to memory-map the entire ib\_logfile0 to the address space (typically 48 bits or 256 TiB) and read it from there,\
+* Description: Whether ib\_logfile0 resides in persistent memory or should initially be memory-mapped. When using the default innodb\_log\_buffer\_size=2m, mariadb-backup --backup would spend a lot of time re-reading and re-parsing the log. For reading the log file during mariadb-backup --backup, it is beneficial to memory-map the entire ib\_logfile0 to the address space (typically 48 bits or 256 TiB) and read it from there,
   both during --backup and --prepare. OFF by default on most platforms, to avoid aggressive read-ahead of the entire ib\_logfile0 in when only a tiny portion would be accessed. On Linux and FreeBSD the default is innodb\_log\_file\_mmap=ON, because those platforms define a specific mmap(2) option for enabling such read-ahead and therefore it can be assumed that the default wouldbe on-demand paging. This parameter will only have impact on the initial InnoDB startup and recovery. Any writes to the log will use regular I/O, except when the ib\_logfile0 is stored in a specially configured file system that is backed by persistent memory (Linux "mount -o dax").
 * Command line: `--innodb-log-file-mmap{=0|1}`
 * Scope: Global

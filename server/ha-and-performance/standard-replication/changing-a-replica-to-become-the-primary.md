@@ -13,8 +13,8 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 This article describes how to change a replica to become a primary and optionally to set the old primary as a replica for the new primary.
 
-A typical scenario of when this is useful is if you have set up a new\
-version of MariaDB as a replica, for example for testing, and want to\
+A typical scenario of when this is useful is if you have set up a new
+version of MariaDB as a replica, for example for testing, and want to
 upgrade your primary to the new version.
 
 In MariaDB replication, a replica should be of a version same or newer than the primary. Because of this, one should first upgrades all replicas to the latest version before changing a replica to be a primary. In some cases one can have a replica to be of an older version than the primary, as long as one doesn't execute on the primary any SQL commands that the replica doesn't understand. This is however not guaranteed between all major MariaDB versions.
@@ -23,7 +23,7 @@ Note that in the examples below, `[connection_name]` is used as the [name of the
 
 ### Stopping the Original Master.
 
-First one needs to take down the original primary in such a way that the replica\
+First one needs to take down the original primary in such a way that the replica
 has all information on the primary.
 
 If you are using [Semisynchronous Replication](semisynchronous-replication.md) you can just stop the server with the [SHUTDOWN](../../reference/sql-statements/administrative-sql-statements/shutdown.md) command as the replicas should be automatically up to date.
@@ -73,12 +73,12 @@ Gtid_IO_Pos          0-1-2              +
 +-------------------+-------------------+
 ```
 
-The most important information to watch are `Master_Log_File` and`Exec_Master_Log_Pos` as when this matches the primary, it signals\
+The most important information to watch are `Master_Log_File` and`Exec_Master_Log_Pos` as when this matches the primary, it signals
 that all transactions have been committed on the replica.
 
-Note that `Gtid_IO_Pos` on replica can contain many different positions\
-separated with ',' if the replica has been connected to many different\
-primaries. What is important is that all the sequences that are on the\
+Note that `Gtid_IO_Pos` on replica can contain many different positions
+separated with ',' if the replica has been connected to many different
+primaries. What is important is that all the sequences that are on the
 primary is also on the replica.
 
 When replica is up to date, you can then take the **PRIMARY** down. This should be on the same connection where you executed [FLUSH TABLES WITH READ LOCK](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
@@ -89,8 +89,8 @@ SHUTDOWN;
 
 ### Preparing the Replica to be a Primary
 
-Stop all old connections to the old primary(s) and reset **read only**\
-**mode**, if you had it enabled. You also want to save the values of [SHOW MASTER STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-binlog-status.md) and `gtid_binlog_pos`, as\
+Stop all old connections to the old primary(s) and reset **read only**
+**mode**, if you had it enabled. You also want to save the values of [SHOW MASTER STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-binlog-status.md) and `gtid_binlog_pos`, as
 you may need these to setup new replicas.
 
 ```sql
@@ -121,19 +121,19 @@ The `XXX` values for `MASTER_LOG_FILE` and `MASTER_LOG_POS` should be the values
 
 ### Changing the Old Primary to be a Replica
 
-Now you can upgrade the old primary to a newer version of MariaDB and then\
+Now you can upgrade the old primary to a newer version of MariaDB and then
 follow the same procedure to connect it as a replica.
 
-When starting the original primary, it's good to start the `mysqld`\
-executable with the `--with-skip-slave-start` and `--read-only`\
-options to ensure that no old replica configurations could cause any\
+When starting the original primary, it's good to start the `mysqld`
+executable with the `--with-skip-slave-start` and `--read-only`
+options to ensure that no old replica configurations could cause any
 conflicts.
 
-For the same reason it's also good to execute the following commands\
-on the old primary (same as for other replicas, but with some extra\
-security). The `read_only` option below is there to ensure that old\
+For the same reason it's also good to execute the following commands
+on the old primary (same as for other replicas, but with some extra
+security). The `read_only` option below is there to ensure that old
 applications doesn't by accident try to update the old primary by mistake.\
-It only affects normal connections to the replica, not changes from the\
+It only affects normal connections to the replica, not changes from the
 new primary.
 
 ```sql
@@ -154,8 +154,8 @@ START SLAVE;
 ### Moving Applications to Use New Primary
 
 You should now point your applications to use the new primary.\
-If you are using the [MariaDB MaxScale proxy](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/), then you don't\
-have to do this step as MaxScale will take care of sending write request\
+If you are using the [MariaDB MaxScale proxy](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/), then you don't
+have to do this step as MaxScale will take care of sending write request
 to the new primary.
 
 ### See Also

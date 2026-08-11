@@ -23,7 +23,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1261](https://jira.mariadb.org/browse/MCOL-1261) - mcsapi Python wrapper breaks on out of source builds
 * [MCOL-1321](https://jira.mariadb.org/browse/MCOL-1321) - bulk write sdk python bindings does not support status out param in setColumn
 * [MCOL-1342](https://jira.mariadb.org/browse/MCOL-1342) - A restriction for allowed length of the table and column names is not implemented
-* [MCOL-1348](https://jira.mariadb.org/browse/MCOL-1348) - ExeMgr failes to process SELECT with any field preceding UDAF functor.
+* [MCOL-1348](https://jira.mariadb.org/browse/MCOL-1348) - ExeMgr fails to process SELECT with any field preceding UDAF functor.
 * [MCOL-1349](https://jira.mariadb.org/browse/MCOL-1349) - Selecting VIEW throws 1815. Internal error when the VIEW definition contains nested and non nested LEFT JOINS and On clause filter on the nested JOIN
 * [MCOL-1359](https://jira.mariadb.org/browse/MCOL-1359) - Spark connector does not allow NULL values
 * [MCOL-1361](https://jira.mariadb.org/browse/MCOL-1361) - Spark connector doesn't handle null values
@@ -110,6 +110,6 @@ The source code is available at these locations
 * Write Data API - [Source code for Write Data API /SDK](https://github.com/mariadb-corporation/mariadb-columnstore-api/tree/columnstore-1.1.5)
 * MaxScale CDC and Kafka Data Adapters - [Source Code for data adapters](https://github.com/mariadb-corporation/mariadb-columnstore-data-adapters/tree/columnstore-1.1.5)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

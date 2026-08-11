@@ -164,7 +164,7 @@ The MariaDB project no longer builds packages for the following Operating System
 
 ## Support for Deprecated Platforms
 
-If your chosen Linux Distribution or Operating System is deprecated, packages\
+If your chosen Linux Distribution or Operating System is deprecated, packages
 or support are not completely unavailable. The [MariaDB Corporation](https://mariadb.com) provides support for all versions of MariaDB back to even very old MySQL versions. This includes packaged binaries. For specific dates related to each version and more details on the MariaDB Corporation's policies, see the [Engineering Policies](https://mariadb.com/engineering-policies) page.
 
 ## See Also
@@ -173,6 +173,6 @@ or support are not completely unavailable. The [MariaDB Corporation](https://mar
 * [MariaDB Maintenance Policy](maintenance-policy.md)
 * [MariaDB Feature Deprecation Policy](feature-deprecation-policy.md)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

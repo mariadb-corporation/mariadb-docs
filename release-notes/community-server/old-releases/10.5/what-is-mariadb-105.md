@@ -118,7 +118,7 @@ See the [Differences in MariaDB Enterprise Server 10.5](../../../enterprise-serv
 
 ### Galera: Full GTID Support
 
-* Add full [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) support to [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) cluster ([commit](https://github.com/MariaDB/server/commit/41bc736871)). With this feature all nodes in a cluster\
+* Add full [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) support to [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) cluster ([commit](https://github.com/MariaDB/server/commit/41bc736871)). With this feature all nodes in a cluster
   will have the same GTID for replicated events originating from the cluster. Also added a new variable, `wsrep_gtid_seq_no`, to manually update the WSREP GTID sequence number in the cluster (similar to how the `gtid_seq_no` variable is used for non-WSREP transactions).
 * Add new mode to wsrep\_OSU\_method in which Galera checks storage engine of the affected table ([MDEV-20051](https://jira.mariadb.org/browse/MDEV-20051))
 * Galera: Replicate MariaDB GTID to other nodes in the cluster ([MDEV-20720](https://jira.mariadb.org/browse/MDEV-20720))
@@ -212,8 +212,8 @@ See the [Differences in MariaDB Enterprise Server 10.5](../../../enterprise-serv
 
 ## Security Vulnerabilities Fixed in [MariaDB 10.5](what-is-mariadb-105.md)
 
-For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
+For a complete list of security vulnerabilities (CVEs) fixed across all
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)
 page.
 
 * [CVE-2025-21490](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-21490): [MariaDB 10.5.28](10.5.28.md)
@@ -332,6 +332,6 @@ page.
 | 14 Feb 2020 | [MariaDB 10.5.1](10.5.1.md)   | Beta        | [Release Notes](10.5.1.md)  | [Changelog](../../changelogs/changelogs-mariadb-105-series/mariadb-1051-changelog.md)    |
 | 3 Dec 2019  | [MariaDB 10.5.0](10.5.0.md)   | Alpha       | [Release Notes](10.5.0.md)  | [Changelog](../../changelogs/changelogs-mariadb-105-series/mariadb-1050-changelog.md)    |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

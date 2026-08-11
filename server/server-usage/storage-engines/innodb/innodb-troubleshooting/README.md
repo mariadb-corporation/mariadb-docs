@@ -42,3 +42,5 @@ Learn how to resolve inconsistencies between the InnoDB internal data dictionary
 Understand the different `innodb_force_recovery` levels, which allow you to start the server in read-only modes to recover data after a crash.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

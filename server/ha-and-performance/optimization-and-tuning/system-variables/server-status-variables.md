@@ -24,7 +24,7 @@ Most status variables are described on this page, but some are described elsewhe
 * [Spider Status Variables](spider-status-variables.md)
 * [TokuDB Status Variables](../../../server-usage/storage-engines/legacy-storage-engines/tokudb/tokudb-status-variables.md)
 
-Use the [SHOW STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-status.md) statement to view status variables. This\
+Use the [SHOW STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-status.md) statement to view status variables. This
 information also can be obtained using the [mariadb-admin extended-status](../../../clients-and-utilities/administrative-tools/mariadb-admin.md) command, or by querying the [Information Schema GLOBAL\_STATUS and SESSION\_STATUS](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-global_status-and-session_status-tables.md) tables.
 
 Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) will reset many status variables to zero.
@@ -1907,7 +1907,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Syncs`
 
-* Description: Number of times my\_sync() has been called, or the number of times the server has had to force data to disk. Covers the [binary log](../../../server-management/server-monitoring-logs/binary-log/), .frm creation (if these\
+* Description: Number of times my\_sync() has been called, or the number of times the server has had to force data to disk. Covers the [binary log](../../../server-management/server-monitoring-logs/binary-log/), .frm creation (if these
   operations are configured to sync) and some storage engines ([Archive](../../../server-usage/storage-engines/archive.md),[CSV](../../../server-usage/storage-engines/csv/), [Aria](../../../server-usage/storage-engines/aria/)), but not [XtraDB/InnoDB](../../../server-usage/storage-engines/innodb/)).
 * Scope: Global, Session
 * Data Type: `numeric`

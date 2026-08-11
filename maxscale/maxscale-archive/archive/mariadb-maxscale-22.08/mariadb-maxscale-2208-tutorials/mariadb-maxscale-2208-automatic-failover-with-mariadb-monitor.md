@@ -4,24 +4,24 @@
 
 ## Automatic Failover With MariaDB Monitor
 
-The [MariaDB Monitor](../mariadb-maxscale-2208-monitors/mariadb-maxscale-2208-mariadb-monitor.md) is not only capable\
-of monitoring the state of a MariaDB master-slave cluster but is also\
-capable of performing _failover_ and _switchover_. In addition, in some\
-circumstances it is capable of _rejoining_ a master that has gone down and\
+The [MariaDB Monitor](../mariadb-maxscale-2208-monitors/mariadb-maxscale-2208-mariadb-monitor.md) is not only capable
+of monitoring the state of a MariaDB master-slave cluster but is also
+capable of performing _failover_ and _switchover_. In addition, in some
+circumstances it is capable of _rejoining_ a master that has gone down and
 later reappears.
 
-Note that the failover (and switchover and rejoin) functionality is only\
-supported in conjunction with GTID-based replication and initially only\
+Note that the failover (and switchover and rejoin) functionality is only
+supported in conjunction with GTID-based replication and initially only
 for simple topologies, that is, 1 master and several slaves.
 
-The failover, switchover and rejoin functionality are inherent parts of\
-the _MariaDB Monitor_, but neither automatic failover nor automatic rejoin\
+The failover, switchover and rejoin functionality are inherent parts of
+the _MariaDB Monitor_, but neither automatic failover nor automatic rejoin
 are enabled by default.
 
-The following examples have been written with the assumption that there\
-are four servers - `server1`, `server2`, `server3` and `server4` - of\
+The following examples have been written with the assumption that there
+are four servers - `server1`, `server2`, `server3` and `server4` - of
 which `server1` is the initial master and the other servers are slaves.\
-In addition there is a monitor called _TheMonitor_ that monitors those\
+In addition there is a monitor called _TheMonitor_ that monitors those
 servers.
 
 Somewhat simplified, the MaxScale configuration file would look like:
@@ -50,7 +50,7 @@ servers=server1,server2,server3,server4
 
 ## Manual Failover
 
-If everything is in order, the state of the cluster will look something\
+If everything is in order, the state of the cluster will look something
 like this:
 
 ```
@@ -68,7 +68,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If the master now for any reason goes down, then the cluster state will\
+If the master now for any reason goes down, then the cluster state will
 look like this:
 
 ```
@@ -88,7 +88,7 @@ $ maxctrl list servers
 
 Note that the status for `server1` is _Down_.
 
-Since failover is by default _not_ enabled, the failover mechanism must be\
+Since failover is by default _not_ enabled, the failover mechanism must be
 invoked manually:
 
 ```
@@ -103,11 +103,11 @@ There are quite a few arguments, so let's look at each one separately:
 * `failover` is the command we want to invoke, and
 * `TheMonitor` is the first and only argument to that command, the name of the monitor as specified in the configuration file.
 
-The MariaDB Monitor will now autonomously deduce which slave is the most\
-appropriate one to be promoted to master, promote it to master and modify\
+The MariaDB Monitor will now autonomously deduce which slave is the most
+appropriate one to be promoted to master, promote it to master and modify
 the other slaves accordingly.
 
-If we now check the cluster state we will see that one of the remaining\
+If we now check the cluster state we will see that one of the remaining
 slaves has been made into master.
 
 ```
@@ -125,7 +125,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If `server1` now reappears, it will not be rejoined to the cluster, as\
+If `server1` now reappears, it will not be rejoined to the cluster, as
 shown by the following output:
 
 ```
@@ -143,15 +143,15 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-Had `auto_rejoin=true` been specified in the monitor section, then an\
+Had `auto_rejoin=true` been specified in the monitor section, then an
 attempt to rejoin `server1` would have been made.
 
-In MaxScale 2.2.1, rejoining cannot be initiated manually, but in a\
+In MaxScale 2.2.1, rejoining cannot be initiated manually, but in a
 subsequent version a command to that effect will be provided.
 
 ## Automatic Failover
 
-To enable automatic failover, simply add `auto_failover=true` to the\
+To enable automatic failover, simply add `auto_failover=true` to the
 monitor section in the configuration file.
 
 ```
@@ -180,7 +180,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If `server1` now goes down, failover will automatically be performed and\
+If `server1` now goes down, failover will automatically be performed and
 an existing slave promoted to new master.
 
 ```
@@ -198,12 +198,12 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴────────────────────────┘
 ```
 
-If you are continuously monitoring the server states, you may notice for a\
+If you are continuously monitoring the server states, you may notice for a
 brief period that the state of `server1` is _Down_ and the state of`server2` is still _Slave, Running_.
 
 ## Rejoin
 
-To enable automatic rejoin, simply add `auto_rejoin=true` to the\
+To enable automatic rejoin, simply add `auto_rejoin=true` to the
 monitor section in the configuration file.
 
 ```
@@ -215,7 +215,7 @@ auto_rejoin=true
 ...
 ```
 
-When automatic rejoin is enabled, the MariaDB Monitor will attempt to\
+When automatic rejoin is enabled, the MariaDB Monitor will attempt to
 rejoin a failed master as a slave, if it reappears.
 
 When everything is running fine, the cluster state looks like follows:
@@ -235,8 +235,8 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-Assuming `auto_failover=true` has been specified in the configuration\
-file, when `server1` goes down for some reason, failover will be performed\
+Assuming `auto_failover=true` has been specified in the configuration
+file, when `server1` goes down for some reason, failover will be performed
 and we end up with the following cluster state:
 
 ```
@@ -254,15 +254,15 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If `server1` now reappears, the MariaDB Monitor will detect that and\
+If `server1` now reappears, the MariaDB Monitor will detect that and
 attempt to rejoin the old master as a slave.
 
-Whether rejoining will succeed depends upon the actual state of the old\
-master. For instance, if the old master was modified and the changes had\
-not been replicated to the new master, before the old master went down,\
+Whether rejoining will succeed depends upon the actual state of the old
+master. For instance, if the old master was modified and the changes had
+not been replicated to the new master, before the old master went down,
 then automatic rejoin will not be possible.
 
-If rejoining can be performed, then the cluster state will end up looking\
+If rejoining can be performed, then the cluster state will end up looking
 like:
 
 ```
@@ -282,11 +282,11 @@ $ maxctrl list servers
 
 ## Switchover
 
-Switchover is for cases when you explicitly want to move the master\
+Switchover is for cases when you explicitly want to move the master
 role from one server to another.
 
-If we continue from the cluster state at the end of the previous example\
-and want to make `server1` master again, then we must issue the following\
+If we continue from the cluster state at the end of the previous example
+and want to make `server1` master again, then we must issue the following
 command:
 
 ```
@@ -303,7 +303,7 @@ There are quite a few arguments, so let's look at each one separately:
 * `server1` is the second argument to the command, the name of the server we want to make into _master_, and
 * `server2` is the third argument to the command, the name of the _current master_.
 
-If the command executes successfully, we will end up with the following\
+If the command executes successfully, we will end up with the following
 cluster state:
 
 ```
@@ -322,3 +322,5 @@ $ maxctrl list servers
 ```
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

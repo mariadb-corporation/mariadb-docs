@@ -496,3 +496,5 @@ Do not confuse this with the worst-case failover delay estimate, `(monitor_inter
 {% content-ref url="../reference/maxscale-monitors/mariadb-monitor.md" %}
 [mariadb-monitor.md](../reference/maxscale-monitors/mariadb-monitor.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

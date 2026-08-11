@@ -37,4 +37,6 @@ The number of rows can be obtained with the function [mysql\_stmt\_num\_rows()](
 * [mysql\_stmt\_store\_result()](mysql_stmt_store_result.md)
 * [mysql\_stmt\_num\_rows()](mysql_stmt_num_rows.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -101,3 +101,5 @@ Complete EXPLAIN statement reference: SELECT/UPDATE/DELETE syntax, EXTENDED and 
 Understand the 'Using buffer' strategy for UPDATE operations. Learn how MariaDB prevents infinite update loops when modifying indexed columns during a range scan.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

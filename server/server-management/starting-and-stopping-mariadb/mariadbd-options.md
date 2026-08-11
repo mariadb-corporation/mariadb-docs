@@ -78,7 +78,7 @@ Previously, the client used to be called `mysqld`, and can still be accessed und
 
 ## Compatibility Options
 
-The following options have been added to MariaDB to make it more compliant with\
+The following options have been added to MariaDB to make it more compliant with
 other MariaDB and MySQL versions. Options that are also system variables are listed after:
 
 #### `-a, --ansi`

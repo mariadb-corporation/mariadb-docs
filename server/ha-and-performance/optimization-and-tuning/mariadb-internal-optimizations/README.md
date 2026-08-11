@@ -30,3 +30,5 @@ How the optimizer chooses fairly between the range and index_merge access method
 The Multi-Range Read (MRR) optimization, which improves performance for I/O-bound queries scanning many rows.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

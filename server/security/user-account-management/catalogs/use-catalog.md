@@ -21,7 +21,7 @@ Can only be done by a super user in the 'def' catalog.\
 Changing catalog will update catalog status and reset all session status.
 
 A tenant (a user in any other catalog than 'def') cannot change to another catalog.\
-However tenants can execute `USE CATALOG current_catalog`. This is to allow the\
+However tenants can execute `USE CATALOG current_catalog`. This is to allow the
 user to import SQL scripts that use `USE CATALOG...`.
 
 ## See Also

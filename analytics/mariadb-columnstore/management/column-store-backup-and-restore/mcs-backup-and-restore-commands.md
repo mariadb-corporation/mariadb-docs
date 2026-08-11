@@ -477,3 +477,5 @@ Common options:
 | `--skip-dbrm-backup` (`-sdbk`) | Skip taking a safety backup before restoring | Use with caution |
 | `--skip-storage-manager` (`-ssm`) | Skip backing up/restoring storagemanager directory | Support-guided workflows |
 | `--list` (`-li`) | List backups | Lists available DBRM backups |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

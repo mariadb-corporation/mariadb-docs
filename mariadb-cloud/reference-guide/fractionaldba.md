@@ -54,3 +54,5 @@ Partner with Remote DBAs to create tailored backup strategies to meet your organ
 ### **Data Recovery Assistance and Validation**
 
 Remote DBAs can assist in data recovery from backups or other sources, providing expertise for analysis. Additionally, as requested, Remote DBA can conduct annual Disaster Recovery exercises upon request to ensure preparedness. It's important to note that running a recovery to a secondary service may require additional compute resources.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
