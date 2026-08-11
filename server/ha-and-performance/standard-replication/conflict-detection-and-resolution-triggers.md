@@ -16,7 +16,13 @@ CDR triggers are available beginning with **MariaDB Enterprise Server 12.3** and
 The terms _master_ and _slave_ have historically been used in replication, and MariaDB has begun the process of adding _primary_ and _replica_ synonyms. The old terms will continue to be used to maintain backward compatibility - see [MDEV-18777](https://jira.mariadb.org/browse/MDEV-18777) to follow progress on this effort.
 {% endhint %}
 
-Replica data can diverge from the primary in three ways: direct local writes to the replica (for example, an ETL job or a manual administrative fix), multi-writer topologies such as [ring](multi-master-ring-replication.md) or bidirectional replication where every server legitimately accepts writes, and operational drift left behind by skipped events, imperfect restores, or past failovers. In every case the replication stream itself remains correct — the divergence enters alongside it, and surfaces only when a later event touches a row that no longer matches. CDR triggers let the replica resolve that moment according to a policy you define, instead of stopping replication.
+Replica data can diverge from the primary in three ways:
+
+1. **Direct local writes to the replica** — for example, an ETL job or a manual administrative fix.
+2. **Multi-writer topologies** — such as [ring](multi-master-ring-replication.md) or bidirectional replication, where every server legitimately accepts writes.
+3. **Operational drift** — left behind by skipped events, imperfect restores, or past failovers.
+
+In every case the replication stream itself remains correct — the divergence enters alongside it, and surfaces only when a later event touches a row that no longer matches. CDR triggers let the replica resolve that moment according to a policy you define, instead of stopping replication.
 
 ## Overview
 
