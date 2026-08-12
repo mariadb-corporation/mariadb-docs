@@ -8,7 +8,15 @@ hidden: true
 
 # Upgrade from MariaDB Community Server to MariaDB Enterprise Server 10.6
 
-These instructions detail the **upgrade** from **MariaDB Community Server 10.6** to **MariaDB Enterprise Server 10.6** on a range of [supported Operating Systems](https://mariadb.com/engineering-policies/). With MariaDB Community Server 10.6 reaching its end of life in July 2026, this upgrade lets you stay on the 10.6 series while moving to a maintained and supported release.
+These instructions detail the **upgrade** from **MariaDB Community Server 10.6** to **MariaDB Enterprise Server 10.6** on a range of [supported Operating Systems](https://mariadb.com/engineering-policies/).
+
+{% hint style="warning" %}
+MariaDB Community Server 10.6 reached its end of life in July 2026 and no longer receives maintenance or security releases. Upgrading to MariaDB Enterprise Server 10.6 lets you stay on the 10.6 release series while moving to a maintained and supported server.
+{% endhint %}
+
+{% hint style="info" %}
+This page describes the minimal-change path: switching products while staying on the 10.6 release series. The recommended path is to upgrade directly to MariaDB Enterprise Server 11.8, the newest long-term release series, for a longer support runway — see [Upgrade from MariaDB Community Server 10.6 to MariaDB Enterprise Server 11.8](../mariadb-enterprise-server-11.8/upgrade-from-mariadb-community-server-10.6-to-mariadb-enterprise-server-11.8.md).
+{% endhint %}
 
 When switching from MariaDB Community Server to [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/), the old version needs to be uninstalled, and the new version needs to be installed.
 
