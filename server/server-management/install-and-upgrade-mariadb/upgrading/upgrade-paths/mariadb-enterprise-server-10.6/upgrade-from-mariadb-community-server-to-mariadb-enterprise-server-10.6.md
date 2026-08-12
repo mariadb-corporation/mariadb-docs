@@ -49,7 +49,7 @@ The instructions below show how to perform a backup using [MariaDB Backup](../..
     ```
 
     Confirm successful completion of the prepare operation.
-3. Backups should be tested before they are trusted.
+3. Verify that the backup is recoverable by restoring it to a non-production environment before proceeding with the upgrade.
 
 ### Audit Plugin Considerations
 
