@@ -40,6 +40,7 @@ package_characteristic:
 package_specification_element:
     FUNCTION_SYM package_specification_function ;
   | PROCEDURE_SYM package_specification_procedure ;
+  | type_declaration ;
 
 
 package_specification_function:
@@ -139,6 +140,26 @@ The function parameter quantifiers for `IN`, `OUT`, `INOUT`, and `IN OUT` are su
 
 `OUT`, `INOUT` and its equivalent `IN OUT`, are only valid if called from `SET` and not `SELECT`. These quantifiers are especially useful for creating functions and procedures with more than one return value. This allows functions and procedures to be more complex and nested.
 
+## Package-Wide Type Declarations
+
+{% hint style="info" %}
+This feature is available from MariaDB 13.1, in `sql_mode=ORACLE` only.
+{% endhint %}
+
+A package specification can declare data types with `TYPE`, alongside its public routines. Such a type is public: routines outside the package can declare variables of it, using the qualified name `package_name.type_name` or `schema_name.package_name.type_name`.
+
+```sql
+SET sql_mode=ORACLE;
+DELIMITER $$
+CREATE OR REPLACE PACKAGE pkg AS
+  TYPE varchar_array IS TABLE OF VARCHAR(2000) INDEX BY INTEGER;
+END;
+$$
+DELIMITER ;
+```
+
+Using the type requires the `EXECUTE` privilege on the package. For the contexts where a package type is accepted, name resolution, and the restrictions that apply, see [DECLARE TYPE](../../programmatic-compound-statements/declare-type.md).
+
 ## Examples
 
 ```sql
@@ -157,6 +178,7 @@ DELIMITER ;
 ## See Also
 
 * [CREATE PACKAGE BODY](create-package-body.md)
+* [DECLARE TYPE](../../programmatic-compound-statements/declare-type.md)
 * [SHOW CREATE PACKAGE](../../administrative-sql-statements/show/show-create-package.md)
 * [DROP PACKAGE](../drop/drop-package.md)
 * [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
