@@ -184,7 +184,7 @@ This procedure will **not** work if the table format has changed in an incompati
 ### Version-Specific Considerations
 
 {% hint style="info" %}
-The entries below cover the downgrade paths relevant to currently supported releases. Always check the [Release Notes]({release-notes}/community-server/) and the Changes and Improvements page for your target version, since further incompatibilities may apply to your specific version pair.
+The entries below cover the downgrade paths relevant to currently supported releases. Always check the [Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/) and the Changes and Improvements page for your target version, since further incompatibilities may apply to your specific version pair.
 {% endhint %}
 
 #### Downgrading to MariaDB 10.6
