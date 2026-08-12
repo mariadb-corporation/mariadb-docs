@@ -11,6 +11,10 @@ description: >-
 [adminer.md](adminer.md)
 {% endcontent-ref %}
 
+{% content-ref url="adminneo.md" %}
+[adminneo.md](adminneo.md)
+{% endcontent-ref %}
+
 {% content-ref url="beekeeper-studio.md" %}
 [beekeeper-studio.md](beekeeper-studio.md)
 {% endcontent-ref %}

@@ -780,6 +780,7 @@
     * [mariadb-secure-installation](clients-and-utilities/deployment-tools/mariadb-secure-installation.md)
   * [Graphical and Enhanced Clients](clients-and-utilities/graphical-and-enhanced-clients/README.md)
     * [Adminer](clients-and-utilities/graphical-and-enhanced-clients/adminer.md)
+    * [AdminNeo](clients-and-utilities/graphical-and-enhanced-clients/adminneo.md)
     * [Beekeeper Studio](clients-and-utilities/graphical-and-enhanced-clients/beekeeper-studio.md)
     * [SQL Diagnostic Manager & SQLyog](clients-and-utilities/graphical-and-enhanced-clients/cost-effective-agentless-mariadb-database-performance-management.md)
     * [Database Workbench](clients-and-utilities/graphical-and-enhanced-clients/database-workbench.md)
