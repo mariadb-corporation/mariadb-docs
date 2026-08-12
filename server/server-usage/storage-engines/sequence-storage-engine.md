@@ -10,7 +10,7 @@ This article is about the Sequence storage engine. For details about sequence ob
 
 A **Sequence** engine allows the creation of ascending or descending sequences of numbers (positive integers) with a given starting value, ending value and increment.
 
-It creates completely virtual, ephemeral tables automatically when you need them. There is no way to create a Sequence table explicitly. Nor are they ever written to disk or create `.frm` files. They are read-only, [transactional](../../reference/sql-statements/transactions/), and [support XA](../../reference/sql-statements/transactions/xa-transactions.md).
+It creates completely virtual, ephemeral tables automatically when you need them. There is no way to create a Sequence table explicitly. Nor are they ever written to disk or create `.frm` files. They are read-only, [transactional](../../reference/sql-statements/transactions/), and support [savepoints](../../reference/sql-statements/transactions/savepoint.md). They do not support [XA transactions](../../reference/sql-statements/transactions/xa-transactions.md).
 
 ## Installing
 
@@ -31,7 +31,7 @@ Transactions: NO
      Support: YES
      Comment: Generated tables filled with sequential values
 Transactions: YES
-          XA: YES
+          XA: NO
   Savepoints: YES
 *************************** 7. row ***************************
       Engine: MRG_MyISAM
