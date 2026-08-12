@@ -180,6 +180,10 @@ Before the old version can be uninstalled, we first need to stop the current Mar
 
 MariaDB Corporation provides package repositories for YUM (RHEL, AlmaLinux, CentOS, Rocky Linux), APT (Debian, Ubuntu), and ZYpp (SLES).
 
+{% hint style="info" %}
+If the server is a node in a Galera Cluster, also install the Enterprise Galera provider package, `galera-enterprise-4`, which replaces MariaDB Community Server's `galera-4` package. Cluster nodes are also upgraded one node at a time — see [Upgrading Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster) for the cluster-specific procedure.
+{% endhint %}
+
 {% tabs %}
 {% tab title="Install via YUM" %}
 **Install via YUM (RHEL, AlmaLinux, CentOS, Rocky Linux)**
