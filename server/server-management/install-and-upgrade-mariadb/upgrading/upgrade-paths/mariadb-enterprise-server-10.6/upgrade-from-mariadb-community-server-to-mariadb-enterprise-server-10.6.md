@@ -55,13 +55,22 @@ The instructions below show how to perform a backup using [MariaDB Backup](../..
 
 If you have the [MariaDB Audit Plugin](../../../../../reference/plugins/mariadb-audit-plugin/) installed, then the audit plugin should be removed prior to the upgrade to prevent conflict with the [MariaDB Enterprise Audit Plugin](../../../../../reference/plugins/mariadb-enterprise-audit.md) that is included in MariaDB Enterprise Server 10.6.
 
+The two plugins differ mainly in how audit logging can be filtered:
+
+| Capability | MariaDB Audit Plugin | MariaDB Enterprise Audit |
+| ---------------------- | ------------------------------------------ | ------------------------------------------------ |
+| Event selection | Global event types (connect, query, table) | Event filters defined per audit filter |
+| Per-user control | Include/exclude user lists | Default and named per-user audit filters |
+| Per-object control | Not available | Object filters for specific databases and tables |
+| Configuration auditing | Not available | Changes to the audit configuration are logged |
+
 It can be removed by using the [UNINSTALL SONAME](../../../../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) statement:
 
 ```sql
 UNINSTALL SONAME 'server_audit';
 ```
 
-And if you load the plugin in a configuration file using the `plugin_load_add` option, then the option should also be removed.
+And if you load the plugin in a configuration file using the [plugin\_load\_add](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load-add) option — a [mariadbd](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) startup option that loads a plugin library when the server starts — then the option should also be removed.
 
 The MariaDB Enterprise Audit Plugin will automatically be installed after installing MariaDB Enterprise Server 10.6.
 
