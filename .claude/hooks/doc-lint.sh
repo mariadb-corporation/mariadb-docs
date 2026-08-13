@@ -67,6 +67,12 @@ if command -v lychee >/dev/null 2>&1; then
   if ! out="$(lychee --no-progress --max-concurrency 8 \
       --exclude 'bazaar\.launchpad\.net' \
       --exclude 'github\.com/mariadb-corporation/mariadb-connector-[a-z0-9]+/commit/' \
+      --exclude 'github\.com/MariaDB/server/commit/' \
+      --exclude 'downloads\.askmonty\.org' \
+      --exclude 'montyprogram\.com' \
+      --exclude 'forge\.mysql\.com' \
+      --exclude 'lists\.mysql\.com' \
+      --exclude 'blogs\.msdn\.com' \
       --exclude 'lists\.askmonty\.org' \
       --exclude 'support2\.microsoft\.com' \
       --exclude 'dev\.mysql\.com' \
@@ -99,6 +105,20 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude 'www\.canonware\.com' \
       --exclude 'www\.npmjs\.com' \
       --exclude 'npmjs\.org' \
+      --exclude 'mcs1' \
+      --exclude 's\.petrunia\.net' \
+      --exclude 'mysql\.taobao\.org' \
+      --exclude 'www\.shannon-sys\.com' \
+      --exclude 'www\.hashicorp\.com' \
+      --exclude 'blogspot\.com' \
+      --exclude 'www\.poliarch\.org' \
+      --exclude 'www\.reddit\.com' \
+      --exclude 'csm\.mariadb\.com' \
+      --exclude 'stackoverflow\.com' \
+      --exclude 'gitlab\.kitware\.com' \
+      --exclude 'www\.freedesktop\.org' \
+      --exclude 'azuremarketplace\.microsoft\.com' \
+      --exclude 'console\.cloud\.google\.com' \
       "${files[@]}" 2>&1)"; then
     # Mirror the workflow's failIfEmpty: false — lychee exits non-zero with
     # "No links were found" when the changed files contain no links, which is a

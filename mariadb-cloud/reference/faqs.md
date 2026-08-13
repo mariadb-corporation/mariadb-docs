@@ -20,7 +20,7 @@ MariaDB Cloud is available across 40+ global regions on Amazon AWS, Google Cloud
 
 ### How do I get started?
 
-You can sign up for a free account at [https://app.skysql.com](https://app.skysql.com/). There is no credit card required to start and you get $100 in free credit. Once registered, you can get started right away by [launching a service](/broken/pages/aec7ee5cfc6095a1ebe5af6a110d5308adc398a5), [connecting](../connecting-to-mariadb-cloud-dbs/), and [loading data](../cloud-data-handling/migration-data-loading/data-loading/).
+You can sign up for a free account at [https://app.skysql.com](https://app.skysql.com/). There is no credit card required to start and you get $100 in free credit. Once registered, you can get started right away by [launching a service](../cloud-usage/launch-page.md), [connecting](../connecting-to-mariadb-cloud-dbs/), and [loading data](../cloud-data-handling/migration-data-loading/data-loading/).
 
 ### How quickly can I launch a new database?
 
@@ -55,14 +55,14 @@ MariaDB Enterprise Cluster is currently available as a _Tech Preview_ and are ex
 
 ### What options are available for scaling and right-sizing MariaDB Cloud?
 
-You can choose [topologies](../high-availability-dr/ha-and-replicated-topology.md) to match your workload requirements, cloud regions to match your latency and operating requirements, instance sizes, and [support plan](/broken/pages/mrlrXCY7fpHqI35WY9j7).
+You can choose [topologies](../high-availability-dr/ha-and-replicated-topology.md) to match your workload requirements, cloud regions to match your latency and operating requirements, instance sizes, and [support plan](support.md).
 
 Our platform features:
 
 * Availability in a range of database instance sizes and storage sizes
 * Availability from multiple AWS (Amazon Web Services), GCP (Google Cloud Platform), and Azure (Cloud Computing Services) [regions](region-choices.md).
 * Load Balancing features included with Replicated Transactions topologies allow for read-scaling through read-write splitting.
-* Custom instance sizes (for [Power Tier](/broken/pages/mrlrXCY7fpHqI35WY9j7) customers)
+* Custom instance sizes (for [Power Tier](support.md) customers)
 * Range of [support options](mariadb-server-versions.md)
 
 ### What reliability features are available on MariaDB Cloud?
@@ -119,8 +119,8 @@ No additional licenses are necessary to use MariaDB Cloud.
 
 Add-ons are available to optimize your MariaDB Cloud experience:
 
-* [MariaDB Cloud Power Tier](/broken/pages/mrlrXCY7fpHqI35WY9j7) is a premium service offering for MariaDB Cloud customers who have the most critical requirements for uptime, availability, performance, and support.
-* While all Foundation Tier services include Standard Support, Power Tier customers are offered the [Enterprise support plan](../broken-reference/).
+* MariaDB Cloud Power Tier is a premium service offering for MariaDB Cloud customers who have the most critical requirements for uptime, availability, performance, and support.
+* While all Foundation Tier services include Standard Support, Power Tier customers are offered the [Power level support plan](support.md).
 * An optional add-on, [Cloud DBA](clouddba.md), further extends the premium support experience and the capabilities of your in-house DBAs with the backing from a global team of expert MariaDB DBAs, available 24/7 for the most severe (P1) issues. MariaDB's Cloud DBAs manage your MariaDB Cloud databases both proactively and reactively so you can focus on your core business.
 
 ### Is discounted pricing available for a longer-term commitment?

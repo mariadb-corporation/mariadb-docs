@@ -45,7 +45,7 @@ MariaDB Enterprise Server is available to MariaDB subscription customers via the
 
 If you are not yet a MariaDB subscription customer, [contact MariaDB Corporation](https://mariadb.com/contact) for more information.
 
-MariaDB Enterprise Server binary and source code is delivered over secure protocols from MariaDB Corporation-maintained infrastructure as detailed in the [Deployment Guide](/broken/pages/BbZ3TNWsYNwHXVyiSQ6z).
+MariaDB Enterprise Server binary and source code is delivered over secure protocols from MariaDB Corporation-maintained infrastructure.
 
 ### Enterprise Server Release Identifiers <a href="#enterprise-server-release-identifiers" id="enterprise-server-release-identifiers"></a>
 
