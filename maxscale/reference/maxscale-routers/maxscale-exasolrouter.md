@@ -294,6 +294,13 @@ address=127.0.0.1
 port=3306
 protocol=mariadbbackend
 
+[Monitor]
+type=monitor
+module=mariadbmon
+user=MyMonitorUser
+password=MyMonitorPassword
+servers=Server1
+
 [ExasolService]
 type=service
 router=exasolrouter
@@ -338,6 +345,13 @@ type=server
 address=127.0.0.1
 port=3306
 protocol=mariadbbackend
+
+[Monitor]
+type=monitor
+module=mariadbmon
+user=MyMonitorUser
+password=MyMonitorPassword
+servers=Server1
 
 [ExasolService]
 type=service
