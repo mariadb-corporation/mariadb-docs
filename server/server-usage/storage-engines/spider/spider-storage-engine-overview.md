@@ -81,7 +81,7 @@ The Spider documentation on the MariaDB documentation is currently incomplete. S
 
 To create a table in the Spider storage engine format, the COMMENT and/or CONNECTION clauses of the [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) statement are used to pass connection information about the remote server.
 
-For example, the following table exists on a remote server (in this example, the remote node was created with the [MySQL Sandbox](../../../clients-and-utilities/legacy-clients-and-utilities/mysql-sandbox.md) tool, an easy way to test with multiple installations)::
+For example, the following table exists on a remote server (in this example, the remote node was created with the [MySQL Sandbox](../../../clients-and-utilities/administrative-tools/dbdeployer.md) tool, an easy way to test with multiple installations)::
 
 ```sql
 node1 >CREATE TABLE s(

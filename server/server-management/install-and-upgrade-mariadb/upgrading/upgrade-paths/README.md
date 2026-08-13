@@ -58,16 +58,4 @@ Upgrade documentation for MariaDB Enterprise Server 10.6, featuring Atomic DDL s
 {% endcolumn %}
 {% endcolumns %}
 
-{% columns %}
-{% column %}
-{% content-ref url="archived/" %}
-[archived](archived/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-A collection of upgrade guides for older, end-of-life versions of MariaDB Enterprise Server, kept for reference purposes for legacy systems.
-{% endcolumn %}
-{% endcolumns %}
-
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

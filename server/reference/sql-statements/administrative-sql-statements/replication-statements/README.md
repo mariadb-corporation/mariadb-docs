@@ -34,10 +34,6 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 [stop-replica.md](stop-replica.md)
 {% endcontent-ref %}
 
-{% content-ref url="legacy-replication-statements/" %}
-[legacy-replication-statements](legacy-replication-statements/)
-{% endcontent-ref %}
-
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

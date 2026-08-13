@@ -16,6 +16,14 @@ CDR triggers are available beginning with **MariaDB Enterprise Server 12.3** and
 The terms _master_ and _slave_ have historically been used in replication, and MariaDB has begun the process of adding _primary_ and _replica_ synonyms. The old terms will continue to be used to maintain backward compatibility - see [MDEV-18777](https://jira.mariadb.org/browse/MDEV-18777) to follow progress on this effort.
 {% endhint %}
 
+Replica data can diverge from the primary in three ways:
+
+1. **Direct local writes to the replica** — for example, an ETL job or a manual administrative fix.
+2. **Multi-writer topologies** — such as [ring](multi-master-ring-replication.md) or bidirectional replication, where every server legitimately accepts writes.
+3. **Operational drift** — left behind by skipped events, imperfect restores, or past failovers.
+
+In every case the replication stream itself remains correct — the divergence enters alongside it, and surfaces only when a later event touches a row that no longer matches. Conflict Detection and Resolution (CDR) Triggers let the replica resolve that moment according to a policy you define, instead of stopping replication.
+
 ## Overview
 
 In [row-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) (RBR), the replica applies the row events recorded in the primary's binary log. Each event carries a _before-image_ (the row as it existed on the primary) and/or an _after-image_ (the row as the primary changed it). The applier locates the matching row on the replica and performs the same insert, update, or delete.
@@ -26,9 +34,9 @@ A **conflict** occurs when the replica's local data has diverged from what the p
 * The primary updates or deletes a row that is **missing** on the replica.
 * The primary updates or deletes a row that exists on the replica but **holds different values**.
 
-By default, these divergences raise a hard applier error (duplicate key, record not found, and so on) and **stop the SQL thread**, requiring an operator to intervene manually or skip the event.
+By default, a divergence that blocks the applier — a duplicate key, a missing row — raises a hard error and **stops the SQL thread**, requiring an operator to intervene manually or skip the event. A divergence that does not block it — a row that exists but holds different values — is silently overwritten (or deleted) by the incoming event and passes unnoticed unless CDR is enabled.
 
-CDR triggers let you encode the resolution policy as SQL, on the replica. When a conflict is detected, the applier diverts the failing row event into a user-defined trigger. Inside the trigger you decide, per row, whether to overwrite, merge, ignore, or deliberately halt.
+Conflict Detection and Resolution (CDR) Triggers let you encode the resolution policy as SQL, on the replica. When a conflict is detected, the applier diverts the failing row event into a user-defined trigger. Inside the trigger you decide, per row, whether to overwrite, merge, ignore, or deliberately halt.
 
 ## Enabling CDR Triggers
 
@@ -60,15 +68,82 @@ Changing `slave_run_triggers_for_rbr` requires a privilege that permits setting 
 
 ## The Five Conflict Types
 
-A CDR trigger is bound to **one** conflict type. The type names encode _what the primary did_ and _what the replica's local state implies_:
+A CDR trigger is bound to **one** conflict type. The type names encode _what the primary did_ and _what the replica's local state implies_. The examples below use the table `t1 (a INT PRIMARY KEY, b INT, c CHAR(255))`, already in sync on both servers.
 
-| Conflict type   | Primary's operation | Replica's local state                    | Typical underlying error |
-| --------------- | ------------------- | ---------------------------------------- | ------------------------ |
-| `INSERT_INSERT` | `INSERT`            | Row with the same key already exists     | Duplicate key            |
-| `UPDATE_UPDATE` | `UPDATE`            | Row exists but its values differ         | Before-image mismatch    |
-| `DELETE_UPDATE` | `DELETE`            | Row exists but has been changed locally  | Before-image mismatch    |
-| `UPDATE_DELETE` | `UPDATE`            | Row is missing (already deleted locally) | Record not found         |
-| `DELETE_DELETE` | `DELETE`            | Row is missing (already deleted locally) | Record not found         |
+*   **`INSERT_INSERT`**
+
+    * Primary's operation: `INSERT`
+    * Replica's local state: a row with the same key already exists
+    * Typical underlying error: duplicate key
+
+    ```sql
+    -- On the replica (local write):
+    INSERT INTO t1 VALUES (7, 1, 'local row');
+
+    -- On the primary (replicated to the replica afterwards):
+    INSERT INTO t1 VALUES (7, 2, 'primary row');
+    -- The replicated insert collides with the replica's key 7
+    ```
+*   **`UPDATE_UPDATE`**
+
+    * Primary's operation: `UPDATE`
+    * Replica's local state: the row exists but its values differ
+    * Typical underlying error: before-image mismatch
+
+    ```sql
+    -- Both servers hold (7, 300, 'in sync')
+
+    -- On the replica (local write):
+    UPDATE t1 SET b = 900 WHERE a = 7;
+
+    -- On the primary (replicated to the replica afterwards):
+    UPDATE t1 SET b = 500 WHERE a = 7;
+    -- The event's before-image says b = 300; the replica finds b = 900
+    ```
+*   **`DELETE_UPDATE`**
+
+    * Primary's operation: `DELETE`
+    * Replica's local state: the row exists but has been changed locally
+    * Typical underlying error: before-image mismatch
+
+    ```sql
+    -- Both servers hold (7, 300, 'in sync')
+
+    -- On the replica (local write):
+    UPDATE t1 SET b = 900 WHERE a = 7;
+
+    -- On the primary (replicated to the replica afterwards):
+    DELETE FROM t1 WHERE a = 7;
+    -- The event's before-image says b = 300; the replica finds b = 900
+    ```
+*   **`UPDATE_DELETE`**
+
+    * Primary's operation: `UPDATE`
+    * Replica's local state: the row is missing (already deleted locally)
+    * Typical underlying error: record not found
+
+    ```sql
+    -- On the replica (local write):
+    DELETE FROM t1 WHERE a = 7;
+
+    -- On the primary (replicated to the replica afterwards):
+    UPDATE t1 SET b = 500 WHERE a = 7;
+    -- The replica has no row with key 7 to update
+    ```
+*   **`DELETE_DELETE`**
+
+    * Primary's operation: `DELETE`
+    * Replica's local state: the row is missing (already deleted locally)
+    * Typical underlying error: record not found
+
+    ```sql
+    -- On the replica (local write):
+    DELETE FROM t1 WHERE a = 7;
+
+    -- On the primary (replicated to the replica afterwards):
+    DELETE FROM t1 WHERE a = 7;
+    -- The replica has no row with key 7 to delete
+    ```
 
 ## Syntax
 
@@ -100,11 +175,11 @@ DELIMITER ;
 
 CDR triggers introduce a third row accessor, `ORG`, alongside the familiar `NEW` and `OLD`:
 
-| Accessor | Represents                                                                                     | Writable |
-| -------- | ---------------------------------------------------------------------------------------------- | -------- |
-| `NEW`    | The **resolution image** — the row you want the replica to end up with.                        | Yes      |
-| `OLD`    | The replica's **current local row** (its actual stored state).                                 | No       |
-| `ORG`    | The primary's **before-image** from the replication event — the state the primary expected.    | No       |
+| Accessor | Represents                                                                                  | Writable |
+| -------- | ------------------------------------------------------------------------------------------- | -------- |
+| `NEW`    | The **resolution image** — the row you want the replica to end up with.                     | Yes      |
+| `OLD`    | The replica's **current local row** (its actual stored state).                              | No       |
+| `ORG`    | The primary's **before-image** from the replication event — the state the primary expected. | No       |
 
 `ORG` is the key to conflict resolution: it lets the trigger compare what the primary believed (`ORG`) against what the replica actually has (`OLD`), and construct what should result (`NEW`).
 
@@ -161,13 +236,13 @@ FOR EACH ROW
 
 If you do **not** assign `NEW` and return normally, the applier performs the operation's natural default for that conflict:
 
-| Conflict        | Default action when `NEW` is left untouched                 |
-| --------------- | ----------------------------------------------------------- |
-| `INSERT_INSERT` | Overwrite the existing row with the primary's image.        |
-| `UPDATE_UPDATE` | Overwrite the local row with the primary's image.           |
-| `DELETE_UPDATE` | Delete the local row.                                       |
-| `UPDATE_DELETE` | Insert the primary's row.                                   |
-| `DELETE_DELETE` | No operation (the row is already absent).                   |
+| Conflict        | Default action when `NEW` is left untouched          |
+| --------------- | ---------------------------------------------------- |
+| `INSERT_INSERT` | Overwrite the existing row with the primary's image. |
+| `UPDATE_UPDATE` | Overwrite the local row with the primary's image.    |
+| `DELETE_UPDATE` | Delete the local row.                                |
+| `UPDATE_DELETE` | Insert the primary's row.                            |
+| `DELETE_DELETE` | No operation (the row is already absent).            |
 
 ### Skip the Event — SIGNAL SQLSTATE '02TRG'
 
@@ -195,14 +270,13 @@ The SQL thread stops with the error number you supplied (`9001` above), letting 
 
 Any other unhandled error raised inside the trigger also stops the SQL thread, but `51CDR` is the intentional, documented way to do so.
 
-## Resolving Missing-Row Conflicts: the NEW Primary Key Sentinel
+## How NEW Starts in Each Conflict Type
 
-For `UPDATE_DELETE` and `DELETE_DELETE` the row is physically missing on the replica, so there is no `OLD`. The applier hands the trigger a blank `NEW` image with its **primary key set to `NULL`** as a sentinel, and interprets the trigger's result as follows:
+For `INSERT_INSERT` and `UPDATE_UPDATE`, `NEW` starts as the primary's incoming after-image, which the trigger can adjust before it is applied. The other three types differ:
 
-* If, after the trigger runs, `NEW`'s primary key is still `NULL`, the applier treats it as "no resolution row" and performs the default action (insert the primary's row for `UPDATE_DELETE`, no-op for `DELETE_DELETE`).
-* If the trigger **populates `NEW`'s primary key** (making it non-`NULL`), the applier applies `NEW` to the table.
-
-Because `OLD` is unavailable, source the key (and any other values) from `ORG`, the primary's before-image:
+* **`UPDATE_DELETE`** — the row is missing locally (no `OLD`), but the update event carries an after-image, so `NEW` starts **pre-filled** with it. Return without changes and the applier re-creates the row from `NEW` (the update becomes an insert); raise `SIGNAL SQLSTATE '02TRG'` to keep the row deleted instead.
+* **`DELETE_UPDATE`** — a delete event carries no after-image, so the applier hands the trigger a blank `NEW` whose **primary key is set to `NULL`** as a sentinel. Leave the key `NULL` and the default action applies (the local row is deleted). Populate the key — for example from `OLD` — and the applier instead **converts the delete into an update**, writing `NEW` over the local row.
+* **`DELETE_DELETE`** — the same blank-`NEW`, `NULL`-key sentinel, and the row is also missing locally (no `OLD`). Leave the key `NULL` for the default no-op, or populate `NEW` from `ORG` (the only image available) to re-create the row the primary tried to delete:
 
 ```sql
 DELIMITER //
@@ -242,9 +316,9 @@ So even on a table that has CDR triggers, error 6001 can still appear when the t
 
 This check only exists when CDR triggers are present on the table. It is suppressed entirely when [slave\_exec\_mode](replication-and-binary-log-system-variables.md#slave_exec_mode) is `IDEMPOTENT` — but `IDEMPOTENT` mode is itself outside the supported beta configuration.
 
-## Worked Example
+## Worked Example: a Newest-Wins Policy
 
-The following demonstrates all five conflict types with a mix of resolutions.
+The following implements a _newest wins_ policy on a table whose application sets `updated_at` on every write: whichever version of a row was written last — on any server — survives everywhere. Conflicts are also recorded in a local audit table, demonstrating that a trigger body may write to other tables.
 
 ```sql
 -- ===== On the replica =====
@@ -252,101 +326,113 @@ STOP REPLICA;
 SET @@global.slave_run_triggers_for_rbr = YES;
 START REPLICA;
 
--- Table (created on the primary, replicated):
---   CREATE TABLE t1 (a INT PRIMARY KEY, b INT UNIQUE, c CHAR(255)) ENGINE=InnoDB;
+-- The replicated table (created on the primary):
+--   CREATE TABLE customer_profile (
+--       id         INT PRIMARY KEY,
+--       email      VARCHAR(255),
+--       updated_at DATETIME(6) NOT NULL   -- set by the application on every write
+--   ) ENGINE=InnoDB;
+
+-- Local audit table (created directly on the replica):
+CREATE TABLE cdr_conflict_log (
+    logged_at     DATETIME(6),
+    conflict_type VARCHAR(16),
+    id            INT,
+    local_time    DATETIME(6),
+    incoming_time DATETIME(6)
+);
 
 DELIMITER //
 
--- 1) INSERT_INSERT: primary wins for a=10, keep local for a=11
-CREATE TRIGGER cdr_ins_ins FOR CONFLICT INSERT_INSERT ON t1
+-- INSERT_INSERT: two servers created the same profile — the newer one survives
+CREATE TRIGGER cdr_ins_ins FOR CONFLICT INSERT_INSERT ON customer_profile
 FOR EACH ROW
 BEGIN
-    IF NEW.a = 10 THEN
-        SET NEW.c = 'ins_ins: updated to NEW';   -- apply primary's image (+ tweak)
-    ELSEIF NEW.a = 11 THEN
-        SIGNAL SQLSTATE '02TRG';                 -- keep local row
+    IF OLD.updated_at > NEW.updated_at THEN
+        SIGNAL SQLSTATE '02TRG';   -- the local row is newer: keep it, skip the event
+    END IF;
+    -- otherwise return normally: the incoming row overwrites the local one (default)
+END//
+
+-- UPDATE_UPDATE: both servers updated the same row — the newer update survives
+CREATE TRIGGER cdr_upd_upd FOR CONFLICT UPDATE_UPDATE ON customer_profile
+FOR EACH ROW
+BEGIN
+    INSERT INTO cdr_conflict_log
+        VALUES (NOW(6), 'UPDATE_UPDATE', ORG.id, OLD.updated_at, NEW.updated_at);
+    IF OLD.updated_at > NEW.updated_at THEN
+        SIGNAL SQLSTATE '02TRG';   -- the local update is newer: keep it
     END IF;
 END//
 
--- 2) UPDATE_DELETE: re-insert the row the primary updated (missing locally)
-CREATE TRIGGER cdr_upd_del FOR CONFLICT UPDATE_DELETE ON t1
+-- DELETE_UPDATE: the incoming delete was decided against an older version of
+-- the row than the local update — the newer local update survives
+CREATE TRIGGER cdr_del_upd FOR CONFLICT DELETE_UPDATE ON customer_profile
 FOR EACH ROW
 BEGIN
-    IF NEW.a = 20 THEN
-        SET NEW.b = ORG.b + 1000;
-        SET NEW.c = 'upd_del: inserted NEW';
-    ELSEIF NEW.a = 21 THEN
-        SIGNAL SQLSTATE '02TRG';                 -- leave the row absent
+    IF OLD.updated_at > ORG.updated_at THEN
+        SIGNAL SQLSTATE '02TRG';   -- local update is newer than the state the
+                                   -- primary deleted: keep the local row
     END IF;
+    -- otherwise return normally: the local row is deleted (default)
 END//
 
--- 3) DELETE_UPDATE: delete / keep / convert to update
-CREATE TRIGGER cdr_del_upd FOR CONFLICT DELETE_UPDATE ON t1
+-- UPDATE_DELETE: the incoming update is newer than the local delete (a deleted
+-- row keeps no timestamp, so this policy treats the update as newer):
+-- return normally and NEW re-creates the row (default).
+CREATE TRIGGER cdr_upd_del FOR CONFLICT UPDATE_DELETE ON customer_profile
 FOR EACH ROW
 BEGIN
-    IF OLD.a = 30 THEN
-        BEGIN END;                               -- default: delete the local row
-    ELSEIF OLD.a = 31 THEN
-        SIGNAL SQLSTATE '02TRG';                 -- keep the locally-updated row
-    ELSEIF OLD.a = 32 THEN
-        SET NEW.a = OLD.a;                       -- non-NULL PK => convert to UPDATE
-        SET NEW.b = OLD.b;
-        SET NEW.c = 'del_upd: updated to NEW';
-    END IF;
+    INSERT INTO cdr_conflict_log
+        VALUES (NOW(6), 'UPDATE_DELETE', ORG.id, NULL, NEW.updated_at);
+    -- To make deletes win instead, use: SIGNAL SQLSTATE '02TRG';
 END//
 
--- 4) UPDATE_UPDATE: primary wins for a=40, keep local for a=41
-CREATE TRIGGER cdr_upd_upd FOR CONFLICT UPDATE_UPDATE ON t1
+-- DELETE_DELETE: both servers deleted the row — nothing to reconcile
+CREATE TRIGGER cdr_del_del FOR CONFLICT DELETE_DELETE ON customer_profile
 FOR EACH ROW
 BEGIN
-    IF NEW.a = 40 THEN
-        SET NEW.c = 'upd_upd: updated to NEW';
-    ELSEIF NEW.a = 41 THEN
-        SIGNAL SQLSTATE '02TRG';
-    END IF;
-END//
-
--- 5) DELETE_DELETE: no-op / skip / re-materialize / deliberate halt
-CREATE TRIGGER cdr_del_del FOR CONFLICT DELETE_DELETE ON t1
-FOR EACH ROW
-BEGIN
-    IF ORG.a = 50 THEN
-        BEGIN END;                               -- default no-op
-    ELSEIF ORG.a = 51 THEN
-        SIGNAL SQLSTATE '02TRG';                 -- skip
-    ELSEIF ORG.a = 52 THEN
-        SET NEW.a = ORG.a;                       -- re-create the row
-        SET NEW.b = ORG.b;
-        SET NEW.c = 'del_del: assigned to NEW';
-    ELSEIF ORG.a = 53 THEN
-        SIGNAL SQLSTATE '51CDR' SET MYSQL_ERRNO = 9001;  -- stop SQL thread
-    END IF;
+    INSERT INTO cdr_conflict_log
+        VALUES (NOW(6), 'DELETE_DELETE', ORG.id, NULL, NULL);
+    -- return normally: the row stays absent (default no-op)
 END//
 
 DELIMITER ;
 ```
 
+{% hint style="warning" %}
+A timestamp-based policy converges only if every writer maintains the `updated_at` column on every write and the servers' clocks are synchronized. See [Using CDR in Multi-Writer Topologies](conflict-detection-and-resolution-triggers.md#using-cdr-in-multi-writer-topologies).
+{% endhint %}
+
+## Using CDR in Multi-Writer Topologies
+
+CDR is especially useful in multi-primary and [ring](multi-master-ring-replication.md) topologies, where every server accepts writes and the goal is for all servers to **converge to the same consistent state**. In these setups:
+
+* **Every participating server needs CDR triggers.** Each server is a replica of another, so each applier can encounter conflicts. A server without triggers stops on the first conflict its peers would have resolved.
+* **The resolution policy must be deterministic and symmetric** — written so that every server reaches the **same end state** regardless of which side of the conflict it sees. _Newest wins_ (as in the worked example above), _oldest wins_, or _the change from the server with the lowest server ID wins_ are all convergent policies. A policy such as "my local row always wins" is **not**: each server would keep its own version, and the servers would disagree indefinitely.
+* **Timestamp-based policies depend on the application and the clocks.** Every writer must maintain the timestamp column on every write, and the servers' clocks must be synchronized; otherwise "newest" is not well defined across servers.
+
 ## Operational Notes
 
 * **One trigger per conflict type per table.** Define separate triggers for the conflict types you want to handle. Conflict types you don't define fall back to the normal applier behavior (hard error, SQL thread stops).
-* **Define triggers on servers that act as replicas.** A server that only acts as a primary does not need CDR triggers. In [ring replication](multi-master-ring-replication.md), every server replicates from another, so every server should define them. A CDR trigger created on the primary and replicated does not resolve conflicts there — the trigger only fires on a replica's applier thread.
+* **Define triggers on servers that act as replicas.** A server that only acts as a primary does not need CDR triggers — a CDR trigger only fires on a replica's applier thread. For topologies where every server accepts writes, see [Using CDR in Multi-Writer Topologies](conflict-detection-and-resolution-triggers.md#using-cdr-in-multi-writer-topologies).
 * **You can write to other tables.** The `NEW`/`OLD`/`ORG` accessors act on the conflicting table, but the trigger body may run DML against other tables (for example, an audit or exception log). Keep this lightweight — it runs inline on the applier thread.
 * **Monitor the SQL thread.** A `51CDR` halt, an unhandled trigger error, or a before-image mismatch (error 6001) stops the SQL thread. Watch `Last_SQL_Errno` and `Last_SQL_Error` in [SHOW REPLICA STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-status.md).
-* **The [Executed\_triggers](../optimization-and-tuning/system-variables/server-status-variables.md#executed_triggers) status variable** increments for each trigger invocation (CDR triggers included), which is useful for confirming the feature is firing.
+* **The** [**Executed\_triggers**](../optimization-and-tuning/system-variables/server-status-variables.md#executed_triggers) **status variable** increments for each trigger invocation (CDR triggers included), which is useful for confirming the feature is firing.
 
 ## Limitations and Beta Caveats
 
 CDR triggers are **beta**. The current implementation is validated only within the configuration below. Outside it, behavior is unsupported, unspecified, or known-incomplete:
 
-| Area                                | Current state in beta                                                                                                                                             |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Row image format                    | Supported **only** with `binlog_row_image = FULL`. Other row-image settings are not supported.                                                                     |
-| System-versioned tables             | **Not supported.** Do not create CDR triggers on tables with [system versioning](../../reference/sql-structure/temporal-tables/system-versioned-tables.md).       |
-| Parallel replication mode           | Supported up to and including `slave_parallel_mode = optimistic` (that is, `none`, `minimal`, `conservative`, `optimistic`). `aggressive` is **not supported**.    |
-| `slave_exec_mode = IDEMPOTENT`      | Behavior in combination with `IDEMPOTENT` is **unspecified**. `IDEMPOTENT` also disables the before-image consistency check.                                       |
-| Multiple triggers per conflict type | Creating more than one CDR trigger for the same conflict type on the same table is not prevented, but the effect is **unspecified**.                               |
-| Coexistence with regular RBR triggers | A CDR trigger alongside a normal replica-side RBR trigger on the same table is intended to work but **may produce unexpected results**. Test thoroughly.          |
-| Mixing with multi-event triggers    | A single `CREATE TRIGGER` statement is either a CDR trigger or a regular trigger, never both — see below.                                                          |
+| Area                                  | Current state in beta                                                                                                                                           |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Row image format                      | Supported **only** with `binlog_row_image = FULL`. Other row-image settings are not supported.                                                                  |
+| System-versioned tables               | **Not supported.** Do not create CDR triggers on tables with [system versioning](../../reference/sql-structure/temporal-tables/system-versioned-tables.md).     |
+| Parallel replication mode             | Supported up to and including `slave_parallel_mode = optimistic` (that is, `none`, `minimal`, `conservative`, `optimistic`). `aggressive` is **not supported**. |
+| `slave_exec_mode = IDEMPOTENT`        | Behavior in combination with `IDEMPOTENT` is **unspecified**. `IDEMPOTENT` also disables the before-image consistency check.                                    |
+| Multiple triggers per conflict type   | Creating more than one CDR trigger for the same conflict type on the same table is not prevented, but the effect is **unspecified**.                            |
+| Coexistence with regular RBR triggers | A CDR trigger alongside a normal replica-side RBR trigger on the same table is intended to work but **may produce unexpected results**. Test thoroughly.        |
+| Mixing with multi-event triggers      | A single `CREATE TRIGGER` statement is either a CDR trigger or a regular trigger, never both — see below.                                                       |
 
 ### No Mixing of CDR and Regular Trigger Syntax
 

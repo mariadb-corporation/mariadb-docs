@@ -258,7 +258,7 @@ The utility is called [mariadb-upgrade](../../../../../clients-and-utilities/dep
 $ sudo mariadb-upgrade
 ```
 
-And the utility is called [mysql\_upgrade](../../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md) in MariaDB Enterprise Server 10.3 and 10.2:
+And the utility is called [mysql\_upgrade](../../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) in MariaDB Enterprise Server 10.3 and 10.2:
 
 ```bash
 $ sudo mysql_upgrade

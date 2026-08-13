@@ -385,7 +385,6 @@ index_option:
   {{{|}}} WITH PARSER parser_name
   {{{|}}} VISIBLE
   {{{|}}} COMMENT 'string'
-  {{{|}}} CLUSTERING={YES| NO}
   {{{|}}} ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
   {{{|}}} COMPLETE_FIELDS [=] number
   {{{|}}} BYTES_FROM_INCOMPLETE_FIELD [=] number
@@ -559,10 +558,6 @@ Indexes cannot be declared visible.
 A comment of up to 1024 characters is permitted with the `COMMENT` index option.
 
 The `COMMENT` index option allows you to specify a comment with user-readable text describing what the index is for. This information is not used by the server itself.
-
-#### CLUSTERING Index Option
-
-The `CLUSTERING` index option is only valid for tables using the [TokuDB](../../../../server-usage/storage-engines/legacy-storage-engines/tokudb/) storage engine.
 
 #### IGNORED / NOT IGNORED
 

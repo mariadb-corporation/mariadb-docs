@@ -32,7 +32,6 @@ Many of the general system variables are described on this page, but others are 
 * [SQL\_ERROR\_LOG Plugin System Variables](sql-error-log-system-variables-and-options.md)
 * [SSL System Variables](../../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
 * [Threadpool System Variables](../buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
-* [TokuDB System Variables](../../../server-usage/storage-engines/legacy-storage-engines/tokudb/tokudb-system-variables.md)
 * [Vector System Variables](../../../reference/sql-structure/vectors/vector-system-variables.md)
 
 See also the [Full list of MariaDB options, system and status variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
@@ -2492,7 +2491,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `skip_grant_tables`
 
-* Description: Start without grant tables. This gives all users FULL ACCESS to all tables. Before [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as an [option only](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). Use [mariadb-admin flush-privileges](../../../clients-and-utilities/legacy-clients-and-utilities/mysqladmin.md), [mariadb-admin reload](../../../clients-and-utilities/legacy-clients-and-utilities/mysqladmin.md) or [FLUSH PRIVILEGES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to resume using the grant tables.
+* Description: Start without grant tables. This gives all users FULL ACCESS to all tables. Before [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as an [option only](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). Use [mariadb-admin flush-privileges](../../../clients-and-utilities/administrative-tools/mariadb-admin.md), [mariadb-admin reload](../../../clients-and-utilities/administrative-tools/mariadb-admin.md) or [FLUSH PRIVILEGES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to resume using the grant tables.
 * Command line: `--skip-grant-tables`
 * Scope: Global
 * Dynamic: No

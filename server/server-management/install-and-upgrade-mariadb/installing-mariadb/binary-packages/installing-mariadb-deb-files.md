@@ -35,7 +35,7 @@ To use the script, execute the following command:
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 ```
 
-Note that this script also configures a repository for MariaDB MaxScale and a repository for MariaDB Tools, which currently only contains [Percona XtraBackup](../../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md) and its dependencies.
+Note that this script also configures a repository for MariaDB MaxScale and a repository for MariaDB Tools, which currently only contains [Percona XtraBackup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) and its dependencies.
 
 See [MariaDB Package Repository Setup and Usage](../../mariadb-package-repository-setup-and-usage.md) for more information.
 
@@ -456,7 +456,6 @@ For MariaDB, the following DEBs are available:
 | `mariadb-plugin-gssapi-server`           | The server-side component of the [gssapi](../../../../reference/plugins/authentication-plugins/authentication-plugin-gssapi.md) authentication plugin.                                                                                             |
 | `mariadb-plugin-rocksdb`                 | The [MyRocks](../../../../server-usage/storage-engines/myrocks/) storage engine.                                                                                                                                                                   |
 | `mariadb-plugin-spider`                  | The [SPIDER](../../../../server-usage/storage-engines/spider/) storage engine.                                                                                                                                                                     |
-| `mariadb-plugin-tokudb`                  | The [TokuDB](../../../../server-usage/storage-engines/legacy-storage-engines/tokudb/) storage engine.                                                                                                                                              |
 | `mariadb-server`                         | The server and server tools, like [myisamchk](../../../../clients-and-utilities/myisam-clients-and-utilities/myisamchk.md) and [mariadb-hotcopy](../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-hotcopy.md) are here. |
 | `mariadb-server-galera`                  | Required for MariaDB Cluster (Galera) functionality. Includes cluster-specific scripts, systemd bootstrap logic, and the `wsrep_info` plugin.                                                                                                      |
 | `mariadb-server-core`                    | The core server.                                                                                                                                                                                                                                   |

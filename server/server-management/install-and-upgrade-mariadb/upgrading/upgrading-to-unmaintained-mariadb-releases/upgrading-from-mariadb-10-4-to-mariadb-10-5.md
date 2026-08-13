@@ -35,7 +35,7 @@ The suggested upgrade procedure is:
 
 1. Make any desired changes to configuration options in [option files](../../configuring-mariadb/configuring-mariadb-with-option-files.md), such as `my.cnf`. This includes removing any options that are no longer supported.
 2. [Start MariaDB](../../../starting-and-stopping-mariadb/starting-and-stopping-mariadb-automatically.md).
-3. Run [mysql\_upgrade](../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md).
+3. Run [mysql\_upgrade](../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md).
 
 * `mysql_upgrade` does two things:
   1. Ensures that the system tables in the [mysql](../../../../reference/system-tables/the-mysql-database-tables/) database are fully compatible with the new version.
@@ -49,7 +49,7 @@ On most servers upgrading from 10.4 should be painless. However, there are some 
 
 All binaries previously beginning with mysql now begin with mariadb, with symlinks for the corresponding mysql command.
 
-Usually that shouldn't cause any changed behavior, but when starting the MariaDB server via [systemd](../../../starting-and-stopping-mariadb/systemd/README.md), or via the [mysqld\_safe](../../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) script symlink, the server process will now always be started as `mariadbd`, not `mysqld`.
+Usually that shouldn't cause any changed behavior, but when starting the MariaDB server via [systemd](../../../starting-and-stopping-mariadb/systemd/README.md), or via the [mysqld\_safe](../../../starting-and-stopping-mariadb/mariadbd-safe.md) script symlink, the server process will now always be started as `mariadbd`, not `mysqld`.
 
 So anything looking for the `mysqld` name in the system process list, like e.g. monitoring solutions, now needs for `mariadbd` instead when the server / service is not started directly, but via `mysqld_safe` or as a system service.
 

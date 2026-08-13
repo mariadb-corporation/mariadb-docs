@@ -199,7 +199,7 @@ SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='foo' AND TEMPORARY='
 
 ## See Also
 
-* [mysqlshow](../../../../clients-and-utilities/legacy-clients-and-utilities/mysqlshow.md)
+* [mysqlshow](../../../../clients-and-utilities/administrative-tools/mariadb-show.md)
 * [SHOW TABLE STATUS](../../../sql-statements/administrative-sql-statements/show/show-table-status.md)
 * [Finding Tables Without Primary Keys](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#finding-tables-without-primary-keys)
 

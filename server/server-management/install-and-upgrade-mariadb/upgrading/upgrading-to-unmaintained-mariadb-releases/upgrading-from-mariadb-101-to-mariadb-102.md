@@ -39,7 +39,7 @@ The suggested upgrade procedure is:
 
 1. Make any desired changes to configuration options in [option files](../../configuring-mariadb/configuring-mariadb-with-option-files.md), such as `my.cnf`. This includes removing any options that are no longer supported.
 2. [Start MariaDB](../../../starting-and-stopping-mariadb/starting-and-stopping-mariadb-automatically.md).
-3. Run [mysql\_upgrade](../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md).
+3. Run [mysql\_upgrade](../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md).
 
 * `mysql_upgrade` does two things:
   1. Ensures that the system tables in the `[mysq](../../../../reference/system-tables/the-mysql-database-tables/README.md) l` database are fully compatible with the new version.
@@ -118,7 +118,7 @@ New [reserved words](../../../../reference/sql-structure/sql-language-structure/
 
 #### TokuDB
 
-[TokuDB](../../../../server-usage/storage-engines/legacy-storage-engines/tokudb/) has been split into a separate package, mariadb-plugin-tokudb.
+TokuDB has been split into a separate package, mariadb-plugin-tokudb.
 
 #### Replication
 
