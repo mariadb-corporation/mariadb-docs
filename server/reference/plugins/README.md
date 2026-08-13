@@ -33,6 +33,18 @@ This page lists the maturity level (Alpha, Beta, Gamma, Stable) of various Maria
 
 {% columns %}
 {% column %}
+{% content-ref url="../../server-usage/storage-engines/" %}
+[storage-engines](../../server-usage/storage-engines/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Every MariaDB storage engine is implemented as a plugin. This section covers them all, from InnoDB and Aria to Spider, S3, and CONNECT.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="mariadb-enterprise-audit.md" %}
 [mariadb-enterprise-audit.md](mariadb-enterprise-audit.md)
 {% endcontent-ref %}
