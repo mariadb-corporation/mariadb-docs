@@ -1079,7 +1079,7 @@
   * [Replication](ha-and-performance/standard-replication/README.md)
     * [Replication Overview](ha-and-performance/standard-replication/replication-overview.md)
     * [Choosing a Replication Strategy](ha-and-performance/standard-replication/choosing-a-replication-strategy.md)
-    * [Binary Log Formats](ha-and-performance/standard-replication/innodb-based-binary-log.md)
+    * [Binary Log Formats](server-management/server-monitoring-logs/binary-log/binary-log-formats.md)
     * [InnoDB-Based Binary Log](ha-and-performance/standard-replication/innodb-based-binary-log.md)
     * [Replication Statements](ha-and-performance/standard-replication/replication-statements.md)
     * [Setting Up Replication](ha-and-performance/standard-replication/setting-up-replication.md)
