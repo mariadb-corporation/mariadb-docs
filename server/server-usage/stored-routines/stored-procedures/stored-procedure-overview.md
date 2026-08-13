@@ -125,7 +125,7 @@ collation_connection: utf8_general_ci
 To drop a stored procedure, use the [DROP PROCEDURE](drop-procedure.md) statement.
 
 ```
-DROP PROCEDURE Reset_animal_count();
+DROP PROCEDURE Reset_animal_count;
 ```
 
 To change the characteristics of a stored procedure, use [ALTER PROCEDURE](alter-procedure.md). However, you cannot change the parameters or body of a stored procedure using this statement; to make such changes, you must drop and re-create the procedure using [CREATE OR REPLACE PROCEDURE](create-procedure.md#or-replace) (which retains existing privileges), or DROP PROCEDURE followed CREATE PROCEDURE .
