@@ -89,8 +89,6 @@ The `IGNORE_SPACE` SQL mode applies to built-in functions, not to stored routine
 
 The parameter list enclosed within parentheses must always be present. If there are no parameters, an empty parameter list of `()` should be used. Parameter names are not case sensitive.
 
-Each parameter can be declared to use any valid data type, except that the `COLLATE` attribute cannot be used.
-
 For valid identifiers to use as procedure names, see [Identifier Names](../../../reference/sql-structure/sql-language-structure/identifier-names.md).
 
 ### Things to be Aware of With CREATE OR REPLACE
