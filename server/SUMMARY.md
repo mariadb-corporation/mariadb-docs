@@ -3810,6 +3810,8 @@
       * [Error 4266: RANGE COLUMN partition by a DATE with INTERVAL smaller than date](reference/error-codes/mariadb-error-codes-4200-to-4299/e4266.md)
       * [Error 4267: MAXVALUE is not allowed in range partitioning with interval](reference/error-codes/mariadb-error-codes-4200-to-4299/e4267.md)
       * [Error 4268: Range partition table %s.%s: adding INTERVAL partition(s) failed](reference/error-codes/mariadb-error-codes-4200-to-4299/e4268.md)
+      * [Error 4269: Failed to parse saved optimizer context: %s at offset %d.](reference/error-codes/mariadb-error-codes-4200-to-4299/e4269.md)
+      * [Error 4270: Failed to match the stats from replay context with the optimizer stats: %s doesn't exist in %s](reference/error-codes/mariadb-error-codes-4200-to-4299/e4270.md)
   * [Client/Server Protocol](reference/clientserver-protocol/README.md)
     * [Protocol Data Types](reference/clientserver-protocol/protocol-data-types.md)
     * [MariaDB Protocol Differences with MySQL](reference/clientserver-protocol/mariadb-protocol-differences-with-mysql.md)
