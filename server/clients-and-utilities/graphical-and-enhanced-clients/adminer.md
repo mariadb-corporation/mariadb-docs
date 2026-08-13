@@ -1,5 +1,9 @@
 # Adminer
 
+{% hint style="info" %}
+Adminer is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [Adminer](https://www.adminer.org/) is a database administration web interface. It is usable via a web browser. It is written in PHP and requires a web server.
 
 Adminer mainly supports MySQL, but it also supports MariaDB and other database management systems. Adminer has a wide range of plugins, some of which have been developed by the community.

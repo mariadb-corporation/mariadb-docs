@@ -1,5 +1,9 @@
 # ERBuilder Data Modeler
 
+{% hint style="info" %}
+ERBuilder Data Modeler is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [ERBuilder Data Modeler](https://soft-builder.com/erbuilder-data-modeler/) is a GUI data modeling tool that allows developers to visualize, design, and model databases by using entity relationship diagrams and automatically generate the most popular SQL databases, and to generate and share the data model documentation. Optimize your data model by using advanced features such as test data generation, schema compare, and schema synchronization.
 
 Supported DBMS include MariaDB, MySQL, and Microsoft SQL Server.

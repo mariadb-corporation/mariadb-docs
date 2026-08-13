@@ -1,5 +1,9 @@
 # KS DB Merge Tools
 
+{% hint style="info" %}
+KS DB Merge Tools is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 ## Overview
 
 KS DB Merge Tools for MySQL and MariaDB is a diff & merge tool for MySQL and MariaDB, allowing to compare and sync both schema and data. It is a Freemium application - many features are exposed in the Free version (available for commercial use), some extended features are available only in the paid Standard version (in many cases can be provided at no cost for open source developers).

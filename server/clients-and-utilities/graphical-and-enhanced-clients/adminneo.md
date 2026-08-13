@@ -7,6 +7,10 @@ description: >-
 
 # AdminNeo
 
+{% hint style="info" %}
+AdminNeo is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [AdminNeo](https://www.adminneo.org/) is a database management tool written in PHP and used through a web browser. It consists of a single file that you deploy to a web server with PHP.
 
 AdminNeo is based on the [Adminer](adminer.md) project, with a redesigned user interface and a refactored code base.

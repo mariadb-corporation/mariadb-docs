@@ -1,5 +1,9 @@
 # OmniDB
 
+{% hint style="info" %}
+OmniDB is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 OmniDB is a browser-based tool that simplifies MariaDB database management focusing on interactivity. It is designed to be powerful and lightweight.
 
 Characteristics:

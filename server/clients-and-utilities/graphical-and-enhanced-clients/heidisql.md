@@ -1,5 +1,9 @@
 # HeidiSQL
 
+{% hint style="info" %}
+HeidiSQL is third-party software, not developed or maintained by MariaDB. It ships as an optional component of the MariaDB Windows installer, but MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [HeidiSQL](https://www.heidisql.com/) is a Windows client for MariaDB and MySQL, and is bundled with the Windows version of MariaDB.
 
 | HeidiSQL Version | Introduced                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |

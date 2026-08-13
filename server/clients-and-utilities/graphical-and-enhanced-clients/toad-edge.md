@@ -1,5 +1,9 @@
 # TOAD Edge
 
+{% hint style="info" %}
+Toad Edge is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 Toad Edge is a database management application that allows you to perform database administration tasks with ease.
 
 Toad Edge allows you to:

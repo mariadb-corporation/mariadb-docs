@@ -1,5 +1,9 @@
 # SQLyog
 
+{% hint style="info" %}
+SQLyog is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 SQLyog is a GUI tool to manage MySQL and MariaDB servers and databases in physical, virtual, and cloud environments. DBAs, developers, and database architects alike, use SQLyog to visually compare, optimize, and document schemas.
 
 Key Features:

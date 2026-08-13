@@ -1,7 +1,7 @@
 # dbForge Studio for MySQL/MariaDB
 
 {% hint style="info" %}
-dbForge Studio is a proprietary third-party tool, not included with MariaDB Server. Content contributed by devart.
+dbForge Studio for MySQL/MariaDB is proprietary third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Content contributed by Devart; refer to its own documentation and license terms.
 {% endhint %}
 
 **dbForge Studio for MySQL** is an advanced and powerful GUI toolset designed specifically for specialists who deal with databases on MySQL and MariaDB. The purpose is to equip you with all tools needed to set up and perform the database-related routines on MariaDB. It saves time and costs, allowing you to work much more productively overall.

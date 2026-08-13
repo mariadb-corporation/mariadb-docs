@@ -1,5 +1,9 @@
 # dbForge Fusion
 
+{% hint style="info" %}
+dbForge Fusion is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [dbForge Fusion](https://www.devart.com/dbforge/mysql/fusion/) is an add-in for Visual Studio. It provides automatic and simple MariaDB database development, and boosts data management capacity. With this tool integrated, it is easy to work with database development and administration tasks from Visual Studio.
 
 {% hint style="info" %}

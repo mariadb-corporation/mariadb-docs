@@ -1,5 +1,9 @@
 # Navicat
 
+{% hint style="info" %}
+Navicat is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [Navicat](https://www.navicat.com/products/navicat-for-mariadb) is a graphical frontend for MariaDB. It is a commercial product with several different versions (Navicat Premium, Navicat for MySQL, etc...) and different "editions" within those versions (Non-commercial, Standard, and Enterprise). Certain features are only available in certain editions/versions.
 
 Navicat is available for Windows, MacOS, and Linux.
