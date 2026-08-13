@@ -54,8 +54,6 @@ By default, a function is associated with the current database. To associate the
 
 The parameter list enclosed within parentheses must always be present. If there are no parameters, an empty parameter list of `()` should be used. Parameter names are not case-sensitive.
 
-Each parameter can be declared to use any valid data type, except that the `COLLATE` attribute cannot be used.
-
 For valid identifiers to use as function names, see [Identifier Names](../../../sql-structure/sql-language-structure/identifier-names.md).
 
 ### RETURN
