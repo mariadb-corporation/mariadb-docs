@@ -82,7 +82,18 @@ The ColumnStore storage engine can use either the custom select handler or the g
 | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | AUTO  | <ul><li>When set to <code>AUTO</code>, ColumnStore automatically chooses the best select handler for a given SELECT query.</li><li><code>AUTO</code> was added in ColumnStore 6.</li></ul>                            |
 | OFF   | <ul><li>When set to <code>OFF</code>, ColumnStore uses the generic select handlers for all <code>SELECT</code> queries.</li><li>It is not recommended to use this value, unless recommended by MariaDB Support.</li></ul>        |
-| ON    | <ul><li>When set to <code>ON</code>, ColumnStore uses the custom select handlers for all <code>SELECT</code> queries.</li><li><code>ON</code> is the default in ColumnStore 5 and ColumnStore 6.</li></ul> |
+| ON    | <ul><li>When set to <code>ON</code>, ColumnStore uses the custom select handlers for all <code>SELECT</code> queries.</li><li><code>ON</code> is the default.</li></ul> |
+
+### Unsupported SQL Syntax and Fallback Behavior
+
+The custom select handler translates each query's internal structure into a ColumnStore Execution Plan (CSEP). If a `SELECT` query uses syntax that the custom select handler does not support, the behavior depends on the value of the `columnstore_select_handler` system variable:
+
+* When set to `AUTO`, ColumnStore falls back to the generic select handler, and MariaDB Enterprise Server executes the query itself. The query completes and raises warning code `9999`, with a message such as `MCS select_handler execution failed, falling back to server execution`. Run `SHOW WARNINGS` after the query to see the warning.
+* When set to `ON` (the default), the query fails with an error instead of falling back.
+
+{% hint style="info" %}
+Because the custom select handler translates queries into its own execution plan rather than forwarding the original SQL text, SQL syntax introduced in newer MariaDB Server releases is not automatically supported by ColumnStore. Support for new syntax can lag behind server releases. Until support is added, run queries that use new syntax with `columnstore_select_handler=AUTO` so they fall back to server execution.
+{% endhint %}
 
 ## Joins
 

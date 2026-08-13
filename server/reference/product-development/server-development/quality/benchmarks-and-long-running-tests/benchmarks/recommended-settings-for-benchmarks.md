@@ -32,7 +32,7 @@ The Linux kernel uses ACPI tables from BIOS to detect if the hardware is NUMA. O
 * if a task has been scheduled on a certain NUMA node, the scheduler tries to put it on the same node again in the future
 * if a task running on a certain NUMA node allocates memory, the kernel tries hard to map physical memory from the same NUMA node
 
-This results in all kinds of weird behavior when you run one big process (mysqld) that consumes most of the memory. In such cases it is recommended to either turn off NUMA (BIOS or kernel command line) or prefix such problem processes with _numactl --interleave all_. You can enable this by running [mysqld\_safe](../../../../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) with the `--numa-interleave` option.
+This results in all kinds of weird behavior when you run one big process (mysqld) that consumes most of the memory. In such cases it is recommended to either turn off NUMA (BIOS or kernel command line) or prefix such problem processes with _numactl --interleave all_. You can enable this by running [mysqld\_safe](../../../../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md) with the `--numa-interleave` option.
 
 [More details can be found here](https://blog.jcole.us/2010/09/28/mysql-swap-insanity-and-the-numa-architecture/).
 

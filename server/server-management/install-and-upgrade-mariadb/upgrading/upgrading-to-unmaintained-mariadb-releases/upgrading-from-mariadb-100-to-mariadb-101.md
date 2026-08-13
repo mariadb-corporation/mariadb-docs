@@ -15,7 +15,7 @@ For Windows, see [Upgrading MariaDB on Windows](../upgrading-mariadb-on-windows.
 
 For MariaDB Galera Cluster, see [Upgrading from MariaDB Galera Cluster ](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster)instead.
 
-Before you upgrade, it would be best to take a backup of your database. This is always a good idea to do before an upgrade. We would recommend [Percona XtraBackup](../../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/).
+Before you upgrade, it would be best to take a backup of your database. This is always a good idea to do before an upgrade. We would recommend [Percona XtraBackup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md).
 
 The suggested upgrade procedure is:
 
@@ -41,7 +41,7 @@ The suggested upgrade procedure is:
 
 1. Make any desired changes to configuration options in [option files](../../configuring-mariadb/configuring-mariadb-with-option-files.md), such as `my.cnf`. This includes removing any options that are no longer supported.
 2. [Start MariaDB](../../../starting-and-stopping-mariadb/starting-and-stopping-mariadb-automatically.md).
-3. Run [mysql\_upgrade](../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md).
+3. Run [mysql\_upgrade](../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md).
 
 * `mysql_upgrade` does two things:
   1. Ensures that the system tables in the `[mysq](../../../../reference/system-tables/the-mysql-database-tables/README.md) l` database are fully compatible with the new version.

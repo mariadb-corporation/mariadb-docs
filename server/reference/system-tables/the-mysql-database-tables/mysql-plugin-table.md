@@ -44,7 +44,6 @@ SELECT * FROM mysql.plugin;
 | spider_alloc_mem          | ha_spider.so           |
 | METADATA_LOCK_INFO        | metadata_lock_info.so  |
 | OQGRAPH                   | ha_oqgraph.so          |
-| cassandra                 | ha_cassandra.so        |
 | QUERY_RESPONSE_TIME       | query_response_time.so |
 | QUERY_RESPONSE_TIME_AUDIT | query_response_time.so |
 | LOCALES                   | locales.so             |

@@ -101,6 +101,16 @@ jobs:
           # forge.mysql.com and lists.mysql.com were retired by Oracle
           # (forge now serves a cert for another host); blogs.msdn.com folded
           # into learn.microsoft.com. None have a modern equivalent to point at.
+          #
+          # DOCS-5976: three more hosts that block automated clients, same
+          # class as www.reddit.com above. stackoverflow.com and
+          # gitlab.kitware.com answer 403 at the site ROOT (not just the cited
+          # page) even with a browser User-Agent, so it is a host-level block,
+          # not a dead page. www.freedesktop.org is the sharper case: it serves
+          # 200 to a developer machine but 418 ("I'm a teapot") to the Actions
+          # runners, so a local lychee run PASSES while CI fails -- the one
+          # failure mode a pre-PR check cannot reproduce. All are valid for
+          # readers.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -152,6 +162,9 @@ jobs:
             --exclude www\.poliarch\.org
             --exclude www\.reddit\.com
             --exclude csm\.mariadb\.com
+            --exclude stackoverflow\.com
+            --exclude gitlab\.kitware\.com
+            --exclude www\.freedesktop\.org
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

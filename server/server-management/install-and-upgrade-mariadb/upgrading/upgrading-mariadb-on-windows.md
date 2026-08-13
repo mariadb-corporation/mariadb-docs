@@ -31,7 +31,7 @@ just replace 5.2.6 executables with 5.2.7 ones.
 
 Now imagine, that both 5.1 and 5.2 are installed on the same machine and we
 want to upgrade the database instance running on 5.1 to the new version. In
-this case special tools are required. Traditionally, [mysql\_upgrade](../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md) is used
+this case special tools are required. Traditionally, [mysql\_upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) is used
 to accomplish this. On Windows, the[MySQL
 upgrade](https://dev.mysql.com/doc/refman/5.5/en/windows-upgrading.html) is a complicated multiple-step manual process.
 

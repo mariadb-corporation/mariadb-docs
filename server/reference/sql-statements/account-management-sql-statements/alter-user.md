@@ -269,7 +269,7 @@ ALTER USER 'someone'@'localhost' WITH
 
 The resources are tracked per account, which means `'user'@'server'`; not per user name or per connection.
 
-The count can be reset for all users using [FLUSH USER\_RESOURCES](../administrative-sql-statements/flush-commands/flush.md), [FLUSH PRIVILEGES](../administrative-sql-statements/flush-commands/flush.md) or [mysqladmin reload](../../../clients-and-utilities/legacy-clients-and-utilities/mysqladmin.md).
+The count can be reset for all users using [FLUSH USER\_RESOURCES](../administrative-sql-statements/flush-commands/flush.md), [FLUSH PRIVILEGES](../administrative-sql-statements/flush-commands/flush.md) or [mysqladmin reload](../../../clients-and-utilities/administrative-tools/mariadb-admin.md).
 
 Per account resource limits are stored in the [user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) table, in the [mysql](../../system-tables/the-mysql-database-tables/) database. Columns used for resources limits are named `max_questions`, `max_updates`, `max_connections` (for `MAX_CONNECTIONS_PER_HOUR`), and `max_user_connections` (for `MAX_USER_CONNECTIONS`).
 

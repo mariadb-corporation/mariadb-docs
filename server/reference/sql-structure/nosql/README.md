@@ -69,18 +69,6 @@ Complete JSON Functions reference: JSON_EXTRACT(), JSON_SET(), JSON_REPLACE(), J
 
 {% columns %}
 {% column %}
-{% content-ref url="../../../server-usage/storage-engines/legacy-storage-engines/cassandra/" %}
-[cassandra](../../../server-usage/storage-engines/legacy-storage-engines/cassandra/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Legacy Cassandra storage engine description. Cassandra was removed from MariaDB in MariaDB 10.6.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="../../../server-usage/storage-engines/connect/" %}
 [connect](../../../server-usage/storage-engines/connect/)
 {% endcontent-ref %}
