@@ -1,5 +1,9 @@
 # Sequel Pro
 
+{% hint style="info" %}
+Sequel Pro is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [Sequel Pro](https://www.sequelpro.com) is a fast, database management application for working with MySQL and MariaDB databases. It runs on macOS only.
 
 [Sequel Pro](https://www.sequelpro.com) is open source, so it's easy to be involved and enhance it for MariaDB.

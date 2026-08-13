@@ -7,6 +7,10 @@ description: >-
 
 # Graphical and Enhanced Clients
 
+{% hint style="info" %}
+The third-party tools described in this section are not developed or maintained by MariaDB and are not included with MariaDB Server. MariaDB doesn't test, validate, or support them. Refer to each tool's own documentation and license terms.
+{% endhint %}
+
 {% content-ref url="adminer.md" %}
 [adminer.md](adminer.md)
 {% endcontent-ref %}

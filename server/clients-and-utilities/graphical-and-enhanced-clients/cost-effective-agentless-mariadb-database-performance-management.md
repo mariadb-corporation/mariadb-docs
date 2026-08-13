@@ -1,5 +1,9 @@
 # SQL Diagnostic Manager & SQLyog
 
+{% hint style="info" %}
+SQL Diagnostic Manager and SQLyog are third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support them. Refer to their own documentation and license terms.
+{% endhint %}
+
 [SQL Diagnostic Manager](https://www.idera.com/productssolutions/sql-diagnostic-manager-for-mysql) is a monitoring tool that gives database administrators real-time insights for optimizing the performance of MariaDB servers.
 
 Key Features:

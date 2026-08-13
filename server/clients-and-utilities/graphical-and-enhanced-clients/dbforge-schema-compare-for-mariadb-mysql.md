@@ -1,5 +1,9 @@
 # dbForge Schema Compare
 
+{% hint style="info" %}
+dbForge Schema Compare is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [dbForge Schema Compare](https://www.devart.com/dbforge/mysql/schemacompare/) is a solution that allows for the comparison of the MariaDB database structure. With this tool, you can find the differences in MariaDB database schemas.
 
 Features are described in the following.

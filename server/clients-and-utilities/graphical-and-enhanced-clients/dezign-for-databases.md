@@ -1,5 +1,9 @@
 # DeZign for Databases
 
+{% hint style="info" %}
+DeZign for Databases is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [DeZign for Databases](https://www.datanamic.com/dezign/) is a data modeling tool for developers and DBA's that helps model, create, and maintain MariaDB databases. It runs on Windows only.
 
 Supported database management systems include MariaDB, MySQL, and SQL Server.

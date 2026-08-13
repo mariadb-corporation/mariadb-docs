@@ -7,7 +7,7 @@ description: >-
 # Backup and Restore via dbForge Studio
 
 {% hint style="info" %}
-dbForge Studio is a proprietary third-party tool, not included with MariaDB Server. Content contributed by devart.
+dbForge Studio is proprietary third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Content contributed by Devart; refer to its own documentation and license terms.
 {% endhint %}
 
 In the modern world, data importance is non-negotiable, and keeping data integrity and consistency is the top priority. Data stored in databases is vulnerable to system crashes, hardware problems, security breaches, and other failures causing data loss or corruption. To prevent database damage, it is important to back the data up regularly and implement the data restore policies.\

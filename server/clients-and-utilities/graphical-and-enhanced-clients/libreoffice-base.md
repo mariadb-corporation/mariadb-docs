@@ -1,5 +1,9 @@
 # LibreOffice Base
 
+{% hint style="info" %}
+LibreOffice Base is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [LibreOffice Base](https://www.libreoffice.org/discover/base/) is an open source RDBMS (relational database management system) frontend tool to create and manage various databases.
 
 ## Preparing the ODBC Connection

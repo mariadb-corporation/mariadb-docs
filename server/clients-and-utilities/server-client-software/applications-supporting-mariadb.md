@@ -6,6 +6,10 @@ description: >-
 
 # Applications Supporting MariaDB
 
+{% hint style="info" %}
+The projects listed on this page are third-party software, not developed or maintained by MariaDB. MariaDB doesn't test, validate, or support them. Refer to each project's own documentation and license terms.
+{% endhint %}
+
 This page lists projects which officially implement MariaDB's enhanced features, or state that they work with MariaDB. If you know of a project which officially supports MariaDB and it isn't listed here, please let us know in the comments.
 
 {% hint style="info" %}

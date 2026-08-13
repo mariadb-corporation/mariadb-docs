@@ -1,5 +1,9 @@
 # DbVisualizer
 
+{% hint style="info" %}
+DbVisualizer is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [DbVisualizer](https://dbvis.com/) is a cross-platform database tool for developers, DBAs, analysts and SQL programmers. Both Free and paid Pro versions are available. Supported databases include MySQL, MariaDB, and PostgreSQL.
 
 DbVisualizer has been carefully developed by a small and dedicated team. Development decisions are based on user feedback.

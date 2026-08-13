@@ -1,5 +1,9 @@
 # SQLPro Studio
 
+{% hint style="info" %}
+SQLPro Studio is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [SQLPro Studio](https://sqlprostudio.com/) is a fully native database client for macOS [macOS](https://sqlprostudio.com/) and [iOS](https://apps.apple.com/app/sqlpro-studio-database-client/id1273366668). It supports database management systems such as MariaDB, MySQL, and Postgres.
 
 ![SQLPro UI](../../.gitbook/assets/SQLProUI.png)

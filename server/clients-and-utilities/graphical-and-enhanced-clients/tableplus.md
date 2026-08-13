@@ -1,5 +1,9 @@
 # TablePlus
 
+{% hint style="info" %}
+TablePlus is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [TablePlus](https://tableplus.com/) is an application with a clean user interface that allows developers to simultaneously manage databases in a very fast and secure way. It supports many popular database management systems like MariaDB, MySQL, and Postgres.
 
 ![](../../.gitbook/assets/table.png)

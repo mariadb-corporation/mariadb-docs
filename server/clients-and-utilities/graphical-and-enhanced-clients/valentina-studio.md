@@ -1,5 +1,9 @@
 # Valentina Studio
 
+{% hint style="info" %}
+Valentina Studio is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [Valentina Studio](https://valentina-db.com/en/valentina-studio-overview) is a graphical front end for MariaDB with a free version, and a Pro version that adds advanced features.
 
 Free Valentina Studio offers the following features:

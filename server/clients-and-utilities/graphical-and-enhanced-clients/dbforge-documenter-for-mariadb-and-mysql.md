@@ -1,5 +1,9 @@
 # dbForge Documenter
 
+{% hint style="info" %}
+dbForge Documenter is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 [**dbForge Documenter**](https://www.devart.com/dbforge/mysql/documenter/) is a useful tool for the MariaDB database that allows for the automatic generation of database documentation in such formats as HTML, PDF, and Markdown. Users can adjust the created documentation with a great variety of options.
 
 Features are described in the following.
