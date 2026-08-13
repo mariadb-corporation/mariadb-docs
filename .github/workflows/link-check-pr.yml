@@ -111,6 +111,15 @@ jobs:
           # runners, so a local lychee run PASSES while CI fails -- the one
           # failure mode a pre-PR check cannot reproduce. All are valid for
           # readers.
+          #
+          # DOCS-6446: the two cloud-marketplace listings cited in the MariaDB
+          # Cloud FAQ. azuremarketplace.microsoft.com answers 403 to any
+          # non-browser client, and so does the marketplace.microsoft.com host it
+          # 308-redirects to, so replacing the URL with its resolved form does not
+          # help. console.cloud.google.com fails differently -- "HTTP/2 protocol
+          # error" rather than a status code -- because the host mishandles
+          # lychee's HTTP/2 negotiation. Both serve 200 to a browser User-Agent
+          # over HTTP/1.1 and are valid for readers.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -165,6 +174,8 @@ jobs:
             --exclude stackoverflow\.com
             --exclude gitlab\.kitware\.com
             --exclude www\.freedesktop\.org
+            --exclude azuremarketplace\.microsoft\.com
+            --exclude console\.cloud\.google\.com
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

@@ -53,7 +53,6 @@ For AWS, ColumnStore internal testing generally uses `m4.4xlarge` instance types
 
 ## See Also
 
-* [MariaDB ColumnStore Minimum Hardware Specification Documentation](/broken/pages/ksFdboCNE70th9VaY7pM)
 * [MariaDB ColumnStore Overview](https://mariadb.com/products/columnstore/)
 * [MariaDB documentation: MariaDB ColumnStore](../)
 
