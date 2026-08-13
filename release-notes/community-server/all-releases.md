@@ -227,6 +227,7 @@ description: A list of all MariaDB Community Server releases
 
 | Name                       | Release date | Release status |
 | -------------------------- | ------------ | -------------- |
+| [10.6.28](10.6/10.6.28.md) | 2026-08-13   | Stable         |
 | [10.6.27](10.6/10.6.27.md) | 2026-05-27   | Stable         |
 | [10.6.26](10.6/10.6.26.md) | 2026-05-18   | Stable         |
 | [10.6.25](10.6/10.6.25.md) | 2026-02-04   | Stable         |
