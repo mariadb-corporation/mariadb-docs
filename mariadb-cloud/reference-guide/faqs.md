@@ -28,7 +28,7 @@ Launching a new database service with MariaDB Cloud is quick and easy. Serverles
 
 ### Is MariaDB Cloud ready for production use?
 
-Yes. MariaDB Cloud delivers enterprise-grade cloud database service for your mission-critical applications. Multi-node databases feature a comprehensive [SLA](uptime-sla.md), High Availability (HA) features, and operations features. [Enterprise support](https://mariadb.com/services/technical-support-services/) options extend support to 24x7, with the additional option of Cloud[DBA](fractionaldba.md) for proactive assistance from a team of expert DBAs.
+Yes. MariaDB Cloud delivers enterprise-grade cloud database service for your mission-critical applications. Multi-node databases feature a comprehensive [SLA](uptime-sla.md), High Availability (HA) features, and operations features. [Enterprise support](https://mariadb.com/services/technical-support-services/) options extend support to 24x7, with the additional option of [Cloud DBA](clouddba.md) for proactive assistance from a team of expert DBAs.
 
 ### What is the history of MariaDB Cloud?
 
@@ -67,7 +67,7 @@ Our platform features:
 
 ### What operations features are available on MariaDB Cloud?
 
-* Support from MariaDB Cloud Inc, including Enterprise and Platinum tiers optionally with CloudDBA for reactive and proactive assistance
+* Support from MariaDB Cloud Inc, including Enterprise and Platinum tiers optionally with Cloud DBA for reactive and proactive assistance
 * Vendor managed infrastructure and platform
 * MariaDB Cloud Portal and [MariaDB Cloud DBaaS API](https://apidocs.skysql.com/) for instance management
 * Compatibility with most programming languages and clients that work with MariaDB or MySQL, for off-the-shelf integration to your stack
@@ -111,7 +111,7 @@ Add-ons are available to optimize your MariaDB Cloud experience:
 
 * [MariaDB Cloud Power Tier](broken-reference) is a premium service offering for MariaDB Cloud customers who have the most critical requirements for uptime, availability, performance, and support.
 * While all Foundation Tier services include Standard Support, Power Tier customers are offered the [Enterprise support plan](../broken-reference/).
-* An optional add-on, [CloudDBA](fractionaldba.md), further extends the premium support experience and the capabilities of your in-house DBAs with the backing from a global team of expert MariaDB DBAs, available 24/7 for the most severe (P1) issues. SkySQL's SkyDBAs manage your MariaDB Cloud databases both proactively and reactively so you can focus on your core business.
+* An optional add-on, [Cloud DBA](clouddba.md), further extends the premium support experience and the capabilities of your in-house DBAs with the backing from a global team of expert MariaDB DBAs, available 24/7 for the most severe (P1) issues. MariaDB's Cloud DBAs manage your MariaDB Cloud databases both proactively and reactively so you can focus on your core business.
 
 ### Is discounted pricing available for a longer-term commitment?
 
@@ -197,7 +197,7 @@ You can contact Support using the [Support Portal](https://mariadb.com/services/
 
 ### What support options are available for MariaDB Cloud?
 
-All customers with a valid payment profile receive Standard Support which includes 24x5, 2-hours response for P1 incidents. Standard Support is available at no extra charge. Enterprise Support provides 24x7, 30-min response for P1 incidents and is suitable for mission-critical workloads. [CloudDBA](fractionaldba.md) is our premiere fractional DBA service that gives you direct access to our highly skilled DBA team who can provide technical expertise, guidance, and troubleshooting assistance when needed. See the [Support](https://mariadb.com/services/technical-support-services/) page for full details on our support options.
+All customers with a valid payment profile receive Standard Support which includes 24x5, 2-hours response for P1 incidents. Standard Support is available at no extra charge. Enterprise Support provides 24x7, 30-min response for P1 incidents and is suitable for mission-critical workloads. [Cloud DBA](clouddba.md) is our premier DBA service that gives you direct access to our highly skilled DBA team who can provide technical expertise, guidance, and troubleshooting assistance when needed. See the [Support](https://mariadb.com/services/technical-support-services/) page for full details on our support options.
 
 ### Is 24x7x365 support available for mission-critical applications?
 
@@ -207,7 +207,7 @@ Yes. [Enterprise Support](mariadb-server-versions.md) levels are available for c
 
 MariaDB Cloud offers a full range of professional services, including:
 
-* [CloudDBA](fractionaldba.md) for proactive and reactive support
+* [Cloud DBA](clouddba.md) for proactive and reactive support
 * [Migration](../cloud-data-handling/migration-data-loading/data-loading-migration/) assistance
 * Assistance with your MariaDB Cloud proof-of-concept
 

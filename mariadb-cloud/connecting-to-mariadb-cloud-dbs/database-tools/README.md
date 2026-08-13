@@ -12,7 +12,7 @@ This page highlights various MariaDB-supported SQL clients and tools that integr
 
 ## DBeaver
 
-A comprehensive database management tool that supports MariaDB Cloud and is recommended for CloudDBA users.
+A comprehensive database management tool that supports MariaDB Cloud and is recommended for Cloud DBA users.
 
 {% content-ref url="dbeaver.md" %}
 [dbeaver.md](dbeaver.md)

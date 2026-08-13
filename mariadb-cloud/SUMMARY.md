@@ -98,7 +98,7 @@
 * [Reference](reference/README.md)
   * [FAQs](reference/faqs.md)
   * [MariaDB Cloud Uptime SLA](reference/uptime-sla.md)
-  * [Fractional DBA Service: Remote DBA](reference/fractionaldba.md)
+  * [Cloud DBA Service: Remote DBA](reference/clouddba.md)
   * [MariaDB Server Version Support](reference/mariadb-server-versions.md)
   * [Supported Backup Types](reference/backup-support.md)
   * [MariaDB Cloud Instance Sizes](reference/mariadb-cloud-instance-sizes.md)
