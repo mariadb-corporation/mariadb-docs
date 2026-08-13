@@ -359,16 +359,4 @@ Learn techniques to bypass specific replication events. This guide explains how 
 {% endcolumn %}
 {% endcolumns %}
 
-{% columns %}
-{% column %}
-{% content-ref url="obsolete-replication-information/" %}
-[obsolete-replication-information](obsolete-replication-information/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Access documentation for deprecated or removed replication features. Review this historical context when upgrading legacy systems or migrating to newer MariaDB versions.
-{% endcolumn %}
-{% endcolumns %}
-
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

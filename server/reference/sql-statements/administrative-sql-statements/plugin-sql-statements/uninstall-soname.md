@@ -55,7 +55,7 @@ SHOW WARNINGS;
 * [UNINSTALL PLUGIN](uninstall-plugin.md)
 * [SHOW PLUGINS](../show/show-plugins.md)
 * [INFORMATION\_SCHEMA.PLUGINS Table](../../../system-tables/information-schema/information-schema-tables/plugins-table-information-schema.md)
-* [mysql\_plugin](../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_plugin.md)
+* [mysql\_plugin](../../../../clients-and-utilities/administrative-tools/mariadb-plugin.md)
 * [List of Plugins](../../../plugins/information-on-plugins/list-of-plugins.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

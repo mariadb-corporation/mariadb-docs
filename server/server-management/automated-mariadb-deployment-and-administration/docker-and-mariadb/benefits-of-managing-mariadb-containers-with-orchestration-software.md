@@ -13,7 +13,7 @@ During the discussion, we should keep in mind that Docker Engine, CRI-I, contain
 
 ## Container Ephemeral Nature
 
-Images are an [OCI](https://github.com/opencontainers/image-spec) specified format that can be compiled from Dockerfiles as one of the ways. Containers are the [OCI runtime specified](https://github.com/opencontainers/runtime-spec/blob/main/spec) way of creating a runtime version of an images. Normally, a container is not modified from the moment it is created. In other words, containers are usually designed to be **ephemeral**, meaning that they can be destroyed and replaced with new containers at any time. Provided that there is proper redundancy (for example, there are several web servers running the same services) destroying one container and starting a new one of the same type won't cause any damage.
+Images are an [OCI](https://github.com/opencontainers/image-spec) specified format that can be compiled from Dockerfiles as one of the ways. Containers are the [OCI runtime specified](https://github.com/opencontainers/runtime-spec/blob/main/spec.md) way of creating a runtime version of an images. Normally, a container is not modified from the moment it is created. In other words, containers are usually designed to be **ephemeral**, meaning that they can be destroyed and replaced with new containers at any time. Provided that there is proper redundancy (for example, there are several web servers running the same services) destroying one container and starting a new one of the same type won't cause any damage.
 
 We will discuss a bit later how this applies to MariaDB, and more generally to database servers.
 
@@ -67,7 +67,7 @@ However, choosing to use automation software like Ansible or Puppet has some ben
 With all this in mind, let's see some examples of cases when managing containers with Ansible, Puppet or other automation software is preferable, rather than destroying containers every time we want to make a change:
 
 * We use Ansible or Puppet in production, and we try to keep development environments as similar as possible to production. By using Ansible/Puppet in development too, we can reuse part of the code.
-* We make changes to the containers often, and recreating containers is not as fast as it should be (for example because a MariaDB [dump](../../../clients-and-utilities/legacy-clients-and-utilities/mysqldump.md) needs to be restored).
+* We make changes to the containers often, and recreating containers is not as fast as it should be (for example because a MariaDB [dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) needs to be restored).
 * Creating a container implies some complex logic that does not easily fit a Dockerfile or Docker Compose (including, but not limited to, running multiple processes per container).
 
 That said, every case is different. There are environments where these advantages do not apply, or bring a very small benefit. In those cases, the cost of adding some automation with Ansible, Puppet or similar software is probably not justified.
