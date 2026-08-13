@@ -4,21 +4,21 @@
 
 ## About this Release
 
-* MariaDB Server 10.6.28 was released on 
+* MariaDB Server 10.6.28 was released on 13 Aug 2026
 * [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.28)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity
 
 ## About this Release Series
 
-* This release is part of the MariaDB 10.6 release series
-* MariaDB 10.6 is a long-term maintenance release series, the first stable release was in July 2021, and it will be maintained until July 2026
+* This release is the final release in the MariaDB 10.6 release series
+* MariaDB 10.6 was a long-term maintenance release series, the first stable release was in July 2021, and it was maintained until July 2026
 * [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106)
 
 ## Release History
 
 * The prior release in this series was [MariaDB 10.6.27](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.27), released on 27 May 2026
-* This release ([MariaDB 10.6.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.28)) was released on 
+* This release ([MariaDB 10.6.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.28)) was released on 13 Aug 2026
 
 {% include "../.gitbook/includes/most-recent-10.6.md" %}
 
