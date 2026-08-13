@@ -49,13 +49,13 @@ Choose a MariaDB replication strategy by matching the replication method and for
 
 {% columns %}
 {% column %}
-{% content-ref url="innodb-based-binary-log.md" %}
-[innodb-based-binary-log.md](innodb-based-binary-log.md)
+{% content-ref url="../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md" %}
+[binary-log-formats.md](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-From MariaDB 12.3, the binary log can be stored in InnoDB-managed, page-structured files integrated with InnoDB crash recovery, instead of traditional flat binary log files.
+Compare the three binary logging formats — statement-based, row-based, and mixed — including their trade-offs and how to select one with `binlog_format`.
 {% endcolumn %}
 {% endcolumns %}
 
