@@ -111,7 +111,7 @@ On Linux distributions that use `systemd` you may need to increase the service s
 {% endstep %}
 
 {% step %}
-Run [mysql\_upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade) with the `--skip-write-binlog` option.
+Run mysql\_upgrade with the `--skip-write-binlog` option.
 
 `mysql_upgrade` does two things:
 

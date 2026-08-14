@@ -12,7 +12,7 @@ The complete list of tasks suggested for GSoC 2016 is located in the [**MariaDB 
 
 ### Support for GTID in mysqlbinlog
 
-The [mysqlbinlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-binlog) tool needs to be updated to understand the replication feature called [Global Transaction IDs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) (GTIDs) in MariaDB 10. The current version does not support GTIDs and the MySQL variant does not speak MariaDB 10's GTIDs.
+The [mysqlbinlog]({server}/clients-and-utilities/logging-tools/mariadb-binlog) tool needs to be updated to understand the replication feature called [Global Transaction IDs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) (GTIDs) in MariaDB 10. The current version does not support GTIDs and the MySQL variant does not speak MariaDB 10's GTIDs.
 
 | Details:             | Skills:                                                | Mentor: | Students Interested: |
 | -------------------- | ------------------------------------------------------ | ------- | -------------------- |

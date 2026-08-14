@@ -122,7 +122,7 @@ MariaDB Enterprise ColumnStore requires MariaDB Replication, which must be confi
     ```
 
     The above statement configures the Replica Server to connect to a Primary Server located at `192.0.2.1` using the `repl` user account.
-5.  Start replication using the [START SLAVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/legacy-replication-statements/legacy-commands-start-slave) command:
+5.  Start replication using the START SLAVE command:
 
     ```sql
     START SLAVE;

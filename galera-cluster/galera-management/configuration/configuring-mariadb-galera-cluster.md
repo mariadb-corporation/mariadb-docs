@@ -70,7 +70,7 @@ Galera Cluster needs access to the following ports:
 
 ## Multiple Galera Cluster Instances on One Server
 
-If you want to run multiple Galera Cluster instances on one server, then you can do so by starting each instance with [mysqld\_multi](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqld_multi), or if you are using [systemd](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd), then you can use the relevant [systemd method for interacting with multiple MariaDB instances](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-the-mariadb-server-process).
+If you want to run multiple Galera Cluster instances on one server, then you can do so by starting each instance with mysqld\_multi, or if you are using [systemd](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd), then you can use the relevant [systemd method for interacting with multiple MariaDB instances](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-the-mariadb-server-process).
 
 You need to ensure that each instance is configured with a different [datadir](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#datadir).
 

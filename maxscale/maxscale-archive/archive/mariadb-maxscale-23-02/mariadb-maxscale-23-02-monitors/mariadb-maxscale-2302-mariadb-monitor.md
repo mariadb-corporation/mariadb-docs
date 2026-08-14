@@ -1374,7 +1374,7 @@ for more information.
 The following tools need to be installed on the backends:
 
 1. mariadb-backup. Backs up and restores MariaDB Server contents. Installed e.g.\
-   with `yum install MariaDB-backup`. See [mariadb-backup documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/backing-up-and-restoring-databases/mariadb-backup) for more
+   with `yum install MariaDB-backup`. See [mariadb-backup documentation]({server}/server-usage/backup-and-restore/mariadb-backup) for more
    information.
 2. pigz. Compresses and decompresses the backup stream. Installed e.g. with`yum install pigz`.
 3. socat. Streams data from one machine to another. Is likely already
@@ -1382,7 +1382,7 @@ The following tools need to be installed on the backends:
 
 mariadb-backup needs server credentials to log in and authenticate to the\
 MariaDB Server being copied from. For this, MaxScale uses the monitor user.\
-The monitor user may thus require additional privileges. See [mariadb-backup documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/backing-up-and-restoring-databases/mariadb-backup/mariadb-backup-overview#authentication-and-privileges)\
+The monitor user may thus require additional privileges. See [mariadb-backup documentation]({server}/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview#authentication-and-privileges)\
 for more details.
 
 #### Rebuild server

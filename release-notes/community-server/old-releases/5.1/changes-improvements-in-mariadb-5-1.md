@@ -24,7 +24,7 @@
 | 15 Nov 2009 | **MariaDB 5.1.39**  | Beta              | [Release Notes](5.1.39.md)  | [Changelog](../../changelogs/changelogs-mariadb-51-series/mariadb-5139-changelog.md)  |
 | 29 Oct 2009 | **MariaDB 5.1.38**  | Beta              | [Release Notes](5.1.38.md)  | [Changelog](../../changelogs/changelogs-mariadb-51-series/mariadb-5138-changelog.md)  |
 
-In short, [MariaDB 5.1](changes-improvements-in-mariadb-5-1.md) is a binary drop in replacement of MySQL 5.1, but with performance like MySQL 5.5 (thanks to XtraDB), fewer bugs, and more features. Thanks to the extended and improved [mysql\_upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade) program it's also easier to upgrade from MySQL 5.0 to MariaDB 5.1 than to MySQL 5.1.
+In short, [MariaDB 5.1](changes-improvements-in-mariadb-5-1.md) is a binary drop in replacement of MySQL 5.1, but with performance like MySQL 5.5 (thanks to XtraDB), fewer bugs, and more features. Thanks to the extended and improved mysql\_upgrade program it's also easier to upgrade from MySQL 5.0 to MariaDB 5.1 than to MySQL 5.1.
 
 MariaDB 5.1 is based on MySQL 5.1. We do a merge once a month with MySQL5.1 to ensure all MySQL bug fixes get into MariaDB.
 
@@ -36,7 +36,7 @@ See also:
 
 * [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria): A crash-safe storage engine based on MyISAM.
 * [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb): Drop-in replacement for InnoDB based on the InnoDB plugin.
-* [pbxt](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/obsolete-replication-information/mariadb-52-replication-feature-preview#pbxt-consistent-commit-ordering)): A transactional storage engine with a lot of nice features.
+* pbxt): A transactional storage engine with a lot of nice features.
 * [FederatedX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/federatedx-storage-engine): Drop-in replacement for Federated.
 
 ### Speed improvements
@@ -70,7 +70,7 @@ We have made it easy to upgrade from MySQL 5.0
 to [MariaDB 5.1](changes-improvements-in-mariadb-5-1.md)
 
 * InnoDB and Archive tables are now upgraded properly.
-* More options to [mysql\_upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade) and [mysqlcheck](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqlcheck) to find out what's going
+* More options to mysql\_upgrade and mysqlcheck to find out what's going
   on.
 * Cleaned up wrong warnings from mysqlcheck.
 

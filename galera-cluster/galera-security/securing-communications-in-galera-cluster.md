@@ -55,7 +55,7 @@ See [mariadb-backup SST Method: TLS](../galera-management/state-snapshot-transfe
 
 ### xtrabackup-v2
 
-See [xtrabackup-v2 SST Method](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/obsolete-replication-information/xtradb-option-innodb-release-locks-early): TLS for more information.
+See xtrabackup-v2 SST Method: TLS for more information.
 
 ### mysqldump
 

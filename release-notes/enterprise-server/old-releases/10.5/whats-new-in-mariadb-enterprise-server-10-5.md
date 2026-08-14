@@ -9,9 +9,9 @@ description: >-
 {% hint style="info" %}
 **Technical Compatibility Reference**
 
-This guide provides an overview of new features and improvements across the series. For major version upgrades, which involve significant architectural changes, users should consult the [Compatibility and Breaking Changes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/archived/mariadb-enterprise-server-10.5/compatibility-and-breaking-changes-for-mariadb-enterprise-server-10.5) guide.
+This guide provides an overview of new features and improvements across the series. For major version upgrades, which involve significant architectural changes, users should consult the Compatibility and Breaking Changes guide.
 
-The Compatibility guide includes critical technical insights found through engineering audits and support cases. It covers essential [pre-upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/archived/mariadb-enterprise-server-10.5/upgrade-to-mariadb-enterprise-server-10.5#critical-pre-upgrade-requirements) shutdown requirements and details platform-specific configuration path changes for Debian and Ubuntu.
+The Compatibility guide includes critical technical insights found through engineering audits and support cases. It covers essential pre-upgrade shutdown requirements and details platform-specific configuration path changes for Debian and Ubuntu.
 {% endhint %}
 
 MariaDB Enterprise Server 10.5 introduces the new features listed below.
@@ -317,7 +317,7 @@ Upgrading to version 10.5.8-5 or later will generally modify these privileges au
 * REPLICA MONITOR can execute:
   * [SHOW SLAVE STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-replica-status)
   * [SHOW REPLICA STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-replica-status)
-  * [SHOW ALL SLAVES STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/legacy-replication-statements/legacy-commands-show-slave-status)
+  * SHOW ALL SLAVES STATUS
   * [SHOW ALL REPLICAS STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-replica-status)
   * [SHOW RELAYLOG EVENTS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-relaylog-events)
 * If a user upgrades from ES10.4 or earlier to ES10.5.8-5 or later, any users with REPLICATION CLIENT or REPLICATION SLAVE privileges will automatically be granted the REPLICA MONITOR privilege. This privilege upgrade happens upon server startup, so mysql\_upgrade is not required
@@ -401,7 +401,7 @@ Upgrading to version 10.5.8-5 or later will generally modify these privileges au
 * Allows the user to execute [BINLOG](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/binlog) statements, which are output by mariadb-binlog
 * Allows the user to execute [CHANGE MASTER TO](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) statements
 * Allows the user to execute [START ALL REPLICAS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/start-replica#start-all-replicas) statements
-* Allows the user to execute [START ALL SLAVES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/legacy-replication-statements/legacy-commands-start-slave) statements
+* Allows the user to execute START ALL SLAVES statements
 * Allows the user to execute [START REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/start-replica) statements
 * Allows the user to execute [START SLAVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/start-replica) statements
 * Allows the user to execute [STOP ALL REPLICAS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica) statements
