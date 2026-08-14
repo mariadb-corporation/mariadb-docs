@@ -1,3 +1,9 @@
+---
+description: >-
+  SQLPro Studio is a native database client for macOS and iOS that supports
+  MariaDB, MySQL, and Postgres, with syntax highlighting and autocomplete.
+---
+
 # SQLPro Studio
 
 {% hint style="info" %}

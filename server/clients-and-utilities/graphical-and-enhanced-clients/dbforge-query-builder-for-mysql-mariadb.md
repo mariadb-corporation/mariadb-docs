@@ -1,3 +1,9 @@
+---
+description: >-
+  dbForge Query Builder is a visual tool for creating MariaDB queries by
+  drawing them on a diagram.
+---
+
 # dbForge Query Builder
 
 {% hint style="info" %}

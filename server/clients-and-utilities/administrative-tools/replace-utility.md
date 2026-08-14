@@ -1,3 +1,8 @@
+---
+description: >-
+  The replace utility changes strings in place in files or on standard input.
+---
+
 # replace
 
 ## Description

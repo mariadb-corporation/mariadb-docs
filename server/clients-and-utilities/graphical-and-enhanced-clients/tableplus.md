@@ -1,3 +1,9 @@
+---
+description: >-
+  TablePlus is a database management application for macOS, Windows, iOS, and
+  Linux that supports MariaDB, MySQL, Postgres, and other popular systems.
+---
+
 # TablePlus
 
 {% hint style="info" %}

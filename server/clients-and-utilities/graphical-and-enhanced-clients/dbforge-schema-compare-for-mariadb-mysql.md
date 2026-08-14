@@ -1,3 +1,9 @@
+---
+description: >-
+  dbForge Schema Compare finds the differences between MariaDB database
+  schemas and generates synchronization scripts to update them.
+---
+
 # dbForge Schema Compare
 
 {% hint style="info" %}

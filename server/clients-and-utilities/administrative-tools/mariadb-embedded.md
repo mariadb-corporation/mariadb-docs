@@ -1,3 +1,9 @@
+---
+description: >-
+  mariadb-embedded is a MariaDB client statically linked to libmariadbd, the
+  embedded server, so it instantiates its own server on startup.
+---
+
 # mariadb-embedded
 
 `mariadb-embedded` is a [mariadb client](../mariadb-client/mariadb-command line-client.md), statically linked to `libmariadbd`, the embedded server.

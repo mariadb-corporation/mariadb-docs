@@ -1,4 +1,3 @@
-
 ---
 description: >-
   Where to find MariaDB RPM packages for Fedora and other distributions, plus

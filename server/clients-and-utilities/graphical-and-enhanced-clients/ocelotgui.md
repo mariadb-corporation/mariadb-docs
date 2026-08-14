@@ -1,3 +1,10 @@
+---
+description: >-
+  The Ocelot GUI (ocelotgui) is a database client for MariaDB and MySQL with
+  syntax highlighting, configurable colors and fonts, multiline result rows,
+  and a debugger.
+---
+
 # ocelotgui
 
 {% hint style="info" %}

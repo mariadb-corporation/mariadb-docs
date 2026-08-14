@@ -1,3 +1,10 @@
+---
+description: >-
+  dbForge Studio for MySQL is a GUI toolset for MySQL and MariaDB database
+  development, management, and administration, with code completion and source
+  control.
+---
+
 # dbForge Studio for MySQL/MariaDB
 
 {% hint style="info" %}

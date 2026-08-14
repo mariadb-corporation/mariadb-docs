@@ -1,3 +1,9 @@
+---
+description: >-
+  dbForge Studio for MariaDB is a universal IDE with GUI tools for developing,
+  managing, and administering MariaDB and MySQL databases.
+---
+
 # dbForge Studio
 
 {% hint style="info" %}

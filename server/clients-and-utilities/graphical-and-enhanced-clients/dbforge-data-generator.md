@@ -1,3 +1,9 @@
+---
+description: >-
+  dbForge Data Generator for MariaDB and MySQL creates large volumes of
+  realistic test data using predefined generators with customizable options.
+---
+
 # dbForge Data Generator
 
 {% hint style="info" %}

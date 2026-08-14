@@ -1,3 +1,10 @@
+---
+description: >-
+  mycli is a command-line client for MariaDB, MySQL, and Percona with auto-
+  completion and syntax highlighting. Written in Python, it runs on Linux,
+  macOS, and Windows.
+---
+
 # mycli
 
 {% hint style="info" %}

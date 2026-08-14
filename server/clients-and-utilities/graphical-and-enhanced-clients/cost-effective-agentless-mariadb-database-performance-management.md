@@ -1,3 +1,9 @@
+---
+description: >-
+  SQL Diagnostic Manager offers agentless, real-time performance monitoring
+  for MariaDB servers, and SQLyog is a GUI tool for managing them.
+---
+
 # SQL Diagnostic Manager & SQLyog
 
 {% hint style="info" %}

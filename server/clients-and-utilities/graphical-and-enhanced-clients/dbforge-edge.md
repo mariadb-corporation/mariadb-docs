@@ -1,3 +1,10 @@
+---
+description: >-
+  dbForge Edge is a multi-database IDE for full-stack database specialists,
+  covering MySQL and MariaDB development and management alongside SQL Server,
+  Oracle, and PostgreSQL.
+---
+
 # dbForge Edge
 
 {% hint style="info" %}

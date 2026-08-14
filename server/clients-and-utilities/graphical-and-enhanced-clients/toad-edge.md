@@ -1,3 +1,10 @@
+---
+description: >-
+  Toad Edge is a database management application for performing administration
+  tasks, exploring and editing database structure, and managing database
+  objects.
+---
+
 # TOAD Edge
 
 {% hint style="info" %}
