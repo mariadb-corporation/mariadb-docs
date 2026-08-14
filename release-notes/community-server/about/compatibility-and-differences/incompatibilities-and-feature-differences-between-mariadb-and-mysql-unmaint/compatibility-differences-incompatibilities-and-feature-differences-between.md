@@ -47,10 +47,10 @@ We've added a lot of new features to MariaDB. If a
 patch or feature is useful, safe, and stable — we make
 every effort to include it in MariaDB. The most notable features are:
 
-* [Galera]({galera}) is a standard part of MariaDB Server.
+* [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) is a standard part of MariaDB Server.
 * [System-versioned tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/temporal-tables/system-versioned-tables) (also known as AS OF)
 * [DML-only flashback](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/flashback), allowing instances, databases or tables to be rolled back to an old snapshot.
-* [Oracle compatibility mode]({release-notes}/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle compatibility mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 * [Sequences](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences)
 * [Invisible Columns](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/invisible-columns)
 * [Table Value Constructors](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/table-value-constructors)
@@ -63,7 +63,7 @@ every effort to include it in MariaDB. The most notable features are:
 * New [WITH](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions/with) statement. `WITH` is a common table expression that allows you to refer to a subquery expression many times in a query.
 * [CHECK CONSTRAINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/constraint)
 * [DEFAULT expression](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table#default), including `DEFAULT` for [BLOB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/blob) and [TEXT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/text)
-* Added catchall for [list partitions]({server}/server-usage/partitioning-tables/partitioning-types/list-partitioning-type)
+* Added catchall for [list partitions](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/partitioning-tables/partitioning-types/list-partitioning-type)
 * Oracle-style [EXECUTE IMMEDIATE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/execute-immediate) statement
 * Lots of new [JSON functions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions)
 * [Microsecond Precision in Processlist](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/time_ms-column-in-information_schemaprocesslist)
@@ -77,8 +77,8 @@ every effort to include it in MariaDB. The most notable features are:
 * [Enhancements to INFORMATION SCHEMA.PLUGINS table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/plugins-table-information-schema)
 * [Group commit for the binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log). This makes [replication notably faster!](https://www.facebook.com/note.php?note_id=10150261692455933)
 * The binary log in MariaDB [can be compressed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/compressing-events-to-reduce-size-of-the-binary-log).
-* [Progress reporting]({server}/reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) and [LOAD DATA INFILE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile)
-* Faster [joins and subqueries]({server}/reference/sql-structure/joins-subqueries-set)
+* [Progress reporting](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) and [LOAD DATA INFILE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile)
+* Faster [joins and subqueries](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/joins-subqueries-set)
 * [HandlerSocket](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/nosql/handlersocket) and faster [HANDLER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/nosql/handler) calls
 * [Dynamic Columns](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/nosql/dynamic-columns) support
 * [SHOW EXPLAIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-explain) gives the EXPLAIN plan for a query running in another thread. MySQL introduced the EXPLAIN FOR CONNECTION syntax to do the same thing.
@@ -114,8 +114,8 @@ When upgrading from MySQL 5.7 to [MariaDB 10.3](../../../old-releases/10.3/what-
 * [MariaDB 10.3](../../../old-releases/10.3/what-is-mariadb-103.md) does not support the [MySQL X plugin](https://dev.mysql.com/doc/refman/5.7/en/x-plugin.html).
 * [MariaDB 10.3](../../../old-releases/10.3/what-is-mariadb-103.md) does not support MySQL 5.7's “native” InnoDB partitioning handler.
 * [MariaDB 10.3](../../../old-releases/10.3/what-is-mariadb-103.md) does not support MySQL 5.7's ALTER TABLE...RENAME INDEX statements.
-* MySQL's implementation of [aborting statements that exceed a certain time to execute]({server}/ha-and-performance/optimization-and-tuning/query-optimizations/aborting-statements) can only kill SELECTs, while MariaDB's can kill any queries (excluding stored procedures).
-* [MariaDB 10.3](../../../old-releases/10.3/what-is-mariadb-103.md) does not support MySQL's `SELECT MAX_STATEMENT_TIME = N ...` for MySQL older than 5.7.8 or `SELECT /*+ MAX_EXECUTION_TIME(n) */ ...` for MySQL 5.7.8 and higher - see [Aborting Statements that Exceed a Certain Time to Execute]({server}/ha-and-performance/optimization-and-tuning/query-optimizations/aborting-statements).
+* MySQL's implementation of [aborting statements that exceed a certain time to execute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/aborting-statements) can only kill SELECTs, while MariaDB's can kill any queries (excluding stored procedures).
+* [MariaDB 10.3](../../../old-releases/10.3/what-is-mariadb-103.md) does not support MySQL's `SELECT MAX_STATEMENT_TIME = N ...` for MySQL older than 5.7.8 or `SELECT /*+ MAX_EXECUTION_TIME(n) */ ...` for MySQL 5.7.8 and higher - see [Aborting Statements that Exceed a Certain Time to Execute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/aborting-statements).
 * The MySQL version of [max\_statement\_time](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_statement_time) is defined in milliseconds, not seconds.
 * [MariaDB 10.3](../../../old-releases/10.3/what-is-mariadb-103.md) does not support the MySQL Memcached plugin. However, data stored using memcached can be retrieved because the data is stored as InnoDB tables. MariaDB is able to start successfully with an error message of not being able to find libmemcached.so library.
 * Users created with MySQL's SHA256 password algorithm cannot be used in [MariaDB 10.3](../../../old-releases/10.3/what-is-mariadb-103.md) - [MDEV-9804](https://jira.mariadb.org/browse/MDEV-9804).
