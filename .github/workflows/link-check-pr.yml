@@ -120,6 +120,15 @@ jobs:
           # error" rather than a status code -- because the host mishandles
           # lychee's HTTP/2 negotiation. Both serve 200 to a browser User-Agent
           # over HTTP/1.1 and are valid for readers.
+          #
+          # DOCS-6430 (2026-08-14): partedmagic.com, cited once in
+          # general-resources/distributions-including-mariadb.md. CI reports
+          # "SSL certificate expired", but the certificate is valid -- Let's
+          # Encrypt, notBefore 27 Jun 2026, notAfter 25 Sep 2026, checked with
+          # openssl on the day CI failed. The site also serves 200 to curl. The
+          # disagreement is between the runner's trust store and the chain the
+          # host presents (issuer CN=YR2), so it will not self-heal the way a
+          # genuine expiry would, and there is nothing to fix on our side.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -176,6 +185,7 @@ jobs:
             --exclude www\.freedesktop\.org
             --exclude azuremarketplace\.microsoft\.com
             --exclude console\.cloud\.google\.com
+            --exclude partedmagic\.com
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
