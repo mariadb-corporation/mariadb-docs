@@ -89,7 +89,7 @@ The [Subquery Optimizations Map](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/
 
 ### Join optimizations
 
-* [Block-based Join Algorithms]({server}/ha-and-performance/optimization-and-tuning/query-optimizer/block-based-join-algorithms)
+* [Block-based Join Algorithms](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/block-based-join-algorithms)
 * Block Nested Loop algorithm can be used for outer joins
 * Block Hash Join (classic algorithm) is implemented and can be used for any
   equi-joins

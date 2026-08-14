@@ -134,7 +134,7 @@ This list includes features from the short-term releases [MariaDB 10.7](../old-r
 
 ### Variables
 
-* For a list of all new variables, see [System Variables Added in MariaDB 10.11]({server}/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-10-11).
+* For a list of all new variables, see [System Variables Added in MariaDB 10.11](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-10-11).
 * Rename [slow queries](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/slow-query-log) variables ([MDEV-7567](https://jira.mariadb.org/browse/MDEV-7567))
   * [log\_slow\_min\_examined\_row\_limit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#log_slow_min_examined_row_limit) (min\_examined\_row\_limit)
   * [log\_slow\_query](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#log_slow_query) (slow\_query\_log)

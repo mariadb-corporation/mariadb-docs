@@ -340,7 +340,7 @@ more information on [Using TLS/SSL with MariaDB java connector](using-tls-ssl-wi
 
 #### **useSsl**
 
-* Description: _deprecated, use sslMode instead_ Force [SSL/TLS on connection]({server}/security/encryption/data-in-transit-encryption/secure-connections-overview)(useSSL can be used as alias).
+* Description: _deprecated, use sslMode instead_ Force [SSL/TLS on connection](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview)(useSSL can be used as alias).
 * Data Type: `boolean`
 * Default Value: `false`
 * Introduced: 1.1.0

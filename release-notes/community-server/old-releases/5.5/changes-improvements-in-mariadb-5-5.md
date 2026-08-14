@@ -21,8 +21,8 @@ See also a detailed breakdown of [System variable differences between MariaDB 5.
   comparable in functionality to the closed source feature in MySQL Enterprise.
 * [Non-blocking client API Library](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/non-blocking-client-library) ([MWL#192](https://askmonty.org/worklog/?tid=192))
 * [@@skip\_replication option](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/selectively-skipping-replication-of-binlog-events) ([MWL#234](https://askmonty.org/worklog/?tid=234))
-* [SphinxSE]({server}/server-usage/storage-engines/sphinx-storage-engine) updated to version 2.0.4.
-* [Extended Keys]({server}/ha-and-performance/optimization-and-tuning/query-optimizer/extended-keys) support for XtraDB and InnoDB
+* [SphinxSE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sphinx-storage-engine) updated to version 2.0.4.
+* [Extended Keys](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/extended-keys) support for XtraDB and InnoDB
 * New [INSTALL SONAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname) statement ([MWL#77](https://askmonty.org/worklog/?tid=77))
 * New [LIMIT ROWS EXAMINED](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/limit-rows-examined) optimization ([MDEV-28](https://jira.mariadb.org/browse/MDEV-28))
 * `mysql_real_connect()` Changes

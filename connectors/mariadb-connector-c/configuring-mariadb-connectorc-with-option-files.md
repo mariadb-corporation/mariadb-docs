@@ -27,9 +27,9 @@ mysql_optionsv(mysql, MYSQL_READ_DEFAULT_FILE, NULL);
 
 On Linux, Unix, or Mac OS X, the default option file is called `my.cnf`. MariaDB Connector/C looks for the MariaDB option file in the locations and orders listed below.
 
-The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake]({server}/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide#using-cmake) option was defined when MariaDB Connector/C was built. This option is usually defined as `/etc` when building [RPM packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm), but it is usually not defined when building [DEB packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files) or [binary tarballs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs).
+The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide#using-cmake) option was defined when MariaDB Connector/C was built. This option is usually defined as `/etc` when building [RPM packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm), but it is usually not defined when building [DEB packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files) or [binary tarballs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs).
 
-* When the `DEFAULT_SYSCONFDIR` [cmake]({server}/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide#using-cmake) option was not defined, MariaDB Connector/C looks for the MariaDB option file in the following locations in the following order:
+* When the `DEFAULT_SYSCONFDIR` [cmake](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide#using-cmake) option was not defined, MariaDB Connector/C looks for the MariaDB option file in the following locations in the following order:
 
 | Location             |
 | -------------------- |
@@ -38,7 +38,7 @@ The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake]({server}
 | `$MYSQL_HOME/my.cnf` |
 | `~/.my.cnf`          |
 
-* When the `DEFAULT_SYSCONFDIR` [cmake]({server}/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide#using-cmake) option was defined, MariaDB Connector/C looks for the MariaDB option file in the following locations in the following order:
+* When the `DEFAULT_SYSCONFDIR` [cmake](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide#using-cmake) option was defined, MariaDB Connector/C looks for the MariaDB option file in the following locations in the following order:
 
 | Location                    |
 | --------------------------- |

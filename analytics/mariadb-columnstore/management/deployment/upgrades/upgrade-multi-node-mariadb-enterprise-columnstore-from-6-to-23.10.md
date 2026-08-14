@@ -113,7 +113,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS, Rocky L
 1. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 2.  Configure the YUM package repository.
 
-    Enterprise ColumnStore 23.10 is included with MariaDB Enterprise Server 11.4. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
+    Enterprise ColumnStore 23.10 is included with MariaDB Enterprise Server 11.4. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
 
     To configure YUM package repositories:
 
@@ -138,7 +138,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS, Rocky L
        --mariadb-server-version="11.4"
     ```
 
-    1. Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the [Versions]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) section at the bottom of the [MariaDB Package Repository Setup and Usage]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) page. Substitute `${checksum}` in the example above with the latest checksum.
+    1. Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the [Versions](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) section at the bottom of the [MariaDB Package Repository Setup and Usage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) page. Substitute `${checksum}` in the example above with the latest checksum.
 3.  Update MariaDB Enterprise Server and package dependencies:
 
     ```bash
@@ -179,7 +179,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS, Rocky L
     sudo apt update
     ```
 
-    1. Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the [Versions]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) section at the bottom of the [MariaDB Package Repository Setup and Usage]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) page. Substitute `${checksum}` in the example above with the latest checksum.
+    1. Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the [Versions](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) section at the bottom of the [MariaDB Package Repository Setup and Usage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) page. Substitute `${checksum}` in the example above with the latest checksum.
 3.  Update MariaDB Enterprise Server and package dependencies.
 
     The update command depends on the installed APT version, which can be determined by executing the following command:
@@ -278,7 +278,7 @@ SHOW GLOBAL STATUS LIKE 'Columnstore_version';
 
 This action is performed **on each ColumnStore node**.
 
-After upgrading, it is recommended to confirm the ES version on each ColumnStore node. Connect to the node using [MariaDB Client](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client) and query the [version]({server}/server-management/variables-and-modes/server-system-variables#version) system variable with [SHOW GLOBAL VARIABLES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-variables):
+After upgrading, it is recommended to confirm the ES version on each ColumnStore node. Connect to the node using [MariaDB Client](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client) and query the [version](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#version) system variable with [SHOW GLOBAL VARIABLES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-variables):
 
 ```sql
 SHOW GLOBAL VARIABLES LIKE 'version';

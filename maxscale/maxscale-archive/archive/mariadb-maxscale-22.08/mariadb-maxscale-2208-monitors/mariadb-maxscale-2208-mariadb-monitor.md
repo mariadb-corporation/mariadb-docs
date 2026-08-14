@@ -1207,7 +1207,7 @@ on the target server is lost. This is useful when a slave server has diverged
 from the master server, or when adding a new server to the cluster. The\
 MariaDB Server configuration files are not affected.
 
-MariaDB-Monitor can perform this operation by running [mariadb-backup]({server}/server-usage/backup-and-restore/mariadb-backup) on both the source and
+MariaDB-Monitor can perform this operation by running [mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) on both the source and
 target servers. To do this, MaxScale needs to have ssh-access on the machines.\
 Also, the following tools need to be installed on the source and target
 machines:
@@ -1222,7 +1222,7 @@ The _ssh\_user_ and _ssh\_keyfile_-settings define the SSH credentials MaxScale
 uses to access the servers. MaxScale must be able to run commands with _sudo_ on
 both the source and target servers. mariadb-backup, on the other hand, needs to
 authenticate to the MariaDB Server being copied from. For this, MaxScale uses
-the monitor user. The monitor user may thus require additional privileges. See [mariadb-backup documentation]({server}/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview#authentication-and-privileges)
+the monitor user. The monitor user may thus require additional privileges. See [mariadb-backup documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview#authentication-and-privileges)
 for more details.
 
 When launched, the rebuild operation proceeds as below. If any step fails, the

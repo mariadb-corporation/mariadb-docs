@@ -1429,7 +1429,7 @@ for more information.
 The following tools need to be installed on the backends:
 
 1. mariadb-backup. Backs up and restores MariaDB Server contents. Installed e.g.\
-   with `yum install MariaDB-backup`. See [mariadb-backup documentation]({server}/server-usage/backup-and-restore/mariadb-backup) for more
+   with `yum install MariaDB-backup`. See [mariadb-backup documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) for more
    information.
 2. pigz. Compresses and decompresses the backup stream. Installed e.g. with`yum install pigz`.
 3. socat. Streams data from one machine to another. Is likely already
@@ -1437,7 +1437,7 @@ The following tools need to be installed on the backends:
 
 mariadb-backup needs server credentials to log in and authenticate to the\
 MariaDB Server being copied from. For this, MaxScale uses the monitor user.\
-The monitor user may thus require additional privileges. See [mariadb-backup documentation]({server}/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview#authentication-and-privileges)\
+The monitor user may thus require additional privileges. See [mariadb-backup documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview#authentication-and-privileges)\
 for more details.
 
 #### Rebuild server
@@ -1684,7 +1684,7 @@ starting, MaxScale will attempt to kill the process.
 **`mariadb-backup_use_memory`**
 
 String, default: "1G". Given as is to`mariadb-backup --prepare --use-memory=<mariadb-backup_use_memory>`. If set to empty,
-no `--use-memory` is set and mariadb-backup will use its internal default. See [here]({server}/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#-use-memory) for more
+no `--use-memory` is set and mariadb-backup will use its internal default. See [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#-use-memory) for more
 information.
 
 ```
@@ -1694,7 +1694,7 @@ mariadb-backup_use_memory=2G
 **`mariadb-backup_parallel`**
 
 Numeric, default: 1. Given as is to`mariadb-backup --backup --parallel=<val>`.\
-Defines the number of threads used for parallel data file transfer. See [here]({server}/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#-parallel) for more
+Defines the number of threads used for parallel data file transfer. See [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#-parallel) for more
 information.
 
 ```
