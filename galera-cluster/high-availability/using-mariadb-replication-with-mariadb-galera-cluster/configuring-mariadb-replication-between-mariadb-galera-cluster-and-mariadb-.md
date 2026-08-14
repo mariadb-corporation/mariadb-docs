@@ -7,7 +7,7 @@ description: >-
 
 # Configuring MariaDB Replication between MariaDB Galera Cluster and MariaDB Server
 
-[MariaDB replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication) can be used to replicate between [MariaDB Galera Cluster]({galera}) and MariaDB Server. This article will discuss how to do that.
+[MariaDB replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication) can be used to replicate between [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) and MariaDB Server. This article will discuss how to do that.
 
 ## Configuring the Cluster
 
