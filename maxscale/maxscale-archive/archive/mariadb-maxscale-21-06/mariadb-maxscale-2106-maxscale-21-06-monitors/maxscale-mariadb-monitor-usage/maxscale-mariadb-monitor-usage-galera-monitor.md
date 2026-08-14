@@ -10,7 +10,7 @@ This page contains topics that need to be considered when designing applications
 
 * [How do I allow SST donors to execute queries](maxscale-mariadb-monitor-usage-galera-monitor.md#using-sst-donors-for-queries-with-maxscales-galera-monitor)?
 
-Additional information is available [here](broken-reference).
+Additional information is available here.
 
 ## Understanding MaxScale's Galera Monitor
 

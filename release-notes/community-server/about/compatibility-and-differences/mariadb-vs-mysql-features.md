@@ -68,7 +68,7 @@ In addition to the standard [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO
   The complete list and a comparison with MySQL is [here](optimizer-feature-comparison-matrix.md). A benchmark can be found [here](https://mariadb.com/blog/mariadb-53-optimizer-benchmark).
 * Faster and safer replication:[Group commit for the binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log). This makes many setups that use replication and lots of updates [more than 2x times faster](https://www.facebook.com/note.php?note_id=10150211546215933).
 * [Parallel replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/parallel-replication) — new in 10.0
-* [Improvements](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/qILSC7m2crt5ZIEpNg2G) for InnoDB asynchronous IO subsystem on Windows.
+* Improvements for InnoDB asynchronous IO subsystem on Windows.
 * Indexes for the [MEMORY(HEAP)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/memory-storage-engine) engine are faster. According to a simple test, 24% faster on INSERT for integer index and 60% faster for index on a CHAR(20) column. Fixed in [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) and MySQL 5.7.
 * [Segmented Key Cache](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/segmented-key-cache) for MyISAM. Can speed up MyISAM tables with up to 4x\
   — new in 5.2
@@ -125,7 +125,7 @@ We've added a lot of new features to MariaDB. If a patch or feature is useful, s
 * [Enhancements to INFORMATION SCHEMA.PLUGINS table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/plugins-table-information-schema) — new in 5.2
 * [Group commit for the binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log). This makes [replication notably faster!](https://www.facebook.com/note.php?note_id=10150261692455933) — new in 5.3
 * Added `--rewrite-db` [mysqlbinlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/logging-tools/mariadb-binlog) option to change the used database — new in 5.2
-* [Progress reporting](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) for [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) and [LOAD DATA INFILE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) — new in 5.3
+* [Progress reporting]({server}/reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) and [LOAD DATA INFILE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) — new in 5.3
 * Faster [joins and subqueries](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/set-operations) — new in 5.3
 * [HandlerSocket](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/nosql/handlersocket) and faster [HANDLER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/nosql/handler) calls — new in 5.3
 * [Dynamic Columns](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/nosql/dynamic-columns) support — new in 5.3
@@ -160,7 +160,7 @@ For a full list, please see features for each release
 * MariaDB does not have closed source modules like the ones that can be found in MySQL Enterprise Edition. In fact, all the closed source features in MySQL 5.5 Enterprise Edition are found in the MariaDB open source version.
 * MariaDB client libraries (for C, for Java (JDBC), for Windows (ODBC)) are released under LGPL to allow linking with closed source software. MySQL client libraries are released under GPL that does not allow linking with closed source software.
 * MariaDB includes test cases for all fixed bugs. Oracle doesn't provide test cases for new bugs fixed in MySQL 5.5.
-* All [bugs](https://jira.mariadb.org) and [development plans](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/9in60xXPZkOPfFvGGtrf) are public.
+* All [bugs](https://jira.mariadb.org) and development plans are public.
 * MariaDB is developed by the community in true open source spirit.
 
 #### Related Links

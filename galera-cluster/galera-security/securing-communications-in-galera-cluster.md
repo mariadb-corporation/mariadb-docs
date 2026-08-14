@@ -51,7 +51,7 @@ The method that you would use to enable TLS for [State Snapshot Transfers (SSTs)
 
 ### mariadb-backup
 
-See [mariadb-backup SST Method: TLS](../galera-management/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method.md#tls) for more information.
+See [mariadb-backup SST Method: TLS](../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method.md#tls) for more information.
 
 ### xtrabackup-v2
 
