@@ -205,6 +205,8 @@ DELIMITER ;
 
 `CREATE OR REPLACE`:
 
+Re-creating an existing procedure without `OR REPLACE` fails, while `CREATE OR REPLACE` replaces the existing definition:
+
 ```sql
 DELIMITER //
 
@@ -217,10 +219,6 @@ CREATE PROCEDURE simpleproc2 (
 //
 ERROR 1304 (42000): PROCEDURE simpleproc2 already exists
 
-DELIMITER ;
-
-DELIMITER //
-
 CREATE OR REPLACE PROCEDURE simpleproc2 (
   OUT param1 CHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_bin'
 )
@@ -228,10 +226,9 @@ CREATE OR REPLACE PROCEDURE simpleproc2 (
   SELECT CONCAT('a'),f1 INTO param1 FROM t;
  END;
 //
-ERROR 1304 (42000): PROCEDURE simpleproc2 already exists
+Query OK, 0 rows affected (0.03 sec)
 
 DELIMITER ;
-Query OK, 0 rows affected (0.03 sec)
 ```
 
 ## See Also
