@@ -189,7 +189,7 @@ DELIMITER ;
 
 In `sql_mode=ORACLE`, the `TYPE ... IS RECORD` statement allows you to define a user-defined data structure consisting of one or more fields.
 
-Before MariaDB 13.0.1, TYPE-defined `RECORD` types could only be used in local program blocks, and not in routine parameters or function `RETURN` clauses.
+Before MariaDB 13.0.1, TYPE-defined `RECORD` types could only be used in local program blocks. Starting from MariaDB 13.0.1, `RECORD` can additionally be used in package routine parameters and package function `RETURN` clauses.
 
 ### **Syntax**
 
@@ -204,18 +204,20 @@ TYPE record_type_name IS RECORD (
 * Each `field_name` is a named attribute of the record.
 * Each `data_type` is a valid MariaDB data type, or an anchored type using `%TYPE` (for example, `t1.a%TYPE`). Record fields support only scalar types, so `%ROWTYPE` cannot be used here.
 
-### RECORD Types in Routine Parameters and Function RETURN
+### RECORD Types in Package Routine Parameters and Function RETURN
 
 Starting with MariaDB 13.0.1, custom types defined with `DECLARE TYPE` (including `RECORD` and `REF CURSOR`) can be used as:
 
-* Parameters of stored procedures and functions
-* `RETURN` types of stored functions
+* Parameters of procedures and functions declared in a package
+* `RETURN` types of functions declared in a package
+
+This applies to package routines only. Standalone procedures and functions cannot use a TYPE-defined type as a parameter or as a `RETURN` type.
 
 {% hint style="warning" %}
 Two limitations apply:
 
 * Associative array types (`TYPE ... IS TABLE OF ... INDEX BY`) cannot be used as routine parameters or as a function `RETURN` type. Attempting it fails with `ERROR 4079 (HY000): Illegal parameter data type associative_array for operation '<routine parameter>'`.
-* A type declared in a package body is visible only inside that package. A standalone routine cannot reference it, and fails with `ERROR 1221 (HY000): Incorrect usage of parameter_declaration and package_name.type_name`.
+* A type declared in a package body is visible only inside that package. A standalone routine that references it fails with `ERROR 1221 (HY000): Incorrect usage of parameter_declaration and package_name.type_name`.
 {% endhint %}
 
 Before that release, such use was prohibited by the MariaDB grammar and resulted in:
@@ -287,13 +289,9 @@ This feature requires Oracle SQL mode at package creation time. The SQL mode is 
 
 ## REF CURSOR Types
 
-MariaDB supports Oracle-compatible [`REF CURSOR`](#overview) type declarations as a part of the `DECLARE TYPE` statement. The examples in this section declare `REF CURSOR` types inside a `CREATE PACKAGE BODY`.
+MariaDB supports Oracle-compatible [`REF CURSOR`](#overview) type declarations as part of the `DECLARE TYPE` statement. Like any other `DECLARE TYPE` declaration, a `REF CURSOR` type can be declared in a `DECLARE ... BEGIN ... END` block, in a stored routine, or in a package body. The complete examples below use anonymous blocks and standalone procedures.
 
 `REF CURSOR` types must be specified with a `TYPE` declaration before any variables of that type can be declared. It can be defined as weak or strong based on whether a return type is specified.
-
-{% hint style="info" %}
-Support for `TYPE` declarations in the package specification (`CREATE PACKAGE`), in addition to the package body (`CREATE PACKAGE BODY`), is planned for MariaDB 13.1 and may change before release. The two are expected to behave slightly differently; this section describes declarations in the package body.
-{% endhint %}
 
 ### Syntax
 
