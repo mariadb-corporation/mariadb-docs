@@ -24,7 +24,7 @@ CREATE PROCEDURE Reset_animal_count()
 DELIMITER ;
 ```
 
-First, the delimiter is changed, since the function definition will contain the regular semicolon delimiter. The procedure is named `Reset_animal_count`. `MODIFIES SQL DATA` indicates that the procedure will perform a write action of sorts, and modify data. It's for advisory purposes only. Finally, there's the actual SQL statement - an UPDATE.
+First, the delimiter is changed, since the procedure definition will contain the regular semicolon delimiter. The procedure is named `Reset_animal_count`. `MODIFIES SQL DATA` indicates that the procedure will perform a write action of sorts, and modify data. It's for advisory purposes only. Finally, there's the actual SQL statement - an `UPDATE`.
 
 ```sql
 SELECT * FROM animal_count;
@@ -69,13 +69,13 @@ CREATE PROCEDURE
 
 See [CREATE PROCEDURE](create-procedure.md) for full syntax details.
 
-## Why use Stored Procedures?
+## Why Use Stored Procedures?
 
 Security is a key reason. Banks commonly use stored procedures so that applications and users don't have direct access to the tables. Stored procedures are also useful in an environment where multiple languages and clients are all used to perform the same operations.
 
-## Stored Procedure listings and definitions
+## Stored Procedure Listings and Definitions
 
-To find which stored functions are running on the server, use [SHOW PROCEDURE STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-procedure-status.md).
+To find which stored procedures are defined on the server, use [SHOW PROCEDURE STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-procedure-status.md).
 
 ```sql
 SHOW PROCEDURE STATUS\G
@@ -124,11 +124,11 @@ collation_connection: utf8_general_ci
 
 To drop a stored procedure, use the [DROP PROCEDURE](drop-procedure.md) statement.
 
-```
+```sql
 DROP PROCEDURE Reset_animal_count;
 ```
 
-To change the characteristics of a stored procedure, use [ALTER PROCEDURE](alter-procedure.md). However, you cannot change the parameters or body of a stored procedure using this statement; to make such changes, you must drop and re-create the procedure using [CREATE OR REPLACE PROCEDURE](create-procedure.md#or-replace) (which retains existing privileges), or DROP PROCEDURE followed CREATE PROCEDURE .
+To change the characteristics of a stored procedure, use [ALTER PROCEDURE](alter-procedure.md). However, you cannot change the parameters or body of a stored procedure using this statement; to make such changes, you must drop and re-create the procedure using [CREATE OR REPLACE PROCEDURE](create-procedure.md#or-replace) (which retains existing privileges), or [DROP PROCEDURE](drop-procedure.md) followed by [CREATE PROCEDURE](create-procedure.md).
 
 ## Permissions in Stored Procedures
 
