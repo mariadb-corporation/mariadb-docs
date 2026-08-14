@@ -20,10 +20,10 @@ By default, the DDL log is at `ddl-recovery.log` in the [datadir](https://app.gi
 
 As of this release, the following storage engines fully support atomic DDL:
 
-* [Aria]({server}/server-usage/storage-engines/aria)
-* [InnoDB]({server}/server-usage/storage-engines/innodb)
-* [MyISAM]({server}/server-usage/storage-engines/myisam-storage-engine)
-* [MyRocks]({server}/server-usage/storage-engines/myrocks)
+* [Aria](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria)
+* [InnoDB](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb)
+* [MyISAM](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine)
+* [MyRocks](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myrocks)
 
 ## SKIP LOCKED
 

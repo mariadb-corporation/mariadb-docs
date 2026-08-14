@@ -14,7 +14,7 @@ The complete list of tasks suggested for GSoC 2017 is located in the [**MariaDB 
 
 ### Support for GTID in mysqlbinlog
 
-The [mysqlbinlog]({server}/clients-and-utilities/logging-tools/mariadb-binlog) tool needs to be updated to understand the replication feature called [Global Transaction IDs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) (GTIDs) in MariaDB 10. The current version does not support GTIDs and the MySQL variant does not speak MariaDB 10's GTIDs.
+The [mysqlbinlog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/logging-tools/mariadb-binlog) tool needs to be updated to understand the replication feature called [Global Transaction IDs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) (GTIDs) in MariaDB 10. The current version does not support GTIDs and the MySQL variant does not speak MariaDB 10's GTIDs.
 
 | Details:             | Skills:                                                | Mentor: | Students Interested: |
 | -------------------- | ------------------------------------------------------ | ------- | -------------------- |
@@ -47,7 +47,7 @@ The purpose of this task is to create an easy-to-use facility for setting up a n
 
 ### mysqltest improvements
 
-`mysqltest` is a client utility that runs tests in the [mysql-test]({server}/clients-and-utilities/testing-tools/mariadb-test) framework. It sends sql statements to the server, compares the results with the expected results, and uses a special small [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) for loops, assignments, and so on. It's pretty old and very ad hoc with many strange limitations. It badly needs a proper parser and a consistent logical grammar.
+`mysqltest` is a client utility that runs tests in the [mysql-test](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/testing-tools/mariadb-test) framework. It sends sql statements to the server, compares the results with the expected results, and uses a special small [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) for loops, assignments, and so on. It's pretty old and very ad hoc with many strange limitations. It badly needs a proper parser and a consistent logical grammar.
 
 | Details:             | Skills:                                                  | Mentor: | Students Interested: |
 | -------------------- | -------------------------------------------------------- | ------- | -------------------- |

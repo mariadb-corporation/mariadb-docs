@@ -38,7 +38,7 @@ By default, when a node is chosen as a donor for a State Snapshot Transfer (SST)
 
 ### Non-Blocking SST Methods
 
-A cluster's SST method is defined by the [wsrep\_sst\_method](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_sst_method) system variable. When this system variable is set to mariadb-backup, the cluster uses [MariaDB Backup]({server}/server-usage/backup-and-restore/mariadb-backup) to perform the SST. [MariaDB Backup]({server}/server-usage/backup-and-restore/mariadb-backup) is a non-blocking backup method, so Galera Cluster allows the node to execute queries while acting as the SST donor.
+A cluster's SST method is defined by the [wsrep\_sst\_method](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_sst_method) system variable. When this system variable is set to mariadb-backup, the cluster uses [MariaDB Backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) to perform the SST. [MariaDB Backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) is a non-blocking backup method, so Galera Cluster allows the node to execute queries while acting as the SST donor.
 
 ### Configuring Availability of SST Donors
 

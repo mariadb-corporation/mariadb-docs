@@ -108,7 +108,7 @@ The following table lists each version of the [Galera](https://app.gitbook.com/o
 
 #### New Features in Galera 4
 
-The [mysql]({server}/reference/system-tables/the-mysql-database-tables) database contains new tables related to Galera replication:
+The [mysql](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables) database contains new tables related to Galera replication:
 
 * `wsrep_cluster`
 * `wsrep_cluster_members`

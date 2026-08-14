@@ -15,7 +15,7 @@ sudo chown $USER: ~/mysql-bin.000687
 
 **Step 2: Create an extract header**
 
-Binary logs have a header portion. Without the header [mariadb-binlog]({server}/clients-and-utilities/logging-tools/mariadb-binlog) won't be able to read it. The header also contains valuable session information
+Binary logs have a header portion. Without the header [mariadb-binlog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/logging-tools/mariadb-binlog) won't be able to read it. The header also contains valuable session information
 
 We look at the binary log to see how big the header and session information is:
 

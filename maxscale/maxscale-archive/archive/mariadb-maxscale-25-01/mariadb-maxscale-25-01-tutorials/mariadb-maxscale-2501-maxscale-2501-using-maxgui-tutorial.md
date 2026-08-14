@@ -312,7 +312,7 @@ To see the command palette, press F1 while the cursor is active on the editor.
 The editor also comes with various options to assist your querying tasks. To see
 available options, right-click on the editor to show the context menu.
 
-The editor is powered by [Monaco editor]({server}/clients-and-utilities/mariadb-client), therefore, its features are similar to those of\
+The editor is powered by [Monaco editor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client), therefore, its features are similar to those of\
 Visual Studio Code.
 
 **How to write compound statements**

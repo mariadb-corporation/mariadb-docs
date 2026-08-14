@@ -98,9 +98,9 @@ A number of options need to be set in order for Galera Cluster to work when usin
 
 ## Bootstrapping a New Cluster
 
-To first node of a new cluster needs to be bootstrapped by starting [mariadbd]({server}/server-management/starting-and-stopping-mariadb/mariadbd-options) on that node with the option [`--wsrep-new-cluster`]({server}/server-management/starting-and-stopping-mariadb/mariadbd-options#-wsrep-new-cluster) option. This option tells the node that there is no existing cluster to connect to. The node will create a new UUID to identify the new cluster.
+To first node of a new cluster needs to be bootstrapped by starting [mariadbd](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) on that node with the option [`--wsrep-new-cluster`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#-wsrep-new-cluster) option. This option tells the node that there is no existing cluster to connect to. The node will create a new UUID to identify the new cluster.
 
-Do not use the [--wsrep-new-cluster]({server}/server-management/starting-and-stopping-mariadb/mariadbd-options#-wsrep-new-cluster) option when connecting to an existing cluster. Restarting the node with this option set will cause the node to create new UUID to identify the cluster again, and the node won't reconnect to the old cluster. See the next section about how to reconnect to an existing cluster.
+Do not use the [--wsrep-new-cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#-wsrep-new-cluster) option when connecting to an existing cluster. Restarting the node with this option set will cause the node to create new UUID to identify the cluster again, and the node won't reconnect to the old cluster. See the next section about how to reconnect to an existing cluster.
 
 For example, if you are manually starting `mariadbd` on a node, you can bootstrap it by executing the following:
 
@@ -112,7 +112,7 @@ However, keep in mind that most users are not going to be starting `mariadbd` ma
 
 ### Systemd and Bootstrapping
 
-On operating systems that use [systemd]({server}/server-management/starting-and-stopping-mariadb/systemd), a node can be bootstrapped in the following way:
+On operating systems that use [systemd](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd), a node can be bootstrapped in the following way:
 
 ```bash
 $ galera_new_cluster
@@ -120,7 +120,7 @@ $ galera_new_cluster
 
 This wrapper uses `systemd` to run `mariadbd` with the `--wsrep-new-cluster` option.
 
-If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes]({server}/server-management/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes),  you can bootstrap a specific instance by specifying the instance name as a suffix:
+If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes),  you can bootstrap a specific instance by specifying the instance name as a suffix:
 
 ```bash
 $ galera_new_cluster mariadb@node1
@@ -180,7 +180,7 @@ On operating systems that use `systemd`, the position of a node can be recovered
 $ galera_recovery
 ```
 
-If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes]({server}/server-management/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes), you can recover the position of a specific instance by specifying the instance name as a suffix:
+If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes), you can recover the position of a specific instance by specifying the instance name as a suffix:
 
 ```bash
 $ galera_recovery mariadb@node1
