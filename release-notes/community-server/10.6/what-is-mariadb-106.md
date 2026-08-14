@@ -32,7 +32,7 @@ See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/
 
 #### Oracle Compatibility
 
-* Anonymous [subqueries in a FROM clause](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/subqueries/subqueries-in-a-from-clause-derived-tables) (no AS clause) are permitted in [ORACLE mode](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/mariadb-community-server-release-notes/mariadb-10-6-series/broken-reference/README.md) ([MDEV-19162](https://jira.mariadb.org/browse/MDEV-19162))
+* Anonymous [subqueries in a FROM clause](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/subqueries/subqueries-in-a-from-clause-derived-tables) (no AS clause) are permitted in [ORACLE mode]({release-notes}/community-server/about/compatibility-and-differences/sql_modeoracle) ([MDEV-19162](https://jira.mariadb.org/browse/MDEV-19162))
 * [ADD\_MONTHS()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/add_months) added ([MDEV-20025](https://jira.mariadb.org/browse/MDEV-20025))
 * [TO\_CHAR()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/to_char) added ([MDEV-20017](https://jira.mariadb.org/browse/MDEV-20017))
 * [SYS\_GUID()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/miscellaneous-functions/sys_guid) added ([MDEV-24285](https://jira.mariadb.org/browse/MDEV-24285))
@@ -52,7 +52,7 @@ See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/
 * Increase [master\_host](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to#master_host) limit to 255, user to 128 ([MDEV-24312](https://jira.mariadb.org/browse/MDEV-24312))
 * The [wsrep\_mode](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_mode) system variable, for turning on WSREP features which are not part of default behavior (including the experimental Aria replication) ([MDEV-20008](https://jira.mariadb.org/browse/MDEV-20008), [MDEV-20715](https://jira.mariadb.org/browse/MDEV-20715), [MDEV-24946](https://jira.mariadb.org/browse/MDEV-24946))
 * The delay between binary log purges can now be specified with much greater precision. The system variable [binlog\_expire\_logs\_seconds](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_expire_logs_seconds) is introduced as a form of alias for [expire\_logs\_days](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#expire_logs_days), which now accepts a precision of 1/1000000 days ([MDEV-19371](https://jira.mariadb.org/browse/MDEV-19371))
-* Allow transition from unencrypted to TLS [Galera](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) cluster communication without cluster downtime ([MDEV-22131](https://jira.mariadb.org/browse/MDEV-22131))
+* Allow transition from unencrypted to TLS [Galera]({galera}) cluster communication without cluster downtime ([MDEV-22131](https://jira.mariadb.org/browse/MDEV-22131))
 
 ### Sys Schema
 
