@@ -6,6 +6,10 @@ description: >-
 
 # Machine Learning with MindsDB
 
+{% hint style="info" %}
+MindsDB is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 ## Overview
 
 [MindsDB](https://docs.mindsdb.com/) is a third-party application that interfaces with MariaDB Server to provide Machine Learning capabilities through SQL. The interface is done via the [Connect Storage Engine](connect/).

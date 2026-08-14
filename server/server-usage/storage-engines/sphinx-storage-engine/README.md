@@ -7,6 +7,10 @@ description: >-
 
 # SphinxSE
 
+{% hint style="info" %}
+SphinxSE is a community contribution to MariaDB Server, developed and maintained by the Sphinx developers. The Sphinx search daemon that it connects to is separate software, and isn't part of MariaDB Server.
+{% endhint %}
+
 {% columns %}
 {% column %}
 {% content-ref url="about-sphinxse.md" %}

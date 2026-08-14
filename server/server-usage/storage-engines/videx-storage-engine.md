@@ -7,7 +7,7 @@ description: >-
 # VIDEX Storage Engine
 
 {% hint style="info" %}
-This storage engine is available from MariaDB 12.3.
+VIDEX is a community contribution to MariaDB Server, developed and maintained by ByteDance. This storage engine is available from MariaDB 12.3.
 {% endhint %}
 
 This document explains how to install and use **VIDEX** with MariaDB, including:

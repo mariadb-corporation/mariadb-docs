@@ -8,6 +8,10 @@ description: >-
 
 A high-level overview of the main reasons for choosing a particular storage engine:
 
+{% hint style="info" %}
+CONNECT, Mroonga, MyRocks, OQGRAPH, SphinxSE, and VIDEX are community contributions, developed and maintained by their respective contributors. Each of those engines' pages says who maintains it.
+{% endhint %}
+
 ## Topic List
 
 ### General Purpose
