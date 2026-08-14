@@ -48,7 +48,7 @@ ftp> quit
 
 ## See Also
 
-* [Compiling MariaDB from Source](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source)
+* [Compiling MariaDB from Source]({server}/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source)
 * [Compiling MariaDB for debugging](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-fault-finding/compiling-mariadb-for-debugging)
 * [How to produce a stack trace from a core file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-fault-finding/how-to-produce-a-full-stack-trace-for-mariadbd)
 

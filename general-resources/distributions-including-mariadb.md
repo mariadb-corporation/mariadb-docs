@@ -74,7 +74,7 @@ The term "default" in the list below refers to the distribution's default relati
 
 ## macOS
 
-* [Homebrew](https://brew.sh/) — If you have Homebrew installed, you can install MariaDB Server by executing `brew install mariadb`. Find out more at [Installing MariaDB Server on macOS Using Homebrew](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/binary-packages/installing-mariadb-on-macos-using-homebrew).
+* [Homebrew](https://brew.sh/) — If you have Homebrew installed, you can install MariaDB Server by executing `brew install mariadb`. Find out more at [Installing MariaDB Server on macOS Using Homebrew]({server}/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-on-macos-using-homebrew).
 * [MacPorts](https://www.macports.org/) —This provides [mariadb and mariadb-server](https://trac.macports.org/browser/trunk/dports/databases/mariadb/Portfile).
 
 CC BY-SA / Gnu FDL

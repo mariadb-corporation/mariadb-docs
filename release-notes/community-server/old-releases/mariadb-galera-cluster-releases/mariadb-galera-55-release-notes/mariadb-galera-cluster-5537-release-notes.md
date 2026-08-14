@@ -28,7 +28,7 @@ information on each push, see the [MariaDB Galera Cluster 5.5.37 Changelog](../m
 * This release includes a new method for snapshot state
   transfer, `wsrep_sst_xtrabackup-v2`. This method of state snapshot transfer
   can be configured using the `--wsrep_sst_method=xtrabackup-v2`
-  option. Its use requires [Percona Xtrabackup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview) (>= 2.1.6) and other software packages
+  option. Its use requires Percona Xtrabackup (>= 2.1.6) and other software packages
   like socat, nc, and tar.
 
 See the [MariaDB 5.5.37 Release Notes](../../5.5/5.5.37.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5537-changelog.md) for more information on the changes in\

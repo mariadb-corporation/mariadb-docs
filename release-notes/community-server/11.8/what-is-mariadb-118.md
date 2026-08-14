@@ -170,7 +170,7 @@ This list includes all features since the previous long-term release, [MariaDB 1
 ### Variables
 
 * Deprecate and ignore the [alter\_algorithm](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#alter_algorithm) system variable ([MDEV-33655](https://jira.mariadb.org/browse/MDEV-33655), [MariaDB 11.5](../old-releases/11.5/what-is-mariadb-115.md))
-* For a list of all new variables, see [System Variables Added in MariaDB 11.8](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-mariadb-11-8)
+* For a list of all new variables, see [System Variables Added in MariaDB 11.8]({server}/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-11-8)
 
 ## Removed Features
 

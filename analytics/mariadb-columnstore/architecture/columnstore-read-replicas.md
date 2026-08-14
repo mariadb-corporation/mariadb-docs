@@ -86,7 +86,7 @@ chmod +x mariadb_es_repo_setup;
 ./mariadb_es_repo_setup --token="xxxxx" --apply --mariadb-server-version="11.4"
 ```
 
-See [this page](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage) for additional details about the ES repo setup.
+See [this page]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) for additional details about the ES repo setup.
 {% endstep %}
 
 {% step %}

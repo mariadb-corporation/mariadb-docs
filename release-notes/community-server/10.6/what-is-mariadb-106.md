@@ -68,8 +68,8 @@ See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/
 
 ### Storage Engines
 
-* [TokuDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/legacy-storage-engines/tokudb) has been removed ([MDEV-19780](https://jira.mariadb.org/browse/MDEV-19780))
-* [CassandraSE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/legacy-storage-engines/cassandra) has been removed ([MDEV-23024](https://jira.mariadb.org/browse/MDEV-23024))
+* TokuDB has been removed ([MDEV-19780](https://jira.mariadb.org/browse/MDEV-19780))
+* CassandraSE has been removed ([MDEV-23024](https://jira.mariadb.org/browse/MDEV-23024))
 
 ### Character Sets
 
@@ -86,7 +86,7 @@ See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/
 
 ### Variables
 
-* For a list of all new variables, see [System Variables Added in MariaDB 10.6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-mariadb-10-6) and [Status Variables Added in MariaDB 10.6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/status-variables-added-in-mariadb-106).
+* For a list of all new variables, see [System Variables Added in MariaDB 10.6]({server}/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-10-6) and [Status Variables Added in MariaDB 10.6]({server}/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/status-variables-added-in-mariadb-106).
 * [max\_recursive\_iterations](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_recursive_iterations) has been reduced to 1000 ([MDEV-17239](https://jira.mariadb.org/browse/MDEV-17239))
 
 #### InnoDB Variables

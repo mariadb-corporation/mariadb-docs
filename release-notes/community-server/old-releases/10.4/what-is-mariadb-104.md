@@ -16,7 +16,7 @@ See the [Differences in MariaDB Enterprise Server 10.4](../../../enterprise-serv
 * The [unix\_socket authentication plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-unix-socket) is now default on Unix-like systems, which is a major change to authentication in MariaDB ([MDEV-12484](https://jira.mariadb.org/browse/MDEV-12484))
 * [User password expiry](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/user-account-management/user-password-expiry) ([MDEV-7597](https://jira.mariadb.org/browse/MDEV-7597))
 * [Account Locking](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/user-account-management/account-locking) ([MDEV-13095](https://jira.mariadb.org/browse/MDEV-13095))
-* The obsolete [mysql.host table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables/obsolete-mysql-database-tables/mysql-host-table) is no longer created ([MDEV-15851](https://jira.mariadb.org/browse/MDEV-15851))
+* The obsolete mysql.host table is no longer created ([MDEV-15851](https://jira.mariadb.org/browse/MDEV-15851))
 * Much faster privilege checks for MariaDB setups with many user accounts or many database grants ([MDEV-15649](https://jira.mariadb.org/browse/MDEV-15649))
 * [mysql.user](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables/mysql-user-table) table is retired. User accounts and global privileges are now stored in the [mysql.global\_priv](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables/mysql-global_priv-table) table ([MDEV-17658](https://jira.mariadb.org/browse/MDEV-17658))
 * [SET PASSWORD](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/set-password) support for [ed25519](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-ed25519) and other [authentication plugins](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins) ([MDEV-12321](https://jira.mariadb.org/browse/MDEV-12321))
@@ -70,7 +70,7 @@ For a list of all new variables, see [System Variables Added in MariaDB 10.4](ht
 ### Replication
 
 * Speed up rotation of binary logs, `SHOW BINARY LOGS` etc with optimizing binary log index file locking ([MDEV-19116](https://jira.mariadb.org/browse/MDEV-19116), [MDEV-19117](https://jira.mariadb.org/browse/MDEV-19117)).
-* A new server command, [SHUTDOWN WAIT FOR ALL SLAVES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/shutdown), and a new [mysqladmin shutdown --wait-for-all-slaves](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqladmin#options) option, are added to instruct the server to wait for the last binlog event to be sent to all connected slaves before shutting down. ([MDEV-18450](https://jira.mariadb.org/browse/MDEV-18450)).
+* A new server command, [SHUTDOWN WAIT FOR ALL SLAVES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/shutdown), and a new mysqladmin shutdown --wait-for-all-slaves option, are added to instruct the server to wait for the last binlog event to be sent to all connected slaves before shutting down. ([MDEV-18450](https://jira.mariadb.org/browse/MDEV-18450)).
 
 ### Backup
 
@@ -108,7 +108,7 @@ The following table lists each version of the [Galera](https://app.gitbook.com/o
 
 #### New Features in Galera 4
 
-The [mysql](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/system-tables/the-mysql-database-tables/) database contains new tables related to Galera replication:
+The [mysql]({server}/reference/system-tables/the-mysql-database-tables) database contains new tables related to Galera replication:
 
 * `wsrep_cluster`
 * `wsrep_cluster_members`
