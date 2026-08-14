@@ -22,7 +22,7 @@ The MariaDB documentation team will review your edits, smooth out any rough edge
 
 Once you're set up to start editing, you can also use the `Edit on GitHub` button to open the page you're looking it in GitHub. The button can be accessed from the pulldown menu near the top of each page.
 
-To make larger changes in one pull request, fork the repository, create an update branch, make the changes, and open a pull request to merge the branch upstream to the documentation team. See these [step-by-step instructions](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request-from-a-fork) to learn how to do that.
+To make larger changes in one pull request, fork the repository, create an update branch, make the changes, and open a pull request to merge the branch upstream to the documentation team. See these [step-by-step instructions](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request-from-a-fork) to learn how to do that, and [this page for more detailed information on forking a repository](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo).
 
 Before you start making larger contributions, make yourself familiar with [the basics of technical writing](https://developers.google.com/style/highlights) (a 1-minute read). This is about using proper tone and content, language and grammar, as well as formatting, punctuation, and organization.
 
