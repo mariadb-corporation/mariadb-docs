@@ -1,3 +1,9 @@
+---
+description: >-
+  Connect LibreOffice Base to MariaDB over MariaDB Connector/ODBC to create
+  and manage databases from an open-source RDBMS frontend.
+---
+
 # LibreOffice Base
 
 {% hint style="info" %}

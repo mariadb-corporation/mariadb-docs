@@ -1,3 +1,9 @@
+---
+description: >-
+  dbForge Fusion was an add-in that brought MariaDB database development and
+  administration into Visual Studio. It is now discontinued.
+---
+
 # dbForge Fusion
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Querious is a database administration tool for macOS, available for purchase
+  from Araelium.
+---
+
 # Querious
 
 {% hint style="info" %}

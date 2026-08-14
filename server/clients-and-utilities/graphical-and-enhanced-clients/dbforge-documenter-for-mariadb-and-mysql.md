@@ -1,3 +1,9 @@
+---
+description: >-
+  dbForge Documenter automatically generates MariaDB database documentation in
+  HTML, PDF, and Markdown, with a range of options for adjusting the output.
+---
+
 # dbForge Documenter
 
 {% hint style="info" %}

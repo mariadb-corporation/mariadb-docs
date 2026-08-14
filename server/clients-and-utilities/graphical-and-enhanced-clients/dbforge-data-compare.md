@@ -1,3 +1,9 @@
+---
+description: >-
+  dbForge Data Compare compares and synchronizes data in MariaDB, MySQL, and
+  Percona databases, generating and applying synchronization scripts.
+---
+
 # dbForge Data Compare
 
 {% hint style="info" %}

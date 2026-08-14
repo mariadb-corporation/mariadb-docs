@@ -1,3 +1,9 @@
+---
+description: >-
+  Explore tools for analyzing how MariaDB executes queries, including the
+  EXPLAIN Analyzer and its API.
+---
+
 # Analyzing Tools
 
 {% columns %}

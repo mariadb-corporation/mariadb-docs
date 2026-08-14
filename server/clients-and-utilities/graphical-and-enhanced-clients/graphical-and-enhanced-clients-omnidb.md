@@ -1,3 +1,9 @@
+---
+description: >-
+  OmniDB is a lightweight, browser-based tool for managing MariaDB databases,
+  with all of its functions on a single responsive page.
+---
+
 # OmniDB
 
 {% hint style="info" %}

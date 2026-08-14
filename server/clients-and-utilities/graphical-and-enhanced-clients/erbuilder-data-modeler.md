@@ -1,3 +1,10 @@
+---
+description: >-
+  ERBuilder Data Modeler visualizes, designs, and models MariaDB databases
+  with entity relationship diagrams, and generates SQL and data model
+  documentation.
+---
+
 # ERBuilder Data Modeler
 
 {% hint style="info" %}

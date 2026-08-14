@@ -1,3 +1,9 @@
+---
+description: >-
+  Adminer is a database administration web interface written in PHP. It mainly
+  supports MySQL but also works with MariaDB, and has a wide range of plugins.
+---
+
 # Adminer
 
 {% hint style="info" %}

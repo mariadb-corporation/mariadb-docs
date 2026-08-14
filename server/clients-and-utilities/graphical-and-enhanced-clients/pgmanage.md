@@ -1,3 +1,9 @@
+---
+description: >-
+  PgManage is a SQL editor and database management toolkit that supports
+  MariaDB alongside many other databases.
+---
+
 # PgManage
 
 {% hint style="info" %}

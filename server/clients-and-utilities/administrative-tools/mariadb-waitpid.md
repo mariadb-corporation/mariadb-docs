@@ -1,3 +1,9 @@
+---
+description: >-
+  mariadb-waitpid terminates a process by its ID on Unix-like systems, using
+  the kill() system call.
+---
+
 # mariadb-waitpid
 
 `mariadb_waitpid` is a utility for terminating processes. 

@@ -1,3 +1,10 @@
+---
+description: >-
+  mariadb-admin administers a running MariaDB server: monitor client activity,
+  read status variables, create and drop databases, flush logs, and kill
+  queries.
+---
+
 # mariadb-admin
 
 ## Overview

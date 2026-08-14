@@ -1,3 +1,9 @@
+---
+description: >-
+  DeZign for Databases is a Windows data modeling tool for modeling, creating,
+  and maintaining MariaDB databases with entity relationship diagrams.
+---
+
 # DeZign for Databases
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Navicat is a commercial graphical frontend for MariaDB, available for
+  Windows, macOS, and Linux in several versions and editions.
+---
+
 # Navicat
 
 {% hint style="info" %}

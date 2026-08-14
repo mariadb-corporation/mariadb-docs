@@ -1,3 +1,10 @@
+---
+description: >-
+  Valentina Studio is a graphical frontend for MariaDB, available natively on
+  macOS, Windows, and Linux in a free version and a Pro version with advanced
+  features.
+---
+
 # Valentina Studio
 
 {% hint style="info" %}

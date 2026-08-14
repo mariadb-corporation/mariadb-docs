@@ -1,3 +1,10 @@
+---
+description: >-
+  DbVisualizer is a cross-platform database tool for developers, DBAs, and
+  analysts, available in Free and Pro versions and supporting MariaDB, MySQL,
+  and PostgreSQL.
+---
+
 # DbVisualizer
 
 {% hint style="info" %}

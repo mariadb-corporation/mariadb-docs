@@ -1,3 +1,9 @@
+---
+description: >-
+  Beekeeper Studio is an open-source database GUI for Linux, macOS, and
+  Windows that works with MariaDB and other databases.
+---
+
 # Beekeeper Studio
 
 {% hint style="info" %}

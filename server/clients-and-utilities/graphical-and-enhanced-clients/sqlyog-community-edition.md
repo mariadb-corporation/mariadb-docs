@@ -1,3 +1,10 @@
+---
+description: >-
+  SQLyog is a GUI tool for managing MySQL and MariaDB servers and databases in
+  physical, virtual, and cloud environments, and for comparing and documenting
+  schemas.
+---
+
 # SQLyog
 
 {% hint style="info" %}

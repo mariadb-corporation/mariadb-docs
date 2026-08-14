@@ -1,3 +1,9 @@
+---
+description: >-
+  HeidiSQL is a Windows client for MariaDB and MySQL, and is bundled with the
+  Windows version of MariaDB Server.
+---
+
 # HeidiSQL
 
 {% hint style="info" %}

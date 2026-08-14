@@ -1,3 +1,9 @@
+---
+description: >-
+  DbSchema designs, documents, and manages MariaDB databases: create tables,
+  generate HTML5 documentation, edit data, compare schemas, and run SQL.
+---
+
 # DbSchema
 
 {% hint style="info" %}

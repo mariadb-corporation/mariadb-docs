@@ -1,3 +1,9 @@
+---
+description: >-
+  KS DB Merge Tools is a diff and merge tool for MySQL and MariaDB that
+  compares and synchronizes both schema and data, in free and paid versions.
+---
+
 # KS DB Merge Tools
 
 {% hint style="info" %}
