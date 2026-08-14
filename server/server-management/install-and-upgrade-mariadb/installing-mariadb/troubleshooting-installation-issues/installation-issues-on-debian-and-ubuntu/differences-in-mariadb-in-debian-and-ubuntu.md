@@ -55,7 +55,7 @@ Since [MariaDB 11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-se
 
 ## See Also
 
-* [Moving from MySQL to MariaDB in Debian 9](moving-from-mysql-to-mariadb-in-debian-9.md)
+* [Moving from MySQL](../../../migrating-to-mariadb/moving-from-mysql/README.md)
 
 ## More Information
 
