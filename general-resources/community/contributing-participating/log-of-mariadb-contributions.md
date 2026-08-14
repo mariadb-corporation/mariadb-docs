@@ -586,7 +586,7 @@ Various bug fixes
 
 Microsecond precision in process list
 
-* [microsec\_process.patch](https://www.percona.com/mysql/5.0.77-b13/patches/microsec_process.patch)
+* microsec\_process.patch
 * Percona Inc
 * Patch was [licensed to Monty Program under BSD (new)](https://lists.askmonty.org/pipermailp/dev/2009-October/000075.html).
 

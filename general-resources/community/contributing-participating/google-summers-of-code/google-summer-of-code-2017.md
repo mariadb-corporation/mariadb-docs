@@ -6,7 +6,7 @@ We participated in the [Google Summer of Code 2017](https://summerofcode.withgoo
 
 Please join us at `irc.freenode.net` at #maria to mingle with the community. Don't forget to subscribe to [maria-developers@lists.launchpad.net](https://launchpad.net/~maria-developers) (this is the main list where we discuss development).
 
-A few handy tips for any interested students who are unsure which projects to choose:[Blog post from former GSoC student & mentor](https://vicentiu.ciorbaru.io/mariadb-participates-in-gsoc-2017/)
+A few handy tips for any interested students who are unsure which projects to choose:Blog post from former GSoC student & mentor
 
 ## List of tasks
 

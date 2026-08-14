@@ -61,7 +61,7 @@ MariaDB Galera Cluster can be installed via a package manager on Linux. In order
 
 You can configure your package manager to install it from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
 
-You can also configure your package manager to install it from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/0B9HhpsUkjLe15Lk8wbL).
+You can also configure your package manager to install it from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
 
 #### Installing MariaDB Galera Cluster with yum/dnf
 
@@ -208,7 +208,7 @@ If a node has only been out of a cluster for a little while, then an IST is gene
 
 ## Data at Rest Encryption
 
-MariaDB Galera Cluster supports [Data at Rest Encryption](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/oH1AAxPLSc6Wq96yMJ2N). See [SSTs and Data at Rest Encryption](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md#ssts-and-data-at-rest-encryption) for some disclaimers on how SSTs are affected when encryption is configured.
+MariaDB Galera Cluster supports [Data at Rest Encryption]({server}/security/encryption/data-at-rest-encryption). See [SSTs and Data at Rest Encryption](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md#ssts-and-data-at-rest-encryption) for some disclaimers on how SSTs are affected when encryption is configured.
 
 {% hint style="info" %}
 **GCache Encryption:**

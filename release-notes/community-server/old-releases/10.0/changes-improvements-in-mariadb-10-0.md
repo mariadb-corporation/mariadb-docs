@@ -10,9 +10,9 @@ For details on upgrading from [MariaDB 5.5](../5.5/changes-improvements-in-maria
 
 Blog posts with details of the reasoning behind calling this version MariaDB 10:
 
-* [http://blog.mariadb.org/mariadb-10-0-and-mysql-5-6/](http://blog.mariadb.org/mariadb-10-0-and-mysql-5-6/http://blog.mariadb.org/what-comes-in-between-mariadb-now-and-mysql-5-6/http://blog.mariadb.org/explanation-on-mariadb-10-0/)
-* [http://blog.mariadb.org/what-comes-in-between-mariadb-now-and-mysql-5-6/](http://blog.mariadb.org/mariadb-10-0-and-mysql-5-6/http://blog.mariadb.org/what-comes-in-between-mariadb-now-and-mysql-5-6/http://blog.mariadb.org/explanation-on-mariadb-10-0/)
-* [http://blog.mariadb.org/explanation-on-mariadb-10-0/](http://blog.mariadb.org/mariadb-10-0-and-mysql-5-6/http://blog.mariadb.org/what-comes-in-between-mariadb-now-and-mysql-5-6/http://blog.mariadb.org/explanation-on-mariadb-10-0/)
+* [http://blog.mariadb.org/mariadb-10-0-and-mysql-5-6/](http://blog.mariadb.org/mariadb-10-0-and-mysql-5-6/)
+* [http://blog.mariadb.org/what-comes-in-between-mariadb-now-and-mysql-5-6/](http://blog.mariadb.org/what-comes-in-between-mariadb-now-and-mysql-5-6/)
+* [http://blog.mariadb.org/explanation-on-mariadb-10-0/](http://blog.mariadb.org/explanation-on-mariadb-10-0/)
 
 ## Implemented Features
 
@@ -61,7 +61,7 @@ Features that are in a release.
 * [metadata\_lock\_info information schema](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-metadata_lock_info-table). Shows you which meta data locks are active.
 * [Adjustable hash size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine/myisam-system-variables#key_cache_file_hash_size) for MyISAM and Aria. This can greatly improve shutdown time (from hours to minutes) if you are using a lot of MyISAM/Aria tables with delayed keys.
 * [FLUSH TABLES ... FOR EXPORT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/flush-commands/flush-tables-for-export)
-* The [Extended Keys](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/hQ8119jaKVqgAcnaABXn) optimization is enabled by default
+* The [Extended Keys]({server}/ha-and-performance/optimization-and-tuning/query-optimizer/extended-keys) optimization is enabled by default
 * [MariaDB audit plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin)
 * [filesort-with-small-limit-optimization](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/filesort-with-small-limit-optimization) is now visible through the [slow query log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/slow-query-log) and a new status variable, [sort\_priority\_queue\_sorts](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#sort_priority_queue_sorts)
 * [Error log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/error-log) flood protection

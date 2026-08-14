@@ -7,7 +7,7 @@ description: >-
 
 # Manual SST of Galera Cluster Node With mariadb-backup
 
-Sometimes it can be helpful to perform a "manual SST" when Galera's [normal SSTs](introduction-to-state-snapshot-transfers-ssts.md) fail. This can be especially useful when the cluster's [datadir](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#datadir) is very large, since a normal SST can take a long time to fail in that case.
+Sometimes it can be helpful to perform a "manual SST" when Galera's [normal SSTs](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) fail. This can be especially useful when the cluster's [datadir](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#datadir) is very large, since a normal SST can take a long time to fail in that case.
 
 A manual SST essentially consists of taking a backup of the donor, loading the backup on the joiner, and then manually editing the cluster state on the joiner node. This page will show how to perform this process with [mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup).
 
@@ -138,7 +138,7 @@ For example, on [systemd](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/Ssmex
 systemctl start mariadb
 ```
 
-* Watch the MariaDB [error log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/error-log) on the joiner node and verify that the node does not need to perform a [normal SSTs](introduction-to-state-snapshot-transfers-ssts.md) due to the manual SST.
+* Watch the MariaDB [error log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/error-log) on the joiner node and verify that the node does not need to perform a [normal SSTs](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) due to the manual SST.
 
 ```
 tail -f /var/log/mysql/mysqld.log

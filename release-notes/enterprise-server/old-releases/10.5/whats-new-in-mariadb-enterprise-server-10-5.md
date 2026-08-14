@@ -43,7 +43,7 @@ MariaDB Enterprise Server 10.5 uses the "MariaDB" name in more places:
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | mysql                         | [mariadb](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client)                                          |
 | mysqld                        | [mariadbd](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd)                     |
-| mariadb-backup                | [mariadb-backup](../../10-5/broken-reference/)                                                                                          |
+| mariadb-backup                | mariadb-backup                                                                                          |
 | mysql\_plugin                 | [mariadb-plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/administrative-tools/mariadb-plugin)              |
 | mysql\_upgrade                | [mariadb-upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/deployment-tools/mariadb-upgrade)                |
 | mysql\_waitpid                | [mariadb-waitpid](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/administrative-tools/mariadb-waitpid)            |
@@ -142,7 +142,7 @@ The [Aria storage engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-
 
 MariaDB Enterprise Server 10.5 contains several enhancements for the [Aria storage engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria):
 
-* It handles the [BACKUP STAGE BLOCK\_COMMIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage) statement by blocking commits to Aria tables, which allows for safer backups with [MariaDB Backup](../../10-5/broken-reference/).
+* It handles the [BACKUP STAGE BLOCK\_COMMIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage) statement by blocking commits to Aria tables, which allows for safer backups with MariaDB Backup.
 * It increases the index length limit for Aria tables from 1000 bytes to 2000 bytes.
 
 ### S3 Storage Engine
@@ -999,7 +999,7 @@ MariaDB Enterprise Server 10.5 includes several [security](https://app.gitbook.c
 
 **Granted Operations:**
 
-* Allows the user to execute [PURGE BINARY LOGS](../10-5/broken-reference/) statements
+* Allows the user to execute PURGE BINARY LOGS statements
 * Allows the user to set system variables:
   * [binlog\_annotate\_row\_events](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [binlog\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
