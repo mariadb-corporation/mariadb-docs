@@ -4,7 +4,7 @@
 
 ## Designing for MaxScale's Galera Monitor
 
-MaxScale's [Galera Monitor (galeramon)](../../../mariadb-maxscale-23-02/mariadb-maxscale-23-02-monitors/mariadb-maxscale-2302-galera-monitor.md) monitors [Galera Cluster]({galera}) deployments.
+MaxScale's [Galera Monitor (galeramon)](../../../mariadb-maxscale-23-02/mariadb-maxscale-23-02-monitors/mariadb-maxscale-2302-galera-monitor.md) monitors [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) deployments.
 
 This page contains topics that need to be considered when designing applications that use the Galera Monitor.
 
@@ -14,14 +14,14 @@ Additional information is available [here](broken-reference).
 
 ## Understanding MaxScale's Galera Monitor
 
-MaxScale's [Galera Monitor (galeramon)](../../../mariadb-maxscale-23-02/mariadb-maxscale-23-02-monitors/mariadb-maxscale-2302-galera-monitor.md) monitors [Galera Cluster]({galera}) deployments.
+MaxScale's [Galera Monitor (galeramon)](../../../mariadb-maxscale-23-02/mariadb-maxscale-23-02-monitors/mariadb-maxscale-2302-galera-monitor.md) monitors [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) deployments.
 
 What Does the [Galera Monitor](../../../mariadb-maxscale-23-02/mariadb-maxscale-23-02-monitors/mariadb-maxscale-2302-galera-monitor.md) Support?
 
 The Galera Monitor (galeramon) supports:
 
-* Monitoring [MariaDB Enterprise Cluster]({galera}) deployments
-* Monitoring [MariaDB Galera Cluster]({galera}) deployments
+* Monitoring [MariaDB Enterprise Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) deployments
+* Monitoring [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) deployments
 * Query-based load balancing with the [Read/Write Split Router (readwritesplit)](../../../../../maxscale-use-cases/readwrite-split-router-usage/understanding-maxscales-readwrite-split-router.md)
 * Connection-based load balancing with the Read Connection Router (readconnroute)
 
@@ -32,7 +32,7 @@ The Galera Monitor (galeramon) supports:
 
 ## Using SST Donors for Queries with MaxScale's Galera Monitor
 
-MaxScale's [Galera Monitor (galeramon)](../../../mariadb-maxscale-23-02/mariadb-maxscale-23-02-monitors/mariadb-maxscale-2302-galera-monitor.md) monitors [Galera Cluster]({galera}).
+MaxScale's [Galera Monitor (galeramon)](../../../mariadb-maxscale-23-02/mariadb-maxscale-23-02-monitors/mariadb-maxscale-2302-galera-monitor.md) monitors [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7).
 
 By default, when a node is chosen as a donor for a State Snapshot Transfer (SST), Galera Monitor does not route any queries to it. However, some SST methods are non-blocking on the donor, so this default behavior is not always desired.
 
