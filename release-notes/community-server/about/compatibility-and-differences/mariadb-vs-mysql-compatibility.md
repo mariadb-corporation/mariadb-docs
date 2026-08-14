@@ -29,7 +29,7 @@ This means that for many cases, you can just uninstall MySQL and [install MariaD
 
 However, you must still run mysql\_upgrade to finish the upgrade. This is needed to ensure that your mysql privilege and event tables are updated with the new fields MariaDB uses.
 
-That said, MariaDB has a lot of [new options, extension, storage engines and bug fixes](mariadb-vs-mysql-features.md) that are not in MySQL. You can find the feature set for the different MariaDB versions on the [What is in the different MariaDB Releases](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-in-the-different-mariadb-releases/README.md) page.
+That said, MariaDB has a lot of [new options, extension, storage engines and bug fixes](mariadb-vs-mysql-features.md) that are not in MySQL. You can find the feature set for the different MariaDB versions on the What is in the different MariaDB Releases page.
 
 ### Drop-in Compatibility of Specific MariaDB Versions
 

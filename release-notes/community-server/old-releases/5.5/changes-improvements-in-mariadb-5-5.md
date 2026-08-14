@@ -74,11 +74,11 @@ There are a number of new [INFORMATION SCHEMA](https://app.gitbook.com/s/SsmexDF
   will not cause a slower performance on all slaves. This also fixes a crash on
   the slaves.
 
-New features are added to [MariaDB 10.0](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/broken-reference/README.md).
+New features are added to MariaDB 10.0.
 
 ## Deprecated / Disabled Features
 
-* [PBXT](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/pbxt-storage-engine/README.md) is no longer in the binary builds/distributions. It's however still in the source distributions and in the source tree. The reason is that PBXT is no longer actively maintained, has a few bugs that are not fixed and is not in widespread use.
+* PBXT is no longer in the binary builds/distributions. It's however still in the source distributions and in the source tree. The reason is that PBXT is no longer actively maintained, has a few bugs that are not fixed and is not in widespread use.
 
 ## Switching Between InnoDB and [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/mariadb-enterprise-server-innodb-operations/innodb-unmaintained/about-xtradb)
 
