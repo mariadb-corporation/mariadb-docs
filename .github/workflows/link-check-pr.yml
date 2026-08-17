@@ -129,6 +129,25 @@ jobs:
           # disagreement is between the runner's trust store and the chain the
           # host presents (issuer CN=YR2), so it will not self-heal the way a
           # genuine expiry would, and there is nothing to fix on our side.
+          #
+          # DOCS-6385 (2026-08-17): two more of each kind, surfaced by the
+          # private-repo link sweep across 396 release-notes pages.
+          #
+          # Historical GitHub citations, same class as the two /commit/ excludes
+          # at the top of this list. The Galera changelogs cite upstream issue
+          # numbers in codership/galera and codership/mysql-wsrep, whose issue
+          # trackers no longer resolve; the Docker and Jupyter-kernel release
+          # notes cite MariaDB/mariadb-docker and MariaDB/mariadb_kernel issues
+          # that have since been deleted; and mysql/mysql-utilities and
+          # Perl/perl5/issues are cited in old changelog text. All are
+          # unmaintainable historical references, not fixable links -- the
+          # issue numbers are the record, and there is nothing to point at.
+          #
+          # Live sites that block automated clients, same class as
+          # www.reddit.com and stackoverflow.com above. dba.stackexchange.com
+          # and askubuntu.com answer 403 to any non-browser client (Stack
+          # Exchange requires JS), and www.fsf.org fails lychee's connection
+          # while serving 200 to a browser User-Agent. All are valid for readers.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -186,6 +205,14 @@ jobs:
             --exclude azuremarketplace\.microsoft\.com
             --exclude console\.cloud\.google\.com
             --exclude partedmagic\.com
+            --exclude 'github\.com/codership/(galera|mysql-wsrep)/issues/'
+            --exclude 'github\.com/MariaDB/mariadb-docker/'
+            --exclude 'github\.com/MariaDB/mariadb_kernel/'
+            --exclude 'github\.com/mysql/mysql-utilities/'
+            --exclude 'github\.com/Perl/perl5/issues/'
+            --exclude 'www\.fsf\.org'
+            --exclude 'dba\.stackexchange\.com'
+            --exclude 'askubuntu\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

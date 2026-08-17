@@ -39,7 +39,7 @@ In other cases we recommend you to use the new [LGPL client libraries]({server}/
 If you are using a connector that is not GPL, you are only bound by the license of that connector. Some examples are:
 
 * [MySQL native driver for PHP - mysqlnd](https://php.net/manual/en/book.mysqlnd.php)
-* [ruby-mysql](https://raa.ruby-lang.org/project/ruby-mysql)
+* ruby-mysql
 * [LGPL client libraries or C, Java and ODBC]({server}/clients-and-utilities/server-client-software/client-libraries).
 
 The above have licenses that allow you to use them freely, without you being bound by the GPL.

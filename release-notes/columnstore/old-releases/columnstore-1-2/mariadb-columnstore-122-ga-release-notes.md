@@ -90,11 +90,11 @@ The source code of MariaDB ColumnStore is tagged at GitHub with a tag, which is 
 
 The source code is available at these locations
 
-* Storage Engine - [Source code for engine specific processes on UM and PM node](https://github.com/mariadb-corporation/mariadb-columnstore-engine/tree/columnstore-1.2.2)
-* MariaDB Server - [Source code based on MariaDB Server 10.3.11 modified to support the ColumnStore storage engine](https://github.com/mariadb-corporation/mariadb-columnstore-server/tree/columnstore-1.2.2)
-* Tools - [Source code for MariaDB ColumnStore Tools](https://github.com/mariadb-corporation/mariadb-columnstore-tools/tree/columnstore-1.2.2)
-* Write Data API - [Source code for Write Data API /SDK](https://github.com/mariadb-corporation/mariadb-columnstore-api/tree/columnstore-1.2.2)
-* MaxScale CDC and Kafka Data Adapters - [Source Code for data adapters](https://github.com/mariadb-corporation/mariadb-columnstore-data-adapters/tree/columnstore-1.2.2)
+* Storage Engine - Source code for engine specific processes on UM and PM node
+* MariaDB Server - Source code based on MariaDB Server 10.3.11 modified to support the ColumnStore storage engine
+* Tools - Source code for MariaDB ColumnStore Tools
+* Write Data API - Source code for Write Data API /SDK
+* MaxScale CDC and Kafka Data Adapters - Source Code for data adapters
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

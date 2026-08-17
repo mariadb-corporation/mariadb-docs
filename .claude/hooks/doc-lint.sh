@@ -120,6 +120,14 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude 'azuremarketplace\.microsoft\.com' \
       --exclude 'console\.cloud\.google\.com' \
       --exclude 'partedmagic\.com' \
+      --exclude 'github\.com/codership/(galera|mysql-wsrep)/issues/' \
+      --exclude 'github\.com/MariaDB/mariadb-docker/' \
+      --exclude 'github\.com/MariaDB/mariadb_kernel/' \
+      --exclude 'github\.com/mysql/mysql-utilities/' \
+      --exclude 'github\.com/Perl/perl5/issues/' \
+      --exclude 'www\.fsf\.org' \
+      --exclude 'dba\.stackexchange\.com' \
+      --exclude 'askubuntu\.com' \
       "${files[@]}" 2>&1)"; then
     # Mirror the workflow's failIfEmpty: false — lychee exits non-zero with
     # "No links were found" when the changed files contain no links, which is a

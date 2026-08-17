@@ -84,7 +84,7 @@ Detailed Installation Guide will be available in next version of the MariaDB Col
 RPM and binary packages are provided for the Linux distributions supported by MariaDB ColumnStore 1.0.1 Alpha version.
 
 * The supported OS for this Alpha version are CentOS 6 and CentOS 7.
-* Packages can be downloaded [here](https://mariadb.com/my_portal/download/mariadb-columnstore)
+* Packages can be downloaded here
 
 ## Source Code
 
