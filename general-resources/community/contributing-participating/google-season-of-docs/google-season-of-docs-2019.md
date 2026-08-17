@@ -6,7 +6,7 @@ MariaDB applied to participate in the first Google Season of Docs. Unfortunately
 
 ## Where to Start
 
-Please join us on [Zulip](https://github.com/mariadb-corporation/docs-server/blob/test/en/irc-chat-servers-and-zulip-instance/README.md) to mingle with the community. You can also subscribe to [maria-docs@lists.launchpad.net](https://launchpad.net/~maria-docs), the documentation mailing list.
+Please join us on [Zulip](https://mariadb.zulipchat.com/) to mingle with the community. You can also subscribe to [maria-docs@lists.launchpad.net](https://launchpad.net/~maria-docs), the documentation mailing list.
 
 [List of beginner friendly bugs](https://jira.mariadb.org/issues/?jql=status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20labels%20%3D%20beginner-friendly%20ORDER%20BY%20updated%20DESC)
 
@@ -31,7 +31,7 @@ A detailed tutorial and user guide, including examples of the various Mroonga [u
 
 ### Translation
 
-You will choose a major language and ensure that a substantial subsection of the documentation is translated into that language. See [translations](https://github.com/mariadb-corporation/docs-server/blob/test/en/translations/README.md).
+You will choose a major language and ensure that a substantial subsection of the documentation is translated into that language.
 
 ### Migration Documentation
 
@@ -46,7 +46,7 @@ Loading Issues from \[Jira]\(https://jira.mariadb.org/issues/?jql=labels=gsdocs1
 
 | Details: | Mentor:                                        |
 | -------- | ---------------------------------------------- |
-| Details: | [%key%](https://jira.mariadb.org/browse/%key%) |
+| Details: | %key% |
 | Mentor:  | %fields.assignee.displayName%                  |
 
 <>

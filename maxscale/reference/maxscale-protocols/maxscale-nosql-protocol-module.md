@@ -557,7 +557,7 @@ As can be seen, the user has the `readWrite` role on the `test` database, which 
 
 #### TLS/SSL
 
-Since `nosqlprotocol` is a regular protocol module used in a listener, the TLS/SSL support of listeners is available. Please see [TLS/SSL encryption](https://github.com/mariadb-corporation/docs-server/blob/test/maxscale/mariadb-maxscale-25-01/mariadb-maxscale-25-01-protocols/Getting-Started/Configuration-Guide.md#tls-encryption) for details.
+Since `nosqlprotocol` is a regular protocol module used in a listener, the TLS/SSL support of listeners is available. Please see [TLS/SSL encryption]({maxscale}/maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide#tlsssl-encryption) for details.
 
 ### NoSQL Account Database
 
