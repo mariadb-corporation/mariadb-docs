@@ -2,13 +2,13 @@
 
 **Release date:** 23 August 2016
 
-[MariaDB ColumnStore 1.0.2]({analytics}/mariadb-columnstore) is an alpha release of MariaDB ColumnStore. This is the second alpha release of MariaDB ColumnStore with improvements over previous alpha release of 1.0.1.
+[MariaDB ColumnStore 1.0.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is an alpha release of MariaDB ColumnStore. This is the second alpha release of MariaDB ColumnStore with improvements over previous alpha release of 1.0.1.
 
 MariaDB ColumnStore 1.0.2 is an [_**Alpha**_](../../../community-server/about/release-criteria.md) release.
 
 **Do not use&#x20;**_**alpha**_**&#x20;releases on production systems!**
 
-For an overview of [MariaDB ColumnStore]({analytics}/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 MariaDB ColumnStore 1.0.2 is an Alpha release. This is the second alpha release of MariaDB ColumnStore with improvements over previous alpha release of 1.0.1.
 
@@ -81,7 +81,7 @@ There are some known security issues. They are listed [here](https://app.gitbook
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation]({analytics}/mariadb-columnstore)
+[MariaDB ColumnStore Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore)
 
 ## Packaging
 

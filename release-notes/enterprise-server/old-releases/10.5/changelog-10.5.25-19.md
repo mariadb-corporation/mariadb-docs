@@ -4,7 +4,7 @@ hidden: true
 
 # Changelog for MariaDB Enterprise Server 10.5.25-19
 
-MariaDB Enterprise Server 10.5.25-19 is a maintenance release of [MariaDB Enterprise Server]({release-notes}/enterprise-server) 10.5. For the categorized highlights and other details of this release, see the [release notes](10.5.25-19.md).
+MariaDB Enterprise Server 10.5.25-19 is a maintenance release of [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server) 10.5. For the categorized highlights and other details of this release, see the [release notes](10.5.25-19.md).
 
 MariaDB Enterprise Server 10.5.25-19 was released on 2024-06-11.
 

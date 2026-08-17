@@ -1,8 +1,8 @@
 # MariaDB Galera Cluster 10.0.10 Release Notes
 
-The most recent [MariaDB Galera Cluster 10.0]({galera}) release is:[**MariaDB Galera Cluster 10.0.38**](mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
+The most recent [MariaDB Galera Cluster 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) release is:[**MariaDB Galera Cluster 10.0.38**](mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.10) |**Release Notes** |[Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10010-changelog.md) |[Overview of MariaDB Galera Cluster]({galera}/readme/mariadb-galera-cluster-guide)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.10) |**Release Notes** |[Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10010-changelog.md) |[Overview of MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 22 Apr 2014
 
@@ -12,7 +12,7 @@ additional bug fixes. It is being released now to get it into the hands of any
 who might want to test it. **Do not run Beta releases on production systems!**
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are
-available in the [**Galera**]({galera}) section of the documentation.
+available in the [**Galera**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) section of the documentation.
 
 For a list of changes made in MariaDB Galera Cluster 10.0.10, with links to
 detailed information on each push, see the [MariaDB Galera Cluster 10.0.10 Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10010-changelog.md).

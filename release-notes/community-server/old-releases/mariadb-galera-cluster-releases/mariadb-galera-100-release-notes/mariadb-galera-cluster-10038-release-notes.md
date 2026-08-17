@@ -1,6 +1,6 @@
 # MariaDB Galera Cluster 10.0.38 Release Notes
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.38)[Release Notes](mariadb-galera-cluster-10038-release-notes.md)[Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10038-changelog.md)[Overview of MariaDB Galera Cluster]({galera}/readme/mariadb-galera-cluster-guide)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.38)[Release Notes](mariadb-galera-cluster-10038-release-notes.md)[Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10038-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 4 Feb 2019
 
@@ -9,7 +9,7 @@ release. It is a merge of [MariaDB 10.0.38](../../10.0/10.0.38.md) and [Galera C
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are
-available in the [**Galera**]({galera}) section of the documentation.
+available in the [**Galera**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) section of the documentation.
 
 For a list of changes made in MariaDB Galera Cluster 10.0.38, with links to\
 detailed information on each push, see the [MariaDB Galera Cluster 10.0.38 Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10038-changelog.md).\

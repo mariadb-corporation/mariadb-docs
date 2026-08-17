@@ -10,7 +10,7 @@ Let's look at things in historical order. There is no known evidence of the use 
 
 ![optimizer-areas-mariadb-55-r2](../../../.gitbook/assets/optimizer2.PNG)
 
-The size of the bubble roughly corresponds to the impact of the feature (in the opinion of the author of this article). "Hash join" is in quotes, because [this feature]({server}/ha-and-performance/optimization-and-tuning/query-optimizer/block-based-join-algorithms#block-hash-join) is not what is generally meant by hash join in the world of databases. Smaller features and bug fixes are not shown.
+The size of the bubble roughly corresponds to the impact of the feature (in the opinion of the author of this article). "Hash join" is in quotes, because [this feature](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/block-based-join-algorithms#block-hash-join) is not what is generally meant by hash join in the world of databases. Smaller features and bug fixes are not shown.
 
 In February 2013, MySQL 5.6 had its first stable release. It had a number of new major optimizer features. Some of them had common ancestry with MariaDB's features, and some of them were new developments:
 
@@ -40,7 +40,7 @@ The MariaDB team is frequently asked if all features (or feature X) from MySQL 5
   * [Engineering behind EXPLAIN FORMAT=JSON (or lack thereof)](https://s.petrunia.net/blog/?p=93)
 * SHOW EXPLAIN in [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
   * [SHOW EXPLAIN in MariaDB 10.0 vs EXPLAIN FOR CONNECTION in MySQL 5.7](https://s.petrunia.net/blog/?p=89)
-* [The Optimizer Cost Model from MariaDB 11.0]({server}/ha-and-performance/optimization-and-tuning/query-optimizer/the-optimizer-cost-model-from-mariadb-11-0)
+* [The Optimizer Cost Model from MariaDB 11.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/the-optimizer-cost-model-from-mariadb-11-0)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

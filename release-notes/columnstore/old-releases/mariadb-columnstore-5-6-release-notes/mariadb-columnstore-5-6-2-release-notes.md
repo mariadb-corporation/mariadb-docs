@@ -2,7 +2,7 @@
 
 ## Overview
 
-[MariaDB ColumnStore]({analytics}/mariadb-columnstore) is a columnar storage engine included with [MariaDB ColumnStore]({analytics}/mariadb-columnstore). This is the sixth release in the ColumnStore 5 series.
+[MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is a columnar storage engine included with [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore). This is the sixth release in the ColumnStore 5 series.
 
 This release of MariaDB ColumnStore is included with MariaDB Enterprise Server 10.5.10-7.
 

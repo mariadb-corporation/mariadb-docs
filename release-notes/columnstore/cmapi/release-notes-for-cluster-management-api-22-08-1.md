@@ -1,6 +1,6 @@
 # Release Notes for Cluster Management API 22.08.1
 
-Cluster Management API (CMAPI) 22.08.1 is a maintenance release of CMAPI. CMAPI is a REST API for administering [MariaDB ColumnStore]({analytics}/mariadb-columnstore) in multi-node topologies.
+Cluster Management API (CMAPI) 22.08.1 is a maintenance release of CMAPI. CMAPI is a REST API for administering [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) in multi-node topologies.
 
 Cluster Management API 22.08.1 was released on 2022-09-12. This release is of General Availability (GA) maturity.
 

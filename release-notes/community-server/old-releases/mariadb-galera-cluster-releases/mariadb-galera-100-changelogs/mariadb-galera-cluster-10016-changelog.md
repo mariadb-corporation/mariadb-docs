@@ -1,6 +1,6 @@
 # MariaDB Galera Cluster 10.0.16 Changelog
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.16)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10016-release-notes.md)[Changelog](mariadb-galera-cluster-10016-changelog.md)[Overview of MariaDB Galera Cluster]({galera}/readme/mariadb-galera-cluster-guide)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.16)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10016-release-notes.md)[Changelog](mariadb-galera-cluster-10016-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 29 Jan 2015
 

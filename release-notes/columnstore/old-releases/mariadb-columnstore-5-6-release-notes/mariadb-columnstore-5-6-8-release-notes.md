@@ -2,7 +2,7 @@
 
 ## Overview
 
-[MariaDB ColumnStore]({analytics}/mariadb-columnstore) 5.6.8 is a maintenance release of [MariaDB ColumnStore]({analytics}/mariadb-columnstore) . MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server.
+[MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) 5.6.8 is a maintenance release of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) . MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server.
 
 MariaDB ColumnStore 5.6.8 was released on 2022-12-21. This release is of General Availability (GA) maturity.
 
@@ -33,7 +33,7 @@ In alignment with the [enterprise lifecycle](../../../enterprise-server/about/en
 
 ## Upgrade Instructions
 
-* [Major Release Upgrades for MariaDB ColumnStore]({analytics}/mariadb-columnstore/management/deployment/upgrades/major-release-upgrades-for-mariadb-enterprise-columnstore)
+* [Major Release Upgrades for MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/deployment/upgrades/major-release-upgrades-for-mariadb-enterprise-columnstore)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

@@ -2,7 +2,7 @@
 
 **Release date:** 14 June 2016
 
-[MariaDB ColumnStore 1.0.1]({analytics}/mariadb-columnstore) is the development version of MariaDB ColumnStore. It is built by porting InfiniDB 4.6.2 on [MariaDB 10.1.14](../../../community-server/old-releases/10.1/10.1.14.md).
+[MariaDB ColumnStore 1.0.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is the development version of MariaDB ColumnStore. It is built by porting InfiniDB 4.6.2 on [MariaDB 10.1.14](../../../community-server/old-releases/10.1/10.1.14.md).
 
 MariaDB ColumnStore 1.0.1 is an [_**Alpha**_](../../../community-server/about/release-criteria.md) release.
 
@@ -10,11 +10,11 @@ MariaDB ColumnStore 1.0.1 is an [_**Alpha**_](../../../community-server/about/re
 
 This is the first MariaDB ColumnStore release, and we are releasing it now to get it into the hands of any one who might want to test it. We plan to do several Alpha releases, each with increased stability and more features.
 
-Note that this is an early Alpha release of [MariaDB ColumnStore]({analytics}/mariadb-columnstore) in [MariaDB 10.1.14.](../../../community-server/old-releases/10.1/10.1.14.md) The porting work from MySQL 5.1 is done, but not all features have been fully tested. This release is only meant for testing, not for using in production!
+Note that this is an early Alpha release of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) in [MariaDB 10.1.14.](../../../community-server/old-releases/10.1/10.1.14.md) The porting work from MySQL 5.1 is done, but not all features have been fully tested. This release is only meant for testing, not for using in production!
 
-To understand what to expect from this release, a little background is needed: [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) is based on the MySQL 5.1 InfiniDB release, which was a stable product with a lot of happy users. To make this more modern and easier to develop, we moved the InfiniDB code to [MariaDB 10.1.14](../../../community-server/old-releases/10.1/10.1.14.md) and renamed it ColumnStore. As most of the [MariaDB ColumnStore]({analytics}/mariadb-columnstore) code is unchanged and as [MariaDB 10.1.14](../../../community-server/old-releases/10.1/10.1.14.md) code is stable, the possible problems are mostly in the interface between MariaDB Server and MariaDB ColumnStore.
+To understand what to expect from this release, a little background is needed: [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) is based on the MySQL 5.1 InfiniDB release, which was a stable product with a lot of happy users. To make this more modern and easier to develop, we moved the InfiniDB code to [MariaDB 10.1.14](../../../community-server/old-releases/10.1/10.1.14.md) and renamed it ColumnStore. As most of the [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) code is unchanged and as [MariaDB 10.1.14](../../../community-server/old-releases/10.1/10.1.14.md) code is stable, the possible problems are mostly in the interface between MariaDB Server and MariaDB ColumnStore.
 
-We have not yet had time to ourselves to extensively test all [MariaDB ColumnStore]({analytics}/mariadb-columnstore) features, and MariaDB ColumnStore has not yet been tested by a larger community, so there may be some issues that need to be fixed in the next releases. We do, however, expect that most things should work and be reasonably stable.
+We have not yet had time to ourselves to extensively test all [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) features, and MariaDB ColumnStore has not yet been tested by a larger community, so there may be some issues that need to be fixed in the next releases. We do, however, expect that most things should work and be reasonably stable.
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
 For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) or subscribe to mariadb-columnstore@googlegroups.com
@@ -75,7 +75,7 @@ The building of the software needs a special build environment. We're working on
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation]({analytics}/mariadb-columnstore) include architecture, getting started, SQL Syntax guide, How to manage and How to load data into MariaDB ColumnStore.
+[MariaDB ColumnStore Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) include architecture, getting started, SQL Syntax guide, How to manage and How to load data into MariaDB ColumnStore.
 
 Detailed Installation Guide will be available in next version of the MariaDB ColumnStore 1.0 series
 

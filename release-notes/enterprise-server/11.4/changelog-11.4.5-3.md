@@ -9,7 +9,7 @@ description: >-
 
 {% include "../../.gitbook/includes/latest-es-11.4.md" %}
 
-MariaDB Enterprise Server 11.4.5-3 is a Stable (GA) maintenance release of [MariaDB Enterprise Server]({release-notes}/enterprise-server) 11.4. For the categorized highlights and other details of this release, see the [release notes](11.4.5-3.md).
+MariaDB Enterprise Server 11.4.5-3 is a Stable (GA) maintenance release of [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server) 11.4. For the categorized highlights and other details of this release, see the [release notes](11.4.5-3.md).
 
 MariaDB Enterprise Server 11.4.5-3 was released on 19 Mar 2025.
 
