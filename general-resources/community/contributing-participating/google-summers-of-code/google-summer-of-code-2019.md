@@ -1,12 +1,10 @@
 # Google Summer of Code 2019
 
-We participated in the [Google Summer of Code](https://summerofcode.withgoogle.com/) 2019. The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently C, ODBC, Java) and on [MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera/README.md), which allows you to scale your reads & writes. And we have [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb-columnstore/README.md), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
+We participated in the [Google Summer of Code](https://summerofcode.withgoogle.com/) 2019. The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently C, ODBC, Java) and on [MariaDB Galera Cluster]({galera}), which allows you to scale your reads & writes. And we have [MariaDB ColumnStore]({analytics}/mariadb-columnstore), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
 
 ## Where to Start
 
-Please join us on [Zulip and on IRC](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/irc-chat-servers-and-zulip-instance/README.md) to mingle with the community. Don't forget to subscribe to [maria-developers@lists.launchpad.net](https://launchpad.net/~maria-developers) (this is the main list where we discuss development).
-
-A few handy tips for any interested students who are unsure which projects to choose:[Blog post from former GSoC student & mentor](https://vicentiu.ciorbaru.io/mariadb-participates-in-gsoc-2017/)
+Please join us on [Zulip and on IRC](../../joining-the-community.md) to mingle with the community. Don't forget to subscribe to [maria-developers@lists.launchpad.net](https://launchpad.net/~maria-developers) (this is the main list where we discuss development).
 
 To improve your chances of being accepted, it is a good idea to submit a pull request with a bug fix to the server.
 

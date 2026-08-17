@@ -2,13 +2,13 @@
 
 **Release date:** 3rd November 2017
 
-[MariaDB ColumnStore 1.1.1](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md) is a Release Candidate release of MariaDB ColumnStore. This is the second release of the MariaDB ColumnStore 1.1 series. The MariaDB ColumnStore 1.1 series provides several new features and improvements over the MariaDB ColumnStore 1.0 release.
+[MariaDB ColumnStore 1.1.1]({analytics}/mariadb-columnstore) is a Release Candidate release of MariaDB ColumnStore. This is the second release of the MariaDB ColumnStore 1.1 series. The MariaDB ColumnStore 1.1 series provides several new features and improvements over the MariaDB ColumnStore 1.0 release.
 
 MariaDB ColumnStore 1.1.1 is a [_**Release Candidate**_](../../../community-server/about/release-criteria.md) release.
 
 **Do not use&#x20;**_**Release Candidate**_**&#x20;releases on production systems!**
 
-For an overview of [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore]({analytics}/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
 For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) or subscribe to mariadb-columnstore@googlegroups.com
@@ -63,7 +63,7 @@ In addition, all bugs fixed in MariaDB ColumnStore 1.0.11 and earlier are implic
 
 Multi version upgrades are not supported, please upgrade versions prior to 1.1.0 before upgrading to 1.1.1:
 
-* [1.1.0 Beta to 1.1.1 RC upgrade procedure](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-1/broken-reference/README.md)
+* 1.1.0 Beta to 1.1.1 RC upgrade procedure
 
 ## Known issues and limitations
 
@@ -88,7 +88,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md)
+[MariaDB ColumnStore Documentation]({analytics}/mariadb-columnstore)
 
 ## Packaging
 
@@ -96,7 +96,7 @@ RPM, Debian, and binary packages are provided for the Linux distributions suppor
 
 * The supported OS for the GA version are CentOS 6, CentOS 7, Debian 8.6, Debian 9.1, RedHat 6, RedHat 7, SUSE 12, and Ubuntu 16.0.4.
 * Packages can be downloaded [here](https://mariadb.com/downloads/columnstore)
-* An Amazon AWS AMI Image is available for this release, please search for AMI name "MariaDB-ColumnStore-1.1.0". AMI specific installation instructions can be found [here](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-1/broken-reference/README.md).
+* An Amazon AWS AMI Image is available for this release, please search for AMI name "MariaDB-ColumnStore-1.1.0".
 * Certified to run in Google Cloud Environment in the GA OSs.
 
 ## Source code
