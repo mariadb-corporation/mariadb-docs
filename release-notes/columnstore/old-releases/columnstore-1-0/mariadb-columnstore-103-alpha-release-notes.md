@@ -2,13 +2,13 @@
 
 **Release date:** 20 September 2016
 
-[MariaDB ColumnStore 1.0.3](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md) is an alpha release of MariaDB ColumnStore. This is the third alpha release of MariaDB ColumnStore with improvements over previous alpha release of 1.0.2.
+[MariaDB ColumnStore 1.0.3]({analytics}/mariadb-columnstore) is an alpha release of MariaDB ColumnStore. This is the third alpha release of MariaDB ColumnStore with improvements over previous alpha release of 1.0.2.
 
 MariaDB ColumnStore 1.0.3 is an [_**Alpha**_](../../../community-server/about/release-criteria.md) release.
 
 **Do not use&#x20;**_**alpha**_**&#x20;releases on production systems!**
 
-For an overview of [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore]({analytics}/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
 For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) or subscribe to mariadb-columnstore@googlegroups.com
@@ -37,7 +37,7 @@ Below is list of some of the bugs and issues fixed. For the complete list please
 
 ## Upgrade
 
-Multi version upgrades are not supported, please upgrade versions prior to 1.0.2 before upgrading to 1.0.3. Details on upgrading from version to 1.0.2 to 1.0.3 can be found [here](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-0/broken-reference/README.md).
+Multi version upgrades are not supported, please upgrade versions prior to 1.0.2 before upgrading to 1.0.3.
 
 Upgrade from MariaDB ColumnStore Alpha versions 1.0.0 and 1.0.1 is not supported, please upgrade to version 1.0.2 prior to upgrading to 1.0.3.
 
@@ -66,7 +66,7 @@ There are some known security issues. They are listed [here](https://app.gitbook
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md)
+[MariaDB ColumnStore Documentation]({analytics}/mariadb-columnstore)
 
 ## Packaging
 

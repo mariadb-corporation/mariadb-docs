@@ -66,7 +66,7 @@ In alignment with the [enterprise lifecycle](../../../enterprise-server/about/en
 
 ## Upgrade Instructions
 
-* [Major Release Upgrades for MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/columnstore-release-notes/README.md)
+* [Major Release Upgrades for MariaDB ColumnStore]({analytics}/mariadb-columnstore/management/deployment/upgrades/major-release-upgrades-for-mariadb-enterprise-columnstore)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
