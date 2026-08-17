@@ -2,11 +2,11 @@
 
 **Release date:** 13th February 2018
 
-[MariaDB ColumnStore 1.0.16](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) is a maintenance GA release of MariaDB ColumnStore. This release of MariaDB ColumnStore provides improvements over the previous 1.0.15 GA release.
+[MariaDB ColumnStore 1.0.16]({analytics}/mariadb-columnstore) is a maintenance GA release of MariaDB ColumnStore. This release of MariaDB ColumnStore provides improvements over the previous 1.0.15 GA release.
 
 MariaDB ColumnStore 1.0.16 is a [_**GA**_](../../../community-server/about/release-criteria.md) release.
 
-For an overview of [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore]({analytics}/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
 For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) or subscribe to mariadb-columnstore@googlegroups.com
@@ -30,7 +30,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 The following procedure outlines upgrading a 1.0.15 ColumnStore install to 1.0.16:
 
-* [1.0.15 GA to 1.0.16 upgrade procedure](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-0/broken-reference/README.md)\
+* 1.0.15 GA to 1.0.16 upgrade procedure\
   Multi version upgrades generally will work using the same procedure however we can't test every possible permutation so you should test your specific scenario outside of production first if you wish to try this (and this is good practice regardless).
 
 ## Known issues and limitations
@@ -56,7 +56,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md)
+[MariaDB ColumnStore Documentation]({analytics}/mariadb-columnstore)
 
 ## Packaging
 
@@ -64,7 +64,7 @@ RPM, Debian, and binary packages are provided for the Linux distributions suppor
 
 * The supported OS for the GA version are CentOS 6, CentOS 7, Debian 8.6, Debian 9.1, RedHat 6, RedHat 7, SUSE 12, and Ubuntu 16.0.4.
 * Packages can be downloaded [here](https://mariadb.com/downloads/columnstore)
-* An Amazon AWS AMI Image is available for this release, please search for AMI name "MariaDB-ColumnStore-1.0.16". AMI specific installation instructions can be found [here](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-0/broken-reference/README.md).
+* An Amazon AWS AMI Image is available for this release, please search for AMI name "MariaDB-ColumnStore-1.0.16".
 * Certified to run in Google Cloud Environment in the GA OSs.
 
 ## Source code

@@ -2,13 +2,13 @@
 
 **Release date:** 26th October 2016
 
-[MariaDB ColumnStore 1.0.4](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) is a beta release of MariaDB ColumnStore. This is the first beta release of MariaDB ColumnStore with improvements over the previous 1.0.3 alpha release.
+[MariaDB ColumnStore 1.0.4]({analytics}/mariadb-columnstore) is a beta release of MariaDB ColumnStore. This is the first beta release of MariaDB ColumnStore with improvements over the previous 1.0.3 alpha release.
 
 MariaDB ColumnStore 1.0.4 is a [_**Beta**_](../../../community-server/about/release-criteria.md) release.
 
 **Do not use&#x20;**_**beta**_**&#x20;releases on production systems!**
 
-For an overview of [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore]({analytics}/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
 For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) or subscribe to mariadb-columnstore@googlegroups.com
@@ -59,7 +59,7 @@ Below is list of some of the bugs and issues fixed. A number of regression test 
 
 ## Upgrade
 
-Multi version upgrades are not supported, please upgrade versions prior to 1.0.3 before upgrading to 1.0.4. Details on upgrading from version to 1.0.3 to 1.0.4 can be found [here](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-0/broken-reference/README.md).
+Multi version upgrades are not supported, please upgrade versions prior to 1.0.3 before upgrading to 1.0.4.
 
 Upgrade from MariaDB ColumnStore Alpha versions 1.0.0 to 1.0.2 is not supported, please upgrade to version 1.0.3 prior to upgrading to 1.0.4.
 
@@ -98,14 +98,14 @@ There are a number bugs and known limitations within this beta version of MariaD
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md)
+[MariaDB ColumnStore Documentation]({analytics}/mariadb-columnstore)
 
 ## Packaging
 
 RPM and binary packages are provided for the Linux distributions supported by MariaDB ColumnStore 1.0.4 beta version.
 
 * The supported OS for this Alpha version are CentOS 6, CentOS 7 and Ubuntu 16.0.4.
-* Packages can be downloaded [here](https://mariadb.com/my_portal/download/mariadb-columnstore)
+* Packages can be downloaded [here](https://mariadb.com/downloads/columnstore)
 
 ## Source Code
 
