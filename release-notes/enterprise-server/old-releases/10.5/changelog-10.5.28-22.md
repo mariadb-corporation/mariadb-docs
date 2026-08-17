@@ -9,7 +9,7 @@ binaries available for download which contain the features. If you want to try o
 need to [get](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code) and [compile](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source) the
 code yourself.
 
-MariaDB Enterprise Server 10.5.28-22 is a maintenance release of [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-enterprise-server/README.md) 10.5. For the categorized highlights and other details of this release, see the [release notes](10.5.28-22.md).\
+MariaDB Enterprise Server 10.5.28-22 is a maintenance release of [MariaDB Enterprise Server]({release-notes}/enterprise-server) 10.5. For the categorized highlights and other details of this release, see the [release notes](10.5.28-22.md).\
 MariaDB Enterprise Server 10.5.28-22 was released on 19 Mar 2025.
 
 ## Changes
