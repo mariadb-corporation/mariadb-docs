@@ -2,7 +2,7 @@
 
 ## Overview
 
-[MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) is a columnar storage engine included with [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md). This is the fifth release in the ColumnStore 5 series.
+[MariaDB ColumnStore]({analytics}/mariadb-columnstore) is a columnar storage engine included with [MariaDB ColumnStore]({analytics}/mariadb-columnstore). This is the fifth release in the ColumnStore 5 series.
 
 This release of MariaDB ColumnStore is included with MariaDB Enterprise Server 10.5.10-7.
 

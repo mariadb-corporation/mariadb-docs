@@ -2,7 +2,7 @@
 
 ## Overview
 
-[MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/columnstore/mariadb-columnstore-6-release-notes/MariaDB_Enterprise_ColumnStore/README.md) 6.2.3 is a maintenance release of MariaDB ColumnStore. MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the third release in the ColumnStore 6 series.
+[MariaDB ColumnStore]({analytics}/mariadb-columnstore) 6.2.3 is a maintenance release of MariaDB ColumnStore. MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the third release in the ColumnStore 6 series.
 
 MariaDB ColumnStore 6.2.3 was released on 2022-02-23. This release is of General Availability (GA) maturity.
 
@@ -33,7 +33,7 @@ This release of MariaDB ColumnStore is included with MariaDB Enterprise Server 1
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/about/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 6.2.3 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 6.2.3 is provided for:
 
 * CentOS 7 (x86\_64)
 * Debian 10 (x86\_64)
