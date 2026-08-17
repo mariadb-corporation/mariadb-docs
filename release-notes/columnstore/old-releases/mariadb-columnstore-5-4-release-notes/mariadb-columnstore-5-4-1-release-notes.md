@@ -2,7 +2,7 @@
 
 ## Overview
 
-[MariaDB ColumnStore]({analytics}/mariadb-columnstore) is a columnar storage engine included with MariaDB Enterprise Server. This is the first release in the [ColumnStore]({analytics}/mariadb-columnstore) 5 series, which succeeds ColumnStore 1.5.3.
+[MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is a columnar storage engine included with MariaDB Enterprise Server. This is the first release in the [ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) 5 series, which succeeds ColumnStore 1.5.3.
 
 This release is focused on architectural change, product quality, and improved alignment to MariaDB Enterprise Server.
 
@@ -71,12 +71,12 @@ This release is of General Availability (GA) maturity.
 
 ## Interface Changes
 
-* [columnstore\_cache\_flush\_threshold]({analytics}/mariadb-columnstore/management/columnstore-system-variables) system variable added
-* [columnstore\_cache\_inserts]({analytics}/mariadb-columnstore/management/columnstore-system-variables) system variable added
-* [columnstore\_select\_handler\_in\_stored\_procedures]({analytics}/mariadb-columnstore/management/columnstore-system-variables) system variable added
-* [mariadbd --columnstore-cache-flush-threshold]({analytics}/mariadb-columnstore/management/columnstore-system-variables) command-line option added
-* [mariadbd --columnstore-cache-inserts]({analytics}/mariadb-columnstore/management/columnstore-system-variables) command-line option added
-* [mariadbd --columnstore-select-handler-in-stored-procedures]({analytics}/mariadb-columnstore/management/columnstore-system-variables) command-line option added
+* [columnstore\_cache\_flush\_threshold](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system-variables) system variable added
+* [columnstore\_cache\_inserts](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system-variables) system variable added
+* [columnstore\_select\_handler\_in\_stored\_procedures](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system-variables) system variable added
+* [mariadbd --columnstore-cache-flush-threshold](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system-variables) command-line option added
+* [mariadbd --columnstore-cache-inserts](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system-variables) command-line option added
+* [mariadbd --columnstore-select-handler-in-stored-procedures](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system-variables) command-line option added
 
 ## Platforms
 
@@ -104,7 +104,7 @@ In alignment with the [enterprise lifecycle](../../../enterprise-server/about/en
 
 ## Upgrade Instructions
 
-* [Major Release Upgrades for MariaDB ColumnStore]({analytics}/mariadb-columnstore/management/deployment/upgrades/major-release-upgrades-for-mariadb-enterprise-columnstore)
+* [Major Release Upgrades for MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/deployment/upgrades/major-release-upgrades-for-mariadb-enterprise-columnstore)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

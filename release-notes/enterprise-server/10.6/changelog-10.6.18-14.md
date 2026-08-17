@@ -6,7 +6,7 @@ hidden: true
 
 {% include "../../.gitbook/includes/latest-es-10.6.md" %}
 
-MariaDB Enterprise Server 10.6.18-14 is a Stable (GA) maintenance release of [MariaDB Enterprise Server]({release-notes}/enterprise-server) 10.6. For the categorized highlights and other details of this release, see the [release notes](10.6.18-14.md).
+MariaDB Enterprise Server 10.6.18-14 is a Stable (GA) maintenance release of [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server) 10.6. For the categorized highlights and other details of this release, see the [release notes](10.6.18-14.md).
 
 MariaDB Enterprise Server 10.6.18-14 was released on 2024-06-11.
 

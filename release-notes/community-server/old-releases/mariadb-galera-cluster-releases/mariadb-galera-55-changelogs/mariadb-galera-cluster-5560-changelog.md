@@ -1,8 +1,8 @@
 # MariaDB Galera Cluster 5.5.60 Changelog
 
-The most recent [MariaDB Galera Cluster 5.5]({galera}) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
+The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/5.5.60)[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5560-release-notes.md)[Changelog](mariadb-galera-cluster-5560-changelog.md)[Overview of MariaDB Galera Cluster]({galera}/readme/mariadb-galera-cluster-guide)
+[Download](https://downloads.mariadb.org/mariadb-galera/5.5.60)[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5560-release-notes.md)[Changelog](mariadb-galera-cluster-5560-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 3 May 2018
 

@@ -2,13 +2,13 @@
 
 **Release date:** 17th October 2018
 
-[MariaDB ColumnStore 1.2.0]({analytics}/mariadb-columnstore) is an Alpha release of MariaDB ColumnStore. This is the first release of the MariaDB ColumnStore 1.2 series. The MariaDB ColumnStore 1.2 series provides several new features and improvements over the MariaDB ColumnStore 1.1 release.
+[MariaDB ColumnStore 1.2.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is an Alpha release of MariaDB ColumnStore. This is the first release of the MariaDB ColumnStore 1.2 series. The MariaDB ColumnStore 1.2 series provides several new features and improvements over the MariaDB ColumnStore 1.1 release.
 
 MariaDB ColumnStore 1.2.0 is a [_**Alpha**_](../../../community-server/about/release-criteria.md) release.
 
 **Do not use&#x20;**_**alpha**_**&#x20;releases on production systems!**
 
-For an overview of [MariaDB ColumnStore]({analytics}/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
 For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) or subscribe to mariadb-columnstore@googlegroups.com
@@ -26,7 +26,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1201](https://jira.mariadb.org/browse/MCOL-1201) - User Defined Aggregate / Window Functions now support multiple parameters.
 * [MCOL-521](https://jira.mariadb.org/browse/MCOL-521) - [Regression aggregate](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/reference/columnstore-distributed-aggregate-functions) and [windows functions](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/reference/columnstore-window-functions) are now supported.
 * [MCOL-1577](https://jira.mariadb.org/browse/MCOL-1577) - CREATE TABLE...LIKE [now supported](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/reference/data-definition-statements/columnstore-create-table)
-* [MCOL-1242](https://jira.mariadb.org/browse/MCOL-1242) - A [remote bulk data import tool]({analytics}/mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport) is now available which allows loading data directly from any server. This tool is included in the MariaDB ColumnStore Tools package
+* [MCOL-1242](https://jira.mariadb.org/browse/MCOL-1242) - A [remote bulk data import tool](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport) is now available which allows loading data directly from any server. This tool is included in the MariaDB ColumnStore Tools package
 * [MCOL-1281](https://jira.mariadb.org/browse/MCOL-1281) - Microsoft Windows 10 support for bulk write SDK
 * Pentaho data adapter is now also available for Windows 10
 
@@ -119,7 +119,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation]({analytics}/mariadb-columnstore)
+[MariaDB ColumnStore Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore)
 
 ## Packaging
 
