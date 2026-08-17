@@ -194,5 +194,3 @@ SET system_versioning_alter_history = ERROR; -- restore default
 - [Rewinding Time in MariaDB Databases — MariaDB Blog](https://mariadb.com/resources/blog/rewinding-time-in-mariadb-databases-system-versioning-and-application-time/)
 
 *For topics not covered here, see the official MariaDB documentation at [mariadb.com/docs](https://mariadb.com/docs).*
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
