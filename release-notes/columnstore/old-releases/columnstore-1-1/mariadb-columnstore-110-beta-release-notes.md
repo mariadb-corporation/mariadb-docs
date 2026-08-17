@@ -2,13 +2,13 @@
 
 **Release date:** 18th September 2017
 
-[MariaDB ColumnStore 1.1.0]({analytics}/mariadb-columnstore) is a Beta release of MariaDB ColumnStore. This is the first release of the MariaDB ColumnStore 1.1 series. The MariaDB ColumnStore 1.1 series provides several new features and improvements over the MariaDB ColumnStore 1.0 release.
+[MariaDB ColumnStore 1.1.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is a Beta release of MariaDB ColumnStore. This is the first release of the MariaDB ColumnStore 1.1 series. The MariaDB ColumnStore 1.1 series provides several new features and improvements over the MariaDB ColumnStore 1.0 release.
 
 MariaDB ColumnStore 1.1.0 is a [_**Beta**_](../../../community-server/about/release-criteria.md) release.
 
 **Do not use&#x20;**_**beta**_**&#x20;releases on production systems!**
 
-For an overview of [MariaDB ColumnStore]({analytics}/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 ## New Features
 
@@ -17,8 +17,8 @@ For an overview of [MariaDB ColumnStore]({analytics}/mariadb-columnstore) see [M
 3. MariaDB ColumnStore Data API to programmatically load data into PM nodes.
 4. Text and Blob Data Types.
 5. [User defined distributed aggregate and window functions.](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/reference/columnstore-user-defined-aggregate-and-window-functions)
-6. [ColumnStore Backup/Restore Tool]({analytics}/mariadb-columnstore/management/column-store-backup-and-restore).
-7. MariaDB Server [Audit Plugin Integration]({server}/reference/plugins/mariadb-audit-plugin).
+6. [ColumnStore Backup/Restore Tool](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/column-store-backup-and-restore).
+7. MariaDB Server [Audit Plugin Integration](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin).
 8. Built-in data redundancy using GlusterFS integration for installations that use local disks for data storage on PMs. Please refer to Preparing ColumnStore Installation for using GlusterFS with MariaDB ColumnStore.
 9. Several performance improvements in string handling, memory utilization and general area.
 
@@ -95,7 +95,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 * [MCOL-912](https://jira.mariadb.org/browse/MCOL-912) : After adding two PMs with gluster, cpimport failed on newly added PMs. The system must be restarted after adding PM modules with data redundancy / gluster storage.
 * [MCOL-916](https://jira.mariadb.org/browse/MCOL-916) : Gluster failover: Stack did not recover completely after PM1 reboot. Under certain topologies (replication count < pm count) failover may not work correctly. Recommend limiting testing to replication count = pm count.
 * [MCOL-926](https://jira.mariadb.org/browse/MCOL-926) : multiple application of a UDAF on the same column will result in a null value except for the first occurrence.
-* The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here]({analytics}/mariadb-columnstore/architecture/columnstore-system-paths-and-logs).
+* The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-system-paths-and-logs).
 * While Millisecond and Microsecond storage is supported for datetime, time and timestamp columns, at this time the query results cannot return millisecond and microseconds.
 * UTF-8 Limitation
   * UTF-8 must be declared at the table level if the instance has been set up with a UTF-8 profile. Tables created with a non-matching character set will yield indeterminate results.
@@ -105,7 +105,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation]({analytics}/mariadb-columnstore)
+[MariaDB ColumnStore Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore)
 
 ## Packaging
 

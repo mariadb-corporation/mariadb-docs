@@ -1,6 +1,6 @@
 # Google Summer of Code 2018
 
-We participated in the [Google Summer of Code](https://summerofcode.withgoogle.com/) 2018. The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently C, ODBC, Java) and on [MariaDB Galera Cluster]({galera}), which allows you to scale your reads & writes. And we have [MariaDB ColumnStore]({analytics}/mariadb-columnstore), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
+We participated in the [Google Summer of Code](https://summerofcode.withgoogle.com/) 2018. The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently C, ODBC, Java) and on [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7), which allows you to scale your reads & writes. And we have [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
 
 ## Where to start
 
@@ -217,7 +217,7 @@ It's unfortunately been a little while since I wrote that code, but I think thos
 
 ### Aggregate Window Functions/
 
-Currently only a few aggregate function are supported as window functions, [the list can be found here]({server}/reference/sql-functions/special-functions/window-functions/window-functions-overview#aggregate-functions-as-window-functions).
+Currently only a few aggregate function are supported as window functions, [the list can be found here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/window-functions/window-functions-overview#aggregate-functions-as-window-functions).
 
 So in MDEV-7773, support for creating of custom aggregate functions was added.\
 Now this task would deal with extending that feature and make custom aggregate functions behave as window functions
