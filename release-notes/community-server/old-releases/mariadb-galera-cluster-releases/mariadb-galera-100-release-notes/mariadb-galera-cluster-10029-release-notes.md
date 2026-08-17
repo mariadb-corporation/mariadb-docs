@@ -1,8 +1,8 @@
 # MariaDB Galera Cluster 10.0.29 Release Notes
 
-The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) release is:[**MariaDB Galera Cluster 10.0.38**](mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
+The most recent [MariaDB Galera Cluster 10.0]({galera}) release is:[**MariaDB Galera Cluster 10.0.38**](mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.29)[Release Notes](mariadb-galera-cluster-10029-release-notes.md)[Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10029-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.29)[Release Notes](mariadb-galera-cluster-10029-release-notes.md)[Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10029-changelog.md)[Overview of MariaDB Galera Cluster]({galera}/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 16 Jan 2017
 
@@ -11,7 +11,7 @@ release. It is a merge of [MariaDB 10.0.29](../../10.0/10.0.29.md) and [Galera C
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are
-available in the [**Galera**](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) section of the documentation.
+available in the [**Galera**]({galera}) section of the documentation.
 
 For a list of changes made in MariaDB Galera Cluster 10.0.29, with links to\
 detailed information on each push, see the [MariaDB Galera Cluster 10.0.29 Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10029-changelog.md).\
