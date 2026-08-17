@@ -8,7 +8,7 @@ The MariaDB development release policy has the following project commitments for
 
 ### Commitment for Alpha Releases
 
-New features are being added. Some old features may be removed. Users can start trying Alpha versions out, but should not expect feature stability yet. Still, [Buildbot](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YDeiIobaziVWZCxk4IlA) should show no regressions and [Jira](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/8H2QW24PZkCSvuwPkQtB) should have no open [Blocker](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/mariadb-community-bug-processing) level bugs for this release.
+New features are being added. Some old features may be removed. Users can start trying Alpha versions out, but should not expect feature stability yet. Still, [Buildbot]({server}/reference/product-development/server-development/tools/buildbot/about-buildbot) should show no regressions and [Jira]({server}/reference/product-development/server-development/tools/jira) should have no open [Blocker](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/mariadb-community-bug-processing) level bugs for this release.
 
 ### Commitment for Beta Releases
 
