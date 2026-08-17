@@ -209,7 +209,7 @@ MariaDB and MySQL have differing [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2O
 * [Incompatibilities and Feature Differences Between MariaDB 11.4 and MySQL 8.0](../incompatibilities-and-feature-differences-between-mariadb-11-4-and-mysql-8.md)
 * [Function Differences Between MariaDB 11.3 and MySQL 8.0](function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-11-3-and-mysql-8-0.md)
 * [System Variable Differences Between MariaDB 11.4 and MySQL 8.0](../system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-11-4-and-mysql-8-0.md)
-* [MariaDB versus MySQL - Compatibility](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/compatibility-and-differences/function-differences-between-mariadb-and-mysql/broken-reference/README.md)
+* [MariaDB versus MySQL - Compatibility](../mariadb-vs-mysql-compatibility.md)
 * [MariaDB versus MySQL - Features](../mariadb-vs-mysql-features.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
