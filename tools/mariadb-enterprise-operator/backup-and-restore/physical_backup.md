@@ -59,8 +59,8 @@ spec:
 Multiple storage types are supported for storing physical backups, including:
 - **S3 compatible storage**: Store backups in a S3 compatible storage, such as [AWS S3](https://aws.amazon.com/s3/) or [Minio](https://github.com/minio/minio).
 - **Azure Blob Storage**: Store backups in an [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs).
-- **Persistent Volume Claims (PVC)**: Use any of the [StorageClasses](https://kubernetes.io/docs/concepts/storage/storage-classes/) available in your Kubernetes cluster to create a `PersistentVolumeClaim` (PVC) for storing backups.
-- **Kubernetes Volumes**: Store backups in any of the [in-tree storage providers](https://kubernetes.io/docs/concepts/storage/volumes/#volume-types) supported by Kubernetes out of the box, such as NFS.
+- **Persistent Volume Claims (PVC)**: Use any of the [StorageClasses](https://kubernetes.io/docs/concepts/storage/storage-classes/) available in your Kubernetes cluster to create a `PersistentVolumeClaim` (PVC) for storing backups. See [Sizing the backup volume](#sizing-the-backup-volume) before choosing a size.
+- **Kubernetes Volumes**: Store backups in any of the [in-tree storage providers](https://kubernetes.io/docs/concepts/storage/volumes/#volume-types) supported by Kubernetes out of the box, such as NFS. See [Sizing the backup volume](#sizing-the-backup-volume) before choosing a size.
 - **Kubernetes VolumeSnapshots**: Use [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/) to create snapshots of the persistent volumes used by the `MariaDB` `Pods`. This method relies on a compatible CSI (Container Storage Interface) driver that supports volume snapshots. See the [VolumeSnapshots](#volumesnapshots) section for more details.
 
 
@@ -282,6 +282,61 @@ spec:
   # [...]
 ```
 
+### Restoration in Galera clusters
+
+When Galera is enabled, only the bootstrap `Pod` is restored from the backup. Once it is up and running, the remaining replicas are added to the cluster and seeded by Galera itself via [SST](../topologies/galera.md), exactly as they would be in any other cluster provisioning scenario.
+
+Two consequences are worth keeping in mind:
+
+- Only the bootstrap `Pod` reads the backup, so the restoration does not scale with the number of replicas. The subsequent SSTs are performed sequentially, one replica at a time.
+- While the bootstrap `Pod` is acting as an SST donor, it is not considered ready unless `galera.availableWhenDonor` is set to `true`. This means that the cluster may have any ready `Pods` at all until the replicas are synced.
+
+### Preventing node scale-down during long restorations
+
+Restoring a large dataset can keep the restoration `Job` running for a long time. If your cluster runs the [Kubernetes cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler), it may consider the node hosting that `Job` underutilized and scale it down, evicting the `Pod` and discarding all the progress made so far. The restoration then starts over from scratch, potentially in a loop.
+
+To prevent this, annotate the restoration `Pod` with [`cluster-autoscaler.kubernetes.io/safe-to-evict: "false"`](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-types-of-pods-can-prevent-ca-from-removing-a-node), which tells the autoscaler not to remove the node while the `Pod` is running. The restoration `Job` `Pod` inherits `spec.podMetadata` from the `MariaDB` resource, so this is where the annotation must be set:
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb-galera
+spec:
+  # [...]
+  podMetadata:
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+  bootstrapFrom:
+    backupRef:
+      name: physicalbackup
+      kind: PhysicalBackup
+  # [...]
+```
+
+{% hint style="info" %}
+The annotation must be set in `spec.podMetadata`, and not in `spec.bootstrapFrom.restoreJob.metadata`: the latter applies to the `Job` object, whereas the autoscaler only honours annotations present in the `Pod`.
+{% endhint %}
+
+The same applies to backups: a `PhysicalBackup` `Job` of a large dataset is equally long-running, and its `Pod` inherits `spec.podMetadata` from the `PhysicalBackup` resource:
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: PhysicalBackup
+metadata:
+  name: physicalbackup
+spec:
+  # [...]
+  mariaDbRef:
+    name: mariadb
+  podMetadata:
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+  # [...]
+```
+
+Keep in mind that this annotation only constrains the cluster autoscaler. Other forms of disruption, such as node drains performed by node upgrade tooling, are governed by `PodDisruptionBudgets` and by the eviction policy of the tool in question.
+
 ## Target recovery time
 
 By default, the operator will match the closest backup available to the current time. You can specify a different target recovery time by using the `targetRecoveryTime` field in the `PhysicalBackup` resource. This lets you define the exact point in time you want to restore to:
@@ -453,12 +508,16 @@ By leaving out the `accessKeyIdSecretKeyRef` and `secretAccessKeySecretKeyRef` c
 ## Staging area
 
 {% hint style="info" %}
-S3 backups based on `mariadb-backup` are the only scenario that requires a staging area.
+S3 and Azure Blob Storage backups based on `mariadb-backup` are the only scenario that requires a staging area. For PVC and `Volume` sources the backup volume itself doubles as the staging area, and `stagingStorage` is ignored. See [Sizing the backup volume](#sizing-the-backup-volume).
 {% endhint %}
 
 When using S3 storage for backups, a staging area is used for keeping the external backups while they are being processed. By default, this staging area is an `emptyDir` volume, which means that the backups are temporarily stored in the node's local storage where the `PhysicalBackup` `Job` is scheduled. In production environments, large backups may lead to issues if the node doesn't have sufficient space, potentially causing the backup/restore process to fail.
 
-Additionally, when restoring these backups, the operator will pull the backup files from S3, uncompress them if needded, and restore them to each of the `MariaDB` `Pods` in the cluster individually. To save network bandwidth and compute resources, a staging area is used to keep the uncompressed backup files after they have been restored to the first `MariaDB` `Pod`. This allows the operator to restore the same backup to the rest of `MariaDB` `Pods` seamlessly, without needing to pull and uncompress the backup again.
+Additionally, when restoring these backups, the operator will pull the backup files from S3, uncompress them if needed, and restore them to the `MariaDB` `Pods` that need to be seeded from the backup. To save network bandwidth and compute resources, a staging area is used to keep the uncompressed backup files after they have been restored to the first `MariaDB` `Pod`. This allows the operator to restore the same backup to the remaining `MariaDB` `Pods` seamlessly, without needing to pull and uncompress the backup again.
+
+{% hint style="info" %}
+In Galera clusters only the bootstrap `Pod` is restored from the backup, so the staging area is read once. See [Restoration in Galera clusters](#restoration-in-galera-clusters).
+{% endhint %}
 
 To configure the staging area, you can use the `stagingStorage` field in the `PhysicalBackup` resource:
 
@@ -589,6 +648,43 @@ spec:
           memory: 1Gi
   # [...]
 ```
+
+### Sizing the backup volume
+
+{% hint style="warning" %}
+When using a PVC or a Kubernetes `Volume` to store backups based on `mariadb-backup`, size it for **at least twice** the size of your dataset. A volume sized to just fit the backup will cause the restoration to fail once it runs out of space.
+{% endhint %}
+
+Taking the backup only requires enough space for the backup artifact itself, so a volume that just fits the dataset appears to be sufficient. Restoring, however, does not stream the artifact directly into the data directory. It performs the following steps:
+
+1. The backup artifact is decompressed, if [compression](#compression) is enabled.
+2. The artifact is extracted with `mbstream` into a `full` directory.
+3. The extracted backup is prepared with `mariadb-backup --prepare`.
+4. The prepared backup is copied into the data directory with `mariadb-backup --copy-back`.
+
+Steps 1 to 3 all happen in the volume that holds the backup, which therefore has to accommodate both the backup artifact and its fully extracted contents at the same time. As a rule of thumb:
+
+- **Uncompressed backups**: at least `2 x dataset size`.
+- **Compressed backups**: at least `2 x dataset size` plus the size of the compressed artifact, as the decompressed copy is written next to it.
+- Add the size of every additional backup that your [retention policy](#retention-policy) keeps in the same volume.
+
+{% hint style="info" %}
+`stagingStorage` does not help here. It is only taken into account for S3 and Azure Blob Storage sources, where the backup has to be pulled from a remote location first. For PVC and `Volume` sources the backup volume itself doubles as the staging area, and `stagingStorage` is silently ignored.
+{% endhint %}
+
+Running out of space during a restoration is hard to diagnose from the logs, because `mbstream` may report a misleading error such as `Can't open backup-my.cnf for reading` on subsequent attempts rather than reporting the exhausted volume. If a restoration of a large backup fails, check the free space in the backup volume before anything else:
+
+```bash
+kubectl exec -it <restore-job-pod> -c mariadb -- df -h /backup
+```
+
+If the volume turns out to be undersized, and its `StorageClass` supports [volume expansion](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims), you can expand the existing PVC and retry the restoration without having to take the backup again:
+
+```bash
+kubectl patch pvc <backup-pvc> -p '{"spec":{"resources":{"requests":{"storage":"500Gi"}}}}'
+```
+
+Since a physical backup can only be restored into a brand new `MariaDB` instance without any existing data, retrying also requires deleting the failed `MariaDB` resource **and** its data directory PVCs.
 
 ### `ReadWriteOncePod` access mode partially supported
 
