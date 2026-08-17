@@ -9,19 +9,19 @@
 
 ## Designing for MaxScale's ColumnStore Monitor
 
-MaxScale's [ColumnStore Monitor (csmon)](broken-reference) monitors
+MaxScale's [ColumnStore Monitor (csmon)](../mariadb-maxscale-2106-maxscale-2106-columnstore-monitor.md) monitors
 
-Additional information is available [here](broken-reference).
+Additional information is available [here](../mariadb-maxscale-2106-maxscale-2106-columnstore-monitor.md).
 
 ## Understanding MaxScale's ColumnStore Monitor
 
-MaxScale's [ColumnStore Monitor (csmon)](broken-reference) monitors ColumnStore deployments.
+MaxScale's [ColumnStore Monitor (csmon)](../mariadb-maxscale-2106-maxscale-2106-columnstore-monitor.md) monitors ColumnStore deployments.
 
 ## What Does the ColumnStore Monitor Support?
 
 The ColumnStore Monitor (csmon) supports:
 
-* Monitoring [ColumnStore](https://github.com/mariadb-corporation/docs-server/blob/test/en/columnstore-storage-engine/README.md) deployments.
+* Monitoring [ColumnStore]({analytics}/mariadb-columnstore) deployments.
 * Query-based load balancing with the [Read/Write Split Router (readwritesplit)](../../../../../maxscale-use-cases/readwrite-split-router-usage/understanding-maxscales-readwrite-split-router.md)
 * Connection-based load balancing with the Read Connection Router (readconnroute)
 
