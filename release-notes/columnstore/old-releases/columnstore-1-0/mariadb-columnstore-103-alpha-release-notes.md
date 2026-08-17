@@ -73,7 +73,7 @@ There are some known security issues. They are listed [here](https://app.gitbook
 RPM and binary packages are provided for the Linux distributions supported by MariaDB ColumnStore 1.0.3 Alpha version.
 
 * The supported OS for this Alpha version are CentOS 6, CentOS 7 and Ubuntu 16.0.4.
-* Packages can be downloaded [here](https://mariadb.com/my_portal/download/mariadb-columnstore)
+* Packages can be downloaded here
 
 ## Source Code
 
