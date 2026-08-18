@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
 # doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
-# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus a GitBook include resolver
-# that has no CI counterpart (see below).
+# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus two checks that have no CI
+# counterpart (see below): a GitBook include resolver and a net line-loss guard.
 #
 # The pre-commit hook, the /precommit command, the docs-check skill, and dev-docs/cookbook-pre-pr.md
 # all delegate here instead of re-spelling the flags, so the CI-mirroring options live in exactly
@@ -195,7 +195,11 @@ space_of() {
 
 # `grep | while` puts the loop body in a subshell, so it cannot set `rc` directly — failures are
 # tallied in a temp file instead.
-inc_fail="$(mktemp -t doclint-inc)" || { echo "doc-lint: mktemp failed" >&2; exit 2; }
+# Use a positional template, not `-t <prefix>`: GNU coreutils rejects a `-t` template with no
+# X's ("too few X's in template"), which made this exit 2 on every Linux run — and since it sits
+# before the checks below, it took the include resolver and the shrink guard down with it. The
+# positional form works on both GNU and BSD/macOS mktemp. (Regression from DOCS-6372, f2b5e332c.)
+inc_fail="$(mktemp "${TMPDIR:-/tmp}/doclint-inc.XXXXXX")" || { echo "doc-lint: mktemp failed" >&2; exit 2; }
 trap 'rm -f "$inc_fail"' EXIT
 
 for f in "${files[@]}"; do
@@ -219,5 +223,81 @@ for f in "${files[@]}"; do
   done
 done
 [ -s "$inc_fail" ] && rc=1
+
+# --- net line-loss guard — NO CI counterpart ------------------------------------------------
+# Catches the "silently gutted page" failure: a surviving page loses most of its body while the
+# markup stays valid and every remaining link resolves, so codespell and lychee both PASS.
+#
+# DOCS-6442 is the case this exists for. A retirement campaign (DOCS-5976 Tier B, c6ea5549a)
+# meant to delete ONE {% columns %} content-ref block from the Storage Engines landing page —
+# the block pointing at a folder it was removing — and promote FEDERATED into its place. It
+# deleted 23 of the 24 blocks instead: 298 lines -> 22, 24 content-refs -> 1. SUMMARY.md was
+# untouched, so the nav still listed all 27 engines while the page listed one. Every gate passed;
+# a reader found it two days later, and b36d939 rebuilt the page from SUMMARY.md.
+#
+# The metric is NET loss (pre - post, i.e. deletions minus additions), not raw deletions.
+# Raw deletions flag every reformatting campaign — alias expansion, trailing-backslash removal,
+# changelog normalization — because those rewrite lines rather than remove them. Measured over
+# 300 commits of this repo: raw deletions >40% flags 17 files (mostly those campaigns), net loss
+# >40% flags 4. On c6ea5549a itself the guard yields a ONE-item list at 94%, next-worst 16%.
+#
+# Thresholds and the acknowledgment path are env-overridable:
+#   DOC_LINT_SHRINK_PCT   (40) percent of the pre-image lost, net, before flagging
+#   DOC_LINT_SHRINK_MIN   (20) minimum net lines lost, so tiny files can't trip it
+#   DOC_LINT_SHRINK_FLOOR (30) minimum pre-image size considered at all
+#   DOC_LINT_BASE       (HEAD) revision the pre-image is read from
+#   DOC_LINT_ALLOW_SHRINK     space/comma-separated paths to exempt, or "all"
+#
+# A deliberate large shrink is legitimate (Tier C's Debian README correctly went 70 -> 34 lines
+# when three of its five children were retired), so this gate is meant to be acknowledged, not
+# worked around: name the path in DOC_LINT_ALLOW_SHRINK and say why in the commit message.
+#
+# Compares the WORKING-TREE file against the base revision — the same content codespell and
+# lychee above are checking. When the index and working tree differ, this reflects the working
+# tree, not what is staged.
+
+SHRINK_PCT="${DOC_LINT_SHRINK_PCT:-40}"
+SHRINK_MIN="${DOC_LINT_SHRINK_MIN:-20}"
+SHRINK_FLOOR="${DOC_LINT_SHRINK_FLOOR:-30}"
+SHRINK_BASE="${DOC_LINT_BASE:-HEAD}"
+SHRINK_ALLOW=" ${DOC_LINT_ALLOW_SHRINK:-} "
+SHRINK_ALLOW="${SHRINK_ALLOW//,/ }"
+
+if command -v git >/dev/null 2>&1 \
+   && git rev-parse --is-inside-work-tree >/dev/null 2>&1 \
+   && git rev-parse --verify -q "$SHRINK_BASE" >/dev/null 2>&1; then
+  case "$SHRINK_ALLOW" in
+    *" all "*) : ;;   # globally acknowledged — skip the whole check
+    *)
+      for f in "${files[@]}"; do
+        f="${f#./}"
+        case "$SHRINK_ALLOW" in *" $f "*) continue ;; esac
+        # absent from the base revision = a new file, so there is nothing to have lost
+        git cat-file -e "$SHRINK_BASE:$f" 2>/dev/null || continue
+
+        pre=$(git show "$SHRINK_BASE:$f" 2>/dev/null | wc -l | tr -d ' ')
+        post=$(wc -l < "$f" | tr -d ' ')
+        [ "$pre" -lt "$SHRINK_FLOOR" ] && continue
+
+        net=$((pre - post))
+        [ "$net" -lt "$SHRINK_MIN" ] && continue
+
+        if [ "$(awk -v n="$net" -v p="$pre" -v t="$SHRINK_PCT" \
+                    'BEGIN{print (n/p*100 > t) ? 1 : 0}')" = "1" ]; then
+          pctv="$(awk -v n="$net" -v p="$pre" 'BEGIN{printf "%.0f", n/p*100}')"
+          echo "doc-lint: possible gutted page — $f" >&2
+          echo "          lost $net of $pre lines net (${pctv}%) vs $SHRINK_BASE." >&2
+          echo "          Confirm the page still covers everything it should. For a landing page," >&2
+          echo "          compare its content-ref count against the space's SUMMARY.md children —" >&2
+          echo "          SUMMARY.md is authoritative for nav, so a page listing far fewer of its" >&2
+          echo "          children than SUMMARY.md does is the signature of this bug (DOCS-6442)." >&2
+          echo "          Intentional? Re-run with DOC_LINT_ALLOW_SHRINK='$f'" >&2
+          echo "          and say why in the commit message." >&2
+          rc=1
+        fi
+      done
+      ;;
+  esac
+fi
 
 exit "$rc"
