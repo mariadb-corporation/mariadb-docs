@@ -425,7 +425,7 @@ END;
 This feature is available from MariaDB 13.1, in `sql_mode=ORACLE` only.
 {% endhint %}
 
-A `TYPE` declaration can appear in a package specification. Such a type is public: routines outside the package can declare variables of it by qualifying the type name with the name of the package that declares it. Earlier, a `TYPE` declaration was confined to the block that declared it, so a record, associative array, or `REF CURSOR` type could not be shared between routines.
+A `TYPE` declaration can appear in a package specification. Such a type is public: routines outside the package can declare variables of it by qualifying the type name with the name of the package that declares it. A `TYPE` declaring a record, associative array, or `REF CURSOR` can therefore be shared between schema-level (standalone) and package routines.
 
 ### Syntax
 
@@ -541,11 +541,6 @@ ERROR 4161 (HY000): Unknown data type: '`pkg1`.`no_such_type`'
 
 Parameters and `RETURN` types of schema-level routines are exposed through [INFORMATION\_SCHEMA.PARAMETERS](../../system-tables/information-schema/information-schema-tables/information-schema-parameters-table.md), which cannot yet represent a package type.
 
-Two further restrictions apply to the qualified form itself:
-
-* Data type attributes cannot be applied to a qualified type. A length, `CHARACTER SET`, or `COLLATE` clause after `pkg1.rec0_t` is a syntax error.
-* A qualified name has at most three parts. A longer chain, such as `cat1.db1.pkg1.type1`, raises `ERROR 4161 (HY000): Unknown data type`.
-
 ### Name Resolution
 
 A two-step name `pkg1.rec0_t` names a package rather than a schema, so the schema that holds the package is resolved through [SET PATH](../administrative-sql-statements/set-commands/set-path.md) — the same mechanism that resolves package routine calls. The default path is `CURRENT_SCHEMA`, so an unqualified package is looked up in the current schema. With a wider path, the same type name can resolve to different packages:
@@ -600,7 +595,19 @@ The check applies to any user other than the one that created the package, inclu
 
 ### Limitation on Dumps
 
-[mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) writes packages in name order. If two packages depend on each other's types, the file can define the dependent package first, and the restore then fails with `Unknown data type`. Dump and restore the `mysql.proc` table instead when packages have inter-package type dependencies.
+[mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) writes packages in name order. If two packages depend on each other's types, the file can define the dependent package first, and the restore then fails with `Unknown data type`.
+
+When the packages are in different databases, dump each database separately and restore them in dependency order:
+
+```bash
+mariadb-dump --routines dependency_db > dependency_db.sql
+mariadb-dump --routines dependent_db > dependent_db.sql
+
+mariadb < dependency_db.sql
+mariadb < dependent_db.sql
+```
+
+When the dependency is between packages in the same database, dump and restore the `mysql.proc` table instead.
 
 ## See Also
 
