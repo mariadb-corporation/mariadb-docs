@@ -34,7 +34,29 @@ A **conflict** occurs when the replica's local data has diverged from what the p
 * The primary updates or deletes a row that is **missing** on the replica.
 * The primary updates or deletes a row that exists on the replica but **holds different values**.
 
-By default, a divergence that blocks the applier — a duplicate key, a missing row — raises a hard error and **stops the SQL thread**, requiring an operator to intervene manually or skip the event. A divergence that does not block it — a row that exists but holds different values — is silently overwritten (or deleted) by the incoming event and passes unnoticed unless CDR is enabled.
+By default, a divergence that blocks the applier — a duplicate key, a missing row — raises a hard error and **stops the SQL thread**, requiring an operator to intervene manually or skip the event. A divergence that does not block it — a row that exists but holds different values — is silently overwritten (or deleted) by the incoming event and passes unnoticed unless CDR is enabled:
+
+```sql
+-- customer (id INT PRIMARY KEY, email VARCHAR(255), phone VARCHAR(32))
+-- Both servers hold: (301, 'jsmith@examp1e.com', '555-0100')
+
+-- On the replica: an operator fixes a typo in the email directly
+UPDATE customer SET email = 'jsmith@example.com' WHERE id = 301;
+
+-- Weeks later, on the primary: the same customer's phone number changes
+UPDATE customer SET phone = '555-0199' WHERE id = 301;
+
+-- Without CDR: the replicated event carries the full row image, stale email
+-- included, and applying it silently reverts the fix. No error is raised:
+--   the replica row becomes (301, 'jsmith@examp1e.com', '555-0199')
+
+-- With CDR: the same event raises an UPDATE_UPDATE conflict, and a trigger
+-- can merge the two changes instead:
+CREATE TRIGGER cdr_keep_fix FOR CONFLICT UPDATE_UPDATE ON customer
+FOR EACH ROW
+    SET NEW.email = OLD.email;  -- keep the local correction; the phone update applies
+--   the replica row becomes (301, 'jsmith@example.com', '555-0199')
+```
 
 Conflict Detection and Resolution (CDR) Triggers let you encode the resolution policy as SQL, on the replica. When a conflict is detected, the applier diverts the failing row event into a user-defined trigger. Inside the trigger you decide, per row, whether to overwrite, merge, ignore, or deliberately halt.
 
