@@ -148,6 +148,18 @@ jobs:
           # and askubuntu.com answer 403 to any non-browser client (Stack
           # Exchange requires JS), and www.fsf.org fails lychee's connection
           # while serving 200 to a browser User-Agent. All are valid for readers.
+          #
+          # DOCS-6449 (2026-08-18): three vendor/doc hosts cited from
+          # server/clients-and-utilities/ that block automated clients, proven
+          # alive by the challenge each one serves rather than by a status code.
+          # valentina-db.com and www.sqlmaestro.com both sit behind Sucuri
+          # CloudProxy and return its "Javascript is required" interstitial (403
+          # and 307 respectively). docs.moodle.org answers with
+          # "Cf-Mitigated: challenge" from Cloudflare. A browser User-Agent does
+          # NOT get past any of the three, so there is no resolved URL to
+          # substitute -- unlike codex.wordpress.org, which was retired by
+          # WordPress and so got repointed at wordpress.org/documentation
+          # instead of excluded.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -213,6 +225,9 @@ jobs:
             --exclude 'www\.fsf\.org'
             --exclude 'dba\.stackexchange\.com'
             --exclude 'askubuntu\.com'
+            --exclude 'valentina-db\.com'
+            --exclude 'docs\.moodle\.org'
+            --exclude 'www\.sqlmaestro\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
