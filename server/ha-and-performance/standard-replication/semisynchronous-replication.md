@@ -9,7 +9,7 @@ description: >-
 
 ## Description
 
-[Standard MariaDB replication](./) is asynchronous, but MariaDB also provides a semisynchronous replication option. The feature is built into the server and is always available; nothing needs to be installed to use it. See [MDEV-13073](https://jira.mariadb.org/browse/MDEV-13073) for more information.
+[Standard MariaDB replication](./) is asynchronous, but MariaDB also provides a semisynchronous replication option. The feature is built into the server and is always available; nothing needs to be installed to use it.
 
 With regular asynchronous replication, replicas request events from the primary's binary log whenever the replicas are ready. The primary does not wait for a replica to confirm that an event has been received.
 
@@ -241,13 +241,13 @@ Two settings on the replica determine that, and one case cannot be covered by an
 
 A replica acknowledges a transaction as soon as the transaction's events have been written to its relay log file. Writing is not the same as syncing. By default, the relay log is only synced to disk after every 10,000 events, as set by [sync\_relay\_log](replication-and-binary-log-system-variables.md#sync_relay_log). If the replica's operating system or host crashes in between, the replica loses events that the primary has already counted as safely replicated.
 
-Set `sync_relay_log=1` on every semisynchronous replica. Each event is then synced to disk before the replica acknowledges it.
+With `sync_relay_log=1`, each event is synced to disk before the replica acknowledges it, so an acknowledged transaction is durable on the replica at the moment the primary is told so. That is the value at which semisynchronous replication delivers the durability it appears to promise, at the cost of one sync per event rather than one per 10,000.
 
 ### Surviving a Replica Restart
 
 Whether an acknowledged transaction is still in the relay log after the replica restarts is controlled by [relay\_log\_recovery](replication-and-binary-log-system-variables.md#relay_log_recovery), which defaults to `0` (`OFF`). When it is set to `1`, the replica discards the relay logs it has not yet applied on startup and fetches those events from the primary again.
 
-Normally that is harmless, because the primary still has the events. It stops being harmless when the primary went down too and lost them: transactions that existed only in the replica's relay log are then lost, which defeats the purpose of semisynchronous replication. This is worth checking in an existing configuration, since `relay_log_recovery=1` is often enabled for crash safety without this interaction in mind.
+Normally that is harmless, because the primary still has the events. It stops being harmless when the primary has lost them: transactions that existed only in the replica's relay log are then lost, which defeats the purpose of semisynchronous replication. This is worth checking in an existing configuration, since `relay_log_recovery=1` is often enabled for crash safety without this interaction in mind.
 
 Leaving [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay_log_purge) at its default of `1` is safe with semisynchronous replication. A relay log is only purged once the [replica's SQL thread](replication-threads.md#slave-sql-thread) has applied all of its events, so purging never discards an acknowledged transaction that has not been applied yet. Do not combine `relay_log_purge=0` with `relay_log_recovery=1`, which can cause the replica to read relay logs that were not purged, leading to data inconsistencies.
 
@@ -257,7 +257,9 @@ Leaving [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay
 A replica that connects using [GTIDs](gtid.md), with `MASTER_USE_GTID` set to `slave_pos` or `current_pos`, purges its relay logs every time the replication threads start, including after a restart of the replica, regardless of `relay_log_recovery`. Transactions that reached only the replica's relay log therefore do not survive a restart of that replica. If the primary lost them as well, they are gone, and no setting on the replica closes that window. The server-side work on this limitation is tracked in [MDEV-4698](https://jira.mariadb.org/browse/MDEV-4698).
 {% endhint %}
 
-Losing the primary and a replica at the same time is unlikely, so in practice the exposure is narrow. It is worth stating plainly, though, because GTID-based replication is the recommended configuration, so this is the case most deployments are in. What keeps the exposure small there is the primary's own durability, rather than anything on the replica: with `sync_binlog=1` and `innodb_flush_log_at_trx_commit=1`, a crashed primary does not lose committed transactions and can supply them again once it is back.
+Losing the primary and a replica at the same time is unlikely, so in practice the exposure is narrow. It is worth stating plainly, though, because GTID-based replication is the recommended configuration, so this is the case most deployments are in. What keeps the exposure small there is the primary's own durability, rather than anything on the replica: a crashed primary that has not lost committed transactions can supply them again once it is back.
+
+From MariaDB 12.3, the [InnoDB-based binary log](innodb-based-binary-log.md) (`binlog_storage_engine=innodb`) is the better way to get that durability, because the binary log is written through InnoDB's own crash recovery. With it, `sync_binlog` is not needed and is effectively ignored, and commit durability is controlled solely by [innodb\_flush\_log\_at\_trx\_commit](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_log_at_trx_commit). On a traditional file-based binary log, [sync\_binlog](replication-and-binary-log-system-variables.md#sync_binlog)`=1` is what provides it.
 
 ### Recommended Settings
 
@@ -272,7 +274,10 @@ On semisynchronous replicas that connect using binary log file and position coor
 
 On the primary:
 
-* [sync\_binlog](replication-and-binary-log-system-variables.md#sync_binlog)`=1` and [innodb\_flush\_log\_at\_trx\_commit](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_log_at_trx_commit)`=1` (the default), so that the primary can supply transactions again after a crash. This is what limits the exposure for replicas that connect using GTIDs, where relay logs are always purged when the replication threads start.
+* From MariaDB 12.3, the [InnoDB-based binary log](innodb-based-binary-log.md) (`binlog_storage_engine=innodb`), with [innodb\_flush\_log\_at\_trx\_commit](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_log_at_trx_commit)`=1` (the default). `sync_binlog` does not apply here and is effectively ignored.
+* On a traditional file-based binary log, [sync\_binlog](replication-and-binary-log-system-variables.md#sync_binlog)`=1` together with `innodb_flush_log_at_trx_commit=1`.
+
+Either way, the point is that the primary can supply transactions again after a crash. This is what limits the exposure for replicas that connect using GTIDs, where relay logs are always purged when the replication threads start.
 
 ## System Variables
 
