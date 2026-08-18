@@ -315,6 +315,20 @@ DELIMITER ;
 
 If you instead leave `NEW.a` untouched, the conflict resolves as a no-op and the row stays absent.
 
+The same sentinel drives `DELETE_UPDATE`, where the local row exists — populating the key from `OLD` keeps and re-asserts the locally updated row against the incoming delete:
+
+```sql
+DELIMITER //
+CREATE TRIGGER cdr_du FOR CONFLICT DELETE_UPDATE ON t1
+FOR EACH ROW
+BEGIN
+    SET NEW.a = OLD.a;   -- populating the key converts the delete into an update
+    SET NEW.b = OLD.b;
+    SET NEW.c = 'kept: delete converted to update';
+END//
+DELIMITER ;
+```
+
 ## The Before-Image Consistency Check
 
 When a table has CDR triggers and an `UPDATE` or `DELETE` row event is applied, the applier locates the target row by primary key and compares the primary's before-image (`ORG`) against the row it actually found. A mismatch in the non-key columns means the replica's copy has diverged from what the primary expected, and is treated as a conflict.
