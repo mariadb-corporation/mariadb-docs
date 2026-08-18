@@ -15,8 +15,6 @@ The `tls_certificate` authentication plugin authenticates a user from the TLS cl
 
 The account is identified by the certificate's subject Distinguished Name (DN), which must be pinned on the account with a [`REQUIRE SUBJECT`](../../sql-statements/account-management-sql-statements/create-user.md) clause. The plugin refuses to authenticate an account that was not created with `REQUIRE SUBJECT`.
 
-Because the account has no password, [password validation plugins](../password-validation-plugins/simple-password-check-plugin.md) such as `simple_password_check` do not apply to it, and an account can be created while such a plugin is active.
-
 ### Description
 
 `REQUIRE SUBJECT` alone is what makes this authentication rather than merely encryption. `REQUIRE SSL` guarantees only that the transport is encrypted, and `REQUIRE X509` only that the client presented some certificate signed by a trusted CA — neither identifies *which* client connected. Pinning the subject ties the account to one specific certificate identity.
@@ -97,8 +95,6 @@ Builds that use WolfSSL rather than OpenSSL — which includes the Windows packa
 
 * [MDEV-40382](https://jira.mariadb.org/browse/MDEV-40382) — `--ssl-crl` is not enforced, so a revoked client certificate still authenticates.
 * [MDEV-40398](https://jira.mariadb.org/browse/MDEV-40398) — the certificate subject separator is not escaped, so two different subjects can satisfy one `REQUIRE SUBJECT` account.
-
-Both are scheduled for the Q4/2026 server maintenance sprint. MDEV-40382 may be resolved after retesting; MDEV-40398 depends on a fix in WolfSSL itself and will not be worked around in MariaDB code, so it may persist beyond 12.3.
 
 Official MariaDB Enterprise Server builds on OpenSSL are not affected.
 {% endhint %}
