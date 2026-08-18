@@ -158,7 +158,7 @@ $$
 DELIMITER ;
 ```
 
-Using the type requires the `EXECUTE` privilege on the package. For the contexts where a package type is accepted, name resolution, and the restrictions that apply, see [DECLARE TYPE](../../programmatic-compound-statements/declare-type.md).
+Using the type requires the `EXECUTE` privilege on the `PACKAGE`. No privileges on the `PACKAGE BODY` are required. For the contexts where a package type is accepted, name resolution, and the restrictions that apply, see [DECLARE TYPE](../../programmatic-compound-statements/declare-type.md).
 
 ## Examples
 
