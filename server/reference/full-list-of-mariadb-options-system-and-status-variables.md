@@ -1763,6 +1763,7 @@ description: >-
 * \--[skip-innodb-checksums](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_checksums)
 * \--[skip-innodb-doublewrite](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_doublewrite)
 * \--[skip-large-pages](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#large_pages)
+* \--[skip-log-bin](../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_bin)
 * \--[skip-log-error](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error)
 * \--[skip-name-resolve](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_name_resolve), [skip\_name\_resolve](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_name_resolve)
 * \--[skip-new](../server-management/starting-and-stopping-mariadb/mariadbd-options.md)
