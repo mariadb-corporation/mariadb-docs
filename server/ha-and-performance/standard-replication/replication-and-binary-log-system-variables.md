@@ -883,7 +883,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `slave_exec_mode`
 
-* Description: Determines the mode used for [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) error checking and conflict resolution. `STRICT` mode is the default, and catches all errors and conflicts. `IDEMPOTENT` mode suppresses duplicate key or no key errors, which can be useful in certain replication scenarios, such as when there are Galera nodes, multiple primaries, or circular replication.
+* Description: Determines the mode used for [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) error checking and conflict resolution. `STRICT` mode is the default, and catches all errors and conflicts. `IDEMPOTENT` mode suppresses duplicate key or no key errors, which can be useful in certain replication scenarios, such as when there are Galera nodes, multiple primaries, or circular replication. In MariaDB Enterprise Server 12.3, `IDEMPOTENT` also disables the before-image consistency check used by [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md), and the combination of the two is not supported.
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `enumeration`
@@ -954,6 +954,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
   * `aggressive`: tries to maximize the parallelism, possibly at the cost of increased conflict rate.
   * `minimal`: only parallelizes the commit steps of transactions.
   * `none` disables parallel apply completely.
+* In MariaDB Enterprise Server 12.3, a replica that uses [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) must be set to `optimistic` or a more conservative value. Conflicts are not routed to a CDR trigger in `aggressive` mode.
 * Command line: None
 * Scope: Global
 * Dynamic: Yes

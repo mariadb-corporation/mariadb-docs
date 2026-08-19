@@ -349,6 +349,18 @@ Understand how triggers behave under row-based replication. Learn when and why t
 
 {% columns %}
 {% column %}
+{% content-ref url="conflict-detection-and-resolution-triggers.md" %}
+[conflict-detection-and-resolution-triggers.md](conflict-detection-and-resolution-triggers.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Resolve row-based replication conflicts on the replica instead of stopping the SQL thread. Covers the FOR CONFLICT trigger form, the five conflict types, and the NEW/OLD/ORG row accessors.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="selectively-skipping-replication-of-binlog-events.md" %}
 [selectively-skipping-replication-of-binlog-events.md](selectively-skipping-replication-of-binlog-events.md)
 {% endcontent-ref %}

@@ -17,9 +17,11 @@ The following restrictions apply to [triggers](./):
 * Triggers are not activated by [foreign key](../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md) actions.
 * If a trigger is loaded into cache, it is not automatically reloaded when the table metadata changes. In this case a trigger can operate using the outdated metadata.
 * By default, with row-based replication, triggers run on the master, and the effects of their executions are replicated to the slaves. It is possible to run triggers on slaves. See [Running triggers on the slave for Row-based events](../../../ha-and-performance/standard-replication/running-triggers-on-the-replica-for-row-based-events.md).
+* [Conflict Detection and Resolution (CDR) triggers](../../../ha-and-performance/standard-replication/conflict-detection-and-resolution-triggers.md), added in MariaDB Enterprise Server 12.3 (beta), carry additional restrictions: a CDR trigger binds to exactly one conflict type, cannot be combined with the `INSERT`, `UPDATE`, or `DELETE` events or with a `BEFORE`/`AFTER` timing keyword, and only fires for tables that have a `PRIMARY KEY`.
 
 ## See Also
 
+* [Conflict Detection and Resolution (CDR) Triggers](../../../ha-and-performance/standard-replication/conflict-detection-and-resolution-triggers.md)
 * [Trigger Overview](trigger-overview.md)
 * [CREATE TRIGGER](create-trigger.md)
 * [DROP TRIGGER](../../../reference/sql-statements/data-definition/drop/drop-trigger.md)

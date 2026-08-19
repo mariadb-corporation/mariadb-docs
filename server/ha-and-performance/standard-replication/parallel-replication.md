@@ -90,6 +90,10 @@ Aggressive mode of in-order parallel replication is very similar to optimistic m
 
 Aggressive mode of in-order parallel replication can be configured by setting the [slave\_parallel\_mode](replication-and-binary-log-system-variables.md) system variable to `aggressive` on the replica.
 
+{% hint style="warning" %}
+A replica that uses [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) (MariaDB Enterprise Server 12.3, beta) must not run in `aggressive` mode. Conflicts are only routed to a CDR trigger when `slave_parallel_mode` is `optimistic` or a more conservative setting; in `aggressive` mode the applier raises its usual error and stops the SQL thread instead.
+{% endhint %}
+
 #### Conservative Mode of In-Order Parallel Replication
 
 Conservative mode of in-order parallel replication uses the [group commit](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) on the primary to discover potential for parallel apply of events on the replica. If two transactions commit together in a [group commit](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) on the primary, they are written into the binlog with the same commit id. Such events are certain to not conflict with each other, and they can be scheduled by the parallel replication to run in different worker threads.
@@ -215,6 +219,7 @@ The implementation is described in [MDEV-4506](https://jira.mariadb.org/browse/M
 
 ## See Also
 
+* [Conflict Detection and Resolution (CDR) Triggers](conflict-detection-and-resolution-triggers.md)
 * [Better Parallel Replication for MariaDB and MySQL](https://mariadb.com/blog/better-parallel-replication-mariadb-and-mysql) (MariaDB.com blog)
 * [Evaluating MariaDB & MySQL Parallel Replication Part 2: Slave Group Commit](https://mariadb.com/blog/evaluating-mariadb-mysql-parallel-replication-part-2-slave-group-commit) (MariaDB.com blog)
 
