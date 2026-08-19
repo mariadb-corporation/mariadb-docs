@@ -2,6 +2,7 @@
 description: >-
   Documentation for the MariaDB MaxScale 21.06 and 22.08 releases has been
   retired. Both series have reached end of life.
+hidden: true
 ---
 
 # Documentation No Longer Available

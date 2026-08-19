@@ -1655,7 +1655,7 @@ retain the old behavior, specify all the accepted values with`admin_ssl_version=
 * Dynamic: No
 
 Additional TLS cipher settings. The configured value is prepended to [admin\_ssl\_version](mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#admin_ssl_version)
-and the resulting string is given as is to [gnutls\_priority\_init](https://gnutls.org/manual/html_node/Priority-Strings.html).\
+and the resulting string is given as is to [gnutls\_priority\_init](https://gitlab.com/gnutls/gnutls/-/blob/3.8.13/doc/cha-gtls-app.texi#L1271).\
 If left undefined, `NORMAL` is used.
 
 Adding unrecognized elements to this setting will cause REST-API startup to fail

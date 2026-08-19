@@ -1312,7 +1312,7 @@ Older versions of MaxScale interpreted `admin_ssl_version` as the minimum allowe
 * Mandatory: No
 * Dynamic: No
 
-Additional TLS cipher settings. The configured value is prepended to [admin\_ssl\_version](maxscale-configuration-guide.md#admin_ssl_version) and the resulting string is given as is to [gnutls\_priority\_init](https://gnutls.org/manual/html_node/Priority-Strings.html). If left undefined, `NORMAL` is used.
+Additional TLS cipher settings. The configured value is prepended to [admin\_ssl\_version](maxscale-configuration-guide.md#admin_ssl_version) and the resulting string is given as is to [gnutls\_priority\_init](https://gitlab.com/gnutls/gnutls/-/blob/3.8.13/doc/cha-gtls-app.texi#L1271). If left undefined, `NORMAL` is used.
 
 Adding unrecognized elements to this setting will cause REST-API startup to fail with the error:
 
