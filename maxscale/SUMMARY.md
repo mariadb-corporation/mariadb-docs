@@ -63,6 +63,7 @@
   * [Configuring the Galera Monitor](mariadb-maxscale-tutorials/configuring-the-galera-monitor.md)
   * [Configuring the MariaDB Monitor](mariadb-maxscale-tutorials/configuring-the-mariadb-monitor.md)
   * [Connection Routing with MariaDB MaxScale](mariadb-maxscale-tutorials/connection-routing-with-mariadb-maxscale.md)
+  * [Deployment Topologies for Multiple MaxScales](mariadb-maxscale-tutorials/deployment-topologies-for-multiple-maxscales.md)
   * [Encrypting Passwords](mariadb-maxscale-tutorials/encrypting-passwords.md)
   * [Failover With Multiple MaxScales](mariadb-maxscale-tutorials/failover-with-multiple-maxscales.md)
   * [Failure-tolerant replication and failover](mariadb-maxscale-tutorials/failure-tolerant-replication-and-failover.md)
