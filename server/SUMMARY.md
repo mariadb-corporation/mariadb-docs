@@ -2207,6 +2207,7 @@
       * [Authentication Plugin - Named Pipe](reference/plugins/authentication-plugins/authentication-plugin-named-pipe.md)
       * [Authentication Plugin - PARSEC](reference/plugins/authentication-plugins/authentication-plugin-parsec.md)
       * [Authentication Plugin - SHA-256](reference/plugins/authentication-plugins/authentication-plugin-sha-256.md)
+      * [Authentication Plugin - tls\_certificate](reference/plugins/authentication-plugins/authentication-plugin-tls-certificate.md)
       * [Authentication Plugin - Unix Socket](reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md)
       * [Authentication with Pluggable Authentication Modules (PAM)](reference/plugins/authentication-plugins/authentication-with-pluggable-authentication-modules-pam/README.md)
         * [Authentication Plugin - PAM](reference/plugins/authentication-plugins/authentication-with-pluggable-authentication-modules-pam/authentication-plugin-pam.md)
