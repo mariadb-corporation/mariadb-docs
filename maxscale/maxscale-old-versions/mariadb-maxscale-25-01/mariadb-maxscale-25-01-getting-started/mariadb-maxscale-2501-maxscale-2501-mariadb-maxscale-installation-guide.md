@@ -79,7 +79,7 @@ steps in configuring your MariaDB MaxScale installation. Follow this tutorial
 to learn how to configure and start using MaxScale.
 
 For a detailed list of all configuration parameters, refer to the [Configuration Guide](mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) and the module specific documents
-listed in the [Documentation Contents](../mariadb-maxscale-2501-maxscale-2501-contents.md).
+listed in the [Documentation Contents](../README.md).
 
 ### Encrypting Passwords
 
