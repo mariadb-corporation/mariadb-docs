@@ -170,7 +170,7 @@ when using a read-write-splitting configuration.
 MariaDB MaxScale is now ready to start accepting client connections and route queries to
 the backend cluster.
 
-More options can be found in the [Configuration Guide](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/),[readwritesplit module documentation](../mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-readwritesplit.md) and [readconnroute module documentation](../mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-readconnroute.md).
+More options can be found in the [Configuration Guide](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md),[readwritesplit module documentation](../mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-readwritesplit.md) and [readconnroute module documentation](../mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-readconnroute.md).
 
 For more information about MaxCtrl and how to secure it, see the [REST-API Tutorial](mariadb-maxscale-2308-rest-api-tutorial.md).
 

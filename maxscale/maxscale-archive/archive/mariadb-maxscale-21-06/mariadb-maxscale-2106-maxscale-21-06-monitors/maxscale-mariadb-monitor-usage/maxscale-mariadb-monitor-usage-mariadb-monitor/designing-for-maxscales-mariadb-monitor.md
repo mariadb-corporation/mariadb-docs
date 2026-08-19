@@ -7,8 +7,6 @@ This page contains topics that need to be considered when designing applications
 * [How does MariaDB Monitor perform automatic failover?](using-automatic-failover-with-maxscales-mariadb-monitor.md)
 * [How does the MariaDB Monitor use cooperative locking in a highly available MaxScale deployment?](using-cooperative-locking-for-ha-with-maxscales-mariadb-monitor.md)
 
-Additional information is available [here](broken-reference).
-
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

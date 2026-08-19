@@ -47,7 +47,7 @@ building from source code, is included in the [MariaDB MaxScale Installation\
 Guide](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-installation-guide.md).
 
 The same guide also provides basic information on running MariaDB MaxScale. More
-detailed information about configuring MariaDB MaxScale can be found in the [Configuration Guide](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/).
+detailed information about configuring MariaDB MaxScale can be found in the [Configuration Guide](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md).
 
 CC BY-SA / Gnu FDL
 

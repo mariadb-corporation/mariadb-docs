@@ -888,7 +888,7 @@ If the connection to the server where a transaction is being executed is lost wh
 
 Any changes to the session state (e.g. autocommit state, SQL mode) done inside a transaction will remain in effect even if the connection to the server where the transaction is being executed fails. When readwritesplit creates a new connection to a server to replay the transaction, it will first restore the session state by executing all session commands that were executed. This means that if the session state is changed mid-transaction in a way that affects the results, transaction replay will fail.
 
-The following partial transaction demonstrates the problem by using [`SQL_MODE`](../../../server/server-management/variables-and-modes/sql-mode.md) inside a transaction.
+The following partial transaction demonstrates the problem by using [`SQL_MODE`]({server}/server-management/variables-and-modes/sql_mode) inside a transaction.
 
 ```
 SET SQL_MODE='';            -- A session command

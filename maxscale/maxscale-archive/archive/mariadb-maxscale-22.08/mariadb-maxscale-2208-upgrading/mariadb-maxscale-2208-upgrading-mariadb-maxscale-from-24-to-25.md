@@ -7,7 +7,7 @@
 This document describes possible issues when upgrading MariaDB\
 MaxScale from version 2.4 to 2.5.
 
-For more information about MaxScale 2.5, refer to the [ChangeLog](../../../../../en/mariadb-maxscale-2208-maxscale-2208-changelog/).
+For more information about MaxScale 2.5, refer to the [ChangeLog]({release-notes}/maxscale/22.08/22.08-changelog).
 
 Before starting the upgrade, any existing configuration files should be
 backed up.
@@ -21,7 +21,7 @@ no longer be used.
 ### Authentication
 
 The credentials used by services now require additional grants. For a full list
-of required grants, refer to the [protocol documentation](../../../../../en/mariadb-maxscale-2208-maxscale-2208-authentication-modules/#required-grants).
+of required grants, refer to the [protocol documentation](../mariadb-maxscale-2208-authenticators/mariadb-maxscale-2208-authentication-modules.md#required-grants).
 
 ### MariaDB-Monitor
 

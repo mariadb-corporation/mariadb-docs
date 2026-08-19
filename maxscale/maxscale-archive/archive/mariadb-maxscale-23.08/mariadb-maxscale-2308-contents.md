@@ -107,7 +107,7 @@ Documentation for MaxScale protocol modules.
 
 The MaxScale CDC Connector provides a C++ API for consuming data from a CDC system.
 
-* [CDC Connector](../../../maxscale-versions/mariadb-maxscale-23.08/mariadb-maxscale-23-08-connectors/mariadb-maxscale-2308-maxscale-cdc-connector.md)
+* CDC Connector
 
 ### Authenticators
 
