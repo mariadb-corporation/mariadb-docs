@@ -11,7 +11,7 @@ versioned. For instance, 2.5.1, the first GA version of MaxScale 2.5, was
 followed by the maintenance release 2.5.2. 6.1, the first GA version of MaxScale\
 6, will be followed by the maintenance release 6.2.
 
-For more information about MaxScale 6, refer to the [ChangeLog]({release-notes}/maxscale/23.02/23.02-changelog).
+For more information about MaxScale 6, refer to the [ChangeLog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/maxscale/23.02/23.02-changelog).
 
 Before starting the upgrade, any existing configuration files should be backed
 up.

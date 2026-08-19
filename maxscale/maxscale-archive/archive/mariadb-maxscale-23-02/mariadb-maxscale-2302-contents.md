@@ -3,7 +3,7 @@
 ### About MariaDB MaxScale
 
 * [About MariaDB MaxScale](mariadb-maxscale-23-02-about/mariadb-maxscale-2302-about-mariadb-maxscale.md)
-* [Changelog]({release-notes}/maxscale/23.02/23.02-changelog)
+* [Changelog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/maxscale/23.02/23.02-changelog)
 * [Limitations](mariadb-maxscale-23-02-about/mariadb-maxscale-2302-limitations-and-known-issues-within-mariadb-maxscale.md)
 
 ### Getting Started
