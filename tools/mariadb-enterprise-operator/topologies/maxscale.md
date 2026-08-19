@@ -479,7 +479,7 @@ Note that, the `Connection` uses the `Service` described in the [Kubernetes Serv
 
 To synchronize the configuration state across multiple replicas, MaxScale stores the configuration externally in a MariaDB table and conducts periodic polling across all replicas. By default, the table `mysql.maxscale_config` is used, but this can be configured by the user as well as the synchronization interval.
 
-Another crucial aspect to consider regarding HA is that only one monitor can be running at any given time to avoid conflicts. This can be achieved via cooperative locking, which can be configured by the user. Refer to [MaxScale docs](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-21-06/mariadb-maxscale-2106-maxscale-21-06-monitors/maxscale-mariadb-monitor-usage/maxscale-mariadb-monitor-usage-mariadb-monitor/using-cooperative-locking-for-ha-with-maxscales-mariadb-monitor#using-cooperative-locking-for-ha-with-maxscales-mariadb-monitor) for more information.
+Another crucial aspect to consider regarding HA is that only one monitor can be running at any given time to avoid conflicts. This can be achieved via cooperative locking, which can be configured by the user. Refer to [MaxScale docs]({maxscale}/reference/maxscale-monitors/mariadb-monitor#cooperative-monitoring) for more information.
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
