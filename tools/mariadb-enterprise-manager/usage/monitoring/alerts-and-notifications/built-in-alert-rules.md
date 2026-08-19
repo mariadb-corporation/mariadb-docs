@@ -52,6 +52,6 @@ A key feature of these rules is the use of a **"sustained for"** duration. This 
 | **NodeFileDescriptorLimit**        | Kernel is predicted to exhaust file descriptors soon (sustained for 15m). Triggers when allocated file descriptors exceed **70%** of the kernel limit.                                                                                  |
 | **NodeFileDescriptorLimit**        | Kernel is close to exhausting file descriptors (sustained for 15m). Triggers when allocated file descriptors exceed **90%** of the kernel limit.                                                                                        |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

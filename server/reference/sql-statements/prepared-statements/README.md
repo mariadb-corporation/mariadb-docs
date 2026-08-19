@@ -54,3 +54,5 @@ Prepare and run a dynamic SQL statement in one step. This command simplifies the
 Parse and optimize a SQL statement for later use. This command assigns a name to the statement, enabling efficient execution with parameters.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

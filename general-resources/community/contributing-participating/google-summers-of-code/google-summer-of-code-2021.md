@@ -1,10 +1,10 @@
 # Google Summer of Code 2021
 
-In 2021, we again participated in the [Google Summer of Code](https://summerofcode.withgoogle.com/). The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently [C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c), [ODBC](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc), [Java](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-j), [Node.js](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/nodejs-connector/README.md)) and on [MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera/README.md), which allows you to scale your reads & writes. And we have [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb-columnstore/README.md), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
+In 2021, we again participated in the [Google Summer of Code](https://summerofcode.withgoogle.com/). The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently [C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c), [ODBC](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc), [Java](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-j), [Node.js](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-nodejs)) and on [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7), which allows you to scale your reads & writes. And we have [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
 
 ## Where to Start
 
-Please join us on [Zulip](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/irc-chat-servers-and-zulip-instance/README.md) to mingle with the community. You should also subscribe to [maria-developers@lists.launchpad.net](https://launchpad.net/~maria-developers) (this is the main list where we discuss development).
+Please join us on [Zulip](https://mariadb.zulipchat.com/) to mingle with the community. You should also subscribe to [maria-developers@lists.launchpad.net](https://launchpad.net/~maria-developers) (this is the main list where we discuss development).
 
 To improve your chances of being accepted, it is a good idea to submit a pull request with a bug fix to the server.
 
@@ -18,14 +18,14 @@ The mysqlbinlog client program needs to be updated to support GTID.\
 Here is a suggested list of things to be done:
 
 * The `--start-position` and `--stop-position` options should be able to take\
-  GTID positions; or maybe there should be new `--start-gtid` and `--stop-gtid`\
+  GTID positions; or maybe there should be new `--start-gtid` and `--stop-gtid`
   options. Like `--start-gtid=0-1-100,1-2-200,2-1-1000`.
 * A GTID position means the point just _after_ that GTID. So starting from\
-  GTID 0-1-100 and stopping at GTID 0-1-200, the first GTID output will\
-  probably be 0-1-101 and the last one 0-1-200. Note that if some domain is\
-  not specified in the position, it means to start from the beginning,\
+  GTID 0-1-100 and stopping at GTID 0-1-200, the first GTID output will
+  probably be 0-1-101 and the last one 0-1-200. Note that if some domain is
+  not specified in the position, it means to start from the beginning,
   respectively stop immediately in that domain.
-* Starting and stopping GTID should work both with local files, and with`--read-from-remote-server`. For the latter, there are a couple of extra\
+* Starting and stopping GTID should work both with local files, and with`--read-from-remote-server`. For the latter, there are a couple of extra
   things that need doing in the master-slave protocol, see`get_master_version_and_clock()` in `sql/slave.cc`.
 * At the end of the dump, put these statements, to reduce the risk of those session variables incorrectly spilling into subsequent statements run in the same session:
 
@@ -34,7 +34,7 @@ SET session.server_id = @@global.server_id,
        session.gtid_domain_id=@@global.gtid_domain_id;
 ```
 
-Probably some more things will come up during the work, but this looks like a\
+Probably some more things will come up during the work, but this looks like a
 reasonable start.
 
 | Details: | Mentor:                                                |
@@ -140,8 +140,8 @@ Some have also been added to Columnstore.
 #### Create utility to parse frm files and print their DDL
 
 It would be useful if MariaDB had a utility that was able to parse frm files and print the DDL associated with the table.\
-For example, it would be useful for users who performed a partial backup with mariadb-backup:[partial-backup-and-restore-with-mariadb-backup](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/contributing-participating/google-summers-of-code/broken-reference/README.md)\
-But they forgot to also backup the table DDL, so they can't restore the tables using the following process:[innodb-file-per-table-tablespaces](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces)\
+For example, it would be useful for users who performed a partial backup with mariadb-backup:[partial-backup-and-restore-with-mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/partial-backup-and-restore-with-mariadb-backup)\
+But they forgot to also backup the table DDL, so they can't restore the tables using the following process:[innodb-file-per-table-tablespaces](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces)
 mysqlfrm is a tool that already exists that does similar things:[mysqlfrm.py](https://github.com/mysql/mysql-utilities/blob/master/scripts/mysqlfrm.py)\
 But it doesn't seem very user-friendly. It needs to be able to contact the local MariaDB server, and it also needs to be able to spawn a server instance, and it seems to need to be able to create a bunch of files during this process. e.g.:
 
@@ -265,7 +265,7 @@ If we do that, it will:
 * Allow the DBAs to examine the histograms
 * Enable other histogram types to be collected/used.\
   h2. Milestone-1:\
-  Let histogram\_type have another possible value, tentative name "JSON"\
+  Let histogram\_type have another possible value, tentative name "JSON"
   when that is set, let ANALYZE TABLE syntax collect a JSON "histogram"
 
 ```
@@ -296,15 +296,15 @@ Milestone-2, part#2: make mysql.column\_stats.histogram a blob.\
 h2. Milestone-3: Parse the JSON back into an array\
 Figure out how to use the JSON parser.\
 Parse the JSON data produced in Milestone-2 back. For now, just print the parsed values to stderr.\
-(Additional input provided on Zulip re parsing valid/invalid JSON histograms)\
+(Additional input provided on Zulip re parsing valid/invalid JSON histograms)
 h2. Milestone-4: Make the code support different kinds of Histograms\
 Currently, there's only one type of histogram.\
 smaller issue: histogram lookup functions assume the histogram stores fractions, not values.\
 bigger issue: memory allocation for histograms is de-coupled from reading the histograms. See alloc\_statistics\_for\_table, read\_histograms\_for\_table.\
 The histogram object lives in a data structure that is bzero'ed first and then filled later (IIRC there was a bug (fixed) where the optimizer attempted to use bzero'ed histogram)\
-Can histograms be collected or loaded in parallel by several threads? This was an (unintentional?) possibility but then it was disabled (see TABLE\_STATISTICS\_CB object and its use)\
+Can histograms be collected or loaded in parallel by several threads? This was an (unintentional?) possibility but then it was disabled (see TABLE\_STATISTICS\_CB object and its use)
 h3. Step #0: Make Histogram a real class\
-Here's the commit:[3ac32917ab6c42a5a0f9ed817dd8d3c7e20ce34d](https://github.com/MariaDB/server/commit/3ac32917ab6c42a5a0f9ed817dd8d3c7e20ce34d)\
+Here's the commit:[3ac32917ab6c42a5a0f9ed817dd8d3c7e20ce34d](https://github.com/MariaDB/server/commit/3ac32917ab6c42a5a0f9ed817dd8d3c7e20ce34d)
 h3. Step 1: Separate classes for binary and JSON histograms\
 Need to introduce
 
@@ -345,7 +345,7 @@ The structure is
 std::vector<std::string>
 ```
 
-and it holds the data in KeyTupleFormat (See the comments for reasoning. There was a suggestion to use `in_vector` (This is what IN subqueries use) but it didn't work out)\
+and it holds the data in KeyTupleFormat (See the comments for reasoning. There was a suggestion to use `in_vector` (This is what IN subqueries use) but it didn't work out)
 h2. Milestone 5.1 (aka Milestone 44)\
 Make a function to estimate selectivity using the data structure specified in previous milestone.\
 h2. Make range\_selectivity() accept key\_range parameters.\
@@ -396,7 +396,7 @@ JSON\_CONTAINS can be used to test for JSON object equality in some cases, but w
 IO\_CACHE has basically three read/write modes: only read, only write, and a sequential read/write FIFO mode `SEQ_READ_APPEND`.\
 While some performance-sensitive places, like replication slave thread, use SEQ\_READ\_APPEND, that may be a bottleneck. since reads and writes are sequential (and co-sequential i.e. reads and writes block each other).\
 The task is to implement a non-blocking mode or multi-reader, multi-writer use-case through a concurrent ring buffer implementation.\
-h2. Possible approaches\
+h2. Possible approaches
 h3. Lock-free n-consumer, m-producer ring buffer\
 This implementation requires limiting a number of simultaneous accessors and reserving slots for them.\
 Lock-free implementations can contain busy waits, but no locks, except when a number of consumers or producers is exceeded. This can be controlled by a semaphore with a capacity of a number of cores.\
@@ -413,11 +413,11 @@ Flushes wait for all writers to finish first, then lock the write buffer for flu
 The read buffer can be flushed in a more relaxed way: no need to need to lock for flushing, but we have to lock for buffer allocation and wait for all writers.\
 Waiting for writers can be done with another rwlock.\
 h2. Single-readerness\
-The real-world cases are mostly single-consumer, and it is essential for IO\_CACHE: it is variable-lengthed, and has no underlying data format,\
+The real-world cases are mostly single-consumer, and it is essential for IO\_CACHE: it is variable-lengthed, and has no underlying data format,
 so the reader always has to make at least two sequential reads (one to read size and another to read the body)\
-Single-readerness considerations can relax some conditions and ease the implementation\
+Single-readerness considerations can relax some conditions and ease the implementation
 h2. io\_cache\_reserve api\
-We can add a function to reserve the space to writing for the case of writing big objects (both bigger then the write cache\
+We can add a function to reserve the space to writing for the case of writing big objects (both bigger then the write cache
 and smaller then the latter, but big enough to not fit to the external buffer), for the cases like copying one cache to another.\
 The function should return future-like object, since we have to notify IO\_CACHE back that the writing is finished (to make flush for example)
 

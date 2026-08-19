@@ -10615,21 +10615,19 @@ components:
             type: string
         topology:
           description: >-
-            The topology of the service. Valid values are: sa, csdw, es-replica,
-            es-single and xpand.
+            The topology of the service. Valid values are: sa, es-replica,
+            es-single and serverless-standalone.
           type: string
           enum:
             - sa
-            - csdw
             - es-replica
             - es-single
-            - xpand
             - serverless-standalone
           examples:
-            - standalone
+            - es-single
           x-gitbook-description-html: >-
-            <p>The topology of the service. Valid values are: sa, csdw,
-            es-replica, es-single and xpand.</p>
+            <p>The topology of the service. Valid values are: sa, es-replica,
+            es-single and serverless-standalone.</p>
         version:
           description: >-
             The service software versions. Not applicable for the Serverless
@@ -10902,21 +10900,19 @@ components:
             - dedicated
         topology:
           description: >-
-            The topology of the service. Valid values are: sa, csdw, es-replica,
-            es-single and xpand.
+            The topology of the service. Valid values are: sa, es-replica,
+            es-single and serverless-standalone.
           type: string
           enum:
             - sa
-            - csdw
             - es-replica
             - es-single
-            - xpand
             - serverless-standalone
           examples:
-            - standalone
+            - es-single
           x-gitbook-description-html: >-
-            <p>The topology of the service. Valid values are: sa, csdw,
-            es-replica, es-single and xpand.</p>
+            <p>The topology of the service. Valid values are: sa, es-replica,
+            es-single and serverless-standalone.</p>
         version:
           description: >-
             The service software versions. Not applicable for the Serverless

@@ -28,3 +28,5 @@ The introductory SQL tutorials now live in the [Quickstart Guides](../../mariadb
 * [Basic SQL Debugging](../../mariadb-quickstart-guides/mariadb-sql-debugging-guide.md)
 * [String Functions](../../mariadb-quickstart-guides/mariadb-string-functions-guide.md)
 {% endhint %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

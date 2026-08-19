@@ -111,7 +111,7 @@ WMI tables returns one row for each instance of the related information. The abo
 
 Because most of the useful classes belong to the 'root\cimv2' namespace, this is the default value for WMI tables when the namespace is not specified. Some classes have many properties whose name and type may not be known when creating the table. To find them, you can use the WMI CMI Studio application but his are rarely required because CONNECT is able to retrieve them.
 
-Actually, the class specification also has default values for some namespaces. For the ‘root\cli’ namespace the class name defaults to ‘Msft\_CliAlias’ and for the ‘root\_cimv2’ namespace the class default value is ‘Win32\_ComputerSystemProduct’. Because many class names begin with ‘Win32\_’ it\
+Actually, the class specification also has default values for some namespaces. For the ‘root\cli’ namespace the class name defaults to ‘Msft\_CliAlias’ and for the ‘root\_cimv2’ namespace the class default value is ‘Win32\_ComputerSystemProduct’. Because many class names begin with ‘Win32\_’ it
 is not necessary to say it and specifying the class as ‘Product’ will effectively use class  'Win32\_Product’.
 
 For example if you define a table as:
@@ -175,7 +175,7 @@ Queries to WMI providers are done using the WQL language, not the SQL language. 
 3. No expression (currently a CONNECT restriction)
 4. No BETWEEN and IN predicates.
 
-Filtering with WHERE clauses not respecting these conditions will still be done by MariaDB only,\
+Filtering with WHERE clauses not respecting these conditions will still be done by MariaDB only,
 except in the case of CIM\_Datafile class for the reason given above.
 
 However, there is one point that is not covered yet, the syntax used to specify dates in queries. WQL does not recognize dates as number items but translates them to its internal format dates specified as text. Many formats are recognized as described in the Microsoft documentation but only one is useful because common to WQL and MariaDB SQL. Here is an example of a query on a table named "cim" created by:

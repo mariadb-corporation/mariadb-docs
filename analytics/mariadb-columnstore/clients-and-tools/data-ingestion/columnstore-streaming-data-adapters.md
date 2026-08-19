@@ -105,7 +105,7 @@ Download and install both [MaxScale](https://mariadb.com/downloads/mariadb-tx/ma
 
 Copy the Columnstore.xml file from `/usr/local/mariadb/columnstore/etc/ColumnStore.xml` from one of the ColumnStore PrimProc[^1] nodes to the server where the adapter is installed.
 
-Configure MaxScale according to the [CDC tutorial](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-21-06).
+Configure MaxScale according to the CDC tutorial.
 
 Create a CDC user by executing the following MaxAdmin command on the MaxScale server. Replace the `<service>` with the name of the avrorouter service and `<user>` and `<password>` with the credentials that are to be created.
 
@@ -301,7 +301,7 @@ This plugin is a beta release.
 
 In addition, it can't handle blob data types and only supports multiple inputs to one block if the input field names are equal for all input sources.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}
 

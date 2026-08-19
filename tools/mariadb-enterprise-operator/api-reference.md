@@ -3654,4 +3654,4 @@ _Appears in:_
 | `weight` _integer_ |  |  |  |
 | `podAffinityTerm` _[PodAffinityTerm](#podaffinityterm)_ |  |  |  |
 
-
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

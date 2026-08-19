@@ -11,7 +11,7 @@ description: >-
 
 When MariaDB Server is compiled with TLS[^1] and cryptography support, it is usually either statically linked with MariaDB's bundled TLS and cryptography library or dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library. MariaDB's bundled TLS library is either [wolfSSL](https://www.wolfssl.com/products/wolfssl/) or [yaSSL](https://www.wolfssl.com/products/yassl/), depending on the server version.
 
-When a MariaDB client or client library is compiled with TLS and cryptography support, it is usually either statically linked with MariaDB's bundled TLS and cryptography library or dynamically linked with the system's TLS and cryptography library, which can be [OpenSSL](https://www.openssl.org/), [GnuTLS](https://www.gnutls.org/), or [Schannel](https://docs.microsoft.com/en-us/windows/desktop/secauthn/secure-channel).
+When a MariaDB client or client library is compiled with TLS and cryptography support, it is usually either statically linked with MariaDB's bundled TLS and cryptography library or dynamically linked with the system's TLS and cryptography library, which can be [OpenSSL](https://www.openssl.org/), [GnuTLS](https://gitlab.com/gnutls/gnutls), or [Schannel](https://docs.microsoft.com/en-us/windows/desktop/secauthn/secure-channel).
 
 ## Checking Dynamically vs. Statically Linked
 
@@ -148,7 +148,7 @@ MariaDB's [clients and utilities](../../clients-and-utilities/README.md) and [Ma
 
 **MariaDB Clients and Utilities in Binary Tarballs**
 
-MariaDB's [clients and utilities](../../clients-and-utilities/README.md) and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are statically linked with the [GnuTLS](https://www.gnutls.org/) library in [binary tarballs](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) on Linux. [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html) is still statically linked with the bundled [wolfSSL](https://www.wolfssl.com/products/wolfssl/) library.
+MariaDB's [clients and utilities](../../clients-and-utilities/README.md) and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are statically linked with the [GnuTLS](https://gitlab.com/gnutls/gnutls) library in [binary tarballs](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) on Linux. [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html) is still statically linked with the bundled [wolfSSL](https://www.wolfssl.com/products/wolfssl/) library.
 
 **MariaDB Clients and Utilities in DEB Packages**
 

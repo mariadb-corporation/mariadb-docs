@@ -3,6 +3,8 @@ description: >-
   Route analytical queries to an Exasol cluster. This router integrates Exasol
   with MaxScale often used alongside SmartRouter for hybrid
   transactional/analytical workloads.
+
+  The router is provided in the package `maxscale-exasol` that must be installed explicitly.
 ---
 
 # MaxScale Exasolrouter
@@ -292,6 +294,13 @@ address=127.0.0.1
 port=3306
 protocol=mariadbbackend
 
+[Monitor]
+type=monitor
+module=mariadbmon
+user=MyMonitorUser
+password=MyMonitorPassword
+servers=Server1
+
 [ExasolService]
 type=service
 router=exasolrouter
@@ -337,6 +346,13 @@ address=127.0.0.1
 port=3306
 protocol=mariadbbackend
 
+[Monitor]
+type=monitor
+module=mariadbmon
+user=MyMonitorUser
+password=MyMonitorPassword
+servers=Server1
+
 [ExasolService]
 type=service
 router=exasolrouter
@@ -353,3 +369,5 @@ port=4008
 
 With this setup, it is possible to connect using the regular `mariadb` command line
 utility to the port 4008 and all queries will be sent to Exasol.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

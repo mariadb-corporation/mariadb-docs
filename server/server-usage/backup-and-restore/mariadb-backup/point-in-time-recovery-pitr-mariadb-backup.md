@@ -83,3 +83,5 @@ $ mariadb < mariadb-binlog.sql
 {% hint style="warning" %}
 [`mariadb-backup`](./) does not support the [`innodb_log_archive`](../../storage-engines/innodb/innodb-system-variables.md#innodb_log_archive)`=ON` log format and fails when the server is running with `innodb_log_archive=ON`. Use the [InnoDB log archiving PITR](../innodb-log-archive-pitr.md) procedure instead in that configuration.
 {% endhint %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -66,3 +66,5 @@ Shows how to confirm table elimination by inspecting EXPLAIN output for absent t
 Introduces table elimination, which resolves a query without accessing some referenced tables, using an Anchor Modeling actors example to show when it applies.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

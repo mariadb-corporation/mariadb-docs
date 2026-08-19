@@ -15,7 +15,7 @@ expr REGEXP pat, expr RLIKE pat
 
 ## Description
 
-Performs a pattern match of a string expression `expr` against a pattern`pat`. The pattern can be an extended regular expression. See [Regular Expressions Overview](regular-expressions-overview.md) for details on the syntax for\
+Performs a pattern match of a string expression `expr` against a pattern`pat`. The pattern can be an extended regular expression. See [Regular Expressions Overview](regular-expressions-overview.md) for details on the syntax for
 regular expressions (see also [PCRE Regular Expressions](pcre.md)).
 
 Returns `1` if `expr` matches `pat` or `0` if it doesn't match. If either `expr` or `pat` are `NULL`, the result is `NULL`.
@@ -24,7 +24,7 @@ The negative form [NOT REGEXP](../not-regexp.md) also exists, as an alias for `N
 
 The pattern need not be a literal string. For example, it can be specified as a string expression or table column.
 
-**Note:** Because MariaDB uses the C escape syntax in strings (for example, "\n" to represent the newline character), you must double any "" that you use in your `REGEXP` strings.
+**Note:** Because MariaDB uses the C escape syntax in strings (for example, `\n` to represent the newline character), you must double any backslash (`\`) that you use in your `REGEXP` strings.
 
 `REGEXP` is not case sensitive, except when used with binary strings.
 
@@ -51,7 +51,7 @@ SELECT 'new*\n*line' REGEXP 'new\\*.\\*line';
 +---------------------------------------+
 | 'new*\n*line' REGEXP 'new\\*.\\*line' |
 +---------------------------------------+
-|                                     1 |
+|                                     0 |
 +---------------------------------------+
 
 SELECT 'a' REGEXP 'A', 'a' REGEXP BINARY 'A';
@@ -69,6 +69,8 @@ SELECT 'a' REGEXP '^[a-d]';
 +---------------------+
 ```
 
+In the `'new*\n*line'` example, doubling the backslashes makes the pattern match literal asterisks, but the statement still returns `0`, because `.` does not match a newline character unless the `DOTALL` flag is set with [default\_regex\_flags](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_regex_flags).
+
 ### default\_regex\_flags examples
 
 MariaDB uses the [default\_regex\_flags](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_regex_flags) variable to address the remaining compatibilities between PCRE and the old regex library.
@@ -77,11 +79,11 @@ The default behavior (multiline match is off)
 
 ```sql
 SELECT 'a\nb\nc' RLIKE '^b$';
-+---------------------------+
-| '(?m)a\nb\nc' RLIKE '^b$' |
-+---------------------------+
-|                         0 |
-+---------------------------+
++-----------------------+
+| 'a\nb\nc' RLIKE '^b$' |
++-----------------------+
+|                     0 |
++-----------------------+
 ```
 
 Enabling the multiline option using the PCRE option syntax:

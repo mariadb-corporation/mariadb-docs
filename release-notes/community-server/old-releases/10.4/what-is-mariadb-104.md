@@ -16,7 +16,7 @@ See the [Differences in MariaDB Enterprise Server 10.4](../../../enterprise-serv
 * The [unix\_socket authentication plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-unix-socket) is now default on Unix-like systems, which is a major change to authentication in MariaDB ([MDEV-12484](https://jira.mariadb.org/browse/MDEV-12484))
 * [User password expiry](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/user-account-management/user-password-expiry) ([MDEV-7597](https://jira.mariadb.org/browse/MDEV-7597))
 * [Account Locking](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/user-account-management/account-locking) ([MDEV-13095](https://jira.mariadb.org/browse/MDEV-13095))
-* The obsolete [mysql.host table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables/obsolete-mysql-database-tables/mysql-host-table) is no longer created ([MDEV-15851](https://jira.mariadb.org/browse/MDEV-15851))
+* The obsolete mysql.host table is no longer created ([MDEV-15851](https://jira.mariadb.org/browse/MDEV-15851))
 * Much faster privilege checks for MariaDB setups with many user accounts or many database grants ([MDEV-15649](https://jira.mariadb.org/browse/MDEV-15649))
 * [mysql.user](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables/mysql-user-table) table is retired. User accounts and global privileges are now stored in the [mysql.global\_priv](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables/mysql-global_priv-table) table ([MDEV-17658](https://jira.mariadb.org/browse/MDEV-17658))
 * [SET PASSWORD](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/set-password) support for [ed25519](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-ed25519) and other [authentication plugins](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins) ([MDEV-12321](https://jira.mariadb.org/browse/MDEV-12321))
@@ -36,7 +36,7 @@ See the [Differences in MariaDB Enterprise Server 10.4](../../../enterprise-serv
 
 ### Optimizer
 
-* Implementation of the [optimizer trace](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/DT6zDqTwpPqeANidVDTh), one can enable the optimizer trace by enabling the system variable [optimizer\_trace](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_trace) ([MDEV-6111](https://jira.mariadb.org/browse/MDEV-6111))
+* Implementation of the [optimizer trace](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/optimizer-trace), one can enable the optimizer trace by enabling the system variable [optimizer\_trace](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_trace) ([MDEV-6111](https://jira.mariadb.org/browse/MDEV-6111))
 * [Engine Independent Table Statistics](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/engine-independent-table-statistics) is now enabled by default; new default values are [use\_stat\_tables=PREFERABLY\_FOR\_QUERIES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#use_stat_tables) and [optimizer\_use\_condition\_selectivity=4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_use_condition_selectivity) ([MDEV-15253](https://jira.mariadb.org/browse/MDEV-15253))
   * Two new values for the variable [use\_stat\_tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#use_stat_tables): `COMPLEMENTARY_FOR_QUERIES` and `PREFERABLY_FOR_QUERIES` ([MDEV-17255](https://jira.mariadb.org/browse/MDEV-17255))
   * [Histograms](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/histogram-based-statistics) are now used (but not collected) by default ([MDEV-18608](https://jira.mariadb.org/browse/MDEV-18608)).
@@ -70,7 +70,7 @@ For a list of all new variables, see [System Variables Added in MariaDB 10.4](ht
 ### Replication
 
 * Speed up rotation of binary logs, `SHOW BINARY LOGS` etc with optimizing binary log index file locking ([MDEV-19116](https://jira.mariadb.org/browse/MDEV-19116), [MDEV-19117](https://jira.mariadb.org/browse/MDEV-19117)).
-* A new server command, [SHUTDOWN WAIT FOR ALL SLAVES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/shutdown), and a new [mysqladmin shutdown --wait-for-all-slaves](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqladmin#options) option, are added to instruct the server to wait for the last binlog event to be sent to all connected slaves before shutting down. ([MDEV-18450](https://jira.mariadb.org/browse/MDEV-18450)).
+* A new server command, [SHUTDOWN WAIT FOR ALL SLAVES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/shutdown), and a new mysqladmin shutdown --wait-for-all-slaves option, are added to instruct the server to wait for the last binlog event to be sent to all connected slaves before shutting down. ([MDEV-18450](https://jira.mariadb.org/browse/MDEV-18450)).
 
 ### Backup
 
@@ -108,7 +108,7 @@ The following table lists each version of the [Galera](https://app.gitbook.com/o
 
 #### New Features in Galera 4
 
-The [mysql](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/system-tables/the-mysql-database-tables/) database contains new tables related to Galera replication:
+The [mysql](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables) database contains new tables related to Galera replication:
 
 * `wsrep_cluster`
 * `wsrep_cluster_members`
@@ -116,23 +116,23 @@ The [mysql](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-stateme
 
 End users may read but not modify these tables.
 
-The new streaming replication feature allows replicating transactions of\
-unlimited size. With streaming replication, a cluster is replicating a\
-transaction in small fragments during transaction execution. This transaction\
+The new streaming replication feature allows replicating transactions of
+unlimited size. With streaming replication, a cluster is replicating a
+transaction in small fragments during transaction execution. This transaction
 fragmenting is controlled by two new configuration variables:
 
-* [wsrep\_trx\_fragment\_unit](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_trx_fragment_unit) (bytes, rows, statements) defines the metrics for\
+* [wsrep\_trx\_fragment\_unit](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_trx_fragment_unit) (bytes, rows, statements) defines the metrics for
   how to measure transaction size limit for fragmenting. Possible values are:
   * `bytes`: transaction’s binlog events buffer size in bytes
   * `rows`: number of rows affected by the transaction
-  * `statements`: number of SQL statements executed in the multi-statement\
+  * `statements`: number of SQL statements executed in the multi-statement
     transaction
-* [wsrep\_trx\_fragment\_size](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_trx_fragment_size) defines the limit for fragmenting. When a\
-  transaction’s size, in terms of the configured fragment unit, has grown over\
+* [wsrep\_trx\_fragment\_size](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_trx_fragment_size) defines the limit for fragmenting. When a
+  transaction’s size, in terms of the configured fragment unit, has grown over
   this limit, a new fragment will be replicated.
 
-Transactions replicated through galera replication will now process the commit\
-phase using MariaDB's group commit logic. This will affect transaction\
+Transactions replicated through galera replication will now process the commit
+phase using MariaDB's group commit logic. This will affect transaction
 throughput, especially when binary logging is enabled in the cluster.
 
 #### Limitations in Galera 4
@@ -154,22 +154,22 @@ For more detailed information on how to upgrade, see [Upgrading from MariaDB 10.
 * Enabled C++11 ([MDEV-16410](https://jira.mariadb.org/browse/MDEV-16410))
 * Performance improvements in [Unicode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets/unicode) collations ([MDEV-17534](https://jira.mariadb.org/browse/MDEV-17534), [MDEV-17511](https://jira.mariadb.org/browse/MDEV-17511), [MDEV-17502](https://jira.mariadb.org/browse/MDEV-17502), [MDEV-17474](https://jira.mariadb.org/browse/MDEV-17474))
 * User data type plugins ([MDEV-4912](https://jira.mariadb.org/browse/MDEV-4912), in progress)
-* Improvements with SQL standard INTERVAL support to help functions [TIMESTAMP()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/timestamp)\
+* Improvements with SQL standard INTERVAL support to help functions [TIMESTAMP()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/timestamp)
   and [ADDTIME()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/addtime) return more predictable results.
-  * Historically, MariaDB uses the TIME data type for both "time of the day"\
-    values and "duration" values. In the first meaning the natural value range\
-    is from '00:00:00' to '23:59:59.999999', in the second meaning the range is\
+  * Historically, MariaDB uses the TIME data type for both "time of the day"
+    values and "duration" values. In the first meaning the natural value range
+    is from '00:00:00' to '23:59:59.999999', in the second meaning the range is
     from '-838:59:59.999999' to '+838:59:59.999999'.
-  * To remove this ambiguity and for the SQL standard conformance we plan to\
-    introduce a dedicated data type INTERVAL that will be able to store values\
+  * To remove this ambiguity and for the SQL standard conformance we plan to
+    introduce a dedicated data type INTERVAL that will be able to store values
     in the range at least from '-87649415:59:59.999999' to\
-    '+87649415:59:59.999999', which will be enough to represent the time\
+    '+87649415:59:59.999999', which will be enough to represent the time
     difference between TIMESTAMP'0001-01-01 00:00:00' and TIMESTAMP'9999-12-31\
     23:59:59.999999'.
-  * As a first step we support this range of values for intermediate\
-    calculations when TIME-alike string and numeric values are used in INTERVAL\
+  * As a first step we support this range of values for intermediate
+    calculations when TIME-alike string and numeric values are used in INTERVAL
     (i.e. duration) context, e.g. as the second argument of SQL functions\
-    TIMESTAMP(ts,interval) and ADDTIME(ts,interval), so the following can now be\
+    TIMESTAMP(ts,interval) and ADDTIME(ts,interval), so the following can now be
     calculated:
 
 ```sql
@@ -192,8 +192,8 @@ SELECT ADDTIME(TIME'-838:59:59.999999', '1677:59:59.999998');
 
 ## Security Vulnerabilities Fixed in [MariaDB 10.4](what-is-mariadb-104.md)
 
-For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
+For a complete list of security vulnerabilities (CVEs) fixed across all
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)
 page.
 
 * [CVE-2023-5157](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5157): [MariaDB 10.4.26](10.4.26.md)
@@ -333,6 +333,6 @@ page.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

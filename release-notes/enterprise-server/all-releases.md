@@ -134,6 +134,6 @@ This page provides a list of previous releases. Versions 10.5 and older have rea
 | [10.2.26-2](old-releases/10.2/10.2.26-2.md)   | 2019-08-19   | Stable (GA)    |
 | [10.2.25-1](old-releases/10.2/10.2.25-1.md)   | 2019-07-08   | Stable (GA)    |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

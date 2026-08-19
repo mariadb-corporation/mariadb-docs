@@ -42,7 +42,6 @@ description: >-
 - [SHOW GRANTS](show-grants.md)
 - [SHOW INDEX\_STATISTICS](show-index-statistics.md)
 - [SHOW INDEX](show-index.md)
-- [SHOW INNODB STATUS (removed)](show-innodb-status-removed.md)
 - [SHOW LOCALES](show-locales.md)
 - [SHOW OPEN TABLES](show-open-tables.md)
 - [SHOW PACKAGE BODY STATUS](show-package-body-status.md)
@@ -70,3 +69,5 @@ description: >-
 - [SHOW WARNINGS](show-warnings.md)
 - [SHOW WSREP\_MEMBERSHIP](show-wsrep_membership.md)
 - [SHOW WSREP\_STATUS](show-wsrep_status.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

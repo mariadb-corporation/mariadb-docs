@@ -11,3 +11,5 @@ description: >-
 - [Information Schema XTRADB\_INTERNAL\_HASH\_TABLES Table](information-schema-xtradb_internal_hash_tables-table.md)
 - [Information Schema XTRADB\_READ\_VIEW Table](information-schema-xtradb_read_view-table.md)
 - [Information Schema XTRADB\_RSEG Table](information-schema-xtradb_rseg-table.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

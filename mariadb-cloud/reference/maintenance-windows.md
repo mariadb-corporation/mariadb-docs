@@ -20,3 +20,5 @@ You can view and change your assigned window at any time from the **Maintenance*
 ## Auditability and Compliance
 
 MariaDB Cloud maintains a comprehensive, auditable history of all maintenance activities for each service. This history records when maintenance was scheduled, executed, and completed. Customer actions — including manual application, window changes, and deferrals — are permanently recorded to provide a complete audit trail for compliance and troubleshooting.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

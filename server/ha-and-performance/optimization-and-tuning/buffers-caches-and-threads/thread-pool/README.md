@@ -54,3 +54,5 @@ Documents the system and status variables used to configure and monitor the Mari
 Documents the old pool-of-threads implementation in MariaDB up to version 5.3, retained for reference by older compatibility pages.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

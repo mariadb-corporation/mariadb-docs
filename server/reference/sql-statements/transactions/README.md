@@ -186,3 +186,5 @@ Control lock wait behavior. These clauses allow statements to wait for a specifi
 Manage distributed transactions. This section covers XA statements for coordinating two-phase commits across multiple resources.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

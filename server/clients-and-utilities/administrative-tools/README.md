@@ -74,3 +74,5 @@ description: >-
 {% content-ref url="resolve_stack_dump.md" %}
 [resolve_stack_dump.md](resolve_stack_dump.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

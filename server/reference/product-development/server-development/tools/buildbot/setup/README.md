@@ -34,3 +34,4 @@ description: >-
 [buildbot-setup-for-ubuntu-debian.md](buildbot-setup-for-ubuntu-debian.md)
 {% endcontent-ref %}
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

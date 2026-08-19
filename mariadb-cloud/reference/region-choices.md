@@ -73,3 +73,5 @@ When deploying a highly available database service, nodes are distributed across
 {% hint style="warning" %}
 **Tech Preview Advisory:** MariaDB Enterprise Cluster are currently available as a [_Tech Preview_](../quickstart/enterprise-cluster.md).
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

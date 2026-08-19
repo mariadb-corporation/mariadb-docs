@@ -108,3 +108,5 @@ description: >-
 |MaxScale Hangups|performance|server|graph|This panel shows the number of client connections closed by the MaxScale node during the selected time interval|
 |Memory Usage|performance|server|graph|This panel shows memory usage details for the MaxScale node during the selected time interval|
 |MaxScale Modules|modules|server|table|This panel lists the modules installed on the MaxScale node|
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

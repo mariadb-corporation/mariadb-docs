@@ -129,7 +129,7 @@ For example:
 mariadb-bin.000096 568 0-1-2
 ```
 
-Regardless of the coordinates you use, you will have to set up the primary connection using [CHANGE MASTER TO](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) and then start the replication threads with [START SLAVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/legacy-replication-statements/legacy-commands-start-slave).
+Regardless of the coordinates you use, you will have to set up the primary connection using [CHANGE MASTER TO](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) and then start the replication threads with START SLAVE.
 
 {% tabs %}
 {% tab title="GTIDs" %}
@@ -167,7 +167,7 @@ START SLAVE;
 {% step %}
 **Check the Status of the Second Cluster's Replica**
 
-You should be done setting up the replica now, so you should check its status with [SHOW SLAVE STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/legacy-replication-statements/legacy-commands-show-slave-status). For example:
+You should be done setting up the replica now, so you should check its status with SHOW SLAVE STATUS. For example:
 
 ```sql
 SHOW SLAVE STATUS\G
@@ -254,12 +254,14 @@ START SLAVE;
 {% step %}
 **Check the Status of the Circular Replication**
 
-You should be done setting up the circular replication on the node in the first cluster now, so you should check its status with [SHOW SLAVE STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/legacy-replication-statements/legacy-commands-show-slave-status). For example:
+You should be done setting up the circular replication on the node in the first cluster now, so you should check its status with SHOW SLAVE STATUS. For example:
 
 ```sql
 SHOW SLAVE STATUS\G
 ```
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

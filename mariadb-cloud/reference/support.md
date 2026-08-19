@@ -7,7 +7,7 @@ description: >-
 
 # Support
 
-MariaDB Cloud is operated by a team of site reliability engineers (SREs), support engineers and MariaDB-certified database administrators (CloudDBAs).
+MariaDB Cloud is operated by a team of site reliability engineers (SREs), support engineers and MariaDB-certified database administrators (Cloud DBAs).
 
 ## What Support is Available?
 
@@ -23,8 +23,8 @@ Power level support expands the Standard level offering with Problem Resolution 
 | Engineering Support                           | Yes                                                 | Yes                                                                                                    |
 | Active Monitoring                             | Yes                                                 | Yes                                                                                                    |
 | Consultative Support                          | No                                                  | Yes                                                                                                    |
-| [CloudDBA Add-on](FractionalDBA.md) Available | No                                                  | Yes                                                                                                    |
-| Real-Time Chat                                | No                                                  | Yes, with CloudDBA Add-on Option                                                                       |
+| [Cloud DBA Add-on](clouddba.md) Available | No                                                  | Yes                                                                                                    |
+| Real-Time Chat                                | No                                                  | Yes, with Cloud DBA Add-on Option                                                                       |
 | SLA Response Time                             | <p>* P3, 4 hours (24x5)<br>* P4, 8 hours (24x5)</p> | <p>* P1, 30 minutes (24x7)<br>* P2, 2 hours (24x5)<br>* P3, 4 hours (24x5)<br>* P4, 8 hours (24x5)</p> |
 
 {% hint style="warning" %}
@@ -40,3 +40,5 @@ A definitive description of MariaDB Cloud support can be found in the [MariaDB C
 Support cases are managed through the [Support Portal](https://support.skysql.com/), which is accessible to all registered users.
 
 Users unable to reach the Support Portal can also use [Support Email](mailto:support@skysql.com).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

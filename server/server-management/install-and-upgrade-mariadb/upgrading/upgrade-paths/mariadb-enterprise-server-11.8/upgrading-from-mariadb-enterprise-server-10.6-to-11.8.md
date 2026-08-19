@@ -450,3 +450,5 @@ After the data upgrade is complete, verify the functionality of 11.8 features:
     }
     ```
 * Check Replication Lag Fields: On a replica server, run `SHOW REPLICA STATUS\G` and look for the new `Master_Slave_time_diff` field.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

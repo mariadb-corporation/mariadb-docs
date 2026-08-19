@@ -7,6 +7,10 @@ description: >-
 
 # SphinxSE
 
+{% hint style="info" %}
+SphinxSE is a community contribution to MariaDB Server, developed and maintained by the Sphinx developers. The Sphinx search daemon that it connects to is separate software, and isn't part of MariaDB Server.
+{% endhint %}
+
 {% columns %}
 {% column %}
 {% content-ref url="about-sphinxse.md" %}
@@ -54,3 +58,5 @@ Learn how to install the SphinxSE plugin in MariaDB and run tests to verify the 
 A guide to configuring the Sphinx daemon (`searchd`) to index data from MariaDB, including setting up `sphinx.conf` and creating necessary users.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

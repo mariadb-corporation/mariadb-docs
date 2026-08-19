@@ -106,3 +106,5 @@ SET PASSWORD [FOR user] = 'already-hashed-value';      -- stored as-is, NO re-ha
   - <https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/alter-user>
   - <https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/set-password>
   - <https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/create-user>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

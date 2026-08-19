@@ -21,10 +21,10 @@ LOAD XML [LOW_PRIORITY | CONCURRENT] [LOCAL] INFILE 'file_name'
 
 ## Description
 
-The LOAD XML statement reads data from an XML file into a table. The`file_name` must be given as a literal string. The `tagname` in the optional `ROWS IDENTIFIED BY` clause must also be given as a literal\
+The LOAD XML statement reads data from an XML file into a table. The`file_name` must be given as a literal string. The `tagname` in the optional `ROWS IDENTIFIED BY` clause must also be given as a literal
 string, and must be surrounded by angle brackets (< and >).
 
-LOAD XML acts as the complement of running the [mariadb client](../../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) in XML output mode (that is, starting the client with the --xml option). To write data from a table to an XML file, use a command such as the\
+LOAD XML acts as the complement of running the [mariadb client](../../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) in XML output mode (that is, starting the client with the --xml option). To write data from a table to an XML file, use a command such as the
 following one from the system shell:
 
 ```bash
@@ -50,7 +50,7 @@ This statement supports three different XML formats:
 </row>
 ```
 
-* Column names are the name attributes of tags, and values are\
+* Column names are the name attributes of tags, and values are
   the contents of these tags:
 
 ```xml
@@ -62,7 +62,7 @@ This statement supports three different XML formats:
 
 This is the format used by other tools, such as [mariadb-dump](../../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md).
 
-All 3 formats can be used in the same XML file; the import routine automatically detects the format for each row and interprets it correctly. Tags are matched based on the tag or attribute name and the\
+All 3 formats can be used in the same XML file; the import routine automatically detects the format for each row and interprets it correctly. Tags are matched based on the tag or attribute name and the
 column name.
 
 The following clauses work essentially the same way for LOAD XML as they do for LOAD DATA:

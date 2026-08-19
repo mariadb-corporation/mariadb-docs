@@ -11,6 +11,8 @@
 * Q: What is the current licensing model for MariaDB MaxScale?\
   A: As of January 16, 2025, MariaDB shifted the licensing for MaxScale 25.01 and later from the Business Source License (BSL) to a fully proprietary commercial license. While the BSL version (which still applies to older versions like 24.02, 23.08, etc.) was "source-available" and eventually converted to GPL, the new license for 25.01 is closed-source and requires an active MariaDB Enterprise subscription for production use. The license terms can be found here: [MariaDB MaxScale License Terms (PDF)](https://legal.mariadb.com/agreements/maxscale/MariaDB_MaxScale_License_Terms_2025-01-16.pdf).
 * Q: Can MariaDB MaxScale be used effectively with databases other than MariaDB?\
-  A: While MariaDB MaxScale is primarily designed, optimized, and tested for use with MariaDB Server and its various configurations (like MariaDB Enterprise Cluster and MariaDB Xpand), its underlying architecture allows it to potentially support other databases that are compliant with the MySQL network protocol. However, its most advanced features and integrations are best leveraged when used in conjunction with MariaDB databases.
+  A: While MariaDB MaxScale is primarily designed, optimized, and tested for use with MariaDB Server and its various configurations (like MariaDB Enterprise Cluster), its underlying architecture allows it to potentially support other databases that are compliant with the MySQL network protocol. However, its most advanced features and integrations are best leveraged when used in conjunction with MariaDB databases.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

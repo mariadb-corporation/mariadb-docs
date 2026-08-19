@@ -34,3 +34,4 @@ Stream and synchronize data continuously during migration to MariaDB Cloud, ensu
 [striim-partner-integration.md](striim-partner-integration.md)
 {% endcontent-ref %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

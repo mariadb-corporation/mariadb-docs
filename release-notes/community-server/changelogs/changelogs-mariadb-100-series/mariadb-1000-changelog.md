@@ -9,7 +9,7 @@ The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-im
 For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.0.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3477](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3477)\
@@ -18,15 +18,15 @@ modified in that revision.
   * Fix bug in bootstrapper.
   * Also, delete innodb log files cafter bootstrapping , to workaround\
     "different log size" Innodb error during the first service start by MSI.\
-    This is a temporary measure, in the future innodb will allow handling\
+    This is a temporary measure, in the future innodb will allow handling
     different file size more gracefully.
 * [Revision #3476](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3476)\
   Tue 2012-11-06 22:20:13 +0100
   * [MDEV-3839](https://jira.mariadb.org/browse/MDEV-3839) : on Solaris 10, KILLing slave thread has no effect.
-  * The reason for the error is missing definition for SIGNAL\_WITH\_IO\_CLOSE on this platform\
+  * The reason for the error is missing definition for SIGNAL\_WITH\_IO\_CLOSE on this platform
     which now needs to always be defined, as in 5.6
-  * On Solaris10 only, this preprocessor constant was not defined, thus code\
-    that shutdowns a socket in THD::awake was not executed, and polling thread was\
+  * On Solaris10 only, this preprocessor constant was not defined, thus code
+    that shutdowns a socket in THD::awake was not executed, and polling thread was
     not interrupted.
   * Fix is to always define SIGNAL\_WITH\_IO\_CLOSE, just like MySQL5.6 does.
 * [Revision #3475](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3475)\
@@ -38,7 +38,7 @@ modified in that revision.
 * [Revision #3473](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3473)\
   Sun 2012-11-04 21:04:04 +0100
   * [MDEV-3822](https://jira.mariadb.org/browse/MDEV-3822) :10.0-serg fails on windows buildslaves
-  * Fix mismerged code from 5.6 (named-pipe related). viopipe.c, which was\
+  * Fix mismerged code from 5.6 (named-pipe related). viopipe.c, which was
     introduced in 5.6 is now copied almost identically into 10.0
   * The unused vio::pipe\_overlapped is removed.
 * [Revision #3472](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3472) \[merge]\
@@ -77,13 +77,13 @@ and
 ```
 
 * and related fixes from: BUG#1006164, [MDEV-376](https://jira.mariadb.org/browse/MDEV-376):
-  * Now, ROR-merged QUICK\_RANGE\_SELECT objects make no assumptions about the values\
+  * Now, ROR-merged QUICK\_RANGE\_SELECT objects make no assumptions about the values
     of table->read\_set and table->write\_set.
   * Each QUICK\_ROR\_SELECT has (and had before) its own column bitmap, but now, all\
-    QUICK\_ROR\_SELECT's functions that care: reset(), init\_ror\_merged\_scan(), and\
-    get\_next() will set table->read\_set when invoked and restore it back to what\
+    QUICK\_ROR\_SELECT's functions that care: reset(), init\_ror\_merged\_scan(), and
+    get\_next() will set table->read\_set when invoked and restore it back to what
     it was before the call before they return.
-  * This allows to avoid the mess when somebody else modifies table->read\_set for\
+  * This allows to avoid the mess when somebody else modifies table->read\_set for
     some reason.
 * [Revision #3470](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3470) \[merge]\
   Sat 2012-11-03 12:28:51 +0100
@@ -96,16 +96,16 @@ and
   * add a forgotten debug sync point, that a test case was referring to
 * [Revision #3467](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3467)\
   Tue 2012-10-30 22:38:15 +0100
-  * fix async client code for i386 (assembly)\
+  * fix async client code for i386 (assembly)
     and when safemalloc is enabled (use ucontext, otherwise backtrace function gets confused and crashes)
 * [Revision #3466](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3466)\
   Tue 2012-10-30 18:15:42 +0100
-  * disable x86 asm version of taocrypt arc4 code for gcc,\
-    because it assumes the function prologue that gcc does not\
+  * disable x86 asm version of taocrypt arc4 code for gcc,
+    because it assumes the function prologue that gcc does not
     generate.
 * [Revision #3465](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3465)\
   Tue 2012-10-30 11:41:41 +0100
-  * few fixes for test failures on windows\
+  * few fixes for test failures on windows
     (and collateral changes)
 * [Revision #3464](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3464)\
   Mon 2012-10-29 23:52:47 +0100
@@ -135,8 +135,8 @@ and
 352 trid_min_read_from= active_list_min.next->min_read_from;
 ```
 
-* on 345 gcc stores active\_list\_min.next in %ebx\
-  (and trn->min\_read\_from=\[%ebx]->trid)\
+* on 345 gcc stores active\_list\_min.next in %ebx
+  (and trn->min\_read\_from=\[%ebx]->trid)
   and on 352 it does trid\_min\_read\_from= \[%ebx]->min\_read\_from;\
   BUT active\_list\_min.next was changed on the line 351.\
   gcc doesn't notice it and continues to use the cached value.
@@ -156,14 +156,14 @@ and
 * [Revision #3455](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3455)\
   Sat 2012-10-27 15:05:01 +0200
   * RPM fixes:
-    * shared should provide libmysqlclient.so.18(libmysqlclient\_16) too\
+    * shared should provide libmysqlclient.so.18(libmysqlclient\_16) too
       don't "use DBD::mysql" explicitly in mytop
 * [Revision #3454](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3454)\
   Sat 2012-10-27 14:13:26 +0200
   * fix debian/ubuntu startup scripts
 * [Revision #3453](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3453)\
   Thu 2012-10-25 19:16:18 +0200
-  * correct truncation in my\_vsnprintf %M format\
+  * correct truncation in my\_vsnprintf %M format
     (because of a width or a short buffer)
 * [Revision #3452](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3452)\
   Mon 2012-10-22 12:55:29 +0300
@@ -235,7 +235,7 @@ and
         * [Revision #3427.4.6](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.4.6)\
           Wed 2012-10-03 01:44:54 +0300
           * Changed SHOW\_FUNC variabels that don't return SHOW\_ARRAY to SHOW\_SIMPLE\_FUNC.
-          * This allows us to avoid calculating variables (including those involving mutex) that doesn't match the given\
+          * This allows us to avoid calculating variables (including those involving mutex) that doesn't match the given
             wildcard in SHOW STATUS LIKE '...'
           * Removed all references to active\_mi that could cause problems for multi-source replication.
           * Added START|STOP ALL SLAVES
@@ -272,32 +272,32 @@ and
     Thu 2012-09-13 14:31:29 +0200
     * [MDEV-232](https://jira.mariadb.org/browse/MDEV-232): Remove one fsync() from commit phase.
     * Introduce a new storage engine API method commit\_checkpoint\_request().
-      * This is used to replace the fsync() at the end of every storage engine\
+      * This is used to replace the fsync() at the end of every storage engine
         commit with a single fsync() when a binlog is rotated.
-    * Binlog rotation is now done during group commit instead of being\
-      delayed until unlog(), removing some server stall and avoiding an\
+    * Binlog rotation is now done during group commit instead of being
+      delayed until unlog(), removing some server stall and avoiding an
       expensive lock/unlock of LOCK\_log inside unlog().
   * [Revision #3427.1.6](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.6)\
     Fri 2012-06-22 11:46:28 +0200
     * [MDEV-181](https://jira.mariadb.org/browse/MDEV-181): XID crash recovery across binlog boundaries
-    * Keep track of how many pending XIDs (transactions that are prepared in\
-      storage engine and written into binlog, but not yet durably committed\
+    * Keep track of how many pending XIDs (transactions that are prepared in
+      storage engine and written into binlog, but not yet durably committed
       on disk in the engine) there are in each binlog.
-    * When the count of one binlog drops to zero, write a new binlog checkpoint\
+    * When the count of one binlog drops to zero, write a new binlog checkpoint
       event, telling which is the oldest binlog with pending XIDs.
-    * When doing XA recovery after a crash, check the last binlog checkpoint\
-      event, and scan all binlog files from that point onwards for XIDs that\
+    * When doing XA recovery after a crash, check the last binlog checkpoint
+      event, and scan all binlog files from that point onwards for XIDs that
       must be committed if found in prepared state inside engine.
-    * Remove the code in binlog rotation that waits for all prepared XIDs to\
-      be committed before writing a new binlog file (this is no longer necessary\
+    * Remove the code in binlog rotation that waits for all prepared XIDs to
+      be committed before writing a new binlog file (this is no longer necessary
       when recovery can scan multiple binlog files).
   * [Revision #3427.1.5](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.5)\
     Fri 2012-06-22 11:40:40 +0200
     * [MDEV-225](https://jira.mariadb.org/browse/MDEV-225): Replace with dummy events an event that is not understood by a slave to which it should be sent
     * Add function to replace arbitrary event with dummy event.
-    * Add code which uses this to fix the bug that enabling row\_annotate events\
+    * Add code which uses this to fix the bug that enabling row\_annotate events
       on the master breaks slaves which do not request such events.
-    * Add that slaves set a variable @mariadb\_slave\_capability to inform the\
+    * Add that slaves set a variable @mariadb\_slave\_capability to inform the
       master in a robust way about which events it can, and cannot, handle.
     * Add tests.
   * [Revision #3427.1.4](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.4)\
@@ -306,8 +306,8 @@ and
     * New implementation for str\_to\_datetime. Fix [MDEV-457](https://jira.mariadb.org/browse/MDEV-457) and related issues.
   * [Revision #3427.1.3](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.3)\
     Tue 2012-09-04 19:26:30 +0300
-    * Switch automaticly to statement based replication for statements that can't\
-      generate row based events. This is needed to avoid getting\
+    * Switch automaticly to statement based replication for statements that can't
+      generate row based events. This is needed to avoid getting
       updates to system, statistics and admin tables logged to binary log.
       * Removed special code used to temporarily change to statement based replication.
       * Changed to a faster and smaller interface for temporarily switching to statement based replication.
@@ -318,7 +318,7 @@ and
       Sat 2012-09-01 14:21:59 -0700
       * [MDEV-415](https://jira.mariadb.org/browse/MDEV-415): Back-port of the WL task #1393 from the mysql-5.6 code line.
       * The task adds a more efficient handling of the queries with\
-        ORDER BY order LIMIT n, such that n is small enough and\
+        ORDER BY order LIMIT n, such that n is small enough and
         no indexes are used for order.
   * [Revision #3427.1.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.1) \[merge]\
     Sat 2012-09-01 00:54:54 +0300
@@ -326,16 +326,16 @@ and
 * [Revision #3448](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3448)\
   Fri 2012-10-12 11:00:01 +0200
   * [MDEV-3802](https://jira.mariadb.org/browse/MDEV-3802): Millisecond timeout support in non-blocking client library + fix incorrect blocking.
-  * After the merge of VIO stuff from MySQL 5.6, there were some bugs left\
+  * After the merge of VIO stuff from MySQL 5.6, there were some bugs left
     in the non-blocking client library:
-    * vio\_io\_wait() was introduced without any support for non-blocking operation,\
+    * vio\_io\_wait() was introduced without any support for non-blocking operation,
       so async queries could turn into sync.
-    * Timeouts were changed to milliseconds, but this was not reflected in the\
+    * Timeouts were changed to milliseconds, but this was not reflected in the
       non-blocking API, also semantics was changed so signed -1 was used for\
       "no timeout" rather than unsigned 0.
-  * Fix by implementing and using my\_io\_wait\_async() in the non-blocking case. And\
-    by introducing a new mysql\_get\_timeout\_value\_ms() API function that provides\
-    the timeout with millisecond granularity. The old mysql\_get\_timeout\_value()\
+  * Fix by implementing and using my\_io\_wait\_async() in the non-blocking case. And
+    by introducing a new mysql\_get\_timeout\_value\_ms() API function that provides
+    the timeout with millisecond granularity. The old mysql\_get\_timeout\_value()
     is kept and fixed to work correctly, converting the timeout to whole seconds.
 * [Revision #3447](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3447)\
   Mon 2012-10-08 12:30:10 +0200
@@ -345,7 +345,7 @@ and
   * fixes for embedded
 * [Revision #3445](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3445)\
   Fri 2012-10-05 12:37:22 +0200
-  * update test results in `--ps-protocol`\
+  * update test results in `--ps-protocol`
     disable the test that's broken upstream
 * [Revision #3444](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3444)\
   Thu 2012-10-04 23:18:04 +0200
@@ -367,7 +367,7 @@ and
   * fix the embedded build
 * [Revision #3438](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3438)\
   Thu 2012-09-27 20:09:46 +0200
-  * fixes for test failures\
+  * fixes for test failures
     and small collateral changes
 * [Revision #3437](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3437) \[merge]\
   Sat 2012-09-15 13:58:12 +0300
@@ -379,7 +379,7 @@ and
 * [Revision #3436](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3436)\
   Thu 2012-08-30 13:52:06 +0500
   * [MDEV-495](https://jira.mariadb.org/browse/MDEV-495) Table logging does not work in TRANSACTION READ ONLY mode.
-  * The flag is now checked for MYSQL\_LOCK\_LOG\_TABLE and similar\
+  * The flag is now checked for MYSQL\_LOCK\_LOG\_TABLE and similar
     in open\_table().
   * per-file comments:
     * sql/sql\_base.cc
@@ -389,8 +389,8 @@ and
   * Compile 10.0 on Windows
 * [Revision #3434](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3434)\
   Sat 2012-08-25 20:57:17 +0500
-  * SQL syntax extended with START TRANSACTION READ ONLY|READ WRITE\
-    and SET TRANSACTION READ ONLT|READ WRITE\
+  * SQL syntax extended with START TRANSACTION READ ONLY|READ WRITE
+    and SET TRANSACTION READ ONLT|READ WRITE
     statements.
   * per-file comments:
     * mysql-test/include/check-warnings.test
@@ -495,6 +495,6 @@ and
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -140,7 +140,7 @@ It is used to convert all JSON objects found in a JSON document to JSON arrays w
 
 ### JSON_OVERLAPS
 `JSON_OVERLAPS(json_doc1, json_doc2)`  
-`JSON_OVERLAPS()` compares two json documents and returns true if they have at least one common\ key-value pair between two objects, array element common between two arrays, or array element common with scalar if one of the arguments is a scalar and other is an array. *(since 10.9)*
+`JSON_OVERLAPS()` compares two json documents and returns true if they have at least one common key-value pair between two objects, array element common between two arrays, or array element common with scalar if one of the arguments is a scalar and other is an array. *(since 10.9)*
 
 ### JSON_PRETTY
 Alias for `JSON_DETAILED`. *(since 10.10.3)*
@@ -205,3 +205,5 @@ Given a JSON document, returns the scalar specified by the path.
 - **`mariadb-create-table`** — declaring `JSON`-typed columns (alias for `LONGTEXT` with auto `CHECK`)
 - **`mariadb-select`** — `JSON_TABLE` in the `FROM` clause for relational projection of JSON documents
 - Canonical reference on `mariadb.com/docs`: <https://mariadb.com/docs/server/reference/sql-functions/special-functions/json-functions> (the JSON Functions section); JSONPath syntax at <https://mariadb.com/docs/server/reference/sql-functions/special-functions/json-functions/jsonpath-expressions>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -20,7 +20,7 @@ In these true vertical formats, the VEC files are made of all the data of the fi
 
 These formats correspond to different needs. The integral vector format provides the best performance gain. It are chosen when the speed of decisional queries must be optimized.
 
-In the case of a unique file, inserting new data are limited but there will be only one open and close to do. However, the size of the table cannot be calculated from the file size because of the eventual unused space in the file. It must be kept in a header containing the maximum number of rows and the current number of valid rows in the table. To achieve this, specify the option Header=_n_ when creating the table. If `n=1` the header are placed at the beginning of the file, if `n=2` it are a separate file with the type ‘.blk’, and if `n=3` the header are place at the end of the file. This last value is provided because batch inserting is sometimes slower when the header is at the beginning of the file. If not specified, the header option\
+In the case of a unique file, inserting new data are limited but there will be only one open and close to do. However, the size of the table cannot be calculated from the file size because of the eventual unused space in the file. It must be kept in a header containing the maximum number of rows and the current number of valid rows in the table. To achieve this, specify the option Header=_n_ when creating the table. If `n=1` the header are placed at the beginning of the file, if `n=2` it are a separate file with the type ‘.blk’, and if `n=3` the header are place at the end of the file. This last value is provided because batch inserting is sometimes slower when the header is at the beginning of the file. If not specified, the header option
 will default to 2 for this table type.
 
 On the other hand, the "Split" format with separate files have none of these issues, and is a much safer solution when the table must frequently inserted or shared among several users.
@@ -51,8 +51,8 @@ This applies to VEC tables that are not split. Because the file size depends on 
 | 2 | The header is in a separate file.                             |
 | 3 | The header is at the end of the file.                         |
 
-The value 2 can be used when dealing with files created by another application\
-with no header. The value 3 makes sometimes inserting in the file faster than\
+The value 2 can be used when dealing with files created by another application
+with no header. The value 3 makes sometimes inserting in the file faster than
 when the header is at the beginning of the file.
 
 Note: VEC being a file format specific to CONNECT, no big endian / little endian conversion is provided. These files are not portable between machines using a different byte order setting.

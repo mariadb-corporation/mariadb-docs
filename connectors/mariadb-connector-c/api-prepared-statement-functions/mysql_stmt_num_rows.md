@@ -33,4 +33,6 @@ If you use [mysql\_stmt\_store\_result()](mysql_stmt_store_result.md), `mysql_st
 
 * [mysql\_stmt\_store\_result()](mysql_stmt_store_result.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

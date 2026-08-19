@@ -25,12 +25,12 @@ MariaDB 13.0 is a [rolling release](../about/release-model.md). It is an evoluti
 
 ## Notable Items
 
-* [`CHANGE MASTER`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) now resets `Master_Server_Id` in [`SHOW SLAVES STATUS`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/legacy-replication-statements/legacy-commands-show-slave-status) ([MDEV-15327](https://jira.mariadb.org/browse/MDEV-15327))
+* [`CHANGE MASTER`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) now resets `Master_Server_Id` in `SHOW SLAVES STATUS` ([MDEV-15327](https://jira.mariadb.org/browse/MDEV-15327))
 * Faster unique indexes over [`CHAR`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/char) columns in MEMORY tables (incl. temporary tables) ([MDEV-21543](https://jira.mariadb.org/browse/MDEV-21543))
 * [`PERFORMANCE_SCHEMA`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/performance_schema-storage-engine) now uses `XXH3_128` hash for digest. Looks like MD5, but much faster and no problems in FIPS mode. ([MDEV-31669](https://jira.mariadb.org/browse/MDEV-31669))
 * [`binlog_row_event_max_size`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_row_event_max_size) default value was increased to 64k ([MDEV-37608](https://jira.mariadb.org/browse/MDEV-37608))
 * [`default_master_connection`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#default_master_connection) can now be set on global level ([MDEV-9247](https://jira.mariadb.org/browse/MDEV-9247))
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

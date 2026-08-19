@@ -65,3 +65,5 @@ Learn how to configure the lc_messages and lc_messages_dir system variables to d
 How MariaDB tracks and converts time zone settings, including named time zones, the time-zone system tables, and per-session configuration.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

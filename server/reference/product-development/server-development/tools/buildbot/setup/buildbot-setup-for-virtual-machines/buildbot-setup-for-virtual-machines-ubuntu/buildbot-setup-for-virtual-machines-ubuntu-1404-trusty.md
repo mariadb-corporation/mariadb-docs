@@ -13,7 +13,7 @@ qemu-img create -f qcow2 /kvm/vms/vm-trusty-amd64-serial.qcow2 20G
 qemu-img create -f qcow2 /kvm/vms/vm-trusty-i386-serial.qcow2 20G
 ```
 
-Start each VM booting from the server install iso one at a time and perform\
+Start each VM booting from the server install iso one at a time and perform
 the following install steps:
 
 ```
@@ -38,17 +38,17 @@ vncviewer -via ${remote_host} localhost
 
 Replace ${remote-host} with the host the vm is running on.
 
-**Note:** When you activate the install, vncviewer may disconnect with a\
-complaint about the rect being too large. This is fine. Ubuntu has just resized\
+**Note:** When you activate the install, vncviewer may disconnect with a
+complaint about the rect being too large. This is fine. Ubuntu has just resized
 the vnc screen. Simply reconnect.
 
-During the install, pick default options for the most part, with the following\
+During the install, pick default options for the most part, with the following
 notes:
 
-* Set the hostname to `ubuntu-trusty-amd64` or `ubuntu-trusty-i386`\
+* Set the hostname to `ubuntu-trusty-amd64` or `ubuntu-trusty-i386`
   (depending on which architecture we're installing)
 * do not encrypt the home directory
-* When prompted if the timezone is correct, answer "No" and when the list comes\
+* When prompted if the timezone is correct, answer "No" and when the list comes
   up, scroll to the bottom and choose "UTC"
 * When partitioning disks, choose "Guided - use entire disk" (we do not want\
   LVM)
@@ -229,7 +229,7 @@ done
 
 ## Add Key to known\_hosts
 
-Do the following on each kvm host server (terrier, terrier2, i7, etc...) to add\
+Do the following on each kvm host server (terrier, terrier2, i7, etc...) to add
 the VMs to known\_hosts.
 
 ```

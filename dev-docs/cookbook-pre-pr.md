@@ -15,7 +15,7 @@ skill, which runs them for you; this page documents what it does and how to run 
 
 Only the first two can fail your PR; aliases and help-tables are regenerated automatically.
 
-## 1. Spelling + links — `doc-lint.sh`
+## 1. Spelling + links + includes + gutted pages — `doc-lint.sh`
 
 The codespell and lychee invocations that mirror CI live in **one** place,
 `.claude/hooks/doc-lint.sh`. Run it instead of re-typing the flags:
@@ -33,6 +33,39 @@ git diff --name-only origin/main...HEAD -- '*.md' '*.html' \
 `doc-lint.sh` runs codespell and lychee with the exact CI-mirroring flags/excludes (defined
 only in that script), exits non-zero on a real failure, and prints a `SKIPPED` notice for any
 tool that isn't installed (CI still runs it).
+
+It also resolves every relative `{% include %}` in the file set and fails on a **missing target**
+or one that **crosses a space boundary**. That check has **no CI counterpart** — `{% include %}`
+is GitBook template syntax, not a Markdown link, so lychee is blind to it and a dead include just
+renders as nothing, silently dropping a section from the page. It needs no external tool, so it
+never SKIPs. (Added in DOCS-6372, which found two live cases this way.)
+
+Finally, it flags a **gutted page**: any file in the set that lost more than **40%** of its lines
+*net* (deletions minus additions, minimum 20 lines lost, pre-image at least 30 lines) against
+`DOC_LINT_BASE` (default `HEAD`). This has no CI counterpart either, and it exists because the
+other checks are blind to it — when a page loses most of its body but the surviving markup is
+valid and the remaining links resolve, codespell and lychee both PASS. That is exactly what
+happened in DOCS-6442: a retirement campaign meant to delete one `{% columns %}` content-ref
+block from the Storage Engines landing page and deleted 23 of 24 instead (298 lines → 22,
+24 content-refs → 1). `SUMMARY.md` was untouched, so the nav still listed all 27 engines while
+the page listed one; a reader found it two days later.
+
+Net loss is the metric, not raw deletions — raw deletions flag every reformatting campaign (alias
+expansion, hard-break removal, changelog normalization), because those *rewrite* lines. Measured
+over 300 commits of this repo: raw deletions >40% flags 17 files, net loss >40% flags 4.
+
+A big shrink is often correct, so this gate is meant to be **acknowledged, not silenced**:
+
+```bash
+# after confirming the page still covers what it should
+DOC_LINT_ALLOW_SHRINK='path/to/README.md' .claude/hooks/doc-lint.sh <files>
+```
+
+and say why in the commit message. Tunable: `DOC_LINT_SHRINK_PCT`, `DOC_LINT_SHRINK_MIN`,
+`DOC_LINT_SHRINK_FLOOR`, `DOC_LINT_BASE`; `DOC_LINT_ALLOW_SHRINK=all` disables the check.
+For a landing page, the fastest confirmation is to compare its content-ref count against the
+space's `SUMMARY.md` children — `SUMMARY.md` is authoritative for nav, and it is what DOCS-6442
+used to rebuild the page.
 
 - A real term flagged as a typo? Add it to `.codespellignore` (one word per line) — sparingly.
 - The lychee exclude set skips **any URL containing `{` or `%7B`** — which covers `{alias}`

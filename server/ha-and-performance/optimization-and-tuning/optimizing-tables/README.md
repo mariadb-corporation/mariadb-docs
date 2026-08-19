@@ -54,3 +54,5 @@ Implementing the entity-attribute-value (EAV) model in MariaDB, and its trade-of
 Efficiently storing and querying large sets of non-overlapping ranges, such as IP address ranges.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

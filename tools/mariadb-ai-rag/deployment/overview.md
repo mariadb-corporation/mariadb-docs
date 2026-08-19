@@ -230,3 +230,5 @@ Once services are Up or Healthy, access the interactive Swagger UI to view all A
 * URL: `http://localhost:8000/docs`
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -138,3 +138,5 @@ The optimizer cost model introduced in MariaDB 11.0.
 Optimizer trace, which records how the optimizer builds a query's execution plan.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

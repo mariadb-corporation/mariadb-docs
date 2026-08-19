@@ -1,13 +1,13 @@
 # MariaDB Galera Cluster 10.0.16 Changelog
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.16)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10016-release-notes.md)[Changelog](mariadb-galera-cluster-10016-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.16)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10016-release-notes.md)[Changelog](mariadb-galera-cluster-10016-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 29 Jan 2015
 
 For the highlights of this release, see the [release notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10016-release-notes.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3922](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3922)\
@@ -67,6 +67,6 @@ modified in that revision.
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

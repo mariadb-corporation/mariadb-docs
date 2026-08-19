@@ -414,3 +414,5 @@ Convert a string to a number. This Oracle-compatible function parses a string us
 Truncate a number. This function truncates a number to a specified number of decimal places.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

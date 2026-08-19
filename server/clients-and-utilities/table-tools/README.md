@@ -42,3 +42,5 @@ Convert every table in a database to a given storage engine (MyISAM by default) 
 Fix the file extensions of MyISAM table files with mariadb-fix-extensions (formerly mysql_fix_extensions).
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

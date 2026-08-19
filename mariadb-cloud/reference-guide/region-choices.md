@@ -61,3 +61,5 @@ description: >-
 | northeurope        | Dublin, Ireland          | Provisioned, Serverless |
 | germanywestcentral | Frankfurt, Germany       | Provisioned             |
 | southeastasia      | Jurong West, Singapore   | Provisioned             |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

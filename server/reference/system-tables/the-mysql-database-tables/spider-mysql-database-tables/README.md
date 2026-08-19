@@ -114,3 +114,5 @@ This table logs details of failed XA transactions in the Spider storage engine, 
 The mysql.spider_xa_member table lists the member nodes participating in a distributed XA transaction managed by the Spider engine.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

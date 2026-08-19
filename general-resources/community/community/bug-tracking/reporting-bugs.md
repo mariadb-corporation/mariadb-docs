@@ -148,7 +148,7 @@ If the bug affects Percona server and not MySQL, it should go to [Percona Launch
 
 #### Getting a Stack Trace with Details
 
-See the article [How to produce a stack trace from a core file](/broken/pages/yt4NDbw3wL7QsDjQtA0H).
+See [Producing a Full Stack Trace for mariadbd](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-fault-finding/how-to-produce-a-full-stack-trace-for-mariadbd), in particular the sections on getting backtraces with gdb and locating the core file.
 
 #### Extracting a Portion of a Binary Log
 

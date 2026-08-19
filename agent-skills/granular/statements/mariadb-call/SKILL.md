@@ -84,3 +84,5 @@ Stored procedures may call themselves (or each other, mutually) recursively. Thi
 - **`mariadb-create-procedure`** — defining the stored procedure that `CALL` invokes, including parameter modes (`IN`/`OUT`/`INOUT`) and `SQL SECURITY`
 - Canonical reference on `mariadb.com/docs`:
   - <https://mariadb.com/docs/server/reference/sql-statements/stored-routine-statements/call>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -83,7 +83,7 @@ Oracle mode makes the following changes to [LOOP](https://app.gitbook.com/s/Ssme
 | Variables can be declared after cursor declarations                                                                               | In MariaDB mode, variables must be declared before cursors. [MDEV-10598](https://jira.mariadb.org/browse/MDEV-10598)                                                                                                |
 | Triggers uses `:NEW` and `:OLD`                                                                                                   | ANSI uses NEW and OLD. [MDEV-10579](https://jira.mariadb.org/browse/MDEV-10579)                                                                                                                                     |
 | `SQLCODE`                                                                                                                         | Returns the number code of the most recent exception. Can only be used in Stored Procedures. [MDEV-10578](https://jira.mariadb.org/browse/MDEV-10578)                                                               |
-| `SQLERRM`                                                                                                                         | Returns the error message associdated to it's error number argument or `SQLCODE` if no argument is given. Can only be used in Stored Procedures. [MDEV-10578](https://jira.mariadb.org/browse/MDEV-10578)           |
+| `SQLERRM`                                                                                                                         | Returns the error message associated to it's error number argument or `SQLCODE` if no argument is given. Can only be used in Stored Procedures. [MDEV-10578](https://jira.mariadb.org/browse/MDEV-10578)           |
 | `SQL%ROWCOUNT`                                                                                                                    | Almost same as [ROW\_COUNT()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/information-functions/row_count). [MDEV-10583](https://jira.mariadb.org/browse/MDEV-10583) |
 | [ROWNUM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/information-functions/rownum) | Returns number of accepted rows. From [MariaDB 10.6](../../10.6/what-is-mariadb-106.md).                                                                                                                            |
 | Associative arrays                                                                                                                | See [blog post](https://mariadb.org/bringing-oracles-associative-arrays-to-mariadb/). From [MariaDB 12.1](../../old-releases/12.1/changes-and-improvements-in-mariadb-12.1.md).                                     |
@@ -165,7 +165,7 @@ IF a=10 THEN NULL; ELSE NULL; END IF
 
 In Oracle, empty string ('') and NULL are the same thing,
 
-By using `sql_mode=EMPTY_STRING_IS_NULL` you can get a similar\
+By using `sql_mode=EMPTY_STRING_IS_NULL` you can get a similar
 experience in MariaDB:
 
 ```sql
@@ -197,6 +197,6 @@ The [SHOW CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference
 * [Curious case of the disappearing commercial databases (13 minute offset) - Monty Widenius - MariaDB Server Fest 2021](https://www.youtube.com/watch?v=0nysJV3pozg) (video)
 * [Sqlines - Oracle to MariaDB migration tool](https://sqlines.com/oracle-to-mariadb)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

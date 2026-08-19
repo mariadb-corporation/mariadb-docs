@@ -37,7 +37,7 @@ Default to the files the user changed. Determine the set in this order:
 
 Run all that apply, then report each as PASS / FAIL / SKIPPED.
 
-### 1–2. Spelling + links (codespell + lychee) — via `doc-lint.sh`
+### 1–4. Spelling + links + includes + gutted pages — via `doc-lint.sh`
 
 Run the **canonical** linter (the single source of truth for the CI-mirroring flags/excludes)
 on the file set, from the repo root:
@@ -55,6 +55,28 @@ on the file set, from the repo root:
   `doc-lint.sh`. If a codespell hit is a real term (not a typo), tell the user it can be added
   to `.codespellignore`; don't reword silently. Never report `{alias}` links as broken or
   expand them.
+- It also resolves every relative `{% include %}` and fails on a **missing target** or one that
+  **crosses a space boundary** (each top-level directory is a separate GitBook space, so a
+  relative include may not leave it — cross-space reuse must use the by-ID form). This check has
+  **no CI counterpart** and needs no external tool, so it never reports SKIPPED. It matters
+  because a dead include renders as *nothing* — the page silently loses a section, and lychee
+  cannot see `{% include %}` at all since it is template syntax, not a Markdown link. To fix,
+  correct the `../` depth, or switch to
+  `{% include "https://app.gitbook.com/s/<spaceId>/~/reusable/<reusableId>/" %}` when the snippet
+  genuinely lives in another space. Added in DOCS-6372.
+- It also flags a **gutted page** — any file that lost more than 40% of its lines *net*
+  (deletions minus additions; min 20 lines lost, pre-image ≥ 30 lines) against `DOC_LINT_BASE`
+  (default `HEAD`). No CI counterpart, never SKIPs. This catches what the other checks
+  structurally cannot: a page that loses most of its body while the surviving markup stays valid
+  and the remaining links resolve, so codespell and lychee both PASS. DOCS-6442 is the case —
+  a campaign meant to remove one `{% columns %}` content-ref block from the Storage Engines
+  landing page removed 23 of 24 (298 lines → 22, 24 content-refs → 1) with `SUMMARY.md`
+  untouched, so nav listed 27 engines and the page listed one.
+  **Do not silence this by reflex.** Verify the page first: for a landing page, compare its
+  content-ref count with the space's `SUMMARY.md` children (`SUMMARY.md` is authoritative for
+  nav — it is what DOCS-6442 used to rebuild the page). If the shrink is genuinely intended,
+  re-run with `DOC_LINT_ALLOW_SHRINK='<path>'` and tell the user to state the reason in the
+  commit message. Report it as FAIL when unverified, WARN when acknowledged.
 
 The remaining checks below are **best-effort, LLM-performed heuristics** — report them as
 warnings, not hard failures, and **ignore anything inside fenced code blocks (```) or
@@ -112,6 +134,8 @@ Report a compact summary, e.g.:
 docs-check on 3 files:
   codespell ...... PASS
   lychee ......... FAIL (2 broken links — see below)
+  includes ....... FAIL (dead include in platform/post-download/x.md:22)
+  gutted pages ... FAIL (storage-engines/README.md lost 93% of its lines net)
   frontmatter .... PASS
   gitbook blocks . FAIL (unclosed {% tabs %} in server/foo.md)
   link style ..... PASS

@@ -419,3 +419,5 @@ SELECT NAME, ENCRYPTION_SCHEME  FROM information_schema.INNODB_TABLESPACES_ENCRY
 | test/sensitive_accounts_innodb |                 1 |
 +--------------------------------+-------------------+
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

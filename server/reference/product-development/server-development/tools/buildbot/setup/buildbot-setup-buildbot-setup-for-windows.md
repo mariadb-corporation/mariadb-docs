@@ -96,7 +96,7 @@ This is a sympthom of intermittent network issues, which cause Buildbot to abort
 This is an experimental setup.
 {% endhint %}
 
-In case the default Windows buildbot setup is not sufficiently reliable due to "connection lost in a non-clean fashion" errors, the following setup can be used\
+In case the default Windows buildbot setup is not sufficiently reliable due to "connection lost in a non-clean fashion" errors, the following setup can be used
 instead. It runs the buildbot daemon on a linux host while doing the builds on Windows, thus working around Twisted issues on Windows.
 
 **Note that the procedure below&#x20;**_**significantly**_**&#x20;degrades the overall security of your Windows host. It is strongly recommended that a properly-firewalled, standalone virtual machine is used.**

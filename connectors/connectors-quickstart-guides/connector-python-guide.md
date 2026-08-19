@@ -265,3 +265,5 @@ asyncio.run(main())
 * Migration Guide (1.1 to 2.0)
 * Async/Await Support
 * [MariaDB Developers Python Quickstart (GitHub)](https://github.com/mariadb-developers/python-quickstart)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

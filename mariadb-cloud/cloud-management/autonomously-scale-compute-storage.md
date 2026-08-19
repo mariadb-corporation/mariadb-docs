@@ -73,3 +73,5 @@ Automatic scaling occurs based on rules.
 Autonomous actions are not instantaneous.
 
 Cooldown periods may apply. A cooldown period is the time interval between the completion of a scaling operation and initiation of another scaling operation. The cooldown period for storage scaling is 6 hours.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

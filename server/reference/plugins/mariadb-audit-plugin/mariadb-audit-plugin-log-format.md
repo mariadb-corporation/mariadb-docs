@@ -13,16 +13,37 @@ The audit plugin logs user access to MariaDB and its objects. The audit trail (t
 
 When the MariaDB Audit Plugin (v1) writes to a dedicated file, it uses a comma-separated (CSV) format. For tool developers, it is essential to map the `connectionid` to the server's global connection identifier to enable cross-log analysis.
 
+{% tabs %}
+{% tab title="Current" %}
+Template: `<timestamp>,<serverhost>,<username>,<host>:<port>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
+{% endtab %}
+
+{% tab title="< 12.0.1" %}
 Template: `<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
+{% endtab %}
+{% endtabs %}
 
 | Field | Component      | Data Type      | Standardized Name / Description                                                                                                              |
 | ----- | -------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1     | `timestamp`    | `DateTime`     | Formatted as `%Y%m%d %H:%i:%s` (the default), or as specified in [server_audit_timestamp_format](mariadb-audit-plugin-options-and-system-variables.md#server_audit_timestamp_format). |
 | 2     | `serverhost`   | `String`       | Hostname of the originating server.                                                                                                          |
+| 3     | `username`     | `String`       | The MariaDB user account that triggered the event.                                                                                           |
+| 4     | `host`:`port`  | `String`       | The client host the user connected from, followed by a colon and the client's TCP port. From MariaDB 12.0.1. When the client did not connect over TCP/IP, such as over a Unix socket or a named pipe, the colon and the port are both omitted and the field holds the host alone. Before MariaDB 12.0.1, the field is always the host alone. |
 | 5     | `connectionid` | `Unsigned Int` | Standardized: Thread ID. Matches the `Thread ID` in Error, General, and Slow logs.                                                           |
 | 6     | `queryid`      | `Unsigned Int` | A unique identifier for the specific query, used to correlate `QUERY` and `TABLE` events.                                                    |
-| 7     | `operation`    | `String`       | Action type (e.g., `CONNECT`, `QUERY`, `READ`, `WRITE`).                                                                                     |
+| 7     | `operation`    | `String`       | Action type (e.g., `CONNECT`, `QUERY`, `READ`, `WRITE`). The change-user connection event is logged as `CHANGEUSER`, without an underscore.  |
+| 8     | `database`     | `String`       | The database the event applies to.                                                                                                           |
+| 9     | `object`       | `String`       | The table or object involved in the operation, or the statement text on `QUERY` events. Connection events use this field for other values: from MariaDB 12.0.1, the negotiated TLS version, and on `PROXY_CONNECT` records, the proxy user. |
 | 10    | `retcode`      | `Integer`      | Result code (`0` for success).                                                                                                               |
+
+{% hint style="warning" %}
+**Changed in MariaDB 12.0.1**
+
+Two changes to the log format require updates to tools that parse the audit log:
+
+* The `host` field now contains a colon and the client's TCP port, unless the client did not connect over TCP/IP.
+* On connection events, the `object` field now carries the negotiated TLS version. The record still has ten fields and still ends with `retcode`.
+{% endhint %}
 
 ### Audit Log Format with Syslog
 
@@ -37,6 +58,20 @@ Below is a generic example of the output for connect events, with placeholders r
 [timestamp],[serverhost],[username],[host],[connectionid],0,DISCONNECT,,,0 
 [timestamp],[serverhost],[username],[host],[connectionid],0,FAILED_CONNECT,,,[retcode]
 ```
+
+Starting with MariaDB 12.0.1, connection events record the client port alongside the host and report the negotiated TLS version in the `object` field:
+
+```ini
+20260731 09:14:22,mdb1,root,192.168.1.24:54312,7,0,CONNECT,mysql,TLSv1.3,0
+20260731 09:14:59,mdb1,root,192.168.1.24:54312,7,0,DISCONNECT,mysql,TLSv1.3,0
+20260731 09:15:03,mdb1,app,localhost,8,0,CONNECT,,,0
+```
+
+The third record is an unencrypted Unix socket connection: the host carries no port suffix, and the TLS version is empty.
+
+{% hint style="info" %}
+The TLS version is written on `CONNECT`, `FAILED_CONNECT`, `DISCONNECT`, and `CHANGEUSER` records, and is empty when the connection is not encrypted. `PROXY_CONNECT` records use the `object` field for the proxy user instead.
+{% endhint %}
 
 Here is the one audit record generated for each query event:
 

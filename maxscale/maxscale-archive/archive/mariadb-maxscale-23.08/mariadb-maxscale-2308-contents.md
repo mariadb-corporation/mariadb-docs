@@ -50,8 +50,8 @@ Here are tutorials on monitoring and managing MariaDB MaxScale in cluster enviro
 
 ### Routers
 
-The routing module is the core of a MariaDB MaxScale service. The router documentation\
-contains all module specific configuration options and detailed explanations\
+The routing module is the core of a MariaDB MaxScale service. The router documentation
+contains all module specific configuration options and detailed explanations
 of their use.
 
 * [Avrorouter](mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-avrorouter.md)
@@ -107,11 +107,11 @@ Documentation for MaxScale protocol modules.
 
 The MaxScale CDC Connector provides a C++ API for consuming data from a CDC system.
 
-* [CDC Connector](../../../maxscale-versions/mariadb-maxscale-23.08/mariadb-maxscale-23-08-connectors/mariadb-maxscale-2308-maxscale-cdc-connector.md)
+* CDC Connector
 
 ### Authenticators
 
-A short description of the authentication module type can be found in the [Authentication Modules](mariadb-maxscale-23-08-authenticators/mariadb-maxscale-2308-authentication-modules.md)\
+A short description of the authentication module type can be found in the [Authentication Modules](mariadb-maxscale-23-08-authenticators/mariadb-maxscale-2308-authentication-modules.md)
 document.
 
 * [MariaDB/MySQL Authenticator](https://mariadb.com/kb/en/mariadbmysql-authenticator/)
@@ -120,3 +120,5 @@ document.
 * [Ed25519 Authenticator](mariadb-maxscale-23-08-authenticators/mariadb-maxscale-2308-ed25519-authenticator.md)
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

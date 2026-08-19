@@ -115,3 +115,5 @@ Understand the MariaDB client/server protocol. This section details how clients 
 Provides background information and high-level resources aimed at engineers developing new MariaDB features and contributing to the ecosystem.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

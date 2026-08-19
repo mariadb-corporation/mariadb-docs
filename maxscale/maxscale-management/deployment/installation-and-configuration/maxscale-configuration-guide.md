@@ -478,7 +478,7 @@ With `host_cache_size=0`, the cache is disabled and a fresh reverse name lookup 
 * Dynamic: Yes
 * Default: `10s`
 
-Duration, default 10s. This setting defines the connection timeout when attempting to fetch MariaDB/MySQL/Clustrix users from a backend server. The same value is also used for read and write timeouts. Increasing this value causes MaxScale to wait longer for a response from a server before user fetching fails. Other servers may then be attempted.
+Duration, default 10s. This setting defines the connection timeout when attempting to fetch MariaDB/MySQL users from a backend server. The same value is also used for read and write timeouts. Increasing this value causes MaxScale to wait longer for a response from a server before user fetching fails. Other servers may then be attempted.
 
 ```
 auth_connect_timeout=10s
@@ -1312,7 +1312,7 @@ Older versions of MaxScale interpreted `admin_ssl_version` as the minimum allowe
 * Mandatory: No
 * Dynamic: No
 
-Additional TLS cipher settings. The configured value is prepended to [admin\_ssl\_version](maxscale-configuration-guide.md#admin_ssl_version) and the resulting string is given as is to [gnutls\_priority\_init](https://gnutls.org/manual/html_node/Priority-Strings.html). If left undefined, `NORMAL` is used.
+Additional TLS cipher settings. The configured value is prepended to [admin\_ssl\_version](maxscale-configuration-guide.md#admin_ssl_version) and the resulting string is given as is to [gnutls\_priority\_init](https://gitlab.com/gnutls/gnutls/-/blob/3.8.13/doc/cha-gtls-app.texi#L1271). If left undefined, `NORMAL` is used.
 
 Adding unrecognized elements to this setting will cause REST-API startup to fail with the error:
 
@@ -2788,7 +2788,7 @@ The default setting (MAX) allows all supported versions. MaxScale supports TLSv1
 
 In MaxScale versions 6.4.13, 22.08.11, 23.02.7, 23.08.3 and earlier, this setting defined the _only_ allowed TLS version, e.g. `ssl_version=TLSv12` would only enable TLSv12. The interpretation changed in MaxScale versions 6.4.14, 22.08.12, 23.02.8, 23.08.4 to enable the user to disable old versions while allowing multiple recent TLS versions. In these versions, `ssl_version=TLSv1.2` enabled both TLSv1.2 and TLSv1.3.
 
-The interpretation changed again in MaxScale versions 6.4.16, 22.08.13, 23.02.10, 23.08.6, 24.02.2. In these versions the value of `ssl_version` is an enumeration of accepted TLS protocol versions. This means that `admin_ssl_version=TLSv1.2` again only allows TLSv1.2. To retain the behavior from the previous releases where the newer versions were automatically enabled, the protocol versions must be explicitly listed, for example `admin_ssl_version=TLSv1.2,TLSv1.3`. The change was done to make the `ssl_version` behave identically to how the MariaDB [tls\_version](../../../../server/security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md#tls_version) parameter works.
+The interpretation changed again in MaxScale versions 6.4.16, 22.08.13, 23.02.10, 23.08.6, 24.02.2. In these versions the value of `ssl_version` is an enumeration of accepted TLS protocol versions. This means that `admin_ssl_version=TLSv1.2` again only allows TLSv1.2. To retain the behavior from the previous releases where the newer versions were automatically enabled, the protocol versions must be explicitly listed, for example `admin_ssl_version=TLSv1.2,TLSv1.3`. The change was done to make the `ssl_version` behave identically to how the MariaDB [tls\_version](../../../../server/security/encryption/data-in-transit-encryption/ssltls-system-variables.md#tls_version) parameter works.
 
 #### `ssl_cipher`
 
@@ -3091,7 +3091,7 @@ The encryption key managers can be enabled at runtime using `maxctrl alter maxsc
 
 The encryption keys are stored in a text file stored on a local filesystem.
 
-The file uses the same format as the MariaDB server [File Key Management Encryption Plugin](../../../../server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md): a file consisting of an encryption key ID number and the hex-encoded encryption key separated by a semicolon. Read [Creating the Key File](../../../../server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#creating-the-key-file) for more details on how to create the file.
+The file uses the same format as the MariaDB server [File Key Management Encryption Plugin](../../../../server/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md): a file consisting of an encryption key ID number and the hex-encoded encryption key separated by a semicolon. Read [Creating the Key File](../../../../server/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#creating-the-key-file) for more details on how to create the file.
 
 For example, to configure encryption for the `nosqlprotocol` shared credentials using the file-based encryption key:
 
@@ -3188,7 +3188,7 @@ The CA certificate to use. By default the system default certificates are used.
 
 Encryption keys are read from a local or remote Vault server using the secret engine included in the Vault. This key manager supports versioned keys. Only version 2 key-value stores are supported.
 
-The encryption keys use the same format as the MariaDB [HashiCorp Vault Key Management Plugin](../../../../server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md) The key-value secret for each encryption key ID must contain the field `data` which must contain a hex-encoded string that is either 32, 48 or 64 characters long.
+The encryption keys use the same format as the MariaDB [HashiCorp Vault Key Management Plugin](../../../../server/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md) The key-value secret for each encryption key ID must contain the field `data` which must contain a hex-encoded string that is either 32, 48 or 64 characters long.
 
 An easy way to generate a correct encryption key is to use the `vault` and `openssl` command line clients. The following command creates a 256-bit encryption key using `openssl` and stores it using the key ID `1`:
 

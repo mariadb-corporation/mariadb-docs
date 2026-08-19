@@ -10,3 +10,5 @@ description: >-
 {% hint style="info" %}
 The MaxScale 23.02 release notes have moved here.
 {% endhint %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

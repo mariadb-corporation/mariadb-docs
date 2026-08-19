@@ -355,7 +355,6 @@ curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- -
 | `--skip-check-installed`              | Skip tests for required prerequisites for this script, useful if generating the config on a different machine                                                                                                                                                                                                                                                                                                                                              |
 | `--skip-eol-check`                    | Skip tests for versions that are past their EOL date                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `--skip-os-eol-check`                 | Skip tests for operating system versions past the EOL date                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `--skip-xpand`                        | `mariadb_es_repo_setup` only. Skip the 'Xpand' instructions. RHEL/CentOS 7 only.                                                                                                                                                                                                                                                                                                                                                                           |
 | `--token`                             | `mariadb_es_repo_setup` only. Your MariaDB Enterprise Repository token. This is required for `mariadb_es_repo_setup` to work. The token is not required for `mariadb_repo_setup` or for MariaDB Community Server repositories. See [Run the Script: mariadb\_es\_repo\_setup](mariadb-package-repository-setup-and-usage.md#mariadb_es_repo_setup-1) for more information.                                                                                 |
 | `--verbose`                           | `mariadb_es_repo_setup` only. Be more verbose when running by displaying \[info] messages about what the script is doing. `mariadb_repo_setup` always runs in verbose mode, so it does not have this option.                                                                                                                                                                                                                                               |
 | `--version`                           | Output the script version and exit                                                                                                                                                                                                                                                                                                                                                                                                                         |
@@ -460,7 +459,7 @@ See the [Usage Example - MariaDB Community Server](mariadb-package-repository-se
 
 By default, the script will configure your system to install from the repository of the latest GA version of MariaDB MaxScale.
 
-If you would like to pin the repository to a specific version of MariaDB MaxScale, then you will need\
+If you would like to pin the repository to a specific version of MariaDB MaxScale, then you will need
 to either manually edit the [repository configuration file](mariadb-package-repository-setup-and-usage.md#platform-specific-behavior) to point to the desired version or use the `--mariadb-maxscale-version` option.
 
 For example, to configure your system to install from the repository of MariaDB MaxScale 6.1, that would be:
@@ -703,6 +702,6 @@ For the list of changes made in each version, see the changelogs:
 {% endtab %}
 {% endtabs %}
 
-{% include "../../.gitbook/includes/license-cc-by-sa-gnu-fdl.md" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

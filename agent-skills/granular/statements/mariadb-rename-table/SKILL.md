@@ -105,3 +105,5 @@ All four privileges are checked, split across the two names — granting only a 
   - <https://mariadb.com/docs/server/reference/sql-statements/data-definition/rename-table>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-definition/alter/alter-table>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-definition/atomic-ddl>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

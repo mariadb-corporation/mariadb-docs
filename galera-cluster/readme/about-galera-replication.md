@@ -93,6 +93,6 @@ For more information on Group Commit, see the [Galera](https://galeracluster.com
 * [Galera Use Cases](../galera-use-cases.md)
 * [Getting Started with MariaDB/Galera Cluster](../galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

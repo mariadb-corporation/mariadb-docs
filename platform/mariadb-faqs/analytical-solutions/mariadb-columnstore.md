@@ -13,4 +13,6 @@
 * Q: Is MariaDB ColumnStore available with MariaDB Community Server?\
   A: While earlier iterations of ColumnStore had community editions, the most current, advanced, and fully supported versions—especially those designed for clustered deployments and integration with cloud object storage—are integral parts of the MariaDB Enterprise offering from MariaDB plc.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

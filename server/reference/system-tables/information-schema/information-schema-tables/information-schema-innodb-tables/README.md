@@ -42,3 +42,5 @@ description: >-
 - [Information Schema INNODB\_TRX Table](information-schema-innodb_trx-table.md)
 - [Information Schema TEMP\_TABLES\_INFO Table](information-schema-temp_tables_info-table.md)
 - [Information Schema INNODB\_UNDO\_LOGS Table](../information-schema-xtradb-tables/information-schema-innodb_undo_logs-table.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

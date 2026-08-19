@@ -90,3 +90,5 @@ LOAD XML [LOW_PRIORITY | CONCURRENT] [LOCAL] INFILE 'file_name'
 - Canonical references on `mariadb.com/docs` (consult only for edge cases not covered here):
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-xml>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

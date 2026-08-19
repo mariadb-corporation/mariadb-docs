@@ -14,18 +14,8 @@ This section contains background information, mostly aimed at engineers developi
 [creating-a-new-merge-tree.md](creating-a-new-merge-tree.md)
 {% endcontent-ref %}
 
-{% content-ref url="merging-from-mysql-obsolete.md" %}
-[merging-from-mysql-obsolete.md](merging-from-mysql-obsolete.md)
-{% endcontent-ref %}
-
-{% content-ref url="merging-new-xtradb-releases-obsolete.md" %}
-[merging-new-xtradb-releases-obsolete.md](merging-new-xtradb-releases-obsolete.md)
-{% endcontent-ref %}
-
-{% content-ref url="merging-tokudb-obsolete.md" %}
-[merging-tokudb-obsolete.md](merging-tokudb-obsolete.md)
-{% endcontent-ref %}
-
 {% content-ref url="merging-with-a-merge-tree.md" %}
 [merging-with-a-merge-tree.md](merging-with-a-merge-tree.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -100,3 +100,5 @@
 - [Error 4097: Compressed column can't be used in key specification](e4097.md)
 - [Error 4098: Unknown compression method](e4098.md)
 - [Error 4099: The used table value constructor has a different number of values](e4099.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

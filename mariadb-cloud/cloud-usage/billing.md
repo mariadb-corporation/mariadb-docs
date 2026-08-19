@@ -36,3 +36,5 @@ From the [Portal](https://app.skysql.com/dashboard), you can access prior invoic
 1. Log in to the [Portal](https://app.skysql.com/dashboard).
 2. Click your name in the upper-right corner of the interface, then select "Billing" from the menu.
 3. Click the "Billing History" tab to show available invoices.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

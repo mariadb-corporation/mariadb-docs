@@ -55,13 +55,24 @@ space** — see *Non-space directories* below. Full breakdown and sub-structure:
 
 These top-level directories are **not** browsable spaces — don't treat them as content:
 
-- `mariadb-platform/` — a GitBook **includes** container (`mariadb-platform/.gitbook/includes/`,
-  ~16 reusable "most-recent release" snippets). It holds include files, not browsable pages, so
-  it has no `README.md` or `SUMMARY.md`. Add a **new include file** here when the work needs one
-  (e.g. a reusable snippet referenced from a page) — but don't author standalone pages here.
 - `dev-docs/` — agent/contributor playbooks (this file's companions). Not published.
 - `.claude/` — shared Claude Code config, skills, hooks. Not published.
-- `.gitbook/includes/` — repo-level reusable snippets inserted into pages by GitBook.
+
+### Reusable includes live inside a space
+
+Each space keeps its own reusable snippets in `<space>/.gitbook/includes/`, and a relative
+`{% include %}` **may not cross a space boundary** — every space is a separate GitBook space with
+its own Git-sync root, so `../../<other-space>/.gitbook/includes/x.md` fails even though the path
+resolves on disk. To reuse a snippet across spaces, reference it by ID instead:
+
+```
+{% include "https://app.gitbook.com/s/<spaceId>/~/reusable/<reusableId>/" %}
+```
+
+Put a new snippet in the `.gitbook/includes/` of the space that uses it. There is no repo-root
+container: `mariadb-platform/.gitbook/includes/` and `.gitbook/includes/` were removed in
+DOCS-6372 — no GitBook space was wired to either, so nothing in them could ever render.
+`.claude/hooks/doc-lint.sh` fails on an include that is missing or crosses a space.
 
 ## Source format & GitBook blocks
 

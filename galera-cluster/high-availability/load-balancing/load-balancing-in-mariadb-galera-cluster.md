@@ -47,3 +47,5 @@ While MariaDB MaxScale is the recommended solution, other proxies and load balan
 * ProxySQL: Another popular open-source, database-aware proxy.
 * HAProxy: A very common and reliable TCP load balancer. When used with Galera, HAProxy is typically configured with a simple TCP health check or a custom script to determine node availability.
 * Cloud Load Balancers: Cloud providers like AWS (ELB/NLB), Google Cloud, and Azure offer native load balancing services that can be used to distribute traffic across a Galera Cluster.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

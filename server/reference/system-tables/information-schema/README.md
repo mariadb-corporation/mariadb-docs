@@ -32,3 +32,5 @@ Provides a comprehensive list of all tables available within the `information_sc
 Details the `TIME_MS` column in the `INFORMATION_SCHEMA.PROCESSLIST` table, which provides high-resolution timing for active server processes.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

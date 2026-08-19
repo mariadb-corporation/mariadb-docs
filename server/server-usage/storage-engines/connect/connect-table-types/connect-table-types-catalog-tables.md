@@ -126,9 +126,9 @@ CONNECTION='DSN=MS Access Database;DBQ=C:/Program
 Files/Microsoft Office/Office/1033/FPNWIND.MDB;';
 ```
 
-Let us explain what we did here: First of all, the creation of the catalog\
-table. This table returns the result set of an ODBC SQLColumns function sent to\
-the ODBC data source. Columns functions always return a data set having some of\
+Let us explain what we did here: First of all, the creation of the catalog
+table. This table returns the result set of an ODBC SQLColumns function sent to
+the ODBC data source. Columns functions always return a data set having some of
 the following columns, depending on the table type:
 
 | Field             | Data Type    | Null | Info Type     | Flag Value | Returned by       |
@@ -156,20 +156,20 @@ the following columns, depending on the table type:
 
 **Note:** ALL includes the ODBC, JDBC, MYSQL, DBF, CSV, PROXY, TBL, XML, JSON, XCOL, and WMI table types. More could be added later.
 
-We chose among these columns the ones that were useful for our create\
-statement, using the flag value when we gave them a different name (case\
+We chose among these columns the ones that were useful for our create
+statement, using the flag value when we gave them a different name (case
 insensitive).
 
-The options used in this definition are the same as the one used later for\
+The options used in this definition are the same as the one used later for
 the actual CUSTOMERS data tables except that:
 
-1. The `TABNAME` option is mandatory here to specify what the queried table\
+1. The `TABNAME` option is mandatory here to specify what the queried table
    name is.
-2. The `CATFUNC` option was added both to indicate that this is a catalog\
+2. The `CATFUNC` option was added both to indicate that this is a catalog
    table, and to specify that we want column information.
 
-**Note:** If the `TABNAME` option had not been specified, this table would\
-have returned the columns of all the tables defined in the connected data\
+**Note:** If the `TABNAME` option had not been specified, this table would
+have returned the columns of all the tables defined in the connected data
 source.
 
 Currently the available `CATFUNC` are:

@@ -91,4 +91,6 @@ Here's a visual summary of our currently supported introspection capabilities.
 
 ![](../../../.gitbook/assets/intro5.png)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

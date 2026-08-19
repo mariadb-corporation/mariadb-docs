@@ -29,4 +29,6 @@ The current connection can be killed with [mysql\_kill()](mysql_kill.md). If rec
 * [mysql\_kill()](mysql_kill.md)
 * [mysql\_options()](mysql_options.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

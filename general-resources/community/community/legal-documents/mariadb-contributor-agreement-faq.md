@@ -31,7 +31,7 @@ The MariaDB Foundation agrees that when it dual licenses code, it will not restr
 
 #### Where Did the [MCA](mca.md) Come From?
 
-The [MCA](mca.md) is based on [Sun's Contributor Agreement](https://www.netbeans.org/about/legal/ca.html). We think it is one of the best contributor agreements around!
+The [MCA](mca.md) is based on Sun's Contributor Agreement. We think it is one of the best contributor agreements around!
 
 #### What's the Difference Between Sun's SCA and the [MCA](mca.md)?
 
@@ -47,7 +47,7 @@ With the establishment of the MariaDB Foundation, Monty Program Ab transferred a
 
 #### Other Questions?
 
-Question not answered? Subscribe to the [maria-developers mailing list](https://launchpad.net/~maria-developers) and ask there or visit us on our [Zulip channel](https://mariadb.zulipchat.com) or the **#maria** [IRC](https://github.com/mariadb-corporation/docs-server/blob/test/en/irc/README.md) channel on.
+Question not answered? Subscribe to the [maria-developers mailing list](https://launchpad.net/~maria-developers) and ask there or visit us on our [Zulip channel](https://mariadb.zulipchat.com) or the **#maria** IRC channel.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

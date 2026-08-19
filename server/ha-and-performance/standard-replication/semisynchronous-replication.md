@@ -9,7 +9,7 @@ description: >-
 
 ## Description
 
-[Standard MariaDB replication](./) is asynchronous, but MariaDB also provides a semisynchronous replication option. The feature is built into the server and is always available. In versions prior to [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103), it was a separate plugin that needed to be installed.
+[Standard MariaDB replication](./) is asynchronous, but MariaDB also provides a semisynchronous replication option. The feature is built into the server and is always available; nothing needs to be installed to use it.
 
 With regular asynchronous replication, replicas request events from the primary's binary log whenever the replicas are ready. The primary does not wait for a replica to confirm that an event has been received.
 
@@ -19,7 +19,7 @@ Semisynchronous replication waits for just one replica to acknowledge that it ha
 
 Semisynchronous replication therefore comes with some negative performance impact, but increased data integrity. Since the delay is based on the roundtrip time to the replica and back, this delay is minimized for servers in close proximity over fast networks.
 
-Semisynchronous replication is built into the server. See [MDEV-13073](https://jira.mariadb.org/browse/MDEV-13073) for more information.
+The guarantee is about the replica's [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), not about the replica's data: an acknowledged transaction has been written to a replica's relay log, but it has not necessarily been applied there yet. How durable that relay log entry is depends on the replica's configuration, so read [Relay Log Durability](semisynchronous-replication.md#relay-log-durability) before relying on semisynchronous replication to prevent data loss.
 
 ## Enabling Semisynchronous Replication
 
@@ -70,7 +70,7 @@ If this is not done, then the replica IO thread will continue to use the previou
 
 ## Configuring the Primary Timeout
 
-In semisynchronous replication, only after the events have been written to the relay log and flushed does the replica acknowledge receipt of a transaction's events. If the replica does not acknowledge the transaction before a certain amount of time has passed, then a timeout occurs and the primary switches to asynchronous replication. This will be reflected in the primary's [error log](../../server-management/server-monitoring-logs/error-log.md) with messages like the following:
+In semisynchronous replication, the replica acknowledges receipt of a transaction's events only after it has written them to its relay log. Whether they have also been synced to disk at that point depends on [sync\_relay\_log](replication-and-binary-log-system-variables.md#sync_relay_log). If the replica does not acknowledge the transaction before a certain amount of time has passed, then a timeout occurs and the primary switches to asynchronous replication. This will be reflected in the primary's [error log](../../server-management/server-monitoring-logs/error-log.md) with messages like the following:
 
 ```
 [Warning] Timeout waiting for reply of binlog (file: mariadb-1-bin.000002, pos: 538), semi-sync up to file , position 0.
@@ -231,6 +231,54 @@ new master.
    `CHANGE MASTER TO` followed by `START SLAVE`.
 
 
+## Relay Log Durability
+
+The guarantee semisynchronous replication provides is that a committed transaction has reached at least one replica's [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) before the commit is acknowledged to the client. That guarantee is only as strong as that relay log entry: it holds if the entry survives a crash and a restart of the replica.
+
+Two settings on the replica determine that, and one case cannot be covered by any replica-side setting.
+
+### Syncing the Relay Log
+
+A replica acknowledges a transaction as soon as the transaction's events have been written to its relay log file. Writing is not the same as syncing. By default, the relay log is only synced to disk after every 10,000 events, as set by [sync\_relay\_log](replication-and-binary-log-system-variables.md#sync_relay_log). If the replica's operating system or host crashes in between, the replica loses events that the primary has already counted as safely replicated.
+
+With `sync_relay_log=1`, each event is synced to disk before the replica acknowledges it, so an acknowledged transaction is durable on the replica at the moment the primary is told so. That is the value at which semisynchronous replication delivers the durability it appears to promise, at the cost of one sync per event rather than one per 10,000.
+
+### Surviving a Replica Restart
+
+Whether an acknowledged transaction is still in the relay log after the replica restarts is controlled by [relay\_log\_recovery](replication-and-binary-log-system-variables.md#relay_log_recovery), which defaults to `0` (`OFF`). When it is set to `1`, the replica discards the relay logs it has not yet applied on startup and fetches those events from the primary again.
+
+Normally that is harmless, because the primary still has the events. It stops being harmless when the primary has lost them: transactions that existed only in the replica's relay log are then lost, which defeats the purpose of semisynchronous replication. This is worth checking in an existing configuration, since `relay_log_recovery=1` is often enabled for crash safety without this interaction in mind.
+
+Leaving [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay_log_purge) at its default of `1` is safe with semisynchronous replication. A relay log is only purged once the [replica's SQL thread](replication-threads.md#slave-sql-thread) has applied all of its events, so purging never discards an acknowledged transaction that has not been applied yet. Do not combine `relay_log_purge=0` with `relay_log_recovery=1`, which can cause the replica to read relay logs that were not purged, leading to data inconsistencies.
+
+### The Case That Cannot Be Covered
+
+{% hint style="warning" %}
+A replica that connects using [GTIDs](gtid.md), with `MASTER_USE_GTID` set to `slave_pos` or `current_pos`, purges its relay logs every time the replication threads start, including after a restart of the replica, regardless of `relay_log_recovery`. Transactions that reached only the replica's relay log therefore do not survive a restart of that replica. If the primary lost them as well, they are gone, and no setting on the replica closes that window. The server-side work on this limitation is tracked in [MDEV-4698](https://jira.mariadb.org/browse/MDEV-4698).
+{% endhint %}
+
+Losing the primary and a replica at the same time is unlikely, so in practice the exposure is narrow. It is worth stating plainly, though, because GTID-based replication is the recommended configuration, so this is the case most deployments are in. What keeps the exposure small there is the primary's own durability, rather than anything on the replica: a crashed primary that has not lost committed transactions can supply them again once it is back.
+
+From MariaDB 12.3, the [InnoDB-based binary log](innodb-based-binary-log.md) (`binlog_storage_engine=innodb`) is the better way to get that durability, because the binary log is written through InnoDB's own crash recovery. With it, `sync_binlog` is not needed and is effectively ignored, and commit durability is controlled solely by [innodb\_flush\_log\_at\_trx\_commit](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_log_at_trx_commit). On a traditional file-based binary log, [sync\_binlog](replication-and-binary-log-system-variables.md#sync_binlog)`=1` is what provides it.
+
+### Recommended Settings
+
+On every semisynchronous replica:
+
+* `sync_relay_log=1`, so that events acknowledged to the primary are durable on the replica.
+
+On semisynchronous replicas that connect using binary log file and position coordinates:
+
+* `relay_log_recovery=0`, so that relay logs survive a restart of the replica and the transactions semisynchronous replication placed there are not discarded.
+* `relay_log_purge=1` (the default). `relay_log_purge=0` also preserves the guarantee, but only combine it with `relay_log_recovery=0`.
+
+On the primary:
+
+* From MariaDB 12.3, the [InnoDB-based binary log](innodb-based-binary-log.md) (`binlog_storage_engine=innodb`), with [innodb\_flush\_log\_at\_trx\_commit](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_log_at_trx_commit)`=1` (the default). `sync_binlog` does not apply here and is effectively ignored.
+* On a traditional file-based binary log, [sync\_binlog](replication-and-binary-log-system-variables.md#sync_binlog)`=1` together with `innodb_flush_log_at_trx_commit=1`.
+
+Either way, the point is that the primary can supply transactions again after a crash. This is what limits the exposure for replicas that connect using GTIDs, where relay logs are always purged when the replication threads start.
+
 ## System Variables
 
 #### `rpl_semi_sync_master_enabled`
@@ -345,39 +393,9 @@ new master.
 
 * From [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.19), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.9), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.6), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.5), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.3) and [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/11.5.2), changes the condition for semi-sync recovery to truncate the [binlog](../../server-management/server-monitoring-logs/binary-log/) to instead use this option, when set to SLAVE. This avoids a possible error state where the replica’s state is ahead of the primaries. See [-init-rpl-role](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#init-rpl-role).
 
-### `rpl-semi-sync_master`
-
-* Description: Controls how the server should treat the plugin when the server starts up.
-  * Valid values are:
-    * `OFF` - Disables the plugin without removing it from the [mysql.plugins](../../reference/system-tables/the-mysql-database-tables/mysql-plugin-table.md) table.
-    * `ON` - Enables the plugin. If the plugin cannot be initialized, then the server will still continue starting up, but the plugin will be disabled.
-    * `FORCE` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error.
-    * `FORCE_PLUS_PERMANENT` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error. In addition, the plugin cannot be uninstalled with [UNINSTALL SONAME](../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) or [UNINSTALL PLUGIN](../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-plugin.md) while the server is running.
-  * See [Plugin Overview: Configuring Plugin Activation at Server Startup](../../reference/plugins/plugin-overview.md#configuring-plugin-activation-at-server-startup) for more information.
-* Command line: `--rpl-semi-sync-master=value`
-* Data Type: `enumerated`
-* Default Value: `ON`
-* Valid Values: `OFF`, `ON`, `FORCE`, `FORCE_PLUS_PERMANENT`
-* Removed: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
-
-### `rpl-semi-sync_slave`
-
-* Description: Controls how the server should treat the plugin when the server starts up.
-  * Valid values are:
-    * `OFF` - Disables the plugin without removing it from the [mysql.plugins](../../reference/system-tables/the-mysql-database-tables/mysql-plugin-table.md) table.
-    * `ON` - Enables the plugin. If the plugin cannot be initialized, then the server will still continue starting up, but the plugin will be disabled.
-    * `FORCE` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error.
-    * `FORCE_PLUS_PERMANENT` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error. In addition, the plugin cannot be uninstalled with [UNINSTALL SONAME](../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) or [UNINSTALL PLUGIN](../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-plugin.md) while the server is running.
-  * See [Plugin Overview: Configuring Plugin Activation at Server Startup](../../reference/plugins/plugin-overview.md#configuring-plugin-activation-at-server-startup) for more information.
-* Command line: `--rpl-semi-sync-slave=value`
-* Data Type: `enumerated`
-* Default Value: `ON`
-* Valid Values: `OFF`, `ON`, `FORCE`, `FORCE_PLUS_PERMANENT`
-* Removed: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
-
 ## Status Variables
 
-For a list of status variables added when the plugin is installed, see [Semisynchronous Replication Plugin Status Variables](../optimization-and-tuning/system-variables/semisynchronous-replication-plugin-status-variables.md).
+For a list of the status variables that report on semisynchronous replication, see [Semisynchronous Replication Status Variables](../optimization-and-tuning/system-variables/semisynchronous-replication-plugin-status-variables.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

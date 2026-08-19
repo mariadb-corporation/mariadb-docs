@@ -9,7 +9,7 @@ The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-impr
 For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.21.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3327](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3327)\
@@ -27,7 +27,7 @@ modified in that revision.
   * fix SphinxSE version as reported in I\_S.PLUGINS
 * [Revision #3323](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3323)\
   Tue 2012-03-13 13:29:44 +0100
-  * monty's cleanup of my\_thr\_init.c\
+  * monty's cleanup of my\_thr\_init.c
     and collateral changes
 * [Revision #3322](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3322)\
   Tue 2012-03-13 13:28:08 +0100
@@ -41,12 +41,12 @@ modified in that revision.
   * [Revision #2502.513.75](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.513.75)\
     Sun 2012-03-11 14:39:20 +0200
     * Implementation of [MDEV-28](https://jira.mariadb.org/browse/MDEV-28) LIMIT ROWS EXAMINED
-    * This task implements a new clause LIMIT ROWS EXAMINED as an extention to the ANSI LIMIT clause. This extension\
-      allows to limit the number of rows and/or keys a query\
+    * This task implements a new clause LIMIT ROWS EXAMINED as an extention to the ANSI LIMIT clause. This extension
+      allows to limit the number of rows and/or keys a query
       would access (read and/or write) during query execution.
 * [Revision #3319](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3319)\
   Fri 2012-03-09 09:20:45 +0100
-  * fix uninitialized warning in mysql-test-run.pl\
+  * fix uninitialized warning in mysql-test-run.pl
     make the test to require sphinx 2.0.4 or later
 * [Revision #3318](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3318) \[merge]\
   Fri 2012-03-09 08:06:59 +0100
@@ -68,9 +68,9 @@ modified in that revision.
     * [Revision #2502.541.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.541.1)\
       Mon 2012-03-05 20:32:28 -0800
       * Fixed [Bug #946055](https://bugs.launchpad.net/bugs/946055).
-      * The function create\_hj\_key\_for\_table() that builds the descriptor of\
-        the hash join key to access a table of a materialized subquery must\
-        ignore any equi-join predicate depending on the tables not belonging\
+      * The function create\_hj\_key\_for\_table() that builds the descriptor of
+        the hash join key to access a table of a materialized subquery must
+        ignore any equi-join predicate depending on the tables not belonging
         to the subquery.
   * [Revision #2502.513.73](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.513.73) \[merge]\
     Mon 2012-03-05 22:00:24 +0200
@@ -91,11 +91,11 @@ modified in that revision.
   * [Revision #2502.513.71](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.513.71)\
     Sun 2012-03-04 22:38:17 -0800
     * Fixed [Bug #944782](https://bugs.launchpad.net/bugs/944782).
-    * This bug in the function JOIN::drop\_unused\_derived\_keys() could\
-      leave the internal structures for a materialized derived table\
-      in an inconsistent state. This led to a not quite correct EXPLAIN\
+    * This bug in the function JOIN::drop\_unused\_derived\_keys() could
+      leave the internal structures for a materialized derived table
+      in an inconsistent state. This led to a not quite correct EXPLAIN
       output when no additional key had been created to access the table.\
-      It also may lead to more serious consequences: so, the test case\
+      It also may lead to more serious consequences: so, the test case
       added with this fix caused a crash in mariadb-5.5.20.
 * [Revision #3314](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3314)\
   Mon 2012-03-05 21:55:25 +0100
@@ -130,15 +130,15 @@ modified in that revision.
     * [Revision #2502.539.3](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.539.3)\
       Sun 2012-01-29 14:35:30 -0800
       * Fixed [Bug #923236](https://bugs.launchpad.net/bugs/923236).
-      * When working on [MWL#247](https://askmonty.org/worklog/?tid=247) I forgot to adjust the function create\_hj\_key\_for\_table()\
-        that created a key definition for hash join keys. The modified function must\
-        set the values of the fields ext\_key\_parts, ext\_key\_flags, ext\_key\_part\_map\
+      * When working on [MWL#247](https://askmonty.org/worklog/?tid=247) I forgot to adjust the function create\_hj\_key\_for\_table()
+        that created a key definition for hash join keys. The modified function must
+        set the values of the fields ext\_key\_parts, ext\_key\_flags, ext\_key\_part\_map
         added to the key definition structure in [MWL#247](https://askmonty.org/worklog/?tid=247).
     * [Revision #2502.539.2](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.539.2)\
       Tue 2012-01-24 23:34:02 -0800
       * Fixed LP bug #921167.
-      * The fields ext\_key\_flags and ext\_key\_part\_map must be initialized for any\
-        key, even for a MyISAM key that never is considered by the optimizer as one\
+      * The fields ext\_key\_flags and ext\_key\_part\_map must be initialized for any
+        key, even for a MyISAM key that never is considered by the optimizer as one
         extended by hidden components.
     * [Revision #2502.539.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.539.1) \[merge]\
       Tue 2012-01-24 21:12:02 -0800
@@ -151,8 +151,8 @@ modified in that revision.
         Tue 2012-01-17 03:26:49 -0800
         * Fixed [Bug #914560](https://bugs.launchpad.net/bugs/914560).
         * The patch for [MWL#247](https://askmonty.org/worklog/?tid=247) forgot to initialize the TABLE::ext\_key\_parts and\
-          TABLE::ext\_key\_flags of the temporary tables by a query. This could cause\
-          crashes for queries the execution of which needed creation of temporary\
+          TABLE::ext\_key\_flags of the temporary tables by a query. This could cause
+          crashes for queries the execution of which needed creation of temporary
           tables.
       * [Revision #2502.538.4](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.538.4)\
         Sun 2012-01-01 22:42:11 -0800
@@ -164,9 +164,9 @@ modified in that revision.
         Sun 2012-01-01 20:47:36 -0800
         * Fixed calculation of rec\_per\_key elements for added components of the extended keys.
         * Slightly corrected the implementation of the function ha\_innobase::read\_time().
-        * Changed the implementation of handler::keyread\_time to make the cost of single key\
+        * Changed the implementation of handler::keyread\_time to make the cost of single key
           index only look-ups dependent on the key entry length.
-        * Corrected the index of the last possible components of an extended key in the\
+        * Corrected the index of the last possible components of an extended key in the
           function best\_access\_path().
       * [Revision #2502.538.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.538.1) \[merge]\
         Sat 2011-12-31 03:36:20 -0800
@@ -189,8 +189,8 @@ modified in that revision.
     * Small cleanups:
       * use thd->in\_active\_multi\_stmt\_transaction() for\
         @@in\_transaction, not THD flag directly
-      * use common error\_if\_in\_trans\_or\_substatement() function for\
-        all 4 binlog variables that cannot be changed inside\
+      * use common error\_if\_in\_trans\_or\_substatement() function for
+        all 4 binlog variables that cannot be changed inside
         statement or transaction.
   * [Revision #3283.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3283.1.1) \[merge]\
     Thu 2012-03-01 12:41:49 +0100
@@ -213,12 +213,12 @@ modified in that revision.
   * [Revision #2502.513.70](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.513.70)\
     Wed 2012-02-29 23:28:16 -0800
     * Fixed [Bug #943543](https://bugs.launchpad.net/bugs/943543).
-    * This bug appeared after the patch for bug 939009 that in the\
-      function merge\_key\_fields forgot to reset a proper value for\
-      the val field in the result of the merge operation of the key\
-      field created for a regular key access and the key field\
+    * This bug appeared after the patch for bug 939009 that in the
+      function merge\_key\_fields forgot to reset a proper value for
+      the val field in the result of the merge operation of the key
+      field created for a regular key access and the key field
       created to look for a NULL key.
-    * Adjusted the results of the test case for bug 939009 that\
+    * Adjusted the results of the test case for bug 939009 that
       actually were incorrect.
   * [Revision #2502.513.69](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.513.69)\
     Tue 2012-02-28 15:41:55 +0100
@@ -247,8 +247,8 @@ modified in that revision.
       * [Revision #2502.528.9](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.528.9)\
         Sat 2012-02-25 17:10:07 -0800
         * Fixed [Bug #939866](https://bugs.launchpad.net/bugs/939866).
-        * The field key\_cache\_mem\_size of the KEY\_CACHE structure must be\
-          initialized in the function init\_key\_cache() and updated in the\
+        * The field key\_cache\_mem\_size of the KEY\_CACHE structure must be
+          initialized in the function init\_key\_cache() and updated in the
           function resize\_key\_cache().
       * [Revision #2502.528.8](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.528.8)\
         Sat 2012-02-25 09:03:06 +0200
@@ -267,26 +267,26 @@ modified in that revision.
     * [Revision #2502.533.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.533.1)\
       Fri 2012-02-24 16:50:22 -0800
       * Fixed [Bug #939009](https://bugs.launchpad.net/bugs/939009).
-      * The result of materialization of the right part of an IN subquery predicate\
-        is placed into a temporary table. Each row of the materialized table is\
-        distinct. A unique key over all fields of the temporary table is defined and\
+      * The result of materialization of the right part of an IN subquery predicate
+        is placed into a temporary table. Each row of the materialized table is
+        distinct. A unique key over all fields of the temporary table is defined and
         created. It allows to perform key look-ups into the table.\
-        The table created for a materialized subquery can be accessed by key as\
-        any other table. The function best\_access-path search for the best access\
-        to join a table to a given partial join. With some where conditions this\
-        function considers a possibility of a ref\_or\_null access. If such access\
-        employs the unique key on the temporary table then when estimating\
-        the cost this access the function tries to use the array rec\_per\_key. Yet,\
+        The table created for a materialized subquery can be accessed by key as
+        any other table. The function best\_access-path search for the best access
+        to join a table to a given partial join. With some where conditions this
+        function considers a possibility of a ref\_or\_null access. If such access
+        employs the unique key on the temporary table then when estimating
+        the cost this access the function tries to use the array rec\_per\_key. Yet,
         such array is not built for this unique key. This causes a crash of the server.
-      * Rows returned by the subquery that contain nulls don't have to be placed\
-        into temporary table, as they cannot be match any row produced by the\
-        left part of the subquery predicate. So all fields of the temporary table\
-        can be defined as non-nullable. In this case any ref\_or\_null access\
-        to the temporary table does not make any sense and it does not make sense\
+      * Rows returned by the subquery that contain nulls don't have to be placed
+        into temporary table, as they cannot be match any row produced by the
+        left part of the subquery predicate. So all fields of the temporary table
+        can be defined as non-nullable. In this case any ref\_or\_null access
+        to the temporary table does not make any sense and it does not make sense
         to estimate such an access.
-      * The fix makes sure that the temporary table for a materialized IN subquery\
-        is defined with columns that are all non-nullable. The also ensures that\
-        any row with nulls returned by the subquery is not placed into the\
+      * The fix makes sure that the temporary table for a materialized IN subquery
+        is defined with columns that are all non-nullable. The also ensures that
+        any row with nulls returned by the subquery is not placed into the
         temporary table.
   * [Revision #2502.513.64](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.513.64)\
     Sat 2012-02-25 01:42:28 +0400
@@ -307,7 +307,7 @@ modified in that revision.
         * Problem was a crash in internal temporary (Maria) files when row length exceeded 65535
     * [Revision #2502.528.6](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.528.6)\
       Wed 2012-02-22 00:10:39 -0800
-      * Back-ported the fix and test cases for bugs #59487 and #43368 from\
+      * Back-ported the fix and test cases for bugs #59487 and #43368 from
         the mysql-5.6 code line.
   * [Revision #2502.513.61](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.513.61) \[merge]\
     Fri 2012-02-24 17:13:04 +0400
@@ -316,7 +316,7 @@ modified in that revision.
       Fri 2012-02-24 17:09:13 +0400
       * [Bug #934597](https://bugs.launchpad.net/bugs/934597): Assertion \`! is\_set()' failed in Diagnostics\_area::set\_ok\_status(THD...
       * After the exec\_const\_cond->val\_int() call, check for error and return.
-      * (if we don't do it, we will eventually hit an error when trying to set status OK in\
+      * (if we don't do it, we will eventually hit an error when trying to set status OK in
         the diagnostics area, which already has an error status).
 * [Revision #3306](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3306)\
   Thu 2012-03-01 17:04:57 +0100
@@ -333,7 +333,7 @@ modified in that revision.
   * pbxt suite is now a main-pbxt overlay
 * [Revision #3302](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3302)\
   Thu 2012-02-23 09:24:11 +0100
-  * instead of having win/notwin tests that only differ in results,\
+  * instead of having win/notwin tests that only differ in results,
     use one test with two combinations (win/unix), where only one is enabled.
   * Apply this technique to `mysqld--help`.
 * [Revision #3301](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3301)\
@@ -395,8 +395,8 @@ modified in that revision.
   Wed 2012-02-29 18:25:25 +0100
 * fixes [Bug #942266](https://bugs.launchpad.net/bugs/942266)
   * Fix build error on Ubuntu 11.10, if systemtap is installed.
-  * The error is due to conflict between min/max macros in my\_global.h\
-    and system header < limits>, indirectly included via generated\
+  * The error is due to conflict between min/max macros in my\_global.h
+    and system header < limits>, indirectly included via generated
     probes\_mysql\_dtrace.h
   * Temporarily undefined min/max for the inclusion of the probes\_mysq\_dtrace.h
 * [Revision #3283](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3283)\
@@ -426,7 +426,7 @@ modified in that revision.
     * Added copiright, some more comments
   * [Revision #3168.1.56](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3168.1.56)\
     Fri 2012-02-17 23:23:54 +0100
-    * Store callback instance in the connection structure, to call CallbackMayRunLong on long\
+    * Store callback instance in the connection structure, to call CallbackMayRunLong on long
       waits (currently binlog only)
     * Also add copyright notice.
   * [Revision #3168.1.55](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3168.1.55)\
@@ -508,7 +508,7 @@ modified in that revision.
   * [Revision #3168.1.32](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3168.1.32)\
     Sun 2012-01-15 15:41:25 +0100
     * Get rid of idle thread counter atomic variable.
-    * Instead, use function that loops over groups and\
+    * Instead, use function that loops over groups and
       calculates idle threads for "show status".
   * [Revision #3168.1.31](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3168.1.31)\
     Sun 2012-01-15 11:17:45 +0100
@@ -617,7 +617,7 @@ modified in that revision.
     * [MWL#192](https://askmonty.org/worklog/?tid=192) after-merge fixes.
       * Fix memory leak in one error case in mysqldump.
       * Fix that HAVE\_VALGRIND\_VALGRIND\_H is now HAVE\_VALGRIND in 5.5.
-      * Fix that @have\_ssl should not be set in embedded (introduced when\
+      * Fix that @have\_ssl should not be set in embedded (introduced when
         removing #undef HAVE\_OPENSSL from my\_global.h).
   * [Revision #3253.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3253.1.3) \[merge]\
     Wed 2012-02-22 12:14:34 +0100
@@ -635,9 +635,9 @@ modified in that revision.
     * Merge [MWL#192](https://askmonty.org/worklog/?tid=192): Non-blocking client library, into [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md).
     * [Revision #2502.531.5](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.531.5)\
       Mon 2012-01-30 13:45:58 +0100
-      * [MWL#192](https://askmonty.org/worklog/?tid=192): Fix problem when we first enable MYSQL\_OPT\_NONBLOCK, then connect\
+      * [MWL#192](https://askmonty.org/worklog/?tid=192): Fix problem when we first enable MYSQL\_OPT\_NONBLOCK, then connect
         in normal blocking style, then later do a non-blocking operation.
-      * In this case, the vio->async\_context was not set up correctly, so that\
+      * In this case, the vio->async\_context was not set up correctly, so that
         non-blocking operation was not properly handled.
     * [Revision #2502.531.4](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.531.4)\
       Sun 2012-01-08 10:13:39 +0100
@@ -648,34 +648,34 @@ modified in that revision.
     * [Revision #2502.531.2](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.531.2)\
       Fri 2012-01-06 12:43:18 +0100
       * [MWL#192](https://askmonty.org/worklog/?tid=192): non-blocking client API, after-review fixes.
-      * Main change is that non-blocking operation is now an option that must be\
-        explicitly enabled with mysql\_option(mysql, MYSQL\_OPT\_NONBLOCK, ...)\
+      * Main change is that non-blocking operation is now an option that must be
+        explicitly enabled with mysql\_option(mysql, MYSQL\_OPT\_NONBLOCK, ...)
         before any non-blocing operation can be used.
-      * Also the CLIENT\_REMEMBER\_OPTIONS flag is now always enabled and thus\
-        effectively ignored (it was not really useful anyway, and this simplifies\
+      * Also the CLIENT\_REMEMBER\_OPTIONS flag is now always enabled and thus
+        effectively ignored (it was not really useful anyway, and this simplifies
         things when non-blocking mysql\_real\_connect() fails).
     * [Revision #2502.531.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.531.1)\
       Tue 2011-09-20 12:49:25 +0200
       * [MWL#192](https://askmonty.org/worklog/?tid=192): Non-blocking client API for libmysqlclient.
       * All client functions that can block on I/O have alternate \_start() and\
-        \_cont() versions that do not block but return control back to the\
-        application, which can then issue I/O wait in its own fashion and later\
+        \_cont() versions that do not block but return control back to the
+        application, which can then issue I/O wait in its own fashion and later
         call back into the library to continue the operation.
-      * Works behind the scenes by spawning a co-routine/fiber to run the\
-        blocking operation and suspend it while waiting for I/O. This\
+      * Works behind the scenes by spawning a co-routine/fiber to run the
+        blocking operation and suspend it while waiting for I/O. This
         co-routine/fiber use is invisible to applications.
       * For i368/x86\_64 on GCC, uses very fast assembler co-routine support. On\
-        Windows uses native Win32 Fibers. Falls back to POSIX ucontext on other\
-        platforms. Assembler routines for more platforms are relatively easy to\
-        add by extending mysys/my\_context.c, eg. similar to the Lua lcoco\
+        Windows uses native Win32 Fibers. Falls back to POSIX ucontext on other
+        platforms. Assembler routines for more platforms are relatively easy to
+        add by extending mysys/my\_context.c, eg. similar to the Lua lcoco
         library.
-      * For testing, mysqltest and mysql\_client\_test are extended with the\
-        option `--non-blocking-api`. This causes the programs to use the\
-        non-blocking API for database access. mysql-test-run.pl has a similar\
-        option `--non-blocking-api` that uses this, as well as additional\
+      * For testing, mysqltest and mysql\_client\_test are extended with the
+        option `--non-blocking-api`. This causes the programs to use the
+        non-blocking API for database access. mysql-test-run.pl has a similar
+        option `--non-blocking-api` that uses this, as well as additional
         testcases.
-      * An example program tests/async\_queries.c is included that uses the new\
-        non-blocking API with libevent to show how, in a single-threaded\
+      * An example program tests/async\_queries.c is included that uses the new
+        non-blocking API with libevent to show how, in a single-threaded
         program, to issue many queries in parallel against a database.
 * [Revision #3280](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3280)\
   Sat 2012-02-25 16:13:24 +0100
@@ -683,6 +683,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

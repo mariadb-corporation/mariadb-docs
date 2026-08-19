@@ -36,4 +36,6 @@ authenticator=mariadbauth,parsecauth
 
 To only allow PARSEC authentication, use `authenticator=parsecauth`.
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

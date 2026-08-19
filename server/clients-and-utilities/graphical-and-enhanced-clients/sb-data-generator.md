@@ -1,4 +1,15 @@
+---
+description: >-
+  SB Data Generator is a GUI tool that populates MariaDB tables or entire
+  databases with large volumes of realistic test data from built-in
+  generators.
+---
+
 # SB Data Generator
+
+{% hint style="info" %}
+SB Data Generator is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 Generate and populate databases with large volumes of realistic test data.
 

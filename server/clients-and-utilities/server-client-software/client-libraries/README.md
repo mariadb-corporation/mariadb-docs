@@ -42,3 +42,5 @@ Proxy protocol support, which lets proxy programs relay client IP addresses to M
 Pointers to the MariaDB client/server protocol reference documentation.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

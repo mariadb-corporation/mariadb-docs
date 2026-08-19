@@ -62,3 +62,5 @@ Trying to change a non-dynamic option with `SET` results in an error:
 ```sql
 ERROR 1210 (HY000): Incorrect arguments to SET
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

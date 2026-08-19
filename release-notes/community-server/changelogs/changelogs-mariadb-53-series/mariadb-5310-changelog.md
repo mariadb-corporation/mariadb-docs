@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.10.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3599](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3599)\
@@ -22,8 +22,8 @@ modified in that revision.
 * [Revision #3596](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3596)\
   Fri 2012-11-09 13:07:32 +0200
   * [MDEV-3810](https://jira.mariadb.org/browse/MDEV-3810) fix.
-  * The problem is that memory alocated by copy\_andor\_structure() well be freed,\
-    but if level of SELECT\_LEX it will be excluded (in case of merge derived tables and view)\
+  * The problem is that memory alocated by copy\_andor\_structure() well be freed,
+    but if level of SELECT\_LEX it will be excluded (in case of merge derived tables and view)
     then sl->where/having will not be updated here but still can be accessed (so it will be access to freed memory).
   * (patch by Sanja)
 * [Revision #3595](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3595) \[merge]\
@@ -75,11 +75,11 @@ modified in that revision.
   * [Revision #3588.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3588.2.1)\
     Thu 2012-11-01 14:54:33 -0700
     * Fixed bug [MDEV-585](https://jira.mariadb.org/browse/MDEV-585) (LP bug #637962)
-    * If, when executing a query with ORDER BY col LIMIT n, the optimizer chose\
-      an index-merge scan to access the table containing col while there existed\
-      an index defined over col then optimizer did not consider the possibility\
-      of using an alternative range scan by this index to avoid filesort. This\
-      could cause a performance degradation if the optimizer flag index\_merge was\
+    * If, when executing a query with ORDER BY col LIMIT n, the optimizer chose
+      an index-merge scan to access the table containing col while there existed
+      an index defined over col then optimizer did not consider the possibility
+      of using an alternative range scan by this index to avoid filesort. This
+      could cause a performance degradation if the optimizer flag index\_merge was
       set up to 'on'.
 * [Revision #3590](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3590) \[merge]\
   Fri 2012-11-02 15:35:09 +0400
@@ -220,6 +220,6 @@ Fix for Bug#12667154 SAME QUERY EXEC AS WHERE SUBQ GIVES DIFFERENT
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

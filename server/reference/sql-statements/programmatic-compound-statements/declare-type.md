@@ -419,10 +419,203 @@ BEGIN
 END;
 ```
 
+## Package-Wide Types
+
+{% hint style="info" %}
+This feature is available from MariaDB 13.1, in `sql_mode=ORACLE` only.
+{% endhint %}
+
+A `TYPE` declaration can appear in a package specification. Such a type is public: routines outside the package can declare variables of it by qualifying the type name with the name of the package that declares it. A `TYPE` declaring a record, associative array, or `REF CURSOR` can therefore be shared between schema-level (standalone) and package routines.
+
+### Syntax
+
+Declare the type in the package specification:
+
+```sql
+CREATE [OR REPLACE] PACKAGE [db_name.]package_name {AS | IS}
+  TYPE type_name IS record_definition;
+  TYPE type_name IS TABLE OF element_type INDEX BY key_type;
+  TYPE type_name IS REF CURSOR [RETURN return_type];
+  ...
+END [package_name]
+```
+
+Refer to it from elsewhere with a qualified name, in either of two forms:
+
+```sql
+package_name.type_name              -- two-step
+schema_name.package_name.type_name  -- three-step
+```
+
+### Example
+
+```sql
+SET sql_mode=ORACLE;
+DELIMITER $$
+CREATE OR REPLACE PACKAGE pkg1 AS
+  TYPE varchar_array IS TABLE OF VARCHAR(2000) INDEX BY INTEGER;
+  TYPE rec0_t IS RECORD (a INT, b VARCHAR(30));
+  TYPE array0_t IS TABLE OF rec0_t INDEX BY INTEGER;
+END;
+$$
+DELIMITER ;
+```
+
+A stored procedure in any schema can now declare variables of these types:
+
+```sql
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE p1 AS
+  v0 pkg1.varchar_array;       -- two-step
+  v1 test.pkg1.rec0_t;         -- three-step
+  v2 pkg1.array0_t;
+BEGIN
+  v0(0):= 'test';
+  v1.a:= 1;
+  v1.b:= 'b';
+  v2(0):= v1;
+  SELECT v0(0), v2(0).a, v2(0).b;
+END;
+$$
+DELIMITER ;
+CALL p1();
+```
+
+### Where Package Types Can Be Used
+
+A qualified package type is accepted as:
+
+* The type of a local variable, in a stored procedure, a stored function, a package routine, or an anonymous block:
+
+    ```sql
+    v1 pkg1.rec0_t;
+    ```
+* The type of a parameter of a package routine, declared either in the package specification or in the package body:
+
+    ```sql
+    PROCEDURE p1(param1 pkg1.rec0_t);
+    ```
+* The `RETURN` type of a package function:
+
+    ```sql
+    FUNCTION f1 RETURN pkg1.rec0_t;
+    ```
+* The element type of an associative array:
+
+    ```sql
+    TYPE assoc1_t IS TABLE OF pkg1.rec0_t INDEX BY INTEGER;
+    ```
+* The `RETURN` type of a `REF CURSOR` type declaration:
+
+    ```sql
+    TYPE cur1_t IS REF CURSOR RETURN pkg1.rec0_t;
+    ```
+
+A package specification can also use its own types by qualified name, provided the type is declared earlier in the same specification:
+
+```sql
+SET sql_mode=ORACLE;
+DELIMITER $$
+CREATE OR REPLACE PACKAGE pkg1 AS
+  TYPE r IS RECORD (x INT);
+  PROCEDURE q(v pkg1.r);   -- self-reference to a type declared above
+END;
+$$
+DELIMITER ;
+```
+
+Referring to a type that is not yet declared, or that does not exist, fails when the package is created:
+
+```
+ERROR 4161 (HY000): Unknown data type: '`pkg1`.`no_such_type`'
+```
+
+### Where Package Types Cannot Be Used
+
+| Context | Result |
+| --- | --- |
+| Parameter of a schema-level (standalone) procedure or function | `ERROR HY000: Incorrect usage of parameter_declaration and package_name.type_name` |
+| `RETURN` type of a schema-level (standalone) function | `ERROR HY000: Incorrect usage of RETURN and package_name.type_name` |
+| Inside a trigger | `ERROR HY000: Incorrect usage of TRIGGER and` `` `pkg1`.`rec0_t` `` |
+| Inside an event | `ERROR HY000: Incorrect usage of EVENT and` `` `pkg1`.`rec0_t` `` |
+
+Parameters and `RETURN` types of schema-level routines are exposed through [INFORMATION\_SCHEMA.PARAMETERS](../../system-tables/information-schema/information-schema-tables/information-schema-parameters-table.md), which cannot yet represent a package type.
+
+### Name Resolution
+
+A two-step name `pkg1.rec0_t` names a package rather than a schema, so the schema that holds the package is resolved through [SET PATH](../administrative-sql-statements/set-commands/set-path.md) — the same mechanism that resolves package routine calls. The default path is `CURRENT_SCHEMA`, so an unqualified package is looked up in the current schema. With a wider path, the same type name can resolve to different packages:
+
+```sql
+SET PATH 'CURRENT_SCHEMA,test1,test2';
+```
+
+The three-step form `schema_name.package_name.type_name` names the schema explicitly and does not depend on the path.
+
+Because a routine stores the resolved type, dropping the package that declares it leaves the routine unusable. The failure appears when the routine is called, not when the package is dropped:
+
+```sql
+DROP PACKAGE pkg1;
+CALL p1();
+```
+
+```
+ERROR HY000: Failed to load routine test.p1 (internal code -6). For more details, run SHOW WARNINGS
+```
+
+```sql
+SHOW WARNINGS;
+```
+
+```
++-------+------+-------------------------------------------------------------+
+| Level | Code | Message                                                     |
++-------+------+-------------------------------------------------------------+
+| Error | 4161 | Unknown data type: '`pkg1`.`rec0_t`'                        |
+| Error | 1457 | Failed to load routine test.p1 (internal code -6). ...      |
++-------+------+-------------------------------------------------------------+
+```
+
+Cyclic type dependencies between two packages are rejected: if `b_pkg` already refers to a type in `a_pkg`, then redefining `a_pkg` to refer back to a type in `b_pkg` fails with `Unknown data type`.
+
+### Privileges
+
+Using a type declared in a package requires the `EXECUTE` privilege on that package:
+
+```sql
+GRANT EXECUTE ON PACKAGE db1.pkg1 TO user1@localhost;
+```
+
+Without it, creating the routine that declares the variable is refused:
+
+```
+ERROR 42000: execute command denied to user 'user2'@'localhost' for routine 'db1.pkg1'
+```
+
+The check applies to any user other than the one that created the package, including users that hold `CREATE ROUTINE` in the same schema. `EXECUTE` on a package does not imply `EXECUTE` on its [package body](../data-definition/create/create-package-body.md), so calling the package's routines needs a separate grant.
+
+### Limitation on Dumps
+
+[mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) writes packages in name order. If two packages depend on each other's types, the file can define the dependent package first, and the restore then fails with `Unknown data type`.
+
+When the packages are in different databases, dump each database separately and restore them in dependency order:
+
+```bash
+mariadb-dump --routines dependency_db > dependency_db.sql
+mariadb-dump --routines dependent_db > dependent_db.sql
+
+mariadb < dependency_db.sql
+mariadb < dependent_db.sql
+```
+
+When the dependency is between packages in the same database, dump and restore the `mysql.proc` table instead.
+
 ## See Also
 
+* [CREATE PACKAGE](../data-definition/create/create-package.md)
 * [DECLARE CURSOR](programmatic-compound-statements-cursors/declare-cursor.md)
 * [DECLARE Variable](declare-variable.md)
 * [Oracle Mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 * [CREATE FUNCTION](../data-definition/create/create-function.md)
 * [CREATE PROCEDURE](../../../server-usage/stored-routines/stored-procedures/create-procedure.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

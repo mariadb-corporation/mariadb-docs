@@ -8,7 +8,7 @@ description: >-
 
 {% include "../../../.gitbook/includes/hint-lower-level-development.md" %}
 
-If you have MariaDB [compiled for debugging](compiling-mariadb-for-debugging.md) you can both use it in a\
+If you have MariaDB [compiled for debugging](compiling-mariadb-for-debugging.md) you can both use it in a
 debugger, like ddd or gdb, and get comprehensive trace files of the execution of MariaDB. The trace files allow you to both see the flow of the code and to see the differences in execution by comparing two trace files.
 
 Core dumps are also much easier to investigate if they come from a debug binary.
@@ -25,7 +25,7 @@ mariadbd --debug --help
 
 If you are using MariaDB before 10.5, then you should use `mysqld` instead of `mariadbd`!
 
-If you get an error `unknown option '--debug`, then MariaDB is not compiled\
+If you get an error `unknown option '--debug`, then MariaDB is not compiled
 for debugging and tracing.
 
 ### Building MariaDB for Debugging Starting from 5.5

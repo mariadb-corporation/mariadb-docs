@@ -21,5 +21,6 @@ Some other ADO.NET connectors are:
 * It supports .NET Framework 2.0-4.7, and .NET Core 1.x and 2.0
 * The Commercial edition additionally provides ORM support: Entity Framework v1-v6 and Entity Framework Core, NHibernate, LinqConnect; bundled ORM visual designer tool and many other features.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

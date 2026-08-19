@@ -286,3 +286,5 @@ Extra settings for MinIO or other S3-compatible storage:
 * For initial setup, call `POST /integrations` and then `POST /integrations/{id}/validate`.
 * For targeted ingestion, call `POST /orchestrate/ingestion` with `integration_id` in `cloud_storage_sources`.
 * Smart Sync is enabled by default and skips unchanged files based on `ETag`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

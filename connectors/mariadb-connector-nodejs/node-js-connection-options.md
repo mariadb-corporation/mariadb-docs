@@ -425,4 +425,6 @@ The error "1976:error:1425F102:SSL routines:ssl\_choose\_client\_version:unsuppo
 * Server side: update MariaDB to a recent version
 * Client side: permit a lesser version with "tls.DEFAULT\_MIN\_VERSION = 'TLSv1.1';" or with connection configuration: using option \`ssl: { secureProtocol: 'TLSv1\_1\_method' }'
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

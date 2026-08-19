@@ -54,8 +54,6 @@ By default, a function is associated with the current database. To associate the
 
 The parameter list enclosed within parentheses must always be present. If there are no parameters, an empty parameter list of `()` should be used. Parameter names are not case-sensitive.
 
-Each parameter can be declared to use any valid data type, except that the `COLLATE` attribute cannot be used.
-
 For valid identifiers to use as function names, see [Identifier Names](../../../sql-structure/sql-language-structure/identifier-names.md).
 
 ### RETURN
@@ -252,8 +250,8 @@ A subset of Oracle's PL/SQL language is supported in addition to the traditional
 
 You must have the [EXECUTE](../../account-management-sql-statements/grant.md#function-privileges) privilege on a function to call it. MariaDB automatically grants the `EXECUTE` and `ALTER ROUTINE` privileges to the account that called `CREATE FUNCTION`, even if the `DEFINER` clause was used.
 
-Each function has an account associated as the definer. By default, the definer is the account\
-that created the function. Use the `DEFINER` clause to specify a different account as the\
+Each function has an account associated as the definer. By default, the definer is the account
+that created the function. Use the `DEFINER` clause to specify a different account as the
 definer. You must have the [SET USER](../../account-management-sql-statements/grant.md#set-user) privilege to use the `DEFINER` clause. See [Account Names](../../account-management-sql-statements/create-user.md#account-names) for details on specifying accounts.
 
 The `SQL SECURITY` clause specifies what privileges are used when a function is called. If `SQL SECURITY` is `INVOKER`, the function body will be evaluated using the privileges of the user calling the function. If `SQL SECURITY` is `DEFINER`, the function body is always evaluated using the privileges of the definer account. `DEFINER` is the default.
@@ -283,7 +281,7 @@ If the character set and collation are not specifically set in the statement, th
 
 ## Examples
 
-The following example function takes a parameter, performs an operation using\
+The following example function takes a parameter, performs an operation using
 an SQL function, and returns the result.
 
 ```sql

@@ -31,6 +31,8 @@ Otherwise, it works like a normal `INSERT` statement.
 
 Note that [TRUNCATE TABLE](../../../reference/sql-statements/table-statements/truncate-table.md) does not activate any triggers.
 
+MariaDB Enterprise Server 12.3 adds a separate class of _conflict_ triggers (`CREATE TRIGGER ... FOR CONFLICT`) that fire on a replica when a row-based replication event conflicts with the replica's local data. See [Conflict Detection and Resolution (CDR) Triggers](../../../ha-and-performance/standard-replication/conflict-detection-and-resolution-triggers.md).
+
 ## Triggers and Errors
 
 With non-transactional storage engines, if a `BEFORE` statement produces an error, the statement isn't executed. Statements that affect multiple rows fail before inserting the current row.

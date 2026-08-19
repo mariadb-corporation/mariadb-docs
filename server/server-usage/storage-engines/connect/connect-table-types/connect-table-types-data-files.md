@@ -45,7 +45,7 @@ Because all files are handled by the standard input/output functions of the oper
 
 ## Compressed File Tables
 
-CONNECT can make and process some tables whose data file is compressed. The only supported compression format is the gzlib format. Zip and zlib formats are supported differently. The table types that can be compressed are [DOS](connect-dos-and-fix-table-types.md),[FIX](connect-dos-and-fix-table-types.md),[BIN](connect-bin-table-type.md),[CSV](connect-csv-and-fmt-table-types.md) and [FMT](connect-csv-and-fmt-table-types.md). This can save some disk space\
+CONNECT can make and process some tables whose data file is compressed. The only supported compression format is the gzlib format. Zip and zlib formats are supported differently. The table types that can be compressed are [DOS](connect-dos-and-fix-table-types.md),[FIX](connect-dos-and-fix-table-types.md),[BIN](connect-bin-table-type.md),[CSV](connect-csv-and-fmt-table-types.md) and [FMT](connect-csv-and-fmt-table-types.md). This can save some disk space
 at the cost of a somewhat longer processing time.
 
 Some restrictions apply to compressed tables:

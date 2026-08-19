@@ -9,16 +9,16 @@ description: >-
 Percona XtraDB was an enhanced version of the InnoDB storage engine [used in MariaDB before MariaDB 10.2](using-innodb-instead-of-xtradb.md), designed to better scale on modern hardware, and it includes a variety of other features useful in high-performance environments.
 
 It is fully backwards compatible, and it identifies itself to MariaDB as\
-"`ENGINE=InnoDB`" (just like InnoDB), and so can be used as a drop-in replacement\
+"`ENGINE=InnoDB`" (just like InnoDB), and so can be used as a drop-in replacement
 for standard InnoDB.
 
-Percona XtraDB includes all of InnoDB's robust, reliable [ACID](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/database-theory/acid-concurrency-control-with-transactions)-compliant design\
-and advanced MVCC architecture, and builds on that solid foundation with more\
-features, more tunability, more metrics, and more scalability. In particular,\
-it is designed to scale better on many cores, to use memory more efficiently,\
-and to be more convenient and useful. The new features are especially designed\
-to alleviate some of InnoDB's limitations. We choose features and fixes based\
-on customer requests and on our best judgment of real-world needs as a\
+Percona XtraDB includes all of InnoDB's robust, reliable [ACID](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/database-theory/acid-concurrency-control-with-transactions)-compliant design
+and advanced MVCC architecture, and builds on that solid foundation with more
+features, more tunability, more metrics, and more scalability. In particular,
+it is designed to scale better on many cores, to use memory more efficiently,
+and to be more convenient and useful. The new features are especially designed
+to alleviate some of InnoDB's limitations. We choose features and fixes based
+on customer requests and on our best judgment of real-world needs as a
 high-performance consulting company.
 
 XtraDB was also available in MariaDB for Windows.

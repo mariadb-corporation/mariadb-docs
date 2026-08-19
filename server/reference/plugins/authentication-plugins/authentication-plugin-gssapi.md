@@ -14,7 +14,7 @@ On Unix systems, the most dominant GSSAPI service is [Kerberos](https://en.wikip
 
 The `gssapi` authentication plugin is most often used for authenticating with [Microsoft Active Directory](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview).
 
-This article gives instructions on configuring the `gssapi` authentication plugin\
+This article gives instructions on configuring the `gssapi` authentication plugin
 for MariaDB for passwordless login.
 
 ## Installing the Plugin's Package

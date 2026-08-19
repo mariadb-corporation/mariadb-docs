@@ -1,3 +1,10 @@
+---
+description: >-
+  mariadb-setpermission is a Perl script that helps add users and databases or
+  change passwords in MariaDB. It requires the DBI and DBD::mysql Perl
+  modules.
+---
+
 # mariadb-setpermission
 
 ## Syntax

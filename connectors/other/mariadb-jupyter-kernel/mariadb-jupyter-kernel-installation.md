@@ -81,5 +81,6 @@ This limitation is inherited from particular Python APIs that use POSIX-specific
 
 Please create an issue [here](https://github.com/MariaDB/mariadb_kernel/issues) or vote (just write a quick comment saying that issue affects you as well) for an existing one if you’re on a particular platform that [mariadb\_kernel](https://github.com/MariaDB/mariadb_kernel) doesn’t currently work on. This will help us understand how we should focus our development efforts.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

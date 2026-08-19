@@ -70,3 +70,5 @@ Details the processes and methodologies used to ensure code quality, focusing on
 A guide to the essential software and utilities recommended for building, testing, and optimizing MariaDB Server code.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

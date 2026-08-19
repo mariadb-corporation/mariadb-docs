@@ -640,7 +640,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Description: Compression algorithm used for [InnoDB page compression](innodb-page-compression.md). The supported values are:
   * `none`: Pages are not compressed.
   * `zlib`: Pages are compressed using the bundled [zlib](https://www.zlib.net/) compression algorithm.
-  * `lz4`: Pages are compressed using the [lz4](https://code.google.com/p/lz4/) compression algorithm.
+  * `lz4`: Pages are compressed using the [lz4](https://lz4.org/) compression algorithm.
   * `lzo`: Pages are compressed using the [lzo](https://www.oberhumer.com/opensource/lzo/) compression algorithm.
   * `lzma`: Pages are compressed using the [lzma](https://tukaani.org/xz/) compression algorithm.
   * `bzip2`: Pages are compressed using the [bzip2](http://www.bzip.org/) compression algorithm.
@@ -1206,7 +1206,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
   * `1` The default, the log buffer is written to the [InnoDB redo log](innodb-redo-log.md) file and a flush to disk performed after each transaction. This is required for full ACID[^3] compliance.
   * `0` Nothing is done on commit; rather the log buffer is written and flushed to the [InnoDB redo log](innodb-redo-log.md) once a second. This gives better performance, but a server crash can erase the last second of transactions.
   * `2` The log buffer is written to the [InnoDB redo log](innodb-redo-log.md) after each commit, but flushing takes place every [innodb\_flush\_log\_at\_timeout](innodb-system-variables.md#innodb_flush_log_at_timeout) seconds (by default once a second). Performance is slightly better, but a OS or power outage can cause the last second's transactions to be lost.
-  * `3` Emulates [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) [group commit](../../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) (3 syncs per group commit). See [Binlog group commit and innodb\_flush\_log\_at\_trx\_commit](binary-log-group-commit-and-innodb-flushing-performance.md). This option has not been working correctly since 10.2 and may be removed in future, see [1873](https://github.com/MariaDB/server/pull/1873).
+  * `3` The log buffer is written to the [InnoDB redo log](innodb-redo-log.md) file and flushed to disk at both the prepare and the commit phase of each transaction. This is slower than `1`, and the extra flush at prepare is usually redundant. Like `1`, it guarantees that after a crash, committed transactions are not lost and remain consistent with the binary log and other transactional engines. See [Binlog group commit and innodb\_flush\_log\_at\_trx\_commit](binary-log-group-commit-and-innodb-flushing-performance.md).
 * Command line: `--innodb-flush-log-at-trx-commit[=#]`
 * Scope: Global
 * Dynamic: Yes
@@ -1524,7 +1524,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_import_table_from_xtrabackup`
 
-* Description: If set to `1`, permits importing of .ibd files exported with the [XtraBackup](../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md) --export option. Previously named `innodb_expand_import`. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 and replaced with MySQL 5.6's transportable tablespaces.
+* Description: If set to `1`, permits importing of .ibd files exported with the [XtraBackup](../../backup-and-restore/mariadb-backup/README.md) --export option. Previously named `innodb_expand_import`. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 and replaced with MySQL 5.6's transportable tablespaces.
 * Command line: `innodb-import-table-from-xtrabackup=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1536,17 +1536,17 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_instant_alter_column_allowed`
 
 * Description:
-  * If a table is altered using `ALGORITHM=INSTANT`, it can force the table to use a non-canonical format: A hidden metadata record at the start of the clustered index is used to store each column's `DEFAULT` value. This makes it possible to add new columns that have default values without rebuilding the table. Starting with [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104), a `BLOB` in the hidden metadata record is used to store column mappings. This makes\
+  * If a table is altered using `ALGORITHM=INSTANT`, it can force the table to use a non-canonical format: A hidden metadata record at the start of the clustered index is used to store each column's `DEFAULT` value. This makes it possible to add new columns that have default values without rebuilding the table. Starting with [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104), a `BLOB` in the hidden metadata record is used to store column mappings. This makes
     it possible to drop or reorder columns without rebuilding the table. This also makes it possible to add columns to any position or drop columns from any position in the table without rebuilding the table. If a column is dropped without rebuilding the table, old records will contain garbage in that column's former position, and new records are written with `NULL` values, empty strings, or dummy values.
-  * This is generally not a problem. However, there may be cases where\
+  * This is generally not a problem. However, there may be cases where
     you want to avoid putting a table into this format. For example, to ensure that future `UPDATE` operations after an `ADD COLUMN` are performed in-place, to reduce write amplification. (Instantly added columns are essentially always variable-length.) Also avoid bugs similar to [MDEV-19916](https://jira.mariadb.org/browse/MDEV-19916), or to be able to export tables to older versions of the server.
   * This variable has been introduced as a result, with the following values:
   * `never` (0): Do not allow instant add/drop/reorder, to maintain format compatibility with MariaDB 10.x and MySQL 5.x. If the table (or partition) is not in the canonical format, then any ALTER TABLE (even one that does not involve instant column operations) will force a table rebuild.
-  * `add_last` (1, default in 10.3): Store a hidden metadata record that\
+  * `add_last` (1, default in 10.3): Store a hidden metadata record that
     allows columns to be appended to the table instantly ([MDEV-11369](https://jira.mariadb.org/browse/MDEV-11369)).\
-    In 10.4 or later, if the table (or partition) is not in this format, then any ALTER TABLE (even one that does not involve column changes)\
+    In 10.4 or later, if the table (or partition) is not in this format, then any ALTER TABLE (even one that does not involve column changes)
     will force a table rebuild.
-  * `add_drop_reorder` (2, default): From [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) only. Like 'add\_last', but allow the metadata record to store a column map, to support instant\
+  * `add_drop_reorder` (2, default): From [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) only. Like 'add\_last', but allow the metadata record to store a column map, to support instant
     add/drop/reorder of columns.
 * Command line: `--innodb-instant-alter-column-allowed=value`
 * Scope: Global
@@ -1811,7 +1811,7 @@ SELECT @@GLOBAL.innodb_log_file_buffering;
 
 #### `innodb_log_file_mmap`
 
-* Description: Whether ib\_logfile0 resides in persistent memory or should initially be memory-mapped. When using the default innodb\_log\_buffer\_size=2m, mariadb-backup --backup would spend a lot of time re-reading and re-parsing the log. For reading the log file during mariadb-backup --backup, it is beneficial to memory-map the entire ib\_logfile0 to the address space (typically 48 bits or 256 TiB) and read it from there,\
+* Description: Whether ib\_logfile0 resides in persistent memory or should initially be memory-mapped. When using the default innodb\_log\_buffer\_size=2m, mariadb-backup --backup would spend a lot of time re-reading and re-parsing the log. For reading the log file during mariadb-backup --backup, it is beneficial to memory-map the entire ib\_logfile0 to the address space (typically 48 bits or 256 TiB) and read it from there,
   both during --backup and --prepare. OFF by default on most platforms, to avoid aggressive read-ahead of the entire ib\_logfile0 in when only a tiny portion would be accessed. On Linux and FreeBSD the default is innodb\_log\_file\_mmap=ON, because those platforms define a specific mmap(2) option for enabling such read-ahead and therefore it can be assumed that the default wouldbe on-demand paging. This parameter will only have impact on the initial InnoDB startup and recovery. Any writes to the log will use regular I/O, except when the ib\_logfile0 is stored in a specially configured file system that is backed by persistent memory (Linux "mount -o dax").
 * Command line: `--innodb-log-file-mmap{=0|1}`
 * Scope: Global
@@ -1968,7 +1968,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 #### `innodb_max_bitmap_file_size`
 
-* Description: Limit in bytes of the changed page bitmap files. For faster incremental backup with [Xtrabackup](../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md), XtraDB tracks pages with changes written to them according to the [XtraDB redo log](innodb-redo-log.md) and writes the information to special changed page bitmap files. These files are rotated when the server restarts or when this limit is reached. XtraDB only. See also [innodb\_track\_changed\_pages](innodb-system-variables.md#innodb_track_changed_pages) and [innodb\_max\_changed\_pages](innodb-system-variables.md#innodb_max_changed_pages).
+* Description: Limit in bytes of the changed page bitmap files. For faster incremental backup with [Xtrabackup](../../backup-and-restore/mariadb-backup/README.md), XtraDB tracks pages with changes written to them according to the [XtraDB redo log](innodb-redo-log.md) and writes the information to special changed page bitmap files. These files are rotated when the server restarts or when this limit is reached. XtraDB only. See also [innodb\_track\_changed\_pages](innodb-system-variables.md#innodb_track_changed_pages) and [innodb\_max\_changed\_pages](innodb-system-variables.md#innodb_max_changed_pages).
   * Deprecated and ignored in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
 * Command line: `innodb-max-bitmap-file-size=#`
 * Scope: Global
@@ -2695,6 +2695,28 @@ If you set a target that is unreachable in the other direction (for example, low
 * Data Type: `boolean`
 * Default Value: `ON`
 
+#### `innodb_tablespace_size_warning_pct`
+
+* Description: Percentage of [innodb\_tablespace\_size\_warning\_threshold](innodb-system-variables.md#innodb_tablespace_size_warning_threshold) at which InnoDB starts emitting tablespace size warnings to the [error log](../../../server-management/server-monitoring-logs/error-log.md) as a tablespace grows. Once a tablespace reaches this percentage, a warning is written on each further one-percent increase, up to 100%. Has no effect when the threshold is `0`.
+* Command line: `--innodb-tablespace-size-warning-pct=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `85`
+* Range: `0` to `100`
+* Introduced: MariaDB 13.1
+
+#### `innodb_tablespace_size_warning_threshold`
+
+* Description: Size threshold in bytes at which InnoDB begins emitting tablespace size warnings to the [error log](../../../server-management/server-monitoring-logs/error-log.md) as a tablespace file grows. `0`, the default, disables the warnings entirely (no overhead). The percentage of this threshold at which warnings start is controlled by [innodb\_tablespace\_size\_warning\_pct](innodb-system-variables.md#innodb_tablespace_size_warning_pct). Warnings are emitted per tablespace and tracked individually, resetting when the tablespace is truncated or dropped, or when either variable is changed. The warning message has the form `Tablespace '<name>' size <N> bytes reached <P>% of configured threshold of <T> bytes`.
+* Command line: `--innodb-tablespace-size-warning-threshold=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `18446744073709551615`
+* Introduced: MariaDB 13.1
+
 #### `innodb_thread_concurrency`
 
 * Description: Once this number of threads is reached (excluding threads waiting for locks), XtraDB/InnoDB will place new threads in a wait state in a first-in, first-out queue for execution, in order to limit the number of threads running concurrently. A setting of `0`, the default, permits as many threads as necessary. A suggested setting is twice the number of CPU's plus the number of disks. Deprecated and ignored from [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5).
@@ -2753,7 +2775,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 #### `innodb_track_changed_pages`
 
-* Description: For faster incremental backup with [Xtrabackup](../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md), XtraDB tracks pages with changes written to them according to the [XtraDB redo log](innodb-redo-log.md) and writes the information to special changed page bitmap files. This read-only variable is used for controlling this feature. See also [innodb\_max\_changed\_pages](innodb-system-variables.md#innodb_max_changed_pages) and [innodb\_max\_bitmap\_file\_size](innodb-system-variables.md#innodb_max_bitmap_file_size). XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
+* Description: For faster incremental backup with [Xtrabackup](../../backup-and-restore/mariadb-backup/README.md), XtraDB tracks pages with changes written to them according to the [XtraDB redo log](innodb-redo-log.md) and writes the information to special changed page bitmap files. This read-only variable is used for controlling this feature. See also [innodb\_max\_changed\_pages](innodb-system-variables.md#innodb_max_changed_pages) and [innodb\_max\_bitmap\_file\_size](innodb-system-variables.md#innodb_max_bitmap_file_size). XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
 * Command line: `innodb-track-changed-pages={0|1}`
 * Scope: Global
 * Dynamic: No

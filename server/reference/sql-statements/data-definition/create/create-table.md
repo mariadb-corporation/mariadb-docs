@@ -252,7 +252,7 @@ You can also use DEFAULT ([NEXT VALUE FOR sequence](../../../sql-structure/seque
 
 ### AUTO\_INCREMENT Column Option
 
-Use [AUTO\_INCREMENT](../../../data-types/auto_increment.md) to create a column whose value can be set automatically from a simple counter. You can only use `AUTO_INCREMENT` on a column with an integer type. The column must be a key, and there can only be one `AUTO_INCREMENT` column in a table. If you insert a row without specifying a value for that column (or if you specify `0`, `NULL`, or [DEFAULT](../../../sql-functions/secondary-functions/information-functions/default.md) as the value), the actual value will be taken from the counter, with each insertion incrementing the counter by one. You can still insert a value explicitly. If you insert a value that is greater than the current counter value, the counter is\
+Use [AUTO\_INCREMENT](../../../data-types/auto_increment.md) to create a column whose value can be set automatically from a simple counter. You can only use `AUTO_INCREMENT` on a column with an integer type. The column must be a key, and there can only be one `AUTO_INCREMENT` column in a table. If you insert a row without specifying a value for that column (or if you specify `0`, `NULL`, or [DEFAULT](../../../sql-functions/secondary-functions/information-functions/default.md) as the value), the actual value will be taken from the counter, with each insertion incrementing the counter by one. You can still insert a value explicitly. If you insert a value that is greater than the current counter value, the counter is
 set based on the new value. An `AUTO_INCREMENT` column is implicitly `NOT NULL`. Use [LAST\_INSERT\_ID](../../../sql-functions/secondary-functions/information-functions/last_insert_id.md) to get the [AUTO\_INCREMENT](../../../data-types/auto_increment.md) value most recently used by an [INSERT](../../data-manipulation/inserting-loading-data/insert.md) statement.
 
 ### ZEROFILL Column Option
@@ -385,7 +385,6 @@ index_option:
   {{{|}}} WITH PARSER parser_name
   {{{|}}} VISIBLE
   {{{|}}} COMMENT 'string'
-  {{{|}}} CLUSTERING={YES| NO}
   {{{|}}} ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
   {{{|}}} COMPLETE_FIELDS [=] number
   {{{|}}} BYTES_FROM_INCOMPLETE_FIELD [=] number
@@ -559,10 +558,6 @@ Indexes cannot be declared visible.
 A comment of up to 1024 characters is permitted with the `COMMENT` index option.
 
 The `COMMENT` index option allows you to specify a comment with user-readable text describing what the index is for. This information is not used by the server itself.
-
-#### CLUSTERING Index Option
-
-The `CLUSTERING` index option is only valid for tables using the [TokuDB](../../../../server-usage/storage-engines/legacy-storage-engines/tokudb/) storage engine.
 
 #### IGNORED / NOT IGNORED
 

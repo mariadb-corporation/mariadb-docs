@@ -117,8 +117,7 @@ Start MariaDB on the first node with the --wsrep-new-cluster option. This tells 
 
 ```bash
 sudo systemctl stop mariadb # Ensure it's stopped
-sudo galera_new_cluster    # This command often wraps the systemctl start --wsrep-new-cluster
-                           # Alternatively: sudo systemctl start mariadb --wsrep-new-cluster
+sudo galera_new_cluster    # This command often wraps the mariadbd --wsrep-new-cluster
 ```
 
 b. Starting Subsequent Nodes:
@@ -185,3 +184,5 @@ This confirms synchronous replication is working.
 * [How to Set up MariaDB Galera Clusters on Ubuntu 22.04 (Linode)](https://www.linode.com/docs/guides/how-to-set-up-mariadb-galera-clusters-on-ubuntu-2204/)
 * [MariaDB Galera Cluster - Binary Installation (galeracluster.com)](https://galeracluster.com/documentation/html_docs_mariadb-installation/documentation/install-mariadb.html)
 * [Getting Started with MariaDB Galera Cluster (MariaDB.com/kb)](../galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

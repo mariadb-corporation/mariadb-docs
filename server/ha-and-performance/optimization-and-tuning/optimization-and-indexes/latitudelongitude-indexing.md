@@ -460,7 +460,7 @@ There is a "Haversine" algorithm that is twice as fast as the GCDist function he
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [latlng](https://mysql.rjweb.org/doc.php/latlng)

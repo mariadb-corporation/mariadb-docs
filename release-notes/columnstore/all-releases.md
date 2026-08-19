@@ -172,3 +172,5 @@ description: A list of all MariaDB ColumnStore releases
 | [1.0.3](old-releases/columnstore-1-0/mariadb-columnstore-103-alpha-release-notes.md)             | 2016-09-20   | Alpha          |
 | [1.0.2](old-releases/columnstore-1-0/mariadb-columnstore-102-alpha-release-notes.md)             | 2016-08-23   | Alpha          |
 | [1.0.1](old-releases/columnstore-1-0/mariadb-columnstore-101-alpha-release-notes.md)             | 2016-06-14   | Alpha          |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

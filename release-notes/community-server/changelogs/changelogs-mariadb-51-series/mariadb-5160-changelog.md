@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.1/5.1.60.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3120](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3120)\
@@ -40,7 +40,7 @@ modified in that revision.
 * [Revision #3114](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3114)\
   Wed 2011-11-30 13:53:25 +0100
   * Cherrypick into XtraDB: Bug#13002783 PARTIALLY UNINITIALIZED CASCADE UPDATE VECTOR
-  * We merged the test case for this into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md), but the fix\
+  * We merged the test case for this into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md), but the fix
     was not yet part of XtraDB.
 * [Revision #3113](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3113)\
   Wed 2011-11-30 00:34:05 +0200
@@ -181,13 +181,13 @@ modified in that revision.
   Sun 2011-07-31 22:25:37 +0200
   * Speed up mysql-test-run.pl.
   * Problem was the parsing of test suite files for various tags and options.
-  * This was done inefficiently, and include files were re-parsed for every\
-    place they were included. This caused a delay of 20 seconds or so before\
+  * This was done inefficiently, and include files were re-parsed for every
+    place they were included. This caused a delay of 20 seconds or so before
     the first test started to run.
-  * By parsing more efficiently and re-using first parse for subsequent\
+  * By parsing more efficiently and re-using first parse for subsequent
     inclusion of the same file, time spent parsing is reduced to less than\
     1 second, and start appears instantaneous.
-  * (With this patch, full ./mtr runs in 3 minutes on my laptop (release\
+  * (With this patch, full ./mtr runs in 3 minutes on my laptop (release
     build.)
 * [Revision #3088](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3088)\
   Sun 2011-07-24 01:27:48 -0700
@@ -217,11 +217,11 @@ modified in that revision.
 * [Revision #3082](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3082)\
   Thu 2011-07-21 11:20:55 +0300
   * Fix of [Bug #777809](https://bugs.launchpad.net/bugs/777809)
-  * There are 2 volatile condition constructions AND/OR constructions and fields(references) when first\
-    good supported to be top elements of conditions because it is normal practice\
-    (see copy\_andor\_structure for example) fields without any expression in the condition is really rare\
-    and mostly useless case however it could lead to problems when optimiser changes/moves them unaware\
-    of other variables referring to them. An easy solution of this problem is just to replace single field\
+  * There are 2 volatile condition constructions AND/OR constructions and fields(references) when first
+    good supported to be top elements of conditions because it is normal practice
+    (see copy\_andor\_structure for example) fields without any expression in the condition is really rare
+    and mostly useless case however it could lead to problems when optimiser changes/moves them unaware
+    of other variables referring to them. An easy solution of this problem is just to replace single field
     in a condition with equivalent expression well supported by the server ( -> != 0).
 * [Revision #3081](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3081)\
   Tue 2011-07-12 08:58:33 +0200
@@ -239,7 +239,7 @@ modified in that revision.
   * [Revision #3067.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3067.1.3)\
     Sun 2011-07-10 12:27:42 +0200
     * [Bug #808233](https://bugs.launchpad.net/bugs/808233): Undefined uint in typelib.h
-    * Fix is to replace uint in public header with unsigned int. uint is not\
+    * Fix is to replace uint in public header with unsigned int. uint is not
       guaranteed to be defined by system headers.
 * [Revision #3078](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3078)\
   Thu 2011-07-07 22:37:38 +0200
@@ -270,14 +270,14 @@ modified in that revision.
   * (without CFLAGS=-DSAFEMALLOC).
 * [Revision #3071](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3071)\
   Thu 2011-05-26 14:38:17 +0300
-  * Disable call to setpriority() in pbxt. This caused mysqld to run with nice\
+  * Disable call to setpriority() in pbxt. This caused mysqld to run with nice
     priority -19, which was far from optimal.
 * [Revision #3070](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3070)\
   Wed 2011-05-18 15:15:36 +0200
   * Fix mysqltest printing of include stack.
-  * The printing of include stack in the error case in mysqltest omitted the\
-    bottom of the stack (the line number in original test case file), and instead\
-    printed the top of the stack twice. Fix to print each element on the stack\
+  * The printing of include stack in the error case in mysqltest omitted the
+    bottom of the stack (the line number in original test case file), and instead
+    printed the top of the stack twice. Fix to print each element on the stack
     once and only once.
 * [Revision #3069](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3069) \[merge]\
   Thu 2011-05-12 15:39:54 +0200
@@ -290,7 +290,7 @@ modified in that revision.
     Thu 2011-05-12 15:31:11 +0200
     * Fix check\_table\_file\_presence:
     * On Windows, do not attempt access() for special device names like\
-      CON, PRN etc. access() would return 0, this does not mean that fiile\
+      CON, PRN etc. access() would return 0, this does not mean that fiile
       with this name exists.
 * [Revision #3068](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3068)\
   Thu 2011-05-12 14:56:08 +0300
@@ -301,14 +301,14 @@ modified in that revision.
 * [Revision #3066](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3066)\
   Mon 2011-05-09 15:06:16 +0200
   * Fix buildbot failure in rpl\_stop\_slave.test.
-  * Problem was setting DEBUG\_SYNC twice in a row too fast in the test case; this\
-    could cause the second setting to override the first before the code had time\
+  * Problem was setting DEBUG\_SYNC twice in a row too fast in the test case; this
+    could cause the second setting to override the first before the code had time
     to react to the first, causing the signal to get lost.
-  * Fixed by waiting for the code to receive the first signal before overwriting\
+  * Fixed by waiting for the code to receive the first signal before overwriting
     it in the test case.
 * [Revision #3065](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3065)\
   Fri 2011-05-06 14:01:51 +0300
-  * Reverted unittest/unit.pl back to Test::Harness as some of our build\
+  * Reverted unittest/unit.pl back to Test::Harness as some of our build
     machines didn't support the new recommended TAP::Harness module
 * [Revision #3064](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3064)\
   Thu 2011-05-05 23:28:42 +0300
@@ -332,17 +332,17 @@ modified in that revision.
   * merge
   * [Revision #3058.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3058.1.2)\
     Wed 2011-05-04 16:03:52 +0200
-    * Cherrypick fix for maria recovery bug [Bug #686006](https://bugs.launchpad.net/bugs/686006) from 5.2\
+    * Cherrypick fix for maria recovery bug [Bug #686006](https://bugs.launchpad.net/bugs/686006) from 5.2
       into 5.1
   * [Revision #3058.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3058.1.1)\
     Wed 2011-05-04 15:45:39 +0200
     * Avoid mtr warning on Windows during startup
-    * The reason for mtr warning is that collect\_mysqld\_features() starts\
+    * The reason for mtr warning is that collect\_mysqld\_features() starts
       mysqld with `--datadir=/tmp` and this directory does not exist on Windows.
-    * Fix : instead of passing `--datadir=$opt_vardir/tmp`\
-      in `collect_mysqld_features()` just\
-      use `--datadir=`. mysqld does not need a correct\
-      directory, just an existing one, as it is started\
+    * Fix : instead of passing `--datadir=$opt_vardir/tmp`
+      in `collect_mysqld_features()` just
+      use `--datadir=`. mysqld does not need a correct
+      directory, just an existing one, as it is started
       with `--help ---verbose --skip-grant-tables`.
 * [Revision #3059](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3059) \[merge]\
   Wed 2011-05-04 11:59:16 +0300
@@ -393,7 +393,7 @@ modified in that revision.
   * [Revision #0.6.46](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/0.6.46)\
     Fri 2011-04-29 14:49:04 +0200
     * Updated with changes from Percona Server 5.1.56-12.7, from
-    * lp`:`percona-dev/percona-server/release-5.1.56-12.7 percona-server-5.1.56-12.7\
+    * lp`:`percona-dev/percona-server/release-5.1.56-12.7 percona-server-5.1.56-12.7
       as of April 29, 2011.
     * Merged: revid:ignacio.nin@percona.com-20110427224434-e5a4kpyfwvj641q3
 * [Revision #3052](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3052)\
@@ -437,6 +437,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

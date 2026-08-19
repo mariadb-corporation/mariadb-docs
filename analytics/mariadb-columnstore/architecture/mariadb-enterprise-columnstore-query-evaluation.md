@@ -82,7 +82,20 @@ The ColumnStore storage engine can use either the custom select handler or the g
 | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | AUTO  | <ul><li>When set to <code>AUTO</code>, ColumnStore automatically chooses the best select handler for a given SELECT query.</li><li><code>AUTO</code> was added in ColumnStore 6.</li></ul>                            |
 | OFF   | <ul><li>When set to <code>OFF</code>, ColumnStore uses the generic select handlers for all <code>SELECT</code> queries.</li><li>It is not recommended to use this value, unless recommended by MariaDB Support.</li></ul>        |
-| ON    | <ul><li>When set to <code>ON</code>, ColumnStore uses the custom select handlers for all <code>SELECT</code> queries.</li><li><code>ON</code> is the default in ColumnStore 5 and ColumnStore 6.</li></ul> |
+| ON    | <ul><li>When set to <code>ON</code>, ColumnStore uses the custom select handlers for all <code>SELECT</code> queries.</li><li><code>ON</code> is the default.</li></ul> |
+
+### Unsupported SQL Syntax and Fallback Behavior
+
+The custom select handler translates each query's internal structure into a ColumnStore Execution Plan (CSEP). If a `SELECT` query uses syntax that the custom select handler does not support, the behavior depends on the value of the `columnstore_select_handler` system variable:
+
+* When set to `AUTO`, ColumnStore falls back to the generic select handler, and MariaDB Enterprise Server executes the query itself. The query completes and raises warning code `9999`, with a message such as `MCS select_handler execution failed, falling back to server execution`. Run `SHOW WARNINGS` after the query to see the warning.
+* When set to `ON` (the default), the query fails with an error instead of falling back.
+
+When a query falls back, the server performs the joins, aggregation, `ORDER BY`, `LIMIT`, and expression evaluation itself, on rows streamed from ColumnStore, so the query loses distributed aggregation and distributed function evaluation. Per-table work still happens inside ColumnStore: it reads only the columns the query needs, applies the conditions the server pushes down, and still performs [extent elimination](mariadb-enterprise-columnstore-query-evaluation.md#extent-elimination) on them. Treat warning `9999` as a signal to check whether the query can be rewritten using syntax the custom select handler supports.
+
+{% hint style="info" %}
+The custom select handler translates the query's internal structure into a CSEP rather than forwarding the original SQL text. Syntax added in a newer MariaDB Server release is translated without any change to ColumnStore when the change is purely syntactical and the internal item types stay the same. ColumnStore needs explicit support when the change alters an item type, uses a new item attribute, or moves an attribute — in that case, support can lag behind the server release that added the syntax.
+{% endhint %}
 
 ## Joins
 
@@ -204,6 +217,6 @@ When Enterprise ColumnStore executes a query, it goes through the following proc
 8. ES returns the results to MaxScale.
 9. MaxScale returns the results to the client or application.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

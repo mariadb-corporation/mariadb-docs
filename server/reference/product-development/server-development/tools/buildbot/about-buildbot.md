@@ -88,34 +88,34 @@ The information below refers to the old Buildbot (), and not the new Buildbot ()
 
 ## Overview
 
-The current state of the MariaDB trees with respect to build or test failures\
+The current state of the MariaDB trees with respect to build or test failures
 is always available from the Buildbot setup page.
 
 * MariaDB-5.5 waterfall status page.
 * MariaDB-10.0 waterfall status page.
 * MariaDB-10.1 waterfall status page.
 
-The BuildBot setup polls the Launchpad trees every 5 minutes for\
-changes. Whenever a new push is found in one of our trees, the new\
+The BuildBot setup polls the Launchpad trees every 5 minutes for
+changes. Whenever a new push is found in one of our trees, the new
 code is compiled and run through the test suite.
 
-If all platforms are green after this, everything is good. If not, it\
-means there is a problem with the push, and someone needs to look into\
-it ASAP. If it was your push, then the someone who needs to look at it\
+If all platforms are green after this, everything is good. If not, it
+means there is a problem with the push, and someone needs to look into
+it ASAP. If it was your push, then the someone who needs to look at it
 is you!
 
-BuildBot is a generic, GPL'ed program providing a continuous\
+BuildBot is a generic, GPL'ed program providing a continuous
 integration test framework. For more information on BuildBot, see the the BuildBot project homepage.
 
 ## Volunteering to Run a Build Slave
 
-Many of our build hosts are run by community members, and we are always\
-looking for additional volunteers to help us cover additional platforms or\
+Many of our build hosts are run by community members, and we are always
+looking for additional volunteers to help us cover additional platforms or
 build options in BuildBot.
 
-If you are able to provide a spare machine for this purpose, your help is\
-greatly appreciated! This is a good way to get involved without having to spend\
-a lot of time on it. Get started by writing an email to 'developers (at)\
+If you are able to provide a spare machine for this purpose, your help is
+greatly appreciated! This is a good way to get involved without having to spend
+a lot of time on it. Get started by writing an email to 'developers (at)
 lists.mariadb.org' with an offer to run a BuildBot slave.
 
 ## Setting up the Slave BuildBot
@@ -124,9 +124,9 @@ See [buildbot-setup](setup/).
 
 ### Pausing mysql-test-run.pl
 
-Sometimes you need to work when your computer is busy running tests\
-for buildbot. We've added a new feature to the mysql-test-run.pl\
-script which allows you to stop it temporarily so you can use your\
+Sometimes you need to work when your computer is busy running tests
+for buildbot. We've added a new feature to the mysql-test-run.pl
+script which allows you to stop it temporarily so you can use your
 computer and then restart the tests when you're ready.
 
 To do this, define the environment variable "MTR\_STOP\_FILE". Whenever\
@@ -136,46 +136,46 @@ mysql-test-run.pl script will stop as soon as it is able to do so\
 mysql-test-run.pl script will continue from where it left off.
 
 If you plan on using this feature you should also set the\
-"MTR\_STOP\_KEEP\_ALIVE" environment variable with a value of 120. This\
-will make the script print messages to buildbot every 2 minutes which\
+"MTR\_STOP\_KEEP\_ALIVE" environment variable with a value of 120. This
+will make the script print messages to buildbot every 2 minutes which
 will prevent a timeout.
 
 ## Database with Test Results
 
-Buildbot saves the results of test runs in a database, to be used for\
-enhanced reporting on web pages without need to change the Buildbot\
+Buildbot saves the results of test runs in a database, to be used for
+enhanced reporting on web pages without need to change the Buildbot
 code, and for data mining when investigating test failures.
 
 The database schema is documented under [Buildbot Database Schema](buildbot-buildbot-database-schema.md).\
-The schema is likely to evolve as we gradually add more kinds of\
+The schema is likely to evolve as we gradually add more kinds of
 information.
 
-For now, the data is not externally available. But the plan is to set\
+For now, the data is not externally available. But the plan is to set
 up a slave database to replicate the data, and provide access (eg.\
-remote database accounts) to members of the community with interesting\
-ideas about how to present or mine this data, or who are just curious\
-to play with it. If anyone has an interest in this, or wants to\
+remote database accounts) to members of the community with interesting
+ideas about how to present or mine this data, or who are just curious
+to play with it. If anyone has an interest in this, or wants to
 volunteer a slave host for this purpose, please send a [developers@lists.mariadb.org](mailto:developers@lists.mariadb.org).\
 The more people show interest in this, the faster it is likely to happen!
 
 ## Reports
 
-We are developing new reports fed off the test results in the\
-database. These reports will be located here. The first\
-report is the Cross Reference\
+We are developing new reports fed off the test results in the
+database. These reports will be located here. The first
+report is the Cross Reference
 report. This report allows all test failures to be searched.
 
 ## Buildbot Maintenance
 
-Here is some information on how our Buildbot installation is set up\
+Here is some information on how our Buildbot installation is set up
 and maintained:
 
 * The configuration file is included in the [Tools for MariaDB](https://github.com/MariaDB/mariadb.org-tools) repository.
 * The building and testing of binary packages is documented on the [package-testing-with-buildbot-and-kvm](package-testing-with-buildbot-and-kvm.md) page.
-* We developed a small tool, [runvm](runvm.md), which is used to do some\
-  of the builds inside a virtual machine, mostly to test builds of binary\
+* We developed a small tool, [runvm](runvm.md), which is used to do some
+  of the builds inside a virtual machine, mostly to test builds of binary
   packages.
-* The [BuildBot Development](buildbot-buildbot-development.md) page describes how we developed some of the\
+* The [BuildBot Development](buildbot-buildbot-development.md) page describes how we developed some of the
   enhancements to BuildBot that we use and have contributed upstream.
 
 ## See Also

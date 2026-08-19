@@ -88,3 +88,5 @@ RANK() is a window function that displays the number of a given row, starting at
   - <https://mariadb.com/docs/server/reference/sql-functions/special-functions/window-functions/window-frames>
   - <https://mariadb.com/docs/server/reference/sql-functions/special-functions/window-functions/percentile_cont>
   - <https://mariadb.com/docs/server/reference/sql-functions/special-functions/window-functions/percentile_disc>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

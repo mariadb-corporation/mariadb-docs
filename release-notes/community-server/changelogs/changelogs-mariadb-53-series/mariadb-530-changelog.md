@@ -1,6 +1,6 @@
 # MariaDB 5.3.0 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**\
+[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**
 (page:`1 [2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md)[6](mariadb-530-changelog-p6.md)`\
 ) |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
@@ -11,14 +11,14 @@
   * Removed settings of 'derived\_merge' to 'on' in ps tests.
 * [Revision #3133](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3133)\
   Fri 2011-07-22 21:39:55 -0700
-  * Fixed a crash with pbxt.subselect when 'derived\_merge' is set off in\
+  * Fixed a crash with pbxt.subselect when 'derived\_merge' is set off in
     the optimizer switch.
 * [Revision #3132](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3132) \[merge]\
   Thu 2011-07-21 15:55:08 -0700
   * Merge.
     * [Revision #3121.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3121.1.1)\
       Thu 2011-07-21 14:23:08 -0700
-      * Made the optimizer switches 'derived\_merge' and 'derived\_with\_keys'\
+      * Made the optimizer switches 'derived\_merge' and 'derived\_with\_keys'
         off by default.
 * [Revision #3131](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3131)\
   Thu 2011-07-21 23:37:40 +0300
@@ -51,11 +51,11 @@
     * [Revision #2643.143.25](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.143.25)\
       Thu 2011-07-21 11:20:55 +0300
       * Fix of [Bug #777809](https://bugs.launchpad.net/bugs/777809)
-      * There are 2 volatile condition constructions AND/OR constructions and fields(references) when first\
-        good supported to be top elements of conditions because it is normal practice\
-        (see copy\_andor\_structure for example) fields without any expression in the condition is really rare\
-        and mostly useless case however it could lead to problems when optimiser changes/moves them unaware\
-        of other variables referring to them. An easy solution of this problem is just to replace single field\
+      * There are 2 volatile condition constructions AND/OR constructions and fields(references) when first
+        good supported to be top elements of conditions because it is normal practice
+        (see copy\_andor\_structure for example) fields without any expression in the condition is really rare
+        and mostly useless case however it could lead to problems when optimiser changes/moves them unaware
+        of other variables referring to them. An easy solution of this problem is just to replace single field
         in a condition with equivalent expression well supported by the server ( -> != 0).
   * [Revision #2732.44.4](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.44.4) \[merge]\
     Tue 2011-07-12 22:42:00 +0200
@@ -90,17 +90,17 @@
 * [Revision #3128](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3128)\
   Thu 2011-07-21 00:43:37 -0700
   * Fixed [Bug #813447](https://bugs.launchpad.net/bugs/813447).
-  * Do not make substitution of a single-row table if it is an inner\
-    table of an outer join with on expression containing an expensive\
+  * Do not make substitution of a single-row table if it is an inner
+    table of an outer join with on expression containing an expensive
     subquery.
 * [Revision #3127](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3127)\
   Wed 2011-07-20 21:55:55 -0700
   * Fixed [Bug #791761](https://bugs.launchpad.net/bugs/791761).
-  * An aggregating query over an empty set of a join of two tables\
+  * An aggregating query over an empty set of a join of two tables
     with a rejecting HAVING clause erroneously could return a row.\
-    It could happen in the cases when the optimizer made a conclusion\
+    It could happen in the cases when the optimizer made a conclusion
     that the aggregating set was empty.\
-    Wrong results were produced because the server missed initial\
+    Wrong results were produced because the server missed initial
     setting for aggregation functions in the mentioned cases.
 * [Revision #3126](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3126) \[merge]\
   Wed 2011-07-20 16:49:36 -0700
@@ -108,26 +108,26 @@
   * [Revision #3123.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3123.1.1)\
     Wed 2011-07-20 16:09:28 -0700
     * Fixed [Bug #702301](https://bugs.launchpad.net/bugs/702301).
-  * The function matching\_cond should take into account that\
-    there may be always false constant conjunctive conditions\
-    that has not been evaluated yet,for example, conjunctive\
+  * The function matching\_cond should take into account that
+    there may be always false constant conjunctive conditions
+    that has not been evaluated yet,for example, conjunctive
     conditions with non-correlated subqueries.
 * [Revision #3125](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3125)\
   Wed 2011-07-20 16:02:26 -0700
-  * Adjusted the results of the pbxt.subselect test after the push\
+  * Adjusted the results of the pbxt.subselect test after the push
     of the patch for [Bug #780386](https://bugs.launchpad.net/bugs/780386).
 * [Revision #3124](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3124)\
   Wed 2011-07-20 21:48:41 +0300
   * Fix of [Bug #780386](https://bugs.launchpad.net/bugs/780386).
-  * ALL subquery should return TRUE if subquery rowa set is empty independently\
-    of left part. The problem was that Item\_func\_(eq,ne,gt,ge,lt,le) do not\
-    call execution of second argument if first is NULL no in this case subquery\
-    will not be executed and when Item\_func\_not\_all calls any\_value() of the\
+  * ALL subquery should return TRUE if subquery rowa set is empty independently
+    of left part. The problem was that Item\_func\_(eq,ne,gt,ge,lt,le) do not
+    call execution of second argument if first is NULL no in this case subquery
+    will not be executed and when Item\_func\_not\_all calls any\_value() of the
     subquery or aggregation function which report that there was rows. So for\
     NULL < ALL (SELECT...) result was FALSE instead of TRUE.
-  * Fix is just swapping of arguments of Item\_func\_(eq,ne,gt,ge,lt,le) (with\
-    changing the operation if it is needed) so that result will be the same\
-    (for examole a < b is equal to b > a). This fix exploit the fact that\
+  * Fix is just swapping of arguments of Item\_func\_(eq,ne,gt,ge,lt,le) (with
+    changing the operation if it is needed) so that result will be the same
+    (for examole a < b is equal to b > a). This fix exploit the fact that
     first argument will be executed in any case.
 * [Revision #3123](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3123)\
   Wed 2011-07-20 11:56:28 +0400
@@ -137,22 +137,22 @@
   * Merge fix for [Bug #806524](https://bugs.launchpad.net/bugs/806524)
   * [Revision #3120.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3120.1.1)\
     Wed 2011-07-20 01:31:40 +0400
-    * [Bug #806524](https://bugs.launchpad.net/bugs/806524): Assertion \`join->best\_read < 1.7976931348623157e+308 with table\_elimination=on and derived\_merge=on\
-      reset\_nj\_counters() used to rely on the fact that join nests have\
-      table->table==NULL. This ceased to be true wit new derived table\
+    * [Bug #806524](https://bugs.launchpad.net/bugs/806524): Assertion \`join->best\_read < 1.7976931348623157e+308 with table\_elimination=on and derived\_merge=on
+      reset\_nj\_counters() used to rely on the fact that join nests have
+      table->table==NULL. This ceased to be true wit new derived table
       optimizations. Use test for table->nested\_join!=NULL instead.
 * [Revision #3121](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3121)\
   Tue 2011-07-19 23:19:10 +0300
   * Fixed [Bug #800696](https://bugs.launchpad.net/bugs/800696).
-  * The problem was that optimizer removes some outer references (it they are\
-    constant for example) and the list of outer items built during prepare phase is\
+  * The problem was that optimizer removes some outer references (it they are
+    constant for example) and the list of outer items built during prepare phase is
     not actual during execution phase when we need it as the cache parameters.\
-    First solution was use pointer on pointer on outer reference Item and\
-    initialize temporary table on demand. This solved most problem except case\
-    when optimiser also reduce Item which contains outer references ('OR' in\
+    First solution was use pointer on pointer on outer reference Item and
+    initialize temporary table on demand. This solved most problem except case
+    when optimiser also reduce Item which contains outer references ('OR' in
     this bug test suite).
-  * The solution is to build the list of outer reference items on execution\
-    phase (after optimization) on demand (just before temporary table creation)\
+  * The solution is to build the list of outer reference items on execution
+    phase (after optimization) on demand (just before temporary table creation)
     by walking Item tree and finding outer references among Item\_ident\
     (Item\_field/Item\_ref) and Item\_sum items.
   * Removed depends\_on list (because it is not neede any mnore for the cache, in the place where it was used it replaced with upper\_refs).
@@ -174,7 +174,7 @@
       Fri 2011-07-15 02:58:34 +0400
       * [Bug #803457](https://bugs.launchpad.net/bugs/803457): Wrong result with semijoin + view + outer join in maria-5.3-subqueries-mwl90
         * (This is not a real fix for this bug, even though it makes it to no longer repeat)
-        * Semi-join subquery predicates, i.e. ... WHERE outer\_expr IN (SELECT ...) may have null-rejecting properties,\
+        * Semi-join subquery predicates, i.e. ... WHERE outer\_expr IN (SELECT ...) may have null-rejecting properties,
           may allow to convert outer joins into inner.
         * When convert\_subq\_to\_sj() injected IN-equality into parent's WHERE/ON clause, it didn't call\
           $new\_cond->top\_level\_item(), which would cause null-rejecting properties to be lost.
@@ -185,10 +185,10 @@
   * [Revision #3114.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3114.2.1)\
     Sun 2011-07-17 23:12:31 -0700
     * Fixed [Bug #793448](https://bugs.launchpad.net/bugs/793448).
-    * This bug could lead to wrong result sets for a query over a\
-      materialized derived table or view accessed by a multi-component\
+    * This bug could lead to wrong result sets for a query over a
+      materialized derived table or view accessed by a multi-component
       key.
-    * It happened because the function get\_next\_field\_for\_derived\_key\
+    * It happened because the function get\_next\_field\_for\_derived\_key
       was supposed to update its argument, and it did not do it.
 * [Revision #3116](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3116) \[merge]\
   Mon 2011-07-18 20:40:50 -0700
@@ -200,26 +200,26 @@
   Mon 2011-07-18 23:45:38 +0300
   * Fix [Bug #782305](https://bugs.launchpad.net/bugs/782305)
   * Analysis:
-    * Both the wrong result and the valgrind warning were a result\
-      of incomplete cleanup of the MIN/MAX subquery rewrite. At the\
-      first execution of the query, the non-aggregate subquery is\
-      transformed into an aggregate MIN/MAX subquery. During the\
-      fix\_fields phase of the MIN/MAX function, it sets the property\
+    * Both the wrong result and the valgrind warning were a result
+      of incomplete cleanup of the MIN/MAX subquery rewrite. At the
+      first execution of the query, the non-aggregate subquery is
+      transformed into an aggregate MIN/MAX subquery. During the
+      fix\_fields phase of the MIN/MAX function, it sets the property
       st\_select\_lex::with\_sum\_func to true.
     * The second execution of the query finds this flag to be ON.\
-      When optimization reaches the same MIN/MAX subquery\
+      When optimization reaches the same MIN/MAX subquery
       transformation, it tests if the subquery is an aggregate or not.\
-      Since select\_lex->with\_sum\_func == true from the previous\
-      execution, the transformation executes the second branch that\
+      Since select\_lex->with\_sum\_func == true from the previous
+      execution, the transformation executes the second branch that
       handles aggregate subqueries. This substitutes the subquery\
-      Item into a Item\_maxmin\_subselect. At the same time elsewhere\
+      Item into a Item\_maxmin\_subselect. At the same time elsewhere
       it is assumed that the subquery Item is of type\
-      Item\_allany\_subselect. Ultimately this results in casting the\
-      actual object to the wrong class, and calling the wrong\
+      Item\_allany\_subselect. Ultimately this results in casting the
+      actual object to the wrong class, and calling the wrong
       any\_value() method from empty\_underlying\_subquery().
   * Solution:
-    * Cleanup the st\_select\_lex::with\_sum\_func property in the case\
-      when the MIN/MAX transformation was performed for a non-aggregate\
+    * Cleanup the st\_select\_lex::with\_sum\_func property in the case
+      when the MIN/MAX transformation was performed for a non-aggregate
       subquery, so that the transformation can be repeated.
 * [Revision #3114](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3114) \[merge]\
   Sun 2011-07-17 00:52:07 -0700
@@ -233,7 +233,7 @@
       2.
          2. moved merge of views/dt for multi-update/delete to the prepare stage.
       3.
-         3. the list of the references to the candidates for semi-join now is\
+         3. the list of the references to the candidates for semi-join now is
             allocated in the statement memory.
   * [Revision #3100.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3100.1.1) \[merge]\
     Mon 2011-07-11 14:00:44 -0700
@@ -244,12 +244,12 @@
   * [Revision #3025.1.6](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3025.1.6)\
     Mon 2011-06-13 19:03:03 -0700
     * Fixed [Bug #794890](https://bugs.launchpad.net/bugs/794890).
-    * Changed the code that processing of multi-updates and multi-deletes\
+    * Changed the code that processing of multi-updates and multi-deletes
       with multitable views at the prepare stage.
-    * A proper solution would be: never to perform any transformations of views\
-      before and at the prepare stage. Yet it would require re-engineering\
+    * A proper solution would be: never to perform any transformations of views
+      before and at the prepare stage. Yet it would require re-engineering
       of the code that checks privileges and updatability of views.\
-      Ultimately this re-engineering has to be done to provide a clean solution\
+      Ultimately this re-engineering has to be done to provide a clean solution
       for INSERT/UPDATE/DELETE statements that use views.
     * Fixed a valgrind problem in the function TABLE::use\_index.
 * [Revision #3113](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3113) \[merge]\
@@ -267,35 +267,35 @@
     * Added an initial set of feature-specific test cases
     * Handled the special case where the materialized subquery of an\
       IN predicates consists of only NULL values.
-    * Fixed a bug where making Item\_in\_subselect a constant,\
+    * Fixed a bug where making Item\_in\_subselect a constant,
       didn't respect its null\_value value.
   * [Revision #3106.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3106.1.2)\
     Thu 2011-07-14 12:53:00 +0300
     * Fix [Bug #777691](https://bugs.launchpad.net/bugs/777691)
     * Analysis:
-      * For some of the re-executions of the correlated subquery the\
-        where clause is false. In these cases the execution of the\
-        subquery detects that it must generate a NULL row because of\
-        implicit grouping. In this case the subquery execution reaches\
+      * For some of the re-executions of the correlated subquery the
+        where clause is false. In these cases the execution of the
+        subquery detects that it must generate a NULL row because of
+        implicit grouping. In this case the subquery execution reaches
         the following code in do\_select():
-      * while ((table= li++))\
+      * while ((table= li++))
         mark\_as\_null\_row(table->table);
       * This code marks all rows in the table as complete NULL rows.\
-        In the example, when evaluating the field t2.f10 for the second\
-        row, all bits of Field::null\_ptr\[0] are set by the previous call\
-        to mark\_as\_null\_row(). Then the call to Field::is\_null()\
+        In the example, when evaluating the field t2.f10 for the second
+        row, all bits of Field::null\_ptr\[0] are set by the previous call
+        to mark\_as\_null\_row(). Then the call to Field::is\_null()
         returns true, resulting in a NULL for the MAX function.
-      * Thus the lines above are not suitable for subquery re-execution\
-        because mark\_as\_null\_row() changes the NULL bits of each table\
+      * Thus the lines above are not suitable for subquery re-execution
+        because mark\_as\_null\_row() changes the NULL bits of each table
         field, and there is no logic to restore these fields.
     * Solution:
-      * The call to mark\_as\_null\_row() was added by the fix for bug [Bug #613029](https://bugs.launchpad.net/bugs/613029). Therefore removing the fix for [Bug #613029](https://bugs.launchpad.net/bugs/613029) corrects\
-        this wrong result. At the same time the test for [Bug #613029](https://bugs.launchpad.net/bugs/613029)\
-        behaves correctly because the changes of [MWL#89](https://askmonty.org/worklog/?tid=89) result in a\
+      * The call to mark\_as\_null\_row() was added by the fix for bug [Bug #613029](https://bugs.launchpad.net/bugs/613029). Therefore removing the fix for [Bug #613029](https://bugs.launchpad.net/bugs/613029) corrects
+        this wrong result. At the same time the test for [Bug #613029](https://bugs.launchpad.net/bugs/613029)
+        behaves correctly because the changes of [MWL#89](https://askmonty.org/worklog/?tid=89) result in a
         different execution path where:
       * the constant subquery is evaluated via JOIN::exec\_const\_cond
       * detecting that it has an empty result triggers the branch
-      * if (zero\_result\_cause)\
+      * if (zero\_result\_cause)
         return\_zero\_rows()
       * return\_zero\_rows() calls mark\_as\_null\_row().
   * [Revision #3106.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3106.1.1) \[merge]\
@@ -305,23 +305,23 @@
       Thu 2011-07-14 00:15:07 +0300
       * Fix [Bug #809266](https://bugs.launchpad.net/bugs/809266)
       * Analysis:
-        * This is a bug in [MWL#68](https://askmonty.org/worklog/?tid=68), where it was incorrectly assumed\
-          that if there is a match in the only non-null key, then\
-          if there is a covering NULL row on all remaining NULL-able\
-          columns there is a partial match. However, this is not the case,\
-          because even if there is such a null-only sub-row, it is not\
-          guaranteed to be part of the matched sub-row. The matched sub-row\
+        * This is a bug in [MWL#68](https://askmonty.org/worklog/?tid=68), where it was incorrectly assumed
+          that if there is a match in the only non-null key, then
+          if there is a covering NULL row on all remaining NULL-able
+          columns there is a partial match. However, this is not the case,
+          because even if there is such a null-only sub-row, it is not
+          guaranteed to be part of the matched sub-row. The matched sub-row
           and the NULL-only sub-row may be parts of different rows.
         * In fact there are two cases:
           * there is a complete row with only NULL values, and
           * all nullable columns contain only NULL values.
-        * These two cases were incorrectly mixed up in the class member\
+        * These two cases were incorrectly mixed up in the class member
           subselect\_partial\_match\_engine::covering\_null\_row\_width.
       * Solution:
         * The solution is to:
         * split covering\_null\_row\_width into two members:\
           has\_covering\_null\_row, and has\_covering\_null\_columns, and
-          * take into account each state during initialization and\
+          * take into account each state during initialization and
             execution.
     * [Revision #3102.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3102.2.1) \[merge]\
       Wed 2011-07-13 17:11:46 +0300
@@ -329,25 +329,25 @@
       * [Revision #3091.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3091.1.1)\
         Wed 2011-07-13 17:09:09 +0300
         * Fixed [Bug #809245](https://bugs.launchpad.net/bugs/809245)
-        * In addition to the bug fix explained below, the patch performs\
+        * In addition to the bug fix explained below, the patch performs
           few renames, and adds some comments to avoid similar problems.
         * Analysis:
-          * The failed assert was due to a bug in [MWL#68](https://askmonty.org/worklog/?tid=68), where it was\
-            incorrectly assumed that the size of the bitmap\
-            subselect\_rowid\_merge\_engine::null\_only\_columns should be\
+          * The failed assert was due to a bug in [MWL#68](https://askmonty.org/worklog/?tid=68), where it was
+            incorrectly assumed that the size of the bitmap
+            subselect\_rowid\_merge\_engine::null\_only\_columns should be
             the same as the size of the array of Ordered\_keys.
-          * The bitmap null\_only\_columns contains bits to mark columns\
-            that contain only NULLs. Therefore the indexes of the bits\
-            to be set in null\_only\_columns are different from the indexes\
-            of the Ordered\_keys. If there is a NULL-only column that appears\
-            in a table after the last partial match column with Ordered\_key,\
-            this NULL-only column would require setting a bit with index\
+          * The bitmap null\_only\_columns contains bits to mark columns
+            that contain only NULLs. Therefore the indexes of the bits
+            to be set in null\_only\_columns are different from the indexes
+            of the Ordered\_keys. If there is a NULL-only column that appears
+            in a table after the last partial match column with Ordered\_key,
+            this NULL-only column would require setting a bit with index
             bigger than the size of the bitmap null\_only\_columns.
           * Accessing such a bit caused the failed assert.
         * Solution:
-          * Upon analysis, it turns out that null\_only\_columns is not needed\
-            at all, because we are looking for partial matches, and having\
-            such columns guarantees that there is a partial match for any\
+          * Upon analysis, it turns out that null\_only\_columns is not needed
+            at all, because we are looking for partial matches, and having
+            such columns guarantees that there is a partial match for any
             corresponding outer value.
         * Therefore the patch removes subselect\_rowid\_merge\_engine::null\_only\_columns.
 * [Revision #3111](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3111)\
@@ -360,7 +360,7 @@
 * [Revision #3109](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3109)\
   Fri 2011-07-15 03:29:38 +0400
   * Valgrind fix for the previous cset:
-  * {ha\_myisam,ha\_maria}::index\_read\_idx\_map should also initialize end\_range, because index condition\
+  * {ha\_myisam,ha\_maria}::index\_read\_idx\_map should also initialize end\_range, because index condition
     function will attempt to check it. We initialize it like index\_init() does.
 * [Revision #3108](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3108) \[merge]\
   Thu 2011-07-14 20:06:46 +0400
@@ -379,12 +379,12 @@
   * [Revision #3104.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3104.1.1)\
     Wed 2011-07-13 21:06:28 -0700
     * Fixed [Bug #809179](https://bugs.launchpad.net/bugs/809179).
-    * The attribute not\_null\_tables could be calculated incorrectly in the\
-      function SELECT\_LEX::update\_used\_tables for queries over views\
-      with row items in the WHERE clause. It happened because no\
-      implementation of the virtual callback function eval\_not\_null\_tables\
+    * The attribute not\_null\_tables could be calculated incorrectly in the
+      function SELECT\_LEX::update\_used\_tables for queries over views
+      with row items in the WHERE clause. It happened because no
+      implementation of the virtual callback function eval\_not\_null\_tables
       was provided for the class Item\_row.
-    * Also slightly optimized the code calculating the value of the maybe\_null\
+    * Also slightly optimized the code calculating the value of the maybe\_null
       flag for tables in the function SELECT\_LEX::update\_used\_tables.
 * [Revision #3105](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3105)\
   Wed 2011-07-13 20:00:28 -0700
@@ -395,16 +395,16 @@
   * [Revision #3101.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3101.1.1)\
     Tue 2011-07-12 23:47:35 -0700
     * Fixed [Bug #809206](https://bugs.launchpad.net/bugs/809206).
-    * The bitmap of used tables must be evaluated for the select list of every\
+    * The bitmap of used tables must be evaluated for the select list of every
       materialized derived table / view and saved in a dedicated field.
     * This is also applied to materialized subqueries.
 * [Revision #3103](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3103)\
   Wed 2011-07-13 11:05:33 -0700
-  * Corrected the code of the recent patch that had changed the base\
-    class for Item\_func\_xor. Added the implementation of the\
-    subst\_argument\_checker virtual method that the objects of this\
+  * Corrected the code of the recent patch that had changed the base
+    class for Item\_func\_xor. Added the implementation of the
+    subst\_argument\_checker virtual method that the objects of this
     class used to use before the patch.
-  * Reverted the previous result changes in sunselect\_sj and\
+  * Reverted the previous result changes in sunselect\_sj and
     subselect\_sj\_jcl6.
 * [Revision #3102](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3102)\
   Wed 2011-07-13 16:49:52 +0400
@@ -415,63 +415,63 @@
   * [Revision #3095.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3095.1.2)\
     Mon 2011-07-11 23:48:35 +0400
     * Port of code for: (part of testcase is in mysql-test/t/subquery\*.test and will be ported separately)
-      * Bug #11766642: crash in Item\_field::register\_field\_in\_read\_map\
+      * Bug #11766642: crash in Item\_field::register\_field\_in\_read\_map
         with view
       * (Former [MySQL Bug #59793](https://bugs.mysql.com/bug.php?id=59793))
-      * Prior to the refactoring in this patch, Item\_cond\_xor behaved\
-        partially as an Item\_cond and partially as an Item\_func. The\
-        reasoning behind this was that XOR is currently not optimized\
-        (thus should be Item\_func instead of Item\_cond), but it was\
-        planned optimize it in the future (thus, made Item\_cond anyway\
+      * Prior to the refactoring in this patch, Item\_cond\_xor behaved
+        partially as an Item\_cond and partially as an Item\_func. The
+        reasoning behind this was that XOR is currently not optimized
+        (thus should be Item\_func instead of Item\_cond), but it was
+        planned optimize it in the future (thus, made Item\_cond anyway
         to ease optimization later).
-      * Even though Item\_cond inherits from Item\_func, there are\
-        differences between these two. One difference is that the\
-        arguments are stored differently. Item\_cond stores them in a\
+      * Even though Item\_cond inherits from Item\_func, there are
+        differences between these two. One difference is that the
+        arguments are stored differently. Item\_cond stores them in a
         list while Item\_func store them in an args\[].
-      * [MySQL Bug #45221](https://bugs.mysql.com/bug.php?id=45221) was caused by Item\_cond\_xor storing arguments in\
-        the list while users of the objects would look for them in\
-        args\[]. The fix back then was to store the arguments in both\
+      * [MySQL Bug #45221](https://bugs.mysql.com/bug.php?id=45221) was caused by Item\_cond\_xor storing arguments in
+        the list while users of the objects would look for them in
+        args\[]. The fix back then was to store the arguments in both
         locations.
-      * In this bug, Item\_cond\_xor initially gets two Item\_field\
+      * In this bug, Item\_cond\_xor initially gets two Item\_field
         arguments. These are stored in the list inherited from\
-        Item\_cond and in args\[] inherited from Item\_func. During\
-        resolution, find\_field\_in\_view() replaces the Item\_fields\
-        stored in the list with Item\_direct\_view\_refs, but args\[]\
-        still points to the unresolved Item\_fields. This shows that\
+        Item\_cond and in args\[] inherited from Item\_func. During
+        resolution, find\_field\_in\_view() replaces the Item\_fields
+        stored in the list with Item\_direct\_view\_refs, but args\[]
+        still points to the unresolved Item\_fields. This shows that
         the fix for 45221 was incorrect.
-      * The refactoring performed in this patch removes the confusion\
-        by making the XOR item an Item\_func period. A neg\_transformer()\
-        is also implemented for Item\_func\_xor to improve performance\
-        when negating XOR expressions. An XOR is negated by negating\
+      * The refactoring performed in this patch removes the confusion
+        by making the XOR item an Item\_func period. A neg\_transformer()
+        is also implemented for Item\_func\_xor to improve performance
+        when negating XOR expressions. An XOR is negated by negating
         one of the operands.
   * [Revision #3095.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3095.1.1)\
     Mon 2011-07-11 17:13:16 +0400
     * Alternate version of MySQL's fix for [MySQL Bug #49453](https://bugs.mysql.com/bug.php?id=49453).
-    * The cause of the crash is sj\_nest->sj\_subq\_pred->unit->first\_select()->item\_list\
-      contains "stale" items for the second execution. By "stale" I mean that they have\
+    * The cause of the crash is sj\_nest->sj\_subq\_pred->unit->first\_select()->item\_list
+      contains "stale" items for the second execution. By "stale" I mean that they have
       item->fixed==FALSE, and they are Item\_field object instead of Item\_direct\_view\_ref.
     * The solution is to use sj\_nest->sj\_subq\_pred->unit->first\_select()->ref\_pointer\_array.\
       Surprisingly, that array contains items that are ok.
-    * Oracle team has introduced and is using NESTED\_JOIN::sj\_inner\_exprs, but we go without that\
+    * Oracle team has introduced and is using NESTED\_JOIN::sj\_inner\_exprs, but we go without that
       and always copy the ref\_pointer\_array.
 * [Revision #3100](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3100)\
   Mon 2011-07-11 10:56:48 -0700
   * Fixed [Bug #793386](https://bugs.launchpad.net/bugs/793386).\
-    Auto-generated names for view field items must be allocated in\
+    Auto-generated names for view field items must be allocated in
     the statement memory, not in the execution memory of the statement.
 * [Revision #3099](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3099)\
   Sun 2011-07-10 17:19:45 -0700
   * Fixed [Bug #806504](https://bugs.launchpad.net/bugs/806504).\
-    Missing initialization of the bitmap not\_null\_tables\_cache to 0\
+    Missing initialization of the bitmap not\_null\_tables\_cache to 0
     in the function Item\_func::eval\_not\_null\_tables caused this bug.\
     This function is called indirectly from the function\
-    SELECT\_LEX::update\_used\_tables after merging mergeable views and\
-    derived tables into the main query. The leaf tables of resulting\
-    query may change their bitmap numbers after this merge. That's why\
-    the not\_null\_tables\_cache bitmaps must be updated. Due to the bug\
-    mentioned above the result of the re-evaluation of the\
+    SELECT\_LEX::update\_used\_tables after merging mergeable views and
+    derived tables into the main query. The leaf tables of resulting
+    query may change their bitmap numbers after this merge. That's why
+    the not\_null\_tables\_cache bitmaps must be updated. Due to the bug
+    mentioned above the result of the re-evaluation of the
     not\_null\_tables\_cache turned out to be incorrect in some cases.\
-    This could trigger an invalid conversion of outer joins into\
+    This could trigger an invalid conversion of outer joins into
     inner joins leading to invalid query result sets.
   * Also removed an implicit conversion from int to bool in the function\
     SELECT\_LEX::update\_used\_tables.
@@ -486,14 +486,14 @@
 * [Revision #3096](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3096)\
   Sat 2011-07-09 22:34:56 -0700
   * Fixed [Bug #806097](https://bugs.launchpad.net/bugs/806097).\
-    The value of THD::used tables should be re-evaluated after merges\
+    The value of THD::used tables should be re-evaluated after merges
     of views and derived tables into the main query.\
     Now it's done in the function SELECT\_LEX::update\_used\_tables.\
-    The re-evaluation of the 'used\_table' bitmaps for the items\
+    The re-evaluation of the 'used\_table' bitmaps for the items
     in HAVING, GROUP BY and ORDER BY clauses has been added as well.
 * [Revision #3095](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3095)\
   Sat 2011-07-09 16:33:40 +0400
-  * Semi-join fixes: make COST\_VECT objects survive add\_io(add\_io\_cnt=0, add\_avg\_cost=...) calls without\
+  * Semi-join fixes: make COST\_VECT objects survive add\_io(add\_io\_cnt=0, add\_avg\_cost=...) calls without
     getting NaN in internal fields.
 * [Revision #3094](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3094)\
   Sat 2011-07-09 13:47:41 +0400
@@ -525,11 +525,11 @@
     Fri 2011-07-08 16:39:28 -0700
     * Fixed [Bug #806510](https://bugs.launchpad.net/bugs/806510).\
       The bug was caused by an incorrect code of the function\
-      Item\_direct\_view\_ref::replace\_equal\_field introduced in the\
-      patch for bugs 717577, 724942. The function erroneously\
-      returned the wrapped field instead of the Item\_direct\_view\_ref\
+      Item\_direct\_view\_ref::replace\_equal\_field introduced in the
+      patch for bugs 717577, 724942. The function erroneously
+      returned the wrapped field instead of the Item\_direct\_view\_ref
       object itself in the cases when no replacement happened.
-    * The bug masked two other minor bugs that could result in not\
+    * The bug masked two other minor bugs that could result in not
       quite correct output of the EXPLAIN command for some queries.\
       They were fixed in the patch as well.
 * [Revision #3091](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3091) \[merge]\
@@ -557,27 +557,27 @@
   * [Revision #3088.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3088.1.1)\
     Thu 2011-07-07 13:04:48 -0700
     * Fixed [Bug #806477](https://bugs.launchpad.net/bugs/806477).\
-      The offending query returns a wrong result set because the optimizer\
+      The offending query returns a wrong result set because the optimizer
       erroneously eliminated the where condition evaluated it to TRUE.\
-      The cause of this wrong transformation was that the flag maybe\_null\
-      for an inner table of the outer join was not set to TRUE after the\
+      The cause of this wrong transformation was that the flag maybe\_null
+      for an inner table of the outer join was not set to TRUE after the
       table had replaced the wrapping view.\
-      Now the function SELECT\_LEX::update\_used\_tables resets the value\
-      of the maybe\_null flag for each leaf table of the query after all\
+      Now the function SELECT\_LEX::update\_used\_tables resets the value
+      of the maybe\_null flag for each leaf table of the query after all
       merges of views have been done.
 * [Revision #3089](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3089)\
   Thu 2011-07-07 16:28:26 +0300
   * Fix [Bug #806943](https://bugs.launchpad.net/bugs/806943)
     * Analysis:\
-      This bug is yet another incarnation of the generic problem\
-      where optimization of the outer query triggers evaluation\
-      of a subquery, and this evaluation performs a destructive\
-      change to the subquery plan. Specifically a temp table is\
-      created for the DISTINCT operation that replaces the\
-      original subquery table. Later, select\_describe() attempts\
+      This bug is yet another incarnation of the generic problem
+      where optimization of the outer query triggers evaluation
+      of a subquery, and this evaluation performs a destructive
+      change to the subquery plan. Specifically a temp table is
+      created for the DISTINCT operation that replaces the
+      original subquery table. Later, select\_describe() attempts
       to print the table name, however, there is no corresponding\
-      TABLE\_LIST object to the internal temp table, so we get a\
-      crash. Execution works fine because it is not interested in\
+      TABLE\_LIST object to the internal temp table, so we get a
+      crash. Execution works fine because it is not interested in
       the corresponding TABLE\_LIST object (or its name).
     * Solution:\
       Similar to other such bugs, block the evaluation of expensive\
@@ -588,9 +588,9 @@
   * [Revision #3086.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3086.1.1)\
     Wed 2011-07-06 17:24:42 -0700
     * Fixed [Bug #806431](https://bugs.launchpad.net/bugs/806431).\
-      The function generate\_derived\_keys\_for\_table incorrectly handled\
-      the cases when a materialized view or derived table could be accessed\
-      by different keys on the same fields if these keys depended on the\
+      The function generate\_derived\_keys\_for\_table incorrectly handled
+      the cases when a materialized view or derived table could be accessed
+      by different keys on the same fields if these keys depended on the
       same tables.
 * [Revision #3087](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3087)\
   Wed 2011-07-06 21:32:07 +0300
@@ -603,34 +603,34 @@
     Mon 2011-07-04 14:51:16 +0300
     * Fix [Bug #802979](https://bugs.launchpad.net/bugs/802979)
     * Analysis:\
-      This bug consists of two related problems that are\
-      result of too early evaluation of single-row subqueries\
+      This bug consists of two related problems that are
+      result of too early evaluation of single-row subqueries
       during the optimization phase of the outer query.
-      * Several optimizer code paths try to evaluate single-row\
-        subqueries in order to produce a constant and use that\
+      * Several optimizer code paths try to evaluate single-row
+        subqueries in order to produce a constant and use that
         constant for further optimzation.
-      * When the execution of the subquery peforms destructive\
-        changes to the representation of the subquery, and these\
-        changes are not anticipated by the subsequent optimization\
-        phases of the outer query, we tipically get a crash or\
+      * When the execution of the subquery peforms destructive
+        changes to the representation of the subquery, and these
+        changes are not anticipated by the subsequent optimization
+        phases of the outer query, we tipically get a crash or
         failed assert.
       * Specifically, in this bug the inner-most suqbuery with\
-        DISTINCT triggers a substitution of the original JOIN\
-        object by a single-table JOIN object with a temp table\
+        DISTINCT triggers a substitution of the original JOIN
+        object by a single-table JOIN object with a temp table
         needed to perform the DISTINCT operation (created by\
         JOIN::make\_simple\_join).
       * This substitution breaks EXPLAIN because:\
-        a) in the first example JOIN::cleanup no longer can\
-        reach the original table of the innermost subquery, and\
-        close all indexes, and\
-        b) in this second test query, EXPLAIN attempts to print\
-        the name of the internal temp table, and crashes because\
+        a) in the first example JOIN::cleanup no longer can
+        reach the original table of the innermost subquery, and
+        close all indexes, and
+        b) in this second test query, EXPLAIN attempts to print
+        the name of the internal temp table, and crashes because
         the temp table has no name (NULL pointer instead).
     * Solution:
-      * a) fully disable subquery evaluation during optimization\
-        in all cases - both for constant propagation and range\
+      * a) fully disable subquery evaluation during optimization
+        in all cases - both for constant propagation and range
         optimization, and
-      * b) change JOIN::join\_free() to perform cleanup irrespective\
+      * b) change JOIN::join\_free() to perform cleanup irrespective
         of EXPLAIN or not.
 * [Revision #3085](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3085) \[merge]\
   Wed 2011-07-06 10:30:51 +0400
@@ -638,7 +638,7 @@
   * [Revision #3082.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3082.1.1)\
     Wed 2011-07-06 10:21:31 +0400
     * [Bug #611704](https://bugs.launchpad.net/bugs/611704): Crash in replace\_where\_subcondition with nested subquery and semijoin=on
-    * SELECT\_LEX::merge\_subquery should not set "(\*in\_subq)->emb\_on\_expr\_nest= derived" for subqueries that\
+    * SELECT\_LEX::merge\_subquery should not set "(\*in\_subq)->emb\_on\_expr\_nest= derived" for subqueries that
       are in the ON expressions of semi-joins.
 * [Revision #3084](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3084)\
   Tue 2011-07-05 22:38:38 +0200
@@ -667,17 +667,17 @@
   * [Revision #2732.40.8](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.40.8)\
     Thu 2011-06-16 14:51:50 +0200
     * Fix [MySQL Bug #21978](https://bugs.mysql.com/bug.php?id=21978) : 'flush\_time' value set for 1800 sec
-    * This setting is obsolete now. It could makes sense in the past, situations open file handles\
-      limit was low. It does not make sense anymore to flush all files every 1.5 hours now, after 2048\
+    * This setting is obsolete now. It could makes sense in the past, situations open file handles
+      limit was low. It does not make sense anymore to flush all files every 1.5 hours now, after 2048
       myisam file limit is removed as fix to [MySQL Bug #24509](https://bugs.mysql.com/bug.php?id=24509).
   * [Revision #2732.40.7](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.40.7)\
     Thu 2011-06-16 14:33:09 +0200
-    * Accept innodb\_flush\_method values previously allowed on Unix only\
+    * Accept innodb\_flush\_method values previously allowed on Unix only
       map them to corresponding Windows CreateFile flags,\
       O\_DSYNC=>FILE\_FLAG\_WRITE\_THROUGH\
       ALL\_O\_DIRECT=>FILE\_FLAG\_NO\_BUFFERING
     * Ability to specify innodb\_flush\_method=O\_DSYNC fixes [MySQL Bug #31876](https://bugs.mysql.com/bug.php?id=31876)\
-      (InnoDB commit performance slow on Windows XP), by removing an extra FlushFileBuffers()\
+      (InnoDB commit performance slow on Windows XP), by removing an extra FlushFileBuffers()
       call overhead.
   * [Revision #2732.40.6](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.40.6)\
     Mon 2011-06-13 02:38:16 +0200
@@ -699,9 +699,9 @@
         Sun 2011-06-12 16:07:18 +0200
         * Fix XtraDB [Bug #714143](https://bugs.launchpad.net/bugs/714143) :\
           Windows native async io is disabled.
-        * The patch uses completion ports for asynchronous IO notification ,\
-          instead of formerly used notification via event . This also removes\
-          the limit of 64 async IOs per background IO thread (this limit was\
+        * The patch uses completion ports for asynchronous IO notification ,
+          instead of formerly used notification via event . This also removes
+          the limit of 64 async IOs per background IO thread (this limit was
           forced by using WaitForMultipleObjects in previous AIO implementation)
   * [Revision #2732.40.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.40.2) \[merge]\
     Sun 2011-06-12 16:11:05 +0200
@@ -719,13 +719,13 @@
       * [Revision #2732.39.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.39.1)\
         Sun 2011-06-12 15:52:07 +0200
         * Backport Fix for [MySQL Bug #24509](https://bugs.mysql.com/bug.php?id=24509) - 2048 file descriptor limit on windows needs increasing.
-        * The patch replaces the use of the POSIX I/O interfaces in mysys on Windows with\
-          the Win32 API calls (CreateFile, WriteFile, etc). The Windows HANDLE for the open\
-          file is stored in the my\_file\_info struct, along with a flag for append mode\
+        * The patch replaces the use of the POSIX I/O interfaces in mysys on Windows with
+          the Win32 API calls (CreateFile, WriteFile, etc). The Windows HANDLE for the open
+          file is stored in the my\_file\_info struct, along with a flag for append mode
           (because the Windows API does not support opening files in append mode in all cases)\
-          The default max open files has been increased to 16384 and can be increased further\
+          The default max open files has been increased to 16384 and can be increased further
           by setting `--`max-open-files= during the server start.
-        * Noteworthy benefit of this patch is that it removes limits from the table\_cache size -\
+        * Noteworthy benefit of this patch is that it removes limits from the table\_cache size -
           allowing for more simultaneus users
 * [Revision #3082](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3082) \[merge]\
   Tue 2011-07-05 21:48:50 +0400
@@ -738,22 +738,22 @@
   Tue 2011-07-05 15:28:15 +0200
   * [MWL#163](https://askmonty.org/worklog/?tid=163) [Bug #798213](https://bugs.launchpad.net/bugs/798213): Remove the `--`innodb-release-locks-early feature.
   * The [Bug #798213](https://bugs.launchpad.net/bugs/798213) exposes a design flaw in `--`innodb-release-locks-early.\
-    It does not work with InnoDB crash recovery, so it breaks transactional\
+    It does not work with InnoDB crash recovery, so it breaks transactional
     integrety. So remove the feature.
 * [Revision #3080](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3080)\
   Tue 2011-07-05 10:32:49 +0400
   * Update test results for the previous cset.
 * [Revision #3079](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3079)\
   Tue 2011-07-05 01:44:15 +0400
-  * Change the default @@optimizer\_switch setting from`semijoin=on,firstmatch=on,loosescan=on`\
+  * Change the default @@optimizer\_switch setting from`semijoin=on,firstmatch=on,loosescan=on`
     to`semijoin=off,firstmatch=off,loosescan=off`
   * Adjust the testcases:
-    * Modify subselect\*.test and join\_cache.test so that all tests\
-      use the same execution paths as before (i.e. optimizations that\
+    * Modify subselect\*.test and join\_cache.test so that all tests
+      use the same execution paths as before (i.e. optimizations that
       are being tested are enabled)
     * Let all other test files run with the new default settings (i.e.\
       with new optimizations disabled)
-    * Copy subquery testcases from these files into t/subselect\_extra.test\
+    * Copy subquery testcases from these files into t/subselect\_extra.test
       which will run them with new optimizations enabled.
 * [Revision #3078](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3078) \[merge]\
   Mon 2011-07-04 11:02:35 -0700
@@ -761,10 +761,10 @@
   * [Revision #3076.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3076.1.1)\
     Sun 2011-07-03 14:59:01 -0700
     * Fixed [Bug #804686](https://bugs.launchpad.net/bugs/804686).\
-      The assert conditions in the functions Item\_direct\_ref\_to\_ident::transform\
-      and Item\_direct\_ref\_to\_ident::compile could be not valid after constant\
+      The assert conditions in the functions Item\_direct\_ref\_to\_ident::transform
+      and Item\_direct\_ref\_to\_ident::compile could be not valid after constant
       propagation when fields and field references may be substituted for constants.\
-      Not only these invalid asserts have been removed, but the functions containing\
+      Not only these invalid asserts have been removed, but the functions containing
       them have been removed as well because now Item\_ref::transform and\
       Item\_ref::compile can be used instead of them.
 * [Revision #3077](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3077) \[merge]\
@@ -776,7 +776,7 @@
 * [Revision #3075](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3075)\
   Fri 2011-07-01 21:53:47 -0700
   * Fixed [Bug #804515](https://bugs.launchpad.net/bugs/804515).\
-    If no index is used to access a materialized derived table or view\
+    If no index is used to access a materialized derived table or view
     then the value of TABLE\_REF::key for this table must be (-1).
 * [Revision #3074](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3074) \[merge]\
   Fri 2011-07-01 15:35:34 +0300
@@ -798,7 +798,7 @@
     * Updated result
   * [Revision #3066.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3066.1.2)\
     Fri 2011-07-01 10:20:11 +0200
-    * Added read only system variable 'in\_transaction' which tells if there's\
+    * Added read only system variable 'in\_transaction' which tells if there's
       an active transaction.
     * fixed a bug - not clearing "in transaction" status on set @@autocommit=1
   * [Revision #3066.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3066.1.1)\
@@ -815,18 +815,18 @@
     Thu 2011-06-30 20:49:11 +0400
     * Fix buildbot failures:
       * JOIN::prepare would have set JOIN::table\_count to incorrect value (bad merge of MWL 106)
-      * optimize\_keyuse() would use table-bit as table number\
-        (the change in optimize\_keyuse is also the reason for query plan changes. Not\
+      * optimize\_keyuse() would use table-bit as table number
+        (the change in optimize\_keyuse is also the reason for query plan changes. Not
         expected to have much effect because only handles cases of no index statistics)
-      * st\_select\_lex::register\_dependency\_item() ignored the fact that some of the\
-        selects on the dependency paths could have been merged to their parents (because they\
+      * st\_select\_lex::register\_dependency\_item() ignored the fact that some of the
+        selects on the dependency paths could have been merged to their parents (because they
         were mergeable VIEWs)
-      * Undo the incorrect fix in Item\_subselect::recalc\_used\_tables(): do not call\
+      * Undo the incorrect fix in Item\_subselect::recalc\_used\_tables(): do not call
         fix\_after\_pullout() for Item\_subselect::Ref\_to\_outside members.
   * [Revision #3068.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3068.1.2)\
     Wed 2011-06-29 15:07:28 +0400
     * [Bug #802965](https://bugs.launchpad.net/bugs/802965): Crash in do\_copy\_not\_null with semijoin=on in maria-5.3
-      * The crash was because a NOT NULL table column inside the subquery was considered NULLable\
+      * The crash was because a NOT NULL table column inside the subquery was considered NULLable
         because the code thought it was on the inner side of an outer join nest.
       * Fixed by making correct distinction between tables inside outer join nests and inside semi-join nests.
   * [Revision #3068.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3068.1.1) \[merge]\
@@ -841,11 +841,11 @@
           * Update test results
           * Fix a problem with PS:
             * convert\_subq\_to\_sj() should not save where to prep\_where or on\_expr to prep\_on\_expr.
-            * After an unmerged subquery predicate has been pulled, it should call fix\_after\_pullout() for\
+            * After an unmerged subquery predicate has been pulled, it should call fix\_after\_pullout() for
               outer\_refs.
       * [Revision #3062.3.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3062.3.2)\
         Tue 2011-06-28 00:51:26 +0400
-        * Test: enable semi-join processing for cases of semi-joins and outer joins, except for the case when the\
+        * Test: enable semi-join processing for cases of semi-joins and outer joins, except for the case when the
           subquery is in the ON clause.
       * [Revision #3062.3.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3062.3.1) \[merge]\
         Mon 2011-06-27 23:40:58 +0400
@@ -853,11 +853,11 @@
 * [Revision #3071](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3071)\
   Thu 2011-06-30 19:32:19 -0700
   * Fixed [Bug #803851](https://bugs.launchpad.net/bugs/803851).\
-    The function generate\_derived\_keys\_for\_table should set the value of\
-    the number of keys for the derived table to 0 before it starts\
-    generating key definitions for the table. It's important as the\
-    function can be called twice by the optimizer for a derived table\
-    if the query contains a subquery to which the IN-EXIST transformation\
+    The function generate\_derived\_keys\_for\_table should set the value of
+    the number of keys for the derived table to 0 before it starts
+    generating key definitions for the table. It's important as the
+    function can be called twice by the optimizer for a derived table
+    if the query contains a subquery to which the IN-EXIST transformation
     is applicable.
   * Fixed a valgrind complain.
 * [Revision #3070](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3070)\
@@ -865,7 +865,7 @@
   * Fixed [Bug #802845](https://bugs.launchpad.net/bugs/802845).\
     If the expression for a derived table contained a clause LIMIT 0\
     SELECT from such derived table incorrectly returned a non-empty set.
-  * Fixed by ensuring JOIN::do\_send\_rows to be updated after the call\
+  * Fixed by ensuring JOIN::do\_send\_rows to be updated after the call
     of st\_select\_lex\_unit::set\_limit that sets the value of\
     JOIN::unit->select\_limit\_cnt.
 
@@ -873,6 +873,6 @@
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

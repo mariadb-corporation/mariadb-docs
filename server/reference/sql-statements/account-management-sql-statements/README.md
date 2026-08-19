@@ -162,3 +162,5 @@ Impersonate another user for the current session. Learn how to assume the identi
 Sets the current role for the session. Learn how to enable none, or a specific role to change your current privileges dynamically.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

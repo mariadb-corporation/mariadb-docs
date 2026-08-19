@@ -354,3 +354,5 @@ Small integer type. A SMALLINT column uses 2 bytes and stores values from -32768
 Very small integer type. A TINYINT column uses 1 byte and stores values from -128 to 127 (signed) or 0 to 255 (unsigned).
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

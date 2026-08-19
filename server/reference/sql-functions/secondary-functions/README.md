@@ -54,3 +54,5 @@ Retrieve system and session metadata. This section details functions to access d
 Explore specialized utilities. This category includes functions for benchmarking, managing UUIDs, converting IP addresses, and handling binary data formats.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

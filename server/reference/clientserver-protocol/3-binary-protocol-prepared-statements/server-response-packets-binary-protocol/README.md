@@ -12,3 +12,4 @@ The following response packets will be sent from the server to client in binary 
 [packet\_bindata.md](packet_bindata.md)
 {% endcontent-ref %}
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

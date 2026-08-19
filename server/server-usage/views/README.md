@@ -78,3 +78,5 @@ Covers the conditions under which a view is updatable, allowing INSERT, UPDATE, 
 Learn about the different algorithms (MERGE, TEMPTABLE, UNDEFINED) MariaDB uses to process views and how they impact performance and updatability.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

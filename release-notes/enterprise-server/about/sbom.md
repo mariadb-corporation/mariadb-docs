@@ -34,6 +34,6 @@ Advantages of the CycloneDX Web Tool include:
 * The CycloneDX Web Tool is maintained by the CycloneDX project so it aligns with the standard and will remain compatible
 * The CycloneDX Web Tool works via browser so you do not need to install anything
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

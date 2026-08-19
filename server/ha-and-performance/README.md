@@ -79,3 +79,5 @@ Optimize MariaDB Server performance through hardware. This section covers select
 Explore connection redirection. This section details how the client/server protocol handles redirection for high availability and load balancing, ensuring seamless database access and failover.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

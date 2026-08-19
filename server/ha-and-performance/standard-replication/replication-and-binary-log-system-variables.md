@@ -400,8 +400,8 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `log_bin`
 
-* Description: Whether [binary logging](../../server-management/server-monitoring-logs/binary-log/) is enabled or not. If the `--log-bin` [option](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) is used, `log_bin` is set to `ON`, otherwise to `OFF`. If no `name` option is given for `--log-bin`, `datadir/`_`log-basename`_`-bin` or _`datadir`_`/mysql-bin` are used (the latter is used if [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is not specified). We strongly recommend you use either `--log-basename`, or to specify a filename to ensure that [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) doesn't stop if the real hostname of the computer changes. The name option can optionally include an absolute path. If no path is specified, the log is written to the [data directory](../optimization-and-tuning/system-variables/server-system-variables.md#datadir). The name can optionally include the file extension; if it does, it is stripped, and only the file basename is used.
-* Command line: `--log-bin[=name]`
+* Description: Whether [binary logging](../../server-management/server-monitoring-logs/binary-log/) is enabled or not. If the `--log-bin` [option](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) is used, `log_bin` is set to `ON`, otherwise to `OFF` (or when `--skip-log-bin` / `--disable-log-bin` is used). If no `name` option is given for `--log-bin`, `datadir/`_`log-basename`_`-bin` or _`datadir`_`/mysql-bin` are used (the latter is used if [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is not specified). We strongly recommend you use either `--log-basename`, or to specify a filename to ensure that [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) doesn't stop if the real hostname of the computer changes. The name option can optionally include an absolute path. If no path is specified, the log is written to the [data directory](../optimization-and-tuning/system-variables/server-system-variables.md#datadir). The name can optionally include the file extension; if it does, it is stripped, and only the file basename is used.
+* Command line: `--log-bin[=name]`, `--skip-log-bin`, `--disable-log-bin`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
@@ -601,7 +601,8 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `relay_log_purge`
 
-* Description: If set to `1` (the default), [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md) is purged as soon as they are no longer necessary.
+* Description: If set to `1` (the default), [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md) are purged as soon as they are no longer necessary.
+  * A relay log only becomes unnecessary once the [replica's SQL thread](replication-threads.md#slave-sql-thread) has applied all of its events, so the default value does not discard events that a semisynchronous replica has acknowledged but not yet applied. Both values are therefore safe with [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), with one exception: `relay_log_purge=0` combined with `relay_log_recovery=1` can lead to data inconsistencies. See [relay\_log\_recovery](replication-and-binary-log-system-variables.md#relay_log_recovery).
 * Command line: `--relay-log-purge={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -612,6 +613,8 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 #### `relay_log_recovery`
 
 * Description: If set to `1` (`0` is default), on startup the replica drops all [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md) that haven't yet been processed, and retrieve relay logs from the primary. Can be useful after the replica has crashed to prevent the processing of corrupt relay logs. relay\_log\_recovery should always be set together with [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay_log_purge). Setting `relay-log-recovery=1` with `relay-log-purge=0` can cause the relay log to be read from files that were not purged, leading to data inconsistencies.
+  * This variable only has an effect on replicas that connect using binary log file and position coordinates (that is, `CHANGE MASTER TO MASTER_USE_GTID=NO`). A replica that connects using [GTIDs](gtid.md) purges its relay logs every time the replication threads start, including after a restart, regardless of this setting.
+  * With [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), setting this variable to `1` discards transactions that the replica has already acknowledged to the primary. Those transactions are refetched from the primary, so this is only a problem if the primary has lost them as well. Use `relay_log_recovery=0` on semisynchronous replicas that connect using binary log coordinates.
 * Command line: `--relay-log-recovery`
 * Scope: Global
 * Dynamic: Yes
@@ -847,7 +850,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 #### `slave_connections_needed_for_purge`
 
 * Description: Minimum number of connected replicas required for automatic [binary log](../../server-management/server-monitoring-logs/binary-log/) purge with [max\_binlog\_total\_size](replication-and-binary-log-system-variables.md#max_binlog_total_size), [binlog\_expire\_logs\_seconds](replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) or [expire\_logs\_days](replication-and-binary-log-system-variables.md#expire_logs_days).\
-  Change of the value triggers an attempt to purging, though without binlog rotation, with the purged set of\
+  Change of the value triggers an attempt to purging, though without binlog rotation, with the purged set of
   files satisfying the above two parameters and the value that is set itself.
 * Command line: `--slave-connections-needed-for-purge=#`
 * Scope: Global
@@ -869,7 +872,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `slave_domain_parallel_threads`
 
-* Description: When set to a non-zero value, each [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) domain in one primary connection can reserve at most that many worker threads at any one time, leaving the rest (up to the value of [slave\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_parallel_threads)) free for other primary connections\
+* Description: When set to a non-zero value, each [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) domain in one primary connection can reserve at most that many worker threads at any one time, leaving the rest (up to the value of [slave\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_parallel_threads)) free for other primary connections
   or replication domains to use in parallel. See [Parallel Replication](parallel-replication.md#configuration-variable-slave_domain_parallel_threads) for details.
 * Command line: `--slave-domain-parallel-threads=#`
 * Scope: Global
@@ -880,7 +883,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `slave_exec_mode`
 
-* Description: Determines the mode used for [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) error checking and conflict resolution. `STRICT` mode is the default, and catches all errors and conflicts. `IDEMPOTENT` mode suppresses duplicate key or no key errors, which can be useful in certain replication scenarios, such as when there are Galera nodes, multiple primaries, or circular replication.
+* Description: Determines the mode used for [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) error checking and conflict resolution. `STRICT` mode is the default, and catches all errors and conflicts. `IDEMPOTENT` mode suppresses duplicate key or no key errors, which can be useful in certain replication scenarios, such as when there are Galera nodes, multiple primaries, or circular replication. In MariaDB Enterprise Server 12.3, `IDEMPOTENT` also disables the before-image consistency check used by [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md), and the combination of the two is not supported.
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `enumeration`
@@ -933,7 +936,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Description: When [parallel\_replication](parallel-replication.md) is used, the [SQL thread](replication-threads.md#slave-sql-thread) reads ahead in the relay logs, queueing events in memory while looking for opportunities for executing events in parallel. This system variable sets a limit for how much memory it uses for this.
   * The configured value of this system variable is actually allocated for each [worker thread](replication-threads.md#worker-threads), so the total allocation is actually equivalent to the following:
     * [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) \* [slave\_parallel\_threads](replication-and-binary-log-system-variables.md)
-  * This system variable is only meaningful when parallel\
+  * This system variable is only meaningful when parallel
     replication is configured (i.e. when [slave\_parallel\_threads](replication-and-binary-log-system-variables.md) > `0`).
   * See [Parallel Replication: Configuring the Maximum Size of the Parallel Replica Queue](parallel-replication.md#configuring-the-maximum-size-of-the-parallel-slave-queue) for more information.
 * Command line: `--slave-parallel-max-queued=#`
@@ -951,6 +954,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
   * `aggressive`: tries to maximize the parallelism, possibly at the cost of increased conflict rate.
   * `minimal`: only parallelizes the commit steps of transactions.
   * `none` disables parallel apply completely.
+* In MariaDB Enterprise Server 12.3, a replica that uses [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) must be set to `optimistic` or a more conservative value. Conflicts are not routed to a CDR trigger in `aggressive` mode.
 * Command line: None
 * Scope: Global
 * Dynamic: Yes
@@ -980,7 +984,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `slave_run_triggers_for_rbr`
 
-* Description: See [Running triggers on the replica for Row-based events](running-triggers-on-the-replica-for-row-based-events.md) for a description and use-case for this setting.
+* Description: See [Running triggers on the replica for Row-based events](running-triggers-on-the-replica-for-row-based-events.md) for a description and use-case for this setting. In MariaDB Enterprise Server 12.3, this variable also enables [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) on the replica.
 * Command line: `--slave-run-triggers-for-rbr=value`
 * Scope: Global
 * Dynamic: Yes
@@ -1095,12 +1099,17 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `sync_relay_log`
 
-* Description: The MariaDB server synchronizes its [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) to disk after the specified number of writes to the log. `1` is the safest, but slowest, choice, since the file is flushed after each write. If autocommit is enabled, there is one write per statement, otherwise there's one write per transaction. If the disk has cache backed by battery, synchronization is fast and a more conservative number can be chosen.
+* Description: The number of events after which the replica synchronizes its [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) to disk. `1` is the safest, but slowest, choice, since the relay log is synced after every event. `0` disables explicit synchronization and leaves the timing to the operating system.
+  * The replica's IO thread writes each event to the relay log file as soon as it receives it, but the file is only synced to disk every `sync_relay_log` events. Events that have been written but not yet synced can be lost if the replica's host or operating system crashes.
+  * This matters for [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), where the replica acknowledges a transaction to the primary as soon as the transaction's events have been written to the relay log. Unless the relay log has been synced, an acknowledged transaction can still be lost by the replica although the primary has already treated it as safely replicated. Set `sync_relay_log=1` on semisynchronous replicas so that every event is synced before it is acknowledged.
+  * A single transaction consists of several events, so `sync_relay_log=1` means several syncs per transaction. If the disk has a write cache backed by battery, synchronization is fast and a larger value can be chosen.
+  * See `Syncing the Relay Log to Disk` on the Relay Log page for more information.
 * Command line: `--sync-relay-log=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `10000`
+* Range: `0` to `4294967295`
 
 #### `sync_relay_log_info`
 

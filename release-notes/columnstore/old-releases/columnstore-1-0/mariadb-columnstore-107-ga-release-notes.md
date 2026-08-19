@@ -2,11 +2,11 @@
 
 **Release date:** 23rd January 2017
 
-[MariaDB ColumnStore 1.0.7](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md) is a GA release of MariaDB ColumnStore. This release of MariaDB ColumnStore provides improvements over the previous 1.0.6 GA release.
+[MariaDB ColumnStore 1.0.7](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is a GA release of MariaDB ColumnStore. This release of MariaDB ColumnStore provides improvements over the previous 1.0.6 GA release.
 
 MariaDB ColumnStore 1.0.7 is a [_**GA**_](../../../community-server/about/release-criteria.md) release.
 
-For an overview of [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
 For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) or subscribe to mariadb-columnstore@googlegroups.com
@@ -14,8 +14,8 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 ## Notable changes
 
 * [MCOL-506](https://jira.mariadb.org/browse/MCOL-506) - The MariaDB server version has been upgraded to version 10.1.21 including key security fixes. See the [Server Release Notes](../../../community-server/old-releases/10.1/10.1.21.md) for further details.
-* [MCOL-462](https://jira.mariadb.org/browse/MCOL-462) - The AMI Image now supports utilization of the IAM role to manage keys. Please see the [installing-and-configuring-a-columnstore-system-using-the-amazon-ami](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-0/broken-reference/README.md) article for more details.
-* [MCOL-481](https://jira.mariadb.org/browse/MCOL-481) - For a multi node install with mulitple UMs the installer now prompts you whether you want to install "MariaDB ColumnStore Schema Sync feature". If yes is answered then a default master / slave replication setup will be installed. Answer no if you prefer to perform your own setup or utilize another solution for this.
+* [MCOL-462](https://jira.mariadb.org/browse/MCOL-462) - The AMI Image now supports utilization of the IAM role to manage keys.
+* [MCOL-481](https://jira.mariadb.org/browse/MCOL-481) - For a multi node install with multiple UMs the installer now prompts you whether you want to install "MariaDB ColumnStore Schema Sync feature". If yes is answered then a default master / slave replication setup will be installed. Answer no if you prefer to perform your own setup or utilize another solution for this.
 
 ## Bugs and issues fixed
 
@@ -47,7 +47,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 Multi version upgrades are not supported, please upgrade versions prior to 1.0.6 before upgrading to 1.0.7:
 
-* [1.0.6 GA to 1.0.7 upgrade procedure](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-0/broken-reference/README.md)
+* 1.0.6 GA to 1.0.7 upgrade procedure
 
 ## Known issues and limitations
 
@@ -61,7 +61,7 @@ There are a number bugs and known limitations within this beta version of MariaD
 * [MCOL-364](https://jira.mariadb.org/browse/MCOL-364): In a multi UM configuration where the default storage engine has been set to columnstore replicated tables are not created as columnstore tables. Avoid overriding the default storage engine and specify engine=columnstore on all table DDL.
 * [MCOL-365](https://jira.mariadb.org/browse/MCOL-365): Log files created by load data infile remain in the bulk/data/log and /tmp directories. If storage is a concern these can safely be removed.
 * [MCOL-463](https://jira.mariadb.org/browse/MCOL-463) : gluster storage option in installer fails with an error. The installer option to install optimized for gluster storage will fail with an error. Manually set up gluster volumes can be used with the 'External' storage option.
-* The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](/broken/spaces/rBEU9juWLfTDcdwF3Q14/pages/dXPqB8aK1YApDlya8q3W).
+* The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-system-paths-and-logs).
 * While Millisecond and Microsecond storage is supported for datetime, time and timestamp columns, at this time the query results cannot return millisecond and microseconds.
 * UTF-8 Limitation
   * UTF-8 must be declared at the table level if the instance has been set up with a UTF-8 profile. Tables created with a non-matching character set will yield indeterminate results.
@@ -71,7 +71,7 @@ There are a number bugs and known limitations within this beta version of MariaD
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md)
+[MariaDB ColumnStore Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore)
 
 ## Packaging
 
@@ -79,7 +79,7 @@ RPM, Debian, and binary packages are provided for the Linux distributions suppor
 
 * The supported OS for the GA version are CentOS 6, CentOS 7, Debian 8.6, RedHat 6, RedHat 7, and Ubuntu 16.0.4.
 * Packages can be downloaded [here](https://mariadb.com/downloads/columnstore)
-* An Amazon AWS AMI Image is available for this release, please search for AMI name "MariaDB-ColumnStore-1.0.7". AMI specific installation instructions can be found [here](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-0/broken-reference/README.md).
+* An Amazon AWS AMI Image is available for this release, please search for AMI name "MariaDB-ColumnStore-1.0.7".
 * Instructions for setting up OS software repositories as the download mechanism will be published shortly.
 
 ## Source code
@@ -91,6 +91,6 @@ The source code is available at these locations
 * Storage Engine - [Source code for engine specific processes on UM and PM node](https://github.com/mariadb-corporation/mariadb-columnstore-engine)
 * MariaDB Server - [Source code based on MariaDB Server 10.1.21 modified to support the ColumnStore storage engine](https://github.com/mariadb-corporation/mariadb-columnstore-server)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

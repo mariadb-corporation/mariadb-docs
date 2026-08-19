@@ -107,3 +107,5 @@ Optimize MariaDB Server for high availability and performance. Learn about repli
 Access the comprehensive MariaDB Server reference. Find detailed documentation on SQL syntax, data types, functions, system variables, and other technical specifications.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -185,6 +185,6 @@ MariaDB Connector/C can be installed on Microsoft Windows via an MSI package:
 5. Click on the "Download" button to download the MSI package.
 6. When the MSI package finishes downloading, run it and follow the on-screen instructions.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

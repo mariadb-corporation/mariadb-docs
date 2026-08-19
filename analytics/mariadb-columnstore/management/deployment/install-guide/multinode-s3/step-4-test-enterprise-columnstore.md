@@ -172,6 +172,6 @@ This page was step 4 of 5.
 
 [Next: Step 5: Bulk Import of Data.](step-5-bulk-import-of-data.md)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

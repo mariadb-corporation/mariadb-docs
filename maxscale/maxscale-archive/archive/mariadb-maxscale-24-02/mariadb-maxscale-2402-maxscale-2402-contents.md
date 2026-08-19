@@ -3,7 +3,7 @@
 ### About MariaDB MaxScale
 
 * [About MariaDB MaxScale](maxscale-24-02about/mariadb-maxscale-2402-maxscale-2402-about-mariadb-maxscale.md)
-* [Changelog](broken-reference/)
+* [Changelog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/maxscale/24.02/24.02-changelog)
 * [Limitations](maxscale-24-02about/mariadb-maxscale-2402-maxscale-2402-limitations-and-known-issues-within-mariadb-maxscale.md)
 
 ### Getting Started
@@ -15,7 +15,7 @@
 
 ### Upgrading MariaDB MaxScale
 
-* [Upgrading MaxScale](broken-reference/)
+* [Upgrading MaxScale](maxscale-24-02upgrading/README.md)
 
 ### Reference
 
@@ -46,8 +46,8 @@ Here are tutorials on monitoring and managing MariaDB MaxScale in cluster enviro
 
 ### Routers
 
-The routing module is the core of a MariaDB MaxScale service. The router documentation\
-contains all module specific configuration options and detailed explanations\
+The routing module is the core of a MariaDB MaxScale service. The router documentation
+contains all module specific configuration options and detailed explanations
 of their use.
 
 * [Avrorouter](maxscale-24-02routers/mariadb-maxscale-2402-maxscale-2402-avrorouter.md)
@@ -63,7 +63,7 @@ of their use.
 
 The following routers are only available in MaxScale Enterprise.
 
-* [Diff](/broken/pages/bereh4MkASVoNSKMQwFa)
+* Diff
 
 ### Filters
 
@@ -89,7 +89,7 @@ Here are detailed documents about the filters MariaDB MaxScale offers. They cont
 
 The following filters are only available in MaxScale Enterprise.
 
-* [Wcar](broken-reference/)
+* Wcar
 
 ### Monitors
 
@@ -117,7 +117,7 @@ The MaxScale CDC Connector provides a C++ API for consuming data from a CDC syst
 
 ### Authenticators
 
-A short description of the authentication module type can be found in the [Authentication Modules](maxscale-24-02authenticators/mariadb-maxscale-2402-maxscale-2402-authentication-modules.md)\
+A short description of the authentication module type can be found in the [Authentication Modules](maxscale-24-02authenticators/mariadb-maxscale-2402-maxscale-2402-authentication-modules.md)
 document.
 
 * [MariaDB/MySQL Authenticator](maxscale-24-02authenticators/mariadb-maxscale-2402-maxscale-2402-mariadbmysql-authenticator.md)

@@ -146,7 +146,7 @@ Original writing -- Oct, 2012; Notes on INET6 functions -- May, 2015.
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [ipranges](https://mysql.rjweb.org/doc.php/ipranges)

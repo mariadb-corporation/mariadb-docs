@@ -108,7 +108,7 @@ UNINSTALL PLUGIN simple_password_check;
     ```sql
     SET foreign_key_checks = 0;
     ```
-* **Disable Binary Logging**: If binary logging is not required during the import process, and you are using a standalone instance, it can potentially be disabled to improve performance. SkyDBA Services can assist with this as part of a detailed migration plan.
+* **Disable Binary Logging**: If binary logging is not required during the import process, and you are using a standalone instance, it can potentially be disabled to improve performance. Cloud DBA Services can assist with this as part of a detailed migration plan.
 
 ### Data Integrity and Validation
 
@@ -137,7 +137,7 @@ UNINSTALL PLUGIN simple_password_check;
     mysqldump -u [username] -p --default-parallelism=4 --add-drop-database \
         --databases [database_name] > dump.sql
     ```
-* **Incremental Backups**: For large datasets, incremental backups can be used to minimize the amount of data to be transferred. SkyDBA Services can assist you with setting these up as part of a custom migration plan.
+* **Incremental Backups**: For large datasets, incremental backups can be used to minimize the amount of data to be transferred. Cloud DBA Services can assist you with setting these up as part of a custom migration plan.
 
 ### Monitoring and Logging
 
@@ -149,3 +149,5 @@ UNINSTALL PLUGIN simple_password_check;
 * [Backup with mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump)
 * [MariaDB Backup Documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore)
 * [Advanced Backup Techniques](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/backup-optimization)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

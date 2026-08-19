@@ -170,7 +170,7 @@ This list includes all features since the previous long-term release, [MariaDB 1
 ### Variables
 
 * Deprecate and ignore the [alter\_algorithm](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#alter_algorithm) system variable ([MDEV-33655](https://jira.mariadb.org/browse/MDEV-33655), [MariaDB 11.5](../old-releases/11.5/what-is-mariadb-115.md))
-* For a list of all new variables, see [System Variables Added in MariaDB 11.8](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-mariadb-11-8)
+* For a list of all new variables, see [System Variables Added in MariaDB 11.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-11-8)
 
 ## Removed Features
 
@@ -217,6 +217,6 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 | 13 Feb 2024 | MariaDB 11.8.1 | RC          | [Release Notes](11.8.1.md) | [Changelog](../changelogs/11.8/11.8.1.md) |
 | 18 Dec 2024 | MariaDB 11.8.0 | Alpha       | [Release Notes](11.8.0.md) |                                           |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

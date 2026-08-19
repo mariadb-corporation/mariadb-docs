@@ -84,7 +84,7 @@ This is sent by the replica server after the `XID_EVENT` receiving.
 We see:
 
 * The semi sync indicator \[1] = 0xef, sent before anything else.
-* The Next Event position \[8] = 4a 05 00 00 00 00 00 00 => 1354\
+* The Next Event position \[8] = 4a 05 00 00 00 00 00 00 => 1354
   which is the next position of the XID\_EVENT above.
 * The binlog filename = mysql-bin.000034.
 

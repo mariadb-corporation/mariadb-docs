@@ -189,3 +189,5 @@ You can also use built-in presets through `RERANKING_PRESET`.
 * For custom workflows, use `POST /rerank`.
 * For higher accuracy on strong hardware, use `RERANKING_PRESET=quality`.
 * For fully managed cloud reranking, use `RERANKING_MODEL_TYPE=cohere` and provide `RERANKING_API_KEY`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

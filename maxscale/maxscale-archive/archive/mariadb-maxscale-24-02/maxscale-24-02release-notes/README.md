@@ -10,3 +10,5 @@ description: >-
 {% hint style="info" %}
 The MaxScale 24.02 release notes have moved [here](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/maxscale/24.02).
 {% endhint %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

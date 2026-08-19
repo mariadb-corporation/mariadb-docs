@@ -61,3 +61,5 @@
 - [Error 3058: Deadlock found when trying to get user-level lock](e3058.md)
 - [Error 3059: REPLACE cannot be executed as it requires deleting rows that are not in the view](e3059.md)
 - [Error 3060: Do not support online operation on table with GIS index](e3060.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

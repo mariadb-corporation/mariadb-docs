@@ -15,7 +15,9 @@ The `wsrep_provider_options` system variable applies to MariaDB Enterprise Clust
 
 ## Details
 
-The node uses the certificate as a self-signed public key in encrypting replication traffic over SSL. You can use either an absolute path or one relative to the working directory. The file must use PEM format.
+The node presents this certificate to its peers when encrypting replication traffic over TLS. You can use either an absolute path or one relative to the working directory. The file must use PEM format.
+
+Starting with Galera wsrep provider 26.4.8, the file can contain a complete certificate chain: the node's own (leaf) certificate first, followed by any intermediate CA certificates. Earlier provider versions load only the first certificate in the file, so with older providers any intermediate CA certificates must instead be included in each peer's [socket.ssl\_ca](socket.ssl_ca.md) file.
 
 | Option Name   | socket.ssl\_cert       |
 | ------------- | ---------------------- |
@@ -62,3 +64,5 @@ Trying to change a non-dynamic option with `SET` results in an error:
 ```sql
 ERROR 1210 (HY000): Incorrect arguments to SET
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -38,8 +38,8 @@ This test was performed with the following parameters:
 
 Follow the instructions in [DBT3 automation scripts](dbt3-automation-scripts.md) to prepare the environment for the test.
 
-Before you run the test, ensure that the settings in the test configuration\
-files match your prepared environment. For more details on the test\
+Before you run the test, ensure that the settings in the test configuration
+files match your prepared environment. For more details on the test
 configuration, please, refer to the [Test configuration parameters](dbt3-automation-scripts.md#test-configuration).
 
 After the environment is prepared, the following command should be executed in the shell:
@@ -182,7 +182,7 @@ max_heap_table_size = 96M
 read_rnd_buffer_size = 96M
 ```
 
-The server has been restarted between each query run and the caches have been\
+The server has been restarted between each query run and the caches have been
 cleared between each query run.
 
 ### Results (without q20)
@@ -229,14 +229,14 @@ Here are the actual results in seconds (smaller is better):
 | Version                   | 5.3.2-MariaDB-beta                                                                                               |       | 5.5.18-MariaDB                                                                                                                     |       | 5.5.19                                                                                             |       | 5.6.4-m7                                                                                      |       |       |       |        |        |        |        |        |        |        |        |             |             |        |            |        |             |             |        |        |        |         |                           |
 | Query and explain details | [Explain details](https://askmonty.org/w/images/5/56/DBT3_MyISAM_HDD_s30_mariadb_5_3_2.txt)                      |       | [Explain details](https://askmonty.org/w/images/9/9e/DBT3_MyISAM_HDD_s30_mariadb_5_5_18.txt)                                       |       | [Explain details](https://askmonty.org/w/images/c/cc/Explain_DBT3_MyISAM_HDD_s30_mysql_5_5_19.txt) |       | [Explain details](https://askmonty.org/w/images/d/d1/Explain_MyISAM_HDD_s30_mysql_5_6_4_.txt) |       |       |       |        |        |        |        |        |        |        |        |             |             |        |            |        |             |             |        |        |        |         |                           |
 
-**NOTE:** The columns named "_Ratio_" are calculated values of the ratio between the\
-current value compared to the value in the first test configuration. The\
+**NOTE:** The columns named "_Ratio_" are calculated values of the ratio between the
+current value compared to the value in the first test configuration. The
 formula for it is `(current_value/value_in_first_row)`. For example if [MariaDB\
-5.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/5.3.2) (the first column) handles a query for 100 seconds and MySQL 5.6.4 (the last\
-configuration) handles the same query for 120 seconds, the ratio will be`120/100 = 1.20`. This means that it takes MySQL 5.6.4 20% more time to handle\
+5.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/5.3.2) (the first column) handles a query for 100 seconds and MySQL 5.6.4 (the last
+configuration) handles the same query for 120 seconds, the ratio will be`120/100 = 1.20`. This means that it takes MySQL 5.6.4 20% more time to handle
 the same query.
 
-The archived folder with all the results and details for that benchmark can be\
+The archived folder with all the results and details for that benchmark can be
 downloaded from here:[MyISAM s30 on facebook-maria1](https://askmonty.org/w/images/e/e1/Myisam_test_2011-12-01_203150.tar.bz2)
 
 ### Notes
@@ -308,7 +308,7 @@ WHERE
 
 ### Benchmark for q20
 
-This benchmarked only q20 with the same settings as described above for the\
+This benchmarked only q20 with the same settings as described above for the
 other queries. The only difference is the timeout that was used: 30000 seconds\
 (8 hours and 20 min).
 
@@ -323,7 +323,7 @@ The benchmark for q20 compares the following cases:
 --optimizer_switch='in_to_exists=on,materialization=off,semijoin=off';
 ```
 
-* q20-opt0.sql - the original query is changed so that the same join order is chosen as\
+* q20-opt0.sql - the original query is changed so that the same join order is chosen as
   for the two subsequent variants that test materialization where this order is optimal.\
   The join order is:
 
@@ -335,7 +335,7 @@ SELECT s_name, s_address
  WHERE ps_partkey = p_partkey ...
 ```
 
-* Since the IN-TO-EXISTS strategy is essentially the same for both MariaDB\
+* Since the IN-TO-EXISTS strategy is essentially the same for both MariaDB
   and MySQL, this query was tested for MySQL only.
 * q20-opt1.sql - modifies the original query in two ways:
   * enforces the MATERIALIZATION strategy, and
@@ -356,7 +356,7 @@ MariaDB:
 --optimizer_switch='in_to_exists=off,materialization=on,semijoin=off';
 ```
 
-* q20-opt2.sql - the same as q20-opt1.sql but allows the optimizer to choose\
+* q20-opt2.sql - the same as q20-opt1.sql but allows the optimizer to choose
   the subquery strategy via the following switch:
 
 ```
@@ -365,8 +365,8 @@ MariaDB:
 
 * This switch results in the choice of SJ-MATERIALIZATION.
 
-**NOTE:** For MySQL there are no such _optimizer-switch_ parameters, and\
-the tests were started without any additional startup parameters. The default\
+**NOTE:** For MySQL there are no such _optimizer-switch_ parameters, and
+the tests were started without any additional startup parameters. The default
 algorithm in MySQL is _in\_to\_exists_.
 
 #### Results for q20

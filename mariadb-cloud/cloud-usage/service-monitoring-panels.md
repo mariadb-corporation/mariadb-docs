@@ -73,7 +73,7 @@ This panel shows the top 30 statement types that were most frequently executed b
 
 ## Top Command Counters Hourly (service)
 
-This panel shows the top 30 statement types that were most frequently executed by all ES and Xpand nodes in 1-hour intervals over the past 24 hours.
+This panel shows the top 30 statement types that were most frequently executed by all ES nodes in 1-hour intervals over the past 24 hours.
 
 ## Top Command Counters Hourly (server)
 
@@ -221,15 +221,15 @@ This panel shows the number of network packets dropped by the ES node during the
 
 ## CPU (server, status, gauge)
 
-This panel shows the current CPU usage for the ES or Xpand node.
+This panel shows the current CPU usage for the ES node.
 
 ## RAM (server, status)
 
-This panel shows the current memory usage details for the ES or Xpand node.
+This panel shows the current memory usage details for the ES node.
 
 ## RAM (server, status, graph)
 
-This panel shows memory usage details for the ES or Xpand node during the selected time interval.
+This panel shows memory usage details for the ES node during the selected time interval.
 
 ## Buffer Pool Size of Total RAM
 
@@ -329,7 +329,7 @@ This panel shows the number of clients connected to the MaxScale node during the
 
 ## Database Server Connections
 
-This panel shows the number of database server connections open between the MaxScale node and each ES or Xpand node during the selected time interval.
+This panel shows the number of database server connections open between the MaxScale node and each ES node during the selected time interval.
 
 ## Resident (server, cluster)
 
@@ -372,3 +372,5 @@ This panel shows the number of cache entries evicted per second.
 ## Eviction Rate
 
 This panel shows the number of cache entries evicted per second during the selected time interval.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

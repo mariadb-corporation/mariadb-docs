@@ -33,4 +33,6 @@ Client error messages are listed in `errmsg.h` header file, server error message
 * [mysql\_stmt\_error()](mysql_stmt_error.md),
 * [mysql\_stmt\_sqlstate()](mysql_stmt_sqlstate.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

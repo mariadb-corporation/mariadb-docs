@@ -626,3 +626,5 @@ With **macOS**, manually install the provider on the target system by performing
 
 * [Terraform Registry](https://registry.terraform.io/namespaces/skysqlinc)
 * [API Documentation](../reference/mariadb-cloud-api-reference-guide/)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

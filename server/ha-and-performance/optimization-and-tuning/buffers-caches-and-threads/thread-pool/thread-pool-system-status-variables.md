@@ -54,7 +54,7 @@ This article describes the system and status variables used by the MariaDB threa
 
 #### `thread_pool_exact_stats`
 
-* Description: If set to 1, provides better queueing time statistics by using a high precision timestamp, at a small performance cost, for the time when the connection was added to the queue. This timestamp helps\
+* Description: If set to 1, provides better queueing time statistics by using a high precision timestamp, at a small performance cost, for the time when the connection was added to the queue. This timestamp helps
   calculate the queuing time shown in the [Information Schema Threadpool\_Queues](../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-thread_pool_queues-table.md) table.
   * This system variable is only meaningful on Unix.
 * Command line: `thread-pool-exact-stats={0|1}`

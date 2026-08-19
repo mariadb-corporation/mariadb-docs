@@ -55,9 +55,9 @@ MariaDB Enterprise Clusters are currently [available as a _Tech Preview_](../qui
 * **Predictive Scaling:** Anticipates and adjusts storage needs based on usage patterns.
 * **Cost-Efficient Scaling:** Proactively scales resources up and down to match demand and optimize costs.
 
-### Fractional DBA Service
+### Cloud DBA Service
 
-* **CloudDBA Service:** Provides access to skilled DBAs for proactive database optimization.
+* **Cloud DBA Service:** Provides access to skilled DBAs for proactive database optimization.
 * **Continuous Performance Monitoring:** Ensures peak efficiency through ongoing monitoring and rapid issue resolution.
 
 ### Versatile Interoperability
@@ -66,3 +66,5 @@ MariaDB Enterprise Clusters are currently [available as a _Tech Preview_](../qui
 * **Native MongoDB/MariaDB/MySQL Support:** Seamlessly integrates with existing applications via native MongoDB and MariaDB/MySQL protocol support.
 
 For more detailed information, you can refer to this [blog post](https://skysql.com/2024/03/12/optimizing-database-resilience-and-cost-a-deep-dive-into-skysqls-unique-features/).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

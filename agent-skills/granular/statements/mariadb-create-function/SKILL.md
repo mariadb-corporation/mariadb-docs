@@ -90,3 +90,5 @@ This is **not** a stored function — no body, no `BEGIN...END`, no `RETURN`. It
   - <https://mariadb.com/docs/server/reference/sql-statements/data-definition/create/create-function>
   - <https://mariadb.com/docs/server/server-usage/stored-routines/stored-functions/stored-aggregate-functions>
   - <https://mariadb.com/docs/server/server-usage/user-defined-functions/create-function-udf>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

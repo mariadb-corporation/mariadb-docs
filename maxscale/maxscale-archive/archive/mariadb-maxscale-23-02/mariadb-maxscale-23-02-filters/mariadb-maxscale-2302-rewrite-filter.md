@@ -3,8 +3,8 @@
 ### Overview
 
 The rewrite filter allows modification of sql queries on the fly.\
-Reasons for modifying queries can be to rewrite a query for performance,\
-or to change a specific query when the client query is incorrect and\
+Reasons for modifying queries can be to rewrite a query for performance,
+or to change a specific query when the client query is incorrect and
 cannot be changed in a timely manner.
 
 The examples will use Rewrite Filter file format. See below.
@@ -19,7 +19,7 @@ Rewriter native syntax uses placeholders to grab and replace parts of text.
 
 The syntax for a plain placeholder is `@{N}` where N is a positive integer.
 
-The syntax for a placeholder regex is `@{N:regex}`. It allows more control\
+The syntax for a placeholder regex is `@{N:regex}`. It allows more control
 when needed.
 
 The below is a valid entry in rf format. For demonstration, all options are set.\
@@ -53,23 +53,23 @@ For a match, the two `@{2}` text grabs must be equal.
 
 The match template is used to match against the sql to be rewritten.
 
-The match template can be partial `from mytable`. But the actual underlying\
-regex match is always for the whole sql. If the match template does not\
-start or end with a placeholder, placeholders are automatically added so\
-that the above becomes `@{1}from mytable@{2}`. The automatically added\
+The match template can be partial `from mytable`. But the actual underlying
+regex match is always for the whole sql. If the match template does not
+start or end with a placeholder, placeholders are automatically added so
+that the above becomes `@{1}from mytable@{2}`. The automatically added
 placeholders cannot be used in the replace template.
 
-Matching the whole input also means that Native syntax does not support\
-(and is not intended to support) scan and replace. Only the first occurrence\
+Matching the whole input also means that Native syntax does not support
+(and is not intended to support) scan and replace. Only the first occurrence
 of the above `from mytable` can be modified in the replace template.\
-However, one can selectively choose to modify e.g. the first through\
+However, one can selectively choose to modify e.g. the first through
 third occurrence of `from mytable` by writing`from mytable @{1} from mytable @{2} from mytable @{3}`.
 
 For scan and replace use a different regex\_grammar (see below).
 
 **Replace template**
 
-The replace template uses the placeholders from the match template to\
+The replace template uses the placeholders from the match template to
 rewrite sql.
 
 ```
@@ -85,11 +85,11 @@ Input: select count(distinct author) from books where entity != "AI"
 Rewritten: select count(*) from (select distinct author from books where entity != "AI") as t123
 ```
 
-An important option for smooth matching is `ignore_whitespace`, which\
-is on (true) by default. It creates the match regex in such a way that\
-the amount and kind of whitespace does not affect matching. However,\
-to make `ignore_whitespace` always work, it is important to add\
-whitespace where allowed. If "id=42" is in the match template then\
+An important option for smooth matching is `ignore_whitespace`, which
+is on (true) by default. It creates the match regex in such a way that
+the amount and kind of whitespace does not affect matching. However,
+to make `ignore_whitespace` always work, it is important to add
+whitespace where allowed. If "id=42" is in the match template then
 only the exact "id=42" can match. But if "id = 42" is used, and`ignore_whitespace` is on, both "id=42" and "id = 42" will match.
 
 Another example, and what not to do:
@@ -106,7 +106,7 @@ Input: select name from mytable where id=42
 Rewritten: select name from mytable force index (myindex) where id=42
 ```
 
-That works, but because the match lacks specific detail about the\
+That works, but because the match lacks specific detail about the
 expected sql, things are likely to break. In this case`show indexes from my_table` would no longer work.
 
 The minimum detail in this case could be:
@@ -119,22 +119,22 @@ The minimum detail in this case could be:
 select @{2} from mytable force index (myindex)
 ```
 
-but if more detail is known, like something specific in the where clause,\
+but if more detail is known, like something specific in the where clause,
 that too should be added.
 
 **Placeholder Regex**
 
 Syntax: @{N:regex}
 
-In a placeholder regex the character `}` must be escaped to `\}`\
-(for literal matching). Plain parenthesis "()" indicate capturing\
+In a placeholder regex the character `}` must be escaped to `\}`
+(for literal matching). Plain parenthesis "()" indicate capturing
 groups, which are internally used by the Native grammar.\
 Thus plain parentheses in a placeholder regex will break matching.\
 However, non-capturing groups can be used: e.g. `@{1:(:?Jane|Joe)}`.\
 To match a literal parenthesis use an escape, e.g. `\(`.
 
 Suppose an application is misbehaving after an upgrade and a quick fix is needed.\
-This query `select zip from address_book where str_id = "AZ-124"` is correct,\
+This query `select zip from address_book where str_id = "AZ-124"` is correct,
 but if the id is an integer the where clause should be `id = 1234`.
 
 ```
@@ -155,7 +155,7 @@ For scan and replace the regex\_grammar must be set to something else than\
 Native. An example will illustrate the usage.
 
 Replace all occurrences of "wrong\_table\_name" with "correct\_table\_name".\
-Further, if the replacement was made then replace all occurrences\
+Further, if the replacement was made then replace all occurrences
 of wrong\_column\_name with correct\_column\_name.
 
 ```
@@ -260,7 +260,7 @@ Ignore whitespace differences in the match template and input sql.
 * Type: boolean
 * Default: false
 
-If a template matches and the replacement is done, continue to the\
+If a template matches and the replacement is done, continue to the
 next template and apply it to the result of the previous rewrite.
 
 **`what_if`**
@@ -268,7 +268,7 @@ next template and apply it to the result of the previous rewrite.
 * Type: boolean
 * Default: false
 
-Do not make the replacement, only log what would have\
+Do not make the replacement, only log what would have
 been replaced (NOTICE level).
 
 ### Rewrite file format
@@ -284,12 +284,12 @@ match template
 replace template
 ```
 
-The character `#` starts a single line comment when it is the\
+The character `#` starts a single line comment when it is the
 first character on a line.
 
 Empty lines are ignored.
 
-The rf format does not need any additional escaping to what the basic\
+The rf format does not need any additional escaping to what the basic
 format requires (see Placeholder Regex).
 
 Options are specified as follows:
@@ -300,11 +300,11 @@ case_sensitive: true
 
 The colon must stick to the option name.
 
-The separators `%` and `%%` must be the exact content of\
+The separators `%` and `%%` must be the exact content of
 their respective separator lines.
 
-The templates can span multiple lines. Whitespace does not\
-matter as long as `ignore_whitespace = true`. Always use space\
+The templates can span multiple lines. Whitespace does not
+matter as long as `ignore_whitespace = true`. Always use space
 where space is allowed to maximize the utility of`ignore_whitespace`.
 
 Example
@@ -324,10 +324,10 @@ and @{3} in (select user from approved_users)
 ### Json file format
 
 The json file format is harder to read and edit manually.\
-It will be needed if support for editing of rewrite templates\
+It will be needed if support for editing of rewrite templates
 is added to the GUI.
 
-All double quotes and escape characters have to be escaped in json,\
+All double quotes and escape characters have to be escaped in json,
 i.e '"' and '\\'.
 
 The same example as above is:
@@ -347,7 +347,7 @@ and @{3} in (select user from approved_users)"
 
 ### Reload template file
 
-The configuration is re-read if any dynamic value is updated\
+The configuration is re-read if any dynamic value is updated
 even if the value does not change.
 
 ```

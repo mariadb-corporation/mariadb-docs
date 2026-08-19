@@ -113,6 +113,6 @@ Once your design is complete, you can export it for documentation or deployment.
 
 Click the **"Apply Script"** button (▶) in the toolbar to execute the generated SQL against your connected database. This allows you to deploy your new or modified schema directly from the designer.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -42,3 +42,5 @@ Learn how to modify the characteristics of an existing event, such as its schedu
 A list of restrictions associated with the Event Scheduler, including the inability to return result sets and specific date range limitations.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -102,3 +102,5 @@ Discover these variants that allow partitioning based on multiple columns and no
 The RANGE partitioning type assigns rows to partitions based on whether column values fall within contiguous, non-overlapping ranges.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

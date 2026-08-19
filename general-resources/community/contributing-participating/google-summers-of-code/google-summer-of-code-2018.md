@@ -1,12 +1,10 @@
 # Google Summer of Code 2018
 
-We participated in the [Google Summer of Code](https://summerofcode.withgoogle.com/) 2018. The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently C, ODBC, Java) and on [MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera/README.md), which allows you to scale your reads & writes. And we have [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb-columnstore/README.md), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
+We participated in the [Google Summer of Code](https://summerofcode.withgoogle.com/) 2018. The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently C, ODBC, Java) and on [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7), which allows you to scale your reads & writes. And we have [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
 
 ## Where to start
 
 Please join us at `irc.freenode.net` at #maria to mingle with the community. Don't forget to subscribe to [maria-developers@lists.launchpad.net](https://launchpad.net/~maria-developers) (this is the main list where we discuss development).
-
-A few handy tips for any interested students who are unsure which projects to choose:[Blog post from former GSoC student & mentor](https://vicentiu.ciorbaru.io/mariadb-participates-in-gsoc-2017/)
 
 To improve your chances of being accepted, it is a good idea to submit a pull request with a bug fix to the server.
 
@@ -63,12 +61,12 @@ The mysqlbinlog client program needs to be updated to support GTID.
 Here is a suggested list of things to be done:
 
 * The `--start-position` and `--stop-position` options should be able to take\
-  GTID positions; or maybe there should be new `--start-gtid` and `--stop-gtid`\
+  GTID positions; or maybe there should be new `--start-gtid` and `--stop-gtid`
   options. Like `--start-gtid=0-1-100,1-2-200,2-1-1000`.
 * A GTID position means the point just after that GTID. So starting from\
-  GTID 0-1-100 and stopping at GTID 0-1-200, the first GTID output will\
-  probably be 0-1-101 and the last one 0-1-200. Note that if some domain is\
-  not specified in the position, it means to start from the beginning,\
+  GTID 0-1-100 and stopping at GTID 0-1-200, the first GTID output will
+  probably be 0-1-101 and the last one 0-1-200. Note that if some domain is
+  not specified in the position, it means to start from the beginning,
   respectively stop immediately in that domain.
 * Starting and stopping GTID should work both with local files, and with
   1. \--read-from-remote-server`. For the latter, there are a couple of extra things that need doing in the master-slave protocol, see`
@@ -80,7 +78,7 @@ SET session.server_id = @@global.server_id,
       session.gtid_domain_id=@@global.gtid_domain_id;
 ```
 
-Probably some more things will come up during the work, but this looks like a\
+Probably some more things will come up during the work, but this looks like a
 reasonable start.
 
 | Details: | Mentor:                                                |
@@ -123,7 +121,7 @@ Users were asking for MariaDB to have a similar feature.
 
 #### Idea
 
-The purpose of this task is to create an easy-to-use facility for setting up a\
+The purpose of this task is to create an easy-to-use facility for setting up a
 new MariaDB replication slave.
 
 Setting up a new slave currently involves: 1) installing MariaDB with initial\
@@ -136,59 +134,59 @@ The syntax could be something as simple as
 
 LOAD DATA FROM MASTER
 
-This would then connect to the master that is currently configured. It will\
-load a snapshot of all the data on the master, and leave the slave position at\
-the point of the snapshot, ready for START SLAVE to continue replication from\
+This would then connect to the master that is currently configured. It will
+load a snapshot of all the data on the master, and leave the slave position at
+the point of the snapshot, ready for START SLAVE to continue replication from
 that point.
 
 #### Implementation:
 
-The idea is to do this non-blocking on the master, in a way that works for any\
-storage engine. It will rely on row-based replication to be used between the\
+The idea is to do this non-blocking on the master, in a way that works for any
+storage engine. It will rely on row-based replication to be used between the
 master and the slave.
 
-At the start of LOAD DATA FROM MASTER, the slave will enter a special\
-provisioning mode. It will start replicating events from the master at the\
+At the start of LOAD DATA FROM MASTER, the slave will enter a special
+provisioning mode. It will start replicating events from the master at the
 master's current position.
 
-The master dump thread will send binlog events to the slave as normal. But in\
-addition, it will interleave a dump of all the data on the master contained in\
-tables, views, or stored functions. Whenever the dump thread would normally go\
-to sleep waiting for more data to arrive in the binlog, the dump thread will\
+The master dump thread will send binlog events to the slave as normal. But in
+addition, it will interleave a dump of all the data on the master contained in
+tables, views, or stored functions. Whenever the dump thread would normally go
+to sleep waiting for more data to arrive in the binlog, the dump thread will
 instead send another chunk of data in the binlog stream for the slave to apply.
 
 A "chunk of data" can be:
 
 * A CREATE OR REPLACE TABLE / VIEW / PROCEDURE / FUNCTION
-* A range of N rows (N=100, for example). Each successive chunk will do a\
+* A range of N rows (N=100, for example). Each successive chunk will do a
   range scan on the primary key from the end position of the last chunk.
 
-Sending data in small chunks avoids the need for long-lived table locks or\
+Sending data in small chunks avoids the need for long-lived table locks or
 transactions that could adversely affect master performance.
 
-The slave will connect in GTID mode. The master will send dumped chunks in a\
-separate domain id, allowing the slave to process chunks in parallel with\
+The slave will connect in GTID mode. The master will send dumped chunks in a
+separate domain id, allowing the slave to process chunks in parallel with
 normal data.
 
-During the provisioning, all normal replication events from the master will\
-arrive on the slave, and the slave will attempt to apply them locally. Some of\
-these events will fail to apply, since the affected table or row may not yet\
-have been loaded. In the provisioning mode, all such errors will be silently\
-ignored. Proper locking (isolation mode, eg.) must be used on the master when\
-fetching chunks, to ensure that updates for any row will always be applied\
+During the provisioning, all normal replication events from the master will
+arrive on the slave, and the slave will attempt to apply them locally. Some of
+these events will fail to apply, since the affected table or row may not yet
+have been loaded. In the provisioning mode, all such errors will be silently
+ignored. Proper locking (isolation mode, eg.) must be used on the master when
+fetching chunks, to ensure that updates for any row will always be applied
 correctly on the slave, either in a chunk, or in a later row event.
 
-In order to make the first version of this feature feasible to implement in a\
-reasonable amount of time, it should set a number of reasonable restrictions\
+In order to make the first version of this feature feasible to implement in a
+reasonable amount of time, it should set a number of reasonable restrictions
 (which could be relaxed in a later version of the feature):
 
 * Give up with an error if the slave is not configured for GTID mode\
   (MASTER\_USE\_GTID != NO).
-* Give up with error if the slave receives any event in statement-based\
-  binlogging (so the master must be running in row-based replication mode,\
+* Give up with error if the slave receives any event in statement-based
+  binlogging (so the master must be running in row-based replication mode,
   and no DDL must be done while the provisioning is running).
 * Give up with an error if the master has a table without primary key.
-* Secondary indexes will be enabled during the provisioning; this means that\
+* Secondary indexes will be enabled during the provisioning; this means that
   tables with large secondary indexes could be expensive to provision.
 
 | Details: | Mentor:                                                |
@@ -219,7 +217,7 @@ It's unfortunately been a little while since I wrote that code, but I think thos
 
 ### Aggregate Window Functions/
 
-Currently only a few aggregate function are supported as window functions, [the list can be found here](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/T8uOYfwo7PbEMtMvwoDd).
+Currently only a few aggregate function are supported as window functions, [the list can be found here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/window-functions/window-functions-overview#aggregate-functions-as-window-functions).
 
 So in MDEV-7773, support for creating of custom aggregate functions was added.\
 Now this task would deal with extending that feature and make custom aggregate functions behave as window functions
@@ -255,14 +253,14 @@ Master will write BEGIN\_DDL\_EVENT in binlog after it hits ha\_prepare\_inplace
 Then master will write QUERY\_EVENT on binlog with actual alter query .\
 On commit/rollback master will write COMMIT\_DDL\_EVENT/ROLLBACK\_DDL\_EVENT.
 
-On slave there will be pool of threads(configurable global variable), which\
+On slave there will be pool of threads(configurable global variable), which
 will apply these DDLs. On receiving BEGIN\_DDL\_EVENT slave thread will pass the\
-QUERY\_EVENT to one of the worker thread. Worker thread will execute until\
+QUERY\_EVENT to one of the worker thread. Worker thread will execute until
 ha\_inplace\_alter\_table. Actual commit\_inplace\_alter will be called by sql thread.\
-If sql thread receive some kind of rollback event, then it will somehow signal\
-worker thread to stop executing alter. If none of the worker threads are available\
-then event will be enqueued, then If we received rollback event the we will simply\
-discard event from queue, If we received commit event then SQL thread will syncrolysly\
+If sql thread receive some kind of rollback event, then it will somehow signal
+worker thread to stop executing alter. If none of the worker threads are available
+then event will be enqueued, then If we received rollback event the we will simply
+discard event from queue, If we received commit event then SQL thread will syncrolysly
 process DDL event.
 
 | Details: | Mentor:                                                  |
@@ -276,7 +274,7 @@ mysqltest has a lot of historical problems:
 
 * ad hoc parser, weird limitations
 * commands added as needed with no view over the total language structure
-* historical code issues (e.g. casts that become unnecessary 10 years ago)\
+* historical code issues (e.g. casts that become unnecessary 10 years ago)
   etc
 
 A lot can be done to improve it.
@@ -315,10 +313,10 @@ See also: MDEV-8947 was a previous attempt to implement this engine. Unfortunate
 
 ### Histograms with equal-width bins in MariaDB/
 
-Histograms with equal-width bins are easy to construct using samples. For this it's enough\
+Histograms with equal-width bins are easy to construct using samples. For this it's enough
 to look through the given sample set and for each value from it to figure out what bin this value can be placed in. Each bin requires only one counter.\
-Let f be a column of a table with N rows and n be the number of samples by which the equal-width histogram of k bins for this column is constructed. Let after looking through all sample\
-rows the counters created for the histogram bins contain numbers c\[1],..,c\[k]. Then\
+Let f be a column of a table with N rows and n be the number of samples by which the equal-width histogram of k bins for this column is constructed. Let after looking through all sample
+rows the counters created for the histogram bins contain numbers c\[1],..,c\[k]. Then
 m\[i]= c\[i]/n \* 100 is the percentage of the rows whose values of f are expected to be in the interval
 
 ```
@@ -339,7 +337,7 @@ Here:
 * 'WITH n ROWS' provides an estimate for the number of rows in the table in the case when this estimate cannot be obtained from statistical data.
 * 'SAMPLING p PERCENTS' provides the percentage of sample rows to collect statistics.\
   If this is omitted the number is taken from the system variable samples\_ratio.
-* 'IN RANGE r' sets the range of equal-width bins of the histogram built for the column col1. If this is omitted then and min and max values for the column can be read from statistical data\
+* 'IN RANGE r' sets the range of equal-width bins of the histogram built for the column col1. If this is omitted then and min and max values for the column can be read from statistical data
   then the histogram is built for the range \[min(col1), max(col1)]. Otherwise the range \[MIN\_type(col1), MAX\_type(col1) is considered]. The values beyond the given range, if any, are also is taken into account in two additional bins.
 * WITH k INTERVALS says how many bins are included in the histogram. If it is omitted this value is taken from the system variable histogram\_size.
 

@@ -108,3 +108,5 @@ Stopping, starting, and deleting a service are examples of Self-Service Operatio
 [Launch DB using the Terraform Provider](launch-db-using-the-terraform-provider.md)
 
 [Launch DB using Python](launch-db-using-python.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

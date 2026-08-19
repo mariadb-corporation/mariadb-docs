@@ -32,7 +32,6 @@ Many of the general system variables are described on this page, but others are 
 * [SQL\_ERROR\_LOG Plugin System Variables](sql-error-log-system-variables-and-options.md)
 * [SSL System Variables](../../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
 * [Threadpool System Variables](../buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
-* [TokuDB System Variables](../../../server-usage/storage-engines/legacy-storage-engines/tokudb/tokudb-system-variables.md)
 * [Vector System Variables](../../../reference/sql-structure/vectors/vector-system-variables.md)
 
 See also the [Full list of MariaDB options, system and status variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
@@ -232,7 +231,7 @@ The suffix can be upper or lower-case.
 
 #### `character_set_client`
 
-* Description: Determines the [character set](../../../reference/data-types/string-data-types/character-sets/) for queries arriving from the client. It can be set per session by the client, although the server can be configured to ignore client requests with the `--skip-character-set-client-handshake` option. If the client does not request a character set or requests a character set that the server does not support, the global value will be used. utf16, utf16le, utf32 and ucs2 cannot be used as client character sets. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) is by default an alias for `utf8mb3` rather than the other way around. It can be set to imply `utf8mb4` by changing the value of the [old\_mode](server-system-variables.md#old_mode) system variable.
+* Description: Determines the [character set](../../../reference/data-types/string-data-types/character-sets/) for queries arriving from the client. It can be set per session by the client, although the server can be configured to ignore client requests with the `--skip-character-set-client-handshake` option. If the client does not request a character set or requests a character set that the server does not support, the global value will be used. utf16, utf16le, utf32 and ucs2 cannot be used as client character sets. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) was by default an alias for `utf8mb3` rather than the other way around. From MariaDB 13.1, `utf8` is by default an alias for `utf8mb4`; the previous `utf8mb3` default can be restored with the deprecated `UTF8_IS_UTF8MB3` flag of the [old\_mode](server-system-variables.md#old_mode) system variable.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
@@ -264,7 +263,7 @@ The suffix can be upper or lower-case.
 
 #### `character_set_connection`
 
-* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used for number to string conversion, as well as for literals that don't have a character set introducer. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) is by default an alias for `utf8mb3` rather than the other way around. It can be set to imply `utf8mb4` by changing the value of the [old\_mode](server-system-variables.md#old_mode) system variable.
+* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used for number to string conversion, as well as for literals that don't have a character set introducer. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) was by default an alias for `utf8mb3` rather than the other way around. From MariaDB 13.1, `utf8` is by default an alias for `utf8mb4`; the previous `utf8mb3` default can be restored with the deprecated `UTF8_IS_UTF8MB3` flag of the [old\_mode](server-system-variables.md#old_mode) system variable.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
@@ -292,7 +291,7 @@ The suffix can be upper or lower-case.
 
 #### `character_set_results`
 
-* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used for results and error messages returned to the client. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) is by default an alias for `utf8mb3` rather than the other way around. It can be set to imply `utf8mb4` by changing the value of the [old\_mode](server-system-variables.md#old_mode) system variable.
+* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used for results and error messages returned to the client. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) was by default an alias for `utf8mb3` rather than the other way around. From MariaDB 13.1, `utf8` is by default an alias for `utf8mb4`; the previous `utf8mb3` default can be restored with the deprecated `UTF8_IS_UTF8MB3` flag of the [old\_mode](server-system-variables.md#old_mode) system variable.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
@@ -309,7 +308,7 @@ The suffix can be upper or lower-case.
 
 #### `character_set_system`
 
-* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used by the server to store identifiers, always set to utf8, or its synonym utf8mb3 starting with [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106). From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) is by default an alias for `utf8mb3` rather than the other way around. It can be set to imply `utf8mb4` by changing the value of the [old\_mode](server-system-variables.md#old_mode) system variable.
+* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used by the server to store identifiers, always set to utf8, or its synonym utf8mb3 starting with [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106). From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) was by default an alias for `utf8mb3` rather than the other way around. From MariaDB 13.1, `utf8` is by default an alias for `utf8mb4`; the previous `utf8mb3` default can be restored with the deprecated `UTF8_IS_UTF8MB3` flag of the [old\_mode](server-system-variables.md#old_mode) system variable.
 * Scope: Global
 * Dynamic: No
 * Data Type: `string`
@@ -1855,7 +1854,7 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
-* Default Value: `UTF8_IS_UTF8MB3` (>= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106)) `(empty string)` (<= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105))
+* Default Value: `(empty string)` (>= MariaDB 13.1), `UTF8_IS_UTF8MB3` ([MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) to MariaDB 13.0), `(empty string)` (<= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105))
 * Valid Values: See [OLD Mode](../../../server-management/variables-and-modes/old_mode.md) for the full list.
 
 #### `old_passwords`
@@ -2043,7 +2042,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `optimizer_use_condition_selectivity`
 
-* Description: Controls which statistics can be used by the optimizer when looking for\
+* Description: Controls which statistics can be used by the optimizer when looking for
   the best query execution plan. In most cases, the default value, `4` will be suitable. However, if you are hitting some of the rare cases where this does not work well (see [MDEV-23707](https://jira.mariadb.org/browse/MDEV-23707)), you can usually work around this by setting this variable to `1`.
   * `1` Use selectivity of predicates as in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5).
   * `2` Use selectivity of all range predicates supported by indexes.
@@ -2492,7 +2491,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `skip_grant_tables`
 
-* Description: Start without grant tables. This gives all users FULL ACCESS to all tables. Before [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as an [option only](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). Use [mariadb-admin flush-privileges](../../../clients-and-utilities/legacy-clients-and-utilities/mysqladmin.md), [mariadb-admin reload](../../../clients-and-utilities/legacy-clients-and-utilities/mysqladmin.md) or [FLUSH PRIVILEGES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to resume using the grant tables.
+* Description: Start without grant tables. This gives all users FULL ACCESS to all tables. Before [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as an [option only](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). Use [mariadb-admin flush-privileges](../../../clients-and-utilities/administrative-tools/mariadb-admin.md), [mariadb-admin reload](../../../clients-and-utilities/administrative-tools/mariadb-admin.md) or [FLUSH PRIVILEGES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to resume using the grant tables.
 * Command line: `--skip-grant-tables`
 * Scope: Global
 * Dynamic: No

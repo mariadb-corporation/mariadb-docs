@@ -106,3 +106,5 @@ Guide to using the HashiCorp Key Management plugin, which integrates MariaDB wit
 Final step of removing key management plugins from the configuration once all data and logs have been confirmed as unencrypted.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

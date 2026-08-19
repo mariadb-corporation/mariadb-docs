@@ -539,7 +539,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `socket.ssl_cert`
 
-* Description: Path to TLS certificate. Implicitly enables the [socket.ssl](wsrep_provider_options.md#socket.ssl) option.
+* Description: Path to TLS certificate, or, starting with Galera wsrep provider 26.4.8, a certificate chain file (leaf certificate first, followed by any intermediate CA certificates). Implicitly enables the [socket.ssl](wsrep_provider_options.md#socket.ssl) option.
 * Dynamic: No
 
 #### `socket.ssl_cipher`

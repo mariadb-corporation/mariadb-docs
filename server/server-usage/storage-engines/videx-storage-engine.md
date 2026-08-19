@@ -7,7 +7,7 @@ description: >-
 # VIDEX Storage Engine
 
 {% hint style="info" %}
-This storage engine is available from MariaDB 12.3.
+VIDEX is a community contribution to MariaDB Server, developed and maintained by ByteDance. This storage engine is available from MariaDB 12.3.
 {% endhint %}
 
 This document explains how to install and use **VIDEX** with MariaDB, including:
@@ -277,3 +277,5 @@ Compare the output between Step 3 and Step 4.
 
 1. `videx-sync` can be time-consuming on large schemas, because it needs to collect metadata/statistics. The metadata collection method is extensible; the VIDEX source repository also discusses lighter-weight sampling approaches.
 2. Networking matters. Since `VIDEX-Server` is often in a container, `localhost/127.0.0.1` may not refer to what you expect. The routable IP is recommended for reachability, as it ensures that both _MariaDB-VIDEX_ and the container can reach it.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

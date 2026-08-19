@@ -8,14 +8,14 @@ description: >-
 
 ## myisampack
 
-`myisampack` is a tool for compressing [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/README.md) tables. The resulting tables\
+`myisampack` is a tool for compressing [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/README.md) tables. The resulting tables
 are read-only, and usually about 40% to 70% smaller. It is run as follows:
 
 ```
 myisampack [options] file_name [file_name2...]
 ```
 
-The `file_name` is the `.MYI` index file. The extension can be omitted,\
+The `file_name` is the `.MYI` index file. The extension can be omitted,
 although keeping it permits wildcards, such as:
 
 ```
@@ -24,11 +24,11 @@ myisampack *.MYI
 
 ...to compress all the files.
 
-`myisampack` compresses each column separately, and, when the resulting data\
-is read, only the individual rows and columns required need to be decompressed,\
+`myisampack` compresses each column separately, and, when the resulting data
+is read, only the individual rows and columns required need to be decompressed,
 allowing for quicker reading.
 
-Once a table has been packed, use [myisamchk -rq](myisamchk.md) (the quick\
+Once a table has been packed, use [myisamchk -rq](myisamchk.md) (the quick
 and recover options) to rebuild its indexes.
 
 `myisampack` does not support partitioned tables or vector indexes.

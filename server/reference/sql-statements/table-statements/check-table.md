@@ -20,7 +20,9 @@ option = {FOR UPGRADE | QUICK | FAST | MEDIUM | EXTENDED | CHANGED}
 
 ## Description
 
-`CHECK TABLE` checks a table or tables for errors. `CHECK TABLE` works for [Archive](../../../server-usage/storage-engines/archive.md), [Aria](../../../server-usage/storage-engines/aria/), [CSV](../../../server-usage/storage-engines/csv/), [InnoDB](../../../server-usage/storage-engines/innodb/), [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/), and, from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0), [Sequence](../../../server-usage/storage-engines/sequence-storage-engine.md) tables. For Aria and MyISAM tables, the key statistics are updated as well. For CSV, see also [Checking and Repairing CSV Tables](../../../server-usage/storage-engines/csv/checking-and-repairing-csv-tables.md).
+`CHECK TABLE` checks a table or tables for errors. `CHECK TABLE` works for [Archive](../../../server-usage/storage-engines/archive.md), [Aria](../../../server-usage/storage-engines/aria/), [CSV](../../../server-usage/storage-engines/csv/), [InnoDB](../../../server-usage/storage-engines/innodb/), and [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables. For Aria and MyISAM tables, the key statistics are updated as well. For CSV, see also [Checking and Repairing CSV Tables](../../../server-usage/storage-engines/csv/checking-and-repairing-csv-tables.md).
+
+From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0), `CHECK TABLE` also works on [sequences](../../sql-structure/sequences/). The sequence's underlying storage engine is checked first, then the sequence itself is validated.
 
 As an alternative, [myisamchk](../../../clients-and-utilities/myisam-clients-and-utilities/myisamchk.md) is a command-line tool for checking MyISAM tables when the tables are not being accessed. For Aria tables, there is a similar tool: [aria\_chk](../../../clients-and-utilities/aria-clients-and-utilities/aria_chk.md).
 
