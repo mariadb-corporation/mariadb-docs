@@ -446,7 +446,7 @@ It is preserved only if the cluster uses semisynchronous replication configured 
 
 * **Do not use active/passive** with `auto_failover` and more than one MaxScale. Any of the alternatives is safer, and switching costs nothing but a configuration change.
 * **Use `majority_of_running`** as the default choice. It avoids divergence whenever the trouble is servers failing rather than the network splitting, and it works with as few as two servers, since majority is counted over what is running.
-* **Use `majority_of_all`** when a network partition is a realistic risk, such as MaxScale instances and servers spread across datacenters. It needs at least three servers to survive one server going down, and it needs semisynchronous replication to make its guarantee real. It also stops the cluster when too many servers are down at once: with three configured servers, two locks are always required, so the cluster goes read-only as soon as fewer than two servers are reachable, even though the surviving server could still serve traffic.
+* **Use `majority_of_all`** when a network partition is a realistic risk, such as MaxScale instances and servers spread across datacenters. It needs at least three servers to survive one server going down, and it needs semisynchronous replication to make its guarantee real. The third server does not have to be a full production node — a small MariaDB instance co-located on a MaxScale server can supply the third vote, as described in [Deployment Topologies for Multiple MaxScales](deployment-topologies-for-multiple-maxscales.md). `majority_of_all` also stops the cluster when too many servers are down at once: with three configured servers, two locks are always required, so the cluster goes read-only as soon as fewer than two servers are reachable, even though the surviving server could still serve traffic.
 
 To check which instance is the primary monitor, run `maxctrl show monitors` and read the **primary** field. Per-server lock state is in the server-specific **lock\_held** field.
 
@@ -484,6 +484,10 @@ Do not confuse this with the worst-case failover delay estimate, `(monitor_inter
 {% endhint %}
 
 ## See Also
+
+{% content-ref url="deployment-topologies-for-multiple-maxscales.md" %}
+[deployment-topologies-for-multiple-maxscales.md](deployment-topologies-for-multiple-maxscales.md)
+{% endcontent-ref %}
 
 {% content-ref url="automatic-failover-with-mariadb-monitor.md" %}
 [automatic-failover-with-mariadb-monitor.md](automatic-failover-with-mariadb-monitor.md)
