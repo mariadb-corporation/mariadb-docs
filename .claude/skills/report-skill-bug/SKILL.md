@@ -140,5 +140,8 @@ yet). No further commentary unless asked.
 
 - Don't open a browser, call `gh`, or use the clipboard — ticket creation is API-only.
 - Don't include secrets in the description.
-- Don't use the GridGain Rovo connection (`mcp__claude_ai_Atlassian_Rovo__*`) — this is MariaDB.
+- Don't pick a connection by its **name**. `mcp__claude_ai_Atlassian_Rovo__*` is the correct
+  MariaDB connection on a machine whose account-level integration is authenticated to MariaDB, and
+  the wrong one where it reaches another account — so this file's `allowed-tools` permits both
+  prefixes. What decides is the Setup resource check and the cloudId (`164b0d33-…`), never the name.
 - Don't wrap the result in extra prose; the user wants the URL.
