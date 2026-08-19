@@ -1,6 +1,6 @@
 # MaxScale 24.02 Maxscale CDC Connector
 
-The C++ connector for the [MariaDB MaxScale](https://mariadb.com/products/technology/maxscale)[CDC system](../../mariadb-maxscale-21-06/).
+The C++ connector for the [MariaDB MaxScale](https://mariadb.com/products/technology/maxscale) [CDC system](../maxscale-24-02protocols/mariadb-maxscale-2402-maxscale-2402-change-data-capture-cdc-protocol.md).
 
 ### Usage
 
