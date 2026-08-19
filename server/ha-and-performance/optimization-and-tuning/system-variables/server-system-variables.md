@@ -1240,6 +1240,17 @@ The suffix can be upper or lower-case.
 * Valid Values:
   * `admin`, `filesort`, `filesort_on_disk`, `filesort_priority_queue`, `full_join`, `full_scan`, `not_using_index`, `query_cache`, `query_cache_miss`, `tmp_table`, `tmp_table_on_disk`
 
+#### `log_slow_max_query_length`
+
+* Description: Queries whose text is longer than this many bytes are not written to the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/). The entire statement is skipped — it is not truncated — which keeps statements carrying very large `TEXT` or `BLOB` literals out of the log. The default, `4294967295` (the maximum value), effectively means no limit.
+* Command line: `--log-slow-max-query-length=#`
+* Scope: Global, Session
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `4294967295`
+* Range: `1` to `4294967295`
+* Introduced: MariaDB 13.1.1
+
 #### `log_slow_max_warnings`
 
 * Description: Max numbers of warnings printed to slow query log per statement
