@@ -8,6 +8,10 @@ description: A list of all MariaDB Enterprise Server releases
 This page provides a list of previous releases. Versions 10.5 and older have reached end-of-life and are no longer supported. See the [Enterprise Server Release Schedule](about/enterprise-server-release-schedule.md) page for upcoming versions.
 {% endhint %}
 
+## MariaDB Enterprise Server 12.3
+
+{% include "../.gitbook/includes/all-releases-es-12.3.md" %}
+
 ## MariaDB Enterprise Server 11.8
 
 {% include "../.gitbook/includes/all-releases-es-11.8.md" %}
