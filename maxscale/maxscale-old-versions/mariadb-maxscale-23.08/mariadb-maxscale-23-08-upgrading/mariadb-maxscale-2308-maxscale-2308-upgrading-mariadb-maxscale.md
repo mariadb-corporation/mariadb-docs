@@ -4,7 +4,7 @@
 
 ## Upgrading MariaDB MaxScale
 
-For more information about what has changed, please refer to the [ChangeLog](../maxscale-23.08-changelog.md) and to the [release notes](https://mariadb.com/kb/Release-Notes/).
+For more information about what has changed, please refer to the [ChangeLog]({release-notes}/maxscale/23.08/23.08-changelog) and to the [release notes]({release-notes}/maxscale/23.08).
 
 Before starting the upgrade, any existing configuration files should
 be backed up.
