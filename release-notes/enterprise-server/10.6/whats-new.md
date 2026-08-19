@@ -20,10 +20,10 @@ By default, the DDL log is at `ddl-recovery.log` in the [datadir](https://app.gi
 
 As of this release, the following storage engines fully support atomic DDL:
 
-* [Aria](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria)
-* [InnoDB](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb)
-* [MyISAM](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine)
-* [MyRocks](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myrocks)
+* [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria)
+* [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb)
+* [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine)
+* [MyRocks](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myrocks)
 
 ## SKIP LOCKED
 
@@ -176,6 +176,7 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 
 | CVE ID (with cve.org link)                                        | CVSS base score                                 | Enterprise Server 10.6 Release |
 | ----------------------------------------------------------------- | ----------------------------------------------- | ------------------------------ |
+| [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064) | 6.5                                             | [10.6.27-23](10.6.27-23.md)    |
 | [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)   | 4.3                                             | [10.6.27-23](10.6.27-23.md)    |
 | [CVE-2026-32710](https://www.cve.org/CVERecord?id=CVE-2026-32710) | 8.5                                             | [10.6.27-23](10.6.27-23.md)    |
 | [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                                             | [10.6.27-23](10.6.27-23.md)    |

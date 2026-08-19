@@ -1041,6 +1041,7 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 
 | CVE ID (with cve.org link)                                        | CVSS base score (v3.1) | Enterprise Server 11.4 Release |
 | ----------------------------------------------------------------- | ---------------------- | ------------------------------ |
+| [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064) | 6.5                    | [11.4.12-9](11.4.12-9.md)      |
 | [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)   | 4.3                    | [11.4.12-9](11.4.12-9.md)      |
 | [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                    | [11.4.12-9](11.4.12-9.md)      |
 | [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172) | 5.0                    | [11.4.12-9](11.4.12-9.md)      |

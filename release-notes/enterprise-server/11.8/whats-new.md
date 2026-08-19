@@ -276,6 +276,7 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 
 | CVE ID (with cve.org link)                                        | CVSS base score (v3.1) | Enterprise Server 11.8 Release |
 | ----------------------------------------------------------------- | ---------------------- | ------------------------------ |
+| [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064) | 6.5                    | [11.8.8-5](11.8.8-5.md)        |
 | [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)   | 4.3                    | [11.8.8-5](11.8.8-5.md)        |
 | [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                    | [11.8.8-5](11.8.8-5.md)        |
 | [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172) | 5.0                    | [11.8.8-5](11.8.8-5.md)        |
@@ -293,7 +294,6 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 | [CVE-2026-34303](https://www.cve.org/CVERecord?id=CVE-2026-34303) | 6.5                    | [11.8.6-3](11.8.6-3.md)        |
 | [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968) | 6.5                    | [11.8.5-2](11.8.5-2.md)        |
 | [CVE-2025-13699](https://www.cve.org/CVERecord?id=CVE-2025-13699) | 7.0                    | [11.8.5-2](11.8.5-2.md)        |
-
 
 ## Available Versions <a href="#available-versions" id="available-versions"></a>
 
