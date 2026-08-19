@@ -87,7 +87,11 @@ log_slave_updates
 
 ### Limitations when using Ring Replication
 
-* MariaDB does not yet support conflict resolution for conflicting changes. It is up to the application to ensure that there is never a conflicting insert/update/delete between the masters. The easiest setup is having each master server work on a different database or table. If not, one must:
+{% hint style="info" %}
+MariaDB Enterprise Server 12.3 adds [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md), a beta feature that lets each master resolve a conflicting row event on its applier thread — using a policy you write in SQL — instead of stopping the SQL thread. This relaxes the first limitation below for tables that more than one master writes to, and makes ring and master-to-master topologies a recommended option for those workloads, provided every master in the ring defines triggers implementing the same deterministic, symmetric policy. The guidance below still applies wherever CDR triggers are not in use.
+{% endhint %}
+
+* Without [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md), MariaDB does not resolve conflicting changes for you. It is up to the application to ensure that there is never a conflicting insert/update/delete between the masters. The easiest setup is having each master server work on a different database or table. If not, one must:
   * Ensure you have an id (master-unique-id) for each row that unequally identifies the master who is responsible for this row. This should preferably be short and part of the primary key in each table. A good value for this would be the `gtid_domain_id` as this is unique for each local cluster.
   * Never insert rows with `PRIMARY KEY` or `UNIQUE KEY` values that can be same on another master. This can be avoided by
     * Have the master-unique-id part of all primary and unique keys.
@@ -124,6 +128,8 @@ As long as each master handles their own set of data, as described above, there 
 
 If there are conflicts, one should resolve them as one resolves issues with normal replication.\
 The most common way to solve issues is to skip the conflicting log events with [SET GLOBAL SQL\_SLAVE\_SKIP\_COUNTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/set-global-sql_slave_skip_counter.md).
+
+On MariaDB Enterprise Server 12.3, [CDR triggers](conflict-detection-and-resolution-triggers.md) can resolve these conflicts as they occur, so replication does not stop and wait for an operator to skip events.
 
 #### Handling duplicate key errors and other conflicts
 
@@ -213,6 +219,7 @@ Some other options:
 ### See also
 
 * [Multi-source replication](multi-source-replication.md)
+* [Conflict Detection and Resolution (CDR) Triggers](conflict-detection-and-resolution-triggers.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

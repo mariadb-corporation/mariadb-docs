@@ -149,7 +149,7 @@ Instead of specifying names for `mysqld` with [--relay-log](replication-and-bina
 
 * All error messages from a replica with a connection name that are written to the error log are prefixed with `Master 'connection_name':`. This makes it easy to see from where an error originated.
 * Errors `ER_MASTER_INFO` and `WARN_NO_MASTER_INFO` now includes connection\_name.
-* There is no conflict resolution. The assumption is that there are no conflicts in data between the different primaries.
+* There is no built-in conflict resolution, other than [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) on MariaDB Enterprise Server 12.3 (beta). Otherwise the assumption is that there are no conflicts in data between the different primaries.
 * All executed commands are stored in the normal binary log (nothing new here).
 * If the server variable `log_warnings` > 1, then you will get some information in the log about how the multi-master-info file is updated (mainly for debugging).
 * The output of [SHOW ALL SLAVES STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-status.md) has one more column than `SHOW SLAVE STATUS`, since it includes the `connection_name` column.
