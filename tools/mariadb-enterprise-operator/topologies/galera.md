@@ -24,6 +24,18 @@ spec:
   # [...]
 ```
 
+{% hint style="warning" %}
+Starting from `26.6.2`, `spec.maxScaleRef` is **required** in `MariaDB` resources with `spec.galera` configured, so that switchover and failover are handled by [MaxScale](maxscale.md) instead of by the operator:
+
+```yaml
+spec:
+  maxScaleRef:
+    name: maxscale-galera
+```
+
+Refer to [Requiring a MaxScale reference](maxscale.md#requiring-a-maxscale-reference) if you need to opt out of this validation, and to the [migration guide](../migrations/require-maxscale-ref.md) when updating an existing installation.
+{% endhint %}
+
 This relies on sensible defaults set by the operator, which may not be suitable for your Kubernetes cluster. This can be solved by overriding the defaults, so you have fine-grained control over the Galera configuration.
 
 Refer to the [API reference](../api-reference.md) to better understand the purpose of each field.

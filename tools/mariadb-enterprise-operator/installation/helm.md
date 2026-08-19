@@ -290,6 +290,7 @@ helm uninstall mariadb-enterprise-operator-crds
 | priorityClassName | string | `""` | priorityClassName to add to controller Pod |
 | rbac.aggregation.enabled | bool | `true` | Specifies whether the cluster roles aggregate to view and edit predefinied roles |
 | rbac.enabled | bool | `true` | Specifies whether RBAC resources should be created |
+| requireMaxScaleRef | bool | `true` | Whether MariaDB resources with `spec.replication` or `spec.galera` configured must reference a MaxScale via `spec.maxScaleRef`. When enabled, the webhook rejects highly available MariaDB resources without `spec.maxScaleRef`, so that switchover and failover are handled by MaxScale. Set it to false to let the operator handle switchover and failover, as in versions previous to 26.6.2. |
 | resources | object | `{}` | Resources to add to controller container |
 | securityContext | object | `{}` | Security context to add to controller container |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |

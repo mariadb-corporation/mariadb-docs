@@ -172,7 +172,31 @@ spec:
     enabled: true
 ```
 
+{% hint style="info" %}
+Starting from `26.6.2`, `spec.maxScaleRef` is **required** in `MariaDB` resources that have `spec.replication` or `spec.galera` configured. See [Requiring a MaxScale reference](maxscale.md#requiring-a-maxscale-reference).
+{% endhint %}
+
 Refer to the [API reference](../api-reference.md) for further detail.
+
+## Requiring a MaxScale reference
+
+Without `spec.maxScaleRef`, the operator performs switchover and failover itself. If a `MaxScale` is proxying that `MariaDB` anyway, both the operator and `MaxScale` drive the topology independently and clash, which has been a recurrent source of incidents: failed switchovers, inconsistent primaries and, in the worst case, replicas that need a full rebuild.
+
+To prevent this, starting from `26.6.2`, the validation webhook **rejects** `MariaDB` resources that have `spec.replication` or `spec.galera` configured and no `spec.maxScaleRef`. This applies on both creation and update. [Standalone](standalone.md) `MariaDB` resources are not affected, as `MaxScale` is not supported in that topology.
+
+If you intentionally run a highly available `MariaDB` without `MaxScale`, and therefore want the operator to keep handling switchover and failover, you can opt out at the operator level by setting the following value in the `mariadb-enterprise-operator` helm chart:
+
+```yaml
+requireMaxScaleRef: false
+```
+
+This translates into the `--require-maxscale-ref=false` flag. Alternatively, the `MARIADB_ENTERPRISE_OPERATOR_REQUIRE_MAXSCALE_REF=false` environment variable can be set.
+
+{% hint style="warning" %}
+The validation is performed by the webhook, so the flag must be set wherever the webhook server runs. It has no effect if it is only set in the controller `Deployment` while the webhook runs separately.
+{% endhint %}
+
+Refer to the [spec.maxScaleRef requirement migration guide](../migrations/require-maxscale-ref.md) for the steps to follow when updating existing installations.
 
 ## Defaults
 
