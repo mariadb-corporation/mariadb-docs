@@ -24,7 +24,7 @@
   * [All Releases](enterprise-server/all-releases.md)
   * [MariaDB Enterprise Server 12.3](enterprise-server/12.3/README.md)
     * [What's New in MariaDB Enterprise Server 12.3](enterprise-server/12.3/whats-new.md)
-    * [Release Notes for MariaDB Enterprise Server 12.3.2-0 Beta](enterprise-server/12.3/12.3.2-0.md)
+    * [Release Notes for MariaDB Enterprise Server 12.3.3-0 Beta](enterprise-server/12.3/12.3.3-0.md)
   * [MariaDB Enterprise Server 11.8](enterprise-server/11.8/README.md)
     * [What's New in MariaDB Enterprise Server 11.8](enterprise-server/11.8/whats-new.md)
     * [Release Notes for MariaDB Enterprise Server 11.8.8-5](enterprise-server/11.8/11.8.8-5.md)
