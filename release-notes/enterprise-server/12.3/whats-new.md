@@ -9,22 +9,33 @@ hidden: true
 
 {% include "../../.gitbook/includes/unreleased-es-12.3.md" %}
 
-MariaDB Enterprise Server 12.3 is the next long-term release series, succeeding [MariaDB Enterprise Server 11.8](../11.8/whats-new.md). It adds the innovations from MariaDB Community Server 12.0 through 12.3 to Enterprise Server, together with three capabilities that are exclusive to Enterprise Server: MariaDB Advanced Cluster, Conflict Detection and Resolution triggers, and password-less authentication using TLS certificates.
+MariaDB Enterprise Server 12.3 is the next long-term release series, succeeding [MariaDB Enterprise Server 11.8](../11.8/whats-new.md). It brings the innovations of MariaDB Community Server 12.0 through 12.3 to Enterprise Server, and adds three capabilities that exist only in Enterprise Server: MariaDB Advanced Cluster, Conflict Detection and Resolution triggers, and password-less authentication using TLS certificates.
 
-Because Enterprise Server backports selected features between release series, a number of MariaDB 12.x features were already delivered in Enterprise Server 11.8 and are therefore not repeated here. See [What's New in MariaDB Enterprise Server 11.8](../11.8/whats-new.md) for those.
+Because Enterprise Server backports selected features between release series, a number of MariaDB 12.x features were already delivered in Enterprise Server 11.8 and are not repeated here. See [What's New in MariaDB Enterprise Server 11.8](../11.8/whats-new.md) for those.
 
 ## Exclusive to MariaDB Enterprise Server
 
 ### MariaDB Advanced Cluster
 
-MariaDB Advanced Cluster replaces the Galera replication provider with a provider built on the Raft consensus protocol, extended with certification. It is delivered as the `raft` plugin and is configured through its own set of system variables rather than through `wsrep_provider_options`:
+MariaDB Advanced Cluster is a new clustering option that replaces the Galera replication provider with one built on the Raft consensus protocol, extended with certification. Where MariaDB Enterprise Cluster (Galera) relies on a certification-based provider tuned through `wsrep_provider_options`, Advanced Cluster is delivered as the `raft` plugin and is configured entirely through its own system variables.
+
+Enable it by loading the plugin and selecting it as the replication provider:
 
 ```ini
 plugin-load-add=raft
 wsrep-provider=raft
 ```
 
-The plugin adds `raft_*` system variables for node identity, quorum timeouts, flow control, event-store sizing, log durability, and TLS, along with `raft_*` status variables and a set of Information Schema tables for observability: `RAFT_CERT_FAILURES`, `RAFT_CLUSTER_CONNECTIONS`, `RAFT_TIMERS`, `RAFT_RPC_SENT`, `RAFT_LATENCY_STATS`, `RAFT_SERVER_INSTANCES`, `RAFT_FOLLOWER_INFO`, and `RAFT_STATUS`.
+The listen address is taken from `wsrep_node_address` by default. If that variable does not specify a port, or is autodetected, the `raft_listen_port` variable determines the port instead.
+
+Advanced Cluster adds its own configuration and observability surface:
+
+* **Node identity and quorum**: each node takes a unique identifier, and election and heartbeat behavior is controlled by a set of timeout variables
+* **Flow control**: the leader throttles requests when nodes drift too far apart in commit position
+* **Event store**: replication logs are held in a sized in-memory buffer backed by on-disk files, with configurable durability
+* **TLS**: cluster communication can be secured independently of client connections, with its own certificate, key, CA, cipher, and verification settings
+* **Status variables**: `raft_*` status variables report the current leader, term, log index, and flow-control activity
+* **Information Schema tables**: `RAFT_CERT_FAILURES`, `RAFT_CLUSTER_CONNECTIONS`, `RAFT_TIMERS`, `RAFT_RPC_SENT`, `RAFT_LATENCY_STATS`, `RAFT_SERVER_INSTANCES`, `RAFT_FOLLOWER_INFO`, and `RAFT_STATUS`
 
 Advanced Cluster is built on Linux only. <!-- TODO: confirm which Linux distributions ship the plugin — the raft READMEs and the build configuration disagree (see DOCS-6353) -->
 
@@ -32,41 +43,53 @@ Advanced Cluster is built on Linux only. <!-- TODO: confirm which Linux distribu
 Advanced Cluster does not yet cover everything MariaDB Enterprise Cluster (Galera) does. Replication log encryption and the `galera_group_members` Performance Schema table are not implemented.
 {% endhint %}
 
-MariaDB Enterprise Server 12.3 ships Advanced Cluster 0.9.1. For configuration details, the full variable reference, and the current limitations, see the [Advanced Cluster documentation](../../advanced-cluster/README.md).
+MariaDB Enterprise Server 12.3 ships Advanced Cluster 0.9.1. For configuration details, the full variable reference, and current limitations, see the [Advanced Cluster documentation](../../advanced-cluster/README.md).
 
 ### Conflict Detection and Resolution triggers
 
-Conflict Detection and Resolution (CDR) triggers provide a native way to resolve row-based replication conflicts on the replica, rather than stopping the SQL thread or skipping events manually ([MENT-2033](https://jira.mariadb.org/browse/MENT-2033)).
+When a replica applies row-based replication events, a row may not be in the state the primary expected — because it was changed locally, already deleted, or already inserted by another source. Traditionally the replica had two options: stop the SQL thread, or skip the event and accept divergence.
 
-A CDR trigger is declared with `FOR CONFLICT` and one of five conflict types:
+Conflict Detection and Resolution (CDR) triggers give you a third option: resolve the conflict on the replica, in SQL, as it happens. A CDR trigger is declared with `FOR CONFLICT` and one of five conflict types:
 
 ```sql
-CREATE TRIGGER resolve_dup FOR CONFLICT INSERT_INSERT ON t1 FOR EACH ROW ...
+CREATE TRIGGER resolve_dup FOR CONFLICT INSERT_INSERT ON t1 FOR EACH ROW
+BEGIN
+  -- inspect ORG and OLD, then set NEW to the winning row
+END;
 ```
+
+The conflict type selects which divergence the trigger handles:
 
 | Conflict type | Fires when |
 | ------------- | ---------- |
-| `INSERT_INSERT` | The replicated insert collides with an existing row |
-| `UPDATE_UPDATE` | The replicated update finds a row whose current state differs |
-| `DELETE_UPDATE` | The replicated delete's target row differs on the replica |
-| `UPDATE_DELETE` | The replicated update's target row is missing on the replica |
-| `DELETE_DELETE` | The replicated delete's target row is missing on the replica |
+| `INSERT_INSERT` | A replicated insert collides with a row that already exists on the replica |
+| `UPDATE_UPDATE` | A replicated update finds its target row in a different state than the primary had |
+| `DELETE_UPDATE` | A replicated delete finds its target row in a different state than the primary had |
+| `UPDATE_DELETE` | A replicated update's target row is missing from the replica |
+| `DELETE_DELETE` | A replicated delete's target row is missing from the replica |
 
-When `slave_run_triggers_for_rbr` is enabled, the replica intercepts handler errors such as duplicate keys and missing rows and diverts execution to the matching CDR trigger. Inside the trigger, you can:
+When `slave_run_triggers_for_rbr` is enabled, the replica intercepts handler errors such as duplicate keys and missing rows and diverts execution to the matching CDR trigger. Inside the trigger you have three ways to conclude:
 
-* Modify the `NEW` row image to instruct the applier to resolve the conflict
-* Issue `SIGNAL SQLSTATE '02TRG'` to skip the event and continue
-* Issue a custom error to deliberately stop the SQL thread
+* **Resolve it** — modify the `NEW` row image, and the applier writes or updates that row
+* **Skip it** — issue `SIGNAL SQLSTATE '02TRG'` to ignore the conflict and continue applying
+* **Stop** — raise a custom error to halt the SQL thread deliberately, for conflicts that need a human
 
-CDR triggers add a third row accessor, `ORG`, which exposes the primary's before-image as extracted from the replication event, so a trigger can compare what the primary expected to change against what the replica actually holds. `ORG` is read-only in all contexts. Accessor availability depends on the conflict type: `ORG` is unavailable for `INSERT_INSERT` conflicts, because an insert has no before-image, and `OLD` is unavailable for `UPDATE_DELETE` and `DELETE_DELETE` conflicts, because the row is absent from the replica.
+To make resolution decisions possible, CDR triggers introduce a third row accessor alongside `OLD` and `NEW`:
+
+* **`ORG`** is the primary's before-image, taken from the replication event. It shows the state the primary expected to modify, so a trigger can compare the primary's assumption against what the replica actually holds
+* `ORG` is read-only in every context
+* `ORG` is unavailable in `INSERT_INSERT` conflicts, because an insert has no before-image
+* `OLD` is unavailable in `UPDATE_DELETE` and `DELETE_DELETE` conflicts, because the row is not present on the replica
 
 {% hint style="info" %}
-In this release, CDR triggers require `binlog_row_image=FULL`. They do not support system-versioned tables, and are not supported with a parallel replication mode above `OPTIMISTIC`. Behavior in combination with `slave_exec_mode=IDEMPOTENT` is unspecified.
+In this release, CDR triggers require `binlog_row_image=FULL`. They do not support system-versioned tables and are not supported with a parallel replication mode above `OPTIMISTIC`. Behavior in combination with `slave_exec_mode=IDEMPOTENT` is unspecified.
 {% endhint %}
 
 ### Password-less authentication with TLS certificates
 
-A new `tls_certificate` authentication plugin authenticates a client solely from its TLS certificate, with no password involved ([MENT-2425](https://jira.mariadb.org/browse/MENT-2425)). The account must be created with a `REQUIRE SUBJECT` clause; the plugin rejects the connection if it was not, so the certificate subject remains the authoritative identity check:
+Deployments that already issue client certificates can now authenticate users from the certificate alone, with no password stored on the server or sent over the wire. The new `tls_certificate` authentication plugin does exactly that.
+
+The account must carry a `REQUIRE SUBJECT` clause. The plugin rejects any connection for an account created without one, so the certificate subject always remains the authoritative identity check:
 
 ```sql
 CREATE USER 'appuser'@'%'
@@ -74,107 +97,141 @@ CREATE USER 'appuser'@'%'
   REQUIRE SUBJECT '/CN=appuser/O=Example Corp';
 ```
 
-The plugin accepts any standard client authentication plugin, so no client-side change is required. It is built in by default.
+The plugin is built in by default and accepts any standard client authentication plugin, so existing clients and connectors need no change.
 
 ## Security
 
-* Support for passphrase-protected SSL keys, via the [ssl\_passphrase](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_passphrase) system variable ([MDEV-14091](https://jira.mariadb.org/browse/MDEV-14091))
-* New [SET SESSION AUTHORIZATION](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/set-session-authorization) statement, for performing actions as another user ([MDEV-20299](https://jira.mariadb.org/browse/MDEV-20299))
-* SHA-256 support for the [file\_key\_management](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin) encryption plugin ([MDEV-34712](https://jira.mariadb.org/browse/MDEV-34712))
-* The [Hashicorp Key Management plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin) can flush its cache to force key rotation ([MDEV-30847](https://jira.mariadb.org/browse/MDEV-30847))
-* [DROP USER](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/drop-user) now warns by default if the user has active sessions, and fails in Oracle mode ([MDEV-35617](https://jira.mariadb.org/browse/MDEV-35617))
+* **Passphrase-protected SSL keys**: a private key protected by a passphrase can now be used, with the passphrase supplied through the [ssl\_passphrase](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_passphrase) system variable
+* **New** [**SET SESSION AUTHORIZATION**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/set-session-authorization) **statement**: perform work as another user within a session, which is useful for administrative tooling and for reproducing a user's privileges:
+
+    ```sql
+    SET SESSION AUTHORIZATION foo@bar;
+    ```
+
+  * Switching to another account requires the `SET USER` privilege; switching to your own account needs no privilege
+  * The statement is not permitted inside stored procedures
+* **SHA-256 for File Key Management**: the [file\_key\_management](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin) encryption plugin supports SHA-256 digests
+* **Forced key rotation for HashiCorp**: the [Hashicorp Key Management plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin) can flush its key cache, so a rotation performed in Vault takes effect without a restart
+* **Safer** [**DROP USER**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/drop-user): dropping an account that still has active sessions now raises a warning by default, and fails outright in Oracle mode
 
 ## Compatibility Features
 
-* Oracle [`TO_DATE()`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/to_date) ([MDEV-19683](https://jira.mariadb.org/browse/MDEV-19683)), [`TO_NUMBER()`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/numeric-functions/to_number) ([MDEV-20022](https://jira.mariadb.org/browse/MDEV-20022)), and [`TRUNC()`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/trunc) ([MDEV-20023](https://jira.mariadb.org/browse/MDEV-20023)) functions
-* `( + )` outer join syntax in [Oracle mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax#oracle-mode) ([MDEV-13817](https://jira.mariadb.org/browse/MDEV-13817))
-* Support for [cursors](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors) on prepared statements ([MDEV-33830](https://jira.mariadb.org/browse/MDEV-33830))
-* SQL standard [`SET PATH`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set-path) statement ([MDEV-34391](https://jira.mariadb.org/browse/MDEV-34391))
-* SQL standard [`IS JSON`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/operators/comparison-operators/is-json) predicate ([MDEV-37072](https://jira.mariadb.org/browse/MDEV-37072))
-* Basic [XML data type](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/xmltype) ([MDEV-37261](https://jira.mariadb.org/browse/MDEV-37261))
-* `UPDATE` and `DELETE` can read from a [common table expression](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions) ([MDEV-37220](https://jira.mariadb.org/browse/MDEV-37220))
+* **Oracle date and number functions**: [`TO_DATE()`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/to_date), [`TO_NUMBER()`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/numeric-functions/to_number), and [`TRUNC()`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/trunc) reduce the rewriting needed when migrating Oracle SQL
+* **Oracle outer join syntax**: the `( + )` operator is accepted in [Oracle mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax#oracle-mode), so legacy queries port across unchanged
+* **Cursors on prepared statements**: a [cursor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors) can now be opened over a prepared statement, allowing the query text to be built at runtime
+* **SQL standard** [**SET PATH**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set-path): sets the schema search path used to resolve unqualified stored routine names:
+
+    ```sql
+    SET PATH 'schema_a,schema_b';
+    ```
+* **SQL standard** [**IS JSON**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/operators/comparison-operators/is-json) **predicate**: tests whether a value is valid JSON, without a function call:
+
+    ```sql
+    SELECT '[1, 2]' IS JSON;
+    SELECT '{"key1":1, "key2":[2,3]}' IS JSON;
+    ```
+* **Basic** [**XML data type**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/xmltype): a dedicated type for XML documents, improving Oracle compatibility
+* [**Common table expressions in UPDATE and DELETE**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions): `UPDATE` and `DELETE` can read from a CTE, so a computed row set can drive a modification without a temporary table
 
 ## Optimizer Hints
 
-MariaDB Enterprise Server 12.3 introduces [optimizer hints](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints), which let a query override optimizer decisions inline:
+MariaDB Enterprise Server 12.3 introduces [optimizer hints](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints), which let a single query override optimizer decisions without changing server-wide settings. Hints are written as comments immediately after the statement keyword:
 
-* Query block naming and table-level hints: `QB_NAME`, `NO_RANGE_OPTIMIZATION`, `NO_ICP`, `MRR`/`NO_MRR`, `BKA`/`NO_BKA`, `BNL`/`NO_BNL` ([MDEV-35504](https://jira.mariadb.org/browse/MDEV-35504))
-* Subquery hints: `SEMIJOIN`, `SUBQUERY` ([MDEV-34888](https://jira.mariadb.org/browse/MDEV-34888))
-* Join order hints: `JOIN_FIXED_ORDER`, `JOIN_ORDER`, `JOIN_PREFIX`, `JOIN_SUFFIX` ([MDEV-34870](https://jira.mariadb.org/browse/MDEV-34870))
-* Index-level hints: `[NO_]JOIN_INDEX`, `[NO_]GROUP_INDEX`, `[NO_]ORDER_INDEX`, `[NO_]INDEX` ([MDEV-35856](https://jira.mariadb.org/browse/MDEV-35856)), `[NO_]ROWID_FILTER` ([MDEV-36089](https://jira.mariadb.org/browse/MDEV-36089)), `[NO_]INDEX_MERGE` ([MDEV-36125](https://jira.mariadb.org/browse/MDEV-36125))
-* `[NO_]SPLIT_MATERIALIZED` ([MDEV-36092](https://jira.mariadb.org/browse/MDEV-36092)), `[NO_]DERIVED_CONDITION_PUSHDOWN` and `[NO_]MERGE` ([MDEV-36106](https://jira.mariadb.org/browse/MDEV-36106))
-* `MAX_EXECUTION_TIME` ([MDEV-34860](https://jira.mariadb.org/browse/MDEV-34860))
-* Implicit query block names ([MDEV-37511](https://jira.mariadb.org/browse/MDEV-37511))
+```sql
+SELECT /*+ MAX_EXECUTION_TIME(1000) NO_ICP(t1) */ * FROM t1 WHERE ...;
+```
+
+The available hints cover:
+
+* **Query block naming**: `QB_NAME` labels a query block so other hints can target it, including implicit names for unlabeled blocks
+* **Access and join methods**: `NO_RANGE_OPTIMIZATION`, `NO_ICP`, `MRR`/`NO_MRR`, `BKA`/`NO_BKA`, `BNL`/`NO_BNL`
+* **Join order**: `JOIN_FIXED_ORDER` pins the order as written, while `JOIN_ORDER`, `JOIN_PREFIX`, and `JOIN_SUFFIX` constrain it partially
+* **Index selection**: `[NO_]INDEX`, `[NO_]JOIN_INDEX`, `[NO_]GROUP_INDEX`, `[NO_]ORDER_INDEX`, `[NO_]INDEX_MERGE`, and `[NO_]ROWID_FILTER`
+* **Subquery strategy**: `SEMIJOIN` and `SUBQUERY` choose how a subquery is executed
+* **Derived tables**: `[NO_]SPLIT_MATERIALIZED`, `[NO_]DERIVED_CONDITION_PUSHDOWN`, and `[NO_]MERGE`
+* **Execution time**: `MAX_EXECUTION_TIME` caps how long a statement may run
 
 ## Optimizer
 
-* [Rowid Filtering](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization) can now be applied to reverse-ordered scans ([MDEV-36094](https://jira.mariadb.org/browse/MDEV-36094))
-* [Index Condition Pushdown](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/index-condition-pushdown) can now be applied to reverse-ordered scans ([MDEV-34413](https://jira.mariadb.org/browse/MDEV-34413))
-* Loose index scan ("use index for group-by") can now use indexes with `DESC` key parts ([MDEV-32732](https://jira.mariadb.org/browse/MDEV-32732))
-* `GROUP BY` and `ORDER BY` optimizations can use indexes on virtual columns ([MDEV-36132](https://jira.mariadb.org/browse/MDEV-36132))
-* The [optimizer trace](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/optimizer-trace) can include table and view definitions, controlled by the [optimizer\_record\_context](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_record_context) system variable ([MDEV-36483](https://jira.mariadb.org/browse/MDEV-36483))
-* The join optimizer can infer that a derived table with a `GROUP BY` clause has distinct `GROUP BY` columns ([MDEV-36321](https://jira.mariadb.org/browse/MDEV-36321))
-* Reorderable [LEFT JOINs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax) are optimized ([MDEV-36055](https://jira.mariadb.org/browse/MDEV-36055))
+* **Reverse-ordered scans use more optimizations**: [Rowid Filtering](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization) and [Index Condition Pushdown](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/index-condition-pushdown) now apply to descending scans, so `ORDER BY ... DESC` queries benefit from the same filtering as ascending ones
+* **Loose index scan with descending keys**: the "use index for group-by" optimization can use indexes that declare `DESC` key parts
+* **Indexes on virtual columns**: `GROUP BY` and `ORDER BY` can be satisfied from an index built on a virtual column
+* **Richer optimizer trace**: the [optimizer trace](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/optimizer-trace) can include the definitions of the tables and views involved, controlled by the [optimizer\_record\_context](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_record_context) system variable — useful when a plan has to be diagnosed from a trace alone
+* **Better derived table estimates**: the join optimizer recognizes that a derived table with a `GROUP BY` clause produces distinct grouping columns, which sharpens cardinality estimates
+* **Reorderable LEFT JOINs**: [outer joins](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax) that can safely be reordered are now considered for reordering
 
 ## Binary Logging and Replication
 
-* The binary log can be stored in InnoDB, removing the need to sync it and improving binary logging performance ([MDEV-34705](https://jira.mariadb.org/browse/MDEV-34705)). New system variables include [binlog\_storage\_engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_storage_engine), [binlog\_directory](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_directory), and [innodb\_binlog\_state\_interval](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_binlog_state_interval)
-* Row replication events larger than `max_packet_size` are fragmented, controlled by [binlog\_row\_event\_fragment\_threshold](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_row_event_fragment_threshold) ([MDEV-32570](https://jira.mariadb.org/browse/MDEV-32570))
-* Creation and use of temporary tables in replication is now predictable, via the [create\_tmp\_table\_binlog\_formats](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#create_tmp_table_binlog_formats) system variable ([MDEV-36099](https://jira.mariadb.org/browse/MDEV-36099))
-* Configurable defaults for the `MASTER_SSL_*` settings used by `CHANGE MASTER` ([MDEV-28302](https://jira.mariadb.org/browse/MDEV-28302))
-* [show\_slave\_auth\_info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#show_slave_auth_info) and [replicate\_same\_server\_id](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#replicate_same_server_id) are now system variables, not just startup options
-* The server reports whether it was started with the [skip-slave-start](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#skip-slave-start) option ([MDEV-27669](https://jira.mariadb.org/browse/MDEV-27669))
+* **Storage-engine-integrated binary log**: a more efficient binary log implementation that uses InnoDB internals to write the binary log rather than syncing a separate file, which removes the binary log's own fsync from the commit path. It is selected at startup with the read-only [binlog\_storage\_engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_storage_engine) option and is only available for engines that support it. Related settings are [binlog\_directory](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_directory) and [innodb\_binlog\_state\_interval](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_binlog_state_interval)
+* **Fragmented row events**: row events larger than `max_packet_size` are split rather than failing, controlled by [binlog\_row\_event\_fragment\_threshold](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_row_event_fragment_threshold)
+* **Predictable temporary tables in replication**: [create\_tmp\_table\_binlog\_formats](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#create_tmp_table_binlog_formats) makes the binary logging of temporary table creation and use explicit rather than format-dependent
+* **Configurable replication TLS defaults**: the `MASTER_SSL_*` settings used by `CHANGE MASTER` can be given server defaults, so each replica does not have to repeat them
+* **More settings promoted to system variables**: [show\_slave\_auth\_info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#show_slave_auth_info) and [replicate\_same\_server\_id](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#replicate_same_server_id) were previously startup options only, and can now be inspected as system variables
+* **Visible skip-slave-start**: the server reports whether it was started with the [skip-slave-start](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#skip-slave-start) option, removing a common source of confusion when a replica does not begin applying
 
 ## MariaDB Enterprise Cluster (Galera)
 
-* Asynchronous replication between two Galera clusters can use parallel replication, managed by `slave_parallel_threads` ([MDEV-20065](https://jira.mariadb.org/browse/MDEV-20065))
-* Write sets can be retried on Galera nodes, controlled by the [wsrep\_applier\_retry\_count](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_applier_retry_count) system variable ([MDEV-36077](https://jira.mariadb.org/browse/MDEV-36077))
-* Needless foreign key checks during Incremental State Transfers are avoided ([MDEV-34822](https://jira.mariadb.org/browse/MDEV-34822))
+* **Parallel replication between clusters**: asynchronous replication from one Galera cluster to another can apply in parallel, managed by `slave_parallel_threads`
+* **Write set retry**: a write set that fails to apply can be retried rather than immediately aborting the node, controlled by the [wsrep\_applier\_retry\_count](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_applier_retry_count) system variable
+* **Faster Incremental State Transfers**: unnecessary foreign key checks during an IST are avoided
 
 ## Stored Routines and Triggers
 
-* Support for the predefined weak `SYS_REFCURSOR` cursor type ([MDEV-20034](https://jira.mariadb.org/browse/MDEV-20034))
-* [Triggers](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/triggers-events/triggers/create-trigger#trigger_event) can fire on multiple events ([MDEV-10164](https://jira.mariadb.org/browse/MDEV-10164))
+* **Weak `SYS_REFCURSOR` cursor type**: a cursor can be held in a variable and passed between routines, which is the Oracle idiom for returning a result set from a procedure:
+
+    ```sql
+    DECLARE c0 SYS_REFCURSOR;
+    ```
+
+  * The number of simultaneously open cursors is bounded by the `max_open_cursors` system variable
+* **Triggers on multiple events**: one [trigger](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/triggers-events/triggers/create-trigger#trigger_event) body can serve several events, instead of duplicating it once per event:
+
+    ```sql
+    CREATE TRIGGER audit_t1 BEFORE INSERT OR UPDATE OR DELETE ON t1 FOR EACH ROW ...
+    ```
 
 ## GIS
 
-New GIS functions, improving compatibility with MySQL 8:
+Nine new GIS functions improve compatibility with MySQL 8:
 
-* [ST\_Validate](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_validate) ([MDEV-34137](https://jira.mariadb.org/browse/MDEV-34137)) and [ST\_IsValid](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_isvalid) ([MDEV-34276](https://jira.mariadb.org/browse/MDEV-34276))
-* [ST\_Simplify](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_simplify) ([MDEV-34141](https://jira.mariadb.org/browse/MDEV-34141))
-* [ST\_Collect](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_collect) ([MDEV-34278](https://jira.mariadb.org/browse/MDEV-34278))
-* [MBRCoveredBy](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/mbr-minimum-bounding-rectangle/mbrcoveredby) ([MDEV-34138](https://jira.mariadb.org/browse/MDEV-34138))
-* Geohash functions: [ST\_GeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_geohash) ([MDEV-34158](https://jira.mariadb.org/browse/MDEV-34158)), [ST\_LatFromGeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_latfromgeohash) ([MDEV-34159](https://jira.mariadb.org/browse/MDEV-34159)), [ST\_LongFromGeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_longfromgeohash) ([MDEV-34160](https://jira.mariadb.org/browse/MDEV-34160)), [ST\_PointFromGeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_pointfromgeohash) ([MDEV-34277](https://jira.mariadb.org/browse/MDEV-34277))
-
-## Observability and Information Schema
-
-* New [INFORMATION\_SCHEMA.TRIGGERED\_UPDATE\_COLUMNS](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-triggered_update_columns) table ([MDEV-36996](https://jira.mariadb.org/browse/MDEV-36996))
-* New [INFORMATION\_SCHEMA.PARAMETERS](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-parameters-table)`.PARAMETER_DEFAULT` column ([MDEV-37054](https://jira.mariadb.org/browse/MDEV-37054))
-* Advanced Cluster adds `raft_*` status variables and the `RAFT_*` Information Schema tables described above
-
-## Data Types and SQL
-
-* New hash algorithms for [`PARTITION BY KEY`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/partitioning-tables/partitioning-types/key-partitioning-type) ([MDEV-9826](https://jira.mariadb.org/browse/MDEV-9826))
-* [Foreign key](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys) constraint names now need to be unique per table rather than per database ([MDEV-28933](https://jira.mariadb.org/browse/MDEV-28933))
-* The [depth limit of 32 on JSON functions](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-4000-to-4099/e4043) has been removed ([MDEV-32854](https://jira.mariadb.org/browse/MDEV-32854))
-
-## Tool Improvements
-
-* [mariadb-dump](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump) supports wildcards with the `-L` or `--wildcards` option ([MDEV-21376](https://jira.mariadb.org/browse/MDEV-21376))
-* [mariadb-check](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) support [SEQUENCE tables](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sequence-storage-engine) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
-* The [mariadb client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#script-dir) can set an alternative directory for scripts invoked with the `source` command, using `--script-dir` ([MDEV-23818](https://jira.mariadb.org/browse/MDEV-23818))
+* [ST\_Validate](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_validate) returns the geometry if it is valid, and `NULL` otherwise
+* [ST\_IsValid](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_isvalid) tests a geometry for validity
+* [ST\_Simplify](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_simplify) reduces the number of points in a geometry within a given tolerance
+* [ST\_Collect](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_collect) aggregates several geometries into one collection
+* [MBRCoveredBy](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/mbr-minimum-bounding-rectangle/mbrcoveredby) tests whether one minimum bounding rectangle is covered by another
+* [ST\_GeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_geohash) encodes a point as a geohash string
+* [ST\_LatFromGeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_latfromgeohash) and [ST\_LongFromGeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_longfromgeohash) decode the latitude and longitude from a geohash
+* [ST\_PointFromGeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_pointfromgeohash) decodes a geohash back into a point
 
 ## MariaDB Enterprise Audit
 
 Two capabilities from the MariaDB Community audit plugin are now available in MariaDB Enterprise Audit:
 
-* Connection records log the client port alongside the host, so a connection is identified as `HOST:PORT`. When no port is available, the field records `unavailable` ([MENT-2470](https://jira.mariadb.org/browse/MENT-2470), porting [MDEV-12182](https://jira.mariadb.org/browse/MDEV-12182))
-* `CONNECT` events record the TLS version used for the connection ([MENT-2471](https://jira.mariadb.org/browse/MENT-2471), porting [MDEV-33834](https://jira.mariadb.org/browse/MDEV-33834))
+* **Client port in connection records**: a connection is identified as `HOST:PORT` rather than by host alone, which distinguishes concurrent connections from the same host. When no port is available, the field records `unavailable`
+* **TLS version in `CONNECT` events**: each connection event records the TLS version negotiated, so audit logs can evidence which sessions used which protocol version
+
+## Observability and Information Schema
+
+* **New** [**INFORMATION\_SCHEMA.TRIGGERED\_UPDATE\_COLUMNS**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-triggered_update_columns) **table**: reports which columns a trigger is defined to fire on
+* **New** [**INFORMATION\_SCHEMA.PARAMETERS**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-parameters-table)`.PARAMETER_DEFAULT` **column**: exposes the default value of a stored routine parameter
+* **Advanced Cluster observability**: `raft_*` status variables and the `RAFT_*` Information Schema tables described above
+
+## Data Types and SQL
+
+* **New hash algorithms for** [**PARTITION BY KEY**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/partitioning-tables/partitioning-types/key-partitioning-type): improves distribution across partitions
+* **Per-table foreign key constraint names**: a [foreign key](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys) constraint name now needs to be unique only within its table rather than across the whole database, which removes a frequent obstacle when consolidating schemas
+* **No depth limit on JSON functions**: the [previous limit of 32 levels](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-4000-to-4099/e4043) has been removed, so deeply nested documents can be processed
+
+## Tool Improvements
+
+* [**mariadb-dump**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump): the `-L` or `--wildcards` option selects databases and tables by pattern rather than by exact name
+* [**mariadb-check**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) **and** [**CHECK TABLE**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table): both now support [SEQUENCE tables](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sequence-storage-engine)
+* [**mariadb client**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#script-dir): the `--script-dir` option sets an alternative directory for scripts invoked with the `source` command
 
 ## Enterprise Packaging and Upgrade
 
-* `mariadb-upgrade` no longer runs when upgrading from Community Server to Enterprise Server of the same major version ([MENT-1712](https://jira.mariadb.org/browse/MENT-1712))
-* Enterprise packages retain their Galera runtime dependencies, including `galera-enterprise-4` and the SST tools. MariaDB 12.3 removed the Galera package dependency from Community Server packages ([MDEV-38744](https://jira.mariadb.org/browse/MDEV-38744)); Enterprise Server maps them to the enterprise variants instead ([MENT-2706](https://jira.mariadb.org/browse/MENT-2706))
+* **Simpler Community-to-Enterprise upgrades**: `mariadb-upgrade` no longer runs when moving from Community Server to Enterprise Server of the same major version, since the data directory format is unchanged
+* **Galera runtime dependencies retained**: MariaDB 12.3 removed the Galera package dependency from Community Server packages. Enterprise Server packages instead map those dependencies to their enterprise variants, including `galera-enterprise-4` and the SST tools, so an Enterprise Cluster deployment still installs what it needs
 
 ## Differences from MariaDB Community Server 12.3
 
@@ -186,9 +243,9 @@ MariaDB Enterprise Server 12.3 is not a rebuild of Community Server 12.3. The di
 | Conflict Detection and Resolution triggers | Available | Not available |
 | `tls_certificate` authentication plugin | Available | Not available |
 | MariaDB Enterprise Audit (`server_audit2`) | Available | Community audit plugin only |
-| Videx storage engine | Not shipped ([MENT-2629](https://jira.mariadb.org/browse/MENT-2629)) | Available |
+| Videx storage engine | Not shipped | Available |
 | Sphinx, OQGraph, Mroonga storage engines | Not shipped | Available |
-| GitHub call-to-action message in the `mariadb` client | Suppressed ([MENT-2642](https://jira.mariadb.org/browse/MENT-2642)) | Shown ([MDEV-38328](https://jira.mariadb.org/browse/MDEV-38328)) |
+| GitHub call-to-action message in the `mariadb` client | Suppressed | Shown |
 
 For the full list of differences, see [MariaDB Enterprise Server Differences](../about/mariadb-enterprise-server-differences/README.md).
 
@@ -216,12 +273,6 @@ The following deprecated system variables have been removed:
 * [big\_tables](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#big_tables)
 * [large\_page\_size](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#large_page_size)
 * [storage\_engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#storage_engine)
-
-### Replication
-
-{% hint style="warning" %}
-When a replica is upgraded to a MariaDB Enterprise Server 12.3 release built on MariaDB 12.3.2, the `CHANGE MASTER TO ... master_use_gtid` setting is not carried over and is reset to `DEFAULT`. After upgrading, re-apply `master_use_gtid` if you rely on it. Downgrading is not affected. The underlying fix landed in MariaDB 12.3.3 ([MDEV-39788](https://jira.mariadb.org/browse/MDEV-39788)).
-{% endhint %}
 
 ## Available Versions
 
