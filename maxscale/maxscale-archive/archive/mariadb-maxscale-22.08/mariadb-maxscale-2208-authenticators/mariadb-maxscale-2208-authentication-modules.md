@@ -5,7 +5,7 @@
 ## Authentication Modules
 
 This document describes general MySQL protocol authentication in MaxScale. For\
-REST-api authentication, see the [configuration guide](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/) and the [REST-api guide](../../../../../en/mariadb-maxscale-2208-maxscale-rest-api/).
+REST-api authentication, see the [configuration guide](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md) and the [REST-api guide](../mariadb-maxscale-2208--rest-api/README.md).
 
 Similar to the MariaDB Server, MaxScale uses authentication plugins to implement
 different authentication schemes for incoming clients. The same plugins also
@@ -38,7 +38,7 @@ communicating the first failure to the client. This transparent user data update
 does not always work, in which case the client should try to log in again.
 
 As the UAM is shared between all listeners of a service, its settings are
-defined in the service configuration. For more information, search the [configuration guide](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/)
+defined in the service configuration. For more information, search the [configuration guide](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md)
 for _users\_refresh\_time_, _users\_refresh\_interval_ and\_auth\_all\_servers\_. Other settings which affect how the UAM connects to backends
 are the global settings _auth\_connect\_timeout_ and _local\_address_, and
 the various server-level ssl-settings.
@@ -86,7 +86,7 @@ Option 1 limits the passwords for user accounts with shared usernames. Such
 accounts must use the same password since they will effectively share the\
 MaxScale-to-backend user account. Option 2 requires server support.
 
-See [MaxScale Troubleshooting](../../../../maxscale-versions/maxscale-troubleshooting.md)
+See [MaxScale Troubleshooting](../../../../maxscale-management/maxscale-troubleshooting.md)
 for additional information on how to solve authentication issues.
 
 #### Wildcard database grants
@@ -110,7 +110,7 @@ authenticator_options=skip_authentication=true,lower_case_table_names=1
 
 #### `skip_authentication`
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -137,7 +137,7 @@ authenticator_options=skip_authentication=true
 
 #### `match_host`
 
-* Type: [boolean](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`

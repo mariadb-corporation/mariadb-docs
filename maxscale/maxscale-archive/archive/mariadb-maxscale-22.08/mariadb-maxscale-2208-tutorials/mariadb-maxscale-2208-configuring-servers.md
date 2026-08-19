@@ -34,7 +34,7 @@ to the server section. To enable server certificate verification, add`ssl_verify
 The `ssl` and `ssl_verify_peer_certificate` parameters are similar to the`--ssl` and `--ssl-verify-server-cert` options of the `mysql` command line
 client.
 
-For more information about TLS, refer to the [Configuration Guide](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/).
+For more information about TLS, refer to the [Configuration Guide](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md).
 
 CC BY-SA / Gnu FDL
 

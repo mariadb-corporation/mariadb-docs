@@ -68,7 +68,7 @@ authenticator_options=principal_name=mymariadb@EXAMPLE.COM,gssapi_keytab_path=/h
 
 ### Implementation details
 
-Read the [Authentication Modules](../../../../../en/mariadb-maxscale-2208-maxscale-2208-authentication-modules/) document for more
+Read the [Authentication Modules](mariadb-maxscale-2208-authentication-modules.md) document for more
 details on how authentication modules work in MaxScale.
 
 #### GSSAPI authentication

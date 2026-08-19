@@ -12,7 +12,7 @@ MariaDB MaxScale will appear to the client as a database server with the combina
 
 This document is designed as a simple tutorial on schema-based sharding using MariaDB MaxScale in an environment in which you have two servers. The object of this tutorial is to have a system that, to the client side, acts like a single MariaDB database but actually is sharded between the two servers.
 
-The database users should be configured according to [the configuration guide](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/). The [MaxScale Tutorial](mariadb-maxscale-2208-setting-up-mariadb-maxscale.md) contains easy to follow instructions on how to set up MaxScale.
+The database users should be configured according to [the configuration guide](../mariadb-maxscale-2208-getting-started/mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md). The [MaxScale Tutorial](mariadb-maxscale-2208-setting-up-mariadb-maxscale.md) contains easy to follow instructions on how to set up MaxScale.
 
 This tutorial will assume the user is using of the binary distributions available and has installed this in the default location. The process of configuring MariaDB MaxScale will be covered within this document. The installation and configuration of the MariaDB servers will not be covered in-depth.
 

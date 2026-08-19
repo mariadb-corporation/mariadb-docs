@@ -31,7 +31,7 @@ apt -y install maxscale
 ### Creating Users
 
 This tutorial uses a broader set of grants than is required for the sake of
-brevity and backwards compatibility. For the minimal set of grants, refer to the [MaxScale Configuration Guide](../../../../../en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/).
+brevity and backwards compatibility. For the minimal set of grants, refer to the [MaxScale Configuration Guide](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md).
 
 All MaxScale configurations require at least two accounts: one for reading
 authentication data and another for monitoring the state of the

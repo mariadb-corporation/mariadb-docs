@@ -80,7 +80,7 @@ cat /proc/sys/vm/overcommit_memory
 steps in configuring your MariaDB MaxScale installation. Follow this tutorial
 to learn how to configure and start using MaxScale.
 
-For a detailed list of all configuration parameters, refer to the [Configuration Guide](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/) and the module specific documents
+For a detailed list of all configuration parameters, refer to the [Configuration Guide](mariadb-maxscale-2208-mariadb-maxscale-configuration-guide.md) and the module specific documents
 listed in the [Documentation Contents](https://mariadb.com/kb/en/mariadb-maxscale-2208-maxscale-2208-contents/#routers).
 
 ### Encrypting Passwords

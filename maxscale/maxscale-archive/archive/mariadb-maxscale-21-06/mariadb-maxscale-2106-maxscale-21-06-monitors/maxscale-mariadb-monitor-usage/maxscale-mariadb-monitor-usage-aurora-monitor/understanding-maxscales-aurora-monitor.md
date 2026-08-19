@@ -1,10 +1,10 @@
 # Understanding MaxScale's Aurora Monitor
 
-MaxScale's [Aurora Monitor (auroramon)](broken-reference) monitors the status of Aurora cluster replicas.
+MaxScale's [Aurora Monitor (auroramon)](../../mariadb-maxscale-2106-maxscale-2106-aurora-monitor.md) monitors the status of Aurora cluster replicas.
 
 ## What Does the Aurora Monitor Support?
 
-The [Aurora Monitor (auroramon)](broken-reference) supports:
+The [Aurora Monitor (auroramon)](../../mariadb-maxscale-2106-maxscale-2106-aurora-monitor.md) supports:
 
 * Monitoring replicas in Amazon Aurora deployments
 
