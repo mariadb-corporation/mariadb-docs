@@ -91,8 +91,10 @@ The custom select handler translates each query's internal structure into a Colu
 * When set to `AUTO`, ColumnStore falls back to the generic select handler, and MariaDB Enterprise Server executes the query itself. The query completes and raises warning code `9999`, with a message such as `MCS select_handler execution failed, falling back to server execution`. Run `SHOW WARNINGS` after the query to see the warning.
 * When set to `ON` (the default), the query fails with an error instead of falling back.
 
+When a query falls back, the server performs the joins, aggregation, `ORDER BY`, `LIMIT`, and expression evaluation itself, on rows streamed from ColumnStore, so the query loses distributed aggregation and distributed function evaluation. Per-table work still happens inside ColumnStore: it reads only the columns the query needs, applies the conditions the server pushes down, and still performs [extent elimination](mariadb-enterprise-columnstore-query-evaluation.md#extent-elimination) on them. Treat warning `9999` as a signal to check whether the query can be rewritten using syntax the custom select handler supports.
+
 {% hint style="info" %}
-Because the custom select handler translates queries into its own execution plan rather than forwarding the original SQL text, SQL syntax introduced in newer MariaDB Server releases is not automatically supported by ColumnStore. Support for new syntax can lag behind server releases. Until support is added, run queries that use new syntax with `columnstore_select_handler=AUTO` so they fall back to server execution.
+The custom select handler translates the query's internal structure into a CSEP rather than forwarding the original SQL text. Syntax added in a newer MariaDB Server release is translated without any change to ColumnStore when the change is purely syntactical and the internal item types stay the same. ColumnStore needs explicit support when the change alters an item type, uses a new item attribute, or moves an attribute — in that case, support can lag behind the server release that added the syntax.
 {% endhint %}
 
 ## Joins
