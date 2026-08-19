@@ -62,7 +62,7 @@ Enterprise Cluster replicates the new user and privileges to the other Enterpris
 
 MariaDB MaxScale uses server objects to define the connections it makes to MariaDB Enterprise Servers.
 
-On the MaxScale node, use maxctrl [create server](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-server) to create a server object for each MariaDB Enterprise Server:
+On the MaxScale node, use maxctrl [create server](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-server) to create a server object for each MariaDB Enterprise Server:
 
 ```bash
 $ maxctrl create server node1 192.0.2.101
@@ -76,7 +76,7 @@ $ maxctrl create server node3 192.0.2.103
 
 MaxScale uses monitors to retrieve additional information from the servers. This information is used by other services in filtering and routing connections based on the current state of the node. For Enterprise Cluster, use the [Galera Monitor (galeramon)](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-monitors/galera-monitor).
 
-On the MaxScale node, use maxctrl [create monitor](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-monitor) to create a Galera Monitor for the cluster:
+On the MaxScale node, use maxctrl [create monitor](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-monitor) to create a Galera Monitor for the cluster:
 
 ```bash
 $ maxctrl create monitor cluster_monitor galeramon \
@@ -100,8 +100,8 @@ Routers control how MaxScale balances the load between Enterprise Cluster nodes.
 
 | Router                                                                                                                                                                                                  | Configuration Procedure          | Description                                                                                                                                                                                                                                                                                                                                          |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Read Connection (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute)    | Configure Read Connection Router | • Connection-based load balancing • Routes connections to Enterprise ColumnStore nodes designated as replica servers for a read-only pool • Routes connections to an Enterprise ColumnStore node designated as the primary server for a read-write pool.                                                                                             |
-| [Read/Write Split (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) | Configure Read/Write Split       | • Query-based load balancing • Routes write queries to an Enterprise ColumnStore node designated as the primary server • Routes read queries to Enterprise ColumnStore node designated as replica servers • Automatically reconnects after node failures • Automatically replays transactions after node failures • Optionally enforces causal reads |
+| [Read Connection (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute)    | Configure Read Connection Router | • Connection-based load balancing • Routes connections to Enterprise ColumnStore nodes designated as replica servers for a read-only pool • Routes connections to an Enterprise ColumnStore node designated as the primary server for a read-write pool.                                                                                             |
+| [Read/Write Split (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) | Configure Read/Write Split       | • Query-based load balancing • Routes write queries to an Enterprise ColumnStore node designated as the primary server • Routes read queries to Enterprise ColumnStore node designated as replica servers • Automatically reconnects after node failures • Automatically replays transactions after node failures • Optionally enforces causal reads |
 
 ## Configure Read Connection Router
 

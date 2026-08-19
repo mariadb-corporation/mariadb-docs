@@ -88,12 +88,12 @@ This model functions optimally when application clients utilize sticky SQL conne
 
 ### Configuring Causal Read in MariaDB Cloud
 
-Causal consistency is configured in the MariaDB Cloud [Configuration Manager](https://app.skysql.com/settings/configuration-manager), under MaxScale Variables (applies to Replicated clusters only). Search for [causal reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#causal_reads).
+Causal consistency is configured in the MariaDB Cloud [Configuration Manager](https://app.skysql.com/settings/configuration-manager), under MaxScale Variables (applies to Replicated clusters only). Search for [causal reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#causal_reads).
 
 <figure><img src="../.gitbook/assets/causal.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-We do not advise adjusting `causal_reads` unless absolutely necessary. Adjust the [max\_slave\_replication\_lag](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#max_slave_replication_lag), which determines the max lag > for any read. The load balancer will only route to slaves with a lag less than this value. By default, this is unbounded. Make sure none of the replicas ever cross 70-80% CPU in a sustained manner.
+We do not advise adjusting `causal_reads` unless absolutely necessary. Adjust the [max\_slave\_replication\_lag](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#max_slave_replication_lag), which determines the max lag > for any read. The load balancer will only route to slaves with a lag less than this value. By default, this is unbounded. Make sure none of the replicas ever cross 70-80% CPU in a sustained manner.
 {% endhint %}
 
 In general, if the application is not performing large transactions or batch writes, given our default semi-sync replication, the replica SQL threads will keep up - i.e., getting an inconsistent read is unlikely.
@@ -121,7 +121,7 @@ The implementation of these routing strategies is straightforward, primarily thr
 In MariaDB Cloud, you can control routing using 2 strategies:
 
 * Using the `read port` for the service: Typically, this will be port 3307. When using this port, the request (read\_only) will be load-balanced only across the available replicas.
-* Using the [Hintfilter](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-filters/mariadb-maxscale-2302-hintfilter)
+* Using the [Hintfilter](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-filters/mariadb-maxscale-2302-hintfilter)
 
 ### **Synchronous HA using Enterprise Clusters**
 

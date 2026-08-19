@@ -1,0 +1,12 @@
+---
+description: >-
+  Before upgrading to MariaDB MaxScale 24.02, it's critical to review the
+  changes. This guide outlines new features, altered parameters, and deprecated
+  functionality to ensure a smooth transition.
+---
+
+# MaxScale 24.02 Upgrading
+
+This page has moved. See [Upgrading MaxScale](../../../maxscale-management/deployment/upgrading-maxscale/README.md).
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
