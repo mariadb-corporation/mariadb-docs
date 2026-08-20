@@ -20,3 +20,8 @@ Must be left alone:
 https://{server}:{port}/cmapi/{version}/{route}/{command}
 The `{server}` alias in a sentence.
 [ExternalRef]: https://{host}/path
+
+Unknown aliases (must fail the check):
+
+[Typo]({maxscsale}/readme)
+[NewSpace]: {kubernetes-operator}/install
