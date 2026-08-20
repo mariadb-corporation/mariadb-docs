@@ -74,7 +74,7 @@ $ maxctrl create server node3 192.0.2.103
 
 ## Configure the Galera Monitor
 
-MaxScale uses monitors to retrieve additional information from the servers. This information is used by other services in filtering and routing connections based on the current state of the node. For Enterprise Cluster, use the [Galera Monitor (galeramon)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-21-06/mariadb-maxscale-2106-maxscale-21-06-monitors/maxscale-mariadb-monitor-usage/maxscale-mariadb-monitor-usage-galera-monitor).
+MaxScale uses monitors to retrieve additional information from the servers. This information is used by other services in filtering and routing connections based on the current state of the node. For Enterprise Cluster, use the [Galera Monitor (galeramon)](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-monitors/galera-monitor).
 
 On the MaxScale node, use maxctrl [create monitor](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-monitor) to create a Galera Monitor for the cluster:
 
