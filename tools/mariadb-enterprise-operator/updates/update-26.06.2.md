@@ -36,7 +36,9 @@ spec:
 
 ```diff
 # values.yaml
-+requireMaxScaleRef: false
+webhook:
+  extraArgs:
++   - --require-maxscale-ref=false
 ```
 
 Refer to the [migration guide](../migrations/require-maxscale-ref.md) for the full detail on both options.

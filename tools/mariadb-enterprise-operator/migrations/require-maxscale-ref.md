@@ -65,11 +65,13 @@ Setting `spec.maxScaleRef` on an existing `MariaDB` hands over switchover and fa
 
 ## Option 2: Opt out of the validation
 
-If you intentionally run a highly available `MariaDB` without MaxScale, you can keep the previous behavior by disabling the validation in the operator. With the [helm chart](../installation/helm.md):
+If you intentionally run a highly available `MariaDB` without MaxScale, you can keep the previous behavior by disabling the validation in the operator with the `--require-maxscale-ref=false` flag. With the [helm chart](../installation/helm.md), pass it to the webhook through `webhook.extraArgs`:
 
 ```yaml
 # values.yaml
-requireMaxScaleRef: false
+webhook:
+  extraArgs:
+    - --require-maxscale-ref=false
 ```
 
 ```bash
@@ -78,7 +80,7 @@ helm upgrade --install mariadb-enterprise-operator \
   -f values.yaml
 ```
 
-This renders the `--require-maxscale-ref=false` flag in the webhook `Deployment`. If you do not deploy with helm, set the flag directly, or the `MARIADB_ENTERPRISE_OPERATOR_REQUIRE_MAXSCALE_REF=false` environment variable, wherever the webhook server runs.
+If you do not deploy with helm, set the flag directly, or the `MARIADB_ENTERPRISE_OPERATOR_REQUIRE_MAXSCALE_REF=false` environment variable, wherever the webhook server runs.
 
 {% hint style="info" %}
 The validation is enforced by the webhook, so the flag has no effect if it is only set in the controller `Deployment` while the webhook runs separately.

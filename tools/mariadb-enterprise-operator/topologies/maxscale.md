@@ -184,13 +184,15 @@ Without `spec.maxScaleRef`, the operator performs switchover and failover itself
 
 To prevent this, starting from `26.6.2`, the validation webhook **rejects** `MariaDB` resources that have `spec.replication` or `spec.galera` configured and no `spec.maxScaleRef`. This applies on both creation and update. [Standalone](standalone.md) `MariaDB` resources are not affected, as `MaxScale` is not supported in that topology.
 
-If you intentionally run a highly available `MariaDB` without `MaxScale`, and therefore want the operator to keep handling switchover and failover, you can opt out at the operator level by setting the following value in the `mariadb-enterprise-operator` helm chart:
+If you intentionally run a highly available `MariaDB` without `MaxScale`, and therefore want the operator to keep handling switchover and failover, you can opt out at the operator level with the `--require-maxscale-ref=false` flag. With the [helm chart](../installation/helm.md), pass it through `webhook.extraArgs`:
 
 ```yaml
-requireMaxScaleRef: false
+webhook:
+  extraArgs:
+    - --require-maxscale-ref=false
 ```
 
-This translates into the `--require-maxscale-ref=false` flag. Alternatively, the `MARIADB_ENTERPRISE_OPERATOR_REQUIRE_MAXSCALE_REF=false` environment variable can be set.
+Alternatively, the `MARIADB_ENTERPRISE_OPERATOR_REQUIRE_MAXSCALE_REF=false` environment variable can be set.
 
 {% hint style="warning" %}
 The validation is performed by the webhook, so the flag must be set wherever the webhook server runs. It has no effect if it is only set in the controller `Deployment` while the webhook runs separately.
