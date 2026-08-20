@@ -16,6 +16,12 @@ Example:
 [Securing Communications]({galera}/galera-security/securing-communications-in-galera-cluster)
 ```
 
+A reference-style link definition works the same way:
+
+```
+[Securing Communications]: {galera}/galera-security/securing-communications-in-galera-cluster
+```
+
 The `expand-gitbook-aliases.yml` Action rewrites `{galera}` to the full
 `https://app.gitbook.com/...` URL on the PR branch automatically. The expansion is committed
 back to the PR branch as `docs: expand GitBook aliases` from the `github-actions` bot — expect
@@ -50,11 +56,17 @@ that follow-up commit to appear shortly after opening or pushing to a PR.
 - **Don't validate aliased links locally.** The link-checker (lychee) is configured to skip
   anything containing `{` (and its `%7B` encoding), so aliases never trip CI.
 - **Only a link target is expanded.** The Action rewrites an alias when it appears directly
-  after a Markdown link's `](`, after a content-ref's `url="`, or after an HTML `href="`.
-  An alias-looking string anywhere else — in prose, in a table cell, in a code sample — is
-  left exactly as written. So `` `{server}` `` in a sentence is safe, and the ColumnStore
-  CMAPI pages can keep documenting `https://{server}:{port}/cmapi/{version}/{route}/{command}`,
-  where `{server}` is a hostname placeholder rather than a docs alias.
+  after a Markdown link's `](`, after a reference-style link definition's `]:`, after a
+  content-ref's `url="`, or after an HTML `href="`. An alias-looking string anywhere else — in
+  prose, in a table cell, in a code sample — is left exactly as written. So `` `{server}` ``
+  in a sentence is safe, and the ColumnStore CMAPI pages can keep documenting
+  `https://{server}:{port}/cmapi/{version}/{route}/{command}`, where `{server}` is a hostname
+  placeholder rather than a docs alias.
+- **Use one of the aliases in the table above — a name the Action doesn't know now fails CI.**
+  Anything still sitting in a link target after the expansion runs is reported by the
+  `expand-links` check with its file and line, because an unknown alias cannot be caught later:
+  GitBook publishes it as a plausible-looking `github.com/...` URL that 404s, and lychee skips
+  it. If a new space needs an alias, add it to `expand-gitbook-aliases.yml`.
 - Aliases **do work on landing pages.** Every space and section landing page is a
   `README.md`, and the Action used to skip those by filename, so an alias written there was
   silently left unexpanded — GitBook then read it as a repository path and emitted a
