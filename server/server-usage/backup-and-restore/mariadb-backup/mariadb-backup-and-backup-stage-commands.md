@@ -13,7 +13,7 @@ The [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statemen
 Every release of MariaDB Enterprise Server uses all of the `BACKUP STAGE` statements. MariaDB Community Server originally used only two of them, and gained the same behavior in MariaDB Community Server 10.11.8, 11.0.6, 11.1.5, 11.2.4, and 11.4.2, and in every release since. See [MDEV-32932](https://jira.mariadb.org/browse/MDEV-32932).
 
 {% hint style="info" %}
-The change landed in a maintenance release of each series, so the version series alone does not tell you which behavior you get. Releases before those listed above, all releases in the 10.6 series and earlier, and all releases in the 11.3 series use the two-statement behavior.
+The change landed in a maintenance release of each series, so the version series alone does not tell you which behavior you get. Releases before those listed above use the older behavior, as do all releases in the 10.6 series and earlier and all releases in the 11.3 series.
 {% endhint %}
 
 {% include "../../../.gitbook/includes/for-a-complete-list-of-mari....md" %}
