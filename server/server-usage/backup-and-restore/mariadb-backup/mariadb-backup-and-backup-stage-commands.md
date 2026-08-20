@@ -18,69 +18,6 @@ The change landed in a maintenance release of each series, so the version series
 
 {% include "../../../.gitbook/includes/for-a-complete-list-of-mari....md" %}
 
-## `BACKUP STAGE` Before MariaDB Community Server 10.11.8
-
-In these releases, the [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) statements are supported, but `mariadb-backup` does not use them in the most efficient way. It simply executes the following `BACKUP STAGE` statements to lock the database:
-
-```sql
-BACKUP STAGE START;
-BACKUP STAGE BLOCK_COMMIT;
-```
-
-When the backup is complete, it executes the following `BACKUP STAGE` statement to unlock the database:
-
-```sql
-BACKUP STAGE END;
-```
-
-{% hint style="info" %}
-To use a version of `mariadb-backup` that uses the [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) statements in the most efficient way, upgrade to MariaDB Community Server 10.11.8, 11.0.6, 11.1.5, 11.2.4, or 11.4.2 or later, or use MariaDB Enterprise Server.
-{% endhint %}
-
-### Tasks Performed Prior to `BACKUP STAGE`
-
-* Copy some transactional tables.
-  * InnoDB (i.e. `ibdataN` and file extensions `.ibd` and `.isl`)
-* Copy the tail of some transaction logs.
-  * The tail of the InnoDB redo log (i.e. `ib_logfileN` files) are copied for InnoDB tables.
-
-### `BACKUP STAGE START`
-
-`mariadb-backup` does not perform any tasks in the `START` stage.
-
-### `BACKUP STAGE FLUSH`
-
-`mariadb-backup` does not perform any tasks in the `FLUSH` stage.
-
-### `BACKUP STAGE BLOCK_DDL`
-
-`mariadb-backup` does not perform any tasks in the `BLOCK_DDL` stage.
-
-### `BACKUP STAGE BLOCK_COMMIT`
-
-`mariadb-backup` performs the following tasks in the `BLOCK_COMMIT` stage:
-
-* Copy other files.
-  * i.e. file extensions `.frm`, `.isl`, `.TRG`, `.TRN`, `.opt`, `.par`
-* Copy some transactional tables.
-  * Aria (i.e. `aria_log_control` and file extensions `.MAD` and `.MAI`)
-* Copy the non-transactional tables.
-  * `MyISAM` (i.e. file extensions `.MYD` and `.MYI`)
-  * `MERGE` (i.e. file extensions `.MRG`)
-  * `ARCHIVE` (i.e. file extensions `.ARM` and `.ARZ`)
-  * `CSV` (i.e. file extensions `.CSM` and `.CSV`)
-* Create a MyRocks checkpoint using the `rocksdb_create_checkpoint` system variable.
-* Copy the tail of some transaction logs.
-  * The tail of the InnoDB redo log (i.e. `ib_logfileN` files) are copied for InnoDB tables.
-* Save the binary log position to `xtrabackup_binlog_info`.
-* Save the Galera Cluster state information to `xtrabackup_galera_info`.
-
-### `BACKUP STAGE END`
-
-`mariadb-backup` performs the following tasks in the `END` stage:
-
-* Copy the MyRocks checkpoint into the backup.
-
 ## `BACKUP STAGE` in MariaDB Enterprise Server and MariaDB Community Server 10.11.8 and Later
 
 The following sections describe how `mariadb-backup` uses each [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) statement in an efficient way.
@@ -148,6 +85,69 @@ The following sections describe how `mariadb-backup` uses each [BACKUP STAGE](..
 * Copy the tail of all transaction logs.
   * The tail of the InnoDB redo log (i.e. `ib_logfileN` files) are copied for InnoDB tables.
   * The tail of the Aria redo log (i.e. `aria_log.N` files) are copied for Aria tables.
+* Save the binary log position to `xtrabackup_binlog_info`.
+* Save the Galera Cluster state information to `xtrabackup_galera_info`.
+
+### `BACKUP STAGE END`
+
+`mariadb-backup` performs the following tasks in the `END` stage:
+
+* Copy the MyRocks checkpoint into the backup.
+
+## `BACKUP STAGE` Before MariaDB Community Server 10.11.8
+
+In these releases, the [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) statements are supported, but `mariadb-backup` does not use them in the most efficient way. It simply executes the following `BACKUP STAGE` statements to lock the database:
+
+```sql
+BACKUP STAGE START;
+BACKUP STAGE BLOCK_COMMIT;
+```
+
+When the backup is complete, it executes the following `BACKUP STAGE` statement to unlock the database:
+
+```sql
+BACKUP STAGE END;
+```
+
+{% hint style="info" %}
+To use a version of `mariadb-backup` that uses the [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) statements in the most efficient way, upgrade to MariaDB Community Server 10.11.8, 11.0.6, 11.1.5, 11.2.4, or 11.4.2 or later, or use MariaDB Enterprise Server.
+{% endhint %}
+
+### Tasks Performed Prior to `BACKUP STAGE`
+
+* Copy some transactional tables.
+  * InnoDB (i.e. `ibdataN` and file extensions `.ibd` and `.isl`)
+* Copy the tail of some transaction logs.
+  * The tail of the InnoDB redo log (i.e. `ib_logfileN` files) are copied for InnoDB tables.
+
+### `BACKUP STAGE START`
+
+`mariadb-backup` does not perform any tasks in the `START` stage.
+
+### `BACKUP STAGE FLUSH`
+
+`mariadb-backup` does not perform any tasks in the `FLUSH` stage.
+
+### `BACKUP STAGE BLOCK_DDL`
+
+`mariadb-backup` does not perform any tasks in the `BLOCK_DDL` stage.
+
+### `BACKUP STAGE BLOCK_COMMIT`
+
+`mariadb-backup` performs the following tasks in the `BLOCK_COMMIT` stage:
+
+* Copy other files.
+  * i.e. file extensions `.frm`, `.isl`, `.TRG`, `.TRN`, `.opt`, `.par`
+* Copy some transactional tables.
+  * Aria (i.e. `aria_log_control` and file extensions `.MAD` and `.MAI`)
+* Copy the non-transactional tables.
+  * `MyISAM` (i.e. file extensions `.MYD` and `.MYI`)
+  * `MERGE` (i.e. file extensions `.MRG`)
+  * `ARCHIVE` (i.e. file extensions `.ARM` and `.ARZ`)
+  * `CSV` (i.e. file extensions `.CSM` and `.CSV`)
+* Create a MyRocks checkpoint using the `rocksdb_create_checkpoint` system variable.
+* Copy the tail of some transaction logs.
+  * The tail of the InnoDB redo log (i.e. `ib_logfileN` files) are copied for InnoDB tables.
 * Save the binary log position to `xtrabackup_binlog_info`.
 * Save the Galera Cluster state information to `xtrabackup_galera_info`.
 
