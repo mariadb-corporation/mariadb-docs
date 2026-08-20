@@ -1961,7 +1961,7 @@ INSERT INTO test.contacts (first_name, last_name, email)
 $ sudo mariadb
 ```
 
-4. Execute a [SELECT]({server}/reference/sql-statements/data-manipulation/selecting-data/select) query to retrieve the data:
+4. Execute a [SELECT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select) query to retrieve the data:
 
 ```sql
 SELECT * FROM test.contacts;
