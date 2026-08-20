@@ -179,7 +179,6 @@ Since MariaDB 12.3 is the first long-term release after [MariaDB 11.8](../11.8/w
 The following keywords are now [reserved words](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/reserved-words). They can no longer be used as [identifiers](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/identifier-names) without being quoted:
 
 * `CONVERSION`
-* `ST_COLLECT`
 * `TO_DATE`
 
 ### Removed System Variables

@@ -9,6 +9,8 @@ The following is a list of all reserved words in MariaDB.
 
 Reserved words cannot be used as [Identifiers](identifier-names.md), unless they are quoted.
 
+A version in parentheses, such as `(12.3+)`, means the word became reserved in that release and remains reserved in later releases.
+
 The definitive list of reserved words for each version can be found by examining the `sql/lex.h` and `sql/sql_yacc.yy` files.
 
 ## Reserved Words
@@ -43,7 +45,7 @@ The definitive list of reserved words for each version can be found by examining
 | CONDITION                         |
 | CONSTRAINT                        |
 | CONTINUE                          |
-| CONVERSION (> 12.2)               |
+| CONVERSION (12.3+)                |
 | CONVERT                           |
 | CREATE                            |
 | CROSS                             |
@@ -163,7 +165,7 @@ The definitive list of reserved words for each version can be found by examining
 | NO\_WRITE\_TO\_BINLOG             |
 | NULL                              |
 | NUMERIC                           |
-| OFFSET (> 10.6)                   |
+| OFFSET (10.6+)                    |
 | ON                                |
 | OPTIMIZE                          |
 | OPTION                            |
@@ -202,7 +204,7 @@ The definitive list of reserved words for each version can be found by examining
 | REVOKE                            |
 | RIGHT                             |
 | RLIKE                             |
-| ROW\_NUMBER (> 10.7)              |
+| ROW\_NUMBER (10.7+)               |
 | ROWS                              |
 | SCHEMA                            |
 | SCHEMAS                           |
@@ -230,7 +232,6 @@ The definitive list of reserved words for each version can be found by examining
 | STATS\_PERSISTENT                 |
 | STATS\_SAMPLE\_PAGES              |
 | STRAIGHT\_JOIN                    |
-| ST\_COLLECT (> 11.8)              |
 | TABLE                             |
 | TERMINATED                        |
 | THEN                              |
@@ -238,7 +239,7 @@ The definitive list of reserved words for each version can be found by examining
 | TINYINT                           |
 | TINYTEXT                          |
 | TO                                |
-| TO\_DATE (> 12.2)                 |
+| TO\_DATE (12.3+)                  |
 | TRAILING                          |
 | TRIGGER                           |
 | TRUE                              |
@@ -259,7 +260,7 @@ The definitive list of reserved words for each version can be found by examining
 | VARCHAR                           |
 | VARCHARACTER                      |
 | VARYING                           |
-| VECTOR (> 11.6)                   |
+| VECTOR (11.7+)                    |
 | WHEN                              |
 | WHERE                             |
 | WHILE                             |
@@ -295,7 +296,7 @@ In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server
 | ELSIF            |
 | GOTO             |
 | HISTORY          |
-| MINUS (> 10.6.0) |
+| MINUS (10.6+)    |
 | OTHERS           |
 | PACKAGE          |
 | PERIOD           |
@@ -347,6 +348,8 @@ It is recommended that all identifiers listed as keywords (including those indic
 ## Function Names
 
 If the `IGNORE_SPACE` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) flag is set, function names become reserved words.
+
+Function names are not listed in the tables above, because they are recognized as keywords only when followed immediately by an opening parenthesis. `ST_COLLECT` is one example: it is a function name, not a reserved word, so it can be used as an unquoted identifier unless `IGNORE_SPACE` is set.
 
 ## See Also
 

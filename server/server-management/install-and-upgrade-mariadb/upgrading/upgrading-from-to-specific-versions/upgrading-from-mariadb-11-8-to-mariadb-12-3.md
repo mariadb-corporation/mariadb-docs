@@ -51,7 +51,7 @@ The following options should be removed or renamed if you use them in your [opti
 
 #### New Reserved Words
 
-`CONVERSION`, `ST_COLLECT`, and `TO_DATE` are now [reserved words](../../../../reference/sql-structure/sql-language-structure/reserved-words.md). This only affects you if you use one of them as an unquoted identifier (for example, a table, column, or variable name) — quote it or rename it before upgrading, otherwise the statement will fail to parse. For the full list of 12.3 changes, see [Features in MariaDB 12.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements).
+`CONVERSION` and `TO_DATE` are now [reserved words](../../../../reference/sql-structure/sql-language-structure/reserved-words.md). This only affects you if you use one of them as an unquoted identifier (for example, a table, column, or variable name) — quote it or rename it before upgrading, otherwise the statement will fail to parse. For the full list of 12.3 changes, see [Features in MariaDB 12.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements).
 
 #### Changes in Replication Behavior
 
