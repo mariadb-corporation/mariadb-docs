@@ -42,6 +42,10 @@ While Kubernetes `Services` can be used for addressing primary and secondary ins
 
 The full lifecycle of the MaxScale proxy is covered by this operator.  Please refer to [MaxScale docs](./maxscale.md) for further detail.
 
+{% hint style="warning" %}
+Starting from `26.6.2`, `MariaDB` resources with `spec.replication` or `spec.galera` configured are **required** to reference a `MaxScale` via `spec.maxScaleRef`, so that switchover and failover are handled by MaxScale instead of by the operator. Refer to [Requiring a MaxScale reference](./maxscale.md#requiring-a-maxscale-reference) if you need to opt out of this validation, and to the [migration guide](../migrations/require-maxscale-ref.md) when updating an existing installation.
+{% endhint %}
+
 ## Pod Anti-Affinity
 
 {% hint style="warning" %}

@@ -27,6 +27,18 @@ spec:
   -  name: mariadb-enterprise   # Required to pull the MariaDB Enterprise image  
 ```
 
+{% hint style="warning" %}
+Starting from `26.6.2`, `spec.maxScaleRef` is **required** in `MariaDB` resources with `spec.replication` configured, so that switchover and failover are handled by [MaxScale](maxscale.md) instead of by the operator:
+
+```yaml
+spec:
+  maxScaleRef:
+    name: maxscale-repl
+```
+
+Refer to [Requiring a MaxScale reference](maxscale.md#requiring-a-maxscale-reference) if you need to opt out of this validation, and to the [migration guide](../migrations/require-maxscale-ref.md) when updating an existing installation.
+{% endhint %}
+
 **Note**:&#x20;
 
 * The operator’s admission webhook requires `spec.storage`**.** If it is not provided, an error will occur indicating that either `storage.size` or `storage.volumeClaimTemplate` must be specified. For storage configuration options, see [Storage](../storage.md).
