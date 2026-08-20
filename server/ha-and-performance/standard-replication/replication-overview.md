@@ -110,7 +110,7 @@ flowchart LR
 _Ring replication: each primary replicates to the next in a closed loop; here one node also feeds a replica._
 
 * Provides read and write scaling.
-* Doesn’t handle conflicts, unless [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) are defined (MariaDB Enterprise Server 12.3, beta).
+* Doesn’t handle conflicts before [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) were added in MariaDB Enterprise Server 12.3.
 * If one primary fails, replication stops.
 * [More about Multi-master ring replication](multi-master-ring-replication.md)
 
@@ -141,7 +141,7 @@ flowchart TD
 _Multi-master ring with replicas: two primaries replicate to each other; each also has a replica and a delayed replica._
 
 * Provides read and write scaling.
-* Doesn’t handle conflicts, unless [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) are defined (MariaDB Enterprise Server 12.3, beta).
+* Doesn’t handle conflicts before [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) were added in MariaDB Enterprise Server 12.3.
 * If one primary fails, replication stops.
 * [More about Multi-master ring replication](multi-master-ring-replication.md)
 
@@ -172,7 +172,7 @@ flowchart TD
 _Multi-master ring relayed through replicas: each replica forwards to the other domain's primary, closing the ring._
 
 * Provides read and write scaling.
-* Doesn’t handle conflicts, unless [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) are defined (MariaDB Enterprise Server 12.3, beta).
+* Doesn’t handle conflicts before [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) were added in MariaDB Enterprise Server 12.3.
 * If one primary fails, replication stops.
 * [More about Multi-master ring replication](multi-master-ring-replication.md)
 
@@ -209,7 +209,7 @@ flowchart TD
 _Star replication: every primary replicates with every other, so all nodes converge to the same data._
 
 * Provides read and write scaling.
-* Doesn’t handle conflicts, unless [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) are defined (MariaDB Enterprise Server 12.3, beta).
+* Doesn’t handle conflicts before [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) were added in MariaDB Enterprise Server 12.3.
 * Have to use replication filters to avoid duplication of data.
 * [MariaDB Galera Cluster](../../architecture/topologies/galera-cluster/README.md), which is a [virtually synchronous](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/about-galera-replication) multi-primary (multi-master) cluster for MariaDB, has a similar configuration and can handle conflicts.
 
