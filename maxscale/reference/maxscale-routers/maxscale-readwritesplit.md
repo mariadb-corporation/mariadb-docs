@@ -173,7 +173,7 @@ Where `<criteria>` is one of the following values.
 
 `adaptive_routing` uses the server response time and current estimated server load as the load balancing metric. The server that is estimated to finish an additional query first is chosen. A modified average response time for each server is continuously updated to allow slow servers at least some traffic and quickly react to changes in server load conditions. This selection criteria is designed for heterogeneous clusters: servers of differing hardware, differing network distances, or when other loads are running on the servers (including a backup). If the servers are queried by other clients than MaxScale, the load caused by them is indirectly taken into account.
 
-`least_behind_master` uses the measured replication lag as the load balancing metric. This means that servers that are more up-to-date are favored which increases the likelihood of the data being read being up-to-date. However, this is not as effective as `causal_reads` would be as there's no guarantee that writes done by the same connection will be routed to a server that has replicated those changes. The recommended approach is to use`LEAST_CURRENT_OPERATIONS` or `ADAPTIVE_ROUTING` in combination with`causal_reads`.
+`least_behind_master` uses the measured replication lag as the load balancing metric. This means that servers that are more up-to-date are favored which increases the likelihood of the data being read being up-to-date. This mode measures replica lag using the `Seconds_Behind_Master` column from [`SHOW REPLICA STATUS`](../../../server/reference/sql-statements/administrative-sql-statements/show/show-replica-status.md) and is only compatible with traditional Primary-Replica replication, not Galera clusters. However, this is not as effective as `causal_reads` would be as there's no guarantee that writes done by the same connection will be routed to a server that has replicated those changes. The recommended approach is to use`LEAST_CURRENT_OPERATIONS` or `ADAPTIVE_ROUTING` in combination with`causal_reads`.
 
 **NOTE**: `least_global_connections` and `least_router_connections` should not be used, they are legacy options that exist only for backwards compatibility. Using them will result in skewed load balancing as the algorithm uses a metric that's too coarse (number of connections) to load balance something that's finer (individual SQL queries).
 
@@ -482,6 +482,10 @@ This feature has been moved into the [OptimisticTrx](../maxscale-filters/maxscal
 
 Enable causal reads. This feature requires MariaDB 10.2.16 or newer to function.
 
+Starting with MaxScale 24.02, `causal_reads` no longer requires [`session_track_system_variables`](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#session_track_system_variables) to be configured on the backend servers: MaxScale adds [`last_gtid`](../../../server/ha-and-performance/standard-replication/gtid.md#last_gtid) to the variable automatically for each new backend connection. In older versions, `session_track_system_variables` had to be set to include `last_gtid` on all backend MariaDB servers for `causal_reads` to function at all.
+
+There is still a benefit to configuring `session_track_system_variables` to include `last_gtid` (or setting it to `*`) on the backend servers: starting with MaxScale 25.10, MaxScale checks whether the server already tracks `last_gtid` before opening a new backend connection and skips sending the `SET` statement that adds it if it's already present, making the connection setup more efficient. In older versions, the `SET` statement is sent unconditionally on every new backend connection.
+
 If a client connection modifies the database and `causal_reads` is enabled, any subsequent reads performed on replica servers will be done in a manner that prevents replication lag from affecting the results.
 
 The following table contains a comparison of the modes. Read the [implementation of `causal_reads`](maxscale-readwritesplit.md#implementation-of-causal_reads) for more information on what a sync consists of and why minimizing the number of them is important.
@@ -783,6 +787,7 @@ The following operations are routed to primary:
 * All statements within an open read-write transaction
 * Stored procedure calls
 * User-defined function calls
+* Queries that use temporary tables created within the same session
 * Queries that use sequences (`NEXT VALUE FOR seq`, `NEXTVAL(seq)` or `seq.nextval`)
 * Statements that use any of the following functions:
   * `LAST_INSERT_ID()`
