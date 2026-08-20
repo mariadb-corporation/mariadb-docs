@@ -866,7 +866,7 @@ The simplest approach to avoid time zone headaches is for the client and server 
 
 There are 3 options that control timestamps behavior in the java connector:
 
-* connectionTimeZone: (LOCAL | SERVER | ) - This option defines the connection's time zone. LOCAL retrieves the JVM's default time zone, SERVER fetches the server's global time zone upon connection creation, and allows specifying a server time zone without requesting it during connection establishment.
+* connectionTimeZone: (LOCAL | SERVER | `<user-defined time zone>`) - This option defines the connection's time zone. LOCAL retrieves the JVM's default time zone, SERVER fetches the server's global time zone upon connection creation, and `<user-defined time zone>` allows specifying a server time zone without requesting it during connection establishment.
 * forceConnectionTimeZoneToSession: (true | false) - This setting dictates whether the connector enforces the connection time zone for the session.
 * preserveInstants: (true | false) - This option controls whether the connector converts Timestamp values to the connection's time zone.
 
