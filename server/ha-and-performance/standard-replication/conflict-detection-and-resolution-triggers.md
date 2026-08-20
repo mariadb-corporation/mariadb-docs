@@ -12,10 +12,6 @@ hidden: true
 CDR triggers are available beginning with **MariaDB Enterprise Server 12.3** and are a **beta feature**. Read [Limitations and Beta Caveats](conflict-detection-and-resolution-triggers.md#limitations-and-beta-caveats) before deploying CDR triggers on a production replica. Behavior outside the supported configuration is unspecified and may change.
 {% endhint %}
 
-{% hint style="info" %}
-The terms _master_ and _slave_ have historically been used in replication, and MariaDB has begun the process of adding _primary_ and _replica_ synonyms. The old terms will continue to be used to maintain backward compatibility - see [MDEV-18777](https://jira.mariadb.org/browse/MDEV-18777) to follow progress on this effort.
-{% endhint %}
-
 Replica data can diverge from the primary in three ways:
 
 1. **Direct local writes to the replica** — for example, an ETL job or a manual administrative fix.
