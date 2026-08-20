@@ -143,8 +143,6 @@
 
 * [Documentation No Longer Available](documentation-no-longer-available.md)
 
-## Old MaxScale Versions
-
 * [Old MaxScale Versions](maxscale-old-versions/README.md)
   * [MariaDB MaxScale 25.01](maxscale-old-versions/mariadb-maxscale-25-01/README.md)
     * [MaxScale 25.01 Contents](maxscale-old-versions/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-2501-contents.md)
