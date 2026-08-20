@@ -10,7 +10,7 @@ description: >-
 
 The [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) statements make it possible to make an efficient external backup tool. How `mariadb-backup` uses these statements depends on the version of MariaDB Server it is bundled with.
 
-Every release of MariaDB Enterprise Server uses all of the `BACKUP STAGE` statements. MariaDB Community Server originally used only two of them, and gained the same behavior in MariaDB Community Server 10.11.8, 11.0.6, 11.1.5, 11.2.4, and 11.4.2, and in every release since. See [MDEV-32932](https://jira.mariadb.org/browse/MDEV-32932).
+Every release of MariaDB Enterprise Server uses all of the `BACKUP STAGE` statements to do the work described below. MariaDB Community Server gained the same behavior in MariaDB Community Server 10.11.8, 11.0.6, 11.1.5, 11.2.4, and 11.4.2, and in every release since. See [MDEV-32932](https://jira.mariadb.org/browse/MDEV-32932).
 
 {% hint style="info" %}
 The change landed in a maintenance release of each series, so the version series alone does not tell you which behavior you get. Releases before those listed above use the older behavior, as do all releases in the 10.6 series and earlier and all releases in the 11.3 series.
