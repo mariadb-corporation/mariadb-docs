@@ -16,7 +16,7 @@ MariaDB MaxScale 25.01 is a **bug-fix release**. It receives bug fixes until its
 | Page | Description |
 | --- | --- |
 | [About MariaDB MaxScale](maxscale-25-01-about.md) | What MariaDB MaxScale is and what it does. |
-| [Changelog]({release-notes}/maxscale/25.01/25.01-changelog) | Every change in each 25.01 point release, in the release notes. |
+| [Changelog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/maxscale/25.01/25.01-changelog) | Every change in each 25.01 point release, in the release notes. |
 | [Limitations](../../maxscale-management/mariadb-maxscale-limitations-guide.md) | Review the current constraints of MariaDB MaxScale. This document lists known issues regarding transaction parsing, protocol support, and specific module limitations. |
 
 ## Getting Started
