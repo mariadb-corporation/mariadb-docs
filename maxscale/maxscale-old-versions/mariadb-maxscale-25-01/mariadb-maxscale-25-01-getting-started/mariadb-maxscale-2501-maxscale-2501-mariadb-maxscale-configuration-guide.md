@@ -1435,7 +1435,7 @@ the MaxScale log.
 
 #### `writeq_high_water`
 
-* Type: [size](mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#size)
+* Type: size
 * Mandatory: No
 * Dynamic: Yes
 * Default: `65536`
@@ -1458,7 +1458,7 @@ MaxScale 23.02 and earlier, also `writeq_low_water` had to be non-zero.
 
 #### `writeq_low_water`
 
-* Type: [size](mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#size)
+* Type: size
 * Mandatory: No
 * Dynamic: Yes
 * Default: `1024`
@@ -3180,7 +3180,7 @@ for more information.
 * Dynamic: Yes
 * Default: None
 
-This setting together with [monitorpasswd](mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#monitorpasswd) define server-specific
+This setting together with monitorpasswd define server-specific
 credentials for monitoring the server. Monitors typically use the credentials in their
 own configuration sections to connect to all servers. If server-specific settings are
 given, the monitor uses those instead.
@@ -3594,7 +3594,7 @@ authenticator specific documentation for more details.
 
 #### `sql_mode`
 
-* Type: [enum](mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#enumeration)
+* Type: enum
 * Mandatory: No
 * Dynamic: Yes
 * Values: `default`, `oracle`

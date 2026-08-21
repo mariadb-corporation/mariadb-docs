@@ -84,7 +84,7 @@ options=case,extended
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
 
-[Regular expression options](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters)
+[Regular expression options](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md)
 for `matchXY`.
 
 #### `targetXY`

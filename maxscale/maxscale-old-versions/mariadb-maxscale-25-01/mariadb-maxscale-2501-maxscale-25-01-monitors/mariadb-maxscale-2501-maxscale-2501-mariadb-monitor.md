@@ -120,7 +120,7 @@ changed significantly and the primary should be re-selected, although the old
 primary may still be the best choice.
 
 The primary change described above is different from failover and switchover
-described in section [Failover, switchover and auto-rejoin](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#failover,-switchover-and-auto-rejoin).\
+described in section Failover, switchover and auto-rejoin.\
 A primary change only modifies the server roles inside MaxScale but does not
 modify the cluster other than changing the targets of read and write queries.\
 Failover and switchover perform a primary change on their own.
@@ -457,15 +457,15 @@ see [general monitor documentation](https://mariadb.com/kb/en/node:maxscale-25-0
 MariaDB Monitor can perform several operations that modify the replication
 topology. The supported operations are:
 
-* [failover](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#failover), which replaces a failed primary with a replica
-* [failover-safe](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#failover-safe), which replaces a failed primary with a replica
+* failover, which replaces a failed primary with a replica
+* failover-safe, which replaces a failed primary with a replica
   only if no data is clearly lost
-* [switchover](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#switchover), which swaps a running primary with a replica
-* [switchover-force](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#switchover-force), which swaps a running primary with a replica, ignoring
+* switchover, which swaps a running primary with a replica
+* switchover-force, which swaps a running primary with a replica, ignoring
   most errors. Can break replication.
-* [async-switchover](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#queued-switchover), which schedules a switchover and returns
-* [rejoin](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#rejoin), which directs servers to replicate from the primary
-* [reset-replication](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#reset-replication) (added in MaxScale 2.3.0), which deletes binary logs and
+* async-switchover, which schedules a switchover and returns
+* rejoin, which directs servers to replicate from the primary
+* reset-replication (added in MaxScale 2.3.0), which deletes binary logs and
   resets gtid:s
 
 See [operation details](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#operation-details) for more information on the
@@ -927,7 +927,7 @@ primary.
 * Default: `false`
 
 Enable automatic primary failover. `true`, `on`, `yes` and `1` enable normal
-failover. `false`, `off`, `no` and `0` disable the feature. `safe` enables [safe failover](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#failover-safe).
+failover. `false`, `off`, `no` and `0` disable the feature. `safe` enables safe failover.
 
 When automatic failover is enabled, MaxScale
 will elect a new primary server for the cluster if the old primary goes down. A
@@ -958,9 +958,9 @@ This effectively enforces a 1-primary-N-replicas topology. The current primary
 itself is not redirected, so it can continue to replicate from an external
 primary. Rejoin is also not performed on any server that is replicating from
 multiple sources, as this indicates a complicated topology (this rule is
-overridden by [enforce\_simple\_topology](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#enforce_simple_topology)).
+overridden by enforce\_simple\_topology).
 
-This feature is often paired with [auto\_failover](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#auto_failover) to redirect
+This feature is often paired with auto\_failover to redirect
 the former primary when it comes back online. Sometimes this kind of rejoin will
 fail as the old primary may have transactions that were never replicated to the
 current one. See [limitations](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#limitations-and-requirements) for more
@@ -1054,7 +1054,7 @@ encrypted with the same key to avoid erroneous decryption.
 * Dynamic: Yes
 * Default: None
 
-See [replication\_user](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#replication_user)
+See replication\_user
 
 **`replication_master_ssl`**
 
@@ -1126,7 +1126,7 @@ even if the duration is longer than a second.
 * Dynamic: Yes
 * Default: `true`
 
-Enable additional primary failure verification for automatic failover.`verify_master_failure` enables this feature and [master\_failure\_timeout](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#master_failure_timeout) defines the timeout.
+Enable additional primary failure verification for automatic failover.`verify_master_failure` enables this feature and master\_failure\_timeout defines the timeout.
 
 The primary failure timeout is specified as documented [here](../mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md). If no explicit unit
 is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent
@@ -1230,7 +1230,7 @@ demotion_sql_file=/home/root/scripts/demotion.sql
 * Dynamic: Yes
 * Default: None
 
-See [promotion\_sql\_file](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#promotion_sql_file).
+See promotion\_sql\_file.
 
 **`handle_events`**
 
@@ -1507,9 +1507,9 @@ configure this feature.
 
 If enabled (value > 0s), the monitor will perform a write test on the primary
 server if its gtid\_binlog\_pos has not changed within the configured interval.\
-This test inserts one row to the table configured in [write\_test\_table](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#write_test_table). If the insert fails or does not complete
+This test inserts one row to the table configured in write\_test\_table. If the insert fails or does not complete
 within [backend\_read\_timeout](mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md),
-the server fails the write test. What happens after that depends on [write\_test\_fail\_action](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#write_test_fail_action).
+the server fails the write test. What happens after that depends on write\_test\_fail\_action.
 
 ```
 write_test_interval=20s

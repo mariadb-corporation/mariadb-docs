@@ -329,7 +329,7 @@ bootstrapping implicitly is much more convenient.
 
 In order to enable authorization you need to have NoSQL users and
 those can be created with [createUser](mariadb-maxscale-2302-nosql-protocol-module.md#createuser) or added
-with [mxsAddUser](mariadb-maxscale-2302-nosql-protocol-module.md#addUser).
+with mxsAddUser.
 
 If you want to _create_ a user, then you first need to configure
 nosqlprotocol with credentials that are sufficient for creating a user:
@@ -1368,9 +1368,9 @@ The following fields are relevant.
 | query         | document | Optional. The query predicate.                                                                                                                            |
 | sort          | document | Optional. The sort specification used when the document is selected.                                                                                      |
 | remove        | boolean  | Mandatory, if update is not specified. If true, the document will be deleted.                                                                             |
-| update        | document | Mandatory, if remove is not specified. See [Update.behavior](mariadb-maxscale-2302-nosql-protocol-module.md#behavior) for details.                        |
+| update        | document | Mandatory, if remove is not specified. See Update.behavior for details.                        |
 | new           | boolean  | Optional. If true the modified document and not the original document is returned. If remove is specified, then the original document is always returned. |
-| fields        | document | Optional. Specified which fields to return. See [Find.projection](mariadb-maxscale-2302-nosql-protocol-module.md#projection) for details.                 |
+| fields        | document | Optional. Specified which fields to return. See Find.projection for details.                 |
 | upsert        | boolean  | Optional. If true then a document will be created, if one is not found.                                                                                   |
 
 All other fields are ignored.
@@ -2039,7 +2039,7 @@ an existing user in the MariaDB server and the value of `pwd` should be
 that user's password in cleartext.
 
 The `roles` array should contain roles that a compatible with the
-grants of the user. Please check [roles and grants](mariadb-maxscale-2302-nosql-protocol-module.md#roles_and_grants)
+grants of the user. Please check roles and grants
 for a discussion on how to map roles map to grants.
 
 **Returns**
@@ -2399,7 +2399,7 @@ The command has the following fields:
 | digestPassword | boolean  | Optional. If specified, must be true.                                                                                                                                    |
 
 The `roles` array should contain roles that a compatible with the
-grants of the user. Please check [roles and grants](mariadb-maxscale-2302-nosql-protocol-module.md#roles_and_grants)
+grants of the user. Please check roles and grants
 for a discussion on how to map roles map to grants.
 
 **Returns**

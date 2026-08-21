@@ -120,7 +120,7 @@ changed significantly and the primary should be re-selected, although the old
 primary may still be the best choice.
 
 The primary change described above is different from failover and switchover
-described in section [Failover, switchover and auto-rejoin](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#failover,-switchover-and-auto-rejoin).\
+described in section Failover, switchover and auto-rejoin.\
 A primary change only modifies the server roles inside MaxScale but does not
 modify the cluster other than changing the targets of read and write queries.\
 Failover and switchover perform a primary change on their own.
@@ -457,13 +457,13 @@ see [general monitor documentation](https://mariadb.com/kb/en/node:maxscale-24-0
 Starting with MaxScale 2.2.1, MariaDB Monitor supports replication cluster
 modification. The operations implemented are:
 
-* [failover](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#failover), which replaces a failed primary with a replica
-* [switchover](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#switchover), which swaps a running primary with a replica
-* [switchover-force](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#switchover-force), which swaps a running primary with a replica, ignoring
+* failover, which replaces a failed primary with a replica
+* switchover, which swaps a running primary with a replica
+* switchover-force, which swaps a running primary with a replica, ignoring
   most errors. Can break replication.
-* [async-switchover](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#queued-switchover), which schedules a switchover and returns
-* [rejoin](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#rejoin), which directs servers to replicate from the primary
-* [reset-replication](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#reset-replication) (added in MaxScale 2.3.0), which deletes binary logs and
+* async-switchover, which schedules a switchover and returns
+* rejoin, which directs servers to replicate from the primary
+* reset-replication (added in MaxScale 2.3.0), which deletes binary logs and
   resets gtid:s
 
 See [operation details](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#operation-details) for more information on the
@@ -904,9 +904,9 @@ This effectively enforces a 1-primary-N-replicas topology. The current primary
 itself is not redirected, so it can continue to replicate from an external
 primary. Rejoin is also not performed on any server that is replicating from
 multiple sources, as this indicates a complicated topology (this rule is
-overridden by [enforce\_simple\_topology](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#enforce_simple_topology)).
+overridden by enforce\_simple\_topology).
 
-This feature is often paired with [auto\_failover](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#auto_failover) to redirect
+This feature is often paired with auto\_failover to redirect
 the former primary when it comes back online. Sometimes this kind of rejoin will
 fail as the old primary may have transactions that were never replicated to the
 current one. See [limitations](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#limitations-and-requirements) for more

@@ -1377,7 +1377,7 @@ If no port is provided, then the default port `6379` will be used.
 * Dynamic: No
 * Default: `""`
 
-Please see [authentication](mariadb-maxscale-2501-maxscale-2501-cache.md#authentication) for more information.
+Please see authentication for more information.
 
 **`password`**
 
@@ -1386,7 +1386,7 @@ Please see [authentication](mariadb-maxscale-2501-maxscale-2501-cache.md#authent
 * Dynamic: No
 * Default: `""`
 
-Please see [authentication](mariadb-maxscale-2501-maxscale-2501-cache.md#authentication) for more information.
+Please see authentication for more information.
 
 **`ssl`**
 
@@ -1395,7 +1395,7 @@ Please see [authentication](mariadb-maxscale-2501-maxscale-2501-cache.md#authent
 * Dynamic: No
 * Default: `false`
 
-Please see [ssl](mariadb-maxscale-2501-maxscale-2501-cache.md#ssl-1) for more information.
+Please see ssl for more information.
 
 **`ssl_cert`**
 
@@ -1407,7 +1407,7 @@ Please see [ssl](mariadb-maxscale-2501-maxscale-2501-cache.md#ssl-1) for more in
 The SSL client certificate that MaxScale should use with the Redis
 server. The certificate must match the key defined in `ssl_key`.
 
-Please see [ssl](mariadb-maxscale-2501-maxscale-2501-cache.md#ssl-1) for more information.
+Please see ssl for more information.
 
 **`ssl_key`**
 
@@ -1418,7 +1418,7 @@ Please see [ssl](mariadb-maxscale-2501-maxscale-2501-cache.md#ssl-1) for more in
 
 The SSL client private key MaxScale should use with the Redis server.
 
-Please see [ssl](mariadb-maxscale-2501-maxscale-2501-cache.md#ssl-1) for more information.
+Please see ssl for more information.
 
 **`ssl_ca`**
 
@@ -1430,7 +1430,7 @@ Please see [ssl](mariadb-maxscale-2501-maxscale-2501-cache.md#ssl-1) for more in
 The Certificate Authority (CA) certificate for the CA that signed the
 certificate specified with `ssl_cert`.
 
-Please see [ssl](mariadb-maxscale-2501-maxscale-2501-cache.md#ssl-1) for more information.
+Please see ssl for more information.
 
 **Authentication**
 
@@ -1499,7 +1499,7 @@ $ redis-cli flushall
 The data in the redis server is _not_ encrypted. Consequently, _anybody_ with
 access to the redis server has access to the cached data.
 
-Unless [SSL](mariadb-maxscale-2501-maxscale-2501-cache.md#ssl) has been enabled, _anybody_ with access to the network has
+Unless SSL has been enabled, _anybody_ with access to the network has
 access to the cached data.
 
 ### Example
