@@ -48,7 +48,7 @@ See [aria\_chk](../../../clients-and-utilities/aria-clients-and-utilities/aria_c
 
 This statement requires [SELECT and INSERT privileges](../account-management-sql-statements/grant.md) for the table.
 
-By default, `REPAIR TABLE` statements are written to the [binary log](../../../server-management/server-monitoring-logs/binary-log/) and will be [replicated](../../../server-usage/storage-engines/myrocks/myrocks-and-replication.md). The `NO_WRITE_TO_BINLOG` keyword (`LOCAL` is an alias) will ensure the statement is not written to the binary log.
+By default, `REPAIR TABLE` statements are written to the [binary log](../../../server-management/server-monitoring-logs/binary-log/) and will be [replicated](../../../ha-and-performance/standard-replication/). The `NO_WRITE_TO_BINLOG` keyword (`LOCAL` is an alias) will ensure the statement is not written to the binary log.
 
 {% tabs %}
 {% tab title="Current" %}

@@ -63,7 +63,7 @@ Set the lock wait timeout. See [WAIT and NOWAIT](../../transactions/wait-and-now
 
 ## DROP TABLE in replication
 
-`DROP TABLE` has the following characteristics in [replication](../../../../server-usage/storage-engines/myrocks/myrocks-and-replication.md):
+`DROP TABLE` has the following characteristics in [replication](../../../../ha-and-performance/standard-replication/):
 
 * `DROP TABLE IF EXISTS` are always logged.
 * `DROP TABLE` without `IF EXISTS` for tables that don't exist are not written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/).

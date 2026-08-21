@@ -27,7 +27,7 @@ To install Orchestrator, see:
 
 ## Supported Topologies
 
-Currently, Orchestrator fully supports MariaDB [GTID](../../ha-and-performance/standard-replication/gtid.md), [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md), and [semi-synchronous replication](../../ha-and-performance/standard-replication/semisynchronous-replication.md). While Orchestrator does not support Galera specific logic, it works with Galera clusters. For details, see [Supported Topologies and Versions](https://github.com/openark/orchestrator/blob/master/docs/supported-topologies-and-versions.md) in Orchestrator documentation.
+Currently, Orchestrator fully supports MariaDB [GTID](../../ha-and-performance/standard-replication/gtid.md), [replication](../../ha-and-performance/standard-replication/), and [semi-synchronous replication](../../ha-and-performance/standard-replication/semisynchronous-replication.md). While Orchestrator does not support Galera specific logic, it works with Galera clusters. For details, see [Supported Topologies and Versions](https://github.com/openark/orchestrator/blob/master/docs/supported-topologies-and-versions.md) in Orchestrator documentation.
 
 ## Architecture
 

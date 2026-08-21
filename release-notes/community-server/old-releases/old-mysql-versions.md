@@ -19,7 +19,7 @@ This page lists the main features that were added in very old MySQL trees, befor
 
 ## MySQL 3.23
 
-* [Replication](https://mariadb.com/docs/server/server-usage/storage-engines/myrocks/myrocks-and-replication) (only statement-based, no SSL).
+* [Replication]({server}/ha-and-performance/standard-replication) (only statement-based, no SSL).
 * Temporary tables
 * Portable tables through different machines
 * [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode)
