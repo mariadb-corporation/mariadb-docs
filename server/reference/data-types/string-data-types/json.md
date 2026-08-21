@@ -7,7 +7,7 @@ description: >-
 
 # JSON Data Type
 
-The `JSON` alias was added to make it possible to use JSON columns in [statement based](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based) [replication](../../../ha-and-performance/standard-replication/) from MySQL to MariaDB and to make it possible for MariaDB to read [mysqldumps](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) from MySQL.
+The `JSON` alias was added to make it possible to use JSON columns in [statement based](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging) [replication](../../../ha-and-performance/standard-replication/) from MySQL to MariaDB and to make it possible for MariaDB to read [mysqldumps](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) from MySQL.
 
 `JSON` is an alias for `LONGTEXT COLLATE utf8mb4_bin` introduced for compatibility reasons with MySQL's JSON data type. MariaDB implements this as a [LONGTEXT](longtext.md) rather, as the JSON data type contradicts the SQL:2016 standard, and MariaDB's benchmarks indicate that performance is at least equivalent.
 
