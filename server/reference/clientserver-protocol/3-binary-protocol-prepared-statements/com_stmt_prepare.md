@@ -34,7 +34,7 @@ Not all statements can be prepared. See [PREPARE](../../sql-statements/prepared-
 
 If something goes wrong, the server sends an [ERR\_Packet](../4-server-response-packets/err_packet.md). If the command succeeds, different packets are received:
 
-* [COM\_STMT\_PREPARE\_OK](com_stmt_prepare.md#COM_STMT_PREPARE_OK).
+* [COM\_STMT\_PREPARE\_OK](com_stmt_prepare.md#com_stmt_prepare_ok).
 * If number of parameters (count of `?` placeholders) > `0`:
   * For each parameter:
     * [column definition packet](../4-server-response-packets/result-set-packets.md).

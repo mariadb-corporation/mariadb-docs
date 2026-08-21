@@ -69,7 +69,7 @@ slow_query_log
 slow_query_log_file=/var/log/mysql/mariadb-slow.log
 ```
 
-Another way to configure the slow query log filename is to set the [log-basename](../../starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) option, which configures MariaDB to use a common prefix for all log files (e.g. slow query log, [general query log](../general-query-log.md), [error log](../error-log.md), [binary logs](../binary-log/), etc.). The slow query log filename will be built by adding `-slow.log` to this prefix. This option cannot be set dynamically. It can be set in a server [option group](../../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
+Another way to configure the slow query log filename is to set the [log-basename](../../starting-and-stopping-mariadb/mariadbd-options.md#log-basename) option, which configures MariaDB to use a common prefix for all log files (e.g. slow query log, [general query log](../general-query-log.md), [error log](../error-log.md), [binary logs](../binary-log/), etc.). The slow query log filename will be built by adding `-slow.log` to this prefix. This option cannot be set dynamically. It can be set in a server [option group](../../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
 ```ini
 [mariadb]

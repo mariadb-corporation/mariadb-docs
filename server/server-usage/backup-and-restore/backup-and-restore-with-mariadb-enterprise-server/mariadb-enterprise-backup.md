@@ -305,7 +305,7 @@ To restore from a partial backup, you need to prepare a table on the MariaDB Com
 
 The details of the restore procedure depend on the characteristics of the table:
 
-* [Partial Restore Non-partitioned Tables](mariadb-enterprise-backup.md#partial-restore-non-partitioned-tables)
+* [Partial Restore Non-partitioned Tables](mariadb-enterprise-backup.md#partial-restore-nonpartitioned-tables)
 * [Partial Restore Partitioned Tables](mariadb-enterprise-backup.md#partial-restore-partitioned-tables)
 * [Partial Restore of Tables with Full-Text Indexes](mariadb-enterprise-backup.md#partial-restore-of-tables-with-full-text-indexes)
 

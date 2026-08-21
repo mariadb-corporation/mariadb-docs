@@ -37,7 +37,7 @@ admin_host            = 0.0.0.0
 admin_port            = 8443
 ```
 
-3. [Enable TLS for MaxScale's REST API](../deployment/installation-and-configuration/maxscale-configuration-guide.md#tlsssl-encryption) Several global parameters must be configured in maxscale.cnf.
+3. [Enable TLS for MaxScale's REST API](../deployment/installation-and-configuration/maxscale-configuration-guide.md#tls-ssl-encryption) Several global parameters must be configured in maxscale.cnf.
 
 | Parameter                                                                                                              | Description                                                                         |
 | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |

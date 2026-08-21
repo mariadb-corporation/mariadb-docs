@@ -94,7 +94,7 @@ For an example, see `sql/udf_example.cc` in the source tree. For a collection of
 * [Stored Functions](../stored-routines/stored-functions/)
 * [Stored Aggregate Functions](../stored-routines/stored-functions/stored-aggregate-functions.md)
 * [User-defined Functions Calling Sequences](user-defined-functions-calling-sequences.md)
-* [allow-suspicious-udfs](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-allow-suspicious-udfs)
+* [allow-suspicious-udfs](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#allow-suspicious-udfs)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

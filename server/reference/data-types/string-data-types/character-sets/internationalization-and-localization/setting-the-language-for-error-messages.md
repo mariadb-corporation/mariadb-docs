@@ -100,9 +100,9 @@ The [lc\_messages\_dir](../../../../../ha-and-performance/optimization-and-tunin
 
 ## Setting the --language Option
 
-The [--language](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-language) option can also be used to set the server's language for error messages, but it is deprecated. It is recommended to set the [lc\_messages](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lc_messages) system variable instead.
+The [--language](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#language) option can also be used to set the server's language for error messages, but it is deprecated. It is recommended to set the [lc\_messages](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lc_messages) system variable instead.
 
-The [--language](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-language) option can be specified either as a language name or as the path to the directory storing the language's [error message file](../../../../../server-management/server-monitoring-logs/error-log.md#error-messages-file). See [Server Locales](server-locale.md) for a list of supported locales and their associated languages.
+The [--language](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#language) option can be specified either as a language name or as the path to the directory storing the language's [error message file](../../../../../server-management/server-monitoring-logs/error-log.md#error-messages-file). See [Server Locales](server-locale.md) for a list of supported locales and their associated languages.
 
 This option can be specified as command-line arguments to [mariadbd](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) or it can be specified in a relevant server [option group](../../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md).
 

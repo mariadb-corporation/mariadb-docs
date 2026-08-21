@@ -1220,7 +1220,7 @@ All of these operations are monitor commands and best launched with MaxCtrl. The
 
 Because these operations are always run asynchronously, the MaxCtrl command name is prefixed with `async-` (for example, `async-rebuild-server`). The unprefixed name (for example, `rebuild-server`) is the operation's name as it appears in the MaxScale log and in `fetch-cmd-result` output; it is not a separate command you can run.
 
-To perform backup operations, MaxScale requires ssh-access on all affected machines. The _ssh\_user_ and _ssh\_keyfile_-settings define the SSH credentials MaxScale uses to access the servers. MaxScale must be able to run commands with _sudo_ on both the source and target servers. See [settings](mariadb-monitor.md#settings) and [sudoers.d configuration](mariadb-monitor.md#sudoersd-configuration) below for more information.
+To perform backup operations, MaxScale requires ssh-access on all affected machines. The _ssh\_user_ and _ssh\_keyfile_-settings define the SSH credentials MaxScale uses to access the servers. MaxScale must be able to run commands with _sudo_ on both the source and target servers. See [settings](mariadb-monitor.md#settings) and [sudoers.d configuration](mariadb-monitor.md#sudoers.d-configuration) below for more information.
 
 The following tools need to be installed on the backends:
 
@@ -1546,7 +1546,7 @@ The port which the source server listens on for a connection. The port must not 
 * Dynamic: Yes
 * Default: `1G`
 
-Given as is to`mariadb-backup --prepare --use-memory=<mariadb_backup_use_memory>`. If set to empty, no `--use-memory` is set and mariadb-backup will use its internal default. See [here](../../../server/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options.md#--use-memory) for more information.
+Given as is to`mariadb-backup --prepare --use-memory=<mariadb_backup_use_memory>`. If set to empty, no `--use-memory` is set and mariadb-backup will use its internal default. See [here](../../../server/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options.md#use-memory) for more information.
 
 ```
 mariadb_backup_use_memory=2G
@@ -1561,7 +1561,7 @@ Starting with MaxScale 24.02.7, the old name `mariabackup_use_memory` has been d
 * Dynamic: Yes
 * Default: `1`
 
-Given as is to`mariadb-backup --backup --parallel=<val>`. Defines the number of threads used for parallel data file transfer. See [here](../../../server/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options.md#--parallel) for more information.
+Given as is to`mariadb-backup --backup --parallel=<val>`. Defines the number of threads used for parallel data file transfer. See [here](../../../server/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options.md#parallel) for more information.
 
 ```
 mariadb_backup_parallel=2

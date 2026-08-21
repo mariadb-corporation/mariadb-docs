@@ -154,7 +154,7 @@ ssl_ca = /etc/my.cnf.d/certificates/ca.pem
 ssl-verify-server-cert
 ```
 
-Before restarting the server, you may also want to set the [--skip-slave-start](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-skip-slave-start) option in a server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). This option prevents the [replica threads](../../../ha-and-performance/standard-replication/replication-threads.md#threads-on-the-replica) from restarting automatically when the server starts. Instead, they will have to be restarted manually.
+Before restarting the server, you may also want to set the [--skip-slave-start](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#skip-slave-start) option in a server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). This option prevents the [replica threads](../../../ha-and-performance/standard-replication/replication-threads.md#threads-on-the-replica) from restarting automatically when the server starts. Instead, they will have to be restarted manually.
 
 After these changes have been made, you can restart the server.
 

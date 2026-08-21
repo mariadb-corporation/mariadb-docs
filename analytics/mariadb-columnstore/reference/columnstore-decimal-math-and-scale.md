@@ -7,9 +7,9 @@ description: >-
 
 # ColumnStore Decimal Math and Scale
 
-1. [Enable/Disable decimal to double math "Enable/Disable decimal to double math"](columnstore-decimal-math-and-scale.md#enabledisable-decimal-to-double-math)
+1. [Enable/Disable decimal to double math "Enable/Disable decimal to double math"](columnstore-decimal-math-and-scale.md#enable-disable-decimal-to-double-math)
 2. [ColumnStore decimal scale "ColumnStore decimal scale"](columnstore-decimal-math-and-scale.md#columnstore-decimal-scale)
-3. [Enable/disable decimal scale "Enable/disable decimal scale"](columnstore-decimal-math-and-scale.md#enabledisable-decimal-scale)
+3. [Enable/disable decimal scale "Enable/disable decimal scale"](columnstore-decimal-math-and-scale.md#enable-disable-decimal-scale)
 4. [Set decimal scale level "Set decimal scale level"](columnstore-decimal-math-and-scale.md#set-decimal-scale-level)
 
 MariaDB ColumnStore has the ability to change intermediate decimal mathematical results from decimal type to double. The decimal type has approximately 17-18 digits of precision but a smaller maximum range. Whereas the double type has approximately 15-16 digits of precision, but a much larger maximum range.

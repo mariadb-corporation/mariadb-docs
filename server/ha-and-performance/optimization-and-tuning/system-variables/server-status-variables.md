@@ -1341,7 +1341,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Feature_json`
 
-* Description: Number of times JSON functionality has been used, such as one of the [JSON functions](../../../reference/sql-functions/special-functions/json-functions/). Does not include the [CONNECT engine JSON type](../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type.md), or [EXPLAIN/ANALYZE FORMAT=JSON](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-statement.md#analyze-formatjson).
+* Description: Number of times JSON functionality has been used, such as one of the [JSON functions](../../../reference/sql-functions/special-functions/json-functions/). Does not include the [CONNECT engine JSON type](../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type.md), or [EXPLAIN/ANALYZE FORMAT=JSON](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-statement.md#analyze-format-json).
 * Scope: Global, Session
 * Data Type: `numeric`
 

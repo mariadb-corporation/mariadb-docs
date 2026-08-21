@@ -447,7 +447,7 @@ the `user` and `password` settings and they can be removed.
 
 When a NoSQL user is created using [createUser](mariadb-maxscale-2501-maxscale-2501-nosql-protocol-module-1.md#createUser)
 the MariaDB grants are obtained from the specified NoSQL roles
-as explained [here](mariadb-maxscale-2501-maxscale-2501-nosql-protocol-module-1.md#Roles_and_privileges).
+as explained [here](mariadb-maxscale-2501-maxscale-2501-nosql-protocol-module-1.md#roles-and-privileges).
 
 When implicitly creating a NoSQL user from an existing user in\
 MariaDB, the inverse operation must be performed. There are
@@ -719,7 +719,7 @@ which means that only the `test` database can be accessed and modified.
 **TLS/SSL**
 
 Since `nosqlprotocol` is a regular protocol module used in a listener,
-the TLS/SSL support of listeners is available. Please see [TLS/SSL encryption](../mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#tlsssl-encryption)
+the TLS/SSL support of listeners is available. Please see [TLS/SSL encryption](../mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#tls-ssl-encryption)
 for details.
 
 #### NoSQL Account Database
@@ -1673,7 +1673,7 @@ following command
 the MariaDB user `'myDatabase.user1'@'%'` will be created.
 
 The elements of the `roles` array are converted into privileges
-as explained in [here](mariadb-maxscale-2501-maxscale-2501-nosql-protocol-module-1.md#roles_and_privileges).
+as explained in [here](mariadb-maxscale-2501-maxscale-2501-nosql-protocol-module-1.md#roles-and-privileges).
 
 In practice the creation is performed as follows:_First the MariaDB user is created._ Then the privileges are granted.
 

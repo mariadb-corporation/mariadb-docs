@@ -2169,7 +2169,7 @@ description: >-
 
 **Settings**
 
-[**matchXY**](maxscale-filters/maxscale-named-server-filter.md#matchXY)
+[**matchXY**](maxscale-filters/maxscale-named-server-filter.md#matchxy)
 
 * Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
@@ -2194,7 +2194,7 @@ description: >-
 * Default: None
 * Description: Limits the filter to client connections from particular IP addresses or patterns; the regex rules will only be applied to sessions that match.
 
-[**targetXY**](maxscale-filters/maxscale-named-server-filter.md#targetXY)
+[**targetXY**](maxscale-filters/maxscale-named-server-filter.md#targetxy)
 
 * Type: string
 * Mandatory: No
@@ -3146,7 +3146,7 @@ description: >-
 * Dynamic: Yes
 * Default: None
 
-**\[switchover\_on\_low\_disk\_space`\*\*](../reference/maxscale-monitors/mariadb-monitor.md#switchover_on_low_disk_space`\*\*)**
+**\[switchover\_on\_low\_disk\_space`\*\*](../reference/maxscale-monitors/mariadb-monitor.md#switchover_on_low_disk_space)**
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No

@@ -516,7 +516,7 @@ ALTER TABLE partitioned_table CONVERT TABLE normal_table
 
 The optional `[{WITH | WITHOUT} VALIDATION]` is permitted.
 
-See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details.
+See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-to-from-tables) for more details.
 {% endtab %}
 
 {% tab title="< 11.4" %}
@@ -535,7 +535,7 @@ ALTER TABLE partitioned_table CONVERT TABLE normal_table
 
 The optional clause `[{WITH | WITHOUT} VALIDATION]` is not available.
 
-See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details.
+See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-to-from-tables) for more details.
 {% endtab %}
 
 {% tab title="< 10.7" %}
