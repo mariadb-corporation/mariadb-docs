@@ -300,7 +300,7 @@ When connecting from Unix client to Windows server with ADO.NET, in an Active Di
 
 * Description: Defines the path to the server's keytab file.
   * This system variable is only meaningful on Unix.
-  * See [Creating a Keytab File on Unix](authentication-plugin-gssapi.md#creating-a-keytab-file) and [Configuring the Path to the Keytab File on Unix](authentication-plugin-gssapi.md#configuring-the-path-to-the-keytab-file-on-unix) for more information.
+  * See [Creating a Keytab File on Unix](authentication-plugin-gssapi.md#creating-a-keytab-file-on-unix) and [Configuring the Path to the Keytab File on Unix](authentication-plugin-gssapi.md#configuring-the-path-to-the-keytab-file-on-unix) for more information.
 * Command line: `--gssapi-keytab-path`
 * Scope: Global
 * Dynamic: No
