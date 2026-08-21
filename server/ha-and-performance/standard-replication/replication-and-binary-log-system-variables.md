@@ -15,7 +15,7 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 This page lists system variables that are related to [binary logging](../../server-management/server-monitoring-logs/binary-log/) and [replication](./).
 
-See [Server System Variables](../optimization-and-tuning/system-variables/server-system-variables.md) for a complete list of system variables and instructions on setting them, as well as [System variables for global transaction ID](gtid.md#system-variables-for-global-transaction-id).
+See [Server System Variables](../optimization-and-tuning/system-variables/server-system-variables.md) for a complete list of system variables and instructions on setting them, as well as [System variables for global transaction ID](gtid.md#system-variables).
 
 Also see [mariadbd replication options](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#replication-and-binary-logging-options) for related options that are not system variables (such as [binlog\_do\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#binlog-do-db) and [binlog\_ignore\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#binlog-ignore-db)).
 
@@ -591,7 +591,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `relay_log_info_file`
 
-* Description: Name and location of the file where the `RELAY_LOG_FILE` and `RELAY_LOG_POS` options (i.e. the [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) position) for the [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) statement are written. The [replica's SQL thread](replication-threads.md#slave-sql-thread) keeps this [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) position updated as it applies events.
+* Description: Name and location of the file where the `RELAY_LOG_FILE` and `RELAY_LOG_POS` options (i.e. the [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) position) for the [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) statement are written. The [replica's SQL thread](replication-threads.md#replica-sql-thread) keeps this [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) position updated as it applies events.
   * See [CHANGE MASTER TO: Option Persistence](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#option-persistence) for more information.
 * Command line: `--relay-log-info-file=file_name`
 * Scope: Global
@@ -602,7 +602,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 #### `relay_log_purge`
 
 * Description: If set to `1` (the default), [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md) are purged as soon as they are no longer necessary.
-  * A relay log only becomes unnecessary once the [replica's SQL thread](replication-threads.md#slave-sql-thread) has applied all of its events, so the default value does not discard events that a semisynchronous replica has acknowledged but not yet applied. Both values are therefore safe with [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), with one exception: `relay_log_purge=0` combined with `relay_log_recovery=1` can lead to data inconsistencies. See [relay\_log\_recovery](replication-and-binary-log-system-variables.md#relay_log_recovery).
+  * A relay log only becomes unnecessary once the [replica's SQL thread](replication-threads.md#replica-sql-thread) has applied all of its events, so the default value does not discard events that a semisynchronous replica has acknowledged but not yet applied. Both values are therefore safe with [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), with one exception: `relay_log_purge=0` combined with `relay_log_recovery=1` can lead to data inconsistencies. See [relay\_log\_recovery](replication-and-binary-log-system-variables.md#relay_log_recovery).
 * Command line: `--relay-log-purge={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -933,12 +933,12 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `slave_parallel_max_queued`
 
-* Description: When [parallel\_replication](parallel-replication.md) is used, the [SQL thread](replication-threads.md#slave-sql-thread) reads ahead in the relay logs, queueing events in memory while looking for opportunities for executing events in parallel. This system variable sets a limit for how much memory it uses for this.
+* Description: When [parallel\_replication](parallel-replication.md) is used, the [SQL thread](replication-threads.md#replica-sql-thread) reads ahead in the relay logs, queueing events in memory while looking for opportunities for executing events in parallel. This system variable sets a limit for how much memory it uses for this.
   * The configured value of this system variable is actually allocated for each [worker thread](replication-threads.md#worker-threads), so the total allocation is actually equivalent to the following:
     * [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) \* [slave\_parallel\_threads](replication-and-binary-log-system-variables.md)
   * This system variable is only meaningful when parallel
     replication is configured (i.e. when [slave\_parallel\_threads](replication-and-binary-log-system-variables.md) > `0`).
-  * See [Parallel Replication: Configuring the Maximum Size of the Parallel Replica Queue](parallel-replication.md#configuring-the-maximum-size-of-the-parallel-slave-queue) for more information.
+  * See [Parallel Replication: Configuring the Maximum Size of the Parallel Replica Queue](parallel-replication.md#configuring-the-maximum-size-of-the-parallel-replica-queue) for more information.
 * Command line: `--slave-parallel-max-queued=#`
 * Scope: Global
 * Dynamic: Yes
@@ -966,8 +966,8 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 * Description: This system variable is used to configure [parallel replication](parallel-replication.md).
   * If this system variable is set to a value greater than `0`, then its value determines how many replica [worker threads](replication-threads.md#worker-threads) are created to apply [binary log](../../server-management/server-monitoring-logs/binary-log/) events in parallel.
-  * If this system variable is set to `0` (which is the default value), no replica [worker threads](replication-threads.md#worker-threads) are created. Instead, when replication is enabled, [binary log](../../server-management/server-monitoring-logs/binary-log/) events are applied by the replica's [SQL thread](replication-threads.md#slave-sql-thread).
-  * The [replica threads](replication-threads.md#threads-on-the-slave) must be [stopped](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) in order to change this option's value dynamically.
+  * If this system variable is set to `0` (which is the default value), no replica [worker threads](replication-threads.md#worker-threads) are created. Instead, when replication is enabled, [binary log](../../server-management/server-monitoring-logs/binary-log/) events are applied by the replica's [SQL thread](replication-threads.md#replica-sql-thread).
+  * The [replica threads](replication-threads.md#threads-on-the-replica) must be [stopped](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) in order to change this option's value dynamically.
   * Events that were logged with [GTIDs](gtid.md) with different [gtid\_domain\_id](gtid.md#gtid_domain_id) values can be applied in parallel in an [out-of-order](parallel-replication.md#out-of-order-parallel-replication) manner. Each [gtid\_domain\_id](gtid.md#gtid_domain_id) can use the number of threads configured by [slave\_domain\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_domain_parallel_threads).
   * Events that were [group-committed](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) on the primary can be applied in parallel in an [in-order](parallel-replication.md#what-can-be-run-in-parallel) manner, and the specific behavior can be configured by setting [slave\_parallel\_mode](replication-and-binary-log-system-variables.md#slave_parallel_mode).
 * Command line: `--slave-parallel-threads=#`

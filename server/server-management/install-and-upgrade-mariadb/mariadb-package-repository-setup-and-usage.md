@@ -441,7 +441,7 @@ Note: MariaDB Enterprise Server version numbers include a '_release_' suffix tha
 To see a list of all MariaDB Enterprise Server releases, see the [Enterprise Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases) page. The Version column in the tables on that page list the version numbers of every MariaDB Enterprise Server release.
 {% endhint %}
 
-See the [Usage Example - MariaDB Enterprise Server](mariadb-package-repository-setup-and-usage.md#mariadb-enterprise-server) section above for an example of pinning the repository to a specific version.
+See the [Usage Example - MariaDB Enterprise Server](mariadb-package-repository-setup-and-usage.md#usage-example) section above for an example of pinning the repository to a specific version.
 {% endtab %}
 
 {% tab title="MariaDB Community Server" %}
@@ -451,7 +451,7 @@ If you want to pin the repository of a specific minor release, such as [MariaDB 
 To see a list of all MariaDB Community Server releases, see the [Community Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/all-releases) page. The Version column in the tables on that page list the version numbers of every MariaDB Community Server release.
 {% endhint %}
 
-See the [Usage Example - MariaDB Community Server](mariadb-package-repository-setup-and-usage.md#mariadb-community-server) section above for an example of pinning the repository to a specific version.
+See the [Usage Example - MariaDB Community Server](mariadb-package-repository-setup-and-usage.md#usage-example) section above for an example of pinning the repository to a specific version.
 {% endtab %}
 {% endtabs %}
 
@@ -574,7 +574,7 @@ After setting up the MariaDB Package Repository, you can install the software pa
 {% tab title="RHEL" %}
 **Installing Packages on RHEL and equivalents**
 
-To install MariaDB on Red Hat Enterprise Linux (RHEL) and equivalents, see the instructions in the [Installing MariaDB Packages with YUM](installing-mariadb/binary-packages/rpm/yum.md#installing-mariadb-packages-with-yum). For example:
+To install MariaDB on Red Hat Enterprise Linux (RHEL) and equivalents, see the instructions in the [Installing MariaDB Packages with YUM](installing-mariadb/binary-packages/rpm/yum.md#installing-mariadb-packages-with-yum-dnf). For example:
 
 ```bash
 sudo dnf install MariaDB-server MariaDB-client MariaDB-backup

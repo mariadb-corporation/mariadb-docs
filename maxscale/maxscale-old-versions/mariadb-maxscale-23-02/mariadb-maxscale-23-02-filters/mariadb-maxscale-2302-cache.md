@@ -216,7 +216,7 @@ argument. For instance:
 storage=storage_redis
 ```
 
-See [Storage](mariadb-maxscale-2302-cache.md#storage-1) for what storage modules are available.
+See [Storage](mariadb-maxscale-2302-cache.md#storage) for what storage modules are available.
 
 **`storage_options`**
 

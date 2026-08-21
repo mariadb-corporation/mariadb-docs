@@ -59,7 +59,7 @@ It can also be set in a server [option group](../../server-management/install-an
 rpl_semi_sync_slave_enabled=ON
 ```
 
-When switching between semisynchronous replication and asynchronous replication on a replica with [replica IO threads](replication-threads.md#threads-on-the-slave) already running, the replica I/O thread will need to be restarted. For example:
+When switching between semisynchronous replication and asynchronous replication on a replica with [replica IO threads](replication-threads.md#threads-on-the-replica) already running, the replica I/O thread will need to be restarted. For example:
 
 ```sql
 STOP SLAVE IO_THREAD;
@@ -249,7 +249,7 @@ Whether an acknowledged transaction is still in the relay log after the replica 
 
 Normally that is harmless, because the primary still has the events. It stops being harmless when the primary has lost them: transactions that existed only in the replica's relay log are then lost, which defeats the purpose of semisynchronous replication. This is worth checking in an existing configuration, since `relay_log_recovery=1` is often enabled for crash safety without this interaction in mind.
 
-Leaving [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay_log_purge) at its default of `1` is safe with semisynchronous replication. A relay log is only purged once the [replica's SQL thread](replication-threads.md#slave-sql-thread) has applied all of its events, so purging never discards an acknowledged transaction that has not been applied yet. Do not combine `relay_log_purge=0` with `relay_log_recovery=1`, which can cause the replica to read relay logs that were not purged, leading to data inconsistencies.
+Leaving [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay_log_purge) at its default of `1` is safe with semisynchronous replication. A relay log is only purged once the [replica's SQL thread](replication-threads.md#replica-sql-thread) has applied all of its events, so purging never discards an acknowledged transaction that has not been applied yet. Do not combine `relay_log_purge=0` with `relay_log_recovery=1`, which can cause the replica to read relay logs that were not purged, leading to data inconsistencies.
 
 ### The Case That Cannot Be Covered
 
