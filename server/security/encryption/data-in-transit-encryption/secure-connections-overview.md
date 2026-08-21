@@ -164,7 +164,7 @@ openssl rehash /etc/my.cnf.d/certificates/ca/
 
 #### Requiring a Specific Certificate Authority (CA)
 
-The server can require a specific Certificate Authority (CA) for a client if the client's user account has been defined with `REQUIRE ISSUER`. See [Securing Connections for Client and Server: Requiring TLS](securing-connections-for-client-and-server.md#requiring-tls) for more information.
+The server can require a specific Certificate Authority (CA) for a client if the client's user account has been defined with `REQUIRE ISSUER`. See [Securing Connections for Client and Server: Requiring TLS](securing-connections-for-client-and-server.md#requiring-tls-for-specific-user-accounts) for more information.
 
 ### Certificate Revocation Lists (CRLs)
 
@@ -233,7 +233,7 @@ For [clients and utilities](../../../clients-and-utilities/) linked with GnuTLS,
 
 ### Client Certificate Verification
 
-The server verifies a client certificate by checking the client's known `SUBJECT` against the **Subject** attribute in the client's certificate. This is only done for user accounts that have been defined with `REQUIRE SUBJECT`. See [Securing Connections for Client and Server: Requiring TLS](securing-connections-for-client-and-server.md#requiring-tls) for more information.
+The server verifies a client certificate by checking the client's known `SUBJECT` against the **Subject** attribute in the client's certificate. This is only done for user accounts that have been defined with `REQUIRE SUBJECT`. See [Securing Connections for Client and Server: Requiring TLS](securing-connections-for-client-and-server.md#requiring-tls-for-specific-user-accounts) for more information.
 
 ## See Also
 

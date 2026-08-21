@@ -2353,7 +2353,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `require_secure_transport`
 
-* Description: When this option is enabled, connections attempted using insecure transport will be rejected. Secure transports are SSL/TLS, Unix sockets or named pipes. Note that [per-account requirements](../../../security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md#requiring-tls) take precedence.
+* Description: When this option is enabled, connections attempted using insecure transport will be rejected. Secure transports are SSL/TLS, Unix sockets or named pipes. Note that [per-account requirements](../../../security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md#requiring-tls-for-specific-user-accounts) take precedence.
 * Command line: `--require-secure-transport[={0|1}]`
 * Scope: Global
 * Dynamic: Yes
