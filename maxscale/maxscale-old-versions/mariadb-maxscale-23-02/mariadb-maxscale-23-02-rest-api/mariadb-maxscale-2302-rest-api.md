@@ -233,7 +233,7 @@ parameters. Parameters are given in the HTTP query string:`https://localhost:898
   For example, if the object stored in `data[0]` has a value pointed by the
   given JSON pointer and that value compares equal to the given JSON value,
   the array row is kept in the result. Examples for filtering expression can
-  be found [here](mariadb-maxscale-2302-rest-api.md#filter-expression-examples).\
+  be found here.\
   A practical use for this parameter is to return only sessions for a
   particular service. For example, to return sessions for the`RW-Split-Router` service, the`filter=/relationships/services/data/0/id="RW-Split-Router"` parameter can
   be used. Note the double quotes around the `"RW-Split-Router"`, they are

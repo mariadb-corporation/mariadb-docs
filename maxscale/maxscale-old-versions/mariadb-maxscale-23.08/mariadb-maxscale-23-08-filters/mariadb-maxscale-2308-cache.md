@@ -33,10 +33,10 @@ That is, in default mode the cache effectively causes the system to behave
 as if the _isolation level_ would be `READ COMMITTED`, irrespective of what
 the isolation level of the backends actually is.
 
-The default behaviour can be altered using the configuration parameter [cache\_in\_transactions](mariadb-maxscale-2308-cache.md#cache_in_transactions).
+The default behaviour can be altered using the configuration parameter cache\_in\_transactions.
 
 By default it is assumed that all `SELECT` statements are cacheable, which
-means that also statements like `SELECT LOCALTIME` are cached. Please check [selects](mariadb-maxscale-2308-cache.md#selects) for how to change the default behaviour.
+means that also statements like `SELECT LOCALTIME` are cached. Please check selects for how to change the default behaviour.
 
 ### Limitations
 
@@ -62,7 +62,7 @@ Please read the section [Security](mariadb-maxscale-2308-cache.md#security-1) fo
 
 However, from 2.5 onwards it is possible to configure the cache to cache
 the data of each user separately, which effectively means that there can
-be no unintended sharing. Please see [users](mariadb-maxscale-2308-cache.md#users) for how to change
+be no unintended sharing. Please see users for how to change
 the default behaviour.
 
 #### `information_schema`
@@ -95,7 +95,7 @@ INSERT INTO t SET a=42;
 ```
 
 will cause the cache entry containing the result of that SELECT to be
-invalidated even if the INSERT actually does not affect it. Please see [invalidate](mariadb-maxscale-2308-cache.md#invalidate) for how to enable the invalidation.
+invalidated even if the INSERT actually does not affect it. Please see invalidate for how to enable the invalidation.
 
 When invalidation has been enabled MaxScale must be able to completely
 parse a SELECT statement for its results to be stored in the cache. The
@@ -111,7 +111,7 @@ entire cache. The reason is that unless MaxScale can completely parse
 the statement it cannot know what tables are modified and hence not what
 cache entries should be invalidated. Consequently, to prevent stale data
 from being returned, the entire cache is cleared. The default behaviour
-can be changed using the configuration parameter [clear\_cache\_on\_parse\_errors](mariadb-maxscale-2308-cache.md#clear_cache_on_parse_errors).
+can be changed using the configuration parameter clear\_cache\_on\_parse\_errors.
 
 Note that what threading approach is used has a big impact on the
 invalidation. Please see [Threads, Users and Invalidation](mariadb-maxscale-2308-cache.md#threads-users-and-invalidation)
@@ -119,7 +119,7 @@ for how the threading approach affects the invalidation.
 
 Note also that since the invalidation may not, depending on how the
 cache has been configured, be visible to all sessions of all users, it
-is still important to configure a reasonable [soft](mariadb-maxscale-2308-cache.md#soft_ttl) and [hard](mariadb-maxscale-2308-cache.md#hard_ttl) TTL.
+is still important to configure a reasonable soft and hard TTL.
 
 #### Best Efforts
 
@@ -247,7 +247,7 @@ nested parameters.
 
 _Hard time to live_; the maximum amount of time the cached
 result is used before it is discarded and the result is fetched from the
-backend (and cached). See also [soft\_ttl](mariadb-maxscale-2308-cache.md#soft_ttl).
+backend (and cached). See also soft\_ttl.
 
 ```
 hard_ttl=60s
@@ -264,7 +264,7 @@ _Soft time to live_; the amount of time - in seconds - the cached result is
 used before it is refreshed from the server. When `soft_ttl` has passed, the
 result will be refreshed when the _first_ client requests the value.
 
-However, as long as [hard\_ttl](mariadb-maxscale-2308-cache.md#hard_ttl) has not passed, _all_ other clients
+However, as long as hard\_ttl has not passed, _all_ other clients
 requesting the same value will use the result from the cache while it is being
 fetched from the backend. That is, as long as `soft_ttl` but not `hard_ttl`
 has passed, even if several clients request the same value at the same time,
@@ -1350,7 +1350,7 @@ storage=storage_redis
 ```
 
 If `storage_redis` cannot connect to the Redis server, caching will silently
-be disabled and a connection attempt will be made after a [timeout](mariadb-maxscale-2308-cache.md#timeout)
+be disabled and a connection attempt will be made after a timeout
 interval.
 
 If a timeout error occurs during an operation, reconnecting will be attempted
@@ -1379,7 +1379,7 @@ If no port is provided, then the default port `6379` will be used.
 * Dynamic: No
 * Default: `""`
 
-Please see [authentication](mariadb-maxscale-2308-cache.md#authentication) for more information.
+Please see authentication for more information.
 
 **`password`**
 
@@ -1388,7 +1388,7 @@ Please see [authentication](mariadb-maxscale-2308-cache.md#authentication) for m
 * Dynamic: No
 * Default: `""`
 
-Please see [authentication](mariadb-maxscale-2308-cache.md#authentication) for more information.
+Please see authentication for more information.
 
 **`ssl`**
 
@@ -1397,7 +1397,7 @@ Please see [authentication](mariadb-maxscale-2308-cache.md#authentication) for m
 * Dynamic: No
 * Default: `false`
 
-Please see [ssl](mariadb-maxscale-2308-cache.md#ssl-1) for more information.
+Please see ssl for more information.
 
 **`ssl_cert`**
 
@@ -1409,7 +1409,7 @@ Please see [ssl](mariadb-maxscale-2308-cache.md#ssl-1) for more information.
 The SSL client certificate that MaxScale should use with the Redis
 server. The certificate must match the key defined in `ssl_key`.
 
-Please see [ssl](mariadb-maxscale-2308-cache.md#ssl-1) for more information.
+Please see ssl for more information.
 
 **`ssl_key`**
 
@@ -1420,7 +1420,7 @@ Please see [ssl](mariadb-maxscale-2308-cache.md#ssl-1) for more information.
 
 The SSL client private key MaxScale should use with the Redis server.
 
-Please see [ssl](mariadb-maxscale-2308-cache.md#ssl-1) for more information.
+Please see ssl for more information.
 
 **`ssl_ca`**
 
@@ -1432,7 +1432,7 @@ Please see [ssl](mariadb-maxscale-2308-cache.md#ssl-1) for more information.
 The Certificate Authority (CA) certificate for the CA that signed the
 certificate specified with `ssl_cert`.
 
-Please see [ssl](mariadb-maxscale-2308-cache.md#ssl-1) for more information.
+Please see ssl for more information.
 
 **Authentication**
 
@@ -1501,7 +1501,7 @@ $ redis-cli flushall
 The data in the redis server is _not_ encrypted. Consequently, _anybody_ with
 access to the redis server has access to the cached data.
 
-Unless [SSL](mariadb-maxscale-2308-cache.md#ssl) has been enabled, _anybody_ with access to the network has
+Unless SSL has been enabled, _anybody_ with access to the network has
 access to the cached data.
 
 ### Example

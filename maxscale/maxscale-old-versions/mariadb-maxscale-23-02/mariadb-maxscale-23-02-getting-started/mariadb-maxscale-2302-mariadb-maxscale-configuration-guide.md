@@ -1396,7 +1396,7 @@ the MaxScale log.
 
 #### `writeq_high_water`
 
-* Type: [size](mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#size)
+* Type: size
 * Mandatory: No
 * Dynamic: Yes
 * Default: `65536`
@@ -1419,7 +1419,7 @@ to 0.
 
 #### `writeq_low_water`
 
-* Type: [size](mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#size)
+* Type: size
 * Mandatory: No
 * Dynamic: Yes
 * Default: `1024`
@@ -2981,7 +2981,7 @@ Either _address_ or _socket_ must be defined, but not both.
 * Dynamic: Yes
 * Default: None
 
-This setting together with [monitorpasswd](mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#monitorpasswd) define server-specific
+This setting together with monitorpasswd define server-specific
 credentials for monitoring the server. Monitors typically use the credentials in their
 own configuration sections to connect to all servers. If server-specific settings are
 given, the monitor uses those instead.
@@ -3277,7 +3277,7 @@ the source of the replication. That is, if monitor sends a "CHANGE MASTER TO"-
 command to server A telling it to replicate from server B, the setting value
 from MaxScale configuration for server A would be used.
 
-See [MariaDB Monitor documentation](../mariadb-maxscale-23-02-monitors/mariadb-maxscale-2302-mariadb-monitor.md#replication_custom_options)
+See [MariaDB Monitor documentation](../mariadb-maxscale-23-02-monitors/mariadb-maxscale-2302-mariadb-monitor.md)
 for more information.
 
 ### Monitor
@@ -3391,7 +3391,7 @@ authenticator specific documentation for more details.
 
 #### `sql_mode`
 
-* Type: [enum](mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#enumeration)
+* Type: enum
 * Mandatory: No
 * Dynamic: Yes
 * Values: `default`, `oracle`
@@ -3952,8 +3952,8 @@ configuration at runtime.
 * MaxCtrl
 * [create](../mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl.md#create)
 * [destroy](../mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl.md#destroy)
-* [add](../mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl.md#add)
-* [remove](../mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl.md#remove)
+* [add](../mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl.md)
+* [remove](../mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl.md)
 * [alter](../mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl.md#alter)
 * [REST API](../mariadb-maxscale-23-02-rest-api/mariadb-maxscale-2302-rest-api.md) documentation
 
