@@ -47,7 +47,7 @@ There are some limitations on the use of `DELAYED`:
 * `INSERT DELAYED` is not supported within [stored programs](../../../../server-usage/stored-routines/).
 * `INSERT DELAYED` does not work with [triggers](../../../../server-usage/triggers-events/triggers/).
 * `INSERT DELAYED` does not work if there is a check constraint in place.
-* `INSERT DELAYED` does not work if [skip-new](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-skip-new) mode is active.
+* `INSERT DELAYED` does not work if [skip-new](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#skip-new) mode is active.
 
 ## See Also
 

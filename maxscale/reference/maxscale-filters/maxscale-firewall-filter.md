@@ -26,7 +26,7 @@ SELECT * FROM t WHERE f = 20
 
 are different, but the canonical form of both is `SELECT * FROM t WHERE f = ?`.
 
-When the learning mode is finished, the allowed statements are persistently stored in a [file](maxscale-firewall-filter.md#allow-list). The file is not specific to the MaxScale instance where it was created and can be copied to other MaxScale installations.
+When the learning mode is finished, the allowed statements are persistently stored in a [file](maxscale-firewall-filter.md#allowlist). The file is not specific to the MaxScale instance where it was created and can be copied to other MaxScale installations.
 
 When in the enforcing mode, the filter checks whether the canonical form of a statement is found in the set of allowed canonical statements. If it is, the statement is let through. If it is not, the behaviour depends upon the value of [action](maxscale-firewall-filter.md#action).
 
@@ -113,7 +113,7 @@ This enumeration option specifies the mode of the firewall.
 * `supervise`: The firewall only warns about statements that are not allowed.
 * `enforce`: The firewall acts as specified by [action](maxscale-firewall-filter.md#action) when it encounters a statement that is not allowed.
 
-If the firewall is in a learning mode, switching it to any other non-learning mode _but_ `idle`, will cause the allow list to be saved. Switching the firewall from a learning mode to `idle`, will cause the learnt statements to be discarded and a possible existing [allow list](maxscale-firewall-filter.md#allow-list) will be left unchanged.
+If the firewall is in a learning mode, switching it to any other non-learning mode _but_ `idle`, will cause the allow list to be saved. Switching the firewall from a learning mode to `idle`, will cause the learnt statements to be discarded and a possible existing [allow list](maxscale-firewall-filter.md#allowlist) will be left unchanged.
 
 Even if there is no allow list, the firewall can be put in the `supervise` or the `enforce` mode. The result is equivalent with having and empty allow list, that is, no statements will be allowed.
 

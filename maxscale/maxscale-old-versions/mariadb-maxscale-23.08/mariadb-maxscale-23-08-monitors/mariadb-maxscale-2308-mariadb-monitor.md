@@ -1307,7 +1307,7 @@ fetch-cmd-result-command
 
 To perform backup operations, MaxScale requires ssh-access on all affected
 machines. The _ssh\_user_ and _ssh\_keyfile_-settings define the SSH credentials\
-MaxScale uses to access the servers. MaxScale must be able to run commands with\_sudo\_ on both the source and target servers. See [settings](mariadb-maxscale-2308-mariadb-monitor.md#settings) and [sudoers.d configuration](mariadb-maxscale-2308-mariadb-monitor.md#sudoersd-configuration) below
+MaxScale uses to access the servers. MaxScale must be able to run commands with\_sudo\_ on both the source and target servers. See [settings](mariadb-maxscale-2308-mariadb-monitor.md#settings) and [sudoers.d configuration](mariadb-maxscale-2308-mariadb-monitor.md#sudoers.d-configuration) below
 for more information.
 
 The following tools need to be installed on the backends:
@@ -1778,7 +1778,7 @@ OK
 
 #### Failover/switchover fails
 
-See the [Limitations and requirements-section](mariadb-maxscale-2308-mariadb-monitor.md#limitations_and_requirements).
+See the [Limitations and requirements-section](mariadb-maxscale-2308-mariadb-monitor.md#limitations-and-requirements).
 
 Before performing failover or switchover, the monitor checks that
 prerequisites are fulfilled, printing any errors and warnings found. This should

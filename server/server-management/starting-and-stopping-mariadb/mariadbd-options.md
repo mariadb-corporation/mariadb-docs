@@ -99,7 +99,7 @@ other MariaDB and MySQL versions. Options that are also system variables are lis
 
 #### `--skip-new`
 
-* Description: Disables [--new](mariadbd-options.md#-new).
+* Description: Disables [--new](mariadbd-options.md#new).
 
 ### Compatibility Options and System Variables
 
@@ -253,7 +253,7 @@ The following options are related to [replication](../../ha-and-performance/stan
 #### `--master-info-file`
 
 * Command line: `--master-info-file=name`
-* Description: Name and location of the file on the replica where the `MASTER_LOG_FILE` and `MASTER_LOG_POS` options (i.e. the [binary log](../server-monitoring-logs/binary-log/) position on the primary) and most other [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) options are written. The [replica's I/O thread](../../ha-and-performance/standard-replication/replication-threads.md#replica-io-thread) keeps this [binary log](../server-monitoring-logs/binary-log/) position updated as it downloads events.
+* Description: Name and location of the file on the replica where the `MASTER_LOG_FILE` and `MASTER_LOG_POS` options (i.e. the [binary log](../server-monitoring-logs/binary-log/) position on the primary) and most other [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) options are written. The [replica's I/O thread](../../ha-and-performance/standard-replication/replication-threads.md#replica-i-o-thread) keeps this [binary log](../server-monitoring-logs/binary-log/) position updated as it downloads events.
   * See [CHANGE MASTER TO: Option Persistence](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#option-persistence) for more information.
 
 #### `--master-password`
@@ -282,27 +282,27 @@ The following options are related to [replication](../../ha-and-performance/stan
 #### `--master-ssl-ca`
 
 * Command line: `--master-ssl-ca[=name]`
-* Description: Master TLS CA file. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS CA file. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-ssl-capath`
 
 * Command line: `--master-ssl-capath[=name]`
-* Description: Master TLS CA path. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS CA path. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-ssl-cert`
 
 * Command line: `--master-ssl-cert[=name]`
-* Description: Master TLS certificate file name. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS certificate file name. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-ssl-cipher`
 
 * Command line: `--master-ssl-cipher[=name]`
-* Description: Master TLS cipher. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS cipher. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-ssl-key`
 
 * Command line: `--master-ssl-key[=name]`
-* Description: Master TLS keyfile name. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS keyfile name. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-user`
 
@@ -1094,7 +1094,7 @@ Some options and system variables related to [Galera Cluster](../../architecture
 
 #### `--sync-sys`
 
-* Description: Enable/disable system sync calls. Syncs should only be turned off (`--disable-sync-sys`) when running tests or debugging! Replaced by [debug-no-sync](mariadbd-options.md#-debug-no-sync) from [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5).
+* Description: Enable/disable system sync calls. Syncs should only be turned off (`--disable-sync-sys`) when running tests or debugging! Replaced by [debug-no-sync](mariadbd-options.md#debug-no-sync) from [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5).
 * Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 #### `--thread-alarm`
@@ -1174,7 +1174,7 @@ Options that are also system variables are listed after:
 #### `--log-tc`
 
 * Command line: `--log-tc=name`
-* Description: Defines the path to the memory-mapped file-based transaction coordinator log, which is only used if the [binary log](../server-monitoring-logs/binary-log/) is disabled. If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available. See [Transaction Coordinator Log](../server-monitoring-logs/transaction-coordinator-log/) for more information. Also see the [log\_tc\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_tc_size) system variable and the [--tc-heuristic-recover](mariadbd-options.md#-tc-heuristic-recover) option.
+* Description: Defines the path to the memory-mapped file-based transaction coordinator log, which is only used if the [binary log](../server-monitoring-logs/binary-log/) is disabled. If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available. See [Transaction Coordinator Log](../server-monitoring-logs/transaction-coordinator-log/) for more information. Also see the [log\_tc\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_tc_size) system variable and the [--tc-heuristic-recover](mariadbd-options.md#tc-heuristic-recover) option.
 * Default Value: `tc.log`
 
 #### `--master-connect-retry`
@@ -1205,7 +1205,7 @@ Options that are also system variables are listed after:
   * Plugins can be specified in the format `name=library`, where `name` is the plugin name and `library` is the plugin library. This format installs a single plugin from the given plugin library.
   * Plugins can also be specified in the format `library`, where `library` is the plugin library. This format installs all plugins from the given plugin library.
   * Multiple plugins can be specified by separating them with semicolons.
-* Special care must be taken when specifying the [--plugin-load](mariadbd-options.md#-plugin-load) option multiple times, or when specifying both the [--plugin-load](mariadbd-options.md#-plugin-load) option and the [--plugin-load-add](mariadbd-options.md#-plugin-load-add) option together. The [--plugin-load](mariadbd-options.md#-plugin-load) option resets the plugin load list, and this can cause unexpected problems if you are not aware. The [--plugin-load-add](mariadbd-options.md#-plugin-load-add) option does not reset the plugin load list, so it is much safer to use. See [Plugin Overview: Specifying Multiple Plugin Load Options](../../reference/plugins/plugin-overview.md#specifying-multiple-plugin-load-options) for more information.
+* Special care must be taken when specifying the [--plugin-load](mariadbd-options.md#plugin-load) option multiple times, or when specifying both the [--plugin-load](mariadbd-options.md#plugin-load) option and the [--plugin-load-add](mariadbd-options.md#plugin-load-add) option together. The [--plugin-load](mariadbd-options.md#plugin-load) option resets the plugin load list, and this can cause unexpected problems if you are not aware. The [--plugin-load-add](mariadbd-options.md#plugin-load-add) option does not reset the plugin load list, so it is much safer to use. See [Plugin Overview: Specifying Multiple Plugin Load Options](../../reference/plugins/plugin-overview.md#specifying-multiple-plugin-load-options) for more information.
 * See [Plugin Overview: Installing a Plugin with Plugin Load Options](../../reference/plugins/plugin-overview.md#installing-a-plugin-with-plugin-load-options) for more information.
 
 #### `--plugin-load-add`
@@ -1215,7 +1215,7 @@ Options that are also system variables are listed after:
   * Plugins can be specified in the format `name=library`, where `name` is the plugin name and `library` is the plugin library. This format installs a single plugin from the given plugin library.
   * Plugins can also be specified in the format `library`, where `library` is the plugin library. This format installs all plugins from the given plugin library.
   * Multiple plugins can be specified by separating them with semicolons.
-* Special care must be taken when specifying both the [--plugin-load](mariadbd-options.md#-plugin-load) option and the [--plugin-load-add](mariadbd-options.md#-plugin-load-add) option together. The [--plugin-load](mariadbd-options.md#-plugin-load) option resets the plugin load list, and this can cause unexpected problems if you are not aware. The [--plugin-load-add](mariadbd-options.md#-plugin-load-add) option does not reset the plugin load list, so it is much safer to use. See [Plugin Overview: Specifying Multiple Plugin Load Options](../../reference/plugins/plugin-overview.md#specifying-multiple-plugin-load-options) for more information.
+* Special care must be taken when specifying both the [--plugin-load](mariadbd-options.md#plugin-load) option and the [--plugin-load-add](mariadbd-options.md#plugin-load-add) option together. The [--plugin-load](mariadbd-options.md#plugin-load) option resets the plugin load list, and this can cause unexpected problems if you are not aware. The [--plugin-load-add](mariadbd-options.md#plugin-load-add) option does not reset the plugin load list, so it is much safer to use. See [Plugin Overview: Specifying Multiple Plugin Load Options](../../reference/plugins/plugin-overview.md#specifying-multiple-plugin-load-options) for more information.
 * See [Plugin Overview: Installing a Plugin with Plugin Load Options](../../reference/plugins/plugin-overview.md#installing-a-plugin-with-plugin-load-options) for more information.
 
 #### `--port-open-timeout`
@@ -1268,7 +1268,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 #### `--skip-symlink`
 
 * Command line: `--skip-symlink`
-* Description: Don't allow symlinking of tables. Deprecated and removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5). Use [symbolic-links](mariadbd-options.md#-symbolic-links) with the `skip` [option prefix](mariadbd-options.md#option-prefixes) instead.
+* Description: Don't allow symlinking of tables. Deprecated and removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5). Use [symbolic-links](mariadbd-options.md#symbolic-links) with the `skip` [option prefix](mariadbd-options.md#option-prefixes) instead.
 * Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 #### `--skip-thread-priority`
@@ -1301,7 +1301,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 #### `--tc-heuristic-recover`
 
 * Command line: `--tc-heuristic-recover=name`
-* Description: If [manual heuristic recovery](../server-monitoring-logs/transaction-coordinator-log/heuristic-recovery-with-the-transaction-coordinator-log.md) is needed, this option defines the decision to use in the heuristic recovery process. Manual heuristic recovery may be needed if the [transaction coordination log](../server-monitoring-logs/transaction-coordinator-log/) is missing or if it doesn't contain all prepared transactions. This option can be set to `OFF`, `COMMIT`, or `ROLLBACK`. The default is `OFF`. See also the [--log-tc](mariadbd-options.md#-log-tc) server option and the [log\_tc\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_tc_size) system variable.
+* Description: If [manual heuristic recovery](../server-monitoring-logs/transaction-coordinator-log/heuristic-recovery-with-the-transaction-coordinator-log.md) is needed, this option defines the decision to use in the heuristic recovery process. Manual heuristic recovery may be needed if the [transaction coordination log](../server-monitoring-logs/transaction-coordinator-log/) is missing or if it doesn't contain all prepared transactions. This option can be set to `OFF`, `COMMIT`, or `ROLLBACK`. The default is `OFF`. See also the [--log-tc](mariadbd-options.md#log-tc) server option and the [log\_tc\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_tc_size) system variable.
 
 #### `--temp-pool`
 
@@ -1331,7 +1331,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 
 ## Other Options and System Variables
 
-* [allow-suspicious-udfs](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#allow-suspicious-udfs)
+* [allow-suspicious-udfs](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#allow_suspicious_udfs)
 * [automatic-sp-privileges](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#automatic_sp_privileges)
 * [back-log](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#back_log)
 * [basedir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#basedir)
@@ -1418,7 +1418,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [max-connections](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_connections)
 * [max-connect-errors](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_connect_errors)
 * [max-delayed-threads](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_delayed_threads)
-* [max-digest-length](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_digest_length")
+* [max-digest-length](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_digest_length)
 * [max-error-count](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_error_count)
 * [max-length-for-sort-data](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_length_for_sort_data)
 * [max-long-data-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_long_data_size)

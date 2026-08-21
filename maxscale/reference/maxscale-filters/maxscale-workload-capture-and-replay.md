@@ -57,7 +57,7 @@ If limiting options were given the capture will stop automatically when one of t
 maxctrl call command wcar stop CAPTURE_FLTR
 ```
 
-See [Replay](maxscale-workload-capture-and-replay.md#Replay) to see how the captured files are used.
+See [Replay](maxscale-workload-capture-and-replay.md#replay) to see how the captured files are used.
 
 When capture is no longer needed you can remove it with:
 

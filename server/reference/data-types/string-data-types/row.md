@@ -92,7 +92,7 @@ See [FETCH Examples](row.md#fetch-examples) (below) for examples of using this w
 * Using multiple `ROW` variables in the `SELECT..INTO` list will report an error.
 * Using `ROW` variables with a different column count than in the `SELECT..INTO` list will report an error.
 
-See [SELECT...INTO Examples](row.md#selectinto-examples) (below) for examples of using this with `sql_mode=ORACLE` and `sql_mode=DEFAULT`.
+See [SELECT...INTO Examples](row.md#select...into-examples) (below) for examples of using this with `sql_mode=ORACLE` and `sql_mode=DEFAULT`.
 
 ## Features not implemented
 

@@ -212,7 +212,7 @@ SHOW WARNINGS;
 3 rows in set (0.00 sec)
 ```
 
-* The [DATA DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) table option is set, but the [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) system variable is not set to `ON`.
+* The [DATA DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) table option is set, but the [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) system variable is not set to `ON`.
 
 ```sql
 SET GLOBAL innodb_file_per_table=OFF;
@@ -236,7 +236,7 @@ SHOW WARNINGS;
 3 rows in set (0.000 sec)
 ```
 
-* The [DATA DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) table option is set, but the table is a [temporary table](../../../reference/sql-statements/data-definition/create/create-table.md#create-temporary-table).
+* The [DATA DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) table option is set, but the table is a [temporary table](../../../reference/sql-statements/data-definition/create/create-table.md#create-temporary-table).
 
 ```sql
 SET SESSION innodb_strict_mode=ON;
@@ -259,7 +259,7 @@ SHOW WARNINGS;
 3 rows in set (0.000 sec)
 ```
 
-* The [INDEX DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) table option is set.
+* The [INDEX DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) table option is set.
 
 ```sql
 SET SESSION innodb_strict_mode=ON;

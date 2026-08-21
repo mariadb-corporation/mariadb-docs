@@ -213,7 +213,7 @@ When you install the client authentication plugins, ensure that they are for the
 ### DSN-Related Parameters
 
 * `DSN`: Name of the DSN
-* `Driver`: The name of the MariaDB ODBC Driver. On Windows, this must be `{MariaDB ODBC 3.2 Driver}` for 3.2 drivers, or for versions from other release series, you must use the corresponding version number for that release series. On Linux, either this must be a path to the driver's shared library or it must match the `Driver` name that you provided when you [configured the Driver with UnixODBC](creating-a-data-source-with-mariadb-connectorodbc.md#configuring-mariadb-connectorodbc-as-a-unixodbc-driver-on-linux).
+* `Driver`: The name of the MariaDB ODBC Driver. On Windows, this must be `{MariaDB ODBC 3.2 Driver}` for 3.2 drivers, or for versions from other release series, you must use the corresponding version number for that release series. On Linux, either this must be a path to the driver's shared library or it must match the `Driver` name that you provided when you [configured the Driver with UnixODBC](creating-a-data-source-with-mariadb-connectorodbc.md#configuring-mariadb-connector-odbc-as-a-unixodbc-driver-on-linux).
 * `Description`: Description of the data source.
 * `SaveFile`: Save a string representation of the DSN to this file.
 * `FileDSN`: The file where the string representation of the DSN can be read.

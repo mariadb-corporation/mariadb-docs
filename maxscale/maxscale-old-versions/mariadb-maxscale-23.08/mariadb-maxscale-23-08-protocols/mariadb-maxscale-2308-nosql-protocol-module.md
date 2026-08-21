@@ -305,15 +305,15 @@ require.
 
 | Command                                                                                   | Role      |
 | ----------------------------------------------------------------------------------------- | --------- |
-| [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createUser)                   | userAdmin |
-| [dropUser](mariadb-maxscale-2308-nosql-protocol-module.md#dropUser)                       | userAdmin |
-| [grantRolesToUser](mariadb-maxscale-2308-nosql-protocol-module.md#grantRolesToUser)       | userAdmin |
-| [revokeRolesFromUser](mariadb-maxscale-2308-nosql-protocol-module.md#revokeRolesFromUser) | userAdmin |
-| [mxsAddUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsAddUser)                   | userAdmin |
-| [mxsRemoveUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsRemoveUser)             | userAdmin |
-| [mxsUpdateUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsUpdateUser)             | userAdmin |
-| [updateUser](mariadb-maxscale-2308-nosql-protocol-module.md#updateUser)                   | userAdmin |
-| [usersInfo](mariadb-maxscale-2308-nosql-protocol-module.md#usersInfo)                     | userAdmin |
+| [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createuser)                   | userAdmin |
+| [dropUser](mariadb-maxscale-2308-nosql-protocol-module.md#dropuser)                       | userAdmin |
+| [grantRolesToUser](mariadb-maxscale-2308-nosql-protocol-module.md#grantrolestouser)       | userAdmin |
+| [revokeRolesFromUser](mariadb-maxscale-2308-nosql-protocol-module.md#revokerolesfromuser) | userAdmin |
+| [mxsAddUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsadduser)                   | userAdmin |
+| [mxsRemoveUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsremoveuser)             | userAdmin |
+| [mxsUpdateUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsupdateuser)             | userAdmin |
+| [updateUser](mariadb-maxscale-2308-nosql-protocol-module.md#updateuser)                   | userAdmin |
+| [usersInfo](mariadb-maxscale-2308-nosql-protocol-module.md#usersinfo)                     | userAdmin |
 
 It is important to note that even if nosqlprotocol authorization
 is enabled, the MariaDB server has the final word. That is, even if the
@@ -332,7 +332,7 @@ bootstrapping implicitly is much more convenient.
 #### Explicit bootstrapping
 
 In order to enable authorization you need to have NoSQL users and
-those can be created with [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createUser) or added
+those can be created with [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createuser) or added
 with [mxsAddUser](mariadb-maxscale-2308-nosql-protocol-module.md#addUser).
 
 If you want to _create_ a user, then you first need to configure
@@ -410,7 +410,7 @@ network traffic.
 
 However, when a user is created or added (or the password is changed),
 the password will be transferred in _cleartext_. To prevent eavesdropping,
-create/add users when connecting over a domain socket, or use [TLS/SSL](mariadb-maxscale-2308-nosql-protocol-module.md#tlsssl)
+create/add users when connecting over a domain socket, or use [TLS/SSL](mariadb-maxscale-2308-nosql-protocol-module.md#tls-ssl)
 
 #### Implicit bootstrapping
 
@@ -447,9 +447,9 @@ the `user` and `password` settings and they can be removed.
 
 **Grants**
 
-When a NoSQL user is created using [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createUser)
+When a NoSQL user is created using [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createuser)
 the MariaDB grants are obtained from the specified NoSQL roles
-as explained [here](mariadb-maxscale-2308-nosql-protocol-module.md#Roles_and_privileges).
+as explained [here](mariadb-maxscale-2308-nosql-protocol-module.md#roles-and-privileges).
 
 When implicitly creating a NoSQL user from an existing user in\
 MariaDB, the inverse operation must be performed. There are
@@ -730,8 +730,8 @@ So as to be able to connect to the MariaDB server on behalf of
 clients, nosqlprotocol must know their password. As the password
 is not transferred to nosqlprotocol during the authentication in
 a way that could be used when logging into MariaDB, the password
-must be stored when the user is created with [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createUser)
-or added with [mxsAddUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsAddUser).
+must be stored when the user is created with [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createuser)
+or added with [mxsAddUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsadduser).
 
 Note that the password is not stored in cleartext but as three
 different hashes; hashed with sha1 for use with MariaDB, salted
@@ -915,7 +915,7 @@ Specifies whether the client always must authenticate. If authentication is requ
 it does not matter whether `user` and `password` have been specified, the client must
 authenticate.
 
-Authentication should not be required before users have been created with [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createUser) or added with [mxsAddUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsAddUser),
+Authentication should not be required before users have been created with [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createuser) or added with [mxsAddUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsadduser),
 with authentication being optional and authorization being disabled.
 
 NOTE: All client activity is _always_ subject to authorization performed by the\
@@ -978,8 +978,8 @@ Specifies the _password_ of `authentication_user`.
 * Default: `false`
 
 Specifies whether nosqlprotocol itself should perform authorization in the context
-of the commands [mxsAddUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsAddUser), [mxsRemoveUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsRemoveUser) and [mxsUpdateUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsUpdateUser). Authorization should not be enabled before users
-have been created with [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createUser) or added with [mxsAddUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsAddUser)
+of the commands [mxsAddUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsadduser), [mxsRemoveUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsremoveuser) and [mxsUpdateUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsupdateuser). Authorization should not be enabled before users
+have been created with [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createuser) or added with [mxsAddUser](mariadb-maxscale-2308-nosql-protocol-module.md#mxsadduser)
 with authorization being disabled.
 
 NOTE: All client activity is _always_ subject to authorization performed by the\
@@ -1588,7 +1588,7 @@ following command
 the MariaDB user `'myDatabase.user1'@'%'` will be created.
 
 The elements of the `roles` array are converted into privileges
-as explained in [here](mariadb-maxscale-2308-nosql-protocol-module.md#roles_and_privileges).
+as explained in [here](mariadb-maxscale-2308-nosql-protocol-module.md#roles-and-privileges).
 
 In practice the creation is performed as follows:_First the MariaDB user is created._ Then the privileges are granted.
 
@@ -2010,7 +2010,7 @@ The following document will always be returned:
 **mxsAddUser**
 
 The `mxsAddUser` command adds an _existing_ MariaDB user to the local
-nosqlprotocol account database. Use [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createUser) if the\
+nosqlprotocol account database. Use [createUser](mariadb-maxscale-2308-nosql-protocol-module.md#createuser) if the\
 MariaDB user should be created as well.
 
 Note that the `mxsAddUser` command does not check that the user exists
@@ -2254,7 +2254,7 @@ the session. For example:
 **mxsRemoveUser**
 
 The `mxsRemoveUser` removes a user from the local nosqlprotocol account
-database. Use [dropUser](mariadb-maxscale-2308-nosql-protocol-module.md#dropUser) if the MariaDB user should be dropped
+database. Use [dropUser](mariadb-maxscale-2308-nosql-protocol-module.md#dropuser) if the MariaDB user should be dropped
 as well.
 
 **Syntax**
@@ -2373,7 +2373,7 @@ the session. For example:
 **mxsUpdateUser**
 
 The `mxsUpdateUser` command updates a user in the local nosqlprotocol
-account database. Use [updateUser](mariadb-maxscale-2308-nosql-protocol-module.md#updateUser) to update MariaDB user
+account database. Use [updateUser](mariadb-maxscale-2308-nosql-protocol-module.md#updateuser) to update MariaDB user
 as well.
 
 Note that the `mxsUpdateUser` command does not check that the changed

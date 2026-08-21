@@ -920,8 +920,8 @@ See [Generated (Virtual and Persistent/Stored) Columns: Statement Support](../..
 
 Some operations cause a table's tablespace file to use a non-canonical storage format when the `INSTANT` algorithm is used. The affected operations include:
 
-* [Adding a column.](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#alter-table-add-column)
-* [Dropping a column.](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#alter-table-drop-column)
+* [Adding a column.](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#alter-table-...-add-column)
+* [Dropping a column.](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#alter-table-...-drop-column)
 * [Reordering columns.](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#reordering-columns)
 
 These operations require the following non-canonical changes to the storage format:

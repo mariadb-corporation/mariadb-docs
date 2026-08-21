@@ -174,7 +174,7 @@ The ColumnStore storage engine plugin is a smart storage engine, so MariaDB Ente
 MariaDB Enterprise ColumnStore's query planning is divided into two steps:
 
 * ES provides the query's `SELECT_LEX` object to the [custom select handler](mariadb-enterprise-columnstore-query-evaluation.md#custom-select-handler). The custom select handler builds a ColumnStore Execution Plan (CSEP).
-* The custom select handler provides the CSEP to the [ExeMgr process or facility](mariadb-enterprise-columnstore-query-evaluation.md#exemgr-processfacility) on the same node. ExeMgr performs [extent elimination](mariadb-enterprise-columnstore-query-evaluation.md#extent-elimination) and creates a job list.
+* The custom select handler provides the CSEP to the [ExeMgr process or facility](mariadb-enterprise-columnstore-query-evaluation.md#exemgr-process-facility) on the same node. ExeMgr performs [extent elimination](mariadb-enterprise-columnstore-query-evaluation.md#extent-elimination) and creates a job list.
 
 ## ExeMgr Process/Facility
 

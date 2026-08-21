@@ -85,7 +85,7 @@ Plan C: "As needed". That is, when someone asks for a report, the code first upd
 Plan D: "Hybrid" of B and C. C, by itself, can led to long delays for the report. By also doing B, those delays can be kept low.
 
 Plan E: (This is not advised.) "Rebuild" the entire summary table from the entire Fact table. The cost of this is prohibitive for large tables. However, Plan E may be needed when you decide to change the columns of a Summary Table, or discover a flaw in the computations.\
-To lessen the impact of an entire build, adapt the chunking techniques in [Deleting in chunks](big-deletes.md#deleting_in_chunks) .
+To lessen the impact of an entire build, adapt the chunking techniques in [Deleting in chunks](big-deletes.md#deleting-in-chunks) .
 
 Plan F: "Staging table". This is primarily for very high speed ingestion. It is mentioned briefly in this blog, and discussed more thoroughly in the companion blog: High Speed Ingestion
 

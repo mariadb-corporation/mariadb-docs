@@ -67,9 +67,9 @@ If you would love to be able to run SQL against MariaDB data from Jupyter notebo
 
 ### [Changelog](changes-in-mariadb-jupyter-kernel.md)
 
-* [v0.2.2](changes-in-mariadb-jupyter-kernel.md#v020-02-november-2021)
-* [v0.1.1](changes-in-mariadb-jupyter-kernel.md#v011-29-march-2021)
-* [v0.1.0 First release!](changes-in-mariadb-jupyter-kernel.md#v010-11-january-2021)
+* [v0.2.2](changes-in-mariadb-jupyter-kernel.md#v0.2.0-02-november-2021)
+* [v0.1.1](changes-in-mariadb-jupyter-kernel.md#v0.1.1-29-march-2021)
+* [v0.1.0 First release!](changes-in-mariadb-jupyter-kernel.md#v0.1.0-11-january-2021)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

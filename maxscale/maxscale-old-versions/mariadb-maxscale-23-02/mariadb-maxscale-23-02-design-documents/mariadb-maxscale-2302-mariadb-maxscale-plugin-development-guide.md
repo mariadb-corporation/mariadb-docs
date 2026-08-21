@@ -25,7 +25,7 @@ modules are written in C++.
 
 The _RoundRobinRouter_ is a practical example of a simple router plugin. The\
 RoundRobinRouter is compiled, installed and ran in [section\
-5.1](mariadb-maxscale-2302-mariadb-maxscale-plugin-development-guide.md#hands-on-example:-roundrobinrouter). The source for the router is located
+5.1](mariadb-maxscale-2302-mariadb-maxscale-plugin-development-guide.md#hands-on-example-roundrobinrouter). The source for the router is located
 in the `examples`-folder.
 
 ### Module categories

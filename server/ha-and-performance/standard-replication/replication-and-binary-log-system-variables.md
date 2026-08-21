@@ -17,7 +17,7 @@ This page lists system variables that are related to [binary logging](../../serv
 
 See [Server System Variables](../optimization-and-tuning/system-variables/server-system-variables.md) for a complete list of system variables and instructions on setting them, as well as [System variables for global transaction ID](gtid.md#system-variables-for-global-transaction-id).
 
-Also see [mariadbd replication options](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#replication-and-binary-logging-options) for related options that are not system variables (such as [binlog\_do\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-binlog-do-db) and [binlog\_ignore\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-binlog-ignore-db)).
+Also see [mariadbd replication options](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#replication-and-binary-logging-options) for related options that are not system variables (such as [binlog\_do\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#binlog-do-db) and [binlog\_ignore\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#binlog-ignore-db)).
 
 ## Variable Descriptions
 
@@ -400,7 +400,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `log_bin`
 
-* Description: Whether [binary logging](../../server-management/server-monitoring-logs/binary-log/) is enabled or not. If the `--log-bin` [option](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) is used, `log_bin` is set to `ON`, otherwise to `OFF` (or when `--skip-log-bin` / `--disable-log-bin` is used). If no `name` option is given for `--log-bin`, `datadir/`_`log-basename`_`-bin` or _`datadir`_`/mysql-bin` are used (the latter is used if [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is not specified). We strongly recommend you use either `--log-basename`, or to specify a filename to ensure that [replication](./) doesn't stop if the real hostname of the computer changes. The name option can optionally include an absolute path. If no path is specified, the log is written to the [data directory](../optimization-and-tuning/system-variables/server-system-variables.md#datadir). The name can optionally include the file extension; if it does, it is stripped, and only the file basename is used.
+* Description: Whether [binary logging](../../server-management/server-monitoring-logs/binary-log/) is enabled or not. If the `--log-bin` [option](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) is used, `log_bin` is set to `ON`, otherwise to `OFF` (or when `--skip-log-bin` / `--disable-log-bin` is used). If no `name` option is given for `--log-bin`, `datadir/`_`log-basename`_`-bin` or _`datadir`_`/mysql-bin` are used (the latter is used if [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is not specified). We strongly recommend you use either `--log-basename`, or to specify a filename to ensure that [replication](./) doesn't stop if the real hostname of the computer changes. The name option can optionally include an absolute path. If no path is specified, the log is written to the [data directory](../optimization-and-tuning/system-variables/server-system-variables.md#datadir). The name can optionally include the file extension; if it does, it is stripped, and only the file basename is used.
 * Command line: `--log-bin[=name]`, `--skip-log-bin`, `--disable-log-bin`
 * Scope: Global
 * Dynamic: No
@@ -439,7 +439,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `log_bin_index`
 
-* Description: File that holds the names for last binlog files. If [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `log_bin_index` should be placed after in the config files. Later settings override earlier settings, so `log-basename` override any earlier log file name settings.
+* Description: File that holds the names for last binlog files. If [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `log_bin_index` should be placed after in the config files. Later settings override earlier settings, so `log-basename` override any earlier log file name settings.
 * Command line: `--log-bin-index=name`
 * Scope: Global
 * Dynamic: No
@@ -563,7 +563,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `relay_log`
 
-* Description: [Relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) basename. If not set, the basename of the files is `hostname-relay-bin`, or derived from [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename). If [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `relay_log` should be placed after in the config files. Later settings override earlier settings, so `log-basename` overrides any earlier log file name settings.
+* Description: [Relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) basename. If not set, the basename of the files is `hostname-relay-bin`, or derived from [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename). If [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `relay_log` should be placed after in the config files. Later settings override earlier settings, so `log-basename` overrides any earlier log file name settings.
 * Command line: `--relay-log=file_name`
 * Scope: Global
 * Dynamic: No
@@ -582,7 +582,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `relay_log_index`
 
-* Description: Name and location of the [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) index file, the file that keeps a list of the last relay logs. Defaults to hostname-relay-bin.index, or derived from [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename). If [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `relay_log_index` should be placed after in the config files. Later settings override earlier settings, so `log-basename` overrides any earlier log file name settings.
+* Description: Name and location of the [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) index file, the file that keeps a list of the last relay logs. Defaults to hostname-relay-bin.index, or derived from [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename). If [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `relay_log_index` should be placed after in the config files. Later settings override earlier settings, so `log-basename` overrides any earlier log file name settings.
 * Command line: `--relay-log-index=name`
 * Scope: Global
 * Dynamic: No
@@ -922,7 +922,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `slave_net_timeout`
 
-* Description: Time in seconds for the replica to wait for more data from the primary before considering the connection broken, after which it aborts the read and attempt to reconnect. The retry interval is determined by the `MASTER_CONNECT_RETRY` open for the [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) statement, while the maximum number of reconnection attempts is set by the [master-retry-count](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-master-retry-count) option. The first reconnect attempt takes place immediately.
+* Description: Time in seconds for the replica to wait for more data from the primary before considering the connection broken, after which it aborts the read and attempt to reconnect. The retry interval is determined by the `MASTER_CONNECT_RETRY` open for the [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) statement, while the maximum number of reconnection attempts is set by the [master-retry-count](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-retry-count) option. The first reconnect attempt takes place immediately.
 * Command line: `--slave-net-timeout=#`
 * Scope: Global
 * Dynamic: Yes
