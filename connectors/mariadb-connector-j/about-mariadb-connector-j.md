@@ -30,10 +30,10 @@ To determine which MariaDB Connector/J release series would be best to use for e
 
 | Java Version(s)                            | Recommended MariaDB Connector/J Release Series                                | JDBC Version |
 | ------------------------------------------ | ----------------------------------------------------------------------------- | ------------ |
-| Java 25, Java 21, Java 17, Java 11, Java 8 | MariaDB Connector/J 3.5, 3.4, 3.3\[[1](about-mariadb-connector-j.md#_note-0)] | JDBC 4.5     |
+| Java 25, Java 21, Java 17, Java 11, Java 8 | MariaDB Connector/J 3.5, 3.4, 3.3\[1] | JDBC 4.5     |
 | Java 17, Java 11, Java 8                   | MariaDB Connector/J 2.7                                                       | JDBC 4.2     |
 
-1. [↑](about-mariadb-connector-j.md#_ref-0) see parsec authentication restriction
+1. see parsec authentication restriction
 
 ## Installing MariaDB Connector/J
 

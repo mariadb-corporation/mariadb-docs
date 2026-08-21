@@ -78,7 +78,7 @@ It represents data having the structure:
 
 This structure seems at first view far from being tabular. However, modern database management systems, including MariaDB, implement something close to the relational model and work on tables that are structurally not hierarchical but tabular with rows and columns.
 
-Nevertheless, CONNECT can do it. Of course, it cannot guess what you want to extract from the XML structure, but gives you the possibility to specify it when you create the table\[[1](connect-xml-table-type.md#_note-0)].
+Nevertheless, CONNECT can do it. Of course, it cannot guess what you want to extract from the XML structure, but gives you the possibility to specify it when you create the table\[1].
 
 Let us take a first example. Suppose you want to make a table from the above document, displaying the node contents.
 
@@ -102,7 +102,7 @@ It are displayed as:
 | William J. Pardi         | XML en Action                  | James Guerin | Microsoft Press Paris | 1999    |
 
 Let us try to understand what happened. By default the column names correspond to tag names. Because this file is rather simple, CONNECT was able to default the top tag of the table as the root node `<BIBLIO>` of the file, and the row tags as the `<BOOK>` children of the table tag. In a more complex file, this should have been specified, as we will see later. Note that we didn't have to worry
-about the sub-tags such as `<FIRSTNAME>` or `<LASTNAME>` because CONNECT automatically retrieves the entire text contained in a tag and its sub-tags\[[2](connect-xml-table-type.md#_note-1)].
+about the sub-tags such as `<FIRSTNAME>` or `<LASTNAME>` because CONNECT automatically retrieves the entire text contained in a tag and its sub-tags\[2].
 
 Only the first author of the first book appears. This is because only the first occurrence of a column tag has been retrieved so the result has a proper tabular structure. We will see later what we can do about that.
 
@@ -577,7 +577,7 @@ tabname='BIBLIO'
 option_list='rownode=BOOK,Expand=1,Mulnode=AUTHOR,Limit=2';
 ```
 
-In this statement, the Limit option specifies the maximum number of values that are expanded. If not specified, it defaults to `10`. Any values above the limit are ignored and a warning message issued\[[3](connect-xml-table-type.md#_note-2)]. Now you can enter a query such as:
+In this statement, the Limit option specifies the maximum number of values that are expanded. If not specified, it defaults to `10`. Any values above the limit are ignored and a warning message issued\[3]. Now you can enter a query such as:
 
 ```sql
 SELECT isbn, subject, author, title FROM xsamp2;
@@ -938,9 +938,9 @@ This file can be used to display the table on a web browser (encoding should be`
 
 ## Notes
 
-1. [↑](connect-xml-table-type.md#_ref-0) CONNECT does not claim to be able to deal with any XML document. Besides, those that can usefully be processed for data analysis are likely to have a structure that can easily be transformed into a table.
-2. [↑](connect-xml-table-type.md#_ref-1) With libxml2, sub tags text can be separated by 0 or several blanks depending on the structure and indentation of the data file.
-3. [↑](connect-xml-table-type.md#_ref-2) This may cause some rows to be lost because an eventual where clause on the “multiple” column is applied only on the limited number of retrieved rows.
+1. CONNECT does not claim to be able to deal with any XML document. Besides, those that can usefully be processed for data analysis are likely to have a structure that can easily be transformed into a table.
+2. With libxml2, sub tags text can be separated by 0 or several blanks depending on the structure and indentation of the data file.
+3. This may cause some rows to be lost because an eventual where clause on the “multiple” column is applied only on the limited number of retrieved rows.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

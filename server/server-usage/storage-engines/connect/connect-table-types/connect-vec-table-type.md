@@ -14,7 +14,7 @@ CONNECT provides two integral VEC formats, in which each column's data is adjace
 
 ## Integral Vector Formats
 
-In these true vertical formats, the VEC files are made of all the data of the first column, followed by all the data of the second column etc. All this can be in one physical file or each column data can be in a separate file. In the first case, the option max\_rows=m, where m is the estimate of the maximum size (number of rows) of the table, must be specified to be able to insert some new records. This leaves an empty space after each column area in which new data can be inserted. In the second case, the “Split” option can be specified\[[2](connect-vec-table-type.md#_note-1)] at table creation and each column are stored in a file named sequentially from the table file name followed by the rank of the column. Inserting new lines can freely augment such a table.
+In these true vertical formats, the VEC files are made of all the data of the first column, followed by all the data of the second column etc. All this can be in one physical file or each column data can be in a separate file. In the first case, the option max\_rows=m, where m is the estimate of the maximum size (number of rows) of the table, must be specified to be able to insert some new records. This leaves an empty space after each column area in which new data can be inserted. In the second case, the “Split” option can be specified\[2] at table creation and each column are stored in a file named sequentially from the table file name followed by the rank of the column. Inserting new lines can freely augment such a table.
 
 ## Differences Between Vector Formats
 
