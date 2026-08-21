@@ -77,6 +77,16 @@ on the file set, from the repo root:
   page, or with `.claude/hooks/fragcheck.py validate <file>`. Needs python3 and a git work tree;
   missing either is a SKIP. Costs ~14s, so `DOC_LINT_SKIP_FRAGMENTS=1` skips it while iterating.
   Added in DOCS-6491.
+- The same gate catches a heading that publishes **another heading's** anchor. Duplicate a
+  heading line for a new section, edit its text but leave its `<a href="#x" id="x">` behind, and
+  GitBook honours that explicit id over the text slug: the two sections share one anchor, the
+  second dedupes to `-1`, and neither owns the anchor a reader expects. Every link still
+  resolves, just to the wrong section, so no link checker — this one included — can see it from
+  the links alone. `.claude/hooks/fragcheck.py ids` lists them. **A heading whose explicit id is
+  a deliberate historical KB anchor for its own text is not flagged, and must not be
+  "normalised"** — those ids exist to keep old inbound links working, and rewriting them breaks
+  exactly what they preserve. On `main` 48 headings differed from their text slug and only 8 were
+  defects, so treating the wide class as the bug would be a 6× overstatement. Added in DOCS-6492.
 - It also flags a **gutted page** — any file that lost more than 40% of its lines *net*
   (deletions minus additions; min 20 lines lost, pre-image ≥ 30 lines) against `DOC_LINT_BASE`
   (default `HEAD`). No CI counterpart, never SKIPs. This catches what the other checks

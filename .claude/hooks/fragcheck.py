@@ -34,14 +34,20 @@ THE SLUG RULES  (each derived from a rendered id="..." on mariadb.com/docs)
 
 MODES
     fragcheck.py check [path ...]        dead anchors under each path (default: repo)
-    fragcheck.py new <rev> [path ...]    only anchors that <rev> had fine -- the gate
+    fragcheck.py new <rev> [path ...]    only what <rev> had fine -- the gate
+    fragcheck.py ids [path ...]          headings publishing another heading's anchor
     fragcheck.py anchors <file.md>       the anchors one file publishes
     fragcheck.py validate <file.md> ...  compare computed anchors to the live page
 
-`new` is what doc-lint.sh calls: it scans the whole tree twice (once here, once in
+`new` is what doc-lint.sh calls. It scans the whole tree twice (once here, once in
 a throwaway worktree at <rev>) and reports only the difference, so the repo's
 pre-existing dead anchors stay out of the way while a heading rename that breaks
-inbound links from untouched pages still fails.
+inbound links from untouched pages still fails. It gates two classes:
+
+    * anchors that <rev> resolved and the working tree does not (a rename)
+    * headings that took over another heading's explicit id (`ids`, DOCS-6492) --
+      invisible to every link checker, this one included, because the anchors all
+      exist and resolve; they just land on the wrong section
 """
 import os
 import re
@@ -107,12 +113,11 @@ def gitbook_slug(heading):
     return s[:MAX_SLUG]
 
 
-def anchors_of(path):
-    """Anchors a markdown file publishes, in document order."""
-    seen = Counter()
+def headings_of(path):
+    """(line_no, raw_text, explicit_id_or_None) for each level-2..6 heading."""
     out = []
     in_fence = False
-    for line in read(path).splitlines():
+    for n, line in enumerate(read(path).splitlines(), 1):
         if FENCE.match(line):
             in_fence = not in_fence
             continue
@@ -122,12 +127,54 @@ def anchors_of(path):
         if not m or len(m.group(1)) == 1:
             continue
         explicit = HEADING_ID.search(m.group(2))
-        base = explicit.group(1) if explicit else gitbook_slug(m.group(2))
+        out.append((n, m.group(2), explicit.group(1) if explicit else None))
+    return out
+
+
+def anchors_of(path):
+    """Anchors a markdown file publishes, in document order."""
+    seen = Counter()
+    out = []
+    for _, text, explicit in headings_of(path):
+        base = explicit if explicit else gitbook_slug(text)
         if not base:
             continue
         n = seen[base]
         seen[base] += 1
         out.append(base if n == 0 else f'{base}-{n}')
+    return out
+
+
+def stolen_ids(path):
+    """Headings whose explicit id is the slug of a DIFFERENT heading here.
+
+    The wide class -- an explicit id that merely differs from the heading's own
+    text slug -- is 48 cases on this repo and mostly BENIGN: 40 are historical
+    KB anchors deliberately kept so old inbound links keep resolving
+    (#choosing-mariabackup-for-ssts, the #overview_h2 set on the wsrep variable
+    pages). Only the narrow case is a defect: the id belongs to another heading
+    on the same page, because a heading line was duplicated for a new section
+    and its text edited while the anchor markup was not. GitBook honours the
+    explicit id, so the two sections share one anchor, the loser dedupes to -1,
+    and the anchor a reader expects for either section does not exist at all
+    (DOCS-6492).
+
+    Flagging all 48 would be a 6x overstatement -- DOCS-6413's failure mode.
+    """
+    heads = headings_of(path)
+    own = {}
+    for n, text, _ in heads:
+        own.setdefault(gitbook_slug(text), n)
+    out = []
+    for n, text, explicit in heads:
+        if not explicit:
+            continue
+        mine = gitbook_slug(text)
+        if explicit == mine:
+            continue
+        other = own.get(explicit)
+        if other is not None and other != n:
+            out.append((n, mine, explicit, other))
     return out
 
 
@@ -247,7 +294,32 @@ def check(paths, base):
     return checked, findings, unresolved
 
 
+def scan_ids(paths, base):
+    """Every stolen-id finding under each path, as (file, line, own, id, other)."""
+    out = []
+    for root in paths:
+        for f in md_files(root, base):
+            for line, mine, stolen, other in stolen_ids(f):
+                out.append((relpath(f, base), line, mine, stolen, other))
+    return out
+
+
 # ------------------------------------------------------- reporting / gate
+
+def describe_id(finding):
+    src, line, mine, stolen, other = finding
+    return (f'{src}:{line}: publishes #{stolen}, which is line {other}\'s '
+            f'anchor, instead of its own #{mine}')
+
+
+STOLEN_HELP = (
+    '\n          A heading line duplicated for a new section keeps the original\'s\n'
+    '          <a href="#x" id="x">, so both sections publish one anchor, the second\n'
+    '          dedupes to -1, and neither owns the anchor a reader expects\n'
+    '          (DOCS-6492). Delete the copied markup from the new heading — it then\n'
+    '          falls back to its own text slug. A deliberate historical alias is not\n'
+    '          flagged: only an id that belongs to another heading on the same page.')
+
 
 def describe(finding):
     src, line, frag, tgt, bucket, fix = finding
@@ -274,6 +346,18 @@ def cmd_check(args):
     return 0
 
 
+def cmd_ids(args):
+    """List every heading carrying another heading's anchor (absolute, not diffed)."""
+    root = repo_root(args[0] if args else '.')
+    found = scan_ids([pathlib.Path(a) for a in args] or [root], root)
+    for f in found:
+        print('STOLEN ' + describe_id(f))
+    print(f'\nids: {len(found)} heading(s) publishing another heading\'s anchor')
+    if found:
+        print(STOLEN_HELP)
+    return 1 if found else 0
+
+
 def cmd_new(args):
     """Report anchors dead in the working tree that were fine at <rev>."""
     if not args:
@@ -281,7 +365,9 @@ def cmd_new(args):
         return 2
     rev, paths = args[0], args[1:]
     root = repo_root(paths[0] if paths else '.')
-    _, now, _ = check([pathlib.Path(p) for p in paths] or [root], root)
+    roots = [pathlib.Path(p) for p in paths] or [root]
+    _, now, _ = check(roots, root)
+    now_ids = scan_ids(roots, root)
 
     tmp = tempfile.mkdtemp(prefix='fragcheck-base-')
     worktree = os.path.join(tmp, 'base')
@@ -298,6 +384,7 @@ def cmd_new(args):
         # keys that can never match the working tree's relative ones.
         base_root = pathlib.Path(worktree).resolve()
         _, before, _ = check([base_root], base_root)
+        before_ids = scan_ids([base_root], base_root)
     finally:
         subprocess.run(['git', '-C', str(root), 'worktree', 'remove', '--force',
                         worktree], capture_output=True)
@@ -306,20 +393,40 @@ def cmd_new(args):
     def key(f):
         return (f[0], f[3], f[2])      # source, target, fragment -- not the line
 
+    def idkey(f):
+        return (f[0], f[2], f[3])      # file, own slug, stolen id -- not the line
+
+    rc = 0
     was_dead = {key(f) for f in before}
     fresh = [f for f in now if key(f) not in was_dead]
-    if not fresh:
+    if fresh:
+        rc = 1
+        print(f'fragcheck: {len(fresh)} heading anchor(s) that {rev} resolved are now dead:',
+              file=sys.stderr)
+        for f in fresh:
+            print('  ' + describe(f), file=sys.stderr)
+        print('\n          A renamed heading breaks every inbound link to its old anchor,\n'
+              '          including links from pages this commit never touched. Either restore\n'
+              '          the heading text or retarget the links listed above.', file=sys.stderr)
+
+    # Diffed against <rev> for the same reason as the dead anchors: this repo is
+    # also edited from the GitBook UI, so an absolute check would fail unrelated
+    # PRs the moment a GITBOOK-* commit introduced one case.
+    was_stolen = {idkey(f) for f in before_ids}
+    fresh_ids = [f for f in now_ids if idkey(f) not in was_stolen]
+    if fresh_ids:
+        rc = 1
+        print(f'fragcheck: {len(fresh_ids)} heading(s) now carry another heading\'s '
+              f'anchor:', file=sys.stderr)
+        for f in fresh_ids:
+            print('  ' + describe_id(f), file=sys.stderr)
+        print(STOLEN_HELP, file=sys.stderr)
+
+    if not rc:
         print(f'fragcheck: no new dead heading anchors vs {rev} '
-              f'({len(now)} pre-existing, unchanged)')
-        return 0
-    print(f'fragcheck: {len(fresh)} heading anchor(s) that {rev} resolved are now dead:',
-          file=sys.stderr)
-    for f in fresh:
-        print('  ' + describe(f), file=sys.stderr)
-    print('\n          A renamed heading breaks every inbound link to its old anchor,\n'
-          '          including links from pages this commit never touched. Either restore\n'
-          '          the heading text or retarget the links listed above.', file=sys.stderr)
-    return 1
+              f'({len(now)} pre-existing, unchanged); no new stolen heading ids '
+              f'({len(now_ids)} pre-existing)')
+    return rc
 
 
 # ------------------------------------------------------------- live validate
@@ -377,6 +484,8 @@ def main():
         return cmd_validate(args)
     if mode == 'new':
         return cmd_new(args)
+    if mode == 'ids':
+        return cmd_ids(args)
     if mode == 'check':
         return cmd_check(args)
     print(__doc__, file=sys.stderr)
