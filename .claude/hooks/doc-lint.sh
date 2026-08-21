@@ -239,10 +239,23 @@ done
 # are dead. `.claude/hooks/fragcheck.py` implements GitBook's rules instead, validated at
 # 4,599/4,599 anchors against the rendered pages (DOCS-6491).
 #
+# It also gates a third rot that no link checker can see at all — including fragcheck itself
+# when it is only looking for dead anchors. A heading line duplicated for a new section keeps
+# the original's `<a href="#x" id="x">`, GitBook honours the explicit id over the text slug, and
+# the two sections then share one anchor: the second dedupes to `-1` and neither owns the anchor
+# a reader expects. Every link still resolves, just to the wrong section, so this is a semantic
+# mismatch rather than a broken link (DOCS-6492). A heading whose explicit id is a deliberate
+# historical KB alias for its own text is NOT flagged — only an id that belongs to a different
+# heading on the same page. That distinction is the whole check: 48 headings differ from their
+# text slug, but only 8 were defects, so flagging the wide class would be a 6x overstatement.
+#
 # Two deliberate design choices:
 #   1. It reports only anchors that are dead NOW but resolved at $LINT_BASE. The repo carries
 #      ~1,272 pre-existing dead anchors, so a plain check would turn every unrelated PR red on
-#      breakage it did not introduce (the `broken-reference` trap — see the lychee section).
+#      breakage it did not introduce (the `broken-reference` trap — see the lychee section). The
+#      stolen-id class is diffed against $LINT_BASE for the same reason: it stands at 0 today,
+#      but this repo is also edited from the GitBook UI, so an absolute check would fail
+#      unrelated PRs the moment a GITBOOK-* commit introduced one case.
 #   2. It scans the whole tree, not just "${files[@]}". Renaming a heading breaks inbound links
 #      from pages the commit never touched, and a changed-files check cannot see those. The two
 #      passes cost ~14s; set DOC_LINT_SKIP_FRAGMENTS=1 to skip when iterating.

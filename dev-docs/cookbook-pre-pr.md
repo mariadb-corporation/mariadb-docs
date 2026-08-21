@@ -53,8 +53,18 @@ resolves live) while missing 213 anchors that really are dead. Never delete a do
 an anchor to satisfy it; check the rendered page instead, or run
 `.claude/hooks/fragcheck.py validate <file>`, which compares computed anchors against the ids
 the live site emits. `.claude/hooks/fragcheck.py check` prints the whole current inventory with a
-suggested target for each mechanically fixable one. Needs python3 and a git work tree — either
-missing is a SKIP — and costs about 14 seconds:
+suggested target for each mechanically fixable one.
+
+The same gate catches one thing no link checker can: a heading that publishes **another
+heading's** anchor. Duplicate a heading line for a new section, edit its text but leave its
+`<a href="#x" id="x">` behind, and GitBook honours that explicit id over the text slug — the two
+sections share one anchor, the second dedupes to `-1`, and neither owns the anchor a reader
+expects. Every link still resolves, just to the wrong section (DOCS-6492), which is exactly why
+no checker sees it. `.claude/hooks/fragcheck.py ids` lists them. A heading whose explicit id is a
+deliberate historical KB anchor for its own text is **not** flagged, and must not be
+"normalised" — those ids exist to keep old inbound links working.
+
+Needs python3 and a git work tree — either missing is a SKIP — and costs about 14 seconds:
 
 ```bash
 # skip it while iterating on wording
