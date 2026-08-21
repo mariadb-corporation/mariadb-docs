@@ -62,8 +62,8 @@ but trust the live list):
 Only **`summary`** is required (plus `project`). `priority` defaults to Major. **No
 components, no fix versions, no mandatory custom fields.** Optional: `description`, `priority`,
 `labels`, and assignee (set via the `assignee_account_id` param). A Sprint field
-(`customfield_10021`) exists but is a team-managed board field — don't set it on create (it
-usually 400s); add the sprint from the board afterward.
+(`customfield_10021`) exists but is a team-managed board field — don't set it on create; add it
+with a follow-up `editJiraIssue` instead, which works reliably.
 
 ## Setup — verify the connection reaches MariaDB (MANDATORY, run first)
 
@@ -148,9 +148,17 @@ File a new DOCS ticket. Because the project requires only `summary`, this is lig
    - **Assignee:** set via the tool's top-level `assignee_account_id` param (e.g. the current
      user from `atlassianUserInfo()`), **not** via `additional_fields`.
    - **Priority / labels:** only add to `additional_fields` when the user asked.
-   - **Sprint:** do **not** set on create. `customfield_10021` is a team-managed board field and
-     setting it at create time typically fails (400) unless the issue is already on the active
-     sprint — assign the sprint from the board afterward if needed.
+   - **Sprint:** do **not** set on create — `customfield_10021` is a team-managed board field.
+     Add it **after** creating, with a follow-up `editJiraIssue` passing a **bare integer**:
+     `fields={"customfield_10021": 4380}`. This is the proven route; don't send the user to the
+     board UI. New DOCS tickets go on the **current** sprint by default.
+     - Get the sprint id by reading the field off any ticket already on it —
+       `getJiraIssue(cloudId, "DOCS-XXXX", fields=["customfield_10021"])`. Note the read shape is
+       an **array of objects** (`[{"id": 4380, "name": "DOCS Sprint September 4", "state":
+       "active", ...}]`) even though the write takes the bare integer; pick the entry whose
+       `state` is `active`.
+     - **Verify by reading the field back** after the edit — a rejected sprint value does not
+       always surface as an error on the edit call.
    - If any field id is rejected, run `getJiraIssueTypeMetaWithFields(cloudId, projectIdOrKey="DOCS", issueTypeId="10083")` and use the live id.
 5. **Confirm**: `Ticket / Type / Priority / URL`.
 
