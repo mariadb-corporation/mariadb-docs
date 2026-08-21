@@ -824,7 +824,7 @@ The following series of events demonstrates failback switchover:
 
 If enabled, the monitor will attempt to switchover a primary server low on disk space with a replica. The switch is only done if a replica without disk space issues is found. If`maintenance_on_low_disk_space` is also enabled, the old primary (now a replica) will be put to maintenance during the next monitor iteration.
 
-For this parameter to have any effect, `disk_space_threshold` must be specified for the [server](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#disk_space_threshold) or the [monitor](common-monitor-parameters.md#disk_space_threshold). Also, [disk\_space\_check\_interval](common-monitor-parameters.md#disk_space_check_interval) must be defined for the monitor.
+For this parameter to have any effect, `disk_space_threshold` must be specified for the [server](../maxscale-servers.md#disk_space_threshold) or the [monitor](common-monitor-parameters.md#disk_space_threshold). Also, [disk\_space\_check\_interval](common-monitor-parameters.md#disk_space_check_interval) must be defined for the monitor.
 
 ```
 switchover_on_low_disk_space=true

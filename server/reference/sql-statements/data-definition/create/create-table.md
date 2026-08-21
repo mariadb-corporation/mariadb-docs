@@ -206,7 +206,7 @@ MariaDB accepts the shortcut format with a `REFERENCES` clause only in `ALTER TA
 CREATE TABLE b(for_key INT REFERENCES a(not_key));
 ```
 
-MariaDB will attempt to apply the constraint. See [Foreign Keys examples](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md#references).
+MariaDB will attempt to apply the constraint. See [Foreign Keys examples](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md#examples).
 {% endtab %}
 
 {% tab title="< 10.5" %}
@@ -237,7 +237,7 @@ The default value will be used if you [INSERT](../../data-manipulation/inserting
 
 [CURRENT\_TIMESTAMP](../../../sql-functions/date-time-functions/now.md) may also be used as the default value for a [DATETIME](../../../data-types/date-and-time-data-types/datetime.md)
 
-You can use most functions in `DEFAULT`. Expressions should have parentheses around them. If you use a non deterministic function in `DEFAULT` then all inserts to the table will be [replicated](../../../../ha-and-performance/standard-replication/) in [row mode](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based). You can even refer to earlier columns in the `DEFAULT` expression (excluding `AUTO_INCREMENT` columns):
+You can use most functions in `DEFAULT`. Expressions should have parentheses around them. If you use a non deterministic function in `DEFAULT` then all inserts to the table will be [replicated](../../../../ha-and-performance/standard-replication/) in [row mode](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging). You can even refer to earlier columns in the `DEFAULT` expression (excluding `AUTO_INCREMENT` columns):
 
 ```sql
 CREATE TABLE t1 (a INT DEFAULT (1+1), b INT DEFAULT (a+1));
@@ -413,7 +413,7 @@ For limits on InnoDB indexes, see [InnoDB Limitations](../../../../server-usage/
 
 Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes.
 
-See [Getting Started with Indexes: Plain Indexes](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes) for more information.
+See [Getting Started with Indexes: Plain Indexes](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes-regular-indexes) for more information.
 
 #### PRIMARY KEY
 

@@ -44,7 +44,7 @@ Password for the user defined with the `user` parameter. If a server defines the
 * Dynamic: Yes
 * Default: None
 
-[Role](../../../server/security/user-account-management/roles/roles_overview.md) the monitor should activate right after connecting to a server. If empty, no role is set. This setting may be useful if the same username is used for both monitors and services. As monitors and services require different privileges, these privileges can be granted to the monitor and the service roles separately instead of granting them all to the same user. MariaDB Monitor and Galera Monitor currently use this setting. If the monitor is configured to use a role, the role is taken into use even if the server uses a [custom monitor username](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#monitoruser).
+[Role](../../../server/security/user-account-management/roles/roles_overview.md) the monitor should activate right after connecting to a server. If empty, no role is set. This setting may be useful if the same username is used for both monitors and services. As monitors and services require different privileges, these privileges can be granted to the monitor and the service roles separately instead of granting them all to the same user. MariaDB Monitor and Galera Monitor currently use this setting. If the monitor is configured to use a role, the role is taken into use even if the server uses a [custom monitor username](../maxscale-servers.md#monitoruser).
 
 ### `servers`
 
@@ -147,7 +147,7 @@ backend_connect_attempts=1
 * Dynamic: Yes
 * Default: None
 
-This parameter duplicates the `disk_space_threshold` [server parameter](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#disk_space_threshold). If the parameter has _not_ been specified for a server, then the one specified for the monitor is applied.
+This parameter duplicates the `disk_space_threshold` [server parameter](../maxscale-servers.md#disk_space_threshold). If the parameter has _not_ been specified for a server, then the one specified for the monitor is applied.
 
 **NOTE**: Since MariaDB 10.4.7, MariaDB 10.3.17 and MariaDB 10.2.26, the information will be available _only_ if the monitor user has the `FILE` privilege.
 
