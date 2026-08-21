@@ -325,11 +325,11 @@ Drops a foreign key. See [Foreign Keys](../../../../../ha-and-performance/optimi
 
 ### ADD INDEX
 
-Adds a plain index. Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes. For limits on InnoDB indexes, see [InnoDB Limitations](../../../../../server-usage/storage-engines/innodb/innodb-limitations.md). See [Getting Started with Indexes: Plain Indexes](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes) for more information.
+Adds a plain index. Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes. For limits on InnoDB indexes, see [InnoDB Limitations](../../../../../server-usage/storage-engines/innodb/innodb-limitations.md). See [Getting Started with Indexes: Plain Indexes](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes-regular-indexes) for more information.
 
 ### DROP INDEX
 
-Drops a plain index. Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes. See [Getting Started with Indexes: Plain Indexes](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes) for more information.
+Drops a plain index. Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes. See [Getting Started with Indexes: Plain Indexes](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes-regular-indexes) for more information.
 
 ### ADD UNIQUE INDEX
 
