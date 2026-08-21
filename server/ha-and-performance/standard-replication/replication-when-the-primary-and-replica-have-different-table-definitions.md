@@ -13,7 +13,7 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 While replication is usually meant to take place between primaries and replicas with the same table definitions and this is recommended, in certain cases replication can still take place even if the definitions are identical.
 
-Tables on the replica and the primary do not need to have the same definition in order for [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) to take place. There can be differing numbers of columns, or differing data definitions and, in certain cases, replication can still proceed.
+Tables on the replica and the primary do not need to have the same definition in order for [replication](./) to take place. There can be differing numbers of columns, or differing data definitions and, in certain cases, replication can still proceed.
 
 ## Different Column Definitions - Attribute Promotion and Demotion
 
