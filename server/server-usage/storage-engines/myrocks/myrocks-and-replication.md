@@ -11,7 +11,7 @@ Details about how MyRocks works with [replication](../../../ha-and-performance/s
 
 ## MyRocks and Statement-Based Replication
 
-[Statement-based](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based) replication (SBR) works as follows: SQL statements are executed on the master (possibly concurrently). They are written into the binlog (this fixes their ordering, "a serialization"). The slave then reads the binlog and executes the statements in their binlog order.
+[Statement-based](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging) replication (SBR) works as follows: SQL statements are executed on the master (possibly concurrently). They are written into the binlog (this fixes their ordering, "a serialization"). The slave then reads the binlog and executes the statements in their binlog order.
 
 In order to prevent data drift, serial execution of statements on the slave must have the same effect as concurrent execution of these statements on the master. In other words, transaction isolation on the master must be close to `SERIALIZABLE` transaction isolation level (This is not a strict mathematical proof but shows the idea).
 

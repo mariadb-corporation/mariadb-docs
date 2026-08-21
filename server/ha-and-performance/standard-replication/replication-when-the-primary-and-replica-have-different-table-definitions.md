@@ -19,11 +19,11 @@ Tables on the replica and the primary do not need to have the same definition in
 
 It is possible in some cases to replicate to a replica that has a column of a different type on the replica and the primary. This process is called attribute promotion (to a larger type) or attribute demotion (to a smaller type).
 
-The conditions differ depending on whether [statement-based](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based) or [row-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based) is used.
+The conditions differ depending on whether [statement-based](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging) or [row-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging) is used.
 
 ### Statement-Based Replication
 
-When using [statement-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based), generally, if a statement can run successfully on the replica, it will be replicated. If a column definition is the same or a larger type on the replica than on the primary, it can replicate successfully. For example, a column defined as [VARCHAR(10)](../../reference/data-types/string-data-types/varchar.md) will successfully be replicated on a replica with a definition of `VARCHAR(12)`.
+When using [statement-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging), generally, if a statement can run successfully on the replica, it will be replicated. If a column definition is the same or a larger type on the replica than on the primary, it can replicate successfully. For example, a column defined as [VARCHAR(10)](../../reference/data-types/string-data-types/varchar.md) will successfully be replicated on a replica with a definition of `VARCHAR(12)`.
 
 Replicating to a replica where the column is defined as smaller than on the primary can also work. For example, given the following table definitions:
 
@@ -82,7 +82,7 @@ Last_Error: Error 'Data too long for column 'v' at row 1' on query.
 
 ### Row-Based Replication
 
-When using [row-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based), the value of the [slave\_type\_conversions](replication-and-binary-log-system-variables.md) variable is important. The default value of this variable is empty, in which case MariaDB will not perform attribute promotion or demotion. If the column definitions do not match, replication will stop. If set to `ALL_NON_LOSSY`, safe replication is permitted. If set to `ALL_LOSSY` as well, replication will be permitted even if data loss takes place.
+When using [row-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging), the value of the [slave\_type\_conversions](replication-and-binary-log-system-variables.md) variable is important. The default value of this variable is empty, in which case MariaDB will not perform attribute promotion or demotion. If the column definitions do not match, replication will stop. If set to `ALL_NON_LOSSY`, safe replication is permitted. If set to `ALL_LOSSY` as well, replication will be permitted even if data loss takes place.
 
 For example:
 
