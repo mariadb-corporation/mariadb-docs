@@ -41,7 +41,7 @@ This page has a list of SQL Server features that are not supported in MariaDB. T
   * Sending HTTP requests.
 * External languages, external libraries (MariaDB only supports procedural SQL and PL/SQL).
 * Negative permissions (the `DENY` command).
-* Snapshot replication. See [Provisioning a Slave](mariadb-replication-overview-for-sql-server-users.md#provisioning-a-slave).
+* Snapshot replication. See [Provisioning a Slave](mariadb-replication-overview-for-sql-server-users.md#provisioning-a-replica).
 
 ## Introduced in SQL Server 2016
 

@@ -370,7 +370,7 @@ description: >-
 * [deadlock\_search\_depth\_short](../server-usage/storage-engines/aria/aria-system-variables.md)
 * [deadlock\_timeout\_long](../server-usage/storage-engines/aria/aria-system-variables.md)
 * [deadlock\_timeout\_short](../server-usage/storage-engines/aria/aria-system-variables.md)
-* -#, [debug](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug)
+* -#, [debug](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug-debug_dbug)
 * [--debug-assert-if-crashed-table](../server-management/starting-and-stopping-mariadb/mariadbd-options.md#debug-assert-if-crashed-table)
 * [--debug-binlog-fsync-sleep](../server-management/starting-and-stopping-mariadb/mariadbd-options.md#debug-binlog-fsync-sleep)
 * [--debug-crc-break](../server-management/starting-and-stopping-mariadb/mariadbd-options.md#debug-crc-break)

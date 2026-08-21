@@ -18,7 +18,7 @@ Many of the general system variables are described on this page, but others are 
 * [Aria System Variables](../../../server-usage/storage-engines/aria/aria-system-variables.md)
 * [CONNECT System Variables](../../../server-usage/storage-engines/connect/connect-system-variables.md)
 * [Galera System Variables](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables)
-* [Global Transaction ID System Variables](../../standard-replication/gtid.md#system-variables-for-global-transaction-id)
+* [Global Transaction ID System Variables](../../standard-replication/gtid.md#system-variables)
 * [HandlerSocket Plugin System Variables](../../../reference/sql-structure/nosql/handlersocket/handlersocket-configuration-options.md)
 * [InnoDB System Variables](../../../server-usage/storage-engines/innodb/innodb-system-variables.md)
 * [Mroonga System Variables](../../../server-usage/storage-engines/mroonga/mroonga-system-variables.md)

@@ -83,7 +83,7 @@ SHOW REPLICA STATUS\G
 
 ### Restore from Backup (Fallback Method)
 
-If the replica-based method is not possible, the most reliable alternative is to [restore from a full backup](../../server-usage/backup-and-restore/backup-and-restore-overview.md) created in Step 2 of the [Generic Downgrade Process](downgrading-between-major-versions-of-mariadb.md#generic-downgrade-process-recommended).
+If the replica-based method is not possible, the most reliable alternative is to [restore from a full backup](../../server-usage/backup-and-restore/backup-and-restore-overview.md) created in Step 2 of the [Generic Downgrade Process](downgrading-between-major-versions-of-mariadb.md#generic-downgrade-process).
 
 1. Install a lower version of MariaDB on a clean server.
 2. Launch MariaDB, then restore the backup:
@@ -94,7 +94,7 @@ When used on a clean installation, this method is reliable but involves more dow
 
 ### In-Place Downgrade Method
 
-The MariaDB developers have not tested this method, so it is not advised. A lot of things can go wrong. Whenever possible, use the [backup-restore](downgrading-between-major-versions-of-mariadb.md#generic-downgrade-process-recommended) or [replica-based](downgrading-between-major-versions-of-mariadb.md#restore-from-backup-fallback-method) methods mentioned above.
+The MariaDB developers have not tested this method, so it is not advised. A lot of things can go wrong. Whenever possible, use the [backup-restore](downgrading-between-major-versions-of-mariadb.md#generic-downgrade-process) or [replica-based](downgrading-between-major-versions-of-mariadb.md#restore-from-backup-fallback-method) methods mentioned above.
 
 In general, an in-place downgrade to a previous major version is only allowed if you have not yet executed [mariadb-upgrade](../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) on the new version.
 

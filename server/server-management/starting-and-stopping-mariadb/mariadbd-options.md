@@ -1104,7 +1104,7 @@ Some options and system variables related to [Galera Cluster](../../architecture
 ### Debugging Options and System Variables
 
 * [core-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file)
-* [debug](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug)
+* [debug](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug-debug_dbug)
 * [debug-no-thread-alarm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_no_thread_alarm)
 
 ## Other Options
