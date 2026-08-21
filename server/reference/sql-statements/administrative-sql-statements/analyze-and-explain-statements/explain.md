@@ -84,21 +84,21 @@ The `select_type` column can have the following values:
 
 This column contains information on how the table is accessed.
 
-| Value            | Description                                                                                                                                                                                                                      |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ALL              | A full table scan is done for the table (all rows are read). This is bad if the table is large and the table is joined against a previous table! This happens when the optimizer could not find any usable index to access rows. |
-| const            | There is only one possibly matching row in the table. The row is read before the optimization phase and all columns in the table are treated as constants.                                                                       |
-| eq\_ref          | A unique index is used to find the rows. This is the best possible plan to find the row.                                                                                                                                         |
-| filter           | A second index is being used with the [Rowid Filtering Optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization.md).                                                |
-| fulltext         | A fulltext index is used to access the rows.                                                                                                                                                                                     |
-| index\_merge     | A 'range' access is done for several index and the found rows are merged. The key column shows which keys are used.                                                                                                              |
-| index\_subquery  | This is similar as ref, but used for sub queries that are transformed to key lookups.                                                                                                                                            |
-| index            | A full scan over the used index. Better than `ALL` but still bad if index is large and the table is joined against a previous table.                                                                                             |
-| range            | The table will be accessed with a key over one or more value ranges.                                                                                                                                                             |
-| ref\_or\_null    | Like 'ref' but in addition another search for the 'null' value is done if the first value was not found. This happens usually with sub queries.                                                                                  |
-| ref              | A non unique index or prefix of an unique index is used to find the rows. Good if the prefix doesn't match many rows.                                                                                                            |
-| system           | The table has 0 or 1 rows.                                                                                                                                                                                                       |
-| unique\_subquery | This is similar as eq\_ref, but used for sub queries that are transformed to key lookups                                                                                                                                         |
+| Value                | Description                                                                                                                                                                                                                                                                                                         |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ALL                  | A full table scan is done for the table (all rows are read). This is bad if the table is large and the table is joined against a previous table! This happens when the optimizer could not find any usable index to access rows.                                                                                    |
+| const                | There is only one possibly matching row in the table. The row is read before the optimization phase and all columns in the table are treated as constants.                                                                                                                                                          |
+| eq\_ref              | A unique index is used to find the rows. This is the best possible plan to find the row.                                                                                                                                                                                                                            |
+| access\_type\|filter | The join type is combined with the [Rowid Filtering Optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization.md): `ref\|filter`, `eq_ref\|filter`, `range\|filter`. `filter` never appears alone. See [Rowid Filter Notation](#rowid-filter-notation). |
+| fulltext             | A fulltext index is used to access the rows.                                                                                                                                                                                                                                                                        |
+| index\_merge         | A 'range' access is done for several index and the found rows are merged. The key column shows which keys are used.                                                                                                                                                                                                 |
+| index\_subquery      | This is similar as ref, but used for sub queries that are transformed to key lookups.                                                                                                                                                                                                                               |
+| index                | A full scan over the used index. Better than `ALL` but still bad if index is large and the table is joined against a previous table.                                                                                                                                                                                |
+| range                | The table will be accessed with a key over one or more value ranges.                                                                                                                                                                                                                                                |
+| ref\_or\_null        | Like 'ref' but in addition another search for the 'null' value is done if the first value was not found. This happens usually with sub queries.                                                                                                                                                                     |
+| ref                  | A non unique index or prefix of an unique index is used to find the rows. Good if the prefix doesn't match many rows.                                                                                                                                                                                               |
+| system               | The table has 0 or 1 rows.                                                                                                                                                                                                                                                                                          |
+| unique\_subquery     | This is similar as eq\_ref, but used for sub queries that are transformed to key lookups                                                                                                                                                                                                                            |
 
 ### Extra Column
 
@@ -144,12 +144,60 @@ The optimization phase can do the following changes to the `WHERE` clause:
 | Using index for group-by                             | The index is being used to resolve a `GROUP BY` or `DISTINCT` query. The rows are not read. This is very efficient if the table has a lot of identical index entries as duplicates are quickly jumped over.                                                                                                                                                                                                                                                          |
 | Using intersect(...)                                 | For index\_merge joins. Shows which index are part of the intersect.                                                                                                                                                                                                                                                                                                                                                                                                 |
 | Using join buffer                                    | We store previous row combinations in a row buffer to be able to match each row against all of the rows combinations in the join buffer at one go.                                                                                                                                                                                                                                                                                                                   |
+| Using rowid filter                                   | A [rowid filter](#rowid-filter-notation) built from a second index is checked before rows are read from the table.                                                                                                                                                                                                                                                                                                                                    |
 | Using sort\_union(...)                               | For index\_merge joins. Shows which index are part of the union.                                                                                                                                                                                                                                                                                                                                                                                                     |
 | Using temporary                                      | A temporary table is created to hold the result. This typically happens if you are using `GROUP BY`, `DISTINCT` or `ORDER BY`.                                                                                                                                                                                                                                                                                                                                       |
 | Using where                                          | A `WHERE` expression (in additional to the possible key lookup) is used to check if the row should be accepted. If you don't have 'Using where' together with a join type of `ALL`, you are probably doing something wrong!                                                                                                                                                                                                                                          |
 | Using where; FirstMatch(_mytable_)                   | When one matching record combination has been found, shortcut the execution and jump back to the _mytable_ table. See [this page](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/optimization-strategies/firstmatch-strategy.md) for details on the `FirstMatch` Strategy.                                                                                                                                                               |
 | Using where with pushed condition                    | Like 'Using where' but the where condition is pushed down to the table engine for internal optimization at the row level.                                                                                                                                                                                                                                                                                                                                            |
 | Using buffer                                         | The `UPDATE` statement will first buffer the rows, and then run the updates, rather than do updates on the fly. See [Using Buffer UPDATE Algorithm](using-buffer-update-algorithm.md) for a detailed explanation.                                                                                                                                                                                                                                                    |
+
+### Rowid Filter Notation
+
+When the optimizer applies the [Rowid Filtering Optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization.md), it adds no row of its own to the `EXPLAIN` output. Instead, it annotates the row of the table the filter applies to:
+
+| Column   | Example value                | Meaning                                                                                                      |
+| -------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| type     | `ref\|filter`                | The join type used for the lookup, followed by the literal `filter`.                                         |
+| key      | `i_l_orderkey\|i_l_shipdate` | The index used for the lookup, followed by the index the filter was built from.                               |
+| key\_len | `4\|4`                       | The key length used from each of those two indexes. Tabular `EXPLAIN` only — `FORMAT=JSON` does not show it.  |
+| rows     | `4 (2%)`                     | The row estimate, followed by the selectivity the optimizer expects from the filter.                          |
+| Extra    | `Using rowid filter`         | Added to the values already listed for the row.                                                              |
+
+For example, with the `dbt3_s001` dataset, the row for `lineitem` reads:
+
+```sql
+EXPLAIN SELECT o_orderkey, l_linenumber, l_shipdate, o_totalprice
+  FROM orders JOIN lineitem ON o_orderkey=l_orderkey
+  WHERE l_shipdate BETWEEN '1997-01-01' AND '1997-01-31'
+    AND o_totalprice BETWEEN 200000 AND 230000\G
+```
+
+```
+*************************** 2. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: lineitem
+         type: ref|filter
+possible_keys: PRIMARY,i_l_shipdate,i_l_orderkey,i_l_orderkey_quantity
+          key: i_l_orderkey|i_l_shipdate
+      key_len: 4|4
+          ref: dbt3_s001.orders.o_orderkey
+         rows: 4 (2%)
+        Extra: Using where; Using rowid filter
+```
+
+The filter here was built from `i_l_shipdate`, and the optimizer expects it to pass 2% of the rows that the `i_l_orderkey` lookup returns.
+
+{% hint style="warning" %}
+The percentage is rounded to a whole number, so a highly selective filter can display `(0%)`. That does not mean the filter is inactive — it means the optimizer expects it to pass fewer than 0.5% of the rows.
+{% endhint %}
+
+The [ANALYZE statement](analyze-statement.md) annotates `r_rows` the same way, but its percentage is the selectivity actually observed during execution rather than the estimate.
+
+[EXPLAIN FORMAT=JSON](explain-format-json.md) does not use this notation. It reports the filter as a `rowid_filter` object instead, with the expected selectivity in a `selectivity_pct` member.
+
+Rowid filtering is controlled by the `rowid_filter` flag in [optimizer\_switch](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#optimizer_switch) and is enabled by default.
 
 ## EXPLAIN EXTENDED
 
