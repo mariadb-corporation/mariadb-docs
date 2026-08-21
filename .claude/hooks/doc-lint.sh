@@ -123,6 +123,7 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude 'stackoverflow\.com' \
       --exclude 'gitlab\.kitware\.com' \
       --exclude 'www\.freedesktop\.org' \
+      --exclude 'lists\.freedesktop\.org' \
       --exclude 'azuremarketplace\.microsoft\.com' \
       --exclude 'console\.cloud\.google\.com' \
       --exclude 'partedmagic\.com' \
