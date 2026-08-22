@@ -99,6 +99,10 @@ The third-party tools described in this section are not developed or maintained 
 [ks-db-merge-tools-for-mysql-and-mariadb.md](ks-db-merge-tools-for-mysql-and-mariadb.md)
 {% endcontent-ref %}
 
+{% content-ref url="libredb-studio.md" %}
+[libredb-studio.md](libredb-studio.md)
+{% endcontent-ref %}
+
 {% content-ref url="libreoffice-base.md" %}
 [libreoffice-base.md](libreoffice-base.md)
 {% endcontent-ref %}
