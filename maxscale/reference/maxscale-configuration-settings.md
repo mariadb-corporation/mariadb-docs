@@ -3146,13 +3146,13 @@ description: >-
 * Dynamic: Yes
 * Default: None
 
-**\[switchover\_on\_low\_disk\_space`\*\*](../reference/maxscale-monitors/mariadb-monitor.md#switchover_on_low_disk_space)**
+[**switchover\_on\_low\_disk\_space**](maxscale-monitors/mariadb-monitor.md#switchover_on_low_disk_space)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`&#x20;
-* Description: Lists the servers that are excluded from being promoted to primary during failover or automatic selection.
+* Description: Enables automatic switchover of a primary server that is low on disk space to a replica without disk space issues.
 
 [**switchover\_timeout**](maxscale-monitors/mariadb-monitor.md#switchover_timeout)
 
@@ -3347,70 +3347,6 @@ description: >-
 * Mandatory: No
 * Default: `""`&#x20;
 * Description: Specifies the username used for backend connections when the MongoDB client is unauthenticated.
-
-### reference/maxscale-rest-api
-
-#### [maxscale-filter-resource](maxscale-rest-api/maxscale-filter-resource.md)
-
-**Resource Operations**
-
-**\[Create a filter]\(../reference/maxscale-rest-api/maxscale-filter-resource.md#Create a filter)**
-
-* Type of the object, must be `filters`
-* `data.attributes.module`
-* The filter module to use
-
-#### [maxscale-listener-resource](maxscale-rest-api/maxscale-listener-resource.md)
-
-**Resource Operations**
-
-**\[Create a new listener]\(../reference/maxscale-rest-api/maxscale-listener-resource.md#Create a new listener)**
-
-* Type of the object, must be `listeners`
-* `data.attributes.parameters.port` OR `data.attributes.parameters.socket`
-* The TCP port or UNIX Domain Socket the listener listens on. Only one of the fields can be defined.
-* `data.relationships.services.data`
-* The service relationships data, must define a JSON object with an `id` value that defines the service to use and a `type` value set to `services`.
-
-#### [maxscale-monitor-resource](maxscale-rest-api/maxscale-monitor-resource.md)
-
-**Resource Operations**
-
-**\[Create a monitor]\(../reference/maxscale-rest-api/maxscale-monitor-resource.md#Create a monitor)**
-
-* Type of the object, must be `monitors`
-* `data.attributes.module`
-* The monitor module to use
-* `data.attributes.parameters.user`
-* The [`user`](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user) to use
-* `data.attributes.parameters.password`
-* The [password](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#password) to use
-
-#### [maxscale-server-resource](maxscale-rest-api/maxscale-server-resource.md)
-
-**Resource Operations**
-
-**\[Create a server]\(../reference/maxscale-rest-api/maxscale-server-resource.md#Create a server)**
-
-* Type of the object, must be `servers`
-* `data.attributes.parameters.address` OR `data.attributes.parameters.socket`
-* The [`address`](maxscale-servers.md#address) or [`socket`](maxscale-servers.md#socket) to use. Only one of the fields can be defined.
-* `data.attributes.parameters.port`
-* The [`port`](maxscale-servers.md#port) to use. Needs to be defined if the `address` field is defined.
-
-#### [maxscale-service-resource](maxscale-rest-api/maxscale-service-resource.md)
-
-**Resource Operations**
-
-**\[Create a service]\(../reference/maxscale-rest-api/maxscale-service-resource.md#Create a service)**
-
-* Type of the object, must be `services`
-* `data.attributes.router`
-* The router module to use
-* `data.attributes.parameters.user`
-* The [`user`](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user) to use
-* `data.attributes.parameters.password`
-* The [`password`](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#password) to use
 
 ### reference/maxscale-routers
 
@@ -3672,22 +3608,54 @@ description: >-
 * Dynamic: No
 * Description: Specifies the Exasol ODBC connection string used to connect to the database.
 
+[**kill\_connection\_timeout**](maxscale-routers/maxscale-exasolrouter.md#kill_connection_timeout)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: No
+* Default: `10s`&#x20;
+* Description: Sets how long an unused kill connection is kept alive after the last KILL command. A value of `0` closes it immediately after each use.
+
+[**login\_timeout**](maxscale-routers/maxscale-exasolrouter.md#login_timeout)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: No
+* Default: `30s`&#x20;
+* Description: Sets the login timeout for a connection, overriding `LOGINTIMEOUT` in the connection string. A value of `0` leaves the connection string value in effect.
+
 [**preprocessor**](maxscale-routers/maxscale-exasolrouter.md#preprocessor)
 
-* Type: String
+* Type: string
 * Mandatory: No
 * Dynamic: No
-* Values: `auto`, `activate-only`, `custom:<path>`, `disabled`
-* Default: `auto`&#x20;
-* Description: Defines how the Exasol preprocessor script is managed: auto-installed, activate-only, custom path, or disabled.
+* Values: `disabled`, `external[:preprocessor-script-name]`, `internal[:preprocessor-script-path]`
+* Default: `internal`, if the distribution provides a new enough Python implementation, `disabled` if not&#x20;
+* Description: Determines how MariaDB SQL is transpiled for Exasol: internally with a Python script, externally by a preprocessor script in Exasol, or not at all.
 
-[**preprocessor\_script**](maxscale-routers/maxscale-exasolrouter.md)
+[**python\_libdir**](maxscale-routers/maxscale-exasolrouter.md#python_libdir)
 
-* Type: String
+* Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: "UTIL.maria\_preprocessor"
-* Description: Specifies the name of a custom Exasol preprocessor script when using a custom preprocessor path.
+* Default: `<maxscale-libdir>/python3/site-packages`&#x20;
+* Description: Specifies the directory that SQLGlot is loaded from when `preprocessor` is `internal`.
+
+[**query\_timeout**](maxscale-routers/maxscale-exasolrouter.md#query_timeout)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: No
+* Default: `30s`&#x20;
+* Description: Sets the query timeout for a connection, overriding `QUERYTIMEOUT` in the connection string. A value of `0` leaves the connection string value in effect.
+
+[**quote\_identifiers**](maxscale-routers/maxscale-exasolrouter.md#quote_identifiers)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: `true`&#x20;
+* Description: Determines whether the router quotes identifiers when converting a `COM_INIT_DB` packet to `OPEN SCHEMA`, and when transpiling internally with `preprocessor` set to `disabled`.
 
 #### [maxscale-kafkacdc](maxscale-routers/maxscale-kafkacdc.md)
 

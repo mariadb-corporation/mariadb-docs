@@ -815,7 +815,7 @@ The following series of events demonstrates failback switchover:
 6. Some time later, P comes back online. Monitor rejoins it to the cluster.
 7. If P successfully replicates from R2 (no diverged histories) and catches up, the monitor runs switchover to restore P as primary.
 
-#### `switchover_on_low_disk_space`\*\*
+#### `switchover_on_low_disk_space`
 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
