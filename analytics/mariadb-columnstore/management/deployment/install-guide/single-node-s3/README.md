@@ -2893,11 +2893,11 @@ CREATE TABLE inventory.products (
 
 Enterprise ColumnStore supports multiple methods to import data into ColumnStore tables.
 
-<table><thead><tr><th width="184.99993896484375">Interface</th><th>Method</th><th>Benefits</th></tr></thead><tbody><tr><td>Shell</td><td><a href="./#cpimport">cpimport</a></td><td><ul><li>SQL access is not required</li></ul></td></tr><tr><td>SQL</td><td><a href="./#load-data-infile">LOAD DATA INFILE</a></td><td><ul><li>Shell access is not required</li></ul></td></tr><tr><td>Remote Database</td><td><a href="./#import-from-remote-database">Remote Database Import</a></td><td><ul><li>Use normal database client</li><li>Avoid dumping data to intermediate filed</li></ul></td></tr></tbody></table>
+<table><thead><tr><th width="184.99993896484375">Interface</th><th>Method</th><th>Benefits</th></tr></thead><tbody><tr><td>Shell</td><td><a href="../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md">cpimport</a></td><td><ul><li>SQL access is not required</li></ul></td></tr><tr><td>SQL</td><td><a href="../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-load-data-infile.md">LOAD DATA INFILE</a></td><td><ul><li>Shell access is not required</li></ul></td></tr><tr><td>Remote Database</td><td>Remote Database Import</td><td><ul><li>Use normal database client</li><li>Avoid dumping data to intermediate filed</li></ul></td></tr></tbody></table>
 
 **cpimport**
 
-MariaDB Enterprise ColumnStore includes [cpimport](./#cpimport), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
+MariaDB Enterprise ColumnStore includes [cpimport](../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
 
 To import your data from a TSV (tab-separated values) file, on the primary server run `cpimport`:
 
@@ -2907,7 +2907,7 @@ $ sudo cpimport -s '\t' inventory products /tmp/inventory-products.tsv
 
 **LOAD DATA INFILE**
 
-When data is loaded with the LOAD DATA INFILE statement, MariaDB Enterprise ColumnStore loads the data using [cpimport](./#cpimport), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
+When data is loaded with the LOAD DATA INFILE statement, MariaDB Enterprise ColumnStore loads the data using [cpimport](../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
 
 To import your data from a TSV (tab-separated values) file, on the primary server use LOAD DATA INFILE statement:
 
@@ -2918,7 +2918,7 @@ INTO TABLE inventory.products;
 
 **Import from Remote Database**
 
-MariaDB Enterprise ColumnStore can also import data directly from a remote database. A simple method is to query the table using the SELECT statement, and then pipe the results into [cpimport](./#cpimport), which is a command-line utility that is designed to efficiently load data in bulk. Alternative methods are available.
+MariaDB Enterprise ColumnStore can also import data directly from a remote database. A simple method is to query the table using the SELECT statement, and then pipe the results into [cpimport](../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md), which is a command-line utility that is designed to efficiently load data in bulk. Alternative methods are available.
 
 To import your data from a remote MariaDB database:
 

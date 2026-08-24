@@ -42,7 +42,7 @@ Complete processing of a reported bug can be complicated and time-consuming, esp
 First response to the bug, which we are trying to provide as quickly as possible, is one of these:
 
 * If we can reproduce the problem based on the information that was provided in the initial description, the report gets the status Confirmed.
-* If it is obvious from the initial description that the bug report is a [duplicate](reporting-bugs.md#is-the-bug-already-known) of an existing one, or the problem has already been fixed in later releases or in the upcoming release, or the described behavior is not a bug, or, in very rare cases, it is admitted to be a bug, but it is not going to be fixed, the report gets closed with the corresponding Resolution value and a comment with the explanation.
+* If it is obvious from the initial description that the bug report is a [duplicate](reporting-bugs.md#known-issues) of an existing one, or the problem has already been fixed in later releases or in the upcoming release, or the described behavior is not a bug, or, in very rare cases, it is admitted to be a bug, but it is not going to be fixed, the report gets closed with the corresponding Resolution value and a comment with the explanation.
 * If the bug report at least appears to describe a real bug, but we do not have enough information to proceed, we will request the information from the reporter, and the report will go to the [Need feedback](mariadb-community-bug-processing.md#need-feedback) list.
 * If on some reason it is clear from the bug report that it will be very difficult to reproduce based on the information from the user, but there is a reason to believe that the problem can be analyzed by code inspection, the bug report can be assigned to a developer who is an expert in the corresponding area for the analysis.
 
@@ -76,7 +76,7 @@ Elena Stepanova updated MDEV-9801:
 
 #### Successful Outcome
 
-If the feedback exchange was fruitful and we received enough information to proceed, the bug report will go through the normal [**verification steps**](mariadb-community-bug-processing.md#what-is-done-during-bug-verification).
+If the feedback exchange was fruitful and we received enough information to proceed, the bug report will go through the normal [**verification steps**](mariadb-community-bug-processing.md#bug-verification).
 
 #### Incomplete Reports
 
@@ -208,7 +208,7 @@ Bug reports which have essentially different descriptions and/or test cases shou
 
 Obviously, a report can never be a duplicate of anything private (luckily it does not concern MariaDB server so far, as the bug reports are public).
 
-In general, a bug report is a duplicate of another one if, and only if, the new reporter could find the existing report just by a reasonable [**JIRA search**](reporting-bugs.md#is-the-bug-already-known).
+In general, a bug report is a duplicate of another one if, and only if, the new reporter could find the existing report just by a reasonable [**JIRA search**](reporting-bugs.md#known-issues).
 
 ### Cannot Reproduce
 

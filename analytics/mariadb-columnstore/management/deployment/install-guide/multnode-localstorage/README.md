@@ -2764,7 +2764,7 @@ CREATE TABLE inventory.products (
 
 Enterprise ColumnStore supports multiple methods to import data into ColumnStore tables.
 
-<table><thead><tr><th width="160">Interface</th><th width="236">Method</th><th>Benefits</th></tr></thead><tbody><tr><td>Shell</td><td><a href="./#cpimport">cpimport</a></td><td><ul><li>SQL access is not required</li></ul></td></tr><tr><td>SQL</td><td><a href="./#load-data-infile">LOAD DATA INFILE</a></td><td><ul><li>Shell access is not required</li></ul></td></tr><tr><td>Remote Database</td><td><a href="./#import-from-remote-database">Remote Database Import</a></td><td><ul><li>Use normal database client</li><li>Avoid dumping data to intermediate filed</li></ul></td></tr></tbody></table>
+<table><thead><tr><th width="160">Interface</th><th width="236">Method</th><th>Benefits</th></tr></thead><tbody><tr><td>Shell</td><td><a href="../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md">cpimport</a></td><td><ul><li>SQL access is not required</li></ul></td></tr><tr><td>SQL</td><td><a href="../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-load-data-infile.md">LOAD DATA INFILE</a></td><td><ul><li>Shell access is not required</li></ul></td></tr><tr><td>Remote Database</td><td>Remote Database Import</td><td><ul><li>Use normal database client</li><li>Avoid dumping data to intermediate filed</li></ul></td></tr></tbody></table>
 
 **cpimport**
 
