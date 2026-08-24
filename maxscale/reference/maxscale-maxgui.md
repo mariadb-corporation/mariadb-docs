@@ -238,7 +238,7 @@ There are two ways to quickly insert an object to the editor:
 
 **Show object creation statement and insights info**
 
-To view the statement that creates the given object in the [Schemas objects sidebar](maxscale-maxgui.md#schemas-objects-sidebar), right-clicking on schema or table node and select the `View Insights` option. For other objects such as view, stored procedure, function and trigger, select the `Show Create` option.
+To view the statement that creates the given object in the Schemas objects sidebar, right-clicking on schema or table node and select the `View Insights` option. For other objects such as view, stored procedure, function and trigger, select the `Show Create` option.
 
 **Editor**
 
@@ -262,7 +262,7 @@ By default, all statements in the "Query Tab" are split by semicolons and execut
 
 **Re-execute old queries**
 
-Every executed query will be saved in the browser's storage (IndexedDB). Query history can be seen in the `History/Snippets` tab. To re-execute a query, follow the same step to [insert an object into the editor](maxscale-maxgui.md#quickly-insert-an-object-into-the-editor) and click the execute query button in the editor.
+Every executed query will be saved in the browser's storage (IndexedDB). Query history can be seen in the `History/Snippets` tab. To re-execute a query, follow the same step to insert an object into the editor and click the execute query button in the editor.
 
 **Create query snippet**
 

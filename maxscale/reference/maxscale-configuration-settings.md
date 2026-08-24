@@ -1145,7 +1145,7 @@ description: >-
 
 #### Settings for File-based Key Manager
 
-[**file.keyfile**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#file.keyfile)
+[**file.keyfile**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-file-based-key-manager)
 
 * Type: path
 * Mandatory: Yes
@@ -1154,49 +1154,49 @@ description: >-
 
 #### Settings for HashiCorp Vault Key Manager
 
-[**vault.ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#vault.ca)
+[**vault.ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: path
 * Default: `""`
 * Dynamic: Yes
 * Description: Defines the CA certificate used for validating Vault server connections.
 
-[**vault.host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#vault.host)
+[**vault.host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: string
 * Default: `localhost`
 * Dynamic: Yes
 * Description: Specifies the hostname of the Vault server.
 
-[**vault.mount**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#vault.mount)
+[**vault.mount**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: string
 * Default: `secret`
 * Dynamic: Yes
 * Description: Provides the Key-Value mount path in Vault where secrets are stored.
 
-[**vault.port**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#vault.port)
+[**vault.port**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: integer
 * Default: `8200`
 * Dynamic: Yes
 * Description: Defines the port on which the Vault server listens.
 
-[**vault.timeout**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#vault.timeout)
+[**vault.timeout**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Default: 30s
 * Dynamic: Yes
 * Description: Sets the timeout for requests and connections to the Vault server.
 
-[**vault.tls**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#vault.tls)
+[**vault.tls**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: true
 * Dynamic: Yes
 * Description: Manages whether encrypted (HTTPS) or unencrypted (HTTP) connections are used when communicating with the Vault server.
 
-[**vault.token**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#vault.token)
+[**vault.token**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: password
 * Mandatory: Yes
@@ -1205,34 +1205,34 @@ description: >-
 
 #### Settings for KMIP Key Manager
 
-[**kmip.ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#kmip.ca)
+[**kmip.ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-kmip-key-manager)
 
 * Type: path
 * Default: `""`
 * Dynamic: Yes
 * Description: CA ceritficate for KMIP server.
 
-[**kmip.cert**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#kmip.cert)
+[**kmip.cert**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-kmip-key-manager)
 
 * Type: path
 * Mandatory: Yes
 * Dynamic: Yes
 * Description: Client certificate for KMIP authentication.
 
-[**kmip.host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#kmip.host)
+[**kmip.host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-kmip-key-manager)
 
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
 
-[**kmip.key**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#kmip.key)
+[**kmip.key**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-kmip-key-manager)
 
 * Type: path
 * Mandatory: Yes
 * Dynamic: Yes
 * Description: Specifies the client private key used for connecting to the KMIP server.
 
-[**kmip.port**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#kmip.port)
+[**kmip.port**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-kmip-key-manager)
 
 * Type: integer
 * Mandatory: Yes
@@ -1417,7 +1417,7 @@ description: >-
 
 [**sql\_mode**](maxscale-listeners.md#sql_mode)
 
-* Type: [enum](maxscale-listeners.md#enumerations)
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `default`, `oracle`
@@ -3394,9 +3394,9 @@ description: >-
 
 * Type of the object, must be `servers`
 * `data.attributes.parameters.address` OR `data.attributes.parameters.socket`
-* The [`address`](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#address) or [`socket`](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#socket) to use. Only one of the fields can be defined.
+* The [`address`](maxscale-servers.md#address) or [`socket`](maxscale-servers.md#socket) to use. Only one of the fields can be defined.
 * `data.attributes.parameters.port`
-* The [`port`](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#port) to use. Needs to be defined if the `address` field is defined.
+* The [`port`](maxscale-servers.md#port) to use. Needs to be defined if the `address` field is defined.
 
 #### [maxscale-service-resource](maxscale-rest-api/maxscale-service-resource.md)
 
@@ -3681,7 +3681,7 @@ description: >-
 * Default: `auto`&#x20;
 * Description: Defines how the Exasol preprocessor script is managed: auto-installed, activate-only, custom path, or disabled.
 
-[**preprocessor\_script**](maxscale-routers/maxscale-exasolrouter.md#preprocessor_script)
+[**preprocessor\_script**](maxscale-routers/maxscale-exasolrouter.md)
 
 * Type: String
 * Mandatory: No
