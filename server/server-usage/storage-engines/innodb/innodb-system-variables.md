@@ -2078,7 +2078,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 * Description: Sets the number of threads to use in Multi-Threaded Flush operations. For more information, see [Fusion-io Multi-threaded Flush](innodb-page-flushing.md).
   * InnoDB's multi-thread flush feature was deprecated in [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9) and removed from [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2). In later versions of MariaDB, use [innodb\_page\_cleaners](innodb-system-variables.md#innodb_page_cleaners) system variable instead.
-  * See [InnoDB Page Flushing: Page Flushing with Multi-threaded Flush Threads](innodb-page-flushing.md#page-flushing-with-multi-threaded-flush-threads) for more information.
+  * See [InnoDB Page Flushing: Page Flushing Before MariaDB Server 10.5](innodb-page-flushing.md#page-flushing-before-mariadb-server-10.5) for more information.
 * Command line: `--innodb-mtflush-threads=#`
 * Scope: Global
 * Dynamic: No
@@ -2182,7 +2182,7 @@ If you set a target that is unreachable in the other direction (for example, low
 #### `innodb_page_cleaners`
 
 * Description: Number of page cleaner threads. The default is `4`, but the value are set to the number of [innodb\_buffer\_pool\_instances](innodb-system-variables.md#innodb_buffer_pool_instances) if this is lower. If set to `1`, only a single cleaner thread is used, as was the case until [MariaDB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.1). Cleaner threads flush dirty pages from the [buffer pool](innodb-buffer-pool.md), performing flush list and least-recently used (LRU) flushing. Deprecated and ignored from [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), as the original reasons for splitting the buffer pool have mostly gone away.
-  * See [InnoDB Page Flushing: Page Flushing with Multiple InnoDB Page Cleaner Threads](innodb-page-flushing.md#page-flushing-with-multiple-innodb-page-cleaner-threads) for more information.
+  * See [InnoDB Page Flushing: Page Flushing Before MariaDB Server 10.5](innodb-page-flushing.md#page-flushing-before-mariadb-server-10.5) for more information.
 * Command line: `--innodb-page-cleaners=#`
 * Scope: Global
 * Dynamic: Yes (>= [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)), No (<= [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2))
@@ -2881,7 +2881,7 @@ If you set a target that is unreachable in the other direction (for example, low
 * Description: Whether to enable Multi-Threaded Flush operations.\
   For more information, see Fusion.
   * InnoDB's multi-thread flush feature was deprecated in [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9) and removed from [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2). In later versions of MariaDB, use [innodb\_page\_cleaners](innodb-system-variables.md#innodb_page_cleaners) system variable instead.
-  * See [InnoDB Page Flushing: Page Flushing with Multi-threaded Flush Threads](innodb-page-flushing.md#page-flushing-with-multi-threaded-flush-threads) for more information.
+  * See [InnoDB Page Flushing: Page Flushing Before MariaDB Server 10.5](innodb-page-flushing.md#page-flushing-before-mariadb-server-10.5) for more information.
 * Command line: `--innodb-use-mtflush={0|1}`
 * Scope: Global
 * Dynamic: No
