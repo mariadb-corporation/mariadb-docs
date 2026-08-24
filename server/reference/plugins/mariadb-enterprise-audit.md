@@ -1255,7 +1255,7 @@ When audit logging is changed to syslog, MariaDB Enterprise Audit writes the fol
 2021-08-03 22:01:22 server_audit: Output was redirected to 'syslog'
 ```
 
-For additional information, see "|[mariadb-enterprise-audit/#audit-logging-to-system-logAudit Logging to Syslog](mariadb-enterprise-audit.md#audit-logging-to-system-logAudit_Logging_to_Syslog)".
+For additional information, see [Audit Logging to System Log](mariadb-enterprise-audit.md#audit-logging-to-system-log).
 
 ### Change File Name for Audit Logging
 
