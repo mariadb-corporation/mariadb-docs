@@ -432,7 +432,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `pc.wait_prim`
 
-* Description: When set to `true`, the default, the node will wait for a primary component for the period of time specified by [pc.wait\_prim\_timeout](wsrep_provider_options.md#pc.wait_prim_timeout). Used to bring up non-primary components and make them primary using [pc.bootstrap](wsrep_provider_options.md#pcbootstrap.).
+* Description: When set to `true`, the default, the node will wait for a primary component for the period of time specified by [pc.wait\_prim\_timeout](wsrep_provider_options.md#pc.wait_prim_timeout). Used to bring up non-primary components and make them primary using [pc.bootstrap](../../high-availability/resetting-the-quorum-cluster-bootstrap.md).
 * Dynamic: No
 * Default: `true`
 

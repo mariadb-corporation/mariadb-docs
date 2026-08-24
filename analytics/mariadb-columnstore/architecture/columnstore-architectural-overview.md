@@ -108,7 +108,7 @@ The ColumnStore nodes:
 
 | Software Component                                                                                           | Role                                                                                                                     |
 | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| [MariaDB ColumnStore](columnstore-architectural-overview.md#mariadb-enterprise-columnstore)       | <ul><li>Columnar storage engine</li><li>Query execution</li><li>Data storage</li></ul>                                   |
+| [MariaDB ColumnStore](columnstore-architectural-overview.md#mariadb-columnstore)       | <ul><li>Columnar storage engine</li><li>Query execution</li><li>Data storage</li></ul>                                   |
 | [MariaDB Enterprise Server](columnstore-architectural-overview.md#mariadb-enterprise-server)                 | <ul><li>Enterprise-grade database server</li></ul>                                                                       |
 | [ColumnStore Storage Engine Plugin](columnstore-architectural-overview.md#columnstore-storage-engine-plugin) | <ul><li>Storage engine plugin</li><li>Integrates MariaDB ColumnStore into MariaDB Enterprise Server</li></ul> |
 | [Cluster Management API (CMAPI)](columnstore-architectural-overview.md#cluster-management-api-cmapi-server)  | <ul><li>REST API</li><li>Used for administrative tasks</li></ul>                                                         |
@@ -178,7 +178,7 @@ Multi-node ColumnStore deployments must have one or more [MaxScale](columnstore-
 
 MariaDB ColumnStore's storage architecture provides a columnar storage engine with high availability, fault tolerance, compression, and automatic partitioning for production analytics and data warehousing.
 
-For additional information, see "[MariaDB ColumnStore](columnstore-architectural-overview.md#mariadb-enterprise-columnstore) and [ColumnStore Storage Architecture](columnstore-storage-architecture.md)".
+For additional information, see "[MariaDB ColumnStore](columnstore-architectural-overview.md#mariadb-columnstore) and [ColumnStore Storage Architecture](columnstore-storage-architecture.md)".
 
 ### Columnar Storage Engine
 

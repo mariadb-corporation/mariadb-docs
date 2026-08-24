@@ -145,7 +145,7 @@ UNLOCK TABLES;
 
 Use the following process to restore a backup:
 
-1. [Deploy Enterprise ColumnStore](../node-maintenance-for-mariadb-enterprise-columnstore/add-a-node.md#deploy-enterprise-columnstore), so that you can restore the backup to an empty deployment.
+1. [Deploy Enterprise ColumnStore](../node-maintenance-for-mariadb-enterprise-columnstore/add-a-node.md#deploying-columnstore), so that you can restore the backup to an empty deployment.
 2. Ensure that all services are stopped on each node:
 
 ```bash

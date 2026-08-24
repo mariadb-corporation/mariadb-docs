@@ -64,7 +64,7 @@ flowchart TD
 
 _MaxScale routes read/write traffic to three ES + ColumnStore nodes backed by S3-compatible object storage._
 
-**[ColumnStore with Shared Local Storage](../../architecture/columnstore-architectural-overview.md#enterprise-columnstore-with-shared-local-storage)**
+**[ColumnStore with Shared Local Storage](../../architecture/columnstore-architectural-overview.md#columnstore-with-shared-local-storage)**
 
 ```mermaid
 flowchart TD
