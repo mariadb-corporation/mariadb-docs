@@ -11,7 +11,7 @@ description: >-
 <pre class="language-sql"><code class="lang-sql">CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
     (<a data-footnote-ref href="#user-content-fn-1">create_definition</a>,...) [<a data-footnote-ref href="#user-content-fn-2">table_options</a>    ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
 CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
-    [(<a data-footnote-ref href="#user-content-fn-2">create_definition</a>,...)] [<a data-footnote-ref href="#user-content-fn-4">table_options</a>   ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
+    [(<a data-footnote-ref href="#user-content-fn-1">create_definition</a>,...)] [<a data-footnote-ref href="#user-content-fn-2">table_options</a>   ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
     select_statement
 CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
    { LIKE old_table_name | (LIKE old_table_name) }
@@ -622,9 +622,9 @@ table_option:
   | ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
   | AUTO_INCREMENT [=] number
   | AVG_ROW_LENGTH [=] number
-  | [DEFAULT] CHARACTER SET [=] <a data-footnote-ref href="#user-content-fn-7">charset_name</a>
+  | [DEFAULT] CHARACTER SET [=] charset_name
   | CHECKSUM [=] {0 | 1}
-  | [DEFAULT] COLLATE [=] <a data-footnote-ref href="#user-content-fn-7">collation_name</a>
+  | [DEFAULT] COLLATE [=] collation_name
   | COMMENT [=] 'string'
   | CONNECTION [=] 'connect_string'
   | DATA DIRECTORY [=] 'absolute path to directory'
@@ -852,7 +852,7 @@ partition_options:
         | [LINEAR] KEY(column_list)
         | RANGE(expr)
         | LIST(expr)
-        | SYSTEM_TIME [INTERVAL time_quantity <a data-footnote-ref href="#user-content-fn-8">time_unit</a>] [LIMIT num] }
+        | SYSTEM_TIME [INTERVAL time_quantity time_unit] [LIMIT num] }
     [PARTITIONS num]
     [SUBPARTITION BY
         { [LINEAR] HASH(expr)
