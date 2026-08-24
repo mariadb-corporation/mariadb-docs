@@ -164,7 +164,7 @@ Using 'auto' or setting specific timezone solves timezone correction. Please be 
 
 **IANA timezone / offset**
 
-When using IANA timezone, the connector will set the connection timezone to the timezone. This can throw an error on connection if timezone is unknown by the server (see [mariadb timezone documentation]({server}/reference/data-types/string-data-types/character-sets/internationalization-and-localization/time-zones), timezone tables might be not initialized) If you are sure the server is using that timezone, this step can be skipped with the option `skipSetTimezone`.
+When using IANA timezone, the connector will set the connection timezone to the timezone. This can throw an error on connection if timezone is unknown by the server (see [mariadb timezone documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets/internationalization-and-localization/time-zones), timezone tables might be not initialized) If you are sure the server is using that timezone, this step can be skipped with the option `skipSetTimezone`.
 
 If the timezone corresponds to JavaScript default timezone, then no conversion will be done.
 
