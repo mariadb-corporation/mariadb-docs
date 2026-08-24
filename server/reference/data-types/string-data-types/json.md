@@ -11,7 +11,7 @@ The `JSON` alias was added to make it possible to use JSON columns in [statement
 
 `JSON` is an alias for `LONGTEXT COLLATE utf8mb4_bin` introduced for compatibility reasons with MySQL's JSON data type. MariaDB implements this as a [LONGTEXT](longtext.md) rather, as the JSON data type contradicts the SQL:2016 standard, and MariaDB's benchmarks indicate that performance is at least equivalent.
 
-In order to ensure that a valid json document is inserted, the [JSON\_VALID](../../sql-functions/special-functions/json-functions/json_valid.md) function can be used as a [CHECK constraint](../../sql-statements/data-definition/constraint.md#check-constraint-expressions). This constraint is automatically included for types using the `JSON` alias.
+In order to ensure that a valid json document is inserted, the [JSON\_VALID](../../sql-functions/special-functions/json-functions/json_valid.md) function can be used as a [CHECK constraint](../../sql-statements/data-definition/constraint.md#check-constraints). This constraint is automatically included for types using the `JSON` alias.
 
 The assigned text value is retained verbatim. If a value fails `JSON_VALID()`, an error is raised. This `CHECK` constraint can also be manually added to any `LONGTEXT` field. When a JSON object contains duplicate keys, only the first key-value pair is accessible via functions like `JSON_EXTRACT()`.
 

@@ -108,7 +108,7 @@ OBJECT_INSTANCE_BEGIN: 105553150198240
 
 ## Backup Lock Types
 
-`BACKUP_*` lock types exposed through this table allow for granular locking, as opposed to the [`FLUSH TABLES WITH READ LOCK`](../../../sql-statements/administrative-sql-statements/flush-commands/flush.md#purpose-of-flush-tables-with-read-lock) (FTWRL) statement which essentially freezes the entire database. With granular locking, backup tools like [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/) can take consistent backups while keeping the database functioning.
+`BACKUP_*` lock types exposed through this table allow for granular locking, as opposed to the [`FLUSH TABLES WITH READ LOCK`](../../../sql-statements/administrative-sql-statements/flush-commands/flush.md#flush-tables-with-read-lock) (FTWRL) statement which essentially freezes the entire database. With granular locking, backup tools like [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/) can take consistent backups while keeping the database functioning.
 
 ### BACKUP\_ALTER\_COPY
 
