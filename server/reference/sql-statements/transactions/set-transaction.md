@@ -128,7 +128,7 @@ If `innodb_snapshot_isolation` is disabled (set to `OFF`), InnoDB follows tradit
 
 ### SERIALIZABLE
 
-This level is like `REPEATABLE READ`, but InnoDB implicitly converts all plain `SELECT` statements to [SELECT ... LOCK IN SHARE MODE](../data-manipulation/selecting-data/select.md#lock-in-share-mode-and-for-update-clauses) if [autocommit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#autocommit) is disabled. If autocommit is enabled, the `SELECT` is its own transaction. It therefore is known to be read only and can be serialized if performed as a consistent (non-locking) read and need not block for other transactions. (This means that to force a plain `SELECT` to block if other transactions have modified the selected rows, you should disable autocommit.)
+This level is like `REPEATABLE READ`, but InnoDB implicitly converts all plain `SELECT` statements to [SELECT ... LOCK IN SHARE MODE](../data-manipulation/selecting-data/select.md#lock-in-share-mode-for-update) if [autocommit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#autocommit) is disabled. If autocommit is enabled, the `SELECT` is its own transaction. It therefore is known to be read only and can be serialized if performed as a consistent (non-locking) read and need not block for other transactions. (This means that to force a plain `SELECT` to block if other transactions have modified the selected rows, you should disable autocommit.)
 
 Distributed [XA transactions](xa-transactions.md) should always use this isolation level.
 

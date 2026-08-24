@@ -48,7 +48,7 @@ The `UNION` can have global [ORDER BY](../order-by.md) and [LIMIT](../limit.md) 
 
 ### HIGH\_PRIORITY
 
-Specifying a query as [HIGH\_PRIORITY](../select.md#high-priority) does not work inside a `UNION`. If applied to the first `SELECT`, it is ignored. Applying to a later `SELECT` results in a syntax error:
+Specifying a query as [HIGH\_PRIORITY](../../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/select-modifier-hints.md#high-priority) does not work inside a `UNION`. If applied to the first `SELECT`, it is ignored. Applying to a later `SELECT` results in a syntax error:
 
 ```sql
 ERROR 1234 (42000): Incorrect usage/placement of 'HIGH_PRIORITY'

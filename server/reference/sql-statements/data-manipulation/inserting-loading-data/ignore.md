@@ -16,7 +16,7 @@ The `IGNORE` option tells the server to ignore some common errors.
 * [LOAD DATA INFILE](load-data-into-tables-or-index/load-data-infile.md)
 * [UPDATE](../changing-deleting-data/update.md)
 * [ALTER TABLE](../../data-definition/alter/alter-table/)
-* [CREATE TABLE ... SELECT](../../data-definition/create/create-table.md#create-select)
+* [CREATE TABLE ... SELECT](../../data-definition/create/create-table.md#create-table-...-select)
 * [INSERT ... SELECT](insert-select.md)
 
 The logic used:

@@ -366,7 +366,7 @@ The TLS options are used for providing information about [TLS](../../../../secur
 
 See [Replication with Secure Connections](../../../../security/encryption/data-in-transit-encryption/replication-with-secure-connections.md) for more information.
 
-Starting with MariaDB 12.3, the `DEFAULT` keyword is accepted by the TLS options, enabling replication channels to share a central configuration specified in the server's option file. When `DEFAULT` is used, values are derived from the corresponding server options (e.g., `MASTER_SSL_CA` derives from `master_ssl_ca`). See [Default System Variables](change-master-to.md#default-system-variables) for a full list of supported variables.
+Starting with MariaDB 12.3, the `DEFAULT` keyword is accepted by the TLS options, enabling replication channels to share a central configuration specified in the server's option file. When `DEFAULT` is used, values are derived from the corresponding server options (e.g., `MASTER_SSL_CA` derives from `master_ssl_ca`). See [Default System Variables](change-master-to.md#using-configurable-defaults) for a full list of supported variables.
 
 #### MASTER\_SSL
 
