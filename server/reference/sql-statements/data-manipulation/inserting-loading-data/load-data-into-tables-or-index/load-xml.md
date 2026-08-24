@@ -84,7 +84,7 @@ This statement activates `INSERT` [triggers](../../../../../server-usage/trigger
 
 ## See Also
 
-* The [CONNECT](../../../../../server-usage/storage-engines/connect/) storage engine has an [XML table type](../../../../../server-usage/storage-engines/connect/connect-table-types/connect-table-types-data-files.md#xml-table-type).
+* The [CONNECT](../../../../../server-usage/storage-engines/connect/) storage engine has an [XML table type](../../../../../server-usage/storage-engines/connect/connect-table-types/connect-xml-table-type.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
