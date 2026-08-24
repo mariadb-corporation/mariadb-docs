@@ -81,7 +81,7 @@ Most of the following options have increased in value to give better performance
 | [sql\_log\_bin](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md)                                      |                   | No longer affects replication of events in a Galera cluster. |
 | [sql\_mode](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_mode)                                 | empty             | NO\_AUTO\_CREATE\_USER, NO\_ENGINE\_SUBSTITUTION             |
 | [table\_open\_cache](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache)                | 400               | 2000                                                         |
-| [thread\_pool\_max\_threads](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_pool_max_threads) | 500               | 1000                                                         |
+| [thread\_pool\_max\_threads](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md#thread_pool_max_threads) | 500               | 1000                                                         |
 
 #### Options That Have Been Removed or Renamed
 

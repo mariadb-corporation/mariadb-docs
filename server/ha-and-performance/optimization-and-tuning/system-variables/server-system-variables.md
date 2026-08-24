@@ -1347,7 +1347,7 @@ The suffix can be upper or lower-case.
 
 #### `log_tc_size`
 
-* Description: Defines the size in bytes of the memory-mapped file-based transaction coordinator log, which is only used if the [binary log](../../../server-management/server-monitoring-logs/binary-log/) is disabled. If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available. This size is defined in multiples of 4096. See [Transaction Coordinator Log](../../../server-management/server-monitoring-logs/transaction-coordinator-log/) for more information. Also see the [--log-tc](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-tc) server option and the [--tc-heuristic-recover](server-system-variables.md#-tc-heuristic-recover) option.
+* Description: Defines the size in bytes of the memory-mapped file-based transaction coordinator log, which is only used if the [binary log](../../../server-management/server-monitoring-logs/binary-log/) is disabled. If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available. This size is defined in multiples of 4096. See [Transaction Coordinator Log](../../../server-management/server-monitoring-logs/transaction-coordinator-log/) for more information. Also see the [--log-tc](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-tc) server option and the [--tc-heuristic-recover](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#tc-heuristic-recover) option.
 * Command line: `log-tc-size=#`
 * Scope: Global
 * Dynamic: No
@@ -1905,9 +1905,9 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Range: `0` to `62`
 * Introduced: [MariaDB 10.10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.1)
 
-**optimizer\_join\_limit\_pref\_ratio**
+#### `optimizer_join_limit_pref_ratio`
 
-* Description:Controls the [optimizer\_join\_limit\_pref\_ratio optimization](../query-optimizations/optimizer_join_limit_pref_ratio-optimization.md).
+* Description: Controls the [optimizer\_join\_limit\_pref\_ratio optimization](../query-optimizations/optimizer_join_limit_pref_ratio-optimization.md).
 * Command line: `--optimizer-join-limit-pref-ratio[=#]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2639,7 +2639,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `sql_log_update`
 
-* Description: Removed. Use [sql\_log\_bin](server-system-variables.md#sql_log_bin) instead.
+* Description: Removed. Use [sql\_log\_bin](../../standard-replication/replication-and-binary-log-system-variables.md#sql_log_bin) instead.
 * Removed: MariaDB/MySQL 5.5
 
 #### `sql_low_priority_updates`

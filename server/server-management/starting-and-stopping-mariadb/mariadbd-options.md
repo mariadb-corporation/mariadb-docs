@@ -108,7 +108,7 @@ other MariaDB and MySQL versions. Options that are also system variables are lis
 * [--old-alter-table](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_alter_table)
 * [--old-mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_mode)
 * [--old-passwords](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords)
-* [--show-old-temporals](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#show_old_temporals)
+* `--show-old-temporals`
 
 ## Locale Options
 
@@ -1357,14 +1357,14 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [disconnect-on-expired-password](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#disconnect_on_expired_password)
 * [div-precision-increment](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#div_precision_increment)
 * [enable-named-pipe](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#named_pipe)
-* [encrypt-binlog](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_binlog)
+* [encrypt-binlog](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#encrypt_binlog)
 * [encrypt-tmp-disk-tables](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_tmp_disk_tables)
 * [encrypt-tmp-files](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_tmp_files)
 * [encryption-algorithm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encryption_algorithm)
 * [engine-condition-pushdown](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#engine_condition_pushdown)
 * [eq-range-index-dive-limit](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#eq_range_index_dive_limit)
 * [event-scheduler](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#event_scheduler)
-* [expire-logs-days](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#expire_logs_days)
+* [expire-logs-days](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days)
 * [explicit-defaults-for-timestamp](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#explicit_defaults_for_timestamp)
 * [extra-max-connections](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
 * [extra-port](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
@@ -1493,7 +1493,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [ssl-crlpath](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
 * [ssl-key](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
 * [ssl-passphrase](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md#ssl_passphrase)
-* [standards\_compliant\_cte](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#standards_compliant_cte)
+* [standard\_compliant\_cte](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#standard_compliant_cte)
 * [stored-program-cache](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#stored_program_cache)
 * [strict\_password\_validation](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#strict_password_validation)
 * [sync-frm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sync_frm)
@@ -1508,7 +1508,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [tcp-nodelay](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_nodelay)
 * [thread-cache-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_cache_size)
 * [thread-concurrency](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_concurrency)
-* [thread-handling](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_handling)
+* [thread-handling](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md#thread_handling)
 * [thread-pool-dedicated-listener](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
 * [thread-pool-exact-stats](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
 * [thread-pool-idle-timeout](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
@@ -1529,7 +1529,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [transaction-prealloc-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_prealloc_size)
 * [transaction-read-only](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_read_only)
 * [updatable-views-with-limit](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#updatable_views_with_limit)
-* [userstat](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#userstat)
+* [userstat](../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md#userstat)
 * [version](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#version)
 * [wait-timeout](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#wait_timeout)
 

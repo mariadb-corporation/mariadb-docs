@@ -1047,7 +1047,7 @@ INSERT INTO mysql.server_audit_filters (filtername, rule)
 
 MariaDB Enterprise Audit writes audit log messages either to a dedicated audit log file or to the system log (syslog), depending on configuration.
 
-The audit log destination is configured with the [dit\_output\_type|server\_audit\_output\_type](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_au) system variable:
+The audit log destination is configured with the [server\_audit\_output\_type](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_output_type) system variable:
 
 | Value                                                             | Description                                                |
 | ----------------------------------------------------------------- | ---------------------------------------------------------- |
@@ -1056,7 +1056,7 @@ The audit log destination is configured with the [dit\_output\_type|server\_audi
 
 ## Audit Logging to File
 
-MariaDB Enterprise Audit writes audit log messages to a dedicated audit log file when the [dit\_output\_type|server\_audit\_output\_type](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_au) system variable is set to FILE.
+MariaDB Enterprise Audit writes audit log messages to a dedicated audit log file when the [server\_audit\_output\_type](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_output_type) system variable is set to FILE.
 
 ### Audit Log Path
 
