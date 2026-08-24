@@ -298,7 +298,7 @@ plugin_load_add = file_key_management
 {% step %}
 **Verify encryption is turned off.**
 
-Use [the same SQL statement shown above](data-at-rest-encryption-tde-fundamentals.md#verify-encryption-is-turned-on) to verify encryption is turned off.
+Use [the same SQL statement shown above](data-at-rest-encryption-tde-fundamentals.md#enabling-data-at-rest-encryption) to verify encryption is turned off.
 {% endstep %}
 {% endstepper %}
 
