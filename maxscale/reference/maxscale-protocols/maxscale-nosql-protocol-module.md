@@ -1303,9 +1303,9 @@ The following fields are relevant.
 | query         | document | Optional. The query predicate.                                                                                                                            |
 | sort          | document | Optional. The sort specification used when the document is selected.                                                                                      |
 | remove        | boolean  | Mandatory, if update is not specified. If true, the document will be deleted.                                                                             |
-| update        | document | Mandatory, if remove is not specified. See [Update.behavior](maxscale-nosql-protocol-module.md#behavior) for details.                                     |
+| update        | document | Mandatory, if remove is not specified. See [Update.behavior](maxscale-nosql-protocol-module.md#update) for details.                                     |
 | new           | boolean  | Optional. If true the modified document and not the original document is returned. If remove is specified, then the original document is always returned. |
-| fields        | document | Optional. Specified which fields to return. See [Find.projection](maxscale-nosql-protocol-module.md#projection) for details.                              |
+| fields        | document | Optional. Specified which fields to return. See [Find.projection](maxscale-nosql-protocol-module.md#find) for details.                              |
 | upsert        | boolean  | Optional. If true then a document will be created, if one is not found.                                                                                   |
 
 All other fields are ignored.

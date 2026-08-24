@@ -27,7 +27,7 @@ As the UAM is shared between all listeners of a service, its settings are define
 
 To properly fetch user account information, the MaxScale service user must be able to read from various tables in the _mysql_-database: _user_, _db_, _tables\_priv_, _columns\_priv_, _procs\_priv_, _proxies\_priv_, _global\_priv_ and _roles\_mapping_. The user should also have the _SHOW DATABASES_-grant.
 
-The _SET USER_ grant is optional but recommended if MaxScale is used with MariaDB version 12 or newer. Granting it to the service user allows the backend authentication to use the service credentials to log in after which the final user account is selected using the `SET SESSION AUTHORIZATION` command. For more information, refer to the documentation of the [use\_service\_credentials](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#use_service_credentials) setting.
+The _SET USER_ grant is optional but recommended if MaxScale is used with MariaDB version 12 or newer. Granting it to the service user allows the backend authentication to use the service credentials to log in after which the final user account is selected using the `SET SESSION AUTHORIZATION` command. For more information, refer to the documentation of the [use\_service\_credentials](../reference/maxscale-servers.md#use_service_credentials) setting.
 
 ```sql
 CREATE USER 'maxscale'@'maxscalehost' IDENTIFIED BY 'maxscale-password';
@@ -56,7 +56,7 @@ When a client logs in to MaxScale, MaxScale sees the client's IP address. When M
 There are two primary ways to deal with this:
 
 1. Duplicate user accounts. For every user account with a restricted hostname an equivalent user account for MaxScale is added (`'alice'@'maxscale-ip'`).
-2. Use [proxy protocol](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#proxy_protocol).
+2. Use [proxy protocol](../reference/maxscale-servers.md#proxy_protocol).
 
 Option 1 limits the passwords for user accounts with shared usernames. Such accounts must use the same password since they will effectively share the MaxScale-to-backend user account. Option 2 requires server support.
 

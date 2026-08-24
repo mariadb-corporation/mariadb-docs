@@ -95,9 +95,9 @@ If set to "mariadb", MaxScale will authenticate clients to backends using standa
 
 Because the client still needs to authenticate to MaxScale normally, an anonymous user may be required. If the backends do not allow such a user, one can be manually added using the service setting [user\_accounts\_file](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user_accounts_file).
 
-To map usernames, the PAM service needs to use a module such as \_user\_map.so\_. This module is not a standard Linux component and needs to be installed separately. It is included in recent MariaDB Server packages and can also be compiled from source. See [user mapping](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user_mapping_file) for more information on how to configure the module. If the goal is to only map users from PAM to MariaDB in MaxScale, then configuring user mapping on just the machine running MaxScale is enough.
+To map usernames, the PAM service needs to use a module such as \_user\_map.so\_. This module is not a standard Linux component and needs to be installed separately. It is included in recent MariaDB Server packages and can also be compiled from source. See [user mapping](../maxscale-listeners.md#user_mapping_file) for more information on how to configure the module. If the goal is to only map users from PAM to MariaDB in MaxScale, then configuring user mapping on just the machine running MaxScale is enough.
 
-Instead of using `pam_backend_mapping`, consider using the listener setting [user\_mapping\_file](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user_mapping_file), as it is easier to configure. `pam_backend_mapping` should only be used when the user mapping needs to be defined by pam.
+Instead of using `pam_backend_mapping`, consider using the listener setting [user\_mapping\_file](../maxscale-listeners.md#user_mapping_file), as it is easier to configure. `pam_backend_mapping` should only be used when the user mapping needs to be defined by pam.
 
 #### `pam_mapped_pw_file`
 
@@ -138,7 +138,7 @@ An example file is below.
 
 ## Anonymous User Mapping
 
-When backend authenticator mapping is not in use (`authenticator_options=pam_backend_mapping=none`), the PAM authenticator supports a limited version of [user mapping](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user_mapping_file). It requires less configuration but is also less accurate than proper mapping. Anonymous mapping is enabled in MaxScale if the following user exists:
+When backend authenticator mapping is not in use (`authenticator_options=pam_backend_mapping=none`), the PAM authenticator supports a limited version of [user mapping](../maxscale-listeners.md#user_mapping_file). It requires less configuration but is also less accurate than proper mapping. Anonymous mapping is enabled in MaxScale if the following user exists:
 
 * Empty username (e.g. `''@'%'` or `''@'myhost.com'`)
 * `plugin = 'pam'`

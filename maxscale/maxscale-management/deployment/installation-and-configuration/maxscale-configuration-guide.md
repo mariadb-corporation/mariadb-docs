@@ -2441,9 +2441,9 @@ This feature has a significant drawback: when a backend connection is reused, it
 
 This feature should only be used when limiting the backend connection count is a priority, even at the cost of query delay and throughput. This feature only works when the following server settings are also set in MaxScale configuration:
 
-1. [max\_routing\_connections](maxscale-configuration-guide.md#max_routing_connections)
-2. [persistpoolmax](maxscale-configuration-guide.md#persistpoolmax)
-3. [persistmaxtime](maxscale-configuration-guide.md#persistmaxtime)
+1. [max\_routing\_connections](../../../reference/maxscale-servers.md#max_routing_connections)
+2. [persistpoolmax](../../../reference/maxscale-servers.md#persistpoolmax)
+3. [persistmaxtime](../../../reference/maxscale-servers.md#persistmaxtime)
 
 Since reusing a backend connection is an expensive operation, MaxScale only pools connections when another session requires them. _idle\_session\_pool\_time_ thus effectively limits the frequency at which a connection can be moved from one session to another. Setting `idle_session_pool_time=0ms` causes MaxScale to move connections as soon as possible.
 
@@ -2463,7 +2463,7 @@ The most common such state is a transaction. When a transaction is on, connectio
 * Temporary tables and some problematic user or session variables such as `LAST_INSERT_ID()`. For `LAST_INSERT_ID()`, the value returned by the connector must be used instead of the variable.
 * Stored procedures that cause session level side-effects.
 
-Several settings affect connection sharing and its effectiveness. Reusing a connection is an expensive operation so its frequency should be minimized. The important configuration settings in addition to _idle\_session\_pool\_time_ are MaxScale server settings [persistpoolmax](maxscale-configuration-guide.md#persistpoolmax), [persistmaxtime](maxscale-configuration-guide.md#persistmaxtime) and [max\_routing\_connections](maxscale-configuration-guide.md#max_routing_connections). The service settings [max\_sescmd\_history](maxscale-configuration-guide.md#max_sescmd_history), [prune\_sescmd\_history](maxscale-configuration-guide.md#prune_sescmd_history) and [multiplex\_timeout](maxscale-configuration-guide.md#multiplex_timeout) also have an effect. These settings should be tuned according to the use case.
+Several settings affect connection sharing and its effectiveness. Reusing a connection is an expensive operation so its frequency should be minimized. The important configuration settings in addition to _idle\_session\_pool\_time_ are MaxScale server settings [persistpoolmax](../../../reference/maxscale-servers.md#persistpoolmax), [persistmaxtime](../../../reference/maxscale-servers.md#persistmaxtime) and [max\_routing\_connections](../../../reference/maxscale-servers.md#max_routing_connections). The service settings [max\_sescmd\_history](maxscale-configuration-guide.md#max_sescmd_history), [prune\_sescmd\_history](maxscale-configuration-guide.md#prune_sescmd_history) and [multiplex\_timeout](maxscale-configuration-guide.md#multiplex_timeout) also have an effect. These settings should be tuned according to the use case.
 
 _persistpoolmax_ limits how many connections can be kept in a pool for a given server. If the pool is full, no more connections are detached from sessions even if they are idle and required. The pool size should be large enough to contain any connections being transferred between sessions, but not be greater than _max\_routing\_connections_. Using the value of _max\_routing\_connections_ is a reasonable starting point.
 

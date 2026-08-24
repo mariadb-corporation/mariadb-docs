@@ -19,7 +19,7 @@ The [Connection Redirection](../../../server/ha-and-performance/connection-redir
 
 To prevent the accidental redirection of clients away from MaxScale, the notification about the change of the system variable `redirect_url` is intercepted by MaxScale and renamed into `mxs_rdir_url`. This prevents any automated redirects from taking place while still allowing clients to see the information if they need it.
 
-To redirect clients away from MaxScale, use the [redirect\_url](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#redirect_url) parameter.
+To redirect clients away from MaxScale, use the [redirect\_url](../maxscale-listeners.md#redirect_url) parameter.
 
 ## Configuration
 
