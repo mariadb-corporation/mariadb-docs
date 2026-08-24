@@ -473,7 +473,7 @@ spec:
   # [...]
 ```
 
-Note that, the `Connection` uses the `Service` described in the [Kubernetes Service](maxscale.md#kubernetes-service) section and you are able to specify which MaxScale service to connect to by providing the port (`spec.port`) of the corresponding MaxScale listener.
+Note that, the `Connection` uses the `Service` described in the [Kubernetes Services](maxscale.md#kubernetes-services) section and you are able to specify which MaxScale service to connect to by providing the port (`spec.port`) of the corresponding MaxScale listener.
 
 ## High availability
 

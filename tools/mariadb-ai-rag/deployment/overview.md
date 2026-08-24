@@ -23,7 +23,7 @@ Ensure your environment meets the following requirements before starting the dep
 * Operating System: 64-bit Linux
 * Software: Docker Engine and Docker Compose must be installed.
 * Mandatory Credentials:
-  * [MariaDB License Key](overview.md#obtain-and-configure-the-mariadb-license-key): A valid key is required for the application to pass the startup check.
+  * [MariaDB License Key](overview.md#obtain-the-mariadb-license-key): A valid key is required for the application to pass the startup check.
   * Model Provider API Keys: Credentials for chosen model providers (e.g., Google Gemini or OpenAI).
 * Database: A [MariaDB 11.8+](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118) instance is required for native vector search support.
 
