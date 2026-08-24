@@ -63,13 +63,13 @@ the [output](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-serve
 #### QPS
 
 While running, Diff will also collect QPS information over a sliding
-window whose size is defined by [qps\_period](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#qps_period).
+window whose size is defined by qps\_period.
 
 #### Reporting
 
 Diff produces two kinds of output:
 
-* Output that is generated when Diff terminates or upon [request](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#summary). That output can be visualized as explained [here](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#visualizing).
+* Output that is generated when Diff terminates or upon request. That output can be visualized as explained [here](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#visualizing).
 * [Optionally](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#report) Diff can continuously report queries whose
   responses from _main_ and other _differ_ as described [here](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#discrepancies).
 
@@ -397,7 +397,7 @@ the command line which by default should be.
 In the case of the example above, the directory where the output files
 are created would be `/var/lib/maxscale/diff/MyService`. And the files
 to be used when visualizing would be called something like`MyServer1_2024-05-07_140323.json` and`MariaDB_112_2024-05-07_140323.json`. The timestamp will be different
-every time [summary](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#summary) is executed.
+every time summary is executed.
 
 ```
 maxvisualize MyServer1_2024-05-07_140323.json MariaDB_112_2024-05-07_140323.json
@@ -509,7 +509,7 @@ Specifies the service Diff will modify.
 
 #### `explain`
 
-* Type: [enum](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#enumerations)
+* Type: enum
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `other`, \`both'
@@ -551,7 +551,7 @@ are skipped to bring it back in line with _main_.
 
 #### `on_error`
 
-* Type: [enum](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#enumerations)
+* Type: enum
 * Mandatory: No
 * Dynamic: Yes
 * Values: `close`, `ignore`
@@ -580,12 +580,12 @@ calculating the width and number of bins of the histogram.
 * Default: 15m
 
 Specifies the size of the sliding window during which QPS is calculated
-and stored. When a [summary](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#summary) is requested, the QPS information
+and stored. When a summary is requested, the QPS information
 will also be saved.
 
 #### `report`
 
-* Type: [enum](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#enumerations)
+* Type: enum
 * Mandatory: No
 * Dynamic: Yes
 * Values: `always`, `on_discrepancy`, `never`

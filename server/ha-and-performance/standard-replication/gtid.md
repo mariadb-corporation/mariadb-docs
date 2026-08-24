@@ -180,7 +180,7 @@ Once the current binary log position for the backup has been obtained, in the fo
 SELECT BINLOG_GTID_POS("master-bin.000001", 600);
 ```
 
-The new replica can then start replicating from the primary by setting the correct value for [gtid\_slave\_pos](gtid.md#gtid_slave_pos), and then executing [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) with the relevant values for the primary, and then starting the [replica threads](replication-threads.md#threads-on-the-slave) by executing [START REPLICA](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md). For example:
+The new replica can then start replicating from the primary by setting the correct value for [gtid\_slave\_pos](gtid.md#gtid_slave_pos), and then executing [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) with the relevant values for the primary, and then starting the [replica threads](replication-threads.md#threads-on-the-replica) by executing [START REPLICA](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md). For example:
 
 ```sql
 SET GLOBAL gtid_slave_pos = "0-1-2";
@@ -420,7 +420,7 @@ Adjusts the sparseness of the index.
 
 #### `gtid_slave_pos`
 
-This system variable contains the GTID of the last transaction applied to the database by the server's [replica threads](replication-threads.md#threads-on-the-slave) for each replication domain. This system variable's value is automatically updated whenever a [replica thread](replication-threads.md#threads-on-the-slave) applies an event group. This system variable's value can also be manually changed by users, so that the user can change the GTID position of the [replica threads](replication-threads.md#threads-on-the-slave).
+This system variable contains the GTID of the last transaction applied to the database by the server's [replica threads](replication-threads.md#threads-on-the-replica) for each replication domain. This system variable's value is automatically updated whenever a [replica thread](replication-threads.md#threads-on-the-replica) applies an event group. This system variable's value can also be manually changed by users, so that the user can change the GTID position of the [replica threads](replication-threads.md#threads-on-the-replica).
 
 When using [multi-source replication](multi-source-replication.md), the same GTID position is shared by all replica connections. In this case, different primaries should use different replication domains by configuring different [gtid\_domain\_id](gtid.md#gtid_domain_id) values. If one primary was using a [gtid\_domain\_id](gtid.md#gtid_domain_id) value of `1`, and if another primary was using a [gtid\_domain\_id](gtid.md#gtid_domain_id) value of `2`, then any replicas replicating from both primaries would have GTIDs with both [gtid\_domain\_id](gtid.md#gtid_domain_id) values in `gtid_slave_pos`.
 

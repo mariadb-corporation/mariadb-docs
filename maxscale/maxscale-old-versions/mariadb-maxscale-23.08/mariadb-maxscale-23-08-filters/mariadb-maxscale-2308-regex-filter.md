@@ -60,7 +60,7 @@ options=case
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
 
-The _options_-parameter affects how the patterns are compiled as [usual](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters).
+The _options_-parameter affects how the patterns are compiled as [usual](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md).
 
 #### `replace`
 

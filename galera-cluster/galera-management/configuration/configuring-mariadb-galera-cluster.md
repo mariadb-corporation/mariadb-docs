@@ -62,7 +62,7 @@ Galera Cluster needs access to the following ports:
 
 * Standard MariaDB Port (default: 3306) - For MySQL client connections and [State Snapshot Transfers](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) that use the `mysqldump` method. This can be changed by setting [port](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#port).
 * Galera Replication Port (default: 4567) - For Galera Cluster replication traffic, multicast replication uses both UDP transport and TCP on this port. Can be changed by setting [wsrep\_node\_address](../../reference/galera-cluster-system-variables.md#wsrep_node_address).
-* Galera Replication Listening Interface (default: `0.0.0.0:4567`) needs to be set using [gmcast.listen\_addr](../../reference/wsrep-variable-details/wsrep_provider_options.md#gmcastlisten_addr), either
+* Galera Replication Listening Interface (default: `0.0.0.0:4567`) needs to be set using [gmcast.listen\_addr](../../reference/wsrep-variable-details/wsrep_provider_options.md#gmcast.listen_addr), either
   * in [wsrep\_provider\_options](../../reference/galera-cluster-system-variables.md#wsrep_provider_options): `wsrep_provider_options='gmcast.listen_addr=tcp://<IP_ADDR>:<PORT>;'`
   * or in [wsrep\_cluster\_address](../../reference/galera-cluster-system-variables.md#wsrep_cluster_address)
 * IST Port (default: 4568) - For Incremental State Transfers. Can be changed by setting ist.recv\_addr in [wsrep\_provider\_options](../../reference/galera-cluster-system-variables.md#wsrep_provider_options).

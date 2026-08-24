@@ -310,7 +310,7 @@ Also ensure that, if you want to use the above trick, you always double the valu
 
 ## CHECK Constraints, DEFAULT Values and Virtual Columns
 
-`AUTO_INCREMENT` columns are not permitted in [CHECK constraints](../sql-statements/data-definition/constraint.md), [DEFAULT value expressions](../sql-statements/data-definition/create/create-table.md#default) and [virtual columns](../sql-statements/data-definition/create/generated-columns.md).
+`AUTO_INCREMENT` columns are not permitted in [CHECK constraints](../sql-statements/data-definition/constraint.md), [DEFAULT value expressions](../sql-statements/data-definition/create/create-table.md#default-column-option) and [virtual columns](../sql-statements/data-definition/create/generated-columns.md).
 
 ## Generating Auto\_Increment Values When Adding the Attribute
 

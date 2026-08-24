@@ -59,7 +59,7 @@ of the limits is triggered. You can also stop the capture at any time with:
 maxctrl call command wcar stop CAPTURE_FLTR
 ```
 
-See [Replay](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#Replay) to see how the captured files are used.
+See [Replay](mariadb-maxscale-2501-maxscale-2501-workload-capture-and-replay.md#replay) to see how the captured files are used.
 
 When capture is no longer needed you can remove it with:
 

@@ -22,7 +22,7 @@ When executing `mariadb-binlog` with `--flashback`, the Flashback events are sto
 ## Arguments
 
 * [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/) has the `--flashback` or `-B` option that makes it work in flashback mode.
-* [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md) has the option [--flashback](../../starting-and-stopping-mariadb/mariadbd-options.md#-flashback) that enables the binary log and sets `binlog_format=ROW`. It is not mandatory to use this option if you have already enabled those options directly.
+* [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md) has the option [--flashback](../../starting-and-stopping-mariadb/mariadbd-options.md#flashback) that enables the binary log and sets `binlog_format=ROW`. It is not mandatory to use this option if you have already enabled those options directly.
 
 Do not use the `-v` or `-vv` options, as they add verbose information to the binary log which can cause problems when importing. See [MDEV-12066](https://jira.mariadb.org/browse/MDEV-12066) and [MDEV-12067](https://jira.mariadb.org/browse/MDEV-12067).
 

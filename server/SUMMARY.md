@@ -800,6 +800,7 @@
     * [Sequel Pro](clients-and-utilities/graphical-and-enhanced-clients/graphical-and-enhanced-clients-sequel-pro.md)
     * [HeidiSQL](clients-and-utilities/graphical-and-enhanced-clients/heidisql.md)
     * [KS DB Merge Tools](clients-and-utilities/graphical-and-enhanced-clients/ks-db-merge-tools-for-mysql-and-mariadb.md)
+    * [LibreDB Studio](clients-and-utilities/graphical-and-enhanced-clients/libredb-studio.md)
     * [LibreOffice Base](clients-and-utilities/graphical-and-enhanced-clients/libreoffice-base.md)
     * [Luna Modeler](clients-and-utilities/graphical-and-enhanced-clients/luna-modeler.md)
     * [mycli](clients-and-utilities/graphical-and-enhanced-clients/mycli.md)

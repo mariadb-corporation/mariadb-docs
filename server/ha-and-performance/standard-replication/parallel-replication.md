@@ -173,7 +173,7 @@ Here is an article showing up to ten times improvement when using parallel repli
 The [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) system variable can be used to configure the maximum size of the parallel replica queue. This system variable is only meaningful when parallel
 replication is configured (i.e. when [slave\_parallel\_threads](replication-and-binary-log-system-variables.md) > `0`).
 
-When parallel replication is used, the [SQL thread](replication-threads.md#slave-sql-thread) will read ahead in the relay logs, queueing events in memory while looking for opportunities for executing events in parallel. The [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) system variable sets a
+When parallel replication is used, the [SQL thread](replication-threads.md#replica-sql-thread) will read ahead in the relay logs, queueing events in memory while looking for opportunities for executing events in parallel. The [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) system variable sets a
 limit for how much memory it will use for this.
 
 The configured value of the [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) system variable is actually allocated for each [worker thread](replication-threads.md#worker-threads), so the total allocation is actually equivalent to the following:
@@ -181,9 +181,9 @@ The configured value of the [slave\_parallel\_max\_queued](replication-and-binar
 [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) \* [slave\_parallel\_threads](replication-and-binary-log-system-variables.md)
 
 If this value is set too high, and the replica is far (eg. gigabytes of binlog)
-behind the primary, then the [SQL thread](replication-threads.md#slave-sql-thread) can quickly read all of that and fill up memory with huge amounts of binlog events faster than the [worker threads](replication-threads.md#worker-threads) can consume them.
+behind the primary, then the [SQL thread](replication-threads.md#replica-sql-thread) can quickly read all of that and fill up memory with huge amounts of binlog events faster than the [worker threads](replication-threads.md#worker-threads) can consume them.
 
-On the other hand, if set too low, the [SQL thread](replication-threads.md#slave-sql-thread) might not have sufficient space for queuing enough events to keep the worker threads busy, which could reduce performance. In this case, the [SQL thread](replication-threads.md#slave-sql-thread) will have the [thread state](../optimization-and-tuning/buffers-caches-and-threads/thread-states/) that states `Waiting for room in worker thread event queue`. For example:
+On the other hand, if set too low, the [SQL thread](replication-threads.md#replica-sql-thread) might not have sufficient space for queuing enough events to keep the worker threads busy, which could reduce performance. In this case, the [SQL thread](replication-threads.md#replica-sql-thread) will have the [thread state](../optimization-and-tuning/buffers-caches-and-threads/thread-states/) that states `Waiting for room in worker thread event queue`. For example:
 
 ```
 +----+-------------+-----------+------+---------+--------+-----------------------------------------------+------------------+----------+
@@ -200,7 +200,7 @@ On the other hand, if set too low, the [SQL thread](replication-threads.md#slave
 
 The [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) system variable does not define a hard limit, since the [binary log](../../server-management/server-monitoring-logs/binary-log/) events that are currently executing always need to be held in-memory. This means that at least two events per [worker thread](replication-threads.md#worker-threads) can always be queued in-memory, regardless of the value of [slave\_parallel\_threads](replication-and-binary-log-system-variables.md).
 
-Usually, the [slave\_parallel\_threads](replication-and-binary-log-system-variables.md) system variable should be set large enough that the [SQL thread](replication-threads.md#slave-sql-thread) is able to read far enough ahead in the [binary log](../../server-management/server-monitoring-logs/binary-log/) to exploit all possible parallelism. In normal operation, the replica will hopefully not be too far behind, so there will not be a need to queue much data in-memory. The [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) system variable could be set fairly high (e.g. a few hundred kilobytes) to not limit throughput. It should just be set low enough that total allocation of the parallel replica queue will not cause the server to run out of memory.
+Usually, the [slave\_parallel\_threads](replication-and-binary-log-system-variables.md) system variable should be set large enough that the [SQL thread](replication-threads.md#replica-sql-thread) is able to read far enough ahead in the [binary log](../../server-management/server-monitoring-logs/binary-log/) to exploit all possible parallelism. In normal operation, the replica will hopefully not be too far behind, so there will not be a need to queue much data in-memory. The [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) system variable could be set fairly high (e.g. a few hundred kilobytes) to not limit throughput. It should just be set low enough that total allocation of the parallel replica queue will not cause the server to run out of memory.
 
 ## Configuration Variable slave\_domain\_parallel\_threads
 

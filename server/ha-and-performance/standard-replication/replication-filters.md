@@ -118,7 +118,7 @@ When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/adm
 
 When setting it dynamically, it is not possible to specify database names that contain commas. If you need to specify database names that contain commas, then you will need to specify them by either providing the command-line options or configuring them in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) when the server is [started](https://mariadb.com/kb/en/).
 
-When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-slave) must be stopped. For example:
+When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-replica) must be stopped. For example:
 
 ```sql
 STOP SLAVE;
@@ -154,7 +154,7 @@ When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/adm
 
 When setting it dynamically, it is not possible to specify database names that contain commas. If you need to specify names or patterns that contain commas, then you will need to specify them by either providing the command-line options or configuring them in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) when the server is [started](https://mariadb.com/kb/en/).
 
-When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-slave) must be stopped. For example:
+When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-replica) must be stopped. For example:
 
 ```sql
 STOP SLAVE;
@@ -194,7 +194,7 @@ When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/adm
 When setting it dynamically, it is not possible to specify database or table names
 or patterns that contain commas. If you need to specify database or table names that contain commas, then you will need to specify them by either providing the command-line options or configuring them in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) when the server is [started](https://mariadb.com/kb/en/).
 
-When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-slave) must be stopped. For example:
+When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-replica) must be stopped. For example:
 
 ```sql
 STOP SLAVE;
@@ -229,7 +229,7 @@ When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/adm
 
 When setting it dynamically, it is not possible to specify database or table names that contain commas. If you need to specify database or table names that contain commas, then you will need to specify them by either providing the command-line options or configuring them in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) when the server is [started](https://mariadb.com/kb/en/).
 
-When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-slave) must be stopped. For example:
+When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-replica) must be stopped. For example:
 
 ```sql
 STOP SLAVE;
@@ -278,7 +278,7 @@ When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/adm
 
 When setting it dynamically, it is not possible to specify database or table names or patterns that contain commas. If you need to specify database or table names or patterns that contain commas, then you will need to specify them by either providing the command-line options or configuring them in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) when the server is [started](https://mariadb.com/kb/en/).
 
-When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-slave) must be stopped. For example:
+When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-replica) must be stopped. For example:
 
 ```sql
 STOP SLAVE;
@@ -325,7 +325,7 @@ When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/adm
 
 When setting it dynamically, it is not possible to specify database or table names or patterns that contain commas. If you need to specify database or table names or patterns that contain commas, then you will need to specify them by either providing the command-line options or configuring them in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) when the server is [started](https://mariadb.com/kb/en/).
 
-When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-slave) must be stopped. For example:
+When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-replica) must be stopped. For example:
 
 ```sql
 STOP SLAVE;

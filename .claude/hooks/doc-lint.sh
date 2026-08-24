@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 #
 # doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
-# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus two checks that have no CI
-# counterpart (see below): a GitBook include resolver and a net line-loss guard.
+# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus three checks that have no CI
+# counterpart (see below): a GitBook include resolver, a heading-anchor gate, and a net
+# line-loss guard.
 #
 # The pre-commit hook, the /precommit command, the docs-check skill, and dev-docs/cookbook-pre-pr.md
 # all delegate here instead of re-spelling the flags, so the CI-mirroring options live in exactly
@@ -12,7 +13,8 @@
 #          (paths are filtered to existing *.md / *.html; run from the repo root so that
 #           .codespellignore resolves)
 # Exit:    0 = all runnable checks passed (a check whose tool is missing is SKIPPED, not failed)
-#          1 = a real failure (misspelling, broken link, or unresolvable include)
+#          1 = a real failure (misspelling, broken link, unresolvable include, or a heading
+#              anchor this change killed)
 # Output:  failures and "tool missing / SKIPPED" notices go to stderr.
 #
 # Portability: no `mapfile` here — takes files as args — so it runs under bash 3.2 (macOS) too.
@@ -37,6 +39,10 @@ if [ ! -f .codespellignore ]; then
 fi
 
 rc=0
+
+# Revision the working tree is compared against, shared by the two history-aware checks
+# below (the heading-anchor gate and the line-loss guard).
+LINT_BASE="${DOC_LINT_BASE:-HEAD}"
 
 # --- codespell — mirrors codespell.yml (--check-filenames, ignore_words_file -> -I) ---------
 # Every SUMMARY.md (in any space/folder, at any depth) is excluded from codespell — mirrors
@@ -117,6 +123,7 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude 'stackoverflow\.com' \
       --exclude 'gitlab\.kitware\.com' \
       --exclude 'www\.freedesktop\.org' \
+      --exclude 'lists\.freedesktop\.org' \
       --exclude 'azuremarketplace\.microsoft\.com' \
       --exclude 'console\.cloud\.google\.com' \
       --exclude 'partedmagic\.com' \
@@ -224,6 +231,53 @@ for f in "${files[@]}"; do
 done
 [ -s "$inc_fail" ] && rc=1
 
+# --- GitBook heading anchors — NO CI counterpart --------------------------------------------
+# A link to `page.md#some-heading` can rot in two ways that every other gate here is blind
+# to: the heading is renamed, or the anchor was hand-written in the wrong dialect. CI passes
+# no `--include-fragments`, and enabling it would not help — lychee's slugger is
+# GitHub-flavoured, so on this repo it is wrong in BOTH directions: 386 of its 1,129 fragment
+# errors are false positives (the anchor resolves live), and it misses 213 anchors that really
+# are dead. `.claude/hooks/fragcheck.py` implements GitBook's rules instead, validated at
+# 4,599/4,599 anchors against the rendered pages (DOCS-6491).
+#
+# It also gates a third rot that no link checker can see at all — including fragcheck itself
+# when it is only looking for dead anchors. A heading line duplicated for a new section keeps
+# the original's `<a href="#x" id="x">`, GitBook honours the explicit id over the text slug, and
+# the two sections then share one anchor: the second dedupes to `-1` and neither owns the anchor
+# a reader expects. Every link still resolves, just to the wrong section, so this is a semantic
+# mismatch rather than a broken link (DOCS-6492). A heading whose explicit id is a deliberate
+# historical KB alias for its own text is NOT flagged — only an id that belongs to a different
+# heading on the same page. That distinction is the whole check: 48 headings differ from their
+# text slug, but only 8 were defects, so flagging the wide class would be a 6x overstatement.
+#
+# Two deliberate design choices:
+#   1. It reports only anchors that are dead NOW but resolved at $LINT_BASE. The repo carries
+#      ~1,272 pre-existing dead anchors, so a plain check would turn every unrelated PR red on
+#      breakage it did not introduce (the `broken-reference` trap — see the lychee section). The
+#      stolen-id class is diffed against $LINT_BASE for the same reason: it stands at 0 today,
+#      but this repo is also edited from the GitBook UI, so an absolute check would fail
+#      unrelated PRs the moment a GITBOOK-* commit introduced one case.
+#   2. It scans the whole tree, not just "${files[@]}". Renaming a heading breaks inbound links
+#      from pages the commit never touched, and a changed-files check cannot see those. The two
+#      passes cost ~14s; set DOC_LINT_SKIP_FRAGMENTS=1 to skip when iterating.
+#
+# Needs python3 (no third-party modules) and a git work tree; missing either is a SKIP, and a
+# base revision that cannot be checked out is a SKIP too — never a silent pass into failure.
+if [ "${DOC_LINT_SKIP_FRAGMENTS:-}" = "1" ]; then
+  : # explicitly skipped by the caller
+elif [ ! -f .claude/hooks/fragcheck.py ]; then
+  echo "doc-lint: .claude/hooks/fragcheck.py not found — anchor check SKIPPED" >&2
+elif ! command -v python3 >/dev/null 2>&1; then
+  echo "doc-lint: python3 not installed — anchor check SKIPPED (no CI counterpart, so nothing" >&2
+  echo "          else will catch a dead heading anchor). Install: brew install python3" >&2
+elif ! command -v git >/dev/null 2>&1 || ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "doc-lint: not a git work tree — anchor check SKIPPED (needs a base revision)" >&2
+elif ! git rev-parse --verify -q "$LINT_BASE" >/dev/null 2>&1; then
+  echo "doc-lint: base revision '$LINT_BASE' not found — anchor check SKIPPED" >&2
+else
+  python3 .claude/hooks/fragcheck.py new "$LINT_BASE" >/dev/null || rc=1
+fi
+
 # --- net line-loss guard — NO CI counterpart ------------------------------------------------
 # Catches the "silently gutted page" failure: a surviving page loses most of its body while the
 # markup stays valid and every remaining link resolves, so codespell and lychee both PASS.
@@ -259,7 +313,7 @@ done
 SHRINK_PCT="${DOC_LINT_SHRINK_PCT:-40}"
 SHRINK_MIN="${DOC_LINT_SHRINK_MIN:-20}"
 SHRINK_FLOOR="${DOC_LINT_SHRINK_FLOOR:-30}"
-SHRINK_BASE="${DOC_LINT_BASE:-HEAD}"
+SHRINK_BASE="$LINT_BASE"
 SHRINK_ALLOW=" ${DOC_LINT_ALLOW_SHRINK:-} "
 SHRINK_ALLOW="${SHRINK_ALLOW//,/ }"
 

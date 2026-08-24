@@ -126,7 +126,7 @@ spec:
 
 These options are used by the operator to create a replication configuration file that is applied to all nodes in the cluster. When updating any of these options, an [update of the cluster](replication.md#updates) will be triggered in order to apply the new configuration.
 
-For replica-specific configuration options, please refer to the [replica configuration](replication.md#replica-configuration) section. Additional system variables may be configured via the `myCnf` configuration field. Refer to the [configuration documentation](../configuration.md#mycnf) for more details.
+For replica-specific configuration options, please refer to the [replica configuration](replication.md#replica-configuration) section. Additional system variables may be configured via the `myCnf` configuration field. Refer to the [configuration documentation](../configuration.md#my.cnf) for more details.
 
 ## Replica configuration
 

@@ -188,43 +188,43 @@ The Connector with the Callback API is similar to the one using Promise, but wit
 
 **Base:**
 
-* [`createConnection(options) → Connection`](connector-nodejs-callback-api.md#createconnectionoptions--connection): Creates a connection to a MariaDB Server.
-* [`createPool(options) → Pool`](connector-nodejs-callback-api.md#createpooloptions--pool) : Creates a new Pool.
-* [`createPoolCluster(options) → PoolCluster`](connector-nodejs-callback-api.md#createpoolclusteroptions--poolcluster) : Creates a new pool cluster.
-* [`importFile(options [, callback])`](connector-nodejs-callback-api.md#importfileoptions-callback) : import Sql file
-* [`version → String`](connector-nodejs-callback-api.md#version--string) : Return library version.
-* [`defaultOptions(options) → Json`](connector-nodejs-callback-api.md#defaultoptionsoptions--json) : list options with default values
+* [`createConnection(options) → Connection`](connector-nodejs-callback-api.md#createconnection-options-connection): Creates a connection to a MariaDB Server.
+* [`createPool(options) → Pool`](connector-nodejs-callback-api.md#createpool-options-pool) : Creates a new Pool.
+* [`createPoolCluster(options) → PoolCluster`](connector-nodejs-callback-api.md#createpoolcluster-options-poolcluster) : Creates a new pool cluster.
+* [`importFile(options [, callback])`](connector-nodejs-callback-api.md#importfile-options-callback) : import Sql file
+* [`version → String`](connector-nodejs-callback-api.md#version-string) : Return library version.
+* [`defaultOptions(options) → Json`](connector-nodejs-callback-api.md#defaultoptions-options-json) : list options with default values
 
 **Connection:**
 
 * [`connection.query(sql [, values][, callback]) → Emitter`](connector-nodejs-callback-api.md#connectionquerysql-values-callback---emitter): Executes a [query](connector-nodejs-callback-api.md#query).
-* [`connection.batch(sql, values [, callback])`](connector-nodejs-callback-api.md#connectionbatchsql-values--callback): fast batch processing.
-* [`connection.beginTransaction([callback])`](connector-nodejs-callback-api.md#connectionbegintransactioncallback): Begins a transaction
-* [`connection.commit([callback])`](connector-nodejs-callback-api.md#connectioncommitcallback): Commit the current transaction, if any.
-* [`connection.rollback([callback])`](connector-nodejs-callback-api.md#connectionrollbackcallback): Rolls back the current transaction, if any.
-* [`connection.changeUser(options [, callback])`](connector-nodejs-callback-api.md#connectionchangeuseroptions-callback): Changes the current connection user.
-* [`connection.ping([callback])`](connector-nodejs-callback-api.md#connectionpingcallback): Sends an empty packet to the server to check that connection is active.
-* [`connection.end([callback])`](connector-nodejs-callback-api.md#connectionendcallback): Gracefully closes the connection.
+* [`connection.batch(sql, values [, callback])`](connector-nodejs-callback-api.md#connection.batch-sql-values-callback): fast batch processing.
+* [`connection.beginTransaction([callback])`](connector-nodejs-callback-api.md#connection.begintransaction-callback): Begins a transaction
+* [`connection.commit([callback])`](connector-nodejs-callback-api.md#connection.commit-callback): Commit the current transaction, if any.
+* [`connection.rollback([callback])`](connector-nodejs-callback-api.md#connection.rollback-callback): Rolls back the current transaction, if any.
+* [`connection.changeUser(options [, callback])`](connector-nodejs-callback-api.md#connection.changeuser-options-callback): Changes the current connection user.
+* [`connection.ping([callback])`](connector-nodejs-callback-api.md#connection.ping-callback): Sends an empty packet to the server to check that connection is active.
+* [`connection.end([callback])`](connector-nodejs-callback-api.md#connection.end-callback): Gracefully closes the connection.
 * [`connection.reset([callback])`](connector-nodejs-callback-api.md#connectionreset): reset current connection state.
-* [`connection.isValid() → boolean`](connector-nodejs-callback-api.md#connectionisvalid--boolean): Checks that the connection is active without checking socket state.
-* [`connection.destroy()`](connector-nodejs-callback-api.md#connectiondestroy): Forces the connection to close.
-* [`connection.escape(value) → String`](connector-nodejs-callback-api.md#connectionescapevalue--string): escape parameter
-* [`connection.escapeId(value) → String`](connector-nodejs-callback-api.md#connectionescapeidvalue--string): escape identifier
-* [`connection.pause()`](connector-nodejs-callback-api.md#connectionpause): Pauses the socket output.
-* [`connection.resume()`](connector-nodejs-callback-api.md#connectionresume): Resumes the socket output.
-* [`connection.serverVersion()`](connector-nodejs-callback-api.md#connectionserverversion): Retrieves the current server version.
-* [`connection.importFile(options [, callback])`](connector-nodejs-callback-api.md#connectionimportfileoptions-callback) : import Sql file
+* [`connection.isValid() → boolean`](connector-nodejs-callback-api.md#connection.isvalid-boolean): Checks that the connection is active without checking socket state.
+* [`connection.destroy()`](connector-nodejs-callback-api.md#connection.destroy): Forces the connection to close.
+* [`connection.escape(value) → String`](connector-nodejs-callback-api.md#connection.escape-value-string): escape parameter
+* [`connection.escapeId(value) → String`](connector-nodejs-callback-api.md#connection.escapeid-value-string): escape identifier
+* [`connection.pause()`](connector-nodejs-callback-api.md#connection.pause): Pauses the socket output.
+* [`connection.resume()`](connector-nodejs-callback-api.md#connection.resume): Resumes the socket output.
+* [`connection.serverVersion()`](connector-nodejs-callback-api.md#connection.serverversion): Retrieves the current server version.
+* [`connection.importFile(options [, callback])`](connector-nodejs-callback-api.md#connection.importfile-options-callback) : import Sql file
 * [`events`](connector-nodejs-callback-api.md#events): Subscribes to connection error events.
 
 **Pool:**
 
-* [`pool.getConnection([callback])`](connector-nodejs-callback-api.md#poolgetconnectioncallback) : Creates a new connection.
-* [`pool.query(sql [, values][, callback])`](connector-nodejs-callback-api.md#poolquerysql-values-callback): Executes a query.
-* [`pool.batch(sql, values [, callback])`](connector-nodejs-callback-api.md#poolbatchsql-values-callback): Executes a batch
-* [`pool.end([callback])`](connector-nodejs-callback-api.md#poolendcallback): Gracefully closes the connection.
-* [`pool.escape(value) → String`](connector-nodejs-callback-api.md#poolescapevalue--string): escape parameter
-* [`pool.escapeId(value) → String`](connector-nodejs-callback-api.md#poolescapeidvalue--string): escape identifier
-* [`pool.importFile(options [, callback])`](connector-nodejs-callback-api.md#poolimportfileoptions-callback) : import Sql file
+* [`pool.getConnection([callback])`](connector-nodejs-callback-api.md#pool.getconnection-callback) : Creates a new connection.
+* [`pool.query(sql [, values][, callback])`](connector-nodejs-callback-api.md#pool.query-sql-values-callback): Executes a query.
+* [`pool.batch(sql, values [, callback])`](connector-nodejs-callback-api.md#pool.batch-sql-values-callback): Executes a batch
+* [`pool.end([callback])`](connector-nodejs-callback-api.md#pool.end-callback): Gracefully closes the connection.
+* [`pool.escape(value) → String`](connector-nodejs-callback-api.md#pool.escape-value-string): escape parameter
+* [`pool.escapeId(value) → String`](connector-nodejs-callback-api.md#pool.escapeid-value-string): escape identifier
+* [`pool.importFile(options [, callback])`](connector-nodejs-callback-api.md#pool.importfile-options-callback) : import Sql file
 * `pool.activeConnections() → Number`: Gets current active connection number.
 * `pool.totalConnections() → Number`: Gets current total connection number.
 * `pool.idleConnections() → Number`: Gets current idle connection number.
@@ -233,12 +233,12 @@ The Connector with the Callback API is similar to the one using Promise, but wit
 
 **PoolCluster**
 
-* [`poolCluster.add(id, config)`](connector-nodejs-callback-api.md#poolclusteraddid-config) : add a pool to cluster.
-* [`poolCluster.remove(pattern)`](connector-nodejs-callback-api.md#poolclusterremovepattern) : remove and end pool according to pattern.
-* [`poolCluster.end([callback])`](connector-nodejs-callback-api.md#poolclusterendcallback) : end cluster.
-* [`poolCluster.getConnection([pattern, ][selector, ]callback)`](connector-nodejs-callback-api.md#poolclustergetconnectionpattern-selector-callback) : return a connection from cluster.
+* [`poolCluster.add(id, config)`](connector-nodejs-callback-api.md#poolcluster.add-id-config) : add a pool to cluster.
+* [`poolCluster.remove(pattern)`](connector-nodejs-callback-api.md#poolcluster.remove-pattern) : remove and end pool according to pattern.
+* [`poolCluster.end([callback])`](connector-nodejs-callback-api.md#poolcluster.end-callback) : end cluster.
+* [`poolCluster.getConnection([pattern, ][selector, ]callback)`](connector-nodejs-callback-api.md#poolcluster.getconnection-pattern-selector-callback) : return a connection from cluster.
 * [`poolCluster events`](connector-nodejs-callback-api.md#poolcluster-events): Subscribes to pool cluster events.
-* [`poolCluster.of(pattern, selector) → FilteredPoolCluster`](connector-nodejs-callback-api.md#poolclusterofpattern-selector--filteredpoolcluster) : return a subset of cluster.
+* [`poolCluster.of(pattern, selector) → FilteredPoolCluster`](connector-nodejs-callback-api.md#poolcluster.of-pattern-selector-filteredpoolcluster) : return a subset of cluster.
 
 ## Base API
 
@@ -365,9 +365,9 @@ pool.on('connection', (conn) => console.log(`connection ${conn.threadId} has bee
 
 ### `createPoolCluster(options) → PoolCluster`
 
-> * `options`: _JSON_ [poolCluster options](connector-nodejs-callback-api.md#poolCluster-options)
+> * `options`: _JSON_ [poolCluster options](connector-nodejs-callback-api.md#poolcluster-options)
 >
-> Returns a [PoolCluster](connector-nodejs-callback-api.md#poolCluster-api) object,
+> Returns a [PoolCluster](connector-nodejs-callback-api.md#pool-cluster-api) object,
 
 Creates a new pool cluster. Cluster handles multiple pools, giving high availability / distributing load (using round robin / random / ordered ).
 
@@ -739,7 +739,7 @@ reset the connection. Reset will:
 
 This command is only available for MariaDB >=10.2.4 or MySQL >= 5.7.3. the function will be rejected with the error "Reset command not permitted for server XXX" if the server version doesn't permit reset.
 
-For previous MariaDB version, reset connection can be done using [`connection.changeUser(options [, callback])`](connector-nodejs-callback-api.md#connectionchangeuseroptions-callback) that do the same + redo authentication phase.
+For previous MariaDB version, reset connection can be done using [`connection.changeUser(options [, callback])`](connector-nodejs-callback-api.md#connection.changeuser-options-callback) that do the same + redo authentication phase.
 
 ### `connection.isValid() → boolean`
 
@@ -989,11 +989,11 @@ pool.end(err => {
 
 ### `pool.escape(value) → String`
 
-This is an alias for [`connection.escape(value) → String`](connector-nodejs-callback-api.md#connectionescapevalue--string) to escape parameters
+This is an alias for [`connection.escape(value) → String`](connector-nodejs-callback-api.md#connection.escape-value-string) to escape parameters
 
 ### `pool.escapeId(value) → String`
 
-This is an alias for [`connection.escapeId(value) → String`](connector-nodejs-callback-api.md#connectionescapeidvalue--string) to escape Identifier
+This is an alias for [`connection.escapeId(value) → String`](connector-nodejs-callback-api.md#connection.escapeid-value-string) to escape Identifier
 
 ### `pool.importFile(options[, callback])`
 
@@ -1114,10 +1114,10 @@ cluster.on('remove', node => {
 >
 > Returns :
 >
-> * resolves with a [filtered pool cluster](connector-nodejs-callback-api.md#filteredpoolcluster) object,
+> * resolves with a [filtered pool cluster](connector-nodejs-callback-api.md#filtered-pool-cluster) object,
 > * raises an [Error](connector-nodejs-callback-api.md#error).
 
-Creates a new [filtered pool cluster](connector-nodejs-callback-api.md#filteredpoolcluster) object that is a subset of cluster.
+Creates a new [filtered pool cluster](connector-nodejs-callback-api.md#filtered-pool-cluster) object that is a subset of cluster.
 
 **Note**: The `pattern` parameter must be specified as a string. Passing a `Regex` object (e.g., `/^slave/`) is not supported in TypeScript and may cause inconsistencies.
 

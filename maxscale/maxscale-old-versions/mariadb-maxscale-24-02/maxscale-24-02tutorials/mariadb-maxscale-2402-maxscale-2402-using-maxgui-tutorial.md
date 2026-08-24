@@ -243,7 +243,7 @@ There are two ways to quickly insert an object to the editor:
 
 **Show object creation statement and insights info**
 
-To view the statement that creates the given object in the [Schemas objects sidebar](mariadb-maxscale-2402-maxscale-2402-using-maxgui-tutorial.md#schemas-objects-sidebar), right-clicking on schema or table node and
+To view the statement that creates the given object in the Schemas objects sidebar, right-clicking on schema or table node and
 select the `View Insights` option. For other objects such as view, stored
 procedure, function and trigger, select the `Show Create` option.
 
@@ -261,7 +261,7 @@ available options, right-click on the editor to show the context menu.
 
 Every executed query will be saved in the browser's storage (IndexedDB).\
 Query history can be seen in the `History/Snippets` tab.\
-To re-execute a query, follow the same step to [insert an object into the editor](mariadb-maxscale-2402-maxscale-2402-using-maxgui-tutorial.md#quickly-insert-an-object-into-the-editor)
+To re-execute a query, follow the same step to insert an object into the editor
 and click the execute query button in the editor.
 
 **Create query snippet**

@@ -15,7 +15,7 @@ Whether concurrent inserts can be used or not depends on the value of the [concu
 * `AUTO` (1) allows concurrent inserts only when the target table has no free blocks (no data in the middle of the table has been deleted after the last [OPTIMIZE TABLE](../../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md)). This is the default.
 * `ALWAYS` (2) always enables concurrent inserts, in which case new rows are added at the end of a table if the table is being used by another thread.
 
-If the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) is used, [CREATE TABLE ... SELECT](../../data-definition/create/create-table.md#create-table-select) and [INSERT ... SELECT](insert-select.md) statements cannot use concurrent inserts. These statements acquire a read lock on the table, so concurrent inserts will need to wait. This way, the log can be safely used to restore data.
+If the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) is used, [CREATE TABLE ... SELECT](../../data-definition/create/create-table.md#create-table-...-select) and [INSERT ... SELECT](insert-select.md) statements cannot use concurrent inserts. These statements acquire a read lock on the table, so concurrent inserts will need to wait. This way, the log can be safely used to restore data.
 
 Concurrent inserts are not used by replicas with the row-based [replication](../../../../ha-and-performance/standard-replication/) (see [binary log formats](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md)).
 

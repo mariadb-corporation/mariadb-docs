@@ -94,7 +94,7 @@ modifying SQL statement is processed, the counter is reset to the value of_count
 * Dynamic: No
 * Default: `""`
 
-These [regular expression settings](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters)
+These [regular expression settings](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md)
 control which statements trigger statement re-routing. Only non-SELECT statements are
 inspected. For CCRFilter, the _exclude_-parameter is instead named _ignore_, yet works
 similarly.

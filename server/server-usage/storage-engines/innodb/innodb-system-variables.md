@@ -668,7 +668,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_compression_failure_threshold_pct`
 
 * Description: Specifies the percentage cutoff for expensive compression failures during updates to a table that uses [InnoDB page compression](innodb-page-compression.md), after which free space is added to each new compressed page, dynamically adjusted up to the level set by [innodb\_compression\_pad\_pct\_max](innodb-system-variables.md#innodb_compression_pad_pct_max). Zero disables checking of compression efficiency and adjusting padding.
-  * See [InnoDB Page Compression: Configuring the Failure Threshold and Padding](innodb-page-compression.md#configuring-the-failure-threshold-and-padding) for more information.
+  * See [InnoDB Page Compression: Configuring the Failure Threshold and Padding](innodb-page-compression.md#configuring-the-failure-threshold-and-maximum-padding) for more information.
 * Command line: `--innodb-compression-failure-threshold-pct=#`
 * Scope: Global
 * Dynamic: Yes
@@ -694,7 +694,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_compression_pad_pct_max`
 
 * Description: The maximum percentage of reserved free space within each compressed page for tables that use [InnoDB page compression](innodb-page-compression.md). Reserved free space is used when the page's data is reorganized and might be recompressed. Only used when [innodb\_compression\_failure\_threshold\_pct](innodb-system-variables.md#innodb_compression_failure_threshold_pct) is not zero, and the rate of compression failures exceeds its setting.
-  * See [InnoDB Page Compression: Configuring the Failure Threshold and Padding](innodb-page-compression.md#configuring-the-failure-threshold-and-padding) for more information.
+  * See [InnoDB Page Compression: Configuring the Failure Threshold and Padding](innodb-page-compression.md#configuring-the-failure-threshold-and-maximum-padding) for more information.
 * Command line: `--innodb-compression-pad-pct-max=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1574,7 +1574,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_io_capacity`
 
 * Description: Limit on I/O activity for InnoDB background tasks, including merging data from the insert buffer and flushing pages. Should be set to around the number of I/O operations per second that system can handle, based on the type of drive/s being used. You can also set it higher when the server starts to help with the extra workload at that time, and then reduce for normal use. Ideally, opt for a lower setting, as at higher value data is removed from the buffers too quickly, reducing the effectiveness of caching. See also [innodb\_flush\_sync](innodb-system-variables.md#innodb_flush_sync).
-  * See [InnoDB Page Flushing: Configuring the InnoDB I/O Capacity](innodb-page-flushing.md#configuring-the-innodb-io-capacity) for more information.
+  * See [InnoDB Page Flushing: Configuring the InnoDB I/O Capacity](innodb-page-flushing.md#configuring-the-innodb-i-o-capacity) for more information.
 * Command line: `--innodb-io-capacity=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1584,7 +1584,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_io_capacity_max`
 
-* Description: Upper limit to which InnoDB can extend [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) in case of emergency. See [InnoDB Page Flushing: Configuring the InnoDB I/O Capacity](innodb-page-flushing.md#configuring-the-innodb-io-capacity) for more information.
+* Description: Upper limit to which InnoDB can extend [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) in case of emergency. See [InnoDB Page Flushing: Configuring the InnoDB I/O Capacity](innodb-page-flushing.md#configuring-the-innodb-i-o-capacity) for more information.
 * Command line: `--innodb-io-capacity-max=#`
 * Scope: Global
 * Dynamic: Yes

@@ -49,7 +49,7 @@ The [SHOW RELAYLOG EVENTS](../../../reference/sql-statements/administrative-sql-
 
 Old relay logs are automatically removed once all events have been implemented on the replica, and the relay log file is no longer needed. This behavior can be changed by adjusting the [relay\_log\_purge](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_purge) system variable from its default of `1` to `0`, in which case the relay logs will be left on the server.
 
-Relay logs are also removed by the [CHANGE MASTER](../../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) statement unless a [relay log option](../../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#relay_log_options) is used.
+Relay logs are also removed by the [CHANGE MASTER](../../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) statement unless a [relay log option](../../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#relay-log-options) is used.
 
 One can also flush the logs with the [FLUSH RELAY LOGS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) statements.
 

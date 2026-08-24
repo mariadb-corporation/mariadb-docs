@@ -113,7 +113,7 @@ changed significantly and the primary should be re-selected, although the old
 primary may still be the best choice.
 
 The primary change described above is different from failover and switchover
-described in section [Failover, switchover and auto-rejoin](mariadb-maxscale-2302-mariadb-monitor.md#failover,-switchover-and-auto-rejoin).\
+described in section Failover, switchover and auto-rejoin.\
 A primary change only modifies the server roles inside MaxScale but does not
 modify the cluster other than changing the targets of read and write queries.\
 Failover and switchover perform a primary change on their own.
@@ -425,11 +425,11 @@ see [general monitor documentation](https://mariadb.com/kb/en/node:mariadb-maxsc
 Starting with MaxScale 2.2.1, MariaDB Monitor supports replication cluster
 modification. The operations implemented are:
 
-* [failover](mariadb-maxscale-2302-mariadb-monitor.md#failover), which replaces a failed primary with a replica
-* [switchover](mariadb-maxscale-2302-mariadb-monitor.md#switchover), which swaps a running primary with a replica
-* [async-switchover](mariadb-maxscale-2302-mariadb-monitor.md#queued-switchover), which schedules a switchover and returns
-* [rejoin](mariadb-maxscale-2302-mariadb-monitor.md#rejoin), which directs servers to replicate from the primary
-* [reset-replication](mariadb-maxscale-2302-mariadb-monitor.md#reset-replication) (added in MaxScale 2.3.0), which deletes binary logs and
+* failover, which replaces a failed primary with a replica
+* switchover, which swaps a running primary with a replica
+* async-switchover, which schedules a switchover and returns
+* rejoin, which directs servers to replicate from the primary
+* reset-replication (added in MaxScale 2.3.0), which deletes binary logs and
   resets gtid:s
 
 See [operation details](mariadb-maxscale-2302-mariadb-monitor.md#operation-details) for more information on the
@@ -854,9 +854,9 @@ This effectively enforces a 1-primary-N-replicas topology. The current primary
 itself is not redirected, so it can continue to replicate from an external
 primary. Rejoin is also not performed on any server that is replicating from
 multiple sources, as this indicates a complicated topology (this rule is
-overridden by [enforce\_simple\_topology](mariadb-maxscale-2302-mariadb-monitor.md#enforce_simple_topology)).
+overridden by enforce\_simple\_topology).
 
-This feature is often paired with [auto\_failover](mariadb-maxscale-2302-mariadb-monitor.md#auto_failover) to redirect
+This feature is often paired with auto\_failover to redirect
 the former primary when it comes back online. Sometimes this kind of rejoin will
 fail as the old primary may have transactions that were never replicated to the
 current one. See [limitations](mariadb-maxscale-2302-mariadb-monitor.md#limitations-and-requirements) for more
@@ -1008,7 +1008,7 @@ further automatic modifications to the misbehaving cluster.
 * Dynamic: Yes
 * Default: `true`
 
-Enable additional primary failure verification for automatic failover.`verify_master_failure` enables this feature and [master\_failure\_timeout](mariadb-maxscale-2302-mariadb-monitor.md#master_failure_timeout) defines the timeout.
+Enable additional primary failure verification for automatic failover.`verify_master_failure` enables this feature and master\_failure\_timeout defines the timeout.
 
 The primary failure timeout is specified as documented [here](../mariadb-maxscale-23-02-getting-started/mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#durations). If no explicit unit
 is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent
@@ -1368,7 +1368,7 @@ fetch-cmd-result-command
 
 To perform backup operations, MaxScale requires ssh-access on all affected
 machines. The _ssh\_user_ and _ssh\_keyfile_-settings define the SSH credentials\
-MaxScale uses to access the servers. MaxScale must be able to run commands with\_sudo\_ on both the source and target servers. See [settings](mariadb-maxscale-2302-mariadb-monitor.md#settings) and [sudoers.d configuration](mariadb-maxscale-2302-mariadb-monitor.md#sudoersd-configuration) below
+MaxScale uses to access the servers. MaxScale must be able to run commands with\_sudo\_ on both the source and target servers. See [settings](mariadb-maxscale-2302-mariadb-monitor.md#settings) and [sudoers.d configuration](mariadb-maxscale-2302-mariadb-monitor.md#sudoers.d-configuration) below
 for more information.
 
 The following tools need to be installed on the backends:
@@ -1839,7 +1839,7 @@ OK
 
 #### Failover/switchover fails
 
-See the [Limitations and requirements-section](mariadb-maxscale-2302-mariadb-monitor.md#limitations_and_requirements).
+See the [Limitations and requirements-section](mariadb-maxscale-2302-mariadb-monitor.md#limitations-and-requirements).
 
 Before performing failover or switchover, the monitor checks that
 prerequisites are fulfilled, printing any errors and warnings found. This should

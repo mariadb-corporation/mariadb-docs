@@ -5,7 +5,7 @@ The `mariadbprotocol` module implements the MariaDB client-server protocol.
 The legacy protocol names `mysqlclient`, `mariadb` and `mariadbclient` are all
 aliases to `mariadbprotocol`.
 
-* [MariaDB Protocol Module](mariadb-maxscale-2402-maxscale-2402-mariadb-protocol-module.md#mariadb-protocol-module)
+* MariaDB Protocol Module
   * [Configuration](mariadb-maxscale-2402-maxscale-2402-mariadb-protocol-module.md#configuration)
     * [allow\_replication](mariadb-maxscale-2402-maxscale-2402-mariadb-protocol-module.md#allow_replication)
 

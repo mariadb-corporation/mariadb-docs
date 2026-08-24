@@ -40,6 +40,39 @@ is GitBook template syntax, not a Markdown link, so lychee is blind to it and a 
 renders as nothing, silently dropping a section from the page. It needs no external tool, so it
 never SKIPs. (Added in DOCS-6372, which found two live cases this way.)
 
+It also gates **heading anchors** — links of the form `page.md#some-heading`. This one is
+history-aware: it reports only anchors that resolved at `DOC_LINT_BASE` (default `HEAD`) and are
+dead in the working tree, because the repo carries ~1,272 pre-existing dead anchors and a plain
+check would fail every PR on breakage it did not introduce. It also scans the whole tree instead
+of the changed files, since renaming a heading breaks inbound links from pages the commit never
+touched — so findings naming files you did not edit are the check working, not noise.
+
+Enabling `--include-fragments` in lychee would *not* substitute for this. lychee's slugger is
+GitHub-flavoured and GitBook's is not, so on `main` it produced 386 false positives (the anchor
+resolves live) while missing 213 anchors that really are dead. Never delete a dot or a dash from
+an anchor to satisfy it; check the rendered page instead, or run
+`.claude/hooks/fragcheck.py validate <file>`, which compares computed anchors against the ids
+the live site emits. `.claude/hooks/fragcheck.py check` prints the whole current inventory with a
+suggested target for each mechanically fixable one.
+
+The same gate catches one thing no link checker can: a heading that publishes **another
+heading's** anchor. Duplicate a heading line for a new section, edit its text but leave its
+`<a href="#x" id="x">` behind, and GitBook honours that explicit id over the text slug — the two
+sections share one anchor, the second dedupes to `-1`, and neither owns the anchor a reader
+expects. Every link still resolves, just to the wrong section (DOCS-6492), which is exactly why
+no checker sees it. `.claude/hooks/fragcheck.py ids` lists them. A heading whose explicit id is a
+deliberate historical KB anchor for its own text is **not** flagged, and must not be
+"normalised" — those ids exist to keep old inbound links working.
+
+Needs python3 and a git work tree — either missing is a SKIP — and costs about 14 seconds:
+
+```bash
+# skip it while iterating on wording
+DOC_LINT_SKIP_FRAGMENTS=1 .claude/hooks/doc-lint.sh <files>
+```
+
+(Added in DOCS-6491.)
+
 Finally, it flags a **gutted page**: any file in the set that lost more than **40%** of its lines
 *net* (deletions minus additions, minimum 20 lines lost, pre-image at least 30 lines) against
 `DOC_LINT_BASE` (default `HEAD`). This has no CI counterpart either, and it exists because the

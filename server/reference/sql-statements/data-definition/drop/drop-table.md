@@ -63,11 +63,11 @@ Set the lock wait timeout. See [WAIT and NOWAIT](../../transactions/wait-and-now
 
 ## DROP TABLE in replication
 
-`DROP TABLE` has the following characteristics in [replication](../../../../server-usage/storage-engines/myrocks/myrocks-and-replication.md):
+`DROP TABLE` has the following characteristics in [replication](../../../../ha-and-performance/standard-replication/):
 
 * `DROP TABLE IF EXISTS` are always logged.
 * `DROP TABLE` without `IF EXISTS` for tables that don't exist are not written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/).
-* Dropping of `TEMPORARY` tables are prefixed in the log with `TEMPORARY`. These drops are only logged when running [statement](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based) or [mixed mode](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#mixed) replication.
+* Dropping of `TEMPORARY` tables are prefixed in the log with `TEMPORARY`. These drops are only logged when running [statement](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging) or [mixed mode](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#mixed-logging) replication.
 * One `DROP TABLE` statement can be logged with up to 3 different `DROP` statements:
   * `DROP TEMPORARY TABLE list_of_non_transactional_temporary_tables`
   * `DROP TEMPORARY TABLE list_of_transactional_temporary_tables`

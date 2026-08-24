@@ -34,7 +34,7 @@ The suggested upgrade procedure is:
 1. Install the new version of MariaDB.
 
 * On Debian, Ubuntu, and other similar Linux distributions, see [Installing MariaDB Packages with APT](../../installing-mariadb/binary-packages/installing-mariadb-deb-files.md#installing-mariadb-packages-with-apt) for more information.
-* On RHEL, CentOS, Fedora, and other similar Linux distributions, see [Installing MariaDB Packages with YUM](../../installing-mariadb/binary-packages/rpm/yum.md#installing-mariadb-packages-with-yum) for more information.
+* On RHEL, CentOS, Fedora, and other similar Linux distributions, see [Installing MariaDB Packages with YUM](../../installing-mariadb/binary-packages/rpm/yum.md#installing-mariadb-packages-with-yum-dnf) for more information.
 * On SLES, OpenSUSE, and other similar Linux distributions, see [Installing MariaDB Packages with ZYpp](../../installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md#installing-mariadb-packages-with-zypp) for more information.
 
 1. Make any desired changes to configuration options in [option files](../../configuring-mariadb/configuring-mariadb-with-option-files.md), such as `my.cnf`. This includes removing any options that are no longer supported.
@@ -130,11 +130,11 @@ TokuDB has been split into a separate package, mariadb-plugin-tokudb.
 
 #### Auto\_increment
 
-[Auto\_increment](../../../../reference/data-types/auto_increment.md) columns are no longer permitted in [CHECK constraints](../../../../reference/sql-statements/data-definition/constraint.md), [DEFAULT value expressions](../../../../reference/sql-statements/data-definition/create/create-table.md#default) and [virtual columns](../../../../reference/sql-statements/data-definition/create/generated-columns.md). They were permitted in earlier versions, but did not work correctly.
+[Auto\_increment](../../../../reference/data-types/auto_increment.md) columns are no longer permitted in [CHECK constraints](../../../../reference/sql-statements/data-definition/constraint.md), [DEFAULT value expressions](../../../../reference/sql-statements/data-definition/create/create-table.md#default-column-option) and [virtual columns](../../../../reference/sql-statements/data-definition/create/generated-columns.md). They were permitted in earlier versions, but did not work correctly.
 
 #### TLS
 
-Starting with [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), when the user specifies the `--ssl` option with a [client or utility](../../../../clients-and-utilities/README.md), the [client or utility](../../../../clients-and-utilities/README.md) will not [verify the server certificate](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option to the [client or utility](../../../../clients-and-utilities/README.md). For more information, see the [list of options](../../../../clients-and-utilities/mariadb-client/mysql-command-line-client.md#options) for the [mysql](../../../../clients-and-utilities/mariadb-client/mysql-command-line-client.md) client.
+Starting with [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), when the user specifies the `--ssl` option with a [client or utility](../../../../clients-and-utilities/README.md), the [client or utility](../../../../clients-and-utilities/README.md) will not [verify the server certificate](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option to the [client or utility](../../../../clients-and-utilities/README.md). For more information, see the [list of options](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#options) for the [mysql](../../../../clients-and-utilities/mariadb-client/mysql-command-line-client.md) client.
 
 ### Major New Features To Consider
 

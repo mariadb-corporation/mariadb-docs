@@ -763,7 +763,7 @@ If a client connection modifies the database and `causal_reads` is enabled, any
 subsequent reads performed on replica servers will be done in a manner that
 prevents replication lag from affecting the results.
 
-The following table contains a comparison of the modes. Read the [implementation of causal\_reads](mariadb-maxscale-2308-readwritesplit.md#implementation-of-causal_reads) for more
+The following table contains a comparison of the modes. Read the implementation of causal\_reads for more
 information on what a sync consists of and why minimizing the number of them is
 important.
 

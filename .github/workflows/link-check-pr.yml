@@ -160,6 +160,19 @@ jobs:
           # substitute -- unlike codex.wordpress.org, which was retired by
           # WordPress and so got repointed at wordpress.org/documentation
           # instead of excluded.
+          #
+          # DOCS-6496 (2026-08-21): lists.freedesktop.org, the systemd-devel
+          # mailing-list archive, cited from systemd/configuring.md and the
+          # Galera SST page. Unlike every host above it is neither dead nor
+          # blocking -- it is simply slow and intermittent, so it fails as a
+          # TIMEOUT rather than an error, and lychee reports that alongside
+          # "Errors 0" while still exiting non-zero. Both cited pages return
+          # 200 with their real content on a retry (2 of 5 attempts from a
+          # developer machine), and CI and a local run time out on DIFFERENT
+          # URLs of the same host, which is what makes it host-level rather
+          # than a rotted page. Its sibling www.freedesktop.org is already
+          # excluded above. Nothing to repoint at: this archive is canonical
+          # for these threads.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -214,6 +227,7 @@ jobs:
             --exclude stackoverflow\.com
             --exclude gitlab\.kitware\.com
             --exclude www\.freedesktop\.org
+            --exclude 'lists\.freedesktop\.org'
             --exclude azuremarketplace\.microsoft\.com
             --exclude console\.cloud\.google\.com
             --exclude partedmagic\.com

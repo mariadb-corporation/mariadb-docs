@@ -564,7 +564,7 @@ These options are related to the [binary log](../../../../server-management/serv
 
 #### MASTER\_LOG\_FILE
 
-The `MASTER_LOG_FILE` option for `CHANGE MASTER` can be used along with `MASTER_LOG_POS` to specify the coordinates at which the [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) should begin reading from the primary's [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) the next time the thread starts.
+The `MASTER_LOG_FILE` option for `CHANGE MASTER` can be used along with `MASTER_LOG_POS` to specify the coordinates at which the [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-i-o-thread) should begin reading from the primary's [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) the next time the thread starts.
 
 For example:
 
@@ -586,7 +586,7 @@ The [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_P
 
 #### MASTER\_LOG\_POS
 
-The `MASTER_LOG_POS` option for `CHANGE MASTER` can be used along with `MASTER_LOG_FILE` to specify the coordinates at which the [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) should begin reading from the primary's [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) the next time the thread starts.
+The `MASTER_LOG_POS` option for `CHANGE MASTER` can be used along with `MASTER_LOG_FILE` to specify the coordinates at which the [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-i-o-thread) should begin reading from the primary's [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) the next time the thread starts.
 
 For example:
 
@@ -612,11 +612,11 @@ These options are related to the [relay log](../../../../server-management/serve
 
 #### RELAY\_LOG\_FILE
 
-The `RELAY_LOG_FILE` option for `CHANGE MASTER` can be used along with the [RELAY\_LOG\_POS](change-master-to.md#relay_log_pos) option to specify the coordinates at which the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) should begin reading from the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) the next time the thread starts.
+The `RELAY_LOG_FILE` option for `CHANGE MASTER` can be used along with the [RELAY\_LOG\_POS](change-master-to.md#relay_log_pos) option to specify the coordinates at which the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread) should begin reading from the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) the next time the thread starts.
 
 The `CHANGE MASTER` statement usually deletes all [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) files. However, if the `RELAY_LOG_FILE` and/or `RELAY_LOG_POS` options are specified, then existing [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) files are kept.
 
-When you want to change the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position, you only need to stop the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread). The [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) can continue running. The [STOP REPLICA](stop-replica.md) and [START REPLICA](start-replica.md) statements support the `SQL_THREAD` option for this scenario. For example:
+When you want to change the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position, you only need to stop the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread). The [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-i-o-thread) can continue running. The [STOP REPLICA](stop-replica.md) and [START REPLICA](start-replica.md) statements support the `SQL_THREAD` option for this scenario. For example:
 
 ```sql
 STOP SLAVE SQL_THREAD;
@@ -626,7 +626,7 @@ CHANGE MASTER TO
 START SLAVE SQL_THREAD;
 ```
 
-When the value of this option is changed, the metadata about the [replica's SQL thread's](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) position in the [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) will also be changed in the `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
+When the value of this option is changed, the metadata about the [replica's SQL thread's](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread) position in the [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) will also be changed in the `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
 
 {% hint style="info" %}
 The [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS](change-master-to.md#relay_log_pos) options cannot be specified if the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options were also specified.
@@ -634,11 +634,11 @@ The [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS]
 
 #### RELAY\_LOG\_POS
 
-The `RELAY_LOG_POS` option for `CHANGE MASTER` can be used along with the [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) option to specify the coordinates at which the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) should begin reading from the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) the next time the thread starts.
+The `RELAY_LOG_POS` option for `CHANGE MASTER` can be used along with the [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) option to specify the coordinates at which the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread) should begin reading from the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) the next time the thread starts.
 
 The `CHANGE MASTER` statement usually deletes all [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) files. However, if the `RELAY_LOG_FILE` and/or `RELAY_LOG_POS` options are specified, then existing [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) files are kept.
 
-When you want to change the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position, you only need to stop the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread). The [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) can continue running. The [STOP REPLICA](stop-replica.md) and [START REPLICA](start-replica.md) statements support the `SQL_THREAD` option for this scenario. For example:
+When you want to change the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position, you only need to stop the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread). The [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-i-o-thread) can continue running. The [STOP REPLICA](stop-replica.md) and [START REPLICA](start-replica.md) statements support the `SQL_THREAD` option for this scenario. For example:
 
 ```sql
 STOP SLAVE SQL_THREAD;
@@ -648,7 +648,7 @@ CHANGE MASTER TO
 START SLAVE SQL_THREAD;
 ```
 
-When the value of this option is changed, the metadata about the [replica's SQL thread's](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) position in the [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) will also be changed in the `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
+When the value of this option is changed, the metadata about the [replica's SQL thread's](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread) position in the [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) will also be changed in the `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
 
 {% hint style="info" %}
 The [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS](change-master-to.md#relay_log_pos) options cannot be specified if the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options were also specified.
@@ -854,7 +854,7 @@ There are some cases where options are implicitly reset, such as when the [MASTE
 
 ## Option Persistence
 
-The values of the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options (i.e. the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position on the primary) and most other options are written to either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option. The [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) keeps this [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position updated as it downloads events only when [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) optionis set to `NO`. Otherwise the file is not updated on a per event basis.
+The values of the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options (i.e. the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position on the primary) and most other options are written to either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option. The [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-i-o-thread) keeps this [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position updated as it downloads events only when [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) optionis set to `NO`. Otherwise the file is not updated on a per event basis.
 
 The [master\_info\_file](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option can be set either on the command-line or in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
@@ -864,7 +864,7 @@ The [master\_info\_file](../../../../server-management/starting-and-stopping-mar
 master_info_file=/mariadb/myserver1-master.info
 ```
 
-The values of the [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS](change-master-to.md#relay_log_pos) options (i.e. the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position) are written to either the default `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable. The [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) keeps this [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position updated as it applies events.
+The values of the [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS](change-master-to.md#relay_log_pos) options (i.e. the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position) are written to either the default `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable. The [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread) keeps this [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position updated as it applies events.
 
 The [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable can be set either on the command-line or in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
@@ -876,9 +876,9 @@ relay_log_info_file=/mariadb/myserver1-relay-log.info
 
 ## GTID Persistence
 
-If the replica is replicating [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events that contain [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md), then the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) will write every GTID that it applies to the [mysql.gtid\_slave\_pos](../../../system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This GTID can be inspected and modified through the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) system variable.
+If the replica is replicating [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events that contain [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md), then the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread) will write every GTID that it applies to the [mysql.gtid\_slave\_pos](../../../system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This GTID can be inspected and modified through the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) system variable.
 
-If the replica has the [log\_slave\_updates](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_slave_updates) system variable enabled and if the replica has the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) enabled, then every write by the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) will also go into the replica's [binary log](../../../../server-management/server-monitoring-logs/binary-log/). This means that [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md) of replicated transactions would be reflected in the value of the [gtid\_binlog\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_binlog_pos) system variable.
+If the replica has the [log\_slave\_updates](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_slave_updates) system variable enabled and if the replica has the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) enabled, then every write by the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread) will also go into the replica's [binary log](../../../../server-management/server-monitoring-logs/binary-log/). This means that [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md) of replicated transactions would be reflected in the value of the [gtid\_binlog\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_binlog_pos) system variable.
 
 ## Creating a replica from a backup
 

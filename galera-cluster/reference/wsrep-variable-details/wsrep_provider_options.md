@@ -55,7 +55,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 * Description: Used by the developers only, and not manually serviceable.
 * Dynamic: No
-* Default: The [evs.keepalive\_period](wsrep_provider_options.md#evskeepalive_period).
+* Default: The [evs.keepalive\_period](wsrep_provider_options.md#evs.keepalive_period).
 
 #### `evs.debug_log_mask`
 
@@ -65,19 +65,19 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `evs.delay_margin`
 
-* Description: Time that response times can be delayed before this node adds an entry to the delayed list. See [evs.auto\_evict](wsrep_provider_options.md#evsauto_evict). Must be set to a higher value than the round-trip delay time between nodes.
+* Description: Time that response times can be delayed before this node adds an entry to the delayed list. See [evs.auto\_evict](wsrep_provider_options.md#evs.auto_evict). Must be set to a higher value than the round-trip delay time between nodes.
 * Dynamic: No
 * Default: `PT1S`
 
 #### `evs.delayed_keep_period`
 
-* Description: Time that this node requires a previously delayed node to remain responsive before being removed from the delayed list. See [evs.auto\_evict](wsrep_provider_options.md#evsauto_evict).
+* Description: Time that this node requires a previously delayed node to remain responsive before being removed from the delayed list. See [evs.auto\_evict](wsrep_provider_options.md#evs.auto_evict).
 * Dynamic: No
 * Default: `PT30S`
 
 #### `evs.evict`
 
-* Description: When set to the gcomm UUID of a node, that node is evicted from the cluster. When set to an empty string, the eviction list is cleared on the node where it is set. See [evs.auto\_evict](wsrep_provider_options.md#evsauto_evict).
+* Description: When set to the gcomm UUID of a node, that node is evicted from the cluster. When set to an empty string, the eviction list is cleared on the node where it is set. See [evs.auto\_evict](wsrep_provider_options.md#evs.auto_evict).
 * Dynamic: No
 * Default: Empty string
 
@@ -129,7 +129,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `evs.send_window`
 
-* Description: Maximum number of packets that can be replicated at a time, Must be more than [evs.user\_send\_window](wsrep_provider_options.md#evsuser_send_window), which applies to data packets only (double is recommended). In WAN environments can be set much higher than the default, for example `512`.
+* Description: Maximum number of packets that can be replicated at a time, Must be more than [evs.user\_send\_window](wsrep_provider_options.md#evs.user_send_window), which applies to data packets only (double is recommended). In WAN environments can be set much higher than the default, for example `512`.
 * Dynamic: Yes
 * Default: `4`
 
@@ -141,7 +141,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `evs.suspect_timeout`
 
-* Description: A node will be suspected to be dead after this period of inactivity. If all nodes agree, the node is dropped from the cluster before [evs.inactive\_timeout](wsrep_provider_options.md#evsinactive_timeout) is reached.
+* Description: A node will be suspected to be dead after this period of inactivity. If all nodes agree, the node is dropped from the cluster before [evs.inactive\_timeout](wsrep_provider_options.md#evs.inactive_timeout) is reached.
 * Dynamic: No
 * Default: `PT5S`
 
@@ -153,7 +153,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `evs.user_send_window`
 
-* Description: Maximum number of data packets that can be replicated at a time. Must be smaller than [evs.send\_window](wsrep_provider_options.md#evssend_window) (half is recommended). In WAN environments can be set much higher than the default, for example `512`.
+* Description: Maximum number of data packets that can be replicated at a time. Must be smaller than [evs.send\_window](wsrep_provider_options.md#evs.send_window) (half is recommended). In WAN environments can be set much higher than the default, for example `512`.
 * Dynamic: Yes
 * Default: `2`
 
@@ -257,19 +257,19 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `gcs.fc_factor`
 
-* Description:Fraction below [gcs.fc\_limit](wsrep_provider_options.md#gcsfc_limit) which if the recv queue drops below, replication resumes.
+* Description:Fraction below [gcs.fc\_limit](wsrep_provider_options.md#gcs.fc_limit) which if the recv queue drops below, replication resumes.
 * Dynamic: Yes
 * Default: `1.0`
 
 #### `gcs.fc_limit`
 
-* Description: If the recv queue exceeds this many writesets, replication is paused. Can increase greatly in master-slave setups. Replication will resume again according to the [gcs.fc\_factor](wsrep_provider_options.md#gcsfc_factor) setting.
+* Description: If the recv queue exceeds this many writesets, replication is paused. Can increase greatly in master-slave setups. Replication will resume again according to the [gcs.fc\_factor](wsrep_provider_options.md#gcs.fc_factor) setting.
 * Dynamic: Yes
 * Default: `16`
 
 #### `gcs.fc_master_slave`
 
-* Description: Whether to assume that the cluster only contains one master. Deprecated since Galera 4.10 ([MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1), [MariaDB 10.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.2), [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6), [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [MariaDB 10.4.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.22)) - see [gcs.fc\_single\_primary](wsrep_provider_options.md#gcsfc_single_primary)
+* Description: Whether to assume that the cluster only contains one master. Deprecated since Galera 4.10 ([MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1), [MariaDB 10.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.2), [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6), [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [MariaDB 10.4.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.22)) - see [gcs.fc\_single\_primary](wsrep_provider_options.md#gcs.fc_single_primary)
 * Dynamic: No
 * Default: `no`
 
@@ -302,7 +302,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `gcs.recv_q_soft_limit`
 
-* Description: Fraction of [gcs.recv\_q\_hard\_limit](wsrep_provider_options.md#gcsrecv_q_hard_limit) after which replication rate is throttled. The rate of throttling increases linearly from zero (the regular, varying rate of replication) at and below `csrecv_q_soft_limit` to one (full throttling) at [gcs.recv\_q\_hard\_limit](wsrep_provider_options.md#gcsrecv_q_hard_limit)
+* Description: Fraction of [gcs.recv\_q\_hard\_limit](wsrep_provider_options.md#gcs.recv_q_hard_limit) after which replication rate is throttled. The rate of throttling increases linearly from zero (the regular, varying rate of replication) at and below `csrecv_q_soft_limit` to one (full throttling) at [gcs.recv\_q\_hard\_limit](wsrep_provider_options.md#gcs.recv_q_hard_limit)
 * Dynamic: No
 * Default: `0.25`
 
@@ -438,7 +438,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `pc.wait_prim_timeout`
 
-* Description: Ttime to wait for a primary component. See [pc.wait\_prim](wsrep_provider_options.md#pcwait_prim).
+* Description: Ttime to wait for a primary component. See [pc.wait\_prim](wsrep_provider_options.md#pc.wait_prim).
 * Dynamic: No
 * Default: `PT30S`
 

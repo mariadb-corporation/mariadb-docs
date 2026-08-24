@@ -24,7 +24,7 @@ Invalid table options, column options and index options are normally commented o
 
 Note that `SHOW CREATE TABLE` is not meant to provide metadata about a table. It provides information about how the table was declared, but the real table structure could differ a bit. For example, if an index has been declared as `HASH`, the `CREATE TABLE` statement returned by `SHOW CREATE TABLE` will declare that index as `HASH`; however, it is possible that the index is in fact a `BTREE`, because the storage engine does not support `HASH`.
 
-MariaDB permits [TEXT](../../../data-types/string-data-types/text.md) and [BLOB](../../../data-types/string-data-types/blob.md) data types to be assigned a [DEFAULT](../../data-definition/create/create-table.md#default) value. As a result, `SHOW CREATE TABLE` will append a `DEFAULT NULL` to nullable TEXT or BLOB fields if no specific default is provided.
+MariaDB permits [TEXT](../../../data-types/string-data-types/text.md) and [BLOB](../../../data-types/string-data-types/blob.md) data types to be assigned a [DEFAULT](../../data-definition/create/create-table.md#default-column-option) value. As a result, `SHOW CREATE TABLE` will append a `DEFAULT NULL` to nullable TEXT or BLOB fields if no specific default is provided.
 
 {% tabs %}
 {% tab title="Current" %}

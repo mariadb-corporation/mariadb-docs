@@ -15,7 +15,7 @@ MariaDB MaxScale 23.02 is a **bug-fix release**. It receives bug fixes until its
 | Page | Description |
 | --- | --- |
 | [About MariaDB MaxScale](mariadb-maxscale-23-02-about/mariadb-maxscale-2302-about-mariadb-maxscale.md) | MariaDB MaxScale is a database proxy that forwards database statements to one or more database servers. |
-| [Changelog]({release-notes}/maxscale/23.02/23.02-changelog) | Every change in each 23.02 point release, in the release notes. |
+| [Changelog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/maxscale/23.02/23.02-changelog) | Every change in each 23.02 point release, in the release notes. |
 | [Limitations](mariadb-maxscale-23-02-about/mariadb-maxscale-2302-limitations-and-known-issues-within-mariadb-maxscale.md) | This document lists known issues and limitations in MariaDB MaxScale and its plugins. |
 
 ## Getting Started

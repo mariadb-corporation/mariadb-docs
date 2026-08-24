@@ -70,7 +70,7 @@ It can be removed by using the [UNINSTALL SONAME](../../../../../reference/sql-s
 UNINSTALL SONAME 'server_audit';
 ```
 
-And if you load the plugin in a configuration file using the [plugin\_load\_add](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load-add) option — a [mariadbd](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) startup option that loads a plugin library when the server starts — then the option should also be removed.
+And if you load the plugin in a configuration file using the [plugin\_load\_add](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) option — a [mariadbd](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) startup option that loads a plugin library when the server starts — then the option should also be removed.
 
 The MariaDB Enterprise Audit Plugin will automatically be installed after installing MariaDB Enterprise Server 10.6.
 

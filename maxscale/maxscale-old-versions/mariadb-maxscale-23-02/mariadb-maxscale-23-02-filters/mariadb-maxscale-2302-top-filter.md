@@ -69,7 +69,7 @@ count=30
 * Dynamic: Yes
 * Default: None
 
-[Limits](../mariadb-maxscale-23-02-getting-started/mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters)
+[Limits](../mariadb-maxscale-23-02-getting-started/mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md)
 the queries logged by the filter.
 
 ```
@@ -85,7 +85,7 @@ options=case,extended
 * Dynamic: Yes
 * Default: None
 
-[Limits](../mariadb-maxscale-23-02-getting-started/mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters)
+[Limits](../mariadb-maxscale-23-02-getting-started/mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md)
 the queries logged by the filter.
 
 **`options`**
@@ -96,7 +96,7 @@ the queries logged by the filter.
 * Values: `ignorecase`, `case`, `extended`
 * Default: `case`
 
-[Regular expression options](../mariadb-maxscale-23-02-getting-started/mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters)
+[Regular expression options](../mariadb-maxscale-23-02-getting-started/mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md)
 for `match` and `exclude`.
 
 **`source`**

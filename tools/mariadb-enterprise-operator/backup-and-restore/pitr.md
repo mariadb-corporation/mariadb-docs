@@ -250,7 +250,7 @@ The server has a default [`max_binlog_size`](https://mariadb.com/docs/server/ha-
 
 The smaller the binlog file size, the more frequently the files will be rotated and archived, which can lead to increased load on the database `Pod` and the storage system. On the other hand, setting a very high binlog file size can lead to longer archival times and increased RPO.
 
-Refer to  the [configuration](../configuration.md#mycnf) documentation for instructions on how to set the `max_binlog_size` server variable in the `MariaDB` instance.
+Refer to  the [configuration](../configuration.md#my.cnf) documentation for instructions on how to set the `max_binlog_size` server variable in the `MariaDB` instance.
 
 ## Compression
 
