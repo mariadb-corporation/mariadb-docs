@@ -22,7 +22,7 @@ If you are doing a backup on the server and all your tables are [MyISAM](../../s
 
 `mariadb-dump` dumps trigger along with tables, as these are part of the table definition. However, [stored procedures](../../server-usage/stored-routines/stored-procedures/), [views](../../server-usage/views/), and [events](../../server-usage/triggers-events/event-scheduler/events.md) are not dumped, and need extra parameters to be recreated explicitly (for example, `--routines` and `--events`). [Procedures](../../server-usage/stored-routines/stored-procedures/) and [functions](../../server-usage/stored-routines/stored-functions/) are also part of the system tables (for example, [mysql.proc](../../reference/system-tables/the-mysql-database-tables/mysql-proc-table.md)).
 
-`mariadb-dump` supports the [enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT](../../ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot.md#mariadb-dump).
+`mariadb-dump` supports the [enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT](../../ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot.md).
 
 ## Performance
 
