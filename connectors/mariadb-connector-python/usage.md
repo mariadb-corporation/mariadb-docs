@@ -94,7 +94,7 @@ Germany GER Berlin
 Before MariaDB Connector/Python can be used, the MariaDB Connector/Python module must be
 imported.
 Once the mariadb module is loaded, a connection to a database server will be established
-using the method [`connect()`](module.md#mariadb.connect).
+using the method [`connect()`](module.md#connect-args-connectionclass-none-kwargs).
 
 In order to be able to communicate with the database server in the form of SQL statements,
 a cursor object must be created first.
