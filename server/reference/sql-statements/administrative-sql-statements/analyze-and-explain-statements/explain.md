@@ -44,6 +44,25 @@ There is an online [EXPLAIN Analyzer](../../../../clients-and-utilities/analyzin
 
 `EXPLAIN` can acquire metadata locks in the same way that `SELECT` does, as it needs to know table metadata and, sometimes, data as well.
 
+## A Simple Example
+
+Before the individual columns are described, here is what `EXPLAIN` output looks like for a simple two-table join. Reading a whole plan first makes the column-by-column reference below easier to follow. Here `t0` holds 10 rows and `t1` has a unique index on column `a`:
+
+```sql
+EXPLAIN SELECT t0.a, t1.b FROM t0, t1 WHERE t0.a = t1.a;
+```
+
+```
++------+-------------+-------+--------+---------------+------+---------+-----------+------+-------------+
+| id   | select_type | table | type   | possible_keys | key  | key_len | ref       | rows | Extra       |
++------+-------------+-------+--------+---------------+------+---------+-----------+------+-------------+
+|    1 | SIMPLE      | t0    | ALL    | NULL          | NULL | NULL    | NULL      |   10 | Using where |
+|    1 | SIMPLE      | t1    | eq_ref | a             | a    | 5       | test.t0.a |    1 |             |
++------+-------------+-------+--------+---------------+------+---------+-----------+------+-------------+
+```
+
+The rows are listed in join order, top to bottom. MariaDB scans all of `t0` (`type: ALL`, 10 rows), and for each row it looks up the single matching row in `t1` through the unique `a` index (`type: eq_ref`, 1 row); the `ref` column shows that the lookup value comes from `test.t0.a`. The columns shown here are described in the next section.
+
 ## Columns in EXPLAIN ... SELECT
 
 | Column name    | Description                                                                                         |
@@ -154,15 +173,19 @@ The optimization phase can do the following changes to the `WHERE` clause:
 
 ### Rowid Filter Notation
 
+Added in MariaDB 10.4.3 ([MDEV-16188](https://jira.mariadb.org/browse/MDEV-16188)).
+
 When the optimizer applies the [Rowid Filtering Optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization.md), it adds no row of its own to the `EXPLAIN` output. Instead, it annotates the row of the table the filter applies to:
 
 | Column   | Example value                | Meaning                                                                                                      |
 | -------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | type     | `ref\|filter`                | The join type used for the lookup, followed by the literal `filter`.                                         |
-| key      | `i_l_orderkey\|i_l_shipdate` | The index used for the lookup, followed by the index the filter was built from.                               |
+| key      | `i_l_orderkey\|i_l_shipdate` | The key used for the lookup, followed by the key the filter was built from.                                   |
 | key\_len | `4\|4`                       | The key length used from each of those two indexes. Tabular `EXPLAIN` only — `FORMAT=JSON` does not show it.  |
 | rows     | `4 (2%)`                     | The row estimate, followed by the selectivity the optimizer expects from the filter.                          |
 | Extra    | `Using rowid filter`         | Added to the values already listed for the row.                                                              |
+
+The selectivity percentage in the `rows` column is shown only when a rowid filter is actually applied to that table; rows without a filter show the plain row estimate with no percentage.
 
 For example, with the `dbt3_s001` dataset, the row for `lineitem` reads:
 
@@ -190,7 +213,7 @@ possible_keys: PRIMARY,i_l_shipdate,i_l_orderkey,i_l_orderkey_quantity
 The filter here was built from `i_l_shipdate`, and the optimizer expects it to pass 2% of the rows that the `i_l_orderkey` lookup returns.
 
 {% hint style="warning" %}
-The percentage is rounded to a whole number, so a highly selective filter can display `(0%)`. That does not mean the filter is inactive — it means the optimizer expects it to pass fewer than 0.5% of the rows.
+The percentage is rounded to a whole number, so a highly selective filter can display `(0%)`. This means the optimizer expects the filter to accept fewer than 0.5% of the rows.
 {% endhint %}
 
 The [ANALYZE statement](analyze-statement.md) annotates `r_rows` the same way, but its percentage is the selectivity actually observed during execution rather than the estimate.
@@ -307,6 +330,7 @@ SELECT * FROM table_name
 
 ## See Also
 
+* [ANALYZE Statement](analyze-statement.md)
 * [SHOW EXPLAIN](../show/show-explain.md)
 * [Ignored Indexes](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/ignored-indexes.md)
 
