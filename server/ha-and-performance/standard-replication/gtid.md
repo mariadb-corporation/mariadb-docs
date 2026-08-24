@@ -236,7 +236,7 @@ START SLAVE;
 
 The replica has a record of the GTID of the last applied transaction from the old primary, and since GTIDs are identical across all servers in a replication hierarchy, the replica will just continue from the appropriate point in the new primary's binlog.
 
-It is important to understand how this change of primary work. The binlog is an ordered stream of events (or multiple streams, one per replication domain, (see [Use with multi-source replication and other multi-primary setups](gtid.md#use-with-multi-source-replication-and-other-multi-master-setups)). Events within the stream are always applied in the same order on every replica that replicates it. The MariaDB GTID relies on this ordering, so that it is sufficient to remember just a single point within the stream. Since event order is the same on every server, switching to the point of the same GTID in the binlog of another server will give the same result.
+It is important to understand how this change of primary work. The binlog is an ordered stream of events (or multiple streams, one per replication domain, (see [Use with multi-source replication and other multi-primary setups](gtid.md#use-with-multi-source-replication-and-other-multi-primary-setups)). Events within the stream are always applied in the same order on every replica that replicates it. The MariaDB GTID relies on this ordering, so that it is sufficient to remember just a single point within the stream. Since event order is the same on every server, switching to the point of the same GTID in the binlog of another server will give the same result.
 
 This translates into some responsibility for the user. The MariaDB GTID replication is fully asynchronous, and fully flexible in how it can be configured. This makes it possible to use it in ways where the assumption that binlog sequence is the same on all servers is violated. In such cases, when changing primary, GTID will still attempt to continue at the point of current GTID in the new binlog.
 
@@ -248,7 +248,7 @@ Differences can also occur when two primary are active at the same time in a rep
 
 The [GTID strict mode](gtid.md#gtid_strict_mode) can be used to enforce identical binlogs across servers. When it is enabled, most actions that would cause differences are rejected with an error.
 
-## Use With Multi-Source Replication and Other Multi-Master Setups
+## Use With Multi-Source Replication and Other Multi-Primary Setups
 
 MariaDB global transaction ID supports having multiple primaries active at the same time. Typically this happens with either multi-source replication or multi-master ring setups.
 
