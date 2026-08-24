@@ -14,7 +14,7 @@ GET_LOCK(str,timeout)
 
 ## Description
 
-Tries to obtain a lock with a name given by the string `str`, using a timeout of `timeout` seconds. Returns `1` if the lock was obtained successfully, `0` if the attempt timed out (for example, because another client has previously locked the name), or `NULL` if an error occurred (such as running out of memory or the thread was killed with [mariadb-admin kill](../../../../clients-and-utilities/administrative-tools/mariadb-admin.md#mariadb-admin-commands)).
+Tries to obtain a lock with a name given by the string `str`, using a timeout of `timeout` seconds. Returns `1` if the lock was obtained successfully, `0` if the attempt timed out (for example, because another client has previously locked the name), or `NULL` if an error occurred (such as running out of memory or the thread was killed with [mariadb-admin kill](../../../../clients-and-utilities/administrative-tools/mariadb-admin.md#commands)).
 
 A lock is released with [RELEASE\_LOCK()](release_lock.md), when the connection terminates (either normally or abnormally). A connection can hold multiple locks at the same time, so a lock that is no longer needed needs to be explicitly released.
 

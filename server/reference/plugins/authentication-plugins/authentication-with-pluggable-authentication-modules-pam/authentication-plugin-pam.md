@@ -469,7 +469,7 @@ allow this access for now by executing:
 
 Sometimes issues like this can be fixed by updating the system's SELinux policies. You may be able to update the policies using [audit2allow](https://linux.die.net/man/1/audit2allow). See [SELinux: Generating SELinux Policies with audit2allow](../../../../security/securing-mariadb/selinux.md#generating-selinux-policies-with-audit2allow) for more information.
 
-If you can't get the `pam` authentication plugin to work with SELinux at all, then it can help to disable SELinux entirely. See [SELinux: Changing SELinux's Mode](../../../../security/securing-mariadb/selinux.md#changing-selinuxs-mode) for information on how to do this.
+If you can't get the `pam` authentication plugin to work with SELinux at all, then it can help to disable SELinux entirely. See [SELinux: Temporarily Putting mysqld Into Permissive Mode](../../../../security/securing-mariadb/selinux.md#temporarily-putting-mysqld-into-permissive-mode) for information on how to do this.
 
 ### Memory Overcommit
 

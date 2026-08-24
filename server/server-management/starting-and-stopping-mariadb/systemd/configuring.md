@@ -190,7 +190,7 @@ Note that [systemd 236 added the EXTEND\_TIMEOUT\_USEC environment variable](htt
 
 ### Configuring the Open Files Limit
 
-When using `systemd`, rather than setting the open files limit by setting the [open-files-limit](../mariadbd-safe.md#mariadbd-safe-options) option for `mariadbd-safe` or the [open\_files\_limit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#open_files_limit) system variable, the limit can be changed by configuring the [LimitNOFILE](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=) option for the MariaDB `systemd` service. The default is set to `LimitNOFILE=16364` in `mariadb.service`.
+When using `systemd`, rather than setting the open files limit by setting the [open-files-limit](../mariadbd-safe.md#configuring-the-open-files-limit) option for `mariadbd-safe` or the [open\_files\_limit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#open_files_limit) system variable, the limit can be changed by configuring the [LimitNOFILE](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=) option for the MariaDB `systemd` service. The default is set to `LimitNOFILE=16364` in `mariadb.service`.
 
 For example, you can reconfigure the MariaDB `systemd` service to have a larger limit for open files by executing the following command – then restart the server for the changes to take effect:
 
@@ -226,7 +226,7 @@ LimitNOFILE=1048576
 
 ### Configuring the Core File Size
 
-When using `systemd`, if you would like to enable core dumps, rather than setting the core file size by setting the [core-file-size](../mariadbd-safe.md#mariadbd-safe-options) option for `mariadbd-safe`, the limit can be changed by configuring the [LimitCORE](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=) option for the MariaDB `systemd` service. For example, you can reconfigure the MariaDB `systemd` service to have an infinite size for core files by executing the following commands:
+When using `systemd`, if you would like to enable core dumps, rather than setting the core file size by setting the [core-file-size](../mariadbd-safe.md#configuring-the-core-file-size) option for `mariadbd-safe`, the limit can be changed by configuring the [LimitCORE](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=) option for the MariaDB `systemd` service. For example, you can reconfigure the MariaDB `systemd` service to have an infinite size for core files by executing the following commands:
 
 ```bash
 sudo systemctl edit mariadb.service
@@ -549,9 +549,9 @@ ListenStream=/home/%I/mariadb-extra.sock
 
 ## Converting mariadbd-safe Options to Systemd Options
 
-`mariadb-service-convert` is a script included in many MariaDB packages that is used by the package manager to convert [mariadbd-safe](../mariadbd-safe.md#mariadbd-safe-options) options to `systemd` options. It reads any explicit settings in the `[mariadbd-safe]` [option group](../../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) from [option files](../../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), and its output is directed to `/etc/systemd/system/mariadb.service.d/migrated-from-my.cnf-settings.conf`. This helps to keep the configuration the same when upgrading from a version of MariaDB that does not use `systemd` to one that does.
+`mariadb-service-convert` is a script included in many MariaDB packages that is used by the package manager to convert [mariadbd-safe](../mariadbd-safe.md#options) options to `systemd` options. It reads any explicit settings in the `[mariadbd-safe]` [option group](../../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) from [option files](../../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), and its output is directed to `/etc/systemd/system/mariadb.service.d/migrated-from-my.cnf-settings.conf`. This helps to keep the configuration the same when upgrading from a version of MariaDB that does not use `systemd` to one that does.
 
-Implicitly high defaults of [open-files-limit](../mariadbd-safe.md#mariadbd-safe-options) may be missed by the conversion script and require explicit configuration. See [Configuring the Open Files Limit](configuring.md#configuring-the-open-files-limit).
+Implicitly high defaults of [open-files-limit](../mariadbd-safe.md#configuring-the-open-files-limit) may be missed by the conversion script and require explicit configuration. See [Configuring the Open Files Limit](configuring.md#configuring-the-open-files-limit).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

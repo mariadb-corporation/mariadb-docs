@@ -13,7 +13,7 @@ Errors are logged as they happen and an error will be logged even if it was hand
 
 From [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.5) warnings can also be logged if [sql\_error\_log\_warnings](../../ha-and-performance/optimization-and-tuning/system-variables/sql-error-log-system-variables-and-options.md#sql_error_log_warnings) is enabled.
 
-Comments are also logged, which can make the log easier to search. But this is only possible if the client does not strip the comments away. For example, the [mariadb](../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) command-line client only leaves comments when started with the [--comments](../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#mariadb-options) option.
+Comments are also logged, which can make the log easier to search. But this is only possible if the client does not strip the comments away. For example, the [mariadb](../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) command-line client only leaves comments when started with the [--comments](../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#c-comments) option.
 
 ## Installing the Plugin
 
