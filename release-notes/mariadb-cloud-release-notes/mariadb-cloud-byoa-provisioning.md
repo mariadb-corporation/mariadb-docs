@@ -1,14 +1,14 @@
 <!--
-  DRAFT — NOT PUBLISHED. Deliberately omitted from SUMMARY.md so GitBook does
-  not render it. For review by MCDEV/sky stakeholders only.
+  HIDDEN DRAFT. Listed in SUMMARY.md but kept HIDDEN via the GitBook UI
+  page-visibility toggle until the official reveal. For review only.
 
-  Blocked on, before publishing:
-    1. Release date (YYYY.MM.DD) — from Zhanna / Cloud UAT calendar.
-    2. `enable-portal-provisioning-v2` enabled in prod (currently OFF).
-  When both land: set the date + filename, add the SUMMARY.md nav entry, and
-  convert the cross-links back to GitBook space aliases (they are currently
-  GitHub blob URLs so they are clickable during review; direct-main commits are
-  not auto-expanded).
+  At reveal:
+    1. Set the release date (YYYY.MM.DD) in the title, the description, and the
+       Release Date line; rename the file to mariadb-cloud-<YYYY.MM.DD>.md.
+    2. Convert the three cross-links from GitHub blob URLs back to
+       {mariadb-cloud} aliases (direct-main commits are not auto-expanded, so
+       expand them per the alias map).
+    3. Unhide the page in the GitBook UI.
 
   Tickets: DOCS-6320 (BYOA) + DOCS-6340 (provisioning UI) · MCDEV-2374, MCDEV-3304
 -->
