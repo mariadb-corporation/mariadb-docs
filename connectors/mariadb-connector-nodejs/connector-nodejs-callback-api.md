@@ -71,7 +71,7 @@ Previous options `supportBigNumbers` and `bigNumberStrings` still exist for comp
 
 **Other considerations**
 
-MySQL has an experimental syntax permitting the use of `??` characters as a placeholder to escape ID. This isn't implemented in the MariaDB driver, permitting the same query syntax for [Connection.query](connector-nodejs-callback-api.md#connectionquerysql-values---promise) and [Connection.execute](connector-nodejs-callback-api.md#connectionexecutesql-values--promise).
+MySQL has an experimental syntax permitting the use of `??` characters as a placeholder to escape ID. This isn't implemented in the MariaDB driver, permitting the same query syntax for [Connection.query](connector-nodejs-callback-api.md#connection.query-sql-values-callback-greater-than-emitter) and [Connection.execute](connector-nodejs-promise-api.md#connection.execute-sql-values-promise).
 
 Example:
 
@@ -197,7 +197,7 @@ The Connector with the Callback API is similar to the one using Promise, but wit
 
 **Connection:**
 
-* [`connection.query(sql [, values][, callback]) → Emitter`](connector-nodejs-callback-api.md#connectionquerysql-values-callback---emitter): Executes a [query](connector-nodejs-callback-api.md#query).
+* [`connection.query(sql [, values][, callback]) → Emitter`](connector-nodejs-callback-api.md#connection.query-sql-values-callback-greater-than-emitter): Executes a query.
 * [`connection.batch(sql, values [, callback])`](connector-nodejs-callback-api.md#connection.batch-sql-values-callback): fast batch processing.
 * [`connection.beginTransaction([callback])`](connector-nodejs-callback-api.md#connection.begintransaction-callback): Begins a transaction
 * [`connection.commit([callback])`](connector-nodejs-callback-api.md#connection.commit-callback): Commit the current transaction, if any.
@@ -205,7 +205,7 @@ The Connector with the Callback API is similar to the one using Promise, but wit
 * [`connection.changeUser(options [, callback])`](connector-nodejs-callback-api.md#connection.changeuser-options-callback): Changes the current connection user.
 * [`connection.ping([callback])`](connector-nodejs-callback-api.md#connection.ping-callback): Sends an empty packet to the server to check that connection is active.
 * [`connection.end([callback])`](connector-nodejs-callback-api.md#connection.end-callback): Gracefully closes the connection.
-* [`connection.reset([callback])`](connector-nodejs-callback-api.md#connectionreset): reset current connection state.
+* [`connection.reset([callback])`](connector-nodejs-callback-api.md#connection.reset-callback): reset current connection state.
 * [`connection.isValid() → boolean`](connector-nodejs-callback-api.md#connection.isvalid-boolean): Checks that the connection is active without checking socket state.
 * [`connection.destroy()`](connector-nodejs-callback-api.md#connection.destroy): Forces the connection to close.
 * [`connection.escape(value) → String`](connector-nodejs-callback-api.md#connection.escape-value-string): escape parameter
@@ -458,7 +458,7 @@ console.log(mariadb.defaultOptions({ timezone: '+00:00' }));
 > Returns an Emitter object that can emit four different types of event:
 >
 > * error: Emits an [Error](connector-nodejs-callback-api.md#error) object, when query failed.
-> * fields: Emits when column metadata from the result-set are received (parameter is an array of [Metadata fields](connector-nodejs-callback-api.md#metadata-field)).
+> * fields: Emits when column metadata from the result-set are received (parameter is an array of [Metadata fields](connector-nodejs-promise-api.md#connection.query-sql-values-greater-than-promise)).
 > * data: Emits each time a row is received (parameter is a row).
 > * end: Emits when the query ends (no parameter).
 
@@ -772,7 +772,7 @@ escape per type:
 * JSON: Stringification of JSON, or if `permitSetMultiParamEntries` is enable, key escaped as identifier + value
 * String: escaped value, (\u0000, ', ", \b, \n, \r, \t, \u001A, and \ characters are escaped with '')
 
-Escape is done for [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) value without NO\_BACKSLASH\_ESCAPES that disable \ escaping (default); Escaping API are meant to prevent [SQL injection](https://en.wikipedia.org/wiki/SQL_injection). However, privilege the use of [`connection.query(sql [, values][, callback])`](connector-nodejs-callback-api.md#connectionquerysql-values-callback---emitter) and avoid building the command manually.
+Escape is done for [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) value without NO\_BACKSLASH\_ESCAPES that disable \ escaping (default); Escaping API are meant to prevent [SQL injection](https://en.wikipedia.org/wiki/SQL_injection). However, privilege the use of [`connection.query(sql [, values][, callback])`](connector-nodejs-callback-api.md#connection.query-sql-values-callback-greater-than-emitter) and avoid building the command manually.
 
 ```javascript
 const myColVar = "let'go";
