@@ -36,7 +36,7 @@ Common version-specific features that may prevent downgrading include:
 * `mysql.global_priv` table: Replaced `mysql.user` in MariaDB 10.4; incompatible with 10.3.
 * **InnoDB change buffer removal**: MariaDB 11.0 removed it; cannot downgrade to 10.4 or earlier.
 
-See [Version-Specific Incompatibilities](downgrading-between-major-versions-of-mariadb.md#version-specific-compatibilities) for the full list.
+See [Version-Specific Considerations](downgrading-between-major-versions-of-mariadb.md#version-specific-considerations) for the full list.
 
 #### Configuration Compatibility
 
@@ -109,7 +109,7 @@ If you have to attempt an in-place downgrade process, perform the following step
 3. Restore the [mysql schema tables](../../reference/system-tables/the-mysql-database-tables/) to the old definitions using `ALTER TABLE`, or drop and recreate them. To find the old definitions, run [mariadb-install-db](../../clients-and-utilities/deployment-tools/mariadb-install-db.md) on a temporary data directory, start a temporary server, and use [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-statements/show/show-create-table.md).
 4. Execute [FLUSH PRIVILEGES](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to reload the restored privilege tables.
 
-This procedure will **not** work if the table format has changed in an incompatible manner. In this case the affected tables may not be accessible in the earlier version. See [Version-Specific Incompatibilities](downgrading-between-major-versions-of-mariadb.md#version-specific-compatibilities) below.
+This procedure will **not** work if the table format has changed in an incompatible manner. In this case the affected tables may not be accessible in the earlier version. See [Version-Specific Considerations](downgrading-between-major-versions-of-mariadb.md#version-specific-considerations) below.
 
 ### Version-Specific Considerations
 

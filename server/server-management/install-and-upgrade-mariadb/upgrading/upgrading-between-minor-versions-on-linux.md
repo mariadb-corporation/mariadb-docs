@@ -104,7 +104,7 @@ To track the latest release in a series rather than pinning to a specific minor,
     sudo ./mariadb_repo_setup --mariadb-server-version="mariadb-11.4.5"
     ```
 
-    See [Pinning the Repository to a Specific Minor Release](../mariadb-package-repository-setup-and-usage.md#mariadb-community-server-2) for more on minor-release pinning.
+    See [Pinning the Repository to a Specific Minor Release](../mariadb-package-repository-setup-and-usage.md#pinning-the-repository-to-a-specific-minor-release) for more on minor-release pinning.
 2.  Update MariaDB Community Server and package dependencies:
 
     ```bash
