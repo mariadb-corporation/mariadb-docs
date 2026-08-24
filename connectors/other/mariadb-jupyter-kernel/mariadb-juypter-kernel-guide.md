@@ -28,7 +28,7 @@ If you would love to be able to run SQL against MariaDB data from Jupyter notebo
 
 * [Quick Installation Steps](mariadb-jupyter-kernel-installation.md#quick-installation-steps)
 * [Complete Installation Steps](mariadb-jupyter-kernel-installation.md#complete-installation-steps)
-* [Platforms Coverage](mariadb-jupyter-kernel-installation.md#platforms-coverage)
+* [Platforms Coverage](mariadb-jupyter-kernel-installation.md#platform-coverage)
 
 ### [Configuring the kernel](configuring-the-mariadb-jupyter-kernel.md)
 

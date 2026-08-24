@@ -31,3 +31,4 @@ research/
 # Anchored to the repo root so it cannot shadow a documentation page path:
 /dist/
 /pdf/__pycache__/
+/.claude/hooks/__pycache__/

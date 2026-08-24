@@ -85,7 +85,7 @@ Previous options `supportBigNumbers` and `bigNumberStrings` still exist for comp
 
 **Other considerations**
 
-mysql has an experimental syntax permitting the use of `??` characters as placeholder to escape id. This isn't implemented in the MariaDB driver, permitting the same query syntax for [Connection.query](connector-nodejs-promise-api.md#connectionquerysql-values---promise) and [Connection.execute](connector-nodejs-promise-api.md#connection.execute-sql-values-promise).
+mysql has an experimental syntax permitting the use of `??` characters as placeholder to escape id. This isn't implemented in the MariaDB driver, permitting the same query syntax for [Connection.query](connector-nodejs-promise-api.md#connection.query-sql-values-greater-than-promise) and [Connection.execute](connector-nodejs-promise-api.md#connection.execute-sql-values-promise).
 
 example:
 
@@ -164,7 +164,7 @@ Using 'auto' or setting specific timezone solves timezone correction. Please be 
 
 **IANA timezone / offset**
 
-When using IANA timezone, the connector will set the connection timezone to the timezone. This can throw an error on connection if timezone is unknown by the server (see [mariadb timezone documentation](connector-nodejs-promise-api.md#timezone-consideration), timezone tables might be not initialized) If you are sure the server is using that timezone, this step can be skipped with the option `skipSetTimezone`.
+When using IANA timezone, the connector will set the connection timezone to the timezone. This can throw an error on connection if timezone is unknown by the server (see [mariadb timezone documentation]({server}/reference/data-types/string-data-types/character-sets/internationalization-and-localization/time-zones), timezone tables might be not initialized) If you are sure the server is using that timezone, this step can be skipped with the option `skipSetTimezone`.
 
 If the timezone corresponds to JavaScript default timezone, then no conversion will be done.
 
@@ -261,7 +261,7 @@ By default, the Connector returns `BIGINT` column values (and `insertId`) as Jav
 
 **Connection:**
 
-* [`connection.query(sql [, values]) → Promise`](connector-nodejs-promise-api.md#connectionquerysql-values---promise): Executes a query.
+* [`connection.query(sql [, values]) → Promise`](connector-nodejs-promise-api.md#connection.query-sql-values-greater-than-promise): Executes a query.
 * [`connection.queryStream(sql [, values]) → Emitter`](connector-nodejs-promise-api.md#connection.querystream-sql-values-emitter): Executes a query, returning an emitter object to stream rows.
 * [`connection.prepare(sql) → Promise`](connector-nodejs-promise-api.md#connection.prepare-sql-promise): Prepares a query.
 * [`connection.execute(sql [, values]) → Promise`](connector-nodejs-promise-api.md#connection.execute-sql-values-promise): Prepare and Executes a query.
@@ -312,7 +312,7 @@ By default, the Connector returns `BIGINT` column values (and `insertId`) as Jav
 
 #### `createConnection(options) → Promise`
 
-> * `options`: _JSON/String_ [connection option documentation](connector-nodejs-promise-api.md#connection-options)
+> * `options`: _JSON/String_ [connection option documentation](node-js-connection-options.md)
 >
 > Returns a promise that:
 >
@@ -392,7 +392,7 @@ const conn = await mariadb.createConnection({
 
 #### `createPool(options) → Pool`
 
-> * `options`: _JSON/String_ [pool options](connector-nodejs-promise-api.md#pool-options)
+> * `options`: _JSON/String_ pool options
 >
 > Returns a [Pool](connector-nodejs-promise-api.md#pool-api) object,
 
@@ -419,7 +419,7 @@ try {
 
 **Pool options**
 
-Pool options include [connection option documentation](connector-nodejs-promise-api.md#connection-options) that will be used when creating new connections.
+Pool options include [connection option documentation](node-js-connection-options.md) that will be used when creating new connections.
 
 Specific options for pools are:
 
@@ -438,7 +438,7 @@ Specific options for pools are:
 
 #### `createPoolCluster(options) → PoolCluster`
 
-> * `options`: _JSON_ [poolCluster options](connector-nodejs-promise-api.md#poolCluster-options)
+> * `options`: _JSON_ poolCluster options
 >
 > Returns a [PoolCluster](connector-nodejs-promise-api.md#pool-cluster-api) object,
 
@@ -464,7 +464,7 @@ try {
 
 **PoolCluster options**
 
-Pool cluster options include [pool option documentation](connector-nodejs-promise-api.md#pool-options) that will be used when creating new pools.
+Pool cluster options include [pool option documentation](connector-nodejs-promise-api.md#createpool-options-pool) that will be used when creating new pools.
 
 Specific options for a pool cluster are:
 
@@ -477,7 +477,7 @@ Specific options for a pool cluster are:
 
 #### `importFile(options) → Promise`
 
-> * `options`: _JSON/String_ [connection option documentation](connector-nodejs-promise-api.md#connection-options) + one additional options `file`
+> * `options`: _JSON/String_ [connection option documentation](node-js-connection-options.md) + one additional options `file`
 >
 > Returns a promise that:
 >
@@ -502,7 +502,7 @@ try {
 
 #### `defaultOptions(options) → Json`
 
-> * `options`: _JSON/String_ [connection option documentation](connector-nodejs-promise-api.md#connection-options) (non-mandatory)
+> * `options`: _JSON/String_ [connection option documentation](node-js-connection-options.md) (non-mandatory)
 >
 > Returns a JSON value containing options default value.
 
@@ -562,7 +562,7 @@ When connecting through [MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBs
 >
 > Returns a promise that:
 >
-> * resolves with a JSON object for update/insert/delete or a [result-set](connector-nodejs-promise-api.md#result-set-array) object for a result-set.
+> * resolves with a JSON object for update/insert/delete or a result-set object for a result-set.
 > * rejects with an [Error](connector-nodejs-promise-api.md#error).
 
 Sends a query to a database and return a result as a Promise.
@@ -636,7 +636,7 @@ const res = await connection.query('INSERT INTO animals(name) value (?)', ['sea 
 
 When executing a `SELECT` statement, the method returns the result-set as an array of JSON objects. Each object in the array represents a row from the result-set, with column names as property keys.
 
-The result also includes a special non-enumerable `meta` property containing an array of [column metadata](connector-nodejs-promise-api.md#column-metadata) information.
+The result also includes a special non-enumerable `meta` property containing an array of column metadata information.
 
 ```javascript
 const res = await connection.query('select * from animals');
@@ -770,7 +770,7 @@ Whether you want the Connector to retrieve date values as strings, rather than `
 
 _boolean, default: false_
 
-Whether the query should return JavaScript ES2020 [BigInt](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) for [BIGINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) data type. This ensures having the expected value even for value > 2^53 (see [safe](node-js-connection-options.md#big-integer-support) range). This option can be set at query level, overriding the connection-level value.
+Whether the query should return JavaScript ES2020 [BigInt](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) for [BIGINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) data type. This ensures having the expected value even for value > 2^53 (see [safe](node-js-connection-options.md#essential-options) range). This option can be set at query level, overriding the connection-level value.
 
 this option is for compatibility for driver version < 3
 
@@ -885,7 +885,7 @@ const meta = rows.meta;
 > Returns an Emitter object that emits different types of events:
 >
 > * error: Emits an [`Error`](connector-nodejs-promise-api.md#error) object when the query fails. (No `"end"` event will then be emitted).
-> * fields: Emits when column metadata from the result-set are received (the parameter is an array of [Metadata](connector-nodejs-promise-api.md#metadata-field) fields).
+> * fields: Emits when column metadata from the result-set are received (the parameter is an array of [Metadata](connector-nodejs-promise-api.md#connection.query-sql-values-greater-than-promise) fields).
 > * data: Emits each time a row is received (parameter is a row).
 > * end: Emits when the query ends (no parameter). > a method: close(): permits closing stream (since 3.0)
 
@@ -983,7 +983,7 @@ stream.pipeline(
 >
 > Returns a promise that :
 >
-> * resolves with a [Prepare](connector-nodejs-promise-api.md#prepareobject) object.
+> * resolves with a `Prepare` object.
 > * rejects with an [Error](connector-nodejs-promise-api.md#error).
 
 This permits to [PREPARE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/prepare-statement) a command that permits to be executed many times. After use, prepare.close() method MUST be call, in order to properly close object.
@@ -1006,7 +1006,7 @@ Public methods :
 >
 > Returns a promise that :
 >
-> * resolves with a JSON object for update/insert/delete or a [result-set](connector-nodejs-promise-api.md#result-set-array) object for a result-set.
+> * resolves with a JSON object for update/insert/delete or a [result-set](connector-nodejs-promise-api.md#connection.query-sql-values-greater-than-promise) object for a result-set.
 > * rejects with an [Error](connector-nodejs-promise-api.md#error).
 
 **`executeStream(values) → Promise`**
@@ -1083,10 +1083,10 @@ prepare.close();
 >
 > Returns a promise that :
 >
-> * resolves with a JSON object for update/insert/delete or a [result-set](connector-nodejs-promise-api.md#result-set-array) object for a result-set.
+> * resolves with a JSON object for update/insert/delete or a [result-set](connector-nodejs-promise-api.md#connection.query-sql-values-greater-than-promise) object for a result-set.
 > * rejects with an [Error](connector-nodejs-promise-api.md#error).
 
-This is quite similar to [`connection.query(sql [, values]) → Promise`](connector-nodejs-promise-api.md#connectionquerysql-values---promise) method, with a few differences: Execute will in fact [PREPARE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/prepare-statement) + [EXECUTE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/execute-statement) + [CLOSE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors/close) command.
+This is quite similar to [`connection.query(sql [, values]) → Promise`](connector-nodejs-promise-api.md#connection.query-sql-values-greater-than-promise) method, with a few differences: Execute will in fact [PREPARE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/prepare-statement) + [EXECUTE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/execute-statement) + [CLOSE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors/close) command.
 
 It makes sense to use this only if the command often is used and if prepare cache is enabled (default). If a PREPARE result is already in cache, only [EXECUTE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/execute-statement) The command is executed. MariaDB server 10.6 even avoids resending result-set metadata if not changed since, permitting even faster results.
 
@@ -1241,7 +1241,7 @@ try {
 
 #### `connection.changeUser(options) → Promise`
 
-> * `options`: _JSON_, subset of [connection option dod](connector-nodejs-promise-api.md#connection-options)atabase/charset = database/charset / password/user
+> * `options`: _JSON_, subset of [connection option dod](node-js-connection-options.md)atabase/charset = database/charset / password/user
 >
 > Returns a promise that :
 >
@@ -1389,7 +1389,7 @@ escape per type:
 * String: escaped value, (\u0000, ', ", \b, \n, \r, \t, \u001A, and \ characters are escaped with '')
 
 Escape is done for [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) value without NO\_BACKSLASH\_ESCAPES that disable \ escaping (default);\
-Escaping API are meant to prevent [SQL injection](https://en.wikipedia.org/wiki/SQL_injection). However, privilege the use of [`connection.query(sql [, values]) → Promise`](connector-nodejs-promise-api.md#connectionquerysql-values---promise) and avoid building the command manually.
+Escaping API are meant to prevent [SQL injection](https://en.wikipedia.org/wiki/SQL_injection). However, privilege the use of [`connection.query(sql [, values]) → Promise`](connector-nodejs-promise-api.md#connection.query-sql-values-greater-than-promise) and avoid building the command manually.
 
 ```javascript
 const myColVar = "let'go";
@@ -1690,7 +1690,7 @@ async function transferFunds(fromAccount, toAccount, amount) {
 >
 > Returns a promise that:
 >
-> * resolves with query results (same as [connection.query()](connector-nodejs-promise-api.md#connectionquerysql-values---promise))
+> * resolves with query results (same as [connection.query()](connector-nodejs-promise-api.md#connection.query-sql-values-greater-than-promise))
 > * rejects with an [Error](connector-nodejs-promise-api.md#error)
 
 Executes a query using a connection from the pool. The connection is automatically acquired and released, making this method ideal for simple queries.
@@ -2021,7 +2021,7 @@ When a connection fails, the cluster can automatically retry with another pool m
 
 #### `createPoolCluster(options) → PoolCluster`
 
-> * `options`: _JSON_ [poolCluster options](connector-nodejs-promise-api.md#poolcluster-options)
+> * `options`: _JSON_ [poolCluster options](connector-nodejs-promise-api.md#createpoolcluster-options-poolcluster)
 >
 > Returns a [PoolCluster](connector-nodejs-promise-api.md#pool-cluster-api) object
 
@@ -2065,7 +2065,7 @@ cluster.add('replica2', {
 #### `poolCluster.add(id, config)`
 
 > * `id`: _string_ node identifier. Example: `'primary'`, `'replica1'`
-> * `config`: _JSON_ [pool options](connector-nodejs-promise-api.md#pool-options) to create the pool
+> * `config`: _JSON_ [pool options](connector-nodejs-promise-api.md#createpool-options-pool) to create the pool
 >
 > Returns: void
 
