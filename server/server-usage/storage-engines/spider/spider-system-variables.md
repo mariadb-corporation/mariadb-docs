@@ -29,7 +29,7 @@ Before this change, a non-minus-one system variable value would override the tab
   * `0` Normal Mode. Uses a counter that Spider gets from the remote backend server with an exclusive lock for the auto-increment value. This mode is slow. Use Quick Mode (`2`), if you use Spider tables with the table partitioning feature and the auto-increment column is the first column of the index.
   * `1` Quick Mode. Uses an internal Spider counter for the auto-increment value. This mode is fast, but it is possible for duplicates to occur when updating the same table from multiple Spider proxies.
   * `2` Set Zero Mode. The auto-increment value is given by the remote backend. Sets the column to `0`, even if you set the value to the auto-increment column in your statement. If you use the table with the table partitioning feature, it sets to zero after choosing an inserted partition.
-  * `3` When the auto-increment column is set to `NULL`, the value is given by the remote backend server. If you set the auto-increment column to `0`,the value is given by the local server. Set [spider\_reset\_auto\_increment](spider-system-variables.md#spider_reset_auto_increment) to `2` or `3` if you want to use an auto-increment column on the remote server.
+  * `3` When the auto-increment column is set to `NULL`, the value is given by the remote backend server. If you set the auto-increment column to `0`,the value is given by the local server. Set `spider_reset_auto_increment` to `2` or `3` if you want to use an auto-increment column on the remote server.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
@@ -597,7 +597,7 @@ Before this change, a non-minus-one system variable value would override the tab
 
 #### `spider_internal_xa`
 
-* Description: Whether to implement XA at the server- or storage engine-level. When using the server-level, set different values for the [server\_id](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#server_id) system variable on all server instances to generate different `xid` values.
+* Description: Whether to implement XA at the server- or storage engine-level. When using the server-level, set different values for the [server\_id](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#server_id) system variable on all server instances to generate different `xid` values.
   * `OFF` Uses the storage engine protocol.
   * `ON` Uses the server protocol.
 * Scope: Global, Session
@@ -1508,7 +1508,7 @@ Before this change, a non-minus-one system variable value would override the tab
   * `0` : No encapsulation.
   * `1` : Encapsulates, only when the [spider\_use\_all\_conns\_snapshot](spider-system-variables.md#spider_use_all_conns_snapshot) system variable i set to `1`.
   * `2` :\
-    Synchronizes the snapshot using a [LOCK TABLES](../../../reference/sql-statements/transactions/lock-tables.md) statement and \[flush|FLUSH TABLES]] at the XA transaction level. This is only effective when the [spider\_use\_all\_cons\_snapshot](spider-system-variables.md#spider_use_all_cons_snapshot) system variable is set to `1`.
+    Synchronizes the snapshot using a [LOCK TABLES](../../../reference/sql-statements/transactions/lock-tables.md) statement and \[flush|FLUSH TABLES]] at the XA transaction level. This is only effective when the [spider\_use\_all\_cons\_snapshot](spider-system-variables.md#spider_use_all_conns_snapshot) system variable is set to `1`.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`

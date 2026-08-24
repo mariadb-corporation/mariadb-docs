@@ -62,7 +62,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_cache_size`
 
-* Description: If the [binary log](../../server-management/server-monitoring-logs/binary-log/) is active, this variable determines the size in bytes, per-connection, of the cache holding a record of binary log changes during a transaction. A separate variable, [binlog\_stmt\_cache\_size](replication-and-binary-log-system-variables.md#binlog_stmt_cache_size), sets the upper limit for the statement cache. The [binlog\_cache\_disk\_use](../optimization-and-tuning/system-variables/server-status-variables.md#binlog_cache_disk_use) and [binlog\_cache\_use](../optimization-and-tuning/system-variables/server-status-variables.md#binlog_cache_use) [server status variables](../optimization-and-tuning/system-variables/server-status-variables.md) indicates whether this variable needs to be increased (you want a low ratio of binlog\_cache\_disk\_use to binlog\_cache\_use).
+* Description: If the [binary log](../../server-management/server-monitoring-logs/binary-log/) is active, this variable determines the size in bytes, per-connection, of the cache holding a record of binary log changes during a transaction. A separate variable, [binlog\_stmt\_cache\_size](replication-and-binary-log-system-variables.md#binlog_stmt_cache_size), sets the upper limit for the statement cache. The [binlog\_cache\_disk\_use](replication-and-binary-log-status-variables.md#binlog_cache_disk_use) and [binlog\_cache\_use](replication-and-binary-log-status-variables.md#binlog_cache_use) [server status variables](../optimization-and-tuning/system-variables/server-status-variables.md) indicates whether this variable needs to be increased (you want a low ratio of binlog\_cache\_disk\_use to binlog\_cache\_use).
 * Command line: `--binlog-cache-size=#`
 * Scope: Global
 * Dynamic: Yes
@@ -308,7 +308,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_stmt_cache_size`
 
-* Description: If the [binary log](../../server-management/server-monitoring-logs/binary-log/) is active, this variable determines the size in bytes of the cache holding a record of binary log changes outside of a transaction. The variable [binlog\_cache\_size](replication-and-binary-log-system-variables.md#binlog_cache_size), determines the cache size for binary log statements inside a transaction. The [binlog\_stmt\_cache\_disk\_use](../optimization-and-tuning/system-variables/server-status-variables.md#binlog_stmt_cache_disk_use) and [binlog\_stmt\_cache\_use](../optimization-and-tuning/system-variables/server-status-variables.md#binlog_stmt_cache_use) [server status variables](../optimization-and-tuning/system-variables/server-status-variables.md) indicates whether this variable needs to be increased (you want a low ratio of `binlog_stmt_cache_disk_use` to `binlog_stmt_cache_use`).
+* Description: If the [binary log](../../server-management/server-monitoring-logs/binary-log/) is active, this variable determines the size in bytes of the cache holding a record of binary log changes outside of a transaction. The variable [binlog\_cache\_size](replication-and-binary-log-system-variables.md#binlog_cache_size), determines the cache size for binary log statements inside a transaction. The [binlog\_stmt\_cache\_disk\_use](replication-and-binary-log-status-variables.md#binlog_stmt_cache_disk_use) and [binlog\_stmt\_cache\_use](replication-and-binary-log-status-variables.md#binlog_stmt_cache_use) [server status variables](../optimization-and-tuning/system-variables/server-status-variables.md) indicates whether this variable needs to be increased (you want a low ratio of `binlog_stmt_cache_disk_use` to `binlog_stmt_cache_use`).
 * Command line: `--binlog-stmt-cache-size=#`
 * Scope: Global
 * Dynamic: Yes
@@ -901,7 +901,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `slave_max_allowed_packet`
 
-* Description: Maximum packet size in bytes for replica SQL and I/O threads. This value overrides [max\_allowed\_packet](replication-and-binary-log-system-variables.md#max_allowed_packet) for [replication](./) purposes. Set in multiples of 1024 (the minimum) up to 1GB
+* Description: Maximum packet size in bytes for replica SQL and I/O threads. This value overrides [max\_allowed\_packet](../optimization-and-tuning/system-variables/server-system-variables.md#max_allowed_packet) for [replication](./) purposes. Set in multiples of 1024 (the minimum) up to 1GB
 * Command line: `--slave-max-allowed-packet=#`
 * Scope: Global
 * Dynamic: Yes

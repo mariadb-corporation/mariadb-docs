@@ -136,7 +136,7 @@ Not all global status variables support being reset by `FLUSH STATUS`. The follo
 * [Delayed\_writes](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#delayed_writes)
 * [Feature\_check\_constraint](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#feature_check_constraint)
 * [Feature\_delay\_key\_write](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#feature_delay_key_write)
-* [Max\_used\_connection\_time](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#max_used_connection_time)
+* [Max\_used\_connections\_time](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#max_used_connections_time)
 * [Max\_used\_connections](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#max_used_connections)
 * [Opened\_plugin\_libraries](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#opened_plugin_libraries)
 * [Performance\_schema\_accounts\_lost](../../../system-tables/performance-schema/performance-schema-status-variables.md#performance_schema_accounts_lost)

@@ -37,7 +37,7 @@ To list the binary log files on the server, use [SHOW BINARY LOGS](show/show-bin
 
 To delete all binary log files, use [RESET MASTER](replication-statements/reset-master.md).To move to a new log file (for example if you want to remove the current log file), use [FLUSH LOGS](flush-commands/flush.md) before you execute `PURGE LOGS`.
 
-If the [expire\_logs\_days](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#expire_logs_days) server system variable is not set to 0, the server automatically deletes binary log files after the given number of days. From MariaDB 10.6, the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion, and takes precedence if both are non-zero.
+If the [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) server system variable is not set to 0, the server automatically deletes binary log files after the given number of days. From MariaDB 10.6, the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion, and takes precedence if both are non-zero.
 
 {% tabs %}
 {% tab title="Current" %}
