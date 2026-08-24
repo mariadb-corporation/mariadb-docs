@@ -13,7 +13,7 @@ Here we discuss how to automate such tasks using Ansible. For example, here we s
 
 ## Adding apt Repositories
 
-To [add a repository](../../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md#executing-add-apt-repository):
+To [add a repository](../../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md#using-the-mariadb-repository-configuration-tool):
 
 ```yaml
 - name: Add specified repository into sources list
@@ -22,7 +22,7 @@ To [add a repository](../../install-and-upgrade-mariadb/installing-mariadb/binar
     state: present
 ```
 
-If you prefer to keep the repository information in a [source list file](../../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md#creating-a-source-list-file) in the Ansible repository, you can upload that file to the target hosts in this way:
+If you prefer to keep the repository information in a [source list file](../../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md#using-the-mariadb-repository-configuration-tool) in the Ansible repository, you can upload that file to the target hosts in this way:
 
 ```yaml
 - name: Create a symbolic link

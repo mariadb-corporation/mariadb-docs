@@ -124,7 +124,7 @@ When enabled, whether using `ON` or `AUTO`, `mariadb-backup` retrieves informati
 mariadb-backup --binlog-info --backup
 ```
 
-Currently, the `LOCKLESS` option depends on features unsupported by MariaDB Server. See the description of the [xtrabackup\_binlog\_pos\_innodb](files-created-by-mariadb-backup.md#xtrabackup_binlog_pos_innodb) file for more information. If you attempt to run `mariadb-backup` with this option, then it causes the utility to exit with an error.
+Currently, the `LOCKLESS` option depends on features unsupported by MariaDB Server. See the description of the [xtrabackup\_binlog\_pos\_innodb](files-created-by-mariadb-backup.md) file for more information. If you attempt to run `mariadb-backup` with this option, then it causes the utility to exit with an error.
 
 ### `--close-files`
 
@@ -158,7 +158,7 @@ The `--compress` option only supports the now deprecated `quicklz` algorithm.
 mariadb-backup --compress --backup
 ```
 
-If a backup is compressed using this option, then `mariadb-backup` will record that detail in the [xtrabackup\_info](files-created-by-mariadb-backup.md#xtrabackup_info) file.
+If a backup is compressed using this option, then `mariadb-backup` will record that detail in the [xtrabackup\_info](files-created-by-mariadb-backup.md) file.
 
 ### `--compress-chunk-size`
 
@@ -594,7 +594,7 @@ mariadb-backup --backup --history=backup_all
 
 Information is written to `mysql.mariadb_backup_history`.
 
-`mariadb-backup` also records this in the [mariadb\_backup\_info](files-created-by-mariadb-backup.md#mariadb_backup_info) file.
+`mariadb-backup` also records this in the [mariadb\_backup\_info](files-created-by-mariadb-backup.md) file.
 {% endtab %}
 
 {% tab title="< 10.11" %}
@@ -612,7 +612,7 @@ mariadb-backup --backup --history=backup_all
 
 Information is written to `PERCONA_SCHEMA.xtrabackup_history`.
 
-`mariadb-backup` also records this in the [xtrabackup\_info](files-created-by-mariadb-backup.md#xtrabackup_info) file.
+`mariadb-backup` also records this in the [xtrabackup\_info](files-created-by-mariadb-backup.md) file.
 {% endtab %}
 {% endtabs %}
 
