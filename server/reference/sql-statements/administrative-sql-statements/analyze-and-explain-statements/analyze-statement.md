@@ -124,6 +124,7 @@ The output of **orders.r\_rows=NULL** and **orders.r\_filtered=NULL** shows that
 
 ## See Also
 
+* [EXPLAIN](explain.md)
 * [ANALYZE FORMAT=JSON](analyze-format-json.md)
 * [SHOW ANALYZE](../show/show-analyze.md)
 * [ANALYZE TABLE](../../table-statements/analyze-table.md)
