@@ -4,6 +4,7 @@ description: >-
   service from a single page: topology, high availability, add-ons, provider
   and region, instance resources, connectivity, and advanced options, with a
   live cost estimate.
+hidden: true
 ---
 
 # Launch Page

@@ -1,6 +1,7 @@
 <!--
-  HIDDEN DRAFT. Listed in SUMMARY.md but kept HIDDEN via the GitBook UI
-  page-visibility toggle until the official reveal. For review only.
+  HIDDEN DRAFT. Listed in SUMMARY.md but kept out of the published nav via
+  `hidden: true` in the frontmatter (below) until the official reveal. The page
+  still resolves by direct URL for review. For review only.
 
   At reveal:
     1. Set the release date (YYYY.MM.DD) in the title, the description, and the
@@ -8,7 +9,7 @@
     2. Convert the three cross-links from GitHub blob URLs back to
        {mariadb-cloud} aliases (direct-main commits are not auto-expanded, so
        expand them per the alias map).
-    3. Unhide the page in the GitBook UI.
+    3. Remove `hidden: true` from the frontmatter here and in the group README.
 
   Tickets: DOCS-6320 (BYOA) + DOCS-6340 (provisioning UI) · MCDEV-2374, MCDEV-3304
 -->
@@ -17,6 +18,7 @@ description: >-
   Release notes for MariaDB Cloud <YYYY.MM.DD>, introducing Bring Your Own
   Account (BYOA) on Google Cloud as a Tech Preview and a redesigned service
   provisioning experience.
+hidden: true
 ---
 
 # MariaDB Cloud <YYYY.MM.DD> Release Notes
