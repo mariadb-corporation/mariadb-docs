@@ -172,7 +172,7 @@ The syntax of MariaDB option files is as follows:
 * Double quotes can be used to quote values
 * `\n`, `\r`, `\t`, `\b`, `\s`, `\"`, `\'`, and `\\` are recognized as character escapes for new line, carriage return, tab, backspace, space, double quote, single quote, and backslash respectively.
 * Certain option prefixes are supported. See the [Option Prefixes](configuring-mariadb-with-option-files.md#option-prefixes) section below for information about available option prefixes.
-* See the [Options](configuring-mariadb-with-option-files.md#options) section below for information about available options.
+* See the [Options](configuring-mariadb-with-option-files.md#mariadb-server-options) section below for information about available options.
 
 ## Option Groups
 
