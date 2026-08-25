@@ -401,13 +401,13 @@ BEGIN
 END;
 //
 DELIMITER ;
-<<code>>
+```
 
-== Sample
+## Sample
 
 Find the 5 cities with non-zero population (out of 3 million) nearest to (+35.15, -90.15). Start with a 10-mile bounding box and give up at 100 miles.
 
-<<code>>
+```sql
 CALL FindNearestLL(35.15, -90.05, 10, 100, 5, 'population > 0');
 +---------+--------+---------+---------+--------------+--------------+-------+------------+--------------+---------------------+------------------------+
 | id      | lat    | lon     | country | ascii_city   | city         | state | population | @gcd_ct := 0 | dist                | @gcd_ct := @gcd_ct + 1 |
@@ -450,9 +450,9 @@ SHOW session status LIKE 'Handler%';
 
 There is a "Haversine" algorithm that is twice as fast as the GCDist function here. But it has a fatal flaw of sometimes returning NULL for the distance between a point and itself. (This is because of computing a number slightly bigger than 1.0, then trying to take the ACOS of it.)
 
-## See also
+## See Also
 
-* [Cities used for testing](https://www.maxmind.com/en/worldcities)
+* [Cities used for testing](https://web.archive.org/web/20150117143356/https://www.maxmind.com/en/worldcities) — MaxMind's free World Cities database, no longer distributed
 * [A forum thread](https://forums.mysql.com/read.php?20,619712,619712)
 * [StackOverflow discussion](https://stackoverflow.com/questions/29058863/mysql-query-takes-long-time/)
 * [Sample](https://dba.stackexchange.com/questions/134028/select-the-minimum-of-a-calculated-distance-value-without-sorting)

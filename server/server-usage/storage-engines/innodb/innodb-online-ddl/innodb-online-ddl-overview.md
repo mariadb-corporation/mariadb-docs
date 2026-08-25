@@ -77,8 +77,7 @@ SET SESSION alter_algorithm='INPLACE';
 ALTER TABLE tab ADD COLUMN c VARCHAR(50);
 ```
 
-The above operation would actually use the `INSTANT` algorithm, because the `ADD COLUMN` operation supports the `INSTANT` algorithm, and the `INSTANT` algorithm is more efficient than the `INPLACE` algorithm.\
-<>
+The above operation would actually use the `INSTANT` algorithm, because the `ADD COLUMN` operation supports the `INSTANT` algorithm, and the `INSTANT` algorithm is more efficient than the `INPLACE` algorithm.
 
 ## Supported Alter Algorithms
 

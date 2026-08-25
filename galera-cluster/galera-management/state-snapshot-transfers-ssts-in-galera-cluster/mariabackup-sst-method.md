@@ -246,8 +246,7 @@ sst-log-archive=1
 sst-log-archive-dir=/var/log/mysql/sst/
 ```
 
-See [MDEV-17973](https://jira.mariadb.org/browse/MDEV-17973) for more information.\
-<>
+See [MDEV-17973](https://jira.mariadb.org/browse/MDEV-17973) for more information.
 
 ### Logging to Syslog
 
