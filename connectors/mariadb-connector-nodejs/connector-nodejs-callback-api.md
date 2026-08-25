@@ -604,7 +604,7 @@ connection.query("SELECT * FROM mysql.user")
 > * `values`: _array_ Array of parameter (array of array or array of object if using named placeholders).
 > * `callback`: _function_ Callback function with arguments (error, results, metadata).
 >
-> callback either returns an \[\[#error|Error]] with results/metadata null or with error empty and results/metadata
+> callback either returns an [`Error`](#error) with results/metadata null or with error empty and results/metadata
 
 Implementation depends of server type and version. for MariaDB server version 10.2.7+, the implementation uses dedicated bulk protocol.
 

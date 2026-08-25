@@ -128,8 +128,9 @@ FROM Fact
 
 ## Summarizing when using a staging table
 
-Load the data (via INSERTs or \[LOAD DATA) en masse into a "staging table". Then perform batch summarization from the Staging table. And batch copy from the Staging table to the Fact table. Note that the Staging table is handy for batching "normalization" during ingestion.\
-See also \[[data-warehousing-high-speed-ingestion|High Speed Ingestion](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md)
+Load the data (via INSERTs or [LOAD DATA](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md)) en masse into a "staging table". Then perform batch summarization from the Staging table. And batch copy from the Staging table to the Fact table. Note that the Staging table is handy for batching "normalization" during ingestion.
+
+See also [High Speed Ingestion](data-warehousing-high-speed-ingestion.md).
 
 ## Summary table: PK or not?
 
