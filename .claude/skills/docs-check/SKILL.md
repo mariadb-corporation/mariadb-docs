@@ -77,6 +77,13 @@ on the file set, from the repo root:
   page, or with `.claude/hooks/fragcheck.py validate <file>`. Needs python3 and a git work tree;
   missing either is a SKIP. Costs ~14s, so `DOC_LINT_SKIP_FRAGMENTS=1` skips it while iterating.
   Added in DOCS-6491.
+- **GitBook anchors `##`, `###` and `####` only.** A `#####` heading renders as a bold paragraph
+  with no `id`, so it cannot be linked to. When repairing a dead anchor, add the missing heading
+  at `####` or shallower: promoting a bold pseudo-heading to `#####` looks like a fix, drops the
+  dead-anchor count, and still lands the reader at the top of the page (DOCS-6503). A link to one
+  is reported `[unanchored-heading]`. A heading GitBook transliterates and the rules cannot
+  reproduce — `中国` publishes as `zhong-guo` — is listed by `.claude/hooks/fragcheck.py risky`
+  and reported `[uncertain-slug]`, never silently resolved against a guess.
 - The same gate catches a heading that publishes **another heading's** anchor. Duplicate a
   heading line for a new section, edit its text but leave its `<a href="#x" id="x">` behind, and
   GitBook honours that explicit id over the text slug: the two sections share one anchor, the
