@@ -178,6 +178,16 @@ jobs:
           # than a rotted page. Its sibling www.freedesktop.org is already
           # excluded above. Nothing to repoint at: this archive is canonical
           # for these threads.
+          #
+          # DOCS-6521: web.archive.org, same class as www.freedesktop.org --
+          # it answers the Actions runners with "Connection refused" while
+          # serving 200 promptly to a developer machine, so a local lychee run
+          # PASSES while CI fails. Three pages cite a Wayback snapshot, and in
+          # each case the snapshot IS the replacement for a page that no longer
+          # exists (a retired MaxMind dataset, two dead personal blogs), so
+          # there is nothing further to repoint at. The other two pages have
+          # carried the same latent failure since the migration; they only
+          # surface when a PR happens to touch them.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -234,6 +244,7 @@ jobs:
             --exclude gitlab\.kitware\.com
             --exclude www\.freedesktop\.org
             --exclude 'lists\.freedesktop\.org'
+            --exclude 'web\.archive\.org'
             --exclude azuremarketplace\.microsoft\.com
             --exclude console\.cloud\.google\.com
             --exclude partedmagic\.com
