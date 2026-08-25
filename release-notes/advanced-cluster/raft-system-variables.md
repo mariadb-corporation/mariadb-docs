@@ -9,9 +9,9 @@ description: >-
 
 ## List of Raft System Variables
 
-### raft-candidate-timeout
+### raft-vote-timeout
 
-Initial timeout for candidate waiting for votes during election (milliseconds). Uses exponential backoff up to raft\_max\_candidate\_timeout.
+Time candidate waits for a majority of granted votes during election. Uses exponential backoff up to raft\_max\_vote\_timeout.
 
 | Property     | Value             |
 | ------------ | ----------------- |
@@ -34,6 +34,19 @@ Data directory where to store replication logs and other node persistent state.
 | Data Type    | String |
 | Range        |        |
 | Default      | ./     |
+
+### raft-applied-event-memory-limit
+
+Maximum size, in bytes, of received but not-yet-applied write set payloads before event delivery pauses. Set to `0` to disable the limit.
+
+| Property     | Value              |
+| ------------ | ------------------ |
+| Command Line |                    |
+| Scope        | Global             |
+| Dynamic      | Not yet confirmed  |
+| Data Type    | Numeric (Bytes)    |
+| Range        | Not yet confirmed  |
+| Default      | 134217728 (128 MB) |
 
 ### raft-event-store-file-size
 
@@ -100,9 +113,9 @@ Maximum request rate (requests per second) to sustain when flow control throttli
 | Range        | 0 to 4294967295 |
 | Default      | 100             |
 
-### raft-follower-timeout
+### raft-election-timeout
 
-Time follower waits without leader messages before starting election (milliseconds). Should be significantly larger than raft\_heartbeat\_timeout to avoid unnecessary elections.
+Time follower waits without leader messages before starting election. Should be significantly larger than raft\_heartbeat\_timeout to avoid unnecessary elections.
 
 | Property     | Value             |
 | ------------ | ----------------- |
@@ -145,6 +158,19 @@ The priority can also be changed at runtime, without restarting the session — 
 Leadership priority changes the cluster protocol, and is **not** backwards compatible with the 0.9.0 technical preview release. All nodes must run the same release.
 {% endhint %}
 
+### raft-bind-address
+
+The local network address the node uses for its Raft cluster communication. The node binds its listening sockets to this address — both the acceptor for incoming cluster connections and the acceptor for incoming SST connections — and uses it as the source address when connecting out to the other nodes. On a host with several network interfaces, this confines all Raft traffic to one chosen interface, for example a dedicated internal or replication network, instead of the node listening on every interface. The value must be a local IPv4 or IPv6 address, without a port and without hostnames. By default the value is empty, so the node listens on all interfaces and the operating system selects the source address.
+
+| Property     | Value             |
+| ------------ | ----------------- |
+| Command Line |                   |
+| Scope        | Global            |
+| Dynamic      | Not yet confirmed |
+| Data Type    | String            |
+| Range        |                   |
+| Default      | (empty)           |
+
 ### raft-listen-port
 
 Port to listen for incoming cluster connections.
@@ -157,6 +183,19 @@ Port to listen for incoming cluster connections.
 | Data Type    | Numeric (Port) |
 | Range        | 0 to 65535     |
 | Default      | 50002          |
+
+### raft-log-durability
+
+Durability level of Raft log writes.
+
+| Property     | Value             |
+| ------------ | ----------------- |
+| Command Line |                   |
+| Scope        | Global            |
+| Dynamic      | Not yet confirmed |
+| Data Type    | Enumeration       |
+| Range        | FLUSH, SYNC       |
+| Default      | FLUSH             |
 
 ### raft-log-filter
 
@@ -184,9 +223,9 @@ Verbosity level for logging. Supported values are ERROR, WARN, INFO and DEBUG. T
 | Range        | ERROR, WARN, INFO, DEBUG |
 | Default      | INFO                     |
 
-### raft-max-candidate-timeout
+### raft-max-vote-timeout
 
-Maximum candidate timeout after exponential backoff (milliseconds). Limits how long a candidate will wait between election attempts.
+Upper bound for raft\_vote\_timeout after exponential backoff. Limits how long a candidate will wait between election attempts.
 
 | Property     | Value             |
 | ------------ | ----------------- |
@@ -240,31 +279,31 @@ Node weight for replication and voting quorum. The default weight is 1, all node
 | Range        | 1 to 256 |
 | Default      | 1        |
 
-### raft-non-primary-timeout
+### raft-liveness-timeout
 
-Timeout after which the node is considered to be in non-primary state. If no replication events appear in the log within this time period, the node will be considered to be in non-primary state (seconds).
+Timeout after which the node is considered unresponsive. If no replication events appear in the log within this period, the node moves to non-primary state.
 
-| Property     | Value             |
-| ------------ | ----------------- |
-| Command Line |                   |
-| Scope        | Global            |
-| Dynamic      | No                |
-| Data Type    | Numeric (seconds) |
-| Range        | 1 to 4294967295   |
-| Default      | 20                |
+| Property     | Value              |
+| ------------ | ------------------ |
+| Command Line |                    |
+| Scope        | Global             |
+| Dynamic      | No                 |
+| Data Type    | Numeric (ms)       |
+| Range        | 1000 to 4294967295 |
+| Default      | 20000              |
 
-### raft-session-timeout
+### raft-eviction-timeout
 
-Timeout after which session to replication system is considered expired if there is no activity. If the node cannot communicate with the leader within this time period, it will be evicted from the cluster (seconds).
+Timeout after which session to replication system is considered expired if there is no activity. If the node cannot communicate with the leader within this time period, it will be evicted from the cluster.
 
-| Property     | Value             |
-| ------------ | ----------------- |
-| Command Line |                   |
-| Scope        | Global            |
-| Dynamic      | No                |
-| Data Type    | Numeric (seconds) |
-| Range        | 1 to 4294967295   |
-| Default      | 15                |
+| Property     | Value              |
+| ------------ | ------------------ |
+| Command Line |                    |
+| Scope        | Global             |
+| Dynamic      | No                 |
+| Data Type    | Numeric (ms)       |
+| Range        | 1000 to 4294967295 |
+| Default      | 15000              |
 
 ### raft-sst-listen-port
 
@@ -278,6 +317,19 @@ Port to listen for SST requests.
 | Data Type    | Numeric (Port) |
 | Range        | 0 to 65535     |
 | Default      | 50001          |
+
+### raft-segment-id
+
+Read-only datacenter segment identifier. The identifier can be either a human-readable string up to 15 characters long or a UUID. By default it is unset, meaning no segmentation is applied.
+
+| Property     | Value                                        |
+| ------------ | -------------------------------------------- |
+| Command Line |                                              |
+| Scope        | Global                                       |
+| Dynamic      | No                                           |
+| Data Type    | String                                       |
+| Range        | Human-readable string (max 15 chars) or UUID |
+| Default      | (unset)                                      |
 
 ### raft-have-ssl
 
@@ -413,6 +465,19 @@ List of permitted TLS 1.3 ciphersuites. This is separate from raft\_ssl\_cipher 
 | Range        |         |
 | Default      | (empty) |
 
+### raft-ssl-verbose
+
+Verbose logging level for SSL context initialization.
+
+| Property     | Value             |
+| ------------ | ----------------- |
+| Command Line |                   |
+| Scope        | Global            |
+| Dynamic      | Not yet confirmed |
+| Data Type    | Numeric           |
+| Range        | Not yet confirmed |
+| Default      | 1                 |
+
 ### raft-ssl-verify-depth
 
 Maximum depth for certificate chain verification. This variable is read-only and must be set at server startup.
@@ -444,10 +509,9 @@ As with other MariaDB system variables, the underscore and dash forms are interc
 | Default      | NO      |
 
 {% hint style="warning" %}
-This variable verifies the **server certificate only**. Two limitations follow from that, and both matter when you are planning cluster security:
+When this variable is set to `YES` and both `raft_ssl_cert` and `raft_ssl_ca` are configured, the cluster performs mutual TLS: each peer verifies the other peer's server certificate against the configured CA. One limitation remains, and it matters when you are planning cluster security:
 
-* It does **not** provide mutual TLS. The peer accepting a connection does not verify the certificate of the peer initiating it.
 * It does **not** perform hostname verification. All communication in the cluster is bi-directional and there are no fixed client and server roles, so the accepting side has no independent way to verify the other peer's hostname.
 
-The default is `NO`, so unless you set `raft_ssl_verify_server_cert=YES` (and configure `raft_ssl_ca`), Raft inter-node TLS encrypts traffic without authenticating the peer at all. Certificate verification cannot be used with the self-signed certificate generated at startup when no certificate information is provided, because that certificate is not signed by the configured CA.
+The default is `NO`, so unless you set `raft_ssl_verify_server_cert=YES` (and configure `raft_ssl_cert` and `raft_ssl_ca`), Raft inter-node TLS encrypts traffic without authenticating the peer at all. Certificate verification cannot be used with the self-signed certificate generated at startup when no certificate information is provided, because that certificate is not signed by the configured CA.
 {% endhint %}
