@@ -210,6 +210,7 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | Date        | Release          | Status      | Release Notes                | Changelog                                    |
 | ----------- | ---------------- | ----------- | ---------------------------- | -------------------------------------------- |
+| 24 Aug 2026 | MariaDB 10.11.19 | Stable (GA) | [Release Notes](10.11.19.md) | [Changelog](../changelogs/10.11/10.11.19.md) |
 | 27 May 2026 | MariaDB 10.11.18 | Stable (GA) | [Release Notes](10.11.18.md) | [Changelog](../changelogs/10.11/10.11.18.md) |
 | 18 May 2026 | MariaDB 10.11.17 | Stable (GA) | [Release Notes](10.11.17.md) | [Changelog](../changelogs/10.11/10.11.17.md) |
 | 4 Feb 2026  | MariaDB 10.11.16 | Stable (GA) | [Release Notes](10.11.16.md) | [Changelog](../changelogs/10.11/10.11.16.md) |
