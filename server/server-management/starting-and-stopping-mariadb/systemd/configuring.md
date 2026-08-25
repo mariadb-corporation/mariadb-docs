@@ -138,10 +138,9 @@ Useful `systemd` options are listed below. If an option is equivalent to a commo
 | [core-file-size](../mariadbd-safe.md#options)                          | [LimitCORE={size}](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=)                                  | Limit on core file size. Useful when enabling core dumps. See [Configuring the Core File Size](configuring.md#configuring-the-core-file-size).                                                                                          |
 |                                                                        | [LimitMEMLOCK={size}](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=) or infinity                   | Limit on how much can be locked in memory. Useful when [large-pages](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#large_pages) or [memlock](../mariadbd-options.md#memlock) is used |
 | [nice](../mariadbd-safe.md#options)                                    | [Nice={nice value}](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#Nice=)                                     |                                                                                                                                                                                                                                         |
-| [syslog](../mariadbd-safe.md#options)                                  | [StandardOutput=syslog](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardOutput=)                       | See [Configuring MariaDB to Write the Error Log to Syslog](configuring.md#configuring-mariadb-to-write-the-error-log-to-syslog).                                                                                                        |
-|                                                                        | [StandardError=syslog](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardError=)                         |                                                                                                                                                                                                                                         |
+| [syslog](../mariadbd-safe.md#options)                                  | [StandardOutput=journal](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardOutput=)                       | See [Configuring MariaDB to Write the Error Log to Syslog](configuring.md#configuring-mariadb-to-write-the-error-log-to-syslog).                                                                                                        |
+|                                                                        | [StandardError=journal](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardError=)                         |                                                                                                                                                                                                                                         |
 |                                                                        | [SyslogFacility=daemon](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogFacility=)                       |                                                                                                                                                                                                                                         |
-|                                                                        | [SyslogLevel=err](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogLevel=)                                |                                                                                                                                                                                                                                         |
 | [syslog-tag](../mariadbd-safe.md#options)                              | [SyslogIdentifier](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogIdentifier=)                          |                                                                                                                                                                                                                                         |
 | [flush-caches](../mariadbd-safe.md#options)                            | ExecStartPre=/usr/bin/sync                                                                                                        |                                                                                                                                                                                                                                         |
 |                                                                        | ExecStartPre=/usr/sbin/sysctl -q -w vm.drop\_caches=3                                                                             |                                                                                                                                                                                                                                         |
@@ -237,27 +236,47 @@ LimitCORE=infinity
 
 ### Configuring MariaDB to Write the Error Log to Syslog
 
-When using `systemd`, if you would like to redirect the [error log](../../server-monitoring-logs/error-log.md) to the [syslog](https://linux.die.net/man/8/rsyslogd), then that can easily be done by doing the following:
+When using `systemd`, MariaDB's [error log](../../server-monitoring-logs/error-log.md) is written to the journal, and the journal is where a traditional [syslog](https://linux.die.net/man/8/rsyslogd) daemon reads its data from. To send the error log to syslog, do the following:
 
-* Ensure that [log\_error](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error) system variable is not set.
-* Set [StandardOutput=syslog](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardOutput=).
-* Set [StandardError=syslog](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardError=).
-* Set [SyslogFacility=daemon](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogFacility=).
-* Set [SyslogLevel=err](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogLevel=).
+* Ensure that [log\_error](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error) system variable is not set, so that the server writes to `stderr` rather than to a file.
+* Set [StandardOutput=journal](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardOutput=) and [StandardError=journal](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardError=). This is already the default, but stating it explicitly documents why the `Syslog*` settings below apply, since they only take effect when the output goes to the journal.
+* Set [SyslogFacility=daemon](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogFacility=) to choose the syslog facility the messages are tagged with. `daemon` is `systemd`'s default.
+* Ensure that `journald` forwards to the syslog daemon by setting [ForwardToSyslog=yes](https://www.freedesktop.org/software/systemd/man/journald.conf.html#ForwardToSyslog=) in `journald.conf`. Some distributions enable this already, and on others `rsyslog` reads the journal directly through its `imjournal` module, in which case no forwarding is needed.
 
-For example:
+Only the forwarding setting differs from the defaults, so on a standard installation it is the only change needed. `journald.conf` is a configuration file rather than a unit, so it takes a drop-in of its own rather than a `systemctl edit`:
+
+```bash
+sudo mkdir -p /etc/systemd/journald.conf.d
+sudo tee /etc/systemd/journald.conf.d/forward-to-syslog.conf <<'CONF'
+[Journal]
+ForwardToSyslog=yes
+CONF
+sudo systemctl restart systemd-journald
+```
+
+If you have multiple instances of MariaDB, then set [SyslogIdentifier](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogIdentifier=) with a different tag for each instance, so that the messages from each can be told apart:
 
 ```bash
 sudo systemctl edit mariadb.service
 
 [Service]
-StandardOutput=syslog
-StandardError=syslog
-SyslogFacility=daemon
-SyslogLevel=err
+SyslogIdentifier=mariadb-instance1
 ```
 
-If you have multiple instances of MariaDB, then you may also want to set [SyslogIdentifier](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogIdentifier=) with a different tag for each instance.
+{% hint style="info" %}
+`systemd` 246 removed the `syslog` and `syslog-console` values for `StandardOutput=` and `StandardError=`. Newer versions still accept them, but convert them to `journal` and `journal+console` and log a warning on every service start:
+
+```
+Standard output type syslog is obsolete, automatically updating to journal.
+Please update your unit file, and consider removing the setting altogether.
+```
+
+Use `journal` instead. It is valid in every `systemd` version MariaDB supports, so no version-specific configuration is needed.
+{% endhint %}
+
+{% hint style="warning" %}
+[SyslogLevel=](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogLevel=) does not filter the error log. It sets the priority assigned to output lines that do not carry a priority prefix of their own, and MariaDB does not add one — it writes plain lines such as `2026-01-01 0:00:00 0 [Note] ...`. Setting `SyslogLevel=err` therefore tags every line as an error, including notes and warnings. To discard messages below a given priority instead, use [LogLevelMax=](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LogLevelMax=).
+{% endhint %}
 
 ### Configuring LimitMEMLOCK
 
