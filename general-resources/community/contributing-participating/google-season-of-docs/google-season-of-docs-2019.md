@@ -49,8 +49,6 @@ Loading Issues from \[Jira]\(https://jira.mariadb.org/issues/?jql=labels=gsdocs1
 | Details: | %key% |
 | Mentor:  | %fields.assignee.displayName%                  |
 
-<>
-
 ## Suggest a Task
 
 Do you have an idea of your own, not listed above? Do let us know!

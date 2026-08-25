@@ -54,7 +54,7 @@
     Thu 2011-01-13 19:25:31 +0300
     * Backport of (see below) + temporary measures to make SJ-Materialization work with join buffering.\
       \*
-      * Date: Mon, 01 Nov 2010 15:15:25 -0000<>
+      * Date: Mon, 01 Nov 2010 15:15:25 -0000
       * 3272 Roy Lyseng 2010-11-01
       * [MySQL Bug #52068](https://bugs.mysql.com/bug.php?id=52068): Optimizer generates invalid semijoin materialization plan
       *
