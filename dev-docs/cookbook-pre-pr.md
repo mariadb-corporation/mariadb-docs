@@ -55,6 +55,15 @@ an anchor to satisfy it; check the rendered page instead, or run
 the live site emits. `.claude/hooks/fragcheck.py check` prints the whole current inventory with a
 suggested target for each mechanically fixable one.
 
+**GitBook publishes a heading anchor for `##`, `###` and `####` only.** A `#####` heading
+renders as a bold paragraph with no `id`, so it is not a link target at all. That matters when
+you are repairing a dead anchor: adding the missing heading works only at `####` or shallower,
+and promoting a bold pseudo-heading to `#####` produces a page that looks fixed and still sends
+the reader to the top (DOCS-6503). A link pointing at one is reported `[unanchored-heading]` —
+raise the heading or retarget the link at the enclosing section. A heading GitBook
+transliterates and the checker cannot reproduce — `中国` publishes as `zhong-guo` — is listed by
+`.claude/hooks/fragcheck.py risky` and reported `[uncertain-slug]` rather than guessed at.
+
 The same gate catches one thing no link checker can: a heading that publishes **another
 heading's** anchor. Duplicate a heading line for a new section, edit its text but leave its
 `<a href="#x" id="x">` behind, and GitBook honours that explicit id over the text slug — the two
