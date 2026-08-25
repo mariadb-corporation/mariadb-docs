@@ -69,8 +69,6 @@ There are also some build scripts in the \*BUILD/\* directory, which may be more
 
 There are several others as well, so you can select the most convenient.
 
-<>
-
 Besides the server with the Galera support, you will also need a Galera provider.
 
 ## Preparation

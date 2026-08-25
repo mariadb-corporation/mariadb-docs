@@ -42,10 +42,8 @@ Loading Issues from \[Jira]\(https://jira.mariadb.org/issues/?jql=labels=gsdocs1
 
 | Details: | Mentor:                                        |
 | -------- | ---------------------------------------------- |
-| Details: | [%key%](https://jira.mariadb.org/browse/%key%) |
+| Details: | %key% |
 | Mentor:  | %fields.assignee.displayName%                  |
-
-<>
 
 ## Suggest a Task
 
