@@ -11,7 +11,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #2784](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2784): don't hide old\_password\_plugin from embedded, it may be compiled with grant support
 * [Revision #2785](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2785): Automerge [mariadb 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md) -> [mariadb 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 * [Revision #2786](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2786): Merge OQGraph into [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md).
-* [Revision #2787](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2787): small changes to \[\[mwl:43]]:
+* [Revision #2787](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2787): small changes to MWL#43:
   * consistency: don't use "index" and "key" interchangeably
     * rename "key" to "index"
   * consistency: all option types are logical, besides ULL
