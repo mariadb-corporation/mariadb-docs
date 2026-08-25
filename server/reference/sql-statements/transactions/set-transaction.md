@@ -76,18 +76,35 @@ The following sections describe how MariaDB supports the different transaction l
 
 A somewhat Oracle-like isolation level with respect to consistent (non-locking) reads: Each consistent read, even within the same transaction, sets and reads its own fresh snapshot. See [innodb-consistent-read.html](https://dev.mysql.com/doc/refman/en/innodb-consistent-read.html).
 
-For locking reads (`SELECT` with `FOR UPDATE` or `LOCK IN SHARE MODE`), InnoDB locks only index records, not the gaps before them, and thus allows the free insertion of new records next to locked records. For `UPDATE` and `DELETE` statements, locking depends on whether the statement uses a unique index with a unique search condition (such as `WHERE id = 100`), or a range-type search condition (such as `WHERE id > 100`). For a unique index with a unique search condition, InnoDB locks only the index record found, not the gap before it. For range-type searches, InnoDB locks the index range scanned, using gap locks or next-key (gap plus index-record) locks to block insertions by other sessions into the gaps covered by the range. This is necessary because "phantom rows" must be blocked for MariaDB replication and recovery to work.
+#### Gap Locking at READ COMMITTED
+
+InnoDB takes no [gap locks](../../../server-usage/storage-engines/innodb/innodb-lock-modes.md#gap-locks) at this isolation level. For locking reads (`SELECT` with `FOR UPDATE` or `LOCK IN SHARE MODE`), and for `UPDATE` and `DELETE` statements, InnoDB locks only the index records it examines, not the gaps before them, and thus allows the free insertion of new records next to locked records. This applies to range-type search conditions (such as `WHERE id > 100`) as well as to unique searches (such as `WHERE id = 100`).
+
+Duplicate-key checking is the exception: when InnoDB checks a unique index for a duplicate value, it takes a next-key (gap plus index-record) lock regardless of the isolation level. [Foreign key](../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md) constraint checks, by contrast, do not take gap locks at `READ COMMITTED`.
+
+Gap locks are what block phantom rows, so without them InnoDB cannot be logged safely one statement at a time. With [binary logging](../../../server-management/server-monitoring-logs/binary-log/) enabled and [binlog\_format](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_format) set to `STATEMENT`, InnoDB rejects any statement that would write rows:
+
+```sql
+SET SESSION binlog_format = STATEMENT;
+SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
+UPDATE t SET v = 9 WHERE id = 1;
+ERROR 1665 (HY000): Cannot execute statement: impossible to write to binary log
+since BINLOG_FORMAT = STATEMENT and at least one table uses a storage engine
+limited to row-based logging. InnoDB is limited to row-logging when transaction
+isolation level is READ COMMITTED or READ UNCOMMITTED.
+```
+
+The default `binlog_format` of `MIXED` is unaffected, as is `ROW`.
+
+#### Semi-Consistent Reads
+
+In a semi-consistent read, an `UPDATE` or `DELETE` statement skips a row that another transaction has locked, provided the latest committed version of that row does not match the `WHERE` condition. The statement proceeds instead of waiting for the lock, which means you might see only a partially consistent read.
 
 {% hint style="info" %}
-If the `READ COMMITTED` isolation level is used or the [innodb\_locks\_unsafe\_for\_binlog](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_locks_unsafe_for_binlog) system variable is enabled, there is no InnoDB gap locking except for [foreign-key](../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md) constraint checking and
-duplicate-key checking. Also, record locks for non-matching rows are released after MariaDB has evaluated the `WHERE` condition. If you use `READ COMMITTED` or enable `innodb_locks_unsafe_for_binlog`, you must use row-based binary logging.
+At `READ COMMITTED`, semi-consistent reads apply only when [innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) is disabled. That variable is enabled by default from MariaDB 11.6.2, and while it is enabled, `READ COMMITTED` performs an ordinary locking read and waits for the lock. Semi-consistent reads then apply to `READ UNCOMMITTED` only.
 {% endhint %}
 
-{% hint style="info" %}
-Rows that don't match are not being locked in a so called semiconsistent read. This means you might see only a partially consistent read when the transaction isolation level is `READ COMMITTED` or `READ UNCOMMITTED`.
-
-(A semiconsistent read applies to `UPDATE` and `DELETE` statements. Those statements skip locked rows, provided the version in the current read does not match the `WHERE` condition. Also, if the latest version of a record was successfully locked, but found not to match the condition, the lock is released.)
-{% endhint %}
+Separately, and regardless of `innodb_snapshot_isolation`, if InnoDB locks a record at `READ COMMITTED` or `READ UNCOMMITTED` and then finds that the record does not match the `WHERE` condition, it releases that record lock — unless the transaction has itself modified the row.
 
 ### REPEATABLE READ
 
@@ -112,10 +129,10 @@ This is the minimum isolation level for non-distributed [XA transactions](xa-tra
 #### Snapshot Isolation and DML Operations
 
 {% hint style="info" %}
-This behavior is available from MariaDB 11.6.2 and 12.3.
+[innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) is enabled by default from MariaDB 11.6.2. It was added, defaulting to `OFF`, in MariaDB 10.6.18, 10.11.8, 11.0.6, 11.1.5, 11.2.4, and 11.4.2.
 {% endhint %}
 
-The [`innodb_snapshot_isolation`](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) system variable is enabled by default. This introduces a stricter enforcement of `REPEATABLE READ` for `UPDATE` and `DELETE` statements:<br>
+While `innodb_snapshot_isolation` is enabled, MariaDB enforces `REPEATABLE READ` more strictly for `UPDATE` and `DELETE` statements:
 
 * **Conflict Detection:** If an `UPDATE` or `DELETE` attempts to modify a row that has been changed by a concurrent transaction since your snapshot was established, the operation is rejected.
 * [**ER\_CHECKREAD**](../../error-codes/mariadb-error-codes-1000-to-1099/e1020.md) **(1020):** This rejection triggers error `ER_CHECKREAD`. The revised error message suggests that the user should try restarting the transaction.
@@ -132,17 +149,9 @@ This level is like `REPEATABLE READ`, but InnoDB implicitly converts all plain `
 
 Distributed [XA transactions](xa-transactions.md) should always use this isolation level.
 
-### innodb\_snapshop\_isolation
+### innodb\_snapshot\_isolation
 
-{% tabs %}
-{% tab title="Current" %}
-If the [innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) system variable is not set to `ON`, strictly-speaking anything other than `READ UNCOMMITTED` is not clearly defined. [innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) defaults to `OFF` for backwards compatibility. Setting to `ON` will result in attempts to acquire a lock on a record that does not exist in the current read view raising an error, and the transaction being rolled back.
-{% endtab %}
-
-{% tab title="< 11.4.2 / 11.2.4 / 11.1.15 / 11.0.6 / 10.11.8 / 10.6.18" %}
-If the [innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) system variable is not set to `ON`, strictly-speaking anything other than `READ UNCOMMITTED` is not clearly defined.
-{% endtab %}
-{% endtabs %}
+If the [innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) system variable is not set to `ON`, strictly speaking anything other than `READ UNCOMMITTED` is not clearly defined. While it is `ON`, an attempt to acquire a lock on a record that does not exist in the current read view raises an error and rolls the transaction back.
 
 ### Access Mode
 
