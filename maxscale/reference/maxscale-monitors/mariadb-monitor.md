@@ -1315,6 +1315,93 @@ should be simple.
 enforce_simple_topology=true
 ```
 
+#### `heal_primary_truncated_binlog`
+
+* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+
+This setting allows the monitor to heal a primary server that has truncated its
+binary logs during crash recovery. This truncation is possible when using
+semisynchronous replication with `rpl_semi_sync_master_wait_point=AFTER_SYNC`
+and `--init-rpl-role=SLAVE` (see
+[here]({server}/ha-and-performance/standard-replication/semisynchronous-replication#configuring-the-primary-wait-point)
+for more information).
+
+With `heal_primary_truncated_binlog=true`, whenever the monitor reconnects to
+the primary server (e.g. because it restarted) or if the primary goes into
+read-only mode, the monitor withholds *Write*-status. This prevents any writes
+from being routed to the server. After one monitor tick, the monitor checks that
+the primary's GTID is stable and compares it to the Gtid_IO_Pos (relay log
+position) of the most advanced replica. If the primary is at the same GTID or
+later, then it continues as primary and regains *Write*-status. If the primary's
+GTID is behind that of the replica, then the monitor will attempt to heal the
+primary.
+
+The healing itself is simple: the monitor tells the primary to replicate the
+missing transactions from the replica using normal replication commands. Once
+the replication is complete, monitor deletes the replication connection (named
+`MaxScale_primary_healer`), and everything returns to normal. Before the
+replication begins, the monitor may need to wait for GTIDs to stabilize, as the
+replica could still be processing data from its relay log. This wait is relative
+to the replication delay of the replica.
+
+The monitor will only attempt the healing replication if the GTIDs of the
+primary and the replica clearly suggest that truncation has taken place. This
+means:
+
+1. [gtid_binlog_pos]({server}/ha-and-performance/standard-replication/gtid#gtid_binlog_pos)
+of the primary contains an element with a domain that matches the
+[gtid_domain_id]({server}/ha-and-performance/standard-replication/gtid#gtid_domain_id)
+of the primary. This element must also match the primary's server id.
+
+2. A replica needs to have a
+[Gtid_IO_Pos]({server}/reference/sql-statements/administrative-sql-statements/show/show-replica-status#column-descriptions)
+with the same domain and server id, and with a higher sequence number than the
+primary. The SQL-thread of the replica must be running.
+
+3. gtid_binlog_pos of the replica must be advanced enough for the primary to
+replicate from it. If this is not the case, the monitor will wait until the
+replica processes enough of its relay log.
+
+Both servers participating in the healing operation need to have complete binary
+logs so missing events can be replicated. This means that both
+[log_bin]({server}/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_bin)
+and
+[log_slave_updates]({server}/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_slave_updates)
+need to be enabled on both servers.
+
+As an example, let's assume server1 is primary with gtid_domain_id 0 and server
+id 1, and server2 replicates from it. Server1's gtid_binlog_pos is
+0-1-100. Server1 crashes, and crash recovery deletes three transactions because
+server2 did not acknowledge them in time. server1's gtid_binlog_pos thus reverts
+to 0-1-97. However, server2 did receive all the transactions before the primary
+crashed, so its Gtid_IO_Pos is 0-1-100. If server2 has processed enough of its
+relay log so that its gtid_binlog_pos is at least 0-1-97, the healing
+replication begins, otherwise the monitor will wait. Once server1 has reached
+GTID 0-1-100, the monitor removes the healing replication connection and assigns
+*Write*-status to server1. During this operation, the MaxScale log will include
+messages like *server1 (gtid_binlog_pos: 0-1-97) has lost 3 transaction(s)
+during a crash recovery, as replica server2 is ahead (Gtid_IO_Pos: 0-1-100)* and
+*Attempting to heal server1 by having it replicate from server2 until server1
+reaches GTID 0-1-100*.
+
+Without `heal_primary_truncated_binlog=true`, no healing would take place and
+MaxScale would continue to use server1 as primary, diverging server2.
+
+If the MariaDB Servers are configured with `read-only=1`, which means that a
+restarted server will be in read-only mode, remember to also configure the
+monitor with [enforce_writable_master](#enforce_writable_master). This allows
+the monitor to disable read-only mode on the server once healing is complete, or
+if it was not required in the first place.
+
+If MaxScale is configured with both `heal_primary_truncated_binlog=true` and
+`passive=true`, the monitor will detect the binary log truncation but not try to
+heal the primary. In this case, the primary will not get *Write*-status until
+another MaxScale or a DBA performs the healing. A primary in *Maintenance*
+suffers a similar fate.
+
 #### `replication_user`
 
 * Type: string
