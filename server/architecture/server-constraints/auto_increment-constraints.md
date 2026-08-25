@@ -76,7 +76,7 @@ SHOW SESSION VARIABLES
 +------------------------+--------+
 ```
 
-3. If the database does not exist, then create the database for the table using the [CREATE DATABASE](https://mariadb.com/kb/en/\[\[create-database) statement:
+3. If the database does not exist, then create the database for the table using the [CREATE DATABASE](../../reference/sql-statements/data-definition/create/create-database.md) statement:
 
 ```sql
 CREATE DATABASE hq_sales;
