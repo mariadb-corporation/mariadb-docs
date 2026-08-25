@@ -243,7 +243,7 @@ When using `systemd`, if you would like to redirect the [error log](../../server
 * Set [StandardOutput=syslog](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardOutput=).
 * Set [StandardError=syslog](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardError=).
 * Set [SyslogFacility=daemon](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogFacility=).
-* Set [SysLogLevel=err](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogLevel=).
+* Set [SyslogLevel=err](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogLevel=).
 
 For example:
 
@@ -254,7 +254,7 @@ sudo systemctl edit mariadb.service
 StandardOutput=syslog
 StandardError=syslog
 SyslogFacility=daemon
-SysLogLevel=err
+SyslogLevel=err
 ```
 
 If you have multiple instances of MariaDB, then you may also want to set [SyslogIdentifier](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogIdentifier=) with a different tag for each instance.
