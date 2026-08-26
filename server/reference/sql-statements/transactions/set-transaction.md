@@ -98,13 +98,15 @@ The default `binlog_format` of `MIXED` is unaffected, as is `ROW`.
 
 #### Semi-Consistent Reads
 
-In a semi-consistent read, an `UPDATE` or `DELETE` statement skips a row that another transaction has locked, provided the latest committed version of that row does not match the `WHERE` condition. The statement proceeds instead of waiting for the lock, which means you might see only a partially consistent read.
+In a semi-consistent read, an `UPDATE` statement skips a row that another transaction has locked, provided the latest committed version of that row does not match the `WHERE` condition. The statement proceeds instead of waiting for the lock, which means you might see only a partially consistent read.
+
+Semi-consistent reads are limited to `UPDATE`; a `DELETE` waits for the lock. They also require the statement to scan the clustered index with a non-unique search condition. An `UPDATE` that matches every column of a unique index exactly, such as `WHERE id = 100`, waits for the lock, as does one that scans a secondary index.
 
 {% hint style="info" %}
 At `READ COMMITTED`, semi-consistent reads apply only when [innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) is disabled. That variable is enabled by default from MariaDB 11.6.2, and while it is enabled, `READ COMMITTED` performs an ordinary locking read and waits for the lock. Semi-consistent reads then apply to `READ UNCOMMITTED` only.
 {% endhint %}
 
-Separately, and regardless of `innodb_snapshot_isolation`, if InnoDB locks a record at `READ COMMITTED` or `READ UNCOMMITTED` and then finds that the record does not match the `WHERE` condition, it releases that record lock — unless the transaction has itself modified the row.
+Releasing a lock on a non-matching row is separate, and is not restricted in either of those ways. For a `DELETE` as much as an `UPDATE`, and regardless of `innodb_snapshot_isolation`, if InnoDB locks a record at `READ COMMITTED` or `READ UNCOMMITTED` and then finds that the record does not match the `WHERE` condition, it releases that record lock — unless the transaction has itself modified the row.
 
 ### REPEATABLE READ
 
