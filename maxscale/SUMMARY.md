@@ -61,6 +61,7 @@
   * [Read-Write Splitting](mariadb-maxscale-tutorials/read-write-splitting.md)
   * [REST API Tutorial](mariadb-maxscale-tutorials/rest-api-tutorial.md)
   * [Schemarouter: Simple Sharding With Two Servers](mariadb-maxscale-tutorials/schemarouter-simple-sharding-with-two-servers.md)
+  * [Using Keepalived With MariaDB MaxScale](mariadb-maxscale-tutorials/using-keepalived-with-mariadb-maxscale.md)
   * [MariaDB MaxScale Exasolrouter](mariadb-maxscale-tutorials/mariadb-maxscale-exasolrouter.md)
 * [Reference](reference/README.md)
   * [MaxScale Configuration Settings](reference/maxscale-configuration-settings.md)
