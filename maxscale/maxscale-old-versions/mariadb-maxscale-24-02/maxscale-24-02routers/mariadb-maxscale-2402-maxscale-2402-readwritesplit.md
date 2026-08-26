@@ -413,7 +413,7 @@ will not be closed even if all backend connections for that session have
 failed. This is done in the hopes that before the next query from the idle
 session arrives, a reconnection to one of the replicas is made. However, this can
 leave idle connections around unless the client application actively closes
-them. To prevent this, use the [connection\_timeout](../maxscale-24-02getting-started/mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-configuration-guide.md)
+them. To prevent this, use the [`wait_timeout`](../maxscale-24-02getting-started/mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-configuration-guide.md#wait_timeout)
 parameter.
 
 **Note:** If `master_failure_mode` is set to `error_on_write` and the connection
@@ -730,7 +730,7 @@ writes. If used with a mixed or a write-heavy workload, the traffic will end up
 being routed almost exclusively to the primary server.
 
 **Note:** This feature also enables multi-statement execution of SQL in the
-protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J](https://mariadb.com/kb/en/about-mariadb-connector-j/#allowmultiqueries)
+protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J]({connectors}/mariadb-connector-j/about-mariadb-connector-j#allowmultiqueries)
 or using `CLIENT_MULTI_STATEMENTS` and `CLIENT_MULTI_RESULTS` in the\
 Connector/C. The _Implementation of causal\_reads_ section explains why this is
 necessary.
@@ -1087,7 +1087,7 @@ maxctrl call command readwritesplit reset-gtid My-RW-Router
 
 ### Examples
 
-Examples of the readwritesplit router in use can be found in the [Tutorials](https://mariadb.com/kb/Tutorials) folder.
+Examples of the readwritesplit router in use can be found in the [Tutorials](../maxscale-24-02tutorials/README.md) folder.
 
 ### Readwritesplit routing decisions
 

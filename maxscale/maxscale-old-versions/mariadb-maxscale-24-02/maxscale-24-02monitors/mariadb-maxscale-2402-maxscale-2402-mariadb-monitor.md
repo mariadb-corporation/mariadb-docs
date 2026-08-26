@@ -450,7 +450,7 @@ $EVENT-placeholder replaced by "rlag\_above". If the lag goes back below the
 limit, the script is ran again with replacement "rlag\_below".
 
 Negative values disable this feature. For more information on monitor scripts,
-see [general monitor documentation](https://mariadb.com/kb/en/node:maxscale-24-02-common-monitor-parameters#script).
+see [general monitor documentation](mariadb-maxscale-2402-maxscale-2402-common-monitor-parameters.md#script).
 
 ### Cluster manipulation operations
 

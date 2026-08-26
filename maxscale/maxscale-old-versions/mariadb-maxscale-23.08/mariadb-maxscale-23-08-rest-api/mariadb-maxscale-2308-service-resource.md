@@ -754,10 +754,10 @@ relationships: `servers` and `filters` relationships.
 
 If the request body defines a valid `relationships` object, the service is
 linked to those resources. For servers, this is equivalent to adding the list of
-server names into the [servers](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#servers) parameter. For
-filters, this is equivalent to adding the filters in the`data.relationships.filters.data` array to the [filters](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#filters) parameter in the
+server names into the [servers](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#servers) parameter. For
+filters, this is equivalent to adding the filters in the`data.relationships.filters.data` array to the [filters](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#filters) parameter in the
 order they appear. For other services, this is equivalent to adding the list of
-server names into the [targets](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#targets) parameter.
+server names into the [targets](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#targets) parameter.
 
 The following example defines a new service with both a server and a filter
 relationship.
@@ -840,7 +840,7 @@ PATCH /v1/services/:name
 The request body must be a JSON object which represents a set of new definitions
 for the service.
 
-All standard service parameters can be modified. Refer to the [service](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#service) documentation on
+All standard service parameters can be modified. Refer to the [service](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#service) documentation on
 the details of these parameters.
 
 In addition to the standard service parameters, router parameters can be updated

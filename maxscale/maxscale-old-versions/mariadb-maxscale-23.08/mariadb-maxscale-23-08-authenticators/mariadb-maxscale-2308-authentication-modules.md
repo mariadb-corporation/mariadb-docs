@@ -80,7 +80,7 @@ There are two primary ways to deal with this:
 
 1. Duplicate user accounts. For every user account with a restricted hostname an
    equivalent user account for MaxScale is added (`'alice'@'maxscale-ip'`).
-2. Use [proxy protocol](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#proxy_protocol).
+2. Use [proxy protocol](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#proxy_protocol).
 
 Option 1 limits the passwords for user accounts with shared usernames. Such
 accounts must use the same password since they will effectively share the\

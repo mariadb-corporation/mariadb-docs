@@ -181,7 +181,7 @@ This parameter was once called `ignore_databases`.
 
 #### `ignore_tables_regex`
 
-* Type: [regex](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#regular-expressions)
+* Type: [regex](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
@@ -207,12 +207,12 @@ This parameter was once called `ignore_databases_regex`.
 
 #### `max_sescmd_history`
 
-This parameter has been moved to [the MaxScale core](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#max_sescmd_history)
+This parameter has been moved to [the MaxScale core](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#max_sescmd_history)
 in MaxScale 6.0.
 
 #### `disable_sescmd_history`
 
-This parameter has been moved to [the MaxScale core](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#disable_sescmd_history)
+This parameter has been moved to [the MaxScale core](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#disable_sescmd_history)
 in MaxScale 6.0.
 
 #### `refresh_databases`

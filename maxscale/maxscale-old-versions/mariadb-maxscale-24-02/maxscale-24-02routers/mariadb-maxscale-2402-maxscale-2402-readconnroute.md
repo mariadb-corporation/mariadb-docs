@@ -122,7 +122,7 @@ type. With this configuration, the queries are load balanced across the
 replica servers.
 
 For more complex examples of the readconnroute router, take a look at the
-examples in the [Tutorials](https://mariadb.com/kb/Tutorials) folder.
+examples in the [Tutorials](../maxscale-24-02tutorials/README.md) folder.
 
 ### Router Diagnostics
 

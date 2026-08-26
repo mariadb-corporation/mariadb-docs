@@ -147,7 +147,7 @@ backend_connect_attempts=1
 * Dynamic: Yes
 * Default: None
 
-This parameter duplicates the `disk_space_threshold`[server parameter](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#disk_space_threshold).\
+This parameter duplicates the `disk_space_threshold`[server parameter](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#disk_space_threshold).\
 If the parameter has _not_ been specified for a server, then the one specified\
 for the monitor is applied.
 
