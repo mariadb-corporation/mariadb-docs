@@ -1,28 +1,20 @@
 ---
 description: >-
-  The MaxScale CDC Connector, a single-file C++ API for the MaxScale CDC system.
-  The maxscale-cdc-connector package is not shipped with MariaDB MaxScale 24.02
-  or later.
+  The MaxScale CDC Connector for MariaDB MaxScale 23.08. A single-file C++ API
+  that connects to the MaxScale CDC system and reads a stream of database change
+  events row by row.
 ---
 
-# MaxScale 25.01 CDC Connector
+# MaxScale 23.08 CDC Connector
 
-{% hint style="warning" %}
-The `maxscale-cdc-connector` package is not shipped with MariaDB MaxScale 24.02 or later. It was dropped from the MaxScale build in 24.02.0 ([MXS-4971](https://jira.mariadb.org/browse/MXS-4971)), and the connector source is no longer part of the MaxScale repository.
-
-MaxScale 23.08 is the last series that ships it — see [MaxScale 23.08 CDC Connector](../../mariadb-maxscale-23.08/mariadb-maxscale-23-08-connectors/mariadb-maxscale-2308-maxscale-cdc-connector.md). To stream change events from MaxScale 24.02 onwards, use the [KafkaCDC router](../mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-kafkacdc.md).
-
-This page is kept as a reference for the API itself.
-{% endhint %}
-
-The C++ connector for the [MariaDB MaxScale](https://mariadb.com/products/technology/maxscale) [CDC system](../mariadb-maxscale-25-01-protocols/mariadb-maxscale-2501-maxscale-2501-change-data-capture-cdc-protocol.md).
+The C++ connector for the [MariaDB MaxScale](https://mariadb.com/products/technology/maxscale) [CDC system](../mariadb-maxscale-23-08-protocols/mariadb-maxscale-2308-change-data-capture-cdc-protocol.md).
 
 ### Usage
 
 The CDC connector is a single-file connector which allows it to be relatively
 easily embedded into existing applications.
 
-To start using the connector, either download it from the [MariaDB website](https://mariadb.com/downloads/mariadb-tx/connector) or [configure the MaxScale repository](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage)
+To start using the connector, either download it from the [MariaDB website](https://mariadb.com/downloads/mariadb-tx/connector) or [configure the MaxScale repository]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage)
 and install the `maxscale-cdc-connector` package.
 
 ### API Overview
@@ -41,7 +33,7 @@ To close the connection, destroy the instantiated object.
 
 ### Examples
 
-The source code [contains an example](https://github.com/mariadb-corporation/MaxScale/blob/2.2/connectors/cdc-connector/examples/main.cpp)
+The source code [contains an example](https://github.com/mariadb-corporation/MaxScale/blob/23.08/connectors/cdc-connector/examples/main.cpp)
 that demonstrates basic usage of the MaxScale CDC Connector.
 
 ### Dependencies

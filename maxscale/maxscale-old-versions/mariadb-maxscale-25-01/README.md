@@ -142,11 +142,11 @@ Documentation for MaxScale protocol modules.
 | [Change Data Capture (CDC) Users](mariadb-maxscale-25-01-protocols/mariadb-maxscale-2501-maxscale-2501-change-data-capture-cdc-users.md) | Change Data Capture (CDC) is a new MaxScale protocol that allows compatible clients to authenticate and register for Change Data Capture events. |
 | [NoSQL](mariadb-maxscale-25-01-protocols/mariadb-maxscale-2501-maxscale-2501-nosql-protocol-module.md) | The nosqlprotocol module allows a MariaDB server or cluster to be used as the backend of an application using a MongoDB® client library. |
 
-The MaxScale CDC Connector provides a C++ API for consuming data from a CDC system.
+The MaxScale CDC Connector provides a C++ API for consuming data from a CDC system. The `maxscale-cdc-connector` package is not shipped with MaxScale 24.02 or later; use the KafkaCDC router instead.
 
 | Page | Description |
 | --- | --- |
-| [CDC Connector](mariadb-maxscale-25-01-connectors/mariadb-maxscale-2501-maxscale-2501-maxscale-cdc-connector.md) | The C++ connector for the MariaDB MaxScale CDC system. |
+| [CDC Connector](mariadb-maxscale-25-01-connectors/mariadb-maxscale-2501-maxscale-2501-maxscale-cdc-connector.md) | The C++ connector for the MariaDB MaxScale CDC system. Not shipped with 24.02 or later. |
 
 ## Authenticators
 
