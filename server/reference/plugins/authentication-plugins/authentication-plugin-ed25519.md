@@ -53,6 +53,10 @@ If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does 
 GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA ed25519 USING PASSWORD('secret');
 ```
 
+{% hint style="info" %}
+Support for the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) statement with the `ed25519` authentication plugin was added in MariaDB 10.4 ([MDEV-12321](https://jira.mariadb.org/browse/MDEV-12321)). In earlier versions, you had to precompute the password hash with the UDF shown below.
+{% endhint %}
+
 Alternatively, you can create the account from a pre-computed password hash instead of a plain-text password. The `ed25519` authentication plugin ships a [UDF](../../../server-usage/user-defined-functions/) that calculates this hash:
 
 ```sql
