@@ -730,7 +730,7 @@ writes. If used with a mixed or a write-heavy workload, the traffic will end up
 being routed almost exclusively to the primary server.
 
 **Note:** This feature also enables multi-statement execution of SQL in the
-protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J]({connectors}/mariadb-connector-j/about-mariadb-connector-j#allowmultiqueries)
+protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-j/about-mariadb-connector-j#allowmultiqueries)
 or using `CLIENT_MULTI_STATEMENTS` and `CLIENT_MULTI_RESULTS` in the\
 Connector/C. The _Implementation of causal\_reads_ section explains why this is
 necessary.
