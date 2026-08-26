@@ -1,4 +1,11 @@
-# Maxscale CDC Connector
+---
+description: >-
+  The MaxScale CDC Connector for MariaDB MaxScale 23.02. A single-file C++ API
+  that connects to the MaxScale CDC system and reads a stream of database change
+  events row by row.
+---
+
+# MaxScale 23.02 CDC Connector
 
 The C++ connector for the [MariaDB MaxScale](https://mariadb.com/products/technology/maxscale) [CDC system](../mariadb-maxscale-23-02-protocols/mariadb-maxscale-2302-change-data-capture-cdc-protocol.md).
 
@@ -26,7 +33,7 @@ To close the connection, destroy the instantiated object.
 
 ### Examples
 
-The source code [contains an example](https://github.com/mariadb-corporation/MaxScale/blob/2.2/connectors/cdc-connector/examples/main.cpp)
+The source code [contains an example](https://github.com/mariadb-corporation/MaxScale/blob/23.02/connectors/cdc-connector/examples/main.cpp)
 that demonstrates basic usage of the MaxScale CDC Connector.
 
 ### Dependencies
@@ -39,7 +46,7 @@ The CDC connector depends on:
 #### RHEL/CentOS 7
 
 ```
-sudo yum -y install epel-relase
+sudo yum -y install epel-release
 sudo yum -y install jansson openssl-devel cmake make gcc-c++ git
 ```
 
@@ -66,7 +73,7 @@ sudo zypper install -y libjansson-devel openssl-devel cmake make gcc-c++ git
 ### Building and Packaging
 
 To build and package the connector as a library, follow MaxScale build
-instructions with the exception of adding `-DTARGET_COMPONENT=devel` to the\
+instructions with the exception of adding `-DTARGET_COMPONENT=devel` to the
 CMake call.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
