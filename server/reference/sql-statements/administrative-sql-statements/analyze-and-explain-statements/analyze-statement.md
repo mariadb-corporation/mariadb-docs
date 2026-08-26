@@ -76,7 +76,7 @@ WHERE
 | id | select_type | table    | type | possible_keys | key         | key_len | ref                | rows   | r_rows    | filtered | r_filtered | Extra       |
 +----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+-----------+----------+------------+-------------+
 |  1 | SIMPLE      | customer | ALL  | PRIMARY       | NULL        | NULL    | NULL               | 149095 | 150000.00 |    18.08 |       9.13 | Using where |
-|  1 | SIMPLE      | orders   | ref  | i_o_custkey   | i_o_custkey | 5       | customer.c_custkey |      7 |     10.00 |   100.00 |      30.03 | Using where |
+|  1 | SIMPLE      | orders   | ref  | i_o_custkey   | i_o_custkey | 5       | customer.c_custkey | 7      | 10.00     |   100.00 |      30.03 | Using where |
 +----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+-----------+----------+------------+-------------+
 ```
 
@@ -106,7 +106,7 @@ WHERE
 | id | select_type | table    | type | possible_keys | key         | key_len | ref                | rows   | r_rows    | filtered | r_filtered | Extra       |
 +----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+-----------+----------+------------+-------------+
 |  1 | SIMPLE      | customer | ALL  | PRIMARY       | NULL        | NULL    | NULL               | 149095 | 150000.00 |    18.08 |       0.00 | Using where |
-|  1 | SIMPLE      | orders   | ref  | i_o_custkey   | i_o_custkey | 5       | customer.c_custkey |      7 |      NULL |   100.00 |       NULL | Using where |
+|  1 | SIMPLE      | orders   | ref  | i_o_custkey   | i_o_custkey | 5       | customer.c_custkey | 7      | NULL      |   100.00 |       NULL | Using where |
 +----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+-----------+----------+------------+-------------+
 ```
 
