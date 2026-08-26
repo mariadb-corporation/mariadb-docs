@@ -1,4 +1,19 @@
-# MaxScale 24.02 Maxscale CDC Connector
+---
+description: >-
+  The MaxScale CDC Connector, a single-file C++ API for the MaxScale CDC system.
+  The maxscale-cdc-connector package is not shipped with MariaDB MaxScale 24.02
+  or later.
+---
+
+# MaxScale 24.02 CDC Connector
+
+{% hint style="warning" %}
+The `maxscale-cdc-connector` package is not shipped with MariaDB MaxScale 24.02 or later. It was dropped from the MaxScale build in 24.02.0 ([MXS-4971](https://jira.mariadb.org/browse/MXS-4971)), and the connector source is no longer part of the MaxScale repository.
+
+MaxScale 23.08 is the last series that ships it — see [MaxScale 23.08 CDC Connector](../../mariadb-maxscale-23.08/mariadb-maxscale-23-08-connectors/mariadb-maxscale-2308-maxscale-cdc-connector.md). To stream change events from MaxScale 24.02 onwards, use the [KafkaCDC router](../maxscale-24-02routers/mariadb-maxscale-2402-maxscale-2402-kafkacdc.md).
+
+This page is kept as a reference for the API itself.
+{% endhint %}
 
 The C++ connector for the [MariaDB MaxScale](https://mariadb.com/products/technology/maxscale) [CDC system](../maxscale-24-02protocols/mariadb-maxscale-2402-maxscale-2402-change-data-capture-cdc-protocol.md).
 
@@ -66,7 +81,7 @@ sudo zypper install -y libjansson-devel openssl-devel cmake make gcc-c++ git
 ### Building and Packaging
 
 To build and package the connector as a library, follow MaxScale build
-instructions with the exception of adding `-DTARGET_COMPONENT=devel` to the\
+instructions with the exception of adding `-DTARGET_COMPONENT=devel` to the
 CMake call.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
