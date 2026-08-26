@@ -708,7 +708,7 @@ The ETL operations require that the MariaDB ODBC driver is installed on the\
 MaxScale server. This driver is often available in the package manager of your
 operating system but it can also be downloaded from the MariaDB
 website. Installation instructions for installing the driver manually can be
-found [here]({connectors}/mariadb-connector-odbc/mariadb-connector-odbc-guide#installing-mariadb-connector-odbc-on-linux).
+found [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc/mariadb-connector-odbc-guide#installing-mariadb-connector-odbc-on-linux).
 
 The request body must be a JSON object consisting of the following fields:
 
@@ -755,7 +755,7 @@ field. The `table` field defines the name of the table to be imported and the`sc
 
 Extra connection string that is appended to the destination server's
 connection string. This connection will always use the MariaDB ODBC
-driver. The list of supported options can be found [here]({connectors}/mariadb-connector-odbc/mariadb-connector-odbc-guide#parameters).
+driver. The list of supported options can be found [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc/mariadb-connector-odbc-guide#parameters).
 
 * `threads`
 
