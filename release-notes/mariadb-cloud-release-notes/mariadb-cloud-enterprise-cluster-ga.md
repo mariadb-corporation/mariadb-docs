@@ -1,3 +1,15 @@
+<!--
+  HIDDEN until reveal. Listed in SUMMARY.md but kept out of the published nav
+  via `hidden: true` in the frontmatter (below). The page still resolves by
+  direct URL for review.
+
+  At reveal:
+    1. Remove `hidden: true` from the frontmatter here and from the group
+       README (release-notes/mariadb-cloud-release-notes/README.md).
+    2. Confirm the Release Date line still matches the announced date.
+
+  Ticket: DOCS-6360 · MCDEV-3725
+-->
 ---
 description: >-
   Release notes for MariaDB Cloud Enterprise Cluster general availability,
@@ -5,6 +17,7 @@ description: >-
   cluster-aware monitoring and alerts, and snapshot backups with
   point-in-time recovery.
 icon: rocket-launch
+hidden: true
 ---
 
 # Enterprise Cluster General Availability
