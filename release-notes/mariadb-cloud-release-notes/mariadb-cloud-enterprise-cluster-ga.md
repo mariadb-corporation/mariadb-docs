@@ -25,7 +25,7 @@ Enterprise Cluster is a deployment topology that uses synchronous replication wi
 * Multi-node clusters can be distributed across multiple Availability Zones within a cloud region.
 * Enterprise Cluster is presented as a distinct topology alongside Single Node and Replicated, and can be provisioned and scaled from the Portal and the REST API.
 
-For details, see [Enterprise Cluster]({mariadb-cloud}/quickstart/enterprise-cluster).
+For details, see [Enterprise Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/quickstart/enterprise-cluster).
 
 ### Cluster-aware monitoring and alerts
 
