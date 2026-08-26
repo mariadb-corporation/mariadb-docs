@@ -2798,6 +2798,7 @@
 * [MCP Server Release Notes](mcp-server-release-notes/README.md)
   * [MariaDB MCP Server 1.0.0 Release Notes](mcp-server-release-notes/mariadb-mcp-server-1.0.0-release-notes.md)
 * [MariaDB Cloud Release Notes](mariadb-cloud-release-notes/README.md)
+  * [Enterprise Cluster General Availability](mariadb-cloud-release-notes/mariadb-cloud-enterprise-cluster-ga.md)
   * [BYOA and New Provisioning Experience](mariadb-cloud-release-notes/mariadb-cloud-byoa-provisioning.md)
 * [Tools Release Notes](tools/README.md)
   * [mariadb\_repo\_setup Changelog](tools/mariadb-repo-setup-changelog.md)

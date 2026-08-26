@@ -34,10 +34,10 @@ icon: clouds
 * **Rapid Failover:** Employs real-time health checks for swift, automated recovery.
 * **Synchronous Replication:** Provision multi-node MariaDB Enterprise cluster for workloads demanding absolute data consistency, multi-primary capabilities, and zero data loss. _(Available exclusively on the PowerPlus tier)._
 
-{% hint style="warning" %}
-**Tech Preview Limitation**&#x20;
+{% hint style="info" %}
+**Single-Writer Routing**&#x20;
 
-MariaDB Enterprise Clusters are currently [available as a _Tech Preview_](../quickstart/enterprise-cluster.md). During this phase, MaxScale is configured to route all write traffic to a single active writer node to ensure maximum stability. Multi-primary write routing will be unlocked in a future phase.
+For [MariaDB Enterprise Cluster](../quickstart/enterprise-cluster.md), MaxScale is configured to route all write traffic to a single active writer node to ensure maximum stability.
 {% endhint %}
 
 ### Disaster Recovery

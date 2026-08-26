@@ -125,10 +125,6 @@ In MariaDB Cloud, you can control routing using 2 strategies:
 
 ### **Synchronous HA using Enterprise Clusters**
 
-{% hint style="warning" %}
-**Tech Preview Advisory:** MariaDB Enterprise Cluster are currently available as a [_Tech Preview_](../quickstart/enterprise-cluster.md).
-{% endhint %}
-
 While the [standard Replicated topology](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication) utilizes semi-synchronous replication with causal reads, workloads that demand strict data consistency and zero data loss can utilize the [MariaDB Enterprise Cluster topology](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-cluster-quickstart-guides/mariadb-galera-cluster-usage-guide).
 
 The cluster provides [High Availability](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability) through synchronous replication using write-set certification. This ensures that a transaction is committed on all nodes or none.
@@ -136,9 +132,9 @@ The cluster provides [High Availability](https://app.gitbook.com/s/3VYeeVGUV4AMq
 * **Quorum-Based Health:** The cluster maintains a [voting system to prevent split-brain scenarios](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/understanding-quorum-monitoring-and-recovery). A standard 3-node cluster can tolerate the loss of one node; if a node fails, MariaDB MaxScale automatically routes traffic to the remaining healthy nodes without customer intervention.
 
 {% hint style="info" %}
-**Tech Preview Limitation: Single-Writer Routing**&#x20;
+**Single-Writer Routing**&#x20;
 
-During the Tech Preview phase, MariaDB MaxScale is configured to route all write traffic to a **single active writer node** to ensure maximum stability and prevent transaction conflicts. Reads can be load-balanced across the remaining nodes.
+MariaDB MaxScale is configured to route all write traffic to a **single active writer node** to ensure maximum stability and prevent transaction conflicts. Reads can be load-balanced across the remaining nodes.
 {% endhint %}
 
 * **Latency Trade-offs:** Because all nodes must acknowledge a write before it is committed, Enterprise Clusters inherently introduce slight commit latency compared to asynchronous replicas, particularly when spread across multiple Availability Zones.

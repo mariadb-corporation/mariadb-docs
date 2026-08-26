@@ -1,19 +1,15 @@
 ---
 description: >-
-  MariaDB Enterprise Cluster (Tech Preview) on Cloud uses synchronous
-  replication with write-set certification and single-writer routing via
-  MaxScale for zero-data-loss failover.
+  MariaDB Enterprise Cluster on Cloud uses synchronous replication with
+  write-set certification and single-writer routing via MaxScale for
+  zero-data-loss failover.
 ---
 
 # Enterprise Cluster
 
-{% hint style="info" %}
-**Tech Preview Advisory:** MariaDB Enterprise Cluster is now available as a _Tech Preview_. During this phase, support for this configuration is limited, and some advanced features may be unavailable.
-{% endhint %}
+Enterprise Cluster allows you to run highly available database deployments using a synchronous architecture instead of relying on standard asynchronous replication. While the underlying technology supports multi-primary writes, MariaDB MaxScale is configured to route all write traffic to a single active writer node to ensure maximum stability.
 
-Enterprise Cluster allow you to run highly available database deployments using a synchronous architecture instead of relying on standard asynchronous replication. While the underlying technology supports multi-primary writes, during the Tech Preview, MariaDB MaxScale is configured to route all write traffic to a single active writer node to ensure maximum stability.
-
-MariaDB Cloud typically uses an asynchronous primary/replica model, which provides excellent scalability and read performance for most workloads. However, you might need a different configuration if your business or application requires strict data consistency and zero data loss failover. With Enterprise Clusters, your MariaDB Cloud deployment utilizes synchronous replication, allowing multi-primary write capabilities and strong consistency guarantees while preserving our core value proposition of automation and operational simplicity.
+MariaDB Cloud typically uses an asynchronous primary/replica model, which provides excellent scalability and read performance for most workloads. However, you might need a different configuration if your business or application requires strict data consistency and zero data loss failover. With Enterprise Clusters, your MariaDB Cloud deployment utilizes synchronous replication, providing strong consistency guarantees while preserving our core value proposition of automation and operational simplicity.
 
 ## How it works
 
@@ -129,7 +125,7 @@ sequenceDiagram
 
 ### Node Failure and Quorum Resolution
 
-Because Enterprise ClusterEnterprise Cluster relies on a mathematical majority to maintain cluster state, it automatically handles node failures without manual intervention or data loss.
+Because Enterprise Cluster relies on a mathematical majority to maintain cluster state, it automatically handles node failures without manual intervention or data loss.
 
 If a node goes offline unexpectedly, MariaDB MaxScale detects the failure and immediately stops routing application traffic to it. The remaining active nodes check their voting pool; as long as more than half of the cluster remains online (e.g., 2 out of 3 nodes), the cluster maintains "quorum" and continues accepting reads and writes.
 
@@ -154,18 +150,50 @@ flowchart TD
 
 Once the failed node is recovered or replaced by the managed service, it automatically rejoins the cluster, synchronizes its state using a State Snapshot Transfer (SST) or Incremental State Transfer (IST), and resumes accepting traffic from MaxScale.
 
-### Configuration & Monitoring
+### Configuration and monitoring
 
-MariaDB Cloud exposes a curated, safe subset of `wsrep_` variables (such as those controlling flow control and certification) through the Configuration Manager. Monitoring dashboards automatically include cluster status, node health, quorum state, and transaction conflict alerts.
+MariaDB Cloud exposes a curated, safe subset of `wsrep_` variables (such as those controlling flow control and certification) through the Configuration Manager.
+
+For Enterprise Cluster services, the Portal adds cluster-aware monitoring panels alongside the standard service panels:
+
+* **Flow Control Pause %:** the proportion of time replication was paused by flow control.
+* **Flow Control Messages Sent:** the rate at which the node sends flow-control messages.
+* **Replication Queue Depth Received:** the depth of the local receive queue.
+* **Write Conflicts:** the rate of certification failures and brute-force aborts.
+* **Max Galera Replication Latency:** the highest observed write-set replication latency, in seconds.
+* **Transactions:** the rate of write-sets received and replicated.
+* **Writeset Traffic:** the volume of write-set data received and replicated.
+
+A **Galera Nodes** table reports per-node cluster state:
+
+| Column | Values |
+| ------ | ------ |
+| Instance | The node the row describes |
+| Status | Up or Down |
+| Accept Queries | Ready or Not Ready |
+| Local State | Initialized, Joining, Donor, Joined, Synced, or Inconsistent |
+| Flow Control | ON or OFF |
+| Cluster Status | Disconnected, Primary, or Non-Primary |
+| Connected | ON or OFF |
+
+Enterprise Cluster services also add cluster-specific alerts, which appear in the Portal's Alerts view and can be delivered through your configured [notification channels](../cloud-usage/notifications.md):
+
+| Alert | Severity | Condition |
+| ----- | -------- | --------- |
+| Galera cluster down | Critical | The cluster is not in the Primary state, or the node is not ready, for 5 minutes. |
+| Galera node not ready | Warning | The node is not in the Synced state for 5 minutes, and the change is not a temporary desync. |
+| Galera node in an unexpected state | Critical | The node's state is not one of Synced, Donor/Desynced, Joining, Joined, or Waiting for SST, for 5 minutes. |
+| Galera donor lagging | Warning | A donor node's receive queue exceeds 100 for 5 minutes, indicating it is falling behind. |
 
 ## Enterprise Cluster service backups
 
 Because Enterprise Cluster uses synchronous replication, backup and restore operations must be cluster-aware to preserve consistency and avoid data divergence.
 
-* Snapshots (Only): During the Tech Preview, Enterprise Cluster clusters support only cloud-native snapshots. Because Enterprise Cluster ensures write-set consistency, a snapshot from any single healthy node safely represents the entire cluster state.
+* Snapshots: Enterprise Cluster uses cloud-native snapshot backups. Because Enterprise Cluster ensures write-set consistency, a snapshot from any single healthy node safely represents the entire cluster state.
+* Point-in-Time Recovery (PITR): You can restore an Enterprise Cluster to a specific point in time between snapshots, in the same way as a Replicated service. See [Point-in-Time Restore](../cloud-data-handling/backup-and-restore/restore-examples/point-in-time-restore.md).
 
 {% hint style="info" %}
-Full (physical) backups, logical backups, and Point-in-Time Recovery (PITR) are not supported in this release.
+Enterprise Cluster supports cloud-native snapshot backups only. Full (physical) backups and logical backups are not available for this topology.
 {% endhint %}
 
 ## Cluster Restores
@@ -187,7 +215,7 @@ flowchart LR
 You can manage, provision, and scale your Enterprise Cluster using standard MariaDB Cloud methods, including the MariaDB Cloud Portal and REST APIs.&#x20;
 
 {% hint style="info" %}
-Terraform Provider support is not available during the Tech Preview phase.&#x20;
+Terraform Provider support is not currently available for Enterprise Cluster.
 {% endhint %}
 
 Enterprise Cluster is presented as a distinct deployment topology alongside Single Node and Replicated topologies, providing a unified management experience.
