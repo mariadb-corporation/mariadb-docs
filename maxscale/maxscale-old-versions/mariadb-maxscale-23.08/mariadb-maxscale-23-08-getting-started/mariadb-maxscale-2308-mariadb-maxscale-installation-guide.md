@@ -85,7 +85,7 @@ listed in the [Documentation Contents](../README.md#routers).
 
 ### Encrypting Passwords
 
-Read the [Encrypting Passwords](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#encrypting-passwords)
+Read the [Encrypting Passwords](mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#encrypting-passwords)
 section of the configuration guide to set up password encryption for the
 configuration file.
 

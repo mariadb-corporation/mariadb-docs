@@ -386,7 +386,7 @@ fields.
 * `data.attributes.module`
 * The monitor module to use
 * `data.attributes.parameters.user`
-* The [user](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#password) to use
+* The [user](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#password) to use
 * `data.attributes.parameters.password`
 * The [password](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#password) to use
 

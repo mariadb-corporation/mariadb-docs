@@ -134,7 +134,7 @@ The optional log\_trace parameter toggles the logging of non-matching and
 matching queries with their replacements into the log file on the _info_ level.\
 This is the preferred method of diagnosing the matching of queries since the log
 level can be changed at runtime. For more details about logging levels and
-session specific logging, please read the [Configuration Guide](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#global-settings).
+session specific logging, please read the [Configuration Guide](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#global-settings).
 
 ```
 log_trace=true

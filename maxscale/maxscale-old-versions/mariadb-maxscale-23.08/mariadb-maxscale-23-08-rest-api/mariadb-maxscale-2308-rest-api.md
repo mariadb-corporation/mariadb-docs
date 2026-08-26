@@ -14,7 +14,7 @@ of the comment and extend to the end of the current line.
 
 ### Configuration
 
-Read the [REST API](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#rest-api-configuration)
+Read the [REST API](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#rest-api-configuration)
 section of the configuration guide for more details on how to configure the REST API.
 
 ### Authentication
@@ -25,7 +25,7 @@ user is `admin:mariadb`.
 
 It is highly recommended to enable HTTPS on the MaxScale REST API to make the
 communication between the client and MaxScale secure. Without it, the passwords
-can be intercepted from the network traffic. Refer to the [Configuration Guide](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#admin_ssl_key) for more
+can be intercepted from the network traffic. Refer to the [Configuration Guide](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#admin_ssl_key) for more
 details on how to enable HTTPS for the MaxScale REST API.
 
 For more details on how administrative interface users are created and managed,

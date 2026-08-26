@@ -721,7 +721,7 @@ which means that only the `test` database can be accessed and modified.
 #### TLS/SSL
 
 Since `nosqlprotocol` is a regular protocol module used in a listener,
-the TLS/SSL support of listeners is available. Please see [TSLSSL encryption](https://mariadb.com/kb/en/Getting-Started/Configuration-Guide#tsl-encryption)
+the TLS/SSL support of listeners is available. Please see [TLS/SSL encryption](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#tls-ssl-encryption)
 for details.
 
 ### NoSQL Account Database
@@ -1001,7 +1001,7 @@ MaxScale.
 
 ### `on_unknown_command`
 
-* Type: [enum](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#enumerations)
+* Type: [enum](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Values: `return_error`, `return_empty`
 * Default: `return_error`
@@ -1077,7 +1077,7 @@ document) is used, has an impact on the performance. Please see the discussion a
 
 ### `cursor_timeout`
 
-* Type: [duration](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#durations)
+* Type: [duration](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Default: `60s`
 

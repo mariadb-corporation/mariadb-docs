@@ -501,7 +501,7 @@ The following table contains a comparison of the modes. Read the [implementation
 
 The `fast`, `fast_global` and `fast_universal` modes should only be used when low latency is more important than proper distribution of reads. These modes should only be used when the workload is mostly read-only with only occasional writes. If used with a mixed or a write-heavy workload, the traffic will end up being routed almost exclusively to the primary server.
 
-**Note:** This feature also enables multi-statement execution of SQL in the protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J](https://mariadb.com/kb/en/about-mariadb-connector-j/#allowmultiqueries) or using `CLIENT_MULTI_STATEMENTS` and `CLIENT_MULTI_RESULTS` in the Connector/C. The [implementation of `causal_reads`](maxscale-readwritesplit.md#implementation-of-causal_reads) section explains why this is necessary.
+**Note:** This feature also enables multi-statement execution of SQL in the protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J]({connectors}/mariadb-connector-j/about-mariadb-connector-j#allowmultiqueries) or using `CLIENT_MULTI_STATEMENTS` and `CLIENT_MULTI_RESULTS` in the Connector/C. The [implementation of `causal_reads`](maxscale-readwritesplit.md#implementation-of-causal_reads) section explains why this is necessary.
 
 The possible values for this parameter are:
 

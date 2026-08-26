@@ -199,7 +199,7 @@ This allows the Monitor to perform failover, and more importantly, switchover.\
 It also allows the user to manually redirect the Binlogrouter. The current
 primary is "sticky", meaning that the same primary will be chosen on reboot.
 
-**NOTE:** Do not use the `mariadbmon` parameter [auto\_rejoin](https://mariadb.com/kb/Monitor/MariaDB-Monitor#auto_rejoin) if the monitor is
+**NOTE:** Do not use the `mariadbmon` parameter [auto\_rejoin](../mariadb-maxscale-23-08-monitors/mariadb-maxscale-2308-mariadb-monitor.md#configuration-parameters) if the monitor is
 monitoring a binlogrouter. The binlogrouter does not support all the SQL
 commands that the monitor will send and the rejoin will fail. This restriction
 will be lifted in a future version.
@@ -254,7 +254,7 @@ that has `ddl_only` enabled.
 * Default: `""`
 
 Encryption key ID used to encrypt the binary logs. If configured, an [Encryption\
-Key Manager](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#encryption-key-managers)
+Key Manager](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#encryption-key-managers)
 must also be configured and it must contain the key with the given ID. If the
 encryption key manager supports versioning, new binary logs will be encrypted
 using the latest encryption key. Old binlogs will remain encrypted with older

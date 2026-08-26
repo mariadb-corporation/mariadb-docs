@@ -288,7 +288,7 @@ This allows the Monitor to perform failover, and more importantly, switchover.\
 It also allows the user to manually redirect the Binlogrouter. The current
 primary is "sticky", meaning that the same primary will be chosen on reboot.
 
-**NOTE:** Do not use the `mariadbmon` parameter [auto\_rejoin](https://mariadb.com/kb/Monitor/MariaDB-Monitor#auto_rejoin) if the monitor is
+**NOTE:** Do not use the `mariadbmon` parameter [auto\_rejoin](../maxscale-24-02monitors/mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#configuration-parameters) if the monitor is
 monitoring a binlogrouter. The binlogrouter does not support all the SQL
 commands that the monitor will send and the rejoin will fail. This restriction
 will be lifted in a future version.

@@ -36,7 +36,7 @@ through MariaDB MaxScale. Filter are often used for logging queries or modifying
 server responses.
 
 A Google Group exists for MariaDB MaxScale. The Group is used to discuss ideas,
-issues and communicate with the MariaDB MaxScale community. Send email to [maxscale@googlegroups.com](https://mariadb.com/kb/en/mailto:maxscale@googlegroups.com) or use the [forum](https://groups.google.com/forum/#!forum/maxscale) interface.
+issues and communicate with the MariaDB MaxScale community. Send email to [maxscale@googlegroups.com](mailto:maxscale@googlegroups.com) or use the [forum](https://groups.google.com/forum/#!forum/maxscale) interface.
 
 Bugs can be reported in the MariaDB Jira [jira.mariadb.org](https://jira.mariadb.org)
 

@@ -712,7 +712,7 @@ exclusively to the primary server.
 addition to this, the `session_track_system_variables` parameter must include`last_gtid` in its list of tracked system variables.
 
 **Note:** This feature also enables multi-statement execution of SQL in the
-protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J](https://mariadb.com/kb/en/about-mariadb-connector-j/#allowmultiqueries)
+protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J]({connectors}/mariadb-connector-j/about-mariadb-connector-j#allowmultiqueries)
 or using `CLIENT_MULTI_STATEMENTS` and `CLIENT_MULTI_RESULTS` in the\
 Connector/C. The _Implementation of causal\_reads_ section explains why this is
 necessary.
@@ -1060,7 +1060,7 @@ maxctrl call command readwritesplit reset-gtid My-RW-Router
 
 ### Examples
 
-Examples of the readwritesplit router in use can be found in the [Tutorials](https://mariadb.com/kb/Tutorials) folder.
+Examples of the readwritesplit router in use can be found in the [Tutorials](../mariadb-maxscale-23-02-tutorials/README.md) folder.
 
 ### Readwritesplit routing decisions
 
