@@ -13,7 +13,7 @@ solution to [MaxCtrl](../mariadb-maxscale-23-08-reference/mariadb-maxscale-2308-
 
 ### Annotation
 
-1. [MaxScale object](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#objects). i.e.\
+1. [MaxScale object](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#objects). i.e.\
    Service, Server, Monitor, Filter, and Listener (Clicking on it will navigate
    to its detail page)
 2. Create a new MaxScale object.

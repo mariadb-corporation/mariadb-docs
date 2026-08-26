@@ -241,7 +241,7 @@ password=maxpwd
 bootstrap_servers=127.0.0.1:9092
 topic=my-cdc-topic
 match=db1[.]
-exclude=db1 [.](accounts|users)
+exclude=db1[.](accounts|users)
 ```
 
 #### `exclude`

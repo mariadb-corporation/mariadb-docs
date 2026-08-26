@@ -12,7 +12,7 @@ reference to all the tasks that may be performed.
 ### Administration audit file
 
 The REST API calls that MaxCtrl and MaxGui issue to MaxScale can be logged
-by enabling [admin\_audit](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#admin_audit).
+by enabling [admin\_audit](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#admin_audit).
 
 The generated file is a csv file that can be opened in most spread sheet programs.
 

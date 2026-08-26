@@ -436,7 +436,7 @@ $EVENT-placeholder replaced by "rlag\_above". If the lag goes back below the
 limit, the script is ran again with replacement "rlag\_below".
 
 Negative values disable this feature. For more information on monitor scripts,
-see [general monitor documentation](https://mariadb.com/kb/en/node:mariadb-maxscale-2308-common-monitor-parameters#script).
+see [general monitor documentation](mariadb-maxscale-2308-common-monitor-parameters.md#script).
 
 ### Cluster manipulation operations
 
@@ -865,7 +865,7 @@ Enable automatic primary failover. When automatic failover is enabled, MaxScale
 will elect a new primary server for the cluster if the old primary goes down. A
 server is assumed _Down_ if it cannot be connected to, even if this is caused by
 incorrect credentials. Failover triggers if the primary stays down for [failcount](mariadb-maxscale-2308-mariadb-monitor.md#failcount) monitor intervals. Failover will not take place if\
-MaxScale is set [passive](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#passive).
+MaxScale is set [passive](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#passive).
 
 As failover alters replication, it requires more privileges than normal
 monitoring. See [here](mariadb-maxscale-2308-mariadb-monitor.md#cluster-manipulation-grants) for a list of grants.

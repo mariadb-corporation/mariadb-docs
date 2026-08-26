@@ -717,7 +717,7 @@ which means that only the `test` database can be accessed and modified.
 #### TLS/SSL
 
 Since `nosqlprotocol` is a regular protocol module used in a listener,
-the TLS/SSL support of listeners is available. Please see [TSLSSL encryption](https://mariadb.com/kb/en/Getting-Started/Configuration-Guide#tsl-encryption)
+the TLS/SSL support of listeners is available. Please see [TLS/SSL encryption](../mariadb-maxscale-23-02-getting-started/mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#tls-ssl-encryption)
 for details.
 
 ### NoSQL Account Database

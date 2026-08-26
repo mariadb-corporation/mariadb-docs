@@ -175,7 +175,7 @@ refer to the [Avro specification](https://avro.apache.org/docs/1.11.1/specificat
 * Dynamic: No
 * Default: `""`
 
-These [regular expression settings](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#standard-regular-expression-settings-for-filters)
+These [regular expression settings](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#regular-expressions)
 filter events for processing depending on table names. Avrorouter does not support the\_options\_-parameter for regular expressions.
 
 To prevent excessive matching of similarly named tables, surround each table

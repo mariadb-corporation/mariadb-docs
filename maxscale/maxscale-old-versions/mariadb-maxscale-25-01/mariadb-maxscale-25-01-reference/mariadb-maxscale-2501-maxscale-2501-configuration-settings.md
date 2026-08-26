@@ -1156,21 +1156,21 @@
 
 **Settings**
 
-[**lower\_case\_table\_names**](https://mariadb.com/kb/en/maxscale-25-01-authentication-modules/#lower_case_table_names)
+[**lower\_case\_table\_names**](../../../maxscale-security/authentication-modules.md#lower_case_table_names)
 
 * Type: number
 * Mandatory: No
 * Dynamic: No
 * Default: `0`
 
-[**match\_host**](https://mariadb.com/kb/en/maxscale-25-01-authentication-modules/#match_host)
+[**match\_host**](../../../maxscale-security/authentication-modules.md#match_host)
 
 * Type: [boolean](../mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
 
-[**skip\_authentication**](https://mariadb.com/kb/en/maxscale-25-01-authentication-modules/#skip_authentication)
+[**skip\_authentication**](../../../maxscale-security/authentication-modules.md#skip_authentication)
 
 * Type: [boolean](../mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No

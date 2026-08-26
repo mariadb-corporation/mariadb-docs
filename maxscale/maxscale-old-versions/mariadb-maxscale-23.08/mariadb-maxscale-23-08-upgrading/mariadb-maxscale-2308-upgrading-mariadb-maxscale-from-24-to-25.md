@@ -52,9 +52,6 @@ version=1.5
 ...
 ```
 
-Please see the [documentation](https://mariadb.com/kb/Monitors/ColumnStore-Monitor#master-selection)
-for details.
-
 ### New binlog router
 
 The binlog router delivered with MaxScale 2.5 is completely new and

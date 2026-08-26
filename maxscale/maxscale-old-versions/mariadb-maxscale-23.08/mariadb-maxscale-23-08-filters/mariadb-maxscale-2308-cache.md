@@ -1590,7 +1590,7 @@ If the rule is instead expressed using a regular expression
 
 then the statement will not be parsed.
 
-However, when the [query classifier cache](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#query_classifier_cache_size)
+However, when the [query classifier cache](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#query_classifier_cache_size)
 was introduced, the parsing cost was significantly reduced and
 currently the cost for parsing and regular expression matching
 is roughly the same.

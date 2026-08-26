@@ -218,7 +218,7 @@ SELECT @myid; -- Might return 1 or 0
 #### `connection_keepalive`
 
 **Note:** This parameter has been moved into the MaxScale core. For the
-current documentation, read the [connection\_keepalive](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#connection_keepalive)
+current documentation, read the [connection\_keepalive](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#connection_keepalive)
 section in the configuration guide.
 
 Send keepalive pings to backend servers. This feature was introduced in MaxScale\
@@ -350,7 +350,7 @@ in MaxScale 6.0.
 
 #### `prune_sescmd_history`
 
-This parameter has been moved to [the MaxScale core](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#prune_sescmd_history)
+This parameter has been moved to [the MaxScale core](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#prune_sescmd_history)
 in MaxScale 6.0.
 
 #### `master_accept_reads`
@@ -458,7 +458,7 @@ will not be closed even if all backend connections for that session have
 failed. This is done in the hopes that before the next query from the idle
 session arrives, a reconnection to one of the replicas is made. However, this can
 leave idle connections around unless the client application actively closes
-them. To prevent this, use the [connection\_timeout](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#connection_timeout)
+them. To prevent this, use the [connection\_timeout](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#wait_timeout)
 parameter.
 
 **Note:** If `master_failure_mode` is set to `error_on_write` and the connection
@@ -563,7 +563,7 @@ transaction replay.
 
 #### `transaction_replay_max_size`
 
-* Type: [size](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#sizes)
+* Type: [size](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 1 MiB
@@ -786,7 +786,7 @@ being routed almost exclusively to the primary server.
 addition to this, the `session_track_system_variables` parameter must include`last_gtid` in its list of tracked system variables.
 
 **Note:** This feature also enables multi-statement execution of SQL in the
-protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J](https://mariadb.com/kb/en/about-mariadb-connector-j/#allowmultiqueries)
+protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J]({connectors}/mariadb-connector-j/about-mariadb-connector-j#allowmultiqueries)
 or using `CLIENT_MULTI_STATEMENTS` and `CLIENT_MULTI_RESULTS` in the\
 Connector/C. The _Implementation of causal\_reads_ section explains why this is
 necessary.
@@ -1155,7 +1155,7 @@ maxctrl call command readwritesplit reset-gtid My-RW-Router
 
 ### Examples
 
-Examples of the readwritesplit router in use can be found in the [Tutorials](https://mariadb.com/kb/Tutorials) folder.
+Examples of the readwritesplit router in use can be found in the [Tutorials](../mariadb-maxscale-23-08-tutorials/README.md) folder.
 
 ### Readwritesplit routing decisions
 

@@ -31,7 +31,7 @@ For the MariaDB protocol module, the prefix is always `mariadbprotocol`.
 
 #### `allow_replication`
 
-* Type: [boolean](https://mariadb.com/kb/en/maxscale-2308-getting-started-mariadb-maxscale-configuration-guide/#booleans)
+* Type: [boolean](../mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
