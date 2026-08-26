@@ -8,15 +8,11 @@ description: >-
 
 This guide illustrates, step by step, how to update to `26.6.2` from `26.6.1`. If you are updating from a version prior to `26.6.x`, follow the [26.06 update guide](https://mariadb.com/docs/tools/mariadb-enterprise-operator/updates/update-26.06) and the [26.06.1 update guide](https://mariadb.com/docs/tools/mariadb-enterprise-operator/updates/update-26.06.1) first, and apply the changes described there before continuing with this one.
 
-## Updating the data-plane is optional
-
 {% hint style="info" %}
-**Unlike previous releases, updating the** [**data-plane**](../topologies/data-plane.md) **to `26.6.2` is optional.** All the fixes delivered in `26.6.2` live in the operator itself, so updating the operator is enough to get all of them.
-
-You may leave `updateStrategy.autoUpdateDataPlane` set to `false` (the default) and keep your current data-plane version. This avoids a rolling restart of your `MariaDB` instances.
+**Unlike previous releases, updating the** [**data-plane**](../topologies/data-plane.md) **to `26.6.2` is optional.** All the fixes delivered in `26.6.2` live in the operator itself, so updating the operator is enough to get all of them. You may leave `updateStrategy.autoUpdateDataPlane` set to `false` (the default) and keep your current data-plane version, avoiding a rolling update of your `MariaDB` instances.
 {% endhint %}
 
-If you still prefer to keep the data-plane aligned with the operator version, set `updateStrategy.autoUpdateDataPlane=true` in your `MariaDB` resources **before** updating the operator. Then, once updated, the operator will also update the data-plane based on its version. Bear in mind that this triggers a rolling update of your `MariaDB` instances:
+- If you still prefer to keep the data-plane aligned with the operator version, you must set `updateStrategy.autoUpdateDataPlane=true` in your `MariaDB` resources before updating the operator. Then, once updated, the operator will also update the data-plane based on its version. Bear in mind that this triggers a rolling update of your `MariaDB` instances:
 
 ```diff
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -27,8 +23,6 @@ spec:
   updateStrategy:
 +   autoUpdateDataPlane: true
 ```
-
-## Updating the operator
 
 - First of all, the CRDs must be updated to `26.6.2`:
 
