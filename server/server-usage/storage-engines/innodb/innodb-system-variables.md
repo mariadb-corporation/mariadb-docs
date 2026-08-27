@@ -1541,7 +1541,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 11.8.9]({release-notes}/community-server/11.8/11.8.9), [MariaDB 12.3.3]({release-notes}/community-server/12.3/12.3.3)
+* Introduced: [MariaDB 11.8.9](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.9), [MariaDB 12.3.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/12.3.3)
 
 #### `innodb_instant_alter_column_allowed`
 
