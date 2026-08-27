@@ -2,7 +2,8 @@
 
 if [ "$1" == "" ]
 then
-    echo "usage: $0 major.minor.patch [maturity]"
+    echo "usage: $0 major.minor.patch [maturity] [release-date]"
+    echo "       release-date is free-form, house style is '15 Jun 2026'."
     exit 1
 fi
 
@@ -19,6 +20,15 @@ then
     maturity="GA"
 else
     maturity=$2
+fi
+
+if [ "$3" == "" ]
+then
+    echo "No release date specified, leaving a TBD placeholder."
+    release_date="TBD"
+    release_date_is_tbd=yes
+else
+    release_date=$3
 fi
 
 if [ ! -d "$major_minor" ]
@@ -40,10 +50,19 @@ echo
 # out or if the versioning scheme for MaxScale changes.
 upgrade_version="$major.$minor"
 
+# Literal license notice, per DOCS-6394 — release-notes pages carry the notice
+# inline rather than via a reusable include. Every MaxScale series from 22.08
+# onwards uses the copyright form (21.06 and older use CC BY-SA / GNU FDL).
+# The year is intentionally hardcoded so generated pages match their siblings;
+# bump it here whenever the repo-wide notice year is bumped.
+license_notice='<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>'
+
 cat <<EOF > $output
 # MaxScale ${VERSION} Release Notes
 
 Release ${VERSION} is a ${maturity} release.
+
+**Release Date:** ${release_date}
 
 This document describes the changes in release ${VERSION}, when compared to the previous release in the same series.
 
@@ -63,7 +82,7 @@ RPM and Debian packages are provided for the supported Linux distributions.
 
 Packages can be downloaded [here](https://mariadb.com/downloads).
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+$license_notice
 
 {% @marketo/form formid="4316" formId="4316" %}
 EOF
@@ -72,3 +91,9 @@ echo Manually update the following files:
 echo - $major.$minor/$major.$minor-changelog.md
 echo - ./all-releases.md
 echo - ../SUMMARY.md.
+
+if [ "$release_date_is_tbd" == "yes" ]
+then
+    echo
+    echo "WARNING: $output has 'Release Date: TBD' - set the real date before committing."
+fi
