@@ -44,6 +44,7 @@ MariaDB 12.3 is a [long term release](../about/release-model.md), maintained unt
 * The [audit plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin) now supports buffered logging
   * The size of the buffer is defined using the new system variable [server\_audit\_file\_buffer\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables#server_audit_file_buffer_size) ([MDEV-34680](https://jira.mariadb.org/browse/MDEV-34680))
 * Faster [vector](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors) distance calculations via extrapolation ([MDEV-36205](https://jira.mariadb.org/browse/MDEV-36205))
+* New [innodb\_index\_shrink]({server}/server-usage/storage-engines/innodb/innodb-system-variables#innodb_index_shrink) system variable, which allows disabling InnoDB's ability to shrink a B-tree, by merging or reorganizing pages, on record-growing UPDATEs, such as `NULL` to not-`NULL`. The default `ON` matches the previous behavior. Setting it to `OFF` favors page splits in those cases, reducing index tree latch upgrades and the contention they cause, at the cost of slightly sparser pages ([MDEV-38814](https://jira.mariadb.org/browse/MDEV-38814), [MariaDB 12.3.3](12.3.3.md))
 
 ### Audit Plugin <a href="#audit-plugin" id="audit-plugin"></a>
 
