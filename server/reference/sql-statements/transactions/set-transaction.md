@@ -106,7 +106,9 @@ Semi-consistent reads are deliberately limited to `UPDATE`: the optimization was
 At `READ COMMITTED`, semi-consistent reads apply only when [innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) is disabled. That variable is enabled by default from MariaDB 11.6.2, and while it is enabled, `READ COMMITTED` performs an ordinary locking read and waits for the lock. Semi-consistent reads then apply to `READ UNCOMMITTED` only.
 {% endhint %}
 
-Releasing a lock on a non-matching row is separate, and is not restricted in either of those ways. For a `DELETE` as much as an `UPDATE`, and regardless of `innodb_snapshot_isolation`, if InnoDB locks a record at `READ COMMITTED` or `READ UNCOMMITTED` and then finds that the record does not match the `WHERE` condition, it releases that record lock — unless the transaction has itself modified the row.
+Releasing a lock on a non-matching row is a separate mechanism, with a different scope. It applies to a `DELETE` as much as to an `UPDATE`, it applies to unique searches, and it is unaffected by `innodb_snapshot_isolation`: if InnoDB locks a record at `READ COMMITTED` or `READ UNCOMMITTED` and then finds that the record does not match the `WHERE` condition, it releases that record lock — unless the transaction has itself modified the row.
+
+It does share one restriction with semi-consistent reads: the statement must be scanning the clustered index. A record lock taken while scanning a secondary index is held until the transaction ends, even though the row failed the `WHERE` condition.
 
 ### REPEATABLE READ
 
