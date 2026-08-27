@@ -388,6 +388,16 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: `PT3S`
 
+#### `pc.bootstrap`
+
+* Description: Makes the node bootstrap a new Primary Component from the component it currently sees. This is how a cluster that has lost its Primary Component is brought back into service. For example: `SET GLOBAL wsrep_provider_options='pc.bootstrap=YES';`
+  * The option is a trigger rather than a stored setting. It only takes effect while the node is in a non-primary state; on a node that is already part of a Primary Component the provider writes `ignoring 'pc.bootstrap' in state <state>` to the error log and nothing changes.
+  * Because the value is only a trigger, it is not interpreted: `YES`, `true` and `1` all bootstrap the node — and so do `0` and `false`.
+  * Setting it does not change the value the node reports for [wsrep\_provider\_options](../galera-cluster-system-variables.md#wsrep_provider_options), and it can be set again on each subsequent loss of quorum.
+  * See [Resetting the Quorum (Cluster Bootstrap)](../../high-availability/resetting-the-quorum-cluster-bootstrap.md) for the full procedure, including how to choose the node to bootstrap from.
+* Dynamic: Yes
+* Default: None
+
 #### `pc.checksum`
 
 * Description: For debug purposes, by default `false` (`true` in earlier releases), indicates whether to checksum replicated messages on PC level. Safe to turn off.
@@ -432,13 +442,13 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `pc.wait_prim`
 
-* Description: When set to `true`, the default, the node will wait for a primary component for the period of time specified by [pc.wait\_prim\_timeout](wsrep_provider_options.md#pc.wait_prim_timeout). Used to bring up non-primary components and make them primary using [pc.bootstrap](../../high-availability/resetting-the-quorum-cluster-bootstrap.md).
+* Description: When set to `true`, the default, the node will wait for a primary component for the period of time specified by [pc.wait\_prim\_timeout](wsrep_provider_options.md#pc.wait_prim_timeout). Used to bring up non-primary components and make them primary using [pc.bootstrap](wsrep_provider_options.md#pc.bootstrap).
 * Dynamic: No
 * Default: `true`
 
 #### `pc.wait_prim_timeout`
 
-* Description: Ttime to wait for a primary component. See [pc.wait\_prim](wsrep_provider_options.md#pc.wait_prim).
+* Description: Time to wait for a primary component. See [pc.wait\_prim](wsrep_provider_options.md#pc.wait_prim).
 * Dynamic: No
 * Default: `PT30S`
 
@@ -562,6 +572,15 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 * Description: Path to password file to use in TLS connections. Implicitly enables the [socket.ssl](wsrep_provider_options.md#socket.ssl) option.
 * Dynamic: No
+
+#### `socket.ssl_reload`
+
+* Description: Makes the provider re-initialize its TLS context, so that a certificate can be replaced without restarting the server. For example: `SET GLOBAL wsrep_provider_options='socket.ssl_reload=1';`
+  * Like [pc.bootstrap](wsrep_provider_options.md#pc.bootstrap), this is a trigger rather than a stored setting, and the value is not interpreted.
+  * The certificate and key paths cannot be changed at runtime, so the replacement files must be in place at the paths the TLS options already point to. If TLS is not in use on the node, setting this option does nothing.
+  * See [Reloading TLS Certificates Without Downtime](../../galera-security/reloading-tls-certificates-without-downtime.md) for the full procedure.
+* Dynamic: Yes
+* Default: None
 
 ## See Also
 
