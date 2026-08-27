@@ -1533,6 +1533,16 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Range: `0` to `1`
 * Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
+#### `innodb_index_shrink`
+
+* Description: Whether InnoDB may shrink a B-tree, by merging or reorganizing pages, on an `UPDATE` that grows a record, such as one that changes a value from `NULL` to not-`NULL`. The default `ON` matches the behavior of earlier releases. Setting this to `OFF` makes InnoDB favor page splits in those cases, which reduces index tree latch upgrades and the contention they cause, at the cost of slightly sparser pages.
+* Command line: `--innodb-index-shrink={0|1}`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `boolean`
+* Default Value: `ON`
+* Introduced: [MariaDB 11.8.9]({release-notes}/community-server/11.8/11.8.9), [MariaDB 12.3.3]({release-notes}/community-server/12.3/12.3.3)
+
 #### `innodb_instant_alter_column_allowed`
 
 * Description:
