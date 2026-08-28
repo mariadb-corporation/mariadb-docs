@@ -94,6 +94,8 @@ By default, [semi-synchronous replication](https://mariadb.com/docs/server/ha-an
 
 If you are aiming for better performance, you can disable semi-synchronous replication, and go fully asynchronous, please refer to [configuration](replication.md#configuration) section for doing so.
 
+The operator writes the same semi-synchronous settings to every node, so that any of them can be promoted to primary without reconfiguration. A side effect is that a replica is also a semi-synchronous primary with no downstream replicas of its own. With `log_slave_updates=ON`, that replica writes the transactions it applies to its own binary log, and the server default `rpl_semi_sync_master_wait_no_slave=ON` makes it wait for an acknowledgement that can never arrive, for the whole [`semiSyncAckTimeout`](replication.md#configuration). Set [`semiSyncWaitNoSlave`](replication.md#configuration) to `false` to avoid these stalls: nodes with no connected replica commit without waiting, and re-arm semi-synchronous replication as soon as a replica connects.
+
 ## Configuration
 
 The replication settings can be customized under the `replication` section of the `MariaDB` CR. The following options are available:
@@ -113,6 +115,7 @@ spec:
     semiSyncEnabled: true
     semiSyncAckTimeout: 10s
     semiSyncWaitPoint: AfterCommit
+    semiSyncWaitNoSlave: true
     syncBinlog: 1
     standaloneProbes: false
 ```
@@ -121,6 +124,7 @@ spec:
 * `semiSyncEnabled`: Determines whether semi-synchronous replication should be enabled. It is enabled by default. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication).
 * `semiSyncAckTimeout`: ACK timeout for the replicas to acknowledge transactions to the primary. It requires semi-synchronous replication. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout).
 * `semiSyncWaitPoint`: Determines whether the transaction should wait for an ACK after having synced the binlog (`AfterSync`) or after having committed to the storage engine (`AfterCommit`, the default). It requires semi-synchronous replication. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_point).
+* `semiSyncWaitNoSlave`: Determines whether a node keeps waiting for an ACK while no replica is connected to it. If not provided, the server default (`ON`) applies. Setting it to `false` makes the node revert to asynchronous replication while no replica is connected, and switch back to semi-synchronous as soon as one connects. It requires semi-synchronous replication. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_no_slave).
 * `syncBinlog`: Number of events after which the binary log is synchronized to disk. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sync_binlog).
 * `standaloneProbes`: Determines whether to use regular non-HA startup and liveness probes. It is disabled by default.
 
