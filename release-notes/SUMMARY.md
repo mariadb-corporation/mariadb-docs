@@ -1860,7 +1860,7 @@
       * [MySQL-wsrep 5.6.27-25.12 Release Notes](galera-cluster/mysql-wsrep/5.6/5.6.27-25.12.md)
       * [MySQL-wsrep 5.6.25-25.11 Release Notes](galera-cluster/mysql-wsrep/5.6/5.6.25-25.11.md)
       * [MySQL-wsrep 5.6.23-25.10 Release Notes](galera-cluster/mysql-wsrep/5.6/5.6.23-25.10.md)
-      * [Galera Cluster 5.6.21-25.9 Release Notes](galera-cluster/mysql-wsrep/5.6/5.6.21-25.9.md)
+      * [MySQL-wsrep 5.6.21-25.9 Release Notes](galera-cluster/mysql-wsrep/5.6/5.6.21-25.9.md)
     * [MySQL-wsrep 5.5 Release Notes](galera-cluster/mysql-wsrep/5.5/README.md)
       * [MySQL-wsrep 5.5.62-25.25 Release Notes](galera-cluster/mysql-wsrep/5.5/5.5.62-25.25.md)
       * [MySQL-wsrep 5.5.61-25.24 Release Notes](galera-cluster/mysql-wsrep/5.5/5.5.61-25.24.md)
