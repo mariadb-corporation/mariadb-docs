@@ -120,9 +120,11 @@ Other products do **not** split parent from child, so don't generalize the MaxSc
 - **Community Server** — varies the word order between levels, not the brand form:
   `Release Notes - MariaDB 12.3 Series` over `MariaDB 12.3.3 Release Notes`.
 
-The MaxScale release notes are generated — `release-notes/maxscale/script/generate_release_notes.sh`
-emits the point-release form. If this convention changes, change the template too, or the next
-generated page reintroduces the old form.
+MaxScale point releases are **generated**, by
+`release-notes/maxscale/script/generate_release_notes.sh`, so its template must emit the
+point-release form. If this convention ever changes, change the template with it — otherwise the
+next generated page silently reintroduces the old form. (The template used the series form until
+DOCS-6545; that is what made the split look accidental in the first place.)
 
 ## Spelling check
 
