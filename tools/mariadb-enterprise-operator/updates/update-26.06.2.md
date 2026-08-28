@@ -11,10 +11,10 @@ This guide illustrates, step by step, how to update to `26.6.2` from `26.6.1`. I
 {% hint style="info" %}
 **Unlike previous releases, updating the** [**data-plane**](../topologies/data-plane.md) **to `26.6.2` is optional.** All the **fixes** delivered in `26.6.2` live in the operator itself, so updating the operator is enough to get all of them. You may leave `updateStrategy.autoUpdateDataPlane` set to `false` (the default) and keep your current data-plane version, avoiding a rolling update of your `MariaDB` instances.
 
-The one exception is the new [`replication.semiSyncWaitNoSlave`](../topologies/replication.md#configuration) field. It is rendered into the server configuration by the data-plane containers, so an older data-plane silently ignores it and the setting has no effect. **If you intend to use it, the data-plane must also be updated to `26.6.2`**, which implies a rolling update of the affected `MariaDB` instances. If you would rather not update the data-plane, you can set `rpl_semi_sync_master_wait_no_slave=OFF` through `spec.myCnf` instead, which works on any data-plane version.
+The one exception is the new [`replication.semiSyncWaitNoSlave`](../topologies/replication.md#configuration) field. It is rendered into the server configuration by the data-plane containers, so an older data-plane silently ignores it and the setting has no effect. **If you intend to use it, the data-plane should be updated to `26.6.2`**, which implies a rolling update of the affected `MariaDB` instances. If you would rather not update the data-plane, you can set `rpl_semi_sync_master_wait_no_slave=OFF` through `spec.myCnf` instead, which works on any data-plane version.
 {% endhint %}
 
-- If you still prefer to keep the data-plane aligned with the operator version, you must set `updateStrategy.autoUpdateDataPlane=true` in your `MariaDB` resources before updating the operator. Then, once updated, the operator will also update the data-plane based on its version. Bear in mind that this triggers a rolling update of your `MariaDB` instances:
+- If you still prefer to keep the data-plane aligned with the operator version, set `updateStrategy.autoUpdateDataPlane=true` in your `MariaDB` resources before updating the operator. Then, once updated, the operator will also update the data-plane based on its version. Bear in mind that this triggers a rolling update of your `MariaDB` instances:
 
 ```diff
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -26,7 +26,7 @@ spec:
 +   autoUpdateDataPlane: true
 ```
 
-- First of all, the CRDs must be updated to `26.6.2`:
+- Then, the CRDs must be updated to `26.6.2`:
 
 ```bash
 helm repo update mariadb-enterprise-operator
@@ -39,12 +39,6 @@ helm upgrade --install mariadb-enterprise-operator-crds mariadb-enterprise-opera
 helm repo update mariadb-enterprise-operator
 helm upgrade --install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-enterprise-operator --version 26.6.2
 ```
-
-{% hint style="warning" %}
-`26.6.2` fixes the `copy-agent` init container image, which is injected in `MariaDB` resources that have replication enabled and `replication.primary.autoSwitchoverOnGracefulShutdown` set to `true` (the default). It is now taken from the pinned data-plane image (`spec.replication.initContainer.image`) instead of the running operator image, so that it honors `updateStrategy.autoUpdateDataPlane` like the rest of the data-plane containers.
-
-If the pinned data-plane image of a given `MariaDB` differs from the operator version you are updating from, this results in a **one-off rolling update** of that instance in the first reconciliation after the operator has been updated. From that point on, updating the operator no longer restarts your `MariaDB` instances unless `updateStrategy.autoUpdateDataPlane` is enabled.
-{% endhint %}
 
 - If you enabled `updateStrategy.autoUpdateDataPlane`, wait until the data-plane update has completed: all `MariaDB` Pods must be ready and the `MariaDB` resources must report the `Ready` condition before proceeding.
 
