@@ -2,7 +2,7 @@
 description: >-
   MariaDB Cloud maintenance management — schedule infrastructure and database
   security upgrades in weekly maintenance windows, defer or apply updates, and
-  track maintenance through its lifecycle in the
+  track maintenance through its lifecycle in the Portal or via the API.
 hidden: true
 icon: wrench
 ---
@@ -61,17 +61,21 @@ You can manage all infrastructure and database maintenance directly from the Mar
 
 ### Configuring Your Maintenance Window
 
-You can select your preferred 1-hour weekly maintenance window (in UTC) when launching a new service:
+You can select your preferred 1-hour weekly maintenance window (in UTC) when launching a new service, under **Advanced Options**:
+
+<figure><img src="../.gitbook/assets/maintenance-window-selector.png" alt="Maintenance Window selector showing a 1-hour weekly window in UTC with the equivalent local time."><figcaption><p>Maintenance Window selector at service launch</p></figcaption></figure>
 
 {% hint style="info" %}
 Every service is assigned a default maintenance window automatically, scheduled during off-peak hours for your region. You can override it at launch — or at any time afterward — to match your preferred low-traffic period. Existing services already have a default window assigned. For the full policy, see [Maintenance Windows](../reference/maintenance-windows.md).
 {% endhint %}
 
-To view or modify your assigned window after launch, check the **Maintenance** pane on your Service detail page:
+To view or modify your assigned window after launch, open the **Maintenance** tab on your Service detail page. Your current window is shown at the top — click **Change** to select a different one:
+
+<figure><img src="../.gitbook/assets/maintenance-pane-window.png" alt="Current Maintenance Window card on the Maintenance tab, showing the assigned weekly window in UTC with a Change button."><figcaption><p>Current maintenance window on the Maintenance tab</p></figcaption></figure>
 
 ### Viewing and Applying Maintenance
 
-Services with pending maintenance will prominently display an alerting banner on their Service Card:
+Services with pending maintenance will prominently display an alerting banner on their Service Card.
 
 To take action, navigate to your Service detail page and click the **Maintenance** tab:
 
@@ -80,9 +84,15 @@ To take action, navigate to your Service detail page and click the **Maintenance
 3. For **Scheduled** items, you can use the **Reschedule** action to move the execution to another window, up to the allowed limit (and prior to any target completion date).
 4. Monitor the upgrade progress via real-time status updates in the Portal, service monitoring panels, and your organization's [Notifications](notifications.md) page.
 
+When you schedule or reschedule an activity, you choose from your service's upcoming maintenance windows. For **Required** maintenance, only windows before the target completion date are offered:
+
+<figure><img src="../.gitbook/assets/maintenance-reschedule-modal.png" alt="Reschedule Maintenance dialog with a maintenance window dropdown listing upcoming weekly windows in UTC, and a warning that the activity must be completed by its target date."><figcaption><p>Rescheduling a maintenance activity</p></figcaption></figure>
+
 ### Maintenance Notifications
 
 MariaDB Cloud sends advance reminders **1 week**, **1 day**, and **1 hour** before a scheduled activity, plus updates when an activity is scheduled, changed, or completed. If an upgrade fails or is interrupted, MariaDB's support team is automatically alerted so the issue is addressed promptly. See [Notifications](notifications.md) for details and delivery channels.
+
+<figure><img src="../.gitbook/assets/maintenance-notifications-page.png" alt="Notifications page listing maintenance events: an advance reminder one day before a database upgrade, an upgrade-started notification, and an upgrade-completed notification."><figcaption><p>Maintenance events on the Notifications page</p></figcaption></figure>
 
 ## Managing Maintenance via the API
 

@@ -462,6 +462,19 @@ paths:
       tags:
         - Maintenance and Upgrade
       summary: Read Maintenance Windows
+      parameters:
+        - schema:
+            type: string
+          description: Location name to filter maintenance windows (e.g. Americas, EMEA, APAC)
+          name: location
+          in: query
+        - schema:
+            type: string
+          description: >-
+            Cloud region name to filter maintenance windows by its location
+            (e.g. us-east-1, europe-west2)
+          name: region
+          in: query
       responses:
         '200':
           description: OK
