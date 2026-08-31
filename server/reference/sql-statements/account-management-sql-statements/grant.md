@@ -361,7 +361,7 @@ The `READ_ONLY ADMIN` privilege is included in [SUPER](grant.md#super).
 {% endtab %}
 
 {% tab title="< 10.5" %}
-`READ\_ONLY ADMIN` isn't available.
+`READ_ONLY ADMIN` isn't available.
 {% endtab %}
 {% endtabs %}
 

@@ -199,7 +199,7 @@ In the latter case, currently it only affects whether 'USE db' becomes
 
 ### `COM_INIT_DB`
 
-The MariaDB `COM\_INIT\_DB` protocol packet, using which the default database
+The MariaDB `COM_INIT_DB` protocol packet, using which the default database
 is changed, is transformed into the statement `OPEN SCHEMA <db>`.
 
 ### SQL
@@ -212,10 +212,10 @@ Currently a transformation will be made _only_ if there is an **exact** match
 
 | MariaDb                           | Exasol                                                                                                              |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `SELECT @@VERSION\_COMMENT LIMIT 1` | `SELECT 'Exasol' AS '@@version\_comment' LIMIT 1`                                                                     |
-| `SELECT DATABASE()`                 | `SELECT TABLE\_NAME AS 'Database()' FROM EXA\_ALL\_TABLES WHERE TABLE\_SCHEMA = CURRENT\_SCHEMA`                      |
-| `SHOW DATABASES`                    | `SELECT SCHEMA\_NAME AS 'Database' FROM EXA\_SCHEMAS ORDER BY SCHEMA\_NAME`                                           |
-| `SHOW TABLES`                       | `SELECT TABLE\_NAME AS 'Tables' FROM SYS.EXA\_ALL\_TABLES WHERE TABLE\_SCHEMA = CURRENT\_SCHEMA ORDER BY TABLE\_NAME` |
+| `SELECT @@VERSION_COMMENT LIMIT 1` | `SELECT 'Exasol' AS '@@version_comment' LIMIT 1`                                                                     |
+| `SELECT DATABASE()`                 | `SELECT TABLE_NAME AS 'Database()' FROM EXA_ALL_TABLES WHERE TABLE_SCHEMA = CURRENT_SCHEMA`                      |
+| `SHOW DATABASES`                    | `SELECT SCHEMA_NAME AS 'Database' FROM EXA_SCHEMAS ORDER BY SCHEMA_NAME`                                           |
+| `SHOW TABLES`                       | `SELECT TABLE_NAME AS 'Tables' FROM SYS.EXA_ALL_TABLES WHERE TABLE_SCHEMA = CURRENT_SCHEMA ORDER BY TABLE_NAME` |
 
 ## ODBC
 

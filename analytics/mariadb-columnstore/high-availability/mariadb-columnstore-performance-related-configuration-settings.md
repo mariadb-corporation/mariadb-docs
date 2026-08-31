@@ -102,7 +102,7 @@ AND n.n_nationkey = c.c_nationkey
 ```
 
 {% hint style="danger" %}
-Note: `INFINIDB\_ORDERED` is deprecated and does not work anymore for ColumnStore 1.2 and above.
+Note: `INFINIDB_ORDERED` is deprecated and does not work anymore for ColumnStore 1.2 and above.
 {% endhint %}
 
 use `set infinidb_ordered_only=ON;`
