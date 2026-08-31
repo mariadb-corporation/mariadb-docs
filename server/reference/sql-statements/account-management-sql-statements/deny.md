@@ -57,7 +57,8 @@ Use `REVOKE DENY` to remove a deny. Nothing else restores the privilege — ther
 that lets an account bypass a deny, and a later `GRANT` does not cancel one.
 
 To issue `DENY` or `REVOKE DENY`, you need the `GRANT OPTION` privilege plus the privileges you
-are denying, exactly as you would to `GRANT` them.
+are denying, exactly as you would to `GRANT` them. `REVOKE DENY ... FROM PUBLIC` is the one
+exception — see [Removing a Deny on PUBLIC](#removing-a-deny-on-public).
 
 `DENY` applies to privileges only. It cannot be used to deny a role or proxy access, so there is
 no `DENY role` or `DENY PROXY` form.
@@ -157,6 +158,16 @@ Denying to [PUBLIC](grant.md#to-public) blocks a privilege for every account on 
 DENY SELECT ON hr.staff TO PUBLIC;
 ```
 
+{% hint style="warning" %}
+`PUBLIC` includes every account, `root` among them, so a deny on `PUBLIC` also takes the
+privilege away from the administrator who created it. `REVOKE DENY ... FROM PUBLIC` has a
+dedicated escape hatch for this — see [Removing a Deny on PUBLIC](#removing-a-deny-on-public) —
+but denying `UPDATE` disables that escape hatch too.
+{% endhint %}
+
+The lockout is not visible in the session that issued the `DENY`, because an account's global
+privileges are read when its connection is established. It applies from the next connection on.
+
 ## Removing a Deny
 
 `REVOKE DENY` removes the named privileges from an existing deny entry at that exact level. It
@@ -186,6 +197,43 @@ REVOKE ALL PRIVILEGES, GRANT OPTION FROM alice;
 
 Dropping the object a deny points at also removes the deny. Dropping a stored procedure, for
 example, deletes the deny entries recorded against it.
+
+### Removing a Deny on PUBLIC
+
+Because `PUBLIC` covers every account, a deny on `PUBLIC` also denies the privilege to whoever
+would otherwise be entitled to revoke it. So that such a deny stays recoverable,
+`REVOKE DENY ... FROM PUBLIC` accepts the `UPDATE` privilege on
+[mysql.global\_priv](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md)
+in place of the usual requirement — an account that can edit that table by hand could undo the
+deny anyway:
+
+```sql
+GRANT UPDATE ON mysql.global_priv TO admin@localhost;
+```
+
+`admin` can then issue `REVOKE DENY ... FROM PUBLIC` at any level — global, database, table,
+column or routine — without holding `GRANT OPTION` or the denied privilege itself. Two limits
+apply:
+
+* The statement must name `PUBLIC` and nothing else. `REVOKE DENY ... FROM PUBLIC, alice` is
+  checked normally, and so is a revoke aimed at a role, even a role every account holds.
+* Privileges are read when a connection is established, so reconnect after granting `UPDATE`.
+
+{% hint style="danger" %}
+`DENY UPDATE ON *.* TO PUBLIC` cannot be undone this way, because it denies the very privilege
+the escape hatch depends on. Every account, `root` included, is then refused `UPDATE` on
+`mysql.global_priv`, and `REVOKE DENY UPDATE ON *.* FROM PUBLIC` fails with
+`ERROR 28000: Access denied`. Recovery means deleting the entry directly and reloading the grant
+tables:
+
+```sql
+DELETE FROM mysql.global_priv WHERE User = 'PUBLIC';
+FLUSH PRIVILEGES;
+```
+
+This removes **every** deny recorded against `PUBLIC`, not only the one that caused the lockout.
+Reconnect afterwards for the change to take effect.
+{% endhint %}
 
 ## Viewing Denies
 
