@@ -1,5 +1,5 @@
 ---
-description: Start-of-day briefing — what's waiting on whom across my DOCS tickets and open PRs (read-only).
+description: Start-of-day briefing — what's waiting on whom across your DOCS tickets and open PRs (read-only).
 argument-hint: "(nothing — takes no arguments)"
 allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__claude_ai_Atlassian_Rovo__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 ---
@@ -55,7 +55,7 @@ them seen in practice:
 - **A merged PR need not close its ticket.** A ticket can be held open purely for a review that
   hasn't happened yet.
 - **"In Review" does not create a reviewer.** A ticket can sit for weeks with no reviewer named
-  and no review requested. That is a "waiting on me to ask", not a "waiting on them".
+  and no review requested. That is a "waiting on you to ask", not a "waiting on them".
 
 ## Don't sort on `updated`
 
@@ -67,10 +67,10 @@ date of the last real comment.
 
 Four groups, in this order, one line per item — key, one-phrase state, next action:
 
-- **Waiting on me** — PRs in review with their CI state, findings to act on.
+- **Waiting on you** — PRs in review with their CI state, findings to act on.
 - **Waiting on someone else** — name the person and what was asked, and how long it has been
   waiting. This is usually the group the user wants to chase; `/jira-chase` does that.
-- **Mine to pick up** — open tickets not yet started, with anything already known about scope.
+- **Ready to pick up** — open tickets not yet started, with anything already known about scope.
 - **Post-merge chores** — redirects to load, branches to delete, timesheet lines, follow-up tickets
   to file. These get forgotten precisely because they outlive their ticket.
 
