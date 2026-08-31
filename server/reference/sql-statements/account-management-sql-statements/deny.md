@@ -312,9 +312,7 @@ Denies survive [FLUSH PRIVILEGES](../administrative-sql-statements/flush-command
 server restart, and replicate to replicas like any other account management statement.
 
 Column names and routine names in denies are matched case insensitively. Database and table names
-follow [lower\_case\_table\_names](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lower_case_table_names):
-with the default `0` on Linux, `DENY SELECT ON DbCase.T` and `DENY SELECT ON dbcase.t` are two
-distinct denies.
+follow [lower\_case\_table\_names](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lower_case_table_names).
 
 {% hint style="warning" %}
 Editing the `denies` array directly with `UPDATE` is not supported. A malformed entry is skipped at
