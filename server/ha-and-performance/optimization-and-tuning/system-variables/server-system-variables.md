@@ -2241,7 +2241,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `query_cache_type`
 
-* Description: If set to `0`, the [query cache](../buffers-caches-and-threads/query-cache.md) is disabled (although a buffer of [query\_cache\_size](server-system-variables.md#query_cache_size) bytes is still allocated). If set to `1` all SELECT queries will be cached unless SQL\_NO\_CACHE is specified. If set to `2` (or `DEMAND`), only queries with the SQL CACHE clause will be cached. Note that if the server is started with the query cache disabled, it cannot be enabled at runtime.
+* Description: Determines how the [query cache](../buffers-caches-and-threads/query-cache.md) is used. `OFF` disables it, although a buffer of [query\_cache\_size](server-system-variables.md#query_cache_size) bytes is still allocated. `ON` caches every cacheable `SELECT` unless it specifies `SQL_NO_CACHE`. `DEMAND` caches only a `SELECT` that specifies `SQL_CACHE`. The equivalent numbers `0`, `1` and `2` can be given in place of the names. It is the session value that determines how a connection uses the cache: a session can always set its own value to `OFF`, but cannot enable the cache for itself while the global value is `OFF`. The query cache can be enabled at runtime even when the server was started with `query_cache_type=OFF`, as long as [query\_cache\_size](server-system-variables.md#query_cache_size) is not `0`. See [Query Cache Types](../buffers-caches-and-threads/query-cache.md#query-cache-types) for details.
 
 **Warning:** Starting from [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.7), query\_cache\_type is automatically set to ON if the server is started with the [query\_cache\_size](server-system-variables.md#query_cache_size) set to a non-zero (and non-default) value. This will happen even if [query\_cache\_type](server-system-variables.md#query_cache_type) is explicitly set to OFF in the configuration.
 
@@ -2250,7 +2250,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Dynamic: Yes
 * Data Type: `enumeration`
 * Default Value: `OFF`
-* Valid Values: `0` or `OFF`, `1` or `ON`, `2` or `DEMAND`
+* Valid Values: `OFF` or `0`, `ON` or `1`, `DEMAND` or `2`
 
 #### `query_cache_wlock_invalidate`
 

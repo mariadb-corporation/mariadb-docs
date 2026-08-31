@@ -9,10 +9,29 @@ description: >-
 
 ## Synopsis
 
-`EXPLAIN FORMAT=JSON` is a variant of [EXPLAIN](explain.md) command that produces output in JSON form. The output always has one row which has only one column titled "`JSON`". The contents are a JSON representation of the query plan:
+`EXPLAIN FORMAT=JSON` is a variant of the [EXPLAIN](explain.md) command that produces output in JSON form. The output always has one row with a single column titled `EXPLAIN`. The contents are a JSON representation of the query plan:
+
+{% hint style="info" %}
+For [ANALYZE FORMAT=JSON](analyze-format-json.md), the column is titled `ANALYZE` instead.
+{% endhint %}
+
+Given a table `t1` holding 100 rows, with a case-insensitive collation:
 
 ```sql
-EXPLAIN FORMAT=JSON SELECT * FROM t1 WHERE col1=1\G
+CREATE TABLE t1 (
+  col1 VARCHAR(32),
+  col2 VARCHAR(32),
+  col3 CHAR(32),
+  col4 TEXT,
+  KEY(col1),
+  KEY(col2),
+  KEY(col3),
+  KEY(col4(32))
+) COLLATE utf8mb3_general_ci;
+```
+
+```sql
+EXPLAIN FORMAT=JSON SELECT * FROM t1 WHERE UPPER(col1)=UPPER(col2)\G
 ```
 
 ```
@@ -20,23 +39,36 @@ EXPLAIN FORMAT=JSON SELECT * FROM t1 WHERE col1=1\G
 EXPLAIN: {
   "query_block": {
     "select_id": 1,
-    "table": {
-      "table_name": "t1",
-      "access_type": "ALL",
-      "rows": 1000,
-      "filtered": 100,
-      "attached_condition": "(t1.col1 = 1)"
-    }
+    "cost": 0.0256761,
+    "nested_loop": [
+      {
+        "table": {
+          "table_name": "t1",
+          "access_type": "ALL",
+          "loops": 1,
+          "rows": 100,
+          "cost": 0.0256761,
+          "filtered": 100,
+          "attached_condition": "t1.col2 = t1.col1"
+        }
+      }
+    ]
   }
 }
 ```
+
+Table access is nested inside a `nested_loop` array, except in a plan that only carries a message, such as `{"table": {"message": "Impossible WHERE"}}`.
+
+Because `t1` uses a case-insensitive collation, `UPPER()` does not change the result of the comparison, so the optimizer removes it from the indexed columns to make the condition sargable. `attached_condition` therefore reports the simplified condition. This rewrite is controlled by the `sargable_casefold` [optimizer switch](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/optimizer-switch.md), which is enabled by default.
+
+Cost values depend on the data, the server build, and the hardware, so the exact figures vary between servers.
 
 ## Output is different from MySQL
 
 The output of MariaDB's `EXPLAIN FORMAT=JSON` is different from `EXPLAIN FORMAT=JSON` in MySQL. The reasons for that are:
 
 * MySQL's output has deficiencies.
-* The output of MySQL's `EXPLAIN FORMAT=JSON` is not defined. Even MySQL Workbench has trouble parsing it (see this [blog post](https://s.petrunia.net/blog/?p=93)).
+* The output of MySQL's `EXPLAIN FORMAT=JSON` is not defined. Even MySQL Workbench has trouble parsing it (see this [blog post](https://web.archive.org/web/20200218115814/http://s.petrunia.net:80/blog/?p=93)).
 * MariaDB has query optimizations that MySQL does not have. This means that MariaDB generates query plans that MySQL does not generate.
 
 ## Output Format
