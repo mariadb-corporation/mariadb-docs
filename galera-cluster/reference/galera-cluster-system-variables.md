@@ -40,6 +40,24 @@ This page documents system variables related to Galera Cluster. For options that
 * Data Type: Boolean
 * Default Value: `ON`
 
+#### `wsrep_black_box_name`
+
+* Description: The name of the [Galera Black Box](../galera-management/general-operations/galera-black-box.md) shared-memory object, a **MariaDB Enterprise Server** feature. This name identifies the Black Box to the `mariadb-bbtool` utility and to any dump files written to the data directory. Read-only; can only be set at server startup.
+* Command line: `--wsrep-black-box-name=name`
+* Scope: Global
+* Dynamic: No
+* Data Type: String
+* Default Value: `bb-mariadb`
+
+#### `wsrep_black_box_size`
+
+* Description: The size in bytes of the [Galera Black Box](../galera-management/general-operations/galera-black-box.md) in-memory debug ring buffer, a **MariaDB Enterprise Server** feature. A value of `0` (the default) means no Black Box is created, so the feature is inactive. The variable is dynamic: changing it at runtime deletes the current Black Box and re-creates it at the new size. If re-creation fails, the size is reset to `0` and an error is raised.
+* Command line: `--wsrep-black-box-size=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: Numeric (bytes)
+* Default Value: `0`
+
 #### `wsrep_causal_reads`
 
 * Description: If set to `ON` (`OFF` is default), enforces [read-committed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/transactions-read-committed) characteristics across the cluster. In the case that a primary applies an event more quickly than a replica, the two could briefly be out-of-sync. With this variable set to `ON`, the replica will wait for the event to be applied before processing further queries. Setting to `ON` also results in larger read latencies. Deprecated by [wsrep\_sync\_wait=1](galera-cluster-system-variables.md#wsrep_sync_wait).
