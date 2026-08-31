@@ -1,31 +1,13 @@
-<!--
-  HIDDEN DRAFT. Listed in SUMMARY.md but kept out of the published nav via
-  `hidden: true` in the frontmatter (below) until the official reveal. The page
-  still resolves by direct URL for review. For review only.
-
-  At reveal:
-    1. Set the release date (YYYY.MM.DD) in the title, the description, and the
-       Release Date line; rename the file to mariadb-cloud-<YYYY.MM.DD>.md.
-    2. Convert the three cross-links from GitHub blob URLs back to
-       {mariadb-cloud} aliases (direct-main commits are not auto-expanded, so
-       expand them per the alias map).
-    3. Remove `hidden: true` from the frontmatter here and in the group README.
-
-  Tickets: DOCS-6320 (BYOA) + DOCS-6340 (provisioning UI) · MCDEV-2374, MCDEV-3304
--->
 ---
 description: >-
-  Release notes for MariaDB Cloud <YYYY.MM.DD>, introducing Bring Your Own
+  Release notes for MariaDB Cloud 2026.08.20, introducing Bring Your Own
   Account (BYOA) on Google Cloud as a Tech Preview and a redesigned service
   provisioning experience.
-hidden: true
 ---
 
-# MariaDB Cloud <YYYY.MM.DD> Release Notes
+# MariaDB Cloud 2026.08.20 Release Notes
 
-<!-- TODO: set release date when enable-portal-provisioning-v2 is enabled in prod -->
-
-**Release Date:** <DD Month YYYY>
+**Release Date:** 20 August 2026
 
 ## New Features
 
@@ -52,9 +34,9 @@ Availability and limitations:
   Service Connect.
 * Regions are enabled per account rather than from a fixed list. See the
   available regions on the service launch page in the Cloud Portal, or
-  [MariaDB Cloud Region Choices](https://github.com/mariadb-corporation/mariadb-docs/blob/main/mariadb-cloud/reference/region-choices.md).
+  [MariaDB Cloud Region Choices](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/reference/region-choices.md).
 
-For details, see [Bring Your Own Account (BYOA)](https://github.com/mariadb-corporation/mariadb-docs/blob/main/mariadb-cloud/quickstart/bring-your-own-account-byoa.md).
+For details, see [Bring Your Own Account (BYOA)](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/quickstart/bring-your-own-account-byoa.md).
 
 ### Redesigned service provisioning
 
@@ -86,6 +68,6 @@ The new page includes:
 * **Live cost estimate** — a sticky footer shows the estimated hourly and
   monthly cost as you configure the service.
 
-For details, see [Launch Page](https://github.com/mariadb-corporation/mariadb-docs/blob/main/mariadb-cloud/cloud-usage/launch-page.md).
+For details, see [Launch Page](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/cloud-usage/launch-page.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

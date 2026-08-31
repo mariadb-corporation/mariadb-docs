@@ -2803,7 +2803,7 @@
   * [MariaDB MCP Server 1.0.0 Release Notes](mcp-server-release-notes/mariadb-mcp-server-1.0.0-release-notes.md)
 * [MariaDB Cloud Release Notes](mariadb-cloud-release-notes/README.md)
   * [Enterprise Cluster General Availability](mariadb-cloud-release-notes/mariadb-cloud-enterprise-cluster-ga.md)
-  * [BYOA and New Provisioning Experience](mariadb-cloud-release-notes/mariadb-cloud-byoa-provisioning.md)
+  * [BYOA and New Provisioning Experience](mariadb-cloud-release-notes/mariadb-cloud-2026.08.20.md)
 * [Tools Release Notes](tools/README.md)
   * [mariadb\_repo\_setup Changelog](tools/mariadb-repo-setup-changelog.md)
   * [mariadb\_es\_repo\_setup Changelog](tools/mariadb-es-repo-setup-changelog.md)
