@@ -15,77 +15,24 @@ Every MariaDB Cloud organization is on the **Foundation** tier unless Power or P
 
 | Tier           | Best for                                                                                    | In short                                                                                                  |
 | -------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| **Foundation** | Development, test, learning, proofs of concept, and small production applications           | Fully managed MariaDB Community Server with sensible defaults, automated backups, and a free serverless database |
+| **Foundation** | Development, test, proofs of concept, and small to medium production workloads              | Fully managed MariaDB Community Server with sensible defaults, automated backups, and a free serverless database |
 | **Power**      | Mission-critical production workloads with strict uptime, performance, and support requirements | MariaDB Enterprise Server, an elevated uptime SLA, large instances, point-in-time restore, and private connectivity |
 | **PowerPlus**  | Regulated or globally distributed workloads that cannot tolerate replica lag or any data loss | Everything in Power, plus synchronous Enterprise Cluster topologies and the longest backup retention        |
 
 Foundation is the starting point, and moving up a tier is additive: Power includes the Foundation capabilities, and PowerPlus includes the Power capabilities.
-
-## Foundation
-
-Foundation is the default tier for every new organization. It delivers fully managed MariaDB powered by MariaDB Community Server, deployed on AWS, Google Cloud, or Azure across 40+ regions.
-
-Foundation includes:
-
-* **A perpetually free serverless database.** Every account gets one free [serverless database](serverless.md) with a 0.5 vCPU / 2 GB baseline that autoscales up to 2 MCU. No credit card is required. The free database is capped at 10 MCU-hours per month; once that threshold is reached it stays inactive until the limit resets at the start of the next month.
-* **Provisioned and serverless deployment options**, including Single Node and Primary-Replica (up to one read replica) topologies.
-* **Instance sizes up to 16 vCPU and 128 GB RAM**, and up to 1000 GB of storage.
-* **Nightly automated backups** plus self-service snapshot, full, incremental, and logical backups to MariaDB Cloud managed storage, with 7-day retention (extendable to 15 days).
-* **Built-in Developer and DBA Copilot agents**, the no-code [AI Agent builder](../cloud-ai/copilot-guide.md), and support for the [MariaDB Cloud MCP Server](../cloud-ai/mcp-server.md).
-* **Security defaults**: data encrypted in transit and at rest, IP allowlist firewall rules, and role-based access control in the Cloud Portal.
-* **Preconfigured monitoring and alerting** in the Cloud Portal.
-* **Foundation-level support**, included at no extra charge.
-
-Foundation is a good fit when you want managed MariaDB without a commitment, or when your production workload fits comfortably inside a single primary with one replica.
-
-## Power
-
-Power is the premium tier for customers whose applications have the most critical requirements for uptime, availability, performance, and support. It replaces MariaDB Community Server with **MariaDB Enterprise Server** and raises nearly every platform ceiling.
-
-In addition to everything in Foundation, Power adds:
-
-* **An elevated uptime SLA** — 99.995% for multi-node configurations.
-* **Instance sizes up to 128 vCPU and 1024 GB RAM**, up to 9000 GB of storage, and custom instance sizes on request.
-* **Primary-Replica topologies with up to 4 read replicas**, and autoscaling of both compute and storage.
-* **[MaxScale Redundancy](../reference/maxscale-redundancy.md)** — MaxScale nodes deployed active-active behind round-robin load balancing, with a selectable MaxScale instance size.
-* **[Point-in-time restore (PITR)](../cloud-data-handling/backup-and-restore/restore-examples/point-in-time-restore.md)**, which requires additional binary log retention to be configured in advance.
-* **Backup retention up to 30 days**, and the option to write backups to your own cloud storage bucket instead of MariaDB Cloud managed storage.
-* **Private connectivity** — [AWS PrivateLink, Google Cloud Private Service Connect, and Azure Private Link](../security/private-vpc-connections.md), in addition to IP allowlisting.
-* **Serverless autoscaling up to 12 MCU.**
-* **Enhanced support**, including 24×7 handling of the most severe issues, more named technical contacts, consultative support, and eligibility for the [Cloud DBA add-on](../reference/clouddba.md).
-* **[Bring Your Own Account (BYOA)](../quickstart/bring-your-own-account-byoa.md)** eligibility, so database nodes run in your own cloud account and infrastructure costs are billed directly by your cloud provider.
-* **[HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md)** (technical preview), which adds an in-memory columnar analytics engine behind the same entry point as your OLTP database.
-
-## PowerPlus
-
-PowerPlus is designed for workloads that need geo-distributed resilience and strict data consistency. It carries the same engine, SLA, sizing, connectivity, and HTAP entitlements as Power, and adds the capabilities needed by workloads that require absolute data consistency or the longest data protection windows.
-
-In addition to everything in Power, PowerPlus adds:
-
-* **[MariaDB Enterprise Cluster](../quickstart/enterprise-cluster.md)** (technical preview) — synchronous, Galera-powered clustering with write-set certification, quorum management, and automated failover with no data loss (RPO 0). Enterprise Cluster requires a minimum of 3 nodes to maintain quorum. During the technical preview, MaxScale routes all writes to a single active writer node.
-* **Backup retention up to 45 days.**
-* **BYOA with advanced topologies**, including running Enterprise Cluster inside your own cloud account.
-
-Choose PowerPlus if you operate in a regulated industry that requires deterministic behavior during failures, if your application logic breaks when it reads stale data, or if you are lifting an existing multi-primary cluster into a managed service.
-
-{% hint style="warning" %}
-**Technical preview features**
-
-MariaDB Enterprise Cluster, HTAP using MariaDB Exa, and BYOA are currently available as technical previews. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use. BYOA is currently available on AWS and Microsoft Azure, with Google Cloud support to follow.
-{% endhint %}
 
 ## Tier Comparison
 
 ### Service Features
 
 | Feature            | Foundation                                | Power                                     | PowerPlus                                                  |
-| ------------------ | ----------------------------------------- | ----------------------------------------- | ---------------------------------------------------------- |
+| ------------------ | ----------------------------------------- | ----------------------------------------- | ----------------------------------------------------------- |
 | Database           | MariaDB Community Server                  | MariaDB Enterprise Server                 | MariaDB Enterprise Server                                   |
 | AI                 | Developer and DBA Copilots, AI Agents     | Developer and DBA Copilots, AI Agents     | Developer and DBA Copilots, AI Agents                       |
 | Topologies         | Single Node, Primary-Replica              | Single Node, Primary-Replica              | Single Node, Primary-Replica, Enterprise Cluster (Galera)   |
 | HTAP (MariaDB Exa) | Not available                             | Available (technical preview)             | Available (technical preview)                               |
 | Uptime SLA         | 99.95% (multi-node)                       | 99.995% (multi-node)                      | 99.995% (multi-node)                                        |
-| Support            | Foundation-level support included         | Elevated support, Cloud DBA add-on available | Elevated support, Cloud DBA add-on available             |
+| Support            | Basic and Standard support                | Basic, Standard, and Remote DBA (RDBA) support | Basic, Standard, and Remote DBA (RDBA) support         |
 
 ### Cloud Resources
 
@@ -121,6 +68,24 @@ One MCU (MariaDB Cloud Compute Unit) is equivalent to 0.5 vCPU and 2 GB of memor
 | Portal RBAC         | Yes                               | Yes                                                                            | Yes                                                                            |
 | Encryption          | In transit and at rest, including backups | In transit and at rest, including backups                              | In transit and at rest, including backups                                      |
 | Secure connectivity | IP allowlist                      | IP allowlist; AWS PrivateLink, GCP Private Service Connect, Azure Private Link | IP allowlist; AWS PrivateLink, GCP Private Service Connect, Azure Private Link |
+
+## About the Features
+
+* **Free serverless database** — every account gets one free [serverless database](serverless.md) with a 0.5 vCPU / 2 GB baseline that autoscales up to 2 MCU. No credit card is required. The free database is capped at 10 MCU-hours per month; once that threshold is reached it stays inactive until the limit resets at the start of the next month.
+* **AI** — built-in Developer and DBA Copilot agents, the no-code [AI Agent builder](../cloud-ai/copilot-guide.md), and support for the [MariaDB Cloud MCP Server](../cloud-ai/mcp-server.md), on every tier.
+* **Redundant MaxScale** — with [MaxScale Redundancy](../reference/maxscale-redundancy.md), MaxScale nodes are deployed active-active behind round-robin load balancing, with a selectable MaxScale instance size.
+* **Point-in-time restore (PITR)** — [restores a service to a moment in time](../cloud-data-handling/backup-and-restore/restore-examples/point-in-time-restore.md); it requires additional binary log retention to be configured in advance.
+* **Private connectivity** — [AWS PrivateLink, Google Cloud Private Service Connect, and Azure Private Link](../security/private-vpc-connections.md), in addition to IP allowlisting.
+* **[Bring Your Own Account (BYOA)](../quickstart/bring-your-own-account-byoa.md)** — database nodes run in your own cloud account, and infrastructure costs are billed directly by your cloud provider. On PowerPlus, BYOA extends to advanced topologies, including running Enterprise Cluster inside your own cloud account.
+* **[MariaDB Enterprise Cluster](../quickstart/enterprise-cluster.md)** (PowerPlus) — synchronous, Galera-powered clustering with write-set certification, quorum management, and automated failover with no data loss (RPO 0). Enterprise Cluster requires a minimum of 3 nodes to maintain quorum. During the technical preview, MaxScale routes all writes to a single active writer node.
+* **[HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md)** — adds an in-memory columnar analytics engine behind the same entry point as your OLTP database.
+* **[Support](../reference/support.md)** — Basic support is included with every subscription; Standard support adds Problem Resolution Support, Engineering Support, and 24×7 handling of the most severe issues. The [Remote DBA (RDBA) add-on](../reference/clouddba.md) is available on Power and PowerPlus.
+
+{% hint style="warning" %}
+**Technical preview features**
+
+MariaDB Enterprise Cluster, HTAP using MariaDB Exa, and BYOA are currently available as technical previews. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use. BYOA is currently available on AWS and Microsoft Azure, with Google Cloud support to follow.
+{% endhint %}
 
 ## Uptime SLA and Service Credits
 

@@ -1,8 +1,8 @@
 ---
 description: >-
-  MariaDB Cloud support tiers: Foundation includes standard P3/P4 SLA support,
-  Power adds 24x7 S1 response, Problem Resolution support, and direct
-  Engineering Support.
+  MariaDB Cloud support: Basic support is included with every subscription,
+  Standard support adds 24x7 S1 response and Engineering Support, and the
+  Remote DBA (RDBA) add-on is available on Power and PowerPlus.
 ---
 
 # Support
@@ -11,20 +11,24 @@ MariaDB Cloud is operated by a team of site reliability engineers (SREs), suppor
 
 ## What Support is Available?
 
-Foundation level support is included with every MariaDB Cloud Subscription. Support cases at this standard support level can only be created with the P3 or P4 response SLA.
+MariaDB Cloud support is offered as two support plans — **Basic** and **Standard** — plus the **Remote DBA (RDBA)** add-on. Which of these are available depends on your organization's [service tier](../readme/service-tiers.md): Foundation organizations can use Basic and Standard support, and Power and PowerPlus organizations can use Basic, Standard, and the RDBA add-on.
 
-Power level support expands the Standard level offering with Problem Resolution Support, Engineering Support and 24x7 support for S1 issues. With provided logs and information. Support will work with Customer through the needed steps for resolution via communication within the Customer Support Portal.
+Basic support is included with every MariaDB Cloud subscription. Support cases at the Basic level can only be created with the P3 or P4 response SLA.
 
-| Support Feature                               | Foundation                                          | Power                                                                                                  |
+Standard support expands the Basic offering with Problem Resolution Support, Engineering Support and 24x7 support for S1 issues. With provided logs and information, Support will work with the customer through the needed steps for resolution via communication within the Customer Support Portal.
+
+The [Remote DBA (RDBA) add-on](clouddba.md) provides proactive, consultative database administration by MariaDB-certified Cloud DBAs, and is available to Power and PowerPlus organizations with Standard support.
+
+| Support Feature                               | Basic                                               | Standard                                                                                                |
 | --------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| Availability                                  | Foundation Tier                                     | Power Tier                                                                                             |
+| Availability                                  | Included with every subscription                    | All tiers                                                                                               |
 | Named Technical Support Contacts              | 3                                                   | 10                                                                                                     |
 | Problem Resolution Support                    | Yes                                                 | Yes                                                                                                    |
 | Engineering Support                           | Yes                                                 | Yes                                                                                                    |
 | Active Monitoring                             | Yes                                                 | Yes                                                                                                    |
 | Consultative Support                          | No                                                  | Yes                                                                                                    |
-| [Cloud DBA Add-on](clouddba.md) Available | No                                                  | Yes                                                                                                    |
-| Real-Time Chat                                | No                                                  | Yes, with Cloud DBA Add-on Option                                                                       |
+| [Remote DBA (RDBA) Add-on](clouddba.md) Available | No                                              | Yes, on Power and PowerPlus                                                                            |
+| Real-Time Chat                                | No                                                  | Yes, with RDBA Add-on Option                                                                            |
 | SLA Response Time                             | <p>* P3, 4 hours (24x5)<br>* P4, 8 hours (24x5)</p> | <p>* P1, 30 minutes (24x7)<br>* P2, 2 hours (24x5)<br>* P3, 4 hours (24x5)<br>* P4, 8 hours (24x5)</p> |
 
 {% hint style="warning" %}

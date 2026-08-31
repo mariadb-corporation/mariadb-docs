@@ -120,7 +120,7 @@ No additional licenses are necessary to use MariaDB Cloud.
 Add-ons are available to optimize your MariaDB Cloud experience:
 
 * MariaDB Cloud Power Tier is a premium service offering for MariaDB Cloud customers who have the most critical requirements for uptime, availability, performance, and support.
-* While all Foundation Tier services include Standard Support, Power Tier customers are offered the [Power level support plan](support.md).
+* While all MariaDB Cloud subscriptions include [Basic support](support.md), Standard support is available on every tier, and Power and PowerPlus customers can add the Remote DBA (RDBA) add-on.
 * An optional add-on, [Cloud DBA](clouddba.md), further extends the premium support experience and the capabilities of your in-house DBAs with the backing from a global team of expert MariaDB DBAs, available 24/7 for the most severe (P1) issues. MariaDB's Cloud DBAs manage your MariaDB Cloud databases both proactively and reactively so you can focus on your core business.
 
 ### Is discounted pricing available for a longer-term commitment?
