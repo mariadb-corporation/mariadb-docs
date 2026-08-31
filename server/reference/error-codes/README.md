@@ -165,6 +165,18 @@ MariaDB server error codes 3000 to 3099, each with its symbolic name and message
 
 {% columns %}
 {% column %}
+{% content-ref url="mariadb-error-codes-3100-to-3199/" %}
+[mariadb-error-codes-3100-to-3199](mariadb-error-codes-3100-to-3199/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+MariaDB server error codes 3100 to 3199, each with its symbolic name and message.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="mariadb-error-codes-4000-to-4099/" %}
 [mariadb-error-codes-4000-to-4099](mariadb-error-codes-4000-to-4099/)
 {% endcontent-ref %}
