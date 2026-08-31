@@ -33,7 +33,7 @@ This list includes all features since the previous long-term release, [MariaDB 1
 
 ### Character Sets
 
-* The default [character set](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets) has been changed from `latin1` to `utf8mb4` ([MDEV-19123](https://jira.mariadb.org/browse/MDEV-19123), [MariaDB 11.6](../old-releases/11.6/what-is-mariadb-116.md)). This can have implications for older replica servers, particularly those running MariaDB 10.6 or older. See [this section](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets/setting-character-sets-and-collations#default-character-set-and-collation-changes) for details, and how to configure MariaDB 11.8+ primaries to replicate to older replicas.&#x20;
+* The default [character set](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets) has been changed from `latin1` to `utf8mb4` ([MDEV-19123](https://jira.mariadb.org/browse/MDEV-19123), [MariaDB 11.6](../old-releases/11.6/what-is-mariadb-116.md)). This can have implications for older replica servers, particularly those running MariaDB 10.6 or older. See [this section](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets/setting-character-sets-and-collations#default-character-set-and-collation-changes) for details, and how to configure MariaDB 11.8+ primaries to replicate to older replicas.
 * Change [default Unicode collation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets/supported-character-sets-and-collations) to uca1400\_ai\_ci, a modern Unicode collation with proper support for SMP characters (including emoji)([MDEV-25829](https://jira.mariadb.org/browse/MDEV-25829), [MariaDB 11.5](../old-releases/11.5/what-is-mariadb-115.md))
 
 ### Optimizer
@@ -70,6 +70,7 @@ This list includes all features since the previous long-term release, [MariaDB 1
 * **Behavioral change:** [innodb\_snapshot\_isolation](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables#innodb_snapshot_isolation) system variable now defaults to `ON`, previously was `OFF` ([MDEV-35124](https://jira.mariadb.org/browse/MDEV-35124)). This changes the behavior of [repeatable reads](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set-transaction#repeatable-read).
 * Fix [innodb-adaptive-hash-index](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_adaptive_hash_index) scalability with multiple threads ([MDEV-35049](https://jira.mariadb.org/browse/MDEV-35049))
 * **Behavioral change:** A MariaDB 11.x server can now start with data files from MariaDB 10.x when [innodb\_force\_recovery](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_force_recovery) is set to `6`. This is a last-resort emergency-recovery path for extracting a logical dump from a corrupted or incompatible database, **not** a substitute for the normal upgrade procedure. See [Configure the InnoDB Redo Log: Emergency Recovery Across Major Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/mariadb-enterprise-server-innodb-operations/configure-the-innodb-redo-log#emergency-recovery-across-major-versions) ([MDEV-39303](https://jira.mariadb.org/browse/MDEV-39303), [MariaDB 11.8.7](11.8.7.md)).
+* New [innodb\_index\_shrink](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_index_shrink) system variable, which allows disabling InnoDB's ability to shrink a B-tree, by merging or reorganizing pages, on record-growing UPDATEs, such as `NULL` to not-`NULL`. The default `ON` matches the previous behavior. Setting it to `OFF` favors page splits in those cases, reducing index tree latch upgrades and the contention they cause, at the cost of slightly sparser pages ([MDEV-38814](https://jira.mariadb.org/browse/MDEV-38814), [MariaDB 11.8.9](11.8.9.md))
 
 ### Backup and Restore
 
@@ -170,7 +171,7 @@ This list includes all features since the previous long-term release, [MariaDB 1
 ### Variables
 
 * Deprecate and ignore the [alter\_algorithm](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#alter_algorithm) system variable ([MDEV-33655](https://jira.mariadb.org/browse/MDEV-33655), [MariaDB 11.5](../old-releases/11.5/what-is-mariadb-115.md))
-* For a list of all new variables, see [System Variables Added in MariaDB 11.8](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-mariadb-11-8)
+* For a list of all new variables, see [System Variables Added in MariaDB 11.8](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-11-8)
 
 ## Removed Features
 
@@ -186,27 +187,35 @@ The following deprecated features have been removed:
 For a complete list of security vulnerabilities (CVEs) fixed across all versions of MariaDB Community Server, see the [Security Vulnerabilities Fixed in MariaDB Community Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/community-server) page.
 
 | CVE ID (with cve.org link)                                                      | CVSS base score (v3.1) | Community Server 11.8 Release |
-| ------------------------------------------------------------------------------- | --------------- | ----------------------------- |
-| [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261)               | 10.0            | [MariaDB 11.8.8](11.8.8.md)   |
-| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165)               | 8.0             | [MariaDB 11.8.8](11.8.8.md)   |
-| [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163)               | 8.0             | [MariaDB 11.8.8](11.8.8.md)   |
-| [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173)               | 5.0             | [MariaDB 11.8.7](11.8.7.md)   |
-| [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172)               | 5.0             | [MariaDB 11.8.7](11.8.7.md)   |
-| [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171)               | 6.3             | [MariaDB 11.8.7](11.8.7.md)   |
-| [CVE-2026-44170](https://www.cve.org/CVERecord?id=CVE-2026-44170)               | 5.0             | [MariaDB 11.8.7](11.8.7.md)   |
-| [CVE-2026-44169](https://www.cve.org/CVERecord?id=CVE-2026-44169)               | 4.3             | [MariaDB 11.8.7](11.8.7.md)   |
-| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168)               | 8.0             | [MariaDB 11.8.7](11.8.7.md)   |
-| [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)                 | 4.3             | [MariaDB 11.8.6](11.8.6.md)   |
-| [CVE-2026-34303](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34303) | 6.5             | [MariaDB 11.8.6](11.8.6.md)   |
-| [CVE-2026-35549](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-35549) | 6.5             | [MariaDB 11.8.6](11.8.6.md)   |
-| [CVE-2026-32710](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-32710) | 8.6             | [MariaDB 11.8.5](11.8.5.md)   |
-| [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968)               | 6.5             | [MariaDB 11.8.4](11.8.4.md)   |
-| [CVE-2025-13699](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-13699) | 7.0             | [MariaDB 11.8.4](11.8.4.md)   |
+| ------------------------------------------------------------------------------- | ---------------------- | ----------------------------- |
+| [CVE-2026-61081](https://www.cve.org/CVERecord?id=CVE-2026-61081)               | 2.7                    | [MariaDB 11.8.9](11.8.9.md)   |
+| [CVE-2026-60585](https://www.cve.org/CVERecord?id=CVE-2026-60585)               | 6.6                    | [MariaDB 11.8.9](11.8.9.md)   |
+| [CVE-2026-60331](https://www.cve.org/CVERecord?id=CVE-2026-60331)               | 6.4                    | [MariaDB 11.8.9](11.8.9.md)   |
+| [CVE-2026-60747](https://www.cve.org/CVERecord?id=CVE-2026-60747)               | 6.2                    | [MariaDB 11.8.9](11.8.9.md)   |
+| [CVE-2026-47023](https://www.cve.org/CVERecord?id=CVE-2026-47023)               | 4.9                    | [MariaDB 11.8.9](11.8.9.md)   |
+| [CVE-2026-60184](https://www.cve.org/CVERecord?id=CVE-2026-60184)               | 4.4                    | [MariaDB 11.8.9](11.8.9.md)   |
+| [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261)               | 10.0                   | [MariaDB 11.8.8](11.8.8.md)   |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165)               | 8.0                    | [MariaDB 11.8.8](11.8.8.md)   |
+| [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163)               | 8.0                    | [MariaDB 11.8.8](11.8.8.md)   |
+| [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064)               | 6.5                    | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173)               | 5.0                    | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172)               | 5.0                    | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171)               | 6.3                    | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-44170](https://www.cve.org/CVERecord?id=CVE-2026-44170)               | 5.0                    | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-44169](https://www.cve.org/CVERecord?id=CVE-2026-44169)               | 4.3                    | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168)               | 8.0                    | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)                 | 4.3                    | [MariaDB 11.8.6](11.8.6.md)   |
+| [CVE-2026-34303](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34303) | 6.5                    | [MariaDB 11.8.6](11.8.6.md)   |
+| [CVE-2026-35549](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-35549) | 6.5                    | [MariaDB 11.8.6](11.8.6.md)   |
+| [CVE-2026-32710](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-32710) | 8.6                    | [MariaDB 11.8.5](11.8.5.md)   |
+| [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968)               | 6.5                    | [MariaDB 11.8.4](11.8.4.md)   |
+| [CVE-2025-13699](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-13699) | 7.0                    | [MariaDB 11.8.4](11.8.4.md)   |
 
 ## List of All [MariaDB 11.8](what-is-mariadb-118.md) Releases
 
 | Date        | Release        | Status      | Release Notes              | Changelog                                 |
 | ----------- | -------------- | ----------- | -------------------------- | ----------------------------------------- |
+| 24 Aug 2026 | MariaDB 11.8.9 | Stable (GA) | [Release Notes](11.8.9.md) | [Changelog](../changelogs/11.8/11.8.9.md) |
 | 27 May 2026 | MariaDB 11.8.8 | Stable (GA) | [Release Notes](11.8.8.md) | [Changelog](../changelogs/11.8/11.8.8.md) |
 | 18 May 2026 | MariaDB 11.8.7 | Stable (GA) | [Release Notes](11.8.7.md) | [Changelog](../changelogs/11.8/11.8.7.md) |
 | 4 Feb 2026  | MariaDB 11.8.6 | Stable (GA) | [Release Notes](11.8.6.md) | [Changelog](../changelogs/11.8/11.8.6.md) |
@@ -217,6 +226,6 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 | 13 Feb 2024 | MariaDB 11.8.1 | RC          | [Release Notes](11.8.1.md) | [Changelog](../changelogs/11.8/11.8.1.md) |
 | 18 Dec 2024 | MariaDB 11.8.0 | Alpha       | [Release Notes](11.8.0.md) |                                           |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

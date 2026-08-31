@@ -472,3 +472,4 @@ In the initial version, only InnoDB is available as a storage engine for the bin
 * [CHANGE MASTER TO](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md)
 * [InnoDB](../../server-usage/storage-engines/innodb/)
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

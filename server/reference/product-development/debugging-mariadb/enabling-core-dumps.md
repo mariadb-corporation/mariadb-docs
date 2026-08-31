@@ -56,7 +56,7 @@ The resource limits for the `mariadbd` process are printed to the [error log](..
 
 #### Running mariadbd Using mysqld\_safe
 
-If you are starting MariaDB by running [mysqld\_safe](../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md), then configuring the following in the `[mysqld_safe]` option group in an option file should allow for unlimited sized core files:
+If you are starting MariaDB by running [mysqld\_safe](../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md), then configuring the following in the `[mysqld_safe]` option group in an option file should allow for unlimited sized core files:
 
 ```
 [mysqld_safe]
@@ -70,9 +70,9 @@ You can check your current values by executing:
 my_print_defaults mysqld_safe
 ```
 
-See [mysqld\_safe: Configuring the Core File Size](../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) for more details.
+See [mysqld\_safe: Configuring the Core File Size](../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md) for more details.
 
-**Note:** If you are using [mysqld\_safe](../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) and running `mariadbd` as the `root` user, then no\
+**Note:** If you are using [mysqld\_safe](../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md) and running `mariadbd` as the `root` user, then no
 core file is created on some systems. The solution is to run `mariadbd` as another user.
 
 #### Running mariadbd Manually
@@ -127,14 +127,14 @@ sysctl kernel.core_pattern
 sysctl kernel.core_uses_pid
 ```
 
-If you are using `mysql-test-run` and want to have the core as part of the test result, the optimal\
+If you are using `mysql-test-run` and want to have the core as part of the test result, the optimal
 setting is probably the following (store cores in the current directory as `core.number-of-process-id`):
 
 ```
 sudo sysctl kernel.core_pattern=core.%p kernel.core_uses_pid=0
 ```
 
-If you are using a production system, you probably want to have the core files in a specific directory,\
+If you are using a production system, you probably want to have the core files in a specific directory,
 not in the data directory. They place to store cores can be temporarily altered using the [sysctl](https://linux.die.net/man/8/sysctl) utility, but it is often more common to alter them via the [/proc](https://linux.die.net/man/5/proc) file system. See the following example:
 
 ```
@@ -274,7 +274,7 @@ See the IBM [Core Dump Handler](https://github.com/IBM/core-dump-handler) projec
 
 ## Core Files and Address Sanitizer (ASAN)
 
-If your `mariadbd` binary is built with [Address Sanitizer (ASAN)](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/compile-and-using-mariadb-with-sanitizers-asan-ubsan-tsan-msan.md) then it will disable core dumps by default. A core dump can be created if `mariadbd` is started with the environment variable `ASAN_OPTIONS` set with `disable_coredump=0`.
+If your `mariadbd` binary is built with [Address Sanitizer (ASAN)](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md) then it will disable core dumps by default. A core dump can be created if `mariadbd` is started with the environment variable `ASAN_OPTIONS` set with `disable_coredump=0`.
 
 ## What's Included in Core Files
 

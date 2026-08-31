@@ -75,3 +75,5 @@ To be able to see the level of coverage within the current test suite, do the fo
 ### Code coverage in buildbot <a href="#code-coverage-in-buildbot" id="code-coverage-in-buildbot"></a>
 
 [buildbot](https://kb-archive.mariadb.net/kb/en/buildbot/), the MariaDB build system, is doing [automatic coverage testing for each push](http://buildbot.askmonty.org/buildbot/builders/kvm-dgcov-jaunty-i386).
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

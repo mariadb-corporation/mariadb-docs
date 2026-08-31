@@ -8,7 +8,12 @@ description: >-
 # DECLARE TYPE
 
 {% hint style="info" %}
-This feature is available from MariaDB 12.1.
+The type declarations on this page were introduced in different releases:
+
+* `TYPE ... IS RECORD` — from MariaDB 11.8.1
+* `TYPE ... IS TABLE OF ... INDEX BY` (associative arrays) — from MariaDB 12.0.1
+* `TYPE ... IS REF CURSOR` — from MariaDB 13.0.1
+* `TYPE` in a package specification (public, referenced by qualified name) — from MariaDB 13.1
 {% endhint %}
 
 ## Overview
@@ -21,12 +26,12 @@ The general syntax for defining associative array types is as follows:
 
 ```sql
 DECLARE
-   TYPE type_name TABLE OF rec_type_name INDEX BY idx_type_name
+   TYPE type_name IS TABLE OF element_type INDEX BY key_type
 ```
 
-* `type_name` supports explicit and anchored data types (for instance, `t1.col1%TYPE`).
-* `rec_type_name` supports scalar and record data types.
-* The `INDEX BY` clause defines the key type using `idx_type_name`, which supports integer and string data types.
+* `type_name` is the name of the new associative array type.
+* `element_type` is the type of each value. It supports scalar and record types, explicit or anchored (for example, `t1.col1%TYPE` or `t1%ROWTYPE`).
+* `key_type` defines the key type. It must be a plain integer or string type — anchored types such as `t1.col1%TYPE` are not accepted here.
 
 ## Associative Arrays
 
@@ -72,6 +77,8 @@ These differences are largely rooted in architectural constraints — MariaDB is
 **Explicit type\_name**
 
 ```sql
+SET sql_mode=ORACLE;
+DELIMITER /
 DECLARE
   TYPE salary IS TABLE OF NUMBER INDEX BY VARCHAR2(20);
   salary_list salary;
@@ -82,17 +89,21 @@ BEGIN
   name:= salary_list.FIRST;
   WHILE name IS NOT NULL
   LOOP
-    dbms_output.put_line(name || ' ' || TO_CHAR(salary_list(name)));
+    SELECT name || ' ' || salary_list(name);
     name:= salary_list.NEXT(name);
   END LOOP;
 END;
 /
+DELIMITER ;
 ```
 
 **Anchored type\_name**
 
 ```sql
+DROP TABLE IF EXISTS t1;
 CREATE TABLE t1 (a INT);
+SET sql_mode=ORACLE;
+DELIMITER /
 DECLARE
   TYPE salary IS TABLE OF t1.a%TYPE INDEX BY VARCHAR2(20);
   salary_list salary;
@@ -103,11 +114,12 @@ BEGIN
   name:= salary_list.FIRST;
   WHILE name IS NOT NULL
   LOOP
-    dbms_output.put_line(name || ' ' || TO_CHAR(salary_list(name)));
+    SELECT name || ' ' || salary_list(name);
     name:= salary_list.NEXT(name);
   END LOOP;
 END;
 /
+DELIMITER ;
 ```
 
 #### Associative Array of Records
@@ -115,6 +127,8 @@ END;
 **Using Explicit Data Types**
 
 ```sql
+SET sql_mode=ORACLE;
+DELIMITER /
 DECLARE
   TYPE person_t IS RECORD
   (
@@ -122,88 +136,97 @@ DECLARE
     last_name VARCHAR(64)
   );
   person person_t;
-  TYPE table_of_peson_t IS TABLE OF person_t INDEX BY VARCHAR(20);
-  person_by_nickname table_of_peson_t;
+  TYPE table_of_person_t IS TABLE OF person_t INDEX BY VARCHAR(20);
+  person_by_nickname table_of_person_t;
   nick VARCHAR(20);
 BEGIN
   person_by_nickname('Monty') := person_t('Michael', 'Widenius');
-  person_by_nickname('Serg') := person_t('Sergei ', 'Golubchik');
+  person_by_nickname('Serg') := person_t('Sergei', 'Golubchik');
   nick:= person_by_nickname.FIRST;
   WHILE nick IS NOT NULL
   LOOP
     person:= person_by_nickname(nick);
-    dbms_output.put_line(nick || ' ' || person.first_name || ' '|| person.last_name);
+    SELECT nick || ' ' || person.first_name || ' ' || person.last_name;
     nick:= person_by_nickname.NEXT(nick);
   END LOOP;
-  /
+END;
+/
+DELIMITER ;
 ```
 
 **Using Anchored Data Types**
 
 ```sql
-DROP TABLE persons;
+DROP TABLE IF EXISTS persons;
 CREATE TABLE persons (nickname VARCHAR(64), first_name VARCHAR(64), last_name VARCHAR(64));
-INSERT INTO persons VALUES ('Serg','Sergei ', 'Golubchik');
+INSERT INTO persons VALUES ('Serg','Sergei', 'Golubchik');
 INSERT INTO persons VALUES ('Monty','Michael', 'Widenius');
+SET sql_mode=ORACLE;
+DELIMITER /
 DECLARE
-  TYPE table_of_person_t IS TABLE OF persons%ROWTYPE INDEX BY persons.nickname%TYPE;
+  TYPE table_of_person_t IS TABLE OF persons%ROWTYPE INDEX BY VARCHAR(64);
   person_by_nickname table_of_person_t;
-  nickname persons.nickname%TYPE;
+  nickname VARCHAR(64);
   person persons%ROWTYPE;
 BEGIN
   FOR rec IN (SELECT * FROM persons)
   LOOP
     person_by_nickname(rec.nickname):= rec;
   END LOOP;
- 
+
   nickname:= person_by_nickname.FIRST;
   WHILE nickname IS NOT NULL
   LOOP
     person:= person_by_nickname(nickname);
-    dbms_output.put_line(person.nickname || ' ' || person.first_name || ' '|| person.last_name);
+    SELECT person.nickname || ' ' || person.first_name || ' ' || person.last_name;
     nickname:= person_by_nickname.NEXT(nickname);
   END LOOP;
 END;
 /
+DELIMITER ;
 ```
 
 ## RECORD Types
 
 In `sql_mode=ORACLE`, the `TYPE ... IS RECORD` statement allows you to define a user-defined data structure consisting of one or more fields.
 
-Previously, TYPE-defined `RECORD` types could only be used in local program blocks and not in routine parameters or function `RETURN` clauses.
+Before MariaDB 13.0.1, TYPE-defined `RECORD` types could only be used in local program blocks. Starting from MariaDB 13.0.1, `RECORD` can additionally be used in package routine parameters and package function `RETURN` clauses.
 
 ### **Syntax**
 
 ```sql
 TYPE record_type_name IS RECORD (
-    field_name data_type [NOT NULL] [DEFAULT expr],
+    field_name data_type,
     ...
 );
 ```
 
 * `record_type_name` is the name of the new record type.
 * Each `field_name` is a named attribute of the record.
-* Each `field_type` is a valid MariaDB data type or anchored type (`%TYPE`, `%ROWTYPE`).
+* Each `data_type` is a valid MariaDB data type, or an anchored type using `%TYPE` (for example, `t1.a%TYPE`). Record fields support only scalar types, so `%ROWTYPE` cannot be used here.
 
-### RECORD Types in Routine Parameters and Function RETURN
+### RECORD Types in Package Routine Parameters and Function RETURN
 
 Starting with MariaDB 13.0.1, custom types defined with `DECLARE TYPE` (including `RECORD` and `REF CURSOR`) can be used as:
 
-* Parameters of stored procedures and functions
-* `RETURN` types of stored functions
+* Parameters of procedures and functions declared in a package
+* `RETURN` types of functions declared in a package
 
-Earlier, the use of a `RECORD` type in these contexts was prohibited by the MariaDB grammar and resulted in:
+This applies to package routines only. Standalone procedures and functions cannot use a TYPE-defined type as a parameter or as a `RETURN` type. From MariaDB 13.1, a type declared in a package specification can be referenced by qualified name from routines outside the package — including standalone routines — subject to its own restrictions. See [Package-Wide Types](#package-wide-types).
+
+{% hint style="warning" %}
+Associative array types (`TYPE ... IS TABLE OF ... INDEX BY`) cannot be used as a routine parameter or as a function `RETURN` type, even inside a package. Attempting it fails with `ERROR 4079 (HY000): Illegal parameter data type associative_array for operation '<routine parameter>'` (or `... for operation 'RETURN'` when it is a function's return type).
+{% endhint %}
+
+Before that release, such use was prohibited by the MariaDB grammar and resulted in:
 
 ```
-ERROR 4161 (HY000): Unknown data type
+ERROR 4161 (HY000): Unknown data type: 'rec0_t'
 ```
-
-This change improves compatibility with Oracle PL/SQL, especially for private helper routines inside packages and for `REF CURSOR` usage.
 
 ### Using RECORDs in Routine Parameters
 
-Starting with MariaDB 13.0.1, stored procedures within the same package can use a `RECORD` type declared inside the package body as a parameter.
+Starting with MariaDB 13.0.1, stored routines within the same package can use a `RECORD` type declared inside the package body as a parameter.
 
 ```sql
 SET sql_mode=ORACLE;
@@ -211,19 +234,22 @@ DELIMITER $$
 CREATE OR REPLACE PACKAGE pkg1 AS
   PROCEDURE p1();
 END;
+$$
 CREATE OR REPLACE PACKAGE BODY pkg1 AS
   TYPE rec0_t IS RECORD (a INT, b VARCHAR(2), c INT);
-  PROCEDURE private_p1(p0 rec0_t) AS
+  PROCEDURE private_p1(pr0 rec0_t) AS
   BEGIN
-    NULL;
+    SELECT pr0.a || pr0.b || pr0.c;
   END;
   PROCEDURE p1 AS
+    r0 rec0_t := (1,'ab',2);
   BEGIN
-    CALL private_p1(a0);
+    private_p1(r0);
   END;
 END;
 $$
 DELIMITER ;
+CALL pkg1.p1;
 ```
 
 ### Using RECORDs as a Function Return Type
@@ -236,19 +262,23 @@ DELIMITER $$
 CREATE OR REPLACE PACKAGE pkg1 AS
   PROCEDURE p1();
 END;
+$$
 CREATE OR REPLACE PACKAGE BODY pkg1 AS
   TYPE rec0_t IS RECORD (a INT, b VARCHAR(2), c INT);
   FUNCTION private_f1() RETURN rec0_t AS
   BEGIN
-    RETURN NULL;
+    RETURN rec0_t(1,'ab',2);
   END;
-  PROCEDURE p1() AS
+  PROCEDURE p1 AS
+    r0 rec0_t;
   BEGIN
-    DO private_f1();
+    r0:= private_f1();
+    SELECT r0.a || r0.b || r0.c;
   END;
 END;
 $$
 DELIMITER ;
+CALL pkg1.p1;
 ```
 
 ### Requirement
@@ -257,7 +287,7 @@ This feature requires Oracle SQL mode at package creation time. The SQL mode is 
 
 ## REF CURSOR Types
 
-MariaDB supports Oracle-compatible `REF CURSOR` type declarations as a part of the `DECLARE TYPE` statement. A `REF CURSOR` is a cursor variable that can refer to a query result set and be passed across program blocks, such as stored procedures or functions.
+MariaDB supports Oracle-compatible [`REF CURSOR`](#overview) type declarations as part of the `DECLARE TYPE` statement. Like any other `DECLARE TYPE` declaration, a `REF CURSOR` type can be declared in a `DECLARE ... BEGIN ... END` block, in a stored routine, in a package body, or — from MariaDB 13.1 — in a package specification (see [Package-Wide Types](#package-wide-types)). The complete examples below use anonymous blocks and standalone procedures.
 
 `REF CURSOR` types must be specified with a `TYPE` declaration before any variables of that type can be declared. It can be defined as weak or strong based on whether a return type is specified.
 
@@ -284,7 +314,7 @@ TYPE weak_cursor IS REF CURSOR; -- weak type: no RETURN clause
 A strong `REF CURSOR` type is defined by a `RETURN` clause that defines the row structure the cursor must return.
 
 ```sql
-TYPE storong_cursor IS REF CURSOR RETURN employees%ROWTYPE;  -- strong type
+TYPE strong_cursor IS REF CURSOR RETURN employees%ROWTYPE;  -- strong type
 ```
 
 ### Supported RETURN Types
@@ -419,10 +449,205 @@ BEGIN
 END;
 ```
 
+## Package-Wide Types
+
+{% hint style="info" %}
+This feature is available from MariaDB 13.1, in `sql_mode=ORACLE` only.
+{% endhint %}
+
+A `TYPE` declaration can appear in a package specification. Such a type is public: routines outside the package can declare variables of it by qualifying the type name with the name of the package that declares it. A `TYPE` declaring a record, associative array, or `REF CURSOR` can therefore be shared between schema-level (standalone) and package routines.
+
+For using a `RECORD` type as a parameter or `RETURN` type inside its declaring package — available from MariaDB 13.0.1, without qualified names — see [RECORD Types in Package Routine Parameters and Function RETURN](#record-types-in-package-routine-parameters-and-function-return).
+
+### Syntax
+
+Declare the type in the package specification:
+
+```sql
+CREATE [OR REPLACE] PACKAGE [db_name.]package_name {AS | IS}
+  TYPE type_name IS record_definition;
+  TYPE type_name IS TABLE OF element_type INDEX BY key_type;
+  TYPE type_name IS REF CURSOR [RETURN return_type];
+  ...
+END [package_name]
+```
+
+Refer to it from elsewhere with a qualified name, in either of two forms:
+
+```sql
+package_name.type_name              -- two-step
+schema_name.package_name.type_name  -- three-step
+```
+
+### Example
+
+```sql
+SET sql_mode=ORACLE;
+DELIMITER $$
+CREATE OR REPLACE PACKAGE pkg1 AS
+  TYPE varchar_array IS TABLE OF VARCHAR(2000) INDEX BY INTEGER;
+  TYPE rec0_t IS RECORD (a INT, b VARCHAR(30));
+  TYPE array0_t IS TABLE OF rec0_t INDEX BY INTEGER;
+END;
+$$
+DELIMITER ;
+```
+
+A stored procedure in any schema can now declare variables of these types:
+
+```sql
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE p1 AS
+  v0 pkg1.varchar_array;       -- two-step
+  v1 test.pkg1.rec0_t;         -- three-step
+  v2 pkg1.array0_t;
+BEGIN
+  v0(0):= 'test';
+  v1.a:= 1;
+  v1.b:= 'b';
+  v2(0):= v1;
+  SELECT v0(0), v2(0).a, v2(0).b;
+END;
+$$
+DELIMITER ;
+CALL p1();
+```
+
+### Where Package Types Can Be Used
+
+A qualified package type is accepted as:
+
+* The type of a local variable, in a stored procedure, a stored function, a package routine, or an anonymous block:
+
+    ```sql
+    v1 pkg1.rec0_t;
+    ```
+* The type of a parameter of a package routine, declared either in the package specification or in the package body:
+
+    ```sql
+    PROCEDURE p1(param1 pkg1.rec0_t);
+    ```
+* The `RETURN` type of a package function:
+
+    ```sql
+    FUNCTION f1 RETURN pkg1.rec0_t;
+    ```
+* The element type of an associative array:
+
+    ```sql
+    TYPE assoc1_t IS TABLE OF pkg1.rec0_t INDEX BY INTEGER;
+    ```
+* The `RETURN` type of a `REF CURSOR` type declaration:
+
+    ```sql
+    TYPE cur1_t IS REF CURSOR RETURN pkg1.rec0_t;
+    ```
+
+A package specification can also use its own types by qualified name, provided the type is declared earlier in the same specification:
+
+```sql
+SET sql_mode=ORACLE;
+DELIMITER $$
+CREATE OR REPLACE PACKAGE pkg1 AS
+  TYPE r IS RECORD (x INT);
+  PROCEDURE q(v pkg1.r);   -- self-reference to a type declared above
+END;
+$$
+DELIMITER ;
+```
+
+Referring to a type that is not yet declared, or that does not exist, fails when the package is created:
+
+```
+ERROR 4161 (HY000): Unknown data type: '`pkg1`.`no_such_type`'
+```
+
+### Where Package Types Cannot Be Used
+
+| Context | Result |
+| --- | --- |
+| Parameter of a schema-level (standalone) procedure or function | `ERROR HY000: Incorrect usage of parameter_declaration and package_name.type_name` |
+| `RETURN` type of a schema-level (standalone) function | `ERROR HY000: Incorrect usage of RETURN and package_name.type_name` |
+| Inside a trigger | `ERROR HY000: Incorrect usage of TRIGGER and` `` `pkg1`.`rec0_t` `` |
+| Inside an event | `ERROR HY000: Incorrect usage of EVENT and` `` `pkg1`.`rec0_t` `` |
+
+Parameters and `RETURN` types of schema-level routines are exposed through [INFORMATION\_SCHEMA.PARAMETERS](../../system-tables/information-schema/information-schema-tables/information-schema-parameters-table.md), which cannot yet represent a package type.
+
+### Name Resolution
+
+A two-step name `pkg1.rec0_t` names a package rather than a schema, so the schema that holds the package is resolved through [SET PATH](../administrative-sql-statements/set-commands/set-path.md) — the same mechanism that resolves package routine calls. The default path is `CURRENT_SCHEMA`, so an unqualified package is looked up in the current schema. With a wider path, the same type name can resolve to different packages:
+
+```sql
+SET PATH 'CURRENT_SCHEMA,test1,test2';
+```
+
+The three-step form `schema_name.package_name.type_name` names the schema explicitly and does not depend on the path.
+
+Because a routine stores the resolved type, dropping the package that declares it leaves the routine unusable. The failure appears when the routine is called, not when the package is dropped:
+
+```sql
+DROP PACKAGE pkg1;
+CALL p1();
+```
+
+```
+ERROR HY000: Failed to load routine test.p1 (internal code -6). For more details, run SHOW WARNINGS
+```
+
+```sql
+SHOW WARNINGS;
+```
+
+```
++-------+------+-------------------------------------------------------------+
+| Level | Code | Message                                                     |
++-------+------+-------------------------------------------------------------+
+| Error | 4161 | Unknown data type: '`pkg1`.`rec0_t`'                        |
+| Error | 1457 | Failed to load routine test.p1 (internal code -6). ...      |
++-------+------+-------------------------------------------------------------+
+```
+
+Cyclic type dependencies between two packages are rejected: if `b_pkg` already refers to a type in `a_pkg`, then redefining `a_pkg` to refer back to a type in `b_pkg` fails with `Unknown data type`.
+
+### Privileges
+
+Using a type declared in a package requires the `EXECUTE` privilege on that package:
+
+```sql
+GRANT EXECUTE ON PACKAGE db1.pkg1 TO user1@localhost;
+```
+
+Without it, creating the routine that declares the variable is refused:
+
+```
+ERROR 42000: execute command denied to user 'user2'@'localhost' for routine 'db1.pkg1'
+```
+
+The check applies to any user other than the one that created the package, including users that hold `CREATE ROUTINE` in the same schema. `EXECUTE` on a package does not imply `EXECUTE` on its [package body](../data-definition/create/create-package-body.md), so calling the package's routines needs a separate grant.
+
+### Limitation on Dumps
+
+[mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) writes packages in name order. If two packages depend on each other's types, the file can define the dependent package first, and the restore then fails with `Unknown data type`.
+
+When the packages are in different databases, dump each database separately and restore them in dependency order:
+
+```bash
+mariadb-dump --routines dependency_db > dependency_db.sql
+mariadb-dump --routines dependent_db > dependent_db.sql
+
+mariadb < dependency_db.sql
+mariadb < dependent_db.sql
+```
+
+When the dependency is between packages in the same database, dump and restore the `mysql.proc` table instead.
+
 ## See Also
 
+* [CREATE PACKAGE](../data-definition/create/create-package.md)
 * [DECLARE CURSOR](programmatic-compound-statements-cursors/declare-cursor.md)
 * [DECLARE Variable](declare-variable.md)
 * [Oracle Mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 * [CREATE FUNCTION](../data-definition/create/create-function.md)
 * [CREATE PROCEDURE](../../../server-usage/stored-routines/stored-procedures/create-procedure.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

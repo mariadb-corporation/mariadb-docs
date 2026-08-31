@@ -8,7 +8,7 @@
 
 For the highlights of this release, see the [release notes](../../old-releases/11.0/11.0.1.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.0) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.0) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Changes from [11.0.0](../../old-releases/11.0/11.0.0.md) are also included in this changelog
@@ -373,400 +373,400 @@ details of the revision and view diffs of the code modified in that revision.
   * Update columnstore to include the patch to compile with the new cost model APIs
 * [Revision #1f4a9f086a](https://github.com/MariaDB/server/commit/1f4a9f086a)\
   2022-12-12 20:06:32 +0200
-  * Removed " INTO " deprication.\
-    Revision #b74d2623eb\
-    2022-12-02 17:27:34 +0200\
-    Removed diff dates from rdiff files\
-    Revision #8b7c0d69d2\
-    2022-12-02 17:18:50 +0200\
-    In best\_access\_path() change record\_count to 1.0 if its less than 1.0.\
-    Revision #02f6ba571e\
-    2022-11-28 15:02:34 +0200\
-    Changed some startup warnings to notes\
-    Revision #0bab548137\
-    2022-11-25 16:48:53 +0200\
-    Remove strlen() from Item::cleanup\
-    Revision #01760333e8\
-    2022-11-25 15:25:44 +0200\
-    Do not give warnings about #rocksdb directory information\_schema\
-    Revision #6c4076fac4\
-    2022-11-21 18:17:14 +0300\
-    MDEV-30032: EXPLAIN FORMAT=JSON output: part #2: print 'loops'.\
-    Revision #ffe0beca25\
-    2022-11-19 21:00:23 +0300\
-    MDEV-30032: EXPLAIN FORMAT=JSON output: print costs\
-    Revision #657868f5e7\
-    2022-11-22 13:32:44 +0200\
-    Change BUILD scripts to use wolfss by default\
-    Revision #0dd9ec97d0\
-    2022-11-22 15:27:37 +0200\
-    Changed a rule to be cost based in test\_if\_cheaper\_ordering\
-    Revision #1c88ac60cf\
-    2022-11-22 14:56:33 +0200\
-    Simple cleanup of removing QQ comments from sql\_select.cc\
-    Revision #c1512b1e7c\
-    2022-11-21 14:24:00 +0200\
-    Added "override" to ha\_heap.h, ha\_myisam.h, ha\_myisammrg.h and ha\_sequence.h\
-    Revision #d645025e87\
-    2022-11-18 17:47:16 +0200\
-    Change default of histogram\_type to JSON\_HB\
-    Revision #98879f8d43\
-    2022-11-18 13:51:15 +0200\
-    Version change to 11.0\
-    Revision #dd1a4131ef\
-    2022-11-14 17:08:09 +0200\
-    Fixed bug in Aria with aria\_log files that are exactly 8K\
-    Revision #cbf60dba74\
-    2022-11-09 19:44:11 +0200\
-    Small improvements to aria recovery\
-    Revision #66dde8a54e\
-    2022-11-16 14:52:47 +0200\
-    Added rowid\_filter support to Aria\
-    Revision #6418c24c94\
-    2022-11-09 19:11:08 +0200\
-    Set thd->query() for internal (startup) transactions\
-    Revision #0ba47126f1\
-    2022-11-10 15:39:47 +0300\
-    Added MARIADB\_NEW\_COST\_MODEL for ColumnStore to detect new cost model\
-    Revision #7a17b65919\
-    2022-11-02 17:43:02 +0200\
-    Don't do zerofill of Aria table if it's already zerofilled\
-    Revision #5bf2421eed\
-    2022-11-21 17:28:43 +0300\
-    MDEV-30059: Optimizer Trace: plan\_prefix should be a comma-separated-list\
-    Revision #727491b72a\
-    2022-10-04 16:16:06 +0300\
-    Added test cases for preceding test\
-    Revision #eb68023c8e\
-    2022-11-24 14:08:31 +0200\
-    Added range\_index to 'range' optimizer\_trace output\
-    Revision #367c780d5e\
-    2022-11-26 13:12:59 +0200\
-    Fix bug in WITH ties\
-    Revision #aa5e788051\
-    2022-11-07 14:30:42 +0200\
-    MDEV-29677 Wrong result with join query and innodb fulltext search\
-    Revision #66d9c1b22d\
-    2022-10-31 18:02:36 +0200\
-    Fixes for 'Filtering'\
-    Revision #4464aa4628\
-    2022-10-28 18:17:53 +0300\
-    Updated number of expected rows from 2 to 100 for information\_schema tables\
-    Revision #15cce52bc9\
-    2022-10-28 18:15:58 +0300\
-    Added optimizer\_trace info for index\_intersects\
-    Revision #0fada9c2ab\
-    2022-10-19 12:54:16 +0300\
-    Removed worst\_seek argument for cost\_for\_index\_read()\
-    Revision #43dc831ee3\
-    2022-10-04 12:59:43 +0300\
-    Changed aggregate distinct optimization with indexes to be cost based.\
-    Revision #2eb6b801ad\
-    2022-10-03 14:29:04 +0300\
-    Fixes some issues in Firstmatch optimization\
-    Revision #804c91baf1\
-    2022-10-03 14:22:16 +0300\
-    Print more information in optimizer trace for LATERAL DERIVED\
-    Revision #99db92f618\
-    2022-10-03 14:21:26 +0300\
-    Indexes where not used for sorting in sub queries\
-    Revision #d9d0e78039\
-    2022-09-30 17:10:37 +0300\
-    Add limits for how many IO operations a table access will do\
-    Revision #7afa819f72\
-    2022-09-25 18:44:48 +0300\
-    Fix cost calculation for get\_best\_group\_min\_max()\
-    Revision #009db2288b\
-    2022-09-23 14:48:13 +0300\
-    Fixed limit optimization in range optimizer\
-    Revision #b66cdbd1ea\
-    2022-08-11 13:05:23 +0300\
-    Changing all cost calculation to be given in milliseconds\
-    Revision #590416e21c\
-    2022-10-04 11:32:55 +0300\
-    Stabilize a testcase in subselect\_sj2\_mat\
-    Revision #6d179ad134\
-    2022-10-04 11:32:33 +0300\
-    Fix typecast warnings-as-errors on Windows.\
-    Revision #33fc8037e0\
-    2022-08-20 08:22:57 +0300\
-    Fixed some issues with FORCE INDEX\
-    Revision #013ba37ae2\
-    2022-06-30 14:02:53 +0300\
-    Fix cost calculation in test\_if\_cheaper\_ordering() to be cost based\
-    Revision #59193ef673\
-    2022-07-02 22:15:22 +0300\
-    Implement cost\_of\_filesort()\
-    Revision #b70290869e\
-    2022-07-02 22:43:22 +0300\
-    Refactor Sort\_param::init\_for\_filesort\
-    Revision #50e9f7aee5\
-    2022-06-30 14:31:54 +0300\
-    Rewrite cost computation for filesort operations\
-    Revision #06be2c64bc\
-    2022-06-30 14:48:00 +0300\
-    cleanup: Don't pass THD to get\_merge\_many\_buff\_cost\_fast\
-    Revision #ca2851d17e\
-    2022-06-30 13:46:43 +0300\
-    cleanup: Make tempfile creation uniform with DISK\_CHUNK\_SIZE\
-    Revision #fa90ac6180\
-    2022-06-30 10:45:20 +0300\
-    cleanup: Rename Sort\_param::max\_rows to limit\_rows\
-    Revision #488148dd8a\
-    2022-06-30 13:59:40 +0300\
-    Added checking of arguments to COST\_ADD and COST\_MULT\
-    Revision #07df2029a3\
-    2022-06-30 15:43:58 +0300\
-    Adjust cost for re-creating a row from the JOIN CACHE\
-    Revision #4515a89814\
-    2022-06-16 13:12:01 +0300\
-    Fixed cost calculations for materialized tables\
-    Revision #1d82e5daf7\
-    2022-06-13 17:45:37 +0300\
-    Move join->emb\_smj\_nest setting to choose\_plan()\
-    Revision #249475b99c\
-    2022-09-29 19:57:56 +0300\
-    Make --ps-protocol command work in --ps-protocol mode\
-    Revision #b44e28af6f\
-    2022-05-09 11:36:44 +0300\
-    Simple optimization: Remove JOIN::set\_group\_rpa as it is not needed\
-    Revision #5e5a8eda16\
-    2022-05-04 17:26:43 +0300\
-    Derived tables and union can now create distinct keys\
-    Revision #868d577cb6\
-    2022-05-04 17:35:59 +0300\
-    Fixed crashing bug in create\_internal\_tmp\_table\_from\_heap()\
-    Revision #2d70ff4272\
-    2022-04-13 20:33:50 +0300\
-    Add test cases for MDEV-20595 and MDEV-21633 to show these are solved\
-    Revision #2387ee9b45\
-    2022-04-11 17:59:36 +0300\
-    Added 'records\_out' and join\_type to POSITION\
-    Revision #9db877c9ec\
-    2022-04-05 22:50:42 +0300\
-    Align elements in struct system\_variables\
-    Revision #373f7ea72f\
-    2022-09-28 17:34:22 +0300\
-    Fix compile on Windows: use explicit casts between double and ha\_rows.\
-    Revision #5e651c9aea\
-    2022-04-05 20:12:29 +0300\
-    Make the most important optimizer constants user variables\
-    Revision #b6215b9b20\
-    2021-11-01 12:34:24 +0200\
-    Update row and key fetch cost models to take into account data copy costs\
-    Revision #034aedadf2\
-    2022-08-21 05:53:54 +0300\
-    Added optimizer\_costs.h which includes all optimizer costs\
-    Revision #e6205c966d\
-    2021-10-21 19:40:58 +0300\
-    Split cost calculations into fetch and total\
-    Revision #766bae2b31\
-    2022-01-20 15:49:01 +0200\
-    Make trace.add() usage uniform\
-    Revision #ec6aa2829a\
-    2022-09-09 19:09:23 +0300\
-    Stabilize main.subselect\_sj2\* tests\
-    Revision #d9d9c90a3d\
-    2022-09-19 19:59:00 +0300\
-    Fix tests: avoid query plan with identical costs\
-    Revision #2a79abcd12\
-    2022-09-19 19:37:57 +0300\
-    Fix compile on Windows\
-    Revision #956980971f\
-    2021-10-09 16:16:10 +0300\
-    Update cost for hash and cached joins\
-    Revision #6fa7451759\
-    2021-10-08 02:36:58 +0300\
-    Adjust costs for doing index scan in cost\_group\_min\_max()\
-    Revision #bc9805e954\
-    2021-10-08 01:40:59 +0300\
-    Return >= 1 from matching\_candidates\_in\_table if records > 0.0\
-    Revision #b67144893a\
-    2021-10-07 20:15:34 +0300\
-    Update matching\_candidates\_in\_table() to treat all conditions similar\
-    Revision #dc2f0d138d\
-    2021-10-06 12:53:18 +0300\
-    Fix calculation of selectivity\
-    Revision #7d0bef6cd7\
-    2021-10-06 12:34:54 +0300\
-    Fixed bug in SQL\_SELECT\_LIMIT\
-    Revision #fc0c157aaa\
-    2021-11-05 13:06:14 +0200\
-    Simple optimization to speed up some handler functions when checking killed\
-    Revision #07b0d1a35d\
-    2021-10-22 14:17:31 +0300\
-    Adjusted Range\_rowid\_filter\_cost\_info lookup cost slightly.\
-    Revision #987fcf9197\
-    2022-07-02 21:47:57 +0300\
-    cleanup: Typo fix appliccable -> applicable\
-    Revision #bcd5454beb\
-    2021-10-19 18:08:12 +0300\
-    Change class variable names in rowid\_filter to longer, more clear names\
-    Revision #2cc5750c79\
-    2022-01-05 14:52:15 +0200\
-    Updated convert-debug-for-diff\
-    Revision #4062fc28bd\
-    2021-10-06 12:31:19 +0300\
-    Optimizer code cleanups, no logic changes\
-    Revision #87d4d7232c\
-    2021-10-06 02:39:59 +0300\
-    Limit calculated rows to the number of rows in the table\
-    Revision #c443dbff0e\
-    2021-10-05 17:08:16 +0300\
-    Ensure that test\_quick\_select doesn't return more rows than in the table\
-    Revision #8b977a6c3a\
-    2021-12-27 18:51:00 +0200\
-    MDEV-14907 FEDERATEDX doesn't respect DISTINCT\
-    Revision #9d0fbcc400\
-    2021-09-17 14:53:54 +0300\
-    Improve comments in the optimizer\
-    Revision #f74bb51b30\
-    2023-02-14 13:29:46 +0200\
-    Updated coding standards\
-    Revision #2988db1cd9\
-    2023-01-03 12:18:38 +0200\
-    MDEV-30318 : galera error messages in mariadb log without galera enabled\
-    Revision #00f202b22a\
-    2022-12-09 13:56:43 +0200\
-    MDEV-30133 MariaDB startup does not validate plugin-wsrep-provider when wsrep\_mode=off or wsrep\_provider is not set\
-    Revision #4849b73c4b\
-    2022-12-09 11:27:55 +0200\
-    MDEV-30120 Update the wsrep\_provider\_options read\_only value in the system\_variables table.\
-    Revision #79d0194eef\
-    2021-02-09 20:06:59 +0200\
-    MDEV-22570 Implement wsrep\_provider\_options as plugin\
-    Revision #061ea3f639\
-    2023-02-11 01:15:50 +0100\
-    Update 11.0 HELP\
-    Revision #9656356b55\
-    2023-02-11 20:04:46 +0100\
-    MDEV-30203 Move mysql symlinks to different package\
-    Revision #36ea5dffe7\
-    2022-12-14 18:12:15 +1100\
-    resolve-stack-dump was moved from server to client (RPM)\
-    Revision #c6f0814468\
-    2022-12-22 23:58:06 +0100\
-    more changes to man page handling\
-    Revision #738d4604b7\
-    2022-12-22 23:12:25 +0100\
-    cmake: rename backup component to Backup\
-    Revision #951b7ab57b\
-    2022-12-22 23:11:34 +0100\
-    cmake: simplify handling of man pages\
-    Revision #f6c5b57eb3\
-    2022-12-22 19:38:54 +0100\
-    man pages: mariadb\* are primary pages, mysql\* are generated\
-    Revision #4d09050ca7\
-    2022-10-20 13:07:05 +0300\
-    MDEV-29281 Report events from provider (add node eviction event)\
-    Revision #6a5af66ddf\
-    2022-12-09 07:32:02 +0200\
-    Update wsrep-lib submodule\
-    Revision #4fa2747a63\
-    2022-12-19 22:49:12 +0100\
-    MDEV-29582 post-review fixes\
-    Revision #b30b040b73\
-    2022-09-21 11:10:05 +1000\
-    MDEV-29582 deprecate mysql\* names\
-    Revision #ce4a289f1c\
-    2023-02-03 16:36:17 +1100\
-    MDEV-30448 No deprecation message shown for mysql\_fix\_extensions\
-    Revision #3622644836\
-    2023-01-31 21:13:41 +0000\
-    MDEV-30498 Rename mysql\_upgrade state file to mariadb\_upgrade\
-    Revision #d6e3d89c80\
-    2022-12-10 12:08:31 +0100\
-    MDEV-29668 SUPER should not allow actions that have fine-grained dedicated privileges\
-    Revision #0ac5132505\
-    2022-12-08 17:48:00 +0100\
-    MDEV-29227 deprecate explicit\_defaults\_for\_timestamp=0\
-    Revision #760d149067\
-    2022-12-08 20:12:01 +0100\
-    MDEV-30128 remove support for 5.1- replication events\
-    Revision #42f53c763a\
-    2022-09-19 15:30:09 +0100\
-    Add CODING\_STANDARDS.md file\
-    Revision #6252a281b5\
-    2022-12-08 17:43:59 +0100\
-    MDEV-28910 remove the 5.5.5- version hack\
-    Revision #986d39c3f5\
-    2023-01-25 10:18:12 +0200\
-    MDEV-29694 follow-up: Simplify mlog\_init\_t\
-    Merge Revision #75c78316d6 2023-01-25 10:17:54 +0200 - Merge 10.11 into 11.0\
-    Revision #a30d4250c2\
-    2023-01-13 16:46:20 +0200\
-    MDEV-26790 InnoDB read-ahead may cause page writes\
-    Revision #d6aed21621\
-    2023-01-13 16:43:29 +0200\
-    MDEV-30216 Read-ahead unnecessarily allocates and frees pages when a page is in the buffer pool\
-    Revision #f8ca355ed8\
-    2022-12-21 14:04:48 +1100\
-    MDEV-26548: replace .mysql\_history with .mariadb\_history\
-    Revision #aafe85ecb1\
-    2023-01-24 09:03:06 +0200\
-    MDEV-30447: use of undeclared identifier O\_DIRECT\
-    Revision #26ef4875e6\
-    2022-12-05 09:03:06 +1100\
-    MDEV-6339 deprecate log\_slow\_admin\_statements\
-    Revision #61161cdaf9\
-    2023-01-20 11:17:21 +0100\
-    PR template: rebase to earliest maintained version\
-    Revision #c37ebaf6c2\
-    2022-12-11 00:23:16 +0100\
-    MDEV-30153 ad hoc client versions are confusing\
-    Revision #eb26bf6e09\
-    2022-12-11 00:11:43 +0100\
-    unify client/tool version string\
-    Revision #314e50b464\
-    2023-01-12 10:34:14 +1100\
-    Use MariaDB as the project name in CMakeLists.txt (fix)\
-    Revision #44dce3b207\
-    2023-01-13 12:46:30 +0200\
-    MDEV-29986 Set innodb\_undo\_tablespaces=3 by default\
-    Merge Revision #d6d85c92ee 2023-01-13 12:33:12 +0200 - Merge 10.11 into 11.0\
-    Revision #944beb9e7a\
-    2022-12-14 14:44:28 +0200\
-    MDEV-19506 Remove the global sequence DICT\_HDR\_ROW\_ID for DB\_ROW\_ID\
-    Revision #f27e9c8947\
-    2023-01-11 17:59:36 +0200\
-    MDEV-29694 Remove the InnoDB change buffer\
-    Revision #24648768b4\
-    2022-12-14 14:43:32 +0200\
-    MDEV-30136: Deprecate innodb\_flush\_method\
-    Revision #e581396b7a\
-    2022-12-14 14:42:20 +0200\
-    MDEV-29983 Deprecate innodb\_file\_per\_table\
-    Merge Revision #ae79cedf4b 2023-01-11 11:45:56 +0200 - Merge 10.11 into 11.0\
-    Revision #d29d915790\
-    2022-12-12 12:47:01 +1100\
-    Use MariaDB as the project name in CMakeLists.txt\
-    Revision #b075191ba8\
-    2023-01-06 15:03:54 +1200\
-    MDEV-30353 Debian additions version fix\
-    Revision #c6e0ab74f0\
-    2023-01-03 10:43:51 +0100\
-    bump the VERSION\
-    Revision #1be861c582\
-    2022-12-01 17:30:10 +1100\
-    MDEV-28526 Spider: remove conn\_kind member variables\
-    Revision #1128b54aa4\
-    2022-11-29 12:08:27 +1100\
-    MDEV-29269 Spider: remove #ifdef ITEM\_FUNC\_TIMESTAMPDIFF\_ARE\_PUBLIC\
-    Revision #9c05c840b4\
-    2022-11-29 16:46:53 +1100\
-    MDEV-28891 Spider: remove #ifdef SPIDER\_FIELD\_FIELDPTR\_REQUIRES\_THDPTR\
-    Revision #b1856aff37\
-    2022-12-10 12:05:36 +0100\
-    mark an unused error message\
-    Revision #681976ed14\
-    2022-12-19 21:14:05 +0100\
-    spider fixes for 11.0+\
-    Revision #71a72dd770\
-    2022-12-19 19:01:42 +0100\
-    11.0 branch
+  * Removed " INTO " deprication.
+* [Revision #b74d2623eb](https://github.com/MariaDB/server/commit/b74d2623eb)\
+  2022-12-02 17:27:34 +0200
+  * Removed diff dates from rdiff files
+* [Revision #8b7c0d69d2](https://github.com/MariaDB/server/commit/8b7c0d69d2)\
+  2022-12-02 17:18:50 +0200
+  * In best\_access\_path() change record\_count to 1.0 if its less than 1.0.
+* [Revision #02f6ba571e](https://github.com/MariaDB/server/commit/02f6ba571e)\
+  2022-11-28 15:02:34 +0200
+  * Changed some startup warnings to notes
+* [Revision #0bab548137](https://github.com/MariaDB/server/commit/0bab548137)\
+  2022-11-25 16:48:53 +0200
+  * Remove strlen() from Item::cleanup
+* [Revision #01760333e8](https://github.com/MariaDB/server/commit/01760333e8)\
+  2022-11-25 15:25:44 +0200
+  * Do not give warnings about #rocksdb directory information\_schema
+* [Revision #6c4076fac4](https://github.com/MariaDB/server/commit/6c4076fac4)\
+  2022-11-21 18:17:14 +0300
+  * MDEV-30032: EXPLAIN FORMAT=JSON output: part #2: print 'loops'.
+* [Revision #ffe0beca25](https://github.com/MariaDB/server/commit/ffe0beca25)\
+  2022-11-19 21:00:23 +0300
+  * MDEV-30032: EXPLAIN FORMAT=JSON output: print costs
+* [Revision #657868f5e7](https://github.com/MariaDB/server/commit/657868f5e7)\
+  2022-11-22 13:32:44 +0200
+  * Change BUILD scripts to use wolfss by default
+* [Revision #0dd9ec97d0](https://github.com/MariaDB/server/commit/0dd9ec97d0)\
+  2022-11-22 15:27:37 +0200
+  * Changed a rule to be cost based in test\_if\_cheaper\_ordering
+* [Revision #1c88ac60cf](https://github.com/MariaDB/server/commit/1c88ac60cf)\
+  2022-11-22 14:56:33 +0200
+  * Simple cleanup of removing QQ comments from sql\_select.cc
+* [Revision #c1512b1e7c](https://github.com/MariaDB/server/commit/c1512b1e7c)\
+  2022-11-21 14:24:00 +0200
+  * Added "override" to ha\_heap.h, ha\_myisam.h, ha\_myisammrg.h and ha\_sequence.h
+* [Revision #d645025e87](https://github.com/MariaDB/server/commit/d645025e87)\
+  2022-11-18 17:47:16 +0200
+  * Change default of histogram\_type to JSON\_HB
+* [Revision #98879f8d43](https://github.com/MariaDB/server/commit/98879f8d43)\
+  2022-11-18 13:51:15 +0200
+  * Version change to 11.0
+* [Revision #dd1a4131ef](https://github.com/MariaDB/server/commit/dd1a4131ef)\
+  2022-11-14 17:08:09 +0200
+  * Fixed bug in Aria with aria\_log files that are exactly 8K
+* [Revision #cbf60dba74](https://github.com/MariaDB/server/commit/cbf60dba74)\
+  2022-11-09 19:44:11 +0200
+  * Small improvements to aria recovery
+* [Revision #66dde8a54e](https://github.com/MariaDB/server/commit/66dde8a54e)\
+  2022-11-16 14:52:47 +0200
+  * Added rowid\_filter support to Aria
+* [Revision #6418c24c94](https://github.com/MariaDB/server/commit/6418c24c94)\
+  2022-11-09 19:11:08 +0200
+  * Set thd->query() for internal (startup) transactions
+* [Revision #0ba47126f1](https://github.com/MariaDB/server/commit/0ba47126f1)\
+  2022-11-10 15:39:47 +0300
+  * Added MARIADB\_NEW\_COST\_MODEL for ColumnStore to detect new cost model
+* [Revision #7a17b65919](https://github.com/MariaDB/server/commit/7a17b65919)\
+  2022-11-02 17:43:02 +0200
+  * Don't do zerofill of Aria table if it's already zerofilled
+* [Revision #5bf2421eed](https://github.com/MariaDB/server/commit/5bf2421eed)\
+  2022-11-21 17:28:43 +0300
+  * MDEV-30059: Optimizer Trace: plan\_prefix should be a comma-separated-list
+* [Revision #727491b72a](https://github.com/MariaDB/server/commit/727491b72a)\
+  2022-10-04 16:16:06 +0300
+  * Added test cases for preceding test
+* [Revision #eb68023c8e](https://github.com/MariaDB/server/commit/eb68023c8e)\
+  2022-11-24 14:08:31 +0200
+  * Added range\_index to 'range' optimizer\_trace output
+* [Revision #367c780d5e](https://github.com/MariaDB/server/commit/367c780d5e)\
+  2022-11-26 13:12:59 +0200
+  * Fix bug in WITH ties
+* [Revision #aa5e788051](https://github.com/MariaDB/server/commit/aa5e788051)\
+  2022-11-07 14:30:42 +0200
+  * MDEV-29677 Wrong result with join query and innodb fulltext search
+* [Revision #66d9c1b22d](https://github.com/MariaDB/server/commit/66d9c1b22d)\
+  2022-10-31 18:02:36 +0200
+  * Fixes for 'Filtering'
+* [Revision #4464aa4628](https://github.com/MariaDB/server/commit/4464aa4628)\
+  2022-10-28 18:17:53 +0300
+  * Updated number of expected rows from 2 to 100 for information\_schema tables
+* [Revision #15cce52bc9](https://github.com/MariaDB/server/commit/15cce52bc9)\
+  2022-10-28 18:15:58 +0300
+  * Added optimizer\_trace info for index\_intersects
+* [Revision #0fada9c2ab](https://github.com/MariaDB/server/commit/0fada9c2ab)\
+  2022-10-19 12:54:16 +0300
+  * Removed worst\_seek argument for cost\_for\_index\_read()
+* [Revision #43dc831ee3](https://github.com/MariaDB/server/commit/43dc831ee3)\
+  2022-10-04 12:59:43 +0300
+  * Changed aggregate distinct optimization with indexes to be cost based.
+* [Revision #2eb6b801ad](https://github.com/MariaDB/server/commit/2eb6b801ad)\
+  2022-10-03 14:29:04 +0300
+  * Fixes some issues in Firstmatch optimization
+* [Revision #804c91baf1](https://github.com/MariaDB/server/commit/804c91baf1)\
+  2022-10-03 14:22:16 +0300
+  * Print more information in optimizer trace for LATERAL DERIVED
+* [Revision #99db92f618](https://github.com/MariaDB/server/commit/99db92f618)\
+  2022-10-03 14:21:26 +0300
+  * Indexes where not used for sorting in sub queries
+* [Revision #d9d0e78039](https://github.com/MariaDB/server/commit/d9d0e78039)\
+  2022-09-30 17:10:37 +0300
+  * Add limits for how many IO operations a table access will do
+* [Revision #7afa819f72](https://github.com/MariaDB/server/commit/7afa819f72)\
+  2022-09-25 18:44:48 +0300
+  * Fix cost calculation for get\_best\_group\_min\_max()
+* [Revision #009db2288b](https://github.com/MariaDB/server/commit/009db2288b)\
+  2022-09-23 14:48:13 +0300
+  * Fixed limit optimization in range optimizer
+* [Revision #b66cdbd1ea](https://github.com/MariaDB/server/commit/b66cdbd1ea)\
+  2022-08-11 13:05:23 +0300
+  * Changing all cost calculation to be given in milliseconds
+* [Revision #590416e21c](https://github.com/MariaDB/server/commit/590416e21c)\
+  2022-10-04 11:32:55 +0300
+  * Stabilize a testcase in subselect\_sj2\_mat
+* [Revision #6d179ad134](https://github.com/MariaDB/server/commit/6d179ad134)\
+  2022-10-04 11:32:33 +0300
+  * Fix typecast warnings-as-errors on Windows.
+* [Revision #33fc8037e0](https://github.com/MariaDB/server/commit/33fc8037e0)\
+  2022-08-20 08:22:57 +0300
+  * Fixed some issues with FORCE INDEX
+* [Revision #013ba37ae2](https://github.com/MariaDB/server/commit/013ba37ae2)\
+  2022-06-30 14:02:53 +0300
+  * Fix cost calculation in test\_if\_cheaper\_ordering() to be cost based
+* [Revision #59193ef673](https://github.com/MariaDB/server/commit/59193ef673)\
+  2022-07-02 22:15:22 +0300
+  * Implement cost\_of\_filesort()
+* [Revision #b70290869e](https://github.com/MariaDB/server/commit/b70290869e)\
+  2022-07-02 22:43:22 +0300
+  * Refactor Sort\_param::init\_for\_filesort
+* [Revision #50e9f7aee5](https://github.com/MariaDB/server/commit/50e9f7aee5)\
+  2022-06-30 14:31:54 +0300
+  * Rewrite cost computation for filesort operations
+* [Revision #06be2c64bc](https://github.com/MariaDB/server/commit/06be2c64bc)\
+  2022-06-30 14:48:00 +0300
+  * cleanup: Don't pass THD to get\_merge\_many\_buff\_cost\_fast
+* [Revision #ca2851d17e](https://github.com/MariaDB/server/commit/ca2851d17e)\
+  2022-06-30 13:46:43 +0300
+  * cleanup: Make tempfile creation uniform with DISK\_CHUNK\_SIZE
+* [Revision #fa90ac6180](https://github.com/MariaDB/server/commit/fa90ac6180)\
+  2022-06-30 10:45:20 +0300
+  * cleanup: Rename Sort\_param::max\_rows to limit\_rows
+* [Revision #488148dd8a](https://github.com/MariaDB/server/commit/488148dd8a)\
+  2022-06-30 13:59:40 +0300
+  * Added checking of arguments to COST\_ADD and COST\_MULT
+* [Revision #07df2029a3](https://github.com/MariaDB/server/commit/07df2029a3)\
+  2022-06-30 15:43:58 +0300
+  * Adjust cost for re-creating a row from the JOIN CACHE
+* [Revision #4515a89814](https://github.com/MariaDB/server/commit/4515a89814)\
+  2022-06-16 13:12:01 +0300
+  * Fixed cost calculations for materialized tables
+* [Revision #1d82e5daf7](https://github.com/MariaDB/server/commit/1d82e5daf7)\
+  2022-06-13 17:45:37 +0300
+  * Move join->emb\_smj\_nest setting to choose\_plan()
+* [Revision #249475b99c](https://github.com/MariaDB/server/commit/249475b99c)\
+  2022-09-29 19:57:56 +0300
+  * Make --ps-protocol command work in --ps-protocol mode
+* [Revision #b44e28af6f](https://github.com/MariaDB/server/commit/b44e28af6f)\
+  2022-05-09 11:36:44 +0300
+  * Simple optimization: Remove JOIN::set\_group\_rpa as it is not needed
+* [Revision #5e5a8eda16](https://github.com/MariaDB/server/commit/5e5a8eda16)\
+  2022-05-04 17:26:43 +0300
+  * Derived tables and union can now create distinct keys
+* [Revision #868d577cb6](https://github.com/MariaDB/server/commit/868d577cb6)\
+  2022-05-04 17:35:59 +0300
+  * Fixed crashing bug in create\_internal\_tmp\_table\_from\_heap()
+* [Revision #2d70ff4272](https://github.com/MariaDB/server/commit/2d70ff4272)\
+  2022-04-13 20:33:50 +0300
+  * Add test cases for MDEV-20595 and MDEV-21633 to show these are solved
+* [Revision #2387ee9b45](https://github.com/MariaDB/server/commit/2387ee9b45)\
+  2022-04-11 17:59:36 +0300
+  * Added 'records\_out' and join\_type to POSITION
+* [Revision #9db877c9ec](https://github.com/MariaDB/server/commit/9db877c9ec)\
+  2022-04-05 22:50:42 +0300
+  * Align elements in struct system\_variables
+* [Revision #373f7ea72f](https://github.com/MariaDB/server/commit/373f7ea72f)\
+  2022-09-28 17:34:22 +0300
+  * Fix compile on Windows: use explicit casts between double and ha\_rows.
+* [Revision #5e651c9aea](https://github.com/MariaDB/server/commit/5e651c9aea)\
+  2022-04-05 20:12:29 +0300
+  * Make the most important optimizer constants user variables
+* [Revision #b6215b9b20](https://github.com/MariaDB/server/commit/b6215b9b20)\
+  2021-11-01 12:34:24 +0200
+  * Update row and key fetch cost models to take into account data copy costs
+* [Revision #034aedadf2](https://github.com/MariaDB/server/commit/034aedadf2)\
+  2022-08-21 05:53:54 +0300
+  * Added optimizer\_costs.h which includes all optimizer costs
+* [Revision #e6205c966d](https://github.com/MariaDB/server/commit/e6205c966d)\
+  2021-10-21 19:40:58 +0300
+  * Split cost calculations into fetch and total
+* [Revision #766bae2b31](https://github.com/MariaDB/server/commit/766bae2b31)\
+  2022-01-20 15:49:01 +0200
+  * Make trace.add() usage uniform
+* [Revision #ec6aa2829a](https://github.com/MariaDB/server/commit/ec6aa2829a)\
+  2022-09-09 19:09:23 +0300
+  * Stabilize main.subselect\_sj2\* tests
+* [Revision #d9d9c90a3d](https://github.com/MariaDB/server/commit/d9d9c90a3d)\
+  2022-09-19 19:59:00 +0300
+  * Fix tests: avoid query plan with identical costs
+* [Revision #2a79abcd12](https://github.com/MariaDB/server/commit/2a79abcd12)\
+  2022-09-19 19:37:57 +0300
+  * Fix compile on Windows
+* [Revision #956980971f](https://github.com/MariaDB/server/commit/956980971f)\
+  2021-10-09 16:16:10 +0300
+  * Update cost for hash and cached joins
+* [Revision #6fa7451759](https://github.com/MariaDB/server/commit/6fa7451759)\
+  2021-10-08 02:36:58 +0300
+  * Adjust costs for doing index scan in cost\_group\_min\_max()
+* [Revision #bc9805e954](https://github.com/MariaDB/server/commit/bc9805e954)\
+  2021-10-08 01:40:59 +0300
+  * Return >= 1 from matching\_candidates\_in\_table if records > 0.0
+* [Revision #b67144893a](https://github.com/MariaDB/server/commit/b67144893a)\
+  2021-10-07 20:15:34 +0300
+  * Update matching\_candidates\_in\_table() to treat all conditions similar
+* [Revision #dc2f0d138d](https://github.com/MariaDB/server/commit/dc2f0d138d)\
+  2021-10-06 12:53:18 +0300
+  * Fix calculation of selectivity
+* [Revision #7d0bef6cd7](https://github.com/MariaDB/server/commit/7d0bef6cd7)\
+  2021-10-06 12:34:54 +0300
+  * Fixed bug in SQL\_SELECT\_LIMIT
+* [Revision #fc0c157aaa](https://github.com/MariaDB/server/commit/fc0c157aaa)\
+  2021-11-05 13:06:14 +0200
+  * Simple optimization to speed up some handler functions when checking killed
+* [Revision #07b0d1a35d](https://github.com/MariaDB/server/commit/07b0d1a35d)\
+  2021-10-22 14:17:31 +0300
+  * Adjusted Range\_rowid\_filter\_cost\_info lookup cost slightly.
+* [Revision #987fcf9197](https://github.com/MariaDB/server/commit/987fcf9197)\
+  2022-07-02 21:47:57 +0300
+  * cleanup: Typo fix appliccable -> applicable
+* [Revision #bcd5454beb](https://github.com/MariaDB/server/commit/bcd5454beb)\
+  2021-10-19 18:08:12 +0300
+  * Change class variable names in rowid\_filter to longer, more clear names
+* [Revision #2cc5750c79](https://github.com/MariaDB/server/commit/2cc5750c79)\
+  2022-01-05 14:52:15 +0200
+  * Updated convert-debug-for-diff
+* [Revision #4062fc28bd](https://github.com/MariaDB/server/commit/4062fc28bd)\
+  2021-10-06 12:31:19 +0300
+  * Optimizer code cleanups, no logic changes
+* [Revision #87d4d7232c](https://github.com/MariaDB/server/commit/87d4d7232c)\
+  2021-10-06 02:39:59 +0300
+  * Limit calculated rows to the number of rows in the table
+* [Revision #c443dbff0e](https://github.com/MariaDB/server/commit/c443dbff0e)\
+  2021-10-05 17:08:16 +0300
+  * Ensure that test\_quick\_select doesn't return more rows than in the table
+* [Revision #8b977a6c3a](https://github.com/MariaDB/server/commit/8b977a6c3a)\
+  2021-12-27 18:51:00 +0200
+  * MDEV-14907 FEDERATEDX doesn't respect DISTINCT
+* [Revision #9d0fbcc400](https://github.com/MariaDB/server/commit/9d0fbcc400)\
+  2021-09-17 14:53:54 +0300
+  * Improve comments in the optimizer
+* [Revision #f74bb51b30](https://github.com/MariaDB/server/commit/f74bb51b30)\
+  2023-02-14 13:29:46 +0200
+  * Updated coding standards
+* [Revision #2988db1cd9](https://github.com/MariaDB/server/commit/2988db1cd9)\
+  2023-01-03 12:18:38 +0200
+  * MDEV-30318 : galera error messages in mariadb log without galera enabled
+* [Revision #00f202b22a](https://github.com/MariaDB/server/commit/00f202b22a)\
+  2022-12-09 13:56:43 +0200
+  * MDEV-30133 MariaDB startup does not validate plugin-wsrep-provider when wsrep\_mode=off or wsrep\_provider is not set
+* [Revision #4849b73c4b](https://github.com/MariaDB/server/commit/4849b73c4b)\
+  2022-12-09 11:27:55 +0200
+  * MDEV-30120 Update the wsrep\_provider\_options read\_only value in the system\_variables table.
+* [Revision #79d0194eef](https://github.com/MariaDB/server/commit/79d0194eef)\
+  2021-02-09 20:06:59 +0200
+  * MDEV-22570 Implement wsrep\_provider\_options as plugin
+* [Revision #061ea3f639](https://github.com/MariaDB/server/commit/061ea3f639)\
+  2023-02-11 01:15:50 +0100
+  * Update 11.0 HELP
+* [Revision #9656356b55](https://github.com/MariaDB/server/commit/9656356b55)\
+  2023-02-11 20:04:46 +0100
+  * MDEV-30203 Move mysql symlinks to different package
+* [Revision #36ea5dffe7](https://github.com/MariaDB/server/commit/36ea5dffe7)\
+  2022-12-14 18:12:15 +1100
+  * resolve-stack-dump was moved from server to client (RPM)
+* [Revision #c6f0814468](https://github.com/MariaDB/server/commit/c6f0814468)\
+  2022-12-22 23:58:06 +0100
+  * more changes to man page handling
+* [Revision #738d4604b7](https://github.com/MariaDB/server/commit/738d4604b7)\
+  2022-12-22 23:12:25 +0100
+  * cmake: rename backup component to Backup
+* [Revision #951b7ab57b](https://github.com/MariaDB/server/commit/951b7ab57b)\
+  2022-12-22 23:11:34 +0100
+  * cmake: simplify handling of man pages
+* [Revision #f6c5b57eb3](https://github.com/MariaDB/server/commit/f6c5b57eb3)\
+  2022-12-22 19:38:54 +0100
+  * man pages: mariadb\* are primary pages, mysql\* are generated
+* [Revision #4d09050ca7](https://github.com/MariaDB/server/commit/4d09050ca7)\
+  2022-10-20 13:07:05 +0300
+  * MDEV-29281 Report events from provider (add node eviction event)
+* [Revision #6a5af66ddf](https://github.com/MariaDB/server/commit/6a5af66ddf)\
+  2022-12-09 07:32:02 +0200
+  * Update wsrep-lib submodule
+* [Revision #4fa2747a63](https://github.com/MariaDB/server/commit/4fa2747a63)\
+  2022-12-19 22:49:12 +0100
+  * MDEV-29582 post-review fixes
+* [Revision #b30b040b73](https://github.com/MariaDB/server/commit/b30b040b73)\
+  2022-09-21 11:10:05 +1000
+  * MDEV-29582 deprecate mysql\* names
+* [Revision #ce4a289f1c](https://github.com/MariaDB/server/commit/ce4a289f1c)\
+  2023-02-03 16:36:17 +1100
+  * MDEV-30448 No deprecation message shown for mysql\_fix\_extensions
+* [Revision #3622644836](https://github.com/MariaDB/server/commit/3622644836)\
+  2023-01-31 21:13:41 +0000
+  * MDEV-30498 Rename mysql\_upgrade state file to mariadb\_upgrade
+* [Revision #d6e3d89c80](https://github.com/MariaDB/server/commit/d6e3d89c80)\
+  2022-12-10 12:08:31 +0100
+  * MDEV-29668 SUPER should not allow actions that have fine-grained dedicated privileges
+* [Revision #0ac5132505](https://github.com/MariaDB/server/commit/0ac5132505)\
+  2022-12-08 17:48:00 +0100
+  * MDEV-29227 deprecate explicit\_defaults\_for\_timestamp=0
+* [Revision #760d149067](https://github.com/MariaDB/server/commit/760d149067)\
+  2022-12-08 20:12:01 +0100
+  * MDEV-30128 remove support for 5.1- replication events
+* [Revision #42f53c763a](https://github.com/MariaDB/server/commit/42f53c763a)\
+  2022-09-19 15:30:09 +0100
+  * Add CODING\_STANDARDS.md file
+* [Revision #6252a281b5](https://github.com/MariaDB/server/commit/6252a281b5)\
+  2022-12-08 17:43:59 +0100
+  * MDEV-28910 remove the 5.5.5- version hack
+* [Revision #986d39c3f5](https://github.com/MariaDB/server/commit/986d39c3f5)\
+  2023-01-25 10:18:12 +0200
+  * MDEV-29694 follow-up: Simplify mlog\_init\_t
+* Merge [Revision #75c78316d6](https://github.com/MariaDB/server/commit/75c78316d6) 2023-01-25 10:17:54 +0200 - Merge 10.11 into 11.0
+* [Revision #a30d4250c2](https://github.com/MariaDB/server/commit/a30d4250c2)\
+  2023-01-13 16:46:20 +0200
+  * MDEV-26790 InnoDB read-ahead may cause page writes
+* [Revision #d6aed21621](https://github.com/MariaDB/server/commit/d6aed21621)\
+  2023-01-13 16:43:29 +0200
+  * MDEV-30216 Read-ahead unnecessarily allocates and frees pages when a page is in the buffer pool
+* [Revision #f8ca355ed8](https://github.com/MariaDB/server/commit/f8ca355ed8)\
+  2022-12-21 14:04:48 +1100
+  * MDEV-26548: replace .mysql\_history with .mariadb\_history
+* [Revision #aafe85ecb1](https://github.com/MariaDB/server/commit/aafe85ecb1)\
+  2023-01-24 09:03:06 +0200
+  * MDEV-30447: use of undeclared identifier O\_DIRECT
+* [Revision #26ef4875e6](https://github.com/MariaDB/server/commit/26ef4875e6)\
+  2022-12-05 09:03:06 +1100
+  * MDEV-6339 deprecate log\_slow\_admin\_statements
+* [Revision #61161cdaf9](https://github.com/MariaDB/server/commit/61161cdaf9)\
+  2023-01-20 11:17:21 +0100
+  * PR template: rebase to earliest maintained version
+* [Revision #c37ebaf6c2](https://github.com/MariaDB/server/commit/c37ebaf6c2)\
+  2022-12-11 00:23:16 +0100
+  * MDEV-30153 ad hoc client versions are confusing
+* [Revision #eb26bf6e09](https://github.com/MariaDB/server/commit/eb26bf6e09)\
+  2022-12-11 00:11:43 +0100
+  * unify client/tool version string
+* [Revision #314e50b464](https://github.com/MariaDB/server/commit/314e50b464)\
+  2023-01-12 10:34:14 +1100
+  * Use MariaDB as the project name in CMakeLists.txt (fix)
+* [Revision #44dce3b207](https://github.com/MariaDB/server/commit/44dce3b207)\
+  2023-01-13 12:46:30 +0200
+  * MDEV-29986 Set innodb\_undo\_tablespaces=3 by default
+* Merge [Revision #d6d85c92ee](https://github.com/MariaDB/server/commit/d6d85c92ee) 2023-01-13 12:33:12 +0200 - Merge 10.11 into 11.0
+* [Revision #944beb9e7a](https://github.com/MariaDB/server/commit/944beb9e7a)\
+  2022-12-14 14:44:28 +0200
+  * MDEV-19506 Remove the global sequence DICT\_HDR\_ROW\_ID for DB\_ROW\_ID
+* [Revision #f27e9c8947](https://github.com/MariaDB/server/commit/f27e9c8947)\
+  2023-01-11 17:59:36 +0200
+  * MDEV-29694 Remove the InnoDB change buffer
+* [Revision #24648768b4](https://github.com/MariaDB/server/commit/24648768b4)\
+  2022-12-14 14:43:32 +0200
+  * MDEV-30136: Deprecate innodb\_flush\_method
+* [Revision #e581396b7a](https://github.com/MariaDB/server/commit/e581396b7a)\
+  2022-12-14 14:42:20 +0200
+  * MDEV-29983 Deprecate innodb\_file\_per\_table
+* Merge [Revision #ae79cedf4b](https://github.com/MariaDB/server/commit/ae79cedf4b) 2023-01-11 11:45:56 +0200 - Merge 10.11 into 11.0
+* [Revision #d29d915790](https://github.com/MariaDB/server/commit/d29d915790)\
+  2022-12-12 12:47:01 +1100
+  * Use MariaDB as the project name in CMakeLists.txt
+* [Revision #b075191ba8](https://github.com/MariaDB/server/commit/b075191ba8)\
+  2023-01-06 15:03:54 +1200
+  * MDEV-30353 Debian additions version fix
+* [Revision #c6e0ab74f0](https://github.com/MariaDB/server/commit/c6e0ab74f0)\
+  2023-01-03 10:43:51 +0100
+  * bump the VERSION
+* [Revision #1be861c582](https://github.com/MariaDB/server/commit/1be861c582)\
+  2022-12-01 17:30:10 +1100
+  * MDEV-28526 Spider: remove conn\_kind member variables
+* [Revision #1128b54aa4](https://github.com/MariaDB/server/commit/1128b54aa4)\
+  2022-11-29 12:08:27 +1100
+  * MDEV-29269 Spider: remove #ifdef ITEM\_FUNC\_TIMESTAMPDIFF\_ARE\_PUBLIC
+* [Revision #9c05c840b4](https://github.com/MariaDB/server/commit/9c05c840b4)\
+  2022-11-29 16:46:53 +1100
+  * MDEV-28891 Spider: remove #ifdef SPIDER\_FIELD\_FIELDPTR\_REQUIRES\_THDPTR
+* [Revision #b1856aff37](https://github.com/MariaDB/server/commit/b1856aff37)\
+  2022-12-10 12:05:36 +0100
+  * mark an unused error message
+* [Revision #681976ed14](https://github.com/MariaDB/server/commit/681976ed14)\
+  2022-12-19 21:14:05 +0100
+  * spider fixes for 11.0+
+* [Revision #71a72dd770](https://github.com/MariaDB/server/commit/71a72dd770)\
+  2022-12-19 19:01:42 +0100
+  * 11.0 branch
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

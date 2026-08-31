@@ -2,7 +2,7 @@
 
 ## Overview
 
-[MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) 6.2.2 is a maintenance release of [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) . MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the second release in the ColumnStore 6 series.
+[MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) 6.2.2 is a maintenance release of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) . MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the second release in the ColumnStore 6 series.
 
 MariaDB ColumnStore 6.2.2 was released on 2021-12-13. This release is of General Availability (GA) maturity.
 
@@ -44,9 +44,11 @@ ERROR 1178 (42000): The storage engine for the table doesn't support IDB-1001: F
 ```
 
 * SELECT statements sometimes fail when the statement uses the RAND() function ([MCOL-4771](https://jira.mariadb.org/browse/MCOL-4771), [MCOL-4487](https://jira.mariadb.org/browse/MCOL-4487))
-  * The following error message would be raised to the client:`<<code>>`\
-    ERROR 1815 (HY000): Internal error: IDB-2045: At least one PrimProc closed the connection unexpectedly.\
-    <.
+  * The following error message would be raised to the client:
+
+    ```
+    ERROR 1815 (HY000): Internal error: IDB-2045: At least one PrimProc closed the connection unexpectedly.
+    ```
 * SELECT statements could return wrong results on large tables if the WHERE condition contains varchar\_col < char\_col ([MCOL-4823](https://jira.mariadb.org/browse/MCOL-4823))
 * When columnstore\_select\_handler=ON is configured, SELECT statements returns the wrong results if a predicate in the WHERE condition uses an alias that is dependent on the result of a window function. ([MCOL-4719](https://jira.mariadb.org/browse/MCOL-4719))
 * The columnstoreAlias.sh script raises an error upon login for single node ColumnStore ([MCOL-4832](https://jira.mariadb.org/browse/MCOL-4832))

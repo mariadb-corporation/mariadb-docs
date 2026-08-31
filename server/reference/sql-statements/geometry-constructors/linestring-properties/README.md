@@ -114,3 +114,5 @@ Returns the N-th Point in a LineString. This function retrieves a specific point
 Returns the start Point of a LineString. This function retrieves the initial coordinate in the linear geometry sequence.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

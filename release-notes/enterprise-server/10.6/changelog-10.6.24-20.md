@@ -93,7 +93,7 @@ MariaDB Enterprise Server 10.6.24-20 is a Stable (GA) maintenance release of [Ma
 * Threadpool - debug assertion thread\_group->active\_thread\_count >=0, from TP\_connection\_generic::wait\_begin ([MDEV-37902](https://jira.mariadb.org/browse/MDEV-37902))
 * Due to the impending EOL of Windows 10 22H2, Windows 11 23H2, this will be the last release supporting these releases.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}
 

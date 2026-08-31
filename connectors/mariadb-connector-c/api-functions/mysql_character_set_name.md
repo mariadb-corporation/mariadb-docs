@@ -32,4 +32,6 @@ This function is deprecated. Instead, use [mariadb\_get\_infov()](mariadb_get_in
 
 * [mysql\_set\_character\_set()](mysql_set_character_set.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

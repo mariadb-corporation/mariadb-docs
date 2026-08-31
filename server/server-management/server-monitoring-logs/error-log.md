@@ -419,7 +419,7 @@ lc_messages_dir=/usr/share/mysql/
 lc_messages=en_US
 ```
 
-See [Setting the Language for Error Messages](../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/setting-the-language-for-error-messages.md) for more\
+See [Setting the Language for Error Messages](../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/setting-the-language-for-error-messages.md) for more
 information.
 
 ## See Also

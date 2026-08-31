@@ -100,7 +100,7 @@ The TCP/IP _port number_ to use when connecting to the local server.
 
 Be silent except for errors.
 
-#### `--record\_log\_pos`=_db\_name_._tbl\_name_
+#### `--record_log_pos`=_db\_name_._tbl\_name_
 
 Record master and slave status in the specified database _db\_name_ and table _tbl\_name_.
 

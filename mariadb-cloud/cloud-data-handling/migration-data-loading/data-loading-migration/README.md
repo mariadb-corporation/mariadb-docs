@@ -29,14 +29,14 @@ Ensure that your MariaDB Cloud service deployment configuration is compatible wi
 * Instance size - Ensure that the MariaDB Cloud instance is compatible with the source database instance type and size.
 * Storage - Ensure that the MariaDB Cloud storage type and size is compatible with the source database.
 
-## CloudDBA Assisted Migration
+## Cloud DBA Assisted Migration
 
 * Existing customers can submit a support case to request assistance with a migration.
 * New customers can contact us to begin the migration planning process.
 
-Our [CloudDBA team](../../../reference/fractionaldba.md) can help design a migration plan to suit your needs.
+Our [Cloud DBA team](../../../reference/clouddba.md) can help design a migration plan to suit your needs.
 
-## CloudDBA Assisted Migration Approach
+## Cloud DBA Assisted Migration Approach
 
 We use a multi-step process to assist customers with migrations:
 
@@ -65,3 +65,5 @@ For most small, mid-size and large migrations MariaDB Cloud Managed Migration is
 * [Importing data using Mariadb Import](../data-loading/install-mariadb-import.md)
 * [Importing using CSV Data](../data-loading/import-csv-data.md)
 * [Replicating Data from an External DB](../data-loading/replicating-data-from-external-db.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

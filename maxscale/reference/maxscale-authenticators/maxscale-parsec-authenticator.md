@@ -19,7 +19,7 @@ Similarly to the ed25519 authentication plugin, it signs the response with a ed2
 
 This authentication plugin is intended to be used with MariaDB version 12 or later and requires that the service user has the `SET USER` grant.
 
-MariaDB versions 11.6 or later that include the PARSEC authentication plugin are supported but the passwords for the users must be provided via the [user mapping file](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user_mapping_file). The documentation for the [Ed25519 authenticator](maxscale-ed25519-authenticator.md#using-a-mapping-file) contains an example of how to configure the user mapping.
+MariaDB versions 11.6 or later that include the PARSEC authentication plugin are supported but the passwords for the users must be provided via the [user mapping file](../maxscale-listeners.md#user_mapping_file). The documentation for the [Ed25519 authenticator](maxscale-ed25519-authenticator.md#using-a-mapping-file) contains an example of how to configure the user mapping.
 
 ### Configuration
 
@@ -35,5 +35,7 @@ authenticator=mariadbauth,parsecauth
 ```
 
 To only allow PARSEC authentication, use `authenticator=parsecauth`.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

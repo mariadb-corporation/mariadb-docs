@@ -124,7 +124,7 @@ When enabled, whether using `ON` or `AUTO`, `mariadb-backup` retrieves informati
 mariadb-backup --binlog-info --backup
 ```
 
-Currently, the `LOCKLESS` option depends on features unsupported by MariaDB Server. See the description of the [xtrabackup\_binlog\_pos\_innodb](files-created-by-mariadb-backup.md#xtrabackup_binlog_pos_innodb) file for more information. If you attempt to run `mariadb-backup` with this option, then it causes the utility to exit with an error.
+Currently, the `LOCKLESS` option depends on features unsupported by MariaDB Server. See the description of the [xtrabackup\_binlog\_pos\_innodb](files-created-by-mariadb-backup.md) file for more information. If you attempt to run `mariadb-backup` with this option, then it causes the utility to exit with an error.
 
 ### `--close-files`
 
@@ -158,7 +158,7 @@ The `--compress` option only supports the now deprecated `quicklz` algorithm.
 mariadb-backup --compress --backup
 ```
 
-If a backup is compressed using this option, then `mariadb-backup` will record that detail in the [xtrabackup\_info](files-created-by-mariadb-backup.md#xtrabackup_info) file.
+If a backup is compressed using this option, then `mariadb-backup` will record that detail in the [xtrabackup\_info](files-created-by-mariadb-backup.md) file.
 
 ### `--compress-chunk-size`
 
@@ -594,7 +594,7 @@ mariadb-backup --backup --history=backup_all
 
 Information is written to `mysql.mariadb_backup_history`.
 
-`mariadb-backup` also records this in the [mariadb\_backup\_info](files-created-by-mariadb-backup.md#mariadb_backup_info) file.
+`mariadb-backup` also records this in the [mariadb\_backup\_info](files-created-by-mariadb-backup.md) file.
 {% endtab %}
 
 {% tab title="< 10.11" %}
@@ -612,7 +612,7 @@ mariadb-backup --backup --history=backup_all
 
 Information is written to `PERCONA_SCHEMA.xtrabackup_history`.
 
-`mariadb-backup` also records this in the [xtrabackup\_info](files-created-by-mariadb-backup.md#xtrabackup_info) file.
+`mariadb-backup` also records this in the [xtrabackup\_info](files-created-by-mariadb-backup.md) file.
 {% endtab %}
 {% endtabs %}
 
@@ -1195,7 +1195,7 @@ Used internally to prepare a backup.
 
 When backing up Percona Server, mariadb-backup would use backup locks by default. To be specific, backup locks refers to the `LOCK TABLES FOR BACKUP` and `LOCK BINLOG FOR BACKUP` statements. This option can be used to disable support for Percona Server's backup locks. This option has no effect when the server does not support Percona's backup locks.
 
-Deprecated and has no effect from [MariaDB 10.11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.8), [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.6), [MariaDB 11.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.5) and [MariaDB 11.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.4) as MariaDB now always uses backup locks for better performance. See [MDEV-32932](https://jira.mariadb.org/browse/MDEV-32932).
+Deprecated and has no effect from [MariaDB 10.11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.8), [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.6), [MariaDB 11.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.5), [MariaDB 11.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.4) and [MariaDB 11.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.2) as MariaDB now always uses backup locks for better performance. See [MDEV-32932](https://jira.mariadb.org/browse/MDEV-32932).
 
 ```bash
 mariadb-backup --backup --no-backup-locks
@@ -1366,7 +1366,7 @@ mariadb-backup --backup --rsync
 
 This option is not compatible with the `--stream` option.
 
-Deprecated and has no effect from [MariaDB 10.11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.8), [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.6), [MariaDB 11.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.5) and [MariaDB 11.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.4) as rsync will not work on tables that are in use. See [MDEV-32932](https://jira.mariadb.org/browse/MDEV-32932).
+Deprecated and has no effect from [MariaDB 10.11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.8), [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.6), [MariaDB 11.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.5), [MariaDB 11.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.4) and [MariaDB 11.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.2) as rsync will not work on tables that are in use. See [MDEV-32932](https://jira.mariadb.org/browse/MDEV-32932).
 
 ### `--safe-slave-backup`
 

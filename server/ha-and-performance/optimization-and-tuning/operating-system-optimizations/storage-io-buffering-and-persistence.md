@@ -56,3 +56,5 @@ MariaDB does not validate file access or modification timestamps anywhere, so on
 * [`sync_binlog`](../../standard-replication/replication-and-binary-log-system-variables.md#sync_binlog) — controls how often the binary log is persisted.
 * [`innodb_doublewrite`](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_doublewrite) — InnoDB's protection against torn writes.
 * [Filesystem Optimizations](filesystem-optimizations.md) — choosing and tuning the filesystem MariaDB writes to.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

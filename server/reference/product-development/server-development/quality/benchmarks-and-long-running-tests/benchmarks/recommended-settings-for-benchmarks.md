@@ -32,7 +32,7 @@ The Linux kernel uses ACPI tables from BIOS to detect if the hardware is NUMA. O
 * if a task has been scheduled on a certain NUMA node, the scheduler tries to put it on the same node again in the future
 * if a task running on a certain NUMA node allocates memory, the kernel tries hard to map physical memory from the same NUMA node
 
-This results in all kinds of weird behavior when you run one big process (mysqld) that consumes most of the memory. In such cases it is recommended to either turn off NUMA (BIOS or kernel command line) or prefix such problem processes with _numactl --interleave all_. You can enable this by running [mysqld\_safe](../../../../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) with the `--numa-interleave` option.
+This results in all kinds of weird behavior when you run one big process (mysqld) that consumes most of the memory. In such cases it is recommended to either turn off NUMA (BIOS or kernel command line) or prefix such problem processes with _numactl --interleave all_. You can enable this by running [mysqld\_safe](../../../../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md) with the `--numa-interleave` option.
 
 [More details can be found here](https://blog.jcole.us/2010/09/28/mysql-swap-insanity-and-the-numa-architecture/).
 
@@ -42,15 +42,15 @@ See [configuring Linux for MariaDB](../../../../../../server-management/install-
 
 ## InnoDB Settings
 
-[innodb\_buffer\_pool\_size](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#innodb_buffer_pool_size) to about 80% of RAM or leaving <5G RAM free (on large RAM systems). Less if lots of connections are used.
+[innodb\_buffer\_pool\_size](../../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size) to about 80% of RAM or leaving <5G RAM free (on large RAM systems). Less if lots of connections are used.
 
-[innodb\_log\_file\_size](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#innodb_log_file_size) to be larger than the amount of writes in the test run or sufficient to cover several minutes of the test run at least.
+[innodb\_log\_file\_size](../../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_file_size) to be larger than the amount of writes in the test run or sufficient to cover several minutes of the test run at least.
 
 ## MyISAM Settings
 
 ## General Settings
 
-[threads\_cache\_size](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#threads_cache_size) should be the same as [max\_connections](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_connections) (unless using thread pools).
+[thread\_cache\_size](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_cache_size) should be the same as [max\_connections](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_connections) (unless using thread pools).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

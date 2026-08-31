@@ -21,22 +21,22 @@ There were some smaller costs:
 * Fetching a row through an index from a temporary memory table: 0.05
 
 The above costs are reasonable for finding out the best index to use.\
-However, they where not good for finding out if we should use a table scan,\
-index scan or range lookup. The cost for the different engines were\
+However, they where not good for finding out if we should use a table scan,
+index scan or range lookup. The cost for the different engines were
 not properly calibrated.
 
 ## New Cost Model
 
-In [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) we have fixed the above shortcomings by changing the\
-basic cost for 'storage engine operations' to be 1 millisecond. This\
-means that for most queries the query cost (`LAST_QUERY_COST`) should be\
-close (or at least proportional) to the time the server is spending in\
+In [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) we have fixed the above shortcomings by changing the
+basic cost for 'storage engine operations' to be 1 millisecond. This
+means that for most queries the query cost (`LAST_QUERY_COST`) should be
+close (or at least proportional) to the time the server is spending in
 the storage engine + join\_cache + sorting.
 
-Note that the user level costs are in **microseconds** (as milliseconds\
+Note that the user level costs are in **microseconds** (as milliseconds
 would have so many zero's that it makes it hard to compare values).
 
-The engine costs have also been separated into smaller parts to make things more\
+The engine costs have also been separated into smaller parts to make things more
 accurate.
 
 The "disk"-read cost now assumes a mid level SSD disk with 400MB/second. This can be changed by the end user by modifying `OPTIMIZER_DISK_READ_COST`.
@@ -88,12 +88,12 @@ OPTIMIZER_INDEX_BLOCK_COPY_COST: 0.035600
       OPTIMIZER_ROWID_COPY_COST: 0.002653
 ```
 
-As can be seen, the `ROW_LOOKUP_COST` is close to the `KEY_LOOKUP_COST`,\
-which is because InnoDB has clustered primary key indexes and is using it\
+As can be seen, the `ROW_LOOKUP_COST` is close to the `KEY_LOOKUP_COST`,
+which is because InnoDB has clustered primary key indexes and is using it
 to find the row from a secondary index.
 
-Some engines, like `HEAP`/`MEMORY` implement their own cost\
-functions as different indexes in the same engine can have different costs. This is\
+Some engines, like `HEAP`/`MEMORY` implement their own cost
+functions as different indexes in the same engine can have different costs. This is
 why some of the cost numbers for these engines are 0.
 
 There are also some SQL level costs that are independent of the storage engine:
@@ -110,7 +110,7 @@ SELECT * FROM information_schema.global_variables WHERE variable_name LIKE "%WHE
 
 ## Description of the Different Cost Variables
 
-Time and cost are quite interchangeable in the new cost model. Below we will use cost for most\
+Time and cost are quite interchangeable in the new cost model. Below we will use cost for most
 things, except for `OPTIMIZER_DISK_READ_COST` as one should use published/tested timings for the SSD/harddisk if one wants to change the value..
 
 | Variable                            | Type    | Description                                                                                                                                                                                                                                                                                  |

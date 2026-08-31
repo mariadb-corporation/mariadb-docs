@@ -12,26 +12,26 @@ description: >-
 
 ### How Parsing and Execution of Queries Work
 
-In order to execute a query, the function `sql_parse.cc:mysql_parse()` is\
-called, which in turn calls the parser (`yyparse()`) with an updated Lex\
-structure as the result. `mysql_parse()` then calls `mysql_execute_command()`\
-which dispatches on the command code (in Lex) to the corresponding code for\
+In order to execute a query, the function `sql_parse.cc:mysql_parse()` is
+called, which in turn calls the parser (`yyparse()`) with an updated Lex
+structure as the result. `mysql_parse()` then calls `mysql_execute_command()`
+which dispatches on the command code (in Lex) to the corresponding code for
 executing that particular query.
 
-There are three structures involved in the execution of a query which are of\
+There are three structures involved in the execution of a query which are of
 interest to the [stored procedure](../../../../server-usage/stored-routines/stored-procedures/README.md) implementation:
 
-* Lex (mentioned above) is the "compiled" query, that is the output from\
+* Lex (mentioned above) is the "compiled" query, that is the output from
   the parser and what is then interpreted to do the actual work.\
-  It contains an enum value (sql\_command) which is the query type, and\
-  all the data collected by the parser needed for the execution (table\
+  It contains an enum value (sql\_command) which is the query type, and
+  all the data collected by the parser needed for the execution (table
   names, fields, values, etc).
-* THD is the "run-time" state of a connection, containing all that is\
+* THD is the "run-time" state of a connection, containing all that is
   needed for a particular client connection, and, among other things, the\
   Lex structure currently being executed.
-* `Item_*`: During parsing, all data is translated into "items", objects of\
-  the subclasses of "Item", such as `Item_int`, `Item_real`, `Item_string`, etc.,\
-  for basic datatypes, and also various more specialized Item types for\
+* `Item_*`: During parsing, all data is translated into "items", objects of
+  the subclasses of "Item", such as `Item_int`, `Item_real`, `Item_string`, etc.,
+  for basic datatypes, and also various more specialized Item types for
   expressions to be evaluated (`Item_func` objects).
 
 ### How to Fit Stored Procedures into this Scheme
@@ -42,57 +42,57 @@ interest to the [stored procedure](../../../../server-usage/stored-routines/stor
 
 **class sp\_head (sp\_head.{cc,h})**
 
-This contains, among other things, an array of "instructions" and the\
+This contains, among other things, an array of "instructions" and the
 method for executing the procedure.
 
 **class sp\_pcontext (sp\_pcontext.{cc,h}**
 
-This is the parse context for the procedure. It's primarily used during\
-parsing to keep track of local parameters, variables and labels, but\
-it's also used at [CALL](../../../sql-statements/stored-routine-statements/call.md) time to find the parameters mode (IN, OUT or INOUT)\
+This is the parse context for the procedure. It's primarily used during
+parsing to keep track of local parameters, variables and labels, but
+it's also used at [CALL](../../../sql-statements/stored-routine-statements/call.md) time to find the parameters mode (IN, OUT or INOUT)
 and type when setting up the runtime context.
 
 **class sp\_instr (sp\_head.{cc,h})**
 
-This is the base class for "instructions", that is, what is generated\
-by the parser. It turns out that we only need a minimum of 5 different\
+This is the base class for "instructions", that is, what is generated
+by the parser. It turns out that we only need a minimum of 5 different
 sub classes:
 
 * sp\_instr\_stmt\
-  Execute a statement. This is the "call-out" any normal SQL statement,\
-  like a [SELECT](../../../sql-statements/data-manipulation/selecting-data/select.md), [INSERT](../../../sql-statements/data-manipulation/inserting-loading-data/insert.md) etc. It contains the Lex structure for the\
+  Execute a statement. This is the "call-out" any normal SQL statement,
+  like a [SELECT](../../../sql-statements/data-manipulation/selecting-data/select.md), [INSERT](../../../sql-statements/data-manipulation/inserting-loading-data/insert.md) etc. It contains the Lex structure for the
   statement in question.
 * sp\_instr\_set\
   Set the value of a local variable (or parameter)
 * sp\_instr\_jump\
   An unconditional jump.
 * sp\_instr\_jump\_if\_not\
-  Jump if condition is not true. It turns out that the negative test is\
-  most convenient when generating the code for the flow control\
+  Jump if condition is not true. It turns out that the negative test is
+  most convenient when generating the code for the flow control
   constructs.
 * sp\_instr\_freturn\
   Return a value from a FUNCTION and exit.\
-  For condition HANDLERs some special instructions are also needed, see\
+  For condition HANDLERs some special instructions are also needed, see
   that section below.
 
 **class sp\_rcontext (sp\_rcontext.h)**
 
 This is the runtime context in the THD structure.\
-It contains an array of items, the parameters and local variables for\
+It contains an array of items, the parameters and local variables for
 the currently executing stored procedure.\
-This means that variable value lookup is in runtime is constant time,\
+This means that variable value lookup is in runtime is constant time,
 a simple index operation.
 
 **class Item\_splocal (Item.{cc,h})**
 
-This is a subclass of Item. Its sole purpose is to hide the fact that\
+This is a subclass of Item. Its sole purpose is to hide the fact that
 the real Item is actually in the current frame (runtime context).\
-It contains the frame offset and defers all methods to the real Item\
+It contains the frame offset and defers all methods to the real Item
 in the frame. This is what the parser generates for local variables.
 
 **Utility Functions (sp.{cc,h})**
 
-This contains functions for creating, dropping and finding a stored\
+This contains functions for creating, dropping and finding a stored
 procedure in the [mysql.proc table](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md) (or the internal cache).
 
 #### Parsing CREATE PROCEDURE
@@ -100,7 +100,7 @@ procedure in the [mysql.proc table](../../../system-tables/the-mysql-database-ta
 When parsing a [CREATE PROCEDURE](../../../../server-usage/stored-routines/stored-procedures/create-procedure.md) the parser first initializes the`sphead` and `spcont` (runtime context) fields in the Lex.\
 The sql\_command code for the result of parsing a is`SQLCOM_CREATE_PROCEDURE`.
 
-The parsing of the parameter list and body is relatively\
+The parsing of the parameter list and body is relatively
 straightforward:
 
 * Parameters:\
@@ -108,28 +108,28 @@ straightforward:
 * Declared local variables:\
   Same as parameters (mode is then IN)
 * Local Variable references:\
-  If an identifier is found in `spcont`, an `Item_splocal` is created\
-  with the variable's frame index, otherwise an `Item_field` or `Item_ref`\
+  If an identifier is found in `spcont`, an `Item_splocal` is created
+  with the variable's frame index, otherwise an `Item_field` or `Item_ref`
   is created (as before).
 * Statements:\
-  The Lex in THD is replaced by a new Lex structure and the statement,\
+  The Lex in THD is replaced by a new Lex structure and the statement,
   is parsed as usual. A `sp_instr_stmt` is created, containing the new\
   Lex, and added to the instructions in `sphead`.\
   Afterwards, the procedure's Lex is restored in THD.
 * SET var:\
-  Setting a local variable generates a `sp_instr_set` instruction,\
-  containing the variable's frame offset, the expression (an Item),\
+  Setting a local variable generates a `sp_instr_set` instruction,
+  containing the variable's frame offset, the expression (an Item),
   and the type.
 * Flow control:\
-  Flow control constructs such as [IF](../../../sql-statements/programmatic-compound-statements/if.md), [WHILE](../../../sql-statements/programmatic-compound-statements/while.md), etc, generate a conditional\
-  and unconditional jumps in the "obvious" way, but a few notes may\
+  Flow control constructs such as [IF](../../../sql-statements/programmatic-compound-statements/if.md), [WHILE](../../../sql-statements/programmatic-compound-statements/while.md), etc, generate a conditional
+  and unconditional jumps in the "obvious" way, but a few notes may
   be required:
-* Forward jumps: When jumping forward, the exact destination is not\
+* Forward jumps: When jumping forward, the exact destination is not
   known at the time of the creation of the jump instruction. The
   1. sphead`therefore contains a list of instruction-label pairs for each forward reference. When the position later is known, the instructions in the list are updated with the correct location.`
-* Loop constructs have optional labels. If a loop doesn't have a\
+* Loop constructs have optional labels. If a loop doesn't have a
   label, an anonymous label is generated to simplify the parsing.
-* There are two types of CASE. The "simple" case is implemented\
+* There are two types of CASE. The "simple" case is implemented
   with an anonymous variable bound to the value to be tested.
 
 **A Simple Example**
@@ -164,7 +164,7 @@ ______
                                    |_______________________|
 ```
 
-Note that the contents of the `spcont` is changing during the parsing,\
+Note that the contents of the `spcont` is changing during the parsing,
 at all times reflecting the state of the would-be runtime frame.\
 The `m_instr` is an array of instructions:
 
@@ -178,104 +178,104 @@ Pos.  Instruction
        5    <end>
 ```
 
-Here, '3', 'x>0', etc, represent the Items or Lex for the respective\
+Here, '3', 'x>0', etc, represent the Items or Lex for the respective
 expressions or statements.
 
 #### Parsing CREATE FUNCTION
 
-[Creating a function](../../../sql-statements/data-definition/create/create-function.md) is essentially the same thing as for a PROCEDURE,\
-with the addition that a FUNCTION has a return type and a RETURN\
+[Creating a function](../../../sql-statements/data-definition/create/create-function.md) is essentially the same thing as for a PROCEDURE,
+with the addition that a FUNCTION has a return type and a RETURN
 statement, but no OUT or INOUT parameters.
 
-The main difference during parsing is that we store the result type\
-in the sp\_head. However, there are big differences when it comes to\
+The main difference during parsing is that we store the result type
+in the sp\_head. However, there are big differences when it comes to
 invoking a FUNCTION. (See below.)
 
 #### Storing, Caching, Dropping
 
 As seen above, the entire definition string, including the "CREATE\
-PROCEDURE" (or "FUNCTION") is kept. The procedure definition string is\
-stored in the table mysql.proc with the name and type as the key, the\
+PROCEDURE" (or "FUNCTION") is kept. The procedure definition string is
+stored in the table mysql.proc with the name and type as the key, the
 type being one of the enum ("procedure","function").
 
-A PROCEDURE is just stored in the [mysql.proc table](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md). A FUNCTION has an\
-additional requirement. They will be called in expressions with the same\
-syntax as UDFs, so UDFs and stored FUNCTIONs share the namespace. Thus,\
-we must make sure that we do not have UDFs and FUNCTIONs with the same\
+A PROCEDURE is just stored in the [mysql.proc table](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md). A FUNCTION has an
+additional requirement. They will be called in expressions with the same
+syntax as UDFs, so UDFs and stored FUNCTIONs share the namespace. Thus,
+we must make sure that we do not have UDFs and FUNCTIONs with the same
 name (even if they are stored in different places).
 
 This means that we can reparse the procedure as many time as we want.\
-The first time, the resulting Lex is used to store the procedure in\
+The first time, the resulting Lex is used to store the procedure in
 the database (using the function sp.c:sp\_create\_procedure()).
 
-The simplest way would be to just leave it at that, and re-read the\
-procedure from the database each time it is called. (And in fact, that's\
+The simplest way would be to just leave it at that, and re-read the
+procedure from the database each time it is called. (And in fact, that's
 the way the earliest implementation will work.)\
-However, this is not very efficient, and we can do better. The full\
+However, this is not very efficient, and we can do better. The full
 implementation should work like this:
 
-1. Upon creation time, parse and store the procedure. Note that we still\
-   need to parse it to catch syntax errors, but we can't check if called\
+1. Upon creation time, parse and store the procedure. Note that we still
+   need to parse it to catch syntax errors, but we can't check if called
    procedures exists for instance.
-2. Upon first CALL, read from the database, parse it, and cache the\
+2. Upon first CALL, read from the database, parse it, and cache the
    resulting Lex in memory. This time we can do more error checking.
 3. Upon subsequent CALLs, use the cached Lex.
 
-Note that this implies that the Lex structure with its sphead must be\
-reentrant, that is, reusable and shareable between different threads\
-and calls. The runtime state for a procedure is kept in the sp\_rcontext\
+Note that this implies that the Lex structure with its sphead must be
+reentrant, that is, reusable and shareable between different threads
+and calls. The runtime state for a procedure is kept in the sp\_rcontext
 in THD.
 
-The mechanisms of storing, finding, and dropping procedures are\
+The mechanisms of storing, finding, and dropping procedures are
 encapsulated in the files sp.{cc,h}.
 
 #### CALLing a Procedure
 
-A [CALL](../../../sql-statements/stored-routine-statements/call.md) is parsed just like any statement. The resulting Lex has the\
-sql\_command SQLCOM\_CALL, the procedure's name and the parameters are\
+A [CALL](../../../sql-statements/stored-routine-statements/call.md) is parsed just like any statement. The resulting Lex has the
+sql\_command SQLCOM\_CALL, the procedure's name and the parameters are
 pushed to the Lex' value\_list.
 
-sql\_parse.cc:mysql\_execute\_command() then uses sp.cc:sp\_find() to\
-get the sp\_head for the procedure (which may have been read from the\
-database or fetched from the in-memory cache) and calls the sp\_head's\
+sql\_parse.cc:mysql\_execute\_command() then uses sp.cc:sp\_find() to
+get the sp\_head for the procedure (which may have been read from the
+database or fetched from the in-memory cache) and calls the sp\_head's
 method execute().\
-Note: It's important that substatements called by the procedure do not\
-do send\_ok(). Fortunately, there is a flag in THD->net to disable\
-this during CALLs. If a substatement fails, it will however send\
-an error back to the client, so the CALL mechanism must return\
+Note: It's important that substatements called by the procedure do not
+do send\_ok(). Fortunately, there is a flag in THD->net to disable
+this during CALLs. If a substatement fails, it will however send
+an error back to the client, so the CALL mechanism must return
 immediately and without sending an error.
 
 The sp\_head::execute() method works as follows:
 
 1. Keep a pointer to the old runtime context in THD (if any)
-2. Create a new runtime context. The information about the required size\
+2. Create a new runtime context. The information about the required size
    is in sp\_head's parse time context.
-3. Push each parameter (from the CALL's Lex->value\_list) to the new\
-   context. If it's an OUT or INOUT parameter, the parameter's offset\
+3. Push each parameter (from the CALL's Lex->value\_list) to the new
+   context. If it's an OUT or INOUT parameter, the parameter's offset
    in the caller's frame is set in the new context as well.
 4. For each instruction, call its execute() method.\
-   The result is a pointer to the next instruction to execute (or NULL)\
+   The result is a pointer to the next instruction to execute (or NULL)
    if an error occurred.
-5. On success, set the new values of the OUT and INOUT parameters in\
+5. On success, set the new values of the OUT and INOUT parameters in
    the caller's frame.
 
 #### USE database
 
-Before executing the instruction we also keeps the current default\
-database (if any). If this was changed during execution (i.e. a [USE](../../../sql-statements/administrative-sql-statements/use-database.md)\
-statement has been executed), we restore the current database to the\
+Before executing the instruction we also keeps the current default
+database (if any). If this was changed during execution (i.e. a [USE](../../../sql-statements/administrative-sql-statements/use-database.md)
+statement has been executed), we restore the current database to the
 original.
 
-This is the most useful way to handle USE in procedures. If we didn't,\
-the caller would find himself in a different database after calling\
+This is the most useful way to handle USE in procedures. If we didn't,
+the caller would find himself in a different database after calling
 a function, which can be confusing.\
 Restoring the database also gives full freedom to the procedure writer:
 
-* It's possible to write "general" procedures that are independent of\
+* It's possible to write "general" procedures that are independent of
   the actual database name.
-* It's possible to write procedures that work on a particular database\
-  by calling USE, without having to use fully qualified table names\
-  everywhere (which doesn't help if you want to call other, "general",\
+* It's possible to write procedures that work on a particular database
+  by calling USE, without having to use fully qualified table names
+  everywhere (which doesn't help if you want to call other, "general",
   procedures anyway).
 
 #### Evaluating Items
@@ -286,41 +286,41 @@ There are three occasions where we need to evaluate an expression:
 * When calling a procedure
 * When testing an expression for a branch (in IF, WHILE, etc)
 
-The semantics in stored procedures is "call-by-value", so we have to\
-evaluate any "func" Items at the point of the CALL or SET, otherwise\
-we would get a kind of "lazy" evaluation with unexpected results with\
+The semantics in stored procedures is "call-by-value", so we have to
+evaluate any "func" Items at the point of the CALL or SET, otherwise
+we would get a kind of "lazy" evaluation with unexpected results with
 respect to OUT parameters for instance.\
 For this the support function, `sp_head.cc:eval_func_item()` is needed.
 
 #### Calling a FUNCTION
 
-Functions don't have an explicit call keyword like procedures. Instead,\
+Functions don't have an explicit call keyword like procedures. Instead,
 they appear in expressions with the conventional syntax "fun(arg, ...)".\
-The problem is that we already have [User Defined Functions](../../../../server-usage/user-defined-functions/README.md) (UDFs) which\
-are called the same way. A UDF is detected by the lexical analyzer (not\
-the parser!), in the `find_keyword()` function, and returns a `UDF_*_FUNC`\
+The problem is that we already have [User Defined Functions](../../../../server-usage/user-defined-functions/README.md) (UDFs) which
+are called the same way. A UDF is detected by the lexical analyzer (not
+the parser!), in the `find_keyword()` function, and returns a `UDF_*_FUNC`
 or `UDA_*_SUM` token with the `udf_func` object as the yylval.
 
-So, stored functions must be handled in a similar way, and as a\
+So, stored functions must be handled in a similar way, and as a
 consequence, UDFs and functions must not have the same name.
 
 #### Detecting and Parsing a FUNCTION Invocation
 
-The existence of UDFs are checked during the lexical analysis (in\
-sql\_lex.cc:find\_keyword()). This has the drawback that they must\
-exist before they are referred to, which was ok before SPs existed,\
-but then it becomes a problem. The first implementation of SP FUNCTIONs\
-will work the same way, but this should be fixed a.s.a.p. (This will\
-required some reworking of the way UDFs are handled, which is why it's\
+The existence of UDFs are checked during the lexical analysis (in
+sql\_lex.cc:find\_keyword()). This has the drawback that they must
+exist before they are referred to, which was ok before SPs existed,
+but then it becomes a problem. The first implementation of SP FUNCTIONs
+will work the same way, but this should be fixed a.s.a.p. (This will
+required some reworking of the way UDFs are handled, which is why it's
 not done from the start.)\
-For the time being, a FUNCTION is detected the same way, and returns\
-the token SP\_FUNC. During the parsing we only check for the _existence_\
-of the function, we don't parse it, since wa can't call the parser\
+For the time being, a FUNCTION is detected the same way, and returns
+the token SP\_FUNC. During the parsing we only check for the _existence_
+of the function, we don't parse it, since wa can't call the parser
 recursively.
 
-When encountering a SP\_FUNC with parameters in the expression parser,\
-an instance of the new Item\_func\_sp class is created. Unlike UDFs, we\
-don't have different classes for different return types, since we at\
+When encountering a SP\_FUNC with parameters in the expression parser,
+an instance of the new Item\_func\_sp class is created. Unlike UDFs, we
+don't have different classes for different return types, since we at
 this point don't know the type.
 
 #### Collecting FUNCTIONs to invoke
@@ -330,26 +330,26 @@ PROCEDURE is CALLed as statement by itself, a FUNCTION is invoked\
 "on-the-fly" during the execution of _another_ statement.\
 This makes things a lot more complicated compared to CALL:
 
-* We can't read and parse the FUNCTION from the [mysql.proc table](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md) at the\
-  point of invocation; the server requires that all tables used are\
+* We can't read and parse the FUNCTION from the [mysql.proc table](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md) at the
+  point of invocation; the server requires that all tables used are
   opened and locked at the beginning of the query execution.\
-  One "obvious" solution would be to simply push "mysql.proc" to the list\
-  of tables used by the query, but this implies a "join" with this table\
-  if the query is a select, so it doesn't work (and we can't exclude this\
-  table easily; since a privileged used might in fact want to search\
+  One "obvious" solution would be to simply push "mysql.proc" to the list
+  of tables used by the query, but this implies a "join" with this table
+  if the query is a select, so it doesn't work (and we can't exclude this
+  table easily; since a privileged used might in fact want to search
   the proc table).\
-  Another solution would of course be to allow the opening and closing\
-  of the [mysql.proc table](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md) during a query execution, but this it not\
+  Another solution would of course be to allow the opening and closing
+  of the [mysql.proc table](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md) during a query execution, but this it not
   possible at the present.
 
-So, the solution is to collect the names of the referred FUNCTIONs during\
+So, the solution is to collect the names of the referred FUNCTIONs during
 parsing in the lex.\
-Then, before doing anything else in `mysql_execute_command()`, read all\
+Then, before doing anything else in `mysql_execute_command()`, read all
 functions from the database an keep them in the THD, where the function`sp_find_function()` can find them during the execution.\
-Note: Even with an in-memory cache, we must still make sure that the\
+Note: Even with an in-memory cache, we must still make sure that the
 functions are indeed read and cached at this point.\
-The code that read and cache functions from the database must also be\
-invoked recursively for each read FUNCTION to make sure we have _all_ the\
+The code that read and cache functions from the database must also be
+invoked recursively for each read FUNCTION to make sure we have _all_ the
 functions we need.
 
 #### Parsing DROP PROCEDURE/FUNCTION
@@ -357,73 +357,73 @@ functions we need.
 The procedure name is pushed to Lex->value\_list.\
 The sql\_command code for the result of parsing a is`SQLCOM_DROP_PROCEDURE`/`SQLCOM_DROP_FUNCTION`.
 
-Dropping is done by simply getting the procedure with the sp\_find()\
+Dropping is done by simply getting the procedure with the sp\_find()
 function and calling `sp_drop()` (both in `sp.{cc,h}`).
 
 [DROP PROCEDURE](../../../../server-usage/stored-routines/stored-procedures/drop-procedure.md)/[DROP FUNCTION](../../../../server-usage/stored-routines/stored-functions/drop-function.md) also supports the non-standard "IF EXISTS", analogous to other [DROP](../../../sql-statements/data-definition/drop/) statements in MariaDB.
 
 #### Condition and Handlers
 
-Condition names are lexical entities and are kept in the parser context\
-just like variables. But, condition are just "aliases" for SQLSTATE\
+Condition names are lexical entities and are kept in the parser context
+just like variables. But, condition are just "aliases" for SQLSTATE
 strings, or mysqld error codes (which is a non-standard extension in\
 MySQL), and are only used during parsing.
 
-Handlers comes in three types, CONTINUE, EXIT and UNDO. The latter is\
-like an EXIT handler with an implicit rollback, and is currently not\
+Handlers comes in three types, CONTINUE, EXIT and UNDO. The latter is
+like an EXIT handler with an implicit rollback, and is currently not
 implemented.\
 The EXIT handler jumps to the end of its BEGIN-END block when finished.\
-The CONTINUE handler returns to the statement following that which\
+The CONTINUE handler returns to the statement following that which
 invoked the handler.
 
-The handlers in effect at any point is part of each thread's runtime\
-state, so we need to push and pop handlers in the sp\_rcontext during\
+The handlers in effect at any point is part of each thread's runtime
+state, so we need to push and pop handlers in the sp\_rcontext during
 execution. We use special instructions for this:
 
 * sp\_instr\_hpush\_jump\
-  Push a handler. The instruction contains the necessary information,\
+  Push a handler. The instruction contains the necessary information,
   like which conditions we handle and the location of the handler.\
   The jump takes us to the location after the handler code.
 * sp\_instr\_hpop\
   Pop the handlers of the current frame (which we are just leaving).
 
-It might seems strange to jump past the handlers like that, but there's\
-no extra cost in doing this, and for technical reasons it's easiest for\
-the parser to generate the handler instructions when they occur in the\
+It might seems strange to jump past the handlers like that, but there's
+no extra cost in doing this, and for technical reasons it's easiest for
+the parser to generate the handler instructions when they occur in the
 source.
 
-When an error occurs, one of the error routines is called and an error\
+When an error occurs, one of the error routines is called and an error
 message is normally sent back to the client immediately.\
-Catching a condition must be done in these error routines (there are\
-quite a few) to prevent them from doing this. We do this by calling\
-a method in the THD's sp\_rcontext (if there is one). If a handler is\
-found, this is recorded in the context and the routine returns without\
+Catching a condition must be done in these error routines (there are
+quite a few) to prevent them from doing this. We do this by calling
+a method in the THD's sp\_rcontext (if there is one). If a handler is
+found, this is recorded in the context and the routine returns without
 sending the error message.\
-The execution loop (sp\_head::execute()) checks for this after each\
-statement and invokes the handler that has been found. If several\
-errors or warnings occurs during one statement, only the first is\
+The execution loop (sp\_head::execute()) checks for this after each
+statement and invokes the handler that has been found. If several
+errors or warnings occurs during one statement, only the first is
 caught, the rest are ignored.
 
 Invoking and returning from a handler is trivial in the EXIT case.\
-We simply jump to it, and it will have an sp\_instr\_jump as its last\
+We simply jump to it, and it will have an sp\_instr\_jump as its last
 instruction.
 
-Calling and returning from a CONTINUE handler poses some special\
-problems. Since we need to return to the point after its invocation,\
-we push the return location on a stack in the sp\_rcontext (this is\
-done by the execution loop). The handler then ends with a special\
+Calling and returning from a CONTINUE handler poses some special
+problems. Since we need to return to the point after its invocation,
+we push the return location on a stack in the sp\_rcontext (this is
+done by the execution loop). The handler then ends with a special
 instruction, sp\_instr\_hreturn, which returns to this location.
 
-CONTINUE handlers have one additional problem: They are parsed at\
-the lexical level where they occur, so variable offsets will assume\
-that it's actually called at that level. However, a handler might be\
-invoked from a sub-block where additional local variables have been\
-declared, which will then share the location of any local variables\
-in the handler itself. So, when calling a CONTINUE handler, we need\
-to save any local variables above the handler's frame offset, and\
-restore them upon return. (This is not a problem for EXIT handlers,\
+CONTINUE handlers have one additional problem: They are parsed at
+the lexical level where they occur, so variable offsets will assume
+that it's actually called at that level. However, a handler might be
+invoked from a sub-block where additional local variables have been
+declared, which will then share the location of any local variables
+in the handler itself. So, when calling a CONTINUE handler, we need
+to save any local variables above the handler's frame offset, and
+restore them upon return. (This is not a problem for EXIT handlers,
 since they will leave the block anyway.)\
-This is taken care of by the execution loop and the sp\_instr\_hreturn\
+This is taken care of by the execution loop and the sp\_instr\_hreturn
 instruction.
 
 **Examples**
@@ -487,44 +487,44 @@ Pos.  Instruction
 #### Cursors
 
 For stored procedures to be really useful, you want to have cursors.\
-MySQL doesn't yet have "real" cursor support (with API and ODBC support,\
-allowing updating, arbitrary scrolling, etc), but a simple asensitive,\
-non-scrolling, read-only cursor can be implemented in SPs using the\
+MySQL doesn't yet have "real" cursor support (with API and ODBC support,
+allowing updating, arbitrary scrolling, etc), but a simple asensitive,
+non-scrolling, read-only cursor can be implemented in SPs using the
 class Protocol\_cursor.\
-This class intecepts the creation and sending of results sets and instead\
+This class intecepts the creation and sending of results sets and instead
 stores it in-memory, as MYSQL\_FIELDS and MYSQL\_ROWS (as in the client API).
 
-To support this, we need the usual name binding support in sp\_pcontext\
-(similar to variables and conditions) to keep track on declared cursor\
+To support this, we need the usual name binding support in sp\_pcontext
+(similar to variables and conditions) to keep track on declared cursor
 names, and a corresponding run-time mechanism in sp\_rcontext.\
-Cursors are lexically scoped like everything with a body or BEGIN/END\
-block, so they are pushed and popped as usual (see conditions and variables\
+Cursors are lexically scoped like everything with a body or BEGIN/END
+block, so they are pushed and popped as usual (see conditions and variables
 above).\
-The basic operations on a cursor are OPEN, FETCH and CLOSE, which will\
-each have a corresponding instruction. In addition, we need instructions\
-to push a new cursor (this will encapsulate the LEX of the SELECT statement\
+The basic operations on a cursor are OPEN, FETCH and CLOSE, which will
+each have a corresponding instruction. In addition, we need instructions
+to push a new cursor (this will encapsulate the LEX of the SELECT statement
 of the cursor), and a pop instruction:
 
 * sp\_instr\_cpush\
-  Push a cursor to the sp\_rcontext. This instruction contains the LEX\
+  Push a cursor to the sp\_rcontext. This instruction contains the LEX
   for the select statement
 * sp\_instr\_cpop\
   Pop a number of cursors from the sp\_rcontext.
 * sp\_instr\_copen\
-  Open a cursor: This will execute the select and get the result set\
+  Open a cursor: This will execute the select and get the result set
   in a separate memroot.
 * sp\_instr\_cfetch\
-  Fetch the next row from the in-memory result set. The instruction\
+  Fetch the next row from the in-memory result set. The instruction
   contains a list of the variables (frame offsets) to set.
 * sp\_instr\_cclose\
   Free the result set.
 
-A cursor is a separate class, sp\_cursor (defined in sp\_rcontex.h) which\
+A cursor is a separate class, sp\_cursor (defined in sp\_rcontex.h) which
 encapsulates the basic operations used by the above instructions.\
-This class contains the LEX, Protocol\_cursor object, and its memroot,\
+This class contains the LEX, Protocol\_cursor object, and its memroot,
 as well as the cursor's current state.\
-Compiling and executing is fairly straight-forward. sp\_instr\_copen is\
-a subclass of sp\_instr\_stmt and uses its mechanism to execute a\
+Compiling and executing is fairly straight-forward. sp\_instr\_copen is
+a subclass of sp\_instr\_stmt and uses its mechanism to execute a
 substatement.
 
 **Example**
@@ -561,57 +561,57 @@ There are pros and cons with both methods:
 1.
 
 * Pros: Save memory, each SP only read from table once,
-* Cons: Needs locking (= serialization at access), requires thread-safe\
+* Cons: Needs locking (= serialization at access), requires thread-safe
   data structures,
 
 1.
 
-* Pros: Fast, no locking required (almost), limited thread-safe\
+* Pros: Fast, no locking required (almost), limited thread-safe
   requirement,
 * Cons: Uses more memory, each SP read from table once per thread.
 
-Unfortunately, we cannot use alternative 1 for the time being, as most\
-of the data structures to be cached (lex and items) are not reentrant\
-and thread-safe. (Things are modified at execution, we have THD pointers\
+Unfortunately, we cannot use alternative 1 for the time being, as most
+of the data structures to be cached (lex and items) are not reentrant
+and thread-safe. (Things are modified at execution, we have THD pointers
 stored everywhere, etc.)\
-This leaves us with alternative 2, one cache per thread; or actually\
+This leaves us with alternative 2, one cache per thread; or actually
 two, since we keep FUNCTIONs and PROCEDUREs in separate caches.\
-This is not that terrible; the only case when it will perform\
-significantly worse than a global cache is when we have an application\
-where new threads are connecting, calling a procedure, and disconnecting,\
+This is not that terrible; the only case when it will perform
+significantly worse than a global cache is when we have an application
+where new threads are connecting, calling a procedure, and disconnecting,
 over and over again.
 
-The cache implementation itself is simple and straightforward, a hashtable\
+The cache implementation itself is simple and straightforward, a hashtable
 wrapped in a class and a C API (see APIs below).
 
-There is however one issue with multiple caches: dropping and altering\
-procedures. Normally, this should be a very rare event in a running\
-system; it's typically something you do during development and testing,\
-so it's not unthinkable that we would simply ignore the issue and let\
-any threads running with a cached version of an SP keep doing so until\
+There is however one issue with multiple caches: dropping and altering
+procedures. Normally, this should be a very rare event in a running
+system; it's typically something you do during development and testing,
+so it's not unthinkable that we would simply ignore the issue and let
+any threads running with a cached version of an SP keep doing so until
 its disconnected.\
-But assuming we want to keep the caches consistent with respect to drop\
+But assuming we want to keep the caches consistent with respect to drop
 and alter, it can be done:
 
 1. A global counter is needed, initialized to 0 at start.
 2. At each DROP or ALTER, increase the counter by one.
 3. Each cache has its own copy of the counter, copied at the last read.
-4. When looking up a name in the cache, first check if the global counter\
+4. When looking up a name in the cache, first check if the global counter
    is larger than the local copy.\
-   If so, clear the cache and return "not found", and update the local\
+   If so, clear the cache and return "not found", and update the local
    counter; otherwise, lookup as usual.
 
-This minimizes the cost to a single brief lock for the access of an\
-integer when operating normally. Only in the event of an actual drop or\
-alter, is the cache cleared. This may seem to be drastic, but since we\
+This minimizes the cost to a single brief lock for the access of an
+integer when operating normally. Only in the event of an actual drop or
+alter, is the cache cleared. This may seem to be drastic, but since we
 assume that this is a rare event, it's not a problem.\
-It would of course be possible to have a much more fine-grained solution,\
-keeping track of each SP, but the overhead of doing so is not worth the\
+It would of course be possible to have a much more fine-grained solution,
+keeping track of each SP, but the overhead of doing so is not worth the
 effort.
 
 #### Class and Function APIs
 
-This is an outline of the key types. Some types and other details\
+This is an outline of the key types. Some types and other details
 in the actual files have been omitted for readability.
 
 **The parser context: sp\_pcontext.h**
@@ -887,11 +887,11 @@ class sp_instr
           // Returns 0 on success, non-zero if some error occurred.
           virtual int execute(THD *, uint *nextp)
         }
-<<code>>
+```
 
+**Statement instruction**
 
-===== Statement instruction
-<<code>>
+```
         class sp_instr_stmt : public sp_instr
         {
           sp_instr_stmt(uint ip);

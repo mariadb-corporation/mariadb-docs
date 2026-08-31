@@ -22,7 +22,7 @@ It contains the following columns:
 | PLUGIN\_AUTHOR           | Author of the plugin.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | PLUGIN\_DESCRIPTION      | Description.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | PLUGIN\_LICENSE          | Plugin's licence.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| LOAD\_OPTION             | How the plugin was loaded; one of OFF, ON, FORCE or FORCE\_PLUS\_PERMANENT. See [Installing Plugins](../../../plugins/plugin-overview.md#installing-plugins).                                                                                                                                                                                                                                                                                                                                                                                              |
+| LOAD\_OPTION             | How the plugin was loaded; one of OFF, ON, FORCE or FORCE\_PLUS\_PERMANENT. See [Installing Plugins](../../../plugins/plugin-overview.md#installing-a-plugin).                                                                                                                                                                                                                                                                                                                                                                                              |
 | PLUGIN\_MATURITY         | Plugin's maturity level; one of Unknown, Experimental, Alpha, Beta,'Gamma, and Stable.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | PLUGIN\_AUTH\_VERSION    | Plugin's version as determined by the plugin author. An example would be '0.99 beta 1'.                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
@@ -85,13 +85,6 @@ SHOW PLUGINS;
 | partition                  | ACTIVE   | STORAGE ENGINE     | NULL        | GPL     |
 | pam                        | ACTIVE   | AUTHENTICATION     | auth_pam.so | GPL     |
 +----------------------------+----------+--------------------+-------------+---------+
-```
-
-```sql
-SELECT LOAD_OPTION 
-FROM INFORMATION_SCHEMA.PLUGINS 
-WHERE PLUGIN_NAME LIKE 'tokudb';
-Empty SET
 ```
 
 The equivalent [SELECT](../../../sql-statements/data-manipulation/selecting-data/select.md) query would be:
@@ -171,15 +164,6 @@ PLUGIN_AUTH_VERSION: 1.0
  PLUGIN_DESCRIPTION: Partition Storage Engine Helper
     PLUGIN_MATURITY: Stable
 PLUGIN_AUTH_VERSION: 1.0
-```
-
-Check if a given plugin is available:
-
-```sql
-SELECT LOAD_OPTION 
-FROM INFORMATION_SCHEMA.PLUGINS 
-WHERE PLUGIN_NAME LIKE 'tokudb';
-Empty SET
 ```
 
 Show authentication plugins:

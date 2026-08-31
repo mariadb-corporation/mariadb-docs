@@ -221,3 +221,5 @@ Add `admin_secure_gui=false` to the `[maxscale]`-section of the configuration fi
 ## Further reading
 
 The [Configuration Guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) lists all global configuration parameters. The [ReadWriteSplit documentation](../reference/maxscale-routers/maxscale-readwritesplit.md) explains the ReadWriteSplit-router and its features, such as transaction replay and causal reads. The [MariaDB Monitor documentation](../reference/maxscale-monitors/mariadb-monitor.md) explains monitor features such as failover and switchover.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

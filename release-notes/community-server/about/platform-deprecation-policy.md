@@ -55,7 +55,7 @@ The MariaDB project no longer builds packages for the following Operating System
 | Fedora 42                                   | May 2026                                      | [10.11.18](../10.11/10.11.18.md), [11.4.12](../11.4/11.4.12.md), [11.8.8](../11.8/11.8.8.md), [12.3.2](../12.3/12.3.2.md), [13.0.1](../13.0/13.0.1.md)                                                                                                                                                                                                                                              |
 | Fedora 41                                   | Nov 2025                                      | [10.11.15](../10.11/10.11.15.md), [11.4.9](../11.4/11.4.9.md), [11.8.5](../11.8/11.8.5.md), [12.0.2](../old-releases/12.0/12.0.2.md), [12.1.2](../old-releases/12.1/12.1.2.md)                                                                                                                                                                                                                       |
 | SLES 15 SP6                                 | Nov 2025                                      | [11.4.9](../11.4/11.4.9.md), [11.8.5](../11.8/11.8.5.md), [12.0.2](../old-releases/12.0/12.0.2.md), [12.1.2](../old-releases/12.1/12.1.2.md)                                                                                                                                                                                                                                                         |
-| openSUSE Leap 15.5                          | Aug 2025                                      | [10.6.23](../10.6/10.6.23.md), [10.11.14](../10.11/10.11.14.md), [11.4.8](../11.4/11.4.8.md), [11.8.3](../11.8/11.8.3.md)                                                                                                                                                                                                                                                                            |
+| openSUSE Leap 15.5                          | Aug 2025                                      | [10.6.22](../10.6/10.6.22.md), [10.11.13](../10.11/10.11.13.md), [11.4.7](../11.4/11.4.7.md), [11.8.2](../11.8/11.8.2.md)                                                                                                                                                                                                                                                                            |
 | Ubuntu 24.10 "Oracular"                     | Aug 2025                                      | [10.6.23](../10.6/10.6.23.md), [10.11.14](../10.11/10.11.14.md), [11.4.8](../11.4/11.4.8.md), [11.8.3](../11.8/11.8.3.md)                                                                                                                                                                                                                                                                            |
 | Ubuntu 20.04 "Focal"                        | May 2025                                      | [10.5.29](../old-releases/10.5/10.5.29.md), [10.6.21](../10.6/10.6.21.md), [10.11.11](../10.11/10.11.11.md), [11.4.7](../11.4/11.4.7.md)                                                                                                                                                                                                                                                             |
 | Fedora 40                                   | May 2025                                      | [10.11.13](../10.11/10.11.13.md), [11.4.7](../11.4/11.4.7.md)                                                                                                                                                                                                                                                                                                                                        |
@@ -164,7 +164,7 @@ The MariaDB project no longer builds packages for the following Operating System
 
 ## Support for Deprecated Platforms
 
-If your chosen Linux Distribution or Operating System is deprecated, packages\
+If your chosen Linux Distribution or Operating System is deprecated, packages
 or support are not completely unavailable. The [MariaDB Corporation](https://mariadb.com) provides support for all versions of MariaDB back to even very old MySQL versions. This includes packaged binaries. For specific dates related to each version and more details on the MariaDB Corporation's policies, see the [Engineering Policies](https://mariadb.com/engineering-policies) page.
 
 ## See Also
@@ -173,6 +173,6 @@ or support are not completely unavailable. The [MariaDB Corporation](https://mar
 * [MariaDB Maintenance Policy](maintenance-policy.md)
 * [MariaDB Feature Deprecation Policy](feature-deprecation-policy.md)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

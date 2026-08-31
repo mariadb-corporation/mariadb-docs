@@ -9,10 +9,6 @@ icon: wrench
 
 # Maintenance Management
 
-{% hint style="warning" %}
-**Editorial note — screenshots pending.** Screenshots for this page are not yet added: the maintenance-window selector at launch, the Maintenance pane on the Service detail page, the Service Card maintenance banner, the Maintenance tab, and the Notifications page. They were requested from the UAT team in [#sky-uat](https://mariadb.slack.com/archives/C09KSSXT6LR/p1781864288893319). Remove this note once the images are inserted.
-{% endhint %}
-
 MariaDB Cloud uses a comprehensive, policy-driven maintenance management framework to ensure your managed database services remain secure, reliable, and performant. This framework provides predictability, transparency, and control, allowing you to view upcoming maintenance, understand its scope, and schedule activities to minimize impact on your operations.
 
 By staying current with these upgrades, you ensure continued access to the latest features, security updates, and cloud provider support.
@@ -112,3 +108,5 @@ API responses include the key attributes of each item, such as priority, classif
 **Q: Will my data be affected during the upgrade?** A: No. Maintenance activities only update the infrastructure or database engine software — your data remains intact and unchanged. Database upgrades additionally run compatibility and integrity checks, and automatically roll back if an upgrade fails.
 
 **Q: Can I opt out of infrastructure or security upgrades entirely?** A: No, these upgrades are mandatory to maintain SOC 2 compliance, security standards, and cloud provider support.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

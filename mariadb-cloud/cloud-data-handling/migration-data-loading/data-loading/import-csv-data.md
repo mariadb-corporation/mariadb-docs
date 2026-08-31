@@ -108,3 +108,5 @@ conn = mariadb.connect(
    port=TCP_PORT,
    local_infile=true)
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

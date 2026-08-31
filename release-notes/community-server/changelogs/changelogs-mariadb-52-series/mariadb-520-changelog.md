@@ -24,8 +24,8 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #2770](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2770): more fixes for windows and status\_user.test
 * [Revision #2769](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2769): fixes for windows builds
 * [Revision #2768](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2768): Fixed the test according to the new plugin information
-* [Revision #2767](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2767): Fied problem with of compilation without dynamic plugin loading.
-* [Revision #2766](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2766): Maria \[\[MWL:61]]
+* [Revision #2767](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2767): Fixed problem with compilation without dynamic plugin loading.
+* [Revision #2766](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2766): Maria MWL#61
 * [Revision #2765](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2765): \[merge] Auto merge with 5.1
 * [Revision #2764](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2764): \[merge] Auto merge with 5.1
 * [Revision #2763](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2763): \[merge] Auto merge with 5.1
@@ -69,6 +69,6 @@ The revision number links will take you to the revision's page on Launchpad. On 
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

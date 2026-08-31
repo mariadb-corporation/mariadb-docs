@@ -35,15 +35,15 @@ Ensure that your MariaDB Cloud service deployment configuration is compatible wi
 </details>
 ---
 
-## CloudDBA Assisted Migration 
+## Cloud DBA Assisted Migration 
 
  - Existing customers can submit a [support case](https://support.skysql.com) to request assistance with a migration.
  - New customers can [contact us](mailto:support@skysql.com) to begin the migration planning process.
 
-Our [CloudDBA team](https://skysqlinc.github.io/skysql-docs/FractionalDBA/) can help design a migration plan to suit your needs.
+Our [Cloud DBA team](https://skysqlinc.github.io/skysql-docs/FractionalDBA/) can help design a migration plan to suit your needs.
 
 <details>
-<summary>CloudDBA Assisted Migration Approach</summary>
+<summary>Cloud DBA Assisted Migration Approach</summary>
 <br>
  We use a multi-step process to assist customers with migrations:
 <ul>
@@ -74,3 +74,5 @@ For most small, mid-size and large migrations MariaDB Cloud Managed Migration is
 - [Importing data using Mariadb Import](./Install-mariadb-import.md)
 - [Importing using CSV Data](./Import-CSV-data.md)
 - [Replicating Data from an External DB](https://skysqlinc.github.io/skysql-docs/Data%20loading,%20Migration/Replicating%20data%20from%20external%20DB/)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

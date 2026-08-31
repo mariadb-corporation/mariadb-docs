@@ -54,3 +54,5 @@ Explore sys_schema stored procedures in MariaDB Server. These procedures simplif
 Explore sys_schema views in MariaDB Server. These views offer simplified, aggregated insights into server performance, I/O, and memory usage, making diagnostics and monitoring easier.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

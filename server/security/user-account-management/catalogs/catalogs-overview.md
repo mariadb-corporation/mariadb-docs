@@ -108,7 +108,7 @@ For the end user, the MariaDB server will act as a normal a standalone server, w
 
 ## New 'catalog root user'
 
-* The 'def' catalog is reserved to store permissions for 'catalog root users', which can access any catalog. \* These are meant for admin users that need to do tasks like shutdown, upgrade, create/drop\
+* The 'def' catalog is reserved to store permissions for 'catalog root users', which can access any catalog. \* These are meant for admin users that need to do tasks like shutdown, upgrade, create/drop
   catalogs, managing primaries and replicas etc.
 * Only the ‘catalog root user’ can change to another catalog with ‘set catalog catalog\_name’.
 * A normal user can do ‘set catalog current-catalog’. This will be needed to be able to execute a [mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) that includes this command.
@@ -117,7 +117,7 @@ For the end user, the MariaDB server will act as a normal a standalone server, w
 
 MariaDB server will be able to run either on 'original mode', where the data layout is exactly as it was before, or on 'catalog' mode, with a new data layout:
 
-When running [mariadb-install-db](../../../clients-and-utilities/deployment-tools/mariadb-install-db.md) with --use-catalogs, it will create\
+When running [mariadb-install-db](../../../clients-and-utilities/deployment-tools/mariadb-install-db.md) with --use-catalogs, it will create
 the following new data structure:
 
 * data\_directory/

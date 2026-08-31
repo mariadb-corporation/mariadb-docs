@@ -17,5 +17,6 @@ Devart Excel Add-in for MySQL allows you:
 
 [mysql.html](https://www.devart.com/excel-addins/mysql.html)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

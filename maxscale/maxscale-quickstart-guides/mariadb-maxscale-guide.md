@@ -37,3 +37,5 @@ By abstracting the database topology and intelligently managing connections, Mar
 
 * [MariaDB MaxScale Documentation](../maxscale-use-cases/maxscale-overview.md)
 * [MariaDB MaxScale GitHub Repository](https://github.com/mariadb-corporation/MaxScale)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

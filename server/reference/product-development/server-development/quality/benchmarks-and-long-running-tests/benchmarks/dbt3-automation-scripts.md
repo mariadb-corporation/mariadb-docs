@@ -1,27 +1,27 @@
 # DBT3 Automation Scripts
 
 DBT-3 (OSDL Database Test 3) is a workload tool for the Linux kernel that OSDL\
-(Open Source Development Labs, inc) developed based on TPC-H which is provided\
+(Open Source Development Labs, inc) developed based on TPC-H which is provided
 by the Transaction Performance Processing Council (TPC).
 
-DBT-3, like TPC-H, simulates an actual decision-making support system and\
-models complex business analysis applications that perform data processing jobs\
-for making better business decisions. By running the workload that DBT-3\
-simulates, it is possible to verify and measure the performances of the Linux\
+DBT-3, like TPC-H, simulates an actual decision-making support system and
+models complex business analysis applications that perform data processing jobs
+for making better business decisions. By running the workload that DBT-3
+simulates, it is possible to verify and measure the performances of the Linux
 kernel in an actual decision-making support system.
 
-DBT-3 uses the "scale factor (SF)" as a stress indicator of the system. By\
-varying the SF, it becomes possible to make the size of a database the SF times\
+DBT-3 uses the "scale factor (SF)" as a stress indicator of the system. By
+varying the SF, it becomes possible to make the size of a database the SF times
 its size.
 
-The tests performed by DBT-3 comprise the three tests listed below. DBT-3\
-obtains the execution times of these three tests as well as the system status\
+The tests performed by DBT-3 comprise the three tests listed below. DBT-3
+obtains the execution times of these three tests as well as the system status
 information and database statistics information.
 
 1. Load test
 
-* Enters the data to be used for the Power and Throughput tests into the\
-  database. Makes a bulk insert of the huge CSV data corresponding to the\
+* Enters the data to be used for the Power and Throughput tests into the
+  database. Makes a bulk insert of the huge CSV data corresponding to the
   scale factor into the database.
 
 1. Power test
@@ -30,7 +30,7 @@ information and database statistics information.
 
 1. Throughput test
 
-* Performs the same 22 queries as in the Power test simultaneously in more\
+* Performs the same 22 queries as in the Power test simultaneously in more
   than one process.
 
 For the purpose of this task, only the Power test is performed over preliminary\
@@ -45,16 +45,16 @@ it to different configurations.
 
 The user that will run the benchmark must have sudo rights on the machine.
 
-For clearing the system caches between query runs, the automation script uses\
+For clearing the system caches between query runs, the automation script uses
 the following command:
 
 ```
 sudo /sbin/sysctl vm.drop_caches=3
 ```
 
-This command must be run with superuser rights. Even if a user supplies a\
-password to sudo, this password expires after some timeout. In order for this\
-command to be run without requiring password, the following line should be\
+This command must be run with superuser rights. Even if a user supplies a
+password to sudo, this password expires after some timeout. In order for this
+command to be run without requiring password, the following line should be
 added to the sudoers file (edit it with the `"sudo visudo"` command):
 
 ```
@@ -76,23 +76,23 @@ The automated DBT3 benchmark requires the following software:
   * Download location:
 * [Gnuplot 4.4](http://www.gnuplot.info/) — graphics output program.
   * Project home:
-* [Config::Auto](https://search.cpan.org/~simon/Config-Auto-0.03/Auto.pm) —\
-  a Perl module that reads configuration files. To install it use the following\
+* [Config::Auto](https://search.cpan.org/~simon/Config-Auto-0.03/Auto.pm) —
+  a Perl module that reads configuration files. To install it use the following
   command:
 
 ```
 sudo cpan Config::Auto
 ```
 
-* [DBD::mysql](https://search.cpan.org/~capttofu/DBD-mysql-4.020/lib/DBD/mysql.pm) —\
-  a Perl module to connect to MariaDB/MySQL and PostgreSQL. To install it use\
+* [DBD::mysql](https://search.cpan.org/~capttofu/DBD-mysql-4.020/lib/DBD/mysql.pm) —
+  a Perl module to connect to MariaDB/MySQL and PostgreSQL. To install it use
   the following command:
 
 ```
 sudo cpan DBD::mysql
 ```
 
-**NOTE:** You may receive an error saying that CPAN could not find`mysql_config`. In this case you have to install the mysql client development\
+**NOTE:** You may receive an error saying that CPAN could not find`mysql_config`. In this case you have to install the mysql client development
 library. In OpenSuse the command is:
 
 ```
@@ -126,12 +126,12 @@ export LD_LIBRARY_PATH="/path/to/unzipped_DBD_mysql/DBD-mysql-4.020/blib/arch/au
 * [MySQL 5.5.x](https://dev.mysql.com/downloads/mysql/#downloads)
   * Download location: [#downloads](https://dev.mysql.com/downloads/mysql/#downloads) →\
     Generally Available (GA) Releases → Linux - Generic 2.6 (x86, 64-bit),\
-    Compressed TAR Archive - downloads mysql-5.5.x-linux2.6-x86\_64.tar.gz -\
+    Compressed TAR Archive - downloads mysql-5.5.x-linux2.6-x86\_64.tar.gz -
     gzipped tar file for Linux x86
 * [MySQL 5.6.x](https://dev.mysql.com/downloads/mysql/#downloads)
   * Download location: [#downloads](https://dev.mysql.com/downloads/mysql/#downloads) →\
     Development Releases → Linux - Generic 2.6 (x86, 64-bit), Compressed TAR\
-    Archive - downloads mysql-5.6.x-m5-linux2.6-x86\_64.tar.gz - gzipped tar file\
+    Archive - downloads mysql-5.6.x-m5-linux2.6-x86\_64.tar.gz - gzipped tar file
     for Linux x86
 * [MariaDB 5.3.x](https://launchpad.net/maria/5.3)
   * Download location: [5.3](https://launchpad.net/maria/5.3) , downloaded with Bazaar:
@@ -151,15 +151,15 @@ bzr branch lp:maria/5.5
   * Download location:
 
 **NOTE:** The DBT3 benchmark requires a lot of disk space (for example MySQL\
-5.5.x + MyISAM database with scale factor 30 takes about 50 GB). Also some\
-queries require the utilization of temp tables under the directory set by the`--tmpdir` startup parameter passed to `mysqld`. In the\
-prepared configuration files the temp directory is pointed to the `mysql`\
-system directory of the binary distribution, but one should reassure that there\
+5.5.x + MyISAM database with scale factor 30 takes about 50 GB). Also some
+queries require the utilization of temp tables under the directory set by the`--tmpdir` startup parameter passed to `mysqld`. In the
+prepared configuration files the temp directory is pointed to the `mysql`
+system directory of the binary distribution, but one should reassure that there
 is enough free space available for the temp directory.
 
 ## Installation instructions
 
-**NOTE:** The directory where all the files will be downloaded or installed\
+**NOTE:** The directory where all the files will be downloaded or installed
 will be referred as `$PROJECT_HOME`. This could be for example `~/benchmark/dbt3`.
 
 ### Download [mariadb-tools](https://launchpad.net/mariadb-tools)
@@ -184,23 +184,23 @@ $PROJECT_HOME/mariadb-tools/dbt3_benchmark/
 
 The project `dbt3_benchmark` has the following directories and files:
 
-* config — a folder where the configuration files\
-  for MariaDB, MySQL and PostgreSQL are stored. They are divided into\
+* config — a folder where the configuration files
+  for MariaDB, MySQL and PostgreSQL are stored. They are divided into
   subfolders named '`sXX`', where `XX` is the scale factor.
-* dbt3\_mysql — a folder with all the necessary\
+* dbt3\_mysql — a folder with all the necessary
   files for preparing DBT3 databases and queries for the tests with MySQL and\
   MariaDB
-* tests — a folder where the different test\
+* tests — a folder where the different test
   configurations are stored. It contains the following directories:
-  * db\_conf — here are stored the database\
+  * db\_conf — here are stored the database
     configuration files
-  * queries\_conf — here are stored the different\
+  * queries\_conf — here are stored the different
     queries configuration files
-  * results\_db\_conf — here is stored the\
+  * results\_db\_conf — here is stored the
     configuration of the results database
   * test\_conf — here are the test configurations
-  * launcher.pl — a perl script that automates the\
-    test. Details about calling and functionality of this file are listed later\
+  * launcher.pl — a perl script that automates the
+    test. Details about calling and functionality of this file are listed later
     on this page.
 
 ### Prepare benchmark workload and queries
@@ -226,9 +226,9 @@ cp $PROJECT_HOME/mariadb-tools/dbt3_benchmark/dbt3_mysql/tpcd.h $PROJECT_HOME/db
 
 1. Copy the file Makefile under `$PROJECT_HOME/mariadb-tools/dbt3_benchmark/dbt3_mysql/` into the dbt3 folder
 
-* NOTE: This step is executed only if you want to overwrite the default\
-  behavior of PostgreSQL settings. After copying this Makefile and building the\
-  project, QGEN will be set to generate queries for MariaDB/MySQL. If you skip\
+* NOTE: This step is executed only if you want to overwrite the default
+  behavior of PostgreSQL settings. After copying this Makefile and building the
+  project, QGEN will be set to generate queries for MariaDB/MySQL. If you skip
   this step, QGEN will generate queries for PostgreSQL by default.
 
 ```
@@ -263,35 +263,35 @@ mkdir $PROJECT_HOME/gen_query
 
 1. Generate the queries
 
-**NOTE:** The examples use scale factor 30. If you want different scale, change\
+**NOTE:** The examples use scale factor 30. If you want different scale, change
 the value of `-s` parameter
 
 * ```
   ```
 
-cd $PROJECT\_HOME/dbt3-1.9/src/dbgen\
-./qgen -s 30 1 > $PROJECT\_HOME/gen\_query/s30-m/1.sql\
-./qgen -s 30 2 > $PROJECT\_HOME/gen\_query/s30-m/2.sql\
-./qgen -s 30 3 > $PROJECT\_HOME/gen\_query/s30-m/3.sql\
-./qgen -s 30 4 > $PROJECT\_HOME/gen\_query/s30-m/4.sql\
-./qgen -s 30 5 > $PROJECT\_HOME/gen\_query/s30-m/5.sql\
-./qgen -s 30 6 > $PROJECT\_HOME/gen\_query/s30-m/6.sql\
-./qgen -s 30 7 > $PROJECT\_HOME/gen\_query/s30-m/7.sql\
-./qgen -s 30 8 > $PROJECT\_HOME/gen\_query/s30-m/8.sql\
-./qgen -s 30 9 > $PROJECT\_HOME/gen\_query/s30-m/9.sql\
-./qgen -s 30 10 > $PROJECT\_HOME/gen\_query/s30-m/10.sql\
-./qgen -s 30 11 > $PROJECT\_HOME/gen\_query/s30-m/11.sql\
-./qgen -s 30 12 > $PROJECT\_HOME/gen\_query/s30-m/12.sql\
-./qgen -s 30 13 > $PROJECT\_HOME/gen\_query/s30-m/13.sql\
-./qgen -s 30 14 > $PROJECT\_HOME/gen\_query/s30-m/14.sql\
-./qgen -s 30 15 > $PROJECT\_HOME/gen\_query/s30-m/15.sql\
-./qgen -s 30 16 > $PROJECT\_HOME/gen\_query/s30-m/16.sql\
-./qgen -s 30 17 > $PROJECT\_HOME/gen\_query/s30-m/17.sql\
-./qgen -s 30 18 > $PROJECT\_HOME/gen\_query/s30-m/18.sql\
-./qgen -s 30 19 > $PROJECT\_HOME/gen\_query/s30-m/19.sql\
-./qgen -s 30 20 > $PROJECT\_HOME/gen\_query/s30-m/20.sql\
-./qgen -s 30 21 > $PROJECT\_HOME/gen\_query/s30-m/21.sql\
-./qgen -s 30 22 > $PROJECT\_HOME/gen\_query/s30-m/22.sql
+cd $PROJECT_HOME/dbt3-1.9/src/dbgen
+./qgen -s 30 1 > $PROJECT_HOME/gen_query/s30-m/1.sql
+./qgen -s 30 2 > $PROJECT_HOME/gen_query/s30-m/2.sql
+./qgen -s 30 3 > $PROJECT_HOME/gen_query/s30-m/3.sql
+./qgen -s 30 4 > $PROJECT_HOME/gen_query/s30-m/4.sql
+./qgen -s 30 5 > $PROJECT_HOME/gen_query/s30-m/5.sql
+./qgen -s 30 6 > $PROJECT_HOME/gen_query/s30-m/6.sql
+./qgen -s 30 7 > $PROJECT_HOME/gen_query/s30-m/7.sql
+./qgen -s 30 8 > $PROJECT_HOME/gen_query/s30-m/8.sql
+./qgen -s 30 9 > $PROJECT_HOME/gen_query/s30-m/9.sql
+./qgen -s 30 10 > $PROJECT_HOME/gen_query/s30-m/10.sql
+./qgen -s 30 11 > $PROJECT_HOME/gen_query/s30-m/11.sql
+./qgen -s 30 12 > $PROJECT_HOME/gen_query/s30-m/12.sql
+./qgen -s 30 13 > $PROJECT_HOME/gen_query/s30-m/13.sql
+./qgen -s 30 14 > $PROJECT_HOME/gen_query/s30-m/14.sql
+./qgen -s 30 15 > $PROJECT_HOME/gen_query/s30-m/15.sql
+./qgen -s 30 16 > $PROJECT_HOME/gen_query/s30-m/16.sql
+./qgen -s 30 17 > $PROJECT_HOME/gen_query/s30-m/17.sql
+./qgen -s 30 18 > $PROJECT_HOME/gen_query/s30-m/18.sql
+./qgen -s 30 19 > $PROJECT_HOME/gen_query/s30-m/19.sql
+./qgen -s 30 20 > $PROJECT_HOME/gen_query/s30-m/20.sql
+./qgen -s 30 21 > $PROJECT_HOME/gen_query/s30-m/21.sql
+./qgen -s 30 22 > $PROJECT_HOME/gen_query/s30-m/22.sql
 
 ```
 
@@ -299,28 +299,28 @@ cd $PROJECT\_HOME/dbt3-1.9/src/dbgen\
 1. Generate the explain queries
 ```
 
-./qgen -s 30 -x 1 > $PROJECT\_HOME/gen\_query/s30-m/1\_explain.sql\
-./qgen -s 30 -x 2 > $PROJECT\_HOME/gen\_query/s30-m/2\_explain.sql\
-./qgen -s 30 -x 3 > $PROJECT\_HOME/gen\_query/s30-m/3\_explain.sql\
-./qgen -s 30 -x 4 > $PROJECT\_HOME/gen\_query/s30-m/4\_explain.sql\
-./qgen -s 30 -x 5 > $PROJECT\_HOME/gen\_query/s30-m/5\_explain.sql\
-./qgen -s 30 -x 6 > $PROJECT\_HOME/gen\_query/s30-m/6\_explain.sql\
-./qgen -s 30 -x 7 > $PROJECT\_HOME/gen\_query/s30-m/7\_explain.sql\
-./qgen -s 30 -x 8 > $PROJECT\_HOME/gen\_query/s30-m/8\_explain.sql\
-./qgen -s 30 -x 9 > $PROJECT\_HOME/gen\_query/s30-m/9\_explain.sql\
-./qgen -s 30 -x 10 > $PROJECT\_HOME/gen\_query/s30-m/10\_explain.sql\
-./qgen -s 30 -x 11 > $PROJECT\_HOME/gen\_query/s30-m/11\_explain.sql\
-./qgen -s 30 -x 12 > $PROJECT\_HOME/gen\_query/s30-m/12\_explain.sql\
-./qgen -s 30 -x 13 > $PROJECT\_HOME/gen\_query/s30-m/13\_explain.sql\
-./qgen -s 30 -x 14 > $PROJECT\_HOME/gen\_query/s30-m/14\_explain.sql\
-./qgen -s 30 -x 15 > $PROJECT\_HOME/gen\_query/s30-m/15\_explain.sql\
-./qgen -s 30 -x 16 > $PROJECT\_HOME/gen\_query/s30-m/16\_explain.sql\
-./qgen -s 30 -x 17 > $PROJECT\_HOME/gen\_query/s30-m/17\_explain.sql\
-./qgen -s 30 -x 18 > $PROJECT\_HOME/gen\_query/s30-m/18\_explain.sql\
-./qgen -s 30 -x 19 > $PROJECT\_HOME/gen\_query/s30-m/19\_explain.sql\
-./qgen -s 30 -x 20 > $PROJECT\_HOME/gen\_query/s30-m/20\_explain.sql\
-./qgen -s 30 -x 21 > $PROJECT\_HOME/gen\_query/s30-m/21\_explain.sql\
-./qgen -s 30 -x 22 > $PROJECT\_HOME/gen\_query/s30-m/22\_explain.sql
+./qgen -s 30 -x 1 > $PROJECT_HOME/gen_query/s30-m/1_explain.sql
+./qgen -s 30 -x 2 > $PROJECT_HOME/gen_query/s30-m/2_explain.sql
+./qgen -s 30 -x 3 > $PROJECT_HOME/gen_query/s30-m/3_explain.sql
+./qgen -s 30 -x 4 > $PROJECT_HOME/gen_query/s30-m/4_explain.sql
+./qgen -s 30 -x 5 > $PROJECT_HOME/gen_query/s30-m/5_explain.sql
+./qgen -s 30 -x 6 > $PROJECT_HOME/gen_query/s30-m/6_explain.sql
+./qgen -s 30 -x 7 > $PROJECT_HOME/gen_query/s30-m/7_explain.sql
+./qgen -s 30 -x 8 > $PROJECT_HOME/gen_query/s30-m/8_explain.sql
+./qgen -s 30 -x 9 > $PROJECT_HOME/gen_query/s30-m/9_explain.sql
+./qgen -s 30 -x 10 > $PROJECT_HOME/gen_query/s30-m/10_explain.sql
+./qgen -s 30 -x 11 > $PROJECT_HOME/gen_query/s30-m/11_explain.sql
+./qgen -s 30 -x 12 > $PROJECT_HOME/gen_query/s30-m/12_explain.sql
+./qgen -s 30 -x 13 > $PROJECT_HOME/gen_query/s30-m/13_explain.sql
+./qgen -s 30 -x 14 > $PROJECT_HOME/gen_query/s30-m/14_explain.sql
+./qgen -s 30 -x 15 > $PROJECT_HOME/gen_query/s30-m/15_explain.sql
+./qgen -s 30 -x 16 > $PROJECT_HOME/gen_query/s30-m/16_explain.sql
+./qgen -s 30 -x 17 > $PROJECT_HOME/gen_query/s30-m/17_explain.sql
+./qgen -s 30 -x 18 > $PROJECT_HOME/gen_query/s30-m/18_explain.sql
+./qgen -s 30 -x 19 > $PROJECT_HOME/gen_query/s30-m/19_explain.sql
+./qgen -s 30 -x 20 > $PROJECT_HOME/gen_query/s30-m/20_explain.sql
+./qgen -s 30 -x 21 > $PROJECT_HOME/gen_query/s30-m/21_explain.sql
+./qgen -s 30 -x 22 > $PROJECT_HOME/gen_query/s30-m/22_explain.sql
 
 ```
 
@@ -335,7 +335,7 @@ Additional reorganization of directories is up to the user.
 1. Create a directory for the generated workload
 ```
 
-mkdir $PROJECT\_HOME/gen\_data/s30
+mkdir $PROJECT_HOME/gen_data/s30
 
 ```
 
@@ -343,7 +343,7 @@ mkdir $PROJECT\_HOME/gen\_data/s30
 1. Set the variable DSS_PATH to the folder with the generated table data. The generated workload for the test will be generated there.
 ```
 
-export DSS\_PATH=$PROJECT\_HOME/gen\_data/s30/
+export DSS_PATH=$PROJECT_HOME/gen_data/s30/
 
 ```
 
@@ -384,7 +384,7 @@ prepare the databases for the test.
 1. Unzip the archive with the following command:
 ```
 
-gunzip < mysql-5.5.x-linux2.6-x86\_64.tar.gz |tar xf -
+gunzip < mysql-5.5.x-linux2.6-x86_64.tar.gz |tar xf -
 
 ```
 
@@ -393,7 +393,7 @@ Now the server could be started with the following command:
 
 ```
 
-$PROJECT\_HOME/bin/mysql-5.5.x-linux2.6-x86\_64/bin/mysqld\_safe --datadir=some/data/dir &
+$PROJECT_HOME/bin/mysql-5.5.x-linux2.6-x86_64/bin/mysqld_safe --datadir=some/data/dir &
 
 ```
 
@@ -407,7 +407,7 @@ $PROJECT\_HOME/bin/mysql-5.5.x-linux2.6-x86\_64/bin/mysqld\_safe --datadir=some/
 1. Unzip the archive with the following command:
 ```
 
-gunzip < mysql-5.6.x-m5-linux2.6-x86\_64.tar.gz |tar xf -
+gunzip < mysql-5.6.x-m5-linux2.6-x86_64.tar.gz |tar xf -
 
 ```
 
@@ -417,7 +417,7 @@ Now the server could be started with the following command:
 
 ```
 
-$PROJECT\_HOME/bin/mysql-5.6.x-m5-linux2.6-x86\_64/bin/mysqld\_safe --datadir=some/data/dir &
+$PROJECT_HOME/bin/mysql-5.6.x-m5-linux2.6-x86_64/bin/mysqld_safe --datadir=some/data/dir &
 
 ```
 
@@ -431,7 +431,7 @@ version numbers
 1. Download with Bazaar the [mariadb 5.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3) project
 ```
 
-bzr branch lp:maria/5.3\
+bzr branch lp:maria/5.3
 mv 5.3/ mariadb-5.3
 
 ```
@@ -440,7 +440,7 @@ mv 5.3/ mariadb-5.3
 1. Build MariaDB
 ```
 
-cd mariadb-5.3/\
+cd mariadb-5.3/
 ./BUILD/compile-amd64-max
 
 ```
@@ -449,7 +449,7 @@ cd mariadb-5.3/\
 1. Build a binary distribution tar.gz file
 ```
 
-./scripts/make\_binary\_distribution
+./scripts/make_binary_distribution
 
 ```
 
@@ -458,9 +458,9 @@ cd mariadb-5.3/\
  it will be used by the automation script
 ```
 
-mv mariadb-5.3.x-beta-linux-x86\_64.tar.gz $PROJECT\_HOME/bin/\
-cd $PROJECT\_HOME/bin/\
-tar -xf mariadb-5.3.x-beta-linux-x86\_64.tar.gz
+mv mariadb-5.3.x-beta-linux-x86_64.tar.gz $PROJECT_HOME/bin/
+cd $PROJECT_HOME/bin/
+tar -xf mariadb-5.3.x-beta-linux-x86_64.tar.gz
 
 ```
 
@@ -469,7 +469,7 @@ Now the server could be started with the following command:
 
 ```
 
-$PROJECT\_HOME/bin/mariadb-5.3.x-beta-linux-x86\_64/bin/mysqld\_safe --datadir=some/data/dir &
+$PROJECT_HOME/bin/mariadb-5.3.x-beta-linux-x86_64/bin/mysqld_safe --datadir=some/data/dir &
 
 ```
 
@@ -489,7 +489,7 @@ on this page.
 1. Open the file `$PROJECT_HOME/mariadb-tools/dbt3_benchmark/dbt3_mysql/make-dbt3-db_innodb.sql` and edit the values for the call of the sql commands that look like this one:
 ```
 
-LOAD DATA INFILE '/some/path/to/gen\_data/nation.tbl' into table nation fields terminated by '|';
+LOAD DATA INFILE '/some/path/to/gen_data/nation.tbl' into table nation fields terminated by '|';
 
 ```
 
@@ -502,7 +502,7 @@ LOAD DATA INFILE '/some/path/to/gen\_data/nation.tbl' into table nation fields t
  this:
 ```
 
-LOAD DATA INFILE '\~/benchmark/dbt3/gen\_data/s30/nation.tbl' into table nation fields terminated by '|';
+LOAD DATA INFILE '~/benchmark/dbt3/gen_data/s30/nation.tbl' into table nation fields terminated by '|';
 
 ```
 
@@ -510,8 +510,8 @@ LOAD DATA INFILE '\~/benchmark/dbt3/gen\_data/s30/nation.tbl' into table nation 
 1. Create an empty MySQL database into a folder that will be used for the benchmark
 ```
 
-cd $DB\_HOME\
-./scripts/mysql\_install\_db --defaults-file=$PROJECT\_HOME/mariadb-tools/dbt3\_benchmark/config/s30/load\_mysql\_myisam\_my.cnf --basedir=$DB\_HOME --datadir=$PROJECT\_HOME/db\_data/myisam-s30/
+cd $DB_HOME
+./scripts/mysql_install_db --defaults-file=$PROJECT_HOME/mariadb-tools/dbt3_benchmark/config/s30/load_mysql_myisam_my.cnf --basedir=$DB_HOME --datadir=$PROJECT_HOME/db_data/myisam-s30/
 
 ```
 
@@ -539,7 +539,7 @@ cd $DB\_HOME\
 1. Shutdown the database server:
 ```
 
-./bin/mysqladmin --user=root --socket=$PROJECT\_HOME/temp/mysql.sock shutdown 0
+./bin/mysqladmin --user=root --socket=$PROJECT_HOME/temp/mysql.sock shutdown 0
 
 ```
 
@@ -572,10 +572,10 @@ gunzip < postgresql-9.1rc1.tar.gz |tar xf -
 1. Execute the following commands into the shell to install PostgreSQL:
 ```
 
-mkdir $PROJECT\_HOME/PostgreSQL\_bin\
-cd $PROJECT\_HOME/postgresql-9.1rc1\
-./configure --prefix=$PROJECT\_HOME/bin/PostgreSQL\_bin\
-make\
+mkdir $PROJECT_HOME/PostgreSQL_bin
+cd $PROJECT_HOME/postgresql-9.1rc1
+./configure --prefix=$PROJECT_HOME/bin/PostgreSQL_bin
+make
 make install
 
 ```
@@ -590,9 +590,9 @@ make install
 1. Prepare the database to test with:
 ```
 
-mkdir $PROJECT\_HOME/db\_data/postgre\_s30\
-cd $PROJECT\_HOME/bin/PostgreSQL\_bin\
-./bin/initdb -D $PROJECT\_HOME/db\_data/postgre\_s30
+mkdir $PROJECT_HOME/db_data/postgre_s30
+cd $PROJECT_HOME/bin/PostgreSQL_bin
+./bin/initdb -D $PROJECT_HOME/db_data/postgre_s30
 
 ```
 
@@ -600,7 +600,7 @@ cd $PROJECT\_HOME/bin/PostgreSQL\_bin\
 1. Start the server:
 ```
 
-./bin/postgres -D $PROJECT\_HOME/db\_data/postgre\_s30 -p 54322 &
+./bin/postgres -D $PROJECT_HOME/db_data/postgre_s30 -p 54322 &
 
 ```
 
@@ -608,8 +608,8 @@ cd $PROJECT\_HOME/bin/PostgreSQL\_bin\
 1. Load the dataload into the DB
 ```
 
-./bin/createdb -O {YOUR\_USERNAME} dbt3 -p 54322\
-./bin/psql -p 54322 -d dbt3 -f $PROJECT\_HOME/mariadb-tools/dbt3\_benchmark/dbt3\_mysql/make-dbt3-db\_pg.sql
+./bin/createdb -O {YOUR_USERNAME} dbt3 -p 54322
+./bin/psql -p 54322 -d dbt3 -f $PROJECT_HOME/mariadb-tools/dbt3_benchmark/dbt3_mysql/make-dbt3-db_pg.sql
 
 ```
 
@@ -623,7 +623,7 @@ cd $PROJECT\_HOME/bin/PostgreSQL\_bin\
 
 ```
 
-./bin/pg\_ctl -D $PROJECT\_HOME/db\_data/postgre\_s30/ -p 54322 stop
+./bin/pg_ctl -D $PROJECT_HOME/db_data/postgre_s30/ -p 54322 stop
 
 ```
 
@@ -675,7 +675,7 @@ To prepare the database for work follow these steps:
 1. Go to [MariaDB 5.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3).x installation directory
 ```
 
-cd $PROJECT\_HOME/bin/mariadb-5.3.x-beta-linux-x86\_64
+cd $PROJECT_HOME/bin/mariadb-5.3.x-beta-linux-x86_64
 
 ```
 
@@ -684,7 +684,7 @@ cd $PROJECT\_HOME/bin/mariadb-5.3.x-beta-linux-x86\_64
 example `$PROJECT_HOME/db_data/dbt3_results_db`)
 ```
 
-./scripts/mysql\_install\_db --datadir=$PROJECT\_HOME/db\_data/dbt3\_results\_db
+./scripts/mysql_install_db --datadir=$PROJECT_HOME/db_data/dbt3_results_db
 
 ```
 
@@ -692,7 +692,7 @@ example `$PROJECT_HOME/db_data/dbt3_results_db`)
 1. Start mysqld for results db
 ```
 
-./bin/mysqld\_safe --defaults-file=$PROJECT\_HOME/mariadb-tools/dbt3\_benchmark/config/results\_mariadb\_my.cnf --port=12340 --socket=$PROJECT\_HOME/temp/mysql\_results.sock --datadir=$PROJECT\_HOME/db\_data/dbt3\_results\_db/ &
+./bin/mysqld_safe --defaults-file=$PROJECT_HOME/mariadb-tools/dbt3_benchmark/config/results_mariadb_my.cnf --port=12340 --socket=$PROJECT_HOME/temp/mysql_results.sock --datadir=$PROJECT_HOME/db_data/dbt3_results_db/ &
 
 ```
 
@@ -700,7 +700,7 @@ example `$PROJECT_HOME/db_data/dbt3_results_db`)
 1. Install the database
 ```
 
-./bin/mysql -u root -P 12340 -S $PROJECT\_HOME/temp/mysql\_results.sock < $PROJECT\_HOME/mariadb-tools/dbt3\_benchmark/dbt3\_mysql/make-results-db.sql
+./bin/mysql -u root -P 12340 -S $PROJECT_HOME/temp/mysql_results.sock < $PROJECT_HOME/mariadb-tools/dbt3_benchmark/dbt3_mysql/make-results-db.sql
 
 ```
 
@@ -708,7 +708,7 @@ example `$PROJECT_HOME/db_data/dbt3_results_db`)
 1. Shutdown the results db server:
 ```
 
-./bin/mysqladmin --user=root --port=12340 --socket=$PROJECT\_HOME/temp/mysql\_results.sock shutdown 0
+./bin/mysqladmin --user=root --port=12340 --socket=$PROJECT_HOME/temp/mysql_results.sock shutdown 0
 
 ```
 
@@ -814,17 +814,17 @@ This file has the following format:
 
 ```
 
-\[common]\
-RESULTS\_DB\_CONFIG = $PROJECT\_HOME/mariadb-tools/dbt3\_benchmark/tests/results\_db\_conf/results\_db.conf\
-TEST\_CONFIG = $PROJECT\_HOME/mariadb-tools/dbt3\_benchmark/tests/test\_conf/test\_myisam.conf
+[common]
+RESULTS_DB_CONFIG = $PROJECT_HOME/mariadb-tools/dbt3_benchmark/tests/results_db_conf/results_db.conf
+TEST_CONFIG = $PROJECT_HOME/mariadb-tools/dbt3_benchmark/tests/test_conf/test_myisam.conf
 
-\[mariadb\_5\_3]\
-QUERIES\_CONFIG = $PROJECT\_HOME/mariadb-tools/dbt3\_benchmark/tests/queries\_conf/queries.conf\
-DB\_CONFIG = $PROJECT\_HOME/mariadb-tools/dbt3\_benchmark/tests/db\_conf/db\_mariadb\_5\_3\_myisam.conf
+[mariadb_5_3]
+QUERIES_CONFIG = $PROJECT_HOME/mariadb-tools/dbt3_benchmark/tests/queries_conf/queries.conf
+DB_CONFIG = $PROJECT_HOME/mariadb-tools/dbt3_benchmark/tests/db_conf/db_mariadb_5_3_myisam.conf
 
-\[mysql\_5\_5]\
-QUERIES\_CONFIG = $PROJECT\_HOME/mariadb-tools/dbt3\_benchmark/tests/queries\_conf/queries\_mysql.conf\
-DB\_CONFIG = $PROJECT\_HOME/mariadb-tools/dbt3\_benchmark/tests/db\_conf/db\_mysql\_5\_5\_myisam.conf\
+[mysql_5_5]
+QUERIES_CONFIG = $PROJECT_HOME/mariadb-tools/dbt3_benchmark/tests/queries_conf/queries_mysql.conf
+DB_CONFIG = $PROJECT_HOME/mariadb-tools/dbt3_benchmark/tests/db_conf/db_mysql_5_5_myisam.conf
 ...
 
 ```
@@ -904,8 +904,8 @@ Here is an example command that will be executed:
 
 ```
 
-unlink /path/to/datadir/mysql\
-ln -s /path/to/value/in/MYSQL\_SYSTEM\_DIR/mysql\_mariadb\_5\_3 /path/to/datadir/mysql
+unlink /path/to/datadir/mysql
+ln -s /path/to/value/in/MYSQL_SYSTEM_DIR/mysql_mariadb_5_3 /path/to/datadir/mysql
 
 ```
 
@@ -917,9 +917,9 @@ The configuration file looks like this:
 
 ```
 
-\[db\_settings]\
-DBMS\_HOME = $PROJECT\_HOME/bin/mariadb-5.3.2-beta-linux-x86\_64\
-DBMS\_USER = root\
+[db_settings]
+DBMS_HOME = $PROJECT_HOME/bin/mariadb-5.3.2-beta-linux-x86_64
+DBMS_USER = root
 ...
 
 ```
@@ -969,9 +969,9 @@ The configuration file looks like this:
 
 ```
 
-QUERIES\_AT\_ONCE = 0\
-CLEAR\_CACHES = 1\
-WARMUP = 0\
+QUERIES_AT_ONCE = 0
+CLEAR_CACHES = 1
+WARMUP = 0
 ...
 
 ```
@@ -1020,18 +1020,18 @@ The queries configuration file could look like this:
 
 ```
 
-\[queries\_settings]\
-QUERIES\_HOME = /path/to/queries
+[queries_settings]
+QUERIES_HOME = /path/to/queries
 
-\[query1]\
-QUERY=1.sql\
-EXPLAIN\_QUERY=1\_explain.sql\
-STARTUP\_PARAMS=
+[query1]
+QUERY=1.sql
+EXPLAIN_QUERY=1_explain.sql
+STARTUP_PARAMS=
 
-\[query2]\
-QUERY=2.sql\
-EXPLAIN\_QUERY=2\_explain.sql\
-STARTUP\_PARAMS=--optimizer\_switch='mrr=on' --mrr\_buffer\_size=8M --some\_startup\_parmas\
+[query2]
+QUERY=2.sql
+EXPLAIN_QUERY=2_explain.sql
+STARTUP_PARAMS=--optimizer_switch='mrr=on' --mrr_buffer_size=8M --some_startup_parmas
 ...
 
 ```
@@ -1078,8 +1078,8 @@ The results database configuration could look like this:
 
 ```
 
-DBMS\_HOME = $PROJECT\_HOME/mariadb-5.3.x-beta-linux-x86\_64\
-DBMS\_USER = root\
+DBMS_HOME = $PROJECT_HOME/mariadb-5.3.x-beta-linux-x86_64
+DBMS_USER = root
 ...
 
 ```
@@ -1339,7 +1339,7 @@ Here are the main activities that this script does:
  command:
 ```
 
-sudo /sbin/sysctl vm.drop\_caches=3
+sudo /sbin/sysctl vm.drop_caches=3
 
 ```
 
@@ -1350,7 +1350,7 @@ sudo /sbin/sysctl vm.drop\_caches=3
  command):
 ```
 
-{your\_username} ALL=NOPASSWD:/sbin/sysctl
+{your_username} ALL=NOPASSWD:/sbin/sysctl
 
 ```
   1. Start the database server
@@ -1439,14 +1439,14 @@ sar -r 0 2>null
 * Example call for MyISAM test for scale factor 30 and timeout 10 minutes:
 ```
 
-perl launcher.pl\
-\--project-home=/path/to/project/home/\
-\--results-output-dir=/path/to/project/home/results/myisam\_test\
-\--datadir=/path/to/project/home/db\_data/\
-\--test=/path/to/project/home/mariadb-tools/dbt3\_benchmark/tests/myisam\_test\_mariadb\_5\_3\_mysql\_5\_5\_mysql\_5\_6.conf\
-\--queries-home=/path/to/project/home/gen\_query/\
-\--scale-factor=30\
-\--TIMEOUT=600
+perl launcher.pl \
+--project-home=/path/to/project/home/ \
+--results-output-dir=/path/to/project/home/results/myisam_test \
+--datadir=/path/to/project/home/db_data/ \
+--test=/path/to/project/home/mariadb-tools/dbt3_benchmark/tests/myisam_test_mariadb_5_3_mysql_5_5_mysql_5_6.conf \
+--queries-home=/path/to/project/home/gen_query/ \
+--scale-factor=30 \
+--TIMEOUT=600
 
 ```
 
@@ -1465,15 +1465,15 @@ configuration file to 10 minutes.
  and 3 runs for each query:
 ```
 
-perl launcher.pl\
-\--project-home=/path/to/project/home/\
-\--results-output-dir=/path/to/project/home/results/innodb\_test\
-\--datadir=/path/to/project/home/db\_data/\
-\--test=/path/to/project/home/mariadb-tools/dbt3\_benchmark/tests/innodb\_test\_mariadb\_5\_3\_mysql\_5\_5\_mysql\_5\_6.conf\
-\--queries-home=/path/to/project/home/gen\_query/\
-\--scale-factor=30\
-\--TIMEOUT=7200\
-\--NUM\_TESTS=3
+perl launcher.pl \
+--project-home=/path/to/project/home/ \
+--results-output-dir=/path/to/project/home/results/innodb_test \
+--datadir=/path/to/project/home/db_data/ \
+--test=/path/to/project/home/mariadb-tools/dbt3_benchmark/tests/innodb_test_mariadb_5_3_mysql_5_5_mysql_5_6.conf \
+--queries-home=/path/to/project/home/gen_query/ \
+--scale-factor=30 \
+--TIMEOUT=7200 \
+--NUM_TESTS=3
 
 ```
 
@@ -1497,9 +1497,9 @@ perl launcher.pl\
  and add the new configuration settings:
 ```
 
-\[mariadb\_5\_3\_new\_configuration]\
-QUERIES\_CONFIG = $PROJECT\_HOME/mariadb-tools/dbt3\_benchmark/tests/queries\_conf/queries-mariadb.conf\
-DB\_CONFIG = $PROJECT\_HOME/mariadb-tools/dbt3\_benchmark/tests/db\_conf/db\_mariadb\_5\_3\_myisam\_new\_configuration.conf
+[mariadb_5_3_new_configuration]
+QUERIES_CONFIG = $PROJECT_HOME/mariadb-tools/dbt3_benchmark/tests/queries_conf/queries-mariadb.conf
+DB_CONFIG = $PROJECT_HOME/mariadb-tools/dbt3_benchmark/tests/db_conf/db_mariadb_5_3_myisam_new_configuration.conf
 
 ```
 
@@ -1566,4 +1566,3 @@ Results page: (TODO)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
-```

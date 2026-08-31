@@ -171,9 +171,9 @@ Using two `--verbose` options will also give you connection information.
 
 If you use three `--verbose` options you will also get, on stdout, all [ALTER](../../reference/sql-statements/data-definition/alter/alter-table/), [RENAME](../../reference/sql-statements/data-definition/rename-table.md), and [CHECK](../../server-usage/storage-engines/myrocks/myrocks-and-check-table.md) commands that mariadb-check executes.
 
-#### Sequence storage engine
+#### Sequences
 
-From MariaDB 12.0, `mariadb-check` supports [Sequence tables](../../server-usage/storage-engines/sequence-storage-engine.md).
+From MariaDB 12.0, `mariadb-check` supports [sequences](../../reference/sql-structure/sequences/).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

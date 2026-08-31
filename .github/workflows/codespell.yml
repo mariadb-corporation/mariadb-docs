@@ -43,6 +43,11 @@ jobs:
             # prose that surrounds them stays in scope. See DOCS-6369.
             release-notes/**/changelogs/**
             release-notes/**/*-changelogs/**
+            # Some changelogs are standalone pages rather than members of a
+            # changelogs/ directory, so the two globs above miss them. Same
+            # content, same reasoning. See DOCS-6382.
+            release-notes/**/changelog-*.md
+            release-notes/**/*-changelog.md
 
       - name: Scan for for common misspellings in text files
         if: steps.changes.outputs.any_changed == 'true'

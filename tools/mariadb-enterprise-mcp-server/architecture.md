@@ -134,6 +134,6 @@ The database is the foundation of the entire architecture, providing a single, c
 
 This architecture ensures a clear separation of concerns, enhances security with multiple checkpoints, and provides a highly extensible platform for building advanced AI tools.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

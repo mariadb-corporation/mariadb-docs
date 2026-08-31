@@ -4,6 +4,10 @@ description: The CONNECT storage engine.
 
 # CONNECT
 
+{% hint style="info" %}
+CONNECT is a community contribution to MariaDB Server, developed and maintained by its contributor, Olivier Bertrand.
+{% endhint %}
+
 You can download a PDF version of the CONNECT documentation (1.7.0003):
 
 {% file src="../../../.gitbook/assets/connect_1_7_03.pdf" %}
@@ -197,3 +201,5 @@ The CONNECT storage engine.
 The CONNECT storage engine.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

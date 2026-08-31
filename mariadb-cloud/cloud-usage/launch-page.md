@@ -1,59 +1,99 @@
 ---
 description: >-
-  The MariaDB Cloud Launch page creates a new database service: select service
-  type, topology, cloud provider, region, configuration, and security options
-  with cost estimates.
+  The MariaDB Cloud Provision Cloud Database page creates a new database
+  service from a single page: topology, high availability, add-ons, provider
+  and region, instance resources, connectivity, and advanced options, with a
+  live cost estimate.
+hidden: true
 ---
 
 # Launch Page
 
-The Launch page allows you to create a new MariaDB Cloud service by selecting the service type and topology, choosing a cloud provider and region, defining the resource configuration, specifying service attributes, and setting security options. You can access this page by clicking [Launch New Service](https://app.skysql.com/launch-service) in the Portal Dashboard.
+The **Provision Cloud Database** page creates a new MariaDB Cloud service from a
+single page. As you build the configuration, a sticky footer shows a live
+estimate of the hourly and monthly cost before you deploy. Open it with
+**Create New Service** from the Portal Dashboard.
 
-<figure><img src="../.gitbook/assets/launch-dashboard.png" alt="MariaDB Cloud Launch page shows service attributes configuration options during new service creation."><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/provisioning-v2-01.png" alt="Provision Cloud Database page with MariaDB Serverless selected, showing topology cards, cloud provider and region, instance resources, and a live cost estimate in the footer."><figcaption><p>Provision Cloud Database page (Serverless)</p></figcaption></figure>
 
-_Launch Service_
+## Topology
 
-When making launch-time selections, the right-hand panel displays a summary of your selections, along with estimated costs, allowing you to better understand the configuration and price before deployment.
+Choose the service topology:
 
-To launch a MariaDB Cloud service from the Portal:
+* **MariaDB Serverless** (Pay-Per-Use) — a fully managed database that scales on
+  demand. Best for variable traffic and cost optimization.
+* **MariaDB Provisioned** (Production Ready) — predictable performance with
+  customizable resources. Best for production workloads that need consistent
+  performance.
 
-1. From the Dashboard, click the `+ Launch New Service` button.
-2.  Choose the Service Type: \
-    By default, the Portal selects `Serverless`. You can switch to `Provisioned` if you prefer a single-node or replicated topology. Each selection section controls a different aspect of how your database service will be deployed and configured.\
-    \
-    `Provisioned` options:
+## High Availability
 
-    * MariaDB Server Single Node
-    * MariaDB Server with Replicas
-    *   MariaDB Enterprise Cluster
+For provisioned services, select a high-availability mode:
 
-        <div data-gb-custom-block data-tag="hint" data-style="warning" class="hint hint-warning"><p><strong>Tech Preview Limitation</strong></p><p>MariaDB Enterprise Cluster is currently available as a <em>Tech Preview</em>. The feature is exclusively available on the <strong>PowerPlus</strong> tier and require a minimum of 3 nodes to <a href="https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/understanding-quorum-monitoring-and-recovery">maintain quorum</a>.</p></div>
+* **Semi-sync** — a MaxScale proxy with automatic failover and read/write
+  splitting. Recommended for most production workloads.
+* **Insync** — Galera synchronous replication across all nodes for
+  zero-data-loss failover. Suited to compliance-critical workloads.
+* **None** — a single node with no replication. Not recommended for production.
 
-    `Serverless` option:
+## Add-ons
 
-    * MariaDB Serverless Single Node
+* **Analytics (HTAP)** — adds the MariaDB Exa engine for real-time analytical
+  queries alongside your transactional workload. Requires Semi-sync HA.
 
-    The selection defines how compute resources are allocated, whether replicas are included, or whether the service scales automatically.
-3. Choose the desired Cloud Provider:&#x20;
-   * AWS
-   * Google Cloud
-   * Azure
-4. Choose the desired [Region](https://apidocs.skysql.com/#/Offering/get_provisioning_v1_regions).
-   * Each region has a scheduled maintenance window.
-5. Choose the desired [Instance Size](https://apidocs.skysql.com/#/Offering/get_provisioning_v1_sizes).
-   * If your workload requires a larger instance size, contact us regarding [Power Tier](../../Billing%20and%20Power%20Tier/).
-6. If needed, enable [Auto-Scaling of Nodes](../../Autonomously%20scale%20Compute,%20Storage/).
-7. Choose the desired [Storage Configuration](https://apidocs.skysql.com/#/Offering/get_provisioning_v1_topologies__topology_name__storage_sizes).
-8. If needed, enable [Auto-Scaling of Storage](../../Autonomously%20scale%20Compute,%20Storage/).
-9. Choose the number of nodes to deploy.
-10. Choose the desired [Server Version](https://apidocs.skysql.com/#/Offering/get_provisioning_v1_versions).
-11. Enter the desired Service Name (Up to 24 characters).
-12. Configure Primary Endpoint security.
-    * Select how the service should accept connections.
-13. Enable topology-specific features, if desired:
-    * Disable SSL/TLS
-    * NoSQL Interface
+<figure><img src="../.gitbook/assets/provisioning-v2-03.png" alt="Provision Cloud Database page with MariaDB Provisioned selected, showing High Availability options (Semi-sync, Insync, None) and the Analytics HTAP add-on."><figcaption><p>Topology, High Availability, and Add-ons (Provisioned)</p></figcaption></figure>
 
-After initiating the launch, the new service will appear on the [Portal](https://app.skysql.com/dashboard) Dashboard.
+## Cloud provider & region
 
-A [notification](notifications.md) will be sent at the time-of-service launch initiation and when service launch completes.
+Select the cloud provider (Google Cloud, AWS, or Azure), then the region and —
+for provisioned services — an availability zone. Each region has a scheduled
+maintenance window. Available regions vary by account.
+
+## Instance resources
+
+For **provisioned** services, choose the node size (for example,
+`Sky-2x8` — 2 vCPU × 8 GB RAM), the number of replicas, and, if needed,
+horizontal or vertical auto-scaling.
+
+For **serverless** services, set the MCU thresholds. One MCU (MariaDB Compute
+Unit) equals 0.5 vCPU + 2 GB memory. Setting **Min MCUs** to 0 lets the service
+scale to zero when idle to reduce cost, with a brief startup delay on the next
+connection.
+
+Set the storage capacity and, if needed, enable storage auto-scaling.
+
+## Secure connectivity
+
+Choose how the service accepts connections:
+
+* **IP Allowlist** — open to all, or restrict access to specific IP addresses or
+  CIDR ranges (use **Add my IP** to add your current address).
+* **Private Link** — connect privately from your own VPC using AWS Private Link,
+  Google Cloud Private Service Connect, or Azure Private Link.
+
+<figure><img src="../.gitbook/assets/provisioning-v2-04.png" alt="Secure Connectivity, Basic Attributes, and the expanded Advanced Options panel on the Provision Cloud Database page."><figcaption><p>Secure connectivity and advanced options</p></figcaption></figure>
+
+## Basic attributes
+
+Select the **MariaDB Version** (with a link to its release notes) and enter a
+**Service Name**.
+
+## Advanced options
+
+Optionally configure storage type, provisioned IOPS and throughput, MaxScale
+redundancy, NoSQL (MongoDB®-compatible) support, an SSL/TLS toggle, and the
+maintenance window.
+
+{% hint style="info" %}
+Some options — Insync high availability, the Analytics (HTAP) add-on,
+auto-scaling, Private Link, MaxScale redundancy, and a custom maintenance
+window — require the **Power** or **Power Plus** service tier.
+{% endhint %}
+
+## Create the service
+
+Click **Create Service**. The new service appears on the Portal Dashboard, and a
+[notification](notifications.md) is sent when launch begins and when it
+completes.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

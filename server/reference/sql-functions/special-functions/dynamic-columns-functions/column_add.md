@@ -20,7 +20,7 @@ Adds or updates [dynamic columns](../../../sql-structure/nosql/dynamic-columns.m
 * `dyncol_blob` must be either a valid dynamic columns blob (for example, `COLUMN_CREATE` returns such blob), or an empty string.
 * `column_name` specifies the name of the column to be added. If `dyncol_blob` already has a column with this name, it will be overwritten.
 * `value` specifies the new value for the column. Passing a NULL value will cause the column to be deleted.
-* `as type` is optional. See [#datatypes](column_add.md#datatypes) section for a discussion about types.
+* `as type` is optional. See [Datatypes](../../../sql-structure/nosql/dynamic-columns.md#datatypes) section for a discussion about types.
 
 The return value is a dynamic column blob after the modifications.
 

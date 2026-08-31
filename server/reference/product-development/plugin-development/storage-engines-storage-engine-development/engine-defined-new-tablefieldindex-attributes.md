@@ -46,7 +46,7 @@ ha_create_table_option example_table_option_list[]=
 };
 ```
 
-The engine declares a structure`ha_table_option_struct`\
+The engine declares a structure`ha_table_option_struct`
 that will hold values of these new attributes.
 
 And it describes these attributes to MySQL by creating an array of`HA_TOPTION_*` macros. Note a detail: these macros expect a structure called`ha_table_option_struct`, if the structure is called differently, a`#define` are needed.

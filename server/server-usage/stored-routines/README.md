@@ -66,3 +66,5 @@ Stored routines have specific restrictions, such as prohibiting certain SQL stat
 The DBMS_OUTPUT plugin provides Oracle-compatible output buffering functions (like PUT_LINE), allowing stored procedures to send messages to the client.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

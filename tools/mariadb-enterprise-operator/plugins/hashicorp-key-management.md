@@ -313,3 +313,5 @@ SELECT * from information_schema.INNODB_TABLESPACES_ENCRYPTION;
 ```
 
 Look for the `CURRENT_KEY_VERSION` and make sure they are in sync with the latest version you have in Vault.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -34,4 +34,6 @@ Returns a zero terminated string containing the cipher suite used for a secure c
 
 * [mysql\_ssl\_set()](mysql_ssl_set.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

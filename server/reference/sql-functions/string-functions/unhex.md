@@ -14,7 +14,7 @@ UNHEX(str)
 
 ## Description
 
-Performs the inverse operation of [HEX](hex.md)(str). That is, it interprets each pair of hexadecimal digits in the argument as a number and converts it to the character represented by the number. The resulting\
+Performs the inverse operation of [HEX](hex.md)(str). That is, it interprets each pair of hexadecimal digits in the argument as a number and converts it to the character represented by the number. The resulting
 characters are returned as a binary string.
 
 If `str` is `NULL`, `UNHEX()` returns `NULL`.

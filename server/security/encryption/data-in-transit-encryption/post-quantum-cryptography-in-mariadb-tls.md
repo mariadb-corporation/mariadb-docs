@@ -70,3 +70,5 @@ Post quantum cryptography secures data while it is transmitted across a network.
 * [Securing Connections for Client and Server](securing-connections-for-client-and-server.md)
 * [NIST FIPS 203 (ML-KEM)](https://csrc.nist.gov/pubs/fips/203/final)&#x20;
 * [NIST FIPS 204 (ML-DSA)](https://csrc.nist.gov/pubs/fips/204/final)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

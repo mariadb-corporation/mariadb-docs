@@ -73,7 +73,7 @@ If you encounter an error while importing your users, you may need to uninstall 
     SET foreign_key_checks = 0;
     ```
 
-- **Disable Binary Logging**: If binary logging is not required during the import process, and you are using a standalone instance, it can potentially be disabled to improve performance. CloudDBA Services can assist with this as part of a detailed migration plan.
+- **Disable Binary Logging**: If binary logging is not required during the import process, and you are using a standalone instance, it can potentially be disabled to improve performance. Cloud DBA Services can assist with this as part of a detailed migration plan.
 
 ### Data Integrity and Validation
 
@@ -105,7 +105,7 @@ If you encounter an error while importing your users, you may need to uninstall 
         --databases [database_name] > dump.sql
     ```
 
-- **Incremental Backups**: For large datasets, incremental backups can be used to minimize the amount of data to be transferred. CloudDBA Services can assist you with setting these up as part of a custom migration plan.
+- **Incremental Backups**: For large datasets, incremental backups can be used to minimize the amount of data to be transferred. Cloud DBA Services can assist you with setting these up as part of a custom migration plan.
 
 ### Monitoring and Logging
 
@@ -119,3 +119,5 @@ If you encounter an error while importing your users, you may need to uninstall 
 - [MariaDB Backup Documentation](https://mariadb.com/kb/en/mariadb-backup-overview/)
 - [Advanced Backup Techniques](https://mariadb.com/kb/en/backup-and-restore-overview/)
 - [Migrate RDS MySQL to MariaDB Cloud using the AWS Data Migration Service (DMS)](<./migrate-rds-mysql-to-skysql-using-amazon-data-migration-service_whitepaper_1109.pdf>)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -17,7 +17,7 @@ The success of MariaDB depends on the participation of the community. MariaDB wo
 
 ## Getting Started
 
-There are several ways to contribute besides [Contributing Code](contributing-code.md), and not all of them require\
+There are several ways to contribute besides [Contributing Code](contributing-code.md), and not all of them require
 strong C/C++ skills. Areas for non-developers include:
 
 * [Reporting Bugs](../community/bug-tracking/reporting-bugs.md)
@@ -36,7 +36,7 @@ strong C/C++ skills. Areas for non-developers include:
 
 ### MariaDB Email Lists
 
-A great way to get started in MariaDB is to participate in e-mail discussions\
+A great way to get started in MariaDB is to participate in e-mail discussions
 via our mailing lists (whichever list best matches your interests):
 
 * [developers](https://lists.mariadb.org/postorius/lists/developers.lists.mariadb.org/)

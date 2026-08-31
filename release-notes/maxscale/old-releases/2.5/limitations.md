@@ -5,7 +5,7 @@ This document lists known issues and limitations in MariaDB MaxScale and its plu
 * Limitations and Known Issues within MariaDB MaxScale
   * Configuration limitations
     * Multiple MaxScales on same server
-  * Security limitiations
+  * Security limitations
     * MariaDB 10.2
   * MariaDB Default Values
   * Query Classification
@@ -32,7 +32,7 @@ In versions 2.2.12 and earlier, the section names in the configuration files wer
 
 Starting with MaxScale 2.4.0, on systems with Linux kernels 3.9 or newer due to the addition of SO\_REUSEPORT support, it is possible for multiple MaxScale instances to listen on the same network port if the directories used by both instances are completely separate and there are no conflicts which can cause unexpected splitting of connections. This will only happen if users explicitly tell MaxScale to ignore the default directories and will not happen in normal use.
 
-### Security limitiations
+### Security limitations
 
 #### MariaDB 10.2
 
@@ -71,7 +71,7 @@ SET autocommit=1;
 
 For its proper functioning, MaxScale needs in general to be aware of the transaction state and _autocommit_ mode. In order to be that, MaxScale parses statements going through it.
 
-However, if a transaction is commited or rolled back, or the autocommit mode is changed using a prepared statement, MaxScale will miss that and its internal state will be incorrect, until the transaction state or autocommit mode is changed using an explicit statement.
+However, if a transaction is committed or rolled back, or the autocommit mode is changed using a prepared statement, MaxScale will miss that and its internal state will be incorrect, until the transaction state or autocommit mode is changed using an explicit statement.
 
 For instance, after the following sequence of commands, MaxScale will still think _autocommit_ is on:
 
@@ -129,3 +129,5 @@ The default master selection is based only on MIN(wsrep\_local\_index). This can
 ### Router limitations
 
 Refer to individual router documentation for a list of their limitations.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -37,4 +37,6 @@ Returns the length of the encoded string without the trailing null character.
 
 * [mysql\_real\_escape\_string()](mysql_real_escape_string.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

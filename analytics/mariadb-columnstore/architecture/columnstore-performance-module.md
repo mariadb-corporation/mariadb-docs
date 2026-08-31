@@ -57,6 +57,6 @@ In cases of failover where the underlying storage data is externally mounted, (s
 
 When the failed Performance Module is brought back online, ColumnStore auto-adopts it back into the configuration and begins using it for work.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

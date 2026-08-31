@@ -920,8 +920,8 @@ See [Generated (Virtual and Persistent/Stored) Columns: Statement Support](../..
 
 Some operations cause a table's tablespace file to use a non-canonical storage format when the `INSTANT` algorithm is used. The affected operations include:
 
-* [Adding a column.](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#alter-table-add-column)
-* [Dropping a column.](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#alter-table-drop-column)
+* [Adding a column.](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#alter-table-...-add-column)
+* [Dropping a column.](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#alter-table-...-drop-column)
 * [Reordering columns.](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#reordering-columns)
 
 These operations require the following non-canonical changes to the storage format:
@@ -954,7 +954,7 @@ ALTER TABLE tab FORCE;
 Query OK, 0 rows affected (0.008 sec)
 ```
 
-If you are concerned about these bugs, and you want to perform an operation that supports the [INSTANT](innodb-online-ddl-overview.md#algorithminstant) algorithm, but you want to avoid using that algorithm, then you can set the algorithm to [INPLACE](innodb-online-ddl-overview.md#inplace-algorithm) and add the `FORCE` keyword to the [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) statement:
+If you are concerned about these bugs, and you want to perform an operation that supports the [INSTANT](innodb-online-ddl-overview.md#instant-algorithm) algorithm, but you want to avoid using that algorithm, then you can set the algorithm to [INPLACE](innodb-online-ddl-overview.md#inplace-algorithm) and add the `FORCE` keyword to the [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) statement:
 
 ```sql
 SET SESSION alter_algorithm='INPLACE';

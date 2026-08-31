@@ -54,3 +54,5 @@ This function executes an SQL string directly on a specified remote backend serv
 Use this UDF to refresh the cache used by Spider's monitoring threads, ensuring that the status of remote tables and connections is up to date.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

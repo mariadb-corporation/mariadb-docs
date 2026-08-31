@@ -134,4 +134,6 @@ Inconvenient:
 Data is sent in batches, with each batch size determined by the `useBatchMultiSendNumber` value.\
 Once the first send command is issued, reads begin asynchronously. The driver waits until all results for the current batch are received before sending the next batch.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

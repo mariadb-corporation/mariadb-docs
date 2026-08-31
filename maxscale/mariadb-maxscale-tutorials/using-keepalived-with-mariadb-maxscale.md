@@ -193,7 +193,7 @@ VIP. Backup node then performs the opposite steps, claiming the VIP.
 To define a health check script, modify the configuration as follows. The
 example is for the master node. See
 [this blog post](https://www.redhat.com/en/blog/advanced-keepalived) or
-[Keepalived documentation](https://www.keepalived.org/manpage.html) for more
+[Keepalived documentation](https://www.keepalived.org/documentation/keepalived-conf/) for more
 information. The config assumes the script is in file
 `/etc/keepalived/is_maxscale_running`. Remember to make the script file
 executable.
@@ -385,3 +385,5 @@ then transitions quickly to master state if possible. Calling *release-locks*
 prevents the monitor from acquiring locks for one minute, meaning that for some
 time, the active MaxScale node will not hold the locks even if they are
 unclaimed. The cluster will remain unusable until one MaxScale claims the locks.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

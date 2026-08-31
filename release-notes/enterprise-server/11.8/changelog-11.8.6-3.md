@@ -110,6 +110,6 @@ hidden: true
 * MariaDB sometimes reports "index is corrupted" for encrypted Aria tables, but this appears to be a false positive caused by an off-by-one check in the encryption post-read hook ([MDEV-38707](https://jira.mariadb.org/browse/MDEV-38707))
 * Fix MASTER\_SSL\_VERIFY\_SERVER\_CERT not usable as an unquoted identifier, unlike other CHANGE MASTER keys ([MDEV-38194](https://jira.mariadb.org/browse/MDEV-38194))
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

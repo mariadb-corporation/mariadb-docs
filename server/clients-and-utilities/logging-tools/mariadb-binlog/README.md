@@ -54,3 +54,5 @@ The ANNOTATE_ROWS_EVENT, which records the original SQL statement alongside row-
 mysqlbinlog is the former name of the mariadb-binlog client, still available as a symlink or alternate binary.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

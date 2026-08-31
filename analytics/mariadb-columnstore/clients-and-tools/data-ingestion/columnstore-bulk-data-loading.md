@@ -9,7 +9,7 @@ description: >-
 
 ## Overview
 
-`cpimport` is a high-speed bulk load utility that imports data into ColumnStore tables in a fast and efficient manner. It accepts as input any flat file containing data that contains a delimiter between fields of data (i.e. columns in a table). The default delimiter is the pipe (‘|’) character, but other delimiters such as\
+`cpimport` is a high-speed bulk load utility that imports data into ColumnStore tables in a fast and efficient manner. It accepts as input any flat file containing data that contains a delimiter between fields of data (i.e. columns in a table). The default delimiter is the pipe (‘|’) character, but other delimiters such as
 commas may be used as well. The data values must be in the same order as the create table statement, i.e. column 1 matches the first column in the table and so on. Date values must be specified in the format 'yyyy-mm-dd'.
 
 `cpimport` – performs the following operations when importing data into a MariaDB ColumnStore database:
@@ -572,6 +572,6 @@ A typical log might look like this:
 
 _Prior to version 1.4, this folder was located at_ `/usr/local/mariadb/columnstore/bulk`_._
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

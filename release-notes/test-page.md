@@ -18,3 +18,5 @@ This page recreates "slugs" from the KB. Those slugs are includes you can insert
 {% include ".gitbook/includes/slug-106.md" %}
 
 {% include ".gitbook/includes/slug-106.md" %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

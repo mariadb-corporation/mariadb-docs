@@ -1,6 +1,6 @@
 # MariaDB 5.3.0 Changelog p4
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**\
+[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**
 (page:[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md) 4 [5](mariadb-530-changelog-p5.md)[6](mariadb-530-changelog-p6.md)\
 ) |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
@@ -12,12 +12,12 @@
   * [Revision #2928.3.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2928.3.1)\
     Thu 2011-03-03 18:24:41 -0800
     * Fixed [Bug #702322](https://bugs.launchpad.net/bugs/702322):\
-      The bug was a result of the fix for [Bug #668644](https://bugs.launchpad.net/bugs/668644) that turned out to be\
-      not quite correct. A problem appeared with HAVING conditions containing\
-      more than one predicate. If a query with an ORDER BY clause uses\
-      such HAVING condition and the required order can be obtained with\
-      a range/index scan then the HAVING condition has to be pushed into\
-      two different formulas (items). To be able to do it we have to create\
+      The bug was a result of the fix for [Bug #668644](https://bugs.launchpad.net/bugs/668644) that turned out to be
+      not quite correct. A problem appeared with HAVING conditions containing
+      more than one predicate. If a query with an ORDER BY clause uses
+      such HAVING condition and the required order can be obtained with
+      a range/index scan then the HAVING condition has to be pushed into
+      two different formulas (items). To be able to do it we have to create
       a copy of the ANDOR structure of the pushed condition.
 * [Revision #2944](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2944) \[merge]\
   Sun 2011-03-13 16:57:05 +0000
@@ -27,30 +27,30 @@
     Sun 2011-03-13 15:03:26 +0000
     * Fix [Bug #719198](https://bugs.launchpad.net/bugs/719198), [Bug #730604](https://bugs.launchpad.net/bugs/730604)
     * Analysis ( [Bug #719198](https://bugs.launchpad.net/bugs/719198) ):
-      * The assert failed because the execution code for\
+      * The assert failed because the execution code for
         partial matching is designed with the assumption that\
-        NULLs on the left side are detected as early as possible,\
-        and a NULL result is returned before any lookups are\
+        NULLs on the left side are detected as early as possible,
+        and a NULL result is returned before any lookups are
         performed at all.
-      * However, in the case of an Item\_cache object on the left\
-        side, null was not detected properly, because detection\
-        was done via Item::is\_null(), which is not implemented at\
-        all for Item\_cache, and resolved to the default Item::is\_null()\
+      * However, in the case of an Item\_cache object on the left
+        side, null was not detected properly, because detection
+        was done via Item::is\_null(), which is not implemented at
+        all for Item\_cache, and resolved to the default Item::is\_null()
         which always returns FALSE.
     * Solution:
       * Imlpement Item::is\_null().
     * Analysis ( [Bug #730604](https://bugs.launchpad.net/bugs/730604) ):
       * The method Item\_field::is\_null() determines if an item is NULL from its\
-        Item\_field::field object. However, for Item\_fields that represent internal\
-        temporary tables, Item\_field::field represents the field of the original\
+        Item\_field::field object. However, for Item\_fields that represent internal
+        temporary tables, Item\_field::field represents the field of the original
         table that was the source for the temporary table (in this case t1.f3).\
-        Both in the committed test case, and in the original bug report the current\
-        value of t1.f3 is not NULL. This results in an incorrect count of NULLs\
-        for this column. As a consequence, all related Ordered\_key buffers are\
-        allocated with incorrect sizes. Depending on the exact query and data,\
+        Both in the committed test case, and in the original bug report the current
+        value of t1.f3 is not NULL. This results in an incorrect count of NULLs
+        for this column. As a consequence, all related Ordered\_key buffers are
+        allocated with incorrect sizes. Depending on the exact query and data,
         these incorrect sizes result in various crashes or failed asserts.
     * Solution:
-      * The correct value of the current field of the internal temp table is\
+      * The correct value of the current field of the internal temp table is
         in Item\_field::result\_field. This value is determined by\
         Item::is\_null\_result().
 * [Revision #2943](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2943) \[merge]\
@@ -59,17 +59,17 @@
   * [Revision #2933.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2933.1.1)\
     Mon 2011-03-07 22:09:21 -0800
     * Fixed [Bug #729039](https://bugs.launchpad.net/bugs/729039):\
-      If join condition is of the form \<t2.key>=\<t1.no\_key> then the server\
-      performs no index look-ups when looking for matching rows of t2 for\
-      the rows from t1 with t1.no\_key=NULL. It happens because the function\
+      If join condition is of the form \<t2.key>=\<t1.no\_key> then the server
+      performs no index look-ups when looking for matching rows of t2 for
+      the rows from t1 with t1.no\_key=NULL. It happens because the function
       add\_not\_null\_conds() injects an additional condition of the form\
       IS NOT NULL(\<t1.no\_key>) into the WHERE condition.\
-      However if the join condition was of the form \<t.key>=\<outer\_ref> no\
-      additional null rejecting predicate was generated. This could lead\
-      to extra records in the result set if the value of \<outer\_ref> happened\
+      However if the join condition was of the form \<t.key>=\<outer\_ref> no
+      additional null rejecting predicate was generated. This could lead
+      to extra records in the result set if the value of \<outer\_ref> happened
       to be NULL.
     * The new code injects null rejecting predicates of the form\
-      IS NOT NULL(\<outer\_ref>) and evaluates them before the first row\
+      IS NOT NULL(\<outer\_ref>) and evaluates them before the first row
       the subquery is constructed.
 * [Revision #2942](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2942)\
   Sat 2011-03-12 16:18:02 +0000
@@ -80,7 +80,7 @@
   * [Revision #2934.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2934.1.1)\
     Sat 2011-03-12 00:49:03 -0800
     * Fixed LP bugs [Bug #729067](https://bugs.launchpad.net/bugs/729067) / [Bug #730466](https://bugs.launchpad.net/bugs/730466):\
-      Do not reset the value of the item\_equal field in the Item\_field object\
+      Do not reset the value of the item\_equal field in the Item\_field object
       once it has been set.
 * [Revision #2940](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2940) \[
   * merge]\
@@ -107,18 +107,18 @@
   Tue 2011-03-08 23:23:44 +0200
   * Fix [Bug #719198](https://bugs.launchpad.net/bugs/719198)
     * Analysis:
-      * The assert failed because the execution code for\
+      * The assert failed because the execution code for
         partial matching is designed with the assumption that\
-        NULLs on the left side are detected as early as possible,\
-        and a NULL result is returned before any lookups are\
+        NULLs on the left side are detected as early as possible,
+        and a NULL result is returned before any lookups are
         performed at all.
-      * However, in the case of an Item\_cache object on the left\
-        side, null was not detected properly, because detection\
-        was done via Item::is\_null(), which is not implemented at\
-        all for Item\_cache, and resolved to the default Item::is\_null()\
+      * However, in the case of an Item\_cache object on the left
+        side, null was not detected properly, because detection
+        was done via Item::is\_null(), which is not implemented at
+        all for Item\_cache, and resolved to the default Item::is\_null()
         which always returns FALSE.
     * Solution:
-      * Use the property Item::null\_value instead of is\_null(), which\
+      * Use the property Item::null\_value instead of is\_null(), which
         is properly updated for Item\_cache objects as well.
 * [Revision #2933](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2933) \[merge]\
   Fri 2011-03-04 18:54:30 +0300
@@ -131,7 +131,7 @@
 * [Revision #2932](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2932)\
   Fri 2011-03-04 12:14:46 +0300
   * Make testcase pass on systems with lower\_case\_table\_names=2.
-    * Generally, we should use only small letters for table names\
+    * Generally, we should use only small letters for table names
       but here it's easier to fix with one `--`replace.
 * [Revision #2931](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2931) \[merge]\
   Fri 2011-03-04 01:30:25 +0300
@@ -141,10 +141,10 @@
     * [Bug #693747](https://bugs.launchpad.net/bugs/693747): Assertion multi\_range\_read.cc:908: int DsMrr\_impl::dsmrr\_init
       * Make DsMrr\_impl::dsmrr\_init() handle the case of
         1. 1st MRR scan using DS-MRR strategy (i.e. doing key sorting and rowid sorting)
-        2. 2nd MRR scan getting a buffer that's too small to fit one key element\
+        2. 2nd MRR scan getting a buffer that's too small to fit one key element
            and one rowid element, and so falling back to default MRR implementation
-      * In this case, dsmrr\_init() is invoked with {primary\_handler, secondary\_handler}\
-        initialized for DS-MRR scan and have to reset them to be initialized for the\
+      * In this case, dsmrr\_init() is invoked with {primary\_handler, secondary\_handler}
+        initialized for DS-MRR scan and have to reset them to be initialized for the
         default MRR scan.
       * (attempt 2, with simplified testcase)
 * [Revision #2930](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2930) \[merge]\
@@ -153,43 +153,43 @@
   * [Revision #2928.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2928.1.1)\
     Fri 2011-03-04 00:54:10 +0300
     * [Bug #707925](https://bugs.launchpad.net/bugs/707925): Wrong result with join\_cache\_level=6 optimizer\_use\_mrr = force (incremental, BKA join)
-      * The problem was that Mrr\_ordered\_index\_reader's interrupt\_read() and resume\_read() would\
-        save and restore 1) index tuple 2) the rowid (as bytes returned by handler->position()). Clustered\
+      * The problem was that Mrr\_ordered\_index\_reader's interrupt\_read() and resume\_read() would
+        save and restore 1) index tuple 2) the rowid (as bytes returned by handler->position()). Clustered
         primary key columns were not saved/restored.
-      * They are not explicitly present in the index tuple (i.e. table->key\_info\[secondary\_key].key\_parts\
-        doesn't list them), but they are actually there, in particular\
-        table->field\[clustered\_primary\_key\_member].part\_of\_key(secondary\_key) == 1. Index condition pushdown\
-        code \[correctly] uses the latter as inidication that pushed index condition can refer to clustered PK\
+      * They are not explicitly present in the index tuple (i.e. table->key\_info\[secondary\_key].key\_parts
+        doesn't list them), but they are actually there, in particular
+        table->field\[clustered\_primary\_key\_member].part\_of\_key(secondary\_key) == 1. Index condition pushdown
+        code \[correctly] uses the latter as inidication that pushed index condition can refer to clustered PK
         members.
-      * The fix was to make interrupt\_read()/resume\_read() to save/restore clustered primary key members as well,\
+      * The fix was to make interrupt\_read()/resume\_read() to save/restore clustered primary key members as well,
         so that we get correct values for them when evaluating pushed index condition.
     * \[3rd attempt: remove the debugging aids, fix comments in testcase]
 * [Revision #2929](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2929)\
   Thu 2011-03-03 23:48:31 +0200
   * Fix [Bug #718763](https://bugs.launchpad.net/bugs/718763)
     * Analysis:
-      * The reason for the crash was that the inner subquery was executed\
-        via a scan on a final temporary table applied after all other\
-        operations. This final operation is implemented by changing the\
-        contents of the JOIN object of the subquery to represent a table\
-        scan over the temp table. At the same time query optimization of\
-        the outer subquery required evaluation of the inner subquery, which\
-        happened before the actual EXPLAIN. The evaluation left the JOIN\
-        object of the inner subquery in the changed state, where it represented\
-        a table scan over a temp table, and EXPLAIN crashed because the temp\
+      * The reason for the crash was that the inner subquery was executed
+        via a scan on a final temporary table applied after all other
+        operations. This final operation is implemented by changing the
+        contents of the JOIN object of the subquery to represent a table
+        scan over the temp table. At the same time query optimization of
+        the outer subquery required evaluation of the inner subquery, which
+        happened before the actual EXPLAIN. The evaluation left the JOIN
+        object of the inner subquery in the changed state, where it represented
+        a table scan over a temp table, and EXPLAIN crashed because the temp
         table is not associated with any table reference (TABLE\_LIST object).\
-        The reason the JOIN was not restored was because its saving/restoration\
-        was controlled by the join->select\_lex->uncacheable flag, which was\
+        The reason the JOIN was not restored was because its saving/restoration
+        was controlled by the join->select\_lex->uncacheable flag, which was
         not set in the case of materialization.
     * Solution:
       * In the methods Item\_in\_subselect::\[single | row]\_value\_transformer() set:\
         select\_lex->uncacheable|= UNCACHEABLE\_EXPLAIN;
       * In addition, for symmetry, change:\
         master\_unit->uncacheable|= UNCACHEABLE\_EXPLAIN;
-      * instead of UNCACHEABLE\_DEPENDENT because if a subquery was not\
-        dependent initially, the changed methods do not change this\
-        fact. The subquery may later become correlated if it is transformed\
-        to an EXISTS query, but it may stay uncorrelated if executed via\
+      * instead of UNCACHEABLE\_DEPENDENT because if a subquery was not
+        dependent initially, the changed methods do not change this
+        fact. The subquery may later become correlated if it is transformed
+        to an EXISTS query, but it may stay uncorrelated if executed via
         materialization.
 * [Revision #2928](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2928) \[merge]\
   Tue 2011-03-01 10:22:22 +0300
@@ -197,7 +197,7 @@
   * [Revision #2925.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2925.1.1)\
     Tue 2011-03-01 00:29:59 +0300
     * [Bug #724275](https://bugs.launchpad.net/bugs/724275): Crash in JOIN::optimize in maria-5.3
-      * Make equality-substitution-for-ref-access code in JOIN::optimize() treat join\_tab->ref.key\_copy correctly\
+      * Make equality-substitution-for-ref-access code in JOIN::optimize() treat join\_tab->ref.key\_copy correctly
         (in the way create\_ref\_for\_key() has filled it).
 * [Revision #2927](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2927)\
   Mon 2011-02-28 17:27:41 -0800
@@ -205,9 +205,9 @@
 * [Revision #2926](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2926)\
   Sun 2011-02-27 22:37:46 -0800
   * Fixed [Bug #725050](https://bugs.launchpad.net/bugs/725050):\
-    The bug in the function print\_keyuse() caused crashes if\
-    hash join could be used. It happened because the function\
-    ignored the fact that KEYUSE structures could be created\
+    The bug in the function print\_keyuse() caused crashes if
+    hash join could be used. It happened because the function
+    ignored the fact that KEYUSE structures could be created
     for hash joins as well.
 * [Revision #2925](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2925) \[merge]\
   Sun 2011-02-27 10:14:11 -0800
@@ -223,16 +223,16 @@
     * Made a newly added EXPLAIN platform independent.
   * [Revision #2900.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2900.2.1)\
     Wed 2011-02-23 22:23:12 -0800
-    * BNLH algorithm always used a full table scan over the joined table\
-      even in the cases when there existed range/index-merge scans that\
+    * BNLH algorithm always used a full table scan over the joined table
+      even in the cases when there existed range/index-merge scans that
       were cheaper than the full table scan.
     * This was a defect/bug of the implementation of mwl #128.\
-      Now hash join can work not only with full table scan of the joined\
+      Now hash join can work not only with full table scan of the joined
       table, but also with full index scan, range and index-merge scans.
-    * Accordingly, in the cases when hash join is used the column 'type'\
-      in the EXPLAINs can contain now 'hash\_ALL', 'hash\_index', 'hash\_range'\
-      and 'hash\_index\_merge'. If hash join is coupled with a range/index\_merge\
-      scan then the columns 'key' and 'key\_len' contain info not only on\
+    * Accordingly, in the cases when hash join is used the column 'type'
+      in the EXPLAINs can contain now 'hash\_ALL', 'hash\_index', 'hash\_range'
+      and 'hash\_index\_merge'. If hash join is coupled with a range/index\_merge
+      scan then the columns 'key' and 'key\_len' contain info not only on
       the used hash index, but also on the indexes used for the scan.
 * [Revision #2923](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2923)\
   Sat 2011-02-26 23:09:58 +0300
@@ -243,9 +243,9 @@
   * [Revision #2920.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2920.1.1)\
     Fri 2011-02-25 21:43:57 +0300
     * [Bug #723822](https://bugs.launchpad.net/bugs/723822): Crash in get\_constant\_key\_infix with EXISTS ( SELECT .. DISTINCT )
-      * Make get\_constant\_key\_infix() take into account that there may be SEL\_TREEs with\
-        type=SEL\_ARG::MAYBE\_KEY, which it cannot process, because they are not real ranges\
-        but rather indications that we might have been able to construct a range if we had\
+      * Make get\_constant\_key\_infix() take into account that there may be SEL\_TREEs with
+        type=SEL\_ARG::MAYBE\_KEY, which it cannot process, because they are not real ranges
+        but rather indications that we might have been able to construct a range if we had
         values for some other tables' fields.\
         (check\_quick\_select() already has such check)
 * [Revision #2921](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2921) \[merge]\
@@ -277,7 +277,7 @@
     * Merge in new handler and handlersocket code into 5.3 main
 * [Revision #2916](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2916)\
   Mon 2011-02-21 20:17:26 +0100
-  * [Bug #53240](https://bugs.launchpad.net/bugs/53240) :Fixed dependency to prevent occasional situations\
+  * [Bug #53240](https://bugs.launchpad.net/bugs/53240) :Fixed dependency to prevent occasional situations
     where bison runs in parallel with the same input and output files
 * [Revision #2915](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2915)\
   Mon 2011-02-21 14:23:44 +0100
@@ -319,7 +319,7 @@
 * [Revision #2907](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2907)\
   Sat 2011-02-12 18:43:22 +0100
   * Workaround CMake bug [view.php?id=11240](https://www.vtk.org/Bug/view.php?id=11240)\
-    Huge static libraries like libmysqld might not build if /MACHINE flag is missing\
+    Huge static libraries like libmysqld might not build if /MACHINE flag is missing
     for librarian with the correct processor architecture.
   * Fix is to add /MACHINE flag for x64 builds
 * [Revision #2906](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2906)\
@@ -328,8 +328,8 @@
 * [Revision #2905](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2905)\
   Sat 2011-02-12 17:17:19 +0100
   * Fix [MySQL Bug #60057](https://bugs.mysql.com/bug.php?id=60057) : sel\_arg\_range\_seq\_next loops in optimized compilation/VS2010
-    * When [mariadb 5.3](./) is compiler with VS2010, several tests would enter infinite loop in\
-      sel\_arg\_range\_seq\_next(). The reason is compiler backend bug. This bug is not\
+    * When [mariadb 5.3](./) is compiler with VS2010, several tests would enter infinite loop in
+      sel\_arg\_range\_seq\_next(). The reason is compiler backend bug. This bug is not
       present in either VS2008 or VS2010 SP1 RC.
     * Workaround is to compile this function without most aggresive optimization flag\
       (-Og ) using #pragma optimize ("g", {on|off}) for this version of MSVC compiler.
@@ -350,10 +350,10 @@
   * [Revision #2899.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2899.1.1)\
     Fri 2011-02-04 19:06:35 -0800
     * Introduced optimizer switch flag 'optimize\_join\_buffer\_size'.
-    * When this flag is 'off' the size of the used join buffer\
+    * When this flag is 'off' the size of the used join buffer
       is taken directly from the system variable 'join\_buffer\_size'.
-    * When this flag is 'on' then the size of the buffer depends\
-      on the estimated number of rows in the partial join whose\
+    * When this flag is 'on' then the size of the buffer depends
+      on the estimated number of rows in the partial join whose
       records are to be stored in the buffer.
     * By default this flag is set 'on'.
 * [Revision #2901](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2901)\
@@ -364,20 +364,20 @@
   * Merge
   * [Revision #2897.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2897.1.1)\
     Sat 2011-02-05 20:57:03 -0800
-    * Fixed [Bug #702403](https://bugs.launchpad.net/bugs/702403) that caused a crash on the tree for [MWL#128](https://askmonty.org/worklog/?tid=128)\
+    * Fixed [Bug #702403](https://bugs.launchpad.net/bugs/702403) that caused a crash on the tree for [MWL#128](https://askmonty.org/worklog/?tid=128)
       with the test case added by this patch.
     * The bug cannot be reproduced with the same test case for the main\
-      5.3 tree because the backported fix for [MySQL Bug #59696](https://bugs.mysql.com/bug.php?id=59696) masks the\
-      problem that causes the crash in the mentioned test case. It's not\
+      5.3 tree because the backported fix for [MySQL Bug #59696](https://bugs.mysql.com/bug.php?id=59696) masks the
+      problem that causes the crash in the mentioned test case. It's not
       clear weather this fix masks this problem in all possible cases.
-    * Anyway the patch for [Bug #698882](https://bugs.launchpad.net/bugs/698882) introduced some inconsistent data\
+    * Anyway the patch for [Bug #698882](https://bugs.launchpad.net/bugs/698882) introduced some inconsistent data
       structures that could contain indirect references to deleted object.
-    * It happened when two Item\_equal objects were merged and the Item\_field\
+    * It happened when two Item\_equal objects were merged and the Item\_field
       list of the second object was joined to such list of the first object.
     * This operation required adjustment of the backward pointers in\
-      Item fields from the joined list. However the adjustment was missing\
+      Item fields from the joined list. However the adjustment was missing
       and this caused crashes in the tree for [MWL#128](https://askmonty.org/worklog/?tid=128).
-    * Now the backward pointers are set only when Item\_equal items are\
+    * Now the backward pointers are set only when Item\_equal items are
       completely built and are not changed anymore.
 * [Revision #2899](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2899)\
   Tue 2011-02-01 14:19:58 +0100
@@ -387,19 +387,19 @@
 * [Revision #2898](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2898)\
   Mon 2011-01-31 19:33:32 -0800
   * Back-ported the patch for [MySQL Bug #59696](https://bugs.mysql.com/bug.php?id=59696) from mysql-5.6 code line.
-  * The patch fixed the following optimizer defect: when performing\
-    substitution for best equal fields into where conditions to be\
-    able to do their evaluations as soon as possible the optimizer\
-    skipped conditions over views. That could lead to suboptimal\
+  * The patch fixed the following optimizer defect: when performing
+    substitution for best equal fields into where conditions to be
+    able to do their evaluations as soon as possible the optimizer
+    skipped conditions over views. That could lead to suboptimal
     execution of queries that used views.
-  * Slightly changed the test case to demonstrate the performance\
+  * Slightly changed the test case to demonstrate the performance
     improvements if this fix.
 * [Revision #2897](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2897) \[merge]\
   Fri 2011-01-28 18:54:30 -0800
   * Merge
   * [Revision #2893.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2893.1.2)\
     Mon 2011-01-24 14:54:50 -0800
-    * Post-second-review fixes for the patch that added the code allowing to use\
+    * Post-second-review fixes for the patch that added the code allowing to use
       hash join over equi-join conditions without supporting indexes.
   * [Revision #2893.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2893.1.1) \[merge]\
     Sun 2011-01-23 10:39:53 -0800
@@ -407,51 +407,51 @@
 * [Revision #2896](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2896)\
   Thu 2011-01-27 21:23:02 -0800
   * Fixed [Bug #707827](https://bugs.launchpad.net/bugs/707827).
-    * This bug could manifest itself when hash join over a varchar column\
-      with NULL values in some rows was used. It happened because the\
-      function key\_buf\_cmp erroneously returned FALSE when one of the joined\
+    * This bug could manifest itself when hash join over a varchar column
+      with NULL values in some rows was used. It happened because the
+      function key\_buf\_cmp erroneously returned FALSE when one of the joined
       key fields was null while the second was not.
-    * Also fixed two other bugs in the functions key\_hashnr and key\_buf\_cmp\
-      that could possibly lead to wrong results for some queries that\
+    * Also fixed two other bugs in the functions key\_hashnr and key\_buf\_cmp
+      that could possibly lead to wrong results for some queries that
       used hash join over several columns with nulls.
-    * Also reverted the latest addition of the test case for [MySQL Bug #45092](https://bugs.mysql.com/bug.php?id=45092). It\
+    * Also reverted the latest addition of the test case for [MySQL Bug #45092](https://bugs.mysql.com/bug.php?id=45092). It
       had been already backported earlier.
 * [Revision #2895](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2895)\
   Wed 2011-01-26 20:45:23 -0800
   * Fixed [Bug #707848](https://bugs.launchpad.net/bugs/707848).
-    * This was another bug in the patch for [Bug #698882](https://bugs.launchpad.net/bugs/698882). The new\
-      code from this patch did not ensured that substitutions\
+    * This was another bug in the patch for [Bug #698882](https://bugs.launchpad.net/bugs/698882). The new
+      code from this patch did not ensured that substitutions
       of fields for best equal fields were performed on all\
-      AND-OR levels. As a result substitutions for best fields\
-      in some predicates that had been used by the range optimizer\
-      were not actually performed while range plans could employ\
-      these substitutions. This could lead to inconsistent data\
+      AND-OR levels. As a result substitutions for best fields
+      in some predicates that had been used by the range optimizer
+      were not actually performed while range plans could employ
+      these substitutions. This could lead to inconsistent data
       structures and ultimately to a crash.
 * [Revision #2894](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2894)\
   Wed 2011-01-26 11:30:29 -0800
   * Fixed [Bug #707555](https://bugs.launchpad.net/bugs/707555).
     * The bug was in the code of the patch fixing [Bug #698882](https://bugs.launchpad.net/bugs/698882).
-    * With improper casting the method store\_key\_field::change\_source\_field\
-      was called for the elements of the array TABLE\_REF::key\_copy that\
-      were either of a different type or not allocated at all. This caused\
+    * With improper casting the method store\_key\_field::change\_source\_field
+      was called for the elements of the array TABLE\_REF::key\_copy that
+      were either of a different type or not allocated at all. This caused
       crashes in some queries.
 * [Revision #2893](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2893)\
   Sat 2011-01-22 23:45:52 -0800
-  * Fixed typo that caused printing 'range' instead of 'index\_merge' as the type\
+  * Fixed typo that caused printing 'range' instead of 'index\_merge' as the type
     of sort\_intersect scans.
 * [Revision #2892](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2892)\
   Fri 2011-01-21 09:56:55 +0200
   * Fix of reverting changes in depend\_on list.
 * [Revision #2891](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2891)\
   Fri 2011-01-14 21:51:55 +0100
-  * issue an informative error message for a common Aria problem when opening a table\
+  * issue an informative error message for a common Aria problem when opening a table
     (incorrect block size)
 * [Revision #2890](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2890)\
   Fri 2011-01-14 21:02:51 +0100
   * compilation failures caused by adding new row format to Aria
 * [Revision #2889](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2889)\
   Fri 2011-01-14 12:05:46 +0100
-  * Optimize use of SEARCH\_SAVE\_BUFF in Aria\
+  * Optimize use of SEARCH\_SAVE\_BUFF in Aria
     (less not-needed copies of key pages)
 * [Revision #2888](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2888)\
   Fri 2011-01-14 12:03:41 +0100
@@ -462,21 +462,21 @@
 * [Revision #2887](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2887)\
   Fri 2011-01-14 11:58:45 +0100
   * Added ha\_write\_tmp\_row() for slightly faster write\_row for internal temp tables.
-  * This will also enable us in the future to collect statistics for\
+  * This will also enable us in the future to collect statistics for
     writes to internal tmp tables.
 * [Revision #2886](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2886)\
   Fri 2011-01-14 11:54:39 +0100
   * Added support for NO\_RECORD record format (don't store any row data) for Aria.
-  * This makes the keys smaller (no row pointer) and gives us proper errors if we\
+  * This makes the keys smaller (no row pointer) and gives us proper errors if we
     use the table wrongly.
 * [Revision #2885](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2885)\
   Fri 2011-01-14 11:43:42 +0100
-  * use normal unique (HA\_NOSAME) keys for expression cache\
+  * use normal unique (HA\_NOSAME) keys for expression cache
     temptables, not "uniques", that are hash-based keys.
 * [Revision #2884](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2884)\
   Fri 2011-01-14 11:37:23 +0100
   * Added to Aria better hash for packed numeric data for unique handling.
-  * This was needed as the old code caused us to have LOTS of duplicate\
+  * This was needed as the old code caused us to have LOTS of duplicate
     hash values when used by optimizer.
 * [Revision #2883](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2883)\
   Fri 2011-01-14 11:34:41 +0100
@@ -531,6 +531,6 @@
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

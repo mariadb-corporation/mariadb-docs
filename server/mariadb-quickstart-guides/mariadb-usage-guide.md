@@ -190,4 +190,6 @@ Using MariaDB involves understanding SQL syntax. It doesn't allow for typing mis
 
 * [MariaDB Basics](basics-guide.md)
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

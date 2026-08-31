@@ -110,7 +110,7 @@ Returns a dynamic columns blob that stores the specified columns with values. Th
 * storing in a table,
 * further modification with other dynamic columns functions.
 
-The `as type` part allows one to specify the value type. In most cases, this is redundant because MariaDB will be able to deduce the type of the value. Explicit type specification may be needed when the type of the value is not apparent. For example, a literal `'2012-12-01'` has a `CHAR` type by default, one will need to specify `'2012-12-01' AS DATE` to have it stored as a date. See the [Datatypes](dynamic-columns.md#Datatypes) section for further details. Note also [MDEV-597](https://jira.mariadb.org/browse/MDEV-597).
+The `as type` part allows one to specify the value type. In most cases, this is redundant because MariaDB will be able to deduce the type of the value. Explicit type specification may be needed when the type of the value is not apparent. For example, a literal `'2012-12-01'` has a `CHAR` type by default, one will need to specify `'2012-12-01' AS DATE` to have it stored as a date. See the [Datatypes](dynamic-columns.md#datatypes) section for further details. Note also [MDEV-597](https://jira.mariadb.org/browse/MDEV-597).
 
 Typical usage:
 
@@ -284,7 +284,7 @@ The set of possible datatypes is mostly the same as that used by the [CAST](../.
 
 #### A Note About Lengths
 
-If you're running queries without specifying a maximum length (i.e. using #as CHAR#, not `as CHAR(n)`), MariaDB reports the maximum length of the result set column to be`53,6870,911` (bytes or characters?). This may cause excessive memory usage in some client libraries, because they try to pre-allocate a buffer of maximum result set width. If you suspect you're hitting this problem, use `CHAR(n)`\
+If you're running queries without specifying a maximum length (i.e. using #as CHAR#, not `as CHAR(n)`), MariaDB reports the maximum length of the result set column to be`53,6870,911` (bytes or characters?). This may cause excessive memory usage in some client libraries, because they try to pre-allocate a buffer of maximum result set width. If you suspect you're hitting this problem, use `CHAR(n)`
 whenever you're using `COLUMN_GET` in the select list.
 
 ```sql

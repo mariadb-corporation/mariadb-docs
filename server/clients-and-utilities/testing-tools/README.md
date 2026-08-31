@@ -42,3 +42,5 @@ Stress-test a MariaDB server by running test scenarios repeatedly with mariadb-s
 MariaDB uses mariadb-test to test functionality. It is an all-in-one test framework doing unit, regression, and conformance testing
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

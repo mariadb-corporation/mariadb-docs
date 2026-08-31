@@ -131,4 +131,6 @@ BUILD SUCCESSFUL in 1s
 
 * More information at [About MariaDB Connector/J](about-mariadb-connector-j.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

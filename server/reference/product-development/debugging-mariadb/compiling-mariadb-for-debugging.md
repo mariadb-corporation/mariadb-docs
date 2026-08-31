@@ -10,7 +10,7 @@ description: >-
 
 ## Compiling MariaDB for Debugging Using the `CMAKE_BUILD_TYPE` Option
 
-This option enables multiple debug instrumentation aspects within the MariaDB server that provided more detailed information around complex parts of the server and can be used to implement and run tests where the concurrent execution of multiple threads must be controlled to achieve a specific state. If you are not doing this, the following [option](compiling-mariadb-for-debugging.md#Building_Optimized_Build_With_Debug_Symbols) is sufficient.
+This option enables multiple debug instrumentation aspects within the MariaDB server that provided more detailed information around complex parts of the server and can be used to implement and run tests where the concurrent execution of multiple threads must be controlled to achieve a specific state. If you are not doing this, the following [option](compiling-mariadb-for-debugging.md#building-optimized-build-with-debug-symbols) is sufficient.
 
 Compiling MariaDB with full debug information includes all code symbols and also new code to do internal testing of structures and allow one to trace MariaDB execution. A full debug binary will be notably slower than a normal binary (30%). Most of this overhead can be removed by disabling `-DWITH_DBUG_TRACE=OFF`
 
@@ -26,7 +26,7 @@ To compile:
 cmake --build .
 ```
 
-You can find a list of the needed packages/libraries for building on Linux [here](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/build-environment-setup-for-linux.md).
+You can find a list of the needed packages/libraries for building on Linux [here](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md).
 
 ## Building Optimized Build With Debug Symbols
 
@@ -60,7 +60,7 @@ The packages created will have these flags set.
 
 ### Temporarily Installing your Debug Build
 
-The commands shown below replace the release `mariadbd` binary with the debug `mariadbd` binary that you compiled. Most importantly, they replace the binary in a way which makes it trivial to revert back to the\
+The commands shown below replace the release `mariadbd` binary with the debug `mariadbd` binary that you compiled. Most importantly, they replace the binary in a way which makes it trivial to revert back to the
 original release `mariadbd` binary.
 
 First, [stop MariaDB](https://mariadb.com/kb/en/).
@@ -128,10 +128,10 @@ This is achieved by grouping asserts in MariaDB server code into two groups:
 
 ## See Also
 
-* [Build environment setup for Linux](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/build-environment-setup-for-linux.md)
+* [Build environment setup for Linux](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md)
 * [Debugging MariaDB with a debugger](debugging-mariadb-with-a-debugger.md)
 * [Creating a trace file](creating-a-trace-file.md)
-* [Using ASAN with MariaDB](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/compile-and-using-mariadb-with-sanitizers-asan-ubsan-tsan-msan.md)
+* [Using ASAN with MariaDB](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

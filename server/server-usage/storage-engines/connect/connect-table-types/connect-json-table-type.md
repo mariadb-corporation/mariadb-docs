@@ -263,7 +263,7 @@ The array specification can also indicate how it must be processed:
 
 | Specification                                                        | Array Type | Limit | Description                                                                                               |
 | -------------------------------------------------------------------- | ---------- | ----- | --------------------------------------------------------------------------------------------------------- |
-| n (Connect >= 1.6) or \[n]\[[1](connect-json-table-type.md#_note-0)] | All        | N.A   | Take the nth value of the array.                                                                          |
+| n (Connect >= 1.6) or \[n]\[1] | All        | N.A   | Take the nth value of the array.                                                                          |
 | \[\*] (Connect >= 1.6), \[X] or \[x] (Connect <= 1.5)                | All        |       | Expand. Generate one row for each array value.                                                            |
 | \["string"]                                                          | String     |       | Concatenate all values separated by the specified string.                                                 |
 | \[+]                                                                 | Numeric    |       | Make the sum of all the non-null array values.                                                            |
@@ -1097,7 +1097,7 @@ Therefore we need specific functions to do so. They are introduced now.
 
 ## JSON User Defined Functions
 
-Although such functions written by other parties do exist,\[[2](connect-json-table-type.md#_note-1)] CONNECT provides its own UDFs that are specifically adapted to the JSON table type and easily available because, being inside the CONNECT library or DLL, they require no additional module to be loaded (see [CONNECT - Compiling JSON UDFs in a Separate Library](../connect-compiling-json-udfs-in-a-separate-library.md) to make these functions in a separate library module).
+Although such functions written by other parties do exist,\[2] CONNECT provides its own UDFs that are specifically adapted to the JSON table type and easily available because, being inside the CONNECT library or DLL, they require no additional module to be loaded (see [CONNECT - Compiling JSON UDFs in a Separate Library](../connect-compiling-json-udfs-in-a-separate-library.md) to make these functions in a separate library module).
 
 Here is the list of the CONNECT functions; more can be added if required.
 
@@ -1156,7 +1156,7 @@ Argument string values, for some functions, can alternatively be json file names
 
 Numeric values are (big) integers, double floating point values or decimal values. Decimal values are character strings containing a numeric representation and are treated as strings. Floating point values contain a decimal point and/or an exponent. Integers are written without decimal points.
 
-To install these functions execute the following commands :\[[3](connect-json-table-type.md#_note-2)]
+To install these functions execute the following commands :\[3]
 
 #### Note
 
@@ -2363,7 +2363,7 @@ UPDATE assets SET dynamic_cols=COLUMN_ADD(dynamic_cols, 'warranty', '3 years')
    WHERE item_name='Thinkpad Laptop';
 ```
 
-/\* You can also list all columns, or\
+/\* You can also list all columns, or
 get them together with their values in JSON format: \*/
 
 ```sql
@@ -2703,9 +2703,9 @@ Variables used with Json tables are:
 
 ## Notes
 
-1. [↑](connect-json-table-type.md#_ref-0) The value n can be 0 based or 1 based depending on the base table option. The default is 0 to match what is the current usage in the Json world but it can be set to 1 for tables created in old versions.
-2. [↑](connect-json-table-type.md#_ref-1) See for instance: [json-functions](../../../../reference/sql-functions/special-functions/json-functions/), [lib\_mysqludf\_json#readme](https://github.com/mysqludf/lib_mysqludf_json#readme) and [json\_udf\_functions\_version\_04](https://blogs.oracle.com/svetasmirnova/entry/json_udf_functions_version_04)
-3. [↑](connect-json-table-type.md#_ref-2) This will not work when CONNECT is compiled embedded
+1. The value n can be 0 based or 1 based depending on the base table option. The default is 0 to match what is the current usage in the Json world but it can be set to 1 for tables created in old versions.
+2. See for instance: [json-functions](../../../../reference/sql-functions/special-functions/json-functions/), [lib\_mysqludf\_json#readme](https://github.com/mysqludf/lib_mysqludf_json#readme) and [json\_udf\_functions\_version\_04](https://blogs.oracle.com/svetasmirnova/entry/json_udf_functions_version_04)
+3. This will not work when CONNECT is compiled embedded
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

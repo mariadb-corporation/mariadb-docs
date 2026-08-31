@@ -17,7 +17,7 @@ Several options are mandatory, meaning they _must_ be set for Galera Cluster to 
 * [wsrep\_cluster\_address](../../reference/galera-cluster-system-variables.md#wsrep_cluster_address) — See [Galera Cluster address format and usage](galera-cluster-address.md)
 * [binlog\_format=ROW](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_format) — See [Binary Log Formats](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/binary-log-formats)
 * [wsrep\_on=ON](../../reference/galera-cluster-system-variables.md#wsrep_on) — Enable wsrep replication
-* [default\_storage\_engine=InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#default_storage_engine) — This is the default value, or alternately [wsrep\_replicate\_myisam=1](../../reference/galera-cluster-system-variables.md#wsrep_replicate_myisam) (before MariaDB 10.6) or [wsrep\_mode=REPLICATE\_ARIA,REPLICATE\_MYISAM](../../reference/galera-cluster-system-variables.md#wsrep_mode=REPLICATE_ARIA,REPLICATE_MYISAM) (MariaDB 10.6 and later).
+* [default\_storage\_engine=InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#default_storage_engine) — This is the default value, or alternately [wsrep\_replicate\_myisam=1](../../reference/galera-cluster-system-variables.md#wsrep_replicate_myisam) (before MariaDB 10.6) or [wsrep\_mode=REPLICATE\_ARIA,REPLICATE\_MYISAM](../../reference/galera-cluster-system-variables.md#wsrep_mode) (MariaDB 10.6 and later).
   * [innodb\_doublewrite=1](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_doublewrite) — This is the default value, and should not be changed.
 
 ## Performance-related Options
@@ -62,7 +62,7 @@ Galera Cluster needs access to the following ports:
 
 * Standard MariaDB Port (default: 3306) - For MySQL client connections and [State Snapshot Transfers](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) that use the `mysqldump` method. This can be changed by setting [port](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#port).
 * Galera Replication Port (default: 4567) - For Galera Cluster replication traffic, multicast replication uses both UDP transport and TCP on this port. Can be changed by setting [wsrep\_node\_address](../../reference/galera-cluster-system-variables.md#wsrep_node_address).
-* Galera Replication Listening Interface (default: `0.0.0.0:4567`) needs to be set using [gmcast.listen\_addr](../../reference/wsrep-variable-details/wsrep_provider_options.md#gmcastlisten_addr), either
+* Galera Replication Listening Interface (default: `0.0.0.0:4567`) needs to be set using [gmcast.listen\_addr](../../reference/wsrep-variable-details/wsrep_provider_options.md#gmcast.listen_addr), either
   * in [wsrep\_provider\_options](../../reference/galera-cluster-system-variables.md#wsrep_provider_options): `wsrep_provider_options='gmcast.listen_addr=tcp://<IP_ADDR>:<PORT>;'`
   * or in [wsrep\_cluster\_address](../../reference/galera-cluster-system-variables.md#wsrep_cluster_address)
 * IST Port (default: 4568) - For Incremental State Transfers. Can be changed by setting ist.recv\_addr in [wsrep\_provider\_options](../../reference/galera-cluster-system-variables.md#wsrep_provider_options).
@@ -70,7 +70,7 @@ Galera Cluster needs access to the following ports:
 
 ## Multiple Galera Cluster Instances on One Server
 
-If you want to run multiple Galera Cluster instances on one server, then you can do so by starting each instance with [mysqld\_multi](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqld_multi), or if you are using [systemd](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd), then you can use the relevant [systemd method for interacting with multiple MariaDB instances](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-the-mariadb-server-process).
+If you want to run multiple Galera Cluster instances on one server, then you can do so by starting each instance with mysqld\_multi, or if you are using [systemd](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd), then you can use the relevant [systemd method for interacting with multiple MariaDB instances](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-the-mariadb-server-process).
 
 You need to ensure that each instance is configured with a different [datadir](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#datadir).
 

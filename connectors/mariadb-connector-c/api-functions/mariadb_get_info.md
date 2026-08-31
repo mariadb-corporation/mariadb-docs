@@ -19,3 +19,5 @@ This function is deprecated. Please use [mariadb\_get\_infov()](mariadb_get_info
 ## See Also
 
 * [mariadb\_get\_infov()](mariadb_get_infov.md)&#x20;
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

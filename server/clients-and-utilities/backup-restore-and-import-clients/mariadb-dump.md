@@ -22,7 +22,7 @@ If you are doing a backup on the server and all your tables are [MyISAM](../../s
 
 `mariadb-dump` dumps trigger along with tables, as these are part of the table definition. However, [stored procedures](../../server-usage/stored-routines/stored-procedures/), [views](../../server-usage/views/), and [events](../../server-usage/triggers-events/event-scheduler/events.md) are not dumped, and need extra parameters to be recreated explicitly (for example, `--routines` and `--events`). [Procedures](../../server-usage/stored-routines/stored-procedures/) and [functions](../../server-usage/stored-routines/stored-functions/) are also part of the system tables (for example, [mysql.proc](../../reference/system-tables/the-mysql-database-tables/mysql-proc-table.md)).
 
-`mariadb-dump` supports the [enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT](../../ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot.md#mariadb-dump).
+`mariadb-dump` supports the [enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT](../../ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot.md).
 
 ## Performance
 
@@ -60,6 +60,63 @@ To see a list of the options your version of `mariadb-dump` supports, execute `m
 ## mysql.transaction\_registry\_table
 
 `mariadb-dump` includes logic to cater for the [mysql.transaction\_registry table](../../reference/system-tables/the-mysql-database-tables/mysql-transaction_registry-table.md).
+
+## Generated Columns
+
+From MariaDB 13.1, `mariadb-dump` no longer writes the computed values of [generated columns](../../reference/sql-statements/data-definition/create/generated-columns.md) into the `INSERT` statements it produces. The values are redundant, because the server recalculates them when the dump is reloaded.
+
+Given this table:
+
+```sql
+CREATE TABLE t1 (pk INTEGER, a INTEGER, b INTEGER, c VARCHAR(16),
+                 sum INTEGER GENERATED ALWAYS AS (a+b) VIRTUAL,
+                 sub VARCHAR(4) GENERATED ALWAYS AS (SUBSTRING(c, 1, 4)) VIRTUAL);
+```
+
+by default a generated column keeps its position in the row, and its value is written as `DEFAULT`:
+
+```sql
+INSERT INTO `t1` VALUES
+(1,11,12,'oneone',DEFAULT,DEFAULT),
+(2,21,22,'twotwo',DEFAULT,DEFAULT);
+```
+
+With `--complete-insert`, generated columns are left out of both the column list and the values:
+
+```sql
+INSERT INTO `t1` (`pk`, `a`, `b`, `c`) VALUES (1,11,12,'oneone'),
+(2,21,22,'twotwo');
+```
+
+An [INVISIBLE](../../reference/sql-statements/data-definition/create/invisible-columns.md) column enables `--complete-insert` for that table, so the dump gets a column list even when the option is not given. Generated columns are then only left out from the first `INVISIBLE` column onward: a generated column declared _before_ it stays in the column list, with its value written as `DEFAULT`. Given this table:
+
+```sql
+CREATE TABLE t4 (pk INTEGER, a INTEGER,
+                 b INTEGER GENERATED ALWAYS AS (a+1),
+                 c INTEGER INVISIBLE,
+                 d INTEGER GENERATED ALWAYS AS (a+pk));
+```
+
+`b` precedes the `INVISIBLE` column and is kept, while `d` follows it and is omitted:
+
+```sql
+INSERT INTO `t4` (`pk`, `a`, `b`, `c`) VALUES (1,2,DEFAULT,10),
+(4,5,DEFAULT,20);
+```
+
+Passing `--complete-insert` explicitly leaves out every generated column, whatever its position.
+
+If every column in a table is generated, `--complete-insert` writes an empty column list, which preserves the row count:
+
+```sql
+INSERT INTO `t5` () VALUES (),
+(),
+();
+```
+
+{% hint style="info" %}
+This applies to the SQL output only. The `--xml` output is unchanged, and still contains generated columns with their computed values. `--tab` and `--dir` are also unaffected, because the server writes those data files with `SELECT ... INTO OUTFILE`. [System-versioned](../../reference/sql-structure/temporal-tables/system-versioned-tables.md) `row_start` and `row_end` columns are not treated as generated columns.
+{% endhint %}
 
 ## Old Versions of MySQL
 
@@ -155,7 +212,7 @@ Change the dump to be compatible with a given mode. By default, tables are dumpe
 
 #### -c, --complete-insert
 
-Use complete [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) statements that include column names.
+Use complete [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) statements that include column names. From MariaDB 13.1, [generated columns](#generated-columns) are omitted from the column list.
 
 #### -C, --compress
 
@@ -523,7 +580,7 @@ Shared-memory name to use for Windows connections using shared memory to a local
 
 #### --single-transaction
 
-This option sends a [START TRANSACTION](../../reference/sql-statements/transactions/start-transaction.md) SQL statement to the server before dumping data. It is useful only with transactional tables such as [InnoDB](../../server-usage/storage-engines/innodb/), because then it dumps the consistent state of the database at the time when `BEGIN` was issued, without blocking any applications. When using this option, you should keep in mind that only InnoDB tables are dumped in a consistent state. The single-transaction feature depends not only on the engine being transactional and capable of `REPEATABLE-READ`, but also on `START TRANSACTION WITH CONSISTENT SNAPSHOT`. The dump is not guaranteed to be consistent for other storage engines. For example, any [TokuDB](../../server-usage/storage-engines/legacy-storage-engines/tokudb/), [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/), or [MEMORY](../../server-usage/storage-engines/memory-storage-engine.md) tables dumped while using this option may still change state. While a `--single-transaction` dump is in process, to ensure a valid dump file (correct table contents and binary log coordinates), no other connection should use the following statements: [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/), [CREATE TABLE](../../reference/sql-statements/data-definition/create/create-table.md), [DROP TABLE](../../reference/sql-statements/data-definition/drop/drop-table.md), [RENAME TABLE](../../reference/sql-statements/data-definition/rename-table.md), or [TRUNCATE TABLE](../../reference/sql-statements/table-statements/truncate-table.md). A consistent read is not isolated from those statements, so use of them on a table to be dumped can cause the `SELECT` (performed by mariadb-dump to retrieve the table contents) to obtain incorrect contents or fail. The `--single-transaction` option and the `--lock-tables` option are mutually exclusive, because [LOCK TABLES](../../reference/sql-statements/transactions/lock-tables.md) causes any pending transactions to be committed implicitly. So, this option automatically turns off `--lock-tables`. To dump large tables, you should combine the `--single-transaction` option with `--quick`.
+This option sends a [START TRANSACTION](../../reference/sql-statements/transactions/start-transaction.md) SQL statement to the server before dumping data. It is useful only with transactional tables such as [InnoDB](../../server-usage/storage-engines/innodb/), because then it dumps the consistent state of the database at the time when `BEGIN` was issued, without blocking any applications. When using this option, you should keep in mind that only InnoDB tables are dumped in a consistent state. The single-transaction feature depends not only on the engine being transactional and capable of `REPEATABLE-READ`, but also on `START TRANSACTION WITH CONSISTENT SNAPSHOT`. The dump is not guaranteed to be consistent for other storage engines. For example, any [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/), or [MEMORY](../../server-usage/storage-engines/memory-storage-engine.md) tables dumped while using this option may still change state. While a `--single-transaction` dump is in process, to ensure a valid dump file (correct table contents and binary log coordinates), no other connection should use the following statements: [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/), [CREATE TABLE](../../reference/sql-statements/data-definition/create/create-table.md), [DROP TABLE](../../reference/sql-statements/data-definition/drop/drop-table.md), [RENAME TABLE](../../reference/sql-statements/data-definition/rename-table.md), or [TRUNCATE TABLE](../../reference/sql-statements/table-statements/truncate-table.md). A consistent read is not isolated from those statements, so use of them on a table to be dumped can cause the `SELECT` (performed by mariadb-dump to retrieve the table contents) to obtain incorrect contents or fail. The `--single-transaction` option and the `--lock-tables` option are mutually exclusive, because [LOCK TABLES](../../reference/sql-statements/transactions/lock-tables.md) causes any pending transactions to be committed implicitly. So, this option automatically turns off `--lock-tables`. To dump large tables, you should combine the `--single-transaction` option with `--quick`.
 
 #### --skip-add-locks
 
@@ -670,11 +727,11 @@ Dump a database as well-formed XML.
 
 Some `mariadb-dump` options are shorthand for groups of other options:
 
-* Use of `--opt` is the same as specifying`--add-drop-table`, `--add-locks`, `--create-options`, `--disable-keys`, `--extended-insert`, `--lock-tables`, `--quick`, and `--set-charset`. All of the\
+* Use of `--opt` is the same as specifying`--add-drop-table`, `--add-locks`, `--create-options`, `--disable-keys`, `--extended-insert`, `--lock-tables`, `--quick`, and `--set-charset`. All of the
   options that `--opt` stands for are also on by default because `--opt` is on by default.
 * Use of `--compact` is the same as specifying `--skip-add-drop-table`, `--skip-add-locks`, `--skip-comments`, `--skip-disable-keys`, and `--skip-set-charset` options.
 
-To reverse the effect of a group option, use its `--skip-xxx` form (`--skip-opt` or `--skip-compact`). It\
+To reverse the effect of a group option, use its `--skip-xxx` form (`--skip-opt` or `--skip-compact`). It
 is also possible to select only part of the effect of a group option by following it with options that enable or disable specific features. Here are some examples:
 
 * To select the effect of `--opt` except for some features, use the `--skip` option for each feature. To disable extended inserts and memory buffering, use `--opt--skip-extended-insert` `--skip-quick`.\
@@ -781,7 +838,7 @@ Collation="latin1_swedish_ci" Create_options="" Comment="" />
 
 ## Restoring Dumps
 
-To restore a backup created with `mariadb-dump`, use the \[mariadb client]\(../mariadb-client/mariadb-command line-client.md) to import the dump:
+To restore a backup created with `mariadb-dump`, use the [mariadb client](../mariadb-client/mariadb-command-line-client.md) to import the dump:
 
 ```bash
 mariadb db_name < backup-file.sql
@@ -945,7 +1002,7 @@ Or:
 shell> mariadb-dump --all-databases --flush-logs --master-data=2 > all_databases.sql
 ```
 
-The `--master-data` and `--single-transaction` options can be used simultaneously, which provides a convenient way to make an online backup suitable for use prior to point-in-time recovery if tables are\
+The `--master-data` and `--single-transaction` options can be used simultaneously, which provides a convenient way to make an online backup suitable for use prior to point-in-time recovery if tables are
 stored that use the InnoDB storage engine.
 
 ## See Also

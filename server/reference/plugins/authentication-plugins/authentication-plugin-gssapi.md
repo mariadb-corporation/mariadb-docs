@@ -14,7 +14,7 @@ On Unix systems, the most dominant GSSAPI service is [Kerberos](https://en.wikip
 
 The `gssapi` authentication plugin is most often used for authenticating with [Microsoft Active Directory](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview).
 
-This article gives instructions on configuring the `gssapi` authentication plugin\
+This article gives instructions on configuring the `gssapi` authentication plugin
 for MariaDB for passwordless login.
 
 ## Installing the Plugin's Package
@@ -81,7 +81,7 @@ The first method can be used to install the plugin without restarting the server
 INSTALL SONAME 'auth_gssapi';
 ```
 
-The second method can be used to tell the server to load the plugin when it starts up. The plugin can be installed this way by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load-add) options. This can be specified as a command-line argument to [mariadbd](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) or it can be specified in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
+The second method can be used to tell the server to load the plugin when it starts up. The plugin can be installed this way by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options. This can be specified as a command-line argument to [mariadbd](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) or it can be specified in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
 ```ini
 [mariadb]
@@ -300,7 +300,7 @@ When connecting from Unix client to Windows server with ADO.NET, in an Active Di
 
 * Description: Defines the path to the server's keytab file.
   * This system variable is only meaningful on Unix.
-  * See [Creating a Keytab File on Unix](authentication-plugin-gssapi.md#creating-a-keytab-file) and [Configuring the Path to the Keytab File on Unix](authentication-plugin-gssapi.md#configuring-the-path-to-the-keytab-file-on-unix) for more information.
+  * See [Creating a Keytab File on Unix](authentication-plugin-gssapi.md#creating-a-keytab-file-on-unix) and [Configuring the Path to the Keytab File on Unix](authentication-plugin-gssapi.md#configuring-the-path-to-the-keytab-file-on-unix) for more information.
 * Command line: `--gssapi-keytab-path`
 * Scope: Global
 * Dynamic: No

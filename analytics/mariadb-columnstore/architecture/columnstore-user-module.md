@@ -52,6 +52,6 @@ In addition to these, the User Module also runs processes for DMLProc, DDLPrc an
 
 DMLProc and DDLProc distribute DML and DDL statements to the appropriate Performance Modules. When cpimport runs on the User Module, it distributes source files to the Performance Modules.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

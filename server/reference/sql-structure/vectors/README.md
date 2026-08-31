@@ -90,3 +90,5 @@ The VECTOR data type, available from MariaDB 11.7.1, for storing fixed- length n
 Combine full-text (keyword) and vector search using Reciprocal Rank Fusion (RRF) for higher-quality hybrid search results.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

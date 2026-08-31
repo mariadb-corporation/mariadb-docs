@@ -22,7 +22,7 @@ The Hashicorp Key Management Plugin is used to implement encryption using keys s
 The current version of this plugin implements the following features:
 
 * Authentication is done using Hashicorp Vault's token authentication method.
-* If additional client authentication is required, then the path to the CA authentication bundle file may be passed\
+* If additional client authentication is required, then the path to the CA authentication bundle file may be passed
   as a plugin parameter;
 * The creation of the keys and their management is carried out using the Hashicorp Vault KMS and its tools.
 * The plugin uses libcurl (https) as an interface to the HashiCorp Vault server.
@@ -39,7 +39,7 @@ Since we require support for key versioning, the key-value storage must be confi
 
 Key names must correspond to their numerical identifiers. Key identifiers themselves, their possible values, and rules of use are described in more detail in the MariaDB main documentation.
 
-From the point of view of the key-value storage (in terms of Hashicorp Vault), the key is a secret containing one key-value pair with the name "data" and a value representing a binary string\
+From the point of view of the key-value storage (in terms of Hashicorp Vault), the key is a secret containing one key-value pair with the name "data" and a value representing a binary string
 containing the key value, for example:
 
 ```bash
@@ -127,7 +127,7 @@ The plugin supports the following parameters, which must be set in advance and c
 
 #### `hashicorp-key-management-cache-version-timeout`
 
-* Description: The time (in milliseconds) after which the information about the latest version number of the key (which is stored in the cache) becomes invalid and an attempt to read this information causes a new request to be sent to the vault server. If the value of this parameter is zero, then information about the latest key version numbers is always considered invalid, unless there is no communication with the vault server, and use of the cache is allowed when the server is unavailable. By default, this parameter is zero, that is, the latest version numbers for the keys stored in the cache are considered always invalid, except when the vault server is unavailable and use\
+* Description: The time (in milliseconds) after which the information about the latest version number of the key (which is stored in the cache) becomes invalid and an attempt to read this information causes a new request to be sent to the vault server. If the value of this parameter is zero, then information about the latest key version numbers is always considered invalid, unless there is no communication with the vault server, and use of the cache is allowed when the server is unavailable. By default, this parameter is zero, that is, the latest version numbers for the keys stored in the cache are considered always invalid, except when the vault server is unavailable and use
   of the cache is allowed on server failures.
 * Command line: `--[loose-]hashicorp-key-management-cache-version-timeout=<timeout>`
 

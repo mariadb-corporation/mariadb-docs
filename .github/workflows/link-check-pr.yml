@@ -73,6 +73,11 @@ jobs:
           # Actions runners outright (serves 200 to a normal client), and
           # csm.mariadb.com is the customer support portal, which answers 403 to
           # anyone not logged in. Both links are valid for readers.
+          # DOCS-6499 adds docs.ansible.com, same class as blogspot.com: it
+          # answers the runners with 429 on every request (7 links on one page,
+          # two consecutive runs) while serving 301 -> 200 to a normal client.
+          # The 429 is host-level rate limiting, so replacing the URLs with
+          # their resolved /projects/ansible/ form would not help.
           #
           # Note for editors: the args block below is a YAML folded scalar, so
           # a '#' line inside it is NOT a comment -- it would be passed to
@@ -101,6 +106,88 @@ jobs:
           # forge.mysql.com and lists.mysql.com were retired by Oracle
           # (forge now serves a cert for another host); blogs.msdn.com folded
           # into learn.microsoft.com. None have a modern equivalent to point at.
+          #
+          # DOCS-5976: three more hosts that block automated clients, same
+          # class as www.reddit.com above. stackoverflow.com and
+          # gitlab.kitware.com answer 403 at the site ROOT (not just the cited
+          # page) even with a browser User-Agent, so it is a host-level block,
+          # not a dead page. www.freedesktop.org is the sharper case: it serves
+          # 200 to a developer machine but 418 ("I'm a teapot") to the Actions
+          # runners, so a local lychee run PASSES while CI fails -- the one
+          # failure mode a pre-PR check cannot reproduce. All are valid for
+          # readers.
+          #
+          # DOCS-6446: the two cloud-marketplace listings cited in the MariaDB
+          # Cloud FAQ. azuremarketplace.microsoft.com answers 403 to any
+          # non-browser client, and so does the marketplace.microsoft.com host it
+          # 308-redirects to, so replacing the URL with its resolved form does not
+          # help. console.cloud.google.com fails differently -- "HTTP/2 protocol
+          # error" rather than a status code -- because the host mishandles
+          # lychee's HTTP/2 negotiation. Both serve 200 to a browser User-Agent
+          # over HTTP/1.1 and are valid for readers.
+          #
+          # DOCS-6430 (2026-08-14): partedmagic.com, cited once in
+          # general-resources/distributions-including-mariadb.md. CI reports
+          # "SSL certificate expired", but the certificate is valid -- Let's
+          # Encrypt, notBefore 27 Jun 2026, notAfter 25 Sep 2026, checked with
+          # openssl on the day CI failed. The site also serves 200 to curl. The
+          # disagreement is between the runner's trust store and the chain the
+          # host presents (issuer CN=YR2), so it will not self-heal the way a
+          # genuine expiry would, and there is nothing to fix on our side.
+          #
+          # DOCS-6385 (2026-08-17): two more of each kind, surfaced by the
+          # private-repo link sweep across 396 release-notes pages.
+          #
+          # Historical GitHub citations, same class as the two /commit/ excludes
+          # at the top of this list. The Galera changelogs cite upstream issue
+          # numbers in codership/galera and codership/mysql-wsrep, whose issue
+          # trackers no longer resolve; the Docker and Jupyter-kernel release
+          # notes cite MariaDB/mariadb-docker and MariaDB/mariadb_kernel issues
+          # that have since been deleted; and mysql/mysql-utilities and
+          # Perl/perl5/issues are cited in old changelog text. All are
+          # unmaintainable historical references, not fixable links -- the
+          # issue numbers are the record, and there is nothing to point at.
+          #
+          # Live sites that block automated clients, same class as
+          # www.reddit.com and stackoverflow.com above. dba.stackexchange.com
+          # and askubuntu.com answer 403 to any non-browser client (Stack
+          # Exchange requires JS), and www.fsf.org fails lychee's connection
+          # while serving 200 to a browser User-Agent. All are valid for readers.
+          #
+          # DOCS-6449 (2026-08-18): three vendor/doc hosts cited from
+          # server/clients-and-utilities/ that block automated clients, proven
+          # alive by the challenge each one serves rather than by a status code.
+          # valentina-db.com and www.sqlmaestro.com both sit behind Sucuri
+          # CloudProxy and return its "Javascript is required" interstitial (403
+          # and 307 respectively). docs.moodle.org answers with
+          # "Cf-Mitigated: challenge" from Cloudflare. A browser User-Agent does
+          # NOT get past any of the three, so there is no resolved URL to
+          # substitute -- unlike codex.wordpress.org, which was retired by
+          # WordPress and so got repointed at wordpress.org/documentation
+          # instead of excluded.
+          #
+          # DOCS-6496 (2026-08-21): lists.freedesktop.org, the systemd-devel
+          # mailing-list archive, cited from systemd/configuring.md and the
+          # Galera SST page. Unlike every host above it is neither dead nor
+          # blocking -- it is simply slow and intermittent, so it fails as a
+          # TIMEOUT rather than an error, and lychee reports that alongside
+          # "Errors 0" while still exiting non-zero. Both cited pages return
+          # 200 with their real content on a retry (2 of 5 attempts from a
+          # developer machine), and CI and a local run time out on DIFFERENT
+          # URLs of the same host, which is what makes it host-level rather
+          # than a rotted page. Its sibling www.freedesktop.org is already
+          # excluded above. Nothing to repoint at: this archive is canonical
+          # for these threads.
+          #
+          # DOCS-6521: web.archive.org, same class as www.freedesktop.org --
+          # it answers the Actions runners with "Connection refused" while
+          # serving 200 promptly to a developer machine, so a local lychee run
+          # PASSES while CI fails. Three pages cite a Wayback snapshot, and in
+          # each case the snapshot IS the replacement for a page that no longer
+          # exists (a retired MaxMind dataset, two dead personal blogs), so
+          # there is nothing further to repoint at. The other two pages have
+          # carried the same latent failure since the migration; they only
+          # surface when a PR happens to touch them.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -149,9 +236,29 @@ jobs:
             --exclude www\.shannon-sys\.com
             --exclude www\.hashicorp\.com
             --exclude blogspot\.com
+            --exclude docs\.ansible\.com
             --exclude www\.poliarch\.org
             --exclude www\.reddit\.com
             --exclude csm\.mariadb\.com
+            --exclude stackoverflow\.com
+            --exclude gitlab\.kitware\.com
+            --exclude www\.freedesktop\.org
+            --exclude 'lists\.freedesktop\.org'
+            --exclude 'web\.archive\.org'
+            --exclude azuremarketplace\.microsoft\.com
+            --exclude console\.cloud\.google\.com
+            --exclude partedmagic\.com
+            --exclude 'github\.com/codership/(galera|mysql-wsrep)/issues/'
+            --exclude 'github\.com/MariaDB/mariadb-docker/'
+            --exclude 'github\.com/MariaDB/mariadb_kernel/'
+            --exclude 'github\.com/mysql/mysql-utilities/'
+            --exclude 'github\.com/Perl/perl5/issues/'
+            --exclude 'www\.fsf\.org'
+            --exclude 'dba\.stackexchange\.com'
+            --exclude 'askubuntu\.com'
+            --exclude 'valentina-db\.com'
+            --exclude 'docs\.moodle\.org'
+            --exclude 'www\.sqlmaestro\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

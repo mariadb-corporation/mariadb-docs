@@ -64,7 +64,7 @@ The following lists the major new features in [MariaDB 10.3](what-is-mariadb-103
 * Correctness improvement - TRUNCATE honors transactional locks ([MDEV-15061](https://jira.mariadb.org/browse/MDEV-15061))
 * Windows binaries now use high-precision timer when available ([MDEV-15694](https://jira.mariadb.org/browse/MDEV-15694)). This makes much less probable for two queries to have the same `CURRENT_TIMESTAMP(6)` value, for example.
 * Two new [ALTER TABLE ... ALGORITHM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table#algorithm) options, INSTANT and NOCOPY, which allow operations that would require any data files to be modified, or that would require rebuilding the clustered index respectively, to be refused rather than potentially perform slowly ([MDEV-13134](https://jira.mariadb.org/browse/MDEV-13134))
-* [mysqldump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqldump) `--ignore-database` option ([MDEV-13336](https://jira.mariadb.org/browse/MDEV-13336))
+* mysqldump `--ignore-database` option ([MDEV-13336](https://jira.mariadb.org/browse/MDEV-13336))
 
 ### Compatibility
 
@@ -159,8 +159,8 @@ For a list of all new variables, see [System Variables Added in MariaDB 10.3](ht
 
 ## Security Vulnerabilities Fixed in [MariaDB 10.3](what-is-mariadb-103.md)
 
-For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
+For a complete list of security vulnerabilities (CVEs) fixed across all
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)
 page.
 
 * [CVE-2023-5157](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5157): [MariaDB 10.3.36](10.3.36.md)
@@ -327,6 +327,6 @@ page.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

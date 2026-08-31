@@ -8,7 +8,7 @@ The MariaDB development release policy has the following project commitments for
 
 ### Commitment for Alpha Releases
 
-New features are being added. Some old features may be removed. Users can start trying Alpha versions out, but should not expect feature stability yet. Still, [Buildbot](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YDeiIobaziVWZCxk4IlA) should show no regressions and [Jira](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/8H2QW24PZkCSvuwPkQtB) should have no open [Blocker](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/mariadb-community-bug-processing) level bugs for this release.
+New features are being added. Some old features may be removed. Users can start trying Alpha versions out, but should not expect feature stability yet. Still, [Buildbot](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/tools/buildbot/about-buildbot) should show no regressions and [Jira](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/tools/jira) should have no open [Blocker](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/mariadb-community-bug-processing) level bugs for this release.
 
 ### Commitment for Beta Releases
 
@@ -30,6 +30,6 @@ Plugins generally follow the same rules, but they have [their own maturity level
 
 See our [security policy](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/mariadb-security-bug-fixing-policy) page for information of how and when emergency security releases are done.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.1/5.1.53.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #2934](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2934)
@@ -16,8 +16,8 @@ modified in that revision.
     * Flush page cache before closing files (in maria\_pack)
   * Fixed test suite failure for PBXT
 * [Revision #2933](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2933)
-  * The assert removed because it do not take into account case when previous\
-    and this buffers used for first time but previous buffer was not sent to\
+  * The assert removed because it do not take into account case when previous
+    and this buffers used for first time but previous buffer was not sent to
     disk yet (i.e. previous buffer was never sent to disk yet).
 * [Revision #2932](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2932)
   * Aria unit tests fixed to have correct pagecache shutdown.
@@ -34,7 +34,7 @@ modified in that revision.
 * [Revision #2928](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2928)
   * Fixed compiler warnings.
   * Fixed timing test failures.
-  * Fixed a failure in the Aria engines page cache and log handler (found with\
+  * Fixed a failure in the Aria engines page cache and log handler (found with
     maria.maria-big test)
     * This could cause a core dump when deleting big blobs.
     * Added test to end\_pagecache() to verify that page cache was correctly used.
@@ -57,19 +57,19 @@ modified in that revision.
 * [Revision #2924](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2924)
   * [MySQL Bug #54201](https://bugs.mysql.com/bug.php?id=54201): "SET INSERT\_ID" event must be ignored if corresponding event is ignored
     * An INSERT query log event is preceeded by an INSERT\_ID intvar event if the\
-      INSERT allocates a new auto\_increment value. But if we ignore the INSERT\
-      due to `--replicate-ignore-table` or similar, then the INSERT\_ID event is\
-      still executed, and the set value of INSERT\_ID lingers around in the\
-      slave sql thread THD object indefinitely until the next INSERT that\
+      INSERT allocates a new auto\_increment value. But if we ignore the INSERT
+      due to `--replicate-ignore-table` or similar, then the INSERT\_ID event is
+      still executed, and the set value of INSERT\_ID lingers around in the
+      slave sql thread THD object indefinitely until the next INSERT that
       happens to need allocation of a new auto\_increment value.
-    * Normally this does not cause problems as such following INSERT would\
-      normally come with its own INSERT\_ID event. In this bug, the user had\
-      a trigger on the slave which was missing on the master, and this\
-      trigger had an INSERT which could be affected. In any case, it seems\
+    * Normally this does not cause problems as such following INSERT would
+      normally come with its own INSERT\_ID event. In this bug, the user had
+      a trigger on the slave which was missing on the master, and this
+      trigger had an INSERT which could be affected. In any case, it seems
       better to not leave a stray INSERT\_ID hanging around in the sql thread\
       THD indefinitely.
     * Note that events can also be skipped from apply\_event\_and\_update\_pos();\
-      however it is not possible in that code to skip the INSERT without also\
+      however it is not possible in that code to skip the INSERT without also
       skipping the INSERT\_ID event.
 * [Revision #2923](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2923)
   * Fixed some compiler warnings
@@ -83,8 +83,8 @@ modified in that revision.
 * [Revision #2920](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2920)
   * Patch from Sergey Petrunya:
   * Fix post-merge failure in 5.1-merge
-    * Let QUICK\_RANGE\_INTERSECT\_SELECT not make assumption that HA\_EXTRA\_KEYREAD\
-      scans do not touch parts of table->record\[0] that refer to fields that are\
+    * Let QUICK\_RANGE\_INTERSECT\_SELECT not make assumption that HA\_EXTRA\_KEYREAD
+      scans do not touch parts of table->record\[0] that refer to fields that are
       not covered by the used index.
     * This assumption is not true for XtraDB (e.g. grep row/row0sel.c for\
       "init null bytes with default values as they might be").
@@ -101,8 +101,8 @@ modified in that revision.
   * Added back resetting of null bitmap but now in row\_search\_for\_mysql()
 * [Revision #2916](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2916)
   * A proper fix for [MySQL Bug #57688](https://bugs.mysql.com/bug.php?id=57688).
-  * Introduced a new flag in the class Item. The flag is set\
-    to 1 only for items that are used in GROUP BY lists of\
+  * Introduced a new flag in the class Item. The flag is set
+    to 1 only for items that are used in GROUP BY lists of
     queries with ROLLUP.
 * [Revision #2915](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2915) \[merge]
   * Automatic merge with base
@@ -131,6 +131,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

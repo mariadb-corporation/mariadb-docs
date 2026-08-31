@@ -42,7 +42,7 @@ Invented Nov, 2013; published Apr, 2014
 
 Future: Rick is working on actual code (Sep, 2016)\
 It is complicated by bit-wise operations being limited to BIGINT.\
-However, with MySQL 8.0 (freshly released), the desired bit-wise\
+However, with MySQL 8.0 (freshly released), the desired bit-wise
 operations can be applied to BLOB, greatly simplifying my code.\
 I hope to publish the pre-8.0 code soon; 8.0 code later.
 
@@ -50,7 +50,7 @@ I hope to publish the pre-8.0 code soon; 8.0 code later.
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [uniques](https://mysql.rjweb.org/doc.php/uniques)

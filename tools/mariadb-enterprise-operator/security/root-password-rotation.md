@@ -89,3 +89,5 @@ kubectl patch secret mariadb -p '{"data":{"root-password":"<new-password-base64>
 ```
 
 Make sure the new password is base64 encoded. The operator will then automatically trigger the password rotation process.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

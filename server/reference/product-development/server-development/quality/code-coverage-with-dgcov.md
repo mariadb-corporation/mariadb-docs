@@ -90,3 +90,5 @@ To be able to run `gcov` with the [mariadb-test](../../../../clients-and-utiliti
 
 * `dgcov` was created by Kristian Nielsen and [announced here](http://kristiannielsen.livejournal.com/1885.html).
 * `dgcov` was reimplemented to aggregate the data, and to work for `git` and `cmake`, by Sergei Golubchik.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

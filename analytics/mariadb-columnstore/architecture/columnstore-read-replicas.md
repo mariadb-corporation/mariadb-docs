@@ -86,7 +86,7 @@ chmod +x mariadb_es_repo_setup;
 ./mariadb_es_repo_setup --token="xxxxx" --apply --mariadb-server-version="11.4"
 ```
 
-See [this page](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage) for additional details about the ES repo setup.
+See [this page](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) for additional details about the ES repo setup.
 {% endstep %}
 
 {% step %}
@@ -177,6 +177,6 @@ See [this page](../management/deployment/install-guide/multnode-localstorage/ste
 {% endstep %}
 {% endstepper %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

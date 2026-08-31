@@ -42,3 +42,5 @@ This page explains the InnoDB system tablespace (ibdata1), which stores the data
 This page explains how InnoDB manages temporary tablespaces for non-compressed temporary tables, including configuration and sizing options.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

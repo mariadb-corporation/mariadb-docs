@@ -12,7 +12,7 @@ The MariaDB XA implementation is based on the X/Open CAE document Distributed Tr
 
 XA transactions are designed to allow distributed transactions, where a transaction manager (the application) controls a transaction which involves multiple resources. Such resources are usually DBMSs, but could be resources of any type. The whole set of required transactional operations is called a global transaction. Each subset of operations which involve a single resource is called a local transaction. XA used a 2-phases commit (2PC). With the first commit, the transaction manager tells each resource to prepare an effective commit, and waits for a confirm message. The changes are not still made effective at this point. If any of the resources encountered an error, the transaction manager will rollback the global transaction. If all resources communicate that the first commit is successful, the transaction manager can require a second commit, which makes the changes effective.
 
-In MariaDB, XA transactions can only be used with storage engines that support them. At least [InnoDB](../../../server-usage/storage-engines/innodb/), [TokuDB](../../../server-usage/storage-engines/legacy-storage-engines/tokudb/), [SPIDER](../../../server-usage/storage-engines/spider/) and [MyRocks](../../../server-usage/storage-engines/myrocks/) support them. XA transactions are always supported.
+In MariaDB, XA transactions can only be used with storage engines that support them. At least [InnoDB](../../../server-usage/storage-engines/innodb/), [SPIDER](../../../server-usage/storage-engines/spider/) and [MyRocks](../../../server-usage/storage-engines/myrocks/) support them. XA transactions are always supported.
 
 Like regular transactions, XA transactions create [metadata locks](metadata-locking.md) on accessed tables.
 
@@ -262,7 +262,7 @@ See [Transaction Coordinator Log Overview: MariaDB Galera Cluster](../../../serv
 From MariaDB 10.5, `XA PREPARE` persists the XA transaction following the XA Specification. If an existing application relies on the previous behavior, upgrading to 10.5 or later can leave XA transactions in the `PREPARE`d state indefinitely after disconnect, causing such applications to no longer function correctly.
 {% endhint %}
 
-As a work-around, the variable [legacy\_xa\_rollback\_at\_disconnect](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#legacy_xa_rollback_at_disconnect) can be set to TRUE to re-enable the old behavior and roll back XA transactions in the `PREPARE`d state at disconnect. This is non-standard\
+As a work-around, the variable `legacy_xa_rollback_at_disconnect` can be set to TRUE to re-enable the old behavior and roll back XA transactions in the `PREPARE`d state at disconnect. This is non-standard
 behaviour, and is not recommended for new applications. If rollback-at-disconnect is desired, it is better to use a normal (non-XA) transaction.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

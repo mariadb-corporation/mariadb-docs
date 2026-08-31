@@ -56,3 +56,5 @@ The `sys` schema contains a collection of views, procedures, and functions that 
 Contains the core system tables in the `mysql` database, including privilege tables, logging tables, and status variables.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -238,15 +238,15 @@ to the configuration file, some commands will be subject to authorization, by no
 
 | Command                                                                      | Role      |
 | ---------------------------------------------------------------------------- | --------- |
-| [createUser](maxscale-nosql-protocol-module.md#createUser)                   | userAdmin |
-| [dropUser](maxscale-nosql-protocol-module.md#dropUser)                       | userAdmin |
-| [grantRolesToUser](maxscale-nosql-protocol-module.md#grantRolesToUser)       | userAdmin |
-| [revokeRolesFromUser](maxscale-nosql-protocol-module.md#revokeRolesFromUser) | userAdmin |
-| [mxsAddUser](maxscale-nosql-protocol-module.md#mxsAddUser)                   | userAdmin |
-| [mxsRemoveUser](maxscale-nosql-protocol-module.md#mxsRemoveUser)             | userAdmin |
-| [mxsUpdateUser](maxscale-nosql-protocol-module.md#mxsUpdateUser)             | userAdmin |
-| [updateUser](maxscale-nosql-protocol-module.md#updateUser)                   | userAdmin |
-| [usersInfo](maxscale-nosql-protocol-module.md#usersInfo)                     | userAdmin |
+| [createUser](maxscale-nosql-protocol-module.md#createuser)                   | userAdmin |
+| [dropUser](maxscale-nosql-protocol-module.md#dropuser)                       | userAdmin |
+| [grantRolesToUser](maxscale-nosql-protocol-module.md#grantrolestouser)       | userAdmin |
+| [revokeRolesFromUser](maxscale-nosql-protocol-module.md#revokerolesfromuser) | userAdmin |
+| [mxsAddUser](maxscale-nosql-protocol-module.md#mxsadduser)                   | userAdmin |
+| [mxsRemoveUser](maxscale-nosql-protocol-module.md#mxsremoveuser)             | userAdmin |
+| [mxsUpdateUser](maxscale-nosql-protocol-module.md#mxsupdateuser)             | userAdmin |
+| [updateUser](maxscale-nosql-protocol-module.md#updateuser)                   | userAdmin |
+| [usersInfo](maxscale-nosql-protocol-module.md#usersinfo)                     | userAdmin |
 
 It is important to note that even if nosqlprotocol authorization is enabled, the MariaDB server has the final word. That is, even if the roles of a user would be sufficient for a particular operation, if the granted privileges are not, the operation will not succeed. There may be a mismatch between roles and privileges, for instance, if the wrong roles were specified when the user was added, or if the privileges have been altered directly and not via nosqlprotocol.
 
@@ -256,7 +256,7 @@ The authentication/authorization can be bootstrapped explicitly or implicitly. B
 
 #### Explicit bootstrapping
 
-In order to enable authorization you need to have NoSQL users and those can be created with [createUser](maxscale-nosql-protocol-module.md#createUser) or added with [mxsAddUser](maxscale-nosql-protocol-module.md#mxsadduser).
+In order to enable authorization you need to have NoSQL users and those can be created with [createUser](maxscale-nosql-protocol-module.md#createuser) or added with [mxsAddUser](maxscale-nosql-protocol-module.md#mxsadduser).
 
 If you want to _create_ a user, then you first need to configure nosqlprotocol with credentials that are sufficient for creating a user:
 
@@ -320,7 +320,7 @@ switched to db test
 
 **NOTE** When a client authenticates, the password will not be transferred in cleartext over the network, so, even without SSL, it is not possible to gain access to a password by monitoring the network traffic.
 
-However, when a user is created or added (or the password is changed), the password will be transferred in _cleartext_. To prevent eavesdropping, create/add users when connecting over a domain socket, or use [TLS/SSL](maxscale-nosql-protocol-module.md#tlsssl)
+However, when a user is created or added (or the password is changed), the password will be transferred in _cleartext_. To prevent eavesdropping, create/add users when connecting over a domain socket, or use [TLS/SSL](maxscale-nosql-protocol-module.md#tls-ssl)
 
 #### Implicit bootstrapping
 
@@ -346,7 +346,7 @@ Note that after the bootstrapping, nosqlprotocol will not use the `user` and `pa
 
 **Grants**
 
-When a NoSQL user is created using [createUser](maxscale-nosql-protocol-module.md#createUser) the MariaDB grants are obtained from the specified NoSQL roles as explained [here](maxscale-nosql-protocol-module.md#roles-and-privileges).
+When a NoSQL user is created using [createUser](maxscale-nosql-protocol-module.md#createuser) the MariaDB grants are obtained from the specified NoSQL roles as explained [here](maxscale-nosql-protocol-module.md#roles-and-privileges).
 
 When implicitly creating a NoSQL user from an existing user in MariaDB, the inverse operation must be performed. There are many factors that affect what NoSQL roles the grants of a user are translated into:
 
@@ -557,11 +557,11 @@ As can be seen, the user has the `readWrite` role on the `test` database, which 
 
 #### TLS/SSL
 
-Since `nosqlprotocol` is a regular protocol module used in a listener, the TLS/SSL support of listeners is available. Please see [TLS/SSL encryption](https://github.com/mariadb-corporation/docs-server/blob/test/maxscale/mariadb-maxscale-25-01/mariadb-maxscale-25-01-protocols/Getting-Started/Configuration-Guide.md#tls-encryption) for details.
+Since `nosqlprotocol` is a regular protocol module used in a listener, the TLS/SSL support of listeners is available. Please see [TLS/SSL encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide#tlsssl-encryption) for details.
 
 ### NoSQL Account Database
 
-So as to be able to connect to the MariaDB server on behalf of clients, nosqlprotocol must know their password. As the password is not transferred to nosqlprotocol during the authentication in a way that could be used when logging into MariaDB, the password must be stored when the user is created with [createUser](maxscale-nosql-protocol-module.md#createUser) or added with [mxsAddUser](maxscale-nosql-protocol-module.md#mxsAddUser).
+So as to be able to connect to the MariaDB server on behalf of clients, nosqlprotocol must know their password. As the password is not transferred to nosqlprotocol during the authentication in a way that could be used when logging into MariaDB, the password must be stored when the user is created with [createUser](maxscale-nosql-protocol-module.md#createuser) or added with [mxsAddUser](maxscale-nosql-protocol-module.md#mxsadduser).
 
 Note that the password is not stored in cleartext but as three different hashes; hashed with sha1 for use with MariaDB, salted and hashed with sha1 for use with the `SCRAM-SHA-1` authentication mechanism (if that is enabled for the user) and salted and hashed with sha256 for use with the `SCRAM-SHA-256` authentication mechanism (if that is enabled for the user).
 
@@ -672,7 +672,7 @@ Specifies the _password_ to be used when connecting to the backend, is the Mongo
 
 Specifies whether the client always must authenticate. If authentication is required, it does not matter whether `user` and `password` have been specified, the client must authenticate.
 
-Authentication should not be required before users have been created with [createUser](maxscale-nosql-protocol-module.md#createUser) or added with [mxsAddUser](maxscale-nosql-protocol-module.md#mxsAddUser), with authentication being optional and authorization being disabled.
+Authentication should not be required before users have been created with [createUser](maxscale-nosql-protocol-module.md#createuser) or added with [mxsAddUser](maxscale-nosql-protocol-module.md#mxsadduser), with authentication being optional and authorization being disabled.
 
 NOTE: All client activity is _always_ subject to authorization performed by the MariaDB server.
 
@@ -723,7 +723,7 @@ Specifies the _password_ of `authentication_user`.
 * Mandatory: No
 * Default: `false`
 
-Specifies whether nosqlprotocol itself should perform authorization in the context of the commands [mxsAddUser](maxscale-nosql-protocol-module.md#mxsAddUser), [mxsRemoveUser](maxscale-nosql-protocol-module.md#mxsRemoveUser) and [mxsUpdateUser](maxscale-nosql-protocol-module.md#mxsUpdateUser). Authorization should not be enabled before users have been created with [createUser](maxscale-nosql-protocol-module.md#createUser) or added with [mxsAddUser](maxscale-nosql-protocol-module.md#mxsAddUser) with authorization being disabled.
+Specifies whether nosqlprotocol itself should perform authorization in the context of the commands [mxsAddUser](maxscale-nosql-protocol-module.md#mxsadduser), [mxsRemoveUser](maxscale-nosql-protocol-module.md#mxsremoveuser) and [mxsUpdateUser](maxscale-nosql-protocol-module.md#mxsupdateuser). Authorization should not be enabled before users have been created with [createUser](maxscale-nosql-protocol-module.md#createuser) or added with [mxsAddUser](maxscale-nosql-protocol-module.md#mxsadduser) with authorization being disabled.
 
 NOTE: All client activity is _always_ subject to authorization performed by the MariaDB server.
 
@@ -1303,9 +1303,9 @@ The following fields are relevant.
 | query         | document | Optional. The query predicate.                                                                                                                            |
 | sort          | document | Optional. The sort specification used when the document is selected.                                                                                      |
 | remove        | boolean  | Mandatory, if update is not specified. If true, the document will be deleted.                                                                             |
-| update        | document | Mandatory, if remove is not specified. See [Update.behavior](maxscale-nosql-protocol-module.md#behavior) for details.                                     |
+| update        | document | Mandatory, if remove is not specified. See [Update.behavior](maxscale-nosql-protocol-module.md#update) for details.                                     |
 | new           | boolean  | Optional. If true the modified document and not the original document is returned. If remove is specified, then the original document is always returned. |
-| fields        | document | Optional. Specified which fields to return. See [Find.projection](maxscale-nosql-protocol-module.md#projection) for details.                              |
+| fields        | document | Optional. Specified which fields to return. See [Find.projection](maxscale-nosql-protocol-module.md#find) for details.                              |
 | upsert        | boolean  | Optional. If true then a document will be created, if one is not found.                                                                                   |
 
 All other fields are ignored.
@@ -1891,7 +1891,7 @@ The following document will always be returned:
 
 **mxsAddUser**
 
-The `mxsAddUser` command adds an _existing_ MariaDB user to the local nosqlprotocol account database. Use [createUser](maxscale-nosql-protocol-module.md#createUser) if the MariaDB user should be created as well.
+The `mxsAddUser` command adds an _existing_ MariaDB user to the local nosqlprotocol account database. Use [createUser](maxscale-nosql-protocol-module.md#createuser) if the MariaDB user should be created as well.
 
 Note that the `mxsAddUser` command does not check that the user exists or that the specified roles are compatible with the grants of the user.
 
@@ -2158,7 +2158,7 @@ The command returns a cursor whose first and only batch contains the names of th
 
 **mxsRemoveUser**
 
-The `mxsRemoveUser` removes a user from the local nosqlprotocol account database. Use [dropUser](maxscale-nosql-protocol-module.md#dropUser) if the MariaDB user should be dropped as well.
+The `mxsRemoveUser` removes a user from the local nosqlprotocol account database. Use [dropUser](maxscale-nosql-protocol-module.md#dropuser) if the MariaDB user should be dropped as well.
 
 **Syntax**
 
@@ -2271,7 +2271,7 @@ The command returns a document that contains the changed configuration of the se
 
 **mxsUpdateUser**
 
-The `mxsUpdateUser` command updates a user in the local nosqlprotocol account database. Use [updateUser](maxscale-nosql-protocol-module.md#updateUser) to update MariaDB user as well.
+The `mxsUpdateUser` command updates a user in the local nosqlprotocol account database. Use [updateUser](maxscale-nosql-protocol-module.md#updateuser) to update MariaDB user as well.
 
 Note that the `mxsUpdateUser` command does not check that the changed data is compatible e.g. with the grants of the corresponding MariaDB user.
 

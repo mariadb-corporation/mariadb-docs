@@ -108,3 +108,13 @@ description: >-
 |MaxScale Hangups|performance|server|graph|This panel shows the number of client connections closed by the MaxScale node during the selected time interval|
 |Memory Usage|performance|server|graph|This panel shows memory usage details for the MaxScale node during the selected time interval|
 |MaxScale Modules|modules|server|table|This panel lists the modules installed on the MaxScale node|
+|Flow Control Pause %|galera|service|graph|This panel shows the proportion of time replication was paused by flow control for each node of an Enterprise Cluster service during the selected time interval|
+|Flow Control Messages Sent|galera|service|graph|This panel shows the rate at which each node of an Enterprise Cluster service sent flow-control messages during the selected time interval|
+|Replication Queue Depth Received|galera|service|graph|This panel shows the depth of the local receive queue for each node of an Enterprise Cluster service during the selected time interval|
+|Write Conflicts|galera|service|graph|This panel shows the rate of certification failures and brute-force aborts for each node of an Enterprise Cluster service during the selected time interval|
+|Max Galera Replication Latency|galera|service|graph|This panel shows the highest observed write-set replication latency in seconds for each node of an Enterprise Cluster service during the selected time interval|
+|Transactions|galera|service|graph|This panel shows the rate of write-sets received and replicated by each node of an Enterprise Cluster service during the selected time interval|
+|Writeset Traffic|galera|service|graph|This panel shows the volume of write-set data received and replicated by each node of an Enterprise Cluster service during the selected time interval|
+|Galera Nodes|galera|service|table|This panel lists each node (instance) of an Enterprise Cluster service with its status, whether it accepts queries, its local state, flow control state, cluster status, and connection state|
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

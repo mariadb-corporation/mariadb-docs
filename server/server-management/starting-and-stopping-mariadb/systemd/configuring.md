@@ -136,12 +136,12 @@ Useful `systemd` options are listed below. If an option is equivalent to a commo
 | no option (see [MDEV-9264](https://jira.mariadb.org/browse/MDEV-9264)) | [OOMScoreAdjust={priority}](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#OOMScoreAdjust=)                   | For instance, `-600` to lower priority of OOM killer for `mariadbd`                                                                                                                                                                     |
 | [open-files-limit](../mariadbd-safe.md#options)                        | [LimitNOFILE={limit}](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=)                               | Limit on number of open files. See [Configuring the Open Files Limit](configuring.md#configuring-the-open-files-limit).                                                                                                                 |
 | [core-file-size](../mariadbd-safe.md#options)                          | [LimitCORE={size}](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=)                                  | Limit on core file size. Useful when enabling core dumps. See [Configuring the Core File Size](configuring.md#configuring-the-core-file-size).                                                                                          |
-|                                                                        | [LimitMEMLOCK={size}](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=) or infinity                   | Limit on how much can be locked in memory. Useful when [large-pages](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#large_pages) or [memlock](../mariadbd-options.md#-memlock) is used |
+|                                                                        | [LimitMEMLOCK={size}](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=) or infinity                   | Limit on how much can be locked in memory. Useful when [large-pages](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#large_pages) or [memlock](../mariadbd-options.md#memlock) is used |
 | [nice](../mariadbd-safe.md#options)                                    | [Nice={nice value}](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#Nice=)                                     |                                                                                                                                                                                                                                         |
-| [syslog](../mariadbd-safe.md#options)                                  | [StandardOutput=syslog](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardOutput=)                       | See [Configuring MariaDB to Write the Error Log to Syslog](configuring.md#configuring-mariadb-to-write-the-error-log-to-syslog).                                                                                                        |
-|                                                                        | [StandardError=syslog](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardError=)                         |                                                                                                                                                                                                                                         |
+| [syslog](../mariadbd-safe.md#options)                                  | [StandardOutput=journal](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardOutput=)                       | See [Configuring MariaDB to Write the Error Log to Syslog](configuring.md#configuring-mariadb-to-write-the-error-log-to-syslog).                                                                                                        |
+|                                                                        | [StandardError=journal](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardError=)                         |                                                                                                                                                                                                                                         |
 |                                                                        | [SyslogFacility=daemon](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogFacility=)                       |                                                                                                                                                                                                                                         |
-|                                                                        | [SyslogLevel=err](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogLevel=)                                |                                                                                                                                                                                                                                         |
+|                                                                        | [SyslogLevel=err](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogLevel=)                                | `mariadbd-safe --syslog` pipes the server's output through `logger -p daemon.error`, so this is its exact equivalent. It tags every line as an error, notes included — see the warning in [Configuring MariaDB to Write the Error Log to Syslog](configuring.md#configuring-mariadb-to-write-the-error-log-to-syslog). |
 | [syslog-tag](../mariadbd-safe.md#options)                              | [SyslogIdentifier](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogIdentifier=)                          |                                                                                                                                                                                                                                         |
 | [flush-caches](../mariadbd-safe.md#options)                            | ExecStartPre=/usr/bin/sync                                                                                                        |                                                                                                                                                                                                                                         |
 |                                                                        | ExecStartPre=/usr/sbin/sysctl -q -w vm.drop\_caches=3                                                                             |                                                                                                                                                                                                                                         |
@@ -190,7 +190,7 @@ Note that [systemd 236 added the EXTEND\_TIMEOUT\_USEC environment variable](htt
 
 ### Configuring the Open Files Limit
 
-When using `systemd`, rather than setting the open files limit by setting the [open-files-limit](../mariadbd-safe.md#mariadbd-safe-options) option for `mariadbd-safe` or the [open\_files\_limit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#open_files_limit) system variable, the limit can be changed by configuring the [LimitNOFILE](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=) option for the MariaDB `systemd` service. The default is set to `LimitNOFILE=16364` in `mariadb.service`.
+When using `systemd`, rather than setting the open files limit by setting the [open-files-limit](../mariadbd-safe.md#configuring-the-open-files-limit) option for `mariadbd-safe` or the [open\_files\_limit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#open_files_limit) system variable, the limit can be changed by configuring the [LimitNOFILE](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=) option for the MariaDB `systemd` service. The default is set to `LimitNOFILE=16364` in `mariadb.service`.
 
 For example, you can reconfigure the MariaDB `systemd` service to have a larger limit for open files by executing the following command – then restart the server for the changes to take effect:
 
@@ -226,7 +226,7 @@ LimitNOFILE=1048576
 
 ### Configuring the Core File Size
 
-When using `systemd`, if you would like to enable core dumps, rather than setting the core file size by setting the [core-file-size](../mariadbd-safe.md#mariadbd-safe-options) option for `mariadbd-safe`, the limit can be changed by configuring the [LimitCORE](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=) option for the MariaDB `systemd` service. For example, you can reconfigure the MariaDB `systemd` service to have an infinite size for core files by executing the following commands:
+When using `systemd`, if you would like to enable core dumps, rather than setting the core file size by setting the [core-file-size](../mariadbd-safe.md#configuring-the-core-file-size) option for `mariadbd-safe`, the limit can be changed by configuring the [LimitCORE](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LimitCPU=) option for the MariaDB `systemd` service. For example, you can reconfigure the MariaDB `systemd` service to have an infinite size for core files by executing the following commands:
 
 ```bash
 sudo systemctl edit mariadb.service
@@ -237,33 +237,55 @@ LimitCORE=infinity
 
 ### Configuring MariaDB to Write the Error Log to Syslog
 
-When using `systemd`, if you would like to redirect the [error log](../../server-monitoring-logs/error-log.md) to the [syslog](https://linux.die.net/man/8/rsyslogd), then that can easily be done by doing the following:
+When using `systemd`, MariaDB's [error log](../../server-monitoring-logs/error-log.md) is written to the journal, and the journal is where a traditional [syslog](https://linux.die.net/man/8/rsyslogd) daemon reads its data from. To send the error log to syslog, do the following:
 
-* Ensure that [log\_error](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error) system variable is not set.
-* Set [StandardOutput=syslog](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardOutput=).
-* Set [StandardError=syslog](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardError=).
-* Set [SyslogFacility=daemon](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogFacility=).
-* Set [SysLogLevel=err](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogLevel=).
+* Ensure that [log\_error](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error) system variable is not set, so that the server writes to `stderr` rather than to a file.
+* Set [StandardOutput=journal](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardOutput=) and [StandardError=journal](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#StandardError=). This is already the effective default — `StandardOutput=` defaults to `journal`, and `StandardError=` defaults to `inherit`, which duplicates it — but stating it explicitly documents why the `Syslog*` settings below apply, since they only take effect when the output goes to the journal.
+* Set [SyslogFacility=daemon](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogFacility=) to choose the syslog facility the messages are tagged with. `daemon` is `systemd`'s default.
+* Ensure that `journald` forwards to the syslog daemon by setting [ForwardToSyslog=yes](https://www.freedesktop.org/software/systemd/man/journald.conf.html#ForwardToSyslog=) in `journald.conf`. Some distributions enable this already, and on others `rsyslog` reads the journal directly through its `imjournal` module, in which case no forwarding is needed.
 
-For example:
+Only the forwarding setting differs from the defaults, so it is usually the only unit-side change needed — assuming `log_error` is unset, and unless `rsyslog` already reads the journal directly, in which case no change is needed at all. `journald.conf` is a configuration file rather than a unit, so it takes a drop-in of its own rather than a `systemctl edit`:
+
+```bash
+sudo mkdir -p /etc/systemd/journald.conf.d
+sudo tee /etc/systemd/journald.conf.d/forward-to-syslog.conf <<'CONF'
+[Journal]
+ForwardToSyslog=yes
+CONF
+sudo systemctl restart systemd-journald
+```
+
+If you have multiple instances of MariaDB, then set [SyslogIdentifier](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogIdentifier=) with a different tag for each instance, so that the messages from each can be told apart:
 
 ```bash
 sudo systemctl edit mariadb.service
 
 [Service]
-StandardOutput=syslog
-StandardError=syslog
-SyslogFacility=daemon
-SysLogLevel=err
+SyslogIdentifier=mariadb-instance1
 ```
 
-If you have multiple instances of MariaDB, then you may also want to set [SyslogIdentifier](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogIdentifier=) with a different tag for each instance.
+{% hint style="info" %}
+`systemd` 246 removed the `syslog` and `syslog-console` values for `StandardOutput=` and `StandardError=`. Newer versions still accept them, but convert them to `journal` and `journal+console` and log a notice whenever the unit file is parsed — so on `systemctl daemon-reload` and unit load, not only when the service starts. A unit that sets both `StandardOutput=` and `StandardError=` gets the message twice, since both go through the same parser:
+
+```
+Standard output type syslog is obsolete, automatically updating to journal.
+Please update your unit file, and consider removing the setting altogether.
+```
+
+Use `journal` instead. It is valid in every `systemd` version MariaDB supports, so no version-specific configuration is needed.
+{% endhint %}
+
+{% hint style="warning" %}
+[SyslogLevel=](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#SyslogLevel=) does not filter the error log. It sets the priority assigned to output lines that do not carry a priority prefix of their own, and MariaDB does not add one — it writes plain lines such as `2025-11-19 12:50:03 0 [Note] ...`. Setting `SyslogLevel=err` therefore tags every line as an error, notes and warnings included. This is also what [mariadbd-safe](../mariadbd-safe.md#options) `--syslog` has always done, since it pipes the server's output through `logger -p daemon.error`.
+
+`LogLevelMax=` is not a way around this, because it filters on that same priority: with every line tagged alike, it keeps all of them or discards all of them, real errors included. To reduce what the server writes in the first place, use [log\_warnings](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_warnings), which defaults to `2` and accepts values from 0 to 11, with higher values meaning more verbosity. To sort messages by severity after the fact, match on the `[Note]`, `[Warning]` and `[ERROR]` labels in the syslog daemon's own rules.
+{% endhint %}
 
 ### Configuring LimitMEMLOCK
 
 #### Configuring Support for io\_uring Asynchronous IO in InnoDB
 
-If using [`--memlock`](../mariadbd-options.md#-memlock), or the `io_uring` `asynchronous` IO in InnoDB in MariaDB 10.6 or above, with a Linux Kernel version < 5.12, you need to raise the `LimitMEMLOCK` limit.
+If using [`--memlock`](../mariadbd-options.md#memlock), or the `io_uring` `asynchronous` IO in InnoDB in MariaDB 10.6 or above, with a Linux Kernel version < 5.12, you need to raise the `LimitMEMLOCK` limit.
 
 ```bash
 sudo systemctl edit mariadb.service
@@ -389,7 +411,7 @@ From the time the connection occurs, the client is going to be waiting until Mar
 
 ### Configuring Systemd Socket Activation
 
-When MariaDB is run under systemd socket activation, the usual [socket](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#socket), [port](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#port), and [backlog](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#backlog) system variables are ignored, as these settings are contained within the systemd socket definition file.
+When MariaDB is run under systemd socket activation, the usual [socket](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#socket), [port](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#port), and [backlog](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#back_log) system variables are ignored, as these settings are contained within the systemd socket definition file.
 
 There is no configuration required in MariaDB to use MariaDB under socket activation.
 
@@ -549,9 +571,9 @@ ListenStream=/home/%I/mariadb-extra.sock
 
 ## Converting mariadbd-safe Options to Systemd Options
 
-`mariadb-service-convert` is a script included in many MariaDB packages that is used by the package manager to convert [mariadbd-safe](../mariadbd-safe.md#mariadbd-safe-options) options to `systemd` options. It reads any explicit settings in the `[mariadbd-safe]` [option group](../../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) from [option files](../../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), and its output is directed to `/etc/systemd/system/mariadb.service.d/migrated-from-my.cnf-settings.conf`. This helps to keep the configuration the same when upgrading from a version of MariaDB that does not use `systemd` to one that does.
+`mariadb-service-convert` is a script included in many MariaDB packages that is used by the package manager to convert [mariadbd-safe](../mariadbd-safe.md#options) options to `systemd` options. It reads any explicit settings in the `[mariadbd-safe]` [option group](../../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) from [option files](../../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), and its output is directed to `/etc/systemd/system/mariadb.service.d/migrated-from-my.cnf-settings.conf`. This helps to keep the configuration the same when upgrading from a version of MariaDB that does not use `systemd` to one that does.
 
-Implicitly high defaults of [open-files-limit](../mariadbd-safe.md#mariadbd-safe-options) may be missed by the conversion script and require explicit configuration. See [Configuring the Open Files Limit](configuring.md#configuring-the-open-files-limit).
+Implicitly high defaults of [open-files-limit](../mariadbd-safe.md#configuring-the-open-files-limit) may be missed by the conversion script and require explicit configuration. See [Configuring the Open Files Limit](configuring.md#configuring-the-open-files-limit).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

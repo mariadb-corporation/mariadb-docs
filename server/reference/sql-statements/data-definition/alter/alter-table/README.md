@@ -325,11 +325,11 @@ Drops a foreign key. See [Foreign Keys](../../../../../ha-and-performance/optimi
 
 ### ADD INDEX
 
-Adds a plain index. Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes. For limits on InnoDB indexes, see [InnoDB Limitations](../../../../../server-usage/storage-engines/innodb/innodb-limitations.md). See [Getting Started with Indexes: Plain Indexes](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes) for more information.
+Adds a plain index. Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes. For limits on InnoDB indexes, see [InnoDB Limitations](../../../../../server-usage/storage-engines/innodb/innodb-limitations.md). See [Getting Started with Indexes: Plain Indexes](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes-regular-indexes) for more information.
 
 ### DROP INDEX
 
-Drops a plain index. Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes. See [Getting Started with Indexes: Plain Indexes](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes) for more information.
+Drops a plain index. Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes. See [Getting Started with Indexes: Plain Indexes](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes-regular-indexes) for more information.
 
 ### ADD UNIQUE INDEX
 
@@ -408,7 +408,7 @@ WHERE TABLE_NAME = 'account_ledger';
 
 ### DROP CONSTRAINT
 
-`DROP CONSTRAINT` for `UNIQUE` and `FOREIGN KEY` [constraints](../../constraint.md)\
+`DROP CONSTRAINT` for `UNIQUE` and `FOREIGN KEY` [constraints](../../constraint.md)
 and `DROP CONSTRAINT` for `CHECK` constraints were introduced in an earlier version of MariaDB.
 
 Modifies the table, removing the given constraint.
@@ -516,7 +516,7 @@ ALTER TABLE partitioned_table CONVERT TABLE normal_table
 
 The optional `[{WITH | WITHOUT} VALIDATION]` is permitted.
 
-See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details.
+See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-to-from-tables) for more details.
 {% endtab %}
 
 {% tab title="< 11.4" %}
@@ -535,7 +535,7 @@ ALTER TABLE partitioned_table CONVERT TABLE normal_table
 
 The optional clause `[{WITH | WITHOUT} VALIDATION]` is not available.
 
-See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details.
+See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-to-from-tables) for more details.
 {% endtab %}
 
 {% tab title="< 10.7" %}

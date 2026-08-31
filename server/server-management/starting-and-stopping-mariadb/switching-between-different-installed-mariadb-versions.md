@@ -6,8 +6,8 @@ description: >-
 
 # Switching Between Different Installed MariaDB Versions
 
-This article is about managing many different installed MariaDB versions\
-and running them one at a time. This is useful when doing benchmarking,\
+This article is about managing many different installed MariaDB versions
+and running them one at a time. This is useful when doing benchmarking,
 testing, or for when developing different MariaDB versions.
 
 This is most easily done using the tar files from [mariadb.org/download/](https://mariadb.org/download/).
@@ -34,13 +34,13 @@ The steps to create a binary tar file are:
 * Decide where to put the source. A good place is under `/usr/local/src/mariadb-5.#`.
 * [Get the source](../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md)
 * [Compile the source](../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/)
-* [Create the binary tar ball](../install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/creating-the-mariadb-binary-tarball.md).
+* [Create the binary tar ball](../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md).
 
 You will then be left with a tar file named something like:`mariadb-11.0.1-MariaDB-linux-x86_64.tar.gz`
 
 ## Creating a Directory Structure for the Different Installations
 
-Install the binary tar files under `/usr/local/` with\
+Install the binary tar files under `/usr/local/` with
 the following directory names (one for each MariaDB version you want to use), for example:
 
 * `mariadb-10.5`
@@ -49,11 +49,11 @@ the following directory names (one for each MariaDB version you want to use), fo
 * `mariadb-11.0`
 * `mariadb-11.1`
 
-The above assumes you are just testing major versions of MariaDB. If you are\
+The above assumes you are just testing major versions of MariaDB. If you are
 testing specific versions, use directory names like `mariadb-11.0.1`
 
-With the directories in place, create a symlink named `mariadb` which points\
-at the `mariadb-XXX` directory you are currently testing. When you want to\
+With the directories in place, create a symlink named `mariadb` which points
+at the `mariadb-XXX` directory you are currently testing. When you want to
 switch to testing a different version, just update the symlink.
 
 Example:
@@ -67,10 +67,10 @@ ln -vs mariadb-11.0 mariadb
 
 ## Setting Up the Data Directory
 
-When setting up the data directory, you have the option of either using a\
-shared database directory or creating a unique database directory for each\
-server version. For testing, a common directory is probably easiest. Note that\
-you can only have one `mysqld` server running against one data\
+When setting up the data directory, you have the option of either using a
+shared database directory or creating a unique database directory for each
+server version. For testing, a common directory is probably easiest. Note that
+you can only have one `mysqld` server running against one data
 directory.
 
 ### Setting Up a Common Data Directory
@@ -79,7 +79,7 @@ The steps are:
 
 1. Create the `mysql` system user if you don't have it already!\
    (On Linux you do it with the `useradd` command).
-2. Create the directory (we call it `mariadb-data` in the example below) or\
+2. Create the directory (we call it `mariadb-data` in the example below) or
    add a symlink to a directory which is in some other place.
 3. Create the `mysql` permission tables with [mariadb-install-db](../../clients-and-utilities/deployment-tools/mariadb-install-db.md).
 
@@ -127,11 +127,11 @@ cd mariadb
 
 ## Setting Up a .my.cnf file for Running Multiple MariaDB Versions
 
-If you are going to start/stop MariaDB a lot of times, you should create\
+If you are going to start/stop MariaDB a lot of times, you should create
 a `~/.my.cnf` file for the common options you are using.
 
-The following example shows how to use a non-standard TCP-port and socket (to\
-not interfere with a main MySQL/MariaDB server) and how to setup different\
+The following example shows how to use a non-standard TCP-port and socket (to
+not interfere with a main MySQL/MariaDB server) and how to setup different
 options for each main server:
 
 ```ini

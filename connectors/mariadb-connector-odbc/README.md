@@ -62,3 +62,5 @@ Compile MariaDB Connector/ODBC from the GitHub source repository on Linux or Win
 Create a data source with MariaDB Connector/ODBC on Windows using ODBC Data Source Administrator, or on Linux by configuring UnixODBC with a driver entry and DSN for MariaDB Server.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

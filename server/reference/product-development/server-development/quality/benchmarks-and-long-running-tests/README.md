@@ -18,3 +18,4 @@ This section contains background information, mostly aimed at engineers developi
 [benchmarks](benchmarks/)
 {% endcontent-ref %}
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

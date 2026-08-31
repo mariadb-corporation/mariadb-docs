@@ -9,4 +9,6 @@ description: >-
 
 Replication SQL statements can be found [in the Reference section](../../reference/sql-statements/administrative-sql-statements/replication-statements/).
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

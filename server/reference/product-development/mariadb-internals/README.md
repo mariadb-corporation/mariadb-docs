@@ -46,3 +46,5 @@ Serves as the main landing page for articles detailing the low-level source code
 This main page serves as a landing hub for developers looking to integrate MariaDB functionality into external applications using internal APIs.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

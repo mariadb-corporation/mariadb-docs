@@ -1961,7 +1961,7 @@ INSERT INTO test.contacts (first_name, last_name, email)
 $ sudo mariadb
 ```
 
-4. Execute a [SELECT](broken-reference/) query to retrieve the data:
+4. Execute a [SELECT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select) query to retrieve the data:
 
 ```sql
 SELECT * FROM test.contacts;
@@ -2087,7 +2087,7 @@ For additional information, see "Start and Stop Services".
 
 #### Configure Server Objects
 
-**On the MaxScale node**, use [maxctrl create](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-server) to create a server object for each Enterprise ColumnStore node:
+**On the MaxScale node**, use [maxctrl create](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-server) to create a server object for each Enterprise ColumnStore node:
 
 ```bash
 $ maxctrl create server mcs1 192.0.2.101
@@ -2131,11 +2131,11 @@ In this example:
 
 Routers control how MaxScale balances the load between Enterprise ColumnStore nodes. Each router uses a different approach to routing queries. Consider the specific use case of your application and database load and select the router that best suits your needs.
 
-<table><thead><tr><th width="190.9259033203125" valign="top">Router</th><th width="215.1851806640625" valign="top">Configuration Procedure</th><th valign="top">Description</th></tr></thead><tbody><tr><td valign="top"><a href="https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-readconnroute">Read Connection (readconnroute)</a></td><td valign="top"><a href="./#configure-read-connection-router">Configure Read Connection Router</a></td><td valign="top"><p><strong>Connection-based load balancing</strong></p><ul><li>Routes connections to Enterprise ColumnStore nodes designated as replica servers for a read-only pool</li><li>Routes connections to an Enterprise ColumnStore node designated as the primary server for a read-write pool.|</li></ul></td></tr><tr><td valign="top"><a href="https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit">Read/Write Split (readwritesplit)</a></td><td valign="top"><a href="./#configure-read-write-split-router-for-queries">Configure Read/Write Split</a></td><td valign="top"><p><strong>Query-based load balancing</strong></p><ul><li>Routes write queries to an Enterprise ColumnStore node designated as the primary server</li><li>Routes read queries to Enterprise ColumnStore node designated as replica servers</li><li>Automatically reconnects after node failures</li><li>Automatically replays transactions after node failures</li><li>Optionally enforces causal reads|</li></ul></td></tr></tbody></table>
+<table><thead><tr><th width="190.9259033203125" valign="top">Router</th><th width="215.1851806640625" valign="top">Configuration Procedure</th><th valign="top">Description</th></tr></thead><tbody><tr><td valign="top"><a href="https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-readconnroute">Read Connection (readconnroute)</a></td><td valign="top"><a href="./#configure-read-connection-router">Configure Read Connection Router</a></td><td valign="top"><p><strong>Connection-based load balancing</strong></p><ul><li>Routes connections to Enterprise ColumnStore nodes designated as replica servers for a read-only pool</li><li>Routes connections to an Enterprise ColumnStore node designated as the primary server for a read-write pool.|</li></ul></td></tr><tr><td valign="top"><a href="https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit">Read/Write Split (readwritesplit)</a></td><td valign="top"><a href="./#configure-read-write-split-router-for-queries">Configure Read/Write Split</a></td><td valign="top"><p><strong>Query-based load balancing</strong></p><ul><li>Routes write queries to an Enterprise ColumnStore node designated as the primary server</li><li>Routes read queries to Enterprise ColumnStore node designated as replica servers</li><li>Automatically reconnects after node failures</li><li>Automatically replays transactions after node failures</li><li>Optionally enforces causal reads|</li></ul></td></tr></tbody></table>
 
 #### Configure Read Connection Router
 
-Use [MaxScale Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute) to route connections to replica servers for a read-only pool.
+Use [MaxScale Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute) to route connections to replica servers for a read-only pool.
 
 **On the MaxScale node**, use [maxctrl create service](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-maxctrl#create-service) to create a router:
 
@@ -2161,7 +2161,7 @@ In this example:
 
 These instructions reference TCP port 3308. You can use a different TCP port. The TCP port used must not be bound by any other listener.
 
-**On the MaxScale node**, use the [maxctrl create listener](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-maxctrl#create-listener) command to configure MaxScale to use a listener for the [MaxScale Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute):
+**On the MaxScale node**, use the [maxctrl create listener](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-maxctrl#create-listener) command to configure MaxScale to use a listener for the [MaxScale Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute):
 
 ```bash
 $ maxctrl create listener connection_router_service connection_router_listener 3308 \
@@ -2178,9 +2178,9 @@ In this example:
 
 #### Configure Read/Write Split Router for Queries
 
-MaxScale [Read/Write Split (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) performs query-based load balancing. The router routes write queries to the primary and read queries to the replicas.
+MaxScale [Read/Write Split (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) performs query-based load balancing. The router routes write queries to the primary and read queries to the replicas.
 
-**On the MaxScale node**, use the maxctrl create service command to configure MaxScale to use the [Read/Write Split (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit):
+**On the MaxScale node**, use the maxctrl create service command to configure MaxScale to use the [Read/Write Split (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit):
 
 ```bash
 $ maxctrl create service query_router_service readwritesplit  \
@@ -2202,7 +2202,7 @@ In this example:
 
 These instructions reference TCP port 3307. You can use a different TCP port. The TCP port used must not be bound by any other listener.
 
-**On the MaxScale node**, use the [maxctrl create listener](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-maxctrl#create-listener) command to configure MaxScale to use a listener for the [Read/Write Split (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit):
+**On the MaxScale node**, use the [maxctrl create listener](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-maxctrl#create-listener) command to configure MaxScale to use a listener for the [Read/Write Split (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit):
 
 ```bash
 $ maxctrl create listener query_router_service query_router_listener 3307 \
@@ -2617,7 +2617,7 @@ $ maxctrl show service query_router_service
 ```
 {% endcode %}
 
-Output should align to the [Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute) or [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) configuration you performed.
+Output should align to the [Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute) or [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) configuration you performed.
 
 #### Test Application User
 
@@ -2801,7 +2801,7 @@ While MaxScale is handling multiple connections from different terminals, it rou
 
 #### Test Read Queries with Read/Write Split Router
 
-If you configured the [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit), confirm that MaxScale routes read queries on this router to replica servers.
+If you configured the [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit), confirm that MaxScale routes read queries on this router to replica servers.
 
 1. On the MaxScale node, use the [maxctrl list listeners](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-maxctrl#list-listeners) command to view the available listeners and ports:
 
@@ -2819,7 +2819,7 @@ $ maxctrl list listeners
 └────────────────────────────┴──────┴──────┴─────────┴───────────────────────────┘
 ```
 
-2. In a terminal connected to your application server, use MariaDB Client to connect to the listener port for the [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) (in the example, 3307):
+2. In a terminal connected to your application server, use MariaDB Client to connect to the listener port for the [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) (in the example, 3307):
 
 ```bash
 $ mariadb --host 192.0.2.10 --port 3307 \
@@ -2893,11 +2893,11 @@ CREATE TABLE inventory.products (
 
 Enterprise ColumnStore supports multiple methods to import data into ColumnStore tables.
 
-<table><thead><tr><th width="184.99993896484375">Interface</th><th>Method</th><th>Benefits</th></tr></thead><tbody><tr><td>Shell</td><td><a href="./#cpimport">cpimport</a></td><td><ul><li>SQL access is not required</li></ul></td></tr><tr><td>SQL</td><td><a href="./#load-data-infile">LOAD DATA INFILE</a></td><td><ul><li>Shell access is not required</li></ul></td></tr><tr><td>Remote Database</td><td><a href="./#import-from-remote-database">Remote Database Import</a></td><td><ul><li>Use normal database client</li><li>Avoid dumping data to intermediate filed</li></ul></td></tr></tbody></table>
+<table><thead><tr><th width="184.99993896484375">Interface</th><th>Method</th><th>Benefits</th></tr></thead><tbody><tr><td>Shell</td><td><a href="../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md">cpimport</a></td><td><ul><li>SQL access is not required</li></ul></td></tr><tr><td>SQL</td><td><a href="../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-load-data-infile.md">LOAD DATA INFILE</a></td><td><ul><li>Shell access is not required</li></ul></td></tr><tr><td>Remote Database</td><td>Remote Database Import</td><td><ul><li>Use normal database client</li><li>Avoid dumping data to intermediate filed</li></ul></td></tr></tbody></table>
 
 **cpimport**
 
-MariaDB Enterprise ColumnStore includes [cpimport](./#cpimport), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
+MariaDB Enterprise ColumnStore includes [cpimport](../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
 
 To import your data from a TSV (tab-separated values) file, on the primary server run `cpimport`:
 
@@ -2907,7 +2907,7 @@ $ sudo cpimport -s '\t' inventory products /tmp/inventory-products.tsv
 
 **LOAD DATA INFILE**
 
-When data is loaded with the LOAD DATA INFILE statement, MariaDB Enterprise ColumnStore loads the data using [cpimport](./#cpimport), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
+When data is loaded with the LOAD DATA INFILE statement, MariaDB Enterprise ColumnStore loads the data using [cpimport](../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
 
 To import your data from a TSV (tab-separated values) file, on the primary server use LOAD DATA INFILE statement:
 
@@ -2918,7 +2918,7 @@ INTO TABLE inventory.products;
 
 **Import from Remote Database**
 
-MariaDB Enterprise ColumnStore can also import data directly from a remote database. A simple method is to query the table using the SELECT statement, and then pipe the results into [cpimport](./#cpimport), which is a command-line utility that is designed to efficiently load data in bulk. Alternative methods are available.
+MariaDB Enterprise ColumnStore can also import data directly from a remote database. A simple method is to query the table using the SELECT statement, and then pipe the results into [cpimport](../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md), which is a command-line utility that is designed to efficiently load data in bulk. Alternative methods are available.
 
 To import your data from a remote MariaDB database:
 
@@ -2931,6 +2931,6 @@ $ mariadb --quick \
 {% endstep %}
 {% endstepper %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

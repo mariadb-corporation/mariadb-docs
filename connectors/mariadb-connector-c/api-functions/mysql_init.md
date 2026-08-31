@@ -42,4 +42,6 @@ Memory allocated by mysql\_init() must be freed with [mysql\_close()](mysql_clos
 * [mysql\_thread\_init()](mysql_thread_init.md)
 * [mysql\_close()](mysql_close.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

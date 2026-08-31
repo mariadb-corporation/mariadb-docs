@@ -31,7 +31,7 @@ MariaDB 12.0 is a [rolling release](../../about/release-model.md). It is an evol
 ### Server <a href="#server" id="server"></a>
 
 * Add the FM format to [TO\_CHAR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/to_char), which suppresses following padding ([MDEV-36216](https://jira.mariadb.org/browse/MDEV-36216))
-* [mariadb-check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) now support [SEQUENCE tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sequence-storage-engine) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
+* [mariadb-check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) now support [sequences](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences/) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
 
 ### Optimizer <a href="#optimizer" id="optimizer"></a>
 
@@ -105,7 +105,7 @@ New [GIS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure
 
 ### Variables
 
-For a list of all new variables, see [System Variables Added in MariaDB 12.0](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-mariadb-12.0).
+For a list of all new variables, see [System Variables Added in MariaDB 12.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-12.0).
 
 #### Removed
 
@@ -121,6 +121,6 @@ For a list of all new variables, see [System Variables Added in MariaDB 12.0](ht
 | 5 Jun 2025    | [MariaDB 12.0.1](12.0.1.md) | RC      | [Release Notes](12.0.1.md) | [Changelog](../../changelogs/12.0/12.0.1.md) |
 | 26 March 2025 | [MariaDB 12.0.0](./)        | Preview |                            |                                              |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

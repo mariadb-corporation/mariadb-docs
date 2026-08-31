@@ -102,7 +102,7 @@ AND n.n_nationkey = c.c_nationkey
 ```
 
 {% hint style="danger" %}
-Note: `INFINIDB\_ORDERED` is deprecated and does not work anymore for ColumnStore 1.2 and above.
+Note: `INFINIDB_ORDERED` is deprecated and does not work anymore for ColumnStore 1.2 and above.
 {% endhint %}
 
 use `set infinidb_ordered_only=ON;`
@@ -121,6 +121,6 @@ A MariaDB global or session variable is available to specify a memory limit at w
 
 * `infinidb_um_mem_limit` - Memory limit in MB per user (i.e., switch to disk-based join if this limit is exceeded). By default, this limit is not set (value of 0).
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

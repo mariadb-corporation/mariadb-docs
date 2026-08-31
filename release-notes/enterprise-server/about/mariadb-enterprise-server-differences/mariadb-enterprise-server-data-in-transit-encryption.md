@@ -8,5 +8,6 @@
 
 * [Enabling TLS on MariaDB Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/data-in-transit-encryption-enabling-tls-on-mariadb-server)
 
-{% @marketo/form formid="4316" formId="4316" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
+{% @marketo/form formid="4316" formId="4316" %}

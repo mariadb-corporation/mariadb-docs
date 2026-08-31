@@ -119,4 +119,6 @@ The `MARIADB_X509_INFO` structure contains information about the peer certificat
 
 MARIADB\_X509\_INFO was added in MariaDB Connector/C 3.4.1
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

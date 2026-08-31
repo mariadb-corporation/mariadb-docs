@@ -15,7 +15,9 @@ The `wsrep_provider_options` system variable applies to MariaDB Enterprise Clust
 
 ## Details
 
-The node uses the CA file to verify the signature on the certificate. You can use either an absolute path or one relative to the working directory. The file must use PEM format.
+The node uses the CA file to verify the certificate presented by its peers. You can use either an absolute path or one relative to the working directory. The file must use PEM format.
+
+The file can contain multiple CA certificates concatenated together (a CA bundle). Verification requires a complete chain of trust: the file must allow the peer's certificate to be verified all the way up to a self-signed root CA. If an intermediate or root CA certificate is missing from the file, nodes fail to connect with an error such as `certificate verify failed: unable to get issuer certificate`.
 
 | Option Name   | socket.ssl\_ca         |
 | ------------- | ---------------------- |
@@ -62,3 +64,5 @@ Trying to change a non-dynamic option with `SET` results in an error:
 ```sql
 ERROR 1210 (HY000): Incorrect arguments to SET
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

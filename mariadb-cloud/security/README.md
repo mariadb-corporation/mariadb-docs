@@ -58,5 +58,4 @@ Use your MariaDB Cloud ID credentials or approved social login options like Goog
 [portal-single-sign-on.md](portal-single-sign-on.md)
 {% endcontent-ref %}
 
-
-
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

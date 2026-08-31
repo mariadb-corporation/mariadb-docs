@@ -55,5 +55,7 @@ curl --location 'https://api.skysql.com/skybackup/v1/backups/schedules' \
 * SERVICE\_ID : MariaDB Cloud service identifier, format dbxxxxxx
 
 {% hint style="info" %}
-Backup status can be fetched using 'https://api.skysql.com/skybackup/v1/backups'. See the 'Backup Status' section for an example.
+Backup status can be fetched using `https://api.skysql.com/skybackup/v1/backups`. See the 'Backup Status' section for an example.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

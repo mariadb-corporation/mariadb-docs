@@ -170,7 +170,7 @@ For details about the server certificate, see [MariaDB certificate specification
 
 ## CA bundle
 
-As you could appreciate in [MariaDB certificate specification](tls.md#mariadb-certificate-specification) and [MaxScale certificate specification](tls.md#maxscale-certificate-specification), the TLS setup involves multiple CAs. In order to establish trust in a more convenient way, the operator groups the CAs together in a CA bundle that will need to be specified when [securely connecting from your applications](tls.md#connect-applications-with-tls). Every `MariaDB` and `MaxScale` resources have a dedicated bundle of its own available in a `Secret` named `<instance-name>-ca-bundle`.
+As you could appreciate in [MariaDB certificate specification](tls.md#mariadb-certificate-specification) and [MaxScale certificate specification](tls.md#maxscale-certificate-specification), the TLS setup involves multiple CAs. In order to establish trust in a more convenient way, the operator groups the CAs together in a CA bundle that will need to be specified when [securely connecting from your applications](tls.md#secure-application-connections-with-tls). Every `MariaDB` and `MaxScale` resources have a dedicated bundle of its own available in a `Secret` named `<instance-name>-ca-bundle`.
 
 These trust bundles contain non expired CAs needed to connect to the instances. New CAs are automatically added to the bundle after [renewal](tls.md#ca-renewal), whilst old CAs are removed after they expire. It is important to note that both the new and old CAs remain in the bundle for a while to ensure a smooth update when the new certificates are issued by the new CA.
 
@@ -1171,6 +1171,6 @@ This doesn't affect `MaxScale`, as it is able to establish trust with intermedia
 
 Refer to the [MaxScale documentation](tls.md#maxscale-configuration) for further details.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

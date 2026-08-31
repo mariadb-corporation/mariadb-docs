@@ -43,7 +43,7 @@ The following lists the major new features in [MariaDB 10.2](what-is-mariadb-102
 
 ### Incompatible Changes
 
-* [TokuDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/legacy-storage-engines/tokudb) has been split into a separate package, mariadb-plugin-tokudb.
+* TokuDB has been split into a separate package, mariadb-plugin-tokudb.
 * [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) has been changed; in particular, NOT NULL fields with no default will no longer fall back to a dummy value for inserts which do not specify a value for that field.
 * Replication from legacy MySQL servers may require setting [binlog\_checksum](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables) to NONE.
 * New [reserved words](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/reserved-words): OVER, RECURSIVE, and ROWS.
@@ -130,7 +130,7 @@ For a list of all new status variables, see [Status Variables Added in MariaDB 1
 ### Scripts
 
 * Continuous binary log backup has been added to [mysqlbinlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/logging-tools/mariadb-binlog) ([MDEV-8713](https://jira.mariadb.org/browse/MDEV-8713))
-* [mysql\_zap](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_zap) and mysqlbug have been removed ([MDEV-7376](https://jira.mariadb.org/browse/MDEV-7376), [MDEV-8654](https://jira.mariadb.org/browse/MDEV-8654))
+* mysql\_zap and mysqlbug have been removed ([MDEV-7376](https://jira.mariadb.org/browse/MDEV-7376), [MDEV-8654](https://jira.mariadb.org/browse/MDEV-8654))
 
 ### Other Changes
 
@@ -145,8 +145,8 @@ For a list of all new status variables, see [Status Variables Added in MariaDB 1
 
 #### Security Vulnerabilities Fixed in [MariaDB 10.2](what-is-mariadb-102.md)
 
-For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
+For a complete list of security vulnerabilities (CVEs) fixed across all
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)
 page.
 
 * [CVE-2022-32088](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32088): [MariaDB 10.2.44](10.2.44.md)
@@ -349,6 +349,6 @@ page.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

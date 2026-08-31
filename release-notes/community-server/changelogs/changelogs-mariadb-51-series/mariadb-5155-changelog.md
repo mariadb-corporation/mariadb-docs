@@ -7,27 +7,27 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.1/5.1.55.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3041](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3041)
   * Disable variables-big with debug binaries.
   * When compiled with SAFEMALLOC or with Windows\
     Debug CRT, it allocates and initializes 5GB of memory.\
-    The effect is 20 minutes of paging and swapping on\
+    The effect is 20 minutes of paging and swapping on
     a 4GB VM.
   * Still allow the test to run with optimized binaries.\
-    Memory is not initialized in this case, malloc()\
-    of 5GB size will not bring the whole buffer into\
+    Memory is not initialized in this case, malloc()
+    of 5GB size will not bring the whole buffer into
     physical memory.
 * [Revision #3040](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3040)
   * Build fixes:
     * Fix signed/unsigned warning (error -Werror) in readline
-    * change regex\_replace pattern to account for forward or backward slashes\
+    * change regex\_replace pattern to account for forward or backward slashes
       in partition\_recover\_myisam ( fixes Windows/embedded)
 * [Revision #3039](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3039)
   * Fix mtr errors with Windows/embedded/plugins.
-  * Plugins do not work on Windows/embedded,\
+  * Plugins do not work on Windows/embedded,
     thus do not set plugin environment variables.
 * [Revision #3038](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3038) \[merge]
   * Automatic merge with 5.1-merge to get in Merge with MySQL 5.1.55
@@ -80,12 +80,12 @@ modified in that revision.
         * Now need to merge with latest xtradb before pushing
 * [Revision #3037](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3037)
   * [Bug #688404](https://bugs.launchpad.net/bugs/688404) : Fix pbxt crashes on Windows 64 in debug build
-  * The reason for the crash is misalignment on SSE instruciton\
-    in setjmp(). The root cause is PBXT debug malloc(), which\
+  * The reason for the crash is misalignment on SSE instruciton
+    in setjmp(). The root cause is PBXT debug malloc(), which
     unlike OS malloc does not guarantee 16 bytes alignment.
   * So the fix for now is disable PBXT debug malloc on Windows.\
-    It was obsolete anyway, as it does not provide additional\
-    benefits to C runtime debug routines (always used in debug\
+    It was obsolete anyway, as it does not provide additional
+    benefits to C runtime debug routines (always used in debug
     compilation) or to pageheap, available at runtime.
 * [Revision #3036](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3036)
   * Enhanced tap to write out a message at which stage it was killed if it got a signal.
@@ -103,8 +103,8 @@ modified in that revision.
           * Removed HA\_NO\_PARTITION flag from FederatedX.
           * Added test 'federated\_partition' to suite.
         * [Bug #585688](https://bugs.launchpad.net/bugs/585688) - maridb crashes in federatedx code
-          * FederatedX handler instances, created on one thread and used on\
-            another thread (via table cache) when "show table status" is executed\
+          * FederatedX handler instances, created on one thread and used on
+            another thread (via table cache) when "show table status" is executed
             crashed because txn member was not initialized for current thread.
           * Added test 'federated\_bug\_585688' to suite.
       * Author for the patch is Antony Curtis
@@ -185,11 +185,11 @@ modified in that revision.
   * Merge
     * [Revision #3014.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3014.1.1)
       * Fixed [Bug #702310](https://bugs.launchpad.net/bugs/702310) / [MySQL Bug #59493](https://bugs.mysql.com/bug.php?id=59493).
-      * An assertion failure was triggered for a 6-way join query that uses two\
+      * An assertion failure was triggered for a 6-way join query that uses two
         join buffers.
-      * The failure happened because every call of the function flush\_cached\_records()\
-        saved and restored status of all tables before the table join\_tab. It\
-        must do it only for those of them that follow the last table that uses\
+      * The failure happened because every call of the function flush\_cached\_records()
+        saved and restored status of all tables before the table join\_tab. It
+        must do it only for those of them that follow the last table that uses
         a join buffer.
 * [Revision #3015](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3015)
   * Call always ha\_index\_init(), not index\_init(), to ensure that active\_index is set correctly.
@@ -202,8 +202,8 @@ modified in that revision.
   * Merge [Bug #675118](https://bugs.launchpad.net/bugs/675118) into maria-5.1
     * [Revision #2998.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2998.1.1)
       * [Bug #675118](https://bugs.launchpad.net/bugs/675118): Elimination of a table results in an invalid execution plan
-        * Fix for [MySQL Bug #52357](https://bugs.mysql.com/bug.php?id=52357) added NESTED\_JOIN::is\_fully\_covered() which would\
-          not take into account that MariaDB's table elimination could eliminate tables\
+        * Fix for [MySQL Bug #52357](https://bugs.mysql.com/bug.php?id=52357) added NESTED\_JOIN::is\_fully\_covered() which would
+          not take into account that MariaDB's table elimination could eliminate tables
           from join plan (and so, from join nest).
         * Fixed the check in the function to compare post-table-elimination numbers.
 * [Revision #3012](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3012)
@@ -250,35 +250,35 @@ modified in that revision.
 * [Revision #2999](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2999)
   * Speed up `mtr --parallel=<lots>` by scheduling some slow tests earlier.
   * The patch also fixes a race in rpl\_stop\_slave.test.
-  * On machines with lots of CPU and memory, something like `mtr --parallel=10`\
-    can speed up the test suite enormously. However, we have a few test cases\
-    that run for long (several minutes), and if we are unlucky and happen to\
-    schedule those towards the end of the test suite, we end up with most\
-    workers idle while waiting for the last slow test to end, significantly\
+  * On machines with lots of CPU and memory, something like `mtr --parallel=10`
+    can speed up the test suite enormously. However, we have a few test cases
+    that run for long (several minutes), and if we are unlucky and happen to
+    schedule those towards the end of the test suite, we end up with most
+    workers idle while waiting for the last slow test to end, significantly
     delaying the finish of the entire suite.
-  * Improve this by marking the offending tests as taking "long", and trying\
-    to schedule those tests early. This reduces the time towards the end of\
-    the test suite run where some workers are waiting with nothing to do for\
+  * Improve this by marking the offending tests as taking "long", and trying
+    to schedule those tests early. This reduces the time towards the end of
+    the test suite run where some workers are waiting with nothing to do for
     the remaining workers each to finish their last test.
-  * Also, the rpl\_stop\_slave test had a race which could cause it to take\
+  * Also, the rpl\_stop\_slave test had a race which could cause it to take
     a 300 seconds debug\_sync timeout; this is fixed.
-  * Testing on a 4-core 8GB machine, this patch speeds up the test suite with\
-    around 30% for `--parallel=10` (debug build), allowing to run the entire\
+  * Testing on a 4-core 8GB machine, this patch speeds up the test suite with
+    around 30% for `--parallel=10` (debug build), allowing to run the entire
     suite in 5 minutes.
 * [Revision #2998](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2998)
   * Fixed [Bug #639935](https://bugs.launchpad.net/bugs/639935) ([MySQL Bug #58727](https://bugs.mysql.com/bug.php?id=58727)).
-    * When the optimizer creates items out of other items it does\
-      not have to call the fix\_fields method. Usually in these\
-      cases it calls quick\_fix\_field() that just marks the\
-      created item as fixed. If the created item is an Item\_func\
-      object then calling quick\_fix\_field() works fine if the\
+    * When the optimizer creates items out of other items it does
+      not have to call the fix\_fields method. Usually in these
+      cases it calls quick\_fix\_field() that just marks the
+      created item as fixed. If the created item is an Item\_func
+      object then calling quick\_fix\_field() works fine if the
       arguments of the created functional item are already fixed.\
-      Otherwise some unfixed nodes remain in the item tree and\
-      it triggers an assertion failure whenever the item is\
+      Otherwise some unfixed nodes remain in the item tree and
+      it triggers an assertion failure whenever the item is
       evaluated.
-    * Fixed the problem by making the method quick\_fix\_field\
+    * Fixed the problem by making the method quick\_fix\_field
       virtual and providing an implementation for the class\
-      Item\_func objects that recursively calls the method\
+      Item\_func objects that recursively calls the method
       for unfixed arguments of any functional item.
 * [Revision #2997](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2997)
   * Increased version number to 5.1.54
@@ -293,29 +293,29 @@ modified in that revision.
   * Made archive.test a bit more safe
 * [Revision #2992](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2992)
   * [Bug #687320](https://bugs.launchpad.net/bugs/687320): Fix sporadic test failures in innodb\_mysql.test and partition\_innodb\_semi\_consistent.test
-    * Problem is that these tests run with `--innodb-lock-wait-timeout=2` in .opt\
-      (and this is necessary as built-in innodb does not allow to change this\
-      dynamically). This cases another part of the test to occasionally time\
-      out an UPDATE, which subsequently caused the test case to timeout due to\
+    * Problem is that these tests run with `--innodb-lock-wait-timeout=2` in .opt
+      (and this is necessary as built-in innodb does not allow to change this
+      dynamically). This cases another part of the test to occasionally time
+      out an UPDATE, which subsequently caused the test case to timeout due to
       waiting for a condition (successful UPDATE) that never occurs.
     * Fixed by re-trying the update in case of timeout.
-    * Tested by inserting a sleep() in the connection that the UPDATE is waiting\
-      for, and checking that the retry loops a couple of times until the other\
+    * Tested by inserting a sleep() in the connection that the UPDATE is waiting
+      for, and checking that the retry loops a couple of times until the other
       connection is done and COMMITs.
 * [Revision #2991](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2991)
-  * Made sure that SELECT from the test case for bug BUG#56862/64041 uses\
+  * Made sure that SELECT from the test case for bug BUG#56862/64041 uses
     the same execution plan that is in the output of the corresponding\
     EXPLAIN.
 * [Revision #2990](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2990)
   * [Bug #677407](https://bugs.launchpad.net/bugs/677407) / [MySQL Bug #48883](https://bugs.mysql.com/bug.php?id=48883): Stale data from INNODB\_LOCKS table.
   * The logic for how to check when to update the table cache for\
-    INNODB\_LOCKS with real data was flawed. This could result in both\
-    not updating the cache often enough (when the table is queried\
-    repeatedly with less than 100 milliseconds in-between) resulting\
-    in stale data; as well as updating too often (when multiple\
+    INNODB\_LOCKS with real data was flawed. This could result in both
+    not updating the cache often enough (when the table is queried
+    repeatedly with less than 100 milliseconds in-between) resulting
+    in stale data; as well as updating too often (when multiple
     queries against the table start at around the same time).
   * This caused occasional test failures in innodb\_information\_schema.
-  * Fix by updating the "last updated" timestamp in the right place,\
+  * Fix by updating the "last updated" timestamp in the right place,
     when the cache is updated, not when it is read.
 * [Revision #2989](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2989)
   * Fix myisam\_crash\_before\_flush\_keys on Windows
@@ -323,11 +323,11 @@ modified in that revision.
     \[ERROR] mysqld got exception 0x80000003 ;\
     in the .err file
   * The exception comes from DBUG\_EXECUTE\_IF (.. abort())
-  * Fix: use DBUG\_ABORT instead of abort() - it does not throw\
+  * Fix: use DBUG\_ABORT instead of abort() - it does not throw
     any exceptions.
 * [Revision #2988](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2988)
   * Fix [Bug #686184](https://bugs.launchpad.net/bugs/686184) - merge\_debug test fails.
-    * The reason for failure is that DBUG\_EXECUTE\_IF in mi\_open()\
+    * The reason for failure is that DBUG\_EXECUTE\_IF in mi\_open()
       only worked for Unix-formatted file names, due to strstr(name, "/crashed")
     * The fix change strstr() above to strstr(name, "crashed"), to it can work with\
       Windows file names as well.
@@ -335,16 +335,16 @@ modified in that revision.
   * merge
     * [Revision #2982.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2982.1.1)
       * [Bug #473914](https://bugs.launchpad.net/bugs/473914): mysql\_client\_test fail with in debug compilaton on windows x64
-        * Reason: inconsistent compilation, federatedx is compiled without SAFEMALLOC\
+        * Reason: inconsistent compilation, federatedx is compiled without SAFEMALLOC
           flag, while anything else is compiled with SAFEMALLOC.
-        * As a consequence, my\_hash\_init used inside federatedx initialization does not\
-          provide correct caller info parameters (file, line) , so they are initialized with\
+        * As a consequence, my\_hash\_init used inside federatedx initialization does not
+          provide correct caller info parameters (file, line) , so they are initialized with
           whatever is on stack. When info about allocated memory is output in\
           COM\_DEBUG command, the server crashes trying to output string starting at\
           0xcccccccccccccccc.
-        * The fix is to remove SAFEMALLOC preprocessor flags\
+        * The fix is to remove SAFEMALLOC preprocessor flags
           from every CMakeLists.txt, except the top-level one.
-        * Also, SAFEMALLOC is not defined by default now, instead\
+        * Also, SAFEMALLOC is not defined by default now, instead
           there is WITH\_DEBUG\_FULL CMake option which adds\
           -DSAFEMALLOC to C and C++ flags in debug compilation.\
           This option is off by default, because
@@ -368,7 +368,7 @@ modified in that revision.
       * address review comments
     * [Revision #2981.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2981.1.2)
       * Adapt fix\_vs\_config\_dir () for VS2010
-      * MTR\_VS\_CONFIG is now determined by looking at parent directory\
+      * MTR\_VS\_CONFIG is now determined by looking at parent directory
         of sql\*\mysqld.exe, instead of looking at \*\*\BuildLog.htm
       * Reason : VS2010 does not create BuildLog.htm, hence prior method did not work.
     * [Revision #2981.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2981.1.1)
@@ -381,6 +381,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -129,3 +129,5 @@ Privileges are neither dropped for `PROD`, nor are they "copied" to `TEST`. Use 
 {% endhint %}
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

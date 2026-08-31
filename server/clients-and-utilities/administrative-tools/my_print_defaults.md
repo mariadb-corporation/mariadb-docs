@@ -1,3 +1,9 @@
+---
+description: >-
+  my_print_defaults displays the options a tool will read from the option
+  groups of option files, one option per line in command-line form.
+---
+
 # my\_print\_defaults
 
 `my_print_defaults` displays the options from option groups of option files. It is useful to see which options a particular tool will use.
@@ -21,7 +27,7 @@ my_print_defaults [OPTIONS] [groups]
 | -g, --defaults-group-suffix=_name_ | In addition to the given groups, read also groups with this suffix. Removed in MariaDB 10.8.                                                                                                 |
 | -e, --extra-file=_name_            | Deprecated. Synonym for `--defaults-extra-file`.                                                                                                                                             |
 | --mariadbd                         | Read the same set of groups that the [mariadbd](../../server-management/starting-and-stopping-mariadb/mariadbd.md) server does. Available from MariaDB 10.11.3.                              |
-| --mysqld                           | Read the same set of groups that the [mysqld](../legacy-clients-and-utilities/mariadbd_safe.md) server does.                                                                                 |
+| --mysqld                           | Read the same set of groups that the [mysqld](../../server-management/starting-and-stopping-mariadb/mariadbd.md) server does.                                                                                 |
 | -n, --no-defaults                  | Return an empty string (useful for scripts).                                                                                                                                                 |
 | ?, --help                          | Display this help message and exit.                                                                                                                                                          |
 | -v, --verbose                      | Increase the output level.                                                                                                                                                                   |

@@ -35,4 +35,6 @@ The number of fields will be available after calling [mysql\_stmt\_prepare()](my
 * [mysql\_stmt\_prepare()](mysql_stmt_prepare.md)
 * [mysql\_stmt\_param\_count()](mysql_stmt_param_count.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

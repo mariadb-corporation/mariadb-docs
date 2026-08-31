@@ -103,13 +103,6 @@ TRANSACTIONS: NO
 10 rows in set (0.00 sec)
 ```
 
-Check if a given storage engine is available:
-
-```sql
-SELECT SUPPORT FROM information_schema.ENGINES WHERE ENGINE LIKE 'tokudb';
-Empty SET
-```
-
 Check which storage engine supports XA transactions:
 
 ```sql

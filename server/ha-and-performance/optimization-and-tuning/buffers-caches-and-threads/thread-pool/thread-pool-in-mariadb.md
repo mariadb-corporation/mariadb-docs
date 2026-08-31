@@ -15,7 +15,7 @@ For example, a thread may depend on another thread's completion, and they may bl
 * Make the best use of underlying OS capabilities. For example, if a native thread pool implementation is available, it should be used. If not, the best I/O multiplexing method should be used.
 * Limit the resources used by threads.
 
-There are currently two different low-level implementations – depending on OS. One implementation is designed specifically for Windows which utilizes a native [CreateThreadpool](https://docs.microsoft.com/en-us/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool) API. The second implementation is primarily intended to be used in Unix-like systems. Because the implementations are\
+There are currently two different low-level implementations – depending on OS. One implementation is designed specifically for Windows which utilizes a native [CreateThreadpool](https://docs.microsoft.com/en-us/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool) API. The second implementation is primarily intended to be used in Unix-like systems. Because the implementations are
 different, some system variables differ between Windows and Unix.
 
 ## When to Use the Thread Pool
@@ -36,7 +36,7 @@ The [thread\_handling](thread-pool-system-status-variables.md) system variable i
 
 There are several other system variables as well, which are described in the sections below. Many of the system variables documented below are dynamic, meaning that they can be changed with [SET GLOBAL](../../../../reference/sql-statements/administrative-sql-statements/set-commands/) on a running server.
 
-Generally, there is no need to tweak many of these system variables. The goal of the thread pool was to\
+Generally, there is no need to tweak many of these system variables. The goal of the thread pool was to
 provide good performance out-of-the box. However, the system variable values can be changed, and we intended to expose as many knobs from the underlying implementation as we could. Feel free to tweak them as you see fit.
 
 If you find any issues with any of the default behavior, then we encourage you to [submit a bug report](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/reporting-bugs).
@@ -75,7 +75,7 @@ However, if you would like to use the old one thread per-connection behavior on 
 thread_handling=one-thread-per-connection
 ```
 
-On older versions of Windows, such as XP and 2003, `pool-of-threads` is not\
+On older versions of Windows, such as XP and 2003, `pool-of-threads` is not
 implemented, and the server will silently switch to using the legacy`one-thread-per-connection` method.
 
 The native [CreateThreadpool](https://docs.microsoft.com/en-us/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool) API allows applications to set the minimum and maximum number of threads in the pool. The following system variables can be used to configure those values on Windows:
@@ -156,7 +156,7 @@ The following Information Schema tables relate to the thread pool:
 
 ## MariaDB Thread Pool vs Oracle MySQL Enterprise Thread Pool
 
-Commercial editions of MySQL since 5.5 include an Oracle MySQL Enterprise thread pool implemented as a plugin, which delivers similar functionality. A detailed discussion about the design of the feature is at [Mikael Ronstrom's blog](https://mikaelronstrom.blogspot.com/2011/10/mysql-thread-pool-summary.html). Here is the summary of similarities and differences, based on the above\
+Commercial editions of MySQL since 5.5 include an Oracle MySQL Enterprise thread pool implemented as a plugin, which delivers similar functionality. A detailed discussion about the design of the feature is at [Mikael Ronstrom's blog](https://mikaelronstrom.blogspot.com/2011/10/mysql-thread-pool-summary.html). Here is the summary of similarities and differences, based on the above
 materials.
 
 ### Similarities
@@ -167,7 +167,7 @@ materials.
 ### Differences
 
 * The Windows implementation is completely different – MariaDB's uses native Windows thread pooling, while Oracle's implementation includes a convenience function WSAPoll() (provided for convenience to port Unix applications). As a consequence of relying on WSAPoll(), Oracle's implementation does not work with named pipes and shared memory connections.
-* MariaDB uses the most efficient I/O multiplexing facilities for each operating system: Windows (the I/O completion port is used internally by the native thread pool), Linux (epoll), Solaris (event ports), FreeBSD and OSX (kevent). Oracle uses optimized I/O multiplexing only on Linux, with epoll,\
+* MariaDB uses the most efficient I/O multiplexing facilities for each operating system: Windows (the I/O completion port is used internally by the native thread pool), Linux (epoll), Solaris (event ports), FreeBSD and OSX (kevent). Oracle uses optimized I/O multiplexing only on Linux, with epoll,
   and uses poll() otherwise.
 * Unlike Oracle MySQL Enterprise Thread Pool, MariaDB's one is built in, not a plugin.
 

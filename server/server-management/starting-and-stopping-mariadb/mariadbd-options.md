@@ -78,7 +78,7 @@ Previously, the client used to be called `mysqld`, and can still be accessed und
 
 ## Compatibility Options
 
-The following options have been added to MariaDB to make it more compliant with\
+The following options have been added to MariaDB to make it more compliant with
 other MariaDB and MySQL versions. Options that are also system variables are listed after:
 
 #### `-a, --ansi`
@@ -99,7 +99,7 @@ other MariaDB and MySQL versions. Options that are also system variables are lis
 
 #### `--skip-new`
 
-* Description: Disables [--new](mariadbd-options.md#-new).
+* Description: Disables [--new](mariadbd-options.md#new).
 
 ### Compatibility Options and System Variables
 
@@ -108,7 +108,7 @@ other MariaDB and MySQL versions. Options that are also system variables are lis
 * [--old-alter-table](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_alter_table)
 * [--old-mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_mode)
 * [--old-passwords](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords)
-* [--show-old-temporals](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#show_old_temporals)
+* `--show-old-temporals`
 
 ## Locale Options
 
@@ -190,11 +190,11 @@ Options that are also system variables are listed after:
 
 The following options and system variables are related to using MariaDB on Windows:
 
-* [--named-pipe](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-filters/mariadb-maxscale-2302-transaction-performance-monitoring-filter#named_pipe)
+* [--named-pipe](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-filters/mariadb-maxscale-2302-transaction-performance-monitoring-filter#named_pipe)
 
 ## Replication and Binary Logging Options
 
-The following options are related to [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) and the [binary log](../server-monitoring-logs/binary-log/). Options that are also system variables are listed after:
+The following options are related to [replication](../../ha-and-performance/standard-replication/) and the [binary log](../server-monitoring-logs/binary-log/). Options that are also system variables are listed after:
 
 #### `--abort-slave-event-count`
 
@@ -238,7 +238,7 @@ The following options are related to [replication](../../server-usage/storage-en
 #### `--log-basename`
 
 * Command line: `--log-basename=name`
-* Description: Basename for all log files and the .pid file. This sets all log file names at once (in 'datadir') and is normally the only option you need for specifying log files. This is especially recommended to be set if you are using [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) as it ensures that your log file names are not dependent on your host name. Sets names for the [binary log](../server-monitoring-logs/binary-log/), [relay log](../server-monitoring-logs/binary-log/relay-log.md), [general query log](../server-monitoring-logs/general-query-log.md), [slow query log](../server-monitoring-logs/slow-query-log/) and [error log](../server-monitoring-logs/error-log.md). Note that if you explicitly set log file names with any of these other options; [log-bin-index](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md), [relay-log](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md), [relay-log-index](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md), [general-log-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#general_log_file), [log\_slow\_query\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_query_file) ([slow\_query\_log\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#slow_query_log_file)), [log\_error](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error), and [pid-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#pid_file), these should be placed after `--log-basename` in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
+* Description: Basename for all log files and the .pid file. This sets all log file names at once (in 'datadir') and is normally the only option you need for specifying log files. This is especially recommended to be set if you are using [replication](../../ha-and-performance/standard-replication/) as it ensures that your log file names are not dependent on your host name. Sets names for the [binary log](../server-monitoring-logs/binary-log/), [relay log](../server-monitoring-logs/binary-log/relay-log.md), [general query log](../server-monitoring-logs/general-query-log.md), [slow query log](../server-monitoring-logs/slow-query-log/) and [error log](../server-monitoring-logs/error-log.md). Note that if you explicitly set log file names with any of these other options; [log-bin-index](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md), [relay-log](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md), [relay-log-index](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md), [general-log-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#general_log_file), [log\_slow\_query\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_query_file) ([slow\_query\_log\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#slow_query_log_file)), [log\_error](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error), and [pid-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#pid_file), these should be placed after `--log-basename` in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
 
 #### `--log-bin-trust-routine-creators`
 
@@ -253,7 +253,7 @@ The following options are related to [replication](../../server-usage/storage-en
 #### `--master-info-file`
 
 * Command line: `--master-info-file=name`
-* Description: Name and location of the file on the replica where the `MASTER_LOG_FILE` and `MASTER_LOG_POS` options (i.e. the [binary log](../server-monitoring-logs/binary-log/) position on the primary) and most other [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) options are written. The [replica's I/O thread](../../ha-and-performance/standard-replication/replication-threads.md#replica-io-thread) keeps this [binary log](../server-monitoring-logs/binary-log/) position updated as it downloads events.
+* Description: Name and location of the file on the replica where the `MASTER_LOG_FILE` and `MASTER_LOG_POS` options (i.e. the [binary log](../server-monitoring-logs/binary-log/) position on the primary) and most other [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) options are written. The [replica's I/O thread](../../ha-and-performance/standard-replication/replication-threads.md#replica-i-o-thread) keeps this [binary log](../server-monitoring-logs/binary-log/) position updated as it downloads events.
   * See [CHANGE MASTER TO: Option Persistence](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#option-persistence) for more information.
 
 #### `--master-password`
@@ -282,27 +282,27 @@ The following options are related to [replication](../../server-usage/storage-en
 #### `--master-ssl-ca`
 
 * Command line: `--master-ssl-ca[=name]`
-* Description: Master TLS CA file. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS CA file. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-ssl-capath`
 
 * Command line: `--master-ssl-capath[=name]`
-* Description: Master TLS CA path. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS CA path. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-ssl-cert`
 
 * Command line: `--master-ssl-cert[=name]`
-* Description: Master TLS certificate file name. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS certificate file name. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-ssl-cipher`
 
 * Command line: `--master-ssl-cipher[=name]`
-* Description: Master TLS cipher. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS cipher. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-ssl-key`
 
 * Command line: `--master-ssl-key[=name]`
-* Description: Master TLS keyfile name. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS keyfile name. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-user`
 
@@ -327,7 +327,7 @@ The following options are related to [replication](../../server-usage/storage-en
 #### `--sysdate-is-now`
 
 * Command line: `--sysdate-is-now`
-* Description: Non-default option to alias [SYSDATE()](../../reference/sql-functions/date-time-functions/sysdate.md) to [NOW()](../../reference/sql-functions/date-time-functions/now.md) to make it safe for [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md). Since 5.0, SYSDATE() has returned a \`dynamic' value different for different invocations, even within the same statement.
+* Description: Non-default option to alias [SYSDATE()](../../reference/sql-functions/date-time-functions/sysdate.md) to [NOW()](../../reference/sql-functions/date-time-functions/now.md) to make it safe for [replication](../../ha-and-performance/standard-replication/). Since 5.0, SYSDATE() has returned a \`dynamic' value different for different invocations, even within the same statement.
 
 ### Replication and Binary Logging Options and System Variables
 
@@ -877,10 +877,6 @@ The options and system variables related to the [Spider](../../server-usage/stor
 
 The options and system variables related to the [Mroonga](../../server-usage/storage-engines/mroonga/) storage engine can be found [here](../../server-usage/storage-engines/mroonga/mroonga-system-variables.md).
 
-### TokuDB Storage Engine Options
-
-The options and system variables related to the [TokuDB](../../server-usage/storage-engines/legacy-storage-engines/tokudb/) storage engine can be found [here](../../server-usage/storage-engines/legacy-storage-engines/tokudb/tokudb-system-variables.md).
-
 ### Vector Options
 
 The options and system variables related to [Vectors](../../reference/sql-structure/vectors/) storage engine (beginning with `mhnsw`) can be found [here](../../reference/sql-structure/vectors/vector-system-variables.md).
@@ -1098,7 +1094,7 @@ Some options and system variables related to [Galera Cluster](../../architecture
 
 #### `--sync-sys`
 
-* Description: Enable/disable system sync calls. Syncs should only be turned off (`--disable-sync-sys`) when running tests or debugging! Replaced by [debug-no-sync](mariadbd-options.md#-debug-no-sync) from [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5).
+* Description: Enable/disable system sync calls. Syncs should only be turned off (`--disable-sync-sys`) when running tests or debugging! Replaced by [debug-no-sync](mariadbd-options.md#debug-no-sync) from [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5).
 * Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 #### `--thread-alarm`
@@ -1108,7 +1104,7 @@ Some options and system variables related to [Galera Cluster](../../architecture
 ### Debugging Options and System Variables
 
 * [core-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file)
-* [debug](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug)
+* [debug](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug-debug_dbug)
 * [debug-no-thread-alarm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_no_thread_alarm)
 
 ## Other Options
@@ -1178,7 +1174,7 @@ Options that are also system variables are listed after:
 #### `--log-tc`
 
 * Command line: `--log-tc=name`
-* Description: Defines the path to the memory-mapped file-based transaction coordinator log, which is only used if the [binary log](../server-monitoring-logs/binary-log/) is disabled. If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available. See [Transaction Coordinator Log](../server-monitoring-logs/transaction-coordinator-log/) for more information. Also see the [log\_tc\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_tc_size) system variable and the [--tc-heuristic-recover](mariadbd-options.md#-tc-heuristic-recover) option.
+* Description: Defines the path to the memory-mapped file-based transaction coordinator log, which is only used if the [binary log](../server-monitoring-logs/binary-log/) is disabled. If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available. See [Transaction Coordinator Log](../server-monitoring-logs/transaction-coordinator-log/) for more information. Also see the [log\_tc\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_tc_size) system variable and the [--tc-heuristic-recover](mariadbd-options.md#tc-heuristic-recover) option.
 * Default Value: `tc.log`
 
 #### `--master-connect-retry`
@@ -1209,7 +1205,7 @@ Options that are also system variables are listed after:
   * Plugins can be specified in the format `name=library`, where `name` is the plugin name and `library` is the plugin library. This format installs a single plugin from the given plugin library.
   * Plugins can also be specified in the format `library`, where `library` is the plugin library. This format installs all plugins from the given plugin library.
   * Multiple plugins can be specified by separating them with semicolons.
-* Special care must be taken when specifying the [--plugin-load](mariadbd-options.md#-plugin-load) option multiple times, or when specifying both the [--plugin-load](mariadbd-options.md#-plugin-load) option and the [--plugin-load-add](mariadbd-options.md#-plugin-load-add) option together. The [--plugin-load](mariadbd-options.md#-plugin-load) option resets the plugin load list, and this can cause unexpected problems if you are not aware. The [--plugin-load-add](mariadbd-options.md#-plugin-load-add) option does not reset the plugin load list, so it is much safer to use. See [Plugin Overview: Specifying Multiple Plugin Load Options](../../reference/plugins/plugin-overview.md#specifying-multiple-plugin-load-options) for more information.
+* Special care must be taken when specifying the [--plugin-load](mariadbd-options.md#plugin-load) option multiple times, or when specifying both the [--plugin-load](mariadbd-options.md#plugin-load) option and the [--plugin-load-add](mariadbd-options.md#plugin-load-add) option together. The [--plugin-load](mariadbd-options.md#plugin-load) option resets the plugin load list, and this can cause unexpected problems if you are not aware. The [--plugin-load-add](mariadbd-options.md#plugin-load-add) option does not reset the plugin load list, so it is much safer to use. See [Plugin Overview: Specifying Multiple Plugin Load Options](../../reference/plugins/plugin-overview.md#specifying-multiple-plugin-load-options) for more information.
 * See [Plugin Overview: Installing a Plugin with Plugin Load Options](../../reference/plugins/plugin-overview.md#installing-a-plugin-with-plugin-load-options) for more information.
 
 #### `--plugin-load-add`
@@ -1219,7 +1215,7 @@ Options that are also system variables are listed after:
   * Plugins can be specified in the format `name=library`, where `name` is the plugin name and `library` is the plugin library. This format installs a single plugin from the given plugin library.
   * Plugins can also be specified in the format `library`, where `library` is the plugin library. This format installs all plugins from the given plugin library.
   * Multiple plugins can be specified by separating them with semicolons.
-* Special care must be taken when specifying both the [--plugin-load](mariadbd-options.md#-plugin-load) option and the [--plugin-load-add](mariadbd-options.md#-plugin-load-add) option together. The [--plugin-load](mariadbd-options.md#-plugin-load) option resets the plugin load list, and this can cause unexpected problems if you are not aware. The [--plugin-load-add](mariadbd-options.md#-plugin-load-add) option does not reset the plugin load list, so it is much safer to use. See [Plugin Overview: Specifying Multiple Plugin Load Options](../../reference/plugins/plugin-overview.md#specifying-multiple-plugin-load-options) for more information.
+* Special care must be taken when specifying both the [--plugin-load](mariadbd-options.md#plugin-load) option and the [--plugin-load-add](mariadbd-options.md#plugin-load-add) option together. The [--plugin-load](mariadbd-options.md#plugin-load) option resets the plugin load list, and this can cause unexpected problems if you are not aware. The [--plugin-load-add](mariadbd-options.md#plugin-load-add) option does not reset the plugin load list, so it is much safer to use. See [Plugin Overview: Specifying Multiple Plugin Load Options](../../reference/plugins/plugin-overview.md#specifying-multiple-plugin-load-options) for more information.
 * See [Plugin Overview: Installing a Plugin with Plugin Load Options](../../reference/plugins/plugin-overview.md#installing-a-plugin-with-plugin-load-options) for more information.
 
 #### `--port-open-timeout`
@@ -1272,7 +1268,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 #### `--skip-symlink`
 
 * Command line: `--skip-symlink`
-* Description: Don't allow symlinking of tables. Deprecated and removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5). Use [symbolic-links](mariadbd-options.md#-symbolic-links) with the `skip` [option prefix](mariadbd-options.md#option-prefixes) instead.
+* Description: Don't allow symlinking of tables. Deprecated and removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5). Use [symbolic-links](mariadbd-options.md#symbolic-links) with the `skip` [option prefix](mariadbd-options.md#option-prefixes) instead.
 * Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 #### `--skip-thread-priority`
@@ -1305,7 +1301,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 #### `--tc-heuristic-recover`
 
 * Command line: `--tc-heuristic-recover=name`
-* Description: If [manual heuristic recovery](../server-monitoring-logs/transaction-coordinator-log/heuristic-recovery-with-the-transaction-coordinator-log.md) is needed, this option defines the decision to use in the heuristic recovery process. Manual heuristic recovery may be needed if the [transaction coordination log](../server-monitoring-logs/transaction-coordinator-log/) is missing or if it doesn't contain all prepared transactions. This option can be set to `OFF`, `COMMIT`, or `ROLLBACK`. The default is `OFF`. See also the [--log-tc](mariadbd-options.md#-log-tc) server option and the [log\_tc\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_tc_size) system variable.
+* Description: If [manual heuristic recovery](../server-monitoring-logs/transaction-coordinator-log/heuristic-recovery-with-the-transaction-coordinator-log.md) is needed, this option defines the decision to use in the heuristic recovery process. Manual heuristic recovery may be needed if the [transaction coordination log](../server-monitoring-logs/transaction-coordinator-log/) is missing or if it doesn't contain all prepared transactions. This option can be set to `OFF`, `COMMIT`, or `ROLLBACK`. The default is `OFF`. See also the [--log-tc](mariadbd-options.md#log-tc) server option and the [log\_tc\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_tc_size) system variable.
 
 #### `--temp-pool`
 
@@ -1335,7 +1331,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 
 ## Other Options and System Variables
 
-* [allow-suspicious-udfs](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#allow-suspicious-udfs)
+* [allow-suspicious-udfs](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#allow_suspicious_udfs)
 * [automatic-sp-privileges](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#automatic_sp_privileges)
 * [back-log](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#back_log)
 * [basedir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#basedir)
@@ -1361,14 +1357,14 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [disconnect-on-expired-password](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#disconnect_on_expired_password)
 * [div-precision-increment](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#div_precision_increment)
 * [enable-named-pipe](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#named_pipe)
-* [encrypt-binlog](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_binlog)
+* [encrypt-binlog](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#encrypt_binlog)
 * [encrypt-tmp-disk-tables](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_tmp_disk_tables)
 * [encrypt-tmp-files](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_tmp_files)
 * [encryption-algorithm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encryption_algorithm)
 * [engine-condition-pushdown](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#engine_condition_pushdown)
 * [eq-range-index-dive-limit](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#eq_range_index_dive_limit)
 * [event-scheduler](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#event_scheduler)
-* [expire-logs-days](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#expire_logs_days)
+* [expire-logs-days](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days)
 * [explicit-defaults-for-timestamp](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#explicit_defaults_for_timestamp)
 * [extra-max-connections](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
 * [extra-port](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
@@ -1422,7 +1418,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [max-connections](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_connections)
 * [max-connect-errors](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_connect_errors)
 * [max-delayed-threads](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_delayed_threads)
-* [max-digest-length](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_digest_length")
+* [max-digest-length](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_digest_length)
 * [max-error-count](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_error_count)
 * [max-length-for-sort-data](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_length_for_sort_data)
 * [max-long-data-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_long_data_size)
@@ -1497,7 +1493,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [ssl-crlpath](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
 * [ssl-key](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
 * [ssl-passphrase](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md#ssl_passphrase)
-* [standards\_compliant\_cte](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#standards_compliant_cte)
+* [standard\_compliant\_cte](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#standard_compliant_cte)
 * [stored-program-cache](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#stored_program_cache)
 * [strict\_password\_validation](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#strict_password_validation)
 * [sync-frm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sync_frm)
@@ -1512,7 +1508,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [tcp-nodelay](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_nodelay)
 * [thread-cache-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_cache_size)
 * [thread-concurrency](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_concurrency)
-* [thread-handling](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_handling)
+* [thread-handling](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md#thread_handling)
 * [thread-pool-dedicated-listener](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
 * [thread-pool-exact-stats](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
 * [thread-pool-idle-timeout](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
@@ -1533,7 +1529,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [transaction-prealloc-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_prealloc_size)
 * [transaction-read-only](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_read_only)
 * [updatable-views-with-limit](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#updatable_views_with_limit)
-* [userstat](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#userstat)
+* [userstat](../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md#userstat)
 * [version](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#version)
 * [wait-timeout](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#wait_timeout)
 
@@ -1653,19 +1649,11 @@ The options related to the [WSREP\_MEMBERSHIP](../../reference/system-tables/inf
 
 The options related to the [WSREP\_STATUS](../../reference/system-tables/information-schema/information-schema-tables/information-schema-wsrep_status-table.md) information schema plugin can be found [here](../../reference/plugins/mariadb-replication-cluster-plugins/wsrep_info-plugin.md#options).
 
-## Replication Plugins - Options and System Variables
+## Replication - Options and System Variables
 
-### Replication Plugin - `rpl_semi_sync_master`
+### Semisynchronous Replication
 
-The system variables related to the [rpl\_semi\_sync\_master](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl-semi-sync_master) replication plugin can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#system-variables).
-
-The options related to the [rpl\_semi\_sync\_master](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl-semi-sync_master) replication plugin can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#options).
-
-### Replication Plugin - `rpl_semi_sync_slave`
-
-The system variables related to the [rpl\_semi\_sync\_slave](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl-semi-sync_slave) replication plugin can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#system-variables).
-
-The options related to the [rpl\_semi\_sync\_slave](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl-semi-sync_slave) replication plugin can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#options).
+The system variables and options related to [semisynchronous replication](../../ha-and-performance/standard-replication/semisynchronous-replication.md), which is built into the server, can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#system-variables).
 
 ## Default Values
 

@@ -41,7 +41,7 @@ There are three kind of buffers in MariaDB:
   * [table\_definition\_cache](system-variables/server-system-variables.md#table_definition_cache)
   * [thread\_cache\_size](system-variables/server-system-variables.md#thread_cache_size)
 * Local buffers that are allocated on demand whenever needed
-  * Internal ones used during engine index creation\
+  * Internal ones used during engine index creation
     ([myisam\_sort\_buffer\_size](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#myisam_sort_buffer_size), [aria\_sort\_buffer\_size).](../../server-usage/storage-engines/aria/aria-system-variables.md#aria_sort_buffer_size)
   * Internal buffers for storing blobs.
     * Some storage engine will keep a temporary cache to store the largest blob seen so far when scanning a table. This will be freed at end of query. Note that temporary blob storage is not included in the memory information in [information\_schema.processlist](../../reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table.md) but only in the total memory used (`show global status like "memory_used"`).
@@ -56,16 +56,16 @@ There are three kind of buffers in MariaDB:
 | [sort\_buffer\_size](system-variables/server-system-variables.md#sort_buffer_size)        | When doing ORDER BY or GROUP BY                                                                                                 |
 | [max\_heap\_table\_size](system-variables/server-system-variables.md#max_heap_table_size) | Used to store temporary tables in memory. See [Optimizing memory tables](optimizing-data-structure/optimizing-memory-tables.md) |
 
-If any variables in the last group is very large and you have a lot\
-of simultaneous users that are executing queries that are using these\
+If any variables in the last group is very large and you have a lot
+of simultaneous users that are executing queries that are using these
 buffers then you can run into trouble.
 
-In a default MariaDB installation the default of most of the above\
+In a default MariaDB installation the default of most of the above
 variables are quite small to ensure that one does not run out of memory.
 
-You can check which variables that have been changed in your setup by\
-executing the following sql statement. If you are running into\
-out-of-memory issues, it is very likely that the problematic variable is\
+You can check which variables that have been changed in your setup by
+executing the following sql statement. If you are running into
+out-of-memory issues, it is very likely that the problematic variable is
 in this list!
 
 ```sql
@@ -394,7 +394,7 @@ The tips in this document apply to MySQL, MariaDB, and Percona.
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [random](https://mysql.rjweb.org/doc.php/random)

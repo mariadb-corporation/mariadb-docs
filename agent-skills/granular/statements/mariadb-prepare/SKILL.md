@@ -142,3 +142,5 @@ SELECT @a;   -- 10
   - <https://mariadb.com/docs/server/reference/sql-statements/prepared-statements/execute-statement>
   - <https://mariadb.com/docs/server/reference/sql-statements/prepared-statements/deallocate-drop-prepare>
   - <https://mariadb.com/docs/server/reference/sql-statements/prepared-statements/execute-immediate>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

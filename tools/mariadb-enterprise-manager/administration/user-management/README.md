@@ -235,6 +235,6 @@ You cannot delete the user account that you are currently logged in with. To del
 
 Upon installation of MariaDB Enterprise Manager, a default `admin` user is created with an automatically generated password.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

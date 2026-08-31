@@ -124,4 +124,6 @@ The server\_status can be obtained by the [mariadb\_get\_infov()](api-functions/
 | `IS_NUM(column_type)`      | True if the column type is numeric         |
 | `IS_LONGDATA(column_type)` | True if the column is a blob or text field |
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

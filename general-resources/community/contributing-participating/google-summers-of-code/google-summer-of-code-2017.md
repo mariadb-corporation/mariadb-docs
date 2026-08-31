@@ -1,12 +1,12 @@
 # Google Summer of Code 2017
 
-We participated in the [Google Summer of Code 2017](https://summerofcode.withgoogle.com/) (we have participated previously in [2016](google-summer-of-code-2016.md), [2015](google-summer-of-code-2015.md), [2014](google-summer-of-code-2014.md), and [2013](google-summer-of-code-2013.md)). The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently C, ODBC, Java) and on [MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/en/galera/README.md), which allows you to scale your reads & writes. Lately, we also have [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb-columnstore/README.md), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
+We participated in the [Google Summer of Code 2017](https://summerofcode.withgoogle.com/) (we have participated previously in [2016](google-summer-of-code-2016.md), [2015](google-summer-of-code-2015.md), [2014](google-summer-of-code-2014.md), and [2013](google-summer-of-code-2013.md)). The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently C, ODBC, Java) and on [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7), which allows you to scale your reads & writes. Lately, we also have [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
 
 ## Where to start
 
 Please join us at `irc.freenode.net` at #maria to mingle with the community. Don't forget to subscribe to [maria-developers@lists.launchpad.net](https://launchpad.net/~maria-developers) (this is the main list where we discuss development).
 
-A few handy tips for any interested students who are unsure which projects to choose:[Blog post from former GSoC student & mentor](https://vicentiu.ciorbaru.io/mariadb-participates-in-gsoc-2017/)
+A few handy tips for any interested students who are unsure which projects to choose:Blog post from former GSoC student & mentor
 
 ## List of tasks
 
@@ -14,7 +14,7 @@ The complete list of tasks suggested for GSoC 2017 is located in the [**MariaDB 
 
 ### Support for GTID in mysqlbinlog
 
-The [mysqlbinlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-binlog) tool needs to be updated to understand the replication feature called [Global Transaction IDs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) (GTIDs) in MariaDB 10. The current version does not support GTIDs and the MySQL variant does not speak MariaDB 10's GTIDs.
+The [mysqlbinlog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/logging-tools/mariadb-binlog) tool needs to be updated to understand the replication feature called [Global Transaction IDs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) (GTIDs) in MariaDB 10. The current version does not support GTIDs and the MySQL variant does not speak MariaDB 10's GTIDs.
 
 | Details:             | Skills:                                                | Mentor: | Students Interested: |
 | -------------------- | ------------------------------------------------------ | ------- | -------------------- |
@@ -25,7 +25,7 @@ The [mysqlbinlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-uti
 
 ### Automatic provisioning of slave
 
-The purpose of this task is to create an easy-to-use facility for setting up a new MariaDB [replication](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/contributing-participating/google-summers-of-code/broken-reference/README.md) slave.
+The purpose of this task is to create an easy-to-use facility for setting up a new MariaDB [replication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication) slave.
 
 | Details:             | Skills:                                                | Mentor: | Students Interested: |
 | -------------------- | ------------------------------------------------------ | ------- | -------------------- |
@@ -47,7 +47,7 @@ The purpose of this task is to create an easy-to-use facility for setting up a n
 
 ### mysqltest improvements
 
-`mysqltest` is a client utility that runs tests in the [mysql-test](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-test) framework. It sends sql statements to the server, compares the results with the expected results, and uses a special small [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) for loops, assignments, and so on. It's pretty old and very ad hoc with many strange limitations. It badly needs a proper parser and a consistent logical grammar.
+`mysqltest` is a client utility that runs tests in the [mysql-test](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/testing-tools/mariadb-test) framework. It sends sql statements to the server, compares the results with the expected results, and uses a special small [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) for loops, assignments, and so on. It's pretty old and very ad hoc with many strange limitations. It badly needs a proper parser and a consistent logical grammar.
 
 | Details:             | Skills:                                                  | Mentor: | Students Interested: |
 | -------------------- | -------------------------------------------------------- | ------- | -------------------- |
@@ -116,15 +116,15 @@ This task is about re-implementing Cassandra Storage Engine using DataStax C++ D
 
 ### ColumnStore: Add proper NULL support
 
-At the moment NULL is just the maximum integer for a column (or empty string\
-for VARCHAR/CHAR). We need a mechanism to store NULLs separately to give us\
+At the moment NULL is just the maximum integer for a column (or empty string
+for VARCHAR/CHAR). We need a mechanism to store NULLs separately to give us
 full type ranges.
 
 ### ColumnStore: Add full support for DECIMAL
 
-Right now it is cast to double which is not great for obvious reasons. It will\
-mean modifying a lot of ColumnStore's version of MariaDB's function\
-implementations and allowing column files to store more than 8 bytes per\
+Right now it is cast to double which is not great for obvious reasons. It will
+mean modifying a lot of ColumnStore's version of MariaDB's function
+implementations and allowing column files to store more than 8 bytes per
 field.
 
 | Details:             | Skills:                                              | Mentor: | Students Interested: |

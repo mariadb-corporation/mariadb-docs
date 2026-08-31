@@ -62,3 +62,5 @@ RENAME USER old_user TO new_user [, old_user TO new_user] ...
   - <https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/rename-user>
   - <https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/create-user>
   - <https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/grant>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

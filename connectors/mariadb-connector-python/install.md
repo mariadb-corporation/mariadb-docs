@@ -193,7 +193,7 @@ cd source_package_dir
 pip install mariadb-pool/
 ```
 
-For troubleshooting, check the [Installation FAQ](faq.md#installation-faq).
+For troubleshooting, check the [Installation FAQ](faq.md#installation).
 
 ## Test suite
 

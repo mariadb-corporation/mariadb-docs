@@ -23,3 +23,5 @@ Restart the server after editing the configuration.
 ```sql
 SHOW PLUGINS;
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

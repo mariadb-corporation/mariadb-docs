@@ -28,5 +28,6 @@ The following is a list of tools that are required for building MariaDB Connecto
 
 On Linux you can get those programs with your package manager. On Mac OS X you will need Xcode and to install the remaining programs with [Fink](https://www.finkproject.org/) or [MacPorts](https://www.macports.org/).
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

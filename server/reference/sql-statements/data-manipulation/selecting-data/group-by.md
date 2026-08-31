@@ -15,10 +15,10 @@ You can use any of the grouping functions in your select expression. Their value
 You can use multiple expressions in the `GROUP BY` clause, separated by commas.\
 Rows are grouped together if they match on each of the expressions.
 
-You can also use a single integer as the grouping expression. If you use an integer _n_,\
+You can also use a single integer as the grouping expression. If you use an integer _n_,
 the results will be grouped by the \_n\_th column in the select expression.
 
-The `WHERE` clause is applied before the `GROUP BY` clause. It filters non-aggregated\
+The `WHERE` clause is applied before the `GROUP BY` clause. It filters non-aggregated
 rows before the rows are grouped together. To filter grouped rows based on aggregate values, use the `HAVING` clause. The `HAVING` clause takes any expression and evaluates it as a boolean, just like the `WHERE` clause. You can use grouping functions in the `HAVING` clause. As with the select expression, if you reference non-grouped columns in the `HAVING` clause, the behavior is undefined.
 
 By default, if a `GROUP BY` clause is present, the rows in the output will be sorted by the expressions used in the `GROUP BY`. You can also specify `ASC` or `DESC` (ascending, descending) after those expressions, like in [ORDER BY](order-by.md). The default is `ASC`.

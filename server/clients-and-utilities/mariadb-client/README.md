@@ -29,3 +29,5 @@ Complete MariaDB command-line client guide. Complete reference for server connec
 The mysql command-line client is the former name of the mariadb SQL shell, still available as a symlink or alternate binary for compatibility.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

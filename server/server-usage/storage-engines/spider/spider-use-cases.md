@@ -19,7 +19,7 @@ Have 3 or more servers available and Install MariaDB on each of these servers:
 * backend1 which will act as a backed server storing data
 * backend2 which will act as a second backend server storing data
 
-Follow the instructions [here](spider-storage-engine-overview.md#installing) to enable the Spider storage engine on the spider server:
+Follow the instructions [here](spider-installation.md) to enable the Spider storage engine on the spider server:
 
 ```sql
 INSTALL SONAME 'ha_spider';

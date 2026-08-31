@@ -17,3 +17,5 @@ Complete API reference for the langchain-mariadb package.
 - **[Chat Message History](chat_message_histories.md)** - Persistent chat history
 - **[Expression Filters](expression_filter.md)** - Metadata filtering utilities
 - **[Translator](translator.md)** - Natural language to SQL translation
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

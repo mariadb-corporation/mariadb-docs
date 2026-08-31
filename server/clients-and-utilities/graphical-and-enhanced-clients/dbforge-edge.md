@@ -1,4 +1,15 @@
+---
+description: >-
+  dbForge Edge is a multi-database IDE for full-stack database specialists,
+  covering MySQL and MariaDB development and management alongside SQL Server,
+  Oracle, and PostgreSQL.
+---
+
 # dbForge Edge
+
+{% hint style="info" %}
+dbForge Edge is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 [**dbForge Edge**](https://www.devart.com/dbforge/edge/) is a versatile software solution designed to meet the needs of full-stack database specialists. It offers a wide range of features to address database challenges across major providers: MySQL/MariaDB, SQL Server, Oracle, and PostgreSQL. When it comes to MySQL and MariaDB, dbForge Edge provides a highly functional IDE that covers almost all aspects of database development and management.
 

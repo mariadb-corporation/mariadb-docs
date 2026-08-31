@@ -147,3 +147,5 @@ SHOW EXPLAIN FOR 1;
   - <https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain>
   - <https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-statement>
   - <https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain-format-json>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

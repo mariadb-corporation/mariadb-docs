@@ -250,7 +250,7 @@ The server has a default [`max_binlog_size`](https://mariadb.com/docs/server/ha-
 
 The smaller the binlog file size, the more frequently the files will be rotated and archived, which can lead to increased load on the database `Pod` and the storage system. On the other hand, setting a very high binlog file size can lead to longer archival times and increased RPO.
 
-Refer to  the [configuration](../configuration.md#mycnf) documentation for instructions on how to set the `max_binlog_size` server variable in the `MariaDB` instance.
+Refer to  the [configuration](../configuration.md#my.cnf) documentation for instructions on how to set the `max_binlog_size` server variable in the `MariaDB` instance.
 
 ## Compression
 
@@ -843,3 +843,5 @@ mariadb-repl   False   Error replaying binlogs: Invalid binary log timeline: err
 There are two ways to solve this issue:
 - Update the `targetRecoveryTime` in the `MariaDB` resource to be earlier than or equal to the last recoverable time, which in this case is `2026-02-27T16:04:15Z`.
 - Disable `strictMode` in the `PointInTimeRecovery` configuration, allowing to restore up until the latest recoverable time, in this case `2026-02-27T16:04:15Z`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

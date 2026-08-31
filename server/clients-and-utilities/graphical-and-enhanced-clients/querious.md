@@ -1,4 +1,14 @@
+---
+description: >-
+  Querious is a database administration tool for macOS, available for purchase
+  from Araelium.
+---
+
 # Querious
+
+{% hint style="info" %}
+Querious is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 Querious is a database administration tool for macOS.
 

@@ -50,3 +50,5 @@ MariaDB AI RAG is an enterprise-grade Retrieval-Augmented Generation (RAG) solut
 {% content-ref url="mariadb-ai-rag/" %}
 [mariadb-ai-rag](mariadb-ai-rag/)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

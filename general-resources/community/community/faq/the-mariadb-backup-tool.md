@@ -11,4 +11,6 @@
 * Q: Is the mariadb-backup tool free to use?\
   A: Yes, mariadb-backup is an open-source tool that is included as a standard utility with MariaDB Community Server and is completely free to use.
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

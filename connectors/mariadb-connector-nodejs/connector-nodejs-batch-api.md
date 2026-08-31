@@ -59,3 +59,5 @@ You can check server value using query `select @@max_allowed_packet`.
 
 Connection option "maxAllowedPacket" permits to connector behaving accordingly: if maxAllowedPacket is set to 1048576 (=1M),
  the packet sent to the server will be split in packet less than 1M to avoid any issue.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

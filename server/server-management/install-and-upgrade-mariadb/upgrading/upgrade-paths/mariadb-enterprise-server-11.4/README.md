@@ -54,3 +54,5 @@ Upgrade MariaDB Enterprise Server from 10.6 to 11.4, covering the query-optimize
 Instructions for upgrading to MariaDB Enterprise Server 11.4, which introduces new data types like UUID and INET4, advanced JSON functions, and non-blocking online schema changes.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

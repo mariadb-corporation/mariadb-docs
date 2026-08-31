@@ -32,4 +32,6 @@ This function can only be used with buffered result sets obtained from the use o
 * [mysql\_num\_rows()](mysql_num_rows.md)
 * [mysql\_store\_result()](mysql_store_result.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -14,7 +14,7 @@ A view cannot be used for updating if it uses any of the following:
 
 * `ALGORITHM=TEMPTABLE` (see [View Algorithms](view-algorithms.md))
 * [HAVING](../../reference/sql-statements/data-manipulation/selecting-data/select.md)
-* [GROUP BY](../../reference/sql-statements/data-manipulation/selecting-data/select.md#group-by)
+* [GROUP BY](../../reference/sql-statements/data-manipulation/selecting-data/group-by.md)
 * [DISTINCT](../../reference/sql-statements/data-manipulation/selecting-data/select.md#distinct)
 * [UNION](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/union.md)
 * [UNION ALL](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/union.md)

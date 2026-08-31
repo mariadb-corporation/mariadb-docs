@@ -83,3 +83,5 @@ GRANT USAGE ON *.* TO 'u'@'h' REQUIRE SUBJECT '...' AND ISSUER '...' AND CIPHER 
   - <https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/create-role>
   - <https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/set-role>
   - <https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/revoke>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

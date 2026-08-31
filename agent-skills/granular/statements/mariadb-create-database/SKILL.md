@@ -73,3 +73,5 @@ Without `IF EXISTS`, a missing database errors (`1008`); with it, a note. Drops 
   - <https://mariadb.com/docs/server/reference/sql-statements/data-definition/alter/alter-database>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-definition/drop/drop-database>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-definition/renaming-databases>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

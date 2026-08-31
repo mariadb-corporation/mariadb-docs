@@ -35,4 +35,6 @@ A column can be bound or rebound at any time, even after a result set has been p
 * [mysql\_stmt\_execute()](mysql_stmt_execute.md)
 * [mysql\_stmt\_fetch()](mysql_stmt_fetch.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

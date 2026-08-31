@@ -631,6 +631,20 @@ In the following output, multiple sub-classes of connection events (`CONNECT`, `
 20190710 00:06:28,localhost.localdomain,unknownuser, localhost,3,0,DISCONNECT,,,0
 ```
 
+Starting with MariaDB Enterprise Server 12.3, connection events record the client port alongside the host and append the negotiated TLS version:
+
+```
+20260731 09:14:22,mdbe123,root,192.168.1.24:54312,7,0,CONNECT,mysql,,0,TLSv1.3
+20260731 09:14:59,mdbe123,root,192.168.1.24:54312,7,0,DISCONNECT,mysql,,0,TLSv1.3
+20260731 09:15:03,mdbe123,app,localhost:unavailable,8,0,CONNECT,,,0,
+```
+
+The third record is an unencrypted Unix socket connection, so it has no client port and no TLS version.
+
+{% hint style="info" %}
+`PROXY_CONNECT` records do not include the TLS version.
+{% endhint %}
+
 An **event filter for connection events** can be added to an Audit filter with the `connect_event` key, which supports the following values:
 
 | Value           | Description                                                                                                                                    |
@@ -1033,7 +1047,7 @@ INSERT INTO mysql.server_audit_filters (filtername, rule)
 
 MariaDB Enterprise Audit writes audit log messages either to a dedicated audit log file or to the system log (syslog), depending on configuration.
 
-The audit log destination is configured with the [dit\_output\_type|server\_audit\_output\_type](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_au) system variable:
+The audit log destination is configured with the [server\_audit\_output\_type](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_output_type) system variable:
 
 | Value                                                             | Description                                                |
 | ----------------------------------------------------------------- | ---------------------------------------------------------- |
@@ -1042,7 +1056,7 @@ The audit log destination is configured with the [dit\_output\_type|server\_audi
 
 ## Audit Logging to File
 
-MariaDB Enterprise Audit writes audit log messages to a dedicated audit log file when the [dit\_output\_type|server\_audit\_output\_type](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_au) system variable is set to FILE.
+MariaDB Enterprise Audit writes audit log messages to a dedicated audit log file when the [server\_audit\_output\_type](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_output_type) system variable is set to FILE.
 
 ### Audit Log Path
 
@@ -1105,20 +1119,30 @@ The audit log format for MariaDB Enterprise Audit depends on the [audit log dest
 
 When MariaDB Enterprise Audit is configured to use a dedicated file, it records events in a comma-separated (CSV) format. For tool developers, it is critical to use standardized field mappings to correlate audit data with other server logs.
 
-Template: `<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
+Template: `<timestamp>,<serverhost>,<username>,<host>:<port>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>,<tlsversion>`
 
 | Field | Component      | Data Type      | Standardized Name / Description                                                                                                       |
 | ----- | -------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | 1     | `timestamp`    | `DateTime`     | Formatted as `%Y%m%d %H:%i:%s` (the default), or [as described below](mariadb-enterprise-audit.md#milliseconds-precision-timestamps). |
 | 2     | `serverhost`   | `String`       | The hostname of the server instance.                                                                                                  |
 | 3     | `username`     | `String`       | The MariaDB user account triggering the event.                                                                                        |
-| 4     | `host`         | `String`       | The client host from which the user connected.                                                                                        |
+| 4     | `host`:`port`  | `String`       | The client host from which the user connected, followed by a colon and the client's TCP port. The port is written as `unavailable` when the client did not connect over TCP/IP, such as over a Unix socket or a named pipe. The port was added in MariaDB Enterprise Server 12.3. |
 | 5     | `connectionid` | `Unsigned Int` | Standardized: Thread ID. Matches the `Thread ID` in Error, General, and Slow logs.                                                    |
 | 6     | `queryid`      | `Unsigned Int` | A unique identifier for the specific query. Used to link Query and Table events.                                                      |
 | 7     | `operation`    | `String`       | The type of action (e.g., `CONNECT`, `QUERY`, `WRITE`).                                                                               |
 | 8     | `database`     | `String`       | The name of the database being accessed.                                                                                              |
 | 9     | `object`       | `String`       | The specific table or object involved in the operation.                                                                               |
 | 10    | `retcode`      | `Integer`      | The return code; `0` indicates success, non-zero indicates an error code.                                                             |
+| 11    | `tlsversion`   | `String`       | The TLS version negotiated for the connection, such as `TLSv1.3`. Present only on [connection events](mariadb-enterprise-audit.md#connection-events), and empty when the connection is not encrypted. Added in MariaDB Enterprise Server 12.3. |
+
+{% hint style="warning" %}
+**Changed in MariaDB Enterprise Server 12.3**
+
+Two changes to the log format require updates to tools that parse the audit log:
+
+* The `host` field now contains a colon and the client port.
+* Connection event records carry an eleventh field. Records for all other operations still end at `retcode`.
+{% endhint %}
 
 #### Milliseconds Precision Timestamps
 
@@ -1231,7 +1255,7 @@ When audit logging is changed to syslog, MariaDB Enterprise Audit writes the fol
 2021-08-03 22:01:22 server_audit: Output was redirected to 'syslog'
 ```
 
-For additional information, see "|[mariadb-enterprise-audit/#audit-logging-to-system-logAudit Logging to Syslog](mariadb-enterprise-audit.md#audit-logging-to-system-logAudit_Logging_to_Syslog)".
+For additional information, see [Audit Logging to System Log](mariadb-enterprise-audit.md#audit-logging-to-system-log).
 
 ### Change File Name for Audit Logging
 

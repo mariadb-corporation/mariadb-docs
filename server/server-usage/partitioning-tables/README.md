@@ -104,3 +104,5 @@ Learn how MariaDB stores partitioned tables on the filesystem, typically creatin
 Understand how to retrieve metadata about partitions using the `INFORMATION_SCHEMA.PARTITIONS` table to monitor row counts and storage usage.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

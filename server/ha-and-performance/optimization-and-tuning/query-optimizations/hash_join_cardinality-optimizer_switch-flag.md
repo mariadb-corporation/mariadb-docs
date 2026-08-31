@@ -28,7 +28,7 @@ Suppose, table orders has an index `IDX` on `orders.customer_id`.
 
 If the query plan is using this index to fetch orders for each customer, the optimizer will use index statistics from `IDX` to estimate the number of rows in the customer-joined-with-orders.
 
-On the other hand, if the optimizer considers a query plan that joins customer with orders without use of indexes, it will ignore the `customer.id = orders.customer_id` equality completely and will compute the\
+On the other hand, if the optimizer considers a query plan that joins customer with orders without use of indexes, it will ignore the `customer.id = orders.customer_id` equality completely and will compute the
 output cardinality as if customer was cross-joined with orders.
 
 ## Hash Join

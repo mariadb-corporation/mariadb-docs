@@ -9,7 +9,7 @@ description: >-
 
 ## Overview
 
-In MariaDB ColumnStore 6, the [ExeMgr process](../../architecture/mariadb-enterprise-columnstore-query-evaluation.md#exemgr-processfacility) uses optimizer statistics in its query planning process.
+In MariaDB ColumnStore 6, the [ExeMgr process](../../architecture/mariadb-enterprise-columnstore-query-evaluation.md#exemgr-process-facility) uses optimizer statistics in its query planning process.
 
 ColumnStore uses the optimizer statistics to add support for queries that contain circular inner joins.
 
@@ -31,6 +31,6 @@ ColumnStore's optimizer statistics are not updated automatically. To update the 
 
 ColumnStore does not implement an interface to show optimizer statistics.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

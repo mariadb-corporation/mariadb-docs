@@ -11,4 +11,6 @@
 * Q: Where can developers download official MariaDB Connectors?\
   A: Official MariaDB Connectors can be downloaded directly from the MariaDB website (both mariadb.com for enterprise versions and mariadb.org for community versions). They are also frequently distributed through standard package managers and repositories specific to programming languages, such as PyPI (Python Package Index) for the Python connector and Maven Central for the Java (JDBC) connector.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

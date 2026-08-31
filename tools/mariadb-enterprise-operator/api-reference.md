@@ -8,7 +8,7 @@ description: >-
 
 ## Packages
 
-- [enterprise.mariadb.com/v1alpha1](#enterprisemariadbcomv1alpha1)
+- [enterprise.mariadb.com/v1alpha1](#enterprise.mariadb.com-v1alpha1)
 
 
 ## enterprise.mariadb.com/v1alpha1
@@ -2725,6 +2725,7 @@ _Appears in:_
 | `semiSyncEnabled` _boolean_ | SemiSyncEnabled determines whether semi-synchronous replication is enabled.<br />Semi-synchronous replication requires that at least one replica should have sent an ACK to the primary node<br />before committing the transaction back to the client.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication<br />It is enabled by default |  |  |
 | `semiSyncAckTimeout` _[Duration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#duration-v1-meta)_ | SemiSyncAckTimeout for the replica to acknowledge transactions to the primary.<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout |  |  |
 | `semiSyncWaitPoint` _[WaitPoint](#waitpoint)_ | SemiSyncWaitPoint determines whether the transaction should wait for an ACK after having synced the binlog (AfterSync)<br />or after having committed to the storage engine (AfterCommit, the default).<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/kb/en/semisynchronous-replication/#rpl_semi_sync_master_wait_point. |  | Enum: [AfterSync AfterCommit] <br /> |
+| `semiSyncWaitNoSlave` _boolean_ | SemiSyncWaitNoSlave determines whether a node keeps waiting for an ACK when no replica is connected to it.<br />Setting it to false makes the node revert to asynchronous replication while no replica is connected, and switch back to<br />semi-synchronous as soon as one connects. This prevents stalls in nodes that cannot possibly be acknowledged.<br />If not provided, the server default (ON) applies.<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_no_slave |  |  |
 | `syncBinlog` _integer_ | SyncBinlog indicates after how many events the binary log is synchronized to the disk.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sync_binlog |  |  |
 | `initContainer` _[InitContainer](#initcontainer)_ | InitContainer is an init container that runs in the MariaDB Pod and co-operates with mariadb-enterprise-operator. |  |  |
 | `agent` _[Agent](#agent)_ | Agent is a sidecar agent that runs in the MariaDB Pod and co-operates with mariadb-enterprise-operator. |  |  |
@@ -2755,6 +2756,7 @@ _Appears in:_
 | `semiSyncEnabled` _boolean_ | SemiSyncEnabled determines whether semi-synchronous replication is enabled.<br />Semi-synchronous replication requires that at least one replica should have sent an ACK to the primary node<br />before committing the transaction back to the client.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication<br />It is enabled by default |  |  |
 | `semiSyncAckTimeout` _[Duration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#duration-v1-meta)_ | SemiSyncAckTimeout for the replica to acknowledge transactions to the primary.<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout |  |  |
 | `semiSyncWaitPoint` _[WaitPoint](#waitpoint)_ | SemiSyncWaitPoint determines whether the transaction should wait for an ACK after having synced the binlog (AfterSync)<br />or after having committed to the storage engine (AfterCommit, the default).<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/kb/en/semisynchronous-replication/#rpl_semi_sync_master_wait_point. |  | Enum: [AfterSync AfterCommit] <br /> |
+| `semiSyncWaitNoSlave` _boolean_ | SemiSyncWaitNoSlave determines whether a node keeps waiting for an ACK when no replica is connected to it.<br />Setting it to false makes the node revert to asynchronous replication while no replica is connected, and switch back to<br />semi-synchronous as soon as one connects. This prevents stalls in nodes that cannot possibly be acknowledged.<br />If not provided, the server default (ON) applies.<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_no_slave |  |  |
 | `syncBinlog` _integer_ | SyncBinlog indicates after how many events the binary log is synchronized to the disk.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sync_binlog |  |  |
 | `initContainer` _[InitContainer](#initcontainer)_ | InitContainer is an init container that runs in the MariaDB Pod and co-operates with mariadb-enterprise-operator. |  |  |
 | `agent` _[Agent](#agent)_ | Agent is a sidecar agent that runs in the MariaDB Pod and co-operates with mariadb-enterprise-operator. |  |  |
@@ -3654,4 +3656,4 @@ _Appears in:_
 | `weight` _integer_ |  |  |  |
 | `podAffinityTerm` _[PodAffinityTerm](#podaffinityterm)_ |  |  |  |
 
-
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -403,14 +403,4 @@ Explore Spider-related tables within the mysql database. These system tables sto
 {% endcolumn %}
 {% endcolumns %}
 
-{% columns %}
-{% column %}
-{% content-ref url="obsolete-mysql-database-tables/" %}
-[obsolete-mysql-database-tables](obsolete-mysql-database-tables/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Explore obsolete tables in the mysql database for MariaDB Server. This section provides information on deprecated system tables, useful for understanding historical contexts or migration planning.
-{% endcolumn %}
-{% endcolumns %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

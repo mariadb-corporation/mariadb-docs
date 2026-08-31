@@ -285,3 +285,5 @@ Returns a binary string representing the string's sorting and comparison value.
 - **`mysql-to-mariadb`** (topical) — the `||`-as-OR default and collation-alias behavior
 - **`mariadb-aggregate-functions`** — `GROUP_CONCAT` for joining rows into a string
 - Canonical reference on `mariadb.com/docs`: <https://mariadb.com/docs/server/reference/sql-functions/string-functions>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

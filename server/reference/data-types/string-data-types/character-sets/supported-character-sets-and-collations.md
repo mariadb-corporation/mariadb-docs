@@ -649,7 +649,7 @@ You can find all combinations of the supported character set and collation in th
 
 ## Case Sensitivity
 
-A '`ci`' at the end of a collation name indicates the collation is case-insensitive. A '`cs`' at the end of a\
+A '`ci`' at the end of a collation name indicates the collation is case-insensitive. A '`cs`' at the end of a
 collation name indicates the collation is case sensitive.
 
 ## NO PAD Collations

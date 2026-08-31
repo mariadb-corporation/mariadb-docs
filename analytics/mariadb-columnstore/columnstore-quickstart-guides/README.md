@@ -15,3 +15,4 @@ icon: rabbit-running
 [mariadb-columnstore-hardware-guide.md](mariadb-columnstore-hardware-guide.md)
 {% endcontent-ref %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

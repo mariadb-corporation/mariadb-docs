@@ -810,3 +810,5 @@ Return the weight string. This function returns the binary string that represent
 Learn about regular expression functions in MariaDB Server. This section details SQL functions for powerful pattern matching and manipulation of string data using regular expressions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

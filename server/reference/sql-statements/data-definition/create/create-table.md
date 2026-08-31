@@ -11,7 +11,7 @@ description: >-
 <pre class="language-sql"><code class="lang-sql">CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
     (<a data-footnote-ref href="#user-content-fn-1">create_definition</a>,...) [<a data-footnote-ref href="#user-content-fn-2">table_options</a>    ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
 CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
-    [(<a data-footnote-ref href="#user-content-fn-2">create_definition</a>,...)] [<a data-footnote-ref href="#user-content-fn-4">table_options</a>   ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
+    [(<a data-footnote-ref href="#user-content-fn-1">create_definition</a>,...)] [<a data-footnote-ref href="#user-content-fn-2">table_options</a>   ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
     select_statement
 CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
    { LIKE old_table_name | (LIKE old_table_name) }
@@ -206,7 +206,7 @@ MariaDB accepts the shortcut format with a `REFERENCES` clause only in `ALTER TA
 CREATE TABLE b(for_key INT REFERENCES a(not_key));
 ```
 
-MariaDB will attempt to apply the constraint. See [Foreign Keys examples](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md#references).
+MariaDB will attempt to apply the constraint. See [Foreign Keys examples](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md#examples).
 {% endtab %}
 
 {% tab title="< 10.5" %}
@@ -237,7 +237,7 @@ The default value will be used if you [INSERT](../../data-manipulation/inserting
 
 [CURRENT\_TIMESTAMP](../../../sql-functions/date-time-functions/now.md) may also be used as the default value for a [DATETIME](../../../data-types/date-and-time-data-types/datetime.md)
 
-You can use most functions in `DEFAULT`. Expressions should have parentheses around them. If you use a non deterministic function in `DEFAULT` then all inserts to the table will be [replicated](../../../../ha-and-performance/standard-replication/) in [row mode](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based). You can even refer to earlier columns in the `DEFAULT` expression (excluding `AUTO_INCREMENT` columns):
+You can use most functions in `DEFAULT`. Expressions should have parentheses around them. If you use a non deterministic function in `DEFAULT` then all inserts to the table will be [replicated](../../../../ha-and-performance/standard-replication/) in [row mode](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging). You can even refer to earlier columns in the `DEFAULT` expression (excluding `AUTO_INCREMENT` columns):
 
 ```sql
 CREATE TABLE t1 (a INT DEFAULT (1+1), b INT DEFAULT (a+1));
@@ -252,7 +252,7 @@ You can also use DEFAULT ([NEXT VALUE FOR sequence](../../../sql-structure/seque
 
 ### AUTO\_INCREMENT Column Option
 
-Use [AUTO\_INCREMENT](../../../data-types/auto_increment.md) to create a column whose value can be set automatically from a simple counter. You can only use `AUTO_INCREMENT` on a column with an integer type. The column must be a key, and there can only be one `AUTO_INCREMENT` column in a table. If you insert a row without specifying a value for that column (or if you specify `0`, `NULL`, or [DEFAULT](../../../sql-functions/secondary-functions/information-functions/default.md) as the value), the actual value will be taken from the counter, with each insertion incrementing the counter by one. You can still insert a value explicitly. If you insert a value that is greater than the current counter value, the counter is\
+Use [AUTO\_INCREMENT](../../../data-types/auto_increment.md) to create a column whose value can be set automatically from a simple counter. You can only use `AUTO_INCREMENT` on a column with an integer type. The column must be a key, and there can only be one `AUTO_INCREMENT` column in a table. If you insert a row without specifying a value for that column (or if you specify `0`, `NULL`, or [DEFAULT](../../../sql-functions/secondary-functions/information-functions/default.md) as the value), the actual value will be taken from the counter, with each insertion incrementing the counter by one. You can still insert a value explicitly. If you insert a value that is greater than the current counter value, the counter is
 set based on the new value. An `AUTO_INCREMENT` column is implicitly `NOT NULL`. Use [LAST\_INSERT\_ID](../../../sql-functions/secondary-functions/information-functions/last_insert_id.md) to get the [AUTO\_INCREMENT](../../../data-types/auto_increment.md) value most recently used by an [INSERT](../../data-manipulation/inserting-loading-data/insert.md) statement.
 
 ### ZEROFILL Column Option
@@ -385,7 +385,6 @@ index_option:
   {{{|}}} WITH PARSER parser_name
   {{{|}}} VISIBLE
   {{{|}}} COMMENT 'string'
-  {{{|}}} CLUSTERING={YES| NO}
   {{{|}}} ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
   {{{|}}} COMPLETE_FIELDS [=] number
   {{{|}}} BYTES_FROM_INCOMPLETE_FIELD [=] number
@@ -414,7 +413,7 @@ For limits on InnoDB indexes, see [InnoDB Limitations](../../../../server-usage/
 
 Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes.
 
-See [Getting Started with Indexes: Plain Indexes](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes) for more information.
+See [Getting Started with Indexes: Plain Indexes](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes-regular-indexes) for more information.
 
 #### PRIMARY KEY
 
@@ -560,10 +559,6 @@ A comment of up to 1024 characters is permitted with the `COMMENT` index option.
 
 The `COMMENT` index option allows you to specify a comment with user-readable text describing what the index is for. This information is not used by the server itself.
 
-#### CLUSTERING Index Option
-
-The `CLUSTERING` index option is only valid for tables using the [TokuDB](../../../../server-usage/storage-engines/legacy-storage-engines/tokudb/) storage engine.
-
 #### IGNORED / NOT IGNORED
 
 {% tabs %}
@@ -627,9 +622,9 @@ table_option:
   | ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
   | AUTO_INCREMENT [=] number
   | AVG_ROW_LENGTH [=] number
-  | [DEFAULT] CHARACTER SET [=] <a data-footnote-ref href="#user-content-fn-7">charset_name</a>
+  | [DEFAULT] CHARACTER SET [=] charset_name
   | CHECKSUM [=] {0 | 1}
-  | [DEFAULT] COLLATE [=] <a data-footnote-ref href="#user-content-fn-7">collation_name</a>
+  | [DEFAULT] COLLATE [=] collation_name
   | COMMENT [=] 'string'
   | CONNECTION [=] 'connect_string'
   | DATA DIRECTORY [=] 'absolute path to directory'
@@ -857,7 +852,7 @@ partition_options:
         | [LINEAR] KEY(column_list)
         | RANGE(expr)
         | LIST(expr)
-        | SYSTEM_TIME [INTERVAL time_quantity <a data-footnote-ref href="#user-content-fn-8">time_unit</a>] [LIMIT num] }
+        | SYSTEM_TIME [INTERVAL time_quantity time_unit] [LIMIT num] }
     [PARTITIONS num]
     [SUBPARTITION BY
         { [LINEAR] HASH(expr)

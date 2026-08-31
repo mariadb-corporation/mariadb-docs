@@ -25,3 +25,4 @@ Ensure you are using the latest MariaDB driver in DBeaver to avoid compatibility
 If you experience connection issues, verify your firewall settings and database credentials.
 {% endhint %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -230,3 +230,5 @@ Once the MariaDB cluster is fully synchronized, follow these steps:
 5. **Decommission MySQL:** After confirming the application runs smoothly on MariaDB, decommission the MySQL cluster.
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

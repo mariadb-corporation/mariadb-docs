@@ -32,4 +32,6 @@ The form of the version number is `VERSION_MAJOR * 10000 + VERSION_MINOR * 100 +
 
 * [mysql\_get\_server\_info()](mysql_get_server_info.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

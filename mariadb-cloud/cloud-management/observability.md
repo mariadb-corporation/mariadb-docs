@@ -119,6 +119,22 @@ We export the following metrics as part of the [metrics](observability.md#metric
 | mariadb\_galera\_evs\_repl\_latency\_max\_seconds            |
 | mariadb\_galera\_evs\_repl\_latency\_min\_seconds            |
 | mariadb\_galera\_status\_info                                |
+| mariadb\_galera\_state\_comments                             |
+| mariadb\_galera\_wsrep\_cluster\_status                      |
+| mariadb\_galera\_wsrep\_connected                            |
+| mariadb\_galera\_wsrep\_desync\_count                        |
+| mariadb\_galera\_wsrep\_flow\_control\_paused\_ns            |
+| mariadb\_galera\_wsrep\_flow\_control\_recv                  |
+| mariadb\_galera\_wsrep\_flow\_control\_sent                  |
+| mariadb\_galera\_wsrep\_local\_bf\_aborts                    |
+| mariadb\_galera\_wsrep\_local\_cert\_failures                |
+| mariadb\_galera\_wsrep\_local\_recv\_queue                   |
+| mariadb\_galera\_wsrep\_local\_state                         |
+| mariadb\_galera\_wsrep\_ready                                |
+| mariadb\_galera\_wsrep\_received                             |
+| mariadb\_galera\_wsrep\_received\_bytes                      |
+| mariadb\_galera\_wsrep\_replicated                           |
+| mariadb\_galera\_wsrep\_replicated\_bytes                    |
 | mariadb\_global\_status\_aborted\_clients                    |
 | mariadb\_global\_status\_aborted\_connects                   |
 | mariadb\_global\_status\_buffer\_pool\_pages                 |
@@ -275,3 +291,5 @@ We export the following metrics as part of the [metrics](observability.md#metric
 | maxscale\_up                                                 |
 | maxscale\_uptime\_seconds                                    |
 | process\_resident\_memory\_bytes                             |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

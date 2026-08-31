@@ -19,7 +19,7 @@ tbl_index_list:
 
 ## Description
 
-The `CACHE INDEX` statement assigns table indexes to a specific key\
+The `CACHE INDEX` statement assigns table indexes to a specific key
 cache. It is used only for [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables.
 
 A default key cache exists and cannot be destroyed. To create more key caches, the [key\_buffer\_size](../../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) server system variable.
@@ -28,7 +28,7 @@ The associations between tables indexes and key caches are lost on server restar
 
 ## Examples
 
-The following statement assigns indexes from the tables t1, t2, and t3\
+The following statement assigns indexes from the tables t1, t2, and t3
 to the key cache named hot\_cache:
 
 ```sql

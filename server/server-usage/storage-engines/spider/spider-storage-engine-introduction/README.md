@@ -29,3 +29,5 @@ Learn about the schema design of the Spider storage engine.
 Learn about Spider operations in MariaDB Enterprise Server. This section covers advanced configurations, management, and best practices for leveraging Spider in enterprise environments.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

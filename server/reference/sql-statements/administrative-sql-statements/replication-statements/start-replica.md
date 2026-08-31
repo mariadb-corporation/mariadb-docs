@@ -69,7 +69,7 @@ The `START SLAVE UNTIL` statement contains the options `SQL_BEFORE_GTIDS` and `S
 START SLAVE UNTIL (SQL_BEFORE_GTIDS|SQL_AFTER_GTIDS)="<gtid_list>"
 ```
 
-See [Global Transaction ID#SQL\_BEFORE\_GTIDS/SQL\_AFTER\_GTIDS](../../../../ha-and-performance/standard-replication/gtid.md#sql_before_gtidssql_after_gtids) for details.
+See [Global Transaction ID: SQL\_BEFORE\_GTIDS/SQL\_AFTER\_GTIDS](../../../../ha-and-performance/standard-replication/gtid.md#sql_before_gtids-or-sql_after_gtids) for details.
 {% endtab %}
 
 {% tab title="< 11.3" %}

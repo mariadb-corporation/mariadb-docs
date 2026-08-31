@@ -59,11 +59,11 @@ In addition to regular suite directories, `mtr` supports _overlays_. An _overlay
 
 An overlay is like a second transparent layer in a graphics editor. It can obscure, extend, or modify the background image. Also, one may notice that an overlay is very close to a _UnionFS_, but implemented in perl inside `mtr`.
 
-An overlay can replace almost any file in the overlaid suite, or add new files. For example, if some overlay of the main suite contains a`include/have_innodb.inc` file, then all tests that include it will see and use the overlaid version. Or, an overlay can create a `t/create.opt` file\
+An overlay can replace almost any file in the overlaid suite, or add new files. For example, if some overlay of the main suite contains a`include/have_innodb.inc` file, then all tests that include it will see and use the overlaid version. Or, an overlay can create a `t/create.opt` file
 (even though the main suite does not have such a file), and `create.test` is executed with the specified additional options.
 
-But adding an overlay never affects how the original suite is executed. That is, `mtr` always executes the original suite as if no overlay was present. Additionally, it executes a combined "union" of the overlay and the original suite. When doing that, `mtr` takes care to avoid re-executing tests that are not changed in the overlay. For example, creating `t/create.opt` in\
-the overlay of the main suite will only cause `create.test` to be executed in the overlay. But creating `suite.opt` affects all tests — and it will cause all tests to be re-executed with\
+But adding an overlay never affects how the original suite is executed. That is, `mtr` always executes the original suite as if no overlay was present. Additionally, it executes a combined "union" of the overlay and the original suite. When doing that, `mtr` takes care to avoid re-executing tests that are not changed in the overlay. For example, creating `t/create.opt` in
+the overlay of the main suite will only cause `create.test` to be executed in the overlay. But creating `suite.opt` affects all tests — and it will cause all tests to be re-executed with
 the new options.
 
 ## Combinations
@@ -82,6 +82,120 @@ binlog-format=mixed
 All tests where this combinations file applies is run three times: Once for the combination called "row", and `--binlog-format=row` on the server command line, once for the "stmt" combination, and once for the "mix" combination.
 
 More than one combinations file may be applicable to a given test file. In this case, `mtr` runs the test for all possible combinations of the given combinations. A test that uses replication (three combinations as above) and InnoDB (two combinations - innodb and xtradb), is run six times.
+
+### Recording combinations
+
+Combinations may result in differing test output between the combinations and there's a need to create the `.rdiff` files to record the result difference.
+
+Step 1:
+
+Record one of the combinations as the base result.
+```
+$ ./mtr --record spider/feature.direct_aggregate_bit,group_by_handler,no_direct_agg
+```
+
+Step 2:
+
+`git commit` this result to version control.
+
+Step 3:
+
+Examine what combinations are failing:
+```
+$ ./mtr  --force  spider/feature.direct_aggregate_bit
+==============================================================================
+
+TEST                                      RESULT   TIME (ms) or COMMENT
+--------------------------------------------------------------------------
+
+worker[01] Using MTR_BUILD_THREAD 300, with reserved ports 19000..19029
+spider/feature.direct_aggregate_bit 'group_by_handler,no_direct_agg' [ pass ]    337
+spider/feature.direct_aggregate_bit 'no_direct_agg,usual_handler' [ pass ]    338
+spider/feature.direct_aggregate_bit 'direct_agg,group_by_handler' [ fail ]
+        Test ended at 2026-08-25 11:20:51
+
+CURRENT_TEST: spider/feature.direct_aggregate_bit
+--- .../storage/spider/mysql-test/spider/feature/r/direct_aggregate_bit.result	2026-08-25 11:03:47.791879100 +1000
++++ .../storage/spider/mysql-test/spider/feature/r/direct_aggregate_bit.reject	2026-08-25 11:20:51.169165220 +1000
+@@ -30,14 +30,14 @@
+ FFFFFFFF	00000000	FFF0F0F0
+ SHOW STATUS LIKE 'Spider_direct_aggregate';
+ Variable_name	Value
+-Spider_direct_aggregate	0
++Spider_direct_aggregate	3
+```
+
+Step 4:
+
+Record one of the failing combination:
+```
+$ ./mtr ---record feature.direct_aggregate_bit,direct_agg,group_by_handler
+```
+
+In the source version controlled repository change the `mysql-test` directory that forms the base of this test. In this case `storage/spider/mysql-test`.
+
+Create a `diff` directly against what was committed. Use the filename base on the combination.
+```
+$ git diff >  spider/feature/r/direct_aggregate_bit,direct_agg,group_by_handler.rdiff
+```
+
+Edit the created `rdiff` file by removing the git headers on the first two lines, and the "a/" and "b/" leading aspects of the path so the `rdiff` looks like:
+```
+--- storage/spider/mysql-test/spider/feature/r/direct_aggregate_bit.result
++++ storage/spider/mysql-test/spider/feature/r/direct_aggregate_bit.result
+@@ -30,14 +30,14 @@ HEX(BIT_OR(val_bin))	HEX(BIT_AND(val_bin))	HEX(BIT_XOR(val_bin))
+ FFFFFFFF	00000000	FFF0F0F0
+ SHOW STATUS LIKE 'Spider_direct_aggregate';
+ Variable_name	Value
+-Spider_direct_aggregate	0
++Spider_direct_aggregate	3
+ # Integer mode
+ SELECT BIT_OR(val_int), BIT_AND(val_int), BIT_XOR(val_int) FROM t1_s;
+ BIT_OR(val_int)	BIT_AND(val_int)	BIT_XOR(val_int)
+ 18446744069414584575	0	18446744069414584575
+ SHOW STATUS LIKE 'Spider_direct_aggregate';
+ Variable_name	Value
+-Spider_direct_aggregate	0
++Spider_direct_aggregate	3
+ # NULL handling - BIT_AND/OR/XOR must skip NULL rows
+ INSERT INTO t1 VALUES (6, NULL, NULL);
+ SELECT HEX(BIT_OR(val_bin)), HEX(BIT_AND(val_bin)), HEX(BIT_XOR(val_bin)) FROM t1_s;
+```
+
+
+Clear the difference against the base result.
+```
+$ git checkout spider/feature/r/direct_aggregate_bit.result
+Updated 1 path from the index
+```
+
+```
+$ git add spider/feature/r/direct_aggregate_bit,direct_agg,group_by_handler.rdiff
+```
+
+Step 5:
+
+Repeat steps for other failing combinations of the test. At the end all tests should pass:
+```
+./mtr spider/feature.direct_aggregate_bit
+
+==============================================================================
+
+TEST                                      RESULT   TIME (ms) or COMMENT
+--------------------------------------------------------------------------
+
+spider/feature.direct_aggregate_bit 'group_by_handler,no_direct_agg' [ pass ]    340
+spider/feature.direct_aggregate_bit 'no_direct_agg,usual_handler' [ pass ]    321
+spider/feature.direct_aggregate_bit 'direct_agg,group_by_handler' [ pass ]    322
+spider/feature.direct_aggregate_bit 'direct_agg,usual_handler' [ pass ]    335
+```
+
+Step 6:
+
+Commit all the rdiff files added.
+```
+git commit -m 'MDEV-xxxx: add combinations for test spider/feature.direct_aggregate_bit'
+```
 
 ## Sample Output
 
@@ -123,11 +237,11 @@ A similar syntax can be used on the `mtr` command line to specify what tests to 
 
 The `mtr` driver has special support for MariaDB plugins.
 
-First, on startup it copies or symlinks all dynamically-built plugins into`var/plugins`. This allows one to have many plugins loaded at the same time. For example, you can load Federated and InnoDB engines together. Also, `mtr` creates environment variables for every plugin with the corresponding plugin name. For example, if the InnoDB engine was built, `$HA_INNODB_SO` is set to `ha_innodb.so` (or `ha_innodb.dll` on Windows). The test can\
+First, on startup it copies or symlinks all dynamically-built plugins into`var/plugins`. This allows one to have many plugins loaded at the same time. For example, you can load Federated and InnoDB engines together. Also, `mtr` creates environment variables for every plugin with the corresponding plugin name. For example, if the InnoDB engine was built, `$HA_INNODB_SO` is set to `ha_innodb.so` (or `ha_innodb.dll` on Windows). The test can
 safely use the corresponding environment variable on all platforms to refer to a plugin file; it  always has the correct platform-dependent extension.
 
-Second, when combining server command line options (which may come from many\
-different sources) into one long list before starting `mariadbd`, mtr treats`--plugin-load` specially. Normal server semantics is to use the latest value of any particular option on the command line. If one starts the server with, for example, `--port=2000 --port=3000`, the server will use the last value for the port, that is 3000. To allow different `.opt` files to require\
+Second, when combining server command line options (which may come from many
+different sources) into one long list before starting `mariadbd`, mtr treats`--plugin-load` specially. Normal server semantics is to use the latest value of any particular option on the command line. If one starts the server with, for example, `--port=2000 --port=3000`, the server will use the last value for the port, that is 3000. To allow different `.opt` files to require
 different plugins, mtr goes through the assembled server command line, and joins all `--plugin-load` options into one. Additionally it removes all empty`--plugin-load` options. For example, suppose a test is affected by three`.opt` files which contain, respectively:
 
 ```
@@ -154,7 +268,7 @@ Instead of this:
 --plugin-load=ha_innodb.so --plugin-load=auth_pam.so --plugin-load=
 ```
 
-Third, to allow plugin sources to be simply copied into the `plugin/` or`storage/` directories, and still not affect existing tests (even if new plugins are statically linked into the server), mtr automatically disables all optional plugins on server startup. A plugin is optional if it can be disabled with the corresponding `--skip-XXX` server command line option. Mandatory plugins, like MyISAM or MEMORY, do not have `--skip-XXX` options (for instance, there is no `--skip-myisam` option). This `mtr` behavior means that no plugin, statically or dynamically built, has any effect on the server unless it was explicitly enabled. A convenient way to enable a given plugin _XXX_ for specific tests is to create a `have_XXX.opt` file which contains the\
+Third, to allow plugin sources to be simply copied into the `plugin/` or`storage/` directories, and still not affect existing tests (even if new plugins are statically linked into the server), mtr automatically disables all optional plugins on server startup. A plugin is optional if it can be disabled with the corresponding `--skip-XXX` server command line option. Mandatory plugins, like MyISAM or MEMORY, do not have `--skip-XXX` options (for instance, there is no `--skip-myisam` option). This `mtr` behavior means that no plugin, statically or dynamically built, has any effect on the server unless it was explicitly enabled. A convenient way to enable a given plugin _XXX_ for specific tests is to create a `have_XXX.opt` file which contains the
 necessary command line options, and a `have_XXX.inc` file which checks whether a plugin was loaded. Then any test that needs this plugin can source the `have_XXX.inc` file and have the plugin loaded automatically.
 
 ## mtr Communication Procedure

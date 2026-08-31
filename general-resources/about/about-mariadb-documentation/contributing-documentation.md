@@ -28,4 +28,6 @@ Read our [style guide](documentation-style-guide.md), too. (It's short!)
 
 [^1]: Provide GitHub link
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

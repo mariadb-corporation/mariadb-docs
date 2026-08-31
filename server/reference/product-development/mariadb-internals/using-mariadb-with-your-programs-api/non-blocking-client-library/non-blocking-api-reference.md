@@ -30,13 +30,13 @@ This is used to handle connection and read timeouts.
 unsigned int STDCALL mysql_get_timeout_value_ms(const MYSQL *mysql)
 ```
 
-Like `mysql_get_timeout_value()`, this should only be called when a `_start()` or\
+Like `mysql_get_timeout_value()`, this should only be called when a `_start()` or
 `_cont()` function returns a value with the `MYSQL_WAIT_TIMEOUT` flag set. In this case, it returns the value, in milliseconds, after which a timeout has occurred and the application should call the appropriate `_cont()` function passing `MYSQL_WAIT_TIMEOUT` as the event that occurred.
 
-The difference to `mysql_get_timeout_value()` is that this provides millisecond\
+The difference to `mysql_get_timeout_value()` is that this provides millisecond
 resolution for timeouts, rather than just whole seconds. Internal timeouts can be in milliseconds.
 
-[At the end](non-blocking-api-reference.md#client-api-functions-which-never-block) is a list of all functions from the normal API which can be used safely in a non-blocking program, since they never need to block.
+[At the end](non-blocking-api-reference.md#client-api-functions-that-never-block) is a list of all functions from the normal API which can be used safely in a non-blocking program, since they never need to block.
 
 ```c
 int mysql_real_connect_start(MYSQL **ret, MYSQL *mysql, const char *host,
@@ -49,10 +49,10 @@ int mysql_real_connect_start(MYSQL **ret, MYSQL *mysql, const char *host,
 int mysql_real_connect_cont(MYSQL **ret, MYSQL *mysql, int ready_status)
 ```
 
-`mysql_real_connect_start()` initiates a non-blocking connection request to\
+`mysql_real_connect_start()` initiates a non-blocking connection request to
 a server.
 
-When `mysql_real_connect_start()` or `mysql_real_connect_cont()` returns\
+When `mysql_real_connect_start()` or `mysql_real_connect_cont()` returns
 zero, a copy of the passed '`mysql`' argument is stored in `*ret`.
 
 ```c

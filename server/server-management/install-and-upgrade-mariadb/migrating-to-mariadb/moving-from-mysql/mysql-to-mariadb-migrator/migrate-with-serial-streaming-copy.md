@@ -195,3 +195,5 @@ See [Environment Variables](environment-variables.md) for the full list.
 ## Other Modes
 
 If Serial Streaming Copy does not fit your situation, see the [migrator overview](./) to choose another mode: [Offline Copy](migrate-with-offline-copy.md) for hosts that cannot reach each other, [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) for large databases, or [Replication](migrate-with-replication.md) for a low-downtime cutover.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -180,7 +180,7 @@ Once the current binary log position for the backup has been obtained, in the fo
 SELECT BINLOG_GTID_POS("master-bin.000001", 600);
 ```
 
-The new replica can then start replicating from the primary by setting the correct value for [gtid\_slave\_pos](gtid.md#gtid_slave_pos), and then executing [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) with the relevant values for the primary, and then starting the [replica threads](replication-threads.md#threads-on-the-slave) by executing [START REPLICA](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md). For example:
+The new replica can then start replicating from the primary by setting the correct value for [gtid\_slave\_pos](gtid.md#gtid_slave_pos), and then executing [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) with the relevant values for the primary, and then starting the [replica threads](replication-threads.md#threads-on-the-replica) by executing [START REPLICA](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md). For example:
 
 ```sql
 SET GLOBAL gtid_slave_pos = "0-1-2";
@@ -198,7 +198,7 @@ If the backup was taken of an existing replica server, then the new replica shou
 
 #### Setting up a New Replica with mariadb-backup
 
-A new replica can easily be set up with [mariadb-backup](../../server-usage/backup-and-restore/mariadb-backup/README.md), which is a fork of [Percona XtraBackup](../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/). See [Setting up a Replica with mariadb-backup](../../server-usage/backup-and-restore/mariadb-backup/setting-up-a-replica-with-mariadb-backup.md) for more information.
+A new replica can easily be set up with [mariadb-backup](../../server-usage/backup-and-restore/mariadb-backup/README.md), which is a fork of [Percona XtraBackup](../../server-usage/backup-and-restore/mariadb-backup/README.md). See [Setting up a Replica with mariadb-backup](../../server-usage/backup-and-restore/mariadb-backup/setting-up-a-replica-with-mariadb-backup.md) for more information.
 
 #### Setting up a New Replica with mariadb-dump
 
@@ -236,7 +236,7 @@ START SLAVE;
 
 The replica has a record of the GTID of the last applied transaction from the old primary, and since GTIDs are identical across all servers in a replication hierarchy, the replica will just continue from the appropriate point in the new primary's binlog.
 
-It is important to understand how this change of primary work. The binlog is an ordered stream of events (or multiple streams, one per replication domain, (see [Use with multi-source replication and other multi-primary setups](gtid.md#use-with-multi-source-replication-and-other-multi-master-setups)). Events within the stream are always applied in the same order on every replica that replicates it. The MariaDB GTID relies on this ordering, so that it is sufficient to remember just a single point within the stream. Since event order is the same on every server, switching to the point of the same GTID in the binlog of another server will give the same result.
+It is important to understand how this change of primary work. The binlog is an ordered stream of events (or multiple streams, one per replication domain, (see [Use with multi-source replication and other multi-primary setups](gtid.md#use-with-multi-source-replication-and-other-multi-primary-setups)). Events within the stream are always applied in the same order on every replica that replicates it. The MariaDB GTID relies on this ordering, so that it is sufficient to remember just a single point within the stream. Since event order is the same on every server, switching to the point of the same GTID in the binlog of another server will give the same result.
 
 This translates into some responsibility for the user. The MariaDB GTID replication is fully asynchronous, and fully flexible in how it can be configured. This makes it possible to use it in ways where the assumption that binlog sequence is the same on all servers is violated. In such cases, when changing primary, GTID will still attempt to continue at the point of current GTID in the new binlog.
 
@@ -248,7 +248,7 @@ Differences can also occur when two primary are active at the same time in a rep
 
 The [GTID strict mode](gtid.md#gtid_strict_mode) can be used to enforce identical binlogs across servers. When it is enabled, most actions that would cause differences are rejected with an error.
 
-## Use With Multi-Source Replication and Other Multi-Master Setups
+## Use With Multi-Source Replication and Other Multi-Primary Setups
 
 MariaDB global transaction ID supports having multiple primaries active at the same time. Typically this happens with either multi-source replication or multi-master ring setups.
 
@@ -420,7 +420,7 @@ Adjusts the sparseness of the index.
 
 #### `gtid_slave_pos`
 
-This system variable contains the GTID of the last transaction applied to the database by the server's [replica threads](replication-threads.md#threads-on-the-slave) for each replication domain. This system variable's value is automatically updated whenever a [replica thread](replication-threads.md#threads-on-the-slave) applies an event group. This system variable's value can also be manually changed by users, so that the user can change the GTID position of the [replica threads](replication-threads.md#threads-on-the-slave).
+This system variable contains the GTID of the last transaction applied to the database by the server's [replica threads](replication-threads.md#threads-on-the-replica) for each replication domain. This system variable's value is automatically updated whenever a [replica thread](replication-threads.md#threads-on-the-replica) applies an event group. This system variable's value can also be manually changed by users, so that the user can change the GTID position of the [replica threads](replication-threads.md#threads-on-the-replica).
 
 When using [multi-source replication](multi-source-replication.md), the same GTID position is shared by all replica connections. In this case, different primaries should use different replication domains by configuring different [gtid\_domain\_id](gtid.md#gtid_domain_id) values. If one primary was using a [gtid\_domain\_id](gtid.md#gtid_domain_id) value of `1`, and if another primary was using a [gtid\_domain\_id](gtid.md#gtid_domain_id) value of `2`, then any replicas replicating from both primaries would have GTIDs with both [gtid\_domain\_id](gtid.md#gtid_domain_id) values in `gtid_slave_pos`.
 
@@ -579,7 +579,7 @@ When GTID strict mode is enabled, the replica will stop with an error when a pro
 
 This variable is used to enable multiple versions of the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table, one for each transactional storage engine in use. This can improve replication performance if a server is using multiple different storage engines in different transactions.
 
-The value is a list of engine names, separated by commas (`,`). Replication of transactions using these engines will automatically create new versions of the `mysql.gtid_slave_pos` table in the same engine and use that for future transactions (table creation takes place in a background thread). This avoids introducing a cross-engine transaction to update the GTID position. Only transactional storage engines are supported for `gtid_pos_auto_engines` (this currently means [InnoDB](../../server-usage/storage-engines/innodb/README.md), [TokuDB](../../server-usage/storage-engines/legacy-storage-engines/tokudb/README.md), or [MyRocks](../../server-usage/storage-engines/myrocks/README.md)).
+The value is a list of engine names, separated by commas (`,`). Replication of transactions using these engines will automatically create new versions of the `mysql.gtid_slave_pos` table in the same engine and use that for future transactions (table creation takes place in a background thread). This avoids introducing a cross-engine transaction to update the GTID position. Only transactional storage engines are supported for `gtid_pos_auto_engines` (this currently means [InnoDB](../../server-usage/storage-engines/innodb/README.md) or [MyRocks](../../server-usage/storage-engines/myrocks/README.md)).
 
 The variable can be changed dynamically, but replica SQL threads should be stopped when changing it, and it will take effect when the replicas are running again.
 

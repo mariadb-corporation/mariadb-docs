@@ -49,6 +49,6 @@ For the system to function correctly, the following firewall ports must be open 
 * `8090` (_HTTP/S_): The main entry point for the web UI. Nginx listens on this port and proxies requests to Supermax and Grafana.
 * `4318` (_HTTP/S_): Agents on monitored nodes push telemetry data to this port.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

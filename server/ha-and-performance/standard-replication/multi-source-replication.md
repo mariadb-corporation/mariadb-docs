@@ -149,7 +149,7 @@ Instead of specifying names for `mysqld` with [--relay-log](replication-and-bina
 
 * All error messages from a replica with a connection name that are written to the error log are prefixed with `Master 'connection_name':`. This makes it easy to see from where an error originated.
 * Errors `ER_MASTER_INFO` and `WARN_NO_MASTER_INFO` now includes connection\_name.
-* There is no conflict resolution. The assumption is that there are no conflicts in data between the different primaries.
+* Before [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) were added in MariaDB Enterprise Server 12.3, there was no built-in conflict resolution, and the assumption was that there are no conflicts in data between the different primaries.
 * All executed commands are stored in the normal binary log (nothing new here).
 * If the server variable `log_warnings` > 1, then you will get some information in the log about how the multi-master-info file is updated (mainly for debugging).
 * The output of [SHOW ALL SLAVES STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-status.md) has one more column than `SHOW SLAVE STATUS`, since it includes the `connection_name` column.
@@ -183,16 +183,6 @@ One can also use this syntax to set `replicate-rewrite-db` for a given connectio
 * One can change [max\_relay\_log\_size](replication-and-binary-log-system-variables.md) for any active connection, but new connections will always use the server startup value for `max_relay_log_size`, which can't be changed at runtime.
 * Option [innodb-recovery-update-relay-log](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_recovery_update_relay_log) (xtradb feature to store and restore relay log position for replicas) only works for the default connection ''. As this option is not really safe and can easily cause loss of data if you use storage engines other than InnoDB, we don't recommend using this option.
 * [slave\_net\_timeout](replication-and-binary-log-system-variables.md) affects all connections. We don't check anymore if it's less than [Slave\_heartbeat\_period](replication-and-binary-log-status-variables.md), as this doesn't make sense in a multi-source setup.
-
-## Incompatibilities with MariaDB/MySQL 5.5
-
-* [max\_relay\_log\_size](replication-and-binary-log-system-variables.md) is now (almost) a normal variable and not automatically changed if [max\_binlog\_size](replication-and-binary-log-system-variables.md) is changed. To keep things compatible with old config files, we set it to `max_binlog_size` at startup if its value is 0.
-* You can now access replication variables that depend on the active connection with either `GLOBAL` or `SESSION`.
-* We only write information about relay log positions for recovery if [innodb-recovery-update-relay-log](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_recovery_update_relay_log) is set.
-* [Slave\_retried\_transactions](replication-and-binary-log-status-variables.md#slave_retried_transactions) now shows the total count of retried transactions over all replicas.
-* The status variable `Com_slave_start` is replaced with [Com\_start\_slave](replication-and-binary-log-status-variables.md#com_start_slave).
-* The status variable `Com_slave_stop` is replaced with [Com\_stop\_slave](replication-and-binary-log-status-variables.md#com_stop_slave).
-* `FLUSH RELAY LOGS` are not replicated anymore. This is not safe as connection names may be different on the replica.
 
 ## See Also
 

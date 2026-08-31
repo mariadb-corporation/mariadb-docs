@@ -111,7 +111,7 @@ Segmented key caches, which split the MyISAM key cache into structures to reduce
 {% endcolumn %}
 
 {% column %}
-Status variables for the semisynchronous replication plugin.
+Status variables for semisynchronous replication.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -198,3 +198,5 @@ Status variables related to TLS/SSL-encrypted connections.
 Discover system and status variables added by major MariaDB Server releases. This section helps you track new configuration options and monitoring metrics introduced in different versions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -100,3 +100,5 @@
 - [Error 1097: Too many strings for column and SET](e1097.md)
 - [Error 1098: Can't generate a unique log-filename](e1098.md)
 - [Error 1099: Table was locked with a READ lock and can't be updated](e1099.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

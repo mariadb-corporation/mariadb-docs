@@ -16,13 +16,13 @@ When things go wrong, it's always better to have a version of the mysqld daemon 
 shell> file /usr/sbin/mysqld
 ```
 
-If this doesn't say 'stripped', then you are fine. If not, you should either [download a binary with debugging information](https://downloads.mariadb.org) or [compile it, without stripping the binary](compiling-mariadb-for-debugging.md#building-with-debug-symbols).
+If this doesn't say 'stripped', then you are fine. If not, you should either [download a binary with debugging information](https://downloads.mariadb.org) or [compile it, without stripping the binary](compiling-mariadb-for-debugging.md#building-optimized-build-with-debug-symbols).
 
 ### Debugging Memory Consumption With tcmalloc
 
 Read the [Profiling Memory Usage](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/profiling-memory-usage) page for more information on how to debug high memory consumption.
 
-If you have a problem with a mysqld process that keeps on growing, you can use tcmalloc to find out\
+If you have a problem with a mysqld process that keeps on growing, you can use tcmalloc to find out
 what is allocating memory:
 
 Depending on the system, you have to install the `tcmalloc` (openSUSE) or the `google-perftools-lib` (RedHat, CentOS) package.
@@ -46,7 +46,7 @@ Now start your client/application that uses MariaDB. You can find where memory i
 
 ### ptrace Protection and Attaching GDB to a mysqld Instance
 
-New Ubuntu releases do not allow one process to examine the memory of an\
+New Ubuntu releases do not allow one process to examine the memory of an
 arbitrary user's process. As a result, when trying to attach GDB to a running\
 MariaDB (or any other process) instance, one gets the following error in GDB:
 

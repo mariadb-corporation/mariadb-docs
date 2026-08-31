@@ -11,11 +11,11 @@ description: >-
 
 **MariaDB Connector/ODBC** is a database driver that uses the industry standard [Open Database Connectivity (ODBC) API](https://en.wikipedia.org/wiki/Open_Database_Connectivity). Some of the key features of the driver are:
 
-* It is [LGPL-licensed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/faq/licensing-questions/licensing-faq).
+* It is LGPL-licensed.
 * It is compliant with the ODBC 3.8 standard.
 * It can be used as a drop-in replacement for MySQL Connector/ODBC.
 * It supports both Unicode and ANSI modes.
-* It uses the MariaDB/MySQL binary protocol (server-side [prepared statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/prepared-statements)) for `SQLPrepare`. One-shot `SQLExecDirect` queries default to the client-side text protocol unless the `SQL_ATTR_EXECDIRECT_ON_SERVER` attribute (or the `EDSERVER` connection option) is set.
+* It uses the MariaDB/MySQL binary protocol (server-side [prepared statements](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements)) for `SQLPrepare`. One-shot `SQLExecDirect` queries default to the client-side text protocol unless the `SQL_ATTR_EXECDIRECT_ON_SERVER` attribute (or the `EDSERVER` connection option) is set.
 
 ## Supported Versions
 
@@ -213,7 +213,7 @@ When you install the client authentication plugins, ensure that they are for the
 ### DSN-Related Parameters
 
 * `DSN`: Name of the DSN
-* `Driver`: The name of the MariaDB ODBC Driver. On Windows, this must be `{MariaDB ODBC 3.2 Driver}` for 3.2 drivers, or for versions from other release series, you must use the corresponding version number for that release series. On Linux, either this must be a path to the driver's shared library or it must match the `Driver` name that you provided when you [configured the Driver with UnixODBC](creating-a-data-source-with-mariadb-connectorodbc.md#configuring-mariadb-connectorodbc-as-a-unixodbc-driver-on-linux).
+* `Driver`: The name of the MariaDB ODBC Driver. On Windows, this must be `{MariaDB ODBC 3.2 Driver}` for 3.2 drivers, or for versions from other release series, you must use the corresponding version number for that release series. On Linux, either this must be a path to the driver's shared library or it must match the `Driver` name that you provided when you [configured the Driver with UnixODBC](creating-a-data-source-with-mariadb-connectorodbc.md#configuring-mariadb-connector-odbc-as-a-unixodbc-driver-on-linux).
 * `Description`: Description of the data source.
 * `SaveFile`: Save a string representation of the DSN to this file.
 * `FileDSN`: The file where the string representation of the DSN can be read.
@@ -550,6 +550,8 @@ The source code is available at the [mariadb-connector-odbc repository](https://
 
 GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.
 
-For licensing questions, see the [Licensing FAQ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/faq/licensing-questions/licensing-faq).
+For licensing questions, see the Licensing FAQ.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

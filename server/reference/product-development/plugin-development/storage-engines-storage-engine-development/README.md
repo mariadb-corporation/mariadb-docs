@@ -17,3 +17,5 @@ This section contains background information, mostly aimed at engineers developi
 {% content-ref url="table-discovery.md" %}
 [table-discovery.md](table-discovery.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

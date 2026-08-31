@@ -66,3 +66,5 @@ FETCH retrieves the next row from an open cursor into local variables and advanc
 OPEN opens a previously declared cursor and executes its associated query, optionally binding variables or expressions, so that rows can be fetched.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

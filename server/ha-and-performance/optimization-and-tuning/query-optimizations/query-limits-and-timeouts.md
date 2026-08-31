@@ -29,7 +29,7 @@ Stops the query after 'rows\_limit' number of rows have been examined.
 
 ## sql\_safe\_updates
 
-If the [sql\_safe\_updates](../system-variables/server-system-variables.md#sql_safe_updates) variable is set, one can't execute an [UPDATE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) or [DELETE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md)\
+If the [sql\_safe\_updates](../system-variables/server-system-variables.md#sql_safe_updates) variable is set, one can't execute an [UPDATE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) or [DELETE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md)
 statement unless one specifies a key constraint in the `WHERE` clause or provide a `LIMIT` clause (or both).
 
 ```sql
@@ -56,7 +56,7 @@ SELECT * FROM big_table LIMIT 1000;
 
 ## max\_join\_size
 
-If the [max\_join\_size](../system-variables/server-system-variables.md#max_join_size) variable (also called `sql_max_join_size`) is set, then it will limit\
+If the [max\_join\_size](../system-variables/server-system-variables.md#max_join_size) variable (also called `sql_max_join_size`) is set, then it will limit
 any SELECT statements that probably need to examine more than`MAX_JOIN_SIZE` rows.
 
 ```sql

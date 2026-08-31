@@ -48,3 +48,5 @@ Execute the following steps within an active database session to measure baselin
     ```
     Query Stats: MaxMemPct-0;NumTempFiles-0;TempFileSpace-0B;ApproxPhyI/O-1931;CacheI/O-2446;BlocksTouched-2443;PartitionBlocksEliminated-48;MsgBytesIn-73KB;MsgBytesOut-1KB;Mode-Distributed
     ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

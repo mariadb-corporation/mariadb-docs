@@ -87,4 +87,6 @@ The MariaDB Connector has a [Promise](connector-nodejs-promise-api.md) *(Default
 
 [^1]: The callback API is provided for compatibility with the mysql and mysql2 APIs.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

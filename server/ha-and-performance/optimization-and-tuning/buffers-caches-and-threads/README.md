@@ -54,3 +54,5 @@ Optimize MariaDB Server with the thread pool. This section explains how to manag
 Understand MariaDB Server thread states. This section explains the different states a thread can be in, helping you monitor and troubleshoot query execution and server performance.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

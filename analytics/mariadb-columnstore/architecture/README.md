@@ -48,3 +48,4 @@ icon: house-blank
 [columnstore-system-paths-and-logs.md](columnstore-system-paths-and-logs.md)
 {% endcontent-ref %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

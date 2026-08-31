@@ -2,7 +2,8 @@
 
 if [ "$1" == "" ]
 then
-    echo "usage: $0 major.minor.patch [maturity]"
+    echo "usage: $0 major.minor.patch [maturity] [release-date]"
+    echo "       release-date is free-form, house style is '15 Jun 2026'."
     exit 1
 fi
 
@@ -19,6 +20,15 @@ then
     maturity="GA"
 else
     maturity=$2
+fi
+
+if [ "$3" == "" ]
+then
+    echo "No release date specified, leaving a TBD placeholder."
+    release_date="TBD"
+    release_date_is_tbd=yes
+else
+    release_date=$3
 fi
 
 if [ ! -d "$major_minor" ]
@@ -40,38 +50,50 @@ echo
 # out or if the versioning scheme for MaxScale changes.
 upgrade_version="$major.$minor"
 
+# Literal license notice, per DOCS-6394 — release-notes pages carry the notice
+# inline rather than via a reusable include. Every MaxScale series from 22.08
+# onwards uses the copyright form (21.06 and older use CC BY-SA / GNU FDL).
+# The year is intentionally hardcoded so generated pages match their siblings;
+# bump it here whenever the repo-wide notice year is bumped.
+license_notice='<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>'
+
 cat <<EOF > $output
-# MariaDB MaxScale ${VERSION} Release Notes
+# MaxScale ${VERSION} Release Notes
 
 Release ${VERSION} is a ${maturity} release.
 
-This document describes the changes in release ${VERSION}, when compared to the
-previous release in the same series.
+**Release Date:** ${release_date}
 
-If you are upgrading from an older major version of MaxScale, please read the
-[upgrading document](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/upgrading-maxscale)
-for this MaxScale version.
+This document describes the changes in release ${VERSION}, when compared to the previous release in the same series.
 
-For any problems you encounter, please consider submitting a bug
-report on [our Jira](https://jira.mariadb.org/projects/MXS).
+If you are upgrading from an older major version of MaxScale, please read the [upgrading document](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/upgrading-maxscale) for this MaxScale version.
+
+For any problems you encounter, please consider submitting a bug report on [our Jira](https://jira.mariadb.org/projects/MXS).
 
 `${SCRIPT_DIR}/list_fixed.sh ${VERSION}`
 
 ## Known Issues and Limitations
 
-There are some limitations and known issues within this version of MaxScale.
-For more information, please refer to the
-[Limitations](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/mariadb-maxscale-limitations-guide)
-document.
+There are some limitations and known issues within this version of MaxScale. For more information, please refer to the [Limitations](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/mariadb-maxscale-limitations-guide) document.
 
 ## Packaging
 
 RPM and Debian packages are provided for the supported Linux distributions.
 
 Packages can be downloaded [here](https://mariadb.com/downloads).
+
+$license_notice
+
+{% @marketo/form formid="4316" formId="4316" %}
 EOF
 
 echo Manually update the following files:
 echo - $major.$minor/$major.$minor-changelog.md
 echo - ./all-releases.md
 echo - ../SUMMARY.md.
+
+if [ "$release_date_is_tbd" == "yes" ]
+then
+    echo
+    echo "WARNING: $output has 'Release Date: TBD' - set the real date before committing."
+fi

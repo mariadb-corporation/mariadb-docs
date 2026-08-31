@@ -21,4 +21,6 @@ MYSQL_RES * mysql_stmt_param_metadata(MYSQL_STMT * stmt);
 
 Always returns `NULL`.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

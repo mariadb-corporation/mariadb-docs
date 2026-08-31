@@ -81,3 +81,4 @@ Data representing a database result set unit.
 {% endcolumn %}
 {% endcolumns %}
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

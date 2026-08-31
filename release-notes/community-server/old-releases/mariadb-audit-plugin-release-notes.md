@@ -10,3 +10,5 @@ As of MariaDB versions 5.5.42 and 10.0.10, the Audit Plugin is included with Mar
 
 [\
 ](https://mariadb.com/docs/server/reference/plugins/mariadb-audit-plugin/release-notes-mariadb-audit-plugin/mariadb-audit-plugin-113-release-notes)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -13,3 +13,5 @@
 - [Error 4224: Hint is ignored as malformed](e4224.md)
 - [Error 4225: Optimizer hints at the INSERT part of a INSERT..SELECT statement are not supported](e4225.md)
 - [Error 4226: Slave SQL thread aborted](e4226.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

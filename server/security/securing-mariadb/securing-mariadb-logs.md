@@ -121,7 +121,7 @@ macOS follows a Unix-like permission structure similar to Linux, though the defa
 
 Logs are often backed up alongside data.
 
-* Redaction: Be mindful that logs converted to `.sql` files for auditing (see [this example](securing-mariadb-logs.md#reading-log-files)) are now plain text and need to be deleted or encrypted immediately after use.
+* Redaction: Be mindful that logs converted to `.sql` files for auditing (see [mariadb-binlog](../../clients-and-utilities/logging-tools/mariadb-binlog/)) are now plain text and need to be deleted or encrypted immediately after use.
 * Retention: Implement an automated purge policy ([`expire_logs_days`](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days)) to ensure sensitive data does not persist on disk longer than legally or operationally required.
 
 ## Changing the Log Location
@@ -473,3 +473,5 @@ log_slow_admin_statements = ON
 | Availability      | Set `binlog_expire_logs_seconds` for auto-purge.      | Binary Logs            | All           |
 | Audit Trail       | Use `sha256sum` to baseline archived (rotated) logs.  | All Archives           | All           |
 | Replication       | Require SSL/TLS for log transmission to replicas.     | Binary / Relay Logs    | All           |
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

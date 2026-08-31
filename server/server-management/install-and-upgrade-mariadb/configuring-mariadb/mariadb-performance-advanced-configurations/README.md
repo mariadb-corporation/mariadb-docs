@@ -84,3 +84,5 @@ Recommendations for setting the Linux `vm.swappiness` kernel parameter (ideally 
 Introduction to using Fusion-io flash memory cards with MariaDB to significantly boost I/O throughput and reduce latency, including benefits like atomic write support.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

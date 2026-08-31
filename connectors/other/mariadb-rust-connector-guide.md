@@ -87,3 +87,5 @@ All features are automatically negotiated during the connection handshake based 
 - [`rust-mysql-simple`](https://github.com/blackbeam/rust-mysql-simple)
 - [MariaDB PARSEC Authentication Plugin documentation](https://mariadb.com/docs/server/reference/plugins/authentication-plugins/authentication-plugin-parsec)
 - [MDEV-19237 — Metadata skip server-side implementation](https://jira.mariadb.org/browse/MDEV-19237)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

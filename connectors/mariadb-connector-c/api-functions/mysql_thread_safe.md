@@ -29,4 +29,6 @@ This function exists for compatibility reasons and returns always 1.
 * [mysql\_thread\_init()](mysql_thread_init.md)
 * [mysql\_thread\_end()](mysql_thread_end.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}
