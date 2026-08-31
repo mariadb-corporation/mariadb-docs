@@ -3,6 +3,7 @@
 - [Error 4100: Field reference can't be used in table value constructor](e4100.md)
 - [Error 4101: Numeric datatype is required for function](e4101.md)
 - [Error 4102: Argument to the function is not a constant for a partition](e4102.md)
+- [Error 4103: Argument to the function does not belong to the range \[0,1\]](e4103.md)
 - [Error 4104: function only accepts arguments that can be converted to numerical types](e4104.md)
 - [Error 4105: Aggregate specific instruction (FETCH GROUP NEXT ROW) used in a wrong context](e4105.md)
 - [Error 4106: Aggregate specific instruction(FETCH GROUP NEXT ROW) missing from the aggregate function](e4106.md)
