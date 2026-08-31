@@ -40,6 +40,11 @@ For provisioned services, select a high-availability mode:
 
 * **Analytics (HTAP)** — adds the MariaDB Exa engine for real-time analytical
   queries alongside your transactional workload. Requires Semi-sync HA.
+* **Query Result Cache** — adds an in-memory query result cache alongside your
+  transactional workload. See
+  [Query Cache Using GridGain 8](../quickstart/query-cache-gridgain-8.md).
+
+Both add-ons are currently available as a _Tech Preview_.
 
 <figure><img src="../.gitbook/assets/provisioning-v2-03.png" alt="Provision Cloud Database page with MariaDB Provisioned selected, showing High Availability options (Semi-sync, Insync, None) and the Analytics HTAP add-on."><figcaption><p>Topology, High Availability, and Add-ons (Provisioned)</p></figcaption></figure>
 
