@@ -216,7 +216,7 @@ In typical mathematical and scientific applications, the ability to avoid overfl
 
 ### Enable/Disable Decimal-to-Double Math
 
-The `infinidb\_double\_for\_decimal\_math` variable is used to control the data type for intermediate decimal results. This decimal for double math may be set as a default for the instance, set at the session level, or at the statement level by toggling this variable on and off.
+The `infinidb_double_for_decimal_math` variable is used to control the data type for intermediate decimal results. This decimal for double math may be set as a default for the instance, set at the session level, or at the statement level by toggling this variable on and off.
 
 To enable/disable the use of the decimal to double math at the session level, the following command is used. Once the session has ended, any subsequent session will return to the default for the instance:
 
