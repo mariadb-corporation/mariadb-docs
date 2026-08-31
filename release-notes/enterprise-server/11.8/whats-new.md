@@ -60,7 +60,7 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
 * **NEW SHOW CREATE SERVER**: Recreate server objects similar to [SHOW CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-create-table)
 * **DBMS\_OUTPUT:** Messages submitted by `DBMS_OUTPUT.PUT_LINE()` are not sent to the client until the sending subprogram or trigger completes
 
-## Performance Improvements <a href="#data-types-and-compatibility" id="data-types-and-compatibility"></a>
+## Performance Improvements
 
 * Optimization that makes vector search 30-50% faster (more details in the [Vector Search](whats-new.md#vector-search) section)
 * Segmented key cache for [Aria storage engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria)
@@ -219,7 +219,7 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
 * **Galera Information Schema:** New Information Schema table [WSREP\_CONNECTIONS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-wsrep_connections)
 * **Galera Information Schema:** New Information Schema [WSREP\_CERT\_KEYS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-wsrep_cert_keys) and [WSREP\_CERT\_KEYS\_HISTORY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-wsrep_cert_keys_history) tables
 
-## PL/SQL <a href="#tool-improvements" id="tool-improvements"></a>
+## PL/SQL
 
 Support for Oracle-stype `INDEX BY` tables (associative arrays) was backported from [MariaDB 12.1](../../community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1.md) in stored routines and anonymous blocks, with this declaration syntax:
 
@@ -276,6 +276,7 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 
 | CVE ID (with cve.org link)                                        | CVSS base score (v3.1) | Enterprise Server 11.8 Release |
 | ----------------------------------------------------------------- | ---------------------- | ------------------------------ |
+| [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064) | 6.5                    | [11.8.8-5](11.8.8-5.md)        |
 | [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)   | 4.3                    | [11.8.8-5](11.8.8-5.md)        |
 | [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                    | [11.8.8-5](11.8.8-5.md)        |
 | [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172) | 5.0                    | [11.8.8-5](11.8.8-5.md)        |
@@ -293,7 +294,6 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 | [CVE-2026-34303](https://www.cve.org/CVERecord?id=CVE-2026-34303) | 6.5                    | [11.8.6-3](11.8.6-3.md)        |
 | [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968) | 6.5                    | [11.8.5-2](11.8.5-2.md)        |
 | [CVE-2025-13699](https://www.cve.org/CVERecord?id=CVE-2025-13699) | 7.0                    | [11.8.5-2](11.8.5-2.md)        |
-
 
 ## Available Versions <a href="#available-versions" id="available-versions"></a>
 

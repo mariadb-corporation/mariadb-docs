@@ -36,7 +36,7 @@ Like `mysql_get_timeout_value()`, this should only be called when a `_start()` o
 The difference to `mysql_get_timeout_value()` is that this provides millisecond
 resolution for timeouts, rather than just whole seconds. Internal timeouts can be in milliseconds.
 
-[At the end](non-blocking-api-reference.md#client-api-functions-which-never-block) is a list of all functions from the normal API which can be used safely in a non-blocking program, since they never need to block.
+[At the end](non-blocking-api-reference.md#client-api-functions-that-never-block) is a list of all functions from the normal API which can be used safely in a non-blocking program, since they never need to block.
 
 ```c
 int mysql_real_connect_start(MYSQL **ret, MYSQL *mysql, const char *host,

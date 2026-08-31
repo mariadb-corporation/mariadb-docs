@@ -151,7 +151,7 @@ By following these guidelines, you can effectively manage and operate your Maria
 
 * [MariaDB Galera Cluster Guide](https://mariadb.com/docs/galera-cluster/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide)
 * [Galera Cluster Documentation - Operational Aspects](https://www.google.com/search?q=https://galeracluster.com/documentation/html_docs_galera/operational_aspects.html\&authuser=1)
-* [MariaDB documentation - Galera Cluster Best Practices](mariadb-galera-cluster-usage-guide.md#id-6.-application-best-practices)
-* [MariaDB documentation - Galera Cluster Monitor](https://mariadb.com/docs/maxscale/maxscale-archive/archive-of-2x.xx-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-monitors/mariadb-maxscale-2302-galera-monitor)
+* [MariaDB documentation - Galera Cluster Best Practices](mariadb-galera-cluster-usage-guide.md#application-best-practices)
+* [MariaDB documentation - Galera Cluster Monitor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-monitors/galera-monitor)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

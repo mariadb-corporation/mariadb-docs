@@ -17,7 +17,7 @@ The suggested upgrade procedure is:
 2. Shutdown [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3)
 3. Take a backup (this is the perfect time to take a backup of your databases)
 4. Uninstall [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3)
-5. Install [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) \[[1](upgrading-from-mariadb-53-to-mariadb-55.md#_note-0)]
+5. Install [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) \[1]
 6. Run [mysql\_upgrade](../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md)
 
 * Ubuntu and Debian packages do this automatically when they are installed; Red Hat, CentOS, and Fedora packages do not
@@ -61,7 +61,7 @@ Percona, the provider of [XtraDB](../../../../server-usage/storage-engines/innod
 
 ## Notes
 
-1. [↑](upgrading-from-mariadb-53-to-mariadb-55.md#_ref-0) If using a MariaDB `apt` or `yum` [repository](https://downloads.mariadb.org/mariadb/repositories/), it is often enough to replace instances of '5.3' with '5.5' and then run an update/upgrade. For example, in Ubuntu/Debian update the MariaDB `sources.list` entry from something that looks similar to this:
+1. If using a MariaDB `apt` or `yum` [repository](https://downloads.mariadb.org/mariadb/repositories/), it is often enough to replace instances of '5.3' with '5.5' and then run an update/upgrade. For example, in Ubuntu/Debian update the MariaDB `sources.list` entry from something that looks similar to this:
 
 ```
 deb http://ftp.osuosl.org/pub/mariadb/repo/5.3/ubuntu trusty main

@@ -8,7 +8,7 @@ description: >-
 
 Storage-engine independent column compression enables [TINYBLOB](../../../reference/data-types/string-data-types/tinyblob.md), [BLOB](../../../reference/data-types/string-data-types/blob.md), [MEDIUMBLOB](../../../reference/data-types/string-data-types/mediumblob.md), [LONGBLOB](../../../reference/data-types/string-data-types/longblob.md), [TINYTEXT](../../../reference/data-types/string-data-types/tinytext.md), [TEXT](../../../reference/data-types/string-data-types/text.md), [MEDIUMTEXT](../../../reference/data-types/string-data-types/mediumtext.md), [LONGTEXT](../../../reference/data-types/string-data-types/longtext.md), [VARCHAR](../../../reference/data-types/string-data-types/varchar.md) and [VARBINARY](../../../reference/data-types/string-data-types/varbinary.md) columns to be compressed.
 
-This is performed by means of a new COMPRESSED [column attribute](../../../reference/sql-statements/data-definition/create/create-table.md#column-and-index-definitions):`COMPRESSED[=<compression_method>]`
+This is performed by means of a new COMPRESSED [column attribute](../../../reference/sql-statements/data-definition/create/create-table.md#column-definitions):`COMPRESSED[=<compression_method>]`
 
 Currently the only supported compression method is `zlib`.
 

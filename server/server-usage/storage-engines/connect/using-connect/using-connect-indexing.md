@@ -69,8 +69,8 @@ enabled versions, file mapping is used according to the boolean [connect\_indx\_
 
 To accelerate input/output, CONNECT uses when possible a read/write mode by blocks of n rows, n
 being the value given in the BLOCK \_ SIZE option of the Create Table, or a default value depending on
-the table type. This is automatic for fixed files ([FIX](../connect-table-types/connect-table-types-data-files.md#dos-and-fix-table-types), [BIN](../connect-table-types/connect-table-types-data-files.md#bin-table-type), [DBF](../connect-table-types/connect-table-types-data-files.md#dbf-type) or [VEC](../connect-table-types/connect-table-types-data-files.md#vec-table-type-vector)), but must be specified for
-variable files ([DOS](../connect-table-types/connect-table-types-data-files.md#dos-and-fix-table-types) , [CSV](../connect-table-types/connect-table-types-data-files.md#csv-and-fmt-table-types) or [FMT](../connect-table-types/connect-table-types-data-files.md#fmt-type) ).
+the table type. This is automatic for fixed files ([FIX](../connect-table-types/connect-dos-and-fix-table-types.md), [BIN](../connect-table-types/connect-bin-table-type.md), [DBF](../connect-table-types/connect-dbf-table-type.md) or [VEC](../connect-table-types/connect-vec-table-type.md)), but must be specified for
+variable files ([DOS](../connect-table-types/connect-dos-and-fix-table-types.md) , [CSV](../connect-table-types/connect-csv-and-fmt-table-types.md#csv-type) or [FMT](../connect-table-types/connect-csv-and-fmt-table-types.md#fmt-type) ).
 
 For blocked tables, further optimization can be achieved if the data values for some columns are\
 “clustered” meaning that they are not evenly scattered in the table but grouped in some consecutive

@@ -70,7 +70,7 @@ It can be removed by using the [UNINSTALL SONAME](../../../../../reference/sql-s
 UNINSTALL SONAME 'server_audit';
 ```
 
-And if you load the plugin in a configuration file using the [plugin\_load\_add](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load-add) option — a [mariadbd](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) startup option that loads a plugin library when the server starts — then the option should also be removed.
+And if you load the plugin in a configuration file using the [plugin\_load\_add](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) option — a [mariadbd](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) startup option that loads a plugin library when the server starts — then the option should also be removed.
 
 The MariaDB Enterprise Audit Plugin will automatically be installed after installing MariaDB Enterprise Server 10.6.
 
@@ -189,7 +189,7 @@ If the server is a node in a Galera Cluster, also install the Enterprise Galera 
 **Install via YUM (RHEL, AlmaLinux, CentOS, Rocky Linux)**
 
 1. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
-2.  Configure the YUM package repository. Installable versions of MariaDB Enterprise Server are `10.6`, `11.4`, and `11.8`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#mariadb_es_repo_setup). The following directions reference `10.6`.
+2.  Configure the YUM package repository. Installable versions of MariaDB Enterprise Server are `10.6`, `11.4`, and `11.8`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts). The following directions reference `10.6`.
 
     To configure YUM package repositories:
 
@@ -234,7 +234,7 @@ If the server is a node in a Galera Cluster, also install the Enterprise Galera 
 1. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 2.  Configure the APT package repository.
 
-    Installable versions of MariaDB Enterprise Server are `10.6`, `11.4`, and `11.8`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#mariadb_es_repo_setup). The following directions reference `10.6`.
+    Installable versions of MariaDB Enterprise Server are `10.6`, `11.4`, and `11.8`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts). The following directions reference `10.6`.
 
     To configure APT package repositories:
 
@@ -283,7 +283,7 @@ If the server is a node in a Galera Cluster, also install the Enterprise Galera 
 1. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 2.  Configure the ZYpp package repository.
 
-    Installable versions of MariaDB Enterprise Server are `10.6`, `11.4`, and `11.8`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#mariadb_es_repo_setup). The following directions reference `10.6`.
+    Installable versions of MariaDB Enterprise Server are `10.6`, `11.4`, and `11.8`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts). The following directions reference `10.6`.
 
     To configure ZYpp package repositories:
 

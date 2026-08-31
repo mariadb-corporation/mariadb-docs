@@ -57,7 +57,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_async_reads_queue_size`
 
-* Description: Current size of the async I/O read queue. See [InnoDB Asynchronous I/O Queuing Mechanism](innodb-status-variables.md#queuing-mechanism).
+* Description: Current size of the async I/O read queue. See [InnoDB Asynchronous I/O Queuing Mechanism](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md#queuing-mechanism).
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)

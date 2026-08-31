@@ -26,7 +26,7 @@ A view cannot be of type `ALGORITHM=MERGE` if it uses any of the following:
 
 * [HAVING](../../reference/sql-statements/data-manipulation/selecting-data/select.md)
 * [LIMIT](../../reference/sql-statements/data-manipulation/selecting-data/select.md#limit)
-* [GROUP BY](../../reference/sql-statements/data-manipulation/selecting-data/select.md#group-by)
+* [GROUP BY](../../reference/sql-statements/data-manipulation/selecting-data/group-by.md)
 * [DISTINCT](../../reference/sql-statements/data-manipulation/selecting-data/select.md#distinct)
 * [UNION](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/union.md)
 * [UNION ALL](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/union.md)

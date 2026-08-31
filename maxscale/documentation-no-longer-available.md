@@ -23,7 +23,7 @@ The release notes and changelogs for both series are kept as a historical record
 For the releases that are still supported, see:
 
 * [MariaDB MaxScale](README.md) — documentation for the current release
-* [Archive](maxscale-archive/archive/README.md) — documentation for earlier releases that are still supported
+* [Old MaxScale Versions](maxscale-old-versions/README.md) — documentation for earlier releases that are still supported
 * [All Releases](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/maxscale/all-releases) — the full release history
 
 {% hint style="info" %}

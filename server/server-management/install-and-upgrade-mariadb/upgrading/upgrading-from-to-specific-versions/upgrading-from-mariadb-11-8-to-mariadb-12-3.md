@@ -27,7 +27,7 @@ The suggested upgrade procedure is:
    3. On SLES, OpenSUSE, and other similar Linux distributions, execute the following: `sudo zypper remove MariaDB-server`
 4. Install the new version of MariaDB.
    1. On Debian, Ubuntu, and other similar Linux distributions, see [Installing MariaDB Packages with APT](../../installing-mariadb/binary-packages/installing-mariadb-deb-files.md#installing-mariadb-packages-with-apt) for more information.
-   2. On RHEL, CentOS, Fedora, and other similar Linux distributions, see [Installing MariaDB Packages with YUM](../../installing-mariadb/binary-packages/rpm/yum.md#installing-mariadb-packages-with-yum) for more information.
+   2. On RHEL, CentOS, Fedora, and other similar Linux distributions, see [Installing MariaDB Packages with YUM](../../installing-mariadb/binary-packages/rpm/yum.md#installing-mariadb-packages-with-yum-dnf) for more information.
    3. On SLES, OpenSUSE, and other similar Linux distributions, see [Installing MariaDB Packages with ZYpp](../../installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md#installing-mariadb-packages-with-zypp) for more information.
 5. Make any desired changes to configuration options in [option files](../../configuring-mariadb/configuring-mariadb-with-option-files.md), such as `my.cnf`. This includes removing any options that are no longer supported.
 6. [Start MariaDB](../../../starting-and-stopping-mariadb/starting-and-stopping-mariadb-automatically.md).
@@ -51,7 +51,7 @@ The following options should be removed or renamed if you use them in your [opti
 
 #### New Reserved Words
 
-`CONVERSION`, `ST_COLLECT`, and `TO_DATE` are now [reserved words](../../../../reference/sql-structure/sql-language-structure/reserved-words.md). This only affects you if you use one of them as an unquoted identifier (for example, a table, column, or variable name) — quote it or rename it before upgrading, otherwise the statement will fail to parse. For the full list of 12.3 changes, see [Features in MariaDB 12.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements).
+`CONVERSION` and `TO_DATE` are now [reserved words](../../../../reference/sql-structure/sql-language-structure/reserved-words.md). This only affects you if you use one of them as an unquoted identifier (for example, a table, column, or variable name) — quote it or rename it before upgrading, otherwise the statement will fail to parse. For the full list of 12.3 changes, see [Features in MariaDB 12.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements).
 
 #### Changes in Replication Behavior
 

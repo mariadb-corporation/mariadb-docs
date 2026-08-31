@@ -30,10 +30,10 @@ To determine which MariaDB Connector/J release series would be best to use for e
 
 | Java Version(s)                            | Recommended MariaDB Connector/J Release Series                                | JDBC Version |
 | ------------------------------------------ | ----------------------------------------------------------------------------- | ------------ |
-| Java 25, Java 21, Java 17, Java 11, Java 8 | MariaDB Connector/J 3.5, 3.4, 3.3\[[1](about-mariadb-connector-j.md#_note-0)] | JDBC 4.5     |
+| Java 25, Java 21, Java 17, Java 11, Java 8 | MariaDB Connector/J 3.5, 3.4, 3.3\[1] | JDBC 4.5     |
 | Java 17, Java 11, Java 8                   | MariaDB Connector/J 2.7                                                       | JDBC 4.2     |
 
-1. [↑](about-mariadb-connector-j.md#_ref-0) see parsec authentication restriction
+1. see parsec authentication restriction
 
 ## Installing MariaDB Connector/J
 
@@ -866,7 +866,7 @@ The simplest approach to avoid time zone headaches is for the client and server 
 
 There are 3 options that control timestamps behavior in the java connector:
 
-* connectionTimeZone: (LOCAL | SERVER | ) - This option defines the connection's time zone. LOCAL retrieves the JVM's default time zone, SERVER fetches the server's global time zone upon connection creation, and allows specifying a server time zone without requesting it during connection establishment.
+* connectionTimeZone: (LOCAL | SERVER | `<user-defined time zone>`) - This option defines the connection's time zone. LOCAL retrieves the JVM's default time zone, SERVER fetches the server's global time zone upon connection creation, and `<user-defined time zone>` allows specifying a server time zone without requesting it during connection establishment. A user-defined value must be a valid [Java ZoneId](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html): either a region ID such as `Europe/Berlin` or `America/Los_Angeles`, or a fixed offset such as `+02:00`. An unrecognized value fails the connection with an `Unknown zoneId` error.
 * forceConnectionTimeZoneToSession: (true | false) - This setting dictates whether the connector enforces the connection time zone for the session.
 * preserveInstants: (true | false) - This option controls whether the connector converts Timestamp values to the connection's time zone.
 

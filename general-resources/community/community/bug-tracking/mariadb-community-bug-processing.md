@@ -42,8 +42,8 @@ Complete processing of a reported bug can be complicated and time-consuming, esp
 First response to the bug, which we are trying to provide as quickly as possible, is one of these:
 
 * If we can reproduce the problem based on the information that was provided in the initial description, the report gets the status Confirmed.
-* If it is obvious from the initial description that the bug report is a [duplicate](reporting-bugs.md#is-the-bug-already-known) of an existing one, or the problem has already been fixed in later releases or in the upcoming release, or the described behavior is not a bug, or, in very rare cases, it is admitted to be a bug, but it is not going to be fixed, the report gets closed with the corresponding Resolution value and a comment with the explanation.
-* If the bug report at least appears to describe a real bug, but we do not have enough information to proceed, we will request the information from the reporter, and the report will go to the [Need feedback](mariadb-community-bug-processing.md#need-feedback-what-is-it-and-how-to-deal-with-it) list.
+* If it is obvious from the initial description that the bug report is a [duplicate](reporting-bugs.md#known-issues) of an existing one, or the problem has already been fixed in later releases or in the upcoming release, or the described behavior is not a bug, or, in very rare cases, it is admitted to be a bug, but it is not going to be fixed, the report gets closed with the corresponding Resolution value and a comment with the explanation.
+* If the bug report at least appears to describe a real bug, but we do not have enough information to proceed, we will request the information from the reporter, and the report will go to the [Need feedback](mariadb-community-bug-processing.md#need-feedback) list.
 * If on some reason it is clear from the bug report that it will be very difficult to reproduce based on the information from the user, but there is a reason to believe that the problem can be analyzed by code inspection, the bug report can be assigned to a developer who is an expert in the corresponding area for the analysis.
 
 We realize that "as quickly as possible" is a relative term. The dream scenario is that all reports are responded to in a matter of hours; however, more realistically, it can take a few days, and in some cases, when the team is overly busy with a big upcoming release or some other extraordinary events, it can even be weeks.
@@ -76,7 +76,7 @@ Elena Stepanova updated MDEV-9801:
 
 #### Successful Outcome
 
-If the feedback exchange was fruitful and we received enough information to proceed, the bug report will go through the normal [**verification steps**](mariadb-community-bug-processing.md#what-is-done-during-bug-verification).
+If the feedback exchange was fruitful and we received enough information to proceed, the bug report will go through the normal [**verification steps**](mariadb-community-bug-processing.md#bug-verification).
 
 #### Incomplete Reports
 
@@ -186,7 +186,7 @@ Please note that the Priority field only demonstrates our intentions at the mome
 
 Labels are mostly used for more convenient filtering and don't carry much importance otherwise. However, there are a few that affect the processing of a bug report:
 
-* `need_feedback` - its role during the initial bug processing was already described [above](mariadb-community-bug-processing.md#need-feedback-what-is-it-and-how-to-deal-with-it). However, after a bug is confirmed and queued for fixing, it should not appear anymore; and even if it's left by mistake, it won't affect the progress.
+* `need_feedback` - its role during the initial bug processing was already described [above](mariadb-community-bug-processing.md#need-feedback). However, after a bug is confirmed and queued for fixing, it should not appear anymore; and even if it's left by mistake, it won't affect the progress.
 * `upstream` - the label means that the bug also exists in the upstream version of the corresponding component - normally, in MySQL server or a client program, but can also be in Percona's XtraDB or TokuDB. Normally there should also be a link to the upstream bug report. Setting this label means that we might want to take for a while and see whether the bug is fixed in the upstream version before we fix it in MariaDB directly. It was usual for 5.5, less usual for 10.x where bugfixes, apart from InnoDB, are not merged automatically. The label is still set, but it is more for informational purposes than to affect the priority.
 * `upstream-fixed` - the label means that the bug used to exist in the upstream version, but not anymore. It means that there is nothing more to wait; moreover, it might be worth picking up the bug soon and at least evaluating the upstream bugfix.
 
@@ -196,7 +196,7 @@ MariaDB encourages contributors to provide bug fixes; so, bug reports which come
 
 ## Principles for External Bug Reports
 
-There are some basic rules for bugs, particularly for setting the [**Resolution**](mariadb-community-bug-processing.md#resolution) value, which we want to stick to and which might be different from procedures you came across in other projects. It mainly concerns _external_ bugs (those that come from the community), for internal ones we can cut corners more freely.
+There are some basic rules for bugs, particularly for setting the [**Resolution**](mariadb-community-bug-processing.md#resolution-vs.-status) value, which we want to stick to and which might be different from procedures you came across in other projects. It mainly concerns _external_ bugs (those that come from the community), for internal ones we can cut corners more freely.
 
 This all is easier to understand if one remembers that the **Resolution** or its analogues in other bug-tracking systems is a _user-facing_ field, as already mentioned above, and that it relates more to the report, than to the bug itself.
 
@@ -208,7 +208,7 @@ Bug reports which have essentially different descriptions and/or test cases shou
 
 Obviously, a report can never be a duplicate of anything private (luckily it does not concern MariaDB server so far, as the bug reports are public).
 
-In general, a bug report is a duplicate of another one if, and only if, the new reporter could find the existing report just by a reasonable [**JIRA search**](reporting-bugs.md#is-the-bug-already-known).
+In general, a bug report is a duplicate of another one if, and only if, the new reporter could find the existing report just by a reasonable [**JIRA search**](reporting-bugs.md#known-issues).
 
 ### Cannot Reproduce
 

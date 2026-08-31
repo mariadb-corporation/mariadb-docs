@@ -68,7 +68,7 @@ The RSU method tells the cluster to not replicate the DDL statement. The change 
    On the first node, set the session to `RSU` mode:\
    `SET SESSION wsrep_OSU_method = 'RSU';`
 2. **Remove the Node from Rotation:**\
-   Remove the node from the [load balancer](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#id-2.-recommended-load-balancer-mariadb-maxscale) to stop it from receiving traffic.
+   Remove the node from the [load balancer](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#recommended-load-balancer-mariadb-maxscale) to stop it from receiving traffic.
 3. **Apply the Schema Change:**\
    Execute the DDL statement (e.g., `ALTER TABLE...`) on the isolated node.
 4. **Return the Node to Rotation:**\

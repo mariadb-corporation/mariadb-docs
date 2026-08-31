@@ -92,8 +92,8 @@ If you are using an S3 service that is using HTTP to connect (like) you also nee
 
 If you are going to use a primary-replica setup, you should look at the following variables:
 
-* [s3\_replicate\_alter\_as\_create\_select](s3-storage-engine-system-variables.md#s3-replicate-alter-as-create-select): When converting an S3 table to local table, log all rows in binary log. Defaults to `TRUE`. This allows the replica to replicate `CREATE TABLE .. SELECT FROM s3_table` even it the replica doesn't have access to the original `s3_table`.
-* [s3\_slave\_ignore\_updates](s3-storage-engine-system-variables.md#s3-slave-ignore-updates): Should be set if primary and replica share the same S3 instance. This tells the replica that it can ignore any updates to the S3 tables as they are already applied on the primary. Defaults to `FALSE`.
+* [s3\_replicate\_alter\_as\_create\_select](s3-storage-engine-system-variables.md#s3_replicate_alter_as_create_select): When converting an S3 table to local table, log all rows in binary log. Defaults to `TRUE`. This allows the replica to replicate `CREATE TABLE .. SELECT FROM s3_table` even it the replica doesn't have access to the original `s3_table`.
+* [s3\_slave\_ignore\_updates](s3-storage-engine-system-variables.md#s3_slave_ignore_updates): Should be set if primary and replica share the same S3 instance. This tells the replica that it can ignore any updates to the S3 tables as they are already applied on the primary. Defaults to `FALSE`.
 
 The above defaults assume that the primary and replica don't share the same S3 instance.
 
@@ -204,8 +204,8 @@ Discovery of S3 tables is not done for tables in the [mysql databases](../../../
 
 S3 works with [replication](../../../ha-and-performance/standard-replication/replication-overview.md). One can use replication in two different scenarios:
 
-* The primary and replica share the same S3 storage. In this case the primary will make all changes to the S3 data and the replica will ignore any changes in the replication stream to S3 data . This scenario is achieved by setting [s3\_slave\_ignore\_updates](s3-storage-engine-system-variables.md#s3-slave-ignore-updates) to 1.
-* The primary and replica don't share the same S3 storage or the replica uses another storage engine for the S3 tables. This scenario is achieved by setting [s3\_slave\_ignore\_updates](s3-storage-engine-system-variables.md#s3-slave-ignore-updates) to 0.
+* The primary and replica share the same S3 storage. In this case the primary will make all changes to the S3 data and the replica will ignore any changes in the replication stream to S3 data . This scenario is achieved by setting [s3\_slave\_ignore\_updates](s3-storage-engine-system-variables.md#s3_slave_ignore_updates) to 1.
+* The primary and replica don't share the same S3 storage or the replica uses another storage engine for the S3 tables. This scenario is achieved by setting [s3\_slave\_ignore\_updates](s3-storage-engine-system-variables.md#s3_slave_ignore_updates) to 0.
 
 ## aria\_s3\_copy
 

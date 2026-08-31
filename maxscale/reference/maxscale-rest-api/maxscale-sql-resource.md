@@ -677,7 +677,7 @@ An array of objects, each of which must define a `table` and a `schema` field. T
 
 * `connection_string`
 
-Extra connection string that is appended to the destination server's connection string. This connection will always use the MariaDB ODBC driver. The list of supported options can be found [here](https://mariadb.com/kb/en/about-mariadb-connector-odbc/#parameters).
+Extra connection string that is appended to the destination server's connection string. This connection will always use the MariaDB ODBC driver. The list of supported options can be found [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc/mariadb-connector-odbc-guide#parameters).
 
 * `threads`
 

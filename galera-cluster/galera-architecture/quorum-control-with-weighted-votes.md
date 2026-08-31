@@ -11,7 +11,7 @@ description: >-
 This page is a deep-dive into the advanced feature of weighted quorum. For a general overview of Quorum, its role in monitoring, and basic recovery, see [Understanding Quorum, Monitoring, and Recovery](../high-availability/understanding-quorum-monitoring-and-recovery.md).
 {% endhint %}
 
-MariaDB Galera Cluster supports a weighted quorum, where each node can be assigned a weight in the range of `0` to `255`, with which it will participate in quorum calculations. This provides fine-grained control over which nodes are most critical for forming a [Primary Component](quorum-control-with-weighted-votes.md#quorum-calculation-with-weights), especially in complex or [geographically distributed topologies](galera-cluster-deployment-variants.md#id-3.-wide-area-network-wan-cluster-multi-data-center).
+MariaDB Galera Cluster supports a weighted quorum, where each node can be assigned a weight in the range of `0` to `255`, with which it will participate in quorum calculations. This provides fine-grained control over which nodes are most critical for forming a [Primary Component](quorum-control-with-weighted-votes.md#quorum-calculation-with-weights), especially in complex or [geographically distributed topologies](galera-cluster-deployment-variants.md#wide-area-network-wan-cluster-multi-data-center).
 
 By default, every [node](../high-availability/monitoring-mariadb-galera-cluster.md#understanding-galera-node-states) has a weight of `1`. You can customize a node's weight during runtime by setting the `pc.weight` [provider option](../galera-management/configuration/configuring-mariadb-galera-cluster.md#mandatory-options):
 
@@ -73,6 +73,6 @@ For a [disaster recovery setup](../high-availability/using-mariadb-replication-w
 * `node3`: `pc.weight = 1`
 * `node4`: `pc.weight = 1`
 
-If the secondary site or the [WAN link](galera-cluster-deployment-variants.md#id-3.-wide-area-network-wan-cluster-multi-data-center) fails, the primary site maintains quorum. Additionally, one node at the primary site can fail without causing an outage.
+If the secondary site or the [WAN link](galera-cluster-deployment-variants.md#wide-area-network-wan-cluster-multi-data-center) fails, the primary site maintains quorum. Additionally, one node at the primary site can fail without causing an outage.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -20,7 +20,7 @@ Setting up replication the "traditional" way is covered below.
 
 ## Versions
 
-In general, when replicating across different versions of MariaDB, it is best that the master is an older version than the slave. MariaDB versions are usually backward compatible, while of course older versions cannot always be forward compatible. See also [Replicating from MySQL Master to MariaDB Replica](setting-up-replication.md#replicating-from-mysql-master-to-mariadb-slave).
+In general, when replicating across different versions of MariaDB, it is best that the master is an older version than the slave. MariaDB versions are usually backward compatible, while of course older versions cannot always be forward compatible. See also **Replicating from MySQL Master to MariaDB Replica** below.
 
 Follow these steps to set up MariaDB replication:
 

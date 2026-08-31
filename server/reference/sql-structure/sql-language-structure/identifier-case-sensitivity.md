@@ -33,7 +33,7 @@ SELECT * FROM a_table WHERE A_table.id>10;
 For a full list of identifiers naming rules, see [Identifier Names](identifier-names.md).
 
 {% hint style="info" %}
-Please note that [lower\_case\_table\_names](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lower_case_table_names) is a database initialization parameter. This means that, along with [innodb\_page\_size](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#innodb_page_size), this variable must be set before running [mariadb-install-db](../../../clients-and-utilities/deployment-tools/mariadb-install-db.md), and will not change the behavior of servers unless applied before the creation of core system databases.
+Please note that [lower\_case\_table\_names](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lower_case_table_names) is a database initialization parameter. This means that, along with [innodb\_page\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size), this variable must be set before running [mariadb-install-db](../../../clients-and-utilities/deployment-tools/mariadb-install-db.md), and will not change the behavior of servers unless applied before the creation of core system databases.
 {% endhint %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

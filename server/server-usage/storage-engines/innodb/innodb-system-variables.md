@@ -668,7 +668,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_compression_failure_threshold_pct`
 
 * Description: Specifies the percentage cutoff for expensive compression failures during updates to a table that uses [InnoDB page compression](innodb-page-compression.md), after which free space is added to each new compressed page, dynamically adjusted up to the level set by [innodb\_compression\_pad\_pct\_max](innodb-system-variables.md#innodb_compression_pad_pct_max). Zero disables checking of compression efficiency and adjusting padding.
-  * See [InnoDB Page Compression: Configuring the Failure Threshold and Padding](innodb-page-compression.md#configuring-the-failure-threshold-and-padding) for more information.
+  * See [InnoDB Page Compression: Configuring the Failure Threshold and Padding](innodb-page-compression.md#configuring-the-failure-threshold-and-maximum-padding) for more information.
 * Command line: `--innodb-compression-failure-threshold-pct=#`
 * Scope: Global
 * Dynamic: Yes
@@ -694,7 +694,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_compression_pad_pct_max`
 
 * Description: The maximum percentage of reserved free space within each compressed page for tables that use [InnoDB page compression](innodb-page-compression.md). Reserved free space is used when the page's data is reorganized and might be recompressed. Only used when [innodb\_compression\_failure\_threshold\_pct](innodb-system-variables.md#innodb_compression_failure_threshold_pct) is not zero, and the rate of compression failures exceeds its setting.
-  * See [InnoDB Page Compression: Configuring the Failure Threshold and Padding](innodb-page-compression.md#configuring-the-failure-threshold-and-padding) for more information.
+  * See [InnoDB Page Compression: Configuring the Failure Threshold and Padding](innodb-page-compression.md#configuring-the-failure-threshold-and-maximum-padding) for more information.
 * Command line: `--innodb-compression-pad-pct-max=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1533,6 +1533,16 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Range: `0` to `1`
 * Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
+#### `innodb_index_shrink`
+
+* Description: Whether InnoDB may shrink a B-tree, by merging or reorganizing pages, on an `UPDATE` that grows a record, such as one that changes a value from `NULL` to not-`NULL`. The default `ON` matches the behavior of earlier releases. Setting this to `OFF` makes InnoDB favor page splits in those cases, which reduces index tree latch upgrades and the contention they cause, at the cost of slightly sparser pages.
+* Command line: `--innodb-index-shrink={0|1}`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `boolean`
+* Default Value: `ON`
+* Introduced: [MariaDB 11.8.9](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.9), [MariaDB 12.3.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/12.3.3)
+
 #### `innodb_instant_alter_column_allowed`
 
 * Description:
@@ -1574,7 +1584,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_io_capacity`
 
 * Description: Limit on I/O activity for InnoDB background tasks, including merging data from the insert buffer and flushing pages. Should be set to around the number of I/O operations per second that system can handle, based on the type of drive/s being used. You can also set it higher when the server starts to help with the extra workload at that time, and then reduce for normal use. Ideally, opt for a lower setting, as at higher value data is removed from the buffers too quickly, reducing the effectiveness of caching. See also [innodb\_flush\_sync](innodb-system-variables.md#innodb_flush_sync).
-  * See [InnoDB Page Flushing: Configuring the InnoDB I/O Capacity](innodb-page-flushing.md#configuring-the-innodb-io-capacity) for more information.
+  * See [InnoDB Page Flushing: Configuring the InnoDB I/O Capacity](innodb-page-flushing.md#configuring-the-innodb-i-o-capacity) for more information.
 * Command line: `--innodb-io-capacity=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1584,7 +1594,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_io_capacity_max`
 
-* Description: Upper limit to which InnoDB can extend [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) in case of emergency. See [InnoDB Page Flushing: Configuring the InnoDB I/O Capacity](innodb-page-flushing.md#configuring-the-innodb-io-capacity) for more information.
+* Description: Upper limit to which InnoDB can extend [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) in case of emergency. See [InnoDB Page Flushing: Configuring the InnoDB I/O Capacity](innodb-page-flushing.md#configuring-the-innodb-i-o-capacity) for more information.
 * Command line: `--innodb-io-capacity-max=#`
 * Scope: Global
 * Dynamic: Yes
@@ -2078,7 +2088,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 * Description: Sets the number of threads to use in Multi-Threaded Flush operations. For more information, see [Fusion-io Multi-threaded Flush](innodb-page-flushing.md).
   * InnoDB's multi-thread flush feature was deprecated in [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9) and removed from [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2). In later versions of MariaDB, use [innodb\_page\_cleaners](innodb-system-variables.md#innodb_page_cleaners) system variable instead.
-  * See [InnoDB Page Flushing: Page Flushing with Multi-threaded Flush Threads](innodb-page-flushing.md#page-flushing-with-multi-threaded-flush-threads) for more information.
+  * See [InnoDB Page Flushing: Page Flushing Before MariaDB Server 10.5](innodb-page-flushing.md#page-flushing-before-mariadb-server-10.5) for more information.
 * Command line: `--innodb-mtflush-threads=#`
 * Scope: Global
 * Dynamic: No
@@ -2162,7 +2172,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 #### `innodb_open_files`
 
-* Description: Maximum .ibd files MariaDB can have open at the same time. Only applies to systems with multiple XtraDB/InnoDB tablespaces, and is separate to the table cache and [open\_files\_limit](innodb-system-variables.md#open_files_limit). The default, if [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) is disabled, is 300 or the value of [table\_open\_cache](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache), whichever is higher. It will also auto-size up to the default value if it is set to a value less than `10`.
+* Description: Maximum .ibd files MariaDB can have open at the same time. Only applies to systems with multiple XtraDB/InnoDB tablespaces, and is separate to the table cache and [open\_files\_limit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#open_files_limit). The default, if [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) is disabled, is 300 or the value of [table\_open\_cache](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache), whichever is higher. It will also auto-size up to the default value if it is set to a value less than `10`.
 * Command line: `--innodb-open-files=#`
 * Scope: Global
 * Dynamic: No
@@ -2182,7 +2192,7 @@ If you set a target that is unreachable in the other direction (for example, low
 #### `innodb_page_cleaners`
 
 * Description: Number of page cleaner threads. The default is `4`, but the value are set to the number of [innodb\_buffer\_pool\_instances](innodb-system-variables.md#innodb_buffer_pool_instances) if this is lower. If set to `1`, only a single cleaner thread is used, as was the case until [MariaDB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.1). Cleaner threads flush dirty pages from the [buffer pool](innodb-buffer-pool.md), performing flush list and least-recently used (LRU) flushing. Deprecated and ignored from [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), as the original reasons for splitting the buffer pool have mostly gone away.
-  * See [InnoDB Page Flushing: Page Flushing with Multiple InnoDB Page Cleaner Threads](innodb-page-flushing.md#page-flushing-with-multiple-innodb-page-cleaner-threads) for more information.
+  * See [InnoDB Page Flushing: Page Flushing Before MariaDB Server 10.5](innodb-page-flushing.md#page-flushing-before-mariadb-server-10.5) for more information.
 * Command line: `--innodb-page-cleaners=#`
 * Scope: Global
 * Dynamic: Yes (>= [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)), No (<= [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2))
@@ -2688,7 +2698,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 #### `innodb_table_locks`
 
-* Description: If [autocommit](innodb-system-variables.md#autocommit) is set to `0` (`1` is default), setting innodb\_table\_locks to `1`, the default, will cause InnoDB to lock a table internally upon a [LOCK TABLE](../../../reference/sql-statements/transactions/lock-tables.md).
+* Description: If [autocommit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#autocommit) is set to `0` (`1` is default), setting innodb\_table\_locks to `1`, the default, will cause InnoDB to lock a table internally upon a [LOCK TABLE](../../../reference/sql-statements/transactions/lock-tables.md).
 * Command line: `--innodb-table-locks`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2881,7 +2891,7 @@ If you set a target that is unreachable in the other direction (for example, low
 * Description: Whether to enable Multi-Threaded Flush operations.\
   For more information, see Fusion.
   * InnoDB's multi-thread flush feature was deprecated in [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9) and removed from [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2). In later versions of MariaDB, use [innodb\_page\_cleaners](innodb-system-variables.md#innodb_page_cleaners) system variable instead.
-  * See [InnoDB Page Flushing: Page Flushing with Multi-threaded Flush Threads](innodb-page-flushing.md#page-flushing-with-multi-threaded-flush-threads) for more information.
+  * See [InnoDB Page Flushing: Page Flushing Before MariaDB Server 10.5](innodb-page-flushing.md#page-flushing-before-mariadb-server-10.5) for more information.
 * Command line: `--innodb-use-mtflush={0|1}`
 * Scope: Global
 * Dynamic: No

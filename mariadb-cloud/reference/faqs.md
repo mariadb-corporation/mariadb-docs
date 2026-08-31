@@ -47,10 +47,10 @@ MariaDB Cloud is primarily designed for online applications and offers two topol
 
 Yes. For workloads requiring strict data consistency and zero data loss failover, [MariaDB Cloud offers MariaDB Enterprise Cluster](../quickstart/enterprise-cluster.md). Unlike standard replicated topologies that use asynchronous or semi-synchronous replication, Enterprise Clusters utilize synchronous write-set certification, ensuring transactions are committed across all nodes simultaneously.
 
-{% hint style="warning" %}
-**Tech Preview Advisory:**
+{% hint style="info" %}
+**Enterprise Cluster Availability**
 
-MariaDB Enterprise Cluster is currently available as a _Tech Preview_ and are exclusively available on the PowerPlus tier. During this phase, [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-quickstart-guides/mariadb-maxscale-guide) routes all write traffic to a single active writer node to ensure maximum stability.
+MariaDB Enterprise Cluster is available exclusively on the PowerPlus tier. [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-quickstart-guides/mariadb-maxscale-guide) routes all write traffic to a single active writer node to ensure maximum stability.
 {% endhint %}
 
 ### What options are available for scaling and right-sizing MariaDB Cloud?
@@ -120,7 +120,7 @@ No additional licenses are necessary to use MariaDB Cloud.
 Add-ons are available to optimize your MariaDB Cloud experience:
 
 * MariaDB Cloud Power Tier is a premium service offering for MariaDB Cloud customers who have the most critical requirements for uptime, availability, performance, and support.
-* While all Foundation Tier services include Standard Support, Power Tier customers are offered the [Power level support plan](support.md).
+* While all MariaDB Cloud subscriptions include [Basic support](support.md), Standard support is available on every tier, and Power and PowerPlus customers can add the Remote DBA (RDBA) add-on.
 * An optional add-on, [Cloud DBA](clouddba.md), further extends the premium support experience and the capabilities of your in-house DBAs with the backing from a global team of expert MariaDB DBAs, available 24/7 for the most severe (P1) issues. MariaDB's Cloud DBAs manage your MariaDB Cloud databases both proactively and reactively so you can focus on your core business.
 
 ### Is discounted pricing available for a longer-term commitment?

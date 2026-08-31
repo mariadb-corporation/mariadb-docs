@@ -556,7 +556,7 @@ Unlike most options, `init-command` is a **multi-element** option. Each occurren
 
 **`ssl-passphrase`**
 
-* Description: Specify a passphrase for a passphrase-protected private key, as configured by the [ssl-key](configuring-mariadb-connectorc-with-option-files.md#ssl-key) option.
+* Description: Specify a passphrase for a passphrase-protected private key, as configured by the `ssl-key` option.
   * This option is only supported if the connector was built with OpenSSL or GnuTLS. If the connector was built with Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 * mysql\_optionsv: `MARIADB_OPT_TLS_PASSPHRASE`
 * Data Type: `string`

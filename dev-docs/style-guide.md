@@ -87,6 +87,45 @@ Cluster**, **ColumnStore**, **MariaDB Enterprise Platform**. Note: "MariaDB serv
 common noun — "the MariaDB server process") and "Galera cluster" (a cluster instance) are often
 correct; only the branded product is title-cased.
 
+In **running prose**, use the full product name on first mention; a short form on subsequent
+mentions in the same page is fine and normal ("If you are upgrading from an older major version
+of MaxScale…").
+
+### Release-note page titles
+
+Release-note H1s follow a **per-product** convention that is not derivable from the rule above.
+Match the sibling pages in the same directory rather than applying the full product name
+everywhere. Check before you edit, and don't "correct" a page into disagreeing with its
+neighbours.
+
+**MariaDB MaxScale** is the one product where the parent and child titles deliberately differ:
+
+| Page role | H1 form |
+|-----------|---------|
+| Series page — `release-notes/maxscale/<series>/README.md` | `MariaDB MaxScale 25.10 Release Notes` |
+| Point release nested under it | `MaxScale 25.10.3 Release Notes` |
+
+The short form on children avoids repeating the brand at every level of a nav tree whose parent
+already carries it. `SUMMARY.md` nav labels mirror the page's own H1, so the two must agree.
+Changelog pages (`<series>-changelog.md`) use the short form — they are not parents of release
+notes. The `old-releases/2.4` and `old-releases/2.5` archives predate this convention and use
+the full name throughout; they are self-consistent, so leave them alone.
+
+Other products do **not** split parent from child, so don't generalize the MaxScale pattern:
+
+- **ColumnStore** — same form at both levels: `MariaDB ColumnStore 6 Release Notes` over
+  `MariaDB ColumnStore 6.4.8 Release Notes`.
+- **Connectors** — same form at both levels, and **without** the MariaDB prefix in titles:
+  `Connector/J 3.5 Release Notes` over `Connector/J 3.5.9 Release Notes`.
+- **Community Server** — varies the word order between levels, not the brand form:
+  `Release Notes - MariaDB 12.3 Series` over `MariaDB 12.3.3 Release Notes`.
+
+MaxScale point releases are **generated**, by
+`release-notes/maxscale/script/generate_release_notes.sh`, so its template must emit the
+point-release form. If this convention ever changes, change the template with it — otherwise the
+next generated page silently reintroduces the old form. (The template used the series form until
+DOCS-6545; that is what made the split look accidental in the first place.)
+
 ## Spelling check
 
 CI runs **codespell** (`.codespellignore`). If a flagged word is a real term, add it to

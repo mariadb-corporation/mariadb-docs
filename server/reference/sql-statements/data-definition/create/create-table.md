@@ -11,7 +11,7 @@ description: >-
 <pre class="language-sql"><code class="lang-sql">CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
     (<a data-footnote-ref href="#user-content-fn-1">create_definition</a>,...) [<a data-footnote-ref href="#user-content-fn-2">table_options</a>    ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
 CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
-    [(<a data-footnote-ref href="#user-content-fn-2">create_definition</a>,...)] [<a data-footnote-ref href="#user-content-fn-4">table_options</a>   ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
+    [(<a data-footnote-ref href="#user-content-fn-1">create_definition</a>,...)] [<a data-footnote-ref href="#user-content-fn-2">table_options</a>   ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
     select_statement
 CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
    { LIKE old_table_name | (LIKE old_table_name) }
@@ -206,7 +206,7 @@ MariaDB accepts the shortcut format with a `REFERENCES` clause only in `ALTER TA
 CREATE TABLE b(for_key INT REFERENCES a(not_key));
 ```
 
-MariaDB will attempt to apply the constraint. See [Foreign Keys examples](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md#references).
+MariaDB will attempt to apply the constraint. See [Foreign Keys examples](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md#examples).
 {% endtab %}
 
 {% tab title="< 10.5" %}
@@ -237,7 +237,7 @@ The default value will be used if you [INSERT](../../data-manipulation/inserting
 
 [CURRENT\_TIMESTAMP](../../../sql-functions/date-time-functions/now.md) may also be used as the default value for a [DATETIME](../../../data-types/date-and-time-data-types/datetime.md)
 
-You can use most functions in `DEFAULT`. Expressions should have parentheses around them. If you use a non deterministic function in `DEFAULT` then all inserts to the table will be [replicated](../../../../ha-and-performance/standard-replication/) in [row mode](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based). You can even refer to earlier columns in the `DEFAULT` expression (excluding `AUTO_INCREMENT` columns):
+You can use most functions in `DEFAULT`. Expressions should have parentheses around them. If you use a non deterministic function in `DEFAULT` then all inserts to the table will be [replicated](../../../../ha-and-performance/standard-replication/) in [row mode](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging). You can even refer to earlier columns in the `DEFAULT` expression (excluding `AUTO_INCREMENT` columns):
 
 ```sql
 CREATE TABLE t1 (a INT DEFAULT (1+1), b INT DEFAULT (a+1));
@@ -413,7 +413,7 @@ For limits on InnoDB indexes, see [InnoDB Limitations](../../../../server-usage/
 
 Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes.
 
-See [Getting Started with Indexes: Plain Indexes](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes) for more information.
+See [Getting Started with Indexes: Plain Indexes](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes-regular-indexes) for more information.
 
 #### PRIMARY KEY
 
@@ -622,9 +622,9 @@ table_option:
   | ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
   | AUTO_INCREMENT [=] number
   | AVG_ROW_LENGTH [=] number
-  | [DEFAULT] CHARACTER SET [=] <a data-footnote-ref href="#user-content-fn-7">charset_name</a>
+  | [DEFAULT] CHARACTER SET [=] charset_name
   | CHECKSUM [=] {0 | 1}
-  | [DEFAULT] COLLATE [=] <a data-footnote-ref href="#user-content-fn-7">collation_name</a>
+  | [DEFAULT] COLLATE [=] collation_name
   | COMMENT [=] 'string'
   | CONNECTION [=] 'connect_string'
   | DATA DIRECTORY [=] 'absolute path to directory'
@@ -852,7 +852,7 @@ partition_options:
         | [LINEAR] KEY(column_list)
         | RANGE(expr)
         | LIST(expr)
-        | SYSTEM_TIME [INTERVAL time_quantity <a data-footnote-ref href="#user-content-fn-8">time_unit</a>] [LIMIT num] }
+        | SYSTEM_TIME [INTERVAL time_quantity time_unit] [LIMIT num] }
     [PARTITIONS num]
     [SUBPARTITION BY
         { [LINEAR] HASH(expr)

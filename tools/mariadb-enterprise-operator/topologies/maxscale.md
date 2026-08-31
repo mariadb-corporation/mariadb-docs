@@ -473,7 +473,7 @@ spec:
   # [...]
 ```
 
-Note that, the `Connection` uses the `Service` described in the [Kubernetes Service](maxscale.md#kubernetes-service) section and you are able to specify which MaxScale service to connect to by providing the port (`spec.port`) of the corresponding MaxScale listener.
+Note that, the `Connection` uses the `Service` described in the [Kubernetes Services](maxscale.md#kubernetes-services) section and you are able to specify which MaxScale service to connect to by providing the port (`spec.port`) of the corresponding MaxScale listener.
 
 ## High availability
 
@@ -575,7 +575,7 @@ The GUI is exposed via a dedicated Kubernetes `Service` in the same port as the 
 
 ## MaxScale API
 
-MariaDB Enterprise Kubernetes Operator interacts with the [MaxScale REST API](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-25-01/maxscale-25-01-rest-api) to reconcile the specification provided by the user, considering both the MaxScale status retrieved from the API and the provided spec.
+MariaDB Enterprise Kubernetes Operator interacts with the [MaxScale REST API](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-25-01/maxscale-25-01-rest-api) to reconcile the specification provided by the user, considering both the MaxScale status retrieved from the API and the provided spec.
 
 [![Run In Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/9776-74dfd54a-2b2b-451f-95ab-006e1d9d9998?action=collection%2Ffork\&source=rip_markdown\&collection-url=entityId%3D9776-74dfd54a-2b2b-451f-95ab-006e1d9d9998%26entityType%3Dcollection%26workspaceId%3Da184b7e4-b1f7-405e-b9ec-ec62ed36dd27)
 

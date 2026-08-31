@@ -142,10 +142,12 @@ Backup and restore operations for Enterprise Clusters must be cluster-aware to p
 * **Snapshots:** Galera clusters default to cloud-native snapshot backups. Because Galera ensures write-set consistency, a snapshot from any single healthy node safely represents the entire cluster state.
 * **Cluster Restores:** To ensure safe re-formation, restoring a Galera cluster initializes the backup on a single node to bootstrap the cluster. Once the primary node is healthy, MariaDB Cloud uses automated [State Snapshot Transfers (SST)](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method) to bring the remaining nodes online and sync their state. You can restore a Galera snapshot to the existing service or to a new service.
 
-{% hint style="danger" %}
-**Tech Preview Limitation: Snapshots Only**&#x20;
+* **Point-in-Time Recovery:** You can restore an [Enterprise Cluster](../../quickstart/enterprise-cluster.md) to a specific point in time between snapshots, in the same way as a Replicated service.
 
-During the [Tech Preview phase](../../quickstart/enterprise-cluster.md), MariaDB Enterprise cluster supports only cloud-native snapshot backups. Full (physical) backups, logical backups, and Point-in-Time Recovery (PITR) are not currently supported.
+{% hint style="info" %}
+**Snapshots Only**&#x20;
+
+[MariaDB Enterprise Cluster](../../quickstart/enterprise-cluster.md) supports cloud-native snapshot backups only. Full (physical) backups and logical backups are not available for this topology.
 {% endhint %}
 
 ## Limitations

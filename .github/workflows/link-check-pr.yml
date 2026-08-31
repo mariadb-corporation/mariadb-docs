@@ -73,6 +73,11 @@ jobs:
           # Actions runners outright (serves 200 to a normal client), and
           # csm.mariadb.com is the customer support portal, which answers 403 to
           # anyone not logged in. Both links are valid for readers.
+          # DOCS-6499 adds docs.ansible.com, same class as blogspot.com: it
+          # answers the runners with 429 on every request (7 links on one page,
+          # two consecutive runs) while serving 301 -> 200 to a normal client.
+          # The 429 is host-level rate limiting, so replacing the URLs with
+          # their resolved /projects/ansible/ form would not help.
           #
           # Note for editors: the args block below is a YAML folded scalar, so
           # a '#' line inside it is NOT a comment -- it would be passed to
@@ -160,6 +165,29 @@ jobs:
           # substitute -- unlike codex.wordpress.org, which was retired by
           # WordPress and so got repointed at wordpress.org/documentation
           # instead of excluded.
+          #
+          # DOCS-6496 (2026-08-21): lists.freedesktop.org, the systemd-devel
+          # mailing-list archive, cited from systemd/configuring.md and the
+          # Galera SST page. Unlike every host above it is neither dead nor
+          # blocking -- it is simply slow and intermittent, so it fails as a
+          # TIMEOUT rather than an error, and lychee reports that alongside
+          # "Errors 0" while still exiting non-zero. Both cited pages return
+          # 200 with their real content on a retry (2 of 5 attempts from a
+          # developer machine), and CI and a local run time out on DIFFERENT
+          # URLs of the same host, which is what makes it host-level rather
+          # than a rotted page. Its sibling www.freedesktop.org is already
+          # excluded above. Nothing to repoint at: this archive is canonical
+          # for these threads.
+          #
+          # DOCS-6521: web.archive.org, same class as www.freedesktop.org --
+          # it answers the Actions runners with "Connection refused" while
+          # serving 200 promptly to a developer machine, so a local lychee run
+          # PASSES while CI fails. Three pages cite a Wayback snapshot, and in
+          # each case the snapshot IS the replacement for a page that no longer
+          # exists (a retired MaxMind dataset, two dead personal blogs), so
+          # there is nothing further to repoint at. The other two pages have
+          # carried the same latent failure since the migration; they only
+          # surface when a PR happens to touch them.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -208,12 +236,15 @@ jobs:
             --exclude www\.shannon-sys\.com
             --exclude www\.hashicorp\.com
             --exclude blogspot\.com
+            --exclude docs\.ansible\.com
             --exclude www\.poliarch\.org
             --exclude www\.reddit\.com
             --exclude csm\.mariadb\.com
             --exclude stackoverflow\.com
             --exclude gitlab\.kitware\.com
             --exclude www\.freedesktop\.org
+            --exclude 'lists\.freedesktop\.org'
+            --exclude 'web\.archive\.org'
             --exclude azuremarketplace\.microsoft\.com
             --exclude console\.cloud\.google\.com
             --exclude partedmagic\.com

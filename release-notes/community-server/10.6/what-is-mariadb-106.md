@@ -32,7 +32,7 @@ See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/
 
 #### Oracle Compatibility
 
-* Anonymous [subqueries in a FROM clause](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/subqueries/subqueries-in-a-from-clause-derived-tables) (no AS clause) are permitted in [ORACLE mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) ([MDEV-19162](https://jira.mariadb.org/browse/MDEV-19162))
+* Anonymous [subqueries in a FROM clause](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/subqueries/subqueries-in-a-from-clause-derived-tables) (no AS clause) are permitted in [ORACLE mode](../about/compatibility-and-differences/sql_modeoracle.md) ([MDEV-19162](https://jira.mariadb.org/browse/MDEV-19162))
 * [ADD\_MONTHS()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/add_months) added ([MDEV-20025](https://jira.mariadb.org/browse/MDEV-20025))
 * [TO\_CHAR()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/to_char) added ([MDEV-20017](https://jira.mariadb.org/browse/MDEV-20017))
 * [SYS\_GUID()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/miscellaneous-functions/sys_guid) added ([MDEV-24285](https://jira.mariadb.org/browse/MDEV-24285))
@@ -52,7 +52,7 @@ See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/
 * Increase [master\_host](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to#master_host) limit to 255, user to 128 ([MDEV-24312](https://jira.mariadb.org/browse/MDEV-24312))
 * The [wsrep\_mode](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_mode) system variable, for turning on WSREP features which are not part of default behavior (including the experimental Aria replication) ([MDEV-20008](https://jira.mariadb.org/browse/MDEV-20008), [MDEV-20715](https://jira.mariadb.org/browse/MDEV-20715), [MDEV-24946](https://jira.mariadb.org/browse/MDEV-24946))
 * The delay between binary log purges can now be specified with much greater precision. The system variable [binlog\_expire\_logs\_seconds](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_expire_logs_seconds) is introduced as a form of alias for [expire\_logs\_days](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#expire_logs_days), which now accepts a precision of 1/1000000 days ([MDEV-19371](https://jira.mariadb.org/browse/MDEV-19371))
-* Allow transition from unencrypted to TLS [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) cluster communication without cluster downtime ([MDEV-22131](https://jira.mariadb.org/browse/MDEV-22131))
+* Allow transition from unencrypted to TLS [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) cluster communication without cluster downtime ([MDEV-22131](https://jira.mariadb.org/browse/MDEV-22131))
 
 ### Sys Schema
 
@@ -86,7 +86,7 @@ See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/
 
 ### Variables
 
-* For a list of all new variables, see [System Variables Added in MariaDB 10.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-10-6) and [Status Variables Added in MariaDB 10.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/status-variables-added-in-mariadb-106).
+* For a list of all new variables, see [System Variables Added in MariaDB 10.6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-10-6) and [Status Variables Added in MariaDB 10.6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/status-variables-added-in-mariadb-106).
 * [max\_recursive\_iterations](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_recursive_iterations) has been reduced to 1000 ([MDEV-17239](https://jira.mariadb.org/browse/MDEV-17239))
 
 #### InnoDB Variables
@@ -122,87 +122,94 @@ The following deprecated variables have been removed ([MDEV-23397](https://jira.
 For a complete list of security vulnerabilities (CVEs) fixed across all versions of MariaDB Community Server, see the [Security Vulnerabilities Fixed in MariaDB Community Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/community-server) page.
 
 | CVE ID (with cve.org link)                                                      | CVSS base score (v3.1) | Community Server 10.6 Release |
-| ------------------------------------------------------------------------------- | --------------- | ----------------------------- |
-| [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261)               | 10.0            | [MariaDB 10.6.27](10.6.27.md) |
-| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165)               | 8.0             | [MariaDB 10.6.27](10.6.27.md) |
-| [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163)               | 8.0             | [MariaDB 10.6.27](10.6.27.md) |
-| [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173)               | 5.0             | [MariaDB 10.6.26](10.6.26.md) |
-| [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172)               | 5.0             | [MariaDB 10.6.26](10.6.26.md) |
-| [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171)               | 6.3             | [MariaDB 10.6.26](10.6.26.md) |
-| [CVE-2026-44170](https://www.cve.org/CVERecord?id=CVE-2026-44170)               | 5.0             | [MariaDB 10.6.26](10.6.26.md) |
-| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168)               | 8.0             | [MariaDB 10.6.26](10.6.26.md) |
-| [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)                 | 4.3             | [MariaDB 10.6.25](10.6.25.md) |
-| [CVE-2026-21968](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-21968) | 6.5             | [MariaDB 10.6.24](10.6.24.md) |
-| [CVE-2025-13699](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-13699) | 7.0             | [MariaDB 10.6.24](10.6.24.md) |
-| [CVE-2025-30722](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-30722) | 5.3             | [MariaDB 10.6.22](10.6.22.md) |
-| [CVE-2025-30693](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-30693) | 5.5             | [MariaDB 10.6.22](10.6.22.md) |
-| [CVE-2023-52970](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-52970) | 4.9             | [MariaDB 10.6.22](10.6.22.md) |
-| [CVE-2023-52969](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-52969) | 4.9             | [MariaDB 10.6.22](10.6.22.md) |
-| [CVE-2025-21490](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-21490) | 4.9             | [MariaDB 10.6.21](10.6.21.md) |
-| [CVE-2024-21096](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21096) | 4.9             | [MariaDB 10.6.18](10.6.18.md) |
-| [CVE-2023-52968](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-52968) | 4.9             | [MariaDB 10.6.17](10.6.17.md) |
-| [CVE-2023-22084](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-22084) | 4.9             | [MariaDB 10.6.16](10.6.16.md) |
-| [CVE-2022-47015](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-47015) | N/A (Medium)    | [MariaDB 10.6.13](10.6.13.md) |
-| [CVE-2023-5157](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5157)   | 7.5             | [MariaDB 10.6.9](10.6.9.md)   |
-| [CVE-2022-38791](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-38791) | N/A             | [MariaDB 10.6.9](10.6.9.md)   |
-| [CVE-2022-32091](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32091) | 6.5             | [MariaDB 10.6.9](10.6.9.md)   |
-| [CVE-2022-32089](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32089) | 6.5             | [MariaDB 10.6.9](10.6.9.md)   |
-| [CVE-2022-32084](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32084) | 6.5             | [MariaDB 10.6.9](10.6.9.md)   |
-| [CVE-2022-32082](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32082) | 6.5             | [MariaDB 10.6.9](10.6.9.md)   |
-| [CVE-2022-32081](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32081) | 6.5             | [MariaDB 10.6.9](10.6.9.md)   |
-| [CVE-2018-25032](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-25032) | 7.5             | [MariaDB 10.6.9](10.6.9.md)   |
-| [CVE-2022-32083](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32083) | 6.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-32088](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32088) | 6.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-32087](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32087) | 6.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-32086](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32086) | 6.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-32085](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32085) | 6.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27458](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27458) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27457](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27457) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27456](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27456) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27455](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27455) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27452](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27452) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27451](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27451) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27449](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27449) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27448](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27448) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27447](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27447) | N/A             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27446](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27446) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27445](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27445) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27444](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27444) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27387](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27387) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27386](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27386) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27384](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27384) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27383](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27383) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27382](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27382) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27381](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27381) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27380](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27380) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27379](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27379) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27378](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27378) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27377](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27377) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2022-27376](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27376) | 7.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2021-46669](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46669) | 6.5             | [MariaDB 10.6.8](10.6.8.md)   |
-| [CVE-2021-46668](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46668) | 5.5             | [MariaDB 10.6.7](10.6.7.md)   |
-| [CVE-2021-46665](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46665) | 5.5             | [MariaDB 10.6.7](10.6.7.md)   |
-| [CVE-2021-46664](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46664) | 5.5             | [MariaDB 10.6.7](10.6.7.md)   |
-| [CVE-2021-46663](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46663) | 5.5             | [MariaDB 10.6.7](10.6.7.md)   |
-| [CVE-2021-46661](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46661) | N/A             | [MariaDB 10.6.7](10.6.7.md)   |
-| [CVE-2022-24052](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-24052) | 7.0             | [MariaDB 10.6.6](10.6.6.md)   |
-| [CVE-2022-24051](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-24051) | 7.0             | [MariaDB 10.6.6](10.6.6.md)   |
-| [CVE-2022-24050](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-24050) | 7.0             | [MariaDB 10.6.6](10.6.6.md)   |
-| [CVE-2022-24048](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-24048) | 7.0             | [MariaDB 10.6.6](10.6.6.md)   |
-| [CVE-2022-21595](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-21595) | 4.4             | [MariaDB 10.6.6](10.6.6.md)   |
-| [CVE-2022-0778](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-0778)   | N/A             | [MariaDB 10.6.6](10.6.6.md)   |
-| [CVE-2021-46659](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46659) | 5.5             | [MariaDB 10.6.6](10.6.6.md)   |
-| [CVE-2022-31623](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-31623) | N/A             | [MariaDB 10.6.6](10.6.6.md)   |
-| [CVE-2022-31622](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-31622) | N/A             | [MariaDB 10.6.6](10.6.6.md)   |
-| [CVE-2022-27385](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27385) | 7.5             | [MariaDB 10.6.5](10.6.5.md)   |
-| [CVE-2021-46662](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46662) | 5.5             | [MariaDB 10.6.5](10.6.5.md)   |
-| [CVE-2022-31624](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-31624) | 6.5             | [MariaDB 10.6.5](10.6.5.md)   |
-| [CVE-2021-46667](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46667) | 7.5             | [MariaDB 10.6.5](10.6.5.md)   |
-| [CVE-2022-31621](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-31621) | N/A             | [MariaDB 10.6.5](10.6.5.md)   |
-| [CVE-2021-2389](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-2389)   | 5.9             | [MariaDB 10.6.4](10.6.4.md)   |
-| [CVE-2021-2372](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-2372)   | 4.4             | [MariaDB 10.6.4](10.6.4.md)   |
-| [CVE-2021-46658](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46658) | 5.5             | [MariaDB 10.6.3](10.6.3.md)   |
-| [CVE-2021-35604](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-35604) | 5.5             | [MariaDB 10.6.3](10.6.3.md)   |
+| ------------------------------------------------------------------------------- | ---------------------- | ----------------------------- |
+| [CVE-2026-61081](https://www.cve.org/CVERecord?id=CVE-2026-61081)               | 2.7                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-60585](https://www.cve.org/CVERecord?id=CVE-2026-60585)               | 6.6                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-60331](https://www.cve.org/CVERecord?id=CVE-2026-60331)               | 6.4                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-60747](https://www.cve.org/CVERecord?id=CVE-2026-60747)               | 6.2                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-47023](https://www.cve.org/CVERecord?id=CVE-2026-47023)               | 4.9                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-60184](https://www.cve.org/CVERecord?id=CVE-2026-60184)               | 4.4                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261)               | 10.0                   | [MariaDB 10.6.27](10.6.27.md) |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165)               | 8.0                    | [MariaDB 10.6.27](10.6.27.md) |
+| [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163)               | 8.0                    | [MariaDB 10.6.27](10.6.27.md) |
+| [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064)               | 6.5                    | [MariaDB 10.6.26](10.6.26.md) |
+| [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173)               | 5.0                    | [MariaDB 10.6.26](10.6.26.md) |
+| [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172)               | 5.0                    | [MariaDB 10.6.26](10.6.26.md) |
+| [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171)               | 6.3                    | [MariaDB 10.6.26](10.6.26.md) |
+| [CVE-2026-44170](https://www.cve.org/CVERecord?id=CVE-2026-44170)               | 5.0                    | [MariaDB 10.6.26](10.6.26.md) |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168)               | 8.0                    | [MariaDB 10.6.26](10.6.26.md) |
+| [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)                 | 4.3                    | [MariaDB 10.6.25](10.6.25.md) |
+| [CVE-2026-21968](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-21968) | 6.5                    | [MariaDB 10.6.24](10.6.24.md) |
+| [CVE-2025-13699](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-13699) | 7.0                    | [MariaDB 10.6.24](10.6.24.md) |
+| [CVE-2025-30722](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-30722) | 5.3                    | [MariaDB 10.6.22](10.6.22.md) |
+| [CVE-2025-30693](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-30693) | 5.5                    | [MariaDB 10.6.22](10.6.22.md) |
+| [CVE-2023-52970](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-52970) | 4.9                    | [MariaDB 10.6.22](10.6.22.md) |
+| [CVE-2023-52969](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-52969) | 4.9                    | [MariaDB 10.6.22](10.6.22.md) |
+| [CVE-2025-21490](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-21490) | 4.9                    | [MariaDB 10.6.21](10.6.21.md) |
+| [CVE-2024-21096](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21096) | 4.9                    | [MariaDB 10.6.18](10.6.18.md) |
+| [CVE-2023-52968](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-52968) | 4.9                    | [MariaDB 10.6.17](10.6.17.md) |
+| [CVE-2023-22084](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-22084) | 4.9                    | [MariaDB 10.6.16](10.6.16.md) |
+| [CVE-2022-47015](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-47015) | N/A (Medium)           | [MariaDB 10.6.13](10.6.13.md) |
+| [CVE-2023-5157](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5157)   | 7.5                    | [MariaDB 10.6.9](10.6.9.md)   |
+| [CVE-2022-38791](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-38791) | N/A                    | [MariaDB 10.6.9](10.6.9.md)   |
+| [CVE-2022-32091](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32091) | 6.5                    | [MariaDB 10.6.9](10.6.9.md)   |
+| [CVE-2022-32089](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32089) | 6.5                    | [MariaDB 10.6.9](10.6.9.md)   |
+| [CVE-2022-32084](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32084) | 6.5                    | [MariaDB 10.6.9](10.6.9.md)   |
+| [CVE-2022-32082](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32082) | 6.5                    | [MariaDB 10.6.9](10.6.9.md)   |
+| [CVE-2022-32081](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32081) | 6.5                    | [MariaDB 10.6.9](10.6.9.md)   |
+| [CVE-2018-25032](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-25032) | 7.5                    | [MariaDB 10.6.9](10.6.9.md)   |
+| [CVE-2022-32083](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32083) | 6.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-32088](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32088) | 6.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-32087](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32087) | 6.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-32086](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32086) | 6.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-32085](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32085) | 6.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27458](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27458) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27457](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27457) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27456](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27456) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27455](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27455) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27452](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27452) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27451](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27451) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27449](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27449) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27448](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27448) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27447](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27447) | N/A                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27446](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27446) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27445](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27445) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27444](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27444) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27387](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27387) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27386](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27386) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27384](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27384) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27383](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27383) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27382](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27382) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27381](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27381) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27380](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27380) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27379](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27379) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27378](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27378) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27377](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27377) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2022-27376](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27376) | 7.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2021-46669](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46669) | 6.5                    | [MariaDB 10.6.8](10.6.8.md)   |
+| [CVE-2021-46668](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46668) | 5.5                    | [MariaDB 10.6.7](10.6.7.md)   |
+| [CVE-2021-46665](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46665) | 5.5                    | [MariaDB 10.6.7](10.6.7.md)   |
+| [CVE-2021-46664](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46664) | 5.5                    | [MariaDB 10.6.7](10.6.7.md)   |
+| [CVE-2021-46663](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46663) | 5.5                    | [MariaDB 10.6.7](10.6.7.md)   |
+| [CVE-2021-46661](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46661) | N/A                    | [MariaDB 10.6.7](10.6.7.md)   |
+| [CVE-2022-24052](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-24052) | 7.0                    | [MariaDB 10.6.6](10.6.6.md)   |
+| [CVE-2022-24051](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-24051) | 7.0                    | [MariaDB 10.6.6](10.6.6.md)   |
+| [CVE-2022-24050](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-24050) | 7.0                    | [MariaDB 10.6.6](10.6.6.md)   |
+| [CVE-2022-24048](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-24048) | 7.0                    | [MariaDB 10.6.6](10.6.6.md)   |
+| [CVE-2022-21595](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-21595) | 4.4                    | [MariaDB 10.6.6](10.6.6.md)   |
+| [CVE-2022-0778](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-0778)   | N/A                    | [MariaDB 10.6.6](10.6.6.md)   |
+| [CVE-2021-46659](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46659) | 5.5                    | [MariaDB 10.6.6](10.6.6.md)   |
+| [CVE-2022-31623](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-31623) | N/A                    | [MariaDB 10.6.6](10.6.6.md)   |
+| [CVE-2022-31622](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-31622) | N/A                    | [MariaDB 10.6.6](10.6.6.md)   |
+| [CVE-2022-27385](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-27385) | 7.5                    | [MariaDB 10.6.5](10.6.5.md)   |
+| [CVE-2021-46662](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46662) | 5.5                    | [MariaDB 10.6.5](10.6.5.md)   |
+| [CVE-2022-31624](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-31624) | 6.5                    | [MariaDB 10.6.5](10.6.5.md)   |
+| [CVE-2021-46667](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46667) | 7.5                    | [MariaDB 10.6.5](10.6.5.md)   |
+| [CVE-2022-31621](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-31621) | N/A                    | [MariaDB 10.6.5](10.6.5.md)   |
+| [CVE-2021-2389](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-2389)   | 5.9                    | [MariaDB 10.6.4](10.6.4.md)   |
+| [CVE-2021-2372](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-2372)   | 4.4                    | [MariaDB 10.6.4](10.6.4.md)   |
+| [CVE-2021-46658](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46658) | 5.5                    | [MariaDB 10.6.3](10.6.3.md)   |
+| [CVE-2021-35604](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-35604) | 5.5                    | [MariaDB 10.6.3](10.6.3.md)   |
 
 ## List of All [MariaDB 10.6](what-is-mariadb-106.md) Releases
 
@@ -211,29 +218,29 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 | 13 Aug 2026 | MariaDB 10.6.28 | Stable (GA) | [Release Notes](10.6.28.md) | [Changelog](../changelogs/10.6/10.6.28.md) |
 | 27 May 2026 | MariaDB 10.6.27 | Stable (GA) | [Release Notes](10.6.27.md) | [Changelog](../changelogs/10.6/10.6.27.md) |
 | 18 May 2026 | MariaDB 10.6.26 | Stable (GA) | [Release Notes](10.6.26.md) | [Changelog](../changelogs/10.6/10.6.26.md) |
-|  4 Feb 2026 | MariaDB 10.6.25 | Stable (GA) | [Release Notes](10.6.25.md) | [Changelog](../changelogs/10.6/10.6.25.md) |
-|  6 Nov 2025 | MariaDB 10.6.24 | Stable (GA) | [Release Notes](10.6.24.md) | [Changelog](../changelogs/10.6/10.6.24.md) |
-|  6 Aug 2025 | MariaDB 10.6.23 | Stable (GA) | [Release Notes](10.6.23.md) | [Changelog](../changelogs/10.6/10.6.23.md) |
-|  8 May 2025 | MariaDB 10.6.22 | Stable (GA) | [Release Notes](10.6.22.md) | [Changelog](../changelogs/10.6/10.6.22.md) |
-|  4 Feb 2025 | MariaDB 10.6.21 | Stable (GA) | [Release Notes](10.6.21.md) | [Changelog](../changelogs/10.6/10.6.21.md) |
-|  1 Nov 2024 | MariaDB 10.6.20 | Stable (GA) | [Release Notes](10.6.20.md) | [Changelog](../changelogs/10.6/10.6.20.md) |
-|  8 Aug 2024 | MariaDB 10.6.19 | Stable (GA) | [Release Notes](10.6.19.md) | [Changelog](../changelogs/10.6/10.6.19.md) |
+| 4 Feb 2026  | MariaDB 10.6.25 | Stable (GA) | [Release Notes](10.6.25.md) | [Changelog](../changelogs/10.6/10.6.25.md) |
+| 6 Nov 2025  | MariaDB 10.6.24 | Stable (GA) | [Release Notes](10.6.24.md) | [Changelog](../changelogs/10.6/10.6.24.md) |
+| 6 Aug 2025  | MariaDB 10.6.23 | Stable (GA) | [Release Notes](10.6.23.md) | [Changelog](../changelogs/10.6/10.6.23.md) |
+| 8 May 2025  | MariaDB 10.6.22 | Stable (GA) | [Release Notes](10.6.22.md) | [Changelog](../changelogs/10.6/10.6.22.md) |
+| 4 Feb 2025  | MariaDB 10.6.21 | Stable (GA) | [Release Notes](10.6.21.md) | [Changelog](../changelogs/10.6/10.6.21.md) |
+| 1 Nov 2024  | MariaDB 10.6.20 | Stable (GA) | [Release Notes](10.6.20.md) | [Changelog](../changelogs/10.6/10.6.20.md) |
+| 8 Aug 2024  | MariaDB 10.6.19 | Stable (GA) | [Release Notes](10.6.19.md) | [Changelog](../changelogs/10.6/10.6.19.md) |
 | 16 May 2024 | MariaDB 10.6.18 | Stable (GA) | [Release Notes](10.6.18.md) | [Changelog](../changelogs/10.6/10.6.18.md) |
-|  7 Feb 2024 | MariaDB 10.6.17 | Stable (GA) | [Release Notes](10.6.17.md) | [Changelog](../changelogs/10.6/10.6.17.md) |
+| 7 Feb 2024  | MariaDB 10.6.17 | Stable (GA) | [Release Notes](10.6.17.md) | [Changelog](../changelogs/10.6/10.6.17.md) |
 | 13 Nov 2023 | MariaDB 10.6.16 | Stable (GA) | [Release Notes](10.6.16.md) | [Changelog](../changelogs/10.6/10.6.16.md) |
 | 14 Aug 2023 | MariaDB 10.6.15 | Stable (GA) | [Release Notes](10.6.15.md) | [Changelog](../changelogs/10.6/10.6.15.md) |
-|  7 Jun 2023 | MariaDB 10.6.14 | Stable (GA) | [Release Notes](10.6.14.md) | [Changelog](../changelogs/10.6/10.6.14.md) |
+| 7 Jun 2023  | MariaDB 10.6.14 | Stable (GA) | [Release Notes](10.6.14.md) | [Changelog](../changelogs/10.6/10.6.14.md) |
 | 10 May 2023 | MariaDB 10.6.13 | Stable (GA) | [Release Notes](10.6.13.md) | [Changelog](../changelogs/10.6/10.6.13.md) |
-|  6 Feb 2023 | MariaDB 10.6.12 | Stable (GA) | [Release Notes](10.6.12.md) | [Changelog](../changelogs/10.6/10.6.12.md) |
-|  7 Nov 2022 | MariaDB 10.6.11 | Stable (GA) | [Release Notes](10.6.11.md) | [Changelog](../changelogs/10.6/10.6.11.md) |
+| 6 Feb 2023  | MariaDB 10.6.12 | Stable (GA) | [Release Notes](10.6.12.md) | [Changelog](../changelogs/10.6/10.6.12.md) |
+| 7 Nov 2022  | MariaDB 10.6.11 | Stable (GA) | [Release Notes](10.6.11.md) | [Changelog](../changelogs/10.6/10.6.11.md) |
 | 19 Sep 2022 | MariaDB 10.6.10 | Stable (GA) | [Release Notes](10.6.10.md) | [Changelog](../changelogs/10.6/10.6.10.md) |
 | 15 Aug 2022 | MariaDB 10.6.9  | Stable (GA) | [Release Notes](10.6.9.md)  | [Changelog](../changelogs/10.6/10.6.9.md)  |
 | 20 May 2022 | MariaDB 10.6.8  | Stable (GA) | [Release Notes](10.6.8.md)  | [Changelog](../changelogs/10.6/10.6.8.md)  |
 | 12 Feb 2022 | MariaDB 10.6.7  | Stable (GA) | [Release Notes](10.6.7.md)  | [Changelog](../changelogs/10.6/10.6.7.md)  |
-|  9 Feb 2022 | MariaDB 10.6.6  | Stable (GA) | [Release Notes](10.6.6.md)  | [Changelog](../changelogs/10.6/10.6.6.md)  |
-|  8 Nov 2021 | MariaDB 10.6.5  | Stable (GA) | [Release Notes](10.6.5.md)  | [Changelog](../changelogs/10.6/10.6.5.md)  |
-|  6 Aug 2021 | MariaDB 10.6.4  | Stable (GA) | [Release Notes](10.6.4.md)  | [Changelog](../changelogs/10.6/10.6.4.md)  |
-|  6 Jul 2021 | MariaDB 10.6.3  | Stable (GA) | [Release Notes](10.6.3.md)  | [Changelog](../changelogs/10.6/10.6.3.md)  |
+| 9 Feb 2022  | MariaDB 10.6.6  | Stable (GA) | [Release Notes](10.6.6.md)  | [Changelog](../changelogs/10.6/10.6.6.md)  |
+| 8 Nov 2021  | MariaDB 10.6.5  | Stable (GA) | [Release Notes](10.6.5.md)  | [Changelog](../changelogs/10.6/10.6.5.md)  |
+| 6 Aug 2021  | MariaDB 10.6.4  | Stable (GA) | [Release Notes](10.6.4.md)  | [Changelog](../changelogs/10.6/10.6.4.md)  |
+| 6 Jul 2021  | MariaDB 10.6.3  | Stable (GA) | [Release Notes](10.6.3.md)  | [Changelog](../changelogs/10.6/10.6.3.md)  |
 | 18 Jun 2021 | MariaDB 10.6.2  | RC          | [Release Notes](10.6.2.md)  | [Changelog](../changelogs/10.6/10.6.2.md)  |
 | 21 May 2021 | MariaDB 10.6.1  | Beta        | [Release Notes](10.6.1.md)  | [Changelog](../changelogs/10.6/10.6.1.md)  |
 | 26 Apr 2021 | MariaDB 10.6.0  | Alpha       | [Release Notes](10.6.0.md)  | [Changelog](../changelogs/10.6/10.6.0.md)  |

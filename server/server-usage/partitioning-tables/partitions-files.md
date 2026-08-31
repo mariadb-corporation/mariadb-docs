@@ -6,7 +6,7 @@ description: >-
 
 # Partitions Files
 
-A partitioned table is stored in multiple files. By default, these files are stored in the MariaDB (or InnoDB) data directory. It is possible to keep them in different paths by specifying [DATA\_DIRECTORY and INDEX\_DIRECTORY](../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) table options. This is useful to store different partitions on different devices.
+A partitioned table is stored in multiple files. By default, these files are stored in the MariaDB (or InnoDB) data directory. It is possible to keep them in different paths by specifying [DATA\_DIRECTORY and INDEX\_DIRECTORY](../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) table options. This is useful to store different partitions on different devices.
 
 Note that, if the [innodb\_file\_per\_table](../storage-engines/innodb/innodb-system-variables.md) server system variable is set to 0 at the time of the table creation, all partitions are stored in the system tablespace.
 

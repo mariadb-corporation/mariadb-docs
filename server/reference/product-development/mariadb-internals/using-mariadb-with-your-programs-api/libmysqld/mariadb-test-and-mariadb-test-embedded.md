@@ -27,10 +27,10 @@ By default, `mariadb-test` reads the test case on the standard input. To run
 mariadb-test this way, you normally invoke it like this:
 
 ```bash
-shell> mariadb-test **[options] [db_name]** < //test_file//
+shell> mariadb-test [options] [db_name] < test_file
 ```
 
-You can also name the test case file with a`--test-file=file_name` option.
+You can also name the test case file with a `--test-file=file_name` option.
 
 The exit value from `mariadb-test` is `0` for success, `1` for failure, and `62` if it
 skips the test case (for example, if after checking some preconditions it

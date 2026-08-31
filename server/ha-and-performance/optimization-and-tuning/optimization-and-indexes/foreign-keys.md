@@ -25,7 +25,7 @@ Foreign keys can only be used with storage engines that support them. The defaul
 CREATE TABLE b(for_key INT REFERENCES a(not_key));
 ```
 
-MariaDB applies the constraint if possible. See the [Examples](foreign-keys.md#references) below.
+MariaDB applies the constraint if possible. See the [Examples](foreign-keys.md#examples) below.
 
 Foreign keys are created with [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/). The foreign key definition has this syntax:
 

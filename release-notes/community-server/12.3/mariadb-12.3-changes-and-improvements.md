@@ -44,6 +44,7 @@ MariaDB 12.3 is a [long term release](../about/release-model.md), maintained unt
 * The [audit plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin) now supports buffered logging
   * The size of the buffer is defined using the new system variable [server\_audit\_file\_buffer\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables#server_audit_file_buffer_size) ([MDEV-34680](https://jira.mariadb.org/browse/MDEV-34680))
 * Faster [vector](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors) distance calculations via extrapolation ([MDEV-36205](https://jira.mariadb.org/browse/MDEV-36205))
+* New [innodb\_index\_shrink](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_index_shrink) system variable, which allows disabling InnoDB's ability to shrink a B-tree, by merging or reorganizing pages, on record-growing UPDATEs, such as `NULL` to not-`NULL`. The default `ON` matches the previous behavior. Setting it to `OFF` favors page splits in those cases, reducing index tree latch upgrades and the contention they cause, at the cost of slightly sparser pages ([MDEV-38814](https://jira.mariadb.org/browse/MDEV-38814), [MariaDB 12.3.3](12.3.3.md))
 
 ### Audit Plugin <a href="#audit-plugin" id="audit-plugin"></a>
 
@@ -136,7 +137,7 @@ New [GIS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure
 ### Server <a href="#server" id="server"></a>
 
 * Add the FM format to [TO\_CHAR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/to_char), which suppresses following padding ([MDEV-36216](https://jira.mariadb.org/browse/MDEV-36216))
-* [mariadb-check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) now support [sequences](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences/) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
+* [mariadb-check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) now support [sequences](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
 
 ### Trigger <a href="#trigger" id="trigger"></a>
 
@@ -165,10 +166,10 @@ New [GIS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure
 
 For a list of all new variables added since MariaDB 11.8, see:
 
-* [System Variables Added in MariaDB 12.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-12.0)
-* [System Variables Added in MariaDB 12.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-12.1)
-* [System Variables Added in MariaDB 12.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-mariadb-12.2)
-* [System Variables Added in MariaDB 12.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-mariadb-12.3)
+* [System Variables Added in MariaDB 12.0](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-12.0)
+* [System Variables Added in MariaDB 12.1](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-12.1)
+* [System Variables Added in MariaDB 12.2](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-12.2)
+* [System Variables Added in MariaDB 12.3](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-12.3)
 
 ## Incompatible Changes
 
@@ -179,7 +180,6 @@ Since MariaDB 12.3 is the first long-term release after [MariaDB 11.8](../11.8/w
 The following keywords are now [reserved words](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/reserved-words). They can no longer be used as [identifiers](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/identifier-names) without being quoted:
 
 * `CONVERSION`
-* `ST_COLLECT`
 * `TO_DATE`
 
 ### Removed System Variables
@@ -200,6 +200,13 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | CVE ID (with cve.org link)                                        | CVSS base score (v3.1) | Community Server 12.3 Release |
 | ----------------------------------------------------------------- | ---------------------- | ----------------------------- |
+| [CVE-2026-61081](https://www.cve.org/CVERecord?id=CVE-2026-61081) | 2.7                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-60585](https://www.cve.org/CVERecord?id=CVE-2026-60585) | 6.6                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-60331](https://www.cve.org/CVERecord?id=CVE-2026-60331) | 6.4                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-60747](https://www.cve.org/CVERecord?id=CVE-2026-60747) | 6.2                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-47023](https://www.cve.org/CVERecord?id=CVE-2026-47023) | 4.9                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-60184](https://www.cve.org/CVERecord?id=CVE-2026-60184) | 4.4                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064) | 6.5                    | [MariaDB 12.3.2](12.3.2.md)   |
 | [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                    | [MariaDB 12.3.2](12.3.2.md)   |
 | [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172) | 5.0                    | [MariaDB 12.3.2](12.3.2.md)   |
 | [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171) | 6.3                    | [MariaDB 12.3.2](12.3.2.md)   |
@@ -211,6 +218,7 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | Date        | Release              | Status      | Release Notes              | Changelog                                 |
 | ----------- | -------------------- | ----------- | -------------------------- | ----------------------------------------- |
+| 24 Aug 2026 | 12.3.3               | Stable (GA) | [Release Notes](12.3.3.md) | [Changelog](../changelogs/12.3/12.3.3.md) |
 | 28 May 2026 | 12.3.2               | Stable (GA) | [Release Notes](12.3.2.md) | [Changelog](../changelogs/12.3/12.3.2.md) |
 | 12 Feb 2026 | 12.3.1               | RC          | [Release Notes](12.3.1.md) | [Changelog](../changelogs/12.3/12.3.1.md) |
 | 22 Dec 2025 | MariaDB 12.3 Preview | Preview     |                            |                                           |

@@ -38,7 +38,7 @@ The [innodb\_read\_io\_threads](../innodb-system-variables.md#innodb_read_io_thr
 The [innodb\_write\_io\_threads](../innodb-system-variables.md#innodb_write_io_threads) system variable affects completion of the following types of writes:
 
 * Page flushing due to adaptive flushing (configured by [innodb\_adaptive\_flushing](../innodb-system-variables.md#innodb_adaptive_flushing) and [innodb\_adaptive\_flushing\_lwm](../innodb-system-variables.md#innodb_adaptive_flushing_lwm))
-* Page flushing due to buffer pool capacity (configured by \[innodb\_max\_dirty\_pages\_pct] and \[[innodb-system-variables/#innodb\_max\_dirty\_pages\_pct\_lwm|innodb\_max\_dirty\_pages\_pct\_lwm](../innodb-system-variables.md#innodb_max_dirty_pages_pct))
+* Page flushing due to buffer pool capacity (configured by [innodb\_max\_dirty\_pages\_pct](../innodb-system-variables.md#innodb_max_dirty_pages_pct) and [innodb\_max\_dirty\_pages\_pct\_lwm](../innodb-system-variables.md#innodb_max_dirty_pages_pct_lwm))
 * Page flushing due to LRU page evictions (configured by [innodb\_lru\_flush\_size](../innodb-system-variables.md#innodb_lru_flush_size) and [innodb\_lru\_scan\_depth](../innodb-system-variables.md#innodb_lru_scan_depth))
 
 ## Configuration Procedure
@@ -47,8 +47,8 @@ The method to configure the number of I/O threads depends on the server version 
 
 | Product Versions  | Server Restart? | Method                                                                                                                                                                        |
 | ----------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ES 10.5 and Later | No              | [Configure maximum number of asynchronous I/O requests with SET GLOBAL](configure-the-innodb-io-threads.md#configure-the-number-of-innodb-io-threads-in-a-configuration-file) |
-| Any ES Any CS     | Yes.            | [Configure number of I/O threads in configuration file](configure-the-innodb-io-threads.md#configure-the-number-of-innodb-io-threads)                                         |
+| ES 10.5 and Later | No              | [Configure maximum number of asynchronous I/O requests with SET GLOBAL](configure-the-innodb-io-threads.md#configure-the-number-of-innodb-i-o-threads-in-a-configuration-file) |
+| Any ES Any CS     | Yes.            | [Configure number of I/O threads in configuration file](configure-the-innodb-io-threads.md#configure-the-number-of-innodb-i-o-threads)                                         |
 
 ## Configure InnoDB's Maximum Number of Asynchronous I/O Requests with SET GLOBAL (ES 10.5) and Later
 

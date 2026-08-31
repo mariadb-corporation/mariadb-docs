@@ -254,12 +254,14 @@ Some of these options can also be set as arguments to the [mysql\_real\_connect]
 *   `MYSQL_OPT_SSL_CRL`: Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information. This option is only supported if the connector was built with OpenSSL or Schannel. If the connector was built with GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 
     ```c
-    mysql_optionsv(mysql, MYSQL_OPT_SSL_CAPATH, (void *)"certs/ca-cert.pem");\\\\<<code>>mysql_optionsv(mysql, MYSQL_OPT_SSL_CRL, (void *)"certs/crl.pem");
+    mysql_optionsv(mysql, MYSQL_OPT_SSL_CAPATH, (void *)"certs/ca-cert.pem");
+    mysql_optionsv(mysql, MYSQL_OPT_SSL_CRL, (void *)"certs/crl.pem");
     ```
 *   `MYSQL_OPT_SSL_CRLPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information. This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 
     ```c
-    mysql_optionsv(mysql, MYSQL_OPT_SSL_CAPATH, (void *)"certs/ca-cert.pem");\\\\<<code>>mysql_optionsv(mysql, MYSQL_OPT_SSL_CRLPATH, (void *)"certs/crls");
+    mysql_optionsv(mysql, MYSQL_OPT_SSL_CAPATH, (void *)"certs/ca-cert.pem");
+    mysql_optionsv(mysql, MYSQL_OPT_SSL_CRLPATH, (void *)"certs/crls");
     ```
 *   `MARIADB_OPT_SSL_FP`: Specify the fingerprint hash of a server certificate for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake. Before version 3.4.0, Connector/C accepted only `SHA1` hashes. Starting with version 3.4.0, support was extended to include `SHA256`, `SHA384`, and `SHA512`. This option is deprecated. Use `MARIADB_OPT_TLS_PEER_FP` instead.
 

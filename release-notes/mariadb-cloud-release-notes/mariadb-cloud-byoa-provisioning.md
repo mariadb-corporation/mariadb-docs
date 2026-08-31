@@ -1,14 +1,15 @@
 <!--
-  DRAFT — NOT PUBLISHED. Deliberately omitted from SUMMARY.md so GitBook does
-  not render it. For review by MCDEV/sky stakeholders only.
+  HIDDEN DRAFT. Listed in SUMMARY.md but kept out of the published nav via
+  `hidden: true` in the frontmatter (below) until the official reveal. The page
+  still resolves by direct URL for review. For review only.
 
-  Blocked on, before publishing:
-    1. Release date (YYYY.MM.DD) — from Zhanna / Cloud UAT calendar.
-    2. `enable-portal-provisioning-v2` enabled in prod (currently OFF).
-  When both land: set the date + filename, add the SUMMARY.md nav entry, and
-  convert the cross-links back to GitBook space aliases (they are currently
-  GitHub blob URLs so they are clickable during review; direct-main commits are
-  not auto-expanded).
+  At reveal:
+    1. Set the release date (YYYY.MM.DD) in the title, the description, and the
+       Release Date line; rename the file to mariadb-cloud-<YYYY.MM.DD>.md.
+    2. Convert the three cross-links from GitHub blob URLs back to
+       {mariadb-cloud} aliases (direct-main commits are not auto-expanded, so
+       expand them per the alias map).
+    3. Remove `hidden: true` from the frontmatter here and in the group README.
 
   Tickets: DOCS-6320 (BYOA) + DOCS-6340 (provisioning UI) · MCDEV-2374, MCDEV-3304
 -->
@@ -17,6 +18,7 @@ description: >-
   Release notes for MariaDB Cloud <YYYY.MM.DD>, introducing Bring Your Own
   Account (BYOA) on Google Cloud as a Tech Preview and a redesigned service
   provisioning experience.
+hidden: true
 ---
 
 # MariaDB Cloud <YYYY.MM.DD> Release Notes

@@ -36,7 +36,7 @@ Common version-specific features that may prevent downgrading include:
 * `mysql.global_priv` table: Replaced `mysql.user` in MariaDB 10.4; incompatible with 10.3.
 * **InnoDB change buffer removal**: MariaDB 11.0 removed it; cannot downgrade to 10.4 or earlier.
 
-See [Version-Specific Incompatibilities](downgrading-between-major-versions-of-mariadb.md#version-specific-compatibilities) for the full list.
+See [Version-Specific Considerations](downgrading-between-major-versions-of-mariadb.md#version-specific-considerations) for the full list.
 
 #### Configuration Compatibility
 
@@ -83,7 +83,7 @@ SHOW REPLICA STATUS\G
 
 ### Restore from Backup (Fallback Method)
 
-If the replica-based method is not possible, the most reliable alternative is to [restore from a full backup](../../server-usage/backup-and-restore/backup-and-restore-overview.md) created in Step 2 of the [Generic Downgrade Process](downgrading-between-major-versions-of-mariadb.md#generic-downgrade-process-recommended).
+If the replica-based method is not possible, the most reliable alternative is to [restore from a full backup](../../server-usage/backup-and-restore/backup-and-restore-overview.md) created in Step 2 of the [Generic Downgrade Process](downgrading-between-major-versions-of-mariadb.md#generic-downgrade-process).
 
 1. Install a lower version of MariaDB on a clean server.
 2. Launch MariaDB, then restore the backup:
@@ -94,7 +94,7 @@ When used on a clean installation, this method is reliable but involves more dow
 
 ### In-Place Downgrade Method
 
-The MariaDB developers have not tested this method, so it is not advised. A lot of things can go wrong. Whenever possible, use the [backup-restore](downgrading-between-major-versions-of-mariadb.md#generic-downgrade-process-recommended) or [replica-based](downgrading-between-major-versions-of-mariadb.md#restore-from-backup-fallback-method) methods mentioned above.
+The MariaDB developers have not tested this method, so it is not advised. A lot of things can go wrong. Whenever possible, use the [backup-restore](downgrading-between-major-versions-of-mariadb.md#generic-downgrade-process) or [replica-based](downgrading-between-major-versions-of-mariadb.md#restore-from-backup-fallback-method) methods mentioned above.
 
 In general, an in-place downgrade to a previous major version is only allowed if you have not yet executed [mariadb-upgrade](../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) on the new version.
 
@@ -105,11 +105,11 @@ If you have to attempt an in-place downgrade process, perform the following step
 1. Shut down MariaDB cleanly. Ensure:
    1. [innodb\_fast\_shutdown≠2](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_shutdown).
    2. You use [SHUTDOWN](../../reference/sql-statements/administrative-sql-statements/shutdown.md) command, [mariadb-admin shutdown](../../clients-and-utilities/administrative-tools/mariadb-admin.md) or the operating system official commands, like [systemctl stop mariadb.service](../starting-and-stopping-mariadb/systemd/starting.md#stopping-the-mariadb-server-process).
-2. Start the old server binary with [--skip-privilege-tables](../starting-and-stopping-mariadb/mariadbd-options.md#-skip-grant-tables) to bypass the incompatible privilege tables.
+2. Start the old server binary with [--skip-privilege-tables](../starting-and-stopping-mariadb/mariadbd-options.md#skip-grant-tables) to bypass the incompatible privilege tables.
 3. Restore the [mysql schema tables](../../reference/system-tables/the-mysql-database-tables/) to the old definitions using `ALTER TABLE`, or drop and recreate them. To find the old definitions, run [mariadb-install-db](../../clients-and-utilities/deployment-tools/mariadb-install-db.md) on a temporary data directory, start a temporary server, and use [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-statements/show/show-create-table.md).
 4. Execute [FLUSH PRIVILEGES](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to reload the restored privilege tables.
 
-This procedure will **not** work if the table format has changed in an incompatible manner. In this case the affected tables may not be accessible in the earlier version. See [Version-Specific Incompatibilities](downgrading-between-major-versions-of-mariadb.md#version-specific-compatibilities) below.
+This procedure will **not** work if the table format has changed in an incompatible manner. In this case the affected tables may not be accessible in the earlier version. See [Version-Specific Considerations](downgrading-between-major-versions-of-mariadb.md#version-specific-considerations) below.
 
 ### Version-Specific Considerations
 

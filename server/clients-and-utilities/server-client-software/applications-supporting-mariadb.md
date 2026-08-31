@@ -21,7 +21,7 @@ Note: Every project we know of which works with MySQL also works with MariaDB. T
 * [dbForge Studio](https://www.devart.com/dbforge/mysql/studio/mariadb-gui-client.html) is a versatile and feature-rich IDE designed for MySQL and MariaDB professionals. It fully supports all individual features of MariaDB, such as support for Packages and Sequences, and other specificities.
 * [Dynamic Active Record](https://github.com/tom--/yii2-dynamic-ar) - The yii2-dynamic-ar extension uses MariaDB dynamic columns to add NoSQL-like documents to Yii 2 Framework's Active Record ORM.
 * [ocelotgui](https://ocelot.ca/) - supports [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) [window functions](../../reference/sql-functions/special-functions/window-functions/).
-* [SQL Maestro for MySQL](https://www.sqlmaestro.com/products/mysql/maestro/) is a database management tool that provides direct support for a number of MariaDB features like [roles](../../security/user-account-management/roles/), [check constraints](../../reference/sql-statements/data-definition/constraint.md#check-constraint-expressions), and [virtual columns](../../reference/sql-statements/data-definition/create/generated-columns.md).
+* [SQL Maestro for MySQL](https://www.sqlmaestro.com/products/mysql/maestro/) is a database management tool that provides direct support for a number of MariaDB features like [roles](../../security/user-account-management/roles/), [check constraints](../../reference/sql-statements/data-definition/constraint.md#check-constraints), and [virtual columns](../../reference/sql-statements/data-definition/create/generated-columns.md).
 
 ## Officially Supports MariaDB
 
