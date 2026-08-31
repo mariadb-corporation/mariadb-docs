@@ -12,7 +12,7 @@ by enabling [admin\_audit](../mariadb-maxscale-25-01-getting-started/mariadb-max
 
 The generated file is a csv file that can be opened in most spread sheet programs.
 
-\[Rotating Log Files]\(#Rotating Log Files) also applies to the audit file.\
+[Rotating Log Files](#rotating-log-files) also applies to the audit file.\
 The admin audit file will never be overwritten as a result of a rotate, unlike the
 regular log file (in case a rotate is issued, but the file name has not been moved).\
 There is also the option to change the audit file name, which effectively rotates it
