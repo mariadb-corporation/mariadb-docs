@@ -109,6 +109,21 @@ Two rules cover every case:
 A deny also propagates downwards: a global deny masks database, table, and column grants; a
 database deny masks table and column grants; a table deny masks column grants.
 
+{% hint style="info" %}
+**Database patterns are an exception to "a deny beats a grant".** The database name in a
+database-level `GRANT` or `DENY` is a pattern: `_` matches any single character, `%` any sequence
+of characters, and `\` escapes either. When more than one database-level entry for an account
+matches the database being accessed, only the **most specific** entry applies — the one whose
+pattern matches the fewest database names — and only that entry's grants and denies are consulted.
+A deny recorded on a broader pattern is not added to a narrower entry that also matches.
+
+`DENY` follows the same matching rule as `GRANT` here; it is not privileged over it. Entries held
+through a [role](../../../security/user-account-management/roles/) or through `PUBLIC` are resolved
+the same way but separately, and then combined, so a deny that reaches the account by either route
+still applies. Patterns apply at database level only — table, column and routine names are matched
+literally, so denies at those levels are never affected.
+{% endhint %}
+
 ```sql
 DENY SELECT ON hr.* TO alice;
 GRANT SELECT ON hr.staff TO alice;
