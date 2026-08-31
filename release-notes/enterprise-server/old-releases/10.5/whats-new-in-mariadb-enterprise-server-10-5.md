@@ -1204,7 +1204,7 @@ MariaDB Enterprise Server 10.5 includes several [Performance Schema](https://app
   * [replication\_applier\_status\_by\_worker](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/performance-schema/performance-schema-tables/performance-schema-replication_applier_status_by_worker-table)
   * [replication\_connection\_configuration](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/performance-schema/performance-schema-tables/performance-schema-replication_connection_configuration-table)
   * [session\_status](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/performance-schema/performance-schema-tables/performance-schema-session_status-table)
-  * \[session\_variables]\(https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/system-tables/performance-schema/performance-schema-tables/performance-schema-session\_status-table
+  * `session_variables`
   * [status\_by\_account](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/performance-schema/performance-schema-tables/performance-schema-status_by_account-table)
   * [status\_by\_host](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/performance-schema/performance-schema-tables/performance-schema-status_by_host-table)
   * [status\_by\_thread](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/performance-schema/performance-schema-tables/performance-schema-status_by_thread-table)
