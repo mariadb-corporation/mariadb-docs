@@ -114,7 +114,7 @@ This option allows Galera nodes to be used normally when they are donors in an S
 
 Normally when an SST is performed, both participating nodes lose their `Synced`, `Write` or `Read` statuses. When this option is enabled, the donor is treated as if it was a normal member of the cluster (i.e. `wsrep_local_state = 4`). This is especially useful if the cluster drops down to one node and an SST is required to increase the cluster size.
 
-The current list of non-blocking SST methods are `xtrabackup`, `xtrabackup-v2` and `mariadb-backup`. Read the [wsrep\_sst\_method](../../../galera-cluster/reference/galera-cluster-system-variables.md) documentation for more details.
+The current list of non-blocking SST methods are `xtrabackup`, `xtrabackup-v2` and `mariadb-backup`. Read the [wsrep\_sst\_method]({galera}/reference/galera-cluster-system-variables) documentation for more details.
 
 ### `disable_master_role_setting`
 

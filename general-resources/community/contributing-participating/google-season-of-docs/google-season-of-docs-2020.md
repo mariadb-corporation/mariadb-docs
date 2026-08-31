@@ -33,17 +33,7 @@ A detailed tutorial and user guide, including examples of the various Mroonga [u
 
 You will choose a major language and ensure that a substantial subsection of the documentation is translated into that language. See [translations](google-season-of-docs-2020.md#translation).
 
-_Loaded from the_ [_MariaDB issue tracker_](https://jira.mariadb.org/issues/?jql=labels=gsdocs19)\
-Loading Issues from \[Jira]\(https://jira.mariadb.org/issues/?jql=labels=gsdocs19 and project=mdev order by key)
-
-#### %fields.summary%
-
-%renderedFields.description%
-
-| Details: | Mentor:                                        |
-| -------- | ---------------------------------------------- |
-| Details: | %key% |
-| Mentor:  | %fields.assignee.displayName%                  |
+The proposed tasks were tracked in the [MariaDB issue tracker](https://jira.mariadb.org/issues/?jql=labels=gsdocs19).
 
 ## Suggest a Task
 

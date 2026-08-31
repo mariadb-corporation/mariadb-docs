@@ -427,7 +427,7 @@ START SLAVE;
 
 When replicating from a Galera cluster, [select\_master](maxscale-binlogrouter.md#select_master) must be set to true, and the servers must be monitored by the [Galera Monitor](../maxscale-monitors/galera-monitor.md). Configuring binlogrouter is the same as described above.
 
-The Galera cluster must be configured to use Wsrep GTID Mode]\(../../../galera-cluster/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-gtids-with-mariadb-galera-cluster.md)
+The Galera cluster must be configured to use [Wsrep GTID Mode]({galera}/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-gtids-with-mariadb-galera-cluster).
 
 The MariaDB version must be 10.5.1 or higher. The required GTID related server settings for MariaDB/Galera to work with Binlogrouter are listed here:
 
