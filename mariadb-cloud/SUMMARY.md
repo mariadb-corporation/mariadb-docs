@@ -2,6 +2,7 @@
 
 * [MariaDB Cloud](README.md)
   * [Key Features & Capabilities](readme/key-features-and-capabilities.md)
+  * [Service Tiers](readme/service-tiers.md)
   * [MariaDB Cloud Serverless](readme/serverless.md)
   * [MariaDB Cloud Serverless Architecture](readme/architecture.md)
 * [Quickstart Guides](quickstart/README.md)
