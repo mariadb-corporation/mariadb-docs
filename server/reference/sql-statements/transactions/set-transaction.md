@@ -173,6 +173,22 @@ It is not permitted to specify both `READ WRITE` and `READ ONLY` in the same sta
 
 `READ WRITE` and `READ ONLY` can also be specified in the [START TRANSACTION](start-transaction.md) statement, in which case the specified mode is only valid for one transaction.
 
+## Choosing an Isolation Level
+
+Stay on the default `REPEATABLE READ` unless the application needs the semantics of a different level. In particular, `READ COMMITTED` is not a throughput setting: it opens a new read view at the start of every statement, and under high concurrency the cost of building those snapshots can make it slower than `REPEATABLE READ`, not faster. That path was made cheaper by [MDEV-21423](https://jira.mariadb.org/browse/MDEV-21423) from MariaDB 11.8.9 and 12.3.3, which reduces the overhead without removing it.
+
+The reasons to choose `READ COMMITTED` are about behavior rather than speed:
+
+* Every statement sees the most recently committed data. This suits an application written against a database whose default behaves that way, such as SQL Server. See [MariaDB Transactions and Isolation Levels for SQL Server Users](../../../server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-sql-server/mariadb-transactions-and-isolation-levels-for-sql-server-users.md).
+* InnoDB takes no gap locks, so an insert into a range that another transaction has locked is not blocked. See [Gap Locking at READ COMMITTED](#gap-locking-at-read-committed). On its own this is not a reason to expect better throughput, for the read view reason above.
+
+What you give up in exchange:
+
+* Reads are no longer repeatable. Two identical `SELECT` statements in the same transaction can return different rows.
+* Statement-based binary logging is not available, as described under [Gap Locking at READ COMMITTED](#gap-locking-at-read-committed).
+
+Whichever level you choose, leave [innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) at its default. See [innodb\_snapshot\_isolation](#innodb_snapshot_isolation) above.
+
 ## Examples
 
 ```sql

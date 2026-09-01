@@ -3001,7 +3001,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 #### `tx_isolation`
 
 * Description: The transaction isolation level. Setting this session variable via `set @@tx_isolation=` will take effect for only the subsequent transaction in the current session, much like [SET TRANSACTION ISOLATION LEVEL](../../../reference/sql-statements/transactions/set-transaction.md). To set for a session, use `SET SESSION tx_isolation` or `SET @@session.tx_isolation`. See [MDEV-31751](https://jira.mariadb.org/browse/MDEV-31751). See also [SET TRANSACTION ISOLATION LEVEL](../../../reference/sql-statements/transactions/set-transaction.md). In [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111), this system variable is deprecated and replaced by [transaction\_isolation](server-system-variables.md#transaction_isolation).
-* Command line: `--transaction-isolation=name`
+* Command line: None. The startup option is `--transaction-isolation=name`, which sets [transaction\_isolation](server-system-variables.md#transaction_isolation).
 * Scope: Global, Session
 * Dynamic: Yes
 * Type: enumeration
@@ -3012,7 +3012,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 #### `tx_read_only`
 
 * Description: Default transaction access mode. If set to `OFF`, the default, access is read/write. If set to `ON`, access is read-only. The `SET TRANSACTION` statement can also change the value of this variable. See [SET TRANSACTION](../../../reference/sql-statements/transactions/set-transaction.md) and [START TRANSACTION](../../../reference/sql-statements/transactions/start-transaction.md). In [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111), this system variable is deprecated and replaced by [transaction\_read\_only](server-system-variables.md#transaction_read_only).
-* Command line: `--transaction-read-only=#`
+* Command line: None. The startup option is `--transaction-read-only=#`, which sets [transaction\_read\_only](server-system-variables.md#transaction_read_only).
 * Scope: Global, Session
 * Dynamic: Yes
 * Type: boolean
