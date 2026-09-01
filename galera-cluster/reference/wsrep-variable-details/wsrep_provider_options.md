@@ -181,6 +181,12 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: `0`
 
+#### `gcache.keep_plaintext_size`
+
+* Description: Encryption-related. Amount of GCache data kept in plaintext.
+* Dynamic: Yes
+* Default: The value of [gcache.page\_size](wsrep_provider_options.md#gcache.page_size).
+
 #### `gcache.mem_size`
 
 * Description: Maximum size of size of the malloc() store for setups that have spare RAM.
@@ -249,6 +255,12 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: Empty string
 
+#### `gcs.check_appl_proto`
+
+* Description: Controls whether the application protocol version is checked.
+* Dynamic: Yes
+* Default: `1`
+
 #### `gcs.fc_debug`
 
 * Description: If set to a value greater than zero (the default), debug statistics about SST flow control will be posted each timegcs.fc\_master\_slave after the specified number of writesets.
@@ -306,11 +318,29 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: `0.25`
 
+#### `gcs.stateless`
+
+* Description: For internal use. Should not be manually set.
+* Dynamic: No
+* Default: `false`
+
 #### `gcs.sync_donor`
 
 * Description: Whether or not the rest of the cluster should stay in sync with the donor. If set to `YES` (`NO` is default), if the donor is blocked by state transfer, the whole cluster is also blocked.
 * Dynamic: No
 * Default: `no`
+
+#### `gcs.vote_policy`
+
+* Description: For internal use. Should not be manually set. Determines the cluster's voting policy, which must be decided before the cluster starts and cannot be changed at runtime.
+* Dynamic: No
+* Default: `0`
+
+#### `gmcast.group`
+
+* Description: For internal use. Should not be manually set. Set by the provider from the cluster name.
+* Dynamic: No
+* Default: None
 
 #### `gmcast.isolate`
 
@@ -343,6 +373,12 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Description: Multicast packet TTL (time to live) value.
 * Dynamic: No
 * Default: `1`
+
+#### `gmcast.peer_addr`
+
+* Description: Adds or removes a peer node address for the node to connect to. Setting it at runtime adds the given address to, or deletes it from, the node's peer list.
+* Dynamic: Yes
+* Default: None
 
 #### `gmcast.peer_timeout`
 
