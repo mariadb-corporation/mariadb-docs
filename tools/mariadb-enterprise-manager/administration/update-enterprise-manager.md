@@ -7,7 +7,7 @@ description: Instructions for updating an existing Enterprise Manager deployment
 {% hint style="info" %}
 Prerequisites
 
-* Make a backup of Enterprise Manager data following instructions in [Backup & Restore of Enterprise Manager](https://mariadb.com/docs/tools/~/changes/145/mariadb-enterprise-manager/administration/backup-and-restore-of-enterprise-manager)
+* Make a backup of Enterprise Manager data following instructions in [Backup & Restore of Enterprise Manager](backup-and-restore-of-enterprise-manager.md)
 {% endhint %}
 
 ## Enterprise Manager Update with Internet Access
