@@ -7,7 +7,9 @@ Code. It contains:
 |------|------------|
 | `settings.json` | Project settings, incl. the `PreToolUse(Bash)` hook wiring |
 | `settings.local.json` | **Personal** overrides — gitignored, never committed |
-| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI) |
+| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus four checks with no CI counterpart: includes, heading anchors, orphaned pages, gutted pages |
+| `hooks/fragcheck.py` | GitBook-accurate heading-anchor checker, called by `doc-lint.sh` |
+| `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` |
 | `hooks/pre-commit.sh` | PreToolUse hook: gates Claude-made `git commit`s by calling `doc-lint.sh` |
 | `skills/` | Shared skills (e.g. `docs-check`) |
 | `commands/` | Shared slash commands (e.g. `/precommit`) |

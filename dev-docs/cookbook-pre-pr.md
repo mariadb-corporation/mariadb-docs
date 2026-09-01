@@ -15,7 +15,7 @@ skill, which runs them for you; this page documents what it does and how to run 
 
 Only the first two can fail your PR; aliases and help-tables are regenerated automatically.
 
-## 1. Spelling + links + includes + gutted pages — `doc-lint.sh`
+## 1. Spelling + links + includes + orphans + gutted pages — `doc-lint.sh`
 
 The codespell and lychee invocations that mirror CI live in **one** place,
 `.claude/hooks/doc-lint.sh`. Run it instead of re-typing the flags:
@@ -81,6 +81,33 @@ DOC_LINT_SKIP_FRAGMENTS=1 .claude/hooks/doc-lint.sh <files>
 ```
 
 (Added in DOCS-6491.)
+
+It also gates **orphaned pages** — a page file with no entry in its space's `SUMMARY.md`. GitBook
+publishes only what `SUMMARY.md` lists, so such a page never renders, and no other check here can
+see that: the markup is valid so codespell passes, the links resolve so lychee passes, and the
+page is simply never built. There is no failing signal anywhere; the only symptom is a reader
+reporting a missing page.
+
+DOCS-6566 is the case. `dde0fb263` added four post-download pages (Server 12.3.3, 11.8.9, 11.4.13
+and 10.11.19) and bumped their `most-recent-*.md` includes but never touched
+`platform/SUMMARY.md`. All four sat unpublished for eight days with every gate green, until a
+reader noticed. Replayed against that commit, the check names all four and fails.
+
+Like the anchor gate it is history-aware, and for the same reason: `main` carries **219**
+pre-existing orphans (190 in `server` alone), so an absolute check would fail every unrelated PR
+on breakage it did not introduce. It reports only pages *newly* orphaned against `DOC_LINT_BASE` —
+added with no nav entry, or de-listed while the file survives. Unlike the anchor gate it needs no
+worktree, so it costs ~40 ms and has no skip flag.
+
+A deliberately unlisted page is legitimate, so this gate is acknowledged rather than silenced:
+
+```bash
+DOC_LINT_ALLOW_ORPHAN='space/path/to/page.md' .claude/hooks/doc-lint.sh <files>
+```
+
+and say why in the commit message; `DOC_LINT_ALLOW_ORPHAN=all` disables the check. For triage,
+`.claude/hooks/navcheck.py check [path ...]` prints the full current orphan inventory rather than
+just the new ones. (Added in DOCS-6567.)
 
 Finally, it flags a **gutted page**: any file in the set that lost more than **40%** of its lines
 *net* (deletions minus additions, minimum 20 lines lost, pre-image at least 30 lines) against

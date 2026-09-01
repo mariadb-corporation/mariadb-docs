@@ -37,7 +37,7 @@ Default to the files the user changed. Determine the set in this order:
 
 Run all that apply, then report each as PASS / FAIL / SKIPPED.
 
-### 1–4. Spelling + links + includes + gutted pages — via `doc-lint.sh`
+### 1–5. Spelling + links + includes + orphans + gutted pages — via `doc-lint.sh`
 
 Run the **canonical** linter (the single source of truth for the CI-mirroring flags/excludes)
 on the file set, from the repo root:
@@ -94,6 +94,20 @@ on the file set, from the repo root:
   "normalised"** — those ids exist to keep old inbound links working, and rewriting them breaks
   exactly what they preserve. On `main` 48 headings differed from their text slug and only 8 were
   defects, so treating the wide class as the bug would be a 6× overstatement. Added in DOCS-6492.
+- It also gates **orphaned pages** — a page file with no entry in its space's `SUMMARY.md`.
+  GitBook publishes only what `SUMMARY.md` lists, so the page never renders, and no other check
+  here can see it: the markup is valid (codespell PASSes) and the links resolve (lychee PASSes);
+  the page is simply never built. DOCS-6566 is the case — `dde0fb263` added four post-download
+  pages without touching `platform/SUMMARY.md` and they sat unpublished for eight days with every
+  gate green, until a reader reported them. Like the anchor gate it is **history-aware**, and for
+  the same reason: `main` carries 219 pre-existing orphans (190 in `server`), so it reports only
+  pages newly orphaned against `DOC_LINT_BASE` — added with no nav entry, or de-listed while the
+  file survives. Needs python3 and a git work tree; missing either is a SKIP. Costs ~40 ms, so
+  there is no skip flag. A deliberately unlisted page is legitimate: re-run with
+  `DOC_LINT_ALLOW_ORPHAN='<path>'` and tell the user to say why in the commit message — report it
+  as FAIL when unverified, WARN when acknowledged. For triage,
+  `.claude/hooks/navcheck.py check [path ...]` lists every current orphan, not just the new ones.
+  Added in DOCS-6567.
 - It also flags a **gutted page** — any file that lost more than 40% of its lines *net*
   (deletions minus additions; min 20 lines lost, pre-image ≥ 30 lines) against `DOC_LINT_BASE`
   (default `HEAD`). No CI counterpart, never SKIPs. This catches what the other checks
@@ -138,10 +152,20 @@ a `{%`-like fragment inside a code sample is not a real block.
 
 ### 6. SUMMARY.md consistency
 
-If any page was **added/moved/renamed**, confirm the space's `SUMMARY.md` has a matching entry
-pointing at the correct path. Flag pages with no nav entry, and `SUMMARY.md` entries pointing
-at non-existent files. (Note: the nightly error-sync job legitimately auto-commits
-`server/SUMMARY.md` — don't treat its entries as anomalies.)
+**The orphan half of this is now automated** — `doc-lint.sh` fails on a page with no nav entry
+(see the orphan gate above), so don't re-derive it by hand or second-guess its verdict. Until
+DOCS-6567 this bullet was the repo's *only* orphan check, and being an LLM heuristic that runs
+only when someone invokes the skill is exactly how DOCS-6566 shipped four unpublished pages.
+
+What remains for you, because the automated gate does not cover it:
+
+- `SUMMARY.md` entries pointing at **non-existent files** (the dangling direction — a nav entry
+  whose target was deleted or renamed).
+- Whether a moved/renamed page's entry sits in the **right place** in the tree and reads sensibly
+  in context — ordering and nesting are editorial, not mechanical.
+
+(Note: the nightly error-sync job legitimately auto-commits `server/SUMMARY.md` — don't treat its
+entries as anomalies.)
 
 ### 7. Fact-check report present (heuristic, paper trail)
 
@@ -165,6 +189,7 @@ docs-check on 3 files:
   codespell ...... PASS
   lychee ......... FAIL (2 broken links — see below)
   includes ....... FAIL (dead include in platform/post-download/x.md:22)
+  orphan pages ... FAIL (platform/post-download/x.md has no SUMMARY.md entry)
   gutted pages ... FAIL (storage-engines/README.md lost 93% of its lines net)
   frontmatter .... PASS
   gitbook blocks . FAIL (unclosed {% tabs %} in server/foo.md)
