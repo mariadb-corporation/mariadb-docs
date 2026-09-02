@@ -13,6 +13,8 @@ GitBook itself **does** support redirects, configured two ways:
   `getSiteRedirectBySource`, `createSiteRedirect`, `updateSiteRedirectById`,
   `bulkUpsertSiteRedirects`. Useful for bulk loads and, above all, for **verifying** what is
   actually configured — see [Troubleshooting](#troubleshooting-a-redirect-that-looks-broken).
+  **Requires `admin` on the site**, which the organization's default `create` role does not
+  grant — so for most writers the CSV above is the only route, and that is by design.
 
 ## When to produce a redirect CSV
 
@@ -50,15 +52,25 @@ winning, which is exactly why nothing looks wrong at the time.
 the pre-rename URL 307s to the new one on its own. On DOCS-6408 two of the three old URLs
 redirected correctly with no stored rule at all, and the prepared CSV turned out to have nothing
 left to import. An alias is weaker than a stored rule, though — it is GitBook's bookkeeping
-rather than your configuration — so add explicit rules for URLs that matter.
+rather than your configuration — so it is worth having explicit rules stored for URLs that
+matter.
 
 ### What to do after a rename
 
-1. **Audit rules sourced from the new canonical path**, not only from the old one. The old path
+**Step 1 is for everyone; steps 2–4 assume site admin.** Redirect rules are site settings, and
+the organization's default `create` role does not grant `admin` on a site — so expect a 403 on
+the API calls below unless you hold it. (Writes certainly need it; whether a plain read does was
+not tested, so don't count on it.) That is why the `gitbook-redirects` skill's deliverable is a
+CSV handed to an admin, and why the two are not in conflict: the CSV is the non-admin route to
+the same outcome.
+
+1. **Probe the old URLs before preparing anything.** No permissions needed — `curl` the old paths
+   as in [Step 1](#step-1-find-out-who-answered) above. The aliases may already do the job, in
+   which case the deliverable is nothing. If they don't, produce the CSV and hand it over; an
+   admin can then run the rest.
+2. **Audit rules sourced from the new canonical path**, not only from the old one. The old path
    is the obvious half; the new path is where a self-redirect hides. `listSiteRedirects` with
    `search=<slug>` covers both in one call.
-2. **Probe before preparing a CSV.** The aliases may already do the job, in which case the
-   deliverable is nothing.
 3. **Delete any self-redirect the rename created.** There is no single-rule delete operation:
    use `bulkUpsertSiteRedirects` with `destination` set to `null` for that source, which can
    create the replacement rules in the same call.
