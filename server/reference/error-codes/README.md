@@ -211,4 +211,16 @@ MariaDB server error codes 4200 to 4299, each with its symbolic name and message
 {% endcolumn %}
 {% endcolumns %}
 
+{% columns %}
+{% column %}
+{% content-ref url="mariadb-error-codes-6000-to-6099/" %}
+[mariadb-error-codes-6000-to-6099](mariadb-error-codes-6000-to-6099/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+MariaDB Enterprise Server error codes 6000 to 6099, each with its symbolic name and message.
+{% endcolumn %}
+{% endcolumns %}
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
