@@ -70,6 +70,7 @@ description: >-
 - [Information Schema USER\_STATISTICS Table](information-schema-user_statistics-table.md)
 - [Information Schema USER\_VARIABLES Table](information-schema-user_variables-table.md)
 - [Information Schema USERS Table](information-schema-users-table.md)
+- [Information Schema VECTOR\_INDEXES Table](information-schema-vector_indexes-table.md)
 - [Information Schema WSREP\_BF\_ABORTS](information-schema-wsrep_bf_aborts.md)
 - [Information Schema WSREP\_CERT\_KEYS](information-schema-wsrep_cert_keys.md)
 - [Information Schema WSREP\_CERT\_KEYS\_HISTORY](information-schema-wsrep_cert_keys_history.md)
