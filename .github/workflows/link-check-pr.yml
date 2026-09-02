@@ -13,6 +13,24 @@ jobs:
         with:
           fetch-depth: 0
 
+      # A `~/changes/<N>/` URL addresses an UNMERGED GitBook change request in
+      # the editor, not published content. It depends on a change request that
+      # may be merged, discarded or renumbered, and it sends a reader somewhere
+      # they cannot go. lychee structurally cannot catch these: it only scans
+      # the files a PR changed, and these URLs sit on pages nobody is touching.
+      # The URL is also syntactically valid and may answer 200 to an
+      # authenticated editor, so it would not necessarily fail even when
+      # scanned. This grep is tree-wide and costs about a second. See DOCS-6507.
+      #
+      # `~/reusable/...` is NOT banned: those are legitimate {% include %}
+      # targets and appear on 58 pages.
+      - name: Ban GitBook change-request preview URLs
+        run: |
+          if git grep -n -e '~/changes/' -- '*.md' '*.html' ':!agent-skills/topical/'; then
+            echo "::error::A GitBook change-request preview URL is committed (listed above). It points at an unmerged change request, not published content. Replace it with a link to the published page, or unlink the text."
+            exit 1
+          fi
+
       - name: Get changed files
         id: changes
         # SHA-pinned rather than tag-pinned: this action was compromised in
