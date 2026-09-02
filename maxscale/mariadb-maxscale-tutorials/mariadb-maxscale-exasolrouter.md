@@ -37,6 +37,12 @@ This architecture allows applications to use a single connection endpoint for bo
   * The Exasolrouter module uses the Exasol ODBC driver to establish communication with Exasol.
   * The Exasol ODBC driver currently requires x86\_64.
   * So, MaxScale must run on x86\_64 when using `exasolrouter`.
+* The `maxscale-exasol` package, which contains the Exasolrouter module and the Exasol ODBC driver, and is installed separately from `maxscale`. See Step 1 below.
+* A Linux distribution that provides Python 3.13 or later, which the Exasolrouter's internal SQL preprocessor requires. Python 3.12 is sufficient on Ubuntu 24.04. In practice, this means one of:
+  * Ubuntu 24.04 or Ubuntu 26.04
+  * RHEL 9 or RHEL 10
+  * Debian 13
+  * On any other distribution, `preprocessor=internal` fails at startup. See [`preprocessor`](../reference/maxscale-routers/maxscale-exasolrouter.md#preprocessor).
 * Operational MariaDB deployment
 * Operational Exasol deployment
 * Network connectivity between MaxScale, MariaDB, and Exasol
@@ -58,13 +64,44 @@ At minimum, open MariaDB 3306; MaxScale 3306 and 3310; and Exasol 8563.
 
 ## Configuring the Exasolrouter in MariaDB MaxScale
 
-### Step 1. Install the Exasol ODBC driver on the MaxScale host.
+### Step 1. Install the maxscale-exasol package on the MaxScale host.
 
-The `Exasolrouter` leverages Exasol’s native ODBC connector to deliver optimal performance and full functionality.<br>
+The Exasolrouter module and the Exasol ODBC driver it uses are not part of the base `maxscale` package. The `Exasolrouter` leverages Exasol’s native ODBC connector to deliver optimal performance and full functionality.
+
+Install `maxscale-exasol` on the MaxScale host, from the same repository you installed MaxScale from:
+
+* For RHEL/Rocky Linux/Alma Linux, use `dnf install maxscale-exasol`.
+* For Debian and Ubuntu, run `apt update` followed by `apt install maxscale-exasol`.
+
+The package installs the ODBC driver into a version-numbered directory under the MaxScale module directory, with a `current` symbolic link pointing at it:
+
+```
+<maxscale-libdir>/exasol/26.2.6/lib/libexaodbc.so
+<maxscale-libdir>/exasol/26.2.6/lib/libexacli.so
+<maxscale-libdir>/exasol/current -> 26.2.6
+```
+
+`libexaodbc.so` is the ODBC driver itself, and `libexacli.so` is the lower-level library it is built on. On RHEL, Rocky Linux, and Alma Linux, `<maxscale-libdir>` is `/usr/lib64/maxscale`.
 
 {% hint style="info" %}
-The Exasol ODBC driver ships with the `maxscale-exasol` package at `/usr/lib64/maxscale/exasol/current/libexaodbc.so`. On most installations you can use that path directly and skip the manual download below. Referencing the driver through the `current` symlink keeps the configuration working across driver updates. Download the driver manually only if it is not already present on your MaxScale host.
+Reference the driver through the `current` symbolic link rather than the version-numbered directory. The bundled driver version can change between MaxScale releases, and `current` keeps the configuration working across driver updates.
 {% endhint %}
+
+Verify the Python version and the installed driver before continuing:
+
+```
+python3.13 --version
+ls -l /usr/lib64/maxscale/exasol/
+ls -l /usr/lib64/maxscale/exasol/current/lib/
+```
+
+On Ubuntu 24.04, check `python3.12 --version` instead. If the MaxScale module directory is in a different location on your distribution, locate the driver with:
+
+```
+find /usr -name libexaodbc.so
+```
+
+**If the package is not available for your platform**, install the driver manually:
 
 * Go to the [Exasol ODBC download page](https://downloads.exasol.com/clients-and-drivers/odbc) and select the driver version that matches the operating system of the MaxScale host.
 * Download the appropriate Exasol ODBC driver for your operating system (x86\_64 architecture is required).
@@ -96,18 +133,20 @@ mariadb -e "GRANT SELECT ON mysql.tables_priv TO maxuser@'%'"
 mariadb -e "GRANT SELECT ON mysql.columns_priv TO maxuser@'%'"
 mariadb -e "GRANT SELECT ON mysql.proxies_priv TO maxuser@'%'"
 mariadb -e "GRANT SELECT ON mysql.procs_priv TO maxuser@'%'"
-
+mariadb -e "GRANT SELECT ON mysql.global_priv TO maxuser@'%'"
 ```
+
+On MariaDB 10.4.1 and later, the `mysql.global_priv` grant lets MaxScale read the authentication data of each account. Without it, MaxScale logs a warning when it loads users, and accounts that have more than one authentication mechanism cannot authenticate.
 
 **Exasol User**\
 \
 It is considered best practice to avoid using the `sys` user for application access. Instead, create a dedicated user with the appropriate privileges.\
 \
-If `exaplus` utility is not available in your PATH or if you are not confirm where this utility is located on your system, you can locate it using the following command:
+If the `exaplus` utility is not available in your PATH, or if you are not sure where it is located on your system, you can locate it using the following command:
 
 ```
 sudo su
-find / -name exaplus
+find / -name exaplus 2>/dev/null
 ```
 
 This command searches your entire system and suppresses permission-denied errors. A typical path looks like:
@@ -123,9 +162,20 @@ exaplus -c 127.0.0.1/nocertcheck:8563 -u sys -p syspassword \
 --sql "CREATE USER admin_user IDENTIFIED BY \"aBc123%%\";"
 
 exaplus -c 127.0.0.1/nocertcheck:8563 -u sys -p syspassword \
---sql "GRANT CREATE SESSION, CREATE TABLE, SELECT ANY TABLE, \
-INSERT ANY TABLE, UPDATE ANY TABLE, DELETE ANY TABLE TO admin_user;"
+--sql "GRANT CREATE SESSION, CREATE SCHEMA, CREATE ANY SCRIPT, \
+EXECUTE ANY SCRIPT, CREATE ANY TABLE, SELECT ANY TABLE, \
+INSERT ANY TABLE, UPDATE ANY TABLE, DELETE ANY TABLE, \
+DROP ANY TABLE, ALTER SYSTEM TO admin_user;"
 ```
+
+These privileges cover the full integration:
+
+* `CREATE SESSION` lets the user connect to Exasol.
+* `CREATE SCHEMA`, `CREATE ANY SCRIPT`, and `EXECUTE ANY SCRIPT` are needed to install and run the `UTIL.maria_preprocessor` script, which the service uses when `preprocessor=external`.
+* The table privileges cover the staging tables that Change Data Capture creates, fills, merges into the target tables, and drops.
+* `ALTER SYSTEM` lets the user set `SQL_IDENTIFIER_COMPARISON` to `IGNORE CASE`, which the Exasolrouter expects. The router reads the value when it connects and logs a warning if it is anything else.
+
+Narrow the list if your deployment does not use all of it. For example, an Exasolrouter service that only reads and does not use CDC or the external preprocessor does not need the script, `ALTER SYSTEM`, or table-modification privileges.
 
 **Important**: For all connections to Exasol, the Exasolrouter uses a **single service user**. Exasol does not currently receive user‑level authentication from MariaDB clients.
 
@@ -150,15 +200,17 @@ Create the Exasolrouter service. This service contains the connection informatio
 maxctrl create service mariadb_exasolrouter exasolrouter \
   user=maxuser \
   password=aBcd123% \
+  targets=mariadb1 \
   preprocessor=internal \
-  connection_string='DRIVER=/usr/lib64/maxscale/exasol/current/libexaodbc.so;EXAHOST=102.22.2.22:8563;UID=admin_user;PWD=aBc123%%;FINGERPRINT=NOCERTCHECK' 
+  connection_string='DRIVER=/usr/lib64/maxscale/exasol/current/lib/libexaodbc.so;EXAHOST=102.22.2.22:8563;UID=admin_user;PWD=aBc123%%;FINGERPRINT=NOCERTCHECK'
 ```
 
 Replace the following placeholders with values that match your actual environment:
 
-* `DRIVER`: Full path to `libexaodbc.so` — the bundled driver at `/usr/lib64/maxscale/exasol/current/libexaodbc.so`, or the path from Step 1 if you downloaded it manually
+* `DRIVER`: Full path to `libexaodbc.so` — the bundled driver at `/usr/lib64/maxscale/exasol/current/lib/libexaodbc.so`, or the path from Step 1 if you installed the driver manually
 * `EXAHOST`: Your Exasol host and port
 * `UID` and `PWD`: The Exasol user credentials created in Step 2
+* `targets`: The MariaDB server that the Exasolrouter service uses to authenticate clients. The Exasolrouter never routes queries to this server — Exasol is reached only through `connection_string` — but the service needs it to load user accounts, so that you can also connect to the Exasolrouter service directly, as in Step 7
 
 ### Step 5. Configure the MaxScale SmartRouter.
 
@@ -328,16 +380,19 @@ The `maxuser` created earlier already holds the `REPLICATION SLAVE` and `REPLICA
 
 ### Step 2. Create the CDC user in Exasol.
 
-The CDC pipeline creates staging tables and merges changes into the target tables, so the Exasol user used by CDC needs privileges to create and modify tables. Create a dedicated user rather than reusing `sys`:
+The CDC pipeline creates staging tables, merges changes into the target tables, and drops the staging tables again, so the Exasol user used by CDC needs privileges to create, modify, and drop tables. Create a dedicated user rather than reusing `sys`:
 
 ```
 exaplus -c 127.0.0.1/nocertcheck:8563 -u sys -p syspassword \
 --sql "CREATE USER cdc_user IDENTIFIED BY \"aBc123%%\";"
 
 exaplus -c 127.0.0.1/nocertcheck:8563 -u sys -p syspassword \
---sql "GRANT CREATE SESSION, CREATE TABLE, SELECT ANY TABLE, \
-INSERT ANY TABLE, UPDATE ANY TABLE, DELETE ANY TABLE TO cdc_user;"
+--sql "GRANT CREATE SESSION, CREATE ANY TABLE, SELECT ANY TABLE, \
+INSERT ANY TABLE, UPDATE ANY TABLE, DELETE ANY TABLE, \
+DROP ANY TABLE TO cdc_user;"
 ```
+
+If you reuse the `admin_user` created in Step 2 of the tutorial above instead, it already holds these privileges.
 
 ### Step 3. Create the binlogrouter CDC service.
 
@@ -352,7 +407,7 @@ maxctrl create service binlog_cdc_service binlogrouter \
   server_id=7000 \
   expire_log_minimum_files=2 \
   expire_log_duration=96h \
-  odbc_connection_str='DRIVER=/usr/lib64/maxscale/exasol/current/libexaodbc.so;EXAHOST=<exasol-host>:8563;UID=cdc_user;PWD=aBc123%%;FINGERPRINT=NOCERTCHECK;ANSIDATAENCODING=UTF-8;ANSIARGENCODING=UTF-8'
+  odbc_connection_str='DRIVER=/usr/lib64/maxscale/exasol/current/lib/libexaodbc.so;EXAHOST=<exasol-host>:8563;UID=cdc_user;PWD=aBc123%%;FINGERPRINT=NOCERTCHECK;ANSIDATAENCODING=UTF-8;ANSIARGENCODING=UTF-8'
 ```
 
 Key settings:
@@ -396,16 +451,11 @@ The CDC pipeline itself has no automatic failover: if the MaxScale instance runn
 
 The MariaDB MaxScale–Exasol integration includes some limitations. It includes:
 
-* Exasol access is limited to a single service user (unlike MariaDB, which required per user authentication)
+* Exasol access is limited to a single service user, unlike MariaDB, which supports per-user authentication.
 * The SQL preparser does not support all MariaDB functions.
-* The following function mappings are necessary:
-  * `FROM_UNIXTIME()` → `FROM_POSIX_TIME()`
-  * `DATE_FORMAT` → `TO_CHAR`
-* The following interactive statements are not the primary focus and may not behave as expected:
-  * `SHOW TABLES`
-  * `Use database`
-  * `DESCRIBE table`
-  * DDL statements
+* DDL statements are not the primary focus and may not behave as expected.
+
+From MaxScale 25.10.3, the interactive statements `SHOW TABLES`, `SHOW DATABASES`, `USE <database>`, and `DESCRIBE <table>` are handled, as are function differences such as `FROM_UNIXTIME()` to `FROM_POSIX_TIME()` and `DATE_FORMAT` to `TO_CHAR`. Function translation is the preprocessor's work, so it applies when `preprocessor` is `internal` or `external`, but not when it is `disabled`. For the statements the router itself translates, see [Transformations](../reference/maxscale-routers/maxscale-exasolrouter.md#transformations).
 
 ## See Also
 
