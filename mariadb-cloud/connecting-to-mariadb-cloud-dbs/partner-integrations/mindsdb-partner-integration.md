@@ -82,7 +82,7 @@ To connect a database service in MariaDB Cloud to MindsDB, perform the following
     };
     ```
 
-    Replace the placeholders in the `CREATE DATABASE` statement above with your own [connection parameters](../#connecting-using-the-mariadb-client).
+    Replace the placeholders in the `CREATE DATABASE` statement above with your own [connection parameters](../connection-overview.md#connecting-using-the-mariadb-client).
 
 For the full instructions that show how to connect MindsDB with MariaDB SkySQL, see "[MindsDB: MariaDB SkySQL Setup Guide with MindsDB](https://docs.mindsdb.com/connect/connect-mariadb-skysql)" in the Learning Hub of the MindsDB Cloud Editor.
 
