@@ -9,7 +9,7 @@ description: "MariaDB-specific behavior of MariaDB Connector/R2DBC (the `org.mar
 
 MariaDB Connector/R2DBC is the official reactive, non-blocking driver for MariaDB implementing the [R2DBC](https://r2dbc.io) SPI — Maven coordinates `org.mariadb:r2dbc-mariadb`. It is **100% pure Java** (Java 8+), built on Reactor and Netty, and does **not** depend on Connector/C. This skill covers the connector-specific behavior and the traps that bite generated application code. For adding the driver to a build and configuring the factory, pooling, and TLS, see **`mariadb-connector-r2dbc-install`**. It is a separate, independently-versioned sibling of **MariaDB Connector/J** (the blocking JDBC driver, also pure Java) — same vendor, different API paradigm; do not assume JDBC idioms (blocking calls, `try`-with-resources returning a live `ResultSet`) carry over.
 
-> **Default context:** Assume the **1.4** line (`r2dbc-mariadb` 1.4.1) unless the user states otherwise; 1.0 and 1.1 have reached end of life. The connector follows the [R2DBC 1.0.0 spec](https://r2dbc.io/spec/1.0.0.RELEASE/spec/html/) (a legacy `r2dbc-mariadb-0.9.1-spec` artifact exists for the older spec). Connector versions are independent of the MariaDB server version.
+> **Default context:** Assume the **1.4** line (`r2dbc-mariadb` 1.4.2) unless the user states otherwise; 1.0 and 1.1 have reached end of life. The connector follows the [R2DBC 1.0.0 spec](https://r2dbc.io/spec/1.0.0.RELEASE/spec/html/) (a legacy `r2dbc-mariadb-0.9.1-spec` artifact exists for the older spec). Connector versions are independent of the MariaDB server version.
 
 ## What LLMs Often Miss
 

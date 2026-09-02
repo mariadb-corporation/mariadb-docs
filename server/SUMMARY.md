@@ -79,6 +79,7 @@
       * [LINEAR KEY Partitioning Type](server-usage/partitioning-tables/partitioning-types/linear-key-partitioning-type.md)
       * [LIST Partitioning Type](server-usage/partitioning-tables/partitioning-types/list-partitioning-type.md)
       * [RANGE COLUMNS and LIST COLUMNS Partitioning Types](server-usage/partitioning-tables/partitioning-types/range-columns-and-list-columns-partitioning-types.md)
+      * [RANGE COLUMNS INTERVAL Partitioning Type](server-usage/partitioning-tables/partitioning-types/range-columns-interval-partitioning.md)
       * [RANGE Partitioning Type](server-usage/partitioning-tables/partitioning-types/range-partitioning-type.md)
     * [Partitioning Limitations](server-usage/partitioning-tables/partitioning-limitations.md)
     * [Partitions Files](server-usage/partitioning-tables/partitions-files.md)

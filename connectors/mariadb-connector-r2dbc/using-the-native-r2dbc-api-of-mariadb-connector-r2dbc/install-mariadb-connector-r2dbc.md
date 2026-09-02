@@ -32,7 +32,7 @@ Go to the [MariaDB Connector/R2DBC download page](https://mariadb.com/downloads/
 <dependency>
    <groupId>org.mariadb</groupId>
    <artifactId>r2dbc-mariadb</artifactId>
-   <version>1.4.1</version>
+   <version>1.4.2</version>
 </dependency>
 ```
 
