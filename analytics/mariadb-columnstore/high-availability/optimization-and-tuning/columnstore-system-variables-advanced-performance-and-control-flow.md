@@ -1,3 +1,10 @@
+---
+description: >-
+  Advanced MariaDB ColumnStore system variables in Columnstore.xml for tuning
+  control flow, connections and threading, memory and cache, disk-based
+  operations, and job and system requests.
+---
+
 # Columnstore System Variables: Advanced Performance and Control Flow
 
 MariaDB ColumnStore offers a powerful set of advanced system variables designed to give administrators fine-grained control over performance, memory management, and query execution flow. While the default settings are optimized for general use, highly concurrent workloads or complex analytical queries—such as heavy aggregations and massive joins—often require specific hardware trade-offs.
@@ -21,7 +28,7 @@ Control Flow attempts to prevent ExeMgr facility overload. Multiple primprocs bo
     sudo mcsSetConfig PrimitiveServers ConnectionsPerPrimProc 4
     ```
 * `ThreadPoolSize`: Specifies the size of the UM processing thread pool where all UM-based algorithms spawn threads.
-* `NumThreads`: Increases the number of parallel reading threads to utilize full disk capacity. The default is `MIN( # of cores , 32 )`.
+* `NumThreads` (in the `DBBC` section): Sets the number of I/O threads that read disk blocks into the block cache. Increase it to make fuller use of disk capacity. The default is `MIN( 2 × cores , 32 )`, taking the core count from the cgroup where one applies. Valid values are `1` to `256`; setting the variable explicitly overrides the 32-thread cap.
 * `NumCores`: Specifies how many parallel threads will be spawned by different parts of the Hash Join algorithm running in UM. The default is the number of cores in the system or in the cgroup assigned.
 * `ProcessorThreadsPerScan`: The number of jobs issued to process each extent. Increasing this will utilize more CPU. The default is `16`.
 
