@@ -112,7 +112,7 @@ UNINSTALL PLUGIN simple_password_check;
 
 ### Data Integrity and Validation
 
-*   **Consistency Checks**: Perform consistency checks on the source database before migration. Use a [supported SQL client](../../../../Connecting%20to%20Sky%20DBs/) to connect to your MariaDB Cloud instance and run the following.
+*   **Consistency Checks**: Perform consistency checks on the source database before migration. Use a [supported SQL client](../../../connecting-to-mariadb-cloud-dbs/connection-overview.md#connecting-from-sql-tools) to connect to your MariaDB Cloud instance and run the following.
 
     ```sql
     CHECK TABLE [table_name] FOR UPGRADE;
