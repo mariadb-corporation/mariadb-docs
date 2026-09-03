@@ -170,3 +170,19 @@ samples legitimately contain `{`, `%`, and raw URLs.
   `doc-lint.sh` on staged files when **Claude Code** runs `git commit`, blocking on real
   failures and warning (without blocking) if a tool isn't installed. It does **not** gate human
   or GitBook-UI commits — see `.claude/README.md`.
+
+## Changing the linter itself
+
+Editing `doc-lint.sh` means editing the only gate for dead GitBook includes and for gutted
+pages, so run its regression suite before you commit:
+
+```bash
+.claude/hooks/doc-lint-test.sh              # --keep to inspect the sandbox, --verbose for output
+```
+
+It builds its own fixtures in a throwaway git repo under `TMPDIR` and asserts both the exit code
+and the message for every check above, including the "tool not installed" SKIP branches. CI runs
+it on every PR on Linux **and** macOS (`.github/workflows/doc-lint-test.yml`) — the two-platform
+matrix is not ceremony: both of the plumbing bugs found in this script so far were visible on
+exactly one of the two (DOCS-6409 on Linux only, an empty-array expansion on macOS bash 3.2
+only). Added in DOCS-6471.

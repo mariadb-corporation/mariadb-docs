@@ -1,0 +1,273 @@
+name: Test the Doc Lint Hooks
+
+# Gates the repo's shell tooling: shellcheck over every tracked shell script, and a fixture
+# suite over .claude/hooks/doc-lint.sh -- the script that hosts the two documentation-rot
+# checks with NO CI counterpart anywhere else (the GitBook `{% include %}` resolver from
+# DOCS-6372, and the net line-loss "gutted page" guard from DOCS-6470).
+#
+# WHY THIS EXISTS
+#   Until now nothing in CI ran doc-lint.sh at all, and its only caller is a Claude Code
+#   PreToolUse(Bash) hook that -- as pre-commit.sh's own header says -- "only gates commits that
+#   Claude Code makes via the Bash tool. Human git commit, IDE commits, and GitBook-UI edits
+#   bypass it entirely." So the script's plumbing was covered by nothing.
+#
+#   DOCS-6409 is what that cost. A `mktemp` template with no X characters made the script exit 2
+#   on every GNU-coreutils run, from f2b5e332c (2026-08-05) to the fix on 2026-08-18 -- 135
+#   commits. Because the failing line sat BEFORE the checks, it silently took the include
+#   resolver down with it, so a feature added that same day never ran on Linux even once. On
+#   BSD/macOS mktemp the identical line worked, so the only machine that could have noticed was
+#   a Linux one, and no Linux ever ran the script.
+#
+# WHY IT RUNS ON EVERY PR, NOT ONLY WHEN THE HOOKS CHANGE
+#   Because DOCS-6409 was not caused by an edit to the script. It was caused by the script
+#   meeting different coreutils. A paths: filter on .claude/hooks/** would have been green
+#   throughout those 135 commits. The suite is self-contained -- it builds fixtures in a
+#   throwaway git repo under TMPDIR and never reads the checkout's own content -- so it cannot
+#   report a finding an unrelated PR's author is unable to clear, which is the failure mode
+#   DOCS-6401 documents.
+#
+# WHY BOTH UBUNTU AND MACOS
+#   Same reason, from the other side. macos-latest still ships bash 3.2, which is the
+#   portability floor doc-lint.sh claims in its header ("no mapfile here [...] so it runs under
+#   bash 3.2 (macOS) too") -- and that claim was already broken when this landed. Expanding an
+#   empty array under `set -u` is an error before bash 4.4, so norm_path returned the empty
+#   string for every include that climbs out of its own directory. The mirror image of
+#   DOCS-6409: same class of bug, opposite platform, invisible to a single-runner gate.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: doc-lint-test-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  # shellcheck is a static analyser, so its verdict does not vary by platform -- one runner is
+  # enough, and this stays a separate job so its check name says plainly which half failed.
+  shellcheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        # No fetch-depth: 0. Unlike fragcheck-pr.yml this needs no history at all -- it lints
+        # the files as they stand in the PR head.
+
+      - name: Install a pinned shellcheck
+        env:
+          SHELLCHECK_VERSION: v0.11.0
+          # sha256 of shellcheck-v0.11.0.linux.x86_64.tar.xz, computed from the release asset
+          # (koalaman publishes no .sha256 sidecar). To bump the version, download the new
+          # tarball, recompute, and change both values together.
+          SHELLCHECK_SHA256: 8c3be12b05d5c177a04c29e3c78ce89ac86f1595681cab149b65b97c4e227198
+        run: |
+          set -euo pipefail
+          # Pinned rather than using the runner image's preinstalled shellcheck, so a runner
+          # image bump cannot add a new check and turn unrelated PRs red on files their author
+          # never touched. Bumping the pin is then a deliberate PR that fixes whatever the new
+          # version finds.
+          tarball="$RUNNER_TEMP/shellcheck.tar.xz"
+          curl -fsSL -o "$tarball" \
+            "https://github.com/koalaman/shellcheck/releases/download/${SHELLCHECK_VERSION}/shellcheck-${SHELLCHECK_VERSION}.linux.x86_64.tar.xz"
+          echo "${SHELLCHECK_SHA256}  ${tarball}" | sha256sum --check --strict
+          tar -xJf "$tarball" -C "$RUNNER_TEMP"
+          install -m 0755 "$RUNNER_TEMP/shellcheck-${SHELLCHECK_VERSION}/shellcheck" \
+            /usr/local/bin/shellcheck
+          shellcheck --version
+
+      - name: Shellcheck every tracked shell script
+        id: shellcheck
+        run: |
+          set -uo pipefail
+
+          # Discovered, not enumerated: a shell script added anywhere in the repo is gated the
+          # day it lands, with no allowlist to remember to extend. The exceptions below are
+          # subtracted explicitly so each one is a decision on the record.
+          #
+          # release-notes/maxscale/script/ is the MaxScale team's release-note generator (last
+          # touched by its owners, not by Docs Infrastructure). It carries 12 pre-existing
+          # info/warning findings -- SC2086 quoting, SC2006 backticks, and two genuinely unused
+          # variables. `upgrade_version` is the interesting one: its comment says it "needs to
+          # be updated whenever a new major release is out", but the heredoc hardcodes the
+          # upgrading link and never reads the variable, so the instruction is misleading.
+          # Fixing that changes generated release-note output, which is the owning team's call,
+          # not something to slip into an infrastructure PR. Reported on DOCS-6471; drop the
+          # exception once it is resolved.
+          mapfile -t scripts < <(git ls-files '*.sh' \
+            ':(exclude,glob)release-notes/maxscale/script/*.sh')
+
+          if [ "${#scripts[@]}" -eq 0 ]; then
+            echo "::error::No shell scripts found to check -- the discovery step is broken, not the repo."
+            exit 1
+          fi
+
+          echo "Checking:"
+          printf '  %s\n' "${scripts[@]}"
+          echo
+
+          # Default severity, i.e. style-level and up: these are few, small and ours, so an
+          # info-level finding is worth fixing rather than filtering out.
+          set +e
+          shellcheck -f gcc "${scripts[@]}" > shellcheck.log 2>&1
+          rc=$?
+          set -e
+          cat shellcheck.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          if [ "$rc" -ne 0 ]; then
+            echo "::error::shellcheck reported findings in the repo's shell scripts. Details in the job log and the run summary."
+          fi
+          exit "$rc"
+
+      - name: Record the shellcheck result in the run summary
+        if: always()
+        env:
+          RC: ${{ steps.shellcheck.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## shellcheck"
+            echo
+            if [ ! -s shellcheck.log ]; then
+              echo "No output -- an earlier step failed before shellcheck ran."
+            elif [ "${RC:-}" = "0" ]; then
+              echo "Clean at shellcheck ${SHELLCHECK_VERSION:-v0.11.0}."
+            else
+              echo "Findings below. Reproduce locally with:"
+              echo
+              echo '````bash'
+              echo "shellcheck \$(git ls-files '*.sh' ':(exclude,glob)release-notes/maxscale/script/*.sh')"
+              echo '````'
+              echo
+              # Fenced with four backticks: the log embeds source lines from the PR, which are
+              # author-controlled, and this summary is a GFM rendering surface. Same reasoning
+              # as fragcheck-pr.yml and nightly-unlabeled-prs.yml.
+              echo '````text'
+              cat shellcheck.log
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  doc-lint-test:
+    strategy:
+      # Run both platforms to completion. A bash-3.2-only failure is precisely the thing this
+      # matrix exists to surface, so cancelling macOS the moment Ubuntu goes red would hide it.
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    # The suite is a few seconds of shell. 10 minutes is headroom; without an explicit value the
+    # job inherits the 6-hour default, and a wedged lychee would end as *cancelled*, which
+    # `if: failure()` does not catch.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        # Again no fetch-depth: 0 -- the suite builds its own git repository in the sandbox and
+        # never looks at this checkout's history.
+
+      # codespell and lychee are installed on Linux only, and only so the suite can prove
+      # doc-lint.sh REACHES them: a script that dies in its own plumbing before the first
+      # `command -v` passes every SKIP-branch assertion and still checks nothing. That is
+      # exactly how DOCS-6409 hid. Installing them on both platforms would buy nothing extra,
+      # since what differs between the runners is bash and coreutils, not the checkers.
+      - name: Install codespell
+        if: runner.os == 'Linux'
+        run: |
+          set -euo pipefail
+          # pipx, matching the install line doc-lint.sh prints in its own SKIP notice.
+          pipx install codespell
+          # Assert it landed on PATH. Without this the suite would report the codespell cases as
+          # SKIPPED and still exit 0 -- DOC_LINT_TEST_REQUIRE_ALL below is the backstop, but a
+          # failure here names the cause directly.
+          command -v codespell
+          codespell --version
+
+      - name: Install a pinned lychee
+        if: runner.os == 'Linux'
+        env:
+          LYCHEE_VERSION: lychee-v0.24.2
+          # Cross-checked against the publisher's own
+          # lychee-x86_64-unknown-linux-gnu.tar.gz.sha256 sidecar for this tag.
+          LYCHEE_SHA256: 1f4e0ef7f6554a6ed33dd7ac144fb2e1bbed98598e7af973042fc5cd43951c9a
+        run: |
+          set -euo pipefail
+          # A binary, not lycheeverse/lychee-action: the suite needs `lychee` on PATH so
+          # doc-lint.sh's own `command -v lychee` finds it, which the action does not provide.
+          # Note what this does and does not pin. link-check-pr.yml gates the LINK CHECK, at
+          # whatever lychee its action ships; this pins only the binary the fixture suite runs
+          # against, so the two are independent by design and need not be bumped together.
+          tarball="$RUNNER_TEMP/lychee.tar.gz"
+          curl -fsSL -o "$tarball" \
+            "https://github.com/lycheeverse/lychee/releases/download/${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-gnu.tar.gz"
+          echo "${LYCHEE_SHA256}  ${tarball}" | sha256sum --check --strict
+          tar -xzf "$tarball" -C "$RUNNER_TEMP"
+          install -m 0755 "$RUNNER_TEMP/lychee-x86_64-unknown-linux-gnu/lychee" /usr/local/bin/lychee
+          command -v lychee
+          lychee --version
+
+      - name: Run the doc-lint fixture suite
+        id: suite
+        env:
+          # Linux installs both optional tools, so a case group opting out there means an install
+          # silently failed -- turn that into a red run rather than a green one that tested less.
+          # macOS installs neither, so five cases legitimately report SKIP there.
+          DOC_LINT_TEST_REQUIRE_ALL: ${{ runner.os == 'Linux' && '1' || '' }}
+        run: |
+          set -uo pipefail
+          echo "bash: $BASH_VERSION"
+          # NOT PIPED. Per DOCS-6409 impact note 4, piping the script under test returns the
+          # pipe's exit status, so a hard failure reads as a clean 0 -- which is how that
+          # regression stayed hidden for 135 commits. Redirect and read $? directly, the same
+          # rule the suite itself follows for every case.
+          set +e
+          .claude/hooks/doc-lint-test.sh > doc-lint-test.log 2>&1
+          rc=$?
+          set -e
+          cat doc-lint-test.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          case "$rc" in
+            0) ;;
+            1) echo "::error::A doc-lint.sh regression test failed on ${{ matrix.os }}. Details in the job log and the run summary." ;;
+            2) echo "::error::The fixture suite could not set itself up on ${{ matrix.os }} -- the workflow or the runner image is at fault, not the PR." ;;
+            *) echo "::error::doc-lint-test.sh exited $rc (crash) on ${{ matrix.os }}." ;;
+          esac
+          exit "$rc"
+
+      - name: Record the suite result in the run summary
+        if: always()
+        env:
+          RC: ${{ steps.suite.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## doc-lint fixture suite (${{ matrix.os }})"
+            echo
+            if [ ! -s doc-lint-test.log ]; then
+              echo "No output -- an earlier step failed before the suite ran."
+            else
+              case "${RC:-}" in
+                0) echo "All cases passed." ;;
+                1) echo "A regression test failed. doc-lint.sh hosts the only checks for dead GitBook includes and for silently gutted pages, so a failure here means one of those gates is not working -- see the failing case name for which." ;;
+                2) echo "The suite could not set itself up (missing doc-lint.sh, or no git). Tooling failure, not a PR finding." ;;
+                *) echo "The suite exited ${RC:-unknown}. Tooling failure, not a PR finding." ;;
+              esac
+              echo
+              # Four backticks: fixture paths and doc-lint's own messages are echoed here and
+              # this is a GFM rendering surface.
+              echo '````text'
+              cat doc-lint-test.log
+              echo '````'
+              echo
+              echo "Run it locally with:"
+              echo
+              echo '````bash'
+              echo ".claude/hooks/doc-lint-test.sh          # --keep to inspect the sandbox, --verbose for output"
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
