@@ -275,6 +275,16 @@ elif ! command -v git >/dev/null 2>&1 || ! git rev-parse --is-inside-work-tree >
 elif ! git rev-parse --verify -q "$LINT_BASE" >/dev/null 2>&1; then
   echo "doc-lint: base revision '$LINT_BASE' not found — anchor check SKIPPED" >&2
 else
+  # Spelled identically in .github/workflows/fragcheck-pr.yml (PR gate, base =
+  # the PR base) and .github/workflows/nightly-fragcheck.yml (base = a rolling
+  # 24 hours) — DOCS-6524. The mode takes no flags, which is why CI calls the
+  # script directly instead of routing through this file the way it must for the
+  # codespell and lychee flag sets; if that ever changes, change all three.
+  #
+  # One difference is deliberate: an uncheckoutable base is a SKIP here (never
+  # block a local commit over a missing baseline) and a hard failure in CI,
+  # where a check that cannot run must not report success. Both workflows assert
+  # the base object exists before invoking, because this returns 0 in that case.
   python3 .claude/hooks/fragcheck.py new "$LINT_BASE" >/dev/null || rc=1
 fi
 

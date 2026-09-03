@@ -1,0 +1,326 @@
+name: Nightly heading-anchor digest
+
+# Reports heading anchors that died in the last 24 hours.
+#
+# WHY THIS IS NOT REDUNDANT WITH fragcheck-pr.yml
+#   This repo has write paths that never produce a pull request, and a
+#   `pull_request` trigger is structurally blind to all of them:
+#     * GitBook-UI edits sync straight back to Git as GITBOOK-* commits (the
+#       pre-commit hook header says so in as many words)
+#     * the alias-expansion bot rewrites links on merge (DOCS-6481) -- a link
+#       rewriter is exactly the kind of thing that can break a fragment AFTER
+#       the PR gate ran green
+#   So the gate covers PRs and this covers the tree. See DOCS-6524.
+#
+# WHY `new` AND NOT `check`
+#   `check` prints the standing inventory -- 15 dead anchors as this was
+#   written, all already owned by DOCS-6509/6510 -- so a nightly `check` would
+#   report the same 15 every night forever. That is precisely the failure
+#   nightly-unlabeled-prs.yml warns about in its own header: "a daily '0
+#   untriaged' message trains the channel to ignore the bot." A daily identical
+#   15 is worse, because it also looks like work.
+#
+#   A rolling 24-hour base instead makes this the SAME invocation as the PR
+#   gate with a different base -- one code path, one set of buckets -- and it is
+#   stateless: no baseline file to commit, no cache artifact to expire.
+#
+# Tue-Fri it posts to Slack only when the delta is non-empty. The run summary
+# records every run regardless, including the failed ones.
+#
+# Monday is the exception, and it exists to make silence mean something. Most
+# nights will genuinely be clean, so silence is the healthy state -- and GitHub
+# suspends schedules after 60 days without a push. Without a weekly "nothing to
+# report", a suspended cron is indistinguishable from a clean repo. `errors:
+# true` below catches a failed *delivery*, but a run that never happens cannot
+# report itself.
+#
+# The residual gap is the same one the unlabeled-PR digest documents: a Monday
+# message proves Monday worked, not Tue-Fri. That bounds undetected breakage at
+# about a week rather than eliminating it.
+#
+# Read-only by design: no auto-filed Jira tickets, no opened GitHub issues. The
+# standing backlog is already owned by DOCS-6509/6510, so filing would
+# duplicate, and both fragcheck and the digest precedent deliberately leave the
+# decision to a human.
+
+on:
+  workflow_dispatch:
+    inputs:
+      always_post:
+        description: 'Post to Slack even when no anchors broke'
+        required: false
+        default: false
+        type: boolean
+      base_rev:
+        description: 'Override the rolling base revision (a sha or anything git rev-parse accepts)'
+        required: false
+        default: ''
+        type: string
+  # 06:20 UTC, five minutes after the unlabeled-PR digest so the two do not
+  # arrive in the channel as one indistinguishable block. Weekends are skipped:
+  # a Saturday digest reaches nobody and only ages by Monday.
+  #
+  # Split into two entries rather than one '20 6 * * 1-5' so the steps can tell
+  # Monday apart: github.event.schedule carries the cron string verbatim, which
+  # is only useful as a discriminator if Monday has its own line.
+  schedule:
+    # Tue-Fri: speaks only when something broke.
+    - cron: '20 6 * * 2-5'
+    # Monday: also speaks when nothing broke, as the weekly heartbeat.
+    - cron: '20 6 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nightly-fragcheck
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    # Two full-tree scans, ~13.5s locally. Without this the job inherits the
+    # 6-hour default, so a wedged git call burns six hours of runner time and
+    # then ends as *cancelled* -- which `if: failure()` does not catch, so
+    # nobody would hear about it.
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          # REQUIRED, and load-bearing in a way worth spelling out: `new` checks
+          # the base revision out into a throwaway worktree, and when it cannot,
+          # it prints "no baseline, SKIPPED" and returns ZERO. On a shallow
+          # clone this digest would therefore report "nothing broke" every night
+          # forever. The resolve step below turns that into a red run.
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          # Standard library only; this pins the interpreter, it installs nothing.
+          python-version: '3.12'
+
+      - name: Resolve the rolling base revision
+        id: base
+        env:
+          BASE_OVERRIDE: ${{ inputs.base_rev }}
+        run: |
+          set -euo pipefail
+
+          if [[ -n "${BASE_OVERRIDE:-}" ]]; then
+            # A hand-supplied revision is resolved rather than trusted, so a
+            # typo fails here with a clear message instead of becoming a SKIP.
+            base=$(git rev-parse --verify "${BASE_OVERRIDE}^{commit}" 2>/dev/null || true)
+            if [[ -z "$base" ]]; then
+              echo "::error::base_rev '${BASE_OVERRIDE}' does not resolve to a commit in this clone."
+              exit 1
+            fi
+          else
+            # HEAD, not origin/main: on a schedule trigger the checkout IS the
+            # default branch, and actions/checkout does not guarantee a
+            # remote-tracking ref to lean on.
+            #
+            # -1 --before gives the newest commit at or before the cutoff, so
+            # the window is "everything committed in the last 24 hours".
+            base=$(git rev-list -1 --before='24 hours ago' HEAD || true)
+            if [[ -z "$base" ]]; then
+              echo "::error::No commit older than 24 hours was found, so there is no rolling base. Expected on a brand-new or shallow clone only."
+              exit 1
+            fi
+          fi
+
+          # Same assertion as the PR gate, and for the same reason: rev-parse
+          # succeeds on a well-formed sha that is absent from the object
+          # database, and an absent base is a silent pass.
+          if ! git cat-file -e "${base}^{commit}" 2>/dev/null; then
+            echo "::error::Base commit ${base} is not in this clone, so the scan would SKIP and report success."
+            exit 1
+          fi
+
+          {
+            echo "sha=$base"
+            echo "short=$(git rev-parse --short "$base")"
+            echo "date=$(git log -1 --format=%cI "$base")"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Scan for newly dead heading anchors
+        id: scan
+        env:
+          BASE_SHA: ${{ steps.base.outputs.sha }}
+        run: |
+          set -uo pipefail
+          set +e
+          python3 .claude/hooks/fragcheck.py new "$BASE_SHA" > fragcheck.log 2>&1
+          rc=$?
+          set -e
+          cat fragcheck.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          # A FINDING IS NOT A FAILURE HERE. This is a read-only digest, so rc 1
+          # must leave the job green -- otherwise every finding would also fire
+          # the `if: failure()` notice below and the channel would get two
+          # messages for one event, one of them claiming the digest is broken.
+          # rc 2 (the script rejecting its arguments) and anything else (a
+          # crash) ARE failures: they mean the digest did not run.
+          case "$rc" in
+            0|1) exit 0 ;;
+            2) echo "::error::fragcheck.py rejected its arguments -- the workflow is misconfigured."; exit 1 ;;
+            *) echo "::error::fragcheck.py exited $rc (crash). The digest did not run."; exit 1 ;;
+          esac
+
+      - name: Build the Slack payload
+        id: payload
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RC: ${{ steps.scan.outputs.rc }}
+          BASE_SHORT: ${{ steps.base.outputs.short }}
+          BASE_DATE: ${{ steps.base.outputs.date }}
+          COMPARE_URL: ${{ github.server_url }}/${{ github.repository }}/compare/${{ steps.base.outputs.sha }}...${{ github.sha }}
+          # 'true' only on the Monday cron. github.event.schedule holds the cron
+          # string exactly as written above, and is absent on workflow_dispatch,
+          # where the comparison yields false. Renders as the literal 'true' or
+          # 'false', which --argjson reads as a boolean.
+          HEARTBEAT: ${{ github.event.schedule == '20 6 * * 1' }}
+        run: |
+          set -euo pipefail
+
+          # jq builds the whole payload, so heading text containing a quote, a
+          # backslash or an emoji cannot produce invalid JSON. Hand-interpolating
+          # it into a YAML payload: block is the same class of bug as the
+          # filename quoting in link-check-pr.yml (DOCS-6361).
+          #
+          # But valid JSON is not the same as safe *mrkdwn*. The scan output
+          # embeds heading text and file paths from the repo, and anyone with a
+          # GitHub account can open a PR on this public repo -- and a GitBook-UI
+          # edit reaches the tree with no review at all. Slack parses `text` as
+          # mrkdwn, where `<url|label>` is link syntax, so an unescaped heading
+          # reading
+          #   see <https://evil.example|github.com/.../pull/9999>
+          # would render as a clickable link whose visible text is a github.com
+          # URL and whose target is not, delivered by a trusted bot. `esc`
+          # neutralizes that. Same reasoning, and the same deliberate decision
+          # not to escape `*`, `_` or backticks, as nightly-unlabeled-prs.yml.
+          #
+          # The body is truncated at 2,800 characters: Slack rejects an
+          # incoming-webhook payload over 4,000 with msg_too_long, and at
+          # `errors: true` that is a red run rather than a swallowed one -- so a
+          # night with 200 broken anchors would otherwise fail to deliver
+          # exactly when it matters most. The step summary carries the full log.
+          jq -n \
+            --rawfile log fragcheck.log \
+            --arg repo "$GITHUB_REPOSITORY" \
+            --arg run "$RUN_URL" \
+            --arg base "$BASE_SHORT" \
+            --arg basedate "$BASE_DATE" \
+            --arg compare "$COMPARE_URL" \
+            --argjson rc "${RC:-0}" \
+            --argjson heartbeat "${HEARTBEAT:-false}" '
+            def esc: gsub("&"; "&amp;") | gsub("<"; "&lt;") | gsub(">"; "&gt;");
+
+            ($log | esc) as $body
+            | (if ($body | length) > 2800
+               then ($body[0:2800] + "\n… truncated; full output in the run summary.")
+               else $body end) as $body
+            | { text: (
+                  if $rc == 0 and $heartbeat then
+                    ":coffee: *Weekend was quiet* — no heading anchors broke in \($repo) since \($base) (\($basedate))."
+                    + "\n\n<\($run)|workflow run>"
+                  elif $rc == 0 then
+                    ":white_check_mark: No heading anchors broke in \($repo) since \($base)."
+                    + "\n\n<\($run)|workflow run>"
+                  else
+                    ":link: *Heading anchors broke in \($repo)* since \($base) (\($basedate))\n"
+                    + "```\n\($body)\n```"
+                    + "\n\nA renamed heading breaks every inbound link to its old anchor, including links from pages the commit never touched."
+                    + "\n<\($compare)|commits in this window> · <\($run)|workflow run>"
+                  end
+                ) }' > payload.json
+
+          jq -e . payload.json > /dev/null   # fail loudly rather than posting garbage
+
+      - name: Record the result in the run summary
+        # always(): the runs most worth a record are the ones that failed.
+        if: always()
+        env:
+          RC: ${{ steps.scan.outputs.rc }}
+          BASE_SHORT: ${{ steps.base.outputs.short }}
+          BASE_DATE: ${{ steps.base.outputs.date }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Heading-anchor digest"
+            echo
+            if [[ ! -s fragcheck.log ]]; then
+              echo "No output was produced -- an earlier step failed before the scan ran."
+            else
+              echo "Base revision \`${BASE_SHORT:-?}\` (${BASE_DATE:-unknown})."
+              echo
+              case "${RC:-}" in
+                0) echo "No heading anchors broke in this window." ;;
+                1) echo "Heading anchors broke in this window. Nothing was filed -- triage stays a human decision." ;;
+                *) echo "The scan did not complete (exit ${RC:-unknown})." ;;
+              esac
+              echo
+              # Fenced with four backticks: this is a GFM rendering surface and
+              # the output embeds repo heading text, so unfenced it could forge
+              # a heading or open an HTML comment. See nightly-unlabeled-prs.yml.
+              echo '````text'
+              cat fragcheck.log
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # Both Slack steps post to NOTIFICATIONS_WEBHOOK_URL -- one channel for the
+      # digest and for the notice that the digest broke. Note the consequence: if
+      # that webhook is what fails, the failure notice has nowhere to go either.
+      # `errors: true` still turns the run red, so the Actions tab remains the
+      # backstop, but nothing reaches Slack.
+      #
+      # Never set `payload-templated` on either step. It defaults to false; with
+      # it on, the action expands ${{ }} inside the payload against the env and
+      # github contexts, so a heading reading ${{ env.NOTIFICATIONS_WEBHOOK_URL }}
+      # would print the webhook into the channel.
+      #
+      # The Monday clause is what makes the heartbeat reach Slack at all -- rc is
+      # 0 on a clean Monday, so the first clause is false and without the second
+      # nothing would be sent. On a Monday that DID break something the first
+      # clause already fires and the payload is the normal digest, so this only
+      # ever adds the heartbeat, never a duplicate.
+      - name: Post the digest to Slack
+        if: steps.scan.outputs.rc != '0' || github.event.schedule == '20 6 * * 1' || inputs.always_post
+        uses: slackapi/slack-github-action@v3.0.5
+        with:
+          webhook: ${{ secrets.NOTIFICATIONS_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          # payload-file-path rather than an inline payload: block, because the
+          # message body is dynamic and must stay valid JSON. Keep the .json
+          # extension: the action picks its parser from it, and a .yml name would
+          # route this through js-yaml instead of JSON.parse.
+          payload-file-path: payload.json
+          # REQUIRED, not optional. This input defaults to false, and at v3.0.5
+          # the action's catch block has no else branch -- with errors off, a
+          # revoked webhook, an archived channel, a 429, or msg_too_long is
+          # swallowed with no warning and the step still goes green. Because this
+          # digest is deliberately silent when nothing broke, a dead webhook and
+          # a healthy repo would look identical in the channel indefinitely.
+          errors: true
+
+      # A step-level failure notice rather than a second job: a git or python
+      # error would otherwise fail silently at 06:20 with nobody watching. Note
+      # this covers failure() only -- a cancelled run, a dropped scheduled run,
+      # or a suspended cron reaches nobody. That is what the Monday heartbeat is
+      # for.
+      - name: Notify Slack on failure
+        if: failure()
+        uses: slackapi/slack-github-action@v3.0.5
+        with:
+          webhook: ${{ secrets.NOTIFICATIONS_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "text": "❌ *Heading-anchor digest failed*\n*Repo:* ${{ github.repository }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
+          # Same reasoning as above, and it matters more here: this is the step
+          # that only runs when something is already broken.
+          errors: true

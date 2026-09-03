@@ -10,10 +10,24 @@ skill, which runs them for you; this page documents what it does and how to run 
 |-------|------|----------|
 | Spelling (content + filenames) | `codespell` | `codespell.yml` |
 | Broken links | `lychee` | `link-check-pr.yml` |
+| Heading anchors | `fragcheck.py new` | `fragcheck-pr.yml` |
 | Alias expansion | sed (auto-commit) | `expand-gitbook-aliases.yml` |
 | Help-tables regen | Python | `generate-help-tables.yml` |
 
-Only the first two can fail your PR; aliases and help-tables are regenerated automatically.
+Only the first three can fail your PR; aliases and help-tables are regenerated automatically.
+
+The heading-anchor gate arrived in DOCS-6524 and closed the one rot class that used to have no
+CI counterpart at all. Two consequences worth knowing:
+
+- **It is no longer only a local check.** Before, the anchor gate ran only via `/precommit`, the
+  `docs-check` skill, and the Claude Code pre-commit hook — and that hook covers only commits
+  Claude Code makes through the Bash tool, so a hand-written `git commit`, an IDE commit, or a
+  GitBook-UI edit bypassed it entirely. Now the same check runs on every PR touching `*.md`.
+- **A nightly digest (`nightly-fragcheck.yml`) covers what a PR trigger cannot.** GitBook-UI
+  edits sync straight back to Git, and the alias-expansion bot rewrites links *after* the PR gate
+  ran green. The nightly re-runs the same command against a rolling 24-hour base and posts to
+  Slack only when something broke, plus a Monday heartbeat so silence stays meaningful. It is
+  read-only: it files nothing, and triage stays a human decision.
 
 ## 1. Spelling + links + includes + gutted pages — `doc-lint.sh`
 
@@ -46,6 +60,12 @@ dead in the working tree, because the repo carries ~1,272 pre-existing dead anch
 check would fail every PR on breakage it did not introduce. It also scans the whole tree instead
 of the changed files, since renaming a heading breaks inbound links from pages the commit never
 touched — so findings naming files you did not edit are the check working, not noise.
+
+**CI runs this exact command too** (`fragcheck-pr.yml`, base = the PR base), so a finding here is
+a finding there. One difference is deliberate: locally, a base revision that cannot be checked
+out is a SKIP that returns 0 — never block a commit over a missing baseline — whereas in CI it is
+a hard failure, because a check that cannot run must not report success. Both workflows therefore
+assert the base commit is present *before* invoking the script.
 
 Enabling `--include-fragments` in lychee would *not* substitute for this. lychee's slugger is
 GitHub-flavoured and GitBook's is not, so on `main` it produced 386 false positives (the anchor
