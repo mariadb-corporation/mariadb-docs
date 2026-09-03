@@ -50,7 +50,7 @@ Yes. For workloads requiring strict data consistency and zero data loss failover
 {% hint style="info" %}
 **Enterprise Cluster Availability**
 
-MariaDB Enterprise Cluster is available exclusively on the PowerPlus tier. [MaxScale]({maxscale}/) routes all write traffic to a single active writer node to ensure maximum stability.
+MariaDB Enterprise Cluster is available exclusively on the PowerPlus tier. [MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/) routes all write traffic to a single active writer node to ensure maximum stability.
 {% endhint %}
 
 ### What options are available for scaling and right-sizing MariaDB Cloud?
