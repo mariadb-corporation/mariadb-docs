@@ -11,15 +11,77 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout PR commit
+      - name: Checkout the PR head commit
         uses: actions/checkout@v7
         with:
+          # The head commit, explicitly. The default for a pull_request event
+          # is refs/pull/<n>/merge, and the push step below would then land
+          # that ephemeral merge commit on the contributor's branch -- which
+          # this repository cannot take, because it merges by rebase and
+          # rejects --squash. Worse, it was unrecoverable by the author: a
+          # clean force-push fires "synchronize", the workflow re-runs, and the
+          # merge commit comes straight back (DOCS-6401).
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
           persist-credentials: true
+
+      - name: List the PR's changed Markdown files
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          set -eu
+
+          # The expansion below used to walk the whole tree. Any alias that
+          # reached the base branch unexpanded -- a direct-to-main commit is
+          # never seen by this workflow -- was therefore rewritten by the next
+          # PR to open, whatever that PR was about, leaving its author with a
+          # collateral edit to someone else's file in their diff (DOCS-6401,
+          # observed on #835 and #834). So compute the PR's own changed
+          # Markdown files once here, and let both the expansion step and the
+          # unexpanded-alias check consume that one list: the two file sets are
+          # now identical by construction rather than by keeping two find
+          # invocations in sync.
+          #
+          # The exclusions mirror the former find predicates: dev-docs/ and
+          # .claude/ wholesale, the top-level and pdf/ READMEs, any
+          # CONTRIBUTING.md, and about-links.md. Those files hold aliases as
+          # documentation examples. Every other README.md is fair game, per
+          # DOCS-6481. They are git pathspecs rather than a filter pipeline so
+          # that one command produces the list, with no shell globbing and no
+          # dependence on a particular grep.
+          CHANGED_MD="$RUNNER_TEMP/changed-md.nul"
+
+          git fetch --no-tags --quiet origin \
+            "+refs/heads/$BASE_REF:refs/remotes/origin/$BASE_REF"
+
+          # NUL-delimited, so a path containing a space cannot split.
+          # --diff-filter=d drops files the PR deleted; they cannot be sed-ed.
+          git diff --name-only --diff-filter=d -z \
+            "refs/remotes/origin/$BASE_REF...HEAD" -- \
+            '*.md' \
+            ':(exclude)dev-docs/' \
+            ':(exclude).claude/' \
+            ':(exclude)README.md' \
+            ':(exclude)pdf/README.md' \
+            ':(exclude,glob)**/CONTRIBUTING.md' \
+            ':(exclude,glob)**/general-resources/about/readme/about-links.md' \
+            > "$CHANGED_MD"
+
+          echo "CHANGED_MD=$CHANGED_MD" >> "$GITHUB_ENV"
+
+          echo "Markdown files in scope for alias expansion:"
+          tr '\0' '\n' < "$CHANGED_MD"
+
       - name: Expand GitBook aliases (Stable Version)
         run: |
-          set -e
-          echo "Expanding GitBook aliases in link targets, excluding protected files..."
+          set -eu
+
+          if [ ! -s "$CHANGED_MD" ]; then
+            echo "No Markdown files changed in this PR; nothing to expand."
+            exit 0
+          fi
+
+          echo "Expanding GitBook aliases in link targets..."
 
           # An alias is only rewritten where it is a link target: directly after
           # a Markdown link's "](", after a reference-style link definition's
@@ -36,14 +98,7 @@ jobs:
           #
           # Keep the prefix group in sync with the "Fail on an unexpanded alias"
           # step below, which reports what this step could not expand.
-          find . -type f -name "*.md" \
-            ! -path "./dev-docs/*" \
-            ! -path "./.claude/*" \
-            ! -path "./README.md" \
-            ! -path "./pdf/README.md" \
-            ! -name "CONTRIBUTING.md" \
-            ! -path "*/general-resources/about/readme/about-links.md" \
-            -exec sed -E -i \
+          xargs -0 -r sed -E -i \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]server[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]galera[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]maxscale[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX#g' \
@@ -57,12 +112,21 @@ jobs:
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]mariadb-cloud[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]release-notes[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]general-resources[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E/about/readme#g' \
-            {} +
+            < "$CHANGED_MD"
 
           echo "Git status after expansion:"
           git status --short
+
       - name: Commit and push changes back to PR branch
+        env:
+          # Not interpolated into the script body: a branch name is
+          # attacker-controlled on a public repository, and this job holds
+          # write access to PR branches (DOCS-6401, and the house rule
+          # link-check-pr.yml already follows, DOCS-6361).
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
+          set -eu
+
           if git diff --quiet; then
             echo "No alias replacements needed."
             exit 0
@@ -73,12 +137,13 @@ jobs:
 
           git commit -am "docs: expand GitBook aliases"
 
-          BRANCH="${{ github.event.pull_request.head.ref }}"
-          echo "Pushing to PR branch: $BRANCH"
+          echo "Pushing to PR branch: $HEAD_REF"
+          git push origin "HEAD:refs/heads/$HEAD_REF"
 
-          git push origin HEAD:$BRANCH
       - name: Fail on an unexpanded alias
         run: |
+          set -eu
+
           # An alias-looking string still sitting in a link target after the
           # expansion above is a name this workflow does not know -- a typo, or
           # a new space nobody added to the list. Nothing downstream catches
@@ -90,19 +155,17 @@ jobs:
           # This runs after the push so the legitimate expansions are still
           # committed to the PR branch when it fails.
           #
-          # The file list matches the expansion step deliberately. The excluded
-          # files hold aliases as documentation examples, so a check covering
-          # them would need an allowlist of nearly everything it scans, and a
-          # broader pattern would fire on the CMAPI hostname placeholders.
-          LEFTOVER=$(find . -type f -name "*.md" \
-            ! -path "./dev-docs/*" \
-            ! -path "./.claude/*" \
-            ! -path "./README.md" \
-            ! -path "./pdf/README.md" \
-            ! -name "CONTRIBUTING.md" \
-            ! -path "*/general-resources/about/readme/about-links.md" \
-            -print0 \
-            | xargs -0 grep -nE '(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{][A-Za-z0-9_-]+[}]' || true)
+          # It reads the same file list as the expansion step, which also keeps
+          # it from failing a PR over an unknown alias in a file that PR never
+          # touched -- something no author could fix from their own branch.
+          if [ ! -s "$CHANGED_MD" ]; then
+            echo "No Markdown files changed in this PR; nothing to check."
+            exit 0
+          fi
+
+          LEFTOVER=$(xargs -0 -r grep -nE \
+            '(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{][A-Za-z0-9_-]+[}]' \
+            < "$CHANGED_MD" || true)
 
           if [ -n "$LEFTOVER" ]; then
             echo "::error::Unknown GitBook alias left unexpanded in a link target"
