@@ -163,7 +163,14 @@ jobs:
             exit 0
           fi
 
-          LEFTOVER=$(xargs -0 -r grep -nE \
+          # -H is load-bearing, do not drop it: grep prints "file:line:text" only when it
+          # gets SEVERAL files, and bare "line:text" when it gets ONE. The old whole-tree
+          # find always passed hundreds of paths, so the filename was always there; scoping
+          # to the PR's changed files makes the one-file call ordinary -- and one changed
+          # Markdown file is the most common PR shape in this repo. -H also covers the
+          # corner where xargs batch-splitting leaves a single file in the final batch.
+          # Verified on GNU grep 3.12 and ugrep 7.8.4. Found in review of PR #1015.
+          LEFTOVER=$(xargs -0 -r grep -nHE \
             '(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{][A-Za-z0-9_-]+[}]' \
             < "$CHANGED_MD" || true)
 
