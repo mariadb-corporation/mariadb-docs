@@ -239,7 +239,7 @@ Managing replication topologies manually can be highly complex. MariaDB MaxScale
 
 * In [Asynchronous / Semisynchronous Setups](semisynchronous-replication.md): MaxScale acts as a traffic cop, automatically routing `SELECT`queries to your replicas and `INSERT`/`UPDATE` queries to your primary. If the primary fails, MaxScale can automatically promote a replica and reroute traffic without application downtime.
 * In [Galera Cluster](../../architecture/topologies/galera-cluster/) Setups: MaxScale transparently masks node failures or evictions by routing traffic only to healthy nodes. It can also perform intelligent read/write splitting across the cluster to optimize overall throughput.
-* In [MariaDB Enterprise Cluster](https://mariadb.com/resources/blog/redefining-high-availability-introducing-mariadb-advanced-cluster-technical-preview/) Setups: [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-quickstart-guides/mariadb-maxscale-guide) automatically detects the current Raft leader to ensure writes are routed appropriately, while load balancing read queries across the follower nodes.
+* In [MariaDB Enterprise Cluster](https://mariadb.com/resources/blog/redefining-high-availability-introducing-mariadb-advanced-cluster-technical-preview/) Setups: [MaxScale]({maxscale}/) automatically detects the current Raft leader to ensure writes are routed appropriately, while load balancing read queries across the follower nodes.
 
 {% hint style="info" %}
 MaxScale is a commercial MariaDB Enterprise product, which should be factored into your architectural decision-making. For technical implementation details, refer to the [MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/) documentation.
