@@ -25,7 +25,8 @@ A reference-style link definition works the same way:
 The `expand-gitbook-aliases.yml` Action rewrites `{galera}` to the full
 `https://app.gitbook.com/...` URL on the PR branch automatically. The expansion is committed
 back to the PR branch as `docs: expand GitBook aliases` from the `github-actions` bot — expect
-that follow-up commit to appear shortly after opening or pushing to a PR.
+that follow-up commit to appear shortly after opening or pushing to a PR. It touches only the
+Markdown files your own PR changes, so that follow-up commit never edits a file you didn't.
 
 ## Available aliases
 
@@ -76,3 +77,11 @@ that follow-up commit to appear shortly after opening or pushing to a PR.
   `pdf/README.md`, `CONTRIBUTING.md`, everything under `dev-docs/` and `.claude/`, and
   `general-resources/about/readme/about-links.md`. Don't rely on alias expansion in those —
   write the raw `https://app.gitbook.com/o/<org>/s/<space>/path` URL instead.
+- **Expansion is scoped to your PR's own changed Markdown files.** It used to walk the whole
+  tree, so any alias that had reached `main` unexpanded was rewritten by whichever PR opened
+  next, handing that author a collateral edit to someone else's file (DOCS-6401). Two things
+  follow. Your PR is never blamed for an alias elsewhere in the repo — and, conversely, an
+  alias that lands on `main` without passing through a PR is never expanded and never
+  reported, because no PR changed that file. **So don't commit an aliased link directly to
+  `main`**: GitBook will publish the alias verbatim as a `github.com/...` URL that 404s. If
+  one gets there anyway, touching the file in any PR expands it.
