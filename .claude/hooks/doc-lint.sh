@@ -174,6 +174,15 @@ fi
 # Normalize a path's `.` and `..` segments textually — the target need not exist, which rules
 # out `realpath` (BSD realpath has no portable `-m`). A `..` that climbs above the repo root is
 # left in place, so the path simply fails the existence test below.
+#
+# Every array expansion below is guarded by a length test on purpose. Expanding "${arr[@]}" or
+# "${arr[*]}" on an EMPTY array is an "unbound variable" error under `set -u` before bash 4.4 —
+# i.e. on the bash 3.2 that stock macOS still ships, which is the portability floor this script
+# claims in its header. Unguarded, norm_path returned the EMPTY STRING for any include that
+# climbs out of its own directory ("server/../maxscale/x.md"): the `..` emptied the array, the
+# recompaction died, and every such include was then misreported as *unresolvable* while the
+# cross-space branch below became unreachable. The mirror image of DOCS-6409, which only bit on
+# Linux — same class, opposite platform. Found by doc-lint-test.sh (DOCS-6471).
 norm_path() {
   local seg out=() n
   local IFS='/'
@@ -182,13 +191,19 @@ norm_path() {
       ''|.) ;;
       ..) n=${#out[@]}
           if [ "$n" -gt 0 ] && [ "${out[$((n-1))]}" != ".." ]; then
-            unset "out[$((n-1))]"; out=("${out[@]}")   # compact: bash 3.2 leaves a hole
+            unset "out[$((n-1))]"                      # bash 3.2 leaves a hole
+            if [ "${#out[@]}" -gt 0 ]; then
+              out=("${out[@]}")                        # compact it, but only if anything is left
+            fi
           else
             out+=("..")
           fi ;;
       *) out+=("$seg") ;;
     esac
   done
+  if [ "${#out[@]}" -eq 0 ]; then
+    return 0                                           # nothing left: the empty path
+  fi
   printf '%s' "${out[*]}"
 }
 
