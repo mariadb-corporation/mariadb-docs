@@ -117,6 +117,15 @@ matches the database being accessed, only the **most specific** entry applies â€
 pattern matches the fewest database names â€” and only that entry's grants and denies are consulted.
 A deny recorded on a broader pattern is not added to a narrower entry that also matches.
 
+```sql
+DENY SELECT ON `h%`.* TO alice;
+GRANT SELECT ON hr.* TO alice;
+```
+
+Both entries match the `hr` database, but `hr` is the more specific one, so it is the only entry
+consulted: `alice` can read `hr` tables, and the deny never applies there. The deny does still
+apply to every other database matching `h%`, such as `helpdesk`.
+
 `DENY` follows the same matching rule as `GRANT` here; it is not privileged over it. Entries held
 through a [role](../../../security/user-account-management/roles/) or through `PUBLIC` are resolved
 the same way but separately, and then combined, so a deny that reaches the account by either route
