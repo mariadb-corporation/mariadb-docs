@@ -2970,7 +2970,7 @@
       * [Error 1407: Bad SQLSTATE](reference/error-codes/mariadb-error-codes-1400-to-1499/e1407.md)
       * [Error 1408: ready for connections. Version: socket: port:](reference/error-codes/mariadb-error-codes-1400-to-1499/e1408.md)
       * [Error 1409: Can't load value from file with fixed size rows to variable](reference/error-codes/mariadb-error-codes-1400-to-1499/e1409.md)
-      * [Error 1410: You are not allowed to create a user with GRANT](reference/error-codes/mariadb-error-codes-1400-to-1499/e1410.md)
+      * [Error 1410: You are not allowed to create a user with %s](reference/error-codes/mariadb-error-codes-1400-to-1499/e1410.md)
       * [Error 1411: Incorrect value for function](reference/error-codes/mariadb-error-codes-1400-to-1499/e1411.md)
       * [Error 1412: Table definition has changed, please retry transaction](reference/error-codes/mariadb-error-codes-1400-to-1499/e1412.md)
       * [Error 1413: Duplicate handler declared in the same block](reference/error-codes/mariadb-error-codes-1400-to-1499/e1413.md)
