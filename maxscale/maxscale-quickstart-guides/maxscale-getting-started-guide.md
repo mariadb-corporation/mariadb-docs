@@ -1,11 +1,11 @@
 ---
 description: >-
-  Follow step-by-step instructions to install MariaDB MaxScale on major Linux
-  distributions. This guide covers repository configuration and package
-  installation.
+  Get MariaDB MaxScale running on major Linux distributions: key concepts,
+  package installation, and a first working configuration with servers, a
+  monitor, a service, and a listener.
 ---
 
-# MariaDB MaxScale Installation Guide
+# MaxScale Getting Started Guide
 
 ## Quickstart Guide: MariaDB MaxScale
 
@@ -230,6 +230,5 @@ mariadb -h 127.0.0.1 -P 3306 -u my-user -p
 
 * [MariaDB MaxScale Installation Guide](../maxscale-management/installation-and-configuration/maxscale-installation-guide.md)
 * [MariaDB MaxScale Configuration Guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md)
-* [MariaDB MaxScale GitHub Repository](https://github.com/mariadb-corporation/MaxScale)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

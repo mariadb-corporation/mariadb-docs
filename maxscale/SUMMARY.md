@@ -3,7 +3,7 @@
 * [MariaDB MaxScale](README.md)
 * [Quickstart Guides](maxscale-quickstart-guides/README.md)
   * [MariaDB MaxScale Beginner's Guide](maxscale-quickstart-guides/maxscale-beginner-guide.md)
-  * [MariaDB MaxScale Installation Guide](maxscale-quickstart-guides/mariadb-maxscale-installation-guide.md)
+  * [MaxScale Getting Started Guide](maxscale-quickstart-guides/maxscale-getting-started-guide.md)
   * [MariaDB MaxScale Authenticators Guide](maxscale-quickstart-guides/mariadb-maxscale-authenticators-guide.md)
 * [MaxScale Architecture](maxscale-architecture/README.md)
   * [About MariaDB MaxScale](maxscale-architecture/mariadb-maxscale-guide.md)
