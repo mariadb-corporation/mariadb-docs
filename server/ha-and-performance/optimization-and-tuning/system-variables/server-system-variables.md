@@ -85,11 +85,11 @@ Variables that take a numeric size can either be specified in full, or with a su
 | Suffix | Description | Value                                                                                                                   |
 | ------ | ----------- | ----------------------------------------------------------------------------------------------------------------------- |
 | K      | kilobytes   | 1024                                                                                                                    |
-| M      | megabytes   | 10242                                                                                                                   |
-| G      | gigabytes   | 10243                                                                                                                   |
-| T      | terabytes   | 10244 (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)) |
-| P      | petabytes   | 10245 (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)) |
-| E      | exabytes    | 10246 (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)) |
+| M      | megabytes   | 1024<sup>2</sup>                                                                                                        |
+| G      | gigabytes   | 1024<sup>3</sup>                                                                                                        |
+| T      | terabytes   | 1024<sup>4</sup> (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)) |
+| P      | petabytes   | 1024<sup>5</sup> (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)) |
+| E      | exabytes    | 1024<sup>6</sup> (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)) |
 
 The suffix can be upper or lower-case.
 
