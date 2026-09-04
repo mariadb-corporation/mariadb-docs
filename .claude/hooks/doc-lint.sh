@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 #
 # doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
-# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus four checks that have no CI
-# counterpart (see below): a GitBook include resolver, a heading-anchor gate, an orphaned-page
-# (nav coverage) gate, and a net line-loss guard.
+# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus four checks it delegates to
+# their own scripts: a GitBook include resolver (includecheck.sh, gated in CI by
+# includecheck-pr.yml since DOCS-6586), a heading-anchor gate (fragcheck.py, gated by
+# fragcheck-pr.yml), an orphaned-page/nav-coverage gate and a net line-loss guard — the last
+# two still have NO CI counterpart, which is the rest of DOCS-6586.
 #
 # The pre-commit hook, the /precommit command, the docs-check skill, and dev-docs/cookbook-pre-pr.md
 # all delegate here instead of re-spelling the flags, so the CI-mirroring options live in exactly
@@ -154,97 +156,39 @@ else
   echo "doc-lint: lychee not installed — SKIPPED (CI will run it). Install: https://github.com/lycheeverse/lychee" >&2
 fi
 
-# --- GitBook include resolver — NO CI counterpart -------------------------------------------
-# `{% include "../.gitbook/includes/foo.md" %}` is GitBook template syntax, not a Markdown link,
-# so lychee cannot see it: a dead include renders as *nothing* and the page silently loses a
-# section. DOCS-6372 found two live cases that way (a 13.1 post-download page missing its
-# "most recent release" bullet, and a MaxScale CVE page missing its copyright footnote).
+# --- GitBook include resolver — HAS a CI counterpart since DOCS-6586 ------------------------
+# The resolver itself now lives in .claude/hooks/includecheck.sh, which is also what
+# .github/workflows/includecheck-pr.yml runs; that header carries the full rationale. It was
+# extracted rather than duplicated because routing the workflow through THIS script would have
+# dragged in the checks either side of it — codespell and lychee, which have their own
+# workflows, and the orphan guard, which is still waiting on DOCS-6586's acknowledgment-path
+# decision and has no skip flag to hold it back with.
 #
-# Two failure modes are checked:
-#   1. target does not exist;
-#   2. target exists but lies in a different space. Each top-level directory is a separate
-#      GitBook space with its own Git-sync root, so a relative include may not cross that
-#      boundary even though the path resolves fine on disk. Cross-space reuse must instead use
-#      the by-ID form, `{% include "https://app.gitbook.com/s/<space>/~/reusable/<id>/" %}`.
-#
-# Needs no external tool, so unlike the two checks above it can never be silently SKIPPED.
-# `.claude/` and `dev-docs/` are exempt: they document the syntax with deliberate placeholders
-# (`<snippet>.md`, `rc12345`) that are not meant to resolve.
-
-# Normalize a path's `.` and `..` segments textually — the target need not exist, which rules
-# out `realpath` (BSD realpath has no portable `-m`). A `..` that climbs above the repo root is
-# left in place, so the path simply fails the existence test below.
-#
-# Every array expansion below is guarded by a length test on purpose. Expanding "${arr[@]}" or
-# "${arr[*]}" on an EMPTY array is an "unbound variable" error under `set -u` before bash 4.4 —
-# i.e. on the bash 3.2 that stock macOS still ships, which is the portability floor this script
-# claims in its header. Unguarded, norm_path returned the EMPTY STRING for any include that
-# climbs out of its own directory ("server/../maxscale/x.md"): the `..` emptied the array, the
-# recompaction died, and every such include was then misreported as *unresolvable* while the
-# cross-space branch below became unreachable. The mirror image of DOCS-6409, which only bit on
-# Linux — same class, opposite platform. Found by doc-lint-test.sh (DOCS-6471).
-norm_path() {
-  local seg out=() n
-  local IFS='/'
-  for seg in $1; do
-    case "$seg" in
-      ''|.) ;;
-      ..) n=${#out[@]}
-          if [ "$n" -gt 0 ] && [ "${out[$((n-1))]}" != ".." ]; then
-            unset "out[$((n-1))]"                      # bash 3.2 leaves a hole
-            if [ "${#out[@]}" -gt 0 ]; then
-              out=("${out[@]}")                        # compact it, but only if anything is left
-            fi
-          else
-            out+=("..")
-          fi ;;
-      *) out+=("$seg") ;;
-    esac
-  done
-  if [ "${#out[@]}" -eq 0 ]; then
-    return 0                                           # nothing left: the empty path
-  fi
-  printf '%s' "${out[*]}"
-}
-
-# Space = first path component (`server/...` -> `server`); a file at the repo root has none.
-space_of() {
-  case "$1" in
-    */*) printf '%s' "${1%%/*}" ;;
-    *)   printf '%s' '<root>' ;;
-  esac
-}
-
-# `grep | while` puts the loop body in a subshell, so it cannot set `rc` directly — failures are
-# tallied in a temp file instead.
-# Use a positional template, not `-t <prefix>`: GNU coreutils rejects a `-t` template with no
-# X's ("too few X's in template"), which made this exit 2 on every Linux run — and since it sits
-# before the checks below, it took the include resolver and the shrink guard down with it. The
-# positional form works on both GNU and BSD/macOS mktemp. (Regression from DOCS-6372, f2b5e332c.)
-inc_fail="$(mktemp "${TMPDIR:-/tmp}/doclint-inc.XXXXXX")" || { echo "doc-lint: mktemp failed" >&2; exit 2; }
-trap 'rm -f "$inc_fail"' EXIT
-
-for f in "${files[@]}"; do
-  f="${f#./}"
-  case "$f" in .claude/*|dev-docs/*) continue ;; esac
-  grep -n -o '{%[[:space:]]*include[[:space:]]*"[^"]*"' "$f" 2>/dev/null | while IFS= read -r hit; do
-    lineno="${hit%%:*}"
-    target="${hit#*\"}"; target="${target%\"}"   # strip both quotes, not just the opening one
-    case "$target" in http*) continue ;; esac
-    dir="${f%/*}"; [ "$dir" = "$f" ] && dir='.'
-    resolved="$(norm_path "$dir/$target")"
-    if [ ! -f "$resolved" ]; then
-      echo "doc-lint: unresolvable include at $f:$lineno -> $target (no such file: $resolved)" >&2
-      echo x >>"$inc_fail"
-    elif [ "$(space_of "$resolved")" != "$(space_of "$f")" ]; then
-      echo "doc-lint: cross-space include at $f:$lineno -> $target" >&2
-      echo "          resolves into space '$(space_of "$resolved")' but the page is in '$(space_of "$f")';" >&2
-      echo "          use the by-ID form instead: {% include \"https://app.gitbook.com/s/<space>/~/reusable/<id>/\" %}" >&2
-      echo x >>"$inc_fail"
-    fi
-  done
-done
-[ -s "$inc_fail" ] && rc=1
+# Needs no external tool, so unlike every other check here it can never be SKIPPED. The one
+# difference between the two callers is scope, and it is deliberate: this passes the caller's
+# files (a pre-commit hook has no business scanning 9,700 pages), while CI runs the whole tree,
+# because deleting one shared target breaks every page that includes it and a changed-files
+# check cannot see those pages. Measured: removing platform/.gitbook/includes/most-recent-10.11.md
+# breaks 20 post-download pages the commit never touches.
+# Resolved relative to THIS script, not the working directory. The two are the same in every
+# real invocation (both CI and the hooks run from the repo root), but they are not the same in
+# doc-lint-test.sh, which runs this script from the repo while CWD is a throwaway sandbox. A
+# CWD-relative path would have made the resolver unreachable there — i.e. the six include cases
+# would have gone on passing while testing the "script missing" branch instead of the resolver.
+# The other two delegated scripts are deliberately left CWD-relative: the suite depends on their
+# being absent to exercise their SKIP branches.
+INCLUDECHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/includecheck.sh"
+if [ ! -f "$INCLUDECHECK" ]; then
+  # NOT a SKIP. Every other missing dependency here is a missing external TOOL, which a
+  # contributor may legitimately not have; this script is checked in next to this one, so its
+  # absence means a broken checkout, and a check that cannot run must not report success.
+  echo "doc-lint: $INCLUDECHECK not found — cannot resolve GitBook includes." >&2
+  echo "          It is checked in beside this script, so this is a broken checkout, not a" >&2
+  echo "          missing tool. Nothing else can catch a dead include." >&2
+  rc=1
+else
+  bash "$INCLUDECHECK" "${files[@]}" >/dev/null || rc=1
+fi
 
 # --- GitBook heading anchors — NO CI counterpart --------------------------------------------
 # A link to `page.md#some-heading` can rot in two ways that every other gate here is blind

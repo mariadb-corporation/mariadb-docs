@@ -137,6 +137,10 @@ build_sandbox() {
     > "$SANDBOX/server/remote-include.md"
   # Both directories are exempt from the include resolver: they document the syntax with
   # placeholders that are not meant to resolve.
+  # A path with a space in it, for the --stdin0 case. The whole point of NUL-delimiting is that
+  # this cannot split into two arguments, and a space is the cheapest way to prove it.
+  printf '# Spaced Name\n\n{%% include "../.gitbook/includes/nope.md" %%}\n' \
+    > "$SANDBOX/server/dead include with spaces.md"
   printf '# Docs About Includes\n\n{%% include "nope.md" %%}\n' > "$SANDBOX/dev-docs/exempt.md"
   printf '# Hook Notes\n\n{%% include "nope.md" %%}\n'          > "$SANDBOX/.claude/exempt.md"
 
@@ -232,6 +236,37 @@ lint() {
   fi
 }
 
+# inc <cwd> -- <includecheck args...>
+# The same contract as lint(), against includecheck.sh directly. It exists because the script is
+# now a CI entry point in its own right (includecheck-pr.yml), so its argument handling, its
+# --stdin0 mode and its exit codes are a public surface, not internals reachable only through
+# doc-lint.sh. Reads stdin from $INC_STDIN when that is set, so the --stdin0 branch is testable.
+INCLUDECHECK="$SCRIPT_DIR/includecheck.sh"
+INC_STDIN=''
+inc() {
+  local cwd="$1"; shift
+  [ "$1" = '--' ] && shift
+
+  set +e
+  if [ -n "$INC_STDIN" ]; then
+    ( cd "$SANDBOX/$cwd" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        bash "$INCLUDECHECK" "$@" < "$INC_STDIN" ) > "$OUT" 2> "$ERR"
+  else
+    ( cd "$SANDBOX/$cwd" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        bash "$INCLUDECHECK" "$@" < /dev/null ) > "$OUT" 2> "$ERR"
+  fi
+  RC=$?
+  set -e
+}
+
+# nul_list <path> <name...> — write NUL-delimited names, the way `git ls-files -z` emits them.
+nul_list() {
+  local out="$1"; shift
+  : > "$out"
+  local n
+  for n in "$@"; do printf '%s\0' "$n" >> "$out"; done
+}
+
 begin() { CURRENT="$1"; CASE_OK=1; }
 
 problem() {
@@ -270,6 +305,10 @@ want_err() {
 want_no_err() {
   grep -qF -- "$1" "$ERR" && problem "did NOT expect \"$1\" on stderr"
   return 0
+}
+
+want_out() {
+  grep -qF -- "$1" "$OUT" || problem "expected \"$1\" on stdout"
 }
 
 want_empty_stdout() {
@@ -318,7 +357,9 @@ want_no_err 'unresolvable include'
 want_no_err 'gutted page'
 end
 
-# ---- GitBook include resolver (DOCS-6372; no CI counterpart) ---------------------------------
+# ---- GitBook include resolver (DOCS-6372; gated in CI by includecheck-pr.yml, DOCS-6586) -----
+# These first cases go through doc-lint.sh, which is how the pre-commit hook reaches the
+# resolver. The block below them drives includecheck.sh directly, which is how CI does.
 
 begin 'a resolvable same-space include passes'
 lint . - "$NOFRAG" -- server/ok-include.md
@@ -355,6 +396,78 @@ lint . - "$NOFRAG" -- server/dead-include.md server/cross-space.md
 want_rc 1
 want_err 'unresolvable include'
 want_err 'cross-space include'
+end
+
+# ---- includecheck.sh as its own entry point (DOCS-6586) --------------------------------------
+# The resolver moved out of doc-lint.sh so that CI could run it WITHOUT the checks either side
+# of it. That makes the script's own CLI a contract: includecheck-pr.yml depends on --stdin0
+# reading the tree from `git ls-files -z`, and on exit 2 meaning "misconfigured workflow" rather
+# than "the PR is fine".
+
+begin 'includecheck.sh with no arguments is a usage error, not a silent pass'
+inc . --
+want_rc 2
+want_err 'usage:'
+end
+
+begin 'a dead include found through --stdin0'
+nul_list "$SANDBOX/.list" 'server/dead-include.md'
+INC_STDIN="$SANDBOX/.list" inc . -- --stdin0
+INC_STDIN=''
+want_rc 1
+want_err 'unresolvable include'
+end
+
+begin '--stdin0 does not split a path containing a space'
+nul_list "$SANDBOX/.list" 'server/dead include with spaces.md'
+INC_STDIN="$SANDBOX/.list" inc . -- --stdin0
+INC_STDIN=''
+want_rc 1
+# The whole name, in one piece. Split on the space, each half would be a nonexistent path,
+# get filtered out, and the run would pass green with nothing checked.
+want_err 'server/dead include with spaces.md'
+end
+
+begin '--stdin0 on clean input reports the counts on stdout'
+nul_list "$SANDBOX/.list" 'server/ok-include.md' 'server/clean.md'
+INC_STDIN="$SANDBOX/.list" inc . -- --stdin0
+INC_STDIN=''
+want_rc 0
+# A gate has to be able to prove it did something: "1 include across 2 files" and "0 includes
+# across 0 files" are the same exit code and must not be the same output.
+want_out '1 relative include(s) across 2 file(s)'
+end
+
+begin '--stdin0 on empty input says so rather than claiming a clean tree'
+nul_list "$SANDBOX/.list"
+INC_STDIN="$SANDBOX/.list" inc . -- --stdin0
+INC_STDIN=''
+want_rc 0
+want_out 'no Markdown or HTML files'
+end
+
+begin '--stdin0 rejects extra arguments'
+inc . -- --stdin0 server/clean.md
+want_rc 2
+want_err 'usage:'
+end
+
+begin 'a missing includecheck.sh fails doc-lint.sh — it is not a SKIP'
+# Every other dependency doc-lint.sh delegates to is an external TOOL a contributor may
+# legitimately not have, so those are SKIPs. This one is checked in beside it, so its absence
+# is a broken checkout, and a check that cannot run must not report success. Exercised by
+# copying doc-lint.sh somewhere with no sibling next to it.
+mkdir -p "$SANDBOX/lonely"
+cp "$DOC_LINT" "$SANDBOX/lonely/doc-lint.sh"
+set +e
+( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" "TMPDIR=${TMPDIR:-/tmp}" \
+    DOC_LINT_SKIP_FRAGMENTS=1 \
+    bash "$SANDBOX/lonely/doc-lint.sh" server/clean.md ) > "$OUT" 2> "$ERR"
+RC=$?
+set -e
+want_rc 1
+want_err 'cannot resolve GitBook includes'
+want_err 'broken checkout'
 end
 
 # ---- net line-loss guard (DOCS-6470 / DOCS-6442; no CI counterpart) --------------------------

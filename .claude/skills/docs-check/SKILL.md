@@ -57,13 +57,20 @@ on the file set, from the repo root:
   expand them.
 - It also resolves every relative `{% include %}` and fails on a **missing target** or one that
   **crosses a space boundary** (each top-level directory is a separate GitBook space, so a
-  relative include may not leave it — cross-space reuse must use the by-ID form). This check has
-  **no CI counterpart** and needs no external tool, so it never reports SKIPPED. It matters
+  relative include may not leave it — cross-space reuse must use the by-ID form). It needs no
+  external tool, so it never reports SKIPPED. It matters
   because a dead include renders as *nothing* — the page silently loses a section, and lychee
   cannot see `{% include %}` at all since it is template syntax, not a Markdown link. To fix,
   correct the `../` depth, or switch to
   `{% include "https://app.gitbook.com/s/<spaceId>/~/reusable/<reusableId>/" %}` when the snippet
-  genuinely lives in another space. Added in DOCS-6372.
+  genuinely lives in another space. Added in DOCS-6372; gated in CI by `includecheck-pr.yml`
+  since DOCS-6586, which is also when the resolver moved into its own
+  `.claude/hooks/includecheck.sh`. **CI scans the whole tree while this runs on the changed
+  files**, because deleting one shared `<space>/.gitbook/includes/` target breaks every page that
+  includes it and none of those pages are in the diff — so expect CI to be able to fail on a page
+  the author never opened, and reproduce it with
+  `git ls-files -z -- '*.md' '*.html' | .claude/hooks/includecheck.sh --stdin0`. There is no
+  acknowledgment path and should not be one: a dead include is always a bug.
 - It also gates **GitBook heading anchors** — a link to `page.md#some-heading` whose anchor no
   longer exists. No CI counterpart, and unlike every other check here it is *history-aware*: it
   reports only anchors that resolved at `DOC_LINT_BASE` (default `HEAD`) and are dead now, so the
