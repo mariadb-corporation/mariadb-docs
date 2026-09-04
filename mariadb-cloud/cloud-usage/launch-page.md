@@ -71,7 +71,9 @@ Choose how the service accepts connections:
 
 ## Basic attributes
 
-Select the **MariaDB Version** (with a link to its release notes) and enter a **Service Name**.
+Select the **MariaDB Version** (with a link to its release notes) and enter a **Service Name**. The version list is the same for serverless and provisioned services, and the default version is pre-selected.
+
+For **serverless** services, the default version launches from a ready instance and starts in milliseconds. Choosing any other version builds the database on demand, so it takes longer to launch — the page notes this below the picker when you select one. The service is serverless either way; only the launch differs. Choosing a version other than the default requires a paid plan; on a trial with no payment method on file, only the default version is listed.
 
 ## Advanced options
 

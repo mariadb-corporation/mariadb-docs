@@ -54,6 +54,21 @@ Every MariaDB Cloud account includes a perpetually free serverless database perf
 * Auto-scaling up to 2 SCUs (MariaDB Cloud Compute Units)
 * No time limits or restrictions
 
+## MariaDB Server Versions
+
+Serverless databases run the same MariaDB Server builds as provisioned single-node databases, so you are not limited to the newest release. Choose the version with the **MariaDB Version** picker on the [Launch page](../cloud-usage/launch-page.md#basic-attributes).
+
+* **Default version** — MariaDB Cloud keeps instances ready on this version, which is what makes the instant start possible. It is pre-selected in the picker.
+* **Any other available version** — the database is built on demand, because ready instances are kept only for the default version. It is still a fully serverless database — it scales to zero, resumes on connection, and bills by MCU-hour exactly as the default version does. Only the launch takes longer than an instant start.
+
+{% hint style="info" %}
+Selecting a version other than the default requires a paid plan. On a trial with no payment method on file, the version picker offers the default version only.
+{% endhint %}
+
+Which MariaDB Server versions are offered also depends on your [service tier](service-tiers.md): MariaDB Enterprise Server builds are available on the Power and PowerPlus tiers, and MariaDB Community Server builds on all tiers. See [MariaDB Server Version Support](../reference/mariadb-server-versions.md).
+
+Minor version upgrades are supported for Serverless databases. An upgrade must stay within the same major version — MariaDB Cloud does not upgrade a database across major versions, and does not downgrade.
+
 ## Architecture Highlights
 
 ### Compute-Storage Approach
