@@ -7,7 +7,8 @@ Code. It contains:
 |------|------------|
 | `settings.json` | Project settings, incl. the `PreToolUse(Bash)` hook wiring |
 | `settings.local.json` | **Personal** overrides — gitignored, never committed |
-| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus four checks with no CI counterpart: includes, heading anchors, orphaned pages, gutted pages |
+| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus four checks it delegates to their own scripts: includes (`includecheck.sh`), heading anchors (`fragcheck.py`), orphaned pages and gutted pages (`navcheck.py` and an inline guard) |
+| `hooks/includecheck.sh` | Resolves every relative GitBook `{% include %}`; fails on a dead or cross-space target. Also the entry point for `includecheck-pr.yml` (DOCS-6586), which runs it tree-wide |
 | `hooks/fragcheck.py` | GitBook-accurate heading-anchor checker, called by `doc-lint.sh` |
 | `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` |
 | `hooks/pre-commit.sh` | PreToolUse hook: gates Claude-made `git commit`s by calling `doc-lint.sh` |
@@ -114,7 +115,11 @@ that could have noticed was a Linux one, and nothing on Linux ever ran the scrip
 `hooks/doc-lint-test.sh` is the gate for that class. It builds fixtures in a throwaway git repo
 under `TMPDIR` — it never reads this checkout's content — and asserts exit codes and messages for
 the include resolver, the gutted-page guard, the env-var knobs, the repo-root guard, and every
-"tool not installed" SKIP branch. Run it after any change to `doc-lint.sh`:
+"tool not installed" SKIP branch. Since DOCS-6586 it also covers `includecheck.sh` as its own
+entry point — its `--stdin0` mode, its usage errors, and the fact that a missing
+`includecheck.sh` FAILS `doc-lint.sh` rather than SKIPping (every other dependency is an external
+tool a contributor may not have; that one is checked in beside it, so its absence is a broken
+checkout). Run it after any change to `doc-lint.sh` or `includecheck.sh`:
 
 ```bash
 .claude/hooks/doc-lint-test.sh              # --keep to inspect the sandbox, --verbose for output

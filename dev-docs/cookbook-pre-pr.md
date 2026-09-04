@@ -11,13 +11,15 @@ skill, which runs them for you; this page documents what it does and how to run 
 | Spelling (content + filenames) | `codespell` | `codespell.yml` |
 | Broken links | `lychee` | `link-check-pr.yml` |
 | Heading anchors | `fragcheck.py new` | `fragcheck-pr.yml` |
+| GitBook includes | `includecheck.sh --stdin0` | `includecheck-pr.yml` |
 | Alias expansion | sed (auto-commit) | `expand-gitbook-aliases.yml` |
 | Help-tables regen | Python | `generate-help-tables.yml` |
 
-Only the first three can fail your PR; aliases and help-tables are regenerated automatically.
+Only the first four can fail your PR; aliases and help-tables are regenerated automatically.
 
-The heading-anchor gate arrived in DOCS-6524 and closed the one rot class that used to have no
-CI counterpart at all. Two consequences worth knowing:
+The heading-anchor gate arrived in DOCS-6524, and the include gate in DOCS-6586; between them
+they close two of the four rot classes that used to be checked only on your own machine. Two
+consequences worth knowing:
 
 - **It is no longer only a local check.** Before, the anchor gate ran only via `/precommit`, the
   `docs-check` skill, and the Claude Code pre-commit hook — and that hook covers only commits
@@ -49,10 +51,28 @@ only in that script), exits non-zero on a real failure, and prints a `SKIPPED` n
 tool that isn't installed (CI still runs it).
 
 It also resolves every relative `{% include %}` in the file set and fails on a **missing target**
-or one that **crosses a space boundary**. That check has **no CI counterpart** — `{% include %}`
-is GitBook template syntax, not a Markdown link, so lychee is blind to it and a dead include just
-renders as nothing, silently dropping a section from the page. It needs no external tool, so it
-never SKIPs. (Added in DOCS-6372, which found two live cases this way.)
+or one that **crosses a space boundary**. `{% include %}` is GitBook template syntax, not a
+Markdown link, so lychee is blind to it and a dead include just renders as nothing, silently
+dropping a section from the page. It needs no external tool, so it never SKIPs. (Added in
+DOCS-6372, which found two live cases this way.)
+
+Since DOCS-6586 this one **is** gated in CI, by `includecheck-pr.yml`, and the resolver itself
+lives in `.claude/hooks/includecheck.sh` — `doc-lint.sh` delegates to it so both callers share
+one implementation. Two differences from the local run are worth knowing:
+
+* **CI checks the whole tree, not your changed files.** Deleting or renaming one shared target
+  under `<space>/.gitbook/includes/` breaks every page that includes it, and those pages are not
+  in your diff — removing `platform/.gitbook/includes/most-recent-10.11.md` breaks 20
+  post-download pages. So CI can fail on a page you never opened; that is the point, not a bug.
+  Reproduce it exactly with:
+
+  ```bash
+  git ls-files -z -- '*.md' '*.html' | .claude/hooks/includecheck.sh --stdin0
+  ```
+
+* **There is no acknowledgment path, deliberately.** Unlike the shrink and orphan guards, a dead
+  include has no legitimate form — fix the path, restore the target, or use the by-ID form for a
+  genuinely cross-space snippet.
 
 It also gates **heading anchors** — links of the form `page.md#some-heading`. This one is
 history-aware: it reports only anchors that resolved at `DOC_LINT_BASE` (default `HEAD`) and are
@@ -131,8 +151,9 @@ just the new ones. (Added in DOCS-6567.)
 
 Finally, it flags a **gutted page**: any file in the set that lost more than **40%** of its lines
 *net* (deletions minus additions, minimum 20 lines lost, pre-image at least 30 lines) against
-`DOC_LINT_BASE` (default `HEAD`). This has no CI counterpart either, and it exists because the
-other checks are blind to it — when a page loses most of its body but the surviving markup is
+`DOC_LINT_BASE` (default `HEAD`). Like the orphan gate above it, this one still has no CI
+counterpart; both are the remainder of DOCS-6586. It exists because the other checks are blind
+to it: when a page loses most of its body but the surviving markup is
 valid and the remaining links resolve, codespell and lychee both PASS. That is exactly what
 happened in DOCS-6442: a retirement campaign meant to delete one `{% columns %}` content-ref
 block from the Storage Engines landing page and deleted 23 of 24 instead (298 lines → 22,
