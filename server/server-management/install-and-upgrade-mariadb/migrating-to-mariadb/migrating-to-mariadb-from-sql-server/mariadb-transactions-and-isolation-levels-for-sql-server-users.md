@@ -163,7 +163,7 @@ The locks that a locking read acquires do depend on the isolation level. InnoDB 
 
 The default isolation level in MariaDB is `REPEATABLE READ`. This can be changed with the [transaction\_isolation](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_isolation) system variable. The older name `tx_isolation` still works, but has been deprecated since MariaDB 11.1 and produces a warning.
 
-Applications developed for SQL Server and later ported to MariaDB may run with `READ COMMITTED` without problems, since it is the level closest to the SQL Server default. Do not switch to it expecting better scalability: `READ COMMITTED` creates a new read view at the start of every statement, which under high concurrency can make it slower than `REPEATABLE READ`, not faster. See [Choosing an Isolation Level](../../../../reference/sql-statements/transactions/set-transaction.md#choosing-an-isolation-level).
+Applications developed for SQL Server and later ported to MariaDB may run with `READ COMMITTED` without problems, since it is the level closest to the SQL Server default. Do not switch to it as a scalability measure, though, because neither level is uniformly faster: `READ COMMITTED` creates a new read view at the start of every statement, which costs more in a transaction made of many short statements and less in a long-running transaction made of complex ones. See [Choosing an Isolation Level](../../../../reference/sql-statements/transactions/set-transaction.md#choosing-an-isolation-level).
 
 To use `READ COMMITTED` by default, add the following line to the MariaDB configuration file:
 

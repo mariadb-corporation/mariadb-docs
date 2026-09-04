@@ -157,6 +157,10 @@ Distributed [XA transactions](xa-transactions.md) should always use this isolati
 
 If the [innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) system variable is not set to `ON`, strictly speaking anything other than `READ UNCOMMITTED` is not clearly defined. While it is `ON`, an attempt to acquire a lock on a record that does not exist in the current read view raises an error and rolls the transaction back.
 
+Its default is not the same across supported releases. It is `ON` from MariaDB 11.6.2, and `OFF` in the earlier series that introduced it, which includes the 10.11 and 11.4 long-term releases. Advice to keep the default is therefore ambiguous; set the variable explicitly.
+
+Prefer `ON`, because it is what makes `REPEATABLE READ` behave as its name claims. The reason to choose `OFF` is application compatibility, not performance. With `ON`, an `UPDATE` or `DELETE` that touches a row changed since the transaction's snapshot fails with [ER\_CHECKREAD](../../error-codes/mariadb-error-codes-1000-to-1099/e1020.md) (1020) and the whole transaction is rolled back, exactly as for a deadlock; the server treats the two errors as the same class, and replication retries both. An application that already retries on `ER_LOCK_DEADLOCK` needs no change. A legacy application that does not handle `ER_CHECKREAD` the same way loses those transactions instead of retrying them, and `innodb_snapshot_isolation=OFF` gives it the MySQL-compatible — though not well-defined — behavior until it can be fixed.
+
 ### Access Mode
 
 {% tabs %}
@@ -175,7 +179,14 @@ It is not permitted to specify both `READ WRITE` and `READ ONLY` in the same sta
 
 ## Choosing an Isolation Level
 
-Stay on the default `REPEATABLE READ` unless the application needs the semantics of a different level. In particular, `READ COMMITTED` is not a throughput setting: it opens a new read view at the start of every statement, and under high concurrency the cost of building those snapshots can make it slower than `REPEATABLE READ`, not faster. That path was made cheaper by [MDEV-21423](https://jira.mariadb.org/browse/MDEV-21423) from MariaDB 11.8.9 and 12.3.3, which reduces the overhead without removing it.
+Stay on the default `REPEATABLE READ` unless the application needs the semantics of a different level. `READ COMMITTED` is not a throughput setting in either direction: which level costs more depends on the shape of the workload, because the two differ in *when* a read view is opened.
+
+At `READ COMMITTED`, every statement opens its own read view. At `REPEATABLE READ`, all statements share the read view taken when the transaction started. That single difference cuts both ways:
+
+* **Many short statements in a recently started transaction are more expensive at `READ COMMITTED`.** Opening a read view means collecting the identifiers of the read-write transactions that are currently active, and under high concurrency that collection is measurable. This is a common shape for web applications. [MDEV-21423](https://jira.mariadb.org/browse/MDEV-21423) reduced the cost from MariaDB 11.8.9 and 12.3.3 without removing it.
+* **Complex statements in a long-running transaction can be cheaper at `READ COMMITTED`.** Each statement is allowed to see more recent data, so rebuilding the row versions it needs walks less history. At `REPEATABLE READ` the read view stays fixed at the start of the transaction, and the older it gets, the further back through the undo history InnoDB has to walk to reconstruct the snapshot that a statement is entitled to see.
+
+So measure the workload rather than assume a direction.
 
 The reasons to choose `READ COMMITTED` are about behavior rather than speed:
 
@@ -187,7 +198,7 @@ What you give up in exchange:
 * Reads are no longer repeatable. Two identical `SELECT` statements in the same transaction can return different rows.
 * Statement-based binary logging is not available, as described under [Gap Locking at READ COMMITTED](#gap-locking-at-read-committed).
 
-Whichever level you choose, leave [innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) at its default. See [innodb\_snapshot\_isolation](#innodb_snapshot_isolation) above.
+[innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) is a separate decision from the isolation level, and one to make explicitly rather than inherit, because its default is not the same in every supported release. See [innodb\_snapshot\_isolation](#innodb_snapshot_isolation) above.
 
 ## Examples
 
