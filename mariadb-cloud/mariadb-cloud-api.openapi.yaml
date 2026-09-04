@@ -234,12 +234,6 @@ paths:
             retrieved.</p>
         - schema:
             type: string
-            enum:
-              - sa
-              - csdw
-              - es-replica
-              - es-single
-              - xpand
           description: The topology whose hardware architectures will be retrieved.
           name: topology
           in: query
@@ -327,12 +321,6 @@ paths:
           x-gitbook-description-html: <p>Provider name</p>
         - schema:
             type: string
-            enum:
-              - sa
-              - csdw
-              - es-replica
-              - es-single
-              - xpand
           description: Topology name
           name: topology
           in: query
@@ -1659,12 +1647,6 @@ paths:
       parameters:
         - schema:
             type: string
-            enum:
-              - sa
-              - csdw
-              - es-replica
-              - es-single
-              - xpand
           description: The topology whose node options will be retrieved.
           name: topology_name
           in: path
@@ -1774,12 +1756,6 @@ paths:
       parameters:
         - schema:
             type: string
-            enum:
-              - sa
-              - csdw
-              - es-replica
-              - es-single
-              - xpand
           description: The topology whose options will be retrieved.
           name: topology_name
           in: path
@@ -1885,12 +1861,6 @@ paths:
       parameters:
         - schema:
             type: string
-            enum:
-              - sa
-              - csdw
-              - es-replica
-              - es-single
-              - xpand
           description: The topology whose storage sizes will be retrieved.
           name: topology_name
           in: path
