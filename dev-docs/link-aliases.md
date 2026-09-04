@@ -85,3 +85,24 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
   reported, because no PR changed that file. **So don't commit an aliased link directly to
   `main`**: GitBook will publish the alias verbatim as a `github.com/...` URL that 404s. If
   one gets there anyway, touching the file in any PR expands it.
+- **The bot's own expansion commit is never checked automatically, and that needs a manual
+  approve.** The push fires a `synchronize` event, GitHub attributes the resulting runs to
+  `github-actions[bot]`, and parks every one of them in `action_required` — created, but not
+  started. So the green checks on a PR whose last commit is `docs: expand GitBook aliases`
+  belong to the commit *before* it. Unblock them by hand:
+
+  ```sh
+  gh run list -R mariadb-corporation/mariadb-docs -b <BRANCH> -L 8
+  gh api -X POST /repos/mariadb-corporation/mariadb-docs/actions/runs/<ID>/approve
+  ```
+
+  This is GitHub's recursion guard on `GITHUB_TOKEN`-triggered events, **not** a repository
+  setting, so there is no dropdown that turns it off. The repository's approval option is
+  *Require approval for first-time contributors*, which governs fork pull requests and cannot
+  reach a same-repository push; and the parking hits 100% of bot-triggered `pull_request` runs
+  across every branch and month on record, where a contributor policy would spare an identity
+  that has commits merged — which `github-actions[bot]` does (DOCS-6593). Two symptoms not to
+  misread. `gh pr checks` prints **no checks reported on the branch** and `statusCheckRollup`
+  comes back `[null, null]`; that is the parked state, not a tooling glitch. And a parked run
+  that is never approved flips to **failure with zero jobs** once the PR is closed or the branch
+  deleted, so a red run of that shape on an abandoned branch never ran and is nothing to chase.
