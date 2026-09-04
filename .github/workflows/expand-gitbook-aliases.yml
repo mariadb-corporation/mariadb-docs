@@ -73,6 +73,11 @@ jobs:
           tr '\0' '\n' < "$CHANGED_MD"
 
       - name: Expand GitBook aliases (Stable Version)
+        # Same-repository pull requests only. A pull request from a fork cannot
+        # be expanded at all, so it must not be expanded here either: the check
+        # step below is what reports the alias to its author, and it can only
+        # see an alias this step has left alone (DOCS-6589).
+        if: github.event.pull_request.head.repo.full_name == github.repository
         run: |
           set -eu
 
@@ -118,6 +123,17 @@ jobs:
           git status --short
 
       - name: Commit and push changes back to PR branch
+        # Same-repository pull requests only, for two independent reasons
+        # (DOCS-6589). GITHUB_TOKEN is read-only on a pull_request event whose
+        # head is a fork, whatever the permissions block above says, so the
+        # push 403s. And "origin" is the BASE repository, not the fork -- given
+        # a write token this would create a branch named after the
+        # contributor's branch inside mariadb-corporation/mariadb-docs, while
+        # the fork branch the pull request actually tracks stayed unexpanded.
+        # A wrong-target push, not a failed one. The auto-commit is a
+        # convenience; the check step below is the control, so forks get the
+        # check and no push.
+        if: github.event.pull_request.head.repo.full_name == github.repository
         env:
           # Not interpolated into the script body: a branch name is
           # attacker-controlled on a public repository, and this job holds
@@ -141,6 +157,8 @@ jobs:
           git push origin "HEAD:refs/heads/$HEAD_REF"
 
       - name: Fail on an unexpanded alias
+        env:
+          IS_FORK: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
         run: |
           set -eu
 
@@ -153,7 +171,9 @@ jobs:
           # here, which is the only place an author sees it.
           #
           # This runs after the push so the legitimate expansions are still
-          # committed to the PR branch when it fails.
+          # committed to the PR branch when it fails. On a fork pull request
+          # neither the expansion nor the push runs, and this step is the whole
+          # of the workflow's behaviour (DOCS-6589).
           #
           # It reads the same file list as the expansion step, which also keeps
           # it from failing a PR over an unknown alias in a file that PR never
@@ -175,11 +195,27 @@ jobs:
             < "$CHANGED_MD" || true)
 
           if [ -n "$LEFTOVER" ]; then
-            echo "::error::Unknown GitBook alias left unexpanded in a link target"
+            echo "::error::GitBook alias left unexpanded in a link target"
             echo "$LEFTOVER"
             echo
-            echo "An alias must be one of the names in dev-docs/link-aliases.md."
-            echo "To add a space, add it to the expansion step in this workflow."
+
+            # On a fork the expansion step above did not run, so this is any
+            # alias, not only an unknown one -- and the author cannot get it
+            # expanded from their own branch. Say so, rather than sending them
+            # to a list their alias may well already be on (DOCS-6589).
+            if [ "$IS_FORK" = "true" ]; then
+              echo "This pull request comes from a fork, and aliases are not expanded"
+              echo "on a fork pull request: the workflow has no write access to your"
+              echo "branch, and pushing to this repository instead would not touch it."
+              echo
+              echo "Replace each alias above with the full"
+              echo "https://app.gitbook.com/o/<org>/s/<space>/... URL for that space,"
+              echo "listed in dev-docs/link-aliases.md, or ask a maintainer to expand"
+              echo "them for you after review."
+            else
+              echo "An alias must be one of the names in dev-docs/link-aliases.md."
+              echo "To add a space, add it to the expansion step in this workflow."
+            fi
             exit 1
           fi
 
