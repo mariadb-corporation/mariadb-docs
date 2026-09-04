@@ -157,7 +157,9 @@ Distributed [XA transactions](xa-transactions.md) should always use this isolati
 
 If the [innodb\_snapshot\_isolation](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) system variable is not set to `ON`, strictly speaking anything other than `READ UNCOMMITTED` is not clearly defined. While it is `ON`, an attempt to acquire a lock on a record that does not exist in the current read view raises an error and rolls the transaction back.
 
-Its default is not the same across supported releases. It is `ON` from MariaDB 11.6.2, and `OFF` in the earlier series that introduced it, which includes the 10.11 and 11.4 long-term releases. Advice to keep the default is therefore ambiguous; set the variable explicitly.
+{% hint style="warning" %}
+The default of `innodb_snapshot_isolation` is not the same across supported releases. It is `ON` from MariaDB 11.6.2, and `OFF` in the earlier series that introduced it, which includes the 10.11 and 11.4 long-term releases. Advice to keep the default is therefore ambiguous; set the variable explicitly.
+{% endhint %}
 
 Prefer `ON`, because it is what makes `REPEATABLE READ` behave as its name claims. The reason to choose `OFF` is application compatibility, not performance. With `ON`, an `UPDATE` or `DELETE` that touches a row changed since the transaction's snapshot fails with [ER\_CHECKREAD](../../error-codes/mariadb-error-codes-1000-to-1099/e1020.md) (1020) and the whole transaction is rolled back, exactly as for a deadlock; the server treats the two errors as the same class, and replication retries both. An application that already retries on `ER_LOCK_DEADLOCK` needs no change. A legacy application that does not handle `ER_CHECKREAD` the same way loses those transactions instead of retrying them, and `innodb_snapshot_isolation=OFF` gives it the MySQL-compatible — though not well-defined — behavior until it can be fixed.
 
