@@ -119,7 +119,11 @@ the include resolver, the gutted-page guard, the env-var knobs, the repo-root gu
 entry point — its `--stdin0` mode, its usage errors, and the fact that a missing
 `includecheck.sh` FAILS `doc-lint.sh` rather than SKIPping (every other dependency is an external
 tool a contributor may not have; that one is checked in beside it, so its absence is a broken
-checkout). Run it after any change to `doc-lint.sh` or `includecheck.sh`:
+checkout). DOCS-6586 also added the `navcheck.py` cases: both orphan directions, the
+`DOC_LINT_ALLOW_ORPHAN` hatch, `check` vs `new`, what is not a page (`SUMMARY.md`, anything under
+`.gitbook/`) and what is not a space (no `SUMMARY.md` beside it), the ignored-vs-untracked
+enumeration distinction, and four SKIP branches. Run it after any change to `doc-lint.sh`,
+`includecheck.sh` or `navcheck.py`:
 
 ```bash
 .claude/hooks/doc-lint-test.sh              # --keep to inspect the sandbox, --verbose for output
