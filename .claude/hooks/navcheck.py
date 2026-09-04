@@ -139,20 +139,44 @@ def spaces_for(root, paths):
     return sorted(hit)
 
 
+def tree_pages(root, space):
+    """Pages of `space` in the working tree, as git sees them.
+
+    Enumerated with `git ls-files --cached --others --exclude-standard` rather
+    than os.walk, and the distinction is the whole point: the base side of the
+    `new` gate is read with git ls-tree, so walking the filesystem here compares
+    a set that includes IGNORED and untracked litter against one that cannot.
+    Any stray Markdown in a space -- a /graphify GRAPH_REPORT.md, a scratch page,
+    an editor backup -- then reports as newly orphaned by whatever PR runs the
+    gate next, and it does not reproduce in CI, which runs on a clean checkout.
+    `--others --exclude-standard` keeps the case the gate exists for (a page you
+    just wrote and have not listed) while dropping what .gitignore covers.
+    """
+    ok, listing = git(root, 'ls-files', '--cached', '--others',
+                      '--exclude-standard', '-z', '--', space + '/')
+    if not ok:
+        # No git (a tarball, say). Fall back to the filesystem: over-reporting
+        # beats silently checking nothing.
+        pages = set()
+        for dirpath, dirnames, filenames in os.walk(pathlib.Path(root) / space):
+            dirnames[:] = [d for d in dirnames if d != '.gitbook']
+            for fn in filenames:
+                rel = os.path.relpath(os.path.join(dirpath, fn),
+                                      root).replace(os.sep, '/')
+                if is_page(rel, space):
+                    pages.add(rel)
+        return pages
+    # NUL-delimited, so a path containing a space or a newline cannot split.
+    return {ln for ln in listing.split('\0') if is_page(ln, space)}
+
+
 def orphans_now(root, space):
     """Pages of `space` in the working tree with no SUMMARY.md entry."""
     sm = pathlib.Path(root) / space / SUMMARY
     if not sm.is_file():
         return set()
     refs = parse_refs(sm.read_text(encoding='utf-8', errors='replace'), space)
-    pages = set()
-    for dirpath, dirnames, filenames in os.walk(pathlib.Path(root) / space):
-        dirnames[:] = [d for d in dirnames if d != '.gitbook']
-        for fn in filenames:
-            rel = os.path.relpath(os.path.join(dirpath, fn), root).replace(os.sep, '/')
-            if is_page(rel, space):
-                pages.add(rel)
-    return pages - refs
+    return tree_pages(root, space) - refs
 
 
 def orphans_at(root, rev, space):

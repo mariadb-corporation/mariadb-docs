@@ -580,7 +580,7 @@ To install MariaDB on Red Hat Enterprise Linux (RHEL) and equivalents, see the i
 sudo dnf install MariaDB-server MariaDB-client MariaDB-backup
 ```
 
-To install MariaDB MaxScale on Red Hat Enterprise Linux (RHEL) and equivalents, see the instructions at [MariaDB MaxScale Installation Guide](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/other-maxscale-versions/mariadb-maxscale-mariadb-maxscale-23/maxscale-23-getting-started/mariadb-maxscale-23-mariadb-maxscale-installation-guide). For example:
+To install MariaDB MaxScale on Red Hat Enterprise Linux (RHEL) and equivalents, see the instructions at [MaxScale Installation Guide]({maxscale}/maxscale-management/deployment/installation-and-configuration/maxscale-installation-guide). For example:
 
 ```bash
 sudo dnf install maxscale
@@ -612,7 +612,7 @@ To install MariaDB on SUSE Linux Enterprise Server (SLES), see the instructions 
 sudo zypper install MariaDB-server MariaDB-client MariaDB-backup
 ```
 
-To install MariaDB MaxScale on SUSE Linux Enterprise Server (SLES), see the instructions at [MariaDB MaxScale Installation Guide](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/other-maxscale-versions/mariadb-maxscale-mariadb-maxscale-23/maxscale-23-getting-started/mariadb-maxscale-23-mariadb-maxscale-installation-guide). For example:
+To install MariaDB MaxScale on SUSE Linux Enterprise Server (SLES), see the instructions at [MaxScale Installation Guide]({maxscale}/maxscale-management/deployment/installation-and-configuration/maxscale-installation-guide). For example:
 
 ```bash
 sudo zypper install maxscale
