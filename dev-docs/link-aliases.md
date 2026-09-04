@@ -106,3 +106,11 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
   comes back `[null, null]`; that is the parked state, not a tooling glitch. And a parked run
   that is never approved flips to **failure with zero jobs** once the PR is closed or the branch
   deleted, so a red run of that shape on an abandoned branch never ran and is nothing to chase.
+- **Aliases are not expanded on a pull request from a fork** — the `expand-links` check
+  reports every alias in a link target, with its file and line, and fails. Two things stop the
+  auto-commit there: `GITHUB_TOKEN` is read-only on a `pull_request` from a fork whatever the
+  workflow's `permissions` block says, and `origin` is this repository rather than the fork, so
+  a push would create a contributor-named branch here and leave the fork branch untouched
+  (DOCS-6589). If you work from a fork, either write the full
+  `https://app.gitbook.com/o/<org>/s/<space>/...` URL yourself, or push the branch to this
+  repository instead, where expansion runs normally.
