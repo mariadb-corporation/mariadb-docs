@@ -85,3 +85,11 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
   reported, because no PR changed that file. **So don't commit an aliased link directly to
   `main`**: GitBook will publish the alias verbatim as a `github.com/...` URL that 404s. If
   one gets there anyway, touching the file in any PR expands it.
+- **Aliases are not expanded on a pull request from a fork** — the `expand-links` check
+  reports every alias in a link target, with its file and line, and fails. Two things stop the
+  auto-commit there: `GITHUB_TOKEN` is read-only on a `pull_request` from a fork whatever the
+  workflow's `permissions` block says, and `origin` is this repository rather than the fork, so
+  a push would create a contributor-named branch here and leave the fork branch untouched
+  (DOCS-6589). If you work from a fork, either write the full
+  `https://app.gitbook.com/o/<org>/s/<space>/...` URL yourself, or push the branch to this
+  repository instead, where expansion runs normally.
