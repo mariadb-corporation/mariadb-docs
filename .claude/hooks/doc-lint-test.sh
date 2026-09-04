@@ -89,14 +89,17 @@ if p="$(command -v lychee 2>/dev/null)";    then LYCHEE_DIR="$(dirname "$p")"; f
 # --- sandbox ---------------------------------------------------------------------------------
 SANDBOX="$(mktemp -d "${TMPDIR:-/tmp}/doclint-test.XXXXXX")" || {
   echo "doc-lint-test: mktemp -d failed" >&2; exit 2; }
+NAVBOX=''
 OUT="$SANDBOX/.stdout"
 ERR="$SANDBOX/.stderr"
 
 cleanup() {
   if [ "$KEEP" = "1" ]; then
     echo "Sandbox kept at: $SANDBOX" >&2
+    [ -n "$NAVBOX" ] && echo "Orphan sandbox kept at: $NAVBOX" >&2
   else
     rm -rf "$SANDBOX"
+    [ -n "$NAVBOX" ] && rm -rf "$NAVBOX"
   fi
 }
 trap cleanup EXIT
@@ -196,6 +199,68 @@ build_sandbox() {
   gen_lines 120 "$SANDBOX/server/brand-new.md"
 }
 
+# --- the orphan sandbox ----------------------------------------------------------------------
+# A SECOND throwaway repo, and it has to be separate. navcheck.py is deliberately absent from
+# the main sandbox, which is what makes its SKIP branch testable there -- but the deeper reason
+# is cross-talk. `spaces_for()` scans every space that the named paths belong to, not just the
+# named files, so one unlisted page anywhere in `server/` is reported by EVERY case that passes
+# a server/ path. Measured before writing this: dropping navcheck.py into the main sandbox makes
+# it report server/brand-new.md -- a shrink-guard fixture, created post-commit and so newly
+# orphaned -- and most of the suite goes red. (DOCS-6586's description predicted the opposite
+# problem, that the main sandbox has no SUMMARY.md and orphan cases would vacuously pass;
+# server/SUMMARY.md has existed since the codespell exclusion case was added.)
+#
+# This one installs navcheck.py at .claude/hooks/ so doc-lint.sh's delegation is exercised too.
+NAVBOX=''
+
+build_navbox() {
+  NAVBOX="$(mktemp -d "${TMPDIR:-/tmp}/doclint-nav.XXXXXX")" || return 1
+
+  mkdir -p "$NAVBOX/.claude/hooks" "$NAVBOX/alpha/sub" "$NAVBOX/alpha/.gitbook/includes" \
+           "$NAVBOX/beta" "$NAVBOX/notaspace"
+
+  # doc-lint.sh's repo-root marker, and the scripts it delegates to. navcheck.py is copied
+  # rather than symlinked so the fixture keeps working if the checkout moves.
+  : > "$NAVBOX/.codespellignore"
+  cp "$SCRIPT_DIR/navcheck.py"     "$NAVBOX/.claude/hooks/navcheck.py"
+  cp "$SCRIPT_DIR/includecheck.sh" "$NAVBOX/.claude/hooks/includecheck.sh"
+
+  # Ignored paths, for the enumeration case. `scratch/` is the shape that motivated the fix:
+  # /graphify writes GRAPH_REPORT.md into the tree, git ignores it, and os.walk did not.
+  printf 'scratch/\n*.tmp.md\n' > "$NAVBOX/.gitignore"
+
+  # alpha: a space (it has a SUMMARY.md). Two listed pages, one nested, one committed orphan.
+  printf '# Alpha\n\n* [Listed](listed.md)\n* [Nested](sub/nested-listed.md)\n* [Nav To Delete](deleted-nav.md)\n' \
+    > "$NAVBOX/alpha/SUMMARY.md"
+  printf '# Listed\n\nListed in nav.\n'        > "$NAVBOX/alpha/listed.md"
+  printf '# Nested\n\nListed in nav.\n'        > "$NAVBOX/alpha/sub/nested-listed.md"
+  printf '# Nav To Delete\n\nListed now.\n'    > "$NAVBOX/alpha/deleted-nav.md"
+  # Committed and unlisted: the 219-orphan backlog in miniature. Must stay quiet.
+  printf '# Old Orphan\n\nUnlisted since the base revision.\n' \
+    > "$NAVBOX/alpha/preexisting-orphan.md"
+  # Never a page: pulled in by {% include %}, never nav-listed.
+  printf '# Snippet\n\nIncluded, not published.\n' \
+    > "$NAVBOX/alpha/.gitbook/includes/snippet.md"
+
+  # beta: a second space, to prove one space's orphan is not reported for another's paths.
+  printf '# Beta\n\n* [Listed](listed.md)\n' > "$NAVBOX/beta/SUMMARY.md"
+  printf '# Beta Listed\n\nListed in nav.\n' > "$NAVBOX/beta/listed.md"
+
+  # Not a space: no SUMMARY.md. This is what keeps dev-docs/, .claude/ and help-tables/ out
+  # without navcheck.py having to name them, so it must never be reported.
+  printf '# Not A Space\n\nNo SUMMARY.md beside me.\n' > "$NAVBOX/notaspace/page.md"
+
+  (
+    cd "$NAVBOX" || exit 1
+    git init -q -b main . >/dev/null 2>&1 || git init -q . >/dev/null 2>&1
+    git config user.name  'doc-lint test'
+    git config user.email 'doc-lint-test@example.invalid'
+    git config commit.gpgsign false
+    git add -A >/dev/null
+    git commit -q -m 'nav fixtures' >/dev/null
+  ) || return 1
+}
+
 # --- assertions ------------------------------------------------------------------------------
 PASSES=0
 FAILURES=0
@@ -207,8 +272,10 @@ CASE_OK=1
 # Runs doc-lint.sh with PATH trimmed to MIN_PATH (plus any additions), capturing stdout and
 # stderr to separate files and $? into RC. Redirection, never a pipe — see rule 1 above.
 RC=0
+LINT_ROOT=''
 lint() {
   local cwd="$1" path_add="$2"; shift 2
+  local root="${LINT_ROOT:-$SANDBOX}"
 
   local use_path="$MIN_PATH"
   [ "$path_add" != '-' ] && use_path="$path_add:$MIN_PATH"
@@ -226,7 +293,7 @@ lint() {
   cmd+=("$DOC_LINT" "$@")
 
   set +e
-  ( cd "$SANDBOX/$cwd" && "${cmd[@]}" ) > "$OUT" 2> "$ERR"
+  ( cd "$root/$cwd" && "${cmd[@]}" ) > "$OUT" 2> "$ERR"
   RC=$?
   set -e
 
@@ -265,6 +332,32 @@ nul_list() {
   : > "$out"
   local n
   for n in "$@"; do printf '%s\0' "$n" >> "$out"; done
+}
+
+# nav <env-assignments...> -- <navcheck args...>
+# navcheck.py driven directly, in the orphan sandbox. Its findings go to stderr and only the
+# clean line to stdout, which is the contract doc-lint.sh's `>/dev/null` relies on, so both are
+# captured separately here the same way lint() does it.
+nav() {
+  local cmd=(env -i "PATH=$MIN_PATH" "HOME=$NAVBOX")
+  while [ "$#" -gt 0 ] && [ "$1" != '--' ]; do cmd+=("$1"); shift; done
+  shift  # drop the --
+  cmd+=(python3 "$NAVBOX/.claude/hooks/navcheck.py" "$@")
+
+  set +e
+  ( cd "$NAVBOX" && "${cmd[@]}" ) > "$OUT" 2> "$ERR"
+  RC=$?
+  set -e
+
+  if [ "$VERBOSE" = "1" ]; then sed 's/^/      | /' < "$ERR"; fi
+}
+
+# Restore the orphan sandbox to its base revision: tracked files back, untracked AND ignored
+# files gone. Each case builds only what it needs, so cases stay order-independent -- which
+# matters more here than in the main sandbox, because these cases mutate SUMMARY.md.
+navreset() {
+  ( cd "$NAVBOX" && git checkout -q -- . && git clean -fdxq \
+      -e .claude -e .codespellignore ) || return 1
 }
 
 begin() { CURRENT="$1"; CASE_OK=1; }
@@ -318,6 +411,7 @@ want_empty_stdout() {
 
 # --- run -------------------------------------------------------------------------------------
 build_sandbox || { echo "doc-lint-test: could not build the sandbox" >&2; exit 2; }
+build_navbox  || { echo "doc-lint-test: could not build the orphan sandbox" >&2; exit 2; }
 
 echo "doc-lint-test: sandbox $SANDBOX"
 echo "doc-lint-test: bash $BASH_VERSION, script under test $DOC_LINT"
@@ -468,6 +562,217 @@ set -e
 want_rc 1
 want_err 'cannot resolve GitBook includes'
 want_err 'broken checkout'
+end
+
+# ---- orphaned pages / navcheck.py (DOCS-6567; fixtures added in DOCS-6586) -------------------
+# Runs in the orphan sandbox (see build_navbox). Asserts the exit code AND the message, per
+# DOCS-6471's rule that a gate whose wording is untested is a gate nobody can act on.
+
+begin 'a new page with no nav entry is reported as newly orphaned'
+printf '# Unlisted\n\nAdded without a nav entry.\n' > "$NAVBOX/alpha/unlisted-new.md"
+nav -- new HEAD alpha/unlisted-new.md
+want_rc 1
+want_err 'but not listed in SUMMARY.md'
+want_err 'alpha/unlisted-new.md'
+want_err 'DOCS-6566'          # the message points at the case it exists for
+navreset
+end
+
+begin 'the same new page, listed in SUMMARY.md, is not reported'
+printf '# Unlisted\n\nAdded with a nav entry.\n' > "$NAVBOX/alpha/unlisted-new.md"
+printf '* [Now Listed](unlisted-new.md)\n' >> "$NAVBOX/alpha/SUMMARY.md"
+nav -- new HEAD alpha/unlisted-new.md
+want_rc 0
+want_out 'no newly orphaned pages'
+navreset
+end
+
+begin 'a deleted nav entry with the page surviving is reported'
+# The quieter direction: the file still works locally and only vanishes from the built site.
+grep -v 'deleted-nav.md' "$NAVBOX/alpha/SUMMARY.md" > "$NAVBOX/alpha/.sm" \
+  && mv "$NAVBOX/alpha/.sm" "$NAVBOX/alpha/SUMMARY.md"
+nav -- new HEAD alpha/SUMMARY.md
+want_rc 1
+want_err 'alpha/deleted-nav.md'
+navreset
+end
+
+begin 'DOC_LINT_ALLOW_ORPHAN naming the path acknowledges it, exits 0'
+printf '# Unlisted\n\nDeliberate.\n' > "$NAVBOX/alpha/unlisted-new.md"
+nav DOC_LINT_ALLOW_ORPHAN=alpha/unlisted-new.md -- new HEAD alpha/unlisted-new.md
+want_rc 0
+want_no_err 'but not listed in SUMMARY.md'
+navreset
+end
+
+begin 'DOC_LINT_ALLOW_ORPHAN=all skips the check entirely, exits 0'
+printf '# Unlisted\n\nDeliberate.\n' > "$NAVBOX/alpha/unlisted-new.md"
+nav DOC_LINT_ALLOW_ORPHAN=all -- new HEAD alpha/unlisted-new.md
+want_rc 0
+navreset
+end
+
+begin 'a committed unlisted page is pre-existing, not newly orphaned'
+# The 219-orphan backlog in miniature. This is the whole reason the gate is history-aware:
+# absolute checking would fail every unrelated PR on breakage it did not introduce.
+nav -- new HEAD alpha/listed.md
+want_rc 0
+want_out 'pre-existing, unchanged'
+end
+
+begin 'a file under .gitbook/ is not a page, so an unlisted one is not reported'
+printf '# New Snippet\n\nIncluded, never nav-listed.\n' \
+  > "$NAVBOX/alpha/.gitbook/includes/new-snippet.md"
+nav -- new HEAD alpha/.gitbook/includes/new-snippet.md
+want_rc 0
+navreset
+end
+
+begin "a new space's own SUMMARY.md is not reported as an orphan"
+mkdir -p "$NAVBOX/gamma"
+printf '# Gamma\n\n* [Page](page.md)\n' > "$NAVBOX/gamma/SUMMARY.md"
+printf '# Gamma Page\n\nListed.\n'      > "$NAVBOX/gamma/page.md"
+nav -- new HEAD gamma/page.md
+want_rc 0
+want_no_err 'SUMMARY.md:'
+navreset
+end
+
+begin 'a directory with no SUMMARY.md is not a space'
+# What keeps dev-docs/, .claude/ and help-tables/ out without navcheck.py naming any of them.
+# Note when mutation-testing this one: the requirement is enforced TWICE -- in all_spaces() and
+# again in orphans_now() -- so breaking either alone leaves the case green. Both have to go
+# before it fails, which is a property of the script, not a weakness of the fixture.
+printf '# Loose\n\nNo SUMMARY.md beside me.\n' > "$NAVBOX/notaspace/new-page.md"
+nav -- new HEAD notaspace/new-page.md
+want_rc 0
+want_no_err 'notaspace'
+navreset
+end
+
+begin "an orphan in one space is not reported for another space's paths"
+printf '# Unlisted\n\nIn alpha.\n' > "$NAVBOX/alpha/unlisted-new.md"
+nav -- new HEAD beta/listed.md
+want_rc 0
+want_no_err 'alpha/unlisted-new.md'
+navreset
+end
+
+begin 'an ignored stray page is not reported, but a genuinely new one is'
+# The DOCS-6586 fixture for PR #1024's enumeration change. The base side is read with
+# `git ls-tree`, so enumerating the working tree with os.walk compared a set that includes
+# ignored litter against one that structurally cannot -- and a /graphify GRAPH_REPORT.md then
+# reported as newly orphaned for whichever PR ran the gate next, irreproducibly, since CI runs
+# on a clean checkout. `git ls-files --cached --others --exclude-standard` keeps the case the
+# gate exists for and drops what .gitignore covers. Both halves are asserted: dropping the
+# ignored file is worthless if it also drops the real finding.
+mkdir -p "$NAVBOX/alpha/scratch"
+printf '# Graph Report\n\n/graphify output.\n' > "$NAVBOX/alpha/scratch/GRAPH_REPORT.md"
+printf '# Editor Litter\n\nnope.\n'            > "$NAVBOX/alpha/notes.tmp.md"
+printf '# Real New Page\n\nUnlisted for real.\n' > "$NAVBOX/alpha/genuinely-new.md"
+nav -- new HEAD alpha/genuinely-new.md
+want_rc 1
+want_err 'alpha/genuinely-new.md'
+want_no_err 'GRAPH_REPORT.md'
+want_no_err 'notes.tmp.md'
+navreset
+end
+
+begin 'an unresolvable base revision SKIPs rather than failing'
+printf '# Unlisted\n\nWould be a finding with a real base.\n' > "$NAVBOX/alpha/unlisted-new.md"
+nav -- new refs/heads/no-such-branch alpha/unlisted-new.md
+want_rc 0
+want_err 'SKIPPED'
+navreset
+end
+
+begin 'the new mode with no revision is a usage error, not a pass'
+nav -- new
+want_rc 2
+want_err 'needs a revision'
+end
+
+begin 'an unknown mode is a usage error'
+nav -- sideways HEAD
+want_rc 2
+want_err 'unknown mode'
+end
+
+begin 'the check mode reports the standing inventory, pre-existing orphans included'
+# The triage mode, which is absolute where `new` is history-aware.
+nav -- check alpha
+want_rc 1
+want_err 'alpha/preexisting-orphan.md'
+end
+
+begin 'the check mode honours DOC_LINT_ALLOW_ORPHAN=all'
+nav DOC_LINT_ALLOW_ORPHAN=all -- check alpha
+want_rc 0
+end
+
+# ---- navcheck.py through doc-lint.sh (the delegation, not the checker) -----------------------
+
+begin 'doc-lint.sh fails when navcheck.py reports a newly orphaned page'
+printf '# Unlisted\n\nAdded without a nav entry.\n' > "$NAVBOX/alpha/unlisted-new.md"
+LINT_ROOT="$NAVBOX" lint . - "$NOFRAG" DOC_LINT_BASE=HEAD -- alpha/unlisted-new.md
+LINT_ROOT=''
+want_rc 1
+want_err 'but not listed in SUMMARY.md'
+want_empty_stdout       # navcheck's clean line is swallowed; findings go to stderr
+navreset
+end
+
+begin 'DOC_LINT_ALLOW_ORPHAN reaches navcheck.py through doc-lint.sh'
+printf '# Unlisted\n\nDeliberate.\n' > "$NAVBOX/alpha/unlisted-new.md"
+LINT_ROOT="$NAVBOX" lint . - "$NOFRAG" DOC_LINT_BASE=HEAD \
+  DOC_LINT_ALLOW_ORPHAN=alpha/unlisted-new.md -- alpha/unlisted-new.md
+LINT_ROOT=''
+want_rc 0
+want_no_err 'but not listed in SUMMARY.md'
+navreset
+end
+
+begin 'a missing navcheck.py is a SKIP notice, exits 0'
+# In the MAIN sandbox, which deliberately has no .claude/hooks/navcheck.py.
+lint . - "$NOFRAG" DOC_LINT_BASE=HEAD -- server/clean.md
+want_rc 0
+want_err 'navcheck.py not found'
+want_err 'orphan check SKIPPED'
+end
+
+begin 'a tree that is not a git work tree SKIPs the orphan check'
+# doc-lint.sh needs a base revision, so outside a work tree the check cannot run -- and must
+# say so rather than pass silently. The copy has to live OUTSIDE any repository: putting it
+# under $NAVBOX (a git repo) does not test this branch at all, it tests the nested-repo one
+# below, because git happily answers for the enclosing repo.
+NOGIT="$(mktemp -d "${TMPDIR:-/tmp}/doclint-nogit.XXXXXX")"
+( cd "$NAVBOX" && git archive HEAD ) | ( cd "$NOGIT" && tar xf - ) || problem 'archive failed'
+LINT_ROOT="$NOGIT" lint . - "$NOFRAG" -- alpha/listed.md
+LINT_ROOT=''
+want_rc 0
+want_err 'not a git work tree'
+want_err 'orphan check SKIPPED'
+rm -rf "$NOGIT"
+end
+
+begin 'a docs tree nested inside an unrelated repo SKIPs instead of reporting everything'
+# Found by getting the fixture above wrong. doc-lint.sh's work-tree guard runs from the CWD
+# while navcheck.py computes its own root from .codespellignore, so in a nested checkout the
+# two disagree: git answers for the OUTER repo, `orphans_at` comes back empty, and every
+# long-unlisted page is reported as NEWLY orphaned -- the history-awareness that keeps the
+# 219-page backlog quiet collapses in the false-positive direction. Guarded in navcheck.py by
+# comparing its root against `git rev-parse --show-toplevel`.
+NESTED="$NAVBOX/nested"
+mkdir -p "$NESTED"
+( cd "$NAVBOX" && git archive HEAD ) | ( cd "$NESTED" && tar xf - ) || problem 'archive failed'
+# preexisting-orphan.md has been unlisted since the base revision, so a correct run says
+# nothing about it; an unguarded one calls it newly orphaned.
+LINT_ROOT="$NESTED" lint . - "$NOFRAG" DOC_LINT_BASE=HEAD -- alpha/listed.md
+LINT_ROOT=''
+want_rc 0
+want_err 'is not the top of its git repository'
+want_no_err 'alpha/preexisting-orphan.md'
+rm -rf "$NESTED"
 end
 
 # ---- net line-loss guard (DOCS-6470 / DOCS-6442; no CI counterpart) --------------------------

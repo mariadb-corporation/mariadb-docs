@@ -147,7 +147,13 @@ DOC_LINT_ALLOW_ORPHAN='space/path/to/page.md' .claude/hooks/doc-lint.sh <files>
 
 and say why in the commit message; `DOC_LINT_ALLOW_ORPHAN=all` disables the check. For triage,
 `.claude/hooks/navcheck.py check [path ...]` prints the full current orphan inventory rather than
-just the new ones. (Added in DOCS-6567.)
+just the new ones. (Added in DOCS-6567; regression-tested since DOCS-6586.)
+
+One SKIP is worth knowing about, because it looks like a pass: if your checkout sits **nested
+inside another git repository**, `new` skips with `is not the top of its git repository`. It has
+to. The base side is read out of the object store, so in a nested tree git answers for the
+*outer* repo, which has never heard of these files — every long-unlisted page would then be
+reported as newly orphaned. `check` is unaffected; it reads only the working tree.
 
 Finally, it flags a **gutted page**: any file in the set that lost more than **40%** of its lines
 *net* (deletions minus additions, minimum 20 lines lost, pre-image at least 30 lines) against

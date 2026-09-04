@@ -249,6 +249,21 @@ def cmd_new(args):
     if 'all' in skip:
         return 0
 
+    # The base side is read out of the object store, so `root` must be the top of the repo
+    # that store belongs to. If this tree is NESTED inside an unrelated git repo -- an unpacked
+    # tarball dropped into another checkout, say -- then git answers for the OUTER repo, which
+    # has never heard of these files: `orphans_at` comes back empty, "existed at the base" is
+    # false for every page, and every long-unlisted page is reported as NEWLY orphaned. The
+    # history-awareness that keeps the 219-page backlog out of the way collapses, silently and
+    # in the false-positive direction. A SKIP is the honest answer -- with no usable base
+    # revision the gate cannot run, and a check that cannot run must not report findings
+    # either. `check` is unaffected: it is absolute, and reads only the working tree.
+    ok, top = git(root, 'rev-parse', '--show-toplevel')
+    if ok and pathlib.Path(top.strip()).resolve() != pathlib.Path(root).resolve():
+        print(f'navcheck: {root} is not the top of its git repository '
+              f'({top.strip()} is) — SKIPPED', file=sys.stderr)
+        return 0
+
     ok, _ = git(root, 'rev-parse', '--verify', '-q', rev + '^{commit}')
     if not ok:
         print(f'navcheck: base revision {rev!r} not found — SKIPPED', file=sys.stderr)
