@@ -15,7 +15,7 @@ MariaDB Cloud features data-in-transit encryption by default.
 
 By default, MariaDB Cloud services feature data-in-transit encryption for client connections: TLS 1.2 and TLS 1.3 are supported. SSL/TLS certificates and encryption settings are not customer-configurable.
 
-For information on how to connect with TLS, see ["Connect and Query"](../../Connecting%20to%20Sky%20DBs/).
+For information on how to connect with TLS, see [Connection Overview](../connecting-to-mariadb-cloud-dbs/connection-overview.md).
 
 The "Disable SSL/TLS" option may be appropriate for some customers when also using AWS PrivateLink or GCP VPC Peering.
 
