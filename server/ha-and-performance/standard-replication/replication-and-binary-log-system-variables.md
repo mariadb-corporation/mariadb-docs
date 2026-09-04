@@ -332,10 +332,16 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Command line: `--create-tmp-table-binlog-formats=#`
 * Scope: Global, Session
 * Dynamic: Yes
-* Data Type: `enum`
+* Data Type: `set`
 * Default Value: `STATEMENT`
 * Valid Values: `STATEMENT` or `MIXED,STATEMENT`
 * Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120)
+
+{% hint style="info" %}
+Starting with MariaDB Enterprise Server 11.8.9-6, this variable is [available in Enterprise Server](../optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/enterprise-server/system-variables-added-in-enterprise-server-11.8.md) as a backport of MDEV-36099, with a default value of `MIXED,STATEMENT` rather than the Community Server default of `STATEMENT`. Earlier Enterprise Server 11.8 releases do not have this variable.
+
+Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value that includes `MIXED` without `STATEMENT` is automatically upgraded to `MIXED,STATEMENT` and warning 1292 (`Truncated incorrect create_tmp_table_binlog_formats value`) is returned. The variable retains the upgraded value, so `SELECT` returns `MIXED,STATEMENT` and not the value that was assigned. No warning is returned when `STATEMENT` is already part of the assigned value, including the Enterprise Server 11.8.9-6 default, which already includes `STATEMENT`.
+{% endhint %}
 
 #### `default_master_connection`
 
