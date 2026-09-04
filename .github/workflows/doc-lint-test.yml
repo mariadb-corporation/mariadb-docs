@@ -1,9 +1,14 @@
 name: Test the Doc Lint Hooks
 
-# Gates the repo's shell tooling: shellcheck over every tracked shell script, and a fixture
-# suite over .claude/hooks/doc-lint.sh -- the script that hosts the two documentation-rot
-# checks with NO CI counterpart anywhere else (the GitBook `{% include %}` resolver from
-# DOCS-6372, and the net line-loss "gutted page" guard from DOCS-6470).
+# Gates the repo's shell tooling: shellcheck over every tracked shell script, actionlint over
+# the shell inside the workflow files, and a fixture suite over .claude/hooks/doc-lint.sh --
+# the script that hosts the two documentation-rot checks with NO CI counterpart anywhere else
+# (the GitBook `{% include %}` resolver from DOCS-6372, and the net line-loss "gutted page"
+# guard from DOCS-6470).
+#
+# The shellcheck and actionlint jobs are one concern split only by where the shell lives: a
+# .sh file or a workflow's `run:` block. Twelve workflows against four standalone scripts, so
+# most of this repo's shell is in the half actionlint covers (DOCS-6587).
 #
 # WHY THIS EXISTS
 #   Until now nothing in CI ran doc-lint.sh at all, and its only caller is a Claude Code
@@ -268,6 +273,139 @@ jobs:
               echo
               echo '````bash'
               echo ".claude/hooks/doc-lint-test.sh          # --keep to inspect the sandbox, --verbose for output"
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # actionlint covers what no other gate here can see: the shell inside `run:` blocks, plus
+  # workflow-specific checks -- untrusted-input interpolation above all. DOCS-6401's third defect
+  # was `github.event.pull_request.head.ref`, attacker-controlled on a public repo, interpolated
+  # straight into a `run:` block while the job held `contents: write`. actionlint names that by
+  # rule; it was found by hand, and the next one would not be. Also invalid `runs-on` labels,
+  # unknown contexts, bad `if:` expressions and action-input typos.
+  actionlint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      # Same pin, same reasoning, same version as the shellcheck job above -- and here it is not
+      # optional: actionlint shells out to shellcheck to lint `run:` blocks at all.
+      - name: Install a pinned shellcheck
+        env:
+          SHELLCHECK_VERSION: v0.11.0
+          SHELLCHECK_SHA256: 8c3be12b05d5c177a04c29e3c78ce89ac86f1595681cab149b65b97c4e227198
+        run: |
+          set -euo pipefail
+          tarball="$RUNNER_TEMP/shellcheck.tar.xz"
+          curl -fsSL -o "$tarball" \
+            "https://github.com/koalaman/shellcheck/releases/download/${SHELLCHECK_VERSION}/shellcheck-${SHELLCHECK_VERSION}.linux.x86_64.tar.xz"
+          echo "${SHELLCHECK_SHA256}  ${tarball}" | sha256sum --check --strict
+          tar -xJf "$tarball" -C "$RUNNER_TEMP"
+          install -m 0755 "$RUNNER_TEMP/shellcheck-${SHELLCHECK_VERSION}/shellcheck" \
+            /usr/local/bin/shellcheck
+          shellcheck --version
+
+      - name: Install a pinned actionlint
+        env:
+          ACTIONLINT_VERSION: 1.7.12
+          # Cross-checked against the publisher's own actionlint_1.7.12_checksums.txt for this tag.
+          ACTIONLINT_SHA256: 8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8
+        run: |
+          set -euo pipefail
+          # Pinned rather than `go install` or the runner image, so a new actionlint release
+          # cannot turn unrelated PRs red on workflow files their author never touched -- the
+          # DOCS-6401 failure mode. Bumping the pin is then a deliberate PR that fixes whatever
+          # the new version finds.
+          tarball="$RUNNER_TEMP/actionlint.tar.gz"
+          curl -fsSL -o "$tarball" \
+            "https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz"
+          echo "${ACTIONLINT_SHA256}  ${tarball}" | sha256sum --check --strict
+          tar -xzf "$tarball" -C "$RUNNER_TEMP"
+          install -m 0755 "$RUNNER_TEMP/actionlint" /usr/local/bin/actionlint
+          command -v actionlint
+          actionlint --version
+
+      # MEASURED, not assumed: with shellcheck off PATH, actionlint exits 0 on a workflow whose
+      # `run:` block has a plain SC2086. It does not warn, it does not mention shellcheck -- it
+      # silently checks no shell and reports success. `command -v shellcheck` would not catch
+      # every way that happens (a version actionlint cannot drive, say), so assert the behaviour
+      # instead of the binary: this fixture MUST be reported, or the gate is vacuous.
+      - name: Prove actionlint is really running shellcheck
+        run: |
+          set -euo pipefail
+          probe="$RUNNER_TEMP/actionlint-selftest.yaml"
+          cat > "$probe" <<'PROBE'
+          name: selftest
+          on: push
+          jobs:
+            selftest:
+              runs-on: ubuntu-latest
+              steps:
+                - run: |
+                    echo hi >> $UNQUOTED
+          PROBE
+          # Redirect, then grep the file. NOT `... | tee log | grep -q`: grep -q exits on the
+          # first match and closes the pipe, tee dies of SIGPIPE, and `pipefail` turns the whole
+          # pipeline non-zero -- so the success path would report failure. Measured, not
+          # theorised: the first draft of this step failed with shellcheck plainly installed.
+          # actionlint exits 1 when it reports anything, hence the `|| true`.
+          actionlint -no-color "$probe" > "$RUNNER_TEMP/selftest.log" 2>&1 || true
+          if grep -q 'SC2086' "$RUNNER_TEMP/selftest.log"; then
+            echo "actionlint is driving shellcheck (SC2086 reported on the fixture)."
+          else
+            cat "$RUNNER_TEMP/selftest.log"
+            echo "::error::actionlint did not report SC2086 on a fixture that plainly has it. It is not driving shellcheck, so the shell in every run: block is unchecked and a green result here would mean nothing."
+            exit 1
+          fi
+
+      - name: Actionlint every workflow
+        id: actionlint
+        run: |
+          set -uo pipefail
+
+          # No file list: actionlint discovers .github/workflows/ itself, so a workflow added
+          # tomorrow is gated the day it lands. It reads only the workflow files, so it cannot
+          # report a finding an unrelated author is unable to clear -- which is why this runs on
+          # every PR rather than behind a paths: filter.
+          set +e
+          actionlint -no-color > actionlint.log 2>&1
+          rc=$?
+          set -e
+          cat actionlint.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          if [ "$rc" -ne 0 ]; then
+            echo "::error::actionlint reported findings in .github/workflows. Details in the job log and the run summary."
+          fi
+          exit "$rc"
+
+      - name: Record the actionlint result in the run summary
+        if: always()
+        env:
+          RC: ${{ steps.actionlint.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## actionlint"
+            echo
+            if [ ! -s actionlint.log ] && [ "${RC:-}" != "0" ]; then
+              echo "No output -- an earlier step failed before actionlint ran."
+            elif [ "${RC:-}" = "0" ]; then
+              echo "Clean at actionlint 1.7.12."
+            else
+              echo "Findings below. Reproduce locally with:"
+              echo
+              echo '````bash'
+              echo "actionlint          # needs shellcheck on PATH, or it checks no shell at all"
+              echo '````'
+              echo
+              # Four backticks: the log embeds source lines from the PR, which are
+              # author-controlled, and this summary is a GFM rendering surface. Same reasoning as
+              # the shellcheck job above.
+              echo '````text'
+              cat actionlint.log
               echo '````'
             fi
           } >> "$GITHUB_STEP_SUMMARY"

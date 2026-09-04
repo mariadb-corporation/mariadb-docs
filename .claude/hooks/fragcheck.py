@@ -81,6 +81,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import pathlib
 import unicodedata
 import urllib.parse
@@ -88,6 +89,18 @@ from collections import Counter
 
 BASE_URL = 'https://mariadb.com/docs'
 CACHE = pathlib.Path(tempfile.gettempdir()) / 'fragcheck-cache'
+# `validate` compares computed anchors against the ids the LIVE site renders, so
+# it is only an oracle if what it reads is current. The on-disk cache used to
+# have no expiry, which made a snapshot taken before a deploy report a heading
+# that is live as dead: on DOCS-6590 it called `next-steps` missing while curl
+# on the same URL returned id="next-steps", and the fix was deleting one file.
+# Five minutes keeps the point of the cache (a re-run minutes later while you
+# iterate) and drops the failure mode. FRAGCHECK_CACHE_TTL=0 bypasses it.
+# Only `validate` fetches anything, so this cannot slow the `new` CI gate.
+try:
+    CACHE_TTL = int(os.environ.get('FRAGCHECK_CACHE_TTL', '300'))
+except ValueError:
+    CACHE_TTL = 300
 MAX_SLUG = 100
 
 # The levels GitBook renders as <h2>/<h3>/<h4 id="..."> — see the header comment.
@@ -686,7 +699,8 @@ CHROME = {'gb-trademark', 'mask-image', 'search-input', 'table-of-contents',
 
 def fetch(url):
     cached = CACHE / (re.sub(r'[^a-z0-9]+', '_', url) + '.html')
-    if cached.exists():
+    if (cached.exists() and CACHE_TTL > 0
+            and time.time() - cached.stat().st_mtime < CACHE_TTL):
         return cached.read_text(errors='replace')
     html = subprocess.run(['curl', '-sL', '--max-time', '60', url],
                           capture_output=True, text=True).stdout
