@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #
 # doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
-# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus three checks that have no CI
-# counterpart (see below): a GitBook include resolver, a heading-anchor gate, and a net
-# line-loss guard.
+# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus four checks that have no CI
+# counterpart (see below): a GitBook include resolver, a heading-anchor gate, an orphaned-page
+# (nav coverage) gate, and a net line-loss guard.
 #
 # The pre-commit hook, the /precommit command, the docs-check skill, and dev-docs/cookbook-pre-pr.md
 # all delegate here instead of re-spelling the flags, so the CI-mirroring options live in exactly
@@ -174,6 +174,15 @@ fi
 # Normalize a path's `.` and `..` segments textually — the target need not exist, which rules
 # out `realpath` (BSD realpath has no portable `-m`). A `..` that climbs above the repo root is
 # left in place, so the path simply fails the existence test below.
+#
+# Every array expansion below is guarded by a length test on purpose. Expanding "${arr[@]}" or
+# "${arr[*]}" on an EMPTY array is an "unbound variable" error under `set -u` before bash 4.4 —
+# i.e. on the bash 3.2 that stock macOS still ships, which is the portability floor this script
+# claims in its header. Unguarded, norm_path returned the EMPTY STRING for any include that
+# climbs out of its own directory ("server/../maxscale/x.md"): the `..` emptied the array, the
+# recompaction died, and every such include was then misreported as *unresolvable* while the
+# cross-space branch below became unreachable. The mirror image of DOCS-6409, which only bit on
+# Linux — same class, opposite platform. Found by doc-lint-test.sh (DOCS-6471).
 norm_path() {
   local seg out=() n
   local IFS='/'
@@ -182,13 +191,19 @@ norm_path() {
       ''|.) ;;
       ..) n=${#out[@]}
           if [ "$n" -gt 0 ] && [ "${out[$((n-1))]}" != ".." ]; then
-            unset "out[$((n-1))]"; out=("${out[@]}")   # compact: bash 3.2 leaves a hole
+            unset "out[$((n-1))]"                      # bash 3.2 leaves a hole
+            if [ "${#out[@]}" -gt 0 ]; then
+              out=("${out[@]}")                        # compact it, but only if anything is left
+            fi
           else
             out+=("..")
           fi ;;
       *) out+=("$seg") ;;
     esac
   done
+  if [ "${#out[@]}" -eq 0 ]; then
+    return 0                                           # nothing left: the empty path
+  fi
   printf '%s' "${out[*]}"
 }
 
@@ -275,7 +290,52 @@ elif ! command -v git >/dev/null 2>&1 || ! git rev-parse --is-inside-work-tree >
 elif ! git rev-parse --verify -q "$LINT_BASE" >/dev/null 2>&1; then
   echo "doc-lint: base revision '$LINT_BASE' not found — anchor check SKIPPED" >&2
 else
+  # Spelled identically in .github/workflows/fragcheck-pr.yml (PR gate, base =
+  # the PR base) and .github/workflows/nightly-fragcheck.yml (base = a rolling
+  # 24 hours) — DOCS-6524. The mode takes no flags, which is why CI calls the
+  # script directly instead of routing through this file the way it must for the
+  # codespell and lychee flag sets; if that ever changes, change all three.
+  #
+  # One difference is deliberate: an uncheckoutable base is a SKIP here (never
+  # block a local commit over a missing baseline) and a hard failure in CI,
+  # where a check that cannot run must not report success. Both workflows assert
+  # the base object exists before invoking, because this returns 0 in that case.
   python3 .claude/hooks/fragcheck.py new "$LINT_BASE" >/dev/null || rc=1
+fi
+
+# --- orphaned pages (nav coverage) — NO CI counterpart --------------------------------------
+# GitBook publishes only the pages listed in a space's SUMMARY.md. A page file with no nav entry
+# never renders, and NOTHING else here can see it: the markup is valid so codespell passes, the
+# links resolve so lychee passes, and the page is simply never built. There is no failing signal
+# anywhere — the only symptom is a reader reporting a missing page.
+#
+# DOCS-6566 is the case. dde0fb263 added four post-download pages (Server 12.3.3, 11.8.9,
+# 11.4.13, 10.11.19) and bumped their most-recent-*.md includes, but never touched
+# platform/SUMMARY.md; all four sat unpublished for eight days until a reader noticed, with every
+# gate green throughout. Replayed against dde0fb263, navcheck names all four and exits 1.
+#
+# Like the anchor gate above, it is diffed against $LINT_BASE and for the same reason: main
+# carries 219 pre-existing orphans (190 in server alone), so an absolute check would fail every
+# unrelated PR on breakage it did not introduce. It reports only pages newly orphaned — added
+# with no nav entry, or de-listed while the file survives.
+#
+# Unlike that gate this needs no worktree (the base side is read with git ls-tree / git show), so
+# it costs milliseconds and has no skip flag. A deliberately unlisted page is legitimate: name it
+# in DOC_LINT_ALLOW_ORPHAN (space/comma-separated, or "all") and say why in the commit message.
+#
+# Needs python3 (no third-party modules) and a git work tree; missing either is a SKIP, as is a
+# base revision that cannot be resolved — never a silent pass into failure.
+if [ ! -f .claude/hooks/navcheck.py ]; then
+  echo "doc-lint: .claude/hooks/navcheck.py not found — orphan check SKIPPED" >&2
+elif ! command -v python3 >/dev/null 2>&1; then
+  echo "doc-lint: python3 not installed — orphan check SKIPPED (no CI counterpart, so nothing" >&2
+  echo "          else will catch a page that is missing from SUMMARY.md)." >&2
+elif ! command -v git >/dev/null 2>&1 || ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "doc-lint: not a git work tree — orphan check SKIPPED (needs a base revision)" >&2
+elif ! git rev-parse --verify -q "$LINT_BASE" >/dev/null 2>&1; then
+  echo "doc-lint: base revision '$LINT_BASE' not found — orphan check SKIPPED" >&2
+else
+  python3 .claude/hooks/navcheck.py new "$LINT_BASE" "${files[@]}" >/dev/null || rc=1
 fi
 
 # --- net line-loss guard — NO CI counterpart ------------------------------------------------

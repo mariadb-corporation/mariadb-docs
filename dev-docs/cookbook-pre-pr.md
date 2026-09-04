@@ -10,12 +10,26 @@ skill, which runs them for you; this page documents what it does and how to run 
 |-------|------|----------|
 | Spelling (content + filenames) | `codespell` | `codespell.yml` |
 | Broken links | `lychee` | `link-check-pr.yml` |
+| Heading anchors | `fragcheck.py new` | `fragcheck-pr.yml` |
 | Alias expansion | sed (auto-commit) | `expand-gitbook-aliases.yml` |
 | Help-tables regen | Python | `generate-help-tables.yml` |
 
-Only the first two can fail your PR; aliases and help-tables are regenerated automatically.
+Only the first three can fail your PR; aliases and help-tables are regenerated automatically.
 
-## 1. Spelling + links + includes + gutted pages — `doc-lint.sh`
+The heading-anchor gate arrived in DOCS-6524 and closed the one rot class that used to have no
+CI counterpart at all. Two consequences worth knowing:
+
+- **It is no longer only a local check.** Before, the anchor gate ran only via `/precommit`, the
+  `docs-check` skill, and the Claude Code pre-commit hook — and that hook covers only commits
+  Claude Code makes through the Bash tool, so a hand-written `git commit`, an IDE commit, or a
+  GitBook-UI edit bypassed it entirely. Now the same check runs on every PR touching `*.md`.
+- **A nightly digest (`nightly-fragcheck.yml`) covers what a PR trigger cannot.** GitBook-UI
+  edits sync straight back to Git, and the alias-expansion bot rewrites links *after* the PR gate
+  ran green. The nightly re-runs the same command against a rolling 24-hour base and posts to
+  Slack only when something broke, plus a Monday heartbeat so silence stays meaningful. It is
+  read-only: it files nothing, and triage stays a human decision.
+
+## 1. Spelling + links + includes + orphans + gutted pages — `doc-lint.sh`
 
 The codespell and lychee invocations that mirror CI live in **one** place,
 `.claude/hooks/doc-lint.sh`. Run it instead of re-typing the flags:
@@ -46,6 +60,12 @@ dead in the working tree, because the repo carries ~1,272 pre-existing dead anch
 check would fail every PR on breakage it did not introduce. It also scans the whole tree instead
 of the changed files, since renaming a heading breaks inbound links from pages the commit never
 touched — so findings naming files you did not edit are the check working, not noise.
+
+**CI runs this exact command too** (`fragcheck-pr.yml`, base = the PR base), so a finding here is
+a finding there. One difference is deliberate: locally, a base revision that cannot be checked
+out is a SKIP that returns 0 — never block a commit over a missing baseline — whereas in CI it is
+a hard failure, because a check that cannot run must not report success. Both workflows therefore
+assert the base commit is present *before* invoking the script.
 
 Enabling `--include-fragments` in lychee would *not* substitute for this. lychee's slugger is
 GitHub-flavoured and GitBook's is not, so on `main` it produced 386 false positives (the anchor
@@ -81,6 +101,33 @@ DOC_LINT_SKIP_FRAGMENTS=1 .claude/hooks/doc-lint.sh <files>
 ```
 
 (Added in DOCS-6491.)
+
+It also gates **orphaned pages** — a page file with no entry in its space's `SUMMARY.md`. GitBook
+publishes only what `SUMMARY.md` lists, so such a page never renders, and no other check here can
+see that: the markup is valid so codespell passes, the links resolve so lychee passes, and the
+page is simply never built. There is no failing signal anywhere; the only symptom is a reader
+reporting a missing page.
+
+DOCS-6566 is the case. `dde0fb263` added four post-download pages (Server 12.3.3, 11.8.9, 11.4.13
+and 10.11.19) and bumped their `most-recent-*.md` includes but never touched
+`platform/SUMMARY.md`. All four sat unpublished for eight days with every gate green, until a
+reader noticed. Replayed against that commit, the check names all four and fails.
+
+Like the anchor gate it is history-aware, and for the same reason: `main` carries **219**
+pre-existing orphans (190 in `server` alone), so an absolute check would fail every unrelated PR
+on breakage it did not introduce. It reports only pages *newly* orphaned against `DOC_LINT_BASE` —
+added with no nav entry, or de-listed while the file survives. Unlike the anchor gate it needs no
+worktree, so it costs ~40 ms and has no skip flag.
+
+A deliberately unlisted page is legitimate, so this gate is acknowledged rather than silenced:
+
+```bash
+DOC_LINT_ALLOW_ORPHAN='space/path/to/page.md' .claude/hooks/doc-lint.sh <files>
+```
+
+and say why in the commit message; `DOC_LINT_ALLOW_ORPHAN=all` disables the check. For triage,
+`.claude/hooks/navcheck.py check [path ...]` prints the full current orphan inventory rather than
+just the new ones. (Added in DOCS-6567.)
 
 Finally, it flags a **gutted page**: any file in the set that lost more than **40%** of its lines
 *net* (deletions minus additions, minimum 20 lines lost, pre-image at least 30 lines) against
@@ -150,3 +197,19 @@ samples legitimately contain `{`, `%`, and raw URLs.
   `doc-lint.sh` on staged files when **Claude Code** runs `git commit`, blocking on real
   failures and warning (without blocking) if a tool isn't installed. It does **not** gate human
   or GitBook-UI commits — see `.claude/README.md`.
+
+## Changing the linter itself
+
+Editing `doc-lint.sh` means editing the only gate for dead GitBook includes and for gutted
+pages, so run its regression suite before you commit:
+
+```bash
+.claude/hooks/doc-lint-test.sh              # --keep to inspect the sandbox, --verbose for output
+```
+
+It builds its own fixtures in a throwaway git repo under `TMPDIR` and asserts both the exit code
+and the message for every check above, including the "tool not installed" SKIP branches. CI runs
+it on every PR on Linux **and** macOS (`.github/workflows/doc-lint-test.yml`) — the two-platform
+matrix is not ceremony: both of the plumbing bugs found in this script so far were visible on
+exactly one of the two (DOCS-6409 on Linux only, an empty-array expansion on macOS bash 3.2
+only). Added in DOCS-6471.

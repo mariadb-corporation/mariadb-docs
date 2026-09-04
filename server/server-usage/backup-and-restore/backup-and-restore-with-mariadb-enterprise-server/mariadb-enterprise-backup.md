@@ -14,7 +14,7 @@ MariaDB Enterprise Backup is compatible with MariaDB Enterprise Server.
 
 ## Storage Engines and Backup Types
 
-MariaDB Backup creates a file-level backup of data from the MariaDB Community Server data directory. This backup includes [temporal data](../../../reference/sql-structure/temporal-tables/), and the encrypted and unencrypted tablespaces of supported storage engines (e.g., [InnoDB](../../storage-engines/innodb/), [MyRocks](../../storage-engines/myrocks/), [Aria](../../storage-engines/aria/)).
+MariaDB Backup creates a file-level backup of data from the MariaDB Enterprise Server data directory. This backup includes [temporal data](../../../reference/sql-structure/temporal-tables/), and the encrypted and unencrypted tablespaces of supported storage engines (e.g., [InnoDB](../../storage-engines/innodb/), [MyRocks](../../storage-engines/myrocks/), [Aria](../../storage-engines/aria/)).
 
 MariaDB Enterprise Server implements:
 
@@ -187,7 +187,7 @@ While full backups are resource-intensive at time of backup, the resource burden
 
 ### Performing Incremental Backups
 
-When you perform an incremental backup, MariaDB Backup compares a previous full or incremental backup to what it finds on MariaDB Community Server. It then creates a new backup containing the incremental changes.
+When you perform an incremental backup, MariaDB Backup compares a previous full or incremental backup to what it finds on MariaDB Enterprise Server. It then creates a new backup containing the incremental changes.
 
 Incremental backup is supported for InnoDB tables. Tables using other storage engines receive full backups even during incremental backup operations.
 
@@ -270,7 +270,7 @@ The incremental backups must be applied in order. MariaDB Backup checks that eac
 
 ### Restoring from Incremental Backups
 
-Once you have prepared the full backup directory with all the incremental changes you need (as described above), stop the MariaDB Community Server, Empty its data directory, and restore from the original full backup directory using the --copy-back option:
+Once you have prepared the full backup directory with all the incremental changes you need (as described above), stop the MariaDB Enterprise Server, Empty its data directory, and restore from the original full backup directory using the --copy-back option:
 
 ```bash
 mariadb-backup --copy-back --target-dir=/data/backups/full
@@ -344,9 +344,9 @@ mariadb-backup --prepare --export \
 
 ### Performing a Partial Restore
 
-Unlike full and incremental backups, you cannot restore partial backups directly using MariaDB Backup. Further, as a partial backup does not contain a complete data directory, you cannot restore MariaDB Community Server to a startable state solely with a partial backup.
+Unlike full and incremental backups, you cannot restore partial backups directly using MariaDB Backup. Further, as a partial backup does not contain a complete data directory, you cannot restore MariaDB Enterprise Server to a startable state solely with a partial backup.
 
-To restore from a partial backup, you need to prepare a table on the MariaDB Community Server, then manually copy the files into the data directory.
+To restore from a partial backup, you need to prepare a table on the MariaDB Enterprise Server, then manually copy the files into the data directory.
 
 The details of the restore procedure depend on the characteristics of the table:
 
@@ -360,7 +360,7 @@ As partial restores are performed while the server is running, not stopped, care
 
 ### Partial Restore Nonpartitioned Tables
 
-To restore a non-partitioned table from a backup, first create a new table on MariaDB Community Server to receive the restored data. It should match the specifications of the table you're restoring.
+To restore a non-partitioned table from a backup, first create a new table on MariaDB Enterprise Server to receive the restored data. It should match the specifications of the table you're restoring.
 
 Be extra careful if the backup data is from a server with a different version than the restore server, as some differences (such as a differing `ROW_FORMAT`) can cause an unexpected result.
 
@@ -385,7 +385,7 @@ ALTER TABLE test.address_book DISCARD TABLESPACE;
 # cp /data/backups/part_inc1/test/address_book.* /var/lib/mysql/test
 ```
 
-4. Use a wildcard to include both the .ibd and .cfg files. Then, change the owner to the system user running MariaDB Community Server:
+4. Use a wildcard to include both the .ibd and .cfg files. Then, change the owner to the system user running MariaDB Enterprise Server:
 
 ```bash
 # chown mysql:mysql /var/lib/mysql/test/address_book.*
@@ -397,7 +397,7 @@ ALTER TABLE test.address_book DISCARD TABLESPACE;
 ALTER TABLE test.address_book IMPORT TABLESPACE;
 ```
 
-MariaDB Community Server looks in the data directory for the tablespace you copied in, then imports it for use. If the table is encrypted, it also looks for the encryption key with the relevant key ID that the table data specifies.
+MariaDB Enterprise Server looks in the data directory for the tablespace you copied in, then imports it for use. If the table is encrypted, it also looks for the encryption key with the relevant key ID that the table data specifies.
 
 6. Repeat this step for every table you wish to restore.
 
@@ -405,7 +405,7 @@ MariaDB Community Server looks in the data directory for the tablespace you copi
 
 Restoring a partitioned table from a backup requires a few extra steps compared to restoring a non-partitioned table.
 
-To restore a partitioned table from a backup, first create a new table on MariaDB Community Server to receive the restored data. It should match the specifications of the table you're restoring, including the partition specification.
+To restore a partitioned table from a backup, first create a new table on MariaDB Enterprise Server to receive the restored data. It should match the specifications of the table you're restoring, including the partition specification.
 
 Be extra careful if the backup data is from a server with a different version than the restore server, as some differences (such as a differing ROW\_FORMAT) can cause an unexpected result.
 
@@ -443,7 +443,7 @@ ALTER TABLE test.students_work DISCARD TABLESPACE;
 # cp /data/backups/part_inc1/test/students.cfg /var/lib/mysql/test/students_work.cfg
 ```
 
-5. Change the owner to that of the user running MariaDB Community Server:
+5. Change the owner to that of the user running MariaDB Enterprise Server:
 
 ```bash
 # chown mysql:mysql /var/lib/mysql/test/students_work.*
@@ -511,7 +511,7 @@ $ sudo cp /data/backups/part/db1/t1.* /var/lib/mysql/db1
 $ sudo rm /var/lib/mysql/db1/t1.cfg
 ```
 
-6. Change the owner of the newly copied files to the system user running MariaDB Community Server:
+6. Change the owner of the newly copied files to the system user running MariaDB Enterprise Server:
 
 ```bash
 $ sudo chown mysql:mysql /var/lib/mysql/db1/t1.*
