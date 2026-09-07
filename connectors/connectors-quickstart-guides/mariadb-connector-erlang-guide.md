@@ -59,7 +59,7 @@ mysql:stop(Pid).
 #### Further Resources:
 
 * [MySQL/OTP GitHub Repository](https://github.com/mysql-otp/mysql-otp)
-* [Erlang/OTP Documentation](https://www.google.com/search?q=http://erlang.org/doc/man/mysql.html\&authuser=1)
+* [Erlang/OTP Documentation](https://www.erlang.org/docs)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

@@ -149,7 +149,7 @@ GALERA_NODES="192.168.1.1:4567 192.168.1.2:4567"
 GALERA_GROUP="example_wsrep_cluster"
 
 # Optional Galera internal options string (such as SSL settings)
-# see https://galeracluster.com/documentation/galera-parameters.html
+# see https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables
 GALERA_OPTIONS="socket.ssl=yes;socket.ssl_cert=/etc/galera/cert/cert.pem;socket.ssl_key=/$"
 
 # Log file for garbd. Optional, by default logs to syslog

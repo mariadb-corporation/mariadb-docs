@@ -47,7 +47,7 @@ UUID_v7(): 01921e85-f198-7490-9b89-7dd0d468543b
 * [UUID data type](../../../data-types/string-data-types/uuid-data-type.md)
 * [MDEV-11339](https://jira.mariadb.org/browse/MDEV-11339) (Support UUID v4 generation)
 * [MDEV-32637](https://jira.mariadb.org/browse/MDEV-32637) (Implement native UUID7 function)
-* [uuid7.com](https://uuid7.com/)
+* [uuid7.com](https://web.archive.org/web/20250708210006/https://uuid7.com/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

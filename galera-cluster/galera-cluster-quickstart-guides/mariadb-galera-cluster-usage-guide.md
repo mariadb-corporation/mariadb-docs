@@ -150,7 +150,7 @@ By following these guidelines, you can effectively manage and operate your Maria
 ## Further Resources:
 
 * [MariaDB Galera Cluster Guide](https://mariadb.com/docs/galera-cluster/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide)
-* [Galera Cluster Documentation - Operational Aspects](https://www.google.com/search?q=https://galeracluster.com/documentation/html_docs_galera/operational_aspects.html\&authuser=1)
+* [Performing Schema Upgrades in Galera Cluster](../galera-management/general-operations/performing-schema-upgrades-in-galera-cluster.md)
 * [MariaDB documentation - Galera Cluster Best Practices](mariadb-galera-cluster-usage-guide.md#application-best-practices)
 * [MariaDB documentation - Galera Cluster Monitor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-monitors/galera-monitor)
 

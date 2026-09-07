@@ -108,7 +108,7 @@ mariadb-server-5.1	mysql-server/root_password_again	password	rootpass
     mariadb-server-5.1	mysql-server/no_upgrade_when_using_ndb	error
 ```
 
-For some background see [here](https://blog.hjksolutions.com/articles/2007/07/27/unattended-package-installation-with-debian-and-ubuntu).\
+For some background see [here](https://web.archive.org/web/20080516191905/https://blog.hjksolutions.com/articles/2007/07/27/unattended-package-installation-with-debian-and-ubuntu).\
 The file my.seed can be generated from an existing install using
 debconf-get-selections.
 
@@ -128,7 +128,7 @@ deb-src file:///home/buildbot/buildbot/debs source/
 The default network card emulated by KVM has poor performance. To solve this we
 instead use the "virtio" network device, using the KVM options "-net
 nic,model=virtio -net user". Except on Debian 4, which has an old kernel
-without support for virtio. Background info [here](https://episteme.arstechnica.com/eve/forums/a/tpc/f/96509133/m/303006642931).
+without support for virtio. Background info was discussed in an Ars Technica forum thread that is no longer available.
 
 A detail is that some 32-bit vms crashed during boot with default options. This
 was fixed by using the kvm "-cpu qemu32,-nx" option. Some background

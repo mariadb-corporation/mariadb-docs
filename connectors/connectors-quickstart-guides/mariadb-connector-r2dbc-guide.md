@@ -152,7 +152,7 @@ MariaDB Connector/R2DBC also integrates seamlessly with the Spring Data R2DBC fr
 
 * [MariaDB Connector/R2DBC GitHub Repository](https://github.com/mariadb-corporation/mariadb-connector-r2dbc)
 * [R2DBC Specification](https://r2dbc.io/spec/)
-* [Spring Data R2DBC Documentation](https://www.google.com/search?q=https://docs.spring.io/spring-data/relational/reference/r2dbc/index.html\&authuser=1)
+* [Spring Data R2DBC Documentation](https://docs.spring.io/spring-data/relational/reference/r2dbc.html)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

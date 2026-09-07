@@ -1,0 +1,201 @@
+name: Check Heading Anchors in PR
+
+# Gates dead GitBook heading anchors (`page.md#some-heading`) -- the one
+# documentation rot class that had no CI counterpart at all.
+#
+# link-check-pr.yml deliberately passes no --include-fragments, and that is
+# correct: measured on main under DOCS-6491, lychee's GitHub-flavoured slugger
+# was wrong in BOTH directions on this repo -- 1,129 reported fragment errors of
+# which 386 were false positives (the anchor resolves on the live site), while
+# 213 genuinely dead anchors went unreported. .claude/hooks/fragcheck.py
+# implements GitBook's own slug rules instead, validated at 4,599/4,599 computed
+# anchors against the rendered pages, and is what runs here.
+#
+# Until now every entry point to that script was local: the /precommit command,
+# the docs-check skill, and the Claude Code PreToolUse(Bash) hook -- whose own
+# header records the limit, that it "only gates commits that Claude Code makes
+# via the Bash tool. Human git commit, IDE commits, and GitBook-UI edits bypass
+# it entirely." So a PR from anyone who did not run doc-lint.sh by hand was not
+# anchor-checked at all. PR #966 is the worked example: its test plan records
+# that fragcheck "failed on a network fetch", so the author got no anchor check.
+# That PR happened to be clean, but by luck rather than by gate. See DOCS-6524.
+#
+# WHY `new` AND NOT `check`
+#   `check` prints the standing inventory -- 15 dead anchors on main as this was
+#   written, all of them already owned by DOCS-6509/6510. Gating on that would
+#   turn every unrelated PR red on breakage it did not introduce, which is the
+#   same trap the lychee `broken-reference` exclusion documents.
+#
+#   `new <base>` scans the working tree and a throwaway git worktree at <base>
+#   and reports only the difference, so pre-existing rot stays out of the way
+#   while a heading rename that breaks inbound links from pages this PR never
+#   touched still fails. It gates two classes:
+#     * anchors the base revision resolved and the head does not (a rename)
+#     * headings that took over another heading's explicit id (DOCS-6492) --
+#       invisible to every link checker, this one included, because the anchors
+#       all exist and resolve; they just land on the wrong section
+#
+# WHY THIS CALLS THE SCRIPT DIRECTLY RATHER THAN doc-lint.sh
+#   doc-lint.sh is the single source of truth for the codespell and lychee FLAG
+#   sets, because those are ~40 lines of excludes that CI and local must not
+#   drift on. `fragcheck.py new <rev>` has no flags at all, and running
+#   doc-lint.sh here would re-run codespell and lychee, which already have their
+#   own workflows. The invocation below is spelled exactly as doc-lint.sh spells
+#   it; the comment there points back at this file so the two cannot drift
+#   unnoticed.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+# A second push supersedes the first: this scans the whole tree twice by design,
+# so an abandoned run is ~30s of runner time with nobody reading the result.
+concurrency:
+  group: fragcheck-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  fragcheck:
+    runs-on: ubuntu-latest
+    # Two full-tree scans measured ~13.5s locally. 10 minutes is generous
+    # headroom; without it the job inherits the 6-hour default, and a wedged
+    # git worktree call would end as *cancelled*, which `if: failure()` does
+    # not catch.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          # REQUIRED. `new` checks the base revision out into a throwaway
+          # worktree, so the base commit object must be present. On a shallow
+          # clone it is not -- and note what that failure looks like: the script
+          # prints "cannot check out <rev> -- no baseline, SKIPPED" and exits
+          # ZERO. A shallow checkout would therefore leave this gate
+          # permanently, silently green. The assertion step below exists so that
+          # cannot happen quietly.
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changes
+        # SHA-pinned rather than tag-pinned: this action was compromised in
+        # March 2025 (CVE-2025-30066), when tags in the v1-v45 range were
+        # repointed at code that leaked runner secrets. Pinning the commit
+        # removes the retag vector. Dependabot keeps the SHA and the comment
+        # in sync. See DOCS-6362.
+        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
+        with:
+          # Only .md matters: anchors are published by Markdown headings and
+          # linked from Markdown. .html pages carry no GitBook heading anchors.
+          files: |
+            **.md
+          # agent-skills/topical/ is vendored verbatim from MariaDB/skills (see
+          # agent-skills/topical/VENDORED.md). Fixes go upstream, not here.
+          #
+          # This filter decides only WHETHER to run. The scan itself is
+          # deliberately tree-wide -- see the `new` note in the header.
+          files_ignore: |
+            agent-skills/topical/**
+
+      - name: Set up Python
+        if: steps.changes.outputs.any_changed == 'true'
+        uses: actions/setup-python@v5
+        with:
+          # fragcheck.py is standard library only, so this pins the interpreter
+          # rather than installing anything.
+          python-version: '3.12'
+
+      # Separated from the scan step on purpose. `fragcheck.py new` treats an
+      # uncheckoutable base as a SKIP and returns 0, which is right for a local
+      # pre-commit hook (never block a commit over a missing baseline) and wrong
+      # for a gate (a check that cannot run must not report success). Asserting
+      # first converts that silent pass into a red run.
+      - name: Verify the base revision is present
+        if: steps.changes.outputs.any_changed == 'true'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          if [[ -z "${BASE_SHA:-}" ]]; then
+            echo "::error::The PR base SHA is empty, so the anchor gate has no baseline to diff against."
+            exit 1
+          fi
+          # cat-file -e, not rev-parse: rev-parse succeeds on a well-formed sha
+          # that is not in the object database, which is exactly the shallow-clone
+          # case this guards.
+          if ! git cat-file -e "${BASE_SHA}^{commit}" 2>/dev/null; then
+            echo "::error::Base commit ${BASE_SHA} is not in this clone, so the anchor gate would SKIP and report success. Check that fetch-depth: 0 is still set on the checkout step."
+            exit 1
+          fi
+          echo "Base revision ${BASE_SHA} present."
+
+      - name: Check heading anchors
+        if: steps.changes.outputs.any_changed == 'true'
+        id: fragcheck
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -uo pipefail
+          # Findings go to stderr, the clean message to stdout; capture both in
+          # order so the summary reads the way the local run does. Via env rather
+          # than interpolated into the script -- the house rule
+          # link-check-pr.yml documents (DOCS-6361).
+          set +e
+          python3 .claude/hooks/fragcheck.py new "$BASE_SHA" > fragcheck.log 2>&1
+          rc=$?
+          set -e
+          cat fragcheck.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          # rc 1 is findings; rc 2 is a usage error from the script itself
+          # (e.g. no revision passed). Anything else is a crash. All three are
+          # failures here, but they get different messages so the fix is obvious
+          # from the annotation alone.
+          case "$rc" in
+            0) ;;
+            1) echo "::error::This PR kills a heading anchor that its base revision resolved, or gives a heading another heading's id. Details in the job log and the run summary." ;;
+            2) echo "::error::fragcheck.py rejected its arguments -- the workflow is misconfigured, not the PR." ;;
+            *) echo "::error::fragcheck.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      - name: Record the result in the run summary
+        # always(): the default is an implicit success(), which would skip
+        # exactly the runs worth recording.
+        if: always() && steps.changes.outputs.any_changed == 'true'
+        env:
+          RC: ${{ steps.fragcheck.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Heading-anchor check"
+            echo
+            if [[ ! -s fragcheck.log ]]; then
+              echo "No output was produced -- an earlier step failed before the scan ran."
+            else
+              case "${RC:-}" in
+                0) echo "No new dead heading anchors, and no heading took over another's id." ;;
+                1) echo "This PR introduces heading-anchor breakage. A renamed heading breaks every inbound link to its old anchor, including links from pages this PR never touched: either restore the heading text or retarget the links listed below." ;;
+                *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              # Fenced, and with four backticks. This summary is a GFM rendering
+              # surface and the output embeds heading text and file paths from
+              # the PR, which are author-controlled: unfenced, a crafted heading
+              # could forge a heading, plant a link, or open an HTML comment that
+              # swallows the rest of the page. Four backticks so content
+              # containing three cannot close the fence. Same reasoning as
+              # nightly-unlabeled-prs.yml.
+              echo '````text'
+              cat fragcheck.log
+              echo '````'
+              echo
+              echo "Run the same check locally with:"
+              echo
+              echo '````bash'
+              echo "python3 .claude/hooks/fragcheck.py new ${GITHUB_BASE_REF:-main}"
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

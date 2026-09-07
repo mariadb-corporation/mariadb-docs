@@ -358,7 +358,7 @@ Multiple nodes in a cluster can share the same name, but unique names are advise
 
 #### `wsrep_notify_cmd`
 
-* Description: Command to be executed each time the node state or the cluster membership changes. Can be used for raising an alarm, configuring load balancers and so on. See the [Codership Notification Script page](https://galeracluster.com/library/documentation/notification-cmd.html) for more details.
+* Description: Command to be executed each time the node state or the cluster membership changes. Can be used for raising an alarm, configuring load balancers and so on. See [Using the Notification Command (wsrep_notify_cmd)](../galera-management/configuration/using-the-notification-command-wsrep_notify_cmd.md) for more details.
 * Command line: `--wsrep-notify-command=value`
 * Scope: Global
 * Dynamic: No

@@ -93,7 +93,7 @@ This issue is known to occur when using docker. In that case, the problem may be
 * Pinning the docker instance to a specific MariaDB version in the docker compose file, so that it consistently uses the same version.
 * Running [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) to ensure that the data directory is upgraded to match the server version.
 
-See [this docker issue](https://github.com/docker-library/mariadb/issues/201) for more information.
+See [this docker issue](https://github.com/MariaDB/mariadb-docker/issues/201) for more information.
 
 ### MariaDB Galera Cluster
 
