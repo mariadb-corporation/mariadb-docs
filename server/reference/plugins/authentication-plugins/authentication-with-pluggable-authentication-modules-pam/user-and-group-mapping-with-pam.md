@@ -18,7 +18,7 @@ Rather than building user and group mapping into the `pam` authentication plugin
 
 #### Lack of Support for MySQL/Percona Group Mapping Syntax
 
-Unlike MariaDB, MySQL and Percona implemented group mapping in their PAM authentication plugins. If you've read through [MySQL's PAM authentication documentation on group mapping](https://dev.mysql.com/doc/refman/8.0/en/pam-pluggable-authentication.html#pam-authentication-unix-with-proxy) or [Percona's PAM authentication documentation on group mapping](https://www.percona.com/doc/percona-server/8.0/management/pam_plugin.html#supplementary-groups-support), you've probably seen syntax where the group mappings are provided in the [CREATE USER](../../../sql-statements/account-management-sql-statements/create-user.md) statement like this:
+Unlike MariaDB, MySQL and Percona implemented group mapping in their PAM authentication plugins. If you've read through [MySQL's PAM authentication documentation on group mapping](https://dev.mysql.com/doc/refman/8.0/en/pam-pluggable-authentication.html#pam-authentication-unix-with-proxy) or [Percona's PAM authentication documentation on group mapping](https://docs.percona.com/percona-server/8.0/pam-plugin.html#supplementary-groups-support), you've probably seen syntax where the group mappings are provided in the [CREATE USER](../../../sql-statements/account-management-sql-statements/create-user.md) statement like this:
 
 ```sql
 CREATE USER ''@''
@@ -257,7 +257,7 @@ You may find the following PAM and user mapping-related tutorials helpful:
 
 * [Configuring PAM Authentication and User Mapping with MariaDB](https://mariadb.com/resources/blog/configuring-pam-authentication-and-user-mapping-with-mariadb/)
 * [Configuring PAM Group Mapping with MariaDB](https://mariadb.com/resources/blog/configuring-pam-group-mapping-with-mariadb/)
-* [Configuring LDAP Authentication and Group Mapping With MariaDB](https://www.geoffmontee.com/configuring-ldap-authentication-and-group-mapping-with-mariadb/)
+* [Configuring LDAP Authentication and Group Mapping With MariaDB](https://web.archive.org/web/20220930002503/https://www.geoffmontee.com/configuring-ldap-authentication-and-group-mapping-with-mariadb/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

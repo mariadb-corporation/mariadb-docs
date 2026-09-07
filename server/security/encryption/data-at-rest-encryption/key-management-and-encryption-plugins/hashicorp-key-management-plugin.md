@@ -141,7 +141,7 @@ The plugin supports the following parameters, which must be set in advance and c
 
 The token provided through `hashicorp-key-management-token` must have the following Vault access privileges.
 
-Given a `hashicorp-key-management-vault-url` of [`http://vault-server/v1/my_vault`](http://vault-server/v1/my_vault), the token requires:
+Given a `hashicorp-key-management-vault-url` of `http://vault-server/v1/my_vault`, the token requires:
 
 <table><thead><tr><th>Value Path</th><th width="211.22216796875">Access Required</th><th>Condition</th></tr></thead><tbody><tr><td><code>my_vault/data</code></td><td>read</td><td>Always required</td></tr><tr><td><code>sys/mounts/my_vault/tune</code></td><td>read</td><td>Required unless <code>hashicorp-key-management-check-kv-version</code> is set to <code>off</code></td></tr></tbody></table>
 

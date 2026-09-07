@@ -229,6 +229,15 @@ jobs:
           # five unrelated hosts cited elsewhere in the tree (wifislax.com,
           # twistedmatrix.com, tunnelix.com, limenex.com, 4mlinux.com) and would
           # silently stop checking them.
+          #
+          # DOCS-6451: portal.azure.com and www.ibm.com both answer a non-browser
+          # client with a bare 403 while serving real content to a browser. Azure's
+          # two links are deep links into the portal, which requires a signed-in
+          # session, so there is nothing to repoint at. IBM retired Knowledge Center
+          # and 301s the three db2look links to the equivalent /docs/ topic paths, but
+          # its block applies to the new paths too and the Wayback Machine has NO
+          # snapshot of either form -- so the URLs are left exactly as they are rather
+          # than swapped for a target that cannot be verified from here.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -303,6 +312,8 @@ jobs:
             --exclude 'www\.packtpub\.com'
             --exclude 'https://x\.com/'
             --exclude 'www\.guru99\.com'
+            --exclude 'portal\.azure\.com'
+            --exclude 'www\.ibm\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
