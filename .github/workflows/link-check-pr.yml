@@ -211,6 +211,14 @@ jobs:
           # there is nothing further to repoint at. The other two pages have
           # carried the same latent failure since the migration; they only
           # surface when a PR happens to touch them.
+          #
+          # DOCS-6451: www.packtpub.com bot-blocks non-browser clients with a bare
+          # 403 -- both cited product pages serve 200 with their real content to a
+          # browser UA over HTTP/1.1. Packt reorganized its catalogue onto
+          # /en-us/product/<slug>-<isbn> paths, so the two Books links were repointed
+          # at the live pages in the same change; the 403 is the checker being
+          # blocked, not a dead page, and there is nowhere else to point a
+          # publisher's own product page.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -282,6 +290,7 @@ jobs:
             --exclude 'valentina-db\.com'
             --exclude 'docs\.moodle\.org'
             --exclude 'www\.sqlmaestro\.com'
+            --exclude 'www\.packtpub\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

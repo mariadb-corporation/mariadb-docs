@@ -4,7 +4,7 @@ This is the **agent-facing digest** of the MariaDB documentation style rules. Th
 sources** win when they disagree with this file (update this file to match):
 
 - The **published style guide** —
-  `https://mariadb.com/docs/general-resources/about/about-mariadb-documentation/documentation-style-guide/`
+  `https://mariadb.com/docs/general-resources/about/readme/documentation-style-guide`
 - The docs team's internal **Documentation Guidelines** (generic) and **GitBook Editing**
   (tool-specific) pages in Confluence (DOCS space) — the fuller sources; ask the docs team for
   access. `dev-docs/gitbook-syntax.md` digests the GitBook-source-format parts.

@@ -119,6 +119,7 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude 'www\.shannon-sys\.com' \
       --exclude 'www\.hashicorp\.com' \
       --exclude 'blogspot\.com' \
+      --exclude 'docs\.ansible\.com' \
       --exclude 'www\.poliarch\.org' \
       --exclude 'www\.reddit\.com' \
       --exclude 'csm\.mariadb\.com' \
@@ -126,6 +127,7 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude 'gitlab\.kitware\.com' \
       --exclude 'www\.freedesktop\.org' \
       --exclude 'lists\.freedesktop\.org' \
+      --exclude 'web\.archive\.org' \
       --exclude 'azuremarketplace\.microsoft\.com' \
       --exclude 'console\.cloud\.google\.com' \
       --exclude 'partedmagic\.com' \
@@ -140,6 +142,7 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude 'valentina-db\.com' \
       --exclude 'docs\.moodle\.org' \
       --exclude 'www\.sqlmaestro\.com' \
+      --exclude 'www\.packtpub\.com' \
       "${files[@]}" 2>&1)"; then
     # Mirror the workflow's failIfEmpty: false — lychee exits non-zero with
     # "No links were found" when the changed files contain no links, which is a
