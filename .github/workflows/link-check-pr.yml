@@ -238,6 +238,12 @@ jobs:
           # its block applies to the new paths too and the Wayback Machine has NO
           # snapshot of either form -- so the URLs are left exactly as they are rather
           # than swapped for a target that cannot be verified from here.
+          #
+          # DOCS-6451: www.defense.gov answers every non-browser client with a bare
+          # 403 "Access Denied" -- Akamai bot/geo filtering in front of the US DoD
+          # homepage. The site is plainly live and it is cited once, as the referent
+          # of "DoD" beside the STIG certification press release, so there is nothing
+          # to repoint at.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -314,6 +320,7 @@ jobs:
             --exclude 'www\.guru99\.com'
             --exclude 'portal\.azure\.com'
             --exclude 'www\.ibm\.com'
+            --exclude 'www\.defense\.gov'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
