@@ -305,7 +305,7 @@ Make sure to replace the paths with whatever is relevant on your system. This sh
 
 ### TLS Using OpenSSL Encryption With Galera-Compatible Certificates and Keys <a href="#tls-using-openssl-encryption-with-galera-compatible-certificates-and-keys" id="tls-using-openssl-encryption-with-galera-compatible-certificates-and-keys"></a>
 
-To generate keys compatible with this encryption method, follow [Certificate Creation With OpenSSL]({server}/security/encryption/data-in-transit-encryption/certificate-creation-with-openssl).
+To generate keys compatible with this encryption method, follow [Certificate Creation With OpenSSL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/certificate-creation-with-openssl).
 
 First, generate the keys and certificates:
 

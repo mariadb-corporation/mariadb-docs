@@ -191,7 +191,7 @@ This should allow your SSTs to be encrypted.
 
 ### TLS Using OpenSSL Encryption with Galera-compatible Certificates and Keys
 
-To generate keys compatible with this encryption method, you can follow [Certificate Creation With OpenSSL]({server}/security/encryption/data-in-transit-encryption/certificate-creation-with-openssl).
+To generate keys compatible with this encryption method, you can follow [Certificate Creation With OpenSSL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/certificate-creation-with-openssl).
 
 For example:
 
