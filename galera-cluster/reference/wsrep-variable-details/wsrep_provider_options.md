@@ -183,7 +183,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `gcache.keep_plaintext_size`
 
-* Description: Encryption-related. Amount of GCache data kept in plaintext.
+* Description: A soft cap on how much decrypted (plaintext) GCache data is kept in RAM at once. It only has an effect when GCache encryption is enabled; with encryption disabled it is inert.
 * Dynamic: Yes
 * Default: The value of [gcache.page\_size](wsrep_provider_options.md#gcache.page_size).
 
@@ -257,7 +257,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `gcs.check_appl_proto`
 
-* Description: Controls whether the application protocol version is checked.
+* Description: Controls the application protocol version check that is performed when a node joins the Primary Component. Setting it to `0` disables the check: a shortfall in the node's application protocol version is silently tolerated and the node joins anyway.
 * Dynamic: Yes
 * Default: `1`
 
@@ -320,7 +320,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `gcs.stateless`
 
-* Description: For internal use. Should not be manually set.
+* Description: Marks the node as stateless — an arbitrator-like member that participates in group communication but has no database. The [Galera Arbitrator (`garbd`)](../../galera-management/configuration/galera-arbitrator-daemon-garbd.md) runs with this configuration.
 * Dynamic: No
 * Default: `false`
 
@@ -332,15 +332,13 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `gcs.vote_policy`
 
-* Description: For internal use. Should not be manually set. Determines the cluster's voting policy, which must be decided before the cluster starts and cannot be changed at runtime.
+* Description: The rule used in Galera's inconsistency voting protocol. When a node fails to apply a writeset, it initiates a vote on that seqno, and every member casts a vote: `0` for success, or a 64-bit hash of the error message. This option decides which outcome wins the vote:
+  * `0`: Simple majority wins. The outcome with the most votes is chosen.
+  * `N` greater than `0`: Success threshold. If at least `N` nodes voted success, success wins, even if those nodes are in the minority of the voting nodes.
+  * `1`: The "zero wins" case of the threshold rule. A single successful node makes success the winner, and every node that failed to apply the writeset is inconsistent and leaves the cluster.
+* The voting policy must be decided before the cluster starts and cannot be changed at runtime.
 * Dynamic: No
 * Default: `0`
-
-#### `gmcast.group`
-
-* Description: For internal use. Should not be manually set. Set by the provider from the cluster name.
-* Dynamic: No
-* Default: None
 
 #### `gmcast.isolate`
 
@@ -368,6 +366,12 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: None
 
+#### `gmcast.mcast_port`
+
+* Description: The UDP port used by GMCast's optional IP multicast transport. It is only consulted when multicast is enabled by setting [gmcast.mcast\_addr](wsrep_provider_options.md#gmcast.mcast_addr). Multicast is disabled by default, since that option is empty. When it is not set, the multicast group uses the GMCast listen port. Set it only when the multicast group has to use a port other than `4567`. The option carries the provider's `hidden` flag, so it does not appear in the [wsrep\_provider\_options](../galera-cluster-system-variables.md#wsrep_provider_options) output.
+* Dynamic: No
+* Default: None. The GMCast listen port, `4567` by default, is used.
+
 #### `gmcast.mcast_ttl`
 
 * Description: Multicast packet TTL (time to live) value.
@@ -376,7 +380,10 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `gmcast.peer_addr`
 
-* Description: Adds or removes a peer node address for the node to connect to. Setting it at runtime adds the given address to, or deletes it from, the node's peer list.
+* Description: Makes GMCast add or forget a peer address immediately. The value must be prefixed with either `add:` or `del:`:
+  * `add:` injects an address: `SET GLOBAL wsrep_provider_options = 'gmcast.peer_addr=add:tcp://10.0.0.5:4567';`
+  * `del:` forgets an address: `SET GLOBAL wsrep_provider_options = 'gmcast.peer_addr=del:tcp://10.0.0.5:4567';`
+  * A value carrying neither prefix throws `EINVAL: invalid addr spec`.
 * Dynamic: Yes
 * Default: None
 
