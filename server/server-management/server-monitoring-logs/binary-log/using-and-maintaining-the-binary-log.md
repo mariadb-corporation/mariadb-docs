@@ -23,6 +23,20 @@ Logs can also be removed automatically with the [expire\_logs\_days](../../../ha
 
 From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6), the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion and takes precedence if both are non-zero.
 
+{% hint style="warning" %}
+**Automatic Purging Requires Connected Replicas**
+
+All three automatic mechanisms — [max\_binlog\_total\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_binlog_total_size), [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) and [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) — refuse to delete a binary log file until at least [slave\_connections\_needed\_for\_purge](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#slave_connections_needed_for_purge) replicas have processed it. The default is `1` (`0` on Galera cluster nodes), so a primary with no connected replica never purges automatically, and its disk can fill up even when expiry is configured correctly.
+
+Each refused attempt writes a note to the [error log](../error-log.md):
+
+```
+[Note] Binary log 'mariadb-bin.000001' is not purged because less than 'slave_connections_needed_for_purge' slaves have processed it
+```
+
+Set [slave\_connections\_needed\_for\_purge](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#slave_connections_needed_for_purge) to `0` to purge regardless of replica connections. `PURGE BINARY LOGS` is not subject to this limit; see [PURGE BINARY LOGS](../../../reference/sql-statements/administrative-sql-statements/purge-binary-logs.md).
+{% endhint %}
+
 {% include "../../../.gitbook/includes/innodb-based-binlog-from-12.3.md" %}
 
 If the binary log index file has been removed, or incorrectly manually edited, all of the above forms of purging logs fail. The .index file is a plain text file and can be manually recreated or edited so that it lists only the binary log files that are present, in numeric/age order.
