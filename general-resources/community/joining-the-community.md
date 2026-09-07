@@ -26,7 +26,7 @@ The MariaDB project is [hosted on GitHub](https://github.com/MariaDB/server/).
 
 ## Feature requests <a href="#feature-requests" id="feature-requests"></a>
 
-If you have a feature request, you can file it in [JIRA]({server}/reference/product-development/server-development/tools/jira). If you are prepared to pay for the feature you can contact the [MariaDB Corporation](https://mariadb.com/) to get a quote. You can of course also fix it yourself and become a [MariaDB contributor/developer](https://mariadb.com/docs/general-resources/community/contributing-participating/contributing-to-the-mariadb-project).
+If you have a feature request, you can file it in [JIRA](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/tools/jira). If you are prepared to pay for the feature you can contact the [MariaDB Corporation](https://mariadb.com/) to get a quote. You can of course also fix it yourself and become a [MariaDB contributor/developer](https://mariadb.com/docs/general-resources/community/contributing-participating/contributing-to-the-mariadb-project).
 
 ## Social media
 
