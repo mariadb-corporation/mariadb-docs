@@ -398,6 +398,6 @@ Currently, migration from 8.0.x has been verified to work on a simple `sysbench`
 For developers or those compiling from source, the following changes were relevant to this migration path:
 
 * [codership-mariadb-server Pull Request #519](https://github.com/mariadb-corporation/codership-mariadb-server/pull/519)
-* [codership-mysql Pull Request #2062](https://github.com/mariadb-corporation/codership-mysql/pull/2062)
+* codership-mysql Pull Request #2062 (the `mariadb-corporation/codership-mysql` repository has been retired, so this change is no longer publicly browsable)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
