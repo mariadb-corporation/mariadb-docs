@@ -1,7 +1,7 @@
 ---
 description: >-
   MariaDB Enterprise Server 11.4.13-10 is a Stable (GA) maintenance release of
-  MariaDB Enterprise Server 11.4, released on TBD
+  MariaDB Enterprise Server 11.4, released on 2026-09-07
 hidden: true
 ---
 
@@ -9,10 +9,7 @@ hidden: true
 
 <a href="https://mariadb.com/downloads/enterprise/enterprise-server/" class="button primary">Download</a> <a href="11.4.13-10.md" class="button secondary">Release Notes</a> <a class="button secondary">Changelog</a> <a href="whats-new.md" class="button secondary">Overview of Enterprise Server 11.4</a>
 
-<!-- TODO(DOCS-6574): set the release date at publish time. TODO-6192's stated dates
-     (internal 30 Jul 2026, public 3 Aug 2026) have both passed; the working date is
-     "ASAP". Update here AND in the frontmatter description. -->
-**Release date:** TBD
+**Release date:** 7 Sep 2026
 
 ## Issues Fixed
 
