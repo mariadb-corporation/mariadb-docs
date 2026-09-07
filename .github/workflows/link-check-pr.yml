@@ -244,6 +244,13 @@ jobs:
           # homepage. The site is plainly live and it is cited once, as the referent
           # of "DoD" beside the STIG certification press release, so there is nothing
           # to repoint at.
+          #
+          # DOCS-6451 (Galera slice): cloud.ibm.com returns 404 to lychee but 200 to a
+          # browser User-Agent on the same URL -- UA-gated, so the pages are live and
+          # both citations are correct. www.akamai.com is the new home of the Linode
+          # docs library (www.linode.com/docs/guides/... now 301s there); it serves 403
+          # to every scripted client, which is why the old linode.com URL surfaced as a
+          # 403 rather than as the redirect it actually is.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -321,6 +328,8 @@ jobs:
             --exclude 'portal\.azure\.com'
             --exclude 'www\.ibm\.com'
             --exclude 'www\.defense\.gov'
+            --exclude 'cloud\.ibm\.com'
+            --exclude 'www\.akamai\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
