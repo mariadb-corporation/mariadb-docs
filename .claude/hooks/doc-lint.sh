@@ -143,6 +143,8 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude 'docs\.moodle\.org' \
       --exclude 'www\.sqlmaestro\.com' \
       --exclude 'www\.packtpub\.com' \
+      --exclude 'https://x\.com/' \
+      --exclude 'www\.guru99\.com' \
       "${files[@]}" 2>&1)"; then
     # Mirror the workflow's failIfEmpty: false — lychee exits non-zero with
     # "No links were found" when the changed files contain no links, which is a

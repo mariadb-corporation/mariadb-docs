@@ -219,6 +219,16 @@ jobs:
           # at the live pages in the same change; the 403 is the checker being
           # blocked, not a dead page, and there is nowhere else to point a
           # publisher's own product page.
+          #
+          # DOCS-6451: x.com and www.guru99.com serve 200 with real content to a
+          # browser but answer the Actions runners with a bare 403, so a local
+          # lychee run PASSES while CI fails -- the same asymmetry as web.archive.org
+          # above. Both are pre-existing on main; they only surface when a PR happens
+          # to touch joining-the-community.md or tutorials.md. The x.com pattern is
+          # anchored to scheme+host on purpose: a bare 'x\.com' is a substring of
+          # five unrelated hosts cited elsewhere in the tree (wifislax.com,
+          # twistedmatrix.com, tunnelix.com, limenex.com, 4mlinux.com) and would
+          # silently stop checking them.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -291,6 +301,8 @@ jobs:
             --exclude 'docs\.moodle\.org'
             --exclude 'www\.sqlmaestro\.com'
             --exclude 'www\.packtpub\.com'
+            --exclude 'https://x\.com/'
+            --exclude 'www\.guru99\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
