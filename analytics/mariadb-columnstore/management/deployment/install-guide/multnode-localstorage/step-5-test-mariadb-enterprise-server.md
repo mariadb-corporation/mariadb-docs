@@ -33,7 +33,7 @@ $ sudo systemctl start mariadb
 
 ## Test Local Client Connections
 
-Use [MariaDB Client]({server}/clients-and-utilities/mariadb-client) to test the local connection to the Enterprise Server node.
+Use [MariaDB Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client) to test the local connection to the Enterprise Server node.
 
 This action is performed **on each Enterprise ColumnStore node**:
 
