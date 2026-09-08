@@ -251,6 +251,18 @@ jobs:
           # docs library (www.linode.com/docs/guides/... now 301s there); it serves 403
           # to every scripted client, which is why the old linode.com URL surfaced as a
           # 403 rather than as the redirect it actually is.
+          #
+          # DOCS-6451 (Analytics slice): www.oreilly.com. The R use-case page cites
+          # three O'Reilly books by their retired shop.oreilly.com product URLs, which
+          # 301 to www.oreilly.com/library/view/~/<isbn>/. Those resolved pages answer
+          # every scripted client with an Akamai edge denial ("Access Denied", with an
+          # errors.edgesuite.net reference id) -- a full browser User-Agent and a
+          # complete Sec-Fetch header set over HTTP/1.1 do not get past it, and the
+          # site ROOT serves 200, so it is path-level bot protection on /library/view/
+          # rather than a dead page or a whole-host block. Same class as
+          # www.akamai.com and cloud.ibm.com above. The URLs are resolved to the form
+          # O'Reilly itself redirects to, so the citations point at the publisher's own
+          # canonical page.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -330,6 +342,7 @@ jobs:
             --exclude 'www\.defense\.gov'
             --exclude 'cloud\.ibm\.com'
             --exclude 'www\.akamai\.com'
+            --exclude 'www\.oreilly\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

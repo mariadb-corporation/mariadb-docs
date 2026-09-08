@@ -228,7 +228,7 @@ journalctl -u mariadb-columnstore-cmapi # only with the CMAPI package installed
 
 ### MariaDB Server Error Log
 
-Errors raised at the SQL layer (including ColumnStore plugin messages) go to the regular MariaDB Server [error log](https://mariadb.com/docs/server/server-management/server-monitoring-logs/error-log), configured with the [`log_error`](https://mariadb.com/docs/server/server-management/variables-and-modes/server-system-variables#log_error) system variable.
+Errors raised at the SQL layer (including ColumnStore plugin messages) go to the regular MariaDB Server [error log]({server}/server-management/server-monitoring-logs/error-log), configured with the [`log_error`]({server}/server-management/variables-and-modes/server-system-variables#log_error) system variable.
 
 ## Gathering Logs for Support Tickets
 

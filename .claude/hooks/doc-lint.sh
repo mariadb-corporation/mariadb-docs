@@ -150,6 +150,7 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude 'www\.defense\.gov' \
       --exclude 'cloud\.ibm\.com' \
       --exclude 'www\.akamai\.com' \
+      --exclude 'www\.oreilly\.com' \
       "${files[@]}" 2>&1)"; then
     # Mirror the workflow's failIfEmpty: false — lychee exits non-zero with
     # "No links were found" when the changed files contain no links, which is a

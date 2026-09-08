@@ -7,7 +7,7 @@ hidden: true
 
 ## Overview
 
-This page details step 3 of a 5-step procedure for deploying [Single-Node ColumnStore with Object storage](broken-reference/).
+This page details step 3 of a 5-step procedure for deploying [Multi-Node ColumnStore with Object Storage](README.md).
 
 This step starts and configures MariaDB Enterprise Server and MariaDB ColumnStore.
 
