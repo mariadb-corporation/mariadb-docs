@@ -47,7 +47,7 @@ Some benchmark to do some 100 inserts with one parameter of 100 characters:
 
 ### Configuration
 
-There is one thing to pay attention to: MySQL / MariaDB servers have a global option [max_allowed_packet](https://mariadb.com/kb/en/library/server-system-variables/#max_allowed_packet) that limit the maximum packet exchange size.
+There is one thing to pay attention to: MySQL / MariaDB servers have a global option [max_allowed_packet]({server}/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables#max_allowed_packet) that limit the maximum packet exchange size.
 If the connector sends more data than these limits, the socket will be immediately dropped.
 
 default server values :

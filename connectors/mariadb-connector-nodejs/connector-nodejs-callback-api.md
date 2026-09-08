@@ -101,7 +101,7 @@ The connector has different solutions when this is the case. The `timezone` opti
 
 **IANA timezone/offset**
 
-When using an IANA timezone, the connector will set the connection timezone to the timezone. This can throw an error on connection if the timezone is unknown by the server (see [mariadb timezone documentation](https://mariadb.com/kb/en/time-zones/), timezone tables might not be initialized). If you are sure the server is using that timezone, this step can be skipped with the option `skipSetTimezone`.
+When using an IANA timezone, the connector will set the connection timezone to the timezone. This can throw an error on connection if the timezone is unknown by the server (see [mariadb timezone documentation]({server}/reference/data-types/string-data-types/character-sets/internationalization-and-localization/time-zones), timezone tables might not be initialized). If you are sure the server is using that timezone, this step can be skipped with the option `skipSetTimezone`.
 
 If the timezone corresponds to the JavaScript default timezone, then no conversion will be done.
 
