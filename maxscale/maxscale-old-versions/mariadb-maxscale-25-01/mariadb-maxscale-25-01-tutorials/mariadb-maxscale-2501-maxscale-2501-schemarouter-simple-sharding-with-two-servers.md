@@ -37,18 +37,18 @@ application will use.
 
 ```
 -- Create the user for the service
---https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23.08/mariadb-maxscale-23-08-authenticators/mariadb-maxscale-2308-authentication-modules#required-grants
+-- https://mariadb.com/docs/maxscale/maxscale-security/authentication-modules#required-grants
 CREATE USER 'service_user'@'%' IDENTIFIED BY 'secret';
 GRANT SELECT ON mysql.* TO 'service_user'@'%';
 GRANT SHOW DATABASES ON *.* TO 'service_user'@'%';
 
 -- Create the user for the monitor
--- https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23.08/mariadb-maxscale-23-08-authenticators/mariadb-maxscale-2308-authentication-modules#required-grants
+-- https://mariadb.com/docs/maxscale/maxscale-old-versions/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-galera-monitor#required-grants
 CREATE USER 'monitor_user'@'%' IDENTIFIED BY 'secret';
 GRANT REPLICATION CLIENT ON *.* TO 'monitor_user'@'%';
 
 -- Create the application user
--- https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23.08/mariadb-maxscale-23-08-authenticators/mariadb-maxscale-2308-authentication-modules#limitations-and-troubleshooting
+-- https://mariadb.com/docs/maxscale/maxscale-security/authentication-modules#limitations-and-troubleshooting
 CREATE USER app_user@'%' IDENTIFIED BY 'secret';
 GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO app_user@'%';
 ```

@@ -90,8 +90,8 @@ $ maxctrl --secure
 
 For example:
 
-* If you were accessing it from local host with the default port, then you would visit this address: [127.0.0.1:8989](https://127.0.0.1:8989)
-* If you were accessing it with the above example configuration, then you would visit this address: [192.168.2.100:8443](https://192.168.2.100:8443)
+* If you were accessing it from local host with the default port, then you would visit this address: `127.0.0.1:8989`
+* If you were accessing it with the above example configuration, then you would visit this address: `192.168.2.100:8443`
 
 8. Enter your user and password to login.
 

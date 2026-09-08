@@ -1848,7 +1848,7 @@ starting, MaxScale will attempt to kill the process.
 **`mariadb-backup_use_memory`**
 
 String, default: "1G". Given as is to`mariadb-backup --prepare --use-memory=<mariadb-backup_use_memory>`. If set to empty,
-no `--use-memory` is set and mariadb-backup will use its internal default. See [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#-use-memory) for more
+no `--use-memory` is set and mariadb-backup will use its internal default. See [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#use-memory) for more
 information.
 
 ```
@@ -1858,7 +1858,7 @@ mariadb-backup_use_memory=2G
 **`mariadb-backup_parallel`**
 
 Numeric, default: 1. Given as is to`mariadb-backup --backup --parallel=<val>`.\
-Defines the number of threads used for parallel data file transfer. See [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#-parallel) for more
+Defines the number of threads used for parallel data file transfer. See [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#parallel) for more
 information.
 
 ```
