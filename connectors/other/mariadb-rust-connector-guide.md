@@ -85,7 +85,7 @@ All features are automatically negotiated during the connection handshake based 
 - [`mysql` (sync) on crates.io](https://crates.io/crates/mysql)
 - [`mysql_async`](https://github.com/blackbeam/mysql_async)
 - [`rust-mysql-simple`](https://github.com/blackbeam/rust-mysql-simple)
-- [MariaDB PARSEC Authentication Plugin documentation]({server}/reference/plugins/authentication-plugins/authentication-plugin-parsec)
+- [MariaDB PARSEC Authentication Plugin documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-parsec)
 - [MDEV-19237 — Metadata skip server-side implementation](https://jira.mariadb.org/browse/MDEV-19237)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

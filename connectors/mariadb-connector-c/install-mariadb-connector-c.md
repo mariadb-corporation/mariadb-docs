@@ -63,7 +63,7 @@ To configure the ES package repository:
 
     1. Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the [Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) section at the bottom of the [MariaDB Package Repository Setup and Usage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) page. Substitute `${checksum}` in the example above with the latest checksum.
 3. Retrieve your Customer Download Token at [Customer Download Token at the MariaDB Customer Portal](https://customers.mariadb.com/downloads/token/) and substitute your token for `CUSTOMER_DOWNLOAD_TOKEN` in the following step.
-4.  Configure the ES package repository using the [mariadb\_es\_repo\_setup]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) utility:
+4.  Configure the ES package repository using the [mariadb\_es\_repo\_setup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) utility:
 
     ```bash
     sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
@@ -116,7 +116,7 @@ To configure the CS package repository:
     ```
 
     1. Checksums of the various releases of the `mariadb_repo_setup` script can be found in the [Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) section at the bottom of the [MariaDB Package Repository Setup and Usage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) page. Substitute `${checksum}` in the example above with the latest checksum.
-3.  Configure the CS package repository using the [mariadb\_repo\_setup]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) utility:
+3.  Configure the CS package repository using the [mariadb\_repo\_setup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) utility:
 
     ```bash
     sudo ./mariadb_repo_setup \
