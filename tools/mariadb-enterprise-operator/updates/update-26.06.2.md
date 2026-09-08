@@ -6,7 +6,7 @@ description: >-
 
 # 26.06.2 update guide
 
-This guide illustrates, step by step, how to update to `26.6.2` from `26.6.1`. If you are updating from a version prior to `26.6.x`, follow the [26.06 update guide](https://mariadb.com/docs/tools/mariadb-enterprise-operator/updates/update-26.06) and the [26.06.1 update guide](https://mariadb.com/docs/tools/mariadb-enterprise-operator/updates/update-26.06.1) first, and apply the changes described there before continuing with this one.
+This guide illustrates, step by step, how to update to `26.6.2` from `26.6.1`. If you are updating from a version prior to `26.6.x`, follow the [26.06 update guide](update-26.06.md) and the [26.06.1 update guide](update-26.06.1.md) first, and apply the changes described there before continuing with this one.
 
 {% hint style="info" %}
 **Unlike previous releases, updating the** [**data-plane**](../topologies/data-plane.md) **to `26.6.2` is optional.** All the **fixes** delivered in `26.6.2` live in the operator itself, so updating the operator is enough to get all of them. You may leave `updateStrategy.autoUpdateDataPlane` set to `false` (the default) and keep your current data-plane version, avoiding a rolling update of your `MariaDB` instances.

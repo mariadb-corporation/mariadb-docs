@@ -287,7 +287,7 @@ _Appears in:_
 - [MariaDBVolume](#mariadbvolume)
 - [MariaDBVolumeSource](#mariadbvolumesource)
 - [StorageVolumeSource](#storagevolumesource)
-- [Volume](#volume)
+- Volume
 - [VolumeSource](#volumesource)
 
 | Field | Description | Default | Validation |
@@ -391,7 +391,7 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 _Appears in:_
 - [MariaDBVolume](#mariadbvolume)
 - [MariaDBVolumeSource](#mariadbvolumesource)
-- [Volume](#volume)
+- Volume
 - [VolumeSource](#volumesource)
 
 | Field | Description | Default | Validation |
@@ -629,7 +629,7 @@ _Appears in:_
 - [MariaDBVolume](#mariadbvolume)
 - [MariaDBVolumeSource](#mariadbvolumesource)
 - [StorageVolumeSource](#storagevolumesource)
-- [Volume](#volume)
+- Volume
 - [VolumeSource](#volumesource)
 
 | Field | Description | Default | Validation |
@@ -823,14 +823,14 @@ _Appears in:_
 | --- | --- | --- | --- |
 | `enabled` _boolean_ | Enabled indicates whether TLS is enabled, determining if certificates should be issued and mounted to the MariaDB instance.<br />It is enabled by default. |  |  |
 | `required` _boolean_ | Required specifies whether TLS must be enforced for all connections.<br />User TLS requirements take precedence over this.<br />It disabled by default. |  |  |
-| `versions` _string array_ | Versions specifies the supported TLS versions for this MariaDB instance.<br />By default, the MariaDB's default supported versions are used. See: https://mariadb.com/kb/en/ssltls-system-variables/#tls_version. |  | items:Enum: [TLSv1.0 TLSv1.1 TLSv1.2 TLSv1.3] <br /> |
+| `versions` _string array_ | Versions specifies the supported TLS versions for this MariaDB instance.<br />By default, the MariaDB's default supported versions are used. See: https://mariadb.com/docs/server/security/encryption/data-in-transit-encryption/ssltls-system-variables#tls_version. |  | items:Enum: [TLSv1.0 TLSv1.1 TLSv1.2 TLSv1.3] <br /> |
 | `serverCASecretRef` _[LocalObjectReference](#localobjectreference)_ | ServerCASecretRef is a reference to a Secret containing the server certificate authority keypair. It is used to establish trust and issue server certificates.<br />One of:<br />- Secret containing both the 'ca.crt' and 'ca.key' keys. This allows you to bring your own CA to Kubernetes to issue certificates.<br />- Secret containing only the 'ca.crt' in order to establish trust. In this case, either serverCertSecretRef or serverCertIssuerRef must be provided.<br />If not provided, a self-signed CA will be provisioned to issue the server certificate. |  |  |
 | `serverCertSecretRef` _[LocalObjectReference](#localobjectreference)_ | ServerCertSecretRef is a reference to a TLS Secret containing the server certificate.<br />It is mutually exclusive with serverCertIssuerRef. |  |  |
-| `serverCertIssuerRef` _[IssuerReference](#issuerreference)_ | ServerCertIssuerRef is a reference to a cert-manager issuer object used to issue the server certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with serverCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via serverCASecretRef. |  |  |
+| `serverCertIssuerRef` _IssuerReference_ | ServerCertIssuerRef is a reference to a cert-manager issuer object used to issue the server certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with serverCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via serverCASecretRef. |  |  |
 | `serverCertConfig` _[CertConfig](#certconfig)_ | ServerCertConfig allows configuring the server certificates, either issued by the operator or cert-manager.<br />If not set, the default settings will be used. |  |  |
 | `clientCASecretRef` _[LocalObjectReference](#localobjectreference)_ | ClientCASecretRef is a reference to a Secret containing the client certificate authority keypair. It is used to establish trust and issue client certificates.<br />One of:<br />- Secret containing both the 'ca.crt' and 'ca.key' keys. This allows you to bring your own CA to Kubernetes to issue certificates.<br />- Secret containing only the 'ca.crt' in order to establish trust. In this case, either clientCertSecretRef or clientCertIssuerRef fields must be provided.<br />If not provided, a self-signed CA will be provisioned to issue the client certificate. |  |  |
 | `clientCertSecretRef` _[LocalObjectReference](#localobjectreference)_ | ClientCertSecretRef is a reference to a TLS Secret containing the client certificate.<br />It is mutually exclusive with clientCertIssuerRef. |  |  |
-| `clientCertIssuerRef` _[IssuerReference](#issuerreference)_ | ClientCertIssuerRef is a reference to a cert-manager issuer object used to issue the client certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with clientCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via clientCASecretRef. |  |  |
+| `clientCertIssuerRef` _IssuerReference_ | ClientCertIssuerRef is a reference to a cert-manager issuer object used to issue the client certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with clientCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via clientCASecretRef. |  |  |
 | `clientCertConfig` _[CertConfig](#certconfig)_ | ClientCertConfig allows configuring the client certificates, either issued by the operator or cert-manager.<br />If not set, the default settings will be used. |  |  |
 | `galeraSSTEnabled` _boolean_ | GaleraSSTEnabled determines whether Galera SST connections should use TLS.<br />It disabled by default. |  |  |
 | `galeraServerSSLMode` _string_ | GaleraServerSSLMode defines the server SSL mode for a Galera Enterprise cluster.<br />This field is only supported and applicable for Galera Enterprise >= 10.6 instances.<br />Refer to the MariaDB Enterprise docs for more detail: https://mariadb.com/docs/galera-cluster/galera-security/mariadb-enterprise-cluster-security#wsrep-tls-modes |  | Enum: [PROVIDER SERVER SERVER_X509] <br /> |
@@ -856,8 +856,8 @@ _Appears in:_
 | `sst` _[SST](#sst)_ | SST is the Snapshot State Transfer used when new Pods join the cluster.<br />More info: https://galeracluster.com/library/documentation/sst.html. |  | Enum: [rsync mariabackup mysqldump] <br /> |
 | `availableWhenDonor` _boolean_ | AvailableWhenDonor indicates whether a donor node should be responding to queries. It defaults to false. |  |  |
 | `galeraLibPath` _string_ | GaleraLibPath is a path inside the MariaDB image to the wsrep provider plugin. It is defaulted if not provided.<br />More info: https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-provider. |  |  |
-| `replicaThreads` _integer_ | ReplicaThreads is the number of replica threads used to apply Galera write sets in parallel.<br />More info: https://mariadb.com/kb/en/galera-cluster-system-variables/#wsrep_slave_threads. |  |  |
-| `providerOptions` _object (keys:string, values:string)_ | ProviderOptions is map of Galera configuration parameters.<br />More info: https://mariadb.com/kb/en/galera-cluster-system-variables/#wsrep_provider_options. |  |  |
+| `replicaThreads` _integer_ | ReplicaThreads is the number of replica threads used to apply Galera write sets in parallel.<br />More info: https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_threads. |  |  |
+| `providerOptions` _object (keys:string, values:string)_ | ProviderOptions is map of Galera configuration parameters.<br />More info: https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider_options. |  |  |
 | `agent` _[Agent](#agent)_ | Agent is a sidecar agent that co-operates with mariadb-enterprise-operator. |  |  |
 | `recovery` _[GaleraRecovery](#galerarecovery)_ | GaleraRecovery is the recovery process performed by the operator whenever the Galera cluster is not healthy.<br />More info: https://galeracluster.com/library/documentation/crash-recovery.html. |  |  |
 | `initContainer` _[InitContainer](#initcontainer)_ | InitContainer is an init container that runs in the MariaDB Pod and co-operates with mariadb-enterprise-operator. |  |  |
@@ -969,8 +969,8 @@ _Appears in:_
 | `sst` _[SST](#sst)_ | SST is the Snapshot State Transfer used when new Pods join the cluster.<br />More info: https://galeracluster.com/library/documentation/sst.html. |  | Enum: [rsync mariabackup mysqldump] <br /> |
 | `availableWhenDonor` _boolean_ | AvailableWhenDonor indicates whether a donor node should be responding to queries. It defaults to false. |  |  |
 | `galeraLibPath` _string_ | GaleraLibPath is a path inside the MariaDB image to the wsrep provider plugin. It is defaulted if not provided.<br />More info: https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-provider. |  |  |
-| `replicaThreads` _integer_ | ReplicaThreads is the number of replica threads used to apply Galera write sets in parallel.<br />More info: https://mariadb.com/kb/en/galera-cluster-system-variables/#wsrep_slave_threads. |  |  |
-| `providerOptions` _object (keys:string, values:string)_ | ProviderOptions is map of Galera configuration parameters.<br />More info: https://mariadb.com/kb/en/galera-cluster-system-variables/#wsrep_provider_options. |  |  |
+| `replicaThreads` _integer_ | ReplicaThreads is the number of replica threads used to apply Galera write sets in parallel.<br />More info: https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_threads. |  |  |
+| `providerOptions` _object (keys:string, values:string)_ | ProviderOptions is map of Galera configuration parameters.<br />More info: https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider_options. |  |  |
 | `agent` _[Agent](#agent)_ | Agent is a sidecar agent that co-operates with mariadb-enterprise-operator. |  |  |
 | `recovery` _[GaleraRecovery](#galerarecovery)_ | GaleraRecovery is the recovery process performed by the operator whenever the Galera cluster is not healthy.<br />More info: https://galeracluster.com/library/documentation/crash-recovery.html. |  |  |
 | `initContainer` _[InitContainer](#initcontainer)_ | InitContainer is an init container that runs in the MariaDB Pod and co-operates with mariadb-enterprise-operator. |  |  |
@@ -1054,7 +1054,7 @@ _Appears in:_
 _Underlying type:_ _string_
 
 Gtid indicates which Global Transaction ID (GTID) position mode should be used when connecting a replica to the master.
-See: https://mariadb.com/kb/en/gtid/#using-current_pos-vs-slave_pos.
+See: https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to#master_use_gtid.
 
 
 
@@ -1118,7 +1118,7 @@ _Appears in:_
 - [MariaDBVolume](#mariadbvolume)
 - [MariaDBVolumeSource](#mariadbvolumesource)
 - [StorageVolumeSource](#storagevolumesource)
-- [Volume](#volume)
+- Volume
 - [VolumeSource](#volumesource)
 
 | Field | Description | Default | Validation |
@@ -1679,7 +1679,7 @@ _Appears in:_
 
 | Field | Description | Default | Validation |
 | --- | --- | --- | --- |
-| `params` _object (keys:string, values:string)_ | Params is a key value pair of parameters to be used in the MaxScale static configuration file.<br />Any parameter supported by MaxScale may be specified here. See reference:<br />https://mariadb.com/kb/en/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide/#global-settings. |  |  |
+| `params` _object (keys:string, values:string)_ | Params is a key value pair of parameters to be used in the MaxScale static configuration file.<br />Any parameter supported by MaxScale may be specified here. See reference:<br />https://mariadb.com/docs/maxscale/maxscale-old-versions/mariadb-maxscale-23.08/mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide#global-settings. |  |  |
 | `volumeClaimTemplate` _[VolumeClaimTemplate](#volumeclaimtemplate)_ | VolumeClaimTemplate provides a template to define the PVCs for storing MaxScale runtime configuration files. It is defaulted if not provided. |  |  |
 | `sync` _[MaxScaleConfigSync](#maxscaleconfigsync)_ | Sync defines how to replicate configuration across MaxScale replicas. It is defaulted when HA is enabled. |  |  |
 
@@ -1719,7 +1719,7 @@ _Appears in:_
 | `name` _string_ | Name is the identifier of the listener. It is defaulted if not provided |  |  |
 | `port` _integer_ | Port is the network port where the MaxScale server will listen. |  | Required: \{\} <br /> |
 | `protocol` _string_ | Protocol is the MaxScale protocol to use when communicating with the client. If not provided, it defaults to MariaDBProtocol. |  |  |
-| `params` _object (keys:string, values:string)_ | Params defines extra parameters to pass to the listener.<br />Any parameter supported by MaxScale may be specified here. See reference:<br />https://mariadb.com/kb/en/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide/#listener_1. |  |  |
+| `params` _object (keys:string, values:string)_ | Params defines extra parameters to pass to the listener.<br />Any parameter supported by MaxScale may be specified here. See reference:<br />https://mariadb.com/docs/maxscale/maxscale-old-versions/mariadb-maxscale-23.08/mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide#listener-1. |  |  |
 
 
 #### MaxScaleMaintenance
@@ -1775,7 +1775,7 @@ _Appears in:_
 | `module` _[MonitorModule](#monitormodule)_ | Module is the module to use to monitor MariaDB servers. It is mandatory when no MariaDB reference is provided. |  |  |
 | `interval` _[Duration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#duration-v1-meta)_ | Interval used to monitor MariaDB servers. It is defaulted if not provided. |  |  |
 | `cooperativeMonitoring` _[CooperativeMonitoring](#cooperativemonitoring)_ | CooperativeMonitoring enables coordination between multiple MaxScale instances running monitors. It is defaulted when HA is enabled. |  | Enum: [majority_of_all majority_of_running] <br /> |
-| `params` _object (keys:string, values:string)_ | Params defines extra parameters to pass to the monitor.<br />Any parameter supported by MaxScale may be specified here. See reference:<br />https://mariadb.com/kb/en/mariadb-maxscale-2308-common-monitor-parameters/.<br />Monitor specific parameter are also supported:<br />https://mariadb.com/kb/en/mariadb-maxscale-2308-galera-monitor/#galera-monitor-optional-parameters.<br />https://mariadb.com/kb/en/mariadb-maxscale-2308-mariadb-monitor/#configuration. |  |  |
+| `params` _object (keys:string, values:string)_ | Params defines extra parameters to pass to the monitor.<br />Any parameter supported by MaxScale may be specified here. See reference:<br />https://mariadb.com/docs/maxscale/reference/maxscale-monitors/common-monitor-parameters.<br />Monitor specific parameter are also supported:<br />https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor#settings.<br />https://mariadb.com/docs/maxscale/maxscale-old-versions/mariadb-maxscale-23.08/mariadb-maxscale-23-08-monitors/mariadb-maxscale-2308-mariadb-monitor#configuration. |  |  |
 
 
 #### MaxScalePodTemplate
@@ -1821,7 +1821,7 @@ _Appears in:_
 | `port` _integer_ | Port is the network port of the MariaDB server. If not provided, it defaults to 3306. |  |  |
 | `protocol` _string_ | Protocol is the MaxScale protocol to use when communicating with this MariaDB server. If not provided, it defaults to MariaDBBackend. |  |  |
 | `maintenance` _boolean_ | Maintenance indicates whether the server is in maintenance mode. |  |  |
-| `params` _object (keys:string, values:string)_ | Params defines extra parameters to pass to the server.<br />Any parameter supported by MaxScale may be specified here. See reference:<br />https://mariadb.com/kb/en/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide/#server_1. |  |  |
+| `params` _object (keys:string, values:string)_ | Params defines extra parameters to pass to the server.<br />Any parameter supported by MaxScale may be specified here. See reference:<br />https://mariadb.com/docs/maxscale/maxscale-old-versions/mariadb-maxscale-23.08/mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide#server-1. |  |  |
 
 
 #### MaxScaleService
@@ -1841,7 +1841,7 @@ _Appears in:_
 | `name` _string_ | Name is the identifier of the MaxScale service. |  | Required: \{\} <br /> |
 | `router` _[ServiceRouter](#servicerouter)_ | Router is the type of router to use. |  | Enum: [readwritesplit readconnroute] <br />Required: \{\} <br /> |
 | `listener` _[MaxScaleListener](#maxscalelistener)_ | MaxScaleListener defines how the MaxScale server will listen for connections. |  | Required: \{\} <br /> |
-| `params` _object (keys:string, values:string)_ | Params defines extra parameters to pass to the service.<br />Any parameter supported by MaxScale may be specified here. See reference:<br />https://mariadb.com/kb/en/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide/#service_1.<br />Router specific parameter are also supported:<br />https://mariadb.com/kb/en/mariadb-maxscale-2308-readwritesplit/#configuration.<br />https://mariadb.com/kb/en/mariadb-maxscale-2308-readconnroute/#configuration. |  |  |
+| `params` _object (keys:string, values:string)_ | Params defines extra parameters to pass to the service.<br />Any parameter supported by MaxScale may be specified here. See reference:<br />https://mariadb.com/docs/maxscale/maxscale-old-versions/mariadb-maxscale-23.08/mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide#service-1.<br />Router specific parameter are also supported:<br />https://mariadb.com/docs/maxscale/reference/maxscale-routers/maxscale-readwritesplit#configuration.<br />https://mariadb.com/docs/maxscale/reference/maxscale-routers/maxscale-readconnroute#settings. |  |  |
 
 
 #### MaxScaleSpec
@@ -1916,15 +1916,15 @@ _Appears in:_
 | Field | Description | Default | Validation |
 | --- | --- | --- | --- |
 | `enabled` _boolean_ | Enabled indicates whether TLS is enabled, determining if certificates should be issued and mounted to the MaxScale instance.<br />It is enabled by default when the referred MariaDB instance (via mariaDbRef) has TLS enabled and enforced. |  |  |
-| `adminVersions` _string array_ | Versions specifies the supported TLS versions in the MaxScale REST API.<br />By default, the MaxScale's default supported versions are used. See: https://mariadb.com/kb/en/mariadb-maxscale-25-mariadb-maxscale-configuration-guide/#admin_ssl_version |  | items:Enum: [TLSv10 TLSv11 TLSv12 TLSv13 MAX] <br /> |
-| `serverVersions` _string array_ | ServerVersions specifies the supported TLS versions in both the servers and listeners managed by this MaxScale instance.<br />By default, the MaxScale's default supported versions are used. See: https://mariadb.com/kb/en/mariadb-maxscale-25-mariadb-maxscale-configuration-guide/#ssl_version. |  | items:Enum: [TLSv10 TLSv11 TLSv12 TLSv13 MAX] <br /> |
+| `adminVersions` _string array_ | Versions specifies the supported TLS versions in the MaxScale REST API.<br />By default, the MaxScale's default supported versions are used. See: https://mariadb.com/docs/maxscale/maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide#admin_ssl_version |  | items:Enum: [TLSv10 TLSv11 TLSv12 TLSv13 MAX] <br /> |
+| `serverVersions` _string array_ | ServerVersions specifies the supported TLS versions in both the servers and listeners managed by this MaxScale instance.<br />By default, the MaxScale's default supported versions are used. See: https://mariadb.com/docs/maxscale/maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide#ssl_version. |  | items:Enum: [TLSv10 TLSv11 TLSv12 TLSv13 MAX] <br /> |
 | `adminCASecretRef` _[LocalObjectReference](#localobjectreference)_ | AdminCASecretRef is a reference to a Secret containing the admin certificate authority keypair. It is used to establish trust and issue certificates for the MaxScale's administrative REST API and GUI.<br />One of:<br />- Secret containing both the 'ca.crt' and 'ca.key' keys. This allows you to bring your own CA to Kubernetes to issue certificates.<br />- Secret containing only the 'ca.crt' in order to establish trust. In this case, either adminCertSecretRef or adminCertIssuerRef fields must be provided.<br />If not provided, a self-signed CA will be provisioned to issue the server certificate. |  |  |
 | `adminCertSecretRef` _[LocalObjectReference](#localobjectreference)_ | AdminCertSecretRef is a reference to a TLS Secret used by the MaxScale's administrative REST API and GUI. |  |  |
-| `adminCertIssuerRef` _[IssuerReference](#issuerreference)_ | AdminCertIssuerRef is a reference to a cert-manager issuer object used to issue the MaxScale's administrative REST API and GUI certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with adminCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via adminCASecretRef. |  |  |
+| `adminCertIssuerRef` _IssuerReference_ | AdminCertIssuerRef is a reference to a cert-manager issuer object used to issue the MaxScale's administrative REST API and GUI certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with adminCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via adminCASecretRef. |  |  |
 | `adminCertConfig` _[CertConfig](#certconfig)_ | AdminCertConfig allows configuring the admin certificates, either issued by the operator or cert-manager.<br />If not set, the default settings will be used. |  |  |
 | `listenerCASecretRef` _[LocalObjectReference](#localobjectreference)_ | ListenerCASecretRef is a reference to a Secret containing the listener certificate authority keypair. It is used to establish trust and issue certificates for the MaxScale's listeners.<br />One of:<br />- Secret containing both the 'ca.crt' and 'ca.key' keys. This allows you to bring your own CA to Kubernetes to issue certificates.<br />- Secret containing only the 'ca.crt' in order to establish trust. In this case, either listenerCertSecretRef or listenerCertIssuerRef fields must be provided.<br />If not provided, a self-signed CA will be provisioned to issue the listener certificate. |  |  |
 | `listenerCertSecretRef` _[LocalObjectReference](#localobjectreference)_ | ListenerCertSecretRef is a reference to a TLS Secret used by the MaxScale's listeners. |  |  |
-| `listenerCertIssuerRef` _[IssuerReference](#issuerreference)_ | ListenerCertIssuerRef is a reference to a cert-manager issuer object used to issue the MaxScale's listeners certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with listenerCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via listenerCASecretRef. |  |  |
+| `listenerCertIssuerRef` _IssuerReference_ | ListenerCertIssuerRef is a reference to a cert-manager issuer object used to issue the MaxScale's listeners certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with listenerCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via listenerCASecretRef. |  |  |
 | `listenerCertConfig` _[CertConfig](#certconfig)_ | ListenerCertConfig allows configuring the listener certificates, either issued by the operator or cert-manager.<br />If not set, the default settings will be used. |  |  |
 | `serverCASecretRef` _[LocalObjectReference](#localobjectreference)_ | ServerCASecretRef is a reference to a Secret containing the MariaDB server CA certificates. It is used to establish trust with MariaDB servers.<br />The Secret should contain a 'ca.crt' key in order to establish trust.<br />If not provided, and the reference to a MariaDB resource is set (mariaDbRef), it will be defaulted to the referred MariaDB CA bundle. |  |  |
 | `serverCertSecretRef` _[LocalObjectReference](#localobjectreference)_ | ServerCertSecretRef is a reference to a TLS Secret used by MaxScale to connect to the MariaDB servers.<br />If not provided, and the reference to a MariaDB resource is set (mariaDbRef), it will be defaulted to the referred MariaDB client certificate (clientCertSecretRef). |  |  |
@@ -2050,7 +2050,7 @@ _Appears in:_
 - [MariaDBVolume](#mariadbvolume)
 - [MariaDBVolumeSource](#mariadbvolumesource)
 - [StorageVolumeSource](#storagevolumesource)
-- [Volume](#volume)
+- Volume
 - [VolumeSource](#volumesource)
 
 | Field | Description | Default | Validation |
@@ -2238,7 +2238,7 @@ _Appears in:_
 - [MariaDBVolume](#mariadbvolume)
 - [MariaDBVolumeSource](#mariadbvolumesource)
 - [StorageVolumeSource](#storagevolumesource)
-- [Volume](#volume)
+- Volume
 - [VolumeSource](#volumesource)
 
 | Field | Description | Default | Validation |
@@ -2724,7 +2724,7 @@ _Appears in:_
 | `serverIdStartIndex` _integer_ | ServerIDStartIndex sets the start index of the MariaDB nodes. Each subsequent replica will increment this by 1.<br />It is immutable.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#server_id |  |  |
 | `semiSyncEnabled` _boolean_ | SemiSyncEnabled determines whether semi-synchronous replication is enabled.<br />Semi-synchronous replication requires that at least one replica should have sent an ACK to the primary node<br />before committing the transaction back to the client.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication<br />It is enabled by default |  |  |
 | `semiSyncAckTimeout` _[Duration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#duration-v1-meta)_ | SemiSyncAckTimeout for the replica to acknowledge transactions to the primary.<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout |  |  |
-| `semiSyncWaitPoint` _[WaitPoint](#waitpoint)_ | SemiSyncWaitPoint determines whether the transaction should wait for an ACK after having synced the binlog (AfterSync)<br />or after having committed to the storage engine (AfterCommit, the default).<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/kb/en/semisynchronous-replication/#rpl_semi_sync_master_wait_point. |  | Enum: [AfterSync AfterCommit] <br /> |
+| `semiSyncWaitPoint` _[WaitPoint](#waitpoint)_ | SemiSyncWaitPoint determines whether the transaction should wait for an ACK after having synced the binlog (AfterSync)<br />or after having committed to the storage engine (AfterCommit, the default).<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_point. |  | Enum: [AfterSync AfterCommit] <br /> |
 | `semiSyncWaitNoSlave` _boolean_ | SemiSyncWaitNoSlave determines whether a node keeps waiting for an ACK when no replica is connected to it.<br />Setting it to false makes the node revert to asynchronous replication while no replica is connected, and switch back to<br />semi-synchronous as soon as one connects. This prevents stalls in nodes that cannot possibly be acknowledged.<br />If not provided, the server default (ON) applies.<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_no_slave |  |  |
 | `syncBinlog` _integer_ | SyncBinlog indicates after how many events the binary log is synchronized to the disk.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sync_binlog |  |  |
 | `initContainer` _[InitContainer](#initcontainer)_ | InitContainer is an init container that runs in the MariaDB Pod and co-operates with mariadb-enterprise-operator. |  |  |
@@ -2755,7 +2755,7 @@ _Appears in:_
 | `serverIdStartIndex` _integer_ | ServerIDStartIndex sets the start index of the MariaDB nodes. Each subsequent replica will increment this by 1.<br />It is immutable.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#server_id |  |  |
 | `semiSyncEnabled` _boolean_ | SemiSyncEnabled determines whether semi-synchronous replication is enabled.<br />Semi-synchronous replication requires that at least one replica should have sent an ACK to the primary node<br />before committing the transaction back to the client.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication<br />It is enabled by default |  |  |
 | `semiSyncAckTimeout` _[Duration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#duration-v1-meta)_ | SemiSyncAckTimeout for the replica to acknowledge transactions to the primary.<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout |  |  |
-| `semiSyncWaitPoint` _[WaitPoint](#waitpoint)_ | SemiSyncWaitPoint determines whether the transaction should wait for an ACK after having synced the binlog (AfterSync)<br />or after having committed to the storage engine (AfterCommit, the default).<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/kb/en/semisynchronous-replication/#rpl_semi_sync_master_wait_point. |  | Enum: [AfterSync AfterCommit] <br /> |
+| `semiSyncWaitPoint` _[WaitPoint](#waitpoint)_ | SemiSyncWaitPoint determines whether the transaction should wait for an ACK after having synced the binlog (AfterSync)<br />or after having committed to the storage engine (AfterCommit, the default).<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_point. |  | Enum: [AfterSync AfterCommit] <br /> |
 | `semiSyncWaitNoSlave` _boolean_ | SemiSyncWaitNoSlave determines whether a node keeps waiting for an ACK when no replica is connected to it.<br />Setting it to false makes the node revert to asynchronous replication while no replica is connected, and switch back to<br />semi-synchronous as soon as one connects. This prevents stalls in nodes that cannot possibly be acknowledged.<br />If not provided, the server default (ON) applies.<br />It requires semi-synchronous replication to be enabled.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_no_slave |  |  |
 | `syncBinlog` _integer_ | SyncBinlog indicates after how many events the binary log is synchronized to the disk.<br />See: https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sync_binlog |  |  |
 | `initContainer` _[InitContainer](#initcontainer)_ | InitContainer is an init container that runs in the MariaDB Pod and co-operates with mariadb-enterprise-operator. |  |  |
@@ -3031,7 +3031,7 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 _Appears in:_
 - [MariaDBVolume](#mariadbvolume)
 - [MariaDBVolumeSource](#mariadbvolumesource)
-- [Volume](#volume)
+- Volume
 - [VolumeSource](#volumesource)
 
 | Field | Description | Default | Validation |
@@ -3304,7 +3304,7 @@ _Appears in:_
 - [RestoreSource](#restoresource)
 - [RestoreSpec](#restorespec)
 - [StagingStorage](#stagingstorage)
-- [Volume](#volume)
+- Volume
 - [VolumeSource](#volumesource)
 
 | Field | Description | Default | Validation |
@@ -3370,14 +3370,14 @@ _Appears in:_
 | --- | --- | --- | --- |
 | `enabled` _boolean_ | Enabled indicates whether TLS is enabled, determining if certificates should be issued and mounted to the MariaDB instance.<br />It is enabled by default. |  |  |
 | `required` _boolean_ | Required specifies whether TLS must be enforced for all connections.<br />User TLS requirements take precedence over this.<br />It disabled by default. |  |  |
-| `versions` _string array_ | Versions specifies the supported TLS versions for this MariaDB instance.<br />By default, the MariaDB's default supported versions are used. See: https://mariadb.com/kb/en/ssltls-system-variables/#tls_version. |  | items:Enum: [TLSv1.0 TLSv1.1 TLSv1.2 TLSv1.3] <br /> |
+| `versions` _string array_ | Versions specifies the supported TLS versions for this MariaDB instance.<br />By default, the MariaDB's default supported versions are used. See: https://mariadb.com/docs/server/security/encryption/data-in-transit-encryption/ssltls-system-variables#tls_version. |  | items:Enum: [TLSv1.0 TLSv1.1 TLSv1.2 TLSv1.3] <br /> |
 | `serverCASecretRef` _[LocalObjectReference](#localobjectreference)_ | ServerCASecretRef is a reference to a Secret containing the server certificate authority keypair. It is used to establish trust and issue server certificates.<br />One of:<br />- Secret containing both the 'ca.crt' and 'ca.key' keys. This allows you to bring your own CA to Kubernetes to issue certificates.<br />- Secret containing only the 'ca.crt' in order to establish trust. In this case, either serverCertSecretRef or serverCertIssuerRef must be provided.<br />If not provided, a self-signed CA will be provisioned to issue the server certificate. |  |  |
 | `serverCertSecretRef` _[LocalObjectReference](#localobjectreference)_ | ServerCertSecretRef is a reference to a TLS Secret containing the server certificate.<br />It is mutually exclusive with serverCertIssuerRef. |  |  |
-| `serverCertIssuerRef` _[IssuerReference](#issuerreference)_ | ServerCertIssuerRef is a reference to a cert-manager issuer object used to issue the server certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with serverCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via serverCASecretRef. |  |  |
+| `serverCertIssuerRef` _IssuerReference_ | ServerCertIssuerRef is a reference to a cert-manager issuer object used to issue the server certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with serverCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via serverCASecretRef. |  |  |
 | `serverCertConfig` _[CertConfig](#certconfig)_ | ServerCertConfig allows configuring the server certificates, either issued by the operator or cert-manager.<br />If not set, the default settings will be used. |  |  |
 | `clientCASecretRef` _[LocalObjectReference](#localobjectreference)_ | ClientCASecretRef is a reference to a Secret containing the client certificate authority keypair. It is used to establish trust and issue client certificates.<br />One of:<br />- Secret containing both the 'ca.crt' and 'ca.key' keys. This allows you to bring your own CA to Kubernetes to issue certificates.<br />- Secret containing only the 'ca.crt' in order to establish trust. In this case, either clientCertSecretRef or clientCertIssuerRef fields must be provided.<br />If not provided, a self-signed CA will be provisioned to issue the client certificate. |  |  |
 | `clientCertSecretRef` _[LocalObjectReference](#localobjectreference)_ | ClientCertSecretRef is a reference to a TLS Secret containing the client certificate.<br />It is mutually exclusive with clientCertIssuerRef. |  |  |
-| `clientCertIssuerRef` _[IssuerReference](#issuerreference)_ | ClientCertIssuerRef is a reference to a cert-manager issuer object used to issue the client certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with clientCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via clientCASecretRef. |  |  |
+| `clientCertIssuerRef` _IssuerReference_ | ClientCertIssuerRef is a reference to a cert-manager issuer object used to issue the client certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with clientCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via clientCASecretRef. |  |  |
 | `clientCertConfig` _[CertConfig](#certconfig)_ | ClientCertConfig allows configuring the client certificates, either issued by the operator or cert-manager.<br />If not set, the default settings will be used. |  |  |
 | `galeraSSTEnabled` _boolean_ | GaleraSSTEnabled determines whether Galera SST connections should use TLS.<br />It disabled by default. |  |  |
 | `galeraServerSSLMode` _string_ | GaleraServerSSLMode defines the server SSL mode for a Galera Enterprise cluster.<br />This field is only supported and applicable for Galera Enterprise >= 10.6 instances.<br />Refer to the MariaDB Enterprise docs for more detail: https://mariadb.com/docs/galera-cluster/galera-security/mariadb-enterprise-cluster-security#wsrep-tls-modes |  | Enum: [PROVIDER SERVER SERVER_X509] <br /> |
@@ -3407,7 +3407,7 @@ _Appears in:_
 
 
 
-TLSRequirements specifies TLS requirements for the user to connect. See: https://mariadb.com/kb/en/securing-connections-for-client-and-server/#requiring-tls.
+TLSRequirements specifies TLS requirements for the user to connect. See: https://mariadb.com/docs/server/security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server#requiring-tls-for-specific-user-accounts.
 
 
 
@@ -3542,7 +3542,7 @@ _Appears in:_
 | `passwordSecretKeyRef` _[SecretKeySelector](#secretkeyselector)_ | PasswordSecretKeyRef is a reference to the password to be used by the User.<br />If not provided, the account will be locked and the password will expire.<br />If the referred Secret is labeled with "enterprise.mariadb.com/watch", updates may be performed to the Secret in order to update the password. |  |  |
 | `passwordHashSecretKeyRef` _[SecretKeySelector](#secretkeyselector)_ | PasswordHashSecretKeyRef is a reference to the password hash to be used by the User.<br />If the referred Secret is labeled with "enterprise.mariadb.com/watch", updates may be performed to the Secret in order to update the password hash.<br />It requires the 'strict-password-validation=false' option to be set. See: https://mariadb.com/docs/server/server-management/variables-and-modes/server-system-variables#strict_password_validation. |  |  |
 | `passwordPlugin` _[PasswordPlugin](#passwordplugin)_ | PasswordPlugin is a reference to the password plugin and arguments to be used by the User.<br />It requires the 'strict-password-validation=false' option to be set. See: https://mariadb.com/docs/server/server-management/variables-and-modes/server-system-variables#strict_password_validation. |  |  |
-| `require` _[TLSRequirements](#tlsrequirements)_ | Require specifies TLS requirements for the user to connect. See: https://mariadb.com/kb/en/securing-connections-for-client-and-server/#requiring-tls. |  |  |
+| `require` _[TLSRequirements](#tlsrequirements)_ | Require specifies TLS requirements for the user to connect. See: https://mariadb.com/docs/server/security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server#requiring-tls-for-specific-user-accounts. |  |  |
 | `maxUserConnections` _integer_ | MaxUserConnections defines the maximum number of simultaneous connections that the User can establish. | 10 |  |
 | `name` _string_ | Name overrides the default name provided by metadata.name. |  | MaxLength: 80 <br /> |
 | `host` _string_ | Host related to the User. |  | MaxLength: 255 <br /> |
@@ -3608,7 +3608,7 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 _Appears in:_
 - [MariaDBVolume](#mariadbvolume)
 - [MariaDBVolumeSource](#mariadbvolumesource)
-- [Volume](#volume)
+- Volume
 
 | Field | Description | Default | Validation |
 | --- | --- | --- | --- |
@@ -3626,7 +3626,7 @@ _Appears in:_
 _Underlying type:_ _string_
 
 WaitPoint defines whether the transaction should wait for ACK before committing to the storage engine.
-More info: https://mariadb.com/kb/en/semisynchronous-replication/#rpl_semi_sync_master_wait_point.
+More info: https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_point.
 
 
 

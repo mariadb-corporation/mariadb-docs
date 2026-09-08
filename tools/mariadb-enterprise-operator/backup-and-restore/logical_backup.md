@@ -2,7 +2,7 @@
 
 ## What is a logical backup?
 
-A logical backup is a backup that contains the logical structure of the database, such as tables, indexes, and data, rather than the physical storage format. It is created using [mariadb-dump](https://mariadb.com/docs/server/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump), which generates SQL statements that can be used to recreate the database schema and populate it with data.
+A logical backup is a backup that contains the logical structure of the database, such as tables, indexes, and data, rather than the physical storage format. It is created using [mariadb-dump]({server}/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump), which generates SQL statements that can be used to recreate the database schema and populate it with data.
 
 Logical backups serve not just as a source of restoration, but also enable data mobility between `MariaDB` instances. These backups are called "logical" because they are independent from the `MariaDB` topology, as they only contain DDLs and `INSERT` statements to populate data.
 
@@ -370,7 +370,7 @@ spec:
 
 There are a couple of points to consider here:
 - The referred database (`db1` in the example) must previously exist for the `Restore` to succeed.
-- The `mariadb` CLI invoked by the operator under the hood only supports selecting a single database to restore via the [`--one-database`](https://mariadb.com/kb/en/mariadb-command-line-client/#-o-one-database) option, restoration of multiple specific databases is not supported.
+- The `mariadb` CLI invoked by the operator under the hood only supports selecting a single database to restore via the [`--one-database`]({server}/clients-and-utilities/mariadb-client/mariadb-command-line-client#o-one-database) option, restoration of multiple specific databases is not supported.
 
 ## Extra options
 
@@ -554,7 +554,7 @@ Also, to avoid situations where `mysql.global_priv` is unreplicated, all the ent
 #### `LOCK TABLES` 
 
 Galera is not compatible with the `LOCK TABLES` statement:
-* [LOCK TABLES Limitations](https://mariadb.com/kb/en/lock-tables/#limitations)
+* [LOCK TABLES Limitations]({server}/reference/sql-statements/transactions/lock-tables#limitations)
 
 For this reason, the operator automatically adds the `--skip-add-locks` option to the `Backup` to overcome this limitation.
 
@@ -664,8 +664,8 @@ spec:
 
 ## Reference
 * [API reference](../api-reference.md)
-* [`mariadb-dump` options](https://mariadb.com/kb/en/mariadb-dump/#options)
-* [`mariadb` options](https://mariadb.com/kb/en/mariadb-command-line-client/#options)
+* [`mariadb-dump` options]({server}/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#options)
+* [`mariadb` options]({server}/clients-and-utilities/mariadb-client/mariadb-command-line-client#options)
 
 ## Troubleshooting
 

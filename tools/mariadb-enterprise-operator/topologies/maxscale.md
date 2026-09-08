@@ -22,12 +22,12 @@ A server defines the backend database servers that MaxScale forwards traffic to.
 
 #### Monitors
 
-A monitor is an agent that queries the state of the servers and makes it available to the services in order to route traffic based on it. For more detailed information, please consult the [monitor reference](https://mariadb.com/kb/en/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide/#monitor).
+A monitor is an agent that queries the state of the servers and makes it available to the services in order to route traffic based on it. For more detailed information, please consult the [monitor reference]({maxscale}/maxscale-old-versions/mariadb-maxscale-23.08/mariadb-maxscale-23-08-getting-started/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide#monitor).
 
 Depending on which highly available configuration your servers have, you will need to choose between the following modules:
 
-* [Galera Monitor](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor): Detects whether servers are part of the cluster, ensuring synchronization among them, and assigning primary and replica roles as needed.
-* [MariaDB Monitor](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/mariadb-monitor): Probes the state of the cluster, assigns roles to the servers, and executes failover, switchover, and rejoin operations as necessary.
+* [Galera Monitor]({maxscale}/reference/maxscale-monitors/galera-monitor): Detects whether servers are part of the cluster, ensuring synchronization among them, and assigning primary and replica roles as needed.
+* [MariaDB Monitor]({maxscale}/reference/maxscale-monitors/mariadb-monitor): Probes the state of the cluster, assigns roles to the servers, and executes failover, switchover, and rejoin operations as necessary.
 
 #### Services
 
@@ -35,8 +35,8 @@ A service defines how the traffic is routed to the servers based on a routing al
 
 Depending on your requirements to route traffic, you may choose between the following routers:
 
-* [Readwritesplit](https://mariadb.com/docs/maxscale/reference/maxscale-routers/maxscale-readwritesplit): Route write queries to the primary server and read queries to the replica servers.
-* [Readconnroute](https://mariadb.com/docs/maxscale/reference/maxscale-routers/maxscale-readconnroute): Load balance connections between multiple servers.
+* [Readwritesplit]({maxscale}/reference/maxscale-routers/maxscale-readwritesplit): Route write queries to the primary server and read queries to the replica servers.
+* [Readconnroute]({maxscale}/reference/maxscale-routers/maxscale-readconnroute): Load balance connections between multiple servers.
 
 #### Listeners
 

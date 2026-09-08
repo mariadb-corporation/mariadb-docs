@@ -118,10 +118,10 @@ Resetting the OIDC Configuration
 
 To restore the default settings:
 
-1.  Click the **Reset Configuration** button.\\
+1.  Click the **Reset Configuration** button.
 
     <figure><img src="../../../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
-2.  In the confirmation dialog, click **Reset**.\\
+2.  In the confirmation dialog, click **Reset**.
 
     <figure><img src="../../../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}

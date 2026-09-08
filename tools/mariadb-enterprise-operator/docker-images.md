@@ -186,7 +186,7 @@ This section outlines several methods for pulling official MariaDB container ima
 
 This method is ideal for a "bastion" or "jump" host that has network access to **both** the public internet (specifically `docker.mariadb.com`) and your internal private registry.
 
-1.  **Log in to both registries.** You will need a MariaDB token for the public registry and your credentials for the private one. Refer to the [official documentation](https://mariadb.com/docs/tools/mariadb-enterprise-operator/customer-access-to-docker-mariadb-com#customer-credentials).
+1.  **Log in to both registries.** You will need a MariaDB token for the public registry and your credentials for the private one. Refer to the [official documentation](customer-access-to-docker-mariadb-com.md#customer-credentials).
 
     ```bash
     # Log in to the official MariaDB registry

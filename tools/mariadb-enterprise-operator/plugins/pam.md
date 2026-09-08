@@ -392,7 +392,7 @@ spec:
 ```
 `kubectl apply -f maxscale-ldap.yaml`
 
-Ref: [skip_authentication](https://mariadb.com/docs/maxscale/maxscale-security/authentication-modules#skip_authentication)
+Ref: [skip_authentication]({maxscale}/maxscale-security/authentication-modules#skip_authentication)
 
 ### Known Issues
 

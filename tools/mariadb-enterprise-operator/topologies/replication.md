@@ -4,7 +4,7 @@ The operator supports provisioning and operating MariaDB clusters with replicati
 
 In a replication setup, one primary server handles all write operations while one or more replica servers replicate data from the primary, being able to handle read operations. More precisely, the primary has a binary log and the replicas asynchronously replicate the binary log events over the network.
 
-Please refer to the [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication) for more details about replication.
+Please refer to the [MariaDB documentation]({server}/ha-and-performance/standard-replication) for more details about replication.
 
 ## Provisioning
 
@@ -86,11 +86,11 @@ kubectl get mariadb mariadb-repl -o jsonpath="{.status.replication}" | jq
 }
 ```
 
-The operator continuously monitors the replication status via [`SHOW SLAVE STATUS`](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/show/show-replica-status), taking it into account for internal operations and updating the CR status accordingly.
+The operator continuously monitors the replication status via [`SHOW SLAVE STATUS`]({server}/reference/sql-statements/administrative-sql-statements/show/show-replica-status), taking it into account for internal operations and updating the CR status accordingly.
 
 ## Asynchronous vs semi-synchronous replication
 
-By default, [semi-synchronous replication](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication) is configured, which requires an acknowledgement from at least one replica before committing the transaction back to the client. This trades off performance for better consistency and facilitates [failover](replication.md#primary-failover) and [switchover](replication.md#primary-switchover) operations.
+By default, [semi-synchronous replication]({server}/ha-and-performance/standard-replication/semisynchronous-replication) is configured, which requires an acknowledgement from at least one replica before committing the transaction back to the client. This trades off performance for better consistency and facilitates [failover](replication.md#primary-failover) and [switchover](replication.md#primary-switchover) operations.
 
 If you are aiming for better performance, you can disable semi-synchronous replication, and go fully asynchronous, please refer to [configuration](replication.md#configuration) section for doing so.
 
@@ -118,12 +118,12 @@ spec:
     standaloneProbes: false
 ```
 
-* `gtidStrictMode`: Enables GTID strict mode. It is recommended and enabled by default. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/gtid#gtid_strict_mode).
-* `semiSyncEnabled`: Determines whether semi-synchronous replication should be enabled. It is enabled by default. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication).
-* `semiSyncAckTimeout`: ACK timeout for the replicas to acknowledge transactions to the primary. It requires semi-synchronous replication. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout).
-* `semiSyncWaitPoint`: Determines whether the transaction should wait for an ACK after having synced the binlog (`AfterSync`) or after having committed to the storage engine (`AfterCommit`, the default). It requires semi-synchronous replication. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_point).
-* `semiSyncWaitNoSlave`: Determines whether a node keeps waiting for an ACK while no replica is connected to it. If not provided, the server default (`ON`) applies. Setting it to `false` makes the node revert to asynchronous replication while no replica is connected, and switch back to semi-synchronous as soon as one connects. It requires semi-synchronous replication. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_no_slave).
-* `syncBinlog`: Number of events after which the binary log is synchronized to disk. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sync_binlog).
+* `gtidStrictMode`: Enables GTID strict mode. It is recommended and enabled by default. See [MariaDB documentation]({server}/ha-and-performance/standard-replication/gtid#gtid_strict_mode).
+* `semiSyncEnabled`: Determines whether semi-synchronous replication should be enabled. It is enabled by default. See [MariaDB documentation]({server}/ha-and-performance/standard-replication/semisynchronous-replication).
+* `semiSyncAckTimeout`: ACK timeout for the replicas to acknowledge transactions to the primary. It requires semi-synchronous replication. See [MariaDB documentation]({server}/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout).
+* `semiSyncWaitPoint`: Determines whether the transaction should wait for an ACK after having synced the binlog (`AfterSync`) or after having committed to the storage engine (`AfterCommit`, the default). It requires semi-synchronous replication. See [MariaDB documentation]({server}/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_point).
+* `semiSyncWaitNoSlave`: Determines whether a node keeps waiting for an ACK while no replica is connected to it. If not provided, the server default (`ON`) applies. Setting it to `false` makes the node revert to asynchronous replication while no replica is connected, and switch back to semi-synchronous as soon as one connects. It requires semi-synchronous replication. See [MariaDB documentation]({server}/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_no_slave).
+* `syncBinlog`: Number of events after which the binary log is synchronized to disk. See [MariaDB documentation]({server}/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sync_binlog).
 * `standaloneProbes`: Determines whether to use regular non-HA startup and liveness probes. It is disabled by default.
 
 These options are used by the operator to create a replication configuration file that is applied to all nodes in the cluster. When updating any of these options, an [update of the cluster](replication.md#updates) will be triggered in order to apply the new configuration.
@@ -156,8 +156,8 @@ spec:
 ```
 
 * `replPasswordSecretKeyRef`: Reference to the `Secret` key containing the password for the replication user, used by the replicas to connect to the primary. By default, a `Secret` with a random password will be created.
-* `gtid`: GTID position mode to be used (`CurrentPos` and `SlavePos` allowed). It defaults to `CurrentPos`. See [MariaDB documentation](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to#master_use_gtid).
-* `connectionRetrySeconds`: Number of seconds that the replica will wait between connection retries. See [MariaDB documentation](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to#master_connect_retry).
+* `gtid`: GTID position mode to be used (`CurrentPos` and `SlavePos` allowed). It defaults to `CurrentPos`. See [MariaDB documentation]({server}/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to#master_use_gtid).
+* `connectionRetrySeconds`: Number of seconds that the replica will wait between connection retries. See [MariaDB documentation]({server}/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to#master_connect_retry).
 * `maxLagSeconds`: Maximum acceptable lag in seconds between the replica and the primary. If the lag exceeds this value, the [readiness probe](replication.md#readiness-probe) will fail and the replica will be marked as not ready. It defaults to `0`, meaning that no lag is allowed. See [lagged replicas](replication.md#lagged-replicas) section for more details.
 * `syncTimeout`: Timeout for the replicas to be synced during switchover and failover operations. It defaults to `10s`. See the [primary switchover](replication.md#primary-switchover) and [primary failover](replication.md#primary-failover) sections for more details.
 
@@ -191,7 +191,7 @@ A replica is considered to be lagging behind the primary when the `Seconds_Behin
 
 In order to back up and restore a replication cluster, all the concepts and procedures described in the [physical backup](../backup-and-restore/physical_backup.md) documentation apply.
 
-Additionally, for the replication topology, the operator tracks the GTID position at the time of taking the backup, and sets this position based on the `gtid_current_pos` system variable when restoring the backup, as described in the [MariaDB documentation](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/setting-up-a-replica-with-mariadb-backup).
+Additionally, for the replication topology, the operator tracks the GTID position at the time of taking the backup, and sets this position based on the `gtid_current_pos` system variable when restoring the backup, as described in the [MariaDB documentation]({server}/server-usage/backup-and-restore/mariadb-backup/setting-up-a-replica-with-mariadb-backup).
 
 Depending on the `PhysicalBackup` strategy used, the operator will track the GTID position accordingly:
 
@@ -549,7 +549,7 @@ The operator has the ability to automatically recover replicas that become unava
 
 | Error Code | Thread | Description                                                                | Documentation                                                                                                |
 | ---------- | ------ | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| 1236       | IO     | Error 1236: Got fatal error from master when reading data from binary log. | [MariaDB docs](https://mariadb.com/docs/server/reference/error-codes/mariadb-error-codes-1200-to-1299/e1236) |
+| 1236       | IO     | Error 1236: Got fatal error from master when reading data from binary log. | [MariaDB docs]({server}/reference/error-codes/mariadb-error-codes-1200-to-1299/e1236) |
 
 To perform the recovery, the operator will take a physical backup from a ready replica, restore it to the failed replica PVC, and reconfigure the replica to connect to the primary from the GTID position stored in the backup.
 
