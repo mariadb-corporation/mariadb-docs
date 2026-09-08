@@ -143,6 +143,6 @@ The MariaDB Enterprise Operator and its underlying components rely on cryptograp
 ## Further Reading
 
 - [Go FIPS 140-3](https://go.dev/doc/security/fips140)
-- [MariaDB Server: TLS and Cryptography Libraries]({server}/security/encryption/tls-and-cryptography-libraries-used-by-mariadb#fips-certification)
+- [MariaDB Server: TLS and Cryptography Libraries](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb#fips-certification)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -9,7 +9,7 @@ Physical backups are the recommended method for backing up `MariaDB` databases, 
 ## Backup strategies
 
 Multiple strategies are available for performing physical backups, including:
-- **mariadb-backup**: Taken using the enterprise version of [mariadb-backup]({server}/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup), specifically [MariaDB Enterprise backup]({server}/server-usage/backup-and-restore/mariadb-enterprise-backup#nonblocking-backups), which is available in the `MariaDB` enterprise images. The operator supports scheduling `Jobs` to perform backups using this utility.
+- **mariadb-backup**: Taken using the enterprise version of [mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup), specifically [MariaDB Enterprise backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-enterprise-backup#nonblocking-backups), which is available in the `MariaDB` enterprise images. The operator supports scheduling `Jobs` to perform backups using this utility.
 - **Kubernetes VolumeSnapshot**: Leverage [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/)  to create snapshots of the persistent volumes used by the `MariaDB` `Pods`. This method relies on a compatible CSI (Container Storage Interface) driver that supports volume snapshots. See the [VolumeSnapshots](#volumesnapshots) section for more details.
 
 In order to use `VolumeSnapshots`, you will need to provide a `VolumeSnapshotClass` that is compatible with your storage provider. The operator will use this class to create snapshots of the persistent volumes:
@@ -353,7 +353,7 @@ spec:
   # [...]
 ```
 
-Refer to the [mariadb-backup documentation]({server}/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options) for a list of available options.
+Refer to the [mariadb-backup documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options) for a list of available options.
 
 ## Azure Blob Storage Credentials
 
@@ -556,11 +556,11 @@ In order to create consistent, point-in-time snapshots of the `MariaDB` data, th
 3. Wait until the `VolumeSnapshot` is provisioned by the storage system. When timing out, the operator will delete the `VolumeSnapshot` resource and retry the operation.
 4. Issue a `BACKUP STAGE END` statement.
 
-This backup process is described in the [MariaDB documentation]({server}/server-usage/backup-and-restore/backup-optimization#taking-snapshots) and is designed to be [non-blocking](#non-blocking-physical-backups).
+This backup process is described in the [MariaDB documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/backup-optimization#taking-snapshots) and is designed to be [non-blocking](#non-blocking-physical-backups).
 
 ## Non-blocking physical backups
 
-Both for `mariadb-backup` and `VolumeSnapshot` [backup strategies](#backup-strategies), the enterprise operator performs non-blocking physical backups by leveraging the [`BACKUP STAGE` feature.]({server}/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-and-backup-stage-commands). This implies that the backups are taken without long read locks, enabling consistent, production-grade backups with minimal impact on running workloads, ideal for high-availability and performance-sensitive environments.
+Both for `mariadb-backup` and `VolumeSnapshot` [backup strategies](#backup-strategies), the enterprise operator performs non-blocking physical backups by leveraging the [`BACKUP STAGE` feature.](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-and-backup-stage-commands). This implies that the backups are taken without long read locks, enabling consistent, production-grade backups with minimal impact on running workloads, ideal for high-availability and performance-sensitive environments.
 
 ## Important considerations and limitations
 
