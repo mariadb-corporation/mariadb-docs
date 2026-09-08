@@ -1,0 +1,184 @@
+name: Check GitBook Includes in PR
+
+# Gates dead and cross-space GitBook `{% include %}` targets. Part of DOCS-6586, which is
+# DOCS-6471 Part 2: putting the doc-lint checks that have no CI counterpart behind a PR gate.
+#
+# `{% include "../.gitbook/includes/foo.md" %}` is GitBook TEMPLATE syntax, not a Markdown link.
+# lychee cannot see it -- it is not a link -- and codespell has no opinion about it, so a dead
+# include has no failing signal anywhere: GitBook renders it as *nothing*, the page silently
+# loses a section, and the markup around it stays perfectly valid. DOCS-6372 found two live
+# cases exactly that way, both by eye: a 13.1 post-download page missing its "most recent
+# release" bullet, and a MaxScale CVE page missing its copyright footnote.
+#
+# Until now the only entry points were local -- the /precommit command, the docs-check skill,
+# and the Claude Code PreToolUse(Bash) hook, whose own header records the limit: it "only gates
+# commits that Claude Code makes via the Bash tool. Human git commit, IDE commits, and
+# GitBook-UI edits bypass it entirely."
+#
+# WHY THIS RUNS THE SCRIPT DIRECTLY AND NOT doc-lint.sh
+#   doc-lint.sh is the single source of truth for the codespell and lychee FLAG sets, so CI
+#   mirrors those by calling it. It cannot be the entry point here, for two reasons: it would
+#   re-run codespell and lychee, which already have their own workflows, and it would run the
+#   orphaned-page guard, which is the other half of DOCS-6586 and is still waiting on that
+#   ticket's acknowledgment-path decision (DOC_LINT_ALLOW_ORPHAN is an environment variable, and
+#   no PR author can set one from a branch). There is no skip flag to hold it back with.
+#
+#   So the resolver was EXTRACTED into .claude/hooks/includecheck.sh rather than duplicated
+#   here, and doc-lint.sh now delegates to the same script. One implementation, two callers.
+#
+# WHY THE WHOLE TREE, AND WHY NO BASELINE
+#   Every other history-aware check in doc-lint.sh diffs against a base revision, because the
+#   repo carries a large backlog of the thing being checked -- ~1,272 dead heading anchors, 219
+#   orphaned pages -- and an absolute check would fail every unrelated PR on breakage it did not
+#   introduce. This check needs none of that: swept at 8e21bff62, main has ZERO dead or
+#   cross-space includes across 4,287 relative includes in 9,696 files. With no backlog there is
+#   nothing to grandfather, so the check is absolute, and that makes this workflow markedly
+#   simpler than fragcheck-pr.yml -- no fetch-depth: 0, no throwaway worktree, no base-revision
+#   assertion step, and no way for a missing baseline to turn the gate silently green.
+#
+#   Tree-wide rather than changed-files scoped, and this is the substantive design point.
+#   Deleting or renaming ONE shared include target breaks every page that includes it, and those
+#   pages are not in the PR's diff. Measured on main: removing
+#   platform/.gitbook/includes/most-recent-10.11.md breaks 20 post-download pages that such a
+#   commit never touches, and a changed-files gate reports exactly nothing. Shared targets under
+#   .gitbook/includes/ are the norm here, not an edge case, so the changed-files scoping that is
+#   right for codespell (a typo is local to its own page) is wrong for this check.
+#
+# WHY THERE IS NO ACKNOWLEDGMENT PATH
+#   Unlike the shrink and orphan guards, this check has no legitimate exceptions. A large page
+#   shrink can be correct and a deliberately unlisted page can be correct, so both of those need
+#   a way for an author to say "yes, on purpose". A dead include is always a bug, and a
+#   cross-space one always has the by-ID form as its answer. Nothing to acknowledge, so no
+#   escape hatch to add, and none to be quietly overused later. That is why this half of
+#   DOCS-6586 could ship while the rest waits.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+# A second push supersedes the first.
+concurrency:
+  group: includecheck-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  includecheck:
+    runs-on: ubuntu-latest
+    # A tree-wide pass measured ~28s locally. 10 minutes is generous headroom; without it the
+    # job inherits the 6-hour default, and a wedged run would end as *cancelled*, which
+    # `if: failure()` does not catch.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        # No fetch-depth here on purpose. The check is absolute, so it needs the working tree
+        # and no history at all -- the default shallow clone is both sufficient and faster.
+        # Contrast fragcheck-pr.yml, which requires fetch-depth: 0 because it checks the PR base
+        # out into a worktree, and would SKIP-and-pass without it.
+
+      # Deliberately NOT gated on a changed-files filter, unlike codespell.yml and
+      # link-check-pr.yml. Those scope to the PR's own files because their findings are local to
+      # a page; this check is tree-wide by design (see the header), so a filter could only
+      # decide WHETHER to run -- and every filter is a chance to be wrong about what can break
+      # an include. A deleted target, a renamed space directory, a moved .gitbook/includes/
+      # folder, or an edit to the resolver itself all break includes in pages the PR never
+      # names. One ~30s job on every PR is a better trade than a filter that has to be right
+      # about all of those.
+      - name: Resolve every GitBook include in the tree
+        id: includecheck
+        run: |
+          set -uo pipefail
+          # NUL-delimited through --stdin0, not xargs. `git ls-files` is ~9,700 paths, which is
+          # over ARG_MAX once xargs has it: xargs would then split the run into several
+          # invocations, each printing its own summary and returning its own status, and `$?`
+          # off the pipeline would report only the LAST batch. Measured -- the first draft of
+          # this step did exactly that, and it also means a tree with findings in the first
+          # batch only can exit 0. One invocation, one verdict.
+          #
+          # Findings go to stderr, the clean summary to stdout; capture both in order so the
+          # run summary reads the way a local run does.
+          set +e
+          git ls-files -z -- '*.md' '*.html' \
+            | .claude/hooks/includecheck.sh --stdin0 > includecheck.log 2>&1
+          rc=$?
+          set -e
+          cat includecheck.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          # rc 2 is a usage error from the script itself, which can only mean this workflow is
+          # calling it wrongly. Distinct message so that is obvious from the annotation alone
+          # and nobody goes looking through the PR's diff for the cause.
+          case "$rc" in
+            0) ;;
+            1) echo "::error::This PR leaves a GitBook include pointing at a file that does not exist, or at a file in another space. A dead include renders as NOTHING -- the page silently loses a section -- and no other check can see it. Details in the job log and the run summary." ;;
+            2) echo "::error::includecheck.sh rejected its arguments -- this workflow is misconfigured, not the PR." ;;
+            *) echo "::error::includecheck.sh exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      # The gate has to be able to prove it looked at something. `git ls-files` returning
+      # nothing, a wrong working directory, or a pathspec typo would all leave the script with
+      # an empty file list -- and its exit code for "checked 9,696 files, all clean" and
+      # "checked nothing at all" is the same 0. The script prints the counts precisely so this
+      # can be asserted rather than assumed; without this step the whole workflow could go
+      # permanently, silently green.
+      - name: Assert the check was not vacuous
+        if: steps.includecheck.outputs.rc == '0'
+        run: |
+          set -euo pipefail
+          if grep -q 'no Markdown or HTML files' includecheck.log; then
+            echo "::error::includecheck reported that it had no files to check, in a repository with ~9,700 tracked Markdown files. The file list is broken, not the tree, and a pass here would mean nothing."
+            exit 1
+          fi
+          # Pull the include count out of "includecheck: N relative include(s) across M file(s)".
+          # A floor of 1 rather than a fixed expected count: the point is that the run examined
+          # real content, and any specific number would rot on the next page that adds or drops
+          # an include.
+          count="$(sed -n 's/^includecheck: \([0-9]\{1,\}\) relative include.*/\1/p' includecheck.log)"
+          if [[ -z "$count" || "$count" -lt 1 ]]; then
+            cat includecheck.log
+            echo "::error::Could not read a nonzero include count out of includecheck's output, so this run examined no includes. Either the summary line changed shape (update this assertion with it) or the file list is empty."
+            exit 1
+          fi
+          echo "Resolved $count relative include(s) -- the check ran against real content."
+
+      - name: Record the result in the run summary
+        # always(): the default is an implicit success(), which would skip exactly the runs
+        # worth recording.
+        if: always()
+        env:
+          RC: ${{ steps.includecheck.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## GitBook include check"
+            echo
+            if [[ ! -s includecheck.log ]]; then
+              echo "No output was produced -- an earlier step failed before the scan ran."
+            else
+              case "${RC:-}" in
+                0) echo "Every relative GitBook include in the tree resolves, and none crosses a space boundary." ;;
+                1) echo "This PR leaves a broken GitBook include. A dead include renders as nothing, so the page loses a section with no other check able to notice: either restore the target, fix the relative path, or -- if the target really is in another space -- switch to the by-ID form, \`{% include \"https://app.gitbook.com/s/<space>/~/reusable/<id>/\" %}\`." ;;
+                *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              # Fenced, and with four backticks. This summary is a GFM rendering surface and the
+              # output embeds file paths and include targets from the PR, which are
+              # author-controlled: unfenced, a crafted path could forge a heading, plant a link,
+              # or open an HTML comment that swallows the rest of the page. Four backticks so
+              # content containing three cannot close the fence. Same reasoning as
+              # fragcheck-pr.yml and nightly-unlabeled-prs.yml.
+              echo '````text'
+              cat includecheck.log
+              echo '````'
+              echo
+              echo "Run the same check locally with:"
+              echo
+              echo '````bash'
+              echo "git ls-files -z -- '*.md' '*.html' | .claude/hooks/includecheck.sh --stdin0"
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

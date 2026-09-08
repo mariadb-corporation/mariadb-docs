@@ -108,7 +108,6 @@ other MariaDB and MySQL versions. Options that are also system variables are lis
 * [--old-alter-table](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_alter_table)
 * [--old-mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_mode)
 * [--old-passwords](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords)
-* `--show-old-temporals`
 
 ## Locale Options
 

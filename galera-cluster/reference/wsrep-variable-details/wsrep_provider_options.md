@@ -47,7 +47,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `evs.auto_evict`
 
-* Description: Number of entries the node permits for a given delayed node before triggering the Auto Eviction protocol. An entry is added to a delayed list for each delayed response from a node. If set to `0`, the default, the Auto Eviction protocol is disabled for this node. See [Auto Eviction](https://galeracluster.com/library/documentation/auto-eviction.html) for more.
+* Description: Number of entries the node permits for a given delayed node before triggering the Auto Eviction protocol. An entry is added to a delayed list for each delayed response from a node. If set to `0`, the default, the Auto Eviction protocol is disabled for this node. See [Configuring Auto Eviction](../../galera-management/configuration/configuring-auto-eviction.md) for more.
 * Dynamic: No
 * Default: `0`
 
@@ -454,7 +454,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `pc.weight`
 
-* Description: Node weight, used for quorum calculation. See the Codership article [Weighted Quorum](https://galeracluster.com/library/documentation/weighted-quorum.html#weighted-quorum).
+* Description: Node weight, used for quorum calculation. See [Quorum Control With Weighted Votes](../../galera-architecture/quorum-control-with-weighted-votes.md).
 * Dynamic: Yes
 * Default: `1`
 
@@ -584,7 +584,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 ## See Also
 
-* [Galera parameters documentation from Codership](https://galeracluster.com/library/documentation/galera-parameters.html)
+* [Galera Cluster System Variables](../galera-cluster-system-variables.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

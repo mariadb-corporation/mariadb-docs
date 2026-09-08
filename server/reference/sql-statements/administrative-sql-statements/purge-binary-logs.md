@@ -19,7 +19,7 @@ PURGE { BINARY | MASTER } LOGS
 
 The `PURGE BINARY LOGS` statement deletes all the [binary log](../../../server-management/server-monitoring-logs/binary-log/) files listed in the log index file prior to the specified log file name ordate. `BINARY` and `MASTER` are synonyms.Deleted log files also are removed from the list recorded in the index file, sothat the given log file becomes the first in the list.
 
-The datetime expression is in the format 'YYYY-MM-DD hh:mm:ss'.
+The datetime expression is in the format `YYYY-MM-DD hh:ss`.
 
 If a replica is active but has yet to read from a binary log file you attempt to delete, the statement will fail with an error. However, if the replica is not connected and has yet to read from a log file you delete, the file will be deleted, but the replica will be unable to continue replicating once it connects again.
 
@@ -71,4 +71,3 @@ PURGE BINARY LOGS BEFORE '2013-04-22 09:55:22';
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}
-

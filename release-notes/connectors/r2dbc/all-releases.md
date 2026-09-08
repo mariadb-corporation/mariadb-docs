@@ -8,6 +8,7 @@ description: A list of all MariaDB Connector/R2DBC releases
 
 | Release           | Release Date | Release Status |
 | ----------------- | ------------ | -------------- |
+| [1.4.2](1.4.2.md) | 2026-09-02   | Stable (GA)    |
 | [1.4.1](1.4.1.md) | 2026-06-16   | Stable (GA)    |
 | [1.4.0](1.4.0.md) | 2026-02-17   | Stable (GA)    |
 

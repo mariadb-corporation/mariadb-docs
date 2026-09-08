@@ -32,7 +32,7 @@ Galera's replication is not completely synchronous. It is sometimes called **vir
 An alternative approach to synchronous replication that uses group communication and transaction ordering techniques was suggested by a number of researchers. For example:
 
 * [Database State Machine Approach](https://doi.org/10.5075/epfl-thesis-2090)
-* [Don't Be Lazy, Be Consistent](https://www.cs.mcgill.ca/~kemme/papers/vldb00.html)
+* [Don't Be Lazy, Be Consistent](https://web.archive.org/web/20230407232449/https://www.cs.mcgill.ca/~kemme/papers/vldb00.html)
 
 Prototype implementations have shown a lot of promise. We combined our experience in synchronous database replication and the latest research in the field to create the Galera Replication library and the wsrep API.
 
@@ -76,7 +76,7 @@ In older versions of MariaDB Cluster, there was a 2GB limit on the size of the t
 
 Using streaming replication, the node breaks huge transactions up into smaller and more manageable fragments; it then replicates these fragments to the cluster as it works instead of waiting for the commit. Once certified, the fragment can no longer be aborted by conflicting transactions. As this can have performance consequences both during execution and in the event of rollback, it is recommended that you only use it with large transactions that are unlikely to experience conflict.
 
-For more information on streaming replication, see the [Galera](https://galeracluster.com/library/documentation/streaming-replication.html) documentation.
+For more information, see [Using Streaming Replication for Large Transactions](../galera-management/performance-tuning/using-streaming-replication-for-large-transactions.md).
 
 ## Group Commits
 
@@ -84,11 +84,11 @@ Group Commit support for MariaDB Cluster was introduced in Galera 4.
 
 In MariaDB Group Commit, groups of transactions are flushed together to disk to improve performance. In previous versions of MariaDB, this feature was not available in MariaDB Cluster, as it interfered with the global ordering of transactions for replication. MariaDB Cluster can now take advantage of Group Commit.
 
-For more information on Group Commit, see the [Galera](https://galeracluster.com/library/kb/group-commit.html) documentation.
+For more information on Group Commit, see the [Galera Cluster documentation on Group Commit](https://web.archive.org/web/20220714085516/https://galeracluster.com/library/kb/group-commit.html).
 
 ## See Also
 
-* [Galera Cluster: Galera Replication](https://galeracluster.com/products/)
+* [Galera Cluster: Galera Replication](https://mariadb.com/products/enterprise/galera-cluster/)
 * [What is MariaDB Galera Cluster?](mariadb-galera-cluster-guide.md)
 * [Galera Use Cases](../galera-use-cases.md)
 * [Getting Started with MariaDB/Galera Cluster](../galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md)

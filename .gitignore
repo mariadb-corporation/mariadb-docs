@@ -32,3 +32,8 @@ research/
 /dist/
 /pdf/__pycache__/
 /.claude/hooks/__pycache__/
+
+# /graphify output (knowledge-graph artifacts, written next to the pages it read).
+# Unanchored: the skill writes one of these per directory it is pointed at, and
+# its GRAPH_REPORT.md otherwise trips doc-lint's navcheck as an unlisted page.
+graphify-out/

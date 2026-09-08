@@ -50,7 +50,7 @@ Each table lists supported frameworks first, then those without an integration.
 | [Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/types.html) | PHP | Open request | [doctrine/dbal#6703](https://github.com/doctrine/dbal/issues/6703) |
 | [Drizzle ORM](https://orm.drizzle.team/docs/guides/vector-similarity-search) | TypeScript / Node.js | Open request | [drizzle-orm#2007](https://github.com/drizzle-team/drizzle-orm/issues/2007) |
 | [Django](https://docs.djangoproject.com/en/stable/ref/models/fields/) | Python | — | Django ships no vector field for any database. MariaDB Vector is native to the server, so this is client-side work only: a Django field mapping to the `VECTOR` type |
-| [Prisma](https://www.prisma.io/docs/orm/prisma-schema/data-model/models) | TypeScript / Node.js | — | Supports MariaDB as a database, but has no vector type for it; see the general [First class Vector support](https://github.com/prisma/prisma/issues/26546) request |
+| [Prisma](https://www.prisma.io/docs/orm/prisma-schema/data-model/models) | TypeScript / Node.js | — | Supports MariaDB as a database, but has no vector type for it; see the general [First class Vector support](https://github.com/prisma/orm/issues/26546) request |
 
 For a worked example of picking an embedding model for MariaDB Vector in a Laravel application, see [MariaDB Vector in Laravel: insights on choosing an embedding model](https://mariadb.org/mariadb-vector-in-laravel-insights-on-choosing-an-embedding-model/).
 

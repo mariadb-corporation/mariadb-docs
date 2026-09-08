@@ -45,7 +45,7 @@ SHOW GRANTS FOR 'external_replication'@'%';
 
 ### Add External Replica to Allowlist <a href="#add-external-replica-to-allowlist" id="add-external-replica-to-allowlist"></a>
 
-**On the MariaDB Cloud Customer Portal**, add the IP address of the external replica server to the MariaDB Cloud service's [allowlist](replicating-data-from-mariadb-cloud-to-external-database.md#add-external-replica-to-allowlist) - Click ‘Manage’→ ‘Manage Allowlist’ to add the IP address to the allowed list.
+**On the MariaDB Cloud Customer Portal**, add the IP address of the external replica server to the MariaDB Cloud service's [allowlist](../../security/configuring-firewall.md) - Click ‘Manage’→ ‘Manage Allowlist’ to add the IP address to the allowed list.
 
 {% hint style="info" %}
 If your ‘external replica server’ is also running on MariaDB Cloud (say, for DR), you can find the outbound IP address from the ‘Details’ tab (Select on the Service name on the dashboard, then click ‘Details’).

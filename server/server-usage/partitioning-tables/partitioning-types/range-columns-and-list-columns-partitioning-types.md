@@ -10,9 +10,12 @@ description: >-
 
 * The list can contain one or more columns.
 * Columns can be of any [integer](../../../reference/data-types/numeric-data-types/int.md), [string](../../../reference/data-types/string-data-types/), [DATE](../../../reference/data-types/date-and-time-data-types/date.md), and [DATETIME](../../../reference/data-types/date-and-time-data-types/datetime.md) types.
+* [TIMESTAMP](../../../reference/data-types/date-and-time-data-types/timestamp.md) columns are accepted only in combination with an `INTERVAL` clause. See [RANGE COLUMNS INTERVAL Partitioning Type](range-columns-interval-partitioning.md).
 * Only bare columns are permitted; no expressions.
 
 All the specified columns are compared to the specified values to determine which partition should contain a specific row. See below for details.
+
+A `RANGE COLUMNS` table can also extend its own partitions as data is written, by adding an `INTERVAL` clause. See [RANGE COLUMNS INTERVAL Partitioning Type](range-columns-interval-partitioning.md).
 
 ## Syntax
 

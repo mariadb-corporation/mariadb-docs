@@ -13,6 +13,29 @@ jobs:
         with:
           fetch-depth: 0
 
+      # A `~/changes/<N>/` URL addresses an UNMERGED GitBook change request in
+      # the editor, not published content. It depends on a change request that
+      # may be merged, discarded or renumbered, and it sends a reader somewhere
+      # they cannot go. lychee structurally cannot catch these: it only scans
+      # the files a PR changed, and these URLs sit on pages nobody is touching.
+      # The URL is also syntactically valid and may answer 200 to an
+      # authenticated editor, so it would not necessarily fail even when
+      # scanned. This grep is tree-wide and costs about a second. See DOCS-6507.
+      #
+      # `~/reusable/...` is NOT banned: those are legitimate {% include %}
+      # targets and appear on 58 pages.
+      - name: Ban GitBook change-request preview URLs
+        run: |
+          # The tilde is a literal character in a GitBook URL path, matched by
+          # this grep -- not a home directory the shell is asked to expand. So
+          # $HOME is not the fix here; shellcheck cannot tell a pattern from a
+          # path (DOCS-6587).
+          # shellcheck disable=SC2088
+          if git grep -n -e '~/changes/' -- '*.md' '*.html' ':!agent-skills/topical/'; then
+            echo "::error::A GitBook change-request preview URL is committed (listed above). It points at an unmerged change request, not published content. Replace it with a link to the published page, or unlink the text."
+            exit 1
+          fi
+
       - name: Get changed files
         id: changes
         # SHA-pinned rather than tag-pinned: this action was compromised in
@@ -188,6 +211,46 @@ jobs:
           # there is nothing further to repoint at. The other two pages have
           # carried the same latent failure since the migration; they only
           # surface when a PR happens to touch them.
+          #
+          # DOCS-6451: www.packtpub.com bot-blocks non-browser clients with a bare
+          # 403 -- both cited product pages serve 200 with their real content to a
+          # browser UA over HTTP/1.1. Packt reorganized its catalogue onto
+          # /en-us/product/<slug>-<isbn> paths, so the two Books links were repointed
+          # at the live pages in the same change; the 403 is the checker being
+          # blocked, not a dead page, and there is nowhere else to point a
+          # publisher's own product page.
+          #
+          # DOCS-6451: x.com and www.guru99.com serve 200 with real content to a
+          # browser but answer the Actions runners with a bare 403, so a local
+          # lychee run PASSES while CI fails -- the same asymmetry as web.archive.org
+          # above. Both are pre-existing on main; they only surface when a PR happens
+          # to touch joining-the-community.md or tutorials.md. The x.com pattern is
+          # anchored to scheme+host on purpose: a bare 'x\.com' is a substring of
+          # five unrelated hosts cited elsewhere in the tree (wifislax.com,
+          # twistedmatrix.com, tunnelix.com, limenex.com, 4mlinux.com) and would
+          # silently stop checking them.
+          #
+          # DOCS-6451: portal.azure.com and www.ibm.com both answer a non-browser
+          # client with a bare 403 while serving real content to a browser. Azure's
+          # two links are deep links into the portal, which requires a signed-in
+          # session, so there is nothing to repoint at. IBM retired Knowledge Center
+          # and 301s the three db2look links to the equivalent /docs/ topic paths, but
+          # its block applies to the new paths too and the Wayback Machine has NO
+          # snapshot of either form -- so the URLs are left exactly as they are rather
+          # than swapped for a target that cannot be verified from here.
+          #
+          # DOCS-6451: www.defense.gov answers every non-browser client with a bare
+          # 403 "Access Denied" -- Akamai bot/geo filtering in front of the US DoD
+          # homepage. The site is plainly live and it is cited once, as the referent
+          # of "DoD" beside the STIG certification press release, so there is nothing
+          # to repoint at.
+          #
+          # DOCS-6451 (Galera slice): cloud.ibm.com returns 404 to lychee but 200 to a
+          # browser User-Agent on the same URL -- UA-gated, so the pages are live and
+          # both citations are correct. www.akamai.com is the new home of the Linode
+          # docs library (www.linode.com/docs/guides/... now 301s there); it serves 403
+          # to every scripted client, which is why the old linode.com URL surfaced as a
+          # 403 rather than as the redirect it actually is.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -259,6 +322,14 @@ jobs:
             --exclude 'valentina-db\.com'
             --exclude 'docs\.moodle\.org'
             --exclude 'www\.sqlmaestro\.com'
+            --exclude 'www\.packtpub\.com'
+            --exclude 'https://x\.com/'
+            --exclude 'www\.guru99\.com'
+            --exclude 'portal\.azure\.com'
+            --exclude 'www\.ibm\.com'
+            --exclude 'www\.defense\.gov'
+            --exclude 'cloud\.ibm\.com'
+            --exclude 'www\.akamai\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
@@ -269,6 +340,6 @@ jobs:
       - name: 📖 Help & Documentation
         if: failure()
         run: |
-          echo "### ❌ Link Check Failed?" >> $GITHUB_STEP_SUMMARY
-          echo "👉 [**Read the SOP: How to Fix Link Errors**](https://mariadbcorp.atlassian.net/wiki/spaces/DOCS/pages/3284140040/Pull+Requests#Method-1%3A-The-%22Quick-Fix%22-(Recommended))" >> $GITHUB_STEP_SUMMARY
+          echo "### ❌ Link Check Failed?" >> "$GITHUB_STEP_SUMMARY"
+          echo "👉 [**Read the SOP: How to Fix Link Errors**](https://mariadbcorp.atlassian.net/wiki/spaces/DOCS/pages/3284140040/Pull+Requests#Method-1%3A-The-%22Quick-Fix%22-(Recommended))" >> "$GITHUB_STEP_SUMMARY"
 

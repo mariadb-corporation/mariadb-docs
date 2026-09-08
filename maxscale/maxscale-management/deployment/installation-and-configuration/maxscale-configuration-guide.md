@@ -3081,6 +3081,27 @@ maxscale --export-config=/tmp/maxscale.cnf.combined
 
 This will create the `/tmp/maxscale.cnf.combined` file and write the current configuration into the it. This allows new MaxScale instances to be easily set up without requiring copying of all runtime configuration files. The user executing the command must be able to read all MaxScale configuration files as well as create and write the provided filename.
 
+## Backing Up a MaxScale Installation
+
+The section above covers the runtime configuration alone. To copy or back up a whole MaxScale
+installation, include its static configuration and the data its modules keep on disk.
+
+The main configuration file for MaxScale is in `/etc/maxscale.cnf` and additional user-created configuration files are in `/etc/maxscale.cnf.d/`. Objects created or modified at runtime are stored in `/var/lib/maxscale/maxscale.cnf.d/`. Some modules also store internal data in `/var/lib/maxscale/` named after the module or the configuration object.
+
+The simplest way to back up the configuration and runtime data of a MaxScale installation is to create an archive from the following files and directories:
+
+* `/etc/maxscale.cnf`
+* `/etc/maxscale.cnf.d/`
+* `/var/lib/maxscale/`
+
+This can be done with the following command:
+
+```bash
+tar -caf maxscale-backup.tar.gz /etc/maxscale.cnf /etc/maxscale.cnf.d/ /var/lib/maxscale/
+```
+
+If MaxScale is configured to store data in custom locations, these should be included in the backup as well.
+
 ## Encryption Key Managers
 
 The encryption key managers are how MaxScale retrieves symmetric encryption keys from a key management system. Some parts of MaxScale require the `key_manager` to be configured in order to work. The key manager that is used is selected with the [key\_manager](maxscale-configuration-guide.md#key_manager) parameter and the key manager itself is configured by placing the parameters in the `[maxscale]` section.

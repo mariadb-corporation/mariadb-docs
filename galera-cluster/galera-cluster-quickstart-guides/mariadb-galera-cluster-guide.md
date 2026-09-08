@@ -181,8 +181,7 @@ This confirms synchronous replication is working.
 
 #### Further Resources:
 
-* [How to Set up MariaDB Galera Clusters on Ubuntu 22.04 (Linode)](https://www.linode.com/docs/guides/how-to-set-up-mariadb-galera-clusters-on-ubuntu-2204/)
-* [MariaDB Galera Cluster - Binary Installation (galeracluster.com)](https://galeracluster.com/documentation/html_docs_mariadb-installation/documentation/install-mariadb.html)
+* [How to Set up MariaDB Galera Clusters on Ubuntu 22.04 (Akamai Cloud)](https://www.akamai.com/cloud/guides/how-to-set-up-mariadb-galera-clusters-on-ubuntu-2204/)
 * [Getting Started with MariaDB Galera Cluster (MariaDB.com/kb)](../galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

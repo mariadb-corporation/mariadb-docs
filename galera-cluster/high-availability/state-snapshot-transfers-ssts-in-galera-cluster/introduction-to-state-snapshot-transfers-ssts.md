@@ -217,10 +217,6 @@ SST scripts can't currently read the mysqld<#> [option group](https://app.gitboo
 
 See [MDEV-18863](https://jira.mariadb.org/browse/MDEV-18863) for more information.
 
-## See Also
-
-* [Galera Cluster documentation: STATE SNAPSHOT TRANSFERS](https://galeracluster.com/library/documentation/sst.html)
-
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Install MariaDB MaxScale on Linux using official package repositories or
-  RPM/DEB files. This guide details setup for RHEL, Debian, and SLES, plus
-  essential memory and backup configuration.
+  Install MariaDB MaxScale on Linux using official package repositories, RPM/DEB
+  files, or a tarball. This guide details setup for RHEL, Debian, and SLES, plus
+  the kernel memory-overcommit setting MaxScale assumes.
 ---
 
 # MaxScale Installation Guide
@@ -65,39 +65,14 @@ Alternatively, use this command:
 cat /proc/sys/vm/overcommit_memory
 ```
 
-### Configuring MariaDB MaxScale
+### Next Steps
 
-[The MaxScale Tutorial](../../mariadb-maxscale-tutorials/setting-up-mariadb-maxscale.md) covers the first steps in configuring your MariaDB MaxScale installation. Follow this tutorial to learn how to configure and start using MaxScale.
+MaxScale is installed. Configuring, administering and backing it up are covered in full elsewhere,
+so this guide only points at them:
 
-For a detailed list of all configuration parameters, refer to the [Configuration Guide](../deployment/installation-and-configuration/maxscale-configuration-guide.md) and the module specific documents found in the [reference](../../reference/).
-
-### Encrypting Passwords
-
-Read the [Encrypting Passwords](../deployment/installation-and-configuration/maxscale-configuration-guide.md#encrypting-passwords) section of the configuration guide to set up password encryption for the configuration file.
-
-### Administration Of MariaDB MaxScale
-
-There are various administration tasks that may be done with MariaDB MaxScale. A command line tools is available, [maxctrl](../../reference/maxscale-maxctrl.md), that interacts with a running MariaDB MaxScale and allows the status of MariaDB MaxScale to be monitored and give some control of the MariaDB MaxScale functionality.
-
-The [administration tutorial](../../mariadb-maxscale-tutorials/maxscale-administration-tutorial.md) covers the common administration tasks that need to be done with MariaDB MaxScale.
-
-### Copying or Backing Up MaxScale
-
-The main configuration file for MaxScale is in `/etc/maxscale.cnf` and additional user-created configuration files are in `/etc/maxscale.cnf.d/`. Objects created or modified at runtime are stored in `/var/lib/maxscale/maxscale.cnf.d/`. Some modules also store internal data in `/var/lib/maxscale/` named after the module or the configuration object.
-
-The simplest way to back up the configuration and runtime data of a MaxScale installation is to create an archive from the following files and directories:
-
-* `/etc/maxscale.cnf`
-* `/etc/maxscale.cnf.d/`
-* `/var/lib/maxscale/`
-
-This can be done with the following command:
-
-```bash
-tar -caf maxscale-backup.tar.gz /etc/maxscale.cnf /etc/maxscale.cnf.d/ /var/lib/maxscale/
-```
-
-If MaxScale is configured to store data in custom locations, these should be included in the backup as well.
+* [The MaxScale Tutorial](../../mariadb-maxscale-tutorials/setting-up-mariadb-maxscale.md) covers the first steps in configuring your installation — follow it to configure and start using MaxScale.
+* The [Configuration Guide](../deployment/installation-and-configuration/maxscale-configuration-guide.md) is the complete parameter reference, including [Encrypting Passwords](../deployment/installation-and-configuration/maxscale-configuration-guide.md#encrypting-passwords) for the configuration file, [Administration](../deployment/installation-and-configuration/maxscale-configuration-guide.md#administration), and [Backing Up a MaxScale Installation](../deployment/installation-and-configuration/maxscale-configuration-guide.md#backing-up-a-maxscale-installation). Module-specific parameters are in the [reference](../../reference/).
+* [maxctrl](../../reference/maxscale-maxctrl.md) is the command line client for a running MaxScale, and the [administration tutorial](../../mariadb-maxscale-tutorials/maxscale-administration-tutorial.md) covers the common administration tasks.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

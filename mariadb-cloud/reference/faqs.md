@@ -24,7 +24,7 @@ You can sign up for a free account at [https://app.skysql.com](https://app.skysq
 
 ### How quickly can I launch a new database?
 
-Launching a new database service with MariaDB Cloud is quick and easy. Serverless database services start in milliseconds. Provisioned Database services start in 2-4 min.
+Launching a new database service with MariaDB Cloud is quick and easy. Serverless database services start in milliseconds on the default MariaDB Server version; on any other version, the database is built on demand and takes longer to launch. Provisioned Database services start in 2-4 min.
 
 ### Is MariaDB Cloud ready for production use?
 
@@ -50,7 +50,7 @@ Yes. For workloads requiring strict data consistency and zero data loss failover
 {% hint style="info" %}
 **Enterprise Cluster Availability**
 
-MariaDB Enterprise Cluster is available exclusively on the PowerPlus tier. [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-quickstart-guides/mariadb-maxscale-guide) routes all write traffic to a single active writer node to ensure maximum stability.
+MariaDB Enterprise Cluster is available exclusively on the PowerPlus tier. [MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/) routes all write traffic to a single active writer node to ensure maximum stability.
 {% endhint %}
 
 ### What options are available for scaling and right-sizing MariaDB Cloud?

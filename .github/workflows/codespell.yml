@@ -60,6 +60,6 @@ jobs:
       - name: 📖 Help & Documentation
         if: failure()
         run: |
-          echo "### ❌ Spell Check Failed?" >> $GITHUB_STEP_SUMMARY
-          echo "👉 [**Read the SOP: How to Fix Spell Check Errors**](https://mariadbcorp.atlassian.net/wiki/spaces/DOCS/pages/3284140040/Pull+Requests#Method-1%3A-The-%22Quick-Fix%22-(Recommended))" >> $GITHUB_STEP_SUMMARY
+          echo "### ❌ Spell Check Failed?" >> "$GITHUB_STEP_SUMMARY"
+          echo "👉 [**Read the SOP: How to Fix Spell Check Errors**](https://mariadbcorp.atlassian.net/wiki/spaces/DOCS/pages/3284140040/Pull+Requests#Method-1%3A-The-%22Quick-Fix%22-(Recommended))" >> "$GITHUB_STEP_SUMMARY"
 

@@ -1,11 +1,11 @@
 # MariaDB Error Codes 4200 to 4299
 
-- [Error 4200: ORDER BY](e4200.md)
-- [Error 4201: The variable is ignored](e4201.md)
-- [Error 4202: Incorrect column name count for derived table](e4202.md)
-- [Error 4203: Values were longer than max\_sort\_length. Sorting used only the first bytes](e4203.md)
-- [Error 4204: Invalid binary vector format](e4204.md)
-- [Error 4205: Invalid vector format at offset](e4205.md)
+- [Error 4200: The setting is ignored](e4200.md)
+- [Error 4201: Incorrect column name count for derived table](e4201.md)
+- [Error 4202: Values were longer than max\_sort\_length. Sorting used only the first bytes](e4202.md)
+- [Error 4203: Invalid binary vector format](e4203.md)
+- [Error 4204: Invalid vector format at offset](e4204.md)
+- [Error 4205: Pseudo thread id should not be modified by the client as it will be overwritten](e4205.md)
 - [Error 4206: Cannot determine distance type for VEC\_DISTANCE, index is not found](e4206.md)
 - [Error 4207: Index hints are ignored because they are incompatible with RETURNING clause](e4207.md)
 - [Error 4208: The row is skipped by a trigger implementation](e4208.md)

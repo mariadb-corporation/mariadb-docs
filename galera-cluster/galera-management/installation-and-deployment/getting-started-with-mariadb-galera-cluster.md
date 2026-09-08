@@ -237,7 +237,7 @@ The cluster nodes can be configured to invoke a command when cluster membership 
 * [About Galera Replication](../../readme/about-galera-replication.md)
 * [Galera Use Cases](../../galera-use-cases.md)
 * [Galera Cluster documentation: Notification Command](../configuration/using-the-notification-command-wsrep_notify_cmd.md)
-* [Introducing the “Safe-To-Bootstrap” feature in Galera Cluster](https://galeracluster.com/2016/11/introducing-the-safe-to-bootstrap-feature-in-galera-cluster/)
+* [Introducing the “Safe-To-Bootstrap” feature in Galera Cluster](https://web.archive.org/web/20250701212656/https://galeracluster.com/2016/11/introducing-the-safe-to-bootstrap-feature-in-galera-cluster/)
 * [Github - galera](https://github.com/codership/galera/)
 * [Github - mysql-wsrep](https://github.com/codership/mysql-wsrep/)
 
