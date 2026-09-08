@@ -1,7 +1,7 @@
 ---
 name: triage-epic
 description: Sweep a MariaDB DOCS release Epic for On Hold child tickets whose upstream MDEV development work has finished, and release them for writing. For each On Hold child it resolves the primary MDEV, checks the public jira.mariadb.org status/resolution and the local MariaDB source for merged commits, posts a short evidence-backed triage brief, and moves the ticket On Hold → TODO. Use when asked to "triage DOCS-XXXX", "triage the epic", "what's unblocked in the 13.1 epic", "which doc tickets are ready to write", or "sweep the On Hold tickets". Dry-run by default — never transitions anything without approval.
-allowed-tools: Bash, Read, Grep, Glob, Write, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__claude_ai_Atlassian_Rovo__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__getJiraIssueRemoteIssueLinks, mcp__claude_ai_Atlassian_Rovo__getJiraIssueRemoteIssueLinks, mcp__atlassian-mariadb__addCommentToJiraIssue, mcp__claude_ai_Atlassian_Rovo__addCommentToJiraIssue, mcp__atlassian-mariadb__getTransitionsForJiraIssue, mcp__claude_ai_Atlassian_Rovo__getTransitionsForJiraIssue, mcp__atlassian-mariadb__transitionJiraIssue, mcp__claude_ai_Atlassian_Rovo__transitionJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__claude_ai_Atlassian_Rovo__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__getJiraIssueRemoteIssueLinks, mcp__claude_ai_Atlassian_Rovo__getJiraIssueRemoteIssueLinks, mcp__atlassian-mariadb__addCommentToJiraIssue, mcp__claude_ai_Atlassian_Rovo__addCommentToJiraIssue, mcp__atlassian-mariadb__getTransitionsForJiraIssue, mcp__claude_ai_Atlassian_Rovo__getTransitionsForJiraIssue, mcp__atlassian-mariadb__transitionJiraIssue, mcp__claude_ai_Atlassian_Rovo__transitionJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 owners: [igusev]
 last_verified: 2026-09-08
 status: active
@@ -69,11 +69,13 @@ Do **not** use `--single-branch`: it drops the `bb-*` and `preview-*` branches t
 
 Both **gitignored** (paths and preferences differ per machine):
 
-- **`.claude/doc-sources.local.json`** — reused from `doc-from-ticket` (same schema, same
-  first-run prompt). This skill uses the `server` entry: its `path` and authoritative `ref`.
-  If it is missing, offer to configure it (validate with `git -C <path> rev-parse --git-dir` and
-  `git -C <path> rev-parse --verify <ref>^{commit}`) — or just continue in **degraded mode**
-  (§4b), which is a supported way to run, not a failure.
+- **`.claude/doc-sources.local.json`** — **read-only here.** This skill consumes the entry whose
+  `product` is `server` (its `path` and authoritative `ref`) but never creates or edits the file:
+  `doc-from-ticket` and `/impact` own it, and their first run prompts for it. If it is absent,
+  either point the user at `/impact` to set it up, or simply continue in **degraded mode** (§4b) —
+  a supported way to run, not a failure. Before using a configured path, validate it
+  (`git -C <path> rev-parse --git-dir`, `git -C <path> rev-parse --verify <ref>^{commit}`) and drop
+  to degraded mode with a clear message if either fails.
 - **`.claude/triage-epic.local.json`** — the tiering knobs. Optional; these are the built-in
   defaults, used as-is when the file is absent:
 
@@ -129,7 +131,7 @@ Children attach through the team-managed **`parent`** field. `issuelinks` on the
 ```
 searchJiraIssuesUsingJql(
   cloudId="164b0d33-…",
-  jql='parent = DOCS-XXXX AND status = "On Hold" ORDER BY key',
+  jql='parent = DOCS-XXXX AND status = "<hold_status>" ORDER BY key',   # default: "On Hold"
   fields=["summary","description","status","assignee","updated"],
   maxResults=100)
 ```
@@ -206,17 +208,31 @@ brief's "notable decisions" line — **never** as proof on its own.
 
 ### 4b. Merged commits in local MariaDB source
 
-Use the `server` entry from `.claude/doc-sources.local.json`. Refresh first, then classify:
+Read `.claude/doc-sources.local.json` and take the entry **whose `product` is `server`** — `sources`
+is an *array* of `{product, path, ref}` objects, not a map, so select it rather than indexing:
 
 ```bash
-p=<sources[server].path>; ref=<sources[server].ref>
+cfg=.claude/doc-sources.local.json
+p="$(jq -r '.sources[] | select(.product=="server") | .path' "$cfg")"
+ref="$(jq -r '.sources[] | select(.product=="server") | .ref'  "$cfg")"
 git -C "$p" fetch --quiet
+```
 
+> **Never write `\b` in a `git log --grep` pattern.** `\b` is a GNU-regex extension: under `-E`
+> (POSIX ERE) on macOS/BSD it matches **nothing at all** — no error, no warning, just zero commits.
+> A revert query written that way silently never fires, so the "any revert disqualifies" guardrail
+> quietly stops working and every CANDIDATE collapses to NOT READY, **on Mac machines only**.
+>
+> Use a **plain substring `--grep`** (portable BRE, no `-E`, no `-P`) and enforce the word boundary
+> in `awk`, which this section already does for subjects. That needs neither GNU regex nor a
+> PCRE-enabled git.
+
+```bash
 # every commit anywhere in the repo that names the key
-git -C "$p" log --all --oneline --extended-regexp --grep="\bMDEV-40030\b"
+git -C "$p" log --all --oneline --grep="MDEV-40030"
 
 # the subset reachable from the authoritative ref — this is what "merged" means
-git -C "$p" log "$ref" --oneline --extended-regexp --grep="\bMDEV-40030\b"
+git -C "$p" log "$ref" --oneline --grep="MDEV-40030"
 
 # for a specific commit, which branches carry it
 git -C "$p" branch -a --contains <sha>
@@ -226,12 +242,18 @@ Rules:
 
 - **Subject, not body.** `--grep` matches the whole commit message, so a commit fixing something
   else that merely *cites* the key will match. A commit counts as **implementing** the change only
-  when its **subject** names the key; a body-only mention is a reference. Filter explicitly:
+  when its **subject** starts with the key; anything else is a reference. Filter explicitly, and
+  anchor the tail so `MDEV-3064` cannot match `MDEV-30645`:
 
   ```bash
-  git -C "$p" log "$ref" --date=short --format='%h|%ad|%s' -E --grep="\bMDEV-30645\b" \
-    | awk -F'|' '$3 ~ /^(Revert )?MDEV-30645/'
+  git -C "$p" log "$ref" --date=short --format='%h|%ad|%s' --grep="MDEV-38975" \
+    | awk -F'|' '$3 ~ /^(Revert )?MDEV-38975([^0-9]|$)/'
   ```
+
+  On `preview-13.1-preview` that turns **2** message matches into **1** real implementation commit:
+  it drops `99de1d0a1b0 Fix CI regressions from MDEV-38975 forward-port to main`, which names the
+  key but implements nothing, and keeps `4216091efc1 MDEV-38975: HEAP engine BLOB/TEXT/JSON/GEOMETRY
+  support…`. Tiering on the unfiltered list reads a CI cleanup as the feature landing.
 
   On `preview-13.1-preview`, MDEV-30645 matches 4 commits by message but 3 by subject, and
   MDEV-38975's newest *matching* commit is titled `MDEV-40591 …`. Tiering on the unfiltered list
@@ -254,16 +276,25 @@ Rules:
   paged commit list for `Revert` subjects. MDEV-25292's revert sits 40+ commits deep; a `head -40`
   scan misses it and the ticket comes back clean:
 
-  ```bash
-  git -C "$p" log --all --date=short --format='%h|%s' -E --grep="^Revert.*\bMDEV-25292\b"
-  ```
-
-  Then **confirm each hit actually reverts your key**: take the *first* `MDEV-\d+` token in the
-  subject and require it to equal the target. A revert of some other ticket often names yours in
+  Then **confirm each hit actually reverts your key**: take the *first* `MDEV-<digits>` token after
+  `Revert` and require it to equal the target. A revert of some other ticket often names yours in
   passing — MDEV-35915 matches two commits titled
   `Revert "MDEV-37686 rpl.create_or_replace_mix2 fails in MDEV-35915 branch"`, which revert
   MDEV-37686 on a branch named after MDEV-35915. Counting those as reverts of MDEV-35915 buries a
   live feature under someone else's rollback.
+
+  Both steps in one portable pass — two plain `--grep`s with `--all-match`, then `awk` for the
+  boundary and the first-key test:
+
+  ```bash
+  git -C "$p" log --all --format='%h|%s' --grep="Revert" --grep="MDEV-25292" --all-match \
+    | awk -F'|' -v k=MDEV-25292 '$2 ~ /^Revert/ {
+        s=$2; sub(/^Revert[^M]*/,"",s)
+        if (match(s,/MDEV-[0-9]+/) && substr(s,RSTART,RLENGTH)==k) print $1"  "$2 }'
+  ```
+
+  Verified against both cases: it returns `2bd41fc5bf7 Revert MDEV-25292 Atomic CREATE OR REPLACE
+  TABLE` for MDEV-25292, and nothing for MDEV-35915.
 
   Ordering cannot decide this. On MDEV-25292, `git log main --grep` lists
   `1f85eeeb53a` (author date 2022-08-31) *above* `2bd41fc5bf7 Revert MDEV-25292 Atomic CREATE OR
@@ -303,14 +334,31 @@ absence, and must never downgrade a ticket on its own.
 | Tier | Condition | Action |
 |------|-----------|--------|
 | **READY** | MDEV `resolution` ∈ `ready_resolutions` **and** a fix version matching `numbered_fixversion_regex` (`13.1.1`, not `13.1`) — **and** no revert found (or, in degraded mode, none checkable — flag it) | propose comment + On Hold → TODO |
-| **CANDIDATE** | MDEV still unresolved, with: a non-reverted subject commit on a release or `preview-*` ref; **or** commits only on `bb-*`; **or** a merged `MariaDB/server` PR; **or** status in `candidate_mdev_statuses` | report with its evidence; ask per ticket |
-| **NOT READY** | no code evidence anywhere; **or** the work was reverted; **or** status in `never_ready_statuses` with nothing merged | leave On Hold, list with the reason |
+| **CANDIDATE** | MDEV unresolved, **and** real code evidence exists: a non-reverted subject commit on a release or `preview-*` ref; **or** commits only on `bb-*`; **or** a merged `MariaDB/server` PR | report with its evidence; ask per ticket |
+| **NOT READY** | **no code evidence anywhere** (whatever the MDEV status); **or** the work was reverted | leave On Hold, list with the reason |
 | **AMBIGUOUS** | MDEV unresolvable, conflicting keys, MDEV fetch failed | leave On Hold, list for a human |
 
 **Only the MDEV's resolution and numbered fix version promote a ticket.** Merged code, a green PR,
 `In Testing`, and a developer saying "pushed" are all CANDIDATE at best — every one of them is a
 statement about *code*, and the question a doc writer needs answered is whether it **shipped**.
 A feature can sit merged on a preview branch for months and still be pulled from the release.
+
+**A status alone is never evidence.** `candidate_mdev_statuses` describes *which unresolved states
+are worth surfacing* — it does not by itself make a ticket a CANDIDATE. With no code anywhere, an
+`In Review` ticket is NOT READY: MDEV-38983 sits in review with an open PR and not one commit in
+any branch, so there is nothing for a writer to look at yet.
+
+**How each config knob is applied** — every one is honored, none is decorative:
+
+| Knob | Where it acts |
+|------|---------------|
+| `require_resolution`, `ready_resolutions` | READY row: the MDEV's `resolution` must be present and in the list. Set `require_resolution: false` to promote on the fix version alone. |
+| `require_numbered_fixversion`, `numbered_fixversion_regex` | READY row: at least one `fixVersions[].name` must match. Set to `false` for a project that never uses point versions. |
+| `candidate_mdev_statuses` | Which unresolved statuses are worth reporting, alongside code evidence. |
+| `never_ready_statuses` | Caps the tier at CANDIDATE with a conflict flag (below). |
+| `release_branch_globs`, `build_branch_globs` | §4b: which refs count as merged, and which are work in progress. |
+| `hold_status` | §2's JQL — `status = "<hold_status>"`, not a hardcoded `On Hold`. |
+| `target_status` | §7's transition target, matched by name against the live transition list. |
 
 **When rules collide, the cautious one wins:**
 
@@ -345,7 +393,7 @@ Epic DOCS-6084 — Documentation for MariaDB Server 13.1  (target series 13.1)
   TICKET     MDEV         STATUS/RESOLUTION   FIXVER   EVIDENCE                       TIER        SERIES
   DOCS-6275  MDEV-39518   Closed / Fixed      13.1.1   shipped                        READY       13.1
   DOCS-6237  MDEV-40030   In Testing / —      13.1     d68872cca73 → preview-13.1     CANDIDATE   13.1
-  DOCS-6085  MDEV-38983   In Review / —       13.1     none (PR #4732 open)           NOT READY   13.1
+  DOCS-6085  MDEV-38983   In Review / —       13.1     none in any branch (PR open)   NOT READY   13.1
   DOCS-6220  MDEV-30645   Stalled / —         13.2     ea8801efa80 → preview-13.1     CANDIDATE   13.1  ⚠ conflict
   DOCS-5943  MDEV-25292   In Testing / —      13.1     2bd41fc5bf7 Revert on main     NOT READY   ⚠ 13.0
 ```
