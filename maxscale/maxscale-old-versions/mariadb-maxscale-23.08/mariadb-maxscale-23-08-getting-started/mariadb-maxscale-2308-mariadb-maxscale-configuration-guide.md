@@ -431,8 +431,8 @@ The current auto tunable parameters are:
 
 | MaxScale Parameter                                                                                          | Server Variable Dependency                                                                                                                          |
 | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [connection\_keepalive](mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#connection_keepalive) | 80% of the smallest [wait\_timeout]({server}/server-management/variables-and-modes/server-system-variables#wait_timeout) value of the servers used by the service |
-| [wait\_timeout](mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#wait_timeout)                 | The smallest [wait\_timeout]({server}/server-management/variables-and-modes/server-system-variables#wait_timeout) value of the servers used by the service        |
+| [connection\_keepalive](mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#connection_keepalive) | 80% of the smallest [wait\_timeout](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout) value of the servers used by the service |
+| [wait\_timeout](mariadb-maxscale-2308-mariadb-maxscale-configuration-guide.md#wait_timeout)                 | The smallest [wait\_timeout](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout) value of the servers used by the service        |
 
 The values of the server variables are collected by monitors, which means that
 if the servers of a service are not monitored by a monitor, then the parameters

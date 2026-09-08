@@ -30,7 +30,7 @@ MaxScale 2.4.0 added support for replicas replicating off of Galera nodes. If a 
 ### MariaDB Advanced Cluster (RAFT) support
 
 As of MaxScale 25.10.2, the Galera Monitor can monitor a
-[MariaDB Advanced Cluster]({release-notes}/advanced-cluster).
+[MariaDB Advanced Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/advanced-cluster).
 Advanced Cluster is a new synchronized replication scheme that offers reduced
 latency compared to the standard Galera implementation. An Advanced Cluster
 promotes one server as the *leader*. The leader approves and orders
