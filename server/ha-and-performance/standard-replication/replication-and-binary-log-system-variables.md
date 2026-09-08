@@ -857,7 +857,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `1`; `0` on Galera cluster nodes.
-* Range: `0` to `18446744073709551615`
+* Range: `0` to `4294967295`
 * Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
 
 #### `slave_ddl_exec_mode`

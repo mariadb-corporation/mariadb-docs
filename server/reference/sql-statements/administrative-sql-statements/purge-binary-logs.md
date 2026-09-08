@@ -17,11 +17,15 @@ PURGE { BINARY | MASTER } LOGS
 
 ## Description
 
-The `PURGE BINARY LOGS` statement deletes all the [binary log](../../../server-management/server-monitoring-logs/binary-log/) files listed in the log index file prior to the specified log file name ordate. `BINARY` and `MASTER` are synonyms.Deleted log files also are removed from the list recorded in the index file, sothat the given log file becomes the first in the list.
+The `PURGE BINARY LOGS` statement deletes all the [binary log](../../../server-management/server-monitoring-logs/binary-log/) files listed in the log index file prior to the specified log file name or date. `BINARY` and `MASTER` are synonyms. Deleted log files are also removed from the list recorded in the index file, so that the given log file becomes the first in the list.
 
-The datetime expression is in the format `YYYY-MM-DD hh:ss`.
+The datetime expression is in the format `YYYY-MM-DD hh:mm:ss`.
 
 If a replica is active but has yet to read from a binary log file you attempt to delete, the statement will fail with an error. However, if the replica is not connected and has yet to read from a log file you delete, the file will be deleted, but the replica will be unable to continue replicating once it connects again.
+
+From [MariaDB 11.4.3](https://jira.mariadb.org/browse/MDEV-34504), `PURGE BINARY LOGS` ignores [slave\_connections\_needed\_for\_purge](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#slave_connections_needed_for_purge), the minimum number of connected replicas that [automatic purging](../../../server-management/server-monitoring-logs/binary-log/using-and-maintaining-the-binary-log.md#purging-log-files) requires. In MariaDB 11.4.1 and 11.4.2, `PURGE BINARY LOGS BEFORE` observed that limit while `PURGE BINARY LOGS TO` did not.
+
+If an automatic purge has already been refused for a file because too few replicas had processed it, a manual purge of that same file is refused as well, reporting the file as the current active binary log even when it is not. The server clears that state when a replica moves on to a new binary log file, or when [slave\_connections\_needed\_for\_purge](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#slave_connections_needed_for_purge) or [max\_binlog\_total\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_binlog_total_size) is set.
 
 This statement has no effect if the server was not started with the [--log-bin](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_bin) option to enable binary logging.
 
@@ -35,7 +39,7 @@ To list the binary log files on the server, use [SHOW BINARY LOGS](show/show-bin
 {% endtab %}
 {% endtabs %}
 
-To delete all binary log files, use [RESET MASTER](replication-statements/reset-master.md).To move to a new log file (for example if you want to remove the current log file), use [FLUSH LOGS](flush-commands/flush.md) before you execute `PURGE LOGS`.
+To delete all binary log files, use [RESET MASTER](replication-statements/reset-master.md). To move to a new log file (for example if you want to remove the current log file), use [FLUSH LOGS](flush-commands/flush.md) before you execute `PURGE LOGS`.
 
 If the [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) server system variable is not set to 0, the server automatically deletes binary log files after the given number of days. From MariaDB 10.6, the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion, and takes precedence if both are non-zero.
 
