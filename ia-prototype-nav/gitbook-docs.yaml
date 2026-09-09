@@ -1,0 +1,188 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  structure:
+    - type: space
+      key: get-started
+      title: Get Started
+      path: get-started
+      content:
+        directory: ./get-started
+    - type: space
+      key: community-server
+      title: Community Server
+      path: community-server
+      content:
+        directory: ./community-server
+    - type: section-group
+      key: enterprise-platform
+      title: Enterprise Platform
+      children:
+        - type: section
+          key: platform-overview-sec
+          title: Platform overview
+          path: platform-overview
+          children:
+            - type: space
+              key: platform-overview
+              title: Platform overview
+              path: home
+              content:
+                directory: ./platform-overview
+        - type: section
+          key: enterprise-server-sec
+          title: Enterprise Server
+          path: enterprise-server
+          children:
+            - type: space
+              key: enterprise-server
+              title: Enterprise Server
+              path: home
+              content:
+                directory: ./enterprise-server
+        - type: section
+          key: maxscale-sec
+          title: MaxScale
+          path: maxscale
+          children:
+            - type: space
+              key: maxscale
+              title: MaxScale
+              path: home
+              content:
+                directory: ./maxscale
+        - type: section
+          key: galera-cluster-sec
+          title: Galera Cluster
+          path: galera-cluster
+          children:
+            - type: space
+              key: galera-cluster
+              title: Galera Cluster
+              path: home
+              content:
+                directory: ./galera-cluster
+        - type: section
+          key: advanced-clustering-sec
+          title: Advanced Clustering
+          path: advanced-clustering
+          children:
+            - type: space
+              key: advanced-clustering
+              title: Advanced Clustering
+              path: home
+              content:
+                directory: ./advanced-clustering
+        - type: section
+          key: columnstore-sec
+          title: ColumnStore
+          path: columnstore
+          children:
+            - type: space
+              key: columnstore
+              title: ColumnStore
+              path: home
+              content:
+                directory: ./columnstore
+        - type: section
+          key: exa-sec
+          title: Exa
+          path: exa
+          children:
+            - type: space
+              key: exa
+              title: Exa
+              path: home
+              content:
+                directory: ./exa
+        - type: section
+          key: gridgain-9-sec
+          title: GridGain 9
+          path: gridgain-9
+          children:
+            - type: space
+              key: gridgain-9
+              title: GridGain 9
+              path: home
+              content:
+                directory: ./gridgain-9
+        - type: section
+          key: gridgain-8-sec
+          title: GridGain 8
+          path: gridgain-8
+          children:
+            - type: space
+              key: gridgain-8
+              title: GridGain 8
+              path: home
+              content:
+                directory: ./gridgain-8
+        - type: section
+          key: connectors-sec
+          title: Connectors
+          path: connectors
+          children:
+            - type: space
+              key: connectors
+              title: Connectors
+              path: home
+              content:
+                directory: ./connectors
+        - type: section
+          key: tools-sec
+          title: Tools
+          path: tools
+          children:
+            - type: space
+              key: tools
+              title: Tools
+              path: home
+              content:
+                directory: ./tools
+    - type: section-group
+      key: cloud
+      title: Cloud
+      children:
+        - type: section
+          key: mariadb-cloud-sec
+          title: MariaDB Cloud
+          path: mariadb-cloud
+          children:
+            - type: space
+              key: mariadb-cloud
+              title: MariaDB Cloud
+              path: home
+              content:
+                directory: ./mariadb-cloud
+        - type: section
+          key: cloud-ai-retrieval-sec
+          title: Cloud AI Retrieval
+          path: cloud-ai-retrieval
+          children:
+            - type: space
+              key: cloud-ai-retrieval
+              title: Cloud AI Retrieval
+              path: home
+              content:
+                directory: ./cloud-ai-retrieval
+    - type: space
+      key: release-notes
+      title: Release notes
+      path: release-notes
+      content:
+        directory: ./release-notes
+    - type: section-group
+      key: more
+      title: More
+      children:
+        - type: external-link
+          key: more-resources
+          title: Resources
+          url: https://mariadb.com/resources
+        - type: external-link
+          key: more-community
+          title: Community
+          url: https://mariadb.com/kb/en/community/
+        - type: external-link
+          key: more-about
+          title: About
+          url: https://mariadb.com/about-us/
