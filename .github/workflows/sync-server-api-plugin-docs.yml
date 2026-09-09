@@ -59,7 +59,7 @@ jobs:
             --volume "$dest:/out" \
             --workdir /src/include/mysql \
             ghcr.io/mariadb/mariadb-doc-gen:latest \
-            bash -euxo pipefail -c 'bash generate_plugin_api_docs.sh /out'
+            bash -euxo pipefail -c 'generate_plugin_api_docs.sh /out'
           test -d "$dest/md"
           test -n "$(find "$dest/md" -name '*.md' -print -quit)"
           echo "Generated files:"
