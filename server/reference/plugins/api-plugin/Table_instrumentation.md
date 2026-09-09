@@ -1,3 +1,8 @@
+---
+description: >-
+  Plugin API reference: Table Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+---
+
 {#tableinstrumentation}
 
 # Table Instrumentation

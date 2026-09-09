@@ -1,3 +1,8 @@
+---
+description: >-
+  Plugin API reference: File Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+---
+
 {#fileinstrumentation}
 
 # File Instrumentation
