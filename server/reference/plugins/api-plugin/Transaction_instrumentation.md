@@ -1,3 +1,8 @@
+---
+description: >-
+  Plugin API reference: Transaction Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+---
+
 {#transactioninstrumentation}
 
 # Transaction Instrumentation
