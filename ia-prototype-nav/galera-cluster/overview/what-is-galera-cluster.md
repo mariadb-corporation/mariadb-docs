@@ -1,0 +1,3 @@
+# What is Galera Cluster
+
+Placeholder page for the navigation prototype.
