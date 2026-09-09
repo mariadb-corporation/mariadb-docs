@@ -2,18 +2,31 @@ $schema: https://api.gitbook.com/gitbook-docs.yaml
 site:
   title: MariaDB Documentation IA Prototype
   structure:
-    - type: space
-      key: get-started
+    - type: section
+      key: get-started-sec
       title: Get Started
       path: get-started
-      content:
-        directory: ./get-started
-    - type: space
-      key: community-server
+      default: true
+      children:
+        - type: space
+          key: get-started
+          title: Get Started
+          path: get-started-home
+          default: true
+          content:
+            directory: ./get-started
+    - type: section
+      key: community-server-sec
       title: Community Server
       path: community-server
-      content:
-        directory: ./community-server
+      children:
+        - type: space
+          key: community-server
+          title: Community Server
+          path: community-server-home
+          default: true
+          content:
+            directory: ./community-server
     - type: section-group
       key: enterprise-platform
       title: Enterprise Platform
@@ -27,6 +40,7 @@ site:
               key: platform-overview
               title: Platform overview
               path: platform-overview-home
+              default: true
               content:
                 directory: ./platform-overview
         - type: section
@@ -38,6 +52,7 @@ site:
               key: enterprise-server
               title: Enterprise Server
               path: enterprise-server-home
+              default: true
               content:
                 directory: ./enterprise-server
         - type: section
@@ -49,6 +64,7 @@ site:
               key: maxscale
               title: MaxScale
               path: maxscale-home
+              default: true
               content:
                 directory: ./maxscale
         - type: section
@@ -60,6 +76,7 @@ site:
               key: galera-cluster
               title: Galera Cluster
               path: galera-cluster-home
+              default: true
               content:
                 directory: ./galera-cluster
         - type: section
@@ -71,6 +88,7 @@ site:
               key: advanced-clustering
               title: Advanced Clustering
               path: advanced-clustering-home
+              default: true
               content:
                 directory: ./advanced-clustering
         - type: section
@@ -82,6 +100,7 @@ site:
               key: columnstore
               title: ColumnStore
               path: columnstore-home
+              default: true
               content:
                 directory: ./columnstore
         - type: section
@@ -93,6 +112,7 @@ site:
               key: exa
               title: Exa
               path: exa-home
+              default: true
               content:
                 directory: ./exa
         - type: section
@@ -104,6 +124,7 @@ site:
               key: gridgain-9
               title: GridGain 9
               path: gridgain-9-home
+              default: true
               content:
                 directory: ./gridgain-9
         - type: section
@@ -115,6 +136,7 @@ site:
               key: gridgain-8
               title: GridGain 8
               path: gridgain-8-home
+              default: true
               content:
                 directory: ./gridgain-8
         - type: section
@@ -126,6 +148,7 @@ site:
               key: connectors
               title: Connectors
               path: connectors-home
+              default: true
               content:
                 directory: ./connectors
         - type: section
@@ -137,6 +160,7 @@ site:
               key: tools
               title: Tools
               path: tools-home
+              default: true
               content:
                 directory: ./tools
     - type: section-group
@@ -152,6 +176,7 @@ site:
               key: mariadb-cloud
               title: MariaDB Cloud
               path: mariadb-cloud-home
+              default: true
               content:
                 directory: ./mariadb-cloud
         - type: section
@@ -163,14 +188,21 @@ site:
               key: cloud-ai-retrieval
               title: Cloud AI Retrieval
               path: cloud-ai-retrieval-home
+              default: true
               content:
                 directory: ./cloud-ai-retrieval
-    - type: space
-      key: release-notes
+    - type: section
+      key: release-notes-sec
       title: Release notes
       path: release-notes
-      content:
-        directory: ./release-notes
+      children:
+        - type: space
+          key: release-notes
+          title: Release notes
+          path: release-notes-home
+          default: true
+          content:
+            directory: ./release-notes
     - type: section-group
       key: more
       title: More
