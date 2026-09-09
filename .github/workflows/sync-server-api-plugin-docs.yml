@@ -58,8 +58,12 @@ jobs:
             --volume "$PWD/.server-src:/src:ro" \
             --volume "$dest:/out" \
             --workdir /src/include/mysql \
+            --entrypoint bash \
             ghcr.io/mariadb/mariadb-doc-gen:latest \
-            bash -euxo pipefail -c 'bash generate_plugin_api_docs.sh /out'
+            -euxo pipefail -c 'bash generate_plugin_api_docs.sh /out'
+          # The container writes as root into the bind mount, so the runner
+          # cannot delete or copy the tree afterwards without this.
+          sudo chown -R "$(id -u):$(id -g)" "$dest"
           test -d "$dest/md"
           test -n "$(find "$dest/md" -name '*.md' -print -quit)"
           echo "Generated files:"
