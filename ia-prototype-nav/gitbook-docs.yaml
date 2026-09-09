@@ -1,5 +1,6 @@
 $schema: https://api.gitbook.com/gitbook-docs.yaml
 site:
+  title: MariaDB Documentation IA Prototype
   structure:
     - type: space
       key: get-started
@@ -25,7 +26,7 @@ site:
             - type: space
               key: platform-overview
               title: Platform overview
-              path: home
+              path: platform-overview-home
               content:
                 directory: ./platform-overview
         - type: section
@@ -36,7 +37,7 @@ site:
             - type: space
               key: enterprise-server
               title: Enterprise Server
-              path: home
+              path: enterprise-server-home
               content:
                 directory: ./enterprise-server
         - type: section
@@ -47,7 +48,7 @@ site:
             - type: space
               key: maxscale
               title: MaxScale
-              path: home
+              path: maxscale-home
               content:
                 directory: ./maxscale
         - type: section
@@ -58,7 +59,7 @@ site:
             - type: space
               key: galera-cluster
               title: Galera Cluster
-              path: home
+              path: galera-cluster-home
               content:
                 directory: ./galera-cluster
         - type: section
@@ -69,7 +70,7 @@ site:
             - type: space
               key: advanced-clustering
               title: Advanced Clustering
-              path: home
+              path: advanced-clustering-home
               content:
                 directory: ./advanced-clustering
         - type: section
@@ -80,7 +81,7 @@ site:
             - type: space
               key: columnstore
               title: ColumnStore
-              path: home
+              path: columnstore-home
               content:
                 directory: ./columnstore
         - type: section
@@ -91,7 +92,7 @@ site:
             - type: space
               key: exa
               title: Exa
-              path: home
+              path: exa-home
               content:
                 directory: ./exa
         - type: section
@@ -102,7 +103,7 @@ site:
             - type: space
               key: gridgain-9
               title: GridGain 9
-              path: home
+              path: gridgain-9-home
               content:
                 directory: ./gridgain-9
         - type: section
@@ -113,7 +114,7 @@ site:
             - type: space
               key: gridgain-8
               title: GridGain 8
-              path: home
+              path: gridgain-8-home
               content:
                 directory: ./gridgain-8
         - type: section
@@ -124,7 +125,7 @@ site:
             - type: space
               key: connectors
               title: Connectors
-              path: home
+              path: connectors-home
               content:
                 directory: ./connectors
         - type: section
@@ -135,7 +136,7 @@ site:
             - type: space
               key: tools
               title: Tools
-              path: home
+              path: tools-home
               content:
                 directory: ./tools
     - type: section-group
@@ -150,7 +151,7 @@ site:
             - type: space
               key: mariadb-cloud
               title: MariaDB Cloud
-              path: home
+              path: mariadb-cloud-home
               content:
                 directory: ./mariadb-cloud
         - type: section
@@ -161,7 +162,7 @@ site:
             - type: space
               key: cloud-ai-retrieval
               title: Cloud AI Retrieval
-              path: home
+              path: cloud-ai-retrieval-home
               content:
                 directory: ./cloud-ai-retrieval
     - type: space

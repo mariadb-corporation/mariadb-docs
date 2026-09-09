@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Galera Cluster](README.md)
 
 ## Overview
 * [What is Galera Cluster](overview/what-is-galera-cluster.md)

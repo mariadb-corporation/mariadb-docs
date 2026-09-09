@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Release notes](README.md)
 
 ## Per-product release sets
 * [Community Server](per-product-release-sets/community-server.md)

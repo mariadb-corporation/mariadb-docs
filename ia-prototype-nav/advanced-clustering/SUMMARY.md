@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Advanced Clustering](README.md)
 
 ## Overview
 * [What is Advanced Clustering](overview/what-is-advanced-clustering.md)

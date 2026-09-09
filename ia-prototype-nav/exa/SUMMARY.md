@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Exa](README.md)
 
 ## Overview
 * [What is Exa](overview/what-is-exa.md)

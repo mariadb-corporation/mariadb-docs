@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Platform overview](README.md)
 
 ## Overview
 * [What is Platform overview](overview/what-is-platform-overview.md)

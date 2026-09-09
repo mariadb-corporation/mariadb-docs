@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [MariaDB Cloud](README.md)
 
 ## Overview
 * [What is MariaDB Cloud](overview/what-is-mariadb-cloud.md)

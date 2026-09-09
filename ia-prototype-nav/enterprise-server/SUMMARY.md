@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Enterprise Server](README.md)
 
 ## Overview
 * [What is Enterprise Server](overview/what-is-enterprise-server.md)

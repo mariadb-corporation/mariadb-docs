@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Connectors](README.md)
 
 ## Overview
 * [What is Connectors](overview/what-is-connectors.md)

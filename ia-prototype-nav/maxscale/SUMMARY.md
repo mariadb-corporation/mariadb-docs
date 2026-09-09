@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [MaxScale](README.md)
 
 ## Overview
 * [What is MaxScale](overview/what-is-maxscale.md)

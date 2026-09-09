@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Cloud AI Retrieval](README.md)
 
 ## Overview
 * [What is Cloud AI Retrieval](overview/what-is-cloud-ai-retrieval.md)

@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Tools](README.md)
 
 ## Overview
 * [What is Tools](overview/what-is-tools.md)

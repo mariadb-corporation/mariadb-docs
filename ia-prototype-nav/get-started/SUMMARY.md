@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Get Started](README.md)
 
 ## Start with a product
 * [Community Server](start-with-a-product/community-server.md)

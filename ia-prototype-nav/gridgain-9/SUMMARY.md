@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [GridGain 9](README.md)
 
 ## Overview
 * [What is GridGain 9](overview/what-is-gridgain-9.md)

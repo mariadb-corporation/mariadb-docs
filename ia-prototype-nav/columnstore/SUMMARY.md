@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [ColumnStore](README.md)
 
 ## Overview
 * [What is ColumnStore](overview/what-is-columnstore.md)
