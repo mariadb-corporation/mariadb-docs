@@ -76,6 +76,14 @@ To ensure that MaxScale functions properly, do not commit or rollback a transact
 * A `KILL` on one service can cause a connection from another service to be closed even if it uses a different protocol. This is because session IDs are allocated from one global pool across all protocols and services.
 * If a `COM_CHANGE_USER` succeeds on MaxScale yet fails on the server the session ends up in an inconsistent state. This can happen if the password of the target user is changed and MaxScale uses old user account data when processing the change user. In such a situation, MaxScale and server will disagree on the current user. This can affect e.g. reconnections.
 
+#### Limitations in `SET` Statement Parsing
+
+MaxScale parses `SET` statements to detect changes in variables. The following variables are tracked:
+
+* `SQL_MODE`: tracked to detect when `SQL_MODE=ORACLE` is used which changes how MaxScale parses SQL statements. This is only detected if the value `ORACLE` is included explicitly.
+
+* `WAIT_TIMEOUT`: Starting with MaxScale 23.02.19, 23.08.15, 24.02.11, 25.01.8, 25.10.4, the value of `WAIT_TIMEOUT` is tracked and it sets the wait timeout for the session in MaxScale. Only simple integer expressions are supported and SQL like `SET wait_timeout=(SELECT 5)` is not tracked by MaxScale.
+
 ### Authenticator limitations
 
 #### Limitations in the MySQL authenticator (MariaDBAuth)

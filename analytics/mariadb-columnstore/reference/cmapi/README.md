@@ -64,7 +64,7 @@ openssl rand -hex 32
 
 ### Set the API Key
 
-To set the API key for the first time, provide the desired API key when you add the first node using the [node](http://localhost:8000/docs/columnstore/ref/cmapi/add-node/) PUT command. Since Enterprise ColumnStore does not yet have an API key, CMAPI will write the first API key it receives to `/etc/columnstore/cmapi_server.conf`.
+To set the API key for the first time, provide the desired API key when you add the first node using the [node](node-put.md) PUT command. Since Enterprise ColumnStore does not yet have an API key, CMAPI will write the first API key it receives to `/etc/columnstore/cmapi_server.conf`.
 
 For example, if the primary server's host name is `mcs1` and its IP address is `192.0.2.1`, the following command will add the primary server to Enterprise ColumnStore and write the provided API key to the node's CMAPI configuration file:
 
@@ -96,7 +96,7 @@ These aliases are available if your `bash` shell is configured to source the `co
 
 These aliases execute `curl` and `jq`, so both programs must be installed on the system.
 
-These aliases automatically retrieve the IP address for the primary node using the [mcsGetConfig](http://localhost:8000/docs/columnstore/ref/col/cli/mcsGetConfig/) command. The aliases automatically retrieve the API key by reading `/etc/columnstore/cmapi_server.conf`.
+These aliases automatically retrieve the IP address for the primary node using the [mcsGetConfig](../../architecture/columnstore-system-paths-and-logs.md#mcsgetconfig) command. The aliases automatically retrieve the API key by reading `/etc/columnstore/cmapi_server.conf`.
 
 Available aliases:
 
@@ -149,7 +149,7 @@ auto_failover = False
 
 ## Logging
 
-Starting with Enterprise ColumnStore 5.5.2, the [CMAPI logs](http://localhost:8000/docs/columnstore/ref/col/logging/cmapi/) can be found at `/var/log/mariadb/columnstore/cmapi_server.log`.
+Starting with Enterprise ColumnStore 5.5.2, the [CMAPI logs](../../architecture/columnstore-system-paths-and-logs.md#cmapi-and-mcs-logs) can be found at `/var/log/mariadb/columnstore/cmapi_server.log`.
 
 In previous versions, CMAPI's log messages can be viewed in the `systemd` journal:
 

@@ -176,7 +176,7 @@ A **Galera Nodes** table reports per-node cluster state:
 | Cluster Status | Disconnected, Primary, or Non-Primary |
 | Connected | ON or OFF |
 
-Enterprise Cluster services also add cluster-specific alerts, which appear in the Portal's Alerts view and can be delivered through your configured [notification channels](../cloud-usage/notifications.md):
+Enterprise Cluster services add four cluster-specific alerts. They are not enabled by default: add them to an alert policy from the Portal, after which they appear in the Alerts view and can be delivered through your configured [notification channels](../cloud-usage/notifications.md):
 
 | Alert | Severity | Condition |
 | ----- | -------- | --------- |

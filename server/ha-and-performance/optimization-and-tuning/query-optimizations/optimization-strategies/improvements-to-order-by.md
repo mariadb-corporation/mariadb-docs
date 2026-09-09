@@ -25,7 +25,7 @@ The [ORDER BY](../../../../reference/sql-statements/data-manipulation/selecting-
 
 ## Comparison with MySQL 5.7
 
-In [MySQL 5.7 changelog](https://mysqlserverteam.com/whats-new-in-mysql-5-7-generally-available/), one can find this passage:
+In [MySQL 5.7 changelog](https://web.archive.org/web/20160221101834/https://mysqlserverteam.com/whats-new-in-mysql-5-7-generally-available/), one can find this passage:
 
 Make switching of index due to small limit cost-based ([WL#6986](https://askmonty.org/worklog/?tid=6986)) : We have made
 the decision in make\_join\_select() of whether to switch to a new index in order to

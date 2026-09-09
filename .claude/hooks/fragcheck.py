@@ -22,6 +22,24 @@ WHICH HEADINGS PUBLISH AN ANCHOR:  h2, h3 and h4 ONLY  (DOCS-6503)
     retarget the link at the enclosing section -- never to promote a bold paragraph
     to "#####", which reads as a fix and repairs nothing.
 
+HEADINGS ARE NOT THE ONLY ANCHOR SOURCE:  {% tab title="..." %}  (DOCS-6451)
+    GitBook gives every tab panel id="<slug of the title>" (and its button
+    id="tab-<slug>"), using the same slug rules as a heading and drawing from the
+    SAME per-page id namespace, in document order. So a tab and a heading that slug
+    alike are de-duplicated against each other, not separately. Proven on
+    server/reference/sql-statements/data-definition/atomic-ddl.md, where the tab
+    titled "Background" (line 15) publishes id="background" and the later
+    "## Background" (line 30) is pushed to id="background-1" -- both read off the
+    rendered page. 927 tab titles across the tree.
+
+    Crediting them makes the checker wrong in the PESSIMISTIC direction if omitted:
+    a link to a tab anchor resolves for the reader while the checker calls it dead.
+    That is how this was found -- a cross-space link to
+    mariadb-package-repository-setup-and-usage#mariadb_es_repo_setup was reported
+    as a dead anchor, and the anchor is on the live page, published by a tab.
+    A bare {% tab %} with no title publishes nothing addressable (3 in the tree),
+    so it contributes no anchor.
+
 THE SLUG RULES  (each derived from a rendered id="..." on mariadb.com/docs)
     * lowercase; dots and underscores survive
     * an explicit <a ... id="x"> inside the heading line WINS over the text slug
@@ -81,6 +99,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import pathlib
 import unicodedata
 import urllib.parse
@@ -88,6 +107,18 @@ from collections import Counter
 
 BASE_URL = 'https://mariadb.com/docs'
 CACHE = pathlib.Path(tempfile.gettempdir()) / 'fragcheck-cache'
+# `validate` compares computed anchors against the ids the LIVE site renders, so
+# it is only an oracle if what it reads is current. The on-disk cache used to
+# have no expiry, which made a snapshot taken before a deploy report a heading
+# that is live as dead: on DOCS-6590 it called `next-steps` missing while curl
+# on the same URL returned id="next-steps", and the fix was deleting one file.
+# Five minutes keeps the point of the cache (a re-run minutes later while you
+# iterate) and drops the failure mode. FRAGCHECK_CACHE_TTL=0 bypasses it.
+# Only `validate` fetches anything, so this cannot slow the `new` CI gate.
+try:
+    CACHE_TTL = int(os.environ.get('FRAGCHECK_CACHE_TTL', '300'))
+except ValueError:
+    CACHE_TTL = 300
 MAX_SLUG = 100
 
 # The levels GitBook renders as <h2>/<h3>/<h4 id="..."> — see the header comment.
@@ -107,6 +138,14 @@ FOOTNOTE_ANCHOR = re.compile(r'^user-content-fn(?:ref)?-(.+)$')
 CODESPAN = re.compile(r'`+([^`]*)`+')
 LINK = re.compile(r'\]\(\s*<?([^)>\s]+)>?\s*\)')
 ATTR = re.compile(r'''\b(?:href|url)\s*=\s*["']([^"']+)["']''')
+# GitBook gives every {% tab %} panel an id built from its title, with the same
+# slug rules and the same -1/-2 de-duplication as a heading -- and out of the SAME
+# per-page namespace, in document order. Proven on
+# server/reference/sql-statements/data-definition/atomic-ddl.md, where a tab
+# titled "Background" (line 15) publishes id="background" and the later
+# "## Background" (line 30) is pushed to "background-1". 927 tab titles repo-wide.
+# A bare {% tab %} with no title publishes nothing addressable, so it is skipped.
+TAB_TITLE = re.compile(r'\{%\s*tab\s+title="([^"]*)"\s*%\}')
 SKIP_PREFIX = ('http://', 'https://', 'mailto:', 'ftp://', '//', '/')
 
 # Spelled out instead of collapsing to a dash. Every entry was read off a rendered
@@ -240,11 +279,24 @@ def anchored_headings(path):
     return [h for h in headings_of(path) if h[1] in ANCHORED]
 
 
+def anchor_sources(path):
+    """(line_no, text, explicit_id_or_None) for everything that publishes an
+    anchor, in document order: anchored headings and {% tab %} titles."""
+    out = [(n, text, explicit) for n, _, text, explicit in anchored_headings(path)]
+    for n, line, in_fence in content_lines(path):
+        if in_fence:
+            continue
+        for title in TAB_TITLE.findall(line):
+            out.append((n, title, None))
+    out.sort(key=lambda r: r[0])
+    return out
+
+
 def anchors_of(path):
     """Anchors a markdown file publishes, in document order."""
     seen = Counter()
     out = []
-    for _, _, text, explicit in anchored_headings(path):
+    for _, text, explicit in anchor_sources(path):
         base = explicit if explicit else gitbook_slug(text)
         if not base:
             continue
@@ -686,7 +738,8 @@ CHROME = {'gb-trademark', 'mask-image', 'search-input', 'table-of-contents',
 
 def fetch(url):
     cached = CACHE / (re.sub(r'[^a-z0-9]+', '_', url) + '.html')
-    if cached.exists():
+    if (cached.exists() and CACHE_TTL > 0
+            and time.time() - cached.stat().st_mtime < CACHE_TTL):
         return cached.read_text(errors='replace')
     html = subprocess.run(['curl', '-sL', '--max-time', '60', url],
                           capture_output=True, text=True).stdout

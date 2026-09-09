@@ -7,7 +7,7 @@ hidden: true
 
 ## Overview
 
-This page details step 5 of a 5-step procedure for deploying Single-Node ColumnStore with Object storage.
+This page details step 5 of a 5-step procedure for deploying Multi-Node ColumnStore with Object Storage.
 
 This step bulk imports data to ColumnStore.
 

@@ -234,12 +234,6 @@ paths:
             retrieved.</p>
         - schema:
             type: string
-            enum:
-              - sa
-              - csdw
-              - es-replica
-              - es-single
-              - xpand
           description: The topology whose hardware architectures will be retrieved.
           name: topology
           in: query
@@ -327,12 +321,6 @@ paths:
           x-gitbook-description-html: <p>Provider name</p>
         - schema:
             type: string
-            enum:
-              - sa
-              - csdw
-              - es-replica
-              - es-single
-              - xpand
           description: Topology name
           name: topology
           in: query
@@ -462,6 +450,19 @@ paths:
       tags:
         - Maintenance and Upgrade
       summary: Read Maintenance Windows
+      parameters:
+        - schema:
+            type: string
+          description: Location name to filter maintenance windows (e.g. Americas, EMEA, APAC)
+          name: location
+          in: query
+        - schema:
+            type: string
+          description: >-
+            Cloud region name to filter maintenance windows by its location
+            (e.g. us-east-1, europe-west2)
+          name: region
+          in: query
       responses:
         '200':
           description: OK
@@ -1646,12 +1647,6 @@ paths:
       parameters:
         - schema:
             type: string
-            enum:
-              - sa
-              - csdw
-              - es-replica
-              - es-single
-              - xpand
           description: The topology whose node options will be retrieved.
           name: topology_name
           in: path
@@ -1761,12 +1756,6 @@ paths:
       parameters:
         - schema:
             type: string
-            enum:
-              - sa
-              - csdw
-              - es-replica
-              - es-single
-              - xpand
           description: The topology whose options will be retrieved.
           name: topology_name
           in: path
@@ -1872,12 +1861,6 @@ paths:
       parameters:
         - schema:
             type: string
-            enum:
-              - sa
-              - csdw
-              - es-replica
-              - es-single
-              - xpand
           description: The topology whose storage sizes will be retrieved.
           name: topology_name
           in: path

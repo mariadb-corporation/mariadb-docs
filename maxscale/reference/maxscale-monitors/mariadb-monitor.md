@@ -1015,77 +1015,13 @@ Enables additional checks when a `STOP SLAVE` command times out during a cluster
 
 ## Cooperative monitoring
 
-As of MaxScale 2.5, MariaDB-Monitor supports cooperative monitoring. This means that multiple monitors (typically in different MaxScale instances) can monitor the same backend server cluster and only one will be the primary monitor. Only the primary monitor may perform _switchover_, _failover_ or _rejoin_ operations. The primary also decides which server is the primary. Cooperative monitoring is enabled with the [cooperative\_monitoring\_locks](mariadb-monitor.md#cooperative_monitoring_locks)-setting. Even with this setting, only one monitor per server per MaxScale is allowed. This limitation can be circumvented by defining multiple copies of a server in the configuration file.
+Cooperative monitoring means that multiple monitors (typically in different MaxScale instances) can monitor the same backend server cluster and agree on which one should be the primary monitor. Only the primary monitor can perform _switchover_, _failover_, _rejoin_ and other cluster operations. The primary monitor also decides which server is the primary, i.e. target of write queries. Cooperative monitoring is enabled with the [cooperative\_monitoring\_locks](mariadb-monitor.md#cooperative_monitoring_locks)-setting. This feature is meant to be used when multiple MaxScales manage the same replication cluster. It's useful even if [auto\_failover](#auto_failover) and similar features are not in use, to ensure that all monitors agree on the primary server.
 
-Cooperative monitoring uses [server locks](../../../server/reference/sql-functions/secondary-functions/miscellaneous-functions/get_lock.md) for coordinating between monitors. When cooperating, the monitor regularly checks the status of a lock named _maxscale\_mariadbmonitor_ on every server and acquires it if free. If the monitor acquires a majority of locks, it is the primary. If a monitor cannot claim majority locks, it is a secondary monitor.
+Cooperative monitoring uses [server locks](../../../server/reference/sql-functions/secondary-functions/miscellaneous-functions/get_lock.md) for coordinating between monitors. When cooperating, the monitor regularly checks the status of a lock named _maxscale\_mariadbmonitor_ on every server and acquires it if free. If the monitor acquires a majority of locks, it is the primary. If a monitor cannot claim lock majority, it is a secondary monitor. This means that multiple, or even all, monitors can be secondary if no monitor manages to claim lock majority.
 
-The primary monitor of a cluster also acquires the lock _maxscale\_mariadbmonitor\_master_ on the primary server. Secondary monitors check which server this lock is taken on and only accept that server as the primary. This arrangement is required so that multiple monitors can agree on which server is the primary regardless of replication topology. If a secondary monitor does not see the primary-lock taken, then it won't mark any server as \[Master], causing writes to fail.
+The primary monitor of a cluster also acquires the lock _maxscale\_mariadbmonitor\_master_ on the primary server. Secondary monitors check which server this lock is taken on and only accept that server as the writable primary. This arrangement is required so that multiple monitors can agree on which server is the primary regardless of replication topology. If a secondary monitor does not see the primary-lock taken, then it won't consider any server writable, causing writes from that MaxScale to fail.
 
-The lock-setting defines how many locks are required for primary status. Setting`cooperative_monitoring_locks=majority_of_all` means that the primary monitor needs _n\_servers/2 + 1_ (rounded down) locks. For example, a cluster of three servers needs two locks for majority, a cluster of four needs three, and a cluster of five needs three. This scheme is resistant against split-brain situations in the sense that multiple monitors cannot be primary simultaneously. However, a split may cause both monitors to consider themselves secondary, in which case a primary server won't be detected.
-
-Even without a network split, `cooperative_monitoring_locks=majority_of_all` will lead to neither monitor claiming lock majority once too many servers go down. This scenario is depicted in the image below. Only two out of four servers are running when three are needed for the majority. Although both MaxScales see both running servers, neither is certain they have majority and the cluster stays in read-only mode. If the primary server is down, no failover is performed either.
-
-```mermaid
-flowchart TD
-    accTitle: MaxScale cooperative lock - no majority scenario
-    accDescr {
-      MaxScale A (secondary) and MaxScale B (secondary) each maintain a solid, reachable connection to Server 1 (read-only) and Server 2 (read-only), but neither MaxScale holds an exclusive lock because both see the same pair of reachable servers, so neither reaches a majority. MaxScale A and MaxScale B each have a dashed, unreachable connection to Server 3 (down) and Server 4 (down). Because no MaxScale instance can secure a majority lock, no server is promoted to primary and Server 1 and Server 2 stay read-only.
-    }
-    MXA["MaxScale A<br/>secondary"]:::node
-    MXB["MaxScale B<br/>secondary"]:::node
-    S1["Server 1<br/>read-only<br/>(unlocked)"]:::node
-    S2["Server 2<br/>read-only<br/>(unlocked)"]:::node
-    S3["Server 3<br/>down"]:::warn
-    S4["Server 4<br/>down"]:::warn
-
-    MXA -- reachable --> S1
-    MXA -- reachable --> S2
-    MXB -- reachable --> S1
-    MXB -- reachable --> S2
-    MXA -. unreachable .-> S3
-    MXA -. unreachable .-> S4
-    MXB -. unreachable .-> S3
-    MXB -. unreachable .-> S4
-
-    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
-    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
-    classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
-```
-_No majority: both MaxScale instances see the same two reachable servers, so neither can lock a majority and both remain secondary._
-
-Setting `cooperative_monitoring_locks=majority_of_running` changes the way _n\_servers_ is calculated. Instead of using the total number of servers, only servers currently \[Running] are considered. This scheme adapts to multiple servers going down, ensuring that claiming lock majority is always possible. However, it can lead to multiple monitors claiming primary status in a split-brain situation. As an example, consider a cluster with servers 1 to 4 with MaxScales A and B, as in the image below. MaxScale A can connect to servers 1 and 2 (and claim their locks) but not to servers 3 and 4 due to a network split. MaxScale A thus assumes servers 3 and 4 are down. MaxScale B does the opposite, claiming servers 3 and 4 and assuming 1 and 2 are down. Both MaxScales claim two locks out of two available and assume that they have lock majority. Both MaxScales may then promote their own primaries and route writes to different servers.
-
-```mermaid
-flowchart TD
-    accTitle: MaxScale cooperative lock - split-brain scenario
-    accDescr {
-      In Datacenter A, MaxScale A is primary and holds locks on Server 1 (read-write) and Server 2 (read-only). In Datacenter B, MaxScale B is also primary and holds locks on Server 3 (read-write) and Server 4 (read-only). The link between MaxScale A and MaxScale B is shown as a broken, dashed, bidirectional connection, meaning the two MaxScale instances cannot exchange heartbeats across datacenters. Because each MaxScale independently holds a lock and neither can see the other, both simultaneously act as primary, producing a split-brain condition with two independent read-write servers.
-    }
-    subgraph DCA["Datacenter A"]
-      MXA["MaxScale A<br/>primary"]:::warn
-      SA1["Server 1<br/>read-write<br/>(locked)"]:::node
-      SA2["Server 2<br/>read-only<br/>(locked)"]:::node
-    end
-    subgraph DCB["Datacenter B"]
-      MXB["MaxScale B<br/>primary"]:::warn
-      SB1["Server 3<br/>read-write<br/>(locked)"]:::node
-      SB2["Server 4<br/>read-only<br/>(locked)"]:::node
-    end
-
-    MXA -- locked --> SA1
-    MXA -- locked --> SA2
-    MXB -- locked --> SB1
-    MXB -- locked --> SB2
-    MXA -. broken heartbeat .-> MXB
-    MXB -. broken heartbeat .-> MXA
-
-    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
-    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
-    classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
-```
-_Split brain: a broken heartbeat between datacenters lets both MaxScale A and MaxScale B act as primary at once, each locking its own read-write server._
-
-The recommended strategy depends on which failure scenario is more likely and/or more destructive. If it's unlikely that multiple servers are ever down simultaneously, then _majority\_of\_all_ is likely the safer choice. On the other hand, if split-brain is unlikely but multiple servers may be down simultaneously, then _majority\_of\_running_ would keep the cluster operational. For step-by-step walkthroughs of each mode during a failover and during a network partition, and for how they compare with an active/passive pair, see [Failover With Multiple MaxScales](../../mariadb-maxscale-tutorials/failover-with-multiple-maxscales.md).
+Lock majority means that a monitor has acquired a majority of locks across the servers, i.e. _n\_servers/2 + 1_ (rounded down) locks. For example, a cluster of two servers needs two locks for majority, a cluster of three needs two, a cluster of four needs three, and a cluster of five needs three. [cooperative\_monitoring\_locks](mariadb-monitor.md#cooperative_monitoring_locks) defines how the total number of available servers are calculated. `cooperative_monitoring_locks=majority_of_all` means that all configured servers, except for those in [servers\_no\_cooperative\_monitoring\_locks](#servers_no_cooperative_monitoring_locks), add up to the total. This means that server status such as _Down_ or _Maintenance_ does not affect lock majority calculation. `cooperative_monitoring_locks=majority_of_running` means that only servers that are _Running_ add up to the total. These options exist so that cooperative monitoring can adapt to different use cases. See [majority of running](#majority-of-running) and [majority of all](#majority-of-all) for suggested use-cases.
 
 To check if a monitor is primary, fetch monitor diagnostics with `maxctrl show monitors` or the REST API. The boolean field **primary** indicates whether the monitor has lock majority on the cluster. If cooperative monitoring is disabled, the field value is _null_. Lock information for individual servers is listed in the server-specific field **lock\_held**. Again, _null_ indicates that locks are not in use or the lock status is unknown.
 
@@ -1131,6 +1067,183 @@ flowchart TD
 ```
 
 _MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds (or can acquire) a majority of server locks becomes primary; otherwise it releases any locks and continues as secondary._
+
+### Majority of running
+
+`cooperative_monitoring_locks=majority_of_running` is meant for situations where the network is reliable in the sense that a network partition is highly unlikely. In a reliable network, if a server becomes unconnectable for one MaxScale, it does so for all MaxScales. This is typically the case if all servers and all MaxScales are close by, in the same datacenter under the same router. Because `majority_of_running` adjusts the total number of servers in the majority calculation according to how many servers are connectable, a lock majority is possible even with just one server left running.
+
+```mermaid
+flowchart TD
+    accTitle: Cooperative locking - majority with one server remaining (majority_of_running)
+
+    MXA["MaxScale A<br/>primary"]:::node
+    MXB["MaxScale B<br/>secondary"]:::node
+    S1["Server 1<br/>read-write"]:::node
+    S2["Server 2<br/>down"]:::warn
+    S3["Server 3<br/>down"]:::warn
+
+    MXA ---> |locked| S1
+    MXA -..-> |unreachable| S2 & S3
+    MXB ---> |reachable| S1
+    MXB -..-> |unreachable| S2 & S3
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+```
+_Both MaxScales maintain a connection to Server 1. All other servers are down. MaxScale A has claimed the exclusive lock on Server 1 and concludes it has lock majority (1/1 running servers). MaxScale A either considers Server 1 primary, or promotes it if [auto_failover](#auto_failover) is enabled. MaxScale A has also claimed the master-lock on Server 1. MaxScale B sees the locks taken and agrees that Server 1 is the primary._
+
+`cooperative_monitoring_locks=majority_of_running` should not be used when network partition is a credible threat. This is the case when the MaxScales and the servers are separated into multiple datacenters or are otherwise in multiple networks. If a network partition takes place, different MaxScales see different servers as connectable, and claim the exclusive locks on them. Thus, multiple MaxScales can conclude that they have lock majority, which leads to multiple primary servers. This may lead to write-queries being routed to multiple servers, splitting the cluster. Once the split happens, MaxScale can no longer reassemble the cluster automatically, and manual intervention is required.
+
+```mermaid
+flowchart TD
+    accTitle: Cooperative locking - split-brain scenario (majority_of_running)
+
+    subgraph DCB["Datacenter B"]
+      MXB["MaxScale B<br/>primary"]:::warn
+      SB1["Server 3<br/>read-write"]:::node
+      SB2["Server 4<br/>read-only"]:::node
+    end
+    subgraph DCA["Datacenter A"]
+      MXA["MaxScale A<br/>primary"]:::warn
+      SA1["Server 1<br/>read-write"]:::node
+      SA2["Server 2<br/>read-only"]:::node
+    end
+    MXA --> |locked| SA1 & SA2
+    MXB --> |locked| SB1 & SB2
+
+    MXA -.-> SB1
+    MXA -.-> SB2
+    MXB -.-> SA1
+    MXB -.-> SA2
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+```
+_The link between datacenters A and B is broken. MaxScale A holds locks on Server 1 and Server 2, but cannot connect to Server 3 and Server 4. Datacenter B has the opposite situation. Both MaxScales think they have two locks out of two running servers, and act as the primary MaxScale. This leads to a split-brain situation with two independent read-write servers._
+
+### Majority of all
+
+`cooperative_monitoring_locks=majority_of_all` is meant for situations where a network partition is possible, e.g. when the servers and MaxScales are spread over multiple datacenters. Because `majority_of_all` calculates the required majority over all configured servers, it ensures that only one MaxScale can have lock majority at any time. This does not mean that the cluster will survive failure scenarios without service outage, though. If the network partitions or too many servers go down, then the typical outcome is that no MaxScale will have lock majority, no MaxScale is the primary MaxScale, and no server is writable. Still, this may be preferable to a split cluster with multiple primary servers.
+
+```mermaid
+flowchart TD
+    accTitle: MaxScale cooperative locking - network partition (majority_of_all)
+
+    subgraph DCC["Datacenter C"]
+      MXC["MaxScale C<br/>secondary"]:::node
+      SC1["Server 3<br/>read-only"]:::node
+    end
+    subgraph DCB["Datacenter B"]
+      MXB["MaxScale B<br/>secondary"]:::node
+      SB1["Server 2<br/>read-only"]:::node
+    end
+    subgraph DCA["Datacenter A"]
+      MXA["MaxScale A<br/>secondary"]:::node
+      SA1["Server 1<br/>read-only"]:::node
+    end
+
+    MXA --> |reachable| SA1
+    MXA -.-> SB1
+    MXA -.-> SC1
+
+    MXB --> |reachable| SB1
+    MXB -.-> SA1
+    MXB -.-> SC1
+
+    MXC --> |reachable| SC1
+    MXC -.-> SA1
+    MXC -.-> SB1
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+```
+_The link between datacenters A, B and C is broken. Each MaxScale can only connect to the server in their local datacenter. Each MaxScale can acquire one lock out of three total servers, which is not enough for majority. All MaxScales are in secondary status, and will release any locks they may have acquired. No primary server is detected so all servers are in read-only mode. Once connectivity is restored, one MaxScale will again claim lock majority and the cluster resumes normal operation._
+
+The downside of `majority_of_all` is that it can lead to a read-only cluster in situations where it is not strictly necessary. This is the case when too many servers go down or otherwise become unconnectable, so that a majority can no longer be formed.
+
+```mermaid
+flowchart TD
+    accTitle: MaxScale cooperative locking - no majority (majority_of_all)
+
+    MXA["MaxScale A<br/>secondary"]:::node
+    MXB["MaxScale B<br/>secondary"]:::node
+    S1["Server 1<br/>read-only<br/>"]:::node
+    S2["Server 2<br/>read-only<br/>"]:::node
+    S3["Server 3<br/>down"]:::warn
+    S4["Server 4<br/>down"]:::warn
+
+    MXA --> |reachable| S1 & S2
+    MXB --> |reachable| S1 & S2
+    MXA -.-> S3 & S4
+    MXB -.-> S3 & S4
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+```
+_Both MaxScales maintain a connection to Server 1 and Server 2. Server 3 and Server 4 are down. Neither MaxScale can reach lock majority, which would require three locks. Servers remain unlocked. Because both MaxScales are in secondary mode, no server is declared primary. Servers 1 and 2 are in read-only mode._
+
+`cooperative_monitoring_locks=majority_of_all` requires at least three servers to work reliably. With only two servers, just one server going down means that lock majority is no longer possible (one out of two is not a majority). Also, separating the three servers to just two datacenters is fragile: if the datacenter with two servers loses power, the remaining datacenter can no longer reach majority.
+
+```mermaid
+flowchart TD
+    accTitle: MaxScale cooperative locking - majority datacenter down (majority_of_all)
+
+    subgraph DCB["Datacenter B"]
+      MXB["MaxScale B<br/>down"]:::warn
+      SB1["Server 2<br/>down<br/>"]:::warn
+      SB2["Server 3<br/>down<br/>"]:::warn
+    end
+    subgraph DCA["Datacenter A"]
+      MXA["MaxScale A<br/>secondary"]:::node
+      SA1["Server 1<br/>read-only<br/>"]:::node
+    end
+
+    MXA --> |reachable| SA1
+    MXA -.-> SB1
+    MXA -.-> SB2
+
+    MXB ~~~ SB1
+    MXB ~~~ SB2
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+```
+_Datacenter B is down. Since it contained two out of three servers, the surviving datacenter does not have enough servers to claim majority._
+
+Resistance to datacenter-wide failures requires at least three datacenters, so that a majority can be formed with the remaining datacenters.
+
+```mermaid
+flowchart TD
+    accTitle: MaxScale cooperative locking - one datacenter down (majority_of_all)
+    subgraph DCC["Datacenter C"]
+      MXC["MaxScale C<br/>down"]:::warn
+      SC1["Server 3<br/>down"]:::warn
+    end
+    subgraph DCB["Datacenter B"]
+      MXB["MaxScale B<br/>secondary"]:::node
+      SB1["Server 2<br/>read-only"]:::node
+    end
+    subgraph DCA["Datacenter A"]
+      MXA["MaxScale A<br/>primary"]:::node
+      SA1["Server 1<br/>read-write"]:::node
+    end
+
+    MXA --> |locked| SA1
+    MXA --> |locked| SB1
+    MXA -.-> SC1
+
+    MXB --> |reachable| SA1
+    MXB --> |reachable| SB1
+    MXB -.-> SC1
+
+    MXC ~~~ SC1
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+```
+_Datacenter C is down. It only contained one out of three servers, so the servers in the remaining datacenters can still form a majority._
+
+If a setup with just two datacenters needs to survive a datacenter failure, and also be resistant to a split-brain scenario, then neither `cooperative_monitoring_locks` mode is sufficient. Such a situation requires an outside orchestrator to manage the [passive](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#passive)-state of the MaxScales. Both MaxScale and servers also need to be carefully configured so that different MaxScales cannot select different primaries. See [failover with multiple MaxScales](../../mariadb-maxscale-tutorials/failover-with-multiple-maxscales.md) for more information.
 
 ### Releasing locks
 

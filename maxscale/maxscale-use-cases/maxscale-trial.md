@@ -140,7 +140,7 @@ Creating the monitor user is more complicated, because the required GRANTs depen
 both on what monitor is used and on the exact server version. The GRANTs needed
 by the MariaDB Monitor, used for monitoring a regular MariaDB primary/replica
 cluster can be found
-[here](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/mariadb-monitor#required-grants),
+[here](../reference/maxscale-monitors/mariadb-monitor.md#required-grants),
 but for initial testing the user can be given blanket rights:
 
 ```sql
@@ -155,7 +155,7 @@ In a non-trial context, the monitor user should be granted only the GRANTs it re
 The command line utility `maxctrl` and the web UI _MaxGUI_ communicate with
 MaxScale using a REST-API. By default, MaxGUI requires that TLS is enabled
 and it is configured as explained
-[here](https://mariadb.com/docs/maxscale/maxscale-security/securing-your-maxscale-deployment#secure-gui-and-admin-interface-connections).
+[here](../maxscale-security/securing-your-maxscale-deployment.md#secure-gui-and-admin-interface-connections).
 
 Alternatively, the requirement of TLS can be turned off by adding the entry
 ```
@@ -202,7 +202,7 @@ If TLS has been configured, the secure mode must be enabled with the flag `--sec
 and the relevant parameters provided using the `--tls...` flags. Invoke `maxctrl`
 with the flag `--help` for the details.
 
-After that the web-browser can be pointed to [http://127.0.0.1:8989](http://127.0.0.1:8989/).
+After that the web-browser can be pointed to `http://127.0.0.1:8989`.
 Logging in is done using the username `admin` and the password `mariadb`.
 If TLS has not been disabled by the setting `admin_secure_gui=false`, `https`
 must be used.

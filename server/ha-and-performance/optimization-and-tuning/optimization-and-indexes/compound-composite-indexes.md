@@ -253,7 +253,7 @@ Refreshed -- Oct, 2012; more links -- Nov 2016
 ## See also
 
 * [Cookbook on designing the best index for a SELECT](https://mysql.rjweb.org/doc.php/index_cookbook_mysql)
-* [Sheeri's discussing of Indexes](https://technocation.org/files/doc/2013_02_MySQLindexes.pdf)
+* [Sheeri's discussing of Indexes](https://web.archive.org/web/20140903101246/https://technocation.org/files/doc/2013_02_MySQLindexes.pdf)
 * [Slides on EXPLAIN](https://www.slideshare.net/phpcodemonkey/mysql-explain-explained)
 * [Mysql manual page on range accesses in composite indexes](https://dev.mysql.com/doc/refman/5.7/en/range-optimization.html#range-access-multi-part)
 * [Overhead of Composite Indexes](https://stackoverflow.com/questions/32418812/overhead-of-composite-indexes)

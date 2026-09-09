@@ -223,8 +223,8 @@ _ExasolRouter_ communicates with Exasol using ODBC. The necessary
 ODBC driver is included in the `maxscale-exasol` package and the
 files are copied to
 ```
-<maxscale-libdir>/exasol/M.N.O/libexaodbc.so
-<maxscale-libdir>/exasol/M.N.O/libexacli.so
+<maxscale-libdir>/exasol/M.N.O/lib/libexaodbc.so
+<maxscale-libdir>/exasol/M.N.O/lib/libexacli.so
 ```
 where `M.N.O` is the version of the ODBC library, e.g. `26.2.6`.
 `libexaodbc.so` is the actual ODBC driver and `libexacli.so` the
@@ -247,7 +247,7 @@ in a MaxScale patch release.
 In [connection_string](#connection_string), the driver can be referred
 to directly as in
 ```
-connection_string=DRIVER=/path/to/exasol/current/libexaodbc.so;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
+connection_string=DRIVER=/path/to/exasol/current/lib/libexaodbc.so;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 ```
 
 Alternatively, the driver location can be specified in `/etc/odbcinst.ini`
@@ -256,7 +256,7 @@ or `~/.odbcinst.ini`, in which case it need not be specified in
 ```
 [EXAODBC]
 Description = Exasol ODBC Driver
-Driver = /path/to/exasol/current/libexaodbc.so
+Driver = /path/to/exasol/current/lib/libexaodbc.so
 Threading = 2
 FileUsage = 1
 ```

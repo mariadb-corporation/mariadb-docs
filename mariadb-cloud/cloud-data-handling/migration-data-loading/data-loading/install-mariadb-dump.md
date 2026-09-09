@@ -100,7 +100,7 @@ If you plan to restore the backup to a MariaDB Cloud service, the `mysql` databa
 
 #### **Linux**
 
-1. Determine the [connection parameters](../../../../Connecting%20to%20Sky%20DBs/) for your MariaDB Cloud service.
+1. Determine the [connection parameters](../../../connecting-to-mariadb-cloud-dbs/connection-overview.md#connecting-using-the-mariadb-client) for your MariaDB Cloud service.
 2. Use your connection parameters in the following command line:
 
 ```bash
@@ -131,7 +131,7 @@ After the command is executed, you will be prompted for a password. Enter the de
     ```bash
     SET "PATH=C:\Program Files\MariaDB 10.6\bin;%PATH%"
     ```
-2. Determine the [connection parameters](../../../../Connecting%20to%20Sky%20DBs/) for your MariaDB Cloud service.
+2. Determine the [connection parameters](../../../connecting-to-mariadb-cloud-dbs/connection-overview.md#connecting-using-the-mariadb-client) for your MariaDB Cloud service.
 3. Use your connection parameters in the following command line:
 
 ```bash

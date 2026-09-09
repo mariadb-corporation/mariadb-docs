@@ -305,7 +305,7 @@ Make sure to replace the paths with whatever is relevant on your system. This sh
 
 ### TLS Using OpenSSL Encryption With Galera-Compatible Certificates and Keys <a href="#tls-using-openssl-encryption-with-galera-compatible-certificates-and-keys" id="tls-using-openssl-encryption-with-galera-compatible-certificates-and-keys"></a>
 
-To generate keys compatible with this encryption method, follow [these directions](https://galeracluster.com/library/documentation/ssl-cert.html).
+To generate keys compatible with this encryption method, follow [Certificate Creation With OpenSSL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/certificate-creation-with-openssl).
 
 First, generate the keys and certificates:
 
@@ -427,8 +427,7 @@ If Galera Cluster's automatic SSTs repeatedly fail, it can be helpful to perform
 
 * [Percona XtraBackup SST Configuration](https://www.percona.com/doc/percona-xtradb-cluster/5.7/manual/xtrabackup_sst.html)
 * [Encrypting PXC Traffic: ENCRYPTING SST TRAFFIC](https://docs.percona.com/percona-xtradb-cluster/5.7/security/encrypt-traffic.html#encrypt-sst)
-* [XTRABACKUP PARAMETERS](https://galeracluster.com/library/documentation/xtrabackup-options.html)
-* [SSL FOR STATE SNAPSHOT TRANSFERS: ENABLING SSL FOR XTRABACKUP](https://galeracluster.com/library/documentation/ssl-sst.html#ssl-xtrabackup)
+* [Securing Communications in Galera Cluster](../../galera-security/securing-communications-in-galera-cluster.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -17,6 +17,7 @@ MariaDB supports the following partitioning types:
 * [RANGE](range-partitioning-type.md)
 * [LIST](list-partitioning-type.md)
 * [RANGE COLUMNS and LIST COLUMNS](range-columns-and-list-columns-partitioning-types.md)
+* [RANGE COLUMNS INTERVAL](range-columns-interval-partitioning.md)
 * [HASH](hash-partitioning-type.md)
 * [LINEAR HASH](linear-hash-partitioning-type.md)
 * [KEY](key-partitioning-type.md)

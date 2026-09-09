@@ -1,7 +1,7 @@
 ---
 description: >-
-  MariaDB Cloud Observability exposes runtime metrics through APIs and
-  integrations like Datadog, requiring an API key and Database ID for
+  MariaDB Cloud Observability exposes runtime logs and metrics through APIs and
+  integrations like Datadog and Splunk, requiring an API key and Database ID for
   instrumentation and dashboard configuration.
 icon: telescope
 ---
@@ -69,6 +69,44 @@ If you can always check if the Observability API is working successfully by call
 curl --location 'https://api.skysql.com/observability/v2/metrics' \
 --header 'X-API-KEY: {{SKYSQL_API_KEY}}'
 ```
+
+### Splunk
+
+Using the [Splunk](https://www.splunk.com/) integration, you can send MariaDB Cloud logs and metrics to Splunk Cloud Platform, where you can search them with SPL and chart them on dashboards next to the rest of your monitored infrastructure.
+
+The integration is distributed as a package in the public [mariadb-corporation/splunk-integration](https://github.com/mariadb-corporation/splunk-integration) repository, which holds the collector scripts, deployment examples, dashboard examples, and the full setup instructions.
+
+#### Requirements
+
+* A MariaDB Cloud API key (`{{SKYSQL_API_KEY}}`) with read access to the Observability API.
+* A Splunk Cloud Platform instance with the HTTP Event Collector (HEC) enabled.
+* A HEC token with write access to the target index. Logs go to an events index (`mariadb_logs` by default); metrics go to a **Metrics**-type index (`mariadb_metrics` by default).
+* Python 3.7 or later with the `requests` library.
+
+A Splunk universal forwarder is not required. Both collectors push data directly to Splunk Cloud through HEC.
+
+#### What the package provides
+
+The package contains two collectors. They are independent, so you can deploy either one on its own or both together.
+
+| Collector | Endpoints used                                                     | What it sends to Splunk                                                                                                                                                              |
+| --------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Logs      | `observability/v2/logs/query`, `observability/v2/logs/archive`     | Error log, audit log, and MaxScale log lines, extracted from the downloaded log archives and converted to HEC events. A per-archive checkpoint keeps already-ingested lines from being sent again. |
+| Metrics   | `observability/v2/metrics`                                         | The Prometheus-format metric series from the [metrics](observability.md#metrics) endpoint, parsed and converted to HEC metric events.                                                 |
+
+#### Deployment options
+
+Each collector runs in any of these modes:
+
+* **Daemon** (recommended) — a persistent process that polls on a fixed interval (`--daemon --interval <seconds>`), managed by systemd, launchd, or a Kubernetes deployment. The repository includes an example unit file for each.
+* **Standalone run** — a single collection cycle, useful for verifying end-to-end delivery before you set up a service.
+* **AWS Lambda** — scheduled functions triggered by EventBridge Scheduler, with credentials read from AWS Secrets Manager and the logs checkpoint stored in Amazon S3. Both a Terraform stack and a CloudFormation template are included.
+
+Configuration is entirely through environment variables — `MARIADB_API_KEY`, `SPLUNK_HEC_URL`, and `SPLUNK_HEC_TOKEN` are required, with optional overrides for the index, source, sourcetype, batch size, and retry behavior. There is no configuration file. See the repository for the complete list.
+
+{% hint style="info" %}
+The repository also ships example Splunk dashboards and SPL searches for both signals, in `logs/SPLUNK_DASHBOARDS.md` and `metrics/SPLUNK_DASHBOARDS.md`.
+{% endhint %}
 
 Detailed documentation on how to interact with our [APIs](observability.md#apis) follows:
 

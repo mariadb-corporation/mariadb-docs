@@ -93,7 +93,13 @@ jobs:
           if [[ -z "$REQUESTED" || "$REQUESTED" == "all" ]]; then
             spaces=$(python3 pdf/build.py --list-spaces)
           else
-            spaces=$(python3 pdf/build.py --list-spaces $REQUESTED)
+            # build.py takes the spaces as separate positional arguments
+            # (nargs="*"), so REQUESTED -- a space-separated input -- has to
+            # split. Quoting it would pass "server maxscale" as ONE space name
+            # and fail every multi-space run; splitting it explicitly says so,
+            # and unlike the bare $REQUESTED it cannot glob (DOCS-6587).
+            read -r -a requested_spaces <<< "$REQUESTED"
+            spaces=$(python3 pdf/build.py --list-spaces "${requested_spaces[@]}")
           fi
           echo "spaces=$spaces" >> "$GITHUB_OUTPUT"
 

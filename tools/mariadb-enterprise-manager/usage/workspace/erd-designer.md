@@ -11,13 +11,13 @@ Enterprise manager provides a visual interface for creating entity relationship 
 
 This procedure outlines the steps required to access and utilize the ERD Designer within the Workspace section of Enterprise Manager UI.
 
-1.  From the main Workspace screen, click the "Run Queries" card.\\
+1.  From the main Workspace screen, click the "Run Queries" card.
 
     <figure><img src="../../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
-2.  In the "Connect to..." dialog, select your target server, enter your credentials, and click Connect.\\
+2.  In the "Connect to..." dialog, select your target server, enter your credentials, and click Connect.
 
     <figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
-3.  Upon successful connection, the main ERD worksheet will appear.\\
+3.  Upon successful connection, the main ERD worksheet will appear.
 
     <figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 

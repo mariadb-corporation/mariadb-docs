@@ -29,7 +29,7 @@ Before this change, a non-minus-one system variable value would override the tab
   * `0` Normal Mode. Uses a counter that Spider gets from the remote backend server with an exclusive lock for the auto-increment value. This mode is slow. Use Quick Mode (`2`), if you use Spider tables with the table partitioning feature and the auto-increment column is the first column of the index.
   * `1` Quick Mode. Uses an internal Spider counter for the auto-increment value. This mode is fast, but it is possible for duplicates to occur when updating the same table from multiple Spider proxies.
   * `2` Set Zero Mode. The auto-increment value is given by the remote backend. Sets the column to `0`, even if you set the value to the auto-increment column in your statement. If you use the table with the table partitioning feature, it sets to zero after choosing an inserted partition.
-  * `3` When the auto-increment column is set to `NULL`, the value is given by the remote backend server. If you set the auto-increment column to `0`,the value is given by the local server. Set `spider_reset_auto_increment` to `2` or `3` if you want to use an auto-increment column on the remote server.
+  * `3` When the auto-increment column is set to `NULL`, the value is given by the remote backend server. If you set the auto-increment column to `0`,the value is given by the local server. Set `spider_auto_increment_mode` to `2` or `3` if you want to use an auto-increment column on the remote server.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`

@@ -1041,6 +1041,17 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 
 | CVE ID (with cve.org link)                                        | CVSS base score (v3.1) | Enterprise Server 11.4 Release |
 | ----------------------------------------------------------------- | ---------------------- | ------------------------------ |
+| [CVE-2026-47023](https://www.cve.org/CVERecord?id=CVE-2026-47023) | 4.9                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-60184](https://www.cve.org/CVERecord?id=CVE-2026-60184) | 4.4                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-60331](https://www.cve.org/CVERecord?id=CVE-2026-60331) | 6.4                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-60585](https://www.cve.org/CVERecord?id=CVE-2026-60585) | 6.6                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-60747](https://www.cve.org/CVERecord?id=CVE-2026-60747) | 6.2                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-61081](https://www.cve.org/CVERecord?id=CVE-2026-61081) | 2.7                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-85745](https://www.cve.org/CVERecord?id=CVE-2026-85745) | 4.3                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-85746](https://www.cve.org/CVERecord?id=CVE-2026-85746) | 9.9                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-85748](https://www.cve.org/CVERecord?id=CVE-2026-85748) | 9.9                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-85985](https://www.cve.org/CVERecord?id=CVE-2026-85985) | 5.4                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-86047](https://www.cve.org/CVERecord?id=CVE-2026-86047) | 7.7                    | [11.4.13-10](11.4.13-10.md)    |
 | [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064) | 6.5                    | [11.4.12-9](11.4.12-9.md)      |
 | [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)   | 4.3                    | [11.4.12-9](11.4.12-9.md)      |
 | [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                    | [11.4.12-9](11.4.12-9.md)      |

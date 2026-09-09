@@ -1307,6 +1307,15 @@ New error codes are being continually being added as new features are added. For
 | [4225](mariadb-error-codes-4200-to-4299/e4225.md) |          | ER\_WARN\_HINTS\_ON\_INSERT\_PART\_OF\_INSERT\_SELECT | Optimizer hints at the INSERT part of a INSERT..SELECT statement are not supported                                                     |
 | [4226](mariadb-error-codes-4200-to-4299/e4226.md) |          | ER\_INIT\_SLAVE\_ERROR                                | Slave SQL thread aborted. Can't execute init\_slave query due to error code                                                            |
 
+### MariaDB Enterprise Server error codes
+
+Error codes from `6000` upward are specific to MariaDB Enterprise Server. They are not raised by MariaDB Community Server.
+
+| Error Code                                        | SQLSTATE | Error                          | Description                                                              |
+| ------------------------------------------------- | -------- | ------------------------------ | ------------------------------------------------------------------------ |
+| [6000](mariadb-error-codes-6000-to-6099/e6000.md) |          | ER\_BLACKBOX\_ERROR            | %s Black Box failed: %s                                                  |
+| [6001](mariadb-error-codes-6000-to-6099/e6001.md) |          | ER\_INCONSISTENT\_SLAVE\_TABLE | Before image of replicated record does not match the slave local record |
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

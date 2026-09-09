@@ -349,7 +349,7 @@ I did not include the technique(s) using GROUP\_CONCAT. They are useful in some 
 * Adding a large LIMIT to a subquery may make things work. [Why ORDER BY in subquery is ignored](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/developer-questions/why-is-order-by-in-a-from-subquery-ignored)
 * [StackOverflow thread](https://stackoverflow.com/questions/36485072/select-with-order-and-group-by-in-maria-dbmysql)
 * [row\_number(), rank(), dense\_rank()](https://kennethxu.blogspot.com/2016/04/analytical-function-in-mysql-rownumber.html)
-* [Perentile blog](https://rpbouman.blogspot.de/2008/07/calculating-nth-percentile-in-mysql.html]\[Perentile_blog)
+* [Calculating the Nth percentile in MySQL](https://rpbouman.blogspot.com/2008/07/calculating-nth-percentile-in-mysql.html)
 
 Rick James graciously allowed us to use this article in the documentation.
 

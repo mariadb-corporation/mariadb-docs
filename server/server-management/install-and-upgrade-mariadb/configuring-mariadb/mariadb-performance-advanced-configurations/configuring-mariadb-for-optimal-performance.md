@@ -118,7 +118,7 @@ You can increase the storage for internal temporary tables by setting [max\_heap
 
 ## External Links
 
-* [what-to-tune-in-mysql-56-after-installation.html](https://www.tocker.ca/2013/09/17/what-to-tune-in-mysql-56-after-installation.html)
+* [what-to-tune-in-mysql-56-after-installation.html](https://web.archive.org/web/20150421070308/https://www.tocker.ca/2013/09/17/what-to-tune-in-mysql-56-after-installation.html)
 * [optimizing-mysql-configuration-percona-mysql-university-montevideo](https://www.percona.com/resources/technical-presentations/optimizing-mysql-configuration-percona-mysql-university-montevideo)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

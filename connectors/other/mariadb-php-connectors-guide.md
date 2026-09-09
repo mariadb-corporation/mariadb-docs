@@ -8,7 +8,7 @@ icon: link
 
 # PHP
 
-The PHP connectors for MySQL generally work with MariaDB as well. See [mysql.php](https://php.net/manual/en/mysql.php) and [downloads.php](https://php.net/downloads.php)
+The PHP connectors for MySQL generally work with MariaDB as well. See [the MySQL extensions in the PHP manual](https://www.php.net/manual/en/mysql.php) and [PHP downloads](https://www.php.net/downloads.php).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
