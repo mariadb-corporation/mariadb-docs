@@ -368,7 +368,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `gmcast.mcast_port`
 
-* Description: The UDP port used by GMCast's optional IP multicast transport. It is only consulted when multicast is enabled by setting [gmcast.mcast\_addr](wsrep_provider_options.md#gmcast.mcast_addr). Multicast is disabled by default, since that option is empty. When it is not set, the multicast group uses the GMCast listen port. Set it only when the multicast group has to use a port other than `4567`. The option carries the provider's `hidden` flag, so it does not appear in the [wsrep\_provider\_options](../galera-cluster-system-variables.md#wsrep_provider_options) output.
+* Description: The UDP port used by GMCast's optional IP multicast transport. It is only consulted when multicast is enabled by setting [gmcast.mcast\_addr](wsrep_provider_options.md#gmcast.mcast_addr). Multicast is disabled by default, since that option is empty. When it is not set, the multicast group uses the GMCast listen port. Set it only when the multicast group has to use a port other than `4567`.
 * Dynamic: No
 * Default: None. The GMCast listen port, `4567` by default, is used.
 
