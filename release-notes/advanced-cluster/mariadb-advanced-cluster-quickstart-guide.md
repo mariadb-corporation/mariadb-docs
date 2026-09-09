@@ -348,7 +348,7 @@ SSL is enabled by default for all Raft cluster connections. If the certificate i
 
 ### WSREP System Variables
 
-MariaDB Advanced Cluster configuration primarily relies on the [WSREP System Variables]({galera}/reference/galera-cluster-system-variables). However, the `wsrep_provider_options` and `wsrep_ssl_mode` variables are an exception, as they are superseded by the Raft System Variables for configuring the cluster.
+MariaDB Advanced Cluster configuration primarily relies on the [WSREP System Variables](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables). However, the `wsrep_provider_options` and `wsrep_ssl_mode` variables are an exception, as they are superseded by the Raft System Variables for configuring the cluster.
 
 #### wsrep\_cluster\_name
 
