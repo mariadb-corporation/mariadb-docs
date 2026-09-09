@@ -79,6 +79,15 @@ jobs:
           rm -rf "$dest_dir"
           mkdir -p "$dest_dir"
           cp -a "$src"/. "$dest_dir"/
+          # GitBook publishes README.md as a directory's index, so renaming the
+          # generated mainpage puts the section landing page at
+          # .../reference/plugins/api-plugin/ instead of .../api-plugin/page-index.
+          # First test fails the step loudly if the mainpage ever stops being
+          # generated; second one refuses to clobber a generated group or page
+          # that happens to be titled README.
+          test -f "$dest_dir/page-index.md"
+          test ! -e "$dest_dir/README.md"
+          mv "$dest_dir/page-index.md" "$dest_dir/README.md"
           rm -rf ".generated-api-plugin"
 
       - name: Update Plugin API Documentation section in SUMMARY.md

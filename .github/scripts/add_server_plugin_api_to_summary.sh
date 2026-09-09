@@ -12,7 +12,9 @@ summary="$basedir/server/SUMMARY.md"
 # SUMMARY.md paths are relative to the server/ book root.
 summary_dir="reference/plugins/api-plugin"
 parent_title="Plugin API Documentation"
-parent_page="page-index.md"
+# Renamed from the generated page-index.md by the workflow: GitBook treats
+# README.md as the directory index, so the section lands on api-plugin/.
+parent_page="README.md"
 parent_link="${summary_dir}/${parent_page}"
 parent_line="    * [${parent_title}](${parent_link})"
 test -f "$summary"
