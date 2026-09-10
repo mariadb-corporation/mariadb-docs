@@ -72,15 +72,26 @@ on the file set, from the repo root:
   `git ls-files -z -- '*.md' '*.html' | .claude/hooks/includecheck.sh --stdin0`. There is no
   acknowledgment path and should not be one: a dead include is always a bug.
 - It also gates **GitBook heading anchors** — a link to `page.md#some-heading` whose anchor no
-  longer exists. No CI counterpart, and unlike every other check here it is *history-aware*: it
-  reports only anchors that resolved at `DOC_LINT_BASE` (default `HEAD`) and are dead now, so the
-  ~1,272 pre-existing dead anchors in the repo cannot fail unrelated work. It scans the whole
-  tree rather than the changed files, because renaming a heading breaks inbound links from pages
-  the commit never touched — expect the findings to name files the user did not edit, and treat
-  that as the point, not a bug. **Never "fix" an anchor by deleting a dot or a dash to match
-  what lychee wants**: `lychee --include-fragments` uses a GitHub-flavoured slugger that
-  disagrees with GitBook and is wrong in both directions (386 false positives and 213 misses on
-  `main`), which is why this check exists at all. Check a doubtful anchor against the rendered
+  longer exists. Gated in CI by `fragcheck-pr.yml` since DOCS-6524 (and `nightly-fragcheck.yml`
+  catches the write paths that never open a PR — GitBook-UI syncs, the alias-expansion bot), so
+  **this is an authoritative gate, not a local-only convenience: skipping it locally only defers
+  the failure to the PR.** Unlike every other check here it is *history-aware*: it reports only
+  anchors that resolved at `DOC_LINT_BASE` (default `HEAD`) and are dead now, so the ~1,272
+  pre-existing dead anchors in the repo cannot fail unrelated work. **In CI that base is
+  `github.event.pull_request.base.sha` — the commit the PR was cut from, which does *not* advance
+  as `main` does — while the tree being scanned is the PR merged into current `main`.** A branch
+  cut before a large `main` change therefore has that change inside its compared range and fails
+  on findings it did not cause: DOCS-6539, a one-sentence wording fix to a single Galera page,
+  drew all 344 dead anchors from `main`'s generated Plugin API sync (DOCS-6621). **The fix is to
+  rebase onto current `main`** — the findings become pre-existing at the base and drop out. So
+  before touching a single anchor, check whose commits the findings actually belong to;
+  `git diff --name-only <base>..HEAD` against the reported paths settles it in one command. It
+  scans the whole tree rather than the changed files, because renaming a heading breaks inbound
+  links from pages the commit never touched — expect the findings to name files the user did not
+  edit, and treat that as the point, not a bug. **Never "fix" an anchor by deleting a dot or a
+  dash to match what lychee wants**: `lychee --include-fragments` uses a GitHub-flavoured slugger
+  that disagrees with GitBook and is wrong in both directions (386 false positives and 213 misses
+  on `main`), which is why this check exists at all. Check a doubtful anchor against the rendered
   page, or with `.claude/hooks/fragcheck.py validate <file>`. Needs python3 and a git work tree;
   missing either is a SKIP. Costs ~14s, so `DOC_LINT_SKIP_FRAGMENTS=1` skips it while iterating.
   Added in DOCS-6491.
