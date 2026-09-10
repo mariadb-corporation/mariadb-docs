@@ -1,25 +1,27 @@
 ---
 title: Cloud
 description: >-
-  Get started with MariaDB Cloud, the managed database service. Launch a
-  database, connect your application, and set up high availability without
-  running servers yourself.
+  Get started with MariaDB Cloud, the fully managed database service. Launch a
+  database in minutes, connect your app, add high availability, and bring your
+  data in.
 icon: cloud
 ---
 
 # Cloud
 
-MariaDB Cloud is the managed service that runs MariaDB for you. You provision a database through the portal or an API, and the service handles the hardware, the software updates, the backups, and the availability. It supports both provisioned and serverless deployments, so you can size a database for a steady workload or let it scale with demand. Because the service operates the database, most of the work that fills the other product pages, installing, patching, and clustering, is handled for you, and this page is shorter as a result.
+MariaDB Cloud runs MariaDB for you. Launch a database in minutes and the service takes care of the hardware, the updates, the backups, and the availability, so you spend your time building instead of operating. Choose a provisioned database for a steady workload, or go serverless and let it scale with demand. Because MariaDB Cloud handles the operations, getting started here is quick: launch, connect, and you are building.
 
-This page is the first path into Cloud. It moves from launching a database, to connecting an application to it, to making it highly available, and finally to bringing existing data in.
+It runs across major cloud providers and regions, so you can place the database near your application, and it carries the same MariaDB and MySQL compatibility as the self managed products, so your code and tools work unchanged. The pieces you would otherwise build and babysit, patching, backups, and failover, are on by default.
 
-The quickest start is the portal. It walks you through creating a database, choosing a size, and collecting the connection details, and it is the right first step even if you plan to automate later. If you would rather script the provisioning from the beginning, the Python quickstart launches a database through the API, which is the pattern you reuse for repeatable environments and for wiring database creation into a deployment pipeline.
+**Launch a database.** The fastest start is the portal, which walks you through creating a database, sizing it, and collecting the connection details. Prefer to script it from the beginning? Launch through the API with Python, the same pattern you will reuse to wire database creation into a deployment pipeline.
 
-With a database running, the next step is to connect to it from your application. The Java guide is a worked example of taking the connection details from the portal, opening a connection pool, and running a query. The connection section has an equivalent guide for each of the other supported languages and drivers, so the pattern is the same whatever your stack is written in.
+**Connect your application.** Point your code at the new database. The Java guide is a worked example of taking the connection details from the portal, opening a pool, and running a query, and the connection section has the equivalent for every supported language and driver, so the path is the same whatever you build in.
 
-A single database is enough to build against, but production wants more than one. The high availability guide sets up a replicated topology, so the service keeps serving reads and writes through the loss of a node. Standing this up early means your application meets a realistic topology while it is still cheap to change.
+**Make it highly available.** One database is enough to build against, but production wants more. Set up a replicated topology and the service keeps serving reads and writes through the loss of a node. It costs little to turn on early, while your application is still easy to change.
 
-The last step, if you already run a database elsewhere, is to bring its data in. The migration guide loads an existing database into MariaDB Cloud, which is usually the step between evaluating the service and adopting it for real work.
+**Bring your data in.** Already running a database elsewhere? Load it into MariaDB Cloud and you have moved from evaluating the service to running on it.
+
+Start with the portal and you will have a database to talk to within a few minutes.
 
 ## Launch a database
 

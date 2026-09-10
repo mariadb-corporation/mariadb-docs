@@ -1,23 +1,27 @@
 ---
 title: Enterprise Platform
 description: >-
-  Get started with MariaDB Enterprise Platform: Enterprise Server plus the
-  routing, clustering, analytics, and management components for production
-  workloads.
+  Get started with MariaDB Enterprise Platform: supported MariaDB with routing,
+  clustering, and analytics for production. Understand it, route and scale it,
+  add analytics.
 icon: layer-group
 ---
 
 # Enterprise Platform
 
-MariaDB Enterprise Platform brings MariaDB Enterprise Server together with the components and services that support production workloads. Enterprise Server is the same database as Community Server, hardened and supported under contract. Around it sit the parts you add when a single server is no longer enough: MaxScale for routing and failover, Galera Cluster for synchronous replication, ColumnStore and Exa for analytics, and the tools that manage the whole set. You still run the platform yourself, but you run it with commercial support and a tested set of components rather than assembling them piece by piece.
+MariaDB Enterprise Platform is MariaDB built for production and backed by support. At its core is MariaDB Enterprise Server, the same database you already know, hardened and maintained under contract. Around it you get the pieces a serious deployment needs: MaxScale to route traffic and survive failures, Galera Cluster to keep your data on every node, ColumnStore and Exa for analytics, and tooling to manage it all. You still run the platform, but you run it with a safety net and a tested set of parts instead of assembling them yourself.
 
-This page is the first path into the platform. It moves from understanding how the components fit, to standing up the two that carry most production topologies, to adding analytics when your workload calls for it.
+Production readiness here is concrete: component versions that are certified to work together, security fixes maintained across the stack, and a support contract for when something goes wrong at two in the morning. That is the difference between a database you assembled and one you can stand behind.
 
-Begin with the overview, which explains what the platform includes and how the pieces relate to one another. Read it before you install anything, because the platform is a set of components and knowing which ones your workload needs saves you from deploying parts you will not use. The best practices guide then collects the operational habits that keep a platform deployment healthy, and it is worth reading early, so you adopt those habits before rather than after your first incident. The security guide sets the baseline to apply before any real data is loaded.
+Here is the path from a first look to a working production topology.
 
-Two components carry most production topologies, and they work together. MaxScale is the database proxy that sits in front of the servers. It routes queries, load balances reads across replicas, and hides failover from the application, so a node can be lost without the application noticing. Galera Cluster provides synchronous multi primary replication, which means every node holds the same data and any node can accept writes. A common platform deployment runs a Galera cluster behind MaxScale, and the two guides below are the starting points for each half.
+**Get your bearings.** Read the overview to see what the platform includes and which components your workload actually needs, so you deploy what you will use and skip what you will not. Pick up the operational habits early with the best practices guide, and set your security baseline before any real data lands.
 
-When your workload shifts from transactions to reporting, analytics becomes the next component to add. ColumnStore is a columnar storage engine for analytical queries over large tables. It lets you run reporting queries in the same platform, without copying the data out to a separate analytics system. Its quickstart guide sets it up and runs a first query.
+**Route and scale.** Most production deployments rest on two components working together. MaxScale sits in front of your servers and routes queries, balances reads, and hides failover from the application, so losing a node stops being an outage. Galera Cluster keeps a synchronous copy of your data on every node, so any node can take writes. Run a Galera cluster behind MaxScale and you have a topology that stays up.
+
+**Add analytics when you need them.** When reporting queries start to strain your transactional tables, ColumnStore gives you a columnar engine that answers them fast, in the same platform, without shipping the data somewhere else.
+
+Start with the overview, then follow the component that solves your next problem.
 
 ## Understand the platform
 

@@ -1,20 +1,24 @@
 ---
 title: Operations
 description: >-
-  Keep MariaDB running in production. Back up and restore data, monitor
-  performance, and run clustered and routed topologies for high availability.
+  Keep MariaDB fast, safe, and available in production. Back up and restore your
+  data, run clustered and routed topologies, and measure performance.
 icon: gauge-high
 ---
 
 # Operations
 
-Operations is the work of keeping a database healthy after it is deployed. It covers the routines you run on a schedule, such as backups, and the systems you stand up once, such as a cluster or a proxy, and then watch over time. This work spans several parts of MariaDB: the server itself, Galera Cluster for replication, MaxScale for routing, and MariaDB Cloud for the managed case. This page collects the starting points, so an operator can reach them without first learning how each component's documentation is arranged.
+Keep your database fast, safe, and available. Once MariaDB is deployed, operations is the work that keeps it that way: the backups you run on a schedule, the cluster and proxy you stand up once and watch over time, and the tuning you do when speed matters. The guides below get you to each of those, across the server, Galera Cluster, MaxScale, and MariaDB Cloud, without you needing to know which one owns which page.
 
-The routine every operator builds first is backup and restore. The backup and restore overview covers the tools and the strategy behind them, from logical dumps to physical backups, and explains when each fits. The quickstart guides are worked examples of taking a backup and restoring from it, and running both by hand once is the fastest way to trust the routine before you automate it. A backup you have never restored is not yet a backup, so the restore step matters as much as the backup step.
+If you are running MariaDB in production for the first time, the order that follows is a sound one: get recoverable, get redundant, then get fast. Each stage builds on the one before it, and skipping ahead to tuning before your data is safe is the classic way to regret it later.
 
-For availability, you replicate the database across nodes and route around failures. Galera Cluster provides synchronous multi primary replication, so every node holds the same data and any node can accept writes, and its use cases guide shows the topologies it fits and the ones it does not. MaxScale sits in front of the cluster and routes queries, load balancing reads and hiding a failed node from the application. Run them together and the loss of a single node stops being an outage. If you use the managed service instead, MariaDB Cloud provides high availability through a replicated topology that it operates for you, so the same protection comes without the setup.
+**Back up and restore.** This is the routine to build first. The backup and restore overview covers the tools and the strategy, from logical dumps to physical backups, and when each fits. Run through the quickstart guides to take a backup and restore it by hand, because a backup you have never restored is not one you can trust yet. Get this working before anything else goes live.
 
-Once the database is stable, the next question is usually speed. Tuning without measurement is guesswork, so the benchmarking guide shows how to measure performance under a realistic load. With numbers in hand, a configuration change can be judged against a baseline rather than a hunch, and you can tell an improvement from a regression. Measure first, change one thing, then measure again is the loop that turns tuning from folklore into engineering.
+**Stay available.** To ride out failures, replicate the database and route around trouble. Galera Cluster keeps a synchronous copy of your data on every node, so any node can take writes, and its use cases guide shows the topologies it fits. MaxScale sits in front, routing queries and balancing reads, so a lost node stops being an outage. Run them together and a single failure stops being an emergency. On the managed service, MariaDB Cloud gives you the same protection through a replicated topology it operates for you.
+
+**Tune with numbers.** When you need more speed, measure before you change. The benchmarking guide shows you how to put a realistic load on the database, so a configuration change is judged against a baseline and you can tell an improvement from a regression. Measure, change one thing, measure again.
+
+Start with backups, add availability, and tune once the rest is steady.
 
 ## Back up and restore
 

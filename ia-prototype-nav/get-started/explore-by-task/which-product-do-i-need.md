@@ -1,28 +1,29 @@
 ---
 title: Which Product Do I Need?
 description: >-
-  Choose between MariaDB Server, MariaDB Enterprise Platform, and MariaDB Cloud
-  by matching each to how much of the database you want to run yourself.
+  Not sure which MariaDB to use? Choose between MariaDB Server, Enterprise
+  Platform, and Cloud by deciding how much of the database you want to run
+  yourself.
 icon: signs-post
 ---
 
 # Which Product Do I Need?
 
-MariaDB comes in three products, and they differ less in what the database can do than in how much of it you run yourself. The SQL, the storage engines, and most of the reference apply to all three. What changes is who operates the server, who holds the support contract, and which components ship alongside it. This page helps you match a product to your situation so you do not have to read three sets of documentation to decide.
+Not sure which MariaDB to use? Good news: it is the same database underneath. The SQL you write, the storage engines, and almost all of the documentation apply to every option. What changes is how much of the running you want to do yourself, and whether you want a support contract behind it.
 
-## Start with the question of who operates it
+The choice comes down to one question: who operates the database?
 
-The clearest split is operational. If you want to run the database on your own machines and manage it yourself, you want MariaDB Server. If you want someone else to run it and you want to consume it as a service, you want MariaDB Cloud. If you run it yourself but need a support contract and the components that back a production deployment, you want MariaDB Enterprise Platform.
+**You run it yourself, free.** Choose **MariaDB Server**. It is the open source database, self managed, with no contract. Reach for it to build, to evaluate, or to run on infrastructure you already operate. It is also the database inside the other two options, so choosing it now costs you nothing later.
 
-**MariaDB Server** is the open source database, self managed, with no contract. It is the whole of the free product and the right choice for development, for evaluation, and for teams that operate their own infrastructure. It is also the database at the center of the other two products, so nothing you learn here is wasted if you move up later.
+**You run it yourself, with support.** Choose **MariaDB Enterprise Platform**. You still operate the database, but you get a support contract, hardened builds, and the routing, clustering, analytics, and management components bundled and tested together. Reach for it when you run your own database in production and want a safety net and a ready-made topology.
 
-**MariaDB Enterprise Platform** is Enterprise Server plus components plus services. You still run it yourself, but you get a support contract, hardened builds, and the routing, clustering, analytics, and management pieces bundled and tested together. Choose it when you operate your own database but want commercial support and a production topology out of the box.
+**Someone else runs it.** Choose **MariaDB Cloud**. You provision a database and the service handles the hardware, updates, backups, and availability. Reach for it when you would rather build on the database than operate it, or when you want to scale without managing servers.
 
-**MariaDB Cloud** is the managed service. You provision a database and the service handles hardware, updates, backups, and availability. Choose it when you would rather build on the database than run it, or when you want to scale capacity without managing servers.
+One reassurance before you choose: this is not a one way door. Because all three run the same database and share the same tools, you can prototype on Server, move to Cloud for launch, and adopt the Enterprise Platform later, without rewriting your application or relearning the database. Pick the option that fits where you are today.
 
-## Then confirm the details
+Read each product's own starting page to confirm the fit before you commit. Server's install guide shows exactly what running it yourself involves. The platform overview lists what you get in the bundle. The Cloud portal quickstart shows how little you have to operate.
 
-Read each product's own starting page to confirm the fit before you commit. Server's install guide shows exactly what self managing involves. The platform overview lists the components you get. The Cloud portal quickstart shows how little you have to operate.
+## Compare the three products
 
 {% content-ref url="{server}/mariadb-quickstart-guides/installing-mariadb-server-guide" %}
 [Install MariaDB Server]({server}/mariadb-quickstart-guides/installing-mariadb-server-guide)
@@ -36,9 +37,7 @@ Read each product's own starting page to confirm the fit before you commit. Serv
 [Launch MariaDB Cloud Using the Portal]({mariadb-cloud}/quickstart/using-the-portal)
 {% endcontent-ref %}
 
-## When the choice is about a component
-
-Some decisions are not about the product but about a component you would add to it. If you are weighing where analytical queries should run, the storage engine chooser compares the options directly.
+## Choosing a component, not a product?
 
 {% content-ref url="{server}/server-usage/storage-engines/choosing-the-right-storage-engine" %}
 [Choosing the Right Storage Engine]({server}/server-usage/storage-engines/choosing-the-right-storage-engine)

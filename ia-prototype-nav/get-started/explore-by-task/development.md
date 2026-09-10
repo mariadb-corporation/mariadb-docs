@@ -1,20 +1,25 @@
 ---
 title: Development
 description: >-
-  Build applications on MariaDB. Connect from your language with a MariaDB
-  connector, then learn the SQL that your queries and schema depend on.
+  Build applications on MariaDB. Connect from Java, Python, Node.js, and more
+  with a MariaDB connector, then write the SQL your queries and schema depend
+  on.
 icon: code
 ---
 
 # Development
 
-Developing against MariaDB has two halves. One is the connection: getting your application language to open a session, run statements, and read results through a MariaDB connector. The other is the SQL: the statements, joins, and functions your queries and schema are built from. This page brings both together, because a working application needs the driver and the language of the database, and the two live in different parts of the documentation.
+Build your application on MariaDB and you get a fast, standard SQL database that your language already knows how to talk to. Two things get you productive: a connector that links your code to the database, and the SQL that shapes your data. Start with the driver, then spend your time on the queries.
 
-MariaDB maintains connectors for the common application languages, and each one has a quickstart that takes you from an empty project to a query against the database. The connector handles the wire protocol, connection pooling, and the mapping between result rows and your language's data types, so your code works in terms of statements and rows rather than bytes on a socket. Pick the guide for your stack. The Connector/J guide covers Java and the JVM languages, the Python guide covers the standard database interface for Python, and the Node.js guide covers the asynchronous driver most JavaScript applications use. If your language is not among these three, the connector documentation has a quickstart for each of the others as well.
+Because MariaDB is compatible with MySQL, the drivers, ORMs, and query builders you already use work against it without changes, so you rarely start from scratch. The connectors below are the ones MariaDB maintains and tests directly, and they support the features, like connection pooling and prepared statements, that production applications lean on.
 
-Before you wire up a driver, it is often worth connecting from the command line to confirm the database is reachable and your credentials work. The Server connection guide covers the `mariadb` client and the connection parameters, the host, the port, the user, and the database, that your driver will need in its configuration. Getting a successful command line session first rules out a whole class of problems that otherwise look like driver bugs.
+**Connect from your language.** MariaDB ships connectors for the languages you build in, and each has a quickstart that goes from an empty project to a live query. The connector does the heavy lifting: the wire protocol, connection pooling, and turning result rows into your language's own types, so you write statements and read objects. Grab the guide for your stack. Java and the JVM use Connector/J, Python uses the standard database interface, and JavaScript uses the async Node.js driver. Building in something else? The connector documentation has a quickstart for that too.
 
-With a connection open, most development is SQL. The basics guide covers creating tables and running single statements, which is enough to back a first feature. The advanced SQL guide moves into joins, subqueries, and the query patterns that real applications rely on, and it is the guide you return to as your schema grows past a few tables. The string functions guide is a worked reference for the text handling that most schemas need, from formatting output to searching within columns. Together these three cover the SQL that an application developer writes day to day, and they link on into the full reference when you need a specific statement.
+Before you wire up a driver, it is worth proving the database is reachable from the command line. A quick `mariadb` session confirms your host, port, user, and password work, and rules out a whole class of problems that otherwise look like driver bugs.
+
+**Write the SQL.** With a connection open, the rest is SQL, and this is where your application takes shape. The basics guide gets you creating tables and running statements. The advanced SQL guide moves into joins, subqueries, and the query patterns real applications rely on, and it is the one you come back to as your schema grows. The string functions guide is a handy reference for the text handling nearly every schema needs.
+
+Pick your connector, get a query running, then build out your schema from there.
 
 ## Connect from your language
 

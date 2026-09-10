@@ -1,22 +1,29 @@
 ---
 title: Server
 description: >-
-  Get started with MariaDB Server, the open source relational database you run
-  yourself. Install it, connect a client, and learn the SQL you need to build.
+  Get started with MariaDB Server, the open source SQL database you run
+  yourself. Install it, connect a client, run your first queries, and back up
+  your data.
 icon: database
 ---
 
 # Server
 
-MariaDB Server is the open source relational database at the center of the product line. You download it, run it on your own hardware or cloud instances, and manage it yourself, with no contract required. The same server is also the database component inside MariaDB Enterprise Platform under the name MariaDB Enterprise Server, so what you learn here carries over if you later adopt the platform or the managed service.
+MariaDB Server is a fast, open source SQL database you can download and run in minutes. It speaks standard SQL, runs on Linux, Windows, and macOS, and powers everything from a laptop side project to a fleet of production servers. You run it, you manage it, and you owe no one a contract to do so. The same server also sits at the heart of MariaDB Enterprise Platform, so the skills you build here carry straight over if your needs grow.
 
-This page is the first path into Server. It takes you from an empty machine to a running database with data in it, and then points you at the guides you use every day after that. The order below is the order to follow the first time. Later, you can come straight back to any step.
+Out of the box you get transactions, replication, a choice of storage engines, and modern data types including JSON and native vectors, all in a single package. It is compatible with MySQL, so existing clients, drivers, and tools connect to it without changes.
 
-The first step is to install the server and open a client session against it. The installation guide covers the supported operating systems and the package repository that installs come from, so you know your build is genuine and can be upgraded from a known source. Once the server runs, the connection guide shows you how to reach it with the `mariadb` command line client, supply credentials, and confirm the server is answering. That same connection information is what an application driver later uses, so it is worth getting right early.
+Get from nothing to a working database in four short steps.
 
-With a session open, the next step is to learn how the database is used. The basics guide walks you through creating a database, defining tables, and running your first statements. The usage guide builds on that with the everyday operations an application relies on, and the advanced SQL guide moves into joins, subqueries, and the query patterns that real workloads use. You do not need all of this before you write code, but it is the material you return to as your schema grows.
+**Install it.** Add the MariaDB package repository and install the server with your system's package manager, on Linux, Windows, or macOS. The installation guide has the exact commands for each platform and walks you through securing the fresh install.
 
-The last step before you trust the database with anything is to learn how to get your data back. The backup guide takes a logical backup, and the restore guide brings it back. Run both once by hand, so the routine is familiar before you need it under pressure. Every production habit you build later rests on this pair.
+**Connect to it.** Open a session with the `mariadb` command line client, sign in, and confirm the server is answering. The same host, port, user, and password you use here are what your application's driver will use later, so this is worth doing first.
+
+**Write some SQL.** Create a database, define a table, and run your first queries. Start with the basics, then move into the everyday statements and the joins, functions, and patterns real applications lean on. This is where MariaDB starts to feel like yours.
+
+**Protect your data.** Take a backup and practice restoring it before you trust the database with anything you care about. A backup you have never restored is not yet a backup, so run both once by hand and know the routine works.
+
+Follow the steps in order the first time. After that, come straight back to any one of them when you need it.
 
 ## Install and connect
 

@@ -2,19 +2,22 @@
 title: AI
 description: >-
   Build AI features on MariaDB. Store and search vector embeddings in SQL,
-  connect AI frameworks, and use the MCP server and RAG tools.
+  connect your AI framework, and give an agent access with the MCP server and
+  RAG tools.
 icon: robot
 ---
 
 # AI
 
-MariaDB supports AI application patterns directly in the database. The central piece is vector search: MariaDB stores embedding vectors in a `VECTOR` column, indexes them, and finds the nearest matches to a query vector with SQL. This capability ships in the server itself, so it is available to Community Server and Enterprise Server users alike, not held behind a separate product or a plugin you install. Around it sit the framework integrations, the MCP server that lets an AI agent query MariaDB, and the RAG tooling that assembles retrieval augmented generation on top of your data. This page brings those pieces together, because a working AI feature usually uses more than one of them.
+Build AI features on the data you already have, in SQL. MariaDB stores embedding vectors in a `VECTOR` column, indexes them, and finds the nearest matches to a query vector with the SQL you already write. Vector search ships in the server itself, so it is there for Community Server and Enterprise Server alike, with no plugin to install and no separate product to buy. Around it are the framework integrations, the MCP server that lets an agent query your database, and the RAG tooling that ties it all into retrieval augmented generation. The guides below get you from a first vector to a working AI feature.
 
-Start with vectors, because they are the foundation the rest builds on. The vector overview explains how vectors, distance functions, and vector indexes work in MariaDB, and it is the page to read before you design a schema. The create table guide then shows the exact syntax for a `VECTOR` column and its index, which is the schema every vector feature sits on. For search that combines vector similarity with keyword matching, the hybrid search guide covers reciprocal rank fusion, a method that merges the two rankings into one result set, so a query benefits from both semantic and exact matches rather than choosing between them.
+**Store and search vectors.** Vectors are the foundation, so start there. The vector overview explains how vectors, distance functions, and vector indexes work, and it is the page to read before you design a schema. The create table guide gives you the exact syntax for a `VECTOR` column and its index, the schema every vector feature rests on. Want search that blends meaning with keywords? The hybrid search guide uses reciprocal rank fusion to merge the two rankings, so a query gets the best of both.
 
-Most AI applications are built with a framework rather than raw SQL, and you generate embeddings in that framework before storing them. The framework integrations page covers connecting MariaDB as a vector store to the common AI development frameworks, so the embeddings your application creates land in the database and are searched with the same SQL described above. This is usually the shortest path from an existing application to a working retrieval feature, because it reuses the stack you already have.
+**Connect your AI framework.** Most AI applications generate embeddings in a framework rather than raw SQL. The framework integrations page connects MariaDB as a vector store to the common AI development frameworks, so the embeddings your application creates land in the database and are searched with the same SQL. For an app you already run, this is usually the shortest path to a working retrieval feature.
 
-Two tools connect MariaDB to an AI agent rather than to your application code. The Enterprise MCP Server exposes the database through the Model Context Protocol, so an agent can inspect schemas and run read only SQL against MariaDB under controlled access. The AI RAG tool assembles a retrieval augmented generation pipeline over your data, combining the vector search in the database with a language model. Reach for these when you are building an agent or a question answering system rather than adding search to an application you already run.
+**Give an agent the database.** To put MariaDB behind an agent, the Enterprise MCP Server exposes it through the Model Context Protocol, so an agent can inspect schemas and run read only SQL under controlled access. The AI RAG tool assembles a retrieval pipeline over your data, pairing the vector search in the database with a language model.
+
+Start with a `VECTOR` column, get a similarity query running, then build outward.
 
 ## Store and search vectors
 

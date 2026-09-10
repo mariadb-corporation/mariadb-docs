@@ -1,20 +1,24 @@
 ---
 title: Migration
 description: >-
-  Move your data to MariaDB. Migrate from MySQL, PostgreSQL, and other
-  databases, or bring an existing database into MariaDB Cloud.
+  Bring your data to MariaDB. Migrate from MySQL, PostgreSQL, and other
+  databases, or move an existing database into MariaDB Cloud.
 icon: arrow-right-arrow-left
 ---
 
 # Migration
 
-Migration is moving an existing database into MariaDB from somewhere else. The work depends on where you are coming from and where you are going. Moving from MySQL is close to a drop in for many schemas, while moving from PostgreSQL or another system involves translating types and syntax. Moving into MariaDB Cloud adds a managed target with its own loading path. This page gathers the entry point for each of those routes, because they live in different parts of the documentation and a reader planning a migration needs to see them together to plan the whole job.
+Moving to MariaDB from another database? Start here. How much work it takes depends on where you are coming from. Coming from MySQL is close to a drop in for many schemas. Coming from PostgreSQL or another system means translating some types and syntax. Moving into MariaDB Cloud gives you a managed target with a loading path of its own. Whatever your source, the guides below get you from your current database to a working MariaDB.
 
-Before you move anything, understand how MariaDB differs from your current database. The differences page compares MariaDB with other database systems, which tells you where a migration is mechanical and where it needs real translation work. Reading it first turns a migration from a surprise into a plan, because you learn which features map straight across and which have no direct equivalent. The migration overview then lays out the supported source databases and the general process that applies across all of them, so you know the shape of the work before you pick your specific source.
+MariaDB's compatibility with MySQL is what makes many migrations straightforward: the SQL, the wire protocol, and the tooling line up, so a large share of applications move with little or no rewriting. Migrations from other systems take more care, and the guides here are honest about where that care is needed rather than promising a button.
 
-With the groundwork done, pick the guide for your source database. Moving from MySQL is the most common path and often needs the fewest changes, because MariaDB shares much of its heritage. Moving from PostgreSQL involves more translation, and the PostgreSQL guide covers the data type and syntax differences you will meet along the way. Each source guide is written for that database's particular differences, so following the one that matches your system is faster than working from the general overview alone.
+**Know what changes first.** Before you move a single row, see how MariaDB differs from your current database. The differences guide shows you where a migration is mechanical and where it needs real translation, which turns the job from a surprise into a plan. The migration overview then lays out the supported source databases and the process that applies across them, so you know the shape of the work before you commit to it.
 
-If your target is the managed service rather than a server you run, MariaDB Cloud has its own migration path that loads your data into a provisioned database. There is also a guide for the specific case of moving from an existing Amazon RDS for MariaDB instance into MariaDB Cloud, which is common enough to have its own steps. Choose the target guide that matches where your database will live, then run the migration against a non production copy first so you can measure how long it takes and catch translation issues before they affect anyone.
+**Pick your source.** Each source database has its own guide, written for its particular differences, so following the one that matches you is faster than working from the overview alone. Coming from MySQL is the most common path and usually needs the fewest changes, since MariaDB shares much of its heritage. Coming from PostgreSQL, the PostgreSQL guide covers the type and syntax differences you will meet.
+
+**Moving to the managed service?** MariaDB Cloud has its own path that loads your data into a provisioned database, and there is a dedicated guide for moving an existing Amazon RDS for MariaDB instance across.
+
+Whatever your source, run the migration against a non production copy first, so you can time it and catch translation issues before they reach anyone.
 
 ## Start with the differences
 

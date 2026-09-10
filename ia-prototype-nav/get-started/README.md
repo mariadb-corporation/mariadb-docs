@@ -1,27 +1,26 @@
 ---
 title: Get Started
 description: >-
-  The MariaDB documentation hub, organized by task. Choose a product to begin,
-  or go straight to development, deployment, migration, operations, analytics,
-  or AI.
+  Start here with MariaDB. Pick the product you run, or jump straight to a task:
+  development, deployment, migration, operations, analytics, or AI.
 icon: rocket
 ---
 
 # Get Started
 
-This is the starting point for MariaDB documentation. It is organized around what you want to do, not around which product you already know. If you can name your task, you can find the pages that complete it without first learning how the product line is arranged.
+New to MariaDB, or just new to this part of it? Start here. MariaDB is one database with three ways to run it, and this is the front door to all of them.
 
-MariaDB ships as three products. MariaDB Server is the open source database that you run and manage yourself. MariaDB Enterprise Platform bundles MariaDB Enterprise Server with the components and services that support production workloads. MariaDB Cloud is the managed service that runs the database for you. Most reference material applies to all three, so you rarely have to choose a product before you can make progress.
+Run it yourself with **MariaDB Server**, the open source database you download and manage. Get it supported and production ready with **MariaDB Enterprise Platform**, which adds routing, clustering, analytics, and a support contract. Or skip the operations entirely with **MariaDB Cloud**, the fully managed service. The SQL you write and most of what you learn is the same across all three, so you can start anywhere and move later without relearning the database.
 
-There are two ways into the documentation from here, and you can switch between them at any time.
+MariaDB is one of the most widely used open source databases in the world, and it speaks the standard SQL and the wire protocol your existing tools, drivers, and ORMs already expect. If you have worked with a relational database before, you will feel at home within the first few queries.
 
-**Start with a product** when you know which one you are running. Each product page gives you a first working path: install the software, connect a client, and reach the guides and reference for that product. Server, Enterprise Platform, and Cloud each have a landing page below.
+There are two ways to find what you need, and you can move between them freely.
 
-**Explore by task** when you know your goal but not the product. Each task page collects the destination pages that the task needs, drawn from across the documentation. A page about backups lives in the Server documentation, a page about cluster failover lives in the Galera Cluster documentation, and a page about vector search lives in the Server reference. The task pages link straight to those pages, so a topic that sits deep in its own section is still close from here.
+**Know the product you run?** Open its page below. Each one gets you to a working database fast: install the software, connect a client, and reach the guides you use next. Server, Enterprise Platform, and Cloud each have a starting page.
 
-The task pages cover the work that spans more than one product or component: choosing a product, writing an application, deploying and running the database, migrating data in, operating it over time, running analytics, and building AI features. Tutorials, a learning oriented series, joins this list in a later phase once its content is ready.
+**Know the job, not the product?** Pick the task. Whether you are writing an application, deploying to production, migrating data in, keeping a database healthy, running analytics, or building AI features, the task pages take you straight to the pages that do the work, wherever they live in the documentation. You do not need to know that backups are documented in Server and cluster failover in Galera Cluster. The task page knows, and links you there directly.
 
-Every card on the pages below points at a specific page, not at another menu. Follow one and you land on the material that answers the question, not on a further set of choices. If a task page is missing a destination you expected, that gap is worth reporting, because the set of links on each page is meant to cover what the task needs.
+Everything here points at a real page that answers a real question, not at another menu. Pick a starting point and follow it. If you get stuck, come back and try the other way in.
 
 ## Start with a product
 

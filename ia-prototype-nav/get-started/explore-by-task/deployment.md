@@ -1,22 +1,26 @@
 ---
 title: Deployment
 description: >-
-  Get MariaDB running on real infrastructure. Install from packages, deploy on
-  Kubernetes with the operator, or run it as a managed cloud service.
+  Get MariaDB running where your application lives. Install from packages, run
+  it on Kubernetes with the operator, or launch it as a managed cloud service.
 icon: cloud-arrow-up
 ---
 
 # Deployment
 
-Deployment is the step between a database that works on your laptop and one that serves an application in production. How you deploy depends on where the database runs. You can install it from packages on a server you manage, run it on Kubernetes through the MariaDB Enterprise Operator, or let MariaDB Cloud run it for you. This page collects the starting point for each path, so you can pick the one that matches your infrastructure rather than reading three sets of instructions to find the one that applies.
+Take MariaDB from your laptop to real infrastructure. Where you deploy is your call: install it straight onto servers you manage, run it on Kubernetes as part of your cluster, or let MariaDB Cloud run it for you. Pick the path that matches where your application already lives, and start there.
 
-The most direct route is to install the server from the MariaDB package repository onto a machine you control. The installation guide covers the supported operating systems and the steps to get a running server, and the package repository guide covers configuring that repository so installs and upgrades come from a known, verifiable source. Setting up the repository first is worth the few extra minutes, because it is what lets you upgrade cleanly later instead of reinstalling from scratch.
+Every path runs the same MariaDB, so the database behaves the same whether it sits on a virtual machine, in a container, or behind the managed service. What differs is who handles the machines and the upgrades, and how much of that you want to own. Match that to your team and your infrastructure, and the rest follows.
 
-If you run workloads on Kubernetes, you deploy the database as part of the cluster rather than on a separate machine. The MariaDB Enterprise Operator provisions and manages MariaDB as a set of custom resources, so the database is described in the same manifests as the rest of your application and reconciled the same way. The Helm guide installs the operator on a standard Kubernetes cluster, and the OpenShift guide covers the platform specific steps for a Red Hat OpenShift cluster, which differ enough to warrant their own path.
+**Install from packages.** The direct route is to install the server from the MariaDB package repository onto a machine you control. Set up the repository first so your installs and upgrades come from a known, verifiable source, then install the server with the platform commands in the guide. This is the path most self managed deployments take, and it is the foundation the others build on.
 
-If you would rather not run servers at all, MariaDB Cloud provisions and operates the database for you. The portal quickstart takes you from an account to a running database in a few steps, with the hardware, patching, and backups handled by the service. If your infrastructure is on Amazon and you want a managed MariaDB there instead, the Amazon RDS guide covers running the database on that platform.
+**Run it on Kubernetes.** If your workloads run on Kubernetes, deploy the database the same way you deploy everything else. The MariaDB Enterprise Operator provisions and manages MariaDB as custom resources, described in your manifests and reconciled by the cluster. Install the operator with Helm on a standard cluster, or follow the OpenShift path for a Red Hat cluster, where the steps differ enough to warrant their own guide.
 
-Once you run more than one server, the next need is a way to see and manage them together. Enterprise Manager gives you a single console to monitor and administer a fleet of servers, which is the point where deployment turns into operations.
+**Launch it managed.** If you would rather not run servers at all, let MariaDB Cloud provision and operate the database. The portal quickstart gets you to a running database in a few steps. Already on Amazon and want a managed MariaDB there? The Amazon RDS guide covers that route.
+
+**Manage the fleet.** Once you run more than one server, Enterprise Manager gives you a single console to monitor and administer them, which is where deployment turns into operations.
+
+Choose the path that fits your infrastructure, and you will have MariaDB running where you need it.
 
 ## Install from packages
 
