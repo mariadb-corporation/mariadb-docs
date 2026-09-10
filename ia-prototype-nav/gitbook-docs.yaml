@@ -5,6 +5,7 @@ site:
     - type: section
       key: get-started-sec
       title: Get Started
+      icon: rocket
       path: get-started
       default: true
       children:
@@ -18,6 +19,7 @@ site:
     - type: section
       key: server-sec
       title: Server
+      icon: database
       path: server
       children:
         - type: space
@@ -30,10 +32,12 @@ site:
     - type: section-group
       key: enterprise-platform
       title: Enterprise Platform
+      icon: layer-group
       children:
         - type: section
           key: platform-overview-sec
           title: Platform overview
+          icon: layer-group
           path: platform-overview
           children:
             - type: space
@@ -46,6 +50,7 @@ site:
         - type: section
           key: enterprise-server-sec
           title: Enterprise Server
+          icon: database
           path: enterprise-server
           children:
             - type: space
@@ -58,6 +63,7 @@ site:
         - type: section
           key: maxscale-sec
           title: MaxScale
+          icon: code-branch
           path: maxscale
           children:
             - type: space
@@ -70,6 +76,7 @@ site:
         - type: section
           key: galera-cluster-sec
           title: Galera Cluster
+          icon: circle-nodes
           path: galera-cluster
           children:
             - type: space
@@ -82,6 +89,7 @@ site:
         - type: section
           key: advanced-clustering-sec
           title: Advanced Clustering
+          icon: sitemap
           path: advanced-clustering
           children:
             - type: space
@@ -94,6 +102,7 @@ site:
         - type: section
           key: columnstore-sec
           title: ColumnStore
+          icon: table-columns
           path: columnstore
           children:
             - type: space
@@ -106,6 +115,7 @@ site:
         - type: section
           key: exa-sec
           title: Exa
+          icon: chart-column
           path: exa
           children:
             - type: space
@@ -118,6 +128,7 @@ site:
         - type: section
           key: gridgain-9-sec
           title: GridGain 9
+          icon: bolt
           path: gridgain-9
           children:
             - type: space
@@ -130,6 +141,7 @@ site:
         - type: section
           key: gridgain-8-sec
           title: GridGain 8
+          icon: bolt
           path: gridgain-8
           children:
             - type: space
@@ -142,6 +154,7 @@ site:
         - type: section
           key: tools-sec
           title: Tools
+          icon: screwdriver-wrench
           path: tools
           children:
             - type: space
@@ -154,10 +167,12 @@ site:
     - type: section-group
       key: cloud
       title: Cloud
+      icon: cloud
       children:
         - type: section
           key: mariadb-cloud-sec
           title: MariaDB Cloud
+          icon: cloud
           path: mariadb-cloud
           children:
             - type: space
@@ -170,6 +185,7 @@ site:
         - type: section
           key: cloud-ai-retrieval-sec
           title: Cloud AI Retrieval
+          icon: robot
           path: cloud-ai-retrieval
           children:
             - type: space
@@ -182,6 +198,7 @@ site:
     - type: section
       key: connectors-sec
       title: Connectors
+      icon: plug
       path: connectors
       children:
         - type: space
@@ -194,6 +211,7 @@ site:
     - type: section
       key: release-notes-sec
       title: Release notes
+      icon: file-lines
       path: release-notes
       children:
         - type: space
@@ -206,6 +224,7 @@ site:
     - type: section-group
       key: more
       title: More
+      icon: ellipsis
       children:
         - type: external-link
           key: more-resources
