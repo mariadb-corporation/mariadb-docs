@@ -232,60 +232,68 @@ Multi Range Read only pays off when it can sort a whole batch of row references 
 
 ### Tuning Decision Flow
 
+The flow splits into two parts: deciding whether a larger buffer can help this query at all, and — only if it can — choosing a value and deciding how widely to apply it. Each step is covered in full by the sections below.
+
+#### Part 1: Can a Larger Buffer Help?
+
 ```mermaid
 flowchart TD
-  accTitle: Decision flow for tuning mrr_buffer_size
-  accDescr { This flowchart walks through tuning mrr_buffer_size. Start by identifying the affected query and collecting a baseline. If the query has no MRR-suitable access pattern, tune the query or indexes instead. If MRR is not enabled, enable it for the session or use an MRR hint. If EXPLAIN does not show a Rowid-ordered scan and Handler_mrr_init does not increase, mrr_buffer_size has no effect. If the MRR refill counters are zero, the buffer already holds the whole scan and a larger value cannot help. If the data is already resident in the buffer pool, the benefit is limited. Otherwise check memory headroom and concurrency, then test progressively at session level through 512 KB, 1 MB, 2 MB and 4 MB. Keep a gain that is specific to one workload at session level; consider a global change only when the gain is consistent across representative workloads and memory headroom is sufficient. Monitor after any change, and settle on the smallest value that gives a consistent improvement. }
-  A(["Identify the affected query and collect a baseline"]) --> B{"Does the query use an MRR-suitable access pattern, such as a range scan or a large IN list?"}
-  B -->|"No"| B1["MRR cannot help. Tune the query, its indexes, or the optimizer statistics instead"]
-  B -->|"Yes"| C{"Is MRR enabled for the query?"}
-  C -->|"No"| C1["Set mrr=on for the session, or add an MRR hint, then re-check"]
+  accTitle: Part 1 - deciding whether a larger mrr_buffer_size can help
+  accDescr { Part one of the tuning flow, a sequence of five checks with an exit at each. Identify the affected query and collect a baseline. First, does the query use an MRR-suitable access pattern such as a range scan or a large IN list? If not, MRR cannot help and you should tune the query, its indexes or the optimizer statistics instead. Second, is MRR enabled for the query? If not, set mrr=on for the session or add an MRR hint, then re-check. Third, does EXPLAIN show a Rowid-ordered or Key-ordered scan, and does Handler_mrr_init increase? If not, MRR is not used and mrr_buffer_size has no effect on this query. Fourth, is Handler_mrr_key_refills or Handler_mrr_rowid_refills non-zero? If they are zero, the buffer already holds the whole scan and a larger value cannot help. Fifth, is the data already resident in the InnoDB buffer pool? If it is, the benefit is limited because the extra sorting costs CPU without saving I/O. Only if the data is not resident does a larger buffer look promising, and you continue with part two. }
+  A(["Identify the query,<br/>collect a baseline"]) --> B{"MRR-suitable<br/>access pattern?"}
+  B -->|"No"| B1[["Tune the query,<br/>indexes or statistics"]]
+  B -->|"Yes"| C{"MRR enabled?"}
+  C -->|"No"| C1["Set mrr=on,<br/>or add an MRR hint"]
   C1 --> D
-  C -->|"Yes"| D{"Does EXPLAIN show a Rowid-ordered or Key-ordered scan, and does Handler_mrr_init increase?"}
-  D -->|"No"| D1["MRR is not used, so mrr_buffer_size has no effect on this query"]
-  D -->|"Yes"| E{"Is Handler_mrr_key_refills or Handler_mrr_rowid_refills non-zero?"}
-  E -->|"No"| E1["The buffer already holds the whole scan, so a larger value cannot help"]
-  E -->|"Yes"| F{"Is the data already resident in the InnoDB buffer pool?"}
-  F -->|"Yes"| F1["Benefit is limited: the extra sorting costs CPU without saving I/O"]
-  F -->|"No"| G["Check memory headroom and concurrency: Threads_running, free RAM, swap usage"]
-  G --> H{"Is memory pressure a concern at this concurrency?"}
-  H -->|"Yes"| H1["Leave the global value at the default and test at session level only"]
-  H1 --> I
-  H -->|"No"| I["Test progressively at session level: 512 KB, then 1 MB, 2 MB, 4 MB"]
-  I --> J{"Measurable, repeatable improvement, with the refill counters at zero and no CPU or memory regression?"}
-  J -->|"No"| J1["Revert to the previous value and investigate other tuning"]
-  J -->|"Yes"| K{"Is the gain specific to one application or workload?"}
-  K -->|"Yes"| K1["Keep the larger value at session level, for that workload only"]
-  K -->|"No"| L{"Is the gain consistent across representative workloads, with sufficient memory headroom?"}
-  L -->|"No"| K1
-  L -->|"Yes"| M["A global change may be considered after controlled validation"]
-  M --> N["Monitor after the change: query time, Threads_running, memory and swap, CPU and disk I/O, buffer pool metrics"]
-  K1 --> N
-  N --> O(["Settle on the smallest value that gives a consistent improvement"])
+  C -->|"Yes"| D{"Ordered scan in EXPLAIN?<br/>Handler_mrr_init rising?"}
+  D -->|"No"| D1[["MRR unused:<br/>no effect"]]
+  D -->|"Yes"| E{"Refill counters<br/>non-zero?"}
+  E -->|"No"| E1[["Scan already fits:<br/>no gain possible"]]
+  E -->|"Yes"| F{"Data already in<br/>the buffer pool?"}
+  F -->|"Yes"| F1[["Limited gain:<br/>CPU, not I/O"]]
+  F -->|"No"| G(["A larger buffer<br/>may help &rarr; part 2"])
 
   classDef box fill:#eef2ff,stroke:#33415c,stroke-width:1px,color:#111;
   classDef decision fill:#fff3cd,stroke:#8a6d00,stroke-width:1px,color:#111;
   classDef stop fill:#f1f3f5,stroke:#495057,stroke-width:1px,color:#111;
-  class B,C,D,E,F,H,J,K,L decision;
-  class A,C1,G,I,M,N,O box;
-  class B1,D1,E1,F1,H1,J1,K1 stop;
+  class B,C,D,E,F decision;
+  class A,C1,G box;
+  class B1,D1,E1,F1 stop;
 ```
 
-_Decision flow for tuning `mrr_buffer_size`: confirm MRR is used, confirm the buffer is the limit, weigh memory against concurrency, then test at session level before considering a global change._
+_Part 1: five checks, each with its own exit. The refill counters are the decisive one — at zero, no larger value can help._
 
-The examples in this section use a 100,000-row InnoDB table with a non-unique secondary index, which is enough to make the optimizer pick `range` access with MRR:
+#### Part 2: Choosing and Applying a Value
 
-```sql
-CREATE TABLE tbl (
-  id     INT PRIMARY KEY,
-  key1   INT,
-  filler CHAR(200),
-  KEY (key1)
-) ENGINE=InnoDB;
+```mermaid
+flowchart TD
+  accTitle: Part 2 - choosing an mrr_buffer_size value and deciding how widely to apply it
+  accDescr { Part two of the tuning flow, reached only when part one showed that a larger buffer may help. Check memory headroom and concurrency: Threads_running, free RAM and swap usage. If memory pressure is a concern at this concurrency, leave the global value at the default and test at session level only. Either way, test progressively at session level through 512 KB, 1 MB, 2 MB and 4 MB. If there is no measurable and repeatable improvement, or the refill counters do not reach zero, or CPU or memory regress, revert to the previous value and investigate other tuning. If the improvement holds, ask whether the gain is specific to one application or workload; if it is, keep the larger value at session level for that workload only. If it is not, ask whether the gain is consistent across representative workloads with sufficient memory headroom; if not, again keep it at session level, and if so, a global change may be considered after controlled validation. Monitor after any change - query time, Threads_running, memory and swap, CPU and disk I/O, and buffer pool metrics - and settle on the smallest value that gives a consistent improvement. }
+  G(["From part 1: a larger<br/>buffer may help"]) --> H["Check headroom:<br/>Threads_running,<br/>free RAM, swap"]
+  H --> I{"Memory pressure<br/>a concern?"}
+  I -->|"Yes"| I1["Keep the global<br/>value at the default"]
+  I1 --> J
+  I -->|"No"| J["Test at session level:<br/>512 KB, 1 MB, 2 MB, 4 MB"]
+  J --> K{"Repeatable gain?<br/>Refills at zero,<br/>no regression?"}
+  K -->|"No"| K1[["Revert; investigate<br/>other tuning"]]
+  K -->|"Yes"| L{"Gain specific to<br/>one workload?"}
+  L -->|"Yes"| M1["Keep it at session<br/>level for that workload"]
+  L -->|"No"| M{"Consistent across<br/>workloads, with<br/>memory headroom?"}
+  M -->|"No"| M1
+  M -->|"Yes"| N["A global change may be<br/>considered after<br/>controlled validation"]
+  N --> O["Monitor: query time,<br/>Threads_running, memory,<br/>swap, CPU, I/O, buffer pool"]
+  M1 --> O
+  O --> P(["Settle on the smallest<br/>value that holds up"])
 
-INSERT INTO tbl SELECT seq, seq*7919 % 100000, 'x' FROM seq_1_to_100000;
-ANALYZE TABLE tbl;
+  classDef box fill:#eef2ff,stroke:#33415c,stroke-width:1px,color:#111;
+  classDef decision fill:#fff3cd,stroke:#8a6d00,stroke-width:1px,color:#111;
+  classDef stop fill:#f1f3f5,stroke:#495057,stroke-width:1px,color:#111;
+  class I,K,L,M decision;
+  class G,H,I1,J,M1,N,O,P box;
+  class K1 stop;
 ```
+
+_Part 2: keep a workload-specific gain at session level; a global change is the exception, not the destination._
 
 ### Check That MRR Is Enabled
 
