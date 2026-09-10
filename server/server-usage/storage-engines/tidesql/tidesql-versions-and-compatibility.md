@@ -17,7 +17,7 @@ A TideSQL major version pairs with a single TidesDB library major version. A min
 | 5.x | v10.x | Current |
 | 4.x and earlier | v9.x | Archived |
 
-This manual documents the TideSQL 5.x line, which links TidesDB v10. The current pinned release is 5.0.0, whose version is encoded as the hex value `0x50000`, and it links TidesDB v10.0.0. For the exact rules that relate the plugin version to the library version, see [Versioning](https://github.com/tidesdb/tidesql/blob/5.0.0/VERSIONING.md) for the 5.0.0 release.
+This manual documents the TideSQL 5.x line, which links TidesDB v10. The current pinned release is 5.0.0, whose version is encoded as the hex value `0x50000`, and it links TidesDB v10.x.x. For the exact rules that relate the plugin version to the library version, see [Versioning](https://github.com/tidesdb/tidesql/blob/5.0.0/VERSIONING.md) for the 5.0.0 release.
 
 ## MariaDB Server Compatibility
 
