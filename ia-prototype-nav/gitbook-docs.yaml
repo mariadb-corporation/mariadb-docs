@@ -16,17 +16,17 @@ site:
           content:
             directory: ./get-started
     - type: section
-      key: community-server-sec
-      title: Community Server
-      path: community-server
+      key: server-sec
+      title: Server
+      path: server
       children:
         - type: space
-          key: community-server
-          title: Community Server
-          path: community-server-home
+          key: server
+          title: Server
+          path: server-home
           default: true
           content:
-            directory: ./community-server
+            directory: ./server
     - type: section-group
       key: enterprise-platform
       title: Enterprise Platform
@@ -140,18 +140,6 @@ site:
               content:
                 directory: ./gridgain-8
         - type: section
-          key: connectors-sec
-          title: Connectors
-          path: connectors
-          children:
-            - type: space
-              key: connectors
-              title: Connectors
-              path: connectors-home
-              default: true
-              content:
-                directory: ./connectors
-        - type: section
           key: tools-sec
           title: Tools
           path: tools
@@ -191,6 +179,18 @@ site:
               default: true
               content:
                 directory: ./cloud-ai-retrieval
+    - type: section
+      key: connectors-sec
+      title: Connectors
+      path: connectors
+      children:
+        - type: space
+          key: connectors
+          title: Connectors
+          path: connectors-home
+          default: true
+          content:
+            directory: ./connectors
     - type: section
       key: release-notes-sec
       title: Release notes

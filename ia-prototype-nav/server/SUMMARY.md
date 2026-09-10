@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Community Server](README.md)
+* [Server](README.md)
 
 ## Overview
 * [What is MariaDB Server](overview/what-is-mariadb-server.md)
