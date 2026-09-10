@@ -49,11 +49,20 @@ EXPLAIN SELECT * FROM tbl WHERE tbl.key1 BETWEEN 1000 AND 2000;
 +----+-------------+-------+-------+---------------+------+---------+------+------+-----------------------+
 ```
 
-When this query is executed, disk IO access pattern will follow the red line in this figure:
+When this query is executed, the table rows are read in index order, which bears no relation to where those rows physically sit in the table file:
 
-![no-mrr-access-pattern](../../../.gitbook/assets/no-mrr-access-pattern.png)
+```mermaid
+%%{init: {"themeVariables": {"xyChart": {"backgroundColor": "#ffffff", "titleColor": "#111111", "plotColorPalette": "#33415c", "xAxisLabelColor": "#111111", "xAxisTitleColor": "#111111", "xAxisTickColor": "#33415c", "xAxisLineColor": "#33415c", "yAxisLabelColor": "#111111", "yAxisTitleColor": "#111111", "yAxisTickColor": "#33415c", "yAxisLineColor": "#33415c"}}}}%%
+xychart-beta
+  accTitle: Table read order without MRR
+  accDescr { An illustrative chart of eight matching rows that sit at positions 5, 18, 26, 37, 48, 59, 71 and 88 in the table file. Read in index order they are visited as 48, 5, 71, 26, 88, 18, 59 and 37, so the read position jumps back and forth across the whole file and every read is a separate seek. }
+  title "Without MRR: rows read in index order"
+  x-axis "Read order" [1, 2, 3, 4, 5, 6, 7, 8]
+  y-axis "Position in the table file" 0 --> 100
+  line [48, 5, 71, 26, 88, 18, 59, 37]
+```
 
-Execution will hit the table rows in random places, as marked with the blue line/numbers in the figure.
+_Without MRR: the matching rows are read in index order, so the read position jumps back and forth across the whole table file. Every read is a separate seek. Positions are illustrative._
 
 When the table is sufficiently big, each table record read will need to actually go to disk (and be served from buffer pool or OS cache), and query execution will be too slow to be practical. For example, a 10,000 RPM disk drive is able to make 167 seeks per second, so in the worst case, query execution will be capped at reading about 167 records per second.
 
@@ -74,9 +83,20 @@ EXPLAIN SELECT * FROM tbl WHERE tbl.key1 BETWEEN 1000 AND 2000;
 1 row in set (0.03 sec)
 ```
 
-and the execution will proceed as follows:
+and the execution will proceed as follows. MRR collects the rowids into its buffer, sorts them, and then makes a single ordered pass over the table:
 
-![mrr-access-pattern](../../../.gitbook/assets/mrr-access-pattern.png)
+```mermaid
+%%{init: {"themeVariables": {"xyChart": {"backgroundColor": "#ffffff", "titleColor": "#111111", "plotColorPalette": "#33415c", "xAxisLabelColor": "#111111", "xAxisTitleColor": "#111111", "xAxisTickColor": "#33415c", "xAxisLineColor": "#33415c", "yAxisLabelColor": "#111111", "yAxisTitleColor": "#111111", "yAxisTickColor": "#33415c", "yAxisLineColor": "#33415c"}}}}%%
+xychart-beta
+  accTitle: Table read order with MRR
+  accDescr { The same eight rows at the same eight positions in the table file, but MRR sorts the collected rowids before reading, so they are visited in the order 5, 18, 26, 37, 48, 59, 71 and 88. The line rises steadily from left to right: one ordered sweep over the file instead of eight separate seeks. }
+  title "With MRR: rows read in rowid order"
+  x-axis "Read order" [1, 2, 3, 4, 5, 6, 7, 8]
+  y-axis "Position in the table file" 0 --> 100
+  line [5, 18, 26, 37, 48, 59, 71, 88]
+```
+
+_With MRR: the same rows at the same positions, read in rowid order — one ordered sweep instead of a seek per row._
 
 Reading disk data sequentially is generally faster, because
 
@@ -141,13 +161,35 @@ EXPLAIN SELECT * FROM t1,t2 WHERE t2.key1=t1.col1;
 +----+-------------+-------+------+---------------+------+---------+--------------+------+-------------+
 ```
 
-Execution of this query plan will cause random hits to be made into the index `t2.key1`, as shown in this picture:
+Execution of this query plan will cause random hits to be made into the index `t2.key1`:
 
-![key-sorting-regular-nl-join](../../../.gitbook/assets/key-sorting-regular-nl-join.png)
+```mermaid
+%%{init: {"themeVariables": {"xyChart": {"backgroundColor": "#ffffff", "titleColor": "#111111", "plotColorPalette": "#33415c", "xAxisLabelColor": "#111111", "xAxisTitleColor": "#111111", "xAxisTickColor": "#33415c", "xAxisLineColor": "#33415c", "yAxisLabelColor": "#111111", "yAxisTitleColor": "#111111", "yAxisTickColor": "#33415c", "yAxisLineColor": "#33415c"}}}}%%
+xychart-beta
+  accTitle: Index page access order in a regular nested-loop join
+  accDescr { An illustrative chart of six index lookups made by a regular nested-loop join, in the order the join produces them. They land on index pages 7, 2, 9, 4, 2 and 4. Because the lookups arrive in no particular key order, the line moves up and down and two pages are visited twice: lookup 5 returns to page 2, already read by lookup 2, and lookup 6 returns to page 4, already read by lookup 4. }
+  title "Regular nested-loop join: lookups arrive in random key order"
+  x-axis "Lookup order" [1, 2, 3, 4, 5, 6]
+  y-axis "Index page" 0 --> 10
+  line [7, 2, 9, 4, 2, 4]
+```
 
-In particular, on step #5 we'll read the same index page that we've read on step #2, and the page we've read on step #4 will be re-read on step#6. If all pages you're accessing are in the cache (in the buffer pool, if you're using InnoDB, and in the key cache, if you're using MyISAM), this is not a problem. However, if your hit ratio is poor and you're going to hit the disk, it makes sense to sort the lookup keys, like shown in this figure:
+_A regular nested-loop join issues its index lookups in whatever order the outer table produces them, so the same index page can be visited more than once._
 
-![key-sorting-join](../../../.gitbook/assets/key-sorting-join.png)
+In particular, on step #5 we'll read the same index page that we've read on step #2, and the page we've read on step #4 will be re-read on step #6. If all pages you're accessing are in the cache (in the buffer pool, if you're using InnoDB, and in the key cache, if you're using MyISAM), this is not a problem. However, if your hit ratio is poor and you're going to hit the disk, it makes sense to sort the lookup keys, like shown in this figure:
+
+```mermaid
+%%{init: {"themeVariables": {"xyChart": {"backgroundColor": "#ffffff", "titleColor": "#111111", "plotColorPalette": "#33415c", "xAxisLabelColor": "#111111", "xAxisTitleColor": "#111111", "xAxisTickColor": "#33415c", "xAxisLineColor": "#33415c", "yAxisLabelColor": "#111111", "yAxisTitleColor": "#111111", "yAxisTickColor": "#33415c", "yAxisLineColor": "#33415c"}}}}%%
+xychart-beta
+  accTitle: Index page access order with key-ordered retrieval
+  accDescr { The same six index lookups, but sorted by key before being issued, so they land on index pages 2, 2, 4, 4, 7 and 9. The line never descends, and the repeated pages are now visited back to back, so each index page is read from disk once. }
+  title "Key-ordered retrieval: lookups sorted before being issued"
+  x-axis "Lookup order" [1, 2, 3, 4, 5, 6]
+  y-axis "Index page" 0 --> 10
+  line [2, 2, 4, 4, 7, 9]
+```
+
+_With the lookup keys sorted first, the scan never moves backwards and each index page is read from disk once._
 
 This is roughly what `Key-ordered scan` optimization does. In EXPLAIN, it looks as follows:
 
@@ -183,7 +225,23 @@ possible_keys: key1
 2 rows in set (0.00 sec)
 ```
 
-((TODO: a note about why sweep-read over InnoDB's clustered primary index scan (which is, actually the whole InnoDB table itself) will use `Key-ordered scan` algorithm, but not `Rowid-ordered scan` algorithm, even though conceptually they are the same thing in this case))
+### Why a Clustered Primary Key Uses Key-Ordered, Not Rowid-Ordered, Scan
+
+For InnoDB, the clustered primary key *is* the table, so sorting lookup keys and sorting rowids
+look like the same operation. `EXPLAIN` nonetheless reports only `Key-ordered scan` for a scan of
+the clustered primary key, never `Rowid-ordered scan`.
+
+The reason is that for a clustered primary key the key already **is** the row's physical location.
+Once the lookup keys are sorted, the table accesses are in physical order, and there is no separate
+rowid left to collect and sort — gathering rowids would only re-sort the same values in a second
+pass. So MRR sorts the keys and deliberately skips the rowid-sorting step.
+
+MariaDB implements this as a distinct DS-MRR/CPK strategy, which applies when the index is the
+clustering key, the lookups are single-point (as they are for `ref` access and
+[Batched Key Access](../query-optimizer/block-based-join-algorithms.md#batch-key-access-join)), and
+`mrr_sort_keys=on`. In that case key sorting is switched on and rowid sorting is explicitly left
+off; for a range scan on the clustered primary key, DS-MRR is not used at all, since the index scan
+already returns rows in physical order.
 
 ## Buffer Space Management
 
