@@ -1884,11 +1884,11 @@ MaxScale will eventually wait less time than the others. Conflict probability
 can be further decreased by configuring each monitor with a different
 `monitor_interval`.
 
-The flowchart below illustrates the lock handling logic.
+The diagram below illustrates the lock handling logic.
 
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
-flowchart TD
+stateDiagram-v2
     accTitle: MaxScale cooperative monitoring — acquiring the primary lock majority
     accDescr {
         The MariaDB Monitor's cooperative-locking decision on each monitor tick. The monitor
@@ -1899,33 +1899,39 @@ flowchart TD
         rechecks whether it got a majority: if yes, it continues as the primary MaxScale; if no,
         it releases all acquired locks and continues as a secondary MaxScale.
     }
-    Start(["Monitor tick start"])
-    Check["Check lock status on all servers"]
-    Have{"Have majority?"}
-    CanGet{"Can get majority?"}
-    AcqRemaining["Acquire any remaining free locks"]
-    AcqAll["Acquire all free locks"]
-    Got{"Got majority?"}
-    Release["Release all acquired locks"]
-    Primary(["Continue as primary MaxScale"])
-    Secondary(["Continue as secondary MaxScale"])
-    Start --> Check --> Have
-    Have -->|Yes| AcqRemaining --> Primary
-    Have -->|No| CanGet
-    CanGet -->|Yes| AcqAll --> Got
-    CanGet -->|No| Secondary
-    Got -->|Yes| Primary
-    Got -->|No| Release --> Secondary
+    [*] --> Secondary
+    Secondary --> UpdateSec
+    UpdateSec --> CheckLocks
+    Primary --> UpdatePrim
+    UpdatePrim --> CheckLocks
+
+    CheckLocks --> GetRemaining: have majority
+    CheckLocks --> CanGetMajority: majority available
+    CheckLocks --> Secondary: majority unavailable
+
+    GetRemaining --> Primary
+    CanGetMajority --> Primary: got majority
+    CanGetMajority --> Release: failed to get majority
+    Release --> Secondary
+
+    Primary: Primary monitor
+    Secondary: Secondary monitor
+    UpdatePrim: Update all servers
+    UpdateSec: Update all servers
+    CheckLocks: Check lock status
+    GetRemaining: Acquire remaining locks
+    CanGetMajority: Acquire free locks
+    Release: Release acquired locks
+
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef decision fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
-    classDef terminal fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
-    class Check,AcqRemaining,AcqAll,Release proc
-    class Have,CanGet,Got decision
-    class Start,Primary,Secondary terminal
-    linkStyle default color:#111111
-```
 
-_MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds (or can acquire) a majority of server locks becomes primary; otherwise it releases any locks and continues as secondary._
+    class Primary,Secondary,UpdatePrim,UpdateSec,GetRemaining,Release proc
+    class CheckLocks,CanGetMajority decision
+```
+_MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds
+(or manages to acquire) a majority of server locks becomes primary; otherwise
+it releases any held locks and continues as secondary._
 
 ### Majority of running
 
