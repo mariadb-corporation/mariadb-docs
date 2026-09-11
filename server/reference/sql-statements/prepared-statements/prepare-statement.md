@@ -20,7 +20,7 @@ The scope of a prepared statement is the session within which it is created. Oth
 
 If a prepared statement with the given name already exists, it is deallocated implicitly before the new statement is prepared. This means that if the new statement contains an error and cannot be prepared, an error is returned and no statement with the given name exists.
 
-Prepared statements can be `PREPARE` and [EXECUTE](execute-statement.md) in a stored procedure, but not in a stored function or trigger. Also, even if the statement is prepared with `PREPARE` in a procedure, it will not be deallocated when the procedure execution ends.
+Prepared statements can be `PREPARE` and [EXECUTE](execute-statement.md) in a stored procedure, but never in a trigger. In a stored function they are not permitted at all before MariaDB 13.2.1, and from MariaDB 13.2.1 only in the restricted context described in [Dynamic SQL in Stored Functions](#dynamic-sql-in-stored-functions). Also, even if the statement is prepared with `PREPARE` in a procedure, it will not be deallocated when the procedure execution ends.
 
 A prepared statement can access [user-defined variables](../../sql-structure/sql-language-structure/user-defined-variables.md), but not [local variables](../programmatic-compound-statements/declare-variable.md) or procedure's parameters.
 
@@ -68,7 +68,7 @@ PREPARE LOCAL spvar FROM preparable_stmt;
 
 Here `spvar` is a local variable (or routine parameter) whose string value is used as the prepared statement name — useful when the name must be computed at runtime. `LOCAL` does not create a separate namespace: a statement prepared with `PREPARE LOCAL` can be executed or deallocated by its resolved name with a plain [EXECUTE](execute-statement.md) or [DEALLOCATE PREPARE](deallocate-drop-prepare.md), and the reverse also works.
 
-`PREPARE LOCAL` is only valid inside a stored procedure, and like the plain form is not permitted in stored functions or triggers.
+`PREPARE LOCAL` is only valid inside a stored procedure. Like the plain form, it is never permitted in a trigger, and in a stored function it is subject to the same restrictions as `PREPARE` — see [Dynamic SQL in Stored Functions](#dynamic-sql-in-stored-functions).
 
 **Example:**
 
@@ -82,6 +82,56 @@ BEGIN
   DEALLOCATE PREPARE my_stmt;
 END;
 ```
+
+### Dynamic SQL in Stored Functions
+
+{% hint style="info" %}
+Dynamic SQL in stored functions is available from MariaDB 13.2.1.
+{% endhint %}
+
+The dynamic SQL statements — `PREPARE`, [EXECUTE](execute-statement.md), [DEALLOCATE PREPARE](deallocate-drop-prepare.md) and [EXECUTE IMMEDIATE](execute-immediate.md) — have always been rejected inside a [stored function](../../../server-usage/stored-routines/stored-functions/) or a [trigger](../../../server-usage/triggers-events/triggers/). Before MariaDB 13.2.1 the rejection happened in the parser, so the [CREATE FUNCTION](../data-definition/create/create-function.md) itself failed.
+
+From MariaDB 13.2.1 the parser accepts dynamic SQL in a function body, and the restriction is applied when the function is called instead. Triggers are unchanged: dynamic SQL in a trigger body is still rejected at [CREATE TRIGGER](../../../server-usage/triggers-events/triggers/create-trigger.md) time.
+
+#### Where a Function Containing Dynamic SQL May Be Called
+
+The function call must be the entire right-hand side of an assignment to a stored routine variable. Three forms qualify:
+
+```sql
+DECLARE v INT DEFAULT f1();   -- DEFAULT clause of a variable declaration
+SET v= f1();                  -- assignment to a local variable or routine parameter
+SET rowvar= f1();             -- assignment to a ROW variable, or to one of its fields
+```
+
+Anywhere else, the call fails with `ER_STMT_NOT_ALLOWED_IN_SF_OR_TRG`:
+
+```sql
+CREATE TABLE t1 (a INT);
+DELIMITER $$
+CREATE FUNCTION f1() RETURNS INT
+BEGIN
+  PREPARE stmt FROM 'INSERT INTO t1 VALUES (10)';
+  RETURN 0;
+END;
+$$
+DELIMITER ;
+
+SELECT f1();
+ERROR 1336 (0A000): Dynamic SQL is not allowed in stored function or trigger
+```
+
+The rejected contexts include the select list, a `WHERE` clause, `SELECT ... INTO` (whether the target is a user variable or a routine variable), an assignment to a user variable or a system variable, an argument of a [CALL](../stored-routine-statements/call.md), an `IF` or `WHILE` condition, and a `RETURN` expression.
+
+Only a bare function call is recognized. Using the function inside a larger expression, as in `SET v= f1()+0`, is not an assignment right-hand side and is rejected.
+
+#### Further Restrictions
+
+* Statements that cause an explicit or implicit commit are still not permitted, even in an assignment right-hand side. Running DDL, `COMMIT`, `ROLLBACK`, `START TRANSACTION` or `LOCK TABLES` through dynamic SQL fails with `ER_COMMIT_NOT_ALLOWED_IN_SF_OR_TRG`.
+* A function may still not return a result set. `EXECUTE IMMEDIATE 'CALL p1()'` where `p1()` selects rows fails with `ER_SP_NO_RETSET`.
+* A function containing dynamic SQL is not pre-locked by its caller: it opens and locks its own tables, in the manner of a stored procedure. As a consequence, a statement that has tables of its own cannot call such a function at all — `SELECT * FROM t1 WHERE a= f1()` is rejected even when `f1()` touches a different table. The check applies to the statement rather than the individual function, so a second function called alongside a dynamic one is rejected with it.
+* No metadata lock is taken on the routine itself, so a concurrent [DROP FUNCTION](../../../server-usage/stored-routines/stored-functions/drop-function.md) can complete while the function is executing.
+* Such a function is not written to the [binary log](../../../server-management/server-monitoring-logs/binary-log/) as a single `SELECT f1()` call. Its statements are logged individually, as a stored procedure's are.
+* A prepared statement created inside a function belongs to the session, not to the function. It survives the return, and a `DEALLOCATE PREPARE` inside a function deallocates the session's statement.
 
 ## Permitted Statements
 
