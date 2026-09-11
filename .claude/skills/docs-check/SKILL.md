@@ -78,23 +78,26 @@ on the file set, from the repo root:
   the failure to the PR.** Unlike every other check here it is *history-aware*: it reports only
   anchors that resolved at `DOC_LINT_BASE` (default `HEAD`) and are dead now, so the ~1,272
   pre-existing dead anchors in the repo cannot fail unrelated work. **In CI that base is
-  `github.event.pull_request.base.sha` — the commit the PR was cut from, which does *not* advance
-  as `main` does — while the tree being scanned is the PR merged into current `main`.** A branch
-  cut before a large `main` change therefore has that change inside its compared range and fails
-  on findings it did not cause: DOCS-6539, a one-sentence wording fix to a single Galera page,
-  drew all 344 dead anchors from `main`'s generated Plugin API sync (DOCS-6621). **The fix is to
-  rebase onto current `main`** — the findings become pre-existing at the base and drop out. So
-  before touching a single anchor, check whose commits the findings actually belong to;
-  `git diff --name-only <base>..HEAD` against the reported paths settles it in one command. It
-  scans the whole tree rather than the changed files, because renaming a heading breaks inbound
-  links from pages the commit never touched — expect the findings to name files the user did not
-  edit, and treat that as the point, not a bug. **Never "fix" an anchor by deleting a dot or a
-  dash to match what lychee wants**: `lychee --include-fragments` uses a GitHub-flavoured slugger
-  that disagrees with GitBook and is wrong in both directions (386 false positives and 213 misses
-  on `main`), which is why this check exists at all. Check a doubtful anchor against the rendered
-  page, or with `.claude/hooks/fragcheck.py validate <file>`. Needs python3 and a git work tree;
-  missing either is a SKIP. Costs ~14s, so `DOC_LINT_SKIP_FRAGMENTS=1` skips it while iterating.
-  Added in DOCS-6491.
+  `github.event.pull_request.base.sha` — a lagging snapshot of `main`, recorded at a PR event and
+  not refreshed as `main` advances — while the tree being scanned is the PR merged into current
+  `main`.** It is not the branch point, and it lags harder than that sounds: DOCS-6539's failing
+  run diffed against a `main` tip 47 commits and two days old, three hours after the commit that
+  introduced the findings had landed. A PR whose recorded base predates a large `main` change
+  therefore has that change inside its compared range and fails on findings it did not cause —
+  DOCS-6539, a one-sentence wording fix to a single Galera page, drew all 344 dead anchors from
+  `main`'s generated Plugin API sync (DOCS-6621). **The fix is to rebase onto current `main`** —
+  the findings become pre-existing at the base and drop out. So before touching a single anchor,
+  check whose commits the findings actually belong to; `git diff --name-only <base>..HEAD` against
+  the reported paths settles it in one command. It scans the whole tree rather than the changed
+  files, because renaming a heading breaks inbound links from pages the commit never touched —
+  expect the findings to name files the user did not edit, and treat that as the point, not a bug.
+  **Never "fix" an anchor by deleting a dot or a dash to match what lychee wants**:
+  `lychee --include-fragments` uses a GitHub-flavoured slugger that disagrees with GitBook and is
+  wrong in both directions (386 false positives and 213 misses on `main`), which is why this check
+  exists at all. Check a doubtful anchor against the rendered page, or with
+  `.claude/hooks/fragcheck.py validate <file>`. Needs python3 and a git work tree; missing either
+  is a SKIP. Costs ~14s, so `DOC_LINT_SKIP_FRAGMENTS=1` skips it while iterating. Added in
+  DOCS-6491.
 - **GitBook anchors `##`, `###` and `####` only.** A `#####` heading renders as a bold paragraph
   with no `id`, so it cannot be linked to. When repairing a dead anchor, add the missing heading
   at `####` or shallower: promoting a bold pseudo-heading to `#####` looks like a fix, drops the
