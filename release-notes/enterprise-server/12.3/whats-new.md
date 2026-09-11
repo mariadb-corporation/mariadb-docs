@@ -9,7 +9,7 @@ hidden: true
 
 {% include "../../.gitbook/includes/unreleased-es-12.3.md" %}
 
-MariaDB Enterprise Server 12.3 is the next long-term release series, succeeding [MariaDB Enterprise Server 11.8](../11.8/whats-new.md). It brings the innovations of MariaDB Community Server 12.0 through 12.3 to Enterprise Server, and adds three capabilities that exist only in Enterprise Server: MariaDB Advanced Cluster, Conflict Detection and Resolution triggers, and password-less authentication using TLS certificates.
+MariaDB Enterprise Server 12.3 is the next long-term release series, succeeding [MariaDB Enterprise Server 11.8](../11.8/whats-new.md). It brings the innovations of MariaDB Community Server 12.0 through 12.3 to Enterprise Server, and adds three capabilities that exist only in Enterprise Server: MariaDB Advanced Cluster, Conflict Detection and Resolution, and password-less authentication using TLS certificates.
 
 Because Enterprise Server backports selected features between release series, a number of MariaDB 12.x features were already delivered in Enterprise Server 11.8 and are not repeated here. See [What's New in MariaDB Enterprise Server 11.8](../11.8/whats-new.md) for those.
 
@@ -45,7 +45,7 @@ Advanced Cluster does not yet cover everything MariaDB Enterprise Cluster (Galer
 
 MariaDB Enterprise Server 12.3 ships Advanced Cluster 0.9.1. For configuration details, the full variable reference, and current limitations, see the [Advanced Cluster documentation](../../advanced-cluster/README.md).
 
-### Conflict Detection and Resolution triggers
+### Conflict Detection and Resolution
 
 When a replica applies row-based replication events, a row may not be in the state the primary expected — because it was changed locally, already deleted, or already inserted by another source. Traditionally the replica had two options: stop the SQL thread, or skip the event and accept divergence.
 
@@ -101,7 +101,7 @@ The plugin is built in by default and accepts any standard client authentication
 
 ## Security
 
-* **Passphrase-protected SSL keys**: a private key protected by a passphrase can now be used, with the passphrase supplied through the [ssl\_passphrase](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_passphrase) system variable
+* **Passphrase-protected TLS keys**: a private key protected by a passphrase can now be used, with the passphrase supplied through the [ssl\_passphrase](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_passphrase) system variable
 * **New** [**SET SESSION AUTHORIZATION**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/set-session-authorization) **statement**: perform work as another user within a session, which is useful for administrative tooling and for reproducing a user's privileges:
 
     ```sql
@@ -162,7 +162,7 @@ The available hints cover:
 
 ## Binary Logging and Replication
 
-* **Storage-engine-integrated binary log**: a more efficient binary log implementation that uses InnoDB internals to write the binary log rather than syncing a separate file, which removes the binary log's own fsync from the commit path. It is selected at startup with the read-only [binlog\_storage\_engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_storage_engine) option and is only available for engines that support it. Related settings are [binlog\_directory](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_directory) and [innodb\_binlog\_state\_interval](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_binlog_state_interval)
+* **InnoDB-based binary log**: binary log events can now be written to InnoDB-managed, page-structured files (`.ibb`) that are integrated with InnoDB's redo log and crash recovery, removing the costly two-phase commit between the binary log and InnoDB. It is selected at startup with the read-only [binlog\_storage\_engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_storage_engine) option and is only available for engines that support it. Related settings are [binlog\_directory](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_directory) and [innodb\_binlog\_state\_interval](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_binlog_state_interval)
 * **Fragmented row events**: row events larger than `max_packet_size` are split rather than failing, controlled by [binlog\_row\_event\_fragment\_threshold](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_row_event_fragment_threshold)
 * **Predictable temporary tables in replication**: [create\_tmp\_table\_binlog\_formats](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#create_tmp_table_binlog_formats) makes the binary logging of temporary table creation and use explicit rather than format-dependent
 * **Configurable replication TLS defaults**: the `MASTER_SSL_*` settings used by `CHANGE MASTER` can be given server defaults, so each replica does not have to repeat them
@@ -240,12 +240,11 @@ MariaDB Enterprise Server 12.3 is not a rebuild of Community Server 12.3. The di
 | Capability | Enterprise Server 12.3 | Community Server 12.3 |
 | ---------- | ---------------------- | --------------------- |
 | MariaDB Advanced Cluster (`raft`) | Available | Not available |
-| Conflict Detection and Resolution triggers | Available | Not available |
+| Conflict Detection and Resolution | Available | Not available |
 | `tls_certificate` authentication plugin | Available | Not available |
 | MariaDB Enterprise Audit (`server_audit2`) | Available | Community audit plugin only |
 | Videx storage engine | Not shipped | Available |
 | Sphinx, OQGraph, Mroonga storage engines | Not shipped | Available |
-| GitHub call-to-action message in the `mariadb` client | Suppressed | Shown |
 
 For the full list of differences, see [MariaDB Enterprise Server Differences](../about/mariadb-enterprise-server-differences/README.md).
 
@@ -263,8 +262,14 @@ Because MariaDB Enterprise Server 12.3 is the first long-term release series aft
 The following keywords are now [reserved words](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/reserved-words) and can no longer be used as [identifiers](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/identifier-names) without being quoted:
 
 * `CONVERSION`
-* `ST_COLLECT`
 * `TO_DATE`
+
+### New Built-in Function Names
+
+The nine new GIS functions (`ST_Validate`, `ST_IsValid`, `ST_Simplify`, `ST_Collect`, `MBRCoveredBy`, `ST_GeoHash`, `ST_LatFromGeoHash`, `ST_LongFromGeoHash`, and `ST_PointFromGeoHash`) are built-ins rather than reserved words, so they remain valid as identifiers. Two consequences are worth checking before an upgrade:
+
+* `ST_COLLECT` is recognized as the built-in aggregate whenever it appears immediately before an opening parenthesis. A stored function named `ST_Collect` can therefore no longer be created or called by an unqualified name, and an existing one stops being reached by unqualified calls. Schema-qualified use still resolves to the stored function, so `mydb.ST_Collect(...)` continues to work
+* For the other eight functions, a stored function of the same name is still created, but the server records `Note 1585: This function 'X' has the same name as a native function`, and an unqualified call resolves to the built-in rather than to the stored function
 
 ### Removed System Variables
 
