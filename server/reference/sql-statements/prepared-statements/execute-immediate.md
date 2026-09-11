@@ -100,7 +100,7 @@ SELECT @a;
 +------+
 ```
 
-Similar to `PREPARE`, `EXECUTE IMMEDIATE` is allowed in stored procedures but is not allowed in stored functions.
+Similar to `PREPARE`, `EXECUTE IMMEDIATE` is allowed in stored procedures, and is never allowed in triggers. In stored functions it is not allowed at all before MariaDB 13.2.1, and from MariaDB 13.2.1 only in the restricted context described in [Dynamic SQL in Stored Functions](prepare-statement.md#dynamic-sql-in-stored-functions).
 
 This example uses `EXECUTE IMMEDIATE` inside a stored procedure:
 
@@ -120,7 +120,7 @@ CALL p1;
 +---+
 ```
 
-This script returns an error:
+Before MariaDB 13.2.1, this script returns an error when the function is created:
 
 ```sql
 DELIMITER $$
@@ -130,6 +130,13 @@ BEGIN
   RETURN 1;
 END;
 $$
+ERROR 1336 (0A000): Dynamic SQL is not allowed in stored function or trigger
+```
+
+From MariaDB 13.2.1 the function is created, and the same error is raised when it is called outside an assignment right-hand side:
+
+```sql
+SELECT f1();
 ERROR 1336 (0A000): Dynamic SQL is not allowed in stored function or trigger
 ```
 
