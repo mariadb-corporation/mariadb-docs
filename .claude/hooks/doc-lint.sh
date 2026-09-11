@@ -238,8 +238,8 @@ if [ "${DOC_LINT_SKIP_FRAGMENTS:-}" = "1" ]; then
 elif [ ! -f .claude/hooks/fragcheck.py ]; then
   echo "doc-lint: .claude/hooks/fragcheck.py not found — anchor check SKIPPED" >&2
 elif ! command -v python3 >/dev/null 2>&1; then
-  echo "doc-lint: python3 not installed — anchor check SKIPPED (no CI counterpart, so nothing" >&2
-  echo "          else will catch a dead heading anchor). Install: brew install python3" >&2
+  echo "doc-lint: python3 not installed — anchor check SKIPPED (fragcheck-pr.yml still gates" >&2
+  echo "          this in CI, so a dead anchor fails the PR instead). Install: brew install python3" >&2
 elif ! command -v git >/dev/null 2>&1 || ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   echo "doc-lint: not a git work tree — anchor check SKIPPED (needs a base revision)" >&2
 elif ! git rev-parse --verify -q "$LINT_BASE" >/dev/null 2>&1; then
