@@ -182,10 +182,14 @@ When the optimizer applies the [Rowid Filtering Optimization](../../../../ha-and
 | type     | `ref\|filter`                | The join type used for the lookup, followed by the literal `filter`.                                         |
 | key      | `i_l_orderkey\|i_l_shipdate` | The key used for the lookup, followed by the key the filter was built from.                                   |
 | key\_len | `4\|4`                       | The key length used from each of those two indexes. Tabular `EXPLAIN` only — `FORMAT=JSON` does not show it.  |
-| rows     | `4 (2%)`                     | The row estimate, followed by the selectivity the optimizer expects from the filter.                          |
+| rows     | `4 (2%)`                     | The row estimate, followed by the selectivity the optimizer expects from the filter. In this case the server expects to find 4 rows in the table and 4\*0.02 = 0.08 rows to be accepted on average. |
 | Extra    | `Using rowid filter`         | Added to the values already listed for the row.                                                              |
 
 The selectivity percentage in the `rows` column is shown only when a rowid filter is actually applied to that table; rows without a filter show the plain row estimate with no percentage.
+
+{% hint style="info" %}
+**Selectivity** is the fraction of a table's rows that a condition is expected to match, expressed here as a percentage. A filter with 2% selectivity is expected to accept 2 rows in every 100 — the lower the percentage, the more selective the filter, and the more work it saves. For a rowid filter the optimizer computes it as the number of rows its index range scan is estimated to match, divided by the total number of rows in the table.
+{% endhint %}
 
 For example, with the `dbt3_s001` dataset, the row for `lineitem` reads:
 
@@ -210,13 +214,13 @@ possible_keys: PRIMARY,i_l_shipdate,i_l_orderkey,i_l_orderkey_quantity
         Extra: Using where; Using rowid filter
 ```
 
-The filter here was built from `i_l_shipdate`, and the optimizer expects it to pass 2% of the rows that the `i_l_orderkey` lookup returns.
+The filter here was built from `i_l_shipdate`; only rows it accepts are read from `lineitem`.
 
 {% hint style="warning" %}
 The percentage is rounded to a whole number, so a highly selective filter can display `(0%)`. This means the optimizer expects the filter to accept fewer than 0.5% of the rows.
 {% endhint %}
 
-The [ANALYZE statement](analyze-statement.md) annotates `r_rows` the same way, but its percentage is the selectivity actually observed during execution rather than the estimate.
+The [ANALYZE statement](analyze-statement.md#rowid-filter-notation) annotates `r_rows` the same way, but its percentage is the selectivity actually observed during execution rather than the estimate.
 
 [EXPLAIN FORMAT=JSON](explain-format-json.md) does not use this notation. It reports the filter as a `rowid_filter` object instead, with the expected selectivity in a `selectivity_pct` member.
 
