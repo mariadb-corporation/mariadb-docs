@@ -1,3 +1,8 @@
+---
+description: >-
+  Plugin API reference: Idle Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+---
+
 {#idleinstrumentation}
 
 # Idle Instrumentation

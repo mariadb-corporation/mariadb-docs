@@ -1,3 +1,8 @@
+---
+description: >-
+  Complete generated Plugin API reference, built from the MariaDB server headers by doxygen and moxygen.
+---
+
 # API Reference
 
 ## Groups

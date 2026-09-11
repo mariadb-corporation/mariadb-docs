@@ -90,6 +90,11 @@ jobs:
           mv "$dest_dir/page-index.md" "$dest_dir/README.md"
           rm -rf ".generated-api-plugin"
 
+      - name: Add frontmatter to the generated pages
+        run: |
+          set -euo pipefail
+          bash .github/scripts/add_frontmatter_to_server_plugin_api.sh
+
       - name: Update Plugin API Documentation section in SUMMARY.md
         run: |
           set -euo pipefail

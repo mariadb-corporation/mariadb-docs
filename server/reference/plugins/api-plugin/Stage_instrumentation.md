@@ -1,3 +1,8 @@
+---
+description: >-
+  Plugin API reference: Stage Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+---
+
 {#stageinstrumentation}
 
 # Stage Instrumentation

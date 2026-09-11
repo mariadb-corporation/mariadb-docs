@@ -1,3 +1,8 @@
+---
+description: >-
+  Plugin API reference: Instrumentation Interface. Generated from the MariaDB server headers by doxygen and moxygen.
+---
+
 {#instrumentationinterface}
 
 # Instrumentation Interface

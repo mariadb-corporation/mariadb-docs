@@ -1,3 +1,8 @@
+---
+description: >-
+  Plugin API reference: Application Binary Interface, version 1. Generated from the MariaDB server headers by doxygen and moxygen.
+---
+
 {#applicationbinaryinterfaceversion1}
 
 # Application Binary Interface, version 1

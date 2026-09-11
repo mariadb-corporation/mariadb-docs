@@ -1,3 +1,8 @@
+---
+description: >-
+  Plugin API reference: Statement Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+---
+
 {#statementinstrumentation}
 
 # Statement Instrumentation
