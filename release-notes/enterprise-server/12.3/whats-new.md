@@ -9,15 +9,15 @@ hidden: true
 
 {% include "../../.gitbook/includes/unreleased-es-12.3.md" %}
 
-MariaDB Enterprise Server 12.3 is the next long-term release series, succeeding [MariaDB Enterprise Server 11.8](../11.8/whats-new.md). It brings the innovations of MariaDB Community Server 12.0 through 12.3 to Enterprise Server, and adds three capabilities that exist only in Enterprise Server: MariaDB Advanced Cluster, Conflict Detection and Resolution, and password-less authentication using TLS certificates.
+MariaDB Enterprise Server 12.3 is the next long-term release series, succeeding [MariaDB Enterprise Server 11.8](../11.8/whats-new.md). It brings the innovations of MariaDB Community Server 12.0 through 12.3 to Enterprise Server, and adds three capabilities that exist only in Enterprise Server: MariaDB Raft Cluster, Conflict Detection and Resolution, and password-less authentication using TLS certificates.
 
 Because Enterprise Server backports selected features between release series, a number of MariaDB 12.x features were already delivered in Enterprise Server 11.8 and are not repeated here. See [What's New in MariaDB Enterprise Server 11.8](../11.8/whats-new.md) for those.
 
 ## Exclusive to MariaDB Enterprise Server
 
-### MariaDB Advanced Cluster
+### MariaDB Raft Cluster
 
-MariaDB Advanced Cluster is a new clustering option that replaces the Galera replication provider with one built on the Raft consensus protocol, extended with certification. Where MariaDB Enterprise Cluster (Galera) relies on a certification-based provider tuned through `wsrep_provider_options`, Advanced Cluster is delivered as the `raft` plugin and is configured entirely through its own system variables.
+MariaDB Raft Cluster is a new clustering option that replaces the Galera replication provider with one built on the Raft consensus protocol, extended with certification. Where MariaDB Enterprise Cluster (Galera) relies on a certification-based provider tuned through `wsrep_provider_options`, Raft Cluster is delivered as the `raft` plugin and is configured entirely through its own system variables.
 
 Enable it by loading the plugin and selecting it as the replication provider:
 
@@ -28,7 +28,7 @@ wsrep-provider=raft
 
 The listen address is taken from `wsrep_node_address` by default. If that variable does not specify a port, or is autodetected, the `raft_listen_port` variable determines the port instead.
 
-Advanced Cluster adds its own configuration and observability surface:
+Raft Cluster adds its own configuration and observability surface:
 
 * **Node identity and quorum**: each node takes a unique identifier, and election and heartbeat behavior is controlled by a set of timeout variables
 * **Flow control**: the leader throttles requests when nodes drift too far apart in commit position
@@ -37,13 +37,13 @@ Advanced Cluster adds its own configuration and observability surface:
 * **Status variables**: `raft_*` status variables report the current leader, term, log index, and flow-control activity
 * **Information Schema tables**: `RAFT_CERT_FAILURES`, `RAFT_CLUSTER_CONNECTIONS`, `RAFT_TIMERS`, `RAFT_RPC_SENT`, `RAFT_LATENCY_STATS`, `RAFT_SERVER_INSTANCES`, `RAFT_FOLLOWER_INFO`, and `RAFT_STATUS`
 
-Advanced Cluster is built on Linux only. <!-- TODO: confirm which Linux distributions ship the plugin — the raft READMEs and the build configuration disagree (see DOCS-6353) -->
+Raft Cluster is built on Linux only. <!-- TODO: confirm which Linux distributions ship the plugin — the raft READMEs and the build configuration disagree (see DOCS-6353) -->
 
 {% hint style="warning" %}
-Advanced Cluster does not yet cover everything MariaDB Enterprise Cluster (Galera) does. Replication log encryption and the `galera_group_members` Performance Schema table are not implemented.
+Raft Cluster does not yet cover everything MariaDB Enterprise Cluster (Galera) does. Replication log encryption and the `galera_group_members` Performance Schema table are not implemented.
 {% endhint %}
 
-MariaDB Enterprise Server 12.3 ships Advanced Cluster 0.9.1. For configuration details, the full variable reference, and current limitations, see the [Advanced Cluster documentation](../../advanced-cluster/README.md).
+MariaDB Enterprise Server 12.3 ships Raft Cluster 0.9.1. For configuration details, the full variable reference, and current limitations, see the [Raft Cluster documentation](../../advanced-cluster/README.md).
 
 ### Conflict Detection and Resolution
 
@@ -214,7 +214,7 @@ Two capabilities from the MariaDB Community audit plugin are now available in Ma
 
 * **New** [**INFORMATION\_SCHEMA.TRIGGERED\_UPDATE\_COLUMNS**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-triggered_update_columns) **table**: reports which columns a trigger is defined to fire on
 * **New** [**INFORMATION\_SCHEMA.PARAMETERS**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-parameters-table)`.PARAMETER_DEFAULT` **column**: exposes the default value of a stored routine parameter
-* **Advanced Cluster observability**: `raft_*` status variables and the `RAFT_*` Information Schema tables described above
+* **Raft Cluster observability**: `raft_*` status variables and the `RAFT_*` Information Schema tables described above
 
 ## Data Types and SQL
 
@@ -239,7 +239,7 @@ MariaDB Enterprise Server 12.3 is not a rebuild of Community Server 12.3. The di
 
 | Capability | Enterprise Server 12.3 | Community Server 12.3 |
 | ---------- | ---------------------- | --------------------- |
-| MariaDB Advanced Cluster (`raft`) | Available | Not available |
+| MariaDB Raft Cluster (`raft`) | Available | Not available |
 | Conflict Detection and Resolution | Available | Not available |
 | `tls_certificate` authentication plugin | Available | Not available |
 | MariaDB Enterprise Audit (`server_audit2`) | Available | Community audit plugin only |
