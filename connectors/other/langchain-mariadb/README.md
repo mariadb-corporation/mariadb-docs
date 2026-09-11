@@ -7,7 +7,7 @@ icon: link
 
 # LangChain MariaDB
 
-The **langchain-mariadb** package provides seamless integration between [LangChain](https://python.langchain.com/) and MariaDB, enabling advanced AI and machine learning workflows with persistent storage.
+The **langchain-mariadb** package provides seamless integration between [LangChain](https://docs.langchain.com/oss/python/langchain/overview) and MariaDB, enabling advanced AI and machine learning workflows with persistent storage.
 
 ## Features
 
@@ -60,17 +60,15 @@ history.add_ai_message("Hi! How can I help you?")
 
 ## Documentation
 
-For complete documentation, guides, and tutorials, visit the official LangChain documentation:
-- **[LangChain MariaDB Documentation](https://docs.langchain.com/oss/python/integrations/vectorstores/mariadb)**
+LangChain no longer hosts a MariaDB page of its own: its [vector store integrations](https://docs.langchain.com/oss/python/integrations/vectorstores) index links back to this documentation. The maintained references for the package are:
 
-This section contains only the API reference:
 - **[API Reference](api-reference/README.md)** - Complete API documentation
 
 ## Resources
 
 - [GitHub Repository](https://github.com/mariadb-corporation/langchain-mariadb)
 - [PyPI Package](https://pypi.org/project/langchain-mariadb/)
-- [LangChain Documentation](https://python.langchain.com/)
+- [LangChain Documentation](https://docs.langchain.com/oss/python/langchain/overview)
 
 ## Version
 

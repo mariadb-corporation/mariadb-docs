@@ -134,7 +134,7 @@ io:format("Connection closed.~n").
 #### Further Resources:
 
 * [MySQL/OTP GitHub Repository](https://github.com/mysql-otp/mysql-otp)
-* [Erlang/OTP Documentation](https://www.erlang.org/docs)
+* [Erlang/OTP Documentation](https://www.erlang.org/docs.html)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

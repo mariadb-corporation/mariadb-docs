@@ -163,12 +163,12 @@ GRANT PROCESS, BINLOG MONITOR, REPLICA MONITOR, REPLICATION MASTER ADMIN ON *.* 
 {% step %}
 **Setup agent using the command generated in Enterprise Manager UI**
 
-1.  In the UI, click the three dots beside the server you want to install the Agent on.\\
+1.  In the UI, click the three dots beside the server you want to install the Agent on.
 
     <figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 2. The UI will generate a unique setup command for that specific server with the username and password you provide.
 3. Copy and run the command on that specific server.
-4.  Repeat for all servers in the database fleet.\\
+4.  Repeat for all servers in the database fleet.
 
     <figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}

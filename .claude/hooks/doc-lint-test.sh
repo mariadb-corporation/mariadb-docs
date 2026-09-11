@@ -25,10 +25,11 @@
 #   different coreutils.
 #
 # WHAT IT COVERS AND WHAT IT DOES NOT
-#   It exercises the two checks in doc-lint.sh that have no CI counterpart — the GitBook
-#   `{% include %}` resolver (DOCS-6372) and the net line-loss "gutted page" guard (DOCS-6470,
-#   for the DOCS-6442 class) — plus the plumbing every check sits behind: the repo-root config
-#   guard, the argument filter, the env-var knobs, and the tool-missing SKIP branches.
+#   It exercises the GitBook `{% include %}` resolver (DOCS-6372, also gated in CI by
+#   includecheck-pr.yml since DOCS-6586) and the net line-loss "gutted page" guard (DOCS-6470,
+#   for the DOCS-6442 class), which still has no CI counterpart — plus the plumbing every check
+#   sits behind: the repo-root config guard, the argument filter, the env-var knobs, and the
+#   tool-missing SKIP branches.
 #
 #   codespell and lychee are gated separately by codespell.yml and link-check-pr.yml, so their
 #   flag sets are not what this suite guards. What it does guard is that doc-lint REACHES them:

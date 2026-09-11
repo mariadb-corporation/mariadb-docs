@@ -181,6 +181,12 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: `0`
 
+#### `gcache.keep_plaintext_size`
+
+* Description: A soft cap on how much decrypted (plaintext) GCache data is kept in RAM at once. It only has an effect when GCache encryption is enabled; with encryption disabled it is inert.
+* Dynamic: Yes
+* Default: The value of [gcache.page\_size](wsrep_provider_options.md#gcache.page_size).
+
 #### `gcache.mem_size`
 
 * Description: Maximum size of size of the malloc() store for setups that have spare RAM.
@@ -249,6 +255,12 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: Empty string
 
+#### `gcs.check_appl_proto`
+
+* Description: Controls the application protocol version check that is performed when a node joins the Primary Component. Setting it to `0` disables the check: a shortfall in the node's application protocol version is silently tolerated and the node joins anyway.
+* Dynamic: Yes
+* Default: `1`
+
 #### `gcs.fc_debug`
 
 * Description: If set to a value greater than zero (the default), debug statistics about SST flow control will be posted each timegcs.fc\_master\_slave after the specified number of writesets.
@@ -306,11 +318,27 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: `0.25`
 
+#### `gcs.stateless`
+
+* Description: Marks the node as stateless — an arbitrator-like member that participates in group communication but has no database. The [Galera Arbitrator (`garbd`)](../../galera-management/configuration/galera-arbitrator-daemon-garbd.md) runs with this configuration.
+* Dynamic: No
+* Default: `false`
+
 #### `gcs.sync_donor`
 
 * Description: Whether or not the rest of the cluster should stay in sync with the donor. If set to `YES` (`NO` is default), if the donor is blocked by state transfer, the whole cluster is also blocked.
 * Dynamic: No
 * Default: `no`
+
+#### `gcs.vote_policy`
+
+* Description: The rule used in Galera's inconsistency voting protocol. When a node fails to apply a writeset, it initiates a vote on that seqno, and every member casts a vote: `0` for success, or a 64-bit hash of the error message. This option decides which outcome wins the vote:
+  * `0`: Simple majority wins. The outcome with the most votes is chosen.
+  * `N` greater than `0`: Success threshold. If at least `N` nodes voted success, success wins, even if those nodes are in the minority of the voting nodes.
+  * `1`: The "zero wins" case of the threshold rule. A single successful node makes success the winner, and every node that failed to apply the writeset is inconsistent and leaves the cluster.
+* The voting policy must be decided before the cluster starts and cannot be changed at runtime.
+* Dynamic: No
+* Default: `0`
 
 #### `gmcast.isolate`
 
@@ -338,11 +366,26 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: None
 
+#### `gmcast.mcast_port`
+
+* Description: The UDP port used by GMCast's optional IP multicast transport. It is only consulted when multicast is enabled by setting [gmcast.mcast\_addr](wsrep_provider_options.md#gmcast.mcast_addr). Multicast is disabled by default, since that option is empty. When it is not set, the multicast group uses the GMCast listen port. Set it only when the multicast group has to use a port other than `4567`.
+* Dynamic: No
+* Default: None. The GMCast listen port, `4567` by default, is used.
+
 #### `gmcast.mcast_ttl`
 
 * Description: Multicast packet TTL (time to live) value.
 * Dynamic: No
 * Default: `1`
+
+#### `gmcast.peer_addr`
+
+* Description: Makes GMCast add or forget a peer address immediately. The value must be prefixed with either `add:` or `del:`:
+  * `add:` injects an address: `SET GLOBAL wsrep_provider_options = 'gmcast.peer_addr=add:tcp://10.0.0.5:4567';`
+  * `del:` forgets an address: `SET GLOBAL wsrep_provider_options = 'gmcast.peer_addr=del:tcp://10.0.0.5:4567';`
+  * A value carrying neither prefix throws `EINVAL: invalid addr spec`.
+* Dynamic: Yes
+* Default: None
 
 #### `gmcast.peer_timeout`
 

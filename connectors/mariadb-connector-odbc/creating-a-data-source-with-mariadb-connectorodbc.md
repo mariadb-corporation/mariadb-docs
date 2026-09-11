@@ -24,7 +24,7 @@ This page discusses how to create a data source with MariaDB Connector/ODBC.
 
 ## Creating a Data Source with MariaDB Connector/ODBC on Windows
 
-To create a data source on Windows, you would use the [ODBC Data Source Administrator](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator?view=sql-server-2017).
+To create a data source on Windows, you would use the [ODBC Data Source Administrator](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator?view=sql-server-2017).
 
 {% hint style="success" %}
 If you are using the 64-bit version of MariaDB Connector/ODBC, then make sure you use the 64-bit version of ODBC Data Source Administrator. Similarly, if you are using the 32-bit version of MariaDB Connector/ODBC, then make sure you use the 32-bit version of ODBC Data Source Administrator.

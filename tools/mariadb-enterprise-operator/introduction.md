@@ -67,14 +67,14 @@ Operational expertise is baked into the `MariaDB` and `MaxScale` APIs and seamle
 ## MariaDB Enterprise Kubernetes Operator Features
 
 * Provision and Configure MariaDB and MaxScale Declaratively: Define MariaDB Enterprise Server and MaxScale clusters in YAML manifests and deploy them with ease in Kubernetes.
-* Multiple [Highly Available](https://mariadb.com/docs/tools/mariadb-enterprise-operator/topologies/high-availability) Topologies supported:
-  * [Asynchronous Replication](https://mariadb.com/docs/tools/mariadb-enterprise-operator/topologies/high-availability/replication)
-  * [Synchronous Multi-Master with Galera](https://mariadb.com/docs/tools/mariadb-enterprise-operator/topologies/high-availability/galera)
-  * [MaxScale](https://mariadb.com/docs/tools/mariadb-enterprise-operator/topologies/maxscale) as a Database proxy to load balance requests and perform failover/switchover operations.
+* Multiple [Highly Available](topologies/high-availability.md) Topologies supported:
+  * [Asynchronous Replication](topologies/replication.md)
+  * [Synchronous Multi-Master with Galera](topologies/galera.md)
+  * [MaxScale](topologies/maxscale.md) as a Database proxy to load balance requests and perform failover/switchover operations.
 * Cluster-Aware Rolling Updates: Perform rolling updates on MariaDB and MaxScale clusters, ensuring zero-downtime upgrades with no disruptions to your applications.
 * Flexible Storage Configuration and Volume Expansion: Easily configure storage for MariaDB instances, including the ability to expand volumes as needed.
-* Physical Backups based on [mariadb-backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) and [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/). By leveraging the [BACKUP STAGE](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage) feature, backups are taken without long read locks or service interruptions.
-* Logical Backups based on [mariadb-dump](https://mariadb.com/docs/server/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump).
+* Physical Backups based on [mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) and [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/). By leveraging the [BACKUP STAGE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage) feature, backups are taken without long read locks or service interruptions.
+* Logical Backups based on [mariadb-dump](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump).
 * Backup Management: Take, restore, and schedule backups with multiple storage types supported: S3, Azure Blob Storage, PVCs, Kubernetes volumes and VolumeSnapshots..
 * Policy-Driven Backup Retention: Implement backup retention policies with bzip2 and gzip compression.
 * Bootstrap New Instances: Initialize new MariaDB instances from backups, S3, Azure Blob Storage, PVCs or VolumeSnapshots to quickly spin up new clusters.

@@ -23,7 +23,7 @@ MariaDB Connector/Node.js is a native JavaScript driver.
 
 ### Obtaining the Driver
 
-The required files can be downloaded from: [connector](https://mariadb.com/downloads/connector)
+The required files can be downloaded from: [MariaDB Connector/Node.js downloads](https://mariadb.com/downloads/connectors/connectors-data-access/nodejs-connector/)
 
 The source code is available on GitHub: [mariadb-connector-nodejs](https://github.com/MariaDB/mariadb-connector-nodejs)
 

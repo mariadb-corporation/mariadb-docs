@@ -177,7 +177,7 @@ sudo cp /sw/share/doc/buildbot-py26/contrib/os-x/net.sourceforge.buildbot.slave.
 ```
 
 {% hint style="warning" %}
-You have to start your build slave via `launchd`, otherwise you will run into several problems. For further details, please refer to [Using Launchd](https://buildbot.net/trac/wiki/UsingLaunchd).
+You have to start your build slave via `launchd`, otherwise you will run into several problems. For further details, please refer to [Using Launchd](https://web.archive.org/web/20101206223248/http://buildbot.net/trac/wiki/UsingLaunchd).
 {% endhint %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

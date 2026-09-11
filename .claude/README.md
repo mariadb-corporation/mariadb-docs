@@ -53,10 +53,18 @@ commands. What you *do* set up is the per-user, gitignored pieces below.
 4. **Configure local source repos** (for `/doc-ticket` and `/impact` verification). Clone the
    MariaDB source you work on (e.g. `MariaDB/server`); the **first run** of those commands prompts
    for the path + authoritative ref and saves `.claude/doc-sources.local.json` (gitignored).
+   `/triage-epic` shares this config but does **not** require it — without a clone it still tiers
+   and promotes tickets, only skipping the revert check (it says so in every brief). If you do
+   clone for it, `git clone --filter=blob:none https://github.com/MariaDB/server.git` is plenty —
+   just never `--single-branch`, which drops the `bb-*` and `preview-*` branches it reads.
 5. **Install the local check tools** (for `/precommit`, `docs-check`, and the pre-commit hook):
    `pipx install codespell`, install [`lychee`](https://github.com/lycheeverse/lychee), and ensure
    `jq` is present. If they're missing, the checks just warn — **CI still gates** every PR.
-   Optional: `gh` (GitHub CLI) for PR linking in `/jira-resolve`.
+   Optional: `gh` (GitHub CLI) for PR linking in `/jira-resolve`, and for `/triage-epic`'s
+   supplementary GitHub lookups when you have no local clone. `/triage-epic` additionally needs
+   `curl` and `jq` as hard requirements — it reads the public `jira.mariadb.org` REST API
+   anonymously (no credentials, unrelated to the Atlassian MCP connection) and parses JSON; it
+   preflights both, and the reachability of that host, before sweeping an epic.
 6. **Read, then try.** Skim `CLAUDE.md` (golden rules + skill/command list) and `AGENTS.md` (repo
    map). Smoke-test with `/jira-mine` and `/precommit`.
 

@@ -128,7 +128,7 @@ _The bigger picture: JupyterLab talks to the Notebook Server, where the MariaDB 
 
 #### MariaDBKernel
 
-This class inherits from the [ipykernel.kernelbase.Kernel](https://github.com/ipython/ipykernel/blob/master/ipykernel/kernelbase.py) type which implements the [Jupyter client protocol](https://jupyter-client.readthedocs.io/en/stable/messaging.html) and all the machinery that makes things move in the big picture.
+This class inherits from the [ipykernel.kernelbase.Kernel](https://github.com/ipython/ipykernel/blob/main/ipykernel/kernelbase.py) type which implements the [Jupyter client protocol](https://jupyter-client.readthedocs.io/en/stable/messaging.html) and all the machinery that makes things move in the big picture.
 
 #### ClientConfig
 
