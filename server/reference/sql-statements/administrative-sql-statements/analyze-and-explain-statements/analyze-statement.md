@@ -112,6 +112,33 @@ WHERE
 
 The output of **orders.r\_rows=NULL** and **orders.r\_filtered=NULL** shows that the table `orders` was never scanned. Indeed, we can also see customer.r\_filtered=0.00. This shows that a part of WHERE attached to table `customer` was never satisfied (or, satisfied in less than 0.01% of cases).
 
+### Rowid Filter Notation
+
+Added in MariaDB 10.4.3 ([MDEV-16188](https://jira.mariadb.org/browse/MDEV-16188)).
+
+When the [Rowid Filtering Optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization.md) applies to a table, `r_rows` takes the same `<r_rows> (<N>%)` form that [EXPLAIN](explain.md#rowid-filter-notation) uses for `rows` — but both halves are observations rather than estimates. `r_rows` counts the rows actually read from the table, which with a filter in place means the rows the filter accepted, and `(<N>%)` is the selectivity the filter actually achieved. The `type`, `key` and `key_len` columns use the same composite notation as in `EXPLAIN`.
+
+For the query used on the [EXPLAIN](explain.md#rowid-filter-notation) page, `ANALYZE` reports:
+
+```
+*************************** 2. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: lineitem
+         type: ref|filter
+possible_keys: PRIMARY,i_l_shipdate,i_l_orderkey,i_l_orderkey_quantity
+          key: i_l_orderkey|i_l_shipdate
+      key_len: 4|4
+          ref: dbt3_s001.orders.o_orderkey
+         rows: 4 (2%)
+       r_rows: 0.15 (2%)
+     filtered: 1.63
+   r_filtered: 100.00
+        Extra: Using where; Using rowid filter
+```
+
+The optimizer expected 4 rows per lookup and a 2% filter, so 4\*0.02 = 0.08 rows to be accepted on average. Execution actually read 0.15 rows per lookup — the filter let through roughly twice what was expected — although the observed selectivity still rounds to the same 2%.
+
 ## ANALYZE FORMAT=JSON
 
 [ANALYZE FORMAT=JSON](analyze-format-json.md) produces JSON output. It produces much more information than tabular `ANALYZE`.
