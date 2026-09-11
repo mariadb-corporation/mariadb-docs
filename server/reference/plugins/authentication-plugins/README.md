@@ -117,6 +117,18 @@ The SHA-256 authentication plugin uses the SHA-256 hashing algorithm for passwor
 
 {% columns %}
 {% column %}
+{% content-ref url="authentication-plugin-tls-certificate.md" %}
+[authentication-plugin-tls-certificate.md](authentication-plugin-tls-certificate.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Password-less authentication from a TLS client certificate, matched against the account's REQUIRE SUBJECT clause. MariaDB Enterprise Server only.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="authentication-plugin-unix-socket.md" %}
 [authentication-plugin-unix-socket.md](authentication-plugin-unix-socket.md)
 {% endcontent-ref %}
