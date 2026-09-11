@@ -266,10 +266,10 @@ The following keywords are now [reserved words](https://app.gitbook.com/o/diTpXx
 
 ### New Built-in Function Names
 
-The nine new GIS functions (`ST_Validate`, `ST_IsValid`, `ST_Simplify`, `ST_Collect`, `MBRCoveredBy`, `ST_GeoHash`, `ST_LatFromGeoHash`, `ST_LongFromGeoHash`, and `ST_PointFromGeoHash`) are built-ins rather than reserved words, so they remain valid as identifiers. Two consequences are worth checking before an upgrade:
+The nine new GIS functions (`ST_Validate`, `ST_IsValid`, `ST_Simplify`, `ST_Collect`, `MBRCoveredBy`, `ST_GeoHash`, `ST_LatFromGeoHash`, `ST_LongFromGeoHash`, and `ST_PointFromGeoHash`) are built-ins rather than reserved words, so all nine remain valid as identifiers. What changes for an existing stored function of the same name is not the same for all of them:
 
-* `ST_COLLECT` is recognized as the built-in aggregate whenever it appears immediately before an opening parenthesis. A stored function named `ST_Collect` can therefore no longer be created or called by an unqualified name, and an existing one stops being reached by unqualified calls. Schema-qualified use still resolves to the stored function, so `mydb.ST_Collect(...)` continues to work
-* For the other eight functions, a stored function of the same name is still created, but the server records `Note 1585: This function 'X' has the same name as a native function`, and an unqualified call resolves to the built-in rather than to the stored function
+* **Only `ST_COLLECT`.** As an aggregate function it has its own parser token, so the server reads it as the built-in aggregate whenever the name appears immediately before an opening parenthesis. A stored function named `ST_Collect` can therefore no longer be created or called by an unqualified name, and an existing one stops being reached by unqualified calls. A schema-qualified call still resolves to the stored function, so `mydb.ST_Collect(...)` continues to work
+* **The other eight.** These are ordinary native functions with no parser token, so the parenthesis rule does not apply to them. A stored function of the same name is still created, but the server records `Note 1585: This function 'X' has the same name as a native function`, and an unqualified call resolves to the built-in rather than to the stored function
 
 ### Removed System Variables
 
