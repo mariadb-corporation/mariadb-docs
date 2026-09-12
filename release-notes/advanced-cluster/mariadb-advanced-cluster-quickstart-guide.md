@@ -59,7 +59,7 @@ Advanced Cluster needs no installation procedure or package repository of its ow
 {% step %}
 #### Install MariaDB Enterprise Server
 
-Follow [Installing Enterprise Server]({server}/architecture/topologies/single-node-topologies/enterprise-server#installation) for your operating system: YUM on RHEL, CentOS, and Rocky; APT on Debian and Ubuntu; ZYpp on SLES.
+Follow [Installing Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server#installation) for your operating system: YUM on RHEL, CentOS, and Rocky; APT on Debian and Ubuntu; ZYpp on SLES.
 {% endstep %}
 
 {% step %}
