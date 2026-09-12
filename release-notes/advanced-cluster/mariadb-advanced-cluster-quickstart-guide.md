@@ -1,3 +1,10 @@
+---
+description: >-
+  A step-by-step guide to deploying MariaDB Advanced Cluster, covering
+  installation, firewall and Raft configuration, cluster bootstrapping, and
+  verifying replication across nodes
+---
+
 # MariaDB Advanced Cluster Quickstart Guide
 
 MariaDB Advanced Cluster (built on Raft) provides a highly available, strongly consistent, and fault-tolerant solution for database deployment. It utilizes the **Raft consensus protocol** to ensure that data is safely and synchronously replicated across all nodes, guaranteeing no lost transactions and providing a single, authoritative source of data through a **single active Leader** architecture.
@@ -44,59 +51,45 @@ Before setting up your MariaDB Advanced Cluster, ensure the following prerequisi
 
 Install MariaDB Enterprise Server and the associated Raft consensus provider on all nodes of your cluster.
 
-{% hint style="info" %}
-For the Beta, MariaDB Advanced Cluster can also be installed through a package manager (`dnf` on RHEL, `apt` on Debian and Ubuntu) from the MariaDB Enterprise repositories, as an alternative to the tar-archive method shown below.
+<a id="download-the-advanced-cluster-technical-preview-tar-archive"></a>
 
-_Draft: the exact repository configuration and package names for the package-manager install path are still to be confirmed before publishing._
-{% endhint %}
+Advanced Cluster needs no installation procedure or package repository of its own. The Raft server ships as a separate `mariadb-raft` package in the same MariaDB Enterprise repository as Enterprise Server, so installing it means following the standard Enterprise Server instructions and adding one package.
 
 {% stepper %}
 {% step %}
-<a id="download-the-advanced-cluster-technical-preview-tar-archive"></a>
+#### Install MariaDB Enterprise Server
 
-#### Download the Advanced Cluster tar archive
-
-[https://mariadb.com/downloads/enterprise/advanced-cluster/](https://mariadb.com/downloads/enterprise/advanced-cluster/)
-
-Download the correct version for your Linux Distribution
+Follow [Installing Enterprise Server]({server}/architecture/topologies/single-node-topologies/enterprise-server#installation) for your operating system: YUM on RHEL, CentOS, and Rocky; APT on Debian and Ubuntu; ZYpp on SLES.
 {% endstep %}
 
 {% step %}
-#### Install Advanced Cluster
+#### Add the Raft package
+
+Include `mariadb-raft` in the install command alongside the Enterprise Server packages:
 
 {% tabs %}
-{% tab title="RHEL 9 & 10" %}
+{% tab title="RHEL, CentOS & Rocky" %}
 ```bash
-tar -xvf mariadb-advanced-cluster*.tar
-cd mariadb-advanced-cluster*/
-sudo dnf install ./MariaDB-common* ./MariaDB-client* ./MariaDB-shared*
-sudo dnf install ./MariaDB-server* ./galera-enterprise-4* ./mariadb-raft*
+sudo yum install MariaDB-server MariaDB-backup galera-enterprise-4 mariadb-raft
 ```
-
-{% hint style="info" %}
-The `galera-enterprise-4` package needs to be installed because of a dependency in the `MariaDB-server` package.
-{% endhint %}
-
-There are other packages included in the package tarball that you can optionally install, such as `MariaDB-backup`.
 {% endtab %}
 
 {% tab title="Debian & Ubuntu" %}
 ```bash
-tar -xvf mariadb-advanced-cluster*.tar
-cd mariadb-advanced-cluster*/
-sudo apt install ./mariadb-common_* ./mariadb-client* ./libmysqlclient18_* ./libmariadb3* ./libmariadbclient18_*
-sudo apt install ./mariadb-server* ./galera-enterprise-4_* ./mariadb-raft_*
+sudo apt install mariadb-server mariadb-backup galera-enterprise-4 mariadb-raft
 ```
-
-{% hint style="info" %}
-The `galera-enterprise-4` package needs to be installed because of a dependency in the `mariadb-server` package.
-{% endhint %}
-
-There are other packages included in the package tarball that you can optionally install, such as `mariadb-backup`.
 {% endtab %}
 {% endtabs %}
+
+{% hint style="info" %}
+The `galera-enterprise-4` package is required because of a dependency in the MariaDB Enterprise Server package.
+{% endhint %}
 {% endstep %}
 {% endstepper %}
+
+{% hint style="info" %}
+If you install from a tar archive downloaded from the MariaDB download page rather than from a package repository, the Raft packages are bundled in the MariaDB Enterprise RPM/DEB tar file. Extract the archive and install the Raft package from it alongside the server packages.
+{% endhint %}
 
 ## Firewall Configuration (on Each Node)
 
@@ -339,12 +332,64 @@ SSL is enabled by default for all Raft cluster connections. If the certificate i
 
 ### Raft Information Schema Tables
 
-| Raft Information Schema Table | Description                                                              |
-| ----------------------------- | ------------------------------------------------------------------------ |
-| `RAFT_CERT_FAILURES`          | Displays meta data from limited set of write set certification failures. |
-| `RAFT_CLUSTER_CONNECTIONS`    | Displays connections between cluster nodes and processes.                |
-| `RAFT_TIMERS`                 | Displays active timers on the node.                                      |
-| `RAFT_RPC_SENT`               | Displays counts of sent RPC messages by type.                            |
+| Raft Information Schema Table | Description                                                                    |
+| ----------------------------- | ------------------------------------------------------------------------------ |
+| `RAFT_CERT_FAILURES`          | Displays meta data from limited set of write set certification failures.       |
+| `RAFT_CLUSTER_CONNECTIONS`    | Displays connections between cluster nodes and processes.                      |
+| `RAFT_TIMERS`                 | Displays active timers on the node.                                            |
+| `RAFT_RPC_SENT`               | Displays counts of sent RPC messages by type.                                  |
+| `RAFT_STATUS`                 | Displays the Raft server and plugin status as JSON documents.                  |
+| `RAFT_LATENCY_STATS`          | Displays latency percentiles for internal operations on the write-commit path. |
+
+#### RAFT_STATUS
+
+The `INFORMATION_SCHEMA.RAFT_STATUS` table exposes the Raft server's internal status as two JSON documents — one from the server process, one from the plugin — for diagnostics and monitoring tools that need structured detail beyond the dedicated `RAFT_*` status variables and tables.
+
+| Column               | Type     | Description                                                                                                                                                                             |
+| -------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SERVER_STATUS_JSON` | LONGTEXT | JSON document describing the Raft server process's current status, including active network connections (peer endpoints and the local Unix socket used for plugin↔server communication) |
+| `PLUGIN_STATUS_JSON` | LONGTEXT | JSON document describing the plugin's status                                                                                                                                            |
+
+The table always has exactly one row.
+
+```sql
+SELECT JSON_PRETTY(SERVER_STATUS_JSON) FROM information_schema.RAFT_STATUS;
+```
+
+Example `SERVER_STATUS_JSON` content (abbreviated):
+
+```
+{"connections":[{"id":"0x...","local_endpoint":"127.0.0.1:51210","remote_endpoint":"127.0.0.1:46645"}, ...]}
+```
+
+#### RAFT_LATENCY_STATS
+
+The `INFORMATION_SCHEMA.RAFT_LATENCY_STATS` table reports latency percentiles for internal operations on the write-commit path, one row per operation.
+
+| Column    | Type            | Description                                |
+| --------- | --------------- | ------------------------------------------ |
+| `NAME`    | VARCHAR(64)     | The operation being measured               |
+| `P50_US`  | BIGINT UNSIGNED | 50th-percentile latency, in microseconds   |
+| `P99_US`  | BIGINT UNSIGNED | 99th-percentile latency, in microseconds   |
+| `P999_US` | BIGINT UNSIGNED | 99.9th-percentile latency, in microseconds |
+| `MAX_US`  | BIGINT UNSIGNED | Maximum observed latency, in microseconds  |
+
+Operations observed on a live node include `local_write_set`, `apply`, `certification`, `log_write`, and `log_flush`.
+
+```sql
+SELECT * FROM information_schema.RAFT_LATENCY_STATS;
+```
+
+```
+NAME             P50_US  P99_US  P999_US  MAX_US
+local_write_set       0       0        0       0
+apply                 0       0        0       0
+certification         52      52       52      52
+log_write              7       7        7      17
+log_flush             47      47       47      95
+```
+
+A row's values are all 0 until that operation has occurred at least once on the node.
 
 ### WSREP System Variables
 

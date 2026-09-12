@@ -39,14 +39,14 @@ Data directory where to store replication logs and other node persistent state.
 
 Maximum size, in bytes, of received but not-yet-applied write set payloads before event delivery pauses. Set to `0` to disable the limit.
 
-| Property     | Value              |
-| ------------ | ------------------ |
-| Command Line |                    |
-| Scope        | Global             |
-| Dynamic      | Not yet confirmed  |
-| Data Type    | Numeric (Bytes)    |
-| Range        | Not yet confirmed  |
-| Default      | 134217728 (128 MB) |
+| Property     | Value                               |
+| ------------ | ----------------------------------- |
+| Command Line | --raft-applied-event-memory-limit=# |
+| Scope        | Global                              |
+| Dynamic      | Yes                                 |
+| Data Type    | Numeric (Bytes)                     |
+| Range        | 0 to 18446744073709551615           |
+| Default      | 134217728 (128 MB)                  |
 
 ### raft-event-store-file-size
 
@@ -162,14 +162,14 @@ Leadership priority changes the cluster protocol, and is **not** backwards compa
 
 The local network address the node uses for its Raft cluster communication. The node binds its listening sockets to this address — both the acceptor for incoming cluster connections and the acceptor for incoming SST connections — and uses it as the source address when connecting out to the other nodes. On a host with several network interfaces, this confines all Raft traffic to one chosen interface, for example a dedicated internal or replication network, instead of the node listening on every interface. The value must be a local IPv4 or IPv6 address, without a port and without hostnames. By default the value is empty, so the node listens on all interfaces and the operating system selects the source address.
 
-| Property     | Value             |
-| ------------ | ----------------- |
-| Command Line |                   |
-| Scope        | Global            |
-| Dynamic      | Not yet confirmed |
-| Data Type    | String            |
-| Range        |                   |
-| Default      | (empty)           |
+| Property     | Value                    |
+| ------------ | ------------------------ |
+| Command Line | --raft-bind-address=name |
+| Scope        | Global                   |
+| Dynamic      | No                       |
+| Data Type    | String                   |
+| Range        |                          |
+| Default      | (empty)                  |
 
 ### raft-listen-port
 
@@ -188,14 +188,14 @@ Port to listen for incoming cluster connections.
 
 Durability level of Raft log writes.
 
-| Property     | Value             |
-| ------------ | ----------------- |
-| Command Line |                   |
-| Scope        | Global            |
-| Dynamic      | Not yet confirmed |
-| Data Type    | Enumeration       |
-| Range        | FLUSH, SYNC       |
-| Default      | FLUSH             |
+| Property     | Value                      |
+| ------------ | -------------------------- |
+| Command Line | --raft-log-durability=name |
+| Scope        | Global                     |
+| Dynamic      | No                         |
+| Data Type    | Enumeration                |
+| Range        | FLUSH, SYNC                |
+| Default      | FLUSH                      |
 
 ### raft-log-filter
 
@@ -469,14 +469,14 @@ List of permitted TLS 1.3 ciphersuites. This is separate from raft\_ssl\_cipher 
 
 Verbose logging level for SSL context initialization.
 
-| Property     | Value             |
-| ------------ | ----------------- |
-| Command Line |                   |
-| Scope        | Global            |
-| Dynamic      | Not yet confirmed |
-| Data Type    | Numeric           |
-| Range        | Not yet confirmed |
-| Default      | 1                 |
+| Property     | Value                |
+| ------------ | -------------------- |
+| Command Line | --raft-ssl-verbose=# |
+| Scope        | Global               |
+| Dynamic      | No                   |
+| Data Type    | Numeric              |
+| Range        | 0 to 2               |
+| Default      | 1                    |
 
 ### raft-ssl-verify-depth
 
