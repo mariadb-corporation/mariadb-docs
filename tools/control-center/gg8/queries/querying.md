@@ -8,7 +8,7 @@ description: >-
 
 The **Queries** screen allows you to execute SQL queries against the GridGain 8 (Apache Ignite 2) cluster and view results. You can also view running queries and query statistics.
 
-![](../../../.gitbook/assets/cc-gg8-queries.png)
+![](../../../.gitbook/assets/cc-gg8-queries_screen.png)
 
 ## Overview of SQL Screen
 
@@ -18,12 +18,13 @@ The **Queries** screen consists of three tabs:
 - **Queries log** — view the list of running and recently completed queries
 - **Query statistics** — view query statistics
 
-The **Queries list** tab displays the **Search** tree that lets you view the tables, caches, and nodes that are available in the cluster.
+The **Queries list** tab displays the **Search** tree that lets you view the tables, caches, system views, and nodes that are available in the cluster.
 
 The tree consists of the following branches:
 
 - The Schemas branch contains the SQL tables.
 - The Caches branch contains the names of the caches.
+- The System views branch contains the cluster's system views. See [Querying System Views](#querying-system-views).
 - The Nodes branch contains node IDs. You can [execute a SQL query on a specific node](#executing-queries-on-a-specific-node).
 
 {% hint style="info" %}
@@ -92,7 +93,23 @@ You can use the `EXPLAIN` statement to view the execution plan for a SELECT quer
 
 Distributed queries are executed in a map-reduce manner. The execution plan consists of two parts: the map query (the query executed on each node with data) and the reduce query (the "reduce" part, which is performed on the node that initiates the query, the coordinator node).
 
-![](../../../.gitbook/assets/cc-gg8-explain-1.png)
+![](../../../.gitbook/assets/cc-gg8-explain.png)
+
+### Querying System Views
+
+The **System views** branch of the **Search** tree lists the cluster's [system views](https://www.gridgain.com/docs/latest/administrators-guide/monitoring-metrics/system-views) that expose internal information about the cluster, such as nodes, caches, and node metrics.
+
+![System Views](../../../.gitbook/assets/cc-gg8-system-views-tree.png)
+
+To query a system view, right-click it in the tree and select **Select 100 rows**.
+
+![System Views](../../../.gitbook/assets/cc-gg8-system-views-select.png)
+
+A fully-qualified statement appears into the query editor, which you can then run or edit:
+
+```sql
+SELECT * FROM "SYS"."NODES" LIMIT 100
+```
 
 ### Scan Queries
 
@@ -134,6 +151,8 @@ To run your scan query with advanced options:
 ## Queries Log
 
 The **Queries log** tab displays all the tracked queries.
+
+![](../../../.gitbook/assets/cc-gg8-queries_log.png)
 
 | Column | Description |
 |---|---|
@@ -183,6 +202,6 @@ The statistics include the following:
 - what were the minimum and maximum execution time
 - when the query was most recently executed
 
-![](../../../.gitbook/assets/cc-gg8-query-statistics-1.png)
+![](../../../.gitbook/assets/cc-gg8-query-statistics.png)
 
 You can find the queries that match a specific text string by using the **Filters** field. Simply enter the text in the input field, and the list is filtered as you type.

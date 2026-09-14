@@ -6,6 +6,10 @@ description: A list of all GridGain Control Center releases
 
 Control Center uses date-based version numbers, in the form `<year>.<release>`.
 
+## 2026
+
+- [2026.1](2026.1.md)
+
 ## 2025
 
 - [2025.5.2](2025.5.2.md)

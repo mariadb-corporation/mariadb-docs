@@ -140,10 +140,6 @@ server {
 Control Center monitors Tracing and Compute activity of your cluster; it imposes activity limitations:
 
 - Soft limit: When the number or Tracing or Compute messages in the corresponding queue exceeds the "soft" threshold (by default, 200), Control Center attempts to automatically reduce message submission rate for your cluster.
-
-  {% hint style="info" %}
-  This option is available in GridGain version 8.8.21 and later, in Apache Ignite version 2.14.0.0 and later.
-  {% endhint %}
 - Hard limit: When the number or Tracing or Compute messages in the corresponding queue exceeds the "hard" threshold (by default, 1000), your cluster enters the "limited" state wherein no new Tracing or Compute messages are added to the queues. In all other respects, your cluster remains active and functional. By default, the limited state (a.k.a., "ban") lasts 3 minutes. After that, Control Center checks the status of the Tracing and Compute queues. If it finds that the number of messages diminished below the threshold, the cluster resumes its normal operation. If the number of messages is still above the threshold, the cluster remains in the limited state for another 3 minutes.
 
 To preclude your cluster from entering the limited state, [reduce the Tracing percentage](gg8/tracing/tracing.md) for one or more scopes. If this does not help, contact our support.
@@ -192,7 +188,7 @@ Configuration depends on the specific mailing server you use. The example below 
    ```bash
    docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
    ```
-3. Create an `application.properties` file in the Control Center root folder and specify mailing server host and port:
+3. Create an `application.properties` file in the Control Center `libs` directory and specify mailing server host and port:
 
    ```properties
    spring.mail.host=127.0.0.1

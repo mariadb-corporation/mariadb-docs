@@ -8,7 +8,7 @@ description: >-
 
 **My cluster** opens as the first tab of the **Dashboard** screen when you select **Dashboard** from the navigation menu. It displays numeric and tabular information for the "current" cluster (selected in the cluster selector tool on the main toolbar).
 
-![](../../../.gitbook/assets/cc-gg9-my-cluster-cc.png)
+![](../../../.gitbook/assets/cc-gg9-my-cluster-gg9.png)
 
 {% hint style="info" %}
 Depending on configuration, [secured clusters](../auth/authorization-permissions.md) might require a cluster-level authentication for some (or all) of the actions.
@@ -39,7 +39,7 @@ The following health checks are available:
 | Metric monitoring | WARNING | Metric monitoring is not enabled for this cluster. Update the cluster configuration to enable the metric exporter. |
 | Cluster Management Group (CMG) | WARNING | One or more CMG nodes are offline. The message lists the affected node IDs. |
 | Metastorage Group (MG) | WARNING | One or more Metastorage nodes are offline. The message lists the affected node IDs. |
-| Partition loss | WARNING / Errors | One or more partitions are in a degraded, read-only, or unavailable state. The message lists the affected zones and partition counts. |
+| Partition loss | ERROR | One or more partitions are in a degraded, read-only, or unavailable state. The message lists the affected zones and partition counts. |
 
 You can also retrieve cluster health information via the [REST API](../../admin-guide/rest-api.md).
 
@@ -118,28 +118,42 @@ You can define configuration in the build-it editor or upload as a file.
 
 ## Monitoring Configuration
 
-To enable [Running Queries](../queries/querying-gg9.md#running-queries) monitoring, select 'Running queries' option in the same dialog
+You can configure what Control Center tracks for an attached cluster via the cluster **Monitoring configuration** dialog.
 
-To enable [Events](../events/events.md) monitoring, select 'Events' option in the same dialog
+To update the monitoring configuration:
 
-To enable the metric exporter for attached clusters, select option 'Metrics'.
+1. Click the &#8942; in the right corner of the **My Cluster** tab and choose **Monitoring configuration** from the menu.
+
+   ![](../../../.gitbook/assets/cc-gg9-update_cluster_config.png)
+2. Switch on the features you want Control Center to monitor:
+
+   | Option | Description |
+   |---|---|
+   | Metrics | Enables the metric exporter. Available for attached clusters only. |
+   | Queries log | Enables [query logging](../queries/querying-gg9.md#queries-log). Click **Configure** to set the minimum duration of the queries to monitor. |
+   | Events | Enables [event](../events/events.md) monitoring. Click **Configure** to select the events to collect. |
+3. Click **Save**.
+
+The dialog closes once the configuration is saved. While the save is in progress, the form is read-only. To discard your changes, click **Cancel**.
+
+The **Metrics** option corresponds to the following cluster configuration:
 
 ```bash
 cluster config update "ignite.metrics.exporters=[
     {
         compression=none
-        endpoint="{connector_address}"
+        endpoint="{connector_address}/api"
         exporterName=otlp
         headers=[]
         name="cc_exporter"
-        period=5000
+        periodMillis=5000
         protocol="http/protobuf"
     }
 ]"
 ```
 
-- If you are using a custom connector for metrics, then in the `endpoint` field, enter the connector address that is reachable from the cluster nodes. Its value should match `cc.base-url` as documented in the Cloud Connector [section](../cloud-connector/connect-cloud-connector.md#configure-cloud-connector).
-- If you prefer to use the embedded connector, then set the `endpoint` to the Control Center portal address.
+- If you are using a custom connector for metrics, then in the `endpoint` field, enter the connector address that is reachable from the cluster nodes, followed by `/api`. The address must match `connector.base-url` as documented in the Cloud Connector [section](../cloud-connector/connect-cloud-connector.md#configure-cloud-connector).
+- If you prefer to use the embedded connector, then set the `endpoint` to the Control Center portal address, followed by `/api`.
 
 ## Updating Cluster Connection Settings
 

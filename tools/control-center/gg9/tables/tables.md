@@ -43,6 +43,8 @@ To view partitions for a distribution zone:
 
    ![The Distribution zones tab](../../../.gitbook/assets/cc-gg9-zones.png)
 2. In the leftmost section, find and select the required distribution zone.
+
+   The **\<Zone name>** panel displays the total partition count, replica count, and storage profiles for the selected zone.
 3. In the **\<Zone name>** section, select the required cluster node(s).
 4. In the **Partitions on node: \<Node name>**, view the partitions and their state.
 5. To view those nodes that have no selected zone's partitions distributed to them, toggle on **Show all nodes** in the top right corner.
@@ -57,7 +59,7 @@ By default, the list includes the following columns:
 | Primary | Whether the partition copy on this node is primary. |
 | State | The [state of the partition](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/disaster-recovery#local-partition-states) on the node. Possible states are:<br>- `UNAVAILABLE` - this state might be used when the partition is not yet started or is already stopping.<br>- `HEALTHY` - alive partition with a healthy state machine.<br>- `INITIALIZING` - partition is starting right now.<br>- `INSTALLING_SNAPSHOT`- partition is installing a Raft snapshot from the leader.<br>- `CATCHING_UP` - partition is catching up, meaning that it hasn't replicated part of the log yet.<br>- `BROKEN` - partition is in a broken state, typically because its state machine threw an exception.<br>- `UNKNOWN` - partition state is unknown for Control Center. |
 
-In all of the **Distribution zones** tab sections, you can add or remove columns to/from the entity list by selecting or deselecting column names in the context menu.
+In all the **Distribution zones** tab sections, you can add or remove columns to/from the entity list by selecting or deselecting column names in the context menu.
 
 ## Disaster Recovery
 

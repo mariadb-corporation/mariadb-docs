@@ -14,7 +14,7 @@ The **Deployment Units** tab shows all your deployments and allows you to create
 
 ![Deployment units tab](../../../.gitbook/assets/cc-gg9-du_tab_overview.png)
 
-### Creating a new Deployment Unit
+### Creating a New Deployment Unit
 
 To create a new deployment unit, click **Add Deployment Unit** and specify its name in the following dialog.
 
@@ -28,12 +28,19 @@ For a deployment unit to be eligible for deployment, it must contain the depende
 
 To add dependencies, first select your deployment unit while it is in the `Draft` state as you cannot add artifacts if the unit has already been deployed.
 
-Then click **Add Artifact**. In the subsequent dialog, you have two options:
+Then click **Add Artifact**. In the subsequent dialog, you have three options:
+
+![Add artefact](../../../.gitbook/assets/cc-gg9-du_add_artifact.png)
 
 - **Uploaded artifact** - upload a new file from your local system. Files uploaded from your system will also appear in the **Sources** [tab](#sources), you can search and select artifacts.
 - **Direct link** - provide the direct URL for the dependency.
+- **ZIP archive** - upload a ZIP file directly as an artifact. Selecting this option opens a dedicated upload dialog instead of the native OS file picker. Control Center unpacks the archive and registers each entry as a separate artifact within the deployment unit. This option is useful when your compute task and all its dependencies are already bundled together in a single archive.
 
-![Add artefact](../../../.gitbook/assets/cc-gg9-du_add_artifact.png)
+  {% hint style="info" %}
+  A deployment unit can contain at most one ZIP archive. Once a ZIP artifact has been added, the **Add Artifact** button is disabled until the ZIP is removed.
+  {% endhint %}
+
+![Add artefact](../../../.gitbook/assets/cc-gg9-du_add_file.png)
 
 After adding all required dependencies click **Deploy**. You will be asked to set the deployment unit version before deployment.
 
@@ -92,20 +99,51 @@ Control Center will create a new version that copies all dependencies from the s
 
 The **Sources** tab lets you review the dependencies used by your deployment units. You can see how many deployment units use each dependency and upload new dependencies for your code.
 
+Sources are cluster-scoped, so the **Uploaded artifacts** table lists only the artifacts uploaded for the currently selected cluster.
+
 ![Code deployment sources](../../../.gitbook/assets/cc-gg9-du_sources_tab.png)
 
-### Uploaded Artifacts
+The table includes the following columns:
 
-This section lets you upload an artifact to Control Center. Uploaded artifacts will be stored on the Control Center host and sent to all deployment units as needed.
+| Column | Description |
+|---|---|
+| **File name** | The artifact file name. |
+| **Archive** | Whether the artifact was uploaded as a ZIP archive (`Yes`/`No`). |
+| **Size** | The file size. |
+| **Created at** | Date and time the artifact was uploaded. |
+| **Dependents count** | The number of deployment units that reference this artifact. |
+
+To work with several artifacts at once, select them using the checkboxes in the first column, or select all of them using the checkbox in the table header.
 
 ### Uploading New Artifacts
 
-To add a new artifact, click **Add artifact** button and select the file you need. The artifact will then be stored locally and made available for use with your deployment units.
+To add a new artifact, click **Add file**. Control Center opens its own **Add file** dialog instead of the file picker of your operating system.
+
+In the dialog, choose what you want to upload:
+
+- **File** - one or more regular files, such as JAR files or scripts.
+- **ZIP** - a single ZIP archive that bundles your compute task together with its dependencies.
+
+Then either drag and drop your files onto the upload area or click **Browse files** and select them. Click **Add** to start the upload.
+
+In **ZIP** mode, Control Center verifies that the file is a valid ZIP archive. If it is not, the dialog reports `Invalid ZIP file` and the **Add** button stays disabled.
+
+{% hint style="info" %}
+An individual artifact cannot exceed 100 MB. If you select several files and some of them are larger, Control Center uploads the remaining ones and reports that the size limit was exceeded.
+{% endhint %}
+
+Once uploaded, an artifact is available to the deployment units of this cluster. To use it, add it to a deployment unit as an **Uploaded artifact** - see [Creating a New Deployment Unit](#creating-a-new-deployment-unit).
 
 ### Checking Dependent List
 
 To see all deployment units that use a specific artifact, click ⋮ and select **View dependent list**. The dialog that opens lists all deployment units that use the selected artifact.
 
+![Dependent list](../../../.gitbook/assets/cc-gg9-du_dependents_list.png)
+
 ### Deleting Artifacts
 
-To delete an artifact, click ⋮ and select **Remove**. If the selected artifact has dependents, they show in the **Dependent list** dialog - see [Checking Dependent List](#checking-dependent-list). You must delete the dependent deployment units before you can remove the artifact itself.
+To delete an artifact, click ⋮ and select **Remove**. If you selected several artifacts beforehand, **Remove** applies to the whole selection, and the confirmation dialog reports how many of the selected artifacts have dependents and how many do not.
+
+Artifacts that have dependents cannot be removed. You must delete the dependent deployment units first - see [Checking Dependent List](#checking-dependent-list) to find them.
+
+![Delete artifact](../../../.gitbook/assets/cc-gg9-du_delete_artifact.png)

@@ -13,13 +13,13 @@ When Control Center is started, it looks for the configuration parameters in the
    ```bash
    export JVM_OPTS="-Dserver.port=3004"
    ```
-2. The `application.properties` file in the Control Center root folder. For example:
+2. The `application.properties` file. For example:
 
    ```properties
    # Server Configuration
    server.port=3000
    ```
-3. The `application.yml` file in the Control Center root folder. For example:
+3. The `application.yml` file. For example:
 
    ```yaml
    server:
@@ -27,6 +27,10 @@ When Control Center is started, it looks for the configuration parameters in the
    ```
 
 If the parameter is not found in the above sources, the default value is used.
+
+{% hint style="info" %}
+Control Center resolves `application.properties` and `application.yml` the same way Spring Boot does: from the directory in which you **run** `control-center.sh` (not necessarily the installation directory), and from the classpath. To ensure your configuration file is always picked up regardless of the directory you start Control Center from, place it in the `libs` directory.
+{% endhint %}
 
 Use one of the above methods to set the configuration parameters.
 
@@ -45,8 +49,9 @@ Use one of the above methods to set the configuration parameters.
 | account.signup.enabled | **Deprecated**: Use `account.self-registration.enabled` instead. When both properties are set, the new property takes precedence. | true |
 | account.self-registration.enabled | Enables self-registration for new accounts. When disabled, only an admin can create users in Control Center, and self sign up is turned off. Even OpenID Connect users without account won't be able to sign up. | true |
 | account.internal.enabled | Enables authentication via username and password in Control Center. If disabled, only OpenID Connect authentication is available. | true |
-| account.oidc.rbac.enabled | Enable Control Center role management via OpenID Connect. If set to `true`, requires for `spring.security.oauth2.client.provider.{name}.user-info-uri` to be configured. When disabled, automatically sets `account.oidc.skipSignUp` to `true`. | false |
+| account.oidc.rbac.enabled | Enable Control Center role management via OpenID Connect. If set to `true`, the role attribute must be available either at the endpoint configured in `spring.security.oauth2.client.provider.{name}.user-info-uri` or as a claim in the ID token. When disabled, automatically sets `account.oidc.skipSignUp` to `true`. | false |
 | account.oidc.rbac.attributeName | OpenID Connect attribute name that is used in your OpenID configuration to define the Control Center role. The default attribute name is `cc-role`, but you can use any custom name. This attribute can define the following Control Center roles: `admin`, `regular`, or `no-access`. | cc-role |
+| account.oidc.rbac.role-update-job-interval | Interval, in milliseconds, at which Control Center re-reads the role attribute for active sessions and applies any changes. | 10000 |
 | account.oidc.skipSignUp | Skips creating a password during OpenID Connect authentication, allowing quick access. Automatically is set to `true` when `account.internal.enabled` is disabled. | false |
 | compute.grid.task-execution-timeout | Task execution timeout in milliseconds. | 60000 |
 | compute.grid.task-pull-timeout | Task pull timeout in milliseconds. | 60000 |
@@ -291,7 +296,7 @@ You can set up the OpenID authentication as described in the [Connecting to Open
 | `spring.security.oauth2.client.provider.{name}.authorization-uri` | Required | The endpoint that accepts authorization request. Usually provided in the `authorization_endpoint` field of the OpenID Discovery document. |
 | `spring.security.oauth2.client.provider.{name}.jwk-set-uri` | Required | The endpoint that holds public keys used to authorize users. Usually provided in the `jwks_uri` field of the OpenID Discovery document. |
 | `spring.security.oauth2.client.provider.{name}.token-uri` | Required | The endpoint that receives authorization information and returns authorization token. Usually provided in the `token_endpoint` field of the OpenID Discovery document. |
-| `spring.security.oauth2.client.provider.{name}.user-info-uri` | Required | User info URI for the provider. Usually provided in the `userinfo_endpoint` field of the OpenID Discovery document. This setting is required if `account.oidc.rbac.enabled` is `true`. |
+| `spring.security.oauth2.client.provider.{name}.user-info-uri` | Optional | User info URI for the provider. Usually provided in the `userinfo_endpoint` field of the OpenID Discovery document. Control Center reads the role attribute from the UserInfo response, falling back to the claim with the same name in the ID token if needed. Omit this setting if your provider includes the role attribute in the ID token. Configuring it also allows Control Center to detect role changes during an active session. See [Role Attribute Sources](open-id.md#role-attribute-sources). |
 | `spring.security.oauth2.client.registration.{name}` | Required | OpenID provider name. Can be anything, but must be consistent with `spring.security.oauth2.client.provider.{name}` and the name specified in redirect URI. |
 | `spring.security.oauth2.client.registration.{name}.client-id` | Required | Client ID for Control Center. Provided when you set up OpenID credentials. |
 | `spring.security.oauth2.client.registration.{name}.client-secret` | Required | Client secret for Control Center. Provided when you set up OpenID credentials. |

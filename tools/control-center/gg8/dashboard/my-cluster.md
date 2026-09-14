@@ -28,7 +28,7 @@ Use the widgets to view the relevant cluster information:
 
 To view details of the cluster health (status), in the **Cluster Health** widget, click the **View Details** link. The **Cluster Health Details** dialog shows what specific problems, if any, are observed in the cluster.
 
-![Cluster health details GridGain 8 and Apache Ignite](../../../.gitbook/assets/cc-gg8-health_widget_details_gg8.png)
+![Cluster health details GridGain 8 and Apache Ignite](../../../.gitbook/assets/cc-gg8-health_widget_ok_gg8.png)
 
 The following health checks are available for GridGain 8 and Apache Ignite 2 clusters:
 
@@ -37,8 +37,12 @@ The following health checks are available for GridGain 8 and Apache Ignite 2 clu
 | Alerts | WARNING | One or more configured alerts have been triggered. Each active alert appears as a separate entry showing the alert's own message. |
 | Nodes in the baseline topology | WARNING | One or more baseline nodes are offline. The message lists the affected node IDs. |
 | Write availability | WARNING | The cluster is in read-only mode (`ACTIVE_READ_ONLY`). Only cache read operations are allowed. |
-| Partition loss | WARNING | One or more cache partitions have zero copies. |
-| Partition map exchange (PME) | WARNING | Partition map exchange is running longer than expected, or cache operations are blocked waiting for PME to finish. |
+| Partition loss | ERROR | One or more cache partitions have zero copies. |
+| Partition map exchange (PME) | ERROR | Partition map exchange is running longer than expected, or cache operations are blocked waiting for PME to finish. |
+
+Failed health checks are highlighted by severity: red for errors and yellow for warnings. Each item describes the issue and, when applicable, includes a button to investigate or resolve it.
+
+![Cluster health details for an unhealthy GridGain 8 and Apache Ignite cluster](../../../.gitbook/assets/cc-gg8-health_widget_error_gg8.png)
 
 ### Viewing Cluster Nodes
 
@@ -101,6 +105,10 @@ You can modify cluster-wide settings by clicking the ⋮ in the top-right corner
 
 For the full reference of available cluster properties, see the [Cluster Properties](https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/control-script#cluster-properties) section in the GridGain 8 documentation.
 
+{% hint style="success" %}
+You can also set cluster properties, and run other control script commands, from the [Cluster terminal](../terminal/cluster-terminal.md).
+{% endhint %}
+
 ## Viewing Graphic Dashboards
 
 To view the default graphic [dashboard](dashboard-overview.md) for the current cluster, click the **Default** next to the **My Cluster** tab in the top left corner of the screen.
@@ -124,6 +132,29 @@ You can also rename the cluster from the command line using the control script:
 ```bash
 {IGNITE_HOME}/bin/control.sh --change-tag newName [--yes]
 ```
+
+## Viewing the Cluster License
+
+To view the cluster license, select **View license** from the context menu in the top right corner of the **My Cluster** screen.
+
+The **View license** dialog opens and displays the current license used by each server node in the cluster. Nodes that report the same license are grouped together. For each group, the dialog shows:
+
+- **Count** - the number of nodes in the group out of the total number of nodes that responded.
+- **Node** - the IDs of the nodes in the group, or **All** if every responding node reports the same license.
+
+The license for each group is shown below the group details in JSON format.
+
+![](../../../.gitbook/assets/cc-gg8-view-license-dialog.png)
+
+To close the dialog, click **OK**.
+
+## Updating the Cluster License
+
+To update the cluster license, select **Update license** from the context menu in the top right corner of the **My Cluster** screen.
+
+In the dialog that opens, add a new license file onto the **License file** field. Click **Update** to apply the new license to the cluster.
+
+![](../../../.gitbook/assets/cc-gg8-update-license.png)
 
 ## Adding Connections
 

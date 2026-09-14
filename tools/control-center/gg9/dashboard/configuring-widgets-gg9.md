@@ -212,7 +212,7 @@ The widget displays as you have defined it and starts updating at the specified 
 
 The [Compute system view](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/metrics/system-views#compute_tasks) lets you change the priority of a task or cancel it.
 
-![Compute View](../../../.gitbook/assets/cc-gg9-compute_view_actions_gg9.png)
+![Compute View](../../../.gitbook/assets/cc-gg9-compute_view_gg9.png)
 
 You can change the priority for tasks that are either in `SUBMITTED` or `QUEUED` status.
 
@@ -225,6 +225,12 @@ You can also cancel tasks that are in the `QUEUED` or `EXECUTING` status.
 Control Center supports terminating transactions on the cluster through the [Transactions](https://www.gridgain.com/docs/gridgain9/9.1.9/administrators-guide/metrics/system-views#transactions) *system view* widget.
 
 ![TX View](../../../.gitbook/assets/cc-gg9-tx_view_actions_gg9.png)
+
+### DCR Topology Widget
+
+The DCR Topology widget displays the [data replication](../dcr/dcr.md) topology of the current cluster.
+
+![DCR Topology](../../../.gitbook/assets/cc-gg9-dcr_gg9_topology.png)
 
 ## Editing Widgets
 

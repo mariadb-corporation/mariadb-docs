@@ -30,7 +30,7 @@ cluster config update "ignite.metrics.exporters=[
         exporterName=otlp
         headers=[]
         name="cc_exporter"
-        period=5000
+        periodMillis=5000
         protocol="http/protobuf"
     }
 ]"
@@ -38,7 +38,7 @@ cluster config update "ignite.metrics.exporters=[
 
 In the `endpoint` field, enter the Control Center address reachable from the cluster nodes and append "/api". For example, `http://cc.host:3000/api`.
 
-You can adjust the `period` value; it should be less than or equal to `control.metric-collector.pull-interval` defined in the [Control Center configuration](../../admin-guide/configuration.md#common-properties).
+You can adjust the `periodMillis` value; it should be less than or equal to `control.metric-collector.pull-interval` defined in the [Control Center configuration](../../admin-guide/configuration.md#common-properties).
 
 ## Viewing the Default Tab
 

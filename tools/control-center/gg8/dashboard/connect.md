@@ -238,7 +238,7 @@ void main()
 }
 ```
 
-For additional information on using C++ thin client, read the [extended article](https://www.gridgain.com/docs/8.8.13/developers-guide/thin-clients/cpp-thin-client) in GridGain documentation.
+For additional information on using C++ thin client, read the [extended article](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/thin-clients/cpp-thin-client) in GridGain documentation.
 
 ## Node.js Thin Client
 
@@ -315,7 +315,7 @@ GridGain includes an ODBC driver that allows you both to select and to modify da
 
 ### Installation
 
-GridGain comes with an ODBC driver. If you use Windows, you can install it immediately. On Linux you will need to build it first. You can find installation and build instructions in [GridGain documentation](https://www.gridgain.com/docs/8.8.13/developers-guide/SQL/ODBC/odbc-driver#building-odbc-driver).
+GridGain comes with an ODBC driver. If you use Windows, you can install it immediately. On Linux you will need to build it first. You can find installation and build instructions in [GridGain documentation](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/SQL/ODBC/odbc-driver#building-odbc-driver).
 
 ### Connecting to Cluster
 
@@ -434,7 +434,7 @@ To connect to cluster, use the following connection template. Below we will walk
   }
   ```
 
-You can find more information on working with ODBC driver in [GridGain Documentation](https://www.gridgain.com/docs/8.8.13/developers-guide/SQL/ODBC/querying-modifying-data).
+You can find more information on working with ODBC driver in [GridGain Documentation](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/SQL/ODBC/querying-modifying-data).
 
 ## Java Thick Client
 
@@ -454,7 +454,7 @@ Java thick client (client node) joins the cluster via an internal protocol, rece
        <dependency>
            <groupId>org.gridgain</groupId>
            <artifactId>gridgain-core</artifactId>
-           <version>8.8.10</version>
+           <version>8.9.20</version>
        </dependency>
        <dependency>
            <groupId>org.gridgain</groupId>

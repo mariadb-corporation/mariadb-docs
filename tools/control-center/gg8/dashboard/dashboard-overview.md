@@ -42,7 +42,7 @@ You can save your current dashboard as a template by clicking ⋮ and selecting 
 
 ### Managing Custom Templates
 
-You can remove or rename an existing template. Click the `➕` icon located in the tab bar and select **Manage Templates**. In the dialog, click ⋮ next to the custom template, and select to **Rename** or **Delete** it.
+You can remove or rename an existing template. Click the `➕` icon located in the tab bar and select **Manage Templates**. In the dialog, click `⋮` next to the custom template, and select to **Rename** or **Delete** it.
 
 ### Exporting and Importing Dashboards
 

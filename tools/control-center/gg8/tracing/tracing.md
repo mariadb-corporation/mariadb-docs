@@ -37,7 +37,7 @@ The **Tracing** screen displays information about traces recorded during cluster
 
 The screen displays a table containing all recorded traces, including the name of the event, its start time, duration and number of spans.
 
-![Tracing Configuration](../../../.gitbook/assets/cc-gg8-tracing_screen_config.png)
+![Tracing Configuration](../../../.gitbook/assets/cc-gg8-tracing_screen.png)
 
 A trace is recorded information about the execution of a specific event. Each trace consists of a tree of *spans*. A span is an individual unit of work performed by the system in order to process the event.
 

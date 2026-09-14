@@ -163,7 +163,7 @@ You have to launch Control Center from the admin account, which needs to be crea
 
 1. Navigate to the Control Center backend log and find the "admin account" link:
 
-   ![](../../.gitbook/assets/cc-installation-backlog.png)
+   ![](../../.gitbook/assets/cc-installation-admin_link.png)
 2. Copy the link to your browser. Replace `3000` with `8008` and follows the link.
 3. In the Control Center UI that appears, [sign in the admin account and add the Control Center license](../getting-started/adding-license.md).
 

@@ -27,7 +27,7 @@ You can change your password and profile data on the Profile page at any time. C
 
 Once you sign up and log in to Control Center, you are prompted to provide a license. If necessary, get the license file from our sales team. Click **Upload license** and select the license file.
 
-![](../../.gitbook/assets/cc-getting-started-license-required-tutorial.png)
+![](../../.gitbook/assets/cc-getting-started-add_license.png)
 
 Now Control Center is available for any user to work with.
 

@@ -594,7 +594,7 @@ To use SSL on all stages of the connection, you also need a GridGain cluster to 
           containers:
             # Custom pod name.
           - name: gridgain-node
-            image: gridgain/community:8.8.20
+            image: gridgain/enterprise:8.9.0
             env:
             - name: OPTION_LIBS
               value: ignite-kubernetes,ignite-rest-http,control-center-agent

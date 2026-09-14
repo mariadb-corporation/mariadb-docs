@@ -8,7 +8,7 @@ description: >-
 
 Control Center supports event management for [GridGain 9](https://www.gridgain.com/docs/gridgain9/latest/developers-guide/events/events-list) and [Apache Ignite 3](https://ignite.apache.org/docs/ignite3/latest/developers-guide/events/events-list#map-reduce-task-events) clusters. You can view, inspect, and manage events through the **Events** screen.
 
-![](../../../.gitbook/assets/cc-gg9-events_auth.png)
+![](../../../.gitbook/assets/cc-gg9-events_all.png)
 
 You can choose which event fields to display by selecting the corresponding options in the `⋮` menu on the right side of the table.
 
@@ -18,7 +18,7 @@ You can choose which event fields to display by selecting the corresponding opti
 If your cluster does not have [security](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/security/authentication) enabled, all events will be shown under the `unknown` user.
 {% endhint %}
 
-![](../../../.gitbook/assets/cc-gg9-events_unauth.png)
+![](../../../.gitbook/assets/cc-gg9-events_unsecure.png)
 
 ## Configure Events
 

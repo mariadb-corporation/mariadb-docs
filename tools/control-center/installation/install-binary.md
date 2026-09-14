@@ -67,7 +67,7 @@ To ensure proper Control Center operation, port 3000 must be open for the system
 
 To configure SSL for the on-premise version of GridGain Control Center:
 
-1. Create an `application.properties` file in the Control Center root folder.
+1. Create an `application.properties` file in the Control Center `libs` directory.
 2. Add the following lines to the file:
 
    ```properties
