@@ -37,7 +37,7 @@ Raft Cluster adds its own configuration and observability surface:
 * **Status variables**: `raft_*` status variables report the current leader, term, log index, and flow-control activity
 * **Information Schema tables**: `RAFT_CERT_FAILURES`, `RAFT_CLUSTER_CONNECTIONS`, `RAFT_TIMERS`, `RAFT_RPC_SENT`, `RAFT_LATENCY_STATS`, `RAFT_SERVER_INSTANCES`, `RAFT_FOLLOWER_INFO`, and `RAFT_STATUS`
 
-Raft Cluster is built on Linux only. <!-- TODO: confirm which Linux distributions ship the plugin — the raft READMEs and the build configuration disagree (see DOCS-6353) -->
+Raft Cluster is available on every platform MariaDB Enterprise Server 12.3 ships on except Microsoft Windows.
 
 {% hint style="warning" %}
 Raft Cluster does not yet cover everything MariaDB Enterprise Cluster (Galera) does. Replication log encryption and the `galera_group_members` Performance Schema table are not implemented.
