@@ -371,15 +371,15 @@ This panel shows the current resident set size (RSS) of the MaxScale process.
 
 This panel shows the current stack size of the MaxScale node.
 
-The following panels appear on the **Cache** view, available when the [Query Cache](../quickstart/query-cache-gridgain-8.md) add-on is enabled on the service. Select the cache node (or **Cache** in the top-right) on the Monitoring tab to open it.
+The following panels appear on the **Query Result Cache** view, available when the [Query Result Cache](../quickstart/query-cache-gridgain-8.md) add-on is enabled on the service. Select the cache node (or **Query Result Cache** in the top-right) on the Monitoring tab to open it.
 
-<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-1.png" alt=""><figcaption><p>Monitoring—Cache</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-1.png" alt=""><figcaption><p>Monitoring—Query Result Cache</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-2.png" alt=""><figcaption><p>Monitoring—Cache</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-2.png" alt=""><figcaption><p>Monitoring—Query Result Cache</p></figcaption></figure>
 
 ## Cache Hit Ratio
 
-This panel shows the ratio of cache hits to total lookups (gets) for the GridGain 8 query result cache during the selected time interval.
+This panel shows the ratio of cache hits to total lookups (gets) for the query result cache during the selected time interval.
 
 ## Cache Throughput
 
