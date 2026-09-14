@@ -39,3 +39,5 @@ visit_structured_query(structured_query: StructuredQuery) -> Tuple[str, dict]
 - **allowed_comparators**: Subset of allowed logical comparators.
 
 ---
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

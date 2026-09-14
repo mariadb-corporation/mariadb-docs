@@ -108,7 +108,7 @@ The ColumnStore nodes:
 
 | Software Component                                                                                           | Role                                                                                                                     |
 | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| [MariaDB ColumnStore](columnstore-architectural-overview.md#mariadb-enterprise-columnstore)       | <ul><li>Columnar storage engine</li><li>Query execution</li><li>Data storage</li></ul>                                   |
+| [MariaDB ColumnStore](columnstore-architectural-overview.md#mariadb-columnstore)       | <ul><li>Columnar storage engine</li><li>Query execution</li><li>Data storage</li></ul>                                   |
 | [MariaDB Enterprise Server](columnstore-architectural-overview.md#mariadb-enterprise-server)                 | <ul><li>Enterprise-grade database server</li></ul>                                                                       |
 | [ColumnStore Storage Engine Plugin](columnstore-architectural-overview.md#columnstore-storage-engine-plugin) | <ul><li>Storage engine plugin</li><li>Integrates MariaDB ColumnStore into MariaDB Enterprise Server</li></ul> |
 | [Cluster Management API (CMAPI)](columnstore-architectural-overview.md#cluster-management-api-cmapi-server)  | <ul><li>REST API</li><li>Used for administrative tasks</li></ul>                                                         |
@@ -178,7 +178,7 @@ Multi-node ColumnStore deployments must have one or more [MaxScale](columnstore-
 
 MariaDB ColumnStore's storage architecture provides a columnar storage engine with high availability, fault tolerance, compression, and automatic partitioning for production analytics and data warehousing.
 
-For additional information, see "[MariaDB ColumnStore](columnstore-architectural-overview.md#mariadb-enterprise-columnstore) and [ColumnStore Storage Architecture](columnstore-storage-architecture.md)".
+For additional information, see "[MariaDB ColumnStore](columnstore-architectural-overview.md#mariadb-columnstore) and [ColumnStore Storage Architecture](columnstore-storage-architecture.md)".
 
 ### Columnar Storage Engine
 
@@ -287,7 +287,7 @@ The ColumnStore storage engine plugin is a smart storage engine, so MariaDB Colu
 MariaDB ColumnStore's query planning is divided into two steps:
 
 1. ES provides the query's SELECT\_LEX object to the [custom select handler](columnstore-architectural-overview.md#custom-select-handler). The custom selects handler builds a [ColumnStore Execution Plan (CSEP)](../high-availability/columnstore-query-tuning/query-plans-and-optimizer-trace/columnstore-execution-plan-csep-for-mariadb-enterprise-columnstore.md).
-2. The custom select handler provides the CSEP to the [ExeMgr process](mariadb-enterprise-columnstore-query-evaluation.md#exemgr-processfacility) on the same node. The ExeMgr process performs [extent elimination](mariadb-enterprise-columnstore-query-evaluation.md#extent-elimination) and creates a job list.
+2. The custom select handler provides the CSEP to the [ExeMgr process](mariadb-enterprise-columnstore-query-evaluation.md#exemgr-process-facility) on the same node. The ExeMgr process performs [extent elimination](mariadb-enterprise-columnstore-query-evaluation.md#extent-elimination) and creates a job list.
 
 ### Job Steps
 
@@ -509,6 +509,6 @@ It does not contain:
 
 * ColumnStore data
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

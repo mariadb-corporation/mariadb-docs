@@ -572,6 +572,6 @@ A typical log might look like this:
 
 _Prior to version 1.4, this folder was located at_ `/usr/local/mariadb/columnstore/bulk`_._
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

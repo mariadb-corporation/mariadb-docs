@@ -34,4 +34,6 @@ This function has been deprecated since MariaDB Connector/C 3.0.0.
 * [mysql\_thread\_init()](mysql_thread_init.md)
 * [mysql\_thread\_safe()](mysql_thread_safe.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

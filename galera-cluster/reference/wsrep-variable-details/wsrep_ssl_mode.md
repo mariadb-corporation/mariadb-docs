@@ -87,3 +87,5 @@ Because `wsrep_ssl_mode` is read-only, changing it requires restarting the node.
 | Product Default Value | SERVER                                              |
 
 <br>
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

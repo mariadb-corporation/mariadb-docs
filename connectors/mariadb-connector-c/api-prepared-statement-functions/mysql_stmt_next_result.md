@@ -35,4 +35,6 @@ Returns zero on success, `-1` if there are no more result sets, and a positive v
 * [mysql\_stmt\_execute()](mysql_stmt_execute.md)
 * [mysql\_stmt\_store\_result()](mysql_stmt_store_result.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

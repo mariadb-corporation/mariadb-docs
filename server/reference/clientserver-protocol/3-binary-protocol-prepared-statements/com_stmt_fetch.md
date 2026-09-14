@@ -18,7 +18,7 @@ A [COM\_STMT\_EXECUTE](com_stmt_execute.md) with a non-zero cursor flag must hav
 
 ## Response
 
-Returns one or more [binary result set rows](../4-server-response-packets/resultset-row.md#binary-resultset-row) followed by an [EOF packet](../4-server-response-packets/eof_packet.md).
+Returns one or more [binary result set rows](../4-server-response-packets/resultset-row.md#binary-result-set-row) followed by an [EOF packet](../4-server-response-packets/eof_packet.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

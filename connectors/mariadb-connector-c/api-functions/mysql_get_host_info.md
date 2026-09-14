@@ -28,4 +28,6 @@ Returns a string, describing host information or `NULL` if the connection is not
 
 * [mysql\_get\_server\_version()](mysql_get_server_version.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

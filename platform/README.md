@@ -75,3 +75,5 @@ In January 2025, Platform 2025 was released. Platform 2026, released in October 
 |                                    | Storage Engines Overview               | Comprehensive guide to all available storage engines in MariaDB.                                                                                                                                                                                                              | [Link](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines)                       |
 
 These components collectively empower MariaDB Enterprise Platform to cater to diverse database management needs, from transactional operations to data analytics and enterprise-grade security.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

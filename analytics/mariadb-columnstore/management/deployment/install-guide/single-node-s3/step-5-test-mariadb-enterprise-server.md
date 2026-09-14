@@ -295,7 +295,7 @@ INSERT INTO test.contacts (first_name, last_name, email)
 $ sudo mariadb
 ```
 
-4. Execute a [SELECT](broken-reference/) query to retrieve the data:
+4. Execute a [SELECT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select) query to retrieve the data:
 
 ```sql
 SELECT * FROM test.contacts;
@@ -318,6 +318,6 @@ This page was **step 5 of 9**.
 
 [Next: Step 6: Install MariaDB MaxScale.](step-6-install-mariadb-maxscale.md)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

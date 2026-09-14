@@ -270,3 +270,5 @@ Learn about cursors in MariaDB Server's programmatic compound statements. This s
 Learn about diagnostics in programmatic compound statements. This section covers error handling and information retrieval within stored procedures and functions for effective debugging.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

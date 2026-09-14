@@ -126,3 +126,5 @@ Returns the N-th interior ring of a Polygon. This function retrieves a specific 
 Returns the count of interior rings in a Polygon. This function calculates the total number of inner holes within the polygon.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

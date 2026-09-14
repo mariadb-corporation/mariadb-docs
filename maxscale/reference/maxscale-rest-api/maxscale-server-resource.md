@@ -843,9 +843,9 @@ Create a new server by defining the resource. The posted object must define at l
 * `data.type`
   * Type of the object, must be `servers`
 * `data.attributes.parameters.address` OR `data.attributes.parameters.socket`
-  * The [`address`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#address) or [`socket`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#socket) to use. Only one of the fields can be defined.
+  * The [`address`](../maxscale-servers.md#address) or [`socket`](../maxscale-servers.md#socket) to use. Only one of the fields can be defined.
 * `data.attributes.parameters.port`
-  * The [`port`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#port) to use. Needs to be defined if the `address` field is defined.
+  * The [`port`](../maxscale-servers.md#port) to use. Needs to be defined if the `address` field is defined.
 
 The following is the minimal required JSON object for defining a new server.
 

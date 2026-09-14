@@ -119,3 +119,5 @@ mariadb-binlog --disable-log-bin mariadb-bin.000152 | mariadb -u root -p
   - <https://mariadb.com/docs/server/clients-and-utilities/logging-tools/mariadb-binlog/mariadb-binlog-options>
   - <https://mariadb.com/docs/server/clients-and-utilities/logging-tools/mariadb-binlog/annotate_rows_log_event>
   - <https://mariadb.com/docs/server/server-management/server-monitoring-logs/binary-log/flashback>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

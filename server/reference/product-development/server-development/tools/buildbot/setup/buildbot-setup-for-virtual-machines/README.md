@@ -102,3 +102,5 @@ Explains how to provision and configure virtual machine instances specifically f
 Explains how to provision and configure virtual machine instances specifically for Buildbot testing.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

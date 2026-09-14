@@ -59,7 +59,6 @@ Download a binary file using the following procedure:
 1. In your web browser, visit the MariaDB Download interface for the specific MariaDB database product:
    * MariaDB Enterprise Server
    * MariaDB MaxScale
-   * MariaDB Xpand
 2.  In your web browser, navigate to the binary file that you would like to download and copy the URL. For example, to download a binary tarball of MariaDB Enterprise Server 10.6.20-16 for RHEL 8 on x86\_64, the URL is:\\
 
     ```

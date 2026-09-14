@@ -375,15 +375,15 @@ Power8 optimization
 
 * [MariaDB Foundation](https://mariadb.org)
 
-Reviews for [replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication), [encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption), compression, [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/), [Connect](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/connect) storage engine, [Mroonga](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/mroonga) storage engine, [Spider](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider), [OR REPLACE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create) etc.
+Reviews for [replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication), [encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption), compression, [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/), [Connect](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/connect) storage engine, [Mroonga](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/mroonga) storage engine, [Spider](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider), [OR REPLACE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create) etc.
 
 * [MariaDB Foundation](https://mariadb.org)
 
-[Encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption), scrubbing, enhanced semisync, dump thread enhancements, thd\_specifics plugin service
+[Encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption), scrubbing, enhanced semisync, dump thread enhancements, thd\_specifics plugin service
 
 * Google
 
-Table level [encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption), [plugin for secure encryption](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/mariadb-enterprise-server-differences/mariadb-enterprise-server-data-at-rest-encryption/encryption-plugins)
+Table level [encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption), [plugin for secure encryption](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/mariadb-enterprise-server-differences/mariadb-enterprise-server-data-at-rest-encryption/encryption-plugins)
 
 * [Eperi GmbH](https://eperi.de/)
 
@@ -586,7 +586,7 @@ Various bug fixes
 
 Microsecond precision in process list
 
-* [microsec\_process.patch](https://www.percona.com/mysql/5.0.77-b13/patches/microsec_process.patch)
+* microsec\_process.patch
 * Percona Inc
 * Patch was [licensed to Monty Program under BSD (new)](https://lists.askmonty.org/pipermailp/dev/2009-October/000075.html).
 

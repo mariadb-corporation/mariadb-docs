@@ -76,3 +76,5 @@ The first-run prompts can be controlled with environment variables for unattende
 
 * [Migration Modes](migration-modes.md) — choose and run a migration mode.
 * [Environment Variables](environment-variables.md) — the variables required to run each mode.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

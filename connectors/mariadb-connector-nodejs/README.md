@@ -123,3 +123,5 @@ MariaDB Connector/Node.js connection options include essential, SSL, and advance
 Node.js connectors beyond the official MariaDB Connector/Node.js: alternative drivers, ORMs, and other methods to connect Node.js applications to MariaDB.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

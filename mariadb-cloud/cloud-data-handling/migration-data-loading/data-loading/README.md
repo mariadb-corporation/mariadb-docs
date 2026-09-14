@@ -41,3 +41,4 @@ Set up and run continuous, inbound replication from an external MySQL or MariaDB
 [replicating-data-from-external-db.md](replicating-data-from-external-db.md)
 {% endcontent-ref %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -1,6 +1,6 @@
 # MariaDB Galera Cluster 5.5.42 Release Notes
 
-[Download](https://downloads.mariadb.org/mariadb-galera/5.5.42)[Release Notes](mariadb-galera-cluster-5542-release-notes.md)[Changelog](../mariadb-galera-55-changelogs/mariadb-galera-cluster-5542-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/5.5.42)[Release Notes](mariadb-galera-cluster-5542-release-notes.md)[Changelog](../mariadb-galera-55-changelogs/mariadb-galera-cluster-5542-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 11 Mar 2015
 
@@ -9,7 +9,7 @@ It is a merge of [MariaDB 5.5.42](../../5.5/5.5.42.md) and [Galera Cluster](http
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are
-available in the [**Galera**](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) section of the documentation.
+available in the [**Galera**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) section of the documentation.
 
 For a list of changes made in MariaDB Galera Cluster 5.5.42, with links to detailed
 information on each push, see the [MariaDB Galera Cluster 5.5.42 Changelog](../mariadb-galera-55-changelogs/mariadb-galera-cluster-5542-changelog.md).
@@ -49,6 +49,6 @@ Thanks, and enjoy MariaDB Galera Cluster!
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

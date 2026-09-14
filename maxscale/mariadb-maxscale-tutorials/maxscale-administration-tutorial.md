@@ -14,7 +14,7 @@ The REST API calls that MaxCtrl and MaxGui issue to MaxScale can be logged by en
 
 The generated file is a csv file that can be opened in most spread sheet programs.
 
-\[Rotating Log Files]\(#Rotating Log Files) also applies to the audit file. The admin audit file will never be overwritten as a result of a rotate, unlike the regular log file (in case a rotate is issued, but the file name has not been moved). There is also the option to change the audit file name, which effectively rotates it independently of the regular log file. For example:
+[Rotating Log Files](#rotating-log-files) also applies to the audit file. The admin audit file will never be overwritten as a result of a rotate, unlike the regular log file (in case a rotate is issued, but the file name has not been moved). There is also the option to change the audit file name, which effectively rotates it independently of the regular log file. For example:
 
 ```bash
 maxctrl alter maxscale admin_audit_file=/var/log/maxscale/admin_audit.march.csv.

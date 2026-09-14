@@ -41,3 +41,4 @@ layout:
 [multinode-s3](multinode-s3/)
 {% endcontent-ref %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

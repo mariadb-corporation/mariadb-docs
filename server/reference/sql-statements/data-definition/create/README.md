@@ -29,3 +29,5 @@ description: >-
 - [Generated Columns](generated-columns.md)
 - [Invisible Columns](invisible-columns.md)
 - [Silent Column Changes](silent-column-changes.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

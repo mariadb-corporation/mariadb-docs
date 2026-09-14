@@ -33,4 +33,6 @@ For retrieving warning messages you should use the SQL command [SHOW WARNINGS](h
 
 * [mysql\_warning\_count()](../api-functions/mysql_warning_count.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

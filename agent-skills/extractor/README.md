@@ -32,3 +32,5 @@ the hand-written scaffold sections preserved.
   `mariadb-json-functions`).
 - `templates/function-category.scaffold.md` — the hand-written wrapper into
   which extracted entries are spliced.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

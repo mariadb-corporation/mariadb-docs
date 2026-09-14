@@ -61,6 +61,6 @@ description: A list of all MariaDB Connector/Python releases
 | [0.9.54](0.9/0.9.54.md) | 2020-02-18   | Beta           |
 | [0.9.52](0.9/0.9.52.md) | 2019-12-18   | Alpha          |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

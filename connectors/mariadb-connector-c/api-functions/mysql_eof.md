@@ -32,3 +32,5 @@ When the result set was acquired via [`mysql_store_result()`](mysql_store_result
 
 * [`mysql_fetch_row()`](mysql_fetch_row.md)
 * [`mysql_store_result()`](mysql_store_result.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

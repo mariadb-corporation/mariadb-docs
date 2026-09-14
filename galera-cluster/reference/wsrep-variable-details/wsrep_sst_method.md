@@ -22,3 +22,5 @@ State snapshot transfer method.
 | Scope                 | Global                   |
 | Data Type             | VARCHAR                  |
 | Product Default Value | rsync                    |
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

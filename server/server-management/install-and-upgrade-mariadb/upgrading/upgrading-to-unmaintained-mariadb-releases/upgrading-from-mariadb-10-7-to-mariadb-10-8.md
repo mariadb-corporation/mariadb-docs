@@ -28,7 +28,7 @@ The suggested upgrade procedure is:
 1. Install the new version of MariaDB.
 
 * On Debian, Ubuntu, and other similar Linux distributions, see [Installing MariaDB Packages with APT](../../installing-mariadb/binary-packages/installing-mariadb-deb-files.md#installing-mariadb-packages-with-apt) for more information.
-* On RHEL, CentOS, Fedora, and other similar Linux distributions, see [Installing MariaDB Packages with YUM](../../installing-mariadb/binary-packages/rpm/yum.md#installing-mariadb-packages-with-yum) for more information.
+* On RHEL, CentOS, Fedora, and other similar Linux distributions, see [Installing MariaDB Packages with YUM](../../installing-mariadb/binary-packages/rpm/yum.md#installing-mariadb-packages-with-yum-dnf) for more information.
 * On SLES, OpenSUSE, and other similar Linux distributions, see [Installing MariaDB Packages with ZYpp](../../installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md#installing-mariadb-packages-with-zypp) for more information.
 
 1. Make any desired changes to configuration options in [option files](../../configuring-mariadb/configuring-mariadb-with-option-files.md), such as `my.cnf`. This includes removing any options that are no longer supported.
@@ -70,7 +70,7 @@ The following options have been deprecated. They have not yet been removed, but 
 
 You might consider using the following major new features in [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108):
 
-* Stored procedures already have support for the [IN, OUT and INOUT](../../../../server-usage/stored-routines/stored-procedures/create-procedure.md#inoutinout) parameter qualifiers. Added as well for [stored functions](../../../../reference/sql-statements/data-definition/create/create-function.md#in-out-inout-in-out) and (IN only) [cursors](../../../../reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors/declare-cursor.md#in) ([MDEV-10654](https://jira.mariadb.org/browse/MDEV-10654)).
+* Stored procedures already have support for the [IN, OUT and INOUT](../../../../server-usage/stored-routines/stored-procedures/create-procedure.md#in-out-inout-in-out) parameter qualifiers. Added as well for [stored functions](../../../../reference/sql-statements/data-definition/create/create-function.md#in-or-out-or-inout-or-in-out) and (IN only) [cursors](../../../../reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors/declare-cursor.md#in) ([MDEV-10654](https://jira.mariadb.org/browse/MDEV-10654)).
 * Individual columns in the [index](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/) can now be explicitly sorted in the ascending or descending order. This can be useful for optimizing certain [ORDER BY](../../../../reference/sql-statements/data-manipulation/selecting-data/order-by.md) cases ([MDEV-13756](https://jira.mariadb.org/browse/MDEV-13756), [MDEV-26938](https://jira.mariadb.org/browse/MDEV-26938), [MDEV-26939](https://jira.mariadb.org/browse/MDEV-26939), [MDEV-26996](https://jira.mariadb.org/browse/MDEV-26996)).
 * See also [System Variables Added in MariaDB 10.8](../../../../ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-and-status-variables-added-by-major-unmaintained-release/system-variables-added-in-mariadb-10-8.md).
 

@@ -87,3 +87,5 @@ Removes `app_user`'s ability to connect and execute as `dba_user`. Always requir
 - Canonical references on `mariadb.com/docs` (consult only for edge cases not covered here):
   - <https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/revoke>
   - <https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/grant>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

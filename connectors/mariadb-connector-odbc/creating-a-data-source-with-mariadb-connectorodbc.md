@@ -9,11 +9,11 @@ description: >-
 
 **MariaDB Connector/ODBC** is a database driver that uses the industry standard [Open Database Connectivity (ODBC) API](https://en.wikipedia.org/wiki/Open_Database_Connectivity). Some of the key features of the driver are:
 
-* It is [LGPL-licensed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/faq/licensing-questions/licensing-faq).
+* It is LGPL-licensed.
 * It is compliant with the ODBC 3.8 standard.
 * It can be used as a drop-in replacement for MySQL Connector/ODBC.
 * It supports both Unicode and ANSI modes.
-* It uses the MariaDB/MySQL binary protocol (server-side [prepared statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/prepared-statements)) for `SQLPrepare`. One-shot `SQLExecDirect` queries default to the client-side text protocol unless the `SQL_ATTR_EXECDIRECT_ON_SERVER` attribute (or the `EDSERVER` connection option) is set.
+* It uses the MariaDB/MySQL binary protocol (server-side [prepared statements](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements)) for `SQLPrepare`. One-shot `SQLExecDirect` queries default to the client-side text protocol unless the `SQL_ATTR_EXECDIRECT_ON_SERVER` attribute (or the `EDSERVER` connection option) is set.
 
 The current release series are:
 
@@ -24,7 +24,7 @@ This page discusses how to create a data source with MariaDB Connector/ODBC.
 
 ## Creating a Data Source with MariaDB Connector/ODBC on Windows
 
-To create a data source on Windows, you would use the [ODBC Data Source Administrator](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator?view=sql-server-2017).
+To create a data source on Windows, you would use the [ODBC Data Source Administrator](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator?view=sql-server-2017).
 
 {% hint style="success" %}
 If you are using the 64-bit version of MariaDB Connector/ODBC, then make sure you use the 64-bit version of ODBC Data Source Administrator. Similarly, if you are using the 32-bit version of MariaDB Connector/ODBC, then make sure you use the 32-bit version of ODBC Data Source Administrator.
@@ -240,5 +240,7 @@ For example, if the `DSN` is called `MariaDB-server`, then we can verify that it
 ```bash
 $ iodbctest "DSN=MariaDB-server"
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

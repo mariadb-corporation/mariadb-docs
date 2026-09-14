@@ -33,4 +33,6 @@ When performing a multi-insert prepared statement, `mysql_stmt_insert_id()` will
 
 * [mysql\_insert\_id()](../api-functions/mysql_insert_id.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

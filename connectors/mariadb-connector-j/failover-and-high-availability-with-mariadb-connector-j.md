@@ -207,4 +207,6 @@ Each parameter corresponds to a specific use case:
 * Introduced: 1.2.0
 * Note: Not supported since version 3.0
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

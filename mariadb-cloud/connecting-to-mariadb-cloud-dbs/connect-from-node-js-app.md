@@ -225,3 +225,5 @@ main();
 * In the `try` block, create a new connection using the `mariadb#createConnection(options)` function in the Promise API.
 * Send error messages, if any, to the console in the `catch` block.
 * When you are done with a connection, close it to free resources. Close the connection using the `close()` function.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

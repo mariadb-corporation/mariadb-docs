@@ -529,6 +529,6 @@ This behavior is automatic and well suited for series, ordered, patterned and ti
 * [Adding a Node to a ColumnStore Cluster](../management/node-maintenance-for-mariadb-enterprise-columnstore/add-a-node.md)
 * [Topologies Overview](topologies-overview.md)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

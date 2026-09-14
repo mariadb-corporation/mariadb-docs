@@ -152,14 +152,4 @@ Explore server and client software for MariaDB. This section introduces various 
 {% endcolumn %}
 {% endcolumns %}
 
-{% columns %}
-{% column %}
-{% content-ref url="legacy-clients-and-utilities/" %}
-[legacy-clients-and-utilities](legacy-clients-and-utilities/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Explore legacy clients and utilities. This section provides information on older tools and their use cases, useful for understanding historical contexts or working with specific deployments.
-{% endcolumn %}
-{% endcolumns %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

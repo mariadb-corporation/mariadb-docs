@@ -93,3 +93,5 @@ Overview of the continuous integration system used to automate the building and 
 Outlines the best practices and mandatory procedures for using Git to manage source code contributions and version control.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

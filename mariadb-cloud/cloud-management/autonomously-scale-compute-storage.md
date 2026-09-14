@@ -32,8 +32,8 @@ During [service launch](../cloud-usage/launch-page.md):
 
 After service launch, [manage Autonomous settings](autonomously-scale-compute-storage.md#manage-autonomous-settings) and enable the desired auto-scaling features.
 
-{% hint style="warning" %}
-**Tech Preview Limitation: Enterprise Cluster Scaling Limits**&#x20;
+{% hint style="info" %}
+**Enterprise Cluster Scaling Limits**&#x20;
 
 For services deployed using the **MariaDB Enterprise Cluster** topology, node auto-scaling (In/Out) is strictly limited to a **minimum of 3 nodes** and a **maximum of 5 nodes**. This requirement ensures the cluster always maintains a [mathematical quorum for synchronous replication and automated failover](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/understanding-quorum-monitoring-and-recovery).
 {% endhint %}
@@ -73,3 +73,5 @@ Automatic scaling occurs based on rules.
 Autonomous actions are not instantaneous.
 
 Cooldown periods may apply. A cooldown period is the time interval between the completion of a scaling operation and initiation of another scaling operation. The cooldown period for storage scaling is 6 hours.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

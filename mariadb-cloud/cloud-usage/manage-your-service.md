@@ -136,3 +136,5 @@ Your service and all its data will be deleted. This operation is non-reversible.
   * [AWS PrivateLink](../connecting-to-mariadb-cloud-dbs/using-aws-azure-gcp-private-vpc-connections/setting-up-aws-private-link.md)
   * [GCP Private Service Connect](../connecting-to-mariadb-cloud-dbs/using-aws-azure-gcp-private-vpc-connections/setting-up-gcp-private-service-connect.md)
 * [User Management](../security/managing-portal-users.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

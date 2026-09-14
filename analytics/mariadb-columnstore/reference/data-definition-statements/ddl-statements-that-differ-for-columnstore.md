@@ -18,6 +18,6 @@ The following table lists the data definition statements (DDL) that differ from 
 | [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table) | ColumnStore doesn't need indexes, partitions and many other table and column options. See here for [ColumnStore Specific Syntax](columnstore-create-table.md) |
 | [CREATE INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-index) | ColumnStore doesn't need indexes. Hence an index many not be created on a table that is defined with engine=columnstore                                       |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

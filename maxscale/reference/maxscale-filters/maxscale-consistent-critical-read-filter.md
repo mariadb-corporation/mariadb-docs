@@ -61,7 +61,7 @@ After processing a data modifying SQL statement, a counter is set to the value o
 * Dynamic: No
 * Default: `""`
 
-These [regular expression settings](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters) control which statements trigger statement re-routing. Only non-SELECT statements are inspected. For CCRFilter, the _exclude_-parameter is instead named _ignore_, yet works similarly.
+These [regular expression settings](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) control which statements trigger statement re-routing. Only non-SELECT statements are inspected. For CCRFilter, the _exclude_-parameter is instead named _ignore_, yet works similarly.
 
 ```
 match=.*INSERT.*

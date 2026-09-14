@@ -21,4 +21,6 @@ In [benchmarks](https://mscdex.github.io/node-mysql-benchmarks/), mariasql perfo
 
 The source code is located at [github:node-mariasql](https://github.com/mscdex/node-mariasql).
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

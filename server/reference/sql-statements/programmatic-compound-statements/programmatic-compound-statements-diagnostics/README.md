@@ -42,3 +42,5 @@ GET DIAGNOSTICS copies statement and condition information from the diagnostics 
 Explains SQLSTATE, the five-character code identifying SQL error conditions by class and subclass, including the standard success, warning, and not-found classes and how they map to handler keywords.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

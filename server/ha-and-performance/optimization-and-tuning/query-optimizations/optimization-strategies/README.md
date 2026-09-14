@@ -66,3 +66,5 @@ LooseScan is a semi-join execution strategy that avoids duplicate record combina
 Semi-join Materialization runs an uncorrelated IN-subquery into a temporary table, then joins it via the Materialization-scan or Materialization-lookup strategy.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

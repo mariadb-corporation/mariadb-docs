@@ -28,3 +28,5 @@ description: >-
 - [!=](not-equal.md)
 - [NOT IN](not-in.md)
 - [<=>](null-safe-equal.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

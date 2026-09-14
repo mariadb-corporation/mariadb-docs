@@ -141,6 +141,6 @@ flowchart LR
 
 For the full configuration procedure, see the [MariaDB MaxScale Exasolrouter Tutorial](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/mariadb-maxscale-tutorials/mariadb-maxscale-exasolrouter). Pipeline tuning parameters are covered in [Performance & Benchmarking](performance-and-benchmarking.md).
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

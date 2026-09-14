@@ -342,3 +342,5 @@ This event records the preparation phase of an XA transaction, storing the XID t
 The XID_EVENT signifies the commit of a transaction, containing the transaction ID (XID) to ensure atomicity across replication.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

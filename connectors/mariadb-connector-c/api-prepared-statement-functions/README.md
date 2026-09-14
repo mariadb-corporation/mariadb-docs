@@ -89,3 +89,5 @@ Data structures and type definitions used by the prepared-statement API, includi
 Worked prepared-statement examples, including bulk inserts with column-wise and row-wise parameter binding.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -61,6 +61,38 @@ This panel shows the current binary log position of the replica SQL thread for e
 
 This panel shows the current binary log position of the replica I/O thread for each ES node during the selected time interval.
 
+## Flow Control Pause %
+
+This panel shows the proportion of time that replication was paused by flow control for each node during the selected time interval. Enterprise Cluster services only.
+
+## Flow Control Messages Sent
+
+This panel shows the rate at which each node sent flow-control messages during the selected time interval. Enterprise Cluster services only.
+
+## Replication Queue Depth Received
+
+This panel shows the depth of the local receive queue for each node during the selected time interval. Enterprise Cluster services only.
+
+## Write Conflicts
+
+This panel shows the rate of certification failures and brute-force aborts for each node during the selected time interval. Enterprise Cluster services only.
+
+## Max Galera Replication Latency
+
+This panel shows the highest observed write-set replication latency, in seconds, for each node during the selected time interval. Enterprise Cluster services only.
+
+## Transactions
+
+This panel shows the rate of write-sets received and replicated by each node during the selected time interval. Enterprise Cluster services only.
+
+## Writeset Traffic
+
+This panel shows the volume of write-set data received and replicated by each node during the selected time interval. Enterprise Cluster services only.
+
+## Galera Nodes
+
+This panel lists each node (instance) in the cluster with its status, whether it accepts queries, its local state, whether flow control is active, its cluster status, and whether it is connected to the cluster. Enterprise Cluster services only.
+
 <figure><img src="../.gitbook/assets/queries.png" alt=""><figcaption><p>Monitoring—Queries</p></figcaption></figure>
 
 ## Top Command Counters (service, queries)
@@ -73,7 +105,7 @@ This panel shows the top 30 statement types that were most frequently executed b
 
 ## Top Command Counters Hourly (service)
 
-This panel shows the top 30 statement types that were most frequently executed by all ES and Xpand nodes in 1-hour intervals over the past 24 hours.
+This panel shows the top 30 statement types that were most frequently executed by all ES nodes in 1-hour intervals over the past 24 hours.
 
 ## Top Command Counters Hourly (server)
 
@@ -221,15 +253,15 @@ This panel shows the number of network packets dropped by the ES node during the
 
 ## CPU (server, status, gauge)
 
-This panel shows the current CPU usage for the ES or Xpand node.
+This panel shows the current CPU usage for the ES node.
 
 ## RAM (server, status)
 
-This panel shows the current memory usage details for the ES or Xpand node.
+This panel shows the current memory usage details for the ES node.
 
 ## RAM (server, status, graph)
 
-This panel shows memory usage details for the ES or Xpand node during the selected time interval.
+This panel shows memory usage details for the ES node during the selected time interval.
 
 ## Buffer Pool Size of Total RAM
 
@@ -329,7 +361,7 @@ This panel shows the number of clients connected to the MaxScale node during the
 
 ## Database Server Connections
 
-This panel shows the number of database server connections open between the MaxScale node and each ES or Xpand node during the selected time interval.
+This panel shows the number of database server connections open between the MaxScale node and each ES node during the selected time interval.
 
 ## Resident (server, cluster)
 
@@ -372,3 +404,5 @@ This panel shows the number of cache entries evicted per second.
 ## Eviction Rate
 
 This panel shows the number of cache entries evicted per second during the selected time interval.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

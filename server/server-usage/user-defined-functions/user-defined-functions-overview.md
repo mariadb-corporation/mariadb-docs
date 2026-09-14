@@ -14,4 +14,6 @@ For an example, see `sql/udf_example.cc` in the source tree. For a collection of
 
 There are alternative ways to add a new function: a native function, which requires modifying and compiling the server source code; a function plugin; or a [stored function](../stored-routines/stored-functions/).
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

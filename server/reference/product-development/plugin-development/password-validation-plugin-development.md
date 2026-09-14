@@ -13,3 +13,5 @@ description: >-
 Password validation plugin API is very simple. A plugin must implement only one method — `validate_password()`. This method takes two arguments — user name and the plain-text password. It returns `0` when the password has passed the validation; otherwise, `1`.
 
 See also `mysql/plugin_password_validation.h` and password validation plugins in `plugin/simple_password_check/` and `plugins/cracklib_password_check/`.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

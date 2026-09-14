@@ -77,7 +77,7 @@ There are several card models. ioDrive is older generation, ioDrive2 is newer. S
 
 ## See Also
 
-* [FusionIO atomic-series devices](https://www.fusionio.com/products/atomic-series)
+* [FusionIO atomic-series devices](https://web.archive.org/web/20140616192746/https://www.fusionio.com/products/atomic-series)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

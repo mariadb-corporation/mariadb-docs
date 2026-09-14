@@ -73,3 +73,5 @@ View current usage, access billing history, monitor resource consumption, and co
 {% content-ref url="billing.md" %}
 [billing.md](billing.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

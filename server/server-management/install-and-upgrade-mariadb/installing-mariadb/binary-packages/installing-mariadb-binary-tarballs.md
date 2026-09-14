@@ -43,7 +43,7 @@ MariaDB searches for the configuration files '`/etc/my.cnf`' (on some systems '`
 
 The normal solution for this is to ignore the `my.cnf` file in `/etc` when you use the programs in the tar file.
 
-This is done by [creating your own .my.cnf file](../../configuring-mariadb/configuring-mariadb-with-option-files.md) in your home directory and telling [mariadb-install-db](../../../../clients-and-utilities/deployment-tools/mariadb-install-db.md),[mysqld\_safe](../../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md), and possibly [mariadb (the command-line client utility)](../../../../clients-and-utilities/mariadb-client/) to **only** use this one with the option '`--defaults-file=~/.my.cnf`'. Note that this has to be the first option for the above commands!
+This is done by [creating your own .my.cnf file](../../configuring-mariadb/configuring-mariadb-with-option-files.md) in your home directory and telling [mariadb-install-db](../../../../clients-and-utilities/deployment-tools/mariadb-install-db.md),[mysqld\_safe](../../../starting-and-stopping-mariadb/mariadbd-safe.md), and possibly [mariadb (the command-line client utility)](../../../../clients-and-utilities/mariadb-client/) to **only** use this one with the option '`--defaults-file=~/.my.cnf`'. Note that this has to be the first option for the above commands!
 
 ### Installing MariaDB as root in /usr/local/mysql
 

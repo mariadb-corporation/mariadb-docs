@@ -66,3 +66,5 @@ Convert text to vector. This function parses a JSON array string representation 
 Convert vector to text. This function takes a binary VECTOR data type and returns its JSON array string representation.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

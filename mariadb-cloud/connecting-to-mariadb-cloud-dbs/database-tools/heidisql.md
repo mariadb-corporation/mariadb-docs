@@ -26,3 +26,5 @@ For more information on HeidiSQL, see [this page](https://app.gitbook.com/s/Ssme
 {% hint style="warning" %}
 Using updated drivers on new MariaDB versions is essential as out of date drivers will return "Authentication failed" errors. It may be necessary to manually install new drivers on Windows.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

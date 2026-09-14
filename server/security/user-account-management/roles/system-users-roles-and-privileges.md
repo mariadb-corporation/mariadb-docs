@@ -64,3 +64,5 @@ SHOW GRANTS FOR PUBLIC;
 -- Revoke a privilege from all users
 REVOKE SELECT ON my_app.reports FROM PUBLIC;
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

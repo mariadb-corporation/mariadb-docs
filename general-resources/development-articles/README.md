@@ -21,3 +21,5 @@ layout:
 # Product Development
 
 **This section has moved to** [**Server > Reference > Product Development**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development)**.**
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

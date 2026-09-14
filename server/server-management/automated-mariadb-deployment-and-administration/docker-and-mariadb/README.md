@@ -230,3 +230,5 @@ Complete healthcheck.sh Docker reference: --connect, --innodb_initialized, --rep
 Configuration reference for the official MariaDB Enterprise container images — environment variables, command-line flags, and sidecar patterns for production deployments.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

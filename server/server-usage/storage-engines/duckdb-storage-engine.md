@@ -192,3 +192,5 @@ A maintained compatibility matrix is published in the server repository at [`sto
 - [MariaDB DuckDB: A New Playground for Analytics](https://mariadb.org/mariadb-duckdb-a-new-playground-for-analytics-a-first-look-at-the-new-storage-engine/) — Frédéric Descamps, 2026-06-12.
 - [SHOW ENGINES](../../reference/sql-statements/administrative-sql-statements/show/show-engines.md)
 - [INSTALL SONAME](../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

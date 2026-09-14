@@ -202,4 +202,6 @@ _MaxScale routes HTAP traffic to one ES node, which fans out to ColumnStore and 
 
 <ul><li><strong>Single-stack hybrid transactional/analytical workloads</strong></li><li>ColumnStore for analytics with scalable S3-compatible object storage</li><li>InnoDB for transactions</li><li>Cross-engine JOINs</li><li>Enterprise Server 10.5, Enterprise ColumnStore 5, MaxScale 2.5</li><li>Enterprise Server 10.6, Enterprise ColumnStore 23.02, MaxScale 22.08</li></ul>
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

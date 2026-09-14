@@ -2,13 +2,13 @@
 
 **Release date:** 14th November 2018
 
-[MariaDB ColumnStore 1.2.1](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) is an Beta release of MariaDB ColumnStore. This is the first release of the MariaDB ColumnStore 1.2 series. The MariaDB ColumnStore 1.2 series provides several new features and improvements over the MariaDB ColumnStore 1.1 release.
+[MariaDB ColumnStore 1.2.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is an Beta release of MariaDB ColumnStore. This is the first release of the MariaDB ColumnStore 1.2 series. The MariaDB ColumnStore 1.2 series provides several new features and improvements over the MariaDB ColumnStore 1.1 release.
 
 MariaDB ColumnStore 1.2.1 is a [_**Beta**_](../../../community-server/about/release-criteria.md) release.
 
 **Do not use&#x20;**_**beta**_**&#x20;releases on production systems!**
 
-For an overview of [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
 For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) or subscribe to mariadb-columnstore@googlegroups.com
@@ -36,7 +36,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1826](https://jira.mariadb.org/browse/MCOL-1826) - PrimProc crash in float/double to string conversion
 * [MCOL-1845](https://jira.mariadb.org/browse/MCOL-1845) - RPM package summary need to be consistent
 * [MCOL-1852](https://jira.mariadb.org/browse/MCOL-1852) - Spark Exporter uses collect() instead of toLocalIterator() on DataFrames to export and therefore uses too much memory on the Driver
-* [MCOL-1858](https://jira.mariadb.org/browse/MCOL-1858) - An `invalid` records indication when loading the table unsing mcsimport
+* [MCOL-1858](https://jira.mariadb.org/browse/MCOL-1858) - An `invalid` records indication when loading the table using mcsimport
 * [MCOL-520](https://jira.mariadb.org/browse/MCOL-520) - true non root install phase 1
 * [MCOL-1158](https://jira.mariadb.org/browse/MCOL-1158) - Support additional Python3 features using Swig's -py3 flag
 * [MCOL-1642](https://jira.mariadb.org/browse/MCOL-1642) - Add SQL command that shows Primary Front-End MariaDB ColumnStore Module
@@ -59,7 +59,7 @@ In addition, all bugs fixed in MariaDB ColumnStore 1.2.0 and earlier are implici
 
 The following procedure outlines upgrading a 1.2.0 ColumnStore install to 1.2.1:
 
-* [1.2.0 Alpha to 1.2.1 Beta upgrade procedure](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-2/broken-reference/README.md)
+* 1.2.0 Alpha to 1.2.1 Beta upgrade procedure
 
 Multi version upgrades generally will work using the same procedure however we can't test every possible permutation so you should test your specific scenario outside of production first if you wish to try this (and this is good practice regardless).
 
@@ -72,15 +72,15 @@ There are a number bugs and known limitations within this version of MariaDB Col
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md)
+[MariaDB ColumnStore Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore)
 
 ## Packaging
 
 RPM, Debian, and binary packages are provided for the Linux distributions supported by MariaDB ColumnStore 1.2.0 Alpha version.
 
 * The supported OS for the Alpha version are CentOS 6, CentOS 7, Debian 8, Debian 9, RedHat 6, RedHat 7, SUSE 12, Ubuntu 16.04 and Ubuntu 18.04.
-* Packages can be downloaded [here](https://mariadb.com/downloads/mariadb-ax) or can be installed from the [repositories](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-2/broken-reference/README.md).
-* An Amazon AWS AMI Image is available for this release, please search for AMI name "MariaDB-ColumnStore-1.2.0". AMI specific installation instructions can be found [here](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-2/broken-reference/README.md).
+* Packages can be downloaded [here](https://mariadb.com/downloads/mariadb-ax) or can be installed from the [repositories](https://downloads.mariadb.org/mariadb/repositories/).
+* An Amazon AWS AMI Image is available for this release, please search for AMI name "MariaDB-ColumnStore-1.2.0".
 * Certified to run in Google Cloud Environment in the GA OSs.
 
 ## Source code
@@ -95,6 +95,6 @@ The source code is available at these locations
 * Write Data API - [Source code for Write Data API /SDK](https://github.com/mariadb-corporation/mariadb-columnstore-api/tree/columnstore-1.2.1)
 * MaxScale CDC and Kafka Data Adapters - [Source Code for data adapters](https://github.com/mariadb-corporation/mariadb-columnstore-data-adapters/tree/columnstore-1.2.1)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -70,7 +70,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
   Fixed trival bug introduced in last patch (buffer was not extended)
 * [Revision #2869](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2869)\
   Fixes for Opensolaris (to get buildbot green)
-  * Fixed memory leaks in [mysqldump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqldump)
+  * Fixed memory leaks in mysqldump
   * Fixed printf of NULL which caused crashes on OpenSolaris when using `--debug`
   * Fixed realloc() problem that caused out of memory when running mysqldump.test on OpenSolaris
 * [Revision #2868](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2868)\
@@ -113,6 +113,6 @@ The revision number links will take you to the revision's page on Launchpad. On 
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

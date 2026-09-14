@@ -33,6 +33,6 @@ If you are not yet a MariaDB subscription customer, [contact MariaDB Corporation
 
 MariaDB Enterprise Server binary and source code are delivered over secure protocols from MariaDB Corporation-maintained infrastructure.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

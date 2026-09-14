@@ -149,7 +149,7 @@ The above `.my.cnf` file:
 
 * Uses an explicit socket for both client and server.
 * Assumes the server source is in /my/maria-xxx. You should change this to point to where your sources are located.
-* Has a unique patch for each MariaDB version so that one doesn't have to specify [--lc-messages-dir](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lc_messages_dir) or [--language](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#language) even if one switches between debugging different MariaDB versions.
+* Has a unique patch for each MariaDB version so that one doesn't have to specify [--lc-messages-dir](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lc_messages_dir) or [--language](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#language) even if one switches between debugging different MariaDB versions.
 
 ### See Also
 

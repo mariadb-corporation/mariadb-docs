@@ -36,4 +36,6 @@ Returns zero on success, 1 if an error occurred.
 * [mysql\_stmt\_prepare()](mysql_stmt_prepare.md)
 * [mysql\_stmt\_execute()](mysql_stmt_execute.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

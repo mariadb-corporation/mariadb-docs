@@ -164,9 +164,9 @@ The following example enhances the `SQL_MODE` to ensure that `ALLOW_INVALID_DATE
 -- Disable STRICT_TRANS_TABLES and enable ALLOW_INVALID_DATES
 SET sql_mode=(SELECT REPLACE(@@sql_mode, 'STRICT_TRANS_TABLES', ''));
 SET sql_mode=(SELECT CONCAT(@@sql_mode, ',ALLOW_INVALID_DATES'));
-<</code>>
+```
 
-<<sql>>
+```sql
 INSERT INTO date_range_example VALUES
   ('day is invalid for all months', '2019-12-32'),
   ('day is just large for February', '2019-02-31');

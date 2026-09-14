@@ -79,3 +79,5 @@ SELECT * FROM sq1 WHERE num1 NOT IN (SELECT NULL);
 ```
 
 Result: Empty set (The condition evaluates to `NULL` for all rows, so no rows are returned).
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

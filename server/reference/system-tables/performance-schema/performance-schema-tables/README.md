@@ -89,3 +89,5 @@ description: >-
 - [Performance Schema threads Table](performance-schema-threads-table.md)
 - [Performance Schema users Table](performance-schema-users-table.md)
 - [Performance Schema user\_variables\_by\_thread Table](performance-schema-user_variables_by_thread-table.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

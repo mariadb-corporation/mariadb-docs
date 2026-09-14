@@ -30,3 +30,5 @@ Definitive full-text index guide: MATCH() AGAINST syntax, FULLTEXT index creatio
 Explains stopwords for full-text indexes, the differing default lists in MyISAM and InnoDB, and how to override them, plus the full default MyISAM stopword list.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

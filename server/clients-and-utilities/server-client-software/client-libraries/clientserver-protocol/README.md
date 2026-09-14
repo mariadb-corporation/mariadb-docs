@@ -10,3 +10,5 @@ Find detailed descriptions in the Reference section:
 {% content-ref url="../../../../reference/clientserver-protocol/" %}
 [clientserver-protocol](../../../../reference/clientserver-protocol/)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

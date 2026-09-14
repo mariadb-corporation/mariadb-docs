@@ -81,7 +81,7 @@ The SELECT grammar is broken out into named sub-clauses for readability. Each cl
 
 {% tabs %}
 {% tab title="Current" %}
-Available join order hints [can be found here](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/#join-order-hints).
+Available join order hints [can be found here](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/expanded-optimizer-hints.md#join-order-hints).
 {% endtab %}
 
 {% tab title="< 12.0" %}
@@ -191,7 +191,7 @@ The clause doesn't exist.
 
 ### Optimizer Hints
 
-These include [HIGH\_PRIORITY](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/#high-priority), [STRAIGHT\_JOIN](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/#straight_join), [SQL\_SMALL\_RESULT | SQL\_BIG\_RESULT](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/#sql_small_result-sql_big_result), [SQL\_BUFFER\_RESULT](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/#sql_buffer_result), [SQL\_CACHE | SQL\_NO\_CACHE](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/#sql_cache-sql_no_cache), and [SQL\_CALC\_FOUND\_ROWS](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/#sql_calc_found_rows).
+These include [HIGH\_PRIORITY](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/select-modifier-hints.md#high-priority), [STRAIGHT\_JOIN](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/select-modifier-hints.md#straight_join), [SQL\_SMALL\_RESULT | SQL\_BIG\_RESULT](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/select-modifier-hints.md#sql_small_result-sql_big_result), [SQL\_BUFFER\_RESULT](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/select-modifier-hints.md#sql_buffer_result), [SQL\_CACHE | SQL\_NO\_CACHE](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/select-modifier-hints.md#sql_cache-sql_no_cache), and [SQL\_CALC\_FOUND\_ROWS](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/select-modifier-hints.md#sql_calc_found_rows).
 
 See [Optimizer Hints](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/) for details.
 

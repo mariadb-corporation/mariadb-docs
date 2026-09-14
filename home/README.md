@@ -87,3 +87,5 @@ Read the documentation offline. Each PDF covers one documentation set and links 
 | MariaDB General Resources | [mariadb-general-resources.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-general-resources.pdf) | 220 |
 
 Page counts describe the July 2026 snapshot and grow as the documentation does. [Browse every snapshot](https://github.com/mariadb-corporation/mariadb-docs/releases) to download an older set. This site is always the authoritative version.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

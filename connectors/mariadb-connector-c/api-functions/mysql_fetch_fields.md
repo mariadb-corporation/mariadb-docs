@@ -34,4 +34,6 @@ The total number of fields can be obtained by [mysql\_field\_count()](mysql_fiel
 * [mysql\_fetch\_field\_direct()](mysql_fetch_field_direct.md)
 * [mysql\_field\_count()](mysql_field_count.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -9,7 +9,7 @@ highlights of this release.
 
 [MariaDB 5.1.44](../../old-releases/5.1/5.1.44.md) is based on MySQL 5.1.44 and includes all changes made since\
 MySQL 5.1.42, including MySQL 5.1.43. In addition to the changes listed in
-previous [changelogs](../../../connectors/odbc/changelogs/) it includes the following changes and bug fixes:
+previous [changelogs](../README.md) it includes the following changes and bug fixes:
 
 * fixed a reported performance problem with MariaDB internal temporary tables
 * don't crash on failing to load a plugin with newer\
@@ -72,6 +72,6 @@ previous [changelogs](../../../connectors/odbc/changelogs/) it includes the foll
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

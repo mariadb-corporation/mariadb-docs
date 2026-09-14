@@ -439,7 +439,7 @@ MaxScale 2.5 includes configuration changes for [MariaDB Monitor (mariadbmon)](.
 
 **ColumnStore Monitor**
 
-MaxScale 2.5 includes configuration changes for [ColumnStore Monitor (csmon)](../../../maxscale-archive/archive/mariadb-maxscale-21-06/mariadb-maxscale-2106-maxscale-21-06-monitors/maxscale-mariadb-monitor-usage/maxscale-mariadb-monitor-usage-columnstore-monitor.md):
+MaxScale 2.5 includes configuration changes for ColumnStore Monitor (csmon):
 
 *   The `version` parameter was previously optional, but it is now required.
 
@@ -544,3 +544,5 @@ sudo maxctrl show maxscale
 │              │ }                                                                    │
 └──────────────┴──────────────────────────────────────────────────────────────────────┘
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -123,3 +123,5 @@ Learn about string functions in MariaDB Server. This section details SQL functio
 Explore vector functions. This section details SQL functions for manipulating and querying vector data types, enabling efficient similarity search and AI/ML applications within your  database.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

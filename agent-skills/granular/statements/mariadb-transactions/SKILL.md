@@ -100,3 +100,5 @@ All default to `0` (disabled). If a specific (`_write_`/`_readonly_`) timeout is
   - <https://mariadb.com/docs/server/reference/sql-statements/transactions/savepoint>
   - <https://mariadb.com/docs/server/reference/sql-statements/transactions/sql-statements-that-cause-an-implicit-commit>
   - <https://mariadb.com/docs/server/reference/sql-statements/transactions/transaction-timeouts>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

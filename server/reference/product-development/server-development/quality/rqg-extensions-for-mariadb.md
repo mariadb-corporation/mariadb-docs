@@ -187,3 +187,5 @@ alter_object:
 * [Optimizer Quality](optimizer-quality.md)
 * [QA Tools](qa-tools.md)
 * [Worklog Quality Checklist Template](worklog-quality-checklist-template.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

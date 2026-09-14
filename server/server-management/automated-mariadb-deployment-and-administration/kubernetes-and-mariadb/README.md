@@ -30,3 +30,5 @@ Official Kubernetes Operators for MariaDB: Enterprise Operator for MariaDB Serve
 Introduction to core Kubernetes concepts relevant to database administrators, such as StatefulSets, Persistent Volumes, and Services, and how they apply to MariaDB storage and networking.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

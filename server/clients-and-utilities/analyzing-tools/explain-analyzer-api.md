@@ -28,4 +28,6 @@ If you like, you can have a banner promoting your client appear at the bottom of
 
 CC BY-SA / Gnu FDL
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}

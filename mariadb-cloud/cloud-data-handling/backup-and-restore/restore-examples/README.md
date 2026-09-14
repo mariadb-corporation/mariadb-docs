@@ -48,3 +48,5 @@ Delete scheduled restore operations with restore ID references using API calls.
 {% content-ref url="restore-delete-examples.md" %}
 [restore-delete-examples.md](restore-delete-examples.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

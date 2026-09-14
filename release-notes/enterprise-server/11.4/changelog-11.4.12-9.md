@@ -105,6 +105,6 @@ hidden: true
 * Wrong Results in Identical Queries Involving Grouping and Bitwise NOT (\~) ([MDEV-39131](https://jira.mariadb.org/browse/MDEV-39131))
 * InnoDB would fail to start up on data files from MariaDB Server 10.x or earlier when innodb\_force\_recovery=6 is specified. ([MDEV-39303](https://jira.mariadb.org/browse/MDEV-39303))
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

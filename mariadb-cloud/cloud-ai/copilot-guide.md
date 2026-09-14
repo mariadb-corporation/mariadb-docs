@@ -402,3 +402,5 @@ Over time, you'll get a well-tuned agent that produces accurate, efficient, and 
 Your trained agent is now ready for deployment—capable of transforming natural language queries into efficient SQL with high accuracy.
 
 In the Edit agent window, select the radio box "Published" to deploy the agent and make it available through the AI Agent APIs.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

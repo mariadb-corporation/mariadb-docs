@@ -42,3 +42,5 @@ Define simple temporary result sets. Non-recursive CTEs act like query-local vie
 Complete WITH clause reference: WITH [RECURSIVE] AS (SELECT...) syntax, recursive CTE support, CYCLE...RESTRICT cycle detection, and max_recursive_iterations.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -59,7 +59,7 @@ SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 The default is **`REPEATABLE READ`** — set it at startup with `--transaction-isolation=REPEATABLE-READ` (dashes, not spaces, for the option/config-file form) or check it live via `SELECT @@transaction_isolation;`.
 
 - **`READ UNCOMMITTED`** — non-locking reads may see an uncommitted ("dirty") earlier or concurrent version of a row.
-- **`READ COMMITTED`** — each consistent read (even within the same transaction) takes a fresh snapshot; locking reads (`FOR UPDATE`/`LOCK IN SHARE MODE`) skip gap locks except for foreign-key/unique-key checks, so requires row-based binary logging.
+- **`READ COMMITTED`** — each consistent read (even within the same transaction) takes a fresh snapshot; locking reads (`FOR UPDATE`/`LOCK IN SHARE MODE`), `UPDATE`, and `DELETE` skip gap locks, the sole exception being duplicate-key checking on a unique index, which takes a next-key lock at every isolation level. Cannot be combined with `binlog_format=STATEMENT` (fails with error 1665); the default `MIXED` and `ROW` are both fine.
 - **`REPEATABLE READ`** *(default)* — all consistent reads in a transaction reuse the snapshot from the transaction's first read. Minimum isolation level required for non-distributed XA transactions.
 - **`SERIALIZABLE`** — like `REPEATABLE READ`, but plain `SELECT` is implicitly converted to `SELECT ... LOCK IN SHARE MODE` when `autocommit` is disabled. Required for distributed XA transactions.
 
@@ -94,3 +94,5 @@ Default is **`READ WRITE`** (`transaction_read_only` defaults to `OFF`; confirme
   - <https://mariadb.com/docs/server/reference/sql-statements/transactions/transactions-read-committed>
   - <https://mariadb.com/docs/server/reference/sql-statements/transactions/transactions-serializable>
   - <https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

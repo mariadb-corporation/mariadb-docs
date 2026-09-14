@@ -16,7 +16,7 @@ For more information on general types of indexes, such as primary keys, unique i
 | [InnoDB](../../../server-usage/storage-engines/innodb/)                       | BTREE             |
 | [MEMORY/HEAP](../../../server-usage/storage-engines/memory-storage-engine.md) | HASH, BTREE       |
 
-BTREE is generally the default index type. For [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables, HASH is the default. [TokuDB](../../../server-usage/storage-engines/legacy-storage-engines/tokudb/) uses a particular data structure called _fractal trees_, which is optimized for data that do not entirely fit memory.
+BTREE is generally the default index type. For [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables, HASH is the default.
 
 Understanding the B-tree and hash data structures can help predict how different queries perform on different storage engines that use these data structures in their indexes, particularly for the MEMORY storage engine that lets you choose B-tree or hash indexes.\
 B-Tree Index Characteristics

@@ -60,7 +60,7 @@ To summarize: Changing the default of `innodb_flush_method` to `O_DIRECT` in Mar
 ## Behavior Change in MariaDB 11.0
 
 {% hint style="info" %}
-The [`innodb_flush_method`](innodb-system-variables.md#innodb_flush_method) variable has been deprecated, but can still be used. The preferred way to use it is by setting one of the Boolean variables via the [`SET GLOBAL`](../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) statement. The usage of those variables is explained in the [Options and Startup Variables](innodb-flush-method.md#options-and-startup-parameters) section.
+The [`innodb_flush_method`](innodb-system-variables.md#innodb_flush_method) variable has been deprecated, but can still be used. The preferred way to use it is by setting one of the Boolean variables via the [`SET GLOBAL`](../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) statement. The usage of those variables is explained in the [Options and Startup Variables](innodb-flush-method.md#options-and-startup-variables) section.
 {% endhint %}
 
 From MariaDB 11.0, the flushing behavior of InnoDB should no longer be controlled by `innodb_flush_method`, but rather by the  following variables, which can be modified with a `SET GLOBAL` statement while the server is running:
@@ -102,3 +102,5 @@ FUA can be detrimental for data file write performance, but beneficial for log w
     When the FUA bit is set to 1, the storage device must complete the write operation to the physical media before returning a "good" status, ensuring data durability even in the event of a power failure.
 
 [^2]: Direct Memory Access; see [https://en.wikipedia.org/wiki/Direct\_memory\_access](https://en.wikipedia.org/wiki/Direct_memory_access) for details.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

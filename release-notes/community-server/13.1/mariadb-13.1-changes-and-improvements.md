@@ -40,6 +40,6 @@ MariaDB 13.1 is a [rolling release](../about/release-model.md). It is an evoluti
  * CHECK TABLE supports MEMORY tables ([MDEV-40030](https://jira.mariadb.org/browse/MDEV-40030))
  * `slave_skip_errors` variable can be modified without server restart ([MDEV-7394](https://jira.mariadb.org/browse/MDEV-7394))
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

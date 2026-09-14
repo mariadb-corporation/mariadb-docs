@@ -33,3 +33,5 @@ An introduction to the FederatedX storage engine, a fork of MySQL's Federated en
 This page outlines the key enhancements in FederatedX over the original Federated engine, including support for transactions and a refactored codebase. This storage engine has been deprecated.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

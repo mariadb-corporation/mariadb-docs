@@ -39,4 +39,6 @@ For an example how to use 'mysql\_send\_query()\` in an event driven model, plea
 
 * [mysql\_read\_query\_result()](mysql_read_query_result.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -73,4 +73,6 @@ This function is deprecated and not supported anymore.
 * mysql\_debug\_end()
 * [mysql\_dump\_debug\_info()](mysql_dump_debug_info.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

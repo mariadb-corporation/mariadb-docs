@@ -70,3 +70,5 @@ MariaDB links to cryptography libraries (OpenSSL, wolfSSL, GnuTLS, Schannel) eit
 * Enabled via variables like `innodb_encrypt_tables` and requires a specific plugin (e.g., `file_key_management`) to be loaded.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

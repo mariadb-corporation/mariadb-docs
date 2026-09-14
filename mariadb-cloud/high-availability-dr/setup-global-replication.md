@@ -182,3 +182,5 @@ CALL sky.replication_status();
 5\. Once the replication is set up, verify the status of the new database service in the MariaDB Cloud console. Ensure that the service is replicating for your use case for global replication.
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -34,7 +34,7 @@ MariaDB ColumnStore enables batch insert mode by default.
 
 When batch insert mode is enabled, MariaDB ColumnStore has special handling for the following statements:
 
-* \[\[|load-data-infileLOAD DATA \[ LOCAL ] INFILE]]
+* [LOAD DATA \[ LOCAL \] INFILE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile)
 * [INSERT INTO .. SELECT FROM ..](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insert)
 
 ColumnStore uses the following rules:
@@ -63,6 +63,6 @@ When a bulk data load is running:
 | Fast        | [LOAD DATA \[ LOCAL \] INFILE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) | SQL       | • Text file.                                        | • Server file system • Client file system | • Translates operation to cpimport command. • Non-blocking                              |
 | Slow        | [INSERT .. SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insert)                                                      | SQL       | • Other table(s).                                   | • Same MariaDB server                     | • Translates operation to cpimport command. • Non-blocking                              |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

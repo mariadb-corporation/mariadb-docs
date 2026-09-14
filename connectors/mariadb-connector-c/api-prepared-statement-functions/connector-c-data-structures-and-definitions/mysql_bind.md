@@ -73,4 +73,6 @@ If `row_size` is zero, column wise binding will be used instead.
 
 An example for row wise binding can be found [here](../prepared-statement-examples/bulk-insert-row-wise-binding.md).
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

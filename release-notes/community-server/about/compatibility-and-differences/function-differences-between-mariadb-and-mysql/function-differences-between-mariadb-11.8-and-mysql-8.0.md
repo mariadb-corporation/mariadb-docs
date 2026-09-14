@@ -207,3 +207,5 @@ MariaDB and MySQL have differing [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2O
 * [System Variable Differences Between MariaDB Rolling and MySQL 8.0](../system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-rolling-and-mysql-8-0.md)
 * [MariaDB versus MySQL - Compatibility](../mariadb-vs-mysql-compatibility.md)
 * [MariaDB versus MySQL - Features](../mariadb-vs-mysql-features.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -15,7 +15,6 @@ description: >-
 
 To set up an one-time _binary log_ backup:
 
-````
 ```bash
 curl --location 'https://api.skysql.com/skybackup/v1/backups/schedules' \
 --header 'Content-Type: application/json' \
@@ -26,7 +25,7 @@ curl --location 'https://api.skysql.com/skybackup/v1/backups/schedules' \
     "schedule": "once",
     "service_id": "$SERVICE_ID"
 }'
-````
+```
 
 * API\_KEY : SKYSQL API KEY, see [MariaDB Cloud API Keys](https://app.skysql.com/user-profile/api-keys/)
 * SERVICE\_ID : MariaDB Cloud service identifier, format dbtxxxxxx. You can fetch the service ID from the Fully qualified domain name(FQDN) of your service. E.g: in dbpgf17106534.sysp0000.db2.skysql.com, 'dbpgf17106534' is the service ID.You will find the FQDN in the [Connect window](https://app.skysql.com/dashboard)
@@ -52,5 +51,7 @@ curl --location 'https://api.skysql.com/skybackup/v1/backups/schedules' \
 * SERVICE\_ID : MariaDB Cloud service identifier, format dbtxxxxxx
 
 {% hint style="info" %}
-Backup status can be fetch using 'https://api.skysql.com/skybackup/v1/backups'. See the 'Backup Status' section for an example.
+Backup status can be fetched using `https://api.skysql.com/skybackup/v1/backups`. See the 'Backup Status' section for an example.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

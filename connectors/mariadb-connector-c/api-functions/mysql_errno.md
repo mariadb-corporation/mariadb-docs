@@ -29,4 +29,6 @@ Client error messages are listed in errmsg.h header file, server error messages 
 * [mysql\_error()](mysql_error.md)
 * [mysql\_sqlstate()](mysql_sqlstate.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

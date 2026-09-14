@@ -1,4 +1,14 @@
+---
+description: >-
+  PgManage is a SQL editor and database management toolkit that supports
+  MariaDB alongside many other databases.
+---
+
 # PgManage
+
+{% hint style="info" %}
+PgManage is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 [PgManage](https://www.commandprompt.com/products/pgmanage/) is a modern SQL editor database management toolkit.
 

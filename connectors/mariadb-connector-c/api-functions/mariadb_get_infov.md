@@ -97,4 +97,6 @@ mariadb_get_infov(mysql, MARIADB_CONNECTION_USER, (void *)&user);
 
 * [mysql\_get\_optionv()](mysql_get_optionv.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

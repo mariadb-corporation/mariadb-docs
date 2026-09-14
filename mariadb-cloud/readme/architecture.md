@@ -366,3 +366,5 @@ MariaDB Cloud is evaluating distributed storage solutions:
 3. **Resource Right-Sizing**: Monitor and adjust resource allocation
 
 This architecture enables MariaDB Cloud Serverless to provide true serverless capabilities while maintaining the performance, reliability, and compatibility that enterprises require.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

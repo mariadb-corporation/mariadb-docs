@@ -154,3 +154,5 @@ InnoDB-only. Aria, MyISAM, etc. don't need this — they pick up data files plac
 - **`mariadb-create-table`** — column definitions, index definitions, and table options (shared syntax surface)
 - **`mariadb-system-versioned-tables`** — versioning model, `system_versioning_alter_history`, history-row semantics
 - Canonical references on `mariadb.com/docs`, consult only for edge cases not covered here: <https://mariadb.com/docs/server/reference/sql-statements/data-definition/alter/alter-table> and <https://mariadb.com/docs/server/reference/sql-statements/data-definition/alter/alter-table/online-schema-change>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

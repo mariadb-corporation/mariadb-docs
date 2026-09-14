@@ -35,4 +35,6 @@ Returns the previous value of the field cursor.
 
 * [mysql\_field\_tell()](mysql_field_tell.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

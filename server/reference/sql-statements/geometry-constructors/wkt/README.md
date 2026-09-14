@@ -42,3 +42,5 @@ description: >-
 - [ST\_PolyFromText](st_polyfromtext.md)
 - [ST\_PolygonFromText](st_polygonfromtext.md)
 - [ST\_MLineFromText](wkt-st_mlinefromtext.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

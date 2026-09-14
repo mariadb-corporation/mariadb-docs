@@ -8,6 +8,7 @@ description: A list of all MariaDB Connector/R2DBC releases
 
 | Release           | Release Date | Release Status |
 | ----------------- | ------------ | -------------- |
+| [1.4.2](1.4.2.md) | 2026-09-02   | Stable (GA)    |
 | [1.4.1](1.4.1.md) | 2026-06-16   | Stable (GA)    |
 | [1.4.0](1.4.0.md) | 2026-02-17   | Stable (GA)    |
 
@@ -44,6 +45,6 @@ description: A list of all MariaDB Connector/R2DBC releases
 | [1.0.1](1.0.1.md) | 2021-03-11   | Stable (GA)    |
 | [1.0.0](1.0.0.md) | 2020-12-11   | Stable (GA)    |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

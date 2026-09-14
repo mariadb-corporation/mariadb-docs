@@ -93,7 +93,7 @@ May 13 10:24:28 mariadb3 maridbd[19221]: 2019-05-13 10:24:28 0 [ERROR] Aborting
 
 This is usually a permission error on the directory in which this file is being written. Ensure that the entire [datadir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) is owned by the user running `mariadbd`, usually `mysql`. Ensure that directories have the "x" (execute) directory permissions for the owner. Ensure that all the parent directories of the datadir upwards have "x" (execute) permissions for all (`user`, `group`, and `other`).
 
-Once this is checked, look at the [systemd](what-to-do-if-mariadb-doesnt-start.md#systemd) and [SELinux](what-to-do-if-mariadb-doesnt-start.md#selinux) documentation below, or [AppArmor](what-to-do-if-mariadb-doesnt-start.md#AppArmorl).
+Once this is checked, look at the [systemd](what-to-do-if-mariadb-doesnt-start.md#systemd) and [SELinux](what-to-do-if-mariadb-doesnt-start.md#selinux) documentation below, or [AppArmor](what-to-do-if-mariadb-doesnt-start.md#apparmor).
 
 ## Can't Lock Aria Control File
 
@@ -203,7 +203,7 @@ In the event of unexplained errors at startup or runtime, check for potential Ap
 
 To disable enforcement, run `aa-complain /etc/apparmor.d/mariadbd`.
 
-To add local overrides, put them in `/etc/apparmor.d/local/mariadbd`. For more information, see [/usr/share/doc/mariadb-server/NEWS.Debian.gz](https://sources.debian.org/src/mariadb/1%3A11.8.6-6/debian/mariadb-server.NEWS).
+To add local overrides, put them in `/etc/apparmor.d/local/mariadbd`. For more information, see [/usr/share/doc/mariadb-server/NEWS.Debian.gz](https://sources.debian.org/src/mariadb/latest/debian/mariadb-server.NEWS/).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

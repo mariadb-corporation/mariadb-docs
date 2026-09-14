@@ -100,3 +100,5 @@
 - [Error 1397: XAER\_NOTA: Unknown XID](e1397.md)
 - [Error 1398: XAER\_INVAL: Invalid arguments (or unsupported command)](e1398.md)
 - [Error 1399: XAER\_RMFAIL: The command cannot be executed when global transaction is in the state](e1399.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

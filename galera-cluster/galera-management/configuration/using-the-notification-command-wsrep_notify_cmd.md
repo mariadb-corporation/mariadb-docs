@@ -13,7 +13,7 @@ This is extremely useful for integrating the cluster with external systems:
 
 | System                                                                                                                                                | Description                                                                                        |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| [Load Balancers](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#id-2.-recommended-load-balancer-mariadb-maxscale) | Automatically add or remove nodes from the load balancer's pool as they join or leave the cluster. |
+| [Load Balancers](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#recommended-load-balancer-mariadb-maxscale) | Automatically add or remove nodes from the load balancer's pool as they join or leave the cluster. |
 | [Monitoring and Alerting](../../high-availability/monitoring-mariadb-galera-cluster.md)                                                               | Send custom alerts to a monitoring system when a node's status changes.                            |
 | Service Discovery                                                                                                                                     | Update a service discovery tool with the current list of active cluster members.                   |
 

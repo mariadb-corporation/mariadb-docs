@@ -16,7 +16,7 @@ InnoDB versions in MySQL 5.7 and above also support an additional type of tables
 
 By default, InnoDB's file-per-table tablespaces are created in the system's data directory, which is defined by the [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) system variable. The system variable [innodb\_data\_home\_dir](../innodb-system-variables.md#innodb_data_home_dir) will not change the location of file-per-table tablespaces.
 
-In the event that you have a specific tablespace that you need stored in a dedicated path, you can set the location using the [DATA DIRECTORY](../../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) table option when you create the table.
+In the event that you have a specific tablespace that you need stored in a dedicated path, you can set the location using the [DATA DIRECTORY](../../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) table option when you create the table.
 
 For instance,
 
@@ -219,7 +219,7 @@ PARTITION BY RANGE (employee_id) (
 );
 ```
 
-* Then, using this table as a model, we need to create a placeholder of this table with the same structure that does not use partitioning. This can be done with a [CREATE TABLE... AS SELECT](../../../../reference/sql-statements/data-definition/create/create-table.md#create-select) statement:
+* Then, using this table as a model, we need to create a placeholder of this table with the same structure that does not use partitioning. This can be done with a [CREATE TABLE... AS SELECT](../../../../reference/sql-statements/data-definition/create/create-table.md#create-table-...-select) statement:
 
 ```sql
 CREATE TABLE test.t2_placeholder LIKE test.t2;
@@ -365,7 +365,7 @@ For more information on data encryption, see [Encrypting Data for InnoDB](../../
 
 ## See Also
 
-* [Geoff Montee:Importing InnoDB Partitions in MySQL 5.6 and MariaDB 10.0/10.1](https://www.geoffmontee.com/importing-innodb-partitions-in-mysql-5-6-and-mariadb-10-010-1/)
+* [Geoff Montee:Importing InnoDB Partitions in MySQL 5.6 and MariaDB 10.0/10.1](https://web.archive.org/web/20210731145246/https://www.geoffmontee.com/importing-innodb-partitions-in-mysql-5-6-and-mariadb-10-010-1/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

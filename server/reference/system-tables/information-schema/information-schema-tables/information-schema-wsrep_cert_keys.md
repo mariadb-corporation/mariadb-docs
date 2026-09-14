@@ -89,3 +89,5 @@ SELECT KEY_STRING, KEY_TYPE FROM INFORMATION_SCHEMA.WSREP_CERT_KEYS;
 ## Shared
 
 This key type is used when a referenced table update happens, and `wsrep_protocol_version` is smaller than 4.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

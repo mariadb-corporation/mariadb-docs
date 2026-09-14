@@ -7,7 +7,7 @@ hidden: true
 
 ## Overview
 
-This page details step 1 of a 5-step procedure for deploying Single-Node ColumnStore with Object storage.
+This page details step 1 of a 5-step procedure for deploying Multi-Node ColumnStore with Object Storage.
 
 This step prepares the system to host MariaDB Enterprise Server and MariaDB ColumnStore.
 
@@ -159,6 +159,6 @@ This page was step 1 of 5.
 
 [Next: Step 2: Install MariaDB ColumnStore](step-3-start-and-configure-enterprise-columnstore.md).
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

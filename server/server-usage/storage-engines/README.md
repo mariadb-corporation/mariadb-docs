@@ -93,6 +93,18 @@ The CSV storage engine stores data in text files using comma-separated values fo
 
 {% columns %}
 {% column %}
+{% content-ref url="duckdb-storage-engine.md" %}
+[duckdb-storage-engine.md](duckdb-storage-engine.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+DuckDB embedded as a MariaDB storage engine for analytical workloads. Experimental, at alpha maturity, and not built into MariaDB releases.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="federatedx-storage-engine/" %}
 [federatedx-storage-engine](federatedx-storage-engine/)
 {% endcontent-ref %}
@@ -249,6 +261,18 @@ Explore the Spider storage engine in MariaDB Server. Learn how to shard data acr
 
 {% columns %}
 {% column %}
+{% content-ref url="tidesql/" %}
+[tidesql](tidesql/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+TideSQL is a transactional, log-structured merge-tree storage engine built on the TidesDB library, optimized for high write throughput with full SQL, MVCC, encryption, and secondary, spatial, full-text, and vector indexes.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="videx-storage-engine.md" %}
 [videx-storage-engine.md](videx-storage-engine.md)
 {% endcontent-ref %}
@@ -285,12 +309,14 @@ Learn how to integrate MindsDB with MariaDB to train and query machine learning 
 
 {% columns %}
 {% column %}
-{% content-ref url="legacy-storage-engines/" %}
-[legacy-storage-engines](legacy-storage-engines/)
+{% content-ref url="federated-storage-engine.md" %}
+[federated-storage-engine.md](federated-storage-engine.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Explore legacy storage engines in MariaDB Server. This section provides information on older engines, their historical context, and considerations for migration or compatibility.
+The legacy FEDERATED storage engine, superseded by the actively maintained FederatedX fork.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

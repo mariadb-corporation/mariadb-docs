@@ -150,3 +150,5 @@ Deploy Spider Federated Topology
 Deploy Spider Sharded Topology
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

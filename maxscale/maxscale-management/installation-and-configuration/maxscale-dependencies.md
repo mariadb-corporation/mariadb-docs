@@ -96,3 +96,5 @@ ldd /usr/lib/*/maxscale/*.so       # adjust path for your distribution layout
 ```
 
 This is the most reliable way to answer "Does my host have everything MaxScale needs?" — `ldd` reports any unresolved symbols as `not found`.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

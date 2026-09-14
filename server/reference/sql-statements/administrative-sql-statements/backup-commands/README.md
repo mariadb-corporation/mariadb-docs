@@ -42,3 +42,5 @@ Control backup phases for external tools. Learn how to cycle through stages like
 Combine database commands with storage-level snapshots. Learn the correct sequence of BACKUP STAGE commands to freeze writes safely while taking a disk snapshot.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -122,3 +122,5 @@ To ensure that binary log events are encrypted as they are transmitted between t
 ### Effects of Data-at-Rest Encryption on mariadb-binlog
 
 [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/) does not have the ability to decrypt encrypted [binary logs](../../../server-management/server-monitoring-logs/binary-log/) on its own (see [MDEV-8813](https://jira.mariadb.org/browse/MDEV-8813)). In order to use `mariadb-binlog` with encrypted [binary logs](../../../server-management/server-monitoring-logs/binary-log/), use the [--read-from-remote-server](../../../clients-and-utilities/logging-tools/mariadb-binlog/mariadb-binlog-options.md) command-line option, so that the server can decrypt the [binary logs](../../../server-management/server-monitoring-logs/binary-log/) for `mariadb-binlog`.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

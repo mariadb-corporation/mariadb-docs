@@ -67,3 +67,4 @@ Guidance for developers working on MariaDB, focused on tools and workflows.
 [limitationsdifferences-with-a-mariadb-server-compiled-for-debugging.md](../../debugging-mariadb/limitationsdifferences-with-a-mariadb-server-compiled-for-debugging.md)
 {% endcontent-ref %}
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

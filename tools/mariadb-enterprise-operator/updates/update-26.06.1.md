@@ -6,7 +6,7 @@ description: >-
 
 # 26.06.1 update guide
 
-This guide illustrates, step by step, how to update to `26.6.1` from `26.6.0`. If you are updating from a version prior to `26.6.x`, follow the [26.06 update guide](https://mariadb.com/docs/tools/mariadb-enterprise-operator/updates/update-26.06) first, and apply the changes described there before continuing with this one.
+This guide illustrates, step by step, how to update to `26.6.1` from `26.6.0`. If you are updating from a version prior to `26.6.x`, follow the [26.06 update guide](update-26.06.md) first, and apply the changes described there before continuing with this one.
 
 - The [data-plane](../topologies/data-plane.md) must be updated to the `26.6.1` version, as the liveness probe fix that prevents MariaDB Pods from being restarted during long-running backups is delivered there. You must set `updateStrategy.autoUpdateDataPlane=true` in your `MariaDB` resources before updating the operator. Then, once updated, the operator will also update the data-plane based on its version:
 
@@ -114,6 +114,6 @@ notice : (rw-router-listener); Listening for connections at [::]:3306
 notice : (ConfigManager); Added 'mariadb-repl-0', 'mariadb-repl-1' to 'rw-router'
 ```
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

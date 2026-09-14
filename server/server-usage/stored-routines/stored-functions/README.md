@@ -66,3 +66,5 @@ The DROP FUNCTION statement removes a stored function from the database, deletin
 This page details the restrictions on stored functions, such as the inability to return result sets or use transaction control statements.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -184,6 +184,10 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 - xTom GmbH (Tallinn)
 
+### Finland
+
+- CSC - IT center for Science Ltd / Finnish University and Research Network (Helsinki)
+
 ### France
 
 - IRCAM, Institut de recherche et coordination acoustique/musique (Paris)

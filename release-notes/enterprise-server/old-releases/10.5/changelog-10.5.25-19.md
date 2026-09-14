@@ -4,7 +4,7 @@ hidden: true
 
 # Changelog for MariaDB Enterprise Server 10.5.25-19
 
-MariaDB Enterprise Server 10.5.25-19 is a maintenance release of [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-enterprise-server/README.md) 10.5. For the categorized highlights and other details of this release, see the [release notes](10.5.25-19.md).
+MariaDB Enterprise Server 10.5.25-19 is a maintenance release of [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server) 10.5. For the categorized highlights and other details of this release, see the [release notes](10.5.25-19.md).
 
 MariaDB Enterprise Server 10.5.25-19 was released on 2024-06-11.
 
@@ -73,7 +73,7 @@ MariaDB Enterprise Server 10.5.25-19 was released on 2024-06-11.
 * ([MDEV-25089](https://jira.mariadb.org/browse/MDEV-25089)) Assertion `error.len > 0` failed in wsrep\_status\_t galera::ReplicatorSMM::handle\_apply\_error(galera::TrxHandleSlave&, const wsrep\_buf\_t&, const string&)
 * ([MDEV-25731](https://jira.mariadb.org/browse/MDEV-25731)) Assertion `mode_ == m_local` failed in void wsrep::client\_state::streaming\_params(wsrep::streaming\_context::fragment\_unit, size\_t)
 * ([MDEV-33928](https://jira.mariadb.org/browse/MDEV-33928)) Assertion failure on wsrep\_thd\_is\_aborting
-* (MENT-2042) Assertion `bf_aborted()` failed in void wsrep::transaction::xa\_replay\_common(wsrep::unique\_lock [wsrep::mutex](wsrep::mutex)&)
+* (MENT-2042) Assertion `bf_aborted()` failed in void wsrep::transaction::xa\_replay\_common(wsrep::unique\_lock wsrep::mutex&)
 * ([MDEV-31402](https://jira.mariadb.org/browse/MDEV-31402)) SIGSEGV in json\_get\_path\_next | Item\_func\_json\_extract::read\_json
 * ([MDEV-33011](https://jira.mariadb.org/browse/MDEV-33011)) mariadb-backup --backup: FATAL ERROR: ... Can't open datafile cool\_down/t3
 * ([MDEV-18288](https://jira.mariadb.org/browse/MDEV-18288)) Transportable Tablespaces leave AUTO\_INCREMENT in mismatched state, causing INSERT errors in newly imported tables when .cfg is not used.
@@ -194,6 +194,6 @@ MariaDB Enterprise Server 10.5.25-19 was released on 2024-06-11.
 * ([MDEV-33214](https://jira.mariadb.org/browse/MDEV-33214)) Table is getting rebuild with ALTER TABLE ADD COLUMN
 * ([MDEV-30660](https://jira.mariadb.org/browse/MDEV-30660)) Aggregation functions fail to leverage uniqueness property
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

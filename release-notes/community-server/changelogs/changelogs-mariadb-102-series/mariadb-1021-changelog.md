@@ -400,69 +400,69 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-505](https://jira.mariadb.org/browse/MDEV-505): feature request: add \H option for mysql client prompt
 * [Revision #f2afeb3](https://github.com/MariaDB/server/commit/f2afeb3)\
   2016-05-10 13:30:37 +0400
-  * Renaming query\_specification to query\_term, to make the sql\_yacc.yy grammar closer the grammar in the SQL Standard: - is only a SELECT followed by , and . - While includes SELECT queries and derived tables.\
-    Revision #6122673\
-    2016-05-10 11:48:01 +0400\
-    MDEV-10036 sql\_yacc.yy: Split select\_part2 to disallow syntactically bad constructs with INTO, PROCEDURE, UNION MDEV-10037 UNION with LIMIT ROWS EXAMINED does not require parentheses\
-    Revision #c0a59b4\
-    2016-05-06 11:42:48 +0400\
-    MDEV-10030 sql\_yacc.yy: Split table\_expression and remove PROCEDURE from create\_select, select\_paren\_derived, select\_derived2, query\_specification\
-    Revision #7905ea8\
-    2016-05-05 11:20:37 +0400\
-    MDEV-6720 - enable connection log in mysqltest by default\
-    Revision #c788a13\
-    2016-05-01 19:10:51 +0300\
-    Drop old not used mysql.ndb\_binlog\_index if exists\
-    Revision #5a7374d\
-    2016-05-01 19:10:13 +0300\
-    Fixed test cases that broke because we now print changing of connections - Don't log connection creation in galera\_connect.inc\
-    Revision #4f1c81d\
-    2016-04-29 18:39:18 +0200\
-    after-merge: simplify, fix a bug\
-    Revision #aed1485\
-    2016-04-29 09:22:24 +1000\
-    MDEV-9758: correct test case\
-    Revision #84b0ac6\
-    2016-04-29 09:19:34 +1000\
-    Whitespace fix for mysql\_checksum\_table function\
-    Revision #1ba90ce\
-    2016-03-21 08:58:39 +1100\
-    MDEV-9758: correct checksum on non-continious blocks\
-    Revision #51a6629\
-    2016-03-18 11:50:41 +1100\
-    CHECKSUM TABLE to calculate in multiple column chunks\
-    Revision #8b94aec\
-    2016-04-27 21:50:54 +0200\
-    Fix connect2 test, simulated errors do not work with thread cache\
-    Revision #6345cd4\
-    2016-04-28 21:22:09 +0200\
-    Fix compile errors\
-    Revision #636bb59\
-    2016-04-28 17:15:38 +0300\
-    Final fixes for Memory\_used - Change some static variables to dynamic to ensure that we don't do any memory allocations before server starts or stops - Print more memory information on SIGHUP. Fixed output. - Write out if memory was lost if run with --debug-at-exit - Fixed wrong #ifdef in sql\_cache.cc\
-    Revision #32d3d9f\
-    2016-04-28 16:59:53 +0300\
-    Fixed compiler warning\
-    Revision #9c84637 2016-04-28 16:59:33 +0300 - Merge commit 'd5822a3ad0657040114cdc185c6387b9eb3a12b2' into 10.2\
-    Revision #fabeab7\
-    2016-04-28 11:28:02 +0300\
-    Cleanups - Avoid some realloc() during startup - Ensure that file\_key\_management\_plugin frees it's memory early, even if it's linked statically. - Fixed compiler warnings from unused variables and missing destructors - Fixed wrong indentation\
-    Revision #dafed5b\
-    2016-04-26 09:34:38 -0700\
-    Removed some dead code that appeared in the merge for MDEV-8646.\
-    Revision #7db337e 2016-04-20 10:56:59 -0700 - Merge branch '10.2' of github.com:MariaDB/server into 10.2\
-    Revision #308cee5\
-    2016-04-19 15:37:05 -0700\
-    Fixed bug MDEV-9931.\
-    Revision #3b6a64c\
-    2016-04-20 10:55:53 -0700\
-    Fixed bug MDEV-9937.\
-    Revision #4b8e54b\
-    2016-04-17 13:25:05 -0700\
-    MDEV-7885, MDEV-8857: Add testcases
+  * Renaming query\_specification to query\_term, to make the sql\_yacc.yy grammar closer the grammar in the SQL Standard: - is only a SELECT followed by , and . - While includes SELECT queries and derived tables.
+* [Revision #6122673](https://github.com/MariaDB/server/commit/6122673)\
+  2016-05-10 11:48:01 +0400
+  * MDEV-10036 sql\_yacc.yy: Split select\_part2 to disallow syntactically bad constructs with INTO, PROCEDURE, UNION MDEV-10037 UNION with LIMIT ROWS EXAMINED does not require parentheses
+* [Revision #c0a59b4](https://github.com/MariaDB/server/commit/c0a59b4)\
+  2016-05-06 11:42:48 +0400
+  * MDEV-10030 sql\_yacc.yy: Split table\_expression and remove PROCEDURE from create\_select, select\_paren\_derived, select\_derived2, query\_specification
+* [Revision #7905ea8](https://github.com/MariaDB/server/commit/7905ea8)\
+  2016-05-05 11:20:37 +0400
+  * MDEV-6720 - enable connection log in mysqltest by default
+* [Revision #c788a13](https://github.com/MariaDB/server/commit/c788a13)\
+  2016-05-01 19:10:51 +0300
+  * Drop old not used mysql.ndb\_binlog\_index if exists
+* [Revision #5a7374d](https://github.com/MariaDB/server/commit/5a7374d)\
+  2016-05-01 19:10:13 +0300
+  * Fixed test cases that broke because we now print changing of connections - Don't log connection creation in galera\_connect.inc
+* [Revision #4f1c81d](https://github.com/MariaDB/server/commit/4f1c81d)\
+  2016-04-29 18:39:18 +0200
+  * after-merge: simplify, fix a bug
+* [Revision #aed1485](https://github.com/MariaDB/server/commit/aed1485)\
+  2016-04-29 09:22:24 +1000
+  * MDEV-9758: correct test case
+* [Revision #84b0ac6](https://github.com/MariaDB/server/commit/84b0ac6)\
+  2016-04-29 09:19:34 +1000
+  * Whitespace fix for mysql\_checksum\_table function
+* [Revision #1ba90ce](https://github.com/MariaDB/server/commit/1ba90ce)\
+  2016-03-21 08:58:39 +1100
+  * MDEV-9758: correct checksum on non-continious blocks
+* [Revision #51a6629](https://github.com/MariaDB/server/commit/51a6629)\
+  2016-03-18 11:50:41 +1100
+  * CHECKSUM TABLE to calculate in multiple column chunks
+* [Revision #8b94aec](https://github.com/MariaDB/server/commit/8b94aec)\
+  2016-04-27 21:50:54 +0200
+  * Fix connect2 test, simulated errors do not work with thread cache
+* [Revision #6345cd4](https://github.com/MariaDB/server/commit/6345cd4)\
+  2016-04-28 21:22:09 +0200
+  * Fix compile errors
+* [Revision #636bb59](https://github.com/MariaDB/server/commit/636bb59)\
+  2016-04-28 17:15:38 +0300
+  * Final fixes for Memory\_used - Change some static variables to dynamic to ensure that we don't do any memory allocations before server starts or stops - Print more memory information on SIGHUP. Fixed output. - Write out if memory was lost if run with --debug-at-exit - Fixed wrong #ifdef in sql\_cache.cc
+* [Revision #32d3d9f](https://github.com/MariaDB/server/commit/32d3d9f)\
+  2016-04-28 16:59:53 +0300
+  * Fixed compiler warning
+* [Revision #9c84637](https://github.com/MariaDB/server/commit/9c84637) 2016-04-28 16:59:33 +0300 - Merge commit 'd5822a3ad0657040114cdc185c6387b9eb3a12b2' into 10.2
+* [Revision #fabeab7](https://github.com/MariaDB/server/commit/fabeab7)\
+  2016-04-28 11:28:02 +0300
+  * Cleanups - Avoid some realloc() during startup - Ensure that file\_key\_management\_plugin frees it's memory early, even if it's linked statically. - Fixed compiler warnings from unused variables and missing destructors - Fixed wrong indentation
+* [Revision #dafed5b](https://github.com/MariaDB/server/commit/dafed5b)\
+  2016-04-26 09:34:38 -0700
+  * Removed some dead code that appeared in the merge for MDEV-8646.
+* [Revision #7db337e](https://github.com/MariaDB/server/commit/7db337e) 2016-04-20 10:56:59 -0700 - Merge branch '10.2' of github.com:MariaDB/server into 10.2
+* [Revision #308cee5](https://github.com/MariaDB/server/commit/308cee5)\
+  2016-04-19 15:37:05 -0700
+  * Fixed bug MDEV-9931.
+* [Revision #3b6a64c](https://github.com/MariaDB/server/commit/3b6a64c)\
+  2016-04-20 10:55:53 -0700
+  * Fixed bug MDEV-9937.
+* [Revision #4b8e54b](https://github.com/MariaDB/server/commit/4b8e54b)\
+  2016-04-17 13:25:05 -0700
+  * MDEV-7885, MDEV-8857: Add testcases
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -14,6 +14,6 @@ description: A list of all MariaDB Enterprise Kubernetes Operator releases
 | [25.08](25.08.md) | 2025-08-26   | Stable (GA)    |
 | [1.0.0](1.0.0.md) | 2025-04-23   | Stable (GA)    |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

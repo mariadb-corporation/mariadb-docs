@@ -27,3 +27,5 @@ description: >-
 - [ST\_WITHIN](st-within.md)
 - [TOUCHES](touches.md)
 - [WITHIN](within.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

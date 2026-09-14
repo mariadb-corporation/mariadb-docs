@@ -146,7 +146,7 @@ The `pam` authentication plugin uses a [setuid](https://linux.die.net/man/2/setu
 
 ## Creating Users
 
-To create a user in MariaDB which uses the `pam` authentication plugin, execute [CREATE USER](../../../sql-statements/account-management-sql-statements/create-user.md) while specifying the name of the plugin in the [IDENTIFIED VIA](../../../sql-statements/account-management-sql-statements/create-user.md#identified-viawith-authentication_plugin) clause:
+To create a user in MariaDB which uses the `pam` authentication plugin, execute [CREATE USER](../../../sql-statements/account-management-sql-statements/create-user.md) while specifying the name of the plugin in the [IDENTIFIED VIA](../../../sql-statements/account-management-sql-statements/create-user.md#identified-via-or-with-authentication_plugin) clause:
 
 ```sql
 CREATE USER username@hostname IDENTIFIED VIA pam;
@@ -469,7 +469,7 @@ allow this access for now by executing:
 
 Sometimes issues like this can be fixed by updating the system's SELinux policies. You may be able to update the policies using [audit2allow](https://linux.die.net/man/1/audit2allow). See [SELinux: Generating SELinux Policies with audit2allow](../../../../security/securing-mariadb/selinux.md#generating-selinux-policies-with-audit2allow) for more information.
 
-If you can't get the `pam` authentication plugin to work with SELinux at all, then it can help to disable SELinux entirely. See [SELinux: Changing SELinux's Mode](../../../../security/securing-mariadb/selinux.md#changing-selinuxs-mode) for information on how to do this.
+If you can't get the `pam` authentication plugin to work with SELinux at all, then it can help to disable SELinux entirely. See [SELinux: Temporarily Putting mysqld Into Permissive Mode](../../../../security/securing-mariadb/selinux.md#temporarily-putting-mysqld-into-permissive-mode) for information on how to do this.
 
 ### Memory Overcommit
 

@@ -66,3 +66,5 @@ Oracle-compatible synonym for the EXCEPT operator. It returns rows from the firs
 Combine results from multiple SELECT statements into a single result set. This operator can optionally remove duplicates or include all rows.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

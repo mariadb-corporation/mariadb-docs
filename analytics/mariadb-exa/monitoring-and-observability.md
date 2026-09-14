@@ -17,6 +17,6 @@ Explore essential tools and techniques for monitoring and optimizing data system
 * **Grafana / Prometheus Integration:** Collect metrics across MaxScale, MariaDB, and Exasol.
 * **MariaDB Enterprise Manager:** Review operational statistics and metrics covering all MariaDB products except MariaDB Exa.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

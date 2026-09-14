@@ -7,7 +7,7 @@ description: >-
 
 # Running mariadb-tzinfo-to-sql with Ansible
 
-For documentation about the `mariadb-tzinfo-to-sql` utility, see [mysql\_tzinfo\_to\_sql](../../../clients-and-utilities/legacy-clients-and-utilities/mysql_tzinfo_to_sql.md). This page is about running it using Ansible.
+For documentation about the `mariadb-tzinfo-to-sql` utility, see [mysql\_tzinfo\_to\_sql](../../../clients-and-utilities/administrative-tools/mariadb-tzinfo-to-sql.md). This page is about running it using Ansible.
 
 ## Installing or Upgrading the Package
 

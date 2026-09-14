@@ -29,12 +29,14 @@ description: >-
 | ------------------------------ | ----------- | ------------------ | ------------------------- | --------------- | ----------------------------- |
 | Single Node                    | ✓           | ✓                  | ✓                         | ✓               | ✓                             |
 | Replicated                     | ✓           | ✓                  | ✓                         | ✓               | ✓                             |
-| MariaDB Enterprise Cluste**r** | ✗           | ✗                  | ✗                         | ✓               | ✗                             |
+| MariaDB Enterprise Cluster     | ✗           | ✗                  | ✗                         | ✓               | ✓                             |
 
-{% hint style="danger" %}
-**Tech Preview Limitation: Snapshots Only**&#x20;
+{% hint style="info" %}
+**Snapshots Only**&#x20;
 
-During the Tech Preview phase, MariaDB Enterprise Cluster supports **only** cloud-native snapshot backups. Full (physical) backups, logical backups, and Point-in-Time Recovery (PITR) are not currently supported.
+MariaDB Enterprise Cluster supports **only** cloud-native snapshot backups. Full (physical) backups and logical backups are not available for this topology. Point-in-Time Recovery is supported from snapshot backups.
 {% endhint %}
 
 Please contact us if you have any questions about backup support for specific MariaDB versions.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

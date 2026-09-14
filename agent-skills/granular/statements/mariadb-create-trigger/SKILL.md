@@ -150,3 +150,5 @@ CREATE TRIGGER IF NOT EXISTS increment_animal
   - <https://mariadb.com/docs/server/server-usage/triggers-events/triggers/trigger-limitations>
   - <https://mariadb.com/docs/server/server-usage/triggers-events/triggers/triggers-and-implicit-locks>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-definition/drop/drop-trigger>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

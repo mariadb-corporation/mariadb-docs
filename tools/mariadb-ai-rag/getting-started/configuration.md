@@ -71,6 +71,6 @@ For production environments, it is strongly recommended to use a properly genera
 
 External service API keys should be securely stored in the `.env` file. In production environments, consider using a secure vault solution or environment variable management system.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

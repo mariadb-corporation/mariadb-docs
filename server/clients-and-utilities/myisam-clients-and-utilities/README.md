@@ -90,3 +90,5 @@ Process and display the contents of a MyISAM log file with the myisamlog utility
 Compress MyISAM tables into read-only form that is typically 40 to 70 percent smaller with myisampack.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

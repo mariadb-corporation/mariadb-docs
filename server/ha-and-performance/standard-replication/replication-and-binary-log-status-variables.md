@@ -23,13 +23,13 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 
 #### `Binlog_cache_disk_use`
 
-* Description: Number of transactions which used a temporary disk cache because they could not fit in the regular [binary log](../../server-management/server-monitoring-logs/binary-log/) cache, being larger than [binlog\_cache\_size](../optimization-and-tuning/system-variables/server-system-variables.md#binlog_cache_size). The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
+* Description: Number of transactions which used a temporary disk cache because they could not fit in the regular [binary log](../../server-management/server-monitoring-logs/binary-log/) cache, being larger than [binlog\_cache\_size](replication-and-binary-log-system-variables.md#binlog_cache_size). The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
 * Scope: Global
 * Data Type: `numeric`
 
 #### `Binlog_cache_use`
 
-* Description: Number of transaction which used the regular [binary log](../../server-management/server-monitoring-logs/binary-log/) cache, being smaller than [binlog\_cache\_size](../optimization-and-tuning/system-variables/server-system-variables.md#binlog_cache_size). The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
+* Description: Number of transaction which used the regular [binary log](../../server-management/server-monitoring-logs/binary-log/) cache, being smaller than [binlog\_cache\_size](replication-and-binary-log-system-variables.md#binlog_cache_size). The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
 * Scope: Global
 * Data Type: `numeric`
 
@@ -98,13 +98,13 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 
 #### `Binlog_stmt_cache_disk_use`
 
-* Description: Number of non-transaction statements which used a temporary disk cache because they could not fit in the regular [binary log](../../server-management/server-monitoring-logs/binary-log/) cache, being larger than [binlog\_stmt\_cache\_size](../optimization-and-tuning/system-variables/server-system-variables.md#binlog_stmt_cache_size). The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
+* Description: Number of non-transaction statements which used a temporary disk cache because they could not fit in the regular [binary log](../../server-management/server-monitoring-logs/binary-log/) cache, being larger than [binlog\_stmt\_cache\_size](replication-and-binary-log-system-variables.md#binlog_stmt_cache_size). The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
 * Scope: Global
 * Data Type: `numeric`
 
 #### `Binlog_stmt_cache_use`
 
-* Description: Number of non-transaction statement which used the regular [binary log](../../server-management/server-monitoring-logs/binary-log/) cache, being smaller than [binlog\_stmt\_cache\_size](../optimization-and-tuning/system-variables/server-system-variables.md#binlog_stmt_cache_size). The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
+* Description: Number of non-transaction statement which used the regular [binary log](../../server-management/server-monitoring-logs/binary-log/) cache, being smaller than [binlog\_stmt\_cache\_size](replication-and-binary-log-system-variables.md#binlog_stmt_cache_size). The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
 * Scope: Global
 * Data Type: `numeric`
 

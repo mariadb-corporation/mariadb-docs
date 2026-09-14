@@ -101,4 +101,6 @@ Also, it should be possible to build from source package using the MariaDB Conne
 cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCONC_WITH_UNIT_TESTS=Off -DCMAKE_C_FLAGS_RELWITHDEBINFO="-I/usr/local/include/mariadb -L/usr/local/lib" .
 ```
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

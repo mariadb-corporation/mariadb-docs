@@ -253,3 +253,5 @@ The insert cache feature has certain limitations, including:
 * [System Variables Reference](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables)
 * [Aria Storage Engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-storage-engine)
 * [ColumnStore System Variables](../../management/columnstore-system-variables.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

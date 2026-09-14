@@ -78,3 +78,5 @@ Technical details on the execution flow of UDFs, explaining the sequence in whic
 Overview of security measures for UDFs, including file location restrictions, required privileges, and system variable configurations.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

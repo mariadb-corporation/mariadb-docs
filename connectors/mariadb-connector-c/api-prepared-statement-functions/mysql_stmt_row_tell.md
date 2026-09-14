@@ -34,4 +34,6 @@ This function can be used for buffered result sets only, which can be obtained b
 * [mysql\_stmt\_row\_seek()](mysql_stmt_row_seek.md)
 * [mysql\_stmt\_store\_result()](mysql_stmt_store_result.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

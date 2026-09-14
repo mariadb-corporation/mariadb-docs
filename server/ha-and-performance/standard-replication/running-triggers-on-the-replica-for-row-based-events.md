@@ -26,6 +26,10 @@ Possible values are:
 
 **Note that if you just want to use triggers together with replication, you most likely don't need this option.** Read below for details.
 
+{% hint style="info" %}
+Starting with MariaDB Enterprise Server 12.3, enabling `slave_run_triggers_for_rbr` also activates [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) — a dedicated trigger type for resolving replication conflicts on the replica instead of stopping the SQL thread.
+{% endhint %}
+
 ## When to Use slave\_run\_triggers\_for\_rbr
 
 ### Background
@@ -56,6 +60,7 @@ If the master modifies a table that has triggers, it will produce row-based binl
 
 ## See Also
 
+* [Conflict Detection and Resolution (CDR) Triggers](conflict-detection-and-resolution-triggers.md)
 * Task in Jira, [MDEV-5095](https://jira.mariadb.org/browse/MDEV-5095).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

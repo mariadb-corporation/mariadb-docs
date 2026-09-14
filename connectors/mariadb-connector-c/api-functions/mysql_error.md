@@ -30,4 +30,6 @@ Returns the last error message for the most recent function call that can succee
 * [mysql\_errno()](mysql_errno.md)
 * [mysql\_sqlstate()](mysql_sqlstate.md).
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

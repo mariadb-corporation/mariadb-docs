@@ -47,6 +47,6 @@ The agent must be installed on each [MariaDB Server](https://app.gitbook.com/s/S
 
 \* Monitoring and Single Sign-On(SSO) are only supported for MaxScale versions 25.10 and Above
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

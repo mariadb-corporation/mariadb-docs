@@ -88,3 +88,5 @@ This guide covers application-side considerations, such as using ORMs, stored pr
 Explore strategies for safely testing schema and application changes using canary deployments, replication, and features like invisible columns.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

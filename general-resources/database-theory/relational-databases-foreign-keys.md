@@ -63,7 +63,7 @@ Referential integrity exists here, as all the lecturers in the _course_ table ex
 | Information Systems         | 2             |
 | Systems Software            | 3             |
 
-Now, when you look up who lectures _Introduction to Programming_, you are sent to a non-existent record. This is called poor data intregrity.
+Now, when you look up who lectures _Introduction to Programming_, you are sent to a non-existent record. This is called poor data integrity.
 
 Foreign keys also allow _cascading_ deletes and updates. For example, if Anne Cohen leaves, taking the Introduction to Programming Course with her, all trace of her can be removed from both the _lecturer_ and _course_ table using one statement. The delete _cascades_ through the relevant tables, removing all relevant records.
 

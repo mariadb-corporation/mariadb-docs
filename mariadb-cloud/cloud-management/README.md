@@ -32,5 +32,4 @@ This page covers how to gain insights by monitoring and analyzing your MariaDB C
 [observability.md](observability.md)
 {% endcontent-ref %}
 
-
-
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

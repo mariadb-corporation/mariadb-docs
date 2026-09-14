@@ -931,3 +931,5 @@ Get only the single most similar document::
 - **embeddings** (`Embeddings`): 
 
 ---
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

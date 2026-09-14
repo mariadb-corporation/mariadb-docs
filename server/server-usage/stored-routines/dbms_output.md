@@ -145,3 +145,5 @@ Like other bootstrap scripts, the script creating `DBMS_OUTPUT`:
 * Is installed into `/share/dbms_ouput.sql` of the installation directory.
 
 \\
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -178,3 +178,5 @@ curl -sS --location \
 ```
 
 The output can show different instance sizes, depending on whether your MariaDB Cloud account is Foundation tier or Power tier.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

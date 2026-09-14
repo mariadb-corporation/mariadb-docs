@@ -46,3 +46,5 @@ Instructions for running the `mariadb-install-db` script on Unix-like systems to
 Details the use of `mariadb-install-db.exe` on Windows to create new database instances, set the root password, and register Windows services.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

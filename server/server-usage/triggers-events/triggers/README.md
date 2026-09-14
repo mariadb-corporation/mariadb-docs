@@ -54,3 +54,5 @@ Understand the constraints of triggers, such as the prohibition of statements th
 Explains how triggers can cause implicit locks on referenced tables during the execution of a statement, potentially affecting concurrency.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

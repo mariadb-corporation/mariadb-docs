@@ -810,3 +810,5 @@ Extract the year. This function returns the year portion of a date as a number f
 Return the year and week. This function returns the year and week number for a date, useful for grouping results by week.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

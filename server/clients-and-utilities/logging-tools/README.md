@@ -30,3 +30,5 @@ Use mariadb-binlog to process binary log files. This utility is essential for ex
 Summarize and analyze the MariaDB slow query log with mariadb-dumpslow (formerly mysqldumpslow), grouping similar queries to surface the slowest statements.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

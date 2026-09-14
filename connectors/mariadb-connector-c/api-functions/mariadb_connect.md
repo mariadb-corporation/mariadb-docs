@@ -40,3 +40,5 @@ if (!mariadb_connect(mysql, "host=localhost;database=test;ssl_enforce=1"))
 ## History
 
 `mariadb_connect()` was added in Connector/C 3.3.0.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -28,7 +28,7 @@ In this mode, [InnoDB](./) holds a table-level lock for all bulk [INSERT](../../
 
 When [innodb\_autoinc\_lock\_mode](innodb-system-variables.md#innodb_autoinc_lock_mode) is set to `2`, [InnoDB](./) uses the interleaved lock mode.
 
-In this mode, [InnoDB](./) does not hold any table-level locks at all. This is the fastest and most scalable mode, but is not safe for [statement-based](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based) replication.
+In this mode, [InnoDB](./) does not hold any table-level locks at all. This is the fastest and most scalable mode, but is not safe for [statement-based](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging) replication.
 
 ## Setting AUTO\_INCREMENT Values
 

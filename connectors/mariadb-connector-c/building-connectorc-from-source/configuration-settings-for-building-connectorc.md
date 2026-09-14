@@ -75,4 +75,6 @@ Connector/C 3.0 supports the following plugins:
 | SHA256\_PASSWORD           | Authentication | dynamic | SHA256 password authentication plugin                      |
 | REPLICATION                | Connection     | OFF     | Replication/fail over plugin (experimental)                |
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

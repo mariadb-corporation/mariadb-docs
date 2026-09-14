@@ -155,7 +155,7 @@ This table provides an overview of optimizer hints supported in MariaDB, showing
 | [`MAX_EXECUTION_TIME`](expanded-optimizer-hints.md#max_execution_time)                                                                         | Query execution time limit               | Global             |
 | [`MERGE`, `NO_MERGE`](table-level-hints.md#merge-no_merge)                                                                                     | Derived table/CTE merging                | Query block, Table |
 | [`MRR`, `NO_MRR`](index-level-hints.md#mrr-no_mrr)                                                                                             | Multi-Range Read                         | Table, Index       |
-| [`NO_ICP`](expanded-optimizer-hints.md#no_icp)                                                                                                 | Index Condition Pushdown                 | Table, Index       |
+| [`NO_ICP`](index-level-hints.md#no_icp)                                                                                                 | Index Condition Pushdown                 | Table, Index       |
 | [`NO_RANGE_OPTIMIZATION`](index-level-hints.md#no_range_optimization)                                                                          | Range optimization                       | Table, Index       |
 | [`ORDER_INDEX`, `NO_ORDER_INDEX`](index-level-hints.md)                                                                                        | Use of indexes for sorting               | Table, Index       |
 | [`QB_NAME`](query-block-naming.md#explicit-query-block-names)                                                                                  | Assigns name to query block              | Query block        |
@@ -552,3 +552,5 @@ SELECT /*+ MAX_EXECUTION_TIME(milliseconds) */ ...  ;
 A query that doesn't finish in the time specified will be aborted with an error.
 
 However, if `@@max_statement_time` system variable is set, the hint will be ignored and a warning produced. Note that this contradicts the stated principle that "new-style hints are more specific than server variable settings, so they override the server variable settings".
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

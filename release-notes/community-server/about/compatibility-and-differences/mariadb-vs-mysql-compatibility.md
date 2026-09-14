@@ -27,9 +27,9 @@ Until [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.m
 
 This means that for many cases, you can just uninstall MySQL and [install MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb) and you are good to go. There is not generally any need to convert any data files.
 
-However, you must still run [mysql\_upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade) to finish the upgrade. This is needed to ensure that your mysql privilege and event tables are updated with the new fields MariaDB uses.
+However, you must still run mysql\_upgrade to finish the upgrade. This is needed to ensure that your mysql privilege and event tables are updated with the new fields MariaDB uses.
 
-That said, MariaDB has a lot of [new options, extension, storage engines and bug fixes](mariadb-vs-mysql-features.md) that are not in MySQL. You can find the feature set for the different MariaDB versions on the [What is in the different MariaDB Releases](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-in-the-different-mariadb-releases/README.md) page.
+That said, MariaDB has a lot of [new options, extension, storage engines and bug fixes](mariadb-vs-mysql-features.md) that are not in MySQL. You can find the feature set for the different MariaDB versions on the What is in the different MariaDB Releases page.
 
 ### Drop-in Compatibility of Specific MariaDB Versions
 
@@ -87,7 +87,7 @@ For unmaintained versions, see:
 
 ### Incompatibilities between [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) and MySQL 5.7
 
-* [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) and above does not support MySQL 5.7's packed JSON objects. MariaDB follows the SQL standard and stores the JSON as a normal TEXT/BLOB. If you want to replicate JSON columns from MySQL to MariaDB, you should store JSON objects in MySQL in a TEXT column or use statement based replication. If you are using JSON columns and want to upgrade to MariaDB, you can either convert the JSON columns to TEXT or use [mysqldump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqldump) to copy these tables to MariaDB. In MySQL, JSON is compared according to json values. In MariaDB JSON strings are normal strings and compared as strings.
+* [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) and above does not support MySQL 5.7's packed JSON objects. MariaDB follows the SQL standard and stores the JSON as a normal TEXT/BLOB. If you want to replicate JSON columns from MySQL to MariaDB, you should store JSON objects in MySQL in a TEXT column or use statement based replication. If you are using JSON columns and want to upgrade to MariaDB, you can either convert the JSON columns to TEXT or use mysqldump to copy these tables to MariaDB. In MySQL, JSON is compared according to json values. In MariaDB JSON strings are normal strings and compared as strings.
 * Separately, the [`->` and `->>` JSON operators](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json-arrow-operators) for extracting JSON values, available in MySQL since 5.7, are supported in MariaDB from MariaDB 13.1.
 * [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)'s InnoDB encryption is implemented differently than MySQL 5.7's InnoDB encryption.
 * [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support the ngram and MeCab full-text parser plugins - [MDEV-10267](https://jira.mariadb.org/browse/MDEV-10267), [MDEV-10268](https://jira.mariadb.org/browse/MDEV-10268).
@@ -96,7 +96,7 @@ For unmaintained versions, see:
 * [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's “native” InnoDB partitioning handler. Fixed in [MariaDB 10.6.15](../../10.6/10.6.15.md).
 * MariaDB does not support MySQL 5.7's X protocol.
 * [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support the use of multiple triggers of the same type for a table. This feature was introduced in [MariaDB 10.2.2](../../old-releases/10.2/10.2.2.md).
-* [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's transportable tablespaces for partitioned InnoDB tables. ALTER TABLE ... {DISCARD|IMPORT} PARTITION is not supported. For a workaround [see the following blog post](https://www.geoffmontee.com/importing-innodb-partitions-in-mysql-5-6-and-mariadb-10-010-1/).
+* [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's transportable tablespaces for partitioned InnoDB tables. ALTER TABLE ... {DISCARD|IMPORT} PARTITION is not supported. For a workaround see the following blog post.
 * [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's online undo tablespace truncation. However, this feature was added to [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md).
 * MySQL 5.7 features a new implementation of the `performance_schema` and a `sys` schema wrapper. These are not yet supported in MariaDB.
 * MySQL 5.7 adds multi-source replication and replication channels. [Multi-source replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/multi-source-replication) was added to MariaDB previously, in [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md), and uses a different syntax.
@@ -106,7 +106,7 @@ For unmaintained versions, see:
 * [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's `STACKED` operation for [GET DIAGNOSTICS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-diagnostics/get-diagnostics) statements.
 * [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's `{WITH|WITHOUT} VALIDATION` syntax for `ALTER TABLE.. EXCHANGE PARTITION` statements.
 * MariaDB does not support the optional init\_vector argument for [AES\_ENCRYPT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions/aes_encrypt) and [AES\_DECRYPT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions/aes_decrypt) or the block\_encryption\_mode variable - [MDEV-9069](https://jira.mariadb.org/browse/MDEV-9069)
-* MariaDB does not support the `--initialize` option. Use [mysql\_install\_db](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_install_db) instead. - [MDEV-19010](https://jira.mariadb.org/browse/MDEV-19010)
+* MariaDB does not support the `--initialize` option. Use mysql\_install\_db instead. - [MDEV-19010](https://jira.mariadb.org/browse/MDEV-19010)
 * Also see Incompatibilities between [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) and MySQL 5.6.
 * Also see a detailed breakdown of [System variable differences between MariaDB 10.1and MySQL 5.7](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-10-1-and-mysql-5-7.md).
 
@@ -137,7 +137,7 @@ For unmaintained versions, see:
 * MariaDB [dynamic columns](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/nosql/dynamic-columns) are not supported by MySQL.
 * MariaDB [virtual columns](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/generated-columns) are not supported by MySQL.
 * MariaDB's [HandlerSocket plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/nosql/handlersocket) is not supported by MySQL.
-* MariaDB's [Cassandra Storage Engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/legacy-storage-engines/cassandra) is not supported by MySQL.
+* MariaDB's Cassandra Storage Engine is not supported by MySQL.
 * As of [MariaDB 5.5.35](../../old-releases/5.5/5.5.35.md), [EXTRACT (HOUR FROM ...)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/extract) adheres to the SQL standard and returns a result from 0 to 23. In MySQL, and earlier versions of MariaDB, the result can be greater than 23.
 * See also a detailed breakdown of [System variable differences between MariaDB 5.5 and MySQL 5.5](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-55-and-mysql-55.md).
 
@@ -170,7 +170,7 @@ For unmaintained versions, see:
 The list is the same as between [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md) and MySQL 5.1, with one addition:
 
 * A new [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) value was added:`IGNORE_BAD_TABLE_OPTIONS`. If it is not set, using a table,
-  field, or index attribute (option) that is not supported by the chosen storage engine will cause an error. This change might cause warnings in the error log about incorrectly defined tables from the `mysql` database, fix that with [mysql\_upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade).
+  field, or index attribute (option) that is not supported by the chosen storage engine will cause an error. This change might cause warnings in the error log about incorrectly defined tables from the `mysql` database, fix that with mysql\_upgrade.
 
 For all practical purposes, [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) is a drop in replacement for [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md) and MySQL 5.1.
 
@@ -222,6 +222,6 @@ Another option is to use the [MariaDB MaxScale proxy](https://app.gitbook.com/s/
 * [Troubleshooting Installation Issues](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues)
 * [Projects and applications that work with MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/applications-supporting-mariadb)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

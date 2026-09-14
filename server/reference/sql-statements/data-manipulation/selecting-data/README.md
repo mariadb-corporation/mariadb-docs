@@ -24,3 +24,5 @@ description: >-
 - [Joins](joins/README.md)
 - [Set Operations](set-operations/README.md)
 - [Subqueries](joins-subqueries/subqueries/README.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

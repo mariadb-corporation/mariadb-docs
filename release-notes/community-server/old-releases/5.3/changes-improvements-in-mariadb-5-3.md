@@ -89,7 +89,7 @@ The [Subquery Optimizations Map](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/
 
 ### Join optimizations
 
-* [Block-based Join Algorithms](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
+* [Block-based Join Algorithms](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/block-based-join-algorithms)
 * Block Nested Loop algorithm can be used for outer joins
 * Block Hash Join (classic algorithm) is implemented and can be used for any
   equi-joins
@@ -244,6 +244,6 @@ page.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

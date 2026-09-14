@@ -36,7 +36,7 @@ noticeable in a typical application. There is one exception, though:
 
 #### Writeset caching during state transfer
 
-When a node is receiving a state transfer, it cannot process and apply incoming writesets because it has no state to apply them to yet. Depending on a state transfer mechanism (e.g.[mysqldump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqldump)) the node that sends the state transfer may not be able to apply writesets as well. Thus, they need to cache those writesets for a catch-up phase. Currently the writesets are cached in memory and, if the system runs out of memory either the state transfer will fail or the cluster will block waiting for the state transfer to end.
+When a node is receiving a state transfer, it cannot process and apply incoming writesets because it has no state to apply them to yet. Depending on a state transfer mechanism (e.g.mysqldump) the node that sends the state transfer may not be able to apply writesets as well. Thus, they need to cache those writesets for a catch-up phase. Currently the writesets are cached in memory and, if the system runs out of memory either the state transfer will fail or the cluster will block waiting for the state transfer to end.
 
 To control memory usage for writeset caching, check the [Galera parameters](../../reference/galera-cluster-system-variables.md): `gcs.recv_q_hard_limit`, `gcs.recv_q_soft_limit`, and `gcs.max_throttle`.
 
@@ -61,7 +61,7 @@ MariaDB Galera Cluster can be installed via a package manager on Linux. In order
 
 You can configure your package manager to install it from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
 
-You can also configure your package manager to install it from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/0B9HhpsUkjLe15Lk8wbL).
+You can also configure your package manager to install it from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
 
 #### Installing MariaDB Galera Cluster with yum/dnf
 
@@ -98,9 +98,9 @@ A number of options need to be set in order for Galera Cluster to work when usin
 
 ## Bootstrapping a New Cluster
 
-To first node of a new cluster needs to be bootstrapped by starting [mariadbd](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options) on that node with the option [`--wsrep-new-cluster`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options#-wsrep-new-cluster) option. This option tells the node that there is no existing cluster to connect to. The node will create a new UUID to identify the new cluster.
+To first node of a new cluster needs to be bootstrapped by starting [mariadbd](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) on that node with the option [`--wsrep-new-cluster`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#-wsrep-new-cluster) option. This option tells the node that there is no existing cluster to connect to. The node will create a new UUID to identify the new cluster.
 
-Do not use the [--wsrep-new-cluster](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options#-wsrep-new-cluster) option when connecting to an existing cluster. Restarting the node with this option set will cause the node to create new UUID to identify the cluster again, and the node won't reconnect to the old cluster. See the next section about how to reconnect to an existing cluster.
+Do not use the [--wsrep-new-cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#-wsrep-new-cluster) option when connecting to an existing cluster. Restarting the node with this option set will cause the node to create new UUID to identify the cluster again, and the node won't reconnect to the old cluster. See the next section about how to reconnect to an existing cluster.
 
 For example, if you are manually starting `mariadbd` on a node, you can bootstrap it by executing the following:
 
@@ -112,7 +112,7 @@ However, keep in mind that most users are not going to be starting `mariadbd` ma
 
 ### Systemd and Bootstrapping
 
-On operating systems that use [systemd](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/systemd), a node can be bootstrapped in the following way:
+On operating systems that use [systemd](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd), a node can be bootstrapped in the following way:
 
 ```bash
 $ galera_new_cluster
@@ -120,7 +120,7 @@ $ galera_new_cluster
 
 This wrapper uses `systemd` to run `mariadbd` with the `--wsrep-new-cluster` option.
 
-If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes),  you can bootstrap a specific instance by specifying the instance name as a suffix:
+If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes),  you can bootstrap a specific instance by specifying the instance name as a suffix:
 
 ```bash
 $ galera_new_cluster mariadb@node1
@@ -180,7 +180,7 @@ On operating systems that use `systemd`, the position of a node can be recovered
 $ galera_recovery
 ```
 
-If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes), you can recover the position of a specific instance by specifying the instance name as a suffix:
+If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes), you can recover the position of a specific instance by specifying the instance name as a suffix:
 
 ```bash
 $ galera_recovery mariadb@node1
@@ -208,7 +208,7 @@ If a node has only been out of a cluster for a little while, then an IST is gene
 
 ## Data at Rest Encryption
 
-MariaDB Galera Cluster supports [Data at Rest Encryption](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/oH1AAxPLSc6Wq96yMJ2N). See [SSTs and Data at Rest Encryption](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md#ssts-and-data-at-rest-encryption) for some disclaimers on how SSTs are affected when encryption is configured.
+MariaDB Galera Cluster supports [Data at Rest Encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption). See [SSTs and Data at Rest Encryption](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md#ssts-and-data-at-rest-encryption) for some disclaimers on how SSTs are affected when encryption is configured.
 
 {% hint style="info" %}
 **GCache Encryption:**
@@ -237,7 +237,7 @@ The cluster nodes can be configured to invoke a command when cluster membership 
 * [About Galera Replication](../../readme/about-galera-replication.md)
 * [Galera Use Cases](../../galera-use-cases.md)
 * [Galera Cluster documentation: Notification Command](../configuration/using-the-notification-command-wsrep_notify_cmd.md)
-* [Introducing the “Safe-To-Bootstrap” feature in Galera Cluster](https://galeracluster.com/2016/11/introducing-the-safe-to-bootstrap-feature-in-galera-cluster/)
+* [Introducing the “Safe-To-Bootstrap” feature in Galera Cluster](https://web.archive.org/web/20250701212656/https://galeracluster.com/2016/11/introducing-the-safe-to-bootstrap-feature-in-galera-cluster/)
 * [Github - galera](https://github.com/codership/galera/)
 * [Github - mysql-wsrep](https://github.com/codership/mysql-wsrep/)
 

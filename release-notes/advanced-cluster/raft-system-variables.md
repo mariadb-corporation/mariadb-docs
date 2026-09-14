@@ -419,3 +419,5 @@ Enables verification of the peer's TLS certificate to prevent man-in-the-middle 
 {% hint style="warning" %}
 The default is `OFF`, so by default Raft inter-node TLS encrypts traffic but does **not** verify the peer's certificate — encryption without peer authentication. Set `raft_ssl_verify_server_cert=ON` (and configure `raft_ssl_ca`) to require certificate verification.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

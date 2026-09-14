@@ -36,4 +36,6 @@ If the statement is [UPDATE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/refe
 * [mysql\_stmt\_bind\_param()](mysql_stmt_bind_param.md)
 * [mysql\_stmt\_next\_result()](mysql_stmt_next_result.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

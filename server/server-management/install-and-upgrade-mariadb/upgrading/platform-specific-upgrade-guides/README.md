@@ -46,3 +46,5 @@ Guide to upgrading MariaDB on Linux.
 Guide to upgrading MariaDB on Windows using the MSI installer, supporting both minor upgrades and major version migrations using the upgrade wizard.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

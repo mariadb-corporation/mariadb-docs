@@ -33,3 +33,5 @@ Set up cross-region or multi-cloud disaster recovery with Global Replication. Th
 {% content-ref url="../quickstart/enterprise-cluster.md" %}
 [enterprise-cluster.md](../quickstart/enterprise-cluster.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

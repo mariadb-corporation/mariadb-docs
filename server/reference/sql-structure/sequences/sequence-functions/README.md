@@ -66,3 +66,5 @@ Get the most recent value generated from a sequence in the current connection wi
 Set the next value returned by a sequence with SETVAL(), a PostgreSQL-compatible function extended with is_used and round arguments that never lowers the sequence below its current value.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

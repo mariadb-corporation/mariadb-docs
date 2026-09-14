@@ -102,3 +102,5 @@ Convert dynamic columns to JSON. This function returns a JSON string representat
 List dynamic column names. This function returns a comma-separated list of all column names contained within a dynamic column blob.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

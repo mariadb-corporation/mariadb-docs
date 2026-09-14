@@ -19,7 +19,7 @@ PURGE { BINARY | MASTER } LOGS
 
 The `PURGE BINARY LOGS` statement deletes all the [binary log](../../../server-management/server-monitoring-logs/binary-log/) files listed in the log index file prior to the specified log file name ordate. `BINARY` and `MASTER` are synonyms.Deleted log files also are removed from the list recorded in the index file, sothat the given log file becomes the first in the list.
 
-The datetime expression is in the format 'YYYY-MM-DD hh:mm:ss'.
+The datetime expression is in the format `YYYY-MM-DD hh:ss`.
 
 If a replica is active but has yet to read from a binary log file you attempt to delete, the statement will fail with an error. However, if the replica is not connected and has yet to read from a log file you delete, the file will be deleted, but the replica will be unable to continue replicating once it connects again.
 
@@ -37,7 +37,7 @@ To list the binary log files on the server, use [SHOW BINARY LOGS](show/show-bin
 
 To delete all binary log files, use [RESET MASTER](replication-statements/reset-master.md).To move to a new log file (for example if you want to remove the current log file), use [FLUSH LOGS](flush-commands/flush.md) before you execute `PURGE LOGS`.
 
-If the [expire\_logs\_days](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#expire_logs_days) server system variable is not set to 0, the server automatically deletes binary log files after the given number of days. From MariaDB 10.6, the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion, and takes precedence if both are non-zero.
+If the [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) server system variable is not set to 0, the server automatically deletes binary log files after the given number of days. From MariaDB 10.6, the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion, and takes precedence if both are non-zero.
 
 {% tabs %}
 {% tab title="Current" %}
@@ -71,4 +71,3 @@ PURGE BINARY LOGS BEFORE '2013-04-22 09:55:22';
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}
-

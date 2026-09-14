@@ -11,4 +11,6 @@
 * Q: Where is the Aria storage engine used by default within MariaDB Server?\
   A: MariaDB Server utilizes the Aria storage engine for its on-disk internal temporary tables. These temporary tables are often created when processing complex queries (e.g., those involving GROUP BY, ORDER BY, or UNION operations on large datasets). Using Aria for this purpose can offer performance benefits for such operations compared to using MyISAM (which was the default for this in older MySQL versions).
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

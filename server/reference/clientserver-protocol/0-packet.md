@@ -89,7 +89,7 @@ Note that data of exact size 2^24 -1 byte must be sent in 2 packets, the first o
 
 ## Compressed Packet
 
-For slow connections, the packet can be compressed. This is activated after the [handshake-response-packet](1-connecting/connection.md) when the client indicates a `[[1-connecting-connecting#capabilities|COMPRESS]` capability with the server having this functionality, too.
+For slow connections, the packet can be compressed. This is activated after the [handshake-response-packet](1-connecting/connection.md) when the client indicates a [`COMPRESS`](1-connecting/connection.md#capabilities) capability with the server having this functionality, too.
 
 When activated, packets are composed of 7 bytes, a compress header and data. The compression algorithm used is ZLIB, widely available and supported by many languages and runtimes.
 

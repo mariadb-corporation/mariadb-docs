@@ -43,4 +43,6 @@ To determine if a statement returned a result set use the function [mysql\_num\_
 * [mysql\_use\_result()](mysql_use_result.md)
 * [mysql\_store\_result()](mysql_store_result.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

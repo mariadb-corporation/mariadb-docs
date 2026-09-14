@@ -41,3 +41,5 @@ Documentation for the system variable that restricts the maximum total size of t
 Reference for the global system variable that defines the maximum cumulative disk space all user connections can consume for temporary files and tables.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

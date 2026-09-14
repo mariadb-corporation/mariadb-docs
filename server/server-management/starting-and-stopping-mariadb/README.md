@@ -190,3 +190,5 @@ Techniques for managing parallel installations of different MariaDB versions, ty
 Complete What to Do if MariaDB Doesn't Start guide for MariaDB. Complete reference documentation for implementation, configuration, and usage.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

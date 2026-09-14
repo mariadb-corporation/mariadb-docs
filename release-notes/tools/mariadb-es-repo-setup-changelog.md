@@ -182,6 +182,6 @@ The version of the script is a date, which you can display by running the script
 * **2018-12-24**
   * Update to MaxScale Version 2.3
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -142,3 +142,5 @@ SHOW USER_STATISTICS;
   - <https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/show/show-replica-status>
   - <https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/show/show-explain>
   - <https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/show/show-table-statistics>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

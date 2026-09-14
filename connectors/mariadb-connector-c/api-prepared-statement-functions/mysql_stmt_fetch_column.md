@@ -40,4 +40,6 @@ The size of the buffer is specified within `MYSQL_BIND` structure.
 * [mysql\_stmt\_fetch()](mysql_stmt_fetch.md)
 * [mysql\_stmt\_send\_long\_data()](mysql_stmt_send_long_data.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

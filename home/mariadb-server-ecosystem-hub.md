@@ -55,3 +55,9 @@ The Hub is organized into categories, each answering a practical question about 
 * [Password & Secret Management](https://ecohub.mariadb.org/password-management) — tools for managing credentials and secrets in environments that include MariaDB.
 * [Education & Practice](https://ecohub.mariadb.org/education-practice) — learning resources, sandboxes, and practice environments for MariaDB.
 * [Support & Services](https://ecohub.mariadb.org/support-services) — professional services, consultancies, and support providers specializing in MariaDB.
+
+## Getting Listed in the Hub
+
+The Hub is curated by MariaDB Foundation. To have a tool, service, or hosting platform considered for a listing, use the Hub's [Get Involved](https://ecohub.mariadb.org/get-involved) page.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

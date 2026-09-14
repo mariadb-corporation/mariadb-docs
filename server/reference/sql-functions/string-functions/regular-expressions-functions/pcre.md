@@ -181,7 +181,7 @@ SELECT '1¼①' RLIKE '^\\p{N}+$';
 | Xuc      | A character than can be represented by a Universal Character Name |
 | Xwd      | Perl word: property Xan or underscore                             |
 
-The property `Xuc` matches any character that can be represented by a Universal Character Name (in C++ and other programming languages). These include `$`, `@`, \`\`\`, and all characters with Unicode code points greater than `U+00A0`, excluding the surrogates `U+D800`..`U+DFFF`.
+The property `Xuc` matches any character that can be represented by a Universal Character Name (in C++ and other programming languages). These include `$`, `@`, the grave accent (`` ` ``), and all characters with Unicode code points greater than `U+00A0`, excluding the surrogates `U+D800`..`U+DFFF`.
 
 **Script Names For \p and \P**
 

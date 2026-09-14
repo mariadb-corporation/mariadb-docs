@@ -75,3 +75,5 @@ Use MariaDB Connector/R2DBC directly through the native R2DBC API for reactive, 
 Integrate MariaDB Connector/R2DBC with the Spring Data framework for reactive, non-blocking data access using Spring Data R2DBC in modern Java applications.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

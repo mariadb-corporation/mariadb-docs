@@ -10,9 +10,9 @@ For details on upgrading from [MariaDB 5.5](../5.5/changes-improvements-in-maria
 
 Blog posts with details of the reasoning behind calling this version MariaDB 10:
 
-* [http://blog.mariadb.org/mariadb-10-0-and-mysql-5-6/](http://blog.mariadb.org/mariadb-10-0-and-mysql-5-6/http://blog.mariadb.org/what-comes-in-between-mariadb-now-and-mysql-5-6/http://blog.mariadb.org/explanation-on-mariadb-10-0/)
-* [http://blog.mariadb.org/what-comes-in-between-mariadb-now-and-mysql-5-6/](http://blog.mariadb.org/mariadb-10-0-and-mysql-5-6/http://blog.mariadb.org/what-comes-in-between-mariadb-now-and-mysql-5-6/http://blog.mariadb.org/explanation-on-mariadb-10-0/)
-* [http://blog.mariadb.org/explanation-on-mariadb-10-0/](http://blog.mariadb.org/mariadb-10-0-and-mysql-5-6/http://blog.mariadb.org/what-comes-in-between-mariadb-now-and-mysql-5-6/http://blog.mariadb.org/explanation-on-mariadb-10-0/)
+* [http://blog.mariadb.org/mariadb-10-0-and-mysql-5-6/](http://blog.mariadb.org/mariadb-10-0-and-mysql-5-6/)
+* [http://blog.mariadb.org/what-comes-in-between-mariadb-now-and-mysql-5-6/](http://blog.mariadb.org/what-comes-in-between-mariadb-now-and-mysql-5-6/)
+* [http://blog.mariadb.org/explanation-on-mariadb-10-0/](http://blog.mariadb.org/explanation-on-mariadb-10-0/)
 
 ## Implemented Features
 
@@ -25,11 +25,11 @@ Features that are in a release.
 * [Global Transaction ID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) ([MDEV-26](https://jira.mariadb.org/browse/MDEV-26))
 * [Multi source replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/multi-source-replication) ([MDEV-253](https://jira.mariadb.org/browse/MDEV-253)) — Original code from [Taobao, developed by Peng Lixun](https://mysql.taobao.org/index.php/Patch_source_code#Multi-master_replication).
 * Slave started with [--binlog-format=STATEMENT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables) can replicate from master with any type of [--binlog-format](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables) Starting from [MariaDB 10.0.22](10.0.22.md).
-* [Cassandra storage engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/legacy-storage-engines/cassandra/cassandra-storage-engine-overview) ([MDEV-4695](https://jira.mariadb.org/browse/MDEV-4695))
+* Cassandra storage engine ([MDEV-4695](https://jira.mariadb.org/browse/MDEV-4695))
 * [CONNECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/connect) storage engine ([MDEV-4146](https://jira.mariadb.org/browse/MDEV-4146))
 * Better [table discovery](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery). [Sequence](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sequence-storage-engine) storage engine. Assisted discovery in [FederatedX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/federatedx-storage-engine) ([MDEV-3808](https://jira.mariadb.org/browse/MDEV-3808))
 * [Spider](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider) storage engine ([MDEV-4438](https://jira.mariadb.org/browse/MDEV-4438))
-* [TokuDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/legacy-storage-engines/tokudb) storage engine ([MDEV-4507](https://jira.mariadb.org/browse/MDEV-4507))
+* TokuDB storage engine ([MDEV-4507](https://jira.mariadb.org/browse/MDEV-4507))
 * [Mroonga](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/mroonga) full-text search storage engine
 * [QUERY\_RESPONSE\_TIME plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/other-plugins/query-response-time-plugin)
 * [Engine independent table statistics](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/engine-independent-table-statistics) ([MDEV-3806](https://jira.mariadb.org/browse/MDEV-3806))
@@ -61,7 +61,7 @@ Features that are in a release.
 * [metadata\_lock\_info information schema](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-metadata_lock_info-table). Shows you which meta data locks are active.
 * [Adjustable hash size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine/myisam-system-variables#key_cache_file_hash_size) for MyISAM and Aria. This can greatly improve shutdown time (from hours to minutes) if you are using a lot of MyISAM/Aria tables with delayed keys.
 * [FLUSH TABLES ... FOR EXPORT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/flush-commands/flush-tables-for-export)
-* The [Extended Keys](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/hQ8119jaKVqgAcnaABXn) optimization is enabled by default
+* The [Extended Keys](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/extended-keys) optimization is enabled by default
 * [MariaDB audit plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin)
 * [filesort-with-small-limit-optimization](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/filesort-with-small-limit-optimization) is now visible through the [slow query log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/slow-query-log) and a new status variable, [sort\_priority\_queue\_sorts](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#sort_priority_queue_sorts)
 * [Error log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/error-log) flood protection
@@ -158,6 +158,6 @@ See [System Variable Differences Between MariaDB 10.0 and MySQL 5.6](../../about
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

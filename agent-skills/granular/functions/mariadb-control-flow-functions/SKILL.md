@@ -69,3 +69,5 @@ The `NVL2` function returns a value based on whether a specified expression is `
 - ISNULL / IS NULL operator: <https://mariadb.com/docs/server/reference/sql-structure/operators/comparison-operators/isnull>
 - IF statement (stored-program form, distinct from the `IF()` function): <https://mariadb.com/docs/server/reference/sql-statements/programmatic-compound-statements/if>
 - CASE statement (stored-program form, distinct from the CASE operator): <https://mariadb.com/docs/server/reference/sql-statements/programmatic-compound-statements/case-statement>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

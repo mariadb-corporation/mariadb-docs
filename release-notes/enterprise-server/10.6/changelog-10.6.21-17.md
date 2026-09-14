@@ -6,7 +6,7 @@ hidden: true
 
 {% include "../../.gitbook/includes/latest-es-10.6.md" %}
 
-MariaDB Enterprise Server 10.6.21-17 is a Stable (GA) maintenance release of [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-enterprise-server/README.md) 10.6. For the categorized highlights and other details of this release, see the [release notes](10.6.21-17.md).\
+MariaDB Enterprise Server 10.6.21-17 is a Stable (GA) maintenance release of [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server) 10.6. For the categorized highlights and other details of this release, see the [release notes](10.6.21-17.md).\
 MariaDB Enterprise Server 10.6.21-17 was released on 19 Mar 2025.
 
 ## Changes
@@ -238,6 +238,6 @@ MariaDB Enterprise Server 10.6.21-17 was released on 19 Mar 2025.
 * ([MDEV-34665](https://jira.mariadb.org/browse/MDEV-34665)) NULL-aware materialization with IN predicate and single column no longer skips building sorted Ordered\_key structures
 * ([MDEV-35363](https://jira.mariadb.org/browse/MDEV-35363)) Cloning of table statistics while saving the InnoDB table stats is now avoided
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

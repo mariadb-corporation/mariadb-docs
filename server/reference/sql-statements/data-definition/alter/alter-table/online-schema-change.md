@@ -111,7 +111,7 @@ Statements that update or delete rows are blocked until the end of `ALTER TABLE`
 
 ### InnoDB
 
-InnoDB supports `REPEATABLE READ` isolation layer and allows concurrent writes, which means online schema change works, greatly improving its online ability represented by `INPLACE` and `INSTANT` algorithms. By default, an engine-native algorithm is chosen whenever possible. If InnoDB isn't capable of holding the schema change natively, a `COPY` algorithm using online schema change is applied. This is described in detail [here](online-schema-change.md#comparison-to-innodbs-inplace-capabilities).
+InnoDB supports `REPEATABLE READ` isolation layer and allows concurrent writes, which means online schema change works, greatly improving its online ability represented by `INPLACE` and `INSTANT` algorithms. By default, an engine-native algorithm is chosen whenever possible. If InnoDB isn't capable of holding the schema change natively, a `COPY` algorithm using online schema change is applied. This is described in detail [here](online-schema-change.md#online-schema-change-vs.-innodb-inplace).
 
 ### Other Storage Engines
 
@@ -182,3 +182,5 @@ For more information, read this blog post: [Reduced operational downtime with ne
 [^1]: Data Modification Language, a part of the SQL language.
 
 [^2]: Data Definition Language, a part of the SQL language.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

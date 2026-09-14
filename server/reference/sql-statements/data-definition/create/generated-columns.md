@@ -43,7 +43,7 @@ Generated columns are also sometimes called computed columns or virtual columns.
 * Generated columns can only be used with storage engines which support them. If you try to use a storage engine that does not support them, then you will see an error similar to the following:
 
 ```sql
-ERROR 1910 (HY000): TokuDB storage engine does not support computed columns
+ERROR 1910 (HY000): <storage engine> storage engine does not support generated columns
 ```
 
 * [InnoDB](../../../../server-usage/storage-engines/innodb/), [Aria](../../../../server-usage/storage-engines/aria/), [MyISAM](../../../../server-usage/storage-engines/myisam-storage-engine/) and [CONNECT](../../../../server-usage/storage-engines/connect/using-connect/using-connect-virtual-and-special-columns.md) support generated columns.
@@ -428,6 +428,7 @@ You can also use virtual columns to implement a "poor man's partial index". See 
 
 ## See Also
 
+* [Generated Columns](../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#generated-columns) in `mariadb-dump`, for how generated columns appear in dump output.
 * [Putting Virtual Columns to good use](https://mariadb.com/blog/putting-virtual-columns-good-use) on the mariadb.com blog.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

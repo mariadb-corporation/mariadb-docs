@@ -1,3 +1,9 @@
+---
+description: >-
+  Where to download MariaDB Server: tarballs and binaries for Linux, Solaris,
+  and Windows, distribution packages, and pre-release Buildbot binaries.
+---
+
 # Where to Download MariaDB
 
 ## The Latest Packages

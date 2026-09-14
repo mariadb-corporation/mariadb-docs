@@ -109,9 +109,9 @@ The failure can be multiple fail causes. When a failure occurs, many things will
     The query that was read-only will be relaunched, and the connector will not throw any exception.\
     A "failover" thread will be launched to attempt to reconnect a slave host.\
     (If the query was a prepared query, this query will be re-prepared before execution.)
-  * If the master connection is not active, the driver will attempt to create a new master or slave connection with a [connection loop](failover-and-high-availability-with-mariadb-connector-j-for-2x-driver.md#connection-loop).\
+  * If the master connection is not active, the driver will attempt to create a new master or slave connection with a [connection loop](failover-and-high-availability-with-mariadb-connector-j-for-2x-driver.md#standard-failover).\
     If any connection is found, the query will be relaunched; if not, an SQLException with sqlState like “08XXX” will be thrown.
-* If the failure relates to a master connection, the driver will attempt to create a new master connection with a [connection loop](failover-and-high-availability-with-mariadb-connector-j-for-2x-driver.md#connection-loop), so the connection object will be immediately reusable.\\
+* If the failure relates to a master connection, the driver will attempt to create a new master connection with a [connection loop](failover-and-high-availability-with-mariadb-connector-j-for-2x-driver.md#standard-failover), so the connection object will be immediately reusable.\\
   * On failure, an SQLException with be thrown with SQLState "08XXX". If using a pool, this connection will be discarded.
   * on success,
     * if possible query will be relaunched without throwing error (if was using a slave connection, or was a SELECT query not in a transaction for example).
@@ -180,7 +180,7 @@ jdbc:(mysql|mariadb):[replication:|sequential:|loadbalance:|aurora:]//<hostDescr
 The standard option "connectTimeout" defines the socket connection timeout. By default, this option is set to 30000 ms (30 seconds).
 
 Since there are many servers, setting this option to a small amount of time make sense.\
-During the [connection loop phase](failover-and-high-availability-with-mariadb-connector-j-for-2x-driver.md#connection-loop), the driver will try to connect to the server sequentially until the creation of an active connection.
+During the [connection loop phase](failover-and-high-availability-with-mariadb-connector-j-for-2x-driver.md#standard-failover), the driver will try to connect to the server sequentially until the creation of an active connection.
 
 Set this option to a small value (such as 2000ms - to be set according to your environment) which will permit rejecting a faulty server quickly.
 
@@ -272,5 +272,7 @@ Without any query during the time defined by the validConnectionTimeout paramete
 ### Aurora connection validation thread
 
 Aurora is a specific [connection validation thread](failover-and-high-availability-with-mariadb-connector-j-for-2x-driver.md#connection-validation-thread) implementation. Since the role of each instance can change over time, this will validate that connections are active AND roles have not changed.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

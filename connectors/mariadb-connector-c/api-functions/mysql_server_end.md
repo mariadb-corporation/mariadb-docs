@@ -21,4 +21,6 @@ void mysql_server_end(void );
 * [mysql\_library\_init()](mysql_library_init.md)
 * [mysql\_library\_end()](mysql_library_end.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

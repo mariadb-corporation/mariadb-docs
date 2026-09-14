@@ -56,3 +56,5 @@ The function returns a pointer to a string of characters, as entered by the user
 By using this function, a GUI application can open a dialog window, and a network application can send the question over the network, as required. If no `mysql_authentication_dialog_ask` function is provided by the application, the [dialog](../../plugins/authentication-plugins/authentication-with-pluggable-authentication-modules-pam/authentication-plugin-pam.md#dialog) client authentication plugin falls back to [fputs()](https://linux.die.net/man/3/fputs) and [fgets()](https://linux.die.net/man/3/fgets).
 
 Providing this callback is particularly important on Windows, because Windows GUI applications have no associated console and the default dialog function will not be able to reach the user. An example of Windows GUI client that does it correctly is [HeidiSQL](../../../clients-and-utilities/graphical-and-enhanced-clients/heidisql.md).
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -20,3 +20,5 @@ We believe we are making a better database that remains application compatible w
 * [GSoC 2015](google-summer-of-code-2015.md)
 * [GSoC 2014](google-summer-of-code-2014.md)
 * [GSoC 2013](google-summer-of-code-2013.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

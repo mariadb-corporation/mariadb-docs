@@ -1,8 +1,8 @@
 # MariaDB Galera Cluster 5.5.37 Release Notes
 
-The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) release is:[**MariaDB Galera Cluster 5.5.63**](mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
+The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) release is:[**MariaDB Galera Cluster 5.5.63**](mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/5.5.37) |**Release Notes** |[Changelog](../mariadb-galera-55-changelogs/mariadb-galera-cluster-5537-changelog.md) |[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/5.5.37) |**Release Notes** |[Changelog](../mariadb-galera-55-changelogs/mariadb-galera-cluster-5537-changelog.md) |[Overview of MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7)
 
 **Release date:** 30 Apr 2014
 
@@ -11,7 +11,7 @@ It is a merge of [MariaDB 5.5.37](../../5.5/5.5.37.md) and [Galera Cluster](http
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are
-available in the [**Galera**](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) section of the documentation.
+available in the [**Galera**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) section of the documentation.
 
 For a list of changes made in MariaDB Galera Cluster 5.5.37, with links to detailed
 information on each push, see the [MariaDB Galera Cluster 5.5.37 Changelog](../mariadb-galera-55-changelogs/mariadb-galera-cluster-5537-changelog.md).
@@ -28,7 +28,7 @@ information on each push, see the [MariaDB Galera Cluster 5.5.37 Changelog](../m
 * This release includes a new method for snapshot state
   transfer, `wsrep_sst_xtrabackup-v2`. This method of state snapshot transfer
   can be configured using the `--wsrep_sst_method=xtrabackup-v2`
-  option. Its use requires [Percona Xtrabackup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview) (>= 2.1.6) and other software packages
+  option. Its use requires Percona Xtrabackup (>= 2.1.6) and other software packages
   like socat, nc, and tar.
 
 See the [MariaDB 5.5.37 Release Notes](../../5.5/5.5.37.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5537-changelog.md) for more information on the changes in\
@@ -59,6 +59,6 @@ Thanks, and enjoy MariaDB Galera Cluster!
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

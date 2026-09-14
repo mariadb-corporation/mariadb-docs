@@ -169,3 +169,5 @@ except mariadb.Error as e:
 # Close Connection
 conn.close()
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

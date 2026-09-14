@@ -33,4 +33,6 @@ Executing mysql\_commit() will not affected the behaviour of [autocommit](https:
 * [mysql\_rollback()](mysql_rollback.md)
 * [mysql\_autocommit()](mysql_autocommit.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

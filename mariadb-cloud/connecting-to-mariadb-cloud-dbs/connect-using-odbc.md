@@ -257,3 +257,5 @@ The `OPTIONS` bitmask contains the following bits:
 | 21         | 2097152   | Same as the FORWARDONLY connection parameter                                           |
 | 22         | 4194304   | Same as the AUTO\_RECONNECT connection parameter                                       |
 | 26         | 67108864  | Enables multi-statement queries                                                        |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

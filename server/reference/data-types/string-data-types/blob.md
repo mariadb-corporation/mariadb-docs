@@ -24,7 +24,7 @@ An optional length `M` can be given for this type. If this is done, MariaDB crea
 
 `BLOB` values can also be used to store [dynamic columns](../../sql-structure/nosql/dynamic-columns.md).
 
-`BLOB` and `TEXT` columns can both be assigned a [DEFAULT](../../sql-statements/data-definition/create/create-table.md#default) value.
+`BLOB` and `TEXT` columns can both be assigned a [DEFAULT](../../sql-statements/data-definition/create/create-table.md#default-column-option) value.
 
 ### Indexing
 

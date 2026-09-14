@@ -104,3 +104,5 @@ Clear all messages for the current session.
 - **messages** (`List[BaseMessage]`): Get all messages in the chat history.
 
 ---
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -53,3 +53,5 @@ Introduction to advanced joins in MariaDB.
 How to use a comma instead of a `JOIN` clause, and why you should always prefer the latter.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

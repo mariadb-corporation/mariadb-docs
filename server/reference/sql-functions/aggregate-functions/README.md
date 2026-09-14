@@ -286,3 +286,5 @@ Calculate sample variance. This function computes the statistical variance for a
 Calculate population variance. This function is a synonym for VAR\_POP() and returns the variance of a set of values.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

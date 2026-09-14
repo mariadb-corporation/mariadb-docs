@@ -2,13 +2,13 @@
 
 **Release date:** 26th October 2016
 
-[MariaDB ColumnStore 1.0.4](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) is a beta release of MariaDB ColumnStore. This is the first beta release of MariaDB ColumnStore with improvements over the previous 1.0.3 alpha release.
+[MariaDB ColumnStore 1.0.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is a beta release of MariaDB ColumnStore. This is the first beta release of MariaDB ColumnStore with improvements over the previous 1.0.3 alpha release.
 
 MariaDB ColumnStore 1.0.4 is a [_**Beta**_](../../../community-server/about/release-criteria.md) release.
 
 **Do not use&#x20;**_**beta**_**&#x20;releases on production systems!**
 
-For an overview of [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
 For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) or subscribe to mariadb-columnstore@googlegroups.com
@@ -59,7 +59,7 @@ Below is list of some of the bugs and issues fixed. A number of regression test 
 
 ## Upgrade
 
-Multi version upgrades are not supported, please upgrade versions prior to 1.0.3 before upgrading to 1.0.4. Details on upgrading from version to 1.0.3 to 1.0.4 can be found [here](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-0/broken-reference/README.md).
+Multi version upgrades are not supported, please upgrade versions prior to 1.0.3 before upgrading to 1.0.4.
 
 Upgrade from MariaDB ColumnStore Alpha versions 1.0.0 to 1.0.2 is not supported, please upgrade to version 1.0.3 prior to upgrading to 1.0.4.
 
@@ -88,7 +88,7 @@ There are a number bugs and known limitations within this beta version of MariaD
 ```
 
 * [MCOL-404](https://jira.mariadb.org/browse/MCOL-404): Non root user install does not work. Install as root instead for this release.
-* The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](/broken/spaces/rBEU9juWLfTDcdwF3Q14/pages/dXPqB8aK1YApDlya8q3W).
+* The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-system-paths-and-logs).
 * While Millisecond and Microsecond storage is supported for datetime, time and timestamp columns, at this time the query results cannot return millisecond and microseconds.
 * UTF-8 Limitation
   * UTF-8 must be declared at the table level if the instance has been set up with a UTF-8 profile. Tables created with a non-matching character set will yield indeterminate results.
@@ -98,14 +98,14 @@ There are a number bugs and known limitations within this beta version of MariaD
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md)
+[MariaDB ColumnStore Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore)
 
 ## Packaging
 
 RPM and binary packages are provided for the Linux distributions supported by MariaDB ColumnStore 1.0.4 beta version.
 
 * The supported OS for this Alpha version are CentOS 6, CentOS 7 and Ubuntu 16.0.4.
-* Packages can be downloaded [here](https://mariadb.com/my_portal/download/mariadb-columnstore)
+* Packages can be downloaded [here](https://mariadb.com/downloads/columnstore)
 
 ## Source Code
 
@@ -116,6 +116,6 @@ The source code is available at these locations
 * Storage Engine - [Source code for engine specific processes on UM and PM node](https://github.com/mariadb-corporation/mariadb-columnstore-engine)
 * MariaDB Server - [Source code based on MariaDB Server 10.1.18 modified to support the ColumnStore storage engine](https://github.com/mariadb-corporation/mariadb-columnstore-server)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

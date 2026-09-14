@@ -1,3 +1,9 @@
+---
+description: >-
+  Check out the MariaDB Server source code from GitHub, find source tarballs
+  for released versions, and see which branches development happens on.
+---
+
 # MariaDB Source Code
 
 ## Checking out the Source with Git

@@ -30,7 +30,7 @@ These parameters are set on the `binlogrouter` CDC service. For the full CDC set
 
 MariaDB Exa CDC has been tested and is expected to work in near real-time up to 600 TPS[^1] from the source MariaDB server side. MariaDB Exa has leading benchmark results for TPC-H[^2].
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}
 

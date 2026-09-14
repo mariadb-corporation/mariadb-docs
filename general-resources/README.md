@@ -16,3 +16,4 @@ Until June 2025, the documentation used to be in the MariaDB KnowledgeBase (KB).
 
 <div align="left"><figure><img src=".gitbook/assets/image (1).png" alt="Screenshot of the MariaDB documentation start page, listing the categories like MariaDB Server, Enterprise Operator, MaxScale, ColumnStore, and Connectors." width="375"><figcaption><p>The MariaDB documentation that contained the MariaDB documentation until June 2025</p></figcaption></figure></div>
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

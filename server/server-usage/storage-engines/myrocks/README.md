@@ -7,6 +7,10 @@ description: >-
 
 # MyRocks
 
+{% hint style="info" %}
+MyRocks is a community contribution to MariaDB Server. It is based on RocksDB and on Facebook's MyRocks, which are developed and maintained upstream, outside MariaDB.
+{% endhint %}
+
 {% columns %}
 {% column %}
 {% content-ref url="about-myrocks-for-mariadb.md" %}
@@ -222,3 +226,5 @@ A list of MyRocks-specific status variables providing metrics on cache hits, com
 A comprehensive reference for MyRocks system variables, allowing fine-tuning of performance, memory usage, compaction, and other internal behaviors.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -2,9 +2,9 @@
 
 **Release date:** 21st March 2019
 
-[MariaDB ColumnStore 1.2.3](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) is a GA release of MariaDB ColumnStore. The MariaDB ColumnStore 1.2 series provides several new features and improvements over the MariaDB ColumnStore 1.1 release.
+[MariaDB ColumnStore 1.2.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is a GA release of MariaDB ColumnStore. The MariaDB ColumnStore 1.2 series provides several new features and improvements over the MariaDB ColumnStore 1.1 release.
 
-For an overview of [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
 For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) or subscribe to mariadb-columnstore@googlegroups.com
@@ -56,7 +56,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1899](https://jira.mariadb.org/browse/MCOL-1899) - Add tools test suite to buildbot
 * [MCOL-1961](https://jira.mariadb.org/browse/MCOL-1961) - javamcsapi, pymcsapi known isTableLock and TableLockInfo limitations
 * [MCOL-2082](https://jira.mariadb.org/browse/MCOL-2082) - Write Spark and PySpark documentation for mcsapi
-* [MCOL-2110](https://jira.mariadb.org/browse/MCOL-2110) - Cant build engine out-of-source
+* [MCOL-2110](https://jira.mariadb.org/browse/MCOL-2110) - Can't build engine out-of-source
 * [MCOL-2120](https://jira.mariadb.org/browse/MCOL-2120) - Check NUMA devel package is installed on BuildBot instances
 * [MCOL-2176](https://jira.mariadb.org/browse/MCOL-2176) - Use jemalloc as the main memory allocator - testing for 1.2.3-1
 * [MCOL-2218](https://jira.mariadb.org/browse/MCOL-2218) - Rebase 1.2 on [MariaDB 10.3.13](../../../community-server/old-releases/10.3/10.3.13.md)
@@ -67,7 +67,7 @@ In addition, all bugs fixed in MariaDB ColumnStore 1.2.2 and earlier are implici
 
 The following procedure outlines upgrading a 1.1.7 ColumnStore install to 1.2.3:
 
-* [1.1.7 GA to 1.2.3 GA upgrade procedure](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-2/broken-reference/README.md)
+* 1.1.7 GA to 1.2.3 GA upgrade procedure
 
 Multi version upgrades generally will work using the same procedure however we can't test every possible permutation so you should test your specific scenario outside of production first if you wish to try this (and this is good practice regardless).
 
@@ -80,15 +80,15 @@ There are a number bugs and known limitations within this version of MariaDB Col
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md)
+[MariaDB ColumnStore Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore)
 
 ## Packaging
 
 RPM, Debian, and binary packages are provided for the Linux distributions supported by MariaDB ColumnStore 1.2.3 GA version.
 
 * The supported OS for the GA version are CentOS 6, CentOS 7, Debian 8, Debian 9, RedHat 6, RedHat 7, SUSE 12, Ubuntu 16.04 and Ubuntu 18.04.
-* Packages can be downloaded [here](https://mariadb.com/downloads/mariadb-ax) or can be installed from the [repositories](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-2/broken-reference/README.md).
-* An Amazon AWS AMI Image is available for this release, please search for AMI name "MariaDB-ColumnStore-1.2.3". AMI specific installation instructions can be found [here](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-2/broken-reference/README.md).
+* Packages can be downloaded [here](https://mariadb.com/downloads/mariadb-ax) or can be installed from the [repositories](https://downloads.mariadb.org/mariadb/repositories/).
+* An Amazon AWS AMI Image is available for this release, please search for AMI name "MariaDB-ColumnStore-1.2.3".
 * Certified to run in Google Cloud Environment in the GA OSs.
 
 ## Source code
@@ -103,6 +103,6 @@ The source code is available at these locations
 * Write Data API - [Source code for Write Data API /SDK](https://github.com/mariadb-corporation/mariadb-columnstore-api/tree/columnstore-1.2.3)
 * MaxScale CDC and Kafka Data Adapters - [Source Code for data adapters](https://github.com/mariadb-corporation/mariadb-columnstore-data-adapters/tree/columnstore-1.2.3)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

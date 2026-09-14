@@ -26,9 +26,14 @@ In MariaDB, the slave will try to choose a good index among any available:
 The choice of which of several non-unique indexes to use is based on the
 cardinality of indexes; the one that is most selective (has the smallest average number of rows per distinct tuple of column values) is preferred. Note that for this choice to be effective, for most storage engines (like MyISAM, InnoDB) it is necessary to make sure [ANALYZE TABLE](../../reference/sql-statements/table-statements/analyze-table.md) has been run on the slave, otherwise statistics about index cardinality is not available. In the absence of index cardinality, the first unique index is chosen, if any, else the first non-unique index.
 
+{% hint style="info" %}
+[Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md), added in MariaDB Enterprise Server 12.3 (beta), require the replicated table to have a `PRIMARY KEY`. On a table without one, a conflicting row event is never routed to a CDR trigger, and the applier raises its usual error instead.
+{% endhint %}
+
 ## See Also
 
-*
+* [Binary Log Formats](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md)
+* [Conflict Detection and Resolution (CDR) Triggers](conflict-detection-and-resolution-triggers.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

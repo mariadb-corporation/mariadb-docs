@@ -49,7 +49,7 @@ Output entries from the binary log (local log only) that occur while the name ha
 
 #### ## \[options], --debug\[=options]
 
-In a debug build, write a debugging log. A typical debug options string is `d:t:o,file\_name`. Default value: `d:t:o,/tmp/mariadb-binlog.trace`
+In a debug build, write a debugging log. A typical debug options string is `d:t:o,file_name`. Default value: `d:t:o,/tmp/mariadb-binlog.trace`
 
 #### --debug-check
 
@@ -73,7 +73,7 @@ Only read default options from the given file name, which can be the full path o
 
 #### --defaults-group-suffix=_str_
 
-Also read groups with a suffix of _str_. For example, since `mariadb-binlog` normally reads the `[client]` and `[mysqlbinlog]` groups, `--defaults-group-suffix=`_`x`_ would cause it to also read the groups `\[mysqlbinlog\_x]` and `\[client\_x]`.
+Also read groups with a suffix of _str_. For example, since `mariadb-binlog` normally reads the `[client]` and `[mysqlbinlog]` groups, `--defaults-group-suffix=`_`x`_ would cause it to also read the groups `[mysqlbinlog_x]` and `[client_x]`.
 
 #### -D, --disable-log-bin
 

@@ -44,4 +44,6 @@ The MariaDB AI RAG system allows you to manage sensitive credentials (like API k
 | 1Password  | `config.env.1password.employee` | 1Password CLI         | Enterprise / Corporate |
 | HCP Vault  | `config.env.hcp.live`           | Managed Cloud Vault   | Production Cloud       |
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

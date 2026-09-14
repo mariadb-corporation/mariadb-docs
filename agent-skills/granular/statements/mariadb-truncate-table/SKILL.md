@@ -98,3 +98,5 @@ TRUNCATE TABLE big_table NOWAIT;
   - <https://mariadb.com/docs/server/reference/sql-statements/table-statements/truncate-table>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/changing-deleting-data/delete>
   - <https://mariadb.com/docs/server/reference/sql-structure/temporal-tables/system-versioned-tables>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

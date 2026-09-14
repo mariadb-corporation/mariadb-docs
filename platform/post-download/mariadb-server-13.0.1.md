@@ -4,7 +4,7 @@
 
 ## About this Release
 
-* MariaDB Server 13.0.1 RC was released on 28 May 2026
+* MariaDB Server 13.0.1 RC was released on 29 May 2026
 * [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/13.0/13.0.1)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is RC maturity
@@ -18,7 +18,7 @@
 ## Release History
 
 * The prior release in this series was MariaDB 13.0.0 Preview, released on 23 Mar 2026
-* This release (MariaDB 13.0.1 RC) was released on 28 May 2026
+* This release (MariaDB 13.0.1 RC) was released on 29 May 2026
 
 {% include "../.gitbook/includes/most-recent-13.0.md" %}
 
@@ -29,6 +29,6 @@
 * [Contact Us](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/about/contact-us)
 * [Learn about the MariaDB Community](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

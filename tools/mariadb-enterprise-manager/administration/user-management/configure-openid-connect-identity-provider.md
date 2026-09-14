@@ -118,10 +118,10 @@ Resetting the OIDC Configuration
 
 To restore the default settings:
 
-1.  Click the **Reset Configuration** button.\\
+1.  Click the **Reset Configuration** button.
 
     <figure><img src="../../../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
-2.  In the confirmation dialog, click **Reset**.\\
+2.  In the confirmation dialog, click **Reset**.
 
     <figure><img src="../../../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
@@ -131,6 +131,6 @@ A success message will confirm the reset.
 {% endstep %}
 {% endstepper %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

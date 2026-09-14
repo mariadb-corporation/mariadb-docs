@@ -115,3 +115,5 @@ Deployment includes installing, configuring, upgrading, downgrading, migration f
 {% endcolumns %}
 
 [^1]: Database Management System. Popular DBMSs include MariaDB, MySQL, Oracle, PostgreSQL, and MongoDB.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

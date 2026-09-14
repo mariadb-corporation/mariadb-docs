@@ -106,3 +106,5 @@ See "[Notifications](notifications.md)" for additional details.
 ## Logout
 
 To log out from MariaDB Cloud, click your name in the upper-right corner of the interface, then choose "Logout" from the menu.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

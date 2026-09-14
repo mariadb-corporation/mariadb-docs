@@ -77,3 +77,5 @@ Introduces optimizer trace, which produces a JSON document of the optimizer's de
 Links to external optimizer trace resources, including a MariaDB Fest 2020 walkthrough talk and the opttrace processing tool.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

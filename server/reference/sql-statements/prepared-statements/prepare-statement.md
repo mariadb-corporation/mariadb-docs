@@ -9,7 +9,7 @@ description: >-
 ## Syntax
 
 ```bnf
-PREPARE stmt_name FROM preparable_stmt
+PREPARE [LOCAL] stmt_name FROM preparable_stmt
 ```
 
 ## Description
@@ -53,6 +53,35 @@ ERROR 1461 (42000): Can't create more than max_prepared_stmt_count statements
 ### Oracle Mode
 
 In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `PREPARE stmt FROM 'SELECT :1, :2'` is used instead of `?`.
+
+### LOCAL Statement Names
+
+{% hint style="info" %}
+`PREPARE LOCAL` is available from MariaDB 13.1.1.
+{% endhint %}
+
+Inside a stored procedure, `PREPARE LOCAL` takes the prepared statement name from the _value_ of a stored-procedure variable instead of from a literal identifier:
+
+```sql
+PREPARE LOCAL spvar FROM preparable_stmt;
+```
+
+Here `spvar` is a local variable (or routine parameter) whose string value is used as the prepared statement name — useful when the name must be computed at runtime. `LOCAL` does not create a separate namespace: a statement prepared with `PREPARE LOCAL` can be executed or deallocated by its resolved name with a plain [EXECUTE](execute-statement.md) or [DEALLOCATE PREPARE](deallocate-drop-prepare.md), and the reverse also works.
+
+`PREPARE LOCAL` is only valid inside a stored procedure, and like the plain form is not permitted in stored functions or triggers.
+
+**Example:**
+
+```sql
+CREATE PROCEDURE p1()
+BEGIN
+  DECLARE spvar_with_ps_name VARCHAR(64) DEFAULT 'my_stmt';
+
+  PREPARE LOCAL spvar_with_ps_name FROM 'SELECT 1';
+  EXECUTE my_stmt;
+  DEALLOCATE PREPARE my_stmt;
+END;
+```
 
 ## Permitted Statements
 

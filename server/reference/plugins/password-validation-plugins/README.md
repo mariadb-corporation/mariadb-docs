@@ -66,3 +66,5 @@ This system variable defines the retention period in days for the password histo
 The Simple Password Check Plugin enforces basic password complexity rules, such as minimum length and required numbers of digits, letters, and special characters.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

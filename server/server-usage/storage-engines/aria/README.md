@@ -102,3 +102,5 @@ Frequently asked questions about the Aria storage engine, covering its history, 
 A brief history of the naming of the Aria storage engine, explaining its origins as "Maria" and the reasons for the eventual name change.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

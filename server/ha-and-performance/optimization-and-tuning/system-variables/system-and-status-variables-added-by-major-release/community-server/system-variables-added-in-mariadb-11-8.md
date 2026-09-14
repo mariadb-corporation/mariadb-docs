@@ -5,6 +5,7 @@
 | [analyze\_max\_length](../../server-system-variables.md#analyze_max_length)                                                                             | [MariaDB 11.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.3) |
 | [innodb\_buffer\_pool\_size\_auto\_min](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size_auto_min) | [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.2) |
 | [innodb\_buffer\_pool\_size\_max](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size_max)            | [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.2) |
+| [innodb\_index\_shrink](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_index_shrink)                             | [MariaDB 11.8.9](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.9)                                 |
 | [innodb\_log\_checkpoint\_now](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_checkpoint_now)                 | [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.2) |
 
 For system variables added since the previous long-term release, [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114), see:

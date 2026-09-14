@@ -42,3 +42,5 @@ Bitemporal tables combine system-versioning and application-time periods, versio
 Complete system-versioned tables: WITH SYSTEM VERSIONING syntax, FOR SYSTEM_TIME AS OF/BETWEEN/ALL queries, and ROW_START/ROW_END columns.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

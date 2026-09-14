@@ -196,6 +196,6 @@ The following metrics are available for `MaxScale` instances:
 | maxscale\_uptime\_seconds                                     | Maxscale uptime in seconds                                                                         | GAUGE   |
 | maxscale\_version                                             | Maxscale Version                                                                                   | GAUGE   |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

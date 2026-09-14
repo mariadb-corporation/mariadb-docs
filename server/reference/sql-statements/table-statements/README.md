@@ -284,3 +284,5 @@ Complete `TRUNCATE TABLE` reference with `[WAIT n|NOWAIT]` syntax, InnoDB `FOREI
 Complete `UPDATE` statement guide for MariaDB. Complete syntax reference with `WHERE` conditions, `JOIN` operations, and multi-table updates for production use.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -31,3 +31,5 @@ Explores the internal implementation and execution flow of stored procedures, in
 Provides a technical breakdown of how the server allocates and manages memory for each client connection and thread.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -54,3 +54,5 @@ The entire vector feature — the `VECTOR` data type, `VECTOR INDEX`, and every 
   - <https://mariadb.com/docs/server/reference/sql-structure/vectors/create-table-with-vectors>
   - <https://mariadb.com/docs/server/reference/sql-structure/vectors/vector>
   - <https://mariadb.com/docs/server/reference/sql-structure/vectors/vector-system-variables>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

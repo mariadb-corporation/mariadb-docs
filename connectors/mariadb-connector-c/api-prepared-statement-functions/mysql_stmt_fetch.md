@@ -37,4 +37,6 @@ Returns `0` for success, `MYSQL_NO_DATA` if the end of the result set has been r
 * [mysql\_stmt\_bind\_result()](mysql_stmt_bind_result.md)
 * [mysql\_stmt\_execute()](mysql_stmt_execute.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

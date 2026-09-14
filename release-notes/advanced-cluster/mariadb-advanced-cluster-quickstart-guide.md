@@ -340,6 +340,6 @@ MariaDB Advanced Cluster configuration primarily relies on the [WSREP System Var
 | `wsrep_rollbacker_thread_count` | Stores the current number of rollbacker threads to make clear how many slave threads of this type there are.                                                                                                          |
 | `wsrep_thread_count`            | Total number of wsrep (applier/rollbacker) threads.                                                                                                                                                                   |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

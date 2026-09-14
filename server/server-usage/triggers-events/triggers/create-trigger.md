@@ -34,6 +34,10 @@ trigger_event:
 
 ![Railroad diagram of trigger\_event](../../../.gitbook/assets/create-trigger-event-railroad.svg)
 
+{% hint style="info" %}
+MariaDB Enterprise Server 12.3 adds a third trigger form for replicas: `CREATE TRIGGER ... FOR CONFLICT`, which fires when a row-based replication event conflicts with the replica's local data. The `FOR CONFLICT` clause replaces the `BEFORE`/`AFTER` timing keyword and cannot be combined with the trigger events above. See [Conflict Detection and Resolution (CDR) Triggers](../../../ha-and-performance/standard-replication/conflict-detection-and-resolution-triggers.md).
+{% endhint %}
+
 ## Description
 
 This statement creates a new [trigger](./). A trigger is a named database object that is associated with a table, and that activates when a particular event occurs for the table. The trigger becomes associated with the table named `tbl_name`, which must refer to a permanent table. You cannot associate a trigger with a `TEMPORARY` table or a view.

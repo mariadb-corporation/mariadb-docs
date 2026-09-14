@@ -61,7 +61,7 @@ For information on how to start and stop multiple MariaDB Server processes on th
 
 [mariadbd](mariadbd-options.md) is the actual MariaDB Server binary. It can be started manually on its own.
 
-If you want to force each instance to read only a single [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), then you can use the [--defaults-file](mariadbd-options.md#-defaults-file) option:
+If you want to force each instance to read only a single [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), then you can use the [--defaults-file](mariadbd-options.md#defaults-file) option:
 
 ```
 mariadbd --defaults-file=/etc/my_instance1.cnf
@@ -71,7 +71,7 @@ mariadbd --defaults-file=/etc/my_instance1.cnf
 
 [mariadbd-safe](mariadbd-safe.md) is a wrapper that can be used to start the [mariadbd](mariadbd-options.md) server process. The script has some built-in safeguards, such as automatically restarting the server process if it dies. See [mariadbd-safe](mariadbd-safe.md) for more information.
 
-If you want to force each instance to read only a single [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), then you can use the [--defaults-file](mariadbd-options.md#-defaults-file) option:
+If you want to force each instance to read only a single [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), then you can use the [--defaults-file](mariadbd-options.md#defaults-file) option:
 
 ```
 mariadbd-safe --defaults-file=/etc/my_instance1.cnf

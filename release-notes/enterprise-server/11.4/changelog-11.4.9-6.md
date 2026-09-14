@@ -238,6 +238,6 @@ MariaDB Enterprise Server 11.4.9-6 is a Stable (GA) maintenance release of [Mari
 * Unformatted InnoDB messages in the error log ([MDEV-36993](https://jira.mariadb.org/browse/MDEV-36993))
 * engines/iuds and engines/funcs suites fail with ps-protocol ([MDEV-37375](https://jira.mariadb.org/browse/MDEV-37375))
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

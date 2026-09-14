@@ -159,11 +159,13 @@ INDEX(topic, id)
       AND id >= 876
     ORDER BY id ASC
     LIMIT 10,41
-<</code??
+```
+
 That will hit 51 consecutive index entries, 0 data rows.
 
 Inefficient -- it must reach into the data:
-<<code>>
+
+```sql
     INDEX(topic, id)
     WHERE topic = 'xyz'
       AND id >= 876

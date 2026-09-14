@@ -40,3 +40,5 @@ description: >-
 - [ST\_PolyFromWKB](st_polyfromwkb.md)
 - [ST\_PolygonFromWKB](st_polygonfromwkb.md)
 - [Well-Known Binary (WKB) Format](well-known-binary-wkb-format.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

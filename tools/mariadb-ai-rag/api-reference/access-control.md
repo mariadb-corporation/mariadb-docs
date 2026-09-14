@@ -380,6 +380,6 @@ curl -X DELETE "http://localhost:8000/users/ingest-directory" \
 
 **Note**: Deleting the ingest directory configuration will cause the user to fall back to the default ingest directory (`./`).
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

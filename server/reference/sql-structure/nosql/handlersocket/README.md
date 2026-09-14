@@ -54,3 +54,5 @@ Describe the HandlerSocket plugin configuration options for the my.cnf [mysqld] 
 Collect external resources and documentation about the HandlerSocket plugin, including its home repository, background articles, and presentations.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

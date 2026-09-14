@@ -73,7 +73,7 @@ We also define a healthcheck. This is a command that is run to check if the cont
 
 Finally, we start the container command: [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md). This command is run when a container based on this image starts. When the process stops or crashes, the container will immediately stop.
 
-Note that, in a container, we normally run mariadbd directly or in an entrypoint script `exec mariadbd`, rather than running [mysqld\_safe](../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) or running MariaDB as a service. Containers restart can be handled by the container service. See [automatic restart](installing-and-using-mariadb-via-docker.md#automatic-restart).
+Note that, in a container, we normally run mariadbd directly or in an entrypoint script `exec mariadbd`, rather than running [mysqld\_safe](../../starting-and-stopping-mariadb/mariadbd-safe.md) or running MariaDB as a service. Containers restart can be handled by the container service. See [automatic restart](installing-and-using-mariadb-via-docker.md#automatic-restart).
 
 See the documentation links below to learn the syntax allowed in a Dockerfile.
 

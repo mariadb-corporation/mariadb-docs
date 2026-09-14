@@ -30,3 +30,5 @@ Access storage engine interfaces directly for key lookups and key or table scans
 Use HANDLER commands efficiently with MEMORY/HEAP tables, including creating BTREE keys for range scans and the limitations of HASH keys, BTREE keys, and table scans.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

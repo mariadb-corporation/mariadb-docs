@@ -138,3 +138,5 @@ Remove a trigger from a table. This command deletes the trigger definition, prev
 Explains how to use the DROP VIEW statement to remove one or more views from the database, including required privileges.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -21,3 +21,5 @@ MariaDB Cloud cloud databases can optionally be configured for private connectio
 * [AWS PrivateLink](setting-up-aws-private-link.md) is supported for MariaDB Cloud databases on AWS
 * [Azure PrivateLink](setting-up-azure-private-link.md) is supported for MariaDB Cloud databases on Azure
 * [Private Service Connect](setting-up-gcp-private-service-connect.md) is supported for MariaDB Cloud databases on GCP
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

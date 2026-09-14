@@ -114,3 +114,5 @@ Shift bits to the right. This operator shifts the binary representation of a num
 Boolean literal for 1 = TRUE or 0 = FALSE, respectively.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

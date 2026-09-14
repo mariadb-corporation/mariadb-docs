@@ -37,7 +37,7 @@ jobs:
             # Stage the updated navigation menu
             git add server/SUMMARY.md
             
-            git commit -m "docs: auto-generate missing error pages (DOCS-5990)"
+            git commit -m "docs: auto-sync error pages with errmsg-utf8.txt (DOCS-5990, DOCS-6564)"
             git push origin HEAD
           else
             echo "No changes to commit. Everything is up to date."

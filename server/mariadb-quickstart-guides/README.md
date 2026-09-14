@@ -307,3 +307,5 @@ Discover how to create and use views to simplify complex queries, restrict data 
 This section offers advice on writing and maintaining applications that use databases, covering schema design, code practices, and testing.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -535,3 +535,5 @@ $ mysql -u root -p < mariadb-binlog.sql
 ```
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

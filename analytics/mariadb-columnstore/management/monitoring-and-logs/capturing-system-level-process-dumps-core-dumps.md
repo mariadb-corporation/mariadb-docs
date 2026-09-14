@@ -116,3 +116,5 @@ cat /proc/$(pidof PrimProc)/limits | grep "Max core file size"
 ```
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

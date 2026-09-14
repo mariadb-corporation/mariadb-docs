@@ -11,4 +11,6 @@
 * Q: Is the Spider storage engine available in MariaDB Community Server?\
   A: Yes, the Spider storage engine is available as a pluggable engine within MariaDB Community Server, allowing users to implement database sharding solutions.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

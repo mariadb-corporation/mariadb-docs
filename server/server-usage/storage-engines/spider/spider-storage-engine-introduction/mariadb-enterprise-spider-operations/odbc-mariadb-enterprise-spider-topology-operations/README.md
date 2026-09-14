@@ -18,3 +18,5 @@ description: >-
 This guide details how to configure Spider to connect to an Oracle database via ODBC, enabling data migration and federated access to Oracle tables.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -8,7 +8,7 @@ See the [MariaDB 5.1.42 Release Notes](../../old-releases/5.1/5.1.42.md) for the
 highlights of this release.
 
 MariaDB-5.1.42 is based on MySQL-5.1.42, and in addition to the changes listed
-in previous [changelogs](../../../connectors/odbc/changelogs/) it includes the following changes and bug fixes:
+in previous [changelogs](../README.md) it includes the following changes and bug fixes:
 
 * Includes MySQL 5.1.42
 * Includes [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) 1.0.6-9
@@ -65,6 +65,6 @@ in previous [changelogs](../../../connectors/odbc/changelogs/) it includes the f
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

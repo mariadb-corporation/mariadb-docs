@@ -6,7 +6,7 @@ description: >-
 
 # mysql.gtid\_slave\_pos Table
 
-The `mysql.gtid_slave_pos` table is used in [replication](../../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) by replica servers to keep track of their current position (the [global transaction ID](../../../ha-and-performance/standard-replication/gtid.md) of the last transaction applied). Using the table allows the replica to maintain a consistent value for the [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid.md) system variable across server restarts. See [Global Transaction ID](../../../ha-and-performance/standard-replication/gtid.md).
+The `mysql.gtid_slave_pos` table is used in [replication](../../../ha-and-performance/standard-replication/) by replica servers to keep track of their current position (the [global transaction ID](../../../ha-and-performance/standard-replication/gtid.md) of the last transaction applied). Using the table allows the replica to maintain a consistent value for the [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid.md) system variable across server restarts. See [Global Transaction ID](../../../ha-and-performance/standard-replication/gtid.md).
 
 You should never attempt to modify the table directly. If you do need to change the global `gtid_slave_pos` value, use `SET GLOBAL gtid_slave_pos = ...` instead.
 
@@ -23,8 +23,7 @@ an InnoDB update with every operation:
 ALTER TABLE mysql.gtid_slave_pos ENGINE=MyISAM;
 ```
 
-The `mysql.gtid_slave_pos` table should not be changed manually in any other way. It is preferable to use the `gtid_pos_auto_engines` server variable to get the GTID position updates to use the TokuDB or\
-RocksDB storage engine.
+The `mysql.gtid_slave_pos` table should not be changed manually in any other way. It is preferable to use the `gtid_pos_auto_engines` server variable to get the GTID position updates to use the RocksDB storage engine.
 
 Note that, for scalability reasons, the automatic creation of a new`mysql.gtid_slave_posXXX` table happens asynchronously when the first transaction with the new storage engine is committed. So the very first few transactions will update the old version of the table, until the new version is created and available.
 

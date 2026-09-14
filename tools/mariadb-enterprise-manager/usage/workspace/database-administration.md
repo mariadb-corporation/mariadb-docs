@@ -47,6 +47,6 @@ Using the Processlist Viewer, you can:
 * **Identify** long-running or problematic queries that may be impacting server performance.
 * **Manage** live sessions, which may include the ability to terminate (kill) a specific process.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

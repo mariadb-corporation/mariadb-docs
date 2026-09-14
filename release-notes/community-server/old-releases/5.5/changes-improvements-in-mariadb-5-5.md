@@ -21,8 +21,8 @@ See also a detailed breakdown of [System variable differences between MariaDB 5.
   comparable in functionality to the closed source feature in MySQL Enterprise.
 * [Non-blocking client API Library](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/non-blocking-client-library) ([MWL#192](https://askmonty.org/worklog/?tid=192))
 * [@@skip\_replication option](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/selectively-skipping-replication-of-binlog-events) ([MWL#234](https://askmonty.org/worklog/?tid=234))
-* [SphinxSE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/sphinx-storage-engine) updated to version 2.0.4.
-* [Extended Keys](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/mariadb-internals-documentation-query-optimizer/extended-keys) support for XtraDB and InnoDB
+* [SphinxSE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sphinx-storage-engine) updated to version 2.0.4.
+* [Extended Keys](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/extended-keys) support for XtraDB and InnoDB
 * New [INSTALL SONAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname) statement ([MWL#77](https://askmonty.org/worklog/?tid=77))
 * New [LIMIT ROWS EXAMINED](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/limit-rows-examined) optimization ([MDEV-28](https://jira.mariadb.org/browse/MDEV-28))
 * `mysql_real_connect()` Changes
@@ -74,11 +74,11 @@ There are a number of new [INFORMATION SCHEMA](https://app.gitbook.com/s/SsmexDF
   will not cause a slower performance on all slaves. This also fixes a crash on
   the slaves.
 
-New features are added to [MariaDB 10.0](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/broken-reference/README.md).
+New features are added to MariaDB 10.0.
 
 ## Deprecated / Disabled Features
 
-* [PBXT](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/pbxt-storage-engine/README.md) is no longer in the binary builds/distributions. It's however still in the source distributions and in the source tree. The reason is that PBXT is no longer actively maintained, has a few bugs that are not fixed and is not in widespread use.
+* PBXT is no longer in the binary builds/distributions. It's however still in the source distributions and in the source tree. The reason is that PBXT is no longer actively maintained, has a few bugs that are not fixed and is not in widespread use.
 
 ## Switching Between InnoDB and [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/mariadb-enterprise-server-innodb-operations/innodb-unmaintained/about-xtradb)
 
@@ -100,7 +100,7 @@ plugin-load=innodb=ha_innodb.so
 plugin_dir=/usr/local/mysql/lib/mysql/plugin
 ```
 
-If you want you can also compile MariaDB with [InnoDB as default](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/compiling-with-the-innodb-plugin-from-oracle).
+If you want you can also compile MariaDB with InnoDB as default.
 
 ## Security Vulnerabilities Fixed in [MariaDB 5.5](changes-improvements-in-mariadb-5-5.md)
 
@@ -199,6 +199,6 @@ The following CVEs are also fixed in [MariaDB 5.5](changes-improvements-in-maria
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

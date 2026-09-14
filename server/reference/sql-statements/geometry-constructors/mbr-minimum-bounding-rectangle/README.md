@@ -114,3 +114,5 @@ Check if two MBRs touch. Returns 1 if the MBRs intersect only at their boundarie
 Check if one MBR is within another. Returns 1 if the MBR of the first geometry is completely enclosed by the MBR of the second geometry.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

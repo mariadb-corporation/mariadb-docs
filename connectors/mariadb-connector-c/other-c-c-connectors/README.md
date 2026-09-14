@@ -48,3 +48,5 @@ mariadb++ is a C++ client library for connecting applications to MariaDB and MyS
 MySQL client library 3.23.58 is an archived LGPL release for non-GPL distribution use cases, with known limitations including no prepared statements and deprecated password authentication.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

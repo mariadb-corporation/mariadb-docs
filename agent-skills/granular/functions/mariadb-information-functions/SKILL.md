@@ -128,3 +128,5 @@ Returns a string that indicates the MariaDB server version.
 - **`mariadb-create-table`** — `AUTO_INCREMENT` columns (source of `LAST_INSERT_ID()`) and column `DEFAULT` clauses (source of `DEFAULT(col)`)
 - **`mariadb-window-functions`** — `LAST_VALUE(expr) OVER (...)` as a window function, distinct from its non-window scalar form
 - Canonical reference on `mariadb.com/docs`: <https://mariadb.com/docs/server/reference/sql-functions/secondary-functions/information-functions>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

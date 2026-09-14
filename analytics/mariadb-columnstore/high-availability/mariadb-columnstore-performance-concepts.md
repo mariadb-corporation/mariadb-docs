@@ -86,7 +86,7 @@ Window functions are executed as part of final aggregation in PrimProc[^1] due t
 
 Automated system partitioning of columns is provided by ColumnStore. As data is loaded into extent maps, the system will capture and maintain min/max values of column data in that extent map. New rows are appended to each extent map until full at which point a new extent map is created. For column values that are ordered or semi-ordered this allows for very effective data partitioning. By using the min and max values, entire extent maps can be eliminated and not read to filter data. This generally works particularly well for time dimension / series data or similar values that increase over time.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}
 

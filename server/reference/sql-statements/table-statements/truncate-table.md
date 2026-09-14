@@ -49,7 +49,7 @@ For other storage engines, `TRUNCATE TABLE` differs from`DELETE` in the followin
 * Since truncation of a table does not make any use of `DELETE`, the `TRUNCATE` statement does not invoke `ON DELETE` triggers.
 * `TRUNCATE TABLE` will only reset the values in the [Performance Schema summary tables](../../system-tables/performance-schema/performance-schema-tables/list-of-performance-schema-tables.md) to zero or null, and will not remove the rows.
 
-For the purposes of binary logging and [replication](../../../server-usage/storage-engines/myrocks/myrocks-and-replication.md), `TRUNCATE TABLE` is treated as [DROP TABLE](../data-definition/drop/drop-table.md) followed by [CREATE TABLE](../data-definition/create/create-table.md) (DDL rather than DML).
+For the purposes of binary logging and [replication](../../../ha-and-performance/standard-replication/), `TRUNCATE TABLE` is treated as [DROP TABLE](../data-definition/drop/drop-table.md) followed by [CREATE TABLE](../data-definition/create/create-table.md) (DDL rather than DML).
 
 `TRUNCATE TABLE` does not work on [views](../../../server-usage/views/). It also cannot be used on a [system-versioned table](../../sql-structure/temporal-tables/system-versioned-tables.md), returning the error:
 

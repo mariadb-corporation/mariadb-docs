@@ -2,18 +2,18 @@
 
 **Release date:** 23 August 2016
 
-[MariaDB ColumnStore 1.0.2](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md) is an alpha release of MariaDB ColumnStore. This is the second alpha release of MariaDB ColumnStore with improvements over previous alpha release of 1.0.1.
+[MariaDB ColumnStore 1.0.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is an alpha release of MariaDB ColumnStore. This is the second alpha release of MariaDB ColumnStore with improvements over previous alpha release of 1.0.1.
 
 MariaDB ColumnStore 1.0.2 is an [_**Alpha**_](../../../community-server/about/release-criteria.md) release.
 
 **Do not use&#x20;**_**alpha**_**&#x20;releases on production systems!**
 
-For an overview of [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 MariaDB ColumnStore 1.0.2 is an Alpha release. This is the second alpha release of MariaDB ColumnStore with improvements over previous alpha release of 1.0.1.
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
-For general "how to questions" ask questions [here](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md) or subscribe to mariadb-columnstore@googlegroups.com
+For general "how to questions", subscribe to mariadb-columnstore@googlegroups.com
 
 ## Notable Changes
 
@@ -46,7 +46,7 @@ Below is list of some of the bugs and issues fixed. For the complete list please
 
 With the fixing of [MCOL-59](https://jira.mariadb.org/browse/MCOL-59), the MariaDB ColumnStore Platform Configuration file name has changed between 1.0.1 and 1.0.2. So if you have a 1.0.0 or 1.0.1 system and you want to upgrade to 1.0.2, you will need to do the following as part of the upgrade process. If you decide to reinstall 1.0.2 from scratch, this is isn’t required.
 
-For details on how to execute the workaround please see [upgrading-mariadb-columnstore-from-102-to-103](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-0/broken-reference/README.md)
+For details on how to execute the workaround, see the ColumnStore 1.0.2 to 1.0.3 upgrade instructions.
 
 ## Known Issues and Limitations
 
@@ -81,14 +81,14 @@ There are some known security issues. They are listed [here](https://app.gitbook
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-columnstore/README.md)
+[MariaDB ColumnStore Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore)
 
 ## Packaging
 
 RPM and binary packages are provided for the Linux distributions supported by MariaDB ColumnStore 1.0.2 Alpha version.
 
 * The supported OS for this Alpha version are CentOS 6, CentOS 7 and Ubuntu 16.0.4.
-* Packages can be downloaded [here](https://mariadb.com/my_portal/download/mariadb-columnstore)
+* Packages can be downloaded here
 
 ## Source Code
 
@@ -98,6 +98,6 @@ The source code is available at these locations
 * Storage Engine - [Source code for engine specific processes on UM and PM node](https://github.com/mariadb-corporation/mariadb-columnstore-engine)
 * MariaDB Server - [Source code based on MariaDB Server 10.1 modified to support the ColumnStore storage engine](https://github.com/mariadb-corporation/mariadb-columnstore-server)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

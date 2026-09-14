@@ -37,4 +37,6 @@ Returns 0 on success, otherwise error on nonzero.
 * [mysql\_close()](mysql_close.md)
 * [mariadb\_cancel()](mariadb_cancel.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

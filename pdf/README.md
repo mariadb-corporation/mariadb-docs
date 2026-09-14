@@ -132,9 +132,9 @@ the source encodes them (`15%20(1).PNG`) while the filesystem does not.
 
 ### Cross-space links must be un-expanded first
 
-`expand-gitbook-aliases.yml` rewrites every `{server}`-style alias into an
-app.gitbook.com **editor** URL and commits that back to the branch. So in any
-checkout, a cross-space link already looks like:
+`expand-gitbook-aliases.yml` rewrites every `{server}`-style alias that sits in a
+link target into an app.gitbook.com **editor** URL and commits that back to the
+branch. So in any checkout, a cross-space link already looks like:
 
 ```
 https://app.gitbook.com/o/<org>/s/SsmexDFPv2xG2OTyO5yV/server-management/…

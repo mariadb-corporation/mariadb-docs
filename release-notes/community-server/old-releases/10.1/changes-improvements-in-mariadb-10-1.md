@@ -19,7 +19,7 @@ The following lists the major new features in [MariaDB 10.1](changes-improvement
 
 ### Encryption
 
-* [Table, Tablespace and log Encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview).
+* [Table, Tablespace and log Encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals).
 
 ### Page Compression
 
@@ -204,6 +204,6 @@ page.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

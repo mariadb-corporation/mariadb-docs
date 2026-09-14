@@ -32,8 +32,12 @@ updates:
       - dependency-name: actions/download-artifact
         versions: [">=8"]
       # v4 pulls in js-yaml v5, which parses multi-line values more strictly.
-      # generate-help-tables.yml passes its Slack message as a multi-line
-      # payload: block, which is exactly that shape.
+      # Two workflows pass a Slack message as a multi-line payload: block, which
+      # is exactly that shape: generate-help-tables.yml, and the failure notice
+      # in nightly-unlabeled-prs.yml. That digest's own message goes through
+      # payload-file-path instead, so it is unaffected -- but the failure notice
+      # is the path that only runs when something is already broken, so a parse
+      # regression there would surface at the worst moment.
       - dependency-name: slackapi/slack-github-action
         versions: [">=4"]
     commit-message:

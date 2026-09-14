@@ -115,46 +115,13 @@ Do not flip the WHERE; this will be inefficient because it won't use INDEX(uuid)
 WHERE UuidFromBin(uuid) = '1026-baba-6ccd780c-9564-0040f4311e29' -- NO
 ```
 
-## TokuDB
-
-TokuDB has been deprecated by its upstream maintainer. It is disabled from [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) and has been removed in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) - [MDEV-19780](https://jira.mariadb.org/browse/MDEV-19780). We recommend [MyRocks](../../../server-usage/storage-engines/myrocks/) as a long-term migration path.
-
-[TokuDB](../../../server-usage/storage-engines/legacy-storage-engines/tokudb/) is a viable engine if you must have UUIDs (even non-type-1) in a huge table. TokuDB is available in MariaDB as a 'standard' engine, making the barrier to entry very low. There are a small number of differences between [InnoDB](../../../server-usage/storage-engines/innodb/) and TokuDB; I will not go into them here.
-
-Tokudb, with its “fractal” indexing strategy builds the indexes in stages. In contrast, InnoDB inserts index entries “immediately” — actually that indexing is buffered by most of the size of the buffer\_pool. To elaborate…
-
-When adding a record to an InnoDB table, here are (roughly) the steps performed to write the data (and PK) and secondary indexes to disk. (I leave out logging, provision for rollback, etc.) First the PRIMARY KEY and data:
-
-* Check for UNIQUEness constraints
-* Fetch the BTree block (normally 16KB) that should contain the row (based on the PRIMARY KEY).
-* Insert the row (overflow typically occurs 1% of the time; this leads to a block split).
-* Leave the page “dirty” in the buffer\_pool, hoping that more rows are added before it is bumped out of cache (buffer\_pool).. Note that for AUTO\_INCREMENT and TIMESTAMP-based PKs, the “last” block in the data will be updated repeatedly before splitting; hence, this delayed write adds greatly to the efficiency. OTOH, a UUID will be very random; when the table is big enough, the block will almost always be flushed before a second insert occurs in that block. <– This is the inefficiency in UUIDs.\
-  Now for any secondary keys:
-* All the steps are the same, since an index is essentially a "table" except that the "data" is a copy of the PRIMARY KEY.
-* UNIQUEness must be checked immediately — cannot delay the read.
-* There are (I think) some other "delays" that avoid some I/O.
-
-Tokudb, on the other hand, does something like
-
-* Write data/index partially sorted records to disk before finding out exactly where it belongs.
-* In the background, combine these partially digested blocks. Repeat as needed.
-* Eventually move the info into the real table/indexes.
-
-If you are familiar with how sort-merge works, consider the parallels to Tokudb. Each "sort" does some work of ordering things; each "merge" is quite efficient.
-
-To summarize:
-
-* In the extreme (data/index much larger than buffer\_pool), InnoDB must read-modify-write one 16KB disk block for each UUID entry.
-* Tokudb makes each I/O "count" by merging several UUIDs for each disk block. (Yeah, Toku rereads blocks, but it comes out ahead in the long run.)
-* Tokudb excels when the table is really big, which implies high ingestion rate.
-
 ## Wrapup
 
 This shows three thing for speeding up usage of GUIDs/UUIDs:
 
 * Shrink footprint (Smaller -> more cacheable -> faster).
 * Rearrange uuid to make a "hot spot" to improve cachability.
-* Use TokuDB (MyRocks shares some architectural traits which may also be beneficial in handling UUIDs, but this is hypothetical and hasn't been tested)
+* Consider an engine whose indexing suits high-volume random inserts (MyRocks shares some architectural traits which may be beneficial in handling UUIDs, but this is hypothetical and hasn't been tested)
 
 Note that the benefit of the "hot spot" is only partial:
 
@@ -167,7 +134,7 @@ Thanks to Trey for some of the ideas here.
 
 The tips in this document apply to MySQL, MariaDB, and Percona.
 
-Written Oct, 2012. Added TokuDB, Jan, 2015.
+Written Oct, 2012.
 
 ## See Also
 

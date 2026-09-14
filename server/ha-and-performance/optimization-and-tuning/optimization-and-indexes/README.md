@@ -114,3 +114,5 @@ The index types available when creating an index: BTREE, HASH, and RTREE.
 Implement full-text indexes in MariaDB Server for efficient text search. This section guides you through creating and utilizing these indexes to optimize queries on large text datasets.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

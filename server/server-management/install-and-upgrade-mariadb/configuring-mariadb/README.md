@@ -58,3 +58,5 @@ Complete MariaDB environment variables: MYSQL_HOME, LD_PRELOAD, my.cnf search pa
 Dive into advanced configurations for MariaDB Server performance. This section covers in-depth tuning parameters, optimization strategies, and best practices to maximize speed and efficiency.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

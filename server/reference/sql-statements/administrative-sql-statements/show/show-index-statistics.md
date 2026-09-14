@@ -26,7 +26,7 @@ The `SHOW INDEX_STATISTICS` statement was introduced in [MariaDB 5.2](https://ap
 {% endtab %}
 {% endtabs %}
 
-The [userstat](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#userstat) system variable must be set to 1 to activate this feature. See the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) and [information\_schema.INDEX\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-index_statistics-table.md) table for more information.
+The [userstat](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md#userstat) system variable must be set to 1 to activate this feature. See the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) and [information\_schema.INDEX\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-index_statistics-table.md) table for more information.
 
 ## Example
 

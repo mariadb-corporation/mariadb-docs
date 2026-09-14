@@ -49,3 +49,5 @@ description: >-
 - [JSON\_VALID](json_valid.md)
 - [JSON\_VALUE](json_value.md)
 - [JSON Validation Function](json-validation-function.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

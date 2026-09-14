@@ -47,7 +47,7 @@ sometimes they don't even have the sources of those applications.
 There are source and repositories there. To use repositories see the following link:
 
 * [RHEL and RPM distros](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum.md#pinning-the-mariadb-repository-to-a-specific-minor-release)
-* [Debian/Ubuntu based distos](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md#pinning-the-mariadb-repository-to-a-specific-minor-release)
+* [Debian/Ubuntu based distos](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md#pinning-the-mariadb-repository-to-the-repository-of-a-specific-minor-release)
 
 It is also possible to access Docker Official Images of MariaDB back to 5.5.40 when it became an official image ([available tags](https://soaphub.org/imagehub/?q=mariadb\&n=library\&p=1)).
 
@@ -98,3 +98,5 @@ How MariaDB is distributed through mirror sites, and how to volunteer your serve
 Where to download MariaDB tarballs, binaries, and distribution packages, covering the latest releases and historical versions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

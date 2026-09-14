@@ -10,8 +10,8 @@ Selected events in the [binary log](./) can be optionally compressed, to save sp
 
 Events that can be compressed are those that can be of significant size:&#x20;
 
-* Query events (for DDL[^1] and DML[^2] in [statement-based](binary-log-formats.md#statement-based) [replication](../../../ha-and-performance/standard-replication/)), and&#x20;
-* Row events (for DML[^2] in [row-based](binary-log-formats.md#row-based) [replication](../../../ha-and-performance/standard-replication/)).
+* Query events (for DDL[^1] and DML[^2] in [statement-based](binary-log-formats.md#statement-based-logging) [replication](../../../ha-and-performance/standard-replication/)), and&#x20;
+* Row events (for DML[^2] in [row-based](binary-log-formats.md#row-based-logging) [replication](../../../ha-and-performance/standard-replication/)).
 
 Compression is fully transparent. Events are compressed on the primary before being written to the binary log, and are uncompressed by the I/O thread on the replica before being written to the relay log. The [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/) command will likewise uncompress events for its output.
 

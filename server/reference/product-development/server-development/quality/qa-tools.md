@@ -13,10 +13,12 @@ Tools used for quality assurance testing include:
 * [Worklog Quality Checklist Template](worklog-quality-checklist-template.md) is a template for creating a checklist for testing individual features or WorkLogs.
 * [MTR/mysqltest reference](http://dev.mysql.com/doc/mysqltest/2.0/en/mysqltest-reference.html)
 * [The Random Query Generator](http://github.com/RQG/RQG-Documentation/wiki/Category:RandomQueryGenerator)
-* [BuildBot Manual](http://buildbot.net/buildbot/docs/latest/)
+* [BuildBot Manual](https://docs.buildbot.net/current/)
 
 ### See Also <a href="#see-also" id="see-also"></a>
 
 * [RQG Performance Comparisons](benchmarks-and-long-running-tests/benchmarks/rqg-performance-comparisons.md)
 * [RQG Extensions for MariaDB Features](rqg-extensions-for-mariadb.md)
 * [Optimizer Quality](optimizer-quality.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

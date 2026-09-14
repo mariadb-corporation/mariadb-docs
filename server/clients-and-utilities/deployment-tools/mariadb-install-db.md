@@ -501,7 +501,7 @@ SELECT user,host FROM mysql.user;
 
 * [Configure MariaDB with catalog support](../../security/user-account-management/catalogs/starting-with-catalogs.md)
 * [Installing system tables (mariadb-install-db)](mariadb-install-db.md)
-* The Windows version of `mariadb-install-db`: [mysql\_install\_db.exe](../legacy-clients-and-utilities/mysql_install_db.md)
+* The Windows version of `mariadb-install-db`: [mysql\_install\_db.exe](mariadb-install-db.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

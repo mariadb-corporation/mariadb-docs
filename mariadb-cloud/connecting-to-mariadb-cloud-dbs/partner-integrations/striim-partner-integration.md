@@ -22,3 +22,5 @@ This page includes links to Striim documentation and interfaces.
 * [Migrating to SkySQL on GCP with Striim and Real-Time Streaming ETL](https://mariadb.com/resources/webinars/migrating-to-skysql-on-gcp-with-striim-and-real-time-streaming-etl/)
 * [Striim Cloud Datasheet](https://go2.striim.com/striim-cloud-datasheet)
 * [Striim Cloud on AWS: Free Trial](https://go2.striim.com/aws-trial)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

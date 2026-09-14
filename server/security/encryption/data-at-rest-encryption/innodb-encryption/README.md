@@ -94,3 +94,5 @@ Details the operation of background threads (configured via innodb_encryption_th
 Solutions for common issues such as Error 1005 (Wrong create options) when configuring encryption, and handling cases where encryption key IDs are set for unencrypted tables.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

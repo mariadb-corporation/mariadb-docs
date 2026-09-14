@@ -134,3 +134,5 @@ Create the schema and user account prerequisites for MariaDB Connector/C++ docum
 MariaDB Connector/C++ supports multi-statement transactions with manual commit, rollback, and savepoints by disabling auto-commit on the `sql::Connection` object.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -28,4 +28,6 @@ Returns the current offset of the field cursor
 
 * [mysql\_field\_seek()](mysql_field_seek.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

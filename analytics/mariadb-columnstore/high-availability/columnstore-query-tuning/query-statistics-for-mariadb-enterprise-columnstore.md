@@ -136,3 +136,5 @@ It is recommended to disable query statistics when active analysis is complete o
 * [​ColumnStore Configuration](../mariadb-columnstore-performance-related-configuration-settings.md)
 * ​[Analyzing Queries](../analyzing-queries-in-columnstore.md)
 * [Configure the Mandatory Utility User Account](../../architecture/columnstore-storage-engine-overview.md#configure-the-mandatory-utility-user-account)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

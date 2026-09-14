@@ -70,8 +70,6 @@ The `root@localhost` user account can be altered to use [unix\_socket](../../ref
 ALTER USER 'root'@'localhost' IDENTIFIED VIA unix_socket;
 ```
 
-<>
-
 ## Configuring Logrotate
 
 At this point, we can configure the [logrotate](https://linux.die.net/man/8/logrotate) utility to rotate the log files.

@@ -32,3 +32,4 @@ Added in [MariaDB Connector/C 3.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTj
 
 * [`mariadb_rpl_fetch()`](mariadb_rpl_fetch.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

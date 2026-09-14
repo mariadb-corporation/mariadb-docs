@@ -29,3 +29,5 @@ This function is part of the **low level protocol API** and can be used to retri
 ## See Also
 
 * [`mysql_net_read_packet()`](mysql_net_read_packet.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

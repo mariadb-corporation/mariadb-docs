@@ -2,11 +2,11 @@
 
 **Release date:** 24th April 2018
 
-[MariaDB ColumnStore 1.1.4](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) is a GA release of MariaDB ColumnStore. This is the fourth release of the MariaDB ColumnStore 1.1 series. This release of MariaDB ColumnStore provides improvements over the previous 1.1.3 GA release.
+[MariaDB ColumnStore 1.1.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is a GA release of MariaDB ColumnStore. This is the fourth release of the MariaDB ColumnStore 1.1 series. This release of MariaDB ColumnStore provides improvements over the previous 1.1.3 GA release.
 
 MariaDB ColumnStore 1.1.4 is a [_**GA**_](../../../community-server/about/release-criteria.md) release.
 
-For an overview of [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
 For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) or subscribe to mariadb-columnstore@googlegroups.com
@@ -25,7 +25,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1182](https://jira.mariadb.org/browse/MCOL-1182) - Cross-engine join query failing (single node)
 * [MCOL-1196](https://jira.mariadb.org/browse/MCOL-1196) - Error when using OR in case THEN portion
 * [MCOL-1213](https://jira.mariadb.org/browse/MCOL-1213) - SystemCatalog.getTable("table name") doesn't support uppercase letters
-* [MCOL-1217](https://jira.mariadb.org/browse/MCOL-1217) - newly added user module didnt have mysql replication slave setup
+* [MCOL-1217](https://jira.mariadb.org/browse/MCOL-1217) - newly added user module didn't have mysql replication slave setup
 * [MCOL-1222](https://jira.mariadb.org/browse/MCOL-1222) - ColumnStore start/restart can return before system is ready
 * [MCOL-1228](https://jira.mariadb.org/browse/MCOL-1228) - ALTER TABLE...CHANGE COLUMN broken for TEXT data types
 * [MCOL-1230](https://jira.mariadb.org/browse/MCOL-1230) - Change spark-connector's default compile option to ON
@@ -63,7 +63,7 @@ In addition, all bugs fixed in MariaDB ColumnStore 1.1.3 and earlier are implici
 
 The following procedure outlines upgrading a 1.1.3 ColumnStore install to 1.1.4:
 
-* [1.1.3 GA to 1.1.4 GA upgrade procedure](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-1/broken-reference/README.md)
+* 1.1.3 GA to 1.1.4 GA upgrade procedure
 
 Multi version upgrades generally will work using the same procedure however we can't test every possible permutation so you should test your specific scenario outside of production first if you wish to try this (and this is good practice regardless).
 
@@ -82,7 +82,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 * [MCOL-1224](https://jira.mariadb.org/browse/MCOL-1224): post-install non-root has incorrect permissions for /etc/rc.local
 * [MCOL-1225](https://jira.mariadb.org/browse/MCOL-1225): LD\_LIBRARY\_PATH not set correctly in centos6 non-root install
 * [MCOL-1491](https://jira.mariadb.org/browse/MCOL-1491): auth\_pam.so plugin missing from server package
-* The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](/broken/spaces/rBEU9juWLfTDcdwF3Q14/pages/dXPqB8aK1YApDlya8q3W).
+* The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-system-paths-and-logs).
 * While Millisecond and Microsecond storage is supported for datetime, time and timestamp columns, at this time the query results cannot return millisecond and microseconds.
 * UTF-8 Limitation
   * UTF-8 must be declared at the table level if the instance has been set up with a UTF-8 profile. Tables created with a non-matching character set will yield indeterminate results.
@@ -92,15 +92,15 @@ There are a number bugs and known limitations within this version of MariaDB Col
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md)
+[MariaDB ColumnStore Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore)
 
 ## Packaging
 
 RPM, Debian, and binary packages are provided for the Linux distributions supported by MariaDB ColumnStore 1.1.4 GA version.
 
 * The supported OS for the GA version are CentOS 6, CentOS 7, Debian 8, Debian 9, RedHat 6, RedHat 7, SUSE 12, and Ubuntu 16.04.
-* Packages can be downloaded [here](https://mariadb.com/downloads/mariadb-ax) or can be installed from the [repositories](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-1/broken-reference/README.md).
-* An Amazon AWS AMI Image is available for this release, please search for AMI name "MariaDB-ColumnStore-1.1.4". AMI specific installation instructions can be found [here](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-1/broken-reference/README.md).
+* Packages can be downloaded [here](https://mariadb.com/downloads/mariadb-ax) or can be installed from the repositories.
+* An Amazon AWS AMI Image is available for this release, please search for AMI name "MariaDB-ColumnStore-1.1.4".
 * Certified to run in Google Cloud Environment in the GA OSs.
 
 ## Source code
@@ -115,6 +115,6 @@ The source code is available at these locations
 * Write Data API - [Source code for Write Data API /SDK](https://github.com/mariadb-corporation/mariadb-columnstore-api/tree/columnstore-1.1.4)
 * MaxScale CDC and Kafka Data Adapters - [Source Code for data adapters](https://github.com/mariadb-corporation/mariadb-columnstore-data-adapters/tree/columnstore-1.1.4)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

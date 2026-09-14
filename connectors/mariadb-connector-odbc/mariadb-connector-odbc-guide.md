@@ -11,11 +11,11 @@ description: >-
 
 **MariaDB Connector/ODBC** is a database driver that uses the industry standard [Open Database Connectivity (ODBC) API](https://en.wikipedia.org/wiki/Open_Database_Connectivity). Some of the key features of the driver are:
 
-* It is [LGPL-licensed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/faq/licensing-questions/licensing-faq).
+* It is LGPL-licensed.
 * It is compliant with the ODBC 3.8 standard.
 * It can be used as a drop-in replacement for MySQL Connector/ODBC.
 * It supports both Unicode and ANSI modes.
-* It uses the MariaDB/MySQL binary protocol (server-side [prepared statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/prepared-statements)) for `SQLPrepare`. One-shot `SQLExecDirect` queries default to the client-side text protocol unless the `SQL_ATTR_EXECDIRECT_ON_SERVER` attribute (or the `EDSERVER` connection option) is set.
+* It uses the MariaDB/MySQL binary protocol (server-side [prepared statements](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements)) for `SQLPrepare`. One-shot `SQLExecDirect` queries default to the client-side text protocol unless the `SQL_ATTR_EXECDIRECT_ON_SERVER` attribute (or the `EDSERVER` connection option) is set.
 
 ## Supported Versions
 
@@ -213,7 +213,7 @@ When you install the client authentication plugins, ensure that they are for the
 ### DSN-Related Parameters
 
 * `DSN`: Name of the DSN
-* `Driver`: The name of the MariaDB ODBC Driver. On Windows, this must be `{MariaDB ODBC 3.2 Driver}` for 3.2 drivers, or for versions from other release series, you must use the corresponding version number for that release series. On Linux, either this must be a path to the driver's shared library or it must match the `Driver` name that you provided when you [configured the Driver with UnixODBC](creating-a-data-source-with-mariadb-connectorodbc.md#configuring-mariadb-connectorodbc-as-a-unixodbc-driver-on-linux).
+* `Driver`: The name of the MariaDB ODBC Driver. On Windows, this must be `{MariaDB ODBC 3.2 Driver}` for 3.2 drivers, or for versions from other release series, you must use the corresponding version number for that release series. On Linux, either this must be a path to the driver's shared library or it must match the `Driver` name that you provided when you [configured the Driver with UnixODBC](creating-a-data-source-with-mariadb-connectorodbc.md#configuring-mariadb-connector-odbc-as-a-unixodbc-driver-on-linux).
 * `Description`: Description of the data source.
 * `SaveFile`: Save a string representation of the DSN to this file.
 * `FileDSN`: The file where the string representation of the DSN can be read.
@@ -301,7 +301,7 @@ The following TLS-related connection parameters are available in MariaDB Connect
 * `SSLKEY`: Defines a path to a private key file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). The key file must be unencrypted. This parameter requires that you use the absolute path, not a relative path.
 * `SSLCA`: Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path.
   * See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information.
-* `SSLCAPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path. The directory specified by this parameter needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command.
+* `SSLCAPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path. The directory specified by this parameter needs to be run through the [openssl rehash](https://docs.openssl.org/1.1.1/man1/rehash/) command.
   * See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information.
   * This parameter is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this parameter is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 * `SSLCIPHER`: Defines a list of permitted ciphers or cipher suites to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption)..
@@ -309,7 +309,7 @@ The following TLS-related connection parameters are available in MariaDB Connect
 * `SSLCRL`: Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path.
   * See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information.
   * This parameter is only supported if the connector was built with OpenSSL or Schannel. If the connector was built with GnuTLS, then this parameter is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
-* `SSLCRLPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path. The directory specified by this parameter needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command.
+* `SSLCRLPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path. The directory specified by this parameter needs to be run through the [openssl rehash](https://docs.openssl.org/1.1.1/man1/rehash/) command.
   * See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information.
   * This parameter is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this parameter is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 * `TLSVERSION`: Specify which [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) versions are allowed. The value can be a comma-separated list of string names consisting of TLSv1.1, TLSv1.2, and TLSv1.3, or it can be an integer value that represents a bitmap, where TLSv1.1 corresponds to bit 1, TLSv1.2 corresponds to bit 2, and TLSv1.3 corresponds to bit 3.
@@ -550,6 +550,8 @@ The source code is available at the [mariadb-connector-odbc repository](https://
 
 GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.
 
-For licensing questions, see the [Licensing FAQ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/faq/licensing-questions/licensing-faq).
+For licensing questions, see the Licensing FAQ.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

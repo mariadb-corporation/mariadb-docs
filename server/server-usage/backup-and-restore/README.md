@@ -102,3 +102,5 @@ Explore how to use replication as part of your backup strategy, allowing you to 
 Learn how to use dbForge Studio, a GUI tool, to perform backup and restore operations for MariaDB databases visually.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

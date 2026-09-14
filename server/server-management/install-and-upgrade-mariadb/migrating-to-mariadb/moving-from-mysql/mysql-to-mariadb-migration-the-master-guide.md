@@ -440,3 +440,5 @@ Explore system variable differences between MariaDB Rolling Release and MySQL 8.
 Describes replication compatibility between MariaDB and MySQL.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -251,3 +251,5 @@ The Tech Preview scopes Query Cache to the following:
 * **No autoscaling.** The initial release supports a single cache node only. The node can be vertically resized independently of the MariaDB Server.
 * **Fixed memory layout.** The JVM heap and off-heap memory allocation are determined by the selected node size and cannot be customized.
 * **No direct GridGain access.** GridGain is not exposed to customers. Direct access to GridGain features such as key-value operations, SQL, Compute, Transactions, or Data Streamer is not supported. The GridGain version is managed by the platform and is not user-configurable.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

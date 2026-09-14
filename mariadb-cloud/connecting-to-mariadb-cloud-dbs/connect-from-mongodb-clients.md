@@ -34,3 +34,5 @@ The "NoSQL port" is the TCP port used to connect to the NoSQL interface.
 The [firewall](../security/configuring-firewall.md) must be configured to allowlist the client's IP address or netblock before connections can occur.
 
 See the "Connecting using Mongosh" section of the Connect page for an example `mongosh` command-line, authentication instructions, and instructions to change the default password.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

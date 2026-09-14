@@ -103,3 +103,5 @@ Return a single value. A scalar subquery produces a one-row, one-column result t
 Review restrictions on subquery usage. This page details unsupported operations, such as modifying a table while selecting from it in a subquery.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
