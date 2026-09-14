@@ -202,6 +202,13 @@ jobs:
           # excluded above. Nothing to repoint at: this archive is canonical
           # for these threads.
           #
+          #
+          # DOCS-6415 (2026-09-14): medium.com, cited twice from
+          # tools/control-center/admin-guide/configuration.md as further reading on
+          # Active Directory configuration. Medium serves 403 to automated clients
+          # across the board -- same class as docs.oracle.com and access.redhat.com
+          # above -- while both posts load normally in a browser. Nothing to
+          # repoint at: they are the authors' originals, not mirrors of anything.
           # DOCS-6521: web.archive.org, same class as www.freedesktop.org --
           # it answers the Actions runners with "Connection refused" while
           # serving 200 promptly to a developer machine, so a local lychee run
@@ -298,6 +305,7 @@ jobs:
             --exclude security-certs\.docs\.ubuntu\.com
             --exclude www\.linux-pam\.org
             --exclude www\.bzip\.org
+            --exclude medium\.com
             --exclude selinuxproject\.org
             --exclude www\.gnu\.org
             --exclude manpages\.ubuntu\.com

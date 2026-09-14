@@ -32,6 +32,20 @@
 #   "state". Those sentences currently point the reader at something unreachable.
 #   Fix them first.
 #
+#
+# REMOVED, NOT SCREENED (do not restore on replay)
+#   https://portal.gridgain.com -- release-notes/control-center/2021.05.00.md. The host is dead
+#   (the managed service it pointed at was decommissioned, CC-12762) and CI's link check failed on
+#   it, so the hyperlink was removed while the words "managed service" were kept. It is not in the
+#   records below because a dead link must never be restored.
+#   http://support.gridgain.com/ -- tools/control-center/faq.md. The FAQ gave a support channel
+#   that contradicted support.md; it now points at support.md instead, so there is no gridgain URL
+#   left on that line to restore.
+#
+#   Separately, 36 https://gridgain.freshdesk.com/support/login links across the release notes
+#   returned 404 and were repointed at https://mariadb.com/contact/ on instruction. They were never
+#   gridgain.com links, so they were never in this file's scope.
+#
 # SCOPE
 #   Product pages under tools/control-center/ were screened. Release notes under
 #   release-notes/control-center/ and release-notes/ignite-agent/ were NOT -- they
@@ -46,13 +60,13 @@
   "regenerated_from": "d982096e9",
   "blocked_on": "D3",
   "counts": {
-    "screened": 128,
+    "screened": 127,
     "restored": 1,
-    "live": 22,
+    "live": 21,
     "live_bare_url": 1
   },
-  "total": 152,
-  "files": 61,
+  "total": 150,
+  "files": 60,
   "records": [
     {
       "file": "README.md",
@@ -211,20 +225,6 @@
           "url": "https://www.gridgain.com/docs/latest/installation-guide/licenses#update-without-downtime",
           "status": "screened",
           "after": "The update is performed without cluster or node downtime.",
-          "which_occurrence_of_label": 1,
-          "label_occurrences_in_after": 1
-        }
-      ]
-    },
-    {
-      "file": "faq.md",
-      "area": "product",
-      "links": [
-        {
-          "label": "http://support.gridgain.com/",
-          "url": "http://support.gridgain.com",
-          "status": "screened",
-          "after": "Contact us at the http://support.gridgain.com/.",
           "which_occurrence_of_label": 1,
           "label_occurrences_in_after": 1
         }
@@ -1383,19 +1383,10 @@
       "area": "release-notes",
       "links": [
         {
-          "label": "managed service",
-          "url": "https://portal.gridgain.com",
-          "status": "live",
-          "after": "GridGain Control Center is available as a [managed service](https://portal.gridgain.com). This updated version includes all of the traditional Control Center features and also adds expanded storage so that you can track cluster performance data over longer timeframes for better trend analysis. Sign ",
-          "which_occurrence_of_label": 1,
-          "label_occurrences_in_after": 1,
-          "note": "Release notes were never screened - see SCOPE."
-        },
-        {
           "label": "blog",
           "url": "https://www.gridgain.com/resources/blog/gridgain-enhances-control-center-and-offers-new-saas-deployment-options",
           "status": "live",
-          "after": "GridGain Control Center is available as a [managed service](https://portal.gridgain.com). This updated version includes all of the traditional Control Center features and also adds expanded storage so that you can track cluster performance data over longer timeframes for better trend analysis. Sign ",
+          "after": "GridGain Control Center is available as a managed service. This updated version includes all of the traditional Control Center features and also adds expanded storage so that you can track cluster performance data over longer timeframes for better trend analysis. Sign up for a free 30 day trial to c",
           "which_occurrence_of_label": 1,
           "label_occurrences_in_after": 2,
           "note": "Release notes were never screened - see SCOPE."

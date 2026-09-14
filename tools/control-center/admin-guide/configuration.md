@@ -231,7 +231,7 @@ To configure Active Directory authentication, use the following parameters:
 
 | Parameter | Required | Description | Example |
 |---|---|---|---|
-| `spring.activedirectory.urls` | Required | Active Directory URLs of the server, including schema (ldap:// or ldaps://) and port, separated by comma. | ldap://localhost:389,ldaps://localhost:636 |
+| `spring.activedirectory.urls` | Required | Active Directory URLs of the server, including schema (ldap:// or ldaps://) and port, separated by comma. | `ldap://localhost:389,ldaps://localhost:636` |
 | `spring.activedirectory.root-dn` | Required | The Distinguished Name under which users and user groups are stored. | dc=gridgain,dc=org |
 | `spring.activedirectory.domain` | Optional | The default domain name to be added to the user login (if no domain is specified). | gridgain.org |
 | `spring.activedirectory.admin-role` | Optional | The name of the user group with admin permissions. | Domain Admins |
@@ -251,7 +251,7 @@ To enable LDAP authentication, use the following parameters:
 
 | Parameter | Required | Description | Example |
 |---|---|---|---|
-| `spring.ldap.urls` | Required | LDAP URLs of the server, including schema (ldap:// or ldaps://) and port, separated by comma. | ldap://localhost:389,ldap://localhost:8389 |
+| `spring.ldap.urls` | Required | LDAP URLs of the server, including schema (ldap:// or ldaps://) and port, separated by comma. | `ldap://localhost:389,ldap://localhost:8389` |
 | `spring.ldap.base` | Required | Base Distinguished Name appended to group and user search requests. | dc=gridgain,dc=org |
 | `spring.ldap.password-comparison-authenticator.password-attribute-name` | Optional | Name of the field where the password is stored. | By default, “userPassword” |
 | `spring.ldap.password-comparison-authenticator.user-dn-patterns` | Optional | Sets the pattern that is used to supply a Distinguished Name for the user. The pattern argument {0} contains the username. | spring.ldap.password-comparison-authenticator.userDnPatterns[0]="uid={0},ou=people" |
