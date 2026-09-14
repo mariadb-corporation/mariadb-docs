@@ -13,6 +13,10 @@ EXCLUDED_DIRS = [
     "error-codes",
     "clientserver-protocol",
     "product-development",
+    # /graphify writes its knowledge-graph artifacts next to the pages it reads.
+    # They are git-ignored, so CI never sees them, but a local run would otherwise
+    # turn GRAPH_REPORT.md into a help topic.
+    "graphify-out",
 ]
 
 # Maps a directory path segment to its help_category_id in mysql.help_category.
@@ -175,6 +179,102 @@ def get_files(base_path: str = "server/reference") -> list:
     
     # Sort so processing order is deterministic (affects which duplicate wins)
     return sorted(files)
+
+
+# A SUMMARY.md nav entry: indentation, link text, link target.
+SUMMARY_ENTRY = re.compile(r"^(\s*)\*\s+\[.*?\]\((.*?)\)\s*$")
+
+
+def nav_slug(rel_path: str) -> str:
+    """The URL segment GitBook gives a page: its own path component, lowercased.
+
+    A README.md is the index page of its directory, so it contributes the
+    directory name rather than "readme".
+    """
+    p = Path(rel_path)
+    segment = p.parent.name if p.name == "README.md" else p.stem
+    return segment.lower()
+
+
+def build_nav_url_map(space_dir: Path, space: str) -> dict:
+    """Map each file listed in a space's SUMMARY.md to its published URL path.
+
+    Keys are paths relative to REPO_ROOT, so they can be looked up directly
+    with a page's own repo-relative path.
+
+    GitBook does NOT publish a page at its path on disk — it publishes it at
+    its position in SUMMARY.md. A page's URL is its parent nav entry's URL plus
+    its own slug, so a file can live under reference/ in Git and be published
+    under server-usage/ on the site. Deriving the URL from the file path
+    instead produces a link that only resolves via a 307 redirect, and stops
+    resolving at all once that redirect is retired.
+
+    When the same file is listed more than once (which the nav does for pages
+    that belong in two places), GitBook publishes it at the occurrence that has
+    children; failing that, at the first occurrence.
+    """
+    summary = space_dir / "SUMMARY.md"
+    entries = []          # {"rel", "url", "indent", "has_child"}
+    stack = []            # (indent, url) of the open ancestors; url None = external
+
+    for line in summary.read_text(encoding="utf-8").splitlines():
+        m = SUMMARY_ENTRY.match(line)
+        if not m:
+            continue
+        indent, target = len(m.group(1)), m.group(2)
+
+        while stack and stack[-1][0] >= indent:
+            stack.pop()
+
+        # Cross-space and external links occupy a nav slot but have no local file.
+        if target.startswith(("http://", "https://", "#")):
+            stack.append((indent, None))
+            continue
+
+        rel = target.split("#")[0]
+        if rel == "README.md":
+            url = space                      # the space's own landing page
+        else:
+            parent = next((u for _, u in reversed(stack) if u), space)
+            url = f"{parent}/{nav_slug(rel)}"
+
+        entries.append({
+            "rel": str(Path(space_dir.name) / rel),
+            "url": url,
+            "indent": indent,
+            "has_child": False,
+        })
+        stack.append((indent, url))
+
+    for i, entry in enumerate(entries):
+        if i + 1 < len(entries) and entries[i + 1]["indent"] > entry["indent"]:
+            entry["has_child"] = True
+
+    winners = {}
+    for entry in entries:
+        current = winners.get(entry["rel"])
+        if current is None or (entry["has_child"] and not current["has_child"]):
+            winners[entry["rel"]] = entry
+    return {rel: entry["url"] for rel, entry in winners.items()}
+
+
+# file path relative to REPO_ROOT -> published URL path. Populated by main().
+NAV_URL_MAP = {}
+UNLISTED_PAGES = []
+
+
+def published_url_path(path: str) -> str:
+    """The site path for a page, from the nav when it is listed there.
+
+    Falls back to the path on disk for a page no SUMMARY.md lists. Such a page
+    is not published at all, so no URL is correct; the fallback keeps a
+    plausible link in the help table and the caller reports the page.
+    """
+    rel = str(Path(path).resolve().relative_to(REPO_ROOT))
+    if rel in NAV_URL_MAP:
+        return NAV_URL_MAP[rel]
+    UNLISTED_PAGES.append(rel)
+    return rel.removesuffix(".md").removesuffix("/README")
 
 
 def open_file(file_path: str):
@@ -366,7 +466,7 @@ def build_output(name, syntax: str, desc: str, example: list, path: str):
         parts.append(f"Examples\n--------\n\n{example_str}")
     desc_str = "\n\n".join(parts) if parts else ""
     desc_str = strip_markdown(desc_str)
-    url_path = str(Path(path).resolve().relative_to(REPO_ROOT)).removesuffix(".md")
+    url_path = published_url_path(path)
     url = f"https://mariadb.com/docs/{url_path}"
     desc_str += f"\n\nURL: {url}"
     desc_str = truncate_to_bytes(desc_str)
@@ -620,6 +720,11 @@ def write_output(topics: list, output_file: str = "fill_help_tables.sql"):
 
 
 def main():
+    # Resolve published URLs from the nav, not from the paths on disk
+    global NAV_URL_MAP
+    NAV_URL_MAP = build_nav_url_map(REPO_ROOT / "server", "server")
+    print(f"Nav entries resolved from server/SUMMARY.md: {len(NAV_URL_MAP)}")
+
     # Discover all eligible Markdown files under server/reference/
     files = get_files(str(REPO_ROOT / "server" / "reference"))
     print(f"Found {len(files)} files to process")
@@ -638,6 +743,18 @@ def main():
             for path in failed:
                 f.write(path + "\n")
         print(f"Failed files written to {failed_file}")
+
+    # A page missing from every SUMMARY.md has no published URL; its help entry
+    # falls back to the path on disk, which may not resolve.
+    if UNLISTED_PAGES:
+        unlisted = sorted(set(UNLISTED_PAGES))
+        print(f"WARNING: {len(unlisted)} page(s) not listed in any SUMMARY.md; "
+              f"their URLs fall back to the path on disk")
+        unlisted_file = str(SCRIPT_DIR / "unlisted_pages.txt")
+        with open(unlisted_file, 'w') as f:
+            for rel in unlisted:
+                f.write(rel + "\n")
+        print(f"Unlisted pages written to {unlisted_file}")
 
 
 if __name__ == "__main__":
