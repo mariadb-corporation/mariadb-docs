@@ -5,8 +5,8 @@ site:
     - type: section
       key: get-started-sec
       title: Get Started
-      icon: rocket
       path: get-started
+      icon: rocket
       default: true
       children:
         - type: space
@@ -19,8 +19,8 @@ site:
     - type: section
       key: server-sec
       title: Server
-      icon: database
       path: server
+      icon: database
       children:
         - type: space
           key: server
@@ -37,8 +37,8 @@ site:
         - type: section
           key: platform-overview-sec
           title: Platform Overview
-          icon: layer-group
           path: platform-overview
+          icon: layer-group
           children:
             - type: space
               key: platform-overview
@@ -50,8 +50,8 @@ site:
         - type: section
           key: enterprise-server-sec
           title: Enterprise Server
-          icon: database
           path: enterprise-server
+          icon: database
           children:
             - type: space
               key: enterprise-server
@@ -63,8 +63,8 @@ site:
         - type: section
           key: maxscale-sec
           title: MaxScale
-          icon: code-branch
           path: maxscale
+          icon: code-branch
           children:
             - type: space
               key: maxscale
@@ -76,8 +76,8 @@ site:
         - type: section
           key: galera-cluster-sec
           title: Galera Cluster
-          icon: circle-nodes
           path: galera-cluster
+          icon: circle-nodes
           children:
             - type: space
               key: galera-cluster
@@ -89,8 +89,8 @@ site:
         - type: section
           key: advanced-clustering-sec
           title: Raft Cluster
-          icon: sitemap
           path: advanced-clustering
+          icon: sitemap
           children:
             - type: space
               key: advanced-clustering
@@ -102,8 +102,8 @@ site:
         - type: section
           key: columnstore-sec
           title: ColumnStore
-          icon: table-columns
           path: columnstore
+          icon: table-columns
           children:
             - type: space
               key: columnstore
@@ -115,8 +115,8 @@ site:
         - type: section
           key: exa-sec
           title: Exa
-          icon: chart-column
           path: exa
+          icon: chart-column
           children:
             - type: space
               key: exa
@@ -128,8 +128,8 @@ site:
         - type: section
           key: gridgain-8-sec
           title: GridGain 8
-          icon: bolt
           path: gridgain-8
+          icon: bolt
           children:
             - type: space
               key: gridgain-8
@@ -141,8 +141,8 @@ site:
         - type: section
           key: gridgain-9-sec
           title: GridGain 9
-          icon: bolt
           path: gridgain-9
+          icon: bolt
           children:
             - type: space
               key: gridgain-9
@@ -154,8 +154,8 @@ site:
         - type: section
           key: tools-sec
           title: Tools
-          icon: screwdriver-wrench
           path: tools
+          icon: screwdriver-wrench
           children:
             - type: space
               key: tools
@@ -172,8 +172,8 @@ site:
         - type: section
           key: mariadb-cloud-sec
           title: MariaDB Cloud
-          icon: cloud
           path: mariadb-cloud
+          icon: cloud
           children:
             - type: space
               key: mariadb-cloud
@@ -185,8 +185,8 @@ site:
         - type: section
           key: cloud-ai-retrieval-sec
           title: Cloud AI Retrieval
-          icon: robot
           path: cloud-ai-retrieval
+          icon: robot
           children:
             - type: space
               key: cloud-ai-retrieval
@@ -198,8 +198,8 @@ site:
     - type: section
       key: connectors-sec
       title: Connectors
-      icon: plug
       path: connectors
+      icon: plug
       children:
         - type: space
           key: connectors
@@ -211,8 +211,8 @@ site:
     - type: section
       key: release-notes-sec
       title: Release Notes
-      icon: file-lines
       path: release-notes
+      icon: file-lines
       children:
         - type: space
           key: release-notes
