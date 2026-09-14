@@ -32,11 +32,11 @@ By default, the list of existing replications includes the following columns:
 
 To check the status of individual tables or nodes, click on the **Replication name** of the specific replication. A panel with two tabs will appear on the right side of the screen.
 
-**Tables Tab:**
+#### Tables Tab
 
 ![Tables tab](../../../.gitbook/assets/cc-gg9-dcr_gg9_tables.png)
 
-**Nodes Tab:**
+#### Nodes Tab
 
 ![Nodes tab](../../../.gitbook/assets/cc-gg9-dcr_gg9_nodes.png)
 
@@ -60,7 +60,7 @@ If the source cluster is a Control Center cluster, you must enable SSL connectio
 
 After creating the replication, select all the tables you want to replicate.
 
-{% hint style="warning" %}
+{% hint style="danger" %}
 Keep in mind, that once replication is started, you cannot add more tables.
 {% endhint %}
 

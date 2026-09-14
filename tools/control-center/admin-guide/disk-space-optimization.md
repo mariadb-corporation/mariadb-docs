@@ -50,7 +50,7 @@ The number of records in a table does not precisely correlate to the volume that
 
 If the relevant tables in your environment are not yet of representative size, you can use our estimates for a 3-node cluster with an average load:
 
-- [Query](../gg8/queries/querying.md#running-queries): 1 GB - approximately 200,000 records
+- [Query](../gg8/queries/querying.md#queries-log): 1 GB - approximately 200,000 records
 - [Task](../gg8/compute/compute-grid.md): 1 GB - approximately 250,000 records
 - [Trace](../gg8/tracing/tracing.md#configuring-tracing): 1 GB - approximately 800,000 records
 - [Span](../gg8/tracing/tracing.md#viewing-spans): 1 GB - approximately 500,000 records

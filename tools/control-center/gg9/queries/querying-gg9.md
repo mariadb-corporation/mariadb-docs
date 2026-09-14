@@ -61,15 +61,17 @@ You cannot drop an index for `PRIMARY KEY`.
 
 The **Queries Log** tab shows all tracked queries.
 
+![](../../../.gitbook/assets/cc-gg9-queries_log.png)
+
 For managed clusters, query tracking is enabled automatically.
 
-For attached clusters, you need to enable the tab via the cluster update configuration button when you attach the cluster:
+For attached clusters, switch on the **Queries log** option in the cluster [**Monitoring configuration**](../dashboard/my-cluster.md#monitoring-configuration) dialog and click **Save**:
 
-![](../../../.gitbook/assets/cc-gg9-rq_update_cluster_config.png)
+![](../../../.gitbook/assets/cc-gg9-update_cluster_config.png)
 
 You can filter the display by status, query duration, and other criteria for a more precise view.
 
-![](../../../.gitbook/assets/cc-gg9-rq_table_filter.png)
+![](../../../.gitbook/assets/cc-gg9-queries_filter.png)
 
 Each query includes the following details:
 

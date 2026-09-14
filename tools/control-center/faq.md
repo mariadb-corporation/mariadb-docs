@@ -201,4 +201,4 @@ Depending on your mailing server, additional configuration properties may be req
 
 ## How do I contact support?
 
-Contact us at the http://support.gridgain.com/.
+See [Contact Us](support.md) for how to reach the support team.

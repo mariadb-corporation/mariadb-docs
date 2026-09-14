@@ -91,7 +91,8 @@ A standard procedure for connecting a cluster to Control Center involves the fol
 
 1. [Create a Control Center account and add a license](getting-started/adding-license.md)
 2. Connect a cluster:
-   - [Connect a GridGain cluster](getting-started/connect/connect-gridgain-cluster.md)
+   - [Attaching a GridGain 9 Cluster](getting-started/connect/connect-gridgain9-cluster.md)
+   - [Attaching a GridGain 8 Cluster](getting-started/connect/connect-gridgain-cluster.md)
 
 {% content-ref url="cluster-management.md" %}
 [cluster-management.md](cluster-management.md)

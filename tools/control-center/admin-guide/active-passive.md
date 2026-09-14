@@ -52,7 +52,7 @@ Failover is controlled by the load balancer. Control Center does not detect fail
 
 Certificates are configured on your side. The component that terminates TLS depends on how the load balancer forwards requests:
 
-- If the load balancer sends requests directly to the backend, configure the `server.ssl.*` properties as described in [SSL/TLS](configuration.md#ssltls).
+- If the load balancer sends requests directly to the backend, configure the `server.ssl.*` properties as described in [SSL/TLS](configuration.md#ssl-tls).
 - If the load balancer sends all requests to the frontend, the frontend proxies WebSocket and REST API requests to the backend. Configure the frontend through `control-center-frontend-configmap.yaml`, as described in [Running Control Center and GridGain with Encryption](kubernetes-tls.md).
 
 ## Limitations

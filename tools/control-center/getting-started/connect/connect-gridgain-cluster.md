@@ -85,7 +85,7 @@ You can enable metrics in two ways:
 
 You can enable tracing capabilities and view traces in Control Center in two ways:
 
-1. The best way to configure tracing is to use the [Tracing](../../gg8/tracing/tracing.md#tracing) screen of the Control Center.
+1. The best way to configure tracing is to use the [Tracing](../../gg8/tracing/tracing.md#the-tracing-screen) screen of the Control Center.
 2. To configure tracing programmatically, see the Tracing page for more detail.
 
 ### Control Center URI

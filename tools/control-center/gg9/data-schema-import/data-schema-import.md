@@ -16,7 +16,7 @@ You can open **Import Schema**/**Import Data** from:
 The import process consists of up to six steps:
 
 1. [Connection](#connection)
-2. [Schemas & Tables](#schemas--tables)
+2. [Schemas & Tables](#schemas-and-tables)
 3. [Table Settings](#table-settings)
 4. [Column Settings](#column-settings)
 5. [Data Import](#data-import)

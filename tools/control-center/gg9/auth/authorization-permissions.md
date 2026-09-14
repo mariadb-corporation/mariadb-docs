@@ -31,7 +31,7 @@ To work with [queries](../queries/querying-gg9.md) some of the following permiss
 | Use the `DROP INDEX SQL` statement | DROP_INDEX |
 | Use the index in SQL statements | USE_INDEX |
 
-To get status of [Running Queries](../queries/querying-gg9.md#running-queries) and stop them the following permissions are required:
+To get status of [Running Queries](../queries/querying-gg9.md#queries-log) and stop them the following permissions are required:
 
 | Action | Permission |
 |---|---|

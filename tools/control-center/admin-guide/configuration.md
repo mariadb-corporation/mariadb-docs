@@ -115,7 +115,7 @@ The TTL properties can be used in conjunction with [Table Size Limits](#table-si
 
 You can [optimize the disk space utilization](disk-space-optimization.md) by limiting the table size (number of records) for the following entities: Running Queries (QuerySession), Traces (Trace, Span), and Compute (TaskSession).
 
-{% hint style="warning" %}
+{% hint style="danger" %}
 In many scenarios, [Time-to-Live Limits](#time-to-live-limits) would be more CPU/disk-efficient than Table Size Limits, especially in high-load environments.
 {% endhint %}
 
@@ -236,7 +236,7 @@ To configure Active Directory authentication, use the following parameters:
 | `spring.activedirectory.domain` | Optional | The default domain name to be added to the user login (if no domain is specified). | gridgain.org |
 | `spring.activedirectory.admin-role` | Optional | The name of the user group with admin permissions. | Domain Admins |
 
-{% hint style="info" %}
+{% hint style="success" %}
 If you have complex structure where users and groups should be requested by non-standard path, please use LDAP authentication instead.
 
 The following defaults are incompatible with Active Directory and should be adjusted accordingly:

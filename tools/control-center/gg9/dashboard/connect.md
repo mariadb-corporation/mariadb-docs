@@ -9,8 +9,8 @@ description: >-
 You can connect to your cluster by using the following clients:
 
 - [Java client](#java-client)
-- [.NET client](#net-client)
-- [.NET LINQ client](#net-linq-client)
+- [.NET client](#.net-client)
+- [.NET LINQ client](#.net-linq-client)
 - [C++ client](#c-client)
 - [Python client](#python-client)
 - [Python DB API](#python-db-api)

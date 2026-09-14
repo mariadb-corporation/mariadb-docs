@@ -9,10 +9,10 @@ description: >-
 You can connect to your cluster by using the following clients:
 
 - [Java Thin Client](#java-thin-client)
-- [.NET Thin Client](#net-thin-client)
+- [.NET Thin Client](#.net-thin-client)
 - [C++ Thin Client](#c-thin-client)
 - [Python Thin Client](#python-thin-client)
-- [Node.js Thin Client](#nodejs-thin-client)
+- [Node.js Thin Client](#node.js-thin-client)
 - [JDBC](#jdbc)
 - [ODBC](#odbc)
 - [Java Thick Client](#java-thick-client)

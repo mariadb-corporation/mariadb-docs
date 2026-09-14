@@ -16,7 +16,7 @@ The schema below displays the difference between connecting to GridGain 9 direct
 
 ## Download and Install Cloud Connector
 
-To start using cloud connector, download it from the website and unpack the archive.
+To start using cloud connector, [download](https://www.gridgain.com/media/control-center/gridgain-cloud-connector-2025.4.zip) it from the website and unpack the archive.
 
 You can also use Docker image:
 

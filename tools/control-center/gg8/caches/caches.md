@@ -55,9 +55,9 @@ To manage a cache, use that cache's context menu. The menu contains the followin
 | Destroy selected cache | Removes the cache. |
 | Pause replication | Pauses the DR process. |
 | Resume replication | Resumes the previously paused DR process. |
-| Start full state transfer | Starts the full state transfer process. In clusters that [support](../../README.md#supported-gridgain-8-and-apache-ignite-versions) targeting specific data centers, one or more data center IDs are required before initiating a transfer; otherwise, it will run on all remote receivers. |
+| Start full state transfer | Starts the full state transfer process. In clusters that [support](../../README.md#supported-gridgain-8-versions) targeting specific data centers, one or more data center IDs are required before initiating a transfer; otherwise, it will run on all remote receivers. |
 | Stop full state transfer | Stops the full state transfer process. |
 
-When running **Start full state transfer** for clusters that [support](../../README.md#supported-gridgain-8-and-apache-ignite-versions) targeting specific data centers, you must select one or more `DC ID` from the list.
+When running **Start full state transfer** for clusters that [support](../../README.md#supported-gridgain-8-versions) targeting specific data centers, you must select one or more `DC ID` from the list.
 
 ![Run FST for selected DC ID](../../../.gitbook/assets/cc-gg8-caches_fst_select_dc_id.png)
