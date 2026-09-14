@@ -1,3 +1,3 @@
-# How Tools works
+# How Tools Works
 
 Placeholder page for the navigation prototype.

@@ -1,3 +1,3 @@
-# What is Platform overview
+# What Is Platform Overview
 
 Placeholder page for the navigation prototype.

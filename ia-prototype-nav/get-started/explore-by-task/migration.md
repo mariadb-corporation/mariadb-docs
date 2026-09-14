@@ -20,7 +20,7 @@ MariaDB's compatibility with MySQL is what makes many migrations straightforward
 
 Whatever your source, run the migration against a non production copy first, so you can time it and catch translation issues before they reach anyone.
 
-## Start with the differences
+## Start With the Differences
 
 {% content-ref url="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/differences-between-mariadb-and-other-dbmss" %}
 [Differences Between MariaDB and Other Database Systems]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/differences-between-mariadb-and-other-dbmss)
@@ -30,13 +30,13 @@ Whatever your source, run the migration against a non production copy first, so 
 [Migrating to MariaDB]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb)
 {% endcontent-ref %}
 
-## Migrate from another database
+## Migrate From Another Database
 
 {% content-ref url="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-postgresql" %}
 [Migrating to MariaDB from PostgreSQL]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-postgresql)
 {% endcontent-ref %}
 
-## Migrate into MariaDB Cloud
+## Migrate Into MariaDB Cloud
 
 {% content-ref url="{mariadb-cloud}/data-loading-migration/migrate-your-database-to-mariadb-cloud" %}
 [Migrate Your Database to MariaDB Cloud]({mariadb-cloud}/data-loading-migration/migrate-your-database-to-mariadb-cloud)

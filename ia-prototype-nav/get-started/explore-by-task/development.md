@@ -21,7 +21,7 @@ Before you wire up a driver, it is worth proving the database is reachable from 
 
 Pick your connector, get a query running, then build out your schema from there.
 
-## Connect from your language
+## Connect From Your Language
 
 {% content-ref url="{connectors}/connectors-quickstart-guides/mariadb-connector-j-guide" %}
 [Connector/J for Java]({connectors}/connectors-quickstart-guides/mariadb-connector-j-guide)

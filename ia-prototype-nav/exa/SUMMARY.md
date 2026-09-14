@@ -1,26 +1,26 @@
-# Table of contents
+# Table of Contents
 
 * [Exa](README.md)
 
 ## Overview
-* [What is Exa](overview/what-is-exa.md)
+* [What Is Exa](overview/what-is-exa.md)
 
-## Get started
+## Get Started
 * [Install Exa](get-started/install-exa.md)
 * [Connect to Exa](get-started/connect-to-exa.md)
 
 ## Tutorials
-* [Exa tutorial](tutorials/exa-tutorial.md)
+* [Exa Tutorial](tutorials/exa-tutorial.md)
 
-## How-to guides
+## How-To Guides
 * [Configure Exa](how-to-guides/configure-exa.md)
 * [Secure Exa](how-to-guides/secure-exa.md)
 
 ## Concepts
-* [How Exa works](concepts/how-exa-works.md)
+* [How Exa Works](concepts/how-exa-works.md)
 
 ## Reference
-* [Exa reference](reference/exa-reference.md)
+* [Exa Reference](reference/exa-reference.md)
 
-## Release notes
-* [Exa releases](release-notes/exa-releases.md)
+## Release Notes
+* [Exa Releases](release-notes/exa-releases.md)

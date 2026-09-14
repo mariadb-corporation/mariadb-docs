@@ -1,3 +1,3 @@
-# ColumnStore tutorial
+# ColumnStore Tutorial
 
 Placeholder page for the navigation prototype.

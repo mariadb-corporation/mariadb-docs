@@ -1,3 +1,3 @@
-# How Galera Cluster works
+# How Galera Cluster Works
 
 Placeholder page for the navigation prototype.

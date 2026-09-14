@@ -20,7 +20,7 @@ If you are running MariaDB in production for the first time, the order that foll
 
 Start with backups, add availability, and tune once the rest is steady.
 
-## Back up and restore
+## Back Up and Restore
 
 {% content-ref url="{server}/server-management/backing-up-and-restoring-databases" %}
 [Backing Up and Restoring Databases]({server}/server-management/backing-up-and-restoring-databases)
@@ -34,7 +34,7 @@ Start with backups, add availability, and tune once the rest is steady.
 [Restore a Database]({server}/mariadb-quickstart-guides/mariadb-restore-guide)
 {% endcontent-ref %}
 
-## Run a highly available topology
+## Run a Highly Available Topology
 
 {% content-ref url="{galera}/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide" %}
 [Galera Cluster Guide]({galera}/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide)
@@ -52,7 +52,7 @@ Start with backups, add availability, and tune once the rest is steady.
 [High Availability and Replicated Topology]({mariadb-cloud}/high-availability-dr/ha-and-replicated-topology)
 {% endcontent-ref %}
 
-## Tune performance
+## Tune Performance
 
 {% content-ref url="{server}/ha-and-performance/benchmarking" %}
 [Benchmarking]({server}/ha-and-performance/benchmarking)

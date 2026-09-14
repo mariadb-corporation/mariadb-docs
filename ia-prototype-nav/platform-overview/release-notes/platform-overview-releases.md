@@ -1,3 +1,3 @@
-# Platform overview releases
+# Platform Overview Releases
 
 Placeholder page for the navigation prototype.

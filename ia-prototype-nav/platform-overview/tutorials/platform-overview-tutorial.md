@@ -1,3 +1,3 @@
-# Platform overview tutorial
+# Platform Overview Tutorial
 
 Placeholder page for the navigation prototype.

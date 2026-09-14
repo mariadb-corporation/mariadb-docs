@@ -1,3 +1,3 @@
-# GridGain 8 reference
+# GridGain 8 Reference
 
 Placeholder page for the navigation prototype.

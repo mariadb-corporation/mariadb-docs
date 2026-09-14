@@ -1,3 +1,3 @@
-# Install Platform overview
+# Install Platform Overview
 
 Placeholder page for the navigation prototype.

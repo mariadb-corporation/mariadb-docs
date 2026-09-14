@@ -1,26 +1,26 @@
-# Table of contents
+# Table of Contents
 
 * [ColumnStore](README.md)
 
 ## Overview
-* [What is ColumnStore](overview/what-is-columnstore.md)
+* [What Is ColumnStore](overview/what-is-columnstore.md)
 
-## Get started
+## Get Started
 * [Install ColumnStore](get-started/install-columnstore.md)
 * [Connect to ColumnStore](get-started/connect-to-columnstore.md)
 
 ## Tutorials
-* [ColumnStore tutorial](tutorials/columnstore-tutorial.md)
+* [ColumnStore Tutorial](tutorials/columnstore-tutorial.md)
 
-## How-to guides
+## How-To Guides
 * [Configure ColumnStore](how-to-guides/configure-columnstore.md)
 * [Secure ColumnStore](how-to-guides/secure-columnstore.md)
 
 ## Concepts
-* [How ColumnStore works](concepts/how-columnstore-works.md)
+* [How ColumnStore Works](concepts/how-columnstore-works.md)
 
 ## Reference
-* [ColumnStore reference](reference/columnstore-reference.md)
+* [ColumnStore Reference](reference/columnstore-reference.md)
 
-## Release notes
-* [ColumnStore releases](release-notes/columnstore-releases.md)
+## Release Notes
+* [ColumnStore Releases](release-notes/columnstore-releases.md)

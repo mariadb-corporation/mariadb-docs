@@ -1,3 +1,3 @@
-# GridGain 8 tutorial
+# GridGain 8 Tutorial
 
 Placeholder page for the navigation prototype.

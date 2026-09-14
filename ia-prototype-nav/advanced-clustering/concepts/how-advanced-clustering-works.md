@@ -1,3 +1,3 @@
-# How Advanced Clustering works
+# How Raft Cluster Works
 
 Placeholder page for the navigation prototype.

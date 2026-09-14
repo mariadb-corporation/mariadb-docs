@@ -1,3 +1,3 @@
-# How Enterprise Server works
+# How Enterprise Server Works
 
 Placeholder page for the navigation prototype.

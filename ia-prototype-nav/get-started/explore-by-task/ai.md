@@ -19,7 +19,7 @@ Build AI features on the data you already have, in SQL. MariaDB stores embedding
 
 Start with a `VECTOR` column, get a similarity query running, then build outward.
 
-## Store and search vectors
+## Store and Search Vectors
 
 {% content-ref url="{server}/reference/sql-structure/vectors/vector-overview" %}
 [Vector Overview]({server}/reference/sql-structure/vectors/vector-overview)
@@ -33,13 +33,13 @@ Start with a `VECTOR` column, get a similarity query running, then build outward
 [Hybrid Search with Reciprocal Rank Fusion]({server}/reference/sql-structure/vectors/optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf)
 {% endcontent-ref %}
 
-## Connect your AI framework
+## Connect Your AI Framework
 
 {% content-ref url="{server}/reference/sql-structure/vectors/vector-framework-integrations" %}
 [Vector Framework Integrations]({server}/reference/sql-structure/vectors/vector-framework-integrations)
 {% endcontent-ref %}
 
-## Give an agent access to the database
+## Give an Agent Access to the Database
 
 {% content-ref url="{tools}/mariadb-enterprise-mcp-server/architecture" %}
 [Enterprise MCP Server Architecture]({tools}/mariadb-enterprise-mcp-server/architecture)

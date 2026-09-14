@@ -1,3 +1,3 @@
-# Cloud AI Retrieval reference
+# Cloud AI Retrieval Reference
 
 Placeholder page for the navigation prototype.

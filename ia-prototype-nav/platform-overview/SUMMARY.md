@@ -1,26 +1,26 @@
-# Table of contents
+# Table of Contents
 
-* [Platform overview](README.md)
+* [Platform Overview](README.md)
 
 ## Overview
-* [What is Platform overview](overview/what-is-platform-overview.md)
+* [What Is Platform Overview](overview/what-is-platform-overview.md)
 
-## Get started
-* [Install Platform overview](get-started/install-platform-overview.md)
-* [Connect to Platform overview](get-started/connect-to-platform-overview.md)
+## Get Started
+* [Install Platform Overview](get-started/install-platform-overview.md)
+* [Connect to Platform Overview](get-started/connect-to-platform-overview.md)
 
 ## Tutorials
-* [Platform overview tutorial](tutorials/platform-overview-tutorial.md)
+* [Platform Overview Tutorial](tutorials/platform-overview-tutorial.md)
 
-## How-to guides
-* [Configure Platform overview](how-to-guides/configure-platform-overview.md)
-* [Secure Platform overview](how-to-guides/secure-platform-overview.md)
+## How-To Guides
+* [Configure Platform Overview](how-to-guides/configure-platform-overview.md)
+* [Secure Platform Overview](how-to-guides/secure-platform-overview.md)
 
 ## Concepts
-* [How Platform overview works](concepts/how-platform-overview-works.md)
+* [How Platform Overview Works](concepts/how-platform-overview-works.md)
 
 ## Reference
-* [Platform overview reference](reference/platform-overview-reference.md)
+* [Platform Overview Reference](reference/platform-overview-reference.md)
 
-## Release notes
-* [Platform overview releases](release-notes/platform-overview-releases.md)
+## Release Notes
+* [Platform Overview Releases](release-notes/platform-overview-releases.md)

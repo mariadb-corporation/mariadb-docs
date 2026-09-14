@@ -1,3 +1,3 @@
-# ColumnStore releases
+# ColumnStore Releases
 
 Placeholder page for the navigation prototype.

@@ -1,3 +1,3 @@
-# Connectors releases
+# Connectors Releases
 
 Placeholder page for the navigation prototype.

@@ -1,26 +1,26 @@
-# Table of contents
+# Table of Contents
 
 * [Galera Cluster](README.md)
 
 ## Overview
-* [What is Galera Cluster](overview/what-is-galera-cluster.md)
+* [What Is Galera Cluster](overview/what-is-galera-cluster.md)
 
-## Get started
+## Get Started
 * [Install Galera Cluster](get-started/install-galera-cluster.md)
 * [Connect to Galera Cluster](get-started/connect-to-galera-cluster.md)
 
 ## Tutorials
-* [Galera Cluster tutorial](tutorials/galera-cluster-tutorial.md)
+* [Galera Cluster Tutorial](tutorials/galera-cluster-tutorial.md)
 
-## How-to guides
+## How-To Guides
 * [Configure Galera Cluster](how-to-guides/configure-galera-cluster.md)
 * [Secure Galera Cluster](how-to-guides/secure-galera-cluster.md)
 
 ## Concepts
-* [How Galera Cluster works](concepts/how-galera-cluster-works.md)
+* [How Galera Cluster Works](concepts/how-galera-cluster-works.md)
 
 ## Reference
-* [Galera Cluster reference](reference/galera-cluster-reference.md)
+* [Galera Cluster Reference](reference/galera-cluster-reference.md)
 
-## Release notes
-* [Galera Cluster releases](release-notes/galera-cluster-releases.md)
+## Release Notes
+* [Galera Cluster Releases](release-notes/galera-cluster-releases.md)

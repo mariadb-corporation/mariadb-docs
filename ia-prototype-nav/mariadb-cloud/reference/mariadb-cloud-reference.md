@@ -1,3 +1,3 @@
-# MariaDB Cloud reference
+# MariaDB Cloud Reference
 
 Placeholder page for the navigation prototype.

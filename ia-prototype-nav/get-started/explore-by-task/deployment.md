@@ -22,7 +22,7 @@ Every path runs the same MariaDB, so the database behaves the same whether it si
 
 Choose the path that fits your infrastructure, and you will have MariaDB running where you need it.
 
-## Install from packages
+## Install From Packages
 
 {% content-ref url="{server}/mariadb-quickstart-guides/installing-mariadb-server-guide" %}
 [Install MariaDB Server]({server}/mariadb-quickstart-guides/installing-mariadb-server-guide)
@@ -42,7 +42,7 @@ Choose the path that fits your infrastructure, and you will have MariaDB running
 [Install the Operator on OpenShift]({tools}/mariadb-enterprise-operator/installation/openshift)
 {% endcontent-ref %}
 
-## Run it as a managed service
+## Run It as a Managed Service
 
 {% content-ref url="{mariadb-cloud}/quickstart/using-the-portal" %}
 [Launch MariaDB Cloud Using the Portal]({mariadb-cloud}/quickstart/using-the-portal)
@@ -52,7 +52,7 @@ Choose the path that fits your infrastructure, and you will have MariaDB running
 [MariaDB on Amazon RDS]({server}/server-management/install-and-upgrade-mariadb/mariadb-on-amazon-rds)
 {% endcontent-ref %}
 
-## Manage a fleet
+## Manage a Fleet
 
 {% content-ref url="{tools}/mariadb-enterprise-manager" %}
 [MariaDB Enterprise Manager]({tools}/mariadb-enterprise-manager)

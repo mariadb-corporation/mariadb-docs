@@ -1,10 +1,10 @@
-# Table of contents
+# Table of Contents
 
-* [Get started](README.md)
+* [Get Started](README.md)
   * [Server](start-with-a-product/community-server.md)
-  * [Enterprise Platform](start-with-a-product/enterprise-platform.md)
+  * [MariaDB Platform](start-with-a-product/enterprise-platform.md)
   * [Cloud](start-with-a-product/cloud.md)
-* [Which product do I need?](explore-by-task/which-product-do-i-need.md)
+* [Which Product Do I Need?](explore-by-task/which-product-do-i-need.md)
 * [Development](explore-by-task/development.md)
 * [Deployment](explore-by-task/deployment.md)
 * [Migration](explore-by-task/migration.md)

@@ -1,3 +1,3 @@
-# Exa releases
+# Exa Releases
 
 Placeholder page for the navigation prototype.

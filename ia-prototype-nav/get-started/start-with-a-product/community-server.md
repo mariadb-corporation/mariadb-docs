@@ -25,7 +25,7 @@ Get from nothing to a working database in four short steps.
 
 Follow the steps in order the first time. After that, come straight back to any one of them when you need it.
 
-## Install and connect
+## Install and Connect
 
 {% content-ref url="{server}/mariadb-quickstart-guides/installing-mariadb-server-guide" %}
 [Install MariaDB Server]({server}/mariadb-quickstart-guides/installing-mariadb-server-guide)
@@ -35,7 +35,7 @@ Follow the steps in order the first time. After that, come straight back to any 
 [Connect to MariaDB Server]({server}/mariadb-quickstart-guides/mariadb-connecting-guide)
 {% endcontent-ref %}
 
-## Learn the basics
+## Learn the Basics
 
 {% content-ref url="{server}/mariadb-quickstart-guides/basics-guide" %}
 [MariaDB Basics]({server}/mariadb-quickstart-guides/basics-guide)
@@ -49,7 +49,7 @@ Follow the steps in order the first time. After that, come straight back to any 
 [Advanced SQL]({server}/mariadb-quickstart-guides/mariadb-advanced-sql-guide)
 {% endcontent-ref %}
 
-## Protect your data
+## Protect Your Data
 
 {% content-ref url="{server}/mariadb-quickstart-guides/mariadb-backup-guide" %}
 [Back Up a Database]({server}/mariadb-quickstart-guides/mariadb-backup-guide)

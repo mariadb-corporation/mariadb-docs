@@ -1,3 +1,3 @@
-# GridGain 8 releases
+# GridGain 8 Releases
 
 Placeholder page for the navigation prototype.

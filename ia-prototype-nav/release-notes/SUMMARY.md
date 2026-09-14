@@ -1,8 +1,8 @@
-# Table of contents
+# Table of Contents
 
-* [Release notes](README.md)
+* [Release Notes](README.md)
 
-## Per-product release sets
+## Per-Product Release Sets
 * [Community Server](per-product-release-sets/community-server.md)
 * [Enterprise Server](per-product-release-sets/enterprise-server.md)
 * [Connectors](per-product-release-sets/connectors.md)
@@ -13,7 +13,7 @@
 * [Enterprise Manager](per-product-release-sets/enterprise-manager.md)
 * [MCP Server](per-product-release-sets/mcp-server.md)
 * [AI RAG](per-product-release-sets/ai-rag.md)
-* [Package repository changelogs](per-product-release-sets/package-repository-changelogs.md)
+* [Package Repository Changelogs](per-product-release-sets/package-repository-changelogs.md)
 * [MariaDB Cloud](per-product-release-sets/mariadb-cloud.md)
 * [MariaDB Exa](per-product-release-sets/mariadb-exa.md)
 * [GridGain 8](per-product-release-sets/gridgain-8.md)

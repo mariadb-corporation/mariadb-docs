@@ -1,3 +1,3 @@
-# Connect to Advanced Clustering
+# Connect to Raft Cluster
 
 Placeholder page for the navigation prototype.

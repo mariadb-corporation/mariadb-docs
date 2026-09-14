@@ -1,3 +1,3 @@
-# Advanced Clustering reference
+# Raft Cluster Reference
 
 Placeholder page for the navigation prototype.

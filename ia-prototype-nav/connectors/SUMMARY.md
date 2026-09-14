@@ -1,26 +1,26 @@
-# Table of contents
+# Table of Contents
 
 * [Connectors](README.md)
 
 ## Overview
-* [What is Connectors](overview/what-is-connectors.md)
+* [What Is Connectors](overview/what-is-connectors.md)
 
-## Get started
+## Get Started
 * [Install Connectors](get-started/install-connectors.md)
 * [Connect to Connectors](get-started/connect-to-connectors.md)
 
 ## Tutorials
-* [Connectors tutorial](tutorials/connectors-tutorial.md)
+* [Connectors Tutorial](tutorials/connectors-tutorial.md)
 
-## How-to guides
+## How-To Guides
 * [Configure Connectors](how-to-guides/configure-connectors.md)
 * [Secure Connectors](how-to-guides/secure-connectors.md)
 
 ## Concepts
-* [How Connectors works](concepts/how-connectors-works.md)
+* [How Connectors Works](concepts/how-connectors-works.md)
 
 ## Reference
-* [Connectors reference](reference/connectors-reference.md)
+* [Connectors Reference](reference/connectors-reference.md)
 
-## Release notes
-* [Connectors releases](release-notes/connectors-releases.md)
+## Release Notes
+* [Connectors Releases](release-notes/connectors-releases.md)

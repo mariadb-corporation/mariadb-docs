@@ -1,3 +1,3 @@
-# Community Server releases
+# Community Server Releases
 
 Placeholder page for the navigation prototype.

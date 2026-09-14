@@ -18,7 +18,7 @@ Run fast analytical queries on your MariaDB data. Reporting and analytics ask a 
 
 Try ColumnStore on your data first, then reach further only when you need to.
 
-## Run columnar analytics with ColumnStore
+## Run Columnar Analytics With ColumnStore
 
 {% content-ref url="{analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide" %}
 [ColumnStore Guide]({analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide)
@@ -28,13 +28,13 @@ Try ColumnStore on your data first, then reach further only when you need to.
 [ColumnStore Hardware Guide]({analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-hardware-guide)
 {% endcontent-ref %}
 
-## Scale further with Exa
+## Scale Further With Exa
 
 {% content-ref url="{analytics}/mariadb-exa/deployment" %}
 [Deploy MariaDB Exa]({analytics}/mariadb-exa/deployment)
 {% endcontent-ref %}
 
-## Choose the right engine
+## Choose the Right Engine
 
 {% content-ref url="{server}/server-usage/storage-engines/choosing-the-right-storage-engine" %}
 [Choosing the Right Storage Engine]({server}/server-usage/storage-engines/choosing-the-right-storage-engine)

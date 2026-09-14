@@ -1,3 +1,3 @@
-# MaxScale tutorial
+# MaxScale Tutorial
 
 Placeholder page for the navigation prototype.

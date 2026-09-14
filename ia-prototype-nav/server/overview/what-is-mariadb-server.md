@@ -1,3 +1,3 @@
-# What is MariaDB Server
+# What Is MariaDB Server
 
 Placeholder page for the navigation prototype.

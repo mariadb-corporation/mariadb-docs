@@ -31,18 +31,18 @@ site:
             directory: ./server
     - type: section-group
       key: enterprise-platform
-      title: Enterprise Platform
+      title: MariaDB Platform
       icon: layer-group
       children:
         - type: section
           key: platform-overview-sec
-          title: Platform overview
+          title: Platform Overview
           icon: layer-group
           path: platform-overview
           children:
             - type: space
               key: platform-overview
-              title: Platform overview
+              title: Platform Overview
               path: platform-overview-home
               default: true
               content:
@@ -88,13 +88,13 @@ site:
                 directory: ./galera-cluster
         - type: section
           key: advanced-clustering-sec
-          title: Advanced Clustering
+          title: Raft Cluster
           icon: sitemap
           path: advanced-clustering
           children:
             - type: space
               key: advanced-clustering
-              title: Advanced Clustering
+              title: Raft Cluster
               path: advanced-clustering-home
               default: true
               content:
@@ -126,19 +126,6 @@ site:
               content:
                 directory: ./exa
         - type: section
-          key: gridgain-9-sec
-          title: GridGain 9
-          icon: bolt
-          path: gridgain-9
-          children:
-            - type: space
-              key: gridgain-9
-              title: GridGain 9
-              path: gridgain-9-home
-              default: true
-              content:
-                directory: ./gridgain-9
-        - type: section
           key: gridgain-8-sec
           title: GridGain 8
           icon: bolt
@@ -151,6 +138,19 @@ site:
               default: true
               content:
                 directory: ./gridgain-8
+        - type: section
+          key: gridgain-9-sec
+          title: GridGain 9
+          icon: bolt
+          path: gridgain-9
+          children:
+            - type: space
+              key: gridgain-9
+              title: GridGain 9
+              path: gridgain-9-home
+              default: true
+              content:
+                directory: ./gridgain-9
         - type: section
           key: tools-sec
           title: Tools
@@ -210,13 +210,13 @@ site:
             directory: ./connectors
     - type: section
       key: release-notes-sec
-      title: Release notes
+      title: Release Notes
       icon: file-lines
       path: release-notes
       children:
         - type: space
           key: release-notes
-          title: Release notes
+          title: Release Notes
           path: release-notes-home
           default: true
           content:

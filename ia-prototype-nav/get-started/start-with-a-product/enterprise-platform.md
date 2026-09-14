@@ -1,5 +1,5 @@
 ---
-title: Enterprise Platform
+title: MariaDB Platform
 description: >-
   Get started with MariaDB Enterprise Platform: supported MariaDB with routing,
   clustering, and analytics for production. Understand it, route and scale it,
@@ -7,7 +7,7 @@ description: >-
 icon: layer-group
 ---
 
-# Enterprise Platform
+# MariaDB Platform
 
 MariaDB Enterprise Platform is MariaDB built for production and backed by support. At its core is MariaDB Enterprise Server, the same database you already know, hardened and maintained under contract. Around it you get the pieces a serious deployment needs: MaxScale to route traffic and survive failures, Galera Cluster to keep your data on every node, ColumnStore and Exa for analytics, and tooling to manage it all. You still run the platform, but you run it with a safety net and a tested set of parts instead of assembling them yourself.
 
@@ -23,7 +23,7 @@ Here is the path from a first look to a working production topology.
 
 Start with the overview, then follow the component that solves your next problem.
 
-## Understand the platform
+## Understand the Platform
 
 {% content-ref url="{platform}/mariadb-platform-quickstart-guides/mariadb-overview-guide" %}
 [Platform Overview]({platform}/mariadb-platform-quickstart-guides/mariadb-overview-guide)
@@ -37,7 +37,7 @@ Start with the overview, then follow the component that solves your next problem
 [Platform Security]({platform}/mariadb-platform-quickstart-guides/security)
 {% endcontent-ref %}
 
-## Route and scale
+## Route and Scale
 
 {% content-ref url="{maxscale}/maxscale-quickstart-guides/maxscale-beginner-guide" %}
 [MaxScale Beginner Guide]({maxscale}/maxscale-quickstart-guides/maxscale-beginner-guide)
@@ -47,7 +47,7 @@ Start with the overview, then follow the component that solves your next problem
 [Galera Cluster Guide]({galera}/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide)
 {% endcontent-ref %}
 
-## Run analytics in place
+## Run Analytics in Place
 
 {% content-ref url="{analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide" %}
 [ColumnStore Guide]({analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide)

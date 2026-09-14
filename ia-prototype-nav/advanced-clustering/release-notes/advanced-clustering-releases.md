@@ -1,3 +1,3 @@
-# Advanced Clustering releases
+# Raft Cluster Releases
 
 Placeholder page for the navigation prototype.

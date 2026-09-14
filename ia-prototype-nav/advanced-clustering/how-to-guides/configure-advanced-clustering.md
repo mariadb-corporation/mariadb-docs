@@ -1,3 +1,3 @@
-# Configure Advanced Clustering
+# Configure Raft Cluster
 
 Placeholder page for the navigation prototype.

@@ -1,3 +1,3 @@
-# Cloud AI Retrieval releases
+# Cloud AI Retrieval Releases
 
 Placeholder page for the navigation prototype.

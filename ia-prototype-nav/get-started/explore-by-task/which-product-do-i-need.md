@@ -19,11 +19,11 @@ The choice comes down to one question: who operates the database?
 
 **Someone else runs it.** Choose **MariaDB Cloud**. You provision a database and the service handles the hardware, updates, backups, and availability. Reach for it when you would rather build on the database than operate it, or when you want to scale without managing servers.
 
-One reassurance before you choose: this is not a one way door. Because all three run the same database and share the same tools, you can prototype on Server, move to Cloud for launch, and adopt the Enterprise Platform later, without rewriting your application or relearning the database. Pick the option that fits where you are today.
+One reassurance before you choose: this is not a one way door. Because all three run the same database and share the same tools, you can prototype on Server, move to Cloud for launch, and adopt the MariaDB Platform later, without rewriting your application or relearning the database. Pick the option that fits where you are today.
 
 Read each product's own starting page to confirm the fit before you commit. Server's install guide shows exactly what running it yourself involves. The platform overview lists what you get in the bundle. The Cloud portal quickstart shows how little you have to operate.
 
-## Compare the three products
+## Compare the Three Products
 
 {% content-ref url="{server}/mariadb-quickstart-guides/installing-mariadb-server-guide" %}
 [Install MariaDB Server]({server}/mariadb-quickstart-guides/installing-mariadb-server-guide)
@@ -37,7 +37,7 @@ Read each product's own starting page to confirm the fit before you commit. Serv
 [Launch MariaDB Cloud Using the Portal]({mariadb-cloud}/quickstart/using-the-portal)
 {% endcontent-ref %}
 
-## Choosing a component, not a product?
+## Choosing a Component, Not a Product?
 
 {% content-ref url="{server}/server-usage/storage-engines/choosing-the-right-storage-engine" %}
 [Choosing the Right Storage Engine]({server}/server-usage/storage-engines/choosing-the-right-storage-engine)

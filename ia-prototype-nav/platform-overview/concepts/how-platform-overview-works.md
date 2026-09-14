@@ -1,3 +1,3 @@
-# How Platform overview works
+# How Platform Overview Works
 
 Placeholder page for the navigation prototype.
