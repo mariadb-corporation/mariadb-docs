@@ -59,10 +59,10 @@ For GridGain 9 clusters, the **Nodes** widget displays the following columns:
 | Node ID | The ID of the node. |
 | Host | The cluster host IP address. |
 | Port | The cluster host port. |
-| CMG | Whether the node is included in [Cluster Management Group](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/lifecycle#cluster-management-group). |
-| MS | Whether the node is included in the [Metastorage Group](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/lifecycle#cluster-metastorage-group). |
+| CMG | Whether the node is included in Cluster Management Group. |
+| MS | Whether the node is included in the Metastorage Group. |
 | HTTP, HTTPS ports | The ports the node exposes. |
-| Status | `Running` or `Validating` - see [explanation](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/lifecycle#cluster-initialization). |
+| Status | `Running` or `Validating` - see explanation. |
 
 ## Renaming the Cluster
 
@@ -75,7 +75,7 @@ To rename the cluster, select **Rename** from the context menu in the top right 
 To [add](connect.md) a connection to the cluster, in the **Connections** widget:
 
 1. Click the required client/protocol chip.
-2. Proceed to [define](https://www.gridgain.com/docs/gridgain9/latest/developers-guide/clients/overview#client-connection) the new connection.
+2. Proceed to define the new connection.
 
 ## Initializing the Cluster
 
@@ -83,7 +83,7 @@ To [add](connect.md) a connection to the cluster, in the **Connections** widget:
 You initialize GridGain 9 clusters.
 {% endhint %}
 
-To [initialize](https://www.gridgain.com/docs/gridgain9/latest/installation/installing-using-zip#initializing-the-cluster) the attached GridGain 9 cluster:
+To initialize the attached GridGain 9 cluster:
 
 1. Click **Initialize** in the top right corner.
 

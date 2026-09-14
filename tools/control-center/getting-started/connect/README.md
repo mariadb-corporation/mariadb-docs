@@ -14,3 +14,19 @@ This section describes how you can attach clusters to Control Center:
 - [Apache Ignite 3](connect-ignite-3-cluster.md)
 - [GridGain 8](connect-gridgain-cluster.md)
 - [Apache Ignite 2](connect-ignite-cluster.md)
+
+{% content-ref url="connect-gridgain9-cluster.md" %}
+[connect-gridgain9-cluster.md](connect-gridgain9-cluster.md)
+{% endcontent-ref %}
+
+{% content-ref url="connect-ignite-3-cluster.md" %}
+[connect-ignite-3-cluster.md](connect-ignite-3-cluster.md)
+{% endcontent-ref %}
+
+{% content-ref url="connect-gridgain-cluster.md" %}
+[connect-gridgain-cluster.md](connect-gridgain-cluster.md)
+{% endcontent-ref %}
+
+{% content-ref url="connect-ignite-cluster.md" %}
+[connect-ignite-cluster.md](connect-ignite-cluster.md)
+{% endcontent-ref %}

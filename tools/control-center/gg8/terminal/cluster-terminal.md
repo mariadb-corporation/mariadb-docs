@@ -6,7 +6,7 @@ description: >-
 
 # Cluster Terminal for GridGain 8 Clusters
 
-The **Cluster terminal** is a panel that lets you run [control script](https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/control-script) commands against the currently selected cluster.
+The **Cluster terminal** is a panel that lets you run control script commands against the currently selected cluster.
 
 The terminal is docked at the bottom of the screen and works independently of the screen you are on, so you can keep it open while you navigate Control Center.
 
@@ -32,7 +32,7 @@ To run a command, type it at the prompt together with its arguments and press `E
 
 The command output appears below the command. Each output line is prefixed with the timestamp reported for it, in the `[HH:MM:SS.mmm]` format. Warnings are displayed in yellow, and errors — including a command that could not be delivered to the cluster — in red.
 
-For the list of commands and their arguments, see the [Control Script](https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/control-script) page in the GridGain 8 documentation.
+For the list of commands and their arguments, see the Control Script page in the GridGain 8 documentation.
 
 {% hint style="info" %}
 Commands are passed to the cluster as you type them, so a command runs even if it is not listed in [Supported Commands](#supported-commands). Autocompletion and the `list` command cover the commands in that section only.
@@ -90,7 +90,7 @@ The `list` command and autocompletion recognize the following commands:
 `--checkpointing` is offered by autocompletion and listed by the `list` command, but it is not a control script command — the cluster rejects it as an unexpected argument. Use `--checkpoint` instead.
 {% endhint %}
 
-Subcommands, such as `--cache list` or `--baseline auto_adjust enable`, can also be completed with `Tab`. For the syntax and the arguments of each command and subcommand, see the [Control Script](https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/control-script) page, or run `--help` in the terminal.
+Subcommands, such as `--cache list` or `--baseline auto_adjust enable`, can also be completed with `Tab`. For the syntax and the arguments of each command and subcommand, see the Control Script page, or run `--help` in the terminal.
 
 ## Read-Only Mode
 

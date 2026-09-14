@@ -23,7 +23,7 @@ The deployment spans two data centers:
 
 Each data center has its own GridGain 8 cluster that stores Control Center data. Set up each persistent cluster as described in [Running Control Center with an External GridGain 8 Cluster](external-cluster.md).
 
-The two persistent clusters are synchronized by [Data Center Replication](https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/data-center-replication/introduction) (DR) in active-passive mode. The persistent cluster in the active data center acts as the master, while the persistent cluster in the passive data center acts as the replica.
+The two persistent clusters are synchronized by Data Center Replication (DR) in active-passive mode. The persistent cluster in the active data center acts as the master, while the persistent cluster in the passive data center acts as the replica.
 
 Monitored GridGain clusters connect to the Control Center backend in the active data center, including clusters running in the passive data center.
 

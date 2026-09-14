@@ -8,7 +8,7 @@ description: >-
 
 **My Cluster** opens as the first tab of the **Dashboard** screen when you select **Dashboard** from the navigation menu. It displays numeric and tabular information for the "current" cluster (selected in the cluster selector tool on the main toolbar).
 
-When GridGain 8 cluster is in a [rolling upgrade mode](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades), a banner indicating this state will appear on the top of **My Cluster** screen.
+When GridGain 8 cluster is in a rolling upgrade mode, a banner indicating this state will appear on the top of **My Cluster** screen.
 
 ![My Cluster screen](../../../.gitbook/assets/cc-gg8-my-cluster.png)
 
@@ -60,7 +60,7 @@ To define the auto-adjustment timeout, click the **Configuration** icon above th
 |---|---|
 | Consistent ID | The consistent ID of the node. |
 | Node ID | The ID of the node. |
-| Status | Whether the node is online. A node that goes down remains registered in the baseline topology until you manually remove it or until it's removed automatically through [baseline autoadjustment](https://gridgain.com/docs/latest/developers-guide/baseline-topology#baseline-topology-autoadjustment). |
+| Status | Whether the node is online. A node that goes down remains registered in the baseline topology until you manually remove it or until it's removed automatically through baseline autoadjustment. |
 | Node Type | The type of the node: `Coordinator` or `Server`. To display `Client` nodes, toggle on **Show client nodes** in the context menu. |
 | Baseline | A toggle that enables removing the node from the baseline or adding it to the baseline. |
 
@@ -85,7 +85,7 @@ To add a node to the baseline topology:
 
 ## Enabling Baseline Autoadjustment
 
-The [baseline autoadjustment feature](https://gridgain.com/docs/latest/developers-guide/baseline-topology#baseline-topology-autoadjustment) changes the baseline automatically when the cluster topology has been stable for a specified period.
+The baseline autoadjustment feature changes the baseline automatically when the cluster topology has been stable for a specified period.
 
 You can enable baseline autoadjustment and set the timeout in the top-right corner of the **Baseline** screen. The timeout is set in seconds.
 
@@ -103,7 +103,7 @@ You can modify cluster-wide settings by clicking the ⋮ in the top-right corner
 
 ![](../../../.gitbook/assets/cc-gg8-my-cluster-update-properties.png)
 
-For the full reference of available cluster properties, see the [Cluster Properties](https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/control-script#cluster-properties) section in the GridGain 8 documentation.
+For the full reference of available cluster properties, see the Cluster Properties section in the GridGain 8 documentation.
 
 {% hint style="success" %}
 You can also set cluster properties, and run other control script commands, from the [Cluster terminal](../terminal/cluster-terminal.md).
@@ -161,7 +161,7 @@ In the dialog that opens, add a new license file onto the **License file** field
 To add a connection to the cluster, in the **Connections** widget:
 
 1. Click the required client/protocol chip.
-2. Proceed to [define the new connection](https://www.gridgain.com/docs/latest/developers-guide/thin-clients/getting-started-with-thin-clients).
+2. Proceed to define the new connection.
 
 ## Sharing Clusters
 

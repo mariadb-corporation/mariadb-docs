@@ -18,13 +18,13 @@ Depending on configuration, [secured clusters](../auth/authorization-permissions
 
 ## Distributed Computing Configuration
 
-Distributed computing configuration is described in detail in the [Distributed Computing](https://www.gridgain.com/docs/latest/developers-guide/distributed-computing/distributed-computing) section of GridGain documentation.
+Distributed computing configuration is described in detail in the Distributed Computing section of GridGain documentation.
 
 Below are some configuration parameters that are recommended for managing Compute jobs.
 
 ### Priority Ordering
 
-To manage job and task priorities, you need to configure `PriorityQueueCollisionSpi` in your code. Detailed instructions can be found in the [Priority Ordering](https://www.gridgain.com/docs/latest/developers-guide/distributed-computing/job-scheduling#priority-ordering) section of GridGain documentation.
+To manage job and task priorities, you need to configure `PriorityQueueCollisionSpi` in your code. Detailed instructions can be found in the Priority Ordering section of GridGain documentation.
 
 ## Monitoring Jobs
 
@@ -120,7 +120,7 @@ Extended filters will be reset if you leave the page, but you can save the URI t
 
 ## Excluding Data on Internal Tasks
 
-Sometimes, GridGain has to run internal tasks while handling distributed computing. You can exclude these tasks by configuring your GridGain cluster properties by using the [control script](https://www.gridgain.com/docs/latest/administrators-guide/control-script#cluster-properties). The following properties manage what tasks will be collected by the agent:
+Sometimes, GridGain has to run internal tasks while handling distributed computing. You can exclude these tasks by configuring your GridGain cluster properties by using the control script. The following properties manage what tasks will be collected by the agent:
 
 | Property | Description |
 |---|---|

@@ -24,7 +24,7 @@ A partition becomes *lost* when neither its primary nor any backup copy is avail
 
 To recover lost partitions:
 
-- If [persistence](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/persistence/native-persistence) is enabled and the data still exists on disk, restart the failed nodes to restore the partitions.
+- If persistence is enabled and the data still exists on disk, restart the failed nodes to restore the partitions.
 - If the failed nodes cannot be restarted, or persistence is not enabled, use the **Reset Lost Partitions** action to clear the lost partition status and restore full cache availability.
 
   {% hint style="danger" %}

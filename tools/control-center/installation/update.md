@@ -24,4 +24,4 @@ To update to Control Center to a more recent version:
    The success or failure of the update is reflected in the log file.
 5. In case of an update failure:
    - Restore from the backup created in Step 1 and run the Control Center version you attempted to update from.
-   - Contact us for [support](http://support.gridgain.com/).
+   - Contact us for support.

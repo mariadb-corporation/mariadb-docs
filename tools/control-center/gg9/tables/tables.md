@@ -8,7 +8,7 @@ description: >-
 
 The **Tables** screen is available for GridGain 9 clusters.
 
-This screen enables you to see the distribution of [partitions](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/storage/data-partitions) between the current cluster's nodes for a selected table or distribution zone.
+This screen enables you to see the distribution of partitions between the current cluster's nodes for a selected table or distribution zone.
 
 ## Viewing Partitions for a Table
 
@@ -31,7 +31,7 @@ By default, the list includes the following columns:
 | Partition ID | The partition ID. |
 | Node name | The name of the node. |
 | Primary | Whether the partition copy on this node is primary. |
-| State | The [state of the partition](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/disaster-recovery#local-partition-states) on the node. Possible states are:<br>- `UNAVAILABLE` - this state might be used when the partition is not yet started or is already stopping.<br>- `HEALTHY` - alive partition with a healthy state machine.<br>- `INITIALIZING` - partition is starting right now.<br>- `INSTALLING_SNAPSHOT`- partition is installing a Raft snapshot from the leader.<br>- `CATCHING_UP` - partition is catching up, meaning that it hasn't replicated part of the log yet.<br>- `BROKEN` - partition is in a broken state, typically because its state machine threw an exception.<br>- `UNKNOWN` - partition state is unknown for Control Center. |
+| State | The state of the partition on the node. Possible states are:<br>- `UNAVAILABLE` - this state might be used when the partition is not yet started or is already stopping.<br>- `HEALTHY` - alive partition with a healthy state machine.<br>- `INITIALIZING` - partition is starting right now.<br>- `INSTALLING_SNAPSHOT`- partition is installing a Raft snapshot from the leader.<br>- `CATCHING_UP` - partition is catching up, meaning that it hasn't replicated part of the log yet.<br>- `BROKEN` - partition is in a broken state, typically because its state machine threw an exception.<br>- `UNKNOWN` - partition state is unknown for Control Center. |
 
 In all of the **Tables** tab sections, you can add or remove columns to/from the entity list by selecting or deselecting column names in the context menu.
 
@@ -57,7 +57,7 @@ By default, the list includes the following columns:
 | Records | The amount of records a partition contains. |
 | Node name | The name of the node. |
 | Primary | Whether the partition copy on this node is primary. |
-| State | The [state of the partition](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/disaster-recovery#local-partition-states) on the node. Possible states are:<br>- `UNAVAILABLE` - this state might be used when the partition is not yet started or is already stopping.<br>- `HEALTHY` - alive partition with a healthy state machine.<br>- `INITIALIZING` - partition is starting right now.<br>- `INSTALLING_SNAPSHOT`- partition is installing a Raft snapshot from the leader.<br>- `CATCHING_UP` - partition is catching up, meaning that it hasn't replicated part of the log yet.<br>- `BROKEN` - partition is in a broken state, typically because its state machine threw an exception.<br>- `UNKNOWN` - partition state is unknown for Control Center. |
+| State | The state of the partition on the node. Possible states are:<br>- `UNAVAILABLE` - this state might be used when the partition is not yet started or is already stopping.<br>- `HEALTHY` - alive partition with a healthy state machine.<br>- `INITIALIZING` - partition is starting right now.<br>- `INSTALLING_SNAPSHOT`- partition is installing a Raft snapshot from the leader.<br>- `CATCHING_UP` - partition is catching up, meaning that it hasn't replicated part of the log yet.<br>- `BROKEN` - partition is in a broken state, typically because its state machine threw an exception.<br>- `UNKNOWN` - partition state is unknown for Control Center. |
 
 In all the **Distribution zones** tab sections, you can add or remove columns to/from the entity list by selecting or deselecting column names in the context menu.
 
@@ -76,14 +76,14 @@ The filter panel on the right lets you refine your search among all partitions b
 | Partition ID | Partition ID. |
 | Node name | Name of the node hosting the partition. |
 | Zone | Zone where partition is located |
-| Local state | The local [state](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/disaster-recovery#local-partition-states) of a partition. Possible states are:<br>- `UNAVAILABLE` - this state might be used when the partition is not yet started or is already stopping.<br>- `HEALTHY` - alive partition with a healthy state machine.<br>- `INITIALIZING` - partition is starting right now.<br>- `INSTALLING_SNAPSHOT`- partition is installing a Raft snapshot from the leader.<br>- `CATCHING_UP` - partition is catching up, meaning that it hasn't replicated part of the log yet.<br>- `BROKEN` - partition is in a broken state, typically because its state machine threw an exception.<br>- `UNKNOWN` - partition state is unknown for Control Center. |
-| Global state | The global [state](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/disaster-recovery#global-partition-states) of a partition. If no information for a partition is available, it changes its status to `Unknown`. Possible global states are:<br>- `AVAILABLE` - all replicas are healthy.<br>- `DEGRADED` - there are healthy replicas, and they form a majority.<br>- `READ_ONLY` - there are healthy replicas, but they don't form a majority.<br>- `UNAVAILABLE` - there are no healthy replicas.<br>- `UNKNOWN` - partition state is unknown for Control Center. |
+| Local state | The local state of a partition. Possible states are:<br>- `UNAVAILABLE` - this state might be used when the partition is not yet started or is already stopping.<br>- `HEALTHY` - alive partition with a healthy state machine.<br>- `INITIALIZING` - partition is starting right now.<br>- `INSTALLING_SNAPSHOT`- partition is installing a Raft snapshot from the leader.<br>- `CATCHING_UP` - partition is catching up, meaning that it hasn't replicated part of the log yet.<br>- `BROKEN` - partition is in a broken state, typically because its state machine threw an exception.<br>- `UNKNOWN` - partition state is unknown for Control Center. |
+| Global state | The global state of a partition. If no information for a partition is available, it changes its status to `Unknown`. Possible global states are:<br>- `AVAILABLE` - all replicas are healthy.<br>- `DEGRADED` - there are healthy replicas, and they form a majority.<br>- `READ_ONLY` - there are healthy replicas, but they don't form a majority.<br>- `UNAVAILABLE` - there are no healthy replicas.<br>- `UNKNOWN` - partition state is unknown for Control Center. |
 
 ### Recovering Lost Partitions
 
 If the partition status indicates issues with its replicas, for example, when partitions are marked as `DEGRADED`, `READ_ONLY`, or `UNAVAILABLE`, you can attempt to repair it using either the **Restart** or **Reset** option.
 
-For detailed instructions on disaster recovery and repair procedures, refer to the disaster recovery [documentation](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/disaster-recovery).
+For detailed instructions on disaster recovery and repair procedures, refer to the disaster recovery documentation.
 
 {% hint style="warning" %}
 It is advisable to use **Restart** first. If that does not resolve the issue, then consider using **Reset**. Keep in mind that **Reset** option may lead to data loss or cluster unavailability.
@@ -107,4 +107,4 @@ During the **Reset** and **Restart** operations the state of the selected partit
 
 ![Disaster recovery tab](../../../.gitbook/assets/cc-gg9-dis_recovery_after_reset.png)
 
-You also can perform recovery operations via Gridgain [CLI](https://www.gridgain.com/docs/gridgain9/latest/ignite-cli-tool#disaster-recovery-commands) commands.
+You also can perform recovery operations via Gridgain CLI commands.

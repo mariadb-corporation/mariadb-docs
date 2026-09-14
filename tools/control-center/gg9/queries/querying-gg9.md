@@ -82,7 +82,7 @@ Each query includes the following details:
 | Schema | The schema used. Hidden by default — enable via the column context menu. |
 | Status | Query status. Possible values:<br>- `Running`<br>- `Finished`<br>- `Failed`<br>- `Canceled`<br>- `Unknown` |
 | Statement number | Position of the statement within the SQL script. Hidden by default — enable via the column context menu. |
-| Transaction ID | Transaction ID. Not applicable for [DDL](https://www.gridgain.com/docs/gridgain9/latest/sql-reference/ddl) queries. |
+| Transaction ID | Transaction ID. Not applicable for DDL queries. |
 | Start time | The time the query started. |
 | Parent ID | ID of the parent query that initiated this query. Available for queries executed via the SQL CLI on the cluster, but not for those run in the **Queries List** tab editor. |
 | Duration | Query duration. |

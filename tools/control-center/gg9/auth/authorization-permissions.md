@@ -6,7 +6,7 @@ description: >-
 
 # Authorization and Permissions
 
-You need an authorization to access the [secured GridGain clusters](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/security/authentication#authentication-and-authorization) via GridGain Control Center.
+You need an authorization to access the secured GridGain clusters via GridGain Control Center.
 
 When you attempt to initiate a permission-protected action on a secured GridGain cluster, you are prompted to enter the cluster-specific username and password.
 
@@ -38,7 +38,7 @@ To get status of [Running Queries](../queries/querying-gg9.md#running-queries) a
 | Get status of running queries | GET_SQL_QUERY_STATE |
 | Stop running queries | KILL_SQL_QUERY |
 
-To be able to create,alter and drop [Distribution Zone](https://www.gridgain.com/docs/gridgain9/latest/sql-reference/distribution-zones) the following permissions are required:
+To be able to create,alter and drop Distribution Zone the following permissions are required:
 
 | Action | Permission |
 |---|---|

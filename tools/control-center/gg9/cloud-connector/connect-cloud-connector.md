@@ -16,7 +16,7 @@ The schema below displays the difference between connecting to GridGain 9 direct
 
 ## Download and Install Cloud Connector
 
-To start using cloud connector, [download](https://www.gridgain.com/media/control-center/gridgain-cloud-connector-2025.4.zip) it from the website and unpack the archive.
+To start using cloud connector, download it from the website and unpack the archive.
 
 You can also use Docker image:
 
@@ -51,20 +51,20 @@ You can modify additional parameters such as SQL execution timeouts or monitorin
 
 | Name | Docker Name | Description | Default value |
 |---|---|---|---|
-| connector.cc-url | CONNECTOR_CC_URL | Control Center Dashboard URL. | |
-| connector.base-url | CONNECTOR_BASE_URL | Connector URL must be reachable from the monitored cluster nodes. | |
-| connector.name | CONNECTOR_NAME | Connector name. | |
-| connector.username | CONNECTOR_USERNAME | Your Control Center login. | |
-| connector.password | CONNECTOR_PASSWORD | Your Control Center password. | |
-| server.port | SERVER_PORT | Connector port. Must be accessible from the monitored cluster nodes. | 3200 |
-| connector.cluster.monitoring.heartbeat-max-retry-attempt | CONNECTOR_CLUSTER_MONITORING_HEARTBEAT_MAX_RETRY_ATTEMPT | Max failed heartbeat attempts before cluster considered disconnected. Set to `0` by default, meaning any heartbeat failure disconnects the cluster. | 0 |
-| connector.cluster.monitoring.heartbeat-interval | CONNECTOR_CLUSTER_MONITORING_HEARTBEAT_INTERVAL | The interval between the GG9 cluster heartbeats, in milliseconds. | 1000 |
-| connector.cluster.monitoring.timeout | CONNECTOR_CLUSTER_MONITORING_TIMEOUT | The monitoring cycle timeout, in milliseconds. | 20000 |
-| connector.cluster.monitoring.interval | CONNECTOR_CLUSTER_MONITORING_INTERVAL | The interval between monitoring cycles, in milliseconds. | 20000 |
-| connector.sql.execute-timeout | CONNECTOR_SQL_EXECUTE_TIMEOUT | The timeout of SQL script execution, in hours. | 1 |
-| connector.sql.query-timeout | CONNECTOR_SQL_QUERY_TIMEOUT | The timeout of SQL query execution, in hours. | 1 |
-| connector.sql.fetch-timeout | CONNECTOR_SQL_FETCH_TIMEOUT | The timeout of cursor fetch execution, in minutes. | 10 |
-| connector.sql.cursor-timeout | CONNECTOR_SQL_CURSOR_TIMEOUT | The cursor lifetime duration, in hours. If cursor in not fetched within this period, it is closed. | 1 |
+| `connector.cc-url` | `CONNECTOR_CC_URL` | Control Center Dashboard URL. | |
+| `connector.base-url` | `CONNECTOR_BASE_URL` | Connector URL must be reachable from the monitored cluster nodes. | |
+| `connector.name` | `CONNECTOR_NAME` | Connector name. | |
+| `connector.username` | `CONNECTOR_USERNAME` | Your Control Center login. | |
+| `connector.password` | `CONNECTOR_PASSWORD` | Your Control Center password. | |
+| `server.port` | `SERVER_PORT` | Connector port. Must be accessible from the monitored cluster nodes. | 3200 |
+| `connector.cluster.monitoring.heartbeat-max-retry-attempt` | `CONNECTOR_CLUSTER_MONITORING_HEARTBEAT_MAX_RETRY_ATTEMPT` | Max failed heartbeat attempts before cluster considered disconnected. Set to `0` by default, meaning any heartbeat failure disconnects the cluster. | 0 |
+| `connector.cluster.monitoring.heartbeat-interval` | `CONNECTOR_CLUSTER_MONITORING_HEARTBEAT_INTERVAL` | The interval between the GG9 cluster heartbeats, in milliseconds. | 1000 |
+| `connector.cluster.monitoring.timeout` | `CONNECTOR_CLUSTER_MONITORING_TIMEOUT` | The monitoring cycle timeout, in milliseconds. | 20000 |
+| `connector.cluster.monitoring.interval` | `CONNECTOR_CLUSTER_MONITORING_INTERVAL` | The interval between monitoring cycles, in milliseconds. | 20000 |
+| `connector.sql.execute-timeout` | `CONNECTOR_SQL_EXECUTE_TIMEOUT` | The timeout of SQL script execution, in hours. | 1 |
+| `connector.sql.query-timeout` | `CONNECTOR_SQL_QUERY_TIMEOUT` | The timeout of SQL query execution, in hours. | 1 |
+| `connector.sql.fetch-timeout` | `CONNECTOR_SQL_FETCH_TIMEOUT` | The timeout of cursor fetch execution, in minutes. | 10 |
+| `connector.sql.cursor-timeout` | `CONNECTOR_SQL_CURSOR_TIMEOUT` | The cursor lifetime duration, in hours. If cursor in not fetched within this period, it is closed. | 1 |
 
 ## Start Cloud Connector
 

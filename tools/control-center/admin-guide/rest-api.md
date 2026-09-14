@@ -22,7 +22,7 @@ The REST API includes endpoints for:
 - **License** - Upload and manage licenses
 - **Connector** - Get the list of connectors for the current user
 
-For the complete API specification, see the OpenAPI [documentation](https://www.gridgain.com/sdk/controlcenter/latest/openapi/openapi.html).
+For the complete API specification, see the OpenAPI documentation.
 
 To learn how to use the REST API for fully automated Control Center deployment, see [Automated Deployment](automated-deployment.md).
 

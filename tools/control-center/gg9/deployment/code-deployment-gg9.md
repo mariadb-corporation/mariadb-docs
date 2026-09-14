@@ -6,7 +6,7 @@ description: >-
 
 # Code Deployment with GridGain 9
 
-You may want to deploy compute tasks to your GridGain nodes using Control Center. For example, you often need many dependencies to complete [distributed computing](https://www.gridgain.com/docs/gridgain9/latest/developers-guide/compute/compute) tasks.
+You may want to deploy compute tasks to your GridGain nodes using Control Center. For example, you often need many dependencies to complete distributed computing tasks.
 
 ## Deployment Units
 
@@ -66,7 +66,7 @@ Deployment units are immutable, so you must create and deploy a new version when
 
 To create a new deployment based on an existing version, click **Clone and Deploy** from the version’s menu and enter a new semver. This option may be useful for quickly replacing a unit deployed with an incorrect version.
 
-You cannot **Clone** or **Clone and Deploy** units that were deployed via the [CLI](https://www.gridgain.com/docs/gridgain9/latest/developers-guide/code-deployment/code-deployment#deploy-new-unit). To manage a CLI-deployed unit through Control Center, create a draft version from this unit, add artifacts, and deploy the new version.
+You cannot **Clone** or **Clone and Deploy** units that were deployed via the CLI. To manage a CLI-deployed unit through Control Center, create a draft version from this unit, add artifacts, and deploy the new version.
 
 ![Create draft from CLI-deployed unit](../../../.gitbook/assets/cc-gg9-du_cli_unit_draft.png)
 

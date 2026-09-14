@@ -72,7 +72,7 @@ The Java thin client connects to the cluster via a standard socket connection. I
        }
    ```
 
-For more information on Java client, see [this article](https://www.gridgain.com/docs/gridgain9/latest/developers-guide/clients/java#java-client).
+For more information on Java client, see this article.
 
 ## C++ client
 
@@ -112,7 +112,7 @@ For more information on Java client, see [this article](https://www.gridgain.com
    }
    ```
 
-For more information on C++ client, see [this article](https://www.gridgain.com/docs/gridgain9/latest/developers-guide/clients/cpp).
+For more information on C++ client, see this article.
 
 ## .NET client
 
@@ -124,7 +124,7 @@ Supported runtimes: .NET 8.0+
 4. Replace the `{login}` and `{password}` placeholders with your cluster API credentials.
 5. Execute `dotnet run` in that folder.
 
-For more information on .NET client, see [this article](https://gridgain.com/docs/gridgain9/latest/developers-guide/clients/dotnet#net-client).
+For more information on .NET client, see this article.
 
 ## .NET LINQ client
 
@@ -136,7 +136,7 @@ Supported runtimes: .NET 8.0+
 4. Replace the `{login}` and `{password}` placeholders with your cluster API credentials.
 5. Execute `dotnet run` in that folder.
 
-For more information on .NET LINQ client, see [this article](https://gridgain.com/docs/gridgain9/latest/developers-guide/clients/linq#net-linq-queries).
+For more information on .NET LINQ client, see this article.
 
 ## Python client
 
@@ -175,7 +175,7 @@ For more information on .NET LINQ client, see [this article](https://gridgain.co
        print("Key exists:", exists)
    ```
 
-For more information on Python client, see [this article](https://gridgain.com/docs/gridgain9/latest/developers-guide/clients/python-client).
+For more information on Python client, see this article.
 
 ## Python DB API
 
@@ -235,4 +235,4 @@ For more information on Python client, see [this article](https://gridgain.com/d
    conn.close()
    ```
 
-For more information on Python DB API, see [this article](https://gridgain.com/docs/gridgain9/latest/developers-guide/clients/python).
+For more information on Python DB API, see this article.

@@ -33,7 +33,7 @@ After you identify the cause for the delay, you can remove its cause and improve
 
 ## The Tracing Screen
 
-The **Tracing** screen displays information about traces recorded during cluster operation. You need to [enable tracing](https://gridgain.com/docs/latest/administrators-guide/monitoring-metrics/tracing). The recorded information can include informational messages, error messages, duration of specific operations, stack traces, etc. You can use this information to troubleshoot cluster operation or identify latency issues.
+The **Tracing** screen displays information about traces recorded during cluster operation. You need to enable tracing. The recorded information can include informational messages, error messages, duration of specific operations, stack traces, etc. You can use this information to troubleshoot cluster operation or identify latency issues.
 
 The screen displays a table containing all recorded traces, including the name of the event, its start time, duration and number of spans.
 

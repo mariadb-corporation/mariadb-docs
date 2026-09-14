@@ -122,7 +122,7 @@ If a schema with the same name already exists in the target cluster, select how 
 
 ### Per-Table Storage Configuration
 
-Expand any table row to configure GridGain-specific storage parameters for that table. These parameters map to the options of the GridGain 8 [CREATE TABLE](https://www.gridgain.com/docs/latest/sql-reference/ddl) command.
+Expand any table row to configure GridGain-specific storage parameters for that table. These parameters map to the options of the GridGain 8 CREATE TABLE command.
 
 ![Table Settings step — expanded table row](../../../.gitbook/assets/cc-gg8-import-step3-table-settings.png)
 
@@ -158,7 +158,7 @@ Each table can be expanded to inspect its columns. For each column, the wizard s
 |---|---|
 | Name | The source column name. This field is read-only. |
 | Original type | The column's data type in the source database — for example, `VARCHAR`, `LONGVARCHAR`, `BIGINT`, or `TIMESTAMP`. This field is read-only. |
-| Type | The target GridGain 8 SQL [data type](https://www.gridgain.com/docs/latest/sql-reference/data-types) for the column. Control Center maps source types to GridGain types automatically using default rules. Types that cannot be mapped automatically are highlighted in red and must be set manually before proceeding. |
+| Type | The target GridGain 8 SQL data type for the column. Control Center maps source types to GridGain types automatically using default rules. Types that cannot be mapped automatically are highlighted in red and must be set manually before proceeding. |
 | Nullable | Whether the column accepts `NULL` values (`YES` or `NO`). |
 | Default value type | The default value applied to the column: `No value` or `NULL`. |
 | Length / Precision (optional) | The length for character types or the precision for numeric and temporal types. Leave empty to use the type default shown below the field (for example, `Default: 65536` for `VARCHAR` or `Default: 6` for `TIMESTAMP`). |

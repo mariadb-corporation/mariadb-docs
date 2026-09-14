@@ -18,13 +18,13 @@ By default, the **Snapshots** screen displays the following information about ea
 |---|---|
 | Start Time | Time when the "snapshot create" operation began. |
 | ID | The snapshot ID. |
-| Parent ID | For [incremental snapshots](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/snapshots/snapshots-and-recovery#creating-incremental-snapshots), the ID of the "parent" [full snapshot](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/snapshots/snapshots-and-recovery#creating-full-snapshots). |
+| Parent ID | For incremental snapshots, the ID of the "parent" full snapshot. |
 | Type | FULL or INCREMENTAL. |
 | Status | The status of the snapshot operation: PREPARED, STARTED, COMPLETED, or FAILED. |
 | Tables | The number of tables included in the snapshot. A hyperlink that displays the included tables' list. |
 
 {% hint style="info" %}
-In addition to the snapshots created in Control Center, the list contains those snapshots that were created using programming APIs or the snapshot management tool. See [Snapshots and Recovery](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/snapshots/snapshots-and-recovery) for details.
+In addition to the snapshots created in Control Center, the list contains those snapshots that were created using programming APIs or the snapshot management tool. See Snapshots and Recovery for details.
 {% endhint %}
 
 1. To add or remove columns to/from the list, select or deselect these columns in the list-level context menu.
@@ -56,7 +56,7 @@ To create a snapshot:
    ![Create Snapshot - datetime](../../../.gitbook/assets/cc-gg9-create_snapshot_3.png)
 5. Click **Create**.
 
-A snapshot is created in each node's snapshot folder, which is specified in the [cluster configuration](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/config/cluster-config#snapshots-configuration).
+A snapshot is created in each node's snapshot folder, which is specified in the cluster configuration.
 
 ## Restoring Snapshots
 

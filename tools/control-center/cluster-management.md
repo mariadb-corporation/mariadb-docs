@@ -21,10 +21,10 @@ The following information is available on the cluster list:
 | Name | The name of the cluster. See [Cluster Name](#cluster-name). |
 | Status | Indicates whether the cluster is connected to and reachable by Control Center, and reflects its current lifecycle state. See [Cluster Statuses](#cluster-statuses). |
 | Nodes, total | The total number of nodes. |
-| Nodes type | Shows the number of nodes included in the [Cluster Management Group](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/lifecycle#cluster-management-group) (CMG) and the number of nodes included in the [Metastorage Group](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/lifecycle#cluster-metastorage-group) (MS). |
+| Nodes type | Shows the number of nodes included in the Cluster Management Group (CMG) and the number of nodes included in the Metastorage Group (MS). |
 | Edition | The product edition that the cluster uses (either GridGain edition or Apache Ignite). |
 | Version | The version of the product. |
-| Secure | Indicates whether the cluster is secured by [authentication](https://gridgain.com/docs/latest/administrators-guide/security/authentication). |
+| Secure | Indicates whether the cluster is secured by authentication. |
 
 ## GridGain 8 Clusters
 
@@ -40,7 +40,7 @@ The following information is available on the cluster list:
 | Nodes type | The number of client and server nodes. |
 | Edition | The product edition that the cluster uses (either GridGain edition or Apache Ignite). |
 | Version | The version of the product. |
-| Secure | Indicates whether the cluster is secured by [authentication](https://gridgain.com/docs/latest/administrators-guide/security/authentication). |
+| Secure | Indicates whether the cluster is secured by authentication. |
 
 Some additional information about the "current" cluster (selected on the list) is shown in the **Details** widget at the bottom of the screen,
 
@@ -88,7 +88,7 @@ To add a cluster:
 3. Paste the token into the dialog and click **OK**.
 4. The wizard will confirm that the cluster was found and attached.
 
-If your cluster is protected by [authentication](https://gridgain.com/docs/latest/administrators-guide/security/authentication), you will be asked to enter the username and password.
+If your cluster is protected by authentication, you will be asked to enter the username and password.
 
 {% hint style="info" %}
 Each cluster can only be attached once. If it was already attached by another user, you will receive a warning and a part of their e-mail.
@@ -203,7 +203,7 @@ Alternatively, you can stop sharing a cluster with team(s) and/or user(s) from t
 
 For GridGain 8 clusters, the license expiry date is displayed in the **Details** widget on the [My Cluster](gg8/dashboard/my-cluster.md) screen.
 
-Your cluster may need a [new license](https://www.gridgain.com/docs/latest/installation-guide/licenses) when:
+Your cluster may need a new license when:
 
 - Your previous license expires
 - You are installing (or updating to) GridGain Enterprise Edition (EE) or Ultimate Edition (UE)
@@ -219,7 +219,7 @@ To upload a new GridGain license for a cluster:
 3. Click **Update**.
 
 {% hint style="info" %}
-The update is performed [without cluster or node downtime](https://www.gridgain.com/docs/latest/installation-guide/licenses#update-without-downtime).
+The update is performed without cluster or node downtime.
 {% endhint %}
 
 ## Next Steps

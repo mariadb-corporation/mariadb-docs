@@ -368,7 +368,7 @@ The automated deployment uses Control Center's REST API. Key endpoint categories
 - `/rest/v1/clusters/{connectionId}/alert-configurations` - Alert configurations
 - `/rest/v1/clusters/{connectionId}/health` - Cluster health reports
 
-For detailed API documentation, refer to the [OpenAPI specification](https://www.gridgain.com/sdk/controlcenter/latest/openapi/openapi.html).
+For detailed API documentation, refer to the OpenAPI specification.
 
 {% hint style="info" %}
 GridGain 8 clusters will be automatically attached and shared with all members of a [global team](configuration.md#teams) if `account.globalTeam.enabled` is enabled.

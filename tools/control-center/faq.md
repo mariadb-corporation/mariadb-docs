@@ -162,10 +162,10 @@ You can also modify the activity limitation parameters:
 
    | Parameter | Description | Default Value |
    |---|---|---|
-   | control.rate-limit.lower-threshold | Count of requests between the previous and the current checks. | 1000 |
-   | control.rate-limit.update-interval-millis | Frequency of checks in milliseconds. | 500 |
-   | control.rate-limit.ban-duration-seconds | Duration of the ban (the "limited" state) in seconds. | 3*60 |
-   | control.rate-limit.block-connection-on-detection | If "true," the cluster is disconnected instead of entering the "limited" state. | false |
+   | `control.rate-limit.lower-threshold` | Count of requests between the previous and the current checks. | 1000 |
+   | `control.rate-limit.update-interval-millis` | Frequency of checks in milliseconds. | 500 |
+   | `control.rate-limit.ban-duration-seconds` | Duration of the ban (the "limited" state) in seconds. | 3*60 |
+   | `control.rate-limit.block-connection-on-detection` | If "true," the cluster is disconnected instead of entering the "limited" state. | false |
 2. Change the parameter values as required.
 
 ## My Cache Gets Too Big Too Fast. How Can I Prevent This?
@@ -201,4 +201,4 @@ Depending on your mailing server, additional configuration properties may be req
 
 ## How do I contact support?
 
-Contact us at the [http://support.gridgain.com/](http://support.gridgain.com).
+Contact us at the http://support.gridgain.com/.

@@ -28,14 +28,14 @@ The tree consists of the following branches:
 - The Nodes branch contains node IDs. You can [execute a SQL query on a specific node](#executing-queries-on-a-specific-node).
 
 {% hint style="info" %}
-When you use the CREATE TABLE command to create a table, GridGain creates an [underlying cache](https://gridgain.com/docs/latest/developers-guide/data-modeling/data-modeling#key-value-cache-vs-sql-table). Therefore, when you create a table, a new cache appears in the tree.
+When you use the CREATE TABLE command to create a table, GridGain creates an underlying cache. Therefore, when you create a table, a new cache appears in the tree.
 {% endhint %}
 
 ## Executing Queries
 
 ### SQL Queries
 
-Control Center allows you to execute both DML and DDL statements supported by GridGain/Apache Ignite. See the [SQL Reference](https://gridgain.com/docs/latest/sql-reference/sql-reference-overview) guide for details.
+Control Center allows you to execute both DML and DDL statements supported by GridGain/Apache Ignite. See the SQL Reference guide for details.
 
 To execute a SQL statement, click the `+` icon in the queries tab bar and select **SQL query** from the dropdown list. Then, enter a statement in the query editor, and click **Execute**.
 
@@ -49,7 +49,7 @@ Control Center provides a number of additional options that are not required for
 
 #### Selecting a Schema
 
-You can set the schema for SQL statements in the **Default schema** field. The drop-down field contains a list of existing schemas. Control Center uses the schema that you selected in the **Default schema** field to resolve any unqualified reference that is included within any SQL statement that is executed on the tab. Refer to the [Understanding Schemas](https://gridgain.com/docs/latest/developers-guide/SQL/schemas) page for more information about schemas in GridGain.
+You can set the schema for SQL statements in the **Default schema** field. The drop-down field contains a list of existing schemas. Control Center uses the schema that you selected in the **Default schema** field to resolve any unqualified reference that is included within any SQL statement that is executed on the tab. Refer to the Understanding Schemas page for more information about schemas in GridGain.
 
 #### Working with Indexes
 
@@ -71,15 +71,15 @@ To drop an index, click on the context menu and select **Drop Index**.
 
 #### Non-Colocated Joins
 
-**Allow non-collocated joins**. Set this flag if you want to execute a join query that joins tables on a non-affinity key. If you don't set the flag, the results of the query might be incorrect. Refer to [this section](https://gridgain.com/docs/latest/developers-guide/SQL/distributed-joins#non-colocated-joins) for details.
+**Allow non-collocated joins**. Set this flag if you want to execute a join query that joins tables on a non-affinity key. If you don't set the flag, the results of the query might be incorrect. Refer to this section for details.
 
 #### Join Order
 
-**Enforce join order**. This option enforces GridGain to use the order of joins as the order is specified in the query, rather than to rely on the optimizer. The optimizer cannot always determine the best order. Refer to [this section](https://gridgain.com/docs/latest/perf-troubleshooting-guide/sql-tuning#enforcing-join-order) for details.
+**Enforce join order**. This option enforces GridGain to use the order of joins as the order is specified in the query, rather than to rely on the optimizer. The optimizer cannot always determine the best order. Refer to this section for details.
 
 #### Lazy Loading
 
-**Lazy result set**. You set this flag to lazily load the results of the query. Use of this flag can help to prevent OutOfMemory exceptions that may occur when the result set is too large. Refer to the [Lazy Result Loading](https://gridgain.com/docs/latest/perf-troubleshooting-guide/sql-tuning#lazy-loading) section for details.
+**Lazy result set**. You set this flag to lazily load the results of the query. Use of this flag can help to prevent OutOfMemory exceptions that may occur when the result set is too large. Refer to the Lazy Result Loading section for details.
 
 #### Executing Queries on a Specific Node
 
@@ -97,7 +97,7 @@ Distributed queries are executed in a map-reduce manner. The execution plan cons
 
 ### Querying System Views
 
-The **System views** branch of the **Search** tree lists the cluster's [system views](https://www.gridgain.com/docs/latest/administrators-guide/monitoring-metrics/system-views) that expose internal information about the cluster, such as nodes, caches, and node metrics.
+The **System views** branch of the **Search** tree lists the cluster's system views that expose internal information about the cluster, such as nodes, caches, and node metrics.
 
 ![System Views](../../../.gitbook/assets/cc-gg8-system-views-tree.png)
 
@@ -113,7 +113,7 @@ SELECT * FROM "SYS"."NODES" LIMIT 100
 
 ### Scan Queries
 
-Control Center allows you to execute [scan queries](https://www.gridgain.com/docs/latest/developers-guide/key-value-api/using-scan-queries) - simple search queries used to retrieve data from a cache in a distributed manner. When executed without parameters, a scan query returns all entries from the cache.
+Control Center allows you to execute scan queries - simple search queries used to retrieve data from a cache in a distributed manner. When executed without parameters, a scan query returns all entries from the cache.
 
 To execute a scan query, click the `+` icon in the **Queries list** tab bar and select **Scan query** from the dropdown list, then select a cache to query from the **Choose cache** list.
 
@@ -156,7 +156,7 @@ The **Queries log** tab displays all the tracked queries.
 
 | Column | Description |
 |---|---|
-| Type | - `SCAN`, a scan query<br>- `SQL_FIELDS`, an SQL query that is executed via JDBC/ODBC or via the [SqlFieldsQuery](https://gridgain.com/docs/latest/developers-guide/SQL/sql-api#querying) API |
+| Type | - `SCAN`, a scan query<br>- `SQL_FIELDS`, an SQL query that is executed via JDBC/ODBC or via the SqlFieldsQuery API |
 | Query | The query text. |
 | Initiator ID | The originator of the query. Can be a client host and port (e.g., `jdbc-thin:127.0.0.1:58016`), a user name, a job name, or any other information identifying who initiated the query. Displays `N/A` if not available. |
 | Reducer | The reducer node. |

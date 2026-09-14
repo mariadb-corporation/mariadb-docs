@@ -14,7 +14,7 @@ Control Center on-premise provides most of the benefits of Control Center SaaS i
 With Control Center on-premise running in your closed network you do not risk exposing your clusters internet-wide, and can provide as much or as little hardware as necessary for it to run. You also get access to [configuration parameters](admin-guide/configuration.md) and [command-line](admin-guide/command-line.md) options that can fine-tune Control Center to suit your specific needs.
 
 {% hint style="info" %}
-[Complimentary Developer Training - Control Center Essentials](https://www.gridgain.com/products/services/training/how-monitor-and-manage-apache-ignite-gridgain-control-center)
+Complimentary Developer Training - Control Center Essentials
 
 Join our upcoming live, instructor-led Control Center training session and learn how to troubleshoot performance issues and optimize your cluster with ease.
 {% endhint %}
@@ -52,7 +52,7 @@ Due to major API changes, support for versions 9.1.17 and later is only availabl
 
 ## Version Lifecycle
 
-Released Control Center versions are supported for at least 2 years after release date. Detailed information about versioning and lifecycle of GridGain Control Center is available on the [Versioning page](https://www.gridgain.com/versioning-and-support-lifecycle).
+Released Control Center versions are supported for at least 2 years after release date. Detailed information about versioning and lifecycle of GridGain Control Center is available on the Versioning page.
 
 ## Licensing
 
@@ -92,3 +92,39 @@ A standard procedure for connecting a cluster to Control Center involves the fol
 1. [Create a Control Center account and add a license](getting-started/adding-license.md)
 2. Connect a cluster:
    - [Connect a GridGain cluster](getting-started/connect/connect-gridgain-cluster.md)
+
+{% content-ref url="cluster-management.md" %}
+[cluster-management.md](cluster-management.md)
+{% endcontent-ref %}
+
+{% content-ref url="profile/" %}
+[profile](profile/)
+{% endcontent-ref %}
+
+{% content-ref url="getting-started/" %}
+[getting-started](getting-started/)
+{% endcontent-ref %}
+
+{% content-ref url="admin-guide/" %}
+[admin-guide](admin-guide/)
+{% endcontent-ref %}
+
+{% content-ref url="gg9/" %}
+[gg9](gg9/)
+{% endcontent-ref %}
+
+{% content-ref url="gg8/" %}
+[gg8](gg8/)
+{% endcontent-ref %}
+
+{% content-ref url="tips/" %}
+[tips](tips/)
+{% endcontent-ref %}
+
+{% content-ref url="faq.md" %}
+[faq.md](faq.md)
+{% endcontent-ref %}
+
+{% content-ref url="support.md" %}
+[support.md](support.md)
+{% endcontent-ref %}

@@ -172,9 +172,11 @@ Now that you have certificates, configure Control Center to use SSL:
     ```
   - Create secret for frontend:
 
+    {% code overflow="wrap" %}
     ```bash
     kubectl create secret generic certificate-frontend --from-file=frontend.nopass.key --from-file=frontend.crt
     ```
+    {% endcode %}
 - Set up Control Center backend with the following commands:
   - Apply backend configuration: `kubectl apply -f control-center-backend-configmap.yaml`
 
@@ -433,7 +435,7 @@ Get the token for authorization in Control Center from backend logs. You can get
 ======================================================================================
   No admin accounts found in Control Center.
   Use the following link to create the first admin:
-  https://localhost:3000/auth/signup?adminToken=efe88648-e2ca-4b0d-a50f-a0ed993f7859
+  https://localhost:3000/auth/signup?adminToken=11111111-1111-1111-1111-111111111111
 ======================================================================================
 ```
 
@@ -711,10 +713,10 @@ INFO:
 >>> +---------------------------------------------------------------------------------------------------+
 >>> | Open the link in a browser to monitor your cluster:
                 |
->>> | https://frontend.gridgain-control-center:8443/go/ead0eb2d-a5ef-40e2-9a2e-3b5d98c77ca9             |
+>>> | https://frontend.gridgain-control-center:8443/go/22222222-2222-2222-2222-222222222222             |
 >>> +---------------------------------------------------------------------------------------------------+
 >>> | If you are already using Control Center, you can add the cluster manually using a one-time token: |
->>> | ead0eb2d-a5ef-40e2-9a2e-3b5d98c77ca9                                                              |
+>>> | 22222222-2222-2222-2222-222222222222                                                              |
 >>> |                                                                                                   |
 >>> | NOTE: this token will expire in 5 minutes.                                                        |
 >>> | New token can be generated with the following command: management.(sh|bat) --token                |

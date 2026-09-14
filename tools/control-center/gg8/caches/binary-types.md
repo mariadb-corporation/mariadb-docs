@@ -13,7 +13,7 @@ Use this tab to manage binary types.
 GridGain prohibits changing a column type (e.g. `INT` to `VARCHAR` or even `LONG`) in both SQL tables and caches, due to the Binary Object format limitations. To work around this limitation, you can delete a binary type's metadata (and all the data of that type) using this tab.
 
 {% hint style="info" %}
-This functionality is also available via the [control.sh --meta commands](https://www.gridgain.com/docs/latest/administrators-guide/control-script).
+This functionality is also available via the control.sh --meta commands.
 {% endhint %}
 
 ## View Binary Types

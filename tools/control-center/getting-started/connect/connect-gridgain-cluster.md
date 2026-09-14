@@ -30,15 +30,17 @@ The connection between the cluster and Control Center is initiated from the clus
 
 For this to happen, you need to enable the `control-center-agent` module in the cluster. The module must be enabled on all server nodes. If you plan to connect client nodes to your cluster, enable the module on the client nodes as well. Otherwise, you will get the following exception on the client node:
 
+{% code overflow="wrap" %}
 ```bash
 java.lang.ClassNotFoundException: org.gridgain.control.agent.configuration.ControlCenterAgentConfiguration
 ```
+{% endcode %}
 
 Depending on how you deploy your cluster, you can enable the module in different ways:
 
 - If you start nodes from the distribution package by executing `ignite.sh`, copy the `{GRIDGAIN_HOME}/libs/optional/control-center-agent` folder to `{GRIDGAIN_HOME}/libs/`.
-- If you start nodes using Maven, see [this section](https://gridgain.com/docs/latest/developers-guide/setup#enabling-modules) for the information on how to enable modules.
-- If you use a GridGain Docker image, see [Enabling Modules](https://gridgain.com/docs/latest/installation-guide/installing-using-docker#enabling-modules).
+- If you start nodes using Maven, see this section for the information on how to enable modules.
+- If you use a GridGain Docker image, see Enabling Modules.
 
 When you start your cluster with the Control Center Agent enabled, you can use the `management.sh` script to enable and disable management functions for the cluster. The management script is located in the `bin` directory of the distribution package. Detailed descriptions are available in the [Command Line Options](../../admin-guide/command-line.md) page.
 
@@ -84,7 +86,7 @@ You can enable metrics in two ways:
 You can enable tracing capabilities and view traces in Control Center in two ways:
 
 1. The best way to configure tracing is to use the [Tracing](../../gg8/tracing/tracing.md#tracing) screen of the Control Center.
-2. To configure tracing programmatically, see the [Tracing](https://gridgain.com/docs/latest/administrators-guide/monitoring-metrics/tracing) page for more detail.
+2. To configure tracing programmatically, see the Tracing page for more detail.
 
 ### Control Center URI
 

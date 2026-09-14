@@ -20,7 +20,7 @@ To attach a GridGain 8 cluster, follow [this instruction](connect-gridgain-clust
 
 ## Start the Cluster
 
-1. Follow the [GridGain 9 documentation](https://www.gridgain.com/docs/gridgain9/latest/installation/installing-using-zip#starting-the-node) to start the cluster.
+1. Follow the GridGain 9 documentation to start the cluster.
 2. Copy aside the URL address of the cluster as you will need it to connect to the cluster from within Control Center.
 
 Cluster must have open ingress on REST and client ports (`10300` and `10800`, respectively, in the default configuration) for the Control Center backend to connect.
@@ -33,9 +33,11 @@ While Control Center needs access to the GridGain nodes, these nodes also need t
 
 If your cluster is secured (has SSL/TLS configured), and if it uses self-signed certificates, you need to pass the cluster's trust store parameters to Control Center. This can be done by setting up the `JVM_OPTS` environment variable:
 
+{% code overflow="wrap" %}
 ```bash
 JVM_OPTS=-Xms1g -Xmx2g -server -XX:MaxMetaspaceSize=256m -XX:MaxDirectMemorySize=1g -Djavax.net.ssl.trustStore=/some/local/path/truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit
 ```
+{% endcode %}
 
 ## Attach the Cluster to Control Center
 
@@ -57,7 +59,7 @@ To attach the cluster to Control Center:
    1. Expand the **Cluster credentials** section.
 
       ![Attach cluster - Cluster credentials](../../../.gitbook/assets/cc-getting-started-attach-cluster-3.png)
-   2. Enter **Username** and **Password** that correspond to the credentials of one of the users included in the [cluster configuration](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/config/cluster-config#security-configuration).
+   2. Enter **Username** and **Password** that correspond to the credentials of one of the users included in the cluster configuration.
 8. Click **Continue**.
 
    The dialog indicates that the cluster has been found.
@@ -71,11 +73,13 @@ Its status is `Uninitialized`. You must [initialize the cluster](../../gg9/dashb
 
 ## Attach the Cluster in Docker to Control Center in Docker
 
-1. Install the Cluster as it described in [GridGain 9 documentation](https://www.gridgain.com/docs/gridgain9/latest/installation/installing-using-zip). Make sure that GridGain 9 utilizes the same network Control Center does, and that the name for the Cluster is defined:
+1. Install the Cluster as it described in GridGain 9 documentation. Make sure that GridGain 9 utilizes the same network Control Center does, and that the name for the Cluster is defined:
 
+   {% code overflow="wrap" %}
    ```bash
    docker run -d -p 10300:10300 -p 10800:10800 -p 3344:3344 --network control-center --name gridgain  gridgain/gridgain9:latest
    ```
+   {% endcode %}
 2. Use the cluster name, e.g., `http://gridgain:10300`, to attach the cluster to Control Center.
 
 ## Attach the Cluster in Docker to Control Center Running locally or Vice Versa

@@ -67,7 +67,7 @@ Java thin client is a lightweight client that connects to the cluster via a stan
    }
    ```
 
-For more information on thin clients, please see [this article](https://www.gridgain.com/docs/latest/installation-guide/deployment-modes#thick-vs-thin-clients).
+For more information on thin clients, please see this article.
 
 ## .NET Thin Client
 
@@ -104,7 +104,7 @@ Prerequisites:
    }
    ```
 
-For more information on .NET Thin Client, please see [this article](https://www.gridgain.com/docs/latest/developers-guide/net-specific/net-configuration-options).
+For more information on .NET Thin Client, please see this article.
 
 ## Python Thin Client
 
@@ -136,7 +136,7 @@ pip install pygridgain
 
 The thin client can be installed from the zip archive available for download from the GridGain website:
 
-- Go to the website and download the [GridGain Python Thin Client](https://www.gridgain.com/tryfree#thinClients) archive.
+- Go to the website and download the GridGain Python Thin Client archive.
 - Unpack the archive and navigate to the root folder.
 - Install the client using the command below.
 
@@ -183,7 +183,7 @@ from pygridgain import Client
    print(result)
    ```
 
-For more information on Python Thin Client, please see [this article](https://www.gridgain.com/docs/latest/developers-guide/thin-clients/python/1.4.0/python-thin-client).
+For more information on Python Thin Client, please see this article.
 
 ## C++ Thin Client
 
@@ -238,7 +238,7 @@ void main()
 }
 ```
 
-For additional information on using C++ thin client, read the [extended article](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/thin-clients/cpp-thin-client) in GridGain documentation.
+For additional information on using C++ thin client, read the extended article in GridGain documentation.
 
 ## Node.js Thin Client
 
@@ -279,7 +279,7 @@ Prerequisites: Node.js version 8 or higher.
    }
    ```
 
-For more information on Node.js Thin Client, please see [this article](https://www.gridgain.com/docs/latest/developers-guide/thin-clients/nodejs-thin-client).
+For more information on Node.js Thin Client, please see this article.
 
 ## JDBC
 
@@ -307,7 +307,7 @@ GridGain is shipped with JDBC drivers that allow processing of distributed data 
    }
    ```
 
-For more information on JDBC driver, please see [this article](https://www.gridgain.com/docs/latest/developers-guide/SQL/JDBC/jdbc-driver).
+For more information on JDBC driver, please see this article.
 
 ## ODBC
 
@@ -315,7 +315,7 @@ GridGain includes an ODBC driver that allows you both to select and to modify da
 
 ### Installation
 
-GridGain comes with an ODBC driver. If you use Windows, you can install it immediately. On Linux you will need to build it first. You can find installation and build instructions in [GridGain documentation](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/SQL/ODBC/odbc-driver#building-odbc-driver).
+GridGain comes with an ODBC driver. If you use Windows, you can install it immediately. On Linux you will need to build it first. You can find installation and build instructions in GridGain documentation.
 
 ### Connecting to Cluster
 
@@ -434,7 +434,7 @@ To connect to cluster, use the following connection template. Below we will walk
   }
   ```
 
-You can find more information on working with ODBC driver in [GridGain Documentation](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/SQL/ODBC/querying-modifying-data).
+You can find more information on working with ODBC driver in GridGain Documentation.
 
 ## Java Thick Client
 
@@ -503,11 +503,15 @@ Run the following to test your connection:
 
 1. Replace the `{login}` and `{password}` with your cluster credentials. The response will contain a `sessionToken`.
 
+   {% code overflow="wrap" %}
    ```bash
    curl "https://${connectionInfo.urls[0]}:8080/ignite?cmd=authenticate&ignite.login={login}&ignite.password={password}"
    ```
+   {% endcode %}
 2. Use the `sessionToken` in subsequent requests to avoid authenticating every time.
 
+   {% code overflow="wrap" %}
    ```bash
    curl "https://${connectionInfo.urls[0]}:8080/ignite?cmd=currentState&sessionToken={sessionToken}"
    ```
+   {% endcode %}

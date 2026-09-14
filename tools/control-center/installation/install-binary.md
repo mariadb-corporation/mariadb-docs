@@ -8,7 +8,7 @@ description: >-
 
 ## Downloading and Installing the Binary Package
 
-1. Obtain the Control Center binaries and license from our [Sales](https://www.gridgain.com/contact).
+1. Obtain the Control Center binaries and license from our Sales.
 2. Unpack the archive into a directory of your choice (“installation directory”).
 3. Once you have unpacked the package, launch Control Center by running `control-center.sh` (or `control-center.bat` for Windows) in the installation directory.
 
@@ -95,9 +95,11 @@ To configure SSL for the on-premise version of GridGain Control Center:
    ```
 5. If you have used a self-signed certificate in Control Center, make sure that this certificate is present in truststore used by the Control Center agent at the cluster side. You can import the self-signed certificate into separate truststore file and expose it to the Control Center:
 
+   {% code overflow="wrap" %}
    ```bash
    ${GG_ROOT}/bin/management.sh --uri https://localhost:3000 --management-truststore /path/to/truststore.jks --management-truststore-password changeit
    ```
+   {% endcode %}
 
 ### Configuring SSL Without Management Script
 

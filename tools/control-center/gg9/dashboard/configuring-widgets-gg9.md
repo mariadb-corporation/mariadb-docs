@@ -210,7 +210,7 @@ The widget displays as you have defined it and starts updating at the specified 
 
 #### Compute System View
 
-The [Compute system view](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/metrics/system-views#compute_tasks) lets you change the priority of a task or cancel it.
+The Compute system view lets you change the priority of a task or cancel it.
 
 ![Compute View](../../../.gitbook/assets/cc-gg9-compute_view_gg9.png)
 
@@ -222,7 +222,7 @@ You can also cancel tasks that are in the `QUEUED` or `EXECUTING` status.
 
 #### Transactions System View
 
-Control Center supports terminating transactions on the cluster through the [Transactions](https://www.gridgain.com/docs/gridgain9/9.1.9/administrators-guide/metrics/system-views#transactions) *system view* widget.
+Control Center supports terminating transactions on the cluster through the Transactions *system view* widget.
 
 ![TX View](../../../.gitbook/assets/cc-gg9-tx_view_actions_gg9.png)
 

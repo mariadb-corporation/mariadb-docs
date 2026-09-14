@@ -12,7 +12,7 @@ The users of GridGain Ultimate edition can manage snapshots via the **Snapshots*
 You can also create and manage [snapshot schedules](snapshot-schedules.md), as well as view [history of snapshot operations](operation-history.md).
 {% endhint %}
 
-In addition to the snapshots created in Control Center, the list of snapshots contains the snapshots that were created by using programming APIs or the snapshot management tool. See [Snapshots and Recovery](https://gridgain.com/docs/latest/administrators-guide/snapshots/snapshots-and-recovery) or our video guide.
+In addition to the snapshots created in Control Center, the list of snapshots contains the snapshots that were created by using programming APIs or the snapshot management tool. See Snapshots and Recovery or our video guide.
 
 ![Snapshots Screen](../../../.gitbook/assets/cc-gg8-snapshots.png)
 
@@ -35,7 +35,7 @@ To add columns to the table or remove them from the table, select the **Table Co
 ## Creating Snapshots
 
 {% hint style="info" %}
-Before you can create snapshots, snapshot functionality must be enabled. See [Enabling Snapshots](https://gridgain.com/docs/latest/administrators-guide/snapshots/full-incremental-snapshots#enabling-snapshots).
+Before you can create snapshots, snapshot functionality must be enabled. See Enabling Snapshots.
 {% endhint %}
 
 To create a snapshot:
@@ -60,7 +60,7 @@ To create a snapshot:
    2. From the **Caches** and **Cache groups** drop-down lists, select the caches and groups to be included or excluded (depending on the option you have selected in (a) above).
 6. Click **Create**.
 
-A snapshot is created in each node's snapshot folder. Each node saves its part of the data. The snapshot folder is specified in the [node configuration](https://gridgain.com/docs/latest/administrators-guide/snapshots/full-incremental-snapshots#enabling-snapshots).
+A snapshot is created in each node's snapshot folder. Each node saves its part of the data. The snapshot folder is specified in the node configuration.
 
 ## Restoring Snapshots
 

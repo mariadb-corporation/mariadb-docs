@@ -92,7 +92,7 @@ To control access to cluster actions, both the OpenID provider configuration and
 The cluster resolves this attribute through the UserInfo endpoint only. The ID token fallback described in [Role Attribute Sources](#role-attribute-sources) applies to the Control Center role attribute and not to cluster permissions, so the cluster role attribute must be present in the UserInfo response of your OpenID provider.
 {% endhint %}
 
-To do so, you need to configure the `permissionsJson` scope, which defines the role name and its corresponding [permissions](../gg8/auth/authorization-permissions.md) for the user, and the `claimName` attribute in the GridGain 8 cluster [configuration](https://www.gridgain.com/docs/latest/administrators-guide/security/authentication#control-center-openid-authentication) file.
+To do so, you need to configure the `permissionsJson` scope, which defines the role name and its corresponding [permissions](../gg8/auth/authorization-permissions.md) for the user, and the `claimName` attribute in the GridGain 8 cluster configuration file.
 
 You can configure the `claimName` attribute in two ways:
 
@@ -203,9 +203,11 @@ Possible reasons for the above failure are:
 - Firewall blocks the outgoing requests - verify firewall settings and adjust them as required.
 - Connectivity issues between Control Center and the remote OIDC provider - verify network settings and adjust them as required. You can use the cURL utility to test connectivity between Control Center and the external OIDC provider:
 
+  {% code overflow="wrap" %}
   ```bash
   curl -X POST -u $CLIENT_ID:$CLIENT_SECRET --data-urlencode "grant_type=authorization_code" --data-urlencode "code=ignored" $OIDC_PROIVDER_TOKEN_URL
   ```
+  {% endcode %}
 
   You should get and error response HTTP 4xx with content similar to:
 

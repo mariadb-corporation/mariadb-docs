@@ -6,7 +6,7 @@ description: >-
 
 # DR Sender Tab for GridGain 8 Clusters
 
-The **DR sender** tab (dashboard) displays statistics that pertain to the sender nodes participating in [Data Center Replication (DR)](https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction).
+The **DR sender** tab (dashboard) displays statistics that pertain to the sender nodes participating in Data Center Replication (DR).
 
 ![](../../../../.gitbook/assets/cc-gg8-dr-sender-1.png)
 

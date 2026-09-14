@@ -128,9 +128,9 @@ Expand any table row to configure GridGain-specific storage parameters for that 
 
 | Parameter | Description |
 |---|---|
-| Primary zone | The main [distribution zone](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/storage/distribution-zones#default-zone) for the table. Defines how data partitions are distributed across cluster nodes. |
-| Secondary zone | An optional backup [zone](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/storage/distribution-zones#using-secondary-zones) for high availability. |
-| Storage profile | Defines the storage [type](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/storage/engines/storage-engines) and performance characteristics (for example, in-memory or persistent). |
+| Primary zone | The main distribution zone for the table. Defines how data partitions are distributed across cluster nodes. |
+| Secondary zone | An optional backup zone for high availability. |
+| Storage profile | Defines the storage type and performance characteristics (for example, in-memory or persistent). |
 | Primary key | The column(s) used as the primary key in GridGain 9. |
 | Colocation key | The column(s) used to group related records on the same nodes, enabling efficient distributed joins. |
 

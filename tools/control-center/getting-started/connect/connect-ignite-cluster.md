@@ -20,9 +20,11 @@ The following diagram illustrates how Control Center interacts with the cluster 
 
 The connection between the cluster and Control Center is initiated from the cluster side. For this to happen, you need to enable the `control-center-agent` module in the cluster. The module must be enabled on all server nodes. If you plan to connect client nodes to your cluster, enable the module on the client nodes as well. Otherwise, you will get the following exception on the client node:
 
+{% code overflow="wrap" %}
 ```bash
 java.lang.ClassNotFoundException: org.gridgain.control.agent.configuration.ControlCenterAgentConfiguration
 ```
+{% endcode %}
 
 {% hint style="info" %}
 Cluster must have open egress on `TCP:8080`. Control Center must have open ingress for `TCP:8080`. If the cluster is SSL-enabled, change `8080` to `443`.
@@ -30,7 +32,7 @@ Cluster must have open egress on `TCP:8080`. Control Center must have open ingre
 
 ### Binary Package
 
-1. [Contact us](https://www.gridgain.com/contact) to obtain the `gridgain-control-center-on-premise-[version]` archive.
+1. Contact us to obtain the `gridgain-control-center-on-premise-[version]` archive.
 2. Unpack the archive into the folder with the Apache Ignite installation.
 
    The archive contains the following folders:
@@ -69,7 +71,7 @@ If you use Maven to start your nodes, add the following dependency to your `pom.
 ```
 
 {% hint style="warning" %}
-Note that the Control Center Agent artifact version depends on the Apache Ignite version. Please refer to the [Download page](https://www.gridgain.com/tryfree#controlcenteragent) that maps Apache Ignite and Control Center Agent versions.
+Note that the Control Center Agent artifact version depends on the Apache Ignite version. Please refer to the Download page that maps Apache Ignite and Control Center Agent versions.
 {% endhint %}
 
 ## Attaching the Cluster to Control Center

@@ -59,7 +59,7 @@ The following information is available in the **Nodes** widget:
 | Host | The name of the host where the node is running. |
 | Online | Whether the node is online or offline:<br>- "Online" — the node is up and connected to the cluster.<br>- "Offline" — the node is registered in the baseline topology but is either shut down or not connected to the cluster. |
 | Type | The type of node: Coordinator, Server, or Client. |
-| Version | The version of GridGain/Apache Ignite that was used to launch the node. If you are using the [Rolling Upgrades](https://gridgain.com/docs/latest/installation-guide/rolling-upgrades) feature that is available in GridGain Enterprise Edition, one cluster might have nodes with different versions. |
+| Version | The version of GridGain/Apache Ignite that was used to launch the node. If you are using the Rolling Upgrades feature that is available in GridGain Enterprise Edition, one cluster might have nodes with different versions. |
 | IP | The IP address of the machine where the node is running. |
 | JVM PID | The PID of the JVM. |
 | Mac | The MAC address of the node. |
@@ -136,9 +136,9 @@ The **Heat Map** widget displays a selected metric in temperature-related colors
 
 ### Rebalance Widget
 
-The Rebalance widget displays the progress of the [rebalancing process](https://gridgain.com/docs/latest/developers-guide/data-rebalancing). When rebalancing is in progress, the widget displays the percentage of data that has been rebalanced.
+The Rebalance widget displays the progress of the rebalancing process. When rebalancing is in progress, the widget displays the percentage of data that has been rebalanced.
 
-You can use the rebalance widget to monitor [Rolling Upgrades](https://gridgain.com/docs/latest/installation-guide/rolling-upgrades). To display the versions of the nodes, click the widget configuration icon `⋮` and select **Show versions**.
+You can use the rebalance widget to monitor Rolling Upgrades. To display the versions of the nodes, click the widget configuration icon `⋮` and select **Show versions**.
 
 ![Rebalance widget](../../../.gitbook/assets/cc-gg8-rebalance_widget.png)
 

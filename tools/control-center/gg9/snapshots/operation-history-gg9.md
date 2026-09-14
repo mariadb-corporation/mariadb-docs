@@ -9,7 +9,7 @@ description: >-
 The users of GridGain Ultimate edition can view the history of snapshot operations in the **Operation History** tab of the **Snapshots** screen.
 
 {% hint style="info" %}
-For information about snapshots in GridGain 9, see [Snapshots and Recovery](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/snapshots/snapshots-and-recovery).
+For information about snapshots in GridGain 9, see Snapshots and Recovery.
 {% endhint %}
 
 ![Operation History](../../../.gitbook/assets/cc-gg9-operation-history.png)

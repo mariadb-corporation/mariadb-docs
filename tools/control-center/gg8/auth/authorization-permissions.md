@@ -6,7 +6,7 @@ description: >-
 
 # Authorization and Permissions
 
-You need an authorization to access the [secured GridGain clusters](https://www.gridgain.com/docs/latest/administrators-guide/security/authorization-permissions) via Control Center.
+You need an authorization to access the secured GridGain clusters via Control Center.
 
 When you attempt to initiate a permission-protected action on a secured GridGain cluster, you are prompted to enter the cluster-specific user name and password.
 

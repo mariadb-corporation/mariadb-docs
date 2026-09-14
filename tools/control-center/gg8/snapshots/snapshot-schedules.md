@@ -9,7 +9,7 @@ description: >-
 The users of GridGain Ultimate edition can create and manage snapshot schedules in the **Schedules** tab of the **Snapshots** screen.
 
 {% hint style="info" %}
-For information about snapshots in GridGain, see [Snapshots and Recovery](https://gridgain.com/docs/latest/administrators-guide/snapshots/snapshots-and-recovery).
+For information about snapshots in GridGain, see Snapshots and Recovery.
 {% endhint %}
 
 ![Snapshots Schedules](../../../.gitbook/assets/cc-gg8-schedules.png)

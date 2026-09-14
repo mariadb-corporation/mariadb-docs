@@ -15,3 +15,15 @@ Depending on configuration, [secured clusters](../auth/authorization-permissions
 {% content-ref url="my-cluster.md" %}
 [my-cluster.md](my-cluster.md)
 {% endcontent-ref %}
+
+{% content-ref url="connect.md" %}
+[connect.md](connect.md)
+{% endcontent-ref %}
+
+{% content-ref url="dashboard-overview-gg9.md" %}
+[dashboard-overview-gg9.md](dashboard-overview-gg9.md)
+{% endcontent-ref %}
+
+{% content-ref url="configuring-widgets-gg9.md" %}
+[configuring-widgets-gg9.md](configuring-widgets-gg9.md)
+{% endcontent-ref %}

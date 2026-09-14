@@ -20,7 +20,7 @@ Dashboards created for GridGain 9 clusters are different from the ones for GridG
 
 To be monitored, GridGain 9 clusters need to export metrics. The default cluster configuration does not include the required metric exporter. [Initializing your cluster via the Control Center UI](my-cluster.md#initializing-the-cluster) adds the necessary exporter automatically. If your cluster has been initialized via the CLI or REST API, you need to enable the metric exporter manually, by clicking the **Update configuration** button in any of the initially empty widgets.
 
-In some environments, the way Control Center auto-configures the exporter may not work. To rectify that, use the [GridGain CLI](https://www.gridgain.com/docs/gridgain9/latest/ignite-cli-tool) to modify the cluster configuration as follows:
+In some environments, the way Control Center auto-configures the exporter may not work. To rectify that, use the GridGain CLI to modify the cluster configuration as follows:
 
 ```bash
 cluster config update "ignite.metrics.exporters=[

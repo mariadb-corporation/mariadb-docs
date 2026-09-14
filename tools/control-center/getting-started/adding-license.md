@@ -6,7 +6,7 @@ description: >-
 
 # Install Control Center and Add License
 
-When you start working with Control Center, our [Sales Team](https://www.gridgain.com/contact) will provide you with a copy of the latest release of Control Center. To start working with it:
+When you start working with Control Center, our Sales Team will provide you with a copy of the latest release of Control Center. To start working with it:
 
 1. Unpack the archive into a directory of your choice.
 2. Launch Control Center by running `control-center.sh` (or `control-center.bat` for Windows) in the installation directory.

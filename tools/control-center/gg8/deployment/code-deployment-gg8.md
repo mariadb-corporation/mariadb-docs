@@ -6,12 +6,12 @@ description: >-
 
 # Code Deployment with GridGain 8
 
-You may want to deploy compute tasks to your GridGain nodes. For example, you often need a large number of dependencies to complete [distributed computing](https://www.gridgain.com/docs/latest/developers-guide/distributed-computing/distributed-computing) tasks.
+You may want to deploy compute tasks to your GridGain nodes. For example, you often need a large number of dependencies to complete distributed computing tasks.
 
 With GridGain Control Center, you can quickly deliver all dependencies you need to your cluster by using **Deployment units**. Each deployment unit contains a list of dependencies that is passed to the cluster and stored in the metastorage. When you deploy a version, all nodes in the cluster receive the list of dependencies and download them from the specified repository or URL.
 
 {% hint style="info" %}
-For code deployment to work on attached clusters, provide `ADMIN_OPS` permissions to the user who deploys the code. For details, see [Authorization and Permissions](https://www.gridgain.com/docs/latest/administrators-guide/security/authorization-permissions).
+For code deployment to work on attached clusters, provide `ADMIN_OPS` permissions to the user who deploys the code. For details, see Authorization and Permissions.
 {% endhint %}
 
 {% embed url="https://www.youtube.com/watch?v=8hS1ux1d3Ck" %}

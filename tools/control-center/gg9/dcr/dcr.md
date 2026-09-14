@@ -6,7 +6,7 @@ description: >-
 
 # Data Center Replication for GridGain 9 Clusters
 
-Control Center supports data replication between clusters. You can configure it using the [CLI](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/data-center-replication/configuring-replication) or directly via the Data Center Replication screen in Control Center.
+Control Center supports data replication between clusters. You can configure it using the CLI or directly via the Data Center Replication screen in Control Center.
 
 {% hint style="info" %}
 To use [attached](../../getting-started/connect/connect-gridgain9-cluster.md) clusters as a source or target for replication, your GridGain 9 license must include the Data Center Replication (DCR) feature. Managed clusters already include this feature, so no action is required.
@@ -51,7 +51,7 @@ Use the **Filters** panel to search and filter replications by name, cluster or 
 To create a replication, start by specifying the source cluster and one or more source node addresses within that cluster. Then select the target cluster and its nodes.
 
 {% hint style="info" %}
-If the source cluster is a Control Center cluster, you must enable [SSL](https://gridgain.com/docs/gridgain9/latest/administrators-guide/security/ssl-tls) connection. You can either provide a custom SSL keystore and truststore or leave these fields blank to use the default SSL keystore and truststore. Enable user [authorization](https://gridgain.com/docs/gridgain9/latest/administrators-guide/security/authentication#user-authorization) and provide the credentials you set when creating the cluster.
+If the source cluster is a Control Center cluster, you must enable SSL connection. You can either provide a custom SSL keystore and truststore or leave these fields blank to use the default SSL keystore and truststore. Enable user authorization and provide the credentials you set when creating the cluster.
 {% endhint %}
 
 ![Create replication](../../../.gitbook/assets/cc-gg9-dcr_gg9_create.png)
@@ -70,7 +70,7 @@ Once the setup and validation are complete, the status will change to `Replicati
 
 ### Managing Replications
 
-You can stop replication for all tables or select individual tables to pause. Optionally, you can specify a flush point to perform [replication](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/data-center-replication/configuring-replication#one-time-replication) up to a certain timestamp. The flush point guarantees that all data up to that timestamp is fully replicated, regardless of whether it is in the past or future.
+You can stop replication for all tables or select individual tables to pause. Optionally, you can specify a flush point to perform replication up to a certain timestamp. The flush point guarantees that all data up to that timestamp is fully replicated, regardless of whether it is in the past or future.
 
 ![Stop or resume replication](../../../.gitbook/assets/cc-gg9-dcr_gg9_stop.png)
 

@@ -6,7 +6,7 @@ description: >-
 
 # DR Receiver Tab for GridGain 8 Clusters
 
-The **DR receiver** tab (dashboard) displays statistics that pertain to the receiver nodes participating in [Data Center Replication (DR)](https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction).
+The **DR receiver** tab (dashboard) displays statistics that pertain to the receiver nodes participating in Data Center Replication (DR).
 
 ![](../../../../.gitbook/assets/cc-gg8-dr-receiver-1.png)
 
