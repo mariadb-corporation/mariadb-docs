@@ -24,44 +24,44 @@ Everything here points at a real page that answers a real question, not at anoth
 
 ## Start With a Product
 
-{% content-ref url="start-with-a-product/community-server.md" %}
-[Server](start-with-a-product/community-server.md)
+{% content-ref url="readme/community-server.md" %}
+[community-server.md](readme/community-server.md)
 {% endcontent-ref %}
 
-{% content-ref url="start-with-a-product/enterprise-platform.md" %}
-[MariaDB Platform](start-with-a-product/enterprise-platform.md)
+{% content-ref url="readme/enterprise-platform.md" %}
+[enterprise-platform.md](readme/enterprise-platform.md)
 {% endcontent-ref %}
 
-{% content-ref url="start-with-a-product/cloud.md" %}
-[Cloud](start-with-a-product/cloud.md)
+{% content-ref url="readme/cloud.md" %}
+[cloud.md](readme/cloud.md)
 {% endcontent-ref %}
 
 ## Explore by Task
 
-{% content-ref url="explore-by-task/which-product-do-i-need.md" %}
-[Which product do I need?](explore-by-task/which-product-do-i-need.md)
+{% content-ref url="which-product-do-i-need.md" %}
+[which-product-do-i-need.md](which-product-do-i-need.md)
 {% endcontent-ref %}
 
-{% content-ref url="explore-by-task/development.md" %}
-[Development](explore-by-task/development.md)
+{% content-ref url="development.md" %}
+[development.md](development.md)
 {% endcontent-ref %}
 
-{% content-ref url="explore-by-task/deployment.md" %}
-[Deployment](explore-by-task/deployment.md)
+{% content-ref url="deployment.md" %}
+[deployment.md](deployment.md)
 {% endcontent-ref %}
 
-{% content-ref url="explore-by-task/migration.md" %}
-[Migration](explore-by-task/migration.md)
+{% content-ref url="migration.md" %}
+[migration.md](migration.md)
 {% endcontent-ref %}
 
-{% content-ref url="explore-by-task/operations.md" %}
-[Operations](explore-by-task/operations.md)
+{% content-ref url="operations.md" %}
+[operations.md](operations.md)
 {% endcontent-ref %}
 
-{% content-ref url="explore-by-task/analytics.md" %}
-[Analytics](explore-by-task/analytics.md)
+{% content-ref url="analytics.md" %}
+[analytics.md](analytics.md)
 {% endcontent-ref %}
 
-{% content-ref url="explore-by-task/ai.md" %}
-[AI](explore-by-task/ai.md)
+{% content-ref url="ai.md" %}
+[ai.md](ai.md)
 {% endcontent-ref %}
