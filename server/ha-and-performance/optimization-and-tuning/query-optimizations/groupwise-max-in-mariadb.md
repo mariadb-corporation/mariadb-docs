@@ -345,7 +345,6 @@ I did not include the technique(s) using GROUP\_CONCAT. They are useful in some 
 
 * [Jan Kneschke's blog from 2007](https://jan.kneschke.de/projects/mysql/groupwise-max)
 * [StackOverflow discussion of 'Uncorrelated'](https://stackoverflow.com/questions/14770671/mysql-order-by-before-group-by)
-* Other references: [Inner ORDER BY thrown away](https://mariadb.com/kb/en/mariadb/group-by-trick-has-been-optimized-away/)
 * Adding a large LIMIT to a subquery may make things work. [Why ORDER BY in subquery is ignored](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/developer-questions/why-is-order-by-in-a-from-subquery-ignored)
 * [StackOverflow thread](https://stackoverflow.com/questions/36485072/select-with-order-and-group-by-in-maria-dbmysql)
 * [row\_number(), rank(), dense\_rank()](https://kennethxu.blogspot.com/2016/04/analytical-function-in-mysql-rownumber.html)

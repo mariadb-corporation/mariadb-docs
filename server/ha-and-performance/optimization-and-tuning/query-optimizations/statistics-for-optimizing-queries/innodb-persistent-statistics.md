@@ -10,7 +10,7 @@ There are a number of variables that control persistent statistics:
 
 These settings can be overwritten on a per-table basis by use of the [STATS\_PERSISTENT](../../../../reference/sql-statements/data-definition/create/create-table.md#stats_persistent), [STATS\_AUTO\_RECALC](../../../../reference/sql-statements/data-definition/create/create-table.md#stats_auto_recalc) and [STATS\_SAMPLE\_PAGES](../../../../reference/sql-statements/data-definition/create/create-table.md#stats_sample_pages) clauses in a [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) statement.
 
-Details of the statistics are stored in two system tables in the [mysql database](https://mariadb.com/kb/en/the-mysql-database-table):
+Details of the statistics are stored in two system tables in the [mysql database](../../../../reference/system-tables/the-mysql-database-tables/):
 
 * [innodb\_table\_stats](../../../../reference/system-tables/the-mysql-database-tables/mysql-innodb_table_stats.md)
 * [innodb\_index\_stats](../../../../reference/system-tables/the-mysql-database-tables/mysql-innodb_index_stats.md)
@@ -19,7 +19,7 @@ The [ANALYZE TABLE](../../../../reference/sql-statements/table-statements/analyz
 
 The [RENAME TABLE](../../../../reference/sql-statements/data-definition/rename-table.md) statement triggers a reload of the statistics.
 
-**MariaDB starting with** [**10.11.12**](https://mariadb.com/kb/en/mariadb-101112-release-notes/)
+**MariaDB starting with** [**10.11.12**]({release-notes}/community-server/10.11/10.11.12)
 
 Prior to [MariaDB 10.11.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.12), [MariaDB 11.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.6) and [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.2), [FLUSH TABLES](../../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) also caused InnoDB statistics to be reloaded. From [MariaDB 10.11.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.12), [MariaDB 11.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.6) and [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.2), this is no longer the case.
 
