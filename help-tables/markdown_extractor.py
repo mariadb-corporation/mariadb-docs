@@ -565,7 +565,7 @@ def _is_stub(description: str) -> bool:
 
 
 def process_batch(file_list: list, start_id: int = 0) -> list:
-    """Process all files and return (topics, failed) lists.
+    """Process all files and return (topics, failed, duplicates) lists.
 
     Deduplication strategy:
     - Topic names are case-insensitive (MariaDB CHAR columns are CI by default).
@@ -575,11 +575,20 @@ def process_batch(file_list: list, start_id: int = 0) -> list:
       actual reference page.
     - If neither or both are stubs, the one seen first (alphabetically earlier
       path) wins — consistent with sorted file discovery order.
+
+    'failed' holds only genuine parse failures (process_single_file() returned
+    None — no H1 title, or no meaningful content). 'duplicates' holds name
+    collisions: a file that parsed fine but lost to another file producing the
+    same topic name. These are a different event from a parse failure — the
+    page is not broken, it's discarded — so they're reported separately with
+    both paths, rather than being folded into 'failed' where they'd look like
+    155 broken pages (see DOCS-6644).
     """
     # First pass: collect all results keyed by lower-case topic name.
     # We store (result, path) so we can compare and replace.
     best: dict[str, tuple[dict, str]] = {}
     failed = []
+    duplicates = []  # (winner_path, loser_path, topic_name)
 
     for path in file_list:
         # Use a placeholder ID of 0 for now; IDs are assigned in the second pass.
@@ -599,11 +608,11 @@ def process_batch(file_list: list, start_id: int = 0) -> list:
 
             if existing_is_stub and not new_is_stub:
                 # Replace: current winner is a stub; the newcomer is real content
-                failed.append(existing_path)
+                duplicates.append((path, existing_path, result['name']))
                 best[name_lower] = (result, path)
             else:
                 # Keep the existing winner (first alphabetically, or both stubs)
-                failed.append(path)
+                duplicates.append((existing_path, path, result['name']))
 
     # Second pass: assign sequential IDs and rebuild SQL with correct IDs.
     topics = []
@@ -618,8 +627,9 @@ def process_batch(file_list: list, start_id: int = 0) -> list:
 
     print(f"Processed: {len(topics)} files")
     print(f"Failed: {len(failed)} files")
+    print(f"Duplicate-name losers: {len(duplicates)} files")
 
-    return topics, failed
+    return topics, failed, duplicates
 
 
 def generate_category_inserts():
@@ -730,13 +740,15 @@ def main():
     print(f"Found {len(files)} files to process")
     
     # Extract content and build topic dicts (with deduplication)
-    topics, failed = process_batch(files)
-    
+    topics, failed, duplicates = process_batch(files)
+
     # Write fill_help_tables.sql next to this script in help-tables/
     output_file = str(SCRIPT_DIR / "fill_help_tables.sql")
     write_output(topics, output_file)
-    
-    # Write failed/skipped file list for post-run review
+
+    # Write genuine parse failures for post-run review (no H1, or no content —
+    # a real defect in the page). Duplicate-name losers are NOT included here;
+    # see duplicate_topics.txt below.
     if failed:
         failed_file = str(SCRIPT_DIR / "failed_files.txt")
         with open(failed_file, 'w') as f:
@@ -755,6 +767,16 @@ def main():
             for rel in unlisted:
                 f.write(rel + "\n")
         print(f"Unlisted pages written to {unlisted_file}")
+
+    # Write duplicate-name collisions for post-run review: a page that parsed
+    # fine but lost its topic name to another page. Not a failure — a name
+    # collision that silently drops help-table coverage for the loser.
+    if duplicates:
+        duplicates_file = str(SCRIPT_DIR / "duplicate_topics.txt")
+        with open(duplicates_file, 'w') as f:
+            for winner_path, loser_path, name in duplicates:
+                f.write(f"{name}\twinner={winner_path}\tloser={loser_path}\n")
+        print(f"Duplicate-name collisions written to {duplicates_file}")
 
 
 if __name__ == "__main__":
