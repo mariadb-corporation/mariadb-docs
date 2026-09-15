@@ -89,7 +89,7 @@ END;
 Dynamic SQL in stored functions is available from MariaDB 13.2.1.
 {% endhint %}
 
-The dynamic SQL statements — `PREPARE`, [EXECUTE](execute-statement.md), [DEALLOCATE PREPARE](deallocate-drop-prepare.md) and [EXECUTE IMMEDIATE](execute-immediate.md) — have always been rejected inside a [stored function](../../../server-usage/stored-routines/stored-functions/) or a [trigger](../../../server-usage/triggers-events/triggers/). Before MariaDB 13.2.1 the rejection happened in the parser, so the [CREATE FUNCTION](../data-definition/create/create-function.md) itself failed.
+The dynamic SQL statements — `PREPARE`, [EXECUTE](execute-statement.md), [DEALLOCATE PREPARE](deallocate-drop-prepare.md), [EXECUTE IMMEDIATE](execute-immediate.md), and [`OPEN ... FOR PREPARE`](../programmatic-compound-statements/programmatic-compound-statements-cursors/open.md#opening-a-cursor-over-a-prepared-statement) (opening a cursor over a prepared statement) — have always been rejected inside a [stored function](../../../server-usage/stored-routines/stored-functions/) or a [trigger](../../../server-usage/triggers-events/triggers/). Before MariaDB 13.2.1 the rejection happened in the parser, so the [CREATE FUNCTION](../data-definition/create/create-function.md) itself failed.
 
 From MariaDB 13.2.1 the parser accepts dynamic SQL in a function body, and the restriction is applied when the function is called instead. Triggers are unchanged: dynamic SQL in a trigger body is still rejected at [CREATE TRIGGER](../../../server-usage/triggers-events/triggers/create-trigger.md) time.
 
@@ -123,6 +123,42 @@ ERROR 1336 (0A000): Dynamic SQL is not allowed in stored function or trigger
 The rejected contexts include the select list, a `WHERE` clause, `SELECT ... INTO` (whether the target is a user variable or a routine variable), an assignment to a user variable or a system variable, an argument of a [CALL](../stored-routine-statements/call.md), an `IF` or `WHILE` condition, and a `RETURN` expression.
 
 Only a bare function call is recognized. Using the function inside a larger expression, as in `SET v= f1()+0`, is not an assignment right-hand side and is rejected.
+
+#### Opening a Cursor Over a Prepared Statement
+
+`OPEN ... FOR PREPARE` sets the same internal flag as `PREPARE` and `EXECUTE IMMEDIATE`, so a function that opens a [cursor over a prepared statement](../programmatic-compound-statements/programmatic-compound-statements-cursors/open.md#opening-a-cursor-over-a-prepared-statement) is subject to the same rule — permitted only when the function call is itself an assignment right-hand side, whether the statement is prepared inside the function or beforehand in the calling scope:
+
+```sql
+CREATE TABLE t1 (a INT);
+INSERT INTO t1 VALUES (10);
+PREPARE stmt FROM 'SELECT MAX(a) FROM t1';
+
+DELIMITER $$
+CREATE FUNCTION f1() RETURNS INT
+BEGIN
+  DECLARE c0 SYS_REFCURSOR;
+  DECLARE v0 INT;
+  OPEN c0 FOR PREPARE stmt;
+  FETCH c0 INTO v0;
+  CLOSE c0;
+  RETURN v0;
+END;
+$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE p1()
+BEGIN
+  DECLARE n INT;
+  SET n= f1();   -- OK: f1() is an assignment right-hand side
+  SELECT n;
+END;
+$$
+DELIMITER ;
+
+CALL p1;         -- OK
+SELECT f1();     -- ERROR 1336 (0A000): Dynamic SQL is not allowed in stored function or trigger
+```
 
 #### Further Restrictions
 
