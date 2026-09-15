@@ -1245,19 +1245,26 @@ _Datacenter C is down. It only contained one out of three servers, so the server
 
 If a setup with just two datacenters needs to survive a datacenter failure, and also be resistant to a split-brain scenario, then neither `cooperative_monitoring_locks` mode is sufficient. Such a situation requires an outside orchestrator to manage the [passive](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#passive)-state of the MaxScales. Both MaxScale and servers also need to be carefully configured so that different MaxScales cannot select different primaries. See [failover with multiple MaxScales](../../mariadb-maxscale-tutorials/failover-with-multiple-maxscales.md) for more information.
 
-Cooperative monitoring only deals with MaxScale-to-MaxScale synchronization
-i.e. that all MaxScales eventually select the same primary server and that only
-one MaxScale alters the cluster. Cooperative monitoring does NOT ensure
+Cooperative monitoring only deals with MaxScale-to-MaxScale synchronization,
+i.e., that all MaxScales eventually select the same primary server and that
+only one MaxScale alters the cluster. Cooperative monitoring does NOT ensure
 transaction consistency. If the primary MaxScale loses connection to the
-current primary server, other MaxScales may still see that server as the primary
-for some time and commit transactions. Only once the
+current primary server, other MaxScales may still see that server as the
+primary for some time and commit transactions. Only once the
 _maxscale\_mariadbmonitor\_master_-lock expires (8s with default monitor
-settings), do the other MaxScales realize that the situation has changed. During
-this time, transactions can still commit to the old primary.
+settings) do the other MaxScales realize that the situation has changed.
+During this time, transactions can still commit to the old primary.
 
 ```mermaid
 flowchart TD
     accTitle: MaxScale cooperative locking - one datacenter with primary server disconnected (majority_of_all)
+    accDescr {
+      Datacenter A has lost its connection to datacenters B and C but keeps running. MaxScale A
+      still reaches Server 1, the now-stale primary, while MaxScale B holds the locks on Server 2
+      and Server 3, and MaxScale C reaches Server 3 normally. Until the master lock expires,
+      Server 1 keeps accepting writes while MaxScale B promotes Server 2, so the two servers
+      diverge.
+    }
     subgraph DCC["Datacenter C"]
       MXC["MaxScale C<br/>secondary"]:::node
       SC1["Server 3<br/>read-only"]:::node
@@ -1293,13 +1300,13 @@ time. MaxScale B operates independently, and promotes Server 2. Server 1 and
 Server 2 will then diverge._
 
 This situation cannot be entirely protected against. The best remedy is to use
-[semisynchronous replication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication.md))
+[semisynchronous replication]({server}/ha-and-performance/standard-replication/semisynchronous-replication)
 with a sufficiently long (e.g. 1 minute)
-[rpl_semi_sync_master_timeout](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication.md#rpl_semi_sync_master_timeout).
+[rpl_semi_sync_master_timeout]({server}/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout).
 This way, when Server 1 loses connectivity to the other servers, writes to
 Server 1 will stall, greatly limiting the number of transactions that may be
 committed. Any transactions in flight will eventually commit, though. As of
-MaxScale 23.02.19, 23.08.15 and 24.02.11, 25.01.8 and 25.10.4, if a secondary
+MaxScale 23.02.19, 23.08.15, 24.02.11, 25.01.8, and 25.10.4, if a secondary
 MaxScale is configured with `cooperative_monitoring_locks=majority_of_all` and
 it notices that the primary server has lost the _master_-lock, MaxScale will
 disconnect the entire routing session. Thus, clients will not get an OK-reply to
