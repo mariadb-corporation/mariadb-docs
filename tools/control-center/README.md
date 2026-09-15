@@ -54,6 +54,8 @@ Due to major API changes, support for versions 9.1.17 and later is only availabl
 
 Released Control Center versions are supported for at least 2 years after release date. Detailed information about versioning and lifecycle of GridGain Control Center is available on the Versioning page.
 
+For the list of releases and what changed in each, see the [Control Center release notes](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/control-center).
+
 ## Licensing
 
 Control Center licenses for the number of nodes you run in your clusters, and can monitor these clusters for the duration. To get a Control Center license, [contact us](support.md).

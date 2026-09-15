@@ -53,7 +53,13 @@
 #   decision. Their 22 links are listed here as `live` so D3 can act on the whole
 #   corpus. URLs inside fenced code blocks and inline code spans are excluded
 #   throughout: they are samples, and GitBook does not autolink them.
-#   mailto: addresses at gridgain.com are NOT covered by this file.
+#   mailto: addresses at gridgain.com are NOT covered by this file. They were handled
+#   separately on 2026-09-15 (decision D5): the "We Value Your Feedback" block announcing
+#   docs@gridgain.com was deleted from all 53 release notes, along with the support@gridgain.com
+#   variant on the 12 newest. Upstream control-center-docs still has it, so **do not restore it
+#   on replay** -- see findings 120-125 in control-center-migration-plan.md. The
+#   sales@gridgain.com on admin-guide/license.md and support.cloud@gridgain.com on support.md
+#   are untouched and still open.
 #
 {
   "generated": "2026-09-14",
