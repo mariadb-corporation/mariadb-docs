@@ -59,6 +59,7 @@ def print_cves(header, cves):
 bugs = []
 new_features = []
 tasks = []
+skipped = []
 
 reader = csv.reader(sys.stdin.readlines())
 field_names = next(reader)
@@ -68,6 +69,14 @@ for row in reader:
     # all values separated by a ','.
     groups = itertools.groupby(zip(field_names, row), key=lambda x: x[0])
     row = dict([(k, ','.join([v[1] for v in g])) for k, g in groups])
+
+    # Only issues actually resolved as 'Fixed' belong in the release notes. An
+    # issue can be Closed with some other resolution - 'Not a Bug' is common for
+    # SBOM tasks that turn out not to apply to MaxScale - and listing those would
+    # claim a fix that was never made. Particularly bad for the CVE sections.
+    if row.get('Resolution') != 'Fixed':
+        skipped.append((row['Issue key'], row.get('Resolution') or 'unresolved'))
+        continue
 
     if row['Issue Type'] == 'Bug':
         bugs.append(row)
@@ -106,3 +115,10 @@ for b in bugs:
     print("* [" + b['Issue key'] + "](https://jira.mariadb.org/browse/" + b['Issue key'] + ") " + md_escape(b['Summary']))
 
 print()
+
+# Diagnostics go to stderr; generate_release_notes.sh captures stdout only, so
+# this is visible to whoever runs it without ending up on the page.
+if skipped:
+    print("Not listed, closed with a resolution other than 'Fixed':", file=sys.stderr)
+    for key, resolution in skipped:
+        print("  %s [%s]" % (key, resolution), file=sys.stderr)
