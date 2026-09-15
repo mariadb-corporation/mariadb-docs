@@ -1293,9 +1293,9 @@ time. MaxScale B operates independently, and promotes Server 2. Server 1 and
 Server 2 will then diverge._
 
 This situation cannot be entirely protected against. The best remedy is to use
-[semisynchronous replication]({server}/ha-and-performance/standard-replication/semisynchronous-replication.md))
+[semisynchronous replication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication.md))
 with a sufficiently long (e.g. 1 minute)
-[rpl_semi_sync_master_timeout]({server}/ha-and-performance/standard-replication/semisynchronous-replication.md#rpl_semi_sync_master_timeout).
+[rpl_semi_sync_master_timeout](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication.md#rpl_semi_sync_master_timeout).
 This way, when Server 1 loses connectivity to the other servers, writes to
 Server 1 will stall, greatly limiting the number of transactions that may be
 committed. Any transactions in flight will eventually commit, though. As of
