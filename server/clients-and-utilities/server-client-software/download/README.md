@@ -38,7 +38,7 @@ information, including information on how we build the release packages.
 
 #### Old Versions
 
-Running the [most recent MariaDB version]({release-notes}) is generally the best choice. Note that there are long-term releases, maintained for five years, short-term releases, maintained for one year, and rolling releases. However, some organizations still use old or very old versions of MariaDB. An
+Running the [most recent MariaDB version](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb) is generally the best choice. Note that there are long-term releases, maintained for five years, short-term releases, maintained for one year, and rolling releases. However, some organizations still use old or very old versions of MariaDB. An
 upgrade would probably require important changes in their applications, and
 sometimes they don't even have the sources of those applications.
 
