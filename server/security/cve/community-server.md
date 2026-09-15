@@ -8,7 +8,7 @@ description: >-
 
 The list is updated continuously. CVEs may be added retroactively to already-released versions, as vulnerabilities can be reported to and assigned by CVE Numbering Authorities (CNAs) after the corresponding fix has been released. As a result, a release may receive additional CVE entries over time even after it has been published.
 
-To find a specific CVE, use your browser's search (Ctrl+F / Cmd+F) or jump to its publication year below — entries are grouped by CVE Published year.
+To find a specific CVE, use the search field above a table to filter its rows, or jump to its publication year below — entries are grouped by CVE Published year.
 
 ## Table of Fixed Security Vulnerabilities
 
