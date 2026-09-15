@@ -2,12 +2,11 @@
 description: >-
   Release notes for MariaDB Cloud Enterprise Cluster general availability,
   covering the synchronous replication topology on the PowerPlus tier,
-  cluster-aware monitoring and alerts, and snapshot backups with
-  point-in-time recovery.
+  cluster-aware monitoring and alerts, and snapshot backups
 icon: rocket-launch
 ---
 
-# MariaDB Cloud 2026.08.26 Release Notes
+# Enterprise Cluster General Availability
 
 **Release Date:** 26 August 2026
 
@@ -25,7 +24,7 @@ Enterprise Cluster is a deployment topology that uses synchronous replication wi
 * Multi-node clusters can be distributed across multiple Availability Zones within a cloud region.
 * Enterprise Cluster is presented as a distinct topology alongside Single Node and Replicated, and can be provisioned and scaled from the Portal and the REST API.
 
-For details, see [Enterprise Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/quickstart/enterprise-cluster).
+For details, see [Enterprise Cluster](https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd/quickstart/enterprise-cluster).
 
 ### Cluster-aware monitoring and alerts
 
@@ -37,12 +36,12 @@ The Portal now includes Galera-specific monitoring for Enterprise Cluster servic
 
 Four alerts are available for Enterprise Cluster services. They are not enabled by default: add them to an alert policy from the Portal, after which they can be delivered through your configured notification channels:
 
-| Alert | Severity | Condition |
-| ----- | -------- | --------- |
-| Galera cluster down | Critical | The cluster is not in the Primary state, or the node is not ready, for 5 minutes. |
-| Galera node not ready | Warning | The node is not in the Synced state for 5 minutes, and the change is not a temporary desync. |
+| Alert                              | Severity | Condition                                                                                                  |
+| ---------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| Galera cluster down                | Critical | The cluster is not in the Primary state, or the node is not ready, for 5 minutes.                          |
+| Galera node not ready              | Warning  | The node is not in the Synced state for 5 minutes, and the change is not a temporary desync.               |
 | Galera node in an unexpected state | Critical | The node's state is not one of Synced, Donor/Desynced, Joining, Joined, or Waiting for SST, for 5 minutes. |
-| Galera donor lagging | Warning | A donor node's receive queue exceeds 100 for 5 minutes, indicating it is falling behind. |
+| Galera donor lagging               | Warning  | A donor node's receive queue exceeds 100 for 5 minutes, indicating it is falling behind.                   |
 
 ### Backup and restore
 

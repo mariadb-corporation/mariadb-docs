@@ -43,7 +43,7 @@ Raft Cluster is available on every platform MariaDB Enterprise Server 12.3 ships
 Raft Cluster does not yet cover everything MariaDB Enterprise Cluster (Galera) does. Replication log encryption and the `galera_group_members` Performance Schema table are not implemented.
 {% endhint %}
 
-MariaDB Enterprise Server 12.3 ships Raft Cluster 0.9.1. For configuration details, the full variable reference, and current limitations, see the [Raft Cluster documentation](../../advanced-cluster/README.md).
+MariaDB Enterprise Server 12.3 ships Raft Cluster 0.9.1. For configuration details, the full variable reference, and current limitations, see the [Raft Cluster documentation](../../advanced-cluster/).
 
 ### Conflict Detection and Resolution
 
@@ -60,13 +60,13 @@ END;
 
 The conflict type selects which divergence the trigger handles:
 
-| Conflict type | Fires when |
-| ------------- | ---------- |
-| `INSERT_INSERT` | A replicated insert collides with a row that already exists on the replica |
+| Conflict type   | Fires when                                                                         |
+| --------------- | ---------------------------------------------------------------------------------- |
+| `INSERT_INSERT` | A replicated insert collides with a row that already exists on the replica         |
 | `UPDATE_UPDATE` | A replicated update finds its target row in a different state than the primary had |
 | `DELETE_UPDATE` | A replicated delete finds its target row in a different state than the primary had |
-| `UPDATE_DELETE` | A replicated update's target row is missing from the replica |
-| `DELETE_DELETE` | A replicated delete's target row is missing from the replica |
+| `UPDATE_DELETE` | A replicated update's target row is missing from the replica                       |
+| `DELETE_DELETE` | A replicated delete's target row is missing from the replica                       |
 
 When `slave_run_triggers_for_rbr` is enabled, the replica intercepts handler errors such as duplicate keys and missing rows and diverts execution to the matching CDR trigger. Inside the trigger you have three ways to conclude:
 
@@ -101,41 +101,41 @@ The plugin is built in by default and accepts any standard client authentication
 
 ## Security
 
-* **Passphrase-protected TLS keys**: a private key protected by a passphrase can now be used, with the passphrase supplied through the [ssl\_passphrase](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_passphrase) system variable
-* **New** [**SET SESSION AUTHORIZATION**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/set-session-authorization) **statement**: perform work as another user within a session, which is useful for administrative tooling and for reproducing a user's privileges:
+* **Passphrase-protected TLS keys**: a private key protected by a passphrase can now be used, with the passphrase supplied through the [ssl\_passphrase](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_passphrase) system variable
+*   **New** [**SET SESSION AUTHORIZATION**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/set-session-authorization) **statement**: perform work as another user within a session, which is useful for administrative tooling and for reproducing a user's privileges:
 
     ```sql
     SET SESSION AUTHORIZATION foo@bar;
     ```
 
-  * Switching to another account requires the `SET USER` privilege; switching to your own account needs no privilege
-  * The statement is not permitted inside stored procedures
-* **SHA-256 for File Key Management**: the [file\_key\_management](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin) encryption plugin supports SHA-256 digests
-* **Forced key rotation for HashiCorp**: the [Hashicorp Key Management plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin) can flush its key cache, so a rotation performed in Vault takes effect without a restart
-* **Safer** [**DROP USER**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/drop-user): dropping an account that still has active sessions now raises a warning by default, and fails outright in Oracle mode
+    * Switching to another account requires the `SET USER` privilege; switching to your own account needs no privilege
+    * The statement is not permitted inside stored procedures
+* **SHA-256 for File Key Management**: the [file\_key\_management](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin) encryption plugin supports SHA-256 digests
+* **Forced key rotation for HashiCorp**: the [Hashicorp Key Management plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin) can flush its key cache, so a rotation performed in Vault takes effect without a restart
+* **Safer** [**DROP USER**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/drop-user): dropping an account that still has active sessions now raises a warning by default, and fails outright in Oracle mode
 
 ## Compatibility Features
 
-* **Oracle date and number functions**: [`TO_DATE()`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/to_date), [`TO_NUMBER()`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/numeric-functions/to_number), and [`TRUNC()`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/trunc) reduce the rewriting needed when migrating Oracle SQL
-* **Oracle outer join syntax**: the `( + )` operator is accepted in [Oracle mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax#oracle-mode), so legacy queries port across unchanged
-* **Cursors on prepared statements**: a [cursor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors) can now be opened over a prepared statement, allowing the query text to be built at runtime
-* **SQL standard** [**SET PATH**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set-path): sets the schema search path used to resolve unqualified stored routine names:
+* **Oracle date and number functions**: [`TO_DATE()`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/to_date), [`TO_NUMBER()`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/numeric-functions/to_number), and [`TRUNC()`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/trunc) reduce the rewriting needed when migrating Oracle SQL
+* **Oracle outer join syntax**: the `( + )` operator is accepted in [Oracle mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax#oracle-mode), so legacy queries port across unchanged
+* **Cursors on prepared statements**: a [cursor](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors) can now be opened over a prepared statement, allowing the query text to be built at runtime
+*   **SQL standard** [**SET PATH**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set-path): sets the schema search path used to resolve unqualified stored routine names:
 
     ```sql
     SET PATH 'schema_a,schema_b';
     ```
-* **SQL standard** [**IS JSON**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/operators/comparison-operators/is-json) **predicate**: tests whether a value is valid JSON, without a function call:
+*   **SQL standard** [**IS JSON**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/operators/comparison-operators/is-json) **predicate**: tests whether a value is valid JSON, without a function call:
 
     ```sql
     SELECT '[1, 2]' IS JSON;
     SELECT '{"key1":1, "key2":[2,3]}' IS JSON;
     ```
-* **Basic** [**XML data type**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/xmltype): a dedicated type for XML documents, improving Oracle compatibility
-* [**Common table expressions in UPDATE and DELETE**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions): `UPDATE` and `DELETE` can read from a CTE, so a computed row set can drive a modification without a temporary table
+* **Basic** [**XML data type**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/xmltype): a dedicated type for XML documents, improving Oracle compatibility
+* [**Common table expressions in UPDATE and DELETE**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions): `UPDATE` and `DELETE` can read from a CTE, so a computed row set can drive a modification without a temporary table
 
 ## Optimizer Hints
 
-MariaDB Enterprise Server 12.3 introduces [optimizer hints](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints), which let a single query override optimizer decisions without changing server-wide settings. Hints are written as comments immediately after the statement keyword:
+MariaDB Enterprise Server 12.3 introduces [optimizer hints](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints), which let a single query override optimizer decisions without changing server-wide settings. Hints are written as comments immediately after the statement keyword:
 
 ```sql
 SELECT /*+ MAX_EXECUTION_TIME(1000) NO_ICP(t1) */ * FROM t1 WHERE ...;
@@ -153,38 +153,38 @@ The available hints cover:
 
 ## Optimizer
 
-* **Reverse-ordered scans use more optimizations**: [Rowid Filtering](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization) and [Index Condition Pushdown](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/index-condition-pushdown) now apply to descending scans, so `ORDER BY ... DESC` queries benefit from the same filtering as ascending ones
+* **Reverse-ordered scans use more optimizations**: [Rowid Filtering](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization) and [Index Condition Pushdown](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/index-condition-pushdown) now apply to descending scans, so `ORDER BY ... DESC` queries benefit from the same filtering as ascending ones
 * **Loose index scan with descending keys**: the "use index for group-by" optimization can use indexes that declare `DESC` key parts
 * **Indexes on virtual columns**: `GROUP BY` and `ORDER BY` can be satisfied from an index built on a virtual column
-* **Richer optimizer trace**: the [optimizer trace](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/optimizer-trace) can include the definitions of the tables and views involved, controlled by the [optimizer\_record\_context](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_record_context) system variable — useful when a plan has to be diagnosed from a trace alone
+* **Richer optimizer trace**: the [optimizer trace](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/optimizer-trace) can include the definitions of the tables and views involved, controlled by the [optimizer\_record\_context](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_record_context) system variable — useful when a plan has to be diagnosed from a trace alone
 * **Better derived table estimates**: the join optimizer recognizes that a derived table with a `GROUP BY` clause produces distinct grouping columns, which sharpens cardinality estimates
-* **Reorderable LEFT JOINs**: [outer joins](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax) that can safely be reordered are now considered for reordering
+* **Reorderable LEFT JOINs**: [outer joins](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax) that can safely be reordered are now considered for reordering
 
 ## Binary Logging and Replication
 
-* **InnoDB-based binary log**: binary log events can now be written to InnoDB-managed, page-structured files (`.ibb`) that are integrated with InnoDB's redo log and crash recovery, removing the costly two-phase commit between the binary log and InnoDB. It is selected at startup with the read-only [binlog\_storage\_engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_storage_engine) option and is only available for engines that support it. Related settings are [binlog\_directory](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_directory) and [innodb\_binlog\_state\_interval](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_binlog_state_interval)
-* **Fragmented row events**: row events larger than `max_packet_size` are split rather than failing, controlled by [binlog\_row\_event\_fragment\_threshold](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_row_event_fragment_threshold)
-* **Predictable temporary tables in replication**: [create\_tmp\_table\_binlog\_formats](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#create_tmp_table_binlog_formats) makes the binary logging of temporary table creation and use explicit rather than format-dependent
+* **InnoDB-based binary log**: binary log events can now be written to InnoDB-managed, page-structured files (`.ibb`) that are integrated with InnoDB's redo log and crash recovery, removing the costly two-phase commit between the binary log and InnoDB. It is selected at startup with the read-only [binlog\_storage\_engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_storage_engine) option and is only available for engines that support it. Related settings are [binlog\_directory](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_directory) and [innodb\_binlog\_state\_interval](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_binlog_state_interval)
+* **Fragmented row events**: row events larger than `max_packet_size` are split rather than failing, controlled by [binlog\_row\_event\_fragment\_threshold](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_row_event_fragment_threshold)
+* **Predictable temporary tables in replication**: [create\_tmp\_table\_binlog\_formats](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#create_tmp_table_binlog_formats) makes the binary logging of temporary table creation and use explicit rather than format-dependent
 * **Configurable replication TLS defaults**: the `MASTER_SSL_*` settings used by `CHANGE MASTER` can be given server defaults, so each replica does not have to repeat them
-* **More settings promoted to system variables**: [show\_slave\_auth\_info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#show_slave_auth_info) and [replicate\_same\_server\_id](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#replicate_same_server_id) were previously startup options only, and can now be inspected as system variables
-* **Visible skip-slave-start**: the server reports whether it was started with the [skip-slave-start](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#skip-slave-start) option, removing a common source of confusion when a replica does not begin applying
+* **More settings promoted to system variables**: [show\_slave\_auth\_info](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#show_slave_auth_info) and [replicate\_same\_server\_id](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#replicate_same_server_id) were previously startup options only, and can now be inspected as system variables
+* **Visible skip-slave-start**: the server reports whether it was started with the [skip-slave-start](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#skip-slave-start) option, removing a common source of confusion when a replica does not begin applying
 
 ## MariaDB Enterprise Cluster (Galera)
 
 * **Parallel replication between clusters**: asynchronous replication from one Galera cluster to another can apply in parallel, managed by `slave_parallel_threads`
-* **Write set retry**: a write set that fails to apply can be retried rather than immediately aborting the node, controlled by the [wsrep\_applier\_retry\_count](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_applier_retry_count) system variable
+* **Write set retry**: a write set that fails to apply can be retried rather than immediately aborting the node, controlled by the [wsrep\_applier\_retry\_count](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_applier_retry_count) system variable
 * **Faster Incremental State Transfers**: unnecessary foreign key checks during an IST are avoided
 
 ## Stored Routines and Triggers
 
-* **Weak `SYS_REFCURSOR` cursor type**: a cursor can be held in a variable and passed between routines, which is the Oracle idiom for returning a result set from a procedure:
+*   **Weak `SYS_REFCURSOR` cursor type**: a cursor can be held in a variable and passed between routines, which is the Oracle idiom for returning a result set from a procedure:
 
     ```sql
     DECLARE c0 SYS_REFCURSOR;
     ```
 
-  * The number of simultaneously open cursors is bounded by the `max_open_cursors` system variable
-* **Triggers on multiple events**: one [trigger](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/triggers-events/triggers/create-trigger#trigger_event) body can serve several events, instead of duplicating it once per event:
+    * The number of simultaneously open cursors is bounded by the `max_open_cursors` system variable
+*   **Triggers on multiple events**: one [trigger](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/triggers-events/triggers/create-trigger#trigger_event) body can serve several events, instead of duplicating it once per event:
 
     ```sql
     CREATE TRIGGER audit_t1 BEFORE INSERT OR UPDATE OR DELETE ON t1 FOR EACH ROW ...
@@ -194,14 +194,14 @@ The available hints cover:
 
 Nine new GIS functions improve compatibility with MySQL 8:
 
-* [ST\_Validate](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_validate) returns the geometry if it is valid, and `NULL` otherwise
-* [ST\_IsValid](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_isvalid) tests a geometry for validity
-* [ST\_Simplify](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_simplify) reduces the number of points in a geometry within a given tolerance
-* [ST\_Collect](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_collect) aggregates several geometries into one collection
-* [MBRCoveredBy](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/mbr-minimum-bounding-rectangle/mbrcoveredby) tests whether one minimum bounding rectangle is covered by another
-* [ST\_GeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_geohash) encodes a point as a geohash string
-* [ST\_LatFromGeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_latfromgeohash) and [ST\_LongFromGeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_longfromgeohash) decode the latitude and longitude from a geohash
-* [ST\_PointFromGeoHash](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_pointfromgeohash) decodes a geohash back into a point
+* [ST\_Validate](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_validate) returns the geometry if it is valid, and `NULL` otherwise
+* [ST\_IsValid](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_isvalid) tests a geometry for validity
+* [ST\_Simplify](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_simplify) reduces the number of points in a geometry within a given tolerance
+* [ST\_Collect](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_collect) aggregates several geometries into one collection
+* [MBRCoveredBy](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/mbr-minimum-bounding-rectangle/mbrcoveredby) tests whether one minimum bounding rectangle is covered by another
+* [ST\_GeoHash](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_geohash) encodes a point as a geohash string
+* [ST\_LatFromGeoHash](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_latfromgeohash) and [ST\_LongFromGeoHash](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_longfromgeohash) decode the latitude and longitude from a geohash
+* [ST\_PointFromGeoHash](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/miscellaneous-gis-functions/st_pointfromgeohash) decodes a geohash back into a point
 
 ## MariaDB Enterprise Audit
 
@@ -212,21 +212,21 @@ Two capabilities from the MariaDB Community audit plugin are now available in Ma
 
 ## Observability and Information Schema
 
-* **New** [**INFORMATION\_SCHEMA.TRIGGERED\_UPDATE\_COLUMNS**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-triggered_update_columns) **table**: reports which columns a trigger is defined to fire on
-* **New** [**INFORMATION\_SCHEMA.PARAMETERS**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-parameters-table)`.PARAMETER_DEFAULT` **column**: exposes the default value of a stored routine parameter
+* **New** [**INFORMATION\_SCHEMA.TRIGGERED\_UPDATE\_COLUMNS**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-triggered_update_columns) **table**: reports which columns a trigger is defined to fire on
+* **New** [**INFORMATION\_SCHEMA.PARAMETERS**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-parameters-table)`.PARAMETER_DEFAULT` **column**: exposes the default value of a stored routine parameter
 * **Raft Cluster observability**: `raft_*` status variables and the `RAFT_*` Information Schema tables described above
 
 ## Data Types and SQL
 
-* **New hash algorithms for** [**PARTITION BY KEY**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/partitioning-tables/partitioning-types/key-partitioning-type): improves distribution across partitions
-* **Per-table foreign key constraint names**: a [foreign key](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys) constraint name now needs to be unique only within its table rather than across the whole database, which removes a frequent obstacle when consolidating schemas
-* **No depth limit on JSON functions**: the [previous limit of 32 levels](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-4000-to-4099/e4043) has been removed, so deeply nested documents can be processed
+* **New hash algorithms for** [**PARTITION BY KEY**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/partitioning-tables/partitioning-types/key-partitioning-type): improves distribution across partitions
+* **Per-table foreign key constraint names**: a [foreign key](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys) constraint name now needs to be unique only within its table rather than across the whole database, which removes a frequent obstacle when consolidating schemas
+* **No depth limit on JSON functions**: the [previous limit of 32 levels](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-4000-to-4099/e4043) has been removed, so deeply nested documents can be processed
 
 ## Tool Improvements
 
-* [**mariadb-dump**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump): the `-L` or `--wildcards` option selects databases and tables by pattern rather than by exact name
-* [**mariadb-check**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) **and** [**CHECK TABLE**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table): both now support [SEQUENCE tables](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sequence-storage-engine)
-* [**mariadb client**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#script-dir): the `--script-dir` option sets an alternative directory for scripts invoked with the `source` command
+* [**mariadb-dump**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump): the `-L` or `--wildcards` option selects databases and tables by pattern rather than by exact name
+* [**mariadb-check**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) **and** [**CHECK TABLE**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table): both now support [SEQUENCE tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sequence-storage-engine)
+* [**mariadb client**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#script-dir): the `--script-dir` option sets an alternative directory for scripts invoked with the `source` command
 
 ## Enterprise Packaging and Upgrade
 
@@ -237,21 +237,21 @@ Two capabilities from the MariaDB Community audit plugin are now available in Ma
 
 MariaDB Enterprise Server 12.3 is not a rebuild of Community Server 12.3. The differences that matter most for this series:
 
-| Capability | Enterprise Server 12.3 | Community Server 12.3 |
-| ---------- | ---------------------- | --------------------- |
-| MariaDB Raft Cluster (`raft`) | Available | Not available |
-| Conflict Detection and Resolution | Available | Not available |
-| `tls_certificate` authentication plugin | Available | Not available |
-| MariaDB Enterprise Audit (`server_audit2`) | Available | Community audit plugin only |
-| Videx storage engine | Not shipped | Available |
-| Sphinx, OQGraph, Mroonga storage engines | Not shipped | Available |
+| Capability                                 | Enterprise Server 12.3 | Community Server 12.3       |
+| ------------------------------------------ | ---------------------- | --------------------------- |
+| MariaDB Raft Cluster (`raft`)              | Available              | Not available               |
+| Conflict Detection and Resolution          | Available              | Not available               |
+| `tls_certificate` authentication plugin    | Available              | Not available               |
+| MariaDB Enterprise Audit (`server_audit2`) | Available              | Community audit plugin only |
+| Videx storage engine                       | Not shipped            | Available                   |
+| Sphinx, OQGraph, Mroonga storage engines   | Not shipped            | Available                   |
 
-For the full list of differences, see [MariaDB Enterprise Server Differences](../about/mariadb-enterprise-server-differences/README.md).
+For the full list of differences, see [MariaDB Enterprise Server Differences](../about/mariadb-enterprise-server-differences/).
 
 ## New System and Status Variables
 
-* [System Variables Added in Enterprise Server 12.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/enterprise-server/system-variables-added-in-enterprise-server-12.3)
-* [Status Variables Added in Enterprise Server 12.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/enterprise-server/status-variables-added-in-enterprise-server-12.3)
+* [System Variables Added in Enterprise Server 12.3](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/enterprise-server/system-variables-added-in-enterprise-server-12.3)
+* [Status Variables Added in Enterprise Server 12.3](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/enterprise-server/status-variables-added-in-enterprise-server-12.3)
 
 ## Incompatible Changes
 
@@ -259,7 +259,7 @@ Because MariaDB Enterprise Server 12.3 is the first long-term release series aft
 
 ### New Reserved Words
 
-The following keywords are now [reserved words](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/reserved-words) and can no longer be used as [identifiers](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/identifier-names) without being quoted:
+The following keywords are now [reserved words](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/reserved-words) and can no longer be used as [identifiers](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/identifier-names) without being quoted:
 
 * `CONVERSION`
 * `TO_DATE`
@@ -275,9 +275,9 @@ The nine new GIS functions (`ST_Validate`, `ST_IsValid`, `ST_Simplify`, `ST_Coll
 
 The following deprecated system variables have been removed:
 
-* [big\_tables](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#big_tables)
-* [large\_page\_size](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#large_page_size)
-* [storage\_engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#storage_engine)
+* [big\_tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#big_tables)
+* [large\_page\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#large_page_size)
+* [storage\_engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#storage_engine)
 
 ## Available Versions
 
@@ -287,9 +287,9 @@ See also: [All MariaDB Enterprise Releases](../all-releases.md)
 
 ## Installation Instructions
 
-* [Deploy MariaDB Enterprise with Repositories](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage)
-* [Deploy MariaDB Enterprise with Package Tarballs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/package-tarballs)
-* [Deploy MariaDB Enterprise with Docker](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker)
+* [Deploy MariaDB Enterprise with Repositories](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage)
+* [Deploy MariaDB Enterprise with Package Tarballs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/package-tarballs)
+* [Deploy MariaDB Enterprise with Docker](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker)
 
 ## What's new in older release series
 

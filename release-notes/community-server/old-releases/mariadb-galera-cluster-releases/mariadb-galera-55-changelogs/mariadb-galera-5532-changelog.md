@@ -1,16 +1,15 @@
 # MariaDB Galera 5.5.32 Changelog
 
-The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
+The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/5.5.32) |[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-5532-release-notes.md) |**Changelog** |[Overview of Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
+[Download](https://downloads.mariadb.org/mariadb-galera/5.5.32) |[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-5532-release-notes.md) |**Changelog** |[Overview of Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 30 Aug 2013
 
 For the highlights of this release, see the [release notes](../mariadb-galera-55-release-notes/mariadb-galera-5532-release-notes.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code
-modified in that revision.
+Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #3417](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3417)\
   Tue 2013-08-27 23:40:49 +0300
