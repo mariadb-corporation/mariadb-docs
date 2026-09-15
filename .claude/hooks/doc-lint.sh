@@ -369,4 +369,46 @@ if command -v git >/dev/null 2>&1 \
   esac
 fi
 
+# --- retired Knowledge Base links — NO CI counterpart ---------------------------------------
+# mariadb.com/kb/<locale>/... is the retired Knowledge Base. It still answers 200 (it 301s into
+# the current docs site), so lychee follows the redirect and reports nothing — and roughly half
+# of these redirects silently drop the slug and land on the docs SEARCH page
+# (mariadb.com/docs?q=...), a reader-visible dead end no status-code check can see (DOCS-6609:
+# 45 of these across 20+ files, all invisible to lychee). There is no live successor worth
+# linking to from this domain going forward, so the rule is simple: a NEW mariadb.com/kb/ link
+# should never be written at all — resolve the target once (mariadb.com/docs, or better, a
+# relative in-repo path) and use that instead.
+#
+# Scoped to changed files only, like codespell/lychee above, not the whole tree: a handful of
+# pre-existing pages cite this domain **inside a fenced code block**, reproducing literal
+# historical program output (a crash-log excerpt, a sample `mysql.help_topic` row) rather than
+# linking anywhere, and those are legitimate as historical text. A whole-tree scan would flag
+# them on every unrelated PR; a changed-files scan only asks the question when someone is
+# actually touching that file, at which point DOC_LINT_ALLOW_KB documents the exception.
+#
+# Acknowledgment path matches the shrink guard: DOC_LINT_ALLOW_KB (space/comma-separated paths,
+# or "all") for a deliberate case — e.g. quoting a mariadb.com/kb/ URL as an inline code span
+# solely to show what NOT to link, or the two literal-output cases above if either is ever
+# touched again.
+KB_ALLOW=" ${DOC_LINT_ALLOW_KB:-} "
+KB_ALLOW="${KB_ALLOW//,/ }"
+case "$KB_ALLOW" in
+  *" all "*) : ;;
+  *)
+    for f in "${files[@]}"; do
+      ff="${f#./}"
+      case "$KB_ALLOW" in *" $ff "*) continue ;; esac
+      if grep -qE 'mariadb\.com/kb/' "$f" 2>/dev/null; then
+        echo "doc-lint: retired mariadb.com/kb/ link in $f" >&2
+        echo "          The Knowledge Base is retired; roughly half of its redirects land on" >&2
+        echo "          the docs search page (mariadb.com/docs?q=...), invisible to lychee" >&2
+        echo "          (DOCS-6609). Resolve the real target and link to it directly." >&2
+        echo "          Deliberate (e.g. quoting the URL as text)? Re-run with" >&2
+        echo "          DOC_LINT_ALLOW_KB='$ff' and say why in the commit message." >&2
+        rc=1
+      fi
+    done
+    ;;
+esac
+
 exit "$rc"
