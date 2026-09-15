@@ -677,6 +677,7 @@ For the list of changes made in each version, see the changelogs:
 
 | Version    | sha256sum                                                          |
 | ---------- | ------------------------------------------------------------------ |
+| 2026-09-15 | `b54c87edfe81b9837ef44a4a4f39383dd8df32776e6a18c0743a5d3ece044ac3` |
 | 2026-06-30 | `7325ac7755809ca3312b446bd832542421699298f25b701f9a111bb42df0c7c1` |
 | 2026-04-23 | `96d4ce68b93dc10afc6189bb01a90043bebbd2b8bdc1b62065e12c87a0757b25` |
 | 2025-12-10 | `73f4ab14ccc3ceb8c03bb283dd131a3235cfc28086475f43e9291d2060d48c97` |
