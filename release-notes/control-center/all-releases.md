@@ -1,5 +1,6 @@
 ---
 description: A list of all GridGain Control Center releases
+hidden: true
 ---
 
 # All Releases

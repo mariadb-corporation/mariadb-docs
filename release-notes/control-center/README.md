@@ -1,5 +1,6 @@
 ---
 description: Release Notes for GridGain Control Center
+hidden: true
 ---
 
 # Control Center Release Notes
