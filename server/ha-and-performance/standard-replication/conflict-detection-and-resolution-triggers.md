@@ -14,11 +14,38 @@ CDR triggers are available beginning with **MariaDB Enterprise Server 12.3** and
 
 Replica data can diverge from the primary in three ways:
 
+I'm not convinced this is the best way to begin this document. CDR
+triggers don't really solve the problem of "replica data diverging from
+a primary's". Starting with this implies we have some way to synchronize
+an asynchronous replication topology from master to slave, which we do
+not. Your later sentence "Conflict Detection and Resolution (CDR)
+Triggers let the replica resolve that moment according to a policy you
+define, instead of stopping replication" is the direction we should open
+with.
+
 1. **Direct local writes to the replica** — for example, an ETL job or a manual administrative fix.
 2. **Multi-writer topologies** — such as [ring](multi-master-ring-replication.md) or bidirectional replication, where every server legitimately accepts writes.
 3. **Operational drift** — left behind by skipped events, imperfect restores, or past failovers.
 
+
+This is also applicable to the examples you provide, as naming the first
+(direct local writes to the replica) and third (operational drift)
+implies CDR will be a solution to this data drift, but it is not. It is
+a way to work-around the data drift while keeping replication running.
+
 In every case the replication stream itself remains correct — the divergence enters alongside it, and surfaces only when a later event touches a row that no longer matches. Conflict Detection and Resolution (CDR) Triggers let the replica resolve that moment according to a policy you define, instead of stopping replication.
+
+"In every case the replication stream itself remains correct" is too
+bold of a claim, and very much depends on a user's configuration. Also
+the term "replication stream" is far-reaching and not well defined:
+various users may infer different things here (even I'm not sure exactly
+what you mean, and I could argue it is incorrect, but depends on what
+you mean).
+
+Also generally, I think this introduction should be merged with the
+overview after we define what a conflict is. Then we can say "here's
+what a conflict is, here are some common causes of conflicts, and here's
+how we can resolve them."
 
 ## Overview
 
@@ -56,6 +83,13 @@ FOR EACH ROW
 
 Conflict Detection and Resolution (CDR) Triggers let you encode the resolution policy as SQL, on the replica. When a conflict is detected, the applier diverts the failing row event into a user-defined trigger. Inside the trigger you decide, per row, whether to overwrite, merge, ignore, or deliberately halt.
 
+This should probably before the example. Otherwise we are providing an
+example with new trigger syntax with no context. I'm also not convinced
+we want the example to contain the UPDATE\_UPDATE resolution at all,
+given nothing about it has been defined. I think just the problematic
+part of the example suffices (note that I do think we should keep the
+part that highlights the problem).
+
 ## Enabling CDR Triggers
 
 CDR triggers fire only on the replica's SQL (applier) thread, and they operate on row-based replication events.
@@ -81,6 +115,15 @@ STOP REPLICA;
 SET @@global.slave_run_triggers_for_rbr = YES;
 START REPLICA;
 ```
+
+The CDR admin guide (where I assume this came from) is not specific
+enough here, and has lead to confusion. There are two options that may
+be useful for users here. `slave_run_triggers_for_rbr=ENFORCE` is good
+for multi-master setups, where the binary log should reflect the outcome
+of the trigger, so it can propagate to other servers.
+`slave_run_triggers_for_rbr=YES` should only be used when one doesn't
+want the outcome of the trigger in the binary log (i.e. it will neither
+be usable for replication nor point-in-time recovery).
 
 Changing `slave_run_triggers_for_rbr` requires a privilege that permits setting this global variable, such as [SUPER](../../reference/sql-statements/account-management-sql-statements/grant.md#super) or the corresponding fine-grained global-variable grant.
 
@@ -236,6 +279,9 @@ CREATE TRIGGER trg1 FOR CONFLICT UPDATE_UPDATE ON t1
 
 Inside the trigger body, you choose one of four outcomes. A CDR trigger is not a general-purpose stored program for arbitrary DML against the conflicting table — these four outcomes are the supported ways to act on it.
 
+Let's quickly enumerate these options right here before going into
+detail, so one doesn't have to scroll through the page to see them.
+
 ### Resolve by Assigning NEW (Apply the Row)
 
 Set columns on `NEW` and let the trigger return normally. The applier writes your `NEW` image to the table:
@@ -292,7 +338,15 @@ Any other unhandled error raised inside the trigger also stops the SQL thread, b
 
 For `INSERT_INSERT` and `UPDATE_UPDATE`, `NEW` starts as the primary's incoming after-image, which the trigger can adjust before it is applied. The other three types differ:
 
+This is weird consistency between `INSERT_INSERT` and the following
+three.  Let's just make it a list of 4 enumerations.
+
 * **`UPDATE_DELETE`** — the row is missing locally (no `OLD`), but the update event carries an after-image, so `NEW` starts **pre-filled** with it. Return without changes and the applier re-creates the row from `NEW` (the update becomes an insert); raise `SIGNAL SQLSTATE '02TRG'` to keep the row deleted instead.
+
+The section is "How NEW Starts", yet this point is more about `OLD`. I
+think the section heading should be changed to reflect a more general
+section.
+
 * **`DELETE_UPDATE`** — a delete event carries no after-image, so the applier hands the trigger a blank `NEW` whose **primary key is set to `NULL`** as a sentinel. Leave the key `NULL` and the default action applies (the local row is deleted). Populate the key — for example from `OLD` — and the applier instead **converts the delete into an update**, writing `NEW` over the local row.
 * **`DELETE_DELETE`** — the same blank-`NEW`, `NULL`-key sentinel, and the row is also missing locally (no `OLD`). Leave the key `NULL` for the default no-op, or populate `NEW` from `ORG` (the only image available) to re-create the row the primary tried to delete:
 
@@ -346,6 +400,9 @@ A mismatch is eligible for trigger routing only when all of these hold:
 
 So even on a table that has CDR triggers, [error 6001](../../reference/error-codes/mariadb-error-codes-6000-to-6099/e6001.md) can still appear when the table lacks a primary key, or when the replica runs a parallel mode more aggressive than `optimistic`. This is why the recommended beta configuration keeps the replica at `optimistic` or below — see [Limitations and Beta Caveats](conflict-detection-and-resolution-triggers.md#limitations-and-beta-caveats).
 
+"This is why..." doesn't really fit here. There was no justification
+given about what happens in aggressive mode.
+
 This check only exists when CDR triggers are present on the table. It is suppressed entirely when [slave\_exec\_mode](replication-and-binary-log-system-variables.md#slave_exec_mode) is `IDEMPOTENT` — but `IDEMPOTENT` mode is itself outside the supported beta configuration.
 
 ## Worked Example: a Newest-Wins Policy
@@ -357,6 +414,10 @@ The following implements a _newest wins_ policy on a table whose application set
 STOP REPLICA;
 SET @@global.slave_run_triggers_for_rbr = YES;
 START REPLICA;
+
+Multi-master is likely the more common use case, lets promote it as the default config.
+SET @@global.slave_run_triggers_for_rbr = ENFORCE;
+
 
 -- The replicated table (created on the primary):
 --   CREATE TABLE customer_profile (
@@ -399,6 +460,10 @@ END//
 
 -- DELETE_UPDATE: the incoming delete was decided against an older version of
 -- the row than the local update — the newer local update survives
+
+The english of this sentence doesn't flow well. "decided" doesn't seem
+like good verb for a delete.
+
 CREATE TRIGGER cdr_del_upd FOR CONFLICT DELETE_UPDATE ON customer_profile
 FOR EACH ROW
 BEGIN
@@ -441,6 +506,10 @@ A timestamp-based policy converges only if every writer maintains the `updated_a
 CDR is especially useful in multi-primary and [ring](multi-master-ring-replication.md) topologies, where every server accepts writes and the goal is for all servers to **converge to the same consistent state**. In these setups:
 
 * **Every participating server needs CDR triggers.** Each server is a replica of another, so each applier can encounter conflicts. A server without triggers stops on the first conflict its peers would have resolved.
+
+It should be clear that it doesn't just need CDR triggers, but the
+triggers should be the same.
+
 * **The resolution policy must be deterministic and symmetric** — written so that every server reaches the **same end state** regardless of which side of the conflict it sees. _Newest wins_ (as in the worked example above), _oldest wins_, or _the change from the server with the lowest server ID wins_ are all convergent policies. A policy such as "my local row always wins" is **not**: each server would keep its own version, and the servers would disagree indefinitely.
 * **Timestamp-based policies depend on the application and the clocks.** Every writer must maintain the timestamp column on every write, and the servers' clocks must be synchronized; otherwise "newest" is not well defined across servers.
 
@@ -484,6 +553,8 @@ slave_parallel_mode = optimistic
 # Do not use IDEMPOTENT exec mode with CDR triggers:
 slave_exec_mode     = STRICT
 ```
+
+We probably want `slave\_run\_triggers\_for\_rbr = YES` here too right?
 
 Validate CDR triggers in a staging environment that mirrors your production topology before enabling them on a production replica, and watch the SQL thread closely during the initial rollout.
 
