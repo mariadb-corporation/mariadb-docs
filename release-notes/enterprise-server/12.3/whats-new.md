@@ -2,12 +2,9 @@
 description: >-
   An overview of changes, improvements, and what's new in MariaDB Enterprise
   Server 12.3
-hidden: true
 ---
 
 # What's New in MariaDB Enterprise Server 12.3
-
-{% include "../../.gitbook/includes/unreleased-es-12.3.md" %}
 
 MariaDB Enterprise Server 12.3 is the next long-term release series, succeeding [MariaDB Enterprise Server 11.8](../11.8/whats-new.md). It brings the innovations of MariaDB Community Server 12.0 through 12.3 to Enterprise Server, and adds three capabilities that exist only in Enterprise Server: MariaDB Raft Cluster, Conflict Detection and Resolution, and password-less authentication using TLS certificates.
 
