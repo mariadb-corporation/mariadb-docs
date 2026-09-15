@@ -10,7 +10,7 @@ The list is updated continuously. CVEs may be added retroactively to already-rel
 
 A release can also fix vulnerabilities that do not yet have a CVE identifier. This table lists only those that do, so it can show fewer entries than the release notes for the same release. Advisories still awaiting an identifier are published on the [MariaDB Server GitHub Security Advisories page](https://github.com/MariaDB/server/security/advisories) and appear in the release notes under their GitHub Security Advisory (GHSA) ID; each is added here once a CVE identifier is assigned.
 
-To find a specific CVE, use your browser's search (Ctrl+F / Cmd+F) or jump to its publication year below — entries are grouped by CVE Published year.
+To find a specific CVE, use the search field above a table to filter its rows, or jump to its publication year below — entries are grouped by CVE Published year.
 
 ## Table of Fixed Security Vulnerabilities
 
