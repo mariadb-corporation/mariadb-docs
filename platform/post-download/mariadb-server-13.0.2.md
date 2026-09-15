@@ -2,20 +2,15 @@
 description: >-
   Post-download information for MariaDB Community Server 13.0.2, a Stable (GA)
   release of the MariaDB 13.0 series
-hidden: true
 ---
 
 # MariaDB Server 13.0.2
-
-<!-- TODO(DOCS-6610): base page for an UNRELEASED round (TODO-6175, blocked by MDEV-40327).
-     Before publishing: replace every TBD with the real release date, then remove
-     `hidden: true` in step with the release notes and changelog pages. -->
 
 {% @marketo/form formId="4279" %}
 
 ## About this Release
 
-* MariaDB Server 13.0.2 was released on TBD
+* MariaDB Server 13.0.2 was released on 15 Sep 2026
 * [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/13.0/13.0.2)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity
@@ -29,7 +24,7 @@ hidden: true
 ## Release History
 
 * The prior release in this series was MariaDB 13.0.1 RC, released on 29 May 2026
-* This release (MariaDB 13.0.2) was released on TBD
+* This release (MariaDB 13.0.2) was released on 15 Sep 2026
 
 {% include "../.gitbook/includes/most-recent-13.0.md" %}
 

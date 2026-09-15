@@ -1383,7 +1383,7 @@ An instrumented mutex structure. **See also**: [mysql_mutex_t](api.md#mysql_mute
 
 {#m_mutex}
 
-##### m_mutex
+#### m_mutex
 
 ```cpp
 pthread_mutex_t m_mutex
@@ -1397,7 +1397,7 @@ The real mutex.
 
 {#m_psi-2}
 
-##### m_psi
+#### m_psi
 
 ```cpp
 struct PSI_mutex * m_psi
@@ -1436,7 +1436,7 @@ An instrumented rwlock structure. **See also**: [mysql_rwlock_t](api.md#mysql_rw
 
 {#m_rwlock}
 
-##### m_rwlock
+#### m_rwlock
 
 ```cpp
 rw_lock_t m_rwlock
@@ -1450,7 +1450,7 @@ The real rwlock
 
 {#m_psi-3}
 
-##### m_psi
+#### m_psi
 
 ```cpp
 struct PSI_rwlock * m_psi
@@ -1489,7 +1489,7 @@ An instrumented prlock structure. **See also**: [mysql_prlock_t](api.md#mysql_pr
 
 {#m_prlock}
 
-##### m_prlock
+#### m_prlock
 
 ```cpp
 rw_pr_lock_t m_prlock
@@ -1503,7 +1503,7 @@ The real prlock
 
 {#m_psi-4}
 
-##### m_psi
+#### m_psi
 
 ```cpp
 struct PSI_rwlock * m_psi
@@ -1542,7 +1542,7 @@ An instrumented cond structure. **See also**: [mysql_cond_t](api.md#mysql_cond_t
 
 {#m_cond}
 
-##### m_cond
+#### m_cond
 
 ```cpp
 pthread_cond_t m_cond
@@ -1556,7 +1556,7 @@ The real condition
 
 {#m_psi-5}
 
-##### m_psi
+#### m_psi
 
 ```cpp
 struct PSI_cond * m_psi
