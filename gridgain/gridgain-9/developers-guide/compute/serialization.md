@@ -1,0 +1,396 @@
+---
+description: >-
+  Control how GridGain 9 serializes compute job arguments and results, from
+  automatic handling of native types and tuples to custom marshallers for user
+  objects.
+---
+
+# Object Serialization
+
+GridGain 9 provides a way to serialize your java objects and types and send the data between servers and clients.
+
+{% hint style="info" %}
+The Java examples on this page use the thin client, which requires the `ignite-client` module. For repository and dependency configuration, see [Project Setup and Required Modules](../project-setup.md).
+{% endhint %}
+
+## Native Types
+
+GridGain handles native type serialization automatically. For example, the following Compute job accepts an Integer and returns an Integer:
+
+```java
+public class IntegerDecrementJob implements ComputeJob<Integer, Integer> {
+    @Override
+    public CompletableFuture<Integer> executeAsync(JobExecutionContext ctx, Integer arg) {
+        return completedFuture(Optional.ofNullable(arg).map(integer -> integer - 1).orElse(null));
+    }
+}
+```
+
+Since both the argument and the result are native types and are serialized automatically, you do not need any additional code to handle the serialization:
+
+{% tabs %}
+{% tab title="Java" %}
+```java
+JobDescriptor<Integer, Integer> job = JobDescriptor.builder(IntegerDecrementJob.class)
+        .units(new DeploymentUnit(DEPLOYMENT_UNIT_NAME, DEPLOYMENT_UNIT_VERSION))
+        .build();
+
+Integer result = client.compute().execute(JobTarget.anyNode(client.cluster().nodes()), job, 5);
+```
+{% endtab %}
+
+{% tab title=".NET" %}
+```csharp
+using var client = await IgniteClient.StartAsync(
+    new IgniteClientConfiguration("address/to/cluster:port"));
+
+IJobExecution<int> jobExec = await client.Compute.SubmitAsync(
+    JobTarget.AnyNode(await client.GetClusterNodesAsync()),
+    new JobDescriptor<int, int>("org.example.IntegerComputeJob"),
+    1);
+
+int result = await jobExec.GetResultAsync();
+```
+{% endtab %}
+{% endtabs %}
+
+## Tuples
+
+GridGain is designed around working with Tuples, and handles tuple serialization automatically. For example, the following Job accepts Tuple and returns Tuple:
+
+```java
+@Override
+public CompletableFuture<Tuple> executeAsync(JobExecutionContext ctx, Tuple arg) {
+    Tuple resultTuple = Tuple.copy(arg);
+    resultTuple.set("key", "new value");
+
+    return completedFuture(resultTuple);
+}
+```
+
+Since both the argument and the result are tuples, they are serialized automatically, and you do not need to handle serialization:
+
+{% tabs %}
+{% tab title="Java" %}
+```java
+JobDescriptor<Tuple, Tuple> job = JobDescriptor.builder(TupleTransformJob.class)
+        .units(new DeploymentUnit(DEPLOYMENT_UNIT_NAME, DEPLOYMENT_UNIT_VERSION))
+        .build();
+
+Tuple arg = Tuple.create().set("key", "value");
+Tuple res = client.compute().execute(JobTarget.anyNode(client.cluster().nodes()), job, arg);
+```
+{% endtab %}
+
+{% tab title=".NET" %}
+```csharp
+using var client = await IgniteClient.StartAsync(
+    new IgniteClientConfiguration("address/to/cluster:port"));
+
+IJobExecution<IIgniteTuple> jobExec = await client.Compute.SubmitAsync(
+    JobTarget.AnyNode(await client.GetClusterNodesAsync()),
+    new JobDescriptor<IIgniteTuple, IIgniteTuple>("org.example.TupleComputeJob"),
+    new IgniteTuple { ["col"] = "value" });
+
+IIgniteTuple result = await jobExec.GetResultAsync();
+```
+{% endtab %}
+{% endtabs %}
+
+## User Objects
+
+User objects are marshalled automatically in the following way:
+
+- If a custom marshaller is defined, it is used.
+- In no marshaller is defined, user Java objects are marshalled to binary tuples.
+- If there are nested objects, they are recursively marshalled to tuples.
+
+Below is an example of user objects marshalled with custom logic (using JSON serialization with `ObjectMapper`, but you can do whatever you think is good for your use case).
+
+Let's start with Compute job definition that should be a part of the same deployment unit.
+
+### Server-Side
+
+The code below shows how to handle marshalling on a server, so that it can properly send the data to the clients and receive their responses:
+
+- This is the custom object that we will be using as an argument the job:
+
+```java
+public class JsonArg {
+    String word;
+    boolean isUpperCase;
+
+    public JsonArg() {
+    }
+
+    JsonArg(String word, boolean isUpperCase) {
+        this.word = word;
+        this.isUpperCase = isUpperCase;
+    }
+}
+```
+
+- We need to define a marshaller for it using the `ObjectMapper` object:
+
+```java
+class JsonArgMarshaller implements Marshaller<JsonArg, byte[]> {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    @Override
+    public byte[] marshal(JsonArg o) {
+        try {
+            return MAPPER.writeValueAsBytes(o);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public JsonArg unmarshal(byte[] raw) {
+        try {
+            return MAPPER.readValue(raw, JsonArg.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+```
+
+- Let's also create another object that will be used to store Compute job results:
+
+```java
+public class JsonResult {
+
+    String originalWord;
+    String resultWord;
+    int length;
+}
+```
+
+- And the corresponding marshaller:
+
+```java
+class JsonResultMarshaller implements Marshaller<JsonResult, byte[]> {
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    @Override
+    public byte[] marshal(JsonResult o) {
+        try {
+            return MAPPER.writeValueAsBytes(o);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public JsonResult unmarshal(byte[] raw) {
+        try {
+            return MAPPER.readValue(raw, JsonResult.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+```
+
+The marshallers above define how to represent corresponding objects as `byte[]`, and how to read these objects from `byte[]`. However, defining these classes does not enable custom serialization, as you need to specify the marshaller to use when serializing objects. In GridGain, this is done by overriding two methods in  Compute job definition to use them as factory methods for marshallers:
+
+The code below provides an example of implementing marshallers in a compute job:
+
+```java
+public class CustomPojoSerializationJob implements ComputeJob<JsonArg, JsonResult> {
+    @Override
+    public CompletableFuture<JsonResult> executeAsync(JobExecutionContext ctx, JsonArg arg) {
+
+        if (arg == null) {
+            return null;
+        }
+
+        String w = arg.word;
+        boolean upper = arg.isUpperCase;
+        JsonResult r = new JsonResult();
+        r.originalWord = w;
+        r.resultWord = upper ? w.toUpperCase() : w.toLowerCase();
+        r.length = w.length();
+        return completedFuture(r);
+    }
+
+
+    private static class JsonArgServerMarshaller extends JsonArgMarshaller {
+    }
+
+    private static class JsonResultServerMarshaller extends JsonResultMarshaller {
+    }
+
+    @Override
+    public Marshaller<JsonArg, byte[]> inputMarshaller() {
+        return new JsonArgServerMarshaller();
+    }
+
+    @Override
+    public Marshaller<JsonResult, byte[]> resultMarshaller() {
+        return new JsonResultServerMarshaller();
+    }
+}
+```
+
+With this, the GridGain server will be able to handle marshalling the required objects to sending them to clients, and unmarshalling the client responses.
+
+### Client-Side
+
+On the client side, largely the same code is required to handle the incoming objects and to marshal the response:
+
+- Define the custom object that is used for compute job:
+
+{% tabs %}
+{% tab title="Java" %}
+```java
+public class JsonArg {
+    String word;
+    boolean isUpperCase;
+
+    public JsonArg() {
+    }
+
+    JsonArg(String word, boolean isUpperCase) {
+        this.word = word;
+        this.isUpperCase = isUpperCase;
+    }
+}
+```
+{% endtab %}
+
+{% tab title=".NET" %}
+```csharp
+record ArgumentCustomClientObject(int arg1, string arg2);
+```
+{% endtab %}
+{% endtabs %}
+
+- Define the marshaller for the object:
+
+{% tabs %}
+{% tab title="Java" %}
+```java
+private static class JsonResultMarshaller implements Marshaller<JsonResult, byte[]> {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    @Override
+    public byte[] marshal(JsonResult o) {
+        try {
+            return MAPPER.writeValueAsBytes(o);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public JsonResult unmarshal(byte[] raw) {
+        try {
+            return MAPPER.readValue(raw, JsonResult.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+```
+{% endtab %}
+
+{% tab title=".NET" %}
+```csharp
+class MyJsonMarshaller<T> : IMarshaller<T>
+{
+    public void Marshal(T obj, IBufferWriter<byte> writer)
+    {
+        using var utf8JsonWriter = new Utf8JsonWriter(writer);
+        JsonSerializer.Serialize(utf8JsonWriter, obj);
+    }
+
+    public T Unmarshal(ReadOnlySpan<byte> bytes) =>
+        JsonSerializer.Deserialize<T>(bytes)!;
+}
+```
+{% endtab %}
+{% endtabs %}
+
+- Do the same for the result object:
+
+{% tabs %}
+{% tab title="Java" %}
+```java
+class JsonResultMarshaller implements Marshaller<JsonResult, byte[]> {
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    @Override
+    public byte[] marshal(JsonResult o) {
+        try {
+            return MAPPER.writeValueAsBytes(o);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public JsonResult unmarshal(byte[] raw) {
+        try {
+            return MAPPER.readValue(raw, JsonResult.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+```
+{% endtab %}
+
+{% tab title=".NET" %}
+```csharp
+record ResultCustomClientObject(int res1, string res2, long res3);
+
+// Use the same generic MyJsonMarshaller class (see above) for the result object.
+```
+{% endtab %}
+{% endtabs %}
+
+Now that all marshallers are defined, you can start working with the custom objects and handle marshalling of arguments and results in your compute jobs:
+
+{% tabs %}
+{% tab title="Java" %}
+```java
+static void runPojoCustomJsonSerialization(IgniteClient client) {
+
+    System.out.println("\n[POJO custom] Running POJO job with custom JSON marshallers both on the client and on the server");
+
+    JobDescriptor<JsonArg, JsonResult> job = JobDescriptor.builder(CustomPojoSerializationJob.class)
+            .argumentMarshaller(new JsonArgMarshaller())
+            .resultMarshaller(new JsonResultMarshaller())
+            .units(new DeploymentUnit(DEPLOYMENT_UNIT_NAME, DEPLOYMENT_UNIT_VERSION))
+            .build();
+
+    JsonResult res = client.compute().execute(
+            JobTarget.anyNode(client.cluster().nodes()),
+            job,
+            new JsonArg("ignite", false)
+    );
+```
+{% endtab %}
+
+{% tab title=".NET" %}
+```csharp
+using var client = await IgniteClient.StartAsync(
+    new IgniteClientConfiguration("address/to/cluster:port"));
+
+IJobExecution<ResultCustomClientObject> jobExec = await client.Compute.SubmitAsync(
+    JobTarget.AnyNode(await client.GetClusterNodesAsync()),
+    new JobDescriptor<ArgumentCustomClientObject, ResultCustomClientObject>("org.example.PojoComputeJob")
+    {
+        ArgMarshaller = new MyJsonMarshaller<ArgumentCustomClientObject>(),
+        ResultMarshaller = new MyJsonMarshaller<ResultCustomClientObject>()
+    },
+    new ArgumentCustomClientObject(1, "abc"));
+
+ResultCustomClientObject result = await jobExec.GetResultAsync();
+```
+{% endtab %}
+{% endtabs %}

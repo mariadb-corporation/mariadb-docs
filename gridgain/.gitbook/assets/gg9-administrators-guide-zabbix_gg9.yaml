@@ -1,0 +1,2309 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: 748ad4d098d447d492bb935c907f652f
+      name: Templates/Databases
+  templates:
+    - uuid: d514276c3d374af8a90bab74953f8fc6
+      template: 'GridGain9 by JMX'
+      name: 'GridGain9 by JMX'
+      description: |
+        Supported version: 9.1.13
+        
+        The template to monitor GridGain9, In-Memory Computing Platform, by GridGain that work without any external scripts.
+          It works with both standalone and cluster instances.
+          The metrics are discoverable and collected by JMX.
+        
+          You can set {$GRIDGAIN.USER} and {$GRIDGAIN.PASSWORD} macros in the template for using on the host level.
+        
+        You can discuss this template or leave feedback on our forum https://www.zabbix.com/forum/zabbix-suggestions-and-feedback/
+      groups:
+        - name: Templates/Databases
+      discovery_rules:
+        - uuid: c56b7856341c451788e5a91ea29bdd87
+          name: 'storage metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:group=storage,name=*,*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 7713f5bb2b1841b980bb235cabc48072
+              name: CpEvictedPages
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",CpEvictedPages]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Number of evicted pages in the current checkpoint.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 71783964cb034184bc732ed09be02379
+              name: CpSyncedPages
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",CpSyncedPages]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Number of fsynced pages in the current checkpoint.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: fb14a965e9da4e80b702cce845abff07
+              name: CpTotalPages
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",CpTotalPages]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Number of pages in the current checkpoint.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: cd60be5261964cb6b4fe441114944ef3
+              name: CpWriteSpeed
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",CpWriteSpeed]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Checkpoint write speed, in pages per second. Value is averaged over the last 3 checkpoints plus the current one.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: a5b96dccedbe4dfbb48da2f171afae66
+              name: CpWrittenPages
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",CpWrittenPages]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Number of written pages in the current checkpoint.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 57250f8e70b8420985448ab0f728b48d
+              name: CurrDirtyRatio
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",CurrDirtyRatio]'
+              value_type: FLOAT
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Current ratio of dirty pages (dirty vs total), expressed as a fraction. The fraction is computed for each segment in the current region, and the highest value becomes "current."'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: c96e489bffe7472d9264c66fdb71cdc9
+              name: LastCheckpointBeforeLockDuration
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LastCheckpointBeforeLockDuration]'
+              units: ms
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Time spent on pre-lock operations before the last checkpoint (ms).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 4bbe282b07fe49588938278a7e4665e0
+              name: LastCheckpointDuration
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LastCheckpointDuration]'
+              units: ms
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total duration of the last checkpoint (ms).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 3796798ad2e449f8bed8b0364750a32e
+              name: LastCheckpointFsyncDuration
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LastCheckpointFsyncDuration]'
+              units: ms
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Time spent syncing data to disk during the last checkpoint (ms).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 7981d809aeec418cbeb472ec1c125a09
+              name: LastCheckpointLockHoldDuration
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LastCheckpointLockHoldDuration]'
+              units: ms
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Time the checkpoint lock was held (ms).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 89110a5e7e6c44a79cc856cf4e25a250
+              name: LastCheckpointLockWaitDuration
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LastCheckpointLockWaitDuration]'
+              units: ms
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Time spent waiting to acquire the checkpoint lock (ms).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 96066c466be649bbbd95e2482878012b
+              name: LastCheckpointPagesWriteDuration
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LastCheckpointPagesWriteDuration]'
+              units: ms
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Duration of the page write phase (ms).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: b7068870d23d4622bf90698df721a682
+              name: LastCheckpointReplicatorLogSyncDuration
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LastCheckpointReplicatorLogSyncDuration]'
+              units: ms
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Time spent syncing the replicator log (ms).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 1b4f835db957489ab1a36f002fc9f9de
+              name: LastCheckpointSplitAndSortPagesDuration
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LastCheckpointSplitAndSortPagesDuration]'
+              units: ms
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Duration of the split-and-sort dirty pages phase (ms).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 497f54679b6a46b799021a0d88cf544b
+              name: LastCheckpointTotalPagesNumber
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LastCheckpointTotalPagesNumber]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of pages written during the last checkpoint.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 2b3ec47b41794a4ebac1f9eaa3988b5b
+              name: LastCheckpointWaitPageReplacementDuration
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LastCheckpointWaitPageReplacementDuration]'
+              units: ms
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Time spent waiting for page replacement (ms).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 3cb9c3d4524d4b58925af19245f9e711
+              name: LastEstimatedSpeedForMarkAll
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LastEstimatedSpeedForMarkAll]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Last estimated speed of marking all clean pages dirty to the end of a checkpoint, in pages/second.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: dc8869d9a25f4fb592a25dafd5985c74
+              name: MarkDirtySpeed
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",MarkDirtySpeed]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Speed of marking pages dirty, in pages/second. Value is averaged over the last 3 fragments, 0.25 sec each, plus the current fragment, 0-0.25 sec (0.75-1.0 sec total).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 03308e991a244cf5ac8977c3175a17d6
+              name: MaxSize
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",MaxSize]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Maximum in-memory region size in bytes.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: c95ae416e63541fdb98f89111f0bbe46
+              name: PagesRead
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",PagesRead]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Number of pages read from disk since the last restart.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: dcdc24c17ec448f8b60b3063d633024e
+              name: PagesWritten
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",PagesWritten]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Number of pages written to disk since the last restart.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 23bb4061dceb4a01bec32b4f42765be8
+              name: SpeedBasedThrottlingPercentage
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",SpeedBasedThrottlingPercentage]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Fraction of throttling time within average marking time (e.g., "quarter" = 0.25).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 484b42383ee148f3be3526b164c3a698
+              name: TargetDirtyRatio
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TargetDirtyRatio]'
+              value_type: FLOAT
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Ratio of dirty pages (dirty vs total), expressed as a fraction. Throttling starts when this ratio is reached.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: a9896e12c94f4dca9a655456d09b3812
+              name: ThrottleParkTime
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",ThrottleParkTime]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Park (sleep) time for the Write operation, in nanoseconds. Value is averaged over the last 3 fragments, 0.25 sec each, plus the current fragment, 0-0.25 sec (0.75-1.0 sec total). It defines park periods for either the checkpoint buffer protection or the clean page pool protection.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: 9f66b02c1a524ab087e2c8de3ebe44af
+              name: TotalAllocatedSize
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TotalAllocatedSize]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total size of allocated pages on disk in bytes.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+            - uuid: e45b843b8be44a55ae36b1e288b23e10
+              name: TotalUsedSize
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TotalUsedSize]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total size of non-empty allocated pages on disk in bytes.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: storage
+                - tag: engine
+                  value: '{#JMXNAME}'
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: a4da45543b8e4579b6cba165c20aa378
+          name: 'topology metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:group=topology,name=*,*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 5ba5d70d4ef74497bc4ccab7d8a4cbb4
+              name: ClusterId
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",ClusterId]'
+              value_type: CHAR
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Unique identifier of the cluster.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: topology
+                - tag: level
+                  value: '{#JMXNAME}'
+            - uuid: bb654c31086a4b7692ca7b0e164de98b
+              name: ClusterName
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",ClusterName]'
+              value_type: CHAR
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Unique name of the cluster.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: topology
+                - tag: level
+                  value: '{#JMXNAME}'
+            - uuid: 686241d825b44f7889895b990de238fc
+              name: NodeId
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",NodeId]'
+              value_type: CHAR
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Unique id of the node.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: topology
+                - tag: level
+                  value: '{#JMXNAME}'
+            - uuid: 3f10417bc0fb4b83b0c582300f4a1e58
+              name: NodeName
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",NodeName]'
+              value_type: CHAR
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Unique name of the node.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: topology
+                - tag: level
+                  value: '{#JMXNAME}'
+            - uuid: 99c679cc8e3c49d795bd2a1bf6858c1c
+              name: NodeVersion
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",NodeVersion]'
+              value_type: CHAR
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'GridGain version on the node.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: topology
+                - tag: level
+                  value: '{#JMXNAME}'
+            - uuid: 64a91a2a64cc48309b61f9db466a010c
+              name: TotalNodes
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TotalNodes]'
+              trends: '0'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Number of nodes in the logical topology.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: topology
+                - tag: level
+                  value: '{#JMXNAME}'
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: aaffc844319042429ad8b2147ab6ab5f
+          name: 'zones metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:group=zones,name=*,*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 5a15f610d9cd4a7cb4472717dbbedbff
+              name: LocalUnrebalancedPartitionsCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LocalUnrebalancedPartitionsCount]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The number of partitions that should be moved to this node.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: zones
+                - tag: zone
+                  value: '{#JMXNAME}'
+            - uuid: 4a73cdfeb21442bb851ef4c6a64dfcb8
+              name: TotalUnrebalancedPartitionsCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TotalUnrebalancedPartitionsCount]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The total number of partitions that should be moved to a new owner.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: zones
+                - tag: zone
+                  value: '{#JMXNAME}'
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: 84dc227a685f49379a80106d2825da08
+          name: 'thread.pools metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:group=\"thread.pools\",name=*,*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 74d5fbe43b2741eea8c60364c682715f
+              name: ActiveCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",ActiveCount]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Approximate number of threads that are actively executing tasks.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: thread.pools
+                - tag: thread-pool
+                  value: '{#JMXNAME}'
+            - uuid: 41470379776a4fcda29a2fea48c43fe4
+              name: CompletedTaskCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",CompletedTaskCount]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Approximate total number of tasks that have completed execution.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: thread.pools
+                - tag: thread-pool
+                  value: '{#JMXNAME}'
+            - uuid: b47571c6591b4749beeac154fe744a40
+              name: ConcurrencyLevel
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",ConcurrencyLevel]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: '-'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: thread.pools
+                - tag: thread-pool
+                  value: '{#JMXNAME}'
+            - uuid: aae8a17dd45c44d0b20c84d82e9665ca
+              name: CorePoolSize
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",CorePoolSize]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The core number of threads.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: thread.pools
+                - tag: thread-pool
+                  value: '{#JMXNAME}'
+            - uuid: 7820075454834917ad439418575588e7
+              name: KeepAliveTime
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",KeepAliveTime]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Thread keep-alive time, which is the amount of time which threads in excess of the core pool size may remain idle before being terminated.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: thread.pools
+                - tag: thread-pool
+                  value: '{#JMXNAME}'
+            - uuid: c26072e4f6cf4b5abba383cb1b1d9277
+              name: LargestPoolSize
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LargestPoolSize]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Largest number of threads that have ever simultaneously been in the pool.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: thread.pools
+                - tag: thread-pool
+                  value: '{#JMXNAME}'
+            - uuid: 24253b7878214637a5bd3dd37f2b0b0e
+              name: MaximumPoolSize
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",MaximumPoolSize]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The maximum allowed number of threads.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: thread.pools
+                - tag: thread-pool
+                  value: '{#JMXNAME}'
+            - uuid: 0c38d1bb9b5e46878da5042c86055e06
+              name: PoolSize
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",PoolSize]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Current number of threads in the pool.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: thread.pools
+                - tag: thread-pool
+                  value: '{#JMXNAME}'
+            - uuid: 6fd5548a3d0d4f158d09a572c1f026cd
+              name: QueueSize
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",QueueSize]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Current size of the execution queue.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: thread.pools
+                - tag: thread-pool
+                  value: '{#JMXNAME}'
+            - uuid: d18e591e693b47fe88c4d8f4a1982b2f
+              name: TaskCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TaskCount]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Approximate total number of tasks that have been scheduled for execution.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: thread.pools
+                - tag: thread-pool
+                  value: '{#JMXNAME}'
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: 7156a90d236641e2bfb3bc07699ba527
+          name: 'expiration metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=expiration,*"]'
+          delay: 6h
+          status: DISABLED
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 88c8378ed9604742952e0cbbbd5b90dc
+              name: TotalDeletedExpiredRowsCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TotalDeletedExpiredRowsCount]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of deleted expired rows.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: expiration
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: 733875ca2ac74a70b1c845ab6ff8e001
+          name: 'jvm metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=jvm,*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          filter:
+            evaltype: AND
+            conditions:
+              - macro: '{#JMXNAME}'
+                value: '{$GRIDGAIN.LLD.FILTER.CACHE.MATCHES}'
+              - macro: '{#JMXNAME}'
+                value: '{$GRIDGAIN.LLD.FILTER.CACHE.NOT_MATCHES}'
+                operator: NOT_MATCHES_REGEX
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 072b2f44abf84de99f23fd699db14d8f
+              name: gc.CollectionTime
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",gc\.CollectionTime]'
+              history: 7d
+              units: ms
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Approximate total time spent on garbage collection in milliseconds, summed across all collectors'
+              preprocessing:
+                - type: SIMPLE_CHANGE
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: jvm
+              trigger_prototypes:
+                - uuid: af39cc6e5e4c4c00a112f1b0685f0e79
+                  expression: |
+                    last(/GridGain9 by JMX/jmx["{#JMXOBJ}",gc\.CollectionTime],#1)>250
+                    and
+                    last(/GridGain9 by JMX/jmx["{#JMXOBJ}",gc\.CollectionTime],#1)<=500
+                  name: 'High GC time'
+                  priority: AVERAGE
+                - uuid: e01c1c75d0844446a627a5146eb04d7f
+                  expression: 'last(/GridGain9 by JMX/jmx["{#JMXOBJ}",gc\.CollectionTime],#1)>500'
+                  name: 'Very high GC time'
+                  priority: HIGH
+            - uuid: ddc0512ede0745bdb1ac2a6a23706ef3
+              name: memory.heap.Committed
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",memory\.heap\.Committed]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Committed amount of heap memory'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: jvm
+            - uuid: c591e7ba0edd4211bc92c5f61095dcdb
+              name: memory.heap.Init
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",memory\.heap\.Init]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Initial amount of heap memory'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: jvm
+            - uuid: e14255b9da0a4f58b2398ba9bd6473d2
+              name: memory.heap.Max
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",memory\.heap\.Max]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Maximum amount of heap memory'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: jvm
+            - uuid: f1abaeb3770f4265b7adcf4bcc591822
+              name: memory.heap.Used
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",memory\.heap\.Used]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Currently used amount of heap memory'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: jvm
+            - uuid: 69de325af21647fe99e28c0b0d26bed4
+              name: memory.non-heap.Committed
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",memory\.non-heap\.Committed]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Committed amount of non-heap memory'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: jvm
+            - uuid: cb397a5cf3494f69948b7451458cd5ec
+              name: memory.non-heap.Init
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",memory\.non-heap\.Init]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Initial amount of non-heap memory'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: jvm
+            - uuid: 679a6cde9556443f812c4238cccc0585
+              name: memory.non-heap.Max
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",memory\.non-heap\.Max]'
+              history: 7d
+              value_type: FLOAT
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Maximum amount of non-heap memory'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: jvm
+            - uuid: 3f7200db4bf745adbbe11a1a8b33cf9d
+              name: memory.non-heap.Used
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",memory\.non-heap\.Used]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Used amount of non-heap memory'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: jvm
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 3h
+        - uuid: edb9a405b4e34f06a5b01221d21b0a9e
+          name: 'license metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=license,*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          item_prototypes:
+            - uuid: d4ddb34e08c146258a1a8b16028fbe15
+              name: DaysToLicenseExpiration
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",DaysToLicenseExpiration]'
+              delay: 6h
+              history: 7d
+              units: days
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The number of days left to license expiration.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: license
+              trigger_prototypes:
+                - uuid: 81bf52b9bc454499a91d92032733721b
+                  expression: |
+                    last(/GridGain9 by JMX/jmx["{#JMXOBJ}",DaysToLicenseExpiration],#1)<7
+                    and
+                    last(/GridGain9 by JMX/jmx["{#JMXOBJ}",DaysToLicenseExpiration],#1)>=1
+                  name: 'License expires in less than 7 days'
+                  priority: AVERAGE
+                - uuid: 4e82f0b484744e53b121e49e084699c3
+                  expression: 'last(/GridGain9 by JMX/jmx["{#JMXOBJ}",DaysToLicenseExpiration],#1)<1'
+                  name: 'License expires today'
+                  priority: HIGH
+            - uuid: 75a70d5d2e844ca3bc55b85214a07331
+              name: MaxHeapSize
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",MaxHeapSize]'
+              delay: 6h
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The maximum heap size allowed as a sum of configured maximum heap sizes on each cluster node (0 is unlimited).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: license
+            - uuid: 17c4861b7d6b48df9cfd84686f2301df
+              name: MaxNumberOfCores
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",MaxNumberOfCores]'
+              delay: 6h
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The maximum number of cores allowed as a sum of cores of all cluster nodes (0 is unlimited).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: license
+            - uuid: d008aa93aa1d4f95ab1cc2e48f1d5ecc
+              name: MaxNumberOfHosts
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",MaxNumberOfHosts]'
+              delay: 6h
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The maximum number of hosts allowed as a number of all hosts where the cluster nodes are located (0 is unlimited).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: license
+            - uuid: 70c1db827e8e47b4a3cb1654afec1107
+              name: MaxNumberOfNodes
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",MaxNumberOfNodes]'
+              delay: 6h
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The maximum number of nodes allowed as a number of all cluster nodes (0 is unlimited).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: license
+            - uuid: 251481867869459590a8d48b874d4075
+              name: MaxOffheapSize
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",MaxOffheapSize]'
+              delay: 6h
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The maximum off-heap size allowed as a sum of all storage profiles sizes of each cluster node (0 is unlimited).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: license
+            - uuid: 7ecae3373ebe4f8fb07d9553231eb976
+              name: MaxRamSize
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",MaxRamSize]'
+              delay: 6h
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The maximum RAM size allowed as a sum of available RAM from each host (0 is unlimited).'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: license
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: a0a520586d8244a5b1131b5e29dfe42e
+          name: 'metastorage metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=metastorage,*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 4c773bb2b7f0423086395c8d9fb62063
+              name: SafeTimeLag
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",SafeTimeLag]'
+              history: 7d
+              trends: '0'
+              units: ms
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Number of milliseconds the local MetaStorage SafeTime lags behind the local logical clock'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: metastorage
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: 906621b7d9ed424c8e82a92c486046bc
+          name: 'os metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=os,*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 0d208f3d660344dab28da3768470df80
+              name: LoadAverage
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LoadAverage]'
+              history: 7d
+              value_type: FLOAT
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'System load average for the last minute. System load average is the sum of the number of runnable entities queued to the available processors and the number of runnable entities running on the available processors averaged over a period of time. The way in which the load average is calculated depends on the operating system. If the load average is not available, a negative value is returned'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: os
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: 09c52404693d4757ba3296a742aa3097
+          name: 'raft metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=raft,*"]'
+          delay: 6h
+          status: DISABLED
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          description: 'Raft metrics are present in this template for demonstrative purpose only, that they are available via JMX. They are disabled by default because their types are not compatible with current Zabbix releases (up to 7.0.x).'
+          item_prototypes:
+            - uuid: 5f25c459f05a4d4c8bba5cd6549e07cc
+              name: raft.fsmcaller.disruptor.Batch
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",raft.fsmcaller.disruptor.Batch]'
+              history: 7d
+              value_type: TEXT
+              status: DISABLED
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The histogram of the batch size to handle in the state machine for partitions'
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: raft
+            - uuid: b4ffa7d7b4914e918696df92b840ddd8
+              name: raft.fsmcaller.disruptor.Stripes
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",raft.fsmcaller.disruptor.Stripes]'
+              history: 7d
+              value_type: TEXT
+              status: DISABLED
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The histogram of distribution data by stripes in the state machine for partitions'
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: raft
+            - uuid: 4b5f22598bc14e4187756fac2f8e1b47
+              name: raft.logmanager.disruptor.Batch
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",raft.logmanager.disruptor.Batch]'
+              history: 7d
+              value_type: TEXT
+              status: DISABLED
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The histogram of the batch size to handle in the log for partitions'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: raft
+            - uuid: a5881e20c3484776b7ddd9c59cc77824
+              name: raft.logmanager.disruptor.Stripes
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",raft.logmanager.disruptor.Stripes]'
+              history: 7d
+              value_type: TEXT
+              status: DISABLED
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The histogram of distribution data by stripes in the log for partitions'
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: raft
+            - uuid: 43c8d67643ed4b82a3e5d8ed3dbe7774
+              name: raft.nodeimpl.disruptor.Batch
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",raft.nodeimpl.disruptor.Batch]'
+              history: 7d
+              value_type: TEXT
+              status: DISABLED
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The histogram of the batch size to handle node operations for partitions'
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: raft
+            - uuid: 41d70fbbc98f4fda98c0b6f668f459ec
+              name: raft.nodeimpl.disruptor.Stripes
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",raft.nodeimpl.disruptor.Stripes]'
+              history: 7d
+              value_type: TEXT
+              status: DISABLED
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The histogram of distribution data by stripes for node operations for partitions'
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: raft
+            - uuid: d2ae6475232b459989cf69c1a5676fd4
+              name: raft.readonlyservice.disruptor.Batch
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",raft.readonlyservice.disruptor.Batch]'
+              history: 7d
+              value_type: TEXT
+              status: DISABLED
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The histogram of the batch size to handle readonly operations for partitions'
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: raft
+            - uuid: 3c16f183688c441e9f9d692c6f50a556
+              name: raft.readonlyservice.disruptor.Stripes
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",raft.readonlyservice.disruptor.Stripes]'
+              history: 7d
+              value_type: TEXT
+              status: DISABLED
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The histogram of distribution data by stripes readonly operations for partitions'
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: raft
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: 2d8b8207a4bc44f9ad2f4dc47c8d52fe
+          name: 'transactions metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=transactions,*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: bed4070b31a444bc892ced14d7e007a7
+              name: RoCommits
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",RoCommits]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of read-only transaction commits.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: transactions
+            - uuid: bf7f4215c4684e3ea329f77765062b1f
+              name: RoRollbacks
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",RoRollbacks]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of read-only transaction rollbacks.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: transactions
+            - uuid: 081abb8728af442db5da8a0443da0350
+              name: RwCommits
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",RwCommits]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of read-write transaction commits.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: transactions
+            - uuid: 21d0b853a72f485a82c844a325b8d2d0
+              name: RwRollbacks
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",RwRollbacks]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of read-write transaction rollbacks.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: transactions
+            - uuid: bb2c5200e4974111a5a4fa8d17768c1b
+              name: TotalCommits
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TotalCommits]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of transaction commits.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: transactions
+            - uuid: b0e59021e3d04a8a8c54708c12363c8d
+              name: TotalRollbacks
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TotalRollbacks]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of transactions rollbacks.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: transactions
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: 2d572a02fd414e90ae361b25cd2cc7cc
+          name: 'client.handler metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=\"client.handler\",*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: ce61b4ff98df46ecadafc5c7a369e9b2
+              name: BytesReceived
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",BytesReceived]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total bytes received'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+            - uuid: 4206a47336b4496481fd94e6ffe8f68f
+              name: BytesSent
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",BytesSent]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total bytes sent'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+            - uuid: 91758a345a154e94bc155d75fdc7ba76
+              name: ConnectionsInitiated
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",ConnectionsInitiated]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total initiated connections'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+            - uuid: 5d417f389fdb4a7592e74aaacba4769c
+              name: CursorsActive
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",CursorsActive]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Active cursors'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+            - uuid: 034872faf3fd4550b28d408bfba6359b
+              name: RequestsActive
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",RequestsActive]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Requests in progress'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+            - uuid: 6e4c849d76a04c1ba6fe0275bfb70d9f
+              name: RequestsFailed
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",RequestsFailed]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total failed requests'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+            - uuid: d0242a6e82a94a9da0afe683671c4511
+              name: RequestsProcessed
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",RequestsProcessed]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total processed requests'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+            - uuid: 4ac903455bda4579a285955ba7fd6c12
+              name: SessionsAccepted
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",SessionsAccepted]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total accepted sessions'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+            - uuid: a7c79abcd6f449e0a18d55db624eadb9
+              name: SessionsActive
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",SessionsActive]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The number of currently active sessions'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+            - uuid: 3e18c473a8fa43769a097734f12069d8
+              name: SessionsRejectedTimeout
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",SessionsRejectedTimeout]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total sessions rejected due to timeout'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+            - uuid: 52bc832f80504f3e963d30b8df5a0004
+              name: SessionsRejectedTLS
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",SessionsRejectedTls]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total sessions rejected due to TLS handshake errors'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+            - uuid: a6cc40ccd91a4d34add22020d9604d3a
+              name: SessionsRejected
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",SessionsRejected]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total sessions rejected due to handshake errors'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+            - uuid: 8d2e74786e334abeb78898f89af7302f
+              name: TransactionsActive
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TransactionsActive]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Active transactions'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: client.handler
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: 9999ffe68b9740779120e112922e8024
+          name: clock.service
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=\"clock.service\",*"]'
+          delay: 1h
+          status: DISABLED
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.USER}'
+          description: 'clock.service metrics are present in this template for demonstrative purpose only, that they are available via JMX. They are disabled by default because their types are not compatible with current Zabbix releases (up to 7.0.x).'
+          item_prototypes:
+            - uuid: aa340a0a8e6947b890aff071556c0b51
+              name: ClockSkewExceedingMaxClockSkew
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",ClockSkewExceedingMaxClockSkew]'
+              units: ms
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Observed clock skew that exceeded max clock skew.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: clock.service
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+        - uuid: 9a577b21b9d64092ad6120e8475c05a2
+          name: 'tables metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=\"partition.states*\""]'
+          delay: 30m
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: c1b175d6d14345aabebe012a56265778
+              name: 'Table[{#JMXNAME}]: BrokenPartitionCount'
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",BrokenPartitionCount]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Count of broken partitions.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: tables
+              trigger_prototypes:
+                - uuid: 40a4ead08200430e8ce5ad8a8055c19e
+                  expression: 'last(/GridGain9 by JMX/jmx["{#JMXOBJ}",BrokenPartitionCount],#1)>0'
+                  name: 'Broken partition count for {#JMXNAME} is not 0'
+                  priority: HIGH
+            - uuid: bf460a2b767242cf8e3acb65367727a5
+              name: 'Table[{#JMXNAME}]: HealthyPartitionCount'
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",HealthyPartitionCount]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Count of living partitions with a healthy state machine.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: tables
+            - uuid: 8f2e095aa2124d31ba3f0602148e0e64
+              name: 'Table[{#JMXNAME}]: InitializingPartitionCount'
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",InitializingPartitionCount]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Count of partitions that are starting right now.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: tables
+            - uuid: ef69d74507394543a00bb02a3277514f
+              name: 'Table[{#JMXNAME}]: InstallingSnapshotPartitionCount'
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",InstallingSnapshotPartitionCount]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Count of partitions that installing Raft snapshots from the leader.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: tables
+            - uuid: 5f7b5d8db68444418be4dc6ed0c6de73
+              name: 'Table[{#JMXNAME}]: UnavailablePartitionCount'
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",UnavailablePartitionCount]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Count of partitions not yet started.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: tables
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: 9d3bc7215a164ca3b83e252d70101944
+          name: 'placement-driver metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=\"placement-driver\",*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          item_prototypes:
+            - uuid: f56381a1c40c4e9d9a6ee98a75fbde92
+              name: AcceptedLeases
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",AcceptedLeases]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Number of currently active leases.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: placement-driver
+            - uuid: ecea39f7e5114dc6b371a52c7097b5eb
+              name: LeaseNegotiations
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",LeaseNegotiations]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of created leases.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: placement-driver
+            - uuid: d75a0ac1cf994c3e98036fdf043d58ba
+              name: ReplicationGroups
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",ReplicationGroups]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of leases without candidates.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: placement-driver
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: 0ad0c99a1cd14d969ce02f292dcab055
+          name: 'resource.vacuum metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=\"resource.vacuum\",*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 03aabed21c2242fbac9d572dc503fd01
+              name: MarkedForVacuumTransactionMetaCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",MarkedForVacuumTransactionMetaCount]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Count of transaction metas that have been marked for vacuum.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: resource.vacuum
+            - uuid: ba42fb65389d454ea88dc395832d0394
+              name: SkippedForFurtherProcessingUnfinishedTransactionCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",SkippedForFurtherProcessingUnfinishedTransactionCount]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The current number of unfinished transactions that are skipped by vacuumizer for further processing.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: resource.vacuum
+            - uuid: 8b68c89691c94e40a6cc9e9f72c4bcd1
+              name: VacuumizedPersistentTransactionMetaCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",VacuumizedPersistentTransactionMetaCount]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Count of persistent transaction metas that have been vacuumized.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: resource.vacuum
+            - uuid: a2d5814b8d8f4a7ca9da4948c9600176
+              name: VacuumizedVolatileTxnMetaCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",VacuumizedVolatileTxnMetaCount]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Count of volatile transaction metas that have been vacuumized.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: resource.vacuum
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: b4aaff7bb4b14f3cb47d399ef775ae13
+          name: 'sql.client metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=\"sql.client\",*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: b63eb17e484d40daa81ce5e5bb72c30a
+              name: OpenCursors
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",OpenCursors]'
+              history: 7d
+              trends: '0'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Number of currently open cursors'
+              preprocessing:
+                - type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 3h
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.client
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: 1a521ac393054d84960484d111f5e96d
+          name: 'sql.memory metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=\"sql.memory\",*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 9ed0c126e121440c89fb62ec1cb47f5f
+              name: Limit
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",Limit]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'SQL memory limit (bytes)'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.memory
+            - uuid: 5006502af40f4d0e9c345ded79bbe22e
+              name: MaxReserved
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",MaxReserved]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Maximum memory usage by SQL so far (bytes)'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.memory
+            - uuid: 5213a247787040de97b7538b3a09487f
+              name: Reserved
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",Reserved]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Current memory usage by SQL (bytes)'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.memory
+            - uuid: 86419148ebcd4f2baa5b994ef8710080
+              name: StatementLimit
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",StatementLimit]'
+              history: 7d
+              units: b
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Memory limit per SQL statement (bytes)'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.memory
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+        - uuid: a9232ed4c9e34829b7c5c5b119c53102
+          name: 'sql.offloading metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=\"sql.offloading\",*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: c4cd1f6e265f4828b4eea7e21fa05223
+              name: DataLimit
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",DataLimit]'
+              history: 7d
+              units: bytes
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'SQL offloading data limit in bytes'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.offloading
+            - uuid: 346bdc7f4bec4c1c8f118e086f62807d
+              name: DiskUsage
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",DiskUsage]'
+              history: 7d
+              units: bytes
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The amount of space currently used by the offloading in bytes'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.offloading
+            - uuid: f85751b74bc54e12b0530d62e276b618
+              name: MaxDiskUsage
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",MaxDiskUsage]'
+              history: 7d
+              units: bytes
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The maximum amount of space used by the offloading in bytes'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.offloading
+            - uuid: 8b07442e81334f85950ba3d43a935010
+              name: OffloadedActiveQueries
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",OffloadedActiveQueries]'
+              history: 7d
+              units: queries
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The number of active queries that have been spilled to disk'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.offloading
+            - uuid: 57b534e489914932ac9e81209d6cc390
+              name: OpenedFilesCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",OpenedFilesCount]'
+              history: 7d
+              units: files
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The number of open files used for offloading'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.offloading
+            - uuid: df0d10c36c764ae0b91305a4f81feb3f
+              name: TotalBytesRead
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TotalBytesRead]'
+              history: 7d
+              units: bytes
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The total number of bytes read from disk by the offloading'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.offloading
+            - uuid: 4b7d36e30c2d4d7683962bac805673de
+              name: TotalBytesWritten
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TotalBytesWritten]'
+              history: 7d
+              units: bytes
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The total number of bytes written to disk by the offloading'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.offloading
+            - uuid: 5718df4b02c345768be231130bc1b73d
+              name: TotalOffloadedQueries
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TotalOffloadedQueries]'
+              history: 7d
+              units: queries
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The total number of queries that have been spilled to disk'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.offloading
+            - uuid: b0953811d8e049cd96fcfb279cd1ad0f
+              name: TotalReadOperationsCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TotalReadOperationsCount]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The total number of write operations performed by the offloading'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.offloading
+            - uuid: 88ddc366ab5a4fc1af2bdfac0d1fc489
+              name: TotalWriteOperationsCount
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TotalWriteOperationsCount]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'The total number of read operations performed by the offloading'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.offloading
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 3h
+        - uuid: b8f8bb57d2c1484ca98c970b39e7b958
+          name: 'sql.plan.cache metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=\"sql.plan.cache\",*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          filter:
+            evaltype: AND
+            conditions:
+              - macro: '{#JMXNAME}'
+                value: '{$GRIDGAIN.LLD.FILTER.DATA.REGION.MATCHES}'
+              - macro: '{#JMXNAME}'
+                value: '{$GRIDGAIN.LLD.FILTER.DATA.REGION.NOT_MATCHES}'
+                operator: NOT_MATCHES_REGEX
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: c5376e7fecc14277a1ebd2a959e6ee54
+              name: Hits
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",Hits]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Cache plan hits'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.plan.cache
+            - uuid: 7f50604545c74c93bacb2abb16c00c3f
+              name: Misses
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",Misses]'
+              history: 7d
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Cache plan misses'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.plan.cache
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 3h
+        - uuid: 2c51a5d08cf7435c87c22588c8756090
+          name: 'sql.queries metrics'
+          type: JMX
+          key: 'jmx.discovery[beans,"org.apache.ignite:name=\"sql.queries\",*"]'
+          delay: 6h
+          username: '{$GRIDGAIN.USER}'
+          password: '{$GRIDGAIN.PASSWORD}'
+          item_prototypes:
+            - uuid: 45fb5af9e5814906be083ea3beba7d20
+              name: Canceled
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",Canceled]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of canceled queries.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.queries
+            - uuid: d1ce7e166f2a43e79786dfd8827bbff9
+              name: ExceededMemoryQuota
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",ExceededMemoryQuota]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of queries that failed due to exceeding memory quota.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.queries
+            - uuid: a6c86871a7774bf5ad1406e7f632d3f2
+              name: Failed
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",Failed]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of failed queries. This metric includes all unsuccessful queries, regardless of reason.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.queries
+            - uuid: ab79b217877544718ea86b3699e38d8c
+              name: Succeeded
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",Succeeded]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of successful queries.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.queries
+            - uuid: e6eed6b25499489fa0548a432c6b1515
+              name: TimedOut
+              type: JMX
+              key: 'jmx["{#JMXOBJ}",TimedOut]'
+              username: '{$GRIDGAIN.USER}'
+              password: '{$GRIDGAIN.PASSWORD}'
+              description: 'Total number of queries that failed due to time-out.'
+              jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+              tags:
+                - tag: component
+                  value: sql.queries
+          jmx_endpoint: 'service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  for (var item, i = 0; item = data.data[i++];) {
+                      if (!('{#JMXIGNITEINSTANCENAME}' in item)) {
+                          Object.assign(item, {
+                              '{#JMXIGNITEINSTANCENAME}': 'null'
+                          });
+                      }
+                  
+                  }
+                  
+                  return JSON.stringify(data)
+      tags:
+        - tag: class
+          value: software
+        - tag: target
+          value: gridgain
+      macros:
+        - macro: '{$GRIDGAIN.LLD.FILTER.CACHE.MATCHES}'
+          value: '.*'
+          description: 'Filter of discoverable cache groups.'
+        - macro: '{$GRIDGAIN.LLD.FILTER.CACHE.NOT_MATCHES}'
+          value: CHANGE_IF_NEEDED
+          description: 'Filter to exclude discovered cache groups.'
+        - macro: '{$GRIDGAIN.LLD.FILTER.DATA.REGION.MATCHES}'
+          value: '.*'
+          description: 'Filter of discoverable data regions.'
+        - macro: '{$GRIDGAIN.LLD.FILTER.DATA.REGION.NOT_MATCHES}'
+          value: ^(sysMemPlc|TxLog)$
+          description: 'Filter to exclude discovered data regions.'
+        - macro: '{$GRIDGAIN.LLD.FILTER.THREAD.POOL.MATCHES}'
+          value: '.*'
+          description: 'Filter of discoverable thread pools.'
+        - macro: '{$GRIDGAIN.LLD.FILTER.THREAD.POOL.NOT_MATCHES}'
+          value: ^(GridCallbackExecutor|GridRebalanceStripedExecutor|GridDataStreamExecutor|StripedExecutor)$
+          description: 'Filter to exclude discovered thread pools.'
+        - macro: '{$GRIDGAIN.PASSWORD}'
+          value: '123456'
+        - macro: '{$GRIDGAIN.USER}'
+          value: monitorRole
