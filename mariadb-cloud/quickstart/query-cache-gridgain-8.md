@@ -253,6 +253,16 @@ Under **Who can read from the cache**, list the database users allowed to read c
 
 Both modes show the **Resulting rules** — exactly what gets sent when you save — and flag rules that will not do what they appear to do. **Test a query** checks the rules currently in the editor, not the ones already saved.
 
+<figure><img src="../.gitbook/assets/queryresultcache-caching-rules.png" alt="The Caching rules tab in Guided mode, with the volatile-result exclusion selected as the default, the resulting rules JSON alongside it, and the query tester below"><figcaption></figcaption></figure>
+
+_Manage - Caching rules, Guided_
+
+**Raw JSON** validates as you type and reports `Valid`, `Valid, with notes`, or `Not valid`, and **Load example** inserts a starting document.
+
+<figure><img src="../.gitbook/assets/queryresultcache-caching-rules-json.png" alt="The Caching rules tab in Raw JSON mode, showing the default exclusion document marked Valid and a reminder that store rules are checked in order with the first match winning"><figcaption></figcaption></figure>
+
+_Manage - Caching rules, Raw JSON_
+
 {% hint style="info" %}
 Saving rules does not restart your service. Allow a few minutes for new rules to take effect. **Reset to default** clears every rule so the service caches every cacheable query again; it does not disable the cache or remove any nodes.
 {% endhint %}
