@@ -1,27 +1,26 @@
 ---
 title: Which Product Do I Need?
 description: >-
-  Not sure which MariaDB to use? Choose between MariaDB Server, Enterprise
-  Platform, and Cloud by deciding how much of the database you want to run
-  yourself.
+  Choose between MariaDB Server, MariaDB Enterprise Platform, and MariaDB
+  Cloud by deciding how much of the database you want to run yourself.
 icon: signs-post
 ---
 
 # Which Product Do I Need?
 
-Not sure which MariaDB to use? Good news: it is the same database underneath. The SQL you write, the storage engines, and almost all of the documentation apply to every option. What changes is how much of the running you want to do yourself, and whether you want a support contract behind it.
+All three MariaDB products run the same database. The SQL you write, the storage engines available to you, and most of this documentation apply to every one of them. What differs is who operates the database, and whether a support contract stands behind it.
 
-The choice comes down to one question: who operates the database?
+The decision comes down to one question: who runs it?
 
-**You run it yourself, free.** Choose **MariaDB Server**. It is the open source database, self managed, with no contract. Reach for it to build, to evaluate, or to run on infrastructure you already operate. It is also the database inside the other two options, so choosing it now costs you nothing later.
+**You run it, at no cost.** Choose **MariaDB Server**. It is the open source database, self managed, under no contract. Reach for it to build, to evaluate, or to run on infrastructure you already operate. It is also the server inside the other two products, so the time you spend learning it carries forward.
 
-**You run it yourself, with support.** Choose **MariaDB Enterprise Platform**. You still operate the database, but you get a support contract, hardened builds, and the routing, clustering, analytics, and management components bundled and tested together. Reach for it when you run your own database in production and want a safety net and a ready-made topology.
+**You run it, with support.** Choose **MariaDB Enterprise Platform**. You still operate the database, and you get a support contract, hardened builds, and the routing, clustering, analytics, and management components bundled and certified against each other. Reach for it when you run production yourself and want a tested topology and an escalation path. Note that MariaDB ColumnStore and MariaDB Exa require MariaDB Enterprise Server, so analytical workloads on those engines need this product or MariaDB Cloud.
 
-**Someone else runs it.** Choose **MariaDB Cloud**. You provision a database and the service handles the hardware, updates, backups, and availability. Reach for it when you would rather build on the database than operate it, or when you want to scale without managing servers.
+**Someone else runs it.** Choose **MariaDB Cloud**. You provision a database and the service handles hardware, updates, backups, and availability. Reach for it when you would rather build on the database than operate it, or when you need to scale without adding operations staff.
 
-One reassurance before you choose: this is not a one way door. Because all three run the same database and share the same tools, you can prototype on Server, move to Cloud for launch, and adopt the MariaDB Platform later, without rewriting your application or relearning the database. Pick the option that fits where you are today.
+Moving between them later is a supported path, not a rebuild. Because all three run the same server and share the same client tools, you can prototype on MariaDB Server, launch on MariaDB Cloud, and adopt MariaDB Enterprise Platform afterward without rewriting the application.
 
-Read each product's own starting page to confirm the fit before you commit. Server's install guide shows exactly what running it yourself involves. The platform overview lists what you get in the bundle. The Cloud portal quickstart shows how little you have to operate.
+Each product's starting page states concretely what running it involves. Read the one you are leaning toward before you commit.
 
 ## Compare the Three Products
 

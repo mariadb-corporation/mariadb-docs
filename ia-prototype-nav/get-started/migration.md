@@ -1,24 +1,24 @@
 ---
 title: Migration
 description: >-
-  Bring your data to MariaDB. Migrate from MySQL, PostgreSQL, and other
+  Bring your data to MariaDB Server. Migrate from MySQL, PostgreSQL, and other
   databases, or move an existing database into MariaDB Cloud.
 icon: arrow-right-arrow-left
 ---
 
 # Migration
 
-Moving to MariaDB from another database? Start here. How much work it takes depends on where you are coming from. Coming from MySQL is close to a drop in for many schemas. Coming from PostgreSQL or another system means translating some types and syntax. Moving into MariaDB Cloud gives you a managed target with a loading path of its own. Whatever your source, the guides below get you from your current database to a working MariaDB.
+How much work a migration takes depends almost entirely on the source database. Moving from MySQL is close to a drop-in replacement for many schemas, because MariaDB shares the wire protocol, most of the SQL dialect, and much of the tooling. Moving from PostgreSQL, Oracle, or another system means translating types, functions, and procedural code. Moving into MariaDB Cloud gives you a managed target with a data loading path of its own.
 
-MariaDB's compatibility with MySQL is what makes many migrations straightforward: the SQL, the wire protocol, and the tooling line up, so a large share of applications move with little or no rewriting. Migrations from other systems take more care, and the guides here are honest about where that care is needed rather than promising a button.
+The guides below cover both the assessment and the move. The assessment matters more than it looks, because the cost of a migration is concentrated in the incompatibilities you find late.
 
-**Know what changes first.** Before you move a single row, see how MariaDB differs from your current database. The differences guide shows you where a migration is mechanical and where it needs real translation, which turns the job from a surprise into a plan. The migration overview then lays out the supported source databases and the process that applies across them, so you know the shape of the work before you commit to it.
+**Know what changes first.** Before moving any data, read how MariaDB differs from your current database. The differences guide separates the mechanical parts of a migration from the parts that need real translation, which turns an open ended job into a scoped one. The migration overview then lists the supported source databases and the process shared across them.
 
-**Pick your source.** Each source database has its own guide, written for its particular differences, so following the one that matches you is faster than working from the overview alone. Coming from MySQL is the most common path and usually needs the fewest changes, since MariaDB shares much of its heritage. Coming from PostgreSQL, the PostgreSQL guide covers the type and syntax differences you will meet.
+**Pick your source.** Each source database has a guide written for its specific differences, and following the matching one is faster than working from the overview. MySQL is the most common path and usually needs the fewest changes. PostgreSQL requires attention to type and syntax differences. Oracle migrations can use `sql_mode=ORACLE`, which accepts a large share of PL/SQL without a rewrite.
 
-**Moving to the managed service?** MariaDB Cloud has its own path that loads your data into a provisioned database, and there is a dedicated guide for moving an existing Amazon RDS for MariaDB instance across.
+**Moving to the managed service.** MariaDB Cloud has a loading path that imports your data into a provisioned database, and a dedicated guide covers moving an existing Amazon RDS for MariaDB instance across.
 
-Whatever your source, run the migration against a non production copy first, so you can time it and catch translation issues before they reach anyone.
+Run the migration against a non production copy first. That gives you a timing for the cutover and surfaces translation errors while they are still cheap to fix.
 
 ## Start With the Differences
 

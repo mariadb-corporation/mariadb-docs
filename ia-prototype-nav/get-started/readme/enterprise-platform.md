@@ -9,19 +9,19 @@ icon: layer-group
 
 # MariaDB Platform
 
-MariaDB Enterprise Platform is MariaDB built for production and backed by support. At its core is MariaDB Enterprise Server, the same database you already know, hardened and maintained under contract. Around it you get the pieces a serious deployment needs: MaxScale to route traffic and survive failures, Galera Cluster to keep your data on every node, ColumnStore and Exa for analytics, and tooling to manage it all. You still run the platform, but you run it with a safety net and a tested set of parts instead of assembling them yourself.
+MariaDB Enterprise Platform is MariaDB Enterprise Server plus the components a production deployment needs, bundled, version certified against each other, and covered by a support contract. You still operate it. What the Platform provides is a tested set of parts rather than an assembly you validate yourself.
 
-Production readiness here is concrete: component versions that are certified to work together, security fixes maintained across the stack, and a support contract for when something goes wrong at two in the morning. That is the difference between a database you assembled and one you can stand behind.
+The components address distinct problems. MaxScale routes queries, balances reads, and hides failover from the application. Galera Cluster and Raft Cluster replicate data across nodes and handle failover. ColumnStore and Exa run columnar analytics, and both require MariaDB Enterprise Server. GridGain 8 and GridGain 9 provide in-memory caching and acceleration. Enterprise Manager and the Enterprise Operator manage fleets and Kubernetes deployments.
 
-Here is the path from a first look to a working production topology.
+What the contract adds is concrete: component versions certified to work together, security fixes maintained across the whole stack, hardened builds, and an escalation path when a production system is failing.
 
-**Get your bearings.** Read the overview to see what the platform includes and which components your workload actually needs, so you deploy what you will use and skip what you will not. Pick up the operational habits early with the best practices guide, and set your security baseline before any real data lands.
+**Get your bearings.** Read the platform overview to see what is included and which components your workload actually needs, so you deploy what you will use. Pick up the operational conventions early from the best practices guide, and set the security baseline before real data lands.
 
-**Route and scale.** Most production deployments rest on two components working together. MaxScale sits in front of your servers and routes queries, balances reads, and hides failover from the application, so losing a node stops being an outage. Galera Cluster keeps a synchronous copy of your data on every node, so any node can take writes. Run a Galera cluster behind MaxScale and you have a topology that stays up.
+**Route and scale.** Most production topologies rest on two components together. Galera Cluster keeps a synchronous copy of the data on every node, so any node can accept writes. MaxScale sits in front and routes around a node that is gone. A Galera cluster behind MaxScale turns a node failure into a routing event.
 
-**Add analytics when you need them.** When reporting queries start to strain your transactional tables, ColumnStore gives you a columnar engine that answers them fast, in the same platform, without shipping the data somewhere else.
+**Add analytics when reporting starts to hurt.** When analytical queries begin competing with transactional ones, ColumnStore answers them from a columnar engine in the same platform, reading your operational data without an export.
 
-Start with the overview, then follow the component that solves your next problem.
+Start with the platform overview, then follow the component that solves your next problem.
 
 ## Understand the Platform
 

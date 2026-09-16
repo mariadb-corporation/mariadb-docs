@@ -1,7 +1,7 @@
 ---
 title: Development
 description: >-
-  Build applications on MariaDB. Connect from Java, Python, Node.js, and more
+  Build applications on MariaDB Server. Connect from Java, Python, Node.js, and more
   with a MariaDB connector, then write the SQL your queries and schema depend
   on.
 icon: code
@@ -9,17 +9,17 @@ icon: code
 
 # Development
 
-Build your application on MariaDB and you get a fast, standard SQL database that your language already knows how to talk to. Two things get you productive: a connector that links your code to the database, and the SQL that shapes your data. Start with the driver, then spend your time on the queries.
+Building an application on MariaDB Server comes down to two things: a connector that links your code to the database, and the SQL that shapes your data. Get the connector working first, then spend your time on the queries.
 
-Because MariaDB is compatible with MySQL, the drivers, ORMs, and query builders you already use work against it without changes, so you rarely start from scratch. The connectors below are the ones MariaDB maintains and tests directly, and they support the features, like connection pooling and prepared statements, that production applications lean on.
+Because MariaDB Server speaks the MySQL wire protocol, the drivers, ORMs, and query builders you already use work against it without changes. The connectors below are the ones MariaDB maintains and tests directly, and they support the features production applications depend on, including connection pooling, prepared statements, and failover aware connection strings.
 
-**Connect from your language.** MariaDB ships connectors for the languages you build in, and each has a quickstart that goes from an empty project to a live query. The connector does the heavy lifting: the wire protocol, connection pooling, and turning result rows into your language's own types, so you write statements and read objects. Grab the guide for your stack. Java and the JVM use Connector/J, Python uses the standard database interface, and JavaScript uses the async Node.js driver. Building in something else? The connector documentation has a quickstart for that too.
+**Connect from your language.** Each MariaDB connector has a quickstart that goes from an empty project to a live query. The connector handles the wire protocol, the pooling, and the conversion of result rows into your language's own types, so your code writes statements and reads objects. Java and other JVM languages use Connector/J. Python uses the standard DB-API interface. JavaScript uses the async Node.js driver. Other languages, including C, C++, .NET, ODBC, and R, have their own quickstarts in the connector documentation.
 
-Before you wire up a driver, it is worth proving the database is reachable from the command line. A quick `mariadb` session confirms your host, port, user, and password work, and rules out a whole class of problems that otherwise look like driver bugs.
+Before wiring up a driver, confirm the database is reachable from the command line. A short `mariadb` client session proves your host, port, user, and password are correct, and rules out a class of problems that otherwise present as driver faults.
 
-**Write the SQL.** With a connection open, the rest is SQL, and this is where your application takes shape. The basics guide gets you creating tables and running statements. The advanced SQL guide moves into joins, subqueries, and the query patterns real applications rely on, and it is the one you come back to as your schema grows. The string functions guide is a handy reference for the text handling nearly every schema needs.
+**Write the SQL.** With a connection open, the rest is SQL. The basics guide covers creating databases and tables and running your first statements. The advanced SQL guide moves into joins, subqueries, and the query patterns applications rely on as a schema grows. The string functions reference covers the text handling most schemas need.
 
-Pick your connector, get a query running, then build out your schema from there.
+Pick the connector for your language, get one query returning rows, then build the schema out from there.
 
 ## Connect From Your Language
 

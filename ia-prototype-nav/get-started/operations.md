@@ -8,17 +8,17 @@ icon: gauge-high
 
 # Operations
 
-Keep your database fast, safe, and available. Once MariaDB is deployed, operations is the work that keeps it that way: the backups you run on a schedule, the cluster and proxy you stand up once and watch over time, and the tuning you do when speed matters. The guides below get you to each of those, across the server, Galera Cluster, MaxScale, and MariaDB Cloud, without you needing to know which one owns which page.
+Operations is the work that keeps a deployed database fast, recoverable, and available: backups on a schedule, a cluster and proxy you stand up once and then watch, and tuning driven by measurement. The pages below reach each of those across MariaDB Server, Galera Cluster, MaxScale, and MariaDB Cloud, so you do not need to know which space documents which procedure.
 
-If you are running MariaDB in production for the first time, the order that follows is a sound one: get recoverable, get redundant, then get fast. Each stage builds on the one before it, and skipping ahead to tuning before your data is safe is the classic way to regret it later.
+For a first production deployment, the order below is deliberate: get recoverable, get redundant, then get fast. Each stage depends on the one before it, and tuning a database whose backups are unproven optimizes the wrong risk.
 
-**Back up and restore.** This is the routine to build first. The backup and restore overview covers the tools and the strategy, from logical dumps to physical backups, and when each fits. Run through the quickstart guides to take a backup and restore it by hand, because a backup you have never restored is not one you can trust yet. Get this working before anything else goes live.
+**Back up and restore.** Build this routine first. The backup and restore overview covers the available tools and when each fits, from logical dumps to physical backups. Work through the quickstart to take a backup and restore it by hand, because a backup you have never restored is an untested assumption. Have this working before any real data lands.
 
-**Stay available.** To ride out failures, replicate the database and route around trouble. Galera Cluster keeps a synchronous copy of your data on every node, so any node can take writes, and its use cases guide shows the topologies it fits. MaxScale sits in front, routing queries and balancing reads, so a lost node stops being an outage. Run them together and a single failure stops being an emergency. On the managed service, MariaDB Cloud gives you the same protection through a replicated topology it operates for you.
+**Stay available.** To survive node loss, replicate the data and route around the failure. Galera Cluster maintains a synchronous copy on every node, so any node can accept writes, and its use cases guide covers the topologies it suits. MaxScale sits in front, routing queries, balancing reads, and hiding failover from the application. Run them together and a single node failure stops being an outage. On MariaDB Cloud, a replicated topology gives you the same protection as a managed setting.
 
-**Tune with numbers.** When you need more speed, measure before you change. The benchmarking guide shows you how to put a realistic load on the database, so a configuration change is judged against a baseline and you can tell an improvement from a regression. Measure, change one thing, measure again.
+**Tune with numbers.** Measure before changing anything. The benchmarking guide covers putting a realistic load on the database so that a configuration change is judged against a baseline, which is the only way to tell an improvement from a regression. Measure, change one variable, measure again.
 
-Start with backups, add availability, and tune once the rest is steady.
+Start with a restore you have performed yourself, then add availability, then tune.
 
 ## Back Up and Restore
 
