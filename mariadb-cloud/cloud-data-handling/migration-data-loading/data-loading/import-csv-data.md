@@ -34,7 +34,7 @@ For MariaDB Cloud services that use MariaDB Server, the [local\_infile system va
 
 * For Replicated Transactions and Single Node Transactions services, the `local_infile` system variable is `OFF` by default
 
-[Configuration Manager](../../../../config/) can be used to modify the value of the `local_infile` system variable.
+[Configuration Manager](../../../cloud-management/config/) can be used to modify the value of the `local_infile` system variable.
 
 ## **Import Data**
 
