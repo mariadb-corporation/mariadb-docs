@@ -21,7 +21,7 @@ Platform**, evaluation builds under **Trials** — then license it as described 
 
 | Product | What the license is | Where you install it |
 | ------- | ------------------- | -------------------- |
-| [MariaDB MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/installation-and-configuration/maxscale-license-key) | License key | `license_key` in `maxscale.cnf` |
+| [MariaDB MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/installation-and-configuration/maxscale-license-key) | License key | `license_key` in `maxscale.cnf` |
 | [MariaDB AI RAG](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/mariadb-ai-rag/deployment/overview) | License key | `MARIADB_LICENSE_KEY` in `config.env.secure` |
 | [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/getting-started/adding-license) | GridGain license file | Uploaded in the Control Center UI, or read from disk |
 
@@ -67,7 +67,7 @@ license_key=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6...
 ```
 
 Full instructions, including renewal and troubleshooting:
-[Install a MaxScale License Key](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/installation-and-configuration/maxscale-license-key).
+[Install a MaxScale License Key](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/installation-and-configuration/maxscale-license-key).
 {% endtab %}
 
 {% tab title="AI RAG" %}
