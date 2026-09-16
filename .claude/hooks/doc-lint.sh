@@ -124,6 +124,7 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude 'security-certs\.docs\.ubuntu\.com' \
       --exclude 'www\.linux-pam\.org' \
       --exclude 'www\.bzip\.org' \
+      --exclude 'medium\.com' \
       --exclude 'selinuxproject\.org' \
       --exclude 'www\.gnu\.org' \
       --exclude 'manpages\.ubuntu\.com' \

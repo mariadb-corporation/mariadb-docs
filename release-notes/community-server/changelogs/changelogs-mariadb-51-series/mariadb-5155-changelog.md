@@ -266,7 +266,7 @@ modified in that revision.
     around 30% for `--parallel=10` (debug build), allowing to run the entire
     suite in 5 minutes.
 * [Revision #2998](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2998)
-  * Fixed [Bug #639935](https://bugs.launchpad.net/bugs/639935) ([MySQL Bug #58727](https://bugs.mysql.com/bug.php?id=58727)).
+  * Fixed Bug #639935 ([MySQL Bug #58727](https://bugs.mysql.com/bug.php?id=58727)).
     * When the optimizer creates items out of other items it does
       not have to call the fix\_fields method. Usually in these
       cases it calls quick\_fix\_field() that just marks the
