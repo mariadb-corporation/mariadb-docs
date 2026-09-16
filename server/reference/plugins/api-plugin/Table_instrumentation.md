@@ -7,7 +7,7 @@ description: >-
 
 # Table Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md#instrumentationinterface)
+> [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Macros
 

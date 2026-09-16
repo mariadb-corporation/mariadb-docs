@@ -7,7 +7,7 @@ description: >-
 
 # Application Binary Interface, version 1
 
-> [`Instrumentation Interface`](Instrumentation_interface.md#instrumentationinterface)
+> [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Classes
 
