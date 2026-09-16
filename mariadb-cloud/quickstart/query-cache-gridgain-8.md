@@ -99,6 +99,18 @@ A service launched from the portal starts with the volatile-result exclusion alr
 
 _Launch - Enable Query Result Cache_
 
+Enabling the add-on adds a **Cache Node Size** picker beside the server's **Node Size**. The two catalogs are separate: here a `Sky-2x4` server defaults to a `Sky-4x16` cache.
+
+<figure><img src="../.gitbook/assets/queryresultcache-cache-node-size.png" alt="Instance Resources showing Node Size Sky-2x4 next to a separate Cache Node Size of Sky-4x16"><figcaption></figcaption></figure>
+
+_Launch - Cache Node Size_
+
+**Advanced Options** carries the cache's **TTL** and **Minimum Query Duration**, and states the rules a new service launches with.
+
+<figure><img src="../.gitbook/assets/queryresultcache-ttl-min-duration.png" alt="Advanced Options: the Query Result Cache TTL field defaulting to 120 seconds and Minimum Query Duration defaulting to 100 milliseconds"><figcaption></figcaption></figure>
+
+_Launch - TTL and Minimum Query Duration_
+
 ### Via MariaDB Cloud REST API
 
 For **API keys**, client IP **allow list**, checking service **`ready`** status, and fetching **credentials**, follow [Launch DB using the REST API](launch-db-using-the-rest-api.md). The [MariaDB Cloud REST API reference](../reference/rest-api-reference.md) and [API docs](https://apidocs.skysql.com/) cover the full request model.
