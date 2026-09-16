@@ -14,7 +14,7 @@ MariaDB Enterprise Server uses an [Enterprise Lifecycle](../../about/enterprise-
 
 ## Enterprise Backup
 
-[MariaDB Enterprise Backup](../10-2/broken-reference/) enables non-blocking backups of MariaDB Enterprise Server.
+[MariaDB Enterprise Backup]({server}/server-usage/backup-and-restore/mariadb-enterprise-backup) enables non-blocking backups of MariaDB Enterprise Server.
 
 ## Security Vulnerabilities (CVE) Fixed in MariaDB Enterprise Server 10.2
 

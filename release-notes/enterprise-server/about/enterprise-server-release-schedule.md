@@ -23,7 +23,7 @@ Upcoming minor or maintenance releases are scheduled for:
 
 ## Prior Releases
 
-See the list of [All MariaDB Enterprise Server Releases](all-releases.md)
+See the list of [All MariaDB Enterprise Server Releases](../all-releases.md)
 
 ## Obtaining MariaDB Enterprise Server
 
