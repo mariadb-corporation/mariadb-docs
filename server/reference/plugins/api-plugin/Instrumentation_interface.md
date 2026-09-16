@@ -11,17 +11,17 @@ description: >-
 
 | Name | Description |
 |------|-------------|
-| [`File Instrumentation`](File_instrumentation.md#fileinstrumentation) |  |
-| [`Idle Instrumentation`](Idle_instrumentation.md#idleinstrumentation) |  |
-| [`Metadata Instrumentation`](Metadata_instrumentation.md#metadatainstrumentation) |  |
-| [`Memory Instrumentation`](Memory_instrumentation.md#memoryinstrumentation) |  |
-| [`Socket Instrumentation`](Socket_instrumentation.md#socketinstrumentation) |  |
-| [`Stage Instrumentation`](Stage_instrumentation.md#stageinstrumentation) |  |
-| [`Statement Instrumentation`](Statement_instrumentation.md#statementinstrumentation) |  |
-| [`Table Instrumentation`](Table_instrumentation.md#tableinstrumentation) |  |
-| [`Thread Instrumentation`](Thread_instrumentation.md#threadinstrumentation) |  |
-| [`Transaction Instrumentation`](Transaction_instrumentation.md#transactioninstrumentation) |  |
-| [`Application Binary Interface, version 1`](Group_PSI_v1.md#applicationbinaryinterfaceversion1) |  |
+| [`File Instrumentation`](File_instrumentation.md) |  |
+| [`Idle Instrumentation`](Idle_instrumentation.md) |  |
+| [`Metadata Instrumentation`](Metadata_instrumentation.md) |  |
+| [`Memory Instrumentation`](Memory_instrumentation.md) |  |
+| [`Socket Instrumentation`](Socket_instrumentation.md) |  |
+| [`Stage Instrumentation`](Stage_instrumentation.md) |  |
+| [`Statement Instrumentation`](Statement_instrumentation.md) |  |
+| [`Table Instrumentation`](Table_instrumentation.md) |  |
+| [`Thread Instrumentation`](Thread_instrumentation.md) |  |
+| [`Transaction Instrumentation`](Transaction_instrumentation.md) |  |
+| [`Application Binary Interface, version 1`](Group_PSI_v1.md) |  |
 
 ## Classes
 
@@ -934,7 +934,7 @@ Interface for an instrumented stage progress. This is a public structure, for ef
 
 ---
 
-#### m_work_completed
+##### m_work_completed
 
 ```cpp
 ulonglong m_work_completed
@@ -944,7 +944,7 @@ Defined in psi/psi.h:235
 
 ---
 
-#### m_work_estimated
+##### m_work_estimated
 
 ```cpp
 ulonglong m_work_estimated
@@ -986,7 +986,7 @@ State data storage for `start_table_io_wait_v1_t`, `start_table_lock_wait_v1_t`.
 
 ---
 
-#### m_flags
+##### m_flags
 
 ```cpp
 uint m_flags
@@ -998,7 +998,7 @@ Internal state.
 
 ---
 
-#### m_io_operation
+##### m_io_operation
 
 ```cpp
 enum PSI_table_io_operation m_io_operation
@@ -1012,7 +1012,7 @@ Current io operation.
 
 ---
 
-#### m_table
+##### m_table
 
 ```cpp
 struct PSI_table * m_table
@@ -1026,7 +1026,7 @@ Current table handle.
 
 ---
 
-#### m_table_share
+##### m_table_share
 
 ```cpp
 struct PSI_table_share * m_table_share
@@ -1040,7 +1040,7 @@ Current table share.
 
 ---
 
-#### m_thread
+##### m_thread
 
 ```cpp
 struct PSI_thread * m_thread
@@ -1054,7 +1054,7 @@ Current thread.
 
 ---
 
-#### m_timer_start
+##### m_timer_start
 
 ```cpp
 ulonglong m_timer_start
@@ -1066,7 +1066,7 @@ Timer start.
 
 ---
 
-#### m_timer
+##### m_timer
 
 ```cpp
 ulonglong(* m_timer)(void)
@@ -1078,7 +1078,7 @@ Timer function.
 
 ---
 
-#### m_wait
+##### m_wait
 
 ```cpp
 void * m_wait
@@ -1090,7 +1090,7 @@ Internal data.
 
 ---
 
-#### m_index
+##### m_index
 
 ```cpp
 uint m_index
@@ -1124,7 +1124,7 @@ Entry point for the performance schema interface.
 
 ---
 
-#### get_interface
+##### get_interface
 
 ```cpp
 void *(* get_interface)(int version)
@@ -1148,7 +1148,7 @@ a versioned interface ([PSI_v1](Group_PSI_v1.md#psi_v1), PSI_v2 or PSI)
 
 **See also**: [PSI](api.md#psi)
 
-#### Parameters
+###### Parameters
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
@@ -1178,7 +1178,7 @@ Dummy structure, used to declare PSI_server when no instrumentation is available
 
 ---
 
-#### opaque
+##### opaque
 
 ```cpp
 int opaque
@@ -1212,7 +1212,7 @@ Stage instrument information. **Since**: PSI_VERSION_1 This structure is used to
 
 ---
 
-#### m_key
+##### m_key
 
 ```cpp
 unsigned int m_key
@@ -1224,7 +1224,7 @@ Unused stage key.
 
 ---
 
-#### m_name
+##### m_name
 
 ```cpp
 const char * m_name
@@ -1236,7 +1236,7 @@ The name of the stage instrument.
 
 ---
 
-#### m_flags
+##### m_flags
 
 ```cpp
 int m_flags

@@ -7,7 +7,7 @@ description: >-
 
 # Socket Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md#instrumentationinterface)
+> [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Classes
 
@@ -1070,7 +1070,7 @@ An instrumented socket.
 
 ---
 
-#### fd
+##### fd
 
 ```cpp
 my_socket fd
@@ -1082,7 +1082,7 @@ The real socket descriptor.
 
 ---
 
-#### is_unix_domain_socket
+##### is_unix_domain_socket
 
 ```cpp
 char is_unix_domain_socket
@@ -1094,7 +1094,7 @@ Is this a Unix-domain socket?
 
 ---
 
-#### is_extra_port
+##### is_extra_port
 
 ```cpp
 char is_extra_port
@@ -1106,7 +1106,7 @@ Is this a socket opened for the extra port?
 
 ---
 
-#### address_family
+##### address_family
 
 ```cpp
 unsigned short address_family
@@ -1118,7 +1118,7 @@ Address family of the socket. (See sa_family from struct sockaddr).
 
 ---
 
-#### m_psi
+##### m_psi
 
 ```cpp
 struct PSI_socket * m_psi

@@ -7,7 +7,7 @@ description: >-
 
 # File Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md#instrumentationinterface)
+> [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Classes
 
@@ -961,7 +961,7 @@ An instrumented FILE structure. **See also**: [MYSQL_FILE](api.md#mysql_file)
 
 ---
 
-#### m_file
+##### m_file
 
 ```cpp
 FILE * m_file
@@ -973,7 +973,7 @@ The real file.
 
 ---
 
-#### m_psi
+##### m_psi
 
 ```cpp
 struct PSI_file * m_psi
