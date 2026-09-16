@@ -97,12 +97,17 @@ jobs:
           # ATX headings only: ##### and ###### at the start of a line become ####.
           # Process ###### first so a six-hash heading is not left as a five-hash
           # heading after a single pass.
-          grep -rl '^#####' "$dest_dir" | while IFS= read -r -d '' f; do
+          grep -rlZ '^#####' "$dest_dir" | while IFS= read -r -d '' f; do
             sed -i -E \
               -e 's/^######[[:space:]]+/#### /' \
               -e 's/^#####[[:space:]]+/#### /' \
               "$f"
           done
+
+      - name: Drop dead page-title breadcrumb fragments
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/fix_plugin_api_breadcrumb_links.py
 
       - name: Add frontmatter to the generated pages
         run: |

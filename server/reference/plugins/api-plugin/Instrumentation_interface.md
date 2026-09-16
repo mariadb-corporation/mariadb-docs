@@ -11,17 +11,17 @@ description: >-
 
 | Name | Description |
 |------|-------------|
-| [`File Instrumentation`](File_instrumentation.md#fileinstrumentation) |  |
-| [`Idle Instrumentation`](Idle_instrumentation.md#idleinstrumentation) |  |
-| [`Metadata Instrumentation`](Metadata_instrumentation.md#metadatainstrumentation) |  |
-| [`Memory Instrumentation`](Memory_instrumentation.md#memoryinstrumentation) |  |
-| [`Socket Instrumentation`](Socket_instrumentation.md#socketinstrumentation) |  |
-| [`Stage Instrumentation`](Stage_instrumentation.md#stageinstrumentation) |  |
-| [`Statement Instrumentation`](Statement_instrumentation.md#statementinstrumentation) |  |
-| [`Table Instrumentation`](Table_instrumentation.md#tableinstrumentation) |  |
-| [`Thread Instrumentation`](Thread_instrumentation.md#threadinstrumentation) |  |
-| [`Transaction Instrumentation`](Transaction_instrumentation.md#transactioninstrumentation) |  |
-| [`Application Binary Interface, version 1`](Group_PSI_v1.md#applicationbinaryinterfaceversion1) |  |
+| [`File Instrumentation`](File_instrumentation.md) |  |
+| [`Idle Instrumentation`](Idle_instrumentation.md) |  |
+| [`Metadata Instrumentation`](Metadata_instrumentation.md) |  |
+| [`Memory Instrumentation`](Memory_instrumentation.md) |  |
+| [`Socket Instrumentation`](Socket_instrumentation.md) |  |
+| [`Stage Instrumentation`](Stage_instrumentation.md) |  |
+| [`Statement Instrumentation`](Statement_instrumentation.md) |  |
+| [`Table Instrumentation`](Table_instrumentation.md) |  |
+| [`Thread Instrumentation`](Thread_instrumentation.md) |  |
+| [`Transaction Instrumentation`](Transaction_instrumentation.md) |  |
+| [`Application Binary Interface, version 1`](Group_PSI_v1.md) |  |
 
 ## Classes
 
