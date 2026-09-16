@@ -267,6 +267,33 @@ _Manage - Caching rules, Raw JSON_
 Saving rules does not restart your service. Allow a few minutes for new rules to take effect. **Reset to default** clears every rule so the service caches every cacheable query again; it does not disable the cache or remove any nodes.
 {% endhint %}
 
+### What the Default Excludes
+
+The document a portal-launched service starts with excludes one class of `SELECT`: statements whose result cannot be reproduced from the SQL text alone, and statements whose execution has a side effect that serving from cache would skip. Everything else is cached.
+
+| Category                | Why it cannot be cached                                         | Examples                                        |
+| ----------------------- | --------------------------------------------------------------- | ----------------------------------------------- |
+| Time                    | The result changes within the TTL window                        | `NOW`, `CURDATE`, `UTC_TIMESTAMP`               |
+| Session identity        | Differs per connection, and the cache is shared between sessions | `USER`, `DATABASE`, `CURRENT_ROLE`              |
+| Connection state        | Depends on what that connection did previously                  | `FOUND_ROWS`, `ROW_COUNT`, `LAST_INSERT_ID`     |
+| Randomness              | The result is not reproducible                                  | `RAND`, `UUID`, `RANDOM_BYTES`                  |
+| Variables               | Session or global state, not a function of the query text        | `@var`, `@@var`                                 |
+| Locking reads           | Serving from cache acquires no lock                             | `FOR UPDATE`, `LOCK IN SHARE MODE`              |
+| Side effects            | Serving from cache skips the effect                             | `GET_LOCK`, `NEXTVAL`, `SETVAL`, `INTO OUTFILE` |
+| Server-state waits      | The result depends on replication state at execution time        | `MASTER_POS_WAIT`, `MASTER_GTID_WAIT`           |
+| Explicit client opt-out | The client asked for no caching                                 | `SQL_NO_CACHE`                                  |
+
+`SQL_CALC_FOUND_ROWS` is excluded too, because a cache hit would leave a following `FOUND_ROWS()` reporting a stale count.
+
+### How Matching Works
+
+A rule is a regular expression over the **raw SQL text**. It is not a parse of the statement, which has consequences worth knowing:
+
+* **String literals and comments count.** `SELECT * FROM t WHERE note = 'for update'` is not cached, because the text contains `for update`.
+* **Indirection is invisible.** A view or stored function whose body calls `NOW()` is not detected, because `NOW()` never appears in the statement you submit.
+
+The exclusions are deliberately biased toward caching less: a rule that matches when it need not have only costs you a cache hit, whereas one that fails to match could serve a stale or cross-session result.
+
 ### Rule Grammar
 
 The document is a single JSON object, or a non-empty array of objects, up to 64 KiB. The only allowed keys are `store` and `use`. Each entry is `{"attribute": "…", "op": "…", "value": "…"}`, with all three required and no extra keys.
@@ -278,12 +305,22 @@ The document is a single JSON object, or a non-empty array of objects, up to 64 
 
 For the exact-match operators `=` and `!=`, a `database` value must not contain a dot, a `table` value may contain at most one, and a `column` value at most two.
 
+{% hint style="danger" %}
+**Saving rules replaces the whole document — it does not add to it.**
+
+Because `store[]` is first-match-wins OR, a statement is cached if **any** store entry matches. So submitting one new entry on its own does not sit on top of the exclusions a portal-launched service starts with; it replaces them, and can re-admit the very queries they were keeping out.
+
+To keep the default protection while adding a rule of your own, carry the default entry forward into the document you submit alongside your new entry. Never submit the new entry by itself.
+{% endhint %}
+
 {% hint style="warning" %}
 **`store[]` is first-match-wins OR, not AND.** Each store entry you add **widens** what gets cached. There is no way to require that several conditions all hold.
 
-**`like` and `unlike` values are RE2 regular expressions.** PCRE2-only syntax — lookahead, lookbehind, backreferences, possessive quantifiers, and recursion — is rejected. You cannot express a conjunction with a lookahead.
+**Write `like` and `unlike` values for both regex engines.** The API validator and the rules tester compile the pattern with RE2 (Go), while MaxScale evaluates it at run time with PCRE2. Use the intersection of the two: PCRE2-only syntax — lookahead, lookbehind, backreferences, atomic groups — is rejected at validation. You cannot express a conjunction with a lookahead.
 
-**`table`, `column`, and `database` matchers test existence, not universality.** A `JOIN` that mentions a listed table can still be cached even when another table in the same `JOIN` was meant to be excluded.
+**Case-insensitivity is not applied for you.** Set it inline with `(?i)` at the start of the value.
+
+**Caching rules are not a reliable way to exclude a table.** `table`, `column`, and `database` matchers test existence, not universality, so a `JOIN` that mentions a listed table can still be cached even when another table in the same `JOIN` was meant to be excluded.
 {% endhint %}
 
 {% hint style="info" %}
