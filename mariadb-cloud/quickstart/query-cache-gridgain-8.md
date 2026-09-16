@@ -93,7 +93,7 @@ Query Result Cache is enabled on a **MariaDB Provisioned** service that uses **S
 4. Under **Instance Resources**, choose a **Cache Node Size** (**Sky-4x16** to **Sky-16x128**, Intel/AMD only).
 5. Optionally, under **Advanced Options**, set the cache **TTL** and **Minimum Query Duration**.
 
-A new service starts permissive: with no rules set, every query the cache can hold is cached. Set [caching rules](query-cache-gridgain-8.md#caching-rules) from **Manage** → **Query Result Cache** once the service is ready — start with the volatile-function exclusion described there.
+A service launched from the portal starts with the volatile-result exclusion already applied — see [Caching Rules](query-cache-gridgain-8.md#caching-rules). Adjust or clear it from **Manage** → **Query Result Cache** once the service is ready.
 
 <figure><img src="../.gitbook/assets/portal-add-gg8-cache.png" alt="MariaDB Cloud launch flow: MariaDB Provisioned selected, Semi-sync HA selected, and the Query Result Cache add-on enabled"><figcaption></figcaption></figure>
 
@@ -195,7 +195,7 @@ On **Capacity & tuning**:
 
 On **Caching rules**, edit the rules that decide which queries are cached and who may read cached entries. See [Caching Rules](query-cache-gridgain-8.md#caching-rules) below. The cache must already be enabled before you can set rules.
 
-<figure><img src="../.gitbook/assets/gg8-cache-service-management-screen.png" alt="The Manage Query Result Cache dialog: enable checkbox, TTL, cache node size selection, and estimated cost"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/gg8-cache-service-management-screen.png" alt="The Manage Query Result Cache dialog on the Capacity & tuning tab: enable checkbox, TTL, Minimum Query Duration, cache node size selection, and estimated cost"><figcaption></figcaption></figure>
 
 _Manage Query Result Cache_
 
@@ -203,12 +203,17 @@ The same operations are available through the REST API. See [Via MariaDB Cloud R
 
 ## Caching Rules
 
-`queryresultcache_rules` is a JSON document that decides **which** queries are stored in the cache and **which users** may read cached entries. The default is `{}` — no rules, so nothing is excluded on the basis of what a query does.
+`queryresultcache_rules` is a JSON document that decides **which** queries are stored in the cache and **which users** may read cached entries.
+
+What a new service starts with depends on how you create it:
+
+* **From the portal** — the volatile-result exclusion shown in [Rule Examples](query-cache-gridgain-8.md#rule-examples) is applied for you. There is no rules editor at launch, so the portal sends that document on your behalf; it is also the default option in the guided editor afterwards.
+* **From the REST API or Terraform** — omitting `queryresultcache_rules` stores `{}`, which excludes nothing.
 
 {% hint style="warning" %}
-**Rules are the only thing that keeps volatile results out of the cache.** The cache does not inspect a query to judge whether its result is safe to reuse. With no `store` rules, a query calling `NOW()`, `CURDATE()`, `RAND()`, `UUID()`, or `LAST_INSERT_ID()` has its result cached like any other, and every identical query is served that same value until the hard TTL expires.
+**Rules are the only thing that excludes a query on the basis of what it does.** The cache does not inspect a query to judge whether its result is safe to reuse.
 
-Excluding those functions is the recommended first rule on any new service. See [Rule Examples](query-cache-gridgain-8.md#rule-examples), or pick **Everything except queries that use volatile functions** in the portal's guided editor.
+So under `{}` a query calling `NOW()`, `RAND()`, or `UUID()`, a query reading a session variable, and a locking read all have their results cached like any other — and every identical query is served that same value until the hard TTL expires. If you create services through the API or Terraform, send `queryresultcache_rules` explicitly rather than relying on the default.
 {% endhint %}
 
 Rules do not replace the other limits. A result is stored only when **all** of these pass:
@@ -226,8 +231,8 @@ Open **Manage** → **Query Result Cache** → **Caching rules**. The editor has
 
 **Guided** mode covers the common cases without writing JSON. Under **What gets stored in the cache**, choose one of:
 
-* **Every query that can be cached** — the default. No filtering of any kind, including queries whose results go stale the moment they are computed.
-* **Everything except queries that use volatile functions** — the recommended starting point, since results from those never stay correct for long. `NOW`, `CURDATE`, `CURTIME`, `RAND`, `UUID`, and `SLEEP` are excluded for you; `SYSDATE`, `CURRENT_TIMESTAMP`, `LAST_INSERT_ID`, and `CONNECTION_ID` are offered as well. The set folds into one pattern, so each function you add narrows the cache further.
+* **Everything except queries whose results go stale immediately** — the default. Skips volatile functions, session variables, locking reads, and cache-defeating hints, using the single fixed pattern shown in [Rule Examples](query-cache-gridgain-8.md#rule-examples).
+* **Everything** — no query filtering. The minimum query duration and the TTL still decide what actually gets stored.
 * **Only queries matching a pattern I give** — one pattern matched against the raw SQL text, as **Starts with**, **Contains**, or **Matches regex (RE2)**.
 
 Under **Who can read from the cache**, list the database users allowed to read cached entries. Leave it empty to let every user read from the cache.
@@ -266,22 +271,30 @@ Do not write a "`SELECT`s only" rule such as `^SELECT`. It also drops cacheable 
 ### Rule Examples
 
 {% tabs %}
-{% tab title="No rules (default)" %}
+{% tab title="Exclude volatile results (portal default)" %}
+This is the document the portal sends for a new service, and what **Everything except queries whose results go stale immediately** produces in the guided editor. Send it yourself when you create a service through the API or Terraform.
+
+```json
+{
+  "store": [
+    {
+      "attribute": "query",
+      "op": "unlike",
+      "value": "(?i)(?:\\b(?:now|curdate|curtime|sysdate|unix_timestamp|convert_tz|session_user|system_user|user|database|schema|connection_id|found_rows|row_count|last_insert_id|nextval|lastval|setval|rand|random_bytes|uuid_short|uuid_v[0-9]|uuid|sys_guid|get_lock|release_all_locks|release_lock|is_free_lock|is_used_lock|master_pos_wait|master_gtid_wait|sleep|benchmark|load_file|encrypt)\\s*\\(|\\b(?:current_timestamp|current_date|current_time|current_user|current_role|localtimestamp|localtime|utc_timestamp|utc_date|utc_time)\\b|@@[a-z_]|[^\\w@$.'\"`%]@[a-z_$]|\\bfor\\s+update\\b|\\block\\s+in\\s+share\\s+mode\\b|\\binto\\s+(?:outfile|dumpfile)\\b|\\bsql_calc_found_rows\\b|\\bsql_no_cache\\b)"
+    }
+  ]
+}
+```
+
+It excludes the functions MaxScale treats as non-cacheable, the bare date and user keywords, system (`@@`) and user (`@`) variables, `FOR UPDATE` and `LOCK IN SHARE MODE`, `INTO OUTFILE` and `INTO DUMPFILE`, and the `SQL_CALC_FOUND_ROWS` and `SQL_NO_CACHE` hints.
+{% endtab %}
+
+{% tab title="No rules" %}
 ```json
 {}
 ```
 
-Nothing is excluded by rule. Results of volatile functions are cached too — see the warning above.
-{% endtab %}
-
-{% tab title="Exclude volatile functions" %}
-```json
-{
-  "store": [
-    { "attribute": "query", "op": "unlike", "value": "(?i)\\b(now|curdate|rand|uuid|sleep)\\b" }
-  ]
-}
-```
+Excludes nothing — see the warning above. This is what an API or Terraform create stores when `queryresultcache_rules` is omitted.
 {% endtab %}
 
 {% tab title="Restrict readers" %}
