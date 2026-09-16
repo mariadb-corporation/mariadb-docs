@@ -14,6 +14,7 @@
       * [MaxScale Installation Guide](maxscale-management/installation-and-configuration/maxscale-installation-guide.md)
       * [MaxScale Dependencies](maxscale-management/installation-and-configuration/maxscale-dependencies.md)
       * [Installing MaxScale Using a Tarball](maxscale-management/installation-and-configuration/installing-maxscale-using-a-tarball.md)
+      * [Install a MaxScale License Key](maxscale-management/installation-and-configuration/maxscale-license-key.md)
       * [MaxScale Configuration Guide](maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md)
       * [Deploy MaxScale with Docker](maxscale-management/deployment/installation-and-configuration/deploy-maxscale-with-docker.md)
     * [Upgrading MaxScale](maxscale-management/deployment/upgrading-maxscale/README.md)
