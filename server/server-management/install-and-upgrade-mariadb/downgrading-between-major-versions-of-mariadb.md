@@ -36,7 +36,7 @@ This is usually acceptable on staging systems, non-critical applications, and re
 
 #### Downgrading and Keeping Data Written After the Upgrade
 
-If the server has been running on the newer version and that newer data must be preserved, a physical restore is not an option. Use a logical dump and restore instead.
+If the server has been running on the newer version and that newer data must be preserved, a physical restore might not be an option anymore. Use a logical dump and restore instead.
 
 {% hint style="warning" %}
 This is the difficult scenario and it carries real risk. A logical dump and restore is the best available approach, not a guaranteed one: a dump taken on the newer version can still contain definitions the older version rejects. Verify the restore on a test server before committing to it.
@@ -58,10 +58,10 @@ The downgrade will not succeed if any features introduced in the higher version 
 
 Common categories of change that may prevent downgrading include:
 
-* **InnoDB redo log format changes**: The format changed in MariaDB 10.8. An older server cannot read a newer redo log.
+* **InnoDB redo log format changes**: The format changed in MariaDB 10.8 (MariaDB Enterprise Server 11.4). An older server cannot read a newer redo log.
 * **System table changes**: The privilege and status tables in the `mysql` schema change between most major versions.
 * **New InnoDB table formats**: Tables created or rebuilt in a format the older version does not recognize cannot be opened after the downgrade.
-* **Removed subsystems**: A subsystem removed in the newer version, such as the InnoDB change buffer removed in MariaDB 11.0, changes what the older version expects to find on disk.
+* **Removed subsystems**: A subsystem removed in the newer version, such as the InnoDB change buffer removed in MariaDB 11.0 (MariaDB Enterprise Server 11.4), changes what the older version expects to find on disk.
 
 See [Version-Specific Considerations](downgrading-between-major-versions-of-mariadb.md#version-specific-considerations) for the cases that apply to currently supported versions.
 
@@ -81,7 +81,7 @@ The main reasons for a major version downgrade failure are:
 
 * **System table schema changes**: As the privilege system improves, the privilege and status tables in the [mysql schema](../../reference/system-tables/the-mysql-database-tables/) change between most major versions.
 * **Format changes on on-disk data**: These are less common and generally table-specific, but when they occur the affected tables cannot be opened in earlier versions.
-* **Internal changes to storage engines**: InnoDB has introduced redo log formats that earlier versions cannot read. The format written by MariaDB 10.8 and later is not readable by MariaDB 10.6, so a data directory from a newer server cannot simply be started on the older one.
+* **Internal changes to storage engines**: InnoDB has introduced redo log formats that earlier versions cannot read. The format written by MariaDB 10.8 (MariaDB Enterprise Server 11.4) and later is not readable by MariaDB 10.6, so a data directory from a newer server cannot simply be started on the older one.
 
 ### Downgrading Using Replication
 
@@ -99,8 +99,8 @@ The binary log transport itself is not the problem. MariaDB 10.6 and MariaDB 11.
 
 Data types added after the replica's version are the most common cause. For a MariaDB 10.6 replica, these include:
 
-* `UUID`, added in MariaDB 10.7
-* `VECTOR`, added in MariaDB 11.7
+* `UUID`, added in MariaDB 10.7 (MariaDB Enterprise Server 11.4)
+* `VECTOR`, added in MariaDB 11.7 (MariaDB Enterprise Server 11.8)
 
 If a table on the primary uses one of these, the replica stops with an error such as:
 
@@ -208,6 +208,8 @@ The change buffer is only a concern if `innodb_change_buffering` was explicitly 
 #### Downgrading from MariaDB 11.8 to MariaDB 11.4
 
 Both versions are free of the change buffer and share the same InnoDB redo log format, so neither is a factor. Verify system table and configuration compatibility as described above.
+
+However, MariaDB 11.8 introduced the `VECTOR` data type and vector indexing ([MDEV-33410](https://jira.mariadb.org/browse/MDEV-33410)), which does not exist in MariaDB 11.4 or earlier. Any table with a `VECTOR` column or vector index cannot be opened on MariaDB 11.4; drop or convert those columns/indexes before downgrading.
 
 ### MariaDB Enterprise Server Considerations
 
