@@ -1,3 +1,0 @@
-# Secure Connectors
-
-Placeholder page for the navigation prototype.

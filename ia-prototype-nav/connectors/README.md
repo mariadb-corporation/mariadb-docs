@@ -22,48 +22,72 @@ Two capabilities matter more than the rest in production. Connection pooling reu
 
 Pick the connector for your language, get one query returning rows, then configure pooling and TLS before you go to production.
 
-## Get Started
+## Choose a Connector
 
-{% content-ref url="get-started/install-connectors.md" %}
-[install-connectors.md](get-started/install-connectors.md)
+{% content-ref url="{connectors}/mariadb-connector-c" %}
+[Connector/C]({connectors}/mariadb-connector-c)
 {% endcontent-ref %}
 
-{% content-ref url="get-started/connect-to-connectors.md" %}
-[connect-to-connectors.md](get-started/connect-to-connectors.md)
+{% content-ref url="{connectors}/mariadb-connector-cpp" %}
+[Connector/C++]({connectors}/mariadb-connector-cpp)
+{% endcontent-ref %}
+
+{% content-ref url="{connectors}/mariadb-connector-j" %}
+[Connector/J]({connectors}/mariadb-connector-j)
+{% endcontent-ref %}
+
+{% content-ref url="{connectors}/mariadb-connector-r2dbc" %}
+[Connector/R2DBC]({connectors}/mariadb-connector-r2dbc)
+{% endcontent-ref %}
+
+{% content-ref url="{connectors}/mariadb-connector-nodejs" %}
+[Connector/Node.js]({connectors}/mariadb-connector-nodejs)
+{% endcontent-ref %}
+
+{% content-ref url="{connectors}/mariadb-connector-python" %}
+[Connector/Python]({connectors}/mariadb-connector-python)
+{% endcontent-ref %}
+
+## Get Started
+
+{% content-ref url="{connectors}/connectors-quickstart-guides" %}
+[Quickstart Guides]({connectors}/connectors-quickstart-guides)
 {% endcontent-ref %}
 
 ## Tutorials
 
-{% content-ref url="tutorials/connectors-tutorial.md" %}
-[connectors-tutorial.md](tutorials/connectors-tutorial.md)
+{% content-ref url="{connectors}/mariadb-connector-r2dbc/using-the-native-r2dbc-api-of-mariadb-connector-r2dbc" %}
+[Connector/R2DBC With the Native API]({connectors}/mariadb-connector-r2dbc/using-the-native-r2dbc-api-of-mariadb-connector-r2dbc)
 {% endcontent-ref %}
 
 ## How-To Guides
 
-{% content-ref url="how-to-guides/configure-connectors.md" %}
-[configure-connectors.md](how-to-guides/configure-connectors.md)
+{% content-ref url="{connectors}/mariadb-connector-j/using-tls-ssl-with-mariadb-java-connector" %}
+[Use TLS/SSL With Connector/J]({connectors}/mariadb-connector-j/using-tls-ssl-with-mariadb-java-connector)
 {% endcontent-ref %}
 
-{% content-ref url="how-to-guides/secure-connectors.md" %}
-[secure-connectors.md](how-to-guides/secure-connectors.md)
+{% content-ref url="{connectors}/mariadb-connector-python/pooling" %}
+[Pool Connections With Connector/Python]({connectors}/mariadb-connector-python/pooling)
 {% endcontent-ref %}
 
 ## Concepts
 
-{% content-ref url="overview/what-is-connectors.md" %}
-[what-is-connectors.md](overview/what-is-connectors.md)
-{% endcontent-ref %}
-
-{% content-ref url="concepts/how-connectors-works.md" %}
-[how-connectors-works.md](concepts/how-connectors-works.md)
+{% content-ref url="{connectors}/mariadb-connector-j/pool-datasource-implementation" %}
+[Pool Datasource Implementation]({connectors}/mariadb-connector-j/pool-datasource-implementation)
 {% endcontent-ref %}
 
 ## Reference
 
-{% content-ref url="reference/connectors-reference.md" %}
-[connectors-reference.md](reference/connectors-reference.md)
+{% content-ref url="{connectors}/mariadb-connector-c/api-functions" %}
+[Connector/C API Functions]({connectors}/mariadb-connector-c/api-functions)
 {% endcontent-ref %}
 
-{% content-ref url="release-notes/connectors-releases.md" %}
-[connectors-releases.md](release-notes/connectors-releases.md)
+{% content-ref url="{connectors}/mariadb-connector-python/api" %}
+[Connector/Python API Reference]({connectors}/mariadb-connector-python/api)
+{% endcontent-ref %}
+
+## Release Notes
+
+{% content-ref url="{release-notes}/connectors" %}
+[Connector Release Notes]({release-notes}/connectors)
 {% endcontent-ref %}
