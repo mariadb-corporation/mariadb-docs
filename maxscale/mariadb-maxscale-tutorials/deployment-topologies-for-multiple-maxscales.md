@@ -287,7 +287,7 @@ servers=db1,db2
 Use the same configuration on both instances, except that `db3`'s address is the tiebreaker host's address as seen from each instance.
 
 {% hint style="warning" %}
-`majority_of_all` guarantees consistency only with semisynchronous replication configured so the primary never falls back to asynchronous replication — see the [semisynchronous-replication requirement](failover-with-multiple-maxscales.md#old-primary-in-the-minority-partition). MariaDB needs an acknowledgment from one replica, and the tiebreaker can be the one that supplies it, so set `rpl_semi_sync_slave_enabled=ON` on the tiebreaker too. Otherwise a partition that isolates the primary with only the tiebreaker for company leaves the primary unable to get an acknowledgment from anywhere.
+`majority_of_all` guarantees consistency only with semisynchronous replication configured so the primary never falls back to asynchronous replication — see the [semisynchronous-replication requirement](failover-with-multiple-maxscales.md#primary-server-in-the-minority-partition). MariaDB needs an acknowledgment from one replica, and the tiebreaker can be the one that supplies it, so set `rpl_semi_sync_slave_enabled=ON` on the tiebreaker too. Otherwise a partition that isolates the primary with only the tiebreaker for company leaves the primary unable to get an acknowledgment from anywhere.
 {% endhint %}
 
 {% hint style="info" %}
