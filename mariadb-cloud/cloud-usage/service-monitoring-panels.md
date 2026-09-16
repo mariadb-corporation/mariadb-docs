@@ -403,10 +403,10 @@ This panel shows the rate of entries evicted from the query result cache. Sustai
 
 ## Cache Nodes
 
-This panel shows the number of cache server nodes in the cluster topology. A value below the expected node count indicates a node has left the topology.
+This panel appears on the service-wide view only. It shows the number of cache server nodes in the cluster topology. A value below the expected node count indicates a node has left the topology.
 
 ## Eviction Rate
 
-This panel appears on an individual cache node's view rather than the service-wide one, and shows the number of cache entries evicted per second during the selected time interval.
+This panel appears on an individual cache node's view rather than the service-wide one. It charts over the selected time interval the same eviction metric that **Evictions / sec** reports as a single figure.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
