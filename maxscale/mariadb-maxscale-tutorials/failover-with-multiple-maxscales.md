@@ -100,7 +100,7 @@ thus continue to use their own primaries, splitting the cluster.
 
 To ensure that both MaxScales agree on the primary database server, use the
 server global
-[read_only]({server}/server-management/variables-and-modes/server-system-variables#read_only)
+[read_only](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#read_only)
 -flag. Ensure that is it ON on every server except the primary DB. MaxScale will
 refrain from routing write-queries to a server in read_only-mode. read_only
 needs to be enabled during server startup, before the server can process any
