@@ -150,6 +150,16 @@ To understand or tune how such a query runs, use the engine's own tooling and
 documentation.
 {% endhint %}
 
+{% hint style="warning" %}
+**`PUSHED SELECT` does not always mean a ColumnStore table is involved.**
+ColumnStore's [Query Accelerator]({analytics}/mariadb-columnstore/use-cases/query-accelerator.md)
+feature can push down a query against plain `ENGINE=InnoDB` tables — with no
+ColumnStore table anywhere in the query — once the session or global variable
+`columnstore_innodb_queries_use_mcs` is enabled. If `EXPLAIN` reports
+`PUSHED SELECT` for a query you expected to run entirely on InnoDB, check
+whether that variable is set before assuming a ColumnStore table caused it.
+{% endhint %}
+
 In a `UNION`, pushdown can be *partial*: branches that an engine can run are
 pushed down, while the remaining branches are executed by the server.
 
