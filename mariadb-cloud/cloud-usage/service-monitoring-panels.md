@@ -399,10 +399,14 @@ This panel shows the memory allocated to the cache data region against its maxim
 
 ## Evictions / sec
 
-This panel shows the number of cache entries evicted per second.
+This panel shows the rate of entries evicted from the query result cache. Sustained non-zero values indicate the cache is over capacity and least-recently-used entries are being dropped.
+
+## Cache Nodes
+
+This panel shows the number of cache server nodes in the cluster topology. A value below the expected node count indicates a node has left the topology.
 
 ## Eviction Rate
 
-This panel shows the number of cache entries evicted per second during the selected time interval.
+This panel appears on an individual cache node's view rather than the service-wide one, and shows the number of cache entries evicted per second during the selected time interval.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

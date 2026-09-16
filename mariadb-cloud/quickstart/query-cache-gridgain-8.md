@@ -15,6 +15,12 @@ Query Result Cache is a provisioning **add-on** for MariaDB Provisioned services
 This feature requires **Semi-Sync HA** and **MaxScale 25.10.3 or later**, is available on Power and PowerPlus tiers only, and cannot be enabled on trial accounts.
 {% endhint %}
 
+{% hint style="info" %}
+**Choose what you cache.** The cache adds a lookup to the read path, so it pays off for repeated reads that are genuinely expensive to run — aggregations, joins that scan, report queries. For reads MariaDB already answers from its buffer pool in a millisecond or two, that lookup can cost more than it saves.
+
+This is what `queryresultcache_mxs_min_query_duration` is for: it keeps queries the server already answers quickly out of the cache. At the default of 100 ms, a query that takes 95 ms is not cached.
+{% endhint %}
+
 ## Architecture Overview
 
 The cache is positioned between MaxScale and MariaDB. MaxScale intercepts cacheable reads and checks the cache before querying the database; MariaDB remains the authoritative data store for all writes and for any read that is not served from cache. The cache engine is GridGain, running as a single in-memory node that is managed entirely by the platform.
@@ -98,6 +104,18 @@ A service launched from the portal starts with the volatile-result exclusion alr
 <figure><img src="../.gitbook/assets/portal-add-gg8-cache.png" alt="MariaDB Cloud launch flow: MariaDB Provisioned selected, Semi-sync HA selected, and the Query Result Cache add-on enabled"><figcaption></figcaption></figure>
 
 _Launch - Enable Query Result Cache_
+
+Enabling the add-on adds a **Cache Node Size** picker beside the server's **Node Size**. The two catalogs are separate: here a `Sky-2x4` server defaults to a `Sky-4x16` cache.
+
+<figure><img src="../.gitbook/assets/queryresultcache-cache-node-size.png" alt="Instance Resources showing Node Size Sky-2x4 next to a separate Cache Node Size of Sky-4x16"><figcaption></figcaption></figure>
+
+_Launch - Cache Node Size_
+
+**Advanced Options** carries the cache's **TTL** and **Minimum Query Duration**, and states the rules a new service launches with.
+
+<figure><img src="../.gitbook/assets/queryresultcache-ttl-min-duration.png" alt="Advanced Options: the Query Result Cache TTL field defaulting to 120 seconds and Minimum Query Duration defaulting to 100 milliseconds"><figcaption></figcaption></figure>
+
+_Launch - TTL and Minimum Query Duration_
 
 ### Via MariaDB Cloud REST API
 
@@ -241,9 +259,46 @@ Under **Who can read from the cache**, list the database users allowed to read c
 
 Both modes show the **Resulting rules** — exactly what gets sent when you save — and flag rules that will not do what they appear to do. **Test a query** checks the rules currently in the editor, not the ones already saved.
 
+<figure><img src="../.gitbook/assets/queryresultcache-caching-rules.png" alt="The Caching rules tab in Guided mode, with the volatile-result exclusion selected as the default, the resulting rules JSON alongside it, and the query tester below"><figcaption></figcaption></figure>
+
+_Manage - Caching rules, Guided_
+
+**Raw JSON** validates as you type and reports `Valid`, `Valid, with notes`, or `Not valid`, and **Load example** inserts a starting document.
+
+<figure><img src="../.gitbook/assets/queryresultcache-caching-rules-json.png" alt="The Caching rules tab in Raw JSON mode, showing the default exclusion document marked Valid and a reminder that store rules are checked in order with the first match winning"><figcaption></figcaption></figure>
+
+_Manage - Caching rules, Raw JSON_
+
 {% hint style="info" %}
 Saving rules does not restart your service. Allow a few minutes for new rules to take effect. **Reset to default** clears every rule so the service caches every cacheable query again; it does not disable the cache or remove any nodes.
 {% endhint %}
+
+### What the Default Excludes
+
+The document a portal-launched service starts with excludes one class of `SELECT`: statements whose result cannot be reproduced from the SQL text alone, and statements whose execution has a side effect that serving from cache would skip. Everything else is cached.
+
+| Category                | Why it cannot be cached                                         | Examples                                        |
+| ----------------------- | --------------------------------------------------------------- | ----------------------------------------------- |
+| Time                    | The result changes within the TTL window                        | `NOW`, `CURDATE`, `UTC_TIMESTAMP`               |
+| Session identity        | Differs per connection, and the cache is shared between sessions | `USER`, `DATABASE`, `CURRENT_ROLE`              |
+| Connection state        | Depends on what that connection did previously                  | `FOUND_ROWS`, `ROW_COUNT`, `LAST_INSERT_ID`     |
+| Randomness              | The result is not reproducible                                  | `RAND`, `UUID`, `RANDOM_BYTES`                  |
+| Variables               | Session or global state, not a function of the query text        | `@var`, `@@var`                                 |
+| Locking reads           | Serving from cache acquires no lock                             | `FOR UPDATE`, `LOCK IN SHARE MODE`              |
+| Side effects            | Serving from cache skips the effect                             | `GET_LOCK`, `NEXTVAL`, `SETVAL`, `INTO OUTFILE` |
+| Server-state waits      | The result depends on replication state at execution time        | `MASTER_POS_WAIT`, `MASTER_GTID_WAIT`           |
+| Explicit client opt-out | The client asked for no caching                                 | `SQL_NO_CACHE`                                  |
+
+`SQL_CALC_FOUND_ROWS` is excluded too, because a cache hit would leave a following `FOUND_ROWS()` reporting a stale count.
+
+### How Matching Works
+
+A rule is a regular expression over the **raw SQL text**. It is not a parse of the statement, which has consequences worth knowing:
+
+* **String literals and comments count.** `SELECT * FROM t WHERE note = 'for update'` is not cached, because the text contains `for update`.
+* **Indirection is invisible.** A view or stored function whose body calls `NOW()` is not detected, because `NOW()` never appears in the statement you submit.
+
+The exclusions are deliberately biased toward caching less: a rule that matches when it need not have only costs you a cache hit, whereas one that fails to match could serve a stale or cross-session result.
 
 ### Rule Grammar
 
@@ -256,12 +311,22 @@ The document is a single JSON object, or a non-empty array of objects, up to 64 
 
 For the exact-match operators `=` and `!=`, a `database` value must not contain a dot, a `table` value may contain at most one, and a `column` value at most two.
 
+{% hint style="danger" %}
+**Saving rules replaces the whole document — it does not add to it.**
+
+Because `store[]` is first-match-wins OR, a statement is cached if **any** store entry matches. So submitting one new entry on its own does not sit on top of the exclusions a portal-launched service starts with; it replaces them, and can re-admit the very queries they were keeping out.
+
+To keep the default protection while adding a rule of your own, carry the default entry forward into the document you submit alongside your new entry. Never submit the new entry by itself.
+{% endhint %}
+
 {% hint style="warning" %}
 **`store[]` is first-match-wins OR, not AND.** Each store entry you add **widens** what gets cached. There is no way to require that several conditions all hold.
 
-**`like` and `unlike` values are RE2 regular expressions.** PCRE2-only syntax — lookahead, lookbehind, backreferences, possessive quantifiers, and recursion — is rejected. You cannot express a conjunction with a lookahead.
+**Write `like` and `unlike` values for both regex engines.** The API validator and the rules tester compile the pattern with RE2 (Go), while MaxScale evaluates it at run time with PCRE2. Use the intersection of the two: PCRE2-only syntax — lookahead, lookbehind, backreferences, atomic groups — is rejected at validation. You cannot express a conjunction with a lookahead.
 
-**`table`, `column`, and `database` matchers test existence, not universality.** A `JOIN` that mentions a listed table can still be cached even when another table in the same `JOIN` was meant to be excluded.
+**Case-insensitivity is not applied for you.** Set it inline with `(?i)` at the start of the value.
+
+**Caching rules are not a reliable way to exclude a table.** `table`, `column`, and `database` matchers test existence, not universality, so a `JOIN` that mentions a listed table can still be cached even when another table in the same `JOIN` was meant to be excluded.
 {% endhint %}
 
 {% hint style="info" %}
@@ -400,14 +465,17 @@ When the cache is enabled, the service's **Monitoring** view gains a **Query Res
 
 _Monitoring - Query Result Cache_
 
-| Panel                          | What it shows                                                                        |
-| ------------------------------ | ------------------------------------------------------------------------------------ |
-| Cache Hit Ratio                | Ratio of cache hits to total lookups (gets); the main measure of cache effectiveness |
-| Cache Throughput               | Cache gets, hits, and misses per second                                              |
-| Cache Entries                  | Number of entries currently held in the cache                                        |
-| Off-Heap Used                  | Percentage of the cache node's off-heap memory in use                                |
-| Data Region Memory             | Memory allocated to the cache against its maximum size                               |
-| Evictions / sec, Eviction Rate | Cache entries evicted per second (an indicator of memory pressure)                   |
+| Panel              | What it shows                                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------------------------- |
+| Cache Hit Ratio    | Share of cache reads served from the cache; the main measure of cache effectiveness                  |
+| Cache Entries      | Number of entries currently held in the cache                                                        |
+| Off-Heap Used      | Share of the cache data region's off-heap memory allocated. Sustained values above 90% mean pressure |
+| Evictions / sec    | Rate of entries evicted. Sustained non-zero values mean the cache is over capacity                   |
+| Cache Nodes        | Number of cache nodes in the cluster topology. Below the expected count, a node has left             |
+| Cache Throughput   | Cache gets, hits, and misses per second                                                              |
+| Data Region Memory | Off-heap memory allocated for cached data against the data region's configured maximum               |
+
+These figures cover the whole service. Selecting the cache node in the list on the left instead gives the same panels for that one node, plus an **Eviction Rate** panel.
 
 For the full list of panels, see [Service Monitoring Panels](../cloud-usage/service-monitoring-panels.md). The same metrics are also available through the [Observability](../cloud-management/observability.md) API.
 
