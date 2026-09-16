@@ -267,7 +267,9 @@ _Manage - Caching rules, Guided_
 _Manage - Caching rules, Raw JSON_
 
 {% hint style="info" %}
-Saving rules does not restart your service, and the cache is not emptied — MaxScale rereads the rules in place. Allow a few minutes for new rules to take effect. **Reset to default** puts the volatile-result exclusion back; it does not disable the cache or remove any nodes.
+Saving rules does not restart your service, and the cache is not emptied — MaxScale rereads the rules in place. Allow a few minutes for new rules to take effect.
+
+**Reset to default** clears the rules rather than restoring the exclusion a new service starts with. After using it the service caches every cacheable query, volatile results included. To put the exclusion back, paste the document from [Rule Examples](query-cache-gridgain-8.md#rule-examples). Resetting does not disable the cache or remove any nodes.
 {% endhint %}
 
 ### What the Default Excludes
