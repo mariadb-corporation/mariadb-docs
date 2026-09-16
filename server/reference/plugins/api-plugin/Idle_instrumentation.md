@@ -3,7 +3,7 @@ description: >-
   Plugin API reference: Idle Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
 ---
 
-{#idleinstrumentation}
+
 
 # Idle Instrumentation
 
@@ -17,8 +17,6 @@ description: >-
 | [`MYSQL_END_IDLE_WAIT`](#mysql_end_idle_wait)  | Instrumentation helper for idle waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_IDLE_WAIT](api.md#mysql_start_idle_wait). |
 
 ---
-
-{#mysql_start_idle_wait}
 
 ### MYSQL_START_IDLE_WAIT
 
@@ -40,8 +38,6 @@ Instrumentation helper for table io_waits. This instrumentation marks the start 
 | `STATE` |  | the locker state |
 
 ---
-
-{#mysql_end_idle_wait}
 
 ### MYSQL_END_IDLE_WAIT
 

@@ -3,7 +3,7 @@ description: >-
   Plugin API reference: Statement Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
 ---
 
-{#statementinstrumentation}
+
 
 # Statement Instrumentation
 
@@ -26,8 +26,6 @@ description: >-
 
 ---
 
-{#mysql_statement_register}
-
 ### mysql_statement_register
 
 ```cpp
@@ -40,8 +38,6 @@ Statement registration.
 
 ---
 
-{#mysql_digest_start}
-
 ### MYSQL_DIGEST_START
 
 ```cpp
@@ -51,8 +47,6 @@ Statement registration.
 Defined in psi/mysql_statement.h:67
 
 ---
-
-{#mysql_digest_end}
 
 ### MYSQL_DIGEST_END
 
@@ -64,8 +58,6 @@ Defined in psi/mysql_statement.h:75
 
 ---
 
-{#mysql_start_statement}
-
 ### MYSQL_START_STATEMENT
 
 ```cpp
@@ -75,8 +67,6 @@ Defined in psi/mysql_statement.h:75
 Defined in psi/mysql_statement.h:83
 
 ---
-
-{#mysql_refine_statement}
 
 ### MYSQL_REFINE_STATEMENT
 
@@ -88,8 +78,6 @@ Defined in psi/mysql_statement.h:91
 
 ---
 
-{#mysql_set_statement_text}
-
 ### MYSQL_SET_STATEMENT_TEXT
 
 ```cpp
@@ -99,8 +87,6 @@ Defined in psi/mysql_statement.h:91
 Defined in psi/mysql_statement.h:99
 
 ---
-
-{#mysql_set_statement_lock_time}
 
 ### MYSQL_SET_STATEMENT_LOCK_TIME
 
@@ -112,8 +98,6 @@ Defined in psi/mysql_statement.h:107
 
 ---
 
-{#mysql_set_statement_rows_sent}
-
 ### MYSQL_SET_STATEMENT_ROWS_SENT
 
 ```cpp
@@ -124,8 +108,6 @@ Defined in psi/mysql_statement.h:115
 
 ---
 
-{#mysql_set_statement_rows_examined}
-
 ### MYSQL_SET_STATEMENT_ROWS_EXAMINED
 
 ```cpp
@@ -135,8 +117,6 @@ Defined in psi/mysql_statement.h:115
 Defined in psi/mysql_statement.h:123
 
 ---
-
-{#mysql_end_statement}
 
 ### MYSQL_END_STATEMENT
 
