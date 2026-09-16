@@ -16,7 +16,7 @@ in the same place — and the two differ only in what the license itself grants.
 evaluating MaxScale rather than running it in production, follow the trial page instead.
 
 For the full list of MariaDB products that use a license key, see
-[Install a MariaDB Enterprise License]({platform}/enterprise-license-install).
+[Install a MariaDB Enterprise License](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn/enterprise-license-install).
 
 ## Before you begin
 
@@ -160,7 +160,7 @@ sudo cat /var/log/maxscale/maxscale.log
 
 ## See also
 
-* [Install a MariaDB Enterprise License]({platform}/enterprise-license-install) — license
+* [Install a MariaDB Enterprise License](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn/enterprise-license-install) — license
   installation across MariaDB products
 * [MaxScale Trial](../../maxscale-use-cases/maxscale-trial.md) — evaluating MaxScale
 * [MaxScale Installation Guide](maxscale-installation-guide.md)

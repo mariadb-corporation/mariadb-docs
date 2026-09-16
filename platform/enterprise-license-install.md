@@ -21,13 +21,13 @@ Platform**, evaluation builds under **Trials** — then license it as described 
 
 | Product | What the license is | Where you install it |
 | ------- | ------------------- | -------------------- |
-| [MariaDB MaxScale]({maxscale}/maxscale-management/installation-and-configuration/maxscale-license-key) | License key | `license_key` in `maxscale.cnf` |
-| [MariaDB AI RAG]({tools}/mariadb-ai-rag/deployment/overview) | License key | `MARIADB_LICENSE_KEY` in `config.env.secure` |
-| [GridGain Control Center]({tools}/control-center/getting-started/adding-license) | GridGain license file | Uploaded in the Control Center UI, or read from disk |
+| [MariaDB MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/installation-and-configuration/maxscale-license-key) | License key | `license_key` in `maxscale.cnf` |
+| [MariaDB AI RAG](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/mariadb-ai-rag/deployment/overview) | License key | `MARIADB_LICENSE_KEY` in `config.env.secure` |
+| [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/getting-started/adding-license) | GridGain license file | Uploaded in the Control Center UI, or read from disk |
 
 Products not listed here do not require a license to run. MariaDB Enterprise Server, for example,
 is authenticated at download time with a Customer Download Token rather than a license at runtime —
-see [MariaDB Package Repository Setup]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
+see [MariaDB Package Repository Setup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
 
 <!-- TODO (DOCS-6634): confirm the full product list with Allen Herrera. Enterprise Manager,
      Enterprise Kubernetes Operator, and MCP Server also ship under MariaDB Enterprise Platform on
@@ -67,7 +67,7 @@ license_key=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6...
 ```
 
 Full instructions, including renewal and troubleshooting:
-[Install a MaxScale License Key]({maxscale}/maxscale-management/installation-and-configuration/maxscale-license-key).
+[Install a MaxScale License Key](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/installation-and-configuration/maxscale-license-key).
 {% endtab %}
 
 {% tab title="AI RAG" %}
@@ -77,7 +77,7 @@ Set `MARIADB_LICENSE_KEY` in `config.env.secure`.
 MARIADB_LICENSE_KEY=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6...
 ```
 
-Full instructions: [AI RAG deployment]({tools}/mariadb-ai-rag/deployment/overview).
+Full instructions: [AI RAG deployment](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/mariadb-ai-rag/deployment/overview).
 {% endtab %}
 {% endtabs %}
 
@@ -108,11 +108,11 @@ There are two of them, and they are separate things:
 
 To install one, see:
 
-{% content-ref url="{tools}/control-center/getting-started/adding-license" %}
+{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/getting-started/adding-license" %}
 Install Control Center and Add License
 {% endcontent-ref %}
 
-{% content-ref url="{tools}/control-center/admin-guide/license" %}
+{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/admin-guide/license" %}
 Managing License
 {% endcontent-ref %}
 
