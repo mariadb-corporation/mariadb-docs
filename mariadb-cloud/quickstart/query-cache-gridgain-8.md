@@ -422,14 +422,17 @@ When the cache is enabled, the service's **Monitoring** view gains a **Query Res
 
 _Monitoring - Query Result Cache_
 
-| Panel                          | What it shows                                                                        |
-| ------------------------------ | ------------------------------------------------------------------------------------ |
-| Cache Hit Ratio                | Ratio of cache hits to total lookups (gets); the main measure of cache effectiveness |
-| Cache Throughput               | Cache gets, hits, and misses per second                                              |
-| Cache Entries                  | Number of entries currently held in the cache                                        |
-| Off-Heap Used                  | Percentage of the cache node's off-heap memory in use                                |
-| Data Region Memory             | Memory allocated to the cache against its maximum size                               |
-| Evictions / sec, Eviction Rate | Cache entries evicted per second (an indicator of memory pressure)                   |
+| Panel              | What it shows                                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------------------------- |
+| Cache Hit Ratio    | Share of cache reads served from the cache; the main measure of cache effectiveness                  |
+| Cache Entries      | Number of entries currently held in the cache                                                        |
+| Off-Heap Used      | Share of the cache data region's off-heap memory allocated. Sustained values above 90% mean pressure |
+| Evictions / sec    | Rate of entries evicted. Sustained non-zero values mean the cache is over capacity                   |
+| Cache Nodes        | Number of cache nodes in the cluster topology. Below the expected count, a node has left             |
+| Cache Throughput   | Cache gets, hits, and misses per second                                                              |
+| Data Region Memory | Off-heap memory allocated for cached data against the data region's configured maximum               |
+
+These figures cover the whole service. Selecting the cache node in the list on the left instead gives the same panels for that one node, plus an **Eviction Rate** panel.
 
 For the full list of panels, see [Service Monitoring Panels](../cloud-usage/service-monitoring-panels.md). The same metrics are also available through the [Observability](../cloud-management/observability.md) API.
 
