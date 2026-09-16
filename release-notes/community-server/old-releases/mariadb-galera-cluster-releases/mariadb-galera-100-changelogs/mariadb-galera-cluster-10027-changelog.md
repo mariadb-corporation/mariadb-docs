@@ -1,8 +1,8 @@
 # MariaDB Galera Cluster 10.0.27 Changelog
 
-The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/galera/README.md) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
+The most recent [MariaDB Galera Cluster 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.27)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10027-release-notes.md)[Changelog](mariadb-galera-cluster-10027-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.27)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10027-release-notes.md)[Changelog](mariadb-galera-cluster-10027-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 29 Aug 2016
 
@@ -10,8 +10,7 @@ For the highlights of this release, see the [release notes](../mariadb-galera-10
 For changes made in MariaDB, see the [MariaDB 10.0.27 Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10027-changelog.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code
-modified in that revision.
+Github you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #16702ec](https://github.com/MariaDB/server/commit/16702ec)\
   2016-08-25 21:19:25 -0400

@@ -1,8 +1,8 @@
 # MariaDB Galera 5.5.29 Changelog
 
-The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
+The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/5.5.29) |[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-5529-release-notes.md) |**Changelog** |[Overview of Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
+[Download](https://downloads.mariadb.org/mariadb-galera/5.5.29) |[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-5529-release-notes.md) |**Changelog** |[Overview of Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 5 Mar 2013
 
@@ -89,11 +89,8 @@ The revision number links will take you to the revision's page on Launchpad. On 
     * fix embedded build with for cmake 2.6.2 (older cmake could not handle IF(NOT MATCHES)
   * [Revision #3334.1.317](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.317)\
     Mon 2013-01-28 15:13:39 +0200
-    * Fix for [MDEV-3948](https://jira.mariadb.org/browse/MDEV-3948), and backport of the following collection of fixes and backports
-      from [MariaDB 10.0](../../10.0/changes-improvements-in-mariadb-10-0.md).
-    * The bug in [MDEV-3948](https://jira.mariadb.org/browse/MDEV-3948) was an instance of the problem fixed by Sergey's patch
-      in 10.0 - namely that the range optimizer could change `table->[read | write]_set`,
-      and not restore it.
+    * Fix for [MDEV-3948](https://jira.mariadb.org/browse/MDEV-3948), and backport of the following collection of fixes and backports from [MariaDB 10.0](../../10.0/changes-improvements-in-mariadb-10-0.md).
+    * The bug in [MDEV-3948](https://jira.mariadb.org/browse/MDEV-3948) was an instance of the problem fixed by Sergey's patch in 10.0 - namely that the range optimizer could change `table->[read | write]_set`, and not restore it.
 
 ```
 revno: 3471

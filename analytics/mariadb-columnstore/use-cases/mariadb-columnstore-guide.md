@@ -19,7 +19,7 @@ Release notes and other documentation for ColumnStore is also available in the E
 * [ColumnStore 22.08 Release Notes](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore/22.08)
 * [ColumnStore 6 Release Notes](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore/old-releases/mariadb-columnstore-6-release-notes)
 * [ColumnStore 5.6 Release Notes](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore/old-releases/mariadb-columnstore-5-6-release-notes)
-* [Deployment Instructions](../architecture/columnstore-architectural-overview.md#mariadb-enterprise-columnstore)
+* [Deployment Instructions](../management/deployment/README.md)
 {% endhint %}
 
 It is designed for big data scaling to process petabytes of data, linear scalability, and exceptional performance with real-time response to analytical queries. It leverages the I/O benefits of columnar storage, compression, just-in-time projection, and horizontal and vertical partitioning to deliver tremendous performance when analyzing large data sets.

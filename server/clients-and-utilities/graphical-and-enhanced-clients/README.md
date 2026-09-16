@@ -7,8 +7,16 @@ description: >-
 
 # Graphical and Enhanced Clients
 
+{% hint style="info" %}
+The third-party tools described in this section are not developed or maintained by MariaDB and are not included with MariaDB Server. MariaDB doesn't test, validate, or support them. Refer to each tool's own documentation and license terms.
+{% endhint %}
+
 {% content-ref url="adminer.md" %}
 [adminer.md](adminer.md)
+{% endcontent-ref %}
+
+{% content-ref url="adminneo.md" %}
+[adminneo.md](adminneo.md)
 {% endcontent-ref %}
 
 {% content-ref url="beekeeper-studio.md" %}
@@ -89,6 +97,10 @@ description: >-
 
 {% content-ref url="ks-db-merge-tools-for-mysql-and-mariadb.md" %}
 [ks-db-merge-tools-for-mysql-and-mariadb.md](ks-db-merge-tools-for-mysql-and-mariadb.md)
+{% endcontent-ref %}
+
+{% content-ref url="libredb-studio.md" %}
+[libredb-studio.md](libredb-studio.md)
 {% endcontent-ref %}
 
 {% content-ref url="libreoffice-base.md" %}

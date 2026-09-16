@@ -18,7 +18,6 @@ This page includes links to Qlik documentation and interfaces.
 ### Resources
 
 * [Using Data to Move Your Business Forward with Qlik and MariaDB](https://mariadb.com/resources/blog/using-data-to-move-your-business-forward-with-qlik-and-mariadb/)
-* [Xpand Your Data Possibilities and Pipeline with MariaDB SkySQL and Qlik Data Integration](https://mariadb.com/resources/webinars/xpand-your-data-possibilities-pipeline-with-mariadb-skysql-qlik-data-integration/)
 * [Getting started Guide](https://help.qlik.com/en-US/cloud-services/Subsystems/Hub/Content/Sense_Hub/DataIntegration/Introduction/Data-services.htm)
 * [Qlik Replicate Setup and User Guide](https://help.qlik.com/en-US/replicate/May2022/pdf/Replicate-Setup-and-User-Guide.pdf)
 * [Free Qlik Data Integration Trial](https://www.qlik.com/us/trial/replicate?ga-link=qdi-hero)

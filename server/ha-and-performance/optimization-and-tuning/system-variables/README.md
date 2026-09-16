@@ -111,7 +111,7 @@ Segmented key caches, which split the MyISAM key cache into structures to reduce
 {% endcolumn %}
 
 {% column %}
-Status variables for the semisynchronous replication plugin.
+Status variables for semisynchronous replication.
 {% endcolumn %}
 {% endcolumns %}
 

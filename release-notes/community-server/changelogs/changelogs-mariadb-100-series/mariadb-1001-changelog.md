@@ -556,7 +556,6 @@ Fri 2012-08-17 21:13:20 +0400
 * Initial commit for Cassandra storage engine.
 ```
 
-```
 
 * [Revision #3492](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3492)\
   Fri 2013-01-11 16:33:51 +0100
@@ -855,10 +854,10 @@ Fri 2012-08-17 21:13:20 +0400
 ```
 
 revno: 3768.1.1
-committer: Christopher Powers [chris.powers@oracle.com](mailto:chris.powers@oracle.com)
+committer: Christopher Powers <chris.powers@oracle.com>
 timestamp: Wed 2012-05-02 22:16:40 -0500
-message:\
-Bug#11766342 INITIAL DB CREATION FAILS ON WINDOWS WITH AN ASSERT IN SQL\_ERROR.CC\
+message:
+Bug#11766342 INITIAL DB CREATION FAILS ON WINDOWS WITH AN ASSERT IN SQL_ERROR.CC
 Improved bootstrap error handling:
 
 * Detect and report file i/o errors
@@ -880,27 +879,27 @@ Improved bootstrap error handling:
 
 revno: 3383
 revision-id: georgi.kodinov@oracle.com-20110818083108-qa3h3ufqu4zne80a
-committer: Georgi Kodinov [Georgi.Kodinov@Oracle.com](mailto:Georgi.Kodinov@Oracle.com)
+committer: Georgi Kodinov <Georgi.Kodinov@Oracle.com>
 timestamp: Thu 2011-08-18 11:31:08 +0300
-message:\
-.\
-Bug #11766001: 59026: ALLOW MULTIPLE --PLUGIN-LOAD OPTIONS\
-.\
-Implemented support for a new command line option :\
-\--plugin-load-add=\
+message:
+.
+Bug #11766001: 59026: ALLOW MULTIPLE --PLUGIN-LOAD OPTIONS
+.
+Implemented support for a new command line option :
+--plugin-load-add=
 This option takes the same type of arguments that --plugin-load does
 and complements --plugin-load (that continues to operate as before) by
-appending its argument to the list specified by --plugin-load.\
+appending its argument to the list specified by --plugin-load.
 So --plugin-load can be considered a composite option consisting of
 resetting the plugin load list and then calling --plugin-load-add to process
-the argument.\
+the argument.
 Note that the order in which you specify --plugin-load and --plugin-load-add
-is important : "--plugin-load=x --plugin-load-add=y" will be equivalent to\
+is important : "--plugin-load=x --plugin-load-add=y" will be equivalent to
 "--plugin-load=x,y" whereas "--plugin-load-add=y --plugin-load=x" will be
-equivalent to "plugin-load=x".\
-.\
-Incompatible change : the --help --verbose command will no longer print the\
-\--plugin-load variable's values (as it doesn't have one). Otherwise both --plugin-load
+equivalent to "plugin-load=x".
+.
+Incompatible change : the --help --verbose command will no longer print the
+--plugin-load variable's values (as it doesn't have one). Otherwise both --plugin-load
 and --plugin-load-add are mentioned in it.
 
 ```
@@ -924,7 +923,6 @@ and --plugin-load-add are mentioned in it.
   Thu 2012-11-15 12:54:50 +0200
   * [MDEV-3858](https://jira.mariadb.org/browse/MDEV-3858) Change JOIN\_TAB::records\_read from ha\_rows to double
   * Currently JOIN\_TAB::records\_read is of type ha\_rows. This is an integer type, which prevents proper selectivity and rows estimates.
-```
 
 {% include "../../../.gitbook/includes/announce.md" %}
 

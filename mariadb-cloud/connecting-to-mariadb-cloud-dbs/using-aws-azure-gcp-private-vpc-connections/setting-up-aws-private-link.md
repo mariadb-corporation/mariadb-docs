@@ -159,12 +159,12 @@ To connect to a MariaDB Cloud service using AWS PrivateLink, you must create an 
 4. Click the "Create Endpoint" button.
 5. In the "Name tag" field, enter a name for the new endpoint. This name can be anything you like.
 6. Set the Service category to "Other endpoint services".
-7. The value for the "Service name" field must be set to the value of the Endpoint Service ID provided to you by MariaDB Cloud. See [Pre-requisites](setting-up-aws-private-link.md#pre-requisites) for more information on how to find this ID.
+7. The value for the "Service name" field must be set to the value of the Endpoint Service ID provided to you by MariaDB Cloud. See [Pre-requisites](setting-up-aws-private-link.md#prerequisites) for more information on how to find this ID.
 8. Click "Verify service". AWS should find the service and auto-populate the rest of the form.
 9. In the VPC search field, find the VPC that you want to use for the interconnect between the clients and the MariaDB Cloud service.
 10. In the Subnets section, it is suggested that you select all the Availability Zones in the list, entering the proper subnet ID for each one. If you are unsure, view the details of your running instances to see the Subnet ID that they have configured.
 11. Select IPv4 for "IP address type".
-12. For the "Security Groups" section, assign the security groups that will allow your client instance to connect to your VPC endpoint. See [Pre-requisites](setting-up-aws-private-link.md#pre-requisites) for more information on setting up security groups.
+12. For the "Security Groups" section, assign the security groups that will allow your client instance to connect to your VPC endpoint. See [Pre-requisites](setting-up-aws-private-link.md#prerequisites) for more information on setting up security groups.
 13. Press the "Create endpoint" button. Endpoint creation may take several minutes. When complete, status will change from "Pending" to "Available".
 
 After creation, the Endpoint will be in `Pending` status while AWS provisions the new endpoint. Once the endpoint is `Available`, you can connect to your MariaDB Cloud service using the new endpoint. The newly created endpoint now authorizes the internal IPs or security groups that you specified in the Source values to access the MariaDB Cloud service's connection port. When testing a client connection, ensure that the client host is authorized by the security group's Source settings and that you're using the "`readwrite`" port plus the appropriate username and password (either the default values or the value for any user you have created).

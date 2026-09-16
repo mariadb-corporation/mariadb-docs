@@ -116,7 +116,7 @@ On Linux distributions that use systemd you may need to increase the service sta
 {% endstep %}
 
 {% step %}
-Run [mysql\_upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade) (or [mariadb-upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/deployment-tools/mariadb-upgrade)) with the `--skip-write-binlog` option. `mysql_upgrade` does two things:&#x20;
+Run mysql\_upgrade (or [mariadb-upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/deployment-tools/mariadb-upgrade)) with the `--skip-write-binlog` option. `mysql_upgrade` does two things:&#x20;
 
 1. Ensures that the system tables in the mysql database are fully compatible with the new version.&#x20;
 2. Does a very quick check of all tables and marks them as compatible with the new version of MariaDB

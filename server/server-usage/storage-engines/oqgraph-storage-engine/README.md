@@ -7,6 +7,10 @@ description: >-
 
 # OQGRAPH
 
+{% hint style="info" %}
+OQGRAPH is a community contribution to MariaDB Server, developed and maintained by its contributors: Arjen Lentz and Antony T Curtis of Open Query, and Andrew McDonnell.
+{% endhint %}
+
 {% columns %}
 {% column %}
 {% content-ref url="oqgraph-overview.md" %}

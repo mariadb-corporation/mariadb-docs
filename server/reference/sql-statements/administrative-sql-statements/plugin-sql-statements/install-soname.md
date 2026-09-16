@@ -40,7 +40,7 @@ At server startup, the server loads and initializes any plugin that islisted in 
 
 When the server shuts down, it executes the de-initialization functionfor each plugin that is loaded so that the plugin has a chance toperform any final cleanup.
 
-If you need to load plugins for a single server startup when the`--skip-grant-tables` option is given (which tells the servernot to read system tables), use the`--plugin-load` [mariadbd option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load).
+If you need to load plugins for a single server startup when the`--skip-grant-tables` option is given (which tells the servernot to read system tables), use the`--plugin-load` [mariadbd option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load).
 
 If you need to install only one plugin from a library, use the [INSTALL PLUGIN](install-plugin.md) statement.
 

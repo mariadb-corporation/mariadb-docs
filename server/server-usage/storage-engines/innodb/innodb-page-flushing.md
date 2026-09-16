@@ -44,7 +44,7 @@ The amount of I/O capacity available to InnoDB can be configured by setting the 
 SET GLOBAL innodb_io_capacity=20000;
 ```
 
-The maximum amount of I/O capacity available to InnoDB in an emergency defaults to either `2000` or twice `innodb_io_capacity`, whichever is higher, or can be directly configured by setting the [innodb\_io\_capacity\_max](https://www.google.com/search?q=innodb-system-variables.md%23innodb_io_capacity_max) system variable.
+The maximum amount of I/O capacity available to InnoDB in an emergency defaults to either `2000` or twice `innodb_io_capacity`, whichever is higher, or can be directly configured by setting the [innodb\_io\_capacity\_max](innodb-system-variables.md#innodb_io_capacity_max) system variable.
 
 #### Device-Specific Recommendations
 

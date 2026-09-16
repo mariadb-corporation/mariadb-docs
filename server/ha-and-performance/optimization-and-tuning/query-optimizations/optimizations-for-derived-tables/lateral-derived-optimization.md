@@ -107,7 +107,7 @@ SET optimizer_switch='split_materialized=off'
 
 {% tabs %}
 {% tab title="Current" %}
-It is possible to enable or disable the optimization with optimizer hints [SPLIT\_MATERIALIZED or NO\_SPLIT\_MATERIALIZED](../../optimizer-hints/expanded-optimizer-hints.md#-split_materialized-no_split_materialized).
+It is possible to enable or disable the optimization with optimizer hints [SPLIT\_MATERIALIZED or NO\_SPLIT\_MATERIALIZED](../../optimizer-hints/table-level-hints.md#split_materialized-no_split_materialized).
 
 For example, by default, this table and query makes use of the optimization:
 

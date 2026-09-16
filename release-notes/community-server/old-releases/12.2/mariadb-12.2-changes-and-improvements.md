@@ -33,7 +33,7 @@ MariaDB 12.2 is a [rolling release](../../about/release-model.md). It is an evol
 * Add [INFORMATION\_SCHEMA.TRIGGERED\_UPDATE\_COLUMNS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-triggered_update_columns) ([MDEV-36996](https://jira.mariadb.org/browse/MDEV-36996))
 * Implement [INFORMATION\_SCHEMA.PARAMETERS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-parameters-table).PARAMETER\_DEFAULT column ([MDEV-37054](https://jira.mariadb.org/browse/MDEV-37054))
 
-### Preview release only <a href="#miscellaneous" id="miscellaneous"></a>
+### Preview Release Only
 
 These features needed further testing and will be implemented in a future series.
 

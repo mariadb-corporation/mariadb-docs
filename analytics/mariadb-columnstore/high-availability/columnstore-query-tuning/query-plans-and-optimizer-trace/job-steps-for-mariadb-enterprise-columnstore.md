@@ -9,7 +9,7 @@ description: >-
 
 ## Overview
 
-When ColumnStore executes a query, the [ExeMgr process](../../../architecture/mariadb-enterprise-columnstore-query-evaluation.md#exemgr-processfacility) on the initiator/aggregator node translates the ColumnStore execution plan (CSEP) into a job list. A job list is a sequence of job steps.
+When ColumnStore executes a query, the [ExeMgr process](../../../architecture/mariadb-enterprise-columnstore-query-evaluation.md#exemgr-process-facility) on the initiator/aggregator node translates the ColumnStore execution plan (CSEP) into a job list. A job list is a sequence of job steps.
 
 ColumnStore uses many different types of job steps that provide different scalability benefits:
 
@@ -128,7 +128,7 @@ ColumnStore defines a **window function** step to evaluate window functions.
 
 In `calGetTrace()` output, a window function step is abbreviated WFS.
 
-Window function steps are evaluated locally by the [ExeMgr process](../../../architecture/mariadb-enterprise-columnstore-query-evaluation.md#exemgr-processfacility) on the initiator/aggregator node.
+Window function steps are evaluated locally by the [ExeMgr process](../../../architecture/mariadb-enterprise-columnstore-query-evaluation.md#exemgr-process-facility) on the initiator/aggregator node.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

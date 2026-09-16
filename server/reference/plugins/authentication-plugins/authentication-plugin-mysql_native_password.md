@@ -46,7 +46,7 @@ CREATE USER username@hostname
   IDENTIFIED BY PASSWORD '*54958E764CE10E50764C2EECBB71D01F08549980';
 ```
 
-Similar to all other [authentication plugins](./), you could also specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-viawith-authentication_plugin) clause while providing the password hash as the `USING` clause:
+Similar to all other [authentication plugins](./), you could also specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-via-or-with-authentication_plugin) clause while providing the password hash as the `USING` clause:
 
 ```sql
 CREATE USER username@hostname

@@ -1,0 +1,236 @@
+# MaxScale 23.08 Avrouter Tutorial
+
+## Avrorouter Tutorial
+
+## Avrorouter Tutorial
+
+This tutorial is a short introduction to the [Avrorouter](../mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-avrorouter.md), how to set it up and how it interacts
+with the binlogrouter.
+
+The first part configures the services and sets them up for the binary log to Avro
+file conversion. The second part of this tutorial uses the client listener
+interface for the avrorouter and shows how to communicate with the service
+over the network.
+
+```mermaid
+flowchart LR
+    accTitle: MariaDB MaxScale Avro Router Data Flow
+    accDescr {
+      Diagram of binlog-to-Avro conversion in MariaDB MaxScale. A Primary
+      database server exchanges Binlog events bidirectionally with the
+      Binlog Server running inside MaxScale. The Binlog Server writes
+      Binlog events to the Binlog File. The Avro Router Plugin reads
+      Binlog events from the Binlog File. The Avro Router Plugin produces
+      Avro Schema files and Avro Log files, and records transaction IDs in
+      the transactionId-avrolog database. The Avro Router Plugin exchanges
+      data bidirectionally with the Change Data Listener Protocol Plugin.
+      The Change Data Listener Protocol Plugin communicates over the
+      Change Data Request API bidirectionally with two client paths: a
+      CDC Client Library paired with a Kafka Producer, and a CDC Client
+      Library paired with a CDC Client. The Kafka Producer path sends
+      data to Kafka, which forwards data to Hadoop.
+    }
+
+    primary[(Primary)]:::node
+
+    subgraph maxscale [MaxScale]
+      binlogServer[Binlog Server]:::proc
+      binlogFile[Binlog File]:::file
+      avroRouter[Avro Router Plugin]:::proc
+      avscFiles[Avro Schema Files]:::file
+      avroLogFiles[Avro Log Files]:::file
+      txnDb[(transactionId-avrolog DB)]:::node
+      cdlp[Change Data Listener<br/>Protocol Plugin]:::proc
+    end
+
+    kafkaPath[CDC Client Library<br/>+ Kafka Producer]:::proc
+    cdcPath[CDC Client Library<br/>+ CDC Client]:::proc
+    kafka[Kafka]:::node
+    hadoop[Hadoop]:::node
+
+    primary <-->|Binlog events| binlogServer
+    binlogServer -->|Write to| binlogFile
+    binlogFile -->|Read From| avroRouter
+    avroRouter --> avscFiles
+    avroRouter --> avroLogFiles
+    avroRouter --> txnDb
+    avroRouter <--> cdlp
+    cdlp <-->|Change Data<br/>Request API| kafkaPath
+    cdlp <--> cdcPath
+    kafkaPath --> kafka
+    kafka --> hadoop
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+```
+_Data flow through the MariaDB MaxScale Avro router: the Primary server's binlog events are converted to Avro-formatted change data and streamed to CDC clients, Kafka, and Hadoop._
+
+## Configuration
+
+### Preparing the primary server
+
+The primary server where we will be replicating from needs to have binary logging
+enabled, `binlog_format` set to `row` and `binlog_row_image` set to`full`. These can be enabled by adding the two following lines to the _my.cnf_
+file of the primary.
+
+```
+binlog_format=row
+binlog_row_image=full
+```
+
+_You can find out more about replication formats from the_[_MariaDB documentation_](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/binary-log-formats)
+
+### Configuring MaxScale
+
+We start by adding two new services into the configuration file. The first
+service is the binlogrouter service which will read the binary logs from the
+primary server. The second service will read the binlogs as they are streamed
+from the primary and convert them into Avro format files.
+
+```
+# The Replication Proxy service
+[replication-service]
+type=service
+router=binlogrouter
+server_id=4000
+master_id=3000
+filestem=binlog
+user=maxuser
+password=maxpwd
+
+# The Avro conversion service
+[avro-service]
+type=service
+router=avrorouter
+source=replication-service
+filestem=binlog
+start_index=15
+
+# The listener for the replication-service
+[replication-listener]
+type=listener
+service=replication-service
+port=3306
+
+# The client listener for the avro-service
+[avro-listener]
+type=listener
+service=avro-service
+protocol=CDC
+port=4001
+```
+
+The `source` parameter in the _avro-service_ points to the _replication-service_
+we defined before. This service will be the data source for the avrorouter. The_filestem_ is the prefix in the binlog files and _start\_index_ is the binlog
+number to start from. With these parameters, the avrorouter will start reading
+events from binlog `binlog.000015`.
+
+Note that the _filestem_ and _start\_index_ must point to the file that is the
+first binlog that the binlogrouter will replicate. For example, if the first
+file you are replicating is `my-binlog-file.001234`, set the parameters to`filestem=my-binlog-file` and `start_index=1234`.
+
+For more information on the avrorouter options, read the [Avrorouter\
+Documentation](../mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-avrorouter.md).
+
+## Preparing the data in the primary server
+
+Before starting the MaxScale process, we need to make sure that the binary logs
+of the primary server contain the DDL statements that define the table
+layouts. What this means is that the `CREATE TABLE` statements need to be in the
+binary logs before the conversion process is started.
+
+If the binary logs contain data modification events for tables that aren't
+created in the binary logs, the Avro schema of the table needs to be manually
+created. There are multiple ways to do this:
+
+* Dump the database to a replica, configure it to replicate from the primary and
+  point MaxScale to this replica (this is the recommended method as it requires no
+  extra steps)
+* Use the [cdc\_schema Go utility](../mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-avrorouter.md#avro-schema-generator)
+  and copy the generated .avsc files to the avrodir
+* Use the [Python version of the schema generator](https://github.com/mariadb-corporation/MaxScale/blob/23.08/server/modules/protocol/examples/cdc_schema.py)
+  and copy the generated .avsc files to the avrodir
+
+If you used the schema generator scripts, all Avro schema files for tables that
+are not created in the binary logs need to be in the location pointed to by the_avrodir_ parameter. The files use the following naming:`<database>.<table>.<schema_version>.avsc`. For example, the schema file name of
+the _test.t1_ table would be `test.t1.0000001.avsc`.
+
+## Starting MariaDB MaxScale
+
+The next step is to start MariaDB MaxScale and set up the binlogrouter. We do
+that by connecting to the MySQL listener of the _replication\_router_ service and
+executing a few commands.
+
+```
+CHANGE MASTER TO MASTER_HOST='172.18.0.1',
+       MASTER_PORT=3000,
+       MASTER_LOG_FILE='binlog.000015',
+       MASTER_LOG_POS=4,
+       MASTER_USER='maxuser',
+       MASTER_PASSWORD='maxpwd';
+
+START SLAVE;
+```
+
+**NOTE:** GTID replication is not currently supported and file-and-position
+replication must be used.
+
+This will start the replication of binary logs from the primary server at\
+172.18.0.1 listening on port 3000. The first file that the binlogrouter
+replicates is `binlog.000015`. This is the same file that was configured as the
+starting file in the avrorouter.
+
+For more details about the SQL commands, refer to the [Binlogrouter](../mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-binlogrouter.md) documentation.
+
+After the binary log streaming has started, the avrorouter will automatically
+start processing the binlogs.
+
+## Creating and Processing Data
+
+Next, create a simple test table and populated it with some data by executing
+the following statements.
+
+```
+CREATE TABLE test.t1 (id INT);
+INSERT INTO test.t1 VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10);
+```
+
+To use the _cdc.py_ command line client to connect to the CDC service, we must first
+create a user. This can be done via maxctrl by executing the following command.
+
+```
+maxctrl call command cdc add_user avro-service maxuser maxpwd
+```
+
+This will create the _maxuser:maxpwd_ credentials which can then be used to
+request a JSON data stream of the `test.t1` table that was created earlier.
+
+```
+cdc.py -u maxuser -p maxpwd -h 127.0.0.1 -P 4001 test.t1
+```
+
+The output is a stream of JSON events describing the changes done to the
+database.
+
+```
+{"namespace": "MaxScaleChangeDataSchema.avro", "type": "record", "name": "ChangeRecord", "fields": [{"name": "domain", "type": "int"}, {"name": "server_id", "type": "int"}, {"name": "sequence", "type": "int"}, {"name": "event_number", "type": "int"}, {"name": "timestamp", "type": "int"}, {"name": "event_type", "type": {"type": "enum", "name": "EVENT_TYPES", "symbols": ["insert", "update_before", "update_after", "delete"]}}, {"name": "id", "type": "int", "real_type": "int", "length": -1}]}
+{"domain": 0, "server_id": 3000, "sequence": 11, "event_number": 1, "timestamp": 1537429419, "event_type": "insert", "id": 1}
+{"domain": 0, "server_id": 3000, "sequence": 11, "event_number": 2, "timestamp": 1537429419, "event_type": "insert", "id": 2}
+{"domain": 0, "server_id": 3000, "sequence": 11, "event_number": 3, "timestamp": 1537429419, "event_type": "insert", "id": 3}
+{"domain": 0, "server_id": 3000, "sequence": 11, "event_number": 4, "timestamp": 1537429419, "event_type": "insert", "id": 4}
+{"domain": 0, "server_id": 3000, "sequence": 11, "event_number": 5, "timestamp": 1537429419, "event_type": "insert", "id": 5}
+{"domain": 0, "server_id": 3000, "sequence": 11, "event_number": 6, "timestamp": 1537429419, "event_type": "insert", "id": 6}
+{"domain": 0, "server_id": 3000, "sequence": 11, "event_number": 7, "timestamp": 1537429419, "event_type": "insert", "id": 7}
+{"domain": 0, "server_id": 3000, "sequence": 11, "event_number": 8, "timestamp": 1537429419, "event_type": "insert", "id": 8}
+{"domain": 0, "server_id": 3000, "sequence": 11, "event_number": 9, "timestamp": 1537429419, "event_type": "insert", "id": 9}
+{"domain": 0, "server_id": 3000, "sequence": 11, "event_number": 10, "timestamp": 1537429419, "event_type": "insert", "id": 10}
+```
+
+The first record is always the JSON format schema for the table describing the
+types and names of the fields. All records that follow it represent the changes
+that have happened on the database.
+
+CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

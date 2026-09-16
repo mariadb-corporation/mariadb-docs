@@ -16,7 +16,7 @@ When things go wrong, it's always better to have a version of the mysqld daemon 
 shell> file /usr/sbin/mysqld
 ```
 
-If this doesn't say 'stripped', then you are fine. If not, you should either [download a binary with debugging information](https://downloads.mariadb.org) or [compile it, without stripping the binary](compiling-mariadb-for-debugging.md#building-with-debug-symbols).
+If this doesn't say 'stripped', then you are fine. If not, you should either [download a binary with debugging information](https://downloads.mariadb.org) or [compile it, without stripping the binary](compiling-mariadb-for-debugging.md#building-optimized-build-with-debug-symbols).
 
 ### Debugging Memory Consumption With tcmalloc
 

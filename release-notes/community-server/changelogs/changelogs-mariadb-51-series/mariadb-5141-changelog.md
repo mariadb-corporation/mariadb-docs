@@ -13,7 +13,7 @@ changes and bug fixes:
 
 * Includes MySQL 5.1.41
 * Includes [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) 1.0.4-8
-* Includes [PBXT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/obsolete-replication-information/mariadb-52-replication-feature-preview#pbxt-consistent-commit-ordering) 1.0.09f RC3
+* Includes PBXT 1.0.09f RC3
 * Includes [FederatedX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/federatedx-storage-engine)
 * Fixed typos of `--engine` help text.
 * Added page fault counters for SHOW PROFILE on Windows.

@@ -18,7 +18,7 @@ There are two ways to check whether filesort has used a priority queue.
 
 ### Status Variable
 
-The first way is to check the [Sort\_priority\_queue\_sorts](../system-variables/server-status-variables.md#sort_priority_queue_sorts) status variable. It shows the number of times that sorting was done through a priority queue. (The total number of times sorting was done is a sum [Sort\_range](../system-variables/server-status-variables.md#sort_range) and [Sort\_scan](../system-variables/server-status-variables.md#sort_scan)).
+The first way is to check the [Sort\_priority\_queue\_sorts](../system-variables/server-status-variables.md#sort_priority_queue_sorts) status variable. It shows the number of times that sorting was done through a priority queue. Every such sort is also counted by [Sort\_range](../system-variables/server-status-variables.md#sort_range) or [Sort\_scan](../system-variables/server-status-variables.md#sort_scan), so the total number of sorts is the sum of `Sort_range` and `Sort_scan` alone — adding `Sort_priority_queue_sorts` counts those sorts twice.
 
 ### Slow Query Log
 

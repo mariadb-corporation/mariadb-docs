@@ -54,8 +54,8 @@ For the transfer of data between MariaDB Server and R Environment, it is recomme
 
 * “odbc" is a new R package available on CRAN (Since 2017-02-05), and maintained by RStudio, which is designed to comply with the DBI specification.
 * Tutorials on how to use R's "odbc" package can be found here:
-  * Setting up ODBC Drivers: [DB RStudio Drivers](https://db.rstudio.com/drivers/)
-  * "odbc" R Package: [DB RStudio odbc Usage](https://db.rstudio.com/odbc/#usage)
+  * Setting up ODBC Drivers: [Posit Solutions: Setting up ODBC Drivers](https://solutions.posit.co/connections/db/best-practices/drivers/)
+  * "odbc" R Package: [Posit Solutions: Using an ODBC Driver](https://solutions.posit.co/connections/db/r-packages/odbc/#using)
 
 The "odbc" package requires to have previously installed the MariaDB or MySQL ODBC connector:
 
@@ -98,7 +98,7 @@ There are other alternatives for data transfer between R and MariaDB:
 
 * “readr” R package, for writing / reading CSV files. To be used in MariaDB along with “LOAD DATA INFILE”.
 * "RODBC" R package: Robust and well-tested (Since 2000-05-24) package which enables data transfer between R and MariaDB by means of an ODBC connector: [CRAN RODBC](https://cran.r-project.org/web/packages/RODBC/index.html)
-  * It is slightly slower than RStudio's new "odbc" package (See benchmarks): [RStudio odbc](https://db.rstudio.com/odbc/)
+  * It is slightly slower than RStudio's new "odbc" package (See benchmarks): [Posit Solutions: Using an ODBC Driver](https://solutions.posit.co/connections/db/r-packages/odbc/)
   * For bug report to the RODBC package maintainer, use the following R statement: bug.report(package = "RODBC")
   * A vignette on how to use the RODBC package can be found here: [RODBC CRAN Vignette](https://cran.r-project.org/web/packages/RODBC/vignettes/RODBC.pdf)
 
@@ -119,7 +119,7 @@ Recommended resources for learning how to program in R are the following:
 
 A recommended book for understanding the underlying statistics in the R packages is:
 
-* [Practical Statistics for Data Scientists (O’Reilly Media; Peter Bruce, Andrew Bruce)](https://shop.oreilly.com/product/0636920048992.do)
+* [Practical Statistics for Data Scientists (O’Reilly Media; Peter Bruce, Andrew Bruce)](https://www.oreilly.com/library/view/~/9781491952955/)
 
 #### C) Cheatsheets: Concept Summary
 
@@ -134,7 +134,6 @@ A recommended book for understanding the underlying statistics in the R packages
 * Information on new R packages is regularly published in the following websites:
   * [R-bloggers](https://www.r-bloggers.com/)
   * [Towards Data Science](https://towardsdatascience.com/)
-  * [MRAN: Package Spotlight](https://mran.microsoft.com/spotlight)
 
 #### E) Statistical / Unsupervised Machine Learning, Deep Learning and Artificial Intelligence
 
@@ -150,8 +149,8 @@ install.packages("h2o")
 
 * [H2O.ai: Webpage](https://www.h2o.ai/)
 * [H2O.ai Algorithms: Cheatsheet](https://github.com/h2oai/h2o-tutorials/raw/master/training/h2o_algos/h2o_algos_cheat_sheet_04_25_17.pdf)
-* [h2o R Package Functions: Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/h2o.pdf)
-* [Practical Machine Learning with H2O (O'Reilly Media; Darren Cook)](https://shop.oreilly.com/product/0636920053170.do)
+* [h2o R Package Functions: Cheatsheet](https://github.com/rstudio/cheatsheets/raw/main/h2o.pdf)
+* [Practical Machine Learning with H2O (O'Reilly Media; Darren Cook)](https://www.oreilly.com/library/view/~/9781491964590/)
 * [Machine Learning with R and H2O (Mark Landry): Booklet Online Version](https://docs.h2o.ai/h2o/latest-stable/h2o-docs/booklets/RBooklet.pdf)
 * [Deep Learning with H2O: Vignette](https://docs.h2o.ai/h2o/latest-stable/h2o-docs/booklets/DeepLearningBooklet.pdf)
 
@@ -188,13 +187,13 @@ java -cp <path_to_h2o_jar>:<path_to_jdbc_driver_jar> water.H2OApp
 
 * [R interface to Keras: Webpage](https://keras.rstudio.com/)
 * [Deep Learning With R (François Chollet with J. J. Allaire, Manning)](https://www.manning.com/books/deep-learning-with-r)
-* [Keras Rstudio Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/keras.pdf)
+* [Keras Rstudio Cheatsheet](https://github.com/rstudio/cheatsheets/raw/main/keras.pdf)
 
 **R LIBRARIES: CARET**
 
 A book which introduces core Machine Learning concepts:
 
-* [Introduction to Machine Learning with R (O'Reilly; Scott Burger)](https://shop.oreilly.com/product/0636920058885.do)
+* [Introduction to Machine Learning with R (O'Reilly; Scott Burger)](https://www.oreilly.com/library/view/~/9781491976432/)
 
 #### F) Text Mining
 
@@ -211,7 +210,7 @@ Documentation on how to perform Text Mining in R can be found in the book "Text 
 Automatic "reactive" binding between inputs and outputs and extensive prebuilt widgets make it possible to build beautiful, responsive, and powerful applications with minimal effort.
 
 * [Shiny Written Tutorials](https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/)
-* [Shiny R Package Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/shiny.pdf)
+* [Shiny R Package Cheatsheet](https://github.com/rstudio/cheatsheets/raw/main/shiny.pdf)
 
 For deploy Shiny Web Applications using Open Source Alternatives, you can either use:
 
@@ -222,7 +221,7 @@ For deploy Shiny Web Applications using Open Source Alternatives, you can either
 **RMARKDOWN DOCUMENTS**
 
 * [R Markdown: The Definitive Guide (Book).](https://bookdown.org/yihui/rmarkdown/)
-* [R Markdown Cheatsheet.](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+* [R Markdown Cheatsheet.](https://github.com/rstudio/cheatsheets/raw/main/rmarkdown-2.0.pdf)
 
 #### H) Advanced R Resources
 

@@ -36,7 +36,7 @@ The suggested upgrade procedure is:
 1. Install the new version of MariaDB.
 
 * On Debian, Ubuntu, and other similar Linux distributions, see [Installing MariaDB Packages with APT](../../installing-mariadb/binary-packages/installing-mariadb-deb-files.md#installing-mariadb-packages-with-apt) for more information.
-* On RHEL, CentOS, Fedora, and other similar Linux distributions, see [Installing MariaDB Packages with YUM](../../installing-mariadb/binary-packages/rpm/yum.md#installing-mariadb-packages-with-yum) for more information.
+* On RHEL, CentOS, Fedora, and other similar Linux distributions, see [Installing MariaDB Packages with YUM](../../installing-mariadb/binary-packages/rpm/yum.md#installing-mariadb-packages-with-yum-dnf) for more information.
 * On SLES, OpenSUSE, and other similar Linux distributions, see [Installing MariaDB Packages with ZYpp](../../installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md#installing-mariadb-packages-with-zypp) for more information.
 
 1. Make any desired changes to configuration options in [option files](../../configuring-mariadb/configuring-mariadb-with-option-files.md), such as `my.cnf`. This includes removing any options that are no longer supported.
@@ -59,7 +59,7 @@ However, there are some things that have changed which could affect an upgrade:
 
 #### Replication
 
-* [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) introduces new, standards-compliant behavior for dealing with [primary keys over nullable columns](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/primary-keys-with-nullable-columns.md). In certain edge cases this could cause replication issues when replicating from a [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) master to a [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) slave using [statement-based replication](../../../server-monitoring-logs/binary-log/binary-log-formats.md#statement-based). See [MDEV-12248](https://jira.mariadb.org/browse/MDEV-12248).
+* [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) introduces new, standards-compliant behavior for dealing with [primary keys over nullable columns](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/primary-keys-with-nullable-columns.md). In certain edge cases this could cause replication issues when replicating from a [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) master to a [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) slave using [statement-based replication](../../../server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See [MDEV-12248](https://jira.mariadb.org/browse/MDEV-12248).
 
 #### Options That Have Changed Default Values
 
@@ -81,7 +81,7 @@ Most of the following options have increased in value to give better performance
 | [sql\_log\_bin](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md)                                      |                   | No longer affects replication of events in a Galera cluster. |
 | [sql\_mode](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_mode)                                 | empty             | NO\_AUTO\_CREATE\_USER, NO\_ENGINE\_SUBSTITUTION             |
 | [table\_open\_cache](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache)                | 400               | 2000                                                         |
-| [thread\_pool\_max\_threads](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_pool_max_threads) | 500               | 1000                                                         |
+| [thread\_pool\_max\_threads](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md#thread_pool_max_threads) | 500               | 1000                                                         |
 
 #### Options That Have Been Removed or Renamed
 

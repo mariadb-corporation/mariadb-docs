@@ -59,7 +59,6 @@ Download a binary file using the following procedure:
 1. In your web browser, visit the MariaDB Download interface for the specific MariaDB database product:
    * MariaDB Enterprise Server
    * MariaDB MaxScale
-   * MariaDB Xpand
 2.  In your web browser, navigate to the binary file that you would like to download and copy the URL. For example, to download a binary tarball of MariaDB Enterprise Server 10.6.20-16 for RHEL 8 on x86\_64, the URL is:\\
 
     ```
@@ -94,7 +93,7 @@ curl -LO https://dlm.mariadb.com/CUSTOMER_DOWNLOAD_TOKEN/FILE_ID/mariadb-enterpr
 
 Docker is an open platform for developing, shipping, and running applications that allows you to separate your applications from your infrastructure. MariaDB Corporation provides the [MariaDB Enterprise Docker Registry](../../automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md).
 
-The MariaDB Enterprise Docker Registry provides Docker images for MariaDB Enterprise Server. The Docker images for MariaDB Enterprise Server are currently beta maturity, so they are not currently recommended for production.
+The MariaDB Enterprise Docker Registry provides Docker images for MariaDB Enterprise Server. These images are generally available (GA) and supported for production use.
 
 For additional information, see "[Deploy MariaDB Enterprise Server with Docker](../../automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker.md)".
 

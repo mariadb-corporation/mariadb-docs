@@ -110,21 +110,21 @@ description: >-
 * Default value: OFF
 * Range: OFF, ON
 
-#### [infinidb\_import\_for\_batchinsert\_delimiter](columnstore-system-variables.md#batch-insert-mode-for-inserts)
+#### [infinidb\_import\_for\_batchinsert\_delimiter](columnstore-system-variables.md#batch-insert-mode-for-insert-statements)
 
 * Command line: Yes
 * Scope: global, session
 * Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
 * Default value: 7
 
-#### [infinidb\_import\_for\_batchinsert\_enclosed\_by](columnstore-system-variables.md#batch-insert-mode-for-inserts)
+#### [infinidb\_import\_for\_batchinsert\_enclosed\_by](columnstore-system-variables.md#batch-insert-mode-for-insert-statements)
 
 * Command line: Yes
 * Scope: global, session
 * Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
 * Default value: 17
 
-#### [infinidb\_local\_query](columnstore-system-variables.md#local-pm-query-mode)
+#### [infinidb\_local\_query](columnstore-system-variables.md#local-primproc-query-mode)
 
 * Command line: Yes
 * Scope: global, session
@@ -169,7 +169,7 @@ description: >-
 * Default value: OFF
 * Range: OFF, ON
 
-#### [infinidb\_use\_import\_for\_batchinsert](columnstore-system-variables.md#batch-insert-mode-for-inserts)
+#### [infinidb\_use\_import\_for\_batchinsert](columnstore-system-variables.md#batch-insert-mode-for-insert-statements)
 
 * Command line: Yes
 * Scope: global, session
@@ -216,7 +216,7 @@ In typical mathematical and scientific applications, the ability to avoid overfl
 
 ### Enable/Disable Decimal-to-Double Math
 
-The `infinidb\_double\_for\_decimal\_math` variable is used to control the data type for intermediate decimal results. This decimal for double math may be set as a default for the instance, set at the session level, or at the statement level by toggling this variable on and off.
+The `infinidb_double_for_decimal_math` variable is used to control the data type for intermediate decimal results. This decimal for double math may be set as a default for the instance, set at the session level, or at the statement level by toggling this variable on and off.
 
 To enable/disable the use of the decimal to double math at the session level, the following command is used. Once the session has ended, any subsequent session will return to the default for the instance:
 

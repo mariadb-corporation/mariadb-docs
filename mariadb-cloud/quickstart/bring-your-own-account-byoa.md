@@ -13,49 +13,38 @@ With BYOA, the Control Plane (UI, API, Monitoring) remains in MariaDB Cloud, whi
 
 ```mermaid
 flowchart LR
-    %% BIG BLOCK STYLE - Aiven-like Visibility
-    %% ---------------------------------------------------------
-    classDef control fill:#e3f2fd,stroke:#1565c0,stroke-width:4px,color:#0d47a1,font-size:18px,font-weight:bold,rx:5,ry:5,min-width:180px,padding:15px;
-    classDef data fill:#fff3e0,stroke:#e65100,stroke-width:4px,color:#bf360c,font-size:18px,font-weight:bold,rx:5,ry:5,min-width:180px,padding:15px;
-    classDef external fill:#f5f5f5,stroke:#616161,stroke-width:2px,font-size:18px,font-weight:bold,min-width:150px;
+    classDef control fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1;
+    classDef data fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c;
+    classDef external fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#263238;
 
-    %% Actors
     User([DevOps Team]):::external
     App([Application]):::external
 
-    %% 1. CONTROL PLANE (Left)
-    subgraph MariaDB_Cloud ["MariaDB Control Plane"]
+    subgraph CP ["MariaDB Cloud — Control Plane"]
         direction TB
-        Portal["Portal & API"]:::control
+        Portal["Portal and API"]:::control
         Orch["Orchestrator"]:::control
         Bastion["Secure Bastion"]:::control
     end
 
-    %% 2. DATA PLANE (Right)
-    subgraph Customer_Cloud ["Your Cloud Account"]
+    subgraph CU ["Your Cloud Account — Data Plane"]
         direction TB
-        IAM["IAM Role"]:::data
-        
+        IAM["IAM Role /<br/>Service Account"]:::data
         subgraph VPC ["Your Private VPC"]
             direction TB
-            DB["Database Node"]:::data
+            DB[("Database Node")]:::data
             Storage[("Storage")]:::data
         end
     end
 
-    %% CONNECTIONS (Thick & Clear)
-    User ==>|"1. Request"| Portal
-    Portal ==>|"2. Trigger"| Orch
-    
-    Orch ==>|"3. Provision"| IAM
-    IAM -.->|"Create"| VPC
-    
-    %% CORRECTED SECURE BASTION FLOW
-    Orch -.->|"Internal"| Bastion
-    Bastion ===>|"4. Manage (TLS)"| DB
-
-    App ==>|"5. Connect"| DB
-    DB <==> Storage
+    User -->|"1 Request"| Portal
+    Portal -->|"2 Trigger"| Orch
+    Orch -->|"3 Provision"| IAM
+    IAM -.->|"creates"| VPC
+    Orch -.->|"internal"| Bastion
+    Bastion -->|"4 Manage (TLS)"| DB
+    App -->|"5 Connect (private)"| DB
+    DB <--> Storage
 ```
 
 ## How it works
@@ -64,21 +53,14 @@ A BYOA environment is a secure, isolated set of resources within your own cloud 
 
 ```mermaid
 flowchart LR
-    %% Simplified diagram focusing on the 4 steps
-    classDef step fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1
-    classDef resource fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c
+    classDef step fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1;
 
-    subgraph Steps ["Operational Workflow"]
-        direction LR
-        S1["1. Account Linking<br/>(IAM Handshake)"]:::step
-        S2["2. Provisioning<br/>(VM Creation)"]:::step
-        S3["3. Management<br/>(Patching/Health)"]:::step
-        S4["4. Connectivity<br/>(Private Access)"]:::step
-    end
-    
-    S1 --> S2
-    S2 --> S3
-    S3 --> S4
+    S1["1. Account Linking<br/>IAM handshake"]:::step
+    S2["2. Provisioning<br/>Compute, storage, network"]:::step
+    S3["3. Management<br/>Patching and health"]:::step
+    S4["4. Connectivity<br/>Private access"]:::step
+
+    S1 --> S2 --> S3 --> S4
 ```
 
 1. Account Linking: You authorize MariaDB Cloud to access your specific cloud subscription via a secure IAM role or Service Principal with least-privilege permissions.
@@ -106,7 +88,7 @@ BYOA is an enterprise-grade feature with specific commercial and technical prere
 * Contract: Available to customers with annual contracts or minimum spend commitments.
 
 {% hint style="info" %}
-For the initial release (Jan 2026), BYOA is available as a Tech Preview on Microsoft Azure. AWS and Google Cloud support will follow in subsequent phases.
+BYOA is a Tech Preview, currently available on Amazon Web Services and Microsoft Azure. Google Cloud support is coming soon.
 {% endhint %}
 
 ### BYOA Pricing and Billing
@@ -115,41 +97,31 @@ The BYOA setup splits your costs into two separate components. This model ensure
 
 ```mermaid
 flowchart LR
-    %% Styles: Bold fonts, thick borders, distinct colors for clarity
-    classDef maria fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px,color:#1b5e20,font-size:16px,font-weight:bold;
-    classDef cloud fill:#fff9c4,stroke:#fbc02d,stroke-width:3px,color:#f57f17,font-size:16px,font-weight:bold;
-    classDef customer fill:#f5f5f5,stroke:#616161,stroke-width:2px,color:#212121,font-size:16px,font-weight:bold;
+    classDef maria fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
+    classDef cloud fill:#fff8e1,stroke:#f9a825,stroke-width:2px,color:#f57f17;
+    classDef customer fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#263238;
 
-    Customer((Customer Organization)):::customer
+    Customer(("Your<br/>Organization")):::customer
 
-    subgraph MariaDB_Bill ["Invoice 1: MariaDB Cloud"]
-        direction TB
-        M_Fees[("Management Fees<br/>Support (Remote DBA)<br/>Software Licenses")]:::maria
+    subgraph B1 ["Invoice 1 — MariaDB Cloud"]
+        M["Management fee<br/>Support (Remote DBA)<br/>Software licenses"]:::maria
     end
 
-    subgraph Cloud_Bill ["Invoice 2: Cloud Provider (AWS/Azure)"]
-        direction TB
-        C_Infra[("Compute (VMs)<br/>Storage (IOPS/Disk)<br/>Data Transfer")]:::cloud
+    subgraph B2 ["Invoice 2 — Your Cloud Provider"]
+        C["Compute<br/>Storage<br/>Data transfer"]:::cloud
     end
 
-    %% Flows with thick arrows
-    Customer ==>|"Pays Service Fees"| M_Fees
-    Customer ==>|"Pays Infrastructure Costs"| C_Infra
-
-    %% Benefit Annotation
-    C_Infra -.->|"Apply committed spend<br/>(e.g., EDP / MACC)"| Customer
-
-    %% Subgraph text styling
-    style MariaDB_Bill fill:#ffffff,stroke:#2e7d32,stroke-width:2px,color:#2e7d32
-    style Cloud_Bill fill:#ffffff,stroke:#fbc02d,stroke-width:2px,color:#f9a825
+    Customer -->|"service fees"| M
+    Customer -->|"infrastructure costs"| C
+    C -.->|"apply committed spend and discounts"| Customer
 ```
 
 1. MariaDB Cloud Invoice: You receive a bill from MariaDB for the management fee, software licensing, and support.
-2. Cloud Provider Invoice: You receive a bill directly from your cloud provider (e.g., Microsoft Azure) for the consumed infrastructure resources (Compute, Storage, Network).
+2. Cloud Provider Invoice: You receive a bill directly from your cloud provider for the consumed infrastructure resources (Compute, Storage, Network).
 
 ### Get Started
 
-For the Tech Preview (Jan 2026), onboarding is a guided process.
+For the Tech Preview, onboarding is a guided process.
 
 1. Contact Sales: Submit a request via the MariaDB Cloud Portal or contact your account representative to validate eligibility.
 2. Onboarding: Our support team will provide the necessary IAM/Service Principal templates and guide you through the account linking process.

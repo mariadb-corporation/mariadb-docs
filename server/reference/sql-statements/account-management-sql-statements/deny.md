@@ -57,7 +57,8 @@ Use `REVOKE DENY` to remove a deny. Nothing else restores the privilege — ther
 that lets an account bypass a deny, and a later `GRANT` does not cancel one.
 
 To issue `DENY` or `REVOKE DENY`, you need the `GRANT OPTION` privilege plus the privileges you
-are denying, exactly as you would to `GRANT` them.
+are denying, exactly as you would to `GRANT` them. `REVOKE DENY ... FROM PUBLIC` is the one
+exception — see [Removing a Deny on PUBLIC](#removing-a-deny-on-public).
 
 `DENY` applies to privileges only. It cannot be used to deny a role or proxy access, so there is
 no `DENY role` or `DENY PROXY` form.
@@ -108,6 +109,30 @@ Two rules cover every case:
 A deny also propagates downwards: a global deny masks database, table, and column grants; a
 database deny masks table and column grants; a table deny masks column grants.
 
+{% hint style="info" %}
+**Database patterns are an exception to "a deny beats a grant".** The database name in a
+database-level `GRANT` or `DENY` is a pattern: `_` matches any single character, `%` any sequence
+of characters, and `\` escapes either. When more than one database-level entry for an account
+matches the database being accessed, only the **most specific** entry applies — the one whose
+pattern matches the fewest database names — and only that entry's grants and denies are consulted.
+A deny recorded on a broader pattern is not added to a narrower entry that also matches.
+
+```sql
+DENY SELECT ON `h%`.* TO alice;
+GRANT SELECT ON hr.* TO alice;
+```
+
+Both entries match the `hr` database, but `hr` is the more specific one, so it is the only entry
+consulted: `alice` can read `hr` tables, and the deny never applies there. The deny does still
+apply to every other database matching `h%`, such as `helpdesk`.
+
+`DENY` follows the same matching rule as `GRANT` here; it is not privileged over it. Entries held
+through a [role](../../../security/user-account-management/roles/) or through `PUBLIC` are resolved
+the same way but separately, and then combined, so a deny that reaches the account by either route
+still applies. Patterns apply at database level only — table, column and routine names are matched
+literally, so denies at those levels are never affected.
+{% endhint %}
+
 ```sql
 DENY SELECT ON hr.* TO alice;
 GRANT SELECT ON hr.staff TO alice;
@@ -157,6 +182,16 @@ Denying to [PUBLIC](grant.md#to-public) blocks a privilege for every account on 
 DENY SELECT ON hr.staff TO PUBLIC;
 ```
 
+{% hint style="warning" %}
+`PUBLIC` includes every account, `root` among them, so a deny on `PUBLIC` also takes the
+privilege away from the administrator who created it. `REVOKE DENY ... FROM PUBLIC` has a
+dedicated escape hatch for this — see [Removing a Deny on PUBLIC](#removing-a-deny-on-public) —
+but denying `UPDATE` disables that escape hatch too.
+{% endhint %}
+
+The lockout is not visible in the session that issued the `DENY`, because an account's global
+privileges are read when its connection is established. It applies from the next connection on.
+
 ## Removing a Deny
 
 `REVOKE DENY` removes the named privileges from an existing deny entry at that exact level. It
@@ -186,6 +221,43 @@ REVOKE ALL PRIVILEGES, GRANT OPTION FROM alice;
 
 Dropping the object a deny points at also removes the deny. Dropping a stored procedure, for
 example, deletes the deny entries recorded against it.
+
+### Removing a Deny on PUBLIC
+
+Because `PUBLIC` covers every account, a deny on `PUBLIC` also denies the privilege to whoever
+would otherwise be entitled to revoke it. So that such a deny stays recoverable,
+`REVOKE DENY ... FROM PUBLIC` accepts the `UPDATE` privilege on
+[mysql.global\_priv](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md)
+in place of the usual requirement — an account that can edit that table by hand could undo the
+deny anyway:
+
+```sql
+GRANT UPDATE ON mysql.global_priv TO admin@localhost;
+```
+
+`admin` can then issue `REVOKE DENY ... FROM PUBLIC` at any level — global, database, table,
+column or routine — without holding `GRANT OPTION` or the denied privilege itself. Two limits
+apply:
+
+* The statement must name `PUBLIC` and nothing else. `REVOKE DENY ... FROM PUBLIC, alice` is
+  checked normally, and so is a revoke aimed at a role, even a role every account holds.
+* Privileges are read when a connection is established, so reconnect after granting `UPDATE`.
+
+{% hint style="danger" %}
+`DENY UPDATE ON *.* TO PUBLIC` cannot be undone this way, because it denies the very privilege
+the escape hatch depends on. Every account, `root` included, is then refused `UPDATE` on
+`mysql.global_priv`, and `REVOKE DENY UPDATE ON *.* FROM PUBLIC` fails with
+`ERROR 28000: Access denied`. Recovery means deleting the entry directly and reloading the grant
+tables:
+
+```sql
+DELETE FROM mysql.global_priv WHERE User = 'PUBLIC';
+FLUSH PRIVILEGES;
+```
+
+This removes **every** deny recorded against `PUBLIC`, not only the one that caused the lockout.
+Reconnect afterwards for the change to take effect.
+{% endhint %}
 
 ## Viewing Denies
 
@@ -264,9 +336,7 @@ Denies survive [FLUSH PRIVILEGES](../administrative-sql-statements/flush-command
 server restart, and replicate to replicas like any other account management statement.
 
 Column names and routine names in denies are matched case insensitively. Database and table names
-follow [lower\_case\_table\_names](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lower_case_table_names):
-with the default `0` on Linux, `DENY SELECT ON DbCase.T` and `DENY SELECT ON dbcase.t` are two
-distinct denies.
+follow [lower\_case\_table\_names](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lower_case_table_names).
 
 {% hint style="warning" %}
 Editing the `denies` array directly with `UPDATE` is not supported. A malformed entry is skipped at

@@ -66,7 +66,7 @@ count=30
 * Dynamic: Yes
 * Default: None
 
-[Limits](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters) the queries logged by the filter.
+[Limits](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) the queries logged by the filter.
 
 ```
 match=select.*from.*customer.*where
@@ -81,7 +81,7 @@ options=case,extended
 * Dynamic: Yes
 * Default: None
 
-[Limits](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters) the queries logged by the filter.
+[Limits](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) the queries logged by the filter.
 
 ### `options`
 
@@ -91,7 +91,7 @@ options=case,extended
 * Values: `ignorecase`, `case`, `extended`
 * Default: `case`
 
-[Regular expression options](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters) for `match` and `exclude`.
+[Regular expression options](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) for `match` and `exclude`.
 
 ### `source`
 

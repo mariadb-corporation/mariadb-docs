@@ -1,8 +1,8 @@
 # MariaDB Galera Cluster 5.5.59 Changelog
 
-The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
+The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/5.5.59)[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5559-release-notes.md)[Changelog](mariadb-galera-cluster-5559-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/5.5.59)[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5559-release-notes.md)[Changelog](mariadb-galera-cluster-5559-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 23 Jan 2018
 
@@ -10,8 +10,7 @@ For the highlights of this release, see the [release notes](../mariadb-galera-55
 MariaDB, see the [MariaDB 5.5.59 Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5559-changelog.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code
-modified in that revision.
+Github you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #843503e90f](https://github.com/MariaDB/server/commit/843503e90f)\
   2017-10-24 16:48:08 +0300

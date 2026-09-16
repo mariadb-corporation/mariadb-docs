@@ -34,7 +34,7 @@ MariaDB ColumnStore enables batch insert mode by default.
 
 When batch insert mode is enabled, MariaDB ColumnStore has special handling for the following statements:
 
-* \[\[|load-data-infileLOAD DATA \[ LOCAL ] INFILE]]
+* [LOAD DATA \[ LOCAL \] INFILE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile)
 * [INSERT INTO .. SELECT FROM ..](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insert)
 
 ColumnStore uses the following rules:

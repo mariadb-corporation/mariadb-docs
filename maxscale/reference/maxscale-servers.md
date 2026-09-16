@@ -90,7 +90,7 @@ monitoruser=mymonitoruser
 monitorpw=mymonitorpasswd
 ```
 
-`monitorpw` may be either a plain text password or an encrypted password. See the section [encrypting passwords](maxscale-servers.md#encrypting-passwords) for more information.
+`monitorpw` may be either a plain text password or an encrypted password. See the section [encrypting passwords](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#encrypting-passwords) for more information.
 
 ### `extra_port`
 
@@ -142,11 +142,11 @@ A DCB placed in the persistent pool for a server will only be reused if the elap
 
 Maximum number of routing connections to this server. Connections held in a pool also count towards this maximum. Does not limit monitor connections or user account fetching. A value of 0 means no limit, which is the default for MaxScale. MaxScle Trial is limited to a maximum of 15 connections per server.
 
-Since every client session can generate a connection to a server, the server may run out of memory when the number of clients is high enough. This setting limits server memory use caused by MaxScale. The effect depends on if the service setting [idle\_session\_pool\_time](maxscale-servers.md#idle_session_pool_time), i.e. connection sharing, is enabled or not.
+Since every client session can generate a connection to a server, the server may run out of memory when the number of clients is high enough. This setting limits server memory use caused by MaxScale. The effect depends on if the service setting [idle\_session\_pool\_time](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#idle_session_pool_time), i.e. connection sharing, is enabled or not.
 
 If connection sharing is not on, _max\_routing\_connections_ simply sets a limit. Any sessions attempting to exceed this limit will fail to connect to the backend. The client can still connect to MaxScale, but queries will fail.
 
-If connection sharing is on, sessions exceeding the limit will be put on hold until a connection is available. Such sessions will appear unresponsive, as queries will hang, possibly for a long time. The timeout is controlled by [multiplex\_timeout](maxscale-servers.md#multiplex_timeout).
+If connection sharing is on, sessions exceeding the limit will be put on hold until a connection is available. Such sessions will appear unresponsive, as queries will hang, possibly for a long time. The timeout is controlled by [multiplex\_timeout](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#multiplex_timeout).
 
 ```
 max_routing_connections=1234
@@ -161,7 +161,7 @@ max_routing_connections=1234
 
 If `proxy_protocol` is enabled, MaxScale will send a [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt) header when connecting client sessions to the server. The header contains the original client IP address and port, as seen by MaxScale. The server will then read the header and perform authentication as if the connection originated from this address instead of MaxScale's IP address. With this feature, the user accounts on the backend server can be simplified to only contain the actual client hosts and not the MaxScale host.
 
-**NOTE**: If you use a cloud load balancer like AWS ELB that supports the proxy protocol in front of a MaxScale, you need to configure [proxy\_protocol\_networks](maxscale-servers.md#proxy_protocol_networks) in MaxScale. This also needs to be done whenever one MaxScale may connect to another Maxscale and the connecting MaxScale has `proxy_protocol` enabled.
+**NOTE**: If you use a cloud load balancer like AWS ELB that supports the proxy protocol in front of a MaxScale, you need to configure [proxy\_protocol\_networks](maxscale-listeners.md#proxy_protocol_networks) in MaxScale. This also needs to be done whenever one MaxScale may connect to another Maxscale and the connecting MaxScale has `proxy_protocol` enabled.
 
 PROXY protocol will be supported by MariaDB 10.3, which this feature has been tested with. To use it, enable the PROXY protocol in MaxScale for every compatible server and configure the MariaDB servers themselves to accept the protocol headers from MaxScale's IP address. On the server side, the protocol should be enabled only for trusted IPs, as it allows the sender to spoof the connection origin. If a proxy header is sent to a server not expecting it, the connection will fail. Usually PROXY protocol should be enabled for every server in a cluster, as they typically have similar grants.
 

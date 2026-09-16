@@ -6,6 +6,10 @@ description: >-
 
 # Mroonga
 
+{% hint style="info" %}
+Mroonga is a community contribution to MariaDB Server, developed and maintained by the Mroonga project.
+{% endhint %}
+
 {% columns %}
 {% column %}
 {% content-ref url="mroonga-overview.md" %}

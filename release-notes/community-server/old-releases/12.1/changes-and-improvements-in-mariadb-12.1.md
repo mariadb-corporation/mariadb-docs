@@ -49,7 +49,7 @@ MariaDB 12.1 is a [rolling release](../../about/release-model.md). It is an evol
 * [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump) now supports [wildcards](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#l-wildcards) with the `-L` or `--wildcards` option ([MDEV-21376](https://jira.mariadb.org/browse/MDEV-21376))
 * [Foreign key](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys) constraint names no longer need to be unique per database, only per table ([MDEV-28933](https://jira.mariadb.org/browse/MDEV-28933)) ([blog post](https://mariadb.org/per-table-unique-foreign-key-constraint-names-new-feature-in-mariadb-12-1/))
 
-### Development release only <a href="#miscellaneous" id="miscellaneous"></a>
+### Development Release Only
 
 This feature was only available in the 12.1 development releases, and will be implemented in a later series.
 

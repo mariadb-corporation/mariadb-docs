@@ -20,10 +20,10 @@ By default, the DDL log is at `ddl-recovery.log` in the [datadir](https://app.gi
 
 As of this release, the following storage engines fully support atomic DDL:
 
-* [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/aria)
-* [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/innodb)
-* [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/myisam-storage-engine)
-* [MyRocks](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/myrocks)
+* [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria)
+* [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb)
+* [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine)
+* [MyRocks](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myrocks)
 
 ## SKIP LOCKED
 
@@ -176,6 +176,18 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 
 | CVE ID (with cve.org link)                                        | CVSS base score                                 | Enterprise Server 10.6 Release |
 | ----------------------------------------------------------------- | ----------------------------------------------- | ------------------------------ |
+| [CVE-2026-47023](https://www.cve.org/CVERecord?id=CVE-2026-47023) | 4.9                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-60184](https://www.cve.org/CVERecord?id=CVE-2026-60184) | 4.4                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-60331](https://www.cve.org/CVERecord?id=CVE-2026-60331) | 6.4                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-60585](https://www.cve.org/CVERecord?id=CVE-2026-60585) | 6.6                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-60747](https://www.cve.org/CVERecord?id=CVE-2026-60747) | 6.2                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-61081](https://www.cve.org/CVERecord?id=CVE-2026-61081) | 2.7                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-85745](https://www.cve.org/CVERecord?id=CVE-2026-85745) | 4.3                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-85746](https://www.cve.org/CVERecord?id=CVE-2026-85746) | 9.9                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-85748](https://www.cve.org/CVERecord?id=CVE-2026-85748) | 9.9                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-85985](https://www.cve.org/CVERecord?id=CVE-2026-85985) | 5.4                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-86047](https://www.cve.org/CVERecord?id=CVE-2026-86047) | 7.7                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064) | 6.5                                             | [10.6.27-23](10.6.27-23.md)    |
 | [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)   | 4.3                                             | [10.6.27-23](10.6.27-23.md)    |
 | [CVE-2026-32710](https://www.cve.org/CVERecord?id=CVE-2026-32710) | 8.5                                             | [10.6.27-23](10.6.27-23.md)    |
 | [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                                             | [10.6.27-23](10.6.27-23.md)    |

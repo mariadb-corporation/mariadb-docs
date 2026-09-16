@@ -9,19 +9,19 @@ description: >-
 
 ## SystemD Watchdog Kills MaxScale
 
-This can occur if a reverse DNS name lookup takes a long time. To disable reverse name lookups of client IPs to client hostnames, add `skip\_name\_resolve=true` under the `[maxscale]` section.
+This can occur if a reverse DNS name lookup takes a long time. To disable reverse name lookups of client IPs to client hostnames, add `skip_name_resolve=true` under the `[maxscale]` section.
 
 ## High Memory Usage
 
 **MaxScale starting with 22.08.4**
 
-The default value of `writeq\_high\_water` was lowered to 64KiB to reduce excessive memory usage. This change should result in a net decrease in memory usage and possibly a small improvement in performance.
+The default value of `writeq_high_water` was lowered to 64KiB to reduce excessive memory usage. This change should result in a net decrease in memory usage and possibly a small improvement in performance.
 
-Set `writeq\_high\_water` and `writeq\_low\_water` to lower values, for example `writeq_high_water=512` and `writeq_low_water=128`. The default is to buffer a maximum of 16MB in memory before network throttling begins which under intensive loads can result in a large amount of memory being used per client.
+Set `writeq_high_water` and `writeq_low_water` to lower values, for example `writeq_high_water=512` and `writeq_low_water=128`. The default is to buffer a maximum of 16MB in memory before network throttling begins which under intensive loads can result in a large amount of memory being used per client.
 
-The query classifier cache in MaxScale by default takes up to 15% of memory to cache query classification data. This value can be lowered using the `query\_classifier\_cache\_size` parameter.
+The query classifier cache in MaxScale by default takes up to 15% of memory to cache query classification data. This value can be lowered using the `query_classifier_cache_size` parameter.
 
-The `retain\_last\_statements` and `session\_trace` debugging parameters can cause memory usage to increase. Disabling them under intensive loads is recommended if they are not needed. Note that the `maxctrl list queries` requires that `retain_last_statements=1` is set.
+The `retain_last_statements` and `session_trace` debugging parameters can cause memory usage to increase. Disabling them under intensive loads is recommended if they are not needed. Note that the `maxctrl list queries` requires that `retain_last_statements=1` is set.
 
 ### Profiling Memory Usage
 
@@ -66,7 +66,7 @@ ERROR 1045 (28000): Access denied for user 'bob'@'office' (using password: YES)
 
 Make sure you create users for both `'bob'@'office'` and `'bob'@'maxscale'`. The host `'office'` is where the client is attempting to connect from and `'maxscale'` is the host where MaxScale is installed.
 
-If you do not want to create a second set of users, you can enable `proxy\_protocol` in MaxScale and configure the MariaDB server to [allow proxied connections](../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#proxy_protocol_networks) from the MaxScale host.
+If you do not want to create a second set of users, you can enable `proxy_protocol` in MaxScale and configure the MariaDB server to [allow proxied connections](../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#proxy_protocol_networks) from the MaxScale host.
 
 #### Verifying that a user is allowed to connect
 
@@ -105,12 +105,12 @@ If you want to connect as root, you'll need to add [enable\_root\_user=true](dep
 There seems to be a bug for databases containing underscores. Connect as root and use "SHOW GRANTS FOR user".
 
 ```sql
-GRANT SELECT ON `my\_database`.\* TO 'user'@'%' <-- bad
+GRANT SELECT ON `my\_database`.* TO 'user'@'%' <-- bad
 
-GRANT SELECT ON `my_database`.\* TO 'user'@'%' <-- good
+GRANT SELECT ON `my_database`.* TO 'user'@'%' <-- good
 ```
 
-If you got a grant containing a escaped underscore, you can add the `strip\_db\_esc=true` parameter to the service to automatically strip escape characters or just replace the grant with a unescaped one.
+If you got a grant containing a escaped underscore, you can add the `strip_db_esc=true` parameter to the service to automatically strip escape characters or just replace the grant with a unescaped one.
 
 ## System Errors
 

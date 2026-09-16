@@ -1,16 +1,15 @@
 # MariaDB Galera Cluster 10.0.22 Changelog
 
-The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
+The most recent [MariaDB Galera Cluster 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.22)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10-0-22-release-notes.md)[Changelog](mariadb-galera-cluster-10022-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.22)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10-0-22-release-notes.md)[Changelog](mariadb-galera-cluster-10022-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 19 Nov 2015
 
 For the highlights of this release, see the [release notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10-0-22-release-notes.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code
-modified in that revision.
+Github you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #f4421c8](https://github.com/MariaDB/server/commit/f4421c8)\
   2015-11-16 12:39:56 -0500

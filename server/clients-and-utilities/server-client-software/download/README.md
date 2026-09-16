@@ -10,7 +10,7 @@ description: >-
 
 Tarballs, source and binaries (Linux and Windows), and packages for some Linux distributions are available at [mariadb.org/download](https://mariadb.org/download/).
 
-We hope that interested [community](https://mariadb.com/kb/en/community/) package maintainers will step forward, as others already have, to build packages for their distributions. We ask for strict adherence to your packaging system's best practices and invite you to create a [bug report](https://mariadb.org/jira) if our project impedes this in any way.
+We hope that interested [community](https://mariadb.com/docs/general-resources/community/joining-the-community) package maintainers will step forward, as others already have, to build packages for their distributions. We ask for strict adherence to your packaging system's best practices and invite you to create a [bug report](https://mariadb.org/jira) if our project impedes this in any way.
 
 Instructions how to install the packages can be found [here](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/). See the [Includes MariaDB](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/distributions-including-mariadb) documentation page for a list of which Linux distributions that include MariaDB.
 
@@ -38,7 +38,7 @@ information, including information on how we build the release packages.
 
 #### Old Versions
 
-Running the [most recent MariaDB version](https://mariadb.com/kb/en/new-and-old-releases/) is generally the best choice. Note that there are long-term releases, maintained for five years, short-term releases, maintained for one year, and rolling releases. However, some organizations still use old or very old versions of MariaDB. An
+Running the [most recent MariaDB version](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb) is generally the best choice. Note that there are long-term releases, maintained for five years, short-term releases, maintained for one year, and rolling releases. However, some organizations still use old or very old versions of MariaDB. An
 upgrade would probably require important changes in their applications, and
 sometimes they don't even have the sources of those applications.
 
@@ -47,7 +47,7 @@ sometimes they don't even have the sources of those applications.
 There are source and repositories there. To use repositories see the following link:
 
 * [RHEL and RPM distros](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum.md#pinning-the-mariadb-repository-to-a-specific-minor-release)
-* [Debian/Ubuntu based distos](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md#pinning-the-mariadb-repository-to-a-specific-minor-release)
+* [Debian/Ubuntu based distos](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md#pinning-the-mariadb-repository-to-the-repository-of-a-specific-minor-release)
 
 It is also possible to access Docker Official Images of MariaDB back to 5.5.40 when it became an official image ([available tags](https://soaphub.org/imagehub/?q=mariadb\&n=library\&p=1)).
 

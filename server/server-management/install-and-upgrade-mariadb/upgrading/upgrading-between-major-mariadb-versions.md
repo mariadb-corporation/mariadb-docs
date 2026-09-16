@@ -87,7 +87,7 @@ MariaDB server is not designed for downgrading. That said, in most cases, as lon
 * Delete the tables in the `mysql` database (if you didn't use the option `--add-drop-table` to [mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md))
 * Delete the new MariaDB installation
 * Install the old MariaDB version
-* Start the server with [mariadbd --skip-grant-tables](../../starting-and-stopping-mariadb/mariadbd-options.md#-skip-grant-tables)
+* Start the server with [mariadbd --skip-grant-tables](../../starting-and-stopping-mariadb/mariadbd-options.md#skip-grant-tables)
 * Install the old `mysql` database
 * Execute in the [mariadb client](../../../clients-and-utilities/mariadb-client/) [FLUSH PRIVILEGES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md)
 

@@ -23,7 +23,7 @@ First, before you get started:
 5. Next, make sure that the Galera version numbers are compatible.
 6. If you are upgrading from the most recent [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) release to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), then the versions will be compatible.
 7. See [What is MariaDB Galera Cluster](../../readme/mariadb-galera-cluster-guide.md)?: [Galera wsrep provider Version](../../reference/galera-cluster-status-variables.md#wsrep_provider_version) s for information on which MariaDB releases uses which Galera wsrep provider versions.
-8. You want to have a large enough gcache to avoid a [State Snapshot Transfer (SST)](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) during the rolling upgrade. The gcache size can be configured by setting [gcache.size](../../reference/wsrep-variable-details/wsrep_provider_options.md#gcachesize) For example:`wsrep_provider_options="gcache.size=2G"`
+8. You want to have a large enough gcache to avoid a [State Snapshot Transfer (SST)](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) during the rolling upgrade. The gcache size can be configured by setting [gcache.size](../../reference/wsrep-variable-details/wsrep_provider_options.md#gcache.size) For example:`wsrep_provider_options="gcache.size=2G"`
 
 Before you upgrade, it would be best to take a backup of your database. This is always a good idea to do before an upgrade. We would recommend [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup).
 
@@ -111,7 +111,7 @@ On Linux distributions that use `systemd` you may need to increase the service s
 {% endstep %}
 
 {% step %}
-Run [mysql\_upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade) with the `--skip-write-binlog` option.
+Run mysql\_upgrade with the `--skip-write-binlog` option.
 
 `mysql_upgrade` does two things:
 

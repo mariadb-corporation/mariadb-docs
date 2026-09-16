@@ -8,18 +8,6 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="install-cassandra-on-fulltest-vms.md" %}
-[install-cassandra-on-fulltest-vms.md](install-cassandra-on-fulltest-vms.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Explains how to provision and configure virtual machine instances specifically for Buildbot testing.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="install-cmake-on-build-vms.md" %}
 [install-cmake-on-build-vms.md](install-cmake-on-build-vms.md)
 {% endcontent-ref %}

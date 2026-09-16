@@ -1,4 +1,14 @@
+---
+description: >-
+  dbdeployer installs multiple versions of MariaDB or MySQL in isolation from
+  each other, which makes it useful for testing different server versions.
+---
+
 # dbdeployer
+
+{% hint style="info" %}
+dbdeployer is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 dbdeployer is a tool for installing multiple versions of MariaDB or MySQL in isolation from each other. It is primarily used for easily testing different server versions. It is written in Go, and is a replacement for [MySQL Sandbox](dbdeployer.md). 
 

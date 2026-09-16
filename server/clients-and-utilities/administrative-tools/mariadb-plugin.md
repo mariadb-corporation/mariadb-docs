@@ -1,3 +1,10 @@
+---
+description: >-
+  mariadb-plugin enables or disables MariaDB plugins from the command line
+  while the server is offline, as an alternative to INSTALL PLUGIN and
+  UNINSTALL PLUGIN.
+---
+
 # mariadb-plugin
 
 `mariadb-plugin` is a tool for enabling or disabling [plugins](../../reference/plugins/).

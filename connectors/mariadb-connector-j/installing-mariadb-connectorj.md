@@ -60,7 +60,7 @@ git clone https://github.com/MariaDB/mariadb-connector-j.git
 
 If you would prefer a packaged source tarball release, then MariaDB Connector/J `.jar` source code tarballs can be downloaded from the following URL:
 
-* [https://downloads.mariadb.org/connector-java/](https://downloads.mariadb.org/connector-java/)
+* [https://mariadb.com/downloads/connectors/connectors-data-access/java-connector/](https://mariadb.com/downloads/connectors/connectors-data-access/java-connector/)
 
 MariaDB Connector/J has the following build requirements:
 

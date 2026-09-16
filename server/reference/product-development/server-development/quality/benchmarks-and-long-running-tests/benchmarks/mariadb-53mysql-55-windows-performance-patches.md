@@ -4,7 +4,7 @@ I just backported Windows performance patches I've done for 5.5 back to [MariaDB
 
 First, I feel Windows performance improvements in 5.5 were never adequately described, so here is the redux.\
 For those familiar with Windows systems programming, MySQL code used to offer of low-hanging performance fruits. I picked some of them those back in my days in MySQL/Sun. The result benchmark curve became really nice:\
-look at [Calvin's blog entry](https://blogs.innodb.com/wp/2010/09/mysql-5-5-innodb-performance-improvements-on-windows/).
+look at [Calvin's blog entry](https://web.archive.org/web/20120618142511/https://blogs.innodb.com/wp/2010/09/mysql-5-5-innodb-performance-improvements-on-windows/).
 
 If graphs in this blog looks familiar to you, it is because it was often used by Oracle marketing as proof of big-O's positive influence on MySQL code :)
 
@@ -37,7 +37,7 @@ Prior to that patch . Once atomics were enabled, implementation of fast mutexes 
 
 This patch was merely to compensate for negative effects of the 5.5 metadata lock on MyISAM benchmarks, and fix was using native Vista performance primitives. The patch per se is not interesting, and repeats a lot of what was done for Innodb. What was great, was a discussion prior to the patch between myself, Davi, Dmitry on different implementations of reader writer locks, including 2 homebacked ones, and one by [Vance Morrison](https://blogs.msdn.com/b/vancem/archive/2006/03/28/563180.aspx).
 
-Without doubt, the discussions around that was a highlight in my very short stint at Oracle. Also, if you want to get a MySQL-classic-style code review with 17 things to fix, of which at least 10 would be marked with "Coding Style" (yes, both words capitalized) , try to get Dmitry Lenev as a reviewer, he's great - this is the proof [118295](https://lists.mysql.org/commits/118295) Anyway, the patch improves MyISAM throughput by 10-20% , which I think is quite ok. Somehow those percents were subsequently eaten by MDL though :)
+Without doubt, the discussions around that was a highlight in my very short stint at Oracle. Also, if you want to get a MySQL-classic-style code review with 17 things to fix, of which at least 10 would be marked with "Coding Style" (yes, both words capitalized) , try to get Dmitry Lenev as a reviewer, he's great - this is the proof (commit 118295) Anyway, the patch improves MyISAM throughput by 10-20% , which I think is quite ok. Somehow those percents were subsequently eaten by MDL though :)
 
 ## Notes
 

@@ -9,7 +9,7 @@ description: >-
 ## Syntax
 
 ```bnf
-EXECUTE stmt_name
+EXECUTE [LOCAL] stmt_name
     [USING expression[, expression] ...]
 ```
 
@@ -34,6 +34,27 @@ ERROR 1243 (HY000): Unknown prepared statement handler (stmt_name) given to EXEC
 You can only use user variables (@var\_name) as parameters.
 {% endtab %}
 {% endtabs %}
+
+### LOCAL Statement Names
+
+{% hint style="info" %}
+`EXECUTE LOCAL` is available from MariaDB 13.1.1.
+{% endhint %}
+
+Inside a stored procedure, `EXECUTE LOCAL spvar` executes the prepared statement whose name is the _value_ of the stored-procedure variable `spvar`, rather than a literal name. A `USING` clause is supported as usual. `EXECUTE LOCAL` is only valid inside a stored procedure, and like the plain form is not permitted in stored functions or triggers.
+
+**Example:**
+
+```sql
+CREATE PROCEDURE p1()
+BEGIN
+  DECLARE spvar_with_ps_name VARCHAR(64) DEFAULT 'my_stmt';
+  DECLARE a INT DEFAULT 5;
+
+  PREPARE my_stmt FROM 'SELECT ?';
+  EXECUTE LOCAL spvar_with_ps_name USING a;
+END;
+```
 
 ## Example
 

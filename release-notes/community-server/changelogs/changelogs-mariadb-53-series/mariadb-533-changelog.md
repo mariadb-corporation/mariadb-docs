@@ -314,7 +314,7 @@ modified in that revision.
         * test both federated and federatedX in the federated suite.
       * [Revision #2643.143.57](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.143.57)\
         Wed 2011-11-30 13:53:25 +0100
-        * Cherrypick into XtraDB: Bug#13002783 PARTIALLY UNINITIALIZED CASCADE UPDATE VECTOR<>
+        * Cherrypick into XtraDB: Bug#13002783 PARTIALLY UNINITIALIZED CASCADE UPDATE VECTOR
         * We merged the test case for this into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md), but the fix was not
           yet part of XtraDB.
       * [Revision #2643.143.56](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.143.56)\

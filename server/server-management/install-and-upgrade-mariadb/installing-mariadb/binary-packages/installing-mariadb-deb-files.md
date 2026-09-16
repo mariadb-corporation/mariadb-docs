@@ -127,7 +127,7 @@ For example, if you wanted to pin your repository to [MariaDB Community Server 1
 sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el,s390x] http://archive.mariadb.org/mariadb-10.5.9/repo/ubuntu/ focal main main/debug'
 ```
 
-Ensure you have the [signing key installed](installing-mariadb-deb-files.md#Importing_the_MariaDB_GPG_Public_Key).
+Ensure you have the [signing key installed](installing-mariadb-deb-files.md#importing-the-mariadb-gpg-public-key).
 
 Ubuntu Xenial and older will need:
 

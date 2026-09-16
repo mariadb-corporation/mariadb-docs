@@ -39,7 +39,7 @@ The most recent release of [MariaDB 10.7](what-is-mariadb-107.md) is:[**MariaDB 
 
 ### mariadb-dump
 
-* Add option to [dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqldump) [system versioned table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/temporal-tables/system-versioned-tables) as of specified timestamp ([MDEV-16355](https://jira.mariadb.org/browse/MDEV-16355)).
+* Add option to dump [system versioned table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/temporal-tables/system-versioned-tables) as of specified timestamp ([MDEV-16355](https://jira.mariadb.org/browse/MDEV-16355)).
 
 ### Convert Partitions
 

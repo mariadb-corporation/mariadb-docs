@@ -16,7 +16,7 @@ description: >-
 ## Connecting
 
 The basic usage of MariaDB Connector/Python is similar to other database drivers which
-implement DB API 2.0 ([PEP-249](https://peps.python.org/pep-249)).
+implement DB API 2.0 ([PEP-249](https://peps.python.org/pep-0249/)).
 
 *Since version 2.0:* Connections can be established using URI strings or keyword arguments.
 
@@ -94,7 +94,7 @@ Germany GER Berlin
 Before MariaDB Connector/Python can be used, the MariaDB Connector/Python module must be
 imported.
 Once the mariadb module is loaded, a connection to a database server will be established
-using the method [`connect()`](module.md#mariadb.connect).
+using the method [`connect()`](module.md#connect-args-connectionclass-none-kwargs).
 
 In order to be able to communicate with the database server in the form of SQL statements,
 a cursor object must be created first.

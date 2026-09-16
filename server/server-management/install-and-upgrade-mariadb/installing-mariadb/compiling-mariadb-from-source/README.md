@@ -48,6 +48,30 @@ Guide to building MariaDB on Windows using Visual Studio, CMake, and Git, includ
 
 {% columns %}
 {% column %}
+{% content-ref url="build_environment_setup_for_mac.md" %}
+[build_environment_setup_for_mac.md](build_environment_setup_for_mac.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Setting up the macOS build environment: Apple toolchain, Homebrew dependencies, environment variables, and a Ninja-based CMake build.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="building-mariadb-on-freebsd.md" %}
+[building-mariadb-on-freebsd.md](building-mariadb-on-freebsd.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Building MariaDB on FreeBSD with the Ports Collection, or with Poudriere to serve a binary package to multiple hosts.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="cross-compiling-mariadb.md" %}
 [cross-compiling-mariadb.md](cross-compiling-mariadb.md)
 {% endcontent-ref %}
@@ -66,7 +90,7 @@ Instructions for cross-compiling MariaDB for different architectures, including 
 {% endcolumn %}
 
 {% column %}
-Compile MariaDB Server with extra modules and options. This section details how to customize your build from source, enabling specific features or optimizations for your deployment. width: default title: visible: true description: visible: true tableOfContents: visible: true outline: visible: true pagination: visible: false metadata: visible: true tags: visible: true
+Compile MariaDB Server with extra modules and options. This section details how to customize your build from source, enabling specific features or optimizations for your deployment.
 {% endcolumn %}
 {% endcolumns %}
 

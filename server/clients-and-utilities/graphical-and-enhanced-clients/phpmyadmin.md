@@ -6,6 +6,10 @@ description: >-
 
 # phpMyAdmin
 
+{% hint style="info" %}
+phpMyAdmin is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
 phpMyAdmin is a web-based tool for administering MariaDB and MySQL.
 
 It requires a web server, PHP, and a browser.

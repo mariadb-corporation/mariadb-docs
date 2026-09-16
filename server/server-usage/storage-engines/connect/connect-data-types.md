@@ -131,9 +131,9 @@ A `CONNECT` format string consists of a series of elements that represent a part
 
 * To match the source string, you can add body text to the format string, enclosing it in single quotes or double quotes if it would be ambiguous. Punctuation marks do not need to be quoted.
 * The hour information is regarded as 12-hour format if a “t” or “tt” element follows the “hh” element in the format or as 24-hour format otherwise.
-* The "MM", "DD", "hh", "mm", "ss" elements can be specified with one or two letters (e.g. "MM" or "M") making no difference on input, but placing a leading zero to one-digit values on output \[[1](connect-data-types.md#_note-0)] for two-letter elements.
+* The "MM", "DD", "hh", "mm", "ss" elements can be specified with one or two letters (e.g. "MM" or "M") making no difference on input, but placing a leading zero to one-digit values on output \[1] for two-letter elements.
 * If the format contains elements DDD or DDDD, the day of week name is skipped on input and ignored to calculate the internal date value. On output, the correct day of week name is generated and displayed.
-* Temporal values are always stored as numeric in [BIN](connect-table-types/connect-table-types-data-files.md#bin-table-type) and [VEC](connect-table-types/connect-table-types-data-files.md#vec-table-type-vecto) tables.
+* Temporal values are always stored as numeric in [BIN](connect-table-types/connect-bin-table-type.md) and [VEC](connect-table-types/connect-vec-table-type.md) tables.
 
 ### Handling dates that are out of the range of supported CONNECT dates
 
@@ -141,7 +141,7 @@ If you want to make a table containing, for instance, historical dates not being
 
 ## NULL Handling
 
-`CONNECT` handles [null values](../../../reference/data-types/null-values.md) for data sources able to produce nulls. Currently this concerns mainly the [ODBC](connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md), [JDBC](connect-table-types/connect-jdbc-table-type-accessing-tables-from-another-dbms.md), MONGO, [MYSQL](connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md), [XML](connect-table-types/connect-table-types-data-files.md#xml-table-type), [JSON](connect-table-types/connect-json-table-type.md) and [INI](connect-table-types/connect-table-types-data-files.md#ini-table-type) table types. For INI, [JSON](connect-table-types/connect-json-table-type.md), MONGO or XML types, null values are returned when the key is missing in the section (INI) or when the corresponding node does not exist in a row (XML, JSON, MONGO).
+`CONNECT` handles [null values](../../../reference/data-types/null-values.md) for data sources able to produce nulls. Currently this concerns mainly the [ODBC](connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md), [JDBC](connect-table-types/connect-jdbc-table-type-accessing-tables-from-another-dbms.md), MONGO, [MYSQL](connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md), [XML](connect-table-types/connect-xml-table-type.md), [JSON](connect-table-types/connect-json-table-type.md) and [INI](connect-table-types/connect-ini-table-type.md) table types. For INI, [JSON](connect-table-types/connect-json-table-type.md), MONGO or XML types, null values are returned when the key is missing in the section (INI) or when the corresponding node does not exist in a row (XML, JSON, MONGO).
 
 For other file tables, the issue is to define what a null value is. In a numeric column, 0 can sometimes be a valid value but, in some other cases, it can make no sense. The same for character columns; is a blank field a valid value or not?
 
@@ -270,7 +270,7 @@ JDBC SQL types are converted as:
 
 Note: The [connect\_type\_conv](connect-system-variables.md#connect_type_conv) SKIP option also applies to ODBC and JDBC tables.
 
-1. [↑](connect-data-types.md#_ref-0) Here input and output are used to specify respectively decoding the date to get its numeric value from the data file and encoding a date to write it in the table file. Input is performed within [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) queries; output is performed in [UPDATE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) or [INSERT](../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) queries.
+1. Here input and output are used to specify respectively decoding the date to get its numeric value from the data file and encoding a date to write it in the table file. Input is performed within [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) queries; output is performed in [UPDATE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) or [INSERT](../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) queries.
 
 <sub>_This page is licensed: GPLv2_</sub>
 

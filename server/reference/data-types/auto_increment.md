@@ -310,7 +310,7 @@ Also ensure that, if you want to use the above trick, you always double the valu
 
 ## CHECK Constraints, DEFAULT Values and Virtual Columns
 
-`AUTO_INCREMENT` columns are not permitted in [CHECK constraints](../sql-statements/data-definition/constraint.md), [DEFAULT value expressions](../sql-statements/data-definition/create/create-table.md#default) and [virtual columns](../sql-statements/data-definition/create/generated-columns.md).
+`AUTO_INCREMENT` columns are not permitted in [CHECK constraints](../sql-statements/data-definition/constraint.md), [DEFAULT value expressions](../sql-statements/data-definition/create/create-table.md#default-column-option) and [virtual columns](../sql-statements/data-definition/create/generated-columns.md).
 
 ## Generating Auto\_Increment Values When Adding the Attribute
 
@@ -366,7 +366,7 @@ SELECT * FROM t1;
 * [AUTO\_INCREMENT FAQ](auto_increment-faq.md)
 * [LAST\_INSERT\_ID()](../sql-functions/secondary-functions/information-functions/last_insert_id.md)
 * [AUTO\_INCREMENT handling in InnoDB](../../server-usage/storage-engines/innodb/auto_increment-handling-in-innodb.md)
-* [BLACKHOLE and AUTO\_INCREMENT](../../server-usage/storage-engines/blackhole.md#blackhole-and-auto_increment)
+* [BLACKHOLE and AUTO\_INCREMENT](../../server-usage/storage-engines/blackhole.md#using-with-auto_increment)
 * [UUID\_SHORT()](../sql-functions/secondary-functions/miscellaneous-functions/uuid_short.md) - Generate unique ids
 * [Generating Identifiers – from AUTO\_INCREMENT to Sequence (percona.com)](https://www.percona.com/community-blog/2018/10/12/generating-identifiers-auto_increment-sequence/)
 

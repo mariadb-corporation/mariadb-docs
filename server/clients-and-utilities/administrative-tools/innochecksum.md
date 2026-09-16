@@ -1,3 +1,10 @@
+---
+description: >-
+  innochecksum prints checksums for InnoDB tablespace files and reports
+  mismatches, which identify damaged pages after a power outage or a file
+  copy.
+---
+
 # innochecksum
 
 innochecksum is a tool for printing checksums for InnoDB files.

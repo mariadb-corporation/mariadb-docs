@@ -2,16 +2,15 @@
 description: >-
   Upgrading a MariaDB Enterprise Server 10.6 Galera Cluster directly to 11.8 -
   the cluster-specific procedure (packages, bootstrap, state transfer) layered
-  on top of the standalone 10.6-to-11.8 upgrade guide.
-hidden: true
+  on top of the standalone 10.6-to-11.8 upgrade
 ---
 
 # Upgrading from MariaDB Enterprise Server 10.6 to 11.8 with Galera Cluster
 
 [Galera Cluster](../../) ships with MariaDB Enterprise Server. Upgrading a Galera Cluster node is very similar to upgrading a standalone server directly from MariaDB Enterprise Server 10.6 to 11.8. For the full list of prerequisites, removed and renamed options, character-set and optimizer-cost-model changes, and the reverse-replication safety net, follow the standalone guide:
 
-{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8/upgrading-from-mariadb-enterprise-server-10.6-to-11.8" %}
-[Upgrading from MariaDB Enterprise Server 10.6 to 11.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8/upgrading-from-mariadb-enterprise-server-10.6-to-11.8)
+{% content-ref url="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8/upgrading-from-mariadb-enterprise-server-10.6-to-11.8" %}
+[Upgrading from MariaDB Enterprise Server 10.6 to 11.8](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8/upgrading-from-mariadb-enterprise-server-10.6-to-11.8)
 {% endcontent-ref %}
 
 This page covers only what is **specific to a Galera Cluster deployment**: choosing an upgrade method, the Galera provider package, cluster shutdown order, and bootstrapping.
@@ -25,7 +24,7 @@ The direct upgrade from 10.6 to 11.8, skipping 11.4, is a supported Enterprise S
 There are two ways to move a Galera Cluster from 10.6 to 11.8. Which one you choose depends on whether you can tolerate a maintenance window.
 
 * **Full cluster shutdown (recommended for the direct 10.6-to-11.8 jump).** Stop every node, upgrade all nodes to 11.8, then bootstrap the cluster again. Because no 10.6 and 11.8 nodes are ever running at the same time, there is no mixed-version window to reason about - each node performs exactly the standalone 10.6-to-11.8 upgrade. This method requires a maintenance window.
-* **Rolling upgrade through the intermediate LTS release (for zero downtime).** Galera guarantees mixed-version replication only between *adjacent* releases, so a no-downtime rolling upgrade goes through the intermediate Enterprise Server LTS release rather than jumping straight to 11.8: **10.6 → 11.4 → 11.8**.
+* **Rolling upgrade through the intermediate LTS release (for zero downtime).** Galera guarantees mixed-version replication only between _adjacent_ releases, so a no-downtime rolling upgrade goes through the intermediate Enterprise Server LTS release rather than jumping straight to 11.8: **10.6 → 11.4 → 11.8**.
 
 {% hint style="warning" %}
 Confirm the rolling-upgrade path with MariaDB Support before you begin. For a **rolling** upgrade, never keep nodes on non-adjacent releases live at the same time (for example, some on 10.6 while others are already on 11.8): Galera negotiates the highest protocol version common to all members, and mixed-version replication is only validated between adjacent releases. To make the direct 10.6-to-11.8 jump, use the full-cluster-shutdown method so that no two major versions are ever live at once.
@@ -35,10 +34,10 @@ The rest of this page describes the **full-cluster-shutdown** method.
 
 ## Before You Begin
 
-* **Read the standalone upgrade guide.** All of the 10.6-to-11.8 configuration work - removed options that abort startup (`wsrep_strict_ddl`, `wsrep_load_data_splitting`, `wsrep_replicate_myisam`, and others), the character-set and optimizer-cost-model changes, and `old_mode`/`character_set_collations` compatibility - applies to every node. See [Upgrading from MariaDB Enterprise Server 10.6 to 11.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8/upgrading-from-mariadb-enterprise-server-10.6-to-11.8).
-* **Take a backup.** Back up your data with [mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview) before proceeding.
+* **Read the standalone upgrade guide.** All of the 10.6-to-11.8 configuration work - removed options that abort startup (`wsrep_strict_ddl`, `wsrep_load_data_splitting`, `wsrep_replicate_myisam`, and others), the character-set and optimizer-cost-model changes, and `old_mode`/`character_set_collations` compatibility - applies to every node. See [Upgrading from MariaDB Enterprise Server 10.6 to 11.8](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8/upgrading-from-mariadb-enterprise-server-10.6-to-11.8).
+* **Take a backup.** Back up your data with [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview) before proceeding.
 * **Identify the most advanced node.** Note which node has the highest `wsrep_last_committed` value at shutdown; you will bootstrap the new cluster from that node so it becomes the reference copy for state transfers.
-* **Size gcache appropriately.** A large enough [`gcache.size`](../../reference/wsrep-variable-details/wsrep_provider_options.md#gcachesize) lets rejoining nodes catch up with an Incremental State Transfer (IST) instead of a full [State Snapshot Transfer (SST)](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md). With a full shutdown, expect at least the first joining nodes to require an SST.
+* **Size gcache appropriately.** A large enough [`gcache.size`](../../reference/wsrep-variable-details/wsrep_provider_options.md#gcache.size) lets rejoining nodes catch up with an Incremental State Transfer (IST) instead of a full [State Snapshot Transfer (SST)](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md). With a full shutdown, expect at least the first joining nodes to require an SST.
 * **Finalize XA transactions.** Run `XA RECOVER` and commit or roll back any prepared external XA transactions before stopping the service.
 
 ## Performing a Full Cluster Shutdown Upgrade
@@ -127,7 +126,7 @@ sudo zypper install MariaDB-server MariaDB-backup
 {% step %}
 **Apply the 11.8 configuration changes on each node**
 
-Before starting the service, update `my.cnf` on every node: scrub the removed 10.6 options and adopt the 11.8 defaults exactly as described in the standalone guide's [Implement Version-Specific Configuration Changes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8/upgrading-from-mariadb-enterprise-server-10.6-to-11.8) and [Incompatible and Significant Changes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8/upgrading-from-mariadb-enterprise-server-10.6-to-11.8) sections. Leave the Galera settings in your `wsrep.cnf` (such as `wsrep_cluster_address` and `wsrep_provider_options`) unchanged unless a value is explicitly removed in 11.8.
+Before starting the service, update `my.cnf` on every node: scrub the removed 10.6 options and adopt the 11.8 defaults exactly as described in the standalone guide's [Implement Version-Specific Configuration Changes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8/upgrading-from-mariadb-enterprise-server-10.6-to-11.8) and [Incompatible and Significant Changes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8/upgrading-from-mariadb-enterprise-server-10.6-to-11.8) sections. Leave the Galera settings in your `wsrep.cnf` (such as `wsrep_cluster_address` and `wsrep_provider_options`) unchanged unless a value is explicitly removed in 11.8.
 
 {% hint style="warning" %}
 On Galera nodes, do **not** set `new_mode = OFF`. `new_mode` is a `SET` variable and rejects a literal `OFF`; the invalid value aborts startup during wsrep recovery:
@@ -161,7 +160,7 @@ Each node rejoins the cluster and synchronizes via IST or SST. Wait for a node t
 {% step %}
 **Run the data upgrade on each node**
 
-On every node, run [mariadb-upgrade](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/deployment-tools/mariadb-upgrade) with `--skip-write-binlog` so the schema-fix statements are not replicated across the cluster:
+On every node, run [mariadb-upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/deployment-tools/mariadb-upgrade) with `--skip-write-binlog` so the schema-fix statements are not replicated across the cluster:
 
 ```bash
 sudo mariadb-upgrade --skip-write-binlog

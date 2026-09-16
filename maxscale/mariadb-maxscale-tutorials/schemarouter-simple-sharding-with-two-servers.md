@@ -50,7 +50,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO app_user@'%';
 
 All of the users must be created on both of the MariaDB servers.
 
-In case there are problems, please check \[limitations and troubleshooting]\((../maxscale-security/authentication-modules.md#limitations-and-troubleshooting).
+In case there are problems, please check [limitations and troubleshooting](../maxscale-security/authentication-modules.md#limitations-and-troubleshooting).
 
 ### Creating the Schemas and Tables
 

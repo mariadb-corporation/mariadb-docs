@@ -75,6 +75,18 @@ Complete binary log maintenance: `PURGE BINARY LOGS`/`RESET MASTER`, `expire_log
 
 {% columns %}
 {% column %}
+{% content-ref url="row-binlog-events.md" %}
+[row-binlog-events.md](row-binlog-events.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+The `Row_log_event` structure that row-based logging writes to the binary log, and the event types it uses to record inserts, updates, and deletes.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="../../../ha-and-performance/standard-replication/innodb-based-binary-log.md" %}
 [innodb-based-binary-log.md](../../../ha-and-performance/standard-replication/innodb-based-binary-log.md)
 {% endcontent-ref %}

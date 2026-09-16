@@ -48,7 +48,9 @@ Note: The column defined as a primary key (or part of it) must be explicitly dec
 ALTER TABLE Employees ADD PRIMARY KEY(ID);
 ```
 
-**Finding Tables Without Primary Keys:** This query uses the `information_schema` database to find tables lacking primary keys:
+#### Finding Tables Without Primary Keys
+
+This query uses the `information_schema` database to find tables lacking primary keys:
 
 ```sql
 SELECT t.TABLE_SCHEMA, t.TABLE_NAME

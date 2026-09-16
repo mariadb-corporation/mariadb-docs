@@ -292,7 +292,7 @@ modified in that revision.
       * [Bug #906638](https://bugs.launchpad.net/bugs/906638) : Fixes to build oqgraph with boost 1.48
       * dijkstra\_shortest\_paths() needs a Graph as first parameter, in case of reverse\_graph we now need to use
         its m\_g member
-      * use `boost::tuples::tie()` on all places where `<<code.>tie()<</code>>` was used . Reason -
+      * use `boost::tuples::tie()` on all places where `tie()` was used . Reason -
         fix the build with Visual Studio 10 SP1 (which includes std:tr1:tie, thus creating ambiguity)
     * [Revision #2732.46.43](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.46.43)\
       Thu 2011-12-22 11:07:04 +0100

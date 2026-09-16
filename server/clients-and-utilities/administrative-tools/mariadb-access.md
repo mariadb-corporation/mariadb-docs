@@ -1,3 +1,9 @@
+---
+description: >-
+  mariadb-access checks the access privileges of MariaDB users. It was
+  formerly called mysqlaccess.
+---
+
 # mariadb-access
 
 `mariadb-access` is a tool for checking access privileges, developed by Yves Carlier.

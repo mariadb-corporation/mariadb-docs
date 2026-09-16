@@ -6,7 +6,7 @@ MariaDB applied to participate in the first Google Season of Docs. Unfortunately
 
 ## Where to Start
 
-Please join us on [Zulip](https://github.com/mariadb-corporation/docs-server/blob/test/en/irc-chat-servers-and-zulip-instance/README.md) to mingle with the community. You can also subscribe to [maria-docs@lists.launchpad.net](https://launchpad.net/~maria-docs), the documentation mailing list.
+Please join us on [Zulip](https://mariadb.zulipchat.com/) to mingle with the community. You can also subscribe to [maria-docs@lists.launchpad.net](https://launchpad.net/~maria-docs), the documentation mailing list.
 
 [List of beginner friendly bugs](https://jira.mariadb.org/issues/?jql=status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20labels%20%3D%20beginner-friendly%20ORDER%20BY%20updated%20DESC)
 
@@ -31,25 +31,13 @@ A detailed tutorial and user guide, including examples of the various Mroonga [u
 
 ### Translation
 
-You will choose a major language and ensure that a substantial subsection of the documentation is translated into that language. See [translations](https://github.com/mariadb-corporation/docs-server/blob/test/en/translations/README.md).
+You will choose a major language and ensure that a substantial subsection of the documentation is translated into that language.
 
 ### Migration Documentation
 
 You will choose a major relational DBMS, and, focusing on the most recent stable releases, document the process to migrate to MariaDB, including MariaDB equivalents to features in that system, and a detailed list of features that exist in one but not the other, as well as possible workarounds. For an example, see the documentation on [migrating from MySQL to MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql) (bearing that MariaDB is a MySQL fork, and is substantially more similar to MySQL than to other systems).
 
-_Loaded from the_ [_MariaDB issue tracker_](https://jira.mariadb.org/issues/?jql=labels=gsdocs19)\
-Loading Issues from \[Jira]\(https://jira.mariadb.org/issues/?jql=labels=gsdocs19 and project=mdev order by key)
-
-#### %fields.summary%
-
-%renderedFields.description%
-
-| Details: | Mentor:                                        |
-| -------- | ---------------------------------------------- |
-| Details: | [%key%](https://jira.mariadb.org/browse/%key%) |
-| Mentor:  | %fields.assignee.displayName%                  |
-
-<>
+The proposed tasks were tracked in the [MariaDB issue tracker](https://jira.mariadb.org/issues/?jql=labels=gsdocs19).
 
 ## Suggest a Task
 

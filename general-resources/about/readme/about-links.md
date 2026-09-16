@@ -7,7 +7,7 @@ This page is for contributors to the MariaDB Documentation and goes into detail 
 There are three types of links in the MariaDB docs: [external](about-links.md#external-links), [relative](about-links.md#relative-links), and [space](about-links.md#space-links). The general rules for when to use each are:
 
 * If the link is outside of `https://mariadb.com/docs/` → Use an [External Link](about-links.md#external-links)
-* If the link is to a page in the same space → Use a [Relative Link](about-links.md#relativ-links)
+* If the link is to a page in the same space → Use a [Relative Link](about-links.md#relative-links)
 * If the link is to a page in another space → Use a [Space Link](about-links.md#space-links)
 
 See [About Spaces](about-links.md#about-spaces) for information on what Spaces are.

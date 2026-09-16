@@ -49,13 +49,13 @@ Choose a MariaDB replication strategy by matching the replication method and for
 
 {% columns %}
 {% column %}
-{% content-ref url="innodb-based-binary-log.md" %}
-[innodb-based-binary-log.md](innodb-based-binary-log.md)
+{% content-ref url="../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md" %}
+[binary-log-formats.md](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-From MariaDB 12.3, the binary log can be stored in InnoDB-managed, page-structured files integrated with InnoDB crash recovery, instead of traditional flat binary log files.
+Compare the three binary logging formats — statement-based, row-based, and mixed — including their trade-offs and how to select one with `binlog_format`.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -344,6 +344,18 @@ Configure throughput limits for replication traffic. Learn to throttle the binlo
 
 {% column %}
 Understand how triggers behave under row-based replication. Learn when and why triggers are not executed on the replica and how to manage complex logic in this mode.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="conflict-detection-and-resolution-triggers.md" %}
+[conflict-detection-and-resolution-triggers.md](conflict-detection-and-resolution-triggers.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Resolve row-based replication conflicts on the replica instead of stopping the SQL thread. Covers the FOR CONFLICT trigger form, the five conflict types, and the NEW/OLD/ORG row accessors.
 {% endcolumn %}
 {% endcolumns %}
 

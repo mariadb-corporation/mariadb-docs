@@ -24,7 +24,7 @@ They enable or disable the specified indexes for index scans for specific operat
   * if the hint body includes only a table name and no index names, the optimizer will not use any indexes for that table;
   * if the body includes both a table name and one or more index names, the optimizer will not use the specified indexes for that table but can use any other not listed.
 
-## **`GROUP_INDEX()`, `NO_GROUP_INDEX()`**&#x20;
+## **`GROUP_INDEX()`, `NO_GROUP_INDEX()`**
 
 {% hint style="info" %}
 These hints are available from MariaDB 12.1.
@@ -350,7 +350,7 @@ SELECT /*+ MRR(t1 IDX2) */ * FROM t1 WHERE f2 <= 3 AND 3 <= f3;
 ```
 
 ```sql
--- MRR optimization is enabled by optimizer_switch setting (default setting):
+-- MRR optimization is enabled by optimizer_switch setting (it is off by default):
 set optimizer_switch='mrr=on';
 
 -- Disable multi-range read when accessing table `t1`

@@ -10,7 +10,7 @@ MariaDB Server sends the following packets as part of a result set.
 
 A result set consists of different packets:
 
-* [Result set metadata](result-set-packets.md#ResultSet-metadata).
+* Result set metadata:
   * 1 [column count packet](result-set-packets.md#column-count-packet).
 * If not (`MARIADB_CLIENT_CACHE_METADATA` capability set) `OR` (send metadata == 1):
   * For each column (for instance, `column_count` times):

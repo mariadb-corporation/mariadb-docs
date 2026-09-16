@@ -101,7 +101,7 @@ With the [MyISAM](../../../../server-usage/storage-engines/myisam-storage-engine
 
 For more information, see [InnoDB File-Per-Table Tablespaces](../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md).
 
-By default. all table files are located in the _data directory_, which is defined by the system variable [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir). There may be exceptions, because a table's files can be located elsewhere using the [DATA DIRECTORY and INDEX DIRECTORY](../../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) options in `CREATE TABLE`.
+By default. all table files are located in the _data directory_, which is defined by the system variable [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir). There may be exceptions, because a table's files can be located elsewhere using the [DATA DIRECTORY and INDEX DIRECTORY](../../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) options in `CREATE TABLE`.
 
 Regardless of the storage engine used, each table's structure is generally stored in a file with the `.frm` extension.
 

@@ -42,15 +42,15 @@ See [configuring Linux for MariaDB](../../../../../../server-management/install-
 
 ## InnoDB Settings
 
-[innodb\_buffer\_pool\_size](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#innodb_buffer_pool_size) to about 80% of RAM or leaving <5G RAM free (on large RAM systems). Less if lots of connections are used.
+[innodb\_buffer\_pool\_size](../../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size) to about 80% of RAM or leaving <5G RAM free (on large RAM systems). Less if lots of connections are used.
 
-[innodb\_log\_file\_size](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#innodb_log_file_size) to be larger than the amount of writes in the test run or sufficient to cover several minutes of the test run at least.
+[innodb\_log\_file\_size](../../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_file_size) to be larger than the amount of writes in the test run or sufficient to cover several minutes of the test run at least.
 
 ## MyISAM Settings
 
 ## General Settings
 
-[threads\_cache\_size](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#threads_cache_size) should be the same as [max\_connections](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_connections) (unless using thread pools).
+[thread\_cache\_size](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_cache_size) should be the same as [max\_connections](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_connections) (unless using thread pools).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

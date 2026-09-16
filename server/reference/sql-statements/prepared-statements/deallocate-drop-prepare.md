@@ -9,7 +9,7 @@ description: >-
 ## Syntax
 
 ```bnf
-{DEALLOCATE | DROP} PREPARE stmt_name
+{DEALLOCATE | DROP} PREPARE [LOCAL] stmt_name
 ```
 
 ## Description
@@ -28,6 +28,32 @@ If the specified statement has not been PREPAREd, an error similar to the follow
 
 ```sql
 ERROR 1243 (HY000): Unknown prepared statement handler (stmt_name) given to DEALLOCATE PREPARE
+```
+
+### LOCAL Statement Names
+
+{% hint style="info" %}
+`{DEALLOCATE | DROP} PREPARE LOCAL` is available from MariaDB 13.1.1.
+{% endhint %}
+
+Inside a stored procedure, `LOCAL` deallocates the prepared statement whose name is the _value_ of the stored-procedure variable `spvar`:
+
+```sql
+{DEALLOCATE | DROP} PREPARE LOCAL spvar;
+```
+
+It is only valid inside a stored procedure, and like the plain form is not permitted in stored functions or triggers.
+
+**Example:**
+
+```sql
+CREATE PROCEDURE p1()
+BEGIN
+  DECLARE spvar_with_ps_name VARCHAR(64) DEFAULT 'my_stmt';
+
+  PREPARE my_stmt FROM 'SELECT 1';
+  DEALLOCATE PREPARE LOCAL spvar_with_ps_name;
+END;
 ```
 
 ## Example

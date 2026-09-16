@@ -61,6 +61,38 @@ This panel shows the current binary log position of the replica SQL thread for e
 
 This panel shows the current binary log position of the replica I/O thread for each ES node during the selected time interval.
 
+## Flow Control Pause %
+
+This panel shows the proportion of time that replication was paused by flow control for each node during the selected time interval. Enterprise Cluster services only.
+
+## Flow Control Messages Sent
+
+This panel shows the rate at which each node sent flow-control messages during the selected time interval. Enterprise Cluster services only.
+
+## Replication Queue Depth Received
+
+This panel shows the depth of the local receive queue for each node during the selected time interval. Enterprise Cluster services only.
+
+## Write Conflicts
+
+This panel shows the rate of certification failures and brute-force aborts for each node during the selected time interval. Enterprise Cluster services only.
+
+## Max Galera Replication Latency
+
+This panel shows the highest observed write-set replication latency, in seconds, for each node during the selected time interval. Enterprise Cluster services only.
+
+## Transactions
+
+This panel shows the rate of write-sets received and replicated by each node during the selected time interval. Enterprise Cluster services only.
+
+## Writeset Traffic
+
+This panel shows the volume of write-set data received and replicated by each node during the selected time interval. Enterprise Cluster services only.
+
+## Galera Nodes
+
+This panel lists each node (instance) in the cluster with its status, whether it accepts queries, its local state, whether flow control is active, its cluster status, and whether it is connected to the cluster. Enterprise Cluster services only.
+
 <figure><img src="../.gitbook/assets/queries.png" alt=""><figcaption><p>Monitoring—Queries</p></figcaption></figure>
 
 ## Top Command Counters (service, queries)
@@ -73,7 +105,7 @@ This panel shows the top 30 statement types that were most frequently executed b
 
 ## Top Command Counters Hourly (service)
 
-This panel shows the top 30 statement types that were most frequently executed by all ES and Xpand nodes in 1-hour intervals over the past 24 hours.
+This panel shows the top 30 statement types that were most frequently executed by all ES nodes in 1-hour intervals over the past 24 hours.
 
 ## Top Command Counters Hourly (server)
 
@@ -221,15 +253,15 @@ This panel shows the number of network packets dropped by the ES node during the
 
 ## CPU (server, status, gauge)
 
-This panel shows the current CPU usage for the ES or Xpand node.
+This panel shows the current CPU usage for the ES node.
 
 ## RAM (server, status)
 
-This panel shows the current memory usage details for the ES or Xpand node.
+This panel shows the current memory usage details for the ES node.
 
 ## RAM (server, status, graph)
 
-This panel shows memory usage details for the ES or Xpand node during the selected time interval.
+This panel shows memory usage details for the ES node during the selected time interval.
 
 ## Buffer Pool Size of Total RAM
 
@@ -329,7 +361,7 @@ This panel shows the number of clients connected to the MaxScale node during the
 
 ## Database Server Connections
 
-This panel shows the number of database server connections open between the MaxScale node and each ES or Xpand node during the selected time interval.
+This panel shows the number of database server connections open between the MaxScale node and each ES node during the selected time interval.
 
 ## Resident (server, cluster)
 
@@ -339,15 +371,15 @@ This panel shows the current resident set size (RSS) of the MaxScale process.
 
 This panel shows the current stack size of the MaxScale node.
 
-The following panels appear on the **Cache** view, available when the [Query Cache](../quickstart/query-cache-gridgain-8.md) add-on is enabled on the service. Select the cache node (or **Cache** in the top-right) on the Monitoring tab to open it.
+The following panels appear on the **Query Result Cache** view, available when the [Query Result Cache](../quickstart/query-cache-gridgain-8.md) add-on is enabled on the service. Select the cache node (or **Query Result Cache** in the top-right) on the Monitoring tab to open it.
 
-<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-1.png" alt=""><figcaption><p>Monitoring—Cache</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-1.png" alt=""><figcaption><p>Monitoring—Query Result Cache</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-2.png" alt=""><figcaption><p>Monitoring—Cache</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-2.png" alt=""><figcaption><p>Monitoring—Query Result Cache</p></figcaption></figure>
 
 ## Cache Hit Ratio
 
-This panel shows the ratio of cache hits to total lookups (gets) for the GridGain 8 query result cache during the selected time interval.
+This panel shows the ratio of cache hits to total lookups (gets) for the query result cache during the selected time interval.
 
 ## Cache Throughput
 
@@ -367,10 +399,14 @@ This panel shows the memory allocated to the cache data region against its maxim
 
 ## Evictions / sec
 
-This panel shows the number of cache entries evicted per second.
+This panel shows the rate of entries evicted from the query result cache. Sustained non-zero values indicate the cache is over capacity and least-recently-used entries are being dropped.
+
+## Cache Nodes
+
+This panel shows the number of cache server nodes in the cluster topology. A value below the expected node count indicates a node has left the topology.
 
 ## Eviction Rate
 
-This panel shows the number of cache entries evicted per second during the selected time interval.
+This panel appears on an individual cache node's view rather than the service-wide one, and shows the number of cache entries evicted per second during the selected time interval.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

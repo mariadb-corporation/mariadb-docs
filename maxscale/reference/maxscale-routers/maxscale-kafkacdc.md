@@ -139,7 +139,7 @@ Enable idempotent producer mode. This feature requires Kafka version 0.11 or new
 
 When enabled, the Kafka producer enters a strict mode which avoids event duplication due to broker outages or other network errors. In HA scenarios where there are more than two MaxScale instances, event duplication can still happen as there is no synchronization between the MaxScale instances.
 
-The Kafka C library,[librdkafka](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION), describes the parameter as follows:
+The Kafka C library,[librdkafka](https://github.com/confluentinc/librdkafka/blob/master/CONFIGURATION.md), describes the parameter as follows:
 
 When set to true, the producer will ensure that messages are successfully produced exactly once and in the original produce order. The following configuration properties are adjusted automatically (if not modified by the user) when idempotence is enabled: max.in.flight.requests.per.connection=5 (must be less than or equal to 5), retries=INT32\_MAX (must be greater than 0), acks=all, queuing.strategy=fifo.
 
@@ -202,7 +202,7 @@ password=maxpwd
 bootstrap_servers=127.0.0.1:9092
 topic=my-cdc-topic
 match=db1[.]
-exclude=db1 [.](accounts|users)
+exclude=db1[.](accounts|users)
 ```
 
 ### `exclude`

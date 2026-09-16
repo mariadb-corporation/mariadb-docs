@@ -21,13 +21,13 @@ That MariaDB be actively developed in the community and to:
 * Keep MariaDB compatible with MySQL.
 * Maintain mariadb.org.
 
-If you are using MariaDB in production and want to ensure that MariaDB is always actively developed, then you should sponsor or become a [member of the MariaDB foundation!](https://mariadb.org/donate/).
+If you are using MariaDB in production and want to ensure that MariaDB is always actively developed, then you should sponsor or become a [member of the MariaDB Foundation!](https://mariadb.org/sponsor/).
 
 It's the MariaDB Foundation that ensures that all community patches, including MySQL source code, are merged into MariaDB. It also does the builds and QA of MariaDB and provides a lot of the [MariaDB documentation](https://mariadb.com/docs).
 
-We are very grateful to our [current members and sponsors](https://mariadb.org/en/supporters) who are making this work possible!
+We are very grateful to our [current members and sponsors](https://mariadb.org/about/#sponsors) who are making this work possible!
 
-More information about the Foundation can be found on the [MariaDB foundation website](https://mariadb.org/en/foundation/).
+More information about the Foundation can be found on the [MariaDB Foundation website](https://mariadb.org/about/#about-mariadb-foundation).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

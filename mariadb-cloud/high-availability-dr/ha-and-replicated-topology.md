@@ -88,19 +88,19 @@ This model functions optimally when application clients utilize sticky SQL conne
 
 ### Configuring Causal Read in MariaDB Cloud
 
-Causal consistency is configured in the MariaDB Cloud [Configuration Manager](https://app.skysql.com/settings/configuration-manager), under MaxScale Variables (applies to Replicated clusters only). Search for [causal reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#causal_reads).
+Causal consistency is configured in the MariaDB Cloud [Configuration Manager](https://app.skysql.com/settings/configuration-manager), under MaxScale Variables (applies to Replicated clusters only). Search for [causal reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#causal_reads).
 
 <figure><img src="../.gitbook/assets/causal.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-We do not advise adjusting `causal_reads` unless absolutely necessary. Adjust the [max\_slave\_replication\_lag](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#max_slave_replication_lag), which determines the max lag > for any read. The load balancer will only route to slaves with a lag less than this value. By default, this is unbounded. Make sure none of the replicas ever cross 70-80% CPU in a sustained manner.
+We do not advise adjusting `causal_reads` unless absolutely necessary. Adjust the [max\_slave\_replication\_lag](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#max_slave_replication_lag), which determines the max lag > for any read. The load balancer will only route to slaves with a lag less than this value. By default, this is unbounded. Make sure none of the replicas ever cross 70-80% CPU in a sustained manner.
 {% endhint %}
 
 In general, if the application is not performing large transactions or batch writes, given our default semi-sync replication, the replica SQL threads will keep up - i.e., getting an inconsistent read is unlikely.
 
 Our replication model is as fast as it is configured to be parallel and optimistic - on the replica, multiple SQL threads process incoming writes concurrently. It is designed to detect conflicts and revert to proper sequencing, thus being transparent to the app and ensuring consistency.
 
-* Set [causal\_reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-use-cases/readwrite-split-router-usage/ensuring-causal-consistency-with-maxscales-readwrite-split-router) to 'local' to achieve consistency at a connection/session level.
+* Set [causal\_reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-readwritesplit#causal_reads) to 'local' to achieve consistency at a connection/session level.
   * We recommend first exploring to see if `causal_reads` set to `local` will suffice. This is quite fast (minimal to no tradeoff) and ensures read consistency at a connection/session level. If the app is using a connection pool, it is important to understand how it is being used.
   * Example: A banking app lets a user transfer $100 between accounts in a single session. The app writes the debit and credit, then reads the updated balances to show the user. The connection pool reuses the same session for the transaction and follow-up read. Replica lag is 500ms, but semi-sync replication and parallel SQL threads keep it minimal. The write (debit $100, credit $100) is committed on the primary. Within the same session, the read on the replica waits for the write to be applied (up to 500ms), then returns the correct balances.
 * Set causal\_reads to 'global' for strict consistency across all connections.
@@ -121,13 +121,9 @@ The implementation of these routing strategies is straightforward, primarily thr
 In MariaDB Cloud, you can control routing using 2 strategies:
 
 * Using the `read port` for the service: Typically, this will be port 3307. When using this port, the request (read\_only) will be load-balanced only across the available replicas.
-* Using the [Hintfilter](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-filters/mariadb-maxscale-2302-hintfilter)
+* Using the [Hintfilter](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-filters/mariadb-maxscale-2302-hintfilter)
 
 ### **Synchronous HA using Enterprise Clusters**
-
-{% hint style="warning" %}
-**Tech Preview Advisory:** MariaDB Enterprise Cluster are currently available as a [_Tech Preview_](../quickstart/enterprise-cluster.md).
-{% endhint %}
 
 While the [standard Replicated topology](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication) utilizes semi-synchronous replication with causal reads, workloads that demand strict data consistency and zero data loss can utilize the [MariaDB Enterprise Cluster topology](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-cluster-quickstart-guides/mariadb-galera-cluster-usage-guide).
 
@@ -136,9 +132,9 @@ The cluster provides [High Availability](https://app.gitbook.com/s/3VYeeVGUV4AMq
 * **Quorum-Based Health:** The cluster maintains a [voting system to prevent split-brain scenarios](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/understanding-quorum-monitoring-and-recovery). A standard 3-node cluster can tolerate the loss of one node; if a node fails, MariaDB MaxScale automatically routes traffic to the remaining healthy nodes without customer intervention.
 
 {% hint style="info" %}
-**Tech Preview Limitation: Single-Writer Routing**&#x20;
+**Single-Writer Routing**&#x20;
 
-During the Tech Preview phase, MariaDB MaxScale is configured to route all write traffic to a **single active writer node** to ensure maximum stability and prevent transaction conflicts. Reads can be load-balanced across the remaining nodes.
+MariaDB MaxScale is configured to route all write traffic to a **single active writer node** to ensure maximum stability and prevent transaction conflicts. Reads can be load-balanced across the remaining nodes.
 {% endhint %}
 
 * **Latency Trade-offs:** Because all nodes must acknowledge a write before it is committed, Enterprise Clusters inherently introduce slight commit latency compared to asynchronous replicas, particularly when spread across multiple Availability Zones.

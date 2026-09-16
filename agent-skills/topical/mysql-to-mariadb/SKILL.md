@@ -158,5 +158,3 @@ MariaDB and MySQL use different query optimizers with different cost models. Ide
 - [Authentication Plugins — MariaDB Docs](https://mariadb.com/docs/server/reference/plugins/authentication-plugins)
 
 *For topics not covered here, see the official MariaDB documentation at [mariadb.com/docs](https://mariadb.com/docs).*
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

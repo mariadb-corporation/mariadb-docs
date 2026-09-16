@@ -1,6 +1,17 @@
+---
+description: >-
+  DBeaver is a free, multi-platform database tool for developers, DBAs, and
+  analysts that supports MariaDB, MySQL, PostgreSQL, and other relational
+  databases.
+---
+
 # DBeaver
 
-[DBeaver](https://dbeaver.jkiss.org/) is a free multi-platform database tool for developers, SQL programmers, database administrators and analysts. It supports many popular relational databases like MySQL, MariaDB, and PostgreSQL.
+{% hint style="info" %}
+DBeaver is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
+
+[DBeaver](https://dbeaver.io/) is a free multi-platform database tool for developers, SQL programmers, database administrators and analysts. It supports many popular relational databases like MySQL, MariaDB, and PostgreSQL.
 
 A list of basic features:
 
@@ -12,7 +23,7 @@ A list of basic features:
 * Data and metadata search: full-text data search using against all chosen tables/views.
 * Database structure comparing: possibility to perform objects structure compare.
 
-Usability is the main goal of this project, so the program UI is carefully designed and implemented. Users can send bug report and feature request on the [GitHub page](https://github.com/serge-rider/dbeaver).
+Usability is the main goal of this project, so the program UI is carefully designed and implemented. Users can send bug report and feature request on the [GitHub page](https://github.com/dbeaver/dbeaver).
 
 ![](../../.gitbook/assets/screen1.png)
 

@@ -1341,7 +1341,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Feature_json`
 
-* Description: Number of times JSON functionality has been used, such as one of the [JSON functions](../../../reference/sql-functions/special-functions/json-functions/). Does not include the [CONNECT engine JSON type](../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type.md), or [EXPLAIN/ANALYZE FORMAT=JSON](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-statement.md#analyze-formatjson).
+* Description: Number of times JSON functionality has been used, such as one of the [JSON functions](../../../reference/sql-functions/special-functions/json-functions/). Does not include the [CONNECT engine JSON type](../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type.md), or [EXPLAIN/ANALYZE FORMAT=JSON](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-statement.md#analyze-format-json).
 * Scope: Global, Session
 * Data Type: `numeric`
 
@@ -1870,7 +1870,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Sort_priority_queue_sorts`
 
-* Description: The number of times that sorting was done through a priority queue. (The total number of times sorting was done is a sum [Sort\_range](server-status-variables.md#sort_range) and [Sort\_scan](server-status-variables.md#sort_scan)). See [filesort with small LIMIT optimization](../query-optimizations/filesort-with-small-limit-optimization.md).
+* Description: The number of times that sorting was done through a priority queue. Every such sort is also counted by [Sort\_range](server-status-variables.md#sort_range) or [Sort\_scan](server-status-variables.md#sort_scan), so the total number of sorts is the sum of `Sort_range` and `Sort_scan` alone — adding `Sort_priority_queue_sorts` counts those sorts twice. See [filesort with small LIMIT optimization](../query-optimizations/filesort-with-small-limit-optimization.md).
 * Scope: Global, Session
 * Data Type: `numeric`
 

@@ -887,11 +887,11 @@ class sp_instr
           // Returns 0 on success, non-zero if some error occurred.
           virtual int execute(THD *, uint *nextp)
         }
-<<code>>
+```
 
+**Statement instruction**
 
-===== Statement instruction
-<<code>>
+```
         class sp_instr_stmt : public sp_instr
         {
           sp_instr_stmt(uint ip);

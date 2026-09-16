@@ -8,9 +8,9 @@ icon: link
 
 # Perfect-MariaDB for Swift
 
-Source Code & Library for MariaDB Connector in Swift:[Perfect-MariaDB](https://github.com/PerfectlySoft/Perfect-MariaDB)
+Source Code & Library for MariaDB Connector in Swift: [Perfect-MariaDB](https://github.com/PerfectlySoft/Perfect-MariaDB)
 
-Document:[MariaDB.html](https://www.perfect.org/docs/MariaDB.html)
+Documentation: [Perfect MariaDB](https://perfect.org/docs/MariaDB.html)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

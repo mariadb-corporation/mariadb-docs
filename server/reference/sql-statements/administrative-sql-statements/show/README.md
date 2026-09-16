@@ -42,7 +42,6 @@ description: >-
 - [SHOW GRANTS](show-grants.md)
 - [SHOW INDEX\_STATISTICS](show-index-statistics.md)
 - [SHOW INDEX](show-index.md)
-- [SHOW INNODB STATUS (removed)](show-innodb-status-removed.md)
 - [SHOW LOCALES](show-locales.md)
 - [SHOW OPEN TABLES](show-open-tables.md)
 - [SHOW PACKAGE BODY STATUS](show-package-body-status.md)

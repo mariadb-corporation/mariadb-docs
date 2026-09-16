@@ -1,3 +1,9 @@
+---
+description: >-
+  mariadb-report interprets and formats the values from SHOW STATUS into a
+  readable report, adding inferred values such as the index read ratio.
+---
+
 # mariadb-report
 
 `mariadb-report` makes a friendly report of important MariaDB status values.

@@ -13,7 +13,7 @@ This is the recipe for setting up a MariaDB Buildbot slave on Windows:
    Note: As of June 2016, there is no fresh Twistd for 32-bit Python, so a 64-bit version has to be installed. Installed 2.7.11 64-bit, it seems to work.
 3. Install [pywin32](https://sourceforge.net/projects/pywin32/files). Make sure the version matches your Python version perfectly, and get the .exe file, not the zip file.\
    Note: As of June 2016, used `pywin32-220.win-amd64-py2.7.exe`, it seems to work.
-4. Install [Twisted](https://twistedmatrix.com/trac/wiki/Downloads)\
+4. Install [Twisted](https://twisted.org/)\
    Note: As of June 2016, used `Twisted 16.2.0 for Python 2.7 64 bits`
 5. Install [buildbot](https://buildbot.net): Get the zip file and unpack it. In an administrator shell, cd to the buildbot dir and run "python setup.py install". After that, the unpacked buildbot directory is no longer needed.\
    Note: As of June 2016, used `buildbot 0.8.12`.
@@ -40,7 +40,7 @@ You can test the buildbot slave with this command:
 C:\buildbot\buildbot-slave-0.8.3\build\scripts-2.7\buildslave.bat start <somewhere>\buildbot\<slavedir>
 ```
 
-When buildbot starts, you should configure it as a service instead of manually. See the instructions [here](https://buildbot.net/trac/wiki/RunningBuildbotOnWindows). It's under the section "Windows Buildbot service setup". This document also has the generic Windows Buildbot installation documentation.
+When buildbot starts, you should configure it as a service instead of manually. See the instructions [here](https://web.archive.org/web/20090109143800/https://buildbot.net/trac/wiki/RunningBuildbotOnWindows). It's under the section "Windows Buildbot service setup". This document also has the generic Windows Buildbot installation documentation.
 
 ### Why Buildbot Should Run as a Service
 

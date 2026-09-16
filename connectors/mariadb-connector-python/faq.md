@@ -108,7 +108,7 @@ For most users, `pip install --pre mariadb[binary,pool]` provides the best exper
 
 ### ModuleNotFoundError: No module named ‘packaging’
 
-With deprecation of distutils (see [PEP-632](https://peps.python.org/pep-632)) version functions of distutils module were
+With deprecation of distutils (see [PEP-632](https://peps.python.org/pep-0632/)) version functions of distutils module were
 replaced in MariaDB Connector/Python 1.1.5 by packaging version functions.
 
 Before you can install MariaDB Connector/Python you have to install the packaging module:
@@ -338,7 +338,7 @@ Please note, that there is no need to escape ‘%s’ by ‘%%s’ for the time 
 
 ### Q: Does MariaDB Connector/Python support paramstyle “pyformat”?
 
-The default paramstyle (see [PEP-249](https://peps.python.org/pep-249)) is **qmark** (question mark) for parameter markers. For compatibility
+The default paramstyle (see [PEP-249](https://peps.python.org/pep-0249/)) is **qmark** (question mark) for parameter markers. For compatibility
 with other drivers MariaDB Connector/Python also supports (and automatically recognizes) the **format** and **pyformat** parameter
 styles.
 

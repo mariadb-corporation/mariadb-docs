@@ -20,7 +20,7 @@ This guide provides the universal workflow for building MariaDB Server from sour
 
 Before you begin, your system must have the necessary compilers, build tools, and library headers.
 
-> For details, see [Install Build Dependencies](compiling-mariadb-from-source-the-master-guide.md#prepare-your-environment-install-build-dependencies).
+> For details, see [Install Build Dependencies](compiling-mariadb-from-source-the-master-guide.md#preparing-your-environment-install-build-dependencies).
 {% endstep %}
 
 {% step %}

@@ -8,7 +8,7 @@ description: >-
 
 {% include "../../../../../.gitbook/includes/this-page-contains-backgrou....md" %}
 
-The `mariadb-test` program runs a test case against a MariaDB or MySQL server and optionally compares the output with a result file. This program reads input written in a special test language. Typically, you invoke `mariadb-test` via [mariadb-test-run.pl](https://mariadb.com/kb/en/mariadb-test-runpl) rather than invoking it directly.
+The `mariadb-test` program runs a test case against a MariaDB or MySQL server and optionally compares the output with a result file. This program reads input written in a special test language. Typically, you invoke `mariadb-test` via [mariadb-test-run.pl](../../../../../clients-and-utilities/testing-tools/mariadb-test/mariadb-test-overview.md) rather than invoking it directly.
 
 `mariadb-test_embedded` is similar but is built with support for the `libmariadbd` embedded server.
 
@@ -27,10 +27,10 @@ By default, `mariadb-test` reads the test case on the standard input. To run
 mariadb-test this way, you normally invoke it like this:
 
 ```bash
-shell> mariadb-test **[options] [db_name]** < //test_file//
+shell> mariadb-test [options] [db_name] < test_file
 ```
 
-You can also name the test case file with a`--test-file=file_name` option.
+You can also name the test case file with a `--test-file=file_name` option.
 
 The exit value from `mariadb-test` is `0` for success, `1` for failure, and `62` if it
 skips the test case (for example, if after checking some preconditions it

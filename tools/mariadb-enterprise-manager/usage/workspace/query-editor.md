@@ -11,13 +11,13 @@ The Query Editor is a powerful, integrated environment for database developers a
 
 This procedure outlines the steps required to access and utilize the Query Editor within the Workspace section of Enterprise Manager UI.
 
-1.  From the main Workspace screen, click the "Run Queries" card.\\
+1.  From the main Workspace screen, click the "Run Queries" card.
 
     <figure><img src="../../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
-2.  In the "Connect to..." dialog, select your target server, enter your credentials, and click Connect.\\
+2.  In the "Connect to..." dialog, select your target server, enter your credentials, and click Connect.
 
     <figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
-3.  Upon successful connection, the main [Query Editor worksheet](https://github.com/mariadb-corporation/mariadb-docs/blob/main/tools/mariadb-enterprise-manager/usage/workspace/broken-reference/README.md) will appear, ready for you to begin.\\
+3.  Upon successful connection, the main [Query Editor worksheet](#query-editor-worksheet) will appear, ready for you to begin.
 
     <figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 

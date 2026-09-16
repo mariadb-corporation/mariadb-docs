@@ -28,11 +28,13 @@ SHOW VARIABLES LIKE 'have_query_cache';
 
 If this is set to `NO`, you cannot enable the query cache unless you rebuild or reinstall a version of MariaDB with the cache available.
 
-To see if the cache is enabled, view the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) server variable. It is disabled by default — enable it by setting `query_cache_type` to `1` :
+To see if the cache is enabled, view the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) server variable. It is disabled by default — enable it by setting `query_cache_type` to `ON`:
 
 ```sql
-SET GLOBAL query_cache_type = 1;
+SET GLOBAL query_cache_type = ON;
 ```
+
+`ON` is one of three values the variable accepts. See [Query Cache Types](query-cache.md#query-cache-types) below for all of them, and for the difference between the global and the session value.
 
 The [query\_cache\_size](../system-variables/server-system-variables.md#query_cache_size) is set to 1MB by default. Set the cache to a larger size if needed, for example:
 
@@ -43,6 +45,72 @@ SET GLOBAL query_cache_size = 2000000;
 The `query_cache_type` is automatically set to `ON` if the server is started with the `query_cache_size` set to a non-zero (and non-default) value.
 
 See [Limiting the size of the Query Cache](query-cache.md#limiting-the-size-of-the-query-cache) below for details.
+
+## Query Cache Types
+
+The [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) server variable takes three values. Each can be given by name or by the equivalent number, so `SET GLOBAL query_cache_type = ON` and `SET GLOBAL query_cache_type = 1` are the same statement. The name is what gets reported back:
+
+| Value    | Number | Behavior                                                                                                                                                                                              |
+| -------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `OFF`    | `0`    | Results are neither stored in nor retrieved from the query cache. This is the default.                                                                                                                 |
+| `ON`     | `1`    | Every cacheable query is stored and retrieved, except one that specifies [SQL\_NO\_CACHE](query-cache.md#sql_no_cache-and-sql_cache).                                                                   |
+| `DEMAND` | `2`    | Only a query that specifies [SQL\_CACHE](query-cache.md#sql_no_cache-and-sql_cache) is stored and retrieved. Every other query bypasses the cache.                                                      |
+
+Any other value is rejected:
+
+```sql
+SET GLOBAL query_cache_type = 3;
+ERROR 1231 (42000): Variable 'query_cache_type' can't be set to the value of '3'
+```
+
+`ON` and `DEMAND` both still require memory to store results in. If [query\_cache\_size](../system-variables/server-system-variables.md#query_cache_size) is `0`, setting `query_cache_type` to `ON` or `DEMAND` is accepted without error but nothing is cached.
+
+See [Queries Stored in the Query Cache](query-cache.md#queries-stored-in-the-query-cache) for the conditions a query must meet to be cacheable at all.
+
+### Global and Session Values
+
+`query_cache_type` has both a global and a session value, and it is the **session** value that decides how a given connection uses the cache. A connection inherits the global value when it opens, so `SET GLOBAL` on its own affects only connections opened afterwards:
+
+```sql
+SELECT @@global.query_cache_type, @@session.query_cache_type;
++---------------------------+----------------------------+
+| @@global.query_cache_type | @@session.query_cache_type |
++---------------------------+----------------------------+
+| ON                        | ON                         |
++---------------------------+----------------------------+
+
+SET GLOBAL query_cache_type = DEMAND;
+
+SELECT @@global.query_cache_type, @@session.query_cache_type;
++---------------------------+----------------------------+
+| @@global.query_cache_type | @@session.query_cache_type |
++---------------------------+----------------------------+
+| DEMAND                    | ON                         |
++---------------------------+----------------------------+
+```
+
+Set both to change the current connection as well:
+
+```sql
+SET GLOBAL query_cache_type = DEMAND;
+SET SESSION query_cache_type = DEMAND;
+```
+
+A session can move between `ON` and `DEMAND` as it likes, and can always set its own value to `OFF` to opt out of a cache that is enabled globally. It cannot opt *in* while the cache is globally disabled:
+
+```sql
+SET SESSION query_cache_type = ON;
+ERROR 1925 (HY000): Query cache is globally disabled and you can't enable it only for this session
+```
+
+A session set to `OFF` neither stores results nor reads results stored by other sessions, and `SQL_CACHE` in a query does not override it.
+
+`query_cache_type` is one of the variables that cannot be set for the duration of a single statement with [SET STATEMENT](../../../reference/sql-statements/administrative-sql-statements/set-commands/set-statement.md):
+
+```sql
+SET STATEMENT query_cache_type = OFF FOR SELECT 1;
+ERROR 1971 (42000): The system variable query_cache_type cannot be set in SET STATEMENT.
+```
 
 ## How the Query Cache Works
 
@@ -88,7 +156,7 @@ When using `query_cache_type=DEMAND` and the query specifies `SQL_CACHE`, the se
 
 ## Queries Stored in the Query Cache
 
-If the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable is set to `1`, or `ON`, all queries fitting the size constraints will be stored in the cache unless they contain a `SQL_NO_CACHE` clause, or are of a nature that caching makes no sense, for example making use of a function that returns the current time. Queries with `SQL_NO_CACHE` will not attempt to acquire query cache lock.
+If the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable is set to `ON`, all queries fitting the size constraints will be stored in the cache unless they contain a `SQL_NO_CACHE` clause, or are of a nature that caching makes no sense, for example making use of a function that returns the current time. Queries with `SQL_NO_CACHE` will not attempt to acquire query cache lock.
 
 If any of the following functions are present in a query, it will not be cached. Queries with these functions are sometimes called 'non-deterministic' — don't get confused with the use of this term in other contexts.
 
@@ -129,7 +197,7 @@ A query will also not be added to the cache if:
 
 The query itself can also specify that it is not to be stored in the cache by using the `SQL_NO_CACHE` attribute. Query-level control is an effective way to use the cache more optimally.
 
-It is also possible to specify that _no_ queries must be stored in the cache unless the query requires it. To do this, the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) server variable must be set to `2`, or `DEMAND`. Then, only queries with the `SQL_CACHE` attribute are cached.
+It is also possible to specify that _no_ queries must be stored in the cache unless the query requires it. To do this, the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) server variable must be set to `DEMAND`. Then, only queries with the `SQL_CACHE` attribute are cached.
 
 ## Limiting the Size of the Query Cache
 
@@ -233,11 +301,11 @@ SHOW STATUS LIKE 'Qcache%';
 +-------------------------+----------+
 ```
 
-## Emptying and disabling the Query Cache
+## Emptying and Disabling the Query Cache
 
 To empty or clear all results from the query cache, use [RESET QUERY CACHE](../../../reference/sql-statements/administrative-sql-statements/reset.md). [FLUSH TABLES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) will have the same effect.
 
-Setting either [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) or [query\_cache\_size](../system-variables/server-system-variables.md#query_cache_size) to `0` will disable the query cache, but to free up the most resources, set both to `0` when you wish to disable caching.
+Setting [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) to `OFF`, or [query\_cache\_size](../system-variables/server-system-variables.md#query_cache_size) to `0`, will disable the query cache. To free up the most resources, set both when you wish to disable caching.
 
 ## Limitations
 
@@ -407,7 +475,7 @@ When two processes execute the same query, only the last process stores the quer
 
 There are two aspects to the query cache: placing a query in the cache, and retrieving it from the cache.
 
-1. Adding a query to the query cache. This is done automatically for cacheable queries (see ([Queries Stored in the Query Cache](query-cache.md#queries-stored-in-the-query-cache)) when the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable is set to `1`, or `ON` and the query contains no `SQL_NO_CACHE` clause, or when the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable is set to `2`, or `DEMAND`, and the query contains the `SQL_CACHE` clause.
+1. Adding a query to the query cache. This is done automatically for cacheable queries (see ([Queries Stored in the Query Cache](query-cache.md#queries-stored-in-the-query-cache)) when the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable is set to `ON` and the query contains no `SQL_NO_CACHE` clause, or when the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable is set to `DEMAND`, and the query contains the `SQL_CACHE` clause.
 2. Retrieving a query from the cache. This is done after the server receives the query and before the query parser. In this case one point should be considered:
 
 When using `SQL_NO_CACHE`, it should be after the first `SELECT` hint:

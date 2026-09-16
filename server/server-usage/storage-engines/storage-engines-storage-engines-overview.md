@@ -132,7 +132,7 @@ Standard MariaDB storage engines are used for System Table storage:
 
 ### What storage engine should I use if my application performs both transactional and analytical queries?
 
-An application that performs both transactional and analytical queries is known as [hybrid transactional-analytical processing (HTAP)](https://mariadb.com/kb/en/deploy-htap-topology/).
+An application that performs both transactional and analytical queries is known as [hybrid transactional-analytical processing (HTAP)](../../architecture/topologies/htap/).
 
 HTAP can be implemented with MariaDB by using [InnoDB](innodb/) for transactional queries and [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) for analytical queries.
 

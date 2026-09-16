@@ -38,7 +38,7 @@ For MariaDB Cloud services that use MariaDB Server, the [local\_infile system va
 
 ## **Import Data**
 
-1. Determine the [connection parameters](../../../../Connecting%20to%20Sky%20DBs/) for your MariaDB Cloud service.
+1. Determine the [connection parameters](../../../connecting-to-mariadb-cloud-dbs/connection-overview.md#connecting-using-the-mariadb-client) for your MariaDB Cloud service.
 2. Connect with the `mariadb` client and specify the [-local-infile option](https://mariadb.com/docs/skysql-previous-release/data-operations/data-import/load-data-local-infile/), which is needed by the next step:
 
 ```bash

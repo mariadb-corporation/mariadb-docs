@@ -7,7 +7,7 @@ description: The CONNECT storage engine.
 ## Overview
 
 A table of type BIN is physically a binary file in which each row is a logical
-record of fixed length\[[1](connect-bin-table-type.md#_note-0)]. Within a record, column fields are
+record of fixed length\[1]. Within a record, column fields are
 of a fixed offset and length as with [FIX tables](connect-dos-and-fix-table-types.md). Specific to BIN tables
 is that numerical values are internally encoded using native platform
 representation, so no conversion is needed to handle numerical values in
@@ -48,8 +48,8 @@ by default:
 
 However, the column type need not necessarily match the field format within the
 table file. In particular, this occurs for field formats that correspond to
-numeric types that are not handled by CONNECT\[[2](connect-bin-table-type.md#_note-1)]. Indeed, BIN table files may
-internally contain float numbers or binary numbers of any byte length in big-endian or little-endian representation\[[3](connect-bin-table-type.md#_note-2)]. Also, as in [DOS or FIX types](connect-dos-and-fix-table-types.md) tables, you may want to handle some character fields as numeric or
+numeric types that are not handled by CONNECT\[2]. Indeed, BIN table files may
+internally contain float numbers or binary numbers of any byte length in big-endian or little-endian representation\[3]. Also, as in [DOS or FIX types](connect-dos-and-fix-table-types.md) tables, you may want to handle some character fields as numeric or
 vice versa.
 
 This is why it is possible to specify the field format when it does not
@@ -68,7 +68,7 @@ in the [CREATE TABLE](../../../../reference/sql-statements/data-definition/creat
 | F or R                | Real or float (Floating point number on 4 bytes)                                  |
 | X                     | Use the default format field for the column type                                  |
 
-All field formats (except the first one) are a one-character specification\[[4](connect-bin-table-type.md#_note-3)].\
+All field formats (except the first one) are a one-character specification\[4].\
 'X' is equivalent to not specifying the field format. For the 'C' character
 specification, _n_ is the column width as specified with the column type. For one-column formats, the
 number of bytes of the numeric fields corresponds to what it is on most
@@ -136,11 +136,11 @@ returns:
 In binary files, numeric fields and record length can be aligned on 4-or-8-byte boundaries to optimize performance on certain processors. This can be
 modified in the OPTION\_LIST with an "align" option ("packed" meaning `align=1` is the default).
 
-1. [↑](connect-bin-table-type.md#_ref-0) Sometimes it can be a physical record if LF or\
+1. Sometimes it can be a physical record if LF or\
    CRLF have been written in the file.
-2. [↑](connect-bin-table-type.md#_ref-1) Most of these are obsolete because CONNECT supports all column types except float
-3. [↑](connect-bin-table-type.md#_ref-2) The default endian representation used in the table file can be specified by setting the ENDIAN option as ‘L’ or ‘B’ in the option list.
-4. [↑](connect-bin-table-type.md#_ref-3) It can be specified
+2. Most of these are obsolete because CONNECT supports all column types except float
+3. The default endian representation used in the table file can be specified by setting the ENDIAN option as ‘L’ or ‘B’ in the option list.
+4. It can be specified
    with more than one character, but only the first one is significant.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

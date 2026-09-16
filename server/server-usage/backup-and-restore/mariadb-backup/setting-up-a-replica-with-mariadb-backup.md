@@ -83,7 +83,7 @@ GRANT REPLICATION SLAVE ON *.*  TO 'repl'@'dbserver2';
 
 Before we start the server on the new replica, we need to configure it. At the very least, we need to ensure that it has a unique server\_id value. We also need to make sure other replication settings are what we want them to be, such as the various GTID system variables, if those apply in the specific environment.
 
-Once configuration is done, we can [start the MariaDB Server process](https://mariadb.com/kb/en/) on the new replica.
+Once configuration is done, we can [start the MariaDB Server process](../../../server-management/starting-and-stopping-mariadb/) on the new replica.
 
 ### Start Replication on the New Replica
 

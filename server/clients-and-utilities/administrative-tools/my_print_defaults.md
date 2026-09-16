@@ -1,3 +1,9 @@
+---
+description: >-
+  my_print_defaults displays the options a tool will read from the option
+  groups of option files, one option per line in command-line form.
+---
+
 # my\_print\_defaults
 
 `my_print_defaults` displays the options from option groups of option files. It is useful to see which options a particular tool will use.

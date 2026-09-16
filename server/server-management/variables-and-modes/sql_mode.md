@@ -126,7 +126,7 @@ Disables using the backslash character `\` as an escape character within strings
 
 #### NO\_DIR\_IN\_CREATE
 
-Ignore all INDEX DIRECTORY and DATA DIRECTORY directives when creating a table. Can be useful on [replica](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) servers.
+Ignore all INDEX DIRECTORY and DATA DIRECTORY directives when creating a table. Can be useful on [replica](../../ha-and-performance/standard-replication/) servers.
 
 #### NO\_ENGINE\_SUBSTITUTION
 
@@ -158,7 +158,7 @@ Don't allow dates where the year is not zero but the month or day parts of the d
 
 #### ONLY\_FULL\_GROUP\_BY
 
-For [SELECT ... GROUP BY](../../reference/sql-statements/data-manipulation/selecting-data/select.md#group-by) queries, disallow [SELECTing](../../reference/sql-statements/data-manipulation/selecting-data/select.md) columns which are not referred to in the GROUP BY clause, unless they are passed to an aggregate function like [COUNT()](../../reference/sql-functions/aggregate-functions/count.md) or [MAX()](../../reference/sql-functions/aggregate-functions/max.md). Produce a 1055 error.
+For [SELECT ... GROUP BY](../../reference/sql-statements/data-manipulation/selecting-data/group-by.md) queries, disallow [SELECTing](../../reference/sql-statements/data-manipulation/selecting-data/select.md) columns which are not referred to in the GROUP BY clause, unless they are passed to an aggregate function like [COUNT()](../../reference/sql-functions/aggregate-functions/count.md) or [MAX()](../../reference/sql-functions/aggregate-functions/max.md). Produce a 1055 error.
 
 #### ORACLE
 

@@ -1,6 +1,6 @@
 # 26.03 update guide
 
-This guide illustrates, step by step, how to update to `26.3.2` from previous versions. This guide only applies if you are updating from a version prior to `26.3.x`, otherwise you may upgrade directly (see [Helm](https://mariadb.com/docs/tools/mariadb-enterprise-operator/installation/helm#updates) and [OpenShift](https://mariadb.com/docs/tools/mariadb-enterprise-operator/installation/openshift#updates) docs)
+This guide illustrates, step by step, how to update to `26.3.2` from previous versions. This guide only applies if you are updating from a version prior to `26.3.x`, otherwise you may upgrade directly (see [Helm](../installation/helm.md#updates) and [OpenShift](../installation/openshift.md#updates) docs)
 
 - The [data-plane](../topologies/data-plane.md) must be updated to the `26.3.2` version. You must set `updateStrategy.autoUpdateDataPlane=true` in your `MariaDB` resources before updating the operator. Then, once updated, the operator will also be updating the data-plane based on its version:
 ```diff
@@ -13,7 +13,7 @@ spec:
 +   autoUpdateDataPlane: true
 ```
 
-- `MaxScale` embedded definition inside the `MariaDB` has been deprecated, please refer to the [migration guide.](https://mariadb.com/docs/tools/mariadb-enterprise-operator/migrations/migrate-embedded-maxscale-to-maxscale-resource) to perform the migration.
+- `MaxScale` embedded definition inside the `MariaDB` has been deprecated, please refer to the [migration guide.](../migrations/migrate-embedded-maxscale-to-maxscale-resource.md) to perform the migration.
 
 - At this point, you may proceed to update the operator. If you are using __Helm__:
 

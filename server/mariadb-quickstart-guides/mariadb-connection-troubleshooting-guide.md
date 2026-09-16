@@ -251,7 +251,7 @@ Example output showing the problem:
 
       Ensure this doesn't break other intended anonymous access, if any.
 
-## MariaDB Authentication Tutorial <a href="#see-also" id="see-also"></a>
+## MariaDB Authentication Tutorial
 
 {% columns %}
 {% column %}

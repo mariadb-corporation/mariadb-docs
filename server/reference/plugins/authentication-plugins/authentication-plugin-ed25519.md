@@ -37,11 +37,11 @@ You can uninstall the plugin dynamically by executing [UNINSTALL SONAME](../../s
 UNINSTALL SONAME 'auth_ed25519';
 ```
 
-If you installed the plugin by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load-add) options in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), those options must be removed to prevent the plugin from being loaded the next time the server is restarted.
+If you installed the plugin by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), those options must be removed to prevent the plugin from being loaded the next time the server is restarted.
 
 ## Creating Users
 
-You can create a user account by executing the [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md) statement and providing the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-viawith-authentication_plugin) clause followied by the name of the plugin, `ed25519`, and providing the `USING` clause followed by the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function, with the plain-text password as an argument:
+You can create a user account by executing the [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md) statement and providing the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-via-or-with-authentication_plugin) clause followied by the name of the plugin, `ed25519`, and providing the `USING` clause followed by the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function, with the plain-text password as an argument:
 
 ```sql
 CREATE USER username@hostname IDENTIFIED VIA ed25519 USING PASSWORD('secret');
@@ -53,7 +53,11 @@ If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does 
 GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA ed25519 USING PASSWORD('secret');
 ```
 
-The [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) statements don't work with the `ed25519` authentication plugin. Instead, you have to use the [UDF](../../../server-usage/user-defined-functions/) that comes with the authentication plugin to calculate the password hash:
+{% hint style="info" %}
+Support for the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) statement with the `ed25519` authentication plugin was added in MariaDB 10.4 ([MDEV-12321](https://jira.mariadb.org/browse/MDEV-12321)). In earlier versions, you had to precompute the password hash with the UDF shown below.
+{% endhint %}
+
+Alternatively, you can create the account from a pre-computed password hash instead of a plain-text password. The `ed25519` authentication plugin ships a [UDF](../../../server-usage/user-defined-functions/) that calculates this hash:
 
 ```sql
 CREATE FUNCTION ed25519_password RETURNS STRING SONAME "auth_ed25519.so";
@@ -72,7 +76,7 @@ SELECT ed25519_password("secret");
 
 Now you can use it to create the user account using the new password hash. As with any password, you should always use a complex password that isn't easy to guess. If you don't, if anyone gets access to the stored passwords in the `mysql.user` table, they could use [rainbow tables](https://en.wikipedia.org/wiki/Rainbow_table) to figure out the original password.
 
-To create a user account via [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md), specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-viawith-authentication_plugin) clause while providing the password hash as the `USING` clause:
+To create a user account via [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md), specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-via-or-with-authentication_plugin) clause while providing the password hash as the `USING` clause:
 
 ```sql
 CREATE USER username@hostname IDENTIFIED VIA ed25519 
@@ -98,13 +102,13 @@ You can change a user account's password by executing the [SET PASSWORD](../../s
 SET PASSWORD =  PASSWORD('new_secret')
 ```
 
-You can also change the user account's password with the [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md) statement. You would have to specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/alter-user.md#identified-viawith-authentication_plugin) clause while providing the plain-text password as an argument to the `PASSWORD()` function in the `USING` clause:
+You can also change the user account's password with the [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md) statement. You would have to specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/alter-user.md#identified-via-or-with-authentication_plugin) clause while providing the plain-text password as an argument to the `PASSWORD()` function in the `USING` clause:
 
 ```sql
 ALTER USER username@hostname IDENTIFIED VIA ed25519 USING PASSWORD('new_secret');
 ```
 
-The `PASSWORD()` function and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) statement did not work with the `ed25519` authentication plugin. Instead, you would have to use the [UDF](../../../server-usage/user-defined-functions/) that comes with the authentication plugin to calculate the password hash:
+Alternatively, you can change the password using a pre-computed password hash instead of a plain-text password. The `ed25519` authentication plugin ships a [UDF](../../../server-usage/user-defined-functions/) that calculates this hash:
 
 ```sql
 CREATE FUNCTION ed25519_password RETURNS STRING SONAME "auth_ed25519.so";
@@ -123,7 +127,7 @@ SELECT ed25519_password("secret");
 
 Now you can change the user account's password using the new password hash.
 
-You can change the user account's password with the [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md) statement. You have to specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/alter-user.md#identified-viawith-authentication_plugin) clause, while providing the password hash as the `USING` clause:
+You can change the user account's password with the [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md) statement. You have to specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/alter-user.md#identified-via-or-with-authentication_plugin) clause, while providing the password hash as the `USING` clause:
 
 ```sql
 ALTER USER username@hostname IDENTIFIED VIA ed25519 
