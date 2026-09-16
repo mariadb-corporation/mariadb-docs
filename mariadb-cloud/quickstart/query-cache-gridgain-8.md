@@ -93,7 +93,7 @@ Query Result Cache is enabled on a **MariaDB Provisioned** service that uses **S
 4. Under **Instance Resources**, choose a **Cache Node Size** (**Sky-4x16** to **Sky-16x128**, Intel/AMD only).
 5. Optionally, under **Advanced Options**, set the cache **TTL** and **Minimum Query Duration**.
 
-A new service starts permissive: it caches every query that can be cached. Set [caching rules](query-cache-gridgain-8.md#caching-rules) from **Manage** → **Query Result Cache** once the service is ready.
+A new service starts permissive: with no rules set, every query the cache can hold is cached. Set [caching rules](query-cache-gridgain-8.md#caching-rules) from **Manage** → **Query Result Cache** once the service is ready — start with the volatile-function exclusion described there.
 
 <figure><img src="../.gitbook/assets/portal-add-gg8-cache.png" alt="MariaDB Cloud launch flow: MariaDB Provisioned selected, Semi-sync HA selected, and the Query Result Cache add-on enabled"><figcaption></figcaption></figure>
 
@@ -203,7 +203,13 @@ The same operations are available through the REST API. See [Via MariaDB Cloud R
 
 ## Caching Rules
 
-`queryresultcache_rules` is a JSON document that decides **which** queries are stored in the cache and **which users** may read cached entries. The default, `{}`, caches everything the other settings still allow.
+`queryresultcache_rules` is a JSON document that decides **which** queries are stored in the cache and **which users** may read cached entries. The default is `{}` — no rules, so nothing is excluded on the basis of what a query does.
+
+{% hint style="warning" %}
+**Rules are the only thing that keeps volatile results out of the cache.** The cache does not inspect a query to judge whether its result is safe to reuse. With no `store` rules, a query calling `NOW()`, `CURDATE()`, `RAND()`, `UUID()`, or `LAST_INSERT_ID()` has its result cached like any other, and every identical query is served that same value until the hard TTL expires.
+
+Excluding those functions is the recommended first rule on any new service. See [Rule Examples](query-cache-gridgain-8.md#rule-examples), or pick **Everything except queries that use volatile functions** in the portal's guided editor.
+{% endhint %}
 
 Rules do not replace the other limits. A result is stored only when **all** of these pass:
 
@@ -220,8 +226,8 @@ Open **Manage** → **Query Result Cache** → **Caching rules**. The editor has
 
 **Guided** mode covers the common cases without writing JSON. Under **What gets stored in the cache**, choose one of:
 
-* **Every query that can be cached** — the default, no filtering.
-* **Everything except queries that use volatile functions** — the recommended starting point, since results from those never stay correct for long. Pick the functions to exclude; each one you add narrows the cache further.
+* **Every query that can be cached** — the default. No filtering of any kind, including queries whose results go stale the moment they are computed.
+* **Everything except queries that use volatile functions** — the recommended starting point, since results from those never stay correct for long. `NOW`, `CURDATE`, `CURTIME`, `RAND`, `UUID`, and `SLEEP` are excluded for you; `SYSDATE`, `CURRENT_TIMESTAMP`, `LAST_INSERT_ID`, and `CONNECTION_ID` are offered as well. The set folds into one pattern, so each function you add narrows the cache further.
 * **Only queries matching a pattern I give** — one pattern matched against the raw SQL text, as **Starts with**, **Contains**, or **Matches regex (RE2)**.
 
 Under **Who can read from the cache**, list the database users allowed to read cached entries. Leave it empty to let every user read from the cache.
@@ -260,10 +266,12 @@ Do not write a "`SELECT`s only" rule such as `^SELECT`. It also drops cacheable 
 ### Rule Examples
 
 {% tabs %}
-{% tab title="Cache everything" %}
+{% tab title="No rules (default)" %}
 ```json
 {}
 ```
+
+Nothing is excluded by rule. Results of volatile functions are cached too — see the warning above.
 {% endtab %}
 
 {% tab title="Exclude volatile functions" %}
