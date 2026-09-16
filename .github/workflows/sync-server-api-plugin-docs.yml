@@ -97,7 +97,7 @@ jobs:
           # ATX headings only: ##### and ###### at the start of a line become ####.
           # Process ###### first so a six-hash heading is not left as a five-hash
           # heading after a single pass.
-          grep -rl '^#####' "$dest_dir" | while IFS= read -r -d '' f; do
+          grep -rlZ '^#####' "$dest_dir" | while IFS= read -r -d '' f; do
             sed -i -E \
               -e 's/^######[[:space:]]+/#### /' \
               -e 's/^#####[[:space:]]+/#### /' \
