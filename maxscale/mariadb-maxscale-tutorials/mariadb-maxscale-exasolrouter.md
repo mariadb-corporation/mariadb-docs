@@ -417,10 +417,10 @@ Key settings:
 * `expire_log_minimum_files` and `expire_log_duration` — how long the locally stored binary logs are retained (here, at least 2 files, purged after 96 hours).
 * `odbc_connection_str` — the Exasol ODBC connection used to apply changes, using the `cdc_user` credentials from Step 2. Referencing the driver through the `current` symlink keeps the configuration working across driver updates.
 
-By default, the pipeline creates target tables automatically from incoming `CREATE TABLE` statements (`odbc_create_table_from_sql`) and stops on error (`odbc_stop_on_error`). To replicate only specific tables, set `odbc_include_tables` to a comma-separated list; leaving it unset replicates all tables.
+By default, the pipeline creates each target table lazily from the first row event that maps it, and stops on error (`odbc_stop_on_error`). Set `odbc_create_table_from_sql=true` to create target tables from the replicated `CREATE TABLE` statements instead. To replicate only specific tables, set `odbc_include_tables` to a comma-separated list of `schema.table` entries; leaving it unset replicates all tables.
 
 {% hint style="info" %}
-The bulk-load pipeline's throughput is controlled by `odbc_perf_batch_size` (default 200 MB), `odbc_perf_max_idle_rows` (default 400000), `odbc_perf_max_buffered_rows` (default 750000), and `odbc_perf_ncycles` (default and maximum 4). The defaults suit most workloads; raise the batch size for more throughput, or lower `odbc_perf_ncycles` if memory use is high.
+The bulk-load pipeline's throughput is controlled by `odbc_perf_batch_size` (default 200Mi), `odbc_perf_max_idle_rows` (default 400000), `odbc_perf_max_buffered_rows` (default 750000), and `odbc_perf_ncycles` (default and maximum 4). The defaults suit most workloads; raise the batch size for more throughput, or lower `odbc_perf_ncycles` if memory use is high. Every CDC setting is described in [ODBC replication to Exasol](../reference/maxscale-routers/maxscale-binlogrouter.md#odbc-replication-to-exasol).
 {% endhint %}
 
 ### Step 4. Verify replication.
