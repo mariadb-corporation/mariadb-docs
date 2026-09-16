@@ -3,7 +3,7 @@ description: >-
   Plugin API reference: Memory Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
 ---
 
-{#memoryinstrumentation}
+
 
 # Memory Instrumentation
 
@@ -16,8 +16,6 @@ description: >-
 | [`mysql_memory_register`](#mysql_memory_register)  | Memory registration. |
 
 ---
-
-{#mysql_memory_register}
 
 ### mysql_memory_register
 
@@ -36,8 +34,6 @@ Memory registration.
 | `void` | [`inline_mysql_memory_register`](#inline_mysql_memory_register) `static` `inline` |  |
 
 ---
-
-{#inline_mysql_memory_register}
 
 ### inline_mysql_memory_register
 

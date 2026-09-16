@@ -3,7 +3,7 @@ description: >-
   Plugin API reference: Metadata Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
 ---
 
-{#metadatainstrumentation}
+
 
 # Metadata Instrumentation
 
@@ -18,8 +18,6 @@ description: >-
 | [`mysql_mdl_destroy`](#mysql_mdl_destroy)  | Instrumented metadata lock destruction. |
 
 ---
-
-{#mysql_mdl_create}
 
 ### mysql_mdl_create
 
@@ -52,8 +50,6 @@ Instrumented metadata lock creation.
 
 ---
 
-{#mysql_mdl_set_status}
-
 ### mysql_mdl_set_status
 
 ```cpp
@@ -63,8 +59,6 @@ Instrumented metadata lock creation.
 Defined in psi/mysql_mdl.h:81
 
 ---
-
-{#mysql_mdl_destroy}
 
 ### mysql_mdl_destroy
 
