@@ -152,7 +152,7 @@ documentation.
 
 {% hint style="warning" %}
 **`PUSHED SELECT` does not always mean a ColumnStore table is involved.**
-ColumnStore's [Query Accelerator]({analytics}/mariadb-columnstore/use-cases/query-accelerator.md)
+ColumnStore's [Query Accelerator](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/use-cases/query-accelerator.md)
 feature can push down a query against plain `ENGINE=InnoDB` tables — with no
 ColumnStore table anywhere in the query — once the session or global variable
 `columnstore_innodb_queries_use_mcs` is enabled. If `EXPLAIN` reports
