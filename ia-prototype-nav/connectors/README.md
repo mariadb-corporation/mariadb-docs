@@ -22,7 +22,9 @@ Two capabilities matter more than the rest in production. Connection pooling reu
 
 Pick the connector for your language, get one query returning rows, then configure pooling and TLS before you go to production.
 
-## Choose a Connector
+{% content-ref url="{connectors}/connectors-quickstart-guides" %}
+[Quickstart Guides]({connectors}/connectors-quickstart-guides)
+{% endcontent-ref %}
 
 {% content-ref url="{connectors}/mariadb-connector-c" %}
 [Connector/C]({connectors}/mariadb-connector-c)
@@ -40,54 +42,22 @@ Pick the connector for your language, get one query returning rows, then configu
 [Connector/R2DBC]({connectors}/mariadb-connector-r2dbc)
 {% endcontent-ref %}
 
+{% content-ref url="{connectors}/mariadb-connector-net" %}
+[.NET Connector]({connectors}/mariadb-connector-net)
+{% endcontent-ref %}
+
 {% content-ref url="{connectors}/mariadb-connector-nodejs" %}
 [Connector/Node.js]({connectors}/mariadb-connector-nodejs)
+{% endcontent-ref %}
+
+{% content-ref url="{connectors}/mariadb-connector-odbc" %}
+[Connector/ODBC]({connectors}/mariadb-connector-odbc)
 {% endcontent-ref %}
 
 {% content-ref url="{connectors}/mariadb-connector-python" %}
 [Connector/Python]({connectors}/mariadb-connector-python)
 {% endcontent-ref %}
 
-## Get Started
-
-{% content-ref url="{connectors}/connectors-quickstart-guides" %}
-[Quickstart Guides]({connectors}/connectors-quickstart-guides)
-{% endcontent-ref %}
-
-## Tutorials
-
-{% content-ref url="{connectors}/mariadb-connector-r2dbc/using-the-native-r2dbc-api-of-mariadb-connector-r2dbc" %}
-[Connector/R2DBC With the Native API]({connectors}/mariadb-connector-r2dbc/using-the-native-r2dbc-api-of-mariadb-connector-r2dbc)
-{% endcontent-ref %}
-
-## How-To Guides
-
-{% content-ref url="{connectors}/mariadb-connector-j/using-tls-ssl-with-mariadb-java-connector" %}
-[Use TLS/SSL With Connector/J]({connectors}/mariadb-connector-j/using-tls-ssl-with-mariadb-java-connector)
-{% endcontent-ref %}
-
-{% content-ref url="{connectors}/mariadb-connector-python/pooling" %}
-[Pool Connections With Connector/Python]({connectors}/mariadb-connector-python/pooling)
-{% endcontent-ref %}
-
-## Concepts
-
-{% content-ref url="{connectors}/mariadb-connector-j/pool-datasource-implementation" %}
-[Pool Datasource Implementation]({connectors}/mariadb-connector-j/pool-datasource-implementation)
-{% endcontent-ref %}
-
-## Reference
-
-{% content-ref url="{connectors}/mariadb-connector-c/api-functions" %}
-[Connector/C API Functions]({connectors}/mariadb-connector-c/api-functions)
-{% endcontent-ref %}
-
-{% content-ref url="{connectors}/mariadb-connector-python/api" %}
-[Connector/Python API Reference]({connectors}/mariadb-connector-python/api)
-{% endcontent-ref %}
-
-## Release Notes
-
-{% content-ref url="{release-notes}/connectors" %}
-[Connector Release Notes]({release-notes}/connectors)
+{% content-ref url="{connectors}/other" %}
+[Other Connectors and Methods]({connectors}/other)
 {% endcontent-ref %}
