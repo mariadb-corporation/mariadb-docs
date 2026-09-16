@@ -74,8 +74,8 @@ On the _passive_ MaxScale:
 passive=true
 ```
 
-To change the active/passive-state of a MaxScale during runtime, use
-_maxctrl_:
+To change the active/passive state of a MaxScale during runtime, use
+`maxctrl`:
 
 ```
 maxctrl alter maxscale passive=true
@@ -89,22 +89,22 @@ for divergence are:
 1. Primary server goes down, then restarts while one MaxScale is already performing failover.
 2. Network partition.
 
-### How to protect against old primary restart during failover
+### How to Protect Against Old Primary Restart During Failover
 
 In case 1, the active MaxScale performs failover but the old primary restarts
 before the failover completes. A passive MaxScale sees the old primary coming
-back and continues to use it as the primary, i.e. target of write queries. If
+back and continues to use it as the primary, i.e. the target of write queries. If
 the passive MaxScale routes even one write to the old primary, then the active
 MaxScale can no longer rejoin the old primary to the cluster. The MaxScales will
 thus continue to use their own primaries, splitting the cluster.
 
 To ensure that both MaxScales agree on the primary database server, use the
 server global
-[read_only](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#read_only)
--flag. Ensure that is it ON on every server except the primary DB. MaxScale will
-refrain from routing write-queries to a server in read_only-mode. read_only
-needs to be enabled during server startup, before the server can process any
-transactions. Set it in the server config file:
+[`read_only`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#read_only)
+flag. Ensure that it is `ON` on every server except the primary DB. MaxScale
+will refrain from routing write queries to a server in `read_only` mode.
+`read_only` needs to be enabled during server startup, before the server can
+process any transactions. Set it in the server config file:
 
 {% code title="/etc/my.cnf.d/server.cnf" %}
 ```ini
@@ -112,12 +112,12 @@ read_only=1
 ```
 {% endcode %}
 
-When set in the config file, the server will revert to read_only-mode whenever
+When set in the config file, the server will revert to `read_only` mode whenever
 it restarts. This prevents the passive MaxScale from writing to the old primary
 after the server has restarted but before the active MaxScale detects the
 restart.
 
-MaxScale needs to manage the read_only-mode of the servers in case the primary
+MaxScale needs to manage the `read_only` mode of the servers in case the primary
 server changes. Configure the monitors of both MaxScales with the following:
 
 {% code title="maxscale.cnf" %}
@@ -131,9 +131,9 @@ enforce_writable_master=1
 ```
 {% endcode %}
 
-With these settings, the current active MaxScale disables read_only on the
+With these settings, the current active MaxScale disables `read_only` on the
 primary server if necessary, and enables it on all other servers. Other
-MaxScales see the read_only status of the servers, but cannot alter it.
+MaxScales see the `read_only` status of the servers, but cannot alter it.
 
 Other recommended server settings are below. They ensure that replicas store
 binary logs of replicated events and refuse to replicate out-of-order GTIDs.
@@ -147,15 +147,15 @@ gtid_strict_mode=1
 
 Even with all of the above precautions, things can go partially wrong. With
 `enforce_writable_master=1`, MaxScale does not consider a server in
-read_only-mode totally unsuitable for primary status, it is still a possible
+`read_only` mode totally unsuitable for primary status; it is still a possible
 candidate. If a previous primary server restarts during failover and, for any
 reason, cannot be rejoined to the cluster (e.g. it has already diverged), a
 passive MaxScale may still see it as the topological primary. Even though the
-passive MaxScale cannot write to the wrong primary (due to read_only), it will
+passive MaxScale cannot write to the wrong primary (due to `read_only`), it will
 not swap to the correct primary. If this happens, the faulty primary should be
 shut down. This causes the passive MaxScale to seek a new primary server.
 
-### Network Partitions and active/passive
+### Network Partitions and Active/Passive
 
 The above configuration does not protect against network partitions: If the
 active MaxScale loses connection to the current primary while a passive MaxScale
@@ -163,10 +163,10 @@ maintains it, the active MaxScale may still promote another server. This can
 happen if the MaxScales and servers are split into multiple datacenters.
 
 The only way to protect against this is to _ensure that the primary MaxScale and
-the primary server are always in the same DC or network_. This in turn, requires
-either manual management or an outside orchestrator that sees the status of all
-MaxScales and servers and modifies the active/passive states of the MaxScales as
-required.
+the primary server are always in the same datacenter or network_. This, in
+turn, requires either manual management or an outside orchestrator that sees
+the status of all MaxScales and servers and modifies the active/passive states
+of the MaxScales as required.
 
 ## Cooperative Locking
 
@@ -180,13 +180,13 @@ Set the same monitor configuration on every instance:
 {% code title="maxscale.cnf" %}
 ```ini
 [TheMonitor]
-type = monitor
-module = mariadbmon
-servers = server1,server2,server3
-cooperative_monitoring_locks = majority_of_running
-# cooperative_monitoring_locks = majority_of_all
-auto_failover = true
-auto_rejoin = true
+type=monitor
+module=mariadbmon
+servers=server1,server2,server3
+cooperative_monitoring_locks=majority_of_running
+# cooperative_monitoring_locks=majority_of_all
+auto_failover=true
+auto_rejoin=true
 ```
 {% endcode %}
 
@@ -231,9 +231,10 @@ count, so only one side can act.
 
 If the primary server ends up in the majority partition, diverging cannot
 occur. The minority partition does not have a server to write to and cannot
-promote another primary. Once the network heals, the partitions joins into one.
+promote another primary. Once the network heals, the partitions join back into
+one.
 
-#### Primary server in the Minority Partition
+#### Primary Server in the Minority Partition
 
 If the primary server ends up in the minority partition, then the primary will
 lose its writable status after a few seconds (the exact value depends on monitor
@@ -259,13 +260,13 @@ flowchart TD
         S3["server3<br/>replica"]:::node
     end
 
-    MXA -. read - only .-> S1
+    MXA -. read-only .-> S1
     MXB -- write --> S2
     MXB --> S3
     P1 -. partitioned .-> P2
-    classDef node fill: #e2f0f2, stroke: #0a5a6b, stroke-width: 2px, color: #111;
-    classDef proc fill: #fbe5d6, stroke: #c15911, stroke-width: 2px, color: #111;
-    classDef warn fill: #fde2e2, stroke: #a12020, stroke-width: 2px, color: #111;
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
 ```
 _The minority side goes read-only; the majority side promotes a new primary._
 
@@ -353,8 +354,7 @@ safe?" when cooperative locking is enabled. {% endhint %}
   if you need manual control.
 
 To check which instance is the primary monitor, run `maxctrl show monitors` and
-read the **primary** field. Per-server lock state is in the server-specific *
-*lock\_held** field.
+read the **primary** field. Per-server lock state is in the server-specific `lock_held` field.
 
 ## See Also
 
