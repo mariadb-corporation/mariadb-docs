@@ -104,6 +104,11 @@ jobs:
               "$f"
           done
 
+      - name: Drop dead page-title breadcrumb fragments
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/fix_plugin_api_breadcrumb_links.py
+
       - name: Add frontmatter to the generated pages
         run: |
           set -euo pipefail
