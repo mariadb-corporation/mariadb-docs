@@ -50,13 +50,13 @@ site:
                 directory: ./platform-overview
         - type: section
           key: enterprise-server-sec
-          title: Enterprise Server
+          title: Server
           path: enterprise-server
           icon: database
           children:
             - type: space
               key: enterprise-server
-              title: Enterprise Server
+              title: Server
               path: enterprise-server-home
               default: true
               content:
