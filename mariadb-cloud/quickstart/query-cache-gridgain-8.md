@@ -15,6 +15,12 @@ Query Result Cache is a provisioning **add-on** for MariaDB Provisioned services
 This feature requires **Semi-Sync HA** and **MaxScale 25.10.3 or later**, is available on Power and PowerPlus tiers only, and cannot be enabled on trial accounts.
 {% endhint %}
 
+{% hint style="info" %}
+**Choose what you cache.** The cache adds a lookup to the read path, so it pays off for repeated reads that are genuinely expensive to run — aggregations, joins that scan, report queries. For reads MariaDB already answers from its buffer pool in a millisecond or two, that lookup can cost more than it saves.
+
+This is what `queryresultcache_mxs_min_query_duration` is for: it keeps queries the server already answers quickly out of the cache. At the default of 100 ms, a query that takes 95 ms is not cached.
+{% endhint %}
+
 ## Architecture Overview
 
 The cache is positioned between MaxScale and MariaDB. MaxScale intercepts cacheable reads and checks the cache before querying the database; MariaDB remains the authoritative data store for all writes and for any read that is not served from cache. The cache engine is GridGain, running as a single in-memory node that is managed entirely by the platform.
