@@ -23,48 +23,18 @@ This space documents the clients, utilities, and management applications that su
 
 Start from the tool that matches the problem you have rather than reading the space end to end.
 
-## Get Started
-
-{% content-ref url="get-started/install-tools.md" %}
-[install-tools.md](get-started/install-tools.md)
+{% content-ref url="{tools}/mariadb-enterprise-manager" %}
+[MariaDB Enterprise Manager]({tools}/mariadb-enterprise-manager)
 {% endcontent-ref %}
 
-{% content-ref url="get-started/connect-to-tools.md" %}
-[connect-to-tools.md](get-started/connect-to-tools.md)
+{% content-ref url="{tools}/mariadb-enterprise-operator" %}
+[MariaDB Enterprise Kubernetes Operator]({tools}/mariadb-enterprise-operator)
 {% endcontent-ref %}
 
-## Tutorials
-
-{% content-ref url="tutorials/tools-tutorial.md" %}
-[tools-tutorial.md](tutorials/tools-tutorial.md)
+{% content-ref url="{tools}/mariadb-enterprise-mcp-server" %}
+[MariaDB Enterprise MCP Server]({tools}/mariadb-enterprise-mcp-server)
 {% endcontent-ref %}
 
-## How-To Guides
-
-{% content-ref url="how-to-guides/configure-tools.md" %}
-[configure-tools.md](how-to-guides/configure-tools.md)
-{% endcontent-ref %}
-
-{% content-ref url="how-to-guides/secure-tools.md" %}
-[secure-tools.md](how-to-guides/secure-tools.md)
-{% endcontent-ref %}
-
-## Concepts
-
-{% content-ref url="overview/what-is-tools.md" %}
-[what-is-tools.md](overview/what-is-tools.md)
-{% endcontent-ref %}
-
-{% content-ref url="concepts/how-tools-works.md" %}
-[how-tools-works.md](concepts/how-tools-works.md)
-{% endcontent-ref %}
-
-## Reference
-
-{% content-ref url="reference/tools-reference.md" %}
-[tools-reference.md](reference/tools-reference.md)
-{% endcontent-ref %}
-
-{% content-ref url="release-notes/tools-releases.md" %}
-[tools-releases.md](release-notes/tools-releases.md)
+{% content-ref url="{tools}/mariadb-ai-rag" %}
+[MariaDB AI RAG]({tools}/mariadb-ai-rag)
 {% endcontent-ref %}

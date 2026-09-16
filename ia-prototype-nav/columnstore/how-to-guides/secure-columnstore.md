@@ -1,3 +1,0 @@
-# Secure ColumnStore
-
-Placeholder page for the navigation prototype.

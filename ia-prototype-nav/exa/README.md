@@ -8,7 +8,7 @@ icon: chart-column
 
 # Exa
 
-MariaDB Exa is an analytical query engine that distributes queries across a cluster. It is the option for analytical workloads that have outgrown what one server can hold or answer, whether the limit is data volume, query concurrency, or both.
+MariaDB Exa is an analytical query engine built on Exasol, connected to MariaDB Enterprise Server. It distributes a query across a cluster and holds working data in memory, which makes it the option for analytical workloads that have outgrown what one server can hold or answer, whether the limit is data volume, query concurrency, or both. It runs on-premises and on cloud platforms including AWS and Microsoft Azure.
 
 {% hint style="info" %}
 MariaDB Exa requires MariaDB Enterprise Server.
@@ -24,48 +24,26 @@ Exa and MariaDB ColumnStore solve the same class of problem at different scales,
 
 Measure your workload on ColumnStore first. Read the overview here to learn what changes when a query is distributed.
 
-## Get Started
-
-{% content-ref url="get-started/install-exa.md" %}
-[install-exa.md](get-started/install-exa.md)
+{% content-ref url="{analytics}/mariadb-exa/architecture" %}
+[Architecture]({analytics}/mariadb-exa/architecture)
 {% endcontent-ref %}
 
-{% content-ref url="get-started/connect-to-exa.md" %}
-[connect-to-exa.md](get-started/connect-to-exa.md)
+{% content-ref url="{analytics}/mariadb-exa/deployment" %}
+[Deployment]({analytics}/mariadb-exa/deployment)
 {% endcontent-ref %}
 
-## Tutorials
-
-{% content-ref url="tutorials/exa-tutorial.md" %}
-[exa-tutorial.md](tutorials/exa-tutorial.md)
+{% content-ref url="{analytics}/mariadb-exa/performance-and-benchmarking" %}
+[Performance & Benchmarking]({analytics}/mariadb-exa/performance-and-benchmarking)
 {% endcontent-ref %}
 
-## How-To Guides
-
-{% content-ref url="how-to-guides/configure-exa.md" %}
-[configure-exa.md](how-to-guides/configure-exa.md)
+{% content-ref url="{analytics}/mariadb-exa/monitoring-and-observability" %}
+[Monitoring and Observability]({analytics}/mariadb-exa/monitoring-and-observability)
 {% endcontent-ref %}
 
-{% content-ref url="how-to-guides/secure-exa.md" %}
-[secure-exa.md](how-to-guides/secure-exa.md)
+{% content-ref url="{analytics}/mariadb-exa/limitations" %}
+[Limitations]({analytics}/mariadb-exa/limitations)
 {% endcontent-ref %}
 
-## Concepts
-
-{% content-ref url="overview/what-is-exa.md" %}
-[what-is-exa.md](overview/what-is-exa.md)
-{% endcontent-ref %}
-
-{% content-ref url="concepts/how-exa-works.md" %}
-[how-exa-works.md](concepts/how-exa-works.md)
-{% endcontent-ref %}
-
-## Reference
-
-{% content-ref url="reference/exa-reference.md" %}
-[exa-reference.md](reference/exa-reference.md)
-{% endcontent-ref %}
-
-{% content-ref url="release-notes/exa-releases.md" %}
-[exa-releases.md](release-notes/exa-releases.md)
+{% content-ref url="{analytics}/mariadb-exa/compatibility-and-reference" %}
+[Compatibility and Reference]({analytics}/mariadb-exa/compatibility-and-reference)
 {% endcontent-ref %}

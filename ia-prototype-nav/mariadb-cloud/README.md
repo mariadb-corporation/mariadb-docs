@@ -14,6 +14,8 @@ There are two deployment shapes. A provisioned database has capacity you choose 
 
 Compatibility is the same as the self managed products, so existing code, drivers, and tools work unchanged. What changes is the operational boundary: patching, automated backups, and failover are service settings rather than procedures you run.
 
+The service also includes an AI agent builder. It puts a natural language interface over a database, so someone can ask a question of the data without writing the SQL for it.
+
 **Launch and connect.** The portal is the fastest start, walking through creating a database, sizing it, and collecting connection details. The API provisions a database programmatically, which is the path to creating databases from a deployment pipeline. Then point your application at the connection details and run a query.
 
 **Configure it for production.** The guides cover a replicated topology for surviving node loss, the network and access controls that decide who can reach the database, and the backup settings. Enabling replication early costs little while the application is still easy to change.
@@ -22,48 +24,50 @@ Compatibility is the same as the self managed products, so existing code, driver
 
 Create a database in the portal and connect to it. That confirms your credentials and network path before any application code changes.
 
-## Get Started
-
-{% content-ref url="get-started/install-mariadb-cloud.md" %}
-[install-mariadb-cloud.md](get-started/install-mariadb-cloud.md)
+{% content-ref url="{mariadb-cloud}/readme/key-features-and-capabilities" %}
+[Key Features & Capabilities]({mariadb-cloud}/readme/key-features-and-capabilities)
 {% endcontent-ref %}
 
-{% content-ref url="get-started/connect-to-mariadb-cloud.md" %}
-[connect-to-mariadb-cloud.md](get-started/connect-to-mariadb-cloud.md)
+{% content-ref url="{mariadb-cloud}/readme/serverless" %}
+[MariaDB Cloud Serverless]({mariadb-cloud}/readme/serverless)
 {% endcontent-ref %}
 
-## Tutorials
-
-{% content-ref url="tutorials/mariadb-cloud-tutorial.md" %}
-[mariadb-cloud-tutorial.md](tutorials/mariadb-cloud-tutorial.md)
+{% content-ref url="{mariadb-cloud}/readme/architecture" %}
+[MariaDB Cloud Serverless Architecture]({mariadb-cloud}/readme/architecture)
 {% endcontent-ref %}
 
-## How-To Guides
-
-{% content-ref url="how-to-guides/configure-mariadb-cloud.md" %}
-[configure-mariadb-cloud.md](how-to-guides/configure-mariadb-cloud.md)
+{% content-ref url="{mariadb-cloud}/quickstart" %}
+[Quickstart Guides]({mariadb-cloud}/quickstart)
 {% endcontent-ref %}
 
-{% content-ref url="how-to-guides/secure-mariadb-cloud.md" %}
-[secure-mariadb-cloud.md](how-to-guides/secure-mariadb-cloud.md)
+{% content-ref url="{mariadb-cloud}/connecting-to-mariadb-cloud-dbs" %}
+[Connection Methods]({mariadb-cloud}/connecting-to-mariadb-cloud-dbs)
 {% endcontent-ref %}
 
-## Concepts
-
-{% content-ref url="overview/what-is-mariadb-cloud.md" %}
-[what-is-mariadb-cloud.md](overview/what-is-mariadb-cloud.md)
+{% content-ref url="{mariadb-cloud}/cloud-management" %}
+[Management & Configuration]({mariadb-cloud}/cloud-management)
 {% endcontent-ref %}
 
-{% content-ref url="concepts/how-mariadb-cloud-works.md" %}
-[how-mariadb-cloud-works.md](concepts/how-mariadb-cloud-works.md)
+{% content-ref url="{mariadb-cloud}/cloud-usage" %}
+[Cloud Portal]({mariadb-cloud}/cloud-usage)
 {% endcontent-ref %}
 
-## Reference
-
-{% content-ref url="reference/mariadb-cloud-reference.md" %}
-[mariadb-cloud-reference.md](reference/mariadb-cloud-reference.md)
+{% content-ref url="{mariadb-cloud}/cloud-data-handling" %}
+[Data Loading & Backup]({mariadb-cloud}/cloud-data-handling)
 {% endcontent-ref %}
 
-{% content-ref url="release-notes/mariadb-cloud-releases.md" %}
-[mariadb-cloud-releases.md](release-notes/mariadb-cloud-releases.md)
+{% content-ref url="{mariadb-cloud}/cloud-ai" %}
+[AI Agents & Copilot]({mariadb-cloud}/cloud-ai)
+{% endcontent-ref %}
+
+{% content-ref url="{mariadb-cloud}/high-availability-dr" %}
+[HA & DR]({mariadb-cloud}/high-availability-dr)
+{% endcontent-ref %}
+
+{% content-ref url="{mariadb-cloud}/security" %}
+[Security]({mariadb-cloud}/security)
+{% endcontent-ref %}
+
+{% content-ref url="{mariadb-cloud}/reference" %}
+[Reference]({mariadb-cloud}/reference)
 {% endcontent-ref %}

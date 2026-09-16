@@ -20,48 +20,38 @@ Three jobs follow from that position. MaxScale routes queries, sending writes to
 
 Install MaxScale, configure a read/write split against a test cluster, and confirm your application reconnects through it.
 
-## Get Started
-
-{% content-ref url="get-started/install-maxscale.md" %}
-[install-maxscale.md](get-started/install-maxscale.md)
+{% content-ref url="{maxscale}/maxscale-quickstart-guides" %}
+[Quickstart Guides]({maxscale}/maxscale-quickstart-guides)
 {% endcontent-ref %}
 
-{% content-ref url="get-started/connect-to-maxscale.md" %}
-[connect-to-maxscale.md](get-started/connect-to-maxscale.md)
+{% content-ref url="{maxscale}/maxscale-architecture" %}
+[MaxScale Architecture]({maxscale}/maxscale-architecture)
 {% endcontent-ref %}
 
-## Tutorials
-
-{% content-ref url="tutorials/maxscale-tutorial.md" %}
-[maxscale-tutorial.md](tutorials/maxscale-tutorial.md)
+{% content-ref url="{maxscale}/maxscale-management" %}
+[MaxScale Management]({maxscale}/maxscale-management)
 {% endcontent-ref %}
 
-## How-To Guides
-
-{% content-ref url="how-to-guides/configure-maxscale.md" %}
-[configure-maxscale.md](how-to-guides/configure-maxscale.md)
+{% content-ref url="{maxscale}/maxscale-security" %}
+[MaxScale Security]({maxscale}/maxscale-security)
 {% endcontent-ref %}
 
-{% content-ref url="how-to-guides/secure-maxscale.md" %}
-[secure-maxscale.md](how-to-guides/secure-maxscale.md)
+{% content-ref url="{maxscale}/maxscale-use-cases" %}
+[MaxScale Use Cases]({maxscale}/maxscale-use-cases)
 {% endcontent-ref %}
 
-## Concepts
-
-{% content-ref url="overview/what-is-maxscale.md" %}
-[what-is-maxscale.md](overview/what-is-maxscale.md)
+{% content-ref url="{maxscale}/mariadb-maxscale-tutorials" %}
+[Tutorials]({maxscale}/mariadb-maxscale-tutorials)
 {% endcontent-ref %}
 
-{% content-ref url="concepts/how-maxscale-works.md" %}
-[how-maxscale-works.md](concepts/how-maxscale-works.md)
+{% content-ref url="{maxscale}/reference" %}
+[Reference]({maxscale}/reference)
 {% endcontent-ref %}
 
-## Reference
-
-{% content-ref url="reference/maxscale-reference.md" %}
-[maxscale-reference.md](reference/maxscale-reference.md)
+{% content-ref url="{maxscale}/documentation-no-longer-available" %}
+[Documentation No Longer Available]({maxscale}/documentation-no-longer-available)
 {% endcontent-ref %}
 
-{% content-ref url="release-notes/maxscale-releases.md" %}
-[maxscale-releases.md](release-notes/maxscale-releases.md)
+{% content-ref url="{maxscale}/maxscale-old-versions" %}
+[Old MaxScale Versions]({maxscale}/maxscale-old-versions)
 {% endcontent-ref %}

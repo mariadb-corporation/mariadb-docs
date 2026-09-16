@@ -14,6 +14,8 @@ MariaDB ColumnStore is a columnar storage engine for MariaDB Enterprise Server. 
 MariaDB ColumnStore requires MariaDB Enterprise Server.
 {% endhint %}
 
+In either of the shapes below it can be distributed across a cluster of servers, so one query runs in parallel across all of them, which is what takes it to datasets a single server cannot answer against.
+
 It runs two ways. As a standalone analytics deployment it holds the analytical data itself. Alongside MariaDB Enterprise Server it acts as a query accelerator, reading InnoDB data in near real time and answering analytical queries directly from operational tables, which removes the batch export that would otherwise sit between the two. Because MariaDB Server allows different storage engines for different tables in one database, adopting ColumnStore does not mean moving your transactional tables.
 
 **Install and connect.** ColumnStore installs from the MariaDB Enterprise repository and can run on one server or across a cluster. Size the hardware before you commit, because analytical throughput depends far more on memory, disk bandwidth, and core count than transactional workloads do.
@@ -24,48 +26,38 @@ It runs two ways. As a standalone analytics deployment it holds the analytical d
 
 Load a copy of your own reporting data and compare query times against your current setup before planning a deployment.
 
-## Get Started
-
-{% content-ref url="get-started/install-columnstore.md" %}
-[install-columnstore.md](get-started/install-columnstore.md)
+{% content-ref url="{analytics}/mariadb-columnstore/columnstore-quickstart-guides" %}
+[Quickstart Guides]({analytics}/mariadb-columnstore/columnstore-quickstart-guides)
 {% endcontent-ref %}
 
-{% content-ref url="get-started/connect-to-columnstore.md" %}
-[connect-to-columnstore.md](get-started/connect-to-columnstore.md)
+{% content-ref url="{analytics}/mariadb-columnstore/architecture" %}
+[Architecture]({analytics}/mariadb-columnstore/architecture)
 {% endcontent-ref %}
 
-## Tutorials
-
-{% content-ref url="tutorials/columnstore-tutorial.md" %}
-[columnstore-tutorial.md](tutorials/columnstore-tutorial.md)
+{% content-ref url="{analytics}/mariadb-columnstore/management" %}
+[Management]({analytics}/mariadb-columnstore/management)
 {% endcontent-ref %}
 
-## How-To Guides
-
-{% content-ref url="how-to-guides/configure-columnstore.md" %}
-[configure-columnstore.md](how-to-guides/configure-columnstore.md)
+{% content-ref url="{analytics}/mariadb-columnstore/security" %}
+[Security]({analytics}/mariadb-columnstore/security)
 {% endcontent-ref %}
 
-{% content-ref url="how-to-guides/secure-columnstore.md" %}
-[secure-columnstore.md](how-to-guides/secure-columnstore.md)
+{% content-ref url="{analytics}/mariadb-columnstore/use-cases" %}
+[Use Cases]({analytics}/mariadb-columnstore/use-cases)
 {% endcontent-ref %}
 
-## Concepts
-
-{% content-ref url="overview/what-is-columnstore.md" %}
-[what-is-columnstore.md](overview/what-is-columnstore.md)
+{% content-ref url="{analytics}/mariadb-columnstore/high-availability" %}
+[High Availability]({analytics}/mariadb-columnstore/high-availability)
 {% endcontent-ref %}
 
-{% content-ref url="concepts/how-columnstore-works.md" %}
-[how-columnstore-works.md](concepts/how-columnstore-works.md)
+{% content-ref url="{analytics}/mariadb-columnstore/clients-and-tools" %}
+[Clients & Tools]({analytics}/mariadb-columnstore/clients-and-tools)
 {% endcontent-ref %}
 
-## Reference
-
-{% content-ref url="reference/columnstore-reference.md" %}
-[columnstore-reference.md](reference/columnstore-reference.md)
+{% content-ref url="{analytics}/mariadb-columnstore/tutorials" %}
+[Tutorials]({analytics}/mariadb-columnstore/tutorials)
 {% endcontent-ref %}
 
-{% content-ref url="release-notes/columnstore-releases.md" %}
-[columnstore-releases.md](release-notes/columnstore-releases.md)
+{% content-ref url="{analytics}/mariadb-columnstore/reference" %}
+[Reference]({analytics}/mariadb-columnstore/reference)
 {% endcontent-ref %}

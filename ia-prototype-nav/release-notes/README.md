@@ -14,76 +14,70 @@ Read them for two reasons. Before an upgrade, the notes for every version betwee
 
 Server release notes are split by edition, because the editions release differently. MariaDB Community Server follows the community release schedule. MariaDB Enterprise Server follows a maintenance schedule, where fixes are backported to supported versions, so an Enterprise release can carry a fix without carrying the feature changes of a later community version. Check the notes for the edition you actually run.
 
-The remaining products have their own sets: MaxScale, Galera Cluster, ColumnStore, Exa, the connectors, the Kubernetes Operator, Enterprise Manager, the MCP server, the AI RAG tooling, GridGain 8 and GridGain 9, MariaDB Cloud, and the package repository changelogs.
+The remaining products have their own sets: MaxScale, ColumnStore, Galera Cluster, Advanced Cluster, the connectors, the Enterprise Kubernetes Operator, Enterprise Manager, the MCP server, the AI RAG tooling, MariaDB Cloud, and the tools.
 
 Component versions matter together as well as individually. In a MariaDB Enterprise Platform deployment the components are certified against specific versions of each other, so upgrading one means checking the notes for the others rather than treating it as an isolated change.
 
+Dates for releases that have not shipped yet live outside these notes. The Enterprise Server release schedule lists the next scheduled Enterprise releases, and Community Server dates are tracked in Jira.
+
 Find the product you run, then read every release between your current version and your target.
 
-## Server Release Notes
-
-{% content-ref url="per-product-release-sets/community-server.md" %}
-[community-server.md](per-product-release-sets/community-server.md)
+{% content-ref url="{release-notes}/latest-releases" %}
+[Download Latest Releases]({release-notes}/latest-releases)
 {% endcontent-ref %}
 
-{% content-ref url="per-product-release-sets/enterprise-server.md" %}
-[enterprise-server.md](per-product-release-sets/enterprise-server.md)
+{% content-ref url="{release-notes}/enterprise-server" %}
+[Enterprise Server Release Notes]({release-notes}/enterprise-server)
 {% endcontent-ref %}
 
-## Platform Components
-
-{% content-ref url="per-product-release-sets/maxscale.md" %}
-[maxscale.md](per-product-release-sets/maxscale.md)
+{% content-ref url="{release-notes}/community-server" %}
+[Community Server Release Notes]({release-notes}/community-server)
 {% endcontent-ref %}
 
-{% content-ref url="per-product-release-sets/galera-cluster.md" %}
-[galera-cluster.md](per-product-release-sets/galera-cluster.md)
+{% content-ref url="{release-notes}/maxscale" %}
+[MaxScale Release Notes]({release-notes}/maxscale)
 {% endcontent-ref %}
 
-{% content-ref url="per-product-release-sets/columnstore.md" %}
-[columnstore.md](per-product-release-sets/columnstore.md)
+{% content-ref url="{release-notes}/columnstore" %}
+[ColumnStore Release Notes]({release-notes}/columnstore)
 {% endcontent-ref %}
 
-{% content-ref url="per-product-release-sets/mariadb-exa.md" %}
-[mariadb-exa.md](per-product-release-sets/mariadb-exa.md)
+{% content-ref url="{release-notes}/galera-cluster" %}
+[Galera Cluster Release Notes]({release-notes}/galera-cluster)
 {% endcontent-ref %}
 
-{% content-ref url="per-product-release-sets/gridgain-8.md" %}
-[gridgain-8.md](per-product-release-sets/gridgain-8.md)
+{% content-ref url="{release-notes}/advanced-cluster" %}
+[Advanced Cluster Release Notes]({release-notes}/advanced-cluster)
 {% endcontent-ref %}
 
-{% content-ref url="per-product-release-sets/gridgain-9.md" %}
-[gridgain-9.md](per-product-release-sets/gridgain-9.md)
+{% content-ref url="{release-notes}/connectors" %}
+[Connectors Release Notes]({release-notes}/connectors)
 {% endcontent-ref %}
 
-## Clients and Tools
-
-{% content-ref url="per-product-release-sets/connectors.md" %}
-[connectors.md](per-product-release-sets/connectors.md)
+{% content-ref url="{release-notes}/enterprise-operator" %}
+[Enterprise Kubernetes Operator Release Notes]({release-notes}/enterprise-operator)
 {% endcontent-ref %}
 
-{% content-ref url="per-product-release-sets/kubernetes-operator.md" %}
-[kubernetes-operator.md](per-product-release-sets/kubernetes-operator.md)
+{% content-ref url="{release-notes}/enterprise-manager" %}
+[Enterprise Manager Release Notes]({release-notes}/enterprise-manager)
 {% endcontent-ref %}
 
-{% content-ref url="per-product-release-sets/enterprise-manager.md" %}
-[enterprise-manager.md](per-product-release-sets/enterprise-manager.md)
+{% content-ref url="{release-notes}/ai-rag-release-notes" %}
+[AI Rag Release Notes]({release-notes}/ai-rag-release-notes)
 {% endcontent-ref %}
 
-{% content-ref url="per-product-release-sets/mcp-server.md" %}
-[mcp-server.md](per-product-release-sets/mcp-server.md)
+{% content-ref url="{release-notes}/mcp-server-release-notes" %}
+[MCP Server Release Notes]({release-notes}/mcp-server-release-notes)
 {% endcontent-ref %}
 
-{% content-ref url="per-product-release-sets/ai-rag.md" %}
-[ai-rag.md](per-product-release-sets/ai-rag.md)
+{% content-ref url="{release-notes}/mariadb-cloud-release-notes" %}
+[MariaDB Cloud Release Notes]({release-notes}/mariadb-cloud-release-notes)
 {% endcontent-ref %}
 
-## Cloud and Repositories
-
-{% content-ref url="per-product-release-sets/mariadb-cloud.md" %}
-[mariadb-cloud.md](per-product-release-sets/mariadb-cloud.md)
+{% content-ref url="{release-notes}/tools" %}
+[Tools Release Notes]({release-notes}/tools)
 {% endcontent-ref %}
 
-{% content-ref url="per-product-release-sets/package-repository-changelogs.md" %}
-[package-repository-changelogs.md](per-product-release-sets/package-repository-changelogs.md)
+{% content-ref url="{release-notes}/test-page" %}
+[Test Page]({release-notes}/test-page)
 {% endcontent-ref %}

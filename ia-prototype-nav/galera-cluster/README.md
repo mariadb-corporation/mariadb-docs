@@ -23,48 +23,42 @@ Galera Cluster is available in MariaDB Community Server. Its Non-Blocking Operat
 
 Form a three node cluster, kill a node, and confirm writes continue on the remaining two.
 
-## Get Started
-
-{% content-ref url="get-started/install-galera-cluster.md" %}
-[install-galera-cluster.md](get-started/install-galera-cluster.md)
+{% content-ref url="{galera}/readme/mariadb-galera-cluster-usage-guide" %}
+[MariaDB Galera Cluster Overview]({galera}/readme/mariadb-galera-cluster-usage-guide)
 {% endcontent-ref %}
 
-{% content-ref url="get-started/connect-to-galera-cluster.md" %}
-[connect-to-galera-cluster.md](get-started/connect-to-galera-cluster.md)
+{% content-ref url="{galera}/readme/mariadb-galera-cluster-guide" %}
+[What is MariaDB Galera Cluster?]({galera}/readme/mariadb-galera-cluster-guide)
 {% endcontent-ref %}
 
-## Tutorials
-
-{% content-ref url="tutorials/galera-cluster-tutorial.md" %}
-[galera-cluster-tutorial.md](tutorials/galera-cluster-tutorial.md)
+{% content-ref url="{galera}/readme/about-galera-replication" %}
+[What is Galera Replication?]({galera}/readme/about-galera-replication)
 {% endcontent-ref %}
 
-## How-To Guides
-
-{% content-ref url="how-to-guides/configure-galera-cluster.md" %}
-[configure-galera-cluster.md](how-to-guides/configure-galera-cluster.md)
+{% content-ref url="{galera}/galera-cluster-quickstart-guides" %}
+[Quickstart Guides]({galera}/galera-cluster-quickstart-guides)
 {% endcontent-ref %}
 
-{% content-ref url="how-to-guides/secure-galera-cluster.md" %}
-[secure-galera-cluster.md](how-to-guides/secure-galera-cluster.md)
+{% content-ref url="{galera}/galera-management" %}
+[Galera Management]({galera}/galera-management)
 {% endcontent-ref %}
 
-## Concepts
-
-{% content-ref url="overview/what-is-galera-cluster.md" %}
-[what-is-galera-cluster.md](overview/what-is-galera-cluster.md)
+{% content-ref url="{galera}/galera-architecture" %}
+[Galera Architecture]({galera}/galera-architecture)
 {% endcontent-ref %}
 
-{% content-ref url="concepts/how-galera-cluster-works.md" %}
-[how-galera-cluster-works.md](concepts/how-galera-cluster-works.md)
+{% content-ref url="{galera}/galera-security" %}
+[Galera Security]({galera}/galera-security)
 {% endcontent-ref %}
 
-## Reference
-
-{% content-ref url="reference/galera-cluster-reference.md" %}
-[galera-cluster-reference.md](reference/galera-cluster-reference.md)
+{% content-ref url="{galera}/galera-use-cases" %}
+[Galera Use Cases]({galera}/galera-use-cases)
 {% endcontent-ref %}
 
-{% content-ref url="release-notes/galera-cluster-releases.md" %}
-[galera-cluster-releases.md](release-notes/galera-cluster-releases.md)
+{% content-ref url="{galera}/high-availability" %}
+[High Availability]({galera}/high-availability)
+{% endcontent-ref %}
+
+{% content-ref url="{galera}/reference" %}
+[Reference]({galera}/reference)
 {% endcontent-ref %}

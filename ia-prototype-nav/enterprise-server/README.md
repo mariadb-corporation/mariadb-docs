@@ -22,48 +22,34 @@ Because the SQL surface is shared, most of the MariaDB Server documentation appl
 
 Confirm which Enterprise Server version your support agreement covers, then install from the Enterprise repository.
 
-## Get Started
-
-{% content-ref url="get-started/install-enterprise-server.md" %}
-[install-enterprise-server.md](get-started/install-enterprise-server.md)
+{% content-ref url="{server}/mariadb-quickstart-guides" %}
+[Quickstart Guides]({server}/mariadb-quickstart-guides)
 {% endcontent-ref %}
 
-{% content-ref url="get-started/connect-to-enterprise-server.md" %}
-[connect-to-enterprise-server.md](get-started/connect-to-enterprise-server.md)
+{% content-ref url="{server}/server-usage" %}
+[Server Usage]({server}/server-usage)
 {% endcontent-ref %}
 
-## Tutorials
-
-{% content-ref url="tutorials/enterprise-server-tutorial.md" %}
-[enterprise-server-tutorial.md](tutorials/enterprise-server-tutorial.md)
+{% content-ref url="{server}/server-management" %}
+[Server Management]({server}/server-management)
 {% endcontent-ref %}
 
-## How-To Guides
-
-{% content-ref url="how-to-guides/configure-enterprise-server.md" %}
-[configure-enterprise-server.md](how-to-guides/configure-enterprise-server.md)
+{% content-ref url="{server}/security" %}
+[Security]({server}/security)
 {% endcontent-ref %}
 
-{% content-ref url="how-to-guides/secure-enterprise-server.md" %}
-[secure-enterprise-server.md](how-to-guides/secure-enterprise-server.md)
+{% content-ref url="{server}/architecture" %}
+[Architecture]({server}/architecture)
 {% endcontent-ref %}
 
-## Concepts
-
-{% content-ref url="overview/what-is-enterprise-server.md" %}
-[what-is-enterprise-server.md](overview/what-is-enterprise-server.md)
+{% content-ref url="{server}/clients-and-utilities" %}
+[Clients & Utilities]({server}/clients-and-utilities)
 {% endcontent-ref %}
 
-{% content-ref url="concepts/how-enterprise-server-works.md" %}
-[how-enterprise-server-works.md](concepts/how-enterprise-server-works.md)
+{% content-ref url="{server}/ha-and-performance" %}
+[HA & Performance]({server}/ha-and-performance)
 {% endcontent-ref %}
 
-## Reference
-
-{% content-ref url="reference/enterprise-server-reference.md" %}
-[enterprise-server-reference.md](reference/enterprise-server-reference.md)
-{% endcontent-ref %}
-
-{% content-ref url="release-notes/enterprise-server-releases.md" %}
-[enterprise-server-releases.md](release-notes/enterprise-server-releases.md)
+{% content-ref url="{server}/reference" %}
+[Reference]({server}/reference)
 {% endcontent-ref %}

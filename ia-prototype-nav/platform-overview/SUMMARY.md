@@ -2,25 +2,19 @@
 
 * [Platform Overview](README.md)
 
-## Overview
-* [What Is Platform Overview](overview/what-is-platform-overview.md)
-
-## Get Started
-* [Install Platform Overview](get-started/install-platform-overview.md)
-* [Connect to Platform Overview](get-started/connect-to-platform-overview.md)
-
-## Tutorials
-* [Platform Overview Tutorial](tutorials/platform-overview-tutorial.md)
-
-## How-To Guides
-* [Configure Platform Overview](how-to-guides/configure-platform-overview.md)
-* [Secure Platform Overview](how-to-guides/secure-platform-overview.md)
-
-## Concepts
-* [How Platform Overview Works](concepts/how-platform-overview-works.md)
-
-## Reference
-* [Platform Overview Reference](reference/platform-overview-reference.md)
-
-## Release Notes
-* [Platform Overview Releases](release-notes/platform-overview-releases.md)
+* [MariaDB Platform Use Cases]({platform}/mariadb-platform-use-cases)
+* [MariaDB Platform Quickstart Guides]({platform}/mariadb-platform-quickstart-guides)
+  * [MariaDB Overview]({platform}/mariadb-platform-quickstart-guides/mariadb-overview-guide)
+  * [Best Practices]({platform}/mariadb-platform-quickstart-guides/mariadb-best-practices-guide)
+  * [Security]({platform}/mariadb-platform-quickstart-guides/security)
+* [Post Download]({platform}/post-download)
+* [Style]({platform}/style)
+* [MariaDB FAQs]({platform}/mariadb-faqs)
+  * [Database Servers]({platform}/mariadb-faqs/database-servers)
+  * [High Availability & Clustering Solutions]({platform}/mariadb-faqs/high-availability-and-clustering-solutions)
+  * [Analytical Solutions]({platform}/mariadb-faqs/analytical-solutions)
+  * [Database Proxies & Routers]({platform}/mariadb-faqs/database-proxies-and-routers)
+  * [Management & Operations Tools]({platform}/mariadb-faqs/management-and-operations-tools)
+  * [Storage Engines]({platform}/mariadb-faqs/storage-engines)
+  * [Plugins]({platform}/mariadb-faqs/plugins)
+  * [MariaDB Enterprise Platform]({platform}/mariadb-faqs/mariadb-enterprise-platform)

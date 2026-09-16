@@ -2,25 +2,44 @@
 
 * [Tools](README.md)
 
-## Overview
-* [What Is Tools](overview/what-is-tools.md)
-
-## Get Started
-* [Install Tools](get-started/install-tools.md)
-* [Connect to Tools](get-started/connect-to-tools.md)
-
-## Tutorials
-* [Tools Tutorial](tutorials/tools-tutorial.md)
-
-## How-To Guides
-* [Configure Tools](how-to-guides/configure-tools.md)
-* [Secure Tools](how-to-guides/secure-tools.md)
-
-## Concepts
-* [How Tools Works](concepts/how-tools-works.md)
-
-## Reference
-* [Tools Reference](reference/tools-reference.md)
-
-## Release Notes
-* [Tools Releases](release-notes/tools-releases.md)
+* [MariaDB Enterprise Manager]({tools}/mariadb-enterprise-manager)
+  * [Quickstart Guide]({tools}/mariadb-enterprise-manager/quickstart-guide)
+  * [Architecture Overview]({tools}/mariadb-enterprise-manager/architecture-overview)
+  * [Administration]({tools}/mariadb-enterprise-manager/administration)
+  * [Usage]({tools}/mariadb-enterprise-manager/usage)
+  * [Troubleshooting Enterprise Manager]({tools}/mariadb-enterprise-manager/troubleshooting-enterprise-manager)
+* [MariaDB Enterprise Kubernetes Operator]({tools}/mariadb-enterprise-operator)
+  * [Introduction]({tools}/mariadb-enterprise-operator/introduction)
+  * [Customer access to docker.mariadb.com]({tools}/mariadb-enterprise-operator/customer-access-to-docker-mariadb-com)
+  * [Docker Images]({tools}/mariadb-enterprise-operator/docker-images)
+  * [Installation]({tools}/mariadb-enterprise-operator/installation)
+  * [Quickstart]({tools}/mariadb-enterprise-operator/quickstart)
+  * [Topologies]({tools}/mariadb-enterprise-operator/topologies)
+  * [Backup and Restore]({tools}/mariadb-enterprise-operator/backup-and-restore)
+  * [Storage]({tools}/mariadb-enterprise-operator/storage)
+  * [Security]({tools}/mariadb-enterprise-operator/security)
+  * [Configuration]({tools}/mariadb-enterprise-operator/configuration)
+  * [Connections]({tools}/mariadb-enterprise-operator/connections)
+  * [Updates]({tools}/mariadb-enterprise-operator/updates)
+  * [Metrics]({tools}/mariadb-enterprise-operator/metrics)
+  * [SQL Resources]({tools}/mariadb-enterprise-operator/sql-resources)
+  * [External MariaDB]({tools}/mariadb-enterprise-operator/external-mariadb)
+  * [Metadata]({tools}/mariadb-enterprise-operator/metadata)
+  * [Suspend Reconciliation]({tools}/mariadb-enterprise-operator/suspend-reconciliation)
+  * [Maintenance]({tools}/mariadb-enterprise-operator/maintenance)
+  * [Plugins]({tools}/mariadb-enterprise-operator/plugins)
+  * [API Reference]({tools}/mariadb-enterprise-operator/api-reference)
+  * [Examples Catalog]({tools}/mariadb-enterprise-operator/examples-catalog)
+  * [Migrations]({tools}/mariadb-enterprise-operator/migrations)
+* [MariaDB Enterprise MCP Server]({tools}/mariadb-enterprise-mcp-server)
+  * [Overview]({tools}/mariadb-enterprise-mcp-server/introduction)
+  * [Features]({tools}/mariadb-enterprise-mcp-server/features)
+  * [Authentication]({tools}/mariadb-enterprise-mcp-server/authentication)
+  * [Architecture]({tools}/mariadb-enterprise-mcp-server/architecture)
+  * [Example]({tools}/mariadb-enterprise-mcp-server/example)
+  * [Frequently Asked Questions]({tools}/mariadb-enterprise-mcp-server/frequently-asked-questions)
+* [MariaDB AI RAG]({tools}/mariadb-ai-rag)
+  * [Getting Started]({tools}/mariadb-ai-rag/getting-started)
+  * [Management]({tools}/mariadb-ai-rag/deployment)
+  * [API Reference]({tools}/mariadb-ai-rag/api-reference)
+  * [Reference]({tools}/mariadb-ai-rag/reference)

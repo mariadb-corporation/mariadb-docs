@@ -22,48 +22,22 @@ You do not deploy all of it. A typical production topology is Enterprise Server 
 
 Read the overview, decide which components your workload needs, then follow that component's own space.
 
-## Get Started
-
-{% content-ref url="get-started/install-platform-overview.md" %}
-[install-platform-overview.md](get-started/install-platform-overview.md)
+{% content-ref url="{platform}/mariadb-platform-use-cases" %}
+[MariaDB Platform Use Cases]({platform}/mariadb-platform-use-cases)
 {% endcontent-ref %}
 
-{% content-ref url="get-started/connect-to-platform-overview.md" %}
-[connect-to-platform-overview.md](get-started/connect-to-platform-overview.md)
+{% content-ref url="{platform}/mariadb-platform-quickstart-guides" %}
+[MariaDB Platform Quickstart Guides]({platform}/mariadb-platform-quickstart-guides)
 {% endcontent-ref %}
 
-## Tutorials
-
-{% content-ref url="tutorials/platform-overview-tutorial.md" %}
-[platform-overview-tutorial.md](tutorials/platform-overview-tutorial.md)
+{% content-ref url="{platform}/post-download" %}
+[Post Download]({platform}/post-download)
 {% endcontent-ref %}
 
-## How-To Guides
-
-{% content-ref url="how-to-guides/configure-platform-overview.md" %}
-[configure-platform-overview.md](how-to-guides/configure-platform-overview.md)
+{% content-ref url="{platform}/style" %}
+[Style]({platform}/style)
 {% endcontent-ref %}
 
-{% content-ref url="how-to-guides/secure-platform-overview.md" %}
-[secure-platform-overview.md](how-to-guides/secure-platform-overview.md)
-{% endcontent-ref %}
-
-## Concepts
-
-{% content-ref url="overview/what-is-platform-overview.md" %}
-[what-is-platform-overview.md](overview/what-is-platform-overview.md)
-{% endcontent-ref %}
-
-{% content-ref url="concepts/how-platform-overview-works.md" %}
-[how-platform-overview-works.md](concepts/how-platform-overview-works.md)
-{% endcontent-ref %}
-
-## Reference
-
-{% content-ref url="reference/platform-overview-reference.md" %}
-[platform-overview-reference.md](reference/platform-overview-reference.md)
-{% endcontent-ref %}
-
-{% content-ref url="release-notes/platform-overview-releases.md" %}
-[platform-overview-releases.md](release-notes/platform-overview-releases.md)
+{% content-ref url="{platform}/mariadb-faqs" %}
+[MariaDB FAQs]({platform}/mariadb-faqs)
 {% endcontent-ref %}

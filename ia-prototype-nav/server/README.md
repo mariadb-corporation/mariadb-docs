@@ -22,60 +22,34 @@ The server ships transactions, replication, a pluggable storage engine layer, an
 
 Install the server and connect a client. Everything after those two steps is SQL and configuration.
 
-## Get Started
-
-{% content-ref url="get-started/install-mariadb.md" %}
-[install-mariadb.md](get-started/install-mariadb.md)
+{% content-ref url="{server}/mariadb-quickstart-guides" %}
+[Quickstart Guides]({server}/mariadb-quickstart-guides)
 {% endcontent-ref %}
 
-{% content-ref url="get-started/connect-to-mariadb.md" %}
-[connect-to-mariadb.md](get-started/connect-to-mariadb.md)
+{% content-ref url="{server}/server-usage" %}
+[Server Usage]({server}/server-usage)
 {% endcontent-ref %}
 
-## Tutorials
-
-{% content-ref url="tutorials/sql-joins.md" %}
-[sql-joins.md](tutorials/sql-joins.md)
+{% content-ref url="{server}/server-management" %}
+[Server Management]({server}/server-management)
 {% endcontent-ref %}
 
-{% content-ref url="tutorials/working-with-indexes.md" %}
-[working-with-indexes.md](tutorials/working-with-indexes.md)
+{% content-ref url="{server}/security" %}
+[Security]({server}/security)
 {% endcontent-ref %}
 
-## How-To Guides
-
-{% content-ref url="how-to-guides/managing-the-server.md" %}
-[managing-the-server.md](how-to-guides/managing-the-server.md)
+{% content-ref url="{server}/architecture" %}
+[Architecture]({server}/architecture)
 {% endcontent-ref %}
 
-{% content-ref url="how-to-guides/security.md" %}
-[security.md](how-to-guides/security.md)
+{% content-ref url="{server}/clients-and-utilities" %}
+[Clients & Utilities]({server}/clients-and-utilities)
 {% endcontent-ref %}
 
-{% content-ref url="how-to-guides/high-availability-and-performance.md" %}
-[high-availability-and-performance.md](how-to-guides/high-availability-and-performance.md)
+{% content-ref url="{server}/ha-and-performance" %}
+[HA & Performance]({server}/ha-and-performance)
 {% endcontent-ref %}
 
-## Concepts
-
-{% content-ref url="overview/what-is-mariadb-server.md" %}
-[what-is-mariadb-server.md](overview/what-is-mariadb-server.md)
-{% endcontent-ref %}
-
-{% content-ref url="concepts/architecture.md" %}
-[architecture.md](concepts/architecture.md)
-{% endcontent-ref %}
-
-## Reference
-
-{% content-ref url="reference/sql-statements.md" %}
-[sql-statements.md](reference/sql-statements.md)
-{% endcontent-ref %}
-
-{% content-ref url="reference/clients-and-utilities.md" %}
-[clients-and-utilities.md](reference/clients-and-utilities.md)
-{% endcontent-ref %}
-
-{% content-ref url="release-notes/community-server-releases.md" %}
-[community-server-releases.md](release-notes/community-server-releases.md)
+{% content-ref url="{server}/reference" %}
+[Reference]({server}/reference)
 {% endcontent-ref %}

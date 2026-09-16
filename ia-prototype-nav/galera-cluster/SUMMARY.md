@@ -2,25 +2,51 @@
 
 * [Galera Cluster](README.md)
 
-## Overview
-* [What Is Galera Cluster](overview/what-is-galera-cluster.md)
-
-## Get Started
-* [Install Galera Cluster](get-started/install-galera-cluster.md)
-* [Connect to Galera Cluster](get-started/connect-to-galera-cluster.md)
-
-## Tutorials
-* [Galera Cluster Tutorial](tutorials/galera-cluster-tutorial.md)
-
-## How-To Guides
-* [Configure Galera Cluster](how-to-guides/configure-galera-cluster.md)
-* [Secure Galera Cluster](how-to-guides/secure-galera-cluster.md)
-
-## Concepts
-* [How Galera Cluster Works](concepts/how-galera-cluster-works.md)
-
-## Reference
-* [Galera Cluster Reference](reference/galera-cluster-reference.md)
-
-## Release Notes
-* [Galera Cluster Releases](release-notes/galera-cluster-releases.md)
+* [MariaDB Galera Cluster Overview]({galera}/readme/mariadb-galera-cluster-usage-guide)
+* [What is MariaDB Galera Cluster?]({galera}/readme/mariadb-galera-cluster-guide)
+* [What is Galera Replication?]({galera}/readme/about-galera-replication)
+* [Quickstart Guides]({galera}/galera-cluster-quickstart-guides)
+  * [MariaDB Galera Cluster Guide]({galera}/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide)
+  * [MariaDB Galera Cluster Replication Guide]({galera}/galera-cluster-quickstart-guides/mariadb-galera-cluster-replication-guide)
+  * [MariaDB Galera Cluster Usage Guide]({galera}/galera-cluster-quickstart-guides/mariadb-galera-cluster-usage-guide)
+* [Galera Management]({galera}/galera-management)
+  * [Installation & Deployment]({galera}/galera-management/installation-and-deployment)
+  * [Configuration]({galera}/galera-management/configuration)
+  * [General Operations]({galera}/galera-management/general-operations)
+  * [Upgrading Galera Cluster]({galera}/galera-management/upgrading-galera-cluster)
+  * [Performance Tuning]({galera}/galera-management/performance-tuning)
+* [Galera Architecture]({galera}/galera-architecture)
+  * [Introduction to Galera Architecture]({galera}/galera-architecture/introduction-to-galera-architecture)
+  * [Certification-Based Replication]({galera}/galera-architecture/certification-based-replication)
+  * [Quorum Control with Weighted Votes]({galera}/galera-architecture/quorum-control-with-weighted-votes)
+  * [Galera Cluster Deployment Variants]({galera}/galera-architecture/galera-cluster-deployment-variants)
+* [Galera Security]({galera}/galera-security)
+  * [Securing Communications in Galera Cluster]({galera}/galera-security/securing-communications-in-galera-cluster)
+  * [MariaDB Enterprise Cluster Security]({galera}/galera-security/mariadb-enterprise-cluster-security)
+  * [Encryption vs Authentication in Galera Cluster]({galera}/galera-security/encryption-vs-authentication-in-galera-cluster)
+  * [Choosing a Certificate Authority for Galera Cluster]({galera}/galera-security/choosing-a-certificate-authority-for-galera-cluster)
+  * [Migrating to Verified TLS in Galera Cluster]({galera}/galera-security/migrating-to-verified-tls-in-galera-cluster)
+  * [Reloading TLS Certificates Without Downtime]({galera}/galera-security/reloading-tls-certificates-without-downtime)
+  * [Routine Certificate Rotation]({galera}/galera-security/routine-certificate-rotation)
+  * [Cluster CA Rotation]({galera}/galera-security/cluster-ca-rotation)
+  * [Responding to a Key or Certificate Compromise]({galera}/galera-security/responding-to-a-key-or-certificate-compromise)
+  * [Connection Allowlist]({galera}/galera-security/connection-allowlist)
+  * [Cluster TLS State Inspection]({galera}/galera-security/cluster-tls-state-inspection)
+* [Galera Use Cases]({galera}/galera-use-cases)
+* [High Availability]({galera}/high-availability)
+  * [Monitoring MariaDB Galera Cluster]({galera}/high-availability/monitoring-mariadb-galera-cluster)
+  * [Understanding Quorum, Monitoring, and Recovery]({galera}/high-availability/understanding-quorum-monitoring-and-recovery)
+  * [Recovering a Primary Component]({galera}/high-availability/recovering-a-primary-component)
+  * [Resetting the Quorum (Cluster Bootstrap)]({galera}/high-availability/resetting-the-quorum-cluster-bootstrap)
+  * [Load Balancing]({galera}/high-availability/load-balancing)
+  * [State Snapshot Transfers (SSTs) in Galera Cluster]({galera}/high-availability/state-snapshot-transfers-ssts-in-galera-cluster)
+  * [Rapid Node Recovery with IST and the GCache]({galera}/high-availability/rapid-node-recovery-with-ist-and-the-gcache)
+  * [Using MariaDB Replication with MariaDB Galera Cluster]({galera}/high-availability/using-mariadb-replication-with-mariadb-galera-cluster)
+* [Reference]({galera}/reference)
+  * [Galera Cluster Status Variables]({galera}/reference/galera-cluster-status-variables)
+  * [Galera Cluster System Variables]({galera}/reference/galera-cluster-system-variables)
+  * [Galera wsrep Provider Versions]({galera}/reference/galera-wsrep-provider-versions)
+  * [WSREP Variable Details]({galera}/reference/wsrep-variable-details)
+  * [Galera Cluster System Tables]({galera}/reference/galera-cluster-system-tables)
+  * [Known Limitations]({galera}/reference/mariadb-galera-cluster-known-limitations)
+  * [MariaDB Advanced Cluster: Team FAQ & Architectural Guide]({galera}/reference/mariadb-advanced-cluster-team-faq-and-architectural-guide)
