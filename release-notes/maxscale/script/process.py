@@ -17,6 +17,10 @@ _MD_SPECIALS = re.compile(r"[_*\[]")
 # backticks in MXS summaries are deliberate, and a backslash inside a code span
 # renders as a literal backslash rather than escaping anything.
 def md_escape(s):
+    # MXS summaries occasionally carry leading/trailing whitespace (e.g. MXS-6886
+    # ends with a space). Left in place it becomes trailing whitespace on the
+    # generated bullet, which every subsequent editor then has to clean by hand.
+    s = s.strip()
     # Splitting on backticks alternates outside/inside: even indices are outside
     # a code span, odd indices inside.
     parts = s.split("`")
