@@ -1,0 +1,233 @@
+# .github/workflows/doc-gates.yml
+#
+# WHY THIS EXISTS  (DOCS-6675)
+#   A pull request opened by a workflow using the default GITHUB_TOKEN triggers NO
+#   `on: pull_request` workflows at all -- GitHub suppresses them so a workflow cannot
+#   recursively trigger itself. So every PR our generating workflows open arrives with none of
+#   codespell / link-check / fragcheck / includecheck having run; only the GitBook space checks
+#   do, and those check publishability, not content. DOCS-6618 is the bill for that: PR #1052
+#   merged a freshly generated Plugin API tree carrying 344 dead in-page anchors and 14 pages
+#   with no frontmatter, and the ticket was filed in place of a red check.
+#
+#   This is a reusable workflow rather than a copied job block because two generating workflows
+#   need it and a third deliberately does not. One definition, two callers -- the same
+#   "one parser or none" constraint DOCS-6586 set for the doc-lint gates.
+#
+# WHY IT PUBLISHES A COMMIT STATUS
+#   The gates run in the generating workflow's run, not on the PR event, so without this they
+#   would be invisible exactly where a reviewer looks. A commit status posted to the PR head SHA
+#   appears in the PR's checks list beside the GitBook checks, which is what makes the verdict
+#   reach the review instead of a run log nobody opens.
+#
+# WHY NOT JUST SWAP THE TOKEN
+#   Opening the PR with a GitHub App or PAT credential instead of GITHUB_TOKEN would make every
+#   existing gate workflow fire with no new machinery, and it remains the structurally cleaner
+#   fix. It needs a credential provisioned and rotated (this repo has no such secret today) and
+#   an explicit actor guard, because the suppression this bypasses is the recursion guard. This
+#   route needs neither, and does not preclude that one later.
+name: Doc gates (bot-generated content)
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        description: 'Branch the generating workflow pushed, e.g. automated/sync-server-api-plugin-docs'
+        required: true
+        type: string
+      head-sha:
+        description: 'The PR head SHA the gates must run against, from create-pull-request'
+        required: true
+        type: string
+      pathspecs:
+        description: 'Newline-separated git pathspecs to gate; mirror the caller add-paths'
+        required: true
+        type: string
+      base:
+        description: 'Branch the generated content is diffed against'
+        required: false
+        default: 'main'
+        type: string
+      status-context:
+        description: 'Name the commit status appears under in the PR checks list'
+        required: false
+        default: 'doc-gates'
+        type: string
+
+permissions:
+  contents: read
+  # The point of the whole workflow: put the verdict where a reviewer sees it.
+  statuses: write
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      # Checks out the BOT BRANCH, not the caller's tree. The generating job still holds the
+      # generated content uncommitted in its own working directory, and gating that would mean
+      # gating something with no commit to attach a status to. fetch-depth: 0 because every
+      # history-aware gate needs the base revision present -- a base that is missing makes them
+      # SKIP and still exit 0 (DOCS-6618's failure shape).
+      - name: Checkout the generated branch
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.branch }}
+          fetch-depth: 0
+
+      # The branch could have moved between create-pull-request pushing it and this job
+      # starting -- a concurrent run, or a human pushing to it. Gating a different commit and
+      # then posting the verdict onto the PR head would attach a status to content this run
+      # never examined, which is precisely the lie this whole workflow exists to prevent.
+      - name: Assert the checkout is the commit the PR is showing
+        env:
+          EXPECTED: ${{ inputs.head-sha }}
+        run: |
+          set -euo pipefail
+          actual="$(git rev-parse HEAD)"
+          if [ -z "$EXPECTED" ]; then
+            echo "::error::No head SHA was passed, so there is nothing to verify the checkout against."
+            exit 1
+          fi
+          if [ "$actual" != "$EXPECTED" ]; then
+            echo "::error::Branch ${{ inputs.branch }} is at $actual but the PR head is $EXPECTED. Something pushed to the branch after the PR was opened; refusing to publish a verdict about a commit this run did not check."
+            exit 1
+          fi
+          echo "Gating $actual."
+
+      # The bot branch is cut from the base branch, so it carries whatever version of the gate
+      # tooling the base branch has -- which on a scheduled run is the right one, and before
+      # this change first merges is NO version at all. Measured: the first probe run exited 127
+      # with "run-doc-gates.sh: No such file or directory", because the branch it gated predated
+      # the script. A gate that can only be tested after it merges is the failure mode this
+      # whole ticket is about, so the tooling comes from the ref that DEFINES the gate instead
+      # of from the content being gated. On a scheduled run the two are the same commit, so this
+      # is a no-op there; on a workflow_dispatch from a branch it is what makes the gate
+      # testable before merge.
+      - name: Restore the gate tooling from the ref that defines it
+        env:
+          TOOLING_REF: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          if ! git cat-file -e "${TOOLING_REF}^{commit}" 2>/dev/null; then
+            git fetch --no-tags --depth=1 origin "$TOOLING_REF"
+          fi
+          git checkout "$TOOLING_REF" -- .github/scripts/run-doc-gates.sh .claude/hooks
+          # Unstage so nothing here can look like part of the generated diff. The tooling files
+          # are neither Markdown nor HTML, so no gate reads them as content either way.
+          git reset -q -- .github/scripts/run-doc-gates.sh .claude/hooks
+          echo "Gate tooling taken from $TOOLING_REF:"
+          git --no-pager log -1 --format='  %h %s' "$TOOLING_REF"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # codespell and lychee are the two gates doc-lint.sh SKIPs (exit 0) when the tool is
+      # absent, so installing them is load-bearing, not convenience. The canary in
+      # run-doc-gates.sh fails the job if either is missing anyway.
+      - name: Install codespell
+        run: |
+          set -euo pipefail
+          pipx install codespell
+          codespell --version
+
+      - name: Install a pinned lychee
+        env:
+          LYCHEE_VERSION: lychee-v0.24.2
+          LYCHEE_SHA256: 1f4e0ef7f6554a6ed33dd7ac144fb2e1bbed98598e7af973042fc5cd43951c9a
+        run: |
+          set -euo pipefail
+          tarball="$RUNNER_TEMP/lychee.tar.gz"
+          curl -fsSL -o "$tarball" \
+            "https://github.com/lycheeverse/lychee/releases/download/${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-gnu.tar.gz"
+          echo "${LYCHEE_SHA256}  ${tarball}" | sha256sum --check --strict
+          tar -xzf "$tarball" -C "$RUNNER_TEMP"
+          install -m 0755 "$RUNNER_TEMP/lychee-x86_64-unknown-linux-gnu/lychee" /usr/local/bin/lychee
+          lychee --version
+
+      - name: Run the content gates
+        id: gates
+        env:
+          BASE: origin/${{ inputs.base }}
+          PATHSPECS: ${{ inputs.pathspecs }}
+          DOC_GATES_LOG: doc-gates.log
+        run: |
+          set -uo pipefail
+          specs=()
+          while IFS= read -r spec; do
+            spec="$(echo "$spec" | tr -d '[:space:]')"
+            [ -n "$spec" ] && specs+=("$spec")
+          done <<< "$PATHSPECS"
+          if [ "${#specs[@]}" -eq 0 ]; then
+            echo "::error::No pathspecs were passed, so the gate would have nothing to scope to."
+            exit 2
+          fi
+          set +e
+          bash .github/scripts/run-doc-gates.sh "$BASE" "${specs[@]}" 2>&1 | tee gates.out
+          rc="${PIPESTATUS[0]}"
+          set -e
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          case "$rc" in
+            0) ;;
+            1) echo "::error::A content gate failed on the generated documentation. This PR would previously have merged with nothing complaining (DOCS-6618)." ;;
+            2) echo "::error::The gate could not run (bad arguments, wrong directory, missing base revision, nothing to scan, or a gate that silently skipped). A gate that cannot run must not report success." ;;
+            *) echo "::error::run-doc-gates.sh exited $rc (crash). Tooling failure, not a content finding." ;;
+          esac
+          exit "$rc"
+
+      - name: Record the result in the run summary
+        if: always()
+        env:
+          RC: ${{ steps.gates.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Content gates on \`${{ inputs.branch }}\`"
+            echo
+            if [ ! -s gates.out ]; then
+              echo "No output -- an earlier step failed before the gates ran."
+            else
+              case "${RC:-}" in
+                0) echo "Every content gate passed on the generated content, and the canary proved each one was actually running." ;;
+                1) echo "A gate found a defect in the generated content. Fix it in the generator, not in the generated files -- the next scheduled run overwrites anything hand-edited here." ;;
+                2) echo "The gate could not run. This is a configuration failure, not a finding: treat a green PR as unchecked until it is fixed." ;;
+                *) echo "The gate exited ${RC:-unknown}. Tooling failure, not a content finding." ;;
+              esac
+              echo
+              echo '````text'
+              cat gates.out
+              echo '````'
+              echo
+              echo "Reproduce locally with:"
+              echo
+              echo '````bash'
+              echo "git checkout ${{ inputs.branch }}"
+              echo "bash .github/scripts/run-doc-gates.sh origin/${{ inputs.base }} <pathspec> ..."
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # Always, including when the gates failed -- a red status on the PR is the entire point.
+      - name: Publish the verdict as a commit status on the PR head
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ inputs.head-sha }}
+          CONTEXT: ${{ inputs.status-context }}
+          RC: ${{ steps.gates.outputs.rc }}
+        run: |
+          set -euo pipefail
+          case "${RC:-}" in
+            0) state=success; desc="All content gates passed (canary-verified)." ;;
+            1) state=failure; desc="A content gate found a defect in the generated content." ;;
+            2) state=error;   desc="The gates could not run — treat this PR as unchecked." ;;
+            *) state=error;   desc="The gate job did not complete (exit ${RC:-unknown})." ;;
+          esac
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/statuses/${SHA}" \
+            -f state="$state" \
+            -f context="$CONTEXT" \
+            -f description="$desc" \
+            -f target_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" \
+            --silent
+          echo "Posted '$CONTEXT' = $state on $SHA"
