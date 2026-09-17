@@ -88,17 +88,6 @@ An account created with `IDENTIFIED VIA tls_certificate` but **without** `REQUIR
 
 When several authentication methods are combined with `OR`, the first one that succeeds wins. An account given both `tls_certificate` and a password method can therefore log in with the password alone if `REQUIRE SUBJECT` is absent. Requiring *both* a valid certificate and a password needs multi-factor authentication (several plugins combined with `AND`), which is not yet available.
 
-## Known Limitations on WolfSSL Builds
-
-{% hint style="warning" %}
-Builds that use WolfSSL rather than OpenSSL — which includes the Windows packages — are affected by two open issues. Neither is fixed in MariaDB Enterprise Server 12.3:
-
-* [MDEV-40382](https://jira.mariadb.org/browse/MDEV-40382) — `--ssl-crl` is not enforced, so a revoked client certificate still authenticates.
-* [MDEV-40398](https://jira.mariadb.org/browse/MDEV-40398) — the certificate subject separator is not escaped, so two different subjects can satisfy one `REQUIRE SUBJECT` account.
-
-Official MariaDB Enterprise Server builds on OpenSSL are not affected.
-{% endhint %}
-
 ## Options
 
 The plugin adds no system variables and no status variables. The only option is the standard plugin activation option.
