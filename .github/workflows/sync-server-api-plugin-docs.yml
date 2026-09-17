@@ -15,6 +15,8 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  # The gate job below publishes its verdict as a commit status on the PR head (DOCS-6675).
+  statuses: write
 
 concurrency:
   group: sync-server-api-plugin-docs
@@ -23,6 +25,10 @@ concurrency:
 jobs:
   generate-and-pr:
     runs-on: ubuntu-latest
+    outputs:
+      pr-number: ${{ steps.cpr.outputs.pull-request-number }}
+      head-sha: ${{ steps.cpr.outputs.pull-request-head-sha }}
+      operation: ${{ steps.cpr.outputs.pull-request-operation }}
     steps:
       - name: Checkout mariadb-docs
         uses: actions/checkout@v7
@@ -120,6 +126,7 @@ jobs:
           bash .github/scripts/add_server_plugin_api_to_summary.sh
 
       - name: Open a pull request if the generated docs changed
+        id: cpr
         uses: peter-evans/create-pull-request@v8
         with:
           branch: automated/sync-server-api-plugin-docs
@@ -146,3 +153,33 @@ jobs:
           labels: |
             automated
             documentation
+
+  # WHY THIS JOB EXISTS  (DOCS-6675)
+  #   The PR the job above opens is authored by GITHUB_TOKEN, and GitHub fires no
+  #   `on: pull_request` workflows for such a PR -- so codespell, link-check, fragcheck and
+  #   includecheck all sit out, and only the GitBook space checks run. DOCS-6618 is what that
+  #   cost: PR #1052 merged 344 dead in-page anchors and 14 pages with no frontmatter, and the
+  #   ticket was filed in place of a red check. This runs the same gates against the pushed
+  #   branch and posts the verdict as a commit status on the PR head, where a reviewer sees it.
+  #
+  #   codespell is not among the gates that bear on THIS content, and correctly so: every
+  #   SUMMARY.md is excluded (DOCS-6272) and server/reference/plugins/api-plugin/** is too
+  #   (DOCS-6618 -- the "misspellings" are C identifiers quoted out of the server's headers,
+  #   and the next generation run would revert any edit). The gates that do bear on it are
+  #   fragcheck, includecheck, navcheck, the shrink guard, the retired-KB guard and lychee.
+  gate:
+    needs: generate-and-pr
+    # Empty when the generated docs were unchanged and no PR was opened or updated.
+    if: needs.generate-and-pr.outputs.pr-number != ''
+    permissions:
+      contents: read
+      statuses: write
+    uses: ./.github/workflows/doc-gates.yml
+    with:
+      branch: automated/sync-server-api-plugin-docs
+      head-sha: ${{ needs.generate-and-pr.outputs.head-sha }}
+      # Mirrors the add-paths above: gate exactly what the PR commits.
+      pathspecs: |
+        server/reference/plugins/api-plugin/**
+        server/SUMMARY.md
+      status-context: doc-gates
