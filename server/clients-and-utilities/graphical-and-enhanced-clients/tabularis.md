@@ -15,7 +15,7 @@ Tabularis is third-party software, not developed or maintained by MariaDB and no
 
 ![Tabularis Visual EXPLAIN showing an analyzed plan with actual row counts](../../.gitbook/assets/tabularis-visual-explain.png)
 
-## Key features
+## Key Features
 
 * Schema explorer for tables, columns, indexes, foreign keys, views, stored routines, and triggers, with inline editing from the sidebar.
 * SQL editor based on Monaco, with autocompletion, multi-statement execution, and results in separate tabs.
@@ -28,11 +28,11 @@ Tabularis is third-party software, not developed or maintained by MariaDB and no
 * SSH tunneling, TLS, and optional password storage in the operating system keychain.
 * Built-in MCP server so AI agents can read the schema and run queries. Text-to-SQL is optional and works with local models through Ollama as well as cloud providers.
 
-## MariaDB support
+## MariaDB Support
 
-MariaDB is one of the three built-in drivers, alongside PostgreSQL and SQLite, so no plugin is needed. Select MySQL/MariaDB as the connection type. Tabularis detects a MariaDB server from its version string and picks the `EXPLAIN` variant accordingly: `EXPLAIN FORMAT=JSON` for an estimated plan, and `ANALYZE FORMAT=JSON` (MariaDB 10.1 and later) when the plan should include actual row counts and timings. Tables created `WITH SYSTEM VERSIONING` are recognised in the schema explorer.
+MariaDB is one of the three built-in drivers, alongside PostgreSQL and SQLite, so no plugin is needed. Select MySQL/MariaDB as the connection type. Tabularis detects a MariaDB server from its version string and picks the `EXPLAIN` variant accordingly: `EXPLAIN FORMAT=JSON` for an estimated plan, and `ANALYZE FORMAT=JSON` when the plan should include actual row counts and timings. Tables created `WITH SYSTEM VERSIONING` are recognized in the schema explorer.
 
-## Supported databases
+## Supported Databases
 
 Besides MariaDB and MySQL, PostgreSQL and SQLite are built in. Plugins add ClickHouse, DuckDB, Microsoft SQL Server, MongoDB, Redis, Elasticsearch, DynamoDB, IBM Db2, IBM Informix, Oracle, Google BigQuery, Firestore, Cloudflare D1, and libSQL/Turso, among others.
 
