@@ -27,12 +27,12 @@ The following WSREP variables are inspected by Galera Monitor to see whether a n
 
 MaxScale 2.4.0 added support for replicas replicating off of Galera nodes. If a non-Galera server monitored by Galera Monitor is replicating from a Galera node also monitored by the same monitor, it will be assigned the `Read, Running` status as long as the replication works. This allows read-scaleout with Galera servers without increasing the size of the Galera cluster.
 
-### MariaDB Advanced Cluster (RAFT) support
+### MariaDB Raft Cluster support
 
 As of MaxScale 25.10.2, the Galera Monitor can monitor a
-[MariaDB Advanced Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/advanced-cluster).
-Advanced Cluster is a new synchronized replication scheme that offers reduced
-latency compared to the standard Galera implementation. An Advanced Cluster
+[MariaDB Raft Cluster]({release-notes}/advanced-cluster).
+Raft Cluster is a new synchronized replication scheme that offers reduced
+latency compared to the standard Galera implementation. A Raft Cluster
 promotes one server as the *leader*. The leader approves and orders
 transactions. Since all transactions must pass through the leader, the Galera
 Monitor gives the leader the *Write* role, causing e.g. the
@@ -41,17 +41,17 @@ the cluster is in a failure state, and both reads and writes are disabled until
 a leader emerges.
 
 The Galera Monitor automatically detects if the monitored cluster is a
-traditional Galera Cluster or an Advanced Cluster by looking at the
+traditional Galera Cluster or a Raft Cluster by looking at the
 `wsrep_provider_name` status variable. All servers in the cluster must use the
-same type of replication; mixing Galera and Advanced Cluster nodes is not
+same type of replication; mixing Galera and Raft Cluster nodes is not
 allowed and will cause the monitor to withhold all *Write* and *Read* roles.
 
 The Galera Monitor does not require any additional configuration to be used with
-a MariaDB Advanced Cluster. On the contrary, Galera Monitor ignores the values
-of most of its configuration settings when dealing with a MariaDB Advanced
+a MariaDB Raft Cluster. On the contrary, Galera Monitor ignores the values
+of most of its configuration settings when dealing with a MariaDB Raft
 Cluster. Specifically, `disable_master_failback`, `disable_master_role_setting`,
-`use_priority` and `root_node_as_master` are ineffective when dealing with an
-Advanced Cluster, as the cluster decides on the leader itself.
+`use_priority` and `root_node_as_master` are ineffective when dealing with a
+Raft Cluster, as the cluster decides on the leader itself.
 
 During startup, the monitor prints a log message specifying which cluster type
 it detected.
