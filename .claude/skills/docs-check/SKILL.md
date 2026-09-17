@@ -121,17 +121,22 @@ on the file set, from the repo root:
   the page is simply never built. DOCS-6566 is the case — `dde0fb263` added four post-download
   pages without touching `platform/SUMMARY.md` and they sat unpublished for eight days with every
   gate green, until a reader reported them. Like the anchor gate it is **history-aware**, and for
-  the same reason: `main` carries 219 pre-existing orphans (190 in `server`), so it reports only
-  pages newly orphaned against `DOC_LINT_BASE` — added with no nav entry, or de-listed while the
-  file survives. Needs python3 and a git work tree; missing either is a SKIP. Costs ~40 ms, so
-  there is no skip flag. A deliberately unlisted page is legitimate: re-run with
-  `DOC_LINT_ALLOW_ORPHAN='<path>'` and tell the user to say why in the commit message — report it
-  as FAIL when unverified, WARN when acknowledged. For triage,
-  `.claude/hooks/navcheck.py check [path ...]` lists every current orphan, not just the new ones.
-  Added in DOCS-6567.
+  the same reason: the repo carries a standing orphan backlog (219 when DOCS-6586 was filed, 44
+  on 2026-09-17 — **take it fresh with `navcheck.py check`, never quote a figure from a
+  document**), so it reports only pages newly orphaned against `DOC_LINT_BASE` — added with no
+  nav entry, or de-listed while the file survives. Needs python3 and a git work tree; missing
+  either is a SKIP. Costs ~40 ms, so there is no skip flag. Gated in CI by `navcheck-pr.yml`
+  since DOCS-6586. A deliberately unlisted page is legitimate, and the acknowledgment is
+  **checked in** — an `orphan:` entry with a reason in `.claude/hooks/doc-lint-allow.yml`, which
+  is what the CI gate reads. Add the entry rather than reaching for the environment variable, and
+  tell the user what reason you wrote; report it as FAIL when unverified, WARN when acknowledged.
+  `DOC_LINT_ALLOW_ORPHAN='<path>'` remains a local one-off. For triage,
+  `.claude/hooks/navcheck.py check [path ...]` lists every current orphan, not just the new ones,
+  and `navcheck.py stale` audits the register. Added in DOCS-6567.
 - It also flags a **gutted page** — any file that lost more than 40% of its lines *net*
   (deletions minus additions; min 20 lines lost, pre-image ≥ 30 lines) against `DOC_LINT_BASE`
-  (default `HEAD`). No CI counterpart, never SKIPs. This catches what the other checks
+  (default `HEAD`). Gated in CI by `shrinkcheck-pr.yml` since DOCS-6586; needs python3, and
+  missing it is a SKIP. This catches what the other checks
   structurally cannot: a page that loses most of its body while the surviving markup stays valid
   and the remaining links resolve, so codespell and lychee both PASS. DOCS-6442 is the case —
   a campaign meant to remove one `{% columns %}` content-ref block from the Storage Engines
@@ -139,9 +144,17 @@ on the file set, from the repo root:
   untouched, so nav listed 27 engines and the page listed one.
   **Do not silence this by reflex.** Verify the page first: for a landing page, compare its
   content-ref count with the space's `SUMMARY.md` children (`SUMMARY.md` is authoritative for
-  nav — it is what DOCS-6442 used to rebuild the page). If the shrink is genuinely intended,
-  re-run with `DOC_LINT_ALLOW_SHRINK='<path>'` and tell the user to state the reason in the
-  commit message. Report it as FAIL when unverified, WARN when acknowledged.
+  nav — it is what DOCS-6442 used to rebuild the page). If the shrink is genuinely intended, add
+  a `shrink:` entry with its reason to `.claude/hooks/doc-lint-allow.yml` — that file, not the
+  environment variable, is what CI reads — and tell the user what you wrote.
+  `DOC_LINT_ALLOW_SHRINK='<path>'` remains a local one-off. Report it as FAIL when unverified,
+  WARN when acknowledged.
+- **The acknowledgment register itself can fail the gate**, and that is not a finding about any
+  page: an entry whose page has since been listed in `SUMMARY.md` or deleted is **stale** and
+  must be removed in the same PR, and a register that does not parse is exit 2 rather than being
+  read as empty. Both guards name the line to delete. Report a stale entry as FAIL against the
+  register, not against the page it names, and never "fix" it by adding more entries. The format
+  and its rules: `dev-docs/cookbook-pre-pr.md` § 1a, and `.claude/hooks/allowlist.py`'s header.
 
 The remaining checks below are **best-effort, LLM-performed heuristics** — report them as
 warnings, not hard failures, and **ignore anything inside fenced code blocks (```) or
@@ -212,6 +225,7 @@ docs-check on 3 files:
   includes ....... FAIL (dead include in platform/post-download/x.md:22)
   orphan pages ... FAIL (platform/post-download/x.md has no SUMMARY.md entry)
   gutted pages ... FAIL (storage-engines/README.md lost 93% of its lines net)
+  ack register ... WARN (doc-lint-allow.yml:12 — page is listed again, delete the entry)
   frontmatter .... PASS
   gitbook blocks . FAIL (unclosed {% tabs %} in server/foo.md)
   link style ..... PASS

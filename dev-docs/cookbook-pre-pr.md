@@ -12,14 +12,17 @@ skill, which runs them for you; this page documents what it does and how to run 
 | Broken links | `lychee` | `link-check-pr.yml` |
 | Heading anchors | `fragcheck.py new` | `fragcheck-pr.yml` |
 | GitBook includes | `includecheck.sh --stdin0` | `includecheck-pr.yml` |
+| Nav coverage (orphaned pages) | `navcheck.py new` | `navcheck-pr.yml` |
+| Gutted pages (net line loss) | `shrinkcheck.py` | `shrinkcheck-pr.yml` |
 | Alias expansion | sed (auto-commit) | `expand-gitbook-aliases.yml` |
 | Help-tables regen | Python | `generate-help-tables.yml` |
 
-Only the first four can fail your PR; aliases and help-tables are regenerated automatically.
+Only the first six can fail your PR; aliases and help-tables are regenerated automatically.
 
-The heading-anchor gate arrived in DOCS-6524, and the include gate in DOCS-6586; between them
-they close two of the four rot classes that used to be checked only on your own machine. Two
-consequences worth knowing:
+The heading-anchor gate arrived in DOCS-6524 and the other three in DOCS-6586, which closes the
+set: **every check `doc-lint.sh` runs now has a CI counterpart**, so a finding on your machine is
+a finding CI will repeat, and none of them is local-only any more. Two consequences worth
+knowing:
 
 - **It is no longer only a local check.** Before, the anchor gate ran only via `/precommit`, the
   `docs-check` skill, and the Claude Code pre-commit hook — and that hook covers only commits
@@ -133,21 +136,32 @@ and 10.11.19) and bumped their `most-recent-*.md` includes but never touched
 `platform/SUMMARY.md`. All four sat unpublished for eight days with every gate green, until a
 reader noticed. Replayed against that commit, the check names all four and fails.
 
-Like the anchor gate it is history-aware, and for the same reason: `main` carries **219**
-pre-existing orphans (190 in `server` alone), so an absolute check would fail every unrelated PR
-on breakage it did not introduce. It reports only pages *newly* orphaned against `DOC_LINT_BASE` —
+Like the anchor gate it is history-aware, and for the same reason: the repo carries a standing
+backlog of pre-existing orphans — 219 when DOCS-6586 was filed, 209 on 2026-09-04, **44** on
+2026-09-17 as pages get listed — so an absolute check would fail every unrelated PR on breakage
+it did not introduce. Take that figure fresh with `navcheck.py check`; do not quote it from here. It reports only pages *newly* orphaned against `DOC_LINT_BASE` —
 added with no nav entry, or de-listed while the file survives. Unlike the anchor gate it needs no
 worktree, so it costs ~40 ms and has no skip flag.
 
-A deliberately unlisted page is legitimate, so this gate is acknowledged rather than silenced:
+A deliberately unlisted page is legitimate, so this gate is acknowledged rather than silenced —
+and since DOCS-6586 the acknowledgment is **checked in**, in `.claude/hooks/doc-lint-allow.yml`:
 
-```bash
-DOC_LINT_ALLOW_ORPHAN='space/path/to/page.md' .claude/hooks/doc-lint.sh <files>
+```yaml
+orphan:
+  - path: release-notes/enterprise-server/12.3/whats-new.md
+    reason: "unreleased, hidden until beta ships — DOCS-6391"
 ```
 
-and say why in the commit message; `DOC_LINT_ALLOW_ORPHAN=all` disables the check. For triage,
+That file, not an environment variable, is what the CI gate reads — and it is why the gate could
+land at all: `DOC_LINT_ALLOW_ORPHAN` is an environment variable no PR author can set from a
+branch. Putting it in the repo also puts the reason in the diff the reviewer already reads. See
+[§ 1a](#id-1a.-the-acknowledgment-register) below for the format and the rules.
+
+`DOC_LINT_ALLOW_ORPHAN='space/path/to/page.md'` still works for a one-off local run and is
+unioned with the file; only the environment variable takes `all`. For triage,
 `.claude/hooks/navcheck.py check [path ...]` prints the full current orphan inventory rather than
-just the new ones. (Added in DOCS-6567; regression-tested since DOCS-6586.)
+just the new ones, and `navcheck.py stale` runs only the register audit. (Added in DOCS-6567;
+regression-tested and gated since DOCS-6586.)
 
 One SKIP is worth knowing about, because it looks like a pass: if your checkout sits **nested
 inside another git repository**, `new` skips with `is not the top of its git repository`. It has
@@ -157,9 +171,10 @@ reported as newly orphaned. `check` is unaffected; it reads only the working tre
 
 Finally, it flags a **gutted page**: any file in the set that lost more than **40%** of its lines
 *net* (deletions minus additions, minimum 20 lines lost, pre-image at least 30 lines) against
-`DOC_LINT_BASE` (default `HEAD`). Like the orphan gate above it, this one still has no CI
-counterpart; both are the remainder of DOCS-6586. It exists because the other checks are blind
-to it: when a page loses most of its body but the surviving markup is
+`DOC_LINT_BASE` (default `HEAD`). Gated in CI by `shrinkcheck-pr.yml` since DOCS-6586 — and that
+is the point of gating it rather than leaving it to the hook: the commit that motivated it
+arrived through a PR, which the hook does not see at all. It exists because the other checks are
+blind to it: when a page loses most of its body but the surviving markup is
 valid and the remaining links resolve, codespell and lychee both PASS. That is exactly what
 happened in DOCS-6442: a retirement campaign meant to delete one `{% columns %}` content-ref
 block from the Storage Engines landing page and deleted 23 of 24 instead (298 lines → 22,
@@ -170,15 +185,21 @@ Net loss is the metric, not raw deletions — raw deletions flag every reformatt
 expansion, hard-break removal, changelog normalization), because those *rewrite* lines. Measured
 over 300 commits of this repo: raw deletions >40% flags 17 files, net loss >40% flags 4.
 
-A big shrink is often correct, so this gate is meant to be **acknowledged, not silenced**:
+A big shrink is often correct, so this gate is meant to be **acknowledged, not silenced** — in
+the same checked-in register, after confirming the page still covers what it should:
 
-```bash
-# after confirming the page still covers what it should
-DOC_LINT_ALLOW_SHRINK='path/to/README.md' .claude/hooks/doc-lint.sh <files>
+```yaml
+shrink:
+  - path: tools/debian/README.md
+    reason: "3 of 5 child pages retired — DOCS-5976"
 ```
 
-and say why in the commit message. Tunable: `DOC_LINT_SHRINK_PCT`, `DOC_LINT_SHRINK_MIN`,
-`DOC_LINT_SHRINK_FLOOR`, `DOC_LINT_BASE`; `DOC_LINT_ALLOW_SHRINK=all` disables the check.
+`DOC_LINT_ALLOW_SHRINK='path/to/README.md'` still works for a one-off local run. Tunable:
+`DOC_LINT_SHRINK_PCT`, `DOC_LINT_SHRINK_MIN`, `DOC_LINT_SHRINK_FLOOR`, `DOC_LINT_BASE`;
+`DOC_LINT_ALLOW_SHRINK=all` disables the check locally.
+
+One shape the guard cannot see: a page **moved and gutted in the same commit**. The pre-image is
+under the old path, so the new path looks like a new file with nothing to have lost.
 For a landing page, the fastest confirmation is to compare its content-ref count against the
 space's `SUMMARY.md` children — `SUMMARY.md` is authoritative for nav, and it is what DOCS-6442
 used to rebuild the page.
@@ -196,6 +217,42 @@ used to rebuild the page.
 > **Hook vs. PR scope.** The pre-commit hook and `/precommit` check only **staged** files; CI
 > checks the **full PR diff**. Passing the hook is not a guarantee CI passes — run the
 > whole-branch command above before opening the PR. (See `.claude/README.md`.)
+
+## 1a. The acknowledgment register
+
+`.claude/hooks/doc-lint-allow.yml` is where the two acknowledgeable guards — orphaned pages and
+gutted pages — take "yes, on purpose". Two sections, because a page can legitimately be unlisted
+without being gutted and vice versa, and every entry carries a reason and the ticket it traces to:
+
+```yaml
+orphan:
+  - path: release-notes/enterprise-server/12.3/whats-new.md
+    reason: "unreleased, hidden until beta ships — DOCS-6391"
+
+shrink:
+  - path: tools/debian/README.md
+    reason: "3 of 5 child pages retired — DOCS-5976"
+```
+
+Four rules worth knowing before you add an entry:
+
+- **It is strict YAML-subset, not YAML.** `.claude/hooks/allowlist.py` is the only parser, it is
+  standard-library-only on purpose (these checks run from a pre-commit hook and from a runner
+  that installs nothing), and it rejects anything outside the shape above with a **line number**.
+  A wider dialect is a hard error rather than a half-understood acknowledgment — the failure mode
+  it exists to prevent is an entry the reviewer can see in the diff and the gate cannot.
+- **`all` is refused here.** The `DOC_LINT_ALLOW_*` variables take it for a one-off local run; in
+  a checked-in file it would be a permanent repo-wide disable that reads like an acknowledgment.
+- **A stale entry fails.** An `orphan:` entry whose page has since been listed in `SUMMARY.md`,
+  or deleted, or which never named a page in any space, and a `shrink:` entry whose page is gone:
+  all of them turn the gate red, naming the line to delete. The register prunes itself at the
+  point someone forgets rather than piling up entries nobody dares remove. There is no
+  "un-shrink" signal, so a `shrink:` entry whose page has since regrown still needs a manual pass.
+- **A malformed register is exit 2, never an empty one.** Reading it as empty would fail a PR
+  that *had* acknowledged its finding correctly.
+
+Check it on its own with `python3 .claude/hooks/allowlist.py validate`, and audit the orphan half
+with `python3 .claude/hooks/navcheck.py stale`.
 
 ## 2. Structural sanity checks (heuristic)
 

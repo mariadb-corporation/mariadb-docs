@@ -7,10 +7,13 @@ Code. It contains:
 |------|------------|
 | `settings.json` | Project settings, incl. the `PreToolUse(Bash)` hook wiring |
 | `settings.local.json` | **Personal** overrides — gitignored, never committed |
-| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus four checks it delegates to their own scripts: includes (`includecheck.sh`), heading anchors (`fragcheck.py`), orphaned pages and gutted pages (`navcheck.py` and an inline guard) |
+| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus four checks it delegates to their own scripts: includes (`includecheck.sh`), heading anchors (`fragcheck.py`), orphaned pages (`navcheck.py`) and gutted pages (`shrinkcheck.py`). Since DOCS-6586 all four are gated in CI too |
 | `hooks/includecheck.sh` | Resolves every relative GitBook `{% include %}`; fails on a dead or cross-space target. Also the entry point for `includecheck-pr.yml` (DOCS-6586), which runs it tree-wide |
-| `hooks/fragcheck.py` | GitBook-accurate heading-anchor checker, called by `doc-lint.sh` |
-| `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` |
+| `hooks/fragcheck.py` | GitBook-accurate heading-anchor checker, called by `doc-lint.sh` and by `fragcheck-pr.yml` |
+| `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` and by `navcheck-pr.yml` |
+| `hooks/shrinkcheck.py` | Net line-loss ("gutted page") guard, called by `doc-lint.sh` and by `shrinkcheck-pr.yml`. Was an inline block in `doc-lint.sh` until DOCS-6586 |
+| `hooks/doc-lint-allow.yml` | The acknowledgment register: `orphan:` and `shrink:` entries, each with a reason, for the two guards that have legitimate exceptions. A checked-in file rather than an environment variable so the acknowledgment is a diff line the reviewer reads |
+| `hooks/allowlist.py` | The **only** parser for that register — a strict subset of YAML, standard library only. Both guards read it through this one script |
 | `hooks/pre-commit.sh` | PreToolUse hook: gates Claude-made `git commit`s by calling `doc-lint.sh` |
 | `hooks/doc-lint-test.sh` | Regression suite for `doc-lint.sh` — fixtures in a throwaway repo; run it after editing the linter |
 | `skills/` | Shared skills (e.g. `docs-check`) |
@@ -130,8 +133,19 @@ tool a contributor may not have; that one is checked in beside it, so its absenc
 checkout). DOCS-6586 also added the `navcheck.py` cases: both orphan directions, the
 `DOC_LINT_ALLOW_ORPHAN` hatch, `check` vs `new`, what is not a page (`SUMMARY.md`, anything under
 `.gitbook/`) and what is not a space (no `SUMMARY.md` beside it), the ignored-vs-untracked
-enumeration distinction, and four SKIP branches. Run it after any change to `doc-lint.sh`,
-`includecheck.sh` or `navcheck.py`:
+enumeration distinction, and four SKIP branches.
+
+DOCS-6586's second half added 27 more, for the acknowledgment register and the two guards that
+now read it: what `allowlist.py` accepts and what it rejects, each rejection asserting the
+line number as well as the exit code; that a register entry acknowledges an orphan or a shrink
+through both entry points; that the register and the `DOC_LINT_ALLOW_*` variables are unioned
+rather than exclusive; that a **stale** acknowledgment fails (the page has since been listed, or
+deleted, or was never a page in any space) and that neither a narrow file scope nor a local
+`DOC_LINT_ALLOW_*=all` can hide one; that a malformed register is exit 2 rather than being read
+as an empty one; and that `shrinkcheck.py`'s own surface holds up — `--stdin0` against a path
+containing a space, the counts line the CI assertion reads back, its usage errors, and its SKIP
+branches. Run the suite after any change to `doc-lint.sh`, `includecheck.sh`, `navcheck.py`,
+`shrinkcheck.py` or `allowlist.py`:
 
 ```bash
 .claude/hooks/doc-lint-test.sh              # --keep to inspect the sandbox, --verbose for output

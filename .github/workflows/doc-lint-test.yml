@@ -2,13 +2,17 @@ name: Test the Doc Lint Hooks
 
 # Gates the repo's shell tooling: shellcheck over every tracked shell script, actionlint over
 # the shell inside the workflow files, and a fixture suite over .claude/hooks/doc-lint.sh --
-# the script that hosts the two documentation-rot checks with NO CI counterpart anywhere else
-# (the GitBook `{% include %}` resolver from DOCS-6372, and the net line-loss "gutted page"
-# guard from DOCS-6470).
+# the script that hosts the documentation-rot checks every other workflow here delegates to
+# (the GitBook `{% include %}` resolver from DOCS-6372, the heading-anchor gate from DOCS-6491,
+# the orphaned-page guard from DOCS-6567 and the net line-loss "gutted page" guard from
+# DOCS-6470 -- all four now gated by their own workflow as well, as of DOCS-6586).
 #
 # The shellcheck and actionlint jobs are one concern split only by where the shell lives: a
-# .sh file or a workflow's `run:` block. Twelve workflows against four standalone scripts, so
-# most of this repo's shell is in the half actionlint covers (DOCS-6587).
+# .sh file or a workflow's `run:` block. Sixteen workflows against nine tracked .sh files, so
+# most of this repo's shell is in the half actionlint covers (DOCS-6587). Note what that split
+# no longer covers: DOCS-6586 moved the gutted-page guard out of doc-lint.sh into
+# shrinkcheck.py, so a check that shellcheck used to read is now Python -- the fixture suite
+# below is the only thing that exercises it.
 #
 # WHY THIS EXISTS
 #   Until now nothing in CI ran doc-lint.sh at all, and its only caller is a Claude Code

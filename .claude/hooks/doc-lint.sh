@@ -2,10 +2,11 @@
 #
 # doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
 # CI (.github/workflows/codespell.yml and link-check-pr.yml), plus four checks it delegates to
-# their own scripts: a GitBook include resolver (includecheck.sh, gated in CI by
-# includecheck-pr.yml since DOCS-6586), a heading-anchor gate (fragcheck.py, gated by
-# fragcheck-pr.yml), an orphaned-page/nav-coverage gate and a net line-loss guard — the last
-# two still have NO CI counterpart, which is the rest of DOCS-6586.
+# their own scripts: a GitBook include resolver (includecheck.sh), a heading-anchor gate
+# (fragcheck.py), an orphaned-page/nav-coverage gate (navcheck.py) and a net line-loss guard
+# (shrinkcheck.py). All four are gated in CI as of DOCS-6586 — by includecheck-pr.yml,
+# fragcheck-pr.yml, navcheck-pr.yml and shrinkcheck-pr.yml respectively — so a finding here is
+# a finding CI will repeat, and none of them is "local only" any more.
 #
 # The pre-commit hook, the /precommit command, the docs-check skill, and dev-docs/cookbook-pre-pr.md
 # all delegate here instead of re-spelling the flags, so the CI-mirroring options live in exactly
@@ -220,7 +221,7 @@ else
   bash "$INCLUDECHECK" "${files[@]}" >/dev/null || rc=1
 fi
 
-# --- GitBook heading anchors — NO CI counterpart --------------------------------------------
+# --- GitBook heading anchors — HAS a CI counterpart since DOCS-6524 --------------------------
 # A link to `page.md#some-heading` can rot in two ways that every other gate here is blind
 # to: the heading is renamed, or the anchor was hand-written in the wrong dialect. CI passes
 # no `--include-fragments`, and enabling it would not help — lychee's slugger is
@@ -277,7 +278,7 @@ else
   python3 .claude/hooks/fragcheck.py new "$LINT_BASE" >/dev/null || rc=1
 fi
 
-# --- orphaned pages (nav coverage) — NO CI counterpart --------------------------------------
+# --- orphaned pages (nav coverage) — HAS a CI counterpart since DOCS-6586 -------------------
 # GitBook publishes only the pages listed in a space's SUMMARY.md. A page file with no nav entry
 # never renders, and NOTHING else here can see it: the markup is valid so codespell passes, the
 # links resolve so lychee passes, and the page is simply never built. There is no failing signal
@@ -294,16 +295,20 @@ fi
 # with no nav entry, or de-listed while the file survives.
 #
 # Unlike that gate this needs no worktree (the base side is read with git ls-tree / git show), so
-# it costs milliseconds and has no skip flag. A deliberately unlisted page is legitimate: name it
-# in DOC_LINT_ALLOW_ORPHAN (space/comma-separated, or "all") and say why in the commit message.
+# it costs milliseconds and has no skip flag. A deliberately unlisted page is legitimate, so the
+# gate is acknowledged rather than disabled: add the path and its reason to the `orphan:` section
+# of .claude/hooks/doc-lint-allow.yml, where the acknowledgment sits in the diff a reviewer reads
+# (DOCS-6586). DOC_LINT_ALLOW_ORPHAN still works for a local one-off run and is unioned with the
+# file; only the env var takes "all". An acknowledgment that is no longer true — the page has
+# since been listed, or deleted — FAILS, so the register prunes itself.
 #
 # Needs python3 (no third-party modules) and a git work tree; missing either is a SKIP, as is a
 # base revision that cannot be resolved — never a silent pass into failure.
 if [ ! -f .claude/hooks/navcheck.py ]; then
   echo "doc-lint: .claude/hooks/navcheck.py not found — orphan check SKIPPED" >&2
 elif ! command -v python3 >/dev/null 2>&1; then
-  echo "doc-lint: python3 not installed — orphan check SKIPPED (no CI counterpart, so nothing" >&2
-  echo "          else will catch a page that is missing from SUMMARY.md)." >&2
+  echo "doc-lint: python3 not installed — orphan check SKIPPED (navcheck-pr.yml still gates" >&2
+  echo "          this in CI). Install: brew install python3" >&2
 elif ! command -v git >/dev/null 2>&1 || ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   echo "doc-lint: not a git work tree — orphan check SKIPPED (needs a base revision)" >&2
 elif ! git rev-parse --verify -q "$LINT_BASE" >/dev/null 2>&1; then
@@ -312,83 +317,48 @@ else
   python3 .claude/hooks/navcheck.py new "$LINT_BASE" "${files[@]}" >/dev/null || rc=1
 fi
 
-# --- net line-loss guard — NO CI counterpart ------------------------------------------------
+# --- net line-loss guard — HAS a CI counterpart since DOCS-6586 ------------------------------
 # Catches the "silently gutted page" failure: a surviving page loses most of its body while the
 # markup stays valid and every remaining link resolves, so codespell and lychee both PASS.
+# DOCS-6442 is the case it exists for, and .claude/hooks/shrinkcheck.py carries the full
+# rationale, the thresholds and the measurements.
 #
-# DOCS-6442 is the case this exists for. A retirement campaign (DOCS-5976 Tier B, c6ea5549a)
-# meant to delete ONE {% columns %} content-ref block from the Storage Engines landing page —
-# the block pointing at a folder it was removing — and promote FEDERATED into its place. It
-# deleted 23 of the 24 blocks instead: 298 lines -> 22, 24 content-refs -> 1. SUMMARY.md was
-# untouched, so the nav still listed all 27 engines while the page listed one. Every gate passed;
-# a reader found it two days later, and b36d939 rebuilt the page from SUMMARY.md.
+# The guard used to be ~50 lines of bash right here. It was EXTRACTED — the move includecheck.sh
+# made under the same ticket — because the CI gate (shrinkcheck-pr.yml) must not route through
+# this script: that would re-run codespell and lychee, which have their own workflows, and the
+# orphan guard, which has its own now too. One implementation, two callers.
 #
-# The metric is NET loss (pre - post, i.e. deletions minus additions), not raw deletions.
-# Raw deletions flag every reformatting campaign — alias expansion, trailing-backslash removal,
-# changelog normalization — because those rewrite lines rather than remove them. Measured over
-# 300 commits of this repo: raw deletions >40% flags 17 files (mostly those campaigns), net loss
-# >40% flags 4. On c6ea5549a itself the guard yields a ONE-item list at 94%, next-worst 16%.
+# It is Python rather than the bash it came from for one reason: the acknowledgment allowlist
+# (.claude/hooks/doc-lint-allow.yml) has exactly ONE parser, allowlist.py, and a second one in
+# awk is precisely the drift DOCS-6586 set out to remove. That makes the LOCAL guard depend on
+# python3 where it used to need only bash — acceptable only because it now HAS a CI counterpart,
+# which is the same trade the anchor and orphan gates above already make.
 #
-# Thresholds and the acknowledgment path are env-overridable:
-#   DOC_LINT_SHRINK_PCT   (40) percent of the pre-image lost, net, before flagging
-#   DOC_LINT_SHRINK_MIN   (20) minimum net lines lost, so tiny files can't trip it
-#   DOC_LINT_SHRINK_FLOOR (30) minimum pre-image size considered at all
-#   DOC_LINT_BASE       (HEAD) revision the pre-image is read from
-#   DOC_LINT_ALLOW_SHRINK     space/comma-separated paths to exempt, or "all"
+# Resolved relative to THIS script rather than the working directory, for the reason the
+# includecheck block above records: doc-lint-test.sh runs this script from the repo while CWD is
+# a throwaway sandbox, and a CWD-relative path would silently exercise the "script missing"
+# branch instead of the guard.
 #
-# A deliberate large shrink is legitimate (Tier C's Debian README correctly went 70 -> 34 lines
-# when three of its five children were retired), so this gate is meant to be acknowledged, not
-# worked around: name the path in DOC_LINT_ALLOW_SHRINK and say why in the commit message.
-#
-# Compares the WORKING-TREE file against the base revision — the same content codespell and
-# lychee above are checking. When the index and working tree differ, this reflects the working
-# tree, not what is staged.
-
-SHRINK_PCT="${DOC_LINT_SHRINK_PCT:-40}"
-SHRINK_MIN="${DOC_LINT_SHRINK_MIN:-20}"
-SHRINK_FLOOR="${DOC_LINT_SHRINK_FLOOR:-30}"
-SHRINK_BASE="$LINT_BASE"
-SHRINK_ALLOW=" ${DOC_LINT_ALLOW_SHRINK:-} "
-SHRINK_ALLOW="${SHRINK_ALLOW//,/ }"
-
-if command -v git >/dev/null 2>&1 \
-   && git rev-parse --is-inside-work-tree >/dev/null 2>&1 \
-   && git rev-parse --verify -q "$SHRINK_BASE" >/dev/null 2>&1; then
-  case "$SHRINK_ALLOW" in
-    *" all "*) : ;;   # globally acknowledged — skip the whole check
-    *)
-      for f in "${files[@]}"; do
-        f="${f#./}"
-        case "$SHRINK_ALLOW" in *" $f "*) continue ;; esac
-        # absent from the base revision = a new file, so there is nothing to have lost
-        git cat-file -e "$SHRINK_BASE:$f" 2>/dev/null || continue
-
-        pre=$(git show "$SHRINK_BASE:$f" 2>/dev/null | wc -l | tr -d ' ')
-        post=$(wc -l < "$f" | tr -d ' ')
-        [ "$pre" -lt "$SHRINK_FLOOR" ] && continue
-
-        net=$((pre - post))
-        [ "$net" -lt "$SHRINK_MIN" ] && continue
-
-        if [ "$(awk -v n="$net" -v p="$pre" -v t="$SHRINK_PCT" \
-                    'BEGIN{print (n/p*100 > t) ? 1 : 0}')" = "1" ]; then
-          pctv="$(awk -v n="$net" -v p="$pre" 'BEGIN{printf "%.0f", n/p*100}')"
-          echo "doc-lint: possible gutted page — $f" >&2
-          echo "          lost $net of $pre lines net (${pctv}%) vs $SHRINK_BASE." >&2
-          echo "          Confirm the page still covers everything it should. For a landing page," >&2
-          echo "          compare its content-ref count against the space's SUMMARY.md children —" >&2
-          echo "          SUMMARY.md is authoritative for nav, so a page listing far fewer of its" >&2
-          echo "          children than SUMMARY.md does is the signature of this bug (DOCS-6442)." >&2
-          echo "          Intentional? Re-run with DOC_LINT_ALLOW_SHRINK='$f'" >&2
-          echo "          and say why in the commit message." >&2
-          rc=1
-        fi
-      done
-      ;;
-  esac
+# Env knobs (read by shrinkcheck.py itself, so they are spelled in exactly one place):
+#   DOC_LINT_SHRINK_PCT / _MIN / _FLOOR, DOC_LINT_BASE, DOC_LINT_ALLOW_SHRINK.
+SHRINKCHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/shrinkcheck.py"
+if [ ! -f "$SHRINKCHECK" ]; then
+  # NOT a SKIP, for the reason the includecheck block gives: this is a checked-in sibling, so
+  # its absence is a broken checkout rather than a missing tool.
+  echo "doc-lint: $SHRINKCHECK not found — cannot check for gutted pages." >&2
+  echo "          It is checked in beside this script, so this is a broken checkout, not a" >&2
+  echo "          missing tool." >&2
+  rc=1
+elif ! command -v python3 >/dev/null 2>&1; then
+  echo "doc-lint: python3 not installed — gutted-page check SKIPPED (shrinkcheck-pr.yml still" >&2
+  echo "          gates this in CI). Install: brew install python3" >&2
+else
+  # Findings go to stderr; the counts line goes to stdout, which is swallowed here the same way
+  # navcheck's clean line is. CI reads that line to prove the run was not vacuous.
+  python3 "$SHRINKCHECK" --base "$LINT_BASE" "${files[@]}" >/dev/null || rc=1
 fi
 
-# --- retired Knowledge Base links — NO CI counterpart ---------------------------------------
+# --- retired Knowledge Base links — NO CI counterpart (the last one) ------------------------
 # mariadb.com/kb/<locale>/... is the retired Knowledge Base. It still answers 200 (it 301s into
 # the current docs site), so lychee follows the redirect and reports nothing — and roughly half
 # of these redirects silently drop the slug and land on the docs SEARCH page
