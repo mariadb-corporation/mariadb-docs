@@ -79,6 +79,18 @@ InnoDB begins forcing checkpoints and flushing dirty pages well before the check
 
 Before [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), the redo log was spread over `innodb_log_files_in_group` files and the capacity was the combined size of all of them. That system variable was deprecated and ignored in [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2) and removed in [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0).
 
+### Sizing the Redo Log
+
+A larger redo log defers page writes. InnoDB can leave a page dirty in the buffer pool across many changes and write it out once, instead of flushing it repeatedly to hold the checkpoint age down. On write-heavy workloads that modify the same pages over and over, that reduces write amplification and the storage wear which comes with it. Where the workload calls for it, the redo log can be set to several times the size of the buffer pool.
+
+The cost of doing so is paid at crash recovery. Recovery buffers redo records in blocks taken from the [buffer pool](innodb-buffer-pool.md), so the amount of redo InnoDB can apply in one pass is bounded by the buffer pool size. When the redo left to apply is too large for that — roughly, when it would occupy more than a third of the buffer pool — InnoDB switches to multi-batch recovery, re-reading the log in several passes and taking correspondingly longer. It reports this in the error log:
+
+```
+InnoDB: Multi-batch recovery needed at LSN 123456789
+```
+
+Recovery still completes; it is only slower. Size [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) with that in mind, rather than for steady-state throughput alone.
+
 ### Changing the Redo Log Capacity
 
 From [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109), [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) is dynamic, and the redo log can be resized without restarting the server:
