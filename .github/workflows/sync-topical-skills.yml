@@ -1,3 +1,16 @@
+# WHY THIS WORKFLOW DELIBERATELY HAS NO GATE JOB  (DOCS-6675)
+#   Every other PR-opening workflow here gained one, because a PR authored by GITHUB_TOKEN
+#   triggers no `on: pull_request` checks and so merges unlinted (DOCS-6618). This one is the
+#   exception, and not by oversight: it writes agent-skills/topical/** and
+#   agent-skills/.skills-manifest.json, and *every* content gate already excludes that content
+#   on purpose. agent-skills/topical/** is in files_ignore for codespell, link-check and
+#   fragcheck alike -- it is vendored verbatim from MariaDB/skills (see topical/VENDORED.md), so
+#   a finding there is an upstream bug and "fixing" it here is reverted by the next sync
+#   (DOCS-6206). The manifest is JSON, which no gate targets. Adding the gate would therefore
+#   scan nothing and report a pass, which is worse than no gate: it looks like coverage.
+#
+#   If this workflow ever starts writing outside agent-skills/topical/**, add the gate job --
+#   .github/workflows/doc-gates.yml, called the way extract-function-skills.yml calls it.
 name: Sync topical agent-skills from MariaDB/skills
 
 # Re-vendors the topical "keeper" skills + LICENSE from MariaDB/skills at the

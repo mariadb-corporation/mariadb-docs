@@ -16,6 +16,8 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  # The gate job below publishes its verdict as a commit status on the PR head (DOCS-6675).
+  statuses: write
 
 concurrency:
   group: regen-tier2-functions
@@ -24,6 +26,9 @@ concurrency:
 jobs:
   regenerate:
     runs-on: ubuntu-latest
+    outputs:
+      pr-number: ${{ steps.cpr.outputs.pull-request-number }}
+      head-sha: ${{ steps.cpr.outputs.pull-request-head-sha }}
     steps:
       - uses: actions/checkout@v7
 
@@ -35,6 +40,7 @@ jobs:
         run: python3 agent-skills/extractor/regenerate.py
 
       - name: Open a PR if anything changed
+        id: cpr
         uses: peter-evans/create-pull-request@v8
         with:
           branch: agent-skills/regen-tier2-functions
@@ -59,3 +65,31 @@ jobs:
             automated
           add-paths: |
             agent-skills/granular/functions/**
+
+  # WHY THIS JOB EXISTS  (DOCS-6675)
+  #   This PR is authored by GITHUB_TOKEN, and GitHub fires no `on: pull_request` workflows for
+  #   such a PR, so none of our content gates run on it. See .github/workflows/doc-gates.yml for
+  #   the mechanism and DOCS-6618 for what it cost the last time generated content merged
+  #   unlinted.
+  #
+  #   Which gates bear on THIS content: codespell and lychee do (only agent-skills/topical/** is
+  #   excluded from them, and this workflow writes agent-skills/granular/functions/**), as do the
+  #   include resolver, the shrink guard and the retired-KB guard. fragcheck and navcheck do not:
+  #   fragcheck.py lists agent-skills/ under UNPUBLISHED because the skills are not GitBook
+  #   pages, and navcheck only scans directories holding a SUMMARY.md, which agent-skills/ does
+  #   not. The canary in run-doc-gates.sh still proves all six are live before the real run --
+  #   it seeds its defects in a published space precisely so the self-test does not depend on
+  #   what the caller happens to be gating.
+  gate:
+    needs: regenerate
+    if: needs.regenerate.outputs.pr-number != ''
+    permissions:
+      contents: read
+      statuses: write
+    uses: ./.github/workflows/doc-gates.yml
+    with:
+      branch: agent-skills/regen-tier2-functions
+      head-sha: ${{ needs.regenerate.outputs.head-sha }}
+      pathspecs: |
+        agent-skills/granular/functions/**
+      status-context: doc-gates
