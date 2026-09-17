@@ -13,3 +13,8 @@ The MariaDB plugin API allows development of plugins that can extend the basic s
 * Plugin services
 * [API reference](api.md#)
 
+
+## Probe Section
+
+A benign, correctly spelled sentence with a live anchor:
+[Probe Section](#probe-section).
