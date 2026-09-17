@@ -478,12 +478,12 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_buffer_pool_size_auto_min`
 
-* Description: Minimum `innodb_buffer_pool_size` in bytes for dynamic shrinking on memory pressure. Only affects Linux. If a memory pressure event is reported by Linux, the `innodb_buffer_pool_size` may be automatically shrunk towards this value. By default, set to [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max), that is, memory pressure events will be ignored. `0` sets no minimum value.
+* Description: Minimum `innodb_buffer_pool_size` in bytes for dynamic shrinking on memory pressure. Only available on Linux, and on debug builds on other platforms. If a memory pressure event is reported by Linux, the `innodb_buffer_pool_size` may be automatically shrunk towards this value. By default, set to [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max), that is, memory pressure events will be ignored. `0` sets no minimum value.
 * Command line: `--innodb-buffer-pool-size-auto-min=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value: `134217728` (128MiB)
+* Default Value: `0`, which is replaced at startup by [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max). A value greater than `innodb_buffer_pool_size_max` is also replaced by it.
 * Range: `0` to `18446744073701163008`
 * Block size: `8388608` (8 MB on 64-bit systems)
 * Introduced: MariaDB 10.11.12, MariaDB 11.4.6, MariaDB 11.8.2
@@ -491,7 +491,11 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 #### `innodb_buffer_pool_size_max`
 
 {% hint style="danger" %}
-`innodb_buffer_pool_size_max` is a **read-only** variable. If not specified at startup, it defaults to the initial `innodb_buffer_pool_size`, which effectively disables upward dynamic resizing at runtime (attempts to increase size results in _Warning 1292_).
+`innodb_buffer_pool_size_max` is a **read-only** variable, so it can only be set at startup. Attempts to raise [`innodb_buffer_pool_size`](innodb-system-variables.md#innodb_buffer_pool_size) above it at runtime result in _Warning 1292_.
+{% endhint %}
+
+{% hint style="info" %}
+From MariaDB 10.11.17, 11.4.11, 11.8.7 and 12.3.2, `innodb_buffer_pool_size_max` defaults to 8 TiB of reserved virtual address space on 64-bit systems other than IBM AIX, so the buffer pool can be grown at runtime without configuring anything at startup ([MDEV-38671](https://jira.mariadb.org/browse/MDEV-38671)). Before those releases it defaulted to the initial `innodb_buffer_pool_size` on every system, which meant `SET GLOBAL innodb_buffer_pool_size` could not increase the buffer pool unless `innodb_buffer_pool_size_max` had been set explicitly.
 {% endhint %}
 
 {% hint style="warning" %}
@@ -499,12 +503,12 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 {% endhint %}
 
 * Description: Maximum `innodb_buffer_pool_size` value. On 64-bit systems other than IBM AIX, the default is 8 TiB, and the minimum 8 MiB. On other systems, the default and minimum are `0`, and the value `0` is replaced with the initial `innodb_buffer_pool_size` rounded up to the allocation unit (2 MiB or 8 MiB). The maximum value is 4GiB-2MiB on 32-bit systems and 16EiB-8MiB on 64-bit systems. This maximum is likely to be limited further by the operating system.\
-  On 64-bit systems, while the default maximum is 8 TiB, the actual available address space may be restricted by operating system limits (such as [`RLIMIT_AS`](#user-content-fn-2)[^2]) or specific hardware architectures. If MariaDB is unable to allocate the default 8 TiB of virtual address space at startup, it automatically attempts to fall back to a 128 GiB limit to ensure the server can still start. (128 GiB is often chosen as a fallback because it’s a safe value that almost any modern 64-bit Linux kernel/CPU can handle without special configuration, while still being plenty large for the vast majority of database workloads.)
+  On 64-bit systems the default 8 TiB only reserves virtual address space; no memory is committed until the buffer pool actually grows into it. The default is reduced automatically in two cases. If the address-space limit [`RLIMIT_AS`](#user-content-fn-2)[^2] is set and a quarter of it is less than 8 TiB, the default is lowered to that quarter. On architectures whose usable virtual address space can be narrower than 8 TiB — ARM64, RISC-V, MIPS and LoongArch — a failed reservation is retried with 128 GiB, or with the initial `innodb_buffer_pool_size` if that is larger, so that the server can still start. On any other architecture, a failed reservation is a startup error, and a smaller `innodb_buffer_pool_size_max` has to be configured explicitly.
 * Command line: `--innodb-buffer-pool-size-max=#`
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value: specified by the initial value of [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size), rounded up to the block size of that variable. See [the section about buffer pool changes](innodb-buffer-pool.md#buffer-pool-changes) in MariaDB 10.11.12, 11.4.6, and 11.8.2.
+* Default Value: `8796093022208` (8 TiB) on 64-bit systems other than IBM AIX, from MariaDB 10.11.17, 11.4.11, 11.8.7 and 12.3.2. Otherwise `0`, which is replaced at startup by the initial [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) rounded up to the block size of that variable. See [the section about buffer pool changes](innodb-buffer-pool.md#buffer-pool-changes).
 * Range: `0` to `18446744073701163008`
 * Block size: `8388608` (8 MB on 64-bit systems)
 * Introduced: MariaDB 10.11.12, MariaDB 11.4.6, MariaDB 11.8.2
