@@ -71,7 +71,7 @@ This SST method supports encryption in transit via [stunnel](https://www.stunnel
 
 ## Raft Plugin TLS
 
-MariaDB Advanced Cluster's Raft-based replication backend configures inter-node TLS through its own `raft_ssl_*` system variables, separate from the `wsrep_ssl_mode` and `socket.ssl_*` settings described above. By default, `raft_ssl_verify_server_cert` is `OFF`, so Raft inter-node TLS encrypts traffic but does not verify peer certificates. See the [MariaDB Advanced Cluster Team FAQ and Architectural Guide](../reference/mariadb-advanced-cluster-team-faq-and-architectural-guide.md).
+MariaDB Raft Cluster's Raft-based replication backend configures inter-node TLS through its own `raft_ssl_*` system variables, separate from the `wsrep_ssl_mode` and `socket.ssl_*` settings described above. By default, `raft_ssl_verify_server_cert` is `OFF`, so Raft inter-node TLS encrypts traffic but does not verify peer certificates. See the [MariaDB Raft Cluster: Team FAQ & Architectural Guide](../reference/mariadb-advanced-cluster-team-faq-and-architectural-guide.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

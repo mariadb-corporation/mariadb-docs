@@ -1,6 +1,6 @@
 ---
-description: MariaDB Advanced Cluster release notes
+description: MariaDB Raft Cluster release notes
 ---
 
-# Advanced Cluster Release Notes
+# Raft Cluster Release Notes
 
