@@ -1,0 +1,38 @@
+# doc-lint acknowledgment allowlist — the in-band way to say "yes, on purpose"
+# to the two doc-lint guards that have legitimate exceptions.
+#
+# Parsed ONLY by .claude/hooks/allowlist.py, which accepts a strict subset of
+# YAML and rejects everything else with a line number; that script's header has
+# the format, the rules and the reasoning. Decided on DOCS-6586.
+#
+#   orphan  a page file with no entry in its space's SUMMARY.md. GitBook
+#           publishes only what SUMMARY.md lists, so the page never renders --
+#           which is correct for a `hidden: true` page or an unreleased draft,
+#           and a bug everywhere else (DOCS-6566).
+#   shrink  a page that lost more than 40% of its lines, net, against the PR
+#           base. Correct when a landing page's children were retired, and the
+#           signature of a silently gutted page everywhere else (DOCS-6442).
+#
+# Every entry needs a `reason`, and the ticket it traces to where there is one:
+#
+#   orphan:
+#     - path: release-notes/enterprise-server/12.3/whats-new.md
+#       reason: "unreleased, hidden until beta ships — DOCS-6391"
+#
+#   shrink:
+#     - path: tools/debian/README.md
+#       reason: "3 of 5 child pages retired — DOCS-5976"
+#
+# Two things this file will NOT take. `all`, because in a checked-in file that
+# is a permanent repo-wide disable rather than an acknowledgment (the local
+# DOC_LINT_ALLOW_* environment variables still accept it for a one-off run).
+# And a stale entry: the orphan guard FAILS on an entry whose page is now
+# listed in SUMMARY.md or no longer exists, and the shrink guard fails on an
+# entry whose page no longer exists, so the register prunes itself at the point
+# someone forgets instead of piling up quietly.
+#
+# Adding an entry is a review decision. Keep the sections alphabetical by path.
+
+orphan:
+
+shrink:
