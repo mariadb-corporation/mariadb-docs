@@ -269,6 +269,8 @@ max_size=100Mi
 
 ### `min_query_duration`
 
+Available since MaxScale 25.10.4.
+
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
@@ -306,6 +308,8 @@ min_query_duration=10ms
 
 ### `max_uncached_query_count`
 
+Available since MaxScale 25.10.4.
+
 * Type: count
 * Mandatory: No
 * Dynamic: No
@@ -326,10 +330,6 @@ Note that if `cached_data` is `thread_specific` then this limit will be
 applied to each cache _separately_. That is, if a thread specific cache is
 used, then the total number of remembered queries is #threads \* the value
 of `max_uncached_query_count`.
-
-```
-max_uncached_query_count=10000
-```
 
 Tuning: the value need only be large enough to hold the set of _recurring_
 fast queries; a query seen just once gains nothing from being remembered.
@@ -352,6 +352,10 @@ The benefit is greatest with a networked storage (`storage_redis`,
 `storage_inmemory` the skipped lookup is only a local hash probe, so this
 setting has little effect and a small value — or `0` — is appropriate. The
 memory cost is roughly 90 bytes per remembered query, per storage instance.
+
+```
+max_uncached_query_count=10000
+```
 
 ### `rules`
 
