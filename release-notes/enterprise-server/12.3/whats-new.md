@@ -205,7 +205,7 @@ Nine new GIS functions improve compatibility with MySQL 8:
 Two capabilities from the MariaDB Community audit plugin are now available in MariaDB Enterprise Audit:
 
 * **Client port in connection records**: a connection is identified as `HOST:PORT` rather than by host alone, which distinguishes concurrent connections from the same host. When no port is available, the field records `unavailable`
-* **TLS version in `CONNECT` events**: each connection event records the TLS version negotiated, so audit logs can evidence which sessions used which protocol version
+* **TLS version in connection events**: `CONNECT`, `FAILED_CONNECT`, `DISCONNECT`, `CHANGE_USER`, and `CHANGE_USER_DONE` records each carry the TLS version negotiated for the session, so audit logs can evidence which sessions used which protocol version
 
 ## Observability and Information Schema
 

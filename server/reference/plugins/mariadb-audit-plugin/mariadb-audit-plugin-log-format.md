@@ -45,6 +45,12 @@ Two changes to the log format require updates to tools that parse the audit log:
 * On connection events, the `object` field now carries the negotiated TLS version. The record still has ten fields and still ends with `retcode`.
 {% endhint %}
 
+{% hint style="info" %}
+**On MariaDB Enterprise Server**
+
+From MariaDB Enterprise Server 12.3.3-1, this plugin writes `host:unavailable` when the client did not connect over TCP/IP, instead of omitting the colon and the port. That matches [MariaDB Enterprise Audit](../mariadb-enterprise-audit.md), which has written `unavailable` since it gained the client port. Community Server is unaffected.
+{% endhint %}
+
 ### Audit Log Format with Syslog
 
 If `server_audit_output_type` is set to `SYSLOG`, the standard CSV line is prefixed with syslog metadata: `<timestamp> <syslog_host> <syslog_ident>: <syslog_info> [Standard CSV Fields]`
