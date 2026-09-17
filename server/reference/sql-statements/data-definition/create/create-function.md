@@ -36,7 +36,7 @@ func_body:
 
 ![Railroad diagram of CREATE FUNCTION — equivalent to the BNF above](../../../../.gitbook/assets/create-function-railroad.svg)
 
-![Railroad diagram of func_parameter](../../../../.gitbook/assets/create-function-parameter-railroad.svg)
+![Railroad diagram of func\_parameter](../../../../.gitbook/assets/create-function-parameter-railroad.svg)
 
 ![Railroad diagram of characteristic](../../../../.gitbook/assets/create-function-characteristic-railroad.svg)
 
@@ -62,6 +62,10 @@ The `RETURN` clause can return a function body. In newer versions of MariaDB, it
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From Community Server (CS) 12.0 / Enterprise Server (ES) 11.4:
+{% endhint %}
+
 **RETURN `func_body`**
 
 The `RETURN` clause can return a function body (a valid SQL `PROCEDURE` statement).
@@ -83,7 +87,11 @@ END;
 Alternatively, a cursor can be returned in an `OUT` parameter, see [this section](create-function.md#in-or-out-or-inout-or-in-out).
 {% endtab %}
 
-{% tab title="< Community Server 12.0 / Enterprise Server 11.8" %}
+{% tab title="< CS 12.0 / ES 11.8" %}
+{% hint style="info" %}
+Before Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:
+{% endhint %}
+
 **RETURN `func_body`**
 
 The `RETURN` clause can return a function body (a valid SQL `PROCEDURE` statement).
@@ -250,9 +258,7 @@ A subset of Oracle's PL/SQL language is supported in addition to the traditional
 
 You must have the [EXECUTE](../../account-management-sql-statements/grant.md#function-privileges) privilege on a function to call it. MariaDB automatically grants the `EXECUTE` and `ALTER ROUTINE` privileges to the account that called `CREATE FUNCTION`, even if the `DEFINER` clause was used.
 
-Each function has an account associated as the definer. By default, the definer is the account
-that created the function. Use the `DEFINER` clause to specify a different account as the
-definer. You must have the [SET USER](../../account-management-sql-statements/grant.md#set-user) privilege to use the `DEFINER` clause. See [Account Names](../../account-management-sql-statements/create-user.md#account-names) for details on specifying accounts.
+Each function has an account associated as the definer. By default, the definer is the account that created the function. Use the `DEFINER` clause to specify a different account as the definer. You must have the [SET USER](../../account-management-sql-statements/grant.md#set-user) privilege to use the `DEFINER` clause. See [Account Names](../../account-management-sql-statements/create-user.md#account-names) for details on specifying accounts.
 
 The `SQL SECURITY` clause specifies what privileges are used when a function is called. If `SQL SECURITY` is `INVOKER`, the function body will be evaluated using the privileges of the user calling the function. If `SQL SECURITY` is `DEFINER`, the function body is always evaluated using the privileges of the definer account. `DEFINER` is the default.
 
@@ -281,8 +287,7 @@ If the character set and collation are not specifically set in the statement, th
 
 ## Examples
 
-The following example function takes a parameter, performs an operation using
-an SQL function, and returns the result.
+The following example function takes a parameter, performs an operation using an SQL function, and returns the result.
 
 ```sql
 CREATE FUNCTION hello (s CHAR(20))
