@@ -24,7 +24,7 @@ The `WAIT FOR ALL REPLICAS` statement can be used as an alias for `WAIT FOR ALL 
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
-The `WAIT FOR ALL SLAVES` option was first added in [MariaDB 10.4.4](../../../release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/mariadb-1044-release-notes/).
+The `WAIT FOR ALL SLAVES` option was first added in [MariaDB 10.4.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.4).
 {% endtab %}
 {% endtabs %}
 
@@ -42,7 +42,7 @@ See [Replication Threads: Binary Log Dump Threads and the Shutdown Process](../.
 
 ## Required Permissions
 
-One must have a `SHUTDOWN` privilege (see [GRANT](../account-management-sql-statements/grant.md)) to use this command. It is the same privilege one needs to use the [mariadb-admin shutdown](../../../clients-and-utilities/administrative-tools/mariadb-admin.md#mariadb-admin-commands) command.
+One must have a `SHUTDOWN` privilege (see [GRANT](../account-management-sql-statements/grant.md)) to use this command. It is the same privilege one needs to use the [mariadb-admin shutdown](../../../clients-and-utilities/administrative-tools/mariadb-admin.md#commands) command.
 
 ## Shutdown for Upgrades
 

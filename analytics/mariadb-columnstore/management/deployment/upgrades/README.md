@@ -29,3 +29,4 @@ layout:
 [major-release-upgrades-for-mariadb-enterprise-columnstore.md](major-release-upgrades-for-mariadb-enterprise-columnstore.md)
 {% endcontent-ref %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

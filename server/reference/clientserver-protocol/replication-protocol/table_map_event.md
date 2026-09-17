@@ -33,7 +33,7 @@ This event precedes each row operation event and maps a table definition to a nu
 * [byte\<n>](../protocol-data-types.md#fixed-length-bytes) The metadata block;
 * [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Bit-field indicating whether each column can be `NULL`, one bit per column.
 * If (more\_data\_available):
-  * [byte\<n>](../protocol-data-types.md#variable-length-bytes) Optional metadata block.
+  * [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Optional metadata block.
 
 #### Metadata Block
 

@@ -25,3 +25,4 @@ MariaDB Cloud offers several tools and methods for loading data into your databa
 [data-loading](data-loading/)
 {% endcontent-ref %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

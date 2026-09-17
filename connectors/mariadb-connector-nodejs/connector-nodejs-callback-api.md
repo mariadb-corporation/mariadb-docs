@@ -65,13 +65,13 @@ For compatibility with the previous version or MySQL/mysql driver, four options 
 | **insertIdAsNumber** | Whether the query should return the last insert ID from the INSERT/UPDATE command as BigInt or Number. default return BigInt                                                |  _boolean_ |  false  |
 |  **decimalAsNumber** | Whether the query should return a decimal as a number. If enabled, it might return approximate values.                                                                      |  _boolean_ |  false  |
 |   **bigIntAsNumber** | Whether the query should return the BigInt data type as a number. If enabled, it might return approximate values.                                                           |  _boolean_ |  false  |
-| **checkNumberRange** | when used in conjunction with decimalAsNumber, insertIdAsNumber, or bigIntAsNumber, if conversion to a number is not exact, the connector will throw an error (since 3.0.1) | _function_ |         |
+| **checkNumberRange** | when used in conjunction with decimalAsNumber, insertIdAsNumber, or bigIntAsNumber, if conversion to a number is not exact, the connector will throw an error (since 3.0.1) | _boolean_ |  false   |
 
 Previous options `supportBigNumbers` and `bigNumberStrings` still exist for compatibility, but are now deprecated.
 
 **Other considerations**
 
-MySQL has an experimental syntax permitting the use of `??` characters as a placeholder to escape ID. This isn't implemented in the MariaDB driver, permitting the same query syntax for [Connection.query](connector-nodejs-callback-api.md#connectionquerysql-values---promise) and [Connection.execute](connector-nodejs-callback-api.md#connectionexecutesql-values--promise).
+MySQL has an experimental syntax permitting the use of `??` characters as a placeholder to escape ID. This isn't implemented in the MariaDB driver, permitting the same query syntax for [Connection.query](connector-nodejs-callback-api.md#connection.query-sql-values-callback-greater-than-emitter) and [Connection.execute](connector-nodejs-promise-api.md#connection.execute-sql-values-promise).
 
 Example:
 
@@ -101,7 +101,7 @@ The connector has different solutions when this is the case. The `timezone` opti
 
 **IANA timezone/offset**
 
-When using an IANA timezone, the connector will set the connection timezone to the timezone. This can throw an error on connection if the timezone is unknown by the server (see [mariadb timezone documentation](https://mariadb.com/kb/en/time-zones/), timezone tables might not be initialized). If you are sure the server is using that timezone, this step can be skipped with the option `skipSetTimezone`.
+When using an IANA timezone, the connector will set the connection timezone to the timezone. This can throw an error on connection if the timezone is unknown by the server (see [mariadb timezone documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets/internationalization-and-localization/time-zones), timezone tables might not be initialized). If you are sure the server is using that timezone, this step can be skipped with the option `skipSetTimezone`.
 
 If the timezone corresponds to the JavaScript default timezone, then no conversion will be done.
 
@@ -188,43 +188,43 @@ The Connector with the Callback API is similar to the one using Promise, but wit
 
 **Base:**
 
-* [`createConnection(options) → Connection`](connector-nodejs-callback-api.md#createconnectionoptions--connection): Creates a connection to a MariaDB Server.
-* [`createPooUsingions) → Pool`](connector-nodejs-callback-api.md#createpooloptions--pool) : Creates a new Pool.
-* [`createPoolCluster(options) → PoolCluster`](connector-nodejs-callback-api.md#createpoolclusteroptions--poolcluster) : Creates a new pool cluster.
-* [`importFile(options [, callback])`](connector-nodejs-callback-api.md#importfileoptions-callback) : import Sql file
-* [`version → String`](connector-nodejs-callback-api.md#version--string) : Return library version.
-* [`defaultOptions(options) → Json`](connector-nodejs-callback-api.md#defaultoptionsoptions--json) : list options with default values
+* [`createConnection(options) → Connection`](connector-nodejs-callback-api.md#createconnection-options-connection): Creates a connection to a MariaDB Server.
+* [`createPool(options) → Pool`](connector-nodejs-callback-api.md#createpool-options-pool) : Creates a new Pool.
+* [`createPoolCluster(options) → PoolCluster`](connector-nodejs-callback-api.md#createpoolcluster-options-poolcluster) : Creates a new pool cluster.
+* [`importFile(options [, callback])`](connector-nodejs-callback-api.md#importfile-options-callback) : import Sql file
+* [`version → String`](connector-nodejs-callback-api.md#version-string) : Return library version.
+* [`defaultOptions(options) → Json`](connector-nodejs-callback-api.md#defaultoptions-options-json) : list options with default values
 
 **Connection:**
 
-* [`connection.query(sql [, values][, callback]) → Emitter`](connector-nodejs-callback-api.md#connectionquerysql-values-callback---emitter): Executes a [query](connector-nodejs-callback-api.md#query).
-* [`connection.batch(sql, values [, callback])`](connector-nodejs-callback-api.md#connectionbatchsql-values--callback): fast batch processing.
-* [`connection.beginTransaction([callback])`](connector-nodejs-callback-api.md#connectionbegintransactioncallback): Begins a transaction
-* [`connection.commit([callback])`](connector-nodejs-callback-api.md#connectioncommitcallback): Commit the current transaction, if any.
-* [`connection.rollback([callback])`](connector-nodejs-callback-api.md#connectionrollbackcallback): Rolls back the current transaction, if any.
-* [`connection.changeUser(options [, callback])`](connector-nodejs-callback-api.md#connectionchangeuseroptions-callback): Changes the current connection user.
-* [`connection.ping([callback])`](connector-nodejs-callback-api.md#connectionpingcallback): Sends an empty packet to the server to check that connection is active.
-* [`connection.end([callback])`](connector-nodejs-callback-api.md#connectionendcallback): Gracefully closes the connection.
-* [`connection.reset([callback])`](connector-nodejs-callback-api.md#connectionreset): reset current connection state.
-* [`connection.isValid() → boolean`](connector-nodejs-callback-api.md#connectionisvalid--boolean): Checks that the connection is active without checking socket state.
-* [`connection.destroy()`](connector-nodejs-callback-api.md#connectiondestroy): Forces the connection to close.
-* [`connection.escape(value) → String`](connector-nodejs-callback-api.md#connectionescapevalue--string): escape parameter
-* [`connection.escapeId(value) → String`](connector-nodejs-callback-api.md#connectionescapeidvalue--string): escape identifier
-* [`connection.pause()`](connector-nodejs-callback-api.md#connectionpause): Pauses the socket output.
-* [`connection.resume()`](connector-nodejs-callback-api.md#connectionresume): Resumes the socket output.
-* [`connection.serverVersion()`](connector-nodejs-callback-api.md#connectionserverversion): Retrieves the current server version.
-* [`connection.importFile(options [, callback])`](connector-nodejs-callback-api.md#connectionimportfileoptions-callback) : import Sql file
+* [`connection.query(sql [, values][, callback]) → Emitter`](connector-nodejs-callback-api.md#connection.query-sql-values-callback-greater-than-emitter): Executes a query.
+* [`connection.batch(sql, values [, callback])`](connector-nodejs-callback-api.md#connection.batch-sql-values-callback): fast batch processing.
+* [`connection.beginTransaction([callback])`](connector-nodejs-callback-api.md#connection.begintransaction-callback): Begins a transaction
+* [`connection.commit([callback])`](connector-nodejs-callback-api.md#connection.commit-callback): Commit the current transaction, if any.
+* [`connection.rollback([callback])`](connector-nodejs-callback-api.md#connection.rollback-callback): Rolls back the current transaction, if any.
+* [`connection.changeUser(options [, callback])`](connector-nodejs-callback-api.md#connection.changeuser-options-callback): Changes the current connection user.
+* [`connection.ping([callback])`](connector-nodejs-callback-api.md#connection.ping-callback): Sends an empty packet to the server to check that connection is active.
+* [`connection.end([callback])`](connector-nodejs-callback-api.md#connection.end-callback): Gracefully closes the connection.
+* [`connection.reset([callback])`](connector-nodejs-callback-api.md#connection.reset-callback): reset current connection state.
+* [`connection.isValid() → boolean`](connector-nodejs-callback-api.md#connection.isvalid-boolean): Checks that the connection is active without checking socket state.
+* [`connection.destroy()`](connector-nodejs-callback-api.md#connection.destroy): Forces the connection to close.
+* [`connection.escape(value) → String`](connector-nodejs-callback-api.md#connection.escape-value-string): escape parameter
+* [`connection.escapeId(value) → String`](connector-nodejs-callback-api.md#connection.escapeid-value-string): escape identifier
+* [`connection.pause()`](connector-nodejs-callback-api.md#connection.pause): Pauses the socket output.
+* [`connection.resume()`](connector-nodejs-callback-api.md#connection.resume): Resumes the socket output.
+* [`connection.serverVersion()`](connector-nodejs-callback-api.md#connection.serverversion): Retrieves the current server version.
+* [`connection.importFile(options [, callback])`](connector-nodejs-callback-api.md#connection.importfile-options-callback) : import Sql file
 * [`events`](connector-nodejs-callback-api.md#events): Subscribes to connection error events.
 
 **Pool:**
 
-* [`pool.getConnection([callback])`](connector-nodejs-callback-api.md#poolgetconnectioncallback) : Creates a new connection.
-* [`pool.query(sql [, values][, callback])`](connector-nodejs-callback-api.md#poolquerysql-values-callback): Executes a query.
-* [`pool.batch(sql, values [, callback])`](connector-nodejs-callback-api.md#poolbatchsql-values-callback): Executes a batch
-* [`pool.end([callback])`](connector-nodejs-callback-api.md#poolendcallback): Gracefully closes the connection.
-* [`pool.escape(value) → String`](connector-nodejs-callback-api.md#poolescapevalue--string): escape parameter
-* [`pool.escapeId(value) → String`](connector-nodejs-callback-api.md#poolescapeidvalue--string): escape identifier
-* [`pool.importFile(options [, callback])`](connector-nodejs-callback-api.md#poolimportfileoptions-callback) : import Sql file
+* [`pool.getConnection([callback])`](connector-nodejs-callback-api.md#pool.getconnection-callback) : Creates a new connection.
+* [`pool.query(sql [, values][, callback])`](connector-nodejs-callback-api.md#pool.query-sql-values-callback): Executes a query.
+* [`pool.batch(sql, values [, callback])`](connector-nodejs-callback-api.md#pool.batch-sql-values-callback): Executes a batch
+* [`pool.end([callback])`](connector-nodejs-callback-api.md#pool.end-callback): Gracefully closes the connection.
+* [`pool.escape(value) → String`](connector-nodejs-callback-api.md#pool.escape-value-string): escape parameter
+* [`pool.escapeId(value) → String`](connector-nodejs-callback-api.md#pool.escapeid-value-string): escape identifier
+* [`pool.importFile(options [, callback])`](connector-nodejs-callback-api.md#pool.importfile-options-callback) : import Sql file
 * `pool.activeConnections() → Number`: Gets current active connection number.
 * `pool.totalConnections() → Number`: Gets current total connection number.
 * `pool.idleConnections() → Number`: Gets current idle connection number.
@@ -233,12 +233,12 @@ The Connector with the Callback API is similar to the one using Promise, but wit
 
 **PoolCluster**
 
-* [`poolCluster.add(id, config)`](connector-nodejs-callback-api.md#poolclusteraddid-config) : add a pool to cluster.
-* [`poolCluster.remove(pattern)`](connector-nodejs-callback-api.md#poolclusterremovepattern) : remove and end pool according to pattern.
-* [`poolCluster.end([callback])`](connector-nodejs-callback-api.md#poolclusterendcallback) : end cluster.
-* [`poolCluster.getConnection([pattern, ][selector, ]callback)`](connector-nodejs-callback-api.md#poolclustergetconnectionpattern-selector-callback) : return a connection from cluster.
+* [`poolCluster.add(id, config)`](connector-nodejs-callback-api.md#poolcluster.add-id-config) : add a pool to cluster.
+* [`poolCluster.remove(pattern)`](connector-nodejs-callback-api.md#poolcluster.remove-pattern) : remove and end pool according to pattern.
+* [`poolCluster.end([callback])`](connector-nodejs-callback-api.md#poolcluster.end-callback) : end cluster.
+* [`poolCluster.getConnection([pattern, ][selector, ]callback)`](connector-nodejs-callback-api.md#poolcluster.getconnection-pattern-selector-callback) : return a connection from cluster.
 * [`poolCluster events`](connector-nodejs-callback-api.md#poolcluster-events): Subscribes to pool cluster events.
-* [`poolCluster.of(pattern, selector) → FilteredPoolCluster`](connector-nodejs-callback-api.md#poolclusterofpattern-selector--filteredpoolcluster) : return a subset of cluster.
+* [`poolCluster.of(pattern, selector) → FilteredPoolCluster`](connector-nodejs-callback-api.md#poolcluster.of-pattern-selector-filteredpoolcluster) : return a subset of cluster.
 
 ## Base API
 
@@ -351,7 +351,7 @@ Pool options includes [connection option documentation](connector-nodejs-callbac
 
 Specific options for pools are :
 
-<table><thead><tr><th align="right">option</th><th width="272">description</th><th width="95" align="center">type</th><th align="center">default</th></tr></thead><tbody><tr><td align="right"><strong><code>acquireTimeout</code></strong></td><td>Timeout to get a new connection from pool in ms.</td><td align="center"><em>integer</em></td><td align="center">10000</td></tr><tr><td align="right"><strong><code>connectionLimit</code></strong></td><td>Maximum number of connection in pool.</td><td align="center"><em>integer</em></td><td align="center">10</td></tr><tr><td align="right"><strong><code>idleTimeout</code></strong></td><td>Indicate idle time after which a pool connection is released. Value must be lower than <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout">@@wait_timeout</a>. In seconds (0 means never release)</td><td align="center"><em>integer</em></td><td align="center">1800</td></tr><tr><td align="right"><strong><code>initializationTimeout</code></strong></td><td>Pool will retry creating connection in loop, emitting 'error' event when reaching this timeout. In milliseconds</td><td align="center"><em>integer</em></td><td align="center"><code>acquireTimeout</code> value</td></tr><tr><td align="right"><strong><code>minimumIdle</code></strong></td><td>Permit to set a minimum number of connection in pool. <strong>Recommendation is to use fixed pool, so not setting this value</strong>.</td><td align="center"><em>integer</em></td><td align="center"><em>set to connectionLimit value</em></td></tr><tr><td align="right"><strong><code>minDelayValidation</code></strong></td><td>When asking a connection to pool, the pool will validate the connection state. "minDelayValidation" permits disabling this validation if the connection has been borrowed recently avoiding useless verifications in case of frequent reuse of connections. 0 means validation is done each time the connection is asked. (in ms)</td><td align="center"><em>integer</em></td><td align="center">500</td></tr><tr><td align="right"><strong><code>noControlAfterUse</code></strong></td><td>After giving back connection to pool (connection.end) connector will reset or rollback connection to ensure a valid state. This option permit to disable those controls</td><td align="center"><em>boolean</em></td><td align="center">false</td></tr><tr><td align="right"><strong><code>resetAfterUse</code></strong></td><td>When a connection is given back to pool, reset the connection if the server allows it (only for MariaDB version >= 10.2.22 /10.3.13). If disabled or server version doesn't allows reset, pool will only rollback open transaction if any</td><td align="center"><em>boolean</em></td><td align="center">true</td></tr><tr><td align="right"><strong><code>leakDetectionTimeout</code></strong></td><td>Permit to indicate a timeout to log connection borrowed from pool. When a connection is borrowed from pool and this timeout is reached, a message will be logged to console indicating a possible connection leak. Another message will tell if the possible logged leak has been released. A value of 0 (default) meaning Leak detection is disable</td><td align="center"><em>integer</em></td><td align="center">0</td></tr></tbody></table>
+<table><thead><tr><th align="right">option</th><th width="272">description</th><th width="95" align="center">type</th><th align="center">default</th></tr></thead><tbody><tr><td align="right"><strong><code>acquireTimeout</code></strong></td><td>Timeout to get a new connection from pool in ms.</td><td align="center"><em>integer</em></td><td align="center">10000</td></tr><tr><td align="right"><strong><code>connectionLimit</code></strong></td><td>Maximum number of connection in pool.</td><td align="center"><em>integer</em></td><td align="center">10</td></tr><tr><td align="right"><strong><code>idleTimeout</code></strong></td><td>Indicate idle time after which a pool connection is released. Value must be lower than <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout">@@wait_timeout</a>. In seconds (0 means never release)</td><td align="center"><em>integer</em></td><td align="center">1800</td></tr><tr><td align="right"><strong><code>initializationTimeout</code></strong></td><td>Pool will retry creating connection in loop, emitting 'error' event when reaching this timeout. In milliseconds</td><td align="center"><em>integer</em></td><td align="center"><code>acquireTimeout</code> − 100 ms (min 100 ms)</td></tr><tr><td align="right"><strong><code>minimumIdle</code></strong></td><td>Permit to set a minimum number of connection in pool. <strong>Recommendation is to use fixed pool, so not setting this value</strong>.</td><td align="center"><em>integer</em></td><td align="center"><em>set to connectionLimit value</em></td></tr><tr><td align="right"><strong><code>minDelayValidation</code></strong></td><td>When asking a connection to pool, the pool will validate the connection state. "minDelayValidation" permits disabling this validation if the connection has been borrowed recently avoiding useless verifications in case of frequent reuse of connections. 0 means validation is done each time the connection is asked. (in ms)</td><td align="center"><em>integer</em></td><td align="center">500</td></tr><tr><td align="right"><strong><code>noControlAfterUse</code></strong></td><td>After giving back connection to pool (connection.end) connector will reset or rollback connection to ensure a valid state. This option permit to disable those controls</td><td align="center"><em>boolean</em></td><td align="center">false</td></tr><tr><td align="right"><strong><code>resetAfterUse</code></strong></td><td>When a connection is given back to pool, reset the connection if the server allows it (only for MariaDB version >= 10.2.22 /10.3.13). If disabled or server version doesn't allows reset, pool will only rollback open transaction if any</td><td align="center"><em>boolean</em></td><td align="center">false</td></tr><tr><td align="right"><strong><code>leakDetectionTimeout</code></strong></td><td>Permit to indicate a timeout to log connection borrowed from pool. When a connection is borrowed from pool and this timeout is reached, a message will be logged to console indicating a possible connection leak. Another message will tell if the possible logged leak has been released. A value of 0 (default) meaning Leak detection is disable</td><td align="center"><em>integer</em></td><td align="center">0</td></tr></tbody></table>
 
 #### Pool events
 
@@ -365,9 +365,9 @@ pool.on('connection', (conn) => console.log(`connection ${conn.threadId} has bee
 
 ### `createPoolCluster(options) → PoolCluster`
 
-> * `options`: _JSON_ [poolCluster options](connector-nodejs-callback-api.md#poolCluster-options)
+> * `options`: _JSON_ [poolCluster options](connector-nodejs-callback-api.md#poolcluster-options)
 >
-> Returns a [PoolCluster](connector-nodejs-callback-api.md#poolCluster-api) object,
+> Returns a [PoolCluster](connector-nodejs-callback-api.md#pool-cluster-api) object,
 
 Creates a new pool cluster. Cluster handles multiple pools, giving high availability / distributing load (using round robin / random / ordered ).
 
@@ -458,7 +458,7 @@ console.log(mariadb.defaultOptions({ timezone: '+00:00' }));
 > Returns an Emitter object that can emit four different types of event:
 >
 > * error: Emits an [Error](connector-nodejs-callback-api.md#error) object, when query failed.
-> * columns: Emits when columns metadata from result-set are received (parameter is an array of [Metadata fields](connector-nodejs-callback-api.md#metadata-field)).
+> * fields: Emits when column metadata from the result-set are received (parameter is an array of [Metadata fields](connector-nodejs-promise-api.md#connection.query-sql-values-greater-than-promise)).
 > * data: Emits each time a row is received (parameter is a row).
 > * end: Emits when the query ends (no parameter).
 
@@ -604,7 +604,7 @@ connection.query("SELECT * FROM mysql.user")
 > * `values`: _array_ Array of parameter (array of array or array of object if using named placeholders).
 > * `callback`: _function_ Callback function with arguments (error, results, metadata).
 >
-> callback either returns an \[\[#error|Error]] with results/metadata null or with error empty and results/metadata
+> callback either returns an [`Error`](#error) with results/metadata null or with error empty and results/metadata
 
 Implementation depends of server type and version. for MariaDB server version 10.2.7+, the implementation uses dedicated bulk protocol.
 
@@ -739,7 +739,7 @@ reset the connection. Reset will:
 
 This command is only available for MariaDB >=10.2.4 or MySQL >= 5.7.3. the function will be rejected with the error "Reset command not permitted for server XXX" if the server version doesn't permit reset.
 
-For previous MariaDB version, reset connection can be done using [`connection.changeUser(options [, callback])`](connector-nodejs-callback-api.md#connectionchangeuseroptions-callback) that do the same + redo authentication phase.
+For previous MariaDB version, reset connection can be done using [`connection.changeUser(options [, callback])`](connector-nodejs-callback-api.md#connection.changeuser-options-callback) that do the same + redo authentication phase.
 
 ### `connection.isValid() → boolean`
 
@@ -767,12 +767,12 @@ escape per type:
 * Date: String representation using `YYYY-MM-DD HH:mm:ss.SSS` format
 * Buffer: \_binary''
 * object with toSqlString function: String an escaped result of toSqlString
-* Array: list of escaped values. ex: `[true, "o'o"]` => `('true', 'o\'o')`
+* Array: list of escaped values. ex: `[true, "o'o"]` => `(true, 'o\'o')`
 * geoJson: MariaDB transformation to corresponding geotype. ex: `{ type: 'Point', coordinates: [20, 10] }` => `"ST_PointFromText('POINT(20 10)')"`
 * JSON: Stringification of JSON, or if `permitSetMultiParamEntries` is enable, key escaped as identifier + value
 * String: escaped value, (\u0000, ', ", \b, \n, \r, \t, \u001A, and \ characters are escaped with '')
 
-Escape is done for [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) value without NO\_BACKSLASH\_ESCAPES that disable \ escaping (default); Escaping API are meant to prevent [SQL injection](https://en.wikipedia.org/wiki/SQL_injection). However, privilege the use of [`connection.query(sql [, values][, callback])`](connector-nodejs-callback-api.md#connectionquerysql-values-callback---emitter) and avoid building the command manually.
+Escape is done for [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) value without NO\_BACKSLASH\_ESCAPES that disable \ escaping (default); Escaping API are meant to prevent [SQL injection](https://en.wikipedia.org/wiki/SQL_injection). However, privilege the use of [`connection.query(sql [, values][, callback])`](connector-nodejs-callback-api.md#connection.query-sql-values-callback-greater-than-emitter) and avoid building the command manually.
 
 ```javascript
 const myColVar = "let'go";
@@ -784,10 +784,7 @@ const cmd = 'SELECT * FROM ' + conn.escapeId(myTable) + ' where myCol = ' + conn
 
 ### `connection.escapeId(value) → String`
 
-This function permits escaping an Identifier properly. See [Identifier Names](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/identifier-names) for escaping. Value will be enclosed by '\`' character if content doesn't satisfy:
-
-* ASCII: \[0-9,a-z,A-Z$\_] (numerals 0–9, basic Latin letters, both lowercase and uppercase, dollar sign, underscore)
-* Extended: U+0080 .. U+FFFF and escaping '\`' character if needed.
+This function permits escaping an Identifier properly. See [Identifier Names](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/identifier-names) for escaping. The value is **always** enclosed by '\`' characters (even when it contains no special characters), so that reserved words can be used as identifiers; any '\`' character inside the value is escaped by doubling it.
 
 ```javascript
 const myColVar = "let'go";
@@ -932,7 +929,7 @@ pool.query("SELECT NOW()", (err, results, metadata) => {
   if (err) {
     //handle error
   } else {
-    console.log(rows); //[ { 'NOW()': 2018-07-02T17:06:38.000Z }, meta: [ ... ] ]
+    console.log(results); //[ { 'NOW()': 2018-07-02T17:06:38.000Z }, meta: [ ... ] ]
   }
 });
 ```
@@ -992,11 +989,11 @@ pool.end(err => {
 
 ### `pool.escape(value) → String`
 
-This is an alias for [`connection.escape(value) → String`](connector-nodejs-callback-api.md#connectionescapevalue--string) to escape parameters
+This is an alias for [`connection.escape(value) → String`](connector-nodejs-callback-api.md#connection.escape-value-string) to escape parameters
 
 ### `pool.escapeId(value) → String`
 
-This is an alias for [`connection.escapeId(value) → String`](connector-nodejs-callback-api.md#connectionescapeidvalue--string) to escape Identifier
+This is an alias for [`connection.escapeId(value) → String`](connector-nodejs-callback-api.md#connection.escapeid-value-string) to escape Identifier
 
 ### `pool.importFile(options[, callback])`
 
@@ -1097,7 +1094,7 @@ cluster.getConnection("^slave", (err, conn) => {
 
 ### `poolCluster events`
 
-PoolCluster object inherits from the Node.js [`EventEmitter`](https://nodejs.org/api/events.html). Emits 'remove' event when a node is removed from configuration if the option `removeNodeErrorCount` is defined (default to 5) and connector fails to connect more than `removeNodeErrorCount` times. (if other nodes are present, each attempt will wait for value of the option `restoreNodeTimeout`)
+PoolCluster object inherits from the Node.js [`EventEmitter`](https://nodejs.org/api/events.html). Emits 'remove' event when a node is removed from configuration once the node's consecutive connection failures reach `removeNodeErrorCount` (default `Infinity`, so removal is disabled unless this option is set). (if other nodes are present, each attempt will wait for value of the option `restoreNodeTimeout`)
 
 ```javascript
 const mariadb = require('mariadb/callback');
@@ -1117,10 +1114,10 @@ cluster.on('remove', node => {
 >
 > Returns :
 >
-> * resolves with a [filtered pool cluster](connector-nodejs-callback-api.md#filteredpoolcluster) object,
+> * resolves with a [filtered pool cluster](connector-nodejs-callback-api.md#filtered-pool-cluster) object,
 > * raises an [Error](connector-nodejs-callback-api.md#error).
 
-Creates a new [filtered pool cluster](connector-nodejs-callback-api.md#filteredpoolcluster) object that is a subset of cluster.
+Creates a new [filtered pool cluster](connector-nodejs-callback-api.md#filtered-pool-cluster) object that is a subset of cluster.
 
 **Note**: The `pattern` parameter must be specified as a string. Passing a `Regex` object (e.g., `/^slave/`) is not supported in TypeScript and may cause inconsistencies.
 
@@ -1149,5 +1146,7 @@ northSlaves.getConnection((err, conn) => {
 
 * `filteredPoolCluster.getConnection(callback)` : Creates a new connection from pools that corresponds to pattern.
 * `filteredPoolCluster.query(sql[, values][, callback])` : this is a shortcut to get a connection from pools that corresponds to pattern, execute a query and release connection.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

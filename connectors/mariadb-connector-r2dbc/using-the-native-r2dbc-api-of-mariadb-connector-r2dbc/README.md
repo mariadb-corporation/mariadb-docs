@@ -146,3 +146,5 @@ Set up the test database, contact table, and user account required by the MariaD
 The MariaDB Connector/R2DBC native API requires manual subscription for `beginTransaction`, `commitTransaction`, and `rollbackTransaction`; Spring Data R2DBC provides managed transactions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

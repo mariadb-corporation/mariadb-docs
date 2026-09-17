@@ -418,3 +418,5 @@ REDIS_URL=redis://redis:6379/0
 * Verify `MANAGED_S3_ENDPOINT_URL` is correct (e.g., `http://host.docker.internal:9000` for macOS).
 * Verify `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are correct.
 * Ensure `MANAGED_S3_USE_PATH_STYLE=true` for MinIO.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

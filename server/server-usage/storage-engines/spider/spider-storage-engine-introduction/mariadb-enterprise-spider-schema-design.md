@@ -146,6 +146,6 @@ The following connection options are supported in the COMMENT table option for F
 | user        | String    | The username to use when connecting to the Data Node.                                                                  |
 | wrapper     | String    | The foreign data wrapper should be mariadb for the Federated and Sharded topologies or odbc for the ODBC topology.     |
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

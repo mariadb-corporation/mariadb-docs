@@ -35,6 +35,6 @@ Replace `admin` with the actual user.
 MaxScale will refuse to delete the last remaining admin user.
 {% endhint %}
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

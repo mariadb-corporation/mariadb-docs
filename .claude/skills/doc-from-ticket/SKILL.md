@@ -1,7 +1,7 @@
 ---
 name: doc-from-ticket
 description: Turn a MariaDB DOCS Jira ticket into a concrete, source-verified documentation edit for mariadb-docs. Fetches the ticket, follows it to the upstream MDEV/source change, VERIFIES the claims against local MariaDB source code, locates the right .md page, and drafts the GitBook edit. Use when asked to "document DOCS-XXXX", "write the docs for this ticket", or "draft the page for <DOCS ticket>".
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write, WebFetch, mcp__atlassian-mariadb__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, Edit, Write, WebFetch, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 owners: [igusev]
 last_verified: 2026-06-12
 status: active
@@ -75,11 +75,12 @@ inside the repo), then continue.
 
 ## 1. Connection check + fetch the ticket
 
-Run the `jira` skill's **Setup** check (confirm `atlassian-mariadb` reaches
+Run the `jira` skill's **Setup** check (confirm the Atlassian connection reaches
 `mariadbcorp.atlassian.net`). Then:
 
 ```
-mcp__atlassian-mariadb__getJiraIssue(cloudId="164b0d33-ee39-4b4d-b1d5-e71a97376560", issueIdOrKey="DOCS-XXXX")
+getJiraIssue(cloudId="164b0d33-ee39-4b4d-b1d5-e71a97376560", issueIdOrKey="DOCS-XXXX")
+# tool prefix depends on which Atlassian connection you have - see the `jira` skill
 ```
 
 ## 2. Parse the ticket

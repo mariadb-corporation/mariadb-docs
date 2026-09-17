@@ -43,7 +43,7 @@ SET GLOBAL innodb_compression_algorithm = lz4;
 
 ## Upgrading
 
-When upgrading from a release without compression plugins, if a non-zlib compression algorithm was used, those tables will be unreadable until the appropriate compression library is installed. [mariadb-upgrade](../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md) should be run. The `--force` option (to run [mariadb-check](../../../clients-and-utilities/legacy-clients-and-utilities/mysqlcheck.md)) or `mariadb-check` itself will indicate any problems with compression, for example:
+When upgrading from a release without compression plugins, if a non-zlib compression algorithm was used, those tables will be unreadable until the appropriate compression library is installed. [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) should be run. The `--force` option (to run [mariadb-check](../../../clients-and-utilities/table-tools/mariadb-check.md)) or `mariadb-check` itself will indicate any problems with compression, for example:
 
 ```
 Warning  : MariaDB tried to use the LZMA compression, but its provider plugin is not loaded

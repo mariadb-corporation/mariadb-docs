@@ -12,11 +12,11 @@ The revision number links will take you to the revision's page on Launchpad. On 
   Mon 2011-06-13 12:46:11 +0300
   * Fixed portability problem with partiton\_error.test
   * Added option to aria\_read\_log to crash recovery at certain points in the\ recovery process.
-  * Fixed bug that caused future recovery attempts to fail if we got a crash/got\
+  * Fixed bug that caused future recovery attempts to fail if we got a crash/got
     killed during closing of tables at end of recovery process.
 * [Revision #2992](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2992)\
   Sun 2011-06-12 12:52:51 +0300
-  * Fixed warning that sf\_malloc\_trough\_check was not used when compiling\
+  * Fixed warning that sf\_malloc\_trough\_check was not used when compiling
     without SAFEMALLOC
 * [Revision #2991](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2991)\
   Sat 2011-06-11 14:53:08 +0300
@@ -26,16 +26,16 @@ The revision number links will take you to the revision's page on Launchpad. On 
   * Increased server version to 5.2.7
 * [Revision #2989](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2989)\
   Sat 2011-06-11 14:28:15 +0300
-  * Fixes [MySQL Bug #60976](https://bugs.mysql.com/bug.php?id=60976) "Crash, valgrind warning and memory leak with partitioned\
+  * Fixes [MySQL Bug #60976](https://bugs.mysql.com/bug.php?id=60976) "Crash, valgrind warning and memory leak with partitioned
     archive tables"
     * Noted that there was no memory leak, just a lot of used partitioned tables.
-  * Fixed old bug: 'show status' now shows memory usage when compiled with\
+  * Fixed old bug: 'show status' now shows memory usage when compiled with
     safemalloc.
-  * Added option `--flush` to mysqlcheck.c to run a 'flush tables' between each\
+  * Added option `--flush` to mysqlcheck.c to run a 'flush tables' between each
     check to keep down memory usage.
-  * Changed '`--safemalloc`' options to mysqld so that one can use `--safemalloc`\
+  * Changed '`--safemalloc`' options to mysqld so that one can use `--safemalloc`
     and `--skip-safemalloc`.
-  * Now skip-safemalloc is default (ie, we only do checking of memory overrun\
+  * Now skip-safemalloc is default (ie, we only do checking of memory overrun
     during free()) to speed up tests.
 * [Revision #2988](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2988)\
   Fri 2011-06-10 02:02:58 +0300
@@ -46,10 +46,10 @@ The revision number links will take you to the revision's page on Launchpad. On 
   * Merge with bug fixes
     * [Revision #2983.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2983.1.2)\
       Thu 2011-06-09 20:22:03 +0300
-      * Use dynamic row format when creating temporary tables without sumary\
+      * Use dynamic row format when creating temporary tables without sumary
         fields.
-      * The reason for this is that BLOCK\_RECORD format is not good when there is\
-        a lot of duplicated keys as it first writes the data (to get the row\
+      * The reason for this is that BLOCK\_RECORD format is not good when there is
+        a lot of duplicated keys as it first writes the data (to get the row
         position) and then writes the key (and thus checks for duplicates).
     * [Revision #2983.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2983.1.1)\
       Thu 2011-06-09 16:17:45 +0300
@@ -61,7 +61,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #2985](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2985)\
   Wed 2011-06-08 16:56:35 +0200
   * Fix a problem building MSI using localized (Spanish) Visual Studio 2010.
-  * VS did not like to execute 2 commands in custom build step, workaround is\
+  * VS did not like to execute 2 commands in custom build step, workaround is
     to use single COMMAND instead of 2.
 * [Revision #2984](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2984) \[merge]\
   Tue 2011-06-07 22:50:08 +0200
@@ -75,13 +75,13 @@ The revision number links will take you to the revision's page on Launchpad. On 
     * [Revision #2982.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2982.1.1)\
       Wed 2011-06-01 15:52:52 +0200
       * [MWL#200](https://askmonty.org/worklog/?tid=200) - provide options to install 3rd party components.
-      * Added HeidiSQL as example, i.e cmake -DWITH\_THIRD\_PARTY=HeidiSQL\
+      * Added HeidiSQL as example, i.e cmake -DWITH\_THIRD\_PARTY=HeidiSQL
         and building MSI will bundle HeidiSQL.
 * [Revision #2983](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2983)\
   Mon 2011-06-06 16:39:06 +0300
-  * Fixed lock sorting and lock check issues with thr\_lock that caused warnings\
+  * Fixed lock sorting and lock check issues with thr\_lock that caused warnings
     when running test suite.
-  * Safety check that could cause core dump when doing create table with virtual\
+  * Safety check that could cause core dump when doing create table with virtual
     column.
 * [Revision #2982](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2982) \[merge]\
   Fri 2011-05-27 19:09:40 +0200
@@ -108,7 +108,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
       * Merge with 5.1 to get in fix wrong setpriority() call
         * [Revision #2643.127.14](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.127.14)\
           Thu 2011-05-26 14:38:17 +0300
-          * Disable call to setpriority() in pbxt. This caused mysqld to run with\
+          * Disable call to setpriority() in pbxt. This caused mysqld to run with
             nice priority -19, which was far from optimal.
 * [Revision #2979](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2979)\
   Thu 2011-05-26 13:42:22 +0200
@@ -117,7 +117,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
   Thu 2011-05-26 02:01:47 +0200
   * Fixed sql\_perror() to return appropriate error messages on Windows,
   * The error message is now based on GetLastError() rather than errno.
-  * Background: errno is C runtime specific and in many circumstances\
+  * Background: errno is C runtime specific and in many circumstances
     it is not set, e.g when using Win32 API or socket functions.
 * [Revision #2977](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2977)\
   Thu 2011-05-26 00:37:08 +0200
@@ -129,7 +129,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
   * HEAP is deprecated in favor of MEMORY.
 * [Revision #2975](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2975)\
   Fri 2011-05-20 14:36:13 +0300
-  * Ensure we don't read a [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md) errmsg.sys file or new errmsg.sys file\
+  * Ensure we don't read a [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md) errmsg.sys file or new errmsg.sys file
     with holes for not used error messages
 * [Revision #2974](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2974) \[merge]\
   Fri 2011-05-20 01:44:30 +0200
@@ -144,16 +144,16 @@ The revision number links will take you to the revision's page on Launchpad. On 
     * [Revision #2643.127.13](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.127.13)\
       Wed 2011-05-18 15:15:36 +0200
       * Fix mysqltest printing of include stack.
-      * The printing of include stack in the error case in mysqltest omitted the\
-        bottom of the stack (the line number in original test case file), and\
-        instead printed the top of the stack twice. Fix to print each element on\
+      * The printing of include stack in the error case in mysqltest omitted the
+        bottom of the stack (the line number in original test case file), and
+        instead printed the top of the stack twice. Fix to print each element on
         the stack once and only once.
 * [Revision #2972](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2972)\
   Sun 2011-05-15 13:38:18 +0200
   * Small CMake fixes :
     * add version info for the client library, dynamic plugins and some utilities
-    * do not recompile client library sources 3 times (for mysqlclient ,\
-      mysqlclient\_notls and libmysql) One time is sufficient, so get rid of\
+    * do not recompile client library sources 3 times (for mysqlclient ,
+      mysqlclient\_notls and libmysql) One time is sufficient, so get rid of
       mysqlclient\_notls, and link static client library to the shared.
     * remove incremental linking flag
 * [Revision #2971](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2971) \[merge]\
@@ -172,9 +172,9 @@ The revision number links will take you to the revision's page on Launchpad. On 
     * [Revision #2968.1.4](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2968.1.4)\
       Sat 2011-05-14 18:42:07 +0200
       * Fix bugs found by application verifier :
-        * Fix active lock in freed memory in ha\_archive (share mutex was not\
+        * Fix active lock in freed memory in ha\_archive (share mutex was not
           released prior to free())
-        * Do not attempt vio\_fastsend or vio\_keepalive on named pipes and shared\
+        * Do not attempt vio\_fastsend or vio\_keepalive on named pipes and shared
           memory.
     * [Revision #2968.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2968.1.3)\
       Sat 2011-05-14 18:37:20 +0200
@@ -194,10 +194,10 @@ The revision number links will take you to the revision's page on Launchpad. On 
       * [Bug #782269](https://bugs.launchpad.net/bugs/782269) : Fixed double initialization of condition variables in PBXT.
 * [Revision #2969](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2969)\
   Fri 2011-05-13 16:22:05 +0300
-  * Made test-unit run in parlallel. This was achived by having all aria tests\
-    that uses temporary files to create the temporary file in an unique\
+  * Made test-unit run in parlallel. This was achived by having all aria tests
+    that uses temporary files to create the temporary file in an unique
     tempdirectory.
-  * aria\_chk now returns 1 if one got any warnings during check and 2 if one got\
+  * aria\_chk now returns 1 if one got any warnings during check and 2 if one got
     errors.
   * [Bug #728919](https://bugs.launchpad.net/bugs/728919) maria\_chk should fail on all detected corruptions
 * [Revision #2968](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2968) \[merge]\
@@ -214,7 +214,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
           Thu 2011-05-12 15:31:11 +0200
           * Fix check\_table\_file\_presence:
           * On Windows, do not attempt access() for special device names like CON,\
-            PRN etc. access() would return 0, this does not mean that fiile with\
+            PRN etc. access() would return 0, this does not mean that fiile with
             this name exists.
     * [Revision #2643.127.11](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.127.11)\
       Thu 2011-05-12 14:56:08 +0300
@@ -225,6 +225,6 @@ The revision number links will take you to the revision's page on Launchpad. On 
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

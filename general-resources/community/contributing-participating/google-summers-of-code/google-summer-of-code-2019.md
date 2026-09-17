@@ -1,12 +1,10 @@
 # Google Summer of Code 2019
 
-We participated in the [Google Summer of Code](https://summerofcode.withgoogle.com/) 2019. The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently C, ODBC, Java) and on [MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera/README.md), which allows you to scale your reads & writes. And we have [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb-columnstore/README.md), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
+We participated in the [Google Summer of Code](https://summerofcode.withgoogle.com/) 2019. The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently C, ODBC, Java) and on [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7), which allows you to scale your reads & writes. And we have [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
 
 ## Where to Start
 
-Please join us on [Zulip and on IRC](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/irc-chat-servers-and-zulip-instance/README.md) to mingle with the community. Don't forget to subscribe to [maria-developers@lists.launchpad.net](https://launchpad.net/~maria-developers) (this is the main list where we discuss development).
-
-A few handy tips for any interested students who are unsure which projects to choose:[Blog post from former GSoC student & mentor](https://vicentiu.ciorbaru.io/mariadb-participates-in-gsoc-2017/)
+Please join us on [Zulip and on IRC](../../joining-the-community.md) to mingle with the community. Don't forget to subscribe to [maria-developers@lists.launchpad.net](https://launchpad.net/~maria-developers) (this is the main list where we discuss development).
 
 To improve your chances of being accepted, it is a good idea to submit a pull request with a bug fix to the server.
 
@@ -21,16 +19,16 @@ _Loaded from the_ [_MariaDB issue tracker_](https://jira.mariadb.org/issues/?jql
 #### Evaluate subquery predicates earlier or later depending on their SELECTIVITY
 
 (Based on conversation with Igor)\
-There are a lot of subquery conditions out there that are inexpensive to\
+There are a lot of subquery conditions out there that are inexpensive to
 evaluate and have good selectivity.\
-If we just implement [MDEV-83](https://jira.mariadb.org/browse/MDEV-83), we may get regressions. We need to take\
+If we just implement [MDEV-83](https://jira.mariadb.org/browse/MDEV-83), we may get regressions. We need to take
 subquery condition's selectivity into account.\
-It is difficult to get a meaningful estimate for an arbitrary, correlated\
+It is difficult to get a meaningful estimate for an arbitrary, correlated
 subquery predicate.\
-One possible solution is to measure selectivity during execution and reattach\
+One possible solution is to measure selectivity during execution and reattach
 predicates on the fly.\
-We don't want to change the query plan all the time, one way to dynamically\
-move items between item trees is to wrap them inside Item\_func\_trig\_cond so\
+We don't want to change the query plan all the time, one way to dynamically
+move items between item trees is to wrap them inside Item\_func\_trig\_cond so
 we can switch them on and off.
 
 | Details: | Mentor:                                              |
@@ -63,10 +61,10 @@ _original task description is visible in the history_
 
 #### Histograms with equal-width bins in MariaDB
 
-Histograms with equal-width bins are easy to construct using samples. For this it's enough\
+Histograms with equal-width bins are easy to construct using samples. For this it's enough
 to look through the given sample set and for each value from it to figure out what bin this value can be placed in. Each bin requires only one counter.\
-Let f be a column of a table with N rows and n be the number of samples by which the equal-width histogram of k bins for this column is constructed. Let after looking through all sample\
-rows the counters created for the histogram bins contain numbers c\[1],..,c\[k]. Then\
+Let f be a column of a table with N rows and n be the number of samples by which the equal-width histogram of k bins for this column is constructed. Let after looking through all sample
+rows the counters created for the histogram bins contain numbers c\[1],..,c\[k]. Then
 m\[i]= c\[i]/n \* 100 is the percentage of the rows whose values of f are expected to be in the interval
 
 ```
@@ -171,7 +169,7 @@ Currently MariaDB Server does not support them.\
 The goal of this task is to support EXCEPT ALL and INTERSECT ALL
 
 1. at syntax level - allow to use operators EXCEPT ALL and INTERSECT ALL in query expression body
-2. at execution level - implement these operations employing temporary tables\
+2. at execution level - implement these operations employing temporary tables
    (the implementation could use the idea similar to that used for the existing implementation of the INTERSECT operation).
 
 | Details: | Mentor:                                                  |
@@ -205,12 +203,12 @@ I'm not exactly sure how the corresponding multiple-table syntax should look lik
 
 **Idea**
 
-The purpose of this task is to create an easy-to-use facility for setting up a\
+The purpose of this task is to create an easy-to-use facility for setting up a
 new MariaDB replication slave.\
-Setting up a new slave currently involves: 1) installing MariaDB with initial\
-database; 2) point the slave to the master with CHANGE MASTER TO; 3) copying\
+Setting up a new slave currently involves: 1) installing MariaDB with initial
+database; 2) point the slave to the master with CHANGE MASTER TO; 3) copying
 initial data from the master to the slave; and 4) starting the slave with\
-START SLAVE. The idea is to automate step (3), which currently needs to be\
+START SLAVE. The idea is to automate step (3), which currently needs to be
 done manually.\
 The syntax could be something as simple as
 
@@ -218,43 +216,43 @@ The syntax could be something as simple as
 LOAD DATA FROM MASTER
 ```
 
-This would then connect to the master that is currently configured. It will\
-load a snapshot of all the data on the master, and leave the slave position at\
-the point of the snapshot, ready for START SLAVE to continue replication from\
+This would then connect to the master that is currently configured. It will
+load a snapshot of all the data on the master, and leave the slave position at
+the point of the snapshot, ready for START SLAVE to continue replication from
 that point.
 
 **Implementation:**
 
-The idea is to do this non-blocking on the master, in a way that works for any\
-storage engine. It will rely on row-based replication to be used between the\
+The idea is to do this non-blocking on the master, in a way that works for any
+storage engine. It will rely on row-based replication to be used between the
 master and the slave.\
-At the start of `LOAD DATA FROM MASTER`, the slave will enter a special\
-provisioning mode. It will start replicating events from the master at the\
+At the start of `LOAD DATA FROM MASTER`, the slave will enter a special
+provisioning mode. It will start replicating events from the master at the
 master's current position.\
-The master dump thread will send binlog events to the slave as normal. But in\
-addition, it will interleave a dump of all the data on the master contained in\
-tables, views, or stored functions. Whenever the dump thread would normally go\
-to sleep waiting for more data to arrive in the binlog, the dump thread will\
+The master dump thread will send binlog events to the slave as normal. But in
+addition, it will interleave a dump of all the data on the master contained in
+tables, views, or stored functions. Whenever the dump thread would normally go
+to sleep waiting for more data to arrive in the binlog, the dump thread will
 instead send another chunk of data in the binlog stream for the slave to apply.\
 A "chunk of data" can be:
 
 * A CREATE OR REPLACE TABLE / VIEW / PROCEDURE / FUNCTION
 * A range of N rows (N=100, for example). Each successive chunk will do a range scan on the primary key from the end position of the last chunk.
 
-Sending data in small chunks avoids the need for long-lived table locks or\
+Sending data in small chunks avoids the need for long-lived table locks or
 transactions that could adversely affect master performance.\
-The slave will connect in GTID mode. The master will send dumped chunks in a\
-separate domain id, allowing the slave to process chunks in parallel with\
+The slave will connect in GTID mode. The master will send dumped chunks in a
+separate domain id, allowing the slave to process chunks in parallel with
 normal data.\
-During the provisioning, all normal replication events from the master will\
-arrive on the slave, and the slave will attempt to apply them locally. Some of\
-these events will fail to apply, since the affected table or row may not yet\
-have been loaded. In the provisioning mode, all such errors will be silently\
-ignored. Proper locking (isolation mode, eg.) must be used on the master when\
-fetching chunks, to ensure that updates for any row will always be applied\
+During the provisioning, all normal replication events from the master will
+arrive on the slave, and the slave will attempt to apply them locally. Some of
+these events will fail to apply, since the affected table or row may not yet
+have been loaded. In the provisioning mode, all such errors will be silently
+ignored. Proper locking (isolation mode, eg.) must be used on the master when
+fetching chunks, to ensure that updates for any row will always be applied
 correctly on the slave, either in a chunk, or in a later row event.\
-In order to make the first version of this feature feasible to implement in a\
-reasonable amount of time, it should set a number of reasonable restrictions\
+In order to make the first version of this feature feasible to implement in a
+reasonable amount of time, it should set a number of reasonable restrictions
 (which could be relaxed in a later version of the feature):
 
 * Give up with an error if the slave is not configured for GTID mode (MASTER\_USE\_GTID != NO).
@@ -308,7 +306,7 @@ Inspired by:This could make it easier to write statements which work with both M
 
 #### Aggregate Window Functions
 
-With a few exceptions, most native aggregate functions are supported as window functions; [the list can be found here](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/T8uOYfwo7PbEMtMvwoDd).\
+With a few exceptions, most native aggregate functions are supported as window functions; [the list can be found here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/window-functions/window-functions-overview#aggregate-functions-as-window-functions).\
 In [MDEV-7773](https://jira.mariadb.org/browse/MDEV-7773), support for creating of custom aggregate functions was added.\
 This task proposes to extend that feature and allow custom aggregate functions to be used as window functions\
 An example of a creating a custom aggregate function is given below:
@@ -356,14 +354,14 @@ The purpose of this task is to create a true LOCK=NONE
 Master will write BEGIN\_DDL\_EVENT in binlog after it hits ha\_prepare\_inplace\_alter\_table.\
 Then master will write QUERY\_EVENT on binlog with actual alter query .\
 On commit/rollback master will write COMMIT\_DDL\_EVENT/ROLLBACK\_DDL\_EVENT.\
-On slave there will be pool of threads(configurable global variable), which\
+On slave there will be pool of threads(configurable global variable), which
 will apply these DDLs. On receiving BEGIN\_DDL\_EVENT slave thread will pass the\
-QUERY\_EVENT to one of the worker thread. Worker thread will execute until\
+QUERY\_EVENT to one of the worker thread. Worker thread will execute until
 ha\_inplace\_alter\_table. Actual commit\_inplace\_alter will be called by sql thread.\
-If sql thread receive some kind of rollback event, then it will somehow signal\
-worker thread to stop executing alter. If none of the worker threads are available\
-then event will be enqueued, then If we received rollback event the we will simply\
-discard event from queue, If we received commit event then SQL thread will syncrolysly\
+If sql thread receive some kind of rollback event, then it will somehow signal
+worker thread to stop executing alter. If none of the worker threads are available
+then event will be enqueued, then If we received rollback event the we will simply
+discard event from queue, If we received commit event then SQL thread will syncrolysly
 process DDL event.
 
 | Details: | Mentor:                                                  |
@@ -377,7 +375,7 @@ mysqltest has a lot of historical problems:
 
 * ad hoc parser, weird limitations
 * commands added as needed with no view over the total language structure
-* historical code issues (e.g. casts that become unnecessary 10 years ago)\
+* historical code issues (e.g. casts that become unnecessary 10 years ago)
   etc
 
 A lot can be done to improve it.\

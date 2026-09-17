@@ -119,3 +119,5 @@ The core mechanism of Zero-Configuration SSL is the use of the user password as 
 4. Verification: By comparing these values, the client confirms it is communicating with the intended server. This prevents Man-in-the-Middle (MitM) attacks because an attacker would present a different certificate, resulting in a fingerprint mismatch that they cannot resolve without knowing the user's password.
 
 [^1]: Man-in-the-Middle (MitM): A cyberattack where an unauthorized third party secretly intercepts, and potentially alters, the communication between two parties (such as a client and a server) who believe they are talking directly to each other.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

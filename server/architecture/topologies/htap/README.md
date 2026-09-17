@@ -225,4 +225,4 @@ Navigation in the procedure "Deploy HTAP Topology".
 
 Next: Step 1: Prepare ColumnStore Node.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

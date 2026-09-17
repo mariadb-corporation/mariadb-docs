@@ -1,6 +1,6 @@
 # Google Summer of Code 2016
 
-We participated in the [Google Summer of Code 2016](https://summerofcode.withgoogle.com/) (we have participated previously in [2015](google-summer-of-code-2015.md), [2014](google-summer-of-code-2014.md), and [2013](google-summer-of-code-2013.md)). The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently in C, Java, C++ in development) and on [MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/en/galera/README.md), which allows you to scale your reads & writes. Lately, we also have MariaDB MaxScale which is a pluggable database proxy.
+We participated in the [Google Summer of Code 2016](https://summerofcode.withgoogle.com/) (we have participated previously in [2015](google-summer-of-code-2015.md), [2014](google-summer-of-code-2014.md), and [2013](google-summer-of-code-2013.md)). The [MariaDB Foundation](https://www.mariadb.org) believes we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently in C, Java, C++ in development) and on [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7), which allows you to scale your reads & writes. Lately, we also have MariaDB MaxScale which is a pluggable database proxy.
 
 ## Where to start
 
@@ -12,7 +12,7 @@ The complete list of tasks suggested for GSoC 2016 is located in the [**MariaDB 
 
 ### Support for GTID in mysqlbinlog
 
-The [mysqlbinlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-binlog) tool needs to be updated to understand the replication feature called [Global Transaction IDs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) (GTIDs) in MariaDB 10. The current version does not support GTIDs and the MySQL variant does not speak MariaDB 10's GTIDs.
+The [mysqlbinlog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/logging-tools/mariadb-binlog) tool needs to be updated to understand the replication feature called [Global Transaction IDs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) (GTIDs) in MariaDB 10. The current version does not support GTIDs and the MySQL variant does not speak MariaDB 10's GTIDs.
 
 | Details:             | Skills:                                                | Mentor: | Students Interested: |
 | -------------------- | ------------------------------------------------------ | ------- | -------------------- |
@@ -126,8 +126,8 @@ Create a filter which can inject queries before the client executes any queries.
 ### Cassandra Storage Engine V2
 
 Current Cassandra Storage Engine was developed against Cassandra 1.1 and it uses Thrift API to communicate with Cassandra.\
-However, starting from Cassandra 1.2, the preferred way to access Cassandra database is use CQL (Cassandra Query Language)\
-and DataStax C++ Driver ([cpp-driver](https://github.com/datastax/cpp-driver)). Thrift-based access is deprecated and places heavy constraints on\
+However, starting from Cassandra 1.2, the preferred way to access Cassandra database is use CQL (Cassandra Query Language)
+and DataStax C++ Driver ([cpp-driver](https://github.com/datastax/cpp-driver)). Thrift-based access is deprecated and places heavy constraints on
 the schema.
 
 This task is about re-implementing Cassandra Storage Engine using DataStax C++ Driver and CQL.

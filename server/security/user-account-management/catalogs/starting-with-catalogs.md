@@ -15,7 +15,7 @@ description: >-
 When used with the `--catalog` options it will initialize MariaDB server to use catalogs.\
 The [mariadbd server](../../../server-management/starting-and-stopping-mariadb/mariadbd.md) will automatically discover if catalogs are used or not.
 
-Note that **one cannot change** a 'normal server' to a server with catalogs or a server with catalogs to\
+Note that **one cannot change** a 'normal server' to a server with catalogs or a server with catalogs to
 a 'normal server'. In the future we will add tools that will allow one to easily move an existing server inside a catalog or move an server inside a catalog to a standalone server.
 
 ## Initializing a New Server with Catalog Support

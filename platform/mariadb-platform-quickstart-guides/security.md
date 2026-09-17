@@ -78,4 +78,6 @@ Follow the prompts to configure your security settings.
 * [Top 9 Tips to Achieve MySQL and MariaDB Security - SnapShooter Tutorials](https://snapshooter.com/learn/mysql/top-tips-secure-mysql)
 * [How to Secure MySQL and MariaDB Databases in a Linux VPS | DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-secure-mysql-and-mariadb-databases-in-a-linux-vps)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

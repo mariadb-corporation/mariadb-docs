@@ -150,16 +150,24 @@ References a snippet file via a **relative path** to the snippet:
 {% include "../../../.gitbook/includes/<snippet>.md" %}
 ```
 
-- **Snippets are per-space:** they live in `<space>/.gitbook/includes/<snippet>.md`. (A repo-root
-  `.gitbook/includes/` also exists but is rarely the target — default to the space's own.)
+- **Snippets are per-space:** they live in `<space>/.gitbook/includes/<snippet>.md`. There is no
+  repo-root container — `.gitbook/includes/` and `mariadb-platform/.gitbook/includes/` were
+  deleted in DOCS-6372, because the GitBook API showed no space wired to either, so nothing in
+  them could ever render.
 - **The relative depth = the number of directories between the page and its space root.** A page
   at `server/a/b/c/page.md` is 3 directories below `server/`, so the prefix is `../../../`
   (→ `server/.gitbook/includes/<snippet>.md`). The most common real depth is `../../../`; they
   range from `../` to `../../../../../../`.
+- **A file include must not leave its own space.** Each space has its own GitBook Git-sync root,
+  so `../../<other-space>/.gitbook/includes/x.md` fails in GitBook even though the path resolves
+  on disk. To share a snippet between spaces, use form 1 (by ID) — that is exactly what it is
+  for.
 - **You can create these from Git:** add the snippet file under `<space>/.gitbook/includes/`,
   then reference it. **Always verify the resolved path exists** (e.g. `ls`) before writing the
-  directive — a wrong `../` count silently renders an empty include and isn't caught by
-  link-check.
+  directive — a wrong `../` count silently renders an **empty** include, and lychee never sees it
+  because `{% include %}` is template syntax, not a Markdown link. `.claude/hooks/doc-lint.sh`
+  fails on a missing target and on one that crosses a space boundary; `docs-check` and
+  `/precommit` both run it.
 
 Don't duplicate include content into pages by hand — reference the include. To add or repair an
 `{% include %}` directive, use the **`gitbook-format`** skill.
@@ -193,5 +201,5 @@ Markdown tables. Notes from the GitBook Editing guide:
 
 - **Within the same space:** relative Markdown link to the `.md` file
   — `[CREATE TABLE](reference/.../create-table.md)`.
-- **To another space:** a link alias — `[MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/readme)`. See `link-aliases.md`.
+- **To another space:** a link alias — `[MaxScale]({maxscale}/readme)`. See `link-aliases.md`.
 - Never paste raw `https://app.gitbook.com/...` URLs.

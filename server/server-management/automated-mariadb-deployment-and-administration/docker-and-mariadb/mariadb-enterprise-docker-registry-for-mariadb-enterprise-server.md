@@ -6,7 +6,7 @@ description: >-
 
 # MariaDB Enterprise Docker Registry for MariaDB Enterprise Server
 
-MariaDB Corporation provides the MariaDB Enterprise Docker Registry. The MariaDB Enterprise Docker Registry provides Docker images for MariaDB Enterprise Server.
+MariaDB Corporation provides the MariaDB Enterprise Docker Registry. The MariaDB Enterprise Docker Registry provides Docker images for MariaDB Enterprise Server. These images are generally available (GA) and supported for production use.
 
 This page contains reference material for the MariaDB Enterprise Docker Registry.
 
@@ -474,3 +474,5 @@ To view the logs in the Docker container, execute [`docker logs`](https://docs.d
 ```bash
 docker logs mariadb-es-11.8
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

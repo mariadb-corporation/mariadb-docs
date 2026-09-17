@@ -46,7 +46,7 @@ There are some scenarios, though, which call for subqueries rather than joins:
 
 * When you want duplicates, but not false duplicates. Suppose `Table_1` has three rows — {`1`,`1`,`2`}\
   — and `Table_2` has two rows\
-  — {`1`,`2`,`2`}. If you need to list the rows\
+  — {`1`,`2`,`2`}. If you need to list the rows
   in `Table_1` which are also in `Table_2`, only this subquery-based `SELECT` statement will give the right answer (`1`,`1`,`2`):
 
 ```sql

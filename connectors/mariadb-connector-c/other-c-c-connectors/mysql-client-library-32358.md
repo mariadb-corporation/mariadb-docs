@@ -41,7 +41,7 @@ Monty Program AB is about to start a project for creating a new free client libr
 
 If you want to be part of this development effort, you can discuss this on the [maria-developers mailing list](https://launchpad.net/~maria-developers).
 
-If you are interested in sponsoring this effort, you can [contact Monty Program](https://montyprogram.com/contact).
+If you are interested in sponsoring this effort, you can contact Monty Program.
 
 ## See also:
 
@@ -53,8 +53,10 @@ If you are interested in sponsoring this effort, you can [contact Monty Program]
 Be notified of new MariaDB Server releases automatically by [subscribing](https://lists.mariadb.org/postorius/lists/announce.lists.mariadb.org/) to the MariaDB Foundation community announcement 'at lists.mariadb.org announcement list (this is a low traffic, announce-only list). MariaDB plc customers will be notified of all new releases, security issues, and low-traffic critical bug fixes for all MariaDB plc products, thanks to the Notification Services.
 
 MariaDB may already be included in your favorite OS distribution. More\
-Information can be found on the [Distributions Include MariaDB](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/distributions-including-mariadb)\
+Information can be found on the [Distributions Include MariaDB](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/distributions-including-mariadb)
 page.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

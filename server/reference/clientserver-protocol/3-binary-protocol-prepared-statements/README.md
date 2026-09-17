@@ -102,3 +102,5 @@ This command sends long data, such as BLOB or TEXT values, in chunks for a speci
 This section details the structure of response packets sent by the server when using the binary protocol, particularly for result sets.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -293,6 +293,6 @@ This page was step 5 of 9.
 
 Next: Step 6: Install MariaDB MaxScale.
 
-{% include "../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

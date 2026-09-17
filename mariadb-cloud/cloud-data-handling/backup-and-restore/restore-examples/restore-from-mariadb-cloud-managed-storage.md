@@ -31,3 +31,5 @@ curl --location 'https://api-test.skysql.com/skybackup/v1/backups?service_id=d<S
 ```
 
 Key Format: \w\*SERVICE\_ID\w\* , where \w\*: Matches zero or more alphanumeric characters.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

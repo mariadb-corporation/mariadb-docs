@@ -22,7 +22,7 @@ mysql_load_plugin(struct st_mysql *mysql, const char *name, int type,
 
 ## Description
 
-`mysql_load_plugin` searches the client plugin directory for a plugin matching the given name and type, loads it, and calls its initialization function with any supplied arguments. If a plugin with that name is already loaded, the existing instance is returned without reloading.
+`mysql_load_plugin` searches the client plugin directory for a plugin matching the given name and type, loads it, and calls its initialization function with any supplied arguments. If a plugin with that name is already loaded, the call fails and returns `NULL` (error "it is already loaded").
 
 ## Valid Plugin Types
 
@@ -43,3 +43,5 @@ A pointer to the plugin handle, or `NULL` if an error occurred.
 ## See Also
 
 * [mysql\_optionsv()](mysql_optionsv.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

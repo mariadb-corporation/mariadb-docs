@@ -10,7 +10,7 @@ description: >-
 ## Syntax
 
 ```c
-my_bool mysql_ssl_set(MYSQL *mysql, const char *key, const char *cert,
+int mysql_ssl_set(MYSQL *mysql, const char *key, const char *cert,
   const char *ca, const char *capath, const char *cipher)
 ```
 
@@ -45,5 +45,7 @@ This is the same as [`mysql_optionsv(mysql, MYSQL_OPT_SSL_ENFORCE, &yes)`](mysql
 ## See Also
 
 * [mysql\_get\_ssl\_cipher()](mysql_get_ssl_cipher.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -89,8 +89,6 @@ The `IGNORE_SPACE` SQL mode applies to built-in functions, not to stored routine
 
 The parameter list enclosed within parentheses must always be present. If there are no parameters, an empty parameter list of `()` should be used. Parameter names are not case sensitive.
 
-Each parameter can be declared to use any valid data type, except that the `COLLATE` attribute cannot be used.
-
 For valid identifiers to use as procedure names, see [Identifier Names](../../../reference/sql-structure/sql-language-structure/identifier-names.md).
 
 ### Things to be Aware of With CREATE OR REPLACE
@@ -105,10 +103,10 @@ If the `IF NOT EXISTS` clause is used, then the procedure will only be created i
 
 Each parameter is an `IN` parameter by default. To specify otherwise for a parameter, use the keyword `OUT` or `INOUT` before the parameter name.
 
-An `IN` parameter passes a value into a procedure. The procedure might modify the value, but the modification is not visible to the caller when the procedure returns. An `OUT` parameter passes a value from the procedure back to the caller. Its initial value is `NULL` within the procedure, and its value is visible to the caller when the procedure returns. An `INOUT` parameter is initialized by the caller, can be\
+An `IN` parameter passes a value into a procedure. The procedure might modify the value, but the modification is not visible to the caller when the procedure returns. An `OUT` parameter passes a value from the procedure back to the caller. Its initial value is `NULL` within the procedure, and its value is visible to the caller when the procedure returns. An `INOUT` parameter is initialized by the caller, can be
 modified by the procedure, and any change made by the procedure is visible to the caller when the procedure returns.
 
-For each `OUT` or `INOUT` parameter, pass a user-defined variable in the`CALL` statement that invokes the procedure so that you can obtain its value when the procedure returns. If you are calling the procedure\
+For each `OUT` or `INOUT` parameter, pass a user-defined variable in the`CALL` statement that invokes the procedure so that you can obtain its value when the procedure returns. If you are calling the procedure
 from within another stored procedure or function, you can also pass a routine parameter or local routine variable as an `IN` or `INOUT` parameter.
 
 ### DEFAULT value or expression
@@ -205,6 +203,8 @@ DELIMITER ;
 
 `CREATE OR REPLACE`:
 
+Re-creating an existing procedure without `OR REPLACE` fails, while `CREATE OR REPLACE` replaces the existing definition:
+
 ```sql
 DELIMITER //
 
@@ -217,10 +217,6 @@ CREATE PROCEDURE simpleproc2 (
 //
 ERROR 1304 (42000): PROCEDURE simpleproc2 already exists
 
-DELIMITER ;
-
-DELIMITER //
-
 CREATE OR REPLACE PROCEDURE simpleproc2 (
   OUT param1 CHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_bin'
 )
@@ -228,10 +224,9 @@ CREATE OR REPLACE PROCEDURE simpleproc2 (
   SELECT CONCAT('a'),f1 INTO param1 FROM t;
  END;
 //
-ERROR 1304 (42000): PROCEDURE simpleproc2 already exists
+Query OK, 0 rows affected (0.03 sec)
 
 DELIMITER ;
-Query OK, 0 rows affected (0.03 sec)
 ```
 
 ## See Also

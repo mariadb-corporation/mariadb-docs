@@ -34,7 +34,7 @@ Attempting to change `@@skip_replication` in the middle of a transaction fails. 
 
 ## Replica Option: --replicate-events-marked-for-skip
 
-The [replicate\_events\_marked\_for\_skip](replication-and-binary-log-system-variables.md) option tells the replica whether to replicate events that are marked with the `@@skip_replication` flag. Default is `REPLICATE`, to ensure that all changes are replicated to the replica. If set to `FILTER_ON_SLAVE`, events so marked will be skipped on the replica and not replicated. If set to `FILTER_ON_MASTER`, the filtering is done on the primary, saving \
+The [replicate\_events\_marked\_for\_skip](replication-and-binary-log-system-variables.md) option tells the replica whether to replicate events that are marked with the `@@skip_replication` flag. Default is `REPLICATE`, to ensure that all changes are replicated to the replica. If set to `FILTER_ON_SLAVE`, events so marked will be skipped on the replica and not replicated. If set to `FILTER_ON_MASTER`, the filtering is done on the primary, saving 
 network bandwidth as the events are not received by the replica at all.
 
 | Variable Name | replicate\_events\_marked\_for\_skip                         |

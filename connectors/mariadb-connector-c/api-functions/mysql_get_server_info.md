@@ -9,7 +9,7 @@ description: >-
 ## Syntax
 
 ```c
-const char * mysql_get_server_info(MYSQL * mysql);
+char * mysql_get_server_info(MYSQL * mysql);
 ```
 
 ## Parameter
@@ -32,5 +32,7 @@ To obtain the numeric server version please use [mysql\_get\_server\_version()](
 
 * [mysql\_get\_server\_version()](mysql_get_server_version.md)
 * [mysql\_get\_client\_info()](mysql_get_client_info.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

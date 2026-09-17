@@ -163,7 +163,7 @@ done
 
 ## VMs for install testing
 
-See the [General Principles](../buildbot-setup-for-virtual-machines-general-principles.md)\
+See the [General Principles](../buildbot-setup-for-virtual-machines-general-principles.md)
 article for how to make the '`my.seed`' and '`sources.append`' files.
 
 ```

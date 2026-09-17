@@ -110,3 +110,5 @@ MaxScale is a commercial MariaDB Enterprise product, which should be factored in
 Once you select your replication strategy, you must configure how data changes are recorded in the MariaDB binary log. For most high-availability architectures, [Row-Based Replication (RBR)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/row-based-replication-with-no-primary-key) or [Mixed Format](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/binary-log-formats#mixed-logging) is required to ensure absolute data consistency across replicas.
 
 [Statement-Based Replication (SBR)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/unsafe-statements-for-statement-based-replication) should generally be avoided in HA setups due to reliability concerns, acting only as a fallback for specific bulk-update operations.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

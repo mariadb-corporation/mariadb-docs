@@ -6,23 +6,23 @@ description: >-
 
 # Installing VM Images for Testing .deb Upgrade Between Versions
 
-This step creates virtual machine images used to do an important additional\
-upgrade test for .debs. Each virtual machine is pre-installed with an older\
-version of MariaDB, and the test tries upgrading this version to the newly\
+This step creates virtual machine images used to do an important additional
+upgrade test for .debs. Each virtual machine is pre-installed with an older
+version of MariaDB, and the test tries upgrading this version to the newly
 build one (to check that dependencies etc. work out correctly).
 
-This step may not be easily possible to replicate exactly for new or updated\
-images. For example, when we add a new platform/distro, we will not have the\
-same old version of MariaDB available for installation on the new planform. Or\
-if needing to re-create an image in the future, the original old .debs used\
-before may no longer be available. However, this is not a big problem, as we\
-can just use whatever version of MariaDB is available. In fact, while we\
-cannot reasonably test every possible upgrade combination between MariaDB\
-versions, it is still useful to test upgrades from different versions on\
+This step may not be easily possible to replicate exactly for new or updated
+images. For example, when we add a new platform/distro, we will not have the
+same old version of MariaDB available for installation on the new planform. Or
+if needing to re-create an image in the future, the original old .debs used
+before may no longer be available. However, this is not a big problem, as we
+can just use whatever version of MariaDB is available. In fact, while we
+cannot reasonably test every possible upgrade combination between MariaDB
+versions, it is still useful to test upgrades from different versions on
 different platforms, to increase coverage a bit.
 
-The bulk of the images were installed with the following two loops, using\
-packages from the OurDelta repository for [MariaDB 5.1.42](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.1/5.1.42), which was the one\
+The bulk of the images were installed with the following two loops, using
+packages from the OurDelta repository for [MariaDB 5.1.42](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.1/5.1.42), which was the one
 available from there at the time of installation.
 
 ```
@@ -59,7 +59,7 @@ for i in "vm-debian4-amd64-install qemu64 etch /kvm/debian-40r8-amd64-netinst.is
 done
 ```
 
-The Ubuntu 10.04 "lucid" images were installed manually (as no packages for\
+The Ubuntu 10.04 "lucid" images were installed manually (as no packages for
 lucid were available from OurDelta at the time of installation):
 
 Create and boot 64-bit lucid upgrade image:
@@ -81,7 +81,7 @@ Copy in packages to be installed from outside:
 scp -P 2200 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r /archive/pack/mariadb-5.1-knielsen/build-277/kvm-deb-lucid-amd64/debs buildbot@localhost:buildbot/
 ```
 
-Install the MariaDB packages, remove package dir, and upgrade to latest\
+Install the MariaDB packages, remove package dir, and upgrade to latest
 security fixes:
 
 ```
@@ -112,7 +112,7 @@ Copy in packages to be installed from outside:
 scp -P 2200 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r /archive/pack/mariadb-5.1-knielsen/build-277/kvm-deb-lucid-x86/debs buildbot@localhost:buildbot/
 ```
 
-Install the MariaDB packages, remove package dir, and upgrade to latest\
+Install the MariaDB packages, remove package dir, and upgrade to latest
 security fixes:
 
 ```
@@ -162,7 +162,7 @@ sudo apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 ```
 
-For Ubuntu 11.04 "natty", mariadb packages were installed from the repository\
+For Ubuntu 11.04 "natty", mariadb packages were installed from the repository
 for the previous version.
 
 64-bit Ubuntu natty:

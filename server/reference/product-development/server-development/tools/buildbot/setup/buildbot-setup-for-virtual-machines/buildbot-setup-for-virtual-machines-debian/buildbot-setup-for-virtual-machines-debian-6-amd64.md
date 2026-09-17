@@ -16,7 +16,7 @@ kvm -m 2047 -hda /kvm/vms/vm-debian6-amd64-serial.qcow2 -cdrom /kvm/debian-6a1-a
 
 ## Serial console and account setup
 
-From base install, setup for serial port, and setup accounts for passwordless\
+From base install, setup for serial port, and setup accounts for passwordless
 ssh login and sudo:
 
 ```
@@ -75,7 +75,7 @@ qemu-img create -b vm-debian6-amd64-serial.qcow2 -f qcow2 vm-debian6-amd64-insta
 kvm -m 2047 -hda /kvm/vms/vm-debian6-amd64-install.qcow2 -redir 'tcp:2244::22' -boot c -smp 2 -cpu qemu64 -net nic,model=virtio -net user -nographic
 ```
 
-See the [General Principles](../buildbot-setup-for-virtual-machines-general-principles.md)\
+See the [General Principles](../buildbot-setup-for-virtual-machines-general-principles.md)
 article for how to make the '`my.seed`' file.
 
 ```

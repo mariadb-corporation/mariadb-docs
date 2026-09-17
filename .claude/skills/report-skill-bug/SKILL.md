@@ -1,7 +1,7 @@
 ---
 name: report-skill-bug
 description: Report a Claude Code skill in mariadb-docs that broke. Use when the user says "report a skill bug", "file a bug for <skill>", or "<skill> is broken" — or when a skill fails clearly mid-session and the user wants it logged. Files a DOCS Jira Task labeled claude-skill-bug via the MariaDB Jira connection and returns the ticket URL.
-allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__createJiraIssue, mcp__atlassian-mariadb__atlassianUserInfo, mcp__atlassian-mariadb__lookupJiraAccountId, mcp__atlassian-mariadb__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__createJiraIssue, mcp__claude_ai_Atlassian_Rovo__createJiraIssue, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__lookupJiraAccountId, mcp__claude_ai_Atlassian_Rovo__lookupJiraAccountId, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 owners: [igusev]
 last_verified: 2026-06-12
 status: active
@@ -10,8 +10,9 @@ status: active
 # report-skill-bug
 
 Files a Jira ticket for a broken Claude Code skill. **No browser, no UI, no clipboard** — you
-create the ticket via the **`atlassian-mariadb` MCP connection** and return the URL. Uses the
-`jira` skill's config (server `atlassian-mariadb`, cloudId `164b0d33-…`, project `DOCS`).
+create the ticket via the **Atlassian MCP connection** and return the URL. Uses the
+`jira` skill's config (whichever connection reaches `mariadbcorp`, cloudId `164b0d33-…`,
+project `DOCS`).
 
 ## When to use
 
@@ -64,7 +65,7 @@ Run the `jira` skill's **Setup** check first (`getAccessibleAtlassianResources()
 `mariadbcorp.atlassian.net`). Then:
 
 ```
-mcp__atlassian-mariadb__createJiraIssue(
+createJiraIssue(   # tool prefix per the `jira` skill's connection table
   cloudId="164b0d33-ee39-4b4d-b1d5-e71a97376560",
   projectKey="DOCS",
   issueTypeName="Task",
@@ -128,8 +129,8 @@ yet). No further commentary unless asked.
 
 ## Failure modes
 
-- **`atlassian-mariadb` offline / wrong account.** `getAccessibleAtlassianResources()` doesn't
-  show `mariadbcorp` → tell the user to reconnect `atlassian-mariadb` under their MariaDB account
+- **Atlassian connection offline / wrong account.** `getAccessibleAtlassianResources()` doesn't
+  show `mariadbcorp` → tell the user to reconnect it under their MariaDB account
   (see `dev-docs/cookbook-jira-workflow.md`), or file manually in DOCS with the
   `claude-skill-bug` label. Don't open a browser — out of scope.
 - **Skill name has no matching file.** Stop and confirm the name; don't file against a

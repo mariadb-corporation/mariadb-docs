@@ -24,7 +24,7 @@ Tip: Adjust storage size depending on your requirements for metrics retention.
 
 * CPU Architecture: x86-64 and ARM64
 * Linux OS with either of the supported container engines
-  * Docker with Docker Compose\
+  * Docker with Docker Compose
     https://docs.docker.com/engine/install
   * Podman with Podman Compose
     * The podman-docker compatibility package is required to enable the docker CLI for Podman. All commands in this guide documented for Docker work similarly with Podman.
@@ -47,6 +47,6 @@ The agent must be installed on each [MariaDB Server](https://app.gitbook.com/s/S
 
 \* Monitoring and Single Sign-On(SSO) are only supported for MaxScale versions 25.10 and Above
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

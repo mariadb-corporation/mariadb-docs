@@ -30,3 +30,5 @@ The WSREP_INFO plugin adds the WSREP_MEMBERSHIP and WSREP_STATUS tables to the I
 The wsrep_provider plugin exposes Galera Cluster provider options as individual system variables, allowing for easier configuration and validation of cluster settings.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

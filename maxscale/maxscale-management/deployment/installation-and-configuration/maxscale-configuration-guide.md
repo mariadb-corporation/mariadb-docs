@@ -478,7 +478,7 @@ With `host_cache_size=0`, the cache is disabled and a fresh reverse name lookup 
 * Dynamic: Yes
 * Default: `10s`
 
-Duration, default 10s. This setting defines the connection timeout when attempting to fetch MariaDB/MySQL/Clustrix users from a backend server. The same value is also used for read and write timeouts. Increasing this value causes MaxScale to wait longer for a response from a server before user fetching fails. Other servers may then be attempted.
+Duration, default 10s. This setting defines the connection timeout when attempting to fetch MariaDB/MySQL users from a backend server. The same value is also used for read and write timeouts. Increasing this value causes MaxScale to wait longer for a response from a server before user fetching fails. Other servers may then be attempted.
 
 ```
 auth_connect_timeout=10s
@@ -1312,7 +1312,7 @@ Older versions of MaxScale interpreted `admin_ssl_version` as the minimum allowe
 * Mandatory: No
 * Dynamic: No
 
-Additional TLS cipher settings. The configured value is prepended to [admin\_ssl\_version](maxscale-configuration-guide.md#admin_ssl_version) and the resulting string is given as is to [gnutls\_priority\_init](https://gnutls.org/manual/html_node/Priority-Strings.html). If left undefined, `NORMAL` is used.
+Additional TLS cipher settings. The configured value is prepended to [admin\_ssl\_version](maxscale-configuration-guide.md#admin_ssl_version) and the resulting string is given as is to [gnutls\_priority\_init](https://gitlab.com/gnutls/gnutls/-/blob/3.8.13/doc/cha-gtls-app.texi#L1271). If left undefined, `NORMAL` is used.
 
 Adding unrecognized elements to this setting will cause REST-API startup to fail with the error:
 
@@ -1823,7 +1823,7 @@ event.X.level=LOG_ERR
 
 The above means that if event _X_ occurs, then that is logged using the facility `LOG_LOCAL0` and the level `LOG_ERR`.
 
-The valid values of `facility` are the facility values reported by`man syslog`, e.g.`LOG\_AUTH`,`LOG\_LOCAL0`and`LOG\_USER`. Likewise, the valid values for `level`are the ones also reported by`man syslog`, e.g.`LOG\_WARNING`,`LOG\_ERR`and`LOG\_CRIT\`.
+The valid values of `facility` are the facility values reported by`man syslog`, e.g.`LOG_AUTH`,`LOG_LOCAL0`and`LOG_USER`. Likewise, the valid values for `level`are the ones also reported by`man syslog`, e.g.`LOG_WARNING`,`LOG_ERR`and`LOG\_CRIT\`.
 
 Note that MaxScale does not act upon the level, that is, even if the level of a particular event is defined to be `LOG_EMERG`, MaxScale will not shut down if that event occurs.
 
@@ -2067,7 +2067,7 @@ By default MaxScale uses the first server labeled as `Master` as the source of t
 
 **Note:** This parameter has been deprecated in MaxScale 23.08. The stripping of escape characters is in all known cases the correct thing to do.
 
-This setting controls whether escape characters (`\`) are removed from database names when loading user grants from a backend server. When enabled, a grant such as ``grant select on` `test\_`.* to 'user'@'%';`` is read as ``grant select on` `test\_`.* to 'user'@'%';``
+This setting controls whether escape characters (`\`) are removed from database names when loading user grants from a backend server. When enabled, a grant such as ``grant select on `test\_`.* to 'user'@'%';`` is read as ``grant select on `test_`.* to 'user'@'%';``
 
 This setting has no effect on database-level grants fetched from a MariaDB Server. The database names of a MariaDB Server are compared using the LIKE operator to properly handle wildcards and escaped wildcards. This setting may affect database names in table and column level grants, although these typically do not contain backlashes.
 
@@ -2441,9 +2441,9 @@ This feature has a significant drawback: when a backend connection is reused, it
 
 This feature should only be used when limiting the backend connection count is a priority, even at the cost of query delay and throughput. This feature only works when the following server settings are also set in MaxScale configuration:
 
-1. [max\_routing\_connections](maxscale-configuration-guide.md#max_routing_connections)
-2. [persistpoolmax](maxscale-configuration-guide.md#persistpoolmax)
-3. [persistmaxtime](maxscale-configuration-guide.md#persistmaxtime)
+1. [max\_routing\_connections](../../../reference/maxscale-servers.md#max_routing_connections)
+2. [persistpoolmax](../../../reference/maxscale-servers.md#persistpoolmax)
+3. [persistmaxtime](../../../reference/maxscale-servers.md#persistmaxtime)
 
 Since reusing a backend connection is an expensive operation, MaxScale only pools connections when another session requires them. _idle\_session\_pool\_time_ thus effectively limits the frequency at which a connection can be moved from one session to another. Setting `idle_session_pool_time=0ms` causes MaxScale to move connections as soon as possible.
 
@@ -2463,7 +2463,7 @@ The most common such state is a transaction. When a transaction is on, connectio
 * Temporary tables and some problematic user or session variables such as `LAST_INSERT_ID()`. For `LAST_INSERT_ID()`, the value returned by the connector must be used instead of the variable.
 * Stored procedures that cause session level side-effects.
 
-Several settings affect connection sharing and its effectiveness. Reusing a connection is an expensive operation so its frequency should be minimized. The important configuration settings in addition to _idle\_session\_pool\_time_ are MaxScale server settings [persistpoolmax](maxscale-configuration-guide.md#persistpoolmax), [persistmaxtime](maxscale-configuration-guide.md#persistmaxtime) and [max\_routing\_connections](maxscale-configuration-guide.md#max_routing_connections). The service settings [max\_sescmd\_history](maxscale-configuration-guide.md#max_sescmd_history), [prune\_sescmd\_history](maxscale-configuration-guide.md#prune_sescmd_history) and [multiplex\_timeout](maxscale-configuration-guide.md#multiplex_timeout) also have an effect. These settings should be tuned according to the use case.
+Several settings affect connection sharing and its effectiveness. Reusing a connection is an expensive operation so its frequency should be minimized. The important configuration settings in addition to _idle\_session\_pool\_time_ are MaxScale server settings [persistpoolmax](../../../reference/maxscale-servers.md#persistpoolmax), [persistmaxtime](../../../reference/maxscale-servers.md#persistmaxtime) and [max\_routing\_connections](../../../reference/maxscale-servers.md#max_routing_connections). The service settings [max\_sescmd\_history](maxscale-configuration-guide.md#max_sescmd_history), [prune\_sescmd\_history](maxscale-configuration-guide.md#prune_sescmd_history) and [multiplex\_timeout](maxscale-configuration-guide.md#multiplex_timeout) also have an effect. These settings should be tuned according to the use case.
 
 _persistpoolmax_ limits how many connections can be kept in a pool for a given server. If the pool is full, no more connections are detached from sessions even if they are idle and required. The pool size should be large enough to contain any connections being transferred between sessions, but not be greater than _max\_routing\_connections_. Using the value of _max\_routing\_connections_ is a reasonable starting point.
 
@@ -2788,7 +2788,7 @@ The default setting (MAX) allows all supported versions. MaxScale supports TLSv1
 
 In MaxScale versions 6.4.13, 22.08.11, 23.02.7, 23.08.3 and earlier, this setting defined the _only_ allowed TLS version, e.g. `ssl_version=TLSv12` would only enable TLSv12. The interpretation changed in MaxScale versions 6.4.14, 22.08.12, 23.02.8, 23.08.4 to enable the user to disable old versions while allowing multiple recent TLS versions. In these versions, `ssl_version=TLSv1.2` enabled both TLSv1.2 and TLSv1.3.
 
-The interpretation changed again in MaxScale versions 6.4.16, 22.08.13, 23.02.10, 23.08.6, 24.02.2. In these versions the value of `ssl_version` is an enumeration of accepted TLS protocol versions. This means that `admin_ssl_version=TLSv1.2` again only allows TLSv1.2. To retain the behavior from the previous releases where the newer versions were automatically enabled, the protocol versions must be explicitly listed, for example `admin_ssl_version=TLSv1.2,TLSv1.3`. The change was done to make the `ssl_version` behave identically to how the MariaDB [tls\_version](../../../../server/security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md#tls_version) parameter works.
+The interpretation changed again in MaxScale versions 6.4.16, 22.08.13, 23.02.10, 23.08.6, 24.02.2. In these versions the value of `ssl_version` is an enumeration of accepted TLS protocol versions. This means that `admin_ssl_version=TLSv1.2` again only allows TLSv1.2. To retain the behavior from the previous releases where the newer versions were automatically enabled, the protocol versions must be explicitly listed, for example `admin_ssl_version=TLSv1.2,TLSv1.3`. The change was done to make the `ssl_version` behave identically to how the MariaDB [tls\_version](../../../../server/security/encryption/data-in-transit-encryption/ssltls-system-variables.md#tls_version) parameter works.
 
 #### `ssl_cipher`
 
@@ -2915,7 +2915,32 @@ The use of monitors in MaxScale is not absolutely mandatory: it is possible to r
 
 ### Filter Modules
 
-![](../../../.gitbook/assets/image_10.png.png)
+```mermaid
+flowchart LR
+    accTitle: Client query flowing through the QLA and Regex filters to the backend server
+    accDescr {
+        The Client connects to a MaxScale router session. Inside the router
+        session the query passes in order through the QLA filter and then the
+        Regex filter before the router session forwards it to the backend
+        server. The QLA filter also writes a copy of each query to the query
+        log.
+    }
+    Client((Client)):::client -.-> QLA
+    subgraph RS["Router session"]
+        direction LR
+        QLA["QLA"]:::proc
+        Regex["Regex"]:::proc
+        QLA -.-> Regex
+    end
+    Regex -.-> Backend[("Backend<br/>server")]:::node
+    QLA -.-> QueryLog[["Query log"]]:::file
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+```
+_A client's query passes through the router session's QLA and Regex filters on its way to the backend server, with QLA also logging the query._
 
 Filters provide a means to manipulate or process requests as they pass through MariaDB MaxScale between the client side protocol and the query router. A full explanation of each filter's functionality can be found in its documentation.
 
@@ -3056,6 +3081,27 @@ maxscale --export-config=/tmp/maxscale.cnf.combined
 
 This will create the `/tmp/maxscale.cnf.combined` file and write the current configuration into the it. This allows new MaxScale instances to be easily set up without requiring copying of all runtime configuration files. The user executing the command must be able to read all MaxScale configuration files as well as create and write the provided filename.
 
+## Backing Up a MaxScale Installation
+
+The section above covers the runtime configuration alone. To copy or back up a whole MaxScale
+installation, include its static configuration and the data its modules keep on disk.
+
+The main configuration file for MaxScale is in `/etc/maxscale.cnf` and additional user-created configuration files are in `/etc/maxscale.cnf.d/`. Objects created or modified at runtime are stored in `/var/lib/maxscale/maxscale.cnf.d/`. Some modules also store internal data in `/var/lib/maxscale/` named after the module or the configuration object.
+
+The simplest way to back up the configuration and runtime data of a MaxScale installation is to create an archive from the following files and directories:
+
+* `/etc/maxscale.cnf`
+* `/etc/maxscale.cnf.d/`
+* `/var/lib/maxscale/`
+
+This can be done with the following command:
+
+```bash
+tar -caf maxscale-backup.tar.gz /etc/maxscale.cnf /etc/maxscale.cnf.d/ /var/lib/maxscale/
+```
+
+If MaxScale is configured to store data in custom locations, these should be included in the backup as well.
+
 ## Encryption Key Managers
 
 The encryption key managers are how MaxScale retrieves symmetric encryption keys from a key management system. Some parts of MaxScale require the `key_manager` to be configured in order to work. The key manager that is used is selected with the [key\_manager](maxscale-configuration-guide.md#key_manager) parameter and the key manager itself is configured by placing the parameters in the `[maxscale]` section.
@@ -3066,7 +3112,7 @@ The encryption key managers can be enabled at runtime using `maxctrl alter maxsc
 
 The encryption keys are stored in a text file stored on a local filesystem.
 
-The file uses the same format as the MariaDB server [File Key Management Encryption Plugin](../../../../server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md): a file consisting of an encryption key ID number and the hex-encoded encryption key separated by a semicolon. Read [Creating the Key File](../../../../server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#creating-the-key-file) for more details on how to create the file.
+The file uses the same format as the MariaDB server [File Key Management Encryption Plugin](../../../../server/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md): a file consisting of an encryption key ID number and the hex-encoded encryption key separated by a semicolon. Read [Creating the Key File](../../../../server/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#creating-the-key-file) for more details on how to create the file.
 
 For example, to configure encryption for the `nosqlprotocol` shared credentials using the file-based encryption key:
 
@@ -3163,7 +3209,7 @@ The CA certificate to use. By default the system default certificates are used.
 
 Encryption keys are read from a local or remote Vault server using the secret engine included in the Vault. This key manager supports versioned keys. Only version 2 key-value stores are supported.
 
-The encryption keys use the same format as the MariaDB [HashiCorp Vault Key Management Plugin](../../../../server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md) The key-value secret for each encryption key ID must contain the field `data` which must contain a hex-encoded string that is either 32, 48 or 64 characters long.
+The encryption keys use the same format as the MariaDB [HashiCorp Vault Key Management Plugin](../../../../server/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md) The key-value secret for each encryption key ID must contain the field `data` which must contain a hex-encoded string that is either 32, 48 or 64 characters long.
 
 An easy way to generate a correct encryption key is to use the `vault` and `openssl` command line clients. The following command creates a 256-bit encryption key using `openssl` and stores it using the key ID `1`:
 

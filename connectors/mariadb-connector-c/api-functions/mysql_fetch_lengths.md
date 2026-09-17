@@ -34,4 +34,6 @@ An array of unsigned long values . The size of the array can be determined by th
 * [mysql\_fetch\_row()](mysql_fetch_row.md)
 * [mysql\_field\_count()](mysql_field_count.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

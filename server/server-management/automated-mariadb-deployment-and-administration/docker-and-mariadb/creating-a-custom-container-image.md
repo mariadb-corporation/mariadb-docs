@@ -20,7 +20,23 @@ All the following Dockerfile directives are compiled into a new Docker image, id
 
 The following diagram shows the relationship between Dockerfiles, images and containers:
 
-![dockerfiles-images-containers](../../../.gitbook/assets/dockerfiles-images-containers.png)
+```mermaid
+flowchart LR
+    accTitle: Dockerfile to image to containers build flow
+    accDescr { A Dockerfile is compiled into a single image using a build step. That one image is then used to run multiple containers, shown here as three separate container instances fanning out from the same image. Each container is an independent running instance of the same underlying image. }
+    Dockerfile[Dockerfile] -->|build| Image[image]
+    Image -->|run| Container1[container]
+    Image -->|run| Container2[container]
+    Image -->|run| Container3[container]
+
+    style Dockerfile fill:#cfe2f3,stroke:#333,stroke-width:1px,color:#111;
+    style Image fill:#fce5cd,stroke:#333,stroke-width:1px,color:#111;
+    style Container1 fill:#d9ead3,stroke:#333,stroke-width:1px,color:#111;
+    style Container2 fill:#d9ead3,stroke:#333,stroke-width:1px,color:#111;
+    style Container3 fill:#d9ead3,stroke:#333,stroke-width:1px,color:#111;
+```
+
+_A Dockerfile is built into an image, which can then be run to create multiple containers._
 
 ## Dockerfile Syntax
 
@@ -57,7 +73,7 @@ We also define a healthcheck. This is a command that is run to check if the cont
 
 Finally, we start the container command: [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md). This command is run when a container based on this image starts. When the process stops or crashes, the container will immediately stop.
 
-Note that, in a container, we normally run mariadbd directly or in an entrypoint script `exec mariadbd`, rather than running [mysqld\_safe](../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) or running MariaDB as a service. Containers restart can be handled by the container service. See [automatic restart](installing-and-using-mariadb-via-docker.md#automatic-restart).
+Note that, in a container, we normally run mariadbd directly or in an entrypoint script `exec mariadbd`, rather than running [mysqld\_safe](../../starting-and-stopping-mariadb/mariadbd-safe.md) or running MariaDB as a service. Containers restart can be handled by the container service. See [automatic restart](installing-and-using-mariadb-via-docker.md#automatic-restart).
 
 See the documentation links below to learn the syntax allowed in a Dockerfile.
 

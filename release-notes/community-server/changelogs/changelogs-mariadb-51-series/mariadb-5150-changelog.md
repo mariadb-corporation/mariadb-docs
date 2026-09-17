@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.1/5.1.50.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #2911](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2911)
@@ -16,7 +16,7 @@ modified in that revision.
 * [Revision #2910](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2910) \[merge]
   * Automatic merge
     * [Revision #2891.3.6](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.3.6)
-      * Fixed recovery bug where bitmap pages would not be correctly updated after\
+      * Fixed recovery bug where bitmap pages would not be correctly updated after
         processing UNDO rows.
       * Fixed test failures in buildbot
       * Don't write errors when failing to send ok packet
@@ -26,24 +26,24 @@ modified in that revision.
       * Automatic merge
         * [Revision #2891.1.29](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.1.29)
           * Fixed bug that 'maria\_read\_log -a' didn't set max\_trid when reparing tables.
-          * Fixed bug in Aria when replacing short keys with long keys and a key\
+          * Fixed bug in Aria when replacing short keys with long keys and a key
             tree both overflow and underflow at same time.
-          * Fixed several bugs when generating recovery logs when using RGQ with\
+          * Fixed several bugs when generating recovery logs when using RGQ with
             replacing long keys with short keys and vice versa.
           * Lots of new DBUG\_ASSERT()'s
-          * Added more information to recovery log to make it easier to know from\
+          * Added more information to recovery log to make it easier to know from
             where log entry orginated.
-          * Introduced MARIA\_PAGE->org\_size that tells what the size of the page was\
-            in last log entry. This allows us to find out if all key changes for\
+          * Introduced MARIA\_PAGE->org\_size that tells what the size of the page was
+            in last log entry. This allows us to find out if all key changes for
             index page was logged.
           * Small code cleanups:
             * Introduced \_ma\_log\_key\_changes() to log crc of key page changes
-            * Added share->max\_index\_block\_size as max size of data one can put in\
+            * Added share->max\_index\_block\_size as max size of data one can put in
               key block (block\_size - KEYPAGE\_CHECKSUM\_SIZE)
           * This will later simplify adding a directory to index pages.
             * Write page number instead of page postition to DBUG log
     * [Revision #2891.3.3](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.3.3)
-      * make the check for windows\
+      * make the check for windows
         to work in cygnin perl too
     * [Revision #2891.3.2](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.3.2)
       * typo fixed
@@ -109,7 +109,7 @@ modified in that revision.
         * Changed to still use bcmp() in certain cases becasue
           * Faster for short unaligneed strings than memcmp()
           * Bettern when using valgrind
-        * Changed to use my\_sprintf() instead of sprintf() to get higher\
+        * Changed to use my\_sprintf() instead of sprintf() to get higher
           portability for old systems
         * Changed code to use MariaDB version of select->skip\_record()
         * Removed -%::SCCS/s.% from Makefile.am:s to remove automake warnings
@@ -117,10 +117,10 @@ modified in that revision.
       * mtr changes:
         * expanding unknown env variable does not abort mtr
         * have\_archive, blackhole, innodb - preload the corresponding engine
-        * all options from .opt files get equal treatment, all are searched for\
-          special options, not only -{master,slave}.opt as before (which ignored\
+        * all options from .opt files get equal treatment, all are searched for
+          special options, not only -{master,slave}.opt as before (which ignored
           suite.opt and `--mysqld=...`)
-        * `--plugin-load` gets special treatment too - all instances are merged into\
+        * `--plugin-load` gets special treatment too - all instances are merged into
           one
         * federated test fixed to preload federated
     * [Revision #2891.1.26](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.1.26)
@@ -134,24 +134,24 @@ modified in that revision.
       * Fixed compiler warning
         * [Revision #2891.2.5](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.2.5)
           * Increase some very old limits.
-          * This will give a smoother experience when using the Aria engine by those\
-            that are using default limits without still causing a notable problem\
+          * This will give a smoother experience when using the Aria engine by those
+            that are using default limits without still causing a notable problem
             for desktop users.
     * [Revision #2891.1.23](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.1.23) \[merge]
       * Automatic merge
         * [Revision #2891.2.4](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.2.4) \[merge]
           * Automatic merge with main 5.1
         * [Revision #2891.2.3](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.2.3)
-          * Fix of [Bug #616253](https://bugs.launchpad.net/bugs/616253) Crash in \_ma\_bitmap\_set\_full\_page\_bits on Aria\
+          * Fix of [Bug #616253](https://bugs.launchpad.net/bugs/616253) Crash in \_ma\_bitmap\_set\_full\_page\_bits on Aria
             recovery
-          * The bug was based on wrong undo data in recovery file and not enough\
+          * The bug was based on wrong undo data in recovery file and not enough
             checking of bad data.
         * [Revision #2891.2.2](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.2.2)
           * Trivial fixes, more safe DBUG\_ASSERT()'s and some more DBUG\_
             * CTRL-C now aborts 'source' commands in mysql client
             * Fix that thread id's are removed in convert-debug-for-diff.sh
         * [Revision #2891.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.2.1)
-          * Fix for [Bug #612894](https://bugs.launchpad.net/bugs/612894) Some aggregate functions (such as MIN MAX) work\
+          * Fix for [Bug #612894](https://bugs.launchpad.net/bugs/612894) Some aggregate functions (such as MIN MAX) work
             incorrectly in subqueries after getting NULL value
     * [Revision #2891.1.22](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.1.22)
       * allow suite.pm to tell mtr to skip the suite
@@ -159,7 +159,7 @@ modified in that revision.
       * generalization of mtr to support suite.pm extensions:
         * no automatic `--loose-skip-innodb` added by mtr based on the test name.\
           instead loose-skip-innodb is now in the default\_mysqld.cnf
-        * have\_innodb\_plugin.inc is changed to give a verbose "skip" message\
+        * have\_innodb\_plugin.inc is changed to give a verbose "skip" message
           (instead of "require: true")
         * My::Suite class. It's support in mtr, and everywhere
         * support for suite.pm
@@ -171,19 +171,19 @@ modified in that revision.
         * allow magic option to have an argument
         * remove dead code
         * fix @-substitution to works as expected
-        * new processes take the value of $opt\_verbose automatically, no need to\
+        * new processes take the value of $opt\_verbose automatically, no need to
           pass it to a constructor
-        * innodb\_plugin suite uses suite.pm and combinations file to test as much\
-          as possible (innodb plugin, xtradb plugin, xtradb static - whatever\
+        * innodb\_plugin suite uses suite.pm and combinations file to test as much
+          as possible (innodb plugin, xtradb plugin, xtradb static - whatever
           available)
-        * besides test-master.opt and test-slave.opt a test.opt file is also\
+        * besides test-master.opt and test-slave.opt a test.opt file is also
           loaded, both for master and slave
         * .opt files for all included files are loaded too
         * progress report in the xterm titlebar
     * [Revision #2891.1.20](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.1.20)
       * missing DBUG\_RETURNs
     * [Revision #2891.1.19](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.1.19)
-      * created \*-all build scripts that build with ndb\
+      * created \*-all build scripts that build with ndb
         (as -max scripts don't)
     * [Revision #2891.1.18](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.1.18)
       * Fixed compilation failure and added some new suppressions
@@ -193,7 +193,7 @@ modified in that revision.
       * Fixed valgrind errors and compiler warnings discovered by buildbot
       * More DBUG\_ASSERT() to discover errors earlier
       * More checking of BLOCK structures in Aria.
-      * Fixed crashing bug in Aria when doing UPDATE of several records in same\
+      * Fixed crashing bug in Aria when doing UPDATE of several records in same
         block when doing table scan.
     * [Revision #2891.1.15](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.1.15)
       * Added verbose mode to recovery
@@ -221,7 +221,7 @@ modified in that revision.
       * Fixed typo that caused compile failure on Mac
       * Added straight\_join to make results predicatable
     * [Revision #2891.1.7](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.1.7)
-      * Fixed wrong argument to translog\_write\_record() that caused core dump in\
+      * Fixed wrong argument to translog\_write\_record() that caused core dump in
         maria.maria-gis-rtree-trans and some other tests
       * (Bug introduced by my last push)
     * [Revision #2891.1.6](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2891.1.6)
@@ -233,6 +233,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -132,7 +132,7 @@ The following statement fails, as the increment conflicts with the defaults:
 
 ```sql
 CREATE SEQUENCE s3 START WITH -100 INCREMENT BY 10;
-ERROR 4082 (HY000): Sequence 'test.s3' values are conflicting
+ERROR 4085 (HY000): Sequence 'test.s3' has out of range value for options
 ```
 
 The sequence can be created by specifying workable minimum and maximum values:

@@ -33,3 +33,5 @@ MySqlConnector is the recommended ADO.NET connector for MariaDB Server, offering
 Alternative ADO.NET connectors for MariaDB include MySQL Connector/NET and dotConnect for MySQL, supporting .NET Framework, .NET Core, and optional Entity Framework ORM integration.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

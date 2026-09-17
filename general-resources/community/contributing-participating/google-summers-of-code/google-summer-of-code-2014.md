@@ -1,6 +1,6 @@
 # Google Summer of Code 2014
 
-We participated in Google Summer of Code 2014. MariaDB and the MariaDB Foundation believe we are making a better database that remains a drop-in replacement to MySQL. We also work on making LGPL connectors (currently in C, Java, C++ in development) and on [MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera/README.md), which allows you to scale your reads & writes.
+We participated in Google Summer of Code 2014. MariaDB and the MariaDB Foundation believe we are making a better database that remains a drop-in replacement to MySQL. We also work on making LGPL connectors (currently in C, Java, C++ in development) and on [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7), which allows you to scale your reads & writes.
 
 ## Where to start
 
@@ -112,7 +112,7 @@ Mentor: Sergei Golubchik
 
 The `mysqlbinlog` tool needs to understand global transaction ids. In particular, it should be possible to start and end the dump at the specified GTID. Both when reading binlog files and when connecting to a running server. See [MDEV-4989](https://jira.mariadb.org/browse/MDEV-4989).
 
-If time permits, other client programs could be extended similarly, like\
+If time permits, other client programs could be extended similarly, like
 mysqldump --master-data or the --sync-with-master command in mysqltest.
 
 Skills: C++

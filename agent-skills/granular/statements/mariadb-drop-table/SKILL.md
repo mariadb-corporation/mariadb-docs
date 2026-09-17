@@ -59,3 +59,5 @@ DROP TABLE big_table WAIT 5;     -- or NOWAIT to fail immediately
 - **`mariadb-create-view`** — `DROP VIEW` for views (`DROP TABLE` won't drop them)
 - **`mariadb-delete`** — when you want to *empty* a table rather than drop it: `TRUNCATE TABLE` vs `DELETE FROM`
 - Canonical reference on `mariadb.com/docs`, consult only for edge cases not covered here: <https://mariadb.com/docs/server/reference/sql-statements/data-definition/drop/drop-table>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

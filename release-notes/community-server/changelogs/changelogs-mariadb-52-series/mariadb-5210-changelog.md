@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.10.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3067](https://bazaar.launchpad.net/~maria-captains/maria/5.2-release/revision/3067)\
@@ -59,8 +59,8 @@ modified in that revision.
   Thu 2011-12-01 22:37:45 +0100
   * Fix intermittently failing variables-notembedded test case.\
     After sending packet that is too large, clienrt can get either an error packet with\
-    ER\_NET\_PACKET\_TOO\_LARGE, or a socket error. Both cases are valid, since the\
-    server does not ensure reply was fully read by client, before shutting down and closing\
+    ER\_NET\_PACKET\_TOO\_LARGE, or a socket error. Both cases are valid, since the
+    server does not ensure reply was fully read by client, before shutting down and closing
     the socket.
 * [Revision #3058](https://bazaar.launchpad.net/~maria-captains/maria/5.2-release/revision/3058)\
   Thu 2011-12-01 20:21:11 +0200
@@ -109,9 +109,9 @@ modified in that revision.
   Tue 2011-11-29 08:50:54 +0100
   * Fix testcases:
     1. main.merge fails with errno 13 in copy\_file().
-    2. The reason for the error is that copy\_file tries to create a file with the same name as recently deleted one,\
+    2. The reason for the error is that copy\_file tries to create a file with the same name as recently deleted one,
        and there is still an open handle for the deleted file.\
-       To fix, use my\_delete\_allow\_opened() for MTR's delete\_file. On Windows, this renames file to unique name\
+       To fix, use my\_delete\_allow\_opened() for MTR's delete\_file. On Windows, this renames file to unique name
        prior to deletion, and prevents EACCES errors for files opened with FILE\_SHARE\_DELETE.
     3. innodb\_bug59641
     4. generates warnings, after server was killed and restarted in the test case.
@@ -209,7 +209,7 @@ modified in that revision.
 * [Revision #3044](https://bazaar.launchpad.net/~maria-captains/maria/5.2-release/revision/3044)\
   Tue 2011-11-01 12:36:43 +0400
   * [Bug #884184](https://bugs.launchpad.net/bugs/884184): Wrong result with RIGHT JOIN + derived\_merge
-    *   Make eliminate\_tables\_for\_list() take into account that it is not possible\
+    *   Make eliminate\_tables\_for\_list() take into account that it is not possible
         to eliminate a table if it is used in the upper-side ON expressions.\
         Example:
 
@@ -319,6 +319,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

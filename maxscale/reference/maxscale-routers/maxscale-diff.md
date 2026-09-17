@@ -19,7 +19,7 @@ Although Diff is a normal MaxScale router that can be configured manually, typic
 
 ### Histogram
 
-Diff collects latency information separately for each _canonical_ \&#xNAN;_statement_, which simply means a statement where all literals have been replaced with question marks. For instance, the canonical statement of`SELECT f FROM t WHERE f = 10` and `SELECT f FROM t WHERE f = 20` is in both cases `SELECT f FROM t WHERE f = ?`. The latency information of both of those statements will be collected under the same canonical statement.
+Diff collects latency information separately for each _canonical statement_, which simply means a statement where all literals have been replaced with question marks. For instance, the canonical statement of `SELECT f FROM t WHERE f = 10` and `SELECT f FROM t WHERE f = 20` is in both cases `SELECT f FROM t WHERE f = ?`. The latency information of both of those statements will be collected under the same canonical statement.
 
 Before starting to register histogram data, Diff will collect [samples](maxscale-diff.md#samples) from _main_ that will be used for defining the edges and the number of bins of the histogram.
 

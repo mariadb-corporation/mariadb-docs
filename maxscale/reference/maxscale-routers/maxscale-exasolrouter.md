@@ -3,6 +3,8 @@ description: >-
   Route analytical queries to an Exasol cluster. This router integrates Exasol
   with MaxScale often used alongside SmartRouter for hybrid
   transactional/analytical workloads.
+
+  The router is provided in the package `maxscale-exasol` that must be installed explicitly.
 ---
 
 # MaxScale Exasolrouter
@@ -197,7 +199,7 @@ In the latter case, currently it only affects whether 'USE db' becomes
 
 ### `COM_INIT_DB`
 
-The MariaDB `COM\_INIT\_DB` protocol packet, using which the default database
+The MariaDB `COM_INIT_DB` protocol packet, using which the default database
 is changed, is transformed into the statement `OPEN SCHEMA <db>`.
 
 ### SQL
@@ -210,10 +212,10 @@ Currently a transformation will be made _only_ if there is an **exact** match
 
 | MariaDb                           | Exasol                                                                                                              |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `SELECT @@VERSION\_COMMENT LIMIT 1` | `SELECT 'Exasol' AS '@@version\_comment' LIMIT 1`                                                                     |
-| `SELECT DATABASE()`                 | `SELECT TABLE\_NAME AS 'Database()' FROM EXA\_ALL\_TABLES WHERE TABLE\_SCHEMA = CURRENT\_SCHEMA`                      |
-| `SHOW DATABASES`                    | `SELECT SCHEMA\_NAME AS 'Database' FROM EXA\_SCHEMAS ORDER BY SCHEMA\_NAME`                                           |
-| `SHOW TABLES`                       | `SELECT TABLE\_NAME AS 'Tables' FROM SYS.EXA\_ALL\_TABLES WHERE TABLE\_SCHEMA = CURRENT\_SCHEMA ORDER BY TABLE\_NAME` |
+| `SELECT @@VERSION_COMMENT LIMIT 1` | `SELECT 'Exasol' AS '@@version_comment' LIMIT 1`                                                                     |
+| `SELECT DATABASE()`                 | `SELECT TABLE_NAME AS 'Database()' FROM EXA_ALL_TABLES WHERE TABLE_SCHEMA = CURRENT_SCHEMA`                      |
+| `SHOW DATABASES`                    | `SELECT SCHEMA_NAME AS 'Database' FROM EXA_SCHEMAS ORDER BY SCHEMA_NAME`                                           |
+| `SHOW TABLES`                       | `SELECT TABLE_NAME AS 'Tables' FROM SYS.EXA_ALL_TABLES WHERE TABLE_SCHEMA = CURRENT_SCHEMA ORDER BY TABLE_NAME` |
 
 ## ODBC
 
@@ -221,8 +223,8 @@ _ExasolRouter_ communicates with Exasol using ODBC. The necessary
 ODBC driver is included in the `maxscale-exasol` package and the
 files are copied to
 ```
-<maxscale-libdir>/exasol/M.N.O/libexaodbc.so
-<maxscale-libdir>/exasol/M.N.O/libexacli.so
+<maxscale-libdir>/exasol/M.N.O/lib/libexaodbc.so
+<maxscale-libdir>/exasol/M.N.O/lib/libexacli.so
 ```
 where `M.N.O` is the version of the ODBC library, e.g. `26.2.6`.
 `libexaodbc.so` is the actual ODBC driver and `libexacli.so` the
@@ -245,7 +247,7 @@ in a MaxScale patch release.
 In [connection_string](#connection_string), the driver can be referred
 to directly as in
 ```
-connection_string=DRIVER=/path/to/exasol/current/libexaodbc.so;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
+connection_string=DRIVER=/path/to/exasol/current/lib/libexaodbc.so;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 ```
 
 Alternatively, the driver location can be specified in `/etc/odbcinst.ini`
@@ -254,7 +256,7 @@ or `~/.odbcinst.ini`, in which case it need not be specified in
 ```
 [EXAODBC]
 Description = Exasol ODBC Driver
-Driver = /path/to/exasol/current/libexaodbc.so
+Driver = /path/to/exasol/current/lib/libexaodbc.so
 Threading = 2
 FileUsage = 1
 ```
@@ -291,6 +293,13 @@ type=server
 address=127.0.0.1
 port=3306
 protocol=mariadbbackend
+
+[Monitor]
+type=monitor
+module=mariadbmon
+user=MyMonitorUser
+password=MyMonitorPassword
+servers=Server1
 
 [ExasolService]
 type=service
@@ -337,6 +346,13 @@ address=127.0.0.1
 port=3306
 protocol=mariadbbackend
 
+[Monitor]
+type=monitor
+module=mariadbmon
+user=MyMonitorUser
+password=MyMonitorPassword
+servers=Server1
+
 [ExasolService]
 type=service
 router=exasolrouter
@@ -353,3 +369,5 @@ port=4008
 
 With this setup, it is possible to connect using the regular `mariadb` command line
 utility to the port 4008 and all queries will be sent to Exasol.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

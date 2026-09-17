@@ -20,3 +20,5 @@ description: >-
 - [Moving Data Between SQL Server and MariaDB](moving-data-between-sql-server-and-mariadb.md)
 - [Repairing MariaDB Tables for SQL Server Users](repairing-mariadb-tables-for-sql-server-users.md)
 - [Setting Up MariaDB for Testing for SQL Server Users](setting-up-mariadb-for-testing-for-sql-server-users.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

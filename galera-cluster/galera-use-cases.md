@@ -247,7 +247,7 @@ While synchronous replication adds some overhead, Galera fundamentally allows an
 #### Examples:
 
 * Load Balanced Read/Write Traffic: Using MaxScale's Read/Write Split Router to direct reads to any node and writes to a single "Primary" node.
-* High-Volume Write Environments: Suitable for applications with a high volume of concurrent, _non-conflictin&#x67;_&#x77;rite operations.
+* High-Volume Write Environments: Suitable for applications with a high volume of concurrent, _non-conflicting_ write operations.
 
 {% hint style="info" %}
 **Myth vs. Reality: Write Throughput in Distributed Systems**

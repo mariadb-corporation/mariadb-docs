@@ -9,18 +9,6 @@ noIndex: true
 
 # Docker Deployment Guide
 
-## 📋 Quick Navigation
-
-* [System Overview](docker-deployment.md#system-overview)
-* [Prerequisites](docker-deployment.md#prerequisites)
-* [Deployment - Standalone Mode](docker-deployment.md#deployment---standalone-mode)
-* [Deployment - Vault Mode](docker-deployment.md#deployment---vault-mode)
-* [Post-Deployment](docker-deployment.md#post-deployment)
-* [Usage Guide](docker-deployment.md#usage-guide)
-* [Troubleshooting](docker-deployment.md#troubleshooting)
-
-***
-
 ## System Overview
 
 ### What is MariaDB AI RAG?
@@ -658,6 +646,6 @@ docker exec ai-nexus curl -s http://mysql-db:3306
 
 **🎉 Deployment Complete! Your MariaDB AI RAG is ready to use.**
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

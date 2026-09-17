@@ -47,3 +47,5 @@ Available configuration parameters differ by cloud database topology.
 {% content-ref url="../../quickstart/enterprise-cluster.md" %}
 [enterprise-cluster.md](../../quickstart/enterprise-cluster.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

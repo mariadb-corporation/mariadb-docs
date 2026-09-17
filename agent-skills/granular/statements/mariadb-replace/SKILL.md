@@ -74,3 +74,5 @@ Returns the newly inserted rows. Expressions, virtual columns, `AS` aliases, sto
 - Canonical references on `mariadb.com/docs` (consult only for edge cases not covered here):
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/changing-deleting-data/replace>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/changing-deleting-data/replacereturning>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

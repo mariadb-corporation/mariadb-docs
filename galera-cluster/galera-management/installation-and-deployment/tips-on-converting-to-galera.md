@@ -146,7 +146,7 @@ GRANTs and related operations act on the MyISAM tables in the database `mysql`. 
 
 Many DDL changes on Galera can be achieved without downtime, even if they take a long time.
 
-[RSU vs TOI](https://galeracluster.com/documentation-webpages/documentation/schema-upgrades.html):
+[RSU vs TOI](../general-operations/performing-schema-upgrades-in-galera-cluster.md):
 
 * Rolling Schema Upgrade (RSU): manually execute the DDL on each node in the cluster. The node will desync while executing the DDL.
 * Total Order Isolation (TOI): Galera automatically replicates the DDL to each node in the cluster, and it synchronizes each node so that the statement is executed at same time (in the replication sequence) on all nodes.
@@ -251,7 +251,7 @@ Posted 2013; VARIABLES: 2015; Refreshed Feb. 2016
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [galera](https://mysql.rjweb.org/doc.php/galera)

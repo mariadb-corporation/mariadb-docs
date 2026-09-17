@@ -28,3 +28,5 @@ If you can schedule downtime for the entire cluster:
 
 * You may shut down all nodes, upgrade them all to the target version, and then bring the cluster back up.
 * In this scenario, a **direct upgrade** (skipping intermediate versions) is supported, similar to a standalone server.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

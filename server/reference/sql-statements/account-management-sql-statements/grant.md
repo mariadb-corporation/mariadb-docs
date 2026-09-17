@@ -112,9 +112,76 @@ Use the [REVOKE](revoke.md) statement to revoke privileges granted with the `GRA
 
 Use the [SHOW GRANTS](../administrative-sql-statements/show/show-grants.md) statement to determine what privileges an account has.
 
+{% hint style="info" %}
+From [MariaDB 13.1](https://jira.mariadb.org/browse/MDEV-14443), a privilege blocked with [DENY](deny.md) cannot be granted back. A deny takes precedence over every `GRANT` at every privilege level, whatever order the statements are issued in, and is only lifted by `REVOKE DENY`.
+{% endhint %}
+
 ### Account Names
 
 For `GRANT` statements, account names are specified as the `username` argument in the same way as they are for [CREATE USER](create-user.md) statements. See [account names](create-user.md#account-names) from the `CREATE USER` page for details on how account names are specified.
+
+#### Account Name Matching for Privilege Checks
+
+An account is a user name together with a host pattern, and the two parts are matched at two different times.
+
+When a client connects, MariaDB selects exactly one account: the one whose user name matches exactly and whose host pattern is the most specific match for the client's host. That account authenticates the connection, it is what [CURRENT\_USER()](../../sql-functions/secondary-functions/information-functions/current_user.md) returns, and its row in the [mysql.global\_priv table](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md) is the only source of the connection's global privileges. For the rules that decide which account is the most specific match, see [account names](create-user.md#account-names) on the `CREATE USER` page.
+
+Privileges below the global level are resolved separately. For each level, MariaDB searches that level's grant table again, using the user name of the account that authenticated the connection together with the host the client actually connected from. The host pattern of the account itself is not used:
+
+* Database privileges are matched in the [mysql.db table](../../system-tables/the-mysql-database-tables/mysql-db-table.md).
+* Table privileges are matched in the [mysql.tables\_priv table](../../system-tables/the-mysql-database-tables/mysql-tables_priv-table.md).
+* Column privileges are matched in the [mysql.columns\_priv table](../../system-tables/the-mysql-database-tables/mysql-columns_priv-table.md).
+* Function and procedure privileges are matched in the [mysql.procs\_priv table](../../system-tables/the-mysql-database-tables/mysql-procs_priv-table.md).
+
+Each of these tables is searched independently, so the account whose privileges apply can differ from one level to the next. At each level, the single most specific matching entry applies, and it applies on its own. Entries with less specific host patterns are not merged into it.
+
+A privilege granted to one account can therefore apply to a connection that authenticated as a different account with the same user name:
+
+```sql
+CREATE USER foo@localhost;
+CREATE USER foo@'%';
+CREATE DATABASE db;
+CREATE TABLE db.t1 (a INT);
+INSERT INTO db.t1 VALUES (1),(2),(3);
+GRANT SELECT ON db.* TO foo@'%';
+```
+
+Connecting as `foo` from the local host authenticates as `foo@localhost`, because `localhost` is a more specific match than `%`:
+
+```sql
+SELECT CURRENT_USER();
+```
+
+```
++----------------+
+| CURRENT_USER() |
++----------------+
+| foo@localhost  |
++----------------+
+```
+
+No privilege was granted to `foo@localhost`, but the `mysql.db` entry granted to `foo@'%'` matches, because `%` matches the host the client connected from. The `SELECT` succeeds:
+
+```sql
+SELECT * FROM db.t1;
+```
+
+Granting any database privilege to `foo@localhost` changes the result. The `mysql.db` table then holds a more specific matching entry, and that entry applies instead of the one granted to `foo@'%'`, not in addition to it:
+
+```sql
+GRANT INSERT ON db.* TO foo@localhost;
+SELECT * FROM db.t1;
+```
+
+```
+ERROR 1142 (42000): SELECT command denied to user 'foo'@'localhost' for table `db`.`t1`
+```
+
+Global privileges do not work this way. They come only from the account that authenticated the connection, so a global privilege granted to `foo@'%'` has no effect on a connection that authenticated as `foo@localhost`.
+
+{% hint style="info" %}
+[SHOW GRANTS](../administrative-sql-statements/show/show-grants.md) lists the privileges recorded for the account that authenticated the connection. Privileges that reach the connection through an entry belonging to another account, as in the example above, are not listed, so `SHOW GRANTS` can report fewer privileges than the connection actually has.
+{% endhint %}
 
 #### Database Name Wildcard Matching Order
 
@@ -357,7 +424,7 @@ The `READ_ONLY ADMIN` privilege is included in [SUPER](grant.md#super).
 {% endtab %}
 
 {% tab title="< 10.5" %}
-`READ\_ONLY ADMIN` isn't available.
+`READ_ONLY ADMIN` isn't available.
 {% endtab %}
 {% endtabs %}
 
@@ -971,7 +1038,7 @@ GRANT <privilege> ON <db_name>.<object> TO PUBLIC;
 REVOKE <privilege> ON <db_name>.<object> FROM PUBLIC;
 ```
 
-`GRANT ... TO PUBLIC` grants privileges to all users with access to the server. The privileges also apply to users created after the privileges are granted. This can be useful when you only want to state once that all users need to have a certain set of privileges. When running [SHOW GRANTS](../administrative-sql-statements/show/show-grants.md), a user also sees all privileges inherited from `PUBLIC`. [SHOW GRANTS FOR PUBLIC](../administrative-sql-statements/show/show-grants.md#for-public) only shows `TO PUBLIC` grants.
+`GRANT ... TO PUBLIC` grants privileges to all users with access to the server. The privileges also apply to users created after the privileges are granted. This can be useful when you only want to state once that all users need to have a certain set of privileges. When running [SHOW GRANTS](../administrative-sql-statements/show/show-grants.md), a user also sees all privileges inherited from `PUBLIC`. [SHOW GRANTS FOR PUBLIC](../administrative-sql-statements/show/show-grants.md#roles) only shows `TO PUBLIC` grants.
 
 **Example**
 
@@ -1027,6 +1094,7 @@ GRANT ALL PRIVILEGES ON  *.* TO 'alexander'@'localhost' WITH GRANT OPTION;
 * [CREATE USER](create-user.md)
 * [ALTER USER](alter-user.md)
 * [DROP USER](drop-user.md)
+* [DENY](deny.md) blocks a privilege so that no `GRANT` can restore it.
 * [SET PASSWORD](set-password.md)
 * [SHOW CREATE USER](../administrative-sql-statements/show/show-create-user.md)
 * [mysql.global\_priv table](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md)
@@ -1034,6 +1102,6 @@ GRANT ALL PRIVILEGES ON  *.* TO 'alexander'@'localhost' WITH GRANT OPTION;
 * [Password Validation Plugins](../../plugins/password-validation-plugins/) - permits the setting of basic criteria for passwords
 * [Authentication Plugins](../../plugins/authentication-plugins/) - allow various authentication methods to be used, and new ones to be developed.
 
-{% include "../../../.gitbook/includes/license-gplv2-fill-help-tables.md" %}
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

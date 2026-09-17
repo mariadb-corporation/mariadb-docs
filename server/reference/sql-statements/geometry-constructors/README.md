@@ -126,3 +126,5 @@ Learn about Well-Known Binary (WKB) in MariaDB Server. This section details how 
 Learn about Well-Known Text (WKT) in MariaDB Server. This section details how to represent and store geometric data in a text format, essential for human-readable spatial data exchange.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

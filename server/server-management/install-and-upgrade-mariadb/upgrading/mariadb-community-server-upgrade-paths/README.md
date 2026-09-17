@@ -89,3 +89,5 @@ Complete MariaDB 10.6 to 10.11 upgrade: repository config, apt-get/yum/zypper re
 Instructions for upgrading to MariaDB 10.6, noting significant changes like the default character set switch to `utf8mb3` and atomic DDL support.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

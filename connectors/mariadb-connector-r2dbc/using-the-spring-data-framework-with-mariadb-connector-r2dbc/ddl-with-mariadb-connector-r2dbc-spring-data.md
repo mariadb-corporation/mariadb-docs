@@ -167,6 +167,6 @@ public class App {
 * A connection factory is used to create an instance of DatabaseClient to connect to the database.
 * The `DROP` and `CREATE` privileges are needed to truncate a table as `TRUNCATE` is a DDL statement that drops the table and creates a new table with the same table definition, in effect deleting all data.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

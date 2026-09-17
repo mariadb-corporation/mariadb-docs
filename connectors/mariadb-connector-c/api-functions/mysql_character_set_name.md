@@ -22,7 +22,7 @@ Returns the default client [character set](https://app.gitbook.com/s/SsmexDFPv2x
 
 ## Return value
 
-The character set name used for the specified connection, or NULL if an error occurred.
+The character set name used for the specified connection.
 
 {% hint style="info" %}
 This function is deprecated. Instead, use [mariadb\_get\_infov()](mariadb_get_infov.md) with option `MARIADB_CONNECTION_CHARSET_INFO`.
@@ -31,5 +31,7 @@ This function is deprecated. Instead, use [mariadb\_get\_infov()](mariadb_get_in
 ## See Also
 
 * [mysql\_set\_character\_set()](mysql_set_character_set.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -17,8 +17,10 @@ Install it with the `npm` package installer:
 npm install mariasql
 ```
 
-In [benchmarks](https://mscdex.github.com/node-mysql-benchmarks/), mariasql performs much better than libmysqlclient.
+In [benchmarks](https://mscdex.github.io/node-mysql-benchmarks/), mariasql performs much better than libmysqlclient.
 
 The source code is located at [github:node-mariasql](https://github.com/mscdex/node-mariasql).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

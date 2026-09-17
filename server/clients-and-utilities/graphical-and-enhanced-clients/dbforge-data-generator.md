@@ -1,4 +1,14 @@
+---
+description: >-
+  dbForge Data Generator for MariaDB and MySQL creates large volumes of
+  realistic test data using predefined generators with customizable options.
+---
+
 # dbForge Data Generator
+
+{% hint style="info" %}
+dbForge Data Generator is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 [dbForge Data Generator for MariaDB and MySQL](https://www.devart.com/dbforge/mysql/data-generator/) is a powerful solution that helps create massive volumes of meaningful and realistic data. This tool performs various predefined data generators with customizable options.
 

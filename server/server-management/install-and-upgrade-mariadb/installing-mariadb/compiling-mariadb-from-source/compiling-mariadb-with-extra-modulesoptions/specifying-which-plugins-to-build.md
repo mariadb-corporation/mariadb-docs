@@ -20,7 +20,7 @@ Use `PLUGIN_xxx` cmake variables. They can be set on the command line with `-DPL
 
 Note that unlike autotools, cmake tries to configure and build incrementally. You can modify one configuration option and cmake will only rebuild the part of the tree affected by it. For example, when you do `cmake -DWITH_EMBEDDED_SERVER=1` in the already-built tree, it will make libmysqld to be built, but no other configuration options will be changed or reset to their default values.
 
-In particular this means that if you have run, for example`cmake -DPLUGIN_OQGRAPH=NO`\
+In particular this means that if you have run, for example`cmake -DPLUGIN_OQGRAPH=NO`
 and later you want to restore the default behavior (with OQGraph being built) in the same build tree, you would need to run`cmake -DPLUGIN_OQGRAPH=DYNAMIC`
 
 Alternatively, you might simply delete the `CMakeCache.txt` file — this is the file where cmake stores current build configuration — and rebuild everything from scratch.

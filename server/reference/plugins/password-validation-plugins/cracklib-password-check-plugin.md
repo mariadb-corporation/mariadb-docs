@@ -97,7 +97,7 @@ ERROR 1819 (HY000): Your password does not satisfy the current policy requiremen
 
 ### SELinux
 
-When using the standard [SELinux](../../../security/securing-mariadb/selinux.md) policy with the [mode](../../../security/securing-mariadb/selinux.md#changing-selinuxs-mode) set to `enforcing`, `mariadbd` does not have access to `/usr/share/cracklib`, and you may see the following error when attempting to use the `cracklib_password_check` plugin:
+When using the standard [SELinux](../../../security/securing-mariadb/selinux.md) policy with the [mode](../../../security/securing-mariadb/selinux.md#temporarily-putting-mysqld-into-permissive-mode) set to `enforcing`, `mariadbd` does not have access to `/usr/share/cracklib`, and you may see the following error when attempting to use the `cracklib_password_check` plugin:
 
 ```sql
 CREATE USER `user`@`hostname` IDENTIFIED BY 's0mePwd123.';

@@ -62,5 +62,6 @@ If you suspect the documentation might not be up to date, you can check the comp
 | debug                   | "False"                                       | Enables debug logging which provides lots of internals information                                                                                                                                                                                                                                                     |
 | code\_completion        | "True"                                        | Enables SQL autocompletion and code introspection                                                                                                                                                                                                                                                                      |
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

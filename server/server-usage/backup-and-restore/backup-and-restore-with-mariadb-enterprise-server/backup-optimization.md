@@ -8,7 +8,7 @@ description: >-
 
 ## Overview
 
-Backup and restore implementations can help overcome specific technical challenges that would otherwise pose a barrier to meeting business requirements.
+Backup and restore implementations can help overcome specific technical challenges that would otherwise pose a barrier to meeting business requirements. 
 
 Each of these practices represents a trade-off. Understand risks before implementing any of these practices.
 
@@ -109,7 +109,7 @@ Just as traditional full, incremental, and partial backups should be tested, so 
 
 {% tabs %}
 {% tab title="Current" %}
-MariaDB Server includes [advanced backup](mariadb-enterprise-backup.md#non-blocking-backups) functionality to reduce the impact of backup operations:
+MariaDB Server includes [advanced backup](mariadb-enterprise-backup.md#nonblocking-backups) functionality to reduce the impact of backup operations:
 
 1. Connect with a client and issue a `BACKUP STAGE START` statement and then a `BACKUP STAGE BLOCK_COMMIT` statement.
 2. Take the snapshot.
@@ -128,6 +128,6 @@ It is recommended to briefly prevent writes while snapshotting. Specific command
 {% endtab %}
 {% endtabs %}
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

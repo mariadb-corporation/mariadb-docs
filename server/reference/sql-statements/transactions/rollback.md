@@ -49,6 +49,9 @@ ROLLBACK;
 
 The result will be that both the `INSERT` and the `DROP` will go through as separate transactions so the `ROLLBACK` will have no effect.
 
+## See Also
+* [Flashback, rollback transactions in binary log](../../../server-management/server-monitoring-logs/binary-log/flashback.md)
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

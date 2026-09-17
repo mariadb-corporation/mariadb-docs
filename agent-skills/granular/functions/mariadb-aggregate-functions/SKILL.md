@@ -108,3 +108,5 @@ Returns the sample variance of _`expr`_.
 - **`mariadb-json-functions`** — `JSON_ARRAYAGG` / `JSON_OBJECTAGG`
 - **`mariadb-string-functions`** — non-aggregate string building (`CONCAT`, `CONCAT_WS`)
 - Canonical reference on `mariadb.com/docs`: <https://mariadb.com/docs/server/reference/sql-functions/aggregate-functions>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

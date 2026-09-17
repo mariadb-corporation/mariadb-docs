@@ -68,3 +68,5 @@ By default, InnoDB will use the most permissive locking strategy supported by an
 | Dropping a constraint                                | Yes    |                                                                                             |
 | Rebuilding the table                                 | Yes    |                                                                                             |
 | Renaming the table                                   | Yes    |                                                                                             |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

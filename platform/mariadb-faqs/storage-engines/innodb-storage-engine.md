@@ -11,4 +11,6 @@
 * Q: Is the InnoDB storage engine open source and free to use?\
   A: Yes, InnoDB is an open-source storage engine. It is included as a core and integral part of MariaDB Community Server and is free to use under the terms of its open-source license.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

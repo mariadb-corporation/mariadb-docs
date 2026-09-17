@@ -164,3 +164,5 @@ Evaluating specific telemetry variables inside this payload returns diagnostic i
 
 * Validation Principle: To isolate and track which component node maintains the role of active master, CMAPI relies on the specialized internal `CEJ` system user profile. The `CEJ` user scans the active database processlist tables to verify the availability of background replication lines. If the database grants, authorization rules, or connection credentials for this `CEJ` user profile are broken, CMAPI cannot resolve the master context, breaking cluster status monitoring completely.
 * Analysis Context: Under ideal operational layouts, the assigned `dbroots` values match the corresponding `module_id` tags, indicating that no node failovers have occurred. The master tracking node typically claims initial ownership mapping of `DBroot 1`. If a master node role change occurs, the structural database root execution responsibilities are shuffled across the surviving nodes.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

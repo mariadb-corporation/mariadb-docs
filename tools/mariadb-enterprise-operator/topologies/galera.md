@@ -70,7 +70,7 @@ spec:
 
 It is important to note that, the `ist.recv_addr` cannot be set by the user, as it is automatically configured to the `Pod` IP by the operator, something that an user won't be able to know beforehand.
 
-A list of the available options can be found in the [MariaDB documentation](https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options).
+A list of the available options can be found in the [MariaDB documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options).
 
 ## IPv6 support
 
@@ -647,6 +647,6 @@ This is error is returned by the `mariadb-enterprise-operator` after exceeding t
 
 Increase this timeout if you consider that your Galera cluster may take longer to recover.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

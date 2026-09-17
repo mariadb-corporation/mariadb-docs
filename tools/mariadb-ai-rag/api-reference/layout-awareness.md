@@ -163,3 +163,5 @@ LlamaParse Presets: You can control the quality vs. cost ratio of LlamaParse dyn
 * FOR SPEED & SIMPLICITY: Pass `{"processor_type": "base"}` to the API. It is fast and requires zero configuration.
 * FOR PRIVATE, HIGH-QUALITY RAG: Pass `{"processor_type": "layout_aware_standard"}` to the API. Ensure you have `DOCLING_RAY_ENABLED=true` set in the environment so the system can use all your CPU cores to process documents faster.
 * FOR THE BEST POSSIBLE ACCURACY: Pass `{"processor_type": "layout_aware_advanced", "llamaparse_preset": "agentic"}` to the API. You must provide your `LLAMA_CLOUD_API_KEY` in the environment. This is highly recommended if your documents consist heavily of complex financial tables or multi-column research papers.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -90,3 +90,4 @@ SELECT TO_DATE('February 5, 2026, 20:56','%Y-%m-%e')
 +-----------------------------------------------+
 ```
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -19,13 +19,13 @@ This page documents the various block-based join algorithms.
 
 ## Block Nested Loop Join
 
-The major difference between the implementation of BNL join in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3)\
-compared to earlier versions of MariaDB/MySQL is that the former uses a new\
+The major difference between the implementation of BNL join in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3)
+compared to earlier versions of MariaDB/MySQL is that the former uses a new
 format for records written into join buffers. This new format allows:
 
-* More efficient use of buffer space for null field values and field values of\
+* More efficient use of buffer space for null field values and field values of
   flexible length types (like the varchar type)
-* Support for so-called incremental join buffers, saving buffer space for\
+* Support for so-called incremental join buffers, saving buffer space for
   multi-way joins
 * Use of the algorithm for outer joins and semi-joins
 
@@ -53,16 +53,16 @@ Incremental buffers allow to avoid copying field values from one buffer into ano
 
 ### Using Join Buffers for Simple Outer Joins and Semi-joins
 
-If a join buffer is used for a simple left outer join of tables t1 and t1\
-t1 LEFT JOIN t2 ON P(t1,t2)\
+If a join buffer is used for a simple left outer join of tables t1 and t1
+t1 LEFT JOIN t2 ON P(t1,t2)
 then each record r1 stored in the buffer is provided with a match flag. Initially, this flag is set off. As soon as the first match for r1 is found, this flag is set on. When all matching candidates from t2 have been checked, the records in the join buffer are scanned, and for those of them that still have their match flags off, null-complemented rows are generated.\
-The same match flag is used for any record in the join buffer is a semi-join operation\
-t1 SEMI JOIN t2 ON P(t1,t2)\
+The same match flag is used for any record in the join buffer is a semi-join operation
+t1 SEMI JOIN t2 ON P(t1,t2)
 is performed with a block-based join algorithm. When this match flag is set to on for a record r1 in the buffer, no matches from table t2 for record r1 are looked for anymore.
 
 ## Block Hash Join
 
-Block-based hash join algorithm is a new option to be used for join operations in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3). It can be employed in cases when there are equi-join sub-conditions for the joined tables, in other words, when equalities of the form t2.f1= e1(t1),...,t2.fn=en(t1) can be extracted from the full join condition. Like any block-based join algorithm, this one used a join buffer filled with the records of\
+Block-based hash join algorithm is a new option to be used for join operations in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3). It can be employed in cases when there are equi-join sub-conditions for the joined tables, in other words, when equalities of the form t2.f1= e1(t1),...,t2.fn=en(t1) can be extracted from the full join condition. Like any block-based join algorithm, this one used a join buffer filled with the records of
 the first operand and looked through the records of the second operand to find matches for the records in the buffer.
 
 ### How Block Hash Join Works

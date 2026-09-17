@@ -8,7 +8,7 @@ The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-im
 
 For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.29.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #4f53384](https://github.com/MariaDB/server/commit/4f53384) 2017-01-12 03:37:35 +0200 - Merge branch 'bb-10.0-vicentiu' into 10.0
@@ -370,6 +370,6 @@ details of the revision and view diffs of the code modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

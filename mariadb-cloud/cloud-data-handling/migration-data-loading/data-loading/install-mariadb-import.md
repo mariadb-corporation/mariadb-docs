@@ -96,7 +96,7 @@ The procedure to import data depends on the operating system.
 
 #### **Linux**
 
-1. Determine the [connection parameters](../../../../Connecting%20to%20Sky%20DBs/) for your MariaDB Cloud service.
+1. Determine the [connection parameters](../../../connecting-to-mariadb-cloud-dbs/connection-overview.md#connecting-using-the-mariadb-client) for your MariaDB Cloud service.
 2.  Use MariaDB Import with the connection information to import the data from the TSV or CSV file into your MariaDB Cloud database service:
 
     ```bash
@@ -127,7 +127,7 @@ The procedure to import data depends on the operating system.
     ```bash
     SET "PATH=C:\Program Files\MariaDB 10.6\bin;%PATH%"
     ```
-2. Determine the [connection parameters](../../../../Connecting%20to%20Sky%20DBs/) for your MariaDB Cloud service.
+2. Determine the [connection parameters](../../../connecting-to-mariadb-cloud-dbs/connection-overview.md#connecting-using-the-mariadb-client) for your MariaDB Cloud service.
 3.  Use MariaDB Import with the connection information to import the data from the TSV or CSV file into your MariaDB Cloud database service:
 
     ```bash
@@ -154,3 +154,5 @@ The procedure to import data depends on the operating system.
 The instructions provided above are written for MariaDB Import 10.4 and later, which uses the binary filename of `mariadb-import`.
 
 For MariaDB Import 10.3 and older, the binary filename was `mysqlimport`. The instructions can be adapted for MariaDB Import 10.3 and older by executing `mysqlimport` rather than `mariadb-import`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

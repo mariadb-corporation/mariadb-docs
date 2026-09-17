@@ -36,4 +36,6 @@ If a multi query contains errors the return value of [mysql\_errno](mysql_errno.
 * [mysql\_use\_result()](mysql_use_result.md)
 * [mysql\_more\_results()](mysql_more_results.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

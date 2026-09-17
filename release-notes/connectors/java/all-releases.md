@@ -8,6 +8,7 @@ description: A list of all MariaDB Connector/J releases
 
 | Release               | Release Date | Status      | Min. Java Compat. |
 | --------------------- | ------------ | ----------- | ----------------- |
+| [3.5.10](3.5/3.5.10.md) | 29 Jul 2026  | Stable (GA) | Java 8            |
 | [3.5.9](3.5/3.5.9.md) | 15 Jun 2026  | Stable (GA) | Java 8            |
 | [3.5.8](3.5/3.5.8.md) | 01 Apr 2026  | Stable (GA) | Java 8            |
 | [3.5.7](3.5/3.5.7.md) | 17 Dec 2025  | Stable (GA) | Java 8            |
@@ -23,6 +24,7 @@ description: A list of all MariaDB Connector/J releases
 
 | Release               | Release Date | Status      | Min. Java Compat. |
 | --------------------- | ------------ | ----------- | ----------------- |
+| [3.4.4](3.4/3.4.4.md) | 29 Jul 2026  | Stable (GA) | Java 8            |
 | [3.4.3](3.4/3.4.3.md) | 15 Jun 2026  | Stable (GA) | Java 8            |
 | [3.4.2](3.4/3.4.2.md) | 27 Mar 2025  | Stable (GA) | Java 8            |
 | [3.4.1](3.4/3.4.1.md) | 17 Jul 2024  | Stable (GA) | Java 8            |
@@ -32,6 +34,7 @@ description: A list of all MariaDB Connector/J releases
 
 | Release               | Release Date | Status      | Min. Java Compat. |
 | --------------------- | ------------ | ----------- | ----------------- |
+| [3.3.6](3.3/3.3.6.md) | 29 Jul 2026  | Stable (GA) | Java 8            |
 | [3.3.5](3.3/3.3.5.md) | 15 Jun 2026  | Stable (GA) | Java 8            |
 | [3.3.4](3.3/3.3.4.md) | 27 Mar 2025  | Stable (GA) | Java 8            |
 | [3.3.3](3.3/3.3.3.md) | 20 Feb 2024  | Stable (GA) | Java 8            |
@@ -76,6 +79,7 @@ description: A list of all MariaDB Connector/J releases
 
 | Release                 | Release Date | Status      | Min. Java Compat. |
 | ----------------------- | ------------ | ----------- | ----------------- |
+| [2.7.15](2.7/2.7.15.md) | 29 Jul 2026  | Stable (GA) | Java 8            |
 | [2.7.14](2.7/2.7.14.md) | 15 Jun 2026  | Stable (GA) | Java 8            |
 | [2.7.13](2.7/2.7.13.md) | 17 Dec 2025  | Stable (GA) | Java 8            |
 | [2.7.12](2.7/2.7.12.md) | 20 Feb 2024  | Stable (GA) | Java 8            |
@@ -253,6 +257,6 @@ description: A list of all MariaDB Connector/J releases
 | ------- | ------------ | ----------- | ----------------- |
 | 1.0.0   | 29 Nov 2012  | Stable (GA) | Java 6            |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

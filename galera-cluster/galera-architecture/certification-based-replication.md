@@ -21,7 +21,48 @@ It is not possible to implement certification-based replication for all database
 
 ## How the Process Works
 
-<div align="left"><figure><img src="../.gitbook/assets/certificationbasedreplication.png" alt=""><figcaption><p>Certification-Based Replication</p></figcaption></figure></div>
+```mermaid
+sequenceDiagram
+    accTitle: Certification-based replication
+    accDescr {
+        A client sends an UPDATE to the origin server, which processes it natively and returns
+        OK. When the client sends COMMIT, the origin server replicates the write-set to the
+        group, which delivers it in global transaction order to every node, including the origin
+        and another server. Each node runs a deterministic certification test. On the origin
+        server, if certification passes it runs commit_cb and returns OK to the client; if it
+        fails it runs rollback_cb and returns a deadlock error. On another server, if
+        certification passes it runs apply_cb then commit_cb; if it fails it discards the
+        write-set.
+    }
+    participant C as Client
+    participant S as Server
+    participant G as Group
+    participant A as Another server
+    C->>S: UPDATE
+    Note over S: native processing
+    S-->>C: OK
+    C->>S: COMMIT
+    S->>G: replicate write-set
+    G->>S: receive with global trx ID
+    G->>A: receive with global trx ID
+    Note over S: certification
+    alt certification OK
+        Note over S: commit_cb
+        S-->>C: OK
+    else certification not OK
+        Note over S: rollback_cb
+        S-->>C: DEADLOCK
+    end
+    Note over A: certification
+    alt certification OK
+        Note over A: apply_cb
+        Note over A: commit_cb
+    else certification not OK
+        Note over A: discard
+    end
+```
+
+_Certification-based replication: the origin server replicates the write-set to the group, which delivers it in global order to every node; each node certifies independently, committing on success or rolling back / discarding on failure._
 
 The main idea in certification-based replication is that a transaction executes conventionally until it reaches the commit point, assuming there is no conflict. This is called optimistic execution.
 

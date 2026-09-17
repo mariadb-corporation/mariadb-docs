@@ -228,7 +228,7 @@ journalctl -u mariadb-columnstore-cmapi # only with the CMAPI package installed
 
 ### MariaDB Server Error Log
 
-Errors raised at the SQL layer (including ColumnStore plugin messages) go to the regular MariaDB Server [error log](https://mariadb.com/docs/server/server-management/server-monitoring-logs/error-log), configured with the [`log_error`](https://mariadb.com/docs/server/server-management/variables-and-modes/server-system-variables#log_error) system variable.
+Errors raised at the SQL layer (including ColumnStore plugin messages) go to the regular MariaDB Server [error log](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/error-log), configured with the [`log_error`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#log_error) system variable.
 
 ## Gathering Logs for Support Tickets
 
@@ -267,6 +267,6 @@ Attach the resulting `.tar.gz` file to your support ticket. On a multi-node clus
 
 `mcs review` without options runs a read-only health check (version, topology, storage, extent map, locks, open ports, and more) and writes its report to `/tmp/columnstore_review/<hostname>_cs_review.txt`; see `mcs review --help` for the full list of diagnostic options.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

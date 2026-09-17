@@ -114,3 +114,5 @@ Complete guide to listing tables in MariaDB. Complete SHOW TABLES syntax referen
 Error 4084: raised when a sequence without CYCLE reaches its MAXVALUE and can generate no more values.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

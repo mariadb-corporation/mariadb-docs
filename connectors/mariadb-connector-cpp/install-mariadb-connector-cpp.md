@@ -130,6 +130,6 @@ To install MariaDB Connector/C++ on Windows:
 11. Click "Finish."
 12. Add the directory path that contains the `mariadbcpp LIB` file (for example, `C:\Program Files\MariaDB\MariaDB C++ Connector 64-bit`) to your `PATH` environment variable.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

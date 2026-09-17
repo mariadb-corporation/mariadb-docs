@@ -9,7 +9,7 @@ description: >-
 ## Syntax
 
 ```c
-void mysql_server_init(void );
+int mysql_server_init(int argc, char **argv, char **groups);
 ```
 
 ## Description
@@ -20,5 +20,7 @@ Call to initialize the library before calling other functions. `mysql_server_ini
 
 * [mysql\_library\_init()](mysql_library_init.md)
 * [mysql\_library\_end()](mysql_library_end.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

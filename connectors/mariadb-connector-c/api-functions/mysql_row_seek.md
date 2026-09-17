@@ -36,4 +36,6 @@ This function will not work if the result set was obtained by [mysql\_use\_resul
 * [mysql\_store\_result()](mysql_store_result.md)
 * [mysql\_row\_tell()](mysql_row_tell.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

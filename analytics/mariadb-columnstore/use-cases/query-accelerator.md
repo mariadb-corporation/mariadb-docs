@@ -120,9 +120,9 @@ ANALYZE TABLE table_name PERSISTENT FOR COLUMNS (column_name) indexes();
 * `columnstore_unstable_optimizer`\
   \
   enables unstable optimizer that is required for Query Accelerator RBO[^1] rule.
-* `columnstore_select_handler`\
+* `columnstore_select_handler`
   enables/disables ColumnStore processing for InnoDB tables.
-* `columnstore_query_accel_parallel_factor`\
+* `columnstore_query_accel_parallel_factor`
   controls the number of parallel ranges to be used for Query Accelerator.
 
 {% hint style="warning" %}
@@ -274,7 +274,7 @@ SELECT mcs_get_plan('optimized');
 {% endstep %}
 {% endstepper %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}
 

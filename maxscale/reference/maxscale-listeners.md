@@ -93,7 +93,7 @@ This defines additional options for authentication. As of MaxScale 2.5.0, only _
 
 ### `sql_mode`
 
-* Type: [enum](maxscale-listeners.md#enumerations)
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `default`, `oracle`
@@ -103,7 +103,7 @@ Specify the sql mode for the listener similarly to global `sql_mode` setting. If
 
 ### `proxy_protocol_networks`
 
-Define an IP-address or a subnetwork which may send a [proxy protocol header](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt) when connecting. The proxy header contains the original client IP-address and port, and MaxScale will use that information in its internal bookkeeping. This means the client is authenticated as if it was connecting from the host in the proxy header. If proxy protocol is also enabled in MaxScale server settings, MaxScale will relay the original client address and port to the server. See [server settings](maxscale-listeners.md#proxy_protocol) for more information.
+Define an IP-address or a subnetwork which may send a [proxy protocol header](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt) when connecting. The proxy header contains the original client IP-address and port, and MaxScale will use that information in its internal bookkeeping. This means the client is authenticated as if it was connecting from the host in the proxy header. If proxy protocol is also enabled in MaxScale server settings, MaxScale will relay the original client address and port to the server. See [server settings](maxscale-servers.md#proxy_protocol) for more information.
 
 This setting may be useful if a compatible load balancer is relaying client connections to MaxScale. If proxy headers are used, both MaxScale and the backends will know where the client originally came from.
 
@@ -254,3 +254,5 @@ If set, the `redirect_url` system variable tracker is sent in the final response
 If the [connection metadata](maxscale-listeners.md#connection_metadata) has `redirect_url` in it and the `redirect_url` parameter is defined, the value of the `redirect_url` parameter is used.
 
 For more information about connection redirection and how MaxScale deals with it, read the [Connection Redirection](maxscale-protocols/maxscale-mariadb-protocol-module.md#connection-redirection) section in the MariaDB protocol module documentation.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

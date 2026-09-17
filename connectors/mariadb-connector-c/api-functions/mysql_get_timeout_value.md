@@ -30,3 +30,5 @@ The timeout value in seconds as an `unsigned int`.
 
 * [`mysql_get_timeout_value_ms()`](mysql_get_timeout_value_ms.md)
 * [`mariadb_get_infov()`](mariadb_get_infov.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

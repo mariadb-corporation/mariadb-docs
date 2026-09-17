@@ -68,7 +68,7 @@ The RSU method tells the cluster to not replicate the DDL statement. The change 
    On the first node, set the session to `RSU` mode:\
    `SET SESSION wsrep_OSU_method = 'RSU';`
 2. **Remove the Node from Rotation:**\
-   Remove the node from the [load balancer](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#id-2.-recommended-load-balancer-mariadb-maxscale) to stop it from receiving traffic.
+   Remove the node from the [load balancer](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#recommended-load-balancer-mariadb-maxscale) to stop it from receiving traffic.
 3. **Apply the Schema Change:**\
    Execute the DDL statement (e.g., `ALTER TABLE...`) on the isolated node.
 4. **Return the Node to Rotation:**\
@@ -141,15 +141,20 @@ Like the TOI method, NBO replicates DDL statements to all nodes in the cluster s
 
 * Table-Level Locking: Writes to the table being altered are completely blocked until the operation is finished. If `LOCK EXCLUSIVE` is used, read operations are also blocked.
 * SST and IST Impact: Nodes cannot serve as donors for State Snapshot Transfers (SST) while an NBO operation is running. Furthermore, any node that leaves the cluster during the DDL becomes inconsistent and can only rejoin via a full SST, not an IST.
-* Syntax Requirements: NBO has strict requirements for SQL syntax and does not support many common DDL statements like `CREATE`, `DROP`, or `RENAME`.
+* Syntax Requirements: NBO has strict requirements for SQL syntax and does not support many common DDL statements like `CREATE TABLE`, `RENAME`, `REPAIR`, or `ANALYZE TABLE`.
 
 ### **Key Considerations for NBO Syntax**
 
-To utilize NBO, the DDL statement must meet specific criteria:
+NBO supports only a specific set of DDL statements. To use NBO, the statement must meet these criteria:
 
-* Explicit Locking: `ALTER TABLE` statements must include an explicit `LOCK SHARED` or `LOCK EXCLUSIVE` clause. Statements without a `LOCK` clause default to `DEFAULT` and are not supported.
-* Supported Commands: Beyond specific `ALTER` statements, `ANALYZE TABLE` and `OPTIMIZE TABLE` are also supported.
-* Single Table Limitation: Do not use NBO with statements that operate on more than one table at a time.
+* **Explicit locking:** `ALTER TABLE` and `CREATE INDEX` statements must include an explicit `LOCK = SHARED` or `LOCK = EXCLUSIVE` clause. A statement with no `LOCK` clause, or with `LOCK = DEFAULT` or `LOCK = NONE`, is **not** supported.
+* **Supported statements:** `ALTER TABLE ... LOCK = {SHARED | EXCLUSIVE}` (including the partition-management form), `CREATE INDEX ... LOCK = {SHARED | EXCLUSIVE}`, `DROP INDEX`, `DROP TABLE` (supported since MariaDB Enterprise Server 10.6.18-14), and `OPTIMIZE TABLE`.
+* **Unsupported statements:** `CREATE TABLE`, `RENAME`, `REPAIR`, and `ANALYZE TABLE`.
+* **Single-table check:** only `OPTIMIZE TABLE` explicitly rejects statements that operate on more than one table.
+
+{% hint style="warning" %}
+Running an unsupported statement while `wsrep_OSU_method = 'NBO'` **returns an error** rather than falling back to another method. For this reason, set NBO at the session level for the specific statements that support it — never server-wide — and run `CREATE TABLE`, `ANALYZE TABLE`, and similar statements under the default `TOI` method.
+{% endhint %}
 
 ### **When to Use NBO**
 
@@ -157,8 +162,8 @@ NBO is the best method for:
 
 * Applying long-running `ALTER TABLE` statements where you need to maintain global schema consistency automatically without manual steps.
 * Environments that require high availability for the majority of the database while a specific table is being upgraded.
-* Standard maintenance operations such as `ANALYZE` or `OPTIMIZE` on large tables.
+* Standard maintenance operations such as `OPTIMIZE TABLE` on large tables.
 
-To ensure cluster stability, it is recommended to enable NBO only for specific sessions running compatible DDL rather than on a server-wide basis. SQL statements such as `CREATE TABLE` and `DROP TABLE` should always be executed using the Total Order Isolation (TOI) method to avoid schema conflict
+To ensure cluster stability, it is recommended to enable NBO only for specific sessions running compatible DDL rather than on a server-wide basis. SQL statements such as `CREATE TABLE` and `ANALYZE TABLE` should always be executed using the Total Order Isolation (TOI) method to avoid schema conflict
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

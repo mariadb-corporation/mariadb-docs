@@ -112,7 +112,7 @@ DESCRIBE contact;
 
 A `DatabaseClient` uses the underlying `ConnectionFactory` to get and release connections for each database operation without affinity to a particular connection across the multiple operations. When using Spring's R2DBC layer, a custom connection pool could be configured using an implementation provided by a third party.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 
 {% @marketo/form formId="4316" %}

@@ -77,11 +77,32 @@ SHOW GRANTS FOR public;
 {% endtab %}
 {% endtabs %}
 
+### Denies
+
+From [MariaDB 13.1](https://jira.mariadb.org/browse/MDEV-14443), privileges blocked with [DENY](../../account-management-sql-statements/deny.md) are listed as separate `DENY` lines beside the `GRANT` lines:
+
+```sql
+SHOW GRANTS FOR 'alice'@'localhost';
++---------------------------------------------------------------+
+| Grants for alice@localhost                                    |
++---------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `alice`@`localhost`                     |
+| DENY SELECT ON *.* TO `alice`@`localhost`                     |
+| GRANT SELECT ON `hr`.`staff` TO `alice`@`localhost`           |
+| DENY UPDATE (`salary`) ON `hr`.`staff` TO `alice`@`localhost` |
++---------------------------------------------------------------+
+```
+
+`DENY` lines are only visible to a connection that holds the `SELECT` privilege on the `mysql` database. An account without it sees its own `GRANT` lines but none of its denies, so denies are not self-advertising. This applies to `SHOW GRANTS`, `SHOW GRANTS FOR CURRENT_ROLE`, `SHOW GRANTS FOR role`, and `SHOW GRANTS FOR PUBLIC` alike.
+
+The visibility check is itself subject to denies: an account with `SELECT` on `mysql.*` but a deny on `mysql.global_priv` sees no denies, and cannot run `SHOW GRANTS` for another account.
+
 ## See Also
 
 * [Authentication from MariaDB 10.4](../../../../security/user-account-management/authentication-from-mariadb-10-4.md)
 * [SHOW CREATE USER](show-create-user.md) shows how the user was created.
 * [SHOW PRIVILEGES](show-privileges.md) shows the privileges supported by MariaDB.
+* [DENY](../../account-management-sql-statements/deny.md) blocks a privilege so that no `GRANT` can restore it.
 * [Roles](../../../../security/user-account-management/roles/)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)

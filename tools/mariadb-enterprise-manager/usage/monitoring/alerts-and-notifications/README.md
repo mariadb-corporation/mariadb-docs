@@ -54,6 +54,6 @@ To configure alerting effectively, it's helpful to understand these core concept
 For a deep dive into advanced topics like custom message templating, alert grouping, and more complex routing, see the [official Grafana documentation](https://grafana.com/docs/grafana/latest/alerting/fundamentals/).
 {% endhint %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -14,10 +14,10 @@ description: >-
 
 ### Solaris 10 (SPARC)
 
-Unless you want to spend time optimizing the underlying Solaris 10 (SPARC)\
+Unless you want to spend time optimizing the underlying Solaris 10 (SPARC)
 installation, it is strongly suggested that you choose the "Entire" Software\
-Group during the installation process. Once you have your Solaris 10 (SPARC)\
-system on the network and able to access the Internet you can use the\
+Group during the installation process. Once you have your Solaris 10 (SPARC)
+system on the network and able to access the Internet you can use the
 following suggestions to setup your buildbot:
 
 1. By default Solaris 10 comes packages with Python 2.6.x. For compatibility reasons, you need to install Python 2.5.x. The author found it easiest to use Sunfreeware (ftp://ftp.sunfreeware.com/pub/freeware/sparc/5.10/):
@@ -35,7 +35,7 @@ $ gunzip python-2.5.4-sol10-sparc-local.gz
 $ pkgadd -d python-2.5.4-sol10-sparc-local
 ```
 
-If you are unfamiliar with howto install packages from Sunfreeware please\
+If you are unfamiliar with howto install packages from Sunfreeware please
 read their howto.
 
 1. Setup your environment:
@@ -47,12 +47,12 @@ $ useradd -d /export/home/buildbot -m buildbot
 ```
 
 It is imperative that you not use Bash as the buildbot user's shell.\
-It could have been a dependency issue but I literally spent several days\
-trying to solve why the buildbot wasn't checking out code with bzr only to\
-discover that using the default Solaris shell fixed the problem. If someone\
+It could have been a dependency issue but I literally spent several days
+trying to solve why the buildbot wasn't checking out code with bzr only to
+discover that using the default Solaris shell fixed the problem. If someone
 comes up with a solution please let us know on the mailing list.
 
-* Adjust the global profile (you could be more granular here but since I'm\
+* Adjust the global profile (you could be more granular here but since I'm
   setting up a dedicated system I wasn't):
 
 ```
@@ -105,7 +105,7 @@ hasky.askmonty.org:9989 ${buildbotname} <passwd>
 
 Replace ${buildbotname} with the buildbot name you received from the\
 MariaDB developers. Replace with the password they gave you.\
-You can adjust these and other parameters anytime within the\
+You can adjust these and other parameters anytime within the
 maria-slave/buildbot.tac file at anytime in the future.
 
 1. Create a shared Bazaar repository in the buildbot build directory:
@@ -124,7 +124,7 @@ sudo su - buildbot -c "/usr/bin/buildbot start /export/home/buildbot/maria-slave
 
 OPTIONAL: You can create a proper service by following (and modifying as necessary) these [directions](https://wadofstuff.blogspot.com/2007/01/smf-manifest-for-buildbot.html)
 
-1. Please ask on the #maria IRC channel on irc.freenode.net if you have\
+1. Please ask on the #maria IRC channel on irc.freenode.net if you have
    problems or questions setting up your buildbot. Or ask on the on the [maria-developers](https://launchpad.net/~maria-developers) mailing list.
 2. Check the status of your buildbot through the BuildBot buildslaves page.
 

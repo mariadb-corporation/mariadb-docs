@@ -44,4 +44,6 @@ Returns zero on success, otherwise nonzero.
 * The function `mysql_reload()` is an alias for `mysql_refresh()`.
 {% endhint %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

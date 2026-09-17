@@ -30,3 +30,5 @@ description: >-
 - [ST\_NUMGEOMETRIES](st_numgeometries.md)
 - [ST\_RELATE](st_relate.md)
 - [ST\_SRID](st_srid.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

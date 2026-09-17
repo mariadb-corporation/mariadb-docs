@@ -9,7 +9,7 @@ CONNECT is not just a new “YASE” (Yet another Storage Engine) that provides 
 > "It's amazing in an age where relational databases reign supreme when it comes to managing data that so much information still exists outside RDBMS engines in the form of flat files and other such constructs. In most enterprises, data is passed back and forth between disparate systems in a fashion and speed that would rival the busiest expressways in the world, with much of this data existing in common, delimited files. Target systems intercept these source files and then typically proceed to load them via ETL (extract, transform, load) processes into databases that then utilize the information for business intelligence, transactional functions, or other standard operations. ETL tasks and data movement jobs can consume quite a bit of time and resources, especially if large volumes of data are present that require loading into a database.\
 > This being the case, many DBAs welcome alternative means of accessing and managing data that exists in file format."
 
-* Robin Schumacher\[[1](introduction-to-the-connect-engine.md#_note-0)]
+* Robin Schumacher\[1]
 
 What he describes is known as MED (Management of External Data) enabling the handling of data not stored in a DBMS database as if it were stored in tables. An ISO standard exists that describes one way to implement and use MED in SQL by defining foreign tables for which an external FDW (Foreign Data Wrapper) has been developed in C.
 
@@ -36,15 +36,15 @@ The main features of CONNECT are:
 15. Can execute complex queries on remote servers.
 16. Provides an API that allows writing additional FDW in C++.
 
-With CONNECT, MariaDB has one of the most advanced implementations of MED and NoSQL,\
+With CONNECT, MariaDB has one of the most advanced implementations of MED and NoSQL,
 without the need for complex additions to the SQL syntax (foreign tables are "normal" tables using the CONNECT engine).
 
 Giving MariaDB easy and natural access to external data enables the use of all of its powerful functions and SQL-handling abilities for developing business intelligence applications.
 
 With version 1.07 of CONNECT, retrieving data from REST queries is available in all binary distributed version of MariaDB, and, from 1.07.002, CONNECT allows workspaces greater than 4GB.
 
-1. [↑](introduction-to-the-connect-engine.md#_ref-0) Robin Schumacher is Vice President Products at DataStax and former Director of Product Management at MySQL. He has over 13 years of database experience in DB2, MySQL, Oracle, SQL Server and other database engines.
+1. Robin Schumacher is Vice President Products at DataStax and former Director of Product Management at MySQL. He has over 13 years of database experience in DB2, MySQL, Oracle, SQL Server and other database engines.
 
-{% include "../../../.gitbook/includes/license-gplv2.md" %}
+<sub>_This page is licensed: GPLv2_</sub>
 
 {% @marketo/form formId="4316" %}

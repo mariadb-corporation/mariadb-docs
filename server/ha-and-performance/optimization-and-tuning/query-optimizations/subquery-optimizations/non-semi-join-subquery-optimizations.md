@@ -10,7 +10,7 @@ An IN subquery cannot be flattened into a semi-join in the following cases. The 
 
 ### Subquery in a disjunction (OR)
 
-The subquery is located directly or indirectly under an OR operation\
+The subquery is located directly or indirectly under an OR operation
 in the WHERE clause of the outer query.
 
 Query pattern:
@@ -90,7 +90,7 @@ UNION
 
 ### Materialization basics
 
-The basic idea of subquery materialization is to execute the subquery and store its result in an internal temporary table indexed on all its columns. Naturally, this is possible only when the subquery is non-correlated. The IN predicate tests whether its left operand is present in the subquery result. Therefore it is not necessary to store duplicate subquery result rows in the temporary table. Storing only unique subquery rows provides two benefits - the size of the temporary table is smaller, and the index on all\
+The basic idea of subquery materialization is to execute the subquery and store its result in an internal temporary table indexed on all its columns. Naturally, this is possible only when the subquery is non-correlated. The IN predicate tests whether its left operand is present in the subquery result. Therefore it is not necessary to store duplicate subquery result rows in the temporary table. Storing only unique subquery rows provides two benefits - the size of the temporary table is smaller, and the index on all
 its columns can be unique.
 
 If the size of the temporary table is less than the tmp\_table\_size system variable, the table is a hash-indexed in-memory HEAP table. In the rare cases when the subquery result exceeds this limit, the temporary table is stored on disk in an ARIA or MyISAM B-tree indexed table (ARIA is the default).
@@ -105,7 +105,7 @@ An IN predicate may produce a NULL result if there is a NULL value in either of 
 * not a function argument,
 * inside a WHERE or ON clause.
 
-In all these cases the evaluation of IN is performed as described in the previous paragraph via index lookups into the materialized subquery. In all remaining cases when NULL cannot be substituted with FALSE, it is not possible to use index lookups. This is not a limitation in the server, but a consequence\
+In all these cases the evaluation of IN is performed as described in the previous paragraph via index lookups into the materialized subquery. In all remaining cases when NULL cannot be substituted with FALSE, it is not possible to use index lookups. This is not a limitation in the server, but a consequence
 of the NULL semantics in the ANSI SQL standard.
 
 Suppose an IN predicate is evaluated as
@@ -115,7 +115,7 @@ NULL IN (SELECT
 not_null_col FROM t1)
 ```
 
-, that is, the left operand of IN is a NULL value, and there are no NULLs in the subquery. In this case the value of IN is neither FALSE, nor TRUE. Instead it is NULL. If we were to perform an index lookup with\
+, that is, the left operand of IN is a NULL value, and there are no NULLs in the subquery. In this case the value of IN is neither FALSE, nor TRUE. Instead it is NULL. If we were to perform an index lookup with
 the NULL as a key, such a value would not be found in not\_null\_col, and the IN predicate would incorrectly produce a FALSE.
 
 In general, an NULL value on either side of an IN acts as a "wildcard" that matches any value, and if a match exists, the result of IN is NULL. Consider the following example:
@@ -128,7 +128,7 @@ If the left argument of IN is the row: `(7, NULL, 9)`, and the result of the rig
 (7, 11, 9)
 ```
 
-The the IN predicate matches the row `(7, 11, 9)`, and the result of IN is NULL. Matches where the differing values on either side of the IN arguments are matched by a NULL in the other IN argument, are\
+The the IN predicate matches the row `(7, 11, 9)`, and the result of IN is NULL. Matches where the differing values on either side of the IN arguments are matched by a NULL in the other IN argument, are
 called _partial matches_.
 
 In order to efficiently compute the result of an IN predicate in the presence of NULLs, MariaDB implements two special algorithms for [partial matching, described here in detail](https://askmonty.org/worklog/Server-Sprint/?tid=68).
@@ -237,7 +237,7 @@ In certain cases it may be necessary to override the choice of the optimizer. Ty
 All the above strategies can be controlled via the following switches in [optimizer\_switch](../../system-variables/server-system-variables.md#optimizer_switch) system variable.
 
 * materialization=on/off\
-  In some very special cases, even if materialization was forced, the optimizer may still revert to the IN-TO-EXISTS strategy if materialization is not applicable. In the cases when materialization requires partial matching (because of the presence of NULL values), there are two subordinate switches that\
+  In some very special cases, even if materialization was forced, the optimizer may still revert to the IN-TO-EXISTS strategy if materialization is not applicable. In the cases when materialization requires partial matching (because of the presence of NULL values), there are two subordinate switches that
   control the two partial matching strategies:
   * partial\_match\_rowid\_merge=on/off\
     This switch controls the Rowid-merge strategy. In addition to this switch, the system variable [rowid\_merge\_buff\_size](../../system-variables/server-system-variables.md#rowid_merge_buff_size) controls the maximum memory available to the Rowid-merge strategy.
@@ -246,7 +246,7 @@ All the above strategies can be controlled via the following switches in [optimi
 * in\_to\_exists=on/off\
   This switch controls the IN-TO-EXISTS transformation.
 * tmp\_table\_size and max\_heap\_table\_size system variables\
-  The tmp\_table\_size system variable sets the upper limit for internal MEMORY temporary tables. If an internal temporary table exceeds this size, it is converted automatically into a Aria or MyISAM table on disk with a B-tree index. Notice however, that a MEMORY table cannot be larger than\
+  The tmp\_table\_size system variable sets the upper limit for internal MEMORY temporary tables. If an internal temporary table exceeds this size, it is converted automatically into a Aria or MyISAM table on disk with a B-tree index. Notice however, that a MEMORY table cannot be larger than
   max\_heap\_table\_size.
 
 The two main optimizer switches - _materialization_ and _in\_to\_exists_ cannot be simultaneously off. If both are set to off, the server will issue an error.

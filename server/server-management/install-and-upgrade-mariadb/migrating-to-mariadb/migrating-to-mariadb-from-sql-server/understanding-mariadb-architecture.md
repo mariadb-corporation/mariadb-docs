@@ -240,7 +240,7 @@ Whichever connection method we use, MariaDB has a maximum number of simultaneous
 
 ## Configuration
 
-MariaDB has many settings that\
+MariaDB has many settings that
 control the server behavior. These can be set up when starting mysqld ([mysqld options](../../../starting-and-stopping-mariadb/mariadbd-options.md)), and the vast majority are also accessible as [server system variables](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md). These can be classified in these ways:
 
 * Dynamic or static;

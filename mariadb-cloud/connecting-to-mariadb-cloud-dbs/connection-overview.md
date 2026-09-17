@@ -75,8 +75,9 @@ Most of the SQL clients and editors natively support MariaDB. Most often you can
 
 The following GUI clients have been tested to properly connect with MariaDB Cloud and execute queries. Most SQL clients and editors natively support MariaDB. You can often select 'MySQL' as the connection type to connect to your MariaDB Cloud DB service.
 
-* [Connect using DBeaver](database-tools/dbeaver.md) (CloudDBA recommended)
+* [Connect using DBeaver](database-tools/dbeaver.md) (Cloud DBA recommended)
 * [Connect using DBGate](database-tools/dbgate.md)
 * [Connect using HeidiSQL](database-tools/heidisql.md)
 * [Connect using TablePlus](database-tools/tableplus.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

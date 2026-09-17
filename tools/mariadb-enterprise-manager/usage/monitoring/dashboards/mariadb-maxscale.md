@@ -61,6 +61,6 @@ Evaluate query routing efficiency by tracking and optimizing cache metrics like 
 | **Cache Hits vs Misses** | Per-second hits and misses in the Query Classifier cache. Analyze the relationship to assess effectiveness. |
 | **Cache Size**           | Current size of the Query Classifier cache (bytes). Monitor growth with Hits/Misses for tuning insights.    |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

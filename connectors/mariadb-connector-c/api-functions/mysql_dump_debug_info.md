@@ -34,4 +34,6 @@ The server status information will be dumped into the [error log](https://app.gi
 * [mysql\_debug()](mysql_debug.md)
 * mysql\_debug\_end()
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

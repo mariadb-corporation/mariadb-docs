@@ -42,3 +42,5 @@ Describes how to configure MariaDB to automatically write the `EXPLAIN` plan for
 Documentation for the `log_slow_always_query_time` variable, which forces queries executed by a specific function or user to be logged regardless of their execution time.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

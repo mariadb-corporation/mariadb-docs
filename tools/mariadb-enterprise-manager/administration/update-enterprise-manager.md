@@ -7,7 +7,7 @@ description: Instructions for updating an existing Enterprise Manager deployment
 {% hint style="info" %}
 Prerequisites
 
-* Make a backup of Enterprise Manager data following instructions in [Backup & Restore of Enterprise Manager](https://mariadb.com/docs/tools/~/changes/145/mariadb-enterprise-manager/administration/backup-and-restore-of-enterprise-manager)
+* Make a backup of Enterprise Manager data following instructions in [Backup & Restore of Enterprise Manager](backup-and-restore-of-enterprise-manager.md)
 {% endhint %}
 
 ## Enterprise Manager Update with Internet Access
@@ -176,3 +176,5 @@ docker compose ps
 ## Agent update <a href="#agent-update" id="agent-update"></a>
 
 Update the `mema-agent` package on each monitored MariaDB Server and MaxScale node using the node's package manager. On air-gapped nodes, you can download the new package from the [MariaDB Customer Downloads page](https://mariadb.com/downloads/enterprise-tooling/enterprise-manager/), transfer it to the node, and update it locally. After updating, verify that the host continues to report to MariaDB Enterprise Manager.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -162,3 +162,5 @@ mariadb-backup --backup --stream=xbstream | \ openssl enc -aes-256-cbc -k $BACKU
 | **Backup Metadata**        | Plaintext                 | No                             |
 
 [^1]: Key Management System
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

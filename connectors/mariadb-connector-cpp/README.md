@@ -53,6 +53,18 @@ C++ applications built with MariaDB Connector/C++ use the `sql` namespace classe
 
 {% columns %}
 {% column %}
+{% content-ref url="batch-operations-with-mariadb-connector-cpp.md" %}
+[batch-operations-with-mariadb-connector-cpp.md](batch-operations-with-mariadb-connector-cpp.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+MariaDB Connector/C++ supports batch (bulk) operations by queuing commands on a `sql::Statement` or `sql::PreparedStatement` with `addBatch()` and sending them to the server in a single `executeBatch()` call.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="connect-with-mariadb-connectorcpp.md" %}
 [connect-with-mariadb-connectorcpp.md](connect-with-mariadb-connectorcpp.md)
 {% endcontent-ref %}
@@ -134,3 +146,5 @@ Create the schema and user account prerequisites for MariaDB Connector/C++ docum
 MariaDB Connector/C++ supports multi-statement transactions with manual commit, rollback, and savepoints by disabling auto-commit on the `sql::Connection` object.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

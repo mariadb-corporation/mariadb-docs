@@ -21,3 +21,5 @@ These states contribute in the identification of synchronization delays and perf
 * [Galera Cluster Flow Control](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/performance-tuning/flow-control-in-galera-cluster)
 * [MariaDB Galera Cluster Overview](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/)
 * [What's New in MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.4/whats-new)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

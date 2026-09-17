@@ -66,3 +66,5 @@ Documents Lateral Derived Optimization, also referred to as Split Grouping Optim
 Split Materialized Optimization is another name for the Lateral Derived optimization.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

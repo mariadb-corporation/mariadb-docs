@@ -71,7 +71,7 @@ Create the buildbot slave. On the build master, add new entry to `/etc/buildbot/
 slave-name=bsd9
 ```
 
-Remember the `${slave-name}` and `${password}` configured above, they're used in\
+Remember the `${slave-name}` and `${password}` configured above, they're used in
 the next step.
 
 Back on `bsd9`, do this:

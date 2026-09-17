@@ -9,7 +9,7 @@ The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-im
 For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.15.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #4506](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4506) \[merge]\
@@ -925,6 +925,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

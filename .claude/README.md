@@ -7,8 +7,12 @@ Code. It contains:
 |------|------------|
 | `settings.json` | Project settings, incl. the `PreToolUse(Bash)` hook wiring |
 | `settings.local.json` | **Personal** overrides — gitignored, never committed |
-| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI) |
+| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus four checks it delegates to their own scripts: includes (`includecheck.sh`), heading anchors (`fragcheck.py`), orphaned pages and gutted pages (`navcheck.py` and an inline guard) |
+| `hooks/includecheck.sh` | Resolves every relative GitBook `{% include %}`; fails on a dead or cross-space target. Also the entry point for `includecheck-pr.yml` (DOCS-6586), which runs it tree-wide |
+| `hooks/fragcheck.py` | GitBook-accurate heading-anchor checker, called by `doc-lint.sh` |
+| `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` |
 | `hooks/pre-commit.sh` | PreToolUse hook: gates Claude-made `git commit`s by calling `doc-lint.sh` |
+| `hooks/doc-lint-test.sh` | Regression suite for `doc-lint.sh` — fixtures in a throwaway repo; run it after editing the linter |
 | `skills/` | Shared skills (e.g. `docs-check`) |
 | `commands/` | Shared slash commands (e.g. `/precommit`) |
 
@@ -30,20 +34,37 @@ commands. What you *do* set up is the per-user, gitignored pieces below.
    settings — the committed `PreToolUse` hook (see *Trust model* below). Approve it to enable the
    pre-commit doc check.
 3. **Connect the MariaDB Jira** (needed for `/jira-*`, `/doc-ticket`, `/impact`, `/skill-bug`,
-   `/propose-improvement`). This is a **second** MCP connection, separate from any GridGain one:
+   `/propose-improvement`). You need **one** Atlassian MCP connection that reaches
+   `mariadbcorp.atlassian.net`; the tooling doesn't care what it's called. Check what you already
+   have:
+   ```bash
+   claude mcp list          # look for an Atlassian entry
+   ```
+   If the account-level **`claude.ai Atlassian Rovo`** connection is present and authenticated to
+   your MariaDB account, you're done. Only if you need MariaDB *alongside* another Atlassian
+   account (e.g. GridGain) in the same session, add a second, separately-authenticated server:
    ```bash
    claude mcp add --transport http atlassian-mariadb https://mcp.atlassian.com/v1/mcp
    ```
    then `/mcp` → `atlassian-mariadb` → authenticate **in a browser signed in to your MariaDB
-   account** (`mariadbcorp.atlassian.net`). Full steps + the wrong-account pitfall:
+   account**. Either way, verify with `getAccessibleAtlassianResources()` — it must list
+   `mariadbcorp`. Full steps + the wrong-account pitfall:
    `dev-docs/cookbook-jira-workflow.md › Connecting the MariaDB Jira`.
 4. **Configure local source repos** (for `/doc-ticket` and `/impact` verification). Clone the
    MariaDB source you work on (e.g. `MariaDB/server`); the **first run** of those commands prompts
    for the path + authoritative ref and saves `.claude/doc-sources.local.json` (gitignored).
+   `/triage-epic` shares this config but does **not** require it — without a clone it still tiers
+   and promotes tickets, only skipping the revert check (it says so in every brief). If you do
+   clone for it, `git clone --filter=blob:none https://github.com/MariaDB/server.git` is plenty —
+   just never `--single-branch`, which drops the `bb-*` and `preview-*` branches it reads.
 5. **Install the local check tools** (for `/precommit`, `docs-check`, and the pre-commit hook):
    `pipx install codespell`, install [`lychee`](https://github.com/lycheeverse/lychee), and ensure
    `jq` is present. If they're missing, the checks just warn — **CI still gates** every PR.
-   Optional: `gh` (GitHub CLI) for PR linking in `/jira-resolve`.
+   Optional: `gh` (GitHub CLI) for PR linking in `/jira-resolve`, and for `/triage-epic`'s
+   supplementary GitHub lookups when you have no local clone. `/triage-epic` additionally needs
+   `curl` and `jq` as hard requirements — it reads the public `jira.mariadb.org` REST API
+   anonymously (no credentials, unrelated to the Atlassian MCP connection) and parses JSON; it
+   preflights both, and the reachability of that host, before sweeping an epic.
 6. **Read, then try.** Skim `CLAUDE.md` (golden rules + skill/command list) and `AGENTS.md` (repo
    map). Smoke-test with `/jira-mine` and `/precommit`.
 
@@ -89,6 +110,39 @@ team-wide guarantee. For coverage of *all* commits, install a real Git hook
 A file changed earlier in your branch but not currently staged can pass the hook yet still be
 linted by CI. Before opening a PR, run the full check over your whole branch diff — see
 `dev-docs/cookbook-pre-pr.md`.
+
+## Who tests the linter
+
+`hooks/doc-lint.sh` had no test of its own until DOCS-6471, and it cost a real outage: DOCS-6409
+was a `mktemp` template with no `X` characters that made the script **exit 2 on every
+GNU-coreutils run** — for 135 commits. Because the failing line sat *before* the checks, it
+silently took the GitBook include resolver down with it, so a feature shipped the same day never
+ran on Linux at all. On BSD/macOS `mktemp` the identical line worked fine, so the only machine
+that could have noticed was a Linux one, and nothing on Linux ever ran the script.
+
+`hooks/doc-lint-test.sh` is the gate for that class. It builds fixtures in a throwaway git repo
+under `TMPDIR` — it never reads this checkout's content — and asserts exit codes and messages for
+the include resolver, the gutted-page guard, the env-var knobs, the repo-root guard, and every
+"tool not installed" SKIP branch. Since DOCS-6586 it also covers `includecheck.sh` as its own
+entry point — its `--stdin0` mode, its usage errors, and the fact that a missing
+`includecheck.sh` FAILS `doc-lint.sh` rather than SKIPping (every other dependency is an external
+tool a contributor may not have; that one is checked in beside it, so its absence is a broken
+checkout). DOCS-6586 also added the `navcheck.py` cases: both orphan directions, the
+`DOC_LINT_ALLOW_ORPHAN` hatch, `check` vs `new`, what is not a page (`SUMMARY.md`, anything under
+`.gitbook/`) and what is not a space (no `SUMMARY.md` beside it), the ignored-vs-untracked
+enumeration distinction, and four SKIP branches. Run it after any change to `doc-lint.sh`,
+`includecheck.sh` or `navcheck.py`:
+
+```bash
+.claude/hooks/doc-lint-test.sh              # --keep to inspect the sandbox, --verbose for output
+```
+
+`.github/workflows/doc-lint-test.yml` runs it on **every** PR, on both `ubuntu-latest` and
+`macos-latest`, and shellchecks every tracked shell script alongside it. Both platforms on
+purpose: the suite's first run found the mirror image of DOCS-6409 — an empty-array expansion
+that is an error under `set -u` before bash 4.4, so on the bash 3.2 that stock macOS still ships,
+every `{% include %}` climbing out of its own directory was misreported as unresolvable. Same
+class of bug, opposite platform. A single-runner gate sees one and not the other.
 
 ## Single source of truth
 

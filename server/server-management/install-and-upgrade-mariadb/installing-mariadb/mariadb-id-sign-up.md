@@ -39,3 +39,5 @@ To contact us with questions, or if you need assistance:
 * [MariaDB Customer Portal](https://customers.mariadb.com/)
 
 \\
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

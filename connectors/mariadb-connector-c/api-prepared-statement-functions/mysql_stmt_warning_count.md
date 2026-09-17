@@ -10,7 +10,7 @@ description: >-
 ## Syntax
 
 ```c
-unsigned int mysql_stmt_warning_count(MYSQL_STMT * stmt);
+int mysql_stmt_warning_count(MYSQL_STMT * stmt);
 ```
 
 ## Parameter
@@ -32,5 +32,7 @@ For retrieving warning messages you should use the SQL command [SHOW WARNINGS](h
 ## See Also
 
 * [mysql\_warning\_count()](../api-functions/mysql_warning_count.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

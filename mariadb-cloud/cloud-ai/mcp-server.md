@@ -50,3 +50,5 @@ It's easy to get up and running with the MariaDB Cloud MCP Server. Follow these 
 Once your MCP Server is set up, you can start using AI Agents.
 
 Checking this demo video for further info: [MariaDB Cloud MCP Server Demo](https://www.youtube.com/watch?v=S5SR9qfXOBs\&t=1s)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

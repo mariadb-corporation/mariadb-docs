@@ -11,4 +11,6 @@
 * Q: Is Galera Cluster technology exclusive to MariaDB Enterprise?\
   A: The core Galera Cluster technology is itself open source and can be utilized with MariaDB Community Server. However, MariaDB Enterprise Cluster represents an integrated solution where Galera is combined with MariaDB Enterprise Server, fully backed by MariaDB plc's professional support, and often bundled with enterprise tools like MariaDB MaxScale for optimized cluster management and performance.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -114,6 +114,8 @@ SHOW CREATE DATABASE danish_names;
 
 Although there are [character\_set\_database](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_database) and [collation\_database](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#collation_database) system variables which can be set dynamically, these are used for determining the character set and collation for the default database, and should only be set by the server.
 
+A database's collation is inherited only by statements that don't name a character set of their own. A `CREATE TABLE` that names one, such as `CREATE TABLE ... DEFAULT CHARACTER SET utf8mb4`, takes its collation from the [character\_set\_collations](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_collations) map instead. See [Table Level](setting-character-sets-and-collations.md#table-level) and [Changing Default Collation](setting-character-sets-and-collations.md#changing-default-collation).
+
 ## Table Level
 
 The [CREATE TABLE](../../../sql-statements/data-definition/create/create-table.md) and [ALTER TABLE](../../../sql-statements/data-definition/alter/alter-table/) statements support optional character set and collation clauses, a MariaDB and MySQL extension to standard SQL.
@@ -124,7 +126,18 @@ CREATE TABLE english_names (id INT, name VARCHAR(40))
   COLLATE 'utf8_icelandic_ci';
 ```
 
-If neither character set nor collation is provided, the database default will be used. If only the character set is provided, the default collation for that character set will be used . If only the collation is provided, the associated character set will be used. See [Supported Character Sets and Collations](supported-character-sets-and-collations.md).
+If neither character set nor collation is provided, the database default will be used. If only the character set is provided, the default collation for that character set will be used. If only the collation is provided, the associated character set will be used. See [Supported Character Sets and Collations](supported-character-sets-and-collations.md).
+
+{% hint style="warning" %}
+Naming a character set without a `COLLATE` clause does **not** inherit the database's collation. The collation comes from the [character\_set\_collations](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_collations) map instead, which has a non-empty default value since MariaDB 11.5. So these two statements can produce different collations in the same database:
+
+```sql
+CREATE TABLE t1 (id VARCHAR(24));                                -- inherits the database collation
+CREATE TABLE t2 (id VARCHAR(24)) DEFAULT CHARACTER SET utf8mb4;  -- uses character_set_collations
+```
+
+In a database whose default collation is `utf8mb4_general_ci`, `t1` is `utf8mb4_general_ci` while `t2` is `utf8mb4_uca1400_ai_ci`. To get the same result from both, either add an explicit `COLLATE` clause or change the map — see [Changing Default Collation](setting-character-sets-and-collations.md#changing-default-collation).
+{% endhint %}
 
 ```sql
 ALTER TABLE table_name
@@ -435,11 +448,28 @@ SELECT @param_coll;
 
 {% tabs %}
 {% tab title="Current" %}
-It is possible to change the default collation associated with a particular character set. The [character\_set\_collations](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_collations) system variable accepts a comma-delimited list of character sets and new default collations, for example:
+The default collation associated with a particular character set is determined by the [character\_set\_collations](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_collations) system variable, which accepts a comma-delimited list of character sets and their default collations, for example:
 
 ```sql
 SET @@character_set_collations = 'utf8mb4=uca1400_ai_ci, latin2=latin2_hungarian_ci';
 ```
+
+The variable is **not** empty by default. Since MariaDB 11.5, its default value maps every Unicode character set to a UCA 14.0.0 collation, so the map applies even on a server where nobody has ever set the variable. To see the value in effect:
+
+```sql
+SELECT @@character_set_collations;
++-----------------------------------------------------------------------------------------------------------------------------------------+
+| @@character_set_collations                                                                                                              |
++-----------------------------------------------------------------------------------------------------------------------------------------+
+| utf8mb3=utf8mb3_uca1400_ai_ci,ucs2=ucs2_uca1400_ai_ci,utf8mb4=utf8mb4_uca1400_ai_ci,utf16=utf16_uca1400_ai_ci,utf32=utf32_uca1400_ai_ci |
++-----------------------------------------------------------------------------------------------------------------------------------------+
+```
+
+A collation can be given either by its full name, such as `utf8mb4_uca1400_ai_ci`, or by the shorter family name that applies to any character set, such as `uca1400_ai_ci`. The server stores the full name, so the value it reports back is always the expanded form.
+{% endtab %}
+
+{% tab title="< 11.5" %}
+The variable exists but is empty by default, so each character set uses its compiled-in default collation, such as `utf8mb4_general_ci` for `utf8mb4`.
 {% endtab %}
 
 {% tab title="< 11.2.1" %}
@@ -447,7 +477,7 @@ It is **not** possible to change the default collation associated with a particu
 {% endtab %}
 {% endtabs %}
 
-The new variable takes effect in all cases where a character set is explicitly or implicitly specified without an explicit `COLLATE` clause, including but not limited to:
+The variable takes effect in all cases where a character set is explicitly or implicitly specified without an explicit `COLLATE` clause, including but not limited to:
 
 * Column collation
 * Table collation
@@ -461,10 +491,38 @@ The new variable takes effect in all cases where a character set is explicitly o
 * `_utf8mb3 0x61` - a character string literal with an introducer with hex hybrid notation
 * `@@collation_connection` after a `SET NAMES` statement without `COLLATE`
 
+### Overriding the Map for One Character Set
+
+Assigning to the variable **replaces the entire map**; it does not merge with the value already in effect. Setting only `utf8mb4` therefore returns the other Unicode character sets to their compiled-in defaults:
+
+```sql
+SET GLOBAL character_set_collations = 'utf8mb4=utf8mb4_general_ci';
+```
+
+To change `utf8mb4` while keeping the UCA 14.0.0 defaults for the rest, list them all:
+
+```sql
+SET GLOBAL character_set_collations =
+  'utf8mb3=uca1400_ai_ci,ucs2=uca1400_ai_ci,utf16=uca1400_ai_ci,utf32=uca1400_ai_ci,utf8mb4=utf8mb4_general_ci';
+```
+
+To make either change permanent, set it in a [configuration file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
+
+```ini
+[mariadbd]
+character-set-collations = utf8mb4=utf8mb4_general_ci
+```
+
+{% hint style="info" %}
+`SET GLOBAL` affects new connections only. Existing connections keep the session value they inherited when they connected, so reconnect the application before relying on the new map.
+{% endhint %}
+
 ## Default Character Set and Collation Changes
 
 {% hint style="info" %}
-The default character set and collation changed in MariaDB 11.8.
+The default character set and collation changed in MariaDB 11.6. Separately, the default collation applied to an explicitly named Unicode character set changed in MariaDB 11.5 — see [Changing Default Collation](setting-character-sets-and-collations.md#changing-default-collation).
+
+MariaDB 11.8 is the first long-term support release containing either change, so both take effect at once when upgrading from an earlier long-term support release such as MariaDB 10.6 or 11.4.
 {% endhint %}
 
 The default character set has changed from `latin1` to `utf8mb4`, and the default collation has changed from `latin1_swedish_ci` to `utf8mb4_uca1400_ai_ci`. This update improves global compatibility and supports modern data requirements, such as emojis.

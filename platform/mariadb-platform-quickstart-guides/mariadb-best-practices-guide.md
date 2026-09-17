@@ -1,5 +1,5 @@
 ---
-cover: broken-reference
+cover: ../.gitbook/assets/Group 15569 (2).png
 coverY: 0
 ---
 
@@ -47,5 +47,7 @@ Adhering to best practices is crucial for ensuring the performance, stability, a
 * **Utilize Commercial Support:** For comprehensive technical support and services, consider engaging with MariaDB Corporation's commercial support. Existing customers can access assistance via the MariaDB Customer Portal.
 
 This guide provides a high-level overview. For more in-depth information, refer to the official MariaDB documentation on best practices.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

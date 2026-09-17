@@ -58,7 +58,59 @@ The following happens when atomic writes are enabled
 
 Here is a flowchart showing how atomic writes work inside InnoDB:
 
-![Atomic write support flow inside InnoDB](../../../../.gitbook/assets/atomic_support_internals.png)
+```mermaid
+flowchart TD
+    accTitle: InnoDB atomic write support internals
+    accDescr {
+        Two decision flows. Initialization checks whether innobase_use_atomic_writes
+        is set; if so, doublewrite is switched off, the flush method is set to
+        O_DIRECT, and posix_fallocate pre-allocates the tablespace, before either
+        path continues with the existing flow. Opening a data file issues an ioctl
+        to enable atomic writes; success continues normally, while failure on the
+        ibdata1 system tablespace stops mysqld from starting, and failure on any
+        other file closes it, logs the error, and returns failure to the caller.
+    }
+
+    subgraph INIT["Initialization"]
+        direction TD
+        I0(["MySQL (init)"])
+        ID1{"innobase_use_atomic_writes set?"}
+        IA["Switch off doublewrite<br/>Set flush method to O_DIRECT<br/>Use posix_fallocate to pre-allocate tablespace"]
+        IC(["Continue with existing flow"])
+        I0 --> ID1
+        ID1 -->|Yes| IA
+        ID1 -->|No| IC
+        IA --> IC
+    end
+
+    subgraph OPEN["Opening a Data File"]
+        direction TD
+        O0(["MySQL (open data file if innobase_use_atomic_writes set)"])
+        OD1{"ioctl to underlying file system succeeds?"}
+        OD2{"Is it ibdata1 file?"}
+        OC(["Continue with existing flow"])
+        OF(["mysqld doesn't start"])
+        OE["Close the file, log the error, and return failure to caller"]
+        O0 --> OD1
+        OD1 -->|Yes| OC
+        OD1 -->|No| OD2
+        OD2 -->|Yes| OF
+        OD2 -->|No| OE
+    end
+
+    classDef start fill:#3aa0e6,stroke:#1f6fa8,stroke-width:2px,color:#111;
+    classDef decision fill:#f7ca18,stroke:#a97c0c,stroke-width:2px,color:#111;
+    classDef action fill:#f0932b,stroke:#b5701d,stroke-width:2px,color:#111;
+    classDef terminal fill:#5cb85c,stroke:#2f7d2f,stroke-width:2px,color:#111;
+    classDef fail fill:#e6553a,stroke:#a63a26,stroke-width:2px,color:#111;
+    class I0,O0 start
+    class ID1,OD1,OD2 decision
+    class IA,OE action
+    class IC,OC terminal
+    class OF fail
+```
+
+_Initialization checks the atomic-writes setting before continuing, while opening a data file checks the ioctl result, treating a failed ibdata1 open as fatal and any other file as a closable error._
 
 ## Devices that Support Atomic Writes with MariaDB
 

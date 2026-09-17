@@ -81,7 +81,7 @@ The [BIT](../../../../reference/data-types/numeric-data-types/bit.md) type is su
 In MariaDB, binary values can be written in one of the following ways:
 
 * `b'value'`
-* `0value`\
+* `0value`
   where `value` is a sequence of 0 and 1 digits. Hexadecimal syntax can also be used. For more details, see [Binary Literals](../../../../reference/sql-structure/sql-language-structure/binary-literals.md) and [Hexadecimal Literals](../../../../reference/sql-structure/sql-language-structure/hexadecimal-literals.md).
 
 MariaDB and SQL Server have different sets of bitwise operators. See [Bit Functions and Operators](../../../../reference/sql-functions/secondary-functions/bit-functions-and-operators/).

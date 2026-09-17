@@ -153,3 +153,5 @@ Installation of MariaDB Client varies by operating system.
     * You can use 3307 for the port if running with Replicas. This is the read-only port of your service.
     * Replace the user name with the one for your service.
 4. After the command is executed, you will be prompted for the password of your database user account. Enter the default password for your default user, the password you set for the default user, or the password for the database user you created.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -121,3 +121,5 @@ Reference list of system variables related to TLS configuration, such as `ssl_ci
 
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

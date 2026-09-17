@@ -13,7 +13,7 @@ qemu-img create -f qcow2 /kvm/vms/vm-precise-amd64-serial.qcow2 8G
 qemu-img create -f qcow2 /kvm/vms/vm-precise-i386-serial.qcow2 8G
 ```
 
-Start each VM booting from the server install iso one at a time and perform\
+Start each VM booting from the server install iso one at a time and perform
 the following install steps:
 
 ```

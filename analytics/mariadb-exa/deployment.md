@@ -26,8 +26,8 @@ A complete MariaDB Exa deployment has three parts. Install and configure them in
 
 MariaDB Server is the transactional front end for the deployment. Install it and apply your baseline configuration first.
 
-* [Installing MariaDB Server Guide](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/installing-mariadb-server-guide)
-* [Configuring MariaDB with Option Files](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files)
+* [Installing MariaDB Server Guide](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/installing-mariadb-server-guide)
+* [Configuring MariaDB with Option Files](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files)
 
 ### 2. Install and configure Exasol
 
@@ -469,8 +469,8 @@ confd_client db_info db_name: Exasol
 
 MariaDB MaxScale uses the ExasolRouter to stream changes from MariaDB Server into Exasol via Change Data Capture (CDC).
 
-* [MariaDB MaxScale ExasolRouter Tutorial](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/mariadb-maxscale-tutorials/mariadb-maxscale-exasolrouter)
+* [MariaDB MaxScale ExasolRouter Tutorial](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/mariadb-maxscale-tutorials/mariadb-maxscale-exasolrouter)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -25,6 +25,6 @@ description: >-
 [mariadb-enterprise-spider-topologies](../../../../../architecture/topologies/mariadb-enterprise-spider-topologies/)
 {% endcontent-ref %}
 
-{% include "../../../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -73,7 +73,7 @@ If `Aria_pagecache_reads` is much smaller than `Aria_pagecache_read_request` and
 ## Using in memory temporary tables
 
 Using memory tables for internal temporary results can speed up execution.\
-However, if the memory table gets full, then the memory table will be moved to\
+However, if the memory table gets full, then the memory table will be moved to
 disk, which can hurt performance.
 
 You can check how the internal memory tables are performing by executing:
@@ -118,7 +118,7 @@ You can increase the storage for internal temporary tables by setting [max\_heap
 
 ## External Links
 
-* [what-to-tune-in-mysql-56-after-installation.html](https://www.tocker.ca/2013/09/17/what-to-tune-in-mysql-56-after-installation.html)
+* [what-to-tune-in-mysql-56-after-installation.html](https://web.archive.org/web/20150421070308/https://www.tocker.ca/2013/09/17/what-to-tune-in-mysql-56-after-installation.html)
 * [optimizing-mysql-configuration-percona-mysql-university-montevideo](https://www.percona.com/resources/technical-presentations/optimizing-mysql-configuration-percona-mysql-university-montevideo)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

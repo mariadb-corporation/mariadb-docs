@@ -21,7 +21,7 @@ MYSQL * mysql_init(MYSQL * mysql);
 
 Prepares and initializes a MYSQL structure to be used with [mysql\_real\_connect()](mysql_real_connect.md).
 
-If `mysql_thread_init()` was not called before, `mysql_init()` will also initialize the thread subsystem for the current thread.
+`mysql_init()` also ensures the client library is initialized, via a one-time internal initialization; it does not depend on `mysql_thread_init()`, which is a no-op retained for compatibility.
 
 ## Return Value
 
@@ -41,5 +41,7 @@ Memory allocated by mysql\_init() must be freed with [mysql\_close()](mysql_clos
 * [mysql\_options()](mysql_options.md)
 * [mysql\_thread\_init()](mysql_thread_init.md)
 * [mysql\_close()](mysql_close.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

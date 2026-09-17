@@ -48,7 +48,7 @@ If you need to change which MaxScale monitor an existing logical database is tra
 
 1. Navigate to your main database inventory page and locate the logical database you wish to edit.
 2. Click the **three-dot menu icon (⋮)** on the right side of the database entry.
-3.  Select the **Edit** option from the menu.\\
+3.  Select the **Edit** option from the menu.
 
     <figure><img src="../../../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
@@ -57,13 +57,13 @@ If you need to change which MaxScale monitor an existing logical database is tra
 **Select a different monitor**
 
 1. In the configuration window, scroll down to the **Advanced** section.
-2.  From the **Monitor name** dropdown, select the new MaxScale monitor you want this logical database to track.\\
+2.  From the **Monitor name** dropdown, select the new MaxScale monitor you want this logical database to track.
 
     <figure><img src="../../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 3. Click the **Confirm** button to save your changes.
 {% endstep %}
 {% endstepper %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

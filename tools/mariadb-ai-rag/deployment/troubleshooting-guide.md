@@ -53,8 +53,6 @@ Recommended Steps:
 1. Check the status of all containers to ensure `mariadb` shows as Healthy.
 2. Restart the environment to clear the timeout.
 
-Bash
-
 ```bash
 docker compose -f docker-compose.dockerhub-dev.yml stop
 docker compose -f docker-compose.dockerhub-dev.yml start
@@ -90,15 +88,13 @@ Recommended Steps:
 
 ### 1. Check Overall Service Health
 
-Use Docker Compose to verify that all constituent containers are running correctly: \{% code title="Verify status" %\}
+Use Docker Compose to verify that all constituent containers are running correctly:
 
-Bash
-
-```
+{% code title="Verify status" %}
+```bash
 docker compose -f docker-compose.dockerhub-dev.yml ps
 ```
-
-\{% endcode %\}
+{% endcode %}
 
 ### 2. Verify Network Connectivity
 
@@ -110,3 +106,5 @@ Ensure the internal services can communicate on their assigned ports:
 ### 3. Check Clock Synchronization
 
 Ensure the host machine's time is synchronized (e.g., via NTP). Significant time drift can cause authentication failures with external AI providers and licensing servers.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

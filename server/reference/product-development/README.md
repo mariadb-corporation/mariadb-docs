@@ -91,3 +91,5 @@ Covers foundational engineering topics, including the server roadmap, GitHub col
 Explores the low-level architecture of MariaDB, documenting source code internals, merging procedures, and how to use internal APIs in external programs.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

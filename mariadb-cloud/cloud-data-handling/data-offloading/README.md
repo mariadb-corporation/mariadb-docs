@@ -230,4 +230,6 @@ curl --location 'https://api.skysql.com/skybackup/v1/backups/status' \
 
 ## **4. Replicating Changes From MariaDB Cloud to a Compatible External Database**
 
-See [Replicating data From MariaDB Cloud to External Database](../../Data%20offloading/Replicating%20data%20from%20MariaDB%20Cloud%20to%20external%20database.md) for details.
+See [Replicating data From MariaDB Cloud to External Database](replicating-data-from-mariadb-cloud-to-external-database.md) for details.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

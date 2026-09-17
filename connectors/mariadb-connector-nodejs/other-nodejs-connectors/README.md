@@ -36,3 +36,5 @@ layout:
 `mariasql` is a Node.js binding to MariaDB's non-blocking client library, providing higher benchmark performance than standard `libmysqlclient` bindings for MariaDB and MySQL connections.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

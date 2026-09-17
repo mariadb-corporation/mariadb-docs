@@ -35,7 +35,7 @@ thread-handling=  one-thread-per-connection
 thread-pool-size= 20
 ```
 
-One issue with pool-of-threads is that if all worker threads are doing work (like running long queries) or are locked by a row/table lock no new connections can be established and you can't login and find out\
+One issue with pool-of-threads is that if all worker threads are doing work (like running long queries) or are locked by a row/table lock no new connections can be established and you can't login and find out
 what's wrong or login and kill queries.
 
 To help this, we have introduced two new options for mysqld; [extra\_port](thread-pool-system-status-variables.md) and [extra\_max\_connections](thread-pool-system-status-variables.md):

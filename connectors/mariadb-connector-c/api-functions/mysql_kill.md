@@ -10,13 +10,13 @@ description: >-
 
 ```c
 int mysql_kill(MYSQL * mysql,
-               unsigned long);
+               unsigned long pid);
 ```
 
 ## Parameters
 
 * `mysql` - a mysql handle, which was previously allocated by [mysql\_init()](mysql_init.md) or [mysql\_real\_connect()](mysql_real_connect.md).
-* `long` - process id
+* `unsigned long` - process id
 
 ## Description
 
@@ -36,5 +36,7 @@ Returns 0 on success, otherwise error on nonzero.
 * [mysql\_thread\_id()](mysql_thread_id.md)
 * [mysql\_close()](mysql_close.md)
 * [mariadb\_cancel()](mariadb_cancel.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

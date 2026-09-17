@@ -60,3 +60,5 @@ MYSQL_BIND binds input parameters and output result columns to a prepared statem
 MYSQL_STMT is the handle for a prepared statement, allocated by `mysql_stmt_init()` and released by `mysql_stmt_close()`; all of its members are private.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

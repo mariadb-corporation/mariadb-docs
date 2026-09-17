@@ -11,7 +11,7 @@ description: >-
   * [Creating a REST API User](administrative-tools-for-mariadb-maxscale-maxctrl/creating-a-rest-api-user-for-maxscale-with-maxctrl.md)
   * [Deleting a REST API User](../reference/maxscale-maxctrl.md#destroy-user)
 * TLS
-  * [Enabling TLS on MaxScale](deployment/installation-and-configuration/maxscale-configuration-guide.md#tlsssl-encryption)
+  * [Enabling TLS on MaxScale](deployment/installation-and-configuration/maxscale-configuration-guide.md#tls-ssl-encryption)
   * [Enabling TLS for MaxScale's REST API](administrative-tools-for-mariadb-maxscale-maxctrl/connecting-to-maxscale-using-tls-with-maxctrl.md)
   * [Connecting to MaxScale using TLS with MaxCtrl](administrative-tools-for-mariadb-maxscale-maxctrl/connecting-to-maxscale-using-tls-with-maxctrl.md)
 * MaxGUI
@@ -19,6 +19,6 @@ description: >-
 * Operations
   * [Setting a Server to Maintenance Mode with MaxGUI](administrative-tools-for-mariadb-maxscale-maxctrl/maxctrl-setting-a-server-to-maintenance-mode-in-maxscale-with-maxctrl.md)
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

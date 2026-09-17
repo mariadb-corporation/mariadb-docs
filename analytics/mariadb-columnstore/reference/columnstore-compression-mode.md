@@ -20,6 +20,6 @@ where n is:
 1. 0 = Compression is turned off. Any subsequent table create statements run will have compression turned off for that table unless any statement overrides have been performed. Any `ALTER` statements run to add a column will have compression turned off for that column unless any statement override has been performed.
 2. 1 = Compression is turned on. Any subsequent table create statements run will have compression turned on for that table unless any statement overrides have been performed. Any `ALTER` statements run to add a column will have compression turned on for that column unless any statement override has been performed. ColumnStore uses snappy compression in this mode.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

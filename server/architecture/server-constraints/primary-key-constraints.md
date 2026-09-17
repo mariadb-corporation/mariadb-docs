@@ -307,6 +307,6 @@ To easily generate unique values for a primary key, consider using one of the fo
 * [InnoDB AUTO\_INCREMENT Columns](auto_increment-constraints.md#creating-an-innodb-table-with-an-auto_increment-column)
 * [InnoDB Sequences](../../reference/sql-structure/sequences/)
 
-{% include "../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

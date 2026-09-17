@@ -108,3 +108,5 @@ UPDATE page_hit SET processed = 1
 - Canonical references on `mariadb.com/docs` (consult only for edge cases not covered here):
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/changing-deleting-data/update>
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/changing-deleting-data/high_priority-and-low_priority> (LOW_PRIORITY engine scope)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

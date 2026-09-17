@@ -127,4 +127,6 @@ This function was added in MariaDB Connector/C 3.0.0.
 
 * [mysql\_optionsv()](mysql_optionsv.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

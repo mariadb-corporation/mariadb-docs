@@ -11,7 +11,7 @@ description: >-
 
 Ed25519 is a highly secure authentication method based on public key cryptography. It is used with the `auth_ed25519` plugin of MariaDB Server.
 
-When a client authenticates via ed25519, MaxScale first sends them a random message. The client signs the message using their password as private key and sends the signature back. MaxScale then checks the signature using the public key fetched from the `mysql.user` table. The client password or an equivalent token is never exposed. For more information, see the [ed25519 plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-ed25519) documentation.
+When a client authenticates via ed25519, MaxScale first sends them a random message. The client signs the message using their password as private key and sends the signature back. MaxScale then checks the signature using the public key fetched from the `mysql.user` table. The client password or an equivalent token is never exposed. For more information, see the [ed25519 plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-ed25519) documentation.
 
 The security of this authentication scheme presents a problem for a proxy such as MaxScale since MaxScale needs to log in to backend servers on behalf of the client. Since each server generates their own random messages, MaxScale cannot simply forward the original signature. Either the real password is required, or a different authentication scheme must be used between MaxScale and backends. The MaxScale `ed25519auth` plugin supports both alternatives.
 
@@ -52,7 +52,7 @@ authenticator_options=ed_mode=sha256,
 
 ### Using a Mapping File
 
-To enable MaxScale to authenticate to backends, [user mapping](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user_mapping_file) can be used. The mapping and backend passwords are given in a JSON file. The client can map to an identical username or to another user, and the backend authentication scheme can be something else than `ed25519`.
+To enable MaxScale to authenticate to backends, [user mapping](../maxscale-listeners.md#user_mapping_file) can be used. The mapping and backend passwords are given in a JSON file. The client can map to an identical username or to another user, and the backend authentication scheme can be something else than `ed25519`.
 
 The following example maps user "alpha" to "beta" and MaxScale then uses standard authentication to log into backends as "beta". User "alpha" authenticates to MaxScale using whatever method configured in the server. User "gamma" does not map to another user, just the password is given.
 

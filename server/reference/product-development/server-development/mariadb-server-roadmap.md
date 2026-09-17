@@ -32,7 +32,7 @@ MariaDB Server 5.5 was a combination of MariaDB Server 5.3 and MySQL 5.5.
 
 MariaDB Server 10.0, and later build off of the previous MariaDB Server releases with backported features from MySQL and entirely new features not found anywhere else.
 
-Short descriptions of the various MariaDB Server releases and their main new features\
+Short descriptions of the various MariaDB Server releases and their main new features
 can be found on the [MariaDB Server Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server) page.
 
 ## Plans

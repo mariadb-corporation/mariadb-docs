@@ -164,3 +164,5 @@ SELECT '{"a": 42, "a":1}' IS JSON WITH UNIQUE KEYS;
 * [JSON\_VALID()](../../../sql-functions/special-functions/json-functions/json_valid.md)
 * [JSON Data Type](../../../data-types/string-data-types/json.md)
 * [JSON\_TYPE](../../../sql-functions/special-functions/json-functions/json_type.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

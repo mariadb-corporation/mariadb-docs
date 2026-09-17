@@ -17,6 +17,6 @@ The native implementation of MariaDB Connector/R2DBC does not provide out-of-the
 
 To use Spring framework-managed reactive streams transactions from your Java code, use [MariaDB Connector/R2DBC with Spring Data R2DBC](../using-the-spring-data-framework-with-mariadb-connector-r2dbc/transactions-with-mariadb-connector-r2dbc-spring-data.md).
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

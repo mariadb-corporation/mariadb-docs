@@ -97,14 +97,20 @@ Reuse shared content instead of copy-pasting it. Two forms (full detail in
 - **Reusable-content include** — `{% include "https://app.gitbook.com/s/<space>/~/reusable/<id>/" %}`.
   Reference an existing one only: if the same shared block already appears on sibling pages,
   copy its exact directive. **Never fabricate a `~/reusable/<id>` URL** — those blocks are
-  created in the GitBook UI and have no source here. The URL embeds a **space ID**, so only copy
-  it from a page **in the same space** (it's not portable across spaces).
+  created in the GitBook UI and have no source here. The embedded space ID says where the block
+  **lives**, not who may use it, so this form **is** portable: it is the only way to reuse a
+  snippet **across** spaces. The copyright footnote, for instance, lives in `server/` and is
+  included by ID from `galera-cluster/`, `maxscale/` and others.
 - **File include** — `{% include "../../../.gitbook/includes/<snippet>.md" %}`. Snippets are
   **per-space** (`<space>/.gitbook/includes/`). The `../` prefix has **one `..` per directory
   between the page and its space root** — a page at `server/a/b/c/page.md` is 3 dirs below
-  `server/`, so `../../../`. You may create the snippet file there and reference it; **always
-  `ls` the resolved path to confirm it exists** before writing the directive (a wrong count
-  renders an empty include and link-check won't catch it). Full detail: `dev-docs/gitbook-syntax.md`.
+  `server/`, so `../../../`. You may create the snippet file there and reference it. This form
+  **must not leave the page's own space**: a path climbing into a sibling space (or into a
+  repo-root container, which no longer exists) fails in GitBook even though it resolves on disk
+  — use the by-ID form above instead. A wrong `..` count renders an **empty** include, and
+  lychee cannot see it because `{% include %}` is template syntax rather than a Markdown link,
+  so **confirm the resolved path** before writing the directive; `.claude/hooks/doc-lint.sh`
+  checks both failure modes. Full detail: `dev-docs/gitbook-syntax.md`.
 
 When duplicated boilerplate appears across pages, prefer converting it to an include over
 repeating it. If no suitable reusable block exists and a file include isn't warranted, leave the
@@ -113,7 +119,7 @@ content inline rather than inventing an include.
 ### 6. Links
 
 - **Same space** → relative `.md` path: `[CREATE TABLE](reference/.../create-table.md)`.
-- **Other space** → alias: `[MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/readme)`. Alias table:
+- **Other space** → alias: `[MaxScale]({maxscale}/readme)`. Alias table:
   `dev-docs/link-aliases.md`.
 - **Convert** raw `https://app.gitbook.com/...` URLs and hard-coded cross-space URLs into the
   appropriate alias. **Never** expand an existing `{alias}` into a URL — the CI Action does that.

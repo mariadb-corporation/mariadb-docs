@@ -22,7 +22,7 @@ A `TEXT` column with a maximum length of 65,535 (2¹⁶ - 1) characters. The eff
 
 An optional length `M` can be given for this type. If this is done, MariaDB creates the column as the smallest `TEXT` type large enough to hold values`M` characters long.
 
-`BLOB` and `TEXT` columns can be assigned a [DEFAULT](../../sql-statements/data-definition/create/create-table.md#default) value.
+`BLOB` and `TEXT` columns can be assigned a [DEFAULT](../../sql-statements/data-definition/create/create-table.md#default-column-option) value.
 
 ## Examples
 

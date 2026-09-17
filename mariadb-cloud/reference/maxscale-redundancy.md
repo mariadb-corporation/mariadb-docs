@@ -26,3 +26,5 @@ MariaDB Cloud supports MaxScale Redundancy as an option at time of launch:
 1. Launch a MariaDB Cloud service:
 2. Check the "Enable MaxScale Redundancy" checkbox.
 3. Choose the [MaxScale instance size](mariadb-cloud-instance-sizes.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

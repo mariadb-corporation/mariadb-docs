@@ -9,7 +9,7 @@ description: >-
 The following SQL statements are not permitted inside any [stored routines](./) ([stored functions](stored-functions/), [stored procedures](stored-procedures/), [events](../triggers-events/event-scheduler/events.md) or [triggers](../triggers-events/triggers/)).
 
 * [ALTER VIEW](../views/alter-view.md); you can use [CREATE OR REPLACE VIEW](../views/create-view.md) instead.
-* [LOAD DATA](../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) and [LOAD TABLE](../../ha-and-performance/standard-replication/obsolete-replication-information/load-table-from-master-removed.md).
+* [LOAD DATA](../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) and [LOAD TABLE](../../ha-and-performance/standard-replication/README.md).
 * [CHANGE MASTER TO](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md)
 * [INSERT DELAYED](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert-delayed.md) is permitted, but the statement is handled as a regular [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md).
 * [LOCK TABLES](../../reference/sql-statements/transactions/lock-tables.md) and [UNLOCK TABLES](../../reference/sql-statements/transactions/lock-tables.md).

@@ -44,10 +44,6 @@ Once the credentials are configured, the data loading can be started:
 LOAD DATA INFILE 'S3://my-bucket/my-data.csv' INTO TABLE t1;
 ```
 
-### Data Uploads with MariaDB Xpand
-
-This feature has been removed in MaxScale 24.02.
-
 ## Common Problems With Data Loading
 
 ### Missing Files

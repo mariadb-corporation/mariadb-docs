@@ -40,7 +40,7 @@ It should also be possible to install Spring Data R2DBC and MariaDB Connector/R2
 <dependency>
     <groupId>org.mariadb</groupId>
     <artifactId>r2dbc-mariadb-0.9.1-spec</artifactId>
-    <version>1.2.2</version>
+    <version>1.4.1</version>
 </dependency>
 ```
 
@@ -52,7 +52,7 @@ $ mvn package
 
 During the build process, Maven downloads and installs MariaDB Connector/R2DBC and other dependencies from the relevant repositories.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 
 {% @marketo/form formId="4316" %}

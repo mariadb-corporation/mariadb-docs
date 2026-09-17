@@ -1,6 +1,6 @@
 # MariaDB 10.4.31 Changelog
 
-[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/10.4/10.4.31.md)[Changelog](mariadb-10-4-31-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/10.4/10.4.31.md)[Changelog](mariadb-10-4-31-changelog.md)[Overview of 10.4](../../old-releases/10.4/what-is-mariadb-104.md)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.4.31/)
 
@@ -8,7 +8,7 @@
 
 For the highlights of this release, see the [release notes](../../old-releases/10.4/10.4.31.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.4) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.4) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Includes all fixes from [MariaDB 10.3.39](../changelogs-mariadb-10-3-series/mariadb-10-3-39-changelog.md)
@@ -423,6 +423,6 @@ details of the revision and view diffs of the code modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

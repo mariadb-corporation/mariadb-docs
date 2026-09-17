@@ -202,7 +202,7 @@ See [CREATE TABLE: Table Options](../../create/create-table.md#table-options) fo
 ### ADD COLUMN
 
 ```sql
-... ADD COLUMN [IF NOT EXISTS]  (col_name [column_definition](../create/create-table.md#column-definitions),...)
+... ADD COLUMN [IF NOT EXISTS] (col_name column_definition, ...)
 ```
 
 Adds a column to the table. The syntax is the same as in [CREATE TABLE](../../create/create-table.md). If you are using `IF NOT_EXISTS` the column will not be added if it was not there already. This is very useful when doing scripts to modify tables.
@@ -325,11 +325,11 @@ Drops a foreign key. See [Foreign Keys](../../../../../ha-and-performance/optimi
 
 ### ADD INDEX
 
-Adds a plain index. Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes. For limits on InnoDB indexes, see [InnoDB Limitations](../../../../../server-usage/storage-engines/innodb/innodb-limitations.md). See [Getting Started with Indexes: Plain Indexes](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes) for more information.
+Adds a plain index. Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes. For limits on InnoDB indexes, see [InnoDB Limitations](../../../../../server-usage/storage-engines/innodb/innodb-limitations.md). See [Getting Started with Indexes: Plain Indexes](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes-regular-indexes) for more information.
 
 ### DROP INDEX
 
-Drops a plain index. Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes. See [Getting Started with Indexes: Plain Indexes](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes) for more information.
+Drops a plain index. Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes. See [Getting Started with Indexes: Plain Indexes](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes-regular-indexes) for more information.
 
 ### ADD UNIQUE INDEX
 
@@ -408,7 +408,7 @@ WHERE TABLE_NAME = 'account_ledger';
 
 ### DROP CONSTRAINT
 
-`DROP CONSTRAINT` for `UNIQUE` and `FOREIGN KEY` [constraints](../../constraint.md)\
+`DROP CONSTRAINT` for `UNIQUE` and `FOREIGN KEY` [constraints](../../constraint.md)
 and `DROP CONSTRAINT` for `CHECK` constraints were introduced in an earlier version of MariaDB.
 
 Modifies the table, removing the given constraint.
@@ -516,7 +516,7 @@ ALTER TABLE partitioned_table CONVERT TABLE normal_table
 
 The optional `[{WITH | WITHOUT} VALIDATION]` is permitted.
 
-See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details.
+See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-to-from-tables) for more details.
 {% endtab %}
 
 {% tab title="< 11.4" %}
@@ -535,7 +535,7 @@ ALTER TABLE partitioned_table CONVERT TABLE normal_table
 
 The optional clause `[{WITH | WITHOUT} VALIDATION]` is not available.
 
-See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details.
+See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-to-from-tables) for more details.
 {% endtab %}
 
 {% tab title="< 10.7" %}
@@ -835,7 +835,9 @@ Adding a primary key for an [application-time period table](../../../../sql-stru
 ALTER TABLE rooms ADD PRIMARY KEY(room_number, p WITHOUT OVERLAPS);
 ```
 
-\{% tabs %\} \{% tab title="Current" %\} An `ALTER` query can be replicated faster with this statement, which must be run before the `ALTER` statement:
+{% tabs %}
+{% tab title="Current" %}
+An `ALTER` query can be replicated faster with this statement, which must be run before the `ALTER` statement:
 
 ```sql
 SET @@SESSION.binlog_alter_two_phase = TRUE;
@@ -850,15 +852,16 @@ Binlog would contain two event groups, of which the first one gets delivered to 
 | master-bin.000001 | 700 | Query             |         1 |    
 ```
 
-\{% endtab %\}
+{% endtab %}
 
-\{% tab title="< 10.8.1" %\} This statement is not available:
+{% tab title="< 10.8.1" %}
+This statement is not available:
 
-```
-
-sql
+```sql
 SET @@SESSION.binlog_alter_two_phase = true;
 ```
+{% endtab %}
+{% endtabs %}
 
 ## See Also
 

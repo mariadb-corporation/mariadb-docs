@@ -14,5 +14,6 @@ The `MYSQL_STMT` structure is a handle for a prepared statement. The handle will
 * After a successful call to [mysql\_stmt\_prepare()](../mysql_stmt_prepare.md) a prepared statement will also allocate resources on the server.
 * Closing the connection with [mysql\_close()](../../api-functions/mysql_close.md) invalidates the statements but doesn't free resources on the client.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -102,3 +102,5 @@ Simplify a geometry using the Douglas-Peucker algorithm. This function reduces t
 Validate and optionally return a geometry. This function checks if a geometry is valid according to OGC rules; it returns the geometry if valid, or NULL if not.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

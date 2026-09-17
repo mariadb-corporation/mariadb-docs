@@ -32,6 +32,6 @@ For the current version of MariaDB Enterprise Manager, ensure the following rule
 * From user workstations, allow traffic to the Enterprise Manager Server on TCP port `8090`.
 * From agent hosts, allow traffic to the Enterprise Manager Server on TCP port `4318`.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

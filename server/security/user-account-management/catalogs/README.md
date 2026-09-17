@@ -145,3 +145,5 @@ Reference for the USE CATALOG statement, allowing a user to switch their current
 Reference for the DROP CATALOG statement, used to remove a catalog and all its associated databases and users.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

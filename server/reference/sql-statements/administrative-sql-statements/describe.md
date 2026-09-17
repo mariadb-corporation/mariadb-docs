@@ -37,7 +37,7 @@ The description for [SHOW COLUMNS](show/show-columns.md) providesmore informatio
 
 * [SHOW COLUMNS](show/show-columns.md)
 * [INFORMATION\_SCHEMA.COLUMNS Table](../../system-tables/information-schema/information-schema-tables/information-schema-columns-table.md)
-* [mysqlshow](../../../clients-and-utilities/legacy-clients-and-utilities/mysqlshow.md)
+* [mysqlshow](../../../clients-and-utilities/administrative-tools/mariadb-show.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

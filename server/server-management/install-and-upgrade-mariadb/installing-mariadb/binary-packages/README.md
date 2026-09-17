@@ -153,3 +153,5 @@ Explains the benefits and use cases for deploying MariaDB using package tarballs
 Learn how to create and maintain local mirrors of MariaDB package repositories for secure or air-gapped deployments.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

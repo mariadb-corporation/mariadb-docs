@@ -126,3 +126,5 @@ Provides techniques for writing efficient SQL, understanding query execution pla
 Optimize MariaDB Server with system variables, configuring various parameters to fine-tune performance, manage resources, and adapt the database to your specific workload requirements.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

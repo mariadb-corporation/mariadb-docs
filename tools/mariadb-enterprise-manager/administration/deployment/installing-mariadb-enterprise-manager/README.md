@@ -6,8 +6,6 @@ description: >-
 
 # Installing MariaDB Enterprise Manager
 
-
-
 {% hint style="info" %}
 Prerequisites
 
@@ -70,7 +68,7 @@ chmod +x install-enterprise-manager.sh
 Run the installer from a directory that does not already contain an `enterprise-manager` folder, otherwise the installer treats it as an existing installation and initiates an update process.
 {% endhint %}
 
-Install Enterprise Manager by running the installer.&#x20;
+Install Enterprise Manager by running the installer.
 
 {% code title="# Run installer" %}
 ```bash
@@ -239,7 +237,7 @@ podman login --compat-auth-file .docker/config.json <private-registry>
 {% step %}
 **Set the container image locations for installer**
 
-Export the image variables so the installer pulls the container images from your registry instead of the internet. Use the versions from the release notes and replace the registry prefix with yours.&#x20;
+Export the image variables so the installer pulls the container images from your registry instead of the internet. Use the versions from the release notes and replace the registry prefix with yours.
 
 {% code title="# Set variables for image locations" %}
 ```bash
@@ -331,6 +329,6 @@ At the login screen, use the default username `admin` and the generated password
 {% endstep %}
 {% endstepper %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

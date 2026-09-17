@@ -12,7 +12,7 @@ This page describes our setup for DBT-3 tests. A very cogent resource on the [DB
 
 * Get [DBT3](https://osdldbt.sourceforge.net/)
 * Make sure that you have pg\_ctl and createdb of PostgreSQL installed. On\
-  Ubuntu look for postgresql and postgresql-client and make sure that pg\_ctl is\
+  Ubuntu look for postgresql and postgresql-client and make sure that pg\_ctl is
   in your PATH, for instance:
 
 ```

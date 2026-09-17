@@ -29,4 +29,6 @@ To reuse a connection handle after `mysql_close()` the handle must be initialize
 * [mysql\_init()](mysql_init.md)
 * [mysql\_real\_connect()](mysql_real_connect.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

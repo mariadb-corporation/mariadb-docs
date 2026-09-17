@@ -11,4 +11,6 @@ The MySQL API module for Ruby should generally work with MariaDB as well:
 
 * [mysql2](https://rubygems.org/gems/mysql2)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -18,7 +18,7 @@ MaxGUI is a graphical utility that can perform administrative tasks using MaxSca
 ## Setting a Server to Maintenance Mode
 
 1. [Configure MaxScale for MaxGUI](configuring-maxscale-for-maxgui.md).
-2. Visit MaxGUI in your web browser. For example, if you are accessing it from local host with the default port, then visit this address: [127.0.0.1:8989](https://127.0.0.1:8989)
+2. Visit MaxGUI in your web browser. For example, if you are accessing it from local host with the default port, then visit this address: `127.0.0.1:8989`
 3. Enter your username and password to log in.
 4. On the dashboard, the "Servers" tab is shown by default.
 5.  Click the server that you want to set to maintenance mode. This will bring up a page for the specific server.<br>
@@ -35,7 +35,7 @@ MaxGUI is a graphical utility that can perform administrative tasks using MaxSca
 ## Forcing a Server to Maintenance Mode
 
 1. [Configure MaxScale for MaxGUI](configuring-maxscale-for-maxgui.md)
-2. Visit MaxGUI in your web browser. For example, if you are accessing it from local host with the default port, then visit this address: [127.0.0.1:8989](https://127.0.0.1:8989)
+2. Visit MaxGUI in your web browser. For example, if you are accessing it from local host with the default port, then visit this address: `127.0.0.1:8989`
 3. Enter your user and password to login.
 4. On the dashboard, the "Servers" tab is shown by default.
 5.  Click the server that you want to set to maintenance mode. This will bring up a page for the specific server.<br>
@@ -52,6 +52,6 @@ MaxGUI is a graphical utility that can perform administrative tasks using MaxSca
     <figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 9. Click the "Set" button. When the "Force closing" checkbox is specified, MaxScale immediately close all connections, even if the server is a primary server that has open transactions.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -62,3 +62,4 @@ This section contains background information, mostly aimed at engineers developi
 [qa-datasets](qa-datasets/)
 {% endcontent-ref %}
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

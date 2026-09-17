@@ -154,3 +154,5 @@ General information and hints on deploying MariaDB Kubernetes (K8s) containers, 
 Vagrant is an open source tool to quickly setup machines that can be used for development and testing. They can be local virtual machines, Docker containers, AWS EC2 instances, and so on
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

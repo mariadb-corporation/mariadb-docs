@@ -19,7 +19,7 @@ JSON_OVERLAPS(json_doc1, json_doc2)
 
 ## Description
 
-`JSON_OVERLAPS()` compares two json documents and returns true if they have at least one common\
+`JSON_OVERLAPS()` compares two json documents and returns true if they have at least one common
 key-value pair between two objects, array element common between two arrays, or array element common with scalar if one of the arguments is a scalar and other is an array. If two json documents are scalars, it returns true if they have same type and value.
 
 If none of the above conditions are satisfied then it returns false.

@@ -29,7 +29,41 @@ layout:
 
 | Software Version                                                                                       | Diagram                                                                      | Features                                                                                                                                                                                                                                                                                                                                     |
 | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <ul><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul> | ![](../../../../../.gitbook/assets/es-columnstore-topology-nfs-no-title.png) | <p>Columnar storage engine with S3-compatible object storage</p><ul><li>Highly available</li><li>Automatic failover via MaxScale and CMAPI</li><li>Scales read via MaxScale</li><li>Bulk data import</li><li>Enterprise Server 10.5, ColumnStore 5, MaxScale 2.5</li><li>Enterprise Server 10.6, ColumnStore 23.02, MaxScale 22.08</li></ul> |
+| <ul><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul> | See the topology diagram below. | <p>Columnar storage engine with S3-compatible object storage</p><ul><li>Highly available</li><li>Automatic failover via MaxScale and CMAPI</li><li>Scales read via MaxScale</li><li>Bulk data import</li><li>Enterprise Server 10.5, ColumnStore 5, MaxScale 2.5</li><li>Enterprise Server 10.6, ColumnStore 23.02, MaxScale 22.08</li></ul> |
+
+```mermaid
+flowchart TD
+    accTitle: MaxScale routing to three Enterprise Server and ColumnStore nodes sharing NFS storage
+    accDescr {
+        A MariaDB MaxScale proxy sits above three MariaDB Enterprise Server nodes, each running
+        ColumnStore. MaxScale routes read-only traffic to the first and third nodes and
+        read-write traffic to the middle node. Each node's ColumnStore layer reads and writes
+        data through a shared NFS storage volume.
+    }
+    MX["MariaDB MaxScale"]
+    ES1["ES"]
+    CS1["ColumnStore"]
+    ES2["ES"]
+    CS2["ColumnStore"]
+    ES3["ES"]
+    CS3["ColumnStore"]
+    NFS[("NFS")]
+    MX -->|ro| ES1
+    MX -->|rw| ES2
+    MX -->|ro| ES3
+    ES1 --- CS1
+    ES2 --- CS2
+    ES3 --- CS3
+    NFS -.-> CS1
+    NFS -.-> CS2
+    NFS -.-> CS3
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
+    class MX,ES1,ES2,ES3,CS1,CS2,CS3 node
+    class NFS storage
+```
+
+_MaxScale routes ro/rw traffic to three Enterprise Server and ColumnStore nodes sharing NFS storage._
 
 This procedure describes the deployment of the ColumnStore Shared Local Storage topology with MariaDB Enterprise Server 10.5, MariaDB ColumnStore 5, and MariaDB MaxScale 2.5.
 
@@ -815,7 +849,7 @@ $ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
       --mariadb-server-version="11.4"
 ```
 
-_Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/information-functions/version) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) _page. Substitute `${checksum}` in the example above with the latest checksum._
+_Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) _page. Substitute `${checksum}` in the example above with the latest checksum._
 
 #### Install Enterprise Server and Enterprise ColumnStore
 
@@ -1557,7 +1591,7 @@ $ sudo systemctl start mariadb
 
 #### Test Local Client Connections
 
-Use [MariaDB Client](broken-reference/) to test the local connection to the Enterprise Server node.
+Use [MariaDB Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client) to test the local connection to the Enterprise Server node.
 
 This action is performed **on each Enterprise ColumnStore node**:
 
@@ -1869,7 +1903,7 @@ $ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
 ```
 {% endcode %}
 
-_Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/information-functions/version) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) _page. Substitute `${checksum}` in the example above with the latest checksum._
+_Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) _page. Substitute `${checksum}` in the example above with the latest checksum._
 
 #### Install MaxScale
 
@@ -1920,7 +1954,7 @@ For additional information, see "Start and Stop Services".
 
 #### Configure Server Objects
 
-**On the MaxScale node**, use [maxctrl create](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-server) to create a server object for each Enterprise ColumnStore node:
+**On the MaxScale node**, use [maxctrl create](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-server) to create a server object for each Enterprise ColumnStore node:
 
 ```bash
 $ maxctrl create server mcs1 192.0.2.101
@@ -1938,7 +1972,7 @@ $ maxctrl create server mcs3 192.0.2.103
 
 MaxScale uses monitors to retrieve additional information from the servers. This information is used by other services in filtering and routing connections based on the current state of the node. For MariaDB Enterprise ColumnStore, use the MariaDB Monitor (mariadbmon).
 
-**On the MaxScale node**, use [maxctrl create monitor](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-monitor) to create a MariaDB Monitor:
+**On the MaxScale node**, use [maxctrl create monitor](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-monitor) to create a MariaDB Monitor:
 
 ```bash
 $ maxctrl create monitor columnstore_monitor mariadbmon \
@@ -1966,14 +2000,14 @@ Routers control how MaxScale balances the load between Enterprise ColumnStore no
 
 | Router                                                                                                                                                                                                  | Configuration Procedure                                                        | Description                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Read Connection (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute)    | [Configure Read Connection Router](./#configure-read-connection-router)        | <p><strong>Connection-based load balancing</strong></p><ul><li>Routes connections to Enterprise ColumnStore nodes designated as replica servers for a read-only pool</li><li>Routes connections to an Enterprise ColumnStore node designated as the primary server for a read-write pool.</li></ul>                                                                                                               |
-| [Read/Write Split (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) | [Configure Read/Write Split](./#configure-read-write-split-router-for-queries) | <p><strong>Query-based load balancing</strong></p><ul><li>Routes write queries to an Enterprise ColumnStore node designated as the primary server</li><li>Routes read queries to Enterprise ColumnStore node designated as replica servers</li><li>Automatically reconnects after node failures</li><li>Automatically replays transactions after node failures</li><li>Optionally enforces causal reads</li></ul> |
+| [Read Connection (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute)    | [Configure Read Connection Router](./#configure-read-connection-router)        | <p><strong>Connection-based load balancing</strong></p><ul><li>Routes connections to Enterprise ColumnStore nodes designated as replica servers for a read-only pool</li><li>Routes connections to an Enterprise ColumnStore node designated as the primary server for a read-write pool.</li></ul>                                                                                                               |
+| [Read/Write Split (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) | [Configure Read/Write Split](./#configure-read-write-split-router-for-queries) | <p><strong>Query-based load balancing</strong></p><ul><li>Routes write queries to an Enterprise ColumnStore node designated as the primary server</li><li>Routes read queries to Enterprise ColumnStore node designated as replica servers</li><li>Automatically reconnects after node failures</li><li>Automatically replays transactions after node failures</li><li>Optionally enforces causal reads</li></ul> |
 
 #### Configure Read Connection Router
 
-Use [MaxScale Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute) to route connections to replica servers for a read-only pool.
+Use [MaxScale Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute) to route connections to replica servers for a read-only pool.
 
-**On the MaxScale node**, use [maxctrl create service](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-service) to create a router:
+**On the MaxScale node**, use [maxctrl create service](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-service) to create a router:
 
 ```bash
 $ maxctrl create service connection_router_service readconnroute \
@@ -1997,7 +2031,7 @@ In this example:
 
 These instructions reference TCP port 3308. You can use a different TCP port. The TCP port used must not be bound by any other listener.
 
-**On the MaxScale node**, use the [maxctrl create listener](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-listener) command to configure MaxScale to use a listener for the [Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute):
+**On the MaxScale node**, use the [maxctrl create listener](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-listener) command to configure MaxScale to use a listener for the [Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute):
 
 ```
 $ maxctrl create listener connection_router_service connection_router_listener 3308 \
@@ -2014,9 +2048,9 @@ In this example:
 
 #### Configure Read/Write Split Router for Queries
 
-MaxScale [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) performs query-based load balancing. The router routes write queries to the primary and read queries to the replicas.
+MaxScale [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) performs query-based load balancing. The router routes write queries to the primary and read queries to the replicas.
 
-**On the MaxScale node**, use the maxctrl create service command to configure MaxScale to use the [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit):
+**On the MaxScale node**, use the maxctrl create service command to configure MaxScale to use the [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit):
 
 ```bash
 $ maxctrl create service query_router_service readwritesplit  \
@@ -2038,7 +2072,7 @@ In this example:
 
 These instructions reference TCP port 3307. You can use a different TCP port. The TCP port used must not be bound by any other listener.
 
-**On the MaxScale node**, use the [maxctrl create listener](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-listener) command to configure MaxScale to use a listener for the [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit):
+**On the MaxScale node**, use the [maxctrl create listener](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-listener) command to configure MaxScale to use a listener for the [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit):
 
 ```bash
 $ maxctrl create listener query_router_service query_router_listener 3307 \
@@ -2055,7 +2089,7 @@ In this example:
 
 #### Start Services
 
-To start the services and monitors, on the MaxScale node use [maxctrl start services](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#start-services):
+To start the services and monitors, on the MaxScale node use [maxctrl start services](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#start-services):
 
 ```bash
 $ maxctrl start services
@@ -2069,7 +2103,7 @@ This step tests MariaDB MaxScale 22.08.
 
 #### Check Global Configuration
 
-Use [maxctrl show maxscale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#show-maxscale) command to view the global MaxScale configuration.
+Use [maxctrl show maxscale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#show-maxscale) command to view the global MaxScale configuration.
 
 This action is performed **on the MaxScale node**:
 
@@ -2169,7 +2203,7 @@ Output should align to the global MaxScale configuration in the new configuratio
 
 #### Check Server Configuration
 
-Use the [maxctrl list servers](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#list-servers) and [maxctrl show server](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#show-server) commands to view the configured server objects.
+Use the [maxctrl list servers](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#list-servers) and [maxctrl show server](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#show-server) commands to view the configured server objects.
 
 This action is performed **on the MaxScale node**:
 
@@ -2275,7 +2309,7 @@ Output should align to the Server Object configuration you performed.
 
 #### Check Monitor Configuration
 
-Use the [maxctrl list monitors](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#list-monitors) and [maxctrl show monitor](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#show-monitor) commands to view the configured monitors.
+Use the [maxctrl list monitors](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#list-monitors) and [maxctrl show monitor](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#show-monitor) commands to view the configured monitors.
 
 This action is performed on the MaxScale node:
 
@@ -2338,7 +2372,7 @@ Output should align to the MariaDB Monitor (mariadbmon) configuration you perfor
 
 #### Check Service Configuration
 
-Use the [maxctrl list services](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#list-services) and [maxctrl show service](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#show-service) commands to view the configured routing services.
+Use the [maxctrl list services](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#list-services) and [maxctrl show service](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#show-service) commands to view the configured routing services.
 
 This action is performed on the MaxScale node:
 
@@ -2454,7 +2488,7 @@ $ maxctrl show service query_router_service
 ```
 {% endcode %}
 
-Output should align to the [Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute) or [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) configuration you performed.
+Output should align to the [Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute) or [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) configuration you performed.
 
 #### Test Application User
 
@@ -2531,7 +2565,7 @@ $ mariadb --host 192.0.2.10 --port 3307
 
 If you configured the Read Connection Router, confirm that MaxScale routes connections to the replica servers.
 
-On the MaxScale node, use the [maxctrl list listeners](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#list-listeners) command to view the available listeners and ports:
+On the MaxScale node, use the [maxctrl list listeners](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#list-listeners) command to view the available listeners and ports:
 
 ```bash
 $ maxctrl list listeners
@@ -2576,7 +2610,7 @@ Since the router was configured with the slave router option, the Read Connectio
 
 If you configured the Read/Write Split Router, confirm that MaxScale routes write queries on this router to the primary Enterprise ColumnStore node.
 
-**on the MaxScale node**, use the [maxctrl list listeners](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#list-listeners) command to view the available listeners and ports:
+**on the MaxScale node**, use the [maxctrl list listeners](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#list-listeners) command to view the available listeners and ports:
 
 ```bash
 $ maxctrl list listeners
@@ -2638,9 +2672,9 @@ While MaxScale is handling multiple connections from different terminals, it rou
 
 #### Test Read Queries with Read/Write Split Router
 
-If you configured the [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit), confirm that MaxScale routes read queries on this router to replica servers.
+If you configured the [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit), confirm that MaxScale routes read queries on this router to replica servers.
 
-1. On the MaxScale node, use the [maxctrl list listeners](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#list-listeners) command to view the available listeners and ports:
+1. On the MaxScale node, use the [maxctrl list listeners](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#list-listeners) command to view the available listeners and ports:
 
 ```bash
 $ maxctrl list listeners
@@ -2656,7 +2690,7 @@ $ maxctrl list listeners
 └────────────────────────────┴──────┴──────┴─────────┴───────────────────────────┘
 ```
 
-2. In a terminal connected to your application server, use MariaDB Client to connect to the listener port for the [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) (in the example, 3307):
+2. In a terminal connected to your application server, use MariaDB Client to connect to the listener port for the [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) (in the example, 3307):
 
 ```bash
 $ mariadb --host 192.0.2.10 --port 3307 \
@@ -2730,7 +2764,7 @@ CREATE TABLE inventory.products (
 
 Enterprise ColumnStore supports multiple methods to import data into ColumnStore tables.
 
-<table><thead><tr><th width="160">Interface</th><th width="236">Method</th><th>Benefits</th></tr></thead><tbody><tr><td>Shell</td><td><a href="./#cpimport">cpimport</a></td><td><ul><li>SQL access is not required</li></ul></td></tr><tr><td>SQL</td><td><a href="./#load-data-infile">LOAD DATA INFILE</a></td><td><ul><li>Shell access is not required</li></ul></td></tr><tr><td>Remote Database</td><td><a href="./#import-from-remote-database">Remote Database Import</a></td><td><ul><li>Use normal database client</li><li>Avoid dumping data to intermediate filed</li></ul></td></tr></tbody></table>
+<table><thead><tr><th width="160">Interface</th><th width="236">Method</th><th>Benefits</th></tr></thead><tbody><tr><td>Shell</td><td><a href="../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md">cpimport</a></td><td><ul><li>SQL access is not required</li></ul></td></tr><tr><td>SQL</td><td><a href="../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-load-data-infile.md">LOAD DATA INFILE</a></td><td><ul><li>Shell access is not required</li></ul></td></tr><tr><td>Remote Database</td><td>Remote Database Import</td><td><ul><li>Use normal database client</li><li>Avoid dumping data to intermediate filed</li></ul></td></tr></tbody></table>
 
 **cpimport**
 
@@ -2768,6 +2802,6 @@ $ mariadb --quick \
 {% endstep %}
 {% endstepper %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

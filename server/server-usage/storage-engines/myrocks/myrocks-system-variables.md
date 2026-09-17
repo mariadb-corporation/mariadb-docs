@@ -105,10 +105,10 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Default Value: `536870912`
 * Range: `1024` to `9223372036854775807`
 
-To see the statistics of block cache usage, check `SHOW ENGINE ROCKSDB STATUS` output\
+To see the statistics of block cache usage, check `SHOW ENGINE ROCKSDB STATUS` output
 (search for lines starting with `rocksdb.block.cache`).
 
-One can check the size of data of the block cache in `DB_BLOCK_CACHE_USAGE`\
+One can check the size of data of the block cache in `DB_BLOCK_CACHE_USAGE`
 column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 
 #### `rocksdb_block_restart_interval`

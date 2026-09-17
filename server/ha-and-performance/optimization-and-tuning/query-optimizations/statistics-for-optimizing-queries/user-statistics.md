@@ -181,7 +181,7 @@ FLUSH TABLE_STATISTICS
 User Statistics introduced a number of new status variables:
 
 * [access\_denied\_errors](../../system-variables/server-status-variables.md#access_denied_errors)
-* [binlog\_bytes\_written](../../system-variables/server-status-variables.md#binlog_bytes_written)
+* [binlog\_bytes\_written](../../../standard-replication/replication-and-binary-log-status-variables.md#binlog_bytes_written)
 * [busy\_time](../../system-variables/server-status-variables.md#busy_time) (requires [userstat](user-statistics.md#userstat) to be set to be recorded)
 * [cpu\_time](../../system-variables/server-status-variables.md#cpu_time) (requires [userstat](user-statistics.md#userstat) to be set to be recorded)
 * [empty\_queries](../../system-variables/server-status-variables.md#empty_queries)

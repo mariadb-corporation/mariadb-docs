@@ -29,8 +29,8 @@ A `ROWS_EVENT` (version 2) is written for row based replication if data is inser
 * `WRITE_ROWS_EVENT_V1`: Event Type is 23 (0x17).
 * `UPDATE_ROWS_EVENT_V1`: Event Type is 24 (0x18).
 * `DELETE_ROWS_EVENT_V1`: Event Type is 25 (0x19).
-* `WRITE_ROWS_EVENT`: Event Type is 30 (0xFD).
-* `UPDATE_ROWS_EVENT`: Event Type is 31 (0xFE).
+* `WRITE_ROWS_EVENT`: Event Type is 30 (0x1E).
+* `UPDATE_ROWS_EVENT`: Event Type is 31 (0x1F).
 * `DELETE_ROWS_EVENT`: Event Type is 32 (0x20).
 * `WRITE_ROWS_COMPRESSED_EVENT_V1`: Event Type is 166 (0xA6).
 * `UPDATE_ROWS_COMPRESSED_EVENT_V1`: Event Type is 167 (0xA7).
@@ -43,7 +43,7 @@ A `ROWS_EVENT` (version 2) is written for row based replication if data is inser
 * If `rows_event` is version 2:
   * [uint<2>](../protocol-data-types.md#fixed-length-integers) Extra data length.
   * [string\<len>](../protocol-data-types.md#fixed-length-strings) Extra data.
-* [uint](../protocol-data-types.md#fixed-length-integers) Number of columns.
+* [uint<lenenc>](../protocol-data-types.md#length-encoded-integers) Number of columns.
 * [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Columns used. n = (number\_of\_columns + 7)/8.
 * If (event\_type == `UPDATE_ROWS_EVENT_v1`):
   * [byte](../protocol-data-types.md#fixed-length-bytes) Columns used (Update). n = (number\_of\_columns + 7)/8.

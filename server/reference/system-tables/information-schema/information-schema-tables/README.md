@@ -70,6 +70,7 @@ description: >-
 - [Information Schema USER\_STATISTICS Table](information-schema-user_statistics-table.md)
 - [Information Schema USER\_VARIABLES Table](information-schema-user_variables-table.md)
 - [Information Schema USERS Table](information-schema-users-table.md)
+- [Information Schema VECTOR\_INDEXES Table](information-schema-vector_indexes-table.md)
 - [Information Schema WSREP\_BF\_ABORTS](information-schema-wsrep_bf_aborts.md)
 - [Information Schema WSREP\_CERT\_KEYS](information-schema-wsrep_cert_keys.md)
 - [Information Schema WSREP\_CERT\_KEYS\_HISTORY](information-schema-wsrep_cert_keys_history.md)
@@ -81,3 +82,5 @@ description: >-
 - [Information Schema InnoDB Tables](information-schema-innodb-tables/README.md)
 - [Information Schema MyRocks Tables](information-schema-myrocks-tables/README.md)
 - [Information Schema XtraDB Tables](information-schema-xtradb-tables/README.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

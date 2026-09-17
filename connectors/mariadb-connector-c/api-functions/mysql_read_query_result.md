@@ -10,7 +10,7 @@ description: >-
 ## Syntax
 
 ```c
-int mysql_read_query_result(MYSQL * mysql);
+my_bool mysql_read_query_result(MYSQL * mysql);
 ```
 
 ## Parameter
@@ -34,6 +34,6 @@ For an example how to use [`mysql_send_query()`](mysql_send_query.md) in an even
 * [mysql\_real\_query()](mysql_real_query.md)
 * [mysql\_send\_query()](mysql_send_query.md)
 
-
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

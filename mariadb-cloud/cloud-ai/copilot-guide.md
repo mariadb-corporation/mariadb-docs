@@ -67,7 +67,7 @@ You can ask a wide range of questions, such as:
 
 Additionally, the agent can generate complex SQL queries spanning multiple tables, create schemas, write integration code, and even assist with tasks like generating stored procedures or loading data. This agent is trained using the MariaDB Cloud documentation and leverages the OpenAI LLM's prior knowledge to provide accurate, context-aware responses.
 
-**Example of the Developer Copilot in action:** ![Developer Copilot example](../SkyCopilot%20Guide/AI_ama_example1.png)
+**Example of the Developer Copilot in action:**&#x20;
 
 ### DBA Copilot Agent
 
@@ -402,3 +402,5 @@ Over time, you'll get a well-tuned agent that produces accurate, efficient, and 
 Your trained agent is now ready for deployment—capable of transforming natural language queries into efficient SQL with high accuracy.
 
 In the Edit agent window, select the radio box "Published" to deploy the agent and make it available through the AI Agent APIs.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

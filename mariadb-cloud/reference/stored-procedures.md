@@ -273,3 +273,5 @@ CALL sky.stop_replication();
 | Replication is down or disabled |
 +---------------------------------+
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

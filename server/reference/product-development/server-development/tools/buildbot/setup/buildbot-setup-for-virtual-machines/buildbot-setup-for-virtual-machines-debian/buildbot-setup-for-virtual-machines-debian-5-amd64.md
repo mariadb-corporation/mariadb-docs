@@ -16,7 +16,7 @@ kvm -m 2047 -hda /kvm/vms/vm-debian5-amd64-serial.qcow2 -cdrom /kvm/debian-503-a
 
 ## Serial console and account setup
 
-From base install, setup for serial port, and setup accounts for passwordless\
+From base install, setup for serial port, and setup accounts for passwordless
 ssh login and sudo:
 
 ```

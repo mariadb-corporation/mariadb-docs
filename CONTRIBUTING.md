@@ -42,7 +42,7 @@ The Bot expands it to: `[Securing Communications](https://app.gitbook.com/o/diTp
 | `{analytics}` | Analytics (ColumnStore) |
 | `{columnstore}` | ColumnStore |
 | `{connectors}` | Connectors (Java, ODBC, etc.) |
-| `{skysql}` | SkySQL |
+| `{skysql}` | MariaDB Cloud (legacy alias — SkySQL was renamed MariaDB Cloud) |
 | `{platform}` | MariaDB Enterprise Platform |
 | `{mariadb-cloud}` | MariaDB Cloud |
 | `{tools}` | Tools |

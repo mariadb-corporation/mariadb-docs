@@ -66,3 +66,5 @@ Learn about comparison operators in MariaDB Server SQL. This section details ope
 Learn about logical operators in MariaDB Server SQL. This section details operators like AND, OR, and NOT used to combine or negate conditions, essential for complex filtering and data selection.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

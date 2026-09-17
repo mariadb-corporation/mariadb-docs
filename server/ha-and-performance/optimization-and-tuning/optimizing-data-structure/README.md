@@ -42,3 +42,5 @@ Optimizing MEMORY-engine tables, including choosing between B-tree and hash inde
 Optimizing string and character columns, including matching character sets and collations for faster comparisons.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

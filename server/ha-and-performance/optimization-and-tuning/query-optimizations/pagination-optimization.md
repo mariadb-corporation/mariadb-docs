@@ -159,11 +159,13 @@ INDEX(topic, id)
       AND id >= 876
     ORDER BY id ASC
     LIMIT 10,41
-<</code??
+```
+
 That will hit 51 consecutive index entries, 0 data rows.
 
 Inefficient -- it must reach into the data:
-<<code>>
+
+```sql
     INDEX(topic, id)
     WHERE topic = 'xyz'
       AND id >= 876
@@ -245,7 +247,7 @@ Designed about 2007; posted 2012.
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [pagination](https://mysql.rjweb.org/doc.php/pagination)

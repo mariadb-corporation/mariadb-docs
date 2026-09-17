@@ -34,12 +34,14 @@ Possible `mysql_info` return values.  The nature of this string is provided belo
 | [UPDATE ...](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/update)                                                    | Rows matched: 40 Changed: 40 Warnings: 0     |
 
 {% hint style="info" %}
-Queries which do not fall into one of the preceding formats are not supported (e.g. [SELECT ...](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select)). In these situations, `mysql_info()` will return an empty string.
+Queries which do not fall into one of the preceding formats are not supported (e.g. [SELECT ...](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select)). In these situations, `mysql_info()` will return `NULL`.
 {% endhint %}
 
 ## See Also
 
 * [mysql\_affected\_rows()](mysql_affected_rows.md)
 * [mysql\_warning\_count()](mysql_warning_count.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

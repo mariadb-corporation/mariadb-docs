@@ -1,8 +1,8 @@
 ---
 description: >-
-  Intelligently route queries based on workload type. SmartRouter directs
-  transactional queries to MariaDB and analytical queries to column-store
-  engines for hybrid processing.
+  Intelligently route queries by workload type. SmartRouter directs
+  transactional queries to MariaDB and analytical queries to an analytical
+  backend such as ColumnStore or Exasol, for hybrid (HTAP) processing.
 ---
 
 # MaxScale SmartRouter
@@ -12,6 +12,12 @@ description: >-
 SmartRouter is the query router of the SmartQuery framework. Based on the type of the query, each query is routed to the server or cluster that can best handle it.
 
 For workloads where both transactional and analytical queries are needed, SmartRouter unites the Transactional (OLTP) and Analytical (OLAP) workloads into a single entry point in MaxScale. This allows a MaxScale client to freely mix transactional and analytical queries using the same connection. This is known as Hybrid Transactional and Analytical Processing, HTAP.
+
+The transactional cluster is typically a primary-replica MariaDB deployment fronted by [ReadWriteSplit](maxscale-readwritesplit.md). The analytical cluster can be MariaDB ColumnStore or an Exasol analytics engine — the configuration examples below use ColumnStore, but SmartRouter treats each configured target the same way and routes each query to whichever one answers it fastest.
+
+{% hint style="info" %}
+To use Exasol as the analytical cluster, configure it through the [Exasolrouter](maxscale-exasolrouter.md), which is available from MaxScale 25.10.1.
+{% endhint %}
 
 ## Settings
 

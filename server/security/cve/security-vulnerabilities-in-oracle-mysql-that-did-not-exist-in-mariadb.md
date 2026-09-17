@@ -10,7 +10,7 @@ description: >-
 
 CVE® stands for _Common Vulnerabilities and Exposures_. It is a publicly available and free-to-use database of known software vulnerabilities maintained at [https://cve.mitre.org/](https://cve.mitre.org/).
 
-CPU stands for _Critical Patch Update_. Oracle publishes Critical Patch Update Advisories\
+CPU stands for _Critical Patch Update_. Oracle publishes Critical Patch Update Advisories
 four times a year, [on the Tuesday closest to the 17th day of January, April, July and October](https://www.oracle.com/technetwork/topics/security/alerts-086861.html#CriticalPatchUpdates). MySQL vulnerabilities are included in these CPU Advisories.
 
 Some vulnerabilities found in MySQL apply to MariaDB as well, they are listed on the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](enterprise-server.md) and [Security Vulnerabilities Fixed in MariaDB Community Server](community-server.md) pages.
@@ -20,6 +20,62 @@ Other vulnerabilities found in MySQL do not apply to MariaDB.
 This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Advisories, but that — _to the best of our knowledge_ — were never present in MariaDB.
 
 ## Full List of CVEs Fixed in Oracle MySQL That Never Existed in MariaDB
+
+<details>
+
+<summary>July 2026</summary>
+
+[**July 2026**](https://www.oracle.com/security-alerts/cpujul2026.html#AppendixMSQL)
+
+* [CVE-2026-60163](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60163)
+* [CVE-2026-60193](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60193)
+* [CVE-2026-60315](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60315)
+* [CVE-2026-60192](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60192)
+* [CVE-2026-60586](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60586)
+* [CVE-2026-60180](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60180)
+* [CVE-2026-60314](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60314)
+* [CVE-2026-60317](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60317)
+* [CVE-2026-60179](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60179)
+* [CVE-2026-60725](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60725)
+* [CVE-2026-61094](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-61094)
+* [CVE-2026-60316](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60316)
+* [CVE-2026-60623](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60623)
+* [CVE-2026-60181](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60181)
+* [CVE-2026-60178](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60178)
+* [CVE-2026-61082](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-61082)
+* [CVE-2026-60624](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60624)
+* [CVE-2026-61108](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-61108)
+* [CVE-2026-60718](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60718)
+* [CVE-2026-61109](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-61109)
+* [CVE-2026-60174](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60174)
+* [CVE-2026-60324](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60324)
+* [CVE-2026-61093](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-61093)
+* [CVE-2026-60311](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60311)
+* [CVE-2026-60183](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60183)
+* [CVE-2026-60332](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60332)
+* [CVE-2026-60569](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60569)
+* [CVE-2026-60171](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60171)
+* [CVE-2026-47008](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-47008)
+* [CVE-2026-47052](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-47052)
+* [CVE-2026-60194](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60194)
+* [CVE-2026-60195](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60195)
+* [CVE-2026-60145](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60145)
+* [CVE-2026-61128](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-61128)
+* [CVE-2026-61144](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-61144)
+* [CVE-2026-60177](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60177)
+* [CVE-2026-60182](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60182)
+* [CVE-2026-46936](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-46936)
+* [CVE-2026-60186](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60186)
+* [CVE-2026-47012](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-47012)
+* [CVE-2026-60185](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60185)
+* [CVE-2026-60187](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60187)
+* [CVE-2026-60188](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60188)
+* [CVE-2026-60189](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60189)
+* [CVE-2026-60191](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60191)
+* [CVE-2026-61096](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-61096)
+* [CVE-2026-60190](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-60190)
+
+</details>
 
 <details>
 

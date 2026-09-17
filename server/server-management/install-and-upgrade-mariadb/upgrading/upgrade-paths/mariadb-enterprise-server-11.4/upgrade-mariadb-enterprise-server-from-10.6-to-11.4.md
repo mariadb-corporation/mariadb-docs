@@ -46,7 +46,7 @@ sudo mariadb-backup --backup \
 {% step %}
 **Modify Repository Configuration**
 
-Update your system's package manager repository to point to MariaDB Enterprise Server 11.4. You will need to regenerate your repository configuration command using the [MariaDB Customer Download Token](https://www.google.com/search?q=https://dlm.mariadb.com/).
+Update your system's package manager repository to point to MariaDB Enterprise Server 11.4. You will need to regenerate your repository configuration command using the [MariaDB Customer Download Token](https://dlm.mariadb.com/).
 
 {% tabs %}
 {% tab title="APT (Debian/Ubuntu)" %}
@@ -344,3 +344,5 @@ ALTER TABLE my_table FORCE;
 {% endtabs %}
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -18,7 +18,7 @@ Many of the general system variables are described on this page, but others are 
 * [Aria System Variables](../../../server-usage/storage-engines/aria/aria-system-variables.md)
 * [CONNECT System Variables](../../../server-usage/storage-engines/connect/connect-system-variables.md)
 * [Galera System Variables](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables)
-* [Global Transaction ID System Variables](../../standard-replication/gtid.md#system-variables-for-global-transaction-id)
+* [Global Transaction ID System Variables](../../standard-replication/gtid.md#system-variables)
 * [HandlerSocket Plugin System Variables](../../../reference/sql-structure/nosql/handlersocket/handlersocket-configuration-options.md)
 * [InnoDB System Variables](../../../server-usage/storage-engines/innodb/innodb-system-variables.md)
 * [Mroonga System Variables](../../../server-usage/storage-engines/mroonga/mroonga-system-variables.md)
@@ -32,7 +32,6 @@ Many of the general system variables are described on this page, but others are 
 * [SQL\_ERROR\_LOG Plugin System Variables](sql-error-log-system-variables-and-options.md)
 * [SSL System Variables](../../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
 * [Threadpool System Variables](../buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
-* [TokuDB System Variables](../../../server-usage/storage-engines/legacy-storage-engines/tokudb/tokudb-system-variables.md)
 * [Vector System Variables](../../../reference/sql-structure/vectors/vector-system-variables.md)
 
 See also the [Full list of MariaDB options, system and status variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
@@ -86,11 +85,11 @@ Variables that take a numeric size can either be specified in full, or with a su
 | Suffix | Description | Value                                                                                                                   |
 | ------ | ----------- | ----------------------------------------------------------------------------------------------------------------------- |
 | K      | kilobytes   | 1024                                                                                                                    |
-| M      | megabytes   | 10242                                                                                                                   |
-| G      | gigabytes   | 10243                                                                                                                   |
-| T      | terabytes   | 10244 (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)) |
-| P      | petabytes   | 10245 (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)) |
-| E      | exabytes    | 10246 (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)) |
+| M      | megabytes   | 1024<sup>2</sup>                                                                                                        |
+| G      | gigabytes   | 1024<sup>3</sup>                                                                                                        |
+| T      | terabytes   | 1024<sup>4</sup> (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)) |
+| P      | petabytes   | 1024<sup>5</sup> (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)) |
+| E      | exabytes    | 1024<sup>6</sup> (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)) |
 
 The suffix can be upper or lower-case.
 
@@ -98,7 +97,7 @@ The suffix can be upper or lower-case.
 
 #### `allow_suspicious_udfs`
 
-* Description: Allows use of [user-defined functions](../../../server-usage/user-defined-functions/) consisting of only one symbol `x()` without corresponding `x_init()` or `x_deinit()`. That also means that one can load any function from any library, for example `exit()` from `libc.so`. Not recommended unless you require old UDFs with one symbol that cannot be recompiled. Before [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as an [option only](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-allow-suspicious-udfs).
+* Description: Allows use of [user-defined functions](../../../server-usage/user-defined-functions/) consisting of only one symbol `x()` without corresponding `x_init()` or `x_deinit()`. That also means that one can load any function from any library, for example `exit()` from `libc.so`. Not recommended unless you require old UDFs with one symbol that cannot be recompiled. Before [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as an [option only](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#allow-suspicious-udfs).
 * Command line: `--allow-suspicious-udfs`
 * Scope: Global
 * Dynamic: No
@@ -108,7 +107,7 @@ The suffix can be upper or lower-case.
 
 #### `alter_algorithm`
 
-* Description: The implied `ALGORITHM` for [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) if no `ALGORITHM` clause is specified. The deprecated variable [old\_alter\_table](server-system-variables.md#old_alter_table) is an alias for this. The feature was removed in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115). See [ALGORITHM=DEFAULT](../../../reference/sql-statements/data-definition/alter/alter-table/#algorithmdefault).
+* Description: The implied `ALGORITHM` for [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) if no `ALGORITHM` clause is specified. The deprecated variable [old\_alter\_table](server-system-variables.md#old_alter_table) is an alias for this. The feature was removed in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115). See [ALGORITHM=DEFAULT](../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm-default).
   * `COPY` corresponds to the pre-MySQL 5.1 approach of creating an intermediate table, copying data one row at a time, and renaming and dropping tables.
   * `INPLACE` requests that the operation be refused if it cannot be done natively inside a the storage engine.
   * `DEFAULT` (the default) chooses `INPLACE` if available, and falls back to `COPY`.
@@ -232,7 +231,7 @@ The suffix can be upper or lower-case.
 
 #### `character_set_client`
 
-* Description: Determines the [character set](../../../reference/data-types/string-data-types/character-sets/) for queries arriving from the client. It can be set per session by the client, although the server can be configured to ignore client requests with the `--skip-character-set-client-handshake` option. If the client does not request a character set or requests a character set that the server does not support, the global value will be used. utf16, utf16le, utf32 and ucs2 cannot be used as client character sets. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) is by default an alias for `utf8mb3` rather than the other way around. It can be set to imply `utf8mb4` by changing the value of the [old\_mode](server-system-variables.md#old_mode) system variable.
+* Description: Determines the [character set](../../../reference/data-types/string-data-types/character-sets/) for queries arriving from the client. It can be set per session by the client, although the server can be configured to ignore client requests with the `--skip-character-set-client-handshake` option. If the client does not request a character set or requests a character set that the server does not support, the global value will be used. utf16, utf16le, utf32 and ucs2 cannot be used as client character sets. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) was by default an alias for `utf8mb3` rather than the other way around. From MariaDB 13.1, `utf8` is by default an alias for `utf8mb4`; the previous `utf8mb3` default can be restored with the deprecated `UTF8_IS_UTF8MB3` flag of the [old\_mode](server-system-variables.md#old_mode) system variable.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
@@ -264,7 +263,7 @@ The suffix can be upper or lower-case.
 
 #### `character_set_connection`
 
-* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used for number to string conversion, as well as for literals that don't have a character set introducer. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) is by default an alias for `utf8mb3` rather than the other way around. It can be set to imply `utf8mb4` by changing the value of the [old\_mode](server-system-variables.md#old_mode) system variable.
+* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used for number to string conversion, as well as for literals that don't have a character set introducer. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) was by default an alias for `utf8mb3` rather than the other way around. From MariaDB 13.1, `utf8` is by default an alias for `utf8mb4`; the previous `utf8mb3` default can be restored with the deprecated `UTF8_IS_UTF8MB3` flag of the [old\_mode](server-system-variables.md#old_mode) system variable.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
@@ -292,7 +291,7 @@ The suffix can be upper or lower-case.
 
 #### `character_set_results`
 
-* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used for results and error messages returned to the client. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) is by default an alias for `utf8mb3` rather than the other way around. It can be set to imply `utf8mb4` by changing the value of the [old\_mode](server-system-variables.md#old_mode) system variable.
+* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used for results and error messages returned to the client. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) was by default an alias for `utf8mb3` rather than the other way around. From MariaDB 13.1, `utf8` is by default an alias for `utf8mb4`; the previous `utf8mb3` default can be restored with the deprecated `UTF8_IS_UTF8MB3` flag of the [old\_mode](server-system-variables.md#old_mode) system variable.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
@@ -309,7 +308,7 @@ The suffix can be upper or lower-case.
 
 #### `character_set_system`
 
-* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used by the server to store identifiers, always set to utf8, or its synonym utf8mb3 starting with [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106). From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) is by default an alias for `utf8mb3` rather than the other way around. It can be set to imply `utf8mb4` by changing the value of the [old\_mode](server-system-variables.md#old_mode) system variable.
+* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used by the server to store identifiers, always set to utf8, or its synonym utf8mb3 starting with [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106). From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) was by default an alias for `utf8mb3` rather than the other way around. From MariaDB 13.1, `utf8` is by default an alias for `utf8mb4`; the previous `utf8mb3` default can be restored with the deprecated `UTF8_IS_UTF8MB3` flag of the [old\_mode](server-system-variables.md#old_mode) system variable.
 * Scope: Global
 * Dynamic: No
 * Data Type: `string`
@@ -366,7 +365,7 @@ The suffix can be upper or lower-case.
 
 #### `concurrent_insert`
 
-* Description: If set to `AUTO` or `1`, the default, MariaDB allows [concurrent INSERTs](../../../reference/sql-statements/data-manipulation/inserting-loading-data/concurrent-inserts.md) and SELECTs for [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables with no free blocks in the data (deleted rows in the middle). If set to `NEVER` or `0`, concurrent inserts are disabled. If set to `ALWAYS` or `2`, concurrent inserts are permitted for all MyISAM tables, even those with holes, in which case new rows are added at the end of a table if the table is being used by another thread. If the [--skip-new](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-skip-new) option is used when starting the server, concurrent\_insert is set to `NEVER`. Changing the variable only affects new opened tables. Use [FLUSH TABLES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) If you want it to also affect cached tables. See [Concurrent Inserts](../../../reference/sql-statements/data-manipulation/inserting-loading-data/concurrent-inserts.md) for more.
+* Description: If set to `AUTO` or `1`, the default, MariaDB allows [concurrent INSERTs](../../../reference/sql-statements/data-manipulation/inserting-loading-data/concurrent-inserts.md) and SELECTs for [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables with no free blocks in the data (deleted rows in the middle). If set to `NEVER` or `0`, concurrent inserts are disabled. If set to `ALWAYS` or `2`, concurrent inserts are permitted for all MyISAM tables, even those with holes, in which case new rows are added at the end of a table if the table is being used by another thread. If the [--skip-new](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#skip-new) option is used when starting the server, concurrent\_insert is set to `NEVER`. Changing the variable only affects new opened tables. Use [FLUSH TABLES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) If you want it to also affect cached tables. See [Concurrent Inserts](../../../reference/sql-statements/data-manipulation/inserting-loading-data/concurrent-inserts.md) for more.
 * Command line: `--concurrent-insert[=value]`
 * Scope: Global
 * Dynamic: Yes
@@ -691,7 +690,7 @@ The suffix can be upper or lower-case.
 
 #### `foreign_key_checks`
 
-* Description: If set to 1 (the default) [foreign key constraints](../optimization-and-indexes/foreign-keys.md) (including ON UPDATE and ON DELETE behavior) [InnoDB](../../../server-usage/storage-engines/innodb/) tables are checked, while if set to 0, they are not checked. `0` is not recommended for normal use, though it can be useful in situations where you know the data is consistent, but want to reload data in a different order from that specified by parent/child relationships. Setting this variable to 1 does not retrospectively check for inconsistencies introduced while set to 0.
+* Description: If set to 1 (the default) [foreign key constraints](../optimization-and-indexes/foreign-keys.md) (including ON UPDATE and ON DELETE behavior) [InnoDB](../../../server-usage/storage-engines/innodb/) tables are checked, while if set to 0, they are not checked. `0` is not recommended for normal use, though it can be useful in situations where you know the data is consistent, but want to reload data in a different order from that specified by parent/child relationships. Setting this variable to 1 does not retrospectively check for inconsistencies introduced while set to 0. Setting it to 0 suspends the checks on data only; it does not permit schema changes that would leave a constraint invalid, so a column used in a foreign key still cannot be dropped, renamed, or changed in type, character set, or collation. See [Changing the Character Set or Collation of a Foreign Key Column](../optimization-and-indexes/foreign-keys.md#changing-the-character-set-or-collation-of-a-foreign-key-column).
 * Command line: None
 * Scope: Global, Session
 * Dynamic: Yes
@@ -757,7 +756,7 @@ The suffix can be upper or lower-case.
 
 #### `general_log_file`
 
-* Description: Name of the [general query log](../../../server-management/server-monitoring-logs/general-query-log.md) file. If this is not specified, the name is taken from the [log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) setting or from your system hostname with `.log` as a suffix. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `general_log_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
+* Description: Name of the [general query log](../../../server-management/server-monitoring-logs/general-query-log.md) file. If this is not specified, the name is taken from the [log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) setting or from your system hostname with `.log` as a suffix. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `general_log_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
 * Command line: `--general-log-file=file_name`
 * Scope: Global
 * Dynamic: Yes
@@ -845,8 +844,8 @@ The suffix can be upper or lower-case.
 * Description: This system variable can be used to determine whether the server supports symbolic links (note that it has no meaning on Windows).
   * If symbolic links are supported, then the value will be `YES`.
   * If symbolic links are not supported, then the value will be `NO`.
-  * If symbolic links are disabled with the [--symbolic-links](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-symbolic-links) option and the `skip` [option prefix](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#option-prefixes) (i.e. --skip-symbolic-links), then the value will be `DISABLED`.
-  * Symbolic link support is required for the [INDEX DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) and [DATA DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) table options.
+  * If symbolic links are disabled with the [--symbolic-links](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#symbolic-links) option and the `skip` [option prefix](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#option-prefixes) (i.e. --skip-symbolic-links), then the value will be `DISABLED`.
+  * Symbolic link support is required for the [INDEX DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) and [DATA DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) table options.
 * Scope: Global
 * Dynamic: No
 
@@ -1171,7 +1170,7 @@ The suffix can be upper or lower-case.
 
 #### `log_error`
 
-* Description: Specifies the name of the [error log](../../../server-management/server-monitoring-logs/error-log.md). If [--console](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-console) is specified later in the configuration (Windows only) or this option isn't specified, errors will be logged to stderr. If no name is provided, errors will still be logged to `hostname.err` in the `datadir` directory by default. If a configuration file sets `--log-error`, one can reset it with `--skip-log-error` (useful to override a system wide configuration file). MariaDB always writes its error log, but the destination is configurable. See [error log](../../../server-management/server-monitoring-logs/error-log.md) for details. Note that if [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `log_error` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
+* Description: Specifies the name of the [error log](../../../server-management/server-monitoring-logs/error-log.md). If [--console](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#console) is specified later in the configuration (Windows only) or this option isn't specified, errors will be logged to stderr. If no name is provided, errors will still be logged to `hostname.err` in the `datadir` directory by default. If a configuration file sets `--log-error`, one can reset it with `--skip-log-error` (useful to override a system wide configuration file). MariaDB always writes its error log, but the destination is configurable. See [error log](../../../server-management/server-monitoring-logs/error-log.md) for details. Note that if [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `log_error` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
 * Command line: `--log-error[=name]`, `--skip-log-error`
 * Scope: Global
 * Dynamic: No
@@ -1241,6 +1240,17 @@ The suffix can be upper or lower-case.
 * Valid Values:
   * `admin`, `filesort`, `filesort_on_disk`, `filesort_priority_queue`, `full_join`, `full_scan`, `not_using_index`, `query_cache`, `query_cache_miss`, `tmp_table`, `tmp_table_on_disk`
 
+#### `log_slow_max_query_length`
+
+* Description: Queries whose text is longer than this many bytes are not written to the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/). The entire statement is skipped — it is not truncated — which keeps statements carrying very large `TEXT` or `BLOB` literals out of the log. The default, `4294967295` (the maximum value), effectively means no limit.
+* Command line: `--log-slow-max-query-length=#`
+* Scope: Global, Session
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `4294967295`
+* Range: `1` to `4294967295`
+* Introduced: MariaDB 13.1.1
+
 #### `log_slow_max_warnings`
 
 * Description: Max numbers of warnings printed to slow query log per statement
@@ -1286,7 +1296,7 @@ The suffix can be upper or lower-case.
 
 #### `log_slow_query_file`
 
-* Description: Name of the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) file. Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), was named [slow\_query\_log\_file](server-system-variables.md#slow_query_log_file). This was named `log_slow_query_file_name` in the [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0) preview release. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `log_slow_query_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
+* Description: Name of the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) file. Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), was named [slow\_query\_log\_file](server-system-variables.md#slow_query_log_file). This was named `log_slow_query_file_name` in the [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0) preview release. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `log_slow_query_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
 * Command line: `--log-slow-query-file=file_name`
 * Scope: Global
 * Dynamic: Yes
@@ -1337,7 +1347,7 @@ The suffix can be upper or lower-case.
 
 #### `log_tc_size`
 
-* Description: Defines the size in bytes of the memory-mapped file-based transaction coordinator log, which is only used if the [binary log](../../../server-management/server-monitoring-logs/binary-log/) is disabled. If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available. This size is defined in multiples of 4096. See [Transaction Coordinator Log](../../../server-management/server-monitoring-logs/transaction-coordinator-log/) for more information. Also see the [--log-tc](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-tc) server option and the [--tc-heuristic-recover](server-system-variables.md#-tc-heuristic-recover) option.
+* Description: Defines the size in bytes of the memory-mapped file-based transaction coordinator log, which is only used if the [binary log](../../../server-management/server-monitoring-logs/binary-log/) is disabled. If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available. This size is defined in multiples of 4096. See [Transaction Coordinator Log](../../../server-management/server-monitoring-logs/transaction-coordinator-log/) for more information. Also see the [--log-tc](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-tc) server option and the [--tc-heuristic-recover](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#tc-heuristic-recover) option.
 * Command line: `log-tc-size=#`
 * Scope: Global
 * Dynamic: No
@@ -1666,7 +1676,7 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 #### `max_user_connections`
 
 * Description:\
-  Maximum simultaneous connections permitted for each user account. When set to `0`, there is no per user limit. Setting it to `-1` stops users without the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege, from connecting to the server. The session variable is always read-only, and only privileged users can modify user limits. The session variable defaults to the global `max_user_connections` variable, unless the user's specific [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) resource option is non-zero. When both global variable and the user resource option are set, the user's [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#max_user_connections) is used. Note: This variable does not affect users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege.
+  Maximum simultaneous connections permitted for each user account. When set to `0`, there is no per user limit. Setting it to `-1` stops users without the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege, from connecting to the server. The session variable is always read-only, and only privileged users can modify user limits. The session variable defaults to the global `max_user_connections` variable, unless the user's specific [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) resource option is non-zero. When both global variable and the user resource option are set, the user's [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) is used. Note: This variable does not affect users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege.
 * Command line: `--max-user-connections=#`
 * Scope: Global, Session
 * Dynamic: Yes, (except when globally set to `0` or `-1`)
@@ -1855,7 +1865,7 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
-* Default Value: `UTF8_IS_UTF8MB3` (>= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106)) `(empty string)` (<= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105))
+* Default Value: `(empty string)` (>= MariaDB 13.1), `UTF8_IS_UTF8MB3` ([MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) to MariaDB 13.0), `(empty string)` (<= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105))
 * Valid Values: See [OLD Mode](../../../server-management/variables-and-modes/old_mode.md) for the full list.
 
 #### `old_passwords`
@@ -1895,9 +1905,9 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Range: `0` to `62`
 * Introduced: [MariaDB 10.10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.1)
 
-**optimizer\_join\_limit\_pref\_ratio**
+#### `optimizer_join_limit_pref_ratio`
 
-* Description:Controls the [optimizer\_join\_limit\_pref\_ratio optimization](../query-optimizations/optimizer_join_limit_pref_ratio-optimization.md).
+* Description: Controls the [optimizer\_join\_limit\_pref\_ratio optimization](../query-optimizations/optimizer_join_limit_pref_ratio-optimization.md).
 * Command line: `--optimizer-join-limit-pref-ratio[=#]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2043,7 +2053,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `optimizer_use_condition_selectivity`
 
-* Description: Controls which statistics can be used by the optimizer when looking for\
+* Description: Controls which statistics can be used by the optimizer when looking for
   the best query execution plan. In most cases, the default value, `4` will be suitable. However, if you are hitting some of the rare cases where this does not work well (see [MDEV-23707](https://jira.mariadb.org/browse/MDEV-23707)), you can usually work around this by setting this variable to `1`.
   * `1` Use selectivity of predicates as in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5).
   * `2` Use selectivity of all range predicates supported by indexes.
@@ -2059,7 +2069,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `pid_file`
 
-* Description: Full path of the process ID file. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `pid_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
+* Description: Full path of the process ID file. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `pid_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
 * Command line: `--pid-file=file_name`
 * Scope: Global
 * Dynamic: No
@@ -2231,7 +2241,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `query_cache_type`
 
-* Description: If set to `0`, the [query cache](../buffers-caches-and-threads/query-cache.md) is disabled (although a buffer of [query\_cache\_size](server-system-variables.md#query_cache_size) bytes is still allocated). If set to `1` all SELECT queries will be cached unless SQL\_NO\_CACHE is specified. If set to `2` (or `DEMAND`), only queries with the SQL CACHE clause will be cached. Note that if the server is started with the query cache disabled, it cannot be enabled at runtime.
+* Description: Determines how the [query cache](../buffers-caches-and-threads/query-cache.md) is used. `OFF` disables it, although a buffer of [query\_cache\_size](server-system-variables.md#query_cache_size) bytes is still allocated. `ON` caches every cacheable `SELECT` unless it specifies `SQL_NO_CACHE`. `DEMAND` caches only a `SELECT` that specifies `SQL_CACHE`. The equivalent numbers `0`, `1` and `2` can be given in place of the names. It is the session value that determines how a connection uses the cache: a session can always set its own value to `OFF`, but cannot enable the cache for itself while the global value is `OFF`. The query cache can be enabled at runtime even when the server was started with `query_cache_type=OFF`, as long as [query\_cache\_size](server-system-variables.md#query_cache_size) is not `0`. See [Query Cache Types](../buffers-caches-and-threads/query-cache.md#query-cache-types) for details.
 
 **Warning:** Starting from [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.7), query\_cache\_type is automatically set to ON if the server is started with the [query\_cache\_size](server-system-variables.md#query_cache_size) set to a non-zero (and non-default) value. This will happen even if [query\_cache\_type](server-system-variables.md#query_cache_type) is explicitly set to OFF in the configuration.
 
@@ -2240,7 +2250,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Dynamic: Yes
 * Data Type: `enumeration`
 * Default Value: `OFF`
-* Valid Values: `0` or `OFF`, `1` or `ON`, `2` or `DEMAND`
+* Valid Values: `OFF` or `0`, `ON` or `1`, `DEMAND` or `2`
 
 #### `query_cache_wlock_invalidate`
 
@@ -2343,7 +2353,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `require_secure_transport`
 
-* Description: When this option is enabled, connections attempted using insecure transport will be rejected. Secure transports are SSL/TLS, Unix sockets or named pipes. Note that [per-account requirements](../../../security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md#requiring-tls) take precedence.
+* Description: When this option is enabled, connections attempted using insecure transport will be rejected. Secure transports are SSL/TLS, Unix sockets or named pipes. Note that [per-account requirements](../../../security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md#requiring-tls-for-specific-user-accounts) take precedence.
 * Command line: `--require-secure-transport[={0|1}]`
 * Scope: Global
 * Dynamic: Yes
@@ -2492,7 +2502,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `skip_grant_tables`
 
-* Description: Start without grant tables. This gives all users FULL ACCESS to all tables. Before [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as an [option only](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). Use [mariadb-admin flush-privileges](../../../clients-and-utilities/legacy-clients-and-utilities/mysqladmin.md), [mariadb-admin reload](../../../clients-and-utilities/legacy-clients-and-utilities/mysqladmin.md) or [FLUSH PRIVILEGES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to resume using the grant tables.
+* Description: Start without grant tables. This gives all users FULL ACCESS to all tables. Before [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as an [option only](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). Use [mariadb-admin flush-privileges](../../../clients-and-utilities/administrative-tools/mariadb-admin.md), [mariadb-admin reload](../../../clients-and-utilities/administrative-tools/mariadb-admin.md) or [FLUSH PRIVILEGES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to resume using the grant tables.
 * Command line: `--skip-grant-tables`
 * Scope: Global
 * Dynamic: No
@@ -2549,7 +2559,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `slow_query_log_file`
 
-* Description: Name of the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) file. From [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), an alias for [log\_slow\_query\_file](server-system-variables.md#log_slow_query_file). If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `slow_query_log_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
+* Description: Name of the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) file. From [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), an alias for [log\_slow\_query\_file](server-system-variables.md#log_slow_query_file). If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `slow_query_log_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
 * Command line: `--slow-query-log-file=file_name`
 * Scope: Global
 * Dynamic: Yes
@@ -2629,7 +2639,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `sql_log_update`
 
-* Description: Removed. Use [sql\_log\_bin](server-system-variables.md#sql_log_bin) instead.
+* Description: Removed. Use [sql\_log\_bin](../../standard-replication/replication-and-binary-log-system-variables.md#sql_log_bin) instead.
 * Removed: MariaDB/MySQL 5.5
 
 #### `sql_low_priority_updates`
@@ -2991,7 +3001,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 #### `tx_isolation`
 
 * Description: The transaction isolation level. Setting this session variable via `set @@tx_isolation=` will take effect for only the subsequent transaction in the current session, much like [SET TRANSACTION ISOLATION LEVEL](../../../reference/sql-statements/transactions/set-transaction.md). To set for a session, use `SET SESSION tx_isolation` or `SET @@session.tx_isolation`. See [MDEV-31751](https://jira.mariadb.org/browse/MDEV-31751). See also [SET TRANSACTION ISOLATION LEVEL](../../../reference/sql-statements/transactions/set-transaction.md). In [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111), this system variable is deprecated and replaced by [transaction\_isolation](server-system-variables.md#transaction_isolation).
-* Command line: `--transaction-isolation=name`
+* Command line: None. The startup option is `--transaction-isolation=name`, which sets [transaction\_isolation](server-system-variables.md#transaction_isolation).
 * Scope: Global, Session
 * Dynamic: Yes
 * Type: enumeration
@@ -3002,7 +3012,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 #### `tx_read_only`
 
 * Description: Default transaction access mode. If set to `OFF`, the default, access is read/write. If set to `ON`, access is read-only. The `SET TRANSACTION` statement can also change the value of this variable. See [SET TRANSACTION](../../../reference/sql-statements/transactions/set-transaction.md) and [START TRANSACTION](../../../reference/sql-statements/transactions/start-transaction.md). In [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111), this system variable is deprecated and replaced by [transaction\_read\_only](server-system-variables.md#transaction_read_only).
-* Command line: `--transaction-read-only=#`
+* Command line: None. The startup option is `--transaction-read-only=#`, which sets [transaction\_read\_only](server-system-variables.md#transaction_read_only).
 * Scope: Global, Session
 * Dynamic: Yes
 * Type: boolean

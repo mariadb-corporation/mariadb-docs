@@ -35,4 +35,6 @@ Returns the number of affected rows or -1 on error.
 
 * [mysql\_num\_rows()](mysql_num_rows.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

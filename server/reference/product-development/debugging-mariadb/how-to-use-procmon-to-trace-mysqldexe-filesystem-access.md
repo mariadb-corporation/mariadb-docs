@@ -51,8 +51,8 @@ It is also possible to see stacktraces corresponding to the events. For this to 
 2. Switch to Process Monitor's menu Options => Configure symbols.
 3. Add dbghelp.dll from your installation of Debugging Tools into "dbghelp.dll path" input field . On my system it is\
    C:\Program Files\Debugging Tools for Windows (x64)\dbghelp.dll
-4. In "symbol path" input field, add\
-   sr&#x76;_&#x43;:\symbols_[symbols;\<path\to\your\installation\bin](https://msdl.microsoft.com/download/symbols;%3Cpath/to/your/installation/bin)>\
+4. In "symbol path" input field, add
+   `srv*C:\symbols*https://msdl.microsoft.com/download/symbols;<path\to\your\installation\bin>`
    (substitute last path element with real path to your installation)
 
 This is how it looks on my machine:

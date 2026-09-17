@@ -1,8 +1,8 @@
 ---
 description: >-
   Explains how to deploy and operate multi-cluster MariaDB Enterprise
-  topologies, replicating data between clusters across multiple Kubernetes
-  clusters or within a single one for high availability and d
+  topologies, replicating data between clusters across one or many Kubernetes
+  clusters for high availability and disaster recovery.
 ---
 
 # Multi-cluster
@@ -54,7 +54,79 @@ Place replica clusters closer to your application instances to reduce network la
 
 ## Architecture
 
-![Multi-cluster architecture](../../.gitbook/assets/multi-cluster.png)
+```mermaid
+flowchart TD
+    accTitle: Multi-cluster MariaDB Enterprise Kubernetes Operator topology
+    accDescr {
+      A Client connects through an external LoadBalancer, which routes traffic
+      into the Primary Cluster (Kubernetes cluster eu-south) MaxScale Service.
+      Inside the Primary Cluster, the MaxScale Service routes to pods
+      maxscale-0 and maxscale-1, which route into the MariaDB Cluster
+      containing mariadb-0 (Primary) and mariadb-1 (Replica). A
+      mariadb-operator pod provisions, configures, and monitors the MariaDB
+      Cluster, and separately takes physical backups from mariadb-1
+      (Replica). The Replica Cluster (Kubernetes cluster eu-central) mirrors
+      this structure: its MaxScale Service routes to its own maxscale-0 and
+      maxscale-1 pods, which route into its MariaDB Cluster containing
+      mariadb-0 (Primary Replica) and mariadb-1 (Secondary Replica). Its own
+      mariadb-operator pod provisions, configures, and monitors that MariaDB
+      Cluster, but takes no backups there. The Replica Cluster's mariadb-0
+      (Primary Replica) pod replicates from the Primary Cluster's MaxScale
+      Service, forming the cross-cluster replication connection.
+    }
+
+    client(["Client"]):::client
+    lb["LoadBalancer"]:::client
+
+    subgraph primary["Primary Cluster @ eu-south"]
+        p_svc["MaxScale Service"]:::node
+        p_ms0["maxscale-0<br/>pod"]:::node
+        p_ms1["maxscale-1<br/>pod"]:::node
+        p_op["mariadb-operator<br/>pod"]:::proc
+
+        p_svc --> p_ms0
+        p_svc --> p_ms1
+
+        subgraph p_cluster["MariaDB Cluster"]
+            p_db0[("mariadb-0<br/>pod<br/>Primary")]:::node
+            p_db1[("mariadb-1<br/>pod<br/>Replica")]:::node
+        end
+
+        p_ms0 --> p_cluster
+        p_ms1 --> p_cluster
+        p_op -- "Provision, configure and monitor cluster" --> p_cluster
+        p_op -- "Take physical backups" --> p_db1
+    end
+
+    subgraph replica["Replica Cluster @ eu-central"]
+        r_svc["MaxScale Service"]:::node
+        r_ms0["maxscale-0<br/>pod"]:::node
+        r_ms1["maxscale-1<br/>pod"]:::node
+        r_op["mariadb-operator<br/>pod"]:::proc
+
+        r_svc --> r_ms0
+        r_svc --> r_ms1
+
+        subgraph r_cluster["MariaDB Cluster"]
+            r_db0[("mariadb-0<br/>pod<br/>Primary Replica")]:::node
+            r_db1[("mariadb-1<br/>pod<br/>Secondary Replica")]:::node
+        end
+
+        r_ms0 --> r_cluster
+        r_ms1 --> r_cluster
+        r_op -- "Provision, configure and monitor cluster" --> r_cluster
+    end
+
+    client --> lb
+    lb --> p_svc
+    r_db0 -- "Replicate from" --> p_svc
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+```
+
+_A client connects via a LoadBalancer to the Primary Cluster's MaxScale Service in eu-south, which routes to the Primary Cluster's MariaDB pods managed by its own mariadb-operator. The Replica Cluster in eu-central mirrors this structure, and its primary replica Pod replicates from the Primary Cluster's MaxScale Service._
 
 The multi-cluster architecture consists of the following components:
 
@@ -153,8 +225,8 @@ Key fields:
 * `spec.multiCluster.enabled`: Enables the multi-cluster topology.
 * `spec.multiCluster.primary`: The name of the primary cluster member. This must be the name of the current cluster.
 * `spec.multiCluster.members`: A list of all clusters in the multi-cluster topology, each with its `ExternalMariaDB` reference, containing connection details.
-* `spec.replication.gtidDomainId`: The GTID domain ID for this cluster. For example: the primary cluster uses `0`, and replica clusters use different values (e.g., `1`, `2`, etc.) to prevent GTID conflicts. Refer to [MariaDB docs](https://mariadb.com/docs/server/ha-and-performance/standard-replication/gtid#gtid_domain_id) for additional documentation.
-* `spec.replication.serverIdStartIndex`: The starting server ID for this cluster. Each Pod increments this value by `1`. Replica clusters should use a different starting value to avoid server ID conflicts. Refer to [MariaDB docs](https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#server_id) for additional documentation.
+* `spec.replication.gtidDomainId`: The GTID domain ID for this cluster. For example: the primary cluster uses `0`, and replica clusters use different values (e.g., `1`, `2`, etc.) to prevent GTID conflicts. Refer to [MariaDB docs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid#gtid_domain_id) for additional documentation.
+* `spec.replication.serverIdStartIndex`: The starting server ID for this cluster. Each Pod increments this value by `1`. Replica clusters should use a different starting value to avoid server ID conflicts. Refer to [MariaDB docs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#server_id) for additional documentation.
 
 Verify the primary cluster is running:
 
@@ -316,8 +388,8 @@ spec:
 Key differences from the primary cluster:
 
 * `spec.bootstrapFrom`: Points to the S3 bucket where the primary cluster's backups are stored. This is used to bootstrap the replica cluster with the latest data.
-* `spec.replication.gtidDomainId`: Set to a different value (`1`) than the primary cluster (`0`). Refer to [MariaDB docs](https://mariadb.com/docs/server/ha-and-performance/standard-replication/gtid#gtid_domain_id) for additional documentation.
-* `spec.replication.serverIdStartIndex`: Set to a different value (`20`) than the primary cluster (`10`) to avoid server ID conflicts. Refer to [MariaDB docs](https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#server_id) for additional documentation.
+* `spec.replication.gtidDomainId`: Set to a different value (`1`) than the primary cluster (`0`). Refer to [MariaDB docs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid#gtid_domain_id) for additional documentation.
+* `spec.replication.serverIdStartIndex`: Set to a different value (`20`) than the primary cluster (`10`) to avoid server ID conflicts. Refer to [MariaDB docs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#server_id) for additional documentation.
 
 When the replica cluster is deployed, the operator will automatically:
 
@@ -514,8 +586,8 @@ spec:
 
 **Galera-specific considerations:**
 
-* **GTID domain ID**: The Galera cluster uses `spec.galera.gtidDomainId` instead of `spec.replication.gtidDomainId`. The primary cluster uses `0`, and replica clusters use different values (e.g., `10`, `20`, etc.) to prevent GTID conflicts. Refer to [MariaDB docs](https://mariadb.com/docs/galera-cluster/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/configuring-mariadb-replication-between-two-mariadb-galera-clusters) for additional documentation.
-* **Server ID**: Each Galera cluster must have a unique `spec.galera.serverId` to avoid conflicts with other clusters in the multi-cluster topology. Refer to [MariaDB docs](https://mariadb.com/docs/galera-cluster/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/configuring-mariadb-replication-between-two-mariadb-galera-clusters) for additional documentation.
+* **GTID domain ID**: The Galera cluster uses `spec.galera.gtidDomainId` instead of `spec.replication.gtidDomainId`. The primary cluster uses `0`, and replica clusters use different values (e.g., `10`, `20`, etc.) to prevent GTID conflicts. Refer to [MariaDB docs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/configuring-mariadb-replication-between-two-mariadb-galera-clusters) for additional documentation.
+* **Server ID**: Each Galera cluster must have a unique `spec.galera.serverId` to avoid conflicts with other clusters in the multi-cluster topology. Refer to [MariaDB docs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/configuring-mariadb-replication-between-two-mariadb-galera-clusters) for additional documentation.
 * **Replication configuration**: Galera uses `spec.galera.replPasswordSecretKeyRef` to configure the replication user, not `spec.replication.replica.replPasswordSecretKeyRef`.
 * **Replication topology**: Galera provides synchronous multi-master replication within each cluster, while inter-cluster replication is asynchronous. This means the primary cluster's Galera nodes are fully synchronized with each other, and the replica cluster's primary replica replicates asynchronously from the primary cluster.
 
@@ -1006,6 +1078,6 @@ kubectl get mariadb mariadb-eu-south -o jsonpath="{.status}" | jq '{conditions: 
 kubectl get mariadb mariadb-eu-central -o jsonpath="{.status}" | jq '{conditions: .conditions, currentPrimary: .currentPrimary, currentMultiClusterPrimary: .currentMultiClusterPrimary, replication: .replication}'
 ```
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

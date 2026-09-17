@@ -183,6 +183,10 @@ failcount=5
 ...
 ```
 
+{% hint style="warning" %}
+If more than one MaxScale instance monitors the same cluster, the instances must coordinate before you enable `auto_failover`. Otherwise they can promote different servers and diverge the cluster. See [Failover With Multiple MaxScales](failover-with-multiple-maxscales.md).
+{% endhint %}
+
 ## Rejoin
 
 To enable automatic rejoin, simply add `auto_rejoin=true` to the monitor section in the configuration file:

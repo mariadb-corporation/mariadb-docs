@@ -90,3 +90,5 @@ Use `TRUNCATE` only to fast-empty a standalone table outside a transaction.
 - Canonical references on `mariadb.com/docs` (consult only for edge cases not covered here):
   - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/changing-deleting-data/delete> (note: as of writing, stale on multi-table `ORDER BY`/`LIMIT` — tracked in DOCS-6286)
   - <https://mariadb.com/docs/server/reference/sql-statements/table-statements/truncate-table>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

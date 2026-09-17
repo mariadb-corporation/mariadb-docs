@@ -41,6 +41,6 @@ This will have created new `<migrated.mariadb_manifest.yaml>` manifests.
 
 **3.** Inspect the newly created manifests and overwrite the source manifests if satisfied with the changes.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

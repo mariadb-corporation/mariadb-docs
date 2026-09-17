@@ -24,3 +24,5 @@ description: >-
 - [SHA2](sha2.md)
 - [UNCOMPRESS](uncompress.md)
 - [UNCOMPRESSED\_LENGTH](uncompressed_length.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

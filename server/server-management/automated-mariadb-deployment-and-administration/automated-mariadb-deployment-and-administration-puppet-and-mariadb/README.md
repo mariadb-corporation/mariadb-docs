@@ -66,3 +66,5 @@ Explains how to use Hiera, Puppet's hierarchical key/value lookup tool, to separ
 Demonstrates how to use Bolt, an orchestration tool in the Puppet ecosystem, to run ad-hoc commands, scripts, and tasks on remote MariaDB servers without a permanent agent.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

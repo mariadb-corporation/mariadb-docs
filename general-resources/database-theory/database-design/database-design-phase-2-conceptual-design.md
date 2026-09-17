@@ -56,15 +56,53 @@ For each instance of entity A, many instances of entity B can exist, and vice ve
 
 There are numerous ways of showing these relationships. The image below shows _student_ and _course_ entities. In this case, each student must have registered for at least one course, but a course does not necessarily have to have students registered. The student-to-course relationship is mandatory, and the course-to-student relationship is optional.
 
-![many-to-many](../../.gitbook/assets/many-to-many.png)
+```mermaid
+erDiagram
+    accTitle: Many-to-many relationship between Student and Course
+    accDescr {
+        A Student and a Course are linked by a Takes relationship. Each Student
+        must take one or more Courses, so the student-to-course side is
+        mandatory. Each Course may have zero or more Students registered, so
+        the course-to-student side is optional. Both sides can be many, making
+        this a many-to-many relationship.
+    }
+    STUDENT }o--|{ COURSE : Takes
+```
+
+_A student must take one or more courses, but a course can have zero or more students._
 
 The image below shows _invoice\_line_ and _product_ entities. Each invoice line must have at least one product (but no more than one); however each product can appear on many invoice lines, or none at all. The _invoice\_line-to-product_ relationship is mandatory, while the _product-to-invoice\_line_ relationship is optional.
 
-![one\_to\_many](../../.gitbook/assets/one_to_many.png)
+```mermaid
+erDiagram
+    accTitle: One-to-many relationship between Invoice line and Product
+    accDescr {
+        An Invoice line and a Product are linked by a Contains relationship.
+        Each Invoice line must contain exactly one Product, so the
+        invoice-line-to-product side is mandatory with a maximum of one. Each
+        Product can appear on zero or more Invoice lines, so the
+        product-to-invoice-line side is optional and can be many.
+    }
+    INVOICE_LINE }o--|| PRODUCT : Contains
+```
+
+_An invoice line has exactly one product, but a product can appear on any number of invoice lines, or none._
 
 The figure below shows husband and wife entities. In this system (others are of course possible), each husband must have one and only one wife, and each wife must have one, and only one, husband. Both relationships are mandatory.
 
-![one-to-one](../../.gitbook/assets/one-to-one.png)
+```mermaid
+erDiagram
+    accTitle: One-to-one relationship between Husband and Wife
+    accDescr {
+        A Husband and a Wife are linked by an "Is married to" relationship.
+        Each Husband has exactly one Wife, and each Wife has exactly one
+        Husband. Both sides of the relationship are mandatory, making this a
+        one-to-one relationship.
+    }
+    HUSBAND ||--|| WIFE : "Is married to"
+```
+
+_Each husband has exactly one wife, and each wife has exactly one husband._
 
 An entity can also have a relationship with itself. Such an entity is called a _recursive entity_. Take a _person_ entity. If you're interested in storing data about which people are brothers, you will have an "is brother to" relationship. In this case, the relationship is an M:N relationship.
 
@@ -86,11 +124,43 @@ It is important to remember that there is no one right or wrong answer. The more
 
 Once the diagram has been approved, the next stage is to replace many-to-many relationships with two one-to-many relationships. A DBMS cannot directly implement many-to-many relationships, so they are decomposed into two smaller relationships. To achieve this, you have to create an _intersection_, or _composite_ entity type. Because intersection entities are less "real-world" than ordinary entities, they are sometimes difficult to name. In this case, you can name them according to the two entities being intersected. For example, you can intersect the many-to-many relationship between _student_ and _course_ by a _student-course_ entity.
 
-![student-course](../../.gitbook/assets/student-course.png)
+```mermaid
+erDiagram
+    accTitle: Student-course intersection entity resolving a many-to-many relationship
+    accDescr {
+        The original many-to-many relationship between Student and Course is
+        resolved into two one-to-many relationships using an intersection
+        entity, Student-course. Each Course has one or more Student-course
+        records, and each Student-course record belongs to exactly one
+        Course, via the Takes relationship. Each Student has zero or more
+        Student-course records, and each Student-course record belongs to
+        exactly one Student, via the "Is taken by" relationship.
+    }
+    COURSE ||--|{ STUDENT_COURSE : Takes
+    STUDENT_COURSE }o--|| STUDENT : "Is taken by"
+```
+
+_The Student-course intersection entity decomposes the many-to-many relationship into two one-to-many relationships._
 
 The same applies even if the entity is recursive. The person entity that has an M:N relationship "is brother to" also needs an intersection entity. You can come up with a good name for the intersection entity in this case: _brother_. This entity would contain two fields, one for each person of the brother relationship — in other words, the primary key of the first brother and the primary key of the other brother.
 
-![brother-intersection](../../.gitbook/assets/brother-intersection.png)
+```mermaid
+erDiagram
+    accTitle: Recursive brother relationship and its intersection entity
+    accDescr {
+        On one side, a single Person entity has a recursive "Is a brother to"
+        relationship with itself, where each side is optional and can involve
+        many Persons, making it a many-to-many relationship. On the other
+        side, the same relationship is resolved with an intersection entity,
+        Brother: each Person has zero or more Brother records via the Has
+        relationship, and each Brother record stores the primary keys of the
+        two Persons in the pairing.
+    }
+    PERSON }o--o{ PERSON : "Is a brother to"
+    PERSON ||--o{ BROTHER : Has
+```
+
+_A recursive many-to-many relationship, such as "is a brother to", also needs an intersection entity._
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

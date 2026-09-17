@@ -4,7 +4,7 @@ description: The CONNECT storage engine.
 
 # CONNECT - Using the TBL and MYSQL Table Types Together
 
-Used together, these types lift all the limitations of the [FEDERATED](../../legacy-storage-engines/federated-storage-engine.md) and [MERGE](../../merge.md) engines.
+Used together, these types lift all the limitations of the [FEDERATED](../../federated-storage-engine.md) and [MERGE](../../merge.md) engines.
 
 **MERGE:** Its limitation is obvious, the merged tables must be identical [MyISAM](../../myisam-storage-engine/) tables, and MyISAM is not even the default engine for MariaDB. However, [TBL](connect-tbl-table-type-table-list.md) accesses a collection of CONNECT tables, but because these tables can be user specified or internally created [MYSQL](connect-mysql-table-type-accessing-mysqlmariadb-tables.md) tables, there is no limitation to the type of the tables that can be merged.
 
@@ -36,7 +36,7 @@ CREATE TABLE rt1 ENGINE=CONNECT option_list='host=m1'
 srcdef='select c1, sum(c2) as sc2 from t1 a, t2 b where a.id = b.id group by c1';
 ```
 
-Note the alias for the functional column. An alias would be required for the c1 column if its name was different on some machines. The t1 and t2 table names can also be eventually different on the remote machines. The true names must be used in the `SRCDEF` parameter. This will create a set of tables with two columns named c1 and sc2\[[1](connect-using-the-tbl-and-mysql-table-types-together.md#_note-0)].
+Note the alias for the functional column. An alias would be required for the c1 column if its name was different on some machines. The t1 and t2 table names can also be eventually different on the remote machines. The true names must be used in the `SRCDEF` parameter. This will create a set of tables with two columns named c1 and sc2\[1].
 
 Then create the table that will retrieve the result of all these tables:
 
@@ -83,7 +83,7 @@ This reply:
 
 Here the server list specifies a void server corresponding to the local running MariaDB and a federated server named _server\_one_.
 
-1. [↑](connect-using-the-tbl-and-mysql-table-types-together.md#_ref-0) To generate the columns from the `SRCDEF` query, CONNECT must execute it. This will make sure it is ok. However, if the remote server is not connected yet, or the remote table not existing yet, you can alternatively specify the columns in the create table statement.
+1. To generate the columns from the `SRCDEF` query, CONNECT must execute it. This will make sure it is ok. However, if the remote server is not connected yet, or the remote table not existing yet, you can alternatively specify the columns in the create table statement.
 
 <sub>_This page is licensed: GPLv2_</sub>
 

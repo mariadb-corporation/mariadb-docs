@@ -125,7 +125,7 @@ In order for key rotation to work, both the backend key management service (KMS)
 
 ### Disabling Background Key Rotation Operations
 
-In the event that you encounter issues with background key encryption, you can disable it by setting the [innodb\_encryption\_rotate\_key\_age](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_rotate_key_age) system variable to `0`. You may find this useful when the constant key version checks lead to excessive CPU usage. It's also useful in cases where your encryption key management plugin does not support key rotation, (such as with the [file\_key\_management](../key-management-and-encryption-plugins/encryption-key-management.md#file-key-management-encryption-plugin) plugin). For more information, see [MDEV-14180](https://jira.mariadb.org/browse/MDEV-14180).
+In the event that you encounter issues with background key encryption, you can disable it by setting the [innodb\_encryption\_rotate\_key\_age](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_rotate_key_age) system variable to `0`. You may find this useful when the constant key version checks lead to excessive CPU usage. It's also useful in cases where your encryption key management plugin does not support key rotation, (such as with the [file\_key\_management](../key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) plugin). For more information, see [MDEV-14180](https://jira.mariadb.org/browse/MDEV-14180).
 
 There are, however, issues that can arise when the background key rotation is disabled.
 

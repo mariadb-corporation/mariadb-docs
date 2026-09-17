@@ -174,3 +174,5 @@ The VALUES table value constructor, which produces a set of rows.
 Session-scoped user-defined variables (@var), and how to set and use them.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

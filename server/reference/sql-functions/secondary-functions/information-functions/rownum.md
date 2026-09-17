@@ -74,7 +74,7 @@ In many cases where `ROWNUM()` is used, MariaDB will use the same optimizations 
   * `ROWNUM()` <= number.
   * `ROWNUM()` = 1`ROWNUM()` can be also be the right argument to the comparison function.
 
-In the above cases, `LIMIT` optimization can be done in the\
+In the above cases, `LIMIT` optimization can be done in the
 following cases:
 
 * For the current subquery when the `ROWNUM` comparison is done on the top level:

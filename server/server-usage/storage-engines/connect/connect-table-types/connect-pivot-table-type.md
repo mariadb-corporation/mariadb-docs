@@ -35,8 +35,8 @@ For example, let us suppose you have the following “Expenses” table:
 | Janet | 4    | Car  | 17.00  |
 | Janet | 5    | Food | 12.00  |
 
-Pivoting the table contents using the 'Who' and 'Week' fields for the left\
-columns, and the 'What' field for the top heading and summing the 'Amount'\
+Pivoting the table contents using the 'Who' and 'Week' fields for the left
+columns, and the 'What' field for the top heading and summing the 'Amount'
 fields for each cell in the new table, gives the following desired result:
 
 | Who   | Week | Beer  | Car   | Food  |
@@ -51,7 +51,7 @@ fields for each cell in the new table, gives the following desired result:
 | Joe   | 4    | 49.00 | 0.00  | 34.00 |
 | Joe   | 5    | 14.00 | 0.00  | 12.00 |
 
-Note that SQL enables you to get the same result presented differently by using\
+Note that SQL enables you to get the same result presented differently by using
 the “group by” clause, namely:
 
 ```sql
@@ -60,14 +60,14 @@ SELECT who, week, what, SUM(amount) FROM expenses
 ```
 
 However there is no way to get the pivoted layout shown above just using SQL.\
-Even using embedded SQL programming for some DBMS is not quite simple and\
+Even using embedded SQL programming for some DBMS is not quite simple and
 automatic.
 
 The Pivot table type of CONNECT makes doing this much simpler.
 
 ## Using the PIVOT Tables Type
 
-To get the result shown in the example above, just define it as a new table\
+To get the result shown in the example above, just define it as a new table
 with the statement:
 
 ```sql
@@ -75,31 +75,31 @@ CREATE TABLE pivex
 ENGINE=connect table_type=pivot tabname=expenses;
 ```
 
-You can now use it as any other table, for instance to display the result shown\
+You can now use it as any other table, for instance to display the result shown
 above, just say:
 
 ```sql
 SELECT * FROM pivex;
 ```
 
-The CONNECT implementation of the PIVOT table type does much of the work\
+The CONNECT implementation of the PIVOT table type does much of the work
 required to transform the source table:
 
 1. Finding the “Facts” column, by default the last column of the source table. Finding “Facts” or “Pivot” columns work only for table based pivot tables. They do not for view or srcdef based pivot tables, for which they must be explicitly specified.
 2. Finding the “Pivot” column, by default the last remaining column.
 3. Choosing the aggregate function to use, “SUM” by default.
-4. Constructing and executing the “Group By” on the “Facts” column, getting its\
+4. Constructing and executing the “Group By” on the “Facts” column, getting its
    result in memory.
-5. Getting all the distinct values in the “Pivot” column and defining a “Data”\
+5. Getting all the distinct values in the “Pivot” column and defining a “Data”
    column for each.
 6. Spreading the result of the intermediate memory table into the final table.
 
-The source table “Pivot” column must not be nullable (there are no such things as a “null”\
+The source table “Pivot” column must not be nullable (there are no such things as a “null”
 column) The creation are refused even is this nullable column actually does not contain null values.
 
-If a different result is desired, Create Table options are available to change\
-the defaults used by Pivot. For instance if we want to display the average\
-expense for each person and product, spread in columns for each week, use the\
+If a different result is desired, Create Table options are available to change
+the defaults used by Pivot. For instance if we want to display the average
+expense for each person and product, spread in columns for each week, use the
 following statement:
 
 ```sql
@@ -129,8 +129,8 @@ Will display the resulting table:
 
 ## Restricting the Columns in a Pivot Table
 
-Let us suppose that we want a Pivot table from expenses summing the expenses\
-for all people and products whatever week it was bought. We can do this just by\
+Let us suppose that we want a Pivot table from expenses summing the expenses
+for all people and products whatever week it was bought. We can do this just by
 removing from the pivex table the week column from the column list.
 
 ```sql
@@ -163,8 +163,8 @@ The column definition has two sets of columns:
 
 1. A set of columns belonging to the source table, not including the “facts” and\
    “pivot” columns.
-2. “Data” columns receiving the values of the aggregated “facts” columns named\
-   from the values of the “pivot” column. They are indicated by the “flag”\
+2. “Data” columns receiving the values of the aggregated “facts” columns named
+   from the values of the “pivot” column. They are indicated by the “flag”
    option.
 
 The **options** and **sub-options** available for Pivot tables are:
@@ -212,7 +212,7 @@ For tables, the internal Group By are internally generated, except when the `GRO
 
 Alternatively, the internal source can be directly defined using the **SrcDef** option that must have the proper group by format.
 
-As we have seen above, a proper Pivot Table is made from an internal intermediate table resulting from the execution of a `GROUP BY` statement. In many cases, it is simpler or desirable to directly specify this when creating the pivot table. This may be because the source is the result of a complex\
+As we have seen above, a proper Pivot Table is made from an internal intermediate table resulting from the execution of a `GROUP BY` statement. In many cases, it is simpler or desirable to directly specify this when creating the pivot table. This may be because the source is the result of a complex
 process including filtering and/or joining tables.
 
 To do this, use the **SrcDef** option, often replacing all other options. For instance, suppose that in the first example we are only interested in weeks 4 and 5. We could of course display it by:
@@ -268,7 +268,7 @@ Will display the result:
 | Joe   | Car  | 131.20 | 0.00   | 0.00   |
 | Joe   | Food | 203.36 | 223.04 | 78.72  |
 
-**Note 1:** to avoid multiple lines having the same fixed column values, it is mandatory in **SrcDef** to place the pivot column at the end of the group by\
+**Note 1:** to avoid multiple lines having the same fixed column values, it is mandatory in **SrcDef** to place the pivot column at the end of the group by
 list.
 
 **Note 2:** in the create statement **SrcDef**, it is mandatory to give aliases **to** the columns containing expressions so they are recognized by the other options.
@@ -363,7 +363,7 @@ This table are displayed as:
 | Kevin   | 0   | 2   | 6     |
 | Donald  | 1   | 0   | 3     |
 
-It is a good idea to provide such a “dump” column if the source table is prone to be inserted new\
+It is a good idea to provide such a “dump” column if the source table is prone to be inserted new
 rows that can have a value for the pivot column that did not exist when the pivot table was created.
 
 ## Pivoting Big Source Tables

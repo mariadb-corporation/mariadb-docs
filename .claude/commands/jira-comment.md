@@ -1,7 +1,7 @@
 ---
 description: Add a comment to a DOCS ticket.
 argument-hint: DOCS-XXXX <comment text>
-allowed-tools: Read, mcp__atlassian-mariadb__addCommentToJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources
+allowed-tools: Read, mcp__atlassian-mariadb__addCommentToJiraIssue, mcp__claude_ai_Atlassian_Rovo__addCommentToJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 ---
 
 # /jira-comment

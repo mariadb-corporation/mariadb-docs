@@ -7,6 +7,10 @@ description: >-
 
 # Tools
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-tools.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-tools.pdf) (~610 pages, 23 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 ## MariaDB Enterprise Manager
 
 {% columns %}
@@ -46,3 +50,13 @@ MariaDB AI RAG is an enterprise-grade Retrieval-Augmented Generation (RAG) solut
 {% content-ref url="mariadb-ai-rag/" %}
 [mariadb-ai-rag](mariadb-ai-rag/)
 {% endcontent-ref %}
+
+## Control Center
+
+Control Center is the management and monitoring interface for GridGain clusters, providing cluster visibility, metrics, and administrative tooling from a single place.
+
+{% content-ref url="control-center/" %}
+[control-center](control-center/)
+{% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

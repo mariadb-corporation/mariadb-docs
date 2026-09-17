@@ -39,4 +39,6 @@ The memory allocated by `mysql_store_result()` needs to be released by calling t
 * [mysql\_real\_query()](mysql_real_query.md)
 * [mysql\_field\_count()](mysql_field_count.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

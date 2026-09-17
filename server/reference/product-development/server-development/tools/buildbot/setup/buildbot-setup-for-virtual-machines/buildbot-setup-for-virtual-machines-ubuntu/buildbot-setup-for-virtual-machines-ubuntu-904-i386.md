@@ -85,7 +85,7 @@ sudo apt-get build-dep mysql-5.1-server
 sudo apt-get install devscripts hardening-wrapper bzr
 ```
 
-Copy in an existing bzr shared repository to buildbot/.bzr (or\
+Copy in an existing bzr shared repository to buildbot/.bzr (or
 run bzr init-repo and bzr branch --no-tree lp:maria).
 
 Create a new vm for building .debs:
@@ -117,7 +117,7 @@ deb-src file:///home/buildbot/buildbot/debs source/
 END
 ```
 
-Setup default package config for debconf to enable unattended install. Copy in\
+Setup default package config for debconf to enable unattended install. Copy in
 my.seed (see above) to vm.
 
 ```

@@ -28,4 +28,6 @@ For retrieving warning messages you should use the SQL command [SHOW WARNINGS](h
 
 * [mysql\_stmt\_affected\_rows()](../api-prepared-statement-functions/mysql_stmt_affected_rows.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

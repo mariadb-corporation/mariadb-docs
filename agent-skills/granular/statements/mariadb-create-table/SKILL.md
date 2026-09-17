@@ -124,3 +124,5 @@ Keywords `INDEX` and `KEY` are interchangeable in MariaDB.
 - **`mariadb-system-versioned-tables`** — full system-versioning, application-time, bitemporal, querying history, partitioning, removing history
 - **`mariadb-vector`** — `VECTOR(N)` columns and vector indexes
 - Canonical reference on `mariadb.com/docs`, consult only for edge cases not covered here: <https://mariadb.com/docs/server/reference/sql-statements/data-definition/create/create-table>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

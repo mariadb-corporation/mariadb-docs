@@ -13,7 +13,7 @@ Errors are logged as they happen and an error will be logged even if it was hand
 
 From [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.5) warnings can also be logged if [sql\_error\_log\_warnings](../../ha-and-performance/optimization-and-tuning/system-variables/sql-error-log-system-variables-and-options.md#sql_error_log_warnings) is enabled.
 
-Comments are also logged, which can make the log easier to search. But this is only possible if the client does not strip the comments away. For example, the [mariadb](../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) command-line client only leaves comments when started with the [--comments](../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#mariadb-options) option.
+Comments are also logged, which can make the log easier to search. But this is only possible if the client does not strip the comments away. For example, the [mariadb](../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) command-line client only leaves comments when started with the [--comments](../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#c-comments) option.
 
 ## Installing the Plugin
 
@@ -25,7 +25,7 @@ The first method can be used to install the plugin without restarting the server
 INSTALL SONAME 'sql_errlog';
 ```
 
-The second method can be used to tell the server to load the plugin when it starts up. The plugin can be installed this way by providing the [--plugin-load](../starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load) or the [--plugin-load-add](../starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load-add) options. This can be specified as a command-line argument to [mariadbd](../starting-and-stopping-mariadb/mariadbd-options.md) or it can be specified in a relevant server [option group](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). For example:
+The second method can be used to tell the server to load the plugin when it starts up. The plugin can be installed this way by providing the [--plugin-load](../starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options. This can be specified as a command-line argument to [mariadbd](../starting-and-stopping-mariadb/mariadbd-options.md) or it can be specified in a relevant server [option group](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). For example:
 
 ```
 [mariadb]
@@ -41,7 +41,7 @@ You can uninstall the plugin dynamically by executing [UNINSTALL SONAME](../../r
 UNINSTALL SONAME 'sql_errlog';
 ```
 
-If you installed the plugin by providing the [--plugin-load](../starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load) or the [--plugin-load-add](../starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load-add) options in a relevant server [option group](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), then those options should be removed to prevent the plugin from being loaded the next time the server is restarted.
+If you installed the plugin by providing the [--plugin-load](../starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options in a relevant server [option group](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), then those options should be removed to prevent the plugin from being loaded the next time the server is restarted.
 
 ## Logging
 

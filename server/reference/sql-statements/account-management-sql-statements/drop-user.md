@@ -46,6 +46,10 @@ Operation DROP USER failed for 'foo'@'localhost'.
 ```
 
 Again, use the `FORCE` clause to prevent that error.
+
+{% hint style="warning" %}
+The `FORCE` clause is not available in MariaDB Community Server. In Community Server, use a `KILL CONNECTION` statement to end the live sessions of a dropped account.
+{% endhint %}
 {% endtab %}
 
 {% tab title="< 12.1" %}

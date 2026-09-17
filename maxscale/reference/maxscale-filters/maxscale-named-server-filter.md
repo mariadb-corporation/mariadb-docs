@@ -63,7 +63,7 @@ options=case,extended
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
 
-[Regular expression options](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#standard-regular-expression-settings-for-filters) for `matchXY`.
+[Regular expression options](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) for `matchXY`.
 
 ### `targetXY`
 

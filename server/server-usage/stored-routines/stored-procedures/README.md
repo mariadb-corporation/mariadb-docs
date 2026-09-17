@@ -54,3 +54,5 @@ The ALTER PROCEDURE statement modifies the characteristics of an existing stored
 The DROP PROCEDURE statement permanently removes a stored procedure and its associated privileges from the database.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

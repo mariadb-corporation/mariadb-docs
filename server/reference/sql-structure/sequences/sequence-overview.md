@@ -210,7 +210,7 @@ The special properties for sequence tables are:
 
 ## Implementation
 
-Internally, sequence tables are created as a normal table without rollback (the [InnoDB](../../../server-usage/storage-engines/innodb/), [Aria](../../../server-usage/storage-engines/aria/) and [MySAM](../../../server-usage/storage-engines/myisam-storage-engine/) engines support this), wrapped by a sequence engine object. This allowed us to create sequences with\
+Internally, sequence tables are created as a normal table without rollback (the [InnoDB](../../../server-usage/storage-engines/innodb/), [Aria](../../../server-usage/storage-engines/aria/) and [MySAM](../../../server-usage/storage-engines/myisam-storage-engine/) engines support this), wrapped by a sequence engine object. This allowed us to create sequences with
 almost no performance impact for normal tables. (The cost is one 'if' per insert if the [binary log](../../../server-management/server-monitoring-logs/binary-log/) is enabled).
 
 ## Underlying Table Structure

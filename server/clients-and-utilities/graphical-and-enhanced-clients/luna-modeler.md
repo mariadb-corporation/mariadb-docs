@@ -1,4 +1,14 @@
+---
+description: >-
+  Luna Modeler is a database design tool for MariaDB that draws diagrams,
+  reverse engineers existing database structures, and generates SQL code.
+---
+
 # Luna Modeler
+
+{% hint style="info" %}
+Luna Modeler is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 [Luna Modeler](https://www.datensen.com/) is a database design tool for MariaDB and other relational databases.
 

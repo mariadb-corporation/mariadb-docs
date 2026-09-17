@@ -312,7 +312,7 @@ mkdir ~/.sqldeveloper
 Follow the official instructions on the MariaDB website for your specific OS version.
 
 {% hint style="danger" %}
-Do NOT copy the commands below. Go to the [MariaDB Repository Configuration Tool](https://www.google.com/search?q=https://mariadb.org/mariadb/repositories/) to generate the correct commands for your system. The following is only an example.
+Do NOT copy the commands below. Go to the [MariaDB Repository Configuration Tool](https://mariadb.org/download/?t=repo-config) to generate the correct commands for your system. The following is only an example.
 {% endhint %}
 
 ```bash
@@ -465,4 +465,4 @@ sudo cp -p mysql-connector-java-5.0.8-bin.jar /usr/lib/jvm/java-8-oracle/lib/mar
 
 ***
 
-_This page is licensed: CC BY-SA / Gnu FDL_
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

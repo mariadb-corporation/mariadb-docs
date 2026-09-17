@@ -2,13 +2,13 @@
 
 The most recent release of [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/10.3/10.3.39.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
 
-[Download 10.3.28](https://downloads.mariadb.org/mariadb/10.3.28/)[Release Notes](../../old-releases/10.3/10.3.28.md)[Changelog](mariadb-10328-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download 10.3.28](https://downloads.mariadb.org/mariadb/10.3.28/)[Release Notes](../../old-releases/10.3/10.3.28.md)[Changelog](mariadb-10328-changelog.md)[Overview of 10.3](../../old-releases/10.3/what-is-mariadb-103.md)
 
 **Release date:** 22 Feb 2021
 
 For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.28.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Includes all fixes from [MariaDB 10.2.37](../changelogs-mariadb-102-series/mariadb-10237-changelog.md)
@@ -238,6 +238,6 @@ details of the revision and view diffs of the code modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

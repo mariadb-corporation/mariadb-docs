@@ -126,3 +126,5 @@ Insert rows and immediately retrieve the results. This extension returns the ins
 Bulk load data efficiently. This section covers commands like LOAD DATA INFILE and LOAD XML for high-speed data import from text or XML files.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

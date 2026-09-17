@@ -38,8 +38,8 @@ Server response is like [connection authentication](../1-connecting/connection.m
     * Server sends `0xFE` byte.
     * Client sends `old_password`.
   * Else:
-    * Server sends [Authentication switch request](com_change_user.md#authentication-switch-request).
-    * Client may have many exchanges with the server according to the [Plugin](com_change_user.md#plugin-list).
+    * Server sends [Authentication switch request](../1-connecting/connection.md#authentication-switch-request).
+    * Client may have many exchanges with the server according to the [Plugin](../1-connecting/connection.md#plugin-list).
   * Authentication switch ends with server sending either [OK\_Packet](../4-server-response-packets/ok_packet.md) or [ERR\_Packet](../4-server-response-packets/err_packet.md).
 
 If the authentication fails more than three times, all future `COM_CHANGE_USER` commands on the connection will return the `#08S01 Unknown command` error. This is an anti-brute-force mechanism designed to prevent rapid guessing of passwords.

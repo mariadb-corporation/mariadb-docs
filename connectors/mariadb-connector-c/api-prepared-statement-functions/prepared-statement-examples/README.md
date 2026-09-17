@@ -47,3 +47,5 @@ Insert multiple rows in a single prepared-statement call using column-wise bindi
 Insert multiple rows in a single prepared-statement call using row-wise binding, packing parameters into a C struct and setting `STMT_ATTR_ROW_SIZE`.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

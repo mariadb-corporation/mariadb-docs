@@ -7,7 +7,7 @@ description: >-
 
 # General MariaDB Jupyter Kernel Usage Information
 
-If you installed the kernel, installed its [kernelspec](https://jupyter-client.readthedocs.io/en/stable/api/kernelspec.html) and you have MariaDB installed on your system, you just need to open [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/), and when you create a new notebook, pick MariaDB as your kernel.
+If you installed the kernel, installed its kernelspec and you have MariaDB installed on your system, you just need to open [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/), and when you create a new notebook, pick MariaDB as your kernel.
 
 ![](../../../.gitbook/assets/lab_open.png)
 
@@ -26,5 +26,6 @@ We recommend using the MyBinder platform to try the MariaDB kernel when you quic
 Please be a bit patient when you launch MyBinder, the more people are clicking the MyBinder link, the higher the chances are that when you launch it, the Docker image of the kernel is already cached.\
 If by any chance you see a Docker image building in the MyBinder logs, it shouldn't take more than a minute. Please be patient, if you wait one minute, it means you're helping all the other people launching the kernel after you to wait less! :-)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

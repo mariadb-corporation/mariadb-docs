@@ -25,6 +25,10 @@ layout:
 
 # MariaDB Connectors
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-connectors.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-connectors.pdf) (~660 pages, 6 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 {% content-ref url="connectors-quickstart-guides/" %}
 [connectors-quickstart-guides](connectors-quickstart-guides/)
 {% endcontent-ref %}
@@ -64,3 +68,5 @@ layout:
 {% content-ref url="other/" %}
 [other](other/)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

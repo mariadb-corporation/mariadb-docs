@@ -22,6 +22,46 @@ All implementations support both synchronous and asynchronous operations.
 **Version 1.1 is the latest stable (GA) release; version 2.0 is currently a Release Candidate (RC).** Choose the version that fits your needs below. Do not use non-stable (non-GA) releases in production.
 {% endhint %}
 
+## Supported Versions
+
+### Server Compatibility
+
+MariaDB Connector/Python connects to MariaDB and MySQL database servers. Individual server-side features may require a minimum server version; those requirements are noted with the feature.
+
+### Supported Release Series
+
+The following MariaDB Connector/Python release series are currently supported:
+
+| Release Series | Stable (GA) Date |
+| -------------- | ---------------- |
+| 1.1            | June 2022        |
+
+For End of Standard Support and End of Life dates, see the [MariaDB Engineering Policy](https://mariadb.com/engineering-policies/).
+
+Version 2.0 (currently 2.0.0rc2) is a Release Candidate and is not yet a supported release series.
+
+### Requirements
+
+| Requirement | 1.1 (GA) | 2.0 (RC) |
+| ----------- | -------- | -------- |
+| Python | CPython 3.9 through 3.14 | CPython 3.10 or later |
+| MariaDB Connector/C | 3.3.1 or later, always required | 3.3.1 or later, and only for the `c` and `binary` extras — the pure Python build requires none |
+
+### Checking Your Installed Version
+
+Connector/Python reports both its own version and the version of the underlying MariaDB Connector/C:
+
+```python
+import mariadb
+
+print(mariadb.__version__)          # connector version, e.g. '1.1.14'
+print(mariadb.__version_info__)     # same, as a tuple: (1, 1, 14)
+print(mariadb.client_version)       # MariaDB Connector/C version, numeric
+print(mariadb.client_version_info)  # MariaDB Connector/C version, as a tuple
+```
+
+## Installation
+
 **Installation — version 1.1 (stable / GA):**
 
 A plain `pip3 install` installs the latest stable release (1.1). It always installs the C extension and requires MariaDB Connector/C to be pre-installed; connection pooling is included by default.
@@ -52,7 +92,7 @@ $ pip3 install --pre mariadb[binary]
 $ pip3 install --pre mariadb[binary,pool]
 ```
 
-### Links:
+## Links
 
 * [Documentation](https://mariadb-corporation.github.io/mariadb-connector-python/index.html)
 * [Bug tracker](https://jira.mariadb.org)

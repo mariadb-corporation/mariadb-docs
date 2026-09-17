@@ -37,7 +37,29 @@ You can monitor the status of individual nodes to ensure they are in working ord
 
 ## Understanding Galera Node States
 
-<div align="left"><figure><img src="../.gitbook/assets/galerafsm.png" alt=""><figcaption></figcaption></figure></div>
+```mermaid
+stateDiagram-v2
+    accTitle: Galera Cluster node state machine
+    accDescr {
+        A Galera node progresses through six states. From OPEN it joins the Primary
+        Component (1), becomes a JOINER while it requests a state transfer (2), then
+        JOINED once the transfer completes and it applies queued transactions (3). It
+        reaches SYNCED when fully caught up and operational (4). A SYNCED node may
+        become a DONOR to serve a State Snapshot Transfer to another node (5),
+        returning to JOINED afterward (6) before it syncs again.
+    }
+    [*] --> OPEN
+    OPEN --> PRIMARY: 1
+    PRIMARY --> JOINER: 2
+    JOINER --> JOINED: 3
+    JOINED --> SYNCED: 4
+    SYNCED --> DONOR: 5
+    DONOR --> JOINED: 6
+    classDef synced fill:#fff3a5,stroke:#333,stroke-width:2px,color:#111;
+    class SYNCED synced
+```
+
+_Galera node state transitions. `SYNCED` (highlighted) is the healthy, fully operational state._
 
 The value of `wsrep_local_state_comment` tells you exactly what a node is doing. The most common states include:
 
@@ -63,6 +85,42 @@ Many status variables are differential and reset after each `FLUSH STATUS` comma
 | `wsrep_flow_control_paused`  | Fraction of time the node has been paused by Flow Control. A value close to `0.0` is ideal; a high value indicates a performance bottleneck.                                                                                                                      |
 | `wsrep_local_send_queue_avg` | Average size of the queue of write-sets waiting to be sent to other nodes. Values much greater than `0.0` can indicate network throughput issues.                                                                                                                 |
 | `wsrep_cert_deps_distance`   | Represents the node’s potential for parallel transaction application, helping to optimally tune the `wsrep_slave_threads` [parameter](../reference/galera-cluster-system-variables.md#wsrep_slave_threads).                                                       |
+
+## Testing Your Monitoring by Simulating a Failure
+
+When validating alerts and health checks, it is often useful to force a node into a failed or disconnected state on purpose. The following methods each break a single node without touching its data, and are fully reversible.
+
+{% hint style="warning" %}
+Do these only in a test cluster. Each method removes the node from the Primary Component, so writes to that node stop until it rejoins.
+{% endhint %}
+
+**Isolate a node from the cluster (recommended for testing)**
+
+```sql
+SET GLOBAL wsrep_provider_options = 'gmcast.isolate=1';
+```
+
+The node leaves the Primary Component: `wsrep_connected` and `wsrep_ready` go `OFF` and `wsrep_cluster_status` becomes `non-Primary`. Reconnect it with:
+
+```sql
+SET GLOBAL wsrep_provider_options = 'gmcast.isolate=0';
+```
+
+**Point a node at an invalid cluster address**
+
+```sql
+SET GLOBAL wsrep_cluster_address = 'gcomm://192.0.2.1';
+```
+
+`192.0.2.1` is a reserved, unroutable documentation address (RFC 5737), so the node cannot reach a cluster. It reports `wsrep_cluster_status=Disconnected`, `wsrep_ready=OFF`, and `wsrep_cluster_size=0`. Restore it by setting `wsrep_cluster_address` back to the real cluster address.
+
+**Block the Galera port**
+
+Block TCP port `4567` (the [Galera replication port](../galera-management/configuration/galera-cluster-address.md)) with a host firewall such as `iptables` or `nftables`. Take care not to lock yourself out of the node — leave SSH and the SQL port reachable.
+
+{% hint style="info" %}
+**Run monitoring connections with `wsrep_sync_wait=0`.** With the default causality checks active (`wsrep_sync_wait` set non-zero, e.g. `1`), a `SELECT` issued on a node that has lost its connection to the Primary Component blocks and can fail with `ERROR 1205 (HY000): Lock wait timeout exceeded`. Set [`wsrep_sync_wait=0`](../reference/galera-cluster-system-variables.md#wsrep_sync_wait) (or [`wsrep_dirty_reads=1`](../reference/galera-cluster-system-variables.md#wsrep_dirty_reads)) on health-check sessions so their queries return promptly instead of hanging.
+{% endhint %}
 
 ## Recovering a Cluster After a Full Outage
 

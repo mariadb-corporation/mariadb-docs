@@ -3,7 +3,7 @@ title: latest-r2dbc
 ---
 
 {% hint style="info" %}
-<p align="center">The most recent release of <a href="https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-r2dbc">MariaDB Connector/R2DBC</a> is: <a href="../../connectors/r2dbc/1.4.1.md"><strong>1.4.1</strong></a></p>
+<p align="center">The most recent release of <a href="https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-r2dbc">MariaDB Connector/R2DBC</a> is: <a href="../../connectors/r2dbc/1.4.2.md"><strong>1.4.2</strong></a></p>
 
-<p align="center"><a href="https://mariadb.com/downloads/connectors/connectors-data-access/r2dbc-connector" class="button primary">Download Connector/R2DBC 1.4.1</a></p>
+<p align="center"><a href="https://mariadb.com/downloads/connectors/connectors-data-access/r2dbc-connector" class="button primary">Download Connector/R2DBC 1.4.2</a></p>
 {% endhint %}

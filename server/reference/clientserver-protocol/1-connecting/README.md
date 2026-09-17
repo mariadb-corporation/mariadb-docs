@@ -42,3 +42,5 @@ The sha256_password plugin manages authentication using SHA-256 encryption, supp
 This plugin implements the caching_sha2_password authentication method, using an in-memory cache for fast authentication or RSA encryption for full verification.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

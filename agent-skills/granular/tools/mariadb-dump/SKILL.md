@@ -71,3 +71,5 @@ Newer-than-baseline extras, mention only if the target version supports them: `-
 - **`mariadb-select`** — `SELECT … INTO OUTFILE`, the per-query text-export analog of `--tab`
 - **`mariadb-replace`** — what `--replace` emits (delete-then-insert semantics and their caveats)
 - Canonical reference on `mariadb.com/docs`, consult only for edge cases not covered here: <https://mariadb.com/docs/server/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

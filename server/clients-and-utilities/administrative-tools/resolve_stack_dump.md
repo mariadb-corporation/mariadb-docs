@@ -1,3 +1,9 @@
+---
+description: >-
+  resolve_stack_dump resolves the numeric stack trace from a mariadbd crash
+  into symbol names, using a symbols file produced by nm.
+---
+
 # resolve\_stack\_dump
 
 `resolve_stack_dump` is a tool that resolves numeric stack strace dumps into symbols.

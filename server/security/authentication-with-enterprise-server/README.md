@@ -30,3 +30,5 @@ Overview of user account authentication using plugins like pam or unix_socket an
 Instructions for installing and configuring the gssapi plugin to validate user credentials against services like Kerberos or NTLM.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

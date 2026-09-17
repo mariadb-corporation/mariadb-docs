@@ -32,4 +32,6 @@ A complete list of supported character sets in the client library is listed in t
 * [mariadb\_get\_infov()](mariadb_get_infov.md)
 * [mysql\_set\_character\_set\_info()](mysql_set_character_set.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

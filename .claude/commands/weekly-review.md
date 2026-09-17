@@ -19,7 +19,7 @@ report at the end.
 2. **Research paper trail** — `research/*.md` in the repo (gitignored). List those modified in the
    last 7 days and read them for what was worked on and verified.
 3. **DOCS tickets** — derive the set of `DOCS-XXXX` ids touched this week from the transcripts and
-   research notes. If the Atlassian (`atlassian-mariadb` / Rovo) MCP is available, optionally fetch
+   research notes. If an Atlassian (Rovo) MCP connection is available, optionally fetch
    their current status; if not, just list the ids.
 4. **In-flight skill proposals** — `dev-docs/skill-proposals/*.md` and `dev-docs/agent-improvements/*.md`.
    For each, read its `**Related tickets:**` DOCS id; if the Atlassian MCP is available, optionally

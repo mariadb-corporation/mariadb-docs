@@ -13,7 +13,7 @@ qemu-img create -f qcow2 /kvm/vms/vm-fedora20-i386-serial.qcow2 20G
 qemu-img create -f qcow2 /kvm/vms/vm-fedora20-amd64-serial.qcow2 20G
 ```
 
-Start each VM booting from the server install iso one at a time and perform\
+Start each VM booting from the server install iso one at a time and perform
 the following install steps:
 
 ```
@@ -29,8 +29,8 @@ vncviewer -via ${remote-host} localhost
 
 Replace ${remote-host} with the host the vm is running on.
 
-**Note:** When you activate the install, vncviewer may disconnect with a\
-complaint about the rect being too large. This is fine. The Fedora installer\
+**Note:** When you activate the install, vncviewer may disconnect with a
+complaint about the rect being too large. This is fine. The Fedora installer
 has just resized the vnc screen. Simply reconnect.
 
 Install, picking default options mostly, with the following notes:
@@ -38,18 +38,18 @@ Install, picking default options mostly, with the following notes:
 * Set the language to English(US)
 * Set the timezone to Etc/Greenwich Mean Time timezone
 * Change "Software Selection" to "Minimal Install" (default is "Gnome Desktop")
-* Under "Network Configuration" set the hostnames to fedora20-amd64 and\
+* Under "Network Configuration" set the hostnames to fedora20-amd64 and
   fedora20-i386
 * For "Installation Destination" select the disk then click continue.
-  * On "Installation Options" screen, select the "Partition scheme" drop-down\
+  * On "Installation Options" screen, select the "Partition scheme" drop-down
     menu and select "Standard Partition". We do not want LVM.
   * do not check the encryption checkbox
 * Select the "Begin installation" button to start the install
 * While installing, set the root password and an initial user.
   * Be sure the initial user is an administrator
 
-When the install is finished, you will be prompted to reboot. Go ahead and do\
-so, but it will fail. Kill the VM after the reboot fails and start it up again\
+When the install is finished, you will be prompted to reboot. Go ahead and do
+so, but it will fail. Kill the VM after the reboot fails and start it up again
 with:
 
 ```

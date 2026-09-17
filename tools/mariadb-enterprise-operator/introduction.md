@@ -24,7 +24,41 @@ Kubernetes brings several key benefits to the table when managing applications i
 
 Kubernetes has been designed with flexibility in mind, allowing developers to extend its capabilities through custom resources and operators.
 
-<figure><img src="../.gitbook/assets/operator-overview.png" alt=""><figcaption></figcaption></figure>
+```mermaid
+flowchart LR
+  accTitle: MariaDB Enterprise Operator reconciliation loop
+  accDescr { A user creates MariaDB and MaxScale resources that define the desired state. The MariaDB Enterprise Operator watches those resources and continuously watches the current state of the cluster's compute, storage, and network resources. When the desired state changes, or the current state drifts from it, the Operator updates the compute, storage, and network resources so the current state matches the desired state again. }
+
+  classDef actorStyle fill:#ffffff,stroke:#333333,stroke-width:1.5px,color:#111;
+  classDef resourceStyle fill:#e8f0fe,stroke:#1a73e8,stroke-width:1.5px,color:#111;
+  classDef operatorStyle fill:#fdecc8,stroke:#b8860b,stroke-width:1.5px,color:#111;
+  classDef stateStyle fill:#f1f1f1,stroke:#555555,stroke-width:1.5px,color:#111;
+
+  User(["User"]):::actorStyle
+
+  subgraph Desired["Desired State"]
+    Resources["MariaDB resources"]:::resourceStyle
+  end
+
+  Operator["MariaDB Enterprise Operator"]:::operatorStyle
+
+  subgraph Current["Current State"]
+    Compute["Compute"]:::stateStyle
+    Storage["Storage"]:::stateStyle
+    Network["Network"]:::stateStyle
+  end
+
+  User -->|Creates| Resources
+  Resources -->|Watch| Operator
+  Operator -->|Watch| Resources
+  Current -->|Watch| Operator
+  Operator -->|Update| Current
+
+  style Desired fill:#ffffff,stroke:#333333,color:#111;
+  style Current fill:#ffffff,stroke:#333333,color:#111;
+```
+
+_The Operator watches the desired state (`MariaDB`/`MaxScale` resources) and the current state (compute, storage, network), then updates resources to reconcile the two._
 
 In particular, MariaDB Enterprise Kubernetes Operator, watches the desired state defined by users via `MariaDB` and `MaxScale` resources, and takes actions to ensure that the actual state of the system matches the desired state. This includes managing compute, storage and network resources, as well as the full lifecycle of the MariaDB and MaxScale instances. Whenever the desired state changes or the underlying infrastructure is modified, the Operator takes the necessary actions to reconcile the actual state with the desired state.
 
@@ -33,14 +67,14 @@ Operational expertise is baked into the `MariaDB` and `MaxScale` APIs and seamle
 ## MariaDB Enterprise Kubernetes Operator Features
 
 * Provision and Configure MariaDB and MaxScale Declaratively: Define MariaDB Enterprise Server and MaxScale clusters in YAML manifests and deploy them with ease in Kubernetes.
-* Multiple [Highly Available](https://mariadb.com/docs/tools/mariadb-enterprise-operator/topologies/high-availability) Topologies supported:
-  * [Asynchronous Replication](https://mariadb.com/docs/tools/mariadb-enterprise-operator/topologies/high-availability/replication)
-  * [Synchronous Multi-Master with Galera](https://mariadb.com/docs/tools/mariadb-enterprise-operator/topologies/high-availability/galera)
-  * [MaxScale](https://mariadb.com/docs/tools/mariadb-enterprise-operator/topologies/maxscale) as a Database proxy to load balance requests and perform failover/switchover operations.
+* Multiple [Highly Available](topologies/high-availability.md) Topologies supported:
+  * [Asynchronous Replication](topologies/replication.md)
+  * [Synchronous Multi-Master with Galera](topologies/galera.md)
+  * [MaxScale](topologies/maxscale.md) as a Database proxy to load balance requests and perform failover/switchover operations.
 * Cluster-Aware Rolling Updates: Perform rolling updates on MariaDB and MaxScale clusters, ensuring zero-downtime upgrades with no disruptions to your applications.
 * Flexible Storage Configuration and Volume Expansion: Easily configure storage for MariaDB instances, including the ability to expand volumes as needed.
-* Physical Backups based on [mariadb-backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) and [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/). By leveraging the [BACKUP STAGE](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage) feature, backups are taken without long read locks or service interruptions.
-* Logical Backups based on [mariadb-dump](https://mariadb.com/docs/server/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump).
+* Physical Backups based on [mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) and [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/). By leveraging the [BACKUP STAGE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage) feature, backups are taken without long read locks or service interruptions.
+* Logical Backups based on [mariadb-dump](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump).
 * Backup Management: Take, restore, and schedule backups with multiple storage types supported: S3, Azure Blob Storage, PVCs, Kubernetes volumes and VolumeSnapshots..
 * Policy-Driven Backup Retention: Implement backup retention policies with bzip2 and gzip compression.
 * Bootstrap New Instances: Initialize new MariaDB instances from backups, S3, Azure Blob Storage, PVCs or VolumeSnapshots to quickly spin up new clusters.
@@ -54,6 +88,6 @@ Operational expertise is baked into the `MariaDB` and `MaxScale` APIs and seamle
 * Secure, immutable and lightweight images based on Red Hat UBI, available for multiple architectires (amd64, arm64 and ppc64le).
 * [Operator certified ](https://catalog.redhat.com/en/software/container-stacks/detail/65789bcbe17f1b31944acb1d#overview)by Red Hat.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

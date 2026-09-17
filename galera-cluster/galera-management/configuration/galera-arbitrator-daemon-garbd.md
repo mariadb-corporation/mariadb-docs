@@ -149,7 +149,7 @@ GALERA_NODES="192.168.1.1:4567 192.168.1.2:4567"
 GALERA_GROUP="example_wsrep_cluster"
 
 # Optional Galera internal options string (such as SSL settings)
-# see https://galeracluster.com/documentation/galera-parameters.html
+# see https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables
 GALERA_OPTIONS="socket.ssl=yes;socket.ssl_cert=/etc/galera/cert/cert.pem;socket.ssl_key=/$"
 
 # Log file for garbd. Optional, by default logs to syslog
@@ -207,3 +207,5 @@ SysV init is deprecated on modern enterprise Linux distributions (such as RHEL) 
 {% endtabs %}
 
 This starts Galera Arbitrator as a background service using your defined parameters. Any cluster parameter can be utilized by the arbitrator as a service except for those prefixed with `repl`. These supplementary options can be appended inside the configuration file using the `GALERA_OPTIONS` parameter. For more details, consult the [`galera-parameters` documentation](../../reference/galera-cluster-system-tables.md).
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

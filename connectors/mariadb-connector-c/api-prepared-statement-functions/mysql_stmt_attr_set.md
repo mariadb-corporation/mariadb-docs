@@ -86,4 +86,6 @@ rc= mysql_stmt_attr_set(stmt, STMT_ATTR_ROW_SIZE, &array_size);
 * [mariadb\_stmt\_execute\_direct()](mariadb_stmt_execute_direct.md)
 * [mysql\_stmt\_attr\_get()](mysql_stmt_attr_get.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

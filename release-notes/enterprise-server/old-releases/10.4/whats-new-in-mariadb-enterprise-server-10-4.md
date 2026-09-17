@@ -145,7 +145,7 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 | [CVE-2020-2752](https://www.cve.org/CVERecord?id=CVE-2020-2752)   | 5.3                                                                                 | [10.4.13-7](10.4.13-7.md)      |
 | [CVE-2020-2814](https://www.cve.org/CVERecord?id=CVE-2020-2814)   | 4.9                                                                                 | [10.4.13-7](10.4.13-7.md)      |
 | [CVE-2020-2812](https://www.cve.org/CVERecord?id=CVE-2020-2812)   | 4.9                                                                                 | [10.4.13-7](10.4.13-7.md)      |
-| [CVE-2020-13249](https://www.cve.org/CVERecord?id=CVE-2020-13249) | N/A (Medium) [<sup>#1</sup>](enterprise-server.md#id-1)                             | [10.4.13-7](10.4.13-7.md)      |
+| [CVE-2020-13249](https://www.cve.org/CVERecord?id=CVE-2020-13249) | N/A (Medium) [<sup>#1</sup>](whats-new-in-mariadb-enterprise-server-10-4.md#id-1)   | [10.4.13-7](10.4.13-7.md)      |
 | [CVE-2020-7221](https://www.cve.org/CVERecord?id=CVE-2020-7221)   | 7.8                                                                                 | [10.4.12-6](10.4.12-6.md)      |
 | [CVE-2020-2574](https://www.cve.org/CVERecord?id=CVE-2020-2574)   | 5.9                                                                                 | [10.4.12-6](10.4.12-6.md)      |
 | [CVE-2020-2780](https://www.cve.org/CVERecord?id=CVE-2020-2780)   | 6.5                                                                                 | [10.4.10-4](10.4.10-4.md)      |
@@ -163,6 +163,6 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 
 MariaDB CVEs are assigned a word rating instead of a CVSS base score. See the [MariaDB Engineering Policy](https://mariadb.com/engineering-policies/) for details.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

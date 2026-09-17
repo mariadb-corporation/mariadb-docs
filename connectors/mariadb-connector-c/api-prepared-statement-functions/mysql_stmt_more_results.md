@@ -34,3 +34,5 @@ Multiple result sets can be obtained by calling a stored procedure. Executing co
 
 * [mysql\_stmt\_next\_result()](mysql_stmt_next_result.md)
 * [mysql\_stmt\_store\_result()](mysql_stmt_store_result.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

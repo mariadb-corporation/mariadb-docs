@@ -29,7 +29,7 @@ Choose a node from your cluster to serve as the backup source. It's a good pract
 
 To guarantee consistency, you should temporarily pause the node's ability to apply new replicated transactions. This is done by setting the `wsrep_desync` [variable](../../reference/galera-cluster-system-variables.md#wsrep_desync) to `ON`.
 
-1. Take the selected node out of your [load balancer's](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#id-2.-recommended-load-balancer-mariadb-maxscale) rotation so it no longer receives application traffic.
+1. Take the selected node out of your [load balancer's](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#recommended-load-balancer-mariadb-maxscale) rotation so it no longer receives application traffic.
 2.  Connect to the node with a `mariadb` client and execute:
 
     ```sql

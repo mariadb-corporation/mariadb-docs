@@ -36,8 +36,8 @@ The functionality of `mariadb-install-db.exe` is comparable with the shell scrip
 {% endhint %}
 
 {% hint style="info" %}
-**T**o create a Windows service, `mariadb-install-db.exe` should be run\
-by a user with full administrator privileges (which means elevated command\
+**T**o create a Windows service, `mariadb-install-db.exe` should be run
+by a user with full administrator privileges (which means elevated command
 prompt on systems with UAC).
 {% endhint %}
 
@@ -58,7 +58,7 @@ sc start MyDB
 
 ## Removing Database Instances
 
-If you run your database instance as service, to remove it completely from the\
+If you run your database instance as service, to remove it completely from the
 command line, use
 
 ```bash

@@ -2,7 +2,7 @@
 
 ## Overview
 
-[MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) 6.3.1 is a maintenance release of [MariaDB ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) . MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the fourth release in the ColumnStore 6 series.
+[MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) 6.3.1 is a maintenance release of [MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) . MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the fourth release in the ColumnStore 6 series.
 
 MariaDB ColumnStore 6.3.1 was released on 2022-04-25. This release is of General Availability (GA) maturity.
 
@@ -49,6 +49,6 @@ In alignment with the [enterprise lifecycle](../../../enterprise-server/about/en
 * Ubuntu 18.04 (x86\_64)
 * Ubuntu 20.04 (x86\_64)
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

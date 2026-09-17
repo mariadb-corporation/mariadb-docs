@@ -35,6 +35,6 @@ The most common way users acquire MariaDB is through Linux Distribution Reposito
 
 [Where Do Users Get MariaDB Server From?](https://mariadb.org/where-do-users-get-mariadb-server-from/) • Blog • 2026 • 4 minutes
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

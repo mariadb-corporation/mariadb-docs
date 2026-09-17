@@ -150,3 +150,5 @@ Complete SQL comment syntax: single-line # and -- (space required), multi-line /
 Displays help information from the server's help tables. Useful for looking up SQL syntax and command descriptions directly from the client.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

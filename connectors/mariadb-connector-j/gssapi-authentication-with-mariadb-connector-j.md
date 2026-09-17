@@ -64,7 +64,7 @@ System.setProperty("sun.security.krb5.debug", "true");
 
 #### Java JCE
 
-Depending on the Kerberos ticket encryption, you may have to install the [Java Cryptography Extension (JCE)](https://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html) Unlimited Strength Jurisdiction Policy File. (CentOS/Red Hat Enterprise Linux 5.6 or later and Ubuntu are using AES-256 encryption by default for tickets).
+Depending on the Kerberos ticket encryption, you may have to install the [Java Cryptography Extension (JCE)](https://www.oracle.com/java/technologies/javase-jce8-downloads.html) Unlimited Strength Jurisdiction Policy File. (CentOS/Red Hat Enterprise Linux 5.6 or later and Ubuntu are using AES-256 encryption by default for tickets).
 
 On Unix, you can execute the "klist -e" command to view the encryption type in use:\
 If AES is being used, output like the following is displayed after you type the klist command (note that AES-256 is included in the output):
@@ -79,12 +79,12 @@ Ticket cache: FILE:/tmp/krb5cc_0
 
 ### Implementations
 
-On Windows, the GSSAPI implementation is SSPI. The Java 8 native implementation has many limitations ([see java ticket](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=6722928)).
+On Windows, the GSSAPI implementation is SSPI. The Java 8 native implementation has many limitations ([see java ticket](https://bugs.openjdk.org/browse/JDK-6722928)).
 
 The driver contains 2 different implementations:
 
 * A Java standard implementation will use JAAS to allow Java to access TGT.
-* A windows native implementation based on [Waffle](https://github.com/dblock/waffle)
+* A windows native implementation based on [Waffle](https://github.com/Waffle/waffle)
 
 #### Standard java SSPI implementation
 
@@ -121,19 +121,19 @@ HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\Kerberos\Parameters
 
 ### Windows native java implementation
 
-Implementation is based on [Waffle](https://github.com/dblock/waffle) that supports Windows SSPI based on [JNA](https://github.com/java-native-access/jna).
+Implementation is based on [Waffle](https://github.com/Waffle/waffle) that supports Windows SSPI based on [JNA](https://github.com/java-native-access/jna).
 
 If waffle-jna (and dependencies) is in the classpath, the native implementation will automatically be used.\
 (This permit to avoid any specific problem with admin right, registry, kinit ...)
 
 Dependencies:
 
-* [waffle-jna 1.8.1](https://maven-badges.herokuapp.com/maven-central/com.github.dblock.waffle/waffle-jna)
-* [jna 4.2.1](https://maven-badges.herokuapp.com/maven-central/net.java.dev.jna/jna)
-* [jna-platform 4.2.1](https://maven-badges.herokuapp.com/maven-central/net.java.dev.jna/jna-platform)
-* [jcl-over-slf4j 1.7.14](https://maven-badges.herokuapp.com/maven-central/org.slf4j/jcl-over-slf4j)
-* [slf4j-api 1.7.14](https://maven-badges.herokuapp.com/maven-central/org.slf4j/slf4j-api)
-* [guava 19.0](https://maven-badges.herokuapp.com/com.google.guava/guava)
+* [waffle-jna 3.5.1](https://central.sonatype.com/artifact/com.github.dblock.waffle/waffle-jna)
+* [jna 4.2.1](https://central.sonatype.com/artifact/net.java.dev.jna/jna)
+* [jna-platform 4.2.1](https://central.sonatype.com/artifact/net.java.dev.jna/jna-platform)
+* [jcl-over-slf4j 1.7.14](https://central.sonatype.com/artifact/org.slf4j/jcl-over-slf4j)
+* [slf4j-api 2.0.17](https://central.sonatype.com/artifact/org.slf4j/slf4j-api)
+* [guava 19.0](https://central.sonatype.com/artifact/com.google.guava/guava)
 
 ## Possible errors
 
@@ -157,5 +157,7 @@ klist must show the same principal (userTwo@EXAMPLE.COM in this example)
 
 and server to match: if the system clocks of the client do not match that of the KDC server, authentication will fail with this kind of error.\
 The simplest way to synchronize the system clocks is to use a Network Time Protocol (NTP) server.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

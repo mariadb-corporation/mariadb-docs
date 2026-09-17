@@ -181,3 +181,5 @@ Occasionally, CMAPI may force a restart of all processes every few seconds if op
     ```bash
     systemctl start mariadb-columnstore-cmapi
     ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

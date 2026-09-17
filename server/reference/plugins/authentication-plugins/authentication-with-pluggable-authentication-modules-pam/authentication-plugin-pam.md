@@ -146,7 +146,7 @@ The `pam` authentication plugin uses a [setuid](https://linux.die.net/man/2/setu
 
 ## Creating Users
 
-To create a user in MariaDB which uses the `pam` authentication plugin, execute [CREATE USER](../../../sql-statements/account-management-sql-statements/create-user.md) while specifying the name of the plugin in the [IDENTIFIED VIA](../../../sql-statements/account-management-sql-statements/create-user.md#identified-viawith-authentication_plugin) clause:
+To create a user in MariaDB which uses the `pam` authentication plugin, execute [CREATE USER](../../../sql-statements/account-management-sql-statements/create-user.md) while specifying the name of the plugin in the [IDENTIFIED VIA](../../../sql-statements/account-management-sql-statements/create-user.md#identified-via-or-with-authentication_plugin) clause:
 
 ```sql
 CREATE USER username@hostname IDENTIFIED VIA pam;
@@ -340,7 +340,11 @@ Even when using the `pam` authentication plugin, the authenticating PAM user acc
 
 ## PAM Modules
 
-There are many PAM modules. The ones described below are the ones that have been seen most often by MariaDB.
+There are many PAM modules. The ones described below are the ones that have been seen most often by MariaDB. Several of them — including [pam\_sss](authentication-plugin-pam.md#pam_sss), [pam\_winbind](authentication-plugin-pam.md#pam_winbind), [pam\_lsass](authentication-plugin-pam.md#pam_lsass), [pam\_centrifydc](authentication-plugin-pam.md#pam_centrifydc), and [pam\_krb5](authentication-plugin-pam.md#pam_krb5) — can authenticate against Microsoft Active Directory.
+
+{% hint style="info" %}
+MariaDB supports the `pam` authentication plugin itself, not the individual PAM modules described below. These modules are third-party software, and the links to their documentation are provided for convenience only. MariaDB doesn't test, validate, or maintain them and can't list specific modules as officially supported. Consult each module's own documentation, and validate the configuration in your environment before relying on it in production.
+{% endhint %}
 
 ### pam\_unix
 
@@ -465,7 +469,7 @@ allow this access for now by executing:
 
 Sometimes issues like this can be fixed by updating the system's SELinux policies. You may be able to update the policies using [audit2allow](https://linux.die.net/man/1/audit2allow). See [SELinux: Generating SELinux Policies with audit2allow](../../../../security/securing-mariadb/selinux.md#generating-selinux-policies-with-audit2allow) for more information.
 
-If you can't get the `pam` authentication plugin to work with SELinux at all, then it can help to disable SELinux entirely. See [SELinux: Changing SELinux's Mode](../../../../security/securing-mariadb/selinux.md#changing-selinuxs-mode) for information on how to do this.
+If you can't get the `pam` authentication plugin to work with SELinux at all, then it can help to disable SELinux entirely. See [SELinux: Temporarily Putting mysqld Into Permissive Mode](../../../../security/securing-mariadb/selinux.md#temporarily-putting-mysqld-into-permissive-mode) for information on how to do this.
 
 ### Memory Overcommit
 

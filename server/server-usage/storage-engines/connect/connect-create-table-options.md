@@ -53,7 +53,7 @@ Because CONNECT handles many table types; many table type specific options are n
 ... option_list='opname1=opvalue1,opname2=opvalue2...'
 ```
 
-Be aware that until Connect 1.5.5, no blanks should be inserted before or after the '`=`' and '`,`' characters. The option name is all that is between the start of the string or the last '`,`' character and the next '`=`' character, and the option value is all that is between this '`=`' character and the next '`,`'\
+Be aware that until Connect 1.5.5, no blanks should be inserted before or after the '`=`' and '`,`' characters. The option name is all that is between the start of the string or the last '`,`' character and the next '`=`' character, and the option value is all that is between this '`=`' character and the next '`,`'
 or end of string. For instance:
 
 ```
@@ -88,7 +88,7 @@ This defines four options, '`name`', '`coltype`', '`attribute`', and '`headattr`
 | DYNAM        | Boolean | Set the index as “dynamic”. |
 | MAPPED       | Boolean | Use index file mapping.     |
 
-**Note 1:** Creating a CONNECT table based on file does not erase or create the file if the file name is specified in the `CREATE TABLE` statement ([“outward”](connect-table-types/inward-and-outward-tables.md#outward-tables) table). If the file does not exist, it are populated by subsequent `INSERT` or `LOAD` statements or by the “AS select statement” of the [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md)\
+**Note 1:** Creating a CONNECT table based on file does not erase or create the file if the file name is specified in the `CREATE TABLE` statement ([“outward”](connect-table-types/inward-and-outward-tables.md#outward-tables) table). If the file does not exist, it are populated by subsequent `INSERT` or `LOAD` statements or by the “AS select statement” of the [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md)
 statement. Unlike the CSV engine, CONNECT easily permits the creation of tables based on already existing files, for instance files made by other applications. However, if the file name is not specified, a file with a name defaulting to`tablename.tabletype` are created in the data directory ([“inward”](connect-table-types/inward-and-outward-tables.md#inward-tables) table).
 
 **Note 2:** Dropping a CONNECT table is done with a standard `DROP` statement. For [outward tables](connect-table-types/inward-and-outward-tables.md#inward-tables), this drops only the CONNECT table definition but does not erase the corresponding data file and index files. Use `DELETE` or`TRUNCATE` to do so. This is contrary to data and index files of [inward tables](connect-table-types/inward-and-outward-tables.md#inward-tables) are erased on `DROP` like for other MariaDB engines.

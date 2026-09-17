@@ -114,3 +114,5 @@ Monitor the performance and status of the Audit Plugin. View variables that trac
 Review the version history of the MariaDB Audit Plugin. Check compatibility with different MariaDB Server releases and identify which features or bug fixes are included in each version.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

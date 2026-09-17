@@ -34,7 +34,7 @@ Extended keys can be used with:
 
 ## Examples
 
-An example of how extended keys could be employed for a query built over a [DBT-3/TPC-H database](https://www.tpc.org/tpch/specs.asp) with one added index\
+An example of how extended keys could be employed for a query built over a [DBT-3/TPC-H database](https://www.tpc.org/tpch/specs.asp) with one added index
 defined on `p_retailprice`:
 
 ```sql
@@ -44,24 +44,24 @@ WHERE p_retailprice > 2095 AND o_orderdate='1992-07-01'
       AND o_orderkey=l_orderkey AND p_partkey=l_partkey;
 ```
 
-The above query asks for the `orderkeys` of the orders placed on 1992-07-01\
+The above query asks for the `orderkeys` of the orders placed on 1992-07-01
 which contain parts with a retail price greater than $2095.
 
-Using Extended Keys, the query could be executed by the following execution\
+Using Extended Keys, the query could be executed by the following execution
 plan:
 
-1. Scan the entries of the index `i_p_retailprice`\
-   where `p_retailprice>2095` and read `p_partkey` values from the extended\
+1. Scan the entries of the index `i_p_retailprice`
+   where `p_retailprice>2095` and read `p_partkey` values from the extended
    keys.
-2. For each value `p_partkey` make an index look-up into the table lineitem\
-   employing index `i_l_partkey` and fetch the values of `l_orderkey` from\
+2. For each value `p_partkey` make an index look-up into the table lineitem
+   employing index `i_l_partkey` and fetch the values of `l_orderkey` from
    the extended index.
-3. For each fetched value of `l_orderkey`, append it to the\
-   date `'1992-07-01'` and use the resulting key for an index look-up by\
-   index `i_o_orderdate` to fetch the values of `o_orderkey` from the found\
+3. For each fetched value of `l_orderkey`, append it to the
+   date `'1992-07-01'` and use the resulting key for an index look-up by
+   index `i_o_orderdate` to fetch the values of `o_orderkey` from the found
    index entries.
 
-All access methods of this plan do not touch table rows, which results in much\
+All access methods of this plan do not touch table rows, which results in much
 better performance.
 
 Here is the explain output for the above query:

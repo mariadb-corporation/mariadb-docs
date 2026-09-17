@@ -1,3 +1,8 @@
+---
+description: >-
+  The replace utility changes strings in place in files or on standard input.
+---
+
 # replace
 
 ## Description
@@ -19,7 +24,7 @@ A from-string can contain these special characters:
 | $         | Match end of line.                                                                                                                                                                              |
 | \b        | Match space-character, start of line or end of line. For an end `\b` , the next replace starts looking at the end space character ( ). A `\b` alone in a string matches only a space character. |
 
-Use the `--` option to indicate where the string-replacement list ends and the file names begin. Any file named on the command line is modified in place, so you may want to make a copy of the original before\
+Use the `--` option to indicate where the string-replacement list ends and the file names begin. Any file named on the command line is modified in place, so you may want to make a copy of the original before
 converting it. `replace` prints a message indicating which of the input files it actually modifies.
 
 If the `--` option is not given, `replace` reads standard input and writes to `stdout` (standard output).

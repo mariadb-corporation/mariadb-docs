@@ -6,7 +6,7 @@ description: >-
 
 # Buildbot Setup for VM Host
 
-This page documents the general setup process for a server that is acting as\
+This page documents the general setup process for a server that is acting as
 virtual machine host, like those documented in the [Buildbot Setup for Virtual Machines](buildbot-setup-for-virtual-machines/) section.
 
 Provision hardware with the most recent Ubuntu LTS release. Add host to DNS. Apply updates (replace `<host>` with hostname):
@@ -23,9 +23,9 @@ Install some favorite packages (these aren't necessarily required, but I like th
 sudo apt-get install tree renameutils vim-nox
 ```
 
-A buildbot admin needs to add the new host to the allowed list of rsync\
-clients on the VM master (whichever host is the official host of VM\
-files) The VM master changes periodically, so check to make sure you have\
+A buildbot admin needs to add the new host to the allowed list of rsync
+clients on the VM master (whichever host is the official host of VM
+files) The VM master changes periodically, so check to make sure you have
 the correct one:
 
 ```bash
@@ -104,7 +104,7 @@ sudo adduser buildbot kvm
 sudo adduser buildbot tty
 ```
 
-A buildbot admin needs to add this builder to the `maria-master-private.cfg` file on the `${buildmaster}` and also add it to the `c['slaves']` array in `maria-master.cfg` then create the buildslave using the hostname and whatever `${password}` was\
+A buildbot admin needs to add this builder to the `maria-master-private.cfg` file on the `${buildmaster}` and also add it to the `c['slaves']` array in `maria-master.cfg` then create the buildslave using the hostname and whatever `${password}` was
 agreed upon by you and the buildbot admin:
 
 ```bash
@@ -141,7 +141,7 @@ sudo chmod -v 700 .ssh
 sudo chmod -Rv go-r .ssh
 ```
 
-Edit `/etc/passwd` and change the buildbot user's shell from `/bin/false`\
+Edit `/etc/passwd` and change the buildbot user's shell from `/bin/false`
 to `/bin/bash` , then su to the buildbot user and copy in the `/etc/skel` files:
 
 ```bash

@@ -30,3 +30,5 @@ This page details the dedicated thread pool in MariaDB Enterprise Server that ma
 Learn about the specialized I/O threads in MariaDB Enterprise Server's InnoDB engine that handle asynchronous read and write operations efficiently.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

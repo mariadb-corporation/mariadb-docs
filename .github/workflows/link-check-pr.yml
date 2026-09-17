@@ -9,14 +9,55 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
+      # A `~/changes/<N>/` URL addresses an UNMERGED GitBook change request in
+      # the editor, not published content. It depends on a change request that
+      # may be merged, discarded or renumbered, and it sends a reader somewhere
+      # they cannot go. lychee structurally cannot catch these: it only scans
+      # the files a PR changed, and these URLs sit on pages nobody is touching.
+      # The URL is also syntactically valid and may answer 200 to an
+      # authenticated editor, so it would not necessarily fail even when
+      # scanned. This grep is tree-wide and costs about a second. See DOCS-6507.
+      #
+      # `~/reusable/...` is NOT banned: those are legitimate {% include %}
+      # targets and appear on 58 pages.
+      - name: Ban GitBook change-request preview URLs
+        run: |
+          # The tilde is a literal character in a GitBook URL path, matched by
+          # this grep -- not a home directory the shell is asked to expand. So
+          # $HOME is not the fix here; shellcheck cannot tell a pattern from a
+          # path (DOCS-6587).
+          # shellcheck disable=SC2088
+          if git grep -n -e '~/changes/' -- '*.md' '*.html' ':!agent-skills/topical/'; then
+            echo "::error::A GitBook change-request preview URL is committed (listed above). It points at an unmerged change request, not published content. Replace it with a link to the published page, or unlink the text."
+            exit 1
+          fi
+
       - name: Get changed files
         id: changes
-        uses: tj-actions/changed-files@v45
+        # SHA-pinned rather than tag-pinned: this action was compromised in
+        # March 2025 (CVE-2025-30066), when tags in the v1-v45 range were
+        # repointed at code that leaked runner secrets. Pinning the commit
+        # removes the retag vector. Dependabot keeps the SHA and the comment
+        # in sync. See DOCS-6362.
+        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
         with:
+          # JSON output preserves path boundaries. The default space-separated
+          # form escapes parentheses but NOT spaces, so a filename like
+          # "most-recent-12.0 (1).md" splits into two bogus inputs and lychee
+          # aborts with "Cannot parse inputs from arguments" before checking
+          # anything. See DOCS-6361.
+          json: true
+          escape_json: false
+          # safe_output backslash-escapes shell metacharacters inside the JSON
+          # strings, which makes the JSON itself invalid ("\(" is not a legal
+          # JSON escape) and jq refuses to parse it. We do our own quoting in
+          # the next step instead, and pass the JSON via env rather than
+          # interpolating it into the script, so filenames cannot inject shell.
+          safe_output: false
           files: |
             **.md
             **.html
@@ -26,13 +67,221 @@ jobs:
           files_ignore: |
             agent-skills/topical/**
 
+      - name: Build a shell-safe file list
+        id: list
+        if: steps.changes.outputs.any_changed == 'true'
+        env:
+          CHANGED_JSON: ${{ steps.changes.outputs.all_changed_files }}
+        run: |
+          # jq's @sh emits each path as a single-quoted shell token, so paths
+          # containing spaces survive word splitting in the args string below.
+          {
+            printf 'files='
+            jq -r '.[] | @sh' <<< "$CHANGED_JSON" | tr '\n' ' '
+            printf '\n'
+          } >> "$GITHUB_OUTPUT"
+
       - name: Scan for broken links
         if: steps.changes.outputs.any_changed == 'true'
-        uses: lycheeverse/lychee-action@v2.3.0
+        uses: lycheeverse/lychee-action@v2.9.0
         with:
           # ADDED: Excludes for both raw '{' and encoded '%7B'
+          # Flaky/example external hosts (bottom of the list): mcs1 is a
+          # placeholder hostname in ColumnStore cmapi curl samples; the rest
+          # time out, rate-limit (429), or return cert errors from CI but are
+          # otherwise valid links. The newest two are from DOCS-6361:
+          # blogspot.com answers CI with 429, and www.poliarch.org times out
+          # from the runners; both serve 200 promptly from a normal client.
+          # DOCS-6369 adds two more of the same kind: www.reddit.com blocks the
+          # Actions runners outright (serves 200 to a normal client), and
+          # csm.mariadb.com is the customer support portal, which answers 403 to
+          # anyone not logged in. Both links are valid for readers.
+          # DOCS-6499 adds docs.ansible.com, same class as blogspot.com: it
+          # answers the runners with 429 on every request (7 links on one page,
+          # two consecutive runs) while serving 301 -> 200 to a normal client.
+          # The 429 is host-level rate limiting, so replacing the URLs with
+          # their resolved /projects/ansible/ form would not help.
+          #
+          # Note for editors: the args block below is a YAML folded scalar, so
+          # a '#' line inside it is NOT a comment -- it would be passed to
+          # lychee as arguments. Document new excludes up here.
+          #
+          # DOCS-6377: historical-reference excludes for the connector release
+          # notes. bazaar.launchpad.net is the decommissioned bzr host (revision
+          # links 404). The github connector /commit/ links are changelog
+          # entries whose SHAs predate history rewrites, so ~5% now 404 with no
+          # valid replacement. lists.askmonty.org (a mailing-list archive) and
+          # support2.microsoft.com (a decommissioned Microsoft domain) are cited
+          # in old changelog commit text and are unreachable with no modern
+          # equivalent. All are unmaintainable historical refs, not fixable links.
+          #
+          # DOCS-6369: the same problem in the *server* changelogs. Those pages
+          # cite one github.com/MariaDB/server/commit/<short-sha> per revision --
+          # 12,278 distinct links across the release-notes tree. Sampling 250 of
+          # them found 1.2% dead (~150 repo-wide): abbreviated SHAs that no
+          # longer resolve after history rewrites. Same class as the connector
+          # excludes above -- historical citations, not fixable links -- and they
+          # only surface when a PR happens to touch a changelog page.
+          #
+          # DOCS-6369: decommissioned hosts cited in the pre-1.0/5.x release
+          # notes. downloads.askmonty.org was the download host before the
+          # rename to MariaDB; montyprogram.com was the company domain;
+          # forge.mysql.com and lists.mysql.com were retired by Oracle
+          # (forge now serves a cert for another host); blogs.msdn.com folded
+          # into learn.microsoft.com. None have a modern equivalent to point at.
+          #
+          # DOCS-5976: three more hosts that block automated clients, same
+          # class as www.reddit.com above. stackoverflow.com and
+          # gitlab.kitware.com answer 403 at the site ROOT (not just the cited
+          # page) even with a browser User-Agent, so it is a host-level block,
+          # not a dead page. www.freedesktop.org is the sharper case: it serves
+          # 200 to a developer machine but 418 ("I'm a teapot") to the Actions
+          # runners, so a local lychee run PASSES while CI fails -- the one
+          # failure mode a pre-PR check cannot reproduce. All are valid for
+          # readers.
+          #
+          # DOCS-6446: the two cloud-marketplace listings cited in the MariaDB
+          # Cloud FAQ. azuremarketplace.microsoft.com answers 403 to any
+          # non-browser client, and so does the marketplace.microsoft.com host it
+          # 308-redirects to, so replacing the URL with its resolved form does not
+          # help. console.cloud.google.com fails differently -- "HTTP/2 protocol
+          # error" rather than a status code -- because the host mishandles
+          # lychee's HTTP/2 negotiation. Both serve 200 to a browser User-Agent
+          # over HTTP/1.1 and are valid for readers.
+          #
+          # DOCS-6430 (2026-08-14): partedmagic.com, cited once in
+          # general-resources/distributions-including-mariadb.md. CI reports
+          # "SSL certificate expired", but the certificate is valid -- Let's
+          # Encrypt, notBefore 27 Jun 2026, notAfter 25 Sep 2026, checked with
+          # openssl on the day CI failed. The site also serves 200 to curl. The
+          # disagreement is between the runner's trust store and the chain the
+          # host presents (issuer CN=YR2), so it will not self-heal the way a
+          # genuine expiry would, and there is nothing to fix on our side.
+          #
+          # DOCS-6385 (2026-08-17): two more of each kind, surfaced by the
+          # private-repo link sweep across 396 release-notes pages.
+          #
+          # Historical GitHub citations, same class as the two /commit/ excludes
+          # at the top of this list. The Galera changelogs cite upstream issue
+          # numbers in codership/galera and codership/mysql-wsrep, whose issue
+          # trackers no longer resolve; the Docker and Jupyter-kernel release
+          # notes cite MariaDB/mariadb-docker and MariaDB/mariadb_kernel issues
+          # that have since been deleted; and mysql/mysql-utilities and
+          # Perl/perl5/issues are cited in old changelog text. All are
+          # unmaintainable historical references, not fixable links -- the
+          # issue numbers are the record, and there is nothing to point at.
+          #
+          # Live sites that block automated clients, same class as
+          # www.reddit.com and stackoverflow.com above. dba.stackexchange.com
+          # and askubuntu.com answer 403 to any non-browser client (Stack
+          # Exchange requires JS), and www.fsf.org fails lychee's connection
+          # while serving 200 to a browser User-Agent. All are valid for readers.
+          #
+          # DOCS-6449 (2026-08-18): three vendor/doc hosts cited from
+          # server/clients-and-utilities/ that block automated clients, proven
+          # alive by the challenge each one serves rather than by a status code.
+          # valentina-db.com and www.sqlmaestro.com both sit behind Sucuri
+          # CloudProxy and return its "Javascript is required" interstitial (403
+          # and 307 respectively). docs.moodle.org answers with
+          # "Cf-Mitigated: challenge" from Cloudflare. A browser User-Agent does
+          # NOT get past any of the three, so there is no resolved URL to
+          # substitute -- unlike codex.wordpress.org, which was retired by
+          # WordPress and so got repointed at wordpress.org/documentation
+          # instead of excluded.
+          #
+          # DOCS-6496 (2026-08-21): lists.freedesktop.org, the systemd-devel
+          # mailing-list archive, cited from systemd/configuring.md and the
+          # Galera SST page. Unlike every host above it is neither dead nor
+          # blocking -- it is simply slow and intermittent, so it fails as a
+          # TIMEOUT rather than an error, and lychee reports that alongside
+          # "Errors 0" while still exiting non-zero. Both cited pages return
+          # 200 with their real content on a retry (2 of 5 attempts from a
+          # developer machine), and CI and a local run time out on DIFFERENT
+          # URLs of the same host, which is what makes it host-level rather
+          # than a rotted page. Its sibling www.freedesktop.org is already
+          # excluded above. Nothing to repoint at: this archive is canonical
+          # for these threads.
+          #
+          #
+          # DOCS-6415 (2026-09-14): medium.com, cited twice from
+          # tools/control-center/admin-guide/configuration.md as further reading on
+          # Active Directory configuration. Medium serves 403 to automated clients
+          # across the board -- same class as docs.oracle.com and access.redhat.com
+          # above -- while both posts load normally in a browser. Nothing to
+          # repoint at: they are the authors' originals, not mirrors of anything.
+          # DOCS-6521: web.archive.org, same class as www.freedesktop.org --
+          # it answers the Actions runners with "Connection refused" while
+          # serving 200 promptly to a developer machine, so a local lychee run
+          # PASSES while CI fails. Three pages cite a Wayback snapshot, and in
+          # each case the snapshot IS the replacement for a page that no longer
+          # exists (a retired MaxMind dataset, two dead personal blogs), so
+          # there is nothing further to repoint at. The other two pages have
+          # carried the same latent failure since the migration; they only
+          # surface when a PR happens to touch them.
+          #
+          # DOCS-6451: www.packtpub.com bot-blocks non-browser clients with a bare
+          # 403 -- both cited product pages serve 200 with their real content to a
+          # browser UA over HTTP/1.1. Packt reorganized its catalogue onto
+          # /en-us/product/<slug>-<isbn> paths, so the two Books links were repointed
+          # at the live pages in the same change; the 403 is the checker being
+          # blocked, not a dead page, and there is nowhere else to point a
+          # publisher's own product page.
+          #
+          # DOCS-6451: x.com and www.guru99.com serve 200 with real content to a
+          # browser but answer the Actions runners with a bare 403, so a local
+          # lychee run PASSES while CI fails -- the same asymmetry as web.archive.org
+          # above. Both are pre-existing on main; they only surface when a PR happens
+          # to touch joining-the-community.md or tutorials.md. The x.com pattern is
+          # anchored to scheme+host on purpose: a bare 'x\.com' is a substring of
+          # five unrelated hosts cited elsewhere in the tree (wifislax.com,
+          # twistedmatrix.com, tunnelix.com, limenex.com, 4mlinux.com) and would
+          # silently stop checking them.
+          #
+          # DOCS-6451: portal.azure.com and www.ibm.com both answer a non-browser
+          # client with a bare 403 while serving real content to a browser. Azure's
+          # two links are deep links into the portal, which requires a signed-in
+          # session, so there is nothing to repoint at. IBM retired Knowledge Center
+          # and 301s the three db2look links to the equivalent /docs/ topic paths, but
+          # its block applies to the new paths too and the Wayback Machine has NO
+          # snapshot of either form -- so the URLs are left exactly as they are rather
+          # than swapped for a target that cannot be verified from here.
+          #
+          # DOCS-6451: www.defense.gov answers every non-browser client with a bare
+          # 403 "Access Denied" -- Akamai bot/geo filtering in front of the US DoD
+          # homepage. The site is plainly live and it is cited once, as the referent
+          # of "DoD" beside the STIG certification press release, so there is nothing
+          # to repoint at.
+          #
+          # DOCS-6451 (Galera slice): cloud.ibm.com returns 404 to lychee but 200 to a
+          # browser User-Agent on the same URL -- UA-gated, so the pages are live and
+          # both citations are correct. www.akamai.com is the new home of the Linode
+          # docs library (www.linode.com/docs/guides/... now 301s there); it serves 403
+          # to every scripted client, which is why the old linode.com URL surfaced as a
+          # 403 rather than as the redirect it actually is.
+          #
+          # DOCS-6451 (Analytics slice): www.oreilly.com. The R use-case page cites
+          # three O'Reilly books by their retired shop.oreilly.com product URLs, which
+          # 301 to www.oreilly.com/library/view/~/<isbn>/. Those resolved pages answer
+          # every scripted client with an Akamai edge denial ("Access Denied", with an
+          # errors.edgesuite.net reference id) -- a full browser User-Agent and a
+          # complete Sec-Fetch header set over HTTP/1.1 do not get past it, and the
+          # site ROOT serves 200, so it is path-level bot protection on /library/view/
+          # rather than a dead page or a whole-host block. Same class as
+          # www.akamai.com and cloud.ibm.com above. The URLs are resolved to the form
+          # O'Reilly itself redirects to, so the citations point at the publisher's own
+          # canonical page.
           args: >-
             --no-progress
+            --exclude 'bazaar\.launchpad\.net'
+            --exclude 'github\.com/mariadb-corporation/mariadb-connector-[a-z0-9]+/commit/'
+            --exclude 'github\.com/MariaDB/server/commit/'
+            --exclude 'downloads\.askmonty\.org'
+            --exclude 'montyprogram\.com'
+            --exclude 'forge\.mysql\.com'
+            --exclude 'lists\.mysql\.com'
+            --exclude 'blogs\.msdn\.com'
+            --exclude 'lists\.askmonty\.org'
+            --exclude 'support2\.microsoft\.com'
             --exclude dev\.mysql\.com
             --exclude docs\.oracle\.com
             --exclude kubernetes\.io\/docs
@@ -56,12 +305,53 @@ jobs:
             --exclude security-certs\.docs\.ubuntu\.com
             --exclude www\.linux-pam\.org
             --exclude www\.bzip\.org
+            --exclude medium\.com
             --exclude selinuxproject\.org
             --exclude www\.gnu\.org
             --exclude manpages\.ubuntu\.com
             --exclude packages\.ubuntu\.com
             --exclude www\.canonware\.com
-            ${{ steps.changes.outputs.all_changed_files }}
+            --exclude www\.npmjs\.com
+            --exclude npmjs\.org
+            --exclude mcs1
+            --exclude s\.petrunia\.net
+            --exclude mysql\.taobao\.org
+            --exclude www\.shannon-sys\.com
+            --exclude www\.hashicorp\.com
+            --exclude blogspot\.com
+            --exclude docs\.ansible\.com
+            --exclude www\.poliarch\.org
+            --exclude www\.reddit\.com
+            --exclude csm\.mariadb\.com
+            --exclude stackoverflow\.com
+            --exclude gitlab\.kitware\.com
+            --exclude www\.freedesktop\.org
+            --exclude 'lists\.freedesktop\.org'
+            --exclude 'web\.archive\.org'
+            --exclude azuremarketplace\.microsoft\.com
+            --exclude console\.cloud\.google\.com
+            --exclude partedmagic\.com
+            --exclude 'github\.com/codership/(galera|mysql-wsrep)/issues/'
+            --exclude 'github\.com/MariaDB/mariadb-docker/'
+            --exclude 'github\.com/MariaDB/mariadb_kernel/'
+            --exclude 'github\.com/mysql/mysql-utilities/'
+            --exclude 'github\.com/Perl/perl5/issues/'
+            --exclude 'www\.fsf\.org'
+            --exclude 'dba\.stackexchange\.com'
+            --exclude 'askubuntu\.com'
+            --exclude 'valentina-db\.com'
+            --exclude 'docs\.moodle\.org'
+            --exclude 'www\.sqlmaestro\.com'
+            --exclude 'www\.packtpub\.com'
+            --exclude 'https://x\.com/'
+            --exclude 'www\.guru99\.com'
+            --exclude 'portal\.azure\.com'
+            --exclude 'www\.ibm\.com'
+            --exclude 'www\.defense\.gov'
+            --exclude 'cloud\.ibm\.com'
+            --exclude 'www\.akamai\.com'
+            --exclude 'www\.oreilly\.com'
+            ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
           # otherwise exits non-zero with "No links were found", which is a false
@@ -71,6 +361,6 @@ jobs:
       - name: 📖 Help & Documentation
         if: failure()
         run: |
-          echo "### ❌ Link Check Failed?" >> $GITHUB_STEP_SUMMARY
-          echo "👉 [**Read the SOP: How to Fix Link Errors**](https://mariadbcorp.atlassian.net/wiki/spaces/DOCS/pages/3284140040/Pull+Requests#Method-1%3A-The-%22Quick-Fix%22-(Recommended))" >> $GITHUB_STEP_SUMMARY
+          echo "### ❌ Link Check Failed?" >> "$GITHUB_STEP_SUMMARY"
+          echo "👉 [**Read the SOP: How to Fix Link Errors**](https://mariadbcorp.atlassian.net/wiki/spaces/DOCS/pages/3284140040/Pull+Requests#Method-1%3A-The-%22Quick-Fix%22-(Recommended))" >> "$GITHUB_STEP_SUMMARY"
 

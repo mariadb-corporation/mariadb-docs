@@ -197,7 +197,8 @@ oracle_schema.function_name(...)
 * `mariadb_schema.function_name(...)`: MariaDB-native behavior
 * `oracle_schema.function_name(...)`: Oracle-compatible behavior
 
-**Note**: Function behavior varies depending on the SQL mode and function.\
+**Note**: Function behavior varies depending on the SQL mode and function.
+\
 Detailed function-level differences are not fully listed here and may differ by version.
 
 ### SHOW CREATE TABLE
@@ -297,3 +298,5 @@ This enables consistent and unambiguous behavior across all SQL modes.
 * [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 * [Data Types](../../data-types/)
 * [SHOW CREATE TABLE](../../sql-statements/administrative-sql-statements/show/show-create-table.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

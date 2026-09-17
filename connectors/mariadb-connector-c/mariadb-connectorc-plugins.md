@@ -11,8 +11,6 @@ MariaDB Connector/C functionality can be extended via loadable (or statically co
 
 ## connection plugins
 
-### aurora
-
 ### replication
 
 ## pvio plugins
@@ -63,5 +61,6 @@ Graphical clients can customize the plugin to provide graphical dialog form. See
 
 ### mysql\_clear\_password
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -1,6 +1,6 @@
 # HandlerSocket Installation
 
-After MariaDB is installed, use the [INSTALL PLUGIN](../../../sql-statements/administrative-sql-statements/plugin-sql-statements/install-plugin.md) command (as the root user) to install\
+After MariaDB is installed, use the [INSTALL PLUGIN](../../../sql-statements/administrative-sql-statements/plugin-sql-statements/install-plugin.md) command (as the root user) to install
 the HandlerSocket plugin. This command only needs to be run once, like so:
 
 ```sql

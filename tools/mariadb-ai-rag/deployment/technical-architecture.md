@@ -9,19 +9,6 @@ noIndex: true
 
 # Technical Architecture
 
-## Table of Contents
-
-1. [System Architecture](technical-architecture.md#system-architecture)
-2. [Component Details](technical-architecture.md#component-details)
-3. [Data Flow](technical-architecture.md#data-flow)
-4. [Security Architecture](technical-architecture.md#security-architecture)
-5. [Configuration Management](technical-architecture.md#configuration-management)
-6. [API Specifications](technical-architecture.md#api-specifications)
-7. [Database Schema](technical-architecture.md#database-schema)
-8. [Performance Characteristics](technical-architecture.md#performance-characteristics)
-
-***
-
 ## System Architecture
 
 ### High-Level Architecture
@@ -750,6 +737,6 @@ mysql-db:
 
 **End of Technical Architecture Document**
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -102,3 +102,5 @@ Return the substring matching a regex. This function extracts the actual part of
 Synonym for REGEXP. This operator performs a regular expression match against a string argument.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

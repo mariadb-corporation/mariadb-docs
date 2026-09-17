@@ -34,11 +34,11 @@ For MariaDB Cloud services that use MariaDB Server, the [local\_infile system va
 
 * For Replicated Transactions and Single Node Transactions services, the `local_infile` system variable is `OFF` by default
 
-[Configuration Manager](../../../../config/) can be used to modify the value of the `local_infile` system variable.
+[Configuration Manager](../../../cloud-management/config/) can be used to modify the value of the `local_infile` system variable.
 
 ## **Import Data**
 
-1. Determine the [connection parameters](../../../../Connecting%20to%20Sky%20DBs/) for your MariaDB Cloud service.
+1. Determine the [connection parameters](../../../connecting-to-mariadb-cloud-dbs/connection-overview.md#connecting-using-the-mariadb-client) for your MariaDB Cloud service.
 2. Connect with the `mariadb` client and specify the [-local-infile option](https://mariadb.com/docs/skysql-previous-release/data-operations/data-import/load-data-local-infile/), which is needed by the next step:
 
 ```bash
@@ -108,3 +108,5 @@ conn = mariadb.connect(
    port=TCP_PORT,
    local_infile=true)
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

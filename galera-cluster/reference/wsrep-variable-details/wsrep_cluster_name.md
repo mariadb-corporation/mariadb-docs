@@ -53,3 +53,5 @@ SHOW VARIABLES LIKE "wsrep_cluster_name";
 | wsrep_cluster_name | example_cluster |
 +--------------------+-----------------+
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

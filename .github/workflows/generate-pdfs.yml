@@ -1,0 +1,312 @@
+name: Generate documentation PDFs
+
+# Builds one PDF per GitBook space and attaches them to a GitHub Release.
+#
+# Snapshot-based (DOCS-5710), never per-push: a full run produces ~450 MB across
+# 11 files. Two ways in:
+#
+#   * monthly cron, so a dated snapshot exists even in a month nobody cuts one;
+#   * manual dispatch, to re-cut after a Server release lands.
+#
+# Both resolve to one release per calendar month (docs-pdf-YYYY-MM), so a manual
+# re-cut updates that month's assets in place instead of piling up near-identical
+# releases.
+#
+# There is deliberately no combined all-spaces PDF: concatenating every space
+# yields ~16,000 pages, which no reader handles usefully.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to create or update. Defaults to docs-pdf-YYYY-MM.'
+        required: false
+        type: string
+      label:
+        description: 'Cover-page label (e.g. "Snapshot July 2026"). Defaults to the run date.'
+        required: false
+        type: string
+      spaces:
+        description: 'Space-separated list of spaces, or "all"'
+        required: false
+        default: 'all'
+        type: string
+      draft:
+        description: 'Create the release as a draft'
+        required: false
+        default: true
+        type: boolean
+
+  # 04:00 UTC on the 15th of every month. Off-hours for CET/CEST reviewers, and
+  # mid-month so it never collides with month-boundary release work.
+  #
+  # Cron only fires on the default branch, and GitHub suspends a schedule after
+  # 60 days without a repository push -- not a risk at this repo's commit rate,
+  # but the reason to check the Actions tab if a month goes by with no release.
+  schedule:
+    - cron: '0 4 15 * *'
+
+permissions:
+  contents: write   # required to create the release and upload assets
+
+# A scheduled run and a manual one could otherwise target the same monthly tag
+# concurrently, and `gh release upload --clobber` is not atomic. Queue instead of
+# cancelling: a run that has already spent an hour rendering should finish.
+concurrency:
+  group: generate-pdfs
+  cancel-in-progress: false
+
+env:
+  PANDOC_VERSION: '3.10.1'
+
+jobs:
+  # Resolve every input once -- a scheduled run supplies none of them -- so the
+  # build matrix and the release job agree on one set of values.
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      spaces: ${{ steps.plan.outputs.spaces }}
+      label: ${{ steps.plan.outputs.label }}
+      tag: ${{ steps.plan.outputs.tag }}
+      draft: ${{ steps.plan.outputs.draft }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - id: plan
+        name: Resolve tag, spaces, cover label, and draft state
+        env:
+          TAG_INPUT: ${{ inputs.tag }}
+          REQUESTED: ${{ inputs.spaces }}
+          LABEL_INPUT: ${{ inputs.label }}
+          DRAFT_INPUT: ${{ inputs.draft }}
+        run: |
+          set -euo pipefail
+          # One release per calendar month, so the monthly cron and a mid-month
+          # manual re-cut land on the same tag.
+          tag="$TAG_INPUT"
+          [[ -n "$tag" ]] || tag="docs-pdf-$(date -u +%Y-%m)"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+          # --list-spaces validates its arguments, so a typo fails here rather
+          # than after the matrix has already fanned out. A scheduled run leaves
+          # REQUESTED empty, which the script already reads as every space.
+          if [[ -z "$REQUESTED" || "$REQUESTED" == "all" ]]; then
+            spaces=$(python3 pdf/build.py --list-spaces)
+          else
+            # build.py takes the spaces as separate positional arguments
+            # (nargs="*"), so REQUESTED -- a space-separated input -- has to
+            # split. Quoting it would pass "server maxscale" as ONE space name
+            # and fail every multi-space run; splitting it explicitly says so,
+            # and unlike the bare $REQUESTED it cannot glob (DOCS-6587).
+            read -r -a requested_spaces <<< "$REQUESTED"
+            spaces=$(python3 pdf/build.py --list-spaces "${requested_spaces[@]}")
+          fi
+          echo "spaces=$spaces" >> "$GITHUB_OUTPUT"
+
+          label="$LABEL_INPUT"
+          [[ -n "$label" ]] || label="Snapshot $(date -u +%Y-%m-%d)"
+          echo "label=$label" >> "$GITHUB_OUTPUT"
+
+          # A draft release does not move `releases/latest`, which the docs home
+          # page links to -- so an unattended run has to publish, or the monthly
+          # rebuild silently never reaches readers. Manual runs keep the draft
+          # default, so a hand-cut snapshot can still be eyeballed first.
+          if [[ "$GITHUB_EVENT_NAME" == "schedule" ]]; then
+            draft=false
+          else
+            draft="${DRAFT_INPUT:-true}"
+          fi
+          echo "draft=$draft" >> "$GITHUB_OUTPUT"
+
+          echo "Tag: $tag (draft: $draft)"
+          echo "Building: $spaces"
+          echo "Label: $label"
+
+      # The tag becomes a Git ref when the release is published, so reject
+      # anything git would refuse. A draft release accepts an invalid name (it
+      # creates no ref), which hides the problem until publish time -- an hour
+      # of rendering later. check-ref-format needs no repository, just git.
+      - name: Validate the release tag
+        env:
+          TAG: ${{ steps.plan.outputs.tag }}
+        run: |
+          set -euo pipefail
+          if ! git check-ref-format "refs/tags/$TAG"; then
+            echo "::error::'$TAG' is not a usable tag name: no spaces, no '..'," \
+                 "no trailing '.lock', no control characters."
+            exit 1
+          fi
+          # check-ref-format allows a leading '-', but gh would then parse the
+          # tag as an option.
+          case "$TAG" in
+            -*) echo "::error::'$TAG' must not start with '-'"; exit 1 ;;
+          esac
+          echo "Tag OK: $TAG"
+
+      # Runs once rather than per space: it is a property of the stylesheet, and
+      # failing here costs seconds instead of an hour of rendering.
+      - name: Verify WCAG AA contrast
+        run: python3 pdf/check_contrast.py
+
+  build:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false   # one bad space must not discard the other ten
+      matrix:
+        space: ${{ fromJSON(needs.plan.outputs.spaces) }}
+    steps:
+      - uses: actions/checkout@v7
+
+      # Ubuntu's packaged pandoc lags well behind and lacks the flags build.py
+      # relies on, so pin the version explicitly.
+      - name: Install pandoc ${{ env.PANDOC_VERSION }}
+        run: |
+          set -euo pipefail
+          deb="pandoc-${PANDOC_VERSION}-1-amd64.deb"
+          url="https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/${deb}"
+          curl -fsSL -o "/tmp/${deb}" "$url"
+          sudo apt-get install -y "/tmp/${deb}"
+          pandoc --version | head -1
+
+      # The .deb from Google rather than the apt/snap chromium package, whose
+      # sandboxing makes --headless --print-to-pdf unreliable on runners.
+      - name: Install Google Chrome
+        run: |
+          set -euo pipefail
+          curl -fsSL -o /tmp/chrome.deb \
+            https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt-get install -y /tmp/chrome.deb
+          google-chrome-stable --version
+
+      # qpdf: lossless ~35% size reduction that preserves links (see pdf/README.md).
+      # poppler-utils: pdfinfo, used for page-count reporting and verification.
+      - name: Install qpdf and poppler
+        run: sudo apt-get install -y qpdf poppler-utils
+
+      - name: Fetch Mermaid bundle
+        run: ./pdf/fetch-deps.sh
+
+      - name: Build ${{ matrix.space }} PDF
+        run: |
+          python3 pdf/build.py "${{ matrix.space }}" \
+            --out-dir dist \
+            --version-label "${{ needs.plan.outputs.label }}"
+
+      - name: Verify the PDF is readable and non-trivial
+        run: |
+          set -euo pipefail
+          pdf="dist/mariadb-${{ matrix.space }}.pdf"
+          [[ -s "$pdf" ]] || { echo "::error::$pdf missing or empty"; exit 1; }
+          pages=$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')
+          echo "$pdf -> $pages pages, $(du -h "$pdf" | cut -f1)"
+          # A space that collapses to a couple of pages means the SUMMARY parse
+          # or the preprocessor silently dropped nearly everything.
+          if [[ "${{ matrix.space }}" != "home" && "$pages" -lt 10 ]]; then
+            echo "::error::only $pages pages -- build looks broken"
+            exit 1
+          fi
+
+          # Cross-space links arrive in the checkout as app.gitbook.com *editor*
+          # URLs, which demand a login; the preprocessor maps them to
+          # mariadb.com/docs. A survivor is invisible in a 6,000-page PDF -- it
+          # looks like a working link until someone clicks it -- so assert on the
+          # artifact's own link annotations. Code samples that mention the URL
+          # legitimately are page text, not /URI annotations, so they don't trip
+          # this. A hit means an unmapped space ID in GITBOOK_SPACE_IDS.
+          qpdf --qdf --object-streams=disable "$pdf" - 2>/dev/null \
+            | grep -aoE '/URI *\([^)]*app\.gitbook\.com[^)]*\)' \
+            | sort -u > editor-urls.txt || true
+          if [[ -s editor-urls.txt ]]; then
+            echo "::error::$(wc -l < editor-urls.txt) app.gitbook.com link(s) survived into $pdf"
+            head -5 editor-urls.txt
+            exit 1
+          fi
+
+          # A published URL never keeps its `.md`: the site answers such a
+          # request with an HTTP 200 soft-404, so a status-code link check calls
+          # it healthy while the reader lands on an error page. Assert on the
+          # artifact for the same reason as above.
+          qpdf --qdf --object-streams=disable "$pdf" - 2>/dev/null \
+            | grep -aoE '/URI *\(https?://mariadb\.com/docs/[^)]*\.md[)#]' \
+            | sort -u > md-urls.txt || true
+          if [[ -s md-urls.txt ]]; then
+            echo "::error::$(wc -l < md-urls.txt) site link(s) still end in .md in $pdf"
+            head -5 md-urls.txt
+            exit 1
+          fi
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: pdf-${{ matrix.space }}
+          path: dist/*.pdf
+          retention-days: 7
+          if-no-files-found: error
+
+  release:
+    needs: [plan, build]
+    if: always() && needs.build.result != 'cancelled'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          pattern: pdf-*
+          merge-multiple: true
+          path: dist
+
+      - name: Summarize
+        run: |
+          set -euo pipefail
+          # This job runs with if: always(), so it is reached even when every
+          # build failed. Say so plainly instead of letting an unexpanded
+          # dist/*.pdf glob reach gh release as a literal filename.
+          shopt -s nullglob
+          pdfs=(dist/*.pdf)
+          if [[ ${#pdfs[@]} -eq 0 ]]; then
+            echo "::error::no PDFs were produced -- every build job failed"
+            exit 1
+          fi
+          ls -lh dist/
+          {
+            echo "## Documentation PDFs"
+            echo
+            echo "Label: **${{ needs.plan.outputs.label }}**"
+            echo
+            echo "| File | Size |"
+            echo "|------|------|"
+            for f in dist/*.pdf; do
+              echo "| $(basename "$f") | $(du -h "$f" | cut -f1) |"
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          # This job downloads artifacts and never checks out, so there is no
+          # git remote for gh to infer the repository from -- without GH_REPO
+          # every gh call fails with "not a git repository".
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ needs.plan.outputs.tag }}
+        run: |
+          set -euo pipefail
+          notes="MariaDB documentation PDFs — ${{ needs.plan.outputs.label }}
+
+          One PDF per GitBook space, generated from \`$GITHUB_SHA\` by
+          \`.github/workflows/generate-pdfs.yml\`.
+
+          The authoritative, continuously updated documentation is at
+          https://mariadb.com/docs."
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/*.pdf --clobber
+          else
+            # --target pins the tag to the commit the PDFs were built from;
+            # with no git context gh would otherwise tag the default branch
+            # head, contradicting the $GITHUB_SHA the notes above cite.
+            gh release create "$TAG" dist/*.pdf \
+              --target "$GITHUB_SHA" \
+              --title "Documentation PDFs — ${{ needs.plan.outputs.label }}" \
+              --notes "$notes" \
+              ${{ needs.plan.outputs.draft == 'true' && '--draft' || '' }}
+          fi

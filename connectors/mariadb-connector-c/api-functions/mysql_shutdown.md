@@ -30,4 +30,6 @@ Returns zero on success, non-zero on failure.
 
 * [mysql\_kill()](mysql_kill.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

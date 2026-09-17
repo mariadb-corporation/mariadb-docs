@@ -42,3 +42,4 @@ This page shows how to use Python scripts to connect to the MariaDB Cloud and la
 [launch-db-using-python.md](launch-db-using-python.md)
 {% endcontent-ref %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

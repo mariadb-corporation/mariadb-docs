@@ -1,7 +1,7 @@
 ---
 description: List your open MariaDB DOCS tickets (assigned to you, not Done).
 argument-hint: "(optional filter, e.g. a status like 'inprogress')"
-allowed-tools: Read, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__atlassianUserInfo, mcp__atlassian-mariadb__getAccessibleAtlassianResources
+allowed-tools: Read, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__claude_ai_Atlassian_Rovo__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 ---
 
 # /jira-mine

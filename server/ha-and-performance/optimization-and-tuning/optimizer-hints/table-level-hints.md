@@ -204,3 +204,5 @@ WHERE t.n1 = t1.n1 AND t.n2 = t1.n2 AND c1 = 'a' GROUP BY n1;
 ```
 
 As with other hints, users can use `SPLIT_MATERIALIZED()` to force the optimization when it is not chosen by the cost-based optimizer or disabled by default ( `optimizer_switch='split_materialized=off'` ).
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -10,7 +10,7 @@ description: >-
 
 ## Partial Stack Traces in the Error Log
 
-When `mariadbd` crashes, it will write a stack trace in the [error log](../../../server-management/server-monitoring-logs/error-log.md) by default. This is because the [stack\_trace](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-stack-trace) option defaults to `ON`. With a normal release build, this stack trace in the [error log](../../../server-management/server-monitoring-logs/error-log.md) may look something like this:
+When `mariadbd` crashes, it will write a stack trace in the [error log](../../../server-management/server-monitoring-logs/error-log.md) by default. This is because the [stack\_trace](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#stack-trace) option defaults to `ON`. With a normal release build, this stack trace in the [error log](../../../server-management/server-monitoring-logs/error-log.md) may look something like this:
 
 ```
 2019-03-28 23:31:08 0x7ff4dc62d700  InnoDB: Assertion failure in file /home/buildbot/buildbot/build/mariadb-10.2.23/storage/innobase/rem/rem0rec.cc line 574
@@ -408,7 +408,7 @@ podman run --rm --user mysql --volume data:/var/lib/mysql -i mariadb_debug gdb -
 
 ## Running a Copy of the Database Directory
 
-If you are concerned with debuggers running on your production database\
+If you are concerned with debuggers running on your production database
 you can also copy the database to another location.
 
 This is useful when you know which statement crashed the server.

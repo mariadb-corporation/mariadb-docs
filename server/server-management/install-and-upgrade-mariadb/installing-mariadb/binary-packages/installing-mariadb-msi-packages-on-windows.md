@@ -26,7 +26,7 @@ You must accept the terms in the license agreement. Proceed to the next dialog.
 
 ![Custom Setup](../../../../.gitbook/assets/CustomSetupDialog_New.png)
 
-Choose what features to install. By default, all features are installed with the exception of the debug symbols. If the "Database instance" feature is selected, the installer will create a database instance, by default running as a service. In this case the installer will present additional dialogs to control various database properties. Note that you do not necessarily have to create an instance at this stage. For example, if you already have MySQL or MariaDB databases running as services, you can just\
+Choose what features to install. By default, all features are installed with the exception of the debug symbols. If the "Database instance" feature is selected, the installer will create a database instance, by default running as a service. In this case the installer will present additional dialogs to control various database properties. Note that you do not necessarily have to create an instance at this stage. For example, if you already have MySQL or MariaDB databases running as services, you can just
 upgrade them during the installation. Also, you can create additional database instances after the installation, with the [mysql\_install\_db.exe](../installing-system-tables-mariadb-install-db/mariadb-install-db-exe.md) utility.
 
 {% hint style="info" %}
@@ -44,10 +44,10 @@ This dialog is shown if you selected the _Database instance_ feature. Here, you 
 ![Other database properties](../../../../.gitbook/assets/DatabaseProperties_2_New.png)
 
 * Install as service.
-* Defines whether the database should be run as a service. If it should be run as a service, then it also defines the service name. It is recommended to run your database instance as a service as it greatly\
+* Defines whether the database should be run as a service. If it should be run as a service, then it also defines the service name. It is recommended to run your database instance as a service as it greatly
   simplifies database management. In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later, the default service name used by the MSI installer is "MariaDB". In 10.3 and before, the default service name used by the MSI installer is "MySQL". Note that the default service name for the [--install](../../../starting-and-stopping-mariadb/mariadbd-options.md#install) and [--install-manual](../../../starting-and-stopping-mariadb/mariadbd-options.md#install-manual) options for `mysqld.exe` is "MySQL" in all versions of MariaDB.
 * Enable Networking.
-* Whether to enable TCP/IP (recommended) and which port MariaDB should listen to. If security is a concern, you can change the [bind-address](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#bind_address) parameter post-installation to bind to only local addresses. If the "Enable networking" checkbox is deselected, the database will use named pipes for\
+* Whether to enable TCP/IP (recommended) and which port MariaDB should listen to. If security is a concern, you can change the [bind-address](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#bind_address) parameter post-installation to bind to only local addresses. If the "Enable networking" checkbox is deselected, the database will use named pipes for
   communication.
 * InnoDB engine settings.
 * Defines the [InnoDB buffer pool](../../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) size, and the InnoDB [page size](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size). The default buffer pool size is 12.5% of RAM, and depending on your requirements you can give InnoDB more (up to 70-80% RAM). 32 bit versions of MariaDB have restrictions on maximum buffer pool size, which is approximately 1GB, due to virtual address space limitations for 32bit processes. A 16k page size is suitable for most situations. See the [innodb\_page\_size](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size) system variable for details on other settings.
@@ -73,13 +73,13 @@ Installation will add some entries in the Start Menu:
 ![Start Menu](../../../../.gitbook/assets/StartMenu_New.png)
 
 * **MariaDB Client** - Starts command line client mysql.exe.
-* **Command Prompt** - Starts a command prompt. Environment is set such that "bin"\
-  directory of the installation is included into PATH environment variable, for instance,\
+* **Command Prompt** - Starts a command prompt. Environment is set such that "bin"
+  directory of the installation is included into PATH environment variable, for instance,
   use this command prompt to issue MariaDB commands (for example, mysqldadmin or mysql).
 * **Database directory** - Opens the data directory in Explorer.
 * **Error log** - Opens the database error log in Notepad.
 * **my.ini** - Opens the database configuration file my.ini in Notepad.
-* **Upgrade Wizard** - Starts the Wizard to upgrade an existing MariaDB/MySQL\
+* **Upgrade Wizard** - Starts the Wizard to upgrade an existing MariaDB/MySQL
   database instance to this MariaDB version.
 
 ## Uninstall UI
@@ -153,7 +153,7 @@ Features in the MariaDB installer:
 
 All examples here require running as administrator with elevated command line privileges.
 
-* Install default features, database instance as service, non-default datadir\
+* Install default features, database instance as service, non-default datadir
   and port:
 
 ```

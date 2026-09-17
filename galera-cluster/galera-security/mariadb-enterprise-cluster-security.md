@@ -183,16 +183,23 @@ new ssl configuration options (ssl-ca, ssl-cert and ssl-key) are ignored by SST 
 {% endcode %}
 
 {% hint style="info" %}
-**`VERIFY_IDENTITY` binds to host identity.** In `VERIFY_IDENTITY` mode the peer certificate's Common Name or `subjectAltName` must match the hostname or IP address used for the connection (for the Rsync method this is enforced through the stunnel `checkHost`/`checkIP` checks). In clusters where addresses change — cloud auto-scaling, NAT, or container restarts — or where there is no reliable internal DNS, certificates would have to be reissued on every address change. Where that is impractical, use `VERIFY_CA`, which verifies the certificate chain without binding to a specific host identity.
+**`VERIFY_CA` and `VERIFY_IDENTITY` behave differently only for the Rsync SST method.**
+
+For the **Rsync** method (`wsrep_sst_method = rsync`), the two values differ: `VERIFY_CA` verifies the peer's certificate chain against the CA (stunnel `verifyChain`), while `VERIFY_IDENTITY` additionally requires the peer certificate's Common Name or `subjectAltName` to match the connection's hostname or IP address (stunnel `verifyPeer`, with `checkHost`/`checkIP`).
+
+For the **MariaDB Enterprise Backup** method (`wsrep_sst_method = mariabackup`), `VERIFY_CA` and `VERIFY_IDENTITY` are handled **identically**. The SST script only tests whether `ssl-mode` starts with `VERIFY` to decide whether to enable X.509 certificate verification; it does not distinguish the two values. Setting `VERIFY_IDENTITY` with `mariabackup` therefore does not add the host-identity binding that it does with Rsync.
+
+Because host-identity binding applies only under Rsync, clusters whose node addresses change — cloud auto-scaling, NAT, or container restarts — or that lack reliable internal DNS would, under Rsync `VERIFY_IDENTITY`, need certificates reissued on every address change. Where that is impractical, use `VERIFY_CA`.
 {% endhint %}
 
-Identity verification differs by SST method:
+The following table summarizes how each SST method handles the `VERIFY_*` values:
 
-| SST Method    | Peer Identity Check          | Identifier Type                            |
-| ------------- | ---------------------------- | ------------------------------------------ |
-| `mariabackup` | `VERIFY_IDENTITY` (ssl-mode) | hostname / IP                              |
-| `rsync`       | `VERIFY_IDENTITY` (ssl-mode) | hostname / IP (stunnel checkHost/checkIP)  |
-| `mysqldump`   | none by default              | relies on client `ssl-verify-server-cert`  |
+| SST Method                                | `VERIFY_CA`                    | `VERIFY_IDENTITY`                                                                       |
+| ----------------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------- |
+| MariaDB Enterprise Backup (`mariabackup`) | Certificate chain verification | Same as `VERIFY_CA` — no separate host-identity check                                   |
+| Rsync (`rsync`)                           | Certificate chain verification | Chain **plus** hostname/IP identity check (stunnel `verifyPeer`, `checkHost`/`checkIP`) |
+
+The `mysqldump` SST method ignores the `[sst]` `ssl-mode` option entirely. It connects with the ordinary MariaDB client, so its TLS behavior — including whether the server certificate is verified — is governed by the client's own configuration (`ssl-verify-server-cert` or the client `ssl-mode`), not by the `VERIFY_*` values above.
 
 ## Cluster Name Verification
 
@@ -227,3 +234,5 @@ Enabling TLS without downtime relies on two new options implemented for the [wsr
 <table><thead><tr><th width="171.79644775390625">Option</th><th width="110.2978515625">Dynamic</th><th width="102.8104248046875">Default</th><th>Description</th></tr></thead><tbody><tr><td><code>socket.dynamic</code></td><td>No</td><td><code>false</code></td><td><ul><li>When set to <code>true</code>, the node will allow TLS and non-TLS communications at the same time.</li></ul></td></tr><tr><td><code>socket.ssl_reload</code></td><td>Yes</td><td>N/A</td><td><ul><li>When set to <code>true</code> with the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set#global-session">SET GLOBAL</a> statement, Enterprise Cluster dynamically re-initializes its TLS context.</li><li>This is most useful if you need to replace a certificate that is about to expire without restarting the server.</li><li>The paths to the certificate and key files cannot be changed dynamically, so the updated certificates and keys must be placed at the same paths defined by the relevant TLS variables.</li></ul></td></tr></tbody></table>
 
 <br>
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

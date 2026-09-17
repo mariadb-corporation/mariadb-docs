@@ -23,7 +23,7 @@ Prepares next result set from a previous call to [mysql\_stmt\_execute()](mysql_
 
 ## Return Value
 
-Returns zero on success, nonzero if an error occurred.
+Returns zero on success, `-1` if there are no more result sets, and a positive value if an error occurred.
 
 {% hint style="info" %}
 * The function [mysql\_stmt\_store\_result()](mysql_stmt_store_result.md) indicates if further result sets are available.
@@ -34,5 +34,7 @@ Returns zero on success, nonzero if an error occurred.
 
 * [mysql\_stmt\_execute()](mysql_stmt_execute.md)
 * [mysql\_stmt\_store\_result()](mysql_stmt_store_result.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

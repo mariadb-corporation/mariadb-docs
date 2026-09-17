@@ -7,7 +7,7 @@
 For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.11.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3130](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3130) \[merge]\
@@ -71,11 +71,11 @@ modified in that revision.
 * [Revision #3122](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3122)\
   Fri 2012-03-09 15:37:16 -0800
   * Fixed [Bug #930814](https://bugs.launchpad.net/bugs/930814).
-    * This bug was introduced into [mariadb 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) in the December 2010 with\
-      the patch that added a new engine property: the ability to support\
+    * This bug was introduced into [mariadb 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) in the December 2010 with
+      the patch that added a new engine property: the ability to support
       virtual columns.
-    * As a result of this bug the information from frm files for tables\
-      that contained virtual columns did not appear in the information schema\
+    * As a result of this bug the information from frm files for tables
+      that contained virtual columns did not appear in the information schema
       tables.
 * [Revision #3121](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3121)\
   Fri 2012-03-09 14:28:02 +0200
@@ -87,14 +87,14 @@ modified in that revision.
 * [Revision #3119](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3119)\
   Thu 2012-03-08 22:33:01 -0800
   * Fixed [Bug #884175](https://bugs.launchpad.net/bugs/884175).
-  * If in the where clause of the a query some comparison conditions on the\
-    field under a MIN/MAX aggregate function contained constants whose sizes\
-    exceeded the size of the field then the query could return a wrong result\
+  * If in the where clause of the a query some comparison conditions on the
+    field under a MIN/MAX aggregate function contained constants whose sizes
+    exceeded the size of the field then the query could return a wrong result
     when the optimizer had chosen to apply the MIN/MAX optimization.
-  * With such conditions the MIN/MAX optimization still could be applied, yet\
-    it would require a more thorough analysis of the keys built to find\
+  * With such conditions the MIN/MAX optimization still could be applied, yet
+    it would require a more thorough analysis of the keys built to find
     the value of MIN/MAX aggregate functions with index look-ups.
-  * The current patch just prohibits using the MIN/MAX optimization in this\
+  * The current patch just prohibits using the MIN/MAX optimization in this
     situation.
 * [Revision #3118](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3118) \[merge]\
   Tue 2012-03-06 01:48:38 +0100
@@ -120,8 +120,8 @@ modified in that revision.
 * [Revision #3115](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3115)\
   Sat 2012-02-25 17:10:07 -0800
   * Fixed [Bug #939866](https://bugs.launchpad.net/bugs/939866).
-  * The field key\_cache\_mem\_size of the KEY\_CACHE structure must be\
-    initialized in the function init\_key\_cache() and updated in the\
+  * The field key\_cache\_mem\_size of the KEY\_CACHE structure must be
+    initialized in the function init\_key\_cache() and updated in the
     function resize\_key\_cache().
 * [Revision #3114](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3114)\
   Sat 2012-02-25 09:03:06 +0200
@@ -136,7 +136,7 @@ modified in that revision.
     * Problem was a crash in internal temporary (Maria) files when row length exceeded 65535
 * [Revision #3112](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3112)\
   Wed 2012-02-22 00:10:39 -0800
-  * Back-ported the fix and test cases for bugs #59487 and #43368 from\
+  * Back-ported the fix and test cases for bugs #59487 and #43368 from
     the mysql-5.6 code line.
 * [Revision #3111](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3111) \[merge]\
   Tue 2012-02-21 17:48:15 +0200
@@ -173,7 +173,7 @@ modified in that revision.
     Mon 2012-02-20 18:07:38 +0100
     * Fix compilation on Windows, and various Windows related mistakes introduced by\
       "safe exception patch".
-    * Remove misleading comments suggesting about signal() Windows, the routine here\
+    * Remove misleading comments suggesting about signal() Windows, the routine here
       is part of a exception handler, and sig parameter is an exception code.
   * [Revision #2643.127.73](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.127.73)\
     Mon 2012-02-20 17:56:47 +0200
@@ -203,7 +203,7 @@ modified in that revision.
 * [Revision #3104](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3104)\
   Thu 2012-02-16 16:06:49 -0800
   * Fixed [Bug #933117](https://bugs.launchpad.net/bugs/933117).
-  * The bug was fixed with the code back-ported from the patch for [Bug #800184](https://bugs.launchpad.net/bugs/800184)\
+  * The bug was fixed with the code back-ported from the patch for [Bug #800184](https://bugs.launchpad.net/bugs/800184)
     pushed into mariadb-5.3.
 * [Revision #3103](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3103)\
   Sun 2012-02-12 23:02:56 +0100
@@ -219,20 +219,20 @@ modified in that revision.
       * fixes [Bug #930145](https://bugs.launchpad.net/bugs/930145)
       * A recent change in the server protocol code broke SSL connection for some client libraries.
       * Protocol documentation\
-        ([MySQL\_Internals\_ClientServer\_Protocol](https://forge.mysql.com/wiki/MySQL_Internals_ClientServer_Protocol)) says\
-        that initial packet sent by client if client wants SSL, consists of client\
-        capability flags only (4 bytes or 2 bytes edependent on protocol\
-        versionl). Some clients happen to send more in the initial SSL packet (C\
-        client, Python connector), while others (Java, .NET) follow the docs and\
+        ([MySQL\_Internals\_ClientServer\_Protocol](https://forge.mysql.com/wiki/MySQL_Internals_ClientServer_Protocol)) says
+        that initial packet sent by client if client wants SSL, consists of client
+        capability flags only (4 bytes or 2 bytes edependent on protocol
+        versionl). Some clients happen to send more in the initial SSL packet (C
+        client, Python connector), while others (Java, .NET) follow the docs and
         send only client capability flags.
-      * A change that broke Java client was a newly introduced check that frst\
-        client packet has 32 or more bytes. This is generally wrong, if client\
+      * A change that broke Java client was a newly introduced check that frst
+        client packet has 32 or more bytes. This is generally wrong, if client
         capability flags contains CLIENT\_SSL.
-      * Also, fixed the code such that read max client packet size and charset in\
-        the first packet prior to SSL handshake. With SSL, clients do not have to\
+      * Also, fixed the code such that read max client packet size and charset in
+        the first packet prior to SSL handshake. With SSL, clients do not have to
         send this info, they can only send client flags.
-      * This is now fixed such that max packet size and charset are not read prior\
-        to SSL handshake, in case of SSL they are read from the "complete" client\
+      * This is now fixed such that max packet size and charset are not read prior
+        to SSL handshake, in case of SSL they are read from the "complete" client
         authentication packet after SSL initialization.
 * [Revision #3101](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3101)\
   Fri 2012-02-03 12:24:55 +0200
@@ -253,9 +253,9 @@ modified in that revision.
 * [Revision #3097](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3097)\
   Fri 2012-01-20 23:54:43 -0800
   * Fixed [Bug #919427](https://bugs.launchpad.net/bugs/919427).
-  * The function subselect\_uniquesubquery\_engine::copy\_ref\_key has to take into\
-    account that when EXPLAIN is processed the array of store\_key object created\
-    for any TABLE\_REF may contain elements for constant items. These items should\
+  * The function subselect\_uniquesubquery\_engine::copy\_ref\_key has to take into
+    account that when EXPLAIN is processed the array of store\_key object created
+    for any TABLE\_REF may contain elements for constant items. These items should
     be ignored by thefunction.
 * [Revision #3096](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3096)\
   Thu 2012-01-12 20:13:41 +0100
@@ -272,8 +272,8 @@ modified in that revision.
     1. on windows: don't hang when there's no console, that is, \_getch() returns -1.
     2. on windows: \_getch() returns an int, not char.\
        to distinguish between (char)255 and (int)-1
-    3. everywhere. isspace(pos\[-1]) == ' ' never worked,\
-       isspace() returns a boolean, not a char. the never-worked loop was\
+    3. everywhere. isspace(pos\[-1]) == ' ' never worked,
+       isspace() returns a boolean, not a char. the never-worked loop was
        removed to preserve the existing behavior.
 * [Revision #3092](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3092)\
   Fri 2011-12-30 13:57:03 +0100
@@ -284,7 +284,7 @@ modified in that revision.
   * on windows: don't link all plugins with mysqld, only do it for storage engines.
 * [Revision #3090](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3090)\
   Sat 2012-01-14 00:02:02 -0800
-  * Back-ported the test case for bug #12616253 from mariadb-5.3 that\
+  * Back-ported the test case for bug #12616253 from mariadb-5.3 that
     was actually a duplicate of [Bug #888456](https://bugs.launchpad.net/bugs/888456) fixed in mariadb-5.2.
 * [Revision #3089](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3089)\
   Fri 2012-01-13 19:00:50 -0800
@@ -294,8 +294,8 @@ modified in that revision.
   Fri 2012-01-13 12:23:19 -0800
   * Back-ported the test cases for bug #12763207 from mysql-5.6 code line into 5.2
   * Completed the fix for this bug.
-  * Note: in 5.3 the affected 'if' statement in Item\_in\_subselect::single\_value\_transformer()\
-    starting with the condition (thd->variables.sql\_mode & MODE\_ONLY\_FULL\_GROUP\_BY)\
+  * Note: in 5.3 the affected 'if' statement in Item\_in\_subselect::single\_value\_transformer()
+    starting with the condition (thd->variables.sql\_mode & MODE\_ONLY\_FULL\_GROUP\_BY)
     should be removed altogether. The change from table.cc is not needed either.
   * This is because in 5.3
     * min/max transformation for subqueries are done at the optimization phase
@@ -336,40 +336,40 @@ modified in that revision.
 * [Revision #3080](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3080)\
   Thu 2011-12-29 15:09:20 -0800
   * Fixed [Bug #806057](https://bugs.launchpad.net/bugs/806057).
-    * A table expression with a natural join or a USING clause is transformed\
-      into an equivalent expression with equi-join ON conditions. If a reference\
-      to a virtual column happened to occur only in these generated equi-join\
+    * A table expression with a natural join or a USING clause is transformed
+      into an equivalent expression with equi-join ON conditions. If a reference
+      to a virtual column happened to occur only in these generated equi-join
       conditions then it was not erroneously marked in the TABLE::vcol\_set bitmap.
-    * This could lead to wrong results for queries containing natural join\
+    * This could lead to wrong results for queries containing natural join
       expressions or USING clauses.
 * [Revision #3079](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3079)\
   Wed 2011-12-28 18:47:01 -0800
   * Fixed [Bug #777654](https://bugs.launchpad.net/bugs/777654).
-  * The method Item\_sum\_num::fix\_fields() calculated the value of\
+  * The method Item\_sum\_num::fix\_fields() calculated the value of
     the flag Item\_sum\_num::maybe\_null in some cases incorrectly.
 * [Revision #3078](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3078)\
   Tue 2011-12-27 19:13:53 -0800
   * Fixed [Bug #879860](https://bugs.launchpad.net/bugs/879860).
-  * The MIN/MAX optimization cannot be applied to a subquery if its WHERE clause\
+  * The MIN/MAX optimization cannot be applied to a subquery if its WHERE clause
     contains a conjunctive condition depending on an outer reference.
 * [Revision #3077](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3077)\
   Tue 2011-12-27 13:19:13 -0800
   * Fixed [Bug #904345](https://bugs.launchpad.net/bugs/904345).
-  * The MIN/MAX optimizer code from the function opt\_sum\_query erroneously\
-    did not take into account conjunctive conditions that did not depend on\
-    any table, yet were not identified as constant items. These could be\
-    items containing rand() or PS/SP parameters. These items are supposed\
-    to be evaluated at the execution phase. That's why if such conditions\
-    can be extracted from the WHERE condition the MIN/MAX optimization is\
+  * The MIN/MAX optimizer code from the function opt\_sum\_query erroneously
+    did not take into account conjunctive conditions that did not depend on
+    any table, yet were not identified as constant items. These could be
+    items containing rand() or PS/SP parameters. These items are supposed
+    to be evaluated at the execution phase. That's why if such conditions
+    can be extracted from the WHERE condition the MIN/MAX optimization is
     not applied as currently it is always done at the optimization phase.
-  * (In 5.3 expensive subqueries are also evaluated only at the execution\
-    phase. So, if a constant condition with such subquery can be extracted\
-    from the WHERE clause the MIN/MAX optimization should not be applied\
+  * (In 5.3 expensive subqueries are also evaluated only at the execution
+    phase. So, if a constant condition with such subquery can be extracted
+    from the WHERE clause the MIN/MAX optimization should not be applied
     in 5.3.)
-  * IF an IN/ALL/SOME predicate with a constant left part is transformed\
-    into an EXISTS subquery the resulting subquery should not be considered\
+  * IF an IN/ALL/SOME predicate with a constant left part is transformed
+    into an EXISTS subquery the resulting subquery should not be considered
     uncacheable if the right part of the predicate is not uncacheable.
-  * Backported the function dbug\_print\_item() from 5.3. The function is used\
+  * Backported the function dbug\_print\_item() from 5.3. The function is used
     only for debugging.
 * [Revision #3076](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3076) \[merge]\
   Fri 2011-12-23 15:02:57 +0100
@@ -377,9 +377,9 @@ modified in that revision.
   * [Revision #3075.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3075.1.1)\
     Thu 2011-12-22 15:50:33 +0100
     * [Bug #906638](https://bugs.launchpad.net/bugs/906638) : Fixes to build oqgraph with boost 1.48
-      * dijkstra\_shortest\_paths() needs a Graph as first parameter, in case of reverse\_graph we now need to use\
+      * dijkstra\_shortest\_paths() needs a Graph as first parameter, in case of reverse\_graph we now need to use
         its m\_g member
-      * use boost::tuples::tie() on all places where tie() was used . Reason -\
+      * use boost::tuples::tie() on all places where tie() was used . Reason -
         fix the build with Visual Studio 10 SP1 (which includes std:tr1:tie, thus creating ambiguity)
 * [Revision #3075](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3075)\
   Thu 2011-12-22 11:07:04 +0100
@@ -390,15 +390,15 @@ modified in that revision.
 * [Revision #3073](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3073)\
   Tue 2011-12-20 01:56:41 -0800
   * Fixed [Bug #794005](https://bugs.launchpad.net/bugs/794005).
-  * The function st\_table::mark\_virtual\_columns\_for\_write() did not take into\
-    account the fact that for any table the value of st\_table::vfield is 0\
+  * The function st\_table::mark\_virtual\_columns\_for\_write() did not take into
+    account the fact that for any table the value of st\_table::vfield is 0
     when there are no virtual columns in the table definition.
 * [Revision #3072](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3072)\
   Mon 2011-12-19 14:55:30 -0800
   * Fixed [Bug #906322](https://bugs.launchpad.net/bugs/906322).
-  * If the sorted table belongs to a dependent subquery then the function\
-    create\_sort\_index() should not clear TABLE:: select and TABLE::select\
-    for this table after the sort of the table has been performed, because\
+  * If the sorted table belongs to a dependent subquery then the function
+    create\_sort\_index() should not clear TABLE:: select and TABLE::select
+    for this table after the sort of the table has been performed, because
     these members are needed for the second execution of the subquery.
 * [Revision #3071](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3071) \[merge]\
   Tue 2011-12-13 20:08:41 +0200
@@ -420,30 +420,30 @@ modified in that revision.
 * [Revision #3069](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3069)\
   Mon 2011-12-12 12:36:46 +0200
   * Fixed [Bug #900375](https://bugs.launchpad.net/bugs/900375)
-  * The range optimizer incorrectly chose a loose scan for group by\
-    when there is a correlated WHERE condition. This range access\
+  * The range optimizer incorrectly chose a loose scan for group by
+    when there is a correlated WHERE condition. This range access
     method cannot be executed for correlated conditions also with the\
-    "range checked for each record" because generally the range access\
-    method can change for each outer record. Loose scan destructively\
-    changes the query plan and removes the GROUP operation, which will\
-    result in wrong query plans if another range access is chosen\
+    "range checked for each record" because generally the range access
+    method can change for each outer record. Loose scan destructively
+    changes the query plan and removes the GROUP operation, which will
+    result in wrong query plans if another range access is chosen
     dynamically.
 * [Revision #3068](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3068)\
   Thu 2011-12-08 12:05:52 +0200
   * Fixed [Bug #888456](https://bugs.launchpad.net/bugs/888456)
   * Analysis:
-    * The class member QUICK\_GROUP\_MIN\_MAX\_SELECT::seen\_first\_key\
-      was not reset between subquery re-executions. Thus each\
-      subsequent execution continued from the group that was\
-      reached by the previous subquery execution. As a result\
-      loose scan reached end of file much earlier, and returned\
+    * The class member QUICK\_GROUP\_MIN\_MAX\_SELECT::seen\_first\_key
+      was not reset between subquery re-executions. Thus each
+      subsequent execution continued from the group that was
+      reached by the previous subquery execution. As a result
+      loose scan reached end of file much earlier, and returned
       empty result where it shouldn't.
   * Solution:
-    * Reset seen\_first\_key before each re-execution of the\
+    * Reset seen\_first\_key before each re-execution of the
       loose scan.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -29,4 +29,6 @@ Returns number of fields.
 * [mysql\_fetch\_field()](mysql_fetch_field.md)
 * [mysql\_field\_count()](mysql_field_count.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

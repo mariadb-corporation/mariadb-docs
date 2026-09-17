@@ -75,6 +75,18 @@ Complete binary log maintenance: `PURGE BINARY LOGS`/`RESET MASTER`, `expire_log
 
 {% columns %}
 {% column %}
+{% content-ref url="row-binlog-events.md" %}
+[row-binlog-events.md](row-binlog-events.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+The `Row_log_event` structure that row-based logging writes to the binary log, and the event types it uses to record inserts, updates, and deletes.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="../../../ha-and-performance/standard-replication/innodb-based-binary-log.md" %}
 [innodb-based-binary-log.md](../../../ha-and-performance/standard-replication/innodb-based-binary-log.md)
 {% endcontent-ref %}
@@ -148,3 +160,5 @@ Learn techniques to bypass specific replication events. This guide explains how 
 [^1]: DML (Data Manipulation Language): The subset of SQL commands used to add, modify, retrieve, or delete data within existing database tables.
 
 [^2]: DDL (Data Definition Language): The subset of SQL commands used to create, modify, or destroy the structure of database objects (like tables, indexes, and databases) rather than the data itself.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -1,3 +1,9 @@
+---
+description: >-
+  mariadb-show shows the structure of a MariaDB database: its databases,
+  tables, columns, and indexes.
+---
+
 # mariadb-show
 
 Shows the structure of a MariaDB database (databases, tables, columns and indexes).

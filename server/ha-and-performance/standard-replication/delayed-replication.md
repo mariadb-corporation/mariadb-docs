@@ -11,10 +11,10 @@ description: >-
 The terms _master_ and _slave_ have historically been used in replication, and MariaDB has begun the process of adding _primary_ and _replica_ synonyms. The old terms will continue to be used to maintain backward compatibility - see [MDEV-18777](https://jira.mariadb.org/browse/MDEV-18777) to follow progress on this effort.
 {% endhint %}
 
-Delayed replication allows specifying that a replica should lag\
-behind the primary by (at least) a specified amount of time (specified in seconds). Before executing\
-an event, the replica will first wait, if necessary, until the given time has\
-passed since the event was created on the primary. The result is that the\
+Delayed replication allows specifying that a replica should lag
+behind the primary by (at least) a specified amount of time (specified in seconds). Before executing
+an event, the replica will first wait, if necessary, until the given time has
+passed since the event was created on the primary. The result is that the
 replica will reflect the state of the primary some time back in the past.
 
 The default is zero, or no delay, and the maximum value is 2147483647, or about 68 years.
@@ -39,10 +39,10 @@ MariaDB 10.6 ES and 11.6 introduced new variables to measure replication lag. Th
 
 ## Fields in [SHOW SLAVE STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-status.md) are associated with delayed replication
 
-1. `SQL_Delay`: This is the value specified by MASTER\_DELAY in CHANGE MASTER\
+1. `SQL_Delay`: This is the value specified by MASTER\_DELAY in CHANGE MASTER
    (or 0 if none).
-2. `SQL_Remaining_Delay`: When the replica is delaying the execution of an event\
-   due to MASTER\_DELAY, this is the number of seconds of delay remaining before\
+2. `SQL_Remaining_Delay`: When the replica is delaying the execution of an event
+   due to MASTER\_DELAY, this is the number of seconds of delay remaining before
    the event will be applied. Otherwise, the value is NULL.
 3. `Seconds_Behind_Master`:
 
@@ -55,19 +55,19 @@ MariaDB 10.6 ES and 11.6 introduced new variables to measure replication lag. Th
     To expand more on this check a practical example in the comments.
 * If not using parallel replication the value is updated when starting to execute an event. The value is set to: `clock_time_on_slave - clock_when_started_execution_of_the_event_on_master - clock_difference_between_master_and_slave`. Note that in this case the clock is at start of event, not at end of event like in parallel replication.
 
-1. `Slave_SQL_Running_State`: This shows the state of the SQL driver threads,\
-   same as in [SHOW PROCESSLIST](../../reference/sql-statements/administrative-sql-statements/show/show-processlist.md). When the replica is delaying the execution of an\
-   event due to MASTER\_DELAY, this fields displays: "Waiting until MASTER\_DELAY\
+1. `Slave_SQL_Running_State`: This shows the state of the SQL driver threads,
+   same as in [SHOW PROCESSLIST](../../reference/sql-statements/administrative-sql-statements/show/show-processlist.md). When the replica is delaying the execution of an
+   event due to MASTER\_DELAY, this fields displays: "Waiting until MASTER\_DELAY
    seconds after master executed event".
 
 When using older versions prior to [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3), a 3rd party tool called [pt-slave-delay](https://www.percona.com/doc/percona-toolkit/LATEST/pt-slave-delay.html) can be used. It is part of the Percona Toolkit. Note that pt-slave-delay does not support MariaDB multi-channel replication syntax.
 
 ## clock\_difference\_between\_master\_and\_slave
 
-When setting up a master and slaves it is important that the internal clock has the same\
+When setting up a master and slaves it is important that the internal clock has the same
 configuration. In almost all unix systems the internal clock is in UTC by default. On Windows system it may be in local time. This should be changed to be in UTC if one uses MariaDB with replication!
 
-In addition to being in UTC, one should ensure that the clocks are synchronized. If not\
+In addition to being in UTC, one should ensure that the clocks are synchronized. If not
 properly synchronized, there is a gap between the values of the clocks between different machines. MariaDB replication takes this into account by comparing the master and slave clocks when the slave connects to the master. The difference is `clock_difference_between_master_and_slave`.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

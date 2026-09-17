@@ -143,6 +143,6 @@ Incorporate the `save_brm` command into your data import scripts (e.g., those us
 
 Refer to the MariaDB ColumnStore Backup Script for an example implementation.​
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

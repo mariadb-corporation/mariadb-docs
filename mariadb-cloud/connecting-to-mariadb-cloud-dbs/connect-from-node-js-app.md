@@ -75,7 +75,7 @@ Determine the [connection information](./) for your MariaDB Cloud database servi
 
 ## Code Example: Connecting
 
-The following code example connects using the database and user account created in the [example setup](https://mariadb.com/docs/server/connect/programming-languages/c/example-setup/):
+The following code example connects using the [example database and user account](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/setup-for-examples):
 
 ```jsx
 const mariadb = require('mariadb/callback');
@@ -225,3 +225,5 @@ main();
 * In the `try` block, create a new connection using the `mariadb#createConnection(options)` function in the Promise API.
 * Send error messages, if any, to the console in the `catch` block.
 * When you are done with a connection, close it to free resources. Close the connection using the `close()` function.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

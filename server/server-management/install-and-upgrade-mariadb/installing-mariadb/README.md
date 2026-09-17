@@ -82,3 +82,5 @@ A guide to diagnosing and resolving common installation and connection problems,
 Step-by-step instructions for deploying MariaDB on IBM Cloud Kubernetes Service, including provisioning clusters and configuring storage.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

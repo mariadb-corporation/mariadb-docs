@@ -66,3 +66,5 @@ Understand the NOCOPY algorithm, which avoids rebuilding the clustered index for
 A focused guide on the Instant ADD COLUMN feature, explaining how it works by modifying metadata and its advantages over traditional table-rebuilding methods.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

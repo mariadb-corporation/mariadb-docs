@@ -498,3 +498,5 @@ Optimize subqueries in MariaDB Server for improved performance. This section pro
 Learn about table elimination for query optimization in MariaDB Server. This section explains how the optimizer removes unnecessary tables from query plans, improving performance.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

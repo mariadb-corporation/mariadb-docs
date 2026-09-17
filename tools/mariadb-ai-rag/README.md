@@ -21,6 +21,6 @@ MariaDB AI RAG is an all-in-one, enterprise-ready solution that handles the enti
 
 For detailed information on each component, please refer to the specific documentation sections.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

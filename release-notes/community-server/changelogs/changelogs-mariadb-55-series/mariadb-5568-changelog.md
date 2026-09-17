@@ -1,6 +1,6 @@
 # MariaDB 5.5.68 Changelog
 
-[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/5.5/5.5.68.md)[Changelog](mariadb-5568-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/5.5/5.5.68.md)[Changelog](mariadb-5568-changelog.md)\[[Overview of 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/5.5.68/)
 
@@ -8,7 +8,7 @@
 
 For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.68.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details
 of the revision and view diffs of the code modified in that revision.
 
 * [Revision #f20c63264a](https://github.com/MariaDB/server/commit/f20c63264a)\
@@ -89,6 +89,6 @@ of the revision and view diffs of the code modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

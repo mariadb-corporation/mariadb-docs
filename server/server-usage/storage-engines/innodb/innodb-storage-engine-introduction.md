@@ -35,7 +35,7 @@ The InnoDB storage engine:
 | Primary Keys            | Yes                    | InnoDB Primary Keys                                                                                                                                                                      |
 | Auto-Increment          | Yes                    | [InnoDB AUTO\_INCREMENT Columns](auto_increment-handling-in-innodb.md)                                                                                                                   |
 | Sequences               | Yes                    | InnoDB Sequences                                                                                                                                                                         |
-| Foreign Keys            | Yes                    | InnoDB [Foreign Keys](innodb-storage-engine-introduction.md#foreign-key-constraints)                                                                                                     |
+| Foreign Keys            | Yes                    | InnoDB [Foreign Keys](../../../architecture/server-constraints/foreign-key-constraints.md)                                                                                                     |
 | Indexes                 | Yes                    | InnoDB Indexes                                                                                                                                                                           |
 | Secondary Indexes       | Yes                    | InnoDB Secondary Indexes                                                                                                                                                                 |
 | Unique Indexes          | Yes                    | InnoDB Unique Indexes                                                                                                                                                                    |
@@ -109,6 +109,6 @@ AND TABLE_NAME='invoices';
 
 * [InnoDB](./)
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

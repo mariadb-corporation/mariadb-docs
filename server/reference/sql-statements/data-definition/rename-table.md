@@ -86,7 +86,7 @@ Set the lock wait timeout. See [WAIT and NOWAIT](../transactions/wait-and-nowait
 
 ### Privileges
 
-Executing the `RENAME TABLE` statement requires the [DROP](../account-management-sql-statements/grant.md#table-privileges), [CREATE](../account-management-sql-statements/grant.md#table-privileges) and [INSERT](../account-management-sql-statements/grant.md#table-privileges) privileges for the table or the database.
+Executing the `RENAME TABLE` statement requires the [ALTER](../account-management-sql-statements/grant.md#table-privileges) and [DROP](../account-management-sql-statements/grant.md#table-privileges) privileges on the original table, and the [CREATE](../account-management-sql-statements/grant.md#table-privileges) and [INSERT](../account-management-sql-statements/grant.md#table-privileges) privileges on the new table.
 
 ### Atomic RENAME TABLE
 
@@ -106,6 +106,6 @@ There is a small chance that, during a server crash happening in the middle of `
 {% endtab %}
 {% endtabs %}
 
-{% include "../../../.gitbook/includes/license-gplv2-fill-help-tables.md" %}
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

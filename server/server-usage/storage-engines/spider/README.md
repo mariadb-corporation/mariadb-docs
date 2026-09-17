@@ -186,3 +186,5 @@ Explore Spider functions in MariaDB Server. Learn about the specialized function
 Frequently asked questions about Spider, covering troubleshooting common errors, configuration best practices, and architectural questions regarding HA and sharding.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

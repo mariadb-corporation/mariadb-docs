@@ -33,3 +33,5 @@ description: >-
 - [UUID\_v4](uuid_v4.md)
 - [UUID\_v7](uuid_v7.md)
 - [VALUES / VALUE](values-value.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

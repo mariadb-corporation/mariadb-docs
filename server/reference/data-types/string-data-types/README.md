@@ -545,3 +545,5 @@ The XMLTYPE data type, available from MariaDB 12.3, for storing XML data.
 Learn about character sets in MariaDB Server. This section details how different character sets and collations impact string storage, comparison, and sorting within your database.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

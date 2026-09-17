@@ -7,6 +7,10 @@ description: >-
 
 # OQGRAPH
 
+{% hint style="info" %}
+OQGRAPH is a community contribution to MariaDB Server, developed and maintained by its contributors: Arjen Lentz and Antony T Curtis of Open Query, and Andrew McDonnell.
+{% endhint %}
+
 {% columns %}
 {% column %}
 {% content-ref url="oqgraph-overview.md" %}
@@ -66,3 +70,5 @@ Specific instructions and prerequisites for building the OQGRAPH storage engine 
 Practical examples demonstrating how to create OQGRAPH tables and perform graph operations like finding shortest paths and leaf nodes.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

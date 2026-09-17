@@ -31,7 +31,46 @@ While hardware failures are a possibility, a more common scenario we see in prac
 
 Behind the scenes, MariaDB Cloud consistently directs SQL through its intelligent proxy. This proxy not only continuously monitors servers for failures but also remains acutely aware of any replication lags in the replica servers. Should a primary server fail, an immediate election process ensues to select a replica with the least lag. Simultaneously, attempts are made to flush any pending events, ensuring synchronization and full data consistency. Any pending transactions on the primary server are also replayed. Collectively, these measures enable applications to operate without connection-level interruptions or SQL exceptions. Achieving heightened levels of High Availability (HA) is effortlessly attainable by expanding the number of replicas. Replication can even extend across different cloud providers or to a self-managed (ˮpeace of mindˮ) replica within a customerʼs own environment.
 
-<figure><img src="../.gitbook/assets/HA_in_single_region.drawio.png" alt=""><figcaption></figcaption></figure>
+```mermaid
+flowchart TD
+    accTitle: HA within a single region
+    accDescr {
+      Architecture diagram of MariaDB Cloud High Availability within a single cloud region, split into Availability Zone 1 and Availability Zone 2.
+      In Availability Zone 1: a Data Center Storage Server holds the primary disk and is bidirectionally connected to the primary MariaDB Server pod; the storage server keeps a redundant copy of the disk on a second Data Center Storage Server (relationship 1). If the primary MariaDB Server pod's instance fails, it is auto-recovered into a new pod within the same zone (relationship 2, shown dashed).
+      The SkySQL Intelligent Proxy connects bidirectionally to the primary MariaDB Server and to the App Clients.
+      In Availability Zone 2: a MariaDB Server Replica pod, and a second, standby SkySQL Intelligent Proxy.
+      Relationship 3: if the primary MariaDB Server fails, the SkySQL Intelligent Proxy elects the MariaDB Server Replica in Availability Zone 2 as the new Primary and fails over to it.
+      Relationship 4: the primary SkySQL Intelligent Proxy is itself protected against failure by the second, standby SkySQL Intelligent Proxy in Availability Zone 2.
+    }
+
+    AppClients[App Clients]:::client
+    Proxy1[SkySQL Intelligent Proxy]:::proc
+
+    subgraph AZ1["Availability Zone 1"]
+        Storage1["Data Center<br/>Storage Server"]:::storage
+        Storage2["Data Center<br/>Storage Server"]:::storage
+        DBPrimary[("MariaDB Server")]:::node
+        DBRecovered[("MariaDB Server<br/>(auto-recovered pod)")]:::node
+    end
+
+    subgraph AZ2["Availability Zone 2"]
+        DBReplica[("MariaDB Server<br/>(Replica)")]:::node
+        Proxy2[SkySQL Intelligent Proxy]:::proc
+    end
+
+    Storage1 <--> DBPrimary
+    Storage1 -->|"1. Redundant copy of Disk"| Storage2
+    DBPrimary -.->|"2. Auto recover pod if Instance fails"| DBRecovered
+    DBPrimary <--> Proxy1
+    Proxy1 <--> AppClients
+    Proxy1 -.->|"3. Elect new Primary and fail over if the primary fails"| DBReplica
+    Proxy1 -.->|"4. Protect against proxy failures"| Proxy2
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+```
 
 _HA in a single region_
 
@@ -49,19 +88,19 @@ This model functions optimally when application clients utilize sticky SQL conne
 
 ### Configuring Causal Read in MariaDB Cloud
 
-Causal consistency is configured in the MariaDB Cloud [Configuration Manager](https://app.skysql.com/settings/configuration-manager), under MaxScale Variables (applies to Replicated clusters only). Search for [causal reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#causal_reads).
+Causal consistency is configured in the MariaDB Cloud [Configuration Manager](https://app.skysql.com/settings/configuration-manager), under MaxScale Variables (applies to Replicated clusters only). Search for [causal reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#causal_reads).
 
 <figure><img src="../.gitbook/assets/causal.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-We do not advise adjusting `causal_reads` unless absolutely necessary. Adjust the [max\_slave\_replication\_lag](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#max_slave_replication_lag), which determines the max lag > for any read. The load balancer will only route to slaves with a lag less than this value. By default, this is unbounded. Make sure none of the replicas ever cross 70-80% CPU in a sustained manner.
+We do not advise adjusting `causal_reads` unless absolutely necessary. Adjust the [max\_slave\_replication\_lag](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#max_slave_replication_lag), which determines the max lag > for any read. The load balancer will only route to slaves with a lag less than this value. By default, this is unbounded. Make sure none of the replicas ever cross 70-80% CPU in a sustained manner.
 {% endhint %}
 
 In general, if the application is not performing large transactions or batch writes, given our default semi-sync replication, the replica SQL threads will keep up - i.e., getting an inconsistent read is unlikely.
 
 Our replication model is as fast as it is configured to be parallel and optimistic - on the replica, multiple SQL threads process incoming writes concurrently. It is designed to detect conflicts and revert to proper sequencing, thus being transparent to the app and ensuring consistency.
 
-* Set [causal\_reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-use-cases/readwrite-split-router-usage/ensuring-causal-consistency-with-maxscales-readwrite-split-router) to 'local' to achieve consistency at a connection/session level.
+* Set [causal\_reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-readwritesplit#causal_reads) to 'local' to achieve consistency at a connection/session level.
   * We recommend first exploring to see if `causal_reads` set to `local` will suffice. This is quite fast (minimal to no tradeoff) and ensures read consistency at a connection/session level. If the app is using a connection pool, it is important to understand how it is being used.
   * Example: A banking app lets a user transfer $100 between accounts in a single session. The app writes the debit and credit, then reads the updated balances to show the user. The connection pool reuses the same session for the transaction and follow-up read. Replica lag is 500ms, but semi-sync replication and parallel SQL threads keep it minimal. The write (debit $100, credit $100) is committed on the primary. Within the same session, the read on the replica waits for the write to be applied (up to 500ms), then returns the correct balances.
 * Set causal\_reads to 'global' for strict consistency across all connections.
@@ -82,13 +121,9 @@ The implementation of these routing strategies is straightforward, primarily thr
 In MariaDB Cloud, you can control routing using 2 strategies:
 
 * Using the `read port` for the service: Typically, this will be port 3307. When using this port, the request (read\_only) will be load-balanced only across the available replicas.
-* Using the [Hintfilter](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-filters/mariadb-maxscale-2302-hintfilter)
+* Using the [Hintfilter](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-filters/mariadb-maxscale-2302-hintfilter)
 
 ### **Synchronous HA using Enterprise Clusters**
-
-{% hint style="warning" %}
-**Tech Preview Advisory:** MariaDB Enterprise Cluster are currently available as a [_Tech Preview_](../quickstart/enterprise-cluster.md).
-{% endhint %}
 
 While the [standard Replicated topology](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication) utilizes semi-synchronous replication with causal reads, workloads that demand strict data consistency and zero data loss can utilize the [MariaDB Enterprise Cluster topology](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-cluster-quickstart-guides/mariadb-galera-cluster-usage-guide).
 
@@ -97,9 +132,9 @@ The cluster provides [High Availability](https://app.gitbook.com/s/3VYeeVGUV4AMq
 * **Quorum-Based Health:** The cluster maintains a [voting system to prevent split-brain scenarios](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/understanding-quorum-monitoring-and-recovery). A standard 3-node cluster can tolerate the loss of one node; if a node fails, MariaDB MaxScale automatically routes traffic to the remaining healthy nodes without customer intervention.
 
 {% hint style="info" %}
-**Tech Preview Limitation: Single-Writer Routing**&#x20;
+**Single-Writer Routing**&#x20;
 
-During the Tech Preview phase, MariaDB MaxScale is configured to route all write traffic to a **single active writer node** to ensure maximum stability and prevent transaction conflicts. Reads can be load-balanced across the remaining nodes.
+MariaDB MaxScale is configured to route all write traffic to a **single active writer node** to ensure maximum stability and prevent transaction conflicts. Reads can be load-balanced across the remaining nodes.
 {% endhint %}
 
 * **Latency Trade-offs:** Because all nodes must acknowledge a write before it is committed, Enterprise Clusters inherently introduce slight commit latency compared to asynchronous replicas, particularly when spread across multiple Availability Zones.
@@ -116,10 +151,52 @@ The major cloud providers tout disaster recovery across regions, ensuring resili
 
 One effective strategy to mitigate such risks is to replicate data to a data center owned by a different cloud provider within the same geographical area, minimizing network latencies. Disaster recovery across cloud providers is, of course, something an individual provider, such as AWS or GCP, simply doesn't support. Alternatively, customers can maintain their own “standby” database for emergencies—an environment entirely under their control, ensuring a near real-time copy of the data at all times.
 
-<figure><img src="../.gitbook/assets/Failover_to_another_region.drawio.png" alt=""><figcaption></figcaption></figure>
+```mermaid
+flowchart TD
+    accTitle: Failover when an entire region or cloud provider fails
+    accDescr {
+      Architecture diagram of MariaDB Cloud disaster recovery across cloud regions, cloud providers, and on-premises environments.
+      An AWS region hosts the primary MariaDB Server (running as multiple pods, one active). It replicates data (relationship 1) to a MariaDB Server in a Google Cloud region and to a MariaDB Server pod in an on-premises data center.
+      A shield-and-flame icon positioned between the AWS and Google Cloud regions represents the region- or cloud-provider-outage event the diagram illustrates.
+      The primary SkySQL Intelligent Proxy connects bidirectionally to a MariaDB Connector / APPLICATION Client box. A second, standby SkySQL Intelligent Proxy connects to the same client via a dotted failover path (relationship 2): when a region or cloud goes offline, the client fails over to another cloud using DNS or the client connector, following the example JDBC connection string shown alongside: jdbc:mariadb:[sequential://&lt;primary-endpoint&gt;,&lt;alternate-endpoint&gt;...]/[database].
+    }
+
+    subgraph AWSRegion["AWS Region"]
+        DBAWS[("MariaDB Server")]:::node
+    end
+
+    subgraph GCPRegion["Google Cloud Region"]
+        DBGCP[("MariaDB Server")]:::node
+    end
+
+    subgraph OnPrem["On-Prem Data Center"]
+        DBOnPrem[("MariaDB Server")]:::node
+    end
+
+    Outage["Region / cloud provider<br/>outage event"]:::client
+
+    Proxy1[SkySQL Intelligent Proxy]:::proc
+    Proxy2[SkySQL Intelligent Proxy]:::proc
+    ConnectorClient["MariaDB Connector /<br/>APPLICATION Client"]:::client
+    JDBCNote["jdbc:mariadb:[sequential://&lt;primary-endpoint&gt;,&lt;alternate-endpoint&gt;...]/[database]"]:::client
+
+    DBAWS -->|"1. Replicate from Primary to other clouds or on-prem DC"| DBGCP
+    DBAWS --> DBOnPrem
+
+    Proxy1 <--> ConnectorClient
+    Proxy2 -.->|"2. Fail over using DNS or client connector"| ConnectorClient
+    ConnectorClient -.- JDBCNote
+
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
+    classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+```
 
 _Failover when the entire region becomes unavailable_
 
 MariaDB Cloud empowers users to configure “external” replicas that can run anywhere, offering flexibility and resilience.
 
 To facilitate this, MariaDB Cloud provides several built-in stored procedures for configuring both “outbound” and “inbound” replication to any compatible MariaDB or MySQL server environment. This flexibility allows users to tailor their disaster recovery strategy based on their specific needs, whether replicating across regions, cloud providers, or maintaining self-managed standby environments.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

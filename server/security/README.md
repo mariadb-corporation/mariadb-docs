@@ -79,3 +79,5 @@ The ability to limit the size of created disk temporary files and tables was int
 Lists of Security Vulnerabilities (CVE) fixed in MariaDB products.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

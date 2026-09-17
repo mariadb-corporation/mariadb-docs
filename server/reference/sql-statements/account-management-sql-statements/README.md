@@ -45,6 +45,18 @@ Complete guide to creating MariaDB user accounts. Complete CREATE USER syntax fo
 
 {% columns %}
 {% column %}
+{% content-ref url="deny.md" %}
+[deny.md](deny.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Block a privilege outright. Learn how a deny overrides every grant at every level, and how to lift one again with REVOKE DENY.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="drop-role.md" %}
 [drop-role.md](drop-role.md)
 {% endcontent-ref %}
@@ -150,3 +162,5 @@ Impersonate another user for the current session. Learn how to assume the identi
 Sets the current role for the session. Learn how to enable none, or a specific role to change your current privileges dynamically.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -10,8 +10,14 @@ description: >-
 
 The version of the script is a date, which you can display by running the script with the `--version` option. The changes made in each version are listed below, reproduced from the changelog comments at the top of the script. For the checksum of each released version, see the [Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) section of the setup and usage page.
 
+* **2026-09-15**
+  * Add MariaDB Enterprise Server 12.3
+  * Accept 12.3 as a --mariadb-server-version value, as the series on its own or as a specific \<version>-\<release>
+  * Add SLES 16, which 12.3 is the first release to ship; it uses the 2025 signing key, and has no Enterprise Tools repository, the same as RHEL 10 and Debian 13
+  * Skip the Server repo on Debian 11 (bullseye) and SLES 12 when 12.3 is requested; neither is built for 12.3
+  * Name Alma and Oracle in the supported OS list; both were already detected, they just were not mentioned
 * **2026-06-30**
-  * TODO-3939 Write Deb822 (mariadb.sources) format by default; add --list flag to force the old one-line .list format; this option is for Debian/Ubuntu only, it has no effect when used on other systems
+  * Write Deb822 (mariadb.sources) format by default; add --list flag to force the old one-line .list format; this option is for Debian/Ubuntu only, it has no effect when used on other systems
   * Store the signing key at /etc/apt/keyrings/mariadb-keyring.gpg and reference it via Signed-By; remove old trusted.gpg.d key (if it exists) on --apply
   * Disable any pre-existing old-format apt source file (mariadb.list or mariadb.sources) to avoid apt "configured multiple times" errors after OS upgrades
   * Accept 'latest' as a value for the --mariadb-server-version option to get the latest version of MariaDB Enterprise; WARNING: Using this option in production could result in an unintended upgrade to a higher series of MariaDB Enterprise Server when a new GA series is released, using 'latest' is mainly useful for automated testing; 'latest-LTS' is also supported because that is a valid value for the same option when using the Community Server `mariadb_repo_setup` script, but here it is treated only as a synonym of 'latest', as Enterprise Server only has LTS releases
@@ -24,7 +30,7 @@ The version of the script is a date, which you can display by running the script
   * Add error message handling for MaxScale repository failures
   * Re-enable MaxScale repository for RHEL 10
   * Fix Keyring and legacy Tools repo URLs
-  * Fix key_urls variable copying
+  * Fix key\_urls variable copying
 * **2026-03-10**
   * Fix Enterprise Tools repo selection on aarch64
   * Add --ignore-missing to checksum verify example because the checksum file includes more than just the repo setup script
@@ -182,6 +188,6 @@ The version of the script is a date, which you can display by running the script
 * **2018-12-24**
   * Update to MaxScale Version 2.3
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

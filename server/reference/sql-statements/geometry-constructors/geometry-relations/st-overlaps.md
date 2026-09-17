@@ -16,7 +16,7 @@ ST_OVERLAPS(g1,g2)
 
 Returns `1` or `0` to indicate whether geometry _`g1`_ spatially overlaps geometry _`g2`_.
 
-The term spatially overlaps is used if two geometries of equal dimensions intersect and their\
+The term spatially overlaps is used if two geometries of equal dimensions intersect and their
 intersection results in a geometry of the same dimension but not equal to either of the given geometries.
 
 `ST_OVERLAPS()` uses object shapes, while [OVERLAPS()](overlaps.md), based on the original MySQL implementation, uses object bounding rectangles.

@@ -298,7 +298,7 @@ For those reasons, I started this discussion with a wide margin (10 rows versus 
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [datawarehouse](https://mysql.rjweb.org/doc.php/datawarehouse)

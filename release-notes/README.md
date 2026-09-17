@@ -6,6 +6,10 @@ description: >-
 
 # MariaDB Release Notes
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-release-notes.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-release-notes.pdf) (~5,700 pages, 93 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 Release dates for upcoming MariaDB Enterprise Server releases can be found [here](enterprise-server/about/enterprise-server-release-schedule.md#next-scheduled-releases). Release dates for MariaDB Community Server releases can be found [on Jira](https://jira.mariadb.org/).
 
 ## MariaDB Server Release Notes
@@ -52,6 +56,6 @@ Release dates for upcoming MariaDB Enterprise Server releases can be found [here
 [mcp-server-release-notes](mcp-server-release-notes/)
 {% endcontent-ref %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

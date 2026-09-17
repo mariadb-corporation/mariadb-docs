@@ -32,3 +32,5 @@ description: >-
 - [System Variables Added in MariaDB 10.0](system-variables-added-in-mariadb-100.md)
 - [Status Variables Added in MariaDB 10.0](status-variables-added-in-mariadb-100.md)
 - [System Variables Added in MariaDB 5.5](system-variables-added-in-mariadb-55.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -42,11 +42,10 @@ Do not proceed to write until the space and location are settled. Operate within
   deliberately (this is independent of where the page sits in `SUMMARY.md`).
 - Place the file in the appropriate subdirectory of the space (see the space's sub-structure in
   `dev-docs/space-map.md`). SQL/reference content lives under `server/reference/`.
-- **Refuse to create pages** in non-space directories: `mariadb-platform/` and
-  `.gitbook/includes/` are for **include snippets** (use those only when the task is explicitly
-  a reusable include), and `help-tables/` is generated. See `dev-docs/space-map.md` ›
-  *Non-space directories*. **Don't confuse `mariadb-platform/` (includes-only, no nav) with the
-  `platform/` space** (MariaDB Enterprise Platform docs) — Platform pages go in `platform/`.
+- **Refuse to create pages** in non-space directories: `<space>/.gitbook/includes/` holds
+  **include snippets** (use it only when the task is explicitly a reusable include, and only in
+  the space that consumes it — a relative include cannot cross spaces), and `help-tables/` is
+  generated. See `dev-docs/space-map.md` › *Reusable includes*.
 - Confirm the path doesn't already exist (`ls`/`git ls-files`).
 
 ## 2. Write the page
@@ -128,7 +127,10 @@ can adjust.
 ## Guardrails
 
 - One space at a time; never fan out across spaces.
-- Never author standalone pages in `mariadb-platform/`, `.gitbook/includes/`, or `help-tables/`.
-- Never expand `{alias}` links or paste raw `app.gitbook.com` URLs.
+- Never author standalone pages in `<space>/.gitbook/includes/` or `help-tables/`.
+- Never expand `{alias}` links or paste raw `app.gitbook.com` URLs. (The one legitimate raw
+  `app.gitbook.com` form is a cross-space reusable include,
+  `{% include "https://app.gitbook.com/s/<spaceId>/~/reusable/<reusableId>/" %}`, which has no
+  alias equivalent.)
 - Don't invent facts — if the page needs technical content you can't verify, leave a clearly
   marked `<!-- TODO: confirm ... -->` and tell the user.

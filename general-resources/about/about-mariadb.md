@@ -22,6 +22,6 @@ The MariaDB Foundation is a non-profit organization that acts as the global cont
 
 For more information, visit [mariadb.org](http://mariadb.org).\
 
-
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

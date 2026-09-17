@@ -63,7 +63,7 @@ spec:
   # [...]
 ```
 
-In the case of `MariaDB`, it is recommended to set the `innodb_buffer_pool_size` system variable to a value that is 70-80% of the available memory. This can be done via the [myCnf field](configuration.md#mycnf):
+In the case of `MariaDB`, it is recommended to set the `innodb_buffer_pool_size` system variable to a value that is 70-80% of the available memory. This can be done via the [myCnf field](configuration.md#my.cnf):
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -246,6 +246,6 @@ spec:
 
 There isn't an universally correct default value for these thresholds, so we recommend determining your own based on factors like the compute resources, network, storage, and other aspects of the environment where your `MariaDB` and `MaxScale` instances are running.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

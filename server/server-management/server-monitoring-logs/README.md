@@ -154,3 +154,5 @@ Explains the Transaction Coordinator Log (tc.log), used to maintain consistency 
 Instructions on directing the General Query Log and Slow Query Log to tables (`mysql.general_log`, `mysql.slow_log`) instead of files using the `log_output=TABLE` system variable.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

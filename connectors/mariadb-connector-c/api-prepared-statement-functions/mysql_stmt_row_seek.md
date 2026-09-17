@@ -28,12 +28,14 @@ Positions the row cursor to an arbitrary row in a result set which was obtained 
 Returns the previous row offset.
 
 {% hint style="info" %}
-The result set must be obtained by [mysql\_use\_result()](../api-functions/mysql_use_result.md).
+The result set must be obtained by [mysql\_stmt\_store\_result()](mysql_stmt_store_result.md).
 {% endhint %}
 
 ## See Also
 
 * [mysql\_stmt\_row\_tell()](mysql_stmt_row_tell.md)
 * [mysql\_stmt\_store\_result](mysql_stmt_store_result.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

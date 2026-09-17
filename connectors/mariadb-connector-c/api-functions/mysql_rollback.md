@@ -33,4 +33,6 @@ Returns zero on success, nonzero if an error occurred.
 * [mysql\_commit()](mysql_commit.md)
 * [mysql\_autocommit()](mysql_autocommit.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

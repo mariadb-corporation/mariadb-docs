@@ -16,7 +16,7 @@ CREATE TABLE cust ENGINE=CONNECT table_type=DBF file_name='cust.dbf';
 
 To see what CONNECT has done, you can use the `DESCRIBE` or `SHOW CREATE TABLE` statements, and eventually modify some options with the `ALTER TABLE` statement.
 
-The case of deleted lines is handled in a specific way for DBF tables. Deleted lines are not removed from the file but are "soft deleted" meaning they are marked as deleted. In particular, the number of lines contained in the file header does not take care of soft deleted lines. This is why if you execute\
+The case of deleted lines is handled in a specific way for DBF tables. Deleted lines are not removed from the file but are "soft deleted" meaning they are marked as deleted. In particular, the number of lines contained in the file header does not take care of soft deleted lines. This is why if you execute
 these two commands applied to a DBF table named _tabdbf_:
 
 ```sql

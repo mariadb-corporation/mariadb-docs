@@ -48,3 +48,5 @@ The `wsrep_certificate_expiration_hours_warning` system variable can be used to 
 | Minimum Value         | 0                                                  |
 | Maximum Value         | 18446744073709551615                               |
 | Product Default Value | 0                                                  |
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

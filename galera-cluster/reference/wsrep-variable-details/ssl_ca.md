@@ -22,3 +22,5 @@ CA file in PEM format (check OpenSSL docs, implies --ssl).
 | Scope                 | Global                 |
 | Data Type             | VARCHAR                |
 | Product Default Value | "" _(an empty string)_ |
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

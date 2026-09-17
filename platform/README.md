@@ -1,5 +1,9 @@
 # MariaDB Enterprise Platform
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-platform.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-platform.pdf) (~500 pages, 4.5 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 ### What is MariaDB Enterprise Platform? <a href="#what-is-mariadb-enterprise-platform" id="what-is-mariadb-enterprise-platform"></a>
 
 MariaDB Enterprise Platform is designed to deliver best-in-class performance, data security, replication, clustering, and high availability for production workloads in any cloud environment, including private, public, hybrid, or multicloud setups. It empowers modern data strategies with an end-to-end database solution, ensuring consistent performance and unwavering stability for mission-critical applications in demanding environments. The platform simplifies the data landscape by running all workloads in a single, robust MariaDB environment, powered by open-source technology and fortified with enterprise-grade reliability, security, and support.
@@ -71,3 +75,5 @@ In January 2025, Platform 2025 was released. Platform 2026, released in October 
 |                                    | Storage Engines Overview               | Comprehensive guide to all available storage engines in MariaDB.                                                                                                                                                                                                              | [Link](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines)                       |
 
 These components collectively empower MariaDB Enterprise Platform to cater to diverse database management needs, from transactional operations to data analytics and enterprise-grade security.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -102,3 +102,5 @@ Explore temporal tables in MariaDB Server. This section details how to manage da
 Explore vector data types. This section details how to store and manage numerical arrays, enabling efficient vector similarity search and machine learning applications within your database.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

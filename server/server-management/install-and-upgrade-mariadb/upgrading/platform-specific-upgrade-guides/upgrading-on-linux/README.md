@@ -43,3 +43,5 @@ Upgrade between major MariaDB versions, which is normally straightforward thanks
 Step-by-step minor version upgrade (e.g., 11.4.4 to 11.4.5) for MariaDB Community Server on Linux using YUM, APT, or ZYpp — backup, stop, upgrade packages, restart, and run mariadb-upgrade.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

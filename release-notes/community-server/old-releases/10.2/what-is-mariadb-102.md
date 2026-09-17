@@ -43,7 +43,7 @@ The following lists the major new features in [MariaDB 10.2](what-is-mariadb-102
 
 ### Incompatible Changes
 
-* [TokuDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/legacy-storage-engines/tokudb) has been split into a separate package, mariadb-plugin-tokudb.
+* TokuDB has been split into a separate package, mariadb-plugin-tokudb.
 * [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) has been changed; in particular, NOT NULL fields with no default will no longer fall back to a dummy value for inserts which do not specify a value for that field.
 * Replication from legacy MySQL servers may require setting [binlog\_checksum](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables) to NONE.
 * New [reserved words](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/reserved-words): OVER, RECURSIVE, and ROWS.
@@ -118,7 +118,7 @@ For a list of all new system variables, see [System Variables Added in MariaDB 1
 * Default value of [group\_concat\_max\_len](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#group_concat_max_len) changed to 1M ([MDEV-7635](https://jira.mariadb.org/browse/MDEV-7635))
 * Default value of [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#sql_mode) changed to STRICT\_TRANS\_TABLES,ERROR\_FOR\_DIVISION\_BY\_ZERO,NO\_AUTO\_CREATE\_USER,NO\_ENGINE\_SUBSTITUTION ([MDEV-7635](https://jira.mariadb.org/browse/MDEV-7635)) ([MariaDB 10.2.4](10.2.4.md) and later)
 * Default value of [innodb\_compression\_algorithm](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables) changed to `zlib` - this does not mean pages are now compressed by default, see [compression](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-page-compression) ([MDEV-11838](https://jira.mariadb.org/browse/MDEV-11838))
-* Default value of [innodb\_log\_compressed\_pages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables) changed to `ON` from [MariaDB 10.1.2](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-2-release-notes) to [MariaDB 10.1.25](../10.1/10.1.25.md) ([MDEV-7635](https://jira.mariadb.org/browse/MDEV-7635) and [MDEV-13247](https://jira.mariadb.org/browse/MDEV-13247))
+* Default value of [innodb\_log\_compressed\_pages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables) changed to `ON` from [MariaDB 10.1.2](../10.1/10.1.2.md) to [MariaDB 10.1.25](../10.1/10.1.25.md) ([MDEV-7635](https://jira.mariadb.org/browse/MDEV-7635) and [MDEV-13247](https://jira.mariadb.org/browse/MDEV-13247))
 * Default value of [innodb\_use\_atomic\_writes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables) and [innodb\_use\_trim](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables) changed to `ON`
 * The unused [innodb\_api\_\*](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables) variables have been removed ([MDEV-12050](https://jira.mariadb.org/browse/MDEV-12050))
 * [tmp\_disk\_table\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#tmp_disk_table_size) was added to allow one to limit the size of temporary disk tables stored in tmpdir. At the same time [tmp\_memory\_table\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#tmp_memory_table_size) was added an alias for [tmp\_table\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#tmp_table_size). At some point we plan to deprecate `tmp_table_size`. ([MariaDB 10.2.7](10.2.7.md) and later).
@@ -130,7 +130,7 @@ For a list of all new status variables, see [Status Variables Added in MariaDB 1
 ### Scripts
 
 * Continuous binary log backup has been added to [mysqlbinlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/logging-tools/mariadb-binlog) ([MDEV-8713](https://jira.mariadb.org/browse/MDEV-8713))
-* [mysql\_zap](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_zap) and mysqlbug have been removed ([MDEV-7376](https://jira.mariadb.org/browse/MDEV-7376), [MDEV-8654](https://jira.mariadb.org/browse/MDEV-8654))
+* mysql\_zap and mysqlbug have been removed ([MDEV-7376](https://jira.mariadb.org/browse/MDEV-7376), [MDEV-8654](https://jira.mariadb.org/browse/MDEV-8654))
 
 ### Other Changes
 
@@ -145,8 +145,8 @@ For a list of all new status variables, see [Status Variables Added in MariaDB 1
 
 #### Security Vulnerabilities Fixed in [MariaDB 10.2](what-is-mariadb-102.md)
 
-For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
+For a complete list of security vulnerabilities (CVEs) fixed across all
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)
 page.
 
 * [CVE-2022-32088](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32088): [MariaDB 10.2.44](10.2.44.md)
@@ -339,7 +339,7 @@ page.
 | 24 Dec 2016 | [MariaDB 10.2.3](10.2.3.md)                                                                                                                                               | Beta        | [Release Notes](10.2.3.md)                                                                                                                    | [Changelog](../../changelogs/changelogs-mariadb-102-series/mariadb-1023-changelog.md)  |
 | 27 Sep 2016 | [MariaDB 10.2.2](10.2.2.md)                                                                                                                                               | Beta        | [Release Notes](10.2.2.md)                                                                                                                    | [Changelog](../../changelogs/changelogs-mariadb-102-series/mariadb-1022-changelog.md)  |
 | 4 Jul 2016  | [MariaDB 10.2.1](10.2.1.md)                                                                                                                                               | Alpha       | [Release Notes](10.2.1.md)                                                                                                                    | [Changelog](../../changelogs/changelogs-mariadb-102-series/mariadb-1021-changelog.md)  |
-| 18 Apr 2016 | [MariaDB 10.2.0](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-2-series/mariadb-1020-release-notes) | Alpha       | [Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-2-series) | [Changelog](../../changelogs/changelogs-mariadb-102-series/mariadb-1020-changelog.md)  |
+| 18 Apr 2016 | [MariaDB 10.2.0](10.2.0.md) | Alpha       | [Release Notes](./) | [Changelog](../../changelogs/changelogs-mariadb-102-series/mariadb-1020-changelog.md)  |
 
 ## See Also
 
@@ -349,6 +349,6 @@ page.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

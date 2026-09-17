@@ -212,7 +212,7 @@ SHOW WARNINGS;
 3 rows in set (0.00 sec)
 ```
 
-* The [DATA DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) table option is set, but the [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) system variable is not set to `ON`.
+* The [DATA DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) table option is set, but the [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) system variable is not set to `ON`.
 
 ```sql
 SET GLOBAL innodb_file_per_table=OFF;
@@ -236,7 +236,7 @@ SHOW WARNINGS;
 3 rows in set (0.000 sec)
 ```
 
-* The [DATA DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) table option is set, but the table is a [temporary table](../../../reference/sql-statements/data-definition/create/create-table.md#create-temporary-table).
+* The [DATA DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) table option is set, but the table is a [temporary table](../../../reference/sql-statements/data-definition/create/create-table.md#create-temporary-table).
 
 ```sql
 SET SESSION innodb_strict_mode=ON;
@@ -259,7 +259,7 @@ SHOW WARNINGS;
 3 rows in set (0.000 sec)
 ```
 
-* The [INDEX DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) table option is set.
+* The [INDEX DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) table option is set.
 
 ```sql
 SET SESSION innodb_strict_mode=ON;
@@ -282,7 +282,7 @@ SHOW WARNINGS;
 3 rows in set (0.000 sec)
 ```
 
-* The [PAGE\_COMPRESSED](innodb-strict-mode.md#page_compressed) table option is set to `1`, so [InnoDB page compression](innodb-page-compression.md) is enabled, but the [ROW\_FORMAT](../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option is set to some row format other than the [COMPACT](innodb-row-formats/innodb-compact-row-format.md) or [DYNAMIC](innodb-row-formats/innodb-dynamic-row-format.md) row formats.
+* The [PAGE\_COMPRESSED](../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) table option is set to `1`, so [InnoDB page compression](innodb-page-compression.md) is enabled, but the [ROW\_FORMAT](../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option is set to some row format other than the [COMPACT](innodb-row-formats/innodb-compact-row-format.md) or [DYNAMIC](innodb-row-formats/innodb-dynamic-row-format.md) row formats.
 
 ```sql
 SET SESSION innodb_strict_mode=ON;
@@ -306,7 +306,7 @@ SHOW WARNINGS;
 3 rows in set (0.000 sec)
 ```
 
-* The [PAGE\_COMPRESSED](innodb-strict-mode.md#page_compressed) table option is set to `1`, so [InnoDB page compression](innodb-page-compression.md) is enabled, but the [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) system variable is not set to `ON`.
+* The [PAGE\_COMPRESSED](../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) table option is set to `1`, so [InnoDB page compression](innodb-page-compression.md) is enabled, but the [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) system variable is not set to `ON`.
 
 ```sql
 SET GLOBAL innodb_file_per_table=OFF;
@@ -330,7 +330,7 @@ SHOW WARNINGS;
 3 rows in set (0.000 sec)
 ```
 
-* The [PAGE\_COMPRESSED](innodb-strict-mode.md#page_compressed) table option is set to `1`, so [InnoDB page compression](innodb-page-compression.md) is enabled, but the [KEY\_BLOCK\_SIZE](../../../reference/sql-statements/data-definition/create/create-table.md#key_block_size) table option is also specified.
+* The [PAGE\_COMPRESSED](../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) table option is set to `1`, so [InnoDB page compression](innodb-page-compression.md) is enabled, but the [KEY\_BLOCK\_SIZE](../../../reference/sql-statements/data-definition/create/create-table.md#key_block_size) table option is also specified.
 
 ```sql
 SET SESSION innodb_strict_mode=ON;
@@ -354,8 +354,8 @@ SHOW WARNINGS;
 3 rows in set (0.000 sec)
 ```
 
-* The [PAGE\_COMPRESSION\_LEVEL](../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) table option is set, but\
-  the [PAGE\_COMPRESSED](innodb-strict-mode.md#page_compressed) table option is set to `0`, so [InnoDB page compression](innodb-page-compression.md) is disabled.
+* The [PAGE\_COMPRESSION\_LEVEL](../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) table option is set, but
+  the [PAGE\_COMPRESSED](../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) table option is set to `0`, so [InnoDB page compression](innodb-page-compression.md) is disabled.
 
 ```sql
 SET SESSION innodb_strict_mode=ON;

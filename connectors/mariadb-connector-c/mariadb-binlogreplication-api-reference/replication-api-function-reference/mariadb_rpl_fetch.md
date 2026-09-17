@@ -20,7 +20,7 @@ MARIADB_RPL_EVENT *mariadb_rpl_fetch(MARIADB_RPL *rpl,
 
 ### Return Value
 
-Returns a pointer to a [`MARIADB_RPL_EVENT`](http://replication-api-data-structures.md/#mariadb_rpl_event) structure containing the next event on success, or `NULL` when the EOF packet is received or an error occurs.
+Returns a pointer to a [`MARIADB_RPL_EVENT`](../binlog-api-data-structures.md#mariadb_rpl_event) structure containing the next event on success, or `NULL` when the EOF packet is received or an error occurs.
 
 ### Note
 
@@ -34,3 +34,5 @@ Added in [MariaDB Connector/C 3.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTj
 
 * [`mariadb_free_rpl_event()`](mariadb_free_rpl_event.md)&#x20;
 * [`mariadb_rpl_extract_rows()`](mariadb_rpl_extract_rows.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

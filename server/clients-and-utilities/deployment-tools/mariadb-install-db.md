@@ -193,8 +193,8 @@ To do so, you would have to provide the `--srcdir` option. For example:
 
 ### Installing System Tables From a Binary Tarball
 
-If you install a [binary tarball](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) package in a non standard path, like your home directory, and if you already have a MariaDB / MySQL package installed, then you may get conflicts\
-with the default `/etc/my.cnf`. This often results in permissions\
+If you install a [binary tarball](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) package in a non standard path, like your home directory, and if you already have a MariaDB / MySQL package installed, then you may get conflicts
+with the default `/etc/my.cnf`. This often results in permissions
 errors.
 
 One possible solution is to use the `--no-defaults` option, so that it does not read any [option files](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). For example:
@@ -281,9 +281,9 @@ MariaDB [mysql]> show tables
 The following only apply in the exceptional case that you are using a mariadbd server which is configured with the `--disable-grant-options` option:
 
 `mariadb-install-db` needs to invoke `mariadbd` with the`--bootstrap` and `--skip-grant-tables` options.\
-A MariaDB configured with the `--disable-grant-options`\
-option has `--bootstrap` and `--skip-grant-tables`\
-disabled. To handle this case, set the `MYSQLD_BOOTSTRAP` environment\
+A MariaDB configured with the `--disable-grant-options`
+option has `--bootstrap` and `--skip-grant-tables`
+disabled. To handle this case, set the `MYSQLD_BOOTSTRAP` environment
 variable to the full path name of a mariadbd server that is configured without `--disable-grant-options`. `mariadb-install-db` will use that server.
 
 ## The test and test\_% Databases
@@ -501,7 +501,7 @@ SELECT user,host FROM mysql.user;
 
 * [Configure MariaDB with catalog support](../../security/user-account-management/catalogs/starting-with-catalogs.md)
 * [Installing system tables (mariadb-install-db)](mariadb-install-db.md)
-* The Windows version of `mariadb-install-db`: [mysql\_install\_db.exe](../legacy-clients-and-utilities/mysql_install_db.md)
+* The Windows version of `mariadb-install-db`: [mysql\_install\_db.exe](mariadb-install-db.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

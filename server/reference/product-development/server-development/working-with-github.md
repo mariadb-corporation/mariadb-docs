@@ -20,13 +20,13 @@ A pull request on GitHub can be reviewed, and those reviewing it might have valu
 
 A pull request has a clear indicator of the reviews conducted, by who, and who you are expecting further reviews from.
 
-When a developer with commit access, either the author or a reviewer has completed and passed a review, they can mark the pull request as auto-merge, enabling the pull request to be merge once the \[\[branch-protection-using-buildbot|protected branch builds] have passed.
+When a developer with commit access, either the author or a reviewer has completed and passed a review, they can mark the pull request as auto-merge, enabling the pull request to be merge once the [protected branch builds](tools/buildbot/branch-protection-using-buildbot.md) have passed.
 
 ## Mechanism of Creating a Pull Request
 
 A pull request can be created on the MariaDB GitHub web page, [server](https://github.com/MariaDB/server), or any fork created using GitHub.
 
-Alternately GitHub has an open source \[[|command](https://cli.github.com/|command) line client] that has RPM and Deb packages, and a static compiled executable. This is actively maintained.
+Alternately GitHub has an open source [command line client](https://cli.github.com/) that has RPM and Deb packages, and a static compiled executable. This is actively maintained.
 
 ### Creating a Branch
 
@@ -44,7 +44,7 @@ This gives other server developers a reasonable visibility of to why the branch 
 
 If you push with a command line client over a ssh transport remote, the output from GitHub will provide a link to create the pull request. This can be opened in your browser to complete the process.
 
-To use the _gh cli_, use \[\[[gh\_pr\_create|](https://cli.github.com/manual/gh_pr_create|)`gh pr create`] to interactively create it, or use a variety of the command line options to increase the automation.
+To use the _gh cli_, use [`gh pr create`](https://cli.github.com/manual/gh_pr_create) to interactively create it, or use a variety of the command line options to increase the automation.
 
 Common options you may wish to use:
 

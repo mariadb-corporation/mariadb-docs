@@ -44,7 +44,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #2882](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2882)\
   Fix [Bug #600744](https://bugs.launchpad.net/bugs/600744)
 * [Revision #2881](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2881)\
-  bug [Bug #578117](https://bugs.launchpad.net/bugs/578117) - Wrong usage of mutex LOCK\_sync and LOCK\_active in XA\
+  bug [Bug #578117](https://bugs.launchpad.net/bugs/578117) - Wrong usage of mutex LOCK\_sync and LOCK\_active in XA
   redone locking in TC\_LOG\_MMAP::log\_xid
 * [Revision #2880](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2880)\
   Remove the file libmysqld.exp from the installer
@@ -70,7 +70,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
   Fixed trival bug introduced in last patch (buffer was not extended)
 * [Revision #2869](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2869)\
   Fixes for Opensolaris (to get buildbot green)
-  * Fixed memory leaks in [mysqldump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqldump)
+  * Fixed memory leaks in mysqldump
   * Fixed printf of NULL which caused crashes on OpenSolaris when using `--debug`
   * Fixed realloc() problem that caused out of memory when running mysqldump.test on OpenSolaris
 * [Revision #2868](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2868)\
@@ -87,21 +87,21 @@ The revision number links will take you to the revision's page on Launchpad. On 
   * [Revision #2864.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2864.1.1)\
     Fixed some bugs in the Maria storage engine
     * Changed default recovery mode from OFF to NORMAL to get automatic repair of not properly closed tables.
-    * Fixed a rase condition when two threads calls external\_lock and thr\_lock() in different order. When this happend the transaction that called external lock first\
+    * Fixed a rase condition when two threads calls external\_lock and thr\_lock() in different order. When this happend the transaction that called external lock first
       and thr\_lock() last did not see the rows from the other transaction, even if it had to wait in thr\_lock() for other to complete.
     * Fixed that one can run maria\_chk on an automatcally recovered tables without warnings about too small transaction id
     * Don't give warning that crashed table could not be repaired if repair was disabled (and thus not run)
     * Fixed a error result from flush\_key\_cache() which caused a DBUG\_ASSERT() when one was using concurrent reads on non transactional tables that was updated.
 * [Revision #2865](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2865)\
-  mtr: when applying @opt\_extra\_mysqld\_opt for `--help`,\
-  filter out `--binlog-format` - it makes mysqld to fail without `--log-bin`,\
+  mtr: when applying @opt\_extra\_mysqld\_opt for `--help`,
+  filter out `--binlog-format` - it makes mysqld to fail without `--log-bin`,
   and we don't need either anyway for `--help` to work.
 * [Revision #2864](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2864)\
   ugly-ugly. $with\_plugin\_innobase was hard-coded in configure.in in
 * [Revision #2863](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2863)\
   fixed for mysql-test-run to
   * fully support `--mysqld=--plugin-load=xxxx`
-  * uniformly support all loadable plugins, no need to hard-code\
+  * uniformly support all loadable plugins, no need to hard-code
     every new plugin in mtr
   * autodetect MTR\_VS\_CONFIG on windows
 * [Revision #2862](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2862)\
@@ -113,6 +113,6 @@ The revision number links will take you to the revision's page on Launchpad. On 
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

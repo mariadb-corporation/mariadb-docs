@@ -11,13 +11,13 @@ Enterprise manager provides a visual interface for creating entity relationship 
 
 This procedure outlines the steps required to access and utilize the ERD Designer within the Workspace section of Enterprise Manager UI.
 
-1.  From the main Workspace screen, click the "Run Queries" card.\\
+1.  From the main Workspace screen, click the "Run Queries" card.
 
     <figure><img src="../../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
-2.  In the "Connect to..." dialog, select your target server, enter your credentials, and click Connect.\\
+2.  In the "Connect to..." dialog, select your target server, enter your credentials, and click Connect.
 
     <figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
-3.  Upon successful connection, the main ERD worksheet will appear.\\
+3.  Upon successful connection, the main ERD worksheet will appear.
 
     <figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
@@ -113,6 +113,6 @@ Once your design is complete, you can export it for documentation or deployment.
 
 Click the **"Apply Script"** button (▶) in the toolbar to execute the generated SQL against your connected database. This allows you to deploy your new or modified schema directly from the designer.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

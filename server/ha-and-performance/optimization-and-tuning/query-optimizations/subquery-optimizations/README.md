@@ -114,3 +114,5 @@ Presents a map of the subquery types allowed in SQL and the optimizer strategies
 Table pullout rewrites a semi-join subquery as a join by pulling tables out into the parent SELECT based on UNIQUE or PRIMARY key definitions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

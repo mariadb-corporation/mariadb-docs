@@ -42,3 +42,5 @@ Learn to insert and load data into MariaDB Server. This section covers INSERT an
 Learn to select data in MariaDB Server using SQL. This section covers various SELECT statement clauses, including WHERE, GROUP BY, and ORDER BY, to retrieve and filter your data effectively.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

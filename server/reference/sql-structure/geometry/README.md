@@ -66,3 +66,5 @@ External resources and further reading on GIS and spatial data in MariaDB.
 Create SPATIAL (R-tree) indexes on geometry columns in MyISAM, Aria, and InnoDB tables.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -28,7 +28,7 @@ MySQL [ontime]> EXPLAIN SELECT * FROM ontime WHERE (Origin='SEA' OR Dest='SEA');
 
 The "rows" column gives us a way to compare efficiency between `index_merge` and other plans.
 
-It is sometimes necessary to discard index\_merge in favor of a different plan to avoid a combinatorial explosion of possible range and/or index\_merge strategies. But, the old logic in MySQL for when index\_merge was rejected caused some good index\_merge plans to not even be considered. Specifically,\
+It is sometimes necessary to discard index\_merge in favor of a different plan to avoid a combinatorial explosion of possible range and/or index\_merge strategies. But, the old logic in MySQL for when index\_merge was rejected caused some good index\_merge plans to not even be considered. Specifically,
 additional `AND` predicates in `WHERE` clauses could cause an index\_merge plan to be rejected in favor of a less efficient plan. The slowdown could be anywhere from 10x to over 100x. Here are two examples (based on the previous query) using MySQL:
 
 ```sql
@@ -51,7 +51,7 @@ In the above output, the "rows" column shows that the first is almost 10x less e
 
 Starting in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3), the optimizer will delay discarding potential`index_merge` plans until the point where it is really necessary.
 
-By not discarding potential `index_merge` plans until absolutely necessary,\
+By not discarding potential `index_merge` plans until absolutely necessary,
 the two queries stay just as efficient as the original:
 
 ```sql

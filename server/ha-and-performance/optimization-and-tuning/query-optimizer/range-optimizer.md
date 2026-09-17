@@ -10,7 +10,7 @@ Range optimizer is a part of MariaDB (and MySQL) optimizer that takes as input
 * the table and index definition(s)
 * the WHERE condition (or ON expression if the table is inner in an outer join)
 
-and constructs list of ranges one can scan in an index to read the rows that match the WHERE condition, or a superset of it. It can also construct an "index\_merge" plan, where one needs ranges from two or more\
+and constructs list of ranges one can scan in an index to read the rows that match the WHERE condition, or a superset of it. It can also construct an "index\_merge" plan, where one needs ranges from two or more
 indexes to compute a union (formed from multiple condition disjunctions) and/or intersection (formed from multiple condition conjunctions).
 
 ## Basic example
@@ -188,7 +188,7 @@ gives
 
 ### Combinatorial blow-ups
 
-For multi-part keys, range analyzer can produce ranges that are "tight", that is, they only include rows that\
+For multi-part keys, range analyzer can produce ranges that are "tight", that is, they only include rows that
 will match the WHERE condition.\
 On the other hand, some SQL constructs can produce very large (combinatorial) amounts of ranges.\
 Consider a query
@@ -219,7 +219,7 @@ two IN-lists produce 3\*4 =12 ranges:
                         ],
 ```
 
-if one adds `and keypart3 IN (1,2,3,4,5)`, the amount of ranges will be &#x33;_&#x34;_&#x35;=60 and so forth.\
+if one adds `and keypart3 IN (1,2,3,4,5)`, the amount of ranges will be 3\*4\*5=60 and so forth.
 See [optimizer\_max\_sel\_arg\_weight](optimizer_max_sel_arg_weight.md) on how to combat this.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

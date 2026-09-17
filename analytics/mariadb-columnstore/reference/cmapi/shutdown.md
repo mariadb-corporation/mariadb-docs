@@ -46,7 +46,7 @@ In this example, `jq` produces human-readable output from the returned JSON resp
 
 Starting with Enterprise ColumnStore 5.5.2, if your `bash` shell is configured to source the `columnstoreAlias` shell script, this command can be executed using the `mcsShutdown` alias. The alias executes `curl` and `jq`, so both programs must be installed on the system.
 
-The alias automatically retrieves the IP address for the primary node using the [mcsGetConfig](http://localhost:8000/docs/columnstore/ref/col/cli/mcsGetConfig/) command. The alias automatically retrieves the API key by reading `/etc/columnstore/cmapi_server.conf`.
+The alias automatically retrieves the IP address for the primary node using the [mcsGetConfig](../../architecture/columnstore-system-paths-and-logs.md#mcsgetconfig) command. The alias automatically retrieves the API key by reading `/etc/columnstore/cmapi_server.conf`.
 
 ```bash
 mcsShutdown
@@ -54,6 +54,6 @@ mcsShutdown
 
 These aliases use `jq` produces human-readable output from the returned JSON response.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

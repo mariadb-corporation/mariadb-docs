@@ -7,7 +7,7 @@ This page is for contributors to the MariaDB Documentation and goes into detail 
 There are three types of links in the MariaDB docs: [external](about-links.md#external-links), [relative](about-links.md#relative-links), and [space](about-links.md#space-links). The general rules for when to use each are:
 
 * If the link is outside of `https://mariadb.com/docs/` → Use an [External Link](about-links.md#external-links)
-* If the link is to a page in the same space → Use a [Relative Link](about-links.md#relativ-links)
+* If the link is to a page in the same space → Use a [Relative Link](about-links.md#relative-links)
 * If the link is to a page in another space → Use a [Space Link](about-links.md#space-links)
 
 See [About Spaces](about-links.md#about-spaces) for information on what Spaces are.
@@ -199,10 +199,10 @@ Here are some examples of Markdown links to various pages using space links:
 [Options, System & Status Variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables)
 ```
 
-#### [MariaDB 12.1 Changes & Improvements](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1) in the Release Notes space
+#### [MariaDB 12.1 Changes & Improvements](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1) in the Release Notes space
 
 ```markdown
-[MariaDB 12.1 Changes & Improvements](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1)
+[MariaDB 12.1 Changes & Improvements](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1)
 ```
 
 #### [MariaDB Connector/C Guide](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/mariadb-connector-c-guide) in the Connectors space
@@ -212,3 +212,5 @@ Here are some examples of Markdown links to various pages using space links:
 ```
 
 When Space Links are rendered to the public site, GitBook handles translating Space Links into a link to the correct page. And if a page is moved or renamed then the link will be automatically updated on every page it appears on.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -89,8 +89,8 @@ in this case, we can't reliably say whether we will be able to stop after scanni
 
 Due to these challenges, the optimization is not enabled by default.
 
-When running a mostly OLTP workload such that query WHERE conditions have suitable\
-indexes or are not very selective, then any ORDER BY ... LIMIT queries will typically find matching rows\
+When running a mostly OLTP workload such that query WHERE conditions have suitable
+indexes or are not very selective, then any ORDER BY ... LIMIT queries will typically find matching rows
 quickly. In this case, it makes sense to give the following guidance to the optimizer:
 
 ```
@@ -99,7 +99,7 @@ and prefer it if it promises at least X times speedup.
 ```
 
 The value of `X` is given to the optimizer via `optimizer_join_limit_pref_ratio` setting.\
-Higher values carry less risk. The recommended value is 100: prefer the LIMIT join order if it\
+Higher values carry less risk. The recommended value is 100: prefer the LIMIT join order if it
 promises at least 100x speedup.
 
 ## References

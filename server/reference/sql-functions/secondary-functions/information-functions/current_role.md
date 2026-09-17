@@ -13,7 +13,7 @@ CURRENT_ROLE, CURRENT_ROLE()
 
 ## Description
 
-Returns the current [role](../../../../security/user-account-management/roles/) name. The return value is a string in the\
+Returns the current [role](../../../../security/user-account-management/roles/) name. The return value is a string in the
 utf8 [character set](../../../data-types/string-data-types/character-sets/).
 
 If there is no current role, `NULL` is returned.

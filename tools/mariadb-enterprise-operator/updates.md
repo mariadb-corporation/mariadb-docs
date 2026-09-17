@@ -144,6 +144,6 @@ By default, `updateStrategy.autoUpdateDataPlane` is `false`, which means that no
 
 It is important to note that this feature is fully compatible with the [Never](updates.md#never) strategy: no upgrades will happen when `updateStrategy.autoUpdateDataPlane=true` and `updateStrategy.type=Never`.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

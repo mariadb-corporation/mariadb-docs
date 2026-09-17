@@ -70,7 +70,6 @@ flowchart LR
     linkStyle 6 stroke:#FF6D00,fill:none
     linkStyle 7 stroke:#FF6D00,fill:none
 ```
-<!-- <figure><img src="../.gitbook/assets/serverless_architecture.png" alt=""><figcaption></figcaption></figure> -->
 
 ## Core Components
 
@@ -367,3 +366,5 @@ MariaDB Cloud is evaluating distributed storage solutions:
 3. **Resource Right-Sizing**: Monitor and adjust resource allocation
 
 This architecture enables MariaDB Cloud Serverless to provide true serverless capabilities while maintaining the performance, reliability, and compatibility that enterprises require.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

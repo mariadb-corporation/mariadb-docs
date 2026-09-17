@@ -63,7 +63,7 @@ Here we did not have to specify column format or offset because data are retriev
 
 ## Avoiding PROXY Table Loop
 
-CONNECT is able to test whether a `PROXY`, or `PROXY`-based, table refers directly or indirectly to itself. If a direct reference can tested at table creation, an indirect reference can only be tested when executing a query on the table. However, this is possible only for local tables. When using remote\
+CONNECT is able to test whether a `PROXY`, or `PROXY`-based, table refers directly or indirectly to itself. If a direct reference can tested at table creation, an indirect reference can only be tested when executing a query on the table. However, this is possible only for local tables. When using remote
 tables or views, a problem can occur if the remote table or the view refers back to one of the local tables of the chain. The same caution should be used than when using [FEDERATEDX](../../federatedx-storage-engine/) tables.
 
 **Note:** All `PROXY` or `PROXY`-based tables are read-only in this version.

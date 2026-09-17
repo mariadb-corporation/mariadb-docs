@@ -22,12 +22,12 @@ The payload is:
 
 * Flags, usually set to `0`. It can be set to `BINLOG_SEND_ANNOTATE_ROWS_EVENT` (`0x02`) if the replica server wants to receive the MariaDB 10 [ANNOTATE\_ROWS](annotate_rows_event.md) events.\
   It can also be set to `BINLOG_DUMP_NON_BLOCK` (`1`), in the case the replica is receiving an EOF packet after the last event sent by the master.
-* Requested binlog position can be `4` when registering to master server for the very first time\
+* Requested binlog position can be `4` when registering to master server for the very first time
   or when requesting events from a particular binlog file from the beginning of it.
 * The requested binlog file can empty when registering for the very first time if master log file is unknown or with GTID registration (not required).
 * After sending events to the replica the server kills the connection.
 
-When replication resumes or it is restarted (`STOP REPLICA`; `START REPLICA`), the replica server always\
+When replication resumes or it is restarted (`STOP REPLICA`; `START REPLICA`), the replica server always
 sends the latest binlog file name and position, even if GTID registration is in place.
 
 ## Example of COM\_BINLOG\_DUMP

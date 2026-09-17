@@ -34,4 +34,6 @@ You can detect whether the statement produced a result set by checking the retur
 * [mysql\_stmt\_field\_count()](mysql_stmt_field_count.md)
 * [mysql\_stmt\_fetch()](mysql_stmt_fetch.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

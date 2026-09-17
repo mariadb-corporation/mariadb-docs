@@ -25,3 +25,5 @@ description: >-
 - [ST\_UNION](st_union.md)
 - [ST\_AsGeoJSON](geojson-st_asgeojson.md)
 - [ST\_GeomFromGeoJSON](st_geomfromgeojson.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

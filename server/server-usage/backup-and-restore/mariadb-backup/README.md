@@ -254,3 +254,5 @@ Perform a manual node provision. This guide details the steps to manually backup
 <br>
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

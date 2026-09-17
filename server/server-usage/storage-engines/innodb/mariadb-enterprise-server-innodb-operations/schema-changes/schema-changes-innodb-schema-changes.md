@@ -43,6 +43,6 @@ When the alter\_algorithm system variable is set to `NOCOPY`, schema change oper
 
 Additional information is available [here](../../innodb-online-ddl/innodb-online-ddl-operations-with-the-nocopy-alter-algorithm.md).
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -15,3 +15,4 @@ description: >-
 4. If SSL is configured, set the **SSL Mode** to **ENFORCE**.
 5. Click **Connect** to test the connection.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

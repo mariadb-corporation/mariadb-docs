@@ -54,3 +54,5 @@ This guide shows how to authenticate database users using local Unix accounts an
 The pam_user_map PAM module allows administrators to map external PAM users and groups to specific MariaDB accounts for flexible authorization management.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

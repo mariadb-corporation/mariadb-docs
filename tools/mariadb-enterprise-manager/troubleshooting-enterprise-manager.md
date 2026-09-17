@@ -12,7 +12,7 @@ Troubleshooting installation/deployment issues for Enterprise Manager and Agent
 
 <summary>Is the MariaDB Enterprise repository configured correctly?</summary>
 
-The agent is distributed as a native OS package that can be installed from the MariaDB Enterprise repositories. The repositories can be installed by following the [repository installation instructions](https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage).
+The agent is distributed as a native OS package that can be installed from the MariaDB Enterprise repositories. The repositories can be installed by following the [repository installation instructions](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage).
 
 Make sure to use the `mariadb_es_repo_setup` script with your Customer Download Token.
 
@@ -192,6 +192,6 @@ Ensure clocks are synchronized (for example using NTP/chrony) to avoid these iss
 
 </details>
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

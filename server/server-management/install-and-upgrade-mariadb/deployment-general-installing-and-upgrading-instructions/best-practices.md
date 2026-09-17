@@ -98,6 +98,6 @@ New customers can [contact MariaDB Corporation](https://mariadb.com/contact) for
 
 Existing MariaDB Subscription customers can access technical support via the [MariaDB Customer Portal](https://customers.mariadb.com/?_ga=2.262787980.1431602578.1740983101-1710706710.1737441288) as detailed in [MariaDB Subscription Services Policy](https://mariadb.com/subscription-services-policies).
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

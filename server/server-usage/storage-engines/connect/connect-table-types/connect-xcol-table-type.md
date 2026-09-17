@@ -68,7 +68,7 @@ This will return:
 | Sophia | Antony |
 | Janet  | Arthur |
 
-If a query does not involve the "multiple" column, no row multiplication will\
+If a query does not involve the "multiple" column, no row multiplication will
 be done. For instance:
 
 ```sql

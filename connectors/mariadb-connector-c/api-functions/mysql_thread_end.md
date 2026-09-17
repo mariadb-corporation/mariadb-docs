@@ -15,7 +15,7 @@ void mysql_thread_end(void );
 
 ## Description
 
-The `mysql_thread_end()` function needs to be called before a client thread ends. It will release thread-specific memory, which was allocated by a previous [mysql\_thread\_init()](mysql_thread_init.md) call.&#x20;
+The `mysql_thread_end()` function is now an empty no-op, retained only for API/ABI compatibility.
 
 ## Return Value
 
@@ -33,5 +33,7 @@ This function has been deprecated since MariaDB Connector/C 3.0.0.
 
 * [mysql\_thread\_init()](mysql_thread_init.md)
 * [mysql\_thread\_safe()](mysql_thread_safe.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

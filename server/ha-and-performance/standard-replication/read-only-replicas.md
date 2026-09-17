@@ -7,7 +7,7 @@ description: >-
 
 # Read-Only Replicas
 
-A common [replication](./) setup is to have the replicas [read-only](../optimization-and-tuning/system-variables/server-system-variables.md#read_only) to ensure that no one\
+A common [replication](./) setup is to have the replicas [read-only](../optimization-and-tuning/system-variables/server-system-variables.md#read_only) to ensure that no one
 accidentally updates them. If the replica has [binary logging enabled](setting-up-replication.md) and [gtid\_strict\_mode](gtid.md#gtid_strict_mode) is used, then any update that causes changes to the [binary log](../../server-management/server-monitoring-logs/binary-log/) will stop replication.
 
 When the variable `read_only` is set to 1, no updates are permitted except from users with the [SUPER](../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege (<= [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)) or [READ ONLY ADMIN](../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege (>= [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)) or replica servers updating from a primary. Inserting rows to log tables, updates to temporary tables and [OPTIMIZE TABLE](../optimization-and-tuning/optimizing-tables/optimize-table.md) or [ANALYZE TABLE](../../reference/sql-statements/table-statements/analyze-table.md) statements on temporary tables are excluded from this limitation.
@@ -27,7 +27,7 @@ SET sql_log_bin=0;
 ALTER TABLE test ENGINE=rocksdb;
 ```
 
-The above changes the test table on the replica to rocksdb without registering\
+The above changes the test table on the replica to rocksdb without registering
 the change in the binary log.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

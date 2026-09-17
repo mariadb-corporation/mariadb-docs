@@ -30,3 +30,5 @@ Filesystem choices and settings that affect MariaDB Server performance.
 Defines the OS-agnostic terms MariaDB documentation uses for disk I/O — unbuffered I/O, write-through, persist — and shows how each one maps to Unix-like and Windows mechanisms.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -1,8 +1,8 @@
 ---
 description: >-
   MariaDB Exa limitations: architecture and query-flow constraints, datatype
-  mapping gaps in Debezium, SQL-dialect gaps in the SQLglot preprocessor, and
-  the CDC primary-key requirement.
+  mapping gaps in MaxScale CDC, SQL-dialect gaps in the SQLglot preprocessor,
+  and the CDC primary-key requirement.
 hidden: true
 noIndex: true
 icon: road-barrier
@@ -24,14 +24,14 @@ The MariaDB Exa environment utilizes a Hybrid Transactional and Analytical Proce
 
 ### 2. The Replication Path (Write)
 
-* Debezium CDC Bridge: Manages background synchronization of DDL and DML changes from the MariaDB Binary Log directly to Exasol.
+* MaxScale CDC (binlogrouter): Manages background synchronization of DDL and DML changes from the MariaDB Binary Log directly to Exasol over the Exasol ODBC driver.
 * Direct Sync: This pathway is a raw data stream and does not utilize the SQLglot preprocessor.
 
 ## II. Schema & Replication Management
 
-### Primary Key Requirement
+### Primary Key
 
-Every table being captured by CDC must define a primary key. Tables without primary keys are not supported by the JDBC Sink for upsert operations.
+A primary key is strongly recommended for every table captured by CDC. Tables without one are still replicated, but MaxScale CDC synthesizes a key from all columns for its `MERGE`-based upsert into Exasol — which is slower and can behave incorrectly when rows are not unique.
 
 ### Unsupported Schema Features
 
@@ -52,15 +52,21 @@ The following schema features are not supported:
 
 Compatibility is tiered based on the level of automated support provided between the engines.
 
+{% hint style="warning" %}
+The datatype and function compatibility tables in this page were captured during earlier MariaDB Exa testing and are pending re-validation against MaxScale-native CDC (binlogrouter → ODBC). Treat specific failure modes as indicative rather than authoritative.
+{% endhint %}
+
 | **Compatibility Tier** | **Data Types**                                                                                                                                         |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Native Compatible      | `INT`, `BIGINT`, `SMALLINT`, `DECIMAL`, `NUMERIC`, `FLOAT`, `DOUBLE`, `CHAR`, `VARCHAR`, `DATE`, `TIMESTAMP`, `BIT`, `ENUM`, `SET`, and `Binary types` |
 | Rewrite Compatible     | `TEXT`, `BOOLEAN`, `TINYINT(1)`, `DATETIME`, `TIME`, `JSON`, `ENUM`, `SET`, `UUID`                                                                     |
 | MariaDB Only           | `BLOB`, `BINARY`, `VARBINARY`, `TINYBLOB`, `Spatial types` (Geometry, Point, etc.)                                                                     |
 
-### 1. Detailed Schema Mapping (CREATE TABLE)
+<details>
 
-The following details how MariaDB types are interpreted by Exasol during automated schema replication .
+<summary>Detailed schema mapping: expected and actual Exasol types on CREATE TABLE</summary>
+
+The following details how MariaDB types are interpreted by Exasol during automated schema replication.
 
 | **MariaDB Data type** | **Exasol Expected**                  | **Exasol Actual**                    | **Comment**                       |
 | --------------------- | ------------------------------------ | ------------------------------------ | --------------------------------- |
@@ -104,13 +110,17 @@ The following details how MariaDB types are interpreted by Exasol during automat
 | `TIMESTAMP`           | `TIMESTAMP`                          | `TIMESTAMP(3)`                       | ⚠️ mismatch                       |
 | `TIMESTAMP(6)`        | `TIMESTAMP(6)`                       | `TIMESTAMP(6)`                       | ✅                                 |
 | `YEAR(4)`             | `DECIMAL(4,0)`                       | `DECIMAL(18,0)`                      | ⚠️ mismatch                       |
-| `INET6`               | —                                    | —                                    | 🛑 Debezium Fatal Crash           |
-| `UUID`                | —                                    | —                                    | 🛑 Debezium Fatal Crash           |
-| `XMLTYPE`             | —                                    | —                                    | 🛑 Debezium Fatal Crash           |
+| `INET6`               | —                                    | —                                    | 🛑 Not supported (not replicated)           |
+| `UUID`                | —                                    | —                                    | 🛑 Not supported (not replicated)           |
+| `XMLTYPE`             | —                                    | —                                    | 🛑 Not supported (not replicated)           |
 
-### 2. Data Value Replication Results (INSERT)
+</details>
 
-Precision shifts and engine-specific behaviors during transfer .
+<details>
+
+<summary>Data value replication results: precision and formatting differences on INSERT</summary>
+
+Precision shifts and engine-specific behaviors during transfer.
 
 | **Data Type**      | **MariaDB Value**          | **Exasol Value**           | **Comment**                  |
 | ------------------ | -------------------------- | -------------------------- | ---------------------------- |
@@ -145,13 +155,15 @@ Precision shifts and engine-specific behaviors during transfer .
 | `TEXT`             | `'standard text data'`     | `'standard text data'`     | ✅                            |
 | `LONGTEXT`         | `'long text data'`         | `'long text data'`         | ✅                            |
 
+</details>
+
 ## IV. Semantic Logic & NULL Behavior
 
 Operational behaviors regarding Undefined values and empty strings differ significantly between the engines.
 
 ### 1. Comparison & Logic Tests
 
-In Exasol, `NULL` represents an undefined value rather than a special value, which leads to discrepancies in comparison and sorting .
+In Exasol, `NULL` represents an undefined value rather than a special value, which leads to discrepancies in comparison and sorting.
 
 | **Query**                 | **Result MariaDB** | **Result Exasol**  | **Comment**                               |
 | ------------------------- | ------------------ | ------------------ | ----------------------------------------- |
@@ -192,18 +204,14 @@ Exasol reserves over 460 keywords. Common words like `schema`, `hour`, and `year
 
 The following constructs are not supported:
 
-SQL
-
-```
+```sql
 SET x := y;
 SET x=1, y=2;
 ```
 
 Use `DEFINE` instead:
 
-SQL
-
-```
+```sql
 DEFINE x=1;
 DEFINE y=2;
 ```
@@ -212,17 +220,13 @@ DEFINE y=2;
 
 Not supported:
 
-SQL
-
-```
+```sql
 SELECT 1, 2 INTO @a, @b FROM dual;
 ```
 
 Instead, use:
 
-SQL
-
-```
+```sql
 DEFINE x = (SELECT 1 FROM dual);
 ```
 
@@ -230,7 +234,9 @@ DEFINE x = (SELECT 1 FROM dual);
 
 The analytical path uses SQLglot to bridge MariaDB and Exasol dialects.
 
-1\. Math Functions
+<details>
+
+<summary>Math functions and their Exasol equivalents</summary>
 
 | **MariaDB Function** | **Exasol Function**  | **SQLglot preprocessor** | **Comment**                       |
 | -------------------- | -------------------- | ------------------------ | --------------------------------- |
@@ -255,7 +261,11 @@ The analytical path uses SQLglot to bridge MariaDB and Exasol dialects.
 | `ATAN2`              | `ATAN2`              | —                        | Exasol throws exception for (0,0) |
 | `DEGREES`, `RADIANS` | `DEGREES`, `RADIANS` | —                        | ✅                                 |
 
-2\. String Functions
+</details>
+
+<details>
+
+<summary>String functions and their Exasol equivalents</summary>
 
 | **MariaDB Function** | **Exasol Function** | **SQLglot preprocessor** | **Comment**                       |
 | -------------------- | ------------------- | ------------------------ | --------------------------------- |
@@ -281,7 +291,11 @@ The analytical path uses SQLglot to bridge MariaDB and Exasol dialects.
 | `REGEXP`, `RLIKE`    | `REGEXP_LIKE`       | ❌                        | Syntax error (not translated)     |
 | `UPDATEXML`          | —                   | 🛑                       | Function not found (XML missing)  |
 
-### 3. Date & Time Functions
+</details>
+
+<details>
+
+<summary>Date and time functions and their Exasol equivalents</summary>
 
 | **MariaDB Function**   | **Exasol Analog**      | **SQLglot preprocessor** | **Comment**                            |
 | ---------------------- | ---------------------- | ------------------------ | -------------------------------------- |
@@ -297,7 +311,11 @@ The analytical path uses SQLglot to bridge MariaDB and Exasol dialects.
 | `MAKEDATE`             | —                      | —                        | 🛑 Function not found                  |
 | `CONVERT_TZ`           | `CONVERT_TZ`           | —                        | ❌ Data mismatch (.000000 added)        |
 
-4\. Aggregate, Logic & System Functions
+</details>
+
+<details>
+
+<summary>Aggregate, logic, and system functions and their Exasol equivalents</summary>
 
 | **MariaDB Function** | **Exasol Function** | **Comment**                               |
 | -------------------- | ------------------- | ----------------------------------------- |
@@ -313,6 +331,8 @@ The analytical path uses SQLglot to bridge MariaDB and Exasol dialects.
 | `DATABASE()`         | `CURRENT_SCHEMA`    | Different name                            |
 | `CONNECTION_ID()`    | `CURRENT_SESSION`   | Different name                            |
 
+</details>
+
 ## VII. Data Import and Null Handling
 
 ### NULL Conversions
@@ -326,6 +346,6 @@ MariaDB represents `NULL` values as `\N` in export files. Exasol `TIMESTAMP` col
 * Case Sensitivity: The SQLglot preprocessor typically uppercases identifiers to match standard Exasol behavior.
 * Load Data: `LOAD DATA LOCAL INFILE` is not supported in the analytical pathway.
 
-\{% include "[https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/\~/reusable/pNHZQXPP5OEz2TgvhFva/](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/)" %\}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
-\{% @marketo/form formId="4316" %\}
+{% @marketo/form formId="4316" %}

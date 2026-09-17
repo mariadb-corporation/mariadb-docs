@@ -124,7 +124,7 @@ Also see [Ignored Indexes](../optimization-and-indexes/ignored-indexes.md) for a
 
 ### FORCE INDEX: Forcing an Index
 
-[Forcing an index](force-index.md) to be used is mostly useful when the optimizer decides to do a table scan even if you know that using an index would be better. (The optimizer could decide to do a table scan even if there is\
+[Forcing an index](force-index.md) to be used is mostly useful when the optimizer decides to do a table scan even if you know that using an index would be better. (The optimizer could decide to do a table scan even if there is
 an available index when it believes that most or all rows will match and it can avoid the overhead of using the index).
 
 ```sql
@@ -149,7 +149,7 @@ When using index hints (USE, FORCE or [IGNORE INDEX](ignore-index.md)), the inde
 
 The optimizer will try to use indexes to resolve [ORDER BY](../../../reference/sql-statements/data-manipulation/selecting-data/order-by.md) and [GROUP BY](../../../reference/sql-statements/data-manipulation/selecting-data/group-by.md).
 
-You can use [USE INDEX](use-index.md), [IGNORE INDEX](ignore-index.md) and [FORCE INDEX](force-index.md) as in the `WHERE` clause above\
+You can use [USE INDEX](use-index.md), [IGNORE INDEX](ignore-index.md) and [FORCE INDEX](force-index.md) as in the `WHERE` clause above
 to ensure that some specific index used:
 
 ```sql

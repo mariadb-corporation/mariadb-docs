@@ -18,7 +18,7 @@ that produce, post, and re-check it (`doc-impact`, `doc-from-ticket`, `bulk-camp
 2. **Jira copy (on handoff).** When the work is handed off for review (`/jira-resolve`), the
    report's contents are posted to the DOCS ticket as a Markdown **comment**, so reviewers and
    other writers see the same fact-check. A comment — not a file attachment — is deliberate: the
-   `atlassian-mariadb` Rovo MCP **exposes no attachment endpoint** (its only issue-write tools are
+   the Atlassian Rovo MCP **exposes no attachment endpoint** (its only issue-write tools are
    comment/worklog/field-edit/transition/link; attachments would need the REST
    `/issue/{key}/attachments` multipart endpoint + a separate API token, which the skills don't
    use). The comment is also better here — small Markdown that renders **inline**, is full-text

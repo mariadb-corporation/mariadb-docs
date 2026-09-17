@@ -41,7 +41,7 @@ By default, the MariaDB Enterprise Server installs the [simple\_password\_check]
 For [simple\_password\_check](../../reference/plugins/password-validation-plugins/simple-password-check-plugin.md), the password requirements are configured by several system variables:
 
 * [simple\_password\_check\_digits](../../reference/plugins/password-validation-plugins/simple-password-check-plugin.md#simple_password_check_digits)
-* [imple\_password\_check\_letters\_same\_case](../../reference/plugins/password-validation-plugins/simple-password-check-plugin.md#simple_password_check_letters_same_cases)
+* [simple\_password\_check\_letters\_same\_case](../../reference/plugins/password-validation-plugins/simple-password-check-plugin.md#simple_password_check_letters_same_case)
 * [simple\_password\_check\_minimal\_length](../../reference/plugins/password-validation-plugins/simple-password-check-plugin.md#simple_password_check_minimal_length)
 * [simple\_password\_check\_other\_characters](../../reference/plugins/password-validation-plugins/simple-password-check-plugin.md#simple_password_check_other_characters)
 
@@ -57,6 +57,6 @@ MariaDB Enterprise Server uses authentication plugins to support different authe
 * [Authentication with unix\_socket](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md)
 * [Authentication with PARSEC](../../reference/plugins/authentication-plugins/authentication-plugin-parsec.md)
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

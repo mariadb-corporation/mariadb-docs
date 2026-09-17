@@ -72,7 +72,7 @@ This template unit file allows you to interact with multiple MariaDB instances o
 sudo systemctl start mariadb@node1.service
 ```
 
-MariaDB's build system cannot include the `mariadb@.service` template unit file in [RPM](../../install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) packages on platforms that have [cmake](../../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md#using-cmake) versions older than 3.3.0, because these `cmake` versions have a [bug](https://public.kitware.com/Bug/view.php?id=14782) that causes it to encounter errors when packaging a file in RPMs if the file name contains the `@` character. To use this functionality on a MariaDB version that does not have the file, you can copy the file from a package that contains the file.
+MariaDB's build system cannot include the `mariadb@.service` template unit file in [RPM](../../install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) packages on platforms that have [cmake](../../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md) versions older than 3.3.0, because these `cmake` versions have a [bug](https://public.kitware.com/Bug/view.php?id=14782) that causes it to encounter errors when packaging a file in RPMs if the file name contains the `@` character. To use this functionality on a MariaDB version that does not have the file, you can copy the file from a package that contains the file.
 
 #### Default Configuration of Multiple Instances
 
@@ -88,7 +88,7 @@ When using multiple instances, each instance also needs their own [datadir](../.
 
 Because users may want to do many various things with their multiple instances, we've provided a way to let the user define how they wish their multiple instances to run. The systemd environment variable `MYSQLD_MULTI_INSTANCE` can be set to anything that [mariadbd](../mariadbd.md) and [mariadb-install-db](../../../clients-and-utilities/deployment-tools/mariadb-install-db.md) recognize.
 
-A hosting environment where each user has their own instance looks like this\
+A hosting environment where each user has their own instance looks like this
 (with `sudo systemctl edit mariadb@.service`):
 
 ```ini

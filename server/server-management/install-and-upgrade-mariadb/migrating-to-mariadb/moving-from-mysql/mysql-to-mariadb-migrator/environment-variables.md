@@ -86,3 +86,5 @@ These apply across modes:
 | `ALLOW_TARGET_DB_OVERWRITE` | Set to `1` to allow migrating into an existing target database. |
 | `ALLOW_ROOT_USERS` | Set to `1` to allow `root` as a source or target admin user. |
 | `FORCE_NEW_RUN` | Set to `1` to force a fresh run instead of resuming a previous one. |
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

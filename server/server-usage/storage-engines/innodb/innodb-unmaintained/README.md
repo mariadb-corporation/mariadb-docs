@@ -30,3 +30,5 @@ Information about the XtraDB storage engine that was used in old MariaDB version
 Information about XtraDB, an storage engine used in old MariaDB versions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

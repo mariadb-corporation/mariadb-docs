@@ -41,7 +41,7 @@ There are three kind of buffers in MariaDB:
   * [table\_definition\_cache](system-variables/server-system-variables.md#table_definition_cache)
   * [thread\_cache\_size](system-variables/server-system-variables.md#thread_cache_size)
 * Local buffers that are allocated on demand whenever needed
-  * Internal ones used during engine index creation\
+  * Internal ones used during engine index creation
     ([myisam\_sort\_buffer\_size](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#myisam_sort_buffer_size), [aria\_sort\_buffer\_size).](../../server-usage/storage-engines/aria/aria-system-variables.md#aria_sort_buffer_size)
   * Internal buffers for storing blobs.
     * Some storage engine will keep a temporary cache to store the largest blob seen so far when scanning a table. This will be freed at end of query. Note that temporary blob storage is not included in the memory information in [information\_schema.processlist](../../reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table.md) but only in the total memory used (`show global status like "memory_used"`).
@@ -56,16 +56,16 @@ There are three kind of buffers in MariaDB:
 | [sort\_buffer\_size](system-variables/server-system-variables.md#sort_buffer_size)        | When doing ORDER BY or GROUP BY                                                                                                 |
 | [max\_heap\_table\_size](system-variables/server-system-variables.md#max_heap_table_size) | Used to store temporary tables in memory. See [Optimizing memory tables](optimizing-data-structure/optimizing-memory-tables.md) |
 
-If any variables in the last group is very large and you have a lot\
-of simultaneous users that are executing queries that are using these\
+If any variables in the last group is very large and you have a lot
+of simultaneous users that are executing queries that are using these
 buffers then you can run into trouble.
 
-In a default MariaDB installation the default of most of the above\
+In a default MariaDB installation the default of most of the above
 variables are quite small to ensure that one does not run out of memory.
 
-You can check which variables that have been changed in your setup by\
-executing the following sql statement. If you are running into\
-out-of-memory issues, it is very likely that the problematic variable is\
+You can check which variables that have been changed in your setup by
+executing the following sql statement. If you are running into
+out-of-memory issues, it is very likely that the problematic variable is
 in this list!
 
 ```sql
@@ -96,7 +96,7 @@ then calculate [Key\_read\_requests](system-variables/server-status-variables.md
 
 InnoDB does all its caching in a the [buffer pool](../../server-usage/storage-engines/innodb/innodb-buffer-pool.md), whose size is controlled by [innodb\_buffer\_pool\_size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size). By default it contains 16KB data and index blocks from the open tables (see [innodb\_page\_size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size)), plus some maintenance overhead.
 
-From [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5), multiple buffer pools are permitted; this can help because there is one mutex per pool, thereby relieving some of the mutex bottleneck.
+From [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), multiple buffer pools are permitted; this can help because there is one mutex per pool, thereby relieving some of the mutex bottleneck.
 
 [More on InnoDB tuning](https://www.mysqlperformanceblog.com/2007/11/01/innodb-performance-optimization-basics/)
 
@@ -186,7 +186,7 @@ If you have a mixture of engines, lower both numbers.
 max\_connections, thread\_stack\
 Each "thread" takes some amount of RAM. This used to be about 200KB; 100 threads would be 20MB, not a significant size. If you have [max\_connections](system-variables/server-system-variables.md#max_connections) = 1000, then you are talking about 200MB, maybe more. Having that many connections probably implies other issues that should be addressed.
 
-In 5.6 (or [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)), optional thread pooling interacts with [max\_connections](system-variables/server-system-variables.md#max_connections). This is a more advanced topic.
+In 5.6 (or [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)), optional thread pooling interacts with [max\_connections](system-variables/server-system-variables.md#max_connections). This is a more advanced topic.
 
 Thread stack overrun rarely happens. If it does, do something like thread\_stack=256K
 
@@ -204,7 +204,7 @@ In \*nix, ulimit tells you what the file limit is. The maximum value is in the t
 
 You can see how well your system is performing via [SHOW GLOBAL STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-status.md); and computing the opens/second via [Opened\_files](system-variables/server-status-variables.md#opened_files) / [Uptime](system-variables/server-status-variables.md#uptime) If this is more than, say, 5, [table\_open\_cache](system-variables/server-system-variables.md#table_open_cache) should be increased. If it is less than, say, 1, you might get improvement by decreasing [table\_open\_cache](system-variables/server-system-variables.md#table_open_cache).
 
-From [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1), [table\_open\_cache](system-variables/server-system-variables.md#table_open_cache) defaults to 2000.
+From [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1), [table\_open\_cache](system-variables/server-system-variables.md#table_open_cache) defaults to 2000.
 
 ### Query Cache
 
@@ -290,7 +290,7 @@ Overall performance loss/gain: A few percent.
 
 ### Huge Pages
 
-[MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/mariadb-10-6-series/mariadb-10-6-17-release-notes) (and other releases after 19 Jan 2024) have transparent huge pages automatically disabled. See [MDEV-33279](https://jira.mariadb.org/browse/MDEV-33279) "Disable transparent huge pages after page buffers has been allocated" for more information.
+[MariaDB 10.6.17](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.17) (and other releases after 19 Jan 2024) have transparent huge pages automatically disabled. See [MDEV-33279](https://jira.mariadb.org/browse/MDEV-33279) "Disable transparent huge pages after page buffers has been allocated" for more information.
 
 This is another hardware performance gimmick.
 
@@ -394,7 +394,7 @@ The tips in this document apply to MySQL, MariaDB, and Percona.
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [random](https://mysql.rjweb.org/doc.php/random)

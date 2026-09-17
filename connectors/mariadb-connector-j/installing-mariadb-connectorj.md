@@ -7,7 +7,7 @@ description: >-
 # Installing MariaDB Connector/J
 
 {% hint style="info" %}
-The most recent [_**Stable**_](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria) _**(GA)**_ release of [MariaDB Connector/J](../connectors-quickstart-guides/mariadb-connector-j-guide.md) is:[**MariaDB Connector/J 3.5.3**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/connectors/java/3.5/3.5.3)
+The most recent [_**Stable**_](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria) _**(GA)**_ release of [MariaDB Connector/J](../connectors-quickstart-guides/mariadb-connector-j-guide.md) is:[**MariaDB Connector/J 3.5.9**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/connectors/java/3.5/3.5.9)
 {% endhint %}
 
 [Download MariaDB Connector/J](https://mariadb.com/downloads/connectors/)
@@ -60,7 +60,7 @@ git clone https://github.com/MariaDB/mariadb-connector-j.git
 
 If you would prefer a packaged source tarball release, then MariaDB Connector/J `.jar` source code tarballs can be downloaded from the following URL:
 
-* [https://downloads.mariadb.org/connector-java/](https://downloads.mariadb.org/connector-java/)
+* [https://mariadb.com/downloads/connectors/connectors-data-access/java-connector/](https://mariadb.com/downloads/connectors/connectors-data-access/java-connector/)
 
 MariaDB Connector/J has the following build requirements:
 
@@ -86,5 +86,7 @@ mvn -Dmaven.test.skip=true package
 ```
 
 Once the build is complete, you should have a `.jar` file with a name like the one `mariadb-java-client-x.y.z.jar` in the `target` subdirectory.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

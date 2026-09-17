@@ -30,10 +30,10 @@ To determine which MariaDB Connector/J release series would be best to use for e
 
 | Java Version(s)                            | Recommended MariaDB Connector/J Release Series                                | JDBC Version |
 | ------------------------------------------ | ----------------------------------------------------------------------------- | ------------ |
-| Java 25, Java 21, Java 17, Java 11, Java 8 | MariaDB Connector/J 3.5, 3.4, 3.3\[[1](about-mariadb-connector-j.md#_note-0)] | JDBC 4.5     |
+| Java 25, Java 21, Java 17, Java 11, Java 8 | MariaDB Connector/J 3.5, 3.4, 3.3\[1] | JDBC 4.5     |
 | Java 17, Java 11, Java 8                   | MariaDB Connector/J 2.7                                                       | JDBC 4.2     |
 
-1. [↑](about-mariadb-connector-j.md#_ref-0) see parsec authentication restriction
+1. see parsec authentication restriction
 
 ## Installing MariaDB Connector/J
 
@@ -257,7 +257,7 @@ In version 3.x, enabling this option (or relying on defaults) often results in a
     Starting with **MariaDB 10.6** ([MDEV-19237](https://jira.mariadb.org/browse/MDEV-19237)), the server can skip resending metadata for result-set–returning SQL commands when `useServerPrepStmts` is enabled and the metadata hasn’t changed. This eliminates unnecessary network traffic and metadata parsing, which can yield **significant improvements (around 10–30%)**—especially when metadata is large compared to the result set itself.
 
     **Recommendation:**\
-    If you are using [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/10-6) or later and your application runs mostly repeated queries (not constantly changing), enabling the Binary protocol with `useServerPrepStmts` is generally recommended.
+    If you are using [MariaDB 10.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/10.6) or later and your application runs mostly repeated queries (not constantly changing), enabling the Binary protocol with `useServerPrepStmts` is generally recommended.
 * Data Type: `boolean`
 * Default Value: `false`
 * Introduced: 1.3.0
@@ -281,8 +281,8 @@ more information on [Using TLS/SSL with MariaDB java connector](using-tls-ssl-wi
 #### **serverSslCert**
 
 * Description: |Permits providing the server's certificate in DER form, or the server's CA certificate. The server will be added to trustStore. This permits a self-signed certificate to be trusted.Can be used in one of 3 forms : \* `serverSslCert=/path/to/cert.pem` (full path to certificate)\* `serverSslCert=classpath:relative/cert.pem` (relative to current classpath)\* or as verbatim DER-encoded certificate string "------BEGIN CERTIFICATE-----"
-* Data Type: `boolean`
-* Default Value: `false`
+* Data Type: `string`
+* Default Value: `null`
 * Introduced: 1.1.0
 
 #### **keyStore**
@@ -320,14 +320,14 @@ more information on [Using TLS/SSL with MariaDB java connector](using-tls-ssl-wi
 
 * Description: keystoreXXX options are used to permit mutual authentication. When keystore option is not specified, this setting determines the connector's behavior: if set to false, not using any keystore; if set to true, the connector will follow standard Java convention and use the trust store defined by the "javax.net.ssl.trustStore" system property.
 * Data Type: `boolean`
-* Default Value: `false`
+* Default Value: `true`
 * Introduced: 3.3.2
 
 #### **fallbackToSystemTrustStore**
 
 * Description: Server certificates can be validated using either the serverSslCert or trustStore options. When neither option is specified, this setting determines the connector's behavior: if set to false, all certificates will be rejected; if set to true, the connector will follow standard Java convention and use the trust store defined by the "javax.net.ssl.trustStore" system property.
 * Data Type: `boolean`
-* Default Value: `false`
+* Default Value: `true`
 * Introduced: 3.3.2
 
 #### **disableSslHostnameVerification**
@@ -340,7 +340,7 @@ more information on [Using TLS/SSL with MariaDB java connector](using-tls-ssl-wi
 
 #### **useSsl**
 
-* Description: _deprecated, use sslMode instead_ Force [SSL/TLS on connection](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/securing-mariadb-encryption/data-in-transit-encryption/secure-connections-overview)(useSSL can be used as alias).
+* Description: _deprecated, use sslMode instead_ Force [SSL/TLS on connection](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview)(useSSL can be used as alias).
 * Data Type: `boolean`
 * Default Value: `false`
 * Introduced: 1.1.0
@@ -444,14 +444,7 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 * Default Value: `false`
 * Introduced: 2.4.3
 
-#### **cacheCallableStmts**
-
-* Description:enable/disable callable Statement cache
-* Data Type: `boolean`
-* Default Value: `true`
-* Introduced: 1.4.0
-
-#### **cachedCodecs**
+#### **cacheCodecs**
 
 * Description: permit to enable/disable caching of codecs (FIELD encoder/decoder).
 * Data Type: `boolean`
@@ -474,7 +467,7 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 
 #### **connectionCollation**
 
-* Description: Connector force `utf8mb4` charset at connection. Indicate what utf8mb4 collation to use if set. if not set, the server default collation for `utf8mb4` will be used. Useful only for the server before [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11-4), because then a better solution would be to set `character_set_collations`
+* Description: Connector force `utf8mb4` charset at connection. Indicate what utf8mb4 collation to use if set. if not set, the server default collation for `utf8mb4` will be used. Useful only for the server before [MariaDB 11.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.4), because then a better solution would be to set `character_set_collations`
 * Data Type: `string`
 * Default Value: `null`
 * Introduced: 3.5.0
@@ -549,6 +542,20 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 * Default Value: `null`
 * Introduced: 1.1.7
 
+#### **maxAllowedColumns**
+
+* Description: Maximum number of columns the driver accepts in result-set or prepare metadata sent by the server. Reading column metadata allocates memory in proportion to the announced column count, so a malicious proxy that announces a huge count could exhaust client memory. When the server announces more columns than this limit, the command is interrupted with an error.
+* Data Type: `integer`
+* Default Value: `65535`
+* Introduced: 2.7.15, 3.3.6, 3.4.4, 3.5.10
+
+#### **maxAllowedPacket**
+
+* Description: Maximum size, in bytes, of a packet the driver sends or receives. The value is advertised to the server during the handshake (capped to 16MB for the connection phase), lets the driver reject a command that is too big to send — throwing an error instead of having the server drop the connection — and rejects an oversized packet received from the server. When unset, no send-side limit applies, and the receive side falls back to a server-independent heap-relative ceiling: a quarter of the JVM maximum heap, clamped between 16MB and 1GB.
+* Data Type: `integer`
+* Default Value: `null`
+* Introduced: 3.5.10
+
 #### **maxQuerySizeToLog**
 
 * Description: Only the first characters corresponding to this options size will be displayed in logs
@@ -590,13 +597,6 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 * Data Type: `boolean`
 * Default Value: `false`
 * Introduced: 3.4.1
-
-#### prepStmtCacheSqlLimit
-
-* Description: If `useServerPrepStmts` is enabled, defined queries larger than this size will not be cached.&#x20;
-* Data Type: `integer`
-* Default Value: `2048`&#x20;
-* Introduced: 1.3.0
 
 #### **pipe**
 
@@ -757,7 +757,7 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 
 * Description: Use dedicated COM\_STMT\_BULK\_EXECUTE protocol for batch insert when possible. (batch without Statement.RETURN\_GENERATED\_KEYS and streams) to have faster batch.
 * Data Type: `boolean`
-* Default Value: `true`
+* Default Value: `false`
 * Introduced: 3.0.0 (was false since version >= 2.3.0)
 
 #### **useCatalogTerm**
@@ -792,15 +792,8 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 
 * Description: Use a buffered inputSteam that read socket available data
 * Data Type: `boolean`
-* Default Value: `true`
+* Default Value: `false`
 * Introduced: 2.4.0
-
-#### **usePipelineAuth**
-
-* Description: Not compatible with aurora\*During connection, different queries are executed. When option is active those queries are send using pipeline (all queries are send, then only all results are reads), permitting faster connection creation.
-* Data Type: `boolean`
-* Default Value: `true`
-* Introduced: 1.6.0
 
 #### **yearIsDateType**
 
@@ -811,7 +804,7 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 
 ### **Removed options**
 
-<table><thead><tr><th width="275">Parameter</th><th>Description</th></tr></thead><tbody><tr><td><code>allowMasterDownConnection</code></td><td>When the replication Failover and Load Balancing Mode is in use, allow the creation of connections when the master is down. If no masters are available, then the default connection will be a replica, and Connection.isReadOnly() will return true. Default: false. Since 2.2.0, removed in 3.0.0</td></tr><tr><td><code>interactiveClient</code></td><td>Session timeout is defined by the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout">wait_timeout</a> server variable. Setting interactiveClient to true will tell the server to use the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables">interactive_timeout</a> server variable.Default: false. Since 1.1.7</td></tr><tr><td><code>assureReadOnly</code></td><td>When this parameter is enabled, when a failover and load balancing mode is in use and a read-only connection is made to a host, ensure that this connection is in read-only mode by setting the session to read-only. Default to false. Since 1.3.0, removed in 3.0.0</td></tr><tr><td><code>autoReconnect</code></td><td>If this parameter is enabled and Failover and Load Balancing Mode is not in use, the connector will simply try to reconnect to its host after a failure. This is referred to as Basic Failover. If this parameter is enabled and Failover and Load Balancing Mode is in use, the connector will blacklist the failed host and try to connect to a different host of the same type. This is referred to as Standard Failover. Default is false.since 1.1.7, removed in 3.0.0</td></tr><tr><td><code>callableStmtCacheSize</code></td><td>This sets the number of callable statements that the driver will cache per VM if "cacheCallableStmts" is enabled.Default: true. Since 1.4.0, removed in 3.0.0</td></tr><tr><td><code>enablePacketDebug</code></td><td>Driver will save the last 16 MySQL packet exchanges (limited to first 1000 bytes). Hexadecimal value of those packets will be added to stacktrace when an IOException occur.This option has no impact on performance but driver will then take 16kb more memory.Default: false. Since 1.6.0, 2.0.1, removed in 3.0.0</td></tr><tr><td><code>failoverLoopRetries</code></td><td>When the connector is searching silently for a valid host, this parameter defines the maximum number of connection attempts the connector will make before throwing an exception.This parameter differs from the "retriesAllDown" parameter because this silent search is used in situations where the connector can temporarily workaround the problem, such as by using the master connection to execute reads when the replica connection fails.Default: 120.since 1.2.0, removed in 3.0.0</td></tr><tr><td><code>jdbcCompliantTruncation</code></td><td>Truncation error ("Data truncated for column '%' at row %", "Out of range value for column '%' at row %") will be thrown as an error, and not as a warning.Default: true. Since 1.4.0</td></tr><tr><td><code>keyPassword</code></td><td>Password for the private key in client certificate keyStore. (only needed if private key password differ from keyStore password).Since 1.5.3, removed in 3.0.0</td></tr><tr><td><code>loadBalanceBlacklistTimeout</code></td><td>When a connection fails, this host will be blacklisted for the amount of time defined by this parameter.When connecting to a host, the driver will try to connect to a host in the list of non-blacklisted hosts and, only if none are found, attempt blacklisted ones.This blacklist is shared inside the classloader.Default: 50 seconds.since 1.2.0, removed in 3.0.0</td></tr><tr><td><code>log</code></td><td>Enable log information. require Slf4j version > 1.4 dependency.Log level correspond to Slf4j logging implementationDefault: false. Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>passwordCharacterEncoding</code></td><td>Indicate password encoding charset. Charset value must be a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html">Java charset</a>. Example : "UTF-8" Default: null (= platform's default charset) . Since 1.5.9, removed in 3.0.0</td></tr><tr><td><code>profileSql</code></td><td>log query execution time.Default: false. Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>slowQueryThresholdNanos</code></td><td>Will log query with execution time superior to this value (if defined )Default: 1024. Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>retriesAllDown</code></td><td>When the connector is performing a failover and all hosts are down, this parameter defines the maximum number of connection attempts the connector will make before throwing an exception.Default: 120 seconds.since 1.2.0, removed in 3.0.0</td></tr><tr><td><code>serverTimezone</code></td><td>Defines the server time zone.to use only if the jre server has a different time implementation of the server.(best to have the same server time zone when possible).since 1.1.7, removed in 3.0.0</td></tr><tr><td><code>sharedMemory</code></td><td>Permits connecting to the database via shared memory, if the server allows it. The value is the base name of the shared memory.since 1.1.4, removed in 3.0.0</td></tr><tr><td><code>staticGlobal</code></td><td>Indicates the values of the global variables <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_allowed_packet">max_allowed_packet</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout">wait_timeout</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#autocommit">autocommit</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables">auto_increment_increment</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#time_zone">time_zone</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#system_time_zone">system_time_zone</a> and <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#tx_isolation">tx_isolation</a>) won't be changed, permitting the pool to create new connections faster.Default: false. Since 2.2.0, removed in 3.0.0</td></tr><tr><td><code>tcpNoDelay</code></td><td>Sets corresponding option on the connection socket.since 1.0.0, removed in 3.0.0</td></tr><tr><td><code>tcpRcvBuf</code></td><td>set buffer size for TCP buffer (SO_RCVBUF).since 1.0.0, removed in 3.0.0</td></tr><tr><td><code>tcpSndBuf</code></td><td>set buffer size for TCP buffer (SO_SNDBUF).since 1.0.0, removed in 3.0.0</td></tr><tr><td><code>trackSchema</code></td><td>Permit to disabled "session_track_schema" setting when server has CLIENT_SESSION_TRACK capabilityDefault: True. Since 2.5.4, removed in 3.0.0</td></tr><tr><td><code>useBatchMultiSend</code></td><td><em>Not compatible with aurora</em> Driver will can send queries by batch. If set to false, queries are sent one by one, waiting for the result before sending the next one. If set to true, queries will be sent by batch corresponding to the useBatchMultiSendNumber option value (default 100) or according to the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_allowed_packet">max_allowed_packet</a> server variable if the packet size does not permit sending as many queries. Results will be read later, avoiding a lot of network latency when the client and server aren't on the same host. This option is mainly effective when the client is distant from the server. More information <a href="option-batchmultisend-description.md">here</a> Default: true (false if using aurora failover) . Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>useBatchMultiSendNumber</code></td><td>When option useBatchMultiSend is active, indicate the maximum query send in a row before reading results.Default: 100. Since 1.5.0</td></tr><tr><td><code>useFractionalSeconds</code></td><td>Correctly handle subsecond precision in timestamps (feature available with <a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3">MariaDB 5.3</a> and later). May confuse 3rd party components (Hibernated).Default: true. Since 1.0.0</td></tr><tr><td><code>useOldAliasMetadataBehavior</code></td><td>Metadata ResultSetMetaData.getTableName() returns the physical table name. "useOldAliasMetadataBehavior" permits activating the legacy code that sends the table alias if set. Default: false. Since 1.1.9</td></tr><tr><td><code>validConnectionTimeout</code></td><td>When multiple hosts are configured, the connector verifies that the connections haven't been lost after this much time in seconds has elapsed.When this parameter is set to 0, no verification will be done. Default:120 secondssince 1.2.0, removed in 3.0.0</td></tr></tbody></table>
+<table><thead><tr><th width="275">Parameter</th><th>Description</th></tr></thead><tbody><tr><td><code>allowMasterDownConnection</code></td><td>When the replication Failover and Load Balancing Mode is in use, allow the creation of connections when the master is down. If no masters are available, then the default connection will be a replica, and Connection.isReadOnly() will return true. Default: false. Since 2.2.0, removed in 3.0.0</td></tr><tr><td><code>interactiveClient</code></td><td>Session timeout is defined by the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout">wait_timeout</a> server variable. Setting interactiveClient to true will tell the server to use the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables">interactive_timeout</a> server variable.Default: false. Since 1.1.7</td></tr><tr><td><code>assureReadOnly</code></td><td>When this parameter is enabled, when a failover and load balancing mode is in use and a read-only connection is made to a host, ensure that this connection is in read-only mode by setting the session to read-only. Default to false. Since 1.3.0, removed in 3.0.0</td></tr><tr><td><code>autoReconnect</code></td><td>If this parameter is enabled and Failover and Load Balancing Mode is not in use, the connector will simply try to reconnect to its host after a failure. This is referred to as Basic Failover. If this parameter is enabled and Failover and Load Balancing Mode is in use, the connector will blacklist the failed host and try to connect to a different host of the same type. This is referred to as Standard Failover. Default is false.since 1.1.7, removed in 3.0.0</td></tr><tr><td><code>callableStmtCacheSize</code></td><td>This sets the number of callable statements that the driver will cache per VM if "cacheCallableStmts" is enabled.Default: true. Since 1.4.0, removed in 3.0.0</td></tr><tr><td><code>enablePacketDebug</code></td><td>Driver will save the last 16 MySQL packet exchanges (limited to first 1000 bytes). Hexadecimal value of those packets will be added to stacktrace when an IOException occur.This option has no impact on performance but driver will then take 16kb more memory.Default: false. Since 1.6.0, 2.0.1, removed in 3.0.0</td></tr><tr><td><code>failoverLoopRetries</code></td><td>When the connector is searching silently for a valid host, this parameter defines the maximum number of connection attempts the connector will make before throwing an exception.This parameter differs from the "retriesAllDown" parameter because this silent search is used in situations where the connector can temporarily workaround the problem, such as by using the master connection to execute reads when the replica connection fails.Default: 120.since 1.2.0, removed in 3.0.0</td></tr><tr><td><code>loadBalanceBlacklistTimeout</code></td><td>When a connection fails, this host will be blacklisted for the amount of time defined by this parameter.When connecting to a host, the driver will try to connect to a host in the list of non-blacklisted hosts and, only if none are found, attempt blacklisted ones.This blacklist is shared inside the classloader.Default: 50 seconds.since 1.2.0, removed in 3.0.0</td></tr><tr><td><code>log</code></td><td>Enable log information. require Slf4j version > 1.4 dependency.Log level correspond to Slf4j logging implementationDefault: false. Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>passwordCharacterEncoding</code></td><td>Indicate password encoding charset. Charset value must be a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html">Java charset</a>. Example : "UTF-8" Default: null (= platform's default charset) . Since 1.5.9, removed in 3.0.0</td></tr><tr><td><code>profileSql</code></td><td>log query execution time.Default: false. Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>slowQueryThresholdNanos</code></td><td>Will log query with execution time superior to this value (if defined )Default: 1024. Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>serverTimezone</code></td><td>Defines the server time zone.to use only if the jre server has a different time implementation of the server.(best to have the same server time zone when possible).since 1.1.7, removed in 3.0.0</td></tr><tr><td><code>sharedMemory</code></td><td>Permits connecting to the database via shared memory, if the server allows it. The value is the base name of the shared memory.since 1.1.4, removed in 3.0.0</td></tr><tr><td><code>staticGlobal</code></td><td>Indicates the values of the global variables <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_allowed_packet">max_allowed_packet</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout">wait_timeout</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#autocommit">autocommit</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables">auto_increment_increment</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#time_zone">time_zone</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#system_time_zone">system_time_zone</a> and <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#tx_isolation">tx_isolation</a>) won't be changed, permitting the pool to create new connections faster.Default: false. Since 2.2.0, removed in 3.0.0</td></tr><tr><td><code>tcpNoDelay</code></td><td>Sets corresponding option on the connection socket.since 1.0.0, removed in 3.0.0</td></tr><tr><td><code>tcpRcvBuf</code></td><td>set buffer size for TCP buffer (SO_RCVBUF).since 1.0.0, removed in 3.0.0</td></tr><tr><td><code>tcpSndBuf</code></td><td>set buffer size for TCP buffer (SO_SNDBUF).since 1.0.0, removed in 3.0.0</td></tr><tr><td><code>trackSchema</code></td><td>Permit to disabled "session_track_schema" setting when server has CLIENT_SESSION_TRACK capabilityDefault: True. Since 2.5.4, removed in 3.0.0</td></tr><tr><td><code>useBatchMultiSend</code></td><td><em>Not compatible with aurora</em> Driver will can send queries by batch. If set to false, queries are sent one by one, waiting for the result before sending the next one. If set to true, queries will be sent by batch corresponding to the useBatchMultiSendNumber option value (default 100) or according to the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_allowed_packet">max_allowed_packet</a> server variable if the packet size does not permit sending as many queries. Results will be read later, avoiding a lot of network latency when the client and server aren't on the same host. This option is mainly effective when the client is distant from the server. More information <a href="option-batchmultisend-description.md">here</a> Default: true (false if using aurora failover) . Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>useBatchMultiSendNumber</code></td><td>When option useBatchMultiSend is active, indicate the maximum query send in a row before reading results.Default: 100. Since 1.5.0</td></tr><tr><td><code>useFractionalSeconds</code></td><td>Correctly handle subsecond precision in timestamps (feature available with <a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3">MariaDB 5.3</a> and later). May confuse 3rd party components (Hibernated).Default: true. Since 1.0.0</td></tr><tr><td><code>useOldAliasMetadataBehavior</code></td><td>Metadata ResultSetMetaData.getTableName() returns the physical table name. "useOldAliasMetadataBehavior" permits activating the legacy code that sends the table alias if set. Default: false. Since 1.1.9</td></tr><tr><td><code>validConnectionTimeout</code></td><td>When multiple hosts are configured, the connector verifies that the connections haven't been lost after this much time in seconds has elapsed.When this parameter is set to 0, no verification will be done. Default:120 secondssince 1.2.0, removed in 3.0.0</td></tr></tbody></table>
 
 ## JDBC API Implementation Notes
 
@@ -873,9 +866,9 @@ The simplest approach to avoid time zone headaches is for the client and server 
 
 There are 3 options that control timestamps behavior in the java connector:
 
-* connectionTimeZone: (LOCAL | SERVER | ) - This option defines the connection's time zone. LOCAL retrieves the JVM's default time zone, SERVER fetches the server's global time zone upon connection creation, and allows specifying a server time zone without requesting it during connection establishment.
+* connectionTimeZone: (LOCAL | SERVER | `<user-defined time zone>`) - This option defines the connection's time zone. LOCAL retrieves the JVM's default time zone, SERVER fetches the server's global time zone upon connection creation, and `<user-defined time zone>` allows specifying a server time zone without requesting it during connection establishment. A user-defined value must be a valid [Java ZoneId](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html): either a region ID such as `Europe/Berlin` or `America/Los_Angeles`, or a fixed offset such as `+02:00`. An unrecognized value fails the connection with an `Unknown zoneId` error.
 * forceConnectionTimeZoneToSession: (true | false) - This setting dictates whether the connector enforces the connection time zone for the session.
-* preserveInstants: (true | false) - This option controls whether the connector converts Timestamp values to the connection's time zone.
+* preserveInstants: (true | false) - This option controls whether the connector converts Timestamp values to the connection's time zone. When enabled, a `java.sql.Timestamp` is written as its wall-clock value in the connection time zone and, on read, that wall-clock value is converted back to the same instant in the JVM's default time zone. See the "A (Discouraged) Workaround" section below for the limitations of this conversion.
 
 #### **Recommendation**
 
@@ -897,7 +890,15 @@ Due to its wider range, DATETIME is sometimes mistakenly used to store a specifi
 
 #### **A (Discouraged) Workaround:**
 
-While using DATETIME instead of TIMESTAMP is generally discouraged, a specific combination of settings ("preserveInstants=true\&connectionTimeZone=SERVER") can force all Java Timestamp exchanges to be converted to the connection's time zone during storage and retrieval. However, this approach is not recommended for long-term solutions.
+While using DATETIME instead of TIMESTAMP is generally discouraged, a specific combination of settings ("preserveInstants=true\&connectionTimeZone=SERVER") can force all Java Timestamp exchanges to be converted to the connection's time zone during storage and retrieval. This keeps existing DATETIME columns usable as instants when the client and server time zones differ.
+
+This workaround has an inherent limitation: it is not a temporary fix that becomes wrong over time, but a conversion that is only reliable for a range of dates.
+
+* A `java.sql.Timestamp` is an instant. To store it in a DATETIME column, the connector renders it as a wall-clock value in the connection time zone. On retrieval, it reinterprets that wall-clock value in the connection time zone and converts it to the same instant in the JVM's default time zone.
+* Each conversion applies the time zone rules of that specific date: the UTC offset and any daylight saving time (DST) transitions in effect at that moment. For dates far from the present, such as `9999-12-31` or dates before the time zone was standardized, those rules are extrapolated or historical, and the JVM's rules can differ from the ones the server used when the value was written.
+* A wall-clock value that falls inside a DST gap (a local time that never occurred) or a DST overlap (a local time that occurred twice) cannot be mapped back to a single instant. The connector picks one, so the value can shift by the size of the DST change.
+
+The result is that a Timestamp can round-trip to a different value, typically shifted by an hour or by the difference in offset rules. Whether this matters depends on your data. Applications that only store dates near the present, in a time zone without DST, or with a fixed-offset `connectionTimeZone` such as `+00:00`, are usually unaffected. Applications that store sentinel values like `9999-12-31 23:59:59`, or dates spanning many decades, should store instants in TIMESTAMP columns instead.
 
 #### **Compatibility with Older Connectors (Pre-3.4):**
 
@@ -977,7 +978,7 @@ Even using setFetchSize, the server will send all results to the client.
 
 If another query is executed on the same connection when a streaming resultset has not been fully read, the connector will put the whole remaining streaming resultset in memory in order to execute the next query. This can lead to OutOfMemoryError if not handled.
 
-Before version 1.4.0, the only accepted value for fetch size was `Statement.setFetchSize(Integer.MIN_VALUE)` (equivalent to `Statement.setFetchSize(1)`). This value is still accepted for compatibility reasons, but rather use `Statement.setFetchSize(1)`, since according to JDBC the value must be >= 0.
+`Statement.setFetchSize(Integer.MIN_VALUE)` is a MySQL Connector/J streaming idiom. MariaDB Connector/J follows the JDBC specification, which requires the fetch size to be `>= 0`, so `setFetchSize` throws an `SQLException` for any negative value. Use a positive value such as `Statement.setFetchSize(1)` to stream row-by-row.
 
 ### Prepared Statements
 
@@ -990,7 +991,7 @@ Callable statement implementation won't need to access the stored procedure meta
 * CallableStatement.getMetadata() is not used
 * Parameters are accessed by index, not by name
 
-When possible, following the two rules above provides both better speed and\
+When possible, following the two rules above provides both better speed and
 eliminates concerns about SELECT privileges on the [mysql.proc](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables/mysql-proc-table) table.
 
 ### Generated keys limitation
@@ -1010,7 +1011,7 @@ Statement stmt = sharedConn.createStatement();
 
 Only the first generated key will be returned, meaning that for multi-insert the generated key retrieved will correspond to the first generated value of the command.
 
-If retrieving all generated values for multiple insert is needed, please use [INSERT...RETURNING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning) command (since [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/10-5)).
+If retrieving all generated values for multiple insert is needed, please use [INSERT...RETURNING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning) command (since [MariaDB 10.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.5)).
 
 ### Optional JDBC Classes
 
@@ -1190,7 +1191,7 @@ Connector/J 3.x is a complete rewrite. While mostly compatible, several internal
 
 #### Critical Default Changes
 
-<table><thead><tr><th width="216.5">Option</th><th width="128">Default in 2.7.x</th><th width="130">Default in 3.x</th><th>Impact</th></tr></thead><tbody><tr><td><strong>useBulkStmts</strong></td><td><code>false</code></td><td><code>true</code></td><td>3.x uses the <code>COM_STMT_BULK</code> protocol by default for batch inserts. This is faster but changes <code>getGeneratedKeys()</code> behavior (returns the <em>last</em> ID instead of the <em>first</em>).</td></tr><tr><td><strong>prepStmtCacheSqlLimit</strong></td><td><code>256</code></td><td><code>2048</code></td><td>3.x caches significantly larger queries. This increases client memory usage and the number of prepared statements held open on the server (<code>prepared_stmt_count</code>).</td></tr><tr><td><strong>useServerPrepStmts</strong></td><td><code>false</code></td><td><code>false</code></td><td>While the default remains false, if enabled, 3.x is more aggressive in preparing statements. Combined with the larger cache limit, this can exhaust the server's <code>max_prepared_stmt_count</code>.</td></tr></tbody></table>
+<table><thead><tr><th width="216.5">Option</th><th width="128">Default in 2.7.x</th><th width="130">Default in 3.x</th><th>Impact</th></tr></thead><tbody><tr><td><strong>useBulkStmtsForInserts</strong></td><td><code>—</code> (n/a)</td><td><code>true</code></td><td>3.x uses the <code>COM_STMT_BULK</code> protocol by default for batch inserts (governed by <code>useBulkStmtsForInserts</code>, which defaults to <code>true</code>; the separate <code>useBulkStmts</code> option remains <code>false</code> by default). This is faster. <code>getGeneratedKeys()</code> still returns <em>all</em> generated ids (one per inserted row) — the same result as without bulk; only the underlying mechanism differs by server version.</td></tr><tr><td><strong>prepStmtCacheSqlLimit</strong></td><td><code>256</code></td><td><em>removed</em></td><td>This option was removed in Connector/J 3.x.</td></tr><tr><td><strong>useServerPrepStmts</strong></td><td><code>false</code></td><td><code>false</code></td><td>While the default remains false, if enabled, 3.x is more aggressive in preparing statements. Combined with the larger cache limit, this can exhaust the server's <code>max_prepared_stmt_count</code>.</td></tr></tbody></table>
 
 #### Feature Gaps
 
@@ -1214,5 +1215,7 @@ If you don't expect results to be handled in this amount of time there is anothe
 * Connection.isValid() is a good approach.
 * Connection.isValid() is doing a ping (ping in mysql protocol, not network ping).
 * Connection pool using JDBC4 Validation are using automatically this Connection.isValid()
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

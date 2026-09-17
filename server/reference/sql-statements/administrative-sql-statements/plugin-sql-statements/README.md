@@ -64,3 +64,5 @@ Remove a specific plugin from the server. This statement unloads the plugin code
 Uninstall all plugins loaded from a specific library. This statement removes every plugin associated with the library file and unloads the library itself.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

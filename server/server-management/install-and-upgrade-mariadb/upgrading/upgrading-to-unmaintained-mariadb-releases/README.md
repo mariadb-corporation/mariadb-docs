@@ -163,3 +163,5 @@ An upgrading guide for unmaintained versions of MariaDB Community Server.
 An upgrading guide for unmaintained versions of MariaDB Community Server.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

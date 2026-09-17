@@ -57,6 +57,6 @@ Almost the same as above, except that
   * 10.0 took 2.75 years (first commit was in August 2011, GA in May 2014)
   * 10.1 took 1.83 years (first commit was in December 2013, GA in October 2015)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

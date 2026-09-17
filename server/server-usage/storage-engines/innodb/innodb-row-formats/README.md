@@ -78,3 +78,5 @@ Information on the legacy REDUNDANT row format, primarily maintained for backwar
 Complete InnoDB row size troubleshooting: innodb_strict_mode, ALTER TABLE ROW_FORMAT=DYNAMIC, VARCHAR/VARBINARY(256) overflow, and BLOB/TEXT solutions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -38,7 +38,7 @@ The following table shows the C variable type required for the `arg` parameter o
 | Variable type                 | Options                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `my_bool`, `unsigned char`    | `MYSQL_OPT_RECONNECT`, `MYSQL_SECURE_AUTH`, `MYSQL_REPORT_DATA_TRUNCATION`, `MYSQL_OPT_SSL_ENFORCE`, `MYSQL_OPT_SSL_VERIFY_SERVER_CERT`, `MARIADB_OPT_SKIP_READ_RESPONSE`, `MYSQL_OPT_ZSTD_COMPRESSION_LEVEL`                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `unsigned int`                | `MYSQL_OPT_PORT`, `MYSQL_OPT_LOCAL_INFILE`, `MYSQL_OPT_CONNECT_TIMEOUT`, `MYSQL_OPT_PROTOCOL`, `MYSQL_OPT_READ_TIMEOUT`, `MYSQL_OPT_WRITE_TIMEOUT`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `unsigned int`                | `MARIADB_OPT_PORT`, `MYSQL_OPT_LOCAL_INFILE`, `MYSQL_OPT_CONNECT_TIMEOUT`, `MYSQL_OPT_PROTOCOL`, `MYSQL_OPT_READ_TIMEOUT`, `MYSQL_OPT_WRITE_TIMEOUT`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `unsigned long`               | `MYSQL_OPT_NET_BUFFER_LENGTH`, `MYSQL_OPT_MAX_ALLOWED_PACKET`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `const char *`                | `MYSQL_INIT_COMMAND`, `MARIADB_OPT_UNIXSOCKET`, `MARIADB_OPT_PASSWORD` , `MARIADB_OPT_USER`, `MARIADB_OPT_HOST`, `MARIADB_OPT_SCHEMA`, `MYSQL_OPT_SSL_KEY`, `MYSQL_OPT_SSL_CERT`, `MYSQL_OPT_SSL_CA`, `MYSQL_OPT_SSL_CAPATH`, `MYSQL_SET_CHARSET_NAME`, `MYSQL_SET_CHARSET_DIR`, `MYSQL_OPT_SSL_CIPHER`, `MYSQL_SHARED_MEMORY_BASE_NAME`, `MYSQL_PLUGIN_DIR`, `MYSQL_DEFAULT_AUTH`, `MARIADB_OPT_SSL_FP`, `MARIADB_OPT_SSL_FP_LIST`, `MARIADB_OPT_TLS_PASSPHRASE`, `MARIADB_OPT_TLS_VERSION`, `MYSQL_OPT_BIND`, `MYSQL_OPT_CONNECT_ATTR_DELETE`, `MYSQL_OPT_CONNECT_ATTR_ADD`, `MARIADB_OPT_CONNECTION_HANDLER`, `MYSQL_SERVER_PUBLIC_KEY`, `MARIADB_OPT_RESTRICTED_AUTH` |
 | `const char*`, `unsigned int` | `MARIADB_OPT_RPL_REGISTER_REPLICA`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -64,19 +64,7 @@ The following table shows the C variable type required for the `arg` parameter o
     unsigned int timeout= 5;
     mysql_optionsv(mysql, MYSQL_OPT_CONNECT_TIMEOUT, (void *)&timeout);
     ```
-*   `MARIADB_OPT_VERIFY_LOCAL_INFILE_CALLBACK`: Specifies a callback function for filename and/or directory verification.\
-    This option was added in Connector/C 2.3.0
-
-    ```c
-    int my_verify_filename(void *data, const char *filename)
-    {
-     return strcmp((char *)data, filename);
-    }
-    ...
-    char *filename= "mydata.csv";
-    mysql_optionsv(mysql, MARIADB_OPT_VERIFY_LOCAL_INFILE_CALLBACK, my_verify_filename, (void *)filename);
-    ```
-*   `MYSQL_PROGRESS_CALLBACK`: Specifies a callback function which will be able to visualize the progress of certain long running statements (i.e. [LOAD DATA LOCAL INFILE](broken-reference/) or [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table)).
+*   `MYSQL_PROGRESS_CALLBACK`: Specifies a callback function which will be able to visualize the progress of certain long running statements (i.e. [LOAD DATA LOCAL INFILE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) or [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table)).
 
     ```c
     static void report_progress(const MYSQL *mysql __attribute__((unused)),
@@ -212,7 +200,7 @@ Some of these options can also be set as arguments to the [mysql\_real\_connect]
     mysql_optionsv(mysql, MYSQL_OPT_COMPRESS, NULL);
     ```
 * `MYSQL_OPT_ZSTD_COMPRESSION_LEVEL`: The compression level to use for connections that use the `zstd` compression algorithm. Acceptable values are integers in the range 1 (fastest) to 22 (maximum compression). This option has no effect if `zstd` compression is not in use. Added in MariaDB Connector/C 3.3.14 and 3.4.4 versions.
-*   `MYSQL_OPT_LOCAL_INFILE`: Enable or disable the use of [LOAD DATA LOCAL INFILE](broken-reference/)
+*   `MYSQL_OPT_LOCAL_INFILE`: Enable or disable the use of [LOAD DATA LOCAL INFILE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile)
 
     ```c
     unsigned int enable= 1, disable= 0;
@@ -253,7 +241,7 @@ Some of these options can also be set as arguments to the [mysql\_real\_connect]
     ```c
     mysql_optionsv(mysql, MYSQL_OPT_SSL_CA, (void *)"certs/ca-cert.pem");
     ```
-*   `MYSQL_OPT_SSL_CAPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information. This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+*   `MYSQL_OPT_SSL_CAPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://docs.openssl.org/1.1.1/man1/rehash/) command. See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information. This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 
     ```c
     mysql_optionsv(mysql, MYSQL_OPT_SSL_CAPATH, (void *)"certs/ca-cert.pem");
@@ -266,12 +254,14 @@ Some of these options can also be set as arguments to the [mysql\_real\_connect]
 *   `MYSQL_OPT_SSL_CRL`: Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information. This option is only supported if the connector was built with OpenSSL or Schannel. If the connector was built with GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 
     ```c
-    mysql_optionsv(mysql, MYSQL_OPT_SSL_CAPATH, (void *)"certs/ca-cert.pem");\\\\<<code>>mysql_optionsv(mysql, MYSQL_OPT_SSL_CRL, (void *)"certs/crl.pem");
+    mysql_optionsv(mysql, MYSQL_OPT_SSL_CAPATH, (void *)"certs/ca-cert.pem");
+    mysql_optionsv(mysql, MYSQL_OPT_SSL_CRL, (void *)"certs/crl.pem");
     ```
-*   `MYSQL_OPT_SSL_CRLPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information. This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+*   `MYSQL_OPT_SSL_CRLPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://docs.openssl.org/1.1.1/man1/rehash/) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information. This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 
     ```c
-    mysql_optionsv(mysql, MYSQL_OPT_SSL_CAPATH, (void *)"certs/ca-cert.pem");\\\\<<code>>mysql_optionsv(mysql, MYSQL_OPT_SSL_CRLPATH, (void *)"certs/crls");
+    mysql_optionsv(mysql, MYSQL_OPT_SSL_CAPATH, (void *)"certs/ca-cert.pem");
+    mysql_optionsv(mysql, MYSQL_OPT_SSL_CRLPATH, (void *)"certs/crls");
     ```
 *   `MARIADB_OPT_SSL_FP`: Specify the fingerprint hash of a server certificate for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake. Before version 3.4.0, Connector/C accepted only `SHA1` hashes. Starting with version 3.4.0, support was extended to include `SHA256`, `SHA384`, and `SHA512`. This option is deprecated. Use `MARIADB_OPT_TLS_PEER_FP` instead.
 
@@ -315,7 +305,7 @@ Some of these options can also be set as arguments to the [mysql\_real\_connect]
     my_bool enforce_tls= 1;
     mysql_optionsv(mysql, MYSQL_OPT_SSL_ENFORCE, (void *)&enforce_tls);
     ```
-* **Note**: Despite the option name, this does **not** enforce TLS. If the server does not support TLS, the\
+* **Note**: Despite the option name, this does **not** enforce TLS. If the server does not support TLS, the
   connection falls back to unencrypted communication without error. To prevent fallback and enforce TLS, use `MYSQL_OPT_SSL_VERIFY_SERVER_CERT` instead.
 *   `MARIADB_OPT_TLS_CIPHER_STRENGTH`: **Deprecated**. This option is no longer in use and has no effect. Cipher strength. This value will be passed as an unsigned `int` parameter.
 
@@ -490,5 +480,7 @@ If the [Performance Schema](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/refer
 * [mysql\_init()](mysql_init.md)
 * [mysql\_options()](mysql_options.md)
 * [mysql\_real\_connect()](mysql_real_connect.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

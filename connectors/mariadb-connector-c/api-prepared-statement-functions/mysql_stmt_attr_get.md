@@ -61,11 +61,11 @@ The `enum_stmt_attr_type` parameter has the following possible values:
     enum mysql_stmt_state stmt_state; 
     rc= mysql_stmt_attr_get(stmt, STMT_ATTR_STATE, &stmt_state); 
     ```
-*   `STMR_ATTR_SQL_STATEMENT`: The SQL statement from the last executed [mysql\_stmt\_prepare()](mysql_stmt_prepare.md) call. The returned value is of type `MARIADB_CONST_STRING`. Added in MariaDB Connector/C 3.4.4
+*   `STMT_ATTR_SQL_STATEMENT`: The SQL statement from the last executed [mysql\_stmt\_prepare()](mysql_stmt_prepare.md) call. The returned value is of type `MARIADB_CONST_STRING`. Added in MariaDB Connector/C 3.4.4
 
     ```c
     MARIADB_CONST_STRING sql_statement; 
-    rc= mysql_stmt_attr_get(stmt, STMR_ATTR_SQL_STATEMENT, &sql_statement);
+    rc= mysql_stmt_attr_get(stmt, STMT_ATTR_SQL_STATEMENT, &sql_statement);
     ```
 
 {% hint style="info" %}
@@ -75,5 +75,7 @@ Setting the number of prefetched rows will work only for read only cursors.
 ## See Also
 
 * [mysql\_stmt\_attr\_set()](mysql_stmt_attr_set.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

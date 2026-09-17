@@ -92,7 +92,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, AlmaLinux, Cent
 **Install via YUM (RHEL, AlmaLinux, CentOS, Rocky Linux)**
 
 1. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
-2.  Configure the YUM package repository. Installable versions of MariaDB Enterprise Server are `11.4`, `10.6`, `10.5`, `10.4`, and `10.3`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#mariadb_es_repo_setup). The following directions reference `10.6`.
+2.  Configure the YUM package repository. Installable versions of MariaDB Enterprise Server are `11.4`, `10.6`, `10.5`, `10.4`, and `10.3`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts). The following directions reference `10.6`.
 
     To configure YUM package repositories:
 
@@ -132,7 +132,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, AlmaLinux, Cent
 1. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 2.  Configure the APT package repository.
 
-    Installable versions of MariaDB Enterprise Server are `11.4`, `10.6`, `10.5`, `10.4`, and `10.3`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#mariadb_es_repo_setup). The following directions reference `10.6`.
+    Installable versions of MariaDB Enterprise Server are `11.4`, `10.6`, `10.5`, `10.4`, and `10.3`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts). The following directions reference `10.6`.
 
     To configure APT package repositories:
 
@@ -176,7 +176,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, AlmaLinux, Cent
 1. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 2.  Configure the ZYpp package repository.
 
-    Installable versions of MariaDB Enterprise Server are `11.4`, `10.6`, `10.5`, `10.4`, and `10.3`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#mariadb_es_repo_setup). The following directions reference `11.4`.
+    Installable versions of MariaDB Enterprise Server are `11.4`, `10.6`, `10.5`, `10.4`, and `10.3`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts). The following directions reference `11.4`.
 
     To configure ZYpp package repositories:
 
@@ -258,7 +258,7 @@ The utility is called [mariadb-upgrade](../../../../../clients-and-utilities/dep
 $ sudo mariadb-upgrade
 ```
 
-And the utility is called [mysql\_upgrade](../../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md) in MariaDB Enterprise Server 10.3 and 10.2:
+And the utility is called [mysql\_upgrade](../../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) in MariaDB Enterprise Server 10.3 and 10.2:
 
 ```bash
 $ sudo mysql_upgrade
@@ -316,6 +316,6 @@ When MariaDB Enterprise Server is up and running on your system, you should test
 
 ***
 
-{% include "../../../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -226,6 +226,6 @@ This page was step 1 of 9.
 
 [Next: Step 2: Configure Shared Local Storage](step-2-configure-shared-local-storage.md).
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

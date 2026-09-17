@@ -33,7 +33,7 @@ Go to [app.skysql.com](https://app.skysql.com) to sign up. You can sign up using
      * MariaDB Server Single Node
      *   MariaDB Enterprise Cluster
 
-         <div data-gb-custom-block data-tag="hint" data-style="warning" class="hint hint-warning"><p><strong>Tech Preview Limitation</strong></p><p>MariaDB Enterprise Cluster is currently available as a <em>Tech Preview</em>. They are exclusively available on the <strong>PowerPlus</strong> tier and require a minimum of 3 nodes to maintain quorum.</p></div>
+         <div data-gb-custom-block data-tag="hint" data-style="warning" class="hint hint-warning"><p><strong>Enterprise Cluster Requirements</strong></p><p>MariaDB Enterprise Clusters are exclusively available on the <strong>PowerPlus</strong> tier and require a minimum of 3 nodes to maintain quorum.</p></div>
    * Serverless:&#x20;
      * MariaDB Serverless Single Node.
 3.  Select your cloud provider and region:\
@@ -108,3 +108,5 @@ Stopping, starting, and deleting a service are examples of Self-Service Operatio
 [Launch DB using the Terraform Provider](launch-db-using-the-terraform-provider.md)
 
 [Launch DB using Python](launch-db-using-python.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

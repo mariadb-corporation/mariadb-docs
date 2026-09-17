@@ -78,3 +78,5 @@ Instructions on how to verify your S3 configuration using tools like `aria_s3_co
 A reference for the `aria_s3_copy` tool, which is used to manually copy Aria tables to and from S3 storage for testing and data migration.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

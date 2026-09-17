@@ -58,3 +58,5 @@ mariadb-import --local --replace --parallel=4 --user=admin --password mydb t1.ts
 - **`mariadb-load-data`** — the underlying `LOAD DATA [LOCAL] INFILE` statement: the `LOCAL`/`local_infile`/`secure_file_priv` security model, duplicate and strict-mode behavior, escaping — all of which `mariadb-import` inherits
 - **`mariadb-dump`** — the round-trip companion: `mariadb-dump --tab` / `--dir` produces the files that `mariadb-import` (and `mariadb-import --dir`) load back
 - Canonical reference on `mariadb.com/docs`, consult only for edge cases not covered here: <https://mariadb.com/docs/server/clients-and-utilities/backup-restore-and-import-clients/mariadb-import>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

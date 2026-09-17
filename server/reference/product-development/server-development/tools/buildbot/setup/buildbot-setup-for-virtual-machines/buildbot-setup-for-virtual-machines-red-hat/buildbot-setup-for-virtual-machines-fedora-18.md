@@ -13,7 +13,7 @@ qemu-img create -f qcow2 /kvm/vms/vm-fedora18-i386-serial.qcow2 10G
 qemu-img create -f qcow2 /kvm/vms/vm-fedora18-amd64-serial.qcow2 10G
 ```
 
-Start each VM booting from the server install iso one at a time and perform\
+Start each VM booting from the server install iso one at a time and perform
 the following install steps:
 
 ```

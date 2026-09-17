@@ -26,7 +26,7 @@ mariadbd-safe [ --no-defaults | --defaults-file | --defaults-extra-file | --defa
 
 ### Options
 
-Many of the options supported by `mariadbd-safe` are identical to\
+Many of the options supported by `mariadbd-safe` are identical to
 options supported by [mariadbd](mariadbd-options.md). If an unknown option is provided to `mariadbd-safe` on the command-line, then it is passed to `mariadbd`.
 
 `mariadbd-safe` supports the following options:
@@ -185,13 +185,13 @@ When you use `mariadbd-safe` to start `mariadbd`, `mariadbd-safe` logs to the sa
 
 `mariadbd-safe` has several log-related options:
 
-* `--syslog`: Write error messages to syslog on systems that\
+* `--syslog`: Write error messages to syslog on systems that
   support the logger program.
 * `--skip-syslog`: Do not write error messages to syslog.\
-  Messages are written to the default error log file (host\_name.err in the data\
-  directory), or to a named file if the `--log-error` option\
+  Messages are written to the default error log file (host\_name.err in the data
+  directory), or to a named file if the `--log-error` option
   is given.
-* `--log-error=file_name`: Write error messages to the named\
+* `--log-error=file_name`: Write error messages to the named
   error file.
 
 If none of these options is provided, then the default is `--skip-syslog`.
@@ -208,8 +208,8 @@ If you do edit `mariadbd-safe`, then you should be aware of the fact that a pack
 
 ## NetWare
 
-On NetWare, mariadbd-safe is a NetWare Loadable Module (NLM)\
-that is ported from the original Unix shell script. It starts the server as\
+On NetWare, mariadbd-safe is a NetWare Loadable Module (NLM)
+that is ported from the original Unix shell script. It starts the server as
 follows:
 
 1. Runs a number of system and option checks.
@@ -217,7 +217,7 @@ follows:
 3. Provides a screen presence for the MariaDB server.
 4. Starts mariadbd, monitors it, and restarts it if it terminates in error.
 5. Sends error messages from mariadbd to the host\_name.err file in the data directory.
-6. Sends mariadbd-safe screen output to the host\_name.safe file\
+6. Sends mariadbd-safe screen output to the host\_name.safe file
    in the data directory.
 
 ## See Also

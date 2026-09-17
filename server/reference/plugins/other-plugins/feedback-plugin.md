@@ -6,7 +6,7 @@ description: >-
 
 # Feedback Plugin
 
-The `feedback` plugin is designed to collect and, optionally, upload\
+The `feedback` plugin is designed to collect and, optionally, upload
 configuration and usage information to [MariaDB.org](https://mariadb.org/) or to any other configured URL.
 
 See the [MariaDB User Feedback](https://mariadb.org/feedback-plugin/) page on MariaDB.org to see collected MariaDB usage statistics.
@@ -101,7 +101,7 @@ SELECT * FROM information_schema.feedback;
 
 Only the contents of this table are sent to the [feedback\_url](feedback-plugin.md#feedback_url).
 
-MariaDB stores collation usage statistics. Each collation that has been used by the server\
+MariaDB stores collation usage statistics. Each collation that has been used by the server
 will have a record in output of `SELECT * FROM information_schema.feedback` , for example:
 
 ```
@@ -117,19 +117,19 @@ Collations that have not been used will not be included in the result.
 
 ## Sending Data
 
-The `feedback` plugin sends the data using a `POST` request to any URL or a list of URLs\
+The `feedback` plugin sends the data using a `POST` request to any URL or a list of URLs
 that you specify by setting the [feedback\_url](feedback-plugin.md#feedback_url) system variable. By default, this is set to the following URL:
 
-* https://feedback.mariadb.org/rest/v1/post
+* `https://feedback.mariadb.org/rest/v1/post`
 
 Both HTTP and HTTPS protocols are supported.
 
 If HTTP traffic requires a proxy in your environment, then you can specify the proxy by setting the [feedback\_http\_proxy](feedback-plugin.md#feedback_http_proxy) system variable.
 
-If the [feedback\_url](feedback-plugin.md#feedback_url) system variable is not set to an empty string, then the\
+If the [feedback\_url](feedback-plugin.md#feedback_url) system variable is not set to an empty string, then the
 plugin will automatically send a report to all URLs in the list a few minutes after the server starts up and then once a week after that.
 
-If the [feedback\_url](feedback-plugin.md#feedback_url) system variable is set to an empty string, then the\
+If the [feedback\_url](feedback-plugin.md#feedback_url) system variable is set to an empty string, then the
 plugin will **not** automatically send any data. This may be necessary if outbound HTTP communication from your database server is not permitted. In this case, you can still upload the data manually, if you'd like.
 
 First, generate the report file with the MariaDB command-line [mariadb](../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) client:
@@ -138,7 +138,7 @@ First, generate the report file with the MariaDB command-line [mariadb](../../..
 $ mariadb -e 'select * from information_schema.feedback' > report.txt
 ```
 
-Then, you can upload the generated `report.txt` [here](https://feedback.mariadb.org/rest/v1/post) from the command line with tools such as [curl](https://curl.haxx.se/docs/manpage.html):
+Then, you can upload the generated `report.txt` to `https://feedback.mariadb.org/rest/v1/post` from the command line with tools such as [curl](https://curl.haxx.se/docs/manpage.html):
 
 ```bash
 $ curl -F data=@report.txt https://feedback.mariadb.org/rest/v1/post
@@ -190,7 +190,7 @@ Manual uploading allows you to be absolutely sure that we receive only the data 
 * Scope: Global
 * Dynamic: No
 * Data Type: string
-* Default Value: https://feedback.mariadb.org/rest/v1/post
+* Default Value: `https://feedback.mariadb.org/rest/v1/post`
 
 ### `feedback_user_info`
 

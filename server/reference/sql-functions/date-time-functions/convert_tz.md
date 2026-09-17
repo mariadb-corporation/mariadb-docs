@@ -16,7 +16,7 @@ CONVERT_TZ(dt,from_tz,to_tz)
 
 `CONVERT_TZ()` converts a datetime value _dt_ from the [time zone](../../data-types/string-data-types/character-sets/internationalization-and-localization/time-zones.md) given by _from\_tz_ to the time zone given by _to\_tz_ and returns the resulting value.
 
-In order to use named time zones, such as GMT, MET or Africa/Johannesburg, the `time_zone` tables must be loaded (see [mysql\_tzinfo\_to\_sql](../../../clients-and-utilities/legacy-clients-and-utilities/mysql_tzinfo_to_sql.md)).
+In order to use named time zones, such as GMT, MET or Africa/Johannesburg, the `time_zone` tables must be loaded (see [mysql\_tzinfo\_to\_sql](../../../clients-and-utilities/administrative-tools/mariadb-tzinfo-to-sql.md)).
 
 No conversion takes place if the value falls outside of the supported `TIMESTAMP` range when converted from _from\_tz_ to UTC.
 

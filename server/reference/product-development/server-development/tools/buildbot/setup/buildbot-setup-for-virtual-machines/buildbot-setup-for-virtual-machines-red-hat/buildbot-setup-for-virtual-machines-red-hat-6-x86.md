@@ -73,7 +73,7 @@ END
 
 ## Create buildbot account
 
-With the network up and running, it's time to add a user so that we don't have\
+With the network up and running, it's time to add a user so that we don't have
 to login as root all the time.
 
 ```
@@ -96,7 +96,7 @@ chmod go-rwx .ssh
 chmod go-rwx .ssh/authorized_keys
 ```
 
-Now logout and then ssh to the VM as the buildbot user. On my local box I added\
+Now logout and then ssh to the VM as the buildbot user. On my local box I added
 the following to my /.ssh/config file to make logging in easier:
 
 ```
@@ -130,7 +130,7 @@ sudo yum update
 ```
 
 The first time you update you'll be prompted to import some GPG keys from Red\
-Hat. The updating process may take a while, depending on the number of updates\
+Hat. The updating process may take a while, depending on the number of updates
 and the speed of your Internet connection.
 
 After updating shutdown so we can make more copies.

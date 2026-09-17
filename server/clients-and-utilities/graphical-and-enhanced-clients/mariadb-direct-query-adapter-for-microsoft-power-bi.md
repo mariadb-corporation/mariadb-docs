@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB Direct Query Adapter is a Microsoft-certified connector that
+  lets Power BI Desktop query a MariaDB database remotely without downloading
+  the data set.
+---
+
 # MariaDB Direct Query Adapter For Microsoft Power BI
 
 MariaDB Direct Query Adapter for Power BI enables Microsoft Power BI Desktop users to remotely connect to and query their MariaDB database including on MariaDB Cloud without downloading the entire data set to their local machine.
@@ -61,6 +68,6 @@ Power BI depends on relationships for data analysis. These relationships are aut
 
 Because column-based storage engines such as MariaDB Enterprise ColumnStore do not use indexes, relationships must be set up manually. For more about creating relationships in Power BI see [Create and Manage Relationships in Power BI](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-create-and-manage-relationships).
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

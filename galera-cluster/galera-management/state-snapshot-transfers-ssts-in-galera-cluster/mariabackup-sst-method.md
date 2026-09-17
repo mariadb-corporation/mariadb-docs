@@ -7,7 +7,7 @@ description: >-
 
 # mariadb-backup SST Method
 
-The `mariadb-backup` SST method uses the [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backing-up-and-restoring-databases/mariadb-backup) utility for performing SSTs. It is one of the methods that does not block the donor node. [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backing-up-and-restoring-databases/mariadb-backup) was originally forked from [Percona XtraBackup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup), and similarly, the `mariadb-backup` SST method was originally forked from the `[xtrabackup-v2]` SST method.
+The `mariadb-backup` SST method uses the [mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) utility for performing SSTs. It is one of the methods that does not block the donor node. [mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) was originally forked from Percona XtraBackup, and similarly, the `mariadb-backup` SST method was originally forked from the `[xtrabackup-v2]` SST method.
 
 Note that if you use the `mariadb-backup` SST method, then you also need to have [socat](#socat-dependency) installed on the server. This is needed to stream the backup from the donor node to the joiner node. This is a limitation that was inherited from the `[xtrabackup-v2]` SST method.
 
@@ -31,13 +31,13 @@ For an SST to work properly, the donor and joiner node must use the same SST met
 
 ## Major version upgrades
 
-The InnoDB redo log format has been changed in [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/mariadb-10-5-series/what-is-mariadb-105) and [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108) in a way that will not allow the crash recovery or the preparation of a backup from an older major version. Because of this, the `mariadb-backup` SST method cannot be used for some major version upgrades, unless you temporarily edit the `wsrep_sst_mariadb-backup` script so that the `--prepare` step on the newer-major-version joiner will be executed using the older-major-version `mariadb-backup` tool.
+The InnoDB redo log format has been changed in [MariaDB 10.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) and [MariaDB 10.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108) in a way that will not allow the crash recovery or the preparation of a backup from an older major version. Because of this, the `mariadb-backup` SST method cannot be used for some major version upgrades, unless you temporarily edit the `wsrep_sst_mariadb-backup` script so that the `--prepare` step on the newer-major-version joiner will be executed using the older-major-version `mariadb-backup` tool.
 
 The default method `wsrep_sst_method=rsync` will work for major version upgrades; see [MDEV-27437](https://jira.mariadb.org/browse/MDEV-27437).
 
 ## Authentication and Privileges
 
-To use the `mariadb-backup` SST method, [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backing-up-and-restoring-databases/mariadb-backup) needs to be able to authenticate locally on the donor node, so that it can create a backup to stream to the joiner. You can tell the donor node what username and password to use by setting the [`wsrep_sst_auth`](../../reference/galera-cluster-system-variables.md#wsrep_sst_auth) system variable. It can be changed dynamically with [`SET GLOBAL`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set#global-session) on the node that you intend to be a SST donor. For example:
+To use the `mariadb-backup` SST method, [mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) needs to be able to authenticate locally on the donor node, so that it can create a backup to stream to the joiner. You can tell the donor node what username and password to use by setting the [`wsrep_sst_auth`](../../reference/galera-cluster-system-variables.md#wsrep_sst_auth) system variable. It can be changed dynamically with [`SET GLOBAL`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set#global-session) on the node that you intend to be a SST donor. For example:
 
 ```
 SET GLOBAL wsrep_sst_auth = 'mariadb-backup:mypassword';
@@ -59,7 +59,7 @@ Some [authentication plugins](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ref
 wsrep_sst_auth = mariadb-backup:
 ```
 
-The user account that performs the backup for the SST needs to have [the same privileges as mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backing-up-and-restoring-databases/mariadb-backup/mariadb-backup-overview#authentication-and-privileges), which are the `RELOAD` , `PROCESS`, `LOCK TABLES` and `BINLOG MONITOR`, `REPLICA MONITOR` [global privileges](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#global-privileges). To be safe, you should ensure that these privileges are set on each node in your cluster. [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backing-up-and-restoring-databases/mariadb-backup) connects locally on the donor node to perform the backup, so the following user should be sufficient:
+The user account that performs the backup for the SST needs to have [the same privileges as mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview#authentication-and-privileges), which are the `RELOAD` , `PROCESS`, `LOCK TABLES` and `BINLOG MONITOR`, `REPLICA MONITOR` [global privileges](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#global-privileges). To be safe, you should ensure that these privileges are set on each node in your cluster. [mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) connects locally on the donor node to perform the backup, so the following user should be sufficient:
 
 ```
 CREATE USER 'mariadb-backup'@'localhost' IDENTIFIED BY 'mypassword';
@@ -133,7 +133,7 @@ The trailing comma tells the server to allow any other node as donor when the pr
 
 ## Socat Dependency
 
-During the SST process, the donor node uses [socat](https://www.dest-unreach.org/socat/doc/socat.html) to stream the backup to the joiner node. Then the joiner node prepares the backup before restoring it. The socat utility must be installed on both the donor node and the joiner node in order for this to work. Otherwise, the MariaDB error log will contain an error like:
+During the SST process, the donor node uses [socat](http://www.dest-unreach.org/socat/doc/socat.html) to stream the backup to the joiner node. Then the joiner node prepares the backup before restoring it. The socat utility must be installed on both the donor node and the joiner node in order for this to work. Otherwise, the MariaDB error log will contain an error like:
 
 ```
 WSREP_SST: [ERROR] socat not found in path: /usr/sbin:/sbin:/usr//bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin (20180122 14:55:32.993)
@@ -154,7 +154,7 @@ Note that `encrypt=1` refers to a TLS encryption method that has been deprecated
 
 ### TLS Using OpenSSL Encryption Built into Socat
 
-To generate keys compatible with this encryption method, you can follow [these directions](https://www.dest-unreach.org/socat/doc/socat-openssltunnel.html).
+To generate keys compatible with this encryption method, you can follow [these directions](http://www.dest-unreach.org/socat/doc/socat-openssltunnel.html).
 
 For example:
 
@@ -191,7 +191,7 @@ This should allow your SSTs to be encrypted.
 
 ### TLS Using OpenSSL Encryption with Galera-compatible Certificates and Keys
 
-To generate keys compatible with this encryption method, you can follow [these directions](https://galeracluster.com/library/documentation/ssl-cert.html).
+To generate keys compatible with this encryption method, you can follow [Certificate Creation With OpenSSL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/certificate-creation-with-openssl).
 
 For example:
 
@@ -234,9 +234,9 @@ The `mariadb-backup` SST method has its own logging outside of the MariaDB Serve
 
 Logging for `mariadb-backup` SSTs works the following way.
 
-By default, on the donor node, it logs to `mariadb-backup.backup.log`. This log file is located in the [`datadir`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables#datadir).
+By default, on the donor node, it logs to `mariadb-backup.backup.log`. This log file is located in the [`datadir`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#datadir).
 
-By default, on the joiner node, it logs to `mariadb-backup.prepare.log` and `mariadb-backup.move.log` These log files are also located in the [`datadir`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables#datadir).
+By default, on the joiner node, it logs to `mariadb-backup.prepare.log` and `mariadb-backup.move.log` These log files are also located in the [`datadir`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#datadir).
 
 By default, before a new SST is started, existing `mariadb-backup` SST log files are compressed and moved to `/tmp/sst_log_archive`. This behavior can be disabled by setting `sst-log-archive=0` in the `[sst]`  [option group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#option-groups) in an [option file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files).  Similarly, the archive directory can be changed by setting `sst-log-archive-dir`. For example:
 
@@ -246,8 +246,7 @@ sst-log-archive=1
 sst-log-archive-dir=/var/log/mysql/sst/
 ```
 
-See [MDEV-17973](https://jira.mariadb.org/browse/MDEV-17973) for more information.\
-<>
+See [MDEV-17973](https://jira.mariadb.org/browse/MDEV-17973) for more information.
 
 ### Logging to Syslog
 
@@ -280,15 +279,15 @@ See [MDEV-18797](https://jira.mariadb.org/browse/MDEV-18797) for more informatio
 
 In some cases, if Galera Cluster's automatic SSTs repeatedly fail, then it can be helpful to perform a "manual SST". See the following page on how to do that:
 
-* [Manual SST of Galera Cluster node with mariadb-backup](manual-sst-of-galera-cluster-node-with-mariadb-backup.md)
+* [Manual SST of Galera Cluster node with mariabackup](manual-sst-of-galera-cluster-node-with-mariabackup.md)
 
 ## See Also
 
 * [Percona XtraBackup SST Configuration](https://www.percona.com/doc/percona-xtradb-cluster/5.7/manual/xtrabackup_sst.html)
 * [Encrypting PXC Traffic:\
   ENCRYPTING SST TRAFFIC](https://www.percona.com/doc/percona-xtradb-cluster/5.7/security/encrypt-traffic.html#encrypt-sst)
-* [XTRABACKUP PARAMETERS](https://galeracluster.com/library/documentation/xtrabackup-options.html)
-* [SSL FOR STATE SNAPSHOT TRANSFERS: ENABLING SSL FOR XTRABACKUP](https://galeracluster.com/library/documentation/ssl-sst.html#ssl-xtrabackup)
+* [MariaDB Backup SST Method](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method.md)
+* [Securing Communications in Galera Cluster](../../galera-security/securing-communications-in-galera-cluster.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

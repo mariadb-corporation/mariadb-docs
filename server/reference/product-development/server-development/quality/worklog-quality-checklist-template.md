@@ -227,3 +227,5 @@ _This makes it much faster to review code as one knows what it tested and what o
 [^2]: WorkLog
 
 [^3]: Information Schema
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

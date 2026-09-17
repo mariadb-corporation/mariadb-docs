@@ -427,7 +427,7 @@ SELECT * FROM juuid WHERE id like '%42f3%';
 Returning:
 
 1296: Got error 174 'ExecuteQuery: org.postgresql.util.PSQLException:\
-ERROR: operator does not exist: uuid \~ unknown\
+ERROR: operator does not exist: uuid \~ unknown
 hint: no operator corresponds to the data name and to the argument types.
 
 because CONNECT cond\_push feature added the WHERE clause to the query sent to PostgreSQL:

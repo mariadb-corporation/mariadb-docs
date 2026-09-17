@@ -31,4 +31,6 @@ Memory associated to MYSQL\_ROW will be freed when calling [mysql\_free\_result(
 * [mysql\_use\_result()](mysql_use_result.md)
 * [mysql\_store\_result()](mysql_store_result.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -130,3 +130,5 @@ Solutions for common installation issues on RHEL and CentOS, such as conflicts w
 Explains the limitations in providing Source RPMs (SRPMs) for certain platforms due to CMake version requirements and build system dependencies.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

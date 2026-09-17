@@ -122,3 +122,5 @@ The MariaDB Connector/C API provides functions for establishing connections, exe
 | [`mysql_thread_safe()`](mysql_thread_safe.md) | Returns 1 if the MariaDB Connector/C client library was compiled with thread-safety support, or zero otherwise. |
 | [`mysql_use_result()`](mysql_use_result.md) | Initiates unbuffered retrieval of a query result set row by row from the MariaDB server, blocking the connection until all rows are fetched or freed. |
 | [`mysql_warning_count()`](mysql_warning_count.md) | Retrieves the warning count from the most recent query execution; use SHOW WARNINGS for the full warning message text. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

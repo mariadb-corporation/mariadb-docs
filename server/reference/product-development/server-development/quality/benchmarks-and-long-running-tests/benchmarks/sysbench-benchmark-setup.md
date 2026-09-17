@@ -1,6 +1,6 @@
 # sysbench Benchmark Setup
 
-For our automated MariaDB/MySQL sysbench benchmark tests, we use sysbench from`lp:sysbench`. This page describes the basic parameters and configuration we\
+For our automated MariaDB/MySQL sysbench benchmark tests, we use sysbench from`lp:sysbench`. This page describes the basic parameters and configuration we
 use.
 
 You can find the automation wrapper scripts we use for running sysbench in [lp:mariadb-tools](mariadb-tools.md)
@@ -56,8 +56,8 @@ mysqladmin -uroot create sbtest
 
 ### Tests
 
-We use the latest sysbench with Lua scripting support. Therefore the test names\
-differ from sysbench <= 0.4. To get reasonable results we use a run time of 5\
+We use the latest sysbench with Lua scripting support. Therefore the test names
+differ from sysbench <= 0.4. To get reasonable results we use a run time of 5
 minutes.
 
 We run the tests with 1, 4, 8, 16, 32, 64, and 128 threads.
