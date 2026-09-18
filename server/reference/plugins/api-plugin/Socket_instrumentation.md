@@ -1066,7 +1066,7 @@ An instrumented socket.
 | `char` | [`is_unix_domain_socket`](#is_unix_domain_socket)  | Is this a Unix-domain socket? |
 | `char` | [`is_extra_port`](#is_extra_port)  | Is this a socket opened for the extra port? |
 | `unsigned short` | [`address_family`](#address_family)  | Address family of the socket. (See sa_family from struct sockaddr). |
-| struct [`PSI_socket`](api.md#psi_socket) * | [`m_psi`](#m_psi-1)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `MYSQL_SOCKET` interface. |
+| struct [`PSI_socket`](api.md#psi_socket) * | [`m_psi`](#m_psi)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `MYSQL_SOCKET` interface. |
 
 ---
 
