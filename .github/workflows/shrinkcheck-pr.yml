@@ -82,22 +82,41 @@ jobs:
           # interpreter rather than installing anything.
           python-version: '3.12'
 
-      - name: Verify the base revision is present
+      # The checkout above is `refs/pull/N/merge` -- HEAD is a MERGE of this PR's head into the
+      # base branch as it stands now -- while `base.sha` is a snapshot of the base branch from
+      # when the PR was opened or last synchronized. Pairing the two spans every commit the base
+      # branch gained in between, so a page that someone ELSE shrank on the base branch is
+      # reported against this PR, on a diff its author cannot change. Measured on DOCS-6586's own
+      # PR: 23 paths in scope instead of 13, and a MaxScale release-notes landing page gutted on
+      # main reported as this PR's finding.
+      #
+      # The merge commit's FIRST parent is the base tip that was merged, so `HEAD^1..HEAD` is
+      # exactly what this PR does to the base branch. Fall back to `base.sha` when HEAD has no
+      # second parent, which is what a head-ref checkout (or a local re-run) looks like.
+      - name: Resolve and verify the base revision
+        id: base
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           set -euo pipefail
-          if [[ -z "${BASE_SHA:-}" ]]; then
+          if git rev-parse -q --verify 'HEAD^2' >/dev/null 2>&1; then
+            EFFECTIVE_BASE="$(git rev-parse 'HEAD^1')"
+            echo "HEAD is a merge commit; measuring against its first parent ${EFFECTIVE_BASE}."
+          else
+            EFFECTIVE_BASE="${BASE_SHA:-}"
+            echo "HEAD is not a merge commit; measuring against the PR base ${EFFECTIVE_BASE}."
+          fi
+          if [[ -z "${EFFECTIVE_BASE:-}" ]]; then
             echo "::error::The PR base SHA is empty, so the gutted-page gate has no pre-image to compare against."
             exit 1
           fi
           # cat-file -e, not rev-parse: rev-parse succeeds on a well-formed sha that is not in
           # the object database, which is exactly the shallow-clone case this guards.
-          if ! git cat-file -e "${BASE_SHA}^{commit}" 2>/dev/null; then
-            echo "::error::Base commit ${BASE_SHA} is not in this clone, so the gutted-page gate would SKIP and report success. Check that fetch-depth: 0 is still set on the checkout step."
+          if ! git cat-file -e "${EFFECTIVE_BASE}^{commit}" 2>/dev/null; then
+            echo "::error::Base commit ${EFFECTIVE_BASE} is not in this clone, so the gutted-page gate would SKIP and report success. Check that fetch-depth: 0 is still set on the checkout step."
             exit 1
           fi
-          echo "Base revision ${BASE_SHA} present."
+          echo "sha=${EFFECTIVE_BASE}" >> "$GITHUB_OUTPUT"
 
       # Its own step, and before the gate, so a malformed register is reported as a register
       # problem rather than surfacing as whatever the gate happens to do next.
@@ -119,7 +138,7 @@ jobs:
       - name: Collect the changed pages
         id: changed
         env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_SHA: ${{ steps.base.outputs.sha }}
         run: |
           set -euo pipefail
           # --diff-filter=d excludes deletions: a deleted file is not in the working tree, so it
@@ -136,7 +155,7 @@ jobs:
       - name: Check for gutted pages
         id: shrinkcheck
         env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_SHA: ${{ steps.base.outputs.sha }}
         run: |
           set -uo pipefail
           # --stdin0 rather than xargs, for the reason includecheck.sh records: xargs over
