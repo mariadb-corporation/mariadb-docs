@@ -1311,7 +1311,7 @@ An instrumented prlock structure. **See also**: [mysql_prlock_t](api.md#mysql_pr
 | Return | Name | Description |
 |--------|------|-------------|
 | `rw_pr_lock_t` | [`m_prlock`](#m_prlock)  | The real prlock |
-| struct [`PSI_rwlock`](api.md#psi_rwlock) * | [`m_psi`](#m_psi-4)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_rwlock_t` interface. |
+| struct [`PSI_rwlock`](api.md#psi_rwlock) * | [`m_psi`](#m_psi-2)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_rwlock_t` interface. |
 
 ---
 
@@ -1360,7 +1360,7 @@ An instrumented cond structure. **See also**: [mysql_cond_t](api.md#mysql_cond_t
 | Return | Name | Description |
 |--------|------|-------------|
 | `pthread_cond_t` | [`m_cond`](#m_cond)  | The real condition |
-| struct [`PSI_cond`](api.md#psi_cond) * | [`m_psi`](#m_psi-5)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_cond_t` interface. |
+| struct [`PSI_cond`](api.md#psi_cond) * | [`m_psi`](#m_psi-3)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_cond_t` interface. |
 
 ---
 

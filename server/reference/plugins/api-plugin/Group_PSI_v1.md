@@ -3952,7 +3952,7 @@ State data storage for `start_rwlock_rdwait_v1_t`, `start_rwlock_wrwait_v1_t`. T
 |--------|------|-------------|
 | `uint` | [`m_flags`](#m_flags-12)  | Internal state. |
 | `enum PSI_rwlock_operation` | [`m_operation`](#m_operation-1)  | Current operation. |
-| struct [`PSI_rwlock`](api.md#psi_rwlock) * | [`m_rwlock`](#m_rwlock-1)  | Current rwlock. |
+| struct [`PSI_rwlock`](api.md#psi_rwlock) * | [`m_rwlock`](#m_rwlock)  | Current rwlock. |
 | struct [`PSI_thread`](api.md#psi_thread) * | [`m_thread`](#m_thread-3)  | Current thread. |
 | `ulonglong` | [`m_timer_start`](#m_timer_start-3)  | Timer start. |
 | `ulonglong(*` | [`m_timer`](#m_timer-3)  | Timer function. |
@@ -4068,8 +4068,8 @@ State data storage for `start_cond_wait_v1_t`. This structure provide temporary 
 |--------|------|-------------|
 | `uint` | [`m_flags`](#m_flags-13)  | Internal state. |
 | `enum PSI_cond_operation` | [`m_operation`](#m_operation-2)  | Current operation. |
-| struct [`PSI_cond`](api.md#psi_cond) * | [`m_cond`](#m_cond-1)  | Current condition. |
-| struct [`PSI_mutex`](api.md#psi_mutex) * | [`m_mutex`](#m_mutex-2)  | Current mutex. |
+| struct [`PSI_cond`](api.md#psi_cond) * | [`m_cond`](#m_cond)  | Current condition. |
+| struct [`PSI_mutex`](api.md#psi_mutex) * | [`m_mutex`](#m_mutex-1)  | Current mutex. |
 | struct [`PSI_thread`](api.md#psi_thread) * | [`m_thread`](#m_thread-4)  | Current thread. |
 | `ulonglong` | [`m_timer_start`](#m_timer_start-4)  | Timer start. |
 | `ulonglong(*` | [`m_timer`](#m_timer-4)  | Timer function. |
@@ -4203,7 +4203,7 @@ State data storage for `get_thread_file_name_locker_v1_t`. This structure provid
 |--------|------|-------------|
 | `uint` | [`m_flags`](#m_flags-14)  | Internal state. |
 | `enum PSI_file_operation` | [`m_operation`](#m_operation-3)  | Current operation. |
-| struct [`PSI_file`](api.md#psi_file) * | [`m_file`](#m_file-1)  | Current file. |
+| struct [`PSI_file`](api.md#psi_file) * | [`m_file`](#m_file)  | Current file. |
 | `const char *` | [`m_name`](#m_name-9)  | Current file name. |
 | `void *` | [`m_class`](#m_class)  | Current file class. |
 | struct [`PSI_thread`](api.md#psi_thread) * | [`m_thread`](#m_thread-5)  | Current thread. |
@@ -5068,7 +5068,7 @@ State data storage for `start_socket_wait_v1_t`. This structure provide temporar
 | `enum PSI_socket_operation` | [`m_operation`](#m_operation-4)  | Current operation. |
 | `const char *` | [`m_src_file`](#m_src_file)  | Source file. |
 | `int` | [`m_src_line`](#m_src_line)  | Source line number. |
-| `void *` | [`m_wait`](#m_wait-7)  | Internal data. |
+| `void *` | [`m_wait`](#m_wait-6)  | Internal data. |
 
 ---
 
@@ -5212,10 +5212,10 @@ Defined in psi/psi.h:1347
 
 | Return | Name | Description |
 |--------|------|-------------|
-| `uint` | [`m_flags`](#m_flags-19)  | Internal state. |
-| struct [`PSI_thread`](api.md#psi_thread) * | [`m_thread`](#m_thread-10)  | Current thread. |
-| `ulonglong` | [`m_timer_start`](#m_timer_start-10)  | Timer start. |
-| `ulonglong(*` | [`m_timer`](#m_timer-10)  | Timer function. |
+| `uint` | [`m_flags`](#m_flags-17)  | Internal state. |
+| struct [`PSI_thread`](api.md#psi_thread) * | [`m_thread`](#m_thread-9)  | Current thread. |
+| `ulonglong` | [`m_timer_start`](#m_timer_start-9)  | Timer start. |
+| `ulonglong(*` | [`m_timer`](#m_timer-9)  | Timer function. |
 | [`PSI_sp_share`](api.md#psi_sp_share) * | [`m_sp_share`](#m_sp_share)  | Stored Procedure share. |
 
 ---
@@ -7349,9 +7349,9 @@ Memory instrument information. **Since**: PSI_VERSION_1 This structure is used t
 
 | Return | Name | Description |
 |--------|------|-------------|
-| [`PSI_memory_key`](api.md#psi_memory_key) * | [`m_key`](#m_key-9)  | Pointer to the key assigned to the registered memory. |
-| `const char *` | [`m_name`](#m_name-10)  | The name of the memory instrument to register. |
-| `int` | [`m_flags`](#m_flags-20)  | The flags of the socket instrument to register. **See also**: [PSI_FLAG_GLOBAL](api.md#psi_flag_global) |
+| [`PSI_memory_key`](api.md#psi_memory_key) * | [`m_key`](#m_key-8)  | Pointer to the key assigned to the registered memory. |
+| `const char *` | [`m_name`](#m_name-9)  | The name of the memory instrument to register. |
+| `int` | [`m_flags`](#m_flags-18)  | The flags of the socket instrument to register. **See also**: [PSI_FLAG_GLOBAL](api.md#psi_flag_global) |
 
 ---
 

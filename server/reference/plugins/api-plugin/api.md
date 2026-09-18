@@ -9462,7 +9462,7 @@ Defined in psi/mysql_statement.h:35
 using thd_wait_type = enum _thd_wait_type_e
 ```
 
-Type: enum [`_thd_wait_type_e`](#_thd_wait_type_e)
+Type: enum [`_thd_wait_type_e`](#thd_wait_type_e)
 
 Defined in service_thd_wait.h:79
 

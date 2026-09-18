@@ -109,6 +109,11 @@ jobs:
           set -euo pipefail
           python3 .github/scripts/fix_plugin_api_breadcrumb_links.py
 
+      - name: Retarget member links whose moxygen anchor suffix is wrong
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/fix_plugin_api_member_anchors.py
+
       - name: Add frontmatter to the generated pages
         run: |
           set -euo pipefail
