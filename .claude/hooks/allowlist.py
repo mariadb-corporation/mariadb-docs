@@ -56,6 +56,11 @@ WHAT IS DELIBERATELY NOT ACCEPTED
       them are ways for an entry to look like it covers a page while matching
       nothing, since both consumers compare against repo-relative posix paths.
     * an entry with no reason, or an empty one. The reason is the whole point.
+    * a `reason` indented no deeper than the `- ` that opens its entry. At that
+      column YAML reads it as a separate top-level key rather than part of the
+      entry, so accepting it would let the "every entry needs a reason" rule be
+      satisfied by something that is not structurally a reason -- a reviewer
+      would see the text in the diff and a real YAML parser would not.
 
 STALE ENTRIES
     Not handled here -- each guard prunes its own section, because only the
@@ -152,6 +157,10 @@ def parse(text):
     seen = {s: set() for s in SECTIONS}
     section = None
     entry = None
+    # Column of the `- ` that opened the current entry. A continuation key must
+    # be indented deeper than this, which is what makes it part of the entry in
+    # YAML rather than a new top-level key.
+    entry_indent = 0
     # Tracked separately from `out`, because a section that appears twice with
     # no entries the first time would leave `out[name]` empty and slip past a
     # check that looked there.
@@ -181,7 +190,7 @@ def parse(text):
                 raise AllowlistError(f'line {lineno}: section {name!r} appears twice')
             close()
             opened.add(name)
-            entry, section = None, name
+            entry, section, entry_indent = None, name, 0
             continue
         if section is None:
             raise AllowlistError(f'line {lineno}: content before any section header')
@@ -189,6 +198,7 @@ def parse(text):
             raise AllowlistError(f'line {lineno}: tab indentation; YAML needs spaces')
 
         stripped = line.lstrip(' ')
+        indent = len(line) - len(stripped)
         if stripped.startswith('- '):
             close()
             entry = None
@@ -201,6 +211,7 @@ def parse(text):
             path = _check_path(_unquote(value, lineno), lineno, section, seen[section])
             seen[section].add(path)
             entry = {'path': path, 'reason': '', 'line': lineno}
+            entry_indent = indent
             continue
 
         key, _, value = stripped.partition(':')
@@ -213,6 +224,12 @@ def parse(text):
         if key != 'reason':
             raise AllowlistError(f'line {lineno}: unknown key {key!r} (an entry '
                                  f'takes `path` and `reason`)')
+        if indent <= entry_indent:
+            raise AllowlistError(
+                f'line {lineno}: `reason` must be indented deeper than the `- ` '
+                f'of its entry (column {entry_indent}). At this column YAML '
+                f'reads it as a separate top-level key, so the entry would '
+                f'carry no reason at all.')
         if entry['reason']:
             raise AllowlistError(f'line {lineno}: duplicate `reason`')
         reason = _unquote(value, lineno)

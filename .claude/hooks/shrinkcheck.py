@@ -23,7 +23,7 @@ WHY NET LOSS AND NOT RAW DELETIONS
     trailing-backslash removal, changelog normalization -- because those rewrite
     lines rather than remove them. Measured over 300 commits of this repo: raw
     deletions >40% flags 17 files, mostly those campaigns; net loss >40% flags
-    4. On c6ea5549a itself the guard yields a ONE-item list at 94%, next-worst
+    4. On c6ea5549a itself the guard yields a ONE-item list at 93%, next-worst
     16%.
 
 WHY IT WAS EXTRACTED FROM doc-lint.sh, AND WHY IN PYTHON
@@ -99,8 +99,18 @@ SECTION = 'shrink'
 
 
 def git(root, *args, binary=False):
-    p = subprocess.run(['git', '-C', str(root)] + list(args),
-                       capture_output=True, text=not binary)
+    """Run git, returning (ok, stdout).
+
+    git missing from PATH answers `not ok` rather than raising: every caller
+    below already treats that as "no usable base revision", which the
+    work-tree probe turns into the SKIP this script's header contracts for.
+    An uncaught FileNotFoundError would instead exit 1 and read as a finding.
+    """
+    try:
+        p = subprocess.run(['git', '-C', str(root)] + list(args),
+                           capture_output=True, text=not binary)
+    except (FileNotFoundError, PermissionError):
+        return False, b'' if binary else ''
     return p.returncode == 0, p.stdout
 
 
@@ -223,6 +233,26 @@ def main(argv):
 
     root = allowlist.repo_root(files[0] if files else '.')
 
+    # The paths arrive relative to the CWD -- that is what the filter above just
+    # tested them as -- while everything below reads them relative to `root`:
+    # `git -C root show base:rel`, `root / rel`, and the register, whose entries
+    # are repo-relative. When the two differ the guard would measure a DIFFERENT
+    # file of the same relative name and report success for it, which the
+    # workflow's own assertions cannot catch: shrinkcheck-pr.yml asserts `given`
+    # and `eligible`, never `compared`. So re-anchor rather than skip, and a run
+    # from a subdirectory measures exactly what it was asked to. A path outside
+    # the repo has no pre-image in that object store, so it is a usage error.
+    rebased = []
+    for f in files:
+        try:
+            rebased.append(pathlib.Path(f).resolve().relative_to(root).as_posix())
+        except ValueError:
+            print(f'shrinkcheck: {f} is outside {root}, so it has no pre-image in '
+                  f'that\n             repository to be measured against. Name '
+                  f'repo-relative paths.', file=sys.stderr)
+            return 2
+    files = rebased
+
     try:
         entries = allowlist.load(root)[SECTION]
     except allowlist.AllowlistError as exc:
@@ -238,30 +268,33 @@ def main(argv):
     allow_all = 'all' in env
     skip = {e['path'] for e in entries} | (env - {'all'})
 
-    # A SKIP, not a failure: never block a local commit over a missing baseline.
-    # Both callers that must not tolerate it assert the base themselves --
-    # shrinkcheck-pr.yml before invoking, exactly as fragcheck-pr.yml does.
-    ok, _ = git(root, 'rev-parse', '--is-inside-work-tree')
-    if not ok:
-        print('shrinkcheck: not a git work tree — SKIPPED (needs a base revision)',
-              file=sys.stderr)
-        return 0
-    ok, _ = git(root, 'rev-parse', '--verify', '-q', base + '^{commit}')
-    if not ok:
-        print(f'shrinkcheck: base revision {base!r} not found — SKIPPED',
-              file=sys.stderr)
-        return 0
-
     rc = 0
 
-    # Checked whatever the file scope is, and before the `all` hatch: a stale
-    # entry is a defect in the register itself, not a finding about a page, so
-    # neither "this PR touched nothing relevant" nor a local
-    # DOC_LINT_ALLOW_SHRINK=all should hide it.
+    # Checked whatever the file scope is, and before both the git guards below
+    # and the `all` hatch: a stale entry is a defect in the register itself, not
+    # a claim about a page, so neither "this PR touched nothing relevant", nor a
+    # local DOC_LINT_ALLOW_SHRINK=all, nor a base revision that cannot be
+    # resolved should hide it. It is a file-existence test that needs no git at
+    # all, and navcheck.py audits its own section in the same position.
     stale = stale_entries(root, entries)
     if stale:
         report_stale(stale)
         rc = 1
+
+    # A SKIP, not a failure: never block a local commit over a missing baseline.
+    # Both callers that must not tolerate it assert the base themselves --
+    # shrinkcheck-pr.yml before invoking, exactly as fragcheck-pr.yml does.
+    # `rc`, not 0: a stale entry found above survives a SKIP of the measurement.
+    ok, _ = git(root, 'rev-parse', '--is-inside-work-tree')
+    if not ok:
+        print('shrinkcheck: not a git work tree — SKIPPED (needs a base revision)',
+              file=sys.stderr)
+        return rc
+    ok, _ = git(root, 'rev-parse', '--verify', '-q', base + '^{commit}')
+    if not ok:
+        print(f'shrinkcheck: base revision {base!r} not found — SKIPPED',
+              file=sys.stderr)
+        return rc
 
     if allow_all:
         print('shrinkcheck: DOC_LINT_ALLOW_SHRINK=all — line-loss check skipped')

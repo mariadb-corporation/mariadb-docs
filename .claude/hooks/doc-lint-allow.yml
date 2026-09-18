@@ -31,7 +31,9 @@
 # entry whose page no longer exists, so the register prunes itself at the point
 # someone forgets instead of piling up quietly.
 #
-# Adding an entry is a review decision. Keep the sections alphabetical by path.
+# Adding an entry is a review decision. Keep the sections alphabetical by
+# path — a convention for the reader, not a rule the parser enforces; what it
+# does enforce is that no path is listed twice in a section.
 
 orphan:
 
