@@ -39,6 +39,9 @@ A `CHAR(0)` or `VARCHAR(0)` column occupies minimal space and is restricted to t
 * **Two-State Flags**: A `CHAR(0) NULL` column can function as a boolean indicator. It uses only one bit of storage to distinguish between a "set" state (the empty string) and an "unset" state (`NULL`).
 * **Row Marking**: You can use a `CHAR(0)` column to mark a specific row in a table. For example, if you require only one "active" row, set that row to an empty string while keeping all other rows `NULL`.
 
+
+Note that for the last two purposes, you could use the [BOOLEAN](https://mariadb.com/docs/server/reference/data-types/numeric-data-types/boolean) datatype as more speaking alias for TINYINT(1).
+
 The following error occurs if you attempt to insert any character data into a 0-length column: `ERROR 1406 (22001): Data too long for column`.
 
 ### SYNONYMS
