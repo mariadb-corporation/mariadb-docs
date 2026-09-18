@@ -390,6 +390,14 @@ def links_of(path):
     for n, line, in_fence in content_lines(path):
         if in_fence:
             continue
+        # Blank inline code spans first. `in_fence` above covers fenced blocks,
+        # but a backtick span is literal too, and ATTR would otherwise harvest
+        # the href out of prose DISCUSSING markup -- `<a href="#x" id="x">` in
+        # the sentence explaining DOCS-6492 was read as a link to a #x that
+        # naturally does not exist. Blanking the contents keeps the delimiters,
+        # so a link whose TEXT is a code span -- [`m_key`](#m_key-1) -- still
+        # matches on its `](...)`.
+        line = CODESPAN.sub(lambda m: '`' * 2, line)
         for target in LINK.findall(line) + ATTR.findall(line):
             if '#' not in target or '{' in target:
                 continue
@@ -432,6 +440,23 @@ def relpath(path, root):
         return path.as_posix()
 
 
+def unpublished(path, base):
+    """Is this file outside every GitBook space, so its anchors are GitHub's?
+
+    UNPUBLISHED used to be consulted only while walking a directory, so naming
+    a file explicitly bypassed it -- and these rules are then the wrong ones.
+    `help-tables/HELP_TABLES_PIPELINE.md` links `#markdown_extractorpy`, which
+    is exactly right for GitHub (it drops the dot from a `markdown_extractor.py`
+    heading) and reads as dead under GitBook's rules, where the dot survives.
+    Worse than the false positive, `classify()` then NAMES `#markdown_extractor.py`
+    as the fix, so following the advice breaks a link that works. No gate ever
+    hit this -- doc-lint.sh and both workflows call `new <rev>` with no paths,
+    which walks -- but the docs-check skill documents `check <file>` and
+    `validate <file>`, and that form did.
+    """
+    return relpath(path, base).startswith(UNPUBLISHED)
+
+
 def md_files(root, base):
     """Published .md files under root, each real file once.
 
@@ -444,10 +469,10 @@ def md_files(root, base):
     """
     root = pathlib.Path(root)
     if root.is_file():
-        return [root]
+        return [] if unpublished(root, base) else [root]
     out, seen = [], set()
     for p in sorted(root.rglob('*.md')):
-        if relpath(p, base).startswith(UNPUBLISHED):
+        if unpublished(p, base):
             continue
         real = p.resolve()
         if real in seen:
@@ -627,8 +652,25 @@ def summarize(checked, findings, unresolved, label='dead'):
         print(f'  {n:6d}  {bucket}{note}')
 
 
+def warn_unpublished(args, root):
+    """Tell the user which named files were skipped, and why.
+
+    Silence would be worse than the false positives this replaces: someone who
+    asks for a file by name and gets "0 dead" has been told the file is clean,
+    when it was never examined.
+    """
+    skipped = [a for a in args
+               if pathlib.Path(a).is_file() and unpublished(pathlib.Path(a), root)]
+    for a in skipped:
+        print(f'fragcheck: {a} is not in a GitBook space — SKIPPED, because these '
+              f'are GitBook\'s anchor rules and GitHub renders that file',
+              file=sys.stderr)
+    return skipped
+
+
 def cmd_check(args):
     root = repo_root(args[0] if args else '.')
+    warn_unpublished(args, root)
     checked, findings, unresolved = check([pathlib.Path(a) for a in args] or [root], root)
     for f in findings:
         print('DEAD ' + describe(f))
@@ -639,6 +681,7 @@ def cmd_check(args):
 def cmd_risky(args):
     """List headings whose anchor these rules cannot compute faithfully."""
     root = repo_root(args[0] if args else '.')
+    warn_unpublished(args, root)
     found = scan_risky([pathlib.Path(a) for a in args] or [root], root)
     for src, line, chars, slug in found:
         print(f'RISKY {src}:{line}: {chars!r} — guessed #{slug}, '
@@ -655,6 +698,7 @@ def cmd_risky(args):
 def cmd_ids(args):
     """List every heading carrying another heading's anchor (absolute, not diffed)."""
     root = repo_root(args[0] if args else '.')
+    warn_unpublished(args, root)
     found = scan_ids([pathlib.Path(a) for a in args] or [root], root)
     for f in found:
         print('STOLEN ' + describe_id(f))
@@ -765,6 +809,13 @@ def cmd_validate(args):
     for arg in args:
         path = pathlib.Path(arg).resolve()
         root = repo_root(path)
+        if unpublished(path, root):
+            # Distinct from the SKIP below: there is no live page to compare
+            # against because this file is not in a GitBook space at all, which
+            # is worth saying plainly rather than reporting as a fetch that came
+            # back empty.
+            print(f'SKIP (not in a GitBook space) {arg}')
+            continue
         page = relpath(path, root)[:-3]
         if page.endswith('/README'):
             page = page[:-len('/README')]
