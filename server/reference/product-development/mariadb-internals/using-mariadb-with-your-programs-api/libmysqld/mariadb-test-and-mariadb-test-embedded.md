@@ -8,7 +8,7 @@ description: >-
 
 {% include "../../../../../.gitbook/includes/this-page-contains-backgrou....md" %}
 
-The `mariadb-test` program runs a test case against a MariaDB or MySQL server and optionally compares the output with a result file. This program reads input written in a special test language. Typically, you invoke `mariadb-test` via [mariadb-test-run.pl](https://mariadb.com/kb/en/mariadb-test-runpl) rather than invoking it directly.
+The `mariadb-test` program runs a test case against a MariaDB or MySQL server and optionally compares the output with a result file. This program reads input written in a special test language. Typically, you invoke `mariadb-test` via [mariadb-test-run.pl](../../../../../clients-and-utilities/testing-tools/mariadb-test/mariadb-test-overview.md) rather than invoking it directly.
 
 `mariadb-test_embedded` is similar but is built with support for the `libmariadbd` embedded server.
 

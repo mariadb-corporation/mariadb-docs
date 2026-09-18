@@ -1,6 +1,7 @@
 # Table of contents
 
 * [MariaDB Enterprise Platform](README.md)
+* [Install a MariaDB Enterprise License](enterprise-license-install.md)
 * [MariaDB Platform Use Cases](mariadb-platform-use-cases.md)
 * [MariaDB Platform Quickstart Guides](mariadb-platform-quickstart-guides/README.md)
   * [MariaDB Overview](mariadb-platform-quickstart-guides/mariadb-overview-guide.md)

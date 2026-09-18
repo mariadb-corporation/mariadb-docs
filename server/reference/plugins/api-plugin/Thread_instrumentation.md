@@ -3,11 +3,11 @@ description: >-
   Plugin API reference: Thread Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
 ---
 
-{#threadinstrumentation}
+
 
 # Thread Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md#instrumentationinterface)
+> [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Classes
 
@@ -76,8 +76,6 @@ description: >-
 
 ---
 
-{#psi_call_delete_current_thread}
-
 ### PSI_CALL_delete_current_thread
 
 ```cpp
@@ -87,8 +85,6 @@ description: >-
 Defined in psi/mysql_thread.h:111
 
 ---
-
-{#psi_call_get_thread}
 
 ### PSI_CALL_get_thread
 
@@ -100,8 +96,6 @@ Defined in psi/mysql_thread.h:112
 
 ---
 
-{#psi_call_new_thread}
-
 ### PSI_CALL_new_thread
 
 ```cpp
@@ -111,8 +105,6 @@ Defined in psi/mysql_thread.h:112
 Defined in psi/mysql_thread.h:113
 
 ---
-
-{#psi_call_register_thread}
 
 ### PSI_CALL_register_thread
 
@@ -124,8 +116,6 @@ Defined in psi/mysql_thread.h:114
 
 ---
 
-{#psi_call_set_thread}
-
 ### PSI_CALL_set_thread
 
 ```cpp
@@ -135,8 +125,6 @@ Defined in psi/mysql_thread.h:114
 Defined in psi/mysql_thread.h:115
 
 ---
-
-{#psi_call_set_thread_thd}
 
 ### PSI_CALL_set_thread_THD
 
@@ -148,8 +136,6 @@ Defined in psi/mysql_thread.h:116
 
 ---
 
-{#psi_call_set_thread_connect_attrs}
-
 ### PSI_CALL_set_thread_connect_attrs
 
 ```cpp
@@ -159,8 +145,6 @@ Defined in psi/mysql_thread.h:116
 Defined in psi/mysql_thread.h:117
 
 ---
-
-{#psi_call_set_thread_db}
 
 ### PSI_CALL_set_thread_db
 
@@ -172,8 +156,6 @@ Defined in psi/mysql_thread.h:118
 
 ---
 
-{#psi_call_set_thread_id}
-
 ### PSI_CALL_set_thread_id
 
 ```cpp
@@ -183,8 +165,6 @@ Defined in psi/mysql_thread.h:118
 Defined in psi/mysql_thread.h:119
 
 ---
-
-{#psi_call_set_thread_os_id}
 
 ### PSI_CALL_set_thread_os_id
 
@@ -196,8 +176,6 @@ Defined in psi/mysql_thread.h:120
 
 ---
 
-{#psi_call_set_thread_info}
-
 ### PSI_CALL_set_thread_info
 
 ```cpp
@@ -207,8 +185,6 @@ Defined in psi/mysql_thread.h:120
 Defined in psi/mysql_thread.h:121
 
 ---
-
-{#psi_call_set_thread_start_time}
 
 ### PSI_CALL_set_thread_start_time
 
@@ -220,8 +196,6 @@ Defined in psi/mysql_thread.h:122
 
 ---
 
-{#psi_call_set_thread_account}
-
 ### PSI_CALL_set_thread_account
 
 ```cpp
@@ -231,8 +205,6 @@ Defined in psi/mysql_thread.h:122
 Defined in psi/mysql_thread.h:123
 
 ---
-
-{#psi_call_spawn_thread}
 
 ### PSI_CALL_spawn_thread
 
@@ -244,8 +216,6 @@ Defined in psi/mysql_thread.h:124
 
 ---
 
-{#psi_call_set_connection_type}
-
 ### PSI_CALL_set_connection_type
 
 ```cpp
@@ -256,8 +226,6 @@ Defined in psi/mysql_thread.h:125
 
 ---
 
-{#mysql_mutex_is_owner}
-
 ### mysql_mutex_is_owner
 
 ```cpp
@@ -267,8 +235,6 @@ Defined in psi/mysql_thread.h:125
 Defined in psi/mysql_thread.h:266
 
 ---
-
-{#mysql_mutex_assert_owner}
 
 ### mysql_mutex_assert_owner
 
@@ -282,8 +248,6 @@ Wrapper, to use safe_mutex_assert_owner with instrumented mutexes. `mysql_mutex_
 
 ---
 
-{#mysql_mutex_assert_not_owner}
-
 ### mysql_mutex_assert_not_owner
 
 ```cpp
@@ -296,8 +260,6 @@ Wrapper, to use safe_mutex_assert_not_owner with instrumented mutexes. `mysql_mu
 
 ---
 
-{#mysql_mutex_setflags}
-
 ### mysql_mutex_setflags
 
 ```cpp
@@ -307,8 +269,6 @@ Wrapper, to use safe_mutex_assert_not_owner with instrumented mutexes. `mysql_mu
 Defined in psi/mysql_thread.h:285
 
 ---
-
-{#mysql_prlock_assert_write_owner}
 
 ### mysql_prlock_assert_write_owner
 
@@ -322,8 +282,6 @@ Drop-in replacement for `rw_pr_lock_assert_write_owner`.
 
 ---
 
-{#mysql_prlock_assert_not_write_owner}
-
 ### mysql_prlock_assert_not_write_owner
 
 ```cpp
@@ -336,8 +294,6 @@ Drop-in replacement for `rw_pr_lock_assert_not_write_owner`.
 
 ---
 
-{#mysql_mutex_register}
-
 ### mysql_mutex_register
 
 ```cpp
@@ -349,8 +305,6 @@ Defined in psi/mysql_thread.h:308
 Mutex registration.
 
 ---
-
-{#mysql_mutex_init}
 
 ### mysql_mutex_init
 
@@ -375,8 +329,6 @@ Instrumented mutex_init. `mysql_mutex_init` is a replacement for `pthread_mutex_
 
 ---
 
-{#mysql_mutex_destroy}
-
 ### mysql_mutex_destroy
 
 ```cpp
@@ -388,8 +340,6 @@ Defined in psi/mysql_thread.h:348
 Instrumented mutex_destroy. `mysql_mutex_destroy` is a drop-in replacement for `pthread_mutex_destroy`.
 
 ---
-
-{#mysql_mutex_lock}
 
 ### mysql_mutex_lock
 
@@ -410,8 +360,6 @@ Instrumented mutex_lock. `mysql_mutex_lock` is a drop-in replacement for `pthrea
 
 ---
 
-{#mysql_mutex_trylock}
-
 ### mysql_mutex_trylock
 
 ```cpp
@@ -423,8 +371,6 @@ Defined in psi/mysql_thread.h:378
 Instrumented mutex_lock. `mysql_mutex_trylock` is a drop-in replacement for `pthread_mutex_trylock`.
 
 ---
-
-{#mysql_mutex_unlock}
 
 ### mysql_mutex_unlock
 
@@ -438,8 +384,6 @@ Instrumented mutex_unlock. `mysql_mutex_unlock` is a drop-in replacement for `pt
 
 ---
 
-{#mysql_rwlock_register}
-
 ### mysql_rwlock_register
 
 ```cpp
@@ -451,8 +395,6 @@ Defined in psi/mysql_thread.h:399
 Rwlock registration.
 
 ---
-
-{#mysql_rwlock_init}
 
 ### mysql_rwlock_init
 
@@ -475,8 +417,6 @@ Instrumented rwlock_init. `mysql_rwlock_init` is a replacement for `pthread_rwlo
 
 ---
 
-{#mysql_prlock_init}
-
 ### mysql_prlock_init
 
 ```cpp
@@ -498,8 +438,6 @@ Instrumented rw_pr_init. `mysql_prlock_init` is a replacement for `rw_pr_init`.
 
 ---
 
-{#mysql_rwlock_destroy}
-
 ### mysql_rwlock_destroy
 
 ```cpp
@@ -511,8 +449,6 @@ Defined in psi/mysql_thread.h:435
 Instrumented rwlock_destroy. `mysql_rwlock_destroy` is a drop-in replacement for `pthread_rwlock_destroy`.
 
 ---
-
-{#mysql_prlock_destroy}
 
 ### mysql_prlock_destroy
 
@@ -526,8 +462,6 @@ Instrumented rw_pr_destroy. `mysql_prlock_destroy` is a drop-in replacement for 
 
 ---
 
-{#mysql_rwlock_rdlock}
-
 ### mysql_rwlock_rdlock
 
 ```cpp
@@ -539,8 +473,6 @@ Defined in psi/mysql_thread.h:455
 Instrumented rwlock_rdlock. `mysql_rwlock_rdlock` is a drop-in replacement for `pthread_rwlock_rdlock`.
 
 ---
-
-{#mysql_prlock_rdlock}
 
 ### mysql_prlock_rdlock
 
@@ -554,8 +486,6 @@ Instrumented rw_pr_rdlock. `mysql_prlock_rdlock` is a drop-in replacement for `r
 
 ---
 
-{#mysql_rwlock_wrlock}
-
 ### mysql_rwlock_wrlock
 
 ```cpp
@@ -567,8 +497,6 @@ Defined in psi/mysql_thread.h:483
 Instrumented rwlock_wrlock. `mysql_rwlock_wrlock` is a drop-in replacement for `pthread_rwlock_wrlock`.
 
 ---
-
-{#mysql_prlock_wrlock}
 
 ### mysql_prlock_wrlock
 
@@ -582,8 +510,6 @@ Instrumented rw_pr_wrlock. `mysql_prlock_wrlock` is a drop-in replacement for `r
 
 ---
 
-{#mysql_rwlock_tryrdlock}
-
 ### mysql_rwlock_tryrdlock
 
 ```cpp
@@ -595,8 +521,6 @@ Defined in psi/mysql_thread.h:511
 Instrumented rwlock_tryrdlock. `mysql_rwlock_tryrdlock` is a drop-in replacement for `pthread_rwlock_tryrdlock`.
 
 ---
-
-{#mysql_rwlock_trywrlock}
 
 ### mysql_rwlock_trywrlock
 
@@ -610,8 +534,6 @@ Instrumented rwlock_trywrlock. `mysql_rwlock_trywrlock` is a drop-in replacement
 
 ---
 
-{#mysql_rwlock_unlock}
-
 ### mysql_rwlock_unlock
 
 ```cpp
@@ -623,8 +545,6 @@ Defined in psi/mysql_thread.h:535
 Instrumented rwlock_unlock. `mysql_rwlock_unlock` is a drop-in replacement for `pthread_rwlock_unlock`.
 
 ---
-
-{#mysql_prlock_unlock}
 
 ### mysql_prlock_unlock
 
@@ -638,8 +558,6 @@ Instrumented rw_pr_unlock. `mysql_prlock_unlock` is a drop-in replacement for `r
 
 ---
 
-{#mysql_cond_register}
-
 ### mysql_cond_register
 
 ```cpp
@@ -651,8 +569,6 @@ Defined in psi/mysql_thread.h:549
 Cond registration.
 
 ---
-
-{#mysql_cond_init}
 
 ### mysql_cond_init
 
@@ -677,8 +593,6 @@ Instrumented cond_init. `mysql_cond_init` is a replacement for `pthread_cond_ini
 
 ---
 
-{#mysql_cond_destroy}
-
 ### mysql_cond_destroy
 
 ```cpp
@@ -690,8 +604,6 @@ Defined in psi/mysql_thread.h:571
 Instrumented cond_destroy. `mysql_cond_destroy` is a drop-in replacement for `pthread_cond_destroy`.
 
 ---
-
-{#mysql_cond_wait}
 
 ### mysql_cond_wait
 
@@ -705,8 +617,6 @@ Instrumented cond_wait. `mysql_cond_wait` is a drop-in replacement for `pthread_
 
 ---
 
-{#mysql_cond_timedwait}
-
 ### mysql_cond_timedwait
 
 ```cpp
@@ -718,8 +628,6 @@ Defined in psi/mysql_thread.h:596
 Instrumented cond_timedwait. `mysql_cond_timedwait` is a drop-in replacement for `pthread_cond_timedwait`.
 
 ---
-
-{#mysql_cond_signal}
 
 ### mysql_cond_signal
 
@@ -733,8 +641,6 @@ Instrumented cond_signal. `mysql_cond_signal` is a drop-in replacement for `pthr
 
 ---
 
-{#mysql_cond_broadcast}
-
 ### mysql_cond_broadcast
 
 ```cpp
@@ -747,8 +653,6 @@ Instrumented cond_broadcast. `mysql_cond_broadcast` is a drop-in replacement for
 
 ---
 
-{#mysql_thread_register}
-
 ### mysql_thread_register
 
 ```cpp
@@ -760,8 +664,6 @@ Defined in psi/mysql_thread.h:619
 Thread registration.
 
 ---
-
-{#mysql_thread_create}
 
 ### mysql_thread_create
 
@@ -790,8 +692,6 @@ Instrumented pthread_create. This function creates both the thread instrumentati
 
 ---
 
-{#mysql_thread_set_psi_id}
-
 ### mysql_thread_set_psi_id
 
 ```cpp
@@ -810,8 +710,6 @@ Set the thread identifier for the instrumentation.
 | `I` |  | The thread identifier |
 
 ---
-
-{#mysql_thread_set_psi_thd}
 
 ### mysql_thread_set_psi_THD
 
@@ -841,8 +739,6 @@ Set the thread sql session for the instrumentation.
 
 ---
 
-{#mysql_mutex_t}
-
 ### mysql_mutex_t
 
 ```cpp
@@ -866,8 +762,6 @@ Type of an instrumented mutex. `mysql_mutex_t` is a drop-in replacement for `pth
 **See also**: [mysql_mutex_destroy](api.md#mysql_mutex_destroy)
 
 ---
-
-{#mysql_rwlock_t}
 
 ### mysql_rwlock_t
 
@@ -895,8 +789,6 @@ Type of an instrumented rwlock. `mysql_rwlock_t` is a drop-in replacement for `p
 
 ---
 
-{#mysql_prlock_t}
-
 ### mysql_prlock_t
 
 ```cpp
@@ -918,8 +810,6 @@ Type of an instrumented prlock. A prlock is a read write lock that 'prefers read
 **See also**: [mysql_prlock_destroy](api.md#mysql_prlock_destroy)
 
 ---
-
-{#mysql_cond_t}
 
 ### mysql_cond_t
 
@@ -977,8 +867,6 @@ Type of an instrumented condition. `mysql_cond_t` is a drop-in replacement for `
 
 ---
 
-{#inline_mysql_mutex_register}
-
 ### inline_mysql_mutex_register
 
 `static` `inline`
@@ -990,8 +878,6 @@ static inline void inline_mysql_mutex_register(const char *category __attribute_
 Defined in psi/mysql_thread.h:669
 
 ---
-
-{#inline_mysql_mutex_init}
 
 ### inline_mysql_mutex_init
 
@@ -1005,8 +891,6 @@ Defined in psi/mysql_thread.h:686
 
 ---
 
-{#inline_mysql_mutex_destroy}
-
 ### inline_mysql_mutex_destroy
 
 `static` `inline`
@@ -1018,8 +902,6 @@ static inline int inline_mysql_mutex_destroy(mysql_mutex_t * that, mysql_mutex_t
 Defined in psi/mysql_thread.h:709
 
 ---
-
-{#inline_mysql_mutex_lock}
 
 ### inline_mysql_mutex_lock
 
@@ -1033,8 +915,6 @@ Defined in psi/mysql_thread.h:737
 
 ---
 
-{#inline_mysql_mutex_trylock}
-
 ### inline_mysql_mutex_trylock
 
 `static` `inline`
@@ -1046,8 +926,6 @@ static inline int inline_mysql_mutex_trylock(mysql_mutex_t * that, mysql_mutex_t
 Defined in psi/mysql_thread.h:756
 
 ---
-
-{#inline_mysql_mutex_unlock}
 
 ### inline_mysql_mutex_unlock
 
@@ -1061,8 +939,6 @@ Defined in psi/mysql_thread.h:775
 
 ---
 
-{#inline_mysql_rwlock_register}
-
 ### inline_mysql_rwlock_register
 
 `static` `inline`
@@ -1074,8 +950,6 @@ static inline void inline_mysql_rwlock_register(const char *category __attribute
 Defined in psi/mysql_thread.h:798
 
 ---
-
-{#inline_mysql_rwlock_init}
 
 ### inline_mysql_rwlock_init
 
@@ -1089,8 +963,6 @@ Defined in psi/mysql_thread.h:815
 
 ---
 
-{#inline_mysql_prlock_init}
-
 ### inline_mysql_prlock_init
 
 `static` `inline`
@@ -1102,8 +974,6 @@ static inline int inline_mysql_prlock_init(mysql_prlock_t * that, mysql_prlock_t
 Defined in psi/mysql_thread.h:833
 
 ---
-
-{#inline_mysql_rwlock_destroy}
 
 ### inline_mysql_rwlock_destroy
 
@@ -1117,8 +987,6 @@ Defined in psi/mysql_thread.h:848
 
 ---
 
-{#inline_mysql_prlock_destroy}
-
 ### inline_mysql_prlock_destroy
 
 `static` `inline`
@@ -1130,8 +998,6 @@ static inline int inline_mysql_prlock_destroy(mysql_prlock_t * that, mysql_prloc
 Defined in psi/mysql_thread.h:862
 
 ---
-
-{#inline_mysql_rwlock_rdlock}
 
 ### inline_mysql_rwlock_rdlock
 
@@ -1145,8 +1011,6 @@ Defined in psi/mysql_thread.h:893
 
 ---
 
-{#inline_mysql_prlock_rdlock}
-
 ### inline_mysql_prlock_rdlock
 
 `static` `inline`
@@ -1158,8 +1022,6 @@ static inline int inline_mysql_prlock_rdlock(mysql_prlock_t * that, mysql_prlock
 Defined in psi/mysql_thread.h:908
 
 ---
-
-{#inline_mysql_rwlock_wrlock}
 
 ### inline_mysql_rwlock_wrlock
 
@@ -1173,8 +1035,6 @@ Defined in psi/mysql_thread.h:923
 
 ---
 
-{#inline_mysql_prlock_wrlock}
-
 ### inline_mysql_prlock_wrlock
 
 `static` `inline`
@@ -1186,8 +1046,6 @@ static inline int inline_mysql_prlock_wrlock(mysql_prlock_t * that, mysql_prlock
 Defined in psi/mysql_thread.h:938
 
 ---
-
-{#inline_mysql_rwlock_tryrdlock}
 
 ### inline_mysql_rwlock_tryrdlock
 
@@ -1201,8 +1059,6 @@ Defined in psi/mysql_thread.h:953
 
 ---
 
-{#inline_mysql_rwlock_trywrlock}
-
 ### inline_mysql_rwlock_trywrlock
 
 `static` `inline`
@@ -1214,8 +1070,6 @@ static inline int inline_mysql_rwlock_trywrlock(mysql_rwlock_t * that, mysql_rwl
 Defined in psi/mysql_thread.h:967
 
 ---
-
-{#inline_mysql_rwlock_unlock}
 
 ### inline_mysql_rwlock_unlock
 
@@ -1229,8 +1083,6 @@ Defined in psi/mysql_thread.h:981
 
 ---
 
-{#inline_mysql_prlock_unlock}
-
 ### inline_mysql_prlock_unlock
 
 `static` `inline`
@@ -1242,8 +1094,6 @@ static inline int inline_mysql_prlock_unlock(mysql_prlock_t * that, mysql_prlock
 Defined in psi/mysql_thread.h:994
 
 ---
-
-{#inline_mysql_cond_register}
 
 ### inline_mysql_cond_register
 
@@ -1257,8 +1107,6 @@ Defined in psi/mysql_thread.h:1007
 
 ---
 
-{#inline_mysql_cond_init}
-
 ### inline_mysql_cond_init
 
 `static` `inline`
@@ -1270,8 +1118,6 @@ static inline int inline_mysql_cond_init(mysql_cond_t * that, const pthread_cond
 Defined in psi/mysql_thread.h:1024
 
 ---
-
-{#inline_mysql_cond_destroy}
 
 ### inline_mysql_cond_destroy
 
@@ -1285,8 +1131,6 @@ Defined in psi/mysql_thread.h:1039
 
 ---
 
-{#inline_mysql_cond_wait}
-
 ### inline_mysql_cond_wait
 
 `static` `inline`
@@ -1298,8 +1142,6 @@ static inline int inline_mysql_cond_wait(mysql_cond_t * that, mysql_mutex_t * mu
 Defined in psi/mysql_thread.h:1060
 
 ---
-
-{#inline_mysql_cond_timedwait}
 
 ### inline_mysql_cond_timedwait
 
@@ -1313,8 +1155,6 @@ Defined in psi/mysql_thread.h:1075
 
 ---
 
-{#inline_mysql_cond_signal}
-
 ### inline_mysql_cond_signal
 
 `static` `inline`
@@ -1327,8 +1167,6 @@ Defined in psi/mysql_thread.h:1091
 
 ---
 
-{#inline_mysql_cond_broadcast}
-
 ### inline_mysql_cond_broadcast
 
 `static` `inline`
@@ -1340,8 +1178,6 @@ static inline int inline_mysql_cond_broadcast(mysql_cond_t * that, mysql_cond_t 
 Defined in psi/mysql_thread.h:1103
 
 ---
-
-{#inline_mysql_thread_register}
 
 ### inline_mysql_thread_register
 
@@ -1356,7 +1192,7 @@ Defined in psi/mysql_thread.h:1115
 
 ## Class Definitions
 
-{#st_mysql_mutex}
+
 
 ### st_mysql_mutex
 
@@ -1381,9 +1217,7 @@ An instrumented mutex structure. **See also**: [mysql_mutex_t](api.md#mysql_mute
 
 ---
 
-{#m_mutex}
-
-##### m_mutex
+#### m_mutex
 
 ```cpp
 pthread_mutex_t m_mutex
@@ -1395,9 +1229,7 @@ The real mutex.
 
 ---
 
-{#m_psi-2}
-
-##### m_psi
+#### m_psi
 
 ```cpp
 struct PSI_mutex * m_psi
@@ -1409,7 +1241,7 @@ Defined in psi/mysql_thread.h:146
 
 The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_mutex_t` interface.
 
-{#st_mysql_rwlock}
+
 
 ### st_mysql_rwlock
 
@@ -1434,9 +1266,7 @@ An instrumented rwlock structure. **See also**: [mysql_rwlock_t](api.md#mysql_rw
 
 ---
 
-{#m_rwlock}
-
-##### m_rwlock
+#### m_rwlock
 
 ```cpp
 rw_lock_t m_rwlock
@@ -1448,9 +1278,7 @@ The real rwlock
 
 ---
 
-{#m_psi-3}
-
-##### m_psi
+#### m_psi
 
 ```cpp
 struct PSI_rwlock * m_psi
@@ -1462,7 +1290,7 @@ Defined in psi/mysql_thread.h:174
 
 The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_rwlock_t` interface.
 
-{#st_mysql_prlock}
+
 
 ### st_mysql_prlock
 
@@ -1487,9 +1315,7 @@ An instrumented prlock structure. **See also**: [mysql_prlock_t](api.md#mysql_pr
 
 ---
 
-{#m_prlock}
-
-##### m_prlock
+#### m_prlock
 
 ```cpp
 rw_pr_lock_t m_prlock
@@ -1501,9 +1327,7 @@ The real prlock
 
 ---
 
-{#m_psi-4}
-
-##### m_psi
+#### m_psi
 
 ```cpp
 struct PSI_rwlock * m_psi
@@ -1515,7 +1339,7 @@ Defined in psi/mysql_thread.h:190
 
 The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_rwlock_t` interface.
 
-{#st_mysql_cond}
+
 
 ### st_mysql_cond
 
@@ -1540,9 +1364,7 @@ An instrumented cond structure. **See also**: [mysql_cond_t](api.md#mysql_cond_t
 
 ---
 
-{#m_cond}
-
-##### m_cond
+#### m_cond
 
 ```cpp
 pthread_cond_t m_cond
@@ -1554,9 +1376,7 @@ The real condition
 
 ---
 
-{#m_psi-5}
-
-##### m_psi
+#### m_psi
 
 ```cpp
 struct PSI_cond * m_psi

@@ -20,9 +20,9 @@ MariaDB Enterprise Server 10.5 introduces the new features listed below.
 
 ### ColumnStore Storage Engine
 
-The [ColumnStore storage engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-engine-overview) is a columnar storage engine that provides distributed, columnar storage for scalable analytical processing and smart transactions.
+The [ColumnStore storage engine](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-engine-overview) is a columnar storage engine that provides distributed, columnar storage for scalable analytical processing and smart transactions.
 
-MariaDB Enterprise Server 10.5 includes an enterprise version of the [ColumnStore storage engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-engine-overview) as a plugin:
+MariaDB Enterprise Server 10.5 includes an enterprise version of the [ColumnStore storage engine](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-engine-overview) as a plugin:
 
 * It includes MariaDB ColumnStore 5, which has many improvements.
 * The installation process has been massively simplified.
@@ -43,7 +43,7 @@ MariaDB Enterprise Server 10.5 uses the "MariaDB" name in more places:
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | mysql                         | [mariadb](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client)                                          |
 | mysqld                        | [mariadbd](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd)                     |
-| mariadb-backup                | mariadb-backup                                                                                          |
+| mariadb-backup                | mariadb-backup                                                                                                                          |
 | mysql\_plugin                 | [mariadb-plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/administrative-tools/mariadb-plugin)              |
 | mysql\_upgrade                | [mariadb-upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/deployment-tools/mariadb-upgrade)                |
 | mysql\_waitpid                | [mariadb-waitpid](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/administrative-tools/mariadb-waitpid)            |
@@ -912,22 +912,22 @@ MariaDB Enterprise Server 10.5 improves [MariaDB Replication](https://app.gitboo
 
 * It adds aliases for statements that contain the word `SLAVE` that also allow the word `REPLICA`:
 
-| Statement                                                                                                                                                                                             | New Statement Alias                                                                                                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [START SLAVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/start-replica)                                             | [START REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/start-replica)                                               |
-| START ALL SLAVES             | START ALL REPLICAS             |
-| [STOP SLAVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica)                                               | [STOP REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica)                                                 |
-| STOP ALL SLAVES               | STOP ALL REPLICAS               |
-| SHOW SLAVE STATUS      | [SHOW REPLICA STATUS](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-replica-status)      |
-| SHOW ALL SLAVES STATUS | SHOW ALL REPLICAS STATUS |
-| [RESET SLAVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/reset-replica)                                             | [RESET REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/reset-replica)                                               |
-| [SHOW SLAVE HOSTS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-replica-hosts)                                                     | [SHOW REPLICA HOSTS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-replica-hosts)                                                       |
+| Statement                                                                                                                                                 | New Statement Alias                                                                                                                                         |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [START SLAVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/start-replica) | [START REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/start-replica) |
+| START ALL SLAVES                                                                                                                                          | START ALL REPLICAS                                                                                                                                          |
+| [STOP SLAVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica)   | [STOP REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica)   |
+| STOP ALL SLAVES                                                                                                                                           | STOP ALL REPLICAS                                                                                                                                           |
+| SHOW SLAVE STATUS                                                                                                                                         | [SHOW REPLICA STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-replica-status)       |
+| SHOW ALL SLAVES STATUS                                                                                                                                    | SHOW ALL REPLICAS STATUS                                                                                                                                    |
+| [RESET SLAVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/reset-replica) | [RESET REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/reset-replica) |
+| [SHOW SLAVE HOSTS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-replica-hosts)         | [SHOW REPLICA HOSTS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-replica-hosts)         |
 
 * It adds the shutdown\_wait\_for\_slaves system variable to control whether a replication-aware shutdown is the default shutdown behavior.
 
 ## MariaDB Enterprise Cluster
 
-MariaDB Enterprise Server 10.5 improves support for [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7):
+MariaDB Enterprise Server 10.5 improves support for [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/):
 
 * It allows Galera Cluster to be configured to prohibit DDL replication to only the storage engines that support Galera Cluster by configuring the [wsrep\_strict\_ddl](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_strict_ddl) system variable.
 * It adds full GTID support to Galera Cluster.

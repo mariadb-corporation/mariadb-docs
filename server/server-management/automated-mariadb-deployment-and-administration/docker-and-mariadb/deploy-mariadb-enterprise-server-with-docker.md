@@ -6,7 +6,7 @@ description: >-
 
 # Deploy MariaDB Enterprise Server with Docker
 
-MariaDB Corporation provides Docker images for MariaDB Enterprise Server in the [MariaDB Enterprise Docker Registry](mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md).
+MariaDB Corporation provides Docker images for MariaDB Enterprise Server in the [MariaDB Enterprise Docker Registry](mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md). These images are generally available (GA) and supported for production use.
 
 Docker provides multiple benefits:
 

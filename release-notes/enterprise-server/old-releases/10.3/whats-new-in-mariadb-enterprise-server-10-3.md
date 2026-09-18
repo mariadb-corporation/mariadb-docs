@@ -77,8 +77,8 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 | [CVE-2020-14812](https://www.cve.org/CVERecord?id=CVE-2020-14812) | 4.9             | [10.3.27-10](10.3.27-10.md)    |
 | [CVE-2020-14789](https://www.cve.org/CVERecord?id=CVE-2020-14789) | 4.9             | [10.3.27-10](10.3.27-10.md)    |
 | [CVE-2020-14776](https://www.cve.org/CVERecord?id=CVE-2020-14776) | 4.9             | [10.3.27-10](10.3.27-10.md)    |
-| [CVE-2020-28912](https://www.cve.org/CVERecord?id=CVE-2020-28912) | N/A (Critical) [<sup>#1</sup>](id-1) | [10.3.27-10](10.3.27-10.md) |
-| [CVE-2020-15180](https://www.cve.org/CVERecord?id=CVE-2020-15180) | N/A (Critical) [<sup>#1</sup>](id-1) | [10.3.25-9](10.3.25-9.md) |
+| [CVE-2020-28912](https://www.cve.org/CVERecord?id=CVE-2020-28912) | N/A (Critical) [<sup>#1</sup>](#id-1) | [10.3.27-10](10.3.27-10.md) |
+| [CVE-2020-15180](https://www.cve.org/CVERecord?id=CVE-2020-15180) | N/A (Critical) [<sup>#1</sup>](#id-1) | [10.3.25-9](10.3.25-9.md) |
 | [CVE-2021-2022](https://www.cve.org/CVERecord?id=CVE-2021-2022)   | 4.4             | [10.3.24-8](10.3.24-8.md)      |
 | [CVE-2020-2760](https://www.cve.org/CVERecord?id=CVE-2020-2760)   | 5.5             | [10.3.23-7](10.3.23-7.md)      |
 | [CVE-2020-2752](https://www.cve.org/CVERecord?id=CVE-2020-2752)   | 5.3             | [10.3.23-7](10.3.23-7.md)      |

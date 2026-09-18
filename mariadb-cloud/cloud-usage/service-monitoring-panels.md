@@ -371,15 +371,15 @@ This panel shows the current resident set size (RSS) of the MaxScale process.
 
 This panel shows the current stack size of the MaxScale node.
 
-The following panels appear on the **Cache** view, available when the [Query Cache](../quickstart/query-cache-gridgain-8.md) add-on is enabled on the service. Select the cache node (or **Cache** in the top-right) on the Monitoring tab to open it.
+The following panels appear on the **Query Result Cache** view, available when the [Query Result Cache](../quickstart/query-cache-gridgain-8.md) add-on is enabled on the service. Select the cache node (or **Query Result Cache** in the top-right) on the Monitoring tab to open it.
 
-<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-1.png" alt=""><figcaption><p>Monitoring—Cache</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-1.png" alt=""><figcaption><p>Monitoring—Query Result Cache</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-2.png" alt=""><figcaption><p>Monitoring—Cache</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/gg8-cache-monitoring-panel-2.png" alt=""><figcaption><p>Monitoring—Query Result Cache</p></figcaption></figure>
 
 ## Cache Hit Ratio
 
-This panel shows the ratio of cache hits to total lookups (gets) for the GridGain 8 query result cache during the selected time interval.
+This panel shows the ratio of cache hits to total lookups (gets) for the query result cache during the selected time interval.
 
 ## Cache Throughput
 
@@ -399,10 +399,14 @@ This panel shows the memory allocated to the cache data region against its maxim
 
 ## Evictions / sec
 
-This panel shows the number of cache entries evicted per second.
+This panel shows the rate of entries evicted from the query result cache. Sustained non-zero values indicate the cache is over capacity and least-recently-used entries are being dropped.
+
+## Cache Nodes
+
+This panel appears on the service-wide view only. It shows the number of cache server nodes in the cluster topology. A value below the expected node count indicates a node has left the topology.
 
 ## Eviction Rate
 
-This panel shows the number of cache entries evicted per second during the selected time interval.
+This panel appears on an individual cache node's view rather than the service-wide one. It charts over the selected time interval the same eviction metric that **Evictions / sec** reports as a single figure.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -114,6 +114,12 @@ SHOW CREATE DATABASE danish_names;
 
 Although there are [character\_set\_database](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_database) and [collation\_database](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#collation_database) system variables which can be set dynamically, these are used for determining the character set and collation for the default database, and should only be set by the server.
 
+{% hint style="info" %}
+`USE db_name` updates `character_set_database` and `collation_database` to the new default database's values, but it does not touch [collation\_connection](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#collation_connection). The connection collation is an independent session setting, changed only by [SET NAMES](set-names.md) or by assigning the variable directly.
+
+The distinction matters because string literals take the connection collation, not the database collation. After connecting to, or switching into, a database whose collation differs from the connection's, literals carry the connection collation — including literals baked into a view definition, a `CASE` result or a `UNION` branch at the time it was created. Literals are coercible, so a literal gives way to a column's collation in a direct comparison; a stored expression, however, keeps the collation it was defined with.
+{% endhint %}
+
 A database's collation is inherited only by statements that don't name a character set of their own. A `CREATE TABLE` that names one, such as `CREATE TABLE ... DEFAULT CHARACTER SET utf8mb4`, takes its collation from the [character\_set\_collations](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_collations) map instead. See [Table Level](setting-character-sets-and-collations.md#table-level) and [Changing Default Collation](setting-character-sets-and-collations.md#changing-default-collation).
 
 ## Table Level
@@ -546,6 +552,37 @@ Before upgrading, please be aware of the following technical implications:
 * Storage Overhead: Using `utf8mb4` may increase storage requirements for `CHAR` and `VARCHAR` columns, particularly for data containing non-ASCII characters. This is particularly true when table columns contain `latin1` code points outside of the ASCII range.
 * Performance: Some comparison operations may be slower with the new collation compared to the fixed-width `latin1_swedish_ci` collation.
 * Application Compatibility: Some applications that rely on `latin1` behavior may require updates to function correctly with the new defaults. Problems can occur because a `latin1` column can always compare to a binary string, while a `utf8mb4` column cannot (at least not always), because not every binary string is a well-formed `utf8mb4` string. A workaround is to cast the `utf8mb4` column to `BINARY` before doing a comparison.
+
+### Auditing for Mixed Collations
+
+Because a table that names a character set without naming a collation takes its collation from [character\_set\_collations](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_collations) rather than from its database, a schema built up across several MariaDB versions can end up holding tables and columns in different collations. Comparing two such columns fails with [error 1267](../../../error-codes/mariadb-error-codes-1200-to-1299/e1267.md), `Illegal mix of collations`, because both operands are `IMPLICIT` and neither takes precedence.
+
+To find every column in the current database whose collation differs from the database default:
+
+```sql
+SELECT t.TABLE_NAME, t.TABLE_COLLATION,
+       c.COLUMN_NAME, c.CHARACTER_SET_NAME, c.COLLATION_NAME
+  FROM INFORMATION_SCHEMA.TABLES t
+  JOIN INFORMATION_SCHEMA.COLUMNS c
+    ON c.TABLE_SCHEMA = t.TABLE_SCHEMA
+   AND c.TABLE_NAME   = t.TABLE_NAME
+ WHERE t.TABLE_SCHEMA = DATABASE()
+   AND t.TABLE_TYPE   = 'BASE TABLE'
+   AND c.COLLATION_NAME IS NOT NULL
+   AND c.COLLATION_NAME <> @@collation_database
+ ORDER BY t.TABLE_NAME, c.ORDINAL_POSITION;
+```
+
+An empty result means every character column already matches the database collation. Running this before an upgrade records the schema's starting state; running it afterwards shows what any new DDL has introduced.
+
+To bring a deviating table back into line:
+
+```sql
+ALTER TABLE table_name
+  CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci;
+```
+
+`CONVERT TO CHARACTER SET` rebuilds the table, so allow for the time and storage that implies on large tables, and name the collation explicitly — omitting `COLLATE` selects the character set's default collation and reintroduces the same problem.
 
 ### Restoring Old Defaults
 

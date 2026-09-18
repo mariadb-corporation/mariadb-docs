@@ -1,2 +1,0 @@
-# Miscellaneous GIS functions
-
