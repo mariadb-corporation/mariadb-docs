@@ -182,7 +182,14 @@ def strip_inline(text):
     text = CODESPAN.sub(park, text)
     text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
     text = re.sub(r'\*([^*]+)\*', r'\1', text)
-    text = re.sub(r'(?<![A-Za-z0-9\\])_([^_\\]+)_', r'\1', text)
+    # An underscore only CLOSES emphasis when nothing alphanumeric follows it
+    # (CommonMark's right-flanking rule), so the `_thd_` in _thd_wait_type_e is
+    # not italic and both underscores survive -- GitBook publishes that heading
+    # as thd_wait_type_e, verified on the live page. Matching the closer
+    # non-greedily lets the span cross an interior underscore, so _my_var_ still
+    # reduces to my_var.
+    text = re.sub(r'(?<![A-Za-z0-9\\])_([^\\]*?[^_\\])_(?![A-Za-z0-9])',
+                  r'\1', text)
     text = re.sub(r'\\(.)', r'\1', text)                    # escapes
     return re.sub(r'\x00(\d+)\x00', lambda m: parked[int(m.group(1))], text)
 
@@ -195,7 +202,11 @@ def gitbook_slug(heading):
     s = re.sub(r'[^a-z0-9._+]+', '-', s)      # separator runs -> one dash
     s = s.replace('+', '')                    # ... then "+" drops out
     s = s.strip('-')
-    s = s.rstrip('._').strip('-')
+    # Leading underscores drop out too: __MYSQL_DECLARE_PLUGIN publishes as
+    # mysql_declare_plugin and MARIA_DECLARE_PLUGIN__ as maria_declare_plugin
+    # (both verified live), so a C identifier's reserved underscores never
+    # reach the anchor at either end.
+    s = s.lstrip('_').rstrip('._').strip('-')
     if s[:1].isdigit():
         s = 'id-' + s
     return s[:MAX_SLUG]
@@ -758,7 +769,13 @@ def cmd_validate(args):
         if page.endswith('/README'):
             page = page[:-len('/README')]
         html = fetch(f'{BASE_URL}/{page}')
-        live = {i for i in re.findall(r'id="([A-Za-z0-9][A-Za-z0-9._-]{2,})"', html)
+        # No length floor. `{2,}` here used to require three characters and so
+        # dropped `id="fd"` off Socket_instrumentation, reporting a MISS against
+        # an anchor the page publishes -- a false alarm in the one mode that
+        # exists to be an oracle. Chrome ids are excluded by name below, not by
+        # being short: across four live api-plugin pages the only id under three
+        # characters was that real heading anchor.
+        live = {i for i in re.findall(r'id="([A-Za-z0-9][A-Za-z0-9._-]*)"', html)
                 if i not in CHROME and not i.startswith('base-ui-')
                 and not re.fullmatch(r'p-[0-9a-f]{16,}', i)}
         if len(html) < 5000 or not live:
