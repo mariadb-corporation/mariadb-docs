@@ -32,9 +32,11 @@
 #   plumbing every check sits behind: the repo-root config guard, the argument filter, the
 #   env-var knobs, and the tool-missing SKIP branches.
 #
-#   As of DOCS-6586 every check doc-lint.sh runs has a CI counterpart, so this suite is no
-#   longer the last line of defence for any of them — but it is still the only thing that
-#   exercises the SCRIPT, on a platform the author is not using, which is the DOCS-6409 class.
+#   As of DOCS-6586 every check exercised here has a CI counterpart, so this suite is no longer
+#   the last line of defence for any of them — but it is still the only thing that exercises the
+#   SCRIPT, on a platform the author is not using, which is the DOCS-6409 class. The one check
+#   that stays local-only is the retired-Knowledge-Base link rule (doc-lint.sh, DOC_LINT_ALLOW_KB)
+#   — for that one this suite IS the only gate.
 #
 #   codespell and lychee are gated separately by codespell.yml and link-check-pr.yml, so their
 #   flag sets are not what this suite guards. What it does guard is that doc-lint REACHES them:
@@ -911,6 +913,32 @@ want_err "no \`reason\`"
 rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
 end
 
+begin 'a reason that YAML would read as a top-level key is rejected'
+# A `reason` indented no deeper than its own `- ` is not part of the entry in YAML: Ruby's
+# parser answers {"orphan"=>[{"path"=>...}], "reason"=>...}, so the entry carries NO reason
+# while a reviewer sees the text sitting right under it in the diff. Accepting it would let the
+# one rule this register exists to enforce be satisfied by something that is not structurally a
+# reason (Daniel Bartholomew, review of PR #1100).
+write_allow "$SANDBOX" <<'ALLOW'
+orphan:
+  - path: server/hidden.md
+reason: "not indented under the entry"
+ALLOW
+al validate
+want_rc 2
+want_err 'line 3'
+want_err 'must be indented deeper'
+# The same text one column deeper than the `- ` is a real reason and validates.
+write_allow "$SANDBOX" <<'ALLOW'
+orphan:
+  - path: server/hidden.md
+   reason: "one column deeper is still part of the entry"
+ALLOW
+al validate
+want_rc 0
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
 begin 'a path that could never match is rejected'
 # Absolute paths, `./` prefixes, `..` and backslashes all look like they cover a page while
 # matching nothing, because both consumers compare against repo-relative posix paths.
@@ -1307,6 +1335,62 @@ SHRINK_ROOT=''
 want_rc 0
 want_err 'SKIPPED'
 rm -rf "$NOGIT2"
+end
+
+begin 'a run from a subdirectory measures the file it was named, not a same-named one at the root'
+# The paths arrive CWD-relative and are read root-relative, so before DOCS-6586's review fix a
+# run from server/ measured a DIFFERENT file of the same relative name -- and reported a
+# confident "0 possibly gutted" for it. Not reachable from either caller (CI and pre-commit.sh
+# both run from the root), but the workflow asserts `given` and `eligible`, never `compared`, so
+# nothing else in this PR would have caught it (Daniel Bartholomew, review of PR #1100).
+SHRINK_ROOT="$SANDBOX/server" shrink -- --base HEAD gutted.md
+SHRINK_ROOT=''
+want_rc 1
+want_err 'possible gutted page'
+want_err 'server/gutted.md'
+want_out '1 file(s) compared'
+end
+
+begin 'a path outside the repository is a usage error, not something measured'
+# `root` comes from the FIRST path, so this is the mixed list: one path in the repo and one
+# outside it, which has no pre-image in that object store to be measured against. Exiting 2
+# beats measuring the in-repo half and reporting a count that covers less than it was given.
+printf '# Outside\n' > "${TMPDIR:-/tmp}/doclint-outside.md"
+shrink -- --base HEAD server/clean.md "${TMPDIR:-/tmp}/doclint-outside.md"
+want_rc 2
+want_err 'is outside'
+want_empty_stdout
+rm -f "${TMPDIR:-/tmp}/doclint-outside.md"
+end
+
+begin 'a stale entry is reported even when the base revision cannot be resolved'
+# A stale entry is a file-existence test that needs no git at all, so a missing base must not
+# hide it -- navcheck.py audits its own section before the same guards. The measurement still
+# SKIPs, and the exit code is the audit's (Daniel Bartholomew, review of PR #1100).
+write_allow "$SANDBOX" <<'ALLOW'
+shrink:
+  - path: server/never-existed.md
+    reason: "deleted three campaigns ago"
+ALLOW
+shrink -- --base refs/heads/no-such-branch server/clean.md
+want_rc 1
+want_err 'stale allowlist entry'
+want_err 'SKIPPED'
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'git missing from PATH is a SKIP, not a traceback'
+# The guard reads its pre-image out of the object store, so with no git there is no base to
+# compare against -- the same SKIP the header contracts for a tree with no git. Before the fix
+# git() raised an uncaught FileNotFoundError and the script exited 1, which reads as a finding.
+NOGITBIN="$(mktemp -d "${TMPDIR:-/tmp}/doclint-nogitbin.XXXXXX")"
+ln -s "$(command -v python3)" "$NOGITBIN/python3"
+shrink "PATH=$NOGITBIN" -- --base HEAD server/gutted.md
+want_rc 0
+want_err 'SKIPPED'
+want_no_err 'Traceback'
+want_no_err 'possible gutted page'
+rm -rf "$NOGITBIN"
 end
 
 # ---- SKIP branches: a missing tool is a notice, never a failure ------------------------------

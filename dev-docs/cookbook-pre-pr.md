@@ -19,10 +19,13 @@ skill, which runs them for you; this page documents what it does and how to run 
 
 Only the first six can fail your PR; aliases and help-tables are regenerated automatically.
 
-The heading-anchor gate arrived in DOCS-6524 and the other three in DOCS-6586, which closes the
-set: **every check `doc-lint.sh` runs now has a CI counterpart**, so a finding on your machine is
-a finding CI will repeat, and none of them is local-only any more. Two consequences worth
-knowing:
+The heading-anchor gate arrived in DOCS-6524 and the other three in DOCS-6586: **every check in
+the table above has a CI counterpart**, so a finding on your machine is a finding CI will repeat.
+One check has none. `doc-lint.sh` also refuses a NEW link into the **retired Knowledge Base**
+(the `/kb/` paths on the `mariadb.com` host), whose redirects lychee follows to a 200 while
+roughly half of them drop the slug and land the reader on the docs search page (DOCS-6609) —
+and that one runs **only locally**, so a clean PR is not evidence that nobody added one. The
+check greps for the host-and-path pair, which is why this page spells it in two pieces. Two consequences worth knowing:
 
 - **It is no longer only a local check.** Before, the anchor gate ran only via `/precommit`, the
   `docs-check` skill, and the Claude Code pre-commit hook — and that hook covers only commits
@@ -139,9 +142,10 @@ reader noticed. Replayed against that commit, the check names all four and fails
 Like the anchor gate it is history-aware, and for the same reason: the repo carries a standing
 backlog of pre-existing orphans — 219 when DOCS-6586 was filed, 209 on 2026-09-04, **44** on
 2026-09-17 as pages get listed — so an absolute check would fail every unrelated PR on breakage
-it did not introduce. Take that figure fresh with `navcheck.py check`; do not quote it from here. It reports only pages *newly* orphaned against `DOC_LINT_BASE` —
-added with no nav entry, or de-listed while the file survives. Unlike the anchor gate it needs no
-worktree, so it costs ~40 ms and has no skip flag.
+it did not introduce. Take that figure fresh with `navcheck.py check`; do not quote it from
+here. It reports only pages *newly* orphaned against `DOC_LINT_BASE` — added with no nav entry,
+or de-listed while the file survives. Unlike the anchor gate it needs no worktree, so it costs
+~40 ms and has no skip flag.
 
 A deliberately unlisted page is legitimate, so this gate is acknowledged rather than silenced —
 and since DOCS-6586 the acknowledgment is **checked in**, in `.claude/hooks/doc-lint-allow.yml`:

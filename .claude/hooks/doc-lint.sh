@@ -352,6 +352,12 @@ if [ ! -f "$SHRINKCHECK" ]; then
 elif ! command -v python3 >/dev/null 2>&1; then
   echo "doc-lint: python3 not installed — gutted-page check SKIPPED (shrinkcheck-pr.yml still" >&2
   echo "          gates this in CI). Install: brew install python3" >&2
+elif ! command -v git >/dev/null 2>&1; then
+  # Same guard the navcheck block above carries, and for the same reason: the guard reads its
+  # pre-image out of the object store, so with no git there is no base revision to compare
+  # against. shrinkcheck.py answers this case with a SKIP of its own now; asking here keeps the
+  # two blocks reading alike and keeps the notice specific about what is missing.
+  echo "doc-lint: git not installed — gutted-page check SKIPPED (needs a base revision)" >&2
 else
   # Findings go to stderr; the counts line goes to stdout, which is swallowed here the same way
   # navcheck's clean line is. CI reads that line to prove the run was not vacuous.
