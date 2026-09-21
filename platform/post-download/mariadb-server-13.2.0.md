@@ -11,15 +11,15 @@ description: >-
 ## About this Release
 
 * MariaDB Server 13.2.0 Preview has not been released yet
-* [What's new in this release?]({release-notes}/community-server/13.2/mariadb-13.2-changes-and-improvements)
-* MariaDB Server is open source software, the [source code is available]({server}/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/13.2/mariadb-13.2-changes-and-improvements)
+* MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Alpha maturity
 
 ## About this Release Series
 
 * This release is part of the MariaDB 13.2 release series
 * MariaDB 13.2 is a rolling release
-* [What's new in this release series?]({release-notes}/community-server/13.2/mariadb-13.2-changes-and-improvements)
+* [What's new in this release series?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/13.2/mariadb-13.2-changes-and-improvements)
 
 ## Release History
 
