@@ -16,7 +16,7 @@ orient before searching — the repo is ~9,900 `.md` files.
 | Connectors | `connectors/` | Client connectors (C, C++, Java, ODBC, Python, Node.js, .NET, R2DBC) |
 | Analytics | `analytics/` | ColumnStore and analytics |
 | MariaDB Cloud | `mariadb-cloud/` | Cloud / DBaaS |
-| Tools | `tools/` | Enterprise Manager, MCP server, Kubernetes Operator, AI-RAG, Control Center |
+| Enterprise Tools | `tools/` | Enterprise Manager, MCP server, Kubernetes Operator, AI-RAG, Control Center |
 | GridGain | `gridgain/` | GridGain 8 and GridGain 9 — **placeholder**, content being migrated from AsciiDoc |
 | General Resources | `general-resources/` | About, community, style guide, legal, theory |
 | Galera Cluster | `galera-cluster/` | Galera synchronous replication |
