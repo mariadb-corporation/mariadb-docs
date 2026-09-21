@@ -31,6 +31,10 @@ The larger the size, the longer it takes to initialize.&#x20;
 Make sure that the size is not too large, because this can cause swapping, which more than undoes the benefits of a large buffer pool.
 {% endhint %}
 
+{% hint style="info" %}
+Crash recovery buffers redo log records in blocks taken from the buffer pool, so the buffer pool size also bounds how much redo InnoDB can apply in a single pass. If the redo left to apply after a crash is large relative to the buffer pool, recovery still completes, but falls back to a slower multi-pass mode. See [Sizing the Redo Log](innodb-redo-log.md#sizing-the-redo-log).
+{% endhint %}
+
 {% hint style="warning" %}
 **Using ColumnStore?**
 

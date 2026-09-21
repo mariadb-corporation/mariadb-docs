@@ -3,11 +3,11 @@ description: >-
   Plugin API reference: File Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
 ---
 
-{#fileinstrumentation}
+
 
 # File Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md#instrumentationinterface)
+> [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Classes
 
@@ -56,8 +56,6 @@ description: >-
 
 ---
 
-{#mysql_file_register}
-
 ### mysql_file_register
 
 ```cpp
@@ -69,8 +67,6 @@ Defined in psi/mysql_file.h:65
 File registration.
 
 ---
-
-{#mysql_file_fgets}
 
 ### mysql_file_fgets
 
@@ -84,8 +80,6 @@ Instrumented fgets. `mysql_file_fgets` is a replacement for `fgets`.
 
 ---
 
-{#mysql_file_fgetc}
-
 ### mysql_file_fgetc
 
 ```cpp
@@ -97,8 +91,6 @@ Defined in psi/mysql_file.h:89
 Instrumented fgetc. `mysql_file_fgetc` is a replacement for `fgetc`.
 
 ---
-
-{#mysql_file_fputs}
 
 ### mysql_file_fputs
 
@@ -112,8 +104,6 @@ Instrumented fputs. `mysql_file_fputs` is a replacement for `fputs`.
 
 ---
 
-{#mysql_file_fputc}
-
 ### mysql_file_fputc
 
 ```cpp
@@ -125,8 +115,6 @@ Defined in psi/mysql_file.h:114
 Instrumented fputc. `mysql_file_fputc` is a replacement for `fputc`.
 
 ---
-
-{#mysql_file_fprintf}
 
 ### mysql_file_fprintf
 
@@ -140,8 +128,6 @@ Instrumented fprintf. `mysql_file_fprintf` is a replacement for `fprintf`.
 
 ---
 
-{#mysql_file_vfprintf}
-
 ### mysql_file_vfprintf
 
 ```cpp
@@ -153,8 +139,6 @@ Defined in psi/mysql_file.h:134
 Instrumented vfprintf. `mysql_file_vfprintf` is a replacement for `vfprintf`.
 
 ---
-
-{#mysql_file_fflush}
 
 ### mysql_file_fflush
 
@@ -168,8 +152,6 @@ Instrumented fflush. `mysql_file_fflush` is a replacement for `fflush`.
 
 ---
 
-{#mysql_file_feof}
-
 ### mysql_file_feof
 
 ```cpp
@@ -181,8 +163,6 @@ Defined in psi/mysql_file.h:156
 Instrumented feof. `mysql_file_feof` is a replacement for `feof`.
 
 ---
-
-{#mysql_file_fstat}
 
 ### mysql_file_fstat
 
@@ -196,8 +176,6 @@ Instrumented fstat. `mysql_file_fstat` is a replacement for `my_fstat`.
 
 ---
 
-{#mysql_file_stat}
-
 ### mysql_file_stat
 
 ```cpp
@@ -209,8 +187,6 @@ Defined in psi/mysql_file.h:180
 Instrumented stat. `mysql_file_stat` is a replacement for `my_stat`.
 
 ---
-
-{#mysql_file_chsize}
 
 ### mysql_file_chsize
 
@@ -224,8 +200,6 @@ Instrumented chsize. `mysql_file_chsize` is a replacement for `my_chsize`.
 
 ---
 
-{#mysql_file_fopen}
-
 ### mysql_file_fopen
 
 ```cpp
@@ -237,8 +211,6 @@ Defined in psi/mysql_file.h:206
 Instrumented fopen. `mysql_file_fopen` is a replacement for `my_fopen`.
 
 ---
-
-{#mysql_file_fclose}
 
 ### mysql_file_fclose
 
@@ -256,8 +228,6 @@ assert(file != NULL)
 
 ---
 
-{#mysql_file_fread}
-
 ### mysql_file_fread
 
 ```cpp
@@ -269,8 +239,6 @@ Defined in psi/mysql_file.h:239
 Instrumented fread. `mysql_file_fread` is a replacement for `my_fread`.
 
 ---
-
-{#mysql_file_fwrite}
 
 ### mysql_file_fwrite
 
@@ -284,8 +252,6 @@ Instrumented fwrite. `mysql_file_fwrite` is a replacement for `my_fwrite`.
 
 ---
 
-{#mysql_file_fseek}
-
 ### mysql_file_fseek
 
 ```cpp
@@ -297,8 +263,6 @@ Defined in psi/mysql_file.h:265
 Instrumented fseek. `mysql_file_fseek` is a replacement for `my_fseek`.
 
 ---
-
-{#mysql_file_ftell}
 
 ### mysql_file_ftell
 
@@ -312,8 +276,6 @@ Instrumented ftell. `mysql_file_ftell` is a replacement for `my_ftell`.
 
 ---
 
-{#mysql_file_create}
-
 ### mysql_file_create
 
 ```cpp
@@ -325,8 +287,6 @@ Defined in psi/mysql_file.h:291
 Instrumented create. `mysql_file_create` is a replacement for `my_create`.
 
 ---
-
-{#mysql_file_create_temp}
 
 ### mysql_file_create_temp
 
@@ -340,8 +300,6 @@ Instrumented create_temp_file. `mysql_file_create_temp` is a replacement for `cr
 
 ---
 
-{#mysql_file_open}
-
 ### mysql_file_open
 
 ```cpp
@@ -353,8 +311,6 @@ Defined in psi/mysql_file.h:317
 Instrumented open. `mysql_file_open` is a replacement for `my_open`.
 
 ---
-
-{#mysql_file_close}
 
 ### mysql_file_close
 
@@ -368,8 +324,6 @@ Instrumented close. `mysql_file_close` is a replacement for `my_close`.
 
 ---
 
-{#mysql_file_read}
-
 ### mysql_file_read
 
 ```cpp
@@ -381,8 +335,6 @@ Defined in psi/mysql_file.h:343
 Instrumented read. `mysql_read` is a replacement for `my_read`.
 
 ---
-
-{#mysql_file_write}
 
 ### mysql_file_write
 
@@ -396,8 +348,6 @@ Instrumented write. `mysql_file_write` is a replacement for `my_write`.
 
 ---
 
-{#mysql_file_pread}
-
 ### mysql_file_pread
 
 ```cpp
@@ -409,8 +359,6 @@ Defined in psi/mysql_file.h:369
 Instrumented pread. `mysql_pread` is a replacement for `my_pread`.
 
 ---
-
-{#mysql_file_pwrite}
 
 ### mysql_file_pwrite
 
@@ -424,8 +372,6 @@ Instrumented pwrite. `mysql_file_pwrite` is a replacement for `my_pwrite`.
 
 ---
 
-{#mysql_file_seek}
-
 ### mysql_file_seek
 
 ```cpp
@@ -437,8 +383,6 @@ Defined in psi/mysql_file.h:395
 Instrumented seek. `mysql_file_seek` is a replacement for `my_seek`.
 
 ---
-
-{#mysql_file_tell}
 
 ### mysql_file_tell
 
@@ -452,8 +396,6 @@ Instrumented tell. `mysql_file_tell` is a replacement for `my_tell`.
 
 ---
 
-{#mysql_file_delete}
-
 ### mysql_file_delete
 
 ```cpp
@@ -465,8 +407,6 @@ Defined in psi/mysql_file.h:421
 Instrumented delete. `mysql_file_delete` is a replacement for `my_delete`.
 
 ---
-
-{#mysql_file_rename}
 
 ### mysql_file_rename
 
@@ -480,8 +420,6 @@ Instrumented rename. `mysql_file_rename` is a replacement for `my_rename`.
 
 ---
 
-{#mysql_file_create_with_symlink}
-
 ### mysql_file_create_with_symlink
 
 ```cpp
@@ -493,8 +431,6 @@ Defined in psi/mysql_file.h:449
 Instrumented create with symbolic link. `mysql_file_create_with_symlink` is a replacement for `my_create_with_symlink`.
 
 ---
-
-{#mysql_file_delete_with_symlink}
 
 ### mysql_file_delete_with_symlink
 
@@ -508,8 +444,6 @@ Instrumented delete with symbolic link. `mysql_file_delete_with_symlink` is a re
 
 ---
 
-{#mysql_file_rename_with_symlink}
-
 ### mysql_file_rename_with_symlink
 
 ```cpp
@@ -521,8 +455,6 @@ Defined in psi/mysql_file.h:477
 Instrumented rename with symbolic link. `mysql_file_rename_with_symlink` is a replacement for `my_rename_with_symlink`.
 
 ---
-
-{#mysql_file_sync}
 
 ### mysql_file_sync
 
@@ -541,8 +473,6 @@ Instrumented file sync. `mysql_file_sync` is a replacement for `my_sync`.
 | struct [`st_mysql_file`](#st_mysql_file) | [`MYSQL_FILE`](#mysql_file)  | Type of an instrumented file. `MYSQL_FILE` is a drop-in replacement for `FILE`. **See also**: [mysql_file_open](api.md#mysql_file_open) |
 
 ---
-
-{#mysql_file}
 
 ### MYSQL_FILE
 
@@ -597,8 +527,6 @@ Type of an instrumented file. `MYSQL_FILE` is a drop-in replacement for `FILE`. 
 
 ---
 
-{#inline_mysql_file_register}
-
 ### inline_mysql_file_register
 
 `static` `inline`
@@ -610,8 +538,6 @@ static inline void inline_mysql_file_register(const char *category __attribute__
 Defined in psi/mysql_file.h:517
 
 ---
-
-{#inline_mysql_file_fgets}
 
 ### inline_mysql_file_fgets
 
@@ -625,8 +551,6 @@ Defined in psi/mysql_file.h:535
 
 ---
 
-{#inline_mysql_file_fgetc}
-
 ### inline_mysql_file_fgetc
 
 `static` `inline`
@@ -638,8 +562,6 @@ static inline int inline_mysql_file_fgetc(MYSQL_FILE * file, MYSQL_FILE * file)
 Defined in psi/mysql_file.h:563
 
 ---
-
-{#inline_mysql_file_fputs}
 
 ### inline_mysql_file_fputs
 
@@ -653,8 +575,6 @@ Defined in psi/mysql_file.h:591
 
 ---
 
-{#inline_mysql_file_fputc}
-
 ### inline_mysql_file_fputc
 
 `static` `inline`
@@ -666,8 +586,6 @@ static inline int inline_mysql_file_fputc(char c, MYSQL_FILE * file, char c, MYS
 Defined in psi/mysql_file.h:621
 
 ---
-
-{#inline_mysql_file_fprintf}
 
 ### inline_mysql_file_fprintf
 
@@ -681,8 +599,6 @@ Defined in psi/mysql_file.h:649
 
 ---
 
-{#inline_mysql_file_vfprintf}
-
 ### inline_mysql_file_vfprintf
 
 `static` `inline`
@@ -694,8 +610,6 @@ static inline int inline_mysql_file_vfprintf(MYSQL_FILE * file, const char * for
 Defined in psi/mysql_file.h:681
 
 ---
-
-{#inline_mysql_file_fflush}
 
 ### inline_mysql_file_fflush
 
@@ -709,8 +623,6 @@ Defined in psi/mysql_file.h:709
 
 ---
 
-{#inline_mysql_file_feof}
-
 ### inline_mysql_file_feof
 
 `static` `inline`
@@ -722,8 +634,6 @@ static inline int inline_mysql_file_feof(MYSQL_FILE * file, MYSQL_FILE * file)
 Defined in psi/mysql_file.h:736
 
 ---
-
-{#inline_mysql_file_fstat}
 
 ### inline_mysql_file_fstat
 
@@ -737,8 +647,6 @@ Defined in psi/mysql_file.h:743
 
 ---
 
-{#inline_mysql_file_stat}
-
 ### inline_mysql_file_stat
 
 `static` `inline`
@@ -750,8 +658,6 @@ static inline MY_STAT * inline_mysql_file_stat(const char * path, MY_STAT * stat
 Defined in psi/mysql_file.h:768
 
 ---
-
-{#inline_mysql_file_chsize}
 
 ### inline_mysql_file_chsize
 
@@ -765,8 +671,6 @@ Defined in psi/mysql_file.h:793
 
 ---
 
-{#inline_mysql_file_fopen}
-
 ### inline_mysql_file_fopen
 
 `static` `inline`
@@ -778,8 +682,6 @@ static inline MYSQL_FILE * inline_mysql_file_fopen(const char * filename, int fl
 Defined in psi/mysql_file.h:819
 
 ---
-
-{#inline_mysql_file_fclose}
 
 ### inline_mysql_file_fclose
 
@@ -793,8 +695,6 @@ Defined in psi/mysql_file.h:861
 
 ---
 
-{#inline_mysql_file_fread}
-
 ### inline_mysql_file_fread
 
 `static` `inline`
@@ -806,8 +706,6 @@ static inline size_t inline_mysql_file_fread(MYSQL_FILE * file, uchar * buffer, 
 Defined in psi/mysql_file.h:895
 
 ---
-
-{#inline_mysql_file_fwrite}
 
 ### inline_mysql_file_fwrite
 
@@ -821,8 +719,6 @@ Defined in psi/mysql_file.h:928
 
 ---
 
-{#inline_mysql_file_fseek}
-
 ### inline_mysql_file_fseek
 
 `static` `inline`
@@ -834,8 +730,6 @@ static inline my_off_t inline_mysql_file_fseek(MYSQL_FILE * file, my_off_t pos, 
 Defined in psi/mysql_file.h:961
 
 ---
-
-{#inline_mysql_file_ftell}
 
 ### inline_mysql_file_ftell
 
@@ -849,8 +743,6 @@ Defined in psi/mysql_file.h:989
 
 ---
 
-{#inline_mysql_file_create}
-
 ### inline_mysql_file_create
 
 `static` `inline`
@@ -862,8 +754,6 @@ static inline File inline_mysql_file_create(const char * filename, mode_t create
 Defined in psi/mysql_file.h:1017
 
 ---
-
-{#inline_mysql_file_create_temp}
 
 ### inline_mysql_file_create_temp
 
@@ -877,8 +767,6 @@ Defined in psi/mysql_file.h:1043
 
 ---
 
-{#inline_mysql_file_open}
-
 ### inline_mysql_file_open
 
 `static` `inline`
@@ -890,8 +778,6 @@ static inline File inline_mysql_file_open(const char * filename, int flags, myf 
 Defined in psi/mysql_file.h:1070
 
 ---
-
-{#inline_mysql_file_close}
 
 ### inline_mysql_file_close
 
@@ -905,8 +791,6 @@ Defined in psi/mysql_file.h:1096
 
 ---
 
-{#inline_mysql_file_read}
-
 ### inline_mysql_file_read
 
 `static` `inline`
@@ -918,8 +802,6 @@ static inline size_t inline_mysql_file_read(File file, uchar * buffer, size_t co
 Defined in psi/mysql_file.h:1121
 
 ---
-
-{#inline_mysql_file_write}
 
 ### inline_mysql_file_write
 
@@ -933,8 +815,6 @@ Defined in psi/mysql_file.h:1151
 
 ---
 
-{#inline_mysql_file_pread}
-
 ### inline_mysql_file_pread
 
 `static` `inline`
@@ -946,8 +826,6 @@ static inline size_t inline_mysql_file_pread(File file, uchar * buffer, size_t c
 Defined in psi/mysql_file.h:1181
 
 ---
-
-{#inline_mysql_file_pwrite}
 
 ### inline_mysql_file_pwrite
 
@@ -961,8 +839,6 @@ Defined in psi/mysql_file.h:1211
 
 ---
 
-{#inline_mysql_file_seek}
-
 ### inline_mysql_file_seek
 
 `static` `inline`
@@ -974,8 +850,6 @@ static inline my_off_t inline_mysql_file_seek(File file, my_off_t pos, int whenc
 Defined in psi/mysql_file.h:1241
 
 ---
-
-{#inline_mysql_file_tell}
 
 ### inline_mysql_file_tell
 
@@ -989,8 +863,6 @@ Defined in psi/mysql_file.h:1266
 
 ---
 
-{#inline_mysql_file_delete}
-
 ### inline_mysql_file_delete
 
 `static` `inline`
@@ -1002,8 +874,6 @@ static inline int inline_mysql_file_delete(const char * name, myf flags, const c
 Defined in psi/mysql_file.h:1291
 
 ---
-
-{#inline_mysql_file_rename}
 
 ### inline_mysql_file_rename
 
@@ -1017,8 +887,6 @@ Defined in psi/mysql_file.h:1316
 
 ---
 
-{#inline_mysql_file_create_with_symlink}
-
 ### inline_mysql_file_create_with_symlink
 
 `static` `inline`
@@ -1030,8 +898,6 @@ static inline File inline_mysql_file_create_with_symlink(const char * linkname, 
 Defined in psi/mysql_file.h:1343
 
 ---
-
-{#inline_mysql_file_delete_with_symlink}
 
 ### inline_mysql_file_delete_with_symlink
 
@@ -1045,8 +911,6 @@ Defined in psi/mysql_file.h:1373
 
 ---
 
-{#inline_mysql_file_rename_with_symlink}
-
 ### inline_mysql_file_rename_with_symlink
 
 `static` `inline`
@@ -1058,8 +922,6 @@ static inline int inline_mysql_file_rename_with_symlink(const char * from, const
 Defined in psi/mysql_file.h:1402
 
 ---
-
-{#inline_mysql_file_sync}
 
 ### inline_mysql_file_sync
 
@@ -1074,7 +936,7 @@ Defined in psi/mysql_file.h:1428
 
 ## Class Definitions
 
-{#st_mysql_file}
+
 
 ### st_mysql_file
 
@@ -1099,8 +961,6 @@ An instrumented FILE structure. **See also**: [MYSQL_FILE](api.md#mysql_file)
 
 ---
 
-{#m_file}
-
 #### m_file
 
 ```cpp
@@ -1112,8 +972,6 @@ Defined in psi/mysql_file.h:501
 The real file.
 
 ---
-
-{#m_psi}
 
 #### m_psi
 

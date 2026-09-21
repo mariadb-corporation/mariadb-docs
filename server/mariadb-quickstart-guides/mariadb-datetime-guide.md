@@ -248,8 +248,8 @@ Common format specifiers:
 * `%Y`: Year, 4 digits
 * `%y`: Year, 2 digits
 * `%c`: Month, numeric (1-12)
-* `%r`: Time in 12-hour format (hh:mm:ss AM/PM)
-* `%T`: Time in 24-hour format (hh:mm:ss)
+* `%r`: Time in 12-hour format (`hh:mm:ss AM/PM`)
+* `%T`: Time in 24-hour format (`hh:mm:ss`)
 * `%H`: Hour (00-23)
 * `%h` or `%I`: Hour (01-12)
 * `%i`: Minutes (00-59)

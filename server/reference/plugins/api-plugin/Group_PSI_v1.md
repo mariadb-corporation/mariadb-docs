@@ -3,11 +3,11 @@ description: >-
   Plugin API reference: Application Binary Interface, version 1. Generated from the MariaDB server headers by doxygen and moxygen.
 ---
 
-{#applicationbinaryinterfaceversion1}
+
 
 # Application Binary Interface, version 1
 
-> [`Instrumentation Interface`](Instrumentation_interface.md#instrumentationinterface)
+> [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Classes
 
@@ -41,8 +41,6 @@ description: >-
 | [`PSI_SCHEMA_NAME_LEN`](#psi_schema_name_len)  |  |
 
 ---
-
-{#psi_schema_name_len}
 
 ### PSI_SCHEMA_NAME_LEN
 
@@ -214,8 +212,6 @@ Defined in psi/psi.h:1198
 
 ---
 
-{#psi_mutex_info_v1}
-
 ### PSI_mutex_info_v1
 
 ```cpp
@@ -227,8 +223,6 @@ Type: struct [`PSI_mutex_info_v1`](#psi_mutex_info_v1-1)
 Defined in psi/psi.h:875
 
 ---
-
-{#psi_rwlock_info_v1}
 
 ### PSI_rwlock_info_v1
 
@@ -242,8 +236,6 @@ Defined in psi/psi.h:898
 
 ---
 
-{#psi_cond_info_v1}
-
 ### PSI_cond_info_v1
 
 ```cpp
@@ -255,8 +247,6 @@ Type: struct [`PSI_cond_info_v1`](#psi_cond_info_v1-1)
 Defined in psi/psi.h:921
 
 ---
-
-{#psi_thread_info_v1}
 
 ### PSI_thread_info_v1
 
@@ -270,8 +260,6 @@ Defined in psi/psi.h:944
 
 ---
 
-{#psi_file_info_v1}
-
 ### PSI_file_info_v1
 
 ```cpp
@@ -283,8 +271,6 @@ Type: struct [`PSI_file_info_v1`](#psi_file_info_v1-1)
 Defined in psi/psi.h:967
 
 ---
-
-{#psi_stage_info_v1}
 
 ### PSI_stage_info_v1
 
@@ -298,8 +284,6 @@ Defined in psi/psi.h:983
 
 ---
 
-{#psi_statement_info_v1}
-
 ### PSI_statement_info_v1
 
 ```cpp
@@ -311,8 +295,6 @@ Type: struct [`PSI_statement_info_v1`](#psi_statement_info_v1-1)
 Defined in psi/psi.h:999
 
 ---
-
-{#psi_socket_info_v1}
 
 ### PSI_socket_info_v1
 
@@ -326,8 +308,6 @@ Defined in psi/psi.h:1022
 
 ---
 
-{#psi_idle_locker_state_v1}
-
 ### PSI_idle_locker_state_v1
 
 ```cpp
@@ -339,8 +319,6 @@ Type: struct [`PSI_idle_locker_state_v1`](#psi_idle_locker_state_v1-1)
 Defined in psi/psi.h:1046
 
 ---
-
-{#psi_mutex_locker_state_v1}
 
 ### PSI_mutex_locker_state_v1
 
@@ -354,8 +332,6 @@ Defined in psi/psi.h:1074
 
 ---
 
-{#psi_rwlock_locker_state_v1}
-
 ### PSI_rwlock_locker_state_v1
 
 ```cpp
@@ -367,8 +343,6 @@ Type: struct [`PSI_rwlock_locker_state_v1`](#psi_rwlock_locker_state_v1-1)
 Defined in psi/psi.h:1103
 
 ---
-
-{#psi_cond_locker_state_v1}
 
 ### PSI_cond_locker_state_v1
 
@@ -382,8 +356,6 @@ Defined in psi/psi.h:1133
 
 ---
 
-{#psi_file_locker_state_v1}
-
 ### PSI_file_locker_state_v1
 
 ```cpp
@@ -395,8 +367,6 @@ Type: struct [`PSI_file_locker_state_v1`](#psi_file_locker_state_v1-1)
 Defined in psi/psi.h:1169
 
 ---
-
-{#psi_metadata_locker_state_v1}
 
 ### PSI_metadata_locker_state_v1
 
@@ -410,8 +380,6 @@ Defined in psi/psi.h:1195
 
 ---
 
-{#psi_statement_locker_state_v1}
-
 ### PSI_statement_locker_state_v1
 
 ```cpp
@@ -423,8 +391,6 @@ Type: struct [`PSI_statement_locker_state_v1`](#psi_statement_locker_state_v1-1)
 Defined in psi/psi.h:1271
 
 ---
-
-{#psi_transaction_locker_state_v1}
 
 ### PSI_transaction_locker_state_v1
 
@@ -438,8 +404,6 @@ Defined in psi/psi.h:1311
 
 ---
 
-{#psi_socket_locker_state_v1}
-
 ### PSI_socket_locker_state_v1
 
 ```cpp
@@ -452,8 +416,6 @@ Defined in psi/psi.h:1345
 
 ---
 
-{#psi_sp_locker_state_v1}
-
 ### PSI_sp_locker_state_v1
 
 ```cpp
@@ -465,8 +427,6 @@ Type: struct [`PSI_sp_locker_state_v1`](#psi_sp_locker_state_v1-1)
 Defined in psi/psi.h:1360
 
 ---
-
-{#register_mutex_v1_t}
 
 ### register_mutex_v1_t
 
@@ -491,8 +451,6 @@ Mutex registration API.
 
 ---
 
-{#register_rwlock_v1_t}
-
 ### register_rwlock_v1_t
 
 ```cpp
@@ -515,8 +473,6 @@ Rwlock registration API.
 | `count` |  | the size of the info array |
 
 ---
-
-{#register_cond_v1_t}
 
 ### register_cond_v1_t
 
@@ -541,8 +497,6 @@ Cond registration API.
 
 ---
 
-{#register_thread_v1_t}
-
 ### register_thread_v1_t
 
 ```cpp
@@ -565,8 +519,6 @@ Thread registration API.
 | `count` |  | the size of the info array |
 
 ---
-
-{#register_file_v1_t}
 
 ### register_file_v1_t
 
@@ -591,8 +543,6 @@ File registration API.
 
 ---
 
-{#register_stage_v1_t}
-
 ### register_stage_v1_t
 
 ```cpp
@@ -615,8 +565,6 @@ Stage registration API.
 | `count` |  | the size of the info array |
 
 ---
-
-{#register_statement_v1_t}
 
 ### register_statement_v1_t
 
@@ -641,8 +589,6 @@ Statement registration API.
 
 ---
 
-{#register_socket_v1_t}
-
 ### register_socket_v1_t
 
 ```cpp
@@ -665,8 +611,6 @@ Socket registration API.
 | `count` |  | the size of the info array |
 
 ---
-
-{#init_mutex_v1_t}
 
 ### init_mutex_v1_t
 
@@ -691,8 +635,6 @@ an instrumented mutex
 
 ---
 
-{#destroy_mutex_v1_t}
-
 ### destroy_mutex_v1_t
 
 ```cpp
@@ -711,8 +653,6 @@ Mutex instrumentation destruction API.
 | `mutex` |  | the mutex to destroy |
 
 ---
-
-{#init_rwlock_v1_t}
 
 ### init_rwlock_v1_t
 
@@ -737,8 +677,6 @@ an instrumented rwlock
 
 ---
 
-{#destroy_rwlock_v1_t}
-
 ### destroy_rwlock_v1_t
 
 ```cpp
@@ -757,8 +695,6 @@ Rwlock instrumentation destruction API.
 | `rwlock` |  | the rwlock to destroy |
 
 ---
-
-{#init_cond_v1_t}
 
 ### init_cond_v1_t
 
@@ -783,8 +719,6 @@ an instrumented cond
 
 ---
 
-{#destroy_cond_v1_t}
-
 ### destroy_cond_v1_t
 
 ```cpp
@@ -803,8 +737,6 @@ Cond instrumentation destruction API.
 | `cond` |  | the rcond to destroy |
 
 ---
-
-{#init_socket_v1_t}
 
 ### init_socket_v1_t
 
@@ -833,8 +765,6 @@ an instrumented socket
 
 ---
 
-{#destroy_socket_v1_t}
-
 ### destroy_socket_v1_t
 
 ```cpp
@@ -853,8 +783,6 @@ socket instrumentation destruction API.
 | `socket` |  | the socket to destroy |
 
 ---
-
-{#get_table_share_v1_t}
 
 ### get_table_share_v1_t
 
@@ -879,8 +807,6 @@ a table share instrumentation, or NULL
 
 ---
 
-{#release_table_share_v1_t}
-
 ### release_table_share_v1_t
 
 ```cpp
@@ -899,8 +825,6 @@ Release a table share.
 | `share` |  | the table share to release |
 
 ---
-
-{#drop_table_share_v1_t}
 
 ### drop_table_share_v1_t
 
@@ -929,8 +853,6 @@ Drop a table share.
 
 ---
 
-{#open_table_v1_t}
-
 ### open_table_v1_t
 
 ```cpp
@@ -954,8 +876,6 @@ a table handle, or NULL
 
 ---
 
-{#unbind_table_v1_t}
-
 ### unbind_table_v1_t
 
 ```cpp
@@ -975,8 +895,6 @@ Unbind a table handle from the current thread. This operation happens when an op
 
 ---
 
-{#rebind_table_v1_t}
-
 ### rebind_table_v1_t
 
 ```cpp
@@ -989,8 +907,6 @@ Rebind a table handle to the current thread. This operation happens when a table
 
 ---
 
-{#close_table_v1_t}
-
 ### close_table_v1_t
 
 ```cpp
@@ -1002,8 +918,6 @@ Defined in psi/psi.h:1555
 Close an instrumentation table handle. Note that the table handle is invalid after this call.
 
 ---
-
-{#create_file_v1_t}
 
 ### create_file_v1_t
 
@@ -1027,8 +941,6 @@ Create a file instrumentation for a created file. This method does not create th
 | `file` |  | the file handle |
 
 ---
-
-{#spawn_thread_v1_t}
 
 ### spawn_thread_v1_t
 
@@ -1057,8 +969,6 @@ Spawn a thread. This method creates a new thread, with instrumentation.
 
 ---
 
-{#new_thread_v1_t}
-
 ### new_thread_v1_t
 
 ```cpp
@@ -1084,8 +994,6 @@ an instrumented thread
 
 ---
 
-{#set_thread_thd_v1_t}
-
 ### set_thread_THD_v1_t
 
 ```cpp
@@ -1106,8 +1014,6 @@ Assign a THD to an instrumented thread.
 | `thd` |  | the sql layer THD to assign |
 
 ---
-
-{#set_thread_id_v1_t}
 
 ### set_thread_id_v1_t
 
@@ -1130,8 +1036,6 @@ Assign an id to an instrumented thread.
 
 ---
 
-{#set_thread_os_id_v1_t}
-
 ### set_thread_os_id_v1_t
 
 ```cpp
@@ -1151,8 +1055,6 @@ Assign the current operating system thread id to an instrumented thread. The ope
 
 ---
 
-{#get_thread_v1_t}
-
 ### get_thread_v1_t
 
 ```cpp
@@ -1167,8 +1069,6 @@ the instrumentation for the running thread
 
 ---
 
-{#get_thread_class_name_v1_t}
-
 ### get_thread_class_name_v1_t
 
 ```cpp
@@ -1180,8 +1080,6 @@ Defined in psi/psi.h:1629
 Get name of the thread, according to the thread class. The name is returns without the thread/subsystem prefix.
 
 ---
-
-{#set_thread_user_v1_t}
 
 ### set_thread_user_v1_t
 
@@ -1203,8 +1101,6 @@ Assign a user name to the instrumented thread.
 | `user_len` |  | the user name length |
 
 ---
-
-{#set_thread_account_v1_t}
 
 ### set_thread_account_v1_t
 
@@ -1231,8 +1127,6 @@ Assign a user name and host name to the instrumented thread.
 
 ---
 
-{#set_thread_db_v1_t}
-
 ### set_thread_db_v1_t
 
 ```cpp
@@ -1254,8 +1148,6 @@ Assign a current database to the instrumented thread.
 
 ---
 
-{#set_thread_command_v1_t}
-
 ### set_thread_command_v1_t
 
 ```cpp
@@ -1274,8 +1166,6 @@ Assign a current command to the instrumented thread.
 | `command` |  | the current command |
 
 ---
-
-{#set_connection_type_v1_t}
 
 ### set_connection_type_v1_t
 
@@ -1296,8 +1186,6 @@ Assign a connection type to the instrumented thread.
 
 ---
 
-{#set_thread_start_time_v1_t}
-
 ### set_thread_start_time_v1_t
 
 ```cpp
@@ -1317,8 +1205,6 @@ Assign a start time to the instrumented thread.
 
 ---
 
-{#set_thread_state_v1_t}
-
 ### set_thread_state_v1_t
 
 ```cpp
@@ -1337,8 +1223,6 @@ Assign a state to the instrumented thread.
 | `state` |  | the thread state |
 
 ---
-
-{#set_thread_info_v1_t}
 
 ### set_thread_info_v1_t
 
@@ -1361,8 +1245,6 @@ Assign a process info to the instrumented thread.
 
 ---
 
-{#set_thread_v1_t}
-
 ### set_thread_v1_t
 
 ```cpp
@@ -1381,8 +1263,6 @@ Attach a thread instrumentation to the running thread. In case of thread pools, 
 | `thread` |  | the thread instrumentation |
 
 ---
-
-{#set_thread_peer_port_v1_t}
 
 ### set_thread_peer_port_v1_t
 
@@ -1405,8 +1285,6 @@ Assign the remote (peer) port to the instrumented thread.
 
 ---
 
-{#delete_current_thread_v1_t}
-
 ### delete_current_thread_v1_t
 
 ```cpp
@@ -1419,8 +1297,6 @@ Delete the current thread instrumentation.
 
 ---
 
-{#delete_thread_v1_t}
-
 ### delete_thread_v1_t
 
 ```cpp
@@ -1432,8 +1308,6 @@ Defined in psi/psi.h:1711
 Delete a thread instrumentation.
 
 ---
-
-{#get_thread_file_name_locker_v1_t}
 
 ### get_thread_file_name_locker_v1_t
 
@@ -1464,8 +1338,6 @@ a file locker, or NULL
 
 ---
 
-{#get_thread_file_stream_locker_v1_t}
-
 ### get_thread_file_stream_locker_v1_t
 
 ```cpp
@@ -1490,8 +1362,6 @@ a file locker, or NULL
 | `op` |  | the operation to perform |
 
 ---
-
-{#get_thread_file_descriptor_locker_v1_t}
 
 ### get_thread_file_descriptor_locker_v1_t
 
@@ -1518,8 +1388,6 @@ a file locker, or NULL
 
 ---
 
-{#unlock_mutex_v1_t}
-
 ### unlock_mutex_v1_t
 
 ```cpp
@@ -1538,8 +1406,6 @@ Record a mutex instrumentation unlock event.
 | `mutex` |  | the mutex instrumentation |
 
 ---
-
-{#unlock_rwlock_v1_t}
 
 ### unlock_rwlock_v1_t
 
@@ -1560,8 +1426,6 @@ Record a rwlock instrumentation unlock event.
 
 ---
 
-{#signal_cond_v1_t}
-
 ### signal_cond_v1_t
 
 ```cpp
@@ -1581,8 +1445,6 @@ Record a condition instrumentation signal event.
 
 ---
 
-{#broadcast_cond_v1_t}
-
 ### broadcast_cond_v1_t
 
 ```cpp
@@ -1601,8 +1463,6 @@ Record a condition instrumentation broadcast event.
 | `cond` |  | the cond instrumentation |
 
 ---
-
-{#start_idle_wait_v1_t}
 
 ### start_idle_wait_v1_t
 
@@ -1629,8 +1489,6 @@ an idle locker, or NULL
 
 ---
 
-{#end_idle_wait_v1_t}
-
 ### end_idle_wait_v1_t
 
 ```cpp
@@ -1649,8 +1507,6 @@ Record an idle instrumentation wait end event.
 | `locker` |  | a thread locker for the running thread |
 
 ---
-
-{#start_mutex_wait_v1_t}
 
 ### start_mutex_wait_v1_t
 
@@ -1681,8 +1537,6 @@ a mutex locker, or NULL
 
 ---
 
-{#end_mutex_wait_v1_t}
-
 ### end_mutex_wait_v1_t
 
 ```cpp
@@ -1704,8 +1558,6 @@ Record a mutex instrumentation wait end event.
 
 ---
 
-{#start_rwlock_rdwait_v1_t}
-
 ### start_rwlock_rdwait_v1_t
 
 ```cpp
@@ -1717,8 +1569,6 @@ Defined in psi/psi.h:1814
 Record a rwlock instrumentation read wait start event.
 
 ---
-
-{#end_rwlock_rdwait_v1_t}
 
 ### end_rwlock_rdwait_v1_t
 
@@ -1741,8 +1591,6 @@ Record a rwlock instrumentation read wait end event.
 
 ---
 
-{#start_rwlock_wrwait_v1_t}
-
 ### start_rwlock_wrwait_v1_t
 
 ```cpp
@@ -1754,8 +1602,6 @@ Defined in psi/psi.h:1831
 Record a rwlock instrumentation write wait start event.
 
 ---
-
-{#end_rwlock_wrwait_v1_t}
 
 ### end_rwlock_wrwait_v1_t
 
@@ -1778,8 +1624,6 @@ Record a rwlock instrumentation write wait end event.
 
 ---
 
-{#start_cond_wait_v1_t}
-
 ### start_cond_wait_v1_t
 
 ```cpp
@@ -1791,8 +1635,6 @@ Defined in psi/psi.h:1848
 Record a condition instrumentation wait start event.
 
 ---
-
-{#end_cond_wait_v1_t}
 
 ### end_cond_wait_v1_t
 
@@ -1814,8 +1656,6 @@ Record a condition instrumentation wait end event.
 | `rc` |  | the wait operation return code |
 
 ---
-
-{#start_table_io_wait_v1_t}
 
 ### start_table_io_wait_v1_t
 
@@ -1846,8 +1686,6 @@ Record a table instrumentation io wait start event.
 
 ---
 
-{#end_table_io_wait_v1_t}
-
 ### end_table_io_wait_v1_t
 
 ```cpp
@@ -1869,8 +1707,6 @@ Record a table instrumentation io wait end event.
 
 ---
 
-{#start_table_lock_wait_v1_t}
-
 ### start_table_lock_wait_v1_t
 
 ```cpp
@@ -1882,8 +1718,6 @@ Defined in psi/psi.h:1890
 Record a table instrumentation lock wait start event.
 
 ---
-
-{#end_table_lock_wait_v1_t}
 
 ### end_table_lock_wait_v1_t
 
@@ -1904,8 +1738,6 @@ Record a table instrumentation lock wait end event.
 
 ---
 
-{#unlock_table_v1_t}
-
 ### unlock_table_v1_t
 
 ```cpp
@@ -1915,8 +1747,6 @@ using unlock_table_v1_t = void(*
 Defined in psi/psi.h:1910
 
 ---
-
-{#start_file_open_wait_v1_t}
 
 ### start_file_open_wait_v1_t
 
@@ -1941,8 +1771,6 @@ Start a file instrumentation open operation.
 
 ---
 
-{#end_file_open_wait_v1_t}
-
 ### end_file_open_wait_v1_t
 
 ```cpp
@@ -1966,8 +1794,6 @@ an instrumented file handle
 
 ---
 
-{#end_file_open_wait_and_bind_to_descriptor_v1_t}
-
 ### end_file_open_wait_and_bind_to_descriptor_v1_t
 
 ```cpp
@@ -1988,8 +1814,6 @@ End a file instrumentation open operation, for non stream files.
 | `file` |  | the file number assigned by open() or create() for this file. |
 
 ---
-
-{#end_temp_file_open_wait_and_bind_to_descriptor_v1_t}
 
 ### end_temp_file_open_wait_and_bind_to_descriptor_v1_t
 
@@ -2013,8 +1837,6 @@ End a file instrumentation open operation, for non stream temporary files.
 | `filename` |  | the file name generated during temporary file creation. |
 
 ---
-
-{#start_file_wait_v1_t}
 
 ### start_file_wait_v1_t
 
@@ -2041,8 +1863,6 @@ Record a file instrumentation start event.
 
 ---
 
-{#end_file_wait_v1_t}
-
 ### end_file_wait_v1_t
 
 ```cpp
@@ -2068,8 +1888,6 @@ Record a file instrumentation end event. Note that for file close operations, th
 
 ---
 
-{#start_file_close_wait_v1_t}
-
 ### start_file_close_wait_v1_t
 
 ```cpp
@@ -2093,8 +1911,6 @@ Start a file instrumentation close operation.
 
 ---
 
-{#end_file_close_wait_v1_t}
-
 ### end_file_close_wait_v1_t
 
 ```cpp
@@ -2117,8 +1933,6 @@ an instrumented file handle
 | `rc` |  | the close operation return code (0 for success). |
 
 ---
-
-{#end_file_rename_wait_v1_t}
 
 ### end_file_rename_wait_v1_t
 
@@ -2145,8 +1959,6 @@ Rename a file instrumentation close operation.
 
 ---
 
-{#start_stage_v1_t}
-
 ### start_stage_v1_t
 
 ```cpp
@@ -2172,8 +1984,6 @@ the new stage progress
 
 ---
 
-{#get_current_stage_progress_v1_t}
-
 ### get_current_stage_progress_v1_t
 
 ```cpp
@@ -2183,8 +1993,6 @@ using get_current_stage_progress_v1_t = PSI_stage_progress *(*
 Defined in psi/psi.h:2012
 
 ---
-
-{#end_stage_v1_t}
 
 ### end_stage_v1_t
 
@@ -2197,8 +2005,6 @@ Defined in psi/psi.h:2015
 End the current stage.
 
 ---
-
-{#get_thread_statement_locker_v1_t}
 
 ### get_thread_statement_locker_v1_t
 
@@ -2227,8 +2033,6 @@ a statement locker, or NULL
 
 ---
 
-{#refine_statement_v1_t}
-
 ### refine_statement_v1_t
 
 ```cpp
@@ -2249,8 +2053,6 @@ Refine a statement locker to a more specific key. Note that only events declared
 | `key` |  | the new key for the event |
 
 ---
-
-{#start_statement_v1_t}
 
 ### start_statement_v1_t
 
@@ -2279,8 +2081,6 @@ Start a new statement event.
 
 ---
 
-{#set_statement_text_v1_t}
-
 ### set_statement_text_v1_t
 
 ```cpp
@@ -2304,8 +2104,6 @@ Set the statement text for a statement event.
 
 ---
 
-{#set_statement_lock_time_t}
-
 ### set_statement_lock_time_t
 
 ```cpp
@@ -2326,8 +2124,6 @@ Set a statement event lock time.
 | `lock_time` |  | the locked time, in microseconds |
 
 ---
-
-{#set_statement_rows_sent_t}
 
 ### set_statement_rows_sent_t
 
@@ -2350,8 +2146,6 @@ Set a statement event rows sent metric.
 
 ---
 
-{#set_statement_rows_examined_t}
-
 ### set_statement_rows_examined_t
 
 ```cpp
@@ -2372,8 +2166,6 @@ Set a statement event rows examined metric.
 | `count` |  | the number of rows examined |
 
 ---
-
-{#inc_statement_created_tmp_disk_tables_t}
 
 ### inc_statement_created_tmp_disk_tables_t
 
@@ -2396,8 +2188,6 @@ Increment a statement event "created tmp disk tables" metric.
 
 ---
 
-{#inc_statement_created_tmp_tables_t}
-
 ### inc_statement_created_tmp_tables_t
 
 ```cpp
@@ -2418,8 +2208,6 @@ Increment a statement event "created tmp tables" metric.
 | `count` |  | the metric increment value |
 
 ---
-
-{#inc_statement_select_full_join_t}
 
 ### inc_statement_select_full_join_t
 
@@ -2442,8 +2230,6 @@ Increment a statement event "select full join" metric.
 
 ---
 
-{#inc_statement_select_full_range_join_t}
-
 ### inc_statement_select_full_range_join_t
 
 ```cpp
@@ -2464,8 +2250,6 @@ Increment a statement event "select full range join" metric.
 | `count` |  | the metric increment value |
 
 ---
-
-{#inc_statement_select_range_t}
 
 ### inc_statement_select_range_t
 
@@ -2488,8 +2272,6 @@ Increment a statement event "select range join" metric.
 
 ---
 
-{#inc_statement_select_range_check_t}
-
 ### inc_statement_select_range_check_t
 
 ```cpp
@@ -2510,8 +2292,6 @@ Increment a statement event "select range check" metric.
 | `count` |  | the metric increment value |
 
 ---
-
-{#inc_statement_select_scan_t}
 
 ### inc_statement_select_scan_t
 
@@ -2534,8 +2314,6 @@ Increment a statement event "select scan" metric.
 
 ---
 
-{#inc_statement_sort_merge_passes_t}
-
 ### inc_statement_sort_merge_passes_t
 
 ```cpp
@@ -2556,8 +2334,6 @@ Increment a statement event "sort merge passes" metric.
 | `count` |  | the metric increment value |
 
 ---
-
-{#inc_statement_sort_range_t}
 
 ### inc_statement_sort_range_t
 
@@ -2580,8 +2356,6 @@ Increment a statement event "sort range" metric.
 
 ---
 
-{#inc_statement_sort_rows_t}
-
 ### inc_statement_sort_rows_t
 
 ```cpp
@@ -2602,8 +2376,6 @@ Increment a statement event "sort rows" metric.
 | `count` |  | the metric increment value |
 
 ---
-
-{#inc_statement_sort_scan_t}
 
 ### inc_statement_sort_scan_t
 
@@ -2626,8 +2398,6 @@ Increment a statement event "sort scan" metric.
 
 ---
 
-{#set_statement_no_index_used_t}
-
 ### set_statement_no_index_used_t
 
 ```cpp
@@ -2647,8 +2417,6 @@ Set a statement event "no index used" metric.
 
 ---
 
-{#set_statement_no_good_index_used_t}
-
 ### set_statement_no_good_index_used_t
 
 ```cpp
@@ -2667,8 +2435,6 @@ Set a statement event "no good index used" metric.
 | `locker` |  | the statement locker |
 
 ---
-
-{#end_statement_v1_t}
 
 ### end_statement_v1_t
 
@@ -2690,8 +2456,6 @@ End a statement event. **See also**: Diagnostics_area
 | `stmt_da` |  | the statement diagnostics area. |
 
 ---
-
-{#get_thread_transaction_locker_v1_t}
 
 ### get_thread_transaction_locker_v1_t
 
@@ -2724,8 +2488,6 @@ a transaction locker, or NULL
 
 ---
 
-{#start_transaction_v1_t}
-
 ### start_transaction_v1_t
 
 ```cpp
@@ -2748,8 +2510,6 @@ Start a new transaction event.
 | `src_line` |  | source line number |
 
 ---
-
-{#set_transaction_xid_v1_t}
 
 ### set_transaction_xid_v1_t
 
@@ -2774,8 +2534,6 @@ Set the transaction xid.
 
 ---
 
-{#set_transaction_xa_state_v1_t}
-
 ### set_transaction_xa_state_v1_t
 
 ```cpp
@@ -2796,8 +2554,6 @@ Set the state of the XA transaction.
 | `xa_state` |  | the new state of the xa transaction |
 
 ---
-
-{#set_transaction_gtid_v1_t}
 
 ### set_transaction_gtid_v1_t
 
@@ -2822,8 +2578,6 @@ Set the transaction gtid.
 
 ---
 
-{#set_transaction_trxid_v1_t}
-
 ### set_transaction_trxid_v1_t
 
 ```cpp
@@ -2844,8 +2598,6 @@ Set the transaction trx_id.
 | `trxid` |  | the storage engine transaction ID |
 
 ---
-
-{#inc_transaction_savepoints_v1_t}
 
 ### inc_transaction_savepoints_v1_t
 
@@ -2868,8 +2620,6 @@ Increment a transaction event savepoint count.
 
 ---
 
-{#inc_transaction_rollback_to_savepoint_v1_t}
-
 ### inc_transaction_rollback_to_savepoint_v1_t
 
 ```cpp
@@ -2890,8 +2640,6 @@ Increment a transaction event rollback to savepoint count.
 | `count` |  | the increment value |
 
 ---
-
-{#inc_transaction_release_savepoint_v1_t}
 
 ### inc_transaction_release_savepoint_v1_t
 
@@ -2914,8 +2662,6 @@ Increment a transaction event release savepoint count.
 
 ---
 
-{#end_transaction_v1_t}
-
 ### end_transaction_v1_t
 
 ```cpp
@@ -2936,8 +2682,6 @@ Commit or rollback the transaction.
 | `commit` |  | true if transaction was committed, false if rolled back |
 
 ---
-
-{#start_socket_wait_v1_t}
 
 ### start_socket_wait_v1_t
 
@@ -2968,8 +2712,6 @@ Record a socket instrumentation start event.
 
 ---
 
-{#end_socket_wait_v1_t}
-
 ### end_socket_wait_v1_t
 
 ```cpp
@@ -2991,8 +2733,6 @@ Record a socket instrumentation end event. Note that for socket close operations
 
 ---
 
-{#set_socket_state_v1_t}
-
 ### set_socket_state_v1_t
 
 ```cpp
@@ -3013,8 +2753,6 @@ Set the socket state for an instrumented socket.
 | `state` |  | socket state |
 
 ---
-
-{#set_socket_info_v1_t}
 
 ### set_socket_info_v1_t
 
@@ -3041,8 +2779,6 @@ Set the socket info for an instrumented socket.
 
 ---
 
-{#set_socket_thread_owner_v1_t}
-
 ### set_socket_thread_owner_v1_t
 
 ```cpp
@@ -3062,8 +2798,6 @@ Bind a socket to the thread that owns it.
 
 ---
 
-{#create_prepared_stmt_v1_t}
-
 ### create_prepared_stmt_v1_t
 
 ```cpp
@@ -3075,8 +2809,6 @@ Defined in psi/psi.h:2352
 Get a prepare statement.
 
 ---
-
-{#destroy_prepared_stmt_v1_t}
 
 ### destroy_prepared_stmt_v1_t
 
@@ -3097,8 +2829,6 @@ destroy a prepare statement.
 
 ---
 
-{#reprepare_prepared_stmt_v1_t}
-
 ### reprepare_prepared_stmt_v1_t
 
 ```cpp
@@ -3117,8 +2847,6 @@ reprepare a prepare statement.
 | `prepared_stmt` |  | prepared statement. |
 
 ---
-
-{#execute_prepared_stmt_v1_t}
 
 ### execute_prepared_stmt_v1_t
 
@@ -3140,8 +2868,6 @@ Record a prepare statement instrumentation execute event.
 | `prepared_stmt` |  | prepared statement. |
 
 ---
-
-{#set_prepared_stmt_text_v1_t}
 
 ### set_prepared_stmt_text_v1_t
 
@@ -3166,8 +2892,6 @@ Set the statement text for a prepared statement event.
 
 ---
 
-{#digest_start_v1_t}
-
 ### digest_start_v1_t
 
 ```cpp
@@ -3186,8 +2910,6 @@ Get a digest locker for the current statement.
 | `locker` |  | a statement locker for the running thread |
 
 ---
-
-{#digest_end_v1_t}
 
 ### digest_end_v1_t
 
@@ -3210,8 +2932,6 @@ Add a token to the current digest instrumentation.
 
 ---
 
-{#start_sp_v1_t}
-
 ### start_sp_v1_t
 
 ```cpp
@@ -3221,8 +2941,6 @@ using start_sp_v1_t = PSI_sp_locker *(*
 Defined in psi/psi.h:2402
 
 ---
-
-{#end_sp_v1_t}
 
 ### end_sp_v1_t
 
@@ -3234,8 +2952,6 @@ Defined in psi/psi.h:2405
 
 ---
 
-{#drop_sp_v1_t}
-
 ### drop_sp_v1_t
 
 ```cpp
@@ -3245,8 +2961,6 @@ using drop_sp_v1_t = void(*
 Defined in psi/psi.h:2408
 
 ---
-
-{#get_sp_share_v1_t}
 
 ### get_sp_share_v1_t
 
@@ -3277,8 +2991,6 @@ a stored program share instrumentation, or NULL
 
 ---
 
-{#release_sp_share_v1_t}
-
 ### release_sp_share_v1_t
 
 ```cpp
@@ -3298,8 +3010,6 @@ Release a stored program share.
 
 ---
 
-{#create_metadata_lock_v1_t}
-
 ### create_metadata_lock_v1_t
 
 ```cpp
@@ -3309,8 +3019,6 @@ using create_metadata_lock_v1_t = PSI_metadata_lock *(*
 Defined in psi/psi.h:2433
 
 ---
-
-{#set_metadata_lock_status_v1_t}
 
 ### set_metadata_lock_status_v1_t
 
@@ -3322,8 +3030,6 @@ Defined in psi/psi.h:2442
 
 ---
 
-{#destroy_metadata_lock_v1_t}
-
 ### destroy_metadata_lock_v1_t
 
 ```cpp
@@ -3333,8 +3039,6 @@ using destroy_metadata_lock_v1_t = void(*
 Defined in psi/psi.h:2445
 
 ---
-
-{#start_metadata_wait_v1_t}
 
 ### start_metadata_wait_v1_t
 
@@ -3346,8 +3050,6 @@ Defined in psi/psi.h:2445
 
 ---
 
-{#end_metadata_wait_v1_t}
-
 ### end_metadata_wait_v1_t
 
 ```cpp
@@ -3357,8 +3059,6 @@ using end_metadata_wait_v1_t = void(*
 Defined in psi/psi.h:2452
 
 ---
-
-{#set_thread_connect_attrs_v1_t}
 
 ### set_thread_connect_attrs_v1_t
 
@@ -3392,8 +3092,6 @@ state
 
 ---
 
-{#psi_memory_info_v1}
-
 ### PSI_memory_info_v1
 
 ```cpp
@@ -3405,8 +3103,6 @@ Type: struct [`PSI_memory_info_v1`](#psi_memory_info_v1-1)
 Defined in psi/psi_memory.h:80
 
 ---
-
-{#register_memory_v1_t}
 
 ### register_memory_v1_t
 
@@ -3430,8 +3126,6 @@ Memory registration API.
 | `count` |  | the size of the info array |
 
 ---
-
-{#memory_alloc_v1_t}
 
 ### memory_alloc_v1_t
 
@@ -3457,8 +3151,6 @@ the effective memory instrument key
 | `owner` |  | the memory owner |
 
 ---
-
-{#memory_realloc_v1_t}
 
 ### memory_realloc_v1_t
 
@@ -3487,8 +3179,6 @@ the effective memory instrument key
 
 ---
 
-{#memory_claim_v1_t}
-
 ### memory_claim_v1_t
 
 ```cpp
@@ -3514,8 +3204,6 @@ the effective memory instrument key
 
 ---
 
-{#memory_free_v1_t}
-
 ### memory_free_v1_t
 
 ```cpp
@@ -3540,7 +3228,7 @@ Instrument memory free.
 
 ## Class Definitions
 
-{#psi_mutex_info_v1-1}
+
 
 ### PSI_mutex_info_v1
 
@@ -3566,8 +3254,6 @@ Mutex information. **Since**: PSI_VERSION_1 This structure is used to register a
 
 ---
 
-{#m_key-1}
-
 #### m_key
 
 ```cpp
@@ -3582,8 +3268,6 @@ Pointer to the key assigned to the registered mutex.
 
 ---
 
-{#m_name-1}
-
 #### m_name
 
 ```cpp
@@ -3596,8 +3280,6 @@ The name of the mutex to register.
 
 ---
 
-{#m_flags-2}
-
 #### m_flags
 
 ```cpp
@@ -3608,7 +3290,7 @@ Defined in psi/psi.h:873
 
 The flags of the mutex to register. **See also**: [PSI_FLAG_GLOBAL](api.md#psi_flag_global)
 
-{#psi_rwlock_info_v1-1}
+
 
 ### PSI_rwlock_info_v1
 
@@ -3634,8 +3316,6 @@ Rwlock information. **Since**: PSI_VERSION_1 This structure is used to register 
 
 ---
 
-{#m_key-2}
-
 #### m_key
 
 ```cpp
@@ -3650,8 +3330,6 @@ Pointer to the key assigned to the registered rwlock.
 
 ---
 
-{#m_name-2}
-
 #### m_name
 
 ```cpp
@@ -3664,8 +3342,6 @@ The name of the rwlock to register.
 
 ---
 
-{#m_flags-3}
-
 #### m_flags
 
 ```cpp
@@ -3676,7 +3352,7 @@ Defined in psi/psi.h:896
 
 The flags of the rwlock to register. **See also**: [PSI_FLAG_GLOBAL](api.md#psi_flag_global)
 
-{#psi_cond_info_v1-1}
+
 
 ### PSI_cond_info_v1
 
@@ -3702,8 +3378,6 @@ Condition information. **Since**: PSI_VERSION_1 This structure is used to regist
 
 ---
 
-{#m_key-3}
-
 #### m_key
 
 ```cpp
@@ -3718,8 +3392,6 @@ Pointer to the key assigned to the registered cond.
 
 ---
 
-{#m_name-3}
-
 #### m_name
 
 ```cpp
@@ -3732,8 +3404,6 @@ The name of the cond to register.
 
 ---
 
-{#m_flags-4}
-
 #### m_flags
 
 ```cpp
@@ -3744,7 +3414,7 @@ Defined in psi/psi.h:919
 
 The flags of the cond to register. **See also**: [PSI_FLAG_GLOBAL](api.md#psi_flag_global)
 
-{#psi_thread_info_v1-1}
+
 
 ### PSI_thread_info_v1
 
@@ -3770,8 +3440,6 @@ Thread instrument information. **Since**: PSI_VERSION_1 This structure is used t
 
 ---
 
-{#m_key-4}
-
 #### m_key
 
 ```cpp
@@ -3786,8 +3454,6 @@ Pointer to the key assigned to the registered thread.
 
 ---
 
-{#m_name-4}
-
 #### m_name
 
 ```cpp
@@ -3800,8 +3466,6 @@ The name of the thread instrument to register.
 
 ---
 
-{#m_flags-5}
-
 #### m_flags
 
 ```cpp
@@ -3812,7 +3476,7 @@ Defined in psi/psi.h:942
 
 The flags of the thread to register. **See also**: [PSI_FLAG_GLOBAL](api.md#psi_flag_global)
 
-{#psi_file_info_v1-1}
+
 
 ### PSI_file_info_v1
 
@@ -3838,8 +3502,6 @@ File instrument information. **Since**: PSI_VERSION_1 This structure is used to 
 
 ---
 
-{#m_key-5}
-
 #### m_key
 
 ```cpp
@@ -3854,8 +3516,6 @@ Pointer to the key assigned to the registered file.
 
 ---
 
-{#m_name-5}
-
 #### m_name
 
 ```cpp
@@ -3868,8 +3528,6 @@ The name of the file instrument to register.
 
 ---
 
-{#m_flags-6}
-
 #### m_flags
 
 ```cpp
@@ -3880,7 +3538,7 @@ Defined in psi/psi.h:965
 
 The flags of the file instrument to register. **See also**: [PSI_FLAG_GLOBAL](api.md#psi_flag_global)
 
-{#psi_stage_info_v1-1}
+
 
 ### PSI_stage_info_v1
 
@@ -3906,8 +3564,6 @@ Stage instrument information. **Since**: PSI_VERSION_1 This structure is used to
 
 ---
 
-{#m_key-6}
-
 #### m_key
 
 ```cpp
@@ -3922,8 +3578,6 @@ The registered stage key.
 
 ---
 
-{#m_name-6}
-
 #### m_name
 
 ```cpp
@@ -3936,8 +3590,6 @@ The name of the stage instrument to register.
 
 ---
 
-{#m_flags-7}
-
 #### m_flags
 
 ```cpp
@@ -3948,7 +3600,7 @@ Defined in psi/psi.h:981
 
 The flags of the stage instrument to register.
 
-{#psi_statement_info_v1-1}
+
 
 ### PSI_statement_info_v1
 
@@ -3974,8 +3626,6 @@ Statement instrument information. **Since**: PSI_VERSION_1 This structure is use
 
 ---
 
-{#m_key-7}
-
 #### m_key
 
 ```cpp
@@ -3990,8 +3640,6 @@ The registered statement key.
 
 ---
 
-{#m_name-7}
-
 #### m_name
 
 ```cpp
@@ -4004,8 +3652,6 @@ The name of the statement instrument to register.
 
 ---
 
-{#m_flags-8}
-
 #### m_flags
 
 ```cpp
@@ -4016,7 +3662,7 @@ Defined in psi/psi.h:997
 
 The flags of the statement instrument to register.
 
-{#psi_socket_info_v1-1}
+
 
 ### PSI_socket_info_v1
 
@@ -4042,8 +3688,6 @@ Socket instrument information. **Since**: PSI_VERSION_1 This structure is used t
 
 ---
 
-{#m_key-8}
-
 #### m_key
 
 ```cpp
@@ -4058,8 +3702,6 @@ Pointer to the key assigned to the registered socket.
 
 ---
 
-{#m_name-8}
-
 #### m_name
 
 ```cpp
@@ -4072,8 +3714,6 @@ The name of the socket instrument to register.
 
 ---
 
-{#m_flags-9}
-
 #### m_flags
 
 ```cpp
@@ -4084,7 +3724,7 @@ Defined in psi/psi.h:1020
 
 The flags of the socket instrument to register. **See also**: [PSI_FLAG_GLOBAL](api.md#psi_flag_global)
 
-{#psi_idle_locker_state_v1-1}
+
 
 ### PSI_idle_locker_state_v1
 
@@ -4112,8 +3752,6 @@ State data storage for `start_idle_wait_v1_t`. This structure provide temporary 
 
 ---
 
-{#m_flags-10}
-
 #### m_flags
 
 ```cpp
@@ -4125,8 +3763,6 @@ Defined in psi/psi.h:1036
 Internal state.
 
 ---
-
-{#m_thread-1}
 
 #### m_thread
 
@@ -4142,8 +3778,6 @@ Current thread.
 
 ---
 
-{#m_timer_start-1}
-
 #### m_timer_start
 
 ```cpp
@@ -4155,8 +3789,6 @@ Defined in psi/psi.h:1040
 Timer start.
 
 ---
-
-{#m_timer-1}
 
 #### m_timer
 
@@ -4170,8 +3802,6 @@ Timer function.
 
 ---
 
-{#m_wait-1}
-
 #### m_wait
 
 ```cpp
@@ -4182,7 +3812,7 @@ Defined in psi/psi.h:1044
 
 Internal data.
 
-{#psi_mutex_locker_state_v1-1}
+
 
 ### PSI_mutex_locker_state_v1
 
@@ -4212,8 +3842,6 @@ State data storage for `start_mutex_wait_v1_t`. This structure provide temporary
 
 ---
 
-{#m_flags-11}
-
 #### m_flags
 
 ```cpp
@@ -4226,8 +3854,6 @@ Internal state.
 
 ---
 
-{#m_operation}
-
 #### m_operation
 
 ```cpp
@@ -4239,8 +3865,6 @@ Defined in psi/psi.h:1062
 Current operation.
 
 ---
-
-{#m_mutex-1}
 
 #### m_mutex
 
@@ -4256,8 +3880,6 @@ Current mutex.
 
 ---
 
-{#m_thread-2}
-
 #### m_thread
 
 ```cpp
@@ -4272,8 +3894,6 @@ Current thread.
 
 ---
 
-{#m_timer_start-2}
-
 #### m_timer_start
 
 ```cpp
@@ -4285,8 +3905,6 @@ Defined in psi/psi.h:1068
 Timer start.
 
 ---
-
-{#m_timer-2}
 
 #### m_timer
 
@@ -4300,8 +3918,6 @@ Timer function.
 
 ---
 
-{#m_wait-2}
-
 #### m_wait
 
 ```cpp
@@ -4312,7 +3928,7 @@ Defined in psi/psi.h:1072
 
 Internal data.
 
-{#psi_rwlock_locker_state_v1-1}
+
 
 ### PSI_rwlock_locker_state_v1
 
@@ -4336,15 +3952,13 @@ State data storage for `start_rwlock_rdwait_v1_t`, `start_rwlock_wrwait_v1_t`. T
 |--------|------|-------------|
 | `uint` | [`m_flags`](#m_flags-12)  | Internal state. |
 | `enum PSI_rwlock_operation` | [`m_operation`](#m_operation-1)  | Current operation. |
-| struct [`PSI_rwlock`](api.md#psi_rwlock) * | [`m_rwlock`](#m_rwlock-1)  | Current rwlock. |
+| struct [`PSI_rwlock`](api.md#psi_rwlock) * | [`m_rwlock`](#m_rwlock)  | Current rwlock. |
 | struct [`PSI_thread`](api.md#psi_thread) * | [`m_thread`](#m_thread-3)  | Current thread. |
 | `ulonglong` | [`m_timer_start`](#m_timer_start-3)  | Timer start. |
 | `ulonglong(*` | [`m_timer`](#m_timer-3)  | Timer function. |
 | `void *` | [`m_wait`](#m_wait-3)  | Internal data. |
 
 ---
-
-{#m_flags-12}
 
 #### m_flags
 
@@ -4358,8 +3972,6 @@ Internal state.
 
 ---
 
-{#m_operation-1}
-
 #### m_operation
 
 ```cpp
@@ -4371,8 +3983,6 @@ Defined in psi/psi.h:1091
 Current operation.
 
 ---
-
-{#m_rwlock-1}
 
 #### m_rwlock
 
@@ -4388,8 +3998,6 @@ Current rwlock.
 
 ---
 
-{#m_thread-3}
-
 #### m_thread
 
 ```cpp
@@ -4404,8 +4012,6 @@ Current thread.
 
 ---
 
-{#m_timer_start-3}
-
 #### m_timer_start
 
 ```cpp
@@ -4417,8 +4023,6 @@ Defined in psi/psi.h:1097
 Timer start.
 
 ---
-
-{#m_timer-3}
 
 #### m_timer
 
@@ -4432,8 +4036,6 @@ Timer function.
 
 ---
 
-{#m_wait-3}
-
 #### m_wait
 
 ```cpp
@@ -4444,7 +4046,7 @@ Defined in psi/psi.h:1101
 
 Internal data.
 
-{#psi_cond_locker_state_v1-1}
+
 
 ### PSI_cond_locker_state_v1
 
@@ -4466,16 +4068,14 @@ State data storage for `start_cond_wait_v1_t`. This structure provide temporary 
 |--------|------|-------------|
 | `uint` | [`m_flags`](#m_flags-13)  | Internal state. |
 | `enum PSI_cond_operation` | [`m_operation`](#m_operation-2)  | Current operation. |
-| struct [`PSI_cond`](api.md#psi_cond) * | [`m_cond`](#m_cond-1)  | Current condition. |
-| struct [`PSI_mutex`](api.md#psi_mutex) * | [`m_mutex`](#m_mutex-2)  | Current mutex. |
+| struct [`PSI_cond`](api.md#psi_cond) * | [`m_cond`](#m_cond)  | Current condition. |
+| struct [`PSI_mutex`](api.md#psi_mutex) * | [`m_mutex`](#m_mutex-1)  | Current mutex. |
 | struct [`PSI_thread`](api.md#psi_thread) * | [`m_thread`](#m_thread-4)  | Current thread. |
 | `ulonglong` | [`m_timer_start`](#m_timer_start-4)  | Timer start. |
 | `ulonglong(*` | [`m_timer`](#m_timer-4)  | Timer function. |
 | `void *` | [`m_wait`](#m_wait-4)  | Internal data. |
 
 ---
-
-{#m_flags-13}
 
 #### m_flags
 
@@ -4489,8 +4089,6 @@ Internal state.
 
 ---
 
-{#m_operation-2}
-
 #### m_operation
 
 ```cpp
@@ -4502,8 +4100,6 @@ Defined in psi/psi.h:1119
 Current operation.
 
 ---
-
-{#m_cond-1}
 
 #### m_cond
 
@@ -4519,8 +4115,6 @@ Current condition.
 
 ---
 
-{#m_mutex-2}
-
 #### m_mutex
 
 ```cpp
@@ -4534,8 +4128,6 @@ Defined in psi/psi.h:1123
 Current mutex.
 
 ---
-
-{#m_thread-4}
 
 #### m_thread
 
@@ -4551,8 +4143,6 @@ Current thread.
 
 ---
 
-{#m_timer_start-4}
-
 #### m_timer_start
 
 ```cpp
@@ -4564,8 +4154,6 @@ Defined in psi/psi.h:1127
 Timer start.
 
 ---
-
-{#m_timer-4}
 
 #### m_timer
 
@@ -4579,8 +4167,6 @@ Timer function.
 
 ---
 
-{#m_wait-4}
-
 #### m_wait
 
 ```cpp
@@ -4591,7 +4177,7 @@ Defined in psi/psi.h:1131
 
 Internal data.
 
-{#psi_file_locker_state_v1-1}
+
 
 ### PSI_file_locker_state_v1
 
@@ -4617,7 +4203,7 @@ State data storage for `get_thread_file_name_locker_v1_t`. This structure provid
 |--------|------|-------------|
 | `uint` | [`m_flags`](#m_flags-14)  | Internal state. |
 | `enum PSI_file_operation` | [`m_operation`](#m_operation-3)  | Current operation. |
-| struct [`PSI_file`](api.md#psi_file) * | [`m_file`](#m_file-1)  | Current file. |
+| struct [`PSI_file`](api.md#psi_file) * | [`m_file`](#m_file)  | Current file. |
 | `const char *` | [`m_name`](#m_name-9)  | Current file name. |
 | `void *` | [`m_class`](#m_class)  | Current file class. |
 | struct [`PSI_thread`](api.md#psi_thread) * | [`m_thread`](#m_thread-5)  | Current thread. |
@@ -4627,8 +4213,6 @@ State data storage for `get_thread_file_name_locker_v1_t`. This structure provid
 | `void *` | [`m_wait`](#m_wait-5)  | Internal data. |
 
 ---
-
-{#m_flags-14}
 
 #### m_flags
 
@@ -4642,8 +4226,6 @@ Internal state.
 
 ---
 
-{#m_operation-3}
-
 #### m_operation
 
 ```cpp
@@ -4655,8 +4237,6 @@ Defined in psi/psi.h:1151
 Current operation.
 
 ---
-
-{#m_file-1}
 
 #### m_file
 
@@ -4672,8 +4252,6 @@ Current file.
 
 ---
 
-{#m_name-9}
-
 #### m_name
 
 ```cpp
@@ -4686,8 +4264,6 @@ Current file name.
 
 ---
 
-{#m_class}
-
 #### m_class
 
 ```cpp
@@ -4699,8 +4275,6 @@ Defined in psi/psi.h:1157
 Current file class.
 
 ---
-
-{#m_thread-5}
 
 #### m_thread
 
@@ -4716,8 +4290,6 @@ Current thread.
 
 ---
 
-{#m_number_of_bytes}
-
 #### m_number_of_bytes
 
 ```cpp
@@ -4729,8 +4301,6 @@ Defined in psi/psi.h:1161
 Operation number of bytes.
 
 ---
-
-{#m_timer_start-5}
 
 #### m_timer_start
 
@@ -4744,8 +4314,6 @@ Timer start.
 
 ---
 
-{#m_timer-5}
-
 #### m_timer
 
 ```cpp
@@ -4758,8 +4326,6 @@ Timer function.
 
 ---
 
-{#m_wait-5}
-
 #### m_wait
 
 ```cpp
@@ -4770,7 +4336,7 @@ Defined in psi/psi.h:1167
 
 Internal data.
 
-{#psi_metadata_locker_state_v1-1}
+
 
 ### PSI_metadata_locker_state_v1
 
@@ -4799,8 +4365,6 @@ State data storage for `start_metadata_wait_v1_t`. This structure provide tempor
 
 ---
 
-{#m_flags-15}
-
 #### m_flags
 
 ```cpp
@@ -4812,8 +4376,6 @@ Defined in psi/psi.h:1183
 Internal state.
 
 ---
-
-{#m_metadata_lock}
 
 #### m_metadata_lock
 
@@ -4829,8 +4391,6 @@ Current metadata lock.
 
 ---
 
-{#m_thread-6}
-
 #### m_thread
 
 ```cpp
@@ -4845,8 +4405,6 @@ Current thread.
 
 ---
 
-{#m_timer_start-6}
-
 #### m_timer_start
 
 ```cpp
@@ -4858,8 +4416,6 @@ Defined in psi/psi.h:1189
 Timer start.
 
 ---
-
-{#m_timer-6}
 
 #### m_timer
 
@@ -4873,8 +4429,6 @@ Timer function.
 
 ---
 
-{#m_wait-6}
-
 #### m_wait
 
 ```cpp
@@ -4885,7 +4439,7 @@ Defined in psi/psi.h:1193
 
 Internal data.
 
-{#psi_statement_locker_state_v1-1}
+
 
 ### PSI_statement_locker_state_v1
 
@@ -4938,8 +4492,6 @@ State data storage for `get_thread_statement_locker_v1_t`, `get_thread_statement
 
 ---
 
-{#m_discarded}
-
 #### m_discarded
 
 ```cpp
@@ -4953,8 +4505,6 @@ Defined in psi/psi.h:1213
 Discarded flag.
 
 ---
-
-{#m_in_prepare}
 
 #### m_in_prepare
 
@@ -4970,8 +4520,6 @@ In prepare flag.
 
 ---
 
-{#m_no_index_used}
-
 #### m_no_index_used
 
 ```cpp
@@ -4983,8 +4531,6 @@ Defined in psi/psi.h:1217
 Metric, no index used flag.
 
 ---
-
-{#m_no_good_index_used}
 
 #### m_no_good_index_used
 
@@ -4998,8 +4544,6 @@ Metric, no good index used flag.
 
 ---
 
-{#m_flags-16}
-
 #### m_flags
 
 ```cpp
@@ -5012,8 +4556,6 @@ Internal state.
 
 ---
 
-{#m_class-1}
-
 #### m_class
 
 ```cpp
@@ -5025,8 +4567,6 @@ Defined in psi/psi.h:1223
 Instrumentation class.
 
 ---
-
-{#m_thread-7}
 
 #### m_thread
 
@@ -5042,8 +4582,6 @@ Current thread.
 
 ---
 
-{#m_timer_start-7}
-
 #### m_timer_start
 
 ```cpp
@@ -5055,8 +4593,6 @@ Defined in psi/psi.h:1227
 Timer start.
 
 ---
-
-{#m_timer-7}
 
 #### m_timer
 
@@ -5070,8 +4606,6 @@ Timer function.
 
 ---
 
-{#m_statement}
-
 #### m_statement
 
 ```cpp
@@ -5083,8 +4617,6 @@ Defined in psi/psi.h:1231
 Internal data.
 
 ---
-
-{#m_lock_time}
 
 #### m_lock_time
 
@@ -5098,8 +4630,6 @@ Locked time.
 
 ---
 
-{#m_rows_sent}
-
 #### m_rows_sent
 
 ```cpp
@@ -5111,8 +4641,6 @@ Defined in psi/psi.h:1235
 Rows sent.
 
 ---
-
-{#m_rows_examined}
 
 #### m_rows_examined
 
@@ -5126,8 +4654,6 @@ Rows examined.
 
 ---
 
-{#m_created_tmp_disk_tables}
-
 #### m_created_tmp_disk_tables
 
 ```cpp
@@ -5139,8 +4665,6 @@ Defined in psi/psi.h:1239
 Metric, temporary tables created on disk.
 
 ---
-
-{#m_created_tmp_tables}
 
 #### m_created_tmp_tables
 
@@ -5154,8 +4678,6 @@ Metric, temporary tables created.
 
 ---
 
-{#m_select_full_join}
-
 #### m_select_full_join
 
 ```cpp
@@ -5167,8 +4689,6 @@ Defined in psi/psi.h:1243
 Metric, number of select full join.
 
 ---
-
-{#m_select_full_range_join}
 
 #### m_select_full_range_join
 
@@ -5182,8 +4702,6 @@ Metric, number of select full range join.
 
 ---
 
-{#m_select_range}
-
 #### m_select_range
 
 ```cpp
@@ -5195,8 +4713,6 @@ Defined in psi/psi.h:1247
 Metric, number of select range.
 
 ---
-
-{#m_select_range_check}
 
 #### m_select_range_check
 
@@ -5210,8 +4726,6 @@ Metric, number of select range check.
 
 ---
 
-{#m_select_scan}
-
 #### m_select_scan
 
 ```cpp
@@ -5223,8 +4737,6 @@ Defined in psi/psi.h:1251
 Metric, number of select scan.
 
 ---
-
-{#m_sort_merge_passes}
 
 #### m_sort_merge_passes
 
@@ -5238,8 +4750,6 @@ Metric, number of sort merge passes.
 
 ---
 
-{#m_sort_range}
-
 #### m_sort_range
 
 ```cpp
@@ -5251,8 +4761,6 @@ Defined in psi/psi.h:1255
 Metric, number of sort merge.
 
 ---
-
-{#m_sort_rows}
 
 #### m_sort_rows
 
@@ -5266,8 +4774,6 @@ Metric, number of sort rows.
 
 ---
 
-{#m_sort_scan}
-
 #### m_sort_scan
 
 ```cpp
@@ -5279,8 +4785,6 @@ Defined in psi/psi.h:1259
 Metric, number of sort scans.
 
 ---
-
-{#m_digest}
 
 #### m_digest
 
@@ -5294,8 +4798,6 @@ Statement digest.
 
 ---
 
-{#m_schema_name}
-
 #### m_schema_name
 
 ```cpp
@@ -5307,8 +4809,6 @@ Defined in psi/psi.h:1263
 Current schema name.
 
 ---
-
-{#m_schema_name_length}
 
 #### m_schema_name_length
 
@@ -5322,8 +4822,6 @@ Length in bytes of `m_schema_name`.
 
 ---
 
-{#m_cs_number}
-
 #### m_cs_number
 
 ```cpp
@@ -5335,8 +4833,6 @@ Defined in psi/psi.h:1267
 Statement character set number.
 
 ---
-
-{#m_parent_sp_share}
 
 #### m_parent_sp_share
 
@@ -5350,8 +4846,6 @@ Defined in psi/psi.h:1268
 
 ---
 
-{#m_parent_prepared_stmt}
-
 #### m_parent_prepared_stmt
 
 ```cpp
@@ -5362,7 +4856,7 @@ Type: [`PSI_prepared_stmt`](api.md#psi_prepared_stmt) *
 
 Defined in psi/psi.h:1269
 
-{#psi_transaction_locker_state_v1-1}
+
 
 ### PSI_transaction_locker_state_v1
 
@@ -5397,8 +4891,6 @@ State data storage for `get_thread_transaction_locker_v1_t`, `get_thread_transac
 
 ---
 
-{#m_flags-17}
-
 #### m_flags
 
 ```cpp
@@ -5411,8 +4903,6 @@ Internal state.
 
 ---
 
-{#m_class-2}
-
 #### m_class
 
 ```cpp
@@ -5424,8 +4914,6 @@ Defined in psi/psi.h:1288
 Instrumentation class.
 
 ---
-
-{#m_thread-8}
 
 #### m_thread
 
@@ -5441,8 +4929,6 @@ Current thread.
 
 ---
 
-{#m_timer_start-8}
-
 #### m_timer_start
 
 ```cpp
@@ -5454,8 +4940,6 @@ Defined in psi/psi.h:1292
 Timer start.
 
 ---
-
-{#m_timer-8}
 
 #### m_timer
 
@@ -5469,8 +4953,6 @@ Timer function.
 
 ---
 
-{#m_transaction}
-
 #### m_transaction
 
 ```cpp
@@ -5482,8 +4964,6 @@ Defined in psi/psi.h:1296
 Internal data.
 
 ---
-
-{#m_read_only}
 
 #### m_read_only
 
@@ -5499,8 +4979,6 @@ True if read-only transaction, false if read-write.
 
 ---
 
-{#m_autocommit}
-
 #### m_autocommit
 
 ```cpp
@@ -5515,8 +4993,6 @@ True if transaction is autocommit.
 
 ---
 
-{#m_statement_count}
-
 #### m_statement_count
 
 ```cpp
@@ -5528,8 +5004,6 @@ Defined in psi/psi.h:1302
 Number of statements.
 
 ---
-
-{#m_savepoint_count}
 
 #### m_savepoint_count
 
@@ -5543,8 +5017,6 @@ Total number of savepoints.
 
 ---
 
-{#m_rollback_to_savepoint_count}
-
 #### m_rollback_to_savepoint_count
 
 ```cpp
@@ -5557,8 +5029,6 @@ Number of rollback_to_savepoint.
 
 ---
 
-{#m_release_savepoint_count}
-
 #### m_release_savepoint_count
 
 ```cpp
@@ -5569,7 +5039,7 @@ Defined in psi/psi.h:1308
 
 Number of release_savepoint.
 
-{#psi_socket_locker_state_v1-1}
+
 
 ### PSI_socket_locker_state_v1
 
@@ -5598,11 +5068,9 @@ State data storage for `start_socket_wait_v1_t`. This structure provide temporar
 | `enum PSI_socket_operation` | [`m_operation`](#m_operation-4)  | Current operation. |
 | `const char *` | [`m_src_file`](#m_src_file)  | Source file. |
 | `int` | [`m_src_line`](#m_src_line)  | Source line number. |
-| `void *` | [`m_wait`](#m_wait-7)  | Internal data. |
+| `void *` | [`m_wait`](#m_wait-6)  | Internal data. |
 
 ---
-
-{#m_flags-18}
 
 #### m_flags
 
@@ -5615,8 +5083,6 @@ Defined in psi/psi.h:1325
 Internal state.
 
 ---
-
-{#m_socket}
 
 #### m_socket
 
@@ -5632,8 +5098,6 @@ Current socket.
 
 ---
 
-{#m_thread-9}
-
 #### m_thread
 
 ```cpp
@@ -5648,8 +5112,6 @@ Current thread.
 
 ---
 
-{#m_number_of_bytes-1}
-
 #### m_number_of_bytes
 
 ```cpp
@@ -5661,8 +5123,6 @@ Defined in psi/psi.h:1331
 Operation number of bytes.
 
 ---
-
-{#m_timer_start-9}
 
 #### m_timer_start
 
@@ -5676,8 +5136,6 @@ Timer start.
 
 ---
 
-{#m_timer-9}
-
 #### m_timer
 
 ```cpp
@@ -5689,8 +5147,6 @@ Defined in psi/psi.h:1335
 Timer function.
 
 ---
-
-{#m_operation-4}
 
 #### m_operation
 
@@ -5704,8 +5160,6 @@ Current operation.
 
 ---
 
-{#m_src_file}
-
 #### m_src_file
 
 ```cpp
@@ -5717,8 +5171,6 @@ Defined in psi/psi.h:1339
 Source file.
 
 ---
-
-{#m_src_line}
 
 #### m_src_line
 
@@ -5732,8 +5184,6 @@ Source line number.
 
 ---
 
-{#m_wait-7}
-
 #### m_wait
 
 ```cpp
@@ -5744,7 +5194,7 @@ Defined in psi/psi.h:1343
 
 Internal data.
 
-{#psi_sp_locker_state_v1-1}
+
 
 ### PSI_sp_locker_state_v1
 
@@ -5762,15 +5212,13 @@ Defined in psi/psi.h:1347
 
 | Return | Name | Description |
 |--------|------|-------------|
-| `uint` | [`m_flags`](#m_flags-19)  | Internal state. |
-| struct [`PSI_thread`](api.md#psi_thread) * | [`m_thread`](#m_thread-10)  | Current thread. |
-| `ulonglong` | [`m_timer_start`](#m_timer_start-10)  | Timer start. |
-| `ulonglong(*` | [`m_timer`](#m_timer-10)  | Timer function. |
+| `uint` | [`m_flags`](#m_flags-17)  | Internal state. |
+| struct [`PSI_thread`](api.md#psi_thread) * | [`m_thread`](#m_thread-9)  | Current thread. |
+| `ulonglong` | [`m_timer_start`](#m_timer_start-9)  | Timer start. |
+| `ulonglong(*` | [`m_timer`](#m_timer-9)  | Timer function. |
 | [`PSI_sp_share`](api.md#psi_sp_share) * | [`m_sp_share`](#m_sp_share)  | Stored Procedure share. |
 
 ---
-
-{#m_flags-19}
 
 #### m_flags
 
@@ -5783,8 +5231,6 @@ Defined in psi/psi.h:1350
 Internal state.
 
 ---
-
-{#m_thread-10}
 
 #### m_thread
 
@@ -5800,8 +5246,6 @@ Current thread.
 
 ---
 
-{#m_timer_start-10}
-
 #### m_timer_start
 
 ```cpp
@@ -5813,8 +5257,6 @@ Defined in psi/psi.h:1354
 Timer start.
 
 ---
-
-{#m_timer-10}
 
 #### m_timer
 
@@ -5828,8 +5270,6 @@ Timer function.
 
 ---
 
-{#m_sp_share}
-
 #### m_sp_share
 
 ```cpp
@@ -5842,7 +5282,7 @@ Defined in psi/psi.h:1358
 
 Stored Procedure share.
 
-{#psi_v1}
+
 
 ### PSI_v1
 
@@ -6001,8 +5441,6 @@ Performance Schema Interface, version 1. **Since**: PSI_VERSION_1
 
 ---
 
-{#register_mutex}
-
 #### register_mutex
 
 ```cpp
@@ -6016,8 +5454,6 @@ Defined in psi/psi.h:2475
 **See also**: [register_mutex_v1_t](api.md#register_mutex_v1_t).
 
 ---
-
-{#register_rwlock}
 
 #### register_rwlock
 
@@ -6033,8 +5469,6 @@ Defined in psi/psi.h:2477
 
 ---
 
-{#register_cond}
-
 #### register_cond
 
 ```cpp
@@ -6048,8 +5482,6 @@ Defined in psi/psi.h:2479
 **See also**: [register_cond_v1_t](api.md#register_cond_v1_t).
 
 ---
-
-{#register_thread}
 
 #### register_thread
 
@@ -6065,8 +5497,6 @@ Defined in psi/psi.h:2481
 
 ---
 
-{#register_file}
-
 #### register_file
 
 ```cpp
@@ -6080,8 +5510,6 @@ Defined in psi/psi.h:2483
 **See also**: [register_file_v1_t](api.md#register_file_v1_t).
 
 ---
-
-{#register_stage}
 
 #### register_stage
 
@@ -6097,8 +5525,6 @@ Defined in psi/psi.h:2485
 
 ---
 
-{#register_statement}
-
 #### register_statement
 
 ```cpp
@@ -6112,8 +5538,6 @@ Defined in psi/psi.h:2487
 **See also**: [register_statement_v1_t](api.md#register_statement_v1_t).
 
 ---
-
-{#register_socket}
 
 #### register_socket
 
@@ -6129,8 +5553,6 @@ Defined in psi/psi.h:2489
 
 ---
 
-{#init_mutex}
-
 #### init_mutex
 
 ```cpp
@@ -6144,8 +5566,6 @@ Defined in psi/psi.h:2491
 **See also**: [init_mutex_v1_t](api.md#init_mutex_v1_t).
 
 ---
-
-{#destroy_mutex}
 
 #### destroy_mutex
 
@@ -6161,8 +5581,6 @@ Defined in psi/psi.h:2493
 
 ---
 
-{#init_rwlock}
-
 #### init_rwlock
 
 ```cpp
@@ -6176,8 +5594,6 @@ Defined in psi/psi.h:2495
 **See also**: [init_rwlock_v1_t](api.md#init_rwlock_v1_t).
 
 ---
-
-{#destroy_rwlock}
 
 #### destroy_rwlock
 
@@ -6193,8 +5609,6 @@ Defined in psi/psi.h:2497
 
 ---
 
-{#init_cond}
-
 #### init_cond
 
 ```cpp
@@ -6208,8 +5622,6 @@ Defined in psi/psi.h:2499
 **See also**: [init_cond_v1_t](api.md#init_cond_v1_t).
 
 ---
-
-{#destroy_cond}
 
 #### destroy_cond
 
@@ -6225,8 +5637,6 @@ Defined in psi/psi.h:2501
 
 ---
 
-{#init_socket}
-
 #### init_socket
 
 ```cpp
@@ -6240,8 +5650,6 @@ Defined in psi/psi.h:2503
 **See also**: [init_socket_v1_t](api.md#init_socket_v1_t).
 
 ---
-
-{#destroy_socket}
 
 #### destroy_socket
 
@@ -6257,8 +5665,6 @@ Defined in psi/psi.h:2505
 
 ---
 
-{#get_table_share}
-
 #### get_table_share
 
 ```cpp
@@ -6272,8 +5678,6 @@ Defined in psi/psi.h:2508
 **See also**: [get_table_share_v1_t](api.md#get_table_share_v1_t).
 
 ---
-
-{#release_table_share}
 
 #### release_table_share
 
@@ -6289,8 +5693,6 @@ Defined in psi/psi.h:2510
 
 ---
 
-{#drop_table_share}
-
 #### drop_table_share
 
 ```cpp
@@ -6304,8 +5706,6 @@ Defined in psi/psi.h:2512
 **See also**: [drop_table_share_v1_t](api.md#drop_table_share_v1_t).
 
 ---
-
-{#open_table}
 
 #### open_table
 
@@ -6321,8 +5721,6 @@ Defined in psi/psi.h:2514
 
 ---
 
-{#unbind_table}
-
 #### unbind_table
 
 ```cpp
@@ -6336,8 +5734,6 @@ Defined in psi/psi.h:2516
 **See also**: [unbind_table_v1_t](api.md#unbind_table_v1_t).
 
 ---
-
-{#rebind_table}
 
 #### rebind_table
 
@@ -6353,8 +5749,6 @@ Defined in psi/psi.h:2518
 
 ---
 
-{#close_table}
-
 #### close_table
 
 ```cpp
@@ -6368,8 +5762,6 @@ Defined in psi/psi.h:2520
 **See also**: [close_table_v1_t](api.md#close_table_v1_t).
 
 ---
-
-{#create_file}
 
 #### create_file
 
@@ -6385,8 +5777,6 @@ Defined in psi/psi.h:2522
 
 ---
 
-{#spawn_thread}
-
 #### spawn_thread
 
 ```cpp
@@ -6400,8 +5790,6 @@ Defined in psi/psi.h:2524
 **See also**: [spawn_thread_v1_t](api.md#spawn_thread_v1_t).
 
 ---
-
-{#new_thread}
 
 #### new_thread
 
@@ -6417,8 +5805,6 @@ Defined in psi/psi.h:2526
 
 ---
 
-{#set_thread_id}
-
 #### set_thread_id
 
 ```cpp
@@ -6432,8 +5818,6 @@ Defined in psi/psi.h:2528
 **See also**: [set_thread_id_v1_t](api.md#set_thread_id_v1_t).
 
 ---
-
-{#set_thread_thd}
 
 #### set_thread_THD
 
@@ -6449,8 +5833,6 @@ Defined in psi/psi.h:2530
 
 ---
 
-{#set_thread_os_id}
-
 #### set_thread_os_id
 
 ```cpp
@@ -6464,8 +5846,6 @@ Defined in psi/psi.h:2532
 **See also**: [set_thread_os_id_v1_t](api.md#set_thread_os_id_v1_t).
 
 ---
-
-{#get_thread}
 
 #### get_thread
 
@@ -6481,8 +5861,6 @@ Defined in psi/psi.h:2534
 
 ---
 
-{#get_thread_class_name}
-
 #### get_thread_class_name
 
 ```cpp
@@ -6496,8 +5874,6 @@ Defined in psi/psi.h:2536
 **See also**: get_thread_name_v1_t.
 
 ---
-
-{#set_thread_user}
 
 #### set_thread_user
 
@@ -6513,8 +5889,6 @@ Defined in psi/psi.h:2538
 
 ---
 
-{#set_thread_account}
-
 #### set_thread_account
 
 ```cpp
@@ -6528,8 +5902,6 @@ Defined in psi/psi.h:2540
 **See also**: [set_thread_account_v1_t](api.md#set_thread_account_v1_t).
 
 ---
-
-{#set_thread_db}
 
 #### set_thread_db
 
@@ -6545,8 +5917,6 @@ Defined in psi/psi.h:2542
 
 ---
 
-{#set_thread_command}
-
 #### set_thread_command
 
 ```cpp
@@ -6560,8 +5930,6 @@ Defined in psi/psi.h:2544
 **See also**: [set_thread_command_v1_t](api.md#set_thread_command_v1_t).
 
 ---
-
-{#set_connection_type}
 
 #### set_connection_type
 
@@ -6577,8 +5945,6 @@ Defined in psi/psi.h:2546
 
 ---
 
-{#set_thread_start_time}
-
 #### set_thread_start_time
 
 ```cpp
@@ -6592,8 +5958,6 @@ Defined in psi/psi.h:2548
 **See also**: [set_thread_start_time_v1_t](api.md#set_thread_start_time_v1_t).
 
 ---
-
-{#set_thread_state}
 
 #### set_thread_state
 
@@ -6609,8 +5973,6 @@ Defined in psi/psi.h:2550
 
 ---
 
-{#set_thread_info}
-
 #### set_thread_info
 
 ```cpp
@@ -6624,8 +5986,6 @@ Defined in psi/psi.h:2552
 **See also**: [set_thread_info_v1_t](api.md#set_thread_info_v1_t).
 
 ---
-
-{#set_thread}
 
 #### set_thread
 
@@ -6641,8 +6001,6 @@ Defined in psi/psi.h:2554
 
 ---
 
-{#delete_current_thread}
-
 #### delete_current_thread
 
 ```cpp
@@ -6656,8 +6014,6 @@ Defined in psi/psi.h:2556
 **See also**: [delete_current_thread_v1_t](api.md#delete_current_thread_v1_t).
 
 ---
-
-{#delete_thread}
 
 #### delete_thread
 
@@ -6673,8 +6029,6 @@ Defined in psi/psi.h:2558
 
 ---
 
-{#get_thread_file_name_locker}
-
 #### get_thread_file_name_locker
 
 ```cpp
@@ -6688,8 +6042,6 @@ Defined in psi/psi.h:2560
 **See also**: [get_thread_file_name_locker_v1_t](api.md#get_thread_file_name_locker_v1_t).
 
 ---
-
-{#get_thread_file_stream_locker}
 
 #### get_thread_file_stream_locker
 
@@ -6705,8 +6057,6 @@ Defined in psi/psi.h:2562
 
 ---
 
-{#get_thread_file_descriptor_locker}
-
 #### get_thread_file_descriptor_locker
 
 ```cpp
@@ -6720,8 +6070,6 @@ Defined in psi/psi.h:2564
 **See also**: [get_thread_file_descriptor_locker_v1_t](api.md#get_thread_file_descriptor_locker_v1_t).
 
 ---
-
-{#unlock_mutex}
 
 #### unlock_mutex
 
@@ -6737,8 +6085,6 @@ Defined in psi/psi.h:2566
 
 ---
 
-{#unlock_rwlock}
-
 #### unlock_rwlock
 
 ```cpp
@@ -6752,8 +6098,6 @@ Defined in psi/psi.h:2568
 **See also**: [unlock_rwlock_v1_t](api.md#unlock_rwlock_v1_t).
 
 ---
-
-{#signal_cond}
 
 #### signal_cond
 
@@ -6769,8 +6113,6 @@ Defined in psi/psi.h:2570
 
 ---
 
-{#broadcast_cond}
-
 #### broadcast_cond
 
 ```cpp
@@ -6784,8 +6126,6 @@ Defined in psi/psi.h:2572
 **See also**: [broadcast_cond_v1_t](api.md#broadcast_cond_v1_t).
 
 ---
-
-{#start_idle_wait}
 
 #### start_idle_wait
 
@@ -6801,8 +6141,6 @@ Defined in psi/psi.h:2574
 
 ---
 
-{#end_idle_wait}
-
 #### end_idle_wait
 
 ```cpp
@@ -6816,8 +6154,6 @@ Defined in psi/psi.h:2576
 **See also**: [end_idle_wait_v1_t](api.md#end_idle_wait_v1_t).
 
 ---
-
-{#start_mutex_wait}
 
 #### start_mutex_wait
 
@@ -6833,8 +6169,6 @@ Defined in psi/psi.h:2578
 
 ---
 
-{#end_mutex_wait}
-
 #### end_mutex_wait
 
 ```cpp
@@ -6848,8 +6182,6 @@ Defined in psi/psi.h:2580
 **See also**: [end_mutex_wait_v1_t](api.md#end_mutex_wait_v1_t).
 
 ---
-
-{#start_rwlock_rdwait}
 
 #### start_rwlock_rdwait
 
@@ -6865,8 +6197,6 @@ Defined in psi/psi.h:2582
 
 ---
 
-{#end_rwlock_rdwait}
-
 #### end_rwlock_rdwait
 
 ```cpp
@@ -6880,8 +6210,6 @@ Defined in psi/psi.h:2584
 **See also**: [end_rwlock_rdwait_v1_t](api.md#end_rwlock_rdwait_v1_t).
 
 ---
-
-{#start_rwlock_wrwait}
 
 #### start_rwlock_wrwait
 
@@ -6897,8 +6225,6 @@ Defined in psi/psi.h:2586
 
 ---
 
-{#end_rwlock_wrwait}
-
 #### end_rwlock_wrwait
 
 ```cpp
@@ -6912,8 +6238,6 @@ Defined in psi/psi.h:2588
 **See also**: [end_rwlock_wrwait_v1_t](api.md#end_rwlock_wrwait_v1_t).
 
 ---
-
-{#start_cond_wait}
 
 #### start_cond_wait
 
@@ -6929,8 +6253,6 @@ Defined in psi/psi.h:2590
 
 ---
 
-{#end_cond_wait}
-
 #### end_cond_wait
 
 ```cpp
@@ -6944,8 +6266,6 @@ Defined in psi/psi.h:2592
 **See also**: [end_cond_wait_v1_t](api.md#end_cond_wait_v1_t).
 
 ---
-
-{#start_table_io_wait}
 
 #### start_table_io_wait
 
@@ -6961,8 +6281,6 @@ Defined in psi/psi.h:2594
 
 ---
 
-{#end_table_io_wait}
-
 #### end_table_io_wait
 
 ```cpp
@@ -6976,8 +6294,6 @@ Defined in psi/psi.h:2596
 **See also**: [end_table_io_wait_v1_t](api.md#end_table_io_wait_v1_t).
 
 ---
-
-{#start_table_lock_wait}
 
 #### start_table_lock_wait
 
@@ -6993,8 +6309,6 @@ Defined in psi/psi.h:2598
 
 ---
 
-{#end_table_lock_wait}
-
 #### end_table_lock_wait
 
 ```cpp
@@ -7008,8 +6322,6 @@ Defined in psi/psi.h:2600
 **See also**: [end_table_lock_wait_v1_t](api.md#end_table_lock_wait_v1_t).
 
 ---
-
-{#start_file_open_wait}
 
 #### start_file_open_wait
 
@@ -7025,8 +6337,6 @@ Defined in psi/psi.h:2602
 
 ---
 
-{#end_file_open_wait}
-
 #### end_file_open_wait
 
 ```cpp
@@ -7040,8 +6350,6 @@ Defined in psi/psi.h:2604
 **See also**: [end_file_open_wait_v1_t](api.md#end_file_open_wait_v1_t).
 
 ---
-
-{#end_file_open_wait_and_bind_to_descriptor}
 
 #### end_file_open_wait_and_bind_to_descriptor
 
@@ -7057,8 +6365,6 @@ Defined in psi/psi.h:2607
 
 ---
 
-{#end_temp_file_open_wait_and_bind_to_descriptor}
-
 #### end_temp_file_open_wait_and_bind_to_descriptor
 
 ```cpp
@@ -7072,8 +6378,6 @@ Defined in psi/psi.h:2610
 **See also**: [end_temp_file_open_wait_and_bind_to_descriptor_v1_t](api.md#end_temp_file_open_wait_and_bind_to_descriptor_v1_t).
 
 ---
-
-{#start_file_wait}
 
 #### start_file_wait
 
@@ -7089,8 +6393,6 @@ Defined in psi/psi.h:2612
 
 ---
 
-{#end_file_wait}
-
 #### end_file_wait
 
 ```cpp
@@ -7104,8 +6406,6 @@ Defined in psi/psi.h:2614
 **See also**: [end_file_wait_v1_t](api.md#end_file_wait_v1_t).
 
 ---
-
-{#start_file_close_wait}
 
 #### start_file_close_wait
 
@@ -7121,8 +6421,6 @@ Defined in psi/psi.h:2616
 
 ---
 
-{#end_file_close_wait}
-
 #### end_file_close_wait
 
 ```cpp
@@ -7136,8 +6434,6 @@ Defined in psi/psi.h:2618
 **See also**: [end_file_close_wait_v1_t](api.md#end_file_close_wait_v1_t).
 
 ---
-
-{#end_file_rename_wait}
 
 #### end_file_rename_wait
 
@@ -7153,8 +6449,6 @@ Defined in psi/psi.h:2620
 
 ---
 
-{#start_stage}
-
 #### start_stage
 
 ```cpp
@@ -7168,8 +6462,6 @@ Defined in psi/psi.h:2622
 **See also**: [start_stage_v1_t](api.md#start_stage_v1_t).
 
 ---
-
-{#get_current_stage_progress}
 
 #### get_current_stage_progress
 
@@ -7185,8 +6477,6 @@ Defined in psi/psi.h:2624
 
 ---
 
-{#end_stage}
-
 #### end_stage
 
 ```cpp
@@ -7200,8 +6490,6 @@ Defined in psi/psi.h:2626
 **See also**: [end_stage_v1_t](api.md#end_stage_v1_t).
 
 ---
-
-{#get_thread_statement_locker}
 
 #### get_thread_statement_locker
 
@@ -7217,8 +6505,6 @@ Defined in psi/psi.h:2628
 
 ---
 
-{#refine_statement}
-
 #### refine_statement
 
 ```cpp
@@ -7232,8 +6518,6 @@ Defined in psi/psi.h:2630
 **See also**: [refine_statement_v1_t](api.md#refine_statement_v1_t).
 
 ---
-
-{#start_statement}
 
 #### start_statement
 
@@ -7249,8 +6533,6 @@ Defined in psi/psi.h:2632
 
 ---
 
-{#set_statement_text}
-
 #### set_statement_text
 
 ```cpp
@@ -7264,8 +6546,6 @@ Defined in psi/psi.h:2634
 **See also**: [set_statement_text_v1_t](api.md#set_statement_text_v1_t).
 
 ---
-
-{#set_statement_lock_time}
 
 #### set_statement_lock_time
 
@@ -7281,8 +6561,6 @@ Defined in psi/psi.h:2636
 
 ---
 
-{#set_statement_rows_sent}
-
 #### set_statement_rows_sent
 
 ```cpp
@@ -7296,8 +6574,6 @@ Defined in psi/psi.h:2638
 **See also**: [set_statement_rows_sent_t](api.md#set_statement_rows_sent_t).
 
 ---
-
-{#set_statement_rows_examined}
 
 #### set_statement_rows_examined
 
@@ -7313,8 +6589,6 @@ Defined in psi/psi.h:2640
 
 ---
 
-{#inc_statement_created_tmp_disk_tables}
-
 #### inc_statement_created_tmp_disk_tables
 
 ```cpp
@@ -7328,8 +6602,6 @@ Defined in psi/psi.h:2642
 **See also**: [inc_statement_created_tmp_disk_tables](#inc_statement_created_tmp_disk_tables).
 
 ---
-
-{#inc_statement_created_tmp_tables}
 
 #### inc_statement_created_tmp_tables
 
@@ -7345,8 +6617,6 @@ Defined in psi/psi.h:2644
 
 ---
 
-{#inc_statement_select_full_join}
-
 #### inc_statement_select_full_join
 
 ```cpp
@@ -7360,8 +6630,6 @@ Defined in psi/psi.h:2646
 **See also**: [inc_statement_select_full_join](#inc_statement_select_full_join).
 
 ---
-
-{#inc_statement_select_full_range_join}
 
 #### inc_statement_select_full_range_join
 
@@ -7377,8 +6645,6 @@ Defined in psi/psi.h:2648
 
 ---
 
-{#inc_statement_select_range}
-
 #### inc_statement_select_range
 
 ```cpp
@@ -7392,8 +6658,6 @@ Defined in psi/psi.h:2650
 **See also**: [inc_statement_select_range](#inc_statement_select_range).
 
 ---
-
-{#inc_statement_select_range_check}
 
 #### inc_statement_select_range_check
 
@@ -7409,8 +6673,6 @@ Defined in psi/psi.h:2652
 
 ---
 
-{#inc_statement_select_scan}
-
 #### inc_statement_select_scan
 
 ```cpp
@@ -7424,8 +6686,6 @@ Defined in psi/psi.h:2654
 **See also**: [inc_statement_select_scan](#inc_statement_select_scan).
 
 ---
-
-{#inc_statement_sort_merge_passes}
 
 #### inc_statement_sort_merge_passes
 
@@ -7441,8 +6701,6 @@ Defined in psi/psi.h:2656
 
 ---
 
-{#inc_statement_sort_range}
-
 #### inc_statement_sort_range
 
 ```cpp
@@ -7456,8 +6714,6 @@ Defined in psi/psi.h:2658
 **See also**: [inc_statement_sort_range](#inc_statement_sort_range).
 
 ---
-
-{#inc_statement_sort_rows}
 
 #### inc_statement_sort_rows
 
@@ -7473,8 +6729,6 @@ Defined in psi/psi.h:2660
 
 ---
 
-{#inc_statement_sort_scan}
-
 #### inc_statement_sort_scan
 
 ```cpp
@@ -7488,8 +6742,6 @@ Defined in psi/psi.h:2662
 **See also**: [inc_statement_sort_scan](#inc_statement_sort_scan).
 
 ---
-
-{#set_statement_no_index_used}
 
 #### set_statement_no_index_used
 
@@ -7505,8 +6757,6 @@ Defined in psi/psi.h:2664
 
 ---
 
-{#set_statement_no_good_index_used}
-
 #### set_statement_no_good_index_used
 
 ```cpp
@@ -7520,8 +6770,6 @@ Defined in psi/psi.h:2666
 **See also**: [set_statement_no_good_index_used](#set_statement_no_good_index_used).
 
 ---
-
-{#end_statement}
 
 #### end_statement
 
@@ -7537,8 +6785,6 @@ Defined in psi/psi.h:2668
 
 ---
 
-{#get_thread_transaction_locker}
-
 #### get_thread_transaction_locker
 
 ```cpp
@@ -7552,8 +6798,6 @@ Defined in psi/psi.h:2670
 **See also**: [get_thread_transaction_locker_v1_t](api.md#get_thread_transaction_locker_v1_t).
 
 ---
-
-{#start_transaction}
 
 #### start_transaction
 
@@ -7569,8 +6813,6 @@ Defined in psi/psi.h:2672
 
 ---
 
-{#set_transaction_xid}
-
 #### set_transaction_xid
 
 ```cpp
@@ -7584,8 +6826,6 @@ Defined in psi/psi.h:2674
 **See also**: [set_transaction_xid_v1_t](api.md#set_transaction_xid_v1_t).
 
 ---
-
-{#set_transaction_xa_state}
 
 #### set_transaction_xa_state
 
@@ -7601,8 +6841,6 @@ Defined in psi/psi.h:2676
 
 ---
 
-{#set_transaction_gtid}
-
 #### set_transaction_gtid
 
 ```cpp
@@ -7616,8 +6854,6 @@ Defined in psi/psi.h:2678
 **See also**: [set_transaction_gtid_v1_t](api.md#set_transaction_gtid_v1_t).
 
 ---
-
-{#set_transaction_trxid}
 
 #### set_transaction_trxid
 
@@ -7633,8 +6869,6 @@ Defined in psi/psi.h:2680
 
 ---
 
-{#inc_transaction_savepoints}
-
 #### inc_transaction_savepoints
 
 ```cpp
@@ -7648,8 +6882,6 @@ Defined in psi/psi.h:2682
 **See also**: [inc_transaction_savepoints_v1_t](api.md#inc_transaction_savepoints_v1_t).
 
 ---
-
-{#inc_transaction_rollback_to_savepoint}
 
 #### inc_transaction_rollback_to_savepoint
 
@@ -7665,8 +6897,6 @@ Defined in psi/psi.h:2684
 
 ---
 
-{#inc_transaction_release_savepoint}
-
 #### inc_transaction_release_savepoint
 
 ```cpp
@@ -7680,8 +6910,6 @@ Defined in psi/psi.h:2686
 **See also**: [inc_transaction_release_savepoint_v1_t](api.md#inc_transaction_release_savepoint_v1_t).
 
 ---
-
-{#end_transaction}
 
 #### end_transaction
 
@@ -7697,8 +6925,6 @@ Defined in psi/psi.h:2688
 
 ---
 
-{#start_socket_wait}
-
 #### start_socket_wait
 
 ```cpp
@@ -7712,8 +6938,6 @@ Defined in psi/psi.h:2690
 **See also**: [start_socket_wait_v1_t](api.md#start_socket_wait_v1_t).
 
 ---
-
-{#end_socket_wait}
 
 #### end_socket_wait
 
@@ -7729,8 +6953,6 @@ Defined in psi/psi.h:2692
 
 ---
 
-{#set_socket_state}
-
 #### set_socket_state
 
 ```cpp
@@ -7744,8 +6966,6 @@ Defined in psi/psi.h:2694
 **See also**: [set_socket_state_v1_t](api.md#set_socket_state_v1_t).
 
 ---
-
-{#set_socket_info}
 
 #### set_socket_info
 
@@ -7761,8 +6981,6 @@ Defined in psi/psi.h:2696
 
 ---
 
-{#set_socket_thread_owner}
-
 #### set_socket_thread_owner
 
 ```cpp
@@ -7776,8 +6994,6 @@ Defined in psi/psi.h:2698
 **See also**: [set_socket_thread_owner_v1_t](api.md#set_socket_thread_owner_v1_t).
 
 ---
-
-{#create_prepared_stmt}
 
 #### create_prepared_stmt
 
@@ -7793,8 +7009,6 @@ Defined in psi/psi.h:2700
 
 ---
 
-{#destroy_prepared_stmt}
-
 #### destroy_prepared_stmt
 
 ```cpp
@@ -7808,8 +7022,6 @@ Defined in psi/psi.h:2702
 **See also**: [destroy_prepared_stmt_v1_t](api.md#destroy_prepared_stmt_v1_t).
 
 ---
-
-{#reprepare_prepared_stmt}
 
 #### reprepare_prepared_stmt
 
@@ -7825,8 +7037,6 @@ Defined in psi/psi.h:2704
 
 ---
 
-{#execute_prepared_stmt}
-
 #### execute_prepared_stmt
 
 ```cpp
@@ -7840,8 +7050,6 @@ Defined in psi/psi.h:2706
 **See also**: [execute_prepared_stmt_v1_t](api.md#execute_prepared_stmt_v1_t).
 
 ---
-
-{#set_prepared_stmt_text}
 
 #### set_prepared_stmt_text
 
@@ -7857,8 +7065,6 @@ Defined in psi/psi.h:2708
 
 ---
 
-{#digest_start}
-
 #### digest_start
 
 ```cpp
@@ -7872,8 +7078,6 @@ Defined in psi/psi.h:2710
 **See also**: [digest_start_v1_t](api.md#digest_start_v1_t).
 
 ---
-
-{#digest_end}
 
 #### digest_end
 
@@ -7889,8 +7093,6 @@ Defined in psi/psi.h:2712
 
 ---
 
-{#set_thread_connect_attrs}
-
 #### set_thread_connect_attrs
 
 ```cpp
@@ -7904,8 +7106,6 @@ Defined in psi/psi.h:2714
 **See also**: [set_thread_connect_attrs_v1_t](api.md#set_thread_connect_attrs_v1_t).
 
 ---
-
-{#start_sp}
 
 #### start_sp
 
@@ -7921,8 +7121,6 @@ Defined in psi/psi.h:2716
 
 ---
 
-{#end_sp}
-
 #### end_sp
 
 ```cpp
@@ -7936,8 +7134,6 @@ Defined in psi/psi.h:2718
 **See also**: [start_sp_v1_t](api.md#start_sp_v1_t).
 
 ---
-
-{#drop_sp}
 
 #### drop_sp
 
@@ -7953,8 +7149,6 @@ Defined in psi/psi.h:2720
 
 ---
 
-{#get_sp_share}
-
 #### get_sp_share
 
 ```cpp
@@ -7968,8 +7162,6 @@ Defined in psi/psi.h:2722
 **See also**: [get_sp_share_v1_t](api.md#get_sp_share_v1_t).
 
 ---
-
-{#release_sp_share}
 
 #### release_sp_share
 
@@ -7985,8 +7177,6 @@ Defined in psi/psi.h:2724
 
 ---
 
-{#register_memory}
-
 #### register_memory
 
 ```cpp
@@ -8000,8 +7190,6 @@ Defined in psi/psi.h:2726
 **See also**: [register_memory_v1_t](api.md#register_memory_v1_t).
 
 ---
-
-{#memory_alloc}
 
 #### memory_alloc
 
@@ -8017,8 +7205,6 @@ Defined in psi/psi.h:2728
 
 ---
 
-{#memory_realloc}
-
 #### memory_realloc
 
 ```cpp
@@ -8032,8 +7218,6 @@ Defined in psi/psi.h:2730
 **See also**: [memory_realloc_v1_t](api.md#memory_realloc_v1_t).
 
 ---
-
-{#memory_claim}
 
 #### memory_claim
 
@@ -8049,8 +7233,6 @@ Defined in psi/psi.h:2732
 
 ---
 
-{#memory_free}
-
 #### memory_free
 
 ```cpp
@@ -8065,8 +7247,6 @@ Defined in psi/psi.h:2734
 
 ---
 
-{#unlock_table}
-
 #### unlock_table
 
 ```cpp
@@ -8078,8 +7258,6 @@ Type: [`unlock_table_v1_t`](api.md#unlock_table_v1_t)
 Defined in psi/psi.h:2736
 
 ---
-
-{#create_metadata_lock}
 
 #### create_metadata_lock
 
@@ -8093,8 +7271,6 @@ Defined in psi/psi.h:2738
 
 ---
 
-{#set_metadata_lock_status}
-
 #### set_metadata_lock_status
 
 ```cpp
@@ -8106,8 +7282,6 @@ Type: [`set_metadata_lock_status_v1_t`](api.md#set_metadata_lock_status_v1_t)
 Defined in psi/psi.h:2739
 
 ---
-
-{#destroy_metadata_lock}
 
 #### destroy_metadata_lock
 
@@ -8121,8 +7295,6 @@ Defined in psi/psi.h:2740
 
 ---
 
-{#start_metadata_wait}
-
 #### start_metadata_wait
 
 ```cpp
@@ -8134,8 +7306,6 @@ Type: [`start_metadata_wait_v1_t`](api.md#start_metadata_wait_v1_t)
 Defined in psi/psi.h:2742
 
 ---
-
-{#end_metadata_wait}
 
 #### end_metadata_wait
 
@@ -8149,8 +7319,6 @@ Defined in psi/psi.h:2743
 
 ---
 
-{#set_thread_peer_port}
-
 #### set_thread_peer_port
 
 ```cpp
@@ -8161,7 +7329,7 @@ Type: [`set_thread_peer_port_v1_t`](api.md#set_thread_peer_port_v1_t)
 
 Defined in psi/psi.h:2745
 
-{#psi_memory_info_v1-1}
+
 
 ### PSI_memory_info_v1
 
@@ -8181,13 +7349,11 @@ Memory instrument information. **Since**: PSI_VERSION_1 This structure is used t
 
 | Return | Name | Description |
 |--------|------|-------------|
-| [`PSI_memory_key`](api.md#psi_memory_key) * | [`m_key`](#m_key-9)  | Pointer to the key assigned to the registered memory. |
-| `const char *` | [`m_name`](#m_name-10)  | The name of the memory instrument to register. |
-| `int` | [`m_flags`](#m_flags-20)  | The flags of the socket instrument to register. **See also**: [PSI_FLAG_GLOBAL](api.md#psi_flag_global) |
+| [`PSI_memory_key`](api.md#psi_memory_key) * | [`m_key`](#m_key-8)  | Pointer to the key assigned to the registered memory. |
+| `const char *` | [`m_name`](#m_name-9)  | The name of the memory instrument to register. |
+| `int` | [`m_flags`](#m_flags-18)  | The flags of the socket instrument to register. **See also**: [PSI_FLAG_GLOBAL](api.md#psi_flag_global) |
 
 ---
-
-{#m_key-9}
 
 #### m_key
 
@@ -8203,8 +7369,6 @@ Pointer to the key assigned to the registered memory.
 
 ---
 
-{#m_name-10}
-
 #### m_name
 
 ```cpp
@@ -8216,8 +7380,6 @@ Defined in psi/psi_memory.h:73
 The name of the memory instrument to register.
 
 ---
-
-{#m_flags-20}
 
 #### m_flags
 

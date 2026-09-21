@@ -3,11 +3,11 @@ description: >-
   Plugin API reference: Stage Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
 ---
 
-{#stageinstrumentation}
+
 
 # Stage Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md#instrumentationinterface)
+> [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Macros
 
@@ -25,8 +25,6 @@ description: >-
 
 ---
 
-{#mysql_stage_register}
-
 ### mysql_stage_register
 
 ```cpp
@@ -38,8 +36,6 @@ Defined in psi/mysql_stage.h:51
 Stage registration.
 
 ---
-
-{#mysql_set_stage}
 
 ### MYSQL_SET_STAGE
 
@@ -66,8 +62,6 @@ the current stage progress
 
 ---
 
-{#mysql_set_stage-1}
-
 ### mysql_set_stage
 
 ```cpp
@@ -89,8 +83,6 @@ the current stage progress
 
 ---
 
-{#mysql_end_stage}
-
 ### mysql_end_stage
 
 ```cpp
@@ -103,8 +95,6 @@ End the last stage
 
 ---
 
-{#mysql_stage_set_work_completed}
-
 ### mysql_stage_set_work_completed
 
 ```cpp
@@ -114,8 +104,6 @@ End the last stage
 Defined in psi/mysql_stage.h:131
 
 ---
-
-{#mysql_stage_get_work_completed}
 
 ### mysql_stage_get_work_completed
 
@@ -127,8 +115,6 @@ Defined in psi/mysql_stage.h:134
 
 ---
 
-{#mysql_stage_inc_work_completed}
-
 ### mysql_stage_inc_work_completed
 
 ```cpp
@@ -139,8 +125,6 @@ Defined in psi/mysql_stage.h:142
 
 ---
 
-{#mysql_stage_set_work_estimated}
-
 ### mysql_stage_set_work_estimated
 
 ```cpp
@@ -150,8 +134,6 @@ Defined in psi/mysql_stage.h:142
 Defined in psi/mysql_stage.h:153
 
 ---
-
-{#mysql_stage_get_work_estimated}
 
 ### mysql_stage_get_work_estimated
 

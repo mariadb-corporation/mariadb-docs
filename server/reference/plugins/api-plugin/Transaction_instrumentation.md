@@ -3,11 +3,11 @@ description: >-
   Plugin API reference: Transaction Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
 ---
 
-{#transactioninstrumentation}
+
 
 # Transaction Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md#instrumentationinterface)
+> [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Macros
 
@@ -26,8 +26,6 @@ description: >-
 
 ---
 
-{#mysql_start_transaction}
-
 ### MYSQL_START_TRANSACTION
 
 ```cpp
@@ -37,8 +35,6 @@ description: >-
 Defined in psi/mysql_transaction.h:47
 
 ---
-
-{#mysql_set_transaction_gtid}
 
 ### MYSQL_SET_TRANSACTION_GTID
 
@@ -50,8 +46,6 @@ Defined in psi/mysql_transaction.h:55
 
 ---
 
-{#mysql_set_transaction_xid}
-
 ### MYSQL_SET_TRANSACTION_XID
 
 ```cpp
@@ -61,8 +55,6 @@ Defined in psi/mysql_transaction.h:55
 Defined in psi/mysql_transaction.h:63
 
 ---
-
-{#mysql_set_transaction_xa_state}
 
 ### MYSQL_SET_TRANSACTION_XA_STATE
 
@@ -74,8 +66,6 @@ Defined in psi/mysql_transaction.h:71
 
 ---
 
-{#mysql_set_transaction_trxid}
-
 ### MYSQL_SET_TRANSACTION_TRXID
 
 ```cpp
@@ -85,8 +75,6 @@ Defined in psi/mysql_transaction.h:71
 Defined in psi/mysql_transaction.h:79
 
 ---
-
-{#mysql_inc_transaction_savepoints}
 
 ### MYSQL_INC_TRANSACTION_SAVEPOINTS
 
@@ -98,8 +86,6 @@ Defined in psi/mysql_transaction.h:87
 
 ---
 
-{#mysql_inc_transaction_rollback_to_savepoint}
-
 ### MYSQL_INC_TRANSACTION_ROLLBACK_TO_SAVEPOINT
 
 ```cpp
@@ -109,8 +95,6 @@ Defined in psi/mysql_transaction.h:87
 Defined in psi/mysql_transaction.h:95
 
 ---
-
-{#mysql_inc_transaction_release_savepoint}
 
 ### MYSQL_INC_TRANSACTION_RELEASE_SAVEPOINT
 
@@ -122,8 +106,6 @@ Defined in psi/mysql_transaction.h:103
 
 ---
 
-{#mysql_rollback_transaction}
-
 ### MYSQL_ROLLBACK_TRANSACTION
 
 ```cpp
@@ -133,8 +115,6 @@ Defined in psi/mysql_transaction.h:103
 Defined in psi/mysql_transaction.h:111
 
 ---
-
-{#mysql_commit_transaction}
 
 ### MYSQL_COMMIT_TRANSACTION
 

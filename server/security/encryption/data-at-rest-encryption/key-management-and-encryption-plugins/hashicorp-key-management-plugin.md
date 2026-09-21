@@ -122,6 +122,7 @@ The plugin supports the following parameters, which must be set in advance and c
 
 * Description: The time (in milliseconds) after which the value of the key stored in the cache becomes invalid and an attempt to read this data causes a new request to be sent to the vault server. By default, cache entries become invalid after 60,000 milliseconds (after one minute). If the value of this parameter is zero, then the keys will always be considered invalid, but they still can be used if the vault server is unavailable and the corresponding cache operating mode (`--[loose-]hashicorp-key-management-use-cache-on-timeout="on"`) is enabled.
 * As of MariaDB 10.6.24, the default value is 1 year (specified in milliseconds).
+* As of MariaDB 10.11.19, 11.4.13, 11.8.9, 12.3.3, and 13.0.2, this timeout is measured as elapsed time. Earlier releases measured it as process CPU time, so a cache entry could stay valid for much longer than the configured interval on a lightly loaded server.
 * Command line: `--[loose-]hashicorp-key-management-cache-timeout=<timeout>`
 * Deprecated in MariaDB 10.11.16
 
@@ -129,6 +130,7 @@ The plugin supports the following parameters, which must be set in advance and c
 
 * Description: The time (in milliseconds) after which the information about the latest version number of the key (which is stored in the cache) becomes invalid and an attempt to read this information causes a new request to be sent to the vault server. If the value of this parameter is zero, then information about the latest key version numbers is always considered invalid, unless there is no communication with the vault server, and use of the cache is allowed when the server is unavailable. By default, this parameter is zero, that is, the latest version numbers for the keys stored in the cache are considered always invalid, except when the vault server is unavailable and use
   of the cache is allowed on server failures.
+* As of MariaDB 10.11.19, 11.4.13, 11.8.9, 12.3.3, and 13.0.2, this timeout is measured as elapsed time. Earlier releases measured it as process CPU time, so cached version information could stay valid for much longer than the configured interval on a lightly loaded server.
 * Command line: `--[loose-]hashicorp-key-management-cache-version-timeout=<timeout>`
 
 #### `hashicorp-key-management-check-kv-version`

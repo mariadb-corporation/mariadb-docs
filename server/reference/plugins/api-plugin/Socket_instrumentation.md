@@ -3,11 +3,11 @@ description: >-
   Plugin API reference: Socket Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
 ---
 
-{#socketinstrumentation}
+
 
 # Socket Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md#instrumentationinterface)
+> [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Classes
 
@@ -45,8 +45,6 @@ description: >-
 
 ---
 
-{#mysql_socket_register}
-
 ### mysql_socket_register
 
 ```cpp
@@ -59,8 +57,6 @@ Socket registration.
 
 ---
 
-{#mysql_invalid_socket}
-
 ### MYSQL_INVALID_SOCKET
 
 ```cpp
@@ -72,8 +68,6 @@ Defined in psi/mysql_socket.h:107
 MYSQL_SOCKET initial value.
 
 ---
-
-{#mysql_socket_wait_variables}
 
 ### MYSQL_SOCKET_WAIT_VARIABLES
 
@@ -98,8 +92,6 @@ Instrumentation helper for socket waits. This instrumentation declares local var
 | `STATE` |  | locker state |
 
 ---
-
-{#mysql_start_socket_wait}
 
 ### MYSQL_START_SOCKET_WAIT
 
@@ -129,8 +121,6 @@ Instrumentation helper for socket waits. This instrumentation marks the start of
 
 ---
 
-{#mysql_end_socket_wait}
-
 ### MYSQL_END_SOCKET_WAIT
 
 ```cpp
@@ -151,8 +141,6 @@ Instrumentation helper for socket waits. This instrumentation marks the end of a
 | `COUNT` |  | actual bytes written/read, or -1 |
 
 ---
-
-{#mysql_socket_set_state}
 
 ### MYSQL_SOCKET_SET_STATE
 
@@ -175,8 +163,6 @@ Set the state (IDLE, ACTIVE) of an instrumented socket. **See also**: PSI_socket
 
 ---
 
-{#mysql_socket_fd}
-
 ### mysql_socket_fd
 
 ```cpp
@@ -197,8 +183,6 @@ Create a socket. `mysql_socket_fd` is a replacement for `socket`.
 | `F` |  | File descriptor |
 
 ---
-
-{#mysql_socket_socket}
 
 ### mysql_socket_socket
 
@@ -225,8 +209,6 @@ Create a socket. `mysql_socket_socket` is a replacement for `socket`.
 
 ---
 
-{#mysql_socket_bind}
-
 ### mysql_socket_bind
 
 ```cpp
@@ -249,8 +231,6 @@ Bind a socket to a local port number and IP address `mysql_socket_bind` is a rep
 | `L` |  | Length of sockaddr structure |
 
 ---
-
-{#mysql_socket_getsockname}
 
 ### mysql_socket_getsockname
 
@@ -275,8 +255,6 @@ Return port number and IP address of the local host `mysql_socket_getsockname` i
 
 ---
 
-{#mysql_socket_connect}
-
 ### mysql_socket_connect
 
 ```cpp
@@ -300,8 +278,6 @@ Establish a connection to a remote host. `mysql_socket_connect` is a replacement
 
 ---
 
-{#mysql_socket_getpeername}
-
 ### mysql_socket_getpeername
 
 ```cpp
@@ -324,8 +300,6 @@ Get port number and IP address of remote host that a socket is connected to. `my
 | `LP` |  | Pointer to length of sockaddr structure |
 
 ---
-
-{#mysql_socket_send}
 
 ### mysql_socket_send
 
@@ -352,8 +326,6 @@ Send data from the buffer, B, to a connected socket. `mysql_socket_send` is a re
 
 ---
 
-{#mysql_socket_recv}
-
 ### mysql_socket_recv
 
 ```cpp
@@ -378,8 +350,6 @@ Receive data from a connected socket. `mysql_socket_recv` is a replacement for `
 | `FL` |  | Control flags |
 
 ---
-
-{#mysql_socket_sendto}
 
 ### mysql_socket_sendto
 
@@ -410,8 +380,6 @@ Send data to a socket at the specified address. `mysql_socket_sendto` is a repla
 
 ---
 
-{#mysql_socket_recvfrom}
-
 ### mysql_socket_recvfrom
 
 ```cpp
@@ -441,8 +409,6 @@ Receive data from a socket and return source address information `mysql_socket_r
 
 ---
 
-{#mysql_socket_getsockopt}
-
 ### mysql_socket_getsockopt
 
 ```cpp
@@ -469,8 +435,6 @@ Get a socket option for the specified socket. `mysql_socket_getsockopt` is a rep
 | `OL` |  | Pointer to length of OP |
 
 ---
-
-{#mysql_socket_setsockopt}
 
 ### mysql_socket_setsockopt
 
@@ -499,8 +463,6 @@ Set a socket option for the specified socket. `mysql_socket_setsockopt` is a rep
 
 ---
 
-{#mysql_sock_set_nonblocking}
-
 ### mysql_sock_set_nonblocking
 
 ```cpp
@@ -519,8 +481,6 @@ Set socket to non-blocking.
 | `FD` |  | instrumented socket descriptor |
 
 ---
-
-{#mysql_socket_listen}
 
 ### mysql_socket_listen
 
@@ -542,8 +502,6 @@ Set socket state to listen for an incoming connection. `mysql_socket_listen` is 
 | `N` |  | Maximum number of pending connections allowed. |
 
 ---
-
-{#mysql_socket_accept}
 
 ### mysql_socket_accept
 
@@ -570,8 +528,6 @@ Accept a connection from any remote host; TCP only. `mysql_socket_accept` is a r
 
 ---
 
-{#mysql_socket_close}
-
 ### mysql_socket_close
 
 ```cpp
@@ -590,8 +546,6 @@ Close a socket and sever any connections. `mysql_socket_close` is a replacement 
 | `FD` |  | Instrumented socket descriptor returned by socket() or accept() |
 
 ---
-
-{#mysql_socket_shutdown}
 
 ### mysql_socket_shutdown
 
@@ -619,8 +573,6 @@ Disable receives and/or sends on a socket. `mysql_socket_shutdown` is a replacem
 | struct [`st_mysql_socket`](#st_mysql_socket) | [`MYSQL_SOCKET`](#mysql_socket)  | An instrumented socket. `MYSQL_SOCKET` is a replacement for `my_socket`. |
 
 ---
-
-{#mysql_socket}
 
 ### MYSQL_SOCKET
 
@@ -668,8 +620,6 @@ An instrumented socket. `MYSQL_SOCKET` is a replacement for `my_socket`.
 
 ---
 
-{#mysql_socket_invalid}
-
 ### mysql_socket_invalid
 
 `static` `inline`
@@ -685,8 +635,6 @@ MYSQL_SOCKET helper. Initialize instrumented socket. **See also**: mysql_socket_
 **See also**: mysql_socket_setfd
 
 ---
-
-{#mysql_socket_set_address}
 
 ### mysql_socket_set_address
 
@@ -713,8 +661,6 @@ Set socket descriptor and address.
 
 ---
 
-{#mysql_socket_set_thread_owner}
-
 ### mysql_socket_set_thread_owner
 
 `static` `inline`
@@ -736,8 +682,6 @@ Set socket descriptor and address.
 
 ---
 
-{#mysql_socket_getfd}
-
 ### mysql_socket_getfd
 
 `static` `inline`
@@ -758,8 +702,6 @@ MYSQL_SOCKET helper. Get socket descriptor. **See also**: mysql_socket_getfd
 | `mysql_socket` | [`MYSQL_SOCKET`](api.md#mysql_socket) | Instrumented socket |
 
 ---
-
-{#mysql_socket_setfd}
 
 ### mysql_socket_setfd
 
@@ -784,8 +726,6 @@ MYSQL_SOCKET helper. Set socket descriptor. **See also**: mysql_socket_setfd
 
 ---
 
-{#inline_mysql_start_socket_wait}
-
 ### inline_mysql_start_socket_wait
 
 `static` `inline`
@@ -800,8 +740,6 @@ Instrumentation calls for MYSQL_START_SOCKET_WAIT. **See also**: [MYSQL_START_SO
 
 ---
 
-{#inline_mysql_end_socket_wait}
-
 ### inline_mysql_end_socket_wait
 
 `static` `inline`
@@ -815,8 +753,6 @@ Defined in psi/mysql_socket.h:288
 Instrumentation calls for MYSQL_END_SOCKET_WAIT. **See also**: [MYSQL_END_SOCKET_WAIT](api.md#mysql_end_socket_wait).
 
 ---
-
-{#inline_mysql_socket_set_state}
 
 ### inline_mysql_socket_set_state
 
@@ -841,8 +777,6 @@ Set the state (IDLE, ACTIVE) of an instrumented socket. **See also**: PSI_socket
 
 ---
 
-{#inline_mysql_socket_register}
-
 ### inline_mysql_socket_register
 
 `static` `inline`
@@ -854,8 +788,6 @@ static inline void inline_mysql_socket_register(const char * category, PSI_socke
 Defined in psi/mysql_socket.h:589
 
 ---
-
-{#inline_mysql_socket_fd}
 
 ### inline_mysql_socket_fd
 
@@ -871,8 +803,6 @@ mysql_socket_fd
 
 ---
 
-{#inline_mysql_socket_socket}
-
 ### inline_mysql_socket_socket
 
 `static` `inline`
@@ -886,8 +816,6 @@ Defined in psi/mysql_socket.h:634
 mysql_socket_socket
 
 ---
-
-{#inline_mysql_socket_bind}
 
 ### inline_mysql_socket_bind
 
@@ -903,8 +831,6 @@ mysql_socket_bind
 
 ---
 
-{#inline_mysql_socket_getsockname}
-
 ### inline_mysql_socket_getsockname
 
 `static` `inline`
@@ -918,8 +844,6 @@ Defined in psi/mysql_socket.h:703
 mysql_socket_getsockname
 
 ---
-
-{#inline_mysql_socket_connect}
 
 ### inline_mysql_socket_connect
 
@@ -935,8 +859,6 @@ mysql_socket_connect
 
 ---
 
-{#inline_mysql_socket_getpeername}
-
 ### inline_mysql_socket_getpeername
 
 `static` `inline`
@@ -950,8 +872,6 @@ Defined in psi/mysql_socket.h:779
 mysql_socket_getpeername
 
 ---
-
-{#inline_mysql_socket_send}
 
 ### inline_mysql_socket_send
 
@@ -967,8 +887,6 @@ mysql_socket_send
 
 ---
 
-{#inline_mysql_socket_recv}
-
 ### inline_mysql_socket_recv
 
 `static` `inline`
@@ -982,8 +900,6 @@ Defined in psi/mysql_socket.h:858
 mysql_socket_recv
 
 ---
-
-{#inline_mysql_socket_sendto}
 
 ### inline_mysql_socket_sendto
 
@@ -999,8 +915,6 @@ mysql_socket_sendto
 
 ---
 
-{#inline_mysql_socket_recvfrom}
-
 ### inline_mysql_socket_recvfrom
 
 `static` `inline`
@@ -1014,8 +928,6 @@ Defined in psi/mysql_socket.h:940
 mysql_socket_recvfrom
 
 ---
-
-{#inline_mysql_socket_getsockopt}
 
 ### inline_mysql_socket_getsockopt
 
@@ -1031,8 +943,6 @@ mysql_socket_getsockopt
 
 ---
 
-{#inline_mysql_socket_setsockopt}
-
 ### inline_mysql_socket_setsockopt
 
 `static` `inline`
@@ -1046,8 +956,6 @@ Defined in psi/mysql_socket.h:1020
 mysql_socket_setsockopt
 
 ---
-
-{#set_socket_nonblock}
 
 ### set_socket_nonblock
 
@@ -1063,8 +971,6 @@ set_socket_nonblock
 
 ---
 
-{#inline_mysql_sock_set_nonblocking}
-
 ### inline_mysql_sock_set_nonblocking
 
 `static` `inline`
@@ -1078,8 +984,6 @@ Defined in psi/mysql_socket.h:1091
 mysql_socket_set_nonblocking
 
 ---
-
-{#inline_mysql_socket_listen}
 
 ### inline_mysql_socket_listen
 
@@ -1095,8 +999,6 @@ mysql_socket_listen
 
 ---
 
-{#inline_mysql_socket_accept}
-
 ### inline_mysql_socket_accept
 
 `static` `inline`
@@ -1111,8 +1013,6 @@ mysql_socket_accept
 
 ---
 
-{#inline_mysql_socket_close}
-
 ### inline_mysql_socket_close
 
 `static` `inline`
@@ -1126,8 +1026,6 @@ Defined in psi/mysql_socket.h:1250
 mysql_socket_close
 
 ---
-
-{#inline_mysql_socket_shutdown}
 
 ### inline_mysql_socket_shutdown
 
@@ -1144,7 +1042,7 @@ mysql_socket_shutdown
 
 ## Class Definitions
 
-{#st_mysql_socket}
+
 
 ### st_mysql_socket
 
@@ -1168,11 +1066,9 @@ An instrumented socket.
 | `char` | [`is_unix_domain_socket`](#is_unix_domain_socket)  | Is this a Unix-domain socket? |
 | `char` | [`is_extra_port`](#is_extra_port)  | Is this a socket opened for the extra port? |
 | `unsigned short` | [`address_family`](#address_family)  | Address family of the socket. (See sa_family from struct sockaddr). |
-| struct [`PSI_socket`](api.md#psi_socket) * | [`m_psi`](#m_psi-1)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `MYSQL_SOCKET` interface. |
+| struct [`PSI_socket`](api.md#psi_socket) * | [`m_psi`](#m_psi)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `MYSQL_SOCKET` interface. |
 
 ---
-
-{#fd}
 
 #### fd
 
@@ -1186,8 +1082,6 @@ The real socket descriptor.
 
 ---
 
-{#is_unix_domain_socket}
-
 #### is_unix_domain_socket
 
 ```cpp
@@ -1199,8 +1093,6 @@ Defined in psi/mysql_socket.h:79
 Is this a Unix-domain socket?
 
 ---
-
-{#is_extra_port}
 
 #### is_extra_port
 
@@ -1214,8 +1106,6 @@ Is this a socket opened for the extra port?
 
 ---
 
-{#address_family}
-
 #### address_family
 
 ```cpp
@@ -1227,8 +1117,6 @@ Defined in psi/mysql_socket.h:85
 Address family of the socket. (See sa_family from struct sockaddr).
 
 ---
-
-{#m_psi-1}
 
 #### m_psi
 

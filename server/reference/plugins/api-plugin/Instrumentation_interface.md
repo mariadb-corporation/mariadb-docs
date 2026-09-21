@@ -3,7 +3,7 @@ description: >-
   Plugin API reference: Instrumentation Interface. Generated from the MariaDB server headers by doxygen and moxygen.
 ---
 
-{#instrumentationinterface}
+
 
 # Instrumentation Interface
 
@@ -11,17 +11,17 @@ description: >-
 
 | Name | Description |
 |------|-------------|
-| [`File Instrumentation`](File_instrumentation.md#fileinstrumentation) |  |
-| [`Idle Instrumentation`](Idle_instrumentation.md#idleinstrumentation) |  |
-| [`Metadata Instrumentation`](Metadata_instrumentation.md#metadatainstrumentation) |  |
-| [`Memory Instrumentation`](Memory_instrumentation.md#memoryinstrumentation) |  |
-| [`Socket Instrumentation`](Socket_instrumentation.md#socketinstrumentation) |  |
-| [`Stage Instrumentation`](Stage_instrumentation.md#stageinstrumentation) |  |
-| [`Statement Instrumentation`](Statement_instrumentation.md#statementinstrumentation) |  |
-| [`Table Instrumentation`](Table_instrumentation.md#tableinstrumentation) |  |
-| [`Thread Instrumentation`](Thread_instrumentation.md#threadinstrumentation) |  |
-| [`Transaction Instrumentation`](Transaction_instrumentation.md#transactioninstrumentation) |  |
-| [`Application Binary Interface, version 1`](Group_PSI_v1.md#applicationbinaryinterfaceversion1) |  |
+| [`File Instrumentation`](File_instrumentation.md) |  |
+| [`Idle Instrumentation`](Idle_instrumentation.md) |  |
+| [`Metadata Instrumentation`](Metadata_instrumentation.md) |  |
+| [`Memory Instrumentation`](Memory_instrumentation.md) |  |
+| [`Socket Instrumentation`](Socket_instrumentation.md) |  |
+| [`Stage Instrumentation`](Stage_instrumentation.md) |  |
+| [`Statement Instrumentation`](Statement_instrumentation.md) |  |
+| [`Table Instrumentation`](Table_instrumentation.md) |  |
+| [`Thread Instrumentation`](Thread_instrumentation.md) |  |
+| [`Transaction Instrumentation`](Transaction_instrumentation.md) |  |
+| [`Application Binary Interface, version 1`](Group_PSI_v1.md) |  |
 
 ## Classes
 
@@ -52,8 +52,6 @@ description: >-
 
 ---
 
-{#psi_dynamic_call}
-
 ### PSI_DYNAMIC_CALL
 
 ```cpp
@@ -63,8 +61,6 @@ description: >-
 Defined in psi/psi.h:3028
 
 ---
-
-{#psi_instrument_me}
 
 ### PSI_INSTRUMENT_ME
 
@@ -76,8 +72,6 @@ Defined in psi/psi_base.h:47
 
 ---
 
-{#psi_instrument_mem}
-
 ### PSI_INSTRUMENT_MEM
 
 ```cpp
@@ -88,8 +82,6 @@ Defined in psi/psi_base.h:48
 
 ---
 
-{#psi_not_instrumented}
-
 ### PSI_NOT_INSTRUMENTED
 
 ```cpp
@@ -99,8 +91,6 @@ Defined in psi/psi_base.h:48
 Defined in psi/psi_base.h:50
 
 ---
-
-{#psi_flag_global}
 
 ### PSI_FLAG_GLOBAL
 
@@ -114,8 +104,6 @@ Global flag. This flag indicate that an instrumentation point is a global variab
 
 ---
 
-{#psi_flag_mutable}
-
 ### PSI_FLAG_MUTABLE
 
 ```cpp
@@ -128,8 +116,6 @@ Mutable flag. This flag indicate that an instrumentation point is a general plac
 
 ---
 
-{#psi_flag_thread}
-
 ### PSI_FLAG_THREAD
 
 ```cpp
@@ -139,8 +125,6 @@ Mutable flag. This flag indicate that an instrumentation point is a general plac
 Defined in psi/psi_base.h:66
 
 ---
-
-{#psi_flag_stage_progress}
 
 ### PSI_FLAG_STAGE_PROGRESS
 
@@ -154,8 +138,6 @@ Stage progress flag. This flag apply to the stage instruments only. It indicates
 
 ---
 
-{#psi_rwlock_flag_sx}
-
 ### PSI_RWLOCK_FLAG_SX
 
 ```cpp
@@ -167,8 +149,6 @@ Defined in psi/psi_base.h:79
 Shared Exclusive flag. Indicates that rwlock support the shared exclusive state.
 
 ---
-
-{#psi_flag_transfer}
 
 ### PSI_FLAG_TRANSFER
 
@@ -182,8 +162,6 @@ Transferable flag. This flag indicate that an instrumented object can be created
 
 ---
 
-{#psi_flag_volatility_session}
-
 ### PSI_FLAG_VOLATILITY_SESSION
 
 ```cpp
@@ -195,8 +173,6 @@ Defined in psi/psi_base.h:94
 Volatility flag. This flag indicate that an instrumented object has a volatility (life cycle) comparable to the volatility of a session.
 
 ---
-
-{#psi_flag_thread_system}
 
 ### PSI_FLAG_THREAD_SYSTEM
 
@@ -215,8 +191,6 @@ System thread flag. Indicates that the instrumented object exists on a system th
 | [`PSI_table_io_operation`](#psi_table_io_operation)  | IO operation performed on an instrumented table. |
 
 ---
-
-{#psi_table_io_operation}
 
 ### PSI_table_io_operation
 
@@ -292,8 +266,6 @@ IO operation performed on an instrumented table.
 
 ---
 
-{#psi_mutex}
-
 ### PSI_mutex
 
 ```cpp
@@ -305,8 +277,6 @@ Type: struct [`PSI_mutex`](api.md#psi_mutex)
 Defined in psi/psi.h:115
 
 ---
-
-{#psi_rwlock}
 
 ### PSI_rwlock
 
@@ -320,8 +290,6 @@ Defined in psi/psi.h:122
 
 ---
 
-{#psi_cond}
-
 ### PSI_cond
 
 ```cpp
@@ -333,8 +301,6 @@ Type: struct [`PSI_cond`](api.md#psi_cond)
 Defined in psi/psi.h:129
 
 ---
-
-{#psi_table_share}
 
 ### PSI_table_share
 
@@ -348,8 +314,6 @@ Defined in psi/psi.h:136
 
 ---
 
-{#psi_table}
-
 ### PSI_table
 
 ```cpp
@@ -361,8 +325,6 @@ Type: struct [`PSI_table`](api.md#psi_table)
 Defined in psi/psi.h:143
 
 ---
-
-{#psi_thread}
 
 ### PSI_thread
 
@@ -376,8 +338,6 @@ Defined in psi/psi.h:150
 
 ---
 
-{#psi_file}
-
 ### PSI_file
 
 ```cpp
@@ -389,8 +349,6 @@ Type: struct [`PSI_file`](api.md#psi_file)
 Defined in psi/psi.h:157
 
 ---
-
-{#psi_socket}
 
 ### PSI_socket
 
@@ -404,8 +362,6 @@ Defined in psi/psi.h:164
 
 ---
 
-{#psi_prepared_stmt}
-
 ### PSI_prepared_stmt
 
 ```cpp
@@ -417,8 +373,6 @@ Type: struct [`PSI_prepared_stmt`](api.md#psi_prepared_stmt)
 Defined in psi/psi.h:171
 
 ---
-
-{#psi_table_locker}
 
 ### PSI_table_locker
 
@@ -432,8 +386,6 @@ Defined in psi/psi.h:178
 
 ---
 
-{#psi_statement_locker}
-
 ### PSI_statement_locker
 
 ```cpp
@@ -445,8 +397,6 @@ Type: struct [`PSI_statement_locker`](api.md#psi_statement_locker)
 Defined in psi/psi.h:185
 
 ---
-
-{#psi_transaction_locker}
 
 ### PSI_transaction_locker
 
@@ -460,8 +410,6 @@ Defined in psi/psi.h:192
 
 ---
 
-{#psi_idle_locker}
-
 ### PSI_idle_locker
 
 ```cpp
@@ -473,8 +421,6 @@ Type: struct [`PSI_idle_locker`](api.md#psi_idle_locker)
 Defined in psi/psi.h:199
 
 ---
-
-{#psi_digest_locker}
 
 ### PSI_digest_locker
 
@@ -488,8 +434,6 @@ Defined in psi/psi.h:206
 
 ---
 
-{#psi_sp_share}
-
 ### PSI_sp_share
 
 ```cpp
@@ -501,8 +445,6 @@ Type: struct [`PSI_sp_share`](api.md#psi_sp_share)
 Defined in psi/psi.h:213
 
 ---
-
-{#psi_sp_locker}
 
 ### PSI_sp_locker
 
@@ -516,8 +458,6 @@ Defined in psi/psi.h:220
 
 ---
 
-{#psi_metadata_lock}
-
 ### PSI_metadata_lock
 
 ```cpp
@@ -529,8 +469,6 @@ Type: struct [`PSI_metadata_lock`](api.md#psi_metadata_lock)
 Defined in psi/psi.h:227
 
 ---
-
-{#psi_stage_progress}
 
 ### PSI_stage_progress
 
@@ -544,8 +482,6 @@ Defined in psi/psi.h:238
 
 ---
 
-{#psi_table_io_operation-1}
-
 ### PSI_table_io_operation
 
 ```cpp
@@ -557,8 +493,6 @@ Type: enum [`PSI_table_io_operation`](api.md#psi_table_io_operation)
 Defined in psi/psi.h:252
 
 ---
-
-{#psi_table_locker_state}
 
 ### PSI_table_locker_state
 
@@ -572,8 +506,6 @@ Defined in psi/psi.h:290
 
 ---
 
-{#psi_bootstrap}
-
 ### PSI_bootstrap
 
 ```cpp
@@ -585,8 +517,6 @@ Type: struct [`PSI_bootstrap`](#psi_bootstrap-1)
 Defined in psi/psi.h:310
 
 ---
-
-{#psi_mutex_key}
 
 ### PSI_mutex_key
 
@@ -600,8 +530,6 @@ Instrumented mutex key. To instrument a mutex, a mutex key must be obtained usin
 
 ---
 
-{#psi_rwlock_key}
-
 ### PSI_rwlock_key
 
 ```cpp
@@ -613,8 +541,6 @@ Defined in psi/psi.h:800
 Instrumented rwlock key. To instrument a rwlock, a rwlock key must be obtained using `register_rwlock`. Using a zero key always disable the instrumentation.
 
 ---
-
-{#psi_cond_key}
 
 ### PSI_cond_key
 
@@ -628,8 +554,6 @@ Instrumented cond key. To instrument a condition, a condition key must be obtain
 
 ---
 
-{#psi_thread_key}
-
 ### PSI_thread_key
 
 ```cpp
@@ -641,8 +565,6 @@ Defined in psi/psi.h:816
 Instrumented thread key. To instrument a thread, a thread key must be obtained using `register_thread`. Using a zero key always disable the instrumentation.
 
 ---
-
-{#psi_file_key}
 
 ### PSI_file_key
 
@@ -656,8 +578,6 @@ Instrumented file key. To instrument a file, a file key must be obtained using `
 
 ---
 
-{#psi_stage_key}
-
 ### PSI_stage_key
 
 ```cpp
@@ -669,8 +589,6 @@ Defined in psi/psi.h:830
 Instrumented stage key. To instrument a stage, a stage key must be obtained using `register_stage`. Using a zero key always disable the instrumentation.
 
 ---
-
-{#psi_statement_key}
 
 ### PSI_statement_key
 
@@ -684,8 +602,6 @@ Instrumented statement key. To instrument a statement, a statement key must be o
 
 ---
 
-{#psi_socket_key}
-
 ### PSI_socket_key
 
 ```cpp
@@ -697,8 +613,6 @@ Defined in psi/psi.h:844
 Instrumented socket key. To instrument a socket, a socket key must be obtained using `register_socket`. Using a zero key always disable the instrumentation.
 
 ---
-
-{#psi}
 
 ### PSI
 
@@ -714,8 +628,6 @@ The instrumentation interface for the current version. **See also**: PSI_CURRENT
 
 ---
 
-{#psi_mutex_info}
-
 ### PSI_mutex_info
 
 ```cpp
@@ -729,8 +641,6 @@ Defined in psi/psi.h:2931
 The mutex information structure for the current version.
 
 ---
-
-{#psi_rwlock_info}
 
 ### PSI_rwlock_info
 
@@ -746,8 +656,6 @@ The rwlock information structure for the current version.
 
 ---
 
-{#psi_cond_info}
-
 ### PSI_cond_info
 
 ```cpp
@@ -761,8 +669,6 @@ Defined in psi/psi.h:2933
 The cond information structure for the current version.
 
 ---
-
-{#psi_thread_info}
 
 ### PSI_thread_info
 
@@ -778,8 +684,6 @@ The thread information structure for the current version.
 
 ---
 
-{#psi_file_info}
-
 ### PSI_file_info
 
 ```cpp
@@ -793,8 +697,6 @@ Defined in psi/psi.h:2935
 The file information structure for the current version.
 
 ---
-
-{#psi_stage_info}
 
 ### PSI_stage_info
 
@@ -810,8 +712,6 @@ The stage instrumentation has to co exist with the legacy THD::set_proc_info ins
 
 ---
 
-{#psi_statement_info}
-
 ### PSI_statement_info
 
 ```cpp
@@ -824,8 +724,6 @@ Defined in psi/psi.h:2937
 
 ---
 
-{#psi_transaction_info}
-
 ### PSI_transaction_info
 
 ```cpp
@@ -835,8 +733,6 @@ using PSI_transaction_info = struct PSI_transaction_info_v1
 Defined in psi/psi.h:2938
 
 ---
-
-{#psi_socket_info}
 
 ### PSI_socket_info
 
@@ -850,8 +746,6 @@ Defined in psi/psi.h:2939
 
 ---
 
-{#psi_idle_locker_state}
-
 ### PSI_idle_locker_state
 
 ```cpp
@@ -863,8 +757,6 @@ Type: struct [`PSI_idle_locker_state_v1`](Group_PSI_v1.md#psi_idle_locker_state_
 Defined in psi/psi.h:2940
 
 ---
-
-{#psi_mutex_locker_state}
 
 ### PSI_mutex_locker_state
 
@@ -878,8 +770,6 @@ Defined in psi/psi.h:2941
 
 ---
 
-{#psi_rwlock_locker_state}
-
 ### PSI_rwlock_locker_state
 
 ```cpp
@@ -891,8 +781,6 @@ Type: struct [`PSI_rwlock_locker_state_v1`](Group_PSI_v1.md#psi_rwlock_locker_st
 Defined in psi/psi.h:2942
 
 ---
-
-{#psi_cond_locker_state}
 
 ### PSI_cond_locker_state
 
@@ -906,8 +794,6 @@ Defined in psi/psi.h:2943
 
 ---
 
-{#psi_file_locker_state}
-
 ### PSI_file_locker_state
 
 ```cpp
@@ -919,8 +805,6 @@ Type: struct [`PSI_file_locker_state_v1`](Group_PSI_v1.md#psi_file_locker_state_
 Defined in psi/psi.h:2944
 
 ---
-
-{#psi_statement_locker_state}
 
 ### PSI_statement_locker_state
 
@@ -934,8 +818,6 @@ Defined in psi/psi.h:2945
 
 ---
 
-{#psi_transaction_locker_state}
-
 ### PSI_transaction_locker_state
 
 ```cpp
@@ -947,8 +829,6 @@ Type: struct [`PSI_transaction_locker_state_v1`](Group_PSI_v1.md#psi_transaction
 Defined in psi/psi.h:2946
 
 ---
-
-{#psi_socket_locker_state}
 
 ### PSI_socket_locker_state
 
@@ -962,8 +842,6 @@ Defined in psi/psi.h:2947
 
 ---
 
-{#psi_sp_locker_state}
-
 ### PSI_sp_locker_state
 
 ```cpp
@@ -975,8 +853,6 @@ Type: struct [`PSI_sp_locker_state_v1`](Group_PSI_v1.md#psi_sp_locker_state_v1-1
 Defined in psi/psi.h:2948
 
 ---
-
-{#psi_metadata_locker_state}
 
 ### PSI_metadata_locker_state
 
@@ -990,8 +866,6 @@ Defined in psi/psi.h:2949
 
 ---
 
-{#psi_metadata_locker}
-
 ### PSI_metadata_locker
 
 ```cpp
@@ -1003,8 +877,6 @@ Type: struct [`PSI_stage_info_none`](#psi_stage_info_none)
 Defined in psi/psi.h:3015
 
 ---
-
-{#psi_memory_info}
 
 ### PSI_memory_info
 
@@ -1024,8 +896,6 @@ Defined in psi/psi_memory.h:148
 
 ---
 
-{#psi_server}
-
 ### PSI_server
 
 ```cpp
@@ -1039,7 +909,7 @@ Defined in psi/psi.h:3019
 
 ## Class Definitions
 
-{#psi_stage_progress-1}
+
 
 ### PSI_stage_progress
 
@@ -1064,8 +934,6 @@ Interface for an instrumented stage progress. This is a public structure, for ef
 
 ---
 
-{#m_work_completed}
-
 #### m_work_completed
 
 ```cpp
@@ -1076,8 +944,6 @@ Defined in psi/psi.h:235
 
 ---
 
-{#m_work_estimated}
-
 #### m_work_estimated
 
 ```cpp
@@ -1086,7 +952,7 @@ ulonglong m_work_estimated
 
 Defined in psi/psi.h:236
 
-{#psi_table_locker_state-1}
+
 
 ### PSI_table_locker_state
 
@@ -1120,8 +986,6 @@ State data storage for `start_table_io_wait_v1_t`, `start_table_lock_wait_v1_t`.
 
 ---
 
-{#m_flags}
-
 #### m_flags
 
 ```cpp
@@ -1133,8 +997,6 @@ Defined in psi/psi.h:268
 Internal state.
 
 ---
-
-{#m_io_operation}
 
 #### m_io_operation
 
@@ -1150,8 +1012,6 @@ Current io operation.
 
 ---
 
-{#m_table}
-
 #### m_table
 
 ```cpp
@@ -1165,8 +1025,6 @@ Defined in psi/psi.h:272
 Current table handle.
 
 ---
-
-{#m_table_share}
 
 #### m_table_share
 
@@ -1182,8 +1040,6 @@ Current table share.
 
 ---
 
-{#m_thread}
-
 #### m_thread
 
 ```cpp
@@ -1198,8 +1054,6 @@ Current thread.
 
 ---
 
-{#m_timer_start}
-
 #### m_timer_start
 
 ```cpp
@@ -1211,8 +1065,6 @@ Defined in psi/psi.h:278
 Timer start.
 
 ---
-
-{#m_timer}
 
 #### m_timer
 
@@ -1226,8 +1078,6 @@ Timer function.
 
 ---
 
-{#m_wait}
-
 #### m_wait
 
 ```cpp
@@ -1240,8 +1090,6 @@ Internal data.
 
 ---
 
-{#m_index}
-
 #### m_index
 
 ```cpp
@@ -1252,7 +1100,7 @@ Defined in psi/psi.h:288
 
 Implementation specific. For table io, the table io index. For table lock, the lock type.
 
-{#psi_bootstrap-1}
+
 
 ### PSI_bootstrap
 
@@ -1275,8 +1123,6 @@ Entry point for the performance schema interface.
 | `void *(*` | [`get_interface`](#get_interface)  | ABI interface finder. Calling this method with an interface version number returns either an instance of the ABI for this version, or NULL. |
 
 ---
-
-{#get_interface}
 
 #### get_interface
 
@@ -1308,7 +1154,7 @@ a versioned interface ([PSI_v1](Group_PSI_v1.md#psi_v1), PSI_v2 or PSI)
 |-----------|------|-------------|
 | `version` |  | the interface version number to find |
 
-{#psi_none}
+
 
 ### PSI_none
 
@@ -1332,8 +1178,6 @@ Dummy structure, used to declare PSI_server when no instrumentation is available
 
 ---
 
-{#opaque}
-
 #### opaque
 
 ```cpp
@@ -1342,7 +1186,7 @@ int opaque
 
 Defined in psi/psi.h:2984
 
-{#psi_stage_info_none}
+
 
 ### PSI_stage_info_none
 
@@ -1368,8 +1212,6 @@ Stage instrument information. **Since**: PSI_VERSION_1 This structure is used to
 
 ---
 
-{#m_key}
-
 #### m_key
 
 ```cpp
@@ -1382,8 +1224,6 @@ Unused stage key.
 
 ---
 
-{#m_name}
-
 #### m_name
 
 ```cpp
@@ -1395,8 +1235,6 @@ Defined in psi/psi.h:2998
 The name of the stage instrument.
 
 ---
-
-{#m_flags-1}
 
 #### m_flags
 

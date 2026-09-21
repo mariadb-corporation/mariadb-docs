@@ -3,11 +3,11 @@ description: >-
   Plugin API reference: Table Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
 ---
 
-{#tableinstrumentation}
+
 
 # Table Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md#instrumentationinterface)
+> [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Macros
 
@@ -28,8 +28,6 @@ description: >-
 
 ---
 
-{#mysql_unbind_table}
-
 ### MYSQL_UNBIND_TABLE
 
 ```cpp
@@ -39,8 +37,6 @@ description: >-
 Defined in psi/mysql_table.h:55
 
 ---
-
-{#psi_call_unbind_table}
 
 ### PSI_CALL_unbind_table
 
@@ -52,8 +48,6 @@ Defined in psi/mysql_table.h:57
 
 ---
 
-{#psi_call_rebind_table}
-
 ### PSI_CALL_rebind_table
 
 ```cpp
@@ -63,8 +57,6 @@ Defined in psi/mysql_table.h:57
 Defined in psi/mysql_table.h:58
 
 ---
-
-{#psi_call_close_table}
 
 ### PSI_CALL_close_table
 
@@ -76,8 +68,6 @@ Defined in psi/mysql_table.h:59
 
 ---
 
-{#psi_call_open_table}
-
 ### PSI_CALL_open_table
 
 ```cpp
@@ -87,8 +77,6 @@ Defined in psi/mysql_table.h:59
 Defined in psi/mysql_table.h:60
 
 ---
-
-{#psi_call_get_table_share}
 
 ### PSI_CALL_get_table_share
 
@@ -100,8 +88,6 @@ Defined in psi/mysql_table.h:61
 
 ---
 
-{#psi_call_release_table_share}
-
 ### PSI_CALL_release_table_share
 
 ```cpp
@@ -112,8 +98,6 @@ Defined in psi/mysql_table.h:62
 
 ---
 
-{#psi_call_drop_table_share}
-
 ### PSI_CALL_drop_table_share
 
 ```cpp
@@ -123,8 +107,6 @@ Defined in psi/mysql_table.h:62
 Defined in psi/mysql_table.h:63
 
 ---
-
-{#mysql_table_wait_variables}
 
 ### MYSQL_TABLE_WAIT_VARIABLES
 
@@ -153,8 +135,6 @@ Instrumentation helper for table waits. This instrumentation declares local vari
 
 ---
 
-{#mysql_start_table_lock_wait}
-
 ### MYSQL_START_TABLE_LOCK_WAIT
 
 ```cpp
@@ -182,8 +162,6 @@ Instrumentation helper for table lock waits. This instrumentation marks the star
 
 ---
 
-{#mysql_end_table_lock_wait}
-
 ### MYSQL_END_TABLE_LOCK_WAIT
 
 ```cpp
@@ -202,8 +180,6 @@ Instrumentation helper for table lock waits. This instrumentation marks the end 
 | `LOCKER` |  | the locker |
 
 ---
-
-{#mysql_unlock_table}
 
 ### MYSQL_UNLOCK_TABLE
 

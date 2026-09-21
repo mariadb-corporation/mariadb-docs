@@ -1,0 +1,244 @@
+name: Check for Gutted Pages in PR
+
+# Gates the "silently gutted page" failure: a page that survives but loses most of its body,
+# with the markup still valid and every remaining link still resolving. The second half of
+# DOCS-6586, landing with navcheck-pr.yml once the acknowledgment path was decided.
+#
+# DOCS-6442 is the case, and it is the whole argument for a PR gate rather than the pre-commit
+# hook. A retirement campaign (DOCS-5976 Tier B, c6ea5549a) meant to delete ONE {% columns %}
+# content-ref block from the Storage Engines landing page and promote FEDERATED into its place.
+# It deleted 23 of the 24 blocks instead: 298 lines -> 22, 24 content-refs -> 1. SUMMARY.md was
+# untouched, so the nav still listed all 27 engines while the page listed one. Every gate passed;
+# a reader found it two days later. That commit ARRIVED THROUGH A PR, and the hook "only gates
+# commits that Claude Code makes via the Bash tool" (pre-commit.sh header), so the hook would not
+# have fired at all. Replayed against this workflow's script, c6ea5549a yields exactly one
+# finding out of 45 files compared, at 93%.
+#
+# WHY NET LOSS AND NOT RAW DELETIONS
+#   Raw deletions flag every reformatting campaign -- alias expansion, trailing-backslash
+#   removal, changelog normalization -- because those rewrite lines rather than remove them.
+#   Measured over 300 commits: raw deletions >40% flags 17 files, net loss >40% flags 4.
+#
+# WHY CHANGED FILES HERE, WHEN includecheck-pr.yml IS TREE-WIDE
+#   This is the distinction that decides the scope of any gate in this repo: whether a finding is
+#   LOCAL to the file that changed. A dead include is not -- deleting one shared target under
+#   .gitbook/includes/ breaks 20 pages the commit never names -- so that check has to be
+#   tree-wide. A page can only lose its own lines, so this one cannot find anything outside the
+#   diff, and scanning 9,700 files to compare 40 would be waste rather than safety.
+#
+#   One shape is deliberately out of reach: a page that is MOVED and gutted in the same commit.
+#   The pre-image is under the old path, so the new path looks like a new file with nothing to
+#   have lost. shrinkcheck.py's header records this; the orphan and include gates cover the other
+#   consequences of a move.
+#
+# WHY A BASE ASSERTION STEP
+#   shrinkcheck.py treats an unresolvable base as a SKIP and exits ZERO -- right for a local
+#   pre-commit hook, wrong for a gate. A shallow clone would therefore leave this permanently and
+#   silently green, so fetch-depth: 0 and the assertion below are both load-bearing. Same shape
+#   as fragcheck-pr.yml and navcheck-pr.yml.
+#
+# THE ACKNOWLEDGMENT PATH
+#   A large shrink is often correct -- DOCS-5976 Tier C's Debian README went 70 -> 34 lines when
+#   three of its five children were retired -- so this gate is meant to be acknowledged, not
+#   worked around. DOC_LINT_ALLOW_SHRINK is an environment variable no PR author can set from a
+#   branch, which is what blocked this half of the ticket for ten days. Decided on DOCS-6586: the
+#   `shrink:` section of .claude/hooks/doc-lint-allow.yml, one entry per path with a reason, so
+#   the acknowledgment is a diff line the reviewer already reads. An entry whose page no longer
+#   exists is stale and fails; there is no "un-shrink" signal, so an entry whose page has since
+#   regrown needs the occasional manual pass.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+# A second push supersedes the first.
+concurrency:
+  group: shrinkcheck-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  shrinkcheck:
+    runs-on: ubuntu-latest
+    # Seconds in practice -- one `git show` per changed page. 10 minutes is headroom for the
+    # full-history checkout; without an explicit timeout the job inherits the 6-hour default,
+    # and a wedged run would end as *cancelled*, which `if: failure()` does not catch.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          # REQUIRED: the pre-image of every changed page is read from the base commit with
+          # `git show <base>:<path>`, so that commit must be in the clone. See the header on why
+          # its absence would be silent.
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          # shrinkcheck.py and allowlist.py are standard library only, so this pins the
+          # interpreter rather than installing anything.
+          python-version: '3.12'
+
+      # The checkout above is `refs/pull/N/merge` -- HEAD is a MERGE of this PR's head into the
+      # base branch as it stands now -- while `base.sha` is a snapshot of the base branch from
+      # when the PR was opened or last synchronized. Pairing the two spans every commit the base
+      # branch gained in between, so a page that someone ELSE shrank on the base branch is
+      # reported against this PR, on a diff its author cannot change. Measured on DOCS-6586's own
+      # PR: 23 paths in scope instead of 13, and a MaxScale release-notes landing page gutted on
+      # main reported as this PR's finding.
+      #
+      # The merge commit's FIRST parent is the base tip that was merged, so `HEAD^1..HEAD` is
+      # exactly what this PR does to the base branch. Fall back to `base.sha` when HEAD has no
+      # second parent, which is what a head-ref checkout (or a local re-run) looks like.
+      - name: Resolve and verify the base revision
+        id: base
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          if git rev-parse -q --verify 'HEAD^2' >/dev/null 2>&1; then
+            EFFECTIVE_BASE="$(git rev-parse 'HEAD^1')"
+            echo "HEAD is a merge commit; measuring against its first parent ${EFFECTIVE_BASE}."
+          else
+            EFFECTIVE_BASE="${BASE_SHA:-}"
+            echo "HEAD is not a merge commit; measuring against the PR base ${EFFECTIVE_BASE}."
+          fi
+          if [[ -z "${EFFECTIVE_BASE:-}" ]]; then
+            echo "::error::The PR base SHA is empty, so the gutted-page gate has no pre-image to compare against."
+            exit 1
+          fi
+          # cat-file -e, not rev-parse: rev-parse succeeds on a well-formed sha that is not in
+          # the object database, which is exactly the shallow-clone case this guards.
+          if ! git cat-file -e "${EFFECTIVE_BASE}^{commit}" 2>/dev/null; then
+            echo "::error::Base commit ${EFFECTIVE_BASE} is not in this clone, so the gutted-page gate would SKIP and report success. Check that fetch-depth: 0 is still set on the checkout step."
+            exit 1
+          fi
+          echo "sha=${EFFECTIVE_BASE}" >> "$GITHUB_OUTPUT"
+
+      # Its own step, and before the gate, so a malformed register is reported as a register
+      # problem rather than surfacing as whatever the gate happens to do next.
+      - name: Validate the acknowledgment register
+        run: |
+          set -uo pipefail
+          set +e
+          python3 .claude/hooks/allowlist.py validate
+          rc=$?
+          set -e
+          if [[ "$rc" != "0" ]]; then
+            echo "::error::.claude/hooks/doc-lint-allow.yml is malformed -- see the message above for the line. The accepted shape is in .claude/hooks/allowlist.py's header."
+            exit "$rc"
+          fi
+
+      # Computed once, in its own step, and every consumer reads THIS list. DOCS-6401's lesson:
+      # narrowing what a job acts on without narrowing what reports on the same set turns a
+      # collateral-edit bug into a permanent red no author can clear from their own branch.
+      - name: Collect the changed pages
+        id: changed
+        env:
+          BASE_SHA: ${{ steps.base.outputs.sha }}
+        run: |
+          set -euo pipefail
+          # --diff-filter=d excludes deletions: a deleted file is not in the working tree, so it
+          # has no post-image to measure. Additions stay in, and shrinkcheck.py drops them
+          # itself once it sees the base has no such path -- keeping that rule in ONE place, the
+          # script, so the local hook and this gate cannot disagree about what counts as new.
+          #
+          # NUL-delimited end to end: a repo path containing a space must not split into two.
+          git diff -z --name-only --diff-filter=d "$BASE_SHA" -- '*.md' '*.html' > changed.nul
+          count="$(tr -cd '\0' < changed.nul | wc -c | tr -d ' ')"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "$count changed Markdown/HTML page(s) in this PR."
+
+      - name: Check for gutted pages
+        id: shrinkcheck
+        env:
+          BASE_SHA: ${{ steps.base.outputs.sha }}
+        run: |
+          set -uo pipefail
+          # --stdin0 rather than xargs, for the reason includecheck.sh records: xargs over
+          # ARG_MAX splits the run into batches that each return their own status, so `$?` off
+          # the pipeline reports only the last one and findings in an earlier batch can exit 0.
+          # One invocation, one verdict.
+          set +e
+          python3 .claude/hooks/shrinkcheck.py --base "$BASE_SHA" --stdin0 \
+            < changed.nul > shrinkcheck.log 2>&1
+          rc=$?
+          set -e
+          cat shrinkcheck.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          case "$rc" in
+            0) ;;
+            1) echo "::error::A page in this PR lost more than 40% of its lines, net, against the PR base -- or an acknowledgment in .claude/hooks/doc-lint-allow.yml names a page that no longer exists. A gutted page keeps valid markup and working links, so no other check can see it. Details in the job log and the run summary." ;;
+            2) echo "::error::shrinkcheck.py rejected its arguments, or could not read the acknowledgment register -- this workflow or that file is at fault, not necessarily the PR's pages." ;;
+            *) echo "::error::shrinkcheck.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      # "Compared 40 files, none gutted" and "was handed nothing at all" are the same exit code,
+      # so the count is asserted rather than assumed -- and asserted against the list the step
+      # above built, not against a floor, because a PR that changes no Markdown at all
+      # legitimately has nothing to compare. A broken pipe, a mangled NUL list or a pathspec typo
+      # all show up here as a mismatch.
+      - name: Assert the check saw the whole changed set
+        if: steps.shrinkcheck.outputs.rc == '0'
+        env:
+          EXPECTED: ${{ steps.changed.outputs.count }}
+        run: |
+          set -euo pipefail
+          given="$(sed -n 's/.*(\([0-9]\{1,\}\) given,.*/\1/p' shrinkcheck.log | head -1)"
+          if [[ -z "$given" ]]; then
+            cat shrinkcheck.log
+            echo "::error::Could not read the received-file count out of shrinkcheck's output. Either the summary line changed shape (update this assertion with it) or the script never got to print it."
+            exit 1
+          fi
+          if [[ "$given" != "${EXPECTED}" ]]; then
+            cat shrinkcheck.log
+            echo "::error::shrinkcheck was handed ${EXPECTED} changed page(s) but reports ${given}. The file list did not survive the pipe, so this run did not check what the PR changed."
+            exit 1
+          fi
+          echo "shrinkcheck received all ${EXPECTED} changed page(s)."
+
+      - name: Record the result in the run summary
+        # always(): the default is an implicit success(), which would skip exactly the runs worth
+        # recording.
+        if: always()
+        env:
+          RC: ${{ steps.shrinkcheck.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Gutted-page check"
+            echo
+            if [[ ! -s shrinkcheck.log ]]; then
+              echo "No output was produced -- an earlier step failed before the scan ran."
+            else
+              case "${RC:-}" in
+                0) echo "No page in this PR lost a disproportionate share of its lines, and no acknowledgment in \`.claude/hooks/doc-lint-allow.yml\` names a page that has gone." ;;
+                1) echo "A page lost more than 40% of its lines, net. Check that it still covers everything it should -- for a landing page, compare its content-ref count against the space's \`SUMMARY.md\` children, which is the signature DOCS-6442 had. If the shrink is deliberate, add the path with its reason to the \`shrink:\` section of \`.claude/hooks/doc-lint-allow.yml\` so the decision is in the diff." ;;
+                *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              # Fenced, and with four backticks. This summary is a GFM rendering surface and the
+              # output embeds file paths and allowlist reasons from the PR, which are
+              # author-controlled: unfenced, a crafted path could forge a heading, plant a link,
+              # or open an HTML comment that swallows the rest of the page. Four backticks so
+              # content containing three cannot close the fence. Same reasoning as
+              # fragcheck-pr.yml and includecheck-pr.yml.
+              echo '````text'
+              cat shrinkcheck.log
+              echo '````'
+              echo
+              echo "Run the same check locally with:"
+              echo
+              echo '````bash'
+              echo "git diff -z --name-only --diff-filter=d ${GITHUB_BASE_REF:-main} -- '*.md' '*.html' \\"
+              echo "  | python3 .claude/hooks/shrinkcheck.py --base ${GITHUB_BASE_REF:-main} --stdin0"
+              echo '````'
+              echo
+              echo "\`doc-lint.sh\` runs the same guard over the files you pass it, against \`DOC_LINT_BASE\` (default \`HEAD\`)."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

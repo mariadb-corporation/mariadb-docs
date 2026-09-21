@@ -15,6 +15,12 @@ Query Result Cache is a provisioning **add-on** for MariaDB Provisioned services
 This feature requires **Semi-Sync HA** and **MaxScale 25.10.3 or later**, is available on Power and PowerPlus tiers only, and cannot be enabled on trial accounts.
 {% endhint %}
 
+{% hint style="info" %}
+**Choose what you cache.** The cache adds a lookup to the read path, so it pays off for repeated reads that are genuinely expensive to run — aggregations, joins that scan, report queries. For reads MariaDB already answers from its buffer pool in a millisecond or two, that lookup can cost more than it saves.
+
+This is what `queryresultcache_mxs_min_query_duration` is for: it keeps queries the server already answers quickly out of the cache. At the default of 100 ms, a query that takes 95 ms is not cached.
+{% endhint %}
+
 ## Architecture Overview
 
 The cache is positioned between MaxScale and MariaDB. MaxScale intercepts cacheable reads and checks the cache before querying the database; MariaDB remains the authoritative data store for all writes and for any read that is not served from cache. The cache engine is GridGain, running as a single in-memory node that is managed entirely by the platform.
@@ -93,11 +99,23 @@ Query Result Cache is enabled on a **MariaDB Provisioned** service that uses **S
 4. Under **Instance Resources**, choose a **Cache Node Size** (**Sky-4x16** to **Sky-16x128**, Intel/AMD only).
 5. Optionally, under **Advanced Options**, set the cache **TTL** and **Minimum Query Duration**.
 
-A new service starts permissive: with no rules set, every query the cache can hold is cached. Set [caching rules](query-cache-gridgain-8.md#caching-rules) from **Manage** → **Query Result Cache** once the service is ready — start with the volatile-function exclusion described there.
+A new service starts with the volatile-result exclusion already applied — see [Caching Rules](query-cache-gridgain-8.md#caching-rules). Adjust it from **Manage** → **Query Result Cache** once the service is ready.
 
 <figure><img src="../.gitbook/assets/portal-add-gg8-cache.png" alt="MariaDB Cloud launch flow: MariaDB Provisioned selected, Semi-sync HA selected, and the Query Result Cache add-on enabled"><figcaption></figcaption></figure>
 
 _Launch - Enable Query Result Cache_
+
+Enabling the add-on adds a **Cache Node Size** picker beside the server's **Node Size**. The two catalogs are separate: here a `Sky-2x4` server defaults to a `Sky-4x16` cache.
+
+<figure><img src="../.gitbook/assets/queryresultcache-cache-node-size.png" alt="Instance Resources showing Node Size Sky-2x4 next to a separate Cache Node Size of Sky-4x16"><figcaption></figcaption></figure>
+
+_Launch - Cache Node Size_
+
+**Advanced Options** carries the cache's **TTL** and **Minimum Query Duration**, and states the rules a new service launches with.
+
+<figure><img src="../.gitbook/assets/queryresultcache-ttl-min-duration.png" alt="Advanced Options: the Query Result Cache TTL field defaulting to 120 seconds and Minimum Query Duration defaulting to 100 milliseconds"><figcaption></figcaption></figure>
+
+_Launch - TTL and Minimum Query Duration_
 
 ### Via MariaDB Cloud REST API
 
@@ -195,7 +213,7 @@ On **Capacity & tuning**:
 
 On **Caching rules**, edit the rules that decide which queries are cached and who may read cached entries. See [Caching Rules](query-cache-gridgain-8.md#caching-rules) below. The cache must already be enabled before you can set rules.
 
-<figure><img src="../.gitbook/assets/gg8-cache-service-management-screen.png" alt="The Manage Query Result Cache dialog: enable checkbox, TTL, cache node size selection, and estimated cost"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/gg8-cache-service-management-screen.png" alt="The Manage Query Result Cache dialog on the Capacity & tuning tab: enable checkbox, TTL, Minimum Query Duration, cache node size selection, and estimated cost"><figcaption></figcaption></figure>
 
 _Manage Query Result Cache_
 
@@ -203,12 +221,14 @@ The same operations are available through the REST API. See [Via MariaDB Cloud R
 
 ## Caching Rules
 
-`queryresultcache_rules` is a JSON document that decides **which** queries are stored in the cache and **which users** may read cached entries. The default is `{}` — no rules, so nothing is excluded on the basis of what a query does.
+`queryresultcache_rules` is a JSON document that decides **which** queries are stored in the cache and **which users** may read cached entries.
+
+Every new service starts with the **volatile-result exclusion** shown in [Rule Examples](query-cache-gridgain-8.md#rule-examples) already applied. There is no rules editor at launch, so it is applied for you, and it is the default option in the guided editor afterwards.
 
 {% hint style="warning" %}
-**Rules are the only thing that keeps volatile results out of the cache.** The cache does not inspect a query to judge whether its result is safe to reuse. With no `store` rules, a query calling `NOW()`, `CURDATE()`, `RAND()`, `UUID()`, or `LAST_INSERT_ID()` has its result cached like any other, and every identical query is served that same value until the hard TTL expires.
+**Rules are the only thing that excludes a query on the basis of what it does.** The cache does not inspect a query to judge whether its result is safe to reuse.
 
-Excluding those functions is the recommended first rule on any new service. See [Rule Examples](query-cache-gridgain-8.md#rule-examples), or pick **Everything except queries that use volatile functions** in the portal's guided editor.
+That is what the default is protecting you from. Without it, a query calling `NOW()`, `RAND()`, or `UUID()`, a query reading a session variable, and a locking read would all have their results cached like any other, and every identical query would be served that same value until the hard TTL expired. Keep the default entry in place unless you have a specific reason not to.
 {% endhint %}
 
 Rules do not replace the other limits. A result is stored only when **all** of these pass:
@@ -226,8 +246,8 @@ Open **Manage** → **Query Result Cache** → **Caching rules**. The editor has
 
 **Guided** mode covers the common cases without writing JSON. Under **What gets stored in the cache**, choose one of:
 
-* **Every query that can be cached** — the default. No filtering of any kind, including queries whose results go stale the moment they are computed.
-* **Everything except queries that use volatile functions** — the recommended starting point, since results from those never stay correct for long. `NOW`, `CURDATE`, `CURTIME`, `RAND`, `UUID`, and `SLEEP` are excluded for you; `SYSDATE`, `CURRENT_TIMESTAMP`, `LAST_INSERT_ID`, and `CONNECTION_ID` are offered as well. The set folds into one pattern, so each function you add narrows the cache further.
+* **Everything except queries whose results go stale immediately** — the default. Skips volatile functions, session variables, locking reads, and cache-defeating hints, using the single fixed pattern shown in [Rule Examples](query-cache-gridgain-8.md#rule-examples).
+* **Everything** — no query filtering. The minimum query duration and the TTL still decide what actually gets stored.
 * **Only queries matching a pattern I give** — one pattern matched against the raw SQL text, as **Starts with**, **Contains**, or **Matches regex (RE2)**.
 
 Under **Who can read from the cache**, list the database users allowed to read cached entries. Leave it empty to let every user read from the cache.
@@ -236,9 +256,48 @@ Under **Who can read from the cache**, list the database users allowed to read c
 
 Both modes show the **Resulting rules** — exactly what gets sent when you save — and flag rules that will not do what they appear to do. **Test a query** checks the rules currently in the editor, not the ones already saved.
 
+<figure><img src="../.gitbook/assets/queryresultcache-caching-rules.png" alt="The Caching rules tab in Guided mode, with the volatile-result exclusion selected as the default, the resulting rules JSON alongside it, and the query tester below"><figcaption></figcaption></figure>
+
+_Manage - Caching rules, Guided_
+
+**Raw JSON** validates as you type and reports `Valid`, `Valid, with notes`, or `Not valid`, and **Load example** inserts a starting document.
+
+<figure><img src="../.gitbook/assets/queryresultcache-caching-rules-json.png" alt="The Caching rules tab in Raw JSON mode, showing the default exclusion document marked Valid and a reminder that store rules are checked in order with the first match winning"><figcaption></figcaption></figure>
+
+_Manage - Caching rules, Raw JSON_
+
 {% hint style="info" %}
-Saving rules does not restart your service. Allow a few minutes for new rules to take effect. **Reset to default** clears every rule so the service caches every cacheable query again; it does not disable the cache or remove any nodes.
+Saving rules does not restart your service, and the cache is not emptied — MaxScale rereads the rules in place. Allow a few minutes for new rules to take effect.
+
+**Reset to default** clears the rules rather than restoring the exclusion a new service starts with. After using it the service caches every cacheable query, volatile results included. To put the exclusion back, paste the document from [Rule Examples](query-cache-gridgain-8.md#rule-examples). Resetting does not disable the cache or remove any nodes.
 {% endhint %}
+
+### What the Default Excludes
+
+The document a portal-launched service starts with excludes one class of `SELECT`: statements whose result cannot be reproduced from the SQL text alone, and statements whose execution has a side effect that serving from cache would skip. Everything else is cached.
+
+| Category                | Why it cannot be cached                                         | Examples                                        |
+| ----------------------- | --------------------------------------------------------------- | ----------------------------------------------- |
+| Time                    | The result changes within the TTL window                        | `NOW`, `CURDATE`, `UTC_TIMESTAMP`               |
+| Session identity        | Differs per connection, and the cache is shared between sessions | `USER`, `DATABASE`, `CURRENT_ROLE`              |
+| Connection state        | Depends on what that connection did previously                  | `FOUND_ROWS`, `ROW_COUNT`, `LAST_INSERT_ID`     |
+| Randomness              | The result is not reproducible                                  | `RAND`, `UUID`, `RANDOM_BYTES`                  |
+| Variables               | Session or global state, not a function of the query text        | `@var`, `@@var`                                 |
+| Locking reads           | Serving from cache acquires no lock                             | `FOR UPDATE`, `LOCK IN SHARE MODE`              |
+| Side effects            | Serving from cache skips the effect                             | `GET_LOCK`, `NEXTVAL`, `SETVAL`, `INTO OUTFILE` |
+| Server-state waits      | The result depends on replication state at execution time        | `MASTER_POS_WAIT`, `MASTER_GTID_WAIT`           |
+| Explicit client opt-out | The client asked for no caching                                 | `SQL_NO_CACHE`                                  |
+
+`SQL_CALC_FOUND_ROWS` is excluded too, because a cache hit would leave a following `FOUND_ROWS()` reporting a stale count.
+
+### How Matching Works
+
+A rule is a regular expression over the **raw SQL text**. It is not a parse of the statement, which has consequences worth knowing:
+
+* **String literals and comments count.** `SELECT * FROM t WHERE note = 'for update'` is not cached, because the text contains `for update`.
+* **Indirection is invisible.** A view or stored function whose body calls `NOW()` is not detected, because `NOW()` never appears in the statement you submit.
+
+The exclusions are deliberately biased toward caching less: a rule that matches when it need not have only costs you a cache hit, whereas one that fails to match could serve a stale or cross-session result.
 
 ### Rule Grammar
 
@@ -251,12 +310,22 @@ The document is a single JSON object, or a non-empty array of objects, up to 64 
 
 For the exact-match operators `=` and `!=`, a `database` value must not contain a dot, a `table` value may contain at most one, and a `column` value at most two.
 
+{% hint style="danger" %}
+**Saving rules replaces the whole document — it does not add to it.**
+
+Because `store[]` is first-match-wins OR, a statement is cached if **any** store entry matches. So submitting one new entry on its own does not sit on top of the exclusions a portal-launched service starts with; it replaces them, and can re-admit the very queries they were keeping out.
+
+To keep the default protection while adding a rule of your own, carry the default entry forward into the document you submit alongside your new entry. Never submit the new entry by itself.
+{% endhint %}
+
 {% hint style="warning" %}
 **`store[]` is first-match-wins OR, not AND.** Each store entry you add **widens** what gets cached. There is no way to require that several conditions all hold.
 
-**`like` and `unlike` values are RE2 regular expressions.** PCRE2-only syntax — lookahead, lookbehind, backreferences, possessive quantifiers, and recursion — is rejected. You cannot express a conjunction with a lookahead.
+**`like` and `unlike` values are regular expressions, and some syntax is rejected.** Lookahead, lookbehind, backreferences, and atomic groups fail validation, so you cannot express a conjunction with a lookahead.
 
-**`table`, `column`, and `database` matchers test existence, not universality.** A `JOIN` that mentions a listed table can still be cached even when another table in the same `JOIN` was meant to be excluded.
+**Start your own patterns with `(?i)`.** Matching is case-sensitive otherwise.
+
+**Caching rules are not a reliable way to exclude a table.** `table`, `column`, and `database` matchers test existence, not universality, so a `JOIN` that mentions a listed table can still be cached even when another table in the same `JOIN` was meant to be excluded.
 {% endhint %}
 
 {% hint style="info" %}
@@ -266,22 +335,30 @@ Do not write a "`SELECT`s only" rule such as `^SELECT`. It also drops cacheable 
 ### Rule Examples
 
 {% tabs %}
-{% tab title="No rules (default)" %}
+{% tab title="Exclude volatile results (portal default)" %}
+This is the document the portal sends for a new service, and what **Everything except queries whose results go stale immediately** produces in the guided editor. Send it yourself when you create a service through the API or Terraform.
+
+```json
+{
+  "store": [
+    {
+      "attribute": "query",
+      "op": "unlike",
+      "value": "(?i)(?:\\b(?:now|curdate|curtime|sysdate|unix_timestamp|convert_tz|session_user|system_user|user|database|schema|connection_id|found_rows|row_count|last_insert_id|nextval|lastval|setval|rand|random_bytes|uuid_short|uuid_v[0-9]|uuid|sys_guid|get_lock|release_all_locks|release_lock|is_free_lock|is_used_lock|master_pos_wait|master_gtid_wait|sleep|benchmark|load_file|encrypt)\\s*\\(|\\b(?:current_timestamp|current_date|current_time|current_user|current_role|localtimestamp|localtime|utc_timestamp|utc_date|utc_time)\\b|@@[a-z_]|[^\\w@$.'\"`%]@[a-z_$]|\\bfor\\s+update\\b|\\block\\s+in\\s+share\\s+mode\\b|\\binto\\s+(?:outfile|dumpfile)\\b|\\bsql_calc_found_rows\\b|\\bsql_no_cache\\b)"
+    }
+  ]
+}
+```
+
+It excludes the functions MaxScale treats as non-cacheable, the bare date and user keywords, system (`@@`) and user (`@`) variables, `FOR UPDATE` and `LOCK IN SHARE MODE`, `INTO OUTFILE` and `INTO DUMPFILE`, and the `SQL_CALC_FOUND_ROWS` and `SQL_NO_CACHE` hints.
+{% endtab %}
+
+{% tab title="No rules" %}
 ```json
 {}
 ```
 
-Nothing is excluded by rule. Results of volatile functions are cached too — see the warning above.
-{% endtab %}
-
-{% tab title="Exclude volatile functions" %}
-```json
-{
-  "store": [
-    { "attribute": "query", "op": "unlike", "value": "(?i)\\b(now|curdate|rand|uuid|sleep)\\b" }
-  ]
-}
-```
+Excludes nothing, so volatile results are cached too — see the warning above. This is not the default; it is what you get only by deliberately clearing the rules.
 {% endtab %}
 
 {% tab title="Restrict readers" %}
@@ -306,7 +383,9 @@ curl --location --request PATCH \
   --data '{"queryresultcache_rules":{"store":[{"attribute":"query","op":"unlike","value":"(?i)\\b(now|rand|uuid)\\b"}]}}'
 ```
 
-A rules-only change does not restart MaxScale. Allow up to about two minutes after the service returns to `ready` for new rules to take effect. Changing the TTL or the minimum query duration does restart MaxScale.
+A rules-only change does not restart MaxScale and does not empty the cache — MaxScale rereads the rules file in place. Allow up to about two minutes after the service returns to `ready` for new rules to take effect.
+
+Changing the TTL or the minimum query duration **does** restart MaxScale, which leaves the cache cold until it refills.
 
 ### Validating and Testing Rules
 
@@ -347,7 +426,7 @@ The tester evaluates `store` rules against the query text only. `would_store` is
 | `queryresultcache_replicas`                 | Number of cache nodes                                                           | Must be `1` (locked in Tech Preview)                                      |
 | `queryresultcache_mxs_hard_ttl`             | Cache freshness bound, in seconds                                               | 5–600, default 120                                                        |
 | `queryresultcache_mxs_min_query_duration`   | Minimum backend execution time, in milliseconds, before a result is cached      | 1–60000, default 100                                                      |
-| `queryresultcache_rules`                    | Caching rules document. `{}` caches everything the other settings allow          | Object or array of objects, up to 64 KiB                                  |
+| `queryresultcache_rules`                    | Caching rules document. Defaults to the volatile-result exclusion               | Object or array of objects, up to 64 KiB                                  |
 
 A `GET` on the service also returns two read-only fields: `queryresultcache_available`, which reports whether the cache can be newly enabled on that service, and `queryresultcache_unavailable_reason`, which explains why it cannot. A service that already has the cache enabled stays available even if its MaxScale is older than 25.10.3.
 
@@ -387,14 +466,17 @@ When the cache is enabled, the service's **Monitoring** view gains a **Query Res
 
 _Monitoring - Query Result Cache_
 
-| Panel                          | What it shows                                                                        |
-| ------------------------------ | ------------------------------------------------------------------------------------ |
-| Cache Hit Ratio                | Ratio of cache hits to total lookups (gets); the main measure of cache effectiveness |
-| Cache Throughput               | Cache gets, hits, and misses per second                                              |
-| Cache Entries                  | Number of entries currently held in the cache                                        |
-| Off-Heap Used                  | Percentage of the cache node's off-heap memory in use                                |
-| Data Region Memory             | Memory allocated to the cache against its maximum size                               |
-| Evictions / sec, Eviction Rate | Cache entries evicted per second (an indicator of memory pressure)                   |
+| Panel              | What it shows                                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------------------------- |
+| Cache Hit Ratio    | Share of cache reads served from the cache; the main measure of cache effectiveness                  |
+| Cache Entries      | Number of entries currently held in the cache                                                        |
+| Off-Heap Used      | Share of the cache data region's off-heap memory allocated. Sustained values above 90% mean pressure |
+| Evictions / sec    | Rate of entries evicted. Sustained non-zero values mean the cache is over capacity                   |
+| Cache Nodes        | Number of cache nodes in the cluster topology. Below the expected count, a node has left             |
+| Cache Throughput   | Cache gets, hits, and misses per second                                                              |
+| Data Region Memory | Off-heap memory allocated for cached data against the data region's configured maximum               |
+
+These panels cover the whole service. Selecting the cache node in the list on the left shows the same panels for that node alone, with two differences: there is no **Cache Nodes** panel, and an **Eviction Rate** panel charts over time the same eviction metric that **Evictions / sec** reports as a single figure.
 
 For the full list of panels, see [Service Monitoring Panels](../cloud-usage/service-monitoring-panels.md). The same metrics are also available through the [Observability](../cloud-management/observability.md) API.
 
