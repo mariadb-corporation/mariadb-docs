@@ -45,7 +45,7 @@ The Bot expands it to: `[Securing Communications](https://app.gitbook.com/o/diTp
 | `{skysql}` | MariaDB Cloud (legacy alias — SkySQL was renamed MariaDB Cloud) |
 | `{platform}` | MariaDB Enterprise Platform |
 | `{mariadb-cloud}` | MariaDB Cloud |
-| `{tools}` | Tools |
+| `{tools}` | Enterprise Tools |
 | `{release-notes}` | Release Notes |
 | `{general-resources}` | General Resources |
 

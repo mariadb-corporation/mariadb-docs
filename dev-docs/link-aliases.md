@@ -42,7 +42,7 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
 | `{skysql}` | MariaDB Cloud (legacy alias — SkySQL was renamed MariaDB Cloud) |
 | `{platform}` | MariaDB Enterprise Platform |
 | `{mariadb-cloud}` | MariaDB Cloud |
-| `{tools}` | Tools |
+| `{tools}` | Enterprise Tools (alias keeps the `tools` slug) |
 | `{release-notes}` | Release Notes |
 | `{general-resources}` | General Resources |
 
