@@ -2,6 +2,7 @@
 description: >-
   Post-download information for MariaDB Community Server 13.2.0, a Preview
   release of the MariaDB 13.2 series
+hidden: true
 ---
 
 # MariaDB Server 13.2.0
