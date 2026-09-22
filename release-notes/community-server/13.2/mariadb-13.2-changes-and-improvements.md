@@ -2,6 +2,7 @@
 description: >-
   An overview of changes, improvements, and what's new in MariaDB Community
   Server 13.2
+hidden: true
 ---
 
 # MariaDB 13.2 Changes & Improvements
