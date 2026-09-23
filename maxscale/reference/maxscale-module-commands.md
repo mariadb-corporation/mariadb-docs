@@ -11,7 +11,25 @@ description: >-
 
 Introduced in MaxScale 2.1, the module commands are special, module-specific commands. They allow the modules to expand beyond the capabilities of the module API. Currently, only MaxCtrl implements an interface to the module commands.
 
-All registered module commands can be shown with `maxctrl list commands` and they can be executed with `maxctrl call command <module> <name> ARGS...` whereis the name of the module and is the name of the command._ARGS_ is a command specific list of arguments.
+All registered module commands can be shown with `maxctrl list commands`. They can be executed with `maxctrl call command <module> <name> ARGS...`, where `<module>` is the name of the module and `<name>` is the name of the command. `ARGS` is a command-specific list of arguments, separated by spaces.
+
+{% hint style="info" %}
+From MaxScale 25.10, the name of a service, filter, or monitor can be used in place of the module name. MaxScale then resolves the module from that object and passes the object as the command's first argument automatically, so the usage is `call command <module|object> <command> [params...]`.
+
+For example, to call the `switchover` command of a `mariadbmon` monitor named `MariaDB-Monitor`:
+
+```bash
+maxctrl call command MariaDB-Monitor switchover
+```
+
+This is equivalent to the older form, which names the module explicitly and passes the monitor as an argument:
+
+```bash
+maxctrl call command mariadbmon switchover MariaDB-Monitor
+```
+
+Both forms are supported. The older form is required on MaxScale 25.01 and earlier.
+{% endhint %}
 
 ### Developer reference
 

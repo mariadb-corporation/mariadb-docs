@@ -15,7 +15,7 @@ LibreDB Studio is third-party software, not developed or maintained by MariaDB a
 
 ![LibreDB Studio showing an ER diagram generated from a MariaDB schema](../../.gitbook/assets/libredb-studio-erd.png)
 
-## Key features
+## Key Features
 
 * SQL editor with schema-aware autocompletion, based on Monaco.
 * Entity-relationship diagrams generated from the live schema.
@@ -24,13 +24,13 @@ LibreDB Studio is third-party software, not developed or maintained by MariaDB a
 * Server metrics, slow query, and session views.
 * OIDC single sign-on, role-based access control, and a query audit trail.
 
-## MariaDB support
+## MariaDB Support
 
 LibreDB Studio connects to MariaDB with the `mysql2` driver, over the protocol both servers share. Select MySQL as the connection type. Schema browsing, query execution, entity-relationship diagrams, schema comparison, and `EXPLAIN FORMAT=JSON` plans were tested against MariaDB 12.3.
 
 The metrics and slow query views read `performance_schema`, which MariaDB doesn't enable by default. Cache hit ratio, queries per second, and buffer pool usage are reported as unavailable until the server is started with `performance_schema=ON`. The deadlock counter is the exception, because it comes from `Innodb_deadlocks`. Nothing else in the interface depends on `performance_schema`.
 
-## Supported databases
+## Supported Databases
 
 Besides MariaDB: MySQL, PostgreSQL, Oracle, Microsoft SQL Server, SQLite, MongoDB, Redis, Couchbase, ClickHouse, Apache Druid, Elasticsearch, OpenSearch, Apache Trino, and Apache Cassandra.
 

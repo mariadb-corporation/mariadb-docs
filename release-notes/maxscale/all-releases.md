@@ -8,17 +8,19 @@ description: A list of all MariaDB MaxScale releases
 
 | Version                     | Release Date | Release Status |
 | --------------------------- | ------------ | -------------- |
+| [25.10.4](25.10/25.10.4.md) | 2026-09-17   | Stable (GA)    |
 | [25.10.3](25.10/25.10.3.md) | 2026-06-15   | Stable (GA)    |
 | [25.10.2](25.10/25.10.2.md) | 2026-03-18   | Stable (GA)    |
 | [25.10.1](25.10/25.10.1.md) | 2026-01-09   | Stable (GA)    |
-| [25.10.0](25.10/25.10.0.md) | 2025-09-22   | Stable (GA)    |
+| [25.10.0](25.10/25.10.0.md) | 2025-10-22   | Stable (GA)    |
 
 ## MaxScale 25.01
 
 | Version                     | Release Date | Release Status |
 | --------------------------- | ------------ | -------------- |
-| [25.01.7](25.01/25.01.7.md) | 2025-06-15   | Stable (GA)    |
-| [25.01.6](25.01/25.01.6.md) | 2025-03-16   | Stable (GA)    |
+| [25.01.8](25.01/25.01.8.md) | 2026-09-17   | Stable (GA)    |
+| [25.01.7](25.01/25.01.7.md) | 2026-06-15   | Stable (GA)    |
+| [25.01.6](25.01/25.01.6.md) | 2026-03-16   | Stable (GA)    |
 | [25.01.5](25.01/25.01.5.md) | 2025-12-09   | Stable (GA)    |
 | [25.01.4](25.01/25.01.4.md) | 2025-09-08   | Stable (GA)    |
 | [25.01.3](25.01/25.01.3.md) | 2025-06-25   | Stable (GA)    |
@@ -29,10 +31,11 @@ description: A list of all MariaDB MaxScale releases
 
 | Version                       | Release Date | Release Status |
 | ----------------------------- | ------------ | -------------- |
+| [24.02.11](24.02/24.02.11.md) | 2026-09-17   | Stable (GA)    |
 | [24.02.10](24.02/24.02.10.md) | 2026-06-15   | Stable (GA)    |
 | [24.02.9](24.02/24.02.9.md)   | 2026-03-16   | Stable (GA)    |
 | [24.02.8](24.02/24.02.8.md)   | 2025-12-09   | Stable (GA)    |
-| [24.02.7](24.02/24.02.7.md)   | 2025-09-02   | Stable (GA)    |
+| [24.02.7](24.02/24.02.7.md)   | 2025-09-08   | Stable (GA)    |
 | [24.02.6](24.02/24.02.6.md)   | 2025-06-07   | Stable (GA)    |
 | [24.02.5](24.02/24.02.5.md)   | 2025-03-10   | Stable (GA)    |
 | [24.02.4](24.02/24.02.4.md)   | 2024-12-02   | Stable (GA)    |
@@ -45,6 +48,7 @@ description: A list of all MariaDB MaxScale releases
 
 | Version                       | Release Date | Release Status |
 | ----------------------------- | ------------ | -------------- |
+| [23.08.15](23.08/23.08.15.md) | 2026-09-17   | Stable (GA)    |
 | [23.08.14](23.08/23.08.14.md) | 2026-06-15   | Stable (GA)    |
 | [23.08.13](23.08/23.08.13.md) | 2026-03-16   | Stable (GA)    |
 | [23.08.12](23.08/23.08.12.md) | 2025-12-09   | Stable (GA)    |
@@ -65,6 +69,7 @@ description: A list of all MariaDB MaxScale releases
 
 | Version                       | Release Date | Release Status |
 | ----------------------------- | ------------ | -------------- |
+| [23.02.19](23.02/23.02.19.md) | 2026-09-17   | Stable (GA)    |
 | [23.02.18](23.02/23.02.18.md) | 2026-06-15   | Stable (GA)    |
 | [23.02.17](23.02/23.02.17.md) | 2026-03-16   | Stable (GA)    |
 | [23.02.16](23.02/23.02.16.md) | 2025-12-09   | Stable (GA)    |
@@ -105,10 +110,10 @@ description: A list of all MariaDB MaxScale releases
 | [22.08.6](22.08/22.08.6.md)   | 2023-05-26   | Stable (GA)    |
 | [22.08.5](22.08/22.08.5.md)   | 2023-03-27   | Stable (GA)    |
 | [22.08.4](22.08/22.08.4.md)   | 2023-01-19   | Stable (GA)    |
-| [22.08.3](22.08/22.08.17.md)  | 2022-12-03   | Stable (GA)    |
-| [22.08.2](22.08/22.08.18.md)  | 2022-10-20   | Stable (GA)    |
-| [22.08.1](22.08/22.08.18.md)  | 2022-09-12   | Stable (GA)    |
-| [22.08.0](23.08/23.08.0.md)   | 2022-08-09   | Stable (GA)    |
+| [22.08.3](22.08/22.08.3.md)   | 2022-12-02   | Stable (GA)    |
+| [22.08.2](22.08/22.08.2.md)   | 2022-10-20   | Stable (GA)    |
+| [22.08.1](22.08/22.08.1.md)   | 2022-09-12   | Stable (GA)    |
+| 22.08.0                       | 2022-08-09   | Stable (GA)    |
 
 ## MaxScale 21.06
 
@@ -143,7 +148,7 @@ description: A list of all MariaDB MaxScale releases
 | [2.5.14](old-releases/2.5/2.5.14.md)                 | 2021-07-21   | Stable (GA)    |
 | [2.5.13](old-releases/2.5/2.5.13.md)                 | 2021-06-04   | Stable (GA)    |
 | [2.5.12](old-releases/2.5/2.5.12.md)                 | 2021-05-26   | Stable (GA)    |
-| [2.5.11](../connectors/java/changelogs/2.5/2.5.1.md) | 2021-05-04   | Stable (GA)    |
+| [2.5.11](old-releases/2.5/2.5.11.md)                 | 2021-05-04   | Stable (GA)    |
 | [2.5.10](old-releases/2.5/2.5.10.md)                 | 2021-03-25   | Stable (GA)    |
 | [2.5.9](old-releases/2.5/2.5.9.md)                   | 2021-03-10   | Stable (GA)    |
 | [2.5.8](old-releases/2.5/2.5.8.md)                   | 2021-02-18   | Stable (GA)    |
@@ -177,7 +182,7 @@ description: A list of all MariaDB MaxScale releases
 | [2.4.4](old-releases/2.4/2.4.4.md)                     | 2019-11-13   | Stable (GA)    |
 | [2.4.3](old-releases/2.4/2.4.3.md)                     | 2019-11-05   | Stable (GA)    |
 | [2.4.2](old-releases/2.4/2.4.2.md)                     | 2019-08-29   | Stable (GA)    |
-| [2.4.1](../connectors/node.js/changelogs/2.x/2.4.1.md) | 2019-08-20   | Stable (GA)    |
-| [2.4.0](old-releases/2.4/2.4.1.md)                     | 2019-06-28   | Stable (GA)    |
+| [2.4.1](old-releases/2.4/2.4.1.md)                     | 2019-08-20   | Stable (GA)    |
+| [2.4.0](old-releases/2.4/2.4.0.md)                     | 2019-06-28   | Stable (GA)    |
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

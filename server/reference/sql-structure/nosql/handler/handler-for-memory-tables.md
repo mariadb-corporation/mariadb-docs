@@ -1,3 +1,10 @@
+---
+description: >-
+  Use HANDLER commands efficiently with MEMORY/HEAP tables, including
+  creating BTREE keys for range scans and the limitations of HASH and
+  BTREE keys and table scans.
+---
+
 # HANDLER for MEMORY Tables
 
 This article explains how to use [HANDLER commands](handler-commands.md) efficiently with [MEMORY/HEAP](../../../../server-usage/storage-engines/memory-storage-engine.md) tables.

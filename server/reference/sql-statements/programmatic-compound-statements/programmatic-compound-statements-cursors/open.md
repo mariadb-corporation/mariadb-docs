@@ -54,6 +54,8 @@ In Oracle mode, a `SYS_REFCURSOR` can be opened over an already-prepared stateme
 
 `OPEN ... FOR LOCAL` is only valid inside a stored procedure, and like the other LOCAL forms is not permitted in stored functions or triggers.
 
+`OPEN ... FOR PREPARE` counts as dynamic SQL, so inside a [stored function](../../../../server-usage/stored-routines/stored-functions/) it is subject to the same restriction as `PREPARE` and `EXECUTE` — see [Dynamic SQL in Stored Functions](../../prepared-statements/prepare-statement.md#dynamic-sql-in-stored-functions).
+
 Both forms require a weak cursor variable (`SYS_REFCURSOR`). Using them with a strongly-typed `REF CURSOR` (one declared with a `RETURN` clause) returns an error.
 
 ## See Also

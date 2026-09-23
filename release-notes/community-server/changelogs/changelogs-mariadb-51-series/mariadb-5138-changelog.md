@@ -19,7 +19,7 @@ and bug fixes:
 * Optimizer improvement: Table elimination ([MWL#17](https://askmonty.org/worklog/?tid=17)). See [Table Elimination](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/table-elimination).
 * Enhancements to slow log. Includes details of execution plan and
   microsecond-precision resolution. Based on microslow patch by Percona. See [Slow Query Log Extended Statistics](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/slow-query-log-extended-statistics).
-* PBXT storage engine. PBXT is developed by [PrimeBase Technologies](https://www.primebase.org).
+* PBXT storage engine. PBXT is developed by [PrimeBase Technologies](https://en.wikipedia.org/wiki/PrimeBase).
 * [XtraDB storage engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) version 6 as a replacement
   for the MySQL built-in InnoDB. XtraDB is based on the Oracle/Innobase InnoDB
   plugin version 1.0.3, with enhancements. XtraDB is developed by Percona.

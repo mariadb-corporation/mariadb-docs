@@ -18,14 +18,15 @@ XML
 <dependency>
     <groupId>org.mariadb</groupId>
     <artifactId>r2dbc-mariadb</artifactId>
-    <version>1.4.1</version> </dependency>
+    <version>1.4.2</version> 
+</dependency>
 ```
 
 Gradle
 
 ```gradle
 // Gradle
-implementation 'org.mariadb:r2dbc-mariadb:1.4.1' // Use the latest stable version
+implementation 'org.mariadb:r2dbc-mariadb:1.4.2' // Use the latest stable version
 ```
 
 **b. For R2DBC 0.9.1 Specification (for compatibility):**
@@ -36,7 +37,8 @@ XML
 <dependency>
     <groupId>org.mariadb</groupId>
     <artifactId>r2dbc-mariadb-0.9.1-spec</artifactId>
-    <version>1.4.1</version> </dependency>
+    <version>1.4.2</version> 
+</dependency>
 ```
 
 Gradle
@@ -150,7 +152,7 @@ MariaDB Connector/R2DBC also integrates seamlessly with the Spring Data R2DBC fr
 
 * [MariaDB Connector/R2DBC GitHub Repository](https://github.com/mariadb-corporation/mariadb-connector-r2dbc)
 * [R2DBC Specification](https://r2dbc.io/spec/)
-* [Spring Data R2DBC Documentation](https://www.google.com/search?q=https://docs.spring.io/spring-data/relational/reference/r2dbc/index.html\&authuser=1)
+* [Spring Data R2DBC Documentation](https://docs.spring.io/spring-data/relational/reference/r2dbc.html)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

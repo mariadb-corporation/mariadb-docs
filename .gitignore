@@ -21,6 +21,9 @@
 .claude/doc-sources.local.json
 # bulk-campaign resumable progress state (per-run, machine-local):
 .claude/bulk-campaign.local.json
+# triage-epic tiering knobs (MDEV status sets, release/build branch globs; built-in defaults
+# apply when absent):
+.claude/triage-epic.local.json
 # per-task research paper trail (source-verification notes, one file per Jira ID):
 research/
 
@@ -32,3 +35,15 @@ research/
 /dist/
 /pdf/__pycache__/
 /.claude/hooks/__pycache__/
+/help-tables/__pycache__/
+
+# /graphify output (knowledge-graph artifacts, written next to the pages it read).
+# Unanchored: the skill writes one of these per directory it is pointed at, and
+# its GRAPH_REPORT.md otherwise trips doc-lint's navcheck as an unlisted page.
+graphify-out/
+
+# help-tables generator output (DOCS-6643). markdown_extractor.py writes these on
+# every run; the SQL is handed to the server team as a CI artifact, never committed.
+/help-tables/fill_help_tables.sql
+/help-tables/failed_files.txt
+/help-tables/unlisted_pages.txt

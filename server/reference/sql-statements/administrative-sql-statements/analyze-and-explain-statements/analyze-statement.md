@@ -43,7 +43,7 @@ possible_keys: key1
       key_len: 5
           ref: NULL
          rows: 181
-       r_rows: 181
+       r_rows: 181.00
      filtered: 100.00
    r_filtered: 10.50
         Extra: Using index condition; Using where
@@ -72,19 +72,19 @@ WHERE
 ```
 
 ```
-+----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+--------+----------+------------+-------------+
-| id | select_type | table    | type | possible_keys | key         | key_len | ref                | rows   | r_rows | filtered | r_filtered | Extra       |
-+----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+--------+----------+------------+-------------+
-|  1 | SIMPLE      | customer | ALL  | PRIMARY,...   | NULL        | NULL    | NULL               | 149095 | 150000 |    18.08 |       9.13 | Using where |
-|  1 | SIMPLE      | orders   | ref  | i_o_custkey   | i_o_custkey | 5       | customer.c_custkey |      7 |     10 |   100.00 |      30.03 | Using where |
-+----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+--------+----------+------------+-------------+
++----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+-----------+----------+------------+-------------+
+| id | select_type | table    | type | possible_keys | key         | key_len | ref                | rows   | r_rows    | filtered | r_filtered | Extra       |
++----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+-----------+----------+------------+-------------+
+|  1 | SIMPLE      | customer | ALL  | PRIMARY       | NULL        | NULL    | NULL               | 149095 | 150000.00 |    18.08 |       9.13 | Using where |
+|  1 | SIMPLE      | orders   | ref  | i_o_custkey   | i_o_custkey | 5       | customer.c_custkey | 7      | 10.00     |   100.00 |      30.03 | Using where |
++----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+-----------+----------+------------+-------------+
 ```
 
 Here, one can see that
 
-* For table customer, customer.rows=149095, customer.r\_rows=150000. The estimate for number of rows we will read was fairly precise
+* For table customer, customer.rows=149095, customer.r\_rows=150000.00. The estimate for number of rows we will read was fairly precise
 * customer.filtered=18.08, customer.r\_filtered=9.13. The optimizer somewhat overestimated the number of records that will match selectivity of condition attached to `customer` table (in general, when you have a full scan and r\_filtered is less than 15%, it's time to consider adding an appropriate index).
-* For table orders, orders.rows=7, orders.r\_rows=10. This means that on average, there are 7 orders for a given c\_custkey, but in our case there were 10, which is close to the expectation (when this number is consistently far from the expectation, it may be time to run ANALYZE TABLE, or even edit the table statistics manually to get better query plans).
+* For table orders, orders.rows=7, orders.r\_rows=10.00. This means that on average, there are 7 orders for a given c\_custkey, but in our case there were 10, which is close to the expectation (when this number is consistently far from the expectation, it may be time to run ANALYZE TABLE, or even edit the table statistics manually to get better query plans).
 * orders.filtered=100, orders.r\_filtered=30.03. The optimizer didn't have any way to estimate which fraction of records will be left after it checks the condition that is attached to table orders (it's orders.o\_totalprice > 200\*1000). So, it used 100%. In reality, it is 30%. 30% is typically not selective enough to warrant adding new indexes. For joins with many tables, it might be worth to collect and use [column statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/engine-independent-table-statistics.md) for columns in question, this may help the optimizer to pick a better query plan.
 
 ### Meaning of NULL in r\_rows and r\_filtered
@@ -96,21 +96,48 @@ ANALYZE SELECT *
 FROM orders, customer 
 WHERE
   customer.c_custkey=orders.o_custkey AND
-  customer.c_acctbal < -0 AND 
+  customer.c_acctbal < 0 AND 
   customer.c_comment LIKE '%foo%' AND
   orders.o_totalprice > 200*1000;
 ```
 
 ```
-+----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+--------+----------+------------+-------------+
-| id | select_type | table    | type | possible_keys | key         | key_len | ref                | rows   | r_rows | filtered | r_filtered | Extra       |
-+----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+--------+----------+------------+-------------+
-|  1 | SIMPLE      | customer | ALL  | PRIMARY,...   | NULL        | NULL    | NULL               | 149095 | 150000 |    18.08 |       0.00 | Using where |
-|  1 | SIMPLE      | orders   | ref  | i_o_custkey   | i_o_custkey | 5       | customer.c_custkey |      7 |   NULL |   100.00 |       NULL | Using where |
-+----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+--------+----------+------------+-------------+
++----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+-----------+----------+------------+-------------+
+| id | select_type | table    | type | possible_keys | key         | key_len | ref                | rows   | r_rows    | filtered | r_filtered | Extra       |
++----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+-----------+----------+------------+-------------+
+|  1 | SIMPLE      | customer | ALL  | PRIMARY       | NULL        | NULL    | NULL               | 149095 | 150000.00 |    18.08 |       0.00 | Using where |
+|  1 | SIMPLE      | orders   | ref  | i_o_custkey   | i_o_custkey | 5       | customer.c_custkey | 7      | NULL      |   100.00 |       NULL | Using where |
++----+-------------+----------+------+---------------+-------------+---------+--------------------+--------+-----------+----------+------------+-------------+
 ```
 
 The output of **orders.r\_rows=NULL** and **orders.r\_filtered=NULL** shows that the table `orders` was never scanned. Indeed, we can also see customer.r\_filtered=0.00. This shows that a part of WHERE attached to table `customer` was never satisfied (or, satisfied in less than 0.01% of cases).
+
+### Rowid Filter Notation
+
+Added in MariaDB 10.4.3 ([MDEV-16188](https://jira.mariadb.org/browse/MDEV-16188)).
+
+When the [Rowid Filtering Optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization.md) applies to a table, `r_rows` takes the same `<r_rows> (<N>%)` form that [EXPLAIN](explain.md#rowid-filter-notation) uses for `rows` — but both halves are observations rather than estimates. `r_rows` counts the rows actually read from the table, which with a filter in place means the rows the filter accepted, and `(<N>%)` is the selectivity the filter actually achieved. The `type`, `key` and `key_len` columns use the same composite notation as in `EXPLAIN`.
+
+For the query used on the [EXPLAIN](explain.md#rowid-filter-notation) page, `ANALYZE` reports:
+
+```
+*************************** 2. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: lineitem
+         type: ref|filter
+possible_keys: PRIMARY,i_l_shipdate,i_l_orderkey,i_l_orderkey_quantity
+          key: i_l_orderkey|i_l_shipdate
+      key_len: 4|4
+          ref: dbt3_s001.orders.o_orderkey
+         rows: 4 (2%)
+       r_rows: 0.15 (2%)
+     filtered: 1.63
+   r_filtered: 100.00
+        Extra: Using where; Using rowid filter
+```
+
+The optimizer expected 4 rows per lookup and a 2% filter, so 4\*0.02 = 0.08 rows to be accepted on average. Execution actually read 0.15 rows per lookup — the filter let through roughly twice what was expected — although the observed selectivity still rounds to the same 2%.
 
 ## ANALYZE FORMAT=JSON
 
@@ -124,6 +151,7 @@ The output of **orders.r\_rows=NULL** and **orders.r\_filtered=NULL** shows that
 
 ## See Also
 
+* [EXPLAIN](explain.md)
 * [ANALYZE FORMAT=JSON](analyze-format-json.md)
 * [SHOW ANALYZE](../show/show-analyze.md)
 * [ANALYZE TABLE](../../table-statements/analyze-table.md)

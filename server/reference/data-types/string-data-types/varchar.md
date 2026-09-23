@@ -29,7 +29,7 @@ For the [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore
 
 For MariaDB, a number of [NO PAD collations](character-sets/supported-character-sets-and-collations.md#no-pad-collations) are available.
 
-`VARCHAR(0)` columns can contain 2 values: an empty string or `NULL`. Such columns cannot be part of an index. The [CONNECT](../../../server-usage/storage-engines/connect/) storage engine does not support `VARCHAR(0)`.
+`VARCHAR(0)` columns can contain two values: an empty string or `NULL`. A zero-length column can be indexed only if it is nullable; indexing a `NOT NULL` zero-length column fails with `ERROR 1167 (42000): The storage engine InnoDB can't index column`, naming the engine in use. The [CONNECT](../../../server-usage/storage-engines/connect/) storage engine does not support `VARCHAR(0)`.
 
 ### Use Cases for Zero Length
 
@@ -38,6 +38,8 @@ A `CHAR(0)` or `VARCHAR(0)` column occupies minimal space and is restricted to t
 * **Legacy Compatibility**: Include these columns to maintain compatibility with older applications that require a specific table schema, even if the data is no longer collected.
 * **Two-State Flags**: A `CHAR(0) NULL` column can function as a boolean indicator. It uses only one bit of storage to distinguish between a "set" state (the empty string) and an "unset" state (`NULL`).
 * **Row Marking**: You can use a `CHAR(0)` column to mark a specific row in a table. For example, if you require only one "active" row, set that row to an empty string while keeping all other rows `NULL`.
+
+For the last two purposes, a [BOOLEAN](../numeric-data-types/boolean.md) column — a synonym for `TINYINT(1)` — names the intent more clearly. The trade-off is storage: `TINYINT(1)` holds a one-byte value, where a `CHAR(0) NULL` column carries its state in the row's `NULL` bit alone.
 
 The following error occurs if you attempt to insert any character data into a 0-length column: `ERROR 1406 (22001): Data too long for column`.
 
@@ -178,7 +180,7 @@ In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server
 * [CHAR](char.md)
 * [Character Sets and Collations](character-sets/)
 * [Data Type Storage Requirements](../data-type-storage-requirements.md)
-* [Oracle mode from MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#synonyms-for-basic-sql-types)
+* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#synonyms-for-basic-sql-types)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

@@ -43,7 +43,7 @@ These behaviors were verified in the 2026 Jepsen safety analysis. Developers sho
 * `FLUSH PRIVILEGES` is not replicated.
 * The [query cache](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/query-cache) needed to be disabled by setting [query\_cache\_size=0](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#query_cache_size) prior to MariaDB Galera Cluster 5.5.40, MariaDB Galera Cluster 10.0.14, and [MariaDB 10.1.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.2)
 * In an asynchronous replication setup where a master replicates to a Galera node acting as a slave, parallel replication (slave-parallel-threads > 1) on the slave is currently not supported (see [MDEV-6860](https://jira.mariadb.org/browse/MDEV-6860)).
-* The disk-based [Galera gcache](https://galeracluster.com/library/documentation/state-transfer.html#write-set-cache-gcache) is not encrypted ([MDEV-8072](https://jira.mariadb.org/browse/MDEV-8072)).
+* The disk-based [Galera gcache](../high-availability/rapid-node-recovery-with-ist-and-the-gcache.md) is not encrypted ([MDEV-8072](https://jira.mariadb.org/browse/MDEV-8072)).
 * Nodes may have different table definitions, especially temporarily during [rolling schema upgrade](galera-cluster-system-variables.md#wsrep_osu_method) operations, but the same [schema compatibility restrictions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-when-the-primary-and-replica-have-different-table-definitions) apply as they do for row-based replication
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

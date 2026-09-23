@@ -30,14 +30,15 @@ Install-Package MySqlConnector -Version 2.4.0 # Use the latest stable version
 
 **b. Using PackageReference (in your `.csproj` file):**
 
-````xml
-<PackageReference Include="MySqlConnector" Version="2.4.0" /> ```
+```xml
+<PackageReference Include="MySqlConnector" Version="2.4.0" />
+```
 
 **c. Using .NET CLI:**
 
 ```bash
 dotnet add package MySqlConnector --version 2.4.0 # Use the latest stable version
-````
+```
 
 #### 3. Basic Usage
 

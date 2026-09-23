@@ -35,7 +35,7 @@ MariaDB Connector/R2DBC is the reactive driver for MariaDB: pure Java, built on 
 <dependency>
     <groupId>org.mariadb</groupId>
     <artifactId>r2dbc-mariadb</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 </dependency>
 
 <!-- Only if the application pools connections -->
@@ -49,7 +49,7 @@ MariaDB Connector/R2DBC is the reactive driver for MariaDB: pure Java, built on 
 ### Gradle
 
 ```groovy
-implementation 'org.mariadb:r2dbc-mariadb:1.4.1'
+implementation 'org.mariadb:r2dbc-mariadb:1.4.2'
 implementation 'io.r2dbc:r2dbc-pool:1.0.2.RELEASE'
 ```
 

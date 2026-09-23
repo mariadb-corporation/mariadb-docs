@@ -24,7 +24,7 @@ The goals are:
 3. Code that can't reasonably be tested (such as error conditions) should be marked with `/* purecov: inspected */` so that a reviewer of the code can easily spot this code.
 4. Code that is suspected to be deadcode should have a `DBUG_ASSERT(0)` or be marked with `/* purecov: deadcode */` so that we have a chance to notice if the code is ever executed.
 
-The reason we are using 'purecov' to mark lines is an attribution to the [purecov](ftp://ftp.software.ibm.com/software/rational/docs/v2002/dev_tools/purecov/html/ht_intro_pc.htm) tool we originally used for code coverage in the early years of MySQL.
+The reason we are using `purecov` to mark lines is an attribution to the `purecov` tool we originally used for code coverage in the early years of MySQL.
 
 ### Markers <a href="#markers" id="markers"></a>
 
@@ -70,10 +70,10 @@ To be able to see the level of coverage within the current test suite, do the fo
 ### Tools <a href="#tools" id="tools"></a>
 
 * You can use the [code-coverage-with-dgcov/dgcov tool](code-coverage-with-dgcov.md) to check the coverage for the new code. This is especially written and maintained for MariaDB.
-* For code coverage you also use the [lcov](http://fedora13.selfip.org/lcov/) tool.
+* For code coverage you also use the [lcov](https://github.com/linux-test-project/lcov) tool.
 
 ### Code coverage in buildbot <a href="#code-coverage-in-buildbot" id="code-coverage-in-buildbot"></a>
 
-[buildbot](https://kb-archive.mariadb.net/kb/en/buildbot/), the MariaDB build system, is doing [automatic coverage testing for each push](http://buildbot.askmonty.org/buildbot/builders/kvm-dgcov-jaunty-i386).
+[buildbot](https://kb-archive.mariadb.net/kb/en/buildbot/), the MariaDB build system, is doing automatic coverage testing for each push.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

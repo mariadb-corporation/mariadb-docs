@@ -9,7 +9,7 @@ description: >-
 
 The MariaDB Jupyter Kernel is an Open-Source kernel for [Jupyter](https://jupyter.org) which enables users to run MariaDB in a [Jupyter](https://jupyter.org) notebook.
 
-Notebooks can be run in a variety of environments, ranging from your local computer for testing purposes via [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/) to complex [Zero to JupyterHub Kubernetes systems](https://zero-to-jupyterhub.readthedocs.io/en/latest/) running in the cloud.
+Notebooks can be run in a variety of environments, ranging from your local computer for testing purposes via [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/) to complex [Zero to JupyterHub Kubernetes systems](https://z2jh.jupyter.org/en/latest/) running in the cloud.
 
 The [mariadb\_kernel](https://github.com/MariaDB/mariadb_kernel) project is agnostic about the complexity of your [Jupyter](https://jupyter.org) infrastructure, it can run on any of them thanks to the way [Jupyter](https://jupyter.org) designed its kernel machinery. As long as MariaDB is installed on the host running the kernel and there is MariaDB Server running somewhere, things should work out as expected.
 

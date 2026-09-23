@@ -51,7 +51,7 @@ If you have the [MariaDB Audit Plugin](../../../../../reference/plugins/mariadb-
 UNINSTALL SONAME 'server_audit';
 ```
 
-And if you load the plugin in a configuration file using the `plugin\_load\_add` option, then the option should also be removed. The MariaDB Enterprise Audit Plugin will automatically be installed after installing MariaDB Enterprise Server 10.4 or later.
+And if you load the plugin in a configuration file using the `plugin_load_add` option, then the option should also be removed. The MariaDB Enterprise Audit Plugin will automatically be installed after installing MariaDB Enterprise Server 10.4 or later.
 
 ## Uninstall the Old Version <a href="#uninstall-the-old-version" id="uninstall-the-old-version"></a>
 

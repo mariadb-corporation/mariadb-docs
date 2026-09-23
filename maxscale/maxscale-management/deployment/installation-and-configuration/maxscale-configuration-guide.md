@@ -1823,7 +1823,7 @@ event.X.level=LOG_ERR
 
 The above means that if event _X_ occurs, then that is logged using the facility `LOG_LOCAL0` and the level `LOG_ERR`.
 
-The valid values of `facility` are the facility values reported by`man syslog`, e.g.`LOG\_AUTH`,`LOG\_LOCAL0`and`LOG\_USER`. Likewise, the valid values for `level`are the ones also reported by`man syslog`, e.g.`LOG\_WARNING`,`LOG\_ERR`and`LOG\_CRIT\`.
+The valid values of `facility` are the facility values reported by`man syslog`, e.g.`LOG_AUTH`,`LOG_LOCAL0`and`LOG_USER`. Likewise, the valid values for `level`are the ones also reported by`man syslog`, e.g.`LOG_WARNING`,`LOG_ERR`and`LOG\_CRIT\`.
 
 Note that MaxScale does not act upon the level, that is, even if the level of a particular event is defined to be `LOG_EMERG`, MaxScale will not shut down if that event occurs.
 
@@ -2067,7 +2067,7 @@ By default MaxScale uses the first server labeled as `Master` as the source of t
 
 **Note:** This parameter has been deprecated in MaxScale 23.08. The stripping of escape characters is in all known cases the correct thing to do.
 
-This setting controls whether escape characters (`\`) are removed from database names when loading user grants from a backend server. When enabled, a grant such as ``grant select on` `test\_`.* to 'user'@'%';`` is read as ``grant select on` `test\_`.* to 'user'@'%';``
+This setting controls whether escape characters (`\`) are removed from database names when loading user grants from a backend server. When enabled, a grant such as ``grant select on `test\_`.* to 'user'@'%';`` is read as ``grant select on `test_`.* to 'user'@'%';``
 
 This setting has no effect on database-level grants fetched from a MariaDB Server. The database names of a MariaDB Server are compared using the LIKE operator to properly handle wildcards and escaped wildcards. This setting may affect database names in table and column level grants, although these typically do not contain backlashes.
 
@@ -3080,6 +3080,27 @@ maxscale --export-config=/tmp/maxscale.cnf.combined
 ```
 
 This will create the `/tmp/maxscale.cnf.combined` file and write the current configuration into the it. This allows new MaxScale instances to be easily set up without requiring copying of all runtime configuration files. The user executing the command must be able to read all MaxScale configuration files as well as create and write the provided filename.
+
+## Backing Up a MaxScale Installation
+
+The section above covers the runtime configuration alone. To copy or back up a whole MaxScale
+installation, include its static configuration and the data its modules keep on disk.
+
+The main configuration file for MaxScale is in `/etc/maxscale.cnf` and additional user-created configuration files are in `/etc/maxscale.cnf.d/`. Objects created or modified at runtime are stored in `/var/lib/maxscale/maxscale.cnf.d/`. Some modules also store internal data in `/var/lib/maxscale/` named after the module or the configuration object.
+
+The simplest way to back up the configuration and runtime data of a MaxScale installation is to create an archive from the following files and directories:
+
+* `/etc/maxscale.cnf`
+* `/etc/maxscale.cnf.d/`
+* `/var/lib/maxscale/`
+
+This can be done with the following command:
+
+```bash
+tar -caf maxscale-backup.tar.gz /etc/maxscale.cnf /etc/maxscale.cnf.d/ /var/lib/maxscale/
+```
+
+If MaxScale is configured to store data in custom locations, these should be included in the backup as well.
 
 ## Encryption Key Managers
 

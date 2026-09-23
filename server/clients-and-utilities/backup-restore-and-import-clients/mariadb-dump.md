@@ -838,7 +838,7 @@ Collation="latin1_swedish_ci" Create_options="" Comment="" />
 
 ## Restoring Dumps
 
-To restore a backup created with `mariadb-dump`, use the \[mariadb client]\(../mariadb-client/mariadb-command line-client.md) to import the dump:
+To restore a backup created with `mariadb-dump`, use the [mariadb client](../mariadb-client/mariadb-command-line-client.md) to import the dump:
 
 ```bash
 mariadb db_name < backup-file.sql

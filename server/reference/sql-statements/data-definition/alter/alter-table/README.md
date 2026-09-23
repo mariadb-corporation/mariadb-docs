@@ -202,7 +202,7 @@ See [CREATE TABLE: Table Options](../../create/create-table.md#table-options) fo
 ### ADD COLUMN
 
 ```sql
-... ADD COLUMN [IF NOT EXISTS]  (col_name [column_definition](../create/create-table.md#column-definitions),...)
+... ADD COLUMN [IF NOT EXISTS] (col_name column_definition, ...)
 ```
 
 Adds a column to the table. The syntax is the same as in [CREATE TABLE](../../create/create-table.md). If you are using `IF NOT_EXISTS` the column will not be added if it was not there already. This is very useful when doing scripts to modify tables.

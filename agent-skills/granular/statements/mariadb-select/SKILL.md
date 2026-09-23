@@ -23,7 +23,7 @@ This skill covers the **delta between standard SQL `SELECT` and MariaDB's**. It 
 | Worrying about a long query running forever | Either `SELECT /*+ MAX_EXECUTION_TIME(5000) */ …` (since 12.0) or `SET STATEMENT max_statement_time = 5 FOR SELECT …` (older) — both bound the statement at the server level |
 | Unbounded `SELECT` that might scan too much during exploration | `LIMIT 1000 ROWS EXAMINED 100000` — caps both rows returned *and* rows examined (a MariaDB-specific safety net not in standard SQL) |
 | `JOIN_PREFIX(t1, t2)` written as an old-style optimizer hint | The join-order hints (`JOIN_PREFIX`, `JOIN_ORDER`, `JOIN_FIXED_ORDER`, `JOIN_SUFFIX`) are *only* valid inside the `/*+ … */` hint comment syntax (since 12.0). The legacy hint keywords (`STRAIGHT_JOIN`, `HIGH_PRIORITY`, etc.) sit between `SELECT` and the column list and don't use the `/*+ */` form |
-| `SQL_CACHE` / `SQL_NO_CACHE` hints | The query cache is **off by default** (`query_cache_type=0`) and is generally counter-productive on modern InnoDB workloads (high write concurrency invalidates cached entries constantly). Drop these hints from generated SQL unless the user has explicitly enabled the cache and is on a read-mostly workload |
+| `SQL_CACHE` / `SQL_NO_CACHE` hints | The query cache is **off by default** (`query_cache_type=OFF`) and is generally counter-productive on modern InnoDB workloads (high write concurrency invalidates cached entries constantly). Drop these hints from generated SQL unless the user has explicitly enabled the cache and is on a read-mostly workload |
 
 ## Optimizer Hints
 

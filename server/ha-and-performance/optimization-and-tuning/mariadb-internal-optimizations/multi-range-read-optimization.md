@@ -49,11 +49,20 @@ EXPLAIN SELECT * FROM tbl WHERE tbl.key1 BETWEEN 1000 AND 2000;
 +----+-------------+-------+-------+---------------+------+---------+------+------+-----------------------+
 ```
 
-When this query is executed, disk IO access pattern will follow the red line in this figure:
+When this query is executed, the table rows are read in index order, which bears no relation to where those rows physically sit in the table file:
 
-![no-mrr-access-pattern](../../../.gitbook/assets/no-mrr-access-pattern.png)
+```mermaid
+%%{init: {"themeVariables": {"xyChart": {"backgroundColor": "#ffffff", "titleColor": "#111111", "plotColorPalette": "#33415c", "xAxisLabelColor": "#111111", "xAxisTitleColor": "#111111", "xAxisTickColor": "#33415c", "xAxisLineColor": "#33415c", "yAxisLabelColor": "#111111", "yAxisTitleColor": "#111111", "yAxisTickColor": "#33415c", "yAxisLineColor": "#33415c"}}}}%%
+xychart-beta
+  accTitle: Table read order without MRR
+  accDescr { An illustrative chart of eight matching rows that sit at positions 5, 18, 26, 37, 48, 59, 71 and 88 in the table file. Read in index order they are visited as 48, 5, 71, 26, 88, 18, 59 and 37, so the read position jumps back and forth across the whole file and every read is a separate seek. }
+  title "Without MRR: rows read in index order"
+  x-axis "Read order" [1, 2, 3, 4, 5, 6, 7, 8]
+  y-axis "Position in the table file" 0 --> 100
+  line [48, 5, 71, 26, 88, 18, 59, 37]
+```
 
-Execution will hit the table rows in random places, as marked with the blue line/numbers in the figure.
+_Without MRR: the matching rows are read in index order, so the read position jumps back and forth across the whole table file. Every read is a separate seek. Positions are illustrative._
 
 When the table is sufficiently big, each table record read will need to actually go to disk (and be served from buffer pool or OS cache), and query execution will be too slow to be practical. For example, a 10,000 RPM disk drive is able to make 167 seeks per second, so in the worst case, query execution will be capped at reading about 167 records per second.
 
@@ -74,9 +83,20 @@ EXPLAIN SELECT * FROM tbl WHERE tbl.key1 BETWEEN 1000 AND 2000;
 1 row in set (0.03 sec)
 ```
 
-and the execution will proceed as follows:
+and the execution will proceed as follows. MRR collects the rowids into its buffer, sorts them, and then makes a single ordered pass over the table:
 
-![mrr-access-pattern](../../../.gitbook/assets/mrr-access-pattern.png)
+```mermaid
+%%{init: {"themeVariables": {"xyChart": {"backgroundColor": "#ffffff", "titleColor": "#111111", "plotColorPalette": "#33415c", "xAxisLabelColor": "#111111", "xAxisTitleColor": "#111111", "xAxisTickColor": "#33415c", "xAxisLineColor": "#33415c", "yAxisLabelColor": "#111111", "yAxisTitleColor": "#111111", "yAxisTickColor": "#33415c", "yAxisLineColor": "#33415c"}}}}%%
+xychart-beta
+  accTitle: Table read order with MRR
+  accDescr { The same eight rows at the same eight positions in the table file, but MRR sorts the collected rowids before reading, so they are visited in the order 5, 18, 26, 37, 48, 59, 71 and 88. The line rises steadily from left to right: one ordered sweep over the file instead of eight separate seeks. }
+  title "With MRR: rows read in rowid order"
+  x-axis "Read order" [1, 2, 3, 4, 5, 6, 7, 8]
+  y-axis "Position in the table file" 0 --> 100
+  line [5, 18, 26, 37, 48, 59, 71, 88]
+```
+
+_With MRR: the same rows at the same positions, read in rowid order — one ordered sweep instead of a seek per row._
 
 Reading disk data sequentially is generally faster, because
 
@@ -141,13 +161,35 @@ EXPLAIN SELECT * FROM t1,t2 WHERE t2.key1=t1.col1;
 +----+-------------+-------+------+---------------+------+---------+--------------+------+-------------+
 ```
 
-Execution of this query plan will cause random hits to be made into the index `t2.key1`, as shown in this picture:
+Execution of this query plan will cause random hits to be made into the index `t2.key1`:
 
-![key-sorting-regular-nl-join](../../../.gitbook/assets/key-sorting-regular-nl-join.png)
+```mermaid
+%%{init: {"themeVariables": {"xyChart": {"backgroundColor": "#ffffff", "titleColor": "#111111", "plotColorPalette": "#33415c", "xAxisLabelColor": "#111111", "xAxisTitleColor": "#111111", "xAxisTickColor": "#33415c", "xAxisLineColor": "#33415c", "yAxisLabelColor": "#111111", "yAxisTitleColor": "#111111", "yAxisTickColor": "#33415c", "yAxisLineColor": "#33415c"}}}}%%
+xychart-beta
+  accTitle: Index page access order in a regular nested-loop join
+  accDescr { An illustrative chart of six index lookups made by a regular nested-loop join, in the order the join produces them. They land on index pages 7, 2, 9, 4, 2 and 4. Because the lookups arrive in no particular key order, the line moves up and down and two pages are visited twice: lookup 5 returns to page 2, already read by lookup 2, and lookup 6 returns to page 4, already read by lookup 4. }
+  title "Regular nested-loop join: lookups arrive in random key order"
+  x-axis "Lookup order" [1, 2, 3, 4, 5, 6]
+  y-axis "Index page" 0 --> 10
+  line [7, 2, 9, 4, 2, 4]
+```
 
-In particular, on step #5 we'll read the same index page that we've read on step #2, and the page we've read on step #4 will be re-read on step#6. If all pages you're accessing are in the cache (in the buffer pool, if you're using InnoDB, and in the key cache, if you're using MyISAM), this is not a problem. However, if your hit ratio is poor and you're going to hit the disk, it makes sense to sort the lookup keys, like shown in this figure:
+_A regular nested-loop join issues its index lookups in whatever order the outer table produces them, so the same index page can be visited more than once._
 
-![key-sorting-join](../../../.gitbook/assets/key-sorting-join.png)
+In particular, on step #5 we'll read the same index page that we've read on step #2, and the page we've read on step #4 will be re-read on step #6. If all pages you're accessing are in the cache (in the buffer pool, if you're using InnoDB, and in the key cache, if you're using MyISAM), this is not a problem. However, if your hit ratio is poor and you're going to hit the disk, it makes sense to sort the lookup keys, like shown in this figure:
+
+```mermaid
+%%{init: {"themeVariables": {"xyChart": {"backgroundColor": "#ffffff", "titleColor": "#111111", "plotColorPalette": "#33415c", "xAxisLabelColor": "#111111", "xAxisTitleColor": "#111111", "xAxisTickColor": "#33415c", "xAxisLineColor": "#33415c", "yAxisLabelColor": "#111111", "yAxisTitleColor": "#111111", "yAxisTickColor": "#33415c", "yAxisLineColor": "#33415c"}}}}%%
+xychart-beta
+  accTitle: Index page access order with key-ordered retrieval
+  accDescr { The same six index lookups, but sorted by key before being issued, so they land on index pages 2, 2, 4, 4, 7 and 9. The line never descends, and the repeated pages are now visited back to back, so each index page is read from disk once. }
+  title "Key-ordered retrieval: lookups sorted before being issued"
+  x-axis "Lookup order" [1, 2, 3, 4, 5, 6]
+  y-axis "Index page" 0 --> 10
+  line [2, 2, 4, 4, 7, 9]
+```
+
+_With the lookup keys sorted first, the scan never moves backwards and each index page is read from disk once._
 
 This is roughly what `Key-ordered scan` optimization does. In EXPLAIN, it looks as follows:
 
@@ -183,7 +225,23 @@ possible_keys: key1
 2 rows in set (0.00 sec)
 ```
 
-((TODO: a note about why sweep-read over InnoDB's clustered primary index scan (which is, actually the whole InnoDB table itself) will use `Key-ordered scan` algorithm, but not `Rowid-ordered scan` algorithm, even though conceptually they are the same thing in this case))
+### Why a Clustered Primary Key Uses Key-Ordered, Not Rowid-Ordered, Scan
+
+For InnoDB, the clustered primary key *is* the table, so sorting lookup keys and sorting rowids
+look like the same operation. `EXPLAIN` nonetheless reports only `Key-ordered scan` for a scan of
+the clustered primary key, never `Rowid-ordered scan`.
+
+The reason is that for a clustered primary key the key already **is** the row's physical location.
+Once the lookup keys are sorted, the table accesses are in physical order, and there is no separate
+rowid left to collect and sort — gathering rowids would only re-sort the same values in a second
+pass. So MRR sorts the keys and deliberately skips the rowid-sorting step.
+
+MariaDB implements this as a distinct DS-MRR/CPK strategy, which applies when the index is the
+clustering key, the lookups are single-point (as they are for `ref` access and
+[Batched Key Access](../query-optimizer/block-based-join-algorithms.md#batch-key-access-join)), and
+`mrr_sort_keys=on`. In that case key sorting is switched on and rowid sorting is explicitly left
+off; for a range scan on the clustered primary key, DS-MRR is not used at all, since the index scan
+already returns rows in physical order.
 
 ## Buffer Space Management
 
@@ -226,17 +284,276 @@ Multi Range Read is used for scans that do full record reads (i.e., they are not
 
 Multi Range Read will make separate calls for steps #1 and #2, causing TWO increments to `Handler_read_XXX` counters and TWO increments to `Innodb_rows_read` counter. To the uninformed, this looks as if Multi Range Read was making things worse. Actually, it doesn't - the query will still read the same index/table records, and actually Multi Range Read may give speedups because it reads data in disk order.
 
+## Tuning `mrr_buffer_size`
+
+Multi Range Read only pays off when it can sort a whole batch of row references in one pass, so [mrr\_buffer\_size](../system-variables/server-system-variables.md#mrr_buffer_size) is a workload-dependent setting rather than a value to raise across the board. Before increasing it, confirm that the affected query actually uses MRR, that the buffer really is the limiting factor, and that the server has the memory headroom for the larger allocation at the concurrency the workload runs at.
+
+### Tuning Decision Flow
+
+The flow splits into two parts: deciding whether a larger buffer can help this query at all, and — only if it can — choosing a value and deciding how widely to apply it. Each step is covered in full by the sections below.
+
+#### Part 1: Can a Larger Buffer Help?
+
+```mermaid
+flowchart TD
+  accTitle: Part 1 - deciding whether a larger mrr_buffer_size can help
+  accDescr { Part one of the tuning flow, a sequence of five checks with an exit at each. Identify the affected query and collect a baseline. First, does the query use an MRR-suitable access pattern such as a range scan or a large IN list? If not, MRR cannot help and you should tune the query, its indexes or the optimizer statistics instead. Second, is MRR enabled for the query? If not, set mrr=on for the session or add an MRR hint, then re-check. Third, does EXPLAIN show a Rowid-ordered or Key-ordered scan, and does Handler_mrr_init increase? If not, MRR is not used and mrr_buffer_size has no effect on this query. Fourth, is Handler_mrr_key_refills or Handler_mrr_rowid_refills non-zero? If they are zero, the buffer already holds the whole scan and a larger value cannot help. Fifth, is the data already resident in the InnoDB buffer pool? If it is, the benefit is limited because the extra sorting costs CPU without saving I/O. Only if the data is not resident does a larger buffer look promising, and you continue with part two. }
+  A(["Identify the query,<br/>collect a baseline"]) --> B{"MRR-suitable<br/>access pattern?"}
+  B -->|"No"| B1[["Tune the query,<br/>indexes or statistics"]]
+  B -->|"Yes"| C{"MRR enabled?"}
+  C -->|"No"| C1["Set mrr=on,<br/>or add an MRR hint"]
+  C1 --> D
+  C -->|"Yes"| D{"Ordered scan in EXPLAIN?<br/>Handler_mrr_init rising?"}
+  D -->|"No"| D1[["MRR unused:<br/>no effect"]]
+  D -->|"Yes"| E{"Refill counters<br/>non-zero?"}
+  E -->|"No"| E1[["Scan already fits:<br/>no gain possible"]]
+  E -->|"Yes"| F{"Data already in<br/>the buffer pool?"}
+  F -->|"Yes"| F1[["Limited gain:<br/>CPU, not I/O"]]
+  F -->|"No"| G(["A larger buffer<br/>may help &rarr; part 2"])
+
+  classDef box fill:#eef2ff,stroke:#33415c,stroke-width:1px,color:#111;
+  classDef decision fill:#fff3cd,stroke:#8a6d00,stroke-width:1px,color:#111;
+  classDef stop fill:#f1f3f5,stroke:#495057,stroke-width:1px,color:#111;
+  class B,C,D,E,F decision;
+  class A,C1,G box;
+  class B1,D1,E1,F1 stop;
+```
+
+_Part 1: five checks, each with its own exit. The refill counters are the decisive one — at zero, no larger value can help._
+
+#### Part 2: Choosing and Applying a Value
+
+```mermaid
+flowchart TD
+  accTitle: Part 2 - choosing an mrr_buffer_size value and deciding how widely to apply it
+  accDescr { Part two of the tuning flow, reached only when part one showed that a larger buffer may help. Check memory headroom and concurrency: Threads_running, free RAM and swap usage. If memory pressure is a concern at this concurrency, leave the global value at the default and test at session level only. Either way, test progressively at session level through 512 KB, 1 MB, 2 MB and 4 MB. If there is no measurable and repeatable improvement, or the refill counters do not reach zero, or CPU or memory regress, revert to the previous value and investigate other tuning. If the improvement holds, ask whether the gain is specific to one application or workload; if it is, keep the larger value at session level for that workload only. If it is not, ask whether the gain is consistent across representative workloads with sufficient memory headroom; if not, again keep it at session level, and if so, a global change may be considered after controlled validation. Monitor after any change - query time, Threads_running, memory and swap, CPU and disk I/O, and buffer pool metrics - and settle on the smallest value that gives a consistent improvement. }
+  G(["From part 1: a larger<br/>buffer may help"]) --> H["Check headroom:<br/>Threads_running,<br/>free RAM, swap"]
+  H --> I{"Memory pressure<br/>a concern?"}
+  I -->|"Yes"| I1["Keep the global<br/>value at the default"]
+  I1 --> J
+  I -->|"No"| J["Test at session level:<br/>512 KB, 1 MB, 2 MB, 4 MB"]
+  J --> K{"Repeatable gain?<br/>Refills at zero,<br/>no regression?"}
+  K -->|"No"| K1[["Revert; investigate<br/>other tuning"]]
+  K -->|"Yes"| L{"Gain specific to<br/>one workload?"}
+  L -->|"Yes"| M1["Keep it at session<br/>level for that workload"]
+  L -->|"No"| M{"Consistent across<br/>workloads, with<br/>memory headroom?"}
+  M -->|"No"| M1
+  M -->|"Yes"| N["A global change may be<br/>considered after<br/>controlled validation"]
+  N --> O["Monitor: query time,<br/>Threads_running, memory,<br/>swap, CPU, I/O, buffer pool"]
+  M1 --> O
+  O --> P(["Settle on the smallest<br/>value that holds up"])
+
+  classDef box fill:#eef2ff,stroke:#33415c,stroke-width:1px,color:#111;
+  classDef decision fill:#fff3cd,stroke:#8a6d00,stroke-width:1px,color:#111;
+  classDef stop fill:#f1f3f5,stroke:#495057,stroke-width:1px,color:#111;
+  class I,K,L,M decision;
+  class G,H,I1,J,M1,N,O,P box;
+  class K1 stop;
+```
+
+_Part 2: keep a workload-specific gain at session level; a global change is the exception, not the destination._
+
+### Check That MRR Is Enabled
+
+MRR is **off by default**: `mrr`, `mrr_sort_keys`, and `mrr_cost_based` are all absent from the default [optimizer\_switch](../system-variables/server-system-variables.md#optimizer_switch). Check the current setting before anything else:
+
+```sql
+SELECT @@optimizer_switch, @@mrr_buffer_size;
+```
+
+Only `mrr=on` is required for the optimizer to consider MRR. The other two flags change how it decides:
+
+* `mrr_sort_keys=on` additionally enables Key-ordered scans.
+* `mrr_cost_based=on` makes the choice cost-based. With the default `mrr_cost_based=off`, MRR is used whenever it is applicable, which is what you want while testing. Turning it on makes MRR less likely to be chosen, and the MRR cost model is not sufficiently tuned for that to be recommended.
+
+To enable MRR for a single session:
+
+```sql
+SET SESSION optimizer_switch='mrr=on';
+```
+
+From MariaDB 12.0, the [MRR() and NO\_MRR()](../optimizer-hints/index-level-hints.md#mrr-no_mrr) optimizer hints control MRR per query, without changing `optimizer_switch` at all.
+
+### Confirm That the Query Uses MRR
+
+`EXPLAIN` names the strategy in the `Extra` column, and `EXPLAIN FORMAT=JSON` reports it as `mrr_type`:
+
+```sql
+SET SESSION optimizer_switch='mrr=on';
+
+EXPLAIN SELECT COUNT(filler) FROM tbl WHERE key1 BETWEEN 1000 AND 8000;
++------+-------------+-------+-------+---------------+------+---------+------+------+-------------------------------------------+
+| id   | select_type | table | type  | possible_keys | key  | key_len | ref  | rows | Extra                                     |
++------+-------------+-------+-------+---------------+------+---------+------+------+-------------------------------------------+
+|    1 | SIMPLE      | tbl   | range | key1          | key1 | 5       | NULL | 7001 | Using index condition; Rowid-ordered scan |
++------+-------------+-------+-------+---------------+------+---------+------+------+-------------------------------------------+
+
+EXPLAIN FORMAT=JSON SELECT COUNT(filler) FROM tbl WHERE key1 BETWEEN 1000 AND 8000;
+{
+  "query_block": {
+    "select_id": 1,
+    "cost": 8.24703808,
+    "nested_loop": [
+      {
+        "table": {
+          "table_name": "tbl",
+          "access_type": "range",
+          "possible_keys": ["key1"],
+          "key": "key1",
+          "key_length": "5",
+          "used_key_parts": ["key1"],
+          "loops": 1,
+          "rows": 7001,
+          "cost": 8.24703808,
+          "filtered": 100,
+          "index_condition": "tbl.key1 between 1000 and 8000",
+          "mrr_type": "Rowid-ordered scan"
+        }
+      }
+    ]
+  }
+}
+```
+
+The plan is only a prediction. [Handler\_mrr\_init](../system-variables/server-status-variables.md#handler_mrr_init) tells you whether MRR actually ran:
+
+```sql
+FLUSH STATUS;
+SELECT COUNT(filler) FROM tbl WHERE key1 BETWEEN 1000 AND 8000;
+SHOW STATUS LIKE 'Handler_mrr_init';
++------------------+-------+
+| Variable_name    | Value |
++------------------+-------+
+| Handler_mrr_init | 1     |
++------------------+-------+
+```
+
+If `Handler_mrr_init` stays at zero, MRR did not run and `mrr_buffer_size` has no effect on the query.
+
+{% hint style="info" %}
+MariaDB never prints `Using MRR` — that is the MySQL wording. MariaDB shows `Rowid-ordered scan`, `Key-ordered scan`, or `Key-ordered Rowid-ordered scan`. The fields `using_mrr` and `rowid_ordered` come from [Optimizer Trace](../query-optimizer/optimizer-trace/README.md), not from `EXPLAIN FORMAT=JSON`.
+{% endhint %}
+
+### Confirm That the Buffer Is the Limiting Factor
+
+This is the measurement that decides whether raising `mrr_buffer_size` can help at all. When a scan does not fit in the buffer, MRR breaks it into several sort-and-sweep passes and counts each refill in [Handler\_mrr\_key\_refills](../system-variables/server-status-variables.md#handler_mrr_key_refills) and [Handler\_mrr\_rowid\_refills](../system-variables/server-status-variables.md#handler_mrr_rowid_refills).
+
+With the buffer at its 8 KB minimum, a 7,000-row range scan needs four passes:
+
+```sql
+SET SESSION mrr_buffer_size = 8192;
+FLUSH STATUS;
+SELECT COUNT(filler) FROM tbl WHERE key1 BETWEEN 1000 AND 8000;
+SHOW STATUS LIKE 'Handler_mrr%';
++---------------------------+-------+
+| Variable_name             | Value |
++---------------------------+-------+
+| Handler_mrr_init          | 1     |
+| Handler_mrr_key_refills   | 0     |
+| Handler_mrr_rowid_refills | 3     |
++---------------------------+-------+
+```
+
+At 1 MB the same scan runs in a single pass:
+
+```sql
+SET SESSION mrr_buffer_size = 1048576;
+FLUSH STATUS;
+SELECT COUNT(filler) FROM tbl WHERE key1 BETWEEN 1000 AND 8000;
+SHOW STATUS LIKE 'Handler_mrr%';
++---------------------------+-------+
+| Variable_name             | Value |
++---------------------------+-------+
+| Handler_mrr_init          | 1     |
+| Handler_mrr_key_refills   | 0     |
+| Handler_mrr_rowid_refills | 0     |
++---------------------------+-------+
+```
+
+Once both refill counters read zero, the buffer already holds the entire scan and increasing it further cannot improve the query. Non-zero refills are the signal that a larger buffer has something to gain.
+
+### When a Larger Buffer Helps, and When It Does Not
+
+A larger buffer lets MRR order more row references per pass, which turns random reads into a more sequential sweep. That matters when:
+
+* The query uses `range` access over a range large enough to overflow the current buffer.
+* The refill counters above are non-zero.
+* The working set is not fully cached in the InnoDB buffer pool, so the reads reach storage.
+* The workload is reporting or analytical, with relatively low concurrency.
+
+It makes little or no difference when:
+
+* MRR is not selected for the query, or the access pattern is not MRR-suitable.
+* The refill counters are already zero.
+* The data is already resident in the buffer pool, in which case the extra sorting only adds CPU work.
+* Storage is NVMe or similar, where avoiding seeks buys much less.
+* The query is `ORDER BY ... LIMIT n` with a small `n` — MRR reads in disk order, not index order, so it can be slower.
+
+### Weigh Memory Against Concurrency
+
+`mrr_buffer_size` is a **per-table, per-scan** limit, not a per-session one. A single 10-way join that uses MRR on every table can therefore use `10 * @@mrr_buffer_size`, so the total across the server scales with both concurrency and plan shape: 4 MB across 200 concurrent MRR scans is already around 800 MB of potential allocation, and more if those scans sit inside multi-table joins.
+
+Before raising the global value, check the concurrency the server actually runs at and the headroom available:
+
+```sql
+SHOW STATUS LIKE 'Threads_running';
+```
+
+Also review free system memory, swap activity, InnoDB buffer pool size, and any other per-connection buffers already configured. High concurrency combined with a large `mrr_buffer_size` can put the server under memory pressure for a gain that only a few queries see.
+
+### Test at Session Level First
+
+Change the value for one session, and compare against the baseline over several runs of a representative workload:
+
+```sql
+SET SESSION mrr_buffer_size = 524288;
+```
+
+Increase in steps — 512 KB, 1 MB, 2 MB, 4 MB — rather than jumping to a large value, and stop at the first step where the refill counters reach zero. Beyond that point the buffer is no longer the constraint. At each step, measure at least:
+
+* Query execution time, over repeated runs.
+* The MRR refill counters.
+* CPU usage and disk I/O.
+* Rows examined and returned.
+* Memory usage and `Threads_running` under realistic concurrency.
+
+Treat a new value as beneficial only when the improvement is both measurable and repeatable, and the resource cost is acceptable.
+
+### Session Values Versus a Global Change
+
+Keep the global value conservative and raise it per session for the applications or batch jobs that demonstrate a clear benefit:
+
+```sql
+SET SESSION mrr_buffer_size = 4194304;
+```
+
+An improvement seen by one application is not a reason to make that value global — different workloads have different optimal values, and the memory cost applies to every session. Consider `SET GLOBAL` only when the improvement is consistent across workloads that represent the wider environment, memory headroom is sufficient at the real concurrency, and no CPU, I/O, or memory regression shows up under controlled validation.
+
+### Do Not Confuse MRR With Batched Key Access
+
+The two use different buffers, and tuning the wrong one has no effect:
+
+| Access pattern | Buffer controlled by |
+| -------------- | -------------------- |
+| MRR for `range` access | [mrr\_buffer\_size](../system-variables/server-system-variables.md#mrr_buffer_size) |
+| MRR under [Batched Key Access](../query-optimizer/block-based-join-algorithms.md#batch-key-access-join) for `ref` and `eq_ref` joins | [join\_buffer\_size](../system-variables/server-system-variables.md#join_buffer_size) and [join\_buffer\_space\_limit](../system-variables/server-system-variables.md#join_buffer_space_limit) |
+
+A slow join that uses index lookups is a BKA question, not an `mrr_buffer_size` one. And in either case, a larger buffer is not a substitute for fixing the query, the indexes, or the optimizer statistics.
+
+{% hint style="success" %}
+In short: confirm MRR is used by the affected query, confirm the refill counters are non-zero, weigh the workload's memory and concurrency, and test progressively at session level. Use the smallest value that gives a consistent improvement without excessive resource consumption.
+{% endhint %}
+
 ## Multi Range Read Factsheet
 
 * Multi Range Read is used by
   * `range` access method for range scans.
-  * [Batched Key Access](https://mariadb.com/kb/en/Batched_Key_Access) for joins
+  * [Batched Key Access](../query-optimizer/block-based-join-algorithms.md#batch-key-access-join) for joins
 * Multi Range Read can cause slowdowns for small queries over small tables, so it is disabled by default.
-* There are two strategies:
+* There are two strategies, and you can tell which one is used by checking the `Extra` column in `EXPLAIN` output:
   * Rowid-ordered scan
   * Key-ordered scan
-* : and you can tell if either of them is used by checking the `Extra` column in `EXPLAIN` output.
-* There are three [optimizer\_switch](../system-variables/server-system-variables.md#optimizer_switch) flags you can switch ON:
+* All three MRR [optimizer\_switch](../system-variables/server-system-variables.md#optimizer_switch) flags are off by default, and you can switch them ON:
   * `mrr=on` - enable MRR and rowid ordered scans
   * `mrr_sort_keys=on` - enable Key-ordered scans (you must also set `mrr=on` for this to have any effect)
   * `mrr_cost_based=on` - enable cost-based choice whether to use MRR. Currently not recommended, because cost model is not sufficiently tuned yet.
@@ -249,7 +566,7 @@ Multi Range Read will make separate calls for steps #1 and #2, causing TWO incre
   * `Key-ordered scan`
   * `Key-ordered Rowid-ordered scan`
 * MariaDB uses [mrr\_buffer\_size](../system-variables/server-system-variables.md#mrr_buffer_size) as a limit of MRR buffer size for `range` access, while MySQL uses [read\_rnd\_buffer\_size](../system-variables/server-system-variables.md#read_rnd_buffer_size).
-* MariaDB has three MRR counters: [Handler\_mrr\_init](../system-variables/server-status-variables.md#handler_mrr_init), `Handler_mrr_extra_rowid_sorts`, `Handler_mrr_extra_key_sorts`, while MySQL has only `Handler_mrr_init`, and it will only count MRR scans that were used by BKA. MRR scans used by range access are not counted.
+* MariaDB has three MRR counters: [Handler\_mrr\_init](../system-variables/server-status-variables.md#handler_mrr_init), [Handler\_mrr\_key\_refills](../system-variables/server-status-variables.md#handler_mrr_key_refills), and [Handler\_mrr\_rowid\_refills](../system-variables/server-status-variables.md#handler_mrr_rowid_refills), while MySQL has only `Handler_mrr_init`, and it will only count MRR scans that were used by BKA. MRR scans used by range access are not counted.
 
 ##
 

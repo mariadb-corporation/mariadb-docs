@@ -312,7 +312,7 @@ mkdir ~/.sqldeveloper
 Follow the official instructions on the MariaDB website for your specific OS version.
 
 {% hint style="danger" %}
-Do NOT copy the commands below. Go to the [MariaDB Repository Configuration Tool](https://www.google.com/search?q=https://mariadb.org/mariadb/repositories/) to generate the correct commands for your system. The following is only an example.
+Do NOT copy the commands below. Go to the [MariaDB Repository Configuration Tool](https://mariadb.org/download/?t=repo-config) to generate the correct commands for your system. The following is only an example.
 {% endhint %}
 
 ```bash

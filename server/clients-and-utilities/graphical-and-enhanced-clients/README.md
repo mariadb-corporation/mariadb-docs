@@ -151,6 +151,10 @@ The third-party tools described in this section are not developed or maintained 
 [tableplus.md](tableplus.md)
 {% endcontent-ref %}
 
+{% content-ref url="tabularis.md" %}
+[tabularis.md](tabularis.md)
+{% endcontent-ref %}
+
 {% content-ref url="toad-edge.md" %}
 [toad-edge.md](toad-edge.md)
 {% endcontent-ref %}

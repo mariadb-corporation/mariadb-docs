@@ -350,7 +350,7 @@ SELECT /*+ MRR(t1 IDX2) */ * FROM t1 WHERE f2 <= 3 AND 3 <= f3;
 ```
 
 ```sql
--- MRR optimization is enabled by optimizer_switch setting (default setting):
+-- MRR optimization is enabled by optimizer_switch setting (it is off by default):
 set optimizer_switch='mrr=on';
 
 -- Disable multi-range read when accessing table `t1`

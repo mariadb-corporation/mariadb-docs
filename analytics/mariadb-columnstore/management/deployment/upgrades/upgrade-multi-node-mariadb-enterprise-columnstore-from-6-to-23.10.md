@@ -28,7 +28,7 @@ maxctrl set server \
 
 This action is performed **on the MaxScale node**.
 
-Confirm that the replicas are set to maintenance mode in MaxScale using [MaxScale's REST API](http://localhost:8000/docs/server/service-management/admin-tools/maxscale/rest-api/). If you are using [MaxCtrl](http://localhost:8000/docs/server/ref/mxs/maxctrl/), the state of the replicas can be viewed using the [list servers](http://localhost:8000/docs/server/ref/mxs/maxctrl/list_servers/) command:
+Confirm that the replicas are set to maintenance mode in MaxScale using [MaxScale's REST API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-rest-api/maxscale-rest-api). If you are using [MaxCtrl](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-maxctrl), the state of the replicas can be viewed using the [list servers](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-maxctrl#list-servers) command:
 
 ```bash
 maxctrl list servers
@@ -150,7 +150,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS, Rocky L
 1. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 2.  Configure the APT package repository.
 
-    Enterprise ColumnStore 23.10 is included with MariaDB Enterprise Server 11.4. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](http://localhost:8000/docs/server/ref/mariadb_es_repo_setup/).
+    Enterprise ColumnStore 23.10 is included with MariaDB Enterprise Server 11.4. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
 
     To configure APT package repositories:
 
@@ -236,7 +236,7 @@ After upgrading, the [CMAPI](../../../reference/cmapi/) service and the MariaDB 
 
 ## Write Binary Log
 
-On the primary server, run [mariadb-upgrade](http://localhost:8000/docs/server/ref/mdb/cli/mariadb-upgrade/) to upgrade the data directory with binary logging enabled to update the system tables:
+On the primary server, run [mariadb-upgrade](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/deployment-tools/mariadb-upgrade) to upgrade the data directory with binary logging enabled to update the system tables:
 
 ```bash
 mariadb-upgrade --write-binlog

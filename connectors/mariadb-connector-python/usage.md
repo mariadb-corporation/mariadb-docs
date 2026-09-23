@@ -16,7 +16,7 @@ description: >-
 ## Connecting
 
 The basic usage of MariaDB Connector/Python is similar to other database drivers which
-implement DB API 2.0 ([PEP-249](https://peps.python.org/pep-249)).
+implement DB API 2.0 ([PEP-249](https://peps.python.org/pep-0249/)).
 
 *Since version 2.0:* Connections can be established using URI strings or keyword arguments.
 

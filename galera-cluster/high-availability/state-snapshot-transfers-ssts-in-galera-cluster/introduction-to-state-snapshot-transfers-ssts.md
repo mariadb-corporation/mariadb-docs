@@ -88,6 +88,12 @@ tcert = /etc/my.cnf.d/certificates/client-cert.pem
 ```
 
 You also need to run the certificate directory through [openssl rehash](mariadb-backup-sst-method.md).
+
+{% hint style="warning" %}
+**MariaDB Enterprise Server 12.3.3-0 Beta does not install `stunnel`.** Its packages list `stunnel` neither as a requirement nor as a recommendation, on RPM or DEB, so an encrypted rsync SST cannot work until you install `stunnel` yourself. Enterprise Server 11.8 and earlier shipped it as a recommended package.
+
+**MariaDB Community Server 12.3 is not affected the same way.** There, `stunnel` is a recommended package of `mariadb-server-galera`, so a default install includes it. It is left out only when you install with recommendations disabled — `apt --no-install-recommends`, or `dnf`/`yum` with `install_weak_deps=False`.
+{% endhint %}
 {% endtab %}
 
 {% tab title="< 10.3.10 / 10.2.18 / 10.1.36" %}
@@ -216,10 +222,6 @@ In some cases, if Galera Cluster's automatic SSTs repeatedly fail, then it can b
 SST scripts can't currently read the mysqld<#> [option group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#option-groups) in an [option file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files) that are read by instances managed by mysqld\_multi.
 
 See [MDEV-18863](https://jira.mariadb.org/browse/MDEV-18863) for more information.
-
-## See Also
-
-* [Galera Cluster documentation: STATE SNAPSHOT TRANSFERS](https://galeracluster.com/library/documentation/sst.html)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

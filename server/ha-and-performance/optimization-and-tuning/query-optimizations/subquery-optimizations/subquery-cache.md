@@ -161,7 +161,7 @@ ORDER BY
 
 * [Query cache](../../buffers-caches-and-threads/query-cache.md)
 * blog post describing impact of subquery cache optimization on queries used by DynamicPageList MediaWiki extension
-* [mariadb-subquery-cache-in-real-use-case.html](https://varokism.blogspot.ru/2013/06/mariadb-subquery-cache-in-real-use-case.html) Another use case from the real world
+* Another use case from the real world was described on the varokism blog, which has since been deleted
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -54,6 +54,31 @@ A common use case for Flashback is the following scenario:
 * Invoke [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/) to find the exact log position of the first offending operation after the state you want to revert to.
 * Run `mariadb-binlog --flashback --start-position=xyz | mariadb` to pipe the output of `mariadb-binlog` directly to the `mariadb` client, or save the output to a file and then direct the file to the command-line client.
 
+## Error Reporting
+
+If `mariadb-binlog --flashback` cannot decode a row image while reversing an event, it writes a diagnostic to standard error and exits with status 1:
+
+```
+Error decoding row image while converting event for --flashback (could not determine field length): event=Delete_rows_v1, column=1, column_type=252, metadata=5
+```
+
+```
+Error decoding row image while converting event for --flashback (field extends past row buffer): event=Delete_rows_v1, column=1
+```
+
+The parenthesized reason is one of:
+
+* `could not determine field length` — the column's type and metadata, as recorded in the table map event, do not yield a field length. The message also reports `column_type` and `metadata`.
+* `field extends past row buffer` — the decoded field length runs past the end of the row image.
+
+Either reason means the event cannot be reversed, for example because the binary log is corrupt or was written by a server whose row format `mariadb-binlog` cannot decode.
+
+`column` is the zero-based column index within the row image. For `UPDATE` events the message also states which image failed, for example `event=Update_rows (before image)`. The event name is the _converted_ event type, so an `INSERT` that could not be reversed is reported as a `Delete_rows` event.
+
+{% hint style="info" %}
+Before MariaDB 13.1, both conditions were reported as `Error row length: 0`, which identified neither the event nor the column.
+{% endhint %}
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

@@ -43,7 +43,7 @@ Dedicated resources for specific MariaDB products and tools.
 * [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/)
 * [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/)
 * [MariaDB Connectors](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/)
-* [MariaDB Tools](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/)
+* [MariaDB Enterprise Tools](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/)
   * [MariaDB Enterprise Manager](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-enterprise-manager)
   * [MariaDB Enterprise Kubernetes Operator](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-enterprise-operator)
   * [MariaDB Enterprise MCP Server](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-enterprise-mcp-server)
@@ -81,7 +81,7 @@ Read the documentation offline. Each PDF covers one documentation set and links 
 | MariaDB Enterprise Platform | [mariadb-platform.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-platform.pdf) | 502 |
 | MariaDB Connectors | [mariadb-connectors.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-connectors.pdf) | 659 |
 | MariaDB Analytics and ColumnStore | [mariadb-analytics.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-analytics.pdf) | 587 |
-| MariaDB Tools | [mariadb-tools.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-tools.pdf) | 611 |
+| MariaDB Enterprise Tools | [mariadb-tools.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-tools.pdf) | 611 |
 | MariaDB Cloud | [mariadb-mariadb-cloud.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-mariadb-cloud.pdf) | 295 |
 | MariaDB Galera Cluster | [mariadb-galera-cluster.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-galera-cluster.pdf) | 266 |
 | MariaDB General Resources | [mariadb-general-resources.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-general-resources.pdf) | 220 |

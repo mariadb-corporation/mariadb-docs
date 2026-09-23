@@ -868,7 +868,7 @@ There are 3 options that control timestamps behavior in the java connector:
 
 * connectionTimeZone: (LOCAL | SERVER | `<user-defined time zone>`) - This option defines the connection's time zone. LOCAL retrieves the JVM's default time zone, SERVER fetches the server's global time zone upon connection creation, and `<user-defined time zone>` allows specifying a server time zone without requesting it during connection establishment. A user-defined value must be a valid [Java ZoneId](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html): either a region ID such as `Europe/Berlin` or `America/Los_Angeles`, or a fixed offset such as `+02:00`. An unrecognized value fails the connection with an `Unknown zoneId` error.
 * forceConnectionTimeZoneToSession: (true | false) - This setting dictates whether the connector enforces the connection time zone for the session.
-* preserveInstants: (true | false) - This option controls whether the connector converts Timestamp values to the connection's time zone.
+* preserveInstants: (true | false) - This option controls whether the connector converts Timestamp values to the connection's time zone. When enabled, a `java.sql.Timestamp` is written as its wall-clock value in the connection time zone and, on read, that wall-clock value is converted back to the same instant in the JVM's default time zone. See the "A (Discouraged) Workaround" section below for the limitations of this conversion.
 
 #### **Recommendation**
 
@@ -890,7 +890,15 @@ Due to its wider range, DATETIME is sometimes mistakenly used to store a specifi
 
 #### **A (Discouraged) Workaround:**
 
-While using DATETIME instead of TIMESTAMP is generally discouraged, a specific combination of settings ("preserveInstants=true\&connectionTimeZone=SERVER") can force all Java Timestamp exchanges to be converted to the connection's time zone during storage and retrieval. However, this approach is not recommended for long-term solutions.
+While using DATETIME instead of TIMESTAMP is generally discouraged, a specific combination of settings ("preserveInstants=true\&connectionTimeZone=SERVER") can force all Java Timestamp exchanges to be converted to the connection's time zone during storage and retrieval. This keeps existing DATETIME columns usable as instants when the client and server time zones differ.
+
+This workaround has an inherent limitation: it is not a temporary fix that becomes wrong over time, but a conversion that is only reliable for a range of dates.
+
+* A `java.sql.Timestamp` is an instant. To store it in a DATETIME column, the connector renders it as a wall-clock value in the connection time zone. On retrieval, it reinterprets that wall-clock value in the connection time zone and converts it to the same instant in the JVM's default time zone.
+* Each conversion applies the time zone rules of that specific date: the UTC offset and any daylight saving time (DST) transitions in effect at that moment. For dates far from the present, such as `9999-12-31` or dates before the time zone was standardized, those rules are extrapolated or historical, and the JVM's rules can differ from the ones the server used when the value was written.
+* A wall-clock value that falls inside a DST gap (a local time that never occurred) or a DST overlap (a local time that occurred twice) cannot be mapped back to a single instant. The connector picks one, so the value can shift by the size of the DST change.
+
+The result is that a Timestamp can round-trip to a different value, typically shifted by an hour or by the difference in offset rules. Whether this matters depends on your data. Applications that only store dates near the present, in a time zone without DST, or with a fixed-offset `connectionTimeZone` such as `+00:00`, are usually unaffected. Applications that store sentinel values like `9999-12-31 23:59:59`, or dates spanning many decades, should store instants in TIMESTAMP columns instead.
 
 #### **Compatibility with Older Connectors (Pre-3.4):**
 

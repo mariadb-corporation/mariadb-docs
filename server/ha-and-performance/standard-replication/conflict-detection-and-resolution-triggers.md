@@ -344,7 +344,7 @@ A mismatch is eligible for trigger routing only when all of these hold:
 * the replica's [slave\_parallel\_mode](replication-and-binary-log-system-variables.md#slave_parallel_mode) is `optimistic` or a more conservative setting (`conservative`, `minimal`, `none`); and
 * the row event is not currently being applied as an optimistic speculative attempt. (This case is transient: the transaction rolls back and retries non-speculatively, and on retry the conflict is delivered to the trigger.)
 
-So even on a table that has CDR triggers, error 6001 can still appear when the table lacks a primary key, or when the replica runs a parallel mode more aggressive than `optimistic`. This is why the recommended beta configuration keeps the replica at `optimistic` or below — see [Limitations and Beta Caveats](conflict-detection-and-resolution-triggers.md#limitations-and-beta-caveats).
+So even on a table that has CDR triggers, [error 6001](../../reference/error-codes/mariadb-error-codes-6000-to-6099/e6001.md) can still appear when the table lacks a primary key, or when the replica runs a parallel mode more aggressive than `optimistic`. This is why the recommended beta configuration keeps the replica at `optimistic` or below — see [Limitations and Beta Caveats](conflict-detection-and-resolution-triggers.md#limitations-and-beta-caveats).
 
 This check only exists when CDR triggers are present on the table. It is suppressed entirely when [slave\_exec\_mode](replication-and-binary-log-system-variables.md#slave_exec_mode) is `IDEMPOTENT` — but `IDEMPOTENT` mode is itself outside the supported beta configuration.
 

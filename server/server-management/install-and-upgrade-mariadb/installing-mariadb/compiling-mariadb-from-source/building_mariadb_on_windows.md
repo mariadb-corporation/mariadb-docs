@@ -33,7 +33,7 @@ In the "Adjusting your PATH" dialog, choose "Use Git from Windows command prompt
     (e.g. under `C:\Program Files\GnuWin32`); the build will break due to [this bison bug](https://sourceforge.net/tracker/index.php?func=detail\&aid=2788969\&group_id=23617\&atid=379173).\
     Instead, install into `C:\GnuWin32`.
   * Add `C:\GnuWin32\bin` to your system `PATH` after installation.
-* [Strawberry perl](https://strawberryperl.com): Used to run the test suite.[ActiveState Perl](https://www.activestate.com/activeperl/downloads) is
+* [Strawberry perl](https://strawberryperl.com): Used to run the test suite.[ActiveState Perl](https://www.activestate.com/products/perl/) is
   another Win32 Perl distribution and should work as well (but it is not as
   well tested). NOTE: `Cygwin` or `mingw` Perl versions will not work for testing. Use Windows native Perl, please.
 * Optional: If you intend to build the MSI packages, install [Windows Installer XML](https://wixtoolset.org/releases/) . If you build MSI with 10.4,

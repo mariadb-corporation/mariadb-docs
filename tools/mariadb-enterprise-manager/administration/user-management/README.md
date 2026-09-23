@@ -44,7 +44,7 @@ This structure allows administrators to manage access by assigning roles to user
 Access to the User Management page is restricted based on a user's assigned permissions.
 
 * ✅ Only users with `admin` permissions (assigned via a role) can add, modify, or remove other users and roles.
-*   ❌ Non-admin users cannot access or change these settings, but they can update their own password via their Profile page.\\
+*   ❌ Non-admin users cannot access or change these settings, but they can update their own password via their Profile page.
 
     <figure><img src="../../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
 

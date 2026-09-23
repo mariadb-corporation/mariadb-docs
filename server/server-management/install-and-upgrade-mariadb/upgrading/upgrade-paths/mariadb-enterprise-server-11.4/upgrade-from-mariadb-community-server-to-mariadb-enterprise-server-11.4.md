@@ -75,7 +75,7 @@ The MariaDB Enterprise Audit Plugin will automatically be installed after instal
 
 MariaDB Enterprise Server 11.4 changes the `COMPRESSED` row format to read-only. Before upgrading, modify any compressed InnoDB tables to use the `DYNAMIC` row format.
 
-1.  Use the `information\_schema.INNODB\_SYS\_TABLES` to identify any InnoDB tables that use the `COMPRESSED` row format:
+1.  Use the `information_schema.INNODB_SYS_TABLES` to identify any InnoDB tables that use the `COMPRESSED` row format:
 
     ```sql
     SELECT NAME, ROW_FORMAT
@@ -406,7 +406,7 @@ The utility is called [mariadb-upgrade](../../../../../clients-and-utilities/dep
 $ sudo mariadb-upgrade
 ```
 
-And the utility is called `mysql\_upgrade` in MariaDB Enterprise Server 10.3 and 10.2:
+And the utility is called `mysql_upgrade` in MariaDB Enterprise Server 10.3 and 10.2:
 
 ```bash
 $ sudo mysql_upgrade

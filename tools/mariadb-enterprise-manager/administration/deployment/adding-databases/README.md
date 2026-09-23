@@ -61,7 +61,7 @@ Replace `<password>` with a secure password.
 3. Begin the Add Database process:
    * If this is your first time and no databases are present, you'll be on the "Add Database" screen automatically.
    * If you already have other databases, click the **+ Add Database** button.
-4.  Ensure the **Database without MaxScale** option is selected.\\
+4.  Ensure the **Database without MaxScale** option is selected.
 
     <figure><img src="../../../../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
 5. Fill in the connection details for your first server using the Enterprise Manager User (`'monitor'@'<Enterprise_Manager_IP>'`).
@@ -74,11 +74,11 @@ To add a Standalone Server: Click **Add** and proceed to the next step (4).
 
 To create a Topology:
 
-1.  Click the Plus icon (+) to add another server.\\
+1.  Click the Plus icon (+) to add another server.
 
     <figure><img src="../../../../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
 2. Fill in the connection details for the second server in your topology and click **Confirm**. Repeat for all nodes in your topology.
-3.  Once all nodes are added, select the Topology Type (e.g., Primary/Replica — default — or Galera Cluster) and click **Confirm**.\\
+3.  Once all nodes are added, select the Topology Type (e.g., Primary/Replica — default — or Galera Cluster) and click **Confirm**.
 
     <figure><img src="../../../../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
 
@@ -94,10 +94,10 @@ To convert an existing standalone server into a topology of multiple servers: cl
 
 For each server added, link its agent:
 
-1.  Find the server in the inventory list, click the three-dot menu (⋮), and select **Install Agent**.\\
+1.  Find the server in the inventory list, click the three-dot menu (⋮), and select **Install Agent**.
 
     <figure><img src="../../../../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
-2.  Enter the credentials for the Local Agent User (`'monitor'@'localhost'`) to generate a setup command.\\
+2.  Enter the credentials for the Local Agent User (`'monitor'@'localhost'`) to generate a setup command.
 
     <figure><img src="../../../../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
 3. Copy the command and run it on that server's terminal to link the agent.
@@ -154,10 +154,10 @@ You must link the agent on every server in the topology to Enterprise Manager. T
 
 For each server in the list (start with the MaxScale instance, then each MariaDB server):
 
-1.  Click the three-dot menu (⋮) and select **Install Agent**.\\
+1.  Click the three-dot menu (⋮) and select **Install Agent**.
 
     <figure><img src="../../../../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
-2.  The UI will generate a unique setup command for that specific server with the username and password you provide. Copy the command.\\
+2.  The UI will generate a unique setup command for that specific server with the username and password you provide. Copy the command.
 
     <figure><img src="../../../../.gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
 3. On that specific server, paste and run the command in the terminal.

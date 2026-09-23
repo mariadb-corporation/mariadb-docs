@@ -545,8 +545,8 @@ spec:
 
 If not specified, the MaxScale's default TLS versions will be used. See MaxScale docs:
 
-* [Admin TLS version](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide#admin_ssl_version)
-* [Server TLS version](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide#ssl_version)
+* [Admin TLS version](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide#admin_ssl_version)
+* [Server TLS version](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide#ssl_version)
 
 ## Certificate lifetime configuration
 
@@ -862,7 +862,7 @@ spec:
 
 When any of these TLS requirements are not met, the user will not be able to connect to the instance.
 
-See [MariaDB docs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server#requiring-tls) and the [API reference](../api-reference.md) for further detail.
+See [MariaDB docs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server#requiring-tls-for-specific-user-accounts) and the [API reference](../api-reference.md) for further detail.
 
 ## Galera Enterprise SSL modes
 
@@ -881,7 +881,7 @@ spec:
   # [...]
 ```
 
-The following values are supported: `SERVER_X509`, `SERVER` and `PROVIDER`. Refer to the [MariaDB Enterprise Cluster documentation](https://mariadb.com/docs/galera-cluster/galera-security/mariadb-enterprise-cluster-security#wsrep-tls-modes) for further detail about these modes.
+The following values are supported: `SERVER_X509`, `SERVER` and `PROVIDER`. Refer to the [MariaDB Enterprise Cluster documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/mariadb-enterprise-cluster-security#wsrep-tls-modes) for further detail about these modes.
 
 You may also configure the SSL enforcement level used during Snapshot State Transfers(SST) by setting:
 
@@ -899,7 +899,7 @@ spec:
   # [...]
 ```
 
-The following values are supported: `VERIFY_IDENTITY`, `VERIFY`, `REQUIRED` and `DISABLED`. Refer to the [MariaDB Enterprise Cluster documentation](https://mariadb.com/docs/galera-cluster/galera-security/mariadb-enterprise-cluster-security#sst-tls-modes) for further detail about these modes.
+The following values are supported: `VERIFY_IDENTITY`, `VERIFY`, `REQUIRED` and `DISABLED`. Refer to the [MariaDB Enterprise Cluster documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/mariadb-enterprise-cluster-security#sst-tls-modes) for further detail about these modes.
 
 If you are willing to increase the enforcement level in an existing instance, make sure you follow the migration guide provided in the [Enabling TLS in existing instances](../migrations/enabling-tls-in-existing-instances.md) section.
 

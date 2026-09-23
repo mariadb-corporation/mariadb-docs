@@ -1,8 +1,8 @@
 ---
 description: >-
   Complete transaction isolation for SQL Server users: START
-  TRANSACTION/COMMIT/ROLLBACK, tx_isolation levels, WITH CONSISTENT SNAPSHOT,
-  innodb_lock_wait_timeout.
+  TRANSACTION/COMMIT/ROLLBACK, transaction_isolation levels, WITH CONSISTENT
+  SNAPSHOT, innodb_lock_wait_timeout.
 ---
 
 # MariaDB Transactions and Isolation Levels for SQL Server Users
@@ -149,33 +149,39 @@ For more information about MariaDB isolation levels see [SET TRANSACTION](../../
 
 ### Locking Reads
 
-In MariaDB, the locks acquired by a read do not depend on the isolation level (with one exception noted below).
-
 As a general rule:
 
 * Plain [SELECTs](../../../../reference/sql-statements/data-manipulation/selecting-data/select.md) are not locking, they acquire snapshots instead.
-* To force a read to acquire a shared lock, use [SELECT ... LOCK IN SHARED MODE](../../../../reference/sql-statements/data-manipulation/selecting-data/lock-in-share-mode.md).
+* To force a read to acquire a shared lock, use [SELECT ... LOCK IN SHARE MODE](../../../../reference/sql-statements/data-manipulation/selecting-data/lock-in-share-mode.md).
 * To force a read to acquire an exclusive lock, use [SELECT ... FOR UPDATE](../../../../reference/sql-statements/data-manipulation/selecting-data/for-update.md).
+
+The locks that a locking read acquires do depend on the isolation level. InnoDB takes no [gap locks](../../../../server-usage/storage-engines/innodb/innodb-lock-modes.md#gap-locks) at `READ COMMITTED` or `READ UNCOMMITTED`, so a locking read at those levels locks the index records it examines but not the gaps between them. See [Gap Locking at READ COMMITTED](../../../../reference/sql-statements/transactions/set-transaction.md#gap-locking-at-read-committed).
+
+`SERIALIZABLE` is the other level at which reads behave differently: within a transaction, InnoDB treats a plain `SELECT` as `LOCK IN SHARE MODE`. A consistent read run with `autocommit=1` is exempt, because a read-only transaction can be serialized as a consistent read.
 
 ### Changing the Isolation Level
 
-The default, the isolation level in MariaDB is `REPEATABLE READ`. This can be changed with the [tx\_isolation](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_isolation) system variable.
+The default isolation level in MariaDB is `REPEATABLE READ`. This can be changed with the [transaction\_isolation](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_isolation) system variable. The older name `tx_isolation` still works, but has been deprecated since MariaDB 11.1 and produces a warning.
 
-Applications developed for SQL Server and later ported to MariaDB may run with `READ COMMITTED` without problems. Using a stricter level would reduce scalability. To use `READ COMMITTED` by default, add the following line to the MariaDB configuration file:
+Applications developed for SQL Server and later ported to MariaDB may run with `READ COMMITTED` without problems, since it is the level closest to the SQL Server default. Do not switch to it as a scalability measure, though, because neither level is uniformly faster: `READ COMMITTED` creates a new read view at the start of every statement, which costs more in a transaction made of many short statements and less in a long-running transaction made of complex ones. See [Choosing an Isolation Level](../../../../reference/sql-statements/transactions/set-transaction.md#choosing-an-isolation-level).
+
+To use `READ COMMITTED` by default, add the following line to the MariaDB configuration file:
 
 ```
-tx_isolation = 'READ COMMITTED'
+transaction-isolation = READ-COMMITTED
 ```
+
+The startup option is spelled `transaction-isolation`; there is no `tx_isolation` startup option, and a configuration file containing one stops the server from starting.
 
 It is also possible to change the default isolation level for the current session:
 
-```bash
-SET SESSION tx_isolation = 'read-committed';
+```sql
+SET SESSION transaction_isolation = 'read-committed';
 ```
 
 Or just for one transaction, by issuing the following statement before starting a transaction:
 
-```bash
+```sql
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 ```
 
@@ -190,7 +196,7 @@ MariaDB supports the following isolation levels:
 
 MariaDB isolation levels differ from SQL Server in the following ways:
 
-* `REPEATABLE READ` does not acquire share locks on all read rows, nor a range lock on the missing values that match a `WHERE` clause.
+* At `REPEATABLE READ`, a plain `SELECT` acquires no share locks on the rows it reads, and no range lock on the missing values that match a `WHERE` clause; it reads from a snapshot instead. A locking read at `REPEATABLE READ` does take next-key locks, which cover the gaps.
 * It is not possible to change the isolation level in the middle of a transaction.
 * `SNAPSHOT` isolation level is not supported. Instead, you can use `START TRANSACTION WITH CONSISTENT SNAPSHOT` to acquire a snapshot at the beginning of the transaction. This is compatible with all isolation levels.
 

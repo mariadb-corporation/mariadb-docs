@@ -356,7 +356,7 @@ $ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
 ```
 
 {% hint style="success" %}
-_Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](https://mariadb.com/docs/server/reference/sql-functions/secondary-functions/information-functions/version) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages) _page. Substitute `${checksum}` in the example above with the latest checksum._
+_Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) _page. Substitute `${checksum}` in the example above with the latest checksum._
 {% endhint %}
 
 #### Install Enterprise ColumnStore <a href="#install-enterprise-columnstore" id="install-enterprise-columnstore"></a>
@@ -422,9 +422,9 @@ Mandatory system variables and options for Single-Node ColumnStore include:
 
 | Connector                                                                                                                                                                                                                 | MariaDB Connector/R2DBC                                                                                                                                                                                                                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [character\_set\_server](https://mariadb.com/docs/server/server-management/variables-and-modes/server-system-variables#character_set_server)                                                                              | Set this system variable to `utf8`                                                                                                                                                                                                                                                                                                                                                         |
-| [collation\_server](https://mariadb.com/docs/server/server-management/variables-and-modes/server-system-variables#collation_server)                                                                                       | Set this system variable to `utf8_general_ci`                                                                                                                                                                                                                                                                                                                                              |
-| [loose-columnstore\_use\_import\_for\_batchinsert](https://mariadb.com/docs/analytics/mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select#batch-insert-mode) | Set this system variable to `ALWAYS` to always use `cpimport` for [LOAD DATA INFILE](https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) and [INSERT...SELECT](https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/insert-select) statements. |
+| [character\_set\_server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#character_set_server)                                                                              | Set this system variable to `utf8`                                                                                                                                                                                                                                                                                                                                                         |
+| [collation\_server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#collation_server)                                                                                       | Set this system variable to `utf8_general_ci`                                                                                                                                                                                                                                                                                                                                              |
+| [loose-columnstore\_use\_import\_for\_batchinsert](../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select.md#batch-insert-mode) | Set this system variable to `ALWAYS` to always use `cpimport` for [LOAD DATA INFILE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) and [INSERT...SELECT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insert-select) statements. |
 
 {% hint style="info" %}
 The `loose-` prefix is required for ColumnStore system variables in the configuration file. Without it, MariaDB Server will fail to start if the ColumnStore plugin is not installed or has been removed.
@@ -459,7 +459,7 @@ $ sudo systemctl enable mariadb-columnstore
 
 Enterprise ColumnStore requires a mandatory utility user account. By default, it connects to the server using the root user with no password. MariaDB Enterprise Server 10.6 will reject this login attempt by default, so you will need to configure Enterprise ColumnStore to use a different user account and password and create this user account on Enterprise Server.
 
-1. On the Enterprise ColumnStore node, create the user account with the [CREATE USER](https://mariadb.com/docs/server/reference/sql-statements/account-management-sql-statements/create-user) statement:
+1. On the Enterprise ColumnStore node, create the user account with the [CREATE USER](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/create-user) statement:
 
 ```sql
 CREATE USER 'util_user'@'127.0.0.1'
@@ -488,7 +488,7 @@ $ sudo mcsSetConfig CrossEngineSupport Password util_user_passwd
 ```
 
 {% hint style="info" %}
-For details about how to encrypt the password, see "[Credentials Management for MariaDB Enterprise ColumnStore](https://mariadb.com/docs/analytics/mariadb-columnstore/security/enterprise-columnstore-credentials-management)".
+For details about how to encrypt the password, see "[Credentials Management for MariaDB Enterprise ColumnStore](../../../../security/enterprise-columnstore-credentials-management.md)".
 {% endhint %}
 
 {% hint style="warning" %}
@@ -591,7 +591,7 @@ MariaDB [(none)]>
 
 #### Test ColumnStore Plugin Status <a href="#test-columnstore-plugin-status" id="test-columnstore-plugin-status"></a>
 
-Query [information\_schema.PLUGINS](https://mariadb.com/docs/server/reference/system-tables/information-schema/information-schema-tables/plugins-table-information-schema) and confirm that the ColumnStore storage engine plugin is `ACTIVE`:
+Query [information\_schema.PLUGINS](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/plugins-table-information-schema) and confirm that the ColumnStore storage engine plugin is `ACTIVE`:
 
 ```sql
 SELECT PLUGIN_NAME, PLUGIN_STATUS
@@ -714,13 +714,13 @@ Before data can be imported into the tables, create a matching schema.
 
 **On the primary server**, create the schema:
 
-1. For each database that you are importing, create the database with the [CREATE DATABASE](https://mariadb.com/docs/server/reference/sql-statements/data-definition/create/create-database) statement:
+1. For each database that you are importing, create the database with the [CREATE DATABASE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-database) statement:
 
 ```sql
 CREATE DATABASE inventory;
 ```
 
-2. For each table that you are importing, create the table with the [CREATE TABLE](https://mariadb.com/docs/server/server-usage/tables/create-table) statement:
+2. For each table that you are importing, create the table with the [CREATE TABLE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table) statement:
 
 ```sql
 CREATE TABLE inventory.products (
@@ -737,7 +737,7 @@ Enterprise ColumnStore supports multiple methods to import data into ColumnStore
 
 **cpimport**
 
-MariaDB Enterprise ColumnStore includes [cpimport](https://mariadb.com/docs/analytics/mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
+MariaDB Enterprise ColumnStore includes [cpimport](../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
 
 To import your data from a TSV (tab-separated values) file, on the primary server run `cpimport`:
 
@@ -747,9 +747,9 @@ $ sudo cpimport -s '\t' inventory products /tmp/inventory-products.tsv
 
 #### LOAD DATA INFILE <a href="#load-data-infile" id="load-data-infile"></a>
 
-When data is loaded with the [LOAD DATA INFILE](https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) statement, MariaDB Enterprise ColumnStore loads the data using `cpimport`, which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
+When data is loaded with the [LOAD DATA INFILE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) statement, MariaDB Enterprise ColumnStore loads the data using `cpimport`, which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
 
-To import your data from a TSV (tab-separated values) file, on the primary server use [LOAD DATA INFILE](https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) statement:
+To import your data from a TSV (tab-separated values) file, on the primary server use [LOAD DATA INFILE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) statement:
 
 ```sql
 LOAD DATA INFILE '/tmp/inventory-products.tsv'
@@ -758,7 +758,7 @@ INTO TABLE inventory.products;
 
 #### Import from Remote Database <a href="#import-from-remote-database" id="import-from-remote-database"></a>
 
-MariaDB Enterprise ColumnStore can also import data directly from a remote database. A simple method is to query the table using the [SELECT](https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/selecting-data/select) statement, and then pipe the results into `cpimport`, which is a command-line utility that is designed to efficiently load data in bulk. Alternative methods are available.
+MariaDB Enterprise ColumnStore can also import data directly from a remote database. A simple method is to query the table using the [SELECT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select) statement, and then pipe the results into `cpimport`, which is a command-line utility that is designed to efficiently load data in bulk. Alternative methods are available.
 
 To import your data from a remote MariaDB database:
 

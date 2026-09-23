@@ -1,8 +1,8 @@
 ---
 description: >-
   MariaDB ColumnStore hardware requirements for development and production:
-  CPU cores, RAM, storage type (HDD vs SSD), network, and bare-metal vs
-  virtual deployment guidance.
+  CPU cores, RAM, storage type (HDD vs SSD), filesystem and DBRoot drive
+  layout, network, and bare-metal vs virtual deployment guidance.
 
 ---
 
@@ -37,6 +37,48 @@ The specifications differentiate between a basic development environment and a p
   * Adequate memory is critical for caching data and intermediate results, directly impacting query performance.
 * **Storage:** **StorageManager (S3)** is recommended.
   * This implies leveraging cloud-object storage (like AWS S3 or compatible services) for scalable and durable data persistence in production.
+
+## Storage and Filesystem
+
+### Filesystem Choice
+
+A well-tuned `ext4` filesystem is comparable to ZFS for ColumnStore. Treat the choice as an operational preference — snapshots, compression, checksums, and the filesystem your team already operates confidently — rather than as a ColumnStore performance lever.
+
+ColumnStore does not rely on the filesystem to cache its data. Reads are served from ColumnStore's own disk block cache, and direct I/O is enabled by default (`PrimitiveServers/DirectIO` is set to `y` in the shipped `Columnstore.xml`). The size of the block cache is set by `DBBC/NumBlocksPct`.
+
+### DBRoot Drive Layout
+
+Giving the DBRoot its own dedicated drives remains a valid recommendation, but how much it helps depends on the workload's I/O pattern.
+
+In ColumnStore 5 and later, each node has exactly one DBRoot. These are the paths that carry ColumnStore I/O, and the `Columnstore.xml` entries that set them:
+
+| Purpose | Default path | Configuration entry |
+| --- | --- | --- |
+| Column data (DBRoot) | `/var/lib/columnstore/data1` | `SystemConfig/DBRoot1` |
+| Bulk-load staging | `/var/log/mariadb/columnstore/data/bulk` | `WriteEngine/BulkRoot` |
+| Join and aggregation temporary files | `/tmp/columnstore_tmp_files` | `SystemConfig/SystemTempFileDir` |
+| Logs | `/var/log/mariadb/columnstore` | — |
+
+The DBRoot holds the column data and is the first path to move to dedicated storage. Separating the temporary-file and bulk-staging paths from the DBRoot keeps write-heavy bulk loads and disk-based joins from competing with column scans for the same device.
+
+{% hint style="danger" %}
+Do not point `SystemTempFileDir` at a directory that holds anything else. On start, ExeMgr deletes the entire `joins` and `aggregates` subdirectories and recreates them, to make sure no files are left behind.
+{% endhint %}
+
+### More Drives or More I/O Threads
+
+Whether to add drives or add threads depends on whether storage is actually saturated:
+
+* **If I/O is the bottleneck**, consider additional drives, or RAID 10.
+* **If I/O is not the bottleneck**, raise the number of ColumnStore I/O threads instead, by setting `DBBC/NumThreads`.
+
+By default, ColumnStore creates `MIN( 2 × cores , 32 )` I/O threads, taking the core count from the cgroup where one applies. Because the cap binds from 16 cores upward, a production node built to the 64-core recommendation above already runs at the 32-thread ceiling. Setting `DBBC/NumThreads` explicitly overrides that cap; valid values are `1` to `256`:
+
+```bash
+sudo mcsSetConfig DBBC NumThreads 64
+```
+
+For the other tuning variables in the same area, see [ColumnStore System Variables: Advanced Performance and Control Flow](../high-availability/optimization-and-tuning/columnstore-system-variables-advanced-performance-and-control-flow.md).
 
 ## Network Interconnectivity
 

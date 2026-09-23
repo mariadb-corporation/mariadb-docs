@@ -6,7 +6,7 @@ description: >-
 
 # 26.06 update guide
 
-This guide illustrates, step by step, how to update to `26.6.0` from previous versions. This guide only applies if you are updating from a version prior to `26.6.x`, otherwise you may upgrade directly (see [Helm](https://mariadb.com/docs/tools/mariadb-enterprise-operator/installation/helm#updates) docs).
+This guide illustrates, step by step, how to update to `26.6.0` from previous versions. This guide only applies if you are updating from a version prior to `26.6.x`, otherwise you may upgrade directly (see [Helm](../installation/helm.md#updates) docs).
 
 - The [data-plane](../topologies/data-plane.md) must be updated to the `26.6.0` version. You must set `updateStrategy.autoUpdateDataPlane=true` in your `MariaDB` resources before updating the operator. Then, once updated, the operator will also update the data-plane based on its version:
 

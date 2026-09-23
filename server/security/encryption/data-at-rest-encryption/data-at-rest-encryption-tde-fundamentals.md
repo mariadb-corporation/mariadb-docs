@@ -71,6 +71,7 @@ Enabling data-at-rest encryption encompasses these steps:
 2. Installing and enabling a [key management plugin](key-management-and-encryption-plugins/).
 3. Enabling encryption for Aria tables, InnoDB tables, or both.
 4. Verifying encryption is turned on.
+5. Monitoring encryption progress.
 
 {% hint style="info" %}
 The path used in these instructions (`/etc/mysql/encryption/`) is common for most Linux systems. Adjust if your operating system uses a different path.
@@ -94,19 +95,12 @@ sudo journalctl -u mariadb -n 1000 --no-pager | grep ERROR
 
 In this step, we create a key file that fulfills basic requirements. It contains only one unencrypted key, which is good enough to perform the rest of the steps. It is highly recommended, though, to use multiple keys, and to encrypt the key files. See [Creating the Key File](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#creating-the-key-file).
 
+{% hint style="warning" %}
+The key file format differs by product and version, so pick the tab that matches the server you're configuring. The optional key version field is only supported as of Enterprise Server 11.8. Using the wrong format makes the server fail to start with `Invalid key` in the [error log](../../../server-management/server-monitoring-logs/error-log.md).
+{% endhint %}
+
 {% tabs %}
-{% tab title="Current Enterprise Server" %}
-Run these commands to create an `encryption` folder, and a 32 byte (256 bit) long key file within that folder.
-
-{% code overflow="wrap" %}
-```bash
-mkdir -p /etc/mysql/encryption 
-echo $(echo -n "1;1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
-```
-{% endcode %}
-{% endtab %}
-
-{% tab title="Enterprise Server < 11.8 & Community Server" %}
+{% tab title="Community Server (all versions) & Enterprise Server before 11.8" %}
 Run these commands to create an `encryption` folder, and a 32 byte (256 bit) long key file within that folder.
 
 {% code overflow="wrap" %}
@@ -116,7 +110,20 @@ echo $(echo -n "1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Enterprise Server 11.8 and later" %}
+Run these commands to create an `encryption` folder, and a 32 byte (256 bit) long key file within that folder. The second field is the key version.
+
+{% code overflow="wrap" %}
+```bash
+mkdir -p /etc/mysql/encryption 
+echo $(echo -n "1;1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
+
+To keep the keys out of reach of other users on the system, it is highly recommended to encrypt the key file as well. That requires an encryption password, which is a separate file from the key file. See [Encrypting the Key File](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#encrypting-the-key-file), and use the resulting file names in the next step.
 {% endstep %}
 
 {% step %}
@@ -130,11 +137,23 @@ Add the following to your configuration file (for instance, `my.cnf`), then rest
 plugin_load_add = file_key_management
 file_key_management_filename = /etc/mysql/encryption/keyfile.txt
 # The following line is optional but highly recommended.
-# Uncomment it to enable usage of an encrypted key file.
+# If you encrypted the key file in the previous step, point
+# file_key_management_filename at the encrypted key file instead, and
+# uncomment the next line to point at the encryption password file.
 # file_key_management_filekey = FILE:/etc/mysql/encryption/keyfile.key
-file_key_management_encryption_algorithm = AES_CTR
 ```
 {% endcode %}
+
+This configuration uses the default encryption algorithm, `AES_CBC`.
+
+{% hint style="warning" %}
+Do not set [file\_key\_management\_encryption\_algorithm](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#file_key_management_encryption_algorithm) to `AES_CTR` unless you have a reason to. The algorithm is effectively permanent for data already encrypted with it:
+
+* Changing it later makes the server fail to start, reporting the data files as corrupted rather than naming the algorithm as the cause.
+* The HashiCorp Key Management and AWS Key Management plugins only support `AES_CBC`, so data encrypted with `AES_CTR` locks you into the File Key Management plugin.
+
+See [Choosing an Encryption Algorithm](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#choosing-an-encryption-algorithm).
+{% endhint %}
 
 For details about file name, file key, and encryption algorithm, see [File Key Management Encryption Plugin](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md).
 {% endstep %}
@@ -161,21 +180,35 @@ innodb_encrypt_log = ON
 innodb_encrypt_temporary_tables = ON
 aria_encrypt_tables = ON
 encrypt_tmp_disk_tables = ON
+# Required to encrypt InnoDB tables that already exist. The default is 0,
+# which means existing tables are left as they are.
+innodb_encryption_threads = 4
 ```
 {% endcode %}
+
+{% hint style="info" %}
+[innodb\_encryption\_threads](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_threads) deserves attention on an existing database. The settings above encrypt InnoDB tables that are *created* from now on, but converting tables that already exist is the job of the background encryption threads. The variable defaults to `0`, meaning no threads run, so without it your existing tables stay unencrypted and the next step has no progress to report.
+
+The same applies in reverse when you disable encryption: the threads are what decrypt existing tables. For details, see [InnoDB Background Encryption Threads](innodb-encryption/innodb-background-encryption-threads.md).
+{% endhint %}
 
 Alternatively, set it by running the following statements. Remember, though, that the settings do not persist across server restarts. Also note that some of the variables cannot be set at runtime – they have to be set in a configuration file:
 
 {% code overflow="wrap" %}
 ```sql
-SET GLOBAL innodb_encrypt_tables = ON;   -- for InnoDB tables
-SET GLOBAL aria_encrypt_tables = ON;     -- for Aria tables
-SET GLOBAL encrypt_tmp_disk_tables = ON; -- for Aria temporary tables
+SET GLOBAL innodb_encrypt_tables = ON;    -- for InnoDB tables
+SET GLOBAL innodb_encryption_threads = 4; -- to convert existing InnoDB tables
+SET GLOBAL aria_encrypt_tables = ON;      -- for Aria tables
+SET GLOBAL encrypt_tmp_disk_tables = ON;  -- for Aria temporary tables
 ```
 {% endcode %}
 
 {% hint style="info" %}
 Particularly InnoDB has more encryption options. You can fine-tune the encryption, for instance, configure encryption threads. Those details are covered [on this page](innodb-encryption/innodb-enabling-encryption.md).
+{% endhint %}
+
+{% hint style="info" %}
+Setting `innodb_encrypt_tables` to `FORCE` instead of `ON` additionally rejects any attempt to exempt an individual table with `ENCRYPTED=NO`. Use it when you need encryption to be mandatory across the whole instance. It does not change how existing tables are converted — that is the job of the encryption threads described above. Note that it also makes the [per-table exemptions](data-at-rest-encryption-tde-fundamentals.md#manual-control-disabling-encryption) shown later on this page fail.
 {% endhint %}
 {% endstep %}
 
@@ -211,6 +244,26 @@ If encryption of all database objects is successfully enabled, this is the outpu
 ```
 {% endcode %}
 {% endstep %}
+
+{% step %}
+**Monitor encryption progress.**
+
+The previous step confirms that encryption is configured, not that your data is encrypted yet. If the database already contained tables, the background encryption threads work through them after the restart. Monitor how many InnoDB tablespaces are still unencrypted:
+
+{% code overflow="wrap" %}
+```sql
+SELECT NAME, ENCRYPTION_SCHEME, ROTATING_OR_FLUSHING 
+FROM INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION 
+WHERE ENCRYPTION_SCHEME = 0;
+```
+{% endcode %}
+
+Encryption is complete once the query returns an empty set. There's no built-in way to monitor the progress for Aria tables.
+
+{% hint style="info" %}
+If the result doesn't change, check that [innodb\_encryption\_threads](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_threads) is greater than `0`. With the default of `0`, existing tables are never converted.
+{% endhint %}
+{% endstep %}
 {% endstepper %}
 
 ## Disabling Data-at-Rest Encryption
@@ -219,7 +272,7 @@ If you determine that encryption is no longer necessary, you can revert the syst
 
 ### Prerequisites
 
-* Encryption Status: MariaDB Enterprise Server must currently have data-at-rest encryption enabled and active.
+* Encryption Status: MariaDB Server must currently have data-at-rest encryption enabled and active.
 * Key Management Access: You must have the original key management plugin active and the correct keys loaded to facilitate the decryption of the data.
 * Sufficient Disk Space: Ensure adequate free space is available to accommodate the rewritten, unencrypted data files.
 
@@ -236,6 +289,14 @@ SET GLOBAL aria_encrypt_tables = OFF;     -- Aria tables
 SET GLOBAL encrypt_tmp_disk_tables = OFF; -- Aria temporary tables
 ```
 {% endcode %}
+
+{% hint style="warning" %}
+Decrypting tables that already exist is done by the background encryption threads, so [innodb\_encryption\_threads](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_threads) must be greater than `0` for this to have any effect. With the default of `0`, turning encryption off only stops new data from being encrypted, and the monitoring step below never reports progress:
+
+```sql
+SET GLOBAL innodb_encryption_threads = 4;
+```
+{% endhint %}
 
 {% hint style="info" %}
 Any per-table encryption for InnoDB tables explicitly created with `ENCRYPTED=YES` must be manually decrypted using `ALTER TABLE table_name ENCRYPTED=NO`.
@@ -268,6 +329,8 @@ FROM INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION
 WHERE ENCRYPTION_SCHEME != 0;
 ```
 
+Decryption is complete once the query returns an empty set.
+
 {% hint style="warning" %}
 A restore from an encrypted backup isn't possible after removing the keys.
 {% endhint %}
@@ -283,6 +346,22 @@ Only after all tables and logs are confirmed as unencrypted should you uninstall
 UNINSTALL SONAME 'file_key_management';
 ```
 {% endcode %}
+
+The statement succeeds with a warning:
+
+{% code overflow="wrap" %}
+```
++---------+------+----------------------------------------------------+
+| Level   | Code | Message                                            |
++---------+------+----------------------------------------------------+
+| Warning | 1620 | Plugin is busy and will be uninstalled on shutdown |
++---------+------+----------------------------------------------------+
+```
+{% endcode %}
+
+{% hint style="info" %}
+This warning is expected, and it doesn't indicate that something is still encrypted. While an encryption plugin is installed, the server holds a reference to it, so the plugin can never be unloaded at runtime. It's removed at the next shutdown instead. Because of this, the following step isn't optional: unless you also remove the configuration, the server loads the plugin again on restart.
+{% endhint %}
 
 Remove its configuration, then restart the server:
 

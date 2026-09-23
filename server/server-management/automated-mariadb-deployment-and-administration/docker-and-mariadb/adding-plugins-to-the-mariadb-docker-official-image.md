@@ -22,7 +22,7 @@ $ docker run --rm mariadb:latest ls -C /usr/lib/mysql/plugin
 
 Using the `--plugin-load-add` flag with the plugin name (can be repeated), the plugins will be loaded and ready when the container is started:
 
-For example, to enable the `simple\_password\_check` plugin:
+For example, to enable the `simple_password_check` plugin:
 
 ```bash
 $ docker run --name some-%%REPO%% -e MARIADB_ROOT_PASSWORD=my-secret-pw --network=host -d mariadb:latest --plugin-load-add=simple_password_check
@@ -47,7 +47,7 @@ Create the SQL file used in initialization:
 $ echo 'INSTALL SONAME "disks";' > my_initdb/disks.sql
 ```
 
-In this case, the `my\_initdb` is a `/docker-entrypoint-initdb.d` directory per "Initializing a fresh instance" section above.
+In this case, the `my_initdb` is a `/docker-entrypoint-initdb.d` directory per "Initializing a fresh instance" section above.
 
 ### Identifying Additional Plugins in Additional Packages
 

@@ -19,7 +19,7 @@ description: >-
 $ maxctrl create user "maxscale_rest_admin" "maxscale_rest_admin_password" --type=admin
 ```
 
-Replace `maxscale\_rest\_admin` and `maxscale\_rest\_admin\_password` with the desired user and password.
+Replace `maxscale_rest_admin` and `maxscale_rest_admin_password` with the desired user and password.
 
 2. If you want to use MaxCtrl remotely, [configure the REST API for remote connections](../configuring-maxscales-rest-api.md#configuring-maxscales-rest-api-for-remote-connections). Several global parameters must be configured in maxscale.cnf.
 

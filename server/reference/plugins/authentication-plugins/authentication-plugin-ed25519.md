@@ -53,7 +53,11 @@ If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does 
 GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA ed25519 USING PASSWORD('secret');
 ```
 
-The [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) statements don't work with the `ed25519` authentication plugin. Instead, you have to use the [UDF](../../../server-usage/user-defined-functions/) that comes with the authentication plugin to calculate the password hash:
+{% hint style="info" %}
+Support for the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) statement with the `ed25519` authentication plugin was added in MariaDB 10.4 ([MDEV-12321](https://jira.mariadb.org/browse/MDEV-12321)). In earlier versions, you had to precompute the password hash with the UDF shown below.
+{% endhint %}
+
+Alternatively, you can create the account from a pre-computed password hash instead of a plain-text password. The `ed25519` authentication plugin ships a [UDF](../../../server-usage/user-defined-functions/) that calculates this hash:
 
 ```sql
 CREATE FUNCTION ed25519_password RETURNS STRING SONAME "auth_ed25519.so";
@@ -104,7 +108,7 @@ You can also change the user account's password with the [ALTER USER](../../sql-
 ALTER USER username@hostname IDENTIFIED VIA ed25519 USING PASSWORD('new_secret');
 ```
 
-The `PASSWORD()` function and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) statement did not work with the `ed25519` authentication plugin. Instead, you would have to use the [UDF](../../../server-usage/user-defined-functions/) that comes with the authentication plugin to calculate the password hash:
+Alternatively, you can change the password using a pre-computed password hash instead of a plain-text password. The `ed25519` authentication plugin ships a [UDF](../../../server-usage/user-defined-functions/) that calculates this hash:
 
 ```sql
 CREATE FUNCTION ed25519_password RETURNS STRING SONAME "auth_ed25519.so";

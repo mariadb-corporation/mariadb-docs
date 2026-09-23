@@ -3,6 +3,30 @@
 import sys
 import csv
 import itertools
+import re
+
+# Markdown metacharacters that occur in practice in MXS summaries and that
+# GitBook's own normalizer escapes: identifiers like admin_ssl_*, and bracketed
+# module names like [readwritesplit]. Escaping them here keeps the generated
+# page byte-identical to what GitBook would save, so the first edit in the web
+# app does not produce a spurious GITBOOK-XXX diff.
+_MD_SPECIALS = re.compile(r"[_*\[]")
+
+# Escape Markdown metacharacters in free-form text (e.g. Jira summaries) so they
+# render literally instead of as Markdown formatting. Code spans are left alone:
+# backticks in MXS summaries are deliberate, and a backslash inside a code span
+# renders as a literal backslash rather than escaping anything.
+def md_escape(s):
+    # MXS summaries occasionally carry leading/trailing whitespace (e.g. MXS-6886
+    # ends with a space). Left in place it becomes trailing whitespace on the
+    # generated bullet, which every subsequent editor then has to clean by hand.
+    s = s.strip()
+    # Splitting on backticks alternates outside/inside: even indices are outside
+    # a code span, odd indices inside.
+    parts = s.split("`")
+    for i in range(0, len(parts), 2):
+        parts[i] = _MD_SPECIALS.sub(lambda m: "\\" + m.group(), parts[i])
+    return "`".join(parts)
 
 # Loop over issues. If an issue has a label that starts with 'CVE-',
 # assume the label is a CVE id. If an issue has multiple CVE labels,
@@ -31,7 +55,7 @@ def print_cves(header, cves):
     for cve in cves:
         id = cve['Id']
         i = cve['Issue']
-        print("* [" + id + "](https://www.cve.org/CVERecord?id=" + id + ") Fixed by [" + i['Issue key'] + "](https://jira.mariadb.org/browse/" + i['Issue key'] + ") " + i['Summary'])
+        print("* [" + id + "](https://www.cve.org/CVERecord?id=" + id + ") Fixed by [" + i['Issue key'] + "](https://jira.mariadb.org/browse/" + i['Issue key'] + ") " + md_escape(i['Summary']))
 
     print()
 
@@ -39,6 +63,7 @@ def print_cves(header, cves):
 bugs = []
 new_features = []
 tasks = []
+skipped = []
 
 reader = csv.reader(sys.stdin.readlines())
 field_names = next(reader)
@@ -48,6 +73,14 @@ for row in reader:
     # all values separated by a ','.
     groups = itertools.groupby(zip(field_names, row), key=lambda x: x[0])
     row = dict([(k, ','.join([v[1] for v in g])) for k, g in groups])
+
+    # Only issues actually resolved as 'Fixed' belong in the release notes. An
+    # issue can be Closed with some other resolution - 'Not a Bug' is common for
+    # SBOM tasks that turn out not to apply to MaxScale - and listing those would
+    # claim a fix that was never made. Particularly bad for the CVE sections.
+    if row.get('Resolution') != 'Fixed':
+        skipped.append((row['Issue key'], row.get('Resolution') or 'unresolved'))
+        continue
 
     if row['Issue Type'] == 'Bug':
         bugs.append(row)
@@ -75,7 +108,7 @@ if len(new_features) > 0:
     print()
 
     for f in new_features:
-        print("* [" + f['Issue key'] + "](https://jira.mariadb.org/browse/" + f['Issue key'] + ") " + f['Summary'])
+        print("* [" + f['Issue key'] + "](https://jira.mariadb.org/browse/" + f['Issue key'] + ") " + md_escape(f['Summary']))
     print()
 
 
@@ -83,6 +116,13 @@ print("## Bug fixes")
 print()
 
 for b in bugs:
-    print("* [" + b['Issue key'] + "](https://jira.mariadb.org/browse/" + b['Issue key'] + ") " + b['Summary'])
+    print("* [" + b['Issue key'] + "](https://jira.mariadb.org/browse/" + b['Issue key'] + ") " + md_escape(b['Summary']))
 
 print()
+
+# Diagnostics go to stderr; generate_release_notes.sh captures stdout only, so
+# this is visible to whoever runs it without ending up on the page.
+if skipped:
+    print("Not listed, closed with a resolution other than 'Fixed':", file=sys.stderr)
+    for key, resolution in skipped:
+        print("  %s [%s]" % (key, resolution), file=sys.stderr)

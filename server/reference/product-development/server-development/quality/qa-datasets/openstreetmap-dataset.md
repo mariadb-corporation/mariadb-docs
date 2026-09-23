@@ -31,7 +31,7 @@ sed -i -e 's/MyISAM/Aria/gi' osmdb06.sql
 
 The data is provided in the form of XML files (.OSM files) that require the\
 Java-based [Osmosis](https://wiki.openstreetmap.org/wiki/Osmosis) tool to load
-into MariaDB. The tool is available from [dev.openstreetmap.org](https://dev.openstreetmap.org/~bretth/osmosis-build/osmosis-latest.tgz).\
+into MariaDB. The tool is available from [dev.openstreetmap.org](https://github.com/openstreetmap/osmosis).\
 Version 0.36 is known to work.
 
 Various .OSM files are available, including the [entire world](https://wiki.openstreetmap.org/wiki/Planet.osm) (>200Gb unzipped)

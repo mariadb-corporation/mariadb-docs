@@ -1040,7 +1040,6 @@ description: >-
 * [lc\_messages](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lc_messages)
 * [lc\_messages\_dir](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lc_messages_dir)
 * [lc\_time\_names](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lc_time_names)
-* `legacy_xa_rollback_at_disconnect`
 * [license](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#license)
 * [local\_infile](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#local_infile)
 * [lock\_wait\_timeout](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lock_wait_timeout)
@@ -1747,7 +1746,6 @@ description: >-
 * -O, --[set-variable](../server-management/starting-and-stopping-mariadb/mariadbd-options.md)
 * [shared\_memory](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#shared_memory)
 * [shared\_memory\_base\_name](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#shared_memory_base_name)
-* `show_old_temporals`
 * [show\_slave\_auth\_info](../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#show_slave_auth_info)
 * \--[silent-startup](../server-management/starting-and-stopping-mariadb/mariadbd-options.md)
 * [simple\_password\_check\_digits](plugins/password-validation-plugins/simple-password-check-plugin.md#simple_password_check_digits)

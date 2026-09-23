@@ -13,6 +13,8 @@ GitBook itself **does** support redirects, configured two ways:
   `getSiteRedirectBySource`, `createSiteRedirect`, `updateSiteRedirectById`,
   `bulkUpsertSiteRedirects`. Useful for bulk loads and, above all, for **verifying** what is
   actually configured — see [Troubleshooting](#troubleshooting-a-redirect-that-looks-broken).
+  **Requires `admin` on the site**, which the organization's default `create` role does not
+  grant — so for most writers the CSV above is the only route, and that is by design.
 
 ## When to produce a redirect CSV
 
@@ -25,6 +27,55 @@ Any change that removes or relocates a published URL:
 
 Do this **in addition to** rewriting in-repo inbound links — lychee only catches in-repo
 breakage, never external bookmarks.
+
+## What happens when you rename a published page
+
+Three GitBook behaviors decide whether a rename needs redirects at all, and none of them is
+what you would guess. All three were established on DOCS-6408, which renamed three published
+`platform/post-download/` pages.
+
+**A real page outranks a rule with the same source.** GitBook resolves an existing page first
+and falls through to a redirect rule only when nothing resolves. A rule whose source matches a
+live page therefore never fires, and a rename cannot be "shadowed" by one. DOCS-6408 predicted
+the opposite in its PR body, and the live site disproved it: all three renamed pages returned
+200 as soon as Git Sync landed, though two rules were sourced from exactly those paths.
+
+**Git Sync preserves a page's id across a rename.** A rule's destination is a page id, not a
+path (`destination.kind: site-page`), so a rule pointing at a renamed page silently follows it
+to the new URL. That is convenient in the common direction — but a rule *sourced from* the new
+canonical path becomes a **self-redirect**, its source and resolved target identical. That is
+the loop described in [Troubleshooting](#troubleshooting-a-redirect-that-looks-broken), and
+renaming a page is one of the ways to create one. It stays latent for as long as the page keeps
+winning, which is exactly why nothing looks wrong at the time.
+
+**The old URL keeps working without a rule.** GitBook adds an automatic slug-history alias, so
+the pre-rename URL 307s to the new one on its own. On DOCS-6408 two of the three old URLs
+redirected correctly with no stored rule at all, and the prepared CSV turned out to have nothing
+left to import. An alias is weaker than a stored rule, though — it is GitBook's bookkeeping
+rather than your configuration — so it is worth having explicit rules stored for URLs that
+matter.
+
+### What to do after a rename
+
+**Step 1 is for everyone; steps 2–4 assume site admin.** Redirect rules are site settings, and
+the organization's default `create` role does not grant `admin` on a site — so expect a 403 on
+the API calls below unless you hold it. (Writes certainly need it; whether a plain read does was
+not tested, so don't count on it.) That is why the `gitbook-redirects` skill's deliverable is a
+CSV handed to an admin, and why the two are not in conflict: the CSV is the non-admin route to
+the same outcome.
+
+1. **Probe the old URLs before preparing anything.** No permissions needed — `curl` the old paths
+   as in [Step 1](#step-1-find-out-who-answered) above. The aliases may already do the job, in
+   which case the deliverable is nothing. If they don't, produce the CSV and hand it over; an
+   admin can then run the rest.
+2. **Audit rules sourced from the new canonical path**, not only from the old one. The old path
+   is the obvious half; the new path is where a self-redirect hides. `listSiteRedirects` with
+   `search=<slug>` covers both in one call.
+3. **Delete any self-redirect the rename created.** There is no single-rule delete operation:
+   use `bulkUpsertSiteRedirects` with `destination` set to `null` for that source, which can
+   create the replacement rules in the same call.
+4. **Mind the order.** Delete rules sourced from the canonical path only *after* Git Sync has
+   published the rename — until then, those rules are what keeps the old URL alive.
 
 ## The CSV format (this is the part that trips people up)
 
@@ -126,6 +177,8 @@ Both were misdiagnosed on DOCS-6370 before the header check was applied:
 
 - **Self-redirect loop.** The no-slash form 301s to *the identical URL* — `ERR_TOO_MANY_REDIRECTS`,
   no error page, just a hang. Worse than a 404 for readers, and invisible to link checkers.
+  Cloudflare is not the only way to get one: see
+  [What happens when you rename a published page](#what-happens-when-you-rename-a-published-page).
 - **Silent wrong page.** The no-slash form 301s to a *different* page's old slug; GitBook then
   faithfully resolves that wrong slug, so the reader gets **HTTP 200 on the wrong page**. No link
   checker will ever flag this.
@@ -146,6 +199,10 @@ Two corollaries worth remembering:
 ## Checklist
 
 - [ ] In-repo inbound links to the old paths already repointed (separate from redirects).
+- [ ] For a rename: old URLs probed **before** preparing a CSV — GitBook's slug-history alias may
+      already cover them, leaving nothing to import.
+- [ ] For a rename: rules sourced from the **new** canonical path audited, and any self-redirect
+      the rename created deleted (after Git Sync publishes, not before).
 - [ ] CSV header is `source,destination`.
 - [ ] `source` = site-relative path (`/server/…`, no `.md`, README→dir).
 - [ ] `destination` = full `https://mariadb.com/docs/server/…` URL.

@@ -64,7 +64,7 @@ See [MaxScale Troubleshooting](../maxscale-management/maxscale-troubleshooting.m
 
 ### Wildcard database grants
 
-MaxScale supports wildcards `_` and `%` for database-level grants. As with MariaDB Server, `grant select on test_.* to 'alice'@'%';` gives access to _test\__ as well as _test1_, _test2_ and so on. If the GRANT command escapes the wildcard (`grant select on \`test\_\`.\* to 'alice'@'%';`) both MaxScale and the MariaDB Server interpret it as only allowing access to _test\__.` \_`and`%`are only interpreted as wildcards when the grant is to a database:`grant select on \`test\_\`.t1 to 'alice'@'%';\` only grants access to the _test\_.t1_-table, not to _test1.t1_.
+MaxScale supports wildcards `_` and `%` for database-level grants. As with MariaDB Server, `grant select on test_.* to 'alice'@'%';` gives access to _test\__ as well as _test1_, _test2_ and so on. If the GRANT command escapes the wildcard (``grant select on `test\_`.* to 'alice'@'%';``) both MaxScale and the MariaDB Server interpret it as only allowing access to _test\__. `_` and `%` are only interpreted as wildcards when the grant is to a database: ``grant select on `test\_`.t1 to 'alice'@'%';`` only grants access to the _test\_.t1_ table, not to _test1.t1_.
 
 ## Settings
 

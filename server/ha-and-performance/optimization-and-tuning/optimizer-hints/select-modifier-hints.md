@@ -12,7 +12,7 @@ description: >-
 
 ## SQL\_CACHE / SQL\_NO\_CACHE
 
-If the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable is set to 2 or `DEMAND`, and the current statement is cacheable, `SQL_CACHE` causes the query to be cached and `SQL_NO_CACHE` causes the query not to be cached. For `UNION`s, `SQL_CACHE` or `SQL_NO_CACHE` should be specified for the first query. See also [The Query Cache](../buffers-caches-and-threads/query-cache.md) for more detail and a list of the types of statements that aren't cacheable.
+`SQL_CACHE` and `SQL_NO_CACHE` control whether a cacheable statement uses the [query cache](../buffers-caches-and-threads/query-cache.md), and which of them applies depends on the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable. When `query_cache_type` is `ON`, `SQL_NO_CACHE` keeps the query out of the cache. When it is `DEMAND`, `SQL_CACHE` is what puts the query in, and every other query bypasses the cache. Neither modifier has any effect when `query_cache_type` is `OFF`. For `UNION`s, `SQL_CACHE` or `SQL_NO_CACHE` should be specified for the first query. See also [The Query Cache](../buffers-caches-and-threads/query-cache.md) for more detail and a list of the types of statements that aren't cacheable.
 
 ## SQL\_BUFFER\_RESULT
 

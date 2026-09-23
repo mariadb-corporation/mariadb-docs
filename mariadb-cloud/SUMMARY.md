@@ -2,6 +2,7 @@
 
 * [MariaDB Cloud](README.md)
   * [Key Features & Capabilities](readme/key-features-and-capabilities.md)
+  * [Service Tiers](readme/service-tiers.md)
   * [MariaDB Cloud Serverless](readme/serverless.md)
   * [MariaDB Cloud Serverless Architecture](readme/architecture.md)
 * [Quickstart Guides](quickstart/README.md)
@@ -12,7 +13,7 @@
   * [Bring Your Own Account (BYOA)](quickstart/bring-your-own-account-byoa.md)
   * [Enterprise Cluster](quickstart/enterprise-cluster.md)
   * [HTAP using MariaDB Exa](quickstart/htap-mariadb-exa.md)
-  * [Query Cache Using GridGain 8](quickstart/query-cache-gridgain-8.md)
+  * [Query Result Cache](quickstart/query-cache-gridgain-8.md)
 * [Connection Methods](connecting-to-mariadb-cloud-dbs/README.md)
   * [Connection Overview](connecting-to-mariadb-cloud-dbs/connection-overview.md)
   * [Connect using MariaDB Client](connecting-to-mariadb-cloud-dbs/connect-using-mariadb-cli.md)

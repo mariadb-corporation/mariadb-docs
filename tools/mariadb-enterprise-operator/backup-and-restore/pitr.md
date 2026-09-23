@@ -4,7 +4,7 @@ Point-in-time recovery (PITR) is a feature that allows you to restore a MariaDB 
 
 ## Supported MariaDB versions and topologies
 
-The operator uses [mariadb-binlog](https://mariadb.com/docs/server/clients-and-utilities/logging-tools/mariadb-binlog) to replay binary logs, in particular, it filters binlog events by passing a GTID to mariadb-binlog via the [`--start-position`](https://mariadb.com/docs/server/clients-and-utilities/logging-tools/mariadb-binlog/mariadb-binlog-options#j-pos-start-position-pos) flag. This is only supported by __MariaDB server 10.8 and later__, so make sure you are using a compatible MariaDB version.
+The operator uses [mariadb-binlog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/logging-tools/mariadb-binlog) to replay binary logs, in particular, it filters binlog events by passing a GTID to mariadb-binlog via the [`--start-position`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/logging-tools/mariadb-binlog/mariadb-binlog-options#j-pos-start-position-pos) flag. This is only supported by __MariaDB server 10.8 and later__, so make sure you are using a compatible MariaDB version.
 
 Regarding supported MariaB topologies, at the moment, binary log archiving and point-in-time recovery are only supported by the __[asynchronous replication topology](../topologies/replication.md)__, which already relies on the binary logs for replication. Galera and standalone topologies will be supported in upcoming releases.
 
@@ -234,13 +234,13 @@ There are a couple of important considerations regarding binary log archival:
 - The archival process should start from a clean state, which means that the object storage should be empty at the time of the first archival.
 - It is not recommended to set `archiveInterval` to a very low value (< 1m), as it can lead to increased load on the database `Pod` and the storage system.
 - If the archival process fails (e.g., due to network issues or storage unavailability), it will be retried in the next archive cycle.
-- If [`binlog_expire_logs_seconds`](https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_expire_logs_seconds) server variable is configured, it should be set to a value higher than the `archiveInterval` to prevent automatic deletion of binary logs before they are archived.
-- Manually executing [`PURGE BINARY LOGS`](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/purge-binary-logs)command on the database is not recommended, as it can lead to inconsistencies between the database and the archived binary logs.
-- Manually executing [`FLUSH BINARY LOGS`](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/flush-commands/flush) command on the database should be compatible with the archival process, it will force the active binary log to be closed and will be archived by the agent in the next archive cycle.
+- If [`binlog_expire_logs_seconds`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_expire_logs_seconds) server variable is configured, it should be set to a value higher than the `archiveInterval` to prevent automatic deletion of binary logs before they are archived.
+- Manually executing [`PURGE BINARY LOGS`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/purge-binary-logs)command on the database is not recommended, as it can lead to inconsistencies between the database and the archived binary logs.
+- Manually executing [`FLUSH BINARY LOGS`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/flush-commands/flush) command on the database should be compatible with the archival process, it will force the active binary log to be closed and will be archived by the agent in the next archive cycle.
 
 ## Binary log size
 
-The server has a default [`max_binlog_size`](https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_size) of 1GB, which means that a new binary log file will be created once the current one reaches that size. This is sensible default value for most cases, but it can be adjusted based on the data volume in order to enable a faster archival, and therefore a reduced RPO:
+The server has a default [`max_binlog_size`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_size) of 1GB, which means that a new binary log file will be created once the current one reaches that size. This is sensible default value for most cases, but it can be adjusted based on the data volume in order to enable a faster archival, and therefore a reduced RPO:
 
 | Environment | Recommended Size | Rationale |
 |-------------|------------------|-----------|
@@ -517,7 +517,7 @@ As you can see, the restoration process includes the following steps:
 4. Schedule the point-in-time restoration job, which will:
    1. Build the [binlog timeline](#binlog-timeline-and-last-recoverable-time) based on the base backup GTID and the [archived binary log inventory](#binlog-inventory).
    2. Pull the binary logs in the timeline into a [staging area](#staging-storage).
-   3. Replay the binary logs using [mariadb-binlog](https://mariadb.com/docs/server/clients-and-utilities/logging-tools/mariadb-binlog) from the GTID position of the base backup up to the `targetRecoveryTime`.
+   3. Replay the binary logs using [mariadb-binlog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/logging-tools/mariadb-binlog) from the GTID position of the base backup up to the `targetRecoveryTime`.
 
 After having completed the restoration process, the following status conditions will be available for you to inspect the restoration process:
 

@@ -30,7 +30,7 @@ Review these pages for detailed documentation:
 
 ## Blog Posts
 
-* [MySQL Auditing with MariaDB Auditing Plugin](https://planet.mysql.com/entry/?id=5994184)
+* MySQL Auditing with MariaDB Auditing Plugin (formerly on Planet MySQL, no longer available)
   by Peter Zaitsev, February 15, 2016
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

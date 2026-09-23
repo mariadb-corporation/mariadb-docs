@@ -12,10 +12,10 @@ Build interactive, database-driven websites with PHP 7, MySQL 8, and MariaDB.\
 [_Practical PHP 7, MySQL 8, and MariaDB Website Databases_](https://www.amazon.com/Practical-MySQL-MariaDB-Website-Databases/dp/1484238427?tag=uuid10-20) by Adrian W. West, 2nd edition, September 2018\
 Build interactive, database-driven websites with PHP 7, MySQL 8, and MariaDB.\
 \
-[_MariaDB Essentials_](https://www.packtpub.com/application-development/mariadb-essentials) by Emilien Kenler and Federico Razzoli, October 2015\
+[_MariaDB Essentials_](https://www.packtpub.com/en-us/product/mariadb-essentials-9781783982868) by Emilien Kenler and Federico Razzoli, October 2015\
 For those that don't know SQL and want to quickly jump in and learn MariaDB, or that already know MySQL but want to go further.\
 \
-[_Getting Started with MariaDB, 2_<sup>_nd_</sup>_&#x20;Edition_](https://www.packtpub.com/big-data-and-business-intelligence/getting-started-mariadb-second-edition) by Daniel Bartholomew, June 2015\
+[_Getting Started with MariaDB, 2_<sup>_nd_</sup>_&#x20;Edition_](https://www.packtpub.com/en-us/product/getting-started-with-mariadb-9781785284120) by Daniel Bartholomew, June 2015\
 A beginner's guide to MariaDB. No prior MariaDB or MySQL experience necessary. An expanded update to the 1<sup>st</sup> edition.
 
 ## Advanced Topics

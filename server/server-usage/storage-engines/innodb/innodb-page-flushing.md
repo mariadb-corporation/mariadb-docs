@@ -33,7 +33,6 @@ It is critical to understand the restricted scope of this variable in modern ver
 * Checkpoint Flushing Only: [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) only throttles checkpoint flushing (background or idle flushing). It does not throttle LRU eviction flushing, which handles the removal of pages when the buffer pool is at capacity.
 * Interaction with `innodb_flush_sync`: The `innodb_io_capacity` limit is only effective when [innodb\_flush\_sync](innodb-system-variables.md#innodb_flush_sync) is set to `OFF`. When `innodb_flush_sync=ON` (the default), InnoDB may ignore this limit during aggressive "furious flushing" if a log checkpoint is urgently required to prevent the redo log from filling up.
 * No Throttling for Buffer Pool Loading: As of MariaDB [10.5.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-105-series/mariadb-10-5-19-changelog), [10.6.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/10.6/10.6.12), [10.11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/10.11/10.11.2), and later, this parameter no longer throttles the loading of buffer pool dumps at startup ([MDEV-25417](https://jira.mariadb.org/browse/MDEV-25417)). Startup loads are now performed at best-effort speed.
-* Interaction with [innodb\_flush\_sync](innodb-system-variables.md#innodb_flush_sync): The `innodb_io_capacity` limit is only effective when [innodb\_flush\_sync](innodb-system-variables.md#innodb_flush_sync) is set to `OFF`. When `innodb_flush_sync=ON` (the default), InnoDB may ignore this limit during aggressive "furious flushing" if a log checkpoint is urgently required to prevent the redo log from filling up.
 * Shared Storage Consideration: If the InnoDB redo log resides on the same physical storage as the data files, ensure you leave some spare capacity for log writes so they are not blocked by background page flushing.
 
 ### Adjusting I/O Capacity
@@ -44,7 +43,7 @@ The amount of I/O capacity available to InnoDB can be configured by setting the 
 SET GLOBAL innodb_io_capacity=20000;
 ```
 
-The maximum amount of I/O capacity available to InnoDB in an emergency defaults to either `2000` or twice `innodb_io_capacity`, whichever is higher, or can be directly configured by setting the [innodb\_io\_capacity\_max](https://www.google.com/search?q=innodb-system-variables.md%23innodb_io_capacity_max) system variable.
+The maximum amount of I/O capacity available to InnoDB in an emergency defaults to either `2000` or twice `innodb_io_capacity`, whichever is higher, or can be directly configured by setting the [innodb\_io\_capacity\_max](innodb-system-variables.md#innodb_io_capacity_max) system variable.
 
 #### Device-Specific Recommendations
 
