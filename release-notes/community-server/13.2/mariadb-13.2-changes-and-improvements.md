@@ -2,12 +2,11 @@
 description: >-
   An overview of changes, improvements, and what's new in MariaDB Community
   Server 13.2
-hidden: true
 ---
 
 # MariaDB 13.2 Changes & Improvements
 
-{% include "../../.gitbook/includes/unreleased-13.2.md" %}
+{% include "../../.gitbook/includes/latest-13.2.md" %}
 
 MariaDB 13.2 is a [rolling release](../about/release-model.md). It is an evolution of [MariaDB 13.1](../13.1/mariadb-13.1-changes-and-improvements.md) with many entirely new features.
 
