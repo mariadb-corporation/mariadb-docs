@@ -126,7 +126,7 @@ The CONNECT storage engine.
 {% endcolumn %}
 
 {% column %}
-The CONNECT storage engine has been deprecated.
+Reference for the system variables that configure the CONNECT storage engine.
 {% endcolumn %}
 {% endcolumns %}
 

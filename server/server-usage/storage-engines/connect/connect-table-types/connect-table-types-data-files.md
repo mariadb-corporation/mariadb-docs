@@ -14,7 +14,7 @@ Unless specified, the maturity of file table types is stable.
 
 A **multiple** file table is one that is physically contained in several files of the same type instead of just one. These files are processed sequentially during the process of a query and the result is the same as if all the table files were merged into one. This is great to process files coming from different sources (such as cash register log files) or made at different time periods (such as bank monthly reports) regarded as one table. Note that the operations on such files are restricted to sequential Select and Update; and that VEC multiple tables are not supported by CONNECT. The file list depends on the setting of the **multiple** option of the `CREATE TABLE` statement for that table.
 
-Multiple tables are specified by the option MULTIPLE=_n_, which can take This storage engine has been deprecated.four values:
+Multiple tables are specified by the option MULTIPLE=_n_, which can take four values:
 
 |   |                                                                                                                                                                |
 | - | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |

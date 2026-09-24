@@ -1,5 +1,5 @@
 ---
-description: The CONNECT storage engined.
+description: The CONNECT storage engine.
 ---
 
 # Using CONNECT - Partitioning and Sharding
@@ -14,7 +14,7 @@ CONNECT takes this notion a step further, by providing two types of partitioning
 1. File partitioning. Each partition is stored in a separate file like in multiple tables.
 2. Table partitioning. Each partition is stored in a separate table like in TBL tables.
 
-## Partition engine issues
+## Partition Engine Issues
 
 Using partitions sometimes requires creating the tables in an unnatural way to avoid some error due to several partition engine bugs:
 
