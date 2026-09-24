@@ -175,7 +175,7 @@ mariadb -h mariadb.example.com -u migadmin -p -N -e "
 
 ## After the Migration
 
-Rotate any default passwords. A user that could not keep its original password was created with the default password you supplied and marked `PASSWORD EXPIRE`. That default is recorded in plain text in `user_migration_report.txt`, so treat the file as sensitive and rotate the password before re-enabling application traffic. This is common when migrating from MySQL 8.4, which defaults to `caching_sha2_password`.
+Rotate any default passwords. A user that could not keep its original password was created with the default password you supplied and marked `PASSWORD EXPIRE`. That default is recorded in plain text in `user_migration_report.txt`, so treat the file as sensitive and rotate the password before re-enabling application traffic.
 
 Clean up infrastructure accounts. Replication, monitoring, and backup accounts are migrated as application users in this release; remove any that do not belong on the target. Once you have verified the data and credentials, repoint your application at the target MariaDB server.
 
