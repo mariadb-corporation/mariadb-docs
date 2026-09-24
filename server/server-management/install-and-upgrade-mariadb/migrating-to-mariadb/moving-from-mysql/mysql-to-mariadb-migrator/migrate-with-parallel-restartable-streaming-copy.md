@@ -28,7 +28,7 @@ You need **admin credentials** on both servers that can connect from the migrato
 
 The target must be **clean** for this mode: Parallel Restartable Streaming Copy does not resume across separate invocations, so if a target database already exists from a previous attempt, drop it before you start.
 
-### The mariadb-mtk engine
+### The mariadb-mtk Engine
 
 This mode requires the `mariadb-mtk` data-transfer engine. The other three modes do not use it. See the "[Required](installation-and-first-run.md#required)" section of the Installation and First Run page for details on downloading and installing mariadb-mtk.
 
@@ -48,7 +48,7 @@ The schema is dumped in two parts. The pre-data DDL (tables, indexes, foreign ke
 
 Watch live progress with `tail -f artifacts/run_two_step_<timestamp>/run.log` from a second shell.
 
-### How the parallel load behaves
+### How the Parallel Load Behaves
 
 The engine transfers the database with several concurrent sessions (the `-ss` value, default 4), working on different tables at once. In this run of `employees`, four sessions moved all six tables and 3.9 million rows transferred in about three seconds:
 
@@ -63,9 +63,18 @@ employees.titles       - Started (6 of 6, 1 chunk, session 1)
   Transfer time: 3.4 sec (1144238 rows/s, 134.9 MB, 39.4 MB/s)
 ```
 
-That parallelism is across tables. The engine can also split a single large table into parallel chunks, but that is a separate, opt-in behavior: it is gated by `large_tables_parallel` (off in the shipped `sqldata.cfg`) and additionally requires the table to have an `AUTO_INCREMENT` column. The `employees` tables use composite primary keys with no `AUTO_INCREMENT`, so each table, `salaries` included, transfers as a single stream within its session, which is what the `1 chunk` markers show. To split one very large table across sessions, set `large_tables_parallel=yes` and ensure the table has an `AUTO_INCREMENT` column.
+### Two Layers of Parallelism
 
-### Row-count validation
+`mariadb-mtk` parallelizes the load at two levels, and which one applies to your schema decides how much this mode gains you:
+
+* **Inter-table parallelism.** Several tables are transferred at once, each through its own worker session. This applies to any schema, and it is what the run above shows.
+* **Intra-table parallelism.** A single large table is split into ranges and loaded through several sessions concurrently. This applies only to tables with an `AUTO_INCREMENT` column, which `mariadb-mtk` uses to partition the table. It is on by default (`large_tables_parallel=yes` in the shipped configuration).
+
+A schema of many small tables benefits from the first layer. A schema dominated by one or two very large tables benefits only if those tables have an `AUTO_INCREMENT` column; if they do not, each loads as a single stream and most of this mode's advantage over [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) disappears. Check which case you are in before you install `mariadb-mtk`.
+
+The `employees` tables use composite primary keys with no `AUTO_INCREMENT`, so each table, `salaries` included, transfers as a single stream within its session, which is what the `1 chunk` markers show.
+
+### Row-Count Validation
 
 After the load, the tool validates source and target row counts per database using the engine's own validate command. This is a report, not a gate: the data transfer is the gate, so reaching validation means every database loaded successfully. A mismatch is recorded and surfaced but does not fail the migration.
 

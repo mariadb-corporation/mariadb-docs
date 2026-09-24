@@ -24,6 +24,7 @@ The migrator complements the manual workflows in the [MySQL to MariaDB Migration
 
 * **Source:** MySQL 8.0 and 8.4 (some modes have version-specific requirements — see [Migration Modes](migration-modes.md)).
 * **Target:** supported MariaDB Enterprise and Community editions.
+* **Accounts:** `caching_sha2_password` accounts are carried across with their existing password hashes intact, so application users do not need password resets after cutover. See [Application User Migration](application-user-migration.md).
 * **MariaDB Cloud** is validated as a target for the Offline Copy (`staged`), Parallel Restartable Streaming Copy (`two_step`), and Serial Streaming Copy (`one_step`) modes.
 * **Platforms:** the migrator is built and tested for Linux on x86-64 and ARM64, and for macOS on ARM64 (Apple silicon). macOS hosts require bash 4.4 or newer — see [Installation and First Run](installation-and-first-run.md#prerequisites).
 
@@ -34,7 +35,7 @@ The launcher presents four migration modes as a numbered menu. The internal iden
 | Mode                                                                                       | Internal ID | Type    | Best For                                                               |
 | ------------------------------------------------------------------------------------------ | ----------- | ------- | ---------------------------------------------------------------------- |
 | [Serial Streaming Copy](migrate-with-serial-streaming-copy.md)                             | `one_step`  | Offline | Smaller databases and standard maintenance windows                     |
-| [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) | `two_step`  | Offline | Larger datasets that need schema-then-parallel-data loading            |
+| [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) | `two_step`  | Offline | Larger datasets: loads tables concurrently, and splits large tables that have an `AUTO_INCREMENT` column |
 | [Offline Copy](migrate-with-offline-copy.md)                                               | `staged`    | Offline | Source and target not network-reachable, or a deferred / two-host load |
 | [Replication](migrate-with-replication.md)                                                 | `binlog`    | Online  | Low-downtime cutover with ongoing replication                          |
 
@@ -80,7 +81,7 @@ Requirements:
 Two behaviors are worth knowing in advance:
 
 * Passwords can never be set in the configuration the agent writes. They are resolved from the MariaDB Shell secret store when the migration runs, so never put a password in a prompt.
-* Password lookups use the full connection URI, host and port included. Specify the port on each connection; otherwise the lookup can miss and authentication fails without an obvious cause.
+* A connection that cannot be authenticated does not produce an error. Password lookups use the full connection URI, host and port included, and a connection whose lookup fails is simply not offered as a data source. Specify the port on each connection. (Run directly, the launcher stops with a connection error instead.)
 
 For a full walkthrough, see the [MySQL to MariaDB migration tutorial](https://ai-plugins.mariadb.com/tutorials/mysql-to-mariadb-migration/).
 
