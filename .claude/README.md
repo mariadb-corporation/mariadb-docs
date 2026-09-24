@@ -10,6 +10,7 @@ Code. It contains:
 | `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus four checks it delegates to their own scripts: includes (`includecheck.sh`), heading anchors (`fragcheck.py`), orphaned pages (`navcheck.py`) and gutted pages (`shrinkcheck.py`). Since DOCS-6586 all four are gated in CI too |
 | `hooks/includecheck.sh` | Resolves every relative GitBook `{% include %}`; fails on a dead or cross-space target. Also the entry point for `includecheck-pr.yml` (DOCS-6586), which runs it tree-wide |
 | `hooks/fragcheck.py` | GitBook-accurate heading-anchor checker, called by `doc-lint.sh` and by `fragcheck-pr.yml` |
+| `hooks/timeless.py` | High-precision finder for undated product claims ("currently in beta", "coming soon", "at the time of writing"), the check behind the style guide's *Timeless wording* rule (DOCS-6640). **Advisory only** — called by `nightly-timeless.yml` and the `style-apply` skill, never by `doc-lint.sh` or a PR gate |
 | `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` and by `navcheck-pr.yml` |
 | `hooks/shrinkcheck.py` | Net line-loss ("gutted page") guard, called by `doc-lint.sh` and by `shrinkcheck-pr.yml`. Was an inline block in `doc-lint.sh` until DOCS-6586 |
 | `hooks/doc-lint-allow.yml` | The acknowledgment register: `orphan:` and `shrink:` entries, each with a reason, for the two guards that have legitimate exceptions. A checked-in file rather than an environment variable so the acknowledgment is a diff line the reviewer reads |
