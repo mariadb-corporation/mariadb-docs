@@ -134,16 +134,29 @@ site:
           icon: bolt
           children:
             - type: space
+              key: gridgain-overview
+              title: GridGain
+              path: gridgain-home
+              default: true
+              content:
+                directory: ./gridgain
+            - type: space
               key: gridgain-8
               title: GridGain 8
               path: gridgain-8-home
-              default: true
               content:
                 directory: ./gridgain-8
+        - type: section
+          key: gridgain-9-sec
+          title: GridGain 9
+          path: gridgain-9
+          icon: bolt
+          children:
             - type: space
               key: gridgain-9
               title: GridGain 9
               path: gridgain-9-home
+              default: true
               content:
                 directory: ./gridgain-9
         - type: section
