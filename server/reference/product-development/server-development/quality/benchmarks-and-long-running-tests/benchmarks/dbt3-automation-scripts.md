@@ -954,8 +954,8 @@ Here is the list of parameters that could be set into this configuration file:
 | MAX_SKIPPED_TESTS | When ANALYZE_EXPLAIN is set and an execution plan that is slower is selected, the execution of the query is skipped and the server is restarted in order to change the execution plan. If the server is restarted more than MAX_SKIPPED_TESTS, there are obviously no more different execution plans and the script continues to the next query benchmark. |
 | WARMUPS_COUNT | How many warmup runs will be performed prior the actual benchmark run. |
 | CLUSTER_SIZE | How big a cluster with results for a query should be in order to extract the final result. It is used when ANALYZE_EXPLAIN is selected as a result extraction method. |
-| MAX_QUERY_TIME | The maximum time that one query will be tested. Currently it is applicable only when ANALYZE_EXPLAIN is selected. |
-| TIMEOUT | The maximum time that one query could run. Currently timeout is applicable only for MySQL and MariaDB. |
+| MAX_QUERY_TIME | The maximum time that one query will be tested. It is applicable only when ANALYZE_EXPLAIN is selected. |
+| TIMEOUT | The maximum time that one query could run. The timeout is applicable only for MySQL and MariaDB. |
 | OS_STATS_INTERVAL | What is the time interval between extraction of OS statistics for CPU, memory, etc. |
 | PRE_RUN_OS | OS commands that should be executed prior each query run |
 | POST_RUN_OS | OS commands that should be executed after each query run |
@@ -1326,7 +1326,7 @@ Here are the main activities that this script does:
 1. Parse the configuration files and check the input parameters - if any of the
  required parameters is missing, the script will stop resulting an error.
 1. Collect hardware information - collecting information about the hardware of
- the machine that the benchmark is run. Currently it collects `cpuinfo`
+ the machine that the benchmark is run. It collects `cpuinfo`
  and `uname`. Results of these commands are stored into the results output
  directory set as an input parameter
 1. Loop through the passed test configurationsFor each passed in test
@@ -1385,7 +1385,7 @@ sudo /sbin/sysctl vm.drop_caches=3
     1. Perform actual test run and measure time.
 
       * During this step, a new child process is created in order to measure
- the statistics of the OS. Currently the statistics being collected are:
+ the statistics of the OS. The statistics being collected are:
 
         * CPU utilization statistics. The command for this is:
 ```
@@ -1409,7 +1409,7 @@ sar -r 0 2>null
  the `OS_STATS_INTERVAL` test configuration parameter.
       * The test run for MariaDB and MySQL has an implemented mechanism for
  cut-off when timeout exceeds. It is controlled with the `TIMEOUT` test
- parameter. Currently for PostgreSQL there is no such functionality and
+ parameter. For PostgreSQL there is no such functionality and
  should be implemented in future versions.
     1. Execute the "explain" statement for that query.
 

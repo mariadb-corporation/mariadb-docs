@@ -150,8 +150,6 @@ until zero is returned, indicating that the operation is completed. It is not al
 
 It is, however, permissible to terminate the connection completely with `mysql_close()` in the middle of processing a non-blocking call. A new connection must then be initiated with `mysql_real_connect` before new queries can be run, either with a new `MYSQL` object or reusing the old one.
 
-In the future, we may implement an abort facility to force an on-going operation to terminate as quickly as possible (but it will still be necessary to call `mysql_real_query_cont()` one last time after abort, allowing it to clean up the operation and return immediately with an appropriate error code).
-
 ## Restrictions
 
 ### DNS

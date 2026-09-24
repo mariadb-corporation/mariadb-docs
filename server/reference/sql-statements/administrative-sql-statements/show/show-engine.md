@@ -14,7 +14,7 @@ SHOW ENGINE [engine-name] {STATUS | MUTEX}
 
 ## Description
 
-`SHOW ENGINE` displays operational information about a storage engine. The following statements currently are supported:
+`SHOW ENGINE` displays operational information about a storage engine. The following statements are supported:
 
 ```sql
 SHOW ENGINE INNODB STATUS

@@ -73,6 +73,24 @@ Discovery (informational for the unchangeable cases):
 indicated by an MDEV ticket with a **Fix Version** filled in. (This is exactly what
 `doc-from-ticket` verifies before asserting behavior.)
 
+## Timeless wording (DOCS-6640)
+
+Avoid *currently*, *at this time*, *at present*, *soon*, *in the future*, *upcoming*,
+*recently*, and *as of this writing* when they date a claim about the **product**. Nobody
+knows when "currently" was written, so a reader has to assume it is true today
+([Google: timeless documentation](https://developers.google.com/style/timeless-documentation)).
+
+- **Fix — product state.** What the product supports, its maturity, a limitation:
+  "Row-based replication is not currently supported" → "Row-based replication is not
+  supported", or tie it to a version: "From MariaDB 11.4, …". **Verify the claim against
+  source before rewording** — a "not currently supported" is often no longer true, and then
+  the fact is what needs fixing, not the adverb.
+- **Leave alone — runtime state.** "The number of currently connected clients", "the server
+  currently acting as primary", "least recently used". Here the word means *at this moment,
+  while the server runs*, and it is the right word.
+- **Also fine:** fixed phrases ("as soon as", "at some time in the future" describing a
+  scheduled event), quoted output, and release notes, which are dated records.
+
 ## Links
 
 - Same space → relative `.md` link; other space → `{alias}` link; never raw `app.gitbook.com`

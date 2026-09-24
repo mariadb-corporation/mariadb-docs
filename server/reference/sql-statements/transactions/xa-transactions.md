@@ -33,7 +33,7 @@ XA transactions are an overloaded term in MariaDB. If a [storage engine](../../.
 
 If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available.
 
-There are currently two implementations of the transaction coordinator log:
+There are two implementations of the transaction coordinator log:
 
 * Binary log-based transaction coordinator log
 * Memory-mapped file-based transaction coordinator log
@@ -98,7 +98,7 @@ XA {START|BEGIN} xid [JOIN|RESUME]
 
 The `xid` can have 3 components, though only the first one is mandatory. `gtrid` is a quoted string representing a global transaction identifier. `bqual` is a quoted string representing a local transaction identifier. `formatID` is an unsigned integer indicating the format used for the first two components; if not specified, defaults to 1. MariaDB does not interpret in any way these components, and only uses them to identify a transaction. `xid`s of transactions in effect must be unique.
 
-Using the `JOIN` or `RESUME` keywords will currently cause an error to be returned.
+Using the `JOIN` or `RESUME` keywords causes an error to be returned.
 
 ```sql
 XA START 'test' RESUME;

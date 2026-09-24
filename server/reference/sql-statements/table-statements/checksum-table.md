@@ -16,7 +16,7 @@ CHECKSUM TABLE tbl_name [, tbl_name] ... [ QUICK | EXTENDED ]
 
 `CHECKSUM TABLE` reports a table checksum. This is very useful if you want to know if two tables are the same (for example on a master and a replica).
 
-With `QUICK`, the live table checksum is reported if it is available, or `NULL` otherwise. This is very fast. A live checksum is enabled by specifying the `CHECKSUM=1` table option when you [create the table](../data-definition/create/create-table.md); currently, this is supported only for [Aria](../../../server-usage/storage-engines/aria/) and [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables.
+With `QUICK`, the live table checksum is reported if it is available, or `NULL` otherwise. This is very fast. A live checksum is enabled by specifying the `CHECKSUM=1` table option when you [create the table](../data-definition/create/create-table.md); this is supported only for [Aria](../../../server-usage/storage-engines/aria/) and [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables.
 
 With `EXTENDED`, the entire table is read row by row and the checksum is calculated. This can be very slow for large tables.
 

@@ -55,7 +55,7 @@ The wrapper\_name may be quoted with single quotes. Supported values are:
 
 For each option you must specify either a character literal or numeric literal. Character literals are UTF-8, support a maximum length of 64 characters and default to a blank (empty) string. String literals are silently truncated to 64 characters. Numeric literals must be a number between `0` and `9999`, default value is `0`.
 
-**Note**: The `OWNER` option is currently not applied, and has no effect on the ownership or operation of the server connection that is created.
+**Note**: The `OWNER` option is not applied, and has no effect on the ownership or operation of the server connection that is created.
 
 The `CREATE SERVER` statement creates an entry in the [mysql.servers](../../../system-tables/the-mysql-database-tables/mysql-servers-table.md) table that can later be used with the `CREATE TABLE` statement when creating a [Spider](../../../../server-usage/storage-engines/spider/), [Connect](../../../../server-usage/storage-engines/connect/), [FederatedX](../../../../server-usage/storage-engines/federatedx-storage-engine/) or [FEDERATED](../../../../server-usage/storage-engines/federated-storage-engine.md) table. The options that you specify will be used to populate the columns in the mysql.servers table. The table columns are `Server_name`, `Host`, `Db`, `Username`, `Password`, `Port`, and `Socket`.
 
