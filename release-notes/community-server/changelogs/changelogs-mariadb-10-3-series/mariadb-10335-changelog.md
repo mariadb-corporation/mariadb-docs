@@ -314,7 +314,8 @@ details of the revision and view diffs of the code modified in that revision.
 * Merge [Revision #5b237e5965](https://github.com/MariaDB/server/commit/5b237e5965) 2022-02-17 10:53:58 +0200 - Merge 10.2 into 10.3
 * [Revision #0a92ef458b](https://github.com/MariaDB/server/commit/0a92ef458b)\
   2022-02-16 14:47:26 +0200
-  * [MDEV-17223](https://jira.mariadb.org/browse/MDEV-17223) Assertion `thd->killed != 0' failed in ha_maria::enable_indexes [MDEV-22500](https://jira.mariadb.org/browse/MDEV-22500) Assertion` thd->killed != 0' failed in ha\_maria::enable\_indexes
+  * [MDEV-17223](https://jira.mariadb.org/browse/MDEV-17223) Assertion `thd->killed != 0` failed in `ha_maria::enable_indexes`
+  * [MDEV-22500](https://jira.mariadb.org/browse/MDEV-22500) Assertion `thd->killed != 0` failed in `ha_maria::enable_indexes`
 * [Revision #6c3f1f661c](https://github.com/MariaDB/server/commit/6c3f1f661c)\
   2022-02-10 16:04:44 +0700
   * [MDEV-27691](https://jira.mariadb.org/browse/MDEV-27691): make working view-protocol

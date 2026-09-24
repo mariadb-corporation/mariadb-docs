@@ -1962,7 +1962,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `optimizer_selectivity_sampling_limit`
 
-* Description: Controls number of record samples to check condition selectivity. Only used if `[optimizer_use_condition_selectivity](server-system-variables.md#optimizer_use_condition_selectivity) > 4.`
+* Description: Controls number of record samples to check condition selectivity. Only used if [`optimizer_use_condition_selectivity`](server-system-variables.md#optimizer_use_condition_selectivity) > 4.
 * Command line: `optimizer-selectivity-sampling-limit[=#]`
 * Scope: Global, Session
 * Dynamic: Yes
