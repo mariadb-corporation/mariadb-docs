@@ -1,4 +1,5 @@
 $schema: https://api.gitbook.com/gitbook-docs.yaml
+# Site structure for the IA prototype site (DOCS-6529).
 site:
   title: MariaDB Documentation IA Prototype
   structure:
