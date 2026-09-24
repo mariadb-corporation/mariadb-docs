@@ -884,7 +884,7 @@ The external load balancer that routes traffic to the primary cluster is not man
 
 ### Backups on primary only
 
-Physical backups can only be taken from the primary cluster. This is because backups capture the GTID of the cluster, and currently only backups with a single GTID domain ID are supported. Replica clusters have multiple GTID domain IDs (their own plus the domains they replicate from), therefore, they are incompatible with the GTID backup format currently supported by the operator.
+Physical backups can only be taken from the primary cluster. This is because backups capture the GTID of the cluster, and only backups with a single GTID domain ID are supported. Replica clusters have multiple GTID domain IDs (their own plus the domains they replicate from), therefore, they are incompatible with the GTID backup format currently supported by the operator.
 
 As a consequence, replica clusters cannot be backed up and restored directly using its own backups. To recover a replica cluster from a failure, it must be re-bootstrapped from a backup taken in the primary cluster.
 

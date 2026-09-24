@@ -6,7 +6,7 @@ Point-in-time recovery (PITR) is a feature that allows you to restore a MariaDB 
 
 The operator uses [mariadb-binlog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/logging-tools/mariadb-binlog) to replay binary logs, in particular, it filters binlog events by passing a GTID to mariadb-binlog via the [`--start-position`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/logging-tools/mariadb-binlog/mariadb-binlog-options#j-pos-start-position-pos) flag. This is only supported by __MariaDB server 10.8 and later__, so make sure you are using a compatible MariaDB version.
 
-Regarding supported MariaB topologies, at the moment, binary log archiving and point-in-time recovery are only supported by the __[asynchronous replication topology](../topologies/replication.md)__, which already relies on the binary logs for replication. Galera and standalone topologies will be supported in upcoming releases.
+Regarding supported MariaDB topologies, binary log archiving and point-in-time recovery are only supported by the __[asynchronous replication topology](../topologies/replication.md)__, which already relies on the binary logs for replication. Galera and standalone topologies are not supported.
 
 ## Storage types
 

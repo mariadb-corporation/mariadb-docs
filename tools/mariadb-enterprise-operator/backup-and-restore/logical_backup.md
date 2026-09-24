@@ -10,7 +10,7 @@ Although logical backups are a great fit for data mobility and migrations, they 
 
 ## Storage types
 
-Currently, the following storage types are supported:
+The following storage types are supported:
 
 * S3 compatible storage: Store backups in a S3 compatible storage, such as [AWS S3](https://aws.amazon.com/s3/) or [Minio](https://github.com/minio/minio).
 * PVCs: Use the available [StorageClasses](https://kubernetes.io/docs/concepts/storage/storage-classes/) in your Kubernetes cluster to provision a PVC dedicated to store the backup files.
@@ -156,7 +156,7 @@ spec:
   # [...]
 ```
 
-Currently the following compression algorithms are supported:
+The following compression algorithms are supported:
 - `bzip2`: Good compression ratio, but slower compression/decompression speed compared to gzip.
 - `gzip`: Good compression/decompression speed, but worse compression ratio compared to bzip2.
 - `none`: No compression.

@@ -16,7 +16,7 @@ With Control Center on-premise running in your closed network you do not risk ex
 {% hint style="info" %}
 Complimentary Developer Training - Control Center Essentials
 
-Join our upcoming live, instructor-led Control Center training session and learn how to troubleshoot performance issues and optimize your cluster with ease.
+Join a live, instructor-led Control Center training session and learn how to troubleshoot performance issues and optimize your cluster with ease.
 {% endhint %}
 
 To get a GridGain Control Center license, contact our sales team.

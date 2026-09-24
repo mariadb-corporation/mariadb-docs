@@ -2,7 +2,7 @@
 
 The MariaDB `pam` plugin facilitates user authentication by interfacing with the Pluggable Authentication Modules (PAM) framework, enabling diverse and centralized authentication schemes.
 
-Currently the enterprise operator utilizes this plugin to provide support for:
+The enterprise operator uses this plugin to provide support for:
 
 - **LDAP based authentication**
 
