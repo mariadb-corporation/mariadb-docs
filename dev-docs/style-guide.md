@@ -99,6 +99,11 @@ knows when "currently" was written, so a reader has to assume it is true today
   let's use …"), quoted output and error-message text, and dated records such as release
   notes and the year-stamped Google Summer of Code pages.
 
+**Check:** `python3 .claude/hooks/timeless.py check <file>` lists the high-precision cases
+(maturity and support status, "coming soon", "at the time of writing"). It is advisory: a hit
+is a question, not a verdict, and it deliberately misses most "currently", so read the page
+too. The nightly digest (`nightly-timeless.yml`) runs the same patterns on new commits.
+
 ## Links
 
 - Same space → relative `.md` link; other space → `{alias}` link; never raw `app.gitbook.com`
