@@ -50,7 +50,7 @@ Access this page by clicking on the MaxScale object name on the [dashboard page]
 This page visualizes MaxScale configuration and clusters.
 
 * Configuration: Visualizing MaxScale configuration.
-* Cluster: Visualizing a replication cluster into a tree graph and provides manual cluster manipulation operations such as`switchover, reset-replication, release-locks, failover, rejoin` . At the moment, it supports only servers monitored by Monitor using [mariadbmon](../../reference/maxscale-monitors/mariadb-monitor.md) module.
+* Cluster: Visualizing a replication cluster into a tree graph and provides manual cluster manipulation operations such as`switchover, reset-replication, release-locks, failover, rejoin` . It supports only servers monitored by Monitor using [mariadbmon](../../reference/maxscale-monitors/mariadb-monitor.md) module.
 
 Access this page by clicking the graph icon on the sidebar navigation.
 
