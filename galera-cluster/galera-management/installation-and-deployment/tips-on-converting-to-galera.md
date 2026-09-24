@@ -202,8 +202,6 @@ You can 'simulate' Master + Slaves by having clients write only to one node.
 
 ## Miscellany
 
-Until recently, FOREIGN KEYs were buggy.
-
 LOAD DATA is auto chunked. That is, it is passed to other nodes piecemeal, not all at once.
 
 [MariaDB's known issues with Galera](../../reference/mariadb-galera-cluster-known-limitations.md)
