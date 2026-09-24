@@ -89,7 +89,7 @@ As part of the `ExternalMariaDB` reconciliation, a `Connection` will be created 
 
 ## Supported objects
 
-Currently, the `ExternalMariaDB` resource is supported by the following objects:
+The `ExternalMariaDB` resource is supported by the following objects:
 
 * `Connection`
 * `User`
