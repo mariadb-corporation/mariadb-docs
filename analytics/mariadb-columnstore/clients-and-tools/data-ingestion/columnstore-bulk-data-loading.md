@@ -22,7 +22,7 @@ commas may be used as well. The data values must be in the same order as the cre
 It is important to note that:
 
 * The bulk loads are an append operation to a table, so they allow existing data to be read and remain unaffected during the process.
-* The bulk loads do not write their data operations to the transaction log; they are not transactional in nature but are considered an atomic operation at this time. Information markers, however, are placed in the transaction log so the DBA is aware that a bulk operation did occur.
+* The bulk loads do not write their data operations to the transaction log; they are not transactional in nature but are considered an atomic operation. Information markers, however, are placed in the transaction log so the DBA is aware that a bulk operation did occur.
 * Upon completion of the load operation, a high-water mark in each column file is moved in an atomic operation that allows for any subsequent queries to read the newly loaded data. It appends operation provides for consistent read but does not incur the overhead of logging the data.
 
 There are two primary steps to using the cpimport utility:
@@ -196,7 +196,7 @@ cpimport -m3 mytest mytable /home/mydata/mytable.tbl
 Note:
 
 * The bulk loads are an append operation to a table, so they allow existing data to be read and remain unaffected during the process.
-* The bulk loads do not write their data operations to the transaction log; they are not transactional in nature but are considered an atomic operation at this time. Information markers, however, are placed in the transaction log so the DBA is aware that a bulk operation did occur.
+* The bulk loads do not write their data operations to the transaction log; they are not transactional in nature but are considered an atomic operation. Information markers, however, are placed in the transaction log so the DBA is aware that a bulk operation did occur.
 * Upon completion of the load operation, a high-water mark in each column file is moved in an atomic operation that allows for any subsequent queries to read the newly loaded data. It appends operation provides for consistent read but does not incur the overhead of logging the data.
 
 ## Bulk loading data from STDIN
