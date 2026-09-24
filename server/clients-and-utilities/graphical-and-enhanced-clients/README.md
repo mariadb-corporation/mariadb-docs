@@ -19,6 +19,10 @@ The third-party tools described in this section are not developed or maintained 
 [adminneo.md](adminneo.md)
 {% endcontent-ref %}
 
+{% content-ref url="audax-data-manager.md" %}
+[audax-data-manager.md](audax-data-manager.md)
+{% endcontent-ref %}
+
 {% content-ref url="beekeeper-studio.md" %}
 [beekeeper-studio.md](beekeeper-studio.md)
 {% endcontent-ref %}
@@ -121,10 +125,6 @@ The third-party tools described in this section are not developed or maintained 
 
 {% content-ref url="ocelotgui.md" %}
 [ocelotgui.md](ocelotgui.md)
-{% endcontent-ref %}
-
-{% content-ref url="pgmanage.md" %}
-[pgmanage.md](pgmanage.md)
 {% endcontent-ref %}
 
 {% content-ref url="phpmyadmin.md" %}
