@@ -36,6 +36,12 @@ check greps for the host-and-path pair, which is why this page spells it in two 
   ran green. The nightly re-runs the same command against a rolling 24-hour base and posts to
   Slack only when something broke, plus a Monday heartbeat so silence stays meaningful. It is
   read-only: it files nothing, and triage stays a human decision.
+- **A second nightly digest (`nightly-timeless.yml`, DOCS-6640) reports undated product claims**
+  — "currently in beta", "not currently supported", "coming soon", "at the time of writing" —
+  added in the last 24 hours, using `.claude/hooks/timeless.py new`. It is advisory by design and
+  is **not** part of `doc-lint.sh` or any PR gate: "currently" is usually right ("the currently
+  connected clients"), so a blocking check would fire on correct prose. Run
+  `timeless.py check <file>` yourself when editing product-status wording.
 
 ## 1. Spelling + links + includes + orphans + gutted pages — `doc-lint.sh`
 
