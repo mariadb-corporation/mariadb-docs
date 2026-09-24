@@ -35,7 +35,7 @@ Each field consists of a mandatory flag character followed by an optional "," an
 flag[,modifier,modifier,...,modifier]
 ```
 
-The currently recognized flag characters are:
+The recognized flag characters are:
 
 | Option | Description                                                                                                                                                                                                                                                                  |
 | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

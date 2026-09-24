@@ -30,7 +30,7 @@ Before installing MariaDB Connector/Python, ensure you have:
 #### 2. Installation
 
 {% hint style="info" %}
-**Version 1.1 is the latest stable (GA) release; version 2.0 is currently a Release Candidate (RC).** Choose the version that fits your needs below. Do not use non-stable (non-GA) releases in production.
+**Version 1.1 is the latest stable (GA) release; version 2.0 is a Release Candidate (RC) as of 2.0.0rc2.** Choose the version that fits your needs below. Do not use non-stable (non-GA) releases in production.
 {% endhint %}
 
 **Version 1.1 (stable / GA)**

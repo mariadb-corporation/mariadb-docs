@@ -26,7 +26,7 @@ MariaDB Connector/Python 2.0 supports
 ## Installation Options
 
 {% hint style="info" %}
-**Version 2.0 is currently a Release Candidate (RC); version 1.1 is the latest stable (GA) release.**
+**As of 2.0.0rc2, version 2.0 is a Release Candidate (RC); version 1.1 is the latest stable (GA) release.**
 
 Because 2.0 is not yet GA, a plain `pip install mariadb` installs the latest stable release (1.1). To install the 2.0 release candidate you must pass the `--pre` flag, for example `pip install --pre mariadb`. Do not use non-stable (non-GA) releases in production.
 {% endhint %}
