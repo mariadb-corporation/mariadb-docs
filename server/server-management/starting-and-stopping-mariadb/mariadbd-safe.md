@@ -89,7 +89,7 @@ The following options relate to how MariaDB command-line tools handles option fi
 | \[mariadbd-safe] | Options read by mariadbd\_safe\_safe from MariaDB Server. Available starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.6). |
 | \[mariadb-safe]  | Options read by mysqld\_safe from MariaDB Server. Deprecated, please avoid using this.                                                                                                        |
 
-The `[safe_mariadbd]` option group is primarily supported for backward compatibility. You should rename such option groups to `[mariadbd-safe]` in MariaDB installations to prevent breakage in the future if this compatibility is removed.
+The `[safe_mariadbd]` option group is primarily supported for backward compatibility. You should rename such option groups to `[mariadbd-safe]` in MariaDB installations to prevent breakage if this compatibility is removed.
 
 `mariadbd-safe` also reads options from the following server [option groups](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) from [option files](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
@@ -121,7 +121,7 @@ When using `mariadbd-safe`, the system's open files limit can be changed by prov
 open_files_limit=4294967295
 ```
 
-The option value is passed to `ulimit -n`. Note that you need to start `mariadbd-safe` as root for this to work properly. However, you can't currently set this to `unlimited`. See [MDEV-18410](https://jira.mariadb.org/browse/MDEV-18410) about that.
+The option value is passed to `ulimit -n`. Note that you need to start `mariadbd-safe` as root for this to work properly. However, you can't set this to `unlimited`. See [MDEV-18410](https://jira.mariadb.org/browse/MDEV-18410) about that.
 
 When `mariadbd-safe` starts `mariadbd`, it also uses this option to set the value of the [open\_files\_limit](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#open_files_limit) system variable for `mariadbd`.
 

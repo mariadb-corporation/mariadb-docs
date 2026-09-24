@@ -59,7 +59,7 @@ Key     Value
 data    0123456789ABCDEF0123456789ABCDEF
 ```
 
-Key values are strings containing binary data. MariaDB currently uses the AES algorithm with 256-bit keys as the default encryption method. In this case, the keys that will be stored in the Hashicorp Vault should be 32-byte strings. Most likely, you will use some utilities for creating and administering keys designed to work with Hashicorp Vault. But in the simplest case, keys can be created from the command line through the vault utility, for example, as follows:
+Key values are strings containing binary data. MariaDB uses the AES algorithm with 256-bit keys as the default encryption method. In this case, the keys that will be stored in the Hashicorp Vault should be 32-byte strings. Most likely, you will use some utilities for creating and administering keys designed to work with Hashicorp Vault. But in the simplest case, keys can be created from the command line through the vault utility, for example, as follows:
 
 ```bash
 ~$ vault kv put /test/1 data="0123456789ABCDEF0123456789ABCDEF"
@@ -67,7 +67,7 @@ Key values are strings containing binary data. MariaDB currently uses the AES al
 
 If you use default encryption (AES), you should ensure that the key length is 32 bytes, as it may fail to use InnoDB as a data storage.
 
-The plugin currently does not unseal Hashicorp Vault on its own; you must do this in advance and on your own.
+The plugin does not unseal Hashicorp Vault on its own; you must do this in advance and on your own.
 
 To use Hashicorp Vault KMS, the plugin must be preloaded and activated on the server. Most of its parameters should not be changed during plugin operation and therefore must be preconfigured as part of the server configuration through configuration file or command line options:
 
@@ -99,7 +99,7 @@ The plugin supports the following parameters, which must be set in advance and c
 
 #### `hashicorp-key-management-timeout`
 
-* Description: Set the duration (in seconds) for the Hashicorp Vault server connection timeout. The default value is 15 seconds. The allowed range is from 1 to 86400 seconds. The user can also specify a zero value, which means the default timeout value set by the libcurl library (currently 300 seconds).
+* Description: Set the duration (in seconds) for the Hashicorp Vault server connection timeout. The default value is 15 seconds. The allowed range is from 1 to 86400 seconds. The user can also specify a zero value, which means the default timeout value set by the libcurl library (300 seconds).
 * Command line: `--[loose-]hashicorp-key-management-timeout=<timeout>`
 
 #### `hashicorp-key-management-max-retries`

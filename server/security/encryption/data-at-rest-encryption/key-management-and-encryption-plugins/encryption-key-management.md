@@ -17,7 +17,7 @@ MariaDB supports the use of multiple encryption keys. Each encryption key uses a
 
 ## Choosing an Encryption Key Management Solution
 
-How MariaDB manages encryption keys depends on which encryption key management solution you choose. Currently, MariaDB has three options:
+How MariaDB manages encryption keys depends on which encryption key management solution you choose. MariaDB has three options:
 
 ### File Key Management Plugin
 
@@ -33,7 +33,7 @@ For more information, refer to the [Hashicorp Key Management Plugin](hashicorp-k
 
 ### AWS Key Management Plugin
 
-The AWS Key Management plugin is a key management and encryption plugin that uses the Amazon Web Services (AWS) Key Management Service (KMS). The AWS Key Management plugin depends on the [AWS SDK for C++](https://github.com/aws/aws-sdk-cpp), which uses the [Apache License, Version 2.0](https://github.com/aws/aws-sdk-cpp/blob/master/LICENSE). The license is not compatible with MariaDB Server's [GPL 2.0 license](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/licensing-questions/licensing-faq#licenses-used-by-mariadb), so we are not able to distribute packages that contain the AWS Key Management plugin. Therefore, the only way to currently obtain the plugin is to install it from the source.
+The AWS Key Management plugin is a key management and encryption plugin that uses the Amazon Web Services (AWS) Key Management Service (KMS). The AWS Key Management plugin depends on the [AWS SDK for C++](https://github.com/aws/aws-sdk-cpp), which uses the [Apache License, Version 2.0](https://github.com/aws/aws-sdk-cpp/blob/master/LICENSE). The license is not compatible with MariaDB Server's [GPL 2.0 license](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/licensing-questions/licensing-faq#licenses-used-by-mariadb), so we are not able to distribute packages that contain the AWS Key Management plugin. Therefore, the only way to obtain the plugin is to install it from the source.
 
 For more information, see [AWS Key Management Plugin](aws-key-management-encryption-plugin.md).
 
@@ -47,7 +47,7 @@ There are two encryption key identifiers that have special meanings in MariaDB. 
 
 When [encrypting InnoDB tables](../innodb-encryption/), the key that is used to encrypt tables [can be changed](../innodb-encryption/innodb-encryption-keys.md).
 
-When [encrypting Aria tables](../aria-encryption/), the key that is used to encrypt tables [cannot currently be changed](../aria-encryption/aria-encryption-keys.md).
+When [encrypting Aria tables](../aria-encryption/), the key that is used to encrypt tables [cannot be changed](../aria-encryption/aria-encryption-keys.md).
 
 ## Key Rotation
 
@@ -60,7 +60,7 @@ Key rotation allows users to improve data security in the following ways:
 
 The [InnoDB storage engine](../../../../server-usage/storage-engines/innodb/) has [background encryption threads](../innodb-encryption/innodb-background-encryption-threads.md) that can [automatically re-encrypt pages when key rotations occur](../innodb-encryption/innodb-background-encryption-threads.md#background-operations).
 
-The [Aria storage engine](../../../../server-usage/storage-engines/aria/) does [not currently have a similar mechanism to re-encrypt pages in the background when key rotations occur](../aria-encryption/aria-encryption-keys.md#key-rotation).
+The [Aria storage engine](../../../../server-usage/storage-engines/aria/) does [not have a similar mechanism to re-encrypt pages in the background when key rotations occur](../aria-encryption/aria-encryption-keys.md#key-rotation).
 
 ### Support for Key Rotation in Encryption Plugins
 

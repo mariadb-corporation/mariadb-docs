@@ -404,7 +404,7 @@ For more details see [Pinning the Repository to a Specific Minor Release](mariad
 
 {% tabs %}
 {% tab title="MariaDB Enterprise Server" %}
-The following MariaDB Enterprise Server versions are currently supported:
+The following MariaDB Enterprise Server versions are supported:
 
 * `10.6`
 * `11.4`
@@ -413,7 +413,7 @@ The following MariaDB Enterprise Server versions are currently supported:
 {% endtab %}
 
 {% tab title="MariaDB Community Server" %}
-The following MariaDB Community Server versions are currently supported:
+The following MariaDB Community Server versions are supported:
 
 * `mariadb-10.6`
 * `mariadb-10.11`
@@ -423,7 +423,9 @@ The following MariaDB Community Server versions are currently supported:
 * `mariadb-11.rc`
 * `mariadb-12.1`
 * `mariadb-12.2`
-* `mariadb-12.rolling` (default)
+* `mariadb-12.3`
+* `mariadb-12.rolling`
+* `mariadb-13.rolling` (default)
 * `mariadb-12.rc`
 {% endtab %}
 {% endtabs %}
@@ -466,7 +468,7 @@ For example, to configure your system to install from the repository of MariaDB 
 curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-maxscale-version="6.1"
 ```
 
-The following MariaDB MaxScale versions are currently supported:
+The following MariaDB MaxScale versions are supported:
 
 * MaxScale 25.10
 * MaxScale 25.01

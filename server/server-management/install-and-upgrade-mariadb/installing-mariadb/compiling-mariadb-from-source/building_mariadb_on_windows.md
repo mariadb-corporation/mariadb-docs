@@ -10,7 +10,7 @@ description: >-
 
 To build MariaDB you need the following:
 
-* [Visual C++](https://www.microsoft.com/visualstudio): We currently support Visual Studio 2019 and 2022. Generally we try to support the two most recent VS versions, but build ourselves using the last one. Community editions will work fine; we only use them in our builds.\
+* [Visual C++](https://www.microsoft.com/visualstudio): Visual Studio 2019 and 2022 are supported. Generally we try to support the two most recent VS versions, but build ourselves using the last one. Community editions will work fine; we only use them in our builds.\
   While installing Visual Studio, make sure to add "Desktop Development with C++".\
   Also, make sure to use [recent enough Windows SDK](https://learn.microsoft.com/en-us/cpp/overview/install-c17-support?view=msvc-170) - latest Windows 11 SDK is recommended.
 * [CMake](https://cmake.org/download): We recommend the latest release. Older releases might not support your version of Visual Studio. Visual Studio 2019 requires cmake 3.14 at least.
@@ -120,7 +120,7 @@ cmake --build . --config relwithdebinfo --target MSI
 ## Including HeidiSQL in the MSI Installer
 
 Starting with [MariaDB 5.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/5.2.7), it is possible to build an installer which
-includes 3rd party products, as described in [MWL#200](https://askmonty.org/worklog/Other/?tid=200). Currently only [HeidiSQL](https://www.heidisql.com) support is implemented; it is also
+includes 3rd party products, as described in [MWL#200](https://askmonty.org/worklog/Other/?tid=200). Only [HeidiSQL](https://www.heidisql.com) support is implemented; it is also
 included in the official builds. Use the `CMake` parameter`-DWITH_THIRD_PARTY=HeidiSQL` to include it in the installer.
 
 ## Code Signing
