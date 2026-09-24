@@ -1054,7 +1054,7 @@ The suffix can be upper or lower-case.
 * Description: Whether or not large page support is used.
   * This is set with `--large-pages` or disabled with `--skip-large-pages`.
   * Large pages are used for the [innodb buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) and for online DDL (of size 3\* [innodb\_sort\_buffer\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sort_buffer_size) (or 6 when encryption is used)).
-  * **Linux**: The `sysctl` variable `kernel.shmmax` must be larger than `llocation`, and the `sysctl` variable `vm.nr_hugepages` must be larger than the usage. The `ulimit` for locked memory must be sufficient to cover the amount used (`ulimit -l` and equivalent in `/etc/security/limits.conf/` or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd/)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages falls back to conventional memory allocation, and a warning appears in the logs. Only allocations of the default `Hugepagesize` currently occur (see `/proc/meminfo`). The implementation supports multiple page sizes using the Linux built-in huge page feature with the enhancements available in the Linux kernel 3.8 and later.
+  * **Linux**: The `sysctl` variable `kernel.shmmax` must be larger than `llocation`, and the `sysctl` variable `vm.nr_hugepages` must be larger than the usage. The `ulimit` for locked memory must be sufficient to cover the amount used (`ulimit -l` and equivalent in `/etc/security/limits.conf/` or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd/)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages falls back to conventional memory allocation, and a warning appears in the logs. The implementation supports multiple page sizes (see `Hugepagesize` in `/proc/meminfo` for the default) using the Linux built-in huge page feature with the enhancements available in the Linux kernel 3.8 and later.
     * To configure Linux to use huge pages, set the `hugepages` and `hugepagesz` [kernel parameters](https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt), which can be done via [GRUB\_CMDLINE\_LINUX](https://help.ubuntu.com/community/Grub2/Setup#Specific_Entries).
     * To find possible huge page size values, issue this command:\
       `ls -la /sys/devices/system/node/node0/hugepages/`
@@ -2482,7 +2482,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `shutdown_wait_for_slaves`
 
-* Description: When `ON, SHUTDOWN` command runs with implicit `WAIT FOR ALL SLAVES` option. That is, when running `SHUTDOWN`, before killing the binary log dump threads, the server will first kill all client threads and send all binary log events to all connected replicas.
+* Description: Available in MariaDB Enterprise Server only. When `ON`, the `SHUTDOWN` command runs with an implicit `WAIT FOR ALL SLAVES` option. That is, when running `SHUTDOWN`, before killing the binary log dump threads, the server will first kill all client threads and send all binary log events to all connected replicas.
 * Scope: Global
 * Dynamic: No
 * Data Type: `Boolean`

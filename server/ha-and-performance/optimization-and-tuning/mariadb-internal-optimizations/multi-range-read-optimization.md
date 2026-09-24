@@ -556,7 +556,7 @@ In short: confirm MRR is used by the affected query, confirm the refill counters
 * All three MRR [optimizer\_switch](../system-variables/server-system-variables.md#optimizer_switch) flags are off by default, and you can switch them ON:
   * `mrr=on` - enable MRR and rowid ordered scans
   * `mrr_sort_keys=on` - enable Key-ordered scans (you must also set `mrr=on` for this to have any effect)
-  * `mrr_cost_based=on` - enable cost-based choice whether to use MRR. Currently not recommended, because cost model is not sufficiently tuned yet.
+  * `mrr_cost_based=on` - enable cost-based choice whether to use MRR. Not recommended, because the cost model is not sufficiently tuned.
 
 ## Differences from MySQL
 

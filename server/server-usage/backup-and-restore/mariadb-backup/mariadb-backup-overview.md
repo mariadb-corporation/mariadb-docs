@@ -118,10 +118,6 @@ For in-depth explanations on how to use `mariadb-backup`, see:
 
 Options supported by mariadb-backup can be found on the [mariadb-backup Options](mariadb-backup-options.md) page.
 
-{% hint style="warning" %}
-`mariadb-backup` will currently silently ignore unknown command-line options, so be extra careful about accidentally including typos in options or accidentally using options from later `mariadb-backup` versions. The reason for this is that `mariadb-backup` currently treats command-line options and options from [option files](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) equivalently. When it reads from these [option files](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), it has to read a lot of options from the server option groups read by [mariadbd](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). However, `mariadb-backup` does not know about many of the options that it normally reads in these option groups. If `mariadb-backup` raised an error or warning when it encountered an unknown option, then this process would generate a large amount of log messages under normal use. Therefore, `mariadb-backup` is designed to silently ignore the unknown options instead. See [MDEV-18215](https://jira.mariadb.org/browse/MDEV-18215) about that.
-{% endhint %}
-
 ### Option Files
 
 In addition to reading options from the command-line, mariadb-backup can also read options from option files.

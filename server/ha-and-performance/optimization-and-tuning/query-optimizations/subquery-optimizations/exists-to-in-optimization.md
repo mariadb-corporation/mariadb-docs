@@ -33,7 +33,7 @@ outer_col IN (SELECT inner_col FROM ... WHERE inner_where)
 
 That is, converting trivially-correlated `EXISTS` into uncorrelated `IN` gives query optimizer an option to use Materialization strategy for the subquery.
 
-Currently, EXISTS->IN conversion works only for subqueries that are at top level of the WHERE clause, or are under NOT operation which is directly at top level of the WHERE clause.
+EXISTS->IN conversion works only for subqueries that are at top level of the WHERE clause, or are under NOT operation which is directly at top level of the WHERE clause.
 
 ## Semi-join EXISTS subqueries
 

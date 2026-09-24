@@ -174,7 +174,7 @@ Such hints affect _the whole query_.
 hint_name(arguments)
 ```
 
-Currently, there is only one global hint:
+There is only one global hint:
 
 * [`MAX_EXECUTION_TIME`](expanded-optimizer-hints.md#max_execution_time)
 

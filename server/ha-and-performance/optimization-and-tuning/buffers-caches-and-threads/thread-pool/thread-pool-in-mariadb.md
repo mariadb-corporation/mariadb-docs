@@ -15,7 +15,7 @@ For example, a thread may depend on another thread's completion, and they may bl
 * Make the best use of underlying OS capabilities. For example, if a native thread pool implementation is available, it should be used. If not, the best I/O multiplexing method should be used.
 * Limit the resources used by threads.
 
-There are currently two different low-level implementations – depending on OS. One implementation is designed specifically for Windows which utilizes a native [CreateThreadpool](https://docs.microsoft.com/en-us/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool) API. The second implementation is primarily intended to be used in Unix-like systems. Because the implementations are
+There are two different low-level implementations – depending on OS. One implementation is designed specifically for Windows which utilizes a native [CreateThreadpool](https://docs.microsoft.com/en-us/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool) API. The second implementation is primarily intended to be used in Unix-like systems. Because the implementations are
 different, some system variables differ between Windows and Unix.
 
 ## When to Use the Thread Pool
@@ -116,7 +116,7 @@ $ mariadb -u root -P 8385 -p
 
 ## Monitoring Thread Pool Activity
 
-Currently there are two status variables exposed to monitor pool activity.
+Two status variables are exposed to monitor pool activity.
 
 | Variable                                                            | Description                                                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

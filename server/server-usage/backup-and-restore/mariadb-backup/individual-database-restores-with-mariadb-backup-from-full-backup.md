@@ -10,7 +10,7 @@ description: >-
 
 This method is to solve a flaw with mariadb-backup; it cannot do single database restores from a full backup easily. There is a [blog post that details a way to do this](https://mariadb.com/resources/blog/how-to-restore-a-single-database-from-mariadb-backup/), but it's a manual process which is fine for a few tables but if you have hundreds or even thousands of tables then it would be impossible to do quickly.
 
-We can't just move the data files to the datadir as the tables are not registered in the engines, so the database will error. Currently, the only effective method is to a do full restore in a test database and then dump the database that requires restoring or running a partial backup.
+We can't just move the data files to the datadir as the tables are not registered in the engines, so the database will error. The only effective method is to do a full restore in a test database and then dump the database that requires restoring or running a partial backup.
 
 **This has only been tested with InnoDB. Also, if you have stored procedures or triggers then these will need to be deleted and recreated.**
 
