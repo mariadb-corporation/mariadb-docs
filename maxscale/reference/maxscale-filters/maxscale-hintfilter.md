@@ -82,7 +82,7 @@ A `last` value will route the query to the server that processed the last query.
 -- maxscale <param>=<value>
 ```
 
-These control the behavior and affect the routing decisions made by the router. Currently the only accepted parameter is the readwritesplit parameter`max_slave_replication_lag`. This will route the query to a server with a lower replication lag than this parameter's value.
+These control the behavior and affect the routing decisions made by the router. The only accepted parameter is the readwritesplit parameter `max_replication_lag` (or its older name, `max_slave_replication_lag`). This will route the query to a server with a lower replication lag than this parameter's value.
 
 ### Hint stack
 

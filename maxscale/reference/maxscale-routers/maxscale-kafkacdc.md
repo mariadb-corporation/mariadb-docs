@@ -227,7 +227,7 @@ The pattern matching works the same way for both of the `exclude` and `match` pa
 
 Controls whether multiple instances cooperatively replicate from the same cluster. This is a boolean parameter and is disabled by default. It was added in MaxScale 6.0.
 
-When this parameter is enabled and the monitor pointed to by the `cluster` parameter supports cooperative monitoring (currently only `mariadbmon`), the replication is only active if the monitor owns the cluster it is monitoring.
+When this parameter is enabled and the monitor pointed to by the `cluster` parameter supports cooperative monitoring (only `mariadbmon` does), the replication is only active if the monitor owns the cluster it is monitoring.
 
 Whenever an instance that does not own the cluster gains ownership of the cluster, the replication will continue from the latest GTID that was delivered to Kafka.
 

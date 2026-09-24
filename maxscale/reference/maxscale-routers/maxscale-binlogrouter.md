@@ -30,7 +30,7 @@ The related configuration options, which are explained in more detail in the con
 * [_archivedir_](maxscale-binlogrouter.md#archivedir) \_Directory to which files are archived. This directory must exist when MaxScale is started.
 * [expire\_log\_minimum\_files](maxscale-binlogrouter.md#expire_log_minimum_files) The minimum number of binlogs to keep before purge or archive is allowed.
 * [_expire\_log\_duration_](maxscale-binlogrouter.md#expire_log_duration) Duration from the last file modification until the binlog is eligible for purge or archive.
-* [compression\_algorithm](maxscale-binlogrouter.md#compression_algorithm) Select a compression algorithm or `none` for no compression. Currently only zstandard is supported.
+* [compression\_algorithm](maxscale-binlogrouter.md#compression_algorithm) Select a compression algorithm or `none` for no compression. Only zstandard is supported.
 * [number\_of\_noncompressed\_files](maxscale-binlogrouter.md#number_of_noncompressed_files) The minimum number of binlogs not to compress.
 
 Following are example settings where it is expected that a replica is down for no more than 24 hours.
@@ -96,7 +96,7 @@ NOTE: `MASTER_LOG_FILE` and `MASTER_LOG_POS` are not supported as binlogrouter o
 * `SHOW BINARY LOGS`
 * Lists the current files and their sizes. These will be different from the ones listed by the original primary where the binlogrouter is replicating from.
 * `PURGE { BINARY | MASTER } LOGS TO <filename>`
-* Purges binary logs up to but not including the given file. The file name must be one of the names shown in `SHOW BINARY LOGS`. The version of this command which accepts a timestamp is not currently supported. Automatic purging is supported using the configuration parameter [expire\_log\_duration](maxscale-binlogrouter.md#expire_log_duration). The files are purged in the order they were created. If a file to be purged is detected to be in use, the purge stops. This means that the purge will stop at the oldest file that a replica is still reading. NOTE: You should still take precaution not to purge files that a potential replica will need in the future. MaxScale can only detect that a file is in active use when a replica is connected, and requesting events from it.
+* Purges binary logs up to but not including the given file. The file name must be one of the names shown in `SHOW BINARY LOGS`. The version of this command which accepts a timestamp is not supported. Automatic purging is supported using the configuration parameter [expire\_log\_duration](maxscale-binlogrouter.md#expire_log_duration). The files are purged in the order they were created. If a file to be purged is detected to be in use, the purge stops. This means that the purge will stop at the oldest file that a replica is still reading. NOTE: You should still take precaution not to purge files that a potential replica will need in the future. MaxScale can only detect that a file is in active use when a replica is connected, and requesting events from it.
 * `SHOW MASTER STATUS`
 * Shows the name and position of the file to which the binlogrouter will write the next replicated data. The name and position do not correspond to the name and position in the primary.
 * `SHOW SLAVE STATUS`
@@ -143,7 +143,7 @@ NOTE: `MASTER_LOG_FILE` and `MASTER_LOG_POS` are not supported as binlogrouter o
 * `SET`
 * `@@global.gtid_slave_pos`: Set the position from which binlogrouter should start replicating. E.g. `SET @@global.gtid_slave_pos="0-1000-1234,1-1001-5678"`
 * `SHOW VARIABLES LIKE '...'`
-* Shows variables matching a string. The `LIKE` operator in `SHOW VARIABLES` is mandatory for the binlogrouter. This means that a plain `SHOW VARIABLES` is not currently supported. In addition, the `LIKE` operator in binlogrouter only supports exact matches. Currently the only variables that are returned are `gtid_slave_pos`,`gtid_current_pos` and `gtid_binlog_pos` which return the current GTID coordinates of the binlogrouter. In addition to these, the `server_id` variable will return the configured server ID of the binlogrouter.
+* Shows variables matching a string. The `LIKE` operator in `SHOW VARIABLES` is mandatory for the binlogrouter. This means that a plain `SHOW VARIABLES` is not supported. In addition, the `LIKE` operator in binlogrouter only supports exact matches. The only variables that are returned are `gtid_slave_pos`,`gtid_current_pos` and `gtid_binlog_pos` which return the current GTID coordinates of the binlogrouter. In addition to these, the `server_id` variable will return the configured server ID of the binlogrouter.
 
 ## Semi-sync replication
 
@@ -298,7 +298,7 @@ Re-encryption of binlogs using another encryption key is not possible. However, 
 * Values: `AES_CBC`, `AES_CTR`, `AES_GCM`
 * Default: `AES_GCM`
 
-The encryption cipher to use. The encryption key size also affects which mode is used: only 128, 192 and 256 bit encryption keys are currently supported.
+The encryption cipher to use. The encryption key size also affects which mode is used: only 128, 192 and 256 bit encryption keys are supported.
 
 Possible values are:
 

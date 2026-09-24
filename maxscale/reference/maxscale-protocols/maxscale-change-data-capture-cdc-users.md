@@ -9,7 +9,7 @@ description: >-
 
 ## Overview
 
-Change Data Capture (CDC) is a new MaxScale protocol that allows compatible clients to authenticate and register for Change Data Capture events. The new protocol must be use in conjunction with AVRO router which currently converts MariaDB binlog events into AVRO records. Clients connect to CDC listener and authenticate using credentials provided in a format described in the [CDC Protocol documentation](maxscale-change-data-capture-cdc-protocol.md).
+Change Data Capture (CDC) is a new MaxScale protocol that allows compatible clients to authenticate and register for Change Data Capture events. The new protocol must be use in conjunction with AVRO router which converts MariaDB binlog events into AVRO records. Clients connect to CDC listener and authenticate using credentials provided in a format described in the [CDC Protocol documentation](maxscale-change-data-capture-cdc-protocol.md).
 
 **Note**: If no users are found in that file or if it doesn't exist, the only available user will be the _service user_:
 
