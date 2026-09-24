@@ -1,12 +1,8 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: Reference for the system variables that configure the CONNECT storage engine.
 ---
 
 # CONNECT System Variables
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 This page documents system variables related to the [CONNECT storage engine](./). See [Server System Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) for instructions on setting them.
 

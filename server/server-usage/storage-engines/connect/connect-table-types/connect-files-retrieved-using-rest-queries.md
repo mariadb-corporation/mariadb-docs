@@ -2,11 +2,7 @@
 description: The CONNECT storage engine.
 ---
 
-# CONNECT - Files Retrieved Using Rest Queries
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
+# CONNECT - Files Retrieved Using REST Queries
 
 Starting with [CONNECT version 1.07.0001](../), JSON, XML and possibly CSV data files can be retrieved as results from REST queries when creating or querying such tables. This is done internally by CONNECT using the CURL program generally available on all systems (if not just install it).
 
@@ -16,7 +12,7 @@ Note: If both are available, cpprestsdk is used preferably because it is faster.
 
 Note: If you want to use this feature with an older distributed version of MariaDB not featuring REST, it is possible to add it as an OEM module as explained in [Adding the REST Feature as a Library Called by an OEM Table](../connect-making-the-getrest-library.md).
 
-### Creating Tables using REST
+### Creating Tables Using REST
 
 To do so, specify the HTTP of the web client and eventually the URI of the request in the [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) statement. For example, for a query returning JSON data:
 
