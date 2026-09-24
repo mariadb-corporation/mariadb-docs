@@ -76,7 +76,7 @@ python3 -m mariadb_kernel.install
 
 Our plan is to make [mariadb\_kernel](https://github.com/MariaDB/mariadb_kernel) as platform independent as [Jupyter](https://jupyter.org) is. That means, fully functional on at least Linux, macOS and Windows.
 
-Unfortunately at the moment, we can only guarantee it should work fine on POSIX-compliant systems, i.e. most Linux distributions and macOS as long as the prerequisites of the project are present on your system.\
+We can only guarantee it works on POSIX-compliant systems, i.e. most Linux distributions and macOS as long as the prerequisites of the project are present on your system.\
 This limitation is inherited from particular Python APIs that use POSIX-specific system calls and also from our dependency package [Pexpect](https://pexpect.readthedocs.io/en/stable/) which has certain limitations on Windows systems.
 
 Please create an issue [here](https://github.com/MariaDB/mariadb_kernel/issues) or vote (just write a quick comment saying that issue affects you as well) for an existing one if you’re on a particular platform that [mariadb\_kernel](https://github.com/MariaDB/mariadb_kernel) doesn’t currently work on. This will help us understand how we should focus our development efforts.
