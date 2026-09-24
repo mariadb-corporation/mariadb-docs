@@ -24,7 +24,7 @@ The migrator complements the manual workflows in the [MySQL to MariaDB Migration
 
 * **Source:** MySQL 8.0 and 8.4 (some modes have version-specific requirements — see [Migration Modes](migration-modes.md)).
 * **Target:** supported MariaDB Enterprise and Community editions.
-* **Accounts:** `caching_sha2_password` accounts are carried across with their existing password hashes intact, so application users do not need password resets after cutover. See [Application User Migration](application-user-migration.md).
+* **Accounts:** `caching_sha2_password` and `sha256_password` accounts are carried across with their existing password hashes intact, so application users do not need password resets after cutover. See [Application User Migration](application-user-migration.md).
 * **MariaDB Cloud** is validated as a target for the Offline Copy (`staged`), Parallel Restartable Streaming Copy (`two_step`), and Serial Streaming Copy (`one_step`) modes.
 * **Platforms:** the migrator is built and tested for Linux on x86-64 and ARM64, and for macOS on ARM64 (Apple silicon). macOS hosts require bash 4.4 or newer — see [Installation and First Run](installation-and-first-run.md#prerequisites).
 

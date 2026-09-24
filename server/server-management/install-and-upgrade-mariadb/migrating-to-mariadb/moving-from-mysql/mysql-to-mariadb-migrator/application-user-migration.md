@@ -20,8 +20,7 @@ User creation on the target is plugin-aware: the source authentication plugin de
 | --- | --- |
 | [`mysql_native_password`](../../../../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) (with hash) | Migrated with the original password preserved. The hash is ported using MariaDB's `IDENTIFIED VIA ... USING` syntax. |
 | `mysql_native_password` (no hash) | Created with the default password supplied at the prompt, with `PASSWORD EXPIRE` set so the user must change it on first login. |
-| [`caching_sha2_password`](../../../../../reference/plugins/authentication-plugins/authentication-plugin-caching_sha2_password.md) | Migrated with the original password preserved, so application users do not need a password reset after cutover. |
-| `sha256_password` | Created with the default password and `PASSWORD EXPIRE`. This hash format is not portable across the engine boundary. |
+| [`caching_sha2_password`](../../../../../reference/plugins/authentication-plugins/authentication-plugin-caching_sha2_password.md), `sha256_password` | Migrated with the original password preserved, so application users do not need a password reset after cutover. |
 | `auth_socket`, `unix_socket`, `auth_pam`, `mysql_no_login`, anything else | **Skipped** — not created on the target. Configure these manually after the migration if needed. |
 
 Roles are detected separately and replayed on the target with [`CREATE ROLE IF NOT EXISTS`](../../../../../reference/sql-statements/account-management-sql-statements/create-role.md). They are not migrated as users.
@@ -37,7 +36,7 @@ After each user is created, the migrator runs [`SHOW GRANTS`](../../../../../ref
 
 ## Default Password Handling
 
-The default password supplied at the `Default password for app users:` prompt is used for every user that cannot have its original password preserved — that is, `sha256_password` users and `mysql_native_password` users without a hash. Every such user is also marked `PASSWORD EXPIRE`, so they must change their password on first login.
+The default password supplied at the `Default password for app users:` prompt is used for every user that cannot have its original password preserved — that is, `mysql_native_password` users without a hash. Every such user is also marked `PASSWORD EXPIRE`, so they must change their password on first login.
 
 {% hint style="warning" %}
 The default password is recorded in plain text in the user-migration report. Treat that file as sensitive, and rotate the default password after the migration completes.
