@@ -9,7 +9,7 @@ table must be created on the current server or on another local or remote
 server. This is similar to what the [FederatedX](../../federatedx-storage-engine/) storage engine provides with some
 differences.
 
-Currently the Federated-like syntax can be used to create such a table, for instance:
+The Federated-like syntax can be used to create such a table, for instance:
 
 ```sql
 CREATE TABLE essai (
@@ -258,7 +258,7 @@ it is specified between double quotes.
 **Note 3:** Sent commands apply in the specified database. However, they can
 address any table within this database.
 
-**Note 4:** Currently, all commands are executed in mode AUTOCOMMIT.
+**Note 4:** All commands are executed in mode AUTOCOMMIT.
 
 ### Retrieving Warnings and Notes
 

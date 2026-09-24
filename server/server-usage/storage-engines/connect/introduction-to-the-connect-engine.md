@@ -29,7 +29,7 @@ The main features of CONNECT are:
 8. Only used columns are retrieved from external scan.
 9. Push-down WHERE clauses when appropriate.
 10. Support of special and virtual columns.
-11. Parallel execution of multi-table tables (currently unavailable).
+11. Parallel execution of multi-table tables (not supported).
 12. Supports partitioning by sub-files or by sub-tables (enabling table sharding).
 13. Support of MRR for SELECT, UPDATE and DELETE.
 14. Provides remote, block, dynamic and virtual indexing.

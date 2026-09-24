@@ -10,7 +10,7 @@ Used together, these types lift all the limitations of the [FEDERATED](../../fed
 
 TBL is also much more flexible. The merged tables must not be "identical", they just should have the columns defined in the TBL table. If the type of one column in a merged table is not the one of the corresponding column of the TBL table, the column value are converted. As we have seen, if one column of the TBL table of the TBL column does not exist in one of the merged table, the corresponding value are set to null. If columns in a sub-table have a different name, they can be accessed by position using the FLAG column option of CONNECT.
 
-However, one limitation of the TBL type regarding MERGE is that TBL tables are currently read-only; INSERT is not supported by TBL. Also, keep using MERGE to access a list of identical MyISAM tables because it are faster, not passing by the MySQL API.
+However, one limitation of the TBL type regarding MERGE is that TBL tables are read-only; INSERT is not supported by TBL. Also, keep using MERGE to access a list of identical MyISAM tables because it are faster, not passing by the MySQL API.
 
 **FEDERATED(X):** The main limitation of FEDERATED is to access only MySQL/MariaDB tables. The\
 MYSQL table type of CONNECT has the same limitation but CONNECT provides the [ODBC table type](connect-odbc-table-type-accessing-tables-from-another-dbms.md) and [JDBC table type](connect-jdbc-table-type-accessing-tables-from-another-dbms.md) that can access tables of any RDBS providing an ODBC or JDBC driver (including MySQL even it is not really useful!)
@@ -53,7 +53,7 @@ SELECT c1, SUM(sc2) FROM rtall;
 
 Almost all the work are done on the remote machines, simultaneously thanks to the thread option, making this query super-fast even on big tables placed on many remote machines.
 
-Thread is currently experimental. Use it only for test and report any malfunction on [JIRA](../../../../reference/product-development/server-development/tools/jira.md).
+The `THREAD` option is not supported in release builds: a TBL table that uses it returns the error `Option THREAD is no more supported`.
 
 ## Providing a list of servers
 

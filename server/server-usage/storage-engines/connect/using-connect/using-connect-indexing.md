@@ -92,7 +92,7 @@ only for clustered and sorted columns.
   acceptable values. In the case where the optimize file does not correspond anymore to the table,
   because it has been accidentally destroyed, or because some column definitions have been altered,
   you can use the `OPTIMIZE TABLE` command to reconstruct the optimization file.
-* Sorted column special processing is currently restricted to ascending sort. Column sorted in
+* Sorted column special processing is restricted to ascending sort. Column sorted in
   descending order must be flagged as clustered. Improper sorting is not checked in Update or Insert
   operations but is flagged when optimizing the table.
 * Block indexing can be done in two ways. Keeping the min/max values existing for each block, or
@@ -157,7 +157,7 @@ ALTER TABLE patients ADD PRIMARY KEY (pnb) COMMENT 'DYNAMIC' dynam=1;
 
 Note 1: The comment is not mandatory here but useful to see that the index is dynamic if you use the [SHOW INDEX](../../../../reference/sql-statements/administrative-sql-statements/show/show-index.md) command.
 
-Note 2: There is currently no way to just change the DYNAM option without dropping and adding the
+Note 2: There is no way to just change the DYNAM option without dropping and adding the
 index. This is unfortunate because it takes time.
 
 ## Virtual Indexing

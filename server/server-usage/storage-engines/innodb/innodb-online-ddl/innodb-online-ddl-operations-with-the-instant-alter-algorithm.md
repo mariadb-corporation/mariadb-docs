@@ -912,7 +912,7 @@ This applies to [ALTER TABLE ... RENAME TO](../../../../reference/sql-statements
 
 ### Limitations Related to Generated (Virtual and Persistent/Stored) Columns
 
-[Generated columns](../../../../reference/sql-statements/data-definition/create/generated-columns.md) do not currently support online DDL for all of the same operations that are supported for "real" columns.
+[Generated columns](../../../../reference/sql-statements/data-definition/create/generated-columns.md) do not support online DDL for all of the same operations that are supported for "real" columns.
 
 See [Generated (Virtual and Persistent/Stored) Columns: Statement Support](../../../../reference/sql-statements/data-definition/create/generated-columns.md#statement-support) for more information on the limitations.
 

@@ -150,7 +150,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
   * `0` Disables background monitoring.
   * `1` Monitors connection state.
   * `2` Monitors state of table without `WHERE` clause.
-  * `3` Monitors state of table with `WHERE` clause (currently unsupported).
+  * `3` Monitors state of table with `WHERE` clause (unsupported).
 * Default Table Value: `0`
 * DSN Parameter Name: `mbk`
 * Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
@@ -161,7 +161,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
   * `0` Disables monitoring
   * `1` Monitors connection state.
   * `2` Monitors state of table without `WHERE` clause.
-  * `3` Monitors state of table with `WHERE` clause (currently unsupported).
+  * `3` Monitors state of table with `WHERE` clause (unsupported).
 * Default Table Value: `0`
 * DSN Parameter Name: `mkd`
 * Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)

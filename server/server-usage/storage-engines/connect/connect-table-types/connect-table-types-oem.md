@@ -29,7 +29,7 @@ The OEM table REST described in [Adding the REST Feature as a Library Called by 
 
 Of course, the mongo (dll or so) exporting the GetREST and colREST functions must be available in the plugin directory for all this to work.
 
-### Some Currently Available OEM Table Modules and Subtypes
+### Some Available OEM Table Modules and Subtypes
 
 | Module   | Subtype | Description                                                           |
 | -------- | ------- | --------------------------------------------------------------------- |

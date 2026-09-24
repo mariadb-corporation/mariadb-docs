@@ -84,7 +84,7 @@ It is possible to update statistics tables manually. One should modify the table
 
 A few scenarios where one might need to update statistics tables manually:
 
-* Deleting the statistics. Currently, the [ANALYZE TABLE](../../../../reference/sql-statements/table-statements/analyze-table.md) command will collect the statistics, but there is no special command to delete statistics.
+* Deleting the statistics. The [ANALYZE TABLE](../../../../reference/sql-statements/table-statements/analyze-table.md) command will collect the statistics, but there is no special command to delete statistics.
 * Running `ANALYZE` on a different server. To collect engine-independent statistics ANALYZE TABLE does a full table scan, which can put too much load on the server. It is possible to run ANALYZE on the slave, and then take the data from statistics tables on the slave and apply it on the master.
 * In some cases, knowledge of the database allows one to compute statistics manually in a more efficient way than `ANALYZE` does. One can compute the statistics manually and put it into the database.
 

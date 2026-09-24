@@ -6,13 +6,13 @@ description: The CONNECT storage engine.
 
 Because so many ODBC and JDBC drivers exist and only the main ones have been heavily tested, these table types cannot be ranked as stable. Use them with care in production applications.
 
-These types can be used to access tables belonging to the current or another database server. Six types are currently provided:
+These types can be used to access tables belonging to the current or another database server. Six types are provided:
 
-[ODBC](connect-odbc-table-type-accessing-tables-from-another-dbms.md): To be used to access tables from a database management system providing an ODBC connector. ODBC is a standard of Microsoft and is currently available on Windows. On Linux, it can also be used provided a specific application emulating ODBC is installed. Currently only unixODBC is supported.
+[ODBC](connect-odbc-table-type-accessing-tables-from-another-dbms.md): To be used to access tables from a database management system providing an ODBC connector. ODBC is a standard of Microsoft and is available on Windows. On Linux, it can also be used provided a specific application emulating ODBC is installed. Only unixODBC is supported.
 
 [JDBC](connect-jdbc-table-type-accessing-tables-from-another-dbms.md): To be used to access tables from a database management system providing a JDBC connector. JDBC is an Oracle standard implemented in Java and principally meant to be used by Java applications. Using it directly from C or C++ application seems to be almost impossible due to an Oracle bug still not fixed. However, this can be achieved using a Java wrapper class used as an interface between C++ and JDBC. On another hand, JDBC is available on all platforms and operating systems.
 
-[Mongo](connect-mongo-table-type.md): To access MongoDB collections as tables via their MongoDB C Driver. Because this requires both MongoDB and the C Driver to be installed and operational, this table type is not currently available in binary distributions but only when compiling MariaDB from source.
+[Mongo](connect-mongo-table-type.md): To access MongoDB collections as tables via their MongoDB C Driver. Because this requires both MongoDB and the C Driver to be installed and operational, this table type is not available in binary distributions but only when compiling MariaDB from source.
 
 [MySQL](connect-mysql-table-type-accessing-mysqlmariadb-tables.md): This type is the preferred way to access tables belonging to another MySQL or MariaDB server. It uses the MySQL API to access the external table. Even though this can be obtained using the FEDERATED(X) plugin, this specific type is used internally by CONNECT because it also makes it possible to access tables belonging to the current server.
 

@@ -128,7 +128,7 @@ ALTER TABLE test.t1 IMPORT TABLESPACE;
 
 ### Copying Transportable Tablespaces for Partitioned Tables
 
-Currently, MariaDB does not directly support the transport of tablespaces from partitioned tables. See [MDEV-10568](https://jira.mariadb.org/browse/MDEV-10568) for more information about that. It is still possible to transport partitioned tables if we use a workaround. You can copy the transportable tablespaces of a partitioned table from one server to another by exporting the tablespace file of each partition from the original server, and then importing the tablespace file of each partition into the new server.
+MariaDB does not directly support the transport of tablespaces from partitioned tables. See [MDEV-10568](https://jira.mariadb.org/browse/MDEV-10568) for more information about that. It is still possible to transport partitioned tables if we use a workaround. You can copy the transportable tablespaces of a partitioned table from one server to another by exporting the tablespace file of each partition from the original server, and then importing the tablespace file of each partition into the new server.
 
 #### Exporting Transportable Tablespaces for Partitioned Tables
 

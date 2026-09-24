@@ -34,7 +34,7 @@ The current goal is to keep the code stable and fix all bugs.
 
 The next version of Aria is 2.0. The goal for this release is to develop a fully transactional storage engine with at least all the major features of InnoDB.
 
-Currently, Aria 2.0 is on hold as its developers are focusing on improving MariaDB. However, they are interested in working with interested customers and partners to add more features to Aria and eventually release 2.0.
+Aria 2.0 is on hold as its developers are focusing on improving MariaDB. However, they are interested in working with interested customers and partners to add more features to Aria and eventually release 2.0.
 
 These are some of the goals for Aria 2.0:
 
@@ -64,10 +64,10 @@ Long term, we have the following goals for Aria:
 * Allow 'any' length transactions to work (Having long running transactions will cause more log space to be used).
 * Allow log shipping; that is, you can do incremental backups of Aria tables just by copying the Aria logs.
 * Allow copying of Aria tables between different Aria servers (under some well-defined constraints).
-* Better blob handling (than is currently offered in MyISAM, at a minimum).
+* Better blob handling (than MyISAM offers, at a minimum).
 * No memory copying or extra memory used for blobs on insert/update.
 * Blobs allocated in big sequential blocks - Less fragmentation over time.
-* Blobs are stored so that Aria can easily be extended to have access to any part of a blob with a single fetch in the future.
+* Blobs are stored so that Aria can easily be extended to have access to any part of a blob with a single fetch.
 * Efficient storage on disk (that is, low row data overhead, low page data overhead and little lost space on pages). Note: There is still some more work to succeed with this goal. The disk layout is fine, but we need more in-memory caches to ensure that we get a higher fill factor on the pages.
 * Small footprint, to make MariaDB + Aria suitable for desktop and embedded applications.
 * Flexible memory allocation and scalable algorithms to utilize large amounts of memory efficiently, when it is available.
@@ -128,7 +128,7 @@ Aria supports all aspects of MyISAM, except as noted below. This includes extern
 * Multiple concurrent inserters into the same table.
 * When using `PAGE` format (default) row data is cached by page cache.
 * Aria has unit tests of most parts.
-* Supports both crash-safe (soon to be transactional) and not transactional tables. (Non-transactional tables are not logged and rows uses less space): `CREATE TABLE foo (...) TRANSACTIONAL=0|1 ENGINE=Aria`.
+* Supports both crash-safe and not transactional tables. (Non-transactional tables are not logged and rows uses less space): `CREATE TABLE foo (...) TRANSACTIONAL=0|1 ENGINE=Aria`.
 * `PAGE` is the only crash-safe/transactional row format.
 * `PAGE` format should give a notable speed improvement on systems which have bad data caching. (For example Windows).
 * From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), max key length is 2000 bytes, compared to 1000 bytes in MyISAM.

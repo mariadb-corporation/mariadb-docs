@@ -56,7 +56,7 @@ The Spider storage engine is a [storage engine](../) with built-in sharding feat
 
 When a table is created with the Spider storage engine, the table links to the table on a remote server. The remote table can be of any storage engine. The table link is concretely achieved by the establishment of the connection from a local MariaDB server to a remote MariaDB server. The link is shared for all tables that are part of a the same transaction.
 
-The Spider documentation on the MariaDB documentation is currently incomplete. See the Spider website for more:, as well as the spider-1.0-doc and spider-2.0-doc repositories.
+The Spider documentation on the MariaDB documentation is incomplete. See the Spider website for more:, as well as the spider-1.0-doc and spider-2.0-doc repositories.
 
 ## Spider Versions in MariaDB
 

@@ -2446,7 +2446,7 @@ SELECT item_name, json_cols FROM jassets;
 However, using JSON brings features not existing in dynamic columns:
 
 * Use of a language used by many implementation and developers.
-* Full support of arrays, currently missing from dynamic columns.
+* Full support of arrays, which dynamic columns lack.
 * Access of subpart of json by JPATH that can include calculations on arrays.
 * Possible references to json files.
 

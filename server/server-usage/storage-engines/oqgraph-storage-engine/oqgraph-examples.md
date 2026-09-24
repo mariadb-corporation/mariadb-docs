@@ -181,7 +181,7 @@ SELECT * FROM oq_graph WHERE latch='leaves' AND destid=5;
 
 #### Note
 
-The use of integer latch commands is deprecated and may be phased out in a future release. Currently, numeric values in the strings are interpreted as aliases, and use of an integer column can be optionally allowed, for the latch commands column.
+The use of integer latch commands is deprecated and may be phased out in a future release. Numeric values in the strings are interpreted as aliases, and use of an integer column can be optionally allowed, for the latch commands column.
 
 The use of integer latches is controlled using the [oqgraph\_allow\_create\_integer\_latch](../../../ha-and-performance/optimization-and-tuning/system-variables/oqgraph-system-and-status-variables.md#oqgraph_allow_create_integer_latch) system variable.
 

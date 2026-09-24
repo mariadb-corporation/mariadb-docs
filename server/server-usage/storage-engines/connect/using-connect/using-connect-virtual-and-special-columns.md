@@ -51,7 +51,7 @@ Existing special columns are listed in the following table:
 | PARTID                         | String  | The name of the partition this row belongs to. Specific to partitioned tables.                                                                                                                                         |
 | SERVID                         | String  | The name of the federated server or server host used by a MYSQL table. “ODBC” for an ODBC table, "JDBC" for a JDBC table and “Current” for all other tables.                                                           |
 
-**Note:** CONNECT does not currently support auto incremented columns. However, a `ROWID` special column will do the job of a column auto incremented by 1.
+**Note:** CONNECT does not support auto incremented columns. However, a `ROWID` special column will do the job of a column auto incremented by 1.
 
 <sub>_This page is licensed: GPLv2_</sub>
 

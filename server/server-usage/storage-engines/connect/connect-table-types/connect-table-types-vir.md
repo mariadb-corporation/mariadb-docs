@@ -124,7 +124,7 @@ can be obtained with a VIR table (of size >= 15) by:
 SELECT n*10 FROM vir WHERE n BETWEEN 10 AND 15;
 ```
 
-Therefore, the main difference is to be able to define the columns of VIR tables. Unfortunately, there are currently many limitations to virtual columns that hopefully should be removed in the future.
+Therefore, the main difference is to be able to define the columns of VIR tables. There are many limitations to virtual columns.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

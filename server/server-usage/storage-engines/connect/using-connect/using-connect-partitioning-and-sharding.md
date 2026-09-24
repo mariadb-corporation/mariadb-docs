@@ -239,7 +239,7 @@ Everything works as if the city column was a real column contained in the table 
 
 #### Partitioning of Zipped Tables
 
-Two cases are currently supported:\
+Two cases are supported:\
 If a table is based on several zipped files, portioning is done the standard way as above. This is the _file\_name_ option specifying the name of the zip files that shall contain the ‘%s’ part used to generate the file names.\
 If a table is based on only one zip file containing several entries, this is indicated by placing the ‘%s’ part in the entry option value.\
 Note: If a table is based on several zipped files each containing several entries, only the first case is possible. Using sub-partitioning to make partitions on each entries is not supported yet.
@@ -251,7 +251,7 @@ partitioning, this brings the following features:
 
 1. The partitions can be tables driven by different engines. This relieves the current existing
    limitation of the partition engine.
-2. The partitions can be tables driven by engines not currently supporting partitioning.
+2. The partitions can be tables driven by engines that don't support partitioning.
 3. Partition tables can be located on remote servers, enabling table sharding.
 4. Like for TBL tables, the columns of the partition table do not necessarily match the columns
    of the sub-tables.
@@ -419,7 +419,7 @@ PARTITION `3` VALUES LESS THAN(MAXVALUE));
 
 Several things can be noted here:
 
-1. As we have seen before, the partition engine currently loses the connection string. This is why
+1. As we have seen before, the partition engine loses the connection string. This is why
    it was specified as “connect” in the option list.
 2. For each partition sub-tables, the “%s” part of the connection string has been replaced by the
    partition name.
@@ -529,7 +529,7 @@ UPDATE t2 SET id = 41 WHERE msg = 'four';
 This statement is not accepted by CONNECT. The reason is that the column id being part of the
 partition function, changing its value may require the modified row to be moved to another partition.\
 The way it is done by the partition engine is to delete the old row and to re-insert the new modified
-one. However, this is done in a way that is not currently compatible with CONNECT (remember that\
+one. However, this is done in a way that is not compatible with CONNECT (remember that\
 CONNECT supports UPDATE in a specific way, in particular for the table type MYSQL)\
 This limitation could be temporary. Meanwhile the workaround is to manually do what is done above,
 

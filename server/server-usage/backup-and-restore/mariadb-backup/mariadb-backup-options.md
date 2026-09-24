@@ -124,7 +124,7 @@ When enabled, whether using `ON` or `AUTO`, `mariadb-backup` retrieves informati
 mariadb-backup --binlog-info --backup
 ```
 
-Currently, the `LOCKLESS` option depends on features unsupported by MariaDB Server. See the description of the [xtrabackup\_binlog\_pos\_innodb](files-created-by-mariadb-backup.md) file for more information. If you attempt to run `mariadb-backup` with this option, then it causes the utility to exit with an error.
+The `LOCKLESS` option depends on features unsupported by MariaDB Server. See the description of the [xtrabackup\_binlog\_pos\_innodb](files-created-by-mariadb-backup.md) file for more information. If you attempt to run `mariadb-backup` with this option, then it causes the utility to exit with an error.
 
 ### `--close-files`
 
@@ -1660,7 +1660,7 @@ Streams backup files to stdout.
 --stream=xbstream
 ```
 
-Using this command option, you can set `mariadb-backup` to stream the backup files to `stdout` in the given format. Currently, the supported format is `xbstream`.
+Using this command option, you can set `mariadb-backup` to stream the backup files to `stdout` in the given format. The supported format is `xbstream`.
 
 ```bash
 mariadb-backup --stream=xbstream > backup.xb

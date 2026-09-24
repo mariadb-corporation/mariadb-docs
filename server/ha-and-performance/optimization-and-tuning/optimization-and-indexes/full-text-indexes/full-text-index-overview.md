@@ -35,7 +35,7 @@ MATCH (col1,col2,...) AGAINST (expr [search_modifier])
 
 ## Relevance
 
-MariaDB calculates a relevance for each result, based on a number of factors, including the number of words in the index, the number of unique words in a row, the total number of words in both the index and the result, and the weight of the word. In English, 'cool' will be weighted less than 'dandy', at least at present! The relevance can be returned as part of a query simply by using the MATCH function in the field list.
+MariaDB calculates a relevance for each result, based on a number of factors, including the number of words in the index, the number of unique words in a row, the total number of words in both the index and the result, and the weight of the word. In English, 'cool' will be weighted less than 'dandy'. The relevance can be returned as part of a query simply by using the MATCH function in the field list.
 
 ## Types of Full-Text search
 

@@ -6,7 +6,7 @@ description: The CONNECT storage engine.
 
 Many data types make no or little sense when applied to plain files. This why [CONNECT](./) supports only a restricted set of data types. However, ODBC, JDBC or MYSQL source tables may contain data types not supported by CONNECT. In this case, CONNECT makes an automatic conversion to a similar supported type when it is possible.
 
-The data types currently supported by CONNECT are:
+The data types supported by CONNECT are:
 
 | Type name    | Description            | Used for                                                                                                                                                                                                                                                                                                                                                                               |
 | ------------ | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -141,7 +141,7 @@ If you want to make a table containing, for instance, historical dates not being
 
 ## NULL Handling
 
-`CONNECT` handles [null values](../../../reference/data-types/null-values.md) for data sources able to produce nulls. Currently this concerns mainly the [ODBC](connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md), [JDBC](connect-table-types/connect-jdbc-table-type-accessing-tables-from-another-dbms.md), MONGO, [MYSQL](connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md), [XML](connect-table-types/connect-xml-table-type.md), [JSON](connect-table-types/connect-json-table-type.md) and [INI](connect-table-types/connect-ini-table-type.md) table types. For INI, [JSON](connect-table-types/connect-json-table-type.md), MONGO or XML types, null values are returned when the key is missing in the section (INI) or when the corresponding node does not exist in a row (XML, JSON, MONGO).
+`CONNECT` handles [null values](../../../reference/data-types/null-values.md) for data sources able to produce nulls. This mainly concerns the [ODBC](connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md), [JDBC](connect-table-types/connect-jdbc-table-type-accessing-tables-from-another-dbms.md), MONGO, [MYSQL](connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md), [XML](connect-table-types/connect-xml-table-type.md), [JSON](connect-table-types/connect-json-table-type.md) and [INI](connect-table-types/connect-ini-table-type.md) table types. For INI, [JSON](connect-table-types/connect-json-table-type.md), MONGO or XML types, null values are returned when the key is missing in the section (INI) or when the corresponding node does not exist in a row (XML, JSON, MONGO).
 
 For other file tables, the issue is to define what a null value is. In a numeric column, 0 can sometimes be a valid value but, in some other cases, it can make no sense. The same for character columns; is a blank field a valid value or not?
 
@@ -229,7 +229,7 @@ For [ENUM](../../../reference/data-types/string-data-types/enum.md), the length 
 
 In the case of [TEXT](../../../reference/data-types/string-data-types/text.md) columns, the handling depends on the values given to the [connect\_type\_conv](connect-system-variables.md#connect_type_conv) and [connect\_conv\_size](connect-system-variables.md#connect_conv_size) system variables.
 
-Note: [BLOB](../../../reference/data-types/string-data-types/blob.md) is currently not converted by default until a TYPE\_BIN type is added to CONNECT. However, the FORCE option (from Connect 1.06.006) can be specified for blob columns containing text and the SKIP option also applies to ODBC BLOB columns.
+Note: [BLOB](../../../reference/data-types/string-data-types/blob.md) is not converted by default. However, the FORCE option (from Connect 1.06.006) can be specified for blob columns containing text and the SKIP option also applies to ODBC BLOB columns.
 
 ODBC SQL types are converted as:
 

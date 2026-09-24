@@ -499,7 +499,7 @@ From MariaDB 10.11.17, 11.4.11, 11.8.7 and 12.3.2, `innodb_buffer_pool_size_max`
 {% endhint %}
 
 {% hint style="warning" %}
-Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://jira.mariadb.org/browse/MDEV-36197)). This variable currently serves only as a pre-allocated virtual address ceiling for **manual** resizing operations.
+Automatic upward dynamic resizing is not implemented ([MDEV-36197](https://jira.mariadb.org/browse/MDEV-36197)). This variable serves only as a pre-allocated virtual address ceiling for **manual** resizing operations.
 {% endhint %}
 
 * Description: Maximum `innodb_buffer_pool_size` value. On 64-bit systems other than IBM AIX, the default is 8 TiB, and the minimum 8 MiB. On other systems, the default and minimum are `0`, and the value `0` is replaced with the initial `innodb_buffer_pool_size` rounded up to the allocation unit (2 MiB or 8 MiB). The maximum value is 4GiB-2MiB on 32-bit systems and 16EiB-8MiB on 64-bit systems. This maximum is likely to be limited further by the operating system.\

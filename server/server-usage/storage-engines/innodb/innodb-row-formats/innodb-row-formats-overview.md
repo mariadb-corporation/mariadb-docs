@@ -221,7 +221,7 @@ And users could also see the following message as an error or warning in the [er
 
 InnoDB used the wrong calculations to determine row sizes for quite a long time, so a lot of users may unknowingly have _unsafe_ tables that the InnoDB row format can't actually store.
 
-InnoDB does not currently have an easy way to check which existing tables have this problem. See [MDEV-20400](https://jira.mariadb.org/browse/MDEV-20400) for more information.
+InnoDB does not have an easy way to check which existing tables have this problem. See [MDEV-20400](https://jira.mariadb.org/browse/MDEV-20400) for more information.
 
 For information on how to solve the problem, see [Troubleshooting Row Size Too Large Errors with InnoDB](troubleshooting-row-size-too-large-errors-with-innodb.md).
 

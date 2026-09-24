@@ -33,7 +33,7 @@ In general, InnoDB page compression is superior to the [COMPRESSED](innodb-row-f
 
 ## Configuring the InnoDB Page Compression Algorithm
 
-There is not currently a table option to set different InnoDB page compression algorithms for individual tables.
+There is no table option to set different InnoDB page compression algorithms for individual tables.
 
 However, the server-wide InnoDB page compression algorithm can be configured by setting the [innodb\_compression\_algorithm](innodb-system-variables.md#innodb_compression_algorithm) system variable.
 
@@ -233,7 +233,7 @@ Some InnoDB page compression algorithms support a compression level option, whic
 
 The compression level's supported values range from `1` to `9`. The range goes from the fastest to the most compact, which means that `1` is the fastest and `9` is the most compact.
 
-Only the following InnoDB page compression algorithms currently support compression levels:
+Only the following InnoDB page compression algorithms support compression levels:
 
 * [zlib](https://www.zlib.net/)
 * [lzma](https://tukaani.org/xz/)
