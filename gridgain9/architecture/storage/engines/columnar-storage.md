@@ -51,14 +51,14 @@ The section below lists the configuration parameters for columnar storage engine
 
 The table below describes columnar storage configuration parameters:
 
-|Property|Default|Description|Changeable|Requires Restart|Acceptable Values|
-|---|---|---|---|---|---|
-|columnar.compressingConfiguration.enableLz4Compression|true|Defines if Lz4 compression will be used on columnar storage.|Yes|Yes|true, false|
-|columnar.memtableConfiguration.dataRegionSize|2147483648|Maximum size of all memory table buffers combined.|Yes|Yes||
-|columnar.memtableConfiguration.memtableMaxSize|67108864|Maximum size of a single memory table.|Yes|Yes||
-|columnar.mergeTreeConfiguration.mergeTreeFanout|4|The number of times by which the tree grows with each level.|Yes|Yes||
-|columnar.mergeTreeConfiguration.mergeTreeFirstLevelSize|262144|The size of entries of the first level of merge tree.|Yes|Yes||
-|columnar.threadPoolConfiguration.threadPoolThreadCount|10|Columnar thread-pool size.|Yes|Yes||
+|Property|Default|Description|Acceptable Values|
+|---|---|---|---|
+|columnar.compressingConfiguration.enableLz4Compression|true|Defines if Lz4 compression will be used on columnar storage.|true, false|
+|columnar.memtableConfiguration.dataRegionSize|2147483648|Maximum size of all memory table buffers combined.||
+|columnar.memtableConfiguration.memtableMaxSize|67108864|Maximum size of a single memory table.||
+|columnar.mergeTreeConfiguration.mergeTreeFanout|4|The number of times by which the tree grows with each level.||
+|columnar.mergeTreeConfiguration.mergeTreeFirstLevelSize|262144|The size of entries of the first level of merge tree.||
+|columnar.threadPoolConfiguration.threadPoolThreadCount|10|Columnar thread-pool size.||
 
 ## Columnar Storage Profile Configuration
 
@@ -79,7 +79,7 @@ Columnar storage profile only includes the name of the configuration and the eng
 }
 ```
 
-|Property|Default|Description|Changeable|Requires Restart|Acceptable Values|
-|---|---|---|---|---|---|
-|name||The name of the storage profile. This name will be used to reference the profile.|Yes|Yes||
-|engine||The storage engine to use. Must be `columnar` for the profile to use columnar storage.|Yes|Yes||
+|Property|Default|Description|Acceptable Values|
+|---|---|---|---|
+|name||The name of the storage profile. This name will be used to reference the profile.||
+|engine||The storage engine to use. Must be `columnar` for the profile to use columnar storage.||

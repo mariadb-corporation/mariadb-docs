@@ -127,7 +127,7 @@ When designing your distribution zones and replica strategy, several considerati
 
 The number of replicas you configure directly determines fault tolerance. GridGain requires a majority of replicas to remain available for write operations, which means the number of tolerable failures is always less than half the replica count. The following table shows recommended configurations for different requirements:
 
-| Replicas | Tolerable Failures | Recovery Without Majority | Recommended Use Case |
+| Replicas | Failures | Recovery<br>Without Majority | Recommended Use Case |
 |---|---|---|---|
 | 1 | 0 | Not possible | Development and testing only - provides no fault tolerance |
 | 2 | 0 | Not possible | Not recommended - both nodes required for writes, no fault tolerance advantage over single replica |

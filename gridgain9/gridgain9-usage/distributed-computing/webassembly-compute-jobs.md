@@ -147,8 +147,8 @@ public class ComputeRustJobExample {
 
 For more details, refer to Wasm documentation for Rust:
 
-- https://wasm-bindgen.github.io/wasm-bindgen/
-- https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Rust_to_Wasm
+- [The `wasm-bindgen` Guide](https://wasm-bindgen.github.io/wasm-bindgen/)
+- [Compiling from Rust to WebAssembly (MDN)](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Rust_to_Wasm)
 
 #### Go
 

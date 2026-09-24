@@ -47,7 +47,7 @@ The minority partition remains read-only or unavailable until network connectivi
 
 The following examples show how system and data RAFT groups combine in practice.
 
-| Environment | Cluster Nodes | CMG Nodes | Data Replicas | Tolerates |
+| Environment | Nodes | CMG | Replicas | Tolerates |
 | --- | --- | --- | --- | --- |
 | Development | 1 | 1 | 1 | No failures |
 | Low Replica Count | 3 | 3 | 1 | 1 CMG/system node failure; no data failures. Any node loss causes data unavailability for affected partitions, but the cluster remains operational. |

@@ -16,16 +16,16 @@ When it is enabled for the data region, GridGain stores all data in the data reg
 
 Each GridGain storage engine can have several storage profiles. Each profile has the following properties:
 
-|Property|Default|Description|Changeable|Requires Restart|Acceptable Values|
-|---|---|---|---|---|---|
-|aimem.initSizeBytes|268435456|Initial memory region size in bytes, when the used memory size exceeds this value, new chunks of memory will be allocated.|Yes|Yes|Min 256Mb, max defined by the addressable memory limit of the OS|
-|aimem.maxSizeBytes|268435456|Maximum memory region size in bytes.|Yes|Yes|Min 256Mb, max defined by the addressable memory limit of the OS|
-|aimem.eviction.mode|DISABLED|Eviction mode.|Yes|No|- DISABLED - Eviction is disabled.<br>- HISTORY_ONLY - Only historical versions of rows are evicted.<br>- RANDOM - Historical versions of rows are evicted first, followed by the eviction of the most recent row versions, which are chosen randomly.|
-|aimem.eviction.threshold|90%|Threshold for eviction initiation. A number with a dimension identifier:<br>- % - percentage of aimem.maxSize<br>- k - Kb<br>- m - Mb<br>- g - Gb<br>For instance, "90%" means that the page memory starts eviction only after 90% of the data region is occupied.|Yes|No|- 0-100%<br>- 0-9223372036854775807k/m/g|
-|aimem.eviction.lwmUpdateInterval|60000|Frequency of the low watermark update in milliseconds.|Yes|No|1 - inf|
-|aimem.eviction.interval|60000|Interval between the data eviction iterations.|Yes|No|1 - inf|
-|aimem.eviction.lwmThreshold|1000|If the low watermark is less than evictionLwmThreshold from the current timestamp, the row eviction is triggered.|Yes|No|0 - inf|
-|aimem.eviction.batchSize|60000|Eviction batch size in rows.|Yes|No|1 - inf|
+|Property|Default|Description|Acceptable Values|
+|---|---|---|---|
+|aimem.initSizeBytes|268435456|Initial memory region size in bytes, when the used memory size exceeds this value, new chunks of memory will be allocated.|Min 256Mb, max defined by the addressable memory limit of the OS|
+|aimem.maxSizeBytes|268435456|Maximum memory region size in bytes.|Min 256Mb, max defined by the addressable memory limit of the OS|
+|aimem.eviction.mode|DISABLED|Eviction mode.|- DISABLED - Eviction is disabled.<br>- HISTORY_ONLY - Only historical versions of rows are evicted.<br>- RANDOM - Historical versions of rows are evicted first, followed by the eviction of the most recent row versions, which are chosen randomly.|
+|aimem.eviction.threshold|90%|Threshold for eviction initiation. A number with a dimension identifier:<br>- % - percentage of aimem.maxSize<br>- k - Kb<br>- m - Mb<br>- g - Gb<br>For instance, "90%" means that the page memory starts eviction only after 90% of the data region is occupied.|- 0-100%<br>- 0-9223372036854775807k/m/g|
+|aimem.eviction.lwmUpdateInterval|60000|Frequency of the low watermark update in milliseconds.|1 - inf|
+|aimem.eviction.interval|60000|Interval between the data eviction iterations.|1 - inf|
+|aimem.eviction.lwmThreshold|1000|If the low watermark is less than evictionLwmThreshold from the current timestamp, the row eviction is triggered.|0 - inf|
+|aimem.eviction.batchSize|60000|Eviction batch size in rows.|1 - inf|
 
 ## Configuration Example
 
