@@ -11,7 +11,7 @@ This guide walks through a complete MySQL to MariaDB migration in **Parallel Res
 This mode is for larger databases where a single serial transfer is too slow. It dumps the schema, then loads table data through multiple concurrent worker sessions, then applies triggers, routines, and events at the end.
 
 {% hint style="info" %}
-The migrator is in **beta**. Run this procedure against a non-production target first, and validate the result before you migrate a production database.
+Rehearse this procedure against a non-production target first, and validate the result before you migrate a production database.
 {% endhint %}
 
 This guide uses the `employees` sample database, which is large enough (about 3.9 million rows across six tables) to show the parallel load and the row-count validation doing real work. Substitute your own database name wherever `employees` appears.
@@ -38,7 +38,7 @@ See [Installation and First Run](installation-and-first-run.md) for details on d
 
 ## Step 2: Preview with Assess & Plan
 
-Choose **1) Assess & Plan**, supply the source and target connection details when prompted, and select mode **2) Parallel Restartable Streaming Copy (sqldata) \[OFFLINE]**. This phase checks connectivity and compatibility and writes its reports under `artifacts/assess_<timestamp>/` without touching the target. Review the assessment before running.
+Choose **1) Assess & Plan**, supply the source and target connection details when prompted, and select mode **2) Parallel Restartable Streaming Copy (mariadb-mtk) \[OFFLINE]**. This phase checks connectivity and compatibility and writes its reports under `artifacts/assess_<timestamp>/` without touching the target. Review the assessment before running.
 
 ## Step 3: Run the Migration
 

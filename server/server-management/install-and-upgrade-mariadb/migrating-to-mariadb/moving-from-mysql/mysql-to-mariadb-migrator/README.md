@@ -10,10 +10,12 @@ description: >-
 **MariaDB tool.** The MySQL to MariaDB Migrator is proprietary MariaDB software, provided free to MariaDB customers and partners under approved usage terms. It is distributed from the [MariaDB community downloads page](https://mariadb.com/downloads/community/).
 {% endhint %}
 
+**Current release:** [1.5.0](https://mariadb.com/downloads/community/)
+
 The **MySQL to MariaDB Migrator** is a MariaDB tool that automates end-to-end migrations from MySQL to MariaDB in a repeatable, auditable way. It orchestrates schema migration, data transfer, user and privilege migration, and post-migration validation, and it drives the standard MariaDB client tools (`mariadb-dump`, the `mariadb` client, and the `mariadb-mtk` data-transfer engine) under a single launcher.
 
 {% hint style="info" %}
-The migrator is currently in **beta**. All four migration modes have been exercised end-to-end against representative source and target pairs, including AWS RDS sources and MariaDB Cloud targets. Validate it in your own environment before a production migration.
+All four migration modes have been exercised end-to-end against representative source and target pairs, including AWS RDS sources and MariaDB Cloud targets. As with any migration, rehearse against a non-production target and validate the result before you migrate a production database.
 {% endhint %}
 
 The migrator complements the manual workflows in the [MySQL to MariaDB Migration: The Master Guide](../mysql-to-mariadb-migration-the-master-guide.md): the Master Guide explains the migration paths and the compatibility considerations, while the migrator automates the dump, load, user-migration, and validation steps for you.
@@ -23,7 +25,7 @@ The migrator complements the manual workflows in the [MySQL to MariaDB Migration
 * **Source:** MySQL 8.0 and 8.4 (some modes have version-specific requirements — see [Migration Modes](migration-modes.md)).
 * **Target:** supported MariaDB Enterprise and Community editions.
 * **MariaDB Cloud** is validated as a target for the Offline Copy (`staged`), Parallel Restartable Streaming Copy (`two_step`), and Serial Streaming Copy (`one_step`) modes.
-* **Platforms:** the migrator is built and tested for Linux on x86-64 and ARM64.
+* **Platforms:** the migrator is built and tested for Linux on x86-64 and ARM64, and for macOS on ARM64 (Apple silicon). macOS hosts require bash 4.4 or newer — see [Installation and First Run](installation-and-first-run.md#prerequisites).
 
 ## Migration Modes at a Glance
 
@@ -59,6 +61,28 @@ When launched interactively, the migrator first offers two top-level choices:
 * **Assess + Run** — assess the source, then proceed to the full migration, with confirmation steps between phases.
 
 Preview a migration with **Assess & Plan** before committing to it; the assess and plan phases write their artifacts under `artifacts/` and leave the target untouched.
+
+## AI-Assisted Operation via MCP
+
+The migrator can also be operated by an AI agent through the MariaDB Shell MCP server, which exposes tools to configure, plan, run, and resume a migration.
+
+{% hint style="info" %}
+**This ships separately.** The MCP plugin is not part of the MySQL to MariaDB Migrator and is not included in its release archive. It is installed through MariaDB Shell, is maintained independently, and requires an MCP-capable AI coding agent to drive it. The migrator has no dependency on either: the interactive launcher and the command-line interface work as documented on these pages without them.
+{% endhint %}
+
+Requirements:
+
+* A Linux or macOS host. The MCP path is not available on Windows.
+* The migrator installed, with `mariadb` and `mariadb-dump` on the `PATH`.
+* The plugin installed with `mariadb-shell -- mcp setup --installMigrator`, followed by a restart of the MCP server. The migrator tools register only when the server next starts, so an agent that reports no `migrator.*` tools needs the restart.
+* Both the source and the target registered as configured MCP connections.
+
+Two behaviors are worth knowing in advance:
+
+* Passwords can never be set in the configuration the agent writes. They are resolved from the MariaDB Shell secret store when the migration runs, so never put a password in a prompt.
+* Password lookups use the full connection URI, host and port included. Specify the port on each connection; otherwise the lookup can miss and authentication fails without an obvious cause.
+
+For a full walkthrough, see the [MySQL to MariaDB migration tutorial](https://ai-plugins.mariadb.com/tutorials/mysql-to-mariadb-migration/).
 
 ## In This Section
 

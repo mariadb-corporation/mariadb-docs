@@ -12,7 +12,7 @@ This guide walks through a complete MySQL to MariaDB migration in **Replication*
 This is the mode to use when downtime must be minimal. Unlike the offline modes, it does not finish in a single pass; it establishes ongoing replication that you cut over when you are ready.
 
 {% hint style="info" %}
-The migrator is in **beta**. Run this procedure against a non-production target first, and validate the result before you migrate a production database.
+Rehearse this procedure against a non-production target first, and validate the result before you migrate a production database.
 {% endhint %}
 
 This guide uses the `sakila` sample database as the example. Substitute your own database name wherever `sakila` appears.
