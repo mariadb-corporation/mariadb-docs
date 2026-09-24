@@ -154,13 +154,13 @@ site:
                 directory: ./gridgain-9
         - type: section
           key: tools-sec
-          title: Tools
+          title: Enterprise Tools
           path: tools
           icon: screwdriver-wrench
           children:
             - type: space
               key: tools
-              title: Tools
+              title: Enterprise Tools
               path: tools-home
               default: true
               content:

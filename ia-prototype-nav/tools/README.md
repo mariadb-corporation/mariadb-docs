@@ -1,5 +1,5 @@
 ---
-title: Tools
+title: Enterprise Tools
 description: >-
   Clients, utilities, and management applications for MariaDB Server and
   MariaDB Enterprise Platform, including Enterprise Manager, the Kubernetes
@@ -7,7 +7,7 @@ description: >-
 icon: screwdriver-wrench
 ---
 
-# Tools
+# Enterprise Tools
 
 This space documents the clients, utilities, and management applications that surround a MariaDB deployment. They fall into a few groups, and which ones you need depends on how much you operate and how you deploy.
 
