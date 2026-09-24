@@ -832,7 +832,7 @@ When using `=` or `!=` in the rule object in conjunction with `database`,`table`
 
 In practice that means that if _attribute_ is `database` then _value_ may not contain a dot, if _attribute_ is `table` then _value_ may contain one dot, used for separating the database and table names respectively, and if _attribute_ is `column` then _value_ may contain one or two dots, used for separating table and column names, or database, table and column names.
 
-Note that if a qualified name is used as a _value_, then all parts of the name must be available for a match. Currently Maria DB MaxScale may not always be capable of deducing in what table a particular column is. If that is the case, then a value like `tbl.field` may not necessarily be a match even if the field is `field` and the table actually is `tbl`.
+Note that if a qualified name is used as a _value_, then all parts of the name must be available for a match. MaxScale may not always be capable of deducing in what table a particular column is. If that is the case, then a value like `tbl.field` may not necessarily be a match even if the field is `field` and the table actually is `tbl`.
 
 #### Implication of the default database
 
@@ -1061,7 +1061,7 @@ There are two types of storages that can be used; _local_ and _shared_.
 
 The only _local_ storage implementation is `storage_inmemory` that simply stores the cache values in memory. The storage is not persistent and is destroyed when MaxScale terminates. Since the storage exists in the MaxScale process, it is very fast and provides almost always a performance benefit.
 
-Currently there are three _shared_ storages; `storage_memcached`, `storage_redis` and `storage_gridgain`
+There are three _shared_ storages; `storage_memcached`, `storage_redis` and `storage_gridgain`
 that are implemented using [memcached](https://memcached.org/), [redis](https://redis.io/) and
 [gridgain](https://www.gridgain.com/) respectively.
 
@@ -1482,7 +1482,7 @@ If the rule is instead expressed using a regular expression
 
 then the statement will not be parsed.
 
-However, when the [query classifier cache](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#query_classifier_cache_size) was introduced, the parsing cost was significantly reduced and currently the cost for parsing and regular expression matching is roughly the same.
+However, when the [query classifier cache](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#query_classifier_cache_size) was introduced, the parsing cost was significantly reduced and the cost for parsing and regular expression matching is roughly the same.
 
 In the following is a table with numbers giving a rough picture of the relative cost of different approaches.
 

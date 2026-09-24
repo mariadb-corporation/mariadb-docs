@@ -289,7 +289,7 @@ All the resources that return JSON content also support the following parameters
 
       Similar to the `filter` parameter that takes a JSON Pointer, this version of the `filter` controls which rows are returned in a REST API response for a resource collection. Requests to individual resources are never filtered.
 
-      The value inside the brackets must be a valid [JSONPath](https://www.ietf.org/archive/id/draft-ietf-jsonpath-base-21.html) expression that MaxScale supports. The currently supported syntax is:
+      The value inside the brackets must be a valid [JSONPath](https://www.ietf.org/archive/id/draft-ietf-jsonpath-base-21.html) expression that MaxScale supports. The supported syntax is:
 
       * dot notation: `$.store.book`
       * bracket notation: `$['store']['book']`
@@ -437,7 +437,7 @@ The requested authentication method. For example, `WWW-Authenticate: Basic` woul
 
 #### Mxs-Warning
 
-This header is used for sending generic warnings to clients about actions that were successful and valid but could cause problems in the future. Currently these are used to indicate when a configuration change was made to a static object and an overriding configuration is created or when a static object is being deleted at runtime.
+This header is used for sending generic warnings to clients about actions that were successful and valid but could cause problems in the future. These are used to indicate when a configuration change was made to a static object and an overriding configuration is created or when a static object is being deleted at runtime.
 
 The content of the header is the human-readable warning that should be displayed to a user.
 
@@ -547,7 +547,7 @@ The server failed to fulfill an apparently valid request.
 
 ### Response Headers Reserved for Future Use
 
-The following response headers are not currently in use. Future versions of the API could return them.
+The following response headers are not used.
 
 * 206 Partial Content
   * The server is delivering only part of the resource (byte serving) due to a range header sent by the client.

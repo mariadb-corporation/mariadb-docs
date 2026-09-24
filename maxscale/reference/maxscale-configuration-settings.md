@@ -3309,7 +3309,7 @@ description: >-
 * Type: string
 * Mandatory: No
 * Default: ''
-* Description: Specifies the internal cache to use, currently supporting only the `cache` filter. &#x20;
+* Description: Specifies the internal cache to use. Only the `cache` filter is supported. &#x20;
 
 [**log\_unknown\_command**](maxscale-protocols/maxscale-nosql-protocol-module.md#log_unknown_command)
 

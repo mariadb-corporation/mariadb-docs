@@ -60,7 +60,7 @@ The absolute path to a UNIX domain socket the MariaDB server is listening on.
 * Dynamic: Yes
 * Default: `""`
 
-Alternative IP-address or hostname for the server. This is currently only used by MariaDB Monitor to detect and set up replication. See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor.md) for more information.
+Alternative IP-address or hostname for the server. This is only used by MariaDB Monitor to detect and set up replication. See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor.md) for more information.
 
 ### `monitoruser`
 
@@ -262,7 +262,7 @@ The `main-site-primary` and `main-site-replica` servers will be used as long as 
 * Dynamic: Yes
 * Default: 0
 
-Server priority. Currently only used by galeramon to choose the order in which nodes are selected as the current primary server. Refer to the [Server Priorities](maxscale-monitors/galera-monitor.md#interaction-with-server-priorities) section of the galeramon documentation for more information on how to use it.
+Server priority. Only used by galeramon to choose the order in which nodes are selected as the current primary server. Refer to the [Server Priorities](maxscale-monitors/galera-monitor.md#interaction-with-server-priorities) section of the galeramon documentation for more information on how to use it.
 
 Starting with MaxScale 2.5.21, this parameter also accepts negative values. In older versions, the parameter only accepted non-negative values.
 
