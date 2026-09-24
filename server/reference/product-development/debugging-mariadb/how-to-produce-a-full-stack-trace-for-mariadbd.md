@@ -147,7 +147,7 @@ If you used the MariaDB versions provided by Debian or Ubuntu see the following 
 
 For Debian see [AutomaticDebugPackages](https://wiki.debian.org/AutomaticDebugPackages)
 
-For Ubuntu see [Debug%20Symbol%20Packages](https://wiki.ubuntu.com/Debug%20Symbol%20Packages)
+For Ubuntu see [Debug symbol packages](https://documentation.ubuntu.com/server/how-to/debugging/debug-symbol-packages/)
 
 ### Installing Debugging Symbols on Windows
 
@@ -261,9 +261,9 @@ A core pattern of `|/usr/libexec/abrt-hook-ccpp` indicates `abrt` system is used
 
 A core pattern of `[|/usr/share/apport/apport` indicates `apport`.
 
-For more information see [Apport Project Wiki](https://wiki.ubuntu.com/Apport).
+For more information see [Apport project](https://github.com/canonical/apport).
 
-[apport-retrace](https://wiki.ubuntu.com/DebuggingProgramCrash#Using_apport-retrace) allows you to "Examine Locally" and run a `gdb` session. One you have gdb started instructions in the [next section](how-to-produce-a-full-stack-trace-for-mariadbd.md#getting-backtraces-with-gdb-on-linux) can be used for extracting information.
+[apport-retrace](https://manpages.ubuntu.com/manpages/noble/man1/apport-retrace.1.html) allows you to "Examine Locally" and run a `gdb` session. One you have gdb started instructions in the [next section](how-to-produce-a-full-stack-trace-for-mariadbd.md#getting-backtraces-with-gdb-on-linux) can be used for extracting information.
 
 ## Analyzing a Core File with `gdb` on Linux
 
