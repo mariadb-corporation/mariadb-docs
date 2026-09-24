@@ -80,7 +80,7 @@ Encryption for internal temporary tables is handled separately from encryption f
 
 ## Manually Encrypting Tables
 
-Currently, Aria does not support manually encrypting tables through the [ENCRYPTED](../../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) and [ENCRYPTION\_KEY\_ID](../../../../reference/sql-statements/data-definition/create/create-table.md#encryption_key_id) table options. For more information, see [MDEV-18049](https://jira.mariadb.org/browse/MDEV-18049).
+Aria does not support manually encrypting tables through the [ENCRYPTED](../../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) and [ENCRYPTION\_KEY\_ID](../../../../reference/sql-statements/data-definition/create/create-table.md#encryption_key_id) table options. For more information, see [MDEV-18049](https://jira.mariadb.org/browse/MDEV-18049).
 
 In cases where you want to encrypt tables manually or set the specific encryption key, use [InnoDB](../innodb-encryption/).
 

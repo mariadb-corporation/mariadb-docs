@@ -2,7 +2,7 @@
 
 ## Overview
 
-Quantum computers use quantum mechanics to solve mathematical problems much faster than traditional computers. Their capacity to crack the public-key cryptographic techniques that currently support TLS handshakes, such as RSA and Elliptic Curve Cryptography (ECC), is especially concerning.
+Quantum computers use quantum mechanics to solve mathematical problems much faster than traditional computers. Their capacity to crack the public-key cryptographic techniques that TLS handshakes rely on, such as RSA and Elliptic Curve Cryptography (ECC), is especially concerning.
 
 This poses a threat known as **harvest now, decrypt later**: an attacker can intercept and store encrypted database communication now, then decrypt it later when sufficiently robust quantum computers are made accessible. Thus, even current threats pose a risk to long-lived sensitive data, such as financial records, intellectual property, and personally identifiable information (PII).
 

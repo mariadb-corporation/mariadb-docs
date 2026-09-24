@@ -18,7 +18,7 @@ MariaDB supports the following types of replication:
 **MariaDB starting with** [**10.5.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)
 
 Note: in the snippets in this page, several SQL statements use the keyword `SLAVE`. This word is considered inappropriate by some persons or cultures, so from [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) it is possible to use the `REPLICA` keyword, as a synonym.\
-Similar synonyms will be created in the future for status variables and system variables. See [MDEV-18777](https://jira.mariadb.org/browse/MDEV-18777) to track the status of these changes.
+Similar synonyms for status variables and system variables are tracked in [MDEV-18777](https://jira.mariadb.org/browse/MDEV-18777).
 
 ## Asynchronous Replication
 

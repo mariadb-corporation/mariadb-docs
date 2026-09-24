@@ -256,7 +256,7 @@ If specified, start reading the binlog at the first event having a datetime equa
 Start reading the binlog at this position. Type can either be a positive integer or, from MariaDB 10.8, a [GTID](../../../ha-and-performance/standard-replication/gtid.md) list. When using a positive integer, the value only applies to the first binlog passed on the command line. In GTID mode, multiple GTIDs can be passed as a comma-separated list, where each must have a unique domain id. The list represents the GTID binlog state that the client (another "replica" server) is aware of. Therefore, each GTID is exclusive; only events after a given sequence number are printed to allow users to receive events after their current state. Default value: `4`
 
 {% hint style="warning" %}
-Options `--start-position` and `--stop-position` currently compare Sequence Numbers only per Domain ID and ignore Server IDs. This is incorrect, as it is different from the Replication design for GTIDs, which compares per Domain–Server ID pair. MDEV-37231 tracks this bug.
+Options `--start-position` and `--stop-position` compare Sequence Numbers only per Domain ID and ignore Server IDs. This is incorrect, as it is different from the Replication design for GTIDs, which compares per Domain–Server ID pair. [MDEV-37231](https://jira.mariadb.org/browse/MDEV-37231) tracks this bug.
 {% endhint %}
 
 #### --stop-datetime=_name_
@@ -292,7 +292,7 @@ Emit a warning if the specified position is beyond the end of the last binlog.
 {% endtabs %}
 
 {% hint style="warning" %}
-Options `--start-position` and `--stop-position` currently compare Sequence Numbers only per Domain ID and ignore Server IDs. This is incorrect, as it is different from the Replication design for GTIDs, which compares per Domain–Server ID pair. MDEV-37231 tracks this bug.
+Options `--start-position` and `--stop-position` compare Sequence Numbers only per Domain ID and ignore Server IDs. This is incorrect, as it is different from the Replication design for GTIDs, which compares per Domain–Server ID pair. [MDEV-37231](https://jira.mariadb.org/browse/MDEV-37231) tracks this bug.
 {% endhint %}
 
 #### -T, --table

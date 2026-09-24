@@ -121,7 +121,7 @@ You can set the maximum age for an encryption key using the [innodb\_encryption\
 
 Key rotation for the InnoDB [Redo Log](../../../../server-usage/storage-engines/innodb/innodb-redo-log.md) is only supported in [MariaDB 10.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.0) and later. For more information, see [MDEV-12041](https://jira.mariadb.org/browse/MDEV-12041).
 
-In order for key rotation to work, both the backend key management service (KMS) and the corresponding [key management and encryption plugin](../key-management-and-encryption-plugins/encryption-key-management.md) have to support key rotation. See [Encryption Key Management: Support for Key Rotation in Encryption Plugins](../key-management-and-encryption-plugins/encryption-key-management.md#support-for-key-rotation-in-encryption-plugins) to determine which plugins currently support key rotation.
+In order for key rotation to work, both the backend key management service (KMS) and the corresponding [key management and encryption plugin](../key-management-and-encryption-plugins/encryption-key-management.md) have to support key rotation. See [Encryption Key Management: Support for Key Rotation in Encryption Plugins](../key-management-and-encryption-plugins/encryption-key-management.md#support-for-key-rotation-in-encryption-plugins) to determine which plugins support key rotation.
 
 ### Disabling Background Key Rotation Operations
 

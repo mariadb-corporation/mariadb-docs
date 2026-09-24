@@ -114,7 +114,7 @@ This procedure will **not** work if the table format has changed in an incompati
 ### Version-Specific Considerations
 
 {% hint style="warning" %}
-Many of the examples that follow use outdated MariaDB versions that are currently End of Life (EOL). For production environments, downgrading to EOL versions is not recommended. These examples are provided for reference and to demonstrate potential incompatibilities.
+Many of the examples that follow use outdated MariaDB versions that are End of Life (EOL). For production environments, downgrading to EOL versions is not recommended. These examples are provided for reference and to demonstrate potential incompatibilities.
 {% endhint %}
 
 The following is an incomplete list of cases where a table or component cannot be used in an earlier major version. Before proceeding, always check the [Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/) and Changes and Improvements pages for your target version to ensure that there are no additional incompatibilities specific to your version pair.
