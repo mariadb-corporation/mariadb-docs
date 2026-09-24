@@ -47,7 +47,7 @@ Always back up your data before upgrading. While the tool performs a pre‑upgra
 
 ## Command Overview
 
-The command can target a specific ES version, or use the latest tested version (currently latest 10.6 version).
+The command can target a specific ES version, or use the latest tested version.
 
 * Install latest tested version (if you omit the `--version` option, `mcs` uses the latest version):
 
@@ -179,7 +179,7 @@ If CMAPI readiness times out or services do not start cleanly, review:
   * After a downgrade, automatic restarts are not performed; you must start MariaDB and the ColumnStore cluster manually and validate health.
   * ColumnStore skips automatic restarts, because it cannot guarantee that all the expected APIs endpoints exist or are backward-compatible.
 * MaxScale maintenance handling not automated.
-  * Transitioning MaxScale to maintenance/normal mode during upgrades is not automated at this time; manage traffic routing and maintenance state manually if applicable.
+  * Transitioning MaxScale to maintenance/normal mode during upgrades is not automated; manage traffic routing and maintenance state manually if applicable.
 * Repository access and version validation.
   * Invalid tokens, network restrictions, or unsupported version strings can result in validation errors (for example, HTTP 422). Ensure the token has the correct entitlements and the requested version exists for your platform.
 * Single‑node detection.
@@ -187,8 +187,8 @@ If CMAPI readiness times out or services do not start cleanly, review:
 * Downgrading to 22.08.4 (10.6.9-5) technically working but finished with known issues:
   * Got ERROR on waiting CMAPI ready. But in fact CMAPI starts and is working fine (check `mcs status` and `systemctl status mariadb-columnstore-cmapi` on each node).
   * If you try to run a `mariadb` command, you got an error due to unknown configuration flag. Tool forcing to save current config files while installing packages, and an older MariaDB version doesn't support never flag obviously. To fix it, remove this flag from the configuration file, or restore the configuration from last installed package.
-* Tool currently supported limited packages.
-  * Only `MariaDB-server` (and dependencies), `MariaDB-columnstore-engine` (MariaDB-plugin-columnstore) and `MariaDB-columnstore-cmapi` packages remove and install supported. So packages like MariaDB-backup currently not supported and should be upgraded/downgraded manually.
+* The tool supports a limited set of packages.
+  * Only `MariaDB-server` (and dependencies), `MariaDB-columnstore-engine` (MariaDB-plugin-columnstore) and `MariaDB-columnstore-cmapi` packages remove and install supported. Other packages, such as MariaDB-backup, are not supported and must be upgraded or downgraded manually.
 
 ## Troubleshooting
 

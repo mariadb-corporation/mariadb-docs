@@ -27,7 +27,7 @@ routine_body:
     Valid SQL procedure statement
 ```
 
-ColumnStore currently accepts definition of stored procedures with only input arguments and a single `SELECT` query while in Operating Mode = 1 (VTABLE mode). However, while in the Operating Mode = 0 (TABLE mode), ColumnStore will allow additional complex definition of stored procedures (i.e., OUT parameter, declare, cursors, etc.)
+ColumnStore accepts definition of stored procedures with only input arguments and a single `SELECT` query while in Operating Mode = 1 (VTABLE mode). However, while in the Operating Mode = 0 (TABLE mode), ColumnStore will allow additional complex definition of stored procedures (i.e., OUT parameter, declare, cursors, etc.)
 
 See Operating Mode for information on [Operating Modes](../columnstore-operating-mode.md).
 
