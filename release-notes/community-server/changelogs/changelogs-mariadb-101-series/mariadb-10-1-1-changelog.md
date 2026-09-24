@@ -622,7 +622,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Merge ../10.1-orderby-fixes into 10.1
 * [Revision #9c79227](https://github.com/MariaDB/server/commit/9c79227)\
   2014-09-08 20:56:56 +0300
-  * Fixed two bugs with CREATE OR REPLACE and LOCK TABLES: [MDEV-6560](https://jira.mariadb.org/browse/MDEV-6560) Assertion `! is_set() ' failed in Diagnostics_area::set_ok_status on killing CREATE OR REPLACE [MDEV-6525](https://jira.mariadb.org/browse/MDEV-6525) Assertion` table->pos\_in\_locked \_tables == null || table->pos\_in\_locked\_tables->table = table' failed in mark\_used\_tables\_as\_free\_for\_reuse, locking problems and binlogging problems on CREATE OR REPLACE under lock.
+  * Fixed two bugs with CREATE OR REPLACE and LOCK TABLES: [MDEV-6560](https://jira.mariadb.org/browse/MDEV-6560) (Assertion `! is_set()` failed in `Diagnostics_area::set_ok_status` on killing `CREATE OR REPLACE`) and [MDEV-6525](https://jira.mariadb.org/browse/MDEV-6525) (Assertion `table->pos_in_locked_tables == null || table->pos_in_locked_tables->table = table` failed in `mark_used_tables_as_free_for_reuse`), locking problems and binlogging problems on CREATE OR REPLACE under lock.
 * [Revision #26e048f](https://github.com/MariaDB/server/commit/26e048f)\
   2014-09-08 13:19:20 -0400
   * Merged sys\_vars.wsrep\_\* tests from maria-10.0-galera tree.

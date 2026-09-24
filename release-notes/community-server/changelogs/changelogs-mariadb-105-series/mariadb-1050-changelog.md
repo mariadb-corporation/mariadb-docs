@@ -890,7 +890,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-20006](https://jira.mariadb.org/browse/MDEV-20006) Move geometry specific code in Field\_blob::get\_key\_image() to Field\_geom
 * [Revision #aca5532113](https://github.com/MariaDB/server/commit/aca5532113)\
   2019-07-10 05:14:02 +0400
-  * A cleanup `[MDEV-19994](https://jira.mariadb.org/browse/MDEV-19994) Add class Function_collection` (buildbot warnings)
+  * A cleanup [MDEV-19994](https://jira.mariadb.org/browse/MDEV-19994) (Add class `Function_collection`) (buildbot warnings)
 * [Revision #feb2695ed3](https://github.com/MariaDB/server/commit/feb2695ed3)\
   2019-07-09 19:47:57 +0400
   * [MDEV-20004](https://jira.mariadb.org/browse/MDEV-20004) Move Field\_geom from field.cc to sql\_type\_geom.cc

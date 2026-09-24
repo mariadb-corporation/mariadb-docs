@@ -26,7 +26,7 @@ If it completing the shutdown, take two \[how-to-produce-a-full-stack-trace-for-
 
 `[ERROR] mariadbd: Can't create/write to file '/var/run/mariadb/mariadb.pid' (Errcode: 2 "No such file or directory")`.
 
-The errcode can be look up with `[perror](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/perror) X` to return a text description of the code if not already there. In may cases there are directly the same as operating system errors. Common ones are:
+The errcode can be looked up with [`perror`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/perror) `X` to return a text description of the code if not already there. In many cases they are directly the same as operating system errors. Common ones are:
 
 * Error 2 - No such file or directory. MariaDB is expecting to read/write/create a file somewhere and it doesn't exist. If creating, the directory doesn't exist.
 * Error 13 - EPERM, permission denied. Either file permissions or an access control mechanism like selinux or apparmor or systemd is preventing access to this location. Alternately you are running MariaDB as the incorrect user for the data it is trying to access.
