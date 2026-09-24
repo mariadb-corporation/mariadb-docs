@@ -66,7 +66,7 @@ For valid identifiers to use as index names, see [Identifier Names](../../../sql
 
 For limits on InnoDB indexes, see [InnoDB Limitations](../../../../server-usage/storage-engines/innodb/innodb-limitations.md).
 
-Note that `KEY_BLOCK_SIZE` is currently ignored in `CREATE INDEX`, although it is included in the output of [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md).
+Note that `KEY_BLOCK_SIZE` is ignored in `CREATE INDEX`, although it is included in the output of [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md).
 
 ## Privileges
 

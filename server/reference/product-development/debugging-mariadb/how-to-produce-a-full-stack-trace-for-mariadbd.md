@@ -97,7 +97,7 @@ If you are obtaining a backtrace for a coredump, you can move the core dump to a
 
 On some Linux distributions, you may be able to install `debuginfo` packages that contain debugging symbols.
 
-Currently, `debuginfo` packages may not allow the server to print a nice stack trace in the error log. They also allow users to extract full stack traces from core dumps. See [MDEV-20738](https://jira.mariadb.org/browse/MDEV-20738) for more information.
+`debuginfo` packages may not allow the server to print a nice stack trace in the error log. They also allow users to extract full stack traces from core dumps. See [MDEV-20738](https://jira.mariadb.org/browse/MDEV-20738) for more information.
 
 #### Installing Debug Info Packages with yum/dnf
 
@@ -169,7 +169,7 @@ The [ZIP](../../../server-management/install-and-upgrade-mariadb/installing-mari
 
 #### Prebuilt Debug Containers
 
-These are currently only per major release version and are generated out of CI. They are always the latest version in the main branch on [GitHub](https://github.com/MariaDB/server).
+These are only per major release version and are generated out of CI. They are always the latest version in the main branch on [GitHub](https://github.com/MariaDB/server).
 
 There are available on at [mariadb-debug?tab=tags](https://quay.io/repository/mariadb-foundation/mariadb-debug?tab=tags).
 
@@ -233,7 +233,7 @@ If a plain core filename is in the "Core pattern" there's a good chance it will 
 
 ### Extracting a core file from a container
 
-If you are running MariaDB in a container, the locations where the core dump can be generated are limited. Looking at the container log, this will likely be where the error log information is. The "Core pattern" of a Linux system is currently a global fixed value. The consequence is if this core pattern refers to a program, that program isn't likely to be in the container and won't be executed on the crash.
+If you are running MariaDB in a container, the locations where the core dump can be generated are limited. Looking at the container log, this will likely be where the error log information is. The "Core pattern" of a Linux system is a global fixed value. The consequence is if this core pattern refers to a program, that program isn't likely to be in the container and won't be executed on the crash.
 
 The system wide crash handler can be changed with `sysctl kernel.core_pattern=core` to set this back to a file based crash. With this, the crash should occur in the working directory, normally the `/var/lib/mysql` data directory of the container volume.
 

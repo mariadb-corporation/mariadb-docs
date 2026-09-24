@@ -88,13 +88,13 @@ While all copying and online changes application happens without blocking concur
 ### Online Change Buffer Details
 
 * Storage and Scope: Despite the name, the buffer is not purely in-memory; it is implemented as a temporary file on the filesystem using MariaDB's `create_temp_file` function. It is created on a per-table basis, rather than globally or per-session. The file is typically stored in the directory defined by the `TMPDIR` environment variable, or the OS default temporary path (like `GetTempPath` on Windows).
-* Size Limits: The online schema change reuses the temporary buffer mechanism used in the binlog for transaction/statement caches. There is currently no way to explicitly limit its maximum size via a system variable; it is only bounded by available disk space and OS-specific limits, such as a 4GB limit on a 32-bit machine.
+* Size Limits: The online schema change reuses the temporary buffer mechanism used in the binlog for transaction/statement caches. There is no way to explicitly limit its maximum size via a system variable; it is only bounded by available disk space and OS-specific limits, such as a 4GB limit on a 32-bit machine.
 * Disk Full Risks: Because there is no explicit size limit, heavy concurrent DML during a long schema change can fill up the disk hosting the temporary directory. This behaves similarly to a sort buffer for unindexed `SELECT`statements causing a disk full event, which could hang operations.
 * Crash Behavior: If the server crashes during the `ALTER` statement, no manual cleanup is required. The temporary files are created with OS-level ephemeral flags (like `O_TMPFILE` on supported Linux systems or `O_TEMPORARY | O_SHORT_LIVED` on Windows) or are unlinked immediately upon creation. This ensures the operating system automatically reclaims the file space.
 
 ## Monitoring and Troubleshooting
 
-* Currently, MariaDB does not provide a native mechanism to monitor or troubleshoot the online change buffer.
+* MariaDB does not provide a native mechanism to monitor or troubleshoot the online change buffer.
 * There are no specific `STATUS` variables available to track the size or usage of this buffer.
 * Furthermore, there are no corresponding tables in the `information_schema` or `performance_schema` to collect this data from a running server.
 * Administrators must proactively monitor the available disk space of the filesystem hosting the temporary directory (`tmpdir`) during large `ALTER TABLE` operations to prevent disk exhaustion.

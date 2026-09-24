@@ -8,7 +8,7 @@ description: >-
 
 {% include "../../../../.gitbook/includes/this-page-contains-backgrou....md" %}
 
-[PQuery](https://github.com/mariadb-corporation/mariadb-qa/tree/master/pquery) is currently in development to perform random query generation.
+[PQuery](https://github.com/mariadb-corporation/mariadb-qa/tree/master/pquery) is a tool for random query generation.
 
 The documentation for the Random Query Generator is available [here](http://github.com/RQG/RQG-Documentation/wiki/Category:RandomQueryGenerator).
 

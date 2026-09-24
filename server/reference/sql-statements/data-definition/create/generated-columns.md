@@ -203,7 +203,7 @@ CREATE TABLE t1 (a int as (1));
 
 When a generated column is `PERSISTENT` or indexed, the value of the expression needs to be consistent regardless of the [SQL Mode](../../../../server-management/variables-and-modes/sql_mode.md) flags in the current session. If it is not, then the table will be seen as corrupted when the value that should actually be returned by the computed expression and the value that was previously stored and/or indexed using a different [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) setting disagree.
 
-There are currently two affected classes of inconsistencies: character padding and unsigned subtraction:
+There are two affected classes of inconsistencies: character padding and unsigned subtraction:
 
 * For a `VARCHAR` or `TEXT` generated column the length of the value returned can vary depending on the PAD\_CHAR\_TO\_FULL\_LENGTH [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) flag. To make the value consistent, create the generated column using an RTRIM() or RPAD() function. Alternately, create the generated column as a `CHAR` column so that its data is always fully padded.
 * If a `SIGNED` generated column is based on the subtraction of an `UNSIGNED` value, the resulting value can vary depending on how large the value is and the NO\_UNSIGNED\_SUBTRACTION [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) flag. To make the value consistent, use [CAST()](../../../sql-functions/string-functions/cast.md) to ensure that each `UNSIGNED` operand is `SIGNED` before the subtraction.

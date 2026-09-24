@@ -207,7 +207,7 @@ See [CREATE TABLE: Table Options](../../create/create-table.md#table-options) fo
 
 Adds a column to the table. The syntax is the same as in [CREATE TABLE](../../create/create-table.md). If you are using `IF NOT_EXISTS` the column will not be added if it was not there already. This is very useful when doing scripts to modify tables.
 
-The `FIRST` and `AFTER` clauses affect the physical order of columns in the datafile. Use `FIRST` to add a column in the first (leftmost) position, or `AFTER` followed by a column name to add the new column in any other position. Note that, nowadays, the physical position of a column is usually irrelevant.
+The `FIRST` and `AFTER` clauses affect the physical order of columns in the datafile. Use `FIRST` to add a column in the first (leftmost) position, or `AFTER` followed by a column name to add the new column in any other position. The physical position of a column is usually irrelevant.
 
 See also [Instant ADD COLUMN for InnoDB](../../../../../server-usage/storage-engines/innodb/innodb-online-ddl/instant-add-column-for-innodb.md).
 

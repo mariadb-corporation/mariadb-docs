@@ -27,7 +27,7 @@ The limitations for `HANDLER READ` with `MEMORY|HEAP` tables are:
 
 ## Limitations for BTREE keys
 
-* `READ NEXT` gives an error 1031 if the tables changed since last read. This limitation can be lifted in the future.
+* `READ NEXT` gives an error 1031 if the tables changed since last read.
 
 ## Limitations for table scans
 

@@ -187,7 +187,7 @@ Since sequence objects act as regular tables in many contexts, they will be affe
 
 One of the goals with the Sequence implementation is that all old tools, such as [mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) (previously mysqldump), should work unchanged, while still keeping the normal usage of sequence standard compatibly.
 
-To make this possible, `sequence` is currently implemented as a table with a few exclusive properties.
+To make this possible, `sequence` is implemented as a table with a few exclusive properties.
 
 The special properties for sequence tables are:
 

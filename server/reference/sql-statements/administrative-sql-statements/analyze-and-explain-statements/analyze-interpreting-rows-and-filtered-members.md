@@ -191,7 +191,7 @@ Then, filtering members:
     "r_icp_filtered": 100,
 ```
 
-ICP and its observed filtering. The optimizer doesn't compute an estimate for this currently.
+ICP and its observed filtering. The optimizer doesn't compute an estimate for this.
 
 ```json
 ...

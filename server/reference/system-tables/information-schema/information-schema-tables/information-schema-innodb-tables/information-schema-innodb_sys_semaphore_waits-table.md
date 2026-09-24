@@ -1,12 +1,12 @@
 ---
 description: >-
-  The INNODB_SYS_SEMAPHORE_WAITS table displays threads currently waiting for
-  semaphores, which is useful for debugging high-concurrency contention.
+  The INNODB_SYS_SEMAPHORE_WAITS table was removed in MariaDB 10.6.0. It was
+  meant to show threads waiting for semaphores, but was not correctly populated.
 ---
 
 # Information Schema INNODB\_SYS\_SEMAPHORE\_WAITS Table
 
-The [Information Schema](../../) INNODB\_SYS\_SEMAPHORE\_WAITS table is meant to contain information about current semaphore waits. At present it is not correctly populated. See [MDEV-21330](https://jira.mariadb.org/browse/MDEV-21330).
+The [Information Schema](../../) INNODB\_SYS\_SEMAPHORE\_WAITS table was meant to contain information about current semaphore waits, but it was not correctly populated ([MDEV-21330](https://jira.mariadb.org/browse/MDEV-21330)). It was removed in MariaDB 10.6.0 ([MDEV-21452](https://jira.mariadb.org/browse/MDEV-21452)) and does not exist in any maintained release series.
 
 The [PROCESS privilege](../../../../sql-statements/account-management-sql-statements/grant.md#process) is required to view the table.
 

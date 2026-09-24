@@ -38,7 +38,7 @@ To ease imports from other RDBMSs, MariaDB also silently maps the following data
 | MIDDLEINT            | [MEDIUMINT](../../../data-types/numeric-data-types/mediumint.md)  |
 | NUMERIC              | [DECIMAL](../../../data-types/numeric-data-types/decimal.md)      |
 
-Currently, all MySQL types are supported in MariaDB.
+All MySQL types are supported in MariaDB.
 
 
 

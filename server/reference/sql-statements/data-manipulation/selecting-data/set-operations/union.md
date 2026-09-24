@@ -24,7 +24,7 @@ UNION [ALL | DISTINCT] SELECT ...
 
 The column names from the first `SELECT` statement are used as the column names for the results returned. Selected columns listed in corresponding positions of each SELECT statement should have the same data type. (For example, the first column selected by the first statement should have the same type as the first column selected by the other statements.)
 
-If they don't, the type and length of the columns in the result take into account the values returned by all of the SELECTs, so there is no need for explicit casting. Note that currently this is not the case for [recursive CTEs](../common-table-expressions/recursive-common-table-expressions-overview.md) - see [MDEV-12325](https://jira.mariadb.org/browse/MDEV-12325).
+If they don't, the type and length of the columns in the result take into account the values returned by all of the SELECTs, so there is no need for explicit casting. Note that this is not the case for [recursive CTEs](../common-table-expressions/recursive-common-table-expressions-overview.md) - see [MDEV-12325](https://jira.mariadb.org/browse/MDEV-12325).
 
 Table names can be specified as `db_name`.`tbl_name`. This permits writing `UNION`s which involve multiple databases. See [Identifier Qualifiers](../../../../sql-structure/sql-language-structure/identifier-qualifiers.md) for syntax details.
 
