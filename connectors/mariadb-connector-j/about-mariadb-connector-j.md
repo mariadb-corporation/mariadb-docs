@@ -200,7 +200,7 @@ See [failover description](failover-and-high-availability-with-mariadb-connector
 
 General remark: Unknown options are accepted and silently ignored.
 
-The following options are currently supported.
+The following options are supported.
 
 ### Essential Parameters
 

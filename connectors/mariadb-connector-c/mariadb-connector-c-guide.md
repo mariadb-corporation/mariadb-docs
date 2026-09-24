@@ -21,7 +21,7 @@ MariaDB Connector/C is compatible with all MariaDB and MySQL server versions.
 
 ### Supported Release Series
 
-The following MariaDB Connector/C release series are currently supported:
+The following MariaDB Connector/C release series are supported:
 
 | Release Series | Stable (GA) Date |
 | -------------- | ---------------- |
@@ -50,7 +50,7 @@ An application can also retrieve the client library version at runtime by callin
 
 ## Integration with MariaDB Server
 
-MariaDB Connector/C is distributed with MariaDB Server packages. Eventually, it will completely replace the functionality that has traditionally been performed by `libmysqlclient` in those packages. Currently, MariaDB Connector/C has replaced `libmysqlclient` as the client library for client utilities that are distributed with MariaDB Server. See [MDEV-9055](https://jira.mariadb.org/browse/MDEV-9055) for more information.
+MariaDB Connector/C is distributed with MariaDB Server packages. MariaDB Connector/C has replaced `libmysqlclient` as the client library for client utilities that are distributed with MariaDB Server. See [MDEV-9055](https://jira.mariadb.org/browse/MDEV-9055) for more information.
 
 ## Installing MariaDB Connector/C
 

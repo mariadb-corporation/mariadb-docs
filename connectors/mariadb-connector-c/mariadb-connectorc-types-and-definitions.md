@@ -82,7 +82,7 @@ MariaDB Connector/C provides the following types and definitions.
 
 #### enum enum\_cursor\_type
 
-`enum_cursor_type` specifies the cursor type and is used in [mysql\_stmt\_attr\_set()](api-prepared-statement-functions/mysql_stmt_attr_set.md) function. Currently the following constants are supported:
+`enum_cursor_type` specifies the cursor type and is used in [mysql\_stmt\_attr\_set()](api-prepared-statement-functions/mysql_stmt_attr_set.md) function. The following constants are supported:
 
 * `CURSOR_TYPE_READ_ONLY`
 * `CURSOR_TYPE_NO_CURSOR`
