@@ -127,29 +127,28 @@ site:
               content:
                 directory: ./exa
         - type: section
-          key: gridgain-8-sec
-          title: GridGain 8
-          path: gridgain-8
+          key: gridgain-sec
+          title: GridGain
+          path: gridgain
           icon: bolt
           children:
+            - type: space
+              key: gridgain-overview
+              title: GridGain
+              path: gridgain-home
+              default: true
+              content:
+                directory: ./gridgain
             - type: space
               key: gridgain-8
               title: GridGain 8
               path: gridgain-8-home
-              default: true
               content:
                 directory: ./gridgain-8
-        - type: section
-          key: gridgain-9-sec
-          title: GridGain 9
-          path: gridgain-9
-          icon: bolt
-          children:
             - type: space
               key: gridgain-9
               title: GridGain 9
               path: gridgain-9-home
-              default: true
               content:
                 directory: ./gridgain-9
         - type: section
@@ -165,37 +164,19 @@ site:
               default: true
               content:
                 directory: ./tools
-    - type: section-group
-      key: cloud
+    - type: section
+      key: mariadb-cloud-sec
       title: Cloud
+      path: mariadb-cloud
       icon: cloud
       children:
-        - type: section
-          key: mariadb-cloud-sec
+        - type: space
+          key: mariadb-cloud
           title: MariaDB Cloud
-          path: mariadb-cloud
-          icon: cloud
-          children:
-            - type: space
-              key: mariadb-cloud
-              title: MariaDB Cloud
-              path: mariadb-cloud-home
-              default: true
-              content:
-                directory: ./mariadb-cloud
-        - type: section
-          key: cloud-ai-retrieval-sec
-          title: Cloud AI Retrieval
-          path: cloud-ai-retrieval
-          icon: robot
-          children:
-            - type: space
-              key: cloud-ai-retrieval
-              title: Cloud AI Retrieval
-              path: cloud-ai-retrieval-home
-              default: true
-              content:
-                directory: ./cloud-ai-retrieval
+          path: mariadb-cloud-home
+          default: true
+          content:
+            directory: ./mariadb-cloud
     - type: section
       key: connectors-sec
       title: Connectors

@@ -1,18 +1,14 @@
 ---
 title: GridGain 9
 description: >-
-  GridGain 9 is the current generation of the in-memory caching and
-  acceleration layer, built on Apache Ignite 3.
+  Install, configure, and operate GridGain 9 for existing GridGain 9
+  deployments.
 icon: bolt
 ---
 
 # GridGain 9
 
-GridGain 9 is the current generation of the GridGain in-memory data platform. Like GridGain 8, it holds a distributed store across a cluster of nodes and serves data from memory so that hot reads do not reach the database of record. It is built on Apache Ignite 3 rather than Apache Ignite 2, which is a different architecture rather than an incremental change.
-
-The practical differences from GridGain 8 are in cluster management, the SQL engine, and the transaction model, and they affect configuration, client APIs, and operational procedure. Treat a move from GridGain 8 as a migration, not an upgrade, and read this space rather than assuming GridGain 8 knowledge transfers.
-
-For a new deployment, GridGain 9 is the place to start. GridGain 8 remains documented in its own space for existing deployments.
+GridGain 9 is an in-memory data platform documented for existing GridGain 9 deployments. It holds a distributed store across a cluster of nodes and serves data from memory, so hot reads do not reach the database of record. It is built on Apache Ignite 3.
 
 **Install and connect.** GridGain 9 runs as a cluster your application connects to as a client. Install the nodes, initialize the cluster, then connect and confirm the cluster answers.
 
@@ -20,7 +16,7 @@ For a new deployment, GridGain 9 is the place to start. GridGain 8 remains docum
 
 **Understand the architecture.** The concepts pages cover the cluster and storage model, how SQL is executed across nodes, and the transactional guarantees on offer, which is what tells you which read and write paths are safe to route through it.
 
-Start from the overview to see how the architecture differs from GridGain 8 before you plan either a new deployment or a move.
+Start from the overview to see how the cluster, SQL engine, and transaction model fit together before you change a deployment.
 
 ## Get Started
 

@@ -13,13 +13,13 @@ MariaDB Server is an open source relational database. It speaks standard SQL and
 
 These pages document the current release series. Version specific behavior is called out on the page where it applies, and per release detail lives in [Release Notes]({release-notes}).
 
-There are three products, and they differ in who operates the database rather than in what the database does. **MariaDB Server** is the database you download, run, and manage yourself, under no contract. **MariaDB Enterprise Platform** runs that same server under a support contract, on hardened builds, with routing, clustering, analytics, and management components bundled and tested together as one supported topology. **MariaDB Cloud** is the fully managed service, which operates the hardware, updates, backups, and availability on your behalf. The SQL you write, the schemas you design, and most of this documentation apply to all three, so choosing one now does not lock you out of the others later.
+There are three ways to run MariaDB, and they differ in who operates the database rather than in what the database does. **MariaDB Server** is the open source project: the database you download, run, and manage yourself, under no contract. **MariaDB Enterprise Platform** is the supported MariaDB product. It runs that same server under a support contract, on hardened builds, with routing, clustering, analytics, and management components bundled and tested together as one supported topology. **MariaDB Cloud** runs MariaDB as a fully managed service, which operates the hardware, updates, backups, and availability on your behalf. The SQL you write, the schemas you design, and most of this documentation apply to all three, so choosing one now does not lock you out of the others later.
 
-The documentation is organized to be entered two ways. The product pages take you from nothing to a working database and then into that product's own space. The task pages cut across the products and link directly to the pages that do the work, wherever they live, so you do not need to know that backups are documented under Server and cluster failover under Galera Cluster.
+The documentation is organized to be entered two ways. The Server, MariaDB Platform, and Cloud pages take you from nothing to a working database and then into the matching documentation. The task pages cut across all three and link directly to the pages that do the work, wherever they live, so you do not need to know that backups are documented under Server and cluster failover under Galera Cluster.
 
-The Platform components each have a space of their own in the sidebar, grouped under MariaDB Platform. MaxScale routes and load balances queries. Galera Cluster and Raft Cluster handle replication and failover. ColumnStore and Exa run columnar analytics against operational data, and both require MariaDB Enterprise Server. GridGain 8 and GridGain 9 provide the in-memory caching and acceleration layer. Language drivers, connection pooling, and prepared statement support are documented under [Connectors]({connectors}).
+The Platform components each have a space of their own in the sidebar, grouped under MariaDB Platform. MaxScale routes and load balances queries. Galera Cluster and Raft Cluster handle replication and failover. ColumnStore and Exa run columnar analytics against operational data, and both require MariaDB Enterprise Server. GridGain provides the in-memory caching and acceleration layer. Language drivers, connection pooling, and prepared statement support are documented under [Connectors]({connectors}).
 
-## Start With a Product
+## Choose How to Run MariaDB
 
 {% content-ref url="readme/community-server.md" %}
 [community-server.md](readme/community-server.md)
@@ -33,8 +33,8 @@ The Platform components each have a space of their own in the sidebar, grouped u
 [cloud.md](readme/cloud.md)
 {% endcontent-ref %}
 
-{% content-ref url="which-product-do-i-need.md" %}
-[which-product-do-i-need.md](which-product-do-i-need.md)
+{% content-ref url="choose-how-to-run-mariadb.md" %}
+[choose-how-to-run-mariadb.md](choose-how-to-run-mariadb.md)
 {% endcontent-ref %}
 
 ## Explore by Task

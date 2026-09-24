@@ -11,7 +11,7 @@ icon: cloud
 
 MariaDB Cloud is a fully managed database service for MariaDB and MySQL compatible workloads. You provision a database and the service operates the hardware, the updates, the backups, and the availability. Choose a provisioned instance for a steady workload, or serverless to scale with demand and avoid paying for idle capacity.
 
-It runs across major cloud providers and regions, so the database can sit near your application, and it carries the same MariaDB and MySQL compatibility as the self managed products, so existing code and tools work unchanged. Patching, automated backups, and failover are on by default rather than being things you build.
+It runs across major cloud providers and regions, so the database can sit near your application, and it carries the same MariaDB and MySQL compatibility as MariaDB Server and MariaDB Enterprise Platform, so existing code and tools work unchanged. Patching, automated backups, and failover are on by default rather than being things you build.
 
 **Launch a database.** The portal is the fastest start. It walks through creating a database, sizing it, and collecting the connection details. To script it instead, the API can provision a database from Python, which is the same pattern you would use to create databases from a deployment pipeline.
 

@@ -11,7 +11,7 @@ icon: layer-group
 
 MariaDB Enterprise Platform is MariaDB Enterprise Server plus the components a production deployment needs, bundled, version certified against each other, and covered by a support contract. You still operate it. What the Platform provides is a tested set of parts rather than an assembly you validate yourself.
 
-The components address distinct problems. MaxScale routes queries, balances reads, and hides failover from the application. Galera Cluster and Raft Cluster replicate data across nodes and handle failover. ColumnStore and Exa run columnar analytics, and both require MariaDB Enterprise Server. GridGain 8 and GridGain 9 provide in-memory caching and acceleration. Enterprise Manager and the Enterprise Operator manage fleets and Kubernetes deployments.
+The components address distinct problems. MaxScale routes queries, balances reads, and hides failover from the application. Galera Cluster and Raft Cluster replicate data across nodes and handle failover. ColumnStore and Exa run columnar analytics, and both require MariaDB Enterprise Server. GridGain provides in-memory caching and acceleration. Enterprise Manager and the Enterprise Operator manage fleets and Kubernetes deployments.
 
 What the contract adds is concrete: component versions certified to work together, security fixes maintained across the whole stack, hardened builds, and an escalation path when a production system is failing.
 
