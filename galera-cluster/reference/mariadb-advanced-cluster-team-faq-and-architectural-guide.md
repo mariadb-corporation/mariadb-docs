@@ -8,7 +8,7 @@ description: >-
 # MariaDB Advanced Cluster: Team FAQ & Architectural Guide
 
 {% hint style="info" %}
-MariaDB Advanced Cluster is currently in Technical Preview. This FAQ is an interim guide. Once the Advanced Cluster reaches General Availability (GA), this page will be redirected to the official comprehensive documentation.
+MariaDB Advanced Cluster is available as a Technical Preview. This FAQ is an interim guide until General Availability (GA) documentation exists.
 {% endhint %}
 
 ## The Basics

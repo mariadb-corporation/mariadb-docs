@@ -219,7 +219,7 @@ In some cases, if Galera Cluster's automatic SSTs repeatedly fail, then it can b
 
 ### mysqld\_multi
 
-SST scripts can't currently read the mysqld<#> [option group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#option-groups) in an [option file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files) that are read by instances managed by mysqld\_multi.
+SST scripts can't read the mysqld<#> [option group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#option-groups) in an [option file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files) that are read by instances managed by mysqld\_multi.
 
 See [MDEV-18863](https://jira.mariadb.org/browse/MDEV-18863) for more information.
 
