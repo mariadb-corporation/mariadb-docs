@@ -11,7 +11,7 @@ This guide walks through a complete MySQL to MariaDB migration in **Serial Strea
 Serial Streaming Copy is the most direct mode: it pipes `mariadb-dump` from the source straight into the `mariadb` client on the target, one table at a time. It needs no extra data-transfer engine and no replication setup, which makes it the right choice for a first migration and for smaller databases that can move within a standard maintenance window.
 
 {% hint style="info" %}
-The migrator is in **beta**. Run this procedure against a non-production target first, and validate the result before you migrate a production database.
+Rehearse this procedure against a non-production target first, and validate the result before you migrate a production database.
 {% endhint %}
 
 This guide uses the `sakila` sample database as the example. Substitute your own database name wherever `sakila` appears.
@@ -44,7 +44,7 @@ On the first run, the launcher creates a project-local Python environment (`.ven
 ```
 ---------------------------------------------------------------------
  Welcome to the MySQL to MariaDB Migration Tool
- Tool Version: 1.3.1-beta (Build 20260622)
+ Tool Version: 1.5.0 (Build 20260921)
  Supported Sources: MySQL 8.0, 8.4
 ---------------------------------------------------------------------
 ==> Validating execution environment...
