@@ -36,5 +36,9 @@
 # does enforce is that no path is listed twice in a section.
 
 orphan:
+  - path: gridgain8/gridgain8-usage/machine-learning/python/overview.md
+    reason: "hidden — Python ML page was :page-published: false in the GG8 source; kept but hidden per the migration decision"
+  - path: gridgain8/gridgain8-usage/machine-learning/python/using-python-ml.md
+    reason: "hidden — Python ML page was :page-published: false in the GG8 source; kept but hidden per the migration decision"
 
 shrink:
