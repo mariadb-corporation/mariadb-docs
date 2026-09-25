@@ -1,0 +1,106 @@
+name: Check Railroad Diagram Dark-Mode Contrast in PR
+
+# Gates the dark-mode legibility of the railroad-diagram SVGs (DOCS-6637).
+#
+# The bottlecaps RR generator draws connector lines in near-black (#332900, #141000, #1F1800) on
+# a transparent background. On GitBook's dark page that is about 1.1-1.4:1, under the 3:1 WCAG
+# 2.1 SC 1.4.11 requires for non-text contrast. A reader reported diagrams with the boxes
+# floating free, because the lines joining them had disappeared. The diagrams are plain <img>
+# references, so page CSS cannot reach inside them. Each file carries a white background card
+# instead, and .claude/hooks/railroadcheck.py fails any that does not. Its header has the
+# measurements and the reason the fill must be an inline style.
+#
+# The generator has no background option, so every regenerated diagram arrives without the card.
+# It renders and reads fine in light mode, which is the mode most authors preview in. Without a
+# gate, the next regenerated diagram regresses silently.
+#
+# Tree-wide and absolute, like mermaidcheck-pr.yml, because there is no backlog: DOCS-6637 fixed
+# all 124 diagrams in the same change that added this gate, so a failure can only come from the
+# PR under test. A whole-tree pass is under a second.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: railroadcheck-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  railroadcheck:
+    runs-on: ubuntu-latest
+    # A whole-tree pass takes seconds. Without a timeout a wedged run inherits the 6-hour
+    # default and ends as *cancelled*, which `if: failure()` does not catch.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        # Absolute check: the working tree is all it needs, so the default shallow clone is fine.
+
+      - name: Check every railroad diagram in the tree
+        id: railroadcheck
+        run: |
+          set -uo pipefail
+          # NUL-delimited through --stdin0, one invocation, one verdict -- the trap
+          # includecheck-pr.yml documents for xargs.
+          set +e
+          git ls-files -z -- '*-railroad.svg' \
+            | python3 .claude/hooks/railroadcheck.py --stdin0 > railroadcheck.log 2>&1
+          rc=$?
+          set -e
+          cat railroadcheck.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          case "$rc" in
+            0) ;;
+            1) echo "::error::This PR has a railroad diagram without its dark-mode background card. Run: python3 .claude/hooks/railroadcheck.py --fix <file.svg>. Details in the job log and the run summary." ;;
+            2) echo "::error::railroadcheck.py rejected its arguments -- this workflow is misconfigured, not the PR." ;;
+            *) echo "::error::railroadcheck.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      # "Checked 124 diagrams, all fixed" and "checked nothing" share exit 0. A renamed asset
+      # directory or a changed file suffix would turn this gate silently and permanently green, so
+      # assert that it really looked at something.
+      - name: Assert the check was not vacuous
+        if: steps.railroadcheck.outputs.rc == '0'
+        run: |
+          set -euo pipefail
+          # A floor of 1, not the current count: any fixed number rots on the next diagram added
+          # or removed, and the point is only that the file list found real content.
+          count="$(sed -n 's/^railroadcheck: \([0-9]\{1,\}\) diagram.*/\1/p' railroadcheck.log)"
+          if [[ -z "$count" || "$count" -lt 1 ]]; then
+            cat railroadcheck.log
+            echo "::error::Could not read a nonzero diagram count out of railroadcheck's output. Either the summary line changed shape (update this assertion with it) or no *-railroad.svg file is tracked, in a tree that has over a hundred."
+            exit 1
+          fi
+          echo "Checked $count railroad diagram(s) -- the check ran against real content."
+
+      - name: Record the result in the run summary
+        if: always()
+        env:
+          RC: ${{ steps.railroadcheck.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Railroad diagram dark-mode contrast"
+            echo
+            if [[ ! -s railroadcheck.log ]]; then
+              echo "No output was produced -- an earlier step failed before the scan ran."
+            else
+              case "${RC:-}" in
+                0) echo "Every railroad diagram carries its dark-mode background card." ;;
+                1) echo "A railroad diagram is missing its background card, so its connector lines vanish on the dark page. Add it with \`python3 .claude/hooks/railroadcheck.py --fix <file.svg>\`. See \`dev-docs/railroad-diagrams.md\`." ;;
+                *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              # Four-backtick fence: the log embeds author-controlled file paths, and this summary
+              # renders as GFM. Same reasoning as includecheck-pr.yml.
+              echo '````text'
+              cat railroadcheck.log
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

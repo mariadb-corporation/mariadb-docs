@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="459" height="213">
+<svg xmlns="http://www.w3.org/2000/svg" width="475" height="229">
    <defs>
       <style type="text/css">
     @namespace "http://www.w3.org/2000/svg";
@@ -29,6 +29,8 @@
     polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
   </style>
    </defs>
+   <rect class="plate" width="100%" height="100%" rx="8" style="fill: #FFFFFF; stroke: none"/>
+   <g transform="translate(8 8)">
    <polygon points="9 17 1 13 1 21"/>
    <polygon points="17 17 9 13 9 21"/>
    <rect x="71" y="3" width="206" height="32" rx="10"/>
@@ -89,4 +91,5 @@
          d="m17 17 h2 m40 0 h10 m206 0 h10 m0 0 h40 m-286 0 h20 m266 0 h20 m-306 0 q10 0 10 10 m286 0 q0 -10 10 -10 m-296 10 v24 m286 0 v-24 m-286 24 q0 10 10 10 m266 0 q10 0 10 -10 m-276 10 h10 m206 0 h10 m0 0 h40 m-276 -10 v20 m286 0 v-20 m-286 20 v24 m286 0 v-24 m-286 24 q0 10 10 10 m266 0 q10 0 10 -10 m-276 10 h10 m246 0 h10 m-276 -10 v20 m286 0 v-20 m-286 20 v24 m286 0 v-24 m-286 24 q0 10 10 10 m266 0 q10 0 10 -10 m-276 10 h10 m206 0 h10 m0 0 h40 m20 -132 h10 m54 0 h10 m-400 0 h20 m380 0 h20 m-420 0 q10 0 10 10 m400 0 q0 -10 10 -10 m-410 10 v156 m400 0 v-156 m-400 156 q0 10 10 10 m380 0 q10 0 10 -10 m-390 10 h10 m182 0 h10 m0 0 h10 m48 0 h10 m0 0 h110 m23 -176 h-3"/>
    <polygon points="449 17 457 13 457 21"/>
    <polygon points="449 17 441 13 441 21"/>
+   </g>
 </svg>

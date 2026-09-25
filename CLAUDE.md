@@ -21,6 +21,7 @@ Guidance for Claude Code (and other AI agents) working in the **MariaDB document
 | Repo map, the documentation spaces, conventions, commands | `AGENTS.md` |
 | What lives in which space + `SUMMARY.md` rules | `dev-docs/space-map.md` |
 | GitBook block syntax (hint/tabs/code/content-ref) | `dev-docs/gitbook-syntax.md` |
+| Railroad diagrams (generate, dark-mode card) | `dev-docs/railroad-diagrams.md` |
 | Cross-space link aliases | `dev-docs/link-aliases.md` |
 | Style summary | `dev-docs/style-guide.md` |
 | Pre-PR checklist (mirror CI locally) | `dev-docs/cookbook-pre-pr.md` |
