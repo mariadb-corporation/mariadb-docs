@@ -112,6 +112,12 @@ on the file set, from the repo root:
   is reported `[unanchored-heading]`. A heading GitBook transliterates and the rules cannot
   reproduce — `中国` publishes as `zhong-guo` — is listed by `.claude/hooks/fragcheck.py risky`
   and reported `[uncertain-slug]`, never silently resolved against a guess.
+- **Cross-space links are checked too** (DOCS-6608): an `app.gitbook.com/.../s/<space>/<path>#x`
+  or `{alias}/<path>#x` link has its anchor checked on the target space's page. Its `<path>` is
+  the page's position in that space's `SUMMARY.md`, **not** its file path, so write the nav path
+  without `.md`. GitBook cannot resolve a file path, and it renders the link as a raw editor URL
+  that readers can't open. The same gate therefore fails a PR that moves a `SUMMARY.md` entry
+  other spaces link to, and lists every link that stops resolving.
 - The same gate catches a heading that publishes **another heading's** anchor. Duplicate a
   heading line for a new section, edit its text but leave its `<a href="#x" id="x">` behind, and
   GitBook honours that explicit id over the text slug: the two sections share one anchor, the
