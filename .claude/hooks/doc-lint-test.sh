@@ -808,6 +808,104 @@ want_rc 1
 want_err 'no init directive'
 end
 
+# ---- railroad-diagram dark-mode card (DOCS-6637; gated in CI by railroadcheck-pr.yml) --------
+# railroadcheck.py is driven directly, the way railroadcheck-pr.yml drives it. The fixture is
+# the smallest committed diagram as RR 2.6 emits it, before the card, so --fix is exercised on
+# real generator output rather than a hand-made imitation.
+RAILROADCHECK="$SCRIPT_DIR/railroadcheck.py"
+RR_DIR="$SANDBOX/server/rr"
+mkdir -p "$RR_DIR"
+cat > "$RR_DIR/raw.svg" <<'SVG'
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="227" height="37">
+   <defs>
+      <style type="text/css">
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+  </style>
+   </defs>
+   <polygon points="9 17 1 13 1 21"/>
+   <path class="line" d="m17 17 h2 m0 0 h10"/>
+</svg>
+SVG
+sed 's|</defs>|</defs>\n   <rect width="100%" height="100%" fill="#ffffff"/>|' "$RR_DIR/raw.svg" \
+  > "$RR_DIR/attr-fill.svg"
+sed 's|</defs>|</defs>\n   <rect class="plate" width="100%" height="100%" style="fill: #666666; stroke: none"/>|' \
+  "$RR_DIR/raw.svg" > "$RR_DIR/grey-card.svg"
+RR_STDIN=''
+rr() {
+  set +e
+  ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+      python3 "$RAILROADCHECK" "$@" < "${RR_STDIN:-/dev/null}" ) > "$OUT" 2> "$ERR"
+  RC=$?
+  set -e
+}
+
+begin 'railroadcheck.py with no arguments is a usage error, not a silent pass'
+rr
+want_rc 2
+want_err 'usage:'
+end
+
+begin 'a diagram straight from the generator fails'
+rr server/rr/raw.svg
+want_rc 1
+want_err 'no background card'
+end
+
+begin 'the ticket-style fill= attribute fails — the generator CSS paints it dark brown'
+rr server/rr/attr-fill.svg
+want_rc 1
+want_err 'no background card'
+end
+
+begin 'a card whose colour misses 3:1 against the connectors fails on the measured ratio'
+rr server/rr/grey-card.svg
+want_rc 1
+want_err 'needs 3:1'
+end
+
+begin '--fix adds the card, grows the canvas by the padding, and a second run changes nothing'
+cp "$RR_DIR/raw.svg" "$RR_DIR/tofix.svg"
+rr --fix server/rr/tofix.svg
+want_rc 0
+want_out 'fixed 1 file(s)'
+if ! grep -q 'width="243" height="53"' "$RR_DIR/tofix.svg"; then
+  problem 'the canvas was not grown by 2 x 8px of padding'
+fi
+cp "$RR_DIR/tofix.svg" "$SANDBOX/.rr-once"
+rr --fix server/rr/tofix.svg
+want_rc 0
+want_out '0 failing; fixed 0 file(s)'
+if ! cmp -s "$RR_DIR/tofix.svg" "$SANDBOX/.rr-once"; then
+  problem 'a second --fix run changed the file again'
+fi
+rr server/rr/tofix.svg
+want_rc 0
+rm -f "$SANDBOX/.rr-once"
+end
+
+begin 'railroadcheck --stdin0 does not split a path containing a space'
+cp "$RR_DIR/raw.svg" "$RR_DIR/raw with spaces.svg"
+nul_list "$SANDBOX/.list" 'server/rr/raw with spaces.svg' 'server/rr/tofix.svg'
+RR_STDIN="$SANDBOX/.list" rr --stdin0
+RR_STDIN=''
+want_rc 1
+want_err 'server/rr/raw with spaces.svg'
+want_out '2 diagram(s); 1 failing'
+end
+
+begin 'railroadcheck --stdin0 on empty input says so rather than claiming a clean tree'
+nul_list "$SANDBOX/.list"
+RR_STDIN="$SANDBOX/.list" rr --stdin0
+RR_STDIN=''
+want_rc 0
+want_out 'no SVG files'
+end
+
 # ---- orphaned pages / navcheck.py (DOCS-6567; fixtures added in DOCS-6586) -------------------
 # Runs in the orphan sandbox (see build_navbox). Asserts the exit code AND the message, per
 # DOCS-6471's rule that a gate whose wording is untested is a gate nobody can act on.

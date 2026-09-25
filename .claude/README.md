@@ -10,6 +10,7 @@ Code. It contains:
 | `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus five checks it delegates to their own scripts: includes (`includecheck.sh`), Mermaid edge-label contrast (`mermaidcheck.py`), heading anchors (`fragcheck.py`), orphaned pages (`navcheck.py`) and gutted pages (`shrinkcheck.py`). All five are gated in CI too |
 | `hooks/includecheck.sh` | Resolves every relative GitBook `{% include %}`; fails on a dead or cross-space target. Also the entry point for `includecheck-pr.yml` (DOCS-6586), which runs it tree-wide |
 | `hooks/mermaidcheck.py` | Fails a Mermaid flowchart whose edge labels miss WCAG AA contrast in GitBook's dark theme (DOCS-6630); `--fix` adds the house fix. Called by `doc-lint.sh` and, tree-wide, by `mermaidcheck-pr.yml` |
+| `hooks/railroadcheck.py` | Fails a railroad-diagram SVG without the white background card that keeps its connector lines visible in GitBook's dark theme (DOCS-6637); `--fix` adds it, and is the last step of every regeneration (`dev-docs/railroad-diagrams.md`). Run tree-wide by `railroadcheck-pr.yml`. Not called by `doc-lint.sh`, which checks Markdown |
 | `hooks/fragcheck.py` | GitBook-accurate heading-anchor checker, called by `doc-lint.sh` and by `fragcheck-pr.yml` |
 | `hooks/timeless.py` | High-precision finder for undated product claims ("currently in beta", "coming soon", "at the time of writing"), the check behind the style guide's *Timeless wording* rule (DOCS-6640). **Advisory only** — called by `nightly-timeless.yml` and the `style-apply` skill, never by `doc-lint.sh` or a PR gate |
 | `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` and by `navcheck-pr.yml` |
@@ -149,8 +150,11 @@ containing a space, the counts line the CI assertion reads back, its usage error
 branches. DOCS-6630 added 11 for `mermaidcheck.py`: the unfixed, fixed, low-contrast and
 unlabelled cases, the one-line directive first proposed on that ticket (which must fail), the
 detector regression its first draft shipped, `--fix` idempotence, `--stdin0`, and the
-`doc-lint.sh` delegation. Run the suite after any change to `doc-lint.sh`, `includecheck.sh`,
-`mermaidcheck.py`, `navcheck.py`, `shrinkcheck.py` or `allowlist.py`:
+`doc-lint.sh` delegation. DOCS-6637 added 7 for `railroadcheck.py`: raw generator output, the
+`fill=` attribute that the generator's CSS overrides, a card that misses 3:1, `--fix` padding
+and idempotence, and `--stdin0`. Run the suite after any change to `doc-lint.sh`,
+`includecheck.sh`, `mermaidcheck.py`, `railroadcheck.py`, `navcheck.py`, `shrinkcheck.py` or
+`allowlist.py`:
 
 ```bash
 .claude/hooks/doc-lint-test.sh              # --keep to inspect the sandbox, --verbose for output
