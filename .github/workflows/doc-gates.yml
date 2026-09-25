@@ -156,7 +156,10 @@ jobs:
           set -uo pipefail
           specs=()
           while IFS= read -r spec; do
-            spec="$(echo "$spec" | tr -d '[:space:]')"
+            # Trim leading and trailing whitespace only. `tr -d '[:space:]'` also deleted interior
+            # spaces, which would have silently rewritten a pathspec containing one.
+            spec="${spec#"${spec%%[![:space:]]*}"}"
+            spec="${spec%"${spec##*[![:space:]]}"}"
             [ -n "$spec" ] && specs+=("$spec")
           done <<< "$PATHSPECS"
           if [ "${#specs[@]}" -eq 0 ]; then

@@ -16,8 +16,9 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  # The gate job below publishes its verdict as a commit status on the PR head (DOCS-6675).
-  statuses: write
+  # No `statuses: write` here: the gate job below declares its own permissions block, which
+  # replaces this one for that job, so granting it here would only widen the token of the job
+  # that runs create-pull-request (DOCS-6675 review).
 
 concurrency:
   group: regen-tier2-functions
@@ -29,6 +30,7 @@ jobs:
     outputs:
       pr-number: ${{ steps.cpr.outputs.pull-request-number }}
       head-sha: ${{ steps.cpr.outputs.pull-request-head-sha }}
+      operation: ${{ steps.cpr.outputs.pull-request-operation }}
     steps:
       - uses: actions/checkout@v7
 
@@ -82,7 +84,10 @@ jobs:
   #   what the caller happens to be gating.
   gate:
     needs: regenerate
-    if: needs.regenerate.outputs.pr-number != ''
+    # Same guard as sync-server-api-plugin-docs.yml: a run with no diff closes an open PR while
+    # still reporting its number. There is no delete-branch here, so the branch survives, but
+    # gating a closed PR would only post a status nobody reads.
+    if: needs.regenerate.outputs.pr-number != '' && needs.regenerate.outputs.operation != 'closed'
     permissions:
       contents: read
       statuses: write

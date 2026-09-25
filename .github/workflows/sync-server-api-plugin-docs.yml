@@ -15,8 +15,9 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  # The gate job below publishes its verdict as a commit status on the PR head (DOCS-6675).
-  statuses: write
+  # No `statuses: write` here: the gate job below declares its own permissions block, which
+  # replaces this one for that job, so granting it here would only widen the token of the job
+  # that runs create-pull-request (DOCS-6675 review).
 
 concurrency:
   group: sync-server-api-plugin-docs
@@ -187,8 +188,12 @@ jobs:
   #   fragcheck, includecheck, navcheck, the shrink guard, the retired-KB guard and lychee.
   gate:
     needs: generate-and-pr
-    # Empty when the generated docs were unchanged and no PR was opened or updated.
-    if: needs.generate-and-pr.outputs.pr-number != ''
+    # pr-number is empty when the generated docs were unchanged and no PR existed. It is NOT
+    # empty when a later run finds no diff while a PR is open: create-pull-request then closes
+    # that PR and (delete-branch: true) deletes its branch, reporting operation "closed" with
+    # the old number still set. Gating on the number alone would check out a deleted branch
+    # and post a red doc-gates status onto a PR that was just closed.
+    if: needs.generate-and-pr.outputs.pr-number != '' && needs.generate-and-pr.outputs.operation != 'closed'
     permissions:
       contents: read
       statuses: write
