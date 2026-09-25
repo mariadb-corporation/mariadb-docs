@@ -8,6 +8,12 @@ description: >-
 # MySQL to MariaDB Migration: The Master Guide
 
 {% hint style="info" %}
+The [**MySQL to MariaDB Migrator**](mysql-to-mariadb-migrator/) tool automates end-to-end MySQL to MariaDB migrations — schema, data, users, and validation — in four selectable modes. Using it is the recommended way of migrating from MySQL to MariaDB.
+
+This page describes how to migrate in a manual fashion.
+{% endhint %}
+
+{% hint style="info" %}
 **Environment Scope**
 
 This guide focuses on **migrations within Linux-based environments** (RHEL/CentOS/Alma, Debian/Ubuntu, etc.), as these represent the vast majority of production MySQL and MariaDB deployments.
@@ -345,11 +351,11 @@ Even with careful preparation, migrations can encounter specific hurdles. Here a
 
 ### Common Troubleshooting Scenarios
 
-| Issue                                      | Likely Cause                    | Resolution                                                                                                                 |
-| ------------------------------------------ | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| "Table 'mysql.user' doesn't exist"         | Missing `mariadb-upgrade` step. | The system tables must be converted. Run `sudo mariadb-upgrade -u root -p` immediately after starting the service.         |
-| Replication fails with "relay log" errors. | GTID Incompatibility.           | MariaDB cannot use MySQL GTIDs. You must switch to position-based replication (File and Position) to link the two systems. |
-| Slow queries after migration.              | Outdated optimizer statistics.  | MariaDB's optimizer needs fresh data. Run `ANALYZE TABLE` on all large tables, or use `mariadb-check --analyze --all-databases`.              |
+| Issue                                      | Likely Cause                    | Resolution                                                                                                                       |
+| ------------------------------------------ | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| "Table 'mysql.user' doesn't exist"         | Missing `mariadb-upgrade` step. | The system tables must be converted. Run `sudo mariadb-upgrade -u root -p` immediately after starting the service.               |
+| Replication fails with "relay log" errors. | GTID Incompatibility.           | MariaDB cannot use MySQL GTIDs. You must switch to position-based replication (File and Position) to link the two systems.       |
+| Slow queries after migration.              | Outdated optimizer statistics.  | MariaDB's optimizer needs fresh data. Run `ANALYZE TABLE` on all large tables, or use `mariadb-check --analyze --all-databases`. |
 
 ## Frequently Asked Questions
 
