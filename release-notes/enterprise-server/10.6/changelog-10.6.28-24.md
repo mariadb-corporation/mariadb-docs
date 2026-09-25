@@ -57,7 +57,7 @@ hidden: true
 * Hashicorp Key Management plugin improved performance by avoiding calling expensive time retrieval functions ([MENT-2764](https://jira.mariadb.org/browse/MENT-2764))
 * A large number of joins in a SELECT can crash the server ([MENT-2788](https://jira.mariadb.org/browse/MENT-2788))
 * Backport MDEV-40413 - ALTER TABLE ... CONVERT ... PARTITION doesn't encode partition names ([MENT-2799](https://jira.mariadb.org/browse/MENT-2799))
-* Backport MDEV-40058 - cached_sha2_password crashes on zero-length password ([MENT-2804](https://jira.mariadb.org/browse/MENT-2804))
+* Authenticating with the caching_sha2_password plugin over a connection without TLS, using its RSA key exchange, could crash the server if the encrypted packet decrypted to a zero-length password; such a password is now rejected as an authentication failure instead of crashing the server. ([MENT-2804](https://jira.mariadb.org/browse/MENT-2804))
 * Backport MDEV-40365 - OOB read for common_header_len & post_header_len on malformed Format_description_log_event ([MENT-2840](https://jira.mariadb.org/browse/MENT-2840))
 * Backport MDEV-40366 - OOB read for used_checksum_alg on malformed Format_description_log_event ([MENT-2841](https://jira.mariadb.org/browse/MENT-2841))
 * Backport MDEV-39485 - Heap-buffer-overflow in mariadb-binlog upon read in Rows_log_event constructor in sql/log_event.cc ([MENT-2842](https://jira.mariadb.org/browse/MENT-2842))
