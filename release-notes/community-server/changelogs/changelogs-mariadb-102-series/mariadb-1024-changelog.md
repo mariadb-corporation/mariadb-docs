@@ -12,7 +12,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
 
 * [Revision #34bbc76f1c](https://github.com/MariaDB/server/commit/34bbc76f1c)\
   2017-02-16 09:18:46 +0200
-  * Simplify a [WL#6494](https://askmonty.org/worklog/?tid=6494)/[WL#7142](https://askmonty.org/worklog/?tid=7142) test.
+  * Simplify a WL#6494/WL#7142 test.
 * [Revision #7a5288015c](https://github.com/MariaDB/server/commit/7a5288015c)\
   2017-02-16 09:16:11 +0200
   * [MDEV-12072](https://jira.mariadb.org/browse/MDEV-12072) Do not unnecessarily construct rec\_printer objects

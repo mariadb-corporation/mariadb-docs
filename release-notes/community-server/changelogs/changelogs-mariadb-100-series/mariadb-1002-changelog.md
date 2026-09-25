@@ -273,7 +273,7 @@ modified in that revision.
         * Added histogams for table columns.
       * [Revision #3427.18.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.18.1)\
         Mon 2013-03-11 07:44:24 -0700
-        * The pilot patch for [MWL#253](https://askmonty.org/worklog/?tid=253).
+        * The pilot patch for MWL#253.
   * [Revision #3492.1.23](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3492.1.23) \[merge]\
     Wed 2013-04-17 15:17:01 +0200
     * Merge 10.0-base -> 10.0 (GTID).
@@ -836,7 +836,7 @@ modified in that revision.
         * Merge
         * [Revision #3413.30.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.30.1)\
           Wed 2013-03-27 19:17:32 -0700
-          * Fixed bug [MDEV-4311](https://jira.mariadb.org/browse/MDEV-4311) (bug #68749). This bug was introduced by the patch for [WL#3220](https://askmonty.org/worklog/?tid=3220). If the memory allocated for the tree to store unique elements to be counted is not big enough to include all of them then an external file is used to store the elements. The unique elements are guaranteed not to be nulls. So, when reading them from the file we don't have to care about the null flags of the read values. However, we should remove the flag at the very beginning of the process. If we don't do it and if the last value written into the record buffer for the field whose distinct values needs to be counted happens to be null, then all values read from the file are considered to be nulls and are not counted in. The fix does not remove a possible null flag for the read values. Rather it just counts the values in the same way it was done before WL #3220.
+          * Fixed bug [MDEV-4311](https://jira.mariadb.org/browse/MDEV-4311) (bug #68749). This bug was introduced by the patch for WL#3220. If the memory allocated for the tree to store unique elements to be counted is not big enough to include all of them then an external file is used to store the elements. The unique elements are guaranteed not to be nulls. So, when reading them from the file we don't have to care about the null flags of the read values. However, we should remove the flag at the very beginning of the process. If we don't do it and if the last value written into the record buffer for the field whose distinct values needs to be counted happens to be null, then all values read from the file are considered to be nulls and are not counted in. The fix does not remove a possible null flag for the read values. Rather it just counts the values in the same way it was done before WL #3220.
     * [Revision #3427.1.81](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.81) \[merge]\
       Wed 2013-03-27 23:41:02 +0100
       * 5.5 merge

@@ -118,7 +118,7 @@ in that revision.
   * [MDEV-21509](https://jira.mariadb.org/browse/MDEV-21509) Possible hang during purge of history, or rollback
 * [Revision #9cae7bdcc0](https://github.com/MariaDB/server/commit/9cae7bdcc0)\
   2020-01-16 12:05:26 +0200
-  * [MDEV-13626](https://jira.mariadb.org/browse/MDEV-13626): Add the [WL#6326](https://askmonty.org/worklog/?tid=6326) tests
+  * [MDEV-13626](https://jira.mariadb.org/browse/MDEV-13626): Add the WL#6326 tests
 * [Revision #c4195305b2](https://github.com/MariaDB/server/commit/c4195305b2)\
   2020-01-16 13:18:44 +0200
   * [MDEV-17062](https://jira.mariadb.org/browse/MDEV-17062) : Test failure on galera.MW-336

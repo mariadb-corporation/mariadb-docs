@@ -687,7 +687,7 @@ Fri 2012-08-17 21:13:20 +0400
           * Added missing declaration of statistics\_lock. Replaced bzero with memset. Added missing `--source include/have_debug_sync.inc` into stat\_tables.test.
         * [Revision #3334.1.19](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3334.1.19)\
           Thu 2012-07-26 17:50:08 -0700
-          * Performed re-factoring and re-structuring of the code for [MWL#248](https://askmonty.org/worklog/?tid=248):
+          * Performed re-factoring and re-structuring of the code for MWL#248:
             * Moved the definitions of the classes to store data from persistent statistical tables into statistics.h, leaving in other internal data structures only references to the corresponding objects.
             * Defined class Column\_statistics\_collected derived from the class Column\_statistics. This is a helper class to collect statistics on columns.
             * Moved references to read statistics to TABLE SHARE, leaving the reference to the collected statistics in TABLE.
@@ -758,7 +758,7 @@ Fri 2012-08-17 21:13:20 +0400
           * Merge 5.5 -> 5.5-mwl248.
         * [Revision #3334.1.2](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3334.1.2)\
           Wed 2012-04-11 17:14:06 -0700
-          * The pilot implementation of [MWL#250](https://askmonty.org/worklog/?tid=250): Use the statistics from persistent statistical tables instead of the statistics provided by engine.
+          * The pilot implementation of MWL#250: Use the statistics from persistent statistical tables instead of the statistics provided by engine.
         * [Revision #3334.1.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3334.1.1) \[merge]\
           Mon 2012-03-19 01:35:32 -0700
           * Merge maria-5.3-mwl248 -> 5.5 = maria-5.5-mwl248.
@@ -770,7 +770,7 @@ Fri 2012-08-17 21:13:20 +0400
             * Merged 5.3 changes into the mwl #248 tree.
           * [Revision #2502.574.6](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/2502.574.6)\
             Mon 2012-01-09 21:14:34 -0800
-            * [MWL#248](https://askmonty.org/worklog/?tid=248): added the option skip-stat-tables.
+            * MWL#248: added the option skip-stat-tables.
           * [Revision #2502.574.5](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/2502.574.5)\
             Sat 2012-01-07 00:34:30 -0800
             * Made statistics.test platform independent.
@@ -785,7 +785,7 @@ Fri 2012-08-17 21:13:20 +0400
             * In statistics.test: Saved at the very beginning and restored at the very end the value of optimizer\_use\_stat\_tables.
           * [Revision #2502.574.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/2502.574.1)\
             Wed 2012-01-04 17:51:53 -0800
-            * The main patch for the [MWL#248](https://askmonty.org/worklog/?tid=248) back-ported from lp:igorb-seattle/mysql-server/mysql-azalea-wl4777.
+            * The main patch for the MWL#248 back-ported from lp:igorb-seattle/mysql-server/mysql-azalea-wl4777.
 * [Revision #3490](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3490) \[merge]\
   Tue 2012-12-18 22:13:14 +0100
   * Merge a couple more fixes from 10.0-base to 10.0
@@ -840,7 +840,7 @@ Fri 2012-08-17 21:13:20 +0400
       * [Revision #3427.7.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.7.1)\
         Wed 2012-10-17 15:43:56 +0300
         * [MDEV-452](https://jira.mariadb.org/browse/MDEV-452) Add full support for auto-initialized/updated timestamp and datetime
-        * Generalized support for auto-updated and/or auto-initialized timestamp and datetime columns. This patch is a reimplementation of MySQL's "[WL#5874](https://askmonty.org/worklog/?tid=5874): CURRENT\_TIMESTAMP as DEFAULT for DATETIME columns". In order to ease future merges, this implementation reused few function and variable names from MySQL's patch, however the implementation is quite different.
+        * Generalized support for auto-updated and/or auto-initialized timestamp and datetime columns. This patch is a reimplementation of MySQL's "WL#5874: CURRENT\_TIMESTAMP as DEFAULT for DATETIME columns". In order to ease future merges, this implementation reused few function and variable names from MySQL's patch, however the implementation is quite different.
         * TODO: The only unresolved problem in this patch is the semantics of LOAD DATA for TIMESTAMP and DATETIME columns in the cases when there are missing or NULL columns. I couldn't fully comprehend the logic behind MySQL's behavior and its relationship with their own documentation, so I left the results to be more consistent with all other LOAD cases.
         * The problematic test cases can be seen by running the test file function\_defaults, and observing the test case differences. Those were left on purpose for discussion.
 * [Revision #3487](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3487)\

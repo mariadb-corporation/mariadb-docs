@@ -263,7 +263,7 @@
   * Automatic merge.
   * [Revision #3106.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3106.1.3)\
     Fri 2011-07-15 00:23:57 +0300
-    * [MWL#68](https://askmonty.org/worklog/?tid=68) efficient partial matching
+    * MWL#68 efficient partial matching
     * Added an initial set of feature-specific test cases
     * Handled the special case where the materialized subquery of an\
       IN predicates consists of only NULL values.
@@ -291,7 +291,7 @@
     * Solution:
       * The call to mark\_as\_null\_row() was added by the fix for bug [Bug #613029](https://bugs.launchpad.net/bugs/613029). Therefore removing the fix for [Bug #613029](https://bugs.launchpad.net/bugs/613029) corrects
         this wrong result. At the same time the test for [Bug #613029](https://bugs.launchpad.net/bugs/613029)
-        behaves correctly because the changes of [MWL#89](https://askmonty.org/worklog/?tid=89) result in a
+        behaves correctly because the changes of MWL#89 result in a
         different execution path where:
       * the constant subquery is evaluated via JOIN::exec\_const\_cond
       * detecting that it has an empty result triggers the branch
@@ -305,7 +305,7 @@
       Thu 2011-07-14 00:15:07 +0300
       * Fix [Bug #809266](https://bugs.launchpad.net/bugs/809266)
       * Analysis:
-        * This is a bug in [MWL#68](https://askmonty.org/worklog/?tid=68), where it was incorrectly assumed
+        * This is a bug in MWL#68, where it was incorrectly assumed
           that if there is a match in the only non-null key, then
           if there is a covering NULL row on all remaining NULL-able
           columns there is a partial match. However, this is not the case,
@@ -332,7 +332,7 @@
         * In addition to the bug fix explained below, the patch performs
           few renames, and adds some comments to avoid similar problems.
         * Analysis:
-          * The failed assert was due to a bug in [MWL#68](https://askmonty.org/worklog/?tid=68), where it was
+          * The failed assert was due to a bug in MWL#68, where it was
             incorrectly assumed that the size of the bitmap
             subselect\_rowid\_merge\_engine::null\_only\_columns should be
             the same as the size of the array of Ordered\_keys.
@@ -534,23 +534,23 @@
       They were fixed in the patch as well.
 * [Revision #3091](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3091) \[merge]\
   Fri 2011-07-08 10:56:46 +0300
-  * Merge test cases for bugs that were fixed by [MWL#89](https://askmonty.org/worklog/?tid=89).
+  * Merge test cases for bugs that were fixed by MWL#89.
   * [Revision #3089.1.4](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3089.1.4)\
     Fri 2011-07-08 10:51:53 +0300
     * Test for [Bug #611382](https://bugs.launchpad.net/bugs/611382)
-    * The bug itself has been fixed by [MWL#89](https://askmonty.org/worklog/?tid=89).
+    * The bug itself has been fixed by MWL#89.
   * [Revision #3089.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3089.1.3)\
     Fri 2011-07-08 08:52:30 +0300
     * Test case for [Bug #611396](https://bugs.launchpad.net/bugs/611396)
-    * The bug itself has been fixed by [MWL#89](https://askmonty.org/worklog/?tid=89).
+    * The bug itself has been fixed by MWL#89.
   * [Revision #3089.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3089.1.2)\
     Thu 2011-07-07 17:22:28 +0300
     * Test for [Bug #612543](https://bugs.launchpad.net/bugs/612543)
-    * The bug itself has been fixed by [MWL#89](https://askmonty.org/worklog/?tid=89).
+    * The bug itself has been fixed by MWL#89.
   * [Revision #3089.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3089.1.1)\
     Thu 2011-07-07 17:07:13 +0300
     * Test case for [Bug #611690](https://bugs.launchpad.net/bugs/611690)
-    * The bug itself has been fixed by [MWL#89](https://askmonty.org/worklog/?tid=89).
+    * The bug itself has been fixed by MWL#89.
 * [Revision #3090](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3090) \[merge]\
   Thu 2011-07-07 13:06:40 -0700
   * Merge.
@@ -732,11 +732,11 @@
   * Merge fix for [Bug #803365](https://bugs.launchpad.net/bugs/803365)
   * [Revision #3073.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3073.1.1)\
     Tue 2011-07-05 21:22:13 +0400
-    * [Bug #803365](https://bugs.launchpad.net/bugs/803365): Crash in pull\_out\_semijoin\_tables with outer join + semijoin + derived tables in maria-5.3 with [WL#106](https://askmonty.org/worklog/?tid=106)
+    * [Bug #803365](https://bugs.launchpad.net/bugs/803365): Crash in pull\_out\_semijoin\_tables with outer join + semijoin + derived tables in maria-5.3 with WL#106
     * Don't perform table pullout out of semi-join nests that have nested outer joins.
 * [Revision #3081](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3081)\
   Tue 2011-07-05 15:28:15 +0200
-  * [MWL#163](https://askmonty.org/worklog/?tid=163) [Bug #798213](https://bugs.launchpad.net/bugs/798213): Remove the `--`innodb-release-locks-early feature.
+  * MWL#163 [Bug #798213](https://bugs.launchpad.net/bugs/798213): Remove the `--`innodb-release-locks-early feature.
   * The [Bug #798213](https://bugs.launchpad.net/bugs/798213) exposes a design flaw in `--`innodb-release-locks-early.\
     It does not work with InnoDB crash recovery, so it breaks transactional
     integrety. So remove the feature.

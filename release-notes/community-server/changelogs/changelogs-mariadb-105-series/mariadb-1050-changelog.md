@@ -1152,7 +1152,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-19345](https://jira.mariadb.org/browse/MDEV-19345) Cleanup inconsistency in setting HA\_(BLOB|VAR\_LENGTH|BIT)\_PART flags
 * [Revision #bf5a144e16](https://github.com/MariaDB/server/commit/bf5a144e16)\
   2019-05-31 16:44:17 +0400
-  * [MDEV-19639](https://jira.mariadb.org/browse/MDEV-19639) + [MDEV-19640](https://jira.mariadb.org/browse/MDEV-19640) fix + preparatory changes for [WL#4179](https://askmonty.org/worklog/?tid=4179)
+  * [MDEV-19639](https://jira.mariadb.org/browse/MDEV-19639) + [MDEV-19640](https://jira.mariadb.org/browse/MDEV-19640) fix + preparatory changes for WL#4179
 * Merge [Revision #f859789e7d](https://github.com/MariaDB/server/commit/f859789e7d) 2019-06-03 13:24:41 +0200 - Merge branch '10.4' into 10.5
 * [Revision #c51f615bf5](https://github.com/MariaDB/server/commit/c51f615bf5)\
   2019-06-01 13:36:52 +0300

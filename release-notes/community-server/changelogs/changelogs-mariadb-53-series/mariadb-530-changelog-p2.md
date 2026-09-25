@@ -57,7 +57,7 @@
 * [Revision #3066](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3066)\
   Tue 2011-06-28 11:11:26 +0400
   * [MySQL Bug #751484](https://bugs.mysql.com/bug.php?id=751484): Valgrind warning / sporadic crash in evaluate\_join\_record sql\_select.cc:14099 with semijoin
-    * Added testcase. The bug is most likely fixed by [MWL#90](https://askmonty.org/worklog/?tid=90) code.
+    * Added testcase. The bug is most likely fixed by MWL#90 code.
 * [Revision #3065](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3065) \[merge]\
   Mon 2011-06-27 23:36:20 -0700
   * Merge
@@ -164,15 +164,15 @@
       problems and in some cases can lead to crashes of the server.
 * [Revision #3053](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3053)\
   Tue 2011-06-21 23:01:01 +0300
-  * [MWL#89](https://askmonty.org/worklog/?tid=89)\
+  * MWL#89\
     Removed forgotten EXPLAIN EXTENDED from the test file.
 * [Revision #3052](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3052) \[merge]\
   Tue 2011-06-21 16:00:41 +0300
-  * [MWL#89](https://askmonty.org/worklog/?tid=89)\
+  * MWL#89\
     Automerged with 5.3.
   * [Revision #3015.3.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3015.3.1)\
     Tue 2011-06-21 15:50:07 +0300
-    * [MWL#89](https://askmonty.org/worklog/?tid=89)
+    * MWL#89
       * Added regression test with queries over the WORLD database.
       * Discovered and fixed several bugs in the related cost calculation
         functionality both in the semijoin and non-semijon subquery code.
@@ -235,7 +235,7 @@
         table used in the test case.
   * [Revision #3025.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3025.1.1) \[merge]\
     Sat 2011-06-04 19:56:06 -0700
-    * Merged the code of [MWL#106](https://askmonty.org/worklog/?tid=106) into the latest 5.3 with [MWL#90](https://askmonty.org/worklog/?tid=90) pushed.\
+    * Merged the code of MWL#106 into the latest 5.3 with MWL#90 pushed.\
       Resolved all conflicts and failures.
 * [Revision #3048](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3048)\
   Wed 2011-06-15 17:40:18 +0400
@@ -335,7 +335,7 @@
     * Merge with 5.2
 * [Revision #3036](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3036)\
   Fri 2011-06-10 12:45:43 +0400
-  * [Bug #727183](https://bugs.launchpad.net/bugs/727183): [WL#90](https://askmonty.org/worklog/?tid=90) does not trigger with non-comma joins
+  * [Bug #727183](https://bugs.launchpad.net/bugs/727183): WL#90 does not trigger with non-comma joins
     * Add a testcase (the bug has already been fixed)
 * [Revision #3035](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3035)\
   Fri 2011-06-10 12:36:06 +0400
@@ -439,7 +439,7 @@
   * Remove garbage comments
 * [Revision #3014](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3014) \[merge]\
   Mon 2011-05-30 10:51:41 +0400
-  * Merge 5.3-main -> [MWL#90](https://askmonty.org/worklog/?tid=90)
+  * Merge 5.3-main -> MWL#90
 * [Revision #3013](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3013)\
   Sun 2011-05-29 20:48:14 -0700
   * Eliminated the member original\_cond from the class SQL\_SELECT
@@ -484,17 +484,17 @@
   * merge
 * [Revision #3007](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3007) \[merge]\
   Mon 2011-05-23 11:54:26 +0300
-  * [MWL#89](https://askmonty.org/worklog/?tid=89) automatic merge with 5.3
+  * MWL#89 automatic merge with 5.3
   * [Revision #2991.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2991.1.3)\
     Mon 2011-05-23 10:56:05 +0300
-    * [MWL#89](https://askmonty.org/worklog/?tid=89): Address review feedback (by Sergey Petrunia)
+    * MWL#89: Address review feedback (by Sergey Petrunia)
   * [Revision #2991.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2991.1.2)\
     Wed 2011-05-18 01:23:22 +0300
-    * [MWL#89](https://askmonty.org/worklog/?tid=89) Addressing Sergey's review comments - Part 1.
-    * Address the 'trivial' part of Sergey's review of [MWL#89](https://askmonty.org/worklog/?tid=89).
+    * MWL#89 Addressing Sergey's review comments - Part 1.
+    * Address the 'trivial' part of Sergey's review of MWL#89.
   * [Revision #2991.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2991.1.1) \[merge]\
     Tue 2011-05-17 14:56:02 +0300
-    * [MWL#89](https://askmonty.org/worklog/?tid=89) - automatic merge with 5.3
+    * MWL#89 - automatic merge with 5.3
 * [Revision #3006](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3006)\
   Sat 2011-05-21 22:23:14 +0200
   * Fix comp\_errr crash ( fprintf crashes wheb uninitialized string is passed)

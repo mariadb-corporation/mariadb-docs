@@ -69,7 +69,7 @@ Features that are in a release.
 ### New Features Re-implemented From a Similar MySQL Feature
 
 * [CURRENT\_TIMESTAMP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/current_timestamp) as DEFAULT for [DATETIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/datetime) columns ([MDEV-452](https://jira.mariadb.org/browse/MDEV-452))
-* [EXPLAIN for INSERT/UPDATE/DELETE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain) ([MDEV-3798](https://jira.mariadb.org/browse/MDEV-3798), [MWL#51](https://askmonty.org/worklog/?tid=51))
+* [EXPLAIN for INSERT/UPDATE/DELETE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain) ([MDEV-3798](https://jira.mariadb.org/browse/MDEV-3798), MWL#51)
 
 ### New Features Backported from MySQL 5.6
 

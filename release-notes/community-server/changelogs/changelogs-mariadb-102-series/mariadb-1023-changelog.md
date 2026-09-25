@@ -36,7 +36,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-11570](https://jira.mariadb.org/browse/MDEV-11570) JSON\_MERGE returns incorrect result.
 * [Revision #83dbb2d](https://github.com/MariaDB/server/commit/83dbb2d)\
   2016-12-20 12:07:33 +0200
-  * [MDEV-11487](https://jira.mariadb.org/browse/MDEV-11487) Revert InnoDB internal temporary tables from [WL#7682](https://askmonty.org/worklog/?tid=7682)
+  * [MDEV-11487](https://jira.mariadb.org/browse/MDEV-11487) Revert InnoDB internal temporary tables from WL#7682
 * [Revision #1152b07](https://github.com/MariaDB/server/commit/1152b07)\
   2016-12-20 00:42:13 -0800
   * Corrected a test from func\_date\_add.test
@@ -379,7 +379,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-11453](https://jira.mariadb.org/browse/MDEV-11453) JSON\_CONTAINS returns incorrect values.
 * [Revision #c868acd](https://github.com/MariaDB/server/commit/c868acd)\
   2016-12-05 21:04:30 +0200
-  * [MDEV-11487](https://jira.mariadb.org/browse/MDEV-11487) Revert InnoDB internal temporary tables from [WL#7682](https://askmonty.org/worklog/?tid=7682)
+  * [MDEV-11487](https://jira.mariadb.org/browse/MDEV-11487) Revert InnoDB internal temporary tables from WL#7682
 * [Revision #b0266b6](https://github.com/MariaDB/server/commit/b0266b6)\
   2016-12-09 12:03:24 +0200
   * Use mtr\_memo\_contains\_flagged() instead of mtr\_memo\_contains().

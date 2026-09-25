@@ -1659,7 +1659,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Fixed assert in perfschema/pfs.cc::start\_idle\_wait\_v1 when using performance schema and big packets in debug version.
 * [Revision #e9b2f5b](https://github.com/MariaDB/server/commit/e9b2f5b)\
   2014-07-19 11:24:21 +0530
-  * [WL#7219](https://askmonty.org/worklog/?tid=7219): Reverting the [WL#7219](https://askmonty.org/worklog/?tid=7219) patch in mysql-5.5.39-release branch
+  * WL#7219: Reverting the WL#7219 patch in mysql-5.5.39-release branch
 * [Revision #54f9828](https://github.com/MariaDB/server/commit/54f9828)\
   2014-07-18 14:50:29 -0400
   * FT-304 Remove inconsistent 'struct' keyword which made the osx build sad.
@@ -1795,7 +1795,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * This commit brings many changes, in particular two important ones: 1) Support of partitioning by connect. A table can be partitioned by files, this is an enhanced MULTIPLE table. It can be also partitioned by sub-tables like TBL and this enables table sharding. 2) Handling a CONNECT bug that causes in some cases extraneous rows to remain in the table after an UPDATE or DELETE when the command uses indexing (for not fixed file tables). Until a real fix is done, CONNECT tries to ignore indexing and if it cannot do it abort the command with an error message.
 * [Revision #e892e71](https://github.com/MariaDB/server/commit/e892e71)\
   2014-07-17 19:21:56 +0530
-  * [WL#7219](https://askmonty.org/worklog/?tid=7219): Pushing it to release 5.5.39-release branch
+  * WL#7219: Pushing it to release 5.5.39-release branch
 * [Revision #e543cf1](https://github.com/MariaDB/server/commit/e543cf1)\
   2014-07-16 10:13:37 -0400
   * \#263 enable bulk fetch for insert select sql commands
