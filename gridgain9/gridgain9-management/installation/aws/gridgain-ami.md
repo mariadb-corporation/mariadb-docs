@@ -66,7 +66,7 @@ These are the default ports that GridGain nodes use for discovery and communicat
 
 This is what our security group should look like:
 
-![](../../../.gitbook/assets/gg9-installation-aws_security_group.png)
+![AWS security group configuration showing the default GridGain node ports](../../../.gitbook/assets/gg9-installation-aws_security_group.png)
 
 In the security group settings above, we opened connection from any source. Use more secure settings in your production environment!
 

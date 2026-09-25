@@ -36,7 +36,7 @@ In GridGain 9, compute job's execution is defined by two key components: `JobTar
 
 ### Job Target
 
-Before submitting a job, you must create a `JobTarget` object that specifies which nodes will execute the job. Job target can point to a specific node, any node on the cluster, or start a [colocated](#colocated-execution) compute job, that will be executed on nodes that hold a specific key. The following methods are available:
+Before submitting a job, you must create a `JobTarget` object that specifies which nodes will execute the job. Job target can point to a specific node, any node on the cluster, or start a [colocated](#colocated-execution) compute job that will be executed on nodes that hold a specific key. The following methods are available:
 
 - `JobTarget.anyNode()` - the job will be executed on any of the specified nodes.
 - `JobTarget.node()` - the job will be executed on the specific node.
@@ -1104,7 +1104,7 @@ GridGain 9 provides an API for performing MapReduce operations in the cluster. T
 
 ### Understanding MapReduce Tasks
 
-A MapReduce task must be executed on a node that has a [deployed](../code-deployment.md) class implementing the `MapReduceTask` interface. This interface provides a way to implement custom map and reduce logic. A node that receives the task becomes a coordinator node, that will be responsible for both mapping tasks to other nodes, reducing their results and returning the final result to the client.
+A MapReduce task must be executed on a node that has a [deployed](../code-deployment.md) class implementing the `MapReduceTask` interface. This interface provides a way to implement custom map and reduce logic. A node that receives the task becomes a coordinator node that is responsible for both mapping tasks to other nodes, reducing their results and returning the final result to the client.
 
 The class must implement two methods: `splitAsync` and `reduceAsync`.
 

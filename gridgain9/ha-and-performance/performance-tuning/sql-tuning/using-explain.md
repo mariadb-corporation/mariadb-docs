@@ -362,7 +362,7 @@ The same query as above, but with explicit transaction may produce a different p
 
 Table scans are available in two implementations: direct table scan and scan through index.
 Index scans contain predicate and search bounds.
-Predicate provides final rows comparison. If search bounds are absentm the query degenerates into table scan through index scan (requiring an additional store look up), with further predicate comparison, that incurs additional performance overhead costs.
+Predicate provides final rows comparison. If search bounds are absentm the query degenerates into table scan through index scan (requiring an additional store look up), with further predicate comparison that incurs additional performance overhead costs.
 
 Let's suppose we have schema and query like this:
 

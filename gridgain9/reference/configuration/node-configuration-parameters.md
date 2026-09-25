@@ -621,7 +621,7 @@ Both differ from the hard limits in several important ways:
 |---|---|---|---|
 |diskBuffersCapacityBytes|67108864|The amount of off-heap space allocated to snapshotting process, in bytes.|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
 |encryptionBuffersCapacityBytes|67108864|The amount of off-heap space allocated to snapshot compression process, in bytes.|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
-|snapshotChunkSizeBytes|65536|The size of the chunk in bytes which will be used to process the snapshot content. Note, that when reading the snapshot, this property will not be used, since the size of the chunk with which it was written is saved in the snapshot metadata.|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
+|snapshotChunkSizeBytes|65536|The size of the chunk in bytes which will be used to process the snapshot content. Note that when reading the snapshot, this property will not be used, since the size of the chunk with which it was written is saved in the snapshot metadata.|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
 |snapshotDiskBufferSizeBytes|65536|The size of the buffer in bytes which will be used to write the snapshot content to disk. Use instead of `snapshotFlushBufferSize`|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
 |threadPoolSize|20|Number of threads used by GridGain for IO operations when creating or restoring snapshots.|1 - Integer.MAX_VALUE|
 |snapshotFlushBufferSize|65536|**Deprecated** Use `snapshotDiskBufferSizeBytes` instead. This property is obsolete and should not be used as it will not be supported in the future releases.|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|

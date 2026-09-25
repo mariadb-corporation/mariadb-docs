@@ -287,7 +287,7 @@ spec:
 The `publishNotReadyAddresses: true` setting is required for GridGain 9 cluster initialization. It ensures that DNS records for pods are published even before the pods become ready, allowing the cluster nodes to discover each other during startup. Without this setting, nodes cannot resolve each other's addresses until they pass readiness probes, creating a circular dependency.
 {% endhint %}
 
-- Use a `LoadBalancer` service to allow external clients to connect. Keep in mind, that with this option you giving up partition awareness.
+- Use a `LoadBalancer` service to allow external clients to connect. Keep in mind that with this option you are giving up partition awareness.
 
   If your environments does not support `LoadBalancer`, you can use `type: NodePort` instead. Refer to the Kubernetes [documentation](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/) for details.
 

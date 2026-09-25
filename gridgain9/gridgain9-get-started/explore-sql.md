@@ -8,6 +8,10 @@ description: >-
 
 This guide walks you through using GridGain 9 SQL capabilities via the command-line interface. You'll set up a distributed Apache GridGain cluster, create and manipulate the Chinook database (a sample database representing a digital media store), and learn to leverage GridGain's powerful SQL features.
 
+{% hint style="info" %}
+GridGain 9 SQL is a distributed, ANSI-based SQL dialect and differs from MariaDB Server SQL in both syntax and supported features. For the full list of supported statements, functions, and data types, see the [SQL Reference](../reference/sql/README.md).
+{% endhint %}
+
 ## Prerequisites
 
 * Docker and Docker Compose installed on your system;
@@ -156,7 +160,7 @@ These commands create two zones:
 
 Here's the entity relationship diagram for our Chinook database:
 
-![](../.gitbook/assets/gg9-get-started-getstartedsqltables.png)
+![Entity relationship diagram of the Chinook sample database](../.gitbook/assets/gg9-get-started-getstartedsqltables.png)
 
 ### Creating Core Tables
 
@@ -492,7 +496,7 @@ Let's explore how to modify data using SQL in GridGain.
 
 When you update data in a distributed database, the changes need to be coordinated across multiple nodes:
 
-![](../.gitbook/assets/gg9-get-started-getstartedsqlpropogation.png)
+![Diagram of how updates are coordinated and propagated across nodes in a distributed database](../.gitbook/assets/gg9-get-started-getstartedsqlpropogation.png)
 
 ### Inserting New Data
 

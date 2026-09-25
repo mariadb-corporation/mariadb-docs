@@ -10,7 +10,7 @@ description: >-
 This feature is only available as a part of GridGain 9 Ultimate edition.
 {% endhint %}
 
-GridGain provides the ability to create snapshots of data stored cluster-wide, that can later be used for cluster recovery purposes. Having snapshots at hand, they can be used to recover the cluster to a state recorded in a snapshot.
+GridGain provides the ability to create snapshots of data stored cluster-wide that can later be used for cluster recovery purposes. Having snapshots at hand, they can be used to recover the cluster to a state recorded in a snapshot.
 
 ## Limitations
 

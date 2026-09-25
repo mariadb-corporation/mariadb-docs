@@ -66,13 +66,17 @@ configs:
 
 ### Starting and Initializing the Cluster
 
-1. Start the cluster:
+{% stepper %}
+{% step %}
+Start the cluster:
 
 ```bash
 docker compose up -d
 ```
+{% endstep %}
 
-2. Run the GridGain CLI and initialize the cluster:
+{% step %}
+Run the GridGain CLI and initialize the cluster:
 
 ```bash
 docker run --rm -it --network=host -v /opt/etc/license.json:/opt/gridgain/etc/license.json gridgain/gridgain9:9.1 cli
@@ -81,33 +85,46 @@ docker run --rm -it --network=host -v /opt/etc/license.json:/opt/gridgain/etc/li
 {% hint style="info" %}
 Get a free trial license for Enterprise edition from the [GridGain website](https://www.gridgain.com/tryfree). It will be required to initialize the cluster.
 {% endhint %}
+{% endstep %}
 
-3. Inside the CLI, confirm the connection to the default node.
-4. Initialize the cluster:
+{% step %}
+Inside the CLI, confirm the connection to the default node.
+{% endstep %}
+
+{% step %}
+Initialize the cluster:
 
 ```bash
 cluster init --name=GridGain --license=/opt/gridgain/etc/license.json
 ```
+{% endstep %}
 
-5. Enter the SQL mode:
+{% step %}
+Enter the SQL mode:
 
 ```bash
 sql
 ```
+{% endstep %}
 
-6. Create a sample table and insert data:
+{% step %}
+Create a sample table and insert data:
 
 ```bash
 CREATE TABLE Person (id INT PRIMARY KEY, name VARCHAR);
 INSERT INTO Person (id, name) VALUES (1, 'John');
 ```
+{% endstep %}
 
-7. Exit the SQL mode and CLI tool:
+{% step %}
+Exit the SQL mode and CLI tool:
 
 ```bash
 exit;
 exit
 ```
+{% endstep %}
+{% endstepper %}
 
 ## Setting Up Your Java Project
 
@@ -288,12 +305,19 @@ public class Main {
 
 To run your application:
 
-1. Make sure your GridGain cluster is up and running;
-2. Compile and run your Java application:
+{% stepper %}
+{% step %}
+Make sure your GridGain cluster is up and running;
+{% endstep %}
+
+{% step %}
+Compile and run your Java application:
 
 ```bash
 mvn compile exec:java -Dexec.mainClass="com.example.Main"
 ```
+{% endstep %}
+{% endstepper %}
 
 ## Expected Output
 

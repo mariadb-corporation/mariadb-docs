@@ -9,3 +9,15 @@ description: >-
 Analyze and improve the performance of your GridGain 9 SQL queries.
 
 * [How to Improve Queries With EXPLAIN Command](using-explain.md) — read query execution plans, diagnose common performance issues, and tune your queries.
+
+{% columns %}
+{% column %}
+{% content-ref url="using-explain.md" %}
+[Improving Queries with EXPLAIN](using-explain.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to use the GridGain 9 SQL EXPLAIN command to read query execution plans, diagnose common performance issues, and improve query performance.
+{% endcolumn %}
+{% endcolumns %}

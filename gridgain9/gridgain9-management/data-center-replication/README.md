@@ -160,3 +160,27 @@ In an active-active or other multi-replication topology, make sure to query each
 The replica cluster opens connections to the source cluster's client port. If the source cluster has authentication or SSL/TLS enabled, supply credentials and key/trust stores when creating the replication. The credentials are used to connect from the replica to the source; users and roles are *not* replicated, so any application that talks to the replica cluster has to authenticate against credentials configured on the replica cluster itself.
 
 DCR is licensed: every operation on a replication checks the GridGain license on the cluster where the operation is invoked. The license is per cluster and is not replicated.
+
+{% columns %}
+{% column %}
+{% content-ref url="configuring-replication.md" %}
+[Configuring Replication](configuring-replication.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Configure GridGain 9 clusters for data center replication with the CLI tool — create, start, scope, secure, monitor, and end replications.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="conflict-resolution.md" %}
+[Conflict Resolution](conflict-resolution.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How GridGain 9 data center replication resolves conflicting writes — last-write-wins by source timestamp, and how topologies converge.
+{% endcolumn %}
+{% endcolumns %}

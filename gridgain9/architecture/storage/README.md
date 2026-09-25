@@ -10,7 +10,7 @@ GridGain 9 features a modern and highly configurable storage system that allows 
 
 The diagram below depicts the relationship between tables, distribution zones, storage profiles and storage engines:
 
-![](../../.gitbook/assets/gg9-administrators-guide-storage.png)
+![Diagram showing the relationship between tables, distribution zones, storage profiles, and storage engines in GridGain 9](../../.gitbook/assets/gg9-administrators-guide-storage.png)
 
 In GridGain, storage has both cluster-wide and node-specific components:
 
@@ -143,3 +143,63 @@ SELECT /*+ use_secondary_storage */ * FROM Person
 ```
 
 With secondary storage configured, all updates written to the primary storage will be automatically propagated to the secondary storage. While secondary storage data may be slightly behind primary storage (typically by less than a second), it offers significant performance benefits for analytical queries. You can mix primary and secondary storage access in complex queries by specifying the `use_secondary_storage` hint only for the specific tables you want to read from secondary storage. Remember that secondary storage is read-only; all writes must go through the primary storage.
+
+{% columns %}
+{% column %}
+{% content-ref url="distribution-zones.md" %}
+[Distribution Zones](distribution-zones.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Create and configure GridGain 9 distribution zones to control how tables are partitioned, replicated, and distributed across cluster nodes.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="data-partitioning.md" %}
+[Data Partitioning](data-partitioning.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How GridGain 9 partitions and replicates table data across cluster nodes, including RAFT consensus, the Fair distribution algorithm, and primary replica leases.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="storage-profiles.md" %}
+[Storage Profiles](storage-profiles.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How GridGain 9 storage profiles bind a storage engine and its configuration to distribution zones and tables, including primary and secondary profiles.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="low-watermark-and-gc.md" %}
+[Low Watermark and Garbage Collection](low-watermark-and-gc.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How the GridGain 9 low watermark controls data retention and garbage collection, how to configure and tune it, and how to recover a stalled low watermark.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="engines/" %}
+[Storage Engines](engines/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How storage engines and storage profiles work in GridGain 9, the engines available (aimem, aipersist, rocksdb, columnar), and how node-local configuration affects them.
+{% endcolumn %}
+{% endcolumns %}

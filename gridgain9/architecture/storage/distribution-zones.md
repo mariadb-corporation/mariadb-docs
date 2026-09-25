@@ -151,7 +151,7 @@ It is recommended to use odd number of replicas as your quorum size.
 
 ### Node Filtering
 
-Distribution zones can get node attributes, that can be specified in [node configuration](../../reference/configuration/node-configuration-parameters.md), and dynamically distribute data only to nodes that have the specified attributes. This can be used, for example, to only process data from the application on nodes with SSD drives. If no node matches the filter, the data will be stored on all nodes instead. Distribution zone filter uses JSONPath rules.
+Distribution zones can get node attributes that can be specified in [node configuration](../../reference/configuration/node-configuration-parameters.md), and dynamically distribute data only to nodes that have the specified attributes. This can be used, for example, to only process data from the application on nodes with SSD drives. If no node matches the filter, the data will be stored on all nodes instead. Distribution zone filter uses JSONPath rules.
 
 The example below creates a new `storage` attribute and sets it to `SSD`:
 

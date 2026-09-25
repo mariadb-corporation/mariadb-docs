@@ -8,7 +8,26 @@ description: >-
 
 Exhaustive look-up lists for observing a running GridGain 9 cluster. For how to configure and enable monitoring, see [Monitoring](../../gridgain9-management/monitoring/README.md).
 
-## In This Section
+{% columns %}
+{% column %}
+{% content-ref url="metrics-list.md" %}
+[Metrics List](metrics-list.md)
+{% endcontent-ref %}
+{% endcolumn %}
 
-- [Metrics List](metrics-list.md) — every metric GridGain 9 exposes, with its meaning and source.
-- [System Views](system-views.md) — the system views you can query for cluster and object metadata.
+{% column %}
+Reference of all metrics that GridGain 9 exposes, grouped by metric source, with the name and meaning of each metric.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="system-views.md" %}
+[System Views](system-views.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Reference of the built-in SQL system views in the GridGain 9 SYSTEM schema, with the columns and data types of each view.
+{% endcolumn %}
+{% endcolumns %}

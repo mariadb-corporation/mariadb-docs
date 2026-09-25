@@ -9,7 +9,7 @@ description: >-
 Data streaming provides a fast, efficient method for loading, organizing, and distributing large volumes of data across your cluster.
 Data streamer accepts a stream of data and distributes data entries across the cluster, where the processing takes place. Data streaming is available in all table views.
 
-![](../.gitbook/assets/gg9-developers-guide-data_streaming.png)
+![Diagram of a data streamer distributing data entries across cluster nodes for processing](../.gitbook/assets/gg9-developers-guide-data_streaming.png)
 
 Data streaming provides at-least-once delivery guarantee.
 

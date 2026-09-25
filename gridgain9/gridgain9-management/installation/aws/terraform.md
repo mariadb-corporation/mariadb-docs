@@ -39,10 +39,10 @@ Terraform module is designed to create sufficient infrastructure to run GridGain
 
 Below is the example of the deployment that will be created if the `public_access_enable` variable is set to `false`:
 
-![](../../../.gitbook/assets/gg9-installation-terraform1.png)
+![Private GridGain cluster deployment diagram on AWS with public access disabled](../../../.gitbook/assets/gg9-installation-terraform1.png)
 
 ### Public Cluster Deployment Diagram
 
 Below is the example of the deployment that will be created if the `public_access_enable` variable is set to `true`:
 
-![](../../../.gitbook/assets/gg9-installation-terraform2.png)
+![Public GridGain cluster deployment diagram on AWS with public access enabled](../../../.gitbook/assets/gg9-installation-terraform2.png)

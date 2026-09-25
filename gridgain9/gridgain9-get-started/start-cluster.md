@@ -19,13 +19,6 @@ This guide walks you through the process of setting up and running a GridGain 9 
 1. Download [`docker-compose.yml`](../.gitbook/assets/gg9-quick-start-docker-compose.yml) file or create a file in your project directory:
 
 ```yaml
-#  Copyright (C) GridGain Systems. All Rights Reserved.
-#  _________        _____ __________________        _____
-#  __  ____/___________(_)______  /__  ____/______ ____(_)_______
-#  _  / __  __  ___/__  / _  __  / _  / __  _  __ `/__  / __  __ \
-#  / /_/ /  _  /    _  /  / /_/ /  / /_/ /  / /_/ / _  /  _  / / /
-#  \____/   /_/     /_/   \_,__/   \____/   \__,_/  /_/   /_/ /_/
-
 name: gridgain9
 
 x-gridgain-def: &gridgain-def
@@ -96,14 +89,21 @@ docker pull gridgain/gridgain9:9.1
 
 ## Step 2: Start the Ignite Cluster
 
-1. Open a terminal in the directory containing your `docker-compose.yml` file
-2. Run the following command to start the cluster:
+{% stepper %}
+{% step %}
+Open a terminal in the directory containing your `docker-compose.yml` file
+{% endstep %}
+
+{% step %}
+Run the following command to start the cluster:
 
 ```bash
 docker compose up -d
 ```
+{% endstep %}
 
-3. Verify that all containers are running:
+{% step %}
+Verify that all containers are running:
 
 ```bash
 docker compose ps
@@ -119,6 +119,8 @@ gridgain9-node3-1   gridgain/gridgain9:9.1   "docker-entrypoint.s…"   node3   
 ```
 
 Your nodes are now running, but the cluster is not initialized.
+{% endstep %}
+{% endstepper %}
 
 ## Step 3: Initialize the Cluster
 
@@ -126,8 +128,13 @@ Your nodes are now running, but the cluster is not initialized.
 You need an active GridGain license to complete this step. Get a free trial license for Enterprise edition from the [GridGain website](https://www.gridgain.com/tryfree).
 {% endhint %}
 
-1. Copy your license file into your project directory.
-2. Start the Ignite CLI in Docker:
+{% stepper %}
+{% step %}
+Copy your license file into your project directory.
+{% endstep %}
+
+{% step %}
+Start the Ignite CLI in Docker:
 
 ```
 docker run --rm -it --network=host -v /opt/etc/license.json:/opt/gridgain/etc/license.json gridgain/gridgain9:9.1 cli
@@ -136,15 +143,22 @@ docker run --rm -it --network=host -v /opt/etc/license.json:/opt/gridgain/etc/li
 {% hint style="info" %}
 Update the `docker` command above to match the full path to the license file you received but leave the mounted name set to `license.json`.
 {% endhint %}
+{% endstep %}
 
-3. Inside the CLI, connect to one of the nodes:
+{% step %}
+Inside the CLI, connect to one of the nodes:
 
 ```bash
 connect http://localhost:10300
 ```
+{% endstep %}
 
-4. Confirm the connection to the default node in the CLI tool.
-5. Initialize the cluster with a name and license:
+{% step %}
+Confirm the connection to the default node in the CLI tool.
+{% endstep %}
+
+{% step %}
+Initialize the cluster with a name and license:
 
 ```bash
 cluster init --name=GridGain --license=/opt/gridgain/etc/license.json
@@ -172,10 +186,14 @@ The cluster is not initialized. Run cluster init command to initialize it.
 Cluster was initialized successfully
 [node1]> 
 ```
+{% endstep %}
+{% endstepper %}
 
 ## Step 4: Verify Your Cluster
 
-1. Use the `cluster status` CLI command to verify your cluster is running correctly.
+{% stepper %}
+{% step %}
+Use the `cluster status` CLI command to verify your cluster is running correctly.
 
 ```bash
 cluster status
@@ -188,8 +206,12 @@ The output should look similar to this:
 ```
 
 This means that all 3 nodes found each other and formed an active cluster.
+{% endstep %}
 
-2. Exit the CLI by typing `exit` or pressing Ctrl+D. This will also stop the CLI container.
+{% step %}
+Exit the CLI by typing `exit` or pressing Ctrl+D. This will also stop the CLI container.
+{% endstep %}
+{% endstepper %}
 
 Congratulations! You have a local GridGain 9 cluster running that you can use for development.
 
@@ -216,7 +238,9 @@ docker logs <container-id>
 
 To make logs *persistent* and redirect them to a file on the host system, follow these steps:
 
-1. Use the [preconfigured file](../.gitbook/assets/gg9-get-started-gridgain.java.util.logging.properties) or create a new one and place it on the host system. Set a file path for the log output inside the container:
+{% stepper %}
+{% step %}
+Use the [preconfigured file](../.gitbook/assets/gg9-get-started-gridgain.java.util.logging.properties) or create a new one and place it on the host system. Set a file path for the log output inside the container:
 
 ```bash
 handlers=java.util.logging.FileHandler
@@ -227,8 +251,10 @@ java.util.logging.FileHandler.count=5
 ```
 
 Make sure that `java.util.logging.FileHandler.pattern` specifies the full file path for the log file inside the container. It should match the mounted volume path (`/gridgain/log`) defined in *step 2*.
+{% endstep %}
 
-2. Run the container with volume mounts to bind the log output directory and the config file to the host system:
+{% step %}
+Run the container with volume mounts to bind the log output directory and the config file to the host system:
 
 ```bash
 docker run \
@@ -237,12 +263,16 @@ docker run \
   -e GRIDGAIN9_EXTRA_JVM_ARGS="-Djava.util.logging.config.file=/gridgain/config/logging.properties" \
   gridgain/gridgain9:9.1
 ```
+{% endstep %}
 
-3. After the container starts, verify that the log file is created on the host:
+{% step %}
+After the container starts, verify that the log file is created on the host:
 
 ```bash
 /host/logs/gridgain.log
 ```
+{% endstep %}
+{% endstepper %}
 
 ## Stopping the Cluster
 

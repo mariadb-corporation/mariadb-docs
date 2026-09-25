@@ -6,18 +6,29 @@ description: >-
 
 # Getting Started With GridGain 9
 
-This guide shows you how to start working with GridGain. In it, we will download GridGain from the website, install it, start the database and perform some simple SQL queries by using the provided CLI tool.
+This guide shows you how to start working with GridGain: download it from the website, install it, start the database, and run some simple SQL queries by using the provided CLI tool.
 
-We will be using the [zip archive](../gridgain9-management/installation/installing-using-zip.md) to demonstrate how to use GridGain. When using [deb or rpm packages](../gridgain9-management/installation/installing-deb-rpm.md), or when running GridGain in Docker, some steps may be different.
+This guide uses the [zip archive](../gridgain9-management/installation/installing-using-zip.md) to demonstrate how to use GridGain. When using [deb or rpm packages](../gridgain9-management/installation/installing-deb-rpm.md), or when running GridGain in Docker, some steps may be different.
 
 If you are more comfortable with running the database from Java code, you can try [starting GridGain from code](embedded-mode.md).
 
 ## Install GridGain
 
-1. [Download](https://www.gridgain.com/tryfree) GridGain from the website. This archive contains everything related to the GridGain database itself.
-2. On the same page, [get a free trial license](https://www.gridgain.com/tryfree).
-3. Also from the same page, download the [GridGain command line interface](../reference/cli-tool.md). This tool is the main way of interacting with GridGain database and will be used in the tutorial
-4. Unpack the downloaded archives:
+{% stepper %}
+{% step %}
+[Download](https://www.gridgain.com/tryfree) GridGain from the website. This archive contains everything related to the GridGain database itself.
+{% endstep %}
+
+{% step %}
+On the same page, [get a free trial license](https://www.gridgain.com/tryfree).
+{% endstep %}
+
+{% step %}
+Also from the same page, download the [GridGain command line interface](../reference/cli-tool.md). This tool is the main way of interacting with the GridGain database and is used in this tutorial.
+{% endstep %}
+
+{% step %}
+Unpack the downloaded archives:
 
 {% tabs %}
 {% tab title="Unix" %}
@@ -42,16 +53,23 @@ unzip -xf gridgain9-cli-9.1.zip
 {% endtab %}
 {% endtabs %}
 
-Now you should have the `gridgain9-db-9.1` and `gridgain9-cli-9.1` directories that we will be using in this tutorial, and the license file provided via e-mail.
+Verify that the `gridgain9-db-9.1` and `gridgain9-cli-9.1` directories exist, along with the license file provided via e-mail.
+{% endstep %}
+{% endstepper %}
 
 ## Start GridGain Node
 
-GridGain is a distributed database, that runs on a collection of *nodes* - GridGain database instances that contain data. When running GridGain, you would typically run multiple nodes - a *cluster*, that shares information and evenly distributes data across its nodes. In this part of the tutorial, we will only run one node, but a later part shows how you can start multiple.
+GridGain is a distributed database that runs on a collection of *nodes* - GridGain database instances that contain data. When running GridGain, you typically run multiple nodes - a *cluster* that shares information and evenly distributes data across its nodes. This part of the tutorial runs only one node, but a later part shows how to start multiple.
 
 To start a locally running node:
 
-1. Navigate to the `gridgain9-db-9.1` directory.
-2. Run the `gridgain9db` script:
+{% stepper %}
+{% step %}
+Navigate to the `gridgain9-db-9.1` directory.
+{% endstep %}
+
+{% step %}
+Run the `gridgain9db` script:
 
 {% tabs %}
 {% tab title="Linux" %}
@@ -70,15 +88,22 @@ bash bin\gridgain9db
 ```
 {% endtab %}
 {% endtabs %}
+{% endstep %}
+{% endstepper %}
 
 ## Start the GridGain CLI
 
-The primary means of interacting with your nodes and cluster is the [GridGain CLI](../reference/cli-tool.md). It can connect to a node running on a local or remote machine, and is the main tool that is used to manually configure and manage the database. In this example, we will be connecting to a local node.
+The primary means of interacting with your nodes and cluster is the [GridGain CLI](../reference/cli-tool.md). It can connect to a node running on a local or remote machine, and is the main tool that is used to manually configure and manage the database. In this example, you connect to a local node.
 
 To start the GridGain CLI:
 
-1. Navigate to the `gridgain9-cli-9.1` directory.
-2. Run the following command:
+{% stepper %}
+{% step %}
+Navigate to the `gridgain9-cli-9.1` directory.
+{% endstep %}
+
+{% step %}
+Run the following command:
 
 {% tabs %}
 {% tab title="Linux" %}
@@ -97,9 +122,14 @@ bash bin\gridgain9
 ```
 {% endtab %}
 {% endtabs %}
+{% endstep %}
 
-3. Confirm the connection the CLI tool attempts to establish with the node running on the default URI.
-4. If your node is running at a different address, use the `connect` command to connect to the node. For example:
+{% step %}
+Confirm the connection the CLI tool attempts to establish with the node running on the default URI.
+{% endstep %}
+
+{% step %}
+If your node is running at a different address, use the `connect` command to connect to the node. For example:
 
 {% tabs %}
 {% tab title="Command" %}
@@ -114,6 +144,8 @@ Connected to http://127.0.0.1:10300
 ```
 {% endtab %}
 {% endtabs %}
+{% endstep %}
+{% endstepper %}
 
 ## Initialize Your Cluster
 
@@ -146,11 +178,13 @@ Cluster was initialized successfully
 
 ## Run SQL Statements Against the Cluster
 
-Once your cluster has been initialized, you can start working with it. In this tutorial, we will be using the CLI tool to create a table, insert some rows and retrieve data. In most real scenarios you would have a [client](../developers-guide/clients/overview.md) writing data to a cluster and retrieving it, but the CLI tool can still be used for debugging or minor adjustments.
+Once your cluster has been initialized, you can start working with it. In this tutorial, you use the CLI tool to create a table, insert some rows, and retrieve data. In most real scenarios, a [client](../developers-guide/clients/overview.md) writes data to a cluster and retrieves it, but the CLI tool can still be used for debugging or minor adjustments.
 
 To work with the SQL in CLI:
 
-1. Enter the SQL REPL mode. In this mode, you will have access to SQL hints and command completion:
+{% stepper %}
+{% step %}
+Enter the SQL REPL mode. In this mode, you have access to SQL hints and command completion:
 
 {% tabs %}
 {% tab title="Command" %}
@@ -165,8 +199,10 @@ sql-cli>
 ```
 {% endtab %}
 {% endtabs %}
+{% endstep %}
 
-2. Use the `CREATE TABLE` statement to create a new table:
+{% step %}
+Use the `CREATE TABLE` statement to create a new table:
 
 {% tabs %}
 {% tab title="Command" %}
@@ -181,8 +217,10 @@ Updated 0 rows.
 ```
 {% endtab %}
 {% endtabs %}
+{% endstep %}
 
-3. Fill the table with data using the `INSERT` statement:
+{% step %}
+Fill the table with data using the `INSERT` statement:
 
 {% tabs %}
 {% tab title="Command" %}
@@ -198,8 +236,10 @@ Updated 1 rows.
 ```
 {% endtab %}
 {% endtabs %}
+{% endstep %}
 
-4. Get all the data you inserted in the previous step:
+{% step %}
+Get all the data you inserted in the previous step:
 
 {% tabs %}
 {% tab title="Command" %}
@@ -220,8 +260,12 @@ SELECT * FROM Person;
 ```
 {% endtab %}
 {% endtabs %}
+{% endstep %}
 
-5. If needed, exit the REPL mode with the `exit` command.
+{% step %}
+If needed, exit the REPL mode with the `exit` command.
+{% endstep %}
+{% endstepper %}
 
 {% hint style="info" %}
 For more information about available SQL statements, see the [SQL Reference](../reference/sql/ddl.md) section.
@@ -236,7 +280,7 @@ After you are done working with your cluster, you need to stop the node by stopp
 
 You can also exit the CLI tool with the `exit` command.
 
-The cluster will remain initialized, and ready once again when you restart the node.
+The cluster remains initialized and is ready again when you restart the node.
 
 ## Extended Cluster Startup Tutorial
 
@@ -248,14 +292,19 @@ GridGain 9 is designed to work in a cluster of 3 or more nodes at once. While a 
 Docker installation does not persist data by default, and all data will be lost when the container is deleted. To learn how to persist data, see [Getting Started with GridGain 9 Persistent Storage](persist-data.md).
 {% endhint %}
 
-To run multiple instances of GridGain, you would normally install it on multiple machines before starting a cluster. If you want to run a GridGain cluster on local VMs for this tutorial, we recommend using a Docker image:
+To run multiple instances of GridGain, you normally install it on multiple machines before starting a cluster. If you want to run a GridGain cluster on local VMs for this tutorial, we recommend using a Docker image:
 
-1. Download the [docker-compose](../.gitbook/assets/gg9-quick-start-docker-compose.yml) file.
+{% stepper %}
+{% step %}
+Download the [docker-compose](../.gitbook/assets/gg9-quick-start-docker-compose.yml) file.
 
-   {% hint style="info" %}
-   Docker compose version 2.23.1 or later is required to use the provided compose file.
-   {% endhint %}
-2. Download the Docker image:
+{% hint style="info" %}
+Docker compose version 2.23.1 or later is required to use the provided compose file.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+Download the Docker image:
 
 {% tabs %}
 {% tab title="Command" %}
@@ -278,8 +327,10 @@ docker.io/gridgain/gridgain9:9.1.21
 ```
 {% endtab %}
 {% endtabs %}
+{% endstep %}
 
-3. Run the Docker compose command, providing the previously downloaded compose file:
+{% step %}
+Run the Docker compose command, providing the previously downloaded compose file:
 
 {% tabs %}
 {% tab title="Command" %}
@@ -300,8 +351,10 @@ docker compose -f docker-compose.yml up -d
 {% endtabs %}
 
 3 nodes start in Docker and become available through the CLI tool that can be run locally.
+{% endstep %}
 
-4. Initialize your cluster before attempting to work with it. Replace `$PATH_TO_LICENSE` with the actual path to the directory where your configuration file is located:
+{% step %}
+Initialize your cluster before attempting to work with it. Replace `$PATH_TO_LICENSE` with the actual path to the directory where your configuration file is located:
 
 {% tabs %}
 {% tab title="Command" %}
@@ -320,10 +373,12 @@ Cluster was initialized successfully
 {% hint style="info" %}
 This tutorial assumes that you are running the CLI tool locally. If you are running it from Docker, make sure to mount a volume for the license.
 {% endhint %}
+{% endstep %}
+{% endstepper %}
 
 ### Optional: Start Multiple GridGain Nodes on Different Hosts
 
-In the examples above, we were running a single node, or a small cluster that used predefined configuration. Creating a GridGain cluster on several hosts involves adjustments to its configuration.
+In the examples above, you ran a single node or a small cluster that used predefined configuration. Creating a GridGain cluster on several hosts involves adjustments to its configuration.
 
 #### List all Nodes in NodeFinder
 
@@ -368,11 +423,11 @@ If the node is already running, you can also use the CLI tool to change node con
 node config update ignite.network.nodeFinder.netClusterNodes=["localhost:3344", "otherHost:3344"]
 ```
 
-This change requires the node restart to take effect.
+This change requires a node restart to take effect.
 
 #### Change Node Names
 
-You need to make sure that all nodes in the cluster have different names. Node name is defined in the `/etc/vars.env` file. Change the `NODE_NAME` variable to have unique name for each node in cluster, otherwise it will be impossible for the nodes with conflicting names to enter the same cluster.
+You need to make sure that all nodes in the cluster have different names. The node name is defined in the `/etc/vars.env` file. Change the `NODE_NAME` variable so that each node in the cluster has a unique name; nodes with conflicting names cannot enter the same cluster.
 
 #### Start all Nodes
 
@@ -420,7 +475,7 @@ Cluster was initialized successfully
 {% endtab %}
 {% endtabs %}
 
-Once the cluster starts, the nodes in it will form the _logical topology_. You can check if all nodes have entered the cluster by using the following command:
+Once the cluster starts, the nodes in it form the _logical topology_. You can check whether all nodes have entered the cluster by using the following command:
 
 {% tabs %}
 {% tab title="Command" %}

@@ -45,3 +45,51 @@ GridGain 9 provides the following storage engines:
 |[aipersist](native-persistent-storage.md)|Persistent Apache Ignite page memory (B+ tree) for durable storage with low latency access|Core|
 |[rocksdb](rocksdb-persistent-storage.md)|Persistent RocksDB (LSM tree) optimized for high write throughput|Experimental|
 |[columnar](columnar-storage.md)|Secondary storage optimized for analytical queries with column-oriented data organization|Add On|
+
+{% columns %}
+{% column %}
+{% content-ref url="in-memory-storage.md" %}
+[In-Memory Storage](in-memory-storage.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Configure the GridGain 9 volatile (in-memory) storage engine, its profile properties, eviction settings, and Raft log storage budget.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="native-persistent-storage.md" %}
+[Native Persistent Storage](native-persistent-storage.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How the GridGain 9 persistent storage engine stores data on disk, including checkpointing, write throttling, and storage configuration.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="rocksdb-persistent-storage.md" %}
+[RocksDB Persistent Storage](rocksdb-persistent-storage.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Configure the experimental GridGain 9 RocksDB persistent storage engine, based on an LSM tree and suited to high write throughput.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="columnar-storage.md" %}
+[Columnar Storage](columnar-storage.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Configure the GridGain 9 columnar storage engine for analytical queries, including engine and storage profile parameters.
+{% endcolumn %}
+{% endcolumns %}

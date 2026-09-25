@@ -77,7 +77,7 @@ cluster config update ignite.metrics.exporters.myJmxExporter.exporterName=jmx
 
 After you do, JMX monitoring tools will be able to collect enabled metrics from the specified nodes:
 
-![](../../.gitbook/assets/gg9-administrators-guide-jmc-metrics.png)
+![JDK Mission Control displaying GridGain metrics collected over JMX](../../.gitbook/assets/gg9-administrators-guide-jmc-metrics.png)
 
 You can also open internal JDK modules required for JMX, enable the remote JMX agent, configure the connection port, authentication, and SSL.
 Add the following options to the `GRIDGAIN9_EXTRA_JVM_ARGS` variable in `vars.env` file if you are using Linux or macOS, or to `vars.bat` for Windows:

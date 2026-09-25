@@ -18,7 +18,7 @@ Thin client transactions start lazily.
 Creating a transaction sends nothing to the cluster: the transaction begins on the server when you perform the first operation in it.
 Until then, it holds no locks and consumes no cluster resources.
 
-The *transaction coordinator* is chosen when the transaction begins, that is, when you perform that first operation. The coordinator finds the required [partitions](../architecture/storage/data-partitioning.md) and sends the read or write requests to the nodes holding primary partitions. For correct transaction operation, all nodes in cluster must have similar time, that can be different by no more than `schemaSync.maxClockSkewMillis`.
+The *transaction coordinator* is chosen when the transaction begins, that is, when you perform that first operation. The coordinator finds the required [partitions](../architecture/storage/data-partitioning.md) and sends the read or write requests to the nodes holding primary partitions. For correct transaction operation, all nodes in cluster must have similar time that can be different by no more than `schemaSync.maxClockSkewMillis`.
 
 Lazy start has two consequences to plan for:
 
