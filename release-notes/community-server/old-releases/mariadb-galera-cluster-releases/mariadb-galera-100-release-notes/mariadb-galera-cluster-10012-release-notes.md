@@ -27,7 +27,7 @@ For a list of changes made in MariaDB Galera Cluster 10.0.12, with links to deta
 * Running MariaDB Galera Cluster 5.5 and 10.0 nodes in a cluster is not supported ([MDEV-6257](https://jira.mariadb.org/browse/MDEV-6257))
 * Compatibility: Wsrep providers (Galera libraries) other than version 25.x.xx are not supported.
 * Compatibility: If Galera v2 and v3 are both being used in the cluster, MariaDB with\
-  Galera v3 must be started with [wsrep\_provider\_options='socket.checksum=1'](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options#socketchecksum) in order to make it backward compatible with Galera v2.
+  Galera v3 must be started with [wsrep\_provider\_options='socket.checksum=1'](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options#socket.checksum) in order to make it backward compatible with Galera v2.
 * Installation: Galera rpm packages had a file conflicting with Filesystem package, which caused installation to fail. Fixed Galera packages are now available for the following flavors : Fedora 19, Fedora 20 and CentOS 6. ([MDEV-4218](https://jira.mariadb.org/browse/MDEV-4218))
 * See the [MariaDB 10.0.12 Release Notes](../../10.0/10.0.12.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10012-changelog.md) for more information on the changes in\
   MariaDB.

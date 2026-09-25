@@ -17,7 +17,7 @@ Before using an external multinode cluster, upgrade Control Center to 2025.4.1+ 
 - If you are connecting Control Center to an external GridGain 8 Enterprise Edition or GridGain 8 Ultimate Edition cluster, you must set `ignite.includeGridGainPlugin=true` in the [`application.properties` file](configuration.md).
 - If you are using GridGain 8 Community Edition as the external cluster, no additional changes in the `application.properties` file are required.
 
-Ensure that the GridGain 8 version matches the Control Center client version. Control Center internal GridGain node version can be found in the [release notes](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/control-center/2025.4.1#updating-to-202541-with-an-external-cluster).
+Ensure that the GridGain 8 version matches the Control Center client version. Control Center internal GridGain node version can be found in the [release notes](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/control-center/2025.4.1#updating-to-2025.4.1-with-an-external-cluster).
 
 If the GridGain 8 cluster version differs from the version expected by Control Center, enable rolling upgrades mode to support mixed-version nodes.
 

@@ -26,7 +26,7 @@ MYSQL_BACKUP_DIR=/mysql_backup
 mkdir $MYSQL_BACKUP_DIR
 ```
 
-* Take a [full backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) the of the donor node with `mariadb-backup`. The [--galera-info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#-galera-info) option should also be provided, so that the node's cluster state is also backed up.
+* Take a [full backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) the of the donor node with `mariadb-backup`. The [--galera-info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#galera-info) option should also be provided, so that the node's cluster state is also backed up.
 
 ```
 DB_USER=sstuser
@@ -76,7 +76,7 @@ cat $MYSQL_DATADIR/grastate.dat | grep version
 
 For example, a very common version number is "2.1".
 
-* Get the node's cluster state from the [xtrabackup_galera_info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#-galera-info) file in the backup that was copied to the joiner node.
+* Get the node's cluster state from the [xtrabackup_galera_info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#galera-info) file in the backup that was copied to the joiner node.
 
 ```
 cat $MYSQL_BACKUP_DIR/xtrabackup_galera_info

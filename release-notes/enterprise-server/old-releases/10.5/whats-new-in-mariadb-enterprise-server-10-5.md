@@ -292,7 +292,7 @@ Upgrading to version 10.5.8-5 or later will generally modify these privileges au
 * Allows the user to execute [ALTER SERVER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-server) statements
 * Allows the user to execute [DROP SERVER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-server) statements
 
-### [READ\_ONLY ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#readonly-admin)
+### [READ\_ONLY ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#read_only-admin)
 
 | Present in ES10.4? | Present in ES10.5.8-5? |
 | ------------------ | ---------------------- |
@@ -615,7 +615,7 @@ MariaDB Enterprise Server 10.5 adds privileges that allow operations that previo
 * Allows the user to execute [ALTER SERVER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-server) statements
 * Allows the user to execute [DROP SERVER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-server) statements
 
-### [READ\_ONLY ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#readonly-admin)
+### [READ\_ONLY ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#read_only-admin)
 
 | Present in ES10.4? | Present in ES10.5.8-5? |
 | ------------------ | ---------------------- |

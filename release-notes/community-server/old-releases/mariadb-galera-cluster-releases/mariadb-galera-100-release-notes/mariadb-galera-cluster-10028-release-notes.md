@@ -32,7 +32,7 @@ For changes made in [MariaDB 10.0.28](../../10.0/10.0.28.md), see the [MariaDB 1
 * On Ubuntu and Debian, the Galera Arbitrator daemon (garbd) and the galera library are in two separate packages. The packages are named galera-3 and galera-arbitrator-3. When installing MariaDB Galera Cluster on Ubuntu and\
   Debian (the mariadb-galera-server package), the galera-3 package will be automatically installed. You can then install the arbitrator package on a separate node (recommended) or on one of the nodes running mariadb-galera-server (not recommended).
 
-Note: If Galera 25.2.x and 25.3.x are both being used in the cluster, MariaDB with Galera 25.3.x must be started with [wsrep\_provider\_options='socket.checksum=1'](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options#socketchecksum) in order to make it backward compatible with Galera v2. Galera wsrep providers other than 25.3.x or 25.2.x are not supported.
+Note: If Galera 25.2.x and 25.3.x are both being used in the cluster, MariaDB with Galera 25.3.x must be started with [wsrep\_provider\_options='socket.checksum=1'](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options#socket.checksum) in order to make it backward compatible with Galera v2. Galera wsrep providers other than 25.3.x or 25.2.x are not supported.
 
 Thank you for using MariaDB Galera Cluster!
 
