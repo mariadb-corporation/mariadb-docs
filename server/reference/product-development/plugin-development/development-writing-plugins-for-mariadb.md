@@ -84,6 +84,32 @@ Function plugins appear in [SHOW PLUGINS](../../sql-statements/administrative-sq
 
 Function plugins are initialized early in server startup, before storage engine plugins.
 
+## Building and Packaging a Plugin
+
+To build the plugin one needs to install a MariaDB development package:
+```
+$ dnf install MariaDB-devel
+```
+or
+```
+$ apt install libmariadb-dev
+```
+
+and create a `CMakeLists.txt` file. For a simple example plugin it only needs few lines
+```cmake
+cmake_minimum_required(VERSION 3.12)
+find_package(mariadb-plugin REQUIRED)
+MARIADB_ADD_PLUGIN(exampledb example.cc MODULE_ONLY STORAGE_ENGINE
+                 AUTHOR "John Smith" VERSION 0.1
+                 DESCRIPTION "Example of plugin interface")
+include(CPack)
+```
+This allows to do the following:
+* configure the build: `cmake .` optionally with `-DRPM=1` or `-DDEB=1` depending on what kind of packages are needed
+* compile: `cmake --build .`
+* install: `cmake --build . --target install`
+* package `cmake --build . --target package`
+
 ## Plugin Declaration Structure
 
 The MariaDB plugin declaration differs from
@@ -107,20 +133,22 @@ maria_declare_plugin(example)
 {
    MYSQL_STORAGE_ENGINE_PLUGIN, /* the plugin type (see include/mysql/plugin.h) */
    &example_storage_engine_info, /* pointer to type-specific plugin descriptor   */
-   "EXAMPLEDB", /* plugin name */
-   "John Smith",  /* plugin author */
-   "Example of plugin interface", /* the plugin description */
-   PLUGIN_LICENSE_GPL, /* the plugin license (see include/mysql/plugin.h) */
+   PLUGIN_NAME, /* plugin name */
+   PLUGIN_AUTHOR,  /* plugin author */
+   PLUGIN_DESCRIPTION, /* the plugin description */
+   PLUGIN_LICENSE, /* the plugin license (see include/mysql/plugin.h) */
    example_init_func,   /* Pointer to plugin initialization function */
    example_deinit_func,  /* Pointer to plugin deinitialization function */
-   0x0001 /* Numeric version 0xAABB means AA.BB version */,
+   PLUGIN_HEX_VERSION, /* Numeric version 0xAABB means AA.BB version */
    example_status_variables,  /* Status variables */
    example_system_variables,  /* System variables */
-   "0.1 example",  /* String version representation */
+   PLUGIN_VERSION,  /* String version representation */
    MariaDB_PLUGIN_MATURITY_EXPERIMENTAL /* Maturity (see include/mysql/plugin.h)*/
 }
 maria_declare_plugin_end;
 ```
+
+Values for `PLUGIN_NAME`, `PLUGIN_AUTHOR`, etc are automatically taken from the `CMakeLists.txt`. But they can be also specified explicitly, as in the "sysconst_test" example above, this is particularly useful if the plugin binary contains many plugin.
 
 ## Maturity Guidelines For Plugins
 
