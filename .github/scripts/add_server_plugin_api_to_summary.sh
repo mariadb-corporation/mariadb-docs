@@ -26,9 +26,12 @@ else
   bullets_file="$basedir/server/reference/plugins/api-plugin/bullets.tmp"
   rm -f "$bullets_file"
 fi
-# Recreate child bullets from every generated .md page.
+# Recreate child bullets from every generated .md page, ordered by displayed
+# title rather than filename: by filename, api.md ("API Reference") sorted
+# last and Group_PSI_v1.md sorted among the F-titles. LC_ALL=C makes the
+# order the same on every platform instead of following the runner's locale.
 # Title extraction matches: grep '^# ' | sed 's/^# \(.*\)$/\1/g'
-find "$dest_dir" -maxdepth 1 -type f -name '*.md' -print | sort | while read -r page; do
+find "$dest_dir" -maxdepth 1 -type f -name '*.md' -print | while read -r page; do
   base="$(basename "$page")"
   if [[ "$base" == "$parent_page" ]]; then
     continue
@@ -37,6 +40,8 @@ find "$dest_dir" -maxdepth 1 -type f -name '*.md' -print | sort | while read -r 
   if [ -z "$title" ]; then
     title="${base%.md}"
   fi
+  printf '%s\t%s\n' "$title" "$base"
+done | LC_ALL=C sort -t "$(printf '\t')" -k1,1 -k2,2 | while IFS="$(printf '\t')" read -r title base; do
   printf '      * [%s](%s/%s)\n' "$title" "$summary_dir" "$base" >> "$bullets_file"
 done
 test -s "$bullets_file"

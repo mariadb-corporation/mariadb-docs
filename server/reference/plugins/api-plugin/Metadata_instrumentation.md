@@ -1,6 +1,6 @@
 ---
 description: >-
-  Plugin API reference: Metadata Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+  The mysql_mdl_create, mysql_mdl_set_status, and mysql_mdl_destroy macros, which instrument metadata locks for the Performance Schema.
 ---
 
 

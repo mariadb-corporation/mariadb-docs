@@ -114,6 +114,19 @@ jobs:
           set -euo pipefail
           python3 .github/scripts/fix_plugin_api_member_anchors.py
 
+      - name: Title-case the ABI version in generated page titles
+        run: |
+          set -euo pipefail
+          dest_dir="server/reference/plugins/api-plugin"
+          # The doxygen group title is "Application Binary Interface, version 1";
+          # house style is Title Case. Runs before the frontmatter and SUMMARY
+          # steps, which both read the page's H1. H1 lines only, so the group's
+          # name in code spans elsewhere stays as the headers spell it.
+          # grep exits 1 once upstream fixes the title; that must not fail the sync.
+          { grep -rlZ -E '^# .*, version [0-9]+' "$dest_dir" || true; } | while IFS= read -r -d '' f; do
+            sed -i -E 's/^(# .*), version ([0-9]+)/\1, Version \2/' "$f"
+          done
+
       - name: Add frontmatter to the generated pages
         run: |
           set -euo pipefail

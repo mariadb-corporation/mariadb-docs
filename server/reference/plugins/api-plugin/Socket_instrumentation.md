@@ -1,6 +1,6 @@
 ---
 description: >-
-  Plugin API reference: Socket Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+  The MYSQL_SOCKET structure and the mysql_socket_* wrappers for creating, connecting, sending, receiving, and closing sockets with Performance Schema instrumentation.
 ---
 
 
