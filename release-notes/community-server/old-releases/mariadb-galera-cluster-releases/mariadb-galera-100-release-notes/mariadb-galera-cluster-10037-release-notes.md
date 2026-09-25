@@ -44,7 +44,7 @@ For changes made in [MariaDB 10.0.37](../../10.0/10.0.37.md), see the [MariaDB 1
 
 For a full list of contributors to MariaDB Galera Cluster 10.0.37, see the [MariaDB Foundation release announcement](https://mariadb.org/mariadb-galera-cluster-10-0-37-now-available/).
 
-Note: If Galera 25.2.x and 25.3.x are both being used in the cluster, MariaDB with Galera 25.3.x must be started with [wsrep\_provider\_options='socket.checksum=1'](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options#socketchecksum) in order to make it backward compatible with Galera v2. Galera wsrep providers other than 25.3.x or 25.2.x are not supported.
+Note: If Galera 25.2.x and 25.3.x are both being used in the cluster, MariaDB with Galera 25.3.x must be started with [wsrep\_provider\_options='socket.checksum=1'](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options#socket.checksum) in order to make it backward compatible with Galera v2. Galera wsrep providers other than 25.3.x or 25.2.x are not supported.
 
 Thank you for using MariaDB Galera Cluster!
 
