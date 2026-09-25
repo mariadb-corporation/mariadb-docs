@@ -29,6 +29,7 @@ config:
   theme: neutral
   layout: dagre
 ---
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
  subgraph cloud["Kubernetes Cluster"]
     direction TB
@@ -69,6 +70,7 @@ flowchart LR
     linkStyle 4 stroke:#FF6D00,fill:none
     linkStyle 6 stroke:#FF6D00,fill:none
     linkStyle 7 stroke:#FF6D00,fill:none
+ linkStyle default color:#111111
 ```
 
 ## Core Components

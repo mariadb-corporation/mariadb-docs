@@ -103,6 +103,7 @@ This section visually explains how MariaDB decides which statistics to use, and 
 ### Optimizer Statistics Selection Flow (Query Execution Time)
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     Start([Incoming SQL Query]) --> Eval{use_stat_tables value?}
     
@@ -113,6 +114,7 @@ graph TD
     
     CheckEITS -- Yes --> UseEITS[Use EITS from<br/>mysql.table_stats, column_stats, and index_stats]
     CheckEITS -- No --> Fallback[Fallback to InnoDB stats<br/>'EITS not collected yet']
+    linkStyle default color:#111111
 ```
 
 * NEVER: Optimizer always uses InnoDB stats, even if EITS exists.
@@ -121,6 +123,7 @@ graph TD
 ### ANALYZE TABLE – Statistics Collection Flow
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     Start[ANALYZE TABLE issued] --> Eval[Check use_stat_tables value at runtime]
     
@@ -129,6 +132,7 @@ graph TD
     
     Eval -- "PREFERABLY / PERSISTENT" --> FullScan[Full scan or sampled scan<br/>— based on analyze_sample_percentage]
     FullScan --> UpdateBoth[Updates BOTH:<br/>mysql.innodb_table_stats<br/>mysql.table_stats<br/>mysql.column_stats histograms<br/>mysql.index_stats]
+    linkStyle default color:#111111
 ```
 
 * NEVER: Fast, safe, but low precision.
@@ -137,6 +141,7 @@ graph TD
 ### Column Statistics Collection Flow (analyze\_max\_length)
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     Start[Column encountered during EITS collection] --> TypeCheck{Is column type CHAR or VARCHAR?}
     
@@ -148,6 +153,7 @@ graph TD
     
     LimitCheck -- Yes --> Stored[Column stats stored in mysql.column_stats]
     LimitCheck -- No --> Skipped[Column skipped with warning to prevent long ANALYZE runtime]
+    linkStyle default color:#111111
 ```
 
 * `utf8mb4` multiplies size by 4 (compared to `latin1`)

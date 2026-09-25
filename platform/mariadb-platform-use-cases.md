@@ -27,6 +27,7 @@ MariaDB Replication offers high availability through asynchronous or semi-synchr
 **Add note about primary/replica vs. master/slave**
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to an ES primary and two replicas
     accDescr {
@@ -48,6 +49,7 @@ flowchart TD
     classDef primary fill:#cde8ea,stroke:#0a5a6b,stroke-width:3px,color:#111;
     class MX,R1,R2 node
     class P primary
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes reads to two replicas and writes to a primary, which replicates to both replicas._
@@ -59,6 +61,7 @@ _MaxScale routes reads to two replicas and writes to a primary, which replicates
 MariaDB Enterprise Cluster, powered by Galera, provides a highly available, multi-primary solution for transactional/OLTP workloads using the InnoDB storage engine. It features virtually synchronous, certification-based replication, automated node provisioning (IST/SST), and scales reads via MaxScale. It's compatible with Enterprise Server 10.3+ and MaxScale 2.5+.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a three-node ES Galera cluster
     accDescr {
@@ -79,6 +82,7 @@ flowchart TD
     N1 <-->|"Galera<br/>(virtually sync)"| N3
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     class MX,N1,N2,N3 node
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes to three ES nodes that replicate synchronously with each other as a Galera cluster._
@@ -92,6 +96,7 @@ _MaxScale routes to three ES nodes that replicate synchronously with each other 
 MariaDB Enterprise ColumnStore offers a highly available, columnar storage engine with S3-compatible object storage for data warehousing and analytics. It features automatic failover via MaxScale and CMAPI, read scaling through MaxScale, and efficient bulk data import. It's supported on Enterprise Server 10.5 and 10.6 with corresponding ColumnStore and MaxScale versions.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to three ES ColumnStore nodes sharing S3 object storage
     accDescr {
@@ -121,6 +126,7 @@ flowchart TD
     classDef storage fill:#fdebd0,stroke:#8a5a00,stroke-width:2px,color:#111;
     class MX,E1,E2,E3,C1,C2,C3 node
     class S3 storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes to three ES/ColumnStore nodes, all sharing S3-compatible object storage._
@@ -132,6 +138,7 @@ _MaxScale routes to three ES/ColumnStore nodes, all sharing S3-compatible object
 MariaDB Enterprise ColumnStore, utilizing shared local storage, delivers a highly available columnar solution. It features automatic failover via MaxScale and CMAPI, scales reads through MaxScale, and enables bulk data imports. This setup is compatible with Enterprise Server 10.5 and 10.6, alongside specific Enterprise ColumnStore and MaxScale versions.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to three ES ColumnStore nodes sharing NFS storage
     accDescr {
@@ -161,6 +168,7 @@ flowchart TD
     classDef storage fill:#fdebd0,stroke:#8a5a00,stroke-width:2px,color:#111;
     class MX,E1,E2,E3,C1,C2,C3 node
     class NFS storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes to three ES/ColumnStore nodes, all sharing NFS storage._
@@ -174,6 +182,7 @@ _MaxScale routes to three ES/ColumnStore nodes, all sharing NFS storage._
 MariaDB's single-stack solution handles hybrid transactional/analytical workloads by combining ColumnStore for analytics with S3-compatible object storage and InnoDB for transactions. It supports cross-engine JOINs for comprehensive queries. This offering is available with Enterprise Server 10.5 or 10.6, paired with specific Enterprise ColumnStore and MaxScale versions.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing HTAP traffic to a single ES node with ColumnStore and InnoDB
     accDescr {
@@ -196,6 +205,7 @@ flowchart TD
     classDef storage fill:#fdebd0,stroke:#8a5a00,stroke-width:2px,color:#111;
     class MX,ES,CS,IN node
     class S3 storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes HTAP traffic to one ES node, which fans out to ColumnStore and InnoDB with replication between them._

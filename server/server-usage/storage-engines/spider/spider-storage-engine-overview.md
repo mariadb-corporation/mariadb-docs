@@ -283,6 +283,7 @@ Without connection pool or MariaDB thread pool, HaProxy and Spider have been pro
 #### Sharding Setup
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Spider single-node sharded topology across two backends
     accDescr { A single Spider node, SPIDER1 at 192.168.0.201, shards the sbtest table into two partitions. Part 1 is routed to Backend1 at 192.168.0.202, and Part 2 is routed to Backend2 at 192.168.0.203. The two backend servers coordinate an XA two-phase commit (XA 2PC) between themselves so that writes spanning both shards stay consistent. }
@@ -310,6 +311,7 @@ flowchart TD
     class CLIENT clientNode
     class SPIDER1 spiderNode
     class BACKEND1,BACKEND2 backendNode
+    linkStyle default color:#111111
 ```
 
 _A single Spider node (SPIDER1) shards sbtest across two backends, Backend1 (Part 1) and Backend2 (Part 2), coordinated by XA 2PC._
@@ -594,6 +596,7 @@ mysql> SELECT sum(k) FROM sbtest;
 Spider's high availability feature has been deprecated ([MDEV-28479](https://jira.mariadb.org/browse/MDEV-28479)), and are deleted. Please use other high availability solutions like [replication](../../../ha-and-performance/standard-replication/) or [galera-cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide).
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Spider sharded topology with cross-backend replication for high availability
     accDescr { A single Spider node, SPIDER1 at 192.168.0.201, shards the sbtest table into two partitions, Part 1 and Part 2. Backend1, at 192.168.0.202, holds Part 1 as primary and keeps a replica of Part 2; Backend2, at 192.168.0.203, holds Part 2 as primary and keeps a replica of Part 1. The two backends coordinate an XA two-phase commit (XA 2PC) and replicate each other's shard, so that if one backend fails, the other still holds a full replica of both partitions. }
@@ -631,6 +634,7 @@ flowchart TD
     class SPIDER1 spiderNode
     class BACKEND1,BACKEND2 backendNode
     class B1P1,B1P2,B2P2,B2P1 tableNode
+    linkStyle default color:#111111
 ```
 
 _For high availability, Backend1 and Backend2 each hold their own primary shard plus a replica of the other's shard, kept in sync via XA 2PC._
@@ -760,6 +764,7 @@ Checking the state of the nodes:
 ```
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Spider link monitoring during a backend failure
     accDescr { A SQL client sends queries into the Spider node SPIDER1 at 192.168.0.201. Inside SPIDER1, the SPIDER_TABLES catalog tracks PART1 with link_status 1 and PART2 with link_status 3. The SBTEST table's PART 1 and PART 2 are linked to two backend servers. SPIDER_LINK_MON_SERVER lists SPIDER1 itself as the monitoring node, and exchanges MAJORITY quorum votes with SBTEST to decide link status. A MONITORING process runs background checks with monitoring_bg_kind 1 calling mysql_ping, monitoring_bg_kind 2 running select 1 from SBTEST limit 1, and monitoring_bg_kind 3 running select 1 from SBTEST where a condition. Backend1 at 192.168.0.202 holds SBTEST PART 1 and PART 2 and is reachable, but an ERROR is reported between SBTEST and Backend1. Backend2 at 192.168.0.203 has failed, shown crossed out, and the MONITORING process reports an ERROR trying to reach Backend2's SBTEST PART 2. }
@@ -788,6 +793,7 @@ flowchart TD
     class SQL client
     class SPIDER_TABLES,SBTEST_S,LINKMON,MONITORING proc
     class BACKEND1,BACKEND2 node
+    linkStyle default color:#111111
 ```
 
 _Spider's link monitoring: SPIDER1 tracks link\_status for each partition, uses SPIDER\_LINK\_MON\_SERVER and MAJORITY quorum voting to detect Backend1 vs. the failed Backend2, while a background MONITORING process pings and probes SBTEST on each backend._

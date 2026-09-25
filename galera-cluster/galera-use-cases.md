@@ -61,6 +61,7 @@ Galera's core strength is its synchronous replication, ensuring that data is wri
 This diagram shows how a proxy like MaxScale handles a node failure. The application is shielded from the downtime, and traffic is automatically rerouted to the healthy nodes.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     App[User Application] --> Proxy[MariaDB MaxScale]
 
@@ -77,6 +78,7 @@ graph TD
     style N3 fill:#f99,stroke:#a00,stroke-width:2px,stroke-dasharray: 5 5
     linkStyle 2 stroke-dasharray: 5 5,stroke:red
     linkStyle 4,5 stroke-dasharray: 5 5,stroke:grey
+    linkStyle default color:#111111
 ```
 
 #### How It _Really_ Works: The "Synchronous" Nuance
@@ -194,6 +196,7 @@ This use case covers two distinct architectures with different goals:
 This is a single Galera cluster with nodes stretched across multiple data centers. A COMMIT in New York is not "OK'd" until the data is safely certified by the London node. This gives Zero Data Loss (RPO=0) but has a major performance impact.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     subgraph "DC 1: New York"
         N1[Node 1]
@@ -212,6 +215,7 @@ graph TD
     linkStyle 1,2 stroke-width:4px,stroke:red,stroke-dasharray: 5 5
     linkStyle 3 stroke-width:2px,stroke:blue
     style App fill:#f5f5f5
+    linkStyle default color:#111111
 ```
 {% endtab %}
 
@@ -219,6 +223,7 @@ graph TD
 This is the more common setup. A primary cluster in DC-1 runs at full speed. It asynchronously replicates its data to a separate node/cluster in DC-2. This is fast, but allows for minimal data loss (RPO > 0) in a disaster.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     subgraph "DC 1: Primary"
         App[Application] --> Proxy[MaxScale]
@@ -232,6 +237,7 @@ graph TD
     Cluster1 -- Async Replication --> Cluster2
     linkStyle 2 stroke-width:4px,stroke:green,stroke-dasharray: 5 5
     style App,Proxy fill:#f5f5f5
+    linkStyle default color:#111111
 ```
 {% endtab %}
 {% endtabs %}
@@ -264,6 +270,7 @@ While synchronous replication adds some overhead, Galera fundamentally allows an
 This is the most common and recommended architecture. MaxScale's `readwritesplit` router automatically designates one node as the "Primary" (for writes) and load-balances reads across the others. If the Primary node fails, MaxScale automatically promotes a new one.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     App[User Application] --> Proxy["MariaDB MaxScale<br>(Read/Write Split Router)"]
 
@@ -294,6 +301,7 @@ graph TD
     linkStyle 1,2,3 stroke-width:2px,stroke:blue,stroke-dasharray: 3 3
     linkStyle 4 stroke-width:4px,stroke:red
     linkStyle 5,6 stroke-width:2px,stroke:green
+    linkStyle default color:#111111
 ```
 
 <table><thead><tr><th width="135">Strategy</th><th>"True Multi-Master"</th><th>"Read-Write Split" (Recommended)</th></tr></thead><tbody><tr><td>How it Works</td><td>The application (or proxy) sends writes to <em>all</em>nodes in the cluster.</td><td>A proxy (MaxScale) designates <em>one</em> node as "Primary" and sends 100% of writes to it.</td></tr><tr><td>Pros</td><td>Fully utilizes all nodes for writes; no single point of failure for write ingress.</td><td>No application deadlocks. Zero certification failures. Simple for the application.</td></tr><tr><td>Cons</td><td>High risk of deadlocks. If two clients update the same row on different nodes, one fails.</td><td>Write throughput is limited to what a <em>single node</em> can handle.</td></tr><tr><td>Best For</td><td>Very specific applications that are 100% guaranteed to have no write conflicts.</td><td>99% of all applications. You get full read-scaling and automatic HA, without the application complexity.</td></tr></tbody></table>

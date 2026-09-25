@@ -71,6 +71,13 @@ on the file set, from the repo root:
   the author never opened, and reproduce it with
   `git ls-files -z -- '*.md' '*.html' | .claude/hooks/includecheck.sh --stdin0`. There is no
   acknowledgment path and should not be one: a dead include is always a bug.
+- It also fails a **Mermaid flowchart with edge labels** (`A -->|Yes| B`, `A -- No --> B`) that
+  lacks the dark-mode contrast fix: an `%%{init}%%` directive setting `edgeLabelBackground` as
+  the block's first line and `linkStyle default color:…` as its last, at >= 4.5:1. Without it,
+  GitBook's dark theme draws the label at 4.43:1, which fails WCAG AA. The fix is
+  `python3 .claude/hooks/mermaidcheck.py --fix <file>`; the convention is in
+  `dev-docs/gitbook-syntax.md`. Gated tree-wide in CI by `mermaidcheck-pr.yml` (DOCS-6630). Needs
+  python3, and SKIPs locally without it.
 - It also gates **GitBook heading anchors** — a link to `page.md#some-heading` whose anchor no
   longer exists. Gated in CI by `fragcheck-pr.yml` since DOCS-6524 (and `nightly-fragcheck.yml`
   catches the write paths that never open a PR — GitBook-UI syncs, the alias-expansion bot), so

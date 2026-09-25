@@ -46,6 +46,7 @@ The access is performed as follows:
 ### Access diagram
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Storage engine index-read access flow
     accDescr { The storage engine reads an index tuple, checks it against the pushed index_condition, then against the Rowid Filter; tuples failing either check are excluded. A tuple passing both has its full row read, exiting the storage engine. The server then checks the row against the attached_condition outside the storage engine, excluding it on failure and returning it on success. }
@@ -61,6 +62,7 @@ flowchart TD
     Full --> AC{"Check<br/>attached_condition"}
     AC -->|false| D(( ))
     AC -->|true| E(( ))
+    linkStyle default color:#111111
 ```
 
 _The storage engine applies Index Condition Pushdown and the Rowid Filter internally; the server checks `attached_condition` afterwards, outside the storage engine._
@@ -70,6 +72,7 @@ _The storage engine applies Index Condition Pushdown and the Rowid Filter intern
 In MariaDB versions before 11.5, the counters were counted as follows:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: r_rows and r_filtered counter placement before MariaDB 11.5
     accDescr { This diagram overlays where MariaDB, before version 11.5, updates its ANALYZE row counters on the storage engine index-read flow. The Rowid Filter's selectivity is counted at the Rowid Filter check inside the storage engine. r_rows is counted once a row has passed the index_condition and Rowid Filter checks and its full row has been read. r_filtered is counted at the attached_condition check outside the storage engine. }
@@ -92,6 +95,7 @@ flowchart TD
     style CntRF fill:#ffff66,stroke:#b8860b,color:#111
     style CntRows fill:#ffff66,stroke:#b8860b,color:#111
     style CntFiltered fill:#ffff66,stroke:#b8860b,color:#111
+    linkStyle default color:#111111
 ```
 
 _Before MariaDB 11.5, `r_rows` is counted after the index and Rowid Filter checks, while `r_filtered` counts only the `attached_condition` selectivity._
@@ -117,6 +121,7 @@ The selectivity counters are:
 * `r_total_filtered` is the combined selectivity of all checks.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: r_rows and r_filtered counter placement in MariaDB 11.5 and later
     accDescr { This diagram overlays where MariaDB 11.5 and later versions update ANALYZE row counters on the storage engine index-read flow. Inside the storage engine, r_index_rows is counted right after the index tuple is read, before any checks are made. After the index_condition check passes, r_icp_filtered is counted, showing the selectivity of that check. The Rowid Filter check, as before, counts rowid_filter.r_selectivity_pct. A tuple passing both checks has its full row read, exiting the storage engine, where r_rows is counted. The server then checks attached_condition outside the storage engine, counting r_filtered at that point. r_icp_filtered and r_filtered both feed into r_total_filtered, the combined selectivity of the index_condition, Rowid Filter, and attached_condition checks together. }
@@ -155,6 +160,7 @@ flowchart TD
     style CntRowidSel fill:#ffff66,stroke:#b8860b,color:#111
     style CntRows fill:#ffff66,stroke:#b8860b,color:#111
     style CntFiltered fill:#ffff66,stroke:#b8860b,color:#111
+    linkStyle default color:#111111
 ```
 
 _MariaDB 11.5 and later add `r_index_rows`, `r_icp_filtered`, and `r_total_filtered` (highlighted in red) alongside the existing `rowid_filter.r_selectivity_pct`, `r_rows`, and `r_filtered` counters (highlighted in yellow)._

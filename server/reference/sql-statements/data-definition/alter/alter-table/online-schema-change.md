@@ -35,6 +35,7 @@ If the `INSERT` statement starts after the `ALTER TABLE` statement, it is not bl
 `ALTER TABLE` always allows concurrent [SELECT](../../../data-manipulation/selecting-data/select.md) statements. If the `LOCK=NONE` locking strategy is chosen, it allows concurrent modifications via DML[^1] statements like `INSERT`, `DELETE`, or `UPDATE`. `LOCK=NONE` is supported by the InnoDB and the Partition engine when `ALGORITHM=NOCOPY` is chosen, and is a default locking strategy when available.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     subgraph "Legacy Behavior (Blocking)"
         direction TB
@@ -60,6 +61,7 @@ graph TD
     style L2 fill:#fdd,stroke:#900,stroke-width:2px
     style O2 fill:#ddf,stroke:#009,stroke-width:2px
     style DML fill:#dfd,stroke:#060,stroke-width:2px
+    linkStyle default color:#111111
 ```
 
 ### New Behavior

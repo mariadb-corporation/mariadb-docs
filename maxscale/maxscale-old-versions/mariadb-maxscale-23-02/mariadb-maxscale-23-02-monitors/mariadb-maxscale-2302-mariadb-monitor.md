@@ -1175,6 +1175,7 @@ running servers, neither is certain they have majority and the cluster stays in
 read-only mode. If the primary server is down, no failover is performed either.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative lock - no majority scenario
     accDescr {
@@ -1199,6 +1200,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _No majority: both MaxScale instances see the same two reachable servers, so neither can lock a majority and both remain secondary._
 
@@ -1216,6 +1218,7 @@ lock majority. Both MaxScales may then promote their own primaries and route
 writes to different servers.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative lock - split-brain scenario
     accDescr {
@@ -1242,6 +1245,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Split brain: a broken heartbeat between datacenters lets both MaxScale A and MaxScale B act as primary at once, each locking its own read-write server._
 
@@ -1267,6 +1271,7 @@ can be further decreased by configuring each monitor with a different\_monitor\_
 The flowchart below illustrates the lock handling logic.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative monitoring — acquiring the primary lock majority
     accDescr {
@@ -1301,6 +1306,7 @@ flowchart TD
     class Check,AcqRemaining,AcqAll,Release proc
     class Have,CanGet,Got decision
     class Start,Primary,Secondary terminal
+    linkStyle default color:#111111
 ```
 
 _MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds (or can acquire) a majority of server locks becomes primary; otherwise it releases any locks and continues as secondary._

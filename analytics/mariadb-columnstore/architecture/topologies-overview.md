@@ -26,6 +26,7 @@ Although multiple topologies are listed on this page, the listed topologies are 
 ### Primary/Replica Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing reads and writes across a MariaDB primary/replica topology
     accDescr {
@@ -48,6 +49,7 @@ flowchart TD
     class MX proxy
     class R1,R2 node
     class P primary
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes reads to two replicas and writes to one primary, which replicates to both._
@@ -59,6 +61,7 @@ _MaxScale routes reads to two replicas and writes to one primary, which replicat
 ### Galera Cluster Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a three-node Galera Cluster
     accDescr {
@@ -80,6 +83,7 @@ flowchart TD
     classDef proxy fill:#f0e2f5,stroke:#5b1a70,stroke-width:2px,color:#111;
     class MX proxy
     class N1,N2,N3 node
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes to three Galera Cluster nodes that replicate virtually synchronously with each other._
@@ -99,6 +103,7 @@ _MaxScale routes to three Galera Cluster nodes that replicate virtually synchron
 ### ColumnStore Object Storage Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to three ColumnStore nodes backed by S3 object storage
     accDescr {
@@ -129,6 +134,7 @@ flowchart TD
     class MX proxy
     class E1,E2,E3,C1,C2,C3 node
     class S3 storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes to three ColumnStore nodes that all read and write the same S3 object storage._
@@ -142,6 +148,7 @@ _MaxScale routes to three ColumnStore nodes that all read and write the same S3 
 ### HTAP Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a single HTAP server splitting analytical and transactional storage
     accDescr {
@@ -166,6 +173,7 @@ flowchart TD
     class MX proxy
     class ES,CS,IDB node
     class S3 storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes HTAP traffic to one server that replicates from InnoDB to S3-backed ColumnStore._

@@ -48,6 +48,7 @@ flowchart TB
 _Topology A (federation) routes a client through Spider to a single backend node; topology B (federation with HA) routes the same client through Spider to two redundant backend nodes._
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TB
     accTitle: Spider Sharding Topology Compared with Sharding-and-HA Topology
     accDescr {
@@ -101,6 +102,7 @@ flowchart TB
     class CC,DC client;
     class CS1,CS2,CS3,DS1,DS2,DS3 proc;
     class CB1,CB2,CB3,DB1,DB2,DB3 node;
+    linkStyle default color:#111111
 ```
 
 _Topology C (sharding) routes a client through three Spider nodes to three non-overlapping backend shards; topology D (sharding with HA) uses the same Spider layer but stores each partition redundantly across two backend shards, all coordinated via XA two-phase commit._
@@ -119,6 +121,7 @@ Preserving atomic operation during execution is used at multiple levels in the a
 Costly queries can be more efficient when it is possible to fully push down part of the execution plan on each backend and reduce the result afterwards. Spider enables such execution with some direct execution shortcuts.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TB
     accTitle: Spider Storage Engine Federation Architecture
     accDescr {
@@ -180,6 +183,7 @@ flowchart TB
     class PT,HDLC,SQLC,OPTZ,PAPI,HIDX,HTBL,HS1 file;
     class SMR,SDSU,SPD,HDLR2,HS2,SQLR2 proc;
     class B1,B2,B3,B4 node;
+    linkStyle default color:#111111
 ```
 
 _The Spider proxy node layers client-facing Handler, HS, and SQL interfaces (plus the optimizer, partition API, and Spider Map Reduce/Direct SQL UDF extensions) over the core Spider engine, which forwards to remote node interfaces fronting four backend shards kept consistent via XA two-phase commit._
@@ -189,6 +193,7 @@ _The Spider proxy node layers client-facing Handler, HS, and SQL interfaces (plu
 Spider uses the per partitions and per table model to concurrently access the remote backend nodes. For memory workload that property can be used to define multiple partitions on a single remote backend node to better adapt the concurrency to available CPUs in the hardware.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TB
     accTitle: Spider Engine Threading and Request-Flow Architecture
     accDescr {
@@ -235,6 +240,7 @@ flowchart TB
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     class B1,B2,B3 node;
+    linkStyle default color:#111111
 ```
 
 _Spider's per-partition, per-table threading model: SQL1/SQL2 worker threads coordinate over a shared connection pool and commit via XA two-phase commit across three backend nodes, while stat threads poll statistics independently._

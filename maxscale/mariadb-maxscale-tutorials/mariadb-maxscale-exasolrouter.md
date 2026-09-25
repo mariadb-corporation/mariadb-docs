@@ -312,6 +312,7 @@ The Exasolrouter does not replicate data — it only routes queries. To keep Exa
 binlogrouter connects to the MariaDB cluster as a replica and reads its binary log. Committed changes are compacted, batched, and bulk-loaded into Exasol staging tables, then applied to the target tables with a `MERGE` in GTID order, so Exasol reflects committed writes with minimal lag. Replication is asynchronous.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     App["Application<br/>MariaDB connector"]
     subgraph MS["MaxScale"]
@@ -333,6 +334,7 @@ flowchart LR
     class MDB maria;
     class EXA exa;
     style MS fill:#eef2f7,color:#0e2a3b,stroke:#0e2a3b;
+    linkStyle default color:#111111
 ```
 
 _Solid arrows show the synchronous write path; dotted arrows show asynchronous CDC replication._

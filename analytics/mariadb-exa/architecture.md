@@ -29,6 +29,7 @@ MaxScale-native CDC to Exasol requires **MaxScale 25.10.3 or later**. Earlier in
 Writes always go to MariaDB. MaxScale CDC connects to MariaDB as a replica, tails the binary log, and applies committed changes to Exasol in GTID order, so Exasol reflects committed writes with minimal lag. Replication is asynchronous.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     App["Application<br/>MariaDB connector"]
     subgraph MS["MaxScale"]
@@ -50,6 +51,7 @@ flowchart LR
     class MDB maria;
     class EXA exa;
     style MS fill:#eef2f7,color:#0e2a3b,stroke:#0e2a3b;
+    linkStyle default color:#111111
 ```
 
 _Solid arrows show the synchronous write path; dotted arrows show asynchronous CDC replication._
@@ -85,6 +87,7 @@ SmartRouter caches the winning engine, so future reads of the same canonical que
 {% endstepper %}
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     App["Application<br/>MariaDB connector"]
     subgraph MS["MaxScale"]
@@ -106,6 +109,7 @@ flowchart LR
     class MDB maria;
     class EXA exa;
     style MS fill:#eef2f7,color:#0e2a3b,stroke:#0e2a3b;
+    linkStyle default color:#111111
 ```
 
 ## Deployment topologies

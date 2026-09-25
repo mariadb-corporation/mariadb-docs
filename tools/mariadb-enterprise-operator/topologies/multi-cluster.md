@@ -55,6 +55,7 @@ Place replica clusters closer to your application instances to reduce network la
 ## Architecture
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Multi-cluster MariaDB Enterprise Kubernetes Operator topology
     accDescr {
@@ -124,6 +125,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _A client connects via a LoadBalancer to the Primary Cluster's MaxScale Service in eu-south, which routes to the Primary Cluster's MariaDB pods managed by its own mariadb-operator. The Replica Cluster in eu-central mirrors this structure, and its primary replica Pod replicates from the Primary Cluster's MaxScale Service._

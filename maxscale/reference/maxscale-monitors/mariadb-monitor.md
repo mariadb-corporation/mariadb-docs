@@ -1030,6 +1030,7 @@ If a MaxScale instance tries to acquire the locks but fails to get majority (per
 The flowchart below illustrates the lock handling logic.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative monitoring — acquiring the primary lock majority
     accDescr {
@@ -1064,6 +1065,7 @@ flowchart TD
     class Check,AcqRemaining,AcqAll,Release proc
     class Have,CanGet,Got decision
     class Start,Primary,Secondary terminal
+    linkStyle default color:#111111
 ```
 
 _MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds (or can acquire) a majority of server locks becomes primary; otherwise it releases any locks and continues as secondary._
@@ -1073,6 +1075,7 @@ _MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds (or ca
 `cooperative_monitoring_locks=majority_of_running` is meant for situations where the network is reliable in the sense that a network partition is highly unlikely. In a reliable network, if a server becomes unconnectable for one MaxScale, it does so for all MaxScales. This is typically the case if all servers and all MaxScales are close by, in the same datacenter under the same router. Because `majority_of_running` adjusts the total number of servers in the majority calculation according to how many servers are connectable, a lock majority is possible even with just one server left running.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Cooperative locking - majority with one server remaining (majority_of_running)
 
@@ -1089,12 +1092,14 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Both MaxScales maintain a connection to Server 1. All other servers are down. MaxScale A has claimed the exclusive lock on Server 1 and concludes it has lock majority (1/1 running servers). MaxScale A either considers Server 1 primary, or promotes it if [auto_failover](#auto_failover) is enabled. MaxScale A has also claimed the master-lock on Server 1. MaxScale B sees the locks taken and agrees that Server 1 is the primary._
 
 `cooperative_monitoring_locks=majority_of_running` should not be used when network partition is a credible threat. This is the case when the MaxScales and the servers are separated into multiple datacenters or are otherwise in multiple networks. If a network partition takes place, different MaxScales see different servers as connectable, and claim the exclusive locks on them. Thus, multiple MaxScales can conclude that they have lock majority, which leads to multiple primary servers. This may lead to write-queries being routed to multiple servers, splitting the cluster. Once the split happens, MaxScale can no longer reassemble the cluster automatically, and manual intervention is required.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Cooperative locking - split-brain scenario (majority_of_running)
 
@@ -1118,6 +1123,7 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _The link between datacenters A and B is broken. MaxScale A holds locks on Server 1 and Server 2, but cannot connect to Server 3 and Server 4. Datacenter B has the opposite situation. Both MaxScales think they have two locks out of two running servers, and act as the primary MaxScale. This leads to a split-brain situation with two independent read-write servers._
 
@@ -1126,6 +1132,7 @@ _The link between datacenters A and B is broken. MaxScale A holds locks on Serve
 `cooperative_monitoring_locks=majority_of_all` is meant for situations where a network partition is possible, e.g. when the servers and MaxScales are spread over multiple datacenters. Because `majority_of_all` calculates the required majority over all configured servers, it ensures that only one MaxScale can have lock majority at any time. This does not mean that the cluster will survive failure scenarios without service outage, though. If the network partitions or too many servers go down, then the typical outcome is that no MaxScale will have lock majority, no MaxScale is the primary MaxScale, and no server is writable. Still, this may be preferable to a split cluster with multiple primary servers.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - network partition (majority_of_all)
 
@@ -1156,12 +1163,14 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _The link between datacenters A, B and C is broken. Each MaxScale can only connect to the server in their local datacenter. Each MaxScale can acquire one lock out of three total servers, which is not enough for majority. All MaxScales are in secondary status, and will release any locks they may have acquired. No primary server is detected so all servers are in read-only mode. Once connectivity is restored, one MaxScale will again claim lock majority and the cluster resumes normal operation._
 
 The downside of `majority_of_all` is that it can lead to a read-only cluster in situations where it is not strictly necessary. This is the case when too many servers go down or otherwise become unconnectable, so that a majority can no longer be formed.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - no majority (majority_of_all)
 
@@ -1179,12 +1188,14 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Both MaxScales maintain a connection to Server 1 and Server 2. Server 3 and Server 4 are down. Neither MaxScale can reach lock majority, which would require three locks. Servers remain unlocked. Because both MaxScales are in secondary mode, no server is declared primary. Servers 1 and 2 are in read-only mode._
 
 `cooperative_monitoring_locks=majority_of_all` requires at least three servers to work reliably. With only two servers, just one server going down means that lock majority is no longer possible (one out of two is not a majority). Also, separating the three servers to just two datacenters is fragile: if the datacenter with two servers loses power, the remaining datacenter can no longer reach majority.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - majority datacenter down (majority_of_all)
 
@@ -1207,12 +1218,14 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Datacenter B is down. Since it contained two out of three servers, the surviving datacenter does not have enough servers to claim majority._
 
 Resistance to datacenter-wide failures requires at least three datacenters, so that a majority can be formed with the remaining datacenters.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - one datacenter down (majority_of_all)
     subgraph DCC["Datacenter C"]
@@ -1240,6 +1253,7 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Datacenter C is down. It only contained one out of three servers, so the servers in the remaining datacenters can still form a majority._
 
@@ -1256,6 +1270,7 @@ settings) do the other MaxScales realize that the situation has changed.
 During this time, transactions can still commit to the old primary.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - one datacenter with primary server disconnected (majority_of_all)
     accDescr {
@@ -1291,6 +1306,7 @@ flowchart TD
     MXC --> |reachable| SC1
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Datacenter A disconnects from datacenters B and C but stays running. MaxScale A
 (secondary) still sees the master-lock taken on Server 1 and assumes that it is
