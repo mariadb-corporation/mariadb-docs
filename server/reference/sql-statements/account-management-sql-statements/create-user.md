@@ -246,6 +246,8 @@ You can set certain TLS-related restrictions for specific user accounts. For ins
 | REQUIRE SUBJECT 'subject' | The account must use TLS and must have a valid X509 certificate. Also, the certificate's Subject must be the one specified via the string subject. This option implies REQUIRE X509. This option can be combined with the ISSUER, and CIPHER options in any order.                                  |
 | REQUIRE CIPHER 'cipher'   | The account must use TLS, but no valid X509 certificate is required. Also, the encryption used for the connection must use a specific cipher method specified in the string cipher. This option implies REQUIRE SSL. This option can be combined with the ISSUER, and SUBJECT options in any order. |
 
+`REQUIRE SSL` and `REQUIRE X509` guarantee only that the connection is encrypted and that the client presented some certificate signed by a trusted CA — neither identifies *which* client connected. `REQUIRE SUBJECT` ties the account to a certificate identity instead; see [Matching the Certificate Subject](#matching-the-certificate-subject) below for how that comparison works and its limits.
+
 The `REQUIRE` keyword must be used only once for all specified options, and the `AND` keyword can be used to separate individual options, but it is not required.
 
 For example, you can create a user account that requires these TLS options with the following:
@@ -260,6 +262,25 @@ CREATE USER 'alice'@'%'
 If any of these options are set for a specific user account, then any client who tries to connect with that user account will have to be configured to connect with TLS.
 
 See [Securing Connections for Client and Server](../../../security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md) for information on how to enable TLS on the client and server.
+
+### Matching the Certificate Subject
+
+The subject comparison is a byte-for-byte string comparison. Two consequences follow, and both bite in practice:
+
+* **Case matters.** `/CN=alice` and `/CN=Alice` are different subjects.
+* **Field order matters.** `/CN=alice/O=Example Ltd` and `/O=Example Ltd/CN=alice` are different subjects.
+
+Copy the DN exactly as the server renders it rather than retyping it. You can read the subject of a certificate with:
+
+```bash
+openssl x509 -noout -subject -in alice-cert.pem
+```
+
+{% hint style="warning" %}
+`REQUIRE SUBJECT` matches the subject only — not the issuer. An account therefore accepts any certificate with a matching subject signed by **any** CA the server trusts. If `--ssl-ca` trusts more than one CA, add a `REQUIRE ISSUER` clause to pin the issuer as well.
+
+On OpenSSL builds, leaving `--ssl-ca` unset makes the server trust the operating system CA store, which widens this considerably. Set [`--ssl-ca`](../../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md) explicitly to the CA that issues your client certificates.
+{% endhint %}
 
 ## Resource Limit Options
 

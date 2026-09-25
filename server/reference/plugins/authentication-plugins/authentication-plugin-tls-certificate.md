@@ -17,10 +17,6 @@ The account is identified by the certificate's subject Distinguished Name (DN), 
 
 ### Description
 
-`REQUIRE SUBJECT` alone is what makes this authentication rather than merely encryption. `REQUIRE SSL` guarantees only that the transport is encrypted, and `REQUIRE X509` only that the client presented some certificate signed by a trusted CA — neither identifies *which* client connected. Pinning the subject ties the account to one specific certificate identity.
-
-`REQUIRE SUBJECT` implies `REQUIRE X509`, so there is no need to specify `REQUIRE X509` separately.
-
 The plugin itself does no certificate validation. Signature checking, expiry, and revocation (CRL/OCSP) are all handled by the server's TLS layer during the handshake, before the plugin runs. The plugin's only check is that the account carries a `REQUIRE SUBJECT` clause; enforcing that clause is likewise the server's job.
 
 ### Installing
@@ -56,24 +52,7 @@ If the certificate subject does not match, or the account has no `REQUIRE SUBJEC
 ERROR 1698 (28000): Access denied for user 'alice'@'localhost'
 ```
 
-## Matching the Certificate Subject
-
-The subject comparison is a byte-for-byte string comparison. Two consequences follow, and both bite in practice:
-
-* **Case matters.** `/CN=alice` and `/CN=Alice` are different subjects.
-* **Field order matters.** `/CN=alice/O=Example Ltd` and `/O=Example Ltd/CN=alice` are different subjects.
-
-Copy the DN exactly as the server renders it rather than retyping it. You can read the subject of a certificate with:
-
-```bash
-openssl x509 -noout -subject -in alice-cert.pem
-```
-
-{% hint style="warning" %}
-`REQUIRE SUBJECT` matches the subject only — not the issuer. An account therefore accepts any certificate with a matching subject signed by **any** CA the server trusts. If `--ssl-ca` trusts more than one CA, add a [`REQUIRE ISSUER`](../../sql-statements/account-management-sql-statements/create-user.md) clause to pin the issuer as well.
-
-On OpenSSL builds, leaving `--ssl-ca` unset makes the server trust the operating system CA store, which widens this considerably. Set [`--ssl-ca`](../../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md) explicitly to the CA that issues your client certificates.
-{% endhint %}
+For the mechanics of subject matching (case sensitivity, field order, and the issuer-pinning caveat), see [Matching the Certificate Subject](../../sql-statements/account-management-sql-statements/create-user.md#matching-the-certificate-subject) under `CREATE USER`.
 
 ## Account Management Behavior
 
