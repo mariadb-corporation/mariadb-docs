@@ -36,8 +36,8 @@ Say which facts you re-checked and which you carried over.
    Someone asked *you* for something, so these outrank your own work in the briefing — and
    `--author @me` never shows them. Two gaps to name rather than paper over: the search matches
    **direct** requests only (a request routed to a team doesn't match), and a PR with **no**
-   reviewer requested at all is invisible to it. The long-idle PRs in the next input are where
-   those surface.
+   reviewer requested at all is invisible to it — and nothing else in this command surfaces it
+   either.
 4. **Merged since last time** — `gh pr list -R mariadb-corporation/mariadb-docs --author @me
    --state merged --limit 10 --json number,title,mergedAt`. Anything merged whose ticket is still
    open is a post-merge chore, not a finished item.
@@ -74,8 +74,8 @@ date of the last real comment.
 
 Four groups, in this order, one line per item — key, one-phrase state, next action:
 
-- **Waiting on you** — PRs that named you as reviewer (lead with these — someone is blocked on you),
-  then your own PRs in review with their CI state and findings to act on.
+- **Waiting on you** — PRs that named you as reviewer (lead with these — someone is blocked on
+  you), then your own PRs in review with their CI state and findings to act on.
 - **Waiting on someone else** — name the person and what was asked, and how long it has been
   waiting. This is usually the group the user wants to chase; `/jira-chase` does that.
 - **Ready to pick up** — open tickets not yet started, with anything already known about scope.
@@ -101,5 +101,5 @@ Everything above is per-user by construction — `assignee = currentUser()`, `--
 
 If you own a **shared** queue that no one is individually assigned — release notes, a label you
 sweep, a space you maintain — add that sweep as a line in your own `~/.claude/CLAUDE.md` next to
-the trigger below, not here. It is real work and belongs in your briefing, but it is yours, and
+the trigger above, not here. It is real work and belongs in your briefing, but it is yours, and
 in this file it would read as noise to everyone else.
