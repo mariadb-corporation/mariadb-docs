@@ -86,16 +86,24 @@ Function plugins are initialized early in server startup, before storage engine 
 
 ## Building and Packaging a Plugin
 
-To build the plugin one needs to install a MariaDB development package:
-```
-$ dnf install MariaDB-devel
-```
-or
-```
-$ apt install libmariadb-dev
+{% hint style="info" %}
+Building a plugin with only the MariaDB development package, without the server source tree, requires MariaDB 11.4.14, 11.8.10, 12.3.4, 13.1.2, 13.2.1, or later ([MDEV-40608](https://jira.mariadb.org/browse/MDEV-40608)).
+{% endhint %}
+
+To build a plugin, install the MariaDB development package. On RPM-based distributions:
+
+```bash
+dnf install MariaDB-devel
 ```
 
-and create a `CMakeLists.txt` file. For a simple example plugin it only needs few lines
+On Debian and Ubuntu:
+
+```bash
+apt install libmariadb-dev
+```
+
+Then create a `CMakeLists.txt` file. For a simple plugin, a few lines are enough:
+
 ```cmake
 cmake_minimum_required(VERSION 3.12)
 find_package(mariadb-plugin REQUIRED)
@@ -104,11 +112,19 @@ MARIADB_ADD_PLUGIN(exampledb example.cc MODULE_ONLY STORAGE_ENGINE
                  DESCRIPTION "Example of plugin interface")
 include(CPack)
 ```
-This allows to do the following:
-* configure the build: `cmake .` optionally with `-DRPM=1` or `-DDEB=1` depending on what kind of packages are needed
-* compile: `cmake --build .`
-* install: `cmake --build . --target install`
-* package `cmake --build . --target package`
+
+With this file, you can do the following:
+
+* Configure the build: `cmake .`. To build packages, add `-DRPM=1` or `-DDEB=1`, depending on the kind of package you need.
+* Compile the plugin: `cmake --build .`
+* Install the plugin: `cmake --build . --target install`
+* Create a package: `cmake --build . --target package`
+
+If MariaDB was installed from a `.tar.gz` or `.zip` archive, the development files are not in a standard location. Pass the MariaDB base directory when you configure the build:
+
+```bash
+cmake . -DCMAKE_PREFIX_PATH=/path/to/mariadb/basedir
+```
 
 ## Plugin Declaration Structure
 
@@ -148,7 +164,7 @@ maria_declare_plugin(example)
 maria_declare_plugin_end;
 ```
 
-Values for `PLUGIN_NAME`, `PLUGIN_AUTHOR`, etc are automatically taken from the `CMakeLists.txt`. But they can be also specified explicitly, as in the "sysconst_test" example above, this is particularly useful if the plugin binary contains many plugin.
+The build takes the values of `PLUGIN_NAME`, `PLUGIN_AUTHOR`, `PLUGIN_DESCRIPTION`, `PLUGIN_VERSION`, and `PLUGIN_HEX_VERSION` from the `MARIADB_ADD_PLUGIN()` call in `CMakeLists.txt`, and sets `PLUGIN_LICENSE` to `PLUGIN_LICENSE_GPL`. You can also specify the values explicitly, as in the `sysconst_test` example above. This is particularly useful if the plugin binary contains several plugins.
 
 ## Maturity Guidelines For Plugins
 
