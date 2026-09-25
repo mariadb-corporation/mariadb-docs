@@ -56,7 +56,7 @@ hidden: true
 * DROP PACKAGE leaves PACKAGE BODY grant in mysql.procs_priv ([MDEV-40722](https://jira.mariadb.org/browse/MDEV-40722))
 * Hashicorp Key Management plugin improved performance by avoiding calling expensive time retrieval functions ([MENT-2764](https://jira.mariadb.org/browse/MENT-2764))
 * A large number of joins in a SELECT can crash the server ([MENT-2788](https://jira.mariadb.org/browse/MENT-2788))
-* Backport MDEV-40413 - ALTER TABLE ... CONVERT ... PARTITION doesn't encode partition names ([MENT-2799](https://jira.mariadb.org/browse/MENT-2799))
+* `ALTER TABLE ... CONVERT ... PARTITION` doesn't encode partition names ([MDEV-40413](https://jira.mariadb.org/browse/MDEV-40413), [MENT-2799](https://jira.mariadb.org/browse/MENT-2799))
 * Backport MDEV-40058 - cached_sha2_password crashes on zero-length password ([MENT-2804](https://jira.mariadb.org/browse/MENT-2804))
 * Backport MDEV-40365 - OOB read for common_header_len & post_header_len on malformed Format_description_log_event ([MENT-2840](https://jira.mariadb.org/browse/MENT-2840))
 * Backport MDEV-40366 - OOB read for used_checksum_alg on malformed Format_description_log_event ([MENT-2841](https://jira.mariadb.org/browse/MENT-2841))
