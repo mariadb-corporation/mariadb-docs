@@ -104,7 +104,7 @@ You can change the cluster state in multiple ways:
   **Mbean's Object Name:**
 
   ```
-  group="Kernel",name=IgniteKernal
+  group="Kernal",name=IgniteKernal
   ```
 
   |Operation|Description|
@@ -277,7 +277,7 @@ Topology refers to the set of nodes in a cluster. There are a number of metrics 
 **Mbean's Object Name:**
 
 ```
-group=Kernel,name=ClusterMetricsMXBeanImpl
+group=Kernal,name=ClusterMetricsMXBeanImpl
 ```
 
 |Attribute|Type|Description|Scope|

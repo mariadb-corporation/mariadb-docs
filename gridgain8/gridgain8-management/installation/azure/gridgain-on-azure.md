@@ -111,49 +111,41 @@ The private IP address of a VM can be found on its Configuration Overview page.
 Add IP addresses of all VMs to a single configuration file and use this file to start nodes in every VM.
 
 ```xml
-<beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:util="http://www.springframework.org/schema/util"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="         http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/util
-    http://www.springframework.org/schema/util/spring-util.xsd">
-    <bean class="org.apache.ignite.configuration.IgniteConfiguration">
-        <property name="userAttributes">
-            <map>
-                <entry key="iaas.vendor" value="azure"/>
-            </map>
-        </property>
+<bean class="org.apache.ignite.configuration.IgniteConfiguration">
+    <property name="userAttributes">
+        <map>
+            <entry key="iaas.vendor" value="azure"/>
+        </map>
+    </property>
 
-        <!-- other properties -->
+    <!-- other properties -->
 
-        <property name="addressResolver">
-            <bean class="org.apache.ignite.configuration.BasicAddressResolver">
-                <constructor-arg>
-                    <map>
-                        <entry key="10.0.4.5" value="3.93.186.198"/>
-                    </map>
-                </constructor-arg>
-            </bean>
-        </property>
+    <property name="addressResolver">
+        <bean class="org.apache.ignite.configuration.BasicAddressResolver">
+            <constructor-arg>
+                <map>
+                    <entry key="10.0.4.5" value="3.93.186.198"/>
+                </map>
+            </constructor-arg>
+        </bean>
+    </property>
 
-        <!-- Discovery configuration -->
-        <property name="discoverySpi">
-            <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-                <property name="ipFinder">
-                    <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                        <property name="addresses">
-                            <list>
-                                <value>10.0.4.5</value>
-                                <value>10.0.4.6</value>
-                            </list>
-                        </property>
-                    </bean>
-                </property>
-            </bean>
-        </property>
-    </bean>
-</beans>
+    <!-- Discovery configuration -->
+    <property name="discoverySpi">
+        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+            <property name="ipFinder">
+                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
+                    <property name="addresses">
+                        <list>
+                            <value>10.0.4.5</value>
+                            <value>10.0.4.6</value>
+                        </list>
+                    </property>
+                </bean>
+            </property>
+        </bean>
+    </property>
+</bean>
 ```
 
 When two nodes are started with the above configuration, you should see the following messages in the output:
@@ -195,56 +187,49 @@ For a client node to join the cluster from your local machine, perform the follo
    To do this, add an address resolver to `IgniteConfiguration`, as shown in the code snippet below:
 
    ```xml
-   <bean class="org.apache.ignite.configuration.IgniteConfiguration">
-       <property name="userAttributes">
-           <map>
-               <entry key="iaas.vendor" value="azure"/>
-           </map>
-       </property>
+   <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="         http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+       <bean class="org.apache.ignite.configuration.IgniteConfiguration">
+           <property name="userAttributes">
+               <map>
+                   <entry key="iaas.vendor" value="azure"/>
+               </map>
+           </property>
 
-       <!-- other properties -->
+           <!-- other properties -->
 
-       <property name="addressResolver">
-           <bean class="org.apache.ignite.configuration.BasicAddressResolver">
-               <constructor-arg>
-                   <map>
-                       <entry key="10.0.4.5" value="3.93.186.198"/>
-                   </map>
-               </constructor-arg>
-           </bean>
-       </property>
+           <property name="addressResolver">
+               <bean class="org.apache.ignite.configuration.BasicAddressResolver">
+                   <constructor-arg>
+                       <map>
+                           <entry key="10.0.4.5" value="3.93.186.198"/>
+                       </map>
+                   </constructor-arg>
+               </bean>
+           </property>
 
-       <!-- Discovery configuration -->
-       <property name="discoverySpi">
-           <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-               <property name="ipFinder">
-                   <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                       <property name="addresses">
-                           <list>
-                               <value>10.0.4.5</value>
-                               <value>10.0.4.6</value>
-                           </list>
-                       </property>
-                   </bean>
-               </property>
-           </bean>
-       </property>
-   </bean>
-       <!-- Discovery configuration -->
-       <property name="discoverySpi">
-           <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-               <property name="ipFinder">
-                   <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                       <property name="addresses">
-                           <list>
-                               <value>10.0.4.5</value>
-                               <value>10.0.4.6</value>
-                           </list>
-                       </property>
-                   </bean>
-               </property>
-           </bean>
-       </property>
+           <!-- Discovery configuration -->
+           <property name="discoverySpi">
+               <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+                   <property name="ipFinder">
+                       <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
+                           <property name="addresses">
+                               <list>
+                                   <value>10.0.4.5</value>
+                                   <value>10.0.4.6</value>
+                               </list>
+                           </property>
+                       </bean>
+                   </property>
+               </bean>
+           </property>
+       </bean>
+   </beans>
    ```
 
    In this example, `10.0.4.5` is the private IP address of the VM, and `3.93.186.198` is its public IP address.

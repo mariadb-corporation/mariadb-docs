@@ -51,21 +51,7 @@ The following example shows how to enable persistent storage for the default dat
                     <property name="persistenceEnabled" value="true"/>
                 </bean>
             </property>
-            <property name="storagePath" value="/opt/storage"/>
             <property name="walSegmentSize" value="128 * 1024 * 1024"/>
-        </bean>
-    </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
         </bean>
     </property>
 </bean>
@@ -79,7 +65,6 @@ DataStorageConfiguration storageCfg = new DataStorageConfiguration();
 
 storageCfg.getDefaultDataRegionConfiguration().setPersistenceEnabled(true);
         
-storageCfg.setStoragePath("/opt/storage");
 
 cfg.setDataStorageConfiguration(storageCfg);
 
@@ -92,8 +77,6 @@ var cfg = new IgniteConfiguration
 {
     DataStorageConfiguration = new DataStorageConfiguration
     {
-        StoragePath = "/ssd/storage",
-
         DefaultDataRegionConfiguration = new DataRegionConfiguration
         {
             Name = "Default_Region",
@@ -191,19 +174,6 @@ You can change the location of data files by modifying the `storagePath` propert
             </property>
             <property name="storagePath" value="/opt/storage"/>
             <property name="walSegmentSize" value="128 * 1024 * 1024"/>
-        </bean>
-    </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
         </bean>
     </property>
 </bean>
@@ -418,29 +388,7 @@ You can change the size of the WAL segment files in the data storage configurati
             <property name="walSegmentSize" value="128 * 1024 * 1024"/>
         </bean>
     </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-        <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
-            <property name="defaultDataRegionConfiguration">
-                <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                    <property name="persistenceEnabled" value="true"/>
-                </bean>
-            </property>
-            <property name="storagePath" value="/opt/storage"/>
-            <property name="walSegmentSize" value="128 * 1024 * 1024"/>
-        </bean>
 ```
 {% endtab %}
 {% tab title="Java" %}

@@ -215,7 +215,7 @@
   * [Glossary](reference/glossary.md)
   * [SQL Statistics](reference/sql-statistics.md)
   * [Control Script](reference/cli-tool/README.md)
-  * [Exceptions List](reference/error-codes/README.md)
+  * [Handling Exceptions](reference/error-codes/README.md)
   * [Monitoring Reference](reference/monitoring/README.md)
     * [Generic Metrics](reference/monitoring/generic-metrics.md)
     * [JMX Metrics](reference/monitoring/jmx-metrics.md)

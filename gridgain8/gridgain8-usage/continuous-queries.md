@@ -290,18 +290,6 @@ class LocalListener : ICacheEntryEventListener<int, string>
         }
     }
 }
-class RemoteFilter : ICacheEntryEventFilter<int, string>
-{
-    public bool Evaluate(ICacheEntryEvent<int, string> e)
-    {
-        if (e.Key == 1)
-        {
-            return false;
-        }
-        Console.WriteLine("the value for key {0} was updated from {1} to {2}", e.Key, e.OldValue, e.Value);
-        return true;
-    }
-}
 public static void ContinuousQueryFilterDemo()
 {
     var ignite = Ignition.Start(new IgniteConfiguration

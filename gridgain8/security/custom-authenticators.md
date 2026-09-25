@@ -82,24 +82,6 @@ public class FilebasedAclProvider implements AuthenticationAclProvider {
         return map;
     }
 
-    public static void main(String[] args) {
-        IgniteConfiguration cfg = new IgniteConfiguration();
-
-        GridGainConfiguration ggCfg = new GridGainConfiguration();
-
-        PasscodeAuthenticator authenticator = new PasscodeAuthenticator();
-        authenticator.setAclProvider(new FilebasedAclProvider("passwords"));
-
-        ggCfg.setAuthenticator(authenticator);
-
-        // credentials for this node
-        ggCfg.setSecurityCredentialsProvider(
-                new SecurityCredentialsBasicProvider(new SecurityCredentials("server", "password123")));
-
-        cfg.setPluginConfigurations(ggCfg);
-
-        Ignition.start(cfg);
-    }
 }
 ```
 {% endcode %}

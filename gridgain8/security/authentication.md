@@ -41,27 +41,6 @@ This type of authentication requires [persistent storage](../architecture/storag
 
    <property name="authenticationEnabled" value="true"/> 
 
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <!--
-                    Ignite provides several options for automatic discovery that can be used
-                    instead os static IP based discovery. For information on all options refer
-                    to our documentation: http://apacheignite.readme.io/docs/cluster-config
-                -->
-                <!-- Uncomment static IP finder to enable static-based discovery of initial nodes. -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <!--bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder"-->
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
 ```
 {% endtab %}
@@ -199,26 +178,6 @@ Refer to the [Authorization and Permissions](authorization-permissions.md) for t
             </property>
         </bean>
     </property>
-    <!-- Explicitly configure TCP discovery SPI to provide a list of nodes' addresses. -->
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <!--
-                    Ignite provides several options for automatic discovery that can be used
-                    instead os static IP based discovery. For information on all options refer
-                    to our documentation: http://apacheignite.readme.io/docs/cluster-config
-                -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
 ```
 {% endtab %}
@@ -341,26 +300,6 @@ Here is the configuration of a client node:
             </property>
         </bean>
     </property>
-    <!-- Explicitly configure TCP discovery SPI to provide a list of nodes' addresses. -->
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <!--
-                    Ignite provides several options for automatic discovery that can be used
-                    instead os static IP based discovery. For information on all options refer
-                    to our documentation: http://apacheignite.readme.io/docs/cluster-config
-                -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
 ```
 {% endtab %}
@@ -380,9 +319,7 @@ Ignite ignite = Ignition.start(igniteCfg);
 {% endtab %}
 
 {% tab title=".NET/C#" %}
-```csharp
-
-```
+Not supported.
 {% endtab %}
 
 {% tab title="C++" %}
@@ -478,26 +415,6 @@ with one that handles server node subjects, as shown in [Composite Authenticatio
 
             <!-- Secure and enable client certificate validation for HTTPS REST. -->
             <property name="jettyPath" value="jetty-ssl-client-auth.xml"/>
-        </bean>
-    </property>
-    <!-- Explicitly configure TCP discovery SPI to provide a list of nodes' addresses. -->
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <!--
-                    Ignite provides several options for automatic discovery that can be used
-                    instead os static IP based discovery. For information on all options refer
-                    to our documentation: http://apacheignite.readme.io/docs/cluster-config
-                -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
         </bean>
     </property>
 </bean>
@@ -673,6 +590,10 @@ To enable JAAS authentication, use the following configuration example:
 {% tabs %}
 {% tab title="XML" %}
 ```xml
+<bean class="org.apache.ignite.plugin.security.SecurityCredentials" id="server.cred">
+    <constructor-arg value="server"/>
+    <constructor-arg value="password"/>
+</bean>
 <bean class="org.apache.ignite.configuration.IgniteConfiguration" >
     <property name="pluginConfigurations">
         <bean class="org.gridgain.grid.configuration.GridGainConfiguration">
@@ -688,30 +609,6 @@ To enable JAAS authentication, use the following configuration example:
             </property>
         </bean>
     </property>
-    <!-- Explicitly configure TCP discovery SPI to provide a list of nodes' addresses. -->
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <!--
-                    Ignite provides several options for automatic discovery that can be used
-                    instead os static IP based discovery. For information on all options refer
-                    to our documentation: http://apacheignite.readme.io/docs/cluster-config
-                -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
-</bean>
-<bean class="org.apache.ignite.plugin.security.SecurityCredentials" id="server.cred">
-    <constructor-arg value="server"/>
-    <constructor-arg value="password"/>
 </bean>
 ```
 {% endtab %}

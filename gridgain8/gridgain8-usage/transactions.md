@@ -22,13 +22,6 @@ You can enable transactions for a specific cache in the cache configuration.
 ```xml
 <bean class="org.apache.ignite.configuration.IgniteConfiguration">
         
-    <property name="cacheConfiguration">
-        <bean class="org.apache.ignite.configuration.CacheConfiguration">
-            <property name="name" value="myCache"/>
-            <property name="atomicityMode" value="TRANSACTIONAL"/>
-        </bean>
-    </property>
-
     <property name="transactionConfiguration">
         <bean class="org.apache.ignite.configuration.TransactionConfiguration">
             <!--Set the timeout to 20 seconds-->
@@ -36,19 +29,6 @@ You can enable transactions for a specific cache in the cache configuration.
         </bean>
     </property>
 
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
 ```
 {% endtab %}
@@ -129,51 +109,146 @@ try (Transaction tx = transactions.txStart()) {
 
 {% tab title="C#/.NET" %}
 ```csharp
-var cfg = new IgniteConfiguration
-{
-    DiscoverySpi = new TcpDiscoverySpi
-    {
-        LocalPort = 48500,
-        LocalPortRange = 20,
-        IpFinder = new TcpDiscoveryStaticIpFinder
-        {
-            Endpoints = new[]
+            var cfg = new IgniteConfiguration
             {
-                "127.0.0.1:48500..48520"
+                DiscoverySpi = new TcpDiscoverySpi
+                {
+                    LocalPort = 48500,
+                    LocalPortRange = 20,
+                    IpFinder = new TcpDiscoveryStaticIpFinder
+                    {
+                        Endpoints = new[]
+                        {
+                            "127.0.0.1:48500..48520"
+                        }
+                    }
+                },
+                CacheConfiguration = new[]
+                {
+                    new CacheConfiguration
+                    {
+                        Name = "cacheName",
+                        AtomicityMode = CacheAtomicityMode.Transactional
+                    }
+                },
+                TransactionConfiguration = new TransactionConfiguration
+                {
+                    DefaultTimeoutOnPartitionMapExchange = TimeSpan.FromSeconds(20)
+                }
+            };
+
+            var ignite = Ignition.Start(cfg);
+            var cache = ignite.GetCache<string, int>("cacheName");
+            cache.Put("Hello", 1);
+            var transactions = ignite.GetTransactions();
+
+            using (var tx = transactions.TxStart())
+            {
+                int hello = cache.Get("Hello");
+
+                if (hello == 1)
+                {
+                    cache.Put("Hello", 11);
+                }
+
+                cache.Put("World", 22);
+
+                tx.Commit();
+            }
+
+            // Re-try the transaction a limited number of times
+            var retryCount = 10;
+            var retries = 0;
+
+            // Start a transaction in the optimistic mode with the serializable isolation level
+            while (retries < retryCount)
+            {
+                retries++;
+                try
+                {
+                    using (var tx = ignite.GetTransactions().TxStart(TransactionConcurrency.Optimistic,
+                        TransactionIsolation.Serializable))
+                    {
+                        // modify cache entries as part of this transaction.
+
+                        // commit the transaction
+                        tx.Commit();
+
+                        // the transaction succeeded. Leave the while loop.
+                        break;
+                    }
+                }
+                catch (TransactionOptimisticException)
+                {
+                    // Transaction has failed. Retry.
+                }
+
+            }
+
+            var intCache = ignite.GetOrCreateCache<int, int>("intCache");
+            try
+            {
+                using (var tx = ignite.GetTransactions().TxStart(TransactionConcurrency.Pessimistic,
+                    TransactionIsolation.ReadCommitted, TimeSpan.FromMilliseconds(300), 0))
+                {
+                    intCache.Put(1, 1);
+                    intCache.Put(2, 1);
+                    tx.Commit();
+                }
+            }
+            catch (TransactionTimeoutException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (TransactionDeadlockException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+        }
+
+        public static void TxTimeoutOnPme()
+        {
+            var cfg = new IgniteConfiguration
+            {
+                TransactionConfiguration = new TransactionConfiguration
+                {
+                    DefaultTimeoutOnPartitionMapExchange = TimeSpan.FromSeconds(20)
+                }
+            };
+            Ignition.Start(cfg);
+        }
+
+        public static async Task TransactionAsyncExample()
+        {
+            using (var ignite = Ignition.Start(Util.getIngiteCfg()))
+            {
+                var cache = ignite.GetOrCreateCache<string, int>(
+                    new CacheConfiguration("txCache")
+                    {
+                        AtomicityMode = CacheAtomicityMode.Transactional
+                    });
+                var transactions = ignite.GetTransactions();
+
+                await using (var tx = transactions.TxStart())
+                {
+                    cache.Put("Hello", 11);
+                    cache.Put("World", 22);
+
+                    await tx.CommitAsync();
+                }
             }
         }
-    },
-    CacheConfiguration = new[]
-    {
-        new CacheConfiguration
+
+        public static void DeadlockMetricsDemo(IIgnite ignite)
         {
-            Name = "cacheName",
-            AtomicityMode = CacheAtomicityMode.Transactional
+            ITransactions transactions = ignite.GetTransactions();
+
+            int deadlocks = transactions.GetMetrics().TxDeadlocks;
+
+            Console.WriteLine(deadlocks);
         }
-    },
-    TransactionConfiguration = new TransactionConfiguration
-    {
-        DefaultTimeoutOnPartitionMapExchange = TimeSpan.FromSeconds(20)
     }
-};
-
-var ignite = Ignition.Start(cfg);
-var cache = ignite.GetCache<string, int>("cacheName");
-cache.Put("Hello", 1);
-var transactions = ignite.GetTransactions();
-
-using (var tx = transactions.TxStart())
-{
-    int hello = cache.Get("Hello");
-
-    if (hello == 1)
-    {
-        cache.Put("Hello", 11);
-    }
-
-    cache.Put("World", 22);
-
-    tx.Commit();
 }
 ```
 {% endtab %}
@@ -684,13 +759,6 @@ The example below shows how to configure the timeout:
 ```xml
 <bean class="org.apache.ignite.configuration.IgniteConfiguration">
         
-    <property name="cacheConfiguration">
-        <bean class="org.apache.ignite.configuration.CacheConfiguration">
-            <property name="name" value="myCache"/>
-            <property name="atomicityMode" value="TRANSACTIONAL"/>
-        </bean>
-    </property>
-
     <property name="transactionConfiguration">
         <bean class="org.apache.ignite.configuration.TransactionConfiguration">
             <!--Set the timeout to 20 seconds-->
@@ -698,26 +766,7 @@ The example below shows how to configure the timeout:
         </bean>
     </property>
 
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-    <property name="transactionConfiguration">
-        <bean class="org.apache.ignite.configuration.TransactionConfiguration">
-            <!--Set the timeout to 20 seconds-->
-            <property name="TxTimeoutOnPartitionMapExchange" value="20000"/>
-        </bean>
-    </property>
 
 ```
 {% endtab %}

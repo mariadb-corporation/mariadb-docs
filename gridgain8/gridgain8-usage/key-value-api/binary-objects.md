@@ -272,20 +272,8 @@ Wildcards are supported for per-type configuration, in which case the provided c
         </bean>
     </property>
 
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
+
 ```
 {% endtab %}
 {% tab title="Java" %}

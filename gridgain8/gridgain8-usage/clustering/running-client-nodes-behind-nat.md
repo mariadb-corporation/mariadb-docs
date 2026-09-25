@@ -21,19 +21,6 @@ For cases like this, you need to enable a special mode of communication:
             <property name="forceClientToServerConnections" value="true"/>
         </bean>
     </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
 ```
 {% endtab %}

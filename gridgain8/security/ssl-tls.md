@@ -39,28 +39,6 @@ Below is an example of `SslContextFactory` configuration:
         </bean>
     </property>
 
-    <!-- Explicitly configure TCP discovery SPI to provide list of initial nodes. -->
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <!--
-                    Ignite provides several options for automatic discovery that can be used
-                    instead os static IP based discovery. For information on all options refer
-                    to our documentation: http://apacheignite.readme.io/docs/cluster-config
-                -->
-                <!-- Uncomment static IP finder to enable static-based discovery of initial nodes. -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <!--bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder"-->
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
 ```
 {% endtab %}
@@ -285,28 +263,6 @@ This can be achieved by using a disabled trust manager, which can be obtained by
         </bean>
     </property>
 
-    <!-- Explicitly configure TCP discovery SPI to provide list of initial nodes. -->
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <!--
-                    Ignite provides several options for automatic discovery that can be used
-                    instead os static IP based discovery. For information on all options refer
-                    to our documentation: http://apacheignite.readme.io/docs/cluster-config
-                -->
-                <!-- Uncomment static IP finder to enable static-based discovery of initial nodes. -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <!--bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder"-->
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
 ```
 {% endtab %}

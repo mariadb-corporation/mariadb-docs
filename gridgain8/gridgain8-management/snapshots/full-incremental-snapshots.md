@@ -138,12 +138,6 @@ GridGainConfiguration ggCfg = new GridGainConfiguration();
 
 SnapshotConfiguration snapshotCfg = new SnapshotConfiguration();
 
-// Changing default path
-snapshotCfg.setSnapshotsPath("/local/snasphot/store/path");
-//Enabling the snapshots.
-ggCfg.setSnapshotConfiguration(snapshotCfg);
-
-cfg.setPluginConfigurations(ggCfg);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}

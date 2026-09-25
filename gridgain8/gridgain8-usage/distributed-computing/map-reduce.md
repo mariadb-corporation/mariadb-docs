@@ -215,11 +215,8 @@ private static class TaskSessionAttributesTask extends ComputeTaskSplitAdapter<O
                     // Move on to STEP2.
                     // ...
 
-                    /*
                     return ... 
 
-                    */
-                    return new Object();
                 }
             });
         }
@@ -232,17 +229,8 @@ private static class TaskSessionAttributesTask extends ComputeTaskSplitAdapter<O
         return null;
     }
         
-    @Override
-    public ComputeJobResultPolicy result(ComputeJobResult res, List<ComputeJobResult> rcvd) {
-        IgniteException err = res.getException();
-
-        if (err != null)
-            return ComputeJobResultPolicy.FAILOVER;
-
-        // If there is no exception, wait for all job results.
-        return ComputeJobResultPolicy.WAIT;
-    }
 }
+
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}

@@ -41,28 +41,11 @@ You can specify different directories on different nodes.
             <property name="uriList">
                 <list>
                     <value>file://freq=2000@localhost/home/username/user_libs</value>
-                    <value>http://username:password;freq=10000@www.mysite.com:110/ignite/user_libs</value>
                 </list>
             </property>
         </bean>
     </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <!-- prevent this client from reconnecting on connection loss -->
-            <property name="clientReconnectDisabled" value="true"/>
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-                    <value>file://freq=2000@localhost/home/username/user_libs</value>
 ```
 {% endtab %}
 
@@ -114,29 +97,12 @@ The references must point to the jar files you want to deploy.
             <property name="temporaryDirectoryPath" value="/tmp/temp_ignite_libs"/>
             <property name="uriList">
                 <list>
-                    <value>file://freq=2000@localhost/home/username/user_libs</value>
                     <value>http://username:password;freq=10000@www.mysite.com:110/ignite/user_libs</value>
                 </list>
             </property>
         </bean>
     </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <!-- prevent this client from reconnecting on connection loss -->
-            <property name="clientReconnectDisabled" value="true"/>
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-                    <value>http://username:password;freq=10000@www.mysite.com:110/ignite/user_libs</value>
 ```
 {% endtab %}
 

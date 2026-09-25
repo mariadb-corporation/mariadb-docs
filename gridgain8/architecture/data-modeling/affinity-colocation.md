@@ -102,55 +102,6 @@ public class AffinityCollocationExample {
         }
     }
 
-    public void configureAffinitKeyWithAffinityKeyClass() {
-        CacheConfiguration<AffinityKey<Integer>, Person> personCfg = new CacheConfiguration<AffinityKey<Integer>, Person>(
-                "persons");
-        personCfg.setBackups(1);
-
-        CacheConfiguration<String, Company> companyCfg = new CacheConfiguration<String, Company>("companies");
-        companyCfg.setBackups(1);
-
-        Ignite ignite = Ignition.start();
-
-        IgniteCache<AffinityKey<Integer>, Person> personCache = ignite.getOrCreateCache(personCfg);
-        IgniteCache<String, Company> companyCache = ignite.getOrCreateCache(companyCfg);
-
-        Company c1 = new Company("company1", "My company");
-        Person p1 = new Person(1, c1.getId(), "John");
-
-        // Both the p1 and c1 objects will be cached on the same node
-        personCache.put(new AffinityKey<Integer>(p1.getId(), c1.getId()), p1);
-        companyCache.put(c1.getId(), c1);
-
-        // Get the person object
-        p1 = personCache.get(new AffinityKey(1, "company1"));
-    }
-
-    public void configureAffinityKeyWithCacheKeyConfiguration() {
-        CacheConfiguration<PersonKey, Person> personCfg = new CacheConfiguration<PersonKey, Person>("persons");
-        personCfg.setBackups(1);
-
-        // Configure the affinity key
-        personCfg.setKeyConfiguration(new CacheKeyConfiguration("Person", "companyId"));
-
-        CacheConfiguration<String, Company> companyCfg = new CacheConfiguration<String, Company>("companies");
-        companyCfg.setBackups(1);
-
-        Ignite ignite = Ignition.start();
-
-        IgniteCache<PersonKey, Person> personCache = ignite.getOrCreateCache(personCfg);
-        IgniteCache<String, Company> companyCache = ignite.getOrCreateCache(companyCfg);
-
-        Company c1 = new Company("company1", "My company");
-        Person p1 = new Person(1, c1.getId(), "John");
-
-        // Both the p1 and c1 objects will be cached on the same node
-        personCache.put(new PersonKey(1, c1.getId()), p1);
-        companyCache.put(c1.getId(), c1);
-
-        // Get the person object
-        p1 = personCache.get(new PersonKey(1, "company1"));
-    }
 }
 ```
 {% endtab %}

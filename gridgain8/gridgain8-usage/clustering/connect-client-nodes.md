@@ -127,21 +127,6 @@ The examples below show how to configure a slow client queue limit.
 ```xml
 <bean class="org.apache.ignite.configuration.IgniteConfiguration">
     <property name="clientMode" value="true"/>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <!-- prevent this client from reconnecting on connection loss -->
-            <property name="clientReconnectDisabled" value="true"/>
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 
     <property name="communicationSpi">
         <bean class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
@@ -149,11 +134,6 @@ The examples below show how to configure a slow client queue limit.
         </bean>
     </property>
 </bean>
-    <property name="communicationSpi">
-        <bean class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
-            <property name="slowClientQueueLimit" value="1000"/>
-        </bean>
-    </property>
 ```
 {% endtab %}
 

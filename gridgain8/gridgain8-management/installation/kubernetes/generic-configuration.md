@@ -42,7 +42,7 @@ In our case, the namespace is called "gridgain".
 Create the namespace using the following command:
 
 ```shell
-kubectl create namespace gridgain
+include::{script}[tags=create-namespace]
 ```
 
 ### Creating Service
@@ -54,39 +54,14 @@ The new node uses this addresses to discover all cluster nodes.
 
 {% code title="service.yaml" %}
 ```yaml
-apiVersion: v1
-kind: Service
-metadata: 
-  # The name must be equal to TcpDiscoveryKubernetesIpFinder.serviceName
-  name: gridgain-service
-  # The name must be equal to TcpDiscoveryKubernetesIpFinder.namespace
-  namespace: gridgain
-  labels:
-    app: gridgain
-spec:
-  type: LoadBalancer
-  ports:
-    - name: rest
-      port: 8080
-      targetPort: 8080
-    - name: thinclients
-      port: 10800
-      targetPort: 10800
-  # Optional - remove 'sessionAffinity' property if the cluster
-  # and applications are deployed within Kubernetes
-  #  sessionAffinity: ClientIP   
-  selector:
-    # Must be equal to the label set for pods.
-    app: gridgain
-status:
-  loadBalancer: {}
+include::{configDir}/service.yaml[]
 ```
 {% endcode %}
 
 Create the service:
 
 ```shell
-kubectl create -f service.yaml
+include::{script}[tags=create-service]
 ```
 
 ### Creating Cluster Role and Service Account
@@ -94,48 +69,21 @@ kubectl create -f service.yaml
 Create a service account:
 
 ```shell
-kubectl create sa gridgain -n gridgain
+include::{script}[tags=create-service-account]
 ```
 
 A cluster role is used to grant access to pods. The following file is an example of a cluster role:
 
 {% code title="cluster-role.yaml" %}
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: gridgain
-  namespace: gridgain
-rules:
-- apiGroups:
-  - ""
-  resources: # Here are the resources you can access
-  - pods
-  - endpoints
-  verbs: # That is what you can do with them
-  - get
-  - list
-  - watch
----
-kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: gridgain
-roleRef:
-  kind: ClusterRole
-  name: gridgain
-  apiGroup: rbac.authorization.k8s.io
-subjects:
-- kind: ServiceAccount
-  name: gridgain
-  namespace: gridgain
+include::{configDir}/cluster-role.yaml[]
 ```
 {% endcode %}
 
 Run the following command to create the role and a role binding:
 
 ```shell
-kubectl create -f cluster-role.yaml
+include::{script}[tags=create-cluster-role]
 ```
 
 ### Creating ConfigMap for Node Configuration File
@@ -155,27 +103,7 @@ The file looks like this:
 
 {% code title="node-configuration.xml" %}
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-    <bean class="org.apache.ignite.configuration.IgniteConfiguration">
-
-        <property name="discoverySpi">
-            <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-                <property name="ipFinder">
-                    <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.kubernetes.TcpDiscoveryKubernetesIpFinder">
-                        <property name="namespace" value="gridgain"/>
-                        <property name="serviceName" value="gridgain-service"/>
-                    </bean>
-                </property>
-            </bean>
-        </property>
-    </bean>
-</beans>
+include::{configDir}/stateless/node-configuration.xml[]
 ```
 {% endcode %}
 {% endtab %}
@@ -190,43 +118,7 @@ The file looks like this:
 
 {% code title="node-configuration.xml" %}
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-    <bean class="org.apache.ignite.configuration.IgniteConfiguration">
-
-        <property name="workDirectory" value="/opt/gridgain/work"/>
-
-        <property name="dataStorageConfiguration">
-            <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
-                <property name="defaultDataRegionConfiguration">
-                    <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                        <property name="persistenceEnabled" value="true"/>
-                    </bean>
-                </property>
-
-                <property name="walPath" value="/opt/gridgain/wal"/>
-                <property name="walArchivePath" value="/opt/gridgain/walarchive"/>
-            </bean>
-
-        </property>
-
-        <property name="discoverySpi">
-            <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-                <property name="ipFinder">
-                    <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.kubernetes.TcpDiscoveryKubernetesIpFinder">
-                        <property name="namespace" value="gridgain"/>
-                        <property name="serviceName" value="gridgain-service"/>
-                    </bean>
-                </property>
-            </bean>
-        </property>
-
-    </bean>
-</beans>
+include::{configDir}/stateful/node-configuration.xml[]
 ```
 {% endcode %}
 {% endtab %}
@@ -238,7 +130,7 @@ Add other properties as required for your use case.
 To create the ConfigMap, run the following command in the directory with the `node-configuration.xml` file.
 
 ```shell
-kubectl create configmap gridgain-config -n gridgain --from-file=node-configuration.xml
+include::{script}[tags=create-configmap]
 ```
 
 ### Providing License File
@@ -256,7 +148,7 @@ See the example in the [Creating Pod Configuration](#creating-pod-configuration)
 Create a ConfigMap from the license file by running the following command. The `--from-file` option must point to an existing license file.
 
 ```shell
-kubectl create configmap gridgain-license -n gridgain --from-file=gridgain-license.xml
+include::{script}[tags=create-configmap-for-license]
 ```
 
 Use this config map ('gridgain-license') to mount the license in the pod configuration. The file must be mounted under the path of the default license file available in the `GRIDGAIN-HOME` directory.
@@ -285,120 +177,7 @@ The StatefulSet configuration file might look like as follows:
 
 {% code title="statefulset.yaml" %}
 ```yaml
-# An example of a Kubernetes configuration for pod deployment.
-apiVersion: apps/v1 
-kind: StatefulSet 
-metadata:
-  # Cluster name.
-  name: gridgain-cluster
-  namespace: gridgain
-spec:
-  # The initial number of pods to be started by Kubernetes.
-  replicas: 2
-  serviceName: gridgain
-  selector:
-    matchLabels:
-      app: gridgain
-  template:
-    metadata:
-      labels:
-        app: gridgain 
-    spec:
-      serviceAccountName: gridgain 
-      terminationGracePeriodSeconds: 60000 
-      containers:
-        # Custom pod name.
-      - name: gridgain-node
-        image: gridgain/enterprise:8.10
-        env:
-        - name: OPTION_LIBS
-          value: ignite-kubernetes,ignite-rest-http
-        - name: CONFIG_URI
-          value: file:///opt/gridgain/config/node-configuration.xml
-        - name: JVM_OPTS
-          value: "-DIGNITE_WAL_MMAP=false -DIGNITE_WAIT_FOR_BACKUPS_ON_SHUTDOWN=true"
-         # if you want to provide the license file via URI, uncomment the following 2 lines
-#        - name: LICENSE_URI
-#          value: http://url_to_license_file 
-        ports:
-        # Ports to open.
-        - containerPort: 47100 # communication SPI port
-        - containerPort: 47500 # discovery SPI port
-        - containerPort: 49112 # JMX port
-        - containerPort: 10800 # thin clients/JDBC driver port
-        - containerPort: 8080 # REST API
-        volumeMounts:
-        - mountPath: /opt/gridgain/config
-          name: config-vol
-        - mountPath: /opt/gridgain/work
-          name: work-vol
-        - mountPath: /opt/gridgain/wal
-          name: wal-vol
-        - mountPath: /opt/gridgain/walarchive
-          name: walarchive-vol
-        readinessProbe:
-          httpGet:
-           path: "/ignite?cmd=probe&kind=readiness"
-           port: 8080
-          initialDelaySeconds: 5
-          failureThreshold: 3
-          periodSeconds: 10
-          timeoutSeconds: 10
-        livenessProbe:
-          httpGet:
-           path: "/ignite?cmd=probe&kind=liveness"
-           port: 8080
-          initialDelaySeconds: 5
-          failureThreshold: 3
-          periodSeconds: 10
-          timeoutSeconds: 10
-        startupProbe:
-          httpGet:
-           path: "/ignite?cmd=probe&kind=readiness"
-           port: 8080
-          failureThreshold: 30
-          periodSeconds: 10
-# uncomment the following mount path if you want to provide a license
-# the license must be mounted under this exact path
-#        - mountPath: /opt/gridgain/gridgain-license.xml
-#          subPath: gridgain-license.xml
-#          name: license-vol          
-      securityContext:
-        fsGroup: 2000 # try removing this if you have permission issues
-      volumes:
-      - name: config-vol
-        configMap:
-          name: gridgain-config
-      # uncomment the following volume if you want to provide a license
-#      - name: license-vol
-#        configMap:
-#          name: gridgain-license          
-  volumeClaimTemplates:
-  - metadata:
-      name: work-vol
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-#      storageClassName: "gridgain-persistence-storage-class"
-      resources:
-        requests:
-          storage: "1Gi" # make sure to provide enough space for your application data
-  - metadata:
-      name: wal-vol
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-#      storageClassName: "gridgain-wal-storage-class"
-      resources:
-        requests:
-          storage: "1Gi" 
-  - metadata:
-      name: walarchive-vol
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-#      storageClassName: "gridgain-wal-storage-class"
-      resources:
-        requests:
-          storage: "1Gi"
-
+include::{configDir}/stateful/statefulset.yaml[]
 ```
 {% endcode %}
 
@@ -413,7 +192,7 @@ Do not store the work directory, WAL, or WAL archive on NFS volumes. GridGain us
 Create the StatefulSet by running the following command:
 
 ```shell
-kubectl create -f statefulset.yaml
+include::{script}[tags=create-statefulset]
 ```
 
 Check if the pods were created correctly:
@@ -585,16 +364,7 @@ The following code snippet illustrates how to connect to your cluster using the 
 Note that we use the external IP address (LoadBalancer Ingress) of the service.
 
 ```java
-ClientConfiguration cfg = new ClientConfiguration().setAddresses("13.86.186.145:10800");
-IgniteClient client = Ignition.startClient(cfg);
-
-ClientCache<Integer, String> cache = client.getOrCreateCache("test_cache");
-
-cache.put(1, "first test value");
-
-System.out.println(cache.get(1));
-
-client.close();
+include::{javaFile}[tags=connectThinClient, indent=0]
 ```
 
 ### Connecting to REST API

@@ -20,7 +20,29 @@ To enable specific event types, list them in the `includeEventTypes` property of
 {% tabs %}
 {% tab title="XML" %}
 ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:util="http://www.springframework.org/schema/util" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="         http://www.springframework.org/schema/beans         
+    http://www.springframework.org/schema/beans/spring-beans.xsd         
+    http://www.springframework.org/schema/util         
+    http://www.springframework.org/schema/util/spring-util.xsd">
 
+    <bean class="org.apache.ignite.configuration.IgniteConfiguration">
+
+        <property name="includeEventTypes">
+            <list>
+                <util:constant static-field="org.apache.ignite.events.EventType.EVT_CACHE_OBJECT_PUT"/>
+                <util:constant static-field="org.apache.ignite.events.EventType.EVT_CACHE_OBJECT_READ"/>
+                <util:constant static-field="org.apache.ignite.events.EventType.EVT_CACHE_OBJECT_REMOVED"/>
+                <util:constant static-field="org.apache.ignite.events.EventType.EVT_NODE_LEFT"/>
+                <util:constant static-field="org.apache.ignite.events.EventType.EVT_NODE_JOINED"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>
 ```
 {% endtab %}
 

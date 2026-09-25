@@ -24,21 +24,6 @@ To configure the number of backup copies, set the `backups` property in the cach
             <property name="cacheMode" value="PARTITIONED"/>
             <!-- Number of backup copies -->
             <property name="backups" value="1"/>
-
-            <property name="writeSynchronizationMode" value="FULL_SYNC"/>
-        </bean>
-    </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
         </bean>
     </property>
 </bean>
@@ -98,25 +83,10 @@ You can set the write synchronization mode in the cache configuration:
         <bean class="org.apache.ignite.configuration.CacheConfiguration">
             <!-- Set the cache name. -->
             <property name="name" value="cacheName"/>
-            <!-- Set the cache mode. -->
-            <property name="cacheMode" value="PARTITIONED"/>
             <!-- Number of backup copies -->
             <property name="backups" value="1"/>
 
             <property name="writeSynchronizationMode" value="FULL_SYNC"/>
-        </bean>
-    </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
         </bean>
     </property>
 </bean>

@@ -33,30 +33,7 @@ The events must be enabled on every server node.
         </list>
     </property>
 
-    <property name="eventStorageSpi">
-        <!-- Insert the name of your implementation here. -->
-        <bean class="com.gridgain.snippets.CustomEventStorage"/>
-    </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-    <property name="includeEventTypes">
-        <list>
-            <util:constant static-field="org.apache.ignite.events.EventType.EVT_CACHE_OBJECT_PUT"/>
-            <util:constant static-field="org.apache.ignite.events.EventType.EVT_CACHE_OBJECT_REMOVED"/>
-        </list>
-    </property>
 ```
 {% endtab %}
 
@@ -180,24 +157,7 @@ The storage class must be available in the node's classpath.
         <!-- Insert the name of your implementation here. -->
         <bean class="com.gridgain.snippets.CustomEventStorage"/>
     </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-    <property name="eventStorageSpi">
-        <!-- Insert the name of your implementation here. -->
-        <bean class="com.gridgain.snippets.CustomEventStorage"/>
-    </property>
 ```
 {% endtab %}
 

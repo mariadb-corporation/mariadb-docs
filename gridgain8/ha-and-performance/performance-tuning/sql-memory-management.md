@@ -97,29 +97,10 @@ You can change the global limit as follows:
 
             <property name="sqlGlobalMemoryQuota" value="300M"/>
 
-            <property name="sqlQueryMemoryQuota" value="30M"/>
-            <property name="sqlOffloadingEnabled" value="true"/>
-
         </bean>
     </property>
 
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-
-            <property name="sqlGlobalMemoryQuota" value="300M"/>
 ```
 {% endtab %}
 
@@ -168,31 +149,12 @@ You can configure the per-query quota as follows:
     <property name="sqlConfiguration">
         <bean class="org.apache.ignite.configuration.SqlConfiguration">
 
-            <property name="sqlGlobalMemoryQuota" value="300M"/>
-
             <property name="sqlQueryMemoryQuota" value="30M"/>
-            <property name="sqlOffloadingEnabled" value="true"/>
 
         </bean>
     </property>
 
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-
-            <property name="sqlQueryMemoryQuota" value="30M"/>
 ```
 {% endtab %}
 
@@ -228,32 +190,13 @@ disk and the occupied memory is freed. This process may affect the query executi
     <property name="sqlConfiguration">
         <bean class="org.apache.ignite.configuration.SqlConfiguration">
 
-            <property name="sqlGlobalMemoryQuota" value="300M"/>
-
             <property name="sqlQueryMemoryQuota" value="30M"/>
             <property name="sqlOffloadingEnabled" value="true"/>
 
         </bean>
     </property>
 
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-
-            <property name="sqlQueryMemoryQuota" value="30M"/>
-            <property name="sqlOffloadingEnabled" value="true"/>
 ```
 {% endtab %}
 

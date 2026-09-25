@@ -117,8 +117,6 @@ Eager TTL can be enabled or disabled via the `CacheConfiguration.eagerTtl` prope
 ```java
 CacheConfiguration<Integer, String> cfg = new CacheConfiguration<Integer, String>();
 cfg.setName("myCache");
-
-cfg.setEagerTtl(true);
 ```
 {% endtab %}
 

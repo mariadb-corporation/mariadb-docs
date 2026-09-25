@@ -50,27 +50,8 @@ You can change HTTP server parameters as follows:
             <property name="jettyPath" value="jetty.xml"/>
         </bean>
     </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
 
-    <property name="connectorConfiguration">
-        <bean class="org.apache.ignite.configuration.ConnectorConfiguration">
-            <property name="jettyPath" value="jetty.xml"/>
-        </bean>
-    </property>
 ```
 {% endtab %}
 
@@ -156,6 +137,59 @@ The following table describes the properties of `ConnectorConfiguration` that ar
 Path to this configuration should be set to `ConnectorConfiguration.setJettyPath(String)` as explained above.
 
 ```xml
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+    <Arg name="threadpool">
+        <!-- Default queued blocking thread pool -->
+        <New class="org.eclipse.jetty.util.thread.QueuedThreadPool">
+            <Set name="minThreads">20</Set>
+            <Set name="maxThreads">200</Set>
+        </New>
+    </Arg>
+    <New id="httpCfg" class="org.eclipse.jetty.server.HttpConfiguration">
+        <Set name="secureScheme">https</Set>
+        <Set name="securePort">8443</Set>
+        <Set name="sendServerVersion">true</Set>
+        <Set name="sendDateHeader">true</Set>
+    </New>
+    <Call name="addConnector">
+        <Arg>
+            <New class="org.eclipse.jetty.server.ServerConnector">
+                <Arg name="server"><Ref refid="Server"/></Arg>
+                <Arg name="factories">
+                    <Array type="org.eclipse.jetty.server.ConnectionFactory">
+                        <Item>
+                            <New class="org.eclipse.jetty.server.HttpConnectionFactory">
+                                <Ref refid="httpCfg"/>
+                            </New>
+                        </Item>
+                    </Array>
+                </Arg>
+                <Set name="host">
+                  <SystemProperty name="IGNITE_JETTY_HOST" default="localhost"/>
+                </Set>
+                <Set name="port">
+                  <SystemProperty name="IGNITE_JETTY_PORT" default="8080"/>
+                </Set>
+                <Set name="idleTimeout">30000</Set>
+                <Set name="reuseAddress">true</Set>
+            </New>
+        </Arg>
+    </Call>
+    <Set name="handler">
+        <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
+            <Set name="handlers">
+                <Array type="org.eclipse.jetty.server.Handler">
+                    <Item>
+                        <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
+                    </Item>
+                </Array>
+            </Set>
+        </New>
+    </Set>
+    <Set name="stopAtShutdown">false</Set>
+</Configure>
 ```
 
 ### Jetty 12 REST Module (Java 17)

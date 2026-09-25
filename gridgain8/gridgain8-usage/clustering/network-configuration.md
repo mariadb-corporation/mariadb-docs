@@ -21,29 +21,13 @@ You can change the properties of the discovery mechanism as follows:
 ```xml
 <bean class="org.apache.ignite.configuration.IgniteConfiguration">
 
-    <property name="failureDetectionTimeout" value="5000"/>
-
-    <property name="clientFailureDetectionTimeout" value="10000"/>
-
     <property name="discoverySpi">
         <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
             <property name="localPort" value="8300"/>  
-        </bean>
-    </property>
-
-    <property name="communicationSpi">
-        <bean class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
-            <property name="localPort" value="4321"/> 
         </bean>
     </property>
 
 </bean>
-
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="localPort" value="8300"/>  
-        </bean>
-    </property>
 ```
 {% endtab %}
 
@@ -99,16 +83,6 @@ The number of attempts is defined by the `localPortRange` property (defaults to 
 ```xml
 <bean class="org.apache.ignite.configuration.IgniteConfiguration">
 
-    <property name="failureDetectionTimeout" value="5000"/>
-
-    <property name="clientFailureDetectionTimeout" value="10000"/>
-
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="localPort" value="8300"/>  
-        </bean>
-    </property>
-
     <property name="communicationSpi">
         <bean class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
             <property name="localPort" value="4321"/> 
@@ -116,12 +90,6 @@ The number of attempts is defined by the `localPortRange` property (defaults to 
     </property>
 
 </bean>
-
-    <property name="communicationSpi">
-        <bean class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
-            <property name="localPort" value="4321"/> 
-        </bean>
-    </property>
 ```
 {% endtab %}
 
@@ -197,23 +165,7 @@ However, in stable low-latency networks, you can set the parameter to ~200 milli
 
     <property name="clientFailureDetectionTimeout" value="10000"/>
 
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="localPort" value="8300"/>  
-        </bean>
-    </property>
-
-    <property name="communicationSpi">
-        <bean class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
-            <property name="localPort" value="4321"/> 
-        </bean>
-    </property>
-
 </bean>
-
-    <property name="failureDetectionTimeout" value="5000"/>
-
-    <property name="clientFailureDetectionTimeout" value="10000"/>
 ```
 {% endtab %}
 

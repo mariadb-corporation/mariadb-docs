@@ -38,75 +38,9 @@ Once you pick the most optimal page size, apply it in your cluster configuration
 
             <!-- Set the page size to 8 KB -->
             <property name="pageSize" value="#{8 * 1024}"/>
-            <!--
-                Sets a path to the root directory where data and indexes are
-                to be persisted. It's assumed the directory is on a separated SSD.
-            -->
-            <property name="storagePath" value="/opt/persistence"/>
-            <property name="walPath" value="/opt/wal"/>
-            <property name="walArchivePath" value="/opt/wal-archive"/>
-            <property name="writeThrottlingEnabled" value="true"/>
-
-            <property name="defaultDataRegionConfiguration">
-                <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                    <!-- Enabling persistence. -->
-                    <property name="persistenceEnabled" value="true"/>
-                    <!-- Increasing the buffer size to 1 GB. -->
-                    <property name="checkpointPageBufferSize" value="#{1024L * 1024 * 1024}"/>
-                </bean>
-            </property>
-
-        </bean>
-    </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <!--
-                    Ignite provides several options for automatic discovery that can be used
-                    instead os static IP based discovery. For information on all options refer
-                    to our documentation: http://apacheignite.readme.io/docs/cluster-config
-                -->
-                <!-- Uncomment static IP finder to enable static-based discovery of initial nodes. -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <!--bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder"-->
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
         </bean>
     </property>
 </bean>
-    <property name="dataStorageConfiguration">
-        <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
-
-            <!-- Set the page size to 8 KB -->
-            <property name="pageSize" value="#{8 * 1024}"/>
-            <!--
-                Sets a path to the root directory where data and indexes are
-                to be persisted. It's assumed the directory is on a separated SSD.
-            -->
-            <property name="storagePath" value="/opt/persistence"/>
-            <property name="walPath" value="/opt/wal"/>
-            <property name="walArchivePath" value="/opt/wal-archive"/>
-            <property name="writeThrottlingEnabled" value="true"/>
-
-            <property name="defaultDataRegionConfiguration">
-                <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                    <!-- Enabling persistence. -->
-                    <property name="persistenceEnabled" value="true"/>
-                    <!-- Increasing the buffer size to 1 GB. -->
-                    <property name="checkpointPageBufferSize" value="#{1024L * 1024 * 1024}"/>
-                </bean>
-            </property>
-
-        </bean>
-    </property>
-            <!-- Set the page size to 8 KB -->
-            <property name="pageSize" value="#{8 * 1024}"/>
 ```
 {% endtab %}
 
@@ -155,8 +89,6 @@ The example below shows how to configure separate paths for the data storage, WA
     <property name="dataStorageConfiguration">
         <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
 
-            <!-- Set the page size to 8 KB -->
-            <property name="pageSize" value="#{8 * 1024}"/>
             <!--
                 Sets a path to the root directory where data and indexes are
                 to be persisted. It's assumed the directory is on a separated SSD.
@@ -164,73 +96,9 @@ The example below shows how to configure separate paths for the data storage, WA
             <property name="storagePath" value="/opt/persistence"/>
             <property name="walPath" value="/opt/wal"/>
             <property name="walArchivePath" value="/opt/wal-archive"/>
-            <property name="writeThrottlingEnabled" value="true"/>
-
-            <property name="defaultDataRegionConfiguration">
-                <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                    <!-- Enabling persistence. -->
-                    <property name="persistenceEnabled" value="true"/>
-                    <!-- Increasing the buffer size to 1 GB. -->
-                    <property name="checkpointPageBufferSize" value="#{1024L * 1024 * 1024}"/>
-                </bean>
-            </property>
-
-        </bean>
-    </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <!--
-                    Ignite provides several options for automatic discovery that can be used
-                    instead os static IP based discovery. For information on all options refer
-                    to our documentation: http://apacheignite.readme.io/docs/cluster-config
-                -->
-                <!-- Uncomment static IP finder to enable static-based discovery of initial nodes. -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <!--bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder"-->
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
         </bean>
     </property>
 </bean>
-    <property name="dataStorageConfiguration">
-        <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
-
-            <!-- Set the page size to 8 KB -->
-            <property name="pageSize" value="#{8 * 1024}"/>
-            <!--
-                Sets a path to the root directory where data and indexes are
-                to be persisted. It's assumed the directory is on a separated SSD.
-            -->
-            <property name="storagePath" value="/opt/persistence"/>
-            <property name="walPath" value="/opt/wal"/>
-            <property name="walArchivePath" value="/opt/wal-archive"/>
-            <property name="writeThrottlingEnabled" value="true"/>
-
-            <property name="defaultDataRegionConfiguration">
-                <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                    <!-- Enabling persistence. -->
-                    <property name="persistenceEnabled" value="true"/>
-                    <!-- Increasing the buffer size to 1 GB. -->
-                    <property name="checkpointPageBufferSize" value="#{1024L * 1024 * 1024}"/>
-                </bean>
-            </property>
-
-        </bean>
-    </property>
-            <!--
-                Sets a path to the root directory where data and indexes are
-                to be persisted. It's assumed the directory is on a separated SSD.
-            -->
-            <property name="storagePath" value="/opt/persistence"/>
-            <property name="walPath" value="/opt/wal"/>
-            <property name="walArchivePath" value="/opt/wal-archive"/>
 ```
 {% endtab %}
 
@@ -420,77 +288,11 @@ The example below shows how to enable write throttling:
     <property name="dataStorageConfiguration">
         <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
 
-            <!-- Set the page size to 8 KB -->
-            <property name="pageSize" value="#{8 * 1024}"/>
-            <!--
-                Sets a path to the root directory where data and indexes are
-                to be persisted. It's assumed the directory is on a separated SSD.
-            -->
-            <property name="storagePath" value="/opt/persistence"/>
-            <property name="walPath" value="/opt/wal"/>
-            <property name="walArchivePath" value="/opt/wal-archive"/>
             <property name="writeThrottlingEnabled" value="true"/>
 
-            <property name="defaultDataRegionConfiguration">
-                <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                    <!-- Enabling persistence. -->
-                    <property name="persistenceEnabled" value="true"/>
-                    <!-- Increasing the buffer size to 1 GB. -->
-                    <property name="checkpointPageBufferSize" value="#{1024L * 1024 * 1024}"/>
-                </bean>
-            </property>
-
-        </bean>
-    </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <!--
-                    Ignite provides several options for automatic discovery that can be used
-                    instead os static IP based discovery. For information on all options refer
-                    to our documentation: http://apacheignite.readme.io/docs/cluster-config
-                -->
-                <!-- Uncomment static IP finder to enable static-based discovery of initial nodes. -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <!--bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder"-->
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
         </bean>
     </property>
 </bean>
-    <property name="dataStorageConfiguration">
-        <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
-
-            <!-- Set the page size to 8 KB -->
-            <property name="pageSize" value="#{8 * 1024}"/>
-            <!--
-                Sets a path to the root directory where data and indexes are
-                to be persisted. It's assumed the directory is on a separated SSD.
-            -->
-            <property name="storagePath" value="/opt/persistence"/>
-            <property name="walPath" value="/opt/wal"/>
-            <property name="walArchivePath" value="/opt/wal-archive"/>
-            <property name="writeThrottlingEnabled" value="true"/>
-
-            <property name="defaultDataRegionConfiguration">
-                <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                    <!-- Enabling persistence. -->
-                    <property name="persistenceEnabled" value="true"/>
-                    <!-- Increasing the buffer size to 1 GB. -->
-                    <property name="checkpointPageBufferSize" value="#{1024L * 1024 * 1024}"/>
-                </bean>
-            </property>
-
-        </bean>
-    </property>
-            <property name="writeThrottlingEnabled" value="true"/>
-
 ```
 {% endtab %}
 
@@ -559,15 +361,6 @@ performance at the desired pace while the checkpointing is in progress, consider
     <property name="dataStorageConfiguration">
         <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
 
-            <!-- Set the page size to 8 KB -->
-            <property name="pageSize" value="#{8 * 1024}"/>
-            <!--
-                Sets a path to the root directory where data and indexes are
-                to be persisted. It's assumed the directory is on a separated SSD.
-            -->
-            <property name="storagePath" value="/opt/persistence"/>
-            <property name="walPath" value="/opt/wal"/>
-            <property name="walArchivePath" value="/opt/wal-archive"/>
             <property name="writeThrottlingEnabled" value="true"/>
 
             <property name="defaultDataRegionConfiguration">
@@ -579,66 +372,9 @@ performance at the desired pace while the checkpointing is in progress, consider
                 </bean>
             </property>
 
-        </bean>
-    </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <!--
-                    Ignite provides several options for automatic discovery that can be used
-                    instead os static IP based discovery. For information on all options refer
-                    to our documentation: http://apacheignite.readme.io/docs/cluster-config
-                -->
-                <!-- Uncomment static IP finder to enable static-based discovery of initial nodes. -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <!--bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder"-->
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
         </bean>
     </property>
 </bean>
-    <property name="dataStorageConfiguration">
-        <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
-
-            <!-- Set the page size to 8 KB -->
-            <property name="pageSize" value="#{8 * 1024}"/>
-            <!--
-                Sets a path to the root directory where data and indexes are
-                to be persisted. It's assumed the directory is on a separated SSD.
-            -->
-            <property name="storagePath" value="/opt/persistence"/>
-            <property name="walPath" value="/opt/wal"/>
-            <property name="walArchivePath" value="/opt/wal-archive"/>
-            <property name="writeThrottlingEnabled" value="true"/>
-
-            <property name="defaultDataRegionConfiguration">
-                <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                    <!-- Enabling persistence. -->
-                    <property name="persistenceEnabled" value="true"/>
-                    <!-- Increasing the buffer size to 1 GB. -->
-                    <property name="checkpointPageBufferSize" value="#{1024L * 1024 * 1024}"/>
-                </bean>
-            </property>
-
-        </bean>
-    </property>
-            <property name="writeThrottlingEnabled" value="true"/>
-
-            <property name="defaultDataRegionConfiguration">
-                <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                    <!-- Enabling persistence. -->
-                    <property name="persistenceEnabled" value="true"/>
-                    <!-- Increasing the buffer size to 1 GB. -->
-                    <property name="checkpointPageBufferSize" value="#{1024L * 1024 * 1024}"/>
-                </bean>
-            </property>
-
 ```
 {% endtab %}
 

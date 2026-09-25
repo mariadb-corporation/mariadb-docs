@@ -75,19 +75,6 @@ When you create a cache with the node filter defined above, the cache is deploye
             </property>
         </bean>
     </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
 ```
 {% endtab %}
@@ -128,11 +115,6 @@ The following snippet is an example of using `AttributeNodeFilter` as a node fil
 {% tab title="XML" %}
 ```xml
 <bean class="org.apache.ignite.configuration.IgniteConfiguration">
-    <property name="userAttributes">
-        <map>
-            <entry key="host_myCache" value="true"/>
-        </map>
-    </property>
     <property name="cacheConfiguration">
         <bean class="org.apache.ignite.configuration.CacheConfiguration">
             <property name="name" value="myCache"/>
@@ -140,19 +122,6 @@ The following snippet is an example of using `AttributeNodeFilter` as a node fil
                 <bean class="org.apache.ignite.util.AttributeNodeFilter">
                     <constructor-arg value="host_myCache"/>
                     <constructor-arg value="true"/>
-                </bean>
-            </property>
-        </bean>
-    </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
                 </bean>
             </property>
         </bean>
@@ -188,30 +157,6 @@ Add the attribute on the nodes where you want to deploy the cache.
         <map>
             <entry key="host_myCache" value="true"/>
         </map>
-    </property>
-    <property name="cacheConfiguration">
-        <bean class="org.apache.ignite.configuration.CacheConfiguration">
-            <property name="name" value="myCache"/>
-            <property name="nodeFilter">
-                <bean class="org.apache.ignite.util.AttributeNodeFilter">
-                    <constructor-arg value="host_myCache"/>
-                    <constructor-arg value="true"/>
-                </bean>
-            </property>
-        </bean>
-    </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
     </property>
 </bean>
 ```
@@ -260,11 +205,6 @@ With this configuration, the primary and backup copies of each partition end up 
 {% tab title="XML" %}
 ```xml
 <bean class="org.apache.ignite.configuration.IgniteConfiguration">
-    <property name="userAttributes">
-        <map>
-            <entry key="AVAILABILITY_ZONE" value="us-east-1a"/>
-        </map>
-    </property>
     <property name="cacheConfiguration">
         <bean class="org.apache.ignite.configuration.CacheConfiguration">
             <property name="name" value="myCache"/>
@@ -280,19 +220,6 @@ With this configuration, the primary and backup copies of each partition end up 
                                 </array>
                             </constructor-arg>
                         </bean>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
                     </property>
                 </bean>
             </property>

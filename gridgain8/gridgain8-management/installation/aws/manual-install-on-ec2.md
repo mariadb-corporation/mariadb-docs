@@ -293,20 +293,6 @@ For a client node to join the cluster from your local machine, perform the follo
        <!-- other properties -->
 
        <!-- Discovery configuration -->
-       <property name="discoverySpi">
-           <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-               <property name="ipFinder">
-                   <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                       <property name="addresses">
-                           <list>
-                               <value>172.31.28.36</value>
-                               <value>172.31.23.105</value>
-                           </list>
-                       </property>
-                   </bean>
-               </property>
-           </bean>
-       </property>
    </bean>
    ```
 

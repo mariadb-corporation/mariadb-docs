@@ -39,64 +39,10 @@ By default, a new cache is added to the default data region. If you want to chan
                     <property name="initialSize" value="#{100 * 1024 * 1024}"/>
                 </bean>
             </property>
-            <property name="dataRegionConfigurations">
-                <list>
-                    <!--
-                    40MB memory region with eviction enabled.
-                    -->
-                    <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                        <property name="name" value="40MB_Region_Eviction"/>
-                        <!-- Memory region of 20 MB initial size. -->
-                        <property name="initialSize" value="#{20 * 1024 * 1024}"/>
-                        <!-- Maximum size is 40 MB. -->
-                        <property name="maxSize" value="#{40 * 1024 * 1024}"/>
-                        <!-- Enabling eviction for this memory region. -->
-                        <property name="pageEvictionMode" value="RANDOM_2_LRU"/>
-                    </bean>
-                </list>
-            </property>
         </bean>
-    </property>
-    <property name="cacheConfiguration">
-        <list>
-            <!-- Cache that is mapped to a specific data region. -->
-            <bean class="org.apache.ignite.configuration.CacheConfiguration">
-
-                <property name="name" value="SampleCache"/>
-                <!--
-                Assigning the cache to the `40MB_Region_Eviction` region.
-                -->
-                <property name="dataRegionName" value="40MB_Region_Eviction"/>
-            </bean>
-        </list>
     </property>
     <!-- other properties -->
-    <!-- Explicitly configure TCP discovery SPI to provide list of initial nodes. -->
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-            <!--
-            Default memory region that grows endlessly. Any cache will be bound to this memory region
-            unless another region is set in the cache's configuration.
-            -->
-            <property name="defaultDataRegionConfiguration">
-                <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                    <property name="name" value="Default_Region"/>
-                    <!-- 100 MB memory region with disabled eviction. -->
-                    <property name="initialSize" value="#{100 * 1024 * 1024}"/>
-                </bean>
-            </property>
 ```
 {% endtab %}
 
@@ -109,33 +55,13 @@ defaultRegion.setName("Default_Region");
 defaultRegion.setInitialSize(100 * 1024 * 1024);
 
 storageCfg.setDefaultDataRegionConfiguration(defaultRegion);
-// 40MB memory region with eviction enabled.
-DataRegionConfiguration regionWithEviction = new DataRegionConfiguration();
-regionWithEviction.setName("40MB_Region_Eviction");
-regionWithEviction.setInitialSize(20 * 1024 * 1024);
-regionWithEviction.setMaxSize(40 * 1024 * 1024);
-regionWithEviction.setPageEvictionMode(DataPageEvictionMode.RANDOM_2_LRU);
-
-storageCfg.setDataRegionConfigurations(regionWithEviction);
 
 IgniteConfiguration cfg = new IgniteConfiguration();
 
 cfg.setDataStorageConfiguration(storageCfg);
 
-CacheConfiguration cache1 = new CacheConfiguration("SampleCache");
-//this cache will be hosted in the "40MB_Region_Eviction" data region
-cache1.setDataRegionName("40MB_Region_Eviction");
-
-cfg.setCacheConfiguration(cache1);
-
 // Start the node.
 Ignite ignite = Ignition.start(cfg);
-
-DataRegionConfiguration defaultRegion = new DataRegionConfiguration();
-defaultRegion.setName("Default_Region");
-defaultRegion.setInitialSize(100 * 1024 * 1024);
-
-storageCfg.setDefaultDataRegionConfiguration(defaultRegion);
 ```
 {% endtab %}
 
@@ -218,61 +144,7 @@ Note that further below in the configuration, we create a cache that resides in 
         </list>
     </property>
     <!-- other properties -->
-    <!-- Explicitly configure TCP discovery SPI to provide list of initial nodes. -->
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <property name="addresses">
-                        <list>
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-            <property name="dataRegionConfigurations">
-                <list>
-                    <!--
-                    40MB memory region with eviction enabled.
-                    -->
-                    <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                        <property name="name" value="40MB_Region_Eviction"/>
-                        <!-- Memory region of 20 MB initial size. -->
-                        <property name="initialSize" value="#{20 * 1024 * 1024}"/>
-                        <!-- Maximum size is 40 MB. -->
-                        <property name="maxSize" value="#{40 * 1024 * 1024}"/>
-                        <!-- Enabling eviction for this memory region. -->
-                        <property name="pageEvictionMode" value="RANDOM_2_LRU"/>
-                    </bean>
-                </list>
-            </property>
-            <!--
-            Default memory region that grows endlessly. Any cache will be bound to this memory region
-            unless another region is set in the cache's configuration.
-            -->
-            <property name="defaultDataRegionConfiguration">
-                <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                    <property name="name" value="Default_Region"/>
-                    <!-- 100 MB memory region with disabled eviction. -->
-                    <property name="initialSize" value="#{100 * 1024 * 1024}"/>
-                </bean>
-            </property>
-    <property name="cacheConfiguration">
-        <list>
-            <!-- Cache that is mapped to a specific data region. -->
-            <bean class="org.apache.ignite.configuration.CacheConfiguration">
-
-                <property name="name" value="SampleCache"/>
-                <!--
-                Assigning the cache to the `40MB_Region_Eviction` region.
-                -->
-                <property name="dataRegionName" value="40MB_Region_Eviction"/>
-            </bean>
-        </list>
-    </property>
 ```
 
 For the full list of properties, refer to the `DataStorageConfiguration` javadoc.

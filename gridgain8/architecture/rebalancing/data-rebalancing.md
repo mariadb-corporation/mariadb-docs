@@ -41,64 +41,30 @@ To change the rebalancing mode, set one of the following values in the cache con
 {% tab title="XML" %}
 ```xml
 <bean class="org.apache.ignite.configuration.IgniteConfiguration" id="ignite.cfg">
-
-    <property name="rebalanceThreadPoolSize" value="4"/>
-
     <property name="cacheConfiguration">
         <list>
             <bean class="org.apache.ignite.configuration.CacheConfiguration">
                 <property name="name" value="mycache"/>
                 <!-- enable synchronous rebalance mode -->
                 <property name="rebalanceMode" value="SYNC"/>
-                <!-- Set batch size. -->
-                <property name="rebalanceBatchSize" value="#{2 * 1024 * 1024}"/>
-                <!-- Set throttle interval. -->
-                <property name="rebalanceThrottle" value="100"/>
             </bean>
         </list>
     </property>
-    <!-- Explicitly configure TCP discovery SPI to provide list of initial nodes. -->
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                   
-                <!-- Uncomment static IP finder to enable static-based discovery of initial nodes. -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <!--bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder"-->
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-                <!-- enable synchronous rebalance mode -->
-                <property name="rebalanceMode" value="SYNC"/>
 ```
 {% endtab %}
 {% tab title="Java" %}
 ```java
 IgniteConfiguration cfg = new IgniteConfiguration();
 
-cfg.setRebalanceThreadPoolSize(4);
-
 CacheConfiguration cacheCfg = new CacheConfiguration("mycache");
 
 cacheCfg.setRebalanceMode(CacheRebalanceMode.SYNC);
-
-cfg.setRebalanceBatchSize(2 * 1024 * 1024);
-cfg.setRebalanceThrottle(100);
 
 cfg.setCacheConfiguration(cacheCfg);
 
 // Start a node.
 Ignite ignite = Ignition.start(cfg);
-
-cacheCfg.setRebalanceMode(CacheRebalanceMode.SYNC);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
@@ -152,36 +118,10 @@ The thread is relinquished after the batch is processed.
         <list>
             <bean class="org.apache.ignite.configuration.CacheConfiguration">
                 <property name="name" value="mycache"/>
-                <!-- enable synchronous rebalance mode -->
-                <property name="rebalanceMode" value="SYNC"/>
-                <!-- Set batch size. -->
-                <property name="rebalanceBatchSize" value="#{2 * 1024 * 1024}"/>
-                <!-- Set throttle interval. -->
-                <property name="rebalanceThrottle" value="100"/>
             </bean>
         </list>
     </property>
-    <!-- Explicitly configure TCP discovery SPI to provide list of initial nodes. -->
-    <property name="discoverySpi">
-        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-                   
-                <!-- Uncomment static IP finder to enable static-based discovery of initial nodes. -->
-                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                    <!--bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder"-->
-                    <property name="addresses">
-                        <list>
-                            <!-- In distributed environment, replace with actual host IP address. -->
-                            <value>127.0.0.1:47500..47509</value>
-                        </list>
-                    </property>
-                </bean>
-            </property>
-        </bean>
-    </property>
 </bean>
-
-    <property name="rebalanceThreadPoolSize" value="4"/>
 ```
 {% endtab %}
 {% tab title="Java" %}
@@ -191,18 +131,10 @@ IgniteConfiguration cfg = new IgniteConfiguration();
 cfg.setRebalanceThreadPoolSize(4);
 
 CacheConfiguration cacheCfg = new CacheConfiguration("mycache");
-
-cacheCfg.setRebalanceMode(CacheRebalanceMode.SYNC);
-
-cfg.setRebalanceBatchSize(2 * 1024 * 1024);
-cfg.setRebalanceThrottle(100);
-
 cfg.setCacheConfiguration(cacheCfg);
 
 // Start a node.
 Ignite ignite = Ignition.start(cfg);
-
-cfg.setRebalanceThreadPoolSize(4);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
@@ -235,11 +167,7 @@ You can configure the batch size and the amount of time the node waits between m
 ```java
 IgniteConfiguration cfg = new IgniteConfiguration();
 
-cfg.setRebalanceThreadPoolSize(4);
-
 CacheConfiguration cacheCfg = new CacheConfiguration("mycache");
-
-cacheCfg.setRebalanceMode(CacheRebalanceMode.SYNC);
 
 cfg.setRebalanceBatchSize(2 * 1024 * 1024);
 cfg.setRebalanceThrottle(100);
@@ -248,9 +176,6 @@ cfg.setCacheConfiguration(cacheCfg);
 
 // Start a node.
 Ignite ignite = Ignition.start(cfg);
-
-cfg.setRebalanceBatchSize(2 * 1024 * 1024);
-cfg.setRebalanceThrottle(100);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}

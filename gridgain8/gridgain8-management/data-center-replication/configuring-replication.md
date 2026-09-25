@@ -26,12 +26,30 @@ The following configuration example shows how to set the cluster ID.
 {% tabs %}
 {% tab title="XML" %}
 ```xml
+<bean class="org.apache.ignite.configuration.IgniteConfiguration" id="ignite.cfg">
+    <property name="pluginConfigurations">
+        <list>
+            <bean class="org.gridgain.grid.configuration.GridGainConfiguration">
+                <!-- Unique ID of this cluster -->
+                <property name="dataCenterId" value="1"/>
+            </bean>
+        </list>
+    </property>
+</bean>
 
 ```
 {% endtab %}
 {% tab title="Java" %}
 ```java
+IgniteConfiguration cfg = new IgniteConfiguration();
 
+GridGainConfiguration ggCfg = new GridGainConfiguration();
+
+ggCfg.setDataCenterId((byte) 1);
+
+cfg.setPluginConfigurations(ggCfg);
+
+Ignite ignite = Ignition.start(cfg);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
@@ -92,16 +110,6 @@ The following example illustrates how to configure a node to be a part of the se
                 <property name="dataCenterId" value="1"/>
                 <property name="drSenderConfiguration">
                     <bean class="org.gridgain.grid.configuration.DrSenderConfiguration">
-                        <property name="sslContextFactory">
-                            <bean class="org.apache.ignite.ssl.SslContextFactory">
-                                <property name="keyStoreType" value="PKCS12"/>
-                                <property name="keyStoreFilePath" value="/path/dr/server.p12"/>
-                                <property name="keyStorePassword" value="123456"/>
-                                <property name="trustStoreType" value="PKCS12"/>
-                                <property name="trustStoreFilePath" value="/home/abudnikov/gridgain/configs/dr/trust.p12"/>
-                                <property name="trustStorePassword" value="123456"/>
-                            </bean>
-                        </property>
                         <!-- this node is part of group1 -->
                         <property name="senderGroups">
                             <list>
@@ -111,13 +119,6 @@ The following example illustrates how to configure a node to be a part of the se
                         <!-- connection configuration -->
                         <property name="connectionConfiguration">
                             <bean class="org.gridgain.grid.dr.DrSenderConnectionConfiguration">
-                                <!-- dr storage --> 
-                                <property name="store">
-                                    <bean class="org.gridgain.grid.dr.store.fs.DrSenderFsStore">
-                                        <property name="directoryPath" value="/path/to/store"/>
-                                    </bean>
-                                </property>
-
                                 <!-- the ID of the remote cluster -->
                                 <property name="dataCenterId" value="2"/>
                                 <!-- Addresses of the remote cluster's nodes this node will connect to -->
@@ -138,7 +139,22 @@ The following example illustrates how to configure a node to be a part of the se
 {% endtab %}
 {% tab title="Java" %}
 ```java
+DrSenderConfiguration drSenderCfg = new DrSenderConfiguration();
+drSenderCfg.setSenderGroups("group1");
 
+// the addresses of the remote replica cluster's nodes that will receive data updates 
+drSenderCfg.setConnectionConfiguration(new DrSenderConnectionConfiguration().setDataCenterId((byte) 2)
+        .setReceiverAddresses("172.25.4.200:50001"));
+
+GridGainConfiguration ggCfg = new GridGainConfiguration();
+ggCfg.setDataCenterId((byte) 1);
+ggCfg.setDrSenderConfiguration(drSenderCfg);
+
+IgniteConfiguration igniteCfg = new IgniteConfiguration();
+
+igniteCfg.setPluginConfigurations(ggCfg);
+
+Ignite ignite = Ignition.start(igniteCfg);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
@@ -289,7 +305,15 @@ To configure a node as a receiver, define the `drReceiverConfiguration` property
 {% endtab %}
 {% tab title="Java" %}
 ```java
+IgniteConfiguration igniteCfg = new IgniteConfiguration();
 
+GridGainConfiguration ggCfg = new GridGainConfiguration();
+
+ggCfg.setDrReceiverConfiguration(new DrReceiverConfiguration().setLocalInboundPort(50001));
+
+igniteCfg.setPluginConfigurations(ggCfg);
+
+Ignite ignite = Ignition.start(igniteCfg);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
@@ -490,7 +514,7 @@ To configure replication for a specific cache, you must complete the following s
 - In the replica cluster: Create a cache with the same name.
 - Repeat this procedure for all caches you want to replicate.
 
-Below is an example configuration of a cache in the master cluster. The cache will be replicated through the sender group ("group1") that we defined in the [2. Configure Connection Between Clusters]() section.
+Below is an example configuration of a cache in the master cluster. The cache will be replicated through the sender group ("group1") that we defined in the [2. Configure Connection Between Clusters](#2-configure-connection-between-clusters) section.
 
 {% tabs %}
 {% tab title="XML" %}
@@ -522,7 +546,25 @@ Below is an example configuration of a cache in the master cluster. The cache wi
 {% endtab %}
 {% tab title="Java" %}
 ```java
+CacheConfiguration<Integer, String> cfg = new CacheConfiguration<>();
 
+cfg.setCacheMode(CacheMode.PARTITIONED);
+cfg.setName("myCache");
+cfg.setAtomicityMode(CacheAtomicityMode.ATOMIC);
+
+// sender cache configuration
+CacheDrSenderConfiguration cacheDrSenderCfg = new CacheDrSenderConfiguration();
+
+//set the name of the sender group
+cacheDrSenderCfg.setSenderGroup("group1");
+cacheDrSenderCfg.setBatchSendSize(4 * 1024);
+
+GridGainCacheConfiguration ggCacheCfg = new GridGainCacheConfiguration();
+ggCacheCfg.setDrSenderConfiguration(cacheDrSenderCfg);
+
+cfg.setPluginConfigurations(ggCacheCfg);
+
+IgniteCache<Integer, String> cache = ignite.getOrCreateCache(cfg);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
@@ -584,7 +626,17 @@ Below is an example configuration of the cache configuration in the replica clus
 {% endtab %}
 {% tab title="Java" %}
 ```java
+CacheConfiguration<Integer, String> cfg = new CacheConfiguration<>();
 
+cfg.setCacheMode(CacheMode.PARTITIONED);
+cfg.setName("myCache");
+cfg.setAtomicityMode(CacheAtomicityMode.ATOMIC);
+
+GridGainCacheConfiguration ggCacheCfg = new GridGainCacheConfiguration();
+
+cfg.setPluginConfigurations(ggCacheCfg);
+
+IgniteCache<Integer, String> cache = ignite.getOrCreateCache(cfg);
 ```
 {% endtab %}
 {% endtabs %}
@@ -598,6 +650,15 @@ If you want to replicate a dynamically created cache, you need to set the sender
    {% tabs %}
    {% tab title="Java" %}
    ```java
+   CacheDrSenderConfiguration senderCfg = new CacheDrSenderConfiguration();
+
+   //setting the sender group name
+   senderCfg.setSenderGroup("group1");
+
+   GridGainCacheConfiguration cachePluginCfg = new GridGainCacheConfiguration()
+           .setDrSenderConfiguration(senderCfg);
+
+   CacheConfiguration cacheCfg = new CacheConfiguration<>().setPluginConfigurations(cachePluginCfg);
 
    ```
    {% endtab %}
@@ -638,7 +699,12 @@ var cacheCfg = new CacheConfiguration()
    {% tabs %}
    {% tab title="Java" %}
    ```java
+   GridGain gg = ignite.plugin(GridGain.PLUGIN_NAME);
 
+   GridDr dr = gg.dr();
+
+   //perform a full state transfer for the "myCache" cache to Cluster 2
+   dr.stateTransfer("myCache", (byte) 2);
    ```
    {% endtab %}
    {% tab title="C#/.NET" %}
