@@ -401,6 +401,29 @@ Once the new primary is selected, the failover process will be performed, consis
 2. Promote the selected replica to be the new primary.
 3. Connect replicas to the new primary.
 
+## Two node clusters
+
+A two node cluster (one primary and one replica) is the one size where MaxScale's cooperative monitoring cannot give you split-brain safety and failover liveness at the same time: requiring a majority of *running* servers lets an isolated monitor self-elect, and requiring a majority of *all* servers blocks failover as soon as one backend is unreachable.
+
+The operator can provision an **arbitrator** for this case: a third, dataless MariaDB instance whose only job is to hold a third cooperative monitoring lock, turning the required majority into 2 of 3. It takes no part in replication, so it can never acknowledge a semi-synchronous commit in place of the real replica, and it holds no usable data.
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb-repl
+spec:
+  maxScaleRef:
+    name: maxscale-repl
+  replicas: 2
+  replication:
+    enabled: true
+  arbitrator:
+    enabled: true
+```
+
+This is a specialized, enterprise-only capability. Please reach out to your MariaDB sales representative for guidance on configuring and operating it in production.
+
 ## Updates
 
 When updating a replication cluster, all the considerations and procedures described in the [updates](../updates.md) documentation apply.
