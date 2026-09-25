@@ -295,28 +295,28 @@ modified in that revision.
       * merge 5.2
     * [Revision #2919.1.27](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.27)\
       Wed 2011-03-09 20:21:03 +0100
-      * [MWL#59](https://askmonty.org/worklog/?tid=59) - windows installer.
+      * MWL#59 - windows installer.
       * Address Monty's review comments
     * [Revision #2919.1.26](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.26)\
       Tue 2011-02-15 13:04:55 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55) : Philip's review:
+      * MWL#55 : Philip's review:
         * Take into account that mysql services start even with
           invalid defaults files (using data file relative to mysqld.exe location).\
           Handle this case in upgrade scenarios, as if there was no`--defaults-file` in service definition.
     * [Revision #2919.1.25](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.25)\
       Mon 2011-02-14 19:36:06 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55) : address Philip's final review comments :
+      * MWL#55 : address Philip's final review comments :
         * rename upgrade\_wizard.exe to mysql\_upgrade\_wizard.exe
         * have shortcut to upgrade wizard in the menu folder
     * [Revision #2919.1.24](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.24)\
       Tue 2011-02-08 13:07:31 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55): look for my.cnf in addition to my.ini trying to figure out defaults file for the service
+      * MWL#55: look for my.cnf in addition to my.ini trying to figure out defaults file for the service
     * [Revision #2919.1.23](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.23)\
       Tue 2011-02-08 12:05:16 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55): mysql\_upgrade\_service.exe will now ensure that datadir is always written to my.ini file
+      * MWL#55: mysql\_upgrade\_service.exe will now ensure that datadir is always written to my.ini file
     * [Revision #2919.1.22](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.22)\
       Mon 2011-02-07 17:12:35 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55) : Adjust UI according to some user's expectations.
+      * MWL#55 : Adjust UI according to some user's expectations.
       * If upgradable instances are found, bring a new dialog to inform user about it. This gives user a
         chance to deselect "database instance" feature early, because experience
         shows nobody really looks at features and their in their description in\
@@ -339,7 +339,7 @@ modified in that revision.
         compilation) or to pageheap, available at runtime.
     * [Revision #2919.1.19](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.19)\
       Fri 2011-02-04 12:20:41 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55): Handle cases where service was installed with
+      * MWL#55: Handle cases where service was installed with
         mysqld `--install` without any parameters.
       * In such case, service name is always MYSQL, as service
         binary path is "path\to\mysqld.exe" "MySQL". Guess data
@@ -348,7 +348,7 @@ modified in that revision.
         under install root.
     * [Revision #2919.1.18](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.18)\
       Fri 2011-02-04 12:16:23 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55) :
+      * MWL#55 :
         * Allow MSI and NSIS side-by-side installation if installed NSIS package
           differs in "major.minor" version numbers. Still disallow MSI and NSIS
           if major.minor versions of both packages match.
@@ -359,16 +359,16 @@ modified in that revision.
         if WiX or MFC is not available.
     * [Revision #2919.1.16](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.16)\
       Thu 2011-02-03 18:56:30 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55) : Add banner text to command line utilities\
+      * MWL#55 : Add banner text to command line utilities\
         (Philip's review)
     * [Revision #2919.1.15](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.15)\
       Thu 2011-02-03 17:51:03 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55): correct mysqld.exe file path, to extract version from it.
+      * MWL#55: correct mysqld.exe file path, to extract version from it.
       * Take into account that services registered by MySQL do not have\
         .exe extension in service binary path.
     * [Revision #2919.1.14](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.14)\
       Thu 2011-02-03 16:05:21 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55) : force per-machine installation.
+      * MWL#55 : force per-machine installation.
       * Problem: user without privileges can have an half-complete
         installation, if he manages to click on "Ignore" for all errors
         in the installer.
@@ -407,7 +407,7 @@ modified in that revision.
       * Move common functionality (analyze service configuration) into winservice library
     * [Revision #2919.1.5](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.5)\
       Sat 2011-01-29 19:06:50 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55) : implement MSI installer
+      * MWL#55 : implement MSI installer
       * The general technique to generate MSI using CMake is taken from MySQL 5.5
       * Additional features not present in 5.5 installer :
         * optionally creating a new database
@@ -417,24 +417,24 @@ modified in that revision.
           end of installation.
     * [Revision #2919.1.4](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.4)\
       Sat 2011-01-29 19:02:43 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55) : implement upgrade\_wizard - GUI program
+      * MWL#55 : implement upgrade\_wizard - GUI program
         to uzpgrade existing MySQL/Maria services to higher version.
       * To be used in installer (but also can be used outside of installer too)
     * [Revision #2919.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.3)\
       Sat 2011-01-29 19:00:05 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55) - mysql\_upgrade\_service.exe
+      * MWL#55 - mysql\_upgrade\_service.exe
       * New utility to upgrade Windows service to higher MariaDB version.
       * Its functionality includes changing service definition as well as
         running mysql\_upgrade.
     * [Revision #2919.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.2)\
       Sat 2011-01-29 18:55:48 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55) : mysql\_install\_db.exe - command line utilityto install new database
+      * MWL#55 : mysql\_install\_db.exe - command line utilityto install new database
         on Windows.
         * Some parameters not present in traditional mysql\_install\_db are present
           e.g `--port`, `--default-user` (whether to create a new users) or`--service` (windows service name)
     * [Revision #2919.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2919.1.1)\
       Sat 2011-01-29 18:51:12 +0100
-      * [MWL#55](https://askmonty.org/worklog/?tid=55) : cherrypick MySQL 5.5 CMake/build improvements in order
+      * MWL#55 : cherrypick MySQL 5.5 CMake/build improvements in order
         to be able to build MSI based installer
 * [Revision #2933](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2933) \[merge]\
   Tue 2011-03-08 15:16:13 +0200

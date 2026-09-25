@@ -108,7 +108,7 @@ modified in that revision.
   * updates after writing [mysql-test Auxiliary Files](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/testing-tools/mariadb-test/mariadb-test-auxiliary-files)
 * [Revision #3311](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3311)\
   Sat 2012-03-03 13:22:49 -0800
-  * Supported extended keys ([MWL#247](https://askmonty.org/worklog/?tid=247)) for innodb\_plugin.
+  * Supported extended keys (MWL#247) for innodb\_plugin.
 * [Revision #3310](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3310) \[merge]\
   Sat 2012-03-03 09:16:30 +0100
   * Merge
@@ -117,10 +117,10 @@ modified in that revision.
     * Merge
   * [Revision #3307.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3307.1.1) \[merge]\
     Fri 2012-03-02 15:03:20 -0800
-    * Merge [MWL#247](https://askmonty.org/worklog/?tid=247) from [mariadb 5.3](../../old-releases/5.3/) -> [mariadb 5.5](../../old-releases/5.5/).
+    * Merge MWL#247 from [mariadb 5.3](../../old-releases/5.3/) -> [mariadb 5.5](../../old-releases/5.5/).
     * [Revision #2502.539.6](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.539.6)\
       Tue 2012-02-28 13:03:10 -0800
-      * Addressed all review feedbacks for [MWL#247](https://askmonty.org/worklog/?tid=247).
+      * Addressed all review feedbacks for MWL#247.
     * [Revision #2502.539.5](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.539.5) \[merge]\
       Mon 2012-02-27 21:23:12 -0800
       * Merge.
@@ -130,10 +130,10 @@ modified in that revision.
     * [Revision #2502.539.3](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.539.3)\
       Sun 2012-01-29 14:35:30 -0800
       * Fixed [Bug #923236](https://bugs.launchpad.net/bugs/923236).
-      * When working on [MWL#247](https://askmonty.org/worklog/?tid=247) I forgot to adjust the function create\_hj\_key\_for\_table()
+      * When working on MWL#247 I forgot to adjust the function create\_hj\_key\_for\_table()
         that created a key definition for hash join keys. The modified function must
         set the values of the fields ext\_key\_parts, ext\_key\_flags, ext\_key\_part\_map
-        added to the key definition structure in [MWL#247](https://askmonty.org/worklog/?tid=247).
+        added to the key definition structure in MWL#247.
     * [Revision #2502.539.2](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.539.2)\
       Tue 2012-01-24 23:34:02 -0800
       * Fixed LP bug #921167.
@@ -150,7 +150,7 @@ modified in that revision.
       * [Revision #2502.538.5](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.538.5)\
         Tue 2012-01-17 03:26:49 -0800
         * Fixed [Bug #914560](https://bugs.launchpad.net/bugs/914560).
-        * The patch for [MWL#247](https://askmonty.org/worklog/?tid=247) forgot to initialize the TABLE::ext\_key\_parts and\
+        * The patch for MWL#247 forgot to initialize the TABLE::ext\_key\_parts and\
           TABLE::ext\_key\_flags of the temporary tables by a query. This could cause
           crashes for queries the execution of which needed creation of temporary
           tables.
@@ -170,17 +170,17 @@ modified in that revision.
           function best\_access\_path().
       * [Revision #2502.538.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.538.1) \[merge]\
         Sat 2011-12-31 03:36:20 -0800
-        * Merged [MWL#247](https://askmonty.org/worklog/?tid=247) into the latest 5.3.
+        * Merged MWL#247 into the latest 5.3.
         * [Revision #2502.537.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.537.1)\
           Sat 2011-12-31 02:25:57 -0800
-          * Implementation of the [MWL#247](https://askmonty.org/worklog/?tid=247): Make the optimizer use extended keys.
+          * Implementation of the MWL#247: Make the optimizer use extended keys.
           * The main patch.
 * [Revision #3309](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3309)\
   Fri 2012-03-02 08:32:16 +0100
   * misc test/result fixes
 * [Revision #3308](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3308) \[merge]\
   Fri 2012-03-02 07:45:06 +0100
-  * Merge [MWL#234](https://askmonty.org/worklog/?tid=234): @@skip\_replication, into latest [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) for push
+  * Merge MWL#234: @@skip\_replication, into latest [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) for push
   * [Revision #3283.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3283.1.3)\
     Thu 2012-03-01 16:06:27 +0100
     * replicate\_events\_marked\_for\_skip does not exist in embedded.
@@ -194,19 +194,19 @@ modified in that revision.
         statement or transaction.
   * [Revision #3283.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3283.1.1) \[merge]\
     Thu 2012-03-01 12:41:49 +0100
-    * Merge [MWL#234](https://askmonty.org/worklog/?tid=234): @@skip\_replication feature to [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md).
+    * Merge MWL#234: @@skip\_replication feature to [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md).
     * [Revision #2502.536.4](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.536.4)\
       Tue 2011-08-16 11:51:02 +0200
-      * [MWL#234](https://askmonty.org/worklog/?tid=234): Implement option to switch between master-side and client-side filtering of @@skip\_replication events.
+      * MWL#234: Implement option to switch between master-side and client-side filtering of @@skip\_replication events.
     * [Revision #2502.536.3](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.536.3)\
       Mon 2011-08-15 10:05:14 +0200
-      * [MWL#234](https://askmonty.org/worklog/?tid=234): Add MTR tests for SESSION/GLOBAL semantics of new system variables.
+      * MWL#234: Add MTR tests for SESSION/GLOBAL semantics of new system variables.
     * [Revision #2502.536.2](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.536.2)\
       Fri 2011-08-12 13:18:34 +0200
-      * [MWL#234](https://askmonty.org/worklog/?tid=234): After-review fixes, including better names for the new system variables.
+      * MWL#234: After-review fixes, including better names for the new system variables.
     * [Revision #2502.536.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.536.1)\
       Thu 2011-08-11 11:38:52 +0200
-      * [MWL#234](https://askmonty.org/worklog/?tid=234): Support for marking binlog events to not be replicated, and for telling slaves not to replicate events with such mark
+      * MWL#234: Support for marking binlog events to not be replicated, and for telling slaves not to replicate events with such mark
 * [Revision #3307](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3307) \[merge]\
   Thu 2012-03-01 14:22:22 -0800
   * Merge 5.3->5.5.
@@ -611,31 +611,31 @@ modified in that revision.
     * Initial threadpool implementation for [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
 * [Revision #3281](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3281) \[merge]\
   Sun 2012-02-26 16:11:44 +0100
-  * Merge [MWL#192](https://askmonty.org/worklog/?tid=192): non-blocking client library into MariaDB.
+  * Merge MWL#192: non-blocking client library into MariaDB.
   * [Revision #3253.1.4](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3253.1.4)\
     Thu 2012-02-23 15:42:21 +0100
-    * [MWL#192](https://askmonty.org/worklog/?tid=192) after-merge fixes.
+    * MWL#192 after-merge fixes.
       * Fix memory leak in one error case in mysqldump.
       * Fix that HAVE\_VALGRIND\_VALGRIND\_H is now HAVE\_VALGRIND in 5.5.
       * Fix that @have\_ssl should not be set in embedded (introduced when
         removing #undef HAVE\_OPENSSL from my\_global.h).
   * [Revision #3253.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3253.1.3) \[merge]\
     Wed 2012-02-22 12:14:34 +0100
-  * Merge latest [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) into [MWL#192](https://askmonty.org/worklog/?tid=192): Non-blocking client library.
+  * Merge latest [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) into MWL#192: Non-blocking client library.
   * [Revision #3253.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3253.1.2)\
     Wed 2012-02-22 11:44:53 +0100
-  * Fix [MWL#192](https://askmonty.org/worklog/?tid=192) build error: Remove SSL special case for embedded server.
+  * Fix MWL#192 build error: Remove SSL special case for embedded server.
   * VIO has SSL in embedded server anyway, so we do not win anything by excluding it.
   * This was actually already done in this changeset:
     * revision-id: kostja@sun.com-20100413150445-8x23keoxdiufgq76
     * "... Also, he removed the (probable) bug of embedded server never using SSL-dependent functions..."
-  * But was apparenly lost by a mis-merge of [WL#5030](https://askmonty.org/worklog/?tid=5030).
+  * But was apparenly lost by a mis-merge of WL#5030.
   * [Revision #3253.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3253.1.1) \[merge]\
     Tue 2012-02-21 22:15:44 +0100
-    * Merge [MWL#192](https://askmonty.org/worklog/?tid=192): Non-blocking client library, into [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md).
+    * Merge MWL#192: Non-blocking client library, into [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md).
     * [Revision #2502.531.5](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.531.5)\
       Mon 2012-01-30 13:45:58 +0100
-      * [MWL#192](https://askmonty.org/worklog/?tid=192): Fix problem when we first enable MYSQL\_OPT\_NONBLOCK, then connect
+      * MWL#192: Fix problem when we first enable MYSQL\_OPT\_NONBLOCK, then connect
         in normal blocking style, then later do a non-blocking operation.
       * In this case, the vio->async\_context was not set up correctly, so that
         non-blocking operation was not properly handled.
@@ -647,7 +647,7 @@ modified in that revision.
       * fix typo.
     * [Revision #2502.531.2](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.531.2)\
       Fri 2012-01-06 12:43:18 +0100
-      * [MWL#192](https://askmonty.org/worklog/?tid=192): non-blocking client API, after-review fixes.
+      * MWL#192: non-blocking client API, after-review fixes.
       * Main change is that non-blocking operation is now an option that must be
         explicitly enabled with mysql\_option(mysql, MYSQL\_OPT\_NONBLOCK, ...)
         before any non-blocing operation can be used.
@@ -656,7 +656,7 @@ modified in that revision.
         things when non-blocking mysql\_real\_connect() fails).
     * [Revision #2502.531.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.531.1)\
       Tue 2011-09-20 12:49:25 +0200
-      * [MWL#192](https://askmonty.org/worklog/?tid=192): Non-blocking client API for libmysqlclient.
+      * MWL#192: Non-blocking client API for libmysqlclient.
       * All client functions that can block on I/O have alternate \_start() and\
         \_cont() versions that do not block but return control back to the
         application, which can then issue I/O wait in its own fashion and later

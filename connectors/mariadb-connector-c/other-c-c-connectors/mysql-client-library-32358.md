@@ -46,8 +46,8 @@ If you are interested in sponsoring this effort, you can contact Monty Program.
 ## See also:
 
 * The new [MariaDB Client Library for C](../) is also LGPL.
-* [Worklog for the MySQL 3.23 client library](https://askmonty.org/worklog/Client-Sprint/index.pl?tid=134)
-* [Worklog for a new free MariaDB client library](https://askmonty.org/worklog/Client-Sprint/index.pl?tid=171)
+* Worklog for the MySQL 3.23 client library
+* Worklog for a new free MariaDB client library
 
 {% hint style="info" %}
 Be notified of new MariaDB Server releases automatically by [subscribing](https://lists.mariadb.org/postorius/lists/announce.lists.mariadb.org/) to the MariaDB Foundation community announcement 'at lists.mariadb.org announcement list (this is a low traffic, announce-only list). MariaDB plc customers will be notified of all new releases, security issues, and low-traffic critical bug fixes for all MariaDB plc products, thanks to the Notification Services.

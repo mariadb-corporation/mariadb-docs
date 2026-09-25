@@ -250,7 +250,7 @@ details of the revision and view diffs of the code modified in that revision.
   * Add missing {} to silence a compiler warning
 * [Revision #e634fdcd5b](https://github.com/MariaDB/server/commit/e634fdcd5b)\
   2017-08-29 21:58:02 +0300
-  * [WL#8845](https://askmonty.org/worklog/?tid=8845): Clarify the message about redo log format incompatibility
+  * WL#8845: Clarify the message about redo log format incompatibility
 * Merge [Revision #fdbdd3b131](https://github.com/MariaDB/server/commit/fdbdd3b131) 2017-08-29 18:36:03 +0300 - [MDEV-13625](https://jira.mariadb.org/browse/MDEV-13625) Merge InnoDB test cases from MySQL 5.6 (part 1)
 * [Revision #9e9a3b8ede](https://github.com/MariaDB/server/commit/9e9a3b8ede)\
   2017-08-29 13:15:35 +0300
