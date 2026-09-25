@@ -1,6 +1,6 @@
 ---
 description: >-
-  Plugin API reference: Table Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+  Macros that instrument table handles, table shares, and table lock waits for the Performance Schema, including open, close, unbind, and rebind.
 ---
 
 

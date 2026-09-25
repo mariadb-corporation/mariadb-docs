@@ -1,6 +1,6 @@
 ---
 description: >-
-  Plugin API reference: Memory Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+  The mysql_memory_register macro, which registers memory instruments with the Performance Schema.
 ---
 
 

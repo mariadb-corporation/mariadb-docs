@@ -1,6 +1,6 @@
 ---
 description: >-
-  Plugin API reference: Thread Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+  Instrumented mutex, rwlock, prlock, and condition structures and their wrappers, and the PSI_CALL_* thread macros that register threads and set their attributes.
 ---
 
 

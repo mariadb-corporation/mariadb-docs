@@ -1,6 +1,6 @@
 ---
 description: >-
-  Plugin API reference: Transaction Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+  Macros that report a transaction's start, GTID, XID, XA state, savepoints, commit, and rollback to the Performance Schema.
 ---
 
 
