@@ -46,6 +46,7 @@ graph TD
 ### 3. Authenticated Request
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     A[Client]
     B[MCP Server]
@@ -59,6 +60,7 @@ graph TD
     C -- "Result" --> B
     B -- "4. Response" --> A
 
+    linkStyle default color:#111111
 ```
 
 ## Deployment Modes

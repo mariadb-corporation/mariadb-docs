@@ -12,6 +12,7 @@ Bring Your Own Account (BYOA) allows large enterprises to deploy fully managed M
 With BYOA, the Control Plane (UI, API, Monitoring) remains in MariaDB Cloud, while the Data Plane (Compute, Storage, Backups) resides entirely in your cloud account.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     classDef control fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1;
     classDef data fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c;
@@ -45,6 +46,7 @@ flowchart LR
     Bastion -->|"4 Manage (TLS)"| DB
     App -->|"5 Connect (private)"| DB
     DB <--> Storage
+    linkStyle default color:#111111
 ```
 
 ## How it works
@@ -96,6 +98,7 @@ BYOA is a Tech Preview, currently available on Amazon Web Services and Microsoft
 The BYOA setup splits your costs into two separate components. This model ensures transparency and allows you to apply your own cloud credits or reserved instance savings to the infrastructure portion of the cost.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     classDef maria fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
     classDef cloud fill:#fff8e1,stroke:#f9a825,stroke-width:2px,color:#f57f17;
@@ -114,6 +117,7 @@ flowchart LR
     Customer -->|"service fees"| M
     Customer -->|"infrastructure costs"| C
     C -.->|"apply committed spend and discounts"| Customer
+    linkStyle default color:#111111
 ```
 
 1. MariaDB Cloud Invoice: You receive a bill from MariaDB for the management fee, software licensing, and support.

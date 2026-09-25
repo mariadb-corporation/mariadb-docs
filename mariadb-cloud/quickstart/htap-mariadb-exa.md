@@ -22,6 +22,7 @@ The MariaDB Exa layout separates transactional and analytical workloads so heavy
 ---
 title: Simplified MariaDB Exa HTAP Architecture (Technical View)
 ---
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     %% Row 1: Access & Routing
     subgraph Routing_Layer [Access & Routing]
@@ -55,6 +56,7 @@ graph TD
     %% Style subgraphs to be subtle
     style Routing_Layer fill:#f9f9f9,stroke:#ddd,stroke-dasharray: 5 5
     style Engine_Layer fill:#fff,stroke:#ddd
+    linkStyle default color:#111111
 ```
 
 ### Core components

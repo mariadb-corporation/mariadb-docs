@@ -116,6 +116,46 @@ Standard Markdown, with assets stored alongside content:
 ![Alt text describing the image](path/to/image.png)
 ```
 
+## Diagrams (Mermaid)
+
+GitBook renders ` ```mermaid ` fences natively, client-side, in both the light and the dark
+theme. Prefer an inline Mermaid diagram to a PNG, and follow these house rules so the diagram
+is accessible and legible in both themes:
+
+- **Screen-reader text.** Directly after the diagram-type line, add `accTitle:` (a short title)
+  and `accDescr { … }` (what the diagram shows, in words). Mermaid puts them in the SVG's
+  `<title>` and `<desc>`.
+- **A visible caption.** Add an italic line right below the fence.
+- **Node colors that work in both themes.** Give styled nodes an explicit text color, such as
+  `classDef box fill:#eef2ff,stroke:#33415c,color:#111`. The dark theme otherwise draws node
+  text in `#ccc`, which is unreadable on a light fill.
+- **Edge labels need a contrast fix.** In the dark theme, a flowchart edge label (`A -->|Yes| B`,
+  `A -- No --> B`) is `#ccc` text on a `#585858` pill, which is 4.43:1, below the WCAG AA
+  minimum of 4.5:1. `classDef` can't reach edge labels, and the site has no custom CSS, so
+  every flowchart with edge labels carries this fix: the directive as the block's first line
+  and `linkStyle default` as its last. The fix gives 16.89:1 in both themes.
+
+````
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
+flowchart TD
+    accTitle: Retry decision
+    accDescr { A failed request is retried if it is idempotent, and reported otherwise. }
+    A[Request failed] --> B{Idempotent?}
+    B -->|Yes| C[Retry]
+    B -->|No| D[Report the error]
+    linkStyle default color:#111111
+```
+
+_A failed request is retried only when it is safe to repeat._
+````
+
+Both lines are needed. The directive alone, including a version that also sets
+`tertiaryTextColor`, changes only the pill, and leaves `#ccc` text on it (1.44:1). The CI gate
+`mermaidcheck-pr.yml` fails any flowchart that has edge labels and lacks the fix, and
+`python3 .claude/hooks/mermaidcheck.py --fix <file>` adds it. Flowcharts without edge labels,
+and other diagram types, don't need it.
+
 ## Reusable content (includes)
 
 Shared content is pulled into a page with the `{% include %}` directive rather than

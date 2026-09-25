@@ -7,8 +7,9 @@ Code. It contains:
 |------|------------|
 | `settings.json` | Project settings, incl. the `PreToolUse(Bash)` hook wiring |
 | `settings.local.json` | **Personal** overrides — gitignored, never committed |
-| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus four checks it delegates to their own scripts: includes (`includecheck.sh`), heading anchors (`fragcheck.py`), orphaned pages (`navcheck.py`) and gutted pages (`shrinkcheck.py`). Since DOCS-6586 all four are gated in CI too |
+| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus five checks it delegates to their own scripts: includes (`includecheck.sh`), Mermaid edge-label contrast (`mermaidcheck.py`), heading anchors (`fragcheck.py`), orphaned pages (`navcheck.py`) and gutted pages (`shrinkcheck.py`). All five are gated in CI too |
 | `hooks/includecheck.sh` | Resolves every relative GitBook `{% include %}`; fails on a dead or cross-space target. Also the entry point for `includecheck-pr.yml` (DOCS-6586), which runs it tree-wide |
+| `hooks/mermaidcheck.py` | Fails a Mermaid flowchart whose edge labels miss WCAG AA contrast in GitBook's dark theme (DOCS-6630); `--fix` adds the house fix. Called by `doc-lint.sh` and, tree-wide, by `mermaidcheck-pr.yml` |
 | `hooks/fragcheck.py` | GitBook-accurate heading-anchor checker, called by `doc-lint.sh` and by `fragcheck-pr.yml` |
 | `hooks/timeless.py` | High-precision finder for undated product claims ("currently in beta", "coming soon", "at the time of writing"), the check behind the style guide's *Timeless wording* rule (DOCS-6640). **Advisory only** — called by `nightly-timeless.yml` and the `style-apply` skill, never by `doc-lint.sh` or a PR gate |
 | `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` and by `navcheck-pr.yml` |
@@ -145,8 +146,11 @@ deleted, or was never a page in any space) and that neither a narrow file scope 
 `DOC_LINT_ALLOW_*=all` can hide one; that a malformed register is exit 2 rather than being read
 as an empty one; and that `shrinkcheck.py`'s own surface holds up — `--stdin0` against a path
 containing a space, the counts line the CI assertion reads back, its usage errors, and its SKIP
-branches. Run the suite after any change to `doc-lint.sh`, `includecheck.sh`, `navcheck.py`,
-`shrinkcheck.py` or `allowlist.py`:
+branches. DOCS-6630 added 11 for `mermaidcheck.py`: the unfixed, fixed, low-contrast and
+unlabelled cases, the one-line directive first proposed on that ticket (which must fail), the
+detector regression its first draft shipped, `--fix` idempotence, `--stdin0`, and the
+`doc-lint.sh` delegation. Run the suite after any change to `doc-lint.sh`, `includecheck.sh`,
+`mermaidcheck.py`, `navcheck.py`, `shrinkcheck.py` or `allowlist.py`:
 
 ```bash
 .claude/hooks/doc-lint-test.sh              # --keep to inspect the sandbox, --verbose for output

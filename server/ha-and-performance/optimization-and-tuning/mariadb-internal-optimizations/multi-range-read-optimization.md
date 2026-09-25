@@ -16,6 +16,7 @@ Multi Range Read can be used with
 as shown in this diagram:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
   accTitle: Possible ways to use MRR
   accDescr { This diagram shows the possible access methods that can feed into Multi Range Read (MRR). Range access and ref or eq_ref access are the two options; ref and eq_ref access first go through Batched Key Access. Both paths converge on Multi Range Read, which then reads from the storage engine. }
@@ -30,6 +31,7 @@ flowchart TD
   classDef decision fill:#fff3cd,stroke:#8a6d00,stroke-width:1px,color:#111;
   class A decision;
   class B,C,D,E,F box;
+  linkStyle default color:#111111
 ```
 
 _Possible ways to use MRR: range access, or ref/eq\_ref access via Batched Key Access, both feed into Multi Range Read._
@@ -295,6 +297,7 @@ The flow splits into two parts: deciding whether a larger buffer can help this q
 #### Part 1: Can a Larger Buffer Help?
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
   accTitle: Part 1 - deciding whether a larger mrr_buffer_size can help
   accDescr { Part one of the tuning flow, a sequence of five checks with an exit at each. Identify the affected query and collect a baseline. First, does the query use an MRR-suitable access pattern such as a range scan or a large IN list? If not, MRR cannot help and you should tune the query, its indexes or the optimizer statistics instead. Second, is MRR enabled for the query? If not, set mrr=on for the session or add an MRR hint, then re-check. Third, does EXPLAIN show a Rowid-ordered or Key-ordered scan, and does Handler_mrr_init increase? If not, MRR is not used and mrr_buffer_size has no effect on this query. Fourth, is Handler_mrr_key_refills or Handler_mrr_rowid_refills non-zero? If they are zero, the buffer already holds the whole scan and a larger value cannot help. Fifth, is the data already resident in the InnoDB buffer pool? If it is, the benefit is limited because the extra sorting costs CPU without saving I/O. Only if the data is not resident does a larger buffer look promising, and you continue with part two. }
@@ -317,6 +320,7 @@ flowchart TD
   class B,C,D,E,F decision;
   class A,C1,G box;
   class B1,D1,E1,F1 stop;
+  linkStyle default color:#111111
 ```
 
 _Part 1: five checks, each with its own exit. The refill counters are the decisive one — at zero, no larger value can help._
@@ -324,6 +328,7 @@ _Part 1: five checks, each with its own exit. The refill counters are the decisi
 #### Part 2: Choosing and Applying a Value
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
   accTitle: Part 2 - choosing an mrr_buffer_size value and deciding how widely to apply it
   accDescr { Part two of the tuning flow, reached only when part one showed that a larger buffer may help. Check memory headroom and concurrency: Threads_running, free RAM and swap usage. If memory pressure is a concern at this concurrency, leave the global value at the default and test at session level only. Either way, test progressively at session level through 512 KB, 1 MB, 2 MB and 4 MB. If there is no measurable and repeatable improvement, or the refill counters do not reach zero, or CPU or memory regress, revert to the previous value and investigate other tuning. If the improvement holds, ask whether the gain is specific to one application or workload; if it is, keep the larger value at session level for that workload only. If it is not, ask whether the gain is consistent across representative workloads with sufficient memory headroom; if not, again keep it at session level, and if so, a global change may be considered after controlled validation. Monitor after any change - query time, Threads_running, memory and swap, CPU and disk I/O, and buffer pool metrics - and settle on the smallest value that gives a consistent improvement. }
@@ -349,6 +354,7 @@ flowchart TD
   class I,K,L,M decision;
   class G,H,I1,J,M1,N,O,P box;
   class K1 stop;
+  linkStyle default color:#111111
 ```
 
 _Part 2: keep a workload-specific gain at session level; a global change is the exception, not the destination._

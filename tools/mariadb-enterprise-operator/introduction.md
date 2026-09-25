@@ -25,6 +25,7 @@ Kubernetes brings several key benefits to the table when managing applications i
 Kubernetes has been designed with flexibility in mind, allowing developers to extend its capabilities through custom resources and operators.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
   accTitle: MariaDB Enterprise Operator reconciliation loop
   accDescr { A user creates MariaDB and MaxScale resources that define the desired state. The MariaDB Enterprise Operator watches those resources and continuously watches the current state of the cluster's compute, storage, and network resources. When the desired state changes, or the current state drifts from it, the Operator updates the compute, storage, and network resources so the current state matches the desired state again. }
@@ -56,6 +57,7 @@ flowchart LR
 
   style Desired fill:#ffffff,stroke:#333333,color:#111;
   style Current fill:#ffffff,stroke:#333333,color:#111;
+  linkStyle default color:#111111
 ```
 
 _The Operator watches the desired state (`MariaDB`/`MaxScale` resources) and the current state (compute, storage, network), then updates resources to reconcile the two._

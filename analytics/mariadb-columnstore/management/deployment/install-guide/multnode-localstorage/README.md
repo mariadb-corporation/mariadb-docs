@@ -32,6 +32,7 @@ layout:
 | <ul><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul> | See the topology diagram below. | <p>Columnar storage engine with S3-compatible object storage</p><ul><li>Highly available</li><li>Automatic failover via MaxScale and CMAPI</li><li>Scales read via MaxScale</li><li>Bulk data import</li><li>Enterprise Server 10.5, ColumnStore 5, MaxScale 2.5</li><li>Enterprise Server 10.6, ColumnStore 23.02, MaxScale 22.08</li></ul> |
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to three Enterprise Server and ColumnStore nodes sharing NFS storage
     accDescr {
@@ -61,6 +62,7 @@ flowchart TD
     classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
     class MX,ES1,ES2,ES3,CS1,CS2,CS3 node
     class NFS storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes ro/rw traffic to three Enterprise Server and ColumnStore nodes sharing NFS storage._

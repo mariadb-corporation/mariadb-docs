@@ -7,6 +7,7 @@ description: Deploy Spider Sharded Topology
 ## Overview
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: Spider Sharded topology
     accDescr {
@@ -29,6 +30,7 @@ flowchart LR
     classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
     class Spider,S1,S2,S3 node
     class Client client
+    linkStyle default color:#111111
 ```
 
 _Spider Sharded: a Spider Node distributes the partitions of a virtual sharded table across multiple Data Nodes (shards) via the Spider foreign data wrapper._

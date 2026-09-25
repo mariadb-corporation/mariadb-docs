@@ -30,6 +30,7 @@ mysql> EXPLAIN SELECT * FROM (SELECT * FROM City WHERE Population > 1*1000)
 It plans to do the following actions:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: Unmerged execution plan for the derived table query
     accDescr { The City table has 4079 rows. Filtered by the condition Population greater than 10*1000 (Using where), it feeds into the derived2 temporary table, which is populated with 4068 rows by writing to a temp. table. The derived2 temporary table is then filtered by the condition Country equals 'DEU' (Using where) to produce the query output of 93 rows. }
@@ -43,6 +44,7 @@ flowchart LR
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _City rows are filtered on `Population`, written to the `derived2` temporary table, then filtered again on `Country` to produce the query output._

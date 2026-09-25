@@ -59,6 +59,7 @@ The following happens when atomic writes are enabled
 Here is a flowchart showing how atomic writes work inside InnoDB:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: InnoDB atomic write support internals
     accDescr {
@@ -108,6 +109,7 @@ flowchart TD
     class IA,OE action
     class IC,OC terminal
     class OF fail
+    linkStyle default color:#111111
 ```
 
 _Initialization checks the atomic-writes setting before continuing, while opening a data file checks the ioctl result, treating a failed ibdata1 open as fatal and any other file as a closable error._

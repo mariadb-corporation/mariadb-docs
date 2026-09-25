@@ -243,6 +243,7 @@ By the time the network heals, the majority partition may have promoted a new
 primary and written to it. The two partitions have thus diverged.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: majority_of_all with the primary server in the minority partition
     accDescr {
@@ -267,6 +268,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _The minority side goes read-only; the majority side promotes a new primary._
 

@@ -25,6 +25,7 @@ The Spider ODBC topology:
 * Can be used to migrate table data from ODBC Data Sources to the Spider Node using the ODBC foreign data wrapper.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: ODBC Spider topology
     accDescr {
@@ -44,6 +45,7 @@ flowchart LR
     class Spider node
     class ODBC external
     class Client client
+    linkStyle default color:#111111
 ```
 
 _In the Spider ODBC topology, a Spider Node uses an ODBC foreign data wrapper to read from and write to an external ODBC Data Source._

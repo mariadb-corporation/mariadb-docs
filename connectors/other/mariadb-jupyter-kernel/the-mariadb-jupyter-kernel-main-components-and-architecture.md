@@ -81,6 +81,7 @@ The [CodeParser](the-mariadb-jupyter-kernel-main-components-and-architecture.md)
 Now that you have the bottom-up picture of how the components of the kernel interact with each other internally, here's a diagram showing how the kernel fits within the entire picture:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: How the MariaDB Jupyter kernel fits into JupyterLab
     accDescr {
@@ -120,6 +121,7 @@ flowchart TD
     class MPL,MK,PK comp
     class CMD,MDBNB,PYNB file
     class Local,Remote,Cloud server
+    linkStyle default color:#111111
 ```
 
 _The bigger picture: JupyterLab talks to the Notebook Server, where the MariaDB kernel drives a command-line client (reaching local, remote, or cloud servers) and exchanges plots and data frames with Matplotlib and the Python kernel._

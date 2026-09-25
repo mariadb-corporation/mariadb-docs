@@ -192,6 +192,77 @@ build_sandbox() {
   # Not a Markdown/HTML path, so the argument filter must drop it.
   printf 'not markdown\n' > "$SANDBOX/server/notes.txt"
 
+  # Mermaid edge-label contrast fixtures (DOCS-6630). Quoted heredocs, not printf: the init
+  # directive starts with `%%{`, which printf would read as a format.
+  mkdir -p "$SANDBOX/server/mermaid"
+  cat > "$SANDBOX/server/mermaid/unfixed.md" <<'MD'
+# Unfixed
+
+```mermaid
+flowchart TD
+    A[Start] -->|Yes| B[End]
+```
+MD
+  cat > "$SANDBOX/server/mermaid/fixed.md" <<'MD'
+# Fixed
+
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
+flowchart TD
+    A[Start] -- No --> B[End]
+    linkStyle default color:#111111
+```
+MD
+  # The one-line fix first proposed on DOCS-6630. It measured 1.44:1 in the dark theme, so it
+  # must fail: it sets no text colour.
+  cat > "$SANDBOX/server/mermaid/ticket-variant.md" <<'MD'
+# Ticket Variant
+
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff", "tertiaryTextColor": "#111111"}}}%%
+flowchart TD
+    A -->|Yes| B
+```
+MD
+  cat > "$SANDBOX/server/mermaid/low-contrast.md" <<'MD'
+# Low Contrast
+
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
+graph LR
+    A -->|Yes| B
+    linkStyle default color:#cccccc
+```
+MD
+  # Nothing to fix: no edge labels, a `--` and a `|` inside node text and the description, and a
+  # non-flowchart diagram with labelled arrows.
+  cat > "$SANDBOX/server/mermaid/unlabelled.md" <<'MD'
+# Unlabelled
+
+```mermaid
+flowchart LR
+    accTitle: Two nodes
+    accDescr { A -- to --> B, with a | in it }
+    A["a -- b --> c"] --> B[x | y]
+```
+
+```mermaid
+sequenceDiagram
+    A->>B: hello
+```
+MD
+  # The regression that shipped in the first draft: the asymmetric-node rule (`A>text]`) ate the
+  # arrowhead and the label of `-->|build| Image[image]`, hiding 13 labelled diagrams.
+  cat > "$SANDBOX/server/mermaid/pipe-before-node.md" <<'MD'
+# Pipe Before Node
+
+```mermaid
+flowchart LR
+    Dockerfile[Dockerfile] -->|build| Image[image]
+```
+MD
+  cp "$SANDBOX/server/mermaid/unfixed.md" "$SANDBOX/server/mermaid/unfixed with spaces.md"
+
   (
     cd "$SANDBOX" || exit 1
     git init -q -b main . >/dev/null 2>&1 || git init -q . >/dev/null 2>&1
@@ -636,6 +707,105 @@ set -e
 want_rc 1
 want_err 'cannot resolve GitBook includes'
 want_err 'broken checkout'
+end
+
+# ---- Mermaid edge-label contrast (DOCS-6630; gated in CI by mermaidcheck-pr.yml) -------------
+# mermaidcheck.py is driven directly, the way mermaidcheck-pr.yml drives it, plus once through
+# doc-lint.sh to prove the delegation. python3 is looked up on MIN_PATH like shrinkcheck's is.
+MERMAIDCHECK="$SCRIPT_DIR/mermaidcheck.py"
+MM_STDIN=''
+mm() {
+  set +e
+  if [ -n "$MM_STDIN" ]; then
+    ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        python3 "$MERMAIDCHECK" "$@" < "$MM_STDIN" ) > "$OUT" 2> "$ERR"
+  else
+    ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        python3 "$MERMAIDCHECK" "$@" < /dev/null ) > "$OUT" 2> "$ERR"
+  fi
+  RC=$?
+  set -e
+}
+
+begin 'mermaidcheck.py with no arguments is a usage error, not a silent pass'
+mm
+want_rc 2
+want_err 'usage:'
+end
+
+begin 'an edge-labelled flowchart with no fix fails'
+mm server/mermaid/unfixed.md
+want_rc 1
+want_err 'no init directive'
+want_err 'linkStyle default'
+end
+
+begin 'the house fix passes, and the summary counts what was checked'
+mm server/mermaid/fixed.md
+want_rc 0
+want_out '1 edge-labelled flowchart(s) in 1 file(s); 0 failing'
+end
+
+begin 'the one-line directive first proposed on the ticket fails — it sets no text colour'
+mm server/mermaid/ticket-variant.md
+want_rc 1
+want_err 'linkStyle default'
+end
+
+begin 'a fix whose colours miss 4.5:1 fails on the measured ratio'
+mm server/mermaid/low-contrast.md
+want_rc 1
+want_err 'contrast 1.44:1'
+end
+
+begin 'no edge labels, labels inside node text, and non-flowcharts need nothing'
+mm server/mermaid/unlabelled.md
+want_rc 0
+want_out '0 edge-labelled flowchart(s)'
+end
+
+begin 'a pipe label before a bracketed node is still a label (first-draft regression)'
+mm server/mermaid/pipe-before-node.md
+want_rc 1
+want_err 'no init directive'
+end
+
+begin '--fix adds the house fix, and a second run is clean and changes nothing'
+cp "$SANDBOX/server/mermaid/unfixed.md" "$SANDBOX/server/mermaid/tofix.md"
+mm --fix server/mermaid/tofix.md
+want_rc 0
+cp "$SANDBOX/server/mermaid/tofix.md" "$SANDBOX/.tofix-once"
+mm --fix server/mermaid/tofix.md
+want_rc 0
+want_out '0 failing; fixed 0 file(s)'
+if ! cmp -s "$SANDBOX/server/mermaid/tofix.md" "$SANDBOX/.tofix-once"; then
+  problem 'a second --fix run changed the file again'
+fi
+mm server/mermaid/tofix.md
+want_rc 0
+rm -f "$SANDBOX/server/mermaid/tofix.md" "$SANDBOX/.tofix-once"
+end
+
+begin 'mermaidcheck --stdin0 does not split a path containing a space'
+nul_list "$SANDBOX/.list" 'server/mermaid/unfixed with spaces.md'
+MM_STDIN="$SANDBOX/.list" mm --stdin0
+MM_STDIN=''
+want_rc 1
+want_err 'server/mermaid/unfixed with spaces.md'
+end
+
+begin 'mermaidcheck --stdin0 on empty input says so rather than claiming a clean tree'
+nul_list "$SANDBOX/.list"
+MM_STDIN="$SANDBOX/.list" mm --stdin0
+MM_STDIN=''
+want_rc 0
+want_out 'no Markdown files'
+end
+
+begin 'doc-lint.sh reaches mermaidcheck.py'
+lint . - DOC_LINT_SKIP_FRAGMENTS=1 -- server/mermaid/unfixed.md
+want_rc 1
+want_err 'no init directive'
 end
 
 # ---- orphaned pages / navcheck.py (DOCS-6567; fixtures added in DOCS-6586) -------------------

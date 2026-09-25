@@ -21,6 +21,7 @@ The standard method where the primary node commits a transaction locally and str
 While a momentary delay before a new article appears on all servers is an acceptable trade-off for massive read scalability, this inherent replication lag means users might occasionally read stale data. Furthermore, if the primary server crashes before the background stream catches up, the most recent updates will be permanently lost.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     subgraph Client Application
         W[Content Admins / Writers]
@@ -56,6 +57,7 @@ graph TD
     class P primary;
     class R1,R2,R3 replica;
     class W,R app;
+    linkStyle default color:#111111
 ```
 
 ### Semisynchronous Replication

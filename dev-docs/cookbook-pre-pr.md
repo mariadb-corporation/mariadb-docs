@@ -12,12 +12,13 @@ skill, which runs them for you; this page documents what it does and how to run 
 | Broken links | `lychee` | `link-check-pr.yml` |
 | Heading anchors | `fragcheck.py new` | `fragcheck-pr.yml` |
 | GitBook includes | `includecheck.sh --stdin0` | `includecheck-pr.yml` |
+| Mermaid edge-label contrast | `mermaidcheck.py --stdin0` | `mermaidcheck-pr.yml` |
 | Nav coverage (orphaned pages) | `navcheck.py new` | `navcheck-pr.yml` |
 | Gutted pages (net line loss) | `shrinkcheck.py` | `shrinkcheck-pr.yml` |
 | Alias expansion | sed (auto-commit) | `expand-gitbook-aliases.yml` |
 | Help-tables regen | Python | `generate-help-tables.yml` |
 
-Only the first six can fail your PR; aliases and help-tables are regenerated automatically.
+Only the first seven can fail your PR; aliases and help-tables are regenerated automatically.
 
 The heading-anchor gate arrived in DOCS-6524 and the other three in DOCS-6586: **every check in
 the table above has a CI counterpart**, so a finding on your machine is a finding CI will repeat.
