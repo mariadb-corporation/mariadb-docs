@@ -107,7 +107,7 @@ Then create a `CMakeLists.txt` file. For a simple plugin, a few lines are enough
 ```cmake
 cmake_minimum_required(VERSION 3.12)
 find_package(mariadb-plugin REQUIRED)
-MARIADB_ADD_PLUGIN(exampledb example.cc MODULE_ONLY STORAGE_ENGINE
+MARIADB_ADD_PLUGIN(exampledb example.cc STORAGE_ENGINE
                  AUTHOR "John Smith" VERSION 0.1
                  DESCRIPTION "Example of plugin interface")
 include(CPack)
