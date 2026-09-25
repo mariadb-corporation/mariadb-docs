@@ -35,7 +35,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #2797](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2797): rename "partitioned key cache" to "segmented"
 * [Revision #2798](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2798): first initialize variable, then use it, not the other way around
 * [Revision #2799](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2799): only run maria tests if maria is compiled in
-* [Revision #2800](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2800): [MWL#43](https://askmonty.org/worklog/?tid=43): initialize lex->option\_list for foreign keys
+* [Revision #2800](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2800): MWL#43: initialize lex->option\_list for foreign keys
 * [Revision #2801](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2801): merge 5.1->5.2
 * [Revision #2802](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2802): handle a case when a user connects with a password to a passwordless account
 * [Revision #2803](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2803): fixes for test suite

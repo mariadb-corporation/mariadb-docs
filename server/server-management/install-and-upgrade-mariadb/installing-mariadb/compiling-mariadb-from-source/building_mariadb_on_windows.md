@@ -120,7 +120,7 @@ cmake --build . --config relwithdebinfo --target MSI
 ## Including HeidiSQL in the MSI Installer
 
 Starting with [MariaDB 5.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/5.2.7), it is possible to build an installer which
-includes 3rd party products, as described in [MWL#200](https://askmonty.org/worklog/Other/?tid=200). Only [HeidiSQL](https://www.heidisql.com) support is implemented; it is also
+includes 3rd party products, as described in MWL#200. Only [HeidiSQL](https://www.heidisql.com) support is implemented; it is also
 included in the official builds. Use the `CMake` parameter`-DWITH_THIRD_PARTY=HeidiSQL` to include it in the installer.
 
 ## Code Signing

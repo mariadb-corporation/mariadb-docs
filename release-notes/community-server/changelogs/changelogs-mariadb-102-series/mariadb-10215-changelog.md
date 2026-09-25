@@ -28,7 +28,7 @@ in that revision.
   * Adjusted the test case for MariaDB
 * [Revision #0ba299da02](https://github.com/MariaDB/server/commit/0ba299da02)\
   2015-08-17 13:44:52 +0300
-  * Bug#21628087 innodb\_log\_checkpoint\_now not fully compatible with [WL#7142](https://askmonty.org/worklog/?tid=7142)
+  * Bug#21628087 innodb\_log\_checkpoint\_now not fully compatible with WL#7142
 * [Revision #be465cfb8c](https://github.com/MariaDB/server/commit/be465cfb8c)\
   2018-05-14 19:22:26 +0530
   * Move the test case from innodb.alter\_page\_size to innodb.innodb-online-alter-gis
@@ -46,7 +46,7 @@ in that revision.
   * Adjust the tests for MariaDB. New added test case: alter\_kill in innodb suite.
 * [Revision #ac2410f6d8](https://github.com/MariaDB/server/commit/ac2410f6d8)\
   2014-08-11 10:43:11 +0300
-  * Bug#19330255 [WL#7142](https://askmonty.org/worklog/?tid=7142) - CRASH DURING ALTER TABLE LEADS TO DATA DICTIONARY INCONSISTENCY
+  * Bug#19330255 WL#7142 - CRASH DURING ALTER TABLE LEADS TO DATA DICTIONARY INCONSISTENCY
 * [Revision #6f4534e622](https://github.com/MariaDB/server/commit/6f4534e622)\
   2018-05-15 01:44:03 +0530
   * [MDEV-14695](https://jira.mariadb.org/browse/MDEV-14695): Assertion \`n < m\_size' failed in Bounds\_checked\_array\<Element\_type>::operator

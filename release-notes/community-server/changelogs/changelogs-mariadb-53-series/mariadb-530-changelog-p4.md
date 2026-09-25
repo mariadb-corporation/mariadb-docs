@@ -92,7 +92,7 @@
   * merge
 * [Revision #2938](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2938) \[merge]\
   Fri 2011-03-11 15:20:24 +0100
-  * merge [MWL#55](https://askmonty.org/worklog/?tid=55)
+  * merge MWL#55
 * [Revision #2937](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2937)\
   Wed 2011-03-09 17:55:00 +0200
   * Added item.real\_type() for easy access to the underlaying types for Item\_ref and Item\_cache\_wrapper()\
@@ -364,7 +364,7 @@
   * Merge
   * [Revision #2897.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2897.1.1)\
     Sat 2011-02-05 20:57:03 -0800
-    * Fixed [Bug #702403](https://bugs.launchpad.net/bugs/702403) that caused a crash on the tree for [MWL#128](https://askmonty.org/worklog/?tid=128)
+    * Fixed [Bug #702403](https://bugs.launchpad.net/bugs/702403) that caused a crash on the tree for MWL#128
       with the test case added by this patch.
     * The bug cannot be reproduced with the same test case for the main\
       5.3 tree because the backported fix for [MySQL Bug #59696](https://bugs.mysql.com/bug.php?id=59696) masks the
@@ -376,7 +376,7 @@
       list of the second object was joined to such list of the first object.
     * This operation required adjustment of the backward pointers in\
       Item fields from the joined list. However the adjustment was missing
-      and this caused crashes in the tree for [MWL#128](https://askmonty.org/worklog/?tid=128).
+      and this caused crashes in the tree for MWL#128.
     * Now the backward pointers are set only when Item\_equal items are
       completely built and are not changed anymore.
 * [Revision #2899](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2899)\

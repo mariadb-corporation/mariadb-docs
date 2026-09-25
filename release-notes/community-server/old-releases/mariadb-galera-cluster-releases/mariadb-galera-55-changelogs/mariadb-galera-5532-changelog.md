@@ -2053,7 +2053,7 @@ Tue 2013-03-05 12:19:07 +0100
     * Merge
     * [Revision #3334.34.1](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.34.1)\
       Wed 2013-03-27 19:17:32 -0700
-      * Fixed bug [MDEV-4311](https://jira.mariadb.org/browse/MDEV-4311) (bug #68749). This bug was introduced by the patch for [WL#3220](https://askmonty.org/worklog/?tid=3220). If the memory allocated for the tree to store unique elements to be counted is not big enough to include all of them then an external file is used to store the elements. The unique elements are guaranteed not to be nulls. So, when reading them from the file we don't have to care about the null flags of the read values. However, we should remove the flag at the very beginning of the process. If we don't do it and if the last value written into the record buffer for the field whose distinct values needs to be counted happens to be null, then all values read from the file are considered to be nulls and are not counted in. The fix does not remove a possible null flag for the read values. Rather it just counts the values in the same way it was done before WL #3220.
+      * Fixed bug [MDEV-4311](https://jira.mariadb.org/browse/MDEV-4311) (bug #68749). This bug was introduced by the patch for WL#3220. If the memory allocated for the tree to store unique elements to be counted is not big enough to include all of them then an external file is used to store the elements. The unique elements are guaranteed not to be nulls. So, when reading them from the file we don't have to care about the null flags of the read values. However, we should remove the flag at the very beginning of the process. If we don't do it and if the last value written into the record buffer for the field whose distinct values needs to be counted happens to be null, then all values read from the file are considered to be nulls and are not counted in. The fix does not remove a possible null flag for the read values. Rather it just counts the values in the same way it was done before WL #3220.
   * [Revision #3334.1.375](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.375) \[merge]\
     Wed 2013-03-27 10:03:28 +0100
     * 5.3 merge
@@ -2786,7 +2786,7 @@ Tue 2013-03-05 12:19:07 +0100
         * mtr.pl - improve the logic that decides when ndbcluster should be enabled and the extra test suites for MySQL Cluster should be added. Should be consistent and logical now ;)
     * [Revision #3077.175.20](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3077.175.20)\
       Mon 2012-11-12 14:24:43 +0200
-      * This is a backport of "[WL#5674](https://askmonty.org/worklog/?tid=5674) InnoDB: report all deadlocks (Bug#1784)" from MySQL 5.6 into MySQL 5.5
+      * This is a backport of "WL#5674 InnoDB: report all deadlocks (Bug#1784)" from MySQL 5.6 into MySQL 5.5
     * [Revision #3077.175.19](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3077.175.19) \[merge]\
       Mon 2012-11-12 22:33:40 +0900
       * Bug #14676111 WRONG PAGE\_LEVEL WRITTEN FOR UPPER THAN FATHER PAGE AT BTR\_LIFT\_PAGE\_UP()

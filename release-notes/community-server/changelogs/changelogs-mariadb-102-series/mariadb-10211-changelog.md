@@ -60,7 +60,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Adjust the tests for MariaDB, and optimize them
 * [Revision #f8bc799a89](https://github.com/MariaDB/server/commit/f8bc799a89)\
   2017-11-23 07:47:19 +0200
-  * Import [WL#6658](https://askmonty.org/worklog/?tid=6658) update\_time tests from MySQL 5.7
+  * Import WL#6658 update\_time tests from MySQL 5.7
 * Merge [Revision #0055e1a57f](https://github.com/MariaDB/server/commit/0055e1a57f) 2017-11-22 17:38:30 +0100 - Merge branch 'connect/10.2' into 10.2
 * [Revision #b6563d773a](https://github.com/MariaDB/server/commit/b6563d773a)\
   2017-11-03 11:29:02 +0100\
@@ -138,7 +138,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Adjust the MySQL 5.7 tests for [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 * [Revision #55a94ef1cf](https://github.com/MariaDB/server/commit/55a94ef1cf)\
   2017-11-20 12:22:28 +0200
-  * Import [WL#7277](https://askmonty.org/worklog/?tid=7277) bulk insert creation tests from MySQL 5.7
+  * Import WL#7277 bulk insert creation tests from MySQL 5.7
 * [Revision #ce64a65f27](https://github.com/MariaDB/server/commit/ce64a65f27)\
   2017-11-20 09:49:21 +0200
   * [MDEV-14310](https://jira.mariadb.org/browse/MDEV-14310) Possible corruption by table-rebuilding or index-creating ALTER TABLE…ALGORITHM=INPLACE

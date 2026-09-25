@@ -892,7 +892,7 @@ modified in that revision.
   * Merging more ctype\_\* tests from MySQL-5.6.
 * [Revision #3867](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3867)\
   Fri 2013-10-25 20:13:54 +0400
-  * Better test coverage for [WL#4013](https://askmonty.org/worklog/?tid=4013) Unicode german2 collation Merge from MySQL-5.6
+  * Better test coverage for WL#4013 Unicode german2 collation Merge from MySQL-5.6
 * [Revision #3866](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3866)\
   Fri 2013-10-25 15:01:03 +0400
   * [MDEV-5180](https://jira.mariadb.org/browse/MDEV-5180) Data type for WEIGHT\_STRING is too short in some cases (a bug in upstream)
@@ -1284,7 +1284,7 @@ modified in that revision.
                 * Removed incorrect assert
 * [Revision #3852](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3852)\
   Tue 2013-10-15 13:39:44 +0400
-  * A follow-up for [WL#5624](https://askmonty.org/worklog/?tid=5624): Collation customization improvements
+  * A follow-up for WL#5624: Collation customization improvements
 * [Revision #3851](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3851) \[merge]\
   Tue 2013-10-15 10:26:08 +0400
   * Merge 10.0-base -> 10.0
@@ -2347,7 +2347,7 @@ modified in that revision.
     * Merge
     * [Revision #3427.26.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.26.1)\
       Tue 2013-08-06 13:31:38 -0700
-      * [MWL#205](https://askmonty.org/worklog/?tid=205) DELETE with result set ([MDEV-3814](https://jira.mariadb.org/browse/MDEV-3814)) Includes all post-review fixes as well.
+      * MWL#205 DELETE with result set ([MDEV-3814](https://jira.mariadb.org/browse/MDEV-3814)) Includes all post-review fixes as well.
 * [Revision #3816](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3816)\
   Wed 2013-09-18 11:17:16 +0400
   * [MDEV-4883](https://jira.mariadb.org/browse/MDEV-4883) - Not all host\_cache tests have been merged

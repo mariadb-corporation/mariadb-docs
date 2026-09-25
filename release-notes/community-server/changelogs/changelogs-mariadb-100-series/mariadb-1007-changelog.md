@@ -326,7 +326,7 @@ modified in that revision.
   * remove #ifdef ENABLE\_BEFORE\_END\_OF\_MERGE\_QQ
 * [Revision #3934](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3934)\
   Mon 2013-12-09 12:38:30 +0100
-  * cleanups: \* comments from [WL#5602](https://askmonty.org/worklog/?tid=5602) in sql\_acl.cc \* rename global memroots in sql\_acl.cc \* remove the second empty lex string constant
+  * cleanups: \* comments from WL#5602 in sql\_acl.cc \* rename global memroots in sql\_acl.cc \* remove the second empty lex string constant
 * [Revision #3933](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3933)\
   Mon 2013-12-09 12:38:20 +0100
   * bugfix: incorrect buffer sizes for net\_store\_length()
@@ -335,7 +335,7 @@ modified in that revision.
   * reuse new safe\_net\_field\_length\_ll function where appropriate
 * [Revision #3931](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3931)\
   Mon 2013-12-09 12:38:02 +0100
-  * Do the partial merge of [WL#5602](https://askmonty.org/worklog/?tid=5602) correctly: Remove unused code (that should not have been merged) Add protocol extension (that should have been merged) Fix bugs (see pack.c)
+  * Do the partial merge of WL#5602 correctly: Remove unused code (that should not have been merged) Add protocol extension (that should have been merged) Fix bugs (see pack.c)
 * [Revision #3930](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3930)\
   Mon 2013-12-09 12:37:45 +0100
   * [MDEV-5115](https://jira.mariadb.org/browse/MDEV-5115) RBR from MySQL 5.6 to [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) does not work

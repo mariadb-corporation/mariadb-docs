@@ -131,7 +131,7 @@ If the left argument of IN is the row: `(7, NULL, 9)`, and the result of the rig
 The the IN predicate matches the row `(7, 11, 9)`, and the result of IN is NULL. Matches where the differing values on either side of the IN arguments are matched by a NULL in the other IN argument, are
 called _partial matches_.
 
-In order to efficiently compute the result of an IN predicate in the presence of NULLs, MariaDB implements two special algorithms for [partial matching, described here in detail](https://askmonty.org/worklog/Server-Sprint/?tid=68).
+In order to efficiently compute the result of an IN predicate in the presence of NULLs, MariaDB implements two special algorithms for partial matching, described here in detail.
 
 * Rowid-merge partial matching\
   This technique is used when the number of rows in the subquery result is above a certain limit. The technique creates special indexes on some of the columns of the temporary table, and merges them by alternative scanning of each index thus performing an operation similar to set-intersection.
