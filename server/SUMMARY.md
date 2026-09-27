@@ -840,6 +840,7 @@
     * [Tabularis](clients-and-utilities/graphical-and-enhanced-clients/tabularis.md)
     * [TOAD Edge](clients-and-utilities/graphical-and-enhanced-clients/toad-edge.md)
     * [Valentina Studio](clients-and-utilities/graphical-and-enhanced-clients/valentina-studio.md)
+    * [VisuaLeaf](clients-and-utilities/graphical-and-enhanced-clients/visualeaf.md)
     * [MariaDB Direct Query Adapter For Microsoft Power BI](clients-and-utilities/graphical-and-enhanced-clients/mariadb-direct-query-adapter-for-microsoft-power-bi.md)
   * [Logging Tools](clients-and-utilities/logging-tools/README.md)
     * [mariadb-binlog](clients-and-utilities/logging-tools/mariadb-binlog/README.md)
