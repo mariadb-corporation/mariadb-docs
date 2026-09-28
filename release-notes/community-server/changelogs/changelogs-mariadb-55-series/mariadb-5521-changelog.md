@@ -629,7 +629,7 @@ modified in that revision.
   * This was actually already done in this changeset:
     * revision-id: kostja@sun.com-20100413150445-8x23keoxdiufgq76
     * "... Also, he removed the (probable) bug of embedded server never using SSL-dependent functions..."
-  * But was apparenly lost by a mis-merge of WL#5030.
+  * But was apparently lost by a mis-merge of [WL#5030](https://dev.mysql.com/worklog/task/?id=5030).
   * [Revision #3253.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3253.1.1) \[merge]\
     Tue 2012-02-21 22:15:44 +0100
     * Merge MWL#192: Non-blocking client library, into [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md).
