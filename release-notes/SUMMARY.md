@@ -2895,4 +2895,7 @@
 * [Tools Release Notes](tools/README.md)
   * [mariadb\_repo\_setup Changelog](tools/mariadb-repo-setup-changelog.md)
   * [mariadb\_es\_repo\_setup Changelog](tools/mariadb-es-repo-setup-changelog.md)
+  * [MariaDB Migrator Release Notes](tools/migrator/README.md)
+    * [All Releases](tools/migrator/all-releases.md)
+    * [MariaDB Migrator 1.5.0 Release Notes](tools/migrator/1.5.0.md)
 * [Test Page](test-page.md)
