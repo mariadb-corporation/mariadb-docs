@@ -65,7 +65,7 @@ const mariadb = require('mariadb');
 
 #### Migrating from 2.x or mysql/mysql2 to 3.x
 
-Default behaviour for decoding [BIGINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) / [DECIMAL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/decimal) datatype for 2.x version and mysql/mysql2 drivers return a JavaScript [Number](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/number) object. BIGINT/DECIMAL values might not be in threturns range, resulting in approximate results.
+Default behaviour for decoding [BIGINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) / [DECIMAL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/decimal) datatype for 2.x version and mysql/mysql2 drivers return a JavaScript [Number](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/number) object. BIGINT/DECIMAL values might not be in the returns range, resulting in approximate results.
 
 Since 3.x version, driver has reliable default, returning:
 
