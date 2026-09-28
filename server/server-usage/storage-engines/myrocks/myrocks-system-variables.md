@@ -667,6 +667,17 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `boolean`
 * Default Value: `ON`
 
+#### `rocksdb_ignore_datadic_errors`
+
+* Description: If set to `1`, MyRocks logs data dictionary errors and tries to continue instead of failing. This covers a data dictionary that fails to initialize at startup, and a table whose `.frm` file has a different number of indexes than the MyRocks data dictionary records. Use it only to start the server and repair tables, never for regular operation. When it's set, the server logs a caution at startup.
+* Command line: `--rocksdb-ignore-datadic-errors=#`
+* Scope: Global
+* Dynamic: No
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `1`
+* Introduced: [MariaDB 10.6.6]({release-notes}/community-server/10.6/10.6.6), [MariaDB 10.5.14]({release-notes}/community-server/old-releases/10.5/10.5.14), [MariaDB 10.4.23]({release-notes}/community-server/old-releases/10.4/10.4.23), [MariaDB 10.3.33]({release-notes}/community-server/old-releases/10.3/10.3.33), [MariaDB 10.2.42]({release-notes}/community-server/old-releases/10.2/10.2.42)
+
 #### `rocksdb_ignore_unknown_options`
 
 * Description: Enable ignoring unknown options passed to RocksDB.
