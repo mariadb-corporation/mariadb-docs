@@ -28,7 +28,7 @@ The SQL and schema tools support MariaDB features such as system-versioned table
 VisuaLeaf offers a free Community Edition as well as paid editions with additional features.
 
 * [VisuaLeaf for MariaDB](https://visualeaf.com/database/mariadb/)
-* [Download VisuaLeaf](https://visualeaf.com/download/)
+* [Download VisuaLeaf](https://visualeaf.com/download)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
