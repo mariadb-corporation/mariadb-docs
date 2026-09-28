@@ -335,6 +335,79 @@ async def create_user(name: str, email: str):
                 )
 ```
 
+### Dependency Injection Pattern (Advanced)
+
+The example above works well for a quick reference, but putting pool access directly in every route couples the database to the route and repeats the acquire/cursor boilerplate. For larger applications, move the pool lifecycle into its own module and expose a single dependency that routes request through FastAPI's `Depends()`:
+
+**`db.py`** — owns the pool and yields a request-scoped cursor:
+
+```python
+import mariadb
+
+pool: mariadb.AsyncConnectionPool | None = None
+
+
+async def init_pool():
+    global pool
+    pool = await mariadb.create_async_pool(
+        host="localhost",
+        user="user",
+        password="password",
+        database="mydb",
+        min_size=10,
+        max_size=50
+    )
+
+
+async def close_pool():
+    global pool
+    if pool:
+        await pool.close()
+
+
+async def get_db():
+    if pool is None:
+        raise RuntimeError("Database pool has not been initialized")
+
+    async with await pool.acquire() as conn:
+        async with conn.cursor(dictionary=True) as cursor:
+            yield cursor
+```
+
+**`main.py`** — routes depend on `get_db` instead of importing the pool directly:
+
+```python
+from fastapi import FastAPI, Depends
+from contextlib import asynccontextmanager
+
+from db import init_pool, close_pool, get_db
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_pool()
+    yield
+    await close_pool()
+
+
+app = FastAPI(lifespan=lifespan)
+
+
+@app.get("/users/{user_id}")
+async def get_user(user_id: int, cursor=Depends(get_db)):
+    await cursor.execute(
+        "SELECT id, name, email FROM users WHERE id = ?",
+        (user_id,)
+    )
+    return await cursor.fetchone()
+```
+
+Each request gets its own connection and cursor from `get_db`. FastAPI resumes the generator past `yield` once the response is sent, which runs the `async with` cleanup and returns the connection to the pool — so routes never call `acquire()`/`cursor()` themselves, and testing a route only requires overriding the `get_db` dependency.
+
+{% hint style="info" %}
+Type the pool variable as `mariadb.AsyncConnectionPool`, not `mariadb.ConnectionPool` — the latter is the *synchronous* pool's type and won't match what `create_async_pool()` returns.
+{% endhint %}
+
 ## Error Handling
 
 ```python

@@ -193,6 +193,46 @@ async def get_user(user_id: int):
             return await cursor.fetchone()
 ```
 
+This inline example puts pool access directly in the route, which is fine for a quick reference but couples the database to the route and duplicates the acquire/cursor boilerplate across every endpoint. For a modular `db.py`/`main.py` split that exposes the pool through a FastAPI dependency instead, see [Dependency Injection Pattern (Advanced)](async-usage.md#dependency-injection-pattern-advanced).
+
+### Pool Configuration in a Dependency
+
+The pool configuration parameters described above matter most once the pool creation itself is centralized — a `get_db()` dependency is a natural place to set them, since it's the one function that owns the pool for the life of the application:
+
+```python
+import mariadb
+
+pool: mariadb.AsyncConnectionPool | None = None
+
+
+async def init_pool():
+    global pool
+    pool = await mariadb.create_async_pool(
+        host="localhost",
+        user="user",
+        password="password",
+        database="mydb",
+        min_size=5,
+        max_size=20,
+        acquire_timeout=10.0,      # fail fast under load instead of the 30s default
+        enable_health_check=True,  # ping idle connections before handing them out
+        reset_connection=True      # clear session state between requests
+    )
+
+
+# This snippet omits close_pool() for brevity — see the linked section
+# below for the matching shutdown call.
+async def get_db():
+    if pool is None:
+        raise RuntimeError("Database pool has not been initialized")
+
+    async with await pool.acquire() as conn:
+        async with conn.cursor(dictionary=True) as cursor:
+            yield cursor
+```
+
+`acquire_timeout` bounds how long a request waits for a connection before raising `mariadb.PoolError`, and `reset_connection=True` trades a small amount of overhead per request for a guarantee that no session state (temporary tables, session variables, prepared statements) leaks between requests sharing the pool. See the parameter table above for the rest of the pool-sizing and health-check options. For the full `db.py`/`main.py` wiring — startup/shutdown lifecycle and routes using `Depends(get_db)` — see [Dependency Injection Pattern (Advanced)](async-usage.md#dependency-injection-pattern-advanced).
+
 ## Migration from Version 1.1
 
 **Version 1.1:**
