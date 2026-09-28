@@ -676,7 +676,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `0` to `1`
-* Introduced: [MariaDB 10.6.6]({release-notes}/community-server/10.6/10.6.6), [MariaDB 10.5.14]({release-notes}/community-server/old-releases/10.5/10.5.14), [MariaDB 10.4.23]({release-notes}/community-server/old-releases/10.4/10.4.23), [MariaDB 10.3.33]({release-notes}/community-server/old-releases/10.3/10.3.33), [MariaDB 10.2.42]({release-notes}/community-server/old-releases/10.2/10.2.42)
+* Introduced: [MariaDB 10.6.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6), [MariaDB 10.5.14](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [MariaDB 10.4.23](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.23), [MariaDB 10.3.33](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.33), [MariaDB 10.2.42](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.42)
 
 #### `rocksdb_ignore_unknown_options`
 
