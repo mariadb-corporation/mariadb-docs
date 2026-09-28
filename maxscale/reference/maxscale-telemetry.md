@@ -13,10 +13,6 @@ sent, use `telemetry_url`. For more information, refer to the
 [telemetry settings](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry)
 in the MaxScale configuration guide.
 
-Metrics listed with the type "Gauge (running total)" are exported as OpenTelemetry
-gauges whose value is a running total since MaxScale started. They are not
-exported as OpenTelemetry counters.
-
 ## Metrics
 
 ### Server Metrics
