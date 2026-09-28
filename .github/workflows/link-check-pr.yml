@@ -275,13 +275,6 @@ jobs:
           # www.akamai.com and cloud.ibm.com above. The URLs are resolved to the form
           # O'Reilly itself redirects to, so the citations point at the publisher's own
           # canonical page.
-          #
-          # DOCS-6522: lxr.linux.no (a Linux kernel source cross-reference browser)
-          # times out on the single eventpoll.c citation in
-          # mariadb-galera-5532-changelog.md -- reproduced on two separate runs of the
-          # same PR, unrelated to the PR's own changes (the citation predates it and
-          # is untouched by the diff). The site is otherwise reachable; this is a slow
-          # or rate-limited host, not a dead page, so there is nothing to repoint at.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -364,7 +357,6 @@ jobs:
             --exclude 'cloud\.ibm\.com'
             --exclude 'www\.akamai\.com'
             --exclude 'www\.oreilly\.com'
-            --exclude 'lxr\.linux\.no'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
