@@ -9,8 +9,13 @@ description: >-
 
 MaxScale exports metrics and logs via OpenTelemetry. To enable it, add
 `telemetry=true` under the `[maxscale]` section. To configure where metrics are
-sent, use `telemetry_url`. For more information, refer to the MaxScale
-configuration guide.
+sent, use `telemetry_url`. For more information, refer to the
+[telemetry settings](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry)
+in the MaxScale configuration guide.
+
+Metrics listed with the type "Gauge (running total)" are exported as OpenTelemetry
+gauges whose value is a running total since MaxScale started. They are not
+exported as OpenTelemetry counters.
 
 ## Metrics
 
@@ -26,34 +31,34 @@ configuration guide.
   * Description: Number of open connections
   * Added in: MaxScale 25.10
 
-* `maxscale.server.response_dur`:
+* `maxscale.server.response_dur`
   * Type: Histogram
   * Description: Response duration in seconds
   * Added in: MaxScale 25.10
 
 * `maxscale.server.read_packets`
-  * Type: Counter
+  * Type: Gauge (running total)
   * Description: Number of routed reads
   * Added in: MaxScale 25.10
 
 * `maxscale.server.write_packets`
-  * Type: Counter
+  * Type: Gauge (running total)
   * Description: Number of routed writes
   * Added in: MaxScale 25.10
 
 * `maxscale.server.status`
   * Type: Gauge
-  * Description: Server status bitmask
+  * Description: Server status: `0` = Read, `1` = Write, `2` = Up, `3` = Down
   * Added in: MaxScale 25.10
 
 * `maxscale.server.errors`
-  * Type: Counter
+  * Type: Gauge (running total)
   * Description: Number of error responses
   * Added in: MaxScale 26.10
 
 * `maxscale.server.transactions`
-  * Type: Counter
-  * Description: Number of committed transactions
+  * Type: Gauge (running total)
+  * Description: Number of completed transactions
   * Added in: MaxScale 26.10
 
 * `maxscale.server.pool_size`
@@ -62,12 +67,12 @@ configuration guide.
   * Added in: MaxScale 26.10
 
 * `maxscale.server.pool_found`
-  * Type: Counter
+  * Type: Gauge (running total)
   * Description: Times connection was found in the pool
   * Added in: MaxScale 26.10
 
 * `maxscale.server.pool_empty`
-  * Type: Counter
+  * Type: Gauge (running total)
   * Description: Times connection pool was empty
   * Added in: MaxScale 26.10
 
@@ -78,7 +83,7 @@ configuration guide.
 
 * `maxscale.server.transaction_lag`
   * Type: Gauge
-  * Description: Number of transactions in the relay log
+  * Description: Number of transactions the server is behind
   * Added in: MaxScale 26.10
 
 ### Service Metrics
@@ -94,23 +99,23 @@ configuration guide.
   * Added in: MaxScale 26.10
 
 * `maxscale.service.read_packets`
-  * Type: Counter
+  * Type: Gauge (running total)
   * Description: Number of routed reads
   * Added in: MaxScale 26.10
 
 * `maxscale.service.write_packets`
-  * Type: Counter
+  * Type: Gauge (running total)
   * Description: Number of routed writes
   * Added in: MaxScale 26.10
 
 * `maxscale.service.errors`
-  * Type: Counter
+  * Type: Gauge (running total)
   * Description: Number of error responses
   * Added in: MaxScale 26.10
 
 * `maxscale.service.transactions`
-  * Type: Counter
-  * Description: Number of committed transactions
+  * Type: Gauge (running total)
+  * Description: Number of completed transactions
   * Added in: MaxScale 26.10
 
 ### Query Classifier Cache Metrics
@@ -121,12 +126,12 @@ configuration guide.
   * Added in: MaxScale 25.10
 
 * `maxscale.query_cache.hits`
-  * Type: Counter
+  * Type: Gauge (running total)
   * Description: Query cache hits
   * Added in: MaxScale 25.10
 
 * `maxscale.query_cache.misses`
-  * Type: Counter
+  * Type: Gauge (running total)
   * Description: Query cache misses
   * Added in: MaxScale 25.10
 
@@ -134,14 +139,19 @@ configuration guide.
 
 * `maxscale.query.latency`
   * Type: Gauge
-  * Description: Query latency per SQL statement broken down by the 50th, 75th, 95th and 99th percentile
+  * Description: Query latency per SQL statement, broken down by the 50th, 75th, 95th and 99th percentile.
+    Each data point has a `percentile` attribute (`p50`, `p75`, `p95` or `p99`) and an `sql`
+    attribute holding the canonical form of the statement. Only the most frequently executed
+    statements are exported, up to
+    [`telemetry_sql_count`](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_sql_count)
+    (default 50); use `telemetry_sql_match` and `telemetry_sql_exclude` to filter them.
   * Added in: MaxScale 26.10
 
 ### General Metrics
 
 * `maxscale.qps`
   * Type: Gauge
-  * Description: Queries per seconds
+  * Description: Queries per second
   * Added in: MaxScale 25.10
 
 * `maxscale.uptime`
