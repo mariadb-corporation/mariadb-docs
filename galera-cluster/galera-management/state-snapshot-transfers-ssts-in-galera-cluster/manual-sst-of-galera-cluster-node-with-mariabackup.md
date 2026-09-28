@@ -60,7 +60,7 @@ JOINER_HOST=dbserver2.mariadb.com
 rsync -av $MYSQL_BACKUP_DIR/* ${OS_USER}@${JOINER_HOST}:${MYSQL_BACKUP_DIR}
 ```
 
-* [Prepare the backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup#preparing-the-backup) on the joiner node.
+* [Prepare the backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup#preparing-the-backup-for-restoration) on the joiner node.
 
 ```
 mariadb-backup --prepare \

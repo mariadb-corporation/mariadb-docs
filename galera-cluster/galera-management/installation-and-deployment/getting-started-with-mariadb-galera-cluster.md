@@ -120,7 +120,7 @@ $ galera_new_cluster
 
 This wrapper uses `systemd` to run `mariadbd` with the `--wsrep-new-cluster` option.
 
-If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes),  you can bootstrap a specific instance by specifying the instance name as a suffix:
+If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd/starting#interacting-with-multiple-mariadb-server-processes),  you can bootstrap a specific instance by specifying the instance name as a suffix:
 
 ```bash
 $ galera_new_cluster mariadb@node1
@@ -180,7 +180,7 @@ On operating systems that use `systemd`, the position of a node can be recovered
 $ galera_recovery
 ```
 
-If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes), you can recover the position of a specific instance by specifying the instance name as a suffix:
+If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd/starting#interacting-with-multiple-mariadb-server-processes), you can recover the position of a specific instance by specifying the instance name as a suffix:
 
 ```bash
 $ galera_recovery mariadb@node1

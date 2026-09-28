@@ -104,7 +104,7 @@ GRANT REPLICATION SLAVE ON *.*  TO 'repl'@'dc2-dbserver1';
 
 At this point, you need to get the replication coordinates of the primary from the original backup.
 
-The coordinates will be in the [xtrabackup\_binlog\_info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/files-created-by-mariadb-backup#xtrabackup_binlog_info) file.
+The coordinates will be in the [xtrabackup\_binlog\_info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/files-created-by-mariadb-backup#less-than-11.1) file.
 
 mariadb-backup dumps replication coordinates in two forms: [GTID strings](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) and [binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log) file and position coordinates, like the ones you would normally see from [SHOW MASTER STATUS](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-binlog-status) output. In this case, it is probably better to use the [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) coordinates.
 
@@ -118,7 +118,7 @@ Regardless of the coordinates you use, you will have to set up the primary conne
 
 #### GTIDs
 
-If you want to use GTIDs, then you will have to first set [gtid\_slave\_pos](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid#gtid_slave_pos) to the [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) coordinates that we pulled from the [xtrabackup\_binlog\_info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/files-created-by-mariadb-backup#xtrabackup_binlog_info) file, and we would set `MASTER_USE_GTID=slave_pos` in the [CHANGE MASTER TO](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) command. For example:
+If you want to use GTIDs, then you will have to first set [gtid\_slave\_pos](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid#gtid_slave_pos) to the [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) coordinates that we pulled from the [xtrabackup\_binlog\_info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/files-created-by-mariadb-backup#less-than-11.1) file, and we would set `MASTER_USE_GTID=slave_pos` in the [CHANGE MASTER TO](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) command. For example:
 
 ```
 SET GLOBAL gtid_slave_pos = "0-1-2";
@@ -133,7 +133,7 @@ START SLAVE;
 
 #### File and Position
 
-If you want to use the [binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log) file and position coordinates, then you would set `MASTER_LOG_FILE` and `MASTER_LOG_POS` in the [CHANGE MASTER TO](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) command to the file and position coordinates that we pulled the [xtrabackup\_binlog\_info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/files-created-by-mariadb-backup#xtrabackup_binlog_info) file. For example:
+If you want to use the [binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log) file and position coordinates, then you would set `MASTER_LOG_FILE` and `MASTER_LOG_POS` in the [CHANGE MASTER TO](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) command to the file and position coordinates that we pulled the [xtrabackup\_binlog\_info](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/files-created-by-mariadb-backup#less-than-11.1) file. For example:
 
 ```
 CHANGE MASTER TO 
