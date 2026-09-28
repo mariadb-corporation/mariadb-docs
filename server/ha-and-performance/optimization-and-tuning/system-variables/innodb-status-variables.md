@@ -466,7 +466,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Intended to show the number of tablespaces in the key rotation list. InnoDB never updated the counter, so it always returned `0`. [INFORMATION\_SCHEMA.INNODB\_TABLESPACES\_ENCRYPTION](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_encryption-table.md) reports the key rotation state of each tablespace.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.6.8]({release-notes}/community-server/10.6/10.6.8), [MariaDB 10.5.16]({release-notes}/community-server/old-releases/10.5/10.5.16), [MariaDB 10.4.25]({release-notes}/community-server/old-releases/10.4/10.4.25), [MariaDB 10.3.35]({release-notes}/community-server/old-releases/10.3/10.3.35)
+* Removed: [MariaDB 10.6.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.8), [MariaDB 10.5.16](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.16), [MariaDB 10.4.25](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.25), [MariaDB 10.3.35](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.35)
 
 #### `Innodb_encryption_n_merge_blocks_decrypted`
 
@@ -908,19 +908,19 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_num_index_pages_written`
 
-* Description: Intended to show the number of index pages written. The code that updated the counter was lost in [MariaDB 10.2.2]({release-notes}/community-server/old-releases/10.2/10.2.2), so from then on it always returned `0`.
+* Description: Intended to show the number of index pages written. The code that updated the counter was lost in [MariaDB 10.2.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2), so from then on it always returned `0`.
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.0)
-* Removed: [MariaDB 10.6.8]({release-notes}/community-server/10.6/10.6.8), [MariaDB 10.5.16]({release-notes}/community-server/old-releases/10.5/10.5.16), [MariaDB 10.4.25]({release-notes}/community-server/old-releases/10.4/10.4.25), [MariaDB 10.3.35]({release-notes}/community-server/old-releases/10.3/10.3.35)
+* Removed: [MariaDB 10.6.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.8), [MariaDB 10.5.16](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.16), [MariaDB 10.4.25](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.25), [MariaDB 10.3.35](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.35)
 
 #### `Innodb_num_non_index_pages_written`
 
-* Description: Intended to show the number of non-index pages written. The code that updated the counter was lost in [MariaDB 10.2.2]({release-notes}/community-server/old-releases/10.2/10.2.2), so from then on it always returned `0`.
+* Description: Intended to show the number of non-index pages written. The code that updated the counter was lost in [MariaDB 10.2.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2), so from then on it always returned `0`.
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.0)
-* Removed: [MariaDB 10.6.8]({release-notes}/community-server/10.6/10.6.8), [MariaDB 10.5.16]({release-notes}/community-server/old-releases/10.5/10.5.16), [MariaDB 10.4.25]({release-notes}/community-server/old-releases/10.4/10.4.25), [MariaDB 10.3.35]({release-notes}/community-server/old-releases/10.3/10.3.35)
+* Removed: [MariaDB 10.6.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.8), [MariaDB 10.5.16](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.16), [MariaDB 10.4.25](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.25), [MariaDB 10.3.35](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.35)
 
 #### `Innodb_num_open_files`
 
