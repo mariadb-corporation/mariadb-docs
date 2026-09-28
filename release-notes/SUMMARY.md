@@ -2007,7 +2007,7 @@
     * [Connector/C 1.0.0 Release Notes](connectors/c/1.0.0.md)
     * [Connector/C Changelogs](connectors/c/changelogs/README.md)
       * [Connector/C 3.4 Changelogs](connectors/c/changelogs/3.4/README.md)
-        * [Connector/C 3.4.11 Changelog](connectors/c/changelogs/3.4/3.4.11.md) 
+        * [Connector/C 3.4.11 Changelog](connectors/c/changelogs/3.4/3.4.11.md)
         * [Connector/C 3.4.10 Changelog](connectors/c/changelogs/3.4/3.4.10.md)
         * [Connector/C 3.4.9 Changelog](connectors/c/changelogs/3.4/3.4.9.md)
         * [Connector/C 3.4.8 Changelog](connectors/c/changelogs/3.4/3.4.8.md)
