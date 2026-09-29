@@ -112,6 +112,10 @@ Create Table: CREATE TABLE `t` (
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.7:
+{% endhint %}
+
 It is possible to convert a versioned table from implicit to explicit `row_start`/`row_end` columns. Note that, in order to do any `ALTER` on a system versioned table, [system\_versioning\_alter\_history](system-versioned-tables.md#system_versioning_alter_history) must be set to `KEEP`.
 
 ```sql
@@ -125,6 +129,10 @@ ALTER TABLE t1 ADD COLUMN rs TIMESTAMP(6) AS ROW START,
 {% endtab %}
 
 {% tab title="< 11.7" %}
+{% hint style="info" %}
+Before MariaDB 11.7:
+{% endhint %}
+
 It is **not** possible to convert a versioned table from implicit to explicit `row_start`/`row_end` columns. Doing so results in a duplicate row error:
 
 ```sql
@@ -229,6 +237,10 @@ SELECT * FROM t FOR SYSTEM_TIME ALL;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
+
 If the `FOR SYSTEM_TIME` clause is not used, the table shows the _current_ data. This is usually the same as if you had specified `FOR SYSTEM_TIME AS OF CURRENT_TIMESTAMP`, unless you've adjusted the _row\_start_ value:
 
 ```sql
@@ -277,6 +289,10 @@ Empty set (0.001 sec)
 {% endtab %}
 
 {% tab title="< 10.11" %}
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
 If the `FOR SYSTEM_TIME` clause is not used, the table shows the _current_ data. This is usually the same as if you had specified `FOR SYSTEM_TIME AS OF CURRENT_TIMESTAMP`, unless you've adjusted the _row\_start_ value (only possible by setting the [secure\_timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_timestamp) variable):
 
 ```sql

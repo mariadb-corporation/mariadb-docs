@@ -39,14 +39,26 @@ This ensures that all files are from the same generation, that is created at the
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4.1 / 11.3.2 / 11.2.3 / 11.1.4 / 11.0.5:
+{% endhint %}
+
 BACKUP LOCK requires the [database LOCK TABLES](../../account-management-sql-statements/grant.md#database-privileges) privileges.
 {% endtab %}
 
 {% tab title="< 11.4.1 / 11.3.2 / 11.2.3 / 11.1.4 / 11.0.5" %}
+{% hint style="info" %}
+Before MariaDB 11.4.1 / 11.3.2 / 11.2.3 / 11.1.4 / 11.0.5:
+{% endhint %}
+
 BACKUP LOCK requires the [RELOAD](../../account-management-sql-statements/grant.md#reload) privilege.
 {% endtab %}
 
 {% tab title="< 10.11.7 / 10.6.17 / 10.5.24" %}
+{% hint style="info" %}
+Before MariaDB 10.11.7 / 10.6.17 / 10.5.24:
+{% endhint %}
+
 BACKUP LOCK requires the [RELOAD](../../account-management-sql-statements/grant.md#reload) privilege.
 {% endtab %}
 {% endtabs %}

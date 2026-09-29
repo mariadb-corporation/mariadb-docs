@@ -17,10 +17,18 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.2:
+{% endhint %}
+
 MariaDB's generated columns syntax is designed to be similar to the syntax for [Microsoft SQL Server's computed columns](https://docs.microsoft.com/en-us/sql/relational-databases/tables/specify-computed-columns-in-a-table?view=sql-server-2017) and [Oracle Database's virtual columns](https://oracle-base.com/articles/11g/virtual-columns-11gr1). The syntax is also compatible with the syntax for [MySQL's generated columns](https://dev.mysql.com/doc/refman/5.7/en/create-table-generated-columns.html).
 {% endtab %}
 
 {% tab title="< 10.2" %}
+{% hint style="info" %}
+Before MariaDB 10.2:
+{% endhint %}
+
 MariaDB's generated columns syntax is designed to be similar to the syntax for [Microsoft SQL Server's computed columns](https://docs.microsoft.com/en-us/sql/relational-databases/tables/specify-computed-columns-in-a-table?view=sql-server-2017) and [Oracle Database's virtual columns](https://oracle-base.com/articles/11g/virtual-columns-11gr1). The syntax is **not** compatible with the syntax for [MySQL's generated columns](https://dev.mysql.com/doc/refman/5.7/en/create-table-generated-columns.html).
 {% endtab %}
 {% endtabs %}
@@ -94,10 +102,18 @@ If an index is defined on a generated column, then the optimizer considers using
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8:
+{% endhint %}
+
 The optimizer can recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and `ref(const)` accesses. See [Virtual Column Support in the Optimizer](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/virtual-column-support-in-the-optimizer.md).
 {% endtab %}
 
 {% tab title="< 11.8" %}
+{% hint style="info" %}
+Before MariaDB 11.8:
+{% endhint %}
+
 The optimizer **cannot** recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and `ref(const)` accesses. See [Virtual Column Support in the Optimizer](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/virtual-column-support-in-the-optimizer.md).
 {% endtab %}
 {% endtabs %}
@@ -210,26 +226,46 @@ There are two affected classes of inconsistencies: character padding and unsigne
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 A fatal error is generated when trying to create a generated column whose value can change depending on the [SQL Mode](../../../../server-management/variables-and-modes/sql_mode.md) when its data is `PERSISTENT` or indexed. For an existing generated column that has a potentially inconsistent value, a warning about a bad expression is generated the first time it is used (if warnings are enabled).
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 For an existing generated column that has a potentially inconsistent value, a warning about a bad expression is generated the first time it is used (if warnings are enabled).
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.4.8 / 10.3.18 / 10.2.27:
+{% endhint %}
+
 A potentially inconsistent generated column outputs a warning when created or first used (without restricting the creation).
 {% endtab %}
 
 {% tab title="< 10.4.8 / 10.3.18 / 10.2.27" %}
+{% hint style="info" %}
+Before MariaDB 10.4.8 / 10.3.18 / 10.2.27:
+{% endhint %}
+
 A potentially inconsistent generated column does not output a warning when created or first used.
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6:
+{% endhint %}
+
 Here is an example of two tables that are warned about:
 
 ```sql
@@ -282,6 +318,10 @@ CREATE TABLE good_sub (
 {% endtab %}
 
 {% tab title="< 10.6" %}
+{% hint style="info" %}
+Before MariaDB 10.6:
+{% endhint %}
+
 Here is an example of two tables whose creation is rejected:
 
 ```sql

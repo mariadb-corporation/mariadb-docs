@@ -28,10 +28,18 @@ MariaDB permits [TEXT](../../../data-types/string-data-types/text.md) and [BLOB]
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.2.2:
+{% endhint %}
+
 Numbers are quoted in the `DEFAULT` clause in `SHOW CREATE` statement.
 {% endtab %}
 
 {% tab title="< 10.2.2" %}
+{% hint style="info" %}
+Before MariaDB 10.2.2:
+{% endhint %}
+
 Numbers are not quoted in the `DEFAULT` clause in `SHOW CREATE` statement.
 {% endtab %}
 {% endtabs %}

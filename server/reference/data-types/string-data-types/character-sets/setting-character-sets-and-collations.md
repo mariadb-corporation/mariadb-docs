@@ -8,11 +8,19 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.6:
+{% endhint %}
+
 The default character set is `utf8mb4` and the default collation is `utf8mb4_uca1400_ai_ci`.\
 This may differ in some distros, see for example [Differences in MariaDB in Debian](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md).
 {% endtab %}
 
 {% tab title="< 11.6" %}
+{% hint style="info" %}
+Before MariaDB 11.6:
+{% endhint %}
+
 The default [character set](./) is `latin1` and the default collation is `latin1_swedish_ci`.\
 This may differ in some distros, see for example [Differences in MariaDB in Debian](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md).
 {% endtab %}
@@ -362,6 +370,10 @@ SELECT _latin2 'Müller';
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6:
+{% endhint %}
+
 ```sql
 SELECT CHARSET(N'a string');
 +----------------------+
@@ -382,6 +394,10 @@ SELECT 'Mueller' = 'Müller' COLLATE 'latin1_german2_ci';
 {% endtab %}
 
 {% tab title="< 10.6" %}
+{% hint style="info" %}
+Before MariaDB 10.6:
+{% endhint %}
+
 ```sql
 SELECT CHARSET(N'a string');
 +----------------------+
@@ -454,6 +470,10 @@ SELECT @param_coll;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 The default collation associated with a particular character set is determined by the [character\_set\_collations](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_collations) system variable, which accepts a comma-delimited list of character sets and their default collations, for example:
 
 ```sql
@@ -475,10 +495,18 @@ A collation can be given either by its full name, such as `utf8mb4_uca1400_ai_ci
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+From MariaDB 11.2.1 to before MariaDB 11.5:
+{% endhint %}
+
 The variable exists but is empty by default, so each character set uses its compiled-in default collation, such as `utf8mb4_general_ci` for `utf8mb4`.
 {% endtab %}
 
 {% tab title="< 11.2.1" %}
+{% hint style="info" %}
+Before MariaDB 11.2.1:
+{% endhint %}
+
 It is **not** possible to change the default collation associated with a particular character set.
 {% endtab %}
 {% endtabs %}

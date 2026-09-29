@@ -16,10 +16,18 @@ The `DISKS` table is created when the [DISKS](../../../plugins/other-plugins/dis
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.4.7 / 10.3.17 / 10.2.26 / 10.1.41:
+{% endhint %}
+
 This plugin requires the [FILE privilege](../../../sql-statements/account-management-sql-statements/grant.md).
 {% endtab %}
 
 {% tab title="< 10.4.7 / 10.3.17 / 10.2.26 / 10.1.41" %}
+{% hint style="info" %}
+Before MariaDB 10.4.7 / 10.3.17 / 10.2.26 / 10.1.41:
+{% endhint %}
+
 {% hint style="danger" %}
 This plugin does **not** check [user privileges](../../../sql-statements/account-management-sql-statements/grant.md). When it is enabled, **any** user can query the `INFORMATION_SCHEMA.DISKS` table and see all the information it provides.
 {% endhint %}

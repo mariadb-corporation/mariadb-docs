@@ -25,6 +25,10 @@ The [SHOW COLLATION](../../../sql-statements/administrative-sql-statements/show/
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 The following two statements return the same results:
 
 ```sql
@@ -38,6 +42,10 @@ WHERE CHARACTER_SET_NAME LIKE 'utf8mb3';
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 The following two statements return the same results:
 
 ```sql
@@ -57,6 +65,10 @@ WHERE CHARACTER_SET_NAME LIKE 'utf8';
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.1:
+{% endhint %}
+
 ```sql
 SELECT collation_name FROM information_schema.COLLATIONS
 WHERE pad_attribute = "NO PAD";  
@@ -70,6 +82,10 @@ WHERE pad_attribute = "NO PAD";
 {% endtab %}
 
 {% tab title="< 12.1" %}
+{% hint style="info" %}
+Before MariaDB 12.1:
+{% endhint %}
+
 ```sql
 SELECT collation_name FROM information_schema.COLLATIONS
 WHERE collation_name LIKE "%nopad%";  

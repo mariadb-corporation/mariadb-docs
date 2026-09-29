@@ -22,10 +22,18 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 The client tool name is `mariadb-admin`. However, it can still be accessed under the old name, `mysqladmin`, via a symlink on Linux or an alternate binary on Windows.
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 The name of the client tool is `mysqladmin`.
 {% endtab %}
 {% endtabs %}

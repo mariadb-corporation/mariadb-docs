@@ -69,16 +69,28 @@ Starting with MariaDB 13.0, the SST staging area can be moved to a different fil
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7.4 / 10.6.8 / 10.5.16 / 10.4.25 / 10.3.35:
+{% endhint %}
+
 Use of this SST method **could result in data corruption** when using [innodb\_use\_native\_aio](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_use_native_aio) (the default).
 {% endtab %}
 
 {% tab title="< 10.7.4 / 10.6.8 / 10.5.16 / 10.4.25 / 10.3.35" %}
+{% hint style="info" %}
+Before MariaDB 10.7.4 / 10.6.8 / 10.5.16 / 10.4.25 / 10.3.35:
+{% endhint %}
+
 Use of this SST method **could result in data corruption** when using [innodb\_use\_native\_aio](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_use_native_aio) (the default). `wsrep_sst_method=rsync` is a reliable way to upgrade the cluster to a newer major version.
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.3.10 / 10.2.18 / 10.1.36:
+{% endhint %}
+
 [stunnel ](https://www.stunnel.org/)can be used to encrypt data over the wire. Be sure to have `stunnel` installed. You will also need to generate certificates and keys. See [the stunnel documentation](https://www.stunnel.org/howto.html) for information on how to do that. Once you have the keys, you will need to add the `tkey` and `tcert` options to the `[sst]` option group in your MariaDB configuration file, such as:
 
 ```ini
@@ -97,6 +109,10 @@ You also need to run the certificate directory through [openssl rehash](mariadb-
 {% endtab %}
 
 {% tab title="< 10.3.10 / 10.2.18 / 10.1.36" %}
+{% hint style="info" %}
+Before MariaDB 10.3.10 / 10.2.18 / 10.1.36:
+{% endhint %}
+
 [stunnel](https://www.stunnel.org) **cannot** be used to encrypt data over the wire.
 {% endtab %}
 {% endtabs %}

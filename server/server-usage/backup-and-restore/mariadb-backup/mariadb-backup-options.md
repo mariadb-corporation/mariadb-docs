@@ -580,6 +580,10 @@ mariadb-backup --backup --galera-info
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
+
 Defines whether you want to track backup history in the `mysql.mariadb_backup_history` table.
 
 ```
@@ -598,6 +602,10 @@ Information is written to `mysql.mariadb_backup_history`.
 {% endtab %}
 
 {% tab title="< 10.11" %}
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
 Defines whether you want to track backup history in the `PERCONA_SCHEMA.xtrabackup_history` table.
 
 ```

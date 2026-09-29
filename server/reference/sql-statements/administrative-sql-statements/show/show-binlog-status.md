@@ -11,12 +11,20 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.2:
+{% endhint %}
+
 ```bnf
 SHOW [MASTER | BINLOG] STATUS
 ```
 {% endtab %}
 
 {% tab title="< 10.5.2" %}
+{% hint style="info" %}
+Before MariaDB 10.5.2:
+{% endhint %}
+
 ```sql
 SHOW MASTER STATUS
 ```
@@ -29,10 +37,18 @@ Provides status information about the [binary log](../../../../server-management
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.2:
+{% endhint %}
+
 This statement requires the [BINLOG MONITOR](../../account-management-sql-statements/grant.md#binlog-monitor) privilege.
 {% endtab %}
 
 {% tab title="< 10.5.2" %}
+{% hint style="info" %}
+Before MariaDB 10.5.2:
+{% endhint %}
+
 This statement requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege and the [REPLICATION\_CLIENT](../../account-management-sql-statements/grant.md#replication-client) privilege.
 {% endtab %}
 {% endtabs %}
@@ -47,6 +63,10 @@ To see information about the current [GTIDs](../../../../ha-and-performance/stan
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.3:
+{% endhint %}
+
 From MariaDB 12.3, `SHOW BINLOG STATUS` includes the `Gtid_Binlog_Pos` column, so a separate `SELECT @@global.gtid_binlog_pos` statement is no longer required to see the current GTID position:
 
 ```sql
@@ -60,6 +80,10 @@ SHOW BINLOG STATUS;
 {% endtab %}
 
 {% tab title="< 12.3" %}
+{% hint style="info" %}
+Before MariaDB 12.3:
+{% endhint %}
+
 Before MariaDB 12.3, `SHOW BINLOG STATUS` (or `SHOW MASTER STATUS`) does not include the `Gtid_Binlog_Pos` column. To see the current GTID position, run an additional `SELECT @@global.gtid_binlog_pos`:
 
 ```sql

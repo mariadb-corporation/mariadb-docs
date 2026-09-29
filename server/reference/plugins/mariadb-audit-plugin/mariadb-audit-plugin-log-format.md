@@ -15,10 +15,18 @@ When the MariaDB Audit Plugin (v1) writes to a dedicated file, it uses a comma-s
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0.1:
+{% endhint %}
+
 Template: `<timestamp>,<serverhost>,<username>,<host>:<port>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
 {% endtab %}
 
 {% tab title="< 12.0.1" %}
+{% hint style="info" %}
+Before MariaDB 12.0.1:
+{% endhint %}
+
 Template: `<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
 {% endtab %}
 {% endtabs %}
@@ -101,12 +109,20 @@ Passwords are hidden in the log for certain types of queries. They are replaced 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11.16:
+{% endhint %}
+
 For [Galera Cluster replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-replication-with-mariadb-galera-cluster-using-mariadb-replica) applier operations, audit log plugin logs events with a generic name of `<wsrep_applier>` .
 
 This addresses an issue where the user was logged on the primary node, but stripped from other cluster nodes. See [MDEV-35511](https://jira.mariadb.org/browse/MDEV-35511) for details.
 {% endtab %}
 
 {% tab title="< 10.11.16" %}
+{% hint style="info" %}
+Before MariaDB 10.11.16:
+{% endhint %}
+
 For Galera Cluster replication applier operations, audit log plugin logs events without indicating what user initiates them.
 {% endtab %}
 {% endtabs %}

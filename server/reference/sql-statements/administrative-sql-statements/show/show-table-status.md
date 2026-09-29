@@ -19,10 +19,18 @@ SHOW TABLE STATUS [{FROM | IN} db_name]
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2.0:
+{% endhint %}
+
 `SHOW TABLE STATUS` works like [SHOW TABLES](show-tables.md), but provides more extensive information about each table.
 {% endtab %}
 
 {% tab title="< 11.2.0" %}
+{% hint style="info" %}
+Before MariaDB 11.2.0:
+{% endhint %}
+
 `SHOW TABLE STATUS` works like [SHOW TABLES](show-tables.md), but provides more extensive information about each table. Only non-TEMPORARY tables are shown.
 {% endtab %}
 {% endtabs %}

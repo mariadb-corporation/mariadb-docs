@@ -25,14 +25,26 @@ This statement is to be run on a replica and provides status information on esse
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.9:
+{% endhint %}
+
 This statement requires the [REPLICA MONITOR](../../account-management-sql-statements/grant.md#replica-monitor) privilege.
 {% endtab %}
 
 {% tab title="< 10.5.9" %}
+{% hint style="info" %}
+From MariaDB 10.5.2 to before MariaDB 10.5.9:
+{% endhint %}
+
 This statement requires the [REPLICA MONITOR](../../account-management-sql-statements/grant.md#replica-monitor) privilege.
 {% endtab %}
 
 {% tab title="< 10.5.2" %}
+{% hint style="info" %}
+Before MariaDB 10.5.2:
+{% endhint %}
+
 This statement requires the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#binlog-monitor) privilege.
 {% endtab %}
 {% endtabs %}
@@ -43,10 +55,18 @@ The `ALL` and `"connection_name"` options allow you to connect to [many primarie
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.1:
+{% endhint %}
+
 `ALL SLAVES` or `ALL REPLICAS` gives you a list of all connections to the primary nodes.
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
+{% hint style="info" %}
+Before MariaDB 10.5.1:
+{% endhint %}
+
 `ALL SLAVES` gives you a list of all connections to the primary nodes.
 {% endtab %}
 {% endtabs %}
@@ -65,22 +85,38 @@ The order in which the columns appear depends on the MariaDB version. This means
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.6.0:
+{% endhint %}
+
 These columns can also be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_STATUS](../../../system-tables/information-schema/information-schema-tables/information-schema-slave_status-table.md) table.
 {% endtab %}
 
 {% tab title="< 11.6.0" %}
+{% hint style="info" %}
+Before MariaDB 11.6.0:
+{% endhint %}
+
 These columns cannot be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_STATUS](../../../system-tables/information-schema/information-schema-tables/information-schema-slave_status-table.md) table.
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.1:
+{% endhint %}
+
 **Connection\_name:** Name of the primary connection. Returned with SHOW ALL SLAVES/REPLICAS STATUS only.
 
 **Slave\_SQL\_State:** State of SQL thread. Returned with SHOW ALL SLAVES/REPLICAS STATUS only. See [Replica SQL Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/slave-sql-thread-states.md). Slave\_IO\_State: State of I/O thread. See [Replica I/O Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/replica-io-thread-states.md).
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
+{% hint style="info" %}
+Before MariaDB 10.5.1:
+{% endhint %}
+
 **Connection\_name:** Name of the primary connection. Returned with SHOW ALL REPLICAS STATUS only.
 
 **Slave\_SQL\_State:** State of SQL thread. Returned with SHOW ALL REPLICAS STATUS only. See [Replica SQL Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/slave-sql-thread-states.md). Slave\_IO\_State: State of I/O thread. See [Replica I/O Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/replica-io-thread-states.md).
@@ -151,6 +187,10 @@ These columns cannot be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_ST
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12 / 10.5.19:
+{% endhint %}
+
 **Seconds\_Behind\_Master:** Difference between the timestamp logged on the primary for the event that the replica is currently processing, and the current timestamp on the replica. Zero if the replica is not currently processing an event. With serial replication, seconds\_behind\_master is updated when the SQL thread begins executing a transaction. With [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md), seconds\_behind\_master is updated only after transactions commit. As a special case, the parallel replica additionally updates `seconds_behind_master` when the first transaction received after idling is queued to a worker for execution, to provide a reliable initial value for the duration until a transaction commits.
 
 Additional behavior to be aware of:
@@ -162,6 +202,10 @@ Additional behavior to be aware of:
 {% endtab %}
 
 {% tab title="< 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12 / 10.5.19" %}
+{% hint style="info" %}
+Before MariaDB 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12 / 10.5.19:
+{% endhint %}
+
 **Seconds\_Behind\_Master:** Difference between the timestamp logged on the primary for the event that the replica is currently processing, and the current timestamp on the replica. Zero if the replica is not currently processing an event. With serial replication, seconds\_behind\_master is updated when the SQL thread begins executing a transaction. With [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md), seconds\_behind\_master is updated only after transactions commit.
 
 Additional behavior to be aware of:
@@ -215,10 +259,18 @@ Additional behavior to be aware of:
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
+
 **Replicate\_Rewrite\_DB:** Databases specified for replicating and [rewriting](../../../../ha-and-performance/standard-replication/replication-filters.md#replicate_rewrite_db) with the [`replicate_rewrite_db`](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable/option.
 {% endtab %}
 
 {% tab title="< 10.11" %}
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
 **Replicate\_Rewrite\_DB** is not available.
 {% endtab %}
 {% endtabs %}
@@ -237,6 +289,10 @@ Additional behavior to be aware of:
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.6:
+{% endhint %}
+
 **Master\_last\_event\_time:** Timestamp of the last event read from the primary by the IO thread. NULL until the replica has started and has read one query event from the primary that changes data.
 
 **Slave\_last\_event\_time:** Timestamp, from the primary, of the last event committed on the replica. NULL until the replica has started and has read one query event from the primary that changes data.
@@ -245,18 +301,30 @@ Additional behavior to be aware of:
 {% endtab %}
 
 {% tab title="< 11.6" %}
+{% hint style="info" %}
+Before MariaDB 11.6:
+{% endhint %}
+
 **Master\_last\_event\_time**, **Slave\_last\_event\_time**, and **Master\_Slave\_time\_diff** are not available.
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 **Connects\_Tried:** The number of attempts done to connect to the primary. It starts from 0 with [START REPLICA](../replication-statements/start-replica.md) (but not [STOP REPLICA](../replication-statements/stop-replica.md)), [RESET REPLICA](../replication-statements/reset-replica.md) or [`CHANGE MASTER TO MASTER_RETRY_COUNT`](../replication-statements/change-master-to.md#master_retry_count), and increments after each connection attempt until one succeeds or, after this reaches `Master_Retry_Count`, aborts the connection.
 
 **Master\_Retry\_Count:** The limit to `Connects_Tried` as configured by [`CHANGE MASTER TO MASTER_RETRY_COUNT`](../replication-statements/change-master-to.md#master_retry_count).
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 **Connects\_Tried:** and **Master\_Retry\_Count:** are not available. If the Performance Schema is enabled, [`replication_connection_configuration`](../../../system-tables/performance-schema/performance-schema-tables/performance-schema-replication_connection_configuration-table.md) has `CONNECTION_RETRY_COUNT` available as an older alternative to `Master_Retry_Count`.
 {% endtab %}
 {% endtabs %}

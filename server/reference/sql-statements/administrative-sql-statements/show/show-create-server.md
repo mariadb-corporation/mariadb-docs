@@ -8,6 +8,10 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.7:
+{% endhint %}
+
 **Syntax**
 
 ```sql
@@ -30,6 +34,10 @@ Create Server: CREATE SERVER `srv1` FOREIGN DATA WRAPPER mysql
 {% endtab %}
 
 {% tab title="< 11.7" %}
+{% hint style="info" %}
+Before MariaDB 11.7:
+{% endhint %}
+
 The `SHOW CREATE SERVER` statement is not available.
 {% endtab %}
 {% endtabs %}

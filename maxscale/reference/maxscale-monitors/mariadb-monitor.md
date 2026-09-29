@@ -17,6 +17,10 @@ The monitor user requires the following grant:
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 ```sql
 CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
 GRANT REPLICA MONITOR ON *.* TO 'mariadbmon'@'maxscalehost';
@@ -24,6 +28,10 @@ GRANT REPLICA MONITOR ON *.* TO 'mariadbmon'@'maxscalehost';
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 ```sql
 CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
 GRANT REPLICATION CLIENT ON *.* TO 'mariadbmon'@'maxscalehost';
@@ -59,6 +67,10 @@ If [cluster manipulation operations](mariadb-monitor.md#cluster-manipulation-ope
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.0.1:
+{% endhint %}
+
 ```sql
 GRANT READ_ONLY ADMIN, REPLICATION SLAVE ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
 GRANT BINLOG ADMIN, CONNECTION ADMIN, PROCESS, RELOAD, SET USER ON *.* TO 'mariadbmon'@'maxscalehost';
@@ -68,6 +80,10 @@ GRANT SELECT ON mysql.global_priv TO 'mariadbmon'@'maxscalehost';
 {% endtab %}
 
 {% tab title="< 11.0.1" %}
+{% hint style="info" %}
+Before MariaDB 11.0.1:
+{% endhint %}
+
 ```sql
 GRANT SUPER ON *.* TO 'mariadbmon'@'maxscalehost';
 GRANT PROCESS, RELOAD ON *.* TO 'mariadbmon'@'maxscalehost';
@@ -87,6 +103,10 @@ If a separate replication user is defined (with `replication_user` and`replicati
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 ```sql
 CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
 GRANT REPLICATION REPLICA ON *.* TO 'replication'@'replicationhost';
@@ -94,6 +114,10 @@ GRANT REPLICATION REPLICA ON *.* TO 'replication'@'replicationhost';
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 ```sql
 CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
 GRANT REPLICATION SLAVE ON *.* TO 'replication'@'replicationhost';

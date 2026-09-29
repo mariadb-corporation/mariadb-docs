@@ -100,7 +100,11 @@ The key file format differs by product and version, so pick the tab that matches
 {% endhint %}
 
 {% tabs %}
-{% tab title="Community Server (all versions) & Enterprise Server before 11.8" %}
+{% tab title="CS & ES before 11.8" %}
+{% hint style="info" %}
+Community Server (CS), all versions, and Enterprise Server (ES) before 11.8:
+{% endhint %}
+
 Run these commands to create an `encryption` folder, and a 32 byte (256 bit) long key file within that folder.
 
 {% code overflow="wrap" %}
@@ -111,7 +115,11 @@ echo $(echo -n "1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/
 {% endcode %}
 {% endtab %}
 
-{% tab title="Enterprise Server 11.8 and later" %}
+{% tab title="ES 11.8 and later" %}
+{% hint style="info" %}
+Enterprise Server (ES) 11.8 and later:
+{% endhint %}
+
 Run these commands to create an `encryption` folder, and a 32 byte (256 bit) long key file within that folder. The second field is the key version.
 
 {% code overflow="wrap" %}

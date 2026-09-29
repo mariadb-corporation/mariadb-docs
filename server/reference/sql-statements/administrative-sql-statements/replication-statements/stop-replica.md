@@ -43,10 +43,18 @@ If there is only one nameless primary, or the default primary (as specified by t
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7.0:
+{% endhint %}
+
 The `FOR CHANNEL` keyword is available for MySQL compatibility. This is identical as using the channel\_name directly after `STOP SLAVE`.
 {% endtab %}
 
 {% tab title="< 10.7.0" %}
+{% hint style="info" %}
+Before MariaDB 10.7.0:
+{% endhint %}
+
 The `FOR CHANNEL` keyword is not available.
 {% endtab %}
 {% endtabs %}

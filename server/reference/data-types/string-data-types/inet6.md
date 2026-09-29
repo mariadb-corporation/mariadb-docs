@@ -78,10 +78,18 @@ Mixing `INET6` with other data types for [LEAST](../../sql-structure/operators/c
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 When the argument for the aforementioned two functions is not `INET6`, automatic implicit `CAST` to `INET6` is applied. As a consequence, both functions understand arguments in both text representation and binary(16) representation.
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 When the argument for the aforementioned two functions is not `INET6`, automatic implicit `CAST` to `INET6` is **not** applied.
 {% endtab %}
 {% endtabs %}
@@ -94,12 +102,20 @@ INET6 understands both [text](text.md) and [binary(16)](binary.md) address repre
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 You may have used [BINARY(16)](binary.md) as a storage for IPv6 internet addresses, in combination with [INET6\_ATON](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_aton.md) and [INET6\_NTOA](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_ntoa.md) to respectively insert and retrieve data.
 
 However, you can [ALTER](../../sql-statements/data-definition/alter/alter-table/) `BINARY(16)` columns storing IPv6 addresses to `INET6`. After such an alter, there is no a need to use `INET6_ATON()` and `INET6_NTOA()`. Addresses can be inserted and retrieved directly.
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 You may use [BINARY(16)](binary.md) as a storage for IPv6 internet addresses, in combination with [INET6\_ATON](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_aton.md) and [INET6\_NTOA](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_ntoa.md) to respectively insert and retrieve data.
 {% endtab %}
 {% endtabs %}
@@ -438,6 +454,10 @@ EXECUTE IMMEDIATE 'SELECT * FROM t1 WHERE a=?' USING X'FFFF000000000000000000000
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 ```sql
 CREATE OR REPLACE TABLE t1 (a BINARY(16));
 
@@ -469,6 +489,10 @@ SELECT * FROM t1;
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 There's no conversion you can use:
 
 ```sql
@@ -511,6 +535,10 @@ SELECT INET6_NTOA(a) FROM t1;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.3:
+{% endhint %}
+
 Casting from [INET4](inet4.md) data types to `INET6` is permitted, allowing `INET4` values to be inserted into `INET6` columns.
 
 ```sql
@@ -522,6 +550,10 @@ Query OK, 3 rows affected (0.027 sec)
 {% endtab %}
 
 {% tab title="< 11.3" %}
+{% hint style="info" %}
+Before MariaDB 11.3:
+{% endhint %}
+
 Casting from [INET4](inet4.md) data types to `INET6` is **not** permitted. You get an error if you try:
 
 ```

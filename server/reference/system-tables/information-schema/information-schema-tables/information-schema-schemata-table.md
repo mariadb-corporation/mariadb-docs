@@ -23,6 +23,10 @@ It contains the following columns:
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.0:
+{% endhint %}
+
 ```sql
 SELECT * FROM INFORMATION_SCHEMA.SCHEMATA\G
 ...
@@ -38,6 +42,10 @@ DEFAULT_CHARACTER_SET_NAME: latin1
 {% endtab %}
 
 {% tab title="< 10.5.0" %}
+{% hint style="info" %}
+Before MariaDB 10.5.0:
+{% endhint %}
+
 ```sql
 SELECT * FROM INFORMATION_SCHEMA.SCHEMATA\G
 *************************** 1. row ***************************

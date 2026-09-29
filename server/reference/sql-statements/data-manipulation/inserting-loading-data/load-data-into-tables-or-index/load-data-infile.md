@@ -116,10 +116,18 @@ The `LOAD DATA INFILE` statement supports [progress reporting](../../../../produ
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 MariaDB ships with a separate utility for loading data from files: [mariadb-import](../../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md). It operates by sending `LOAD DATA INFILE` statements to the server.
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 MariaDB ships with a separate utility for loading data from files: `mysqlimport` . It operates by sending `LOAD DATA INFILE` statements to the server.
 {% endtab %}
 {% endtabs %}

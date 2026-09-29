@@ -10,6 +10,10 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.3:
+{% endhint %}
+
 ```bnf
 PARTITION BY KEY
 [ALGORITHM={MYSQL51|MYSQL55|BASE31|CRC32C|XXH32|XXH3}]
@@ -23,6 +27,10 @@ PARTITION BY KEY
 {% endtab %}
 
 {% tab title="< 12.3" %}
+{% hint style="info" %}
+Before MariaDB 12.3:
+{% endhint %}
+
 ```sql
 PARTITION BY KEY ([column_names])
 [PARTITIONS (number_of_partitions)]

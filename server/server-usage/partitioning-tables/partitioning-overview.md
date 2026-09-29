@@ -407,6 +407,10 @@ Empty set (0.002 sec)
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 {% code overflow="wrap" %}
 ```sql
 EXCHANGE PARTITION partition_name WITH TABLE tbl_name [{WITH | WITHOUT} VALIDATION]
@@ -415,6 +419,10 @@ EXCHANGE PARTITION partition_name WITH TABLE tbl_name [{WITH | WITHOUT} VALIDATI
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 ```sql
 EXCHANGE PARTITION partition_name WITH TABLE tbl_name
 ```

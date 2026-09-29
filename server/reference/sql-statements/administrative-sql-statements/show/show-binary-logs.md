@@ -19,10 +19,18 @@ Lists the [binary log](../../../../server-management/server-monitoring-logs/bina
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.2:
+{% endhint %}
+
 This statement requires the [BINLOG MONITOR](../../account-management-sql-statements/grant.md#binlog-monitor) privilege.
 {% endtab %}
 
 {% tab title="< 10.5.2" %}
+{% hint style="info" %}
+Before MariaDB 10.5.2:
+{% endhint %}
+
 This statement requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege and the [REPLICATION\_CLIENT](../../account-management-sql-statements/grant.md#replication-client) privilege.
 {% endtab %}
 {% endtabs %}

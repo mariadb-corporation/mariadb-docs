@@ -33,10 +33,18 @@ This statement has no effect if the server was not started with the [--log-bin](
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.1:
+{% endhint %}
+
 To list the binary log files on the server, use [SHOW BINARY LOGS](show/show-binary-logs.md). To see which files they are reading, use [SHOW REPLICA STATUS](show/show-replica-status.md). You can only delete the files that are older than the oldest file that is used by the slaves.
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
+{% hint style="info" %}
+Before MariaDB 10.5.1:
+{% endhint %}
+
 To list the binary log files on the server, use [SHOW BINARY LOGS](show/show-binary-logs.md). To see which files they are reading, use [SHOW SLAVE STATUS](show/show-replica-status.md). You can only delete the files that are older than the oldest file that is used by the slaves.
 {% endtab %}
 {% endtabs %}
@@ -47,10 +55,18 @@ If the [expire\_logs\_days](../../../ha-and-performance/standard-replication/rep
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.2:
+{% endhint %}
+
 Requires the [BINLOG ADMIN](../account-management-sql-statements/grant.md#binlog-admin) privilege.
 {% endtab %}
 
 {% tab title="< 10.5.2" %}
+{% hint style="info" %}
+Before MariaDB 10.5.2:
+{% endhint %}
+
 Requires the SUPER privilege.
 {% endtab %}
 {% endtabs %}

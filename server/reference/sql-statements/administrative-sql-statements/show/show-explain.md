@@ -47,6 +47,10 @@ SHOW WARNINGS;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.9:
+{% endhint %}
+
 **EXPLAIN FOR CONNECTION**
 
 The `EXPLAIN FOR CONNECTION` syntax was added for MySQL compatibility.
@@ -57,6 +61,10 @@ The `EXPLAIN FOR CONNECTION` syntax was added for MySQL compatibility.
 {% endtab %}
 
 {% tab title="< 10.9" %}
+{% hint style="info" %}
+Before MariaDB 10.9:
+{% endhint %}
+
 `EXPLAIN FOR CONNECTION` and `FORMAT=JSON` are not available.
 {% endtab %}
 {% endtabs %}

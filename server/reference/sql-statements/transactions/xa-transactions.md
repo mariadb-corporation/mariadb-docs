@@ -138,10 +138,18 @@ XA PREPARE xid
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 Prepared transactions were automatically rolled back on client disconnect, but were not rolled back if the server was crashed or killed. This violated XA guarantees and could have caused inconsistent data, if the transaction in question was already irrevocably committed in another XA participant.
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 Prepared transactions are automatically rolled back on client disconnect, but are not rolled back if the server was crashed or killed. This violated XA guarantees and can cause inconsistent data, if the transaction in question was already irrevocably committed in another XA participant.
 {% endtab %}
 {% endtabs %}

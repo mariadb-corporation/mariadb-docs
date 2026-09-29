@@ -62,10 +62,18 @@ Foreign keys in MariaDB have the following limitations:
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.1:
+{% endhint %}
+
 Foreign key names must be **unique per table**.
 {% endtab %}
 
 {% tab title="< 12.1" %}
+{% hint style="info" %}
+Before MariaDB 12.1:
+{% endhint %}
+
 Foreign key names must be **unique per database**.
 {% endtab %}
 {% endtabs %}

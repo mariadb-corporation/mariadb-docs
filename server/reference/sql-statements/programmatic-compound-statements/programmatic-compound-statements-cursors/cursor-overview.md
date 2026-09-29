@@ -22,20 +22,36 @@ To avoid problems, a [DECLARE HANDLER](../declare-handler.md) statement is gener
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.3:
+{% endhint %}
+
 Cursors can be declared for a **prepared statement** name, enabling full support for **Dynamic SQL** within stored routines. The SQL Standard syntax for  `<dynamic declare cursor>` is supported: a cursor is declared with the `FOR` clause to bind it to a prepared statement name, which is then prepared and opened normally. Cursors may also still SELECT from views, which can be created dynamically via prepared statements.&#x20;
 {% endtab %}
 
 {% tab title="< 12.3" %}
+{% hint style="info" %}
+Before MariaDB 12.3:
+{% endhint %}
+
 Only **SELECT** statements are allowed for cursors, and they cannot be contained in a variable - so, they cannot be composed dynamically. However, it is possible to **SELECT** from a view. Since the **CREATE VIEW** statement can be executed as a prepared statement, it is possible to dynamically create the view that is queried by the cursor.&#x20;
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.3:
+{% endhint %}
+
 Cursors can have parameters. Cursor parameters can appear in any part of the [DECLARE CURSOR](declare-cursor.md) `select_statement` where a stored procedure variable is allowed (select list, `WHERE`, `HAVING`, `LIMIT` etc). See [DECLARE CURSOR](declare-cursor.md) and [OPEN](open.md) for syntax, and below for an example.
 {% endtab %}
 
 {% tab title="< 10.3" %}
+{% hint style="info" %}
+Before MariaDB 10.3:
+{% endhint %}
+
 Cursors cannot have parameters.
 {% endtab %}
 {% endtabs %}
