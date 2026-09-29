@@ -19,7 +19,7 @@ MariaDB Connector/Python enables python programs to access MariaDB and MySQL dat
 All implementations support both synchronous and asynchronous operations.
 
 {% hint style="info" %}
-**Version 1.1 is the latest stable (GA) release; version 2.0 is currently a Release Candidate (RC).** Choose the version that fits your needs below. Do not use non-stable (non-GA) releases in production.
+**Version 1.1 is the latest stable (GA) release; version 2.0 is a Release Candidate (RC) as of 2.0.0rc2.** Choose the version that fits your needs below. Do not use non-stable (non-GA) releases in production.
 {% endhint %}
 
 ## Supported Versions
@@ -30,7 +30,7 @@ MariaDB Connector/Python connects to MariaDB and MySQL database servers. Individ
 
 ### Supported Release Series
 
-The following MariaDB Connector/Python release series are currently supported:
+The following MariaDB Connector/Python release series are supported:
 
 | Release Series | Stable (GA) Date |
 | -------------- | ---------------- |
@@ -38,7 +38,7 @@ The following MariaDB Connector/Python release series are currently supported:
 
 For End of Standard Support and End of Life dates, see the [MariaDB Engineering Policy](https://mariadb.com/engineering-policies/).
 
-Version 2.0 (currently 2.0.0rc2) is a Release Candidate and is not yet a supported release series.
+As of 2.0.0rc2, version 2.0 is a Release Candidate and is not a supported release series.
 
 ### Requirements
 

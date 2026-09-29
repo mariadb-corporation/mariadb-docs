@@ -331,7 +331,7 @@ CREATE TABLE: CREATE TABLE `t2` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci
 ```
 
-Similarly, to do the reverse and convert a table into a partition `[ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/README.md) ... EXCHANGE PARTITION` can also be used, with the following manual steps required:
+Similarly, to do the reverse and convert a table into a partition [`ALTER TABLE`](../../reference/sql-statements/data-definition/alter/alter-table/README.md) `... EXCHANGE PARTITION` can also be used, with the following manual steps required:
 
 * create the partition
 * exchange the partition with the table
@@ -668,10 +668,8 @@ ALTER TABLE t1 REORGANIZE PARTITION p3 INTO (
 ### Truncating Partitions
 
 ```sql
-TRUNCATE PARTITION partition_names
+ALTER TABLE ... TRUNCATE PARTITION partition_names
 ```
-
-`[ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/README.md) ... TRUNCATE PARTITION`
 
 [ALTER TABLE TRUNCATE PARTITION](../../reference/sql-statements/data-definition/alter/alter-table/#truncate-partition) removes all data from the specified partition/s, leaving the table and partition structure unchanged. Partitions don't need to be contiguous:
 

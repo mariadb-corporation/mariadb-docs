@@ -57,7 +57,7 @@ Set `MARIADB_MYSQL_LOCALHOST_USER` to a non-empty value to create the `mysql@loc
 
 Set `MARIADB_HEALTHCHECK_GRANTS` to the grants required to be given to the `healthcheck@localhost`, `healthcheck@127.0.0.1`, `healthcheck@::1`, users. When not specified the default grant is [USAGE](../../../reference/sql-statements/account-management-sql-statements/grant.md#the-usage-privilege).
 
-The main value used here will be `[REPLICA MONITOR](../../../reference/sql-statements/account-management-sql-statements/grant.md#replica-monitor)` for the `[healthcheck --replication](using-healthcheck-sh.md)` test.
+The main value used here will be [`REPLICA MONITOR`](../../../reference/sql-statements/account-management-sql-statements/grant.md#replica-monitor) for the [`healthcheck --replication`](using-healthcheck-sh.md) test.
 
 ### `MARIADB_INITDB_SKIP_TZINFO / MYSQL_INITDB_SKIP_TZINFO`
 

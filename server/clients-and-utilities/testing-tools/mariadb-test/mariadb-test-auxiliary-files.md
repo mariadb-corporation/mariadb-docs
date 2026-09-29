@@ -137,7 +137,7 @@ user = @ENV.LOGNAME
 ```
 
 * There is the `[OPT]` group. It allows to invoke functions and
-  generate values. Currently it contains only one option\
+  generate values. It contains only one option\
   — `@OPT.port`. Every time this option is referred
   to in some other group in the `my.cnf` template, a new unique port number
   is generated. It will not match any other port number used by this test run.\

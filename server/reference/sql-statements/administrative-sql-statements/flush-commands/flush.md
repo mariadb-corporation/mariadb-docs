@@ -224,7 +224,7 @@ In the following, the purpose of specific `FLUSH TABLES` statements is detailed.
 
 Note that it's up to the user to ensure that no one is accessing the table between issuing the `FLUSH TABLES` statement and the time the table is copied to or from the server. This can be secured by using [LOCK TABLES](../../transactions/lock-tables.md).
 
-If there are any tables locked by the connection that is using `FLUSH TABLES` all the locked tables will be closed as part of the flush and reopened and relocked before `FLUSH TABLES` returns. This allows one to copy the table after `FLUSH TABLES` returns without having any writes on the table. For now this works with most tables, except InnoDB as InnoDB may do background purges on the table even while it's write locked.
+If there are any tables locked by the connection that is using `FLUSH TABLES` all the locked tables will be closed as part of the flush and reopened and relocked before `FLUSH TABLES` returns. This allows one to copy the table after `FLUSH TABLES` returns without having any writes on the table. This works with most tables, except InnoDB, as InnoDB may do background purges on the table even while it's write locked.
 
 ### FLUSH TABLES _table\_list_ WITH READ LOCK
 

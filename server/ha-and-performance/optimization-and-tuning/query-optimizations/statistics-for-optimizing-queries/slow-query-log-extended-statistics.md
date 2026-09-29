@@ -42,7 +42,6 @@ The default value for `log_slow_verbosity` is ' ', to be compatible with MySQL 5
 
 The possible values for `log_slow_verbosity are`innodb,query\_plan,explain,engine,warnings`. Multiple options are separated by ','.` log\_slow\_verbosity is not supported when log\_output='TABLE'.
 
-In the future we will add more `engine` statistics and also support for other engines.
 
 ### log\_slow\_filter
 

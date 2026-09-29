@@ -248,7 +248,7 @@ The `[NOT] DETERMINISTIC` clause also affects [binary logging](../../../../serve
 
 ### NO SQL
 
-`NO SQL` means nothing, because MariaDB does not currently support any language other than SQL.
+`NO SQL` means nothing, because MariaDB does not support any language other than SQL.
 
 ### Oracle Mode
 

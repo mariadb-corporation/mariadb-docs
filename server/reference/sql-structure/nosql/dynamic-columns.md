@@ -267,7 +267,7 @@ SELECT column_json( column_get(
 
 In SQL, one needs to define the type of each column in a table. Dynamic columns do not provide any way to declare a type in advance ("whenever there is a column 'weight', it should be integer" is not possible). However, each particular dynamic column value is stored together with its datatype.
 
-The set of possible datatypes is mostly the same as that used by the [CAST](../../sql-functions/string-functions/cast.md) and [CONVERT](../../sql-functions/string-functions/convert.md) functions. However, note that there are currently some differences - see [MDEV-597](https://jira.mariadb.org/browse/MDEV-597).
+The set of possible datatypes is mostly the same as that used by the [CAST](../../sql-functions/string-functions/cast.md) and [CONVERT](../../sql-functions/string-functions/convert.md) functions. However, note that there are some differences - see [MDEV-597](https://jira.mariadb.org/browse/MDEV-597).
 
 | Type                | Dynamic column internal type | Description                                                                                                                 |
 | ------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------- |

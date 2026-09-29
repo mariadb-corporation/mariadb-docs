@@ -453,7 +453,7 @@ First, you have to specify the name of the target (parent) table and a column or
 * `NO ACTION`: Synonym for `RESTRICT`.
 * `CASCADE`: The delete/update operation is performed in both tables.
 * `SET NULL`: The update or delete goes ahead in the parent table, and the corresponding foreign key fields in the child table are set to `NULL`. (They must not be defined as `NOT NULL` for this to succeed).
-* `SET DEFAULT`: This option is currently implemented only for the PBXT storage engine, which is disabled by default and no longer maintained. It sets the child table's foreign key fields to their `DEFAULT` values when the referenced parent table key entries are updated or deleted.
+* `SET DEFAULT`: In the SQL standard, this option sets the child table's foreign key fields to their `DEFAULT` values when the referenced parent table key entries are updated or deleted. No MariaDB storage engine implements it: InnoDB accepts the clause but ignores it, and the constraint behaves like `RESTRICT`. See [MDEV-10393](https://jira.mariadb.org/browse/MDEV-10393).
 
 If either clause is omitted, the default behavior for the omitted clause is `RESTRICT`.
 
@@ -833,7 +833,7 @@ If set to `1`, statistics will be recalculated when more than 10% of the data ha
 
 ### TRANSACTIONAL
 
-`TRANSACTIONAL` is only applicable for Aria tables. In future Aria tables created with this option will be fully transactional, but currently this provides a form of crash protection. See [Aria Storage Engine](../../../../server-usage/storage-engines/aria/aria-storage-engine.md) for more details.
+`TRANSACTIONAL` is only applicable for Aria tables. It provides a form of crash protection, but does not make Aria tables fully transactional. See [Aria Storage Engine](../../../../server-usage/storage-engines/aria/aria-storage-engine.md) for more details.
 
 ### UNION
 

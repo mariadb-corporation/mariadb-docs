@@ -12,12 +12,14 @@ skill, which runs them for you; this page documents what it does and how to run 
 | Broken links | `lychee` | `link-check-pr.yml` |
 | Heading anchors | `fragcheck.py new` | `fragcheck-pr.yml` |
 | GitBook includes | `includecheck.sh --stdin0` | `includecheck-pr.yml` |
+| Mermaid edge-label contrast | `mermaidcheck.py --stdin0` | `mermaidcheck-pr.yml` |
+| Railroad-diagram dark-mode card | `railroadcheck.py --stdin0` | `railroadcheck-pr.yml` |
 | Nav coverage (orphaned pages) | `navcheck.py new` | `navcheck-pr.yml` |
 | Gutted pages (net line loss) | `shrinkcheck.py` | `shrinkcheck-pr.yml` |
 | Alias expansion | sed (auto-commit) | `expand-gitbook-aliases.yml` |
 | Help-tables regen | Python | `generate-help-tables.yml` |
 
-Only the first six can fail your PR; aliases and help-tables are regenerated automatically.
+Only the first eight can fail your PR; aliases and help-tables are regenerated automatically.
 
 The heading-anchor gate arrived in DOCS-6524 and the other three in DOCS-6586: **every check in
 the table above has a CI counterpart**, so a finding on your machine is a finding CI will repeat.
@@ -36,6 +38,12 @@ check greps for the host-and-path pair, which is why this page spells it in two 
   ran green. The nightly re-runs the same command against a rolling 24-hour base and posts to
   Slack only when something broke, plus a Monday heartbeat so silence stays meaningful. It is
   read-only: it files nothing, and triage stays a human decision.
+- **A second nightly digest (`nightly-timeless.yml`, DOCS-6640) reports undated product claims**
+  — "currently in beta", "not currently supported", "coming soon", "at the time of writing" —
+  added in the last 24 hours, using `.claude/hooks/timeless.py new`. It is advisory by design and
+  is **not** part of `doc-lint.sh` or any PR gate: "currently" is usually right ("the currently
+  connected clients"), so a blocking check would fire on correct prose. Run
+  `timeless.py check <file>` yourself when editing product-status wording.
 
 ## 1. Spelling + links + includes + orphans + gutted pages — `doc-lint.sh`
 

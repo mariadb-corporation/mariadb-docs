@@ -30,7 +30,7 @@ The table structure is identical to the [events\_waits\_current](performance-sch
 | NESTING\_EVENT\_TYPE    | Nesting event type. Either statement, stage or wait.                                                                                                   |
 | OPERATION               | Operation type, for example read, write or lock                                                                                                        |
 | NUMBER\_OF\_BYTES       | Number of bytes that the operation read or wrote, or NULL for table I/O waits.                                                                         |
-| FLAGS                   | Reserved for use in the future.                                                                                                                        |
+| FLAGS                   | Reserved.                                                                                                                        |
 
 It is possible to empty this table with a `TRUNCATE TABLE` statement.
 

@@ -52,7 +52,7 @@ The following elements are not encrypted by the MariaDB server:
 
 * Metadata: Information in `.frm` files and the system data dictionary.
 * Specific Logs: The MariaDB Error Log, General Query Log, and Slow Query Log.
-* Aria Control Log: While Aria tables can be encrypted, the Aria storage engine log is not currently encrypted.
+* Aria Control Log: While Aria tables can be encrypted, the Aria storage engine log is not encrypted.
 * Utilities: Tools like `mariadb-binlog` require the `--read-from-remote-server` flag to read encrypted content.
 
 ## Key Management
@@ -272,7 +272,7 @@ If you determine that encryption is no longer necessary, you can revert the syst
 
 ### Prerequisites
 
-* Encryption Status: MariaDB Server must currently have data-at-rest encryption enabled and active.
+* Encryption Status: MariaDB Server must have data-at-rest encryption enabled and active.
 * Key Management Access: You must have the original key management plugin active and the correct keys loaded to facilitate the decryption of the data.
 * Sufficient Disk Space: Ensure adequate free space is available to accommodate the rewritten, unencrypted data files.
 

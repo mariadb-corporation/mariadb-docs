@@ -128,6 +128,16 @@ List these for the user with file:line; propose a rewrite but don't apply withou
   `git grep -Ei "master|slave|blacklist|whitelist|sanity|abort|basically|obviously|dummy"`.
 - **Forward-looking statements** — flag claims about future/unreleased behavior; acceptable only
   when backed by an MDEV ticket with a Fix Version (see `doc-from-ticket`).
+- **Timeless wording** (`dev-docs/style-guide.md`) — run `python3 .claude/hooks/timeless.py check
+  <file>` and surface every hit; its pattern list is the single source, so don't keep a copy
+  here. Also read the page for the words it deliberately doesn't match on its own
+  (*currently*, *at the moment*, *for now*, *soon*, *recently*, *upcoming*). For each product
+  claim: **verify it against source first** — an undated "not currently supported" is often
+  no longer true, and then the fact is what needs fixing. If it still holds, state it flatly;
+  if it is true but time-bound (maturity, "no known CVEs"), **anchor it** ("As of 2.0.0rc2, …",
+  "As of September 2026, …") rather than deleting the adverb; remove "coming soon" promises
+  with no Fix Version. Leave runtime state ("the currently connected clients"), fixed phrases
+  ("as soon as"), quoted output, and dated pages (release notes) alone.
 - **Over-linking** — more than one link to the same target within a section; suggest making the
   extras `literals`.
 - **Oxford comma** — flag enumerations missing it ("A, B or C" → "A, B, or C").

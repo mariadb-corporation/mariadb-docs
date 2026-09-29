@@ -22,7 +22,7 @@ For example, in case-insensitive collations capital and regular letters are cons
 
 Index-only scans are supported for numeric and date/time datatypes. For CHAR and VAR\[CHAR], it depends on which collation is used, see below for details.
 
-Index-only scans are currently not supported for less frequently used datatypes, like
+Index-only scans are not supported for less frequently used datatypes, like
 
 * [BIT(n)](../../../reference/data-types/numeric-data-types/bit.md)
 * [SET(...)](../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md)

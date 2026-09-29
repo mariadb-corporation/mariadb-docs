@@ -1,6 +1,6 @@
 ---
 description: >-
-  Plugin API reference: File Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+  The MYSQL_FILE structure and the mysql_file_* wrappers for opening, reading, writing, seeking, syncing, renaming, and deleting files with Performance Schema instrumentation.
 ---
 
 

@@ -7,6 +7,7 @@ description: Deploy Spider Federated Topology
 ## Overview
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: Spider Federated topology
     accDescr {
@@ -25,6 +26,7 @@ flowchart LR
     classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
     class Spider,Data node
     class Client client
+    linkStyle default color:#111111
 ```
 
 _In the Spider Federated topology, a Spider Node uses the MariaDB Spider federation to read from and write to a Data Table on a separate Data Node._

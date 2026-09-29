@@ -94,7 +94,7 @@ It is possible to use the [`gssapi`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO
 The following steps would need to be done beforehand:
 
 * You need a KDC running [MIT Kerberos](https://web.mit.edu/Kerberos/krb5-1.12/doc/index.html) or [Microsoft Active Directory](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview).
-* You will need to [create a keytab file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-gssapi#creating-a-keytab-file-on-a-unix-server) for the MariaDB server.
+* You will need to [create a keytab file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-gssapi#creating-a-keytab-file-on-unix) for the MariaDB server.
 * You will need to [install the package](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-gssapi#installing-the-plugins-package) containing the [`gssapi`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-gssapi) authentication plugin.
 * You will need to [install the plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-gssapi#installing-the-plugin) in MariaDB, so that the [`gssapi`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-gssapi) authentication plugin is available to use.
 * You will need to [configure the plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-gssapi#configuring-the-plugin).

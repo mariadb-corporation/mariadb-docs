@@ -177,6 +177,11 @@ jobs:
           # Exchange requires JS), and www.fsf.org fails lychee's connection
           # while serving 200 to a browser User-Agent. All are valid for readers.
           #
+          # DOCS-6640 (2026-09-24): documentation.ubuntu.com answers 429 Too Many
+          # Requests to GitHub-hosted runners on every attempt (two runs in a row)
+          # while serving 200 from a developer machine. It replaced the retired
+          # wiki.ubuntu.com pages, so there is no other URL to point at.
+          #
           # DOCS-6449 (2026-08-18): three vendor/doc hosts cited from
           # server/clients-and-utilities/ that block automated clients, proven
           # alive by the challenge each one serves rather than by a status code.
@@ -339,6 +344,7 @@ jobs:
             --exclude 'www\.fsf\.org'
             --exclude 'dba\.stackexchange\.com'
             --exclude 'askubuntu\.com'
+            --exclude 'documentation\.ubuntu\.com'
             --exclude 'valentina-db\.com'
             --exclude 'docs\.moodle\.org'
             --exclude 'www\.sqlmaestro\.com'

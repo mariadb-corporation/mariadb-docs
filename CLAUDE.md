@@ -21,6 +21,7 @@ Guidance for Claude Code (and other AI agents) working in the **MariaDB document
 | Repo map, the documentation spaces, conventions, commands | `AGENTS.md` |
 | What lives in which space + `SUMMARY.md` rules | `dev-docs/space-map.md` |
 | GitBook block syntax (hint/tabs/code/content-ref) | `dev-docs/gitbook-syntax.md` |
+| Railroad diagrams (generate, dark-mode card) | `dev-docs/railroad-diagrams.md` |
 | Cross-space link aliases | `dev-docs/link-aliases.md` |
 | Style summary | `dev-docs/style-guide.md` |
 | Pre-PR checklist (mirror CI locally) | `dev-docs/cookbook-pre-pr.md` |
@@ -54,4 +55,4 @@ Guidance for Claude Code (and other AI agents) working in the **MariaDB document
 | Personal, machine-specific overrides | `.claude/settings.local.json` (gitignored) |
 | Agent / contributor playbooks | `dev-docs/` |
 
-> Note: `tools/` at the repo root is a **documentation space** (MariaDB Tools docs), *not* a scripts directory. Agent scripts live under `.claude/hooks/`.
+> Note: `tools/` at the repo root is a **documentation space** (MariaDB Enterprise Tools docs), *not* a scripts directory. Agent scripts live under `.claude/hooks/`.

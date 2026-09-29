@@ -97,7 +97,7 @@ If you are obtaining a backtrace for a coredump, you can move the core dump to a
 
 On some Linux distributions, you may be able to install `debuginfo` packages that contain debugging symbols.
 
-Currently, `debuginfo` packages may not allow the server to print a nice stack trace in the error log. They also allow users to extract full stack traces from core dumps. See [MDEV-20738](https://jira.mariadb.org/browse/MDEV-20738) for more information.
+`debuginfo` packages may not allow the server to print a nice stack trace in the error log. They also allow users to extract full stack traces from core dumps. See [MDEV-20738](https://jira.mariadb.org/browse/MDEV-20738) for more information.
 
 #### Installing Debug Info Packages with yum/dnf
 
@@ -147,7 +147,7 @@ If you used the MariaDB versions provided by Debian or Ubuntu see the following 
 
 For Debian see [AutomaticDebugPackages](https://wiki.debian.org/AutomaticDebugPackages)
 
-For Ubuntu see [Debug%20Symbol%20Packages](https://wiki.ubuntu.com/Debug%20Symbol%20Packages)
+For Ubuntu see [Debug symbol packages](https://documentation.ubuntu.com/server/how-to/debugging/debug-symbol-packages/)
 
 ### Installing Debugging Symbols on Windows
 
@@ -169,7 +169,7 @@ The [ZIP](../../../server-management/install-and-upgrade-mariadb/installing-mari
 
 #### Prebuilt Debug Containers
 
-These are currently only per major release version and are generated out of CI. They are always the latest version in the main branch on [GitHub](https://github.com/MariaDB/server).
+These are only per major release version and are generated out of CI. They are always the latest version in the main branch on [GitHub](https://github.com/MariaDB/server).
 
 There are available on at [mariadb-debug?tab=tags](https://quay.io/repository/mariadb-foundation/mariadb-debug?tab=tags).
 
@@ -233,7 +233,7 @@ If a plain core filename is in the "Core pattern" there's a good chance it will 
 
 ### Extracting a core file from a container
 
-If you are running MariaDB in a container, the locations where the core dump can be generated are limited. Looking at the container log, this will likely be where the error log information is. The "Core pattern" of a Linux system is currently a global fixed value. The consequence is if this core pattern refers to a program, that program isn't likely to be in the container and won't be executed on the crash.
+If you are running MariaDB in a container, the locations where the core dump can be generated are limited. Looking at the container log, this will likely be where the error log information is. The "Core pattern" of a Linux system is a global fixed value. The consequence is if this core pattern refers to a program, that program isn't likely to be in the container and won't be executed on the crash.
 
 The system wide crash handler can be changed with `sysctl kernel.core_pattern=core` to set this back to a file based crash. With this, the crash should occur in the working directory, normally the `/var/lib/mysql` data directory of the container volume.
 
@@ -261,9 +261,9 @@ A core pattern of `|/usr/libexec/abrt-hook-ccpp` indicates `abrt` system is used
 
 A core pattern of `[|/usr/share/apport/apport` indicates `apport`.
 
-For more information see [Apport Project Wiki](https://wiki.ubuntu.com/Apport).
+For more information see [Apport project](https://github.com/canonical/apport).
 
-[apport-retrace](https://wiki.ubuntu.com/DebuggingProgramCrash#Using_apport-retrace) allows you to "Examine Locally" and run a `gdb` session. One you have gdb started instructions in the [next section](how-to-produce-a-full-stack-trace-for-mariadbd.md#getting-backtraces-with-gdb-on-linux) can be used for extracting information.
+[apport-retrace](https://manpages.ubuntu.com/manpages/noble/man1/apport-retrace.1.html) allows you to "Examine Locally" and run a `gdb` session. One you have gdb started instructions in the [next section](how-to-produce-a-full-stack-trace-for-mariadbd.md#getting-backtraces-with-gdb-on-linux) can be used for extracting information.
 
 ## Analyzing a Core File with `gdb` on Linux
 

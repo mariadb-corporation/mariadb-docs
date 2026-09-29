@@ -442,10 +442,10 @@ modified in that revision.
       Fri 2013-08-23 10:56:05 +0530
     * [Revision #3077.190.40](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3077.190.40) \[merge]\
       Fri 2013-08-23 09:07:09 +0530
-      * [WL#7076](https://askmonty.org/worklog/?tid=7076): Backporting wl6715 to support both formats in 5.5, 5.6, 5.7.
+      * WL#7076: Backporting wl6715 to support both formats in 5.5, 5.6, 5.7.
       * [Revision #3077.192.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3077.192.1)\
         Tue 2013-07-02 11:58:39 +0530
-        * [WL#7076](https://askmonty.org/worklog/?tid=7076): Backporting wl6715 to support both formats in 5.5, 5.6, 5.7
+        * WL#7076: Backporting wl6715 to support both formats in 5.5, 5.6, 5.7
     * [Revision #3077.190.39](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3077.190.39)\
       Thu 2013-08-22 16:51:30 +0200
       * Corrected Date in the changelog

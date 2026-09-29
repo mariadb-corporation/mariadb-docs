@@ -13,7 +13,7 @@ This page walks you through the simple installation steps using `dnf` and `yum`.
 
 ## Adding the MariaDB YUM repository
 
-We currently have YUM/DNF repositories for the following Linux distributions, and for the versions that are in standard (not extended) support:
+MariaDB provides YUM/DNF repositories for the following Linux distributions, and for the versions that are in standard (not extended) support:
 
 * Red Hat Enterprise Linux (RHEL)
 * CentOS

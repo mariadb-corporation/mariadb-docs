@@ -31,6 +31,7 @@ The cache is positioned between MaxScale and MariaDB. MaxScale intercepts cachea
 ---
 title: Simplified Query Result Cache Architecture (Technical View)
 ---
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     subgraph Routing_Layer [Access & Routing]
         App[Application Clients] --- Endpoint["MariaDB Cloud endpoint"]
@@ -53,6 +54,7 @@ graph TD
 
     style Routing_Layer fill:#f9f9f9,stroke:#ddd,stroke-dasharray: 5 5
     style Engine_Layer fill:#fff,stroke:#ddd
+    linkStyle default color:#111111
 ```
 
 ### Core Components

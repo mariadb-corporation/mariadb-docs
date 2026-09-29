@@ -40,7 +40,7 @@ MaxScale assumes that certain configuration parameters in MariaDB are set to the
 
 #### Transaction Boundary Detection
 
-If a module in MaxScale requires tracking of transaction boundaries but does not require query classification, a custom parser is used to detect them. Currently the only situation in which this parser is used is when a `readconnroute` service uses the `cache` filter.
+If a module in MaxScale requires tracking of transaction boundaries but does not require query classification, a custom parser is used to detect them. The only situation in which this parser is used is when a `readconnroute` service uses the `cache` filter.
 
 The custom parser detects a subset of the full SQL syntax used to start transactions. This means that more complex statements will not be fully parsed and will cause the transaction state to not match the real state on the database. For example, `SET @my_var = (SELECT 1), autocommit = 0` is not parsed by the custom parser and causes the autocommit modification to not be noticed.
 
@@ -48,7 +48,7 @@ The custom parser detects a subset of the full SQL syntax used to start transact
 
 MaxScale will treat statements executed after `XA START` and before `XA END` as if they were executed in a normal read-write transaction started with `START TRANSACTION`. This means that only XA transactions in the ACTIVE state will be routed as transactions and all statements after `XA END` are routed normally.
 
-XA transactions and normal transactions are mutually exclusive in MariaDB. This means that a `START TRANSACTION` command will fail if the connection already has an open XA transaction. MaxScale currently only inspects the SQL and deduces the transaction state from that. If a transaction fails to start due to an open XA transaction, the state in MaxScale and in MariaDB can be different and MaxScale will keep routing statements as if they were inside of a transaction. However, as this is an unlikely scenario, usually no action needs to be taken.
+XA transactions and normal transactions are mutually exclusive in MariaDB. This means that a `START TRANSACTION` command will fail if the connection already has an open XA transaction. MaxScale only inspects the SQL and deduces the transaction state from that. If a transaction fails to start due to an open XA transaction, the state in MaxScale and in MariaDB can be different and MaxScale will keep routing statements as if they were inside of a transaction. However, as this is an unlikely scenario, usually no action needs to be taken.
 
 ### Prepared Statements
 

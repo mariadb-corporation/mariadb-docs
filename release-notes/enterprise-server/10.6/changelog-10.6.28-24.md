@@ -50,7 +50,7 @@ hidden: true
 * role vs user@localhost acl_cache key confusion ([MDEV-40541](https://jira.mariadb.org/browse/MDEV-40541))
 * insufficient validation of frm data when opening a table ([MDEV-40571](https://jira.mariadb.org/browse/MDEV-40571))
 * It was possible for a user with FILE privileges and a secure_file_priv system variable configuration that can write to /run/mysqld (enabled by default), to create the environment file /run/mysqld/wsrep-new-cluster that the mariadb service will use on the next restart. ([MDEV-40629](https://jira.mariadb.org/browse/MDEV-40629))
-* The stunnel is a dependency of the Galera rsync sst mechanism. Its optional until a TLS configuration is applied for the SST mechanism. Added stunnel as a recommended package for RPMs and Debian packages for MariaDB-server and in 12.3, a required package of MariaDB-server-galera. ([MDEV-40630](https://jira.mariadb.org/browse/MDEV-40630))
+* stunnel is a dependency of the Galera rsync SST mechanism; it is optional until a TLS configuration is applied for the SST mechanism; stunnel is now a recommended package of the MariaDB-server RPM and the mariadb-server-10.6 DEB ([MDEV-40630](https://jira.mariadb.org/browse/MDEV-40630))
 * When running a DELETE on a table which is using the CSV storage engine, the server can crash ([MDEV-40636](https://jira.mariadb.org/browse/MDEV-40636))
 * mysql_json plugin OOB reads ([MDEV-40678](https://jira.mariadb.org/browse/MDEV-40678))
 * DROP PACKAGE leaves PACKAGE BODY grant in mysql.procs_priv ([MDEV-40722](https://jira.mariadb.org/browse/MDEV-40722))

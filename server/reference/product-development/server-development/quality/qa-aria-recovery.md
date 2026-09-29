@@ -42,7 +42,7 @@ Two pre-recovery crashes were filed, no recovery issues.
 
 ### **In Progress**
 
-The AriaDoubleRecovery reporter currently attempts double recovery via `maria_read_log`. The first invocation of `maria_read_log` is killed halfway through the process, and the second invocation is left to complete the recovery.
+The AriaDoubleRecovery reporter attempts double recovery via `maria_read_log`. The first invocation of `maria_read_log` is killed halfway through the process, and the second invocation is left to complete the recovery.
 
 Future testing involves doing the same with the `mysqld` server in place of `maria_read_log`.
 

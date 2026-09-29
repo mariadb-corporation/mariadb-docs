@@ -34,6 +34,11 @@ name: Check Heading Anchors in PR
 #     * headings that took over another heading's explicit id (DOCS-6492) --
 #       invisible to every link checker, this one included, because the anchors
 #       all exist and resolve; they just land on the wrong section
+#     * link targets the base resolved and the head does not resolve at all
+#
+#   Cross-space app.gitbook.com links are covered as well (DOCS-6608): their
+#   path is a SUMMARY.md nav position, so moving a nav entry breaks every link
+#   to that page from every other space, and this is the only gate that sees it.
 #
 # WHY THIS CALLS THE SCRIPT DIRECTLY RATHER THAN doc-lint.sh
 #   doc-lint.sh is the single source of truth for the codespell and lychee FLAG
@@ -87,10 +92,14 @@ jobs:
         # in sync. See DOCS-6362.
         uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
         with:
-          # Only .md matters: anchors are published by Markdown headings and
-          # linked from Markdown. .html pages carry no GitBook heading anchors.
+          # Anchors are published by Markdown headings and linked from Markdown,
+          # and a cross-space link resolves through SUMMARY.md (also .md). .html
+          # pages carry no GitBook heading anchors. The checker itself and the
+          # alias workflow it reads its {alias} map from change the verdict too.
           files: |
             **.md
+            .claude/hooks/fragcheck.py
+            .github/workflows/expand-gitbook-aliases.yml
           # agent-skills/topical/ is vendored verbatim from MariaDB/skills (see
           # agent-skills/topical/VENDORED.md). Fixes go upstream, not here.
           #
@@ -174,7 +183,7 @@ jobs:
           # from the annotation alone.
           case "$rc" in
             0) ;;
-            1) echo "::error::This PR kills a heading anchor that its base revision resolved, or gives a heading another heading's id. Details in the job log and the run summary." ;;
+            1) echo "::error::This PR kills a heading anchor or a link target that its base revision resolved, or gives a heading another heading's id. Details in the job log and the run summary." ;;
             2) echo "::error::fragcheck.py rejected its arguments -- the workflow is misconfigured, not the PR." ;;
             *) echo "::error::fragcheck.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
           esac
@@ -196,7 +205,7 @@ jobs:
             else
               case "${RC:-}" in
                 0) echo "No new dead heading anchors, and no heading took over another's id." ;;
-                1) echo "This PR introduces heading-anchor breakage. A renamed heading breaks every inbound link to its old anchor, including links from pages this PR never touched: either restore the heading text or retarget the links listed below." ;;
+                1) echo "This PR introduces heading-anchor breakage. A renamed heading breaks every inbound link to its old anchor, and a moved SUMMARY.md entry breaks every cross-space link to its page, including links from pages this PR never touched: either restore the heading or nav entry, or retarget the links listed below." ;;
                 *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
               esac
               echo

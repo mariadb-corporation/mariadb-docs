@@ -73,6 +73,37 @@ Discovery (informational for the unchangeable cases):
 indicated by an MDEV ticket with a **Fix Version** filled in. (This is exactly what
 `doc-from-ticket` verifies before asserting behavior.)
 
+## Timeless wording (DOCS-6640)
+
+Avoid *currently*, *at this time*, *at present*, *at the moment*, *for now*, *right now*,
+*as of now*, *as of today*, *soon*, *in the future*, *upcoming*, *recently*, and *as of
+this writing* when they date a claim about the **product**. Nobody
+knows when "currently" was written, so a reader has to assume it is true today
+([Google: timeless documentation](https://developers.google.com/style/timeless-documentation)).
+
+- **Fix — product state.** What the product supports, its maturity, a limitation:
+  "Row-based replication is not currently supported" → "Row-based replication is not
+  supported", or tie it to a version: "From MariaDB 11.4, …". **Verify the claim against
+  source before rewording** — a "not currently supported" is often no longer true, and then
+  the fact is what needs fixing, not the adverb.
+- **Anchor, don't delete — a true, time-bound claim.** "Version 2.0 is currently a Release
+  Candidate" is correct today and wrong the day 2.0 goes GA. Dropping *currently* makes it a
+  timeless falsehood; "As of 2.0.0rc2, version 2.0 is a Release Candidate" stays true and
+  shows its age. Use a version, or a month and year for claims with no version ("As of
+  September 2026, there are no known CVEs …").
+- **Leave alone — runtime state.** "The number of currently connected clients", "the server
+  currently acting as primary", "least recently used". Here the word means *at this moment,
+  while the server runs*, and it is the right word.
+- **Also fine:** fixed phrases ("as soon as", "at the moment the snapshot was taken",
+  "at some time in the future" describing a scheduled event), tutorial asides ("for now,
+  let's use …"), quoted output and error-message text, and dated records such as release
+  notes and the year-stamped Google Summer of Code pages.
+
+**Check:** `python3 .claude/hooks/timeless.py check <file>` lists the high-precision cases
+(maturity and support status, "coming soon", "at the time of writing"). It is advisory: a hit
+is a question, not a verdict, and it deliberately misses most "currently", so read the page
+too. The nightly digest (`nightly-timeless.yml`) runs the same patterns on new commits.
+
 ## Links
 
 - Same space → relative `.md` link; other space → `{alias}` link; never raw `app.gitbook.com`

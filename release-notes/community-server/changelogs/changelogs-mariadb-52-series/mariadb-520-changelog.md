@@ -12,13 +12,13 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #2782](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2782): fixes for buildbot:
 * [Revision #2781](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2781): fix dialog plugin to work again
 * [Revision #2780](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2780): \[merge] Merge with local tree
-* [Revision #2779](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2779): [MWL#43](https://askmonty.org/worklog/?tid=43) CREATE TABLE options (by Sanja)
+* [Revision #2779](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2779): MWL#43 CREATE TABLE options (by Sanja)
 * [Revision #2778](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2778): test fix for sol-sparc-32
 * [Revision #2777](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2777): more fixes for buildbot failures
 * [Revision #2776](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2776): fixes for builbot failures
 * [Revision #2775](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2775): keep acl\_user->auth\_string and acl\_user->salt always in sync
 * [Revision #2774](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2774): fix a warning
-* [Revision #2773](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2773): \[merge] Merge of the code for segmented key cache ([MWL#85](https://askmonty.org/worklog/?tid=85)) into 5.2.
+* [Revision #2773](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2773): \[merge] Merge of the code for segmented key cache (MWL#85) into 5.2.
 * [Revision #2772](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2772): fixed a bug in handling mysql\_native\_password specified explicitly:
 * [Revision #2771](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2771): embedded builds used to refer to undefined functions inside if(0) { }
 * [Revision #2770](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2770): more fixes for windows and status\_user.test
@@ -49,7 +49,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #2745](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2745): Made the vcol suite independent on time zone.
 * [Revision #2744](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2744): Fixed bug [Bug #539643](https://bugs.launchpad.net/bugs/539643)
 * [Revision #2743](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2743): \[merge] merged
-* [Revision #2742](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2742): [MWL#98](https://askmonty.org/worklog/?tid=98) - libservices
+* [Revision #2742](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2742): MWL#98 - libservices
 * [Revision #2741](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2741): Group commit for maria engine.
 * [Revision #2740](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2740): \[merge] merged
 * [Revision #2739](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2739): Fix bad 5.1->5.2 merge: timezone must now be set explicitly for test cases that depend on it.
@@ -60,7 +60,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #2734](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2734): \[merge] auto-merge
 * [Revision #2733](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2733): \[merge] merge 5.1-> 5.2
 * [Revision #2732](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2732): \[merge] Merge of the patch introducing virtual columns into maria-5.2
-* [Revision #2731](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2731): \[merge] [MWL#36](https://askmonty.org/worklog/?tid=36): Add a mysqlbinlog option to change the used database
+* [Revision #2731](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2731): \[merge] MWL#36: Add a mysqlbinlog option to change the used database
 * [Revision #2730](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2730): \[merge] Merge with 5.1 (Faster test cases)
 * [Revision #2729](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2729): \[merge] Automatic merge with 5.1
 * [Revision #2728](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2728): Updated test suite results with new information schemas

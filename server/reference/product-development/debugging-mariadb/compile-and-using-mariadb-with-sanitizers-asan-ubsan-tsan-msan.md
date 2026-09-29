@@ -172,11 +172,11 @@ MSAN is a clang only compile options and other compilers will not work.
 | `UPDATE_SUBMODULES=OFF`                               | The source directory is read-only so cannot be updated from within the container                                                                    |
 | `WITH_MSAN=ON`                                        | Enables MSAN build in compile options                                                                                                               |
 | `CMAKE_{EXE,MODULE}_LINKER_FLAGS`                     | links executables and shared libraries against the instrumented libraries with a `rpath` so a `LD_LIBRARY_PATH` environment variable isn't required |
-| `WITH_INNODB_{BZIP2,LZ4,LZMA,LZO,SNAPPY}=OFF`         | system libraries for these haven't been MSAN instrumented currently                                                                                 |
+| `WITH_INNODB_{BZIP2,LZ4,LZMA,LZO,SNAPPY}=OFF`         | system libraries for these aren't MSAN-instrumented                                                                                 |
 | `HAVE_CXX_NEW`                                        | Works around a ODR violation                                                                                                                        |
-| `WITH_ZLIB=bundled`                                   | This hasn't been MSAN instrumented currently                                                                                                        |
+| `WITH_ZLIB=bundled`                                   | This isn't MSAN-instrumented                                                                                                        |
 | `WITH_NUMA / WITH_SYSTEMD`                            | both uninstrumented                                                                                                                                 |
-| `HAVE_LIBAIO_H=0 / CMAKE_DISABLE_FIND_PACKAGE_LIBAIO` | AIO currently not MSAN instrumented                                                                                                                 |
+| `HAVE_LIBAIO_H=0 / CMAKE_DISABLE_FIND_PACKAGE_LIBAIO` | AIO isn't MSAN-instrumented                                                                                                                 |
 | `CMAKE_DISABLE_FIND_PACKAGE_URING=NO`                 | Uninstrumented [MDEV-36482](https://jira.mariadb.org/browse/MDEV-36482), and required `seccomp` adjustment or `--privileged` to work                |
 | `PLUGIN_OQGRAPH (and PLUGIN_COLUMNSTORE)`             | Dependency on boost libraries are instrumented                                                                                                      |
 | `WITH_EMBEDDED_SERVER=OFF`                            | reduce build time                                                                                                                                   |

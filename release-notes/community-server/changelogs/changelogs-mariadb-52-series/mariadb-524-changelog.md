@@ -176,7 +176,7 @@ modified in that revision.
     * [Revision #2643.105.36](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.105.36)
       * Fix of the debugging print.
     * [Revision #2643.105.35](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.105.35)
-      * [MWL#74](https://askmonty.org/worklog/?tid=74): Shared libmysqld.so library.
+      * MWL#74: Shared libmysqld.so library.
       * Switch makefiles to use libtool to build libmysqld.so, as well as all its
         dependencies.
       * The previous MYSQL\_PLUGIN\_DEPENDS\_ON\_MYSQL\_INTERNALS() declaration is removed,

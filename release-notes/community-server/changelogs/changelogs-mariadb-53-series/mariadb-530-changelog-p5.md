@@ -150,7 +150,7 @@
   * Fix compile error on Windows: instead of round(X) use floor(X+0.5)
 * [Revision #2868](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2868) \[merge]\
   Tue 2010-12-21 14:40:23 +0300
-  * [MWL#121](https://askmonty.org/worklog/?tid=121)-125 DS-MRR improvements
+  * MWL#121-125 DS-MRR improvements
     * Merge with 5.3-main
   * [Revision #2866.1.10](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2866.1.10)\
     Mon 2010-12-20 14:40:12 +0300
@@ -174,11 +174,11 @@
     * Better comments
   * [Revision #2866.1.5](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2866.1.5)\
     Thu 2010-12-16 23:37:26 +0300
-    * [MWL#121](https://askmonty.org/worklog/?tid=121)-125 DS-MRR improvements
+    * MWL#121-125 DS-MRR improvements
       * Address Monty's review feedback, portion 3
   * [Revision #2866.1.4](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2866.1.4)\
     Thu 2010-12-16 21:18:35 +0300
-    * [MWL#121](https://askmonty.org/worklog/?tid=121)-125 DS-MRR improvements
+    * MWL#121-125 DS-MRR improvements
       * Address Monty's review feedback, portion 2
   * [Revision #2866.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2866.1.3)\
     Wed 2010-12-15 10:45:08 +0300
@@ -186,7 +186,7 @@
     * Better warnings
   * [Revision #2866.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2866.1.2)\
     Mon 2010-12-13 20:01:32 +0300
-    * [MWL#121](https://askmonty.org/worklog/?tid=121)-125 DS-MRR improvements
+    * MWL#121-125 DS-MRR improvements
       * Address review feedback: change return type of RANGE\_SEQ\_IF::next()
   * [Revision #2866.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2866.1.1) \[merge]\
     Mon 2010-12-13 13:42:40 +0300
@@ -304,7 +304,7 @@
   * Merge with 5.1-release.
     * Fixed problem with oqgraph and 'make dist'
     * Note that after this merge we have a problem show in join\_outer where we examine too many rows in one specific case (related to [MySQL Bug #57024](https://bugs.mysql.com/bug.php?id=57024)).
-    * This will be fixed when [MWL#128](https://askmonty.org/worklog/?tid=128) is merged into 5.3.
+    * This will be fixed when MWL#128 is merged into 5.3.
 * [Revision #2859](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2859)\
   Tue 2010-11-30 01:27:14 +0200
   * Fixed some compiler warnings found when compiling for windows.
@@ -334,7 +334,7 @@
       problem is currently avoided for where-clauses. This works
       because, Item\_in\_subselect::is\_expensive\_processor returns true
       if query is to be executed with subquery materialization.
-    * In addition, after [MWL#89](https://askmonty.org/worklog/?tid=89), in MariaDB if the IN-EXISTS strategy
+    * In addition, after MWL#89, in MariaDB if the IN-EXISTS strategy
       is chosen, the in-to-exists predicates are insterted after
       join\_read\_const\_table() is called, resulting in evaluation of
       the subquery without the in-to-exists predicates.
@@ -485,7 +485,7 @@
   * Fixed [Bug #601156](https://bugs.launchpad.net/bugs/601156)
   * The cause for this bug is that [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md) still processes derived tables
     (subqueries in the FROM clause) by fully executing them during the parse
-    phase. This will be remedied by [MWL#106](https://askmonty.org/worklog/?tid=106) once merged into the main 5.3.
+    phase. This will be remedied by MWL#106 once merged into the main 5.3.
   * The assert statement is triggered when MATERIALIZATION is ON for EXPLAIN\
     EXTENDED for derived tables with an IN subquery as follows:
     * mysql\_parse calls JOIN::exec for the derived table as if it is regular
@@ -503,7 +503,7 @@
       Item\_subselect engine with a partial match engine, eventually we call
       its ::print() method. However the partial match engines are designed only
       for execution, hence there is no implementation of this print() method.
-  * The fix temporarily removes the assert, until this code is merged with [MWL#106](https://askmonty.org/worklog/?tid=106).
+  * The fix temporarily removes the assert, until this code is merged with MWL#106.
 
 [MariaDB 5.3.0](../../old-releases/5.3/5.3.0.md) Changelog — page:[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md) 5 [6](mariadb-530-changelog-p6.md)
 

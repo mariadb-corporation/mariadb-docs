@@ -128,7 +128,7 @@ Two-way SSL is required for an account if the `REQUIRE X509`, `REQUIRE SUBJECT`,
 
 ### Enabling TLS for MariaDB Connector/C Clients
 
-See the documentation on MariaDB Connector/C's [TLS Options](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_optionsv#tlsssl-options) for information on how to enable TLS for clients that use MariaDB Connector/C.
+See the documentation on MariaDB Connector/C's [TLS Options](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_optionsv#tls-options) for information on how to enable TLS for clients that use MariaDB Connector/C.
 
 ### Enabling TLS for MariaDB Connector/ODBC Clients
 

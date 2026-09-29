@@ -169,7 +169,7 @@ SELECT ADDTIME(TIME'-838:59:59.999999', '1677:59:59.999998');
 * Change in behavior for [FLUSH TABLES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/flush-commands/flush) ([MDEV-5336](https://jira.mariadb.org/browse/MDEV-5336)).
 * The [JSON\_VALID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_valid) function is automatically used as a [CHECK constraint](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/constraint#check-constraints) for the [JSON data type alias](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/json) in order to ensure that a valid json document is inserted ([MDEV-13916](https://jira.mariadb.org/browse/MDEV-13916))
 * MariaDB Named Commands ([MDEV-17591](https://jira.mariadb.org/browse/MDEV-17591))
-* MariaDB systemd multi-instance service have changed. See [systemd page](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes) for details.
+* MariaDB systemd multi-instance service have changed. See [systemd page](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd/starting#interacting-with-multiple-mariadb-server-processes) for details.
 
 ## Security Vulnerabilities Fixed in [MariaDB 10.4](what-is-mariadb-104.md)
 

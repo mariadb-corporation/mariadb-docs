@@ -40,6 +40,21 @@ HEADINGS ARE NOT THE ONLY ANCHOR SOURCE:  {% tab title="..." %}  (DOCS-6451)
     A bare {% tab %} with no title publishes nothing addressable (3 in the tree),
     so it contributes no anchor.
 
+CROSS-SPACE LINKS ARE CHECKED TOO  (DOCS-6608)
+    A link into another space is an absolute app.gitbook.com URL (or the {alias}
+    placeholder that expands to one). This checker used to skip them all, and
+    lychee checks no fragments, so 7,840 anchored cross-space links had no gate.
+    Measured when they were added: 527 dead anchors and 68 targets GitBook could
+    not resolve at all, every one of the 527 confirmed absent on the rendered page
+    and every one of the 7,245 passing links confirmed present -- no false result
+    in either direction.
+
+    The URL path is the page's NAV position, not its file path, so it is looked up
+    in the space's SUMMARY.md (nav_map() has the rules). A path GitBook cannot
+    resolve -- a file path such as .../gtid.md, a page moved in the nav, a deleted
+    space -- is not rendered as a link to the docs at all but as a raw editor URL
+    readers cannot open, so it is reported as unresolvable, apart from dead anchors.
+
 THE SLUG RULES  (each derived from a rendered id="..." on mariadb.com/docs)
     * lowercase; dots and underscores survive
     * an explicit <a ... id="x"> inside the heading line WINS over the text slug
@@ -91,6 +106,8 @@ inbound links from untouched pages still fails. It gates two classes:
     * headings that took over another heading's explicit id (`ids`, DOCS-6492) --
       invisible to every link checker, this one included, because the anchors all
       exist and resolve; they just land on the wrong section
+    * link targets that <rev> resolved and that no longer resolve at all -- for a
+      cross-space link, what moving a page in SUMMARY.md does (DOCS-6608)
 """
 import html
 import os
@@ -147,6 +164,63 @@ ATTR = re.compile(r'''\b(?:href|url)\s*=\s*["']([^"']+)["']''')
 # A bare {% tab %} with no title publishes nothing addressable, so it is skipped.
 TAB_TITLE = re.compile(r'\{%\s*tab\s+title="([^"]*)"\s*%\}')
 SKIP_PREFIX = ('http://', 'https://', 'mailto:', 'ftp://', '//', '/')
+
+# Cross-space links (DOCS-6608). A link into another space is an absolute
+# app.gitbook.com URL -- written as an {alias} placeholder, then expanded by
+# expand-gitbook-aliases.yml -- so the relative resolver never saw it, and lychee
+# checks no fragments at all: 7,840 anchored cross-space links had no gate.
+# Two URL shapes occur, and the short one is six times as common as the long:
+# /o/<org>/s/<space>/<path> and /s/<space>/<path>.
+GITBOOK_URL = re.compile(r'^https://app\.gitbook\.com/(?:o/[A-Za-z0-9]+/)?'
+                         r's/([A-Za-z0-9]+)(/[^?#]*)?(?:\?[^#]*)?#(.*)$')
+ALIAS_URL = re.compile(r'^\{([a-z-]+)\}(/[^?#]*)?(?:\?[^#]*)?#(.*)$')
+# Space id -> the directory holding that space. A link to an id missing here is
+# reported as unresolvable, so a new space surfaces instead of passing silently.
+SPACE_DIRS = {
+    'SsmexDFPv2xG2OTyO5yV': 'server',
+    '3VYeeVGUV4AMqrA3zwy7': 'galera-cluster',
+    '0pSbu5DcMSW4KwAkUcmX': 'maxscale',
+    'rBEU9juWLfTDcdwF3Q14': 'analytics',
+    'vPz15Lz0Iw3P3yKR3Prd': 'mariadb-cloud',
+    'gmXC0YXB3rRhXvpg5mb1': 'home',
+    'JqgUabdZsoY5EiaJmqgn': 'platform',
+    'CjGYMsT2MVP4nd3IyW2L': 'connectors',
+    'kuTXWg0NDbRx6XUeYpGD': 'tools',
+    'aEnK0ZXmUbJzqQrTjFyb': 'release-notes',
+    'WCInJQ9cmGjq1lsTG91E': 'general-resources',
+}
+# An {alias} placeholder is expanded the way expand-gitbook-aliases.yml expands
+# it, read out of that workflow rather than copied, so the two cannot drift.
+# {general-resources} carries a path of its own (/about/readme), which this keeps.
+ALIAS_WORKFLOW = '.github/workflows/expand-gitbook-aliases.yml'
+ALIAS_RULE = re.compile(r'\[\{\]([a-z-]+)\[\}\]#\\1https://app\.gitbook\.com/'
+                        r'(?:o/[A-Za-z0-9]+/)?s/([^#]+)#g')
+_ALIASES = {}
+
+
+def aliases(base):
+    """{alias: 'spaceid[/path]'} as the alias workflow at `base` defines them."""
+    key = str(base)
+    if key not in _ALIASES:
+        wf = base / ALIAS_WORKFLOW
+        text = wf.read_text(errors='replace') if wf.is_file() else ''
+        _ALIASES[key] = dict(ALIAS_RULE.findall(text))
+    return _ALIASES[key]
+
+
+# Space ids a link may carry that name no space in this repo, with the reason.
+# Identified through the GitBook API (getSpaceById), 2026-09-25.
+FOREIGN_SPACES = {
+    # {columnstore}: in the alias map, but no directory here and no link uses it.
+    '2I4jZ8pGq8bT4w5n3q6r': 'the ColumnStore space, not synced to this repo',
+    # Only ever in ~/reusable/ include URLs, which are not pages.
+    'GxVnu02ec8KJuFSxmB93': 'the private Marketing space (reusable blocks)',
+}
+# SUMMARY.md lines that shape a nav path: a page entry, a group heading, and the
+# thematic break that ends a group.
+NAV_ENTRY = re.compile(r'^(\s*)[*-] \[.*?\]\(<?([^)>]+?\.md)>?\)\s*$')
+NAV_GROUP = re.compile(r'^##\s+(.*?)\s*$')
+NAV_BREAK = ('***', '---', '___')
 
 # Spelled out instead of collapsing to a dash. Every entry was read off a rendered
 # id rather than assumed: "&" from "Source format & GitBook blocks", "$" from
@@ -399,12 +473,108 @@ def links_of(path):
         # matches on its `](...)`.
         line = CODESPAN.sub(lambda m: '`' * 2, line)
         for target in LINK.findall(line) + ATTR.findall(line):
-            if '#' not in target or '{' in target:
+            if '#' not in target:
+                continue
+            if is_cross(target):
+                out.append((target, n))
+                continue
+            if '{' in target:
                 continue
             if target.startswith(SKIP_PREFIX) or 'broken-reference' in target:
                 continue
             out.append((target, n))
     return out
+
+
+_NAV = {}
+
+
+def nav_map(space):
+    """{nav path: page file} for one space directory, read off its SUMMARY.md.
+
+    GitBook derives a page's URL from where SUMMARY.md lists it, not from where
+    the file lives (DOCS-6590): server-system-variables.md sits under
+    ha-and-performance/ and publishes under server-management/. So a URL path
+    cannot be mapped onto a file path; it has to be looked up here. The rules,
+    each checked against the live sitemap of all 11 spaces (every published URL
+    is predicted, bar the 20 mariadb-cloud API pages GitBook generates from an
+    OpenAPI spec, which have no Markdown):
+
+      * a page's path is its parent's path + its own slug; the slug is the file
+        stem, or for a README.md its directory name -- and "readme" for the
+        space's root README.md, whose children therefore sit under readme/
+      * a "## Group" heading prefixes the pages under it with the group's slug,
+        until the next group or a *** thematic break
+      * every segment is lowercased (File_instrumentation.md -> file_instrumentation)
+      * the root README.md is also served at the space root
+
+    A file listed twice (50 in server/) publishes at only one of its paths, and
+    which one follows no evident rule: against the sitemap the first listing won
+    42 times, the last 7, a middle one once. Every path it is listed under is
+    credited here -- optimistic, but only about which URL reaches the page; an
+    anchor on it is still checked against the right file.
+    """
+    key = str(space)
+    if key in _NAV:
+        return _NAV[key]
+    out, stack, group = {}, [], ''
+    summary = space / 'SUMMARY.md'
+    text = summary.read_text(errors='replace') if summary.is_file() else ''
+    for line in text.splitlines():
+        g = NAV_GROUP.match(line)
+        if g:
+            group, stack = gitbook_slug(g.group(1)), []
+            continue
+        if line.startswith('# ') or line.strip() in NAV_BREAK:
+            group, stack = '', []
+            continue
+        m = NAV_ENTRY.match(line)
+        if not m:
+            continue
+        indent, f = len(m.group(1).expandtabs(4)), m.group(2)
+        while stack and stack[-1][0] >= indent:
+            stack.pop()
+        p = pathlib.PurePosixPath(f)
+        seg = (p.parent.name or 'readme') if p.name == 'README.md' else p.stem
+        nav = ((stack[-1][1] if stack else group) + '/' + seg.lower()).strip('/')
+        page = space / f
+        out.setdefault(nav, page)
+        if f == 'README.md':
+            out.setdefault('', page)
+        stack.append((indent, nav))
+    _NAV[key] = out
+    return out
+
+
+def resolve_cross(target, base):
+    """(page_or_None, fragment, why) for an app.gitbook.com or {alias} target.
+
+    `why` says what went wrong when there is no page, so a gone space, a page
+    missing from the nav and a dead anchor are never reported as one another.
+    """
+    m = ALIAS_URL.match(target)
+    if m:
+        name, path, frag = m.groups()
+        known = aliases(base)
+        if name not in known:
+            return None, urllib.parse.unquote(frag), f'unknown alias {{{name}}}'
+        target = f'https://app.gitbook.com/s/{known[name]}{path or ""}#{frag}'
+    m = GITBOOK_URL.match(target)
+    space_id, path, frag = m.groups()
+    frag = urllib.parse.unquote(frag)
+    if space_id in FOREIGN_SPACES:
+        return None, frag, FOREIGN_SPACES[space_id]
+    if space_id not in SPACE_DIRS:
+        return None, frag, f'space {space_id} does not exist (or is not in SPACE_DIRS)'
+    nav = urllib.parse.unquote(path or '').strip('/').lower()
+    page = nav_map(base / SPACE_DIRS[space_id]).get(nav)
+    if page is None:
+        return None, frag, f'no page at {SPACE_DIRS[space_id]}/{nav} in its SUMMARY.md'
+    return page, frag, None
+
+
+def is_cross(target):
+    return bool(GITBOOK_URL.match(target) or ALIAS_URL.match(target))
 
 
 def resolve(src, target):
@@ -555,11 +725,14 @@ def check(paths, base):
     for root in paths:
         for f in md_files(root, base):
             for target, line in links_of(f):
-                tgt, frag = resolve(f, target)
+                if is_cross(target):
+                    tgt, frag, why = resolve_cross(target, base)
+                else:
+                    (tgt, frag), why = resolve(f, target), 'no such file'
                 if not frag:
                     continue
                 if tgt is None:
-                    unresolved.append((relpath(f, base), line, target))
+                    unresolved.append((relpath(f, base), line, target, why))
                     continue
                 if tgt not in cache:
                     cache[tgt] = page_facts(tgt)
@@ -674,6 +847,8 @@ def cmd_check(args):
     checked, findings, unresolved = check([pathlib.Path(a) for a in args] or [root], root)
     for f in findings:
         print('DEAD ' + describe(f))
+    for src, line, target, why in unresolved:
+        print(f'UNRESOLVED {src}:{line}: {target}  ({why})')
     summarize(checked, findings, unresolved)
     return 0
 
@@ -716,7 +891,7 @@ def cmd_new(args):
     rev, paths = args[0], args[1:]
     root = repo_root(paths[0] if paths else '.')
     roots = [pathlib.Path(p) for p in paths] or [root]
-    _, now, _ = check(roots, root)
+    _, now, now_lost = check(roots, root)
     now_ids = scan_ids(roots, root)
 
     tmp = tempfile.mkdtemp(prefix='fragcheck-base-')
@@ -733,7 +908,7 @@ def cmd_new(args):
         # and relpath() resolves each file, so an unresolved root yields absolute
         # keys that can never match the working tree's relative ones.
         base_root = pathlib.Path(worktree).resolve()
-        _, before, _ = check([base_root], base_root)
+        _, before, before_lost = check([base_root], base_root)
         before_ids = scan_ids([base_root], base_root)
     finally:
         subprocess.run(['git', '-C', str(root), 'worktree', 'remove', '--force',
@@ -765,6 +940,22 @@ def cmd_new(args):
                   '          (DOCS-6503): use "####" or shallower, or link the enclosing section.',
                   file=sys.stderr)
 
+    # A target that stops resolving at all. For a cross-space link that is what a
+    # SUMMARY.md move does: the page's URL is its nav position, so moving it in the
+    # nav breaks every app.gitbook.com link to it in every other space, and GitBook
+    # then renders each one as a raw editor URL that readers cannot open (DOCS-6608).
+    was_lost = {(f[0], f[2]) for f in before_lost}
+    fresh_lost = [f for f in now_lost if (f[0], f[2]) not in was_lost]
+    if fresh_lost:
+        rc = 1
+        print(f'fragcheck: {len(fresh_lost)} link target(s) that {rev} resolved no longer '
+              f'resolve at all:', file=sys.stderr)
+        for src, line, target, why in fresh_lost:
+            print(f'  {src}:{line}: {target}  ({why})', file=sys.stderr)
+        print('\n          A cross-space link addresses a page by its SUMMARY.md position, not\n'
+              '          its file path, so moving or removing a nav entry breaks it. Point the\n'
+              '          links at the new nav path, or put the entry back.', file=sys.stderr)
+
     # Diffed against <rev> for the same reason as the dead anchors: this repo is
     # also edited from the GitBook UI, so an absolute check would fail unrelated
     # PRs the moment a GITBOOK-* commit introduced one case.
@@ -781,7 +972,8 @@ def cmd_new(args):
     if not rc:
         print(f'fragcheck: no new dead heading anchors vs {rev} '
               f'({len(now)} pre-existing, unchanged); no new stolen heading ids '
-              f'({len(now_ids)} pre-existing)')
+              f'({len(now_ids)} pre-existing); no newly unresolvable targets '
+              f'({len(now_lost)} pre-existing)')
     return rc
 
 

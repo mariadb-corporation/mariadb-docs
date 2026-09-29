@@ -578,8 +578,6 @@ Or to a specific transaction (with `BEFORE SYSTEM_TIME TRANSACTION xxx`).
 
 To protect the integrity of the history, this statement requires a special [DELETE HISTORY](../../sql-statements/account-management-sql-statements/grant.md#table-privileges) privilege.
 
-Currently, using the `DELETE HISTORY` statement with a `BEFORE SYSTEM_TIME` greater than the `ROW_END` of the active records (as a [TIMESTAMP](../../data-types/date-and-time-data-types/timestamp.md), this has a maximum value of `'2038-01-19 03:14:07'` [UTC](../../data-types/string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md)) results in the historical records being dropped, and the active records being deleted and moved to history. See [MDEV-25468](https://jira.mariadb.org/browse/MDEV-25468).
-
 The [TRUNCATE TABLE](../../sql-statements/table-statements/truncate-table.md) statement drops all historical records from a system-versioned table.
 
 Historic data is protected from `TRUNCATE` statements, as per the SQL standard, and an [Error 4137](../../error-codes/mariadb-error-codes-4100-to-4199/e4137.md) is instead raised:

@@ -33,7 +33,7 @@ When creating a table or index, you can specify the name of the column family fo
 
 ## Dropping a Column Family
 
-There is currently no way to drop a column family.\
+There is no way to drop a column family.\
 RocksDB supports this internally but MyRocks doesn't provide any way to do it.
 
 ## Setting Column Family Parameters

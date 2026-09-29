@@ -1,6 +1,6 @@
 ---
 description: >-
-  Complete generated Plugin API reference, built from the MariaDB server headers by doxygen and moxygen.
+  Every generated Plugin API class, macro, typedef, and function on one page, including the plugin services and the audit, authentication, and encryption plugin interfaces.
 ---
 
 # API Reference

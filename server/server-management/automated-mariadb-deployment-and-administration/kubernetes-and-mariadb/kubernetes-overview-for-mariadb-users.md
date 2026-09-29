@@ -9,7 +9,7 @@ description: >-
 
 Kubernetes, or K8s, is software to orchestrate containers. It is released under the terms of an open source license, Apache License 2.0.
 
-Kubernetes was originally developed by Google. Currently it is maintained by the Cloud Native Computing Foundation (CNCF), with the status of Graduated Project.
+Kubernetes was originally developed by Google. It is maintained by the Cloud Native Computing Foundation (CNCF), with the status of Graduated Project.
 
 For information about how to setup a learning environment or a production environment, see [Getting started](https://kubernetes.io/docs/setup/) in Kubernetes documentation.
 

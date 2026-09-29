@@ -117,7 +117,7 @@
   * Fix library build on mac (prevent handlersocket.so loading failure if it called from build directory)
 * [Revision #2986](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2986) \[merge]\
   Thu 2011-05-12 01:02:55 +0300
-  * Automatic merge with [MWL#148](https://askmonty.org/worklog/?tid=148)
+  * Automatic merge with MWL#148
 * [Revision #2985](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2985) \[merge]\
   Wed 2011-05-11 08:52:16 +0100
   * Merge fix for [Bug #779885](https://bugs.launchpad.net/bugs/779885)
@@ -134,7 +134,7 @@
       for group 3.
 * [Revision #2983](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2983) \[merge]\
   Tue 2011-05-10 18:28:05 +0300
-  * [MWL#89](https://askmonty.org/worklog/?tid=89) - Automatic merge with 5.3
+  * MWL#89 - Automatic merge with 5.3
   * [Revision #2979.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2979.1.3)\
     Thu 2011-05-05 15:24:28 +0300
     * Fix [Bug #772309](https://bugs.launchpad.net/bugs/772309)
@@ -149,27 +149,27 @@
       select\_options of the subquery.
   * [Revision #2979.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2979.1.2)\
     Thu 2011-05-05 01:35:03 +0300
-    * [MWL#89](https://askmonty.org/worklog/?tid=89)
+    * MWL#89
       * Adjusted test results after merge.
   * [Revision #2979.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2979.1.1) \[merge]\
     Thu 2011-05-05 00:35:21 +0300
-    * [MWL#89](https://askmonty.org/worklog/?tid=89)
+    * MWL#89
       * Merge with main 5.3
 * [Revision #2982](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2982)\
   Sun 2011-05-08 13:26:07 +0300
   * Fixed compiler warnings
 * [Revision #2981](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2981) \[merge]\
   Sat 2011-05-07 15:48:45 +0200
-  * Merge [MWL#180](https://askmonty.org/worklog/?tid=180) into main [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md).
+  * Merge MWL#180 into main [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md).
   * [Revision #2977.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2977.1.3) \[merge]\
     Thu 2011-05-05 16:35:02 +0200
-    * [MWL#180](https://askmonty.org/worklog/?tid=180): Merge bugfix from 5.2 to 5.3 codebase + really fix version from which mariadb supports binlog checksums.
+    * MWL#180: Merge bugfix from 5.2 to 5.3 codebase + really fix version from which mariadb supports binlog checksums.
   * [Revision #2977.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2977.1.2) \[merge]\
     Wed 2011-05-04 15:44:29 +0200
-    * [MWL#180](https://askmonty.org/worklog/?tid=180): merge fixes from 5.2-rpl + forgot to adjust revision from which checksums are supported when merging into 5.3-based tree.
+    * MWL#180: merge fixes from 5.2-rpl + forgot to adjust revision from which checksums are supported when merging into 5.3-based tree.
   * [Revision #2977.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2977.1.1) \[merge]\
     Tue 2011-05-03 14:44:25 +0200
-    * Merge [MWL#180](https://askmonty.org/worklog/?tid=180), binlog checksum backport, into [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)-based tree.
+    * Merge MWL#180, binlog checksum backport, into [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)-based tree.
 * [Revision #2980](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2980)\
   Wed 2011-05-04 18:08:44 -0700
   * Fixed [Bug #776295](https://bugs.launchpad.net/bugs/776295).\
@@ -279,17 +279,17 @@
 * [Revision #2966](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2966) \[merge]\
   Fri 2011-04-08 09:39:33 +0200
   * Merge various replication-related patches into [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md):
-    * [MWL#116](https://askmonty.org/worklog/?tid=116) Group commit
-    * [MWL#136](https://askmonty.org/worklog/?tid=136) Enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT
-    * [MWL#47](https://askmonty.org/worklog/?tid=47) Annotate\_rows\_log\_event
-    * [MWL#163](https://askmonty.org/worklog/?tid=163) innodb\_release\_locks\_early
+    * MWL#116 Group commit
+    * MWL#136 Enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT
+    * MWL#47 Annotate\_rows\_log\_event
+    * MWL#163 innodb\_release\_locks\_early
     * Percona patch enhancing row-based replication for tables with no primary key
   * [Revision #2732.26.18](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.18)\
     Thu 2011-04-07 17:21:22 +0200
     * Fix merge error.
   * [Revision #2732.26.17](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.17)\
     Thu 2011-04-07 13:55:18 +0200
-    * [MWL#116](https://askmonty.org/worklog/?tid=116): After-review fixes.
+    * MWL#116: After-review fixes.
     * Also implement the InnoDB changes for group commit into innodb\_plugin.
   * [Revision #2732.26.16](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.16)\
     Thu 2011-04-07 12:41:49 +0200
@@ -309,13 +309,13 @@
     * Merge [MariaDB 5.2.5](../../old-releases/5.2/5.2.5.md) release into MariaDB-5.2-rpl.
   * [Revision #2732.26.12](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.12) \[merge]\
     Fri 2011-04-01 10:25:45 +0200
-    * Merge [MWL#136](https://askmonty.org/worklog/?tid=136) after-review fixes into mariadb-5.2-rpl
+    * Merge MWL#136 after-review fixes into mariadb-5.2-rpl
   * [Revision #2732.26.11](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.11) \[merge]\
     Thu 2011-03-31 15:32:04 +0200
-    * Merge [MWL#116](https://askmonty.org/worklog/?tid=116) after-review fixes.
+    * Merge MWL#116 after-review fixes.
   * [Revision #2732.26.10](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.10) \[merge]\
     Mon 2011-01-31 15:40:58 +0100
-    * Merge [MWL#116](https://askmonty.org/worklog/?tid=116), PBXT part into mariadb-5.2-rpl
+    * Merge MWL#116, PBXT part into mariadb-5.2-rpl
     * This makes PBXT implement the commit\_ordered() method, so that cross-engine\
       START TRANSACTION WITH CONSISTENT SNAPSHOT works actually consistent with\
       XtraDB.
@@ -328,7 +328,7 @@
     * Merge fix for [Bug #697174](https://bugs.launchpad.net/bugs/697174)
   * [Revision #2732.26.7](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.7)\
     Thu 2011-01-27 15:56:44 +0100
-    * After-merge fixes for [MWL#47](https://askmonty.org/worklog/?tid=47) (which causes changes in binlog positions in .result files).
+    * After-merge fixes for MWL#47 (which causes changes in binlog positions in .result files).
     * Also fix one incorrect printf() format.
   * [Revision #2732.26.6](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.6) \[merge]\
     Thu 2011-01-27 15:56:00 +0100
@@ -336,7 +336,7 @@
   * [Revision #2732.26.5](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.5) \[merge]\
     Wed 2011-01-26 15:35:03 +0100
     * Merge three Percona patches into mariadb-5.2-rpl:
-      * [MWL#47](https://askmonty.org/worklog/?tid=47), allowing to annotate row-based binlog events with the SQL test of
+      * MWL#47, allowing to annotate row-based binlog events with the SQL test of
         the originating query (eg. in mysqlbinlog output).
       * row\_based\_replication\_without\_primary\_key.patch, providing more intelligent
         selection of index to use on slave when applying row-based binlog events
@@ -347,13 +347,13 @@
     * Fix wrong printf() format.
   * [Revision #2732.26.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.3) \[merge]\
     Sat 2010-12-25 18:28:24 +0100
-    * Merge [MWL#163](https://askmonty.org/worklog/?tid=163) into mariadb-5.2-rpl
+    * Merge MWL#163 into mariadb-5.2-rpl
   * [Revision #2732.26.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.2) \[merge]\
     Sat 2010-12-25 16:14:50 +0100
-    * Merge [MWL#136](https://askmonty.org/worklog/?tid=136) into mariadb-5.2-rpl
+    * Merge MWL#136 into mariadb-5.2-rpl
   * [Revision #2732.26.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.1) \[merge]\
     Sat 2010-12-25 15:42:33 +0100
-    * Merge [MWL#116](https://askmonty.org/worklog/?tid=116) into mariadb-5.2-rpl.
+    * Merge MWL#116 into mariadb-5.2-rpl.
 * [Revision #2965](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2965) \[merge]\
   Fri 2011-04-08 02:54:01 +0200
   * merge

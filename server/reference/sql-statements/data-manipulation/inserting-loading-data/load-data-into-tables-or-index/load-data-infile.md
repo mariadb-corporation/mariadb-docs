@@ -96,7 +96,7 @@ The statement interprets all fields in the file as having the same character-set
 When using mixed character sets, use the `CHARACTER SET` clause in both [SELECT INTO OUTFILE](../../selecting-data/select-into-outfile.md) and `LOAD DATA INFILE` to ensure that MariaDB correctly interprets the escape sequences.
 
 The [character\_set\_filesystem](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_filesystem) system variable controls the interpretation of the filename.\
-It is currently not possible to load data files that use the `ucs2` character set.
+It is not possible to load data files that use the `ucs2` character set.
 
 ### Preprocessing Inputs
 

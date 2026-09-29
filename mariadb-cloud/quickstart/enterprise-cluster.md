@@ -63,6 +63,7 @@ Enterprise Cluster are designed for high availability, fault tolerance, and unif
 To maximize resiliency, multi-node clusters can be spread across multiple Availability Zones within a single cloud region.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     App[Client Application] -->|Read/Write Traffic| MS(MariaDB MaxScale)
     
@@ -89,6 +90,7 @@ flowchart TD
         Node2 <==>|Synchronous Replication| Node3
         Node3 <==>|Synchronous Replication| Node1
     end
+    linkStyle default color:#111111
 ```
 
 As illustrated above, MaxScale receives read and write connections from your application and can route them to any of the available primary nodes. Because all nodes participate in synchronous replication, data is kept strictly consistent across all availability zones.
@@ -130,6 +132,7 @@ Because Enterprise Cluster relies on a mathematical majority to maintain cluster
 If a node goes offline unexpectedly, MariaDB MaxScale detects the failure and immediately stops routing application traffic to it. The remaining active nodes check their voting pool; as long as more than half of the cluster remains online (e.g., 2 out of 3 nodes), the cluster maintains "quorum" and continues accepting reads and writes.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     App["Client Application"] -->|"Read/Write"| MS{"MariaDB MaxScale"}
     
@@ -146,6 +149,7 @@ flowchart TD
     MS -.->|"Routing Stopped"| NC
     
     style NC fill:#ffe6e6,stroke:#ff3333,stroke-width:2px,stroke-dasharray: 5 5
+    linkStyle default color:#111111
 ```
 
 Once the failed node is recovered or replaced by the managed service, it automatically rejoins the cluster, synchronizes its state using a State Snapshot Transfer (SST) or Incremental State Transfer (IST), and resumes accepting traffic from MaxScale.
@@ -201,6 +205,7 @@ Enterprise Cluster supports cloud-native snapshot backups only. Full (physical) 
 To ensure safe re-formation, restores are initialized on a single node to bootstrap the cluster, followed by automated transfers to bring additional nodes online.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     Snap[("Cloud Snapshot")] -->|1. Restore| N1("Node 1")
     N1 -->|2. Safe-To-Bootstrap| C["New Enterprise Cluster"]
@@ -208,6 +213,7 @@ flowchart LR
     C -->|3. Managed SST| N3("Node 3")
     
     style Snap fill:#f9f,stroke:#333,stroke-width:2px
+    linkStyle default color:#111111
 ```
 
 ## Dev tools for Enterprise Cluster

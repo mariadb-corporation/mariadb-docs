@@ -16,7 +16,7 @@ and bug fixes:
   FULL PROCESSLIST and INFORMATION\_SCHEMA.PROCESSLIST](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/time_ms-column-in-information_schemaprocesslist), similar to the old\
   TIME column, but with microsecond resolution. Also fixes old TIME column to
   not be influenced by @TIMESTAMP. Patch by Percona.
-* Optimizer improvement: Table elimination ([MWL#17](https://askmonty.org/worklog/?tid=17)). See [Table Elimination](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/table-elimination).
+* Optimizer improvement: Table elimination (MWL#17). See [Table Elimination](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/table-elimination).
 * Enhancements to slow log. Includes details of execution plan and
   microsecond-precision resolution. Based on microslow patch by Percona. See [Slow Query Log Extended Statistics](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/slow-query-log-extended-statistics).
 * PBXT storage engine. PBXT is developed by [PrimeBase Technologies](https://en.wikipedia.org/wiki/PrimeBase).

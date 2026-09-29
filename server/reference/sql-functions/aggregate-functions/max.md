@@ -16,7 +16,7 @@ MAX([DISTINCT] expr)
 
 Returns the largest, or maximum, value of _`expr`_. `MAX()` can also take a string argument in which case it returns the maximum string value. The `DISTINCT` keyword can be used to find the maximum of the distinct values of _`expr`_, however, this produces the same result as omitting `DISTINCT`.
 
-Note that [SET](../../sql-statements/administrative-sql-statements/set-commands/set.md) and [ENUM](../../data-types/string-data-types/enum.md) fields are currently compared by their string value rather than their relative position in the set, so MAX() may produce a different highest result than ORDER BY DESC.
+Note that [SET](../../sql-statements/administrative-sql-statements/set-commands/set.md) and [ENUM](../../data-types/string-data-types/enum.md) fields are compared by their string value rather than their relative position in the set, so MAX() may produce a different highest result than ORDER BY DESC.
 
 It is an [aggregate function](./), and so can be used with the [GROUP BY](../../sql-statements/data-manipulation/selecting-data/group-by.md) clause.
 

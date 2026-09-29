@@ -14,7 +14,7 @@ A number of [JSON functions](./) accept JSON Path expressions. MariaDB defines t
 path : ['lax'] '$' [step]*
 ```
 
-The path starts with an optional _path mode_. At the moment, MariaDB supports only the "lax" mode, which is also the mode that is used when it is not explicitly specified.
+The path starts with an optional _path mode_. MariaDB supports only the "lax" mode, which is also the mode that is used when it is not explicitly specified.
 
 The `$` symbol represents the context item. The search always starts from the context item; because of that, the path always starts with `$`.
 

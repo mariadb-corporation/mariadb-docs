@@ -72,7 +72,7 @@ The CONNECT storage engine.
 {% endcolumn %}
 
 {% column %}
-The CONNECT storage engined.
+The CONNECT storage engine.
 {% endcolumn %}
 {% endcolumns %}
 

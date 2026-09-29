@@ -10,7 +10,7 @@ Storage-engine independent column compression enables [TINYBLOB](../../../refere
 
 This is performed by means of a new COMPRESSED [column attribute](../../../reference/sql-statements/data-definition/create/create-table.md#column-definitions):`COMPRESSED[=<compression_method>]`
 
-Currently the only supported compression method is `zlib`.
+The only supported compression method is `zlib`.
 
 ### Field Length Compatibility
 
@@ -73,7 +73,7 @@ When using the `COMPRESSED` attribute, note that FIELD LENGTH is reduced by 1; f
 
 ### Limitations
 
-* The only supported method currently is zlib.
+* The only supported method is zlib.
 * The [CSV](../../../server-usage/storage-engines/csv/) storage engine stores data uncompressed on-disk even if the COMPRESSED attribute is present.
 * It is not possible to create indexes over compressed columns.
 
