@@ -10,8 +10,8 @@ Commit emails for MariaDB are sent to [commits@lists.mariadb.org](https://lists.
 
 To allow others to see what you are working on in your MariaDB tree:
 
-1. subscribe to the email list
-2. configure git to send your commits to commits@mariab.org.
+1. [Subscribe](https://lists.mariadb.org/postorius/lists/commits.lists.mariadb.org/) to the email list.
+2. Configure git to send your commits to `commits@lists.mariadb.org`.
 
 Download the [post-commit git trigger](https://bazaar.launchpad.net/~maria-captains/mariadb-tools/trunk/view/head:/git_template/hooks/post-commit) script. Configure as:
 
