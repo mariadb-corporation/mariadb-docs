@@ -7,7 +7,7 @@ description: >-
 
 # MySQL Client Library 3.23.58
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:LGPL_MySQL_Client_Library_3.23.58) | **Release Notes**
+Download | **Release Notes**
 
 **Release date:** 30 Aug 2010
 

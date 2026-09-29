@@ -1,6 +1,6 @@
 # MariaDB 5.2.4 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.2.4) | [Release Notes](../../old-releases/5.2/5.2.4.md) | **Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
+[Download](https://archive.mariadb.org/mariadb-5.2.4/) | [Release Notes](../../old-releases/5.2/5.2.4.md) | **Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 6 Dec 2010
 

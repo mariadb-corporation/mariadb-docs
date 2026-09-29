@@ -30,7 +30,7 @@ Any new feature or combination of features can be switched on/off dynamically vi
 
 The first stable (GA) release of [MariaDB 5.3](changes-improvements-in-mariadb-5-3.md) was [MariaDB 5.3.5](5.3.5.md), which was released on 29 Feb 2012.
 
-You can download [the latest binaries of MariaDB 5.3 here](https://downloads.askmonty.org/MariaDB/5.3/), or get the latest [source code from launchpad](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code).
+You can download [the latest binaries of MariaDB 5.3 here](https://archive.mariadb.org/mariadb-5.3.12/), or get the latest [source code from launchpad](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code).
 
 ## Feature Comparison Matrix
 
