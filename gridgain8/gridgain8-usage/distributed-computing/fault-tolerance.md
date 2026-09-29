@@ -87,5 +87,3 @@ Available implementations:
   {% endtabs %}
 
 - `JobStealingFailoverSpi` — This implementation must be used only if you want to enable [job stealing](load-balancing.md#job-stealing).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

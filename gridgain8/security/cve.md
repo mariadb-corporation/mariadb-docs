@@ -27,5 +27,3 @@ A release can also fix vulnerabilities that do not yet have a CVE identifier. Ad
 [^asf]: NVD CVSS v3.1 base score. The Apache Software Foundation (CNA) rates this CVE 9.8 (v3.1) / 9.5 (v4.0).
 
 [^cvss30]: NVD CVSS v3.0 base score; no v3.1 score has been published for this CVE.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

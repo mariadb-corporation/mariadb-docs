@@ -572,10 +572,10 @@ Not supported.
 Client configuration only requires enabling SSL with an appropriate certificate:
 
 * [control.(sh|bat)](../reference/cli-tool/README.md)
-* [JDBC]({connectors}/sql/jdbc/jdbc-driver#using-ssl)
+* [JDBC]({connectors}/gridgain-8/sql/jdbc/jdbc-driver#using-ssl)
 * [REST](../reference/rest-api/README.md)
-* [ODBC]({connectors}/sql/odbc/connection-string-dsn)
-* [thin clients]({connectors}/thin-clients/getting-started-with-thin-clients)
+* [ODBC]({connectors}/gridgain-8/sql/odbc/connection-string-dsn)
+* [thin clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients)
 
 ### JAAS Authentication
 
@@ -1339,9 +1339,7 @@ The example above results in a user running under the server account with all th
 
 When authentication is configured in the cluster, all client applications must provide user credentials. Refer to the following pages for the information about specific clients:
 
-* [Thin clients]({connectors}/thin-clients/getting-started-with-thin-clients#authentication)
-* [JDBC driver]({connectors}/sql/jdbc/jdbc-driver#parameters)
-* [ODBC driver]({connectors}/sql/odbc/connection-string-dsn#supported-arguments)
+* [Thin clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients#authentication)
+* [JDBC driver]({connectors}/gridgain-8/sql/jdbc/jdbc-driver#parameters)
+* [ODBC driver]({connectors}/gridgain-8/sql/odbc/connection-string-dsn#supported-arguments)
 * [REST API](../reference/rest-api/README.md#security)
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

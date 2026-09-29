@@ -127,5 +127,3 @@ This is caused by the fact that all data and indexes get mixed in shared data st
 
 Thus, consider using the cache groups if you have a cluster of dozens and hundreds of nodes and caches, and you spot increased Java heap usage by internal structures, checkpointing performance drop, slow node connectivity to the cluster.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

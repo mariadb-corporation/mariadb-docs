@@ -510,5 +510,3 @@ There are a number of pre-defined resources that you can inject:
 | `SpringResource` | Injects resource from Spring's `ApplicationContext`. Use it whenever you would like to access a bean specified in Spring's application context XML configuration. |
 | `TaskContinuousMapperResource` | Injects an instance of `ComputeTaskContinuousMapper`. Continuous mapping allows emitting jobs from the task at any point, even after the initial map phase. |
 | `TaskSessionResource` | Injects an instance of the `ComputeTaskSession` resource, which defines a distributed session for a particular task execution. |
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

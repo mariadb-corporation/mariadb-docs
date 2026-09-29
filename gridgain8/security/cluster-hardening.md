@@ -55,5 +55,3 @@ Make sure only one Spring module is in the `/libs` directory. If multiple Spring
 ### Docker Installation
 
 To use Spring 6 in Docker, select the image with the `-spring6` postfix. This image will have Spring 6 enabled by default.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

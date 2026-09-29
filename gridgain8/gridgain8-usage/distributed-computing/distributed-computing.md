@@ -1130,5 +1130,3 @@ GridGain also provides a number of interfaces that can be used to provide additi
 - GridGain handles load balancing automatically, but you can adjust the type of load balancing used and the balancing configuration by using the [loadBalancingSpi](load-balancing.md);
 - GridGain reroutes failed jobs to other nodes by default. You can change the [failoverSpi](fault-tolerance.md) property to handle failed jobs in a different way;
 - Job priority can be configured by using the [CollisionSpi](job-scheduling.md).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

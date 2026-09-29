@@ -1661,7 +1661,7 @@ Use the SQL_QUERIES [system view](../monitoring/system-views.md#sql_queries) to 
 
 ### kill client
 
-This command drops the connection to the specific [client]({connectors}/thin-clients/getting-started-with-thin-clients).
+This command drops the connection to the specific [client]({connectors}/gridgain-8/clients/getting-started-with-thin-clients).
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -2851,5 +2851,3 @@ The command arguments are as follows.
 |Argument|Description|
 |---|---|
 |--in|The name of the file to use as a source of the metadata.|
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

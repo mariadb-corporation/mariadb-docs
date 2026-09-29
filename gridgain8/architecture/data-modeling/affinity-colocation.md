@@ -420,5 +420,3 @@ p1 = personCache.Get(new AffinityKey(1, companyId));
 unsupported
 {% endtab %}
 {% endtabs %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

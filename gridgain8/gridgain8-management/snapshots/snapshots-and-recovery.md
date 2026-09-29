@@ -21,5 +21,3 @@ GridGain snapshots implementation is different from Apache Ignite. If you are cu
 {% hint style="info" %}
 Data Snapshots and Recovery feature is available only with GridGain Ultimate Edition.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

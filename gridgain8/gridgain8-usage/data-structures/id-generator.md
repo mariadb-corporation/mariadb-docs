@@ -58,5 +58,3 @@ the next reservation has to be made.
 
 The default value for `atomicSequenceReserveSize` is `1000`. This default setting can be changed by modifying the
 `atomicSequenceReserveSize` property of `AtomicConfiguration`.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

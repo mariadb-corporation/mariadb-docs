@@ -66,5 +66,3 @@ If you maintain custom SPI implementations, adapt to these interface changes:
 - `CommunicationSpi<T>` requires `T extends Serializable` and an implementation of `getUnacknowledgedMessagesQueueSize()`.
 
 Custom `control.sh` command plugins are also unsupported (see [CLI Changes](operations.md)).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

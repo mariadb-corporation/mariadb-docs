@@ -80,5 +80,3 @@ LogisticRegressionModel mdl = trainer.fit(
 {% endcode %}
 
 All properties will be propagated for each pair one-versus-all `LogRegressionMultiClassTrainer`.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

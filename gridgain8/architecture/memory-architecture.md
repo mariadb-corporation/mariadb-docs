@@ -86,5 +86,3 @@ The concept is shown on the example of how GridGain stores a new cache entry if 
 ## Persistence
 
 GridGain provides a number of features that let you persist your data on disk with consistency guarantees. You can restart the cluster without losing the data, be resilient to crashes, and provide a storage for data when the amount of RAM is not sufficient. When native persistence is enabled, GridGain always stores all the data on disk, and loads as much data as it can into RAM for processing. Refer to the [Ignite Persistence](storage/native-persistence.md) section for further information.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

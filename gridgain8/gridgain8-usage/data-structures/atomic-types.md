@@ -61,5 +61,3 @@ The following table lists available configuration parameters:
 | `setBackups(int)` | The number of backups. | 1 |
 | `setCacheMode(CacheMode)` | Cache mode for all atomic types. | `PARTITIONED` |
 | `setAtomicSequenceReserveSize(int)` | Sets the number of sequence values reserved for `IgniteAtomicSequence` instances. | 1000 |
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

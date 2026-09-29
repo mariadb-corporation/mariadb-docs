@@ -606,5 +606,3 @@ Enable Snapshot Security via the `GG_SNAPSHOT_SECURITY_LEVEL` system property.
 ## Example
 
 Refer to `org.gridgain.examples.snapshots.SnapshotsExample` delivered as part of the GridGain Ultimate Edition to see how to work with snapshots.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -327,5 +327,3 @@ Allocation on local for process NUMA node, uses `void* numa_alloc_onnode(size_t)
     </bean>
 </property>
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

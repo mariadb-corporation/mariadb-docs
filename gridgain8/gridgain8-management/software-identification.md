@@ -73,5 +73,3 @@ The `name` field encodes the product and edition, for example:
 - `GridGain 8 Enterprise Edition`
 
 The `version` field encodes the full version including major and minor components. These can be mapped to end-of-standard-support (EOS) dates using the [Versioning and Support Lifecycle](versioning-and-support-lifecycle.md) page.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -68,5 +68,3 @@ Below are the recommended minimum for
 - Data replication may not work properly for caches that load data using [Data Streamers that disallow overwriting existing keys](../../gridgain8-usage/data-streaming.md#avoiding-overwriting-existing-keys). If you are going to use data replication with data streamers, make sure the `allowOverwrite` property of the data streamer is set to `true`. If the property is set to `false` when replication is started, correct replication is not guaranteed. Some keys may be not replicated and will be excluded from replication. You would need to manually repopulate the cache on the sender cluster with the `allowOverwrite` property set to `true`.
 - Data Center Replication should not be used with caches that have [access-based expiry policy](../../gridgain8-usage/configuring-caches/expiry-policies.md).
 - [Cache Interceptors](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/cache/CacheInterceptor.html) are not invoked in the remote cluster when it receives updates from the master cluster.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

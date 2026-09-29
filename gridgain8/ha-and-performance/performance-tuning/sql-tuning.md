@@ -132,8 +132,8 @@ AND c.name NOT LIKE 'O%';
 
 The force join order hint can be specified as follows:
 
-- [JDBC driver connection parameter]({connectors}/sql/jdbc/jdbc-driver#parameters)
-- [ODBC driver connection attribute]({connectors}/sql/odbc/connection-string-dsn#supported-arguments)
+- [JDBC driver connection parameter]({connectors}/gridgain-8/sql/jdbc/jdbc-driver#parameters)
+- [ODBC driver connection attribute]({connectors}/gridgain-8/sql/odbc/connection-string-dsn#supported-arguments)
 - If you use [SqlFieldsQuery](../../gridgain8-usage/sql/sql-api.md) to execute SQL queries, you can set the enforce join order hint by calling the `SqlFieldsQuery.setEnforceJoinOrder(true)` method.
 
 ## Increasing Index Inline Size
@@ -492,5 +492,3 @@ To control memory usage, use the following system properties:
   {% endhint %}
 
 - Use `IGNITE_H2_STATEMENT_CACHE_SIZE` to control the size of the prepared-statement cache per H2 connection. Default value is 256. This property does not need to be changed under most scenarios.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

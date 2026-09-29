@@ -133,5 +133,3 @@ The SQL query that contains subqueries has to fit into one map-reduce phase. So,
   ```
 
   In this case, there are two colocated tables countries and cities, and the subquery returns average amount people in the cities, but it does not rely on data colocation. As a result, GridGain has to collect data from all nodes first, requiring an extra map-reduce phase that cannot be executed, and the query fails.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -256,7 +256,7 @@ In order to begin utilizing Zeppelin, follow these steps:
 
 2. Extract Zeppelin into a directory of your choice. This directory will be referred to as `ZEPPELIN_HOME`.
 
-3. Copy `ignite-core-2.6.0.jar` from `IGNITE_HOME/libs` directory, which contains the [JDBC Thin Drive]({connectors}/sql/jdbc/jdbc-driver), to `ZEPPELIN_HOME/interpreter/jdbc` directory.
+3. Copy `ignite-core-2.6.0.jar` from `IGNITE_HOME/libs` directory, which contains the [JDBC Thin Drive]({connectors}/gridgain-8/sql/jdbc/jdbc-driver), to `ZEPPELIN_HOME/interpreter/jdbc` directory.
 
 Zeppelin will utilize this driver to retrieve optimization results from GA Grid.
 
@@ -380,5 +380,3 @@ After several generations, you will see the solution evolve to the final phrase 
 *Population* is the collection of potential solutions or Chromosomes.
 
 *Selection* is the process of choosing candidate solutions (Chromosomes) for the next generation.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

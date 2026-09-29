@@ -27,7 +27,7 @@ In some environments, the cluster may encounter a memory issue with an especiall
 - Use [Java Metrics](../reference/monitoring/jmx-metrics.md) to keep track of memory usage on the node.
 - Increase the amount of direct memory by setting the `MaxDirectMemorySize` JVM parameter. Specific memory requirement heavily depends on the amount of clients and the load performed by them.
 
-If the metrics show that you are running low on memory, use the `maxConnectionCnt` thin client [configuration parameter]({connectors}/thin-clients/java-thin-client) to limit the number of .
+If the metrics show that you are running low on memory, use the `maxConnectionCnt` thin client [configuration parameter]({connectors}/gridgain-8/clients/java-thin-client) to limit the number of .
 
 ## Cluster Does not Start After Field Type Changes
 
@@ -257,5 +257,3 @@ The example below shows the correct way to configure a consistent ID for reintro
     </property>
 </bean>
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

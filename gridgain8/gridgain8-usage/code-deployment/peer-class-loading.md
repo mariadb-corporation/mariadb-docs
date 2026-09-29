@@ -146,5 +146,3 @@ User version is specified in the `META-INF/ignite.xml` file of your class path a
 ```
 
 By default, all GridGain startup scripts (ignite.sh or ignite.bat) pick up the user version from the `IGNITE_HOME/config/userversion` folder. Usually, you just need to update the user version under that folder. However, in case of GAR or JAR deployment, you should remember to provide the `META-INF/ignite.xml` file with the desired user version in it.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

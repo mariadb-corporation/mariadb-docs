@@ -135,5 +135,3 @@ ignite.compute().run(new OuterRunnable());
 
 If an application attempts to execute a compute task in a custom pool which is not defined in the configuration of the node, then a special warning message will be printed to the logs, and the task will be picked up by the public pool for execution.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

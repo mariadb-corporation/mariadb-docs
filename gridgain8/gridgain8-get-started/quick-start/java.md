@@ -28,7 +28,7 @@ Depending on your environment and what your plan is, you may want to open additi
 
 - 47100-47200 — ports used by GridGain nodes to communicate. Specific ports used depend on node configuration.
 - 47500-47600 — ports used by GridGain nodes to discover other nodes in the network. Specific ports used depend on node configuration.
-- 10800 — the port used for [thin clients]({connectors}/thin-clients/getting-started-with-thin-clients), [JDBC]({connectors}/sql/jdbc/jdbc-driver) and [ODBC]({connectors}/sql/odbc/odbc-driver) connections.
+- 10800 — the port used for [thin clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients), [JDBC]({connectors}/gridgain-8/sql/jdbc/jdbc-driver) and [ODBC]({connectors}/gridgain-8/sql/odbc/odbc-driver) connections.
 - 8080 — the port used for [REST API](../../reference/rest-api/README.md).
 - 11211 — the port used by [control script](../../reference/cli-tool/README.md) calls. This port should only be opened on nodes that need to send control script messages to other nodes.
 
@@ -179,5 +179,3 @@ From here, you may want to:
 ## Running GridGain with Java 11 or Later
 
 {% include "../../.gitbook/includes/gg8-java9.md" %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

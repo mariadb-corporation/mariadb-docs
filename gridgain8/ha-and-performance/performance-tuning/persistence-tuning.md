@@ -469,5 +469,3 @@ Consider using 3D XPoint drives instead of regular SSDs to avoid the bottlenecks
 setting and constant garbage collection at the SSD level.
 Read more [here](http://dmagda.blogspot.com/2017/10/3d-xpoint-outperforms-ssds-verified-on.html).
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

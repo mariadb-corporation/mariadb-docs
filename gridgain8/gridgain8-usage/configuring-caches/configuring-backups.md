@@ -139,5 +139,3 @@ The write synchronization mode can be set to the following values:
 | FULL_SYNC | Client node will wait for write or commit to complete on all participating remote nodes (primary and backup). |
 | FULL_ASYNC | Client node does not wait for responses from participating nodes, in which case remote nodes may get their state updated slightly after any of the cache write methods complete or after the Transaction.commit() method completes. |
 | PRIMARY_SYNC | This is the default mode. Client node will wait for write or commit to complete on primary node, but will not wait for backups to be updated. |
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

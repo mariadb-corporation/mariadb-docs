@@ -10,8 +10,62 @@ This section describes how to monitor a GridGain cluster and collect metrics. It
 
 The following topics are covered:
 
-- [Introduction: Monitoring and Metrics](intro.md)
-- [Configuring Metrics](configuring-metrics.md)
-- [Tracing](tracing.md)
+{% columns %}
+{% column %}
+{% content-ref url="configuring-metrics.md" %}
+[Configuring Metrics](configuring-metrics.md)
+{% endcontent-ref %}
+{% endcolumn %}
 
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+{% column %}
+How to enable or disable GridGain metrics — cache, data region, persistence, and index operation metrics — through configuration, JMX beans, or system properties.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="intro.md" %}
+[Introduction: Monitoring and Metrics](intro.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+An overview of monitoring and metrics in GridGain: the available approaches, what to monitor at each layer, and the scope of global vs. node-specific metrics.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="tracing.md" %}
+[Tracing](tracing.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to configure OpenCensus distributed tracing in GridGain, enable trace sampling from the control script or programmatically, and analyze trace data.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="monitoring-with-grafana.md" %}
+[Monitoring with Grafana and Prometheus](monitoring-with-grafana.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Configure monitoring of a GridGain 8 cluster with Grafana and Prometheus, using the JMX exporter as a Java agent to expose metrics.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="transaction-time-tracking.md" %}
+[Tracking System and User Time Spent on Transactions](transaction-time-tracking.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Track the system and user time GridGain 8 spends on transactions, and configure logging thresholds and sampling for long-running transactions.
+{% endcolumn %}
+{% endcolumns %}

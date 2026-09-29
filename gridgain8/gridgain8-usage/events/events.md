@@ -286,5 +286,3 @@ Refer to the [authorization and permissions](../../security/authorization-permis
 ## Data Replication Events
 
 Refer to the [Data Replication documentation](../../gridgain8-management/data-center-replication/managing-and-monitoring.md#data-replication-events).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

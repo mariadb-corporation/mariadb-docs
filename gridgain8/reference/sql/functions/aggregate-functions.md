@@ -94,8 +94,8 @@ This function can only be used with colocated data; you have to use the `colocat
 The collocated hint can be set as follows:
 
 - `SqlFieldsQuery.collocated = true` if you use [GridGain SQL API](../../../gridgain8-usage/sql/sql-api.md) to execute queries
-- [JDBC connection string parameter]({connectors}/sql/jdbc/jdbc-driver#parameters)
-- [ODBC connection string argument]({connectors}/sql/odbc/connection-string-dsn#supported-arguments)
+- [JDBC connection string parameter]({connectors}/gridgain-8/sql/jdbc/jdbc-driver#parameters)
+- [ODBC connection string argument]({connectors}/gridgain-8/sql/odbc/connection-string-dsn#supported-arguments)
 
 ### Example
 
@@ -153,8 +153,8 @@ This function can only be used with colocated data and you have to use the `coll
 The colocated hint can be set as follows:
 
 - `SqlFieldsQuery.collocated=true` if you use [GridGain SQL API](../../../gridgain8-usage/sql/sql-api.md) to execute queries
-- [JDBC connection string parameter]({connectors}/sql/jdbc/jdbc-driver#parameters)
-- [ODBC connection string argument]({connectors}/sql/odbc/connection-string-dsn#supported-arguments)
+- [JDBC connection string parameter]({connectors}/gridgain-8/sql/jdbc/jdbc-driver#parameters)
+- [ODBC connection string argument]({connectors}/gridgain-8/sql/odbc/connection-string-dsn#supported-arguments)
 
 ### Example
 
@@ -322,5 +322,3 @@ Calculate the variance of players' age:
 ```sql
 SELECT VAR_SAMP(age) FROM Players;
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -140,5 +140,3 @@ setIgniteHome: command not found
 - For nodes with a persistent storage, increase the `dataStorage.checkpointThreads` value. The default value is `4`, but we recommend you set it to a value between `16` and `32` on z/OS nodes for best checkpointing speed.
 - If your load profile includes intensive network usage, consider the following `TcpCommunicationSpi` parameters: `socketWriteTimeout=5000` (ms), `usePairedConnections=true`, pick the `connectionsPerNode` value from between `2` and `8`.
 - Nodes may benefit from a larger [striped pool size](../../ha-and-performance/performance-tuning/thread-pools-tuning.md#striped-pool), increase it by setting `IgniteConfiguration.stripedPoolSize` to 32.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

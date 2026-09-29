@@ -139,5 +139,3 @@ double prediction = mdl.apply(x);
 ## Examples
 
 To see how the Decision Tree can be used in practice, try this [classification example](https://github.com/apache/ignite-extensions/tree/master/modules/ml-ext/examples/src/main/java/org/apache/ignite/examples/ml/tree/DecisionTreeClassificationTrainerExample.java) and this [regression example](https://github.com/apache/ignite-extensions/tree/master/modules/ml-ext/examples/src/main/java/org/apache/ignite/examples/ml/tree/DecisionTreeRegressionTrainerExample.java) that are available on GitHub and delivered with every Apache Ignite distribution.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

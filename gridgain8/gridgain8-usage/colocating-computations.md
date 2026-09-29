@@ -641,5 +641,3 @@ class Processor : ICacheEntryProcessor<string, Guid, Guid, Guid>
 ```
 {% endtab %}
 {% endtabs %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

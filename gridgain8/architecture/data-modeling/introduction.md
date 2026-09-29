@@ -59,5 +59,3 @@ For more information on how to configure and use binary objects, refer to the [W
 ## Data Partitioning
 
 Data partitioning is a method of subdividing large sets of data into smaller chunks and distributing them between all server nodes in a balanced manner. Data partitioning is discussed at length in the [Data Partitioning](data-partitioning.md) section.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -82,5 +82,3 @@ Discovery configuration is the same as for a manual EC2 installation. See [Confi
 ## Troubleshooting Your AWS Deployment
 
 GridGain Systems offers 14 days of free [GridGain Standard Enterprise Support](https://www.gridgain.com/partners/aws-support) to new organizations that deploy the GridGain Enterprise Edition on AWS through the AWS Marketplace. This offer is limited to one 14-day period of free support per organization. Our standard annual support subscriptions are available at any time. Just complete the form to register for your 14 days of complementary support services.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

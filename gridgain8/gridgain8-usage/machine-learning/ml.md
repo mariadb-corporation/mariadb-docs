@@ -77,5 +77,3 @@ Add the Maven dependency below to your project in order to include the ML functi
 ```
 
 Replace `${gridgain.version}` with an actual GridGain version.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

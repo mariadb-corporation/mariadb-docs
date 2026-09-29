@@ -48,5 +48,3 @@ The following support options are available for Standard and Premium support cus
 ### GridGain Web Console Releases: Extended Support
 
 Standard support for GridGain Web Console has ended on October 2, 2021.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -352,5 +352,3 @@ Once the storage is available, the updates the storage kept when it went down wi
 {% hint style="info" %}
 If your `DrSenderConfiguration` configuration has multiple connections with durable and non-durable storages, then the sender will treat the storages as durable only if all storages are annotated with `@DurableStorage`.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

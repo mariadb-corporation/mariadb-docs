@@ -1056,5 +1056,3 @@ This command supports [connection parameters and output parameters](#parameters)
 | 18760 | Invalid parallelism level. | Use a positive parallelism level. |
 | 18800 | Command executed successfully, but snapshot utility failed to write result to output file. | Check the output file name and permissions. |
 | 18810 | Command failed and snapshot utility failed to write error code to output file. | Check the output file name and permissions. |
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

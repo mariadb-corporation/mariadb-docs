@@ -87,5 +87,3 @@ When the `IGNITE_MARSHALLER_BLACKLIST` system property is used, an attempt to de
 Exception in thread "main" javax.cache.CacheException: class org.apache.ignite.IgniteCheckedException: Deserialization of class ignite.myexamples.model.SomeOtherFile is disallowed.
 ```
 {% endcode %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

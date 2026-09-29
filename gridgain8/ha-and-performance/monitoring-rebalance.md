@@ -175,5 +175,3 @@ This is useful for confirming that all nodes have converged after rebalancing co
 {% hint style="info" %}
 This bean is deprecated. Monitor cache group metrics instead.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -399,5 +399,3 @@ To stop the warming up using `JMX`, use the method below:
 ```java
 org.apache.ignite.mxbean.WarmUpMXBean#stopWarmUp
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

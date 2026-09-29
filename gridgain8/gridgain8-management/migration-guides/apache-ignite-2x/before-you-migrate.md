@@ -124,5 +124,3 @@ These changes affect cluster configuration, deployment, and operational tooling.
 | CLI and script changes | You have operational scripts or automation | Code | [CLI Changes](operations.md) |
 | Monitoring (logs, metrics, system views, events) | You have monitoring or log-parsing tooling | Code | [Monitoring](operations.md#monitoring) |
 | Docker / container setup | You run in containers | Mechanical | [Docker](artifacts-and-modules.md#docker) |
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

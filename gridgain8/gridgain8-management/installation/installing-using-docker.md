@@ -238,5 +238,3 @@ The following parameters can be passed as environment variables in the docker co
 The GridGain Docker image includes a SWID tag. It is located at `/opt/gridgain/swid/gridgain.swidtag` inside the Docker container.
 
 See [Software Identification](../software-identification.md) for details.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

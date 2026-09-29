@@ -333,5 +333,3 @@ To change the certificate in this case:
 |`trustStorePassword`|The trust store password.|`N/A`|
 |`trustStoreType`|The trust store type.|`PKCS12`|
 |`trustManagers`|A list of pre-configured trust managers.|`N/A`|
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

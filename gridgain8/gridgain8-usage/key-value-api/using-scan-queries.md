@@ -195,5 +195,3 @@ QueryCursor<int64_t, Person> cursor = cache.Query(sq);
 
 - [Execute scan query via REST API](../../reference/rest-api/README.md#sql-scan-query-execute)
 - [Cache Query Events](../events/events.md#cache-query-events)
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

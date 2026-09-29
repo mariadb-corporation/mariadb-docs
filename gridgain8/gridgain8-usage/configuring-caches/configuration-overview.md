@@ -182,5 +182,3 @@ unsupported
 {% endtabs %}
 
 Once the cache template is registered in the cluster, as shown in the code snippet above, you can use it to create another cache with the same configuration.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

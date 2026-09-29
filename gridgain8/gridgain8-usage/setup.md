@@ -261,5 +261,3 @@ Logs play an important role when it comes to troubleshooting and finding what we
 - Do not store log files in the `/tmp` folder. This folder is cleared up every time the server is restarted.
 - Make sure that there is enough space available on the storage where the log files are stored.
 - Archive old log files periodically to save on storage space.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

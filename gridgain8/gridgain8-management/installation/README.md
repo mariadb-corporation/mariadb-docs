@@ -2,7 +2,6 @@
 description: >-
   Install and start GridGain — system requirements, the binary distribution,
   starting a node with default or custom configuration, and deployment options.
-icon: download
 ---
 
 # Installation and Upgrade
@@ -91,4 +90,98 @@ You will see output similar to this:
 
 Congratulations! You've just launched your first GridGain cluster.
 
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+{% columns %}
+{% column %}
+{% content-ref url="deployment-modes.md" %}
+[Deployment Modes](deployment-modes.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+An overview of GridGain deployment modes: cluster modes (in-memory data grid, system of record, heterogeneous) and application modes (client-server, embedded).
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="installing-on-zos.md" %}
+[Installation on z/OS](installing-on-zos.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+System requirements, installation steps, configuration, and startup guidance for running GridGain on z/OS.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="installing-using-docker.md" %}
+[Installing Using Docker](installing-using-docker.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to run GridGain in Docker: pulling the image, running in-memory and persistent clusters, providing configuration and license files, and enabling modules.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="installing-using-zip.md" %}
+[Installing Using ZIP Archive](installing-using-zip.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to install GridGain from the ZIP archive distribution, including prerequisites and software identification.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="aws/" %}
+[AWS](aws/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Options for deploying GridGain on Amazon Web Services, including prebuilt AMIs, manual EC2 installation, Terraform, and multi-availability-zone setups.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="azure/" %}
+[Microsoft Azure](azure/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Options for deploying GridGain on Microsoft Azure.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="kubernetes/" %}
+[Installation and Upgrade](kubernetes/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Deploy and manage GridGain clusters on Kubernetes, including managed services such as Amazon EKS, Azure AKS, Google GKE, and RedHat OpenShift.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="operator/" %}
+[GridGain Operator](operator/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+GridGain Operator for Kubernetes automates the deployment and management of GridGain and Apache Ignite clusters in a Kubernetes environment.
+{% endcolumn %}
+{% endcolumns %}

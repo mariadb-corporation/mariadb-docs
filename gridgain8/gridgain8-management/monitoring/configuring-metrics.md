@@ -280,5 +280,3 @@ To switch the metrics off for all indexes on a node, regardless of the cache sta
 The default value is `false`.
 The property is read when an index tree is created, so set it before you start the node.
 See [Setting JVM Options](../../gridgain8-usage/starting-nodes.md#setting-jvm-options) to learn about different ways to set system properties.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

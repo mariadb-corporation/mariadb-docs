@@ -53,5 +53,3 @@ INSERT INTO Person (id, name, city_id) VALUES (1, 'John Doe', 3);
 
 UPDATE City SET population = population + 1 WHERE id = 3;
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

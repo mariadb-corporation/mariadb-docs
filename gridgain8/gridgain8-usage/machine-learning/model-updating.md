@@ -64,5 +64,3 @@ Every update can increase the model composition size. All models depend upon eac
 ## Random Forest (RF)
 
 The RF trainer just learns new decision trees on a given dataset and adds them to an already learned composition. In this way, RF requires feature vector compatibility and the dataset should have a size bigger than one element because a decision tree cannot be trained on such a small dataset. In contrast to GDB models in a trained composition, RF models aren’t dependent upon each other and if the composition is too big then a user can manually remove some models.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

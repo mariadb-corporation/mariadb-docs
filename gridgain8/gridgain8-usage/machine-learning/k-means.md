@@ -60,5 +60,3 @@ KMeansModel knnMdl = trainer.fit(
 To see how K-Means clustering can be used in practice, try this example that is available on GitHub and delivered with every Apache Ignite distribution.
 
 The training dataset is the subset of the Iris dataset (classes with labels 1 and 2, which are presented linear separable two-classes dataset) which can be loaded from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/iris).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

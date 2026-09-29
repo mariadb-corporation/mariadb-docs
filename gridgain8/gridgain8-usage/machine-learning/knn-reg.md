@@ -47,5 +47,3 @@ double prediction = knnMdl.apply(vectorizedData);
 An example of the k-NN regression is included in the GridGain distribution package.
 
 The training dataset is the Computer Hardware Data Set which can be loaded from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Computer+Hardware).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

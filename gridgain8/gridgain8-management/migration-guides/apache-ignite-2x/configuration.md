@@ -226,5 +226,3 @@ After the first GridGain node starts, run two checks:
 * *Smoke-test a known key.* Run a key-based `get` against a row you know exists. If it returns nothing while `SELECT` over the same row succeeds, GridGain is using a different value than what is on disk.
 
 For background, see [Working with Binary Objects](../../../gridgain8-usage/key-value-api/binary-objects.md).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -249,7 +249,7 @@ After starting the second node, you should see the following message in the cons
 
 ## Connecting to the Cluster
 
-You can connect to the cluster using various methods, including [thin clients](#connecting-with-a-thin-client), [REST API](../../../reference/rest-api/README.md), [JDBC]({connectors}/sql/jdbc/jdbc-driver)/[ODBC]({connectors}/sql/odbc/odbc-driver).
+You can connect to the cluster using various methods, including [thin clients](#connecting-with-a-thin-client), [REST API](../../../reference/rest-api/README.md), [JDBC]({connectors}/gridgain-8/sql/jdbc/jdbc-driver)/[ODBC]({connectors}/gridgain-8/sql/odbc/odbc-driver).
 For each method, you need to open a specific port on the instance. For example, for the REST API the port is 8080, for JDBC and thin clients it's 10800, etc.
 
 ### Connecting a Client Node
@@ -340,8 +340,8 @@ $ curl http://<instance_public_IP>:8080/ignite?cmd=version
 
 ### Connecting with a Thin Client
 
-Let's create a simple application that connects to our cluster with a [java thin client]({connectors}/thin-clients/java-thin-client).
-You can use other [supported thin clients]({connectors}/thin-clients/getting-started-with-thin-clients).
+Let's create a simple application that connects to our cluster with a [java thin client]({connectors}/gridgain-8/clients/java-thin-client).
+You can use other [supported thin clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients).
 
 The default port for client connection is 10800.
 You need to tell the thin client the public address of one of your instances and this port.
@@ -361,5 +361,3 @@ client.close();
 ```
 
 This simple piece of code creates a cache in the cluster and puts one key-value pair into it.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

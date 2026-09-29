@@ -245,5 +245,3 @@ For all i, where i is a number of column, maxabs_i is the value of the absolute 
 `MaxAbsScalerTrainer` computes summary statistics on a data set and produces a `MaxAbsScalerPreprocessor`
 
 To see how the `MaxAbsScalerPreprocessor` can be used in practice, try this [tutorial example](https://github.com/apache/ignite-extensions/tree/master/modules/ml-ext/examples/src/main/java/org/apache/ignite/examples/ml/preprocessing/MaxAbsScalerExample.java).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

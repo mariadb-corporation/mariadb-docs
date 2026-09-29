@@ -12,8 +12,38 @@ Data replication affects only caches. It does not copy cluster configurations, s
 
 The following topics provide information about configuring and managing data center replication:
 
-- [Introduction](introduction.md)
-- [Configuring Replication](configuring-replication.md)
-- [Managing and Monitoring](managing-and-monitoring.md)
+{% columns %}
+{% column %}
+{% content-ref url="configuring-replication.md" %}
+[Configuring Replication](configuring-replication.md)
+{% endcontent-ref %}
+{% endcolumn %}
 
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+{% column %}
+How to configure GridGain data center replication — cluster IDs, sender and receiver nodes, cache replication, conflict resolution, and related tuning properties.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="introduction.md" %}
+[Introduction](introduction.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How GridGain data center replication works, including active-passive and active-active modes, supported scenarios, capacity, and known limitations.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="managing-and-monitoring.md" %}
+[Managing and Monitoring Replication](managing-and-monitoring.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to manage and monitor GridGain data center replication — starting, stopping, pausing, JMX beans, events, failure scenarios, and sender storage management.
+{% endcolumn %}
+{% endcolumns %}

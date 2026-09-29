@@ -49,5 +49,3 @@ Supported GridGain and Apache Ignite versions:
 
 - GridGain 8.7.20+
 - Apache Ignite 2.9.0+
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

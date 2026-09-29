@@ -360,7 +360,7 @@ You need to configure the discovery mechanism to use `TcpDiscoveryKubernetesIpFi
 
 ### Connecting with Thin Clients
 
-The following code snippet illustrates how to connect to your cluster using the [java thin client]({connectors}/thin-clients/java-thin-client). You can use other thin clients in the same way.
+The following code snippet illustrates how to connect to your cluster using the [java thin client]({connectors}/gridgain-8/clients/java-thin-client). You can use other thin clients in the same way.
 Note that we use the external IP address (LoadBalancer Ingress) of the service.
 
 ```java
@@ -381,5 +381,3 @@ $ curl http://13.86.186.145:8080/ignite?cmd=version
 
 Join our free instructor-led training sessions to explore the best practices of using Kubernetes and Apache Ignite.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -28,5 +28,3 @@ If a conflict is detected and a conflict resolver is not set, then the incoming 
 |---|---|---|
 | `setConflictResolverMode(CacheConflictMode)` | Conflict resolution mode. | `AUTO` |
 | `setConflictResolver(CacheConflictResolver)` | Conflict resolver. |  |
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

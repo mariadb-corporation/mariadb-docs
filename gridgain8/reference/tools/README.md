@@ -8,7 +8,26 @@ description: >-
 
 This section describes third-party tools you can use to query, analyze, and visualize data stored in a GridGain cluster:
 
-- [SQLLine](sqlline.md)
-- [Tableau](tableau.md)
+{% columns %}
+{% column %}
+{% content-ref url="sqlline.md" %}
+[SQLLine](sqlline.md)
+{% endcontent-ref %}
+{% endcolumn %}
 
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+{% column %}
+Use the SQLLine console utility shipped with GridGain and Ignite to connect to a cluster and run SQL commands.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="tableau.md" %}
+[Tableau](tableau.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Connect Tableau to a GridGain or Ignite cluster over the ODBC driver to query and visualize distributed data.
+{% endcolumn %}
+{% endcolumns %}

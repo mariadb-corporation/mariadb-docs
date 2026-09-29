@@ -79,5 +79,3 @@ QueryCursor<Cache.Entry<Integer, Person>> cursor = cache.query(
         .setFilter((k, v) -> v.getName().contains("Vasya"))
 );
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

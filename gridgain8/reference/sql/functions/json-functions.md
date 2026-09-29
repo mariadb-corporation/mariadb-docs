@@ -168,5 +168,3 @@ Extract the 'town' value from the 'info' JSON string.
 ```sql
 select JSON_VALUE('{"info":{"address":[{"town":"Paris"},{"town":"London"}]}}','$.info.address[0].town')
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

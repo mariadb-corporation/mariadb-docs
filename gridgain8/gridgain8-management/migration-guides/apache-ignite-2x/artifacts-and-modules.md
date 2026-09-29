@@ -51,5 +51,3 @@ For the complete instructions on available Docker images and installation, see [
 - `ignite-json` is not available. Handle JSON-to-BinaryObject REST conversion with a custom [`ConnectorMessageInterceptor`](https://www.gridgain.com/sdk/gridgain8/latest/javadoc/org/apache/ignite/configuration/ConnectorMessageInterceptor.html) instead.
 - Most `ignite-*-ext` extensions from Maven Central are compatible with GridGain; several have built-in GridGain equivalents (AWS, GCE, Spring, ZooKeeper IP finder).
 - Incompatible extensions with no equivalent: `ignite-azure-ext` (use DNS-based discovery), `ignite-performance-statistics-ext` (use JMX/APM), `ignite-spring-session-ext`, and `ignite-storm-ext`.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -44,5 +44,3 @@ latch.close();
 {% hint style="info" %}
 Remember to close the CountDownLatch after you are done with it to avoid keeping it in memory.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

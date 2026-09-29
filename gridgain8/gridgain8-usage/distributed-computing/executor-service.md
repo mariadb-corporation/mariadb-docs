@@ -34,5 +34,3 @@ ClusterGroup workerGrp = ignite.cluster().forAttribute("ROLE", "worker");
 // Get an executor service for the cluster group.
 ExecutorService exec = ignite.executorService(workerGrp);
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

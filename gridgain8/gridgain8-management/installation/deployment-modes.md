@@ -30,7 +30,7 @@ As a rule of thumb, follow this logic if you are in doubt over which client to u
 
 - Java, .NET, and C++ developers - use thin clients for most APIs including key-value, SQL, continuous queries, transactions, and compute tasks. Use thick clients for more sophisticated compute grid APIs, machine learning capabilities, etc.
 - JDBC thin vs JDBC thick - use the thin version by default. Fallback to the thick client only if you need faster performance and enabling partition-awareness for the thin driver hasn't improved performance enough for your use case.
-- Python, Node.JS, PHP, and other programming languages developers - you don't have any alternatives so your choice is simple: use the existing [thin clients]({connectors}/thin-clients/getting-started-with-thin-clients).
+- Python, Node.JS, PHP, and other programming languages developers - you don't have any alternatives so your choice is simple: use the existing [thin clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients).
 
 ### Thin Client Proxy and Partition Awareness
 
@@ -152,5 +152,3 @@ restart of embedded server nodes (your storage).
 If there is no need to cache the entire data set on the application end, then consider [near-caches](../../gridgain8-usage/near-caches.md),
 which let you keep frequently accessed records on the application end.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

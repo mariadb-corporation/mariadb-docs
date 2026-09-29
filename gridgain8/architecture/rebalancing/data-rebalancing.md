@@ -224,5 +224,3 @@ The following table lists the properties of `IgniteConfiguration` related to reb
 ## Monitoring Rebalancing Process
 
 You can monitor the [rebalancing process for specific caches using JMX](../../reference/monitoring/jmx-metrics.md#monitoring-rebalancing).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

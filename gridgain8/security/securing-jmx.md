@@ -67,5 +67,3 @@ You may be required to have root access to execute some of the above commands.
 ## Advanced Authentication Techniques
 
 File-based authentication as described above doesn't provide enough security in most cases and is suitable only during the development process. When running in production, you should consider using SSL and secure authentication protocols (like LDAP). For more information and details refer to this [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

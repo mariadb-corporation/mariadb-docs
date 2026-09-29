@@ -105,5 +105,3 @@ Use the `ShutdownPolicy.GRACEFUL` policy to enforce the historical rebalancing e
 IgniteConfiguration cfg;
 cfg.setShutdownPolicy(ShutdownPolicy.GRACEFUL);
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

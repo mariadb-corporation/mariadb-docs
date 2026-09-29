@@ -178,5 +178,3 @@ When the size of the data sample is known, the total size of the entire dataset 
 `5 * 271.1 = 1355.5 MB`
 
 This is the size of the data converted into the internal binary format. The total size of the persistent storage includes the backup copies (if they are configured), WAL files, and a negligible amount of metadata. See [this page](capacity-planning.md#disk-space-usage-example) for details.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

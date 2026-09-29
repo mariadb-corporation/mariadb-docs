@@ -273,5 +273,3 @@ apache-ignite-cluster-0   0/1     Pending       0          0s
 apache-ignite-cluster-0   0/1     ContainerCreating   0          0s
 apache-ignite-cluster-0   0/1     Running             0          5s
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -2,7 +2,6 @@
 description: >-
   How GridGain redistributes partitions across nodes as the cluster topology
   changes — full and historical rebalancing, and partition loss handling.
-icon: arrows-rotate
 ---
 
 # Rebalancing
@@ -12,26 +11,35 @@ When nodes join or leave the cluster, GridGain moves partitions between nodes to
 {% columns %}
 {% column %}
 {% content-ref url="data-rebalancing.md" %}
-[data-rebalancing](data-rebalancing.md)
+[Data Rebalancing](data-rebalancing.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
+How GridGain redistributes partitions across nodes to keep data balanced, including rebalancing modes, thread pool, message throttling, and monitoring.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="historical-rebalancing.md" %}
-[historical-rebalancing](historical-rebalancing.md)
+[Historical Rebalancing](historical-rebalancing.md)
 {% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How historical rebalancing transfers only the WAL delta accumulated while a persistent node was offline, its requirements, sizing, and configuration.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
 {% content-ref url="partition-loss-policy.md" %}
-[partition-loss-policy](partition-loss-policy.md)
+[Partition Loss Policy](partition-loss-policy.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
+How GridGain handles lost partitions through partition loss policies, how to listen for loss events, reset lost partitions, and recover in each cluster type.
 {% endcolumn %}
 {% endcolumns %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

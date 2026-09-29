@@ -58,5 +58,3 @@ Permissions for `tenant2` are similar, but allows access to cache `dataCache_ten
 }
 ```
 {% endcode %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

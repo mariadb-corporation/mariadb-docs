@@ -74,5 +74,3 @@ Most deployments configure security through files and never touch code. If you a
 4. Review any role that now requires the broader `ADMIN_OPS`, and confirm that is acceptable under least privilege.
 5. Start a secured node. If GridGain reports an unknown permission, remove or remap the offending Ignite 2.x permission before retrying.
 6. Test each migrated role end to end: cluster activate/deactivate, baseline change, node stop, SQL `KILL QUERY`, and user create/drop.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

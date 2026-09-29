@@ -70,5 +70,3 @@ control.bat --host <hostName> --port <port> --defragmentation cancel
 {% hint style="info" %}
 To reduce disk space requirements during defragmentation, caches are defragmented one by one (if a defragmentation of more than one cache is requested). To calculate additional required space, find the cache that occupies the most disk space. The same amount of disk space is required for defragmentation at max.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

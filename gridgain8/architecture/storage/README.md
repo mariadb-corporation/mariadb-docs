@@ -8,4 +8,26 @@ description: >-
 
 This section covers how GridGain stores data beyond RAM. It describes [Native Persistence](native-persistence.md), which durably stores all data on disk and loads as much as it can into RAM for processing, and [Swapping](swapping.md), which lets the operating system move in-memory data to disk to avoid out-of-memory errors.
 
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+{% columns %}
+{% column %}
+{% content-ref url="native-persistence.md" %}
+[Ignite Persistence](native-persistence.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+GridGain Native (Ignite) Persistence — how data partitions, checkpointing, and write-ahead logging keep data durable on disk, and how to configure them.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="swapping.md" %}
+[Swapping](swapping.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How GridGain uses operating-system swapping to move in-memory data to disk as an extension of RAM, and how to enable it in the data region configuration.
+{% endcolumn %}
+{% endcolumns %}

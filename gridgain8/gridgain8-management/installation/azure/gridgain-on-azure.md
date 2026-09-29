@@ -156,7 +156,7 @@ When two nodes are started with the above configuration, you should see the foll
 
 ## Connecting to the Cluster
 
-You can connect to the cluster using various methods, including [thin clients](#connecting-with-thin-clients), [REST API](../../../reference/rest-api/README.md), [JDBC]({connectors}/sql/jdbc/jdbc-driver)/[ODBC]({connectors}/sql/odbc/odbc-driver).
+You can connect to the cluster using various methods, including [thin clients](#connecting-with-thin-clients), [REST API](../../../reference/rest-api/README.md), [JDBC]({connectors}/gridgain-8/sql/jdbc/jdbc-driver)/[ODBC]({connectors}/gridgain-8/sql/odbc/odbc-driver).
 For each method, you need to open a specific port on the virtual machine.
 For example, for the REST API the port is 8080, for JDBC and thin clients it's 10800, etc.
 
@@ -267,8 +267,8 @@ For a client node to join the cluster from your local machine, perform the follo
 
 ### Connecting with Thin Clients
 
-Let's create a simple application that connects to our cluster with a [java thin client]({connectors}/thin-clients/java-thin-client).
-You can use other [supported thin clients]({connectors}/thin-clients/getting-started-with-thin-clients).
+Let's create a simple application that connects to our cluster with a [java thin client]({connectors}/gridgain-8/clients/java-thin-client).
+You can use other [supported thin clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients).
 
 The default port for client connection is 10800.
 You need to tell the thin client the public address of one of your virtual machine and this port.
@@ -303,5 +303,3 @@ If you enabled the 'ignite-rest-http' module and opened port 8080, you can send 
 $ curl http://<VM_public_IP>:8080/ignite?cmd=version
 {"successStatus":0,"error":null,"sessionToken":null,"response":"8.10"}
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -40,5 +40,3 @@ In this example we specify trainer and metric as parameters, after that we pass 
 ## Examples
 
 To see how the Cross Validation can be used in practice, try [this example](https://github.com/apache/ignite-extensions/tree/master/modules/ml-ext/examples/src/main/java/org/apache/ignite/examples/ml/selection/cv/CrossValidationExample.java), and see [step 8 of the ML Tutorial](https://github.com/apache/ignite-extensions/tree/master/modules/ml-ext/examples/src/main/java/org/apache/ignite/examples/ml/tutorial), available on GitHub and delivered with every Apache Ignite distribution.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

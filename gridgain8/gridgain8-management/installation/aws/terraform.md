@@ -44,5 +44,3 @@ Below is the example of the deployment that will be created if the `public_acces
 Below is the example of the deployment that will be created if the `public_access_enable` variable is set to `true`:
 
 ![](../../../.gitbook/assets/gg8-terraform2.png)
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

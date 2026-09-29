@@ -258,5 +258,3 @@ Random-LRU-2 outperforms LRU by resolving the "one-hit wonder" problem: if a dat
 ## On-Heap Cache Eviction
 
 Refer to the [Configuring Eviction Policy for On-Heap Caches](../configuring-caches/on-heap-caching.md#configuring-eviction-policy) section for the instruction on how to configure eviction policy for on-heap caches.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

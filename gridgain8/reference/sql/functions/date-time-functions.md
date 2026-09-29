@@ -451,5 +451,3 @@ Return the year from CREATED:
 ```sql
 YEAR(CREATED)
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -224,5 +224,3 @@ In this example, we access the data using binary objects. This means that the da
 {% hint style="info" %}
 You can also get the cache without keeping the binary format and access/work with objects of the `City` class. In this case, the value class must be available in the classpath of the server nodes.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

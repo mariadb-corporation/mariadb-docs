@@ -9,7 +9,7 @@ GridGain comes with ANSI-99 compliant, horizontally scalable and fault-tolerant 
 
 As a SQL database, GridGain supports all DML commands including SELECT, UPDATE, INSERT, and DELETE queries and also implements a subset of DDL commands relevant for distributed systems.
 
-You can interact with GridGain as you would with any other SQL enabled storage by connecting with [JDBC]({connectors}/sql/jdbc/jdbc-driver) or [ODBC](sql-introduction.md) drivers from both external tools and applications. Java, .NET and C++ developers can leverage native  [SQL APIs](sql-api.md).
+You can interact with GridGain as you would with any other SQL enabled storage by connecting with [JDBC]({connectors}/gridgain-8/sql/jdbc/jdbc-driver) or [ODBC](sql-introduction.md) drivers from both external tools and applications. Java, .NET and C++ developers can leverage native  [SQL APIs](sql-api.md).
 
 Internally, SQL tables have the same data structure as [key-value caches](../../architecture/data-modeling/introduction.md#key-value-cache-vs.-sql-table). It means that you can change partition distribution of your data and leverage [affinity collocation techniques](../../architecture/data-modeling/affinity-colocation.md) for better performance.
 
@@ -89,7 +89,7 @@ Queries in GridGain 8 do not preserve transactional boundaries. As a result, if 
 In most scenarios read operations can be executed safely, but in high-load environments multiple queries may start affecting each other.
 
 {% hint style="info" %}
-As all SQL operations are transactional in [GridGain 9](https://www.gridgain.com/docs/gridgain9/latest/developers-guide/sql/calcite-based-sql-engine), this behavior changes and concurrent queries are safe to execute.
+As all SQL operations are transactional in [GridGain 9]({gridgain9}/gridgain9-usage/sql/overview), this behavior changes and concurrent queries are safe to execute.
 {% endhint %}
 
 ## Working in Multiple Timezones
@@ -97,5 +97,3 @@ As all SQL operations are transactional in [GridGain 9](https://www.gridgain.com
 Each GridGain cluster exists in one timezone. All `DATE`, `TIME` or `TIMESTAMP` operations are performed relative to this specific timezone. However, because clients can operate in different timezones, GridGain converts time for operations performed from thin clients to represent a local user's timezone.
 
 For operations performed directly on caches, cluster's timezone is used. If you perform direct cache operations from multiple time zones, make sure you keep track of the timezone users are in.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

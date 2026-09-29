@@ -2,7 +2,6 @@
 description: >-
   Configure how GridGain persists cache data to external stores — third-party
   databases and custom cache store implementations.
-icon: database
 ---
 
 # Persistence
@@ -11,16 +10,36 @@ Beyond GridGain's native persistence, you can back a cache with an external stor
 
 {% columns %}
 {% column %}
-{% content-ref url="external-storage.md" %}
-[external-storage](external-storage.md)
+{% content-ref url="custom-cache-store.md" %}
+[Implementing Custom Cache Store](custom-cache-store.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-{% content-ref url="custom-cache-store.md" %}
-[custom-cache-store](custom-cache-store.md)
-{% endcontent-ref %}
+Implementing a custom CacheStore in GridGain to use an external data store as the underlying storage for a cache, with a JDBC example.
 {% endcolumn %}
 {% endcolumns %}
 
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+{% columns %}
+{% column %}
+{% content-ref url="external-storage.md" %}
+[External Storage](external-storage.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Using GridGain as a caching layer on top of an external database, including read-through/write-through, write-behind caching, and RDBMS and NoSQL integration.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="../services/services.md" %}
+[Services](../services/services.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to implement, deploy, access, and re-deploy GridGain services, including deployment strategies, interceptors, and the IgniteServices framework.
+{% endcolumn %}
+{% endcolumns %}

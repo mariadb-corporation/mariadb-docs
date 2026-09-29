@@ -183,5 +183,3 @@ To restore the cluster to a specific point in time, use the `restore` command in
 {% hint style="info" %}
 Before initiating point-in-time recovery, ensure the WAL archive contains all segments from the base snapshot up to the specified recovery timestamp. Missing WAL segments will cause recovery to fail.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

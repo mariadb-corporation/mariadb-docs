@@ -17,7 +17,7 @@ Caches with the `TRANSACTIONAL_SNAPSHOT` atomicity mode support SQL transactions
 By default, SQL operations in GridGain 8 are not transactional, so [concurrent queries](../gridgain8-usage/sql/sql-introduction.md#concurrent-queries) may read partially committed data from other operations. This beta implementation of MVCC aims to solve this by creating consistent data snapshots for each transaction. Current MVCC implementation is not recommended for production environments.
 
 {% hint style="info" %}
-In [GridGain 9](https://www.gridgain.com/docs/gridgain9/latest/index), all SQL operations are transactional by default.
+In [GridGain 9]({gridgain9}), all SQL operations are transactional by default.
 {% endhint %}
 
 ## Limitations
@@ -228,5 +228,3 @@ for (int i = 1; i <= 5; i++)
 ```
 {% endtab %}
 {% endtabs %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

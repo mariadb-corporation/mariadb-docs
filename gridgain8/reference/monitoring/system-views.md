@@ -888,7 +888,7 @@ select CUR_CPU_LOAD * 100 from NODE_METRICS where NODE_ID = 'a1b77663-b37f-4ddf-
 
 ```
 
-The same example using [Java Thin Client]({connectors}/thin-clients/java-thin-client):
+The same example using [Java Thin Client]({connectors}/gridgain-8/clients/java-thin-client):
 
 ```java
 ClientConfiguration cfg = new ClientConfiguration().setAddresses("127.0.0.1:10800");
@@ -915,5 +915,3 @@ try (IgniteClient igniteClient = Ignition.startClient(cfg)) {
 ```
 
 You can also query system views in the Control Center UI, form the **SQL** screen. Add `SYS.` before the view name; for example: `select * FROM SYS.CLIENT_CONNECTIONS;`.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

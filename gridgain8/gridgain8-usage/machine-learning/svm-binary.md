@@ -73,5 +73,3 @@ SVMLinearBinaryClassificationModel mdl = trainer.fit(
 An example of the SVM Linear Classifier is included in the GridGain distribution package.
 
 The training dataset is the subset of the Iris dataset (classes with labels 1 and 2, which are presented linear separable two-classes dataset) which could be loaded from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/iris).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

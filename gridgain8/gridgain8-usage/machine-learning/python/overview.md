@@ -47,5 +47,3 @@ This will install the repository version of ggml into your environment in "devel
 Get started [using GridGain ML](using-python-ml.md).
 
 Read the [GGML API documentation](https://machine-learning-python-api.readthedocs.io/readme.html).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -7,8 +7,14 @@ description: >-
 
 This section describes how to deploy GridGain on Microsoft Azure.
 
+{% columns %}
+{% column %}
 {% content-ref url="gridgain-on-azure.md" %}
-[gridgain-on-azure.md](gridgain-on-azure.md)
+[Microsoft Azure Deployment](gridgain-on-azure.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+{% column %}
+How to launch a GridGain cluster on Microsoft Azure: creating a virtual machine, configuring ports and discovery, and connecting to the cluster.
+{% endcolumn %}
+{% endcolumns %}

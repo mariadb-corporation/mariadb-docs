@@ -354,5 +354,3 @@ On a persistent cluster, rollback is possible only by restoring the backup you t
 4. Activate, verify, and reconnect the original Ignite clients.
 
 Keep the backup and the archived Ignite binaries until the migration has been validated in production.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -35,5 +35,3 @@ To improve performance of your application, use smaller objects with relevant fi
 When GridGain stores your object, it also creates a schema based on filled object fields to speed up interactions. If a schema already exists, it will be used for all objects that match the schema. When a new object is stored with a different filled object fields, a new schema is created. Large number of different objects causes slower object interactions compared to storing more uniform objects.
 
 To reduce memory use for schemas and improve performance, fill your object fields in the same way when you store them. Storing multiple smaller uniform objects is generally preferred to having large objects with empty fields.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

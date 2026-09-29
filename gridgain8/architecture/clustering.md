@@ -16,7 +16,7 @@ Client nodes join the topology as regular nodes but they do not store data. Clie
 
 To form a cluster, each node must be able to connect to all other nodes. To ensure that, a proper discovery mechanism must be configured.
 
-In addition to client nodes, you can use [Thin Clients]({connectors}/thin-clients/getting-started-with-thin-clients) to define and manipulate data in the cluster.
+In addition to client nodes, you can use [Thin Clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients) to define and manipulate data in the cluster.
 GridGain provides thin clients for a variety of languages, such as java, .NET, C++, Node.JS, python, and PHP.
 Unlike regular client nodes, thin clients do not join the cluster topology (i.e. do not start a node); instead, they simply establish a socket connection to one of the cluster nodes​ and perform all operations via the [binary protocol](https://apacheignite.readme.io/docs/binary-client-protocol).
 
@@ -81,5 +81,3 @@ Applications should avoid activating a cluster if it had been activated before. 
 ### Existing Clusters
 
 If a persistent cluster is restarted, it will auto-activate upon reaching its baseline topology. Avoid manual activation of existing clusters. Manual activation may lead to the different nodes activating separately from the cluster. This will prevent these nodes from re-joining the cluster and/or cause permanent data loss.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

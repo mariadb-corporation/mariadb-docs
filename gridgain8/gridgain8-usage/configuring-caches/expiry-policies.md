@@ -176,5 +176,3 @@ Currently, these methods have the following limitations:
 
 - Touch operations are only supported for [Atomic caches](atomicity-modes.md).
 - Touch operation is guaranteed to omit loading the entry into memory for in-memory clusters only.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

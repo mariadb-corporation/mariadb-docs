@@ -46,5 +46,3 @@ Describes Operator deployment. Most of the time you will not change this file.
 #### rbac.yaml
 
 Describes the [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) settings. Most of the time you will not change this file.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

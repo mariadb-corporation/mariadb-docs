@@ -248,5 +248,3 @@ limit  - Decimal value to change the re-encryption rate limit (MB/s).
 
 * The cache group's re-encryption process is finished, and then at least one checkpoint is successfully completed as well.
 * The last WAL segment, in which the encryption key was used, is removed.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -101,5 +101,3 @@ You will need to restart the node after the maintenance is done to return it to 
 If the node left a cluster for any reason (for example, to perform planned maintenance), and a cache was deleted on the cluster while the node is not available, this cache will be considered "stale", and must be removed. To keep data consistent, the node marks these "stale" caches for deletion and enters maintenance mode.
 
 While in maintenance mode, the node automatically deletes the outdated caches. After maintenance is complete, restart the node for it to re-enter the cluster normally.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -951,5 +951,3 @@ To perform the update:
 {% hint style="warning" %}
 You may lose the results of a `REMOVE` operation when restoring from a snapshot older than the [Tombstone TTL](#tombstone-ttl) property value. To mitigate this risk, make the Tombstone TTL duration longer than the snapshot creation interval defined by the backup/snapshot policy. Alternatively, make this value larger than the time required for snapshot creation and recovery combined, and make sure you take a snapshot whenever necessary.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

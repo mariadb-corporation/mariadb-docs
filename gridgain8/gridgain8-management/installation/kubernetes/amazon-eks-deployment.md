@@ -46,4 +46,3 @@ kubernetes   ClusterIP   10.100.0.1   <none>        443/TCP   6m49s
 ## Kubernetes Configuration
 
 The namespace, service, cluster role, ConfigMap, and node configuration file are the same for every Kubernetes deployment. Follow the [Generic Kubernetes Instruction](generic-configuration.md#kubernetes-configuration) to create these resources.
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

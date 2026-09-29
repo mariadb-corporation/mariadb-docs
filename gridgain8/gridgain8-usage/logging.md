@@ -265,5 +265,3 @@ The following steps guide you through the process of configuring logging. This s
 4. Start the nodes in verbose mode:
    - If you use `ignite.sh` to start nodes, specify the `-v` option.
    - If you start nodes from Java code, use the `IGNITE_QUIET=false` system variable.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

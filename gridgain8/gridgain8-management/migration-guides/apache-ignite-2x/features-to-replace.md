@@ -43,5 +43,3 @@ _Verify:_ disk usage on staging stays within budget with entry compression.
 **Performance Statistics**: Applies if you use `--performance-statistics` or `PerformanceStatisticsMBean`. They are absent. Use JMX metrics or an external APM. _Verify:_ the profiling data you rely on is available from the replacement.
 
 **Thin-client lifecycle callbacks**: Applies if you register a [`ClientLifecycleEventListener`](https://ignite.apache.org/releases/ignite2/2.18.0/javadoc/org/apache/ignite/client/events/ClientLifecycleEventListener.html). It has no direct equivalent; track connection state through the thin client's own connection handling instead. _Verify:_ your client's reconnect handling passes its tests.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

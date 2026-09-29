@@ -2,7 +2,6 @@
 description: >-
   Upgrade a GridGain 8 cluster — a standard version upgrade, or a rolling
   upgrade that keeps the cluster available throughout.
-icon: arrow-up-right-dots
 ---
 
 # Upgrade
@@ -11,16 +10,24 @@ GridGain supports upgrading a cluster to a newer version, either with a standard
 
 {% columns %}
 {% column %}
-{% content-ref url="version-upgrade.md" %}
-[version-upgrade](version-upgrade.md)
+{% content-ref url="rolling-upgrades.md" %}
+[Rolling Upgrades](rolling-upgrades.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-{% content-ref url="rolling-upgrades.md" %}
-[rolling-upgrades](rolling-upgrades.md)
-{% endcontent-ref %}
+How to use GridGain Enterprise/Ultimate Rolling Upgrades to upgrade a cluster version without downtime, including the process, monitoring, guidelines, and the Java API.
 {% endcolumn %}
 {% endcolumns %}
 
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+{% columns %}
+{% column %}
+{% content-ref url="version-upgrade.md" %}
+[Version Upgrade](version-upgrade.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+The basic GridGain version upgrade process, including upgrading nodes safely without overwriting persistent data and checking version compatibility.
+{% endcolumn %}
+{% endcolumns %}

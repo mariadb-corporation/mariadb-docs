@@ -111,5 +111,3 @@ From here, you may want to:
 - Learn about key [concepts](concepts.md) in GridGain.
 
 - Learn how to [install](../gridgain8-management/installation/README.md) GridGain.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

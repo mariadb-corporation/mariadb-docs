@@ -8,16 +8,86 @@ description: >-
 
 A comprehensive list of the supported SQL data types, functions, and other commands and information for GridGain, including:
 
-- [SQL Conformance](sql-conformance.md)
-- [Data Definition Language (DDL)](ddl.md)
-- [Data Manipulation Language (DML)](dml.md)
-- [Transactions](transactions.md)
-- [Operational Commands](operational-commands.md)
-- [Aggregate Functions](functions/aggregate-functions.md)
-- [Numeric Functions](functions/numeric-functions.md)
-- [String Functions](functions/string-functions.md)
-- [Date and Time Functions](functions/date-time-functions.md)
-- [System Functions](functions/system-functions.md)
-- [Data Types](data-types.md)
+{% columns %}
+{% column %}
+{% content-ref url="data-types.md" %}
+[Data Types](data-types.md)
+{% endcontent-ref %}
+{% endcolumn %}
 
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+{% column %}
+Reference of the SQL data types available in GridGain — boolean, numeric, string, date/time, and binary types — and their language and driver mappings.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="ddl.md" %}
+[Data Definition Language (DDL)](ddl.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Reference of the SQL Data Definition Language (DDL) commands supported by GridGain — CREATE/ALTER/DROP TABLE, indexes, users, and statistics commands.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="dml.md" %}
+[Data Manipulation Language (DML)](dml.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Reference of the SQL Data Manipulation Language (DML) commands supported by GridGain — SELECT, INSERT, UPDATE, WITH, MERGE, and DELETE.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="operational-commands.md" %}
+[Operational Commands](operational-commands.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Reference of GridGain SQL operational commands — COPY INTO, SET STREAMING, KILL QUERY, KILL CONTINUOUS, and the legacy COPY command.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="sql-conformance.md" %}
+[SQL Conformance](sql-conformance.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+GridGain and Apache Ignite conformance to the ANSI SQL:1999 (Core) standard, broken down by feature and sub-feature support.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="transactions.md" %}
+[Transactions](transactions.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+SQL transaction control in GridGain using BEGIN, COMMIT, and ROLLBACK statements.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="functions/" %}
+[Functions](functions/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+The SQL functions supported by GridGain 8, grouped by category — aggregate, numeric, string, date and time, JSON, and system functions.
+{% endcolumn %}
+{% endcolumns %}

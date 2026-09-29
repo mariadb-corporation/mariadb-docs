@@ -172,5 +172,3 @@ As shown in the example below, all gridgain nodes are deployed either to 2b or 2
    ```
 
    ![Availability Zone Attributes](../../../.gitbook/assets/gg8-k8s-availability-zone-attributes.png)
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

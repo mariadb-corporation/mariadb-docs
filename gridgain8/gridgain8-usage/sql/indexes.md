@@ -645,5 +645,3 @@ If a custom key can be serialized into a binary form, then GridGain will calcula
 However, if the key's type is `Externalizable`, and if it cannot be serialized into the binary form, then you are required to implement the `hashCode` and `equals` methods manually. 
 See the [Binary Objects](../key-value-api/binary-objects.md) page for more details.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

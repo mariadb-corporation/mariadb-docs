@@ -116,5 +116,3 @@ This algorithm requires additional memory to store pages list that also needs to
 The CLOCK algorithm keeps a circular list of pages in memory, with the "hand" pointing to the last examined page frame in the list. When a page fault occurs and no empty frames exist, the hit flag of the page is inspected at the hand's location. If the hit flag is 0, the new page is put in the place of the page that the "hand" points to, and the hand is advanced one position further. Otherwise, the hit flag is cleared, then the clock hand is incremented, and the process is repeated until a page is replaced.
 
 This algorithm has near to zero maintenance cost and replacement policy efficiency between random-LRU and segmented-LRU.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

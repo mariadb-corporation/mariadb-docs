@@ -248,5 +248,3 @@ Replace the `YOUR_ACCESS_KEY_ID` and `YOUR_SECRET_ACCESS_KEY` values with your a
 GridGain Systems offers 14 days of free [GridGain Standard Enterprise Support](https://www.gridgain.com/partners/aws-support) to new organizations that deploy the GridGain Enterprise Edition on AWS through the AWS Marketplace. This offer is limited to one 14-day period of free support per organization. Our standard annual support subscriptions are available at any time. Just complete the form to register for your 14 days of complementary support services.
 
 To receive better support, provide node logs. If you provided [CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html) policy, instances will publish logs to [CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html). Agent on the instances is already pre-configured to publish GridGain node logs. Pre-configured loggroup is `/gridgain/<EDITION>/8.10`, where &lt;EDITION&gt; is the edition of your GridGain instance.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

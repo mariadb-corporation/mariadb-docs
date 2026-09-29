@@ -90,5 +90,3 @@ AsyncModelBuilder mdlBuilder = new IgniteDistributedModelBuilder(ignite, 4, 4);
 Model<NamedVector, Future<Double>> mdl = mdlBuilder.build(reader, parser);
 ```
 {% endcode %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

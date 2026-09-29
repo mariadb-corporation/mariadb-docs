@@ -48,5 +48,3 @@ double prediction = knnMdl.apply(vectorizedData);
 An example of kNN Classification is included in the GridGain distribution package.
 
 The training dataset is the Iris dataset which can be loaded from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/iris).
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

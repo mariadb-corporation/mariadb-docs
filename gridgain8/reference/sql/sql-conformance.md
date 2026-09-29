@@ -301,9 +301,9 @@ Ignite fully supports this feature.
 
 Ignite provides partial support for this feature implementing a subset of standard error codes and introducing custom ones. A full list of errors​ supported by Ignite can be found here:
 
-[JDBC Error Codes]({connectors}/sql/jdbc/jdbc-driver#error-codes)
+[JDBC Error Codes]({connectors}/gridgain-8/sql/jdbc/jdbc-driver#error-codes)
 
-[ODBC Error Codes]({connectors}/sql/odbc/error-codes)
+[ODBC Error Codes]({connectors}/gridgain-8/sql/odbc/error-codes)
 
 ## `E182` Host language Binding (previously "Module Language")
 
@@ -495,5 +495,3 @@ Ignite does not support the following sub-features:
 `T321–06` ROUTINES view
 
 `T321–07` PARAMETERS view
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

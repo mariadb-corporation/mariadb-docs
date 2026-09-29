@@ -8,24 +8,62 @@ description: >-
 
 This section describes the options for deploying GridGain on Amazon Web Services (AWS).
 
-{% content-ref url="gridgain-marketplace-ami.md" %}
-[gridgain-marketplace-ami.md](gridgain-marketplace-ami.md)
-{% endcontent-ref %}
-
+{% columns %}
+{% column %}
 {% content-ref url="gridgain-ami.md" %}
-[gridgain-ami.md](gridgain-ami.md)
+[Using Legacy GridGain AMI](gridgain-ami.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
+{% column %}
+How to obtain and launch the legacy GridGain AMI with GridGain Enterprise Edition preinstalled on Amazon EC2.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="gridgain-marketplace-ami.md" %}
+[Using GridGain AMI](gridgain-marketplace-ami.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to select, obtain, and launch the GridGain AMI from AWS Marketplace, provide a license, configure IAM roles, and set up node discovery on EC2.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="manual-install-on-ec2.md" %}
-[manual-install-on-ec2.md](manual-install-on-ec2.md)
+[Manual Install on Amazon EC2](manual-install-on-ec2.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
-{% content-ref url="terraform.md" %}
-[terraform.md](terraform.md)
-{% endcontent-ref %}
+{% column %}
+A step-by-step guide to running a GridGain cluster on Amazon EC2: launching instances, configuring security groups, discovery, and connecting clients.
+{% endcolumn %}
+{% endcolumns %}
 
+{% columns %}
+{% column %}
 {% content-ref url="multiple-availability-zone-aws.md" %}
-[multiple-availability-zone-aws.md](multiple-availability-zone-aws.md)
+[Deploying GridGain in Multiple Availability Zones Using AWS](multiple-availability-zone-aws.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+{% column %}
+How to deploy GridGain across multiple AWS availability zones using EKS auto scaling groups and an affinity backup filter.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="terraform.md" %}
+[Using Terraform to Deploy GridGain in AWS](terraform.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to provision a GridGain cluster on AWS using the GridGain Terraform AWS module and the GridGain Marketplace AMI.
+{% endcolumn %}
+{% endcolumns %}

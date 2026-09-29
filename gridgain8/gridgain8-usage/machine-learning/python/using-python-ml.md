@@ -1103,5 +1103,3 @@ with Ignite("example-ignite-ml.xml") as ignite:
 r2_score(y_test, model.predict(x_test))
 ```
 {% endcode %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

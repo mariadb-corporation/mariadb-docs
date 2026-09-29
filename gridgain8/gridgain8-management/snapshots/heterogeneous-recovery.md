@@ -204,5 +204,3 @@ When used together with [Point-in-Time Recovery (PITR)](point-in-time-recovery.m
 
 Note that when restoring a snapshot on a cluster with a different topology, the partition distribution on the new and original clusters will differ. Given that SQL indexes span all partitions on one node, restoring the snapshot on a different topology will require the GridGain cluster to rebuild SQL indexes. The index rebuilding procedure is triggered automatically after the snapshot is restored. That may result in reduced performance while the index is recreated because GridGain will be doing a full scan of all the data.
 {% endhint %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

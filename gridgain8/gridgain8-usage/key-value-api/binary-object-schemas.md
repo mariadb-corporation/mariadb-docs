@@ -189,5 +189,3 @@ CREATE TABLE T_VER_2 (...)
 INSERT INTO T_VER_2 (SELECT * FROM T)
 DROP TABLE T
 ```
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

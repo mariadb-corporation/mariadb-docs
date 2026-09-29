@@ -12,37 +12,35 @@ New to GridGain? Start here. This section introduces the core concepts, explains
 {% columns %}
 {% column %}
 {% content-ref url="concepts.md" %}
-[concepts](concepts.md)
+[Concepts](concepts.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-The building blocks of a GridGain deployment — nodes, clusters, thick and thin clients, and how the pieces fit together.
+Overview of the core concepts and components shared by Apache Ignite and GridGain, from in-memory computing and clustering to partitioning, colocation, and multi-tiered storage.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
 {% content-ref url="what-is-gridgain.md" %}
-[what-is-gridgain](what-is-gridgain.md)
+[What Is GridGain?](what-is-gridgain.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-What GridGain is, how it builds on Apache Ignite, and the differences between the available editions.
+Introduction to GridGain as an in-memory computing platform: what you can do with it, its editions, and how to migrate from Apache Ignite.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
 {% content-ref url="quick-start/" %}
-[quick-start](quick-start/)
+[Quick Start Guide](quick-start/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Install GridGain, start a node, and run your first application in Java, .NET, C++, Python, Node.js, PHP, SQL, or REST.
+Install GridGain, start a node, and run your first application in your preferred language — Java, .NET, C++, Python, Node.js, PHP, SQL, or REST.
 {% endcolumn %}
 {% endcolumns %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

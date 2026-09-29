@@ -19,5 +19,3 @@ description: >-
 The ZIP archive includes a SWID tag. It is located at `swid/gridgain.swidtag`.
 
 See [Software Identification](../software-identification.md) for details.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -822,5 +822,3 @@ Examples of the metric names if the bounds are [10,100]:
 - histogram_0_10 - less than 10
 - histogram_10_100 - between 10 and 100
 - histogram_100_inf - more than 100
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

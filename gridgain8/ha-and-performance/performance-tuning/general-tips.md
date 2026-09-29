@@ -213,5 +213,3 @@ As such, here are general recommendations depending on your environment:
 - In environments with high volumes of small messages the queue may get filled up before either acknowledgement threshold is reached and the connection is reset. In these environments, you may want to increase the limit to allow more messages to be processed before the `ackSendThresholdMillis` is triggered, or reduce the same threshold to send acknowledgements more often.
 - In environments with low to moderate volumes of large messages you may want to lower queue limit to reduce memory use. Make sure to fine-tune the `ackSendThresholdBytes` to send acknowledgements more often so that the queue does not fill up.
 - In environments with both high volume of messages and large messages, you may want to reduce both thresholds to reduce the amount of memory required to store messages in the queue at the cost of more acknowledgements being sent. In these environments, increasing the queue limit may lead to it requiring a lot of memory to store messages, and it is better to keep the queue low by other means.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -188,5 +188,3 @@ If downtime is not acceptable for the cluster, there are ways to update the lice
   {% endhint %}
 
 * If neither of the above options is possible, you can perform the update on a per-node basis with rolling restart of cluster nodes. Note that this will negatively affect performance for the duration of the update. For detailed instructions on performing rolling restart, see [Performing a Rolling Restart](upgrade/rolling-upgrades.md) section.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

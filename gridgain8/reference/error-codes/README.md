@@ -2,7 +2,6 @@
 description: >-
   Exceptions raised by the Ignite and GridGain APIs, the action to take for each,
   and how to configure the critical failure handler.
-icon: triangle-exclamation
 ---
 
 # Handling Exceptions
@@ -144,5 +143,3 @@ Ignite ignite = Ignition.start(cfg);
 ```
 {% endtab %}
 {% endtabs %}
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -341,5 +341,3 @@ ssh-keygen -y -f myKey.pem > myKey.pub
 5. Confirm the following files are generated:
    * `example.jks` - the JKS file with `alias=example_alias`
    * `myKey.pub` - a public key to authenticate on the SFTP server
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -84,5 +84,3 @@ dataset.close();
 ## Examples
 
 To see how the Partition Based Dataset can be used in practice, try this [example](https://github.com/apache/ignite-extensions/tree/master/modules/ml-ext/examples/src/main/java/org/apache/ignite/examples/ml/dataset/AlgorithmSpecificDatasetExample.java), available on GitHub and delivered with every Apache Ignite distribution.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -197,5 +197,3 @@ The following table explains how the scope is defined:
 | Task permissions | Task's full class name (including the package).|
 | Service permissions | Service's full class name (including the package).|
 | System permissions | Do not have a scope.|
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

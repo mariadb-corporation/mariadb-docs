@@ -54,5 +54,3 @@ The following list explains different metric scopes.
 Cache-related metrics can be global as well as node-specific.
 For example, the total number of entries in a cache is a global metric, and you can obtain it on any node.
 You can also get the number of entries of the cache that are stored on a specific node, in which case it will be a node-specific metric.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

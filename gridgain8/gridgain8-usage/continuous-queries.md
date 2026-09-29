@@ -578,5 +578,3 @@ Continuous queries ensure the exactly-once semantic for the delivery of events t
 Both primary and backup nodes maintain an update queue that holds events that are processed by continuous queries  on the server side but yet to be delivered to the clients. Suppose a primary node crashes or the cluster topology changes for any reason. In that case, every backup node flushes the content of its update queue to the client, making sure that every event is delivered to the client's local listener.
 
 GridGain manages a special per-partition update counter that helps to avoid duplicate notifications. Once an entry in some partition is updated, a counter for this partition is incremented on both primary and backup nodes. The value of this counter is also sent along with the event notification to the client. Thus, the client can skip already-processed events. Once the client confirms that an event is received, the primary and backup nodes remove the record for this event from their backup queues.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -137,5 +137,3 @@ The trace contains spans associated with the following operations:
 * close (`transactions.close`).
 
 The commit operation, in turn, consists of two operations: prepare and finish. You can click on each span to view the annotations and tags attached to it.
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

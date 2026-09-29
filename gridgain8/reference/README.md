@@ -11,58 +11,96 @@ Categorized lookup material for GridGain 8: SQL syntax, command-line and REST in
 
 {% columns %}
 {% column %}
-{% content-ref url="sql/" %}
-[sql](sql/)
+{% content-ref url="cli-tool/" %}
+[Control Script](cli-tool/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-{% content-ref url="cli-tool/" %}
-[cli-tool](cli-tool/)
-{% endcontent-ref %}
+Reference for the GridGain control.sh|bat command line tool used to monitor and control clusters — full command list, syntax, and connection parameters.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
 {% content-ref url="rest-api/" %}
-[rest-api](rest-api/)
+[REST API](rest-api/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-{% content-ref url="monitoring/" %}
-[monitoring](monitoring/)
+GridGain's HTTP REST API — how to enable and configure the connector, the supported data types, authentication, and the full command reference.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="sql/" %}
+[SQL Reference](sql/)
 {% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+A comprehensive reference to the SQL data types, functions, commands, and conformance information supported by GridGain.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="monitoring/" %}
+[Monitoring Reference](monitoring/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Monitoring reference for GridGain 8 — the JMX metrics, system views, and generic metrics you can query to observe a running cluster.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="error-codes/" %}
+[Handling Exceptions](error-codes/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Exceptions raised by the Ignite and GridGain APIs, the action to take for each, and how to configure the critical failure handler.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
 {% content-ref url="tools/" %}
-[tools](tools/)
+[Tools and Analytics](tools/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-{% content-ref url="error-codes/" %}
-[error-codes](error-codes/)
-{% endcontent-ref %}
+Third-party tools and analytics integrations for working with data stored in a GridGain cluster.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
 {% content-ref url="sql-statistics.md" %}
-[sql-statistics](sql-statistics.md)
+[SQL Statistics](sql-statistics.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-{% content-ref url="glossary.md" %}
-[glossary](glossary.md)
-{% endcontent-ref %}
+How GridGain collects and uses SQL statistics to build optimal query plans, including configuration, overriding, and obsolescence tracking.
 {% endcolumn %}
 {% endcolumns %}
 
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+{% columns %}
+{% column %}
+{% content-ref url="glossary.md" %}
+[Glossary](glossary.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Definitions of the core GridGain 8 terms used throughout this documentation — clusters, nodes, caches, partitioning, persistence, and more.
+{% endcolumn %}
+{% endcolumns %}

@@ -235,5 +235,3 @@ group="SQL Query",name=SqlQueryMXBeanImpl
 | SqlGlobalMemoryQuota | String | The value of the global memory quota. | Node |
 | SqlQueryMemoryQuota | String | The value of the per-query memory quota. | Node |
 | SqlOffloadingEnabled | Boolean | Enable query off-loading. | Node |
-
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
