@@ -14,7 +14,7 @@ pip install --pre mariadb[pool]
 ```
 
 {% hint style="info" %}
-Version 2.0 is currently a Release Candidate (RC), so the `--pre` flag is required. Version 1.1 (the latest stable/GA release) includes connection pooling by default.
+As of 2.0.0rc2, version 2.0 is a Release Candidate (RC), so the `--pre` flag is required. Version 1.1 (the latest stable/GA release) includes connection pooling by default.
 {% endhint %}
 
 A connection pool is a cache of connections to a database server where connections can be reused for future requests.

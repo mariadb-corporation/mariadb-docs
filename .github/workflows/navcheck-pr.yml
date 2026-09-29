@@ -1,0 +1,233 @@
+name: Check Nav Coverage in PR
+
+# Gates orphaned pages -- a page file with no entry in its space's SUMMARY.md. The last of the
+# three checks DOCS-6586 set out to move out of the local-only hook, together with
+# shrinkcheck-pr.yml; includecheck-pr.yml landed first because it needed no acknowledgment path.
+#
+# GitBook publishes only what SUMMARY.md lists, so an unlisted page never renders at all -- and
+# NOTHING else in this repo can see that. The markup is valid, so codespell passes; the links
+# resolve, so lychee passes; the includes resolve, so includecheck passes. There is no failing
+# signal anywhere, and the only symptom is a reader reporting a missing page.
+#
+# DOCS-6566 is the case. dde0fb263 added four post-download pages (Server 12.3.3, 11.8.9,
+# 11.4.13, 10.11.19) and bumped their most-recent-*.md includes but never touched
+# platform/SUMMARY.md; all four sat unpublished for eight days until a reader noticed, with every
+# gate green throughout. Every other commit that ever added a post-download page updated
+# SUMMARY.md in the same commit, so this is not a broken generator -- it is a hand-edit step with
+# no backstop, which is what a gate is for.
+#
+# WHY A PR GATE AND NOT THE PRE-COMMIT HOOK
+#   The hook "only gates commits that Claude Code makes via the Bash tool. Human git commit, IDE
+#   commits, and GitBook-UI edits bypass it entirely" (pre-commit.sh's own header) -- and
+#   dde0fb263 arrived through a PR, so the hook would not have fired at all.
+#
+# WHY `new` AND NOT `check`
+#   `check` prints the standing inventory, which was 219 pages when the ticket was filed, 209 on
+#   2026-09-04 and 44 today (the backlog shrinks as pages get listed -- take it fresh, never from
+#   a document). Gating on an absolute count would fail every unrelated PR on breakage it did not
+#   introduce, the same trap the lychee `broken-reference` exclusion and fragcheck's `new` mode
+#   both document. `new <base>` reports only what this PR changed: a page added with no nav entry,
+#   or a nav entry deleted while the page file survives.
+#
+# WHY NO CHANGED-FILES FILTER
+#   Two reasons, and the second is the one that would bite. Deleting a nav entry orphans a page
+#   the diff need not contain -- the diff contains SUMMARY.md, not the page. And the stale-
+#   acknowledgment audit below has to run even on a PR that touches no Markdown at all, since an
+#   entry goes stale when some OTHER PR lists or deletes the page it names. The whole run is
+#   milliseconds (the base side is read with git ls-tree / git show, no worktree), so there is
+#   nothing to save by filtering and a filter could only be wrong.
+#
+# THE ACKNOWLEDGMENT PATH, WHICH IS WHY THIS COULD NOT LAND WITH #1027
+#   A deliberately unlisted page is legitimate, so this gate has to be acknowledgeable -- and
+#   DOC_LINT_ALLOW_ORPHAN is an environment variable, which no PR author can set from a branch.
+#   That blocked this half of the ticket. Decided on DOCS-6586: a checked-in register,
+#   .claude/hooks/doc-lint-allow.yml, whose `orphan:` entries each carry a reason, so the
+#   acknowledgment is a diff line the reviewer already reads. navcheck.py also FAILS on an
+#   acknowledgment that is no longer true -- the page has since been listed, or deleted, or was
+#   never a page in any space -- so the register prunes itself at the point someone forgets
+#   rather than piling up entries nobody dares remove.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+# A second push supersedes the first.
+concurrency:
+  group: navcheck-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  navcheck:
+    runs-on: ubuntu-latest
+    # The scan is milliseconds; 10 minutes is headroom for the checkout. Without an explicit
+    # timeout the job inherits the 6-hour default, and a wedged run would end as *cancelled*,
+    # which `if: failure()` does not catch.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          # REQUIRED. The base side of `new` is read out of the object store with git ls-tree and
+          # git show, so the base commit must be present -- and note what its absence looks like:
+          # navcheck.py prints "base revision not found -- SKIPPED" and exits ZERO. A shallow
+          # clone would leave this gate permanently and silently green, which is why the
+          # assertion below exists as its own step.
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          # navcheck.py and allowlist.py are standard library only, so this pins the interpreter
+          # rather than installing anything.
+          python-version: '3.12'
+
+      # Separated from the scan on purpose: an uncheckoutable base is a SKIP in the script, which
+      # is right for a local pre-commit hook (never block a commit over a missing baseline) and
+      # wrong for a gate (a check that cannot run must not report success). Asserting first turns
+      # that silent pass into a red run. Same shape as fragcheck-pr.yml.
+      # The checkout above is `refs/pull/N/merge` -- HEAD is a MERGE of this PR's head into the
+      # base branch as it stands now -- while `base.sha` is a snapshot of the base branch from
+      # when the PR was opened or last synchronized. Pairing the two spans every commit the base
+      # branch gained in between, so a page that someone ELSE shrank on the base branch is
+      # reported against this PR, on a diff its author cannot change. Measured on DOCS-6586's own
+      # PR: 23 paths in scope instead of 13, and a MaxScale release-notes landing page gutted on
+      # main reported as this PR's finding.
+      #
+      # The merge commit's FIRST parent is the base tip that was merged, so `HEAD^1..HEAD` is
+      # exactly what this PR does to the base branch. Fall back to `base.sha` when HEAD has no
+      # second parent, which is what a head-ref checkout (or a local re-run) looks like.
+      - name: Resolve and verify the base revision
+        id: base
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          if git rev-parse -q --verify 'HEAD^2' >/dev/null 2>&1; then
+            EFFECTIVE_BASE="$(git rev-parse 'HEAD^1')"
+            echo "HEAD is a merge commit; measuring against its first parent ${EFFECTIVE_BASE}."
+          else
+            EFFECTIVE_BASE="${BASE_SHA:-}"
+            echo "HEAD is not a merge commit; measuring against the PR base ${EFFECTIVE_BASE}."
+          fi
+          if [[ -z "${EFFECTIVE_BASE:-}" ]]; then
+            echo "::error::The PR base SHA is empty, so the nav-coverage gate has no baseline to compare against."
+            exit 1
+          fi
+          # cat-file -e, not rev-parse: rev-parse succeeds on a well-formed sha that is not in
+          # the object database, which is exactly the shallow-clone case this guards.
+          if ! git cat-file -e "${EFFECTIVE_BASE}^{commit}" 2>/dev/null; then
+            echo "::error::Base commit ${EFFECTIVE_BASE} is not in this clone, so the nav-coverage gate would SKIP and report success. Check that fetch-depth: 0 is still set on the checkout step."
+            exit 1
+          fi
+          echo "sha=${EFFECTIVE_BASE}" >> "$GITHUB_OUTPUT"
+
+      # Its own step, and before the gate, so a malformed register is reported as a register
+      # problem rather than surfacing as whatever the gate happens to do next. allowlist.py
+      # accepts a strict subset of YAML and rejects the rest with a line number.
+      - name: Validate the acknowledgment register
+        run: |
+          set -uo pipefail
+          set +e
+          python3 .claude/hooks/allowlist.py validate
+          rc=$?
+          set -e
+          if [[ "$rc" != "0" ]]; then
+            echo "::error::.claude/hooks/doc-lint-allow.yml is malformed -- see the message above for the line. The accepted shape is in .claude/hooks/allowlist.py's header."
+            exit "$rc"
+          fi
+
+      - name: Check nav coverage
+        id: navcheck
+        env:
+          BASE_SHA: ${{ steps.base.outputs.sha }}
+        run: |
+          set -uo pipefail
+          # Findings and the stale-acknowledgment report go to stderr, the clean summary to
+          # stdout; captured together and in order so the run summary reads the way a local run
+          # does. Via env rather than interpolated into the script -- the house rule
+          # link-check-pr.yml documents (DOCS-6361).
+          set +e
+          python3 .claude/hooks/navcheck.py new "$BASE_SHA" > navcheck.log 2>&1
+          rc=$?
+          set -e
+          cat navcheck.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          case "$rc" in
+            0) ;;
+            1) echo "::error::This PR leaves a page with no entry in its space's SUMMARY.md, or a stale entry in the acknowledgment register. GitBook publishes only what SUMMARY.md lists, so an unlisted page never renders at all and no other check can see it. Details in the job log and the run summary." ;;
+            2) echo "::error::navcheck.py rejected its arguments, or could not read the acknowledgment register -- this workflow or that file is at fault, not necessarily the PR's pages." ;;
+            *) echo "::error::navcheck.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      # The gate has to be able to prove it looked at something. A wrong working directory, a
+      # renamed space directory or a SUMMARY.md that stopped being found would leave the script
+      # with no spaces to scan -- and "scanned 9,491 pages, none newly orphaned" and "scanned
+      # nothing at all" are the same exit code. navcheck.py prints the counts precisely so this
+      # can be asserted rather than assumed. Same assertion shape as includecheck-pr.yml.
+      - name: Assert the check was not vacuous
+        if: steps.navcheck.outputs.rc == '0'
+        run: |
+          set -euo pipefail
+          # Pull the page count out of "... ({N} pre-existing, unchanged; {M} page(s) scanned in
+          # {S} space(s))". A floor of 1 rather than a fixed expected count: the point is that
+          # the run examined real content, and any specific number rots on the next page added
+          # or removed.
+          #
+          # The `[^0-9]` matters, and the first draft of this assertion got it wrong: an earlier
+          # `.*(` anchored the count to an opening parenthesis, which is where `check` puts it
+          # but not `new` -- there it follows "unchanged; ". The pattern matched nothing, the
+          # count came back empty, and the step would have failed every green run. Found by
+          # running the rendered block against real output rather than reading it, which is the
+          # same method that caught DOCS-6586's xargs defect and DOCS-6587's SIGPIPE one.
+          count="$(sed -n 's/.*[^0-9]\([0-9]\{1,\}\) page(s) scanned.*/\1/p' navcheck.log | head -1)"
+          if [[ -z "$count" || "$count" -lt 1 ]]; then
+            cat navcheck.log
+            echo "::error::Could not read a nonzero page count out of navcheck's output, so this run scanned no pages in a repository with ~9,500 of them. Either the summary line changed shape (update this assertion with it) or no space was found to scan."
+            exit 1
+          fi
+          echo "Scanned $count page(s) -- the check ran against real content."
+
+      - name: Record the result in the run summary
+        # always(): the default is an implicit success(), which would skip exactly the runs worth
+        # recording.
+        if: always()
+        env:
+          RC: ${{ steps.navcheck.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Nav-coverage check"
+            echo
+            if [[ ! -s navcheck.log ]]; then
+              echo "No output was produced -- an earlier step failed before the scan ran."
+            else
+              case "${RC:-}" in
+                0) echo "Every page this PR adds or touches is listed in its space's SUMMARY.md, and no acknowledgment in \`.claude/hooks/doc-lint-allow.yml\` has gone stale." ;;
+                1) echo "This PR leaves a page unpublished, or an acknowledgment that is no longer true. Add a nav entry in the space's \`SUMMARY.md\` where a reader would look for it -- or, if the page is deliberately unlisted, add it with its reason to the \`orphan:\` section of \`.claude/hooks/doc-lint-allow.yml\` so the decision is in the diff." ;;
+                *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              # Fenced, and with four backticks. This summary is a GFM rendering surface and the
+              # output embeds file paths and allowlist reasons from the PR, which are
+              # author-controlled: unfenced, a crafted path could forge a heading, plant a link,
+              # or open an HTML comment that swallows the rest of the page. Four backticks so
+              # content containing three cannot close the fence. Same reasoning as
+              # fragcheck-pr.yml and includecheck-pr.yml.
+              echo '````text'
+              cat navcheck.log
+              echo '````'
+              echo
+              echo "Run the same check locally with:"
+              echo
+              echo '````bash'
+              echo "python3 .claude/hooks/navcheck.py new ${GITHUB_BASE_REF:-main}"
+              echo '````'
+              echo
+              echo "\`navcheck.py check\` lists the whole standing inventory instead of just the new findings, and \`navcheck.py stale\` runs only the acknowledgment audit."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -4,10 +4,6 @@ description: The CONNECT storage engine.
 
 # Using CONNECT - Indexing
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
-
 [Indexing](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/) is one of the main ways to optimize queries. Key columns, in particular when they are used to join tables, should be indexed. But what should be done for columns that have only few distinct values? If they are randomly placed in the table they should not be indexed because reading many
 rows in random order can be slower than reading the entire table sequentially. However, if the values are sorted or clustered, indexing can be acceptable because [CONNECT](../) indexes store the values in the order they appear into the table and this will make retrieving them almost as fast as reading them
 sequentially.
@@ -50,7 +46,7 @@ If the index file should have a different name, for instance because several tab
 
 **Note 3:** Prefix indexing is not supported. If specified, the CONNECT engine ignores the prefix and builds a whole index.
 
-### Handling index errors
+### Handling Index Errors
 
 The way CONNECT handles indexing is very specific. All table modifications are done regardless of indexing. Only after a table has been modified, or when an `OPTIMIZE TABLE` command is sent are the indexes made. If an error occurs, the corresponding index is not made. However, CONNECT being a non-transactional engine, it is unable to roll back the changes made to the table. The main causes of indexing errors are:
 
@@ -59,7 +55,7 @@ The way CONNECT handles indexing is very specific. All table modifications are d
 
 In both cases, after correcting the error, remake the indexes with the [OPTIMIZE TABLE](../../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) command.
 
-### Index file mapping
+### Index File Mapping
 
 To accelerate the indexing process, CONNECT makes an index structure in memory from the index
 file. This can be done by reading the index file or using it as if it was in memory by “file mapping”. On
@@ -81,7 +77,7 @@ You indicate this when creating the table by using the DISTRIB =d column option.
 be _scattered_, _clustered_, or _sorted_. In general only one column can be sorted. Block indexing is used
 only for clustered and sorted columns.
 
-### Difference between standard indexing and block indexing
+### Difference Between Standard Indexing and Block Indexing
 
 * Block indexing is internally handled by CONNECT while reading sequentially a table data. This
   means in particular that when standard indexing is used on a table, block indexing is not used.
@@ -89,14 +85,14 @@ only for clustered and sorted columns.
   restrictions coming from a where clause implying several clustered/sorted columns.
 * The block index files are faster to make and much smaller than standard index files.
 
-### Notes for this Release:
+### Notes for This Release
 
 * On all operations that create or modify a table, CONNECT automatically calculates or recalculates
   and saves the mini/maxi or bitmap values for each block, enabling it to skip block containing no
   acceptable values. In the case where the optimize file does not correspond anymore to the table,
   because it has been accidentally destroyed, or because some column definitions have been altered,
   you can use the `OPTIMIZE TABLE` command to reconstruct the optimization file.
-* Sorted column special processing is currently restricted to ascending sort. Column sorted in
+* Sorted column special processing is restricted to ascending sort. Column sorted in
   descending order must be flagged as clustered. Improper sorting is not checked in Update or Insert
   operations but is flagged when optimizing the table.
 * Block indexing can be done in two ways. Keeping the min/max values existing for each block, or
@@ -161,7 +157,7 @@ ALTER TABLE patients ADD PRIMARY KEY (pnb) COMMENT 'DYNAMIC' dynam=1;
 
 Note 1: The comment is not mandatory here but useful to see that the index is dynamic if you use the [SHOW INDEX](../../../../reference/sql-statements/administrative-sql-statements/show/show-index.md) command.
 
-Note 2: There is currently no way to just change the DYNAM option without dropping and adding the
+Note 2: There is no way to just change the DYNAM option without dropping and adding the
 index. This is unfortunate because it takes time.
 
 ## Virtual Indexing

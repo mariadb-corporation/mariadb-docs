@@ -1,4 +1,10 @@
-# HANDLER
+---
+description: >-
+  Access storage engine interfaces directly for key lookups and key or table
+  scans with the HANDLER statement's OPEN, READ, and CLOSE commands.
+---
+
+# HANDLER Commands
 
 ## Syntax
 

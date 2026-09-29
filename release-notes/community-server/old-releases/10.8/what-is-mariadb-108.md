@@ -14,7 +14,7 @@ The most recent release of [MariaDB 10.8](what-is-mariadb-108.md) is:[**MariaDB 
 
 ### Stored Procedures INOUT Parameters
 
-* Stored procedures already have support for the [IN, OUT and INOUT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/stored-routines/stored-procedures/create-procedure#inoutinout) parameter qualifiers. Added as well for [stored functions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-function#in-out-inout-in-out) and (IN only) [cursors](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors/declare-cursor#in) ([MDEV-10654](https://jira.mariadb.org/browse/MDEV-10654)). This was a [contribution](https://github.com/MariaDB/server/pull/1931) by [ManoharKB](https://github.com/ManoharKB).
+* Stored procedures already have support for the [IN, OUT and INOUT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/stored-routines/stored-procedures/create-procedure#in-out-inout-in-out) parameter qualifiers. Added as well for [stored functions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-function#in-or-out-or-inout-or-in-out) and (IN only) [cursors](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors/declare-cursor#in) ([MDEV-10654](https://jira.mariadb.org/browse/MDEV-10654)). This was a [contribution](https://github.com/MariaDB/server/pull/1931) by [ManoharKB](https://github.com/ManoharKB).
 
 ### Lag free ALTER TABLE in replication
 

@@ -4,7 +4,7 @@ description: >-
   datetime expression.
 ---
 
-# TIME
+# TIME Function
 
 ## Syntax
 

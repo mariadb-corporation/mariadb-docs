@@ -52,7 +52,7 @@ After service launch, [manage Autonomous settings](autonomously-scale-compute-st
 
 To manage Autonomous settings:
 
-1. From the [Portal](../Portal%20features/), click the "MANAGE" button for the desired service, then choose "Autonomous" from the menu.
+1. From the [Portal](../cloud-usage/portal-features.md), click the "MANAGE" button for the desired service, then choose "Autonomous" from the menu.
 2. Update settings as desired.
 3. Click "Apply Changes" when complete.
 

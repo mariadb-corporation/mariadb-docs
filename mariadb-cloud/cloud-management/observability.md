@@ -10,7 +10,7 @@ icon: telescope
 
 This page provides a high-level overview of the Observability functionality in MariaDB Cloud.
 
-In order to interact with our Observability APIs, an [API KEY](https://skysqlinc.github.io/skysql-docs/Security/Managing%20API%20keys/) must be generated. Throughout this document, we will refer to it as `{{SKYSQL_API_KEY}}`.
+In order to interact with our Observability APIs, an [API KEY](../security/managing-api-keys.md) must be generated. Throughout this document, we will refer to it as `{{SKYSQL_API_KEY}}`.
 
 Additionally, you will need the MariaDB Cloud Database ID, available by clicking on any of your existing services from the [MariaDB Cloud Console](https://app.skysql.com/) and navigating to the Details page. We will refer to the Database ID as `{{SKYSQL_DATABASE_ID}}` throughout this document.
 

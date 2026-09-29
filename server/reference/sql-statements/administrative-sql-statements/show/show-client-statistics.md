@@ -16,10 +16,18 @@ SHOW CLIENT_STATISTICS
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.1.1:
+{% endhint %}
+
 The `SHOW CLIENT_STATISTICS` statement has effectively been replaced by the generic [SHOW TABLE STATISTICS](show-table-statistics.md) statement. The [information\_schema.CLIENT\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-client_statistics-table.md) table holds statistics about client connections.
 {% endtab %}
 
 {% tab title="< 10.1.1" %}
+{% hint style="info" %}
+Before MariaDB 10.1.1:
+{% endhint %}
+
 The `SHOW CLIENT_STATISTICS` statement is part of the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) feature. The [information\_schema.CLIENT\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-client_statistics-table.md) table holds statistics about client connections.
 {% endtab %}
 {% endtabs %}

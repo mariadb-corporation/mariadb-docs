@@ -4,6 +4,10 @@
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.3:
+{% endhint %}
+
 ```bnf
 OPEN cursor_name [[USING variable[,...]] | [expression[,...]]];
 ```
@@ -25,6 +29,10 @@ OPEN cursor_variable FOR LOCAL spvar;
 {% endtab %}
 
 {% tab title="< 10.3" %}
+{% hint style="info" %}
+Before MariaDB 10.3:
+{% endhint %}
+
 ```sql
 OPEN cursor_name
 ```
@@ -53,6 +61,8 @@ In Oracle mode, a `SYS_REFCURSOR` can be opened over an already-prepared stateme
 * `OPEN cursor_variable FOR LOCAL spvar;` opens the cursor over the prepared statement whose name is the _value_ of the stored-procedure variable `spvar`.
 
 `OPEN ... FOR LOCAL` is only valid inside a stored procedure, and like the other LOCAL forms is not permitted in stored functions or triggers.
+
+`OPEN ... FOR PREPARE` counts as dynamic SQL, so inside a [stored function](../../../../server-usage/stored-routines/stored-functions/) it is subject to the same restriction as `PREPARE` and `EXECUTE` — see [Dynamic SQL in Stored Functions](../../prepared-statements/prepare-statement.md#dynamic-sql-in-stored-functions).
 
 Both forms require a weak cursor variable (`SYS_REFCURSOR`). Using them with a strongly-typed `REF CURSOR` (one declared with a `RETURN` clause) returns an error.
 

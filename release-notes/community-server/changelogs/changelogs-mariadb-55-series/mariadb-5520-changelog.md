@@ -2,7 +2,7 @@
 
 The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.askmonty.org/mariadb/5.5.20) |[Release Notes](../../old-releases/5.5/5.5.20.md) |**Changelog** |\[[Overview of 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
+[Download](https://archive.mariadb.org/mariadb-5.5.20/) |[Release Notes](../../old-releases/5.5/5.5.20.md) |**Changelog** |\[[Overview of 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
 
 **Release date:** 26 Feb 2012
 
@@ -194,7 +194,7 @@ modified in that revision.
       * The fix for removing the overhead ICP introduces when running sysbench
         is to disable use of ICP when the index used by the query is a
         clustered index.
-      * When [WL#6061](https://askmonty.org/worklog/?tid=6061) is implemented this change should be re-evaluated.
+      * When WL#6061 is implemented this change should be re-evaluated.
   * [Revision #2502.513.42](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.513.42)\
     Thu 2012-02-16 18:56:10 +0400
     * Added comments

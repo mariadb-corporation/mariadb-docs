@@ -168,6 +168,17 @@ SELECT * FROM (
 
 The `LIMIT` is a hard cap on how many rows the index returns *before* the threshold is applied, so choose it generously if many rows may match, otherwise qualifying rows beyond the limit are silently dropped. (Adding the `WHERE` directly to an `ORDER BY ... LIMIT` query also uses the index, but with the same hard cap.)
 
+## Monitoring the Vector Index
+
+From MariaDB 13.1, [INFORMATION\_SCHEMA.VECTOR\_INDEXES](../../system-tables/information-schema/information-schema-tables/information-schema-vector_indexes-table.md) reports the on-disk size of each vector index, how many nodes its graph holds, how many of them are currently cached, and how much memory that cache is using:
+
+```sql
+SELECT TABLE_NAME, VECTOR_DIMENSIONS, INDEX_SIZE, TOTAL_NODES, CACHED_NODES, MEMORY_SIZE
+FROM INFORMATION_SCHEMA.VECTOR_INDEXES;
+```
+
+`MEMORY_SIZE` is the only place where the memory used by an individual vector index cache is visible, which makes it the value to watch when tuning [mhnsw\_max\_cache\_size](vector-system-variables.md#mhnsw_max_cache_size).
+
 ## System Variables
 
 There are a number of system variables used for vectors. See [Vector System Variables](vector-system-variables.md).

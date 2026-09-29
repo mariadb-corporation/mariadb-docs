@@ -361,10 +361,18 @@ Be sure to replace `-–ldapserver` and `-–ldapbasedn` with values that are re
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.2 / 10.4.13 / 10.3.23 / 10.2.32.7:
+{% endhint %}
+
 The `pam_user_map` PAM module is included in the base install. No installation is needed.
 {% endtab %}
 
 {% tab title="< 10.5.2 / 10.4.13 / 10.3.23 / 10.2.32.7" %}
+{% hint style="info" %}
+Before MariaDB 10.5.2 / 10.4.13 / 10.3.23 / 10.2.32.7:
+{% endhint %}
+
 Next, let's [install the pam\_user\_map PAM module](user-and-group-mapping-with-pam.md#installing-the-pam_user_map-pam-module).
 
 Before the module can be compiled from source, we may need to install some dependencies.

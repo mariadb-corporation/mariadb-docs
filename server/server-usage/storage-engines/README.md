@@ -261,6 +261,18 @@ Explore the Spider storage engine in MariaDB Server. Learn how to shard data acr
 
 {% columns %}
 {% column %}
+{% content-ref url="tidesql/" %}
+[tidesql](tidesql/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+TideSQL is a transactional, log-structured merge-tree storage engine built on the TidesDB library, optimized for high write throughput with full SQL, MVCC, encryption, and secondary, spatial, full-text, and vector indexes.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="videx-storage-engine.md" %}
 [videx-storage-engine.md](videx-storage-engine.md)
 {% endcontent-ref %}

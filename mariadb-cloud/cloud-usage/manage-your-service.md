@@ -60,7 +60,7 @@ To scale nodes horizontally:
 3. Click the "MANAGE" button (at right) for the desired service.
 4. Choose the "Scale nodes in/out" menu item.
 5. Change the node count to the desired value.
-6. Optionally, you can check the "Auto-scale nodes horizontally" checkbox to enable [Autonomous](../../Autonomously%20scale%20Compute,%20Storage/) features for this service.
+6. Optionally, you can check the "Auto-scale nodes horizontally" checkbox to enable [Autonomous](../cloud-management/autonomously-scale-compute-storage.md) features for this service.
 7. Click the "Apply Changes" button.
 
 The service immediately goes into scaling status.
@@ -82,7 +82,7 @@ To scale nodes vertically:
 3. Click the "MANAGE" button (at right) for the desired service.
 4. Choose the "Scale nodes up/down" menu item.
 5. Change the node count to the desired value.
-6. Optionally, you can check the "Auto-scale nodes vertically" checkbox to enable [Autonomous](../../Autonomously%20scale%20Compute,%20Storage/) features for this service.
+6. Optionally, you can check the "Auto-scale nodes vertically" checkbox to enable [Autonomous](../cloud-management/autonomously-scale-compute-storage.md) features for this service.
 7. Click the "Apply Changes" button.
 
 The service immediately goes into scaling status.

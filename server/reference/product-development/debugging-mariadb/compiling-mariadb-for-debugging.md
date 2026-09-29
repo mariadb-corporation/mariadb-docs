@@ -63,7 +63,7 @@ The packages created will have these flags set.
 The commands shown below replace the release `mariadbd` binary with the debug `mariadbd` binary that you compiled. Most importantly, they replace the binary in a way which makes it trivial to revert back to the
 original release `mariadbd` binary.
 
-First, [stop MariaDB](https://mariadb.com/kb/en/).
+First, [stop MariaDB](../../../server-management/starting-and-stopping-mariadb/).
 
 Then, use the `mv` utility to rename the release `mariadbd` binary:
 
@@ -79,7 +79,7 @@ Then, install the debug `mariadbd` binary from your source tree:
 sudo install ~/mariadb-*/sql/mariadbd /usr/sbin/mariadbd
 ```
 
-Then, [start MariaDB](https://mariadb.com/kb/en/).
+Then, [start MariaDB](../../../server-management/starting-and-stopping-mariadb/).
 
 Be sure to replace `/usr/sbin/mariadbd` with the path to your `mariadbdd` binary and to also replace `~/mariadb-*/sql/mariadbd` with the path to your debug #mariadbd`binary.`
 
@@ -87,7 +87,7 @@ Be sure to replace `/usr/sbin/mariadbd` with the path to your `mariadbdd` binary
 
 If you want to restore your original `mariadbd` binary, you can do it with the following process::
 
-First, [stop MariaDB](https://mariadb.com/kb/en/).
+First, [stop MariaDB](../../../server-management/starting-and-stopping-mariadb/).
 
 Then, execute the following command to delete the symbolic link:
 
@@ -101,7 +101,7 @@ Then, execute the following command to move the original `mariadbd` release bina
 sudo mv /usr/sbin/mariadbd-orig /usr/sbin/mariadbd
 ```
 
-Then, [start MariaDB](https://mariadb.com/kb/en/).
+Then, [start MariaDB](../../../server-management/starting-and-stopping-mariadb/).
 
 Be sure to replace `/usr/sbin/mariadbd` with the path to your `mariadbd` binary
 

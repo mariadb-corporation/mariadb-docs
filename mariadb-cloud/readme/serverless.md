@@ -62,7 +62,7 @@ Serverless databases run the same MariaDB Server builds as provisioned single-no
 * **Any other available version** — the database is built on demand, because ready instances are kept only for the default version. It is still a fully serverless database — it scales to zero, resumes on connection, and bills by MCU-hour exactly as the default version does. Only the launch takes longer than an instant start.
 
 {% hint style="info" %}
-Selecting a version other than the default requires a paid plan. On a trial with no payment method on file, the version picker offers the default version only.
+Selecting a version other than the default requires a paid plan. On a trial with no payment method on file — including the [Free Developer Tier](#free-developer-tier) database — the version picker offers the default version only.
 {% endhint %}
 
 Which MariaDB Server versions are offered also depends on your [service tier](service-tiers.md): MariaDB Enterprise Server builds are available on the Power and PowerPlus tiers, and MariaDB Community Server builds on all tiers. See [MariaDB Server Version Support](../reference/mariadb-server-versions.md).

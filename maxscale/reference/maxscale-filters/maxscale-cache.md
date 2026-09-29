@@ -267,6 +267,96 @@ Note that if `cached_data` is `thread_specific` then this limit will be applied 
 max_size=100Mi
 ```
 
+### `min_query_duration`
+
+Available since MaxScale 25.10.4.
+
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: No
+* Default: `0s` (no limit)
+
+Specifies the minimum duration a query must take on the backend for its
+result to be stored in the cache. If a query executes faster than this, its
+result is _not_ cached.
+
+The rationale is that the result of a fast query is cheap to fetch from the
+backend, so caching it saves little while still consuming cache space and
+being subject to the same consistency caveats as any other cached value
+(see [Best Efforts](maxscale-cache.md#best-efforts)). What counts as "fast"
+depends on the deployment; for instance, a cache reached over the network
+has a higher break-even point than a local one.
+
+By default the value is `0s`, which means the duration of a query is not
+considered and all cacheable results are stored.
+
+The duration is measured by MaxScale as the time between the query being
+sent to the backend and its complete result having been received, and so
+includes both the network round-trip and the execution time. As the
+measurement is taken with the granularity of the event loop, a threshold
+smaller than a few milliseconds is not meaningful.
+
+To avoid repeatedly attempting a cache lookup that is bound to miss for a
+query whose result is not stored, MaxScale remembers the queries observed
+to be faster than `min_query_duration` and skips the lookup for them. The
+size of that bookkeeping is bounded by
+[max\_uncached\_query\_count](maxscale-cache.md#max_uncached_query_count).
+
+```
+min_query_duration=10ms
+```
+
+### `max_uncached_query_count`
+
+Available since MaxScale 25.10.4.
+
+* Type: count
+* Mandatory: No
+* Dynamic: No
+* Default: `10000`
+
+The maximum number of queries — observed to be faster than
+[min\_query\_duration](maxscale-cache.md#min_query_duration) — that
+MaxScale remembers in order to skip a cache lookup that would in any case
+miss. When the limit has been reached and a new such query is seen, the
+least recently used one is forgotten; the only consequence is that a lookup
+will be attempted, and the query's duration measured, once more.
+
+A value of `0` disables this bookkeeping, in which case a lookup is always
+attempted even for queries known to be fast. The setting has no effect if
+`min_query_duration` is `0`.
+
+Note that if `cached_data` is `thread_specific` then this limit will be
+applied to each cache _separately_. That is, if a thread specific cache is
+used, then the total number of remembered queries is #threads \* the value
+of `max_uncached_query_count`.
+
+Tuning: the value need only be large enough to hold the set of _recurring_
+fast queries; a query seen just once gains nothing from being remembered.
+Because the cache key is a hash of the exact query text (literal values
+included), queries that differ only in a literal are distinct keys, so a
+point-lookup workload can have a very large distinct fast-query space; if
+many distinct fast queries recur, a larger value increases how often the
+lookup is skipped. Setting it too low is not harmful — an evicted entry
+merely causes its lookup to be attempted, and its duration re-measured, once
+more.
+
+The `uncached_queries` diagnostics shown by `maxctrl show filter` report
+`hits` (lookups skipped) and `misses` (below-threshold queries that were not
+skipped); a persistently low `hits / (hits + misses)` ratio means the value
+is delivering little. Raise it and check whether the ratio improves; if it
+does not, the fast queries are mostly one-offs and the value can be set to 0.
+
+The benefit is greatest with a networked storage (`storage_redis`,
+`storage_gridgain`), where a skipped lookup avoids a server round-trip. With
+`storage_inmemory` the skipped lookup is only a local hash probe, so this
+setting has little effect and a small value — or `0` — is appropriate. The
+memory cost is roughly 90 bytes per remembered query, per storage instance.
+
+```
+max_uncached_query_count=10000
+```
+
 ### `rules`
 
 * Type: path
@@ -742,7 +832,7 @@ When using `=` or `!=` in the rule object in conjunction with `database`,`table`
 
 In practice that means that if _attribute_ is `database` then _value_ may not contain a dot, if _attribute_ is `table` then _value_ may contain one dot, used for separating the database and table names respectively, and if _attribute_ is `column` then _value_ may contain one or two dots, used for separating table and column names, or database, table and column names.
 
-Note that if a qualified name is used as a _value_, then all parts of the name must be available for a match. Currently Maria DB MaxScale may not always be capable of deducing in what table a particular column is. If that is the case, then a value like `tbl.field` may not necessarily be a match even if the field is `field` and the table actually is `tbl`.
+Note that if a qualified name is used as a _value_, then all parts of the name must be available for a match. MaxScale may not always be capable of deducing in what table a particular column is. If that is the case, then a value like `tbl.field` may not necessarily be a match even if the field is `field` and the table actually is `tbl`.
 
 #### Implication of the default database
 
@@ -971,7 +1061,7 @@ There are two types of storages that can be used; _local_ and _shared_.
 
 The only _local_ storage implementation is `storage_inmemory` that simply stores the cache values in memory. The storage is not persistent and is destroyed when MaxScale terminates. Since the storage exists in the MaxScale process, it is very fast and provides almost always a performance benefit.
 
-Currently there are three _shared_ storages; `storage_memcached`, `storage_redis` and `storage_gridgain`
+There are three _shared_ storages; `storage_memcached`, `storage_redis` and `storage_gridgain`
 that are implemented using [memcached](https://memcached.org/), [redis](https://redis.io/) and
 [gridgain](https://www.gridgain.com/) respectively.
 
@@ -1392,7 +1482,7 @@ If the rule is instead expressed using a regular expression
 
 then the statement will not be parsed.
 
-However, when the [query classifier cache](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#query_classifier_cache_size) was introduced, the parsing cost was significantly reduced and currently the cost for parsing and regular expression matching is roughly the same.
+However, when the [query classifier cache](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#query_classifier_cache_size) was introduced, the parsing cost was significantly reduced and the cost for parsing and regular expression matching is roughly the same.
 
 In the following is a table with numbers giving a rough picture of the relative cost of different approaches.
 

@@ -15,6 +15,9 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  # No `statuses: write` here: the gate job below declares its own permissions block, which
+  # replaces this one for that job, so granting it here would only widen the token of the job
+  # that runs create-pull-request (DOCS-6675 review).
 
 concurrency:
   group: sync-server-api-plugin-docs
@@ -23,6 +26,10 @@ concurrency:
 jobs:
   generate-and-pr:
     runs-on: ubuntu-latest
+    outputs:
+      pr-number: ${{ steps.cpr.outputs.pull-request-number }}
+      head-sha: ${{ steps.cpr.outputs.pull-request-head-sha }}
+      operation: ${{ steps.cpr.outputs.pull-request-operation }}
     steps:
       - name: Checkout mariadb-docs
         uses: actions/checkout@v7
@@ -58,8 +65,12 @@ jobs:
             --volume "$PWD/.server-src:/src:ro" \
             --volume "$dest:/out" \
             --workdir /src/include/mysql \
+            --entrypoint bash \
             ghcr.io/mariadb/mariadb-doc-gen:latest \
-            bash -euxo pipefail -c 'bash generate_plugin_api_docs.sh /out'
+            -euxo pipefail -c 'bash generate_plugin_api_docs.sh /out'
+          # The container writes as root into the bind mount, so the runner
+          # cannot delete or copy the tree afterwards without this.
+          sudo chown -R "$(id -u):$(id -g)" "$dest"
           test -d "$dest/md"
           test -n "$(find "$dest/md" -name '*.md' -print -quit)"
           echo "Generated files:"
@@ -75,7 +86,58 @@ jobs:
           rm -rf "$dest_dir"
           mkdir -p "$dest_dir"
           cp -a "$src"/. "$dest_dir"/
+          # GitBook publishes README.md as a directory's index, so renaming the
+          # generated mainpage puts the section landing page at
+          # .../reference/plugins/api-plugin/ instead of .../api-plugin/page-index.
+          # First test fails the step loudly if the mainpage ever stops being
+          # generated; second one refuses to clobber a generated group or page
+          # that happens to be titled README.
+          test -f "$dest_dir/page-index.md"
+          test ! -e "$dest_dir/README.md"
+          mv "$dest_dir/page-index.md" "$dest_dir/README.md"
           rm -rf ".generated-api-plugin"
+
+      - name: Flatten level 5 and 6 Markdown headers to level 4
+        run: |
+          set -euo pipefail
+          dest_dir="server/reference/plugins/api-plugin"
+          # ATX headings only: ##### and ###### at the start of a line become ####.
+          # Process ###### first so a six-hash heading is not left as a five-hash
+          # heading after a single pass.
+          grep -rlZ '^#####' "$dest_dir" | while IFS= read -r -d '' f; do
+            sed -i -E \
+              -e 's/^######[[:space:]]+/#### /' \
+              -e 's/^#####[[:space:]]+/#### /' \
+              "$f"
+          done
+
+      - name: Drop dead page-title breadcrumb fragments
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/fix_plugin_api_breadcrumb_links.py
+
+      - name: Retarget member links whose moxygen anchor suffix is wrong
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/fix_plugin_api_member_anchors.py
+
+      - name: Title-case the ABI version in generated page titles
+        run: |
+          set -euo pipefail
+          dest_dir="server/reference/plugins/api-plugin"
+          # The doxygen group title is "Application Binary Interface, version 1";
+          # house style is Title Case. Runs before the frontmatter and SUMMARY
+          # steps, which both read the page's H1. H1 lines only, so the group's
+          # name in code spans elsewhere stays as the headers spell it.
+          # grep exits 1 once upstream fixes the title; that must not fail the sync.
+          { grep -rlZ -E '^# .*, version [0-9]+' "$dest_dir" || true; } | while IFS= read -r -d '' f; do
+            sed -i -E 's/^(# .*), version ([0-9]+)/\1, Version \2/' "$f"
+          done
+
+      - name: Add frontmatter to the generated pages
+        run: |
+          set -euo pipefail
+          bash .github/scripts/add_frontmatter_to_server_plugin_api.sh
 
       - name: Update Plugin API Documentation section in SUMMARY.md
         run: |
@@ -83,6 +145,7 @@ jobs:
           bash .github/scripts/add_server_plugin_api_to_summary.sh
 
       - name: Open a pull request if the generated docs changed
+        id: cpr
         uses: peter-evans/create-pull-request@v8
         with:
           branch: automated/sync-server-api-plugin-docs
@@ -109,3 +172,37 @@ jobs:
           labels: |
             automated
             documentation
+
+  # WHY THIS JOB EXISTS  (DOCS-6675)
+  #   The PR the job above opens is authored by GITHUB_TOKEN, and GitHub fires no
+  #   `on: pull_request` workflows for such a PR -- so codespell, link-check, fragcheck and
+  #   includecheck all sit out, and only the GitBook space checks run. DOCS-6618 is what that
+  #   cost: PR #1052 merged 344 dead in-page anchors and 14 pages with no frontmatter, and the
+  #   ticket was filed in place of a red check. This runs the same gates against the pushed
+  #   branch and posts the verdict as a commit status on the PR head, where a reviewer sees it.
+  #
+  #   codespell is not among the gates that bear on THIS content, and correctly so: every
+  #   SUMMARY.md is excluded (DOCS-6272) and server/reference/plugins/api-plugin/** is too
+  #   (DOCS-6618 -- the "misspellings" are C identifiers quoted out of the server's headers,
+  #   and the next generation run would revert any edit). The gates that do bear on it are
+  #   fragcheck, includecheck, navcheck, the shrink guard, the retired-KB guard and lychee.
+  gate:
+    needs: generate-and-pr
+    # pr-number is empty when the generated docs were unchanged and no PR existed. It is NOT
+    # empty when a later run finds no diff while a PR is open: create-pull-request then closes
+    # that PR and (delete-branch: true) deletes its branch, reporting operation "closed" with
+    # the old number still set. Gating on the number alone would check out a deleted branch
+    # and post a red doc-gates status onto a PR that was just closed.
+    if: needs.generate-and-pr.outputs.pr-number != '' && needs.generate-and-pr.outputs.operation != 'closed'
+    permissions:
+      contents: read
+      statuses: write
+    uses: ./.github/workflows/doc-gates.yml
+    with:
+      branch: automated/sync-server-api-plugin-docs
+      head-sha: ${{ needs.generate-and-pr.outputs.head-sha }}
+      # Mirrors the add-paths above: gate exactly what the PR commits.
+      pathspecs: |
+        server/reference/plugins/api-plugin/**
+        server/SUMMARY.md
+      status-context: doc-gates

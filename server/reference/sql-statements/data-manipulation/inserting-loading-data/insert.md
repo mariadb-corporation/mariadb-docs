@@ -55,10 +55,18 @@ The PARTITION clause can be used in both the INSERT and the SELECT part. See [Pa
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 The `RETURNING` clause can be used.
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 The `RETURNING` clause is not available.
 {% endtab %}
 {% endtabs %}

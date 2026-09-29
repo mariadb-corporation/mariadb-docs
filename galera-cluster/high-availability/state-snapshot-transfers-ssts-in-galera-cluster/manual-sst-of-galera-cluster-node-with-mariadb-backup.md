@@ -36,6 +36,7 @@ mariadb-backup --version
 Select the strategy below that best matches your environment's resource constraints and upgrade requirements.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     classDef donor fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
     classDef joiner fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
@@ -68,6 +69,7 @@ graph TD
     TransRaw --> PrepJoiner["Prepare Backup on Joiner 
     (--prepare)"]:::joiner
     Extract --> PrepJoiner
+    linkStyle default color:#111111
 ```
 
 #### **Method A: Prepare on the Joiner Node (Standard / Resource-Saving)**

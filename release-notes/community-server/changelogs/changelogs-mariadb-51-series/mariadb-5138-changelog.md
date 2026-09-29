@@ -1,6 +1,6 @@
 # MariaDB 5.1.38 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.38) | [Release Notes](../../old-releases/5.1/5.1.38.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
+[Download](https://archive.mariadb.org/mariadb-5.1.38/) | [Release Notes](../../old-releases/5.1/5.1.38.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 29 Oct 2009
 
@@ -16,10 +16,10 @@ and bug fixes:
   FULL PROCESSLIST and INFORMATION\_SCHEMA.PROCESSLIST](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/time_ms-column-in-information_schemaprocesslist), similar to the old\
   TIME column, but with microsecond resolution. Also fixes old TIME column to
   not be influenced by @TIMESTAMP. Patch by Percona.
-* Optimizer improvement: Table elimination ([MWL#17](https://askmonty.org/worklog/?tid=17)). See [Table Elimination](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/table-elimination).
+* Optimizer improvement: Table elimination (MWL#17). See [Table Elimination](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/table-elimination).
 * Enhancements to slow log. Includes details of execution plan and
   microsecond-precision resolution. Based on microslow patch by Percona. See [Slow Query Log Extended Statistics](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/slow-query-log-extended-statistics).
-* PBXT storage engine. PBXT is developed by [PrimeBase Technologies](https://www.primebase.org).
+* PBXT storage engine. PBXT is developed by [PrimeBase Technologies](https://en.wikipedia.org/wiki/PrimeBase).
 * [XtraDB storage engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) version 6 as a replacement
   for the MySQL built-in InnoDB. XtraDB is based on the Oracle/Innobase InnoDB
   plugin version 1.0.3, with enhancements. XtraDB is developed by Percona.

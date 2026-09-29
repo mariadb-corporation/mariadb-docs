@@ -63,20 +63,32 @@ For each encryption key, the file contains these options, separated by a semicol
 Entries look like this:
 
 {% tabs %}
-{% tab title="Current Enterprise Server" %}
+{% tab title="CS & ES before 11.8" %}
+{% hint style="info" %}
+Community Server (CS), all versions, and Enterprise Server (ES) before 11.8:
+{% endhint %}
+
+```ini
+<encryption_key_id>;<hex-encoded_encryption_key>
+```
+{% endtab %}
+
+{% tab title="ES 11.8 and later" %}
+{% hint style="info" %}
+Enterprise Server (ES) 11.8 and later:
+{% endhint %}
+
 {% code overflow="wrap" %}
 ```
 <encryption_key_id>;<encryption_key_version>;<hex-encoded_encryption_key>
 ```
 {% endcode %}
 {% endtab %}
-
-{% tab title="Community Server & Enterprise Server < 11.8" %}
-```ini
-<encryption_key_id>;<hex-encoded_encryption_key>
-```
-{% endtab %}
 {% endtabs %}
+
+{% hint style="warning" %}
+Use the format that matches the server you're configuring. On a server that doesn't support the key version field, a key file that includes one makes the server fail to start, reporting `Invalid key` in the [error log](../../../../server-management/server-monitoring-logs/error-log.md).
+{% endhint %}
 
 You can also optionally encrypt the key file to make it less accessible from the file system. That is explained further in the section below.
 
@@ -92,18 +104,11 @@ a7addd9adea9978fda19f21e6be987880e68ac92632ca052e5bb42b1a506939a
 The key file needs to have a key identifier for each encryption key added to the beginning of each line. Key identifiers do not have to be contiguous. For example, to append three new encryption keys to a new key file, issue these commands:
 
 {% tabs %}
-{% tab title="Current Enterprise Server" %}
-{% code overflow="wrap" %}
-```bash
-mkdir -p /etc/mysql/encryption 
-echo $(echo -n "1;1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt 
-echo $(echo -n "2;1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt 
-echo $(echo -n "100;2;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
-```
-{% endcode %}
-{% endtab %}
+{% tab title="CS & ES before 11.8" %}
+{% hint style="info" %}
+Community Server (CS), all versions, and Enterprise Server (ES) before 11.8:
+{% endhint %}
 
-{% tab title="Community Server(All) & Enterprise Server < 11.8" %}
 {% code overflow="wrap" %}
 ```bash
 mkdir -p /etc/mysql/encryption
@@ -113,24 +118,47 @@ echo $(echo -n "100;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryptio
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="ES 11.8 and later" %}
+{% hint style="info" %}
+Enterprise Server (ES) 11.8 and later:
+{% endhint %}
+
+{% code overflow="wrap" %}
+```bash
+mkdir -p /etc/mysql/encryption 
+echo $(echo -n "1;1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt 
+echo $(echo -n "2;1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt 
+echo $(echo -n "100;2;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 The resulting key file looks like this:
 
 {% tabs %}
-{% tab title="Current Enterprise Server" %}
+{% tab title="CS & ES before 11.8" %}
+{% hint style="info" %}
+Community Server (CS), all versions, and Enterprise Server (ES) before 11.8:
+{% endhint %}
+
+```
+1;a7addd9adea9978fda19f21e6be987880e68ac92632ca052e5bb42b1a506939a
+2;49c16acc2dffe616710c9ba9a10b94944a737de1beccb52dc1560abfdd67388b
+100;8db1ee74580e7e93ab8cf157f02656d356c2f437d548d5bf16bf2a56932954a3
+```
+{% endtab %}
+
+{% tab title="ES 11.8 and later" %}
+{% hint style="info" %}
+Enterprise Server (ES) 11.8 and later:
+{% endhint %}
+
 ```
 1;1;a7addd9adea9978fda19f21e6be987880e68ac92632ca052e5bb42b1a506939a
 2;1;49c16acc2dffe616710c9ba9a10b94944a737de1beccb52dc1560abfdd67388b
 100;2;8db1ee74580e7e93ab8cf157f02656d356c2f437d548d5bf16bf2a56932954a3
-```
-{% endtab %}
-
-{% tab title="Community Server & Enterprise Server < 11.8" %}
-```sql
-1;a7addd9adea9978fda19f21e6be987880e68ac92632ca052e5bb42b1a506939a
-2;49c16acc2dffe616710c9ba9a10b94944a737de1beccb52dc1560abfdd67388b
-100;8db1ee74580e7e93ab8cf157f02656d356c2f437d548d5bf16bf2a56932954a3
 ```
 {% endtab %}
 {% endtabs %}
@@ -245,12 +273,21 @@ loose_file_key_management_filekey = FILE:/etc/mysql/encryption/keyfile.key
 
 ## Choosing an Encryption Algorithm
 
-The File Key Management plugin currently supports two encryption algorithms for encrypting data: `AES_CBC` and `AES_CTR`. Both of these algorithms use [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) in different modes. AES uses 128-bit blocks, and supports 128-bit, 192-bit, and 256-bit keys. The modes are:
+The File Key Management plugin supports two encryption algorithms for encrypting data: `AES_CBC` and `AES_CTR`. Both of these algorithms use [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) in different modes. AES uses 128-bit blocks, and supports 128-bit, 192-bit, and 256-bit keys. The modes are:
 
 * The `AES_CBC` mode uses AES in the [Cipher Block Chaining (CBC)](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_.28CBC.29) mode.
 * The `AES_CTR` mode uses AES in two slightly different modes in different contexts. When encrypting tablespace pages (such as pages in InnoDB, XtraDB, and Aria tables), it uses AES in the [Counter (CTR)](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Counter_.28CTR.29) mode. When encrypting temporary files (where the cipher text is allowed to be larger than the plain text), it uses AES in the authenticated [Galois/Counter Mode (GCM)](https://en.wikipedia.org/wiki/Galois/Counter_Mode).
 
-The recommended algorithm is `AES_CTR`, but this algorithm is only available when MariaDB is built with [OpenSSL](https://www.openssl.org/). If the server is built with [wolfSSL](https://www.wolfssl.com/products/wolfssl/) then this algorithm is not available. See [TLS and Cryptography Libraries Used by MariaDB](../../tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
+{% hint style="warning" %}
+Choose the algorithm before you encrypt any data, and treat the choice as permanent:
+
+* You cannot change the algorithm afterwards. A server started with a different algorithm than its data was encrypted with fails to start, reporting the data files as corrupted or the redo log scan as aborted, without naming the algorithm as the cause. See [MDEV-40657](https://jira.mariadb.org/browse/MDEV-40657).
+* `AES_CTR` is specific to the File Key Management plugin. The [HashiCorp Key Management](hashicorp-key-management-plugin.md) and [AWS Key Management](aws-key-management-encryption-plugin.md) plugins only support `AES_CBC`, so data encrypted with `AES_CTR` can't be read after switching to either of them, even with the same keys.
+
+If you may want to move to a key management service later, use the default `AES_CBC`.
+{% endhint %}
+
+`AES_CTR` requires a server built with [OpenSSL](https://www.openssl.org/). Before MariaDB 11.2, builds using [wolfSSL](https://www.wolfssl.com/products/wolfssl/) offer `AES_CBC` only; as of MariaDB 11.2, wolfSSL builds support `AES_CTR` as well. Where the algorithm isn't available, `AES_CTR` isn't a valid value for the system variable, and the server doesn't start if you configure it. See [TLS and Cryptography Libraries Used by MariaDB](../../tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
 ### Configuring the Encryption Algorithm
 
@@ -270,7 +307,7 @@ loose_file_key_management_encryption_algorithm = AES_CTR
 
 Note that the [loose](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#loose) option prefix is specified. This option prefix is used in case the plugin hasn't been installed yet.
 
-Note that this variable does not affect the algorithm that MariaDB uses to decrypt the key file. This variable only affects the encryption algorithm that MariaDB uses to encrypt and decrypt data. The only algorithm that MariaDB currently supports to encrypt the key file is [Cipher Block Chaining (CBC)](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CBC) mode of [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
+Note that this variable does not affect the algorithm that MariaDB uses to decrypt the key file. This variable only affects the encryption algorithm that MariaDB uses to encrypt and decrypt data. The only algorithm that MariaDB supports to encrypt the key file is [Cipher Block Chaining (CBC)](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CBC) mode of [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
 
 ## Using the File Key Management Plugin
 
@@ -292,12 +329,16 @@ The [Information Schema FILE\_KEY\_MANAGEMENT\_KEYS table](../../../../reference
 
 The File Key Management Plugin supports [using multiple encryption keys](encryption-key-management.md#using-multiple-encryption-keys). Each encryption key can be defined with a different 32-bit integer as a key identifier.
 
-When [encrypting InnoDB tables](../innodb-encryption/), the key that is used to encrypt tables [can be changed](../innodb-encryption/innodb-encryption-keys.md). When [encrypting Aria tables](../aria-encryption/), the key that is used to encrypt tables [cannot currently be changed](../aria-encryption/aria-encryption-keys.md).
+When [encrypting InnoDB tables](../innodb-encryption/), the key that is used to encrypt tables [can be changed](../innodb-encryption/innodb-encryption-keys.md). When [encrypting Aria tables](../aria-encryption/), the key that is used to encrypt tables [cannot be changed](../aria-encryption/aria-encryption-keys.md).
 
 ## Key Rotation
 
 {% tabs %}
-{% tab title="Current Enterprise Server" %}
+{% tab title="ES 11.8 and later" %}
+{% hint style="info" %}
+Enterprise Server (ES) 11.8 and later:
+{% endhint %}
+
 The plugin supports key rotation and allows an optional key version in the key file. The keys can be rotated using the `FLUSH FILE_KEY_MANAGEMENT_KEYS` statement, without needing to restart the server. The plugin remains compatible with old key file format, and when version is not specified, it defaults to version 1.
 
 **Generation of New Key Versions**
@@ -318,7 +359,11 @@ Keys need to be manually saved to the key file. See [this section](file-key-mana
 The format of the key file is simplistic. It stores encryption keys in a plain-text file.
 {% endtab %}
 
-{% tab title="< 11.8" %}
+{% tab title="CS & ES before 11.8" %}
+{% hint style="info" %}
+Community Server (CS), all versions, and Enterprise Server (ES) before 11.8:
+{% endhint %}
+
 The File Key Management plugin does not support [key rotation](encryption-key-management.md#key-rotation).
 {% endtab %}
 {% endtabs %}
@@ -332,7 +377,8 @@ The File Key Management plugin does not support [key rotation](encryption-key-ma
 ### `file_key_management_encryption_algorithm`
 
 * This system variable is used to determine which algorithm the plugin will use to encrypt data.
-  * The recommended algorithm is `AES_CTR`, but this algorithm is only available when MariaDB is built with [OpenSSL](https://www.openssl.org/). If the server is built with [wolfSSL](https://www.wolfssl.com/products/wolfssl/) then this algorithm is not available. See [TLS and Cryptography Libraries Used by MariaDB](../../tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
+  * The choice is permanent for data already encrypted, and `AES_CTR` can't be read by the other key management plugins. See [Choosing an Encryption Algorithm](file-key-management-encryption-plugin.md#choosing-an-encryption-algorithm).
+  * `AES_CTR` requires a build using [OpenSSL](https://www.openssl.org/). Before MariaDB 11.2, builds using [wolfSSL](https://www.wolfssl.com/products/wolfssl/) accept `AES_CBC` only.
 * Command line: `--file-key-management-encryption-algorithm=`_`value`_
 * Scope: Global
 * Dynamic: No
@@ -357,7 +403,7 @@ The File Key Management plugin does not support [key rotation](encryption-key-ma
   * If this system variable's value is prefixed with `FILE:`, then it is interpreted as a path to a file that contains the plain-text encryption password.
   * If this system variable's value is not prefixed with `FILE:`, then it is interpreted as the plain-text encryption password. However, this is not recommended.
   * The encryption password has a max length of 256 characters.
-  * The only algorithm that MariaDB currently supports when decrypting the key file is [Cipher Block Chaining (CBC)](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CBC) mode of [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard). The encryption key size can be 128-bits, 192-bits, or 256-bits. The encryption key is calculated by taking a [SHA-1](https://en.wikipedia.org/wiki/SHA-1) hash of the encryption password. Instead of SHA-1, SHA-2 can be used as well.
+  * The only algorithm that MariaDB supports when decrypting the key file is [Cipher Block Chaining (CBC)](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CBC) mode of [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard). The encryption key size can be 128-bits, 192-bits, or 256-bits. The encryption key is calculated by taking a [SHA-1](https://en.wikipedia.org/wiki/SHA-1) hash of the encryption password. Instead of SHA-1, SHA-2 can be used as well.
 * Command line: `--file-key-management-filekey=`_`value`_
 * Scope: Global
 * Dynamic: No

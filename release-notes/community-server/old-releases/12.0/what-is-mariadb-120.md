@@ -31,7 +31,7 @@ MariaDB 12.0 is a [rolling release](../../about/release-model.md). It is an evol
 ### Server <a href="#server" id="server"></a>
 
 * Add the FM format to [TO\_CHAR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/to_char), which suppresses following padding ([MDEV-36216](https://jira.mariadb.org/browse/MDEV-36216))
-* [mariadb-check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) now support [sequences](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences/) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
+* [mariadb-check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) now support [sequences](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
 
 ### Optimizer <a href="#optimizer" id="optimizer"></a>
 
@@ -44,21 +44,21 @@ MariaDB 12.0 is a [rolling release](../../about/release-model.md). It is an evol
 ### Optimizer hints <a href="#optimizer-hints" id="optimizer-hints"></a>
 
 * Add support for [optimizer hints](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints) ([MDEV-35504](https://jira.mariadb.org/browse/MDEV-35504))
-  * [QB\_NAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#query-block-naming)
-  * [NO\_RANGE\_OPTIMIZATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#no_range_optimization)
-  * [NO\_ICP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#no_icp)
-  * [MRR, NO\_MRR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#mrr-and-no_mrr)
-  * [BKA, NO\_BKA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#bka-and-no_bka)
-  * [BNL, NO\_BNL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#bnl-and-no_bnl)
+  * [QB\_NAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints/query-block-naming)
+  * [NO\_RANGE\_OPTIMIZATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints/index-level-hints#no_range_optimization)
+  * [NO\_ICP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints/index-level-hints#no_icp)
+  * [MRR, NO\_MRR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints/index-level-hints#mrr-no_mrr)
+  * [BKA, NO\_BKA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints/table-level-hints#bka-no_bka)
+  * [BNL, NO\_BNL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints/table-level-hints#bnl-no_bnl)
 * Add support for subquery optimizer hints ([MDEV-34888](https://jira.mariadb.org/browse/MDEV-34888))
-  * [SEMIJOIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#semijoin-and-no_semijoin)
-  * [SUBQUERY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#subquery-hint)
+  * [SEMIJOIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints/expanded-optimizer-hints#semijoin-no_semijoin)
+  * [SUBQUERY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints/expanded-optimizer-hints#subquery)
 * Add support for join order hints ([MDEV-34870](https://jira.mariadb.org/browse/MDEV-34870))
   * JOIN\_FIXED\_ORDER similar to existing STRAIGHT\_JOIN hint
   * JOIN\_ORDER to apply the specified table order
   * JOIN\_PREFIX to hint what tables should be first in the join
   * JOIN\_SUFFIX to hint what tables should be last in the join
-* Add support for the [MAX\_EXECUTION\_TIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#max_execution_time) hint ([MDEV-34860](https://jira.mariadb.org/browse/MDEV-34860))
+* Add support for the [MAX\_EXECUTION\_TIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints/expanded-optimizer-hints#max_execution_time) hint ([MDEV-34860](https://jira.mariadb.org/browse/MDEV-34860))
 
 ### GIS <a href="#gis" id="gis"></a>
 
@@ -101,11 +101,11 @@ New [GIS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure
 
 ### mariadb Client
 
-* Can set an alternative directory path for searching scripts invoked via the source command, with the [--script-dir](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#script-dir) mariadb client option ([MDEV-23818](https://jira.mariadb.org/browse/MDEV-23818))
+* Can set an alternative directory path for searching scripts invoked via the source command, with the [--script-dir](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#script-dir-name) mariadb client option ([MDEV-23818](https://jira.mariadb.org/browse/MDEV-23818))
 
 ### Variables
 
-For a list of all new variables, see [System Variables Added in MariaDB 12.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-12.0).
+For a list of all new variables, see [System Variables Added in MariaDB 12.0](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-12.0).
 
 #### Removed
 

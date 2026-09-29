@@ -16,7 +16,7 @@ The following restrictions apply to [stored functions](./).
 * Cannot make changes to a table that is already in use (reading or writing) by the statement invoking the stored function.
 * Cannot refer to a temporary table multiple times under different aliases, even in different statements.
 * ROLLBACK TO SAVEPOINT and RELEASE SAVEPOINT statement which are in a stored function cannot refer to a savepoint which has been defined out of the current function.
-* Prepared statements ([PREPARE](../../../reference/sql-statements/prepared-statements/prepare-statement.md), [EXECUTE](../../../reference/sql-statements/prepared-statements/execute-statement.md), [DEALLOCATE PREPARE](../../../reference/sql-statements/prepared-statements/deallocate-drop-prepare.md)) cannot be used, and therefore nor can statements be constructed as strings and then executed.
+* Prepared statements ([PREPARE](../../../reference/sql-statements/prepared-statements/prepare-statement.md), [EXECUTE](../../../reference/sql-statements/prepared-statements/execute-statement.md), [DEALLOCATE PREPARE](../../../reference/sql-statements/prepared-statements/deallocate-drop-prepare.md), [EXECUTE IMMEDIATE](../../../reference/sql-statements/prepared-statements/execute-immediate.md)) cannot be used, and therefore nor can statements be constructed as strings and then executed. From MariaDB 13.2.1 they can be used, but only when the function is called on the right-hand side of an assignment to a stored routine variable. See [Dynamic SQL in Stored Functions](../../../reference/sql-statements/prepared-statements/prepare-statement.md#dynamic-sql-in-stored-functions).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

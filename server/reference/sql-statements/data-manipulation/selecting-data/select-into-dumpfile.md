@@ -24,10 +24,18 @@ The file must not exist. It cannot be overwritten. A user needs the [FILE](../..
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 5.1:
+{% endhint %}
+
 The [character\_set\_filesystem](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_filesystem) system variable has controlled interpretation of file names that are given as literal strings.
 {% endtab %}
 
 {% tab title="< 5.1" %}
+{% hint style="info" %}
+Before MariaDB 5.1:
+{% endhint %}
+
 The [character\_set\_filesystem](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_filesystem) system variable does not have controlled interpretation of file names that are given as literal strings.
 {% endtab %}
 {% endtabs %}

@@ -6,7 +6,7 @@ description: >-
 
 # Deploy MariaDB Enterprise Server with Docker
 
-MariaDB Corporation provides Docker images for MariaDB Enterprise Server in the [MariaDB Enterprise Docker Registry](mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md).
+MariaDB Corporation provides Docker images for MariaDB Enterprise Server in the [MariaDB Enterprise Docker Registry](mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md). These images are generally available (GA) and supported for production use.
 
 Docker provides multiple benefits:
 
@@ -86,7 +86,7 @@ $ cat ~/.docker/config.json
 
 The `enterprise-server` repository in the MariaDB Enterprise Docker Registry contains images for different MariaDB Enterprise Server releases using specific tags. Before continuing, you will need to decide which tag to use.
 
-To deploy a container using the most recent image for the latest MariaDB Enterprise Server release series (currently 11.8), use the `latest` tag.
+To deploy a container using the most recent image for the latest MariaDB Enterprise Server release series, use the `latest` tag.
 
 For additional information, see "[MariaDB Enterprise Docker Registry: Tags](mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md#tags)".
 

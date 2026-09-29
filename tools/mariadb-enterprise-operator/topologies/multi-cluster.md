@@ -55,6 +55,7 @@ Place replica clusters closer to your application instances to reduce network la
 ## Architecture
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Multi-cluster MariaDB Enterprise Kubernetes Operator topology
     accDescr {
@@ -124,6 +125,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _A client connects via a LoadBalancer to the Primary Cluster's MaxScale Service in eu-south, which routes to the Primary Cluster's MariaDB pods managed by its own mariadb-operator. The Replica Cluster in eu-central mirrors this structure, and its primary replica Pod replicates from the Primary Cluster's MaxScale Service._
@@ -884,7 +886,7 @@ The external load balancer that routes traffic to the primary cluster is not man
 
 ### Backups on primary only
 
-Physical backups can only be taken from the primary cluster. This is because backups capture the GTID of the cluster, and currently only backups with a single GTID domain ID are supported. Replica clusters have multiple GTID domain IDs (their own plus the domains they replicate from), therefore, they are incompatible with the GTID backup format currently supported by the operator.
+Physical backups can only be taken from the primary cluster. This is because backups capture the GTID of the cluster, and only backups with a single GTID domain ID are supported. Replica clusters have multiple GTID domain IDs (their own plus the domains they replicate from), therefore, they are incompatible with the GTID backup format supported by the operator.
 
 As a consequence, replica clusters cannot be backed up and restored directly using its own backups. To recover a replica cluster from a failure, it must be re-bootstrapped from a backup taken in the primary cluster.
 

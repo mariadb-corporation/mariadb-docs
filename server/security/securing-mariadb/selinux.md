@@ -217,7 +217,7 @@ sudo semodule -DB
 sudo semanage permissive -a mysqld_t
 ```
 
-* [Start MariaDB](https://mariadb.com/kb/en/).
+* [Start MariaDB](../../server-management/starting-and-stopping-mariadb/).
 * Do whatever was causing SELinux errors.
 * Use the generated audit log to create a policy:
 

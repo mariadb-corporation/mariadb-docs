@@ -63,15 +63,15 @@ If the [log\_error](../../ha-and-performance/optimization-and-tuning/system-vari
 
 ### Writing the Error Log to Syslog on Unix
 
-On Unix, the error log can also be redirected to the [syslog](https://linux.die.net/man/8/rsyslogd). How this is done depends on how you [start](https://mariadb.com/kb/en/) MariaDB.
+On Unix, the error log can also be redirected to the [syslog](https://linux.die.net/man/8/rsyslogd). How this is done depends on how you [start](../starting-and-stopping-mariadb/) MariaDB.
 
 #### Syslog with mariadbd-safe
 
-If you [start](https://mariadb.com/kb/en/) MariaDB with [mariadbd-safe](../starting-and-stopping-mariadb/mariadbd-safe.md), the error log can be redirected to the syslog. See [mariadbd-safe: Configuring MariaDB to Write the Error Log to Syslog](../starting-and-stopping-mariadb/mariadbd-safe.md#configuring-mariadb-to-write-the-error-log-to-syslog) for more information.
+If you [start](../starting-and-stopping-mariadb/) MariaDB with [mariadbd-safe](../starting-and-stopping-mariadb/mariadbd-safe.md), the error log can be redirected to the syslog. See [mariadbd-safe: Configuring MariaDB to Write the Error Log to Syslog](../starting-and-stopping-mariadb/mariadbd-safe.md#configuring-mariadb-to-write-the-error-log-to-syslog) for more information.
 
 #### Syslog with Systemd
 
-If you [start](https://mariadb.com/kb/en/) MariaDB with [systemd](../starting-and-stopping-mariadb/systemd/README.md), the error log can also be redirected to the syslog. See [Systemd: Configuring MariaDB to Write the Error Log to Syslog](../starting-and-stopping-mariadb/systemd/configuring.md#configuring-mariadb-to-write-the-error-log-to-syslog) for more information.
+If you [start](../starting-and-stopping-mariadb/) MariaDB with [systemd](../starting-and-stopping-mariadb/systemd/README.md), the error log can also be redirected to the syslog. See [Systemd: Configuring MariaDB to Write the Error Log to Syslog](../starting-and-stopping-mariadb/systemd/configuring.md#configuring-mariadb-to-write-the-error-log-to-syslog) for more information.
 
 [systemd](../starting-and-stopping-mariadb/systemd/README.md) also has its own logging system called the `journal`, and some errors may get logged there instead. See [Systemd:Systemd Journal](../starting-and-stopping-mariadb/systemd/starting.md#systemd-journal) for more information.
 

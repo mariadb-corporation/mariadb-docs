@@ -15,10 +15,18 @@ When the MariaDB Audit Plugin (v1) writes to a dedicated file, it uses a comma-s
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0.1:
+{% endhint %}
+
 Template: `<timestamp>,<serverhost>,<username>,<host>:<port>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
 {% endtab %}
 
 {% tab title="< 12.0.1" %}
+{% hint style="info" %}
+Before MariaDB 12.0.1:
+{% endhint %}
+
 Template: `<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
 {% endtab %}
 {% endtabs %}
@@ -43,6 +51,12 @@ Two changes to the log format require updates to tools that parse the audit log:
 
 * The `host` field now contains a colon and the client's TCP port, unless the client did not connect over TCP/IP.
 * On connection events, the `object` field now carries the negotiated TLS version. The record still has ten fields and still ends with `retcode`.
+{% endhint %}
+
+{% hint style="info" %}
+**On MariaDB Enterprise Server**
+
+From MariaDB Enterprise Server 12.3.3-1, this plugin writes `host:unavailable` when the client did not connect over TCP/IP, instead of omitting the colon and the port. That matches [MariaDB Enterprise Audit](../mariadb-enterprise-audit.md), which has written `unavailable` since it gained the client port. Community Server is unaffected.
 {% endhint %}
 
 ### Audit Log Format with Syslog
@@ -95,12 +109,20 @@ Passwords are hidden in the log for certain types of queries. They are replaced 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11.16:
+{% endhint %}
+
 For [Galera Cluster replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-replication-with-mariadb-galera-cluster-using-mariadb-replica) applier operations, audit log plugin logs events with a generic name of `<wsrep_applier>` .
 
 This addresses an issue where the user was logged on the primary node, but stripped from other cluster nodes. See [MDEV-35511](https://jira.mariadb.org/browse/MDEV-35511) for details.
 {% endtab %}
 
 {% tab title="< 10.11.16" %}
+{% hint style="info" %}
+Before MariaDB 10.11.16:
+{% endhint %}
+
 For Galera Cluster replication applier operations, audit log plugin logs events without indicating what user initiates them.
 {% endtab %}
 {% endtabs %}

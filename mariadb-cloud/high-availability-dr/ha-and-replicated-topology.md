@@ -32,6 +32,7 @@ While hardware failures are a possibility, a more common scenario we see in prac
 Behind the scenes, MariaDB Cloud consistently directs SQL through its intelligent proxy. This proxy not only continuously monitors servers for failures but also remains acutely aware of any replication lags in the replica servers. Should a primary server fail, an immediate election process ensues to select a replica with the least lag. Simultaneously, attempts are made to flush any pending events, ensuring synchronization and full data consistency. Any pending transactions on the primary server are also replayed. Collectively, these measures enable applications to operate without connection-level interruptions or SQL exceptions. Achieving heightened levels of High Availability (HA) is effortlessly attainable by expanding the number of replicas. Replication can even extend across different cloud providers or to a self-managed (ˮpeace of mindˮ) replica within a customerʼs own environment.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: HA within a single region
     accDescr {
@@ -70,6 +71,7 @@ flowchart TD
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
     classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _HA in a single region_
@@ -152,6 +154,7 @@ The major cloud providers tout disaster recovery across regions, ensuring resili
 One effective strategy to mitigate such risks is to replicate data to a data center owned by a different cloud provider within the same geographical area, minimizing network latencies. Disaster recovery across cloud providers is, of course, something an individual provider, such as AWS or GCP, simply doesn't support. Alternatively, customers can maintain their own “standby” database for emergencies—an environment entirely under their control, ensuring a near real-time copy of the data at all times.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Failover when an entire region or cloud provider fails
     accDescr {
@@ -191,6 +194,7 @@ flowchart TD
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
     classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _Failover when the entire region becomes unavailable_

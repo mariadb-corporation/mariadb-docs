@@ -10,8 +10,11 @@ description: >-
 
 The version of the script is a date, which you can display by running the script with the `--version` option. The changes made in each version are listed below, reproduced from the changelog comments at the top of the script. For the checksum of each released version, see the [Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) section of the setup and usage page.
 
+* **2026-09-15**
+  * Update MariaDB default to 13.rolling
+  * Add support for 13.0 and 13.1 release series
 * **2026-06-30**
-  * TODO-3939 Write Deb822 (mariadb.sources) format by default; add --list flag to force the old one-line .list format
+  * Write Deb822 (mariadb.sources) format by default; add --list flag to force the old one-line .list format
   * Store the signing key at /etc/apt/keyrings/mariadb-keyring.gpg and reference it via Signed-By; remove old trusted.gpg.d key on key import
   * Disable any pre-existing old-format apt source file (mariadb.list or mariadb.sources) to avoid apt "configured multiple times" errors after OS upgrades
   * Accept 'latest' and 'latest-LTS' for --mariadb-server-version WARNING: Using this option in production could result in an unintended upgrade to a higher series of MariaDB Community Server when a new GA series is released, these are mainly useful for automated testing

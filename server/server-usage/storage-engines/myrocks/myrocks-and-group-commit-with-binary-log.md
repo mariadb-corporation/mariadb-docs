@@ -30,7 +30,7 @@ So, the value of [rocksdb\_wal\_group\_syncs](myrocks-status-variables.md#rocksd
 
 MariaDB doesn't have that call, each rocksdb\_prepare() call takes care of being persistent on its own.
 
-Because of that, [rocksdb\_wal\_group\_syncs](myrocks-status-variables.md#rocksdb_wal_group_syncs) is zero for MariaDB. (Currently, it is only incremented when the binlog is rotated).
+Because of that, [rocksdb\_wal\_group\_syncs](myrocks-status-variables.md#rocksdb_wal_group_syncs) is zero for MariaDB. (It is only incremented when the binlog is rotated.)
 
 ## Examples
 

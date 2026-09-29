@@ -4,7 +4,7 @@ description: >-
   with two, it adds a time expression to a date or datetime.
 ---
 
-# TIMESTAMP
+# TIMESTAMP Function
 
 {% hint style="info" %}
 For the timestamp data type, see [TIMESTAMP](../../data-types/date-and-time-data-types/timestamp.md).

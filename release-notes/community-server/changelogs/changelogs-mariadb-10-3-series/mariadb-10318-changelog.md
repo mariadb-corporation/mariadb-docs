@@ -136,7 +136,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-20138](https://jira.mariadb.org/browse/MDEV-20138) innodb.trx\_id\_future fails on 10.3+
 * [Revision #20c78a6d3e](https://github.com/MariaDB/server/commit/20c78a6d3e)\
   2019-08-13 13:54:59 +0400
-  * Fixing `[MDEV-20303](https://jira.mariadb.org/browse/MDEV-20303) SPACE(-1) returns a wrong data type` compilation problem in Windows
+  * Fixing [MDEV-20303](https://jira.mariadb.org/browse/MDEV-20303) (SPACE(-1) returns a wrong data type): compilation problem in Windows
 * [Revision #98b24da038](https://github.com/MariaDB/server/commit/98b24da038)\
   2018-11-03 18:00:22 +0300
   * [MDEV-17609](https://jira.mariadb.org/browse/MDEV-17609) mysql client sets wrong application name for Readline library
@@ -163,7 +163,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-20303](https://jira.mariadb.org/browse/MDEV-20303) SPACE(-1) returns a wrong data type
 * [Revision #2dac123515](https://github.com/MariaDB/server/commit/2dac123515)\
   2019-08-09 09:00:17 +0400
-  * A cleanup for `[MDEV-20273](https://jira.mariadb.org/browse/MDEV-20273) Add class Item_sum_min_max` - removing duplicate code
+  * A cleanup for [MDEV-20273](https://jira.mariadb.org/browse/MDEV-20273) (Add class `Item_sum_min_max`) - removing duplicate code
 * [Revision #c3d67c17c1](https://github.com/MariaDB/server/commit/c3d67c17c1)\
   2019-08-08 17:08:56 +0400
   * [MDEV-20292](https://jira.mariadb.org/browse/MDEV-20292) REPEAT(x,-1) returns a wrong data type

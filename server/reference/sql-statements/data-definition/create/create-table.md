@@ -80,10 +80,18 @@ Use the `TEMPORARY` keyword to create a temporary table that is only available t
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7:
+{% endhint %}
+
 [ROCKSDB](../../../../server-usage/storage-engines/myrocks/) temporary tables cannot be created by setting the [default\_tmp\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_tmp_storage_engine) system variable or using `CREATE TEMPORARY TABLE LIKE`. If you try, an error is returned. Explicitly creating a temporary table with `ENGINE=ROCKSDB` has never been permitted.
 {% endtab %}
 
 {% tab title="< 10.7" %}
+{% hint style="info" %}
+Before MariaDB 10.7:
+{% endhint %}
+
 [ROCKSDB](../../../../server-usage/storage-engines/myrocks/) temporary tables cannot be created by setting the [default\_tmp\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_tmp_storage_engine) system variable, or using `CREATE TEMPORARY TABLE LIKE`. They can be specified, but fail silently, and a `MyISAM` table is created instead. Explicitly creating a temporary table with `ENGINE=ROCKSDB` has never been permitted.
 {% endtab %}
 {% endtabs %}
@@ -92,6 +100,10 @@ Use the `TEMPORARY` keyword to create a temporary table that is only available t
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0.1:
+{% endhint %}
+
 By default, temporary tables are only created on the replica if the primary is using the [STATEMENT binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging).
 
 The new deterministic rules for logging of temporary tables are:
@@ -102,6 +114,10 @@ The new deterministic rules for logging of temporary tables are:
 {% endtab %}
 
 {% tab title="< 12.0.1" %}
+{% hint style="info" %}
+Before MariaDB 12.0.1:
+{% endhint %}
+
 In some contexts, temporary tables on the primary and replica can become inconsistent.\
 One example is if a temporary table is updated with the value of a non deterministic function like [UUID](../../../sql-functions/secondary-functions/miscellaneous-functions/uuid.md)(), in which the change is never sent to the replica.
 
@@ -200,6 +216,10 @@ constraint_definition:
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 MariaDB accepts the shortcut format with a `REFERENCES` clause only in `ALTER TABLE` and `CREATE TABLE` statements, but that syntax does nothing. For example:
 
 ```sql
@@ -210,6 +230,10 @@ MariaDB will attempt to apply the constraint. See [Foreign Keys examples](../../
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 MariaDB accepts the shortcut format with a `REFERENCES` clause only in `ALTER TABLE` and `CREATE TABLE` statements, but that syntax does nothing. For example:
 
 ```sql
@@ -430,11 +454,19 @@ For `UNIQUE` indexes, you can specify a name for the constraint, using the `CONS
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
+{% hint style="info" %}
 Unique, if index type is not specified, is normally a BTREE index that can also be used by the optimizer to find rows. If the key is longer than the max key length for the used storage engine, a HASH key will be created. This enables MariaDB to enforce uniqueness for any type or number of columns.
 {% endhint %}
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 \-
 {% endtab %}
 {% endtabs %}
@@ -453,7 +485,7 @@ First, you have to specify the name of the target (parent) table and a column or
 * `NO ACTION`: Synonym for `RESTRICT`.
 * `CASCADE`: The delete/update operation is performed in both tables.
 * `SET NULL`: The update or delete goes ahead in the parent table, and the corresponding foreign key fields in the child table are set to `NULL`. (They must not be defined as `NOT NULL` for this to succeed).
-* `SET DEFAULT`: This option is currently implemented only for the PBXT storage engine, which is disabled by default and no longer maintained. It sets the child table's foreign key fields to their `DEFAULT` values when the referenced parent table key entries are updated or deleted.
+* `SET DEFAULT`: In the SQL standard, this option sets the child table's foreign key fields to their `DEFAULT` values when the referenced parent table key entries are updated or deleted. No MariaDB storage engine implements it: InnoDB accepts the clause but ignores it, and the constraint behaves like `RESTRICT`. See [MDEV-10393](https://jira.mariadb.org/browse/MDEV-10393).
 
 If either clause is omitted, the default behavior for the omitted clause is `RESTRICT`.
 
@@ -527,10 +559,18 @@ Different index types are optimized for different kind of operations:
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 Index columns names are listed between parenthesis. After each column, a prefix length can be specified. If no length is specified, the whole column will be indexed. `ASC` and `DESC` can be specified. Individual columns in the index can be explicitly sorted in ascending or descending order. This can be useful for optimizing certain ORDER BY cases ([MDEV-13756](https://jira.mariadb.org/browse/MDEV-13756), [MDEV-26938](https://jira.mariadb.org/browse/MDEV-26938), [MDEV-26939](https://jira.mariadb.org/browse/MDEV-26939), [MDEV-26996](https://jira.mariadb.org/browse/MDEV-26996)). Not only ascending, but also descending, indexes can be used to optimize [MIN()](../../../sql-functions/aggregate-functions/min.md) and [MAX()](../../../sql-functions/aggregate-functions/max.md) ([MDEV-27576](https://jira.mariadb.org/browse/MDEV-27576)).
 {% endtab %}
 
 {% tab title="< 11.4 / 10.8" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 Index columns names are listed between parenthesis. After each column, a prefix length can be specified. If no length is specified, the whole column will be indexed. `ASC` and `DESC` can be specified. Prior to [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108), this was only for compatibility with other DBMSs, but had no meaning in MariaDB. From [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108), individual columns in the index can now be explicitly sorted in ascending or descending order. This can be useful for optimizing certain ORDER BY cases ([MDEV-13756](https://jira.mariadb.org/browse/MDEV-13756), [MDEV-26938](https://jira.mariadb.org/browse/MDEV-26938), [MDEV-26939](https://jira.mariadb.org/browse/MDEV-26939), [MDEV-26996](https://jira.mariadb.org/browse/MDEV-26996)). From [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0), not only ascending, but also descending, indexes can now be used to optimize [MIN()](../../../sql-functions/aggregate-functions/min.md) and [MAX()](../../../sql-functions/aggregate-functions/max.md) ([MDEV-27576](https://jira.mariadb.org/browse/MDEV-27576)).
 {% endtab %}
 {% endtabs %}
@@ -545,10 +585,18 @@ The `WITH PARSER` index option only applies to [FULLTEXT](../../../../ha-and-per
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.3:
+{% endhint %}
+
 Indexes can be declared visible. This is the default and it shows up in [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md).
 {% endtab %}
 
 {% tab title="< 10.5.3" %}
+{% hint style="info" %}
+Before MariaDB 10.5.3:
+{% endhint %}
+
 Indexes cannot be declared visible.
 {% endtab %}
 {% endtabs %}
@@ -563,10 +611,18 @@ The `COMMENT` index option allows you to specify a comment with user-readable te
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6.0:
+{% endhint %}
+
 Indexes can be specified to be ignored by the optimizer. See [Ignored Indexes](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/ignored-indexes.md).
 {% endtab %}
 
 {% tab title="< 10.6.0" %}
+{% hint style="info" %}
+Before MariaDB 10.6.0:
+{% endhint %}
+
 Indexes can be specified to be ignored by the optimizer. See [Ignored Indexes](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/ignored-indexes.md).
 {% endtab %}
 {% endtabs %}
@@ -833,7 +889,7 @@ If set to `1`, statistics will be recalculated when more than 10% of the data ha
 
 ### TRANSACTIONAL
 
-`TRANSACTIONAL` is only applicable for Aria tables. In future Aria tables created with this option will be fully transactional, but currently this provides a form of crash protection. See [Aria Storage Engine](../../../../server-usage/storage-engines/aria/aria-storage-engine.md) for more details.
+`TRANSACTIONAL` is only applicable for Aria tables. It provides a form of crash protection, but does not make Aria tables fully transactional. See [Aria Storage Engine](../../../../server-usage/storage-engines/aria/aria-storage-engine.md) for more details.
 
 ### UNION
 
@@ -917,6 +973,10 @@ Also see [Partitioning Types Overview](../../../../server-usage/partitioning-tab
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7.1:
+{% endhint %}
+
 The `PARTITION` keyword is optional as part of the partition definition. Instead of this:
 
 ```sql
@@ -945,6 +1005,10 @@ CREATE OR REPLACE TABLE t1 (x INT)
 {% endtab %}
 
 {% tab title="< 10.7.1" %}
+{% hint style="info" %}
+Before MariaDB 10.7.1:
+{% endhint %}
+
 The `PARTITION` keyword is not optional as part of the partition definition. You must use this syntax:
 
 ```sql
@@ -968,10 +1032,18 @@ CREATE OR REPLACE TABLE t1 (x INT)
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6.1:
+{% endhint %}
+
 MariaDB supports [Atomic DDL](../atomic-ddl.md). `CREATE TABLE` is atomic, except for `CREATE OR REPLACE`, which are only crash-safe.
 {% endtab %}
 
 {% tab title="< 10.6.1" %}
+{% hint style="info" %}
+Before MariaDB 10.6.1:
+{% endhint %}
+
 \-
 {% endtab %}
 {% endtabs %}

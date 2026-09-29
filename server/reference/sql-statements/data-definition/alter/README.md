@@ -39,7 +39,7 @@ Change stored function characteristics. This statement allows modifying the secu
 {% endcolumn %}
 
 {% column %}
-Understand the support status of this statement. Originally designed for NDB Cluster, it is not currently supported in MariaDB Server.
+Understand the support status of this statement. Originally designed for NDB Cluster, it is not supported in MariaDB Server.
 {% endcolumn %}
 {% endcolumns %}
 

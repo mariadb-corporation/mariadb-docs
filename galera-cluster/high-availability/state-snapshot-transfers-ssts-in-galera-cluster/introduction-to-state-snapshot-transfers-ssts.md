@@ -69,16 +69,28 @@ Starting with MariaDB 13.0, the SST staging area can be moved to a different fil
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7.4 / 10.6.8 / 10.5.16 / 10.4.25 / 10.3.35:
+{% endhint %}
+
 Use of this SST method **could result in data corruption** when using [innodb\_use\_native\_aio](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_use_native_aio) (the default).
 {% endtab %}
 
 {% tab title="< 10.7.4 / 10.6.8 / 10.5.16 / 10.4.25 / 10.3.35" %}
+{% hint style="info" %}
+Before MariaDB 10.7.4 / 10.6.8 / 10.5.16 / 10.4.25 / 10.3.35:
+{% endhint %}
+
 Use of this SST method **could result in data corruption** when using [innodb\_use\_native\_aio](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_use_native_aio) (the default). `wsrep_sst_method=rsync` is a reliable way to upgrade the cluster to a newer major version.
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.3.10 / 10.2.18 / 10.1.36:
+{% endhint %}
+
 [stunnel ](https://www.stunnel.org/)can be used to encrypt data over the wire. Be sure to have `stunnel` installed. You will also need to generate certificates and keys. See [the stunnel documentation](https://www.stunnel.org/howto.html) for information on how to do that. Once you have the keys, you will need to add the `tkey` and `tcert` options to the `[sst]` option group in your MariaDB configuration file, such as:
 
 ```ini
@@ -88,9 +100,19 @@ tcert = /etc/my.cnf.d/certificates/client-cert.pem
 ```
 
 You also need to run the certificate directory through [openssl rehash](mariadb-backup-sst-method.md).
+
+{% hint style="warning" %}
+**MariaDB Enterprise Server 12.3.3-0 Beta does not install `stunnel`.** Its packages list `stunnel` neither as a requirement nor as a recommendation, on RPM or DEB, so an encrypted rsync SST cannot work until you install `stunnel` yourself. Enterprise Server 11.8 and earlier shipped it as a recommended package.
+
+**MariaDB Community Server 12.3 is not affected the same way.** There, `stunnel` is a recommended package of `mariadb-server-galera`, so a default install includes it. It is left out only when you install with recommendations disabled — `apt --no-install-recommends`, or `dnf`/`yum` with `install_weak_deps=False`.
+{% endhint %}
 {% endtab %}
 
 {% tab title="< 10.3.10 / 10.2.18 / 10.1.36" %}
+{% hint style="info" %}
+Before MariaDB 10.3.10 / 10.2.18 / 10.1.36:
+{% endhint %}
+
 [stunnel](https://www.stunnel.org) **cannot** be used to encrypt data over the wire.
 {% endtab %}
 {% endtabs %}
@@ -176,7 +198,7 @@ EOF
 sudo systemctl daemon-reload
 ```
 
-See [Configuring the Systemd Service Timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#configuring-the-systemd-service-timeout) for more details.
+See [Configuring the Systemd Service Timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd/configuring#configuring-the-systemd-service-timeout) for more details.
 
 Note that [systemd 236 added the EXTEND\_TIMEOUT\_USEC environment variable](https://lists.freedesktop.org/archives/systemd-devel/2017-December/039996.html) that allows services to extend the startup timeout during long-running processes. Starting with [MariaDB 10.1.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.35), [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.17), and [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.8), on systems with systemd versions that support it, MariaDB uses this feature to extend the startup timeout during long SSTs. Therefore, if you are using `systemd` 236 or later, then you should not need to manually override `TimeoutStartSec`, even if your SSTs run for longer than the configured value. See [MDEV-15607](https://jira.mariadb.org/browse/MDEV-15607) for more information.
 
@@ -213,7 +235,7 @@ In some cases, if Galera Cluster's automatic SSTs repeatedly fail, then it can b
 
 ### mysqld\_multi
 
-SST scripts can't currently read the mysqld<#> [option group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#option-groups) in an [option file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files) that are read by instances managed by mysqld\_multi.
+SST scripts can't read the mysqld<#> [option group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#option-groups) in an [option file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files) that are read by instances managed by mysqld\_multi.
 
 See [MDEV-18863](https://jira.mariadb.org/browse/MDEV-18863) for more information.
 

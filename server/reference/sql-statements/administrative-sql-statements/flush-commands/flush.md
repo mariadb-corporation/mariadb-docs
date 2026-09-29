@@ -82,6 +82,10 @@ FLUSH RELAY LOGS 'connection_name'
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7.0:
+{% endhint %}
+
 The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical to using the channel\_name directly after the `FLUSH command`. For example, one can now use:
 
 ```sql
@@ -90,6 +94,10 @@ FLUSH RELAY LOGS FOR CHANNEL 'connection_name';
 {% endtab %}
 
 {% tab title="< 10.7.0" %}
+{% hint style="info" %}
+Before MariaDB 10.7.0:
+{% endhint %}
+
 `FOR CHANNEL` isn't available.
 {% endtab %}
 {% endtabs %}
@@ -106,11 +114,19 @@ This statement requires the [RELOAD](../../account-management-sql-statements/gra
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 Specify FLUSH GLOBAL or FLUSH SESSION. Flushing of global status variables has been moved to `FLUSH GLOBAL STATUS` which is a synonym for `FLUSH STATUS`.\
 You can use `old-mode=OLD_FLUSH_STATUS` to restore the old behavior of the `FLUSH STATUS` statement.
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 The variables flushed are mainly session, but some are global. Not all session (or global) variables are flushed - the decision was made per variable.
 {% endtab %}
 {% endtabs %}
@@ -198,14 +214,26 @@ Not all global status variables support being reset by `FLUSH STATUS`. The follo
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8.2 / 11.4.6:
+{% endhint %}
+
 `FLUSH TABLES` doesn't cause [InnoDB statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md) to be reloaded or recalculated. [RENAME TABLE](../../data-definition/rename-table.md), however, triggers a reload of the statistics.
 {% endtab %}
 
 {% tab title="< 11.8.2 / 11.4.6" %}
+{% hint style="info" %}
+Before MariaDB 11.8.2 / 11.4.6:
+{% endhint %}
+
 `FLUSH TABLES` causes [InnoDB statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md) to be reloaded or recalculated.
 {% endtab %}
 
 {% tab title="< 10.11.12" %}
+{% hint style="info" %}
+Before MariaDB 10.11.12:
+{% endhint %}
+
 `FLUSH TABLES` causes [InnoDB statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md) to be reloaded or recalculated.
 {% endtab %}
 {% endtabs %}
@@ -224,7 +252,7 @@ In the following, the purpose of specific `FLUSH TABLES` statements is detailed.
 
 Note that it's up to the user to ensure that no one is accessing the table between issuing the `FLUSH TABLES` statement and the time the table is copied to or from the server. This can be secured by using [LOCK TABLES](../../transactions/lock-tables.md).
 
-If there are any tables locked by the connection that is using `FLUSH TABLES` all the locked tables will be closed as part of the flush and reopened and relocked before `FLUSH TABLES` returns. This allows one to copy the table after `FLUSH TABLES` returns without having any writes on the table. For now this works with most tables, except InnoDB as InnoDB may do background purges on the table even while it's write locked.
+If there are any tables locked by the connection that is using `FLUSH TABLES` all the locked tables will be closed as part of the flush and reopened and relocked before `FLUSH TABLES` returns. This allows one to copy the table after `FLUSH TABLES` returns without having any writes on the table. This works with most tables, except InnoDB, as InnoDB may do background purges on the table even while it's write locked.
 
 ### FLUSH TABLES _table\_list_ WITH READ LOCK
 

@@ -13,6 +13,10 @@ EXCLUDED_DIRS = [
     "error-codes",
     "clientserver-protocol",
     "product-development",
+    # /graphify writes its knowledge-graph artifacts next to the pages it reads.
+    # They are git-ignored, so CI never sees them, but a local run would otherwise
+    # turn GRAPH_REPORT.md into a help topic.
+    "graphify-out",
 ]
 
 # Maps a directory path segment to its help_category_id in mysql.help_category.
@@ -175,6 +179,102 @@ def get_files(base_path: str = "server/reference") -> list:
     
     # Sort so processing order is deterministic (affects which duplicate wins)
     return sorted(files)
+
+
+# A SUMMARY.md nav entry: indentation, link text, link target.
+SUMMARY_ENTRY = re.compile(r"^(\s*)\*\s+\[.*?\]\((.*?)\)\s*$")
+
+
+def nav_slug(rel_path: str) -> str:
+    """The URL segment GitBook gives a page: its own path component, lowercased.
+
+    A README.md is the index page of its directory, so it contributes the
+    directory name rather than "readme".
+    """
+    p = Path(rel_path)
+    segment = p.parent.name if p.name == "README.md" else p.stem
+    return segment.lower()
+
+
+def build_nav_url_map(space_dir: Path, space: str) -> dict:
+    """Map each file listed in a space's SUMMARY.md to its published URL path.
+
+    Keys are paths relative to REPO_ROOT, so they can be looked up directly
+    with a page's own repo-relative path.
+
+    GitBook does NOT publish a page at its path on disk — it publishes it at
+    its position in SUMMARY.md. A page's URL is its parent nav entry's URL plus
+    its own slug, so a file can live under reference/ in Git and be published
+    under server-usage/ on the site. Deriving the URL from the file path
+    instead produces a link that only resolves via a 307 redirect, and stops
+    resolving at all once that redirect is retired.
+
+    When the same file is listed more than once (which the nav does for pages
+    that belong in two places), GitBook publishes it at the occurrence that has
+    children; failing that, at the first occurrence.
+    """
+    summary = space_dir / "SUMMARY.md"
+    entries = []          # {"rel", "url", "indent", "has_child"}
+    stack = []            # (indent, url) of the open ancestors; url None = external
+
+    for line in summary.read_text(encoding="utf-8").splitlines():
+        m = SUMMARY_ENTRY.match(line)
+        if not m:
+            continue
+        indent, target = len(m.group(1)), m.group(2)
+
+        while stack and stack[-1][0] >= indent:
+            stack.pop()
+
+        # Cross-space and external links occupy a nav slot but have no local file.
+        if target.startswith(("http://", "https://", "#")):
+            stack.append((indent, None))
+            continue
+
+        rel = target.split("#")[0]
+        if rel == "README.md":
+            url = space                      # the space's own landing page
+        else:
+            parent = next((u for _, u in reversed(stack) if u), space)
+            url = f"{parent}/{nav_slug(rel)}"
+
+        entries.append({
+            "rel": str(Path(space_dir.name) / rel),
+            "url": url,
+            "indent": indent,
+            "has_child": False,
+        })
+        stack.append((indent, url))
+
+    for i, entry in enumerate(entries):
+        if i + 1 < len(entries) and entries[i + 1]["indent"] > entry["indent"]:
+            entry["has_child"] = True
+
+    winners = {}
+    for entry in entries:
+        current = winners.get(entry["rel"])
+        if current is None or (entry["has_child"] and not current["has_child"]):
+            winners[entry["rel"]] = entry
+    return {rel: entry["url"] for rel, entry in winners.items()}
+
+
+# file path relative to REPO_ROOT -> published URL path. Populated by main().
+NAV_URL_MAP = {}
+UNLISTED_PAGES = []
+
+
+def published_url_path(path: str) -> str:
+    """The site path for a page, from the nav when it is listed there.
+
+    Falls back to the path on disk for a page no SUMMARY.md lists. Such a page
+    is not published at all, so no URL is correct; the fallback keeps a
+    plausible link in the help table and the caller reports the page.
+    """
+    rel = str(Path(path).resolve().relative_to(REPO_ROOT))
+    if rel in NAV_URL_MAP:
+        return NAV_URL_MAP[rel]
+    UNLISTED_PAGES.append(rel)
+    return rel.removesuffix(".md").removesuffix("/README")
 
 
 def open_file(file_path: str):
@@ -366,7 +466,7 @@ def build_output(name, syntax: str, desc: str, example: list, path: str):
         parts.append(f"Examples\n--------\n\n{example_str}")
     desc_str = "\n\n".join(parts) if parts else ""
     desc_str = strip_markdown(desc_str)
-    url_path = str(Path(path).resolve().relative_to(REPO_ROOT)).removesuffix(".md")
+    url_path = published_url_path(path)
     url = f"https://mariadb.com/docs/{url_path}"
     desc_str += f"\n\nURL: {url}"
     desc_str = truncate_to_bytes(desc_str)
@@ -465,7 +565,7 @@ def _is_stub(description: str) -> bool:
 
 
 def process_batch(file_list: list, start_id: int = 0) -> list:
-    """Process all files and return (topics, failed) lists.
+    """Process all files and return (topics, failed, duplicates) lists.
 
     Deduplication strategy:
     - Topic names are case-insensitive (MariaDB CHAR columns are CI by default).
@@ -475,11 +575,20 @@ def process_batch(file_list: list, start_id: int = 0) -> list:
       actual reference page.
     - If neither or both are stubs, the one seen first (alphabetically earlier
       path) wins — consistent with sorted file discovery order.
+
+    'failed' holds only genuine parse failures (process_single_file() returned
+    None — no H1 title, or no meaningful content). 'duplicates' holds name
+    collisions: a file that parsed fine but lost to another file producing the
+    same topic name. These are a different event from a parse failure — the
+    page is not broken, it's discarded — so they're reported separately with
+    both paths, rather than being folded into 'failed' where they'd look like
+    155 broken pages (see DOCS-6644).
     """
     # First pass: collect all results keyed by lower-case topic name.
     # We store (result, path) so we can compare and replace.
     best: dict[str, tuple[dict, str]] = {}
     failed = []
+    duplicates = []  # (winner_path, loser_path, topic_name)
 
     for path in file_list:
         # Use a placeholder ID of 0 for now; IDs are assigned in the second pass.
@@ -499,11 +608,11 @@ def process_batch(file_list: list, start_id: int = 0) -> list:
 
             if existing_is_stub and not new_is_stub:
                 # Replace: current winner is a stub; the newcomer is real content
-                failed.append(existing_path)
+                duplicates.append((path, existing_path, result['name']))
                 best[name_lower] = (result, path)
             else:
                 # Keep the existing winner (first alphabetically, or both stubs)
-                failed.append(path)
+                duplicates.append((existing_path, path, result['name']))
 
     # Second pass: assign sequential IDs and rebuild SQL with correct IDs.
     topics = []
@@ -518,8 +627,9 @@ def process_batch(file_list: list, start_id: int = 0) -> list:
 
     print(f"Processed: {len(topics)} files")
     print(f"Failed: {len(failed)} files")
+    print(f"Duplicate-name losers: {len(duplicates)} files")
 
-    return topics, failed
+    return topics, failed, duplicates
 
 
 def generate_category_inserts():
@@ -620,24 +730,53 @@ def write_output(topics: list, output_file: str = "fill_help_tables.sql"):
 
 
 def main():
+    # Resolve published URLs from the nav, not from the paths on disk
+    global NAV_URL_MAP
+    NAV_URL_MAP = build_nav_url_map(REPO_ROOT / "server", "server")
+    print(f"Nav entries resolved from server/SUMMARY.md: {len(NAV_URL_MAP)}")
+
     # Discover all eligible Markdown files under server/reference/
     files = get_files(str(REPO_ROOT / "server" / "reference"))
     print(f"Found {len(files)} files to process")
     
     # Extract content and build topic dicts (with deduplication)
-    topics, failed = process_batch(files)
-    
+    topics, failed, duplicates = process_batch(files)
+
     # Write fill_help_tables.sql next to this script in help-tables/
     output_file = str(SCRIPT_DIR / "fill_help_tables.sql")
     write_output(topics, output_file)
-    
-    # Write failed/skipped file list for post-run review
+
+    # Write genuine parse failures for post-run review (no H1, or no content —
+    # a real defect in the page). Duplicate-name losers are NOT included here;
+    # see duplicate_topics.txt below.
     if failed:
         failed_file = str(SCRIPT_DIR / "failed_files.txt")
         with open(failed_file, 'w') as f:
             for path in failed:
                 f.write(path + "\n")
         print(f"Failed files written to {failed_file}")
+
+    # A page missing from every SUMMARY.md has no published URL; its help entry
+    # falls back to the path on disk, which may not resolve.
+    if UNLISTED_PAGES:
+        unlisted = sorted(set(UNLISTED_PAGES))
+        print(f"WARNING: {len(unlisted)} page(s) not listed in any SUMMARY.md; "
+              f"their URLs fall back to the path on disk")
+        unlisted_file = str(SCRIPT_DIR / "unlisted_pages.txt")
+        with open(unlisted_file, 'w') as f:
+            for rel in unlisted:
+                f.write(rel + "\n")
+        print(f"Unlisted pages written to {unlisted_file}")
+
+    # Write duplicate-name collisions for post-run review: a page that parsed
+    # fine but lost its topic name to another page. Not a failure — a name
+    # collision that silently drops help-table coverage for the loser.
+    if duplicates:
+        duplicates_file = str(SCRIPT_DIR / "duplicate_topics.txt")
+        with open(duplicates_file, 'w') as f:
+            for winner_path, loser_path, name in duplicates:
+                f.write(f"{name}\twinner={winner_path}\tloser={loser_path}\n")
+        print(f"Duplicate-name collisions written to {duplicates_file}")
 
 
 if __name__ == "__main__":

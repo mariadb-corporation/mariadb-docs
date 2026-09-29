@@ -10,31 +10,31 @@ description: >-
 
 The client program `mariadb-test` executes a _test file_ and compares the produced output with the _result file_. If the files match, the test is passed; otherwise, the test has failed. This approach can be used to test any SQL statement, as well as other executables (with the `exec` command).
 
-The complete process of testing is governed and monitored by the _mariadb-test-run.pl_ driver script, or _mtr_ for short (for convenience, `mtr` is created as a symbolic link to `mariadb-test-run.pl`). The `mtr` script is responsible for preparing the test environment, creating a list of all tests to run, running them, and producing the report at the end. It can run many tests in parallel, execute tests in an order which minimizes server restarts (as they are slow), run tests in a debugger or under `valgrind` or `strace`, and so on.
+The complete process of testing is governed and monitored by the _mariadb-test-run.pl_ driver script, or _mtr_ for short. The script is responsible for preparing the test environment, creating a list of all tests to run, running them, and producing the report at the end. It can run many tests in parallel, execute tests in an order which minimizes server restarts (as they are slow), run tests in a debugger or under `valgrind` or `strace`, and so on.
 
-Test files are located in _suites_. A _suite_ is a directory which contains test files, result files, and optional configuration files. The `mtr` script looks for suites in the `mariadb-test/suite` directory, and in the `mariadb-test` subdirectories of plugins and storage engine directories. For example, the following are all valid suite paths:
-
-```
-mariadb-test/suite/rpl
-```
+Test files are located in _suites_. A _suite_ is a directory which contains test files, result files, and optional configuration files. The `mtr` script looks for suites in the `mysql-test/suite` directory, and in the `mysql-test` subdirectories of plugin and storage engine directories. For example, the following are all valid suite paths:
 
 ```
-mariadb-test/suite/handler
+mysql-test/suite/rpl
 ```
 
 ```
-storage/example/mariadb-test/demo
+mysql-test/suite/handler
 ```
 
 ```
-plugin/auth_pam/mariadb-test/pam
+storage/example/mysql-test/mtr
 ```
 
-In almost all cases, the suite directory name is the suite name. A notable historical exception is the _main_ suite, which is located directly in the`mariadb-test` directory.
+```
+plugin/auth_gssapi/mysql-test/auth_gssapi
+```
 
-Test files have a `.test` extension and can be placed directly in the suite directory (for example, `mariadb-test/suite/handler/interface.test`) or in the`t` subdirectory (e.g. `mariadb-test/suite/rpl/t/rpl_alter.test` or`mariadb-test/t/grant.test`). Similarly, result files have the `.result` extension and can be placed either in the suite directory or in the `r` subdirectory.
+In almost all cases, the suite directory name is the suite name. A notable historical exception is the _main_ suite, which is located in `mysql-test/main` rather than under `mysql-test/suite`.
 
-A test file can include other files (with the `source` command). These included files can have any name and may be placed anywhere, but customarily they have a `.inc` extension and are located either in the suite directory or in the `inc` or `include` subdirectories (for example, `mariadb-test/suite/handler/init.inc` or`mariadb-test/include/start_slave.inc`).
+Test files have a `.test` extension and can be placed directly in the suite directory (for example, `mysql-test/main/grant.test` or `mysql-test/suite/handler/interface.test`) or in the `t` subdirectory (for example, `mysql-test/suite/rpl/t/rpl_alter.test`). Similarly, result files have the `.result` extension and can be placed either in the suite directory or in the `r` subdirectory.
+
+A test file can include other files (with the `source` command). These included files can have any name and may be placed anywhere, but customarily they have a `.inc` extension and are located either in the suite directory or in the `inc` or `include` subdirectories (for example, `mysql-test/suite/handler/init.inc` or `mysql-test/include/start_slave.inc`).
 
 Other files which affect testing, while not being tests themselves, are:
 
@@ -53,9 +53,40 @@ Other files which affect testing, while not being tests themselves, are:
 
 See [Auxiliary files](mariadb-test-auxiliary-files.md) for details on these.
 
+## Program and script names
+
+MariaDB renamed its client programs and scripts to `mariadb-*` names, keeping the historical `mysql*` names as symbolic links for backward compatibility. Two separate renames affect the test framework:
+
+| Historical name          | Current name             | Renamed in          |
+| ------------------------ | ------------------------ | ------------------- |
+| `mysqltest`              | `mariadb-test`           | MariaDB Server 10.5.2 |
+| `mysqltest_embedded`     | `mariadb-test-embedded`  | MariaDB Server 10.5.2 |
+| `mysql-test-run.pl`      | `mariadb-test-run.pl`    | MariaDB Server 10.6.2 |
+| `mysql-stress-test.pl`   | `mariadb-stress-test.pl` | MariaDB Server 10.6.2 |
+
+`mariadb-test-run.pl` is the real script. On Unix-like systems, the build creates the following symbolic links to it in the test directory:
+
+* `mtr`
+* `mariadb-test-run`
+* `mysql-test-run.pl`
+* `mysql-test-run`
+
+`./mtr`, `./mariadb-test-run.pl`, and `./mysql-test-run.pl` therefore all start the same driver, and any of them can be used. `mariadb-stress-test.pl` is likewise the real script, with `mysql-stress-test.pl` as a symbolic link to it.
+
+{% hint style="info" %}
+On Windows, the build creates copies instead of symbolic links, so `mysql-test-run.pl` is a duplicate of `mariadb-test-run.pl` rather than a link to it.
+{% endhint %}
+
+### Test directory names
+
+The directories were not renamed along with the programs, so both spellings are in use:
+
+* In the **source tree**, the test directory is `mysql-test`, and a plugin's or storage engine's own tests are in its `mysql-test` subdirectory, such as `storage/innobase/mysql-test`. Run `mtr` from the `mysql-test` directory of your build.
+* In an **installed** server, the test directory is named `mariadb-test`: `mariadb-test` for standalone packages, `share/mariadb-test` for RPM packages, and `share/mariadb/mariadb-test` for Debian and Ubuntu packages.
+
 ## Overlays
 
-In addition to regular suite directories, `mtr` supports _overlays_. An _overlay_ is a directory with the same name as an existing suite, but which is located in a storage engine or plugin directory. For example,`storage/myisam/mariadb-test/rpl` could be a _myisam_ overlay of the _rpl_ suite in `mariadb-test/suite/rpl`. And`plugin/daemon_example/mariadb-test/demo` could be a _daemon\_example_ overlay of the _demo_ suite in `storage/example/mariadb-test/demo`. As a special exception, an overlay of the main suite, should be called `main`, as in `storage/pbxt/mariadb-test/main`.
+In addition to regular suite directories, `mtr` supports _overlays_. An _overlay_ is a directory with the same name as an existing suite, but which is located in a storage engine or plugin directory. For example, `storage/myisam/mysql-test/storage_engine` is a _myisam_ overlay of the _storage\_engine_ suite in `mysql-test/suite/storage_engine`, and `storage/myisam/mysql-test/mtr2` is a _myisam_ overlay of the _mtr2_ suite in `mysql-test/suite/mtr2`. As a special exception, an overlay of the main suite must be called `main`, because the main suite itself is in `mysql-test/main` rather than under `mysql-test/suite`.
 
 An overlay is like a second transparent layer in a graphics editor. It can obscure, extend, or modify the background image. Also, one may notice that an overlay is very close to a _UnionFS_, but implemented in perl inside `mtr`.
 

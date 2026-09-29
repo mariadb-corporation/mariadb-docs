@@ -1,8 +1,8 @@
 # MariaDB Galera Cluster 10.0.32 Changelog
 
-The most recent [MariaDB Galera Cluster 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
+The most recent [MariaDB Galera Cluster 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.32)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10032-release-notes.md)[Changelog](mariadb-galera-cluster-10032-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.32)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10032-release-notes.md)[Changelog](mariadb-galera-cluster-10032-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 17 Aug 2017
 
@@ -10,8 +10,7 @@ For the highlights of this release, see the [release notes](../mariadb-galera-10
 For changes made in MariaDB, see the [MariaDB 10.0.32 Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10032-changelog.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code
-modified in that revision.
+Github you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #0a479f7860](https://github.com/MariaDB/server/commit/0a479f7860)\
   2017-08-16 13:10:01 +0300

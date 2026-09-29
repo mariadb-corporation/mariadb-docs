@@ -4,7 +4,7 @@ description: >-
   storage and manipulation of IPv4 addresses as 4-byte binary strings.
 ---
 
-# inet4
+# INET4 Plugin
 
 This plugin implements the [inet4 data type](../../data-types/string-data-types/inet4.md) and functions used by this data type, like conversions.
 

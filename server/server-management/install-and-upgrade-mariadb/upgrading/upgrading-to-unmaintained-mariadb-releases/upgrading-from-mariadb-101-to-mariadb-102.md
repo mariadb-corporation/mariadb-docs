@@ -42,7 +42,7 @@ The suggested upgrade procedure is:
 3. Run [mysql\_upgrade](../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md).
 
 * `mysql_upgrade` does two things:
-  1. Ensures that the system tables in the `[mysq](../../../../reference/system-tables/the-mysql-database-tables/README.md) l` database are fully compatible with the new version.
+  1. Ensures that the system tables in the [`mysql`](../../../../reference/system-tables/the-mysql-database-tables/README.md) database are fully compatible with the new version.
   2. Does a very quick check of all tables and marks them as compatible with the new version of MariaDB .
 
 ### Incompatible Changes Between 10.1 and 10.2

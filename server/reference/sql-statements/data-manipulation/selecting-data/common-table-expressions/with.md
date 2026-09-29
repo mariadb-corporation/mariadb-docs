@@ -34,6 +34,10 @@ Poorly-formed recursive CTEs can in theory cause infinite loops. The [max\_recur
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.2:
+{% endhint %}
+
 The `CYCLE` clause enables CTE cycle detection, avoiding excessive or infinite loops,\
 MariaDB supports a relaxed, non-standard grammar.\
 The SQL Standard permits a `CYCLE` clause, as follows:
@@ -61,6 +65,10 @@ With the use of `CYCLE ... RESTRICT` it makes no difference whether the CTE uses
 {% endtab %}
 
 {% tab title="< 10.5.2" %}
+{% hint style="info" %}
+Before MariaDB 10.5.2:
+{% endhint %}
+
 `CYCLE ... RESTRICT` is not available.
 {% endtab %}
 {% endtabs %}

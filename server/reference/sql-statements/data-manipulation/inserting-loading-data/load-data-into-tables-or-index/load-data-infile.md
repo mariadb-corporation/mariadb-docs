@@ -96,7 +96,7 @@ The statement interprets all fields in the file as having the same character-set
 When using mixed character sets, use the `CHARACTER SET` clause in both [SELECT INTO OUTFILE](../../selecting-data/select-into-outfile.md) and `LOAD DATA INFILE` to ensure that MariaDB correctly interprets the escape sequences.
 
 The [character\_set\_filesystem](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_filesystem) system variable controls the interpretation of the filename.\
-It is currently not possible to load data files that use the `ucs2` character set.
+It is not possible to load data files that use the `ucs2` character set.
 
 ### Preprocessing Inputs
 
@@ -116,10 +116,18 @@ The `LOAD DATA INFILE` statement supports [progress reporting](../../../../produ
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 MariaDB ships with a separate utility for loading data from files: [mariadb-import](../../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md). It operates by sending `LOAD DATA INFILE` statements to the server.
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 MariaDB ships with a separate utility for loading data from files: `mysqlimport` . It operates by sending `LOAD DATA INFILE` statements to the server.
 {% endtab %}
 {% endtabs %}

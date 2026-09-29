@@ -204,7 +204,7 @@ Starting with `systemd` 248 it is also possible to invoke the `gdb` debugger dir
 # coredumpctl debug --debugger-arguments="-batch -ex 'thread apply all bt full'" /usr/sbin/mariadbd
 ```
 
-So far none of the long term support Linux distribution releases have a new enough `systemd` version for this, the (as of this writing) still upcoming Ubuntu 22.04 "Jammy Jellyfish" will probably the first to support this.
+This requires `systemd` 248 or later, as shipped with Ubuntu 22.04, Debian 12, and RHEL 9 and later.
 
 ### Core Dumps and setuid on Linux
 

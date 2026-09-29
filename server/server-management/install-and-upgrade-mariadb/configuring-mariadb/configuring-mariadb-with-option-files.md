@@ -309,10 +309,18 @@ All option file names must end in `.cnf` on Unix-like operating systems. On Wind
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8.6 / 11.4.10:
+{% endhint %}
+
 If a `.cnf` file cannot be read an executable (a MariaDB server or a client tool) will exit with an error. One can use `?includedir` to skip unreadable files without failing out.
 {% endtab %}
 
-{% tab title="< 11.4.10, < 11.8.6" %}
+{% tab title="< 11.8.6 / 11.4.10" %}
+{% hint style="info" %}
+Before MariaDB 11.8.6 / 11.4.10:
+{% endhint %}
+
 If a `.cnf` file cannot be read an executable (a MariaDB server or a client tool) will exit with an error.
 {% endtab %}
 {% endtabs %}

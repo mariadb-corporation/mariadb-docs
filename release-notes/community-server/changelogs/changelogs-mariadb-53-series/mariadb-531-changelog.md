@@ -1,6 +1,6 @@
 # MariaDB 5.3.1 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.1) |[Release Notes](../../old-releases/5.3/5.3.1.md) |**Changelog** |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
+[Download](https://archive.mariadb.org/mariadb-5.3.1/) |[Release Notes](../../old-releases/5.3/5.3.1.md) |**Changelog** |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
 **Release date:** 10 Sep 2011
 
@@ -525,7 +525,7 @@ modified in that revision.
       with a special 'key' parameter indicating shutdown.
 * [Revision #3142](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3142)\
   Mon 2011-08-08 18:01:33 +0200
-  * [Bug #882689](https://bugs.launchpad.net/bugs/882689) - crash during startup on XP.
+  * Bug #882689 - crash during startup on XP.
     * The reason for the crash is Innodb assertion after trying to load condition variables function
       dynamically and not finding them
     * The fix is to skip dynamic loading if srv\_use\_native\_conditions is FALSE. srv\_use\_native\_conditions

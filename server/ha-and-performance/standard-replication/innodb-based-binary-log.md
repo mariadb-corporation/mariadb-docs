@@ -368,7 +368,7 @@ Key differences for client programs:
 
 This section describes the on-disk format of binlog files for developers building tools that interact with binlog files directly.
 
-A binlog file consists of a sequence of pages. The page size is currently fixed at 16 KB. The file size is set with `--max-binlog-size`. Each page has a CRC32 in the last 4 bytes; all remaining bytes are used for data.
+A binlog file consists of a sequence of pages. The server writes 16 KB pages. The file header records the page size, so read it from there rather than assume it. The file size is set with `--max-binlog-size`. Each page has a CRC32 in the last 4 bytes; all remaining bytes are used for data.
 
 Numbers are stored in little-endian format. Some numbers are stored as compressed integers consisting of 1–9 bytes. The lower 3 bits determine the number of bytes used (one more than the value in the lower 3 bits, except that a value of 7 means 9 bytes are used). The stored value is the little-endian value of the used bytes, right-shifted by 3.
 
@@ -379,9 +379,9 @@ The first page in each binlog file is a file header page:
 | Offset | Size | Description |
 |---|---|---|
 | 0 | 4 | Magic value `0x010dfefe` identifying the file as a binlog file |
-| 4 | 4 | Log-2 of the page size (currently fixed at 14 for 16 KB) |
-| 8 | 4 | Major file version (currently 1). A new major version is not readable by older server versions |
-| 12 | 4 | Minor file version (currently 0). New minor versions are backwards-compatible |
+| 4 | 4 | Log-2 of the page size (14 for 16 KB pages) |
+| 8 | 4 | Major file version (the server writes 1). A new major version is not readable by older server versions |
+| 12 | 4 | Minor file version (the server writes 0). New minor versions are backwards-compatible |
 | 16 | 8 | File number (same as the number in the `binlog-NNNNNN.ibb` filename), for consistency check |
 | 24 | 8 | Size of the file, in pages |
 | 32 | 8 | InnoDB LSN corresponding to the start of the file, used for crash recovery |

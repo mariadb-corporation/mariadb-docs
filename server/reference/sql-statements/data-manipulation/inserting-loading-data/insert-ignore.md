@@ -18,10 +18,18 @@ The IGNORE and DELAYED options are ignored when you use [ON DUPLICATE KEY UPDATE
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 5.5.28:
+{% endhint %}
+
 Warnings are issued for duplicate key errors when using `IGNORE`. You can get the old behavior if you set [OLD\_MODE](../../../../server-management/variables-and-modes/old_mode.md) to `NO_DUP_KEY_WARNINGS_WITH_IGNORE`.
 {% endtab %}
 
 {% tab title="< 5.5.28" %}
+{% hint style="info" %}
+Before MariaDB 5.5.28:
+{% endhint %}
+
 No warnings are issued for duplicate key errors when using `IGNORE`.
 {% endtab %}
 {% endtabs %}

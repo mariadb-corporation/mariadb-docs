@@ -172,7 +172,7 @@ Queries to WMI providers are done using the WQL language, not the SQL language. 
 
 1. No function.
 2. No comparison between two columns.
-3. No expression (currently a CONNECT restriction)
+3. No expression (a CONNECT restriction)
 4. No BETWEEN and IN predicates.
 
 Filtering with WHERE clauses not respecting these conditions will still be done by MariaDB only,

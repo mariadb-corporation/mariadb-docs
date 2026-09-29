@@ -26,6 +26,10 @@ Recovery mode behaviour differs between versions (`server/storage/innobase/inclu
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6.5:
+{% endhint %}
+
 | Mode | Description                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 0    | The default mode while InnoDB is running normally. Write transactions are permitted with innodb\_force\_recovery<=4.                                                                                                                                                                                                                                                                                            |
@@ -38,6 +42,10 @@ Recovery mode behaviour differs between versions (`server/storage/innobase/inclu
 {% endtab %}
 
 {% tab title="< 10.6.5" %}
+{% hint style="info" %}
+From MariaDB 10.5 to before MariaDB 10.6.5:
+{% endhint %}
+
 | Mode | Description                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 0    | The default mode while InnoDB is running normally. Write transactions are permitted with innodb\_force\_recovery<=4.                                                                                                                                                                                                                                                                                            |
@@ -50,6 +58,10 @@ Recovery mode behaviour differs between versions (`server/storage/innobase/inclu
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 | Mode | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 0    | The default mode while InnoDB is running normally. Until [MariaDB 10.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.7), it was the only mode permitting changes to the data. From [MariaDB 10.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.7), write transactions are permitted with innodb\_force\_recovery<=3.                                                       |

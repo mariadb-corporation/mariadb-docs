@@ -18,10 +18,18 @@ Indicates whether the given value is a valid JSON document or not. Returns `1` i
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.4.3:
+{% endhint %}
+
 The `JSON_VALID` function is automatically used as a [CHECK constraint](../../../sql-statements/data-definition/constraint.md#check-constraints) for the [JSON data type alias](../../../data-types/string-data-types/json.md) in order to ensure that a valid json document is inserted.
 {% endtab %}
 
 {% tab title="< 10.4.3" %}
+{% hint style="info" %}
+Before MariaDB 10.4.3:
+{% endhint %}
+
 The `JSON_VALID` function is **not** automatically used as a [CHECK constraint](../../../sql-statements/data-definition/constraint.md#check-constraints) for the [JSON data type alias](../../../data-types/string-data-types/json.md).
 {% endtab %}
 {% endtabs %}

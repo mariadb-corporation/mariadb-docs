@@ -727,10 +727,18 @@ The example passes the JSON object to the [JSON\_COMPACT()](../sql-functions/spe
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6 / 10.5.12 / 10.4.21:
+{% endhint %}
+
 MariaDB Enterprise Audit supports [Object Filters](mariadb-enterprise-audit.md#object-filters) for Query Events.
 {% endtab %}
 
 {% tab title="< 10.6 / 10.5.12 / 10.4.21" %}
+{% hint style="info" %}
+Before MariaDB 10.6 / 10.5.12 / 10.4.21:
+{% endhint %}
+
 MariaDB Enterprise Audit does **not** support [Object Filters](mariadb-enterprise-audit.md#object-filters) for Query Events.
 {% endtab %}
 {% endtabs %}
@@ -813,10 +821,18 @@ The example passes the JSON object to the [JSON\_COMPACT()](../sql-functions/spe
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6 / 10.5.12 / 10.4.21:
+{% endhint %}
+
 MariaDB Enterprise Audit supports [Object Filters](mariadb-enterprise-audit.md#object-filters) for Table Events.
 {% endtab %}
 
 {% tab title="< 10.6 / 10.5.12 / 10.4.21" %}
+{% hint style="info" %}
+Before MariaDB 10.6 / 10.5.12 / 10.4.21:
+{% endhint %}
+
 MariaDB Enterprise Audit does **not** support [Object Filters](mariadb-enterprise-audit.md#object-filters) for Table Events.
 {% endtab %}
 {% endtabs %}

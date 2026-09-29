@@ -144,5 +144,5 @@ These must be configured in the docs repo's GitHub settings under **Settings →
 - **Confluence:** Server Help Tables Documentation Improvements
 - **Docs repo:** `mariadb-docs`
 - **Legacy generator:** `mariadb-documentation/tree/main/help_contents`
-- **MariaDB HELP command docs:** [HELP command](https://mariadb.com/kb/en/help-command/)
-- **Release schedule:** [MariaDB release dates](https://mariadb.com/kb/en/mariadb-server-release-dates/)
+- **MariaDB HELP command docs:** [HELP command](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/help-command)
+- **Release schedule:** [MariaDB release dates](https://mariadb.com/docs/release-notes/community-server)

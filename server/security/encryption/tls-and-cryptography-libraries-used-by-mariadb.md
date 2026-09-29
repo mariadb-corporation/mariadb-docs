@@ -188,7 +188,7 @@ Then update the package by executing the following command:
 sudo apt-get update openssl
 ```
 
-Then [restart](https://mariadb.com/kb/en/) MariaDB server and any clients or applications that use the library.
+Then [restart](../../server-management/starting-and-stopping-mariadb/) MariaDB server and any clients or applications that use the library.
 
 ### Updating Dynamically Linked OpenSSL Libraries with zypper
 
@@ -198,7 +198,7 @@ On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommend
 sudo zypper update openssl
 ```
 
-Then [restart](https://mariadb.com/kb/en/) MariaDB server and any clients or applications that use the library.
+Then [restart](../../server-management/starting-and-stopping-mariadb/) MariaDB server and any clients or applications that use the library.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

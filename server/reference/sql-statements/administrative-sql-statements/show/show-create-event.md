@@ -18,10 +18,18 @@ This statement displays the [CREATE EVENT](../../data-definition/create/create-e
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6.5 / 10.5.13 / 10.4.22:
+{% endhint %}
+
 `SHOW CREATE EVENT` quotes identifiers according to the value of the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable.
 {% endtab %}
 
 {% tab title="< 10.6.5 / 10.5.13 / 10.4.22" %}
+{% hint style="info" %}
+Before MariaDB 10.6.5 / 10.5.13 / 10.4.22:
+{% endhint %}
+
 `SHOW CREATE EVENT` quotes identifiers according to the value of the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable. Note, however, that the output of this statement is unreliably affected by the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable.
 {% endtab %}
 {% endtabs %}

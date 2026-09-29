@@ -199,6 +199,10 @@ The exact meaning of the additional argument would depend on the specific authen
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.4:
+{% endhint %}
+
 The `USING` or `AS` keyword can also be used to provide a plain-text password to a plugin if it's provided as an argument to the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function. This is only valid for [authentication plugins](../../plugins/authentication-plugins/) that have implemented a hook for the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function. For example, the [ed25519](../../plugins/authentication-plugins/authentication-plugin-ed25519.md) authentication plugin supports this:
 
 ```sql
@@ -207,6 +211,10 @@ ALTER USER safe@'%' IDENTIFIED VIA ed25519 USING PASSWORD('secret');
 {% endtab %}
 
 {% tab title="< 10.4" %}
+{% hint style="info" %}
+Before MariaDB 10.4:
+{% endhint %}
+
 The `USING` or `AS` keyword **cannot** be used to provide a plain-text password to a plugin if it's provided as an argument to the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function.
 {% endtab %}
 {% endtabs %}
@@ -297,10 +305,18 @@ See [Account Locking](../../../security/user-account-management/account-locking.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.8 / 10.4.7:
+{% endhint %}
+
 The _lock\_option_ and _password\_option_ clauses can occur in either order.
 {% endtab %}
 
-{% tab title="< 10.5.8, < 10.4.7" %}
+{% tab title="< 10.5.8 / 10.4.7" %}
+{% hint style="info" %}
+Before MariaDB 10.5.8 / 10.4.7:
+{% endhint %}
+
 The _lock\_option_ must be placed before the _password\_option_.
 {% endtab %}
 {% endtabs %}

@@ -16,6 +16,7 @@ This design prioritizes security through multi-layered token validation and prom
 The following diagram illustrates the flow of a request from a client application through the various components of the MCP ecosystem.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     A["Client Applications<br>(MCP Clients, REST APIs, AI Assistants)"]
 
@@ -63,6 +64,7 @@ graph TD
     B1 -- "Validates User" --> D1
     C2 -- "Reads/Writes Data" --> D2
     C2 -- "Reads/Writes Data" --> D3
+    linkStyle default color:#111111
 ```
 
 ## Component Breakdown

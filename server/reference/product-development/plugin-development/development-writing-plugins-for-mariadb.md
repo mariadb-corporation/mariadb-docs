@@ -31,7 +31,100 @@ Information Schema plugins can have their own [FLUSH](../../sql-statements/admin
 
 ## Function Plugins
 
-Function plugins add new SQL functions to MariaDB. Unlike the old [UDF API](../../../server-usage/user-defined-functions/), function plugins can do almost anything that a built-function can.
+Function plugins add new SQL functions to MariaDB. Unlike the old [UDF API](../../../server-usage/user-defined-functions/), a function plugin supplies a complete `Item` subclass — the same representation the server uses for its own native functions — so it defines its own return type, argument handling, and evaluation, and can do almost anything a built-in function can.
+
+Several functions that look built-in are implemented this way, including `UUID()`, `UUID_V4()`, `UUID_V7()` and `SYS_GUID()`, the `INET_ATON()`, `INET6_NTOA()` and `IS_IPV4()` family, and `CURSOR_REF_COUNT()`.
+
+### The Plugin Descriptor
+
+The API is declared in `include/mysql/plugin_function.h`. The type-specific descriptor for a function plugin is a `Plugin_function` object wrapping a pointer to a `Create_func` builder:
+
+```c
+static Plugin_function
+  plugin_descriptor_function_sysconst_test(&Create_func_sysconst_test::s_singleton);
+```
+
+The builder is what the parser calls to construct the function's `Item` each time the function appears in a statement.
+
+### Function Names and Precedence
+
+The plugin name **is** the SQL function name. When the parser meets a function name it does not recognize, it looks for a plugin of type `FUNCTION` registered under exactly that name. A plugin therefore provides exactly one SQL function; to add several functions, declare several plugins.
+
+Built-in functions take precedence. The server searches its native function registry first and consults function plugins only when the name is not already taken, so a function plugin cannot override or replace a built-in function.
+
+### Declaring the Plugin
+
+Use the ordinary [plugin declaration](#plugin-declaration-structure), with `MariaDB_FUNCTION_PLUGIN` as the type and the `Plugin_function` descriptor as the info pointer:
+
+```c
+maria_declare_plugin(sysconst_test)
+{
+  MariaDB_FUNCTION_PLUGIN,                   // the plugin type
+  &plugin_descriptor_function_sysconst_test, // type-specific descriptor
+  "sysconst_test",                           // plugin name, and the SQL function name
+  "MariaDB Corporation",                     // plugin author
+  "Function SYSCONST_TEST()",                // the plugin description
+  PLUGIN_LICENSE_GPL,                        // the plugin license
+  0,                                         // pointer to plugin initialization function
+  0,                                         // pointer to plugin deinitialization function
+  0x0100,                                    // numeric version 0xAABB means AA.BB version
+  NULL,                                      // status variables
+  NULL,                                      // system variables
+  "1.0",                                     // string version representation
+  MariaDB_PLUGIN_MATURITY_EXPERIMENTAL       // maturity
+}
+maria_declare_plugin_end;
+```
+
+A complete worked example, covering both a function taking no arguments and functions taking arguments, is in the source tree at `plugin/func_test/plugin.cc`. It is built only as a test component, so it is not present in a normal server installation.
+
+### Viewing Function Plugins
+
+Function plugins appear in [SHOW PLUGINS](../../sql-statements/administrative-sql-statements/show/show-plugins.md) with a `Type` of `FUNCTION`, and the functions they provide are listed in the [Information Schema SQL\_FUNCTIONS table](../../system-tables/information-schema/information-schema-tables/information-schema-sql_functions-table.md) alongside built-in functions.
+
+Function plugins are initialized early in server startup, before storage engine plugins.
+
+## Building and Packaging a Plugin
+
+{% hint style="info" %}
+Building a plugin with only the MariaDB development package, without the server source tree, requires MariaDB 11.4.14, 11.8.10, 12.3.4, 13.1.2, 13.2.1, or later ([MDEV-40608](https://jira.mariadb.org/browse/MDEV-40608)).
+{% endhint %}
+
+To build a plugin, install the MariaDB development package. On RPM-based distributions:
+
+```bash
+dnf install MariaDB-devel
+```
+
+On Debian and Ubuntu:
+
+```bash
+apt install libmariadb-dev
+```
+
+Then create a `CMakeLists.txt` file. For a simple plugin, a few lines are enough:
+
+```cmake
+cmake_minimum_required(VERSION 3.12)
+find_package(mariadb-plugin REQUIRED)
+MARIADB_ADD_PLUGIN(exampledb example.cc STORAGE_ENGINE
+                 AUTHOR "John Smith" VERSION 0.1
+                 DESCRIPTION "Example of plugin interface")
+include(CPack)
+```
+
+With this file, you can do the following:
+
+* Configure the build: `cmake .`. To build packages, add `-DRPM=1` or `-DDEB=1`, depending on the kind of package you need.
+* Compile the plugin: `cmake --build .`
+* Install the plugin: `cmake --build . --target install`
+* Create a package: `cmake --build . --target package`
+
+If MariaDB was installed from a `.tar.gz` or `.zip` archive, the development files are not in a standard location. Pass the MariaDB base directory when you configure the build:
+
+```bash
+cmake . -DCMAKE_PREFIX_PATH=/path/to/mariadb/basedir
+```
 
 ## Plugin Declaration Structure
 
@@ -56,20 +149,22 @@ maria_declare_plugin(example)
 {
    MYSQL_STORAGE_ENGINE_PLUGIN, /* the plugin type (see include/mysql/plugin.h) */
    &example_storage_engine_info, /* pointer to type-specific plugin descriptor   */
-   "EXAMPLEDB", /* plugin name */
-   "John Smith",  /* plugin author */
-   "Example of plugin interface", /* the plugin description */
-   PLUGIN_LICENSE_GPL, /* the plugin license (see include/mysql/plugin.h) */
+   PLUGIN_NAME, /* plugin name */
+   PLUGIN_AUTHOR,  /* plugin author */
+   PLUGIN_DESCRIPTION, /* the plugin description */
+   PLUGIN_LICENSE, /* the plugin license (see include/mysql/plugin.h) */
    example_init_func,   /* Pointer to plugin initialization function */
    example_deinit_func,  /* Pointer to plugin deinitialization function */
-   0x0001 /* Numeric version 0xAABB means AA.BB version */,
+   PLUGIN_HEX_VERSION, /* Numeric version 0xAABB means AA.BB version */
    example_status_variables,  /* Status variables */
    example_system_variables,  /* System variables */
-   "0.1 example",  /* String version representation */
+   PLUGIN_VERSION,  /* String version representation */
    MariaDB_PLUGIN_MATURITY_EXPERIMENTAL /* Maturity (see include/mysql/plugin.h)*/
 }
 maria_declare_plugin_end;
 ```
+
+The build takes the values of `PLUGIN_NAME`, `PLUGIN_AUTHOR`, `PLUGIN_DESCRIPTION`, `PLUGIN_VERSION`, and `PLUGIN_HEX_VERSION` from the `MARIADB_ADD_PLUGIN()` call in `CMakeLists.txt`, and sets `PLUGIN_LICENSE` to `PLUGIN_LICENSE_GPL`. You can also specify the values explicitly, as in the `sysconst_test` example above. This is particularly useful if the plugin binary contains several plugins.
 
 ## Maturity Guidelines For Plugins
 

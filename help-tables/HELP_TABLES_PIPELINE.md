@@ -11,6 +11,7 @@ This document describes the automated pipeline that generates `fill_help_tables.
 - [Components](#components)
   - [markdown_extractor.py](#markdown_extractorpy)
   - [validate_sql.py](#validate_sqlpy)
+  - [check_help_urls.py](#check_help_urlspy)
   - [generate-help-tables.yml](#generate-help-tablesyml)
 - [Output Format](#output-format)
 - [How It Works](#how-it-works)
@@ -152,6 +153,36 @@ python validate_sql.py fill_help_tables.sql
 
 ---
 
+### check_help_urls.py
+
+**Location:** `help-tables/check_help_urls.py`
+
+**Purpose:** Confirms that every URL written into `mysql.help_topic` is the
+page's real published address — a direct 200, not a redirect. These URLs ship
+with the server and nothing else watches them, so a redirect that is later
+retired becomes a dead `HELP` pointer in a released branch.
+
+**Usage:**
+```bash
+python3 help-tables/check_help_urls.py [path/to/fill_help_tables.sql]
+```
+
+Defaults to the `fill_help_tables.sql` beside the script. Needs network access;
+issues a `HEAD` per distinct URL, 16 at a time.
+
+**Exit codes:**
+- `0` — Every URL returned 200 without redirecting
+- `1` — At least one did not
+- `2` — The SQL file was not found
+
+**Reading the output:** a **307** means the page is published from a different
+place in `SUMMARY.md` than where it sits on disk — fix the nav or the nav-map
+resolution, not the URL. A **404** means the page is not published at all,
+usually because it is listed in no `SUMMARY.md`; cross-check
+`unlisted_pages.txt`.
+
+---
+
 ### generate-help-tables.yml
 
 **Location:** `.github/workflows/generate-help-tables.yml`
@@ -236,7 +267,7 @@ The `example` field is left empty (all content is in `description`), matching th
 
 4. **Code block extraction:** `extract_code_block()` pulls content from the first `` ```sql `` fenced code block in each section.
 
-5. **Output assembly:** `build_output()` combines sections with formatted headers (`Syntax\n------`), strips all Markdown formatting, appends the URL, and truncates if needed.
+5. **Output assembly:** `build_output()` combines sections with formatted headers (`Syntax\n------`), strips all Markdown formatting, appends the URL resolved by `published_url_path()` from the nav map, and truncates if needed.
 
 6. **Deduplication:** `process_batch()` performs case-insensitive deduplication of topic names. When two files share the same name, plugin stub pages (descriptions starting with phrases like "This plugin implements") are discarded in favour of the real reference page. If neither candidate is a stub, the alphabetically earlier path wins.
 
@@ -397,14 +428,16 @@ Add the directory name to `EXCLUDED_DIRS` in `markdown_extractor.py`.
 |---|---|
 | `help-tables/markdown_extractor.py` | Main extraction script |
 | `help-tables/validate_sql.py` | SQL validation script |
+| `help-tables/check_help_urls.py` | Asserts every generated URL returns 200 without redirecting |
 | `help-tables/fill_help_tables.sql` | Generated output (git-ignored or committed as needed) |
 | `help-tables/failed_files.txt` | List of unprocessed files (generated on each run) |
+| `help-tables/unlisted_pages.txt` | Pages in no `SUMMARY.md`, whose URLs fell back to the path on disk (generated on each run) |
 | `help-tables/HELP_TABLES_PIPELINE.md` | This documentation |
 | `.github/workflows/generate-help-tables.yml` | CI validation and artifact upload workflow |
 
 ### Dependencies
 
-- **Python 3.11+** — No external packages required (uses only `re`, `pathlib`, `sys`)
+- **Python 3.11+** — No external packages required (uses only `re`, `pathlib`, `sys`, `urllib`, `concurrent.futures`)
 - **MariaDB 10.4+** — For E2E testing
 - **Docker** — Optional, for local E2E testing
 
@@ -419,8 +452,36 @@ server/reference/
 
 Generated URLs follow:
 ```
-https://mariadb.com/docs/{path_without_.md_extension}
+https://mariadb.com/docs/{published_path}
 ```
 
-Example: `server/reference/sql-functions/.../uncompress.md` →
-`https://mariadb.com/docs/server/reference/sql-functions/.../uncompress`
+**The published path comes from `SUMMARY.md`, not from the path on disk.** GitBook
+publishes a page at its position in the nav, so a file that lives under
+`reference/` in Git can be served from `server-usage/` on the site. Deriving the
+URL from the file path instead yields a link that only resolves through a 307
+redirect — and stops resolving once that redirect is retired (DOCS-6643).
+
+`build_nav_url_map()` walks `server/SUMMARY.md` and gives each entry its parent's
+URL plus its own slug: the file's own path component, lowercased, using the
+directory name for a `README.md`. When a file is listed more than once, the
+occurrence **with children** wins; failing that, the first.
+
+Example: `server/reference/sql-statements/data-definition/create/create-table.md`
+is nav-listed under *Server Usage → Tables*, so its URL is
+`https://mariadb.com/docs/server/server-usage/tables/create-table` — not the
+path-derived `.../reference/sql-statements/data-definition/create/create-table`,
+which redirects.
+
+A page listed in no `SUMMARY.md` is not published at all, so no URL is correct.
+Those fall back to the path on disk and are reported to
+`help-tables/unlisted_pages.txt`.
+
+### Verifying the URLs
+
+```bash
+python3 help-tables/check_help_urls.py
+```
+
+Checks every `URL:` in the generated SQL and fails if any does not return **200
+without redirecting**. Run it after regenerating, before handing the file to the
+server team. A 307 means a nav/path divergence; a 404 is worse.

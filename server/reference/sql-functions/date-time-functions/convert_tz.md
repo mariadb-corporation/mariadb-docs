@@ -22,10 +22,18 @@ No conversion takes place if the value falls outside of the supported `TIMESTAMP
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 The supported range is `1970-01-01 00:00:00` to `2106-02-07 06:28:15` UTC.
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 The supported range is `1970-01-01 00:00:01` to `2038-01-19 05:14:07` UTC.
 {% endtab %}
 {% endtabs %}

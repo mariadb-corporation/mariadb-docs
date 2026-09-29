@@ -155,7 +155,7 @@ If a plugin is installed with one of these statements, a record will be added to
 
 You can install a plugin dynamically by executing the [INSTALL SONAME](../sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname.md) statement. [INSTALL SONAME](../sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname.md) installs all plugins from the given plugin library. This could be required for some plugin libraries.
 
-For example, to install all plugins in the `server_audit` plugin library (which is currently only the [server\_audit](mariadb-audit-plugin/) audit plugin), you could execute the following:
+For example, to install all plugins in the `server_audit` plugin library (which contains only the [server\_audit](mariadb-audit-plugin/) audit plugin), you could execute the following:
 
 ```sql
 INSTALL SONAME 'server_audit';
@@ -187,7 +187,7 @@ The `--plugin-load-add` option uses the following format:
 * Plugins can also be specified in the format `library`, where `library` is the plugin library. This format installs all plugins from the given plugin library.
 * Multiple plugins can be specified by separating them with semicolons.
 
-For example, to install all plugins in the `server_audit` plugin library (which is currently only the [server\_audit](mariadb-audit-plugin/) audit plugin) and also the [ed25519](authentication-plugins/authentication-plugin-ed25519.md) authentication plugin from the `auth_ed25519` plugin library, you could set the option to the following values on the command-line:
+For example, to install all plugins in the `server_audit` plugin library (which contains only the [server\_audit](mariadb-audit-plugin/) audit plugin) and also the [ed25519](authentication-plugins/authentication-plugin-ed25519.md) authentication plugin from the `auth_ed25519` plugin library, you could set the option to the following values on the command-line:
 
 ```bash
 $ mariadbd --user=mysql --plugin-load-add='server_audit' --plugin-load-add='ed25519=auth_ed25519'
@@ -214,7 +214,7 @@ The `--plugin-load` option uses the following format:
 * Plugins can also be specified in the format `library`, where `library` is the plugin library. This format installs all plugins from the given plugin library.
 * Multiple plugins can be specified by separating them with semicolons.
 
-For example, to install all plugins in the `server_audit` plugin library (which is currently only the [server\_audit](mariadb-audit-plugin/) audit plugin) and also the [ed25519](authentication-plugins/authentication-plugin-ed25519.md) authentication plugin from the `auth_ed25519` plugin library, you could set the option to the following values on the command-line:
+For example, to install all plugins in the `server_audit` plugin library (which contains only the [server\_audit](mariadb-audit-plugin/) audit plugin) and also the [ed25519](authentication-plugins/authentication-plugin-ed25519.md) authentication plugin from the `auth_ed25519` plugin library, you could set the option to the following values on the command-line:
 
 ```bash
 $ mariadbd --user=mysql --plugin-load='server_audit;ed25519=auth_ed25519'

@@ -60,7 +60,7 @@ In complex scenarios where the query uses SQL SECURITY DEFINER views or stored r
 
 ## Limitations
 
-Currently, only one trace is stored. It is not possible to trace the sub-statements of a stored routine; only the statement at the top level is traced.
+Only one trace is stored. It is not possible to trace the sub-statements of a stored routine; only the statement at the top level is traced.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

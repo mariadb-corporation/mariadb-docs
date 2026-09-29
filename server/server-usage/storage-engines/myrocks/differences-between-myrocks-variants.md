@@ -43,7 +43,7 @@ Author: Andrew Kryczka <andrewkr@fb.com>
 Date:   Fri Jan 12 11:03:55 2018 -0800
 ```
 
-* MariaDB currently uses 5.8.0
+* MariaDB uses RocksDB 6.29 from MariaDB 10.11.12 and 11.4.6 ([MDEV-16523](https://jira.mariadb.org/browse/MDEV-16523)), and 5.8.0 before that
 
 ```
 commit 9a970c81af9807071bd690f4c808c5045866291a

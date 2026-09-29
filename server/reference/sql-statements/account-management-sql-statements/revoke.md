@@ -153,10 +153,18 @@ REVOKE ADMIN OPTION FOR role FROM grantee [, grantee2]
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.1.13:
+{% endhint %}
+
 `REVOKE role` is also permitted in [prepared statements](../prepared-statements/).
 {% endtab %}
 
 {% tab title="< 10.1.13" %}
+{% hint style="info" %}
+Before MariaDB 10.1.13:
+{% endhint %}
+
 `REVOKE role` is not permitted in [prepared statements](../prepared-statements/).
 {% endtab %}
 {% endtabs %}

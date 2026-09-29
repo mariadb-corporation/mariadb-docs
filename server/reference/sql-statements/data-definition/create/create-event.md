@@ -71,10 +71,18 @@ For valid identifiers to use as event names, see [Identifier Names](../../../sql
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.1.4:
+{% endhint %}
+
 The `OR REPLACE` clause works like this: If the event already exists, instead of an error being returned, the existing event will be dropped and replaced by the newly defined event.
 {% endtab %}
 
 {% tab title="< 10.1.4" %}
+{% hint style="info" %}
+Before MariaDB 10.1.4:
+{% endhint %}
+
 The `OR REPLACE` clause is not available.
 {% endtab %}
 {% endtabs %}

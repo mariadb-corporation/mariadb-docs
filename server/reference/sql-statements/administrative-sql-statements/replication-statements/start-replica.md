@@ -29,10 +29,18 @@ thread_type: IO_THREAD | SQL_THREAD
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.1:
+{% endhint %}
+
 `START REPLICA` is a synonym for `START SLAVE`.
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
+{% hint style="info" %}
+Before MariaDB 10.5.1:
+{% endhint %}
+
 Only `START SLAVE` can be used.
 {% endtab %}
 {% endtabs %}
@@ -41,10 +49,18 @@ Only `START SLAVE` can be used.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.2:
+{% endhint %}
+
 `START SLAVE` requires the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#replication-slave-admin) privilege.
 {% endtab %}
 
 {% tab title="< 10.5.2" %}
+{% hint style="info" %}
+Before MariaDB 10.5.2:
+{% endhint %}
+
 `START SLAVE` requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege.
 {% endtab %}
 {% endtabs %}
@@ -61,6 +77,10 @@ If `START SLAVE` succeeds in starting the replica threads, it returns without an
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.3:
+{% endhint %}
+
 **SQL\_BEFORE\_GTIDS|SQL\_AFTER\_GTIDS**
 
 The `START SLAVE UNTIL` statement contains the options `SQL_BEFORE_GTIDS` and `SQL_AFTER_GTIDS` to allow control of whether the replica stops before or after a provided GTID state. Its syntax is:
@@ -73,6 +93,10 @@ See [Global Transaction ID: SQL\_BEFORE\_GTIDS/SQL\_AFTER\_GTIDS](../../../../ha
 {% endtab %}
 
 {% tab title="< 11.3" %}
+{% hint style="info" %}
+Before MariaDB 11.3:
+{% endhint %}
+
 `SQL_BEFORE_GTIDS` and `SQL_AFTER_GTIDS` are not available.
 {% endtab %}
 {% endtabs %}
@@ -83,10 +107,18 @@ If there is only one nameless primary, or the default primary (as specified by t
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7.0:
+{% endhint %}
+
 The `FOR CHANNEL` keyword is available for MySQL compatibility. This is identical to using the channel\_name directly after `START SLAVE`.
 {% endtab %}
 
 {% tab title="< 10.7.0" %}
+{% hint style="info" %}
+Before MariaDB 10.7.0:
+{% endhint %}
+
 The `FOR CHANNEL` keyword is not available.
 {% endtab %}
 {% endtabs %}

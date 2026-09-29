@@ -124,7 +124,6 @@
       * [Data Loading with INSERT .. SELECT](mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select.md)
       * [Data Loading with LOAD DATA INFILE](mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-load-data-infile.md)
       * [Data Loading With load\_from\_s3](mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-load_from_s3.md)
-  * [Tutorials](mariadb-columnstore/tutorials.md)
   * [Reference](mariadb-columnstore/reference/README.md)
     * [ColumnStore Commit](mariadb-columnstore/reference/5568.md)
     * [ColumnStore Drop Procedure](mariadb-columnstore/reference/5571.md)

@@ -36,7 +36,7 @@ For provisioned services, select a high-availability mode:
 ## Add-ons
 
 * **Analytics (HTAP)** — adds the MariaDB Exa engine for real-time analytical queries alongside your transactional workload. Requires Semi-sync HA.
-* **Query Result Cache** — adds an in-memory query result cache alongside your transactional workload. See [Query Cache Using GridGain 8](../quickstart/query-cache-gridgain-8.md).
+* **Query Result Cache** — adds an in-memory query result cache alongside your transactional workload. See [Query Result Cache](../quickstart/query-cache-gridgain-8.md).
 
 Both add-ons are currently available as a _Tech Preview_.
 
@@ -71,7 +71,7 @@ Choose how the service accepts connections:
 
 ## Basic attributes
 
-Select the **MariaDB Version** (with a link to its release notes) and enter a **Service Name**. The version list is the same for serverless and provisioned services, and the default version is pre-selected.
+Select the **MariaDB Version** (with a link to its release notes) and enter a **Service Name**. The version list is the same for serverless and provisioned services, and the default version is preselected.
 
 For **serverless** services, the default version launches from a ready instance and starts in milliseconds. Choosing any other version builds the database on demand, so it takes longer to launch — the page notes this below the picker when you select one. The service is serverless either way; only the launch differs. Choosing a version other than the default requires a paid plan; on a trial with no payment method on file, only the default version is listed.
 
@@ -79,7 +79,16 @@ For **serverless** services, the default version launches from a ready instance 
 
 Optionally configure storage type, provisioned IOPS and throughput, MaxScale redundancy, NoSQL (MongoDB®-compatible) support, an SSL/TLS toggle, and the maintenance window.
 
-<figure><img src="../.gitbook/assets/provision-advanced-options.png" alt="Advanced Options panel: storage type (io1 or gp3), provisioned IOPS, throughput, MaxScale redundancy, NoSQL support, disable SSL/TLS, and maintenance window."><figcaption><p>Advanced options</p></figcaption></figure>
+The available **Storage Type** depends on the cloud provider. On Azure, choose from **Premium SSD v2**, **Standard SSD**, and **Premium SSD**. Premium SSD v2 is designed for production and performance-sensitive workloads that consistently require low latency, high IOPS, and high throughput. For Premium SSD v2, you can set:
+
+* **Provisioned IOPS**: 3,000 to 80,000. The maximum depends on the storage size you selected: 500 IOPS per GB, never above 80,000.
+* **Throughput (MB/s)**: 125 to 2,000. The maximum depends on the IOPS you selected: 0.25 MB/s per IOPS, never above 2,000.
+
+Every service includes 3,000 IOPS and 125 MB/s at no extra cost. IOPS and throughput above those amounts increase the estimated cost shown in the footer.
+
+Existing Azure services keep their current storage type.
+
+<figure><img src="../.gitbook/assets/provision-advanced-options-azure.png" alt="Advanced Options panel for Azure: storage type (Premium SSD v2, Standard SSD, or Premium SSD), provisioned IOPS, throughput, MaxScale redundancy, NoSQL support, disable SSL/TLS, and maintenance window."><figcaption><p>Advanced options (Azure)</p></figcaption></figure>
 
 {% hint style="info" %}
 Some options — Insync high availability, the Analytics (HTAP) add-on, auto-scaling, Private Link, MaxScale redundancy, and a custom maintenance window — require the **Power** or **Power Plus** service tier.

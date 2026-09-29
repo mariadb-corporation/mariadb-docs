@@ -29,7 +29,7 @@ different amounts of time.
 
 ## Supported Commands
 
-Currently, the following commands can send progress report messages to the
+The following commands can send progress report messages to the
 client:
 
 * [ALTER TABLE](../../../sql-statements/data-definition/alter/alter-table/)
