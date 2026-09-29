@@ -192,7 +192,7 @@ GridGain ML uses Deep Java Library (DJL) as its runtime. The native engine libra
 
 ### Partition Awareness for .NET Client
 
-With this release, [.NET clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/dotnet#sql-partition-awareness) will benefit from partition awareness for SQL queries, significantly improving their performance.
+With this release, [.NET clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/dotnet#sql-partition-awareness) will benefit from partition awareness for SQL queries, significantly improving their performance.
 
 ### Transaction Labels
 

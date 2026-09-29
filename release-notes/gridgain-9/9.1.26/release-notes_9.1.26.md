@@ -49,7 +49,7 @@ To restore the previous behavior, enable follower reads cluster-wide:
 cluster config update ignite.sql.allowFollowerReads=true
 ```
 
-You can also allow or disallow follower reads for an individual statement or JDBC connection - see [Per-Statement Control Over Follower Reads](#per-statement-control-over-follower-reads) and [Controlling Follower Reads](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/jdbc-driver#controlling-follower-reads).
+You can also allow or disallow follower reads for an individual statement or JDBC connection - see [Per-Statement Control Over Follower Reads](#per-statement-control-over-follower-reads) and [Controlling Follower Reads](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/jdbc-driver#controlling-follower-reads).
 
 ## New Features
 
@@ -68,7 +68,7 @@ Statement stmt = client.sql().statementBuilder()
     .build();
 ```
 
-For the JDBC equivalent, see [Controlling Follower Reads](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/jdbc-driver#controlling-follower-reads). For how follower reads relate to read-only transactions, see [Consistency Model](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/data-consistency-and-replication).
+For the JDBC equivalent, see [Controlling Follower Reads](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/jdbc-driver#controlling-follower-reads). For how follower reads relate to read-only transactions, see [Consistency Model](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/data-consistency-and-replication).
 
 ## Improvements and Fixed Issues
 

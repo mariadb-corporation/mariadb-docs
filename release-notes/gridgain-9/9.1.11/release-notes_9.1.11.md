@@ -14,7 +14,7 @@ GridGain 9.1.11 is a private release that adds a large number of new metrics, as
 
 ### Extended Metrics and Monitoring
 
-This release adds [new metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#storage-aipersist-checkpoint) for detailed checkpoint phase tracking. You can now also monitor total pages read and written to `aipersist` storage.
+This release adds [new metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#storage.aipersist.checkpoint) for detailed checkpoint phase tracking. You can now also monitor total pages read and written to `aipersist` storage.
 
 - `LastCheckpointBeforeLockDuration` - Time spent on pre-lock operations before the last checkpoint (ms).
 - `LastCheckpointDuration` - Total duration of the last checkpoint (ms).
@@ -29,7 +29,7 @@ This release adds [new metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s
 - `PagesRead` - Number of pages read from disk since the last restart.
 - `PagesWritten` - Number of pages written to disk since the last restart.
 
-A [new system view](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/system-views#sql-cached-query-plans) has also been introduced to expose cached SQL query plans.
+A [new system view](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/system-views#sql_cached_query_plans) has also been introduced to expose cached SQL query plans.
 
 - `NODE_ID` - ID of the node where the plan is cached.
 - `PLAN_ID` - Internal identifier of the prepared plan.

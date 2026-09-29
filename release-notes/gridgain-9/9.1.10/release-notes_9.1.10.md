@@ -22,7 +22,7 @@ This is only required for rolling upgrades, upgrades with downtime are not affec
 
 ### ADO.NET Integration
 
-This release adds integration with [ADO.NET](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/ado). You can install it in the same way as you install the .NET client. Once installed, you execute SQL commands, read data from the cluster and manage transactions via ADO.
+This release adds integration with [ADO.NET](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/dotnet/ado). You can install it in the same way as you install the .NET client. Once installed, you execute SQL commands, read data from the cluster and manage transactions via ADO.
 
 The example below shows how you can execute an SQL command:
 
@@ -35,7 +35,7 @@ cmd.CommandText = "DROP TABLE IF EXISTS Person";
 await cmd.ExecuteNonQueryAsync();
 ```
 
-For more information, see [ADO.NET](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/ado) documentation.
+For more information, see [ADO.NET](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/dotnet/ado) documentation.
 
 ### Deployment Units
 

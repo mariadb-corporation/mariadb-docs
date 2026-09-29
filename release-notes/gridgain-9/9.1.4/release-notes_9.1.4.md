@@ -26,7 +26,7 @@ If you receive the incompatible colocation mode error when the node attempts to 
 
 ### Improved SSL Support
 
-This release introduces support for SSL in [Python DB API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/python) and [ODBC Driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/odbc/odbc-driver). You can now securely connect to your cluster from both.
+This release introduces support for SSL in [Python DB API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/python) and [ODBC Driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/odbc/odbc-driver). You can now securely connect to your cluster from both.
 
 To securely connect from python DB API, specify the ssl key file and certificate in the connection configuration:
 

@@ -16,7 +16,7 @@ GridGain 9.1.20 is a private release that brings improved AIPersist storage and 
 
 ### Partition Statistics Metrics Disabled by Default
 
-Starting with this release, [partition modification counter metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#storage-partition-table-table-id-partition-partition-id) are disabled by default. These metrics track the number of modifications to each partition and can create unexpected monitoring load in large deployments.
+Starting with this release, [partition modification counter metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#storage.partition.table.-table_id-.partition.-partition_id) are disabled by default. These metrics track the number of modifications to each partition and can create unexpected monitoring load in large deployments.
 
 If you use these metrics, re-enable them via configuration.
 

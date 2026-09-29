@@ -32,7 +32,7 @@ cursor = conn.cursor()
 cursor.execute('CREATE TABLE Person(id int primary key, name varchar, age int)')
 ```
 
-For more information on using Python DB API, see the [Python Database API Driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/python) section.
+For more information on using Python DB API, see the [Python Database API Driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/python) section.
 
 ### Point in Time Recovery
 

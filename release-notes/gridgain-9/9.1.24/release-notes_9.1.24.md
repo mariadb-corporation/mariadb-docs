@@ -35,7 +35,7 @@ ignite.compute.dotnet {
 }
 ```
 
-See [.NET Compute Executor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#configuring-the-net-compute-executor) for more information.
+See [.NET Compute Executor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#configuring-the-.net-compute-executor) for more information.
 
 ### .NET Client: Cluster API
 
@@ -49,7 +49,7 @@ IList<IClusterNode> nodes = await client.Cluster.GetNodesAsync();
 IClusterNode? local = context.Ignite.Cluster.LocalNode;
 ```
 
-See [Cluster API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/dotnet#cluster-api) for more information.
+See [Cluster API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/dotnet#cluster-api) for more information.
 
 ### CLI Command to Balance Leaseholders
 

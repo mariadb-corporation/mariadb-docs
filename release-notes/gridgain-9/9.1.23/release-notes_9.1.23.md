@@ -65,7 +65,7 @@ auto preferred = ignite::detail::make_typed_preferred_node_fn(
 auto value = table.get(transaction, key_tuple, preferred).get();
 ```
 
-For more information, see [C++ client documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/cpp).
+For more information, see [C++ client documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/cpp).
 
 ### Partition-Operation Backpressure
 
@@ -174,11 +174,11 @@ In both clients, the default is `null` (use the node-level setting). Negative va
 
 This release adds three new metrics groups for storage, thread-pool, and Raft-log observability. The following metrics were added:
 
-- [Storage consistency](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#storage-aipersist-consistency) (`storage.aipersist.consistency`):
+- [Storage consistency](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#storage.aipersist.consistency) (`storage.aipersist.consistency`):
   - `RunConsistentlyDuration` - the time spent in `runConsistently` closures, in nanoseconds.
   - `RunConsistentlyStarted` - the total number of `runConsistently` invocations started.
   - `RunConsistentlyActiveCount` - current number of active `runConsistently` calls.
-- [Striped thread-pool aggregated metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#thread-pools-thread-pool-executor-name):
+- [Striped thread-pool aggregated metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#thread.pools.-thread-pool-executor-name):
   - `ConcurrencyLevel` - number of stripes in the executor.
   - `ActiveCount` - approximate total number of threads currently executing tasks across all stripes.
   - `IdleCount` - approximate number of idle threads across all stripes.
@@ -188,7 +188,7 @@ This release adds three new metrics groups for storage, thread-pool, and Raft-lo
 
 ### .NET 10 Support in Compute Executor
 
-With this release, the .NET compute job executor supports .NET 10, so a server node can host .NET compute jobs on either runtime. See [.NET compute jobs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#net-compute-jobs) for more information.
+With this release, the .NET compute job executor supports .NET 10, so a server node can host .NET compute jobs on either runtime. See [.NET compute jobs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#.net-compute-jobs) for more information.
 
 ## Improvements and Fixed Issues
 

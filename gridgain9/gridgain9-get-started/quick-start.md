@@ -178,7 +178,7 @@ Cluster was initialized successfully
 
 ## Run SQL Statements Against the Cluster
 
-Once your cluster has been initialized, you can start working with it. In this tutorial, you use the CLI tool to create a table, insert some rows, and retrieve data. In most real scenarios, a [client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/overview) writes data to a cluster and retrieves it, but the CLI tool can still be used for debugging or minor adjustments.
+Once your cluster has been initialized, you can start working with it. In this tutorial, you use the CLI tool to create a table, insert some rows, and retrieve data. In most real scenarios, a [client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/overview) writes data to a cluster and retrieves it, but the CLI tool can still be used for debugging or minor adjustments.
 
 To work with the SQL in CLI:
 

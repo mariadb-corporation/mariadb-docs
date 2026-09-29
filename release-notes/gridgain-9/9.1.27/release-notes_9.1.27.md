@@ -66,7 +66,7 @@ See [Running SQL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAf
 
 ### Connect Timeout for the C++ Client
 
-The C++ client can now limit how long it waits for the handshake that follows a new connection to a server node. Set it with `set_connect_timeout`; a connection whose handshake does not complete in time is closed, so the client can re-connect instead of holding a socket that never becomes usable. There is no timeout by default. See [Connect Timeout](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/cpp#connect-timeout).
+The C++ client can now limit how long it waits for the handshake that follows a new connection to a server node. Set it with `set_connect_timeout`; a connection whose handshake does not complete in time is closed, so the client can re-connect instead of holding a socket that never becomes usable. There is no timeout by default. See [Connect Timeout](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/cpp#connect-timeout).
 
 ### Low Watermark Progress Metrics
 

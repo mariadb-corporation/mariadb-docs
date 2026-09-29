@@ -252,7 +252,7 @@ async with AsyncClient(address) as client:
     print(await binary_map.get(b'1'))
 ```
 
-For more information about Python client, see [client documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/python-client).
+For more information about Python client, see [client documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/python-client).
 
 ### Change Data Capture
 
@@ -328,7 +328,7 @@ SELECT * FROM Person /*+ use_secondary_storage */
 
 ### Partition Awareness for Client SQL
 
-With this release, clients will benefit from [partition awareness](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/overview#partition-awareness) for SQL queries, significantly improving their performance.
+With this release, clients will benefit from [partition awareness](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/overview#partition-awareness) for SQL queries, significantly improving their performance.
 
 ### New Distribution Zone QUORUM_SIZE Parameter
 
@@ -479,7 +479,7 @@ This release includes new cluster topology metrics, that provide information abo
 
 ### Improved SSL Support
 
-This release introduces support for SSL in [Python DB API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/python) and [ODBC Driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/odbc/odbc-driver). You can now securely connect to your cluster from both.
+This release introduces support for SSL in [Python DB API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/python) and [ODBC Driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/odbc/odbc-driver). You can now securely connect to your cluster from both.
 
 To securely connect from python DB API, specify the ssl key file and certificate in the connection configuration:
 

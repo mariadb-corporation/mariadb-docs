@@ -40,7 +40,7 @@ Statement statement = client.sql().statementBuilder()
 
 ### SqlBatchException.UpdateCounters in .NET Clients
 
-When a batch SQL execution fails, .NET clients [now expose](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/dotnet#error-handling) `SqlBatchException.UpdateCounters` — a list containing the number of rows affected by each statement that completed successfully before the failure, in batch command order. If the failure occurs before any statement executes, the list is empty.
+When a batch SQL execution fails, .NET clients [now expose](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/dotnet#error-handling) `SqlBatchException.UpdateCounters` — a list containing the number of rows affected by each statement that completed successfully before the failure, in batch command order. If the failure occurs before any statement executes, the list is empty.
 
 ```csharp
 try
@@ -84,7 +84,7 @@ This release adds new metrics that can be used to monitor Meta Storage health an
 - `AvailablePeers` - Number of available Meta Storage voting peers in the current logical topology;
 - `MajorityAvailable` - Binary flag (1/0) indicating whether Meta Storage can execute commands. Updated every 5 seconds.
 
-**Schema Synchronization Metrics** ([`schema.sync`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#schema-sync)):
+**Schema Synchronization Metrics** ([`schema.sync`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#schema.sync)):
 
 - `Waits` - Histogram of schema synchronization wait times in milliseconds. High values may indicate Meta Storage unavailability or slowness. Includes distribution buckets from 0-1ms to 5000ms+.
 

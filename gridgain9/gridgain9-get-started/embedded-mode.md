@@ -60,7 +60,7 @@ First, you need to add GridGain to your project. The easiest way to do this is b
 
 ## Prepare GridGain Configuration
 
-To start a GridGain node, you will need to provide a configuration file. For this tutorial, you can [download](https://gridgain.com/sdk/gridgain9/9.1/gridgain-config.conf) a simple configuration file, but in real environments we recommend creating one that suits your needs. For more information on node configuration, see [node configuration parameters](../reference/configuration/node-configuration-parameters.md) documentation.
+To start a GridGain node, you will need to provide a configuration file. For this tutorial, you can use a simple configuration file, but in real environments we recommend creating one that suits your needs. For more information on node configuration, see [node configuration parameters](../reference/configuration/node-configuration-parameters.md) documentation.
 
 ## Pass Additional JVM Parameters
 

@@ -30,7 +30,7 @@ This release increases default timeout values for [critical workers](https://app
 
 This release features multiple improvements to cluster monitoring:
 
-- New `ClockSkewExceedingMaxClockSkew` [metric](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#clock-service) can be used to monitor clock drift.
+- New `ClockSkewExceedingMaxClockSkew` [metric](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#clock.service) can be used to monitor clock drift.
 - A set of new [compute events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/events/available-events#compute-job-events) allows for easier monitoring of your distributed computing jobs.
 
 ### Improved Migration Tools
@@ -60,7 +60,7 @@ This release features major changes in migration tools:
 
 ### Windows Support for C++ Client
 
-With this release, you can use the [C++ client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/cpp) on Windows systems with MSVC toolchain versions 2017, 2019 and 2022.
+With this release, you can use the [C++ client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/cpp) on Windows systems with MSVC toolchain versions 2017, 2019 and 2022.
 
 ## Improvements and Fixed Issues
 

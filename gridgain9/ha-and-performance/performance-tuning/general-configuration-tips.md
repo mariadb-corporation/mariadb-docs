@@ -121,6 +121,6 @@ For more information on configuring JUL logging, see the [Java Logging Overview]
 By default, `FileHandler.append` property is set to `true`, so restarting a node or the CLI appends to the current log file instead of rotating to a new one. Log files are rotated when a file reaches `FileHandler.limit` bytes (100 MB for GridGain nodes and 10 MB for the CLI tool). The number of log files preserved is configured in the `FileHandler.count` property (50 files for GridGain nodes and 10 files for the CLI tool). This preserves the pre-restart log — including the entries that explain why the node restarted — in the active log file.
 
 {% hint style="info" %}
-You can also configure client logging for the [Java client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/java#logging).
+You can also configure client logging for the [Java client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/java#logging).
 If you are running GridGain 9 cluster in Kubernetes, see the corresponding documentation [page](../../gridgain9-management/installation/installing-on-kubernetes.md).
 {% endhint %}

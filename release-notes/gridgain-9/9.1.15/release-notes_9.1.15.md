@@ -24,7 +24,7 @@ For clusters with default colocation settings created on GridGain 9.1.4 or later
 
 ### Supported Python Versions
 
-In this release, support for Python 3.9 was dropped and support for Python 3.14 was added in [Python client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/python-client) and [Python DB API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/python).
+In this release, support for Python 3.9 was dropped and support for Python 3.14 was added in [Python client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/python-client) and [Python DB API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/python).
 
 If you are using Python 3.9, make sure to update to 3.10 or later.
 
