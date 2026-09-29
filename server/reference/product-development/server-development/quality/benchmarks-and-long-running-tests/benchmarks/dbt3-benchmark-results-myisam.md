@@ -236,8 +236,7 @@ formula for it is `(current_value/value_in_first_row)`. For example if [MariaDB\
 configuration) handles the same query for 120 seconds, the ratio will be`120/100 = 1.20`. This means that it takes MySQL 5.6.4 20% more time to handle
 the same query.
 
-The archived folder with all the results and details for that benchmark can be
-downloaded from here:MyISAM s30 on facebook-maria1
+The archived folder with all the results and details for that benchmark ("MyISAM s30 on facebook-maria1") is no longer available.
 
 ### Notes
 

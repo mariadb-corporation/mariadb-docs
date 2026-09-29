@@ -22,7 +22,7 @@ The most current information about the schema used is available in the file `bui
 
 ### The `test_run` table
 
-This table has one row for every test run that Buildbot does. Thus, each row corresponds to one cell in the \[waterfall Waterfall display]. The format of the table is as follows:
+This table has one row for every test run that Buildbot does. Thus, each row corresponds to one cell in the Buildbot waterfall display. The format of the table is as follows:
 
 ```
 CREATE TABLE test_run(
