@@ -106,7 +106,7 @@ MariaDB Enterprise ColumnStore requires MariaDB Replication, which must be confi
     ```bash
     sudo mariadb
     ```
-3.  Set the [gtid\_slave\_pos](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid#gtid_slave_pos) system variable to the GTID position:
+3.  Set the [gtid\_slave\_pos](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_slave_pos) system variable to the GTID position:
 
     ```sql
     SET GLOBAL gtid_slave_pos='0-1-2001,1-2-5139';

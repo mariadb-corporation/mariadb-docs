@@ -56,7 +56,7 @@ To easily find out how far the replica is lagging behind the primary, we can loo
 
 Coordinates represented in this way have a problem: they are different on each server. Each server can use files with different (or the same) names, depending on its configuration. And files can be rotated at different times, including when a user runs [FLUSH LOGS](../../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md). By enabling the GTID (global transaction id) an event will have the same id on the primary and on all the replicas.
 
-When [GTID](../../../../ha-and-performance/standard-replication/gtid.md) is enabled, `SHOW SLAVE STATUS` shows two GTIDs: `Gtid_IO_Pos` is the last event written into the relay log, and `Gtid_Slave_Pos` is the last event applied by the SQL thread. There is no need for a column identifying the same event in the primary, because the id is the same.
+When [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) is enabled, `SHOW SLAVE STATUS` shows two GTIDs: `Gtid_IO_Pos` is the last event written into the relay log, and `Gtid_Slave_Pos` is the last event applied by the SQL thread. There is no need for a column identifying the same event in the primary, because the id is the same.
 
 ### Provisioning a Replica
 
@@ -104,7 +104,7 @@ There are different parallel replication styles available: in-order and out-of-o
 
 `minimal` applies commits together, but all other events are applied in order.
 
-Out-of-order replication cannot be enabled automatically by changing a variable in the replica. Instead, it must be enabled by the applications that run transactions in the primary. They can do this if the GTID is enabled. They can set different values for the [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) variable in different transactions. This shifts a lot of responsibility to the application layer; however, if the application is aware of which transactions are not going to conflict and this information allows one to sensibly increase the parallelism, and using out-of-order replication can be a good idea.
+Out-of-order replication cannot be enabled automatically by changing a variable in the replica. Instead, it must be enabled by the applications that run transactions in the primary. They can do this if the GTID is enabled. They can set different values for the [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_domain_id) variable in different transactions. This shifts a lot of responsibility to the application layer; however, if the application is aware of which transactions are not going to conflict and this information allows one to sensibly increase the parallelism, and using out-of-order replication can be a good idea.
 
 Even if out-of-order replication is not normally used, it can be a good idea to use it for long running transactions or [ALTER TABLEs](../../../../reference/sql-statements/data-definition/alter/alter-table/), so they can be applied at the same time as normal operations that are not conflicting.
 
@@ -126,7 +126,7 @@ An open source third party tool is available to check if the primary and a repli
 
 If a replication outage occurs because an inconsistency is found, sometimes we want to quickly bring the replica up again as quickly as possible, and solve the core problem later. If GTID is not used, a way to do this is to run [SET GLOBAL SQL\_SLAVE\_SKIP\_COUNTER = 1](../../../../reference/sql-statements/administrative-sql-statements/replication-statements/set-global-sql_slave_skip_counter.md), which skips the problematic replication event.
 
-If GTID is used, the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) variable can be used instead. See the link for an explanation of how it works.
+If GTID is used, the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos) variable can be used instead. See the link for an explanation of how it works.
 
 There are ways to have different data on the replicas. For example:
 
