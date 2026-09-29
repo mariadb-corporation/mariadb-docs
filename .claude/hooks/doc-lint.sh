@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 #
 # doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
-# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus five checks it delegates to
+# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus seven checks it delegates to
 # their own scripts: a GitBook include resolver (includecheck.sh), a Mermaid edge-label
 # contrast check (mermaidcheck.py), a heading-anchor gate (fragcheck.py), an orphaned-page/
-# nav-coverage gate (navcheck.py) and a net line-loss guard (shrinkcheck.py). All five are gated
-# in CI — by includecheck-pr.yml, mermaidcheck-pr.yml (DOCS-6630), fragcheck-pr.yml,
-# navcheck-pr.yml and shrinkcheck-pr.yml respectively — so a finding here is a finding CI will
+# nav-coverage gate (navcheck.py), a net line-loss guard (shrinkcheck.py), a paired
+# version-include guard (versioncheck.py) and the no-standalone register audit
+# (postdownload.py). All seven are gated in CI — by includecheck-pr.yml, mermaidcheck-pr.yml
+# (DOCS-6630), fragcheck-pr.yml, navcheck-pr.yml, shrinkcheck-pr.yml, versioncheck-pr.yml and
+# postdownload-pr.yml (both DOCS-6734) respectively — so a finding here is a finding CI will
 # repeat, and none of them is "local only" any more.
+#
+# The last two take NO file list: their findings are not local to a changed file (a version
+# include disagrees with its pair in another space; a register entry stops being true because a
+# page elsewhere appeared), so they are tree-wide and ignore the arguments.
 #
 # The pre-commit hook, the /precommit command, the docs-check skill, and dev-docs/cookbook-pre-pr.md
 # all delegate here instead of re-spelling the flags, so the CI-mirroring options live in exactly
@@ -426,6 +432,38 @@ else
   # sandbox — a verdict the suite cannot control, reported as if it were the sandbox's. Rooted
   # at CWD it finds no includes directories there and SKIPs, which is what a sandbox deserves.
   python3 "$VERSIONCHECK" >/dev/null || rc=1
+fi
+
+# --- the no-standalone register — HAS a CI counterpart since DOCS-6734 ----------------------
+# A connector release that shipped only INSIDE a Server release has no standalone package, so
+# there is no download for a reader to land on and correctly no platform/post-download/ page.
+# DOCS-6408's gate would block that legitimate PR, so the round needs a way to say "on purpose".
+# That signal is the `no-standalone:` section of .claude/hooks/doc-lint-allow.yml — a register
+# entry rather than page frontmatter, because .claude/ is not a GitBook space and so cannot be
+# silently rewritten by a web-app edit the way a page can (GITBOOK-1636 dropped HTML comments).
+# .claude/hooks/postdownload.py's header carries the full reasoning, and owns the naming map.
+#
+# What runs here is the register AUDIT: an entry whose page is gone, or whose release has since
+# gained a Post Download page, records something no longer true and fails. The other direction —
+# a newly added release notes page MUST have its Post Download page — is DOCS-6408's gate and is
+# not here yet.
+#
+# Takes no file list, for the same reason the version-include check above does not.
+POSTDOWNLOAD="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/postdownload.py"
+if [ ! -f "$POSTDOWNLOAD" ]; then
+  # NOT a SKIP, for the reason the includecheck block gives: this is a checked-in sibling, so
+  # its absence is a broken checkout rather than a missing tool.
+  echo "doc-lint: $POSTDOWNLOAD not found — cannot audit the no-standalone register." >&2
+  echo "          It is checked in beside this script, so this is a broken checkout, not a" >&2
+  echo "          missing tool." >&2
+  rc=1
+elif ! command -v python3 >/dev/null 2>&1; then
+  echo "doc-lint: python3 not installed — no-standalone audit SKIPPED (postdownload-pr.yml" >&2
+  echo "          still gates this in CI). Install: brew install python3" >&2
+else
+  # Rooted at the WORKING DIRECTORY, like the version-include check above and for the same
+  # reason: doc-lint-test.sh runs this script from the repo while CWD is a throwaway sandbox.
+  python3 "$POSTDOWNLOAD" audit >/dev/null || rc=1
 fi
 
 # --- retired Knowledge Base links — NO CI counterpart (the last one) ------------------------
