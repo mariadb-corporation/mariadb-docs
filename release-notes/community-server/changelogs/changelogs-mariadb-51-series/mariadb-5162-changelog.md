@@ -1,6 +1,6 @@
 # MariaDB 5.1.62 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.1.62) |[Release Notes](../../old-releases/5.1/5.1.62.md) |**Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
+[Download](https://archive.mariadb.org/mariadb-5.1.62/) |[Release Notes](../../old-releases/5.1/5.1.62.md) |**Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 6 Apr 2012
 

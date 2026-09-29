@@ -1,6 +1,6 @@
 # MariaDB 5.3.0 Changelog p5
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**
+[Download](https://archive.mariadb.org/mariadb-5.3.0/) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**
 (page:[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md) 5 [6](mariadb-530-changelog-p6.md)\
 ) |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 

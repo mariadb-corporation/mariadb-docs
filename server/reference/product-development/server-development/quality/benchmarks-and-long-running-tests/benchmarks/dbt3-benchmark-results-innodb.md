@@ -83,7 +83,7 @@ Here are the actual results:
 | MySQL 5.6.2 + InnoDB                                                                                                                                      | 103     | n/a   | n/a     | n/a   | n/a   | 104     | n/a   | n/a   | n/a   | n/a    | 531     | 168     | n/a    | n/a    | n/a    | 55     | 460.667 | n/a    | n/a    | n/a    | n/a    | 6      |
 
 The archived folder with all the results and details for that benchmark can be
-downloaded from:[Image:Res\_myisam\_timeout\_120\_s10\_2011-09-15\_190613.zip](https://askmonty.org/wiki/Image:Res_myisam_timeout_120_s10_2011-09-15_190613.zip)
+downloaded from:Image:Res\_myisam\_timeout\_120\_s10\_2011-09-15\_190613.zip
 
 ### Comments
 
