@@ -3,6 +3,7 @@ description: >-
   GridGain 9.1.15 brings multiple improvements and support for snapshots of data
   structures, drops support for table-based partition colocation, and updates the
   supported Python versions.
+hidden: true
 ---
 
 # GridGain 9.1.15 Release Notes
@@ -23,7 +24,7 @@ For clusters with default colocation settings created on GridGain 9.1.4 or later
 
 ### Supported Python Versions
 
-In this release, support for Python 3.9 was dropped and support for Python 3.14 was added in [Python client](../../developers-guide/clients/python-client.md) and [Python DB API](../../developers-guide/clients/python.md).
+In this release, support for Python 3.9 was dropped and support for Python 3.14 was added in [Python client]({connectors}/gridgain-9/clients/python-client) and [Python DB API]({connectors}/gridgain-9/clients/python).
 
 If you are using Python 3.9, make sure to update to 3.10 or later.
 
@@ -31,7 +32,7 @@ If you are using Python 3.9, make sure to update to 3.10 or later.
 
 ### Structure Snapshots
 
-[Data snapshots](../../administrators-guide/snapshots/snapshots-and-recovery.md) now support creating snapshots of [distributed maps](../../developers-guide/data-structures/map-structure.md) and [sequences](../../developers-guide/sql/sql-api.md#using-sequences). When a snapshot is created for a table, any data structures required for it are included in the snapshot automatically. You can also use the new `--structures` parameter to explicitly specify the data structures that you want to include in the snapshot, for example:
+[Data snapshots]({gridgain9}/gridgain9-management/snapshots/data-snapshots) now support creating snapshots of [distributed maps]({gridgain9}/gridgain9-usage/data-structures/distributed-maps) and [sequences]({gridgain9}/gridgain9-usage/sql/sql-api#using-sequences). When a snapshot is created for a table, any data structures required for it are included in the snapshot automatically. You can also use the new `--structures` parameter to explicitly specify the data structures that you want to include in the snapshot, for example:
 
 ```bash
 cluster snapshot create --type=full --tables=PERSON --structures=personStruct --destination=relative-path-example
@@ -39,7 +40,7 @@ cluster snapshot create --type=full --tables=PERSON --structures=personStruct --
 
 ### Default Query Staleness Configuration
 
-Since GridGain 9.1.11, you could [configure data staleness](../../sql-reference/ddl.md#create-table) for individual tables. This release improves support for query configuration by providing a way to set it in [cluster-wide SQL configuration](../../administrators-guide/config/cluster-config.md#sql-configuration). The new `minStaleRowsCount` and `staleRowsFraction` allow you to configure the number or row updates since last plan recalculation and the fraction of the table respectively.
+Since GridGain 9.1.11, you could [configure data staleness]({gridgain9}/reference/sql/ddl#create-table) for individual tables. This release improves support for query configuration by providing a way to set it in [cluster-wide SQL configuration]({gridgain9}/reference/configuration/cluster-configuration-parameters#sql-configuration). The new `minStaleRowsCount` and `staleRowsFraction` allow you to configure the number or row updates since last plan recalculation and the fraction of the table respectively.
 
 You can configure these parameters from the CLI tool, for example:
 
@@ -49,7 +50,7 @@ cluster config update ignite.sql.createTable.minStaleRowsCount=1000
 
 ### Ignored Fields in DR Connector
 
-When configuring [data center replication from GridGain 8](../../migration-from-gg-8/dcr-from-gg8.md), you can now configure ignored key fields. The configuration mirrors the previously available configuration for value fields. The example below shows a minimal configuration that ignores fields K4 and V4.
+When configuring [data center replication from GridGain 8]({gridgain9}/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8), you can now configure ignored key fields. The configuration mirrors the previously available configuration for value fields. The example below shows a minimal configuration that ignores fields K4 and V4.
 
 ```
 dr-service-config = {

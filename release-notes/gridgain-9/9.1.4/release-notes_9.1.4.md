@@ -1,6 +1,7 @@
 ---
 description: >-
   GridGain 9.1.4 enables partition colocation by default and improves SSL support, metrics, and near cache handling.
+hidden: true
 ---
 
 # GridGain 9.1.4 Release Notes
@@ -25,7 +26,7 @@ If you receive the incompatible colocation mode error when the node attempts to 
 
 ### Improved SSL Support
 
-This release introduces support for SSL in [Python DB API](../../developers-guide/clients/python.md) and [ODBC Driver](../../developers-guide/sql/odbc/odbc-driver.md). You can now securely connect to your cluster from both.
+This release introduces support for SSL in [Python DB API]({connectors}/gridgain-9/clients/python) and [ODBC Driver]({connectors}/gridgain-9/odbc/odbc-driver). You can now securely connect to your cluster from both.
 
 To securely connect from python DB API, specify the ssl key file and certificate in the connection configuration:
 
@@ -53,11 +54,11 @@ This release includes multiple new metrics that can enhance monitoring your clus
 - Extended data region metrics.
 - A new data center replication lag metric.
 
-For a full list of metrics, see the [Available Metrics](../../administrators-guide/metrics/metrics-list.md).
+For a full list of metrics, see the [Available Metrics]({gridgain9}/reference/monitoring/metrics-list).
 
 ### Improved Near Cache Support
 
-Prior to this release, [Near Caches](../../developers-guide/near-cache.md) were only configurable for clients. This release introduces support for initializing them from embedded mode.
+Prior to this release, [Near Caches]({gridgain9}/gridgain9-usage/near-caches) were only configurable for clients. This release introduces support for initializing them from embedded mode.
 
 The example below shows how you can create a near cache from an embedded node:
 

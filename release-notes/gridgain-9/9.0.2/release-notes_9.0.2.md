@@ -2,6 +2,7 @@
 description: >-
   GridGain 9.0.2 improves CLI reporting and cluster performance and adds a SQL
   partition filter column.
+hidden: true
 ---
 
 # GridGain 9.0.2 Release Notes

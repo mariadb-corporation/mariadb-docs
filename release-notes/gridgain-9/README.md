@@ -2,6 +2,7 @@
 description: >-
   Release notes for the GridGain 9 platform, covering the GridGain 9.0.x and
   9.1.x release series.
+hidden: true
 ---
 
 # Release Notes

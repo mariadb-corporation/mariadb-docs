@@ -2,6 +2,7 @@
 description: >-
   GridGain 9.0.14 introduces the Python DB API driver, point-in-time recovery,
   new transaction timeout parameters, and improved DDL performance.
+hidden: true
 ---
 
 # GridGain 9.0.14 Release Notes
@@ -31,11 +32,11 @@ cursor = conn.cursor()
 cursor.execute('CREATE TABLE Person(id int primary key, name varchar, age int)')
 ```
 
-For more information on using Python DB API, see the [Python Database API Driver](../../developers-guide/clients/python.md) section.
+For more information on using Python DB API, see the [Python Database API Driver]({connectors}/gridgain-9/clients/python) section.
 
 ### Point in Time Recovery
 
-With this release, you can restore data to any point in time above the [low watermark](../../administrators-guide/storage/data-partitions.md#version-storage). Older data below the low watermark can be restored by using [snapshots](../../administrators-guide/snapshots/snapshots-and-recovery.md).
+With this release, you can restore data to any point in time above the [low watermark]({gridgain9}/architecture/storage/data-partitioning#version-storage). Older data below the low watermark can be restored by using [snapshots]({gridgain9}/gridgain9-management/snapshots/data-snapshots).
 
 To start point in time recovery, use the `recovery` command, for example:
 

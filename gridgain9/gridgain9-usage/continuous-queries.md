@@ -362,7 +362,7 @@ These event types describe the change delivered to `Subscriber` in `TableRowEven
 | `CREATED` | Row created. |
 | `UPDATED` | Row updated. |
 | `REMOVED` | Row removed. |
-| `ARCHIVED` | Row archived. This event happens when you have a table with [`ARCHIVE AT`](../reference/sql/ddl.md#keywords-and-parameters) condition set and rows get archived according to this condition, meaning those rows are removed on a primary storage but will still be available on the secondary storage. |
+| `ARCHIVED` | Row archived. This event happens when you have a table with [`ARCHIVE AT`](../reference/sql/ddl.md) condition set and rows get archived according to this condition, meaning those rows are removed on a primary storage but will still be available on the secondary storage. |
 
 ## Event Generation
 

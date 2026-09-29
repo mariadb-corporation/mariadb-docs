@@ -69,8 +69,8 @@ The following table lists the GridGain modules an application developer adds as 
 
 | Artifact ID | Add it when you use | Reference |
 | --- | --- | --- |
-| `ignite-client` | Table API, Key-Value API, SQL API, Compute, Transactions, Catalog, Data Streamer, Continuous Queries — any thin-client application. | [Java Client](clients/java.md) |
-| `ignite-jdbc` | The JDBC driver to connect over SQL. | [JDBC Driver](clients/jdbc-driver.md) |
+| `ignite-client` | Table API, Key-Value API, SQL API, Compute, Transactions, Catalog, Data Streamer, Continuous Queries — any thin-client application. | [Java Client]({connectors}/gridgain-9/clients/java) |
+| `ignite-jdbc` | The JDBC driver to connect over SQL. | [JDBC Driver]({connectors}/gridgain-9/clients/jdbc-driver) |
 | `gridgain-jdbc-cache-store` | An external JDBC cache store. | [Cache](caches.md) |
 | `gridgain-map-structure` | Distributed map data structures (the `org.gridgain.structure` API), in addition to `ignite-client`. | [Distributed Map](data-structures/distributed-maps.md) |
 | `gridgain-hibernate` | Hibernate ORM integration. | [Hibernate](../integrations/hibernate.md) |
@@ -84,5 +84,5 @@ The `gridgain-hibernate`, `spring-data-ignite`, and `spring-boot-starter-ignite-
 ## Next Steps
 
 - [Use Java API](../gridgain9-get-started/java-api.md) — an end-to-end example using the modules above.
-- [Java Client](clients/java.md) — full client configuration reference.
+- [Java Client]({connectors}/gridgain-9/clients/java) — full client configuration reference.
 - [Table API](table-api.md) — work with data once the client is connected.

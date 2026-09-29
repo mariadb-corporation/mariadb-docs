@@ -114,7 +114,7 @@ async def connect_with_heartbeat():
 
 ### SSL Configuration
 
-If the cluster uses [SSL](../../administrators-guide/security/ssl-tls.md) encryption, you should specify the ssl configuration to allow the client to connect to the cluster safely. The example below shows how you can provide SSL configuration:
+If the cluster uses [SSL]({gridgain9}/security/ssl-tls) encryption, you should specify the ssl configuration to allow the client to connect to the cluster safely. The example below shows how you can provide SSL configuration:
 
 ```python
 async def connect_with_ssl():
@@ -137,7 +137,7 @@ async def connect_with_ssl():
 
 ### Authentication
 
-If the cluster has [authentication](../../administrators-guide/security/authentication.md) enabled, you should provide user credentials for your connection. The example below shows how you can configure authentication:
+If the cluster has [authentication]({gridgain9}/security/authentication) enabled, you should provide user credentials for your connection. The example below shows how you can configure authentication:
 
 ```python
 async def connect_with_authentication():
@@ -153,7 +153,7 @@ async def connect_with_authentication():
 
 ## Working With Distributed Maps
 
-The Python client provides an API for working with [distributed maps](../data-structures/map-structure.md).
+The Python client provides an API for working with [distributed maps]({gridgain9}/gridgain9-usage/data-structures/distributed-maps).
 
 {% hint style="info" %}
 Currently, Python client only works with binary data.

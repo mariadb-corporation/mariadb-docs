@@ -103,7 +103,7 @@ The following Hibernate properties are used to configure GridGain integration:
 |Property|Required|Description|
 |---|---|---|
 |hibernate.connection.driver_class|Yes|JDBC driver class. Must be set to `org.apache.ignite.jdbc.IgniteJdbcDriver`.|
-|hibernate.connection.url|Yes|JDBC connection URL to GridGain cluster. Format: `jdbc:ignite:thin://host:port/schema`. For available JDBC URL parameters, see [JDBC Driver documentation](../developers-guide/clients/jdbc-driver.md).|
+|hibernate.connection.url|Yes|JDBC connection URL to GridGain cluster. Format: `jdbc:ignite:thin://host:port/schema`. For available JDBC URL parameters, see [JDBC Driver documentation]({connectors}/gridgain-9/clients/jdbc-driver).|
 |hibernate.dialect|Yes|SQL dialect for GridGain. Must be set to `org.gridgain.hibernate.GridGain9Dialect`.|
 |hibernate.default_schema|No|Default schema for database operations. If not specified, `PUBLIC` schema is used.|
 |hibernate.current_session_context_class|No|Session context management strategy. Common values: `thread` (thread-bound sessions), `jta` (JTA transactions). If not specified, sessions must be managed manually.|

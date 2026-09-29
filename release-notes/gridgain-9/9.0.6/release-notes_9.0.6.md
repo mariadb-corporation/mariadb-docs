@@ -2,6 +2,7 @@
 description: >-
   GridGain 9.0.6 is a stability and performance release that adds a license
   metrics exporter.
+hidden: true
 ---
 
 # GridGain 9.0.6 Release Notes

@@ -600,7 +600,7 @@ Terminal('TABLE'), Terminal('('), NonTerminal('function_name'), Terminal('('), O
 
 ### Parameters
 
-- `hint_comment` - an sql [optimizer hint](../../_pending-merge/sql-tuning-README__from-performance-tuning.md#optimizer-hints).
+- `hint_comment` - an sql optimizer hint.
 - `expression` - a valid SQL expression.
 - `function_name` - the name of the [SQL function](operators-and-functions.md) to use.
 

@@ -4,6 +4,7 @@ description: >-
   It also extends SQL system views, improves SQL planning and transaction
   handling, and fixes a number of issues across the SQL engine, thin clients,
   and continuous queries.
+hidden: true
 ---
 
 # GridGain 9.1.24 Release Notes
@@ -34,7 +35,7 @@ ignite.compute.dotnet {
 }
 ```
 
-See [.NET Compute Executor](../../developers-guide/compute/compute.md#configuring-the-net-compute-executor) for more information.
+See [.NET Compute Executor]({gridgain9}/gridgain9-usage/distributed-computing/about-distributed-computing#configuring-the-net-compute-executor) for more information.
 
 ### .NET Client: Cluster API
 
@@ -48,7 +49,7 @@ IList<IClusterNode> nodes = await client.Cluster.GetNodesAsync();
 IClusterNode? local = context.Ignite.Cluster.LocalNode;
 ```
 
-See [Cluster API](../../developers-guide/clients/dotnet.md#cluster-api) for more information.
+See [Cluster API]({connectors}/gridgain-9/clients/dotnet#cluster-api) for more information.
 
 ### CLI Command to Balance Leaseholders
 
@@ -58,7 +59,7 @@ GridGain 9 now lets you manually rebalance primary replica leaseholders across c
 distribution balance-leases
 ```
 
-See [CLI tool documentation](../../ignite-cli-tool.md#distribution-commands).
+See [CLI tool documentation]({gridgain9}/reference/cli-tool#distribution-commands).
 
 ### Idempotent Cluster Initialization
 
@@ -68,7 +69,7 @@ The `cluster init` CLI command now accepts two optional flags that make it safe 
 cluster init --name=myCluster --license=/path/to/license --if-needed --if-nodes=3
 ```
 
-See [CLI tool documentation](../../ignite-cli-tool.md#cluster-init).
+See [CLI tool documentation]({gridgain9}/reference/cli-tool#cluster-init).
 
 ### Data Streamer and Continuous Query Cooperation
 
@@ -80,7 +81,7 @@ var options = DataStreamerOptions.builder()
     .build();
 ```
 
-See [same-key update mode](../../developers-guide/data-streamer.md#same-key-update-mode) and [continuous query events](../../developers-guide/continuous-queries.md#how-events-are-generated) for more information.
+See [same-key update mode]({gridgain9}/gridgain9-usage/data-streaming#same-key-update-mode) and [continuous query events]({gridgain9}/gridgain9-usage/continuous-queries#event-generation) for more information.
 
 ### Schema-Qualified Objects in SQL GRANT/REVOKE
 
@@ -90,7 +91,7 @@ SQL `GRANT`/`REVOKE PRIVILEGES ... ON <object>` now accepts a schema-qualified o
 GRANT PRIVILEGES CREATE_INDEX ON PUBLIC.MY_TABLE TO role1;
 ```
 
-See [GRANT](../../sql-reference/access-control.md#grant-to-role) for details.
+See [GRANT]({gridgain9}/reference/sql/access-control-functions#grant-to-role) for details.
 
 ## Improvements and Fixed Issues
 

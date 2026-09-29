@@ -1886,7 +1886,7 @@ recovery tables state --id=15225e58-a045-4d7b-8ebe-b965f99d560c --plain
 
 ### recovery low-watermark drop-locks
 
-Removes low watermark locks on all cluster nodes that are older than the specified number of milliseconds, so that a stalled low watermark can advance again. By default, the command fails if a read-only transaction older than the cutoff is still active or a secondary storage full state transfer is in progress; use `--force` to remove the locks unconditionally. See the [Recovering a Stalled Low Watermark](../architecture/storage/low-watermark-and-gc.md#recovering-a-stalled-low-watermark) section for details.
+Removes low watermark locks on all cluster nodes that are older than the specified number of milliseconds, so that a stalled low watermark can advance again. By default, the command fails if a read-only transaction older than the cutoff is still active or a secondary storage full state transfer is in progress; use `--force` to remove the locks unconditionally. See the [Recovering a Stalled Low Watermark](../architecture/storage/low-watermark-and-gc.md#recovering-stalled-low-watermark) section for details.
 
 **Syntax**
 

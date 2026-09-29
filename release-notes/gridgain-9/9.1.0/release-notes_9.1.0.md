@@ -1,6 +1,7 @@
 ---
 description: >-
   GridGain 9.1.0 introduces secondary columnar storage, a new JSON license format, reworked node and cluster configuration, and numerous SQL and client improvements.
+hidden: true
 ---
 
 # GridGain 9.1.0 Release Notes
@@ -66,17 +67,17 @@ When data is written to the primary storage, it will automatically be propagated
 SELECT /*+ use_secondary_storage */ * FROM Person;
 ```
 
-For more information on columnar storage, see [Columnar Storage](../../administrators-guide/storage/engines/columnar.md) documentation.
+For more information on columnar storage, see [Columnar Storage]({gridgain9}/architecture/storage/engines/columnar-storage) documentation.
 
 ### Streamer Support in Kafka Sink
 
-Kafka Sink now supports receiving data via [data streamer](../../developers-guide/data-streamer.md).
+Kafka Sink now supports receiving data via [data streamer]({gridgain9}/gridgain9-usage/data-streaming).
 
 To enable data streamer support, specify the name of the receiver class in the `ignite.streamer.receiver.class.name` kafka sink configuration property. You can specify the deployment units containing the class in the `ignite.streamer.receiver.deployment.units` property.
 
 ### Expanded COPY INTO Syntax
 
-The [COPY INTO](../../sql-reference/operational-commands.md#copy-into) command syntax is expanded with new optional parameters that help support importing data from CSV files with various syntax rules. The following parameters were added:
+The [COPY INTO]({gridgain9}/reference/sql/operational-commands#copy-into) command syntax is expanded with new optional parameters that help support importing data from CSV files with various syntax rules. The following parameters were added:
 
 - `quoteChar` - defines the quote character;
 - `escapeChar` - defines the character to use for escaping a separator or quote;

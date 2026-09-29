@@ -2,6 +2,7 @@
 description: >-
   GridGain 9.0.1 improves cluster stability and performance and adds continuous
   query metrics for Java and .NET clients.
+hidden: true
 ---
 
 # GridGain 9.0.1 Release Notes

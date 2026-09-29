@@ -1,6 +1,7 @@
 ---
 description: >-
   GridGain 9.1.5 introduces change data capture, secondary storage archiving, and partition awareness for client SQL, along with Docker Compose changes.
+hidden: true
 ---
 
 # GridGain 9.1.5 Release Notes
@@ -115,7 +116,7 @@ SELECT * FROM Person /*+ use_secondary_storage */
 
 ### Partition Awareness for Client SQL
 
-With this release, clients will benefit from [partition awareness](../../developers-guide/clients/overview.md#partition-awareness) for SQL queries, significantly improving their performance.
+With this release, clients will benefit from [partition awareness]({connectors}/gridgain-9/clients/overview#partition-awareness) for SQL queries, significantly improving their performance.
 
 ## Improvements and Fixed Issues
 

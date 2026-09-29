@@ -43,8 +43,8 @@ using var client = await IgniteClient.StartAsync(clientCfg);
 
 The cluster API lets you inspect the cluster topology, access it through the `IIgnite.Cluster` property:
 
-- `Cluster.GetNodesAsync()` returns all nodes that are part of the [logical topology](../../administrators-guide/lifecycle.md#logical-and-physical-topology).
-- `Cluster.LocalNode` returns the local cluster node. On the client side it is `null`; it is populated only when accessed from server-side code inside a [compute job](../compute/compute.md) (`IJobExecutionContext.Ignite`) or a [data streamer receiver](../data-streamer.md) (`IDataStreamerReceiverContext.Ignite`),  where it identifies the node executing that code.
+- `Cluster.GetNodesAsync()` returns all nodes that are part of the [logical topology]({gridgain9}/architecture/cluster-lifecycle#logical-and-physical-topology).
+- `Cluster.LocalNode` returns the local cluster node. On the client side it is `null`; it is populated only when accessed from server-side code inside a [compute job]({gridgain9}/gridgain9-usage/distributed-computing/about-distributed-computing) (`IJobExecutionContext.Ignite`) or a [data streamer receiver]({gridgain9}/gridgain9-usage/data-streaming) (`IDataStreamerReceiverContext.Ignite`),  where it identifies the node executing that code.
 
 Each `IClusterNode` exposes its `Id` (a `Guid` that changes after a node restart), `Name` (the consistent ID, stable across restarts), and `Address`.
 
@@ -132,7 +132,7 @@ public class Account
 
 ## SQL API
 
-GridGain 9 is focused on SQL, and SQL API is the primary way to work with the data. You can read more about supported SQL statements in the [SQL Reference](../../sql-reference/ddl.md) section. Here is how you can send SQL requests:
+GridGain 9 is focused on SQL, and SQL API is the primary way to work with the data. You can read more about supported SQL statements in the [SQL Reference]({gridgain9}/reference/sql/ddl) section. Here is how you can send SQL requests:
 
 {% code title=".NET" %}
 ```csharp
@@ -443,7 +443,7 @@ var partition = await pm.GetPartitionAsync(null, new Poco { Key = 42L }, new Poc
 
 To stream a large amount of data, use the data streamer. Data streaming provides a quicker and more efficient way to load, organize and optimally distribute your data. Data streamer accepts a stream of data and distributes data entries across the cluster, where the processing takes place. Data streaming is available in all table views.
 
-![](../../../.gitbook/assets/gg9-developers-guide-data_streaming.png)
+![](../../.gitbook/assets/gg9-developers-guide-data_streaming.png)
 
 Data streaming provides at-least-once delivery guarantee.
 

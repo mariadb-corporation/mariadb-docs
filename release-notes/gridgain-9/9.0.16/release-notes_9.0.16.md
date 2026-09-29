@@ -2,6 +2,7 @@
 description: >-
   GridGain 9.0.16 is a stability release that standardizes system view column
   names, adds the INDEX_COLUMNS system view, and updates DCR command syntax.
+hidden: true
 ---
 
 # GridGain 9.0.16 Release Notes
@@ -14,7 +15,7 @@ GridGain 9.0.16 is a stability release that is dedicated to improving user exper
 
 ### DCR Syntax Changes
 
-With this release, all [Data Center Replication](../../administrators-guide/data-center-replication/configuring-replication.md) commands are updated to consistently use the `--name` parameter to specify the replication name. Previous behavior is temporarily supported for backwards compatibility, but is deprecated and will be removed at some point later.
+With this release, all [Data Center Replication]({gridgain9}/gridgain9-management/data-center-replication/configuring-replication) commands are updated to consistently use the `--name` parameter to specify the replication name. Previous behavior is temporarily supported for backwards compatibility, but is deprecated and will be removed at some point later.
 
 ### Standardized System Views
 
@@ -22,7 +23,7 @@ Prior to this release, different system views could have slightly different name
 
 Old system view names remain temporarily available for backwards compatibility, but are deprecated and will be removed at some point later.
 
-Refer to the [System Views](../../administrators-guide/metrics/system-views.md) documentation for current system views. The [System View Changes in GridGain 9.0.16](#system-view-changes-in-gridgain-9016) section provides information on system view changes in this release.
+Refer to the [System Views]({gridgain9}/reference/monitoring/system-views) documentation for current system views. The [System View Changes in GridGain 9.0.16](#system-view-changes-in-gridgain-9.0.16) section provides information on system view changes in this release.
 
 ## New Features
 

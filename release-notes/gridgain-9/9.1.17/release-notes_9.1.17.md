@@ -3,6 +3,7 @@ description: >-
   GridGain 9.1.17 brings monitoring improvements and new .NET features, removes
   APIs and REST endpoints for table-based partitions, and notes a Control Center
   compatibility requirement.
+hidden: true
 ---
 
 # GridGain 9.1.17 Release Notes
@@ -19,7 +20,7 @@ This release starts removing APIs and system views that were used for working wi
 
 #### Removed System Views
 
-In this release, the `GLOBAL_PARTITION_STATES` and `LOCAL_PARTITION_STATES` [system views](../../administrators-guide/metrics/system-views.md) were removed. Make sure to use the `GLOBAL_ZONE_PARTITION_STATES` and `LOCAL_ZONE_PARTITION_STATES` zone-based system views instead.
+In this release, the `GLOBAL_PARTITION_STATES` and `LOCAL_PARTITION_STATES` [system views]({gridgain9}/reference/monitoring/system-views) were removed. Make sure to use the `GLOBAL_ZONE_PARTITION_STATES` and `LOCAL_ZONE_PARTITION_STATES` zone-based system views instead.
 
 #### Removed REST Endpoints
 
@@ -61,9 +62,9 @@ ignite3 snapshot list
 
 ### Expanded Metrics
 
-This release adds new metrics to improve monitoring *aipersist* storage. The metrics cover [checkpoint](../../administrators-guide/metrics/metrics-list.md#storage-aipersist-checkpoint) behavior.
+This release adds new metrics to improve monitoring *aipersist* storage. The metrics cover [checkpoint]({gridgain9}/reference/monitoring/metrics-list#storage-aipersist-checkpoint) behavior.
 
-Another set of new metrics helps monitor [Raft snapshots](../../administrators-guide/metrics/metrics-list.md#raft) activity, providing better visibility into the snapshot lifecycle. These metrics help detect stalled replication, slow recovery and excessive snapshot load.
+Another set of new metrics helps monitor [Raft snapshots]({gridgain9}/reference/monitoring/metrics-list#raft) activity, providing better visibility into the snapshot lifecycle. These metrics help detect stalled replication, slow recovery and excessive snapshot load.
 
 #### Storage Metrics
 
@@ -89,14 +90,14 @@ Another set of new metrics helps monitor [Raft snapshots](../../administrators-g
 
 This release introduces new `IMapper<T>` support to SQL, Compute and PartitionManager .NET APIs, enabling custom object mapping for serialization and deserialization, including AOT-friendly scenarios where reflection-based mapping is not suitable.
 
-For example, that is how you use it to create a colocated [compute](../../developers-guide/compute/compute.md#running-net-compute-jobs) job target for a specific table and key:
+For example, that is how you use it to create a colocated [compute]({gridgain9}/gridgain9-usage/distributed-computing/about-distributed-computing#running-net-compute-jobs) job target for a specific table and key:
 
 ```csharp
 public sealed class PocoMapper : IMapper<Poco> {}
 IJobTarget<Poco> target = JobTarget.Colocated("PUBLIC.MY_TABLE", key, new PocoMapper());
 ```
 
-For more details on usage of `IMapper<T>` see corresponding [SQL](../../developers-guide/clients/dotnet.md#sql-api) and [Partition Manager](../../developers-guide/clients/dotnet.md#partition-management) API sections.
+For more details on usage of `IMapper<T>` see corresponding [SQL]({connectors}/gridgain-9/clients/dotnet#sql-api) and [Partition Manager]({connectors}/gridgain-9/clients/dotnet#partition-management) API sections.
 
 #### .NET Client AOT Compilation
 
@@ -104,7 +105,7 @@ This release adds official support for [Native AOT](https://learn.microsoft.com/
 
 #### .NET Continuous Query API
 
-Continuous Query .NET [API](../../developers-guide/continuous-queries.md#continuous-query-watermark) is extended with the new `IContinuousQueryWatermark.AfterTransaction` interface to allow the user to obtain a consistent view of table data and future updates.
+Continuous Query .NET [API]({gridgain9}/gridgain9-usage/continuous-queries#continuous-query-watermark) is extended with the new `IContinuousQueryWatermark.AfterTransaction` interface to allow the user to obtain a consistent view of table data and future updates.
 
 This is how to start a continuous query with transaction watermark:
 
@@ -189,7 +190,7 @@ GridGain JDBC driver was reworked in GridGain 9.1.16. The new driver is only com
 
 #### Apache Ignite 3 Clients
 
-Apache Ignite thin clients are not compatible with GridGain. When switching to GridGain, change the dependency to GridGain client as described in the [GridGain client documentation](../../developers-guide/clients/java.md).
+Apache Ignite thin clients are not compatible with GridGain. When switching to GridGain, change the dependency to GridGain client as described in the [GridGain client documentation]({connectors}/gridgain-9/clients/java).
 
 ## Known Limitations
 

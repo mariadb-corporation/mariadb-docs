@@ -1,6 +1,7 @@
 ---
 description: >-
   GridGain 9.1.8 is a public release featuring AWS KMS encryption and improved continuous queries, along with cumulative improvements since 9.1.0.
+hidden: true
 ---
 
 # GridGain 9.1.8 Release Notes
@@ -37,7 +38,7 @@ This release has the following major changes:
 
 Starting with this release, all table views are `AutoCloseable` and can be wrapped in a `try-with-resources` statement.
 
-Only views for [near caches](../../developers-guide/near-cache.md#configuring-near-cache) require closing to ensure correct resource cleanup and must be wrapped in a `try-with-resources` statement.
+Only views for [near caches]({gridgain9}/gridgain9-usage/near-caches#configuring-near-cache) require closing to ensure correct resource cleanup and must be wrapped in a `try-with-resources` statement.
 
 ```java
 // Using try-with-resources statement to safely handle a near cache.
@@ -73,7 +74,7 @@ These features were added in this release:
 
 ### AWS KMS Encryption
 
-When using [encryption](../../administrators-guide/security/tde.md) on the cluster, you can now set up [AWS KMS](https://docs.aws.amazon.com/kms/) provider. When used, AWS will manage your keys and provide them as required.
+When using [encryption]({gridgain9}/security/transparent-data-encryption) on the cluster, you can now set up [AWS KMS](https://docs.aws.amazon.com/kms/) provider. When used, AWS will manage your keys and provide them as required.
 
 The example below shows how to create a provider and use it on the cluster:
 
@@ -95,7 +96,7 @@ The example below shows how to create a provider and use it on the cluster:
 
 ### Skipping Old Entries in Continuous Queries
 
-A new `skipOldEntries` option was added to [continuous queries](../../developers-guide/continuous-queries.md). When set to `true`, `TableRowEvent#oldEntry()` will return `null` for `TableRowEventType#UPDATED` events. This option can be used to reduce the network load and avoid resending old entries.
+A new `skipOldEntries` option was added to [continuous queries]({gridgain9}/gridgain9-usage/continuous-queries). When set to `true`, `TableRowEvent#oldEntry()` will return `null` for `TableRowEventType#UPDATED` events. This option can be used to reduce the network load and avoid resending old entries.
 
 ```java
 var options = ContinuousQueryOptions.builder()
@@ -157,7 +158,7 @@ Previously used configuration is temporarily supported for backwards compatibili
 
 ### CREATE ZONE Syntax Changes
 
-The  [CREATE ZONE](../../sql-reference/distribution-zones.md) and [ALTER ZONE](../../sql-reference/distribution-zones.md#alter-zone) command syntax was significantly reworked. All additional parameters (specified in the `WITH` parameter) are now part of common syntax.
+The  [CREATE ZONE]({gridgain9}/reference/sql/distribution-zones) and [ALTER ZONE]({gridgain9}/reference/sql/distribution-zones#alter-zone) command syntax was significantly reworked. All additional parameters (specified in the `WITH` parameter) are now part of common syntax.
 
 Below is the example of creating a distribution zone:
 
@@ -203,7 +204,7 @@ These features were added in one of the releases between 9.1.0 and 9.1.8. If you
 
 This release reintroduces support for near caches in GridGain 9. Near caches provide a way to store data locally on your clients and avoid lengthy network queries for latest data from the cluster.
 
-You can configure near cache for any [table view](../../developers-guide/table-api.md#basic-table-operations). Data will be queried from the cluster when it is read, and stored locally for the configured duration for repeated access.
+You can configure near cache for any [table view]({gridgain9}/gridgain9-usage/table-api#basic-table-operations). Data will be queried from the cluster when it is read, and stored locally for the configured duration for repeated access.
 
 Just like with table views, it is recommended to use `try-with-resources` statement to avoid any possible memory leaks.
 
@@ -226,7 +227,7 @@ try (KeyValueView<Tuple, Tuple> kvView = client.tables().table(myTable).keyValue
 }
 ```
 
-For more information on near caches, as well as limitations, see [Near Cache](../../developers-guide/near-cache.md) documentation.
+For more information on near caches, as well as limitations, see [Near Cache]({gridgain9}/gridgain9-usage/near-caches) documentation.
 
 ### Python Client
 
@@ -251,7 +252,7 @@ async with AsyncClient(address) as client:
     print(await binary_map.get(b'1'))
 ```
 
-For more information about Python client, see [client documentation](../../developers-guide/clients/python-client.md).
+For more information about Python client, see [client documentation]({connectors}/gridgain-9/clients/python-client).
 
 ### Change Data Capture
 
@@ -281,7 +282,7 @@ To start CDC replication:
 
 ### Snapshot Encryption
 
-Starting with this release, if [data encryption](../../administrators-guide/security/tde.md) is enabled on the cluster, your snapshots will also be encrypted.
+Starting with this release, if [data encryption]({gridgain9}/security/transparent-data-encryption) is enabled on the cluster, your snapshots will also be encrypted.
 
 You can also manually set snapshot encryption when creating them by using the `encryption-provider` parameter.
 
@@ -327,7 +328,7 @@ SELECT * FROM Person /*+ use_secondary_storage */
 
 ### Partition Awareness for Client SQL
 
-With this release, clients will benefit from [partition awareness](../../developers-guide/clients/overview.md#partition-awareness) for SQL queries, significantly improving their performance.
+With this release, clients will benefit from [partition awareness]({connectors}/gridgain-9/clients/overview#partition-awareness) for SQL queries, significantly improving their performance.
 
 ### New Distribution Zone QUORUM_SIZE Parameter
 
@@ -345,7 +346,7 @@ CREATE ZONE IF NOT EXISTS exampleZone (REPLICAS 3, QUORUM SIZE 3) STORAGE PROFIL
 
 This release features major changes in migration tools:
 
-- A new way of configuring mapping between caches and tables during [DCR from GridGain 8](../../migration-from-gg-8/dcr-from-gg8.md) was added. By using it, you can map key and value cache fields separately, as well as ignore the fields that are not required. The example below shows how you can configure mapping:
+- A new way of configuring mapping between caches and tables during [DCR from GridGain 8]({gridgain9}/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) was added. By using it, you can map key and value cache fields separately, as well as ignore the fields that are not required. The example below shows how you can configure mapping:
   ```
   dr-service-config = {
     cacheMapping = [
@@ -368,11 +369,11 @@ This release features major changes in migration tools:
   }
   ```
 
-- [Code adapter](../../migration-from-gg-8/codebase-migration.md) now supports migration of GridGain 8 ScanQueries.
+- [Code adapter]({gridgain9}/gridgain9-management/migration-from-gridgain-8/codebase-migration) now supports migration of GridGain 8 ScanQueries.
 
 ### Creating Caches From Java
 
-With this release, you can use the `@Cache` annotation in Java to create caches from Java classes. You can create caches from Key-Value POJOs. Once a cache is created, you can work with it as described in [cache](../../developers-guide/cache.md) documentation.
+With this release, you can use the `@Cache` annotation in Java to create caches from Java classes. You can create caches from Key-Value POJOs. Once a cache is created, you can work with it as described in [cache]({gridgain9}/gridgain9-usage/caches) documentation.
 
 ```java
 class PojoKey {
@@ -442,11 +443,11 @@ The `executeBatch()` and `executeBatchAsync()` methods now return cancellation t
 
 ### New Method to Get Local Node
 
-With this release, you can use the new `ignite.cluster().localNode()` method to quickly get the local [embedded node](../../quick-start/embedded-mode.md).
+With this release, you can use the new `ignite.cluster().localNode()` method to quickly get the local [embedded node]({gridgain9}/gridgain9-get-started/embedded-mode).
 
 ### Logging Improvement
 
-This release features major effort in improving logging in GridGain 9. A large number of errors that previously caused unexpected exceptions are now correctly caught, categorized and reported with a [correct code](../../administrators-guide/handling-exceptions.md).
+This release features major effort in improving logging in GridGain 9. A large number of errors that previously caused unexpected exceptions are now correctly caught, categorized and reported with a [correct code]({gridgain9}/reference/error-codes).
 
 ### COPY INTO batchSize Parameter
 
@@ -474,11 +475,11 @@ WITH 'null'='no data'
 
 ### Cluster Topology Metrics
 
-This release includes new cluster topology metrics, that provide information about node name, id and version, as well as cluster name, id, and number of nodes in the cluster. For more information about these sources, see [Available Metrics](../../administrators-guide/metrics/metrics-list.md).
+This release includes new cluster topology metrics, that provide information about node name, id and version, as well as cluster name, id, and number of nodes in the cluster. For more information about these sources, see [Available Metrics]({gridgain9}/reference/monitoring/metrics-list).
 
 ### Improved SSL Support
 
-This release introduces support for SSL in [Python DB API](../../developers-guide/clients/python.md) and [ODBC Driver](../../developers-guide/sql/odbc/odbc-driver.md). You can now securely connect to your cluster from both.
+This release introduces support for SSL in [Python DB API]({connectors}/gridgain-9/clients/python) and [ODBC Driver]({connectors}/gridgain-9/odbc/odbc-driver). You can now securely connect to your cluster from both.
 
 To securely connect from python DB API, specify the ssl key file and certificate in the connection configuration:
 
@@ -506,7 +507,7 @@ This release includes multiple new metrics that can enhance monitoring your clus
 - Extended data region metrics.
 - A new data center replication lag metric.
 
-For a full list of metrics, see the [Available Metrics](../../administrators-guide/metrics/metrics-list.md).
+For a full list of metrics, see the [Available Metrics]({gridgain9}/reference/monitoring/metrics-list).
 
 ### Improved Monitoring
 

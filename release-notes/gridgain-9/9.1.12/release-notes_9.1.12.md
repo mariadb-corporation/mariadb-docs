@@ -1,6 +1,7 @@
 ---
 description: >-
   GridGain 9.1.12 focuses on stability and extended WebAssembly computing support.
+hidden: true
 ---
 
 # GridGain 9.1.12 Release Notes
@@ -13,7 +14,7 @@ GridGain 9.1.12 is a private release that is focused on stability and extended s
 
 ### WASM Improvements
 
-This release brings 2 major improvements to [WASM compute](../../developers-guide/compute/wasm.md) jobs.
+This release brings 2 major improvements to [WASM compute]({gridgain9}/gridgain9-usage/distributed-computing/webassembly-compute-jobs) jobs.
 
 - The new `compute.wasm.enableCompiler` configuration option can be used to control if your WebAssembly code is [compiled to JVM bytecode](https://chicory.dev/docs/usage/runtime-compiler) at runtime for faster execution.
 - WebAssembly instances are now cached per deployment unit and file name, reducing repeated module loading and initialization. Cached instances are cleared on `undeploy`.  Synchronization is required since WASM is not thread-safe.

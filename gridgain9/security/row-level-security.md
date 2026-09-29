@@ -91,7 +91,7 @@ The following restrictions apply to policy expressions:
 - The expression must evaluate to `BOOLEAN`.
 - Only columns that exist in the target table may be referenced.
 - Certain context-dependent temporal functions cannot be used in a policy expression.
-See [CREATE POLICY](../reference/sql/access-control-functions.md#create_policy) for the complete list.
+See [CREATE POLICY](../reference/sql/access-control-functions.md#create-policy) for the complete list.
 
 ### Read Operation Handling
 
@@ -126,12 +126,12 @@ At a high level, the steps for setting up row-level security are as follows:
 
 1. Choose which tables require row-level security.
 2. Create roles and grant access to tables by those roles. ([CREATE ROLE](../reference/sql/access-control-functions.md#create-role), [GRANT](../reference/sql/access-control-functions.md#grant))
-3. Define row-level security policies that control which rows each role can access. ([CREATE POLICY](../reference/sql/access-control-functions.md#create_policy))
-4. Enable row-level security on the table. ([ALTER TABLE ... SET ROW LEVEL SECURITY ON](../reference/sql/ddl.md#set_rls))
+3. Define row-level security policies that control which rows each role can access. ([CREATE POLICY](../reference/sql/access-control-functions.md#create-policy))
+4. Enable row-level security on the table. ([ALTER TABLE ... SET ROW LEVEL SECURITY ON](../reference/sql/ddl.md#alter-table-if-exists-table-set-row-level-security))
 
 ### Defining Policies
 
-Create a policy with [CREATE POLICY](../reference/sql/access-control-functions.md#create_policy) statement. The policy grants the listed
+Create a policy with [CREATE POLICY](../reference/sql/access-control-functions.md#create-policy) statement. The policy grants the listed
 roles visibility of the rows for which the `USING` expression evaluates to `TRUE`. Omit the `TO` clause (or specify
 `EVERYONE`) to apply the policy to all roles.
 
@@ -213,8 +213,8 @@ With these policies in place:
 
 Managing the row-level security setting and policies requires the `MANAGE_RLS` privilege on the target table
 (see [User Permissions and Roles](user-permissions-and-roles.md)). The full command syntax is
-described in [ALTER TABLE ... SET ROW LEVEL SECURITY](../reference/sql/ddl.md#set_rls) (the per-table switch)
-and in the [policy commands](../reference/sql/access-control-functions.md#create_policy) (CREATE, ALTER, and DROP POLICY).
+described in [ALTER TABLE ... SET ROW LEVEL SECURITY](../reference/sql/ddl.md#alter-table-if-exists-table-set-row-level-security) (the per-table switch)
+and in the [policy commands](../reference/sql/access-control-functions.md#create-policy) (CREATE, ALTER, and DROP POLICY).
 
 ### Disabling Row-Level Security
 
@@ -234,7 +234,7 @@ All configured policies are listed in the [`SYSTEM.POLICIES` system view](../ref
 
 ### Modifying Policies
 
-Use the [ALTER POLICY](../reference/sql/access-control-functions.md#alter_policy) statement to change the roles and/or the predicate of
+Use the [ALTER POLICY](../reference/sql/access-control-functions.md#alter-policy) statement to change the roles and/or the predicate of
 an existing policy. At least one of the `TO` and `USING` clauses must be specified; only the clauses you provide
 are changed.
 
@@ -248,7 +248,7 @@ ALTER POLICY developers_own USING (LOWER(CURRENT_USER) = LOWER(username));
 
 ### Removing Policies
 
-Use [DROP POLICY](../reference/sql/access-control-functions.md#create_policy) to remove a policy. If the dropped policy was
+Use [DROP POLICY](../reference/sql/access-control-functions.md#create-policy) to remove a policy. If the dropped policy was
 the only one granting a user access, that user no longer sees any rows while row-level security remains enabled
 on the table.
 
@@ -258,7 +258,7 @@ DROP POLICY developers_own;
 
 ## See Also
 
-- [ALTER TABLE ... SET ROW LEVEL SECURITY](../reference/sql/ddl.md#set_rls) — the per-table switch.
-- [CREATE / ALTER / DROP POLICY](../reference/sql/access-control-functions.md#create_policy) — the policy command syntax reference.
+- [ALTER TABLE ... SET ROW LEVEL SECURITY](../reference/sql/ddl.md#alter-table-if-exists-table-set-row-level-security) — the per-table switch.
+- [CREATE / ALTER / DROP POLICY](../reference/sql/access-control-functions.md#create-policy) — the policy command syntax reference.
 - [Role-Based Authorization](role-based-authorization.md) — how roles and privileges work.
 - [User Permissions and Roles](user-permissions-and-roles.md#table) — the `MANAGE_RLS` privilege.

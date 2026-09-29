@@ -3,6 +3,7 @@ description: >-
   GridGain 9.0.12 adds high availability distribution zones, network backups,
   cancellation of queries, transactions and compute jobs, and cluster catalog
   pruning.
+hidden: true
 ---
 
 # GridGain 9.0.12 Release Notes
@@ -63,7 +64,7 @@ This release provides the initial implementation of stopping running queries, tr
   CompletableFuture<Void> cancelled = cancelHandle.cancelAsync();
   ```
 
-- When managing the cluster, you can use the recently added [system views](../../administrators-guide/metrics/system-views.md) to get information about individual operations and cancel them with the `KILL QUERY`, `KILL TRANSACTION`, or `KILL COMPUTE` commands.
+- When managing the cluster, you can use the recently added [system views]({gridgain9}/reference/monitoring/system-views) to get information about individual operations and cancel them with the `KILL QUERY`, `KILL TRANSACTION`, or `KILL COMPUTE` commands.
 
 Support for stopping queries from client code will be added in one of the upcoming releases.
 

@@ -2,6 +2,7 @@
 description: >-
   GridGain 9.0.10 improves Data Center Replication and adds an OpenTelemetry
   exporter and the IgniteClientGroup .NET API.
+hidden: true
 ---
 
 # GridGain 9.0.10 Release Notes
@@ -14,7 +15,7 @@ GridGain 9.0.10 is a release that continues work on stability while also bringin
 
 ### Improved Data Center Replication
 
-This release features multiple improvements to [Data Center Replication](../../administrators-guide/data-center-replication/README.md):
+This release features multiple improvements to [Data Center Replication]({gridgain9}/gridgain9-management/data-center-replication):
 
 - Time-based conflict resolution during active-active replication is significantly more reliable.
 - You can now run data replication on clusters secured via SSL.
@@ -30,7 +31,7 @@ You can enable the OpenTelemetry exporter from CLI:
 cluster config update ignite.metrics.exporters.test: {exporterName:otlp, endpoint:"http://localhost:9090/api/v1/otlp/v1/metrics", protocol:"http/protobuf"}
 ```
 
-For more information about configuring OpenTelemetry exporter, see [metrics configuration](../../administrators-guide/metrics/configuring-metrics.md#opentelemetry) topic.
+For more information about configuring OpenTelemetry exporter, see [metrics configuration]({gridgain9}/gridgain9-management/monitoring/configuring-metrics#opentelemetry) topic.
 
 ### IgniteClientGroup in .NET
 

@@ -3,6 +3,7 @@ description: >-
   GridGain 9.1.18 brings major monitoring improvements, an improved CLI tool
   experience, and a reworked transaction API. It also documents known issues
   with data center replication and SQL performance in this release.
+hidden: true
 ---
 
 # GridGain 9.1.18 Release Notes
@@ -136,7 +137,7 @@ readinessProbe:
 
 ### Custom Transformations for DCR Connector
 
-With this release, a new API was added for the [DCR Connector](../../migration-from-gg-8/dcr-from-gg8.md) that can be used for complex data mapping.
+With this release, a new API was added for the [DCR Connector]({gridgain9}/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) that can be used for complex data mapping.
 
 With it, instead of mapping GridGain 8 fields to GridGain 9 columns you can create a transformer class, and add it to the connector.
 
@@ -202,7 +203,7 @@ With it, instead of mapping GridGain 8 fields to GridGain 9 columns you can crea
   You cannot mix mapping via transformer with direct mapping. Make sure all of your fields are mapped correctly.
   {% endhint %}
 
-For more information about transformer configuration, see [DCR Connector](../../migration-from-gg-8/dcr-from-gg8.md) documentation.
+For more information about transformer configuration, see [DCR Connector]({gridgain9}/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) documentation.
 
 ### Improved CLI Tool Usability
 
@@ -232,7 +233,7 @@ cli config set ignite.cli.color-scheme=solarized-light
 
 ### Expanded Metrics
 
-This release adds a large number of metrics. For more information about working with metrics, see [Metrics Configuration](../../administrators-guide/metrics/configuring-metrics.md) documentation.
+This release adds a large number of metrics. For more information about working with metrics, see [Metrics Configuration]({gridgain9}/gridgain9-management/monitoring/configuring-metrics) documentation.
 
 #### Cache Metrics
 
@@ -272,7 +273,7 @@ A new `groups.localLeadersCount` metric is available for monitoring raft group l
 
 ### Extended Transaction Information
 
-Transaction labels are now included when transactions are referenced in [system views](../../administrators-guide/metrics/system-views.md) and logs.
+Transaction labels are now included when transactions are referenced in [system views]({gridgain9}/reference/monitoring/system-views) and logs.
 
 ### Long Polling for Continuous Queries
 
@@ -291,9 +292,9 @@ var options = ContinuousQueryOptions.builder()
 
 ### Low Latency Continuous Queries
 
-This release significantly reduces [continuous query](../../developers-guide/continuous-queries.md) latency with the following improvements:
+This release significantly reduces [continuous query]({gridgain9}/gridgain9-usage/continuous-queries) latency with the following improvements:
 
-- Long polling, configurable with [`ContinuousQueryOptions.longPollingWaitTimeMs`](../../developers-guide/continuous-queries.md#continuous-query-parameters), immediately delivers new events when the table was previously idle;
+- Long polling, configurable with [`ContinuousQueryOptions.longPollingWaitTimeMs`]({gridgain9}/gridgain9-usage/continuous-queries#parameters), immediately delivers new events when the table was previously idle;
 - Parallel partition polling removes event delivery delays caused by other partitions;
 - Active transactions no longer delay event delivery.
 

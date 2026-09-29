@@ -3,6 +3,7 @@ description: >-
   GridGain 9.1.16 brings a large number of new features, including a reworked
   JDBC driver, Java records support, custom object mapping in .NET, and new
   configuration options and metrics.
+hidden: true
 ---
 
 # GridGain 9.1.16 Release Notes
@@ -15,7 +16,7 @@ GridGain 9.1.16 is a private release that brings a large number of new features,
 
 ### New JDBC Driver Implementation
 
-This release includes a complete rework of the [JDBC driver](../../developers-guide/clients/jdbc-driver.md). The new driver provides improved reliability, better connection management, support for connection pools and enhanced batch processing capabilities.
+This release includes a complete rework of the [JDBC driver]({connectors}/gridgain-9/clients/jdbc-driver). The new driver provides improved reliability, better connection management, support for connection pools and enhanced batch processing capabilities.
 
 The example below shows how you can connect to multiple endpoints:
 
@@ -43,7 +44,7 @@ public record Person(
 ) {}
 ```
 
-For more information about using records, see [Record API documentation](../../developers-guide/table-api.md).
+For more information about using records, see [Record API documentation]({gridgain9}/gridgain9-usage/table-api).
 
 ### Custom Object Mapping in .NET
 
@@ -73,7 +74,7 @@ public class PocoMapper : IMapper<Poco>
 }
 ```
 
-For more information about using improved mapping, see [.NET client documentation](../../developers-guide/clients/dotnet.md).
+For more information about using improved mapping, see [.NET client documentation]({connectors}/gridgain-9/clients/dotnet).
 
 ### Improved Configuration
 
@@ -100,15 +101,15 @@ cfg.set_operation_timeout(std::chrono::seconds{2});
 auto client = ignite_client::start(cfg, std::chrono::seconds(5));
 ```
 
-For more information, see [C++ client documentation](../../developers-guide/clients/cpp.md).
+For more information, see [C++ client documentation]({connectors}/gridgain-9/clients/cpp).
 
 ### ODBC Connection Heartbeats
 
-You can now configure heartbeats in [ODBC driver](../../developers-guide/sql/odbc/odbc-driver.md) connection string with the `HEARTBEAT_INTERVAL` parameter. By default, heartbeat messages are sent every 30 seconds.
+You can now configure heartbeats in [ODBC driver]({connectors}/gridgain-9/odbc/odbc-driver) connection string with the `HEARTBEAT_INTERVAL` parameter. By default, heartbeat messages are sent every 30 seconds.
 
 ### String Configuration Support
 
-When starting the node in [embedded mode](../../quick-start/embedded-mode.md), you can now provide configuration in string format. Previously, it was required to provide configuration as a path to the file.
+When starting the node in [embedded mode]({gridgain9}/gridgain9-get-started/embedded-mode), you can now provide configuration in string format. Previously, it was required to provide configuration as a path to the file.
 
 For example:
 

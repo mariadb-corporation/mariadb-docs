@@ -1,6 +1,7 @@
 ---
 description: >-
   GridGain 9.1.7 improves cluster monitoring and migration tooling and adds Windows support for the C++ client.
+hidden: true
 ---
 
 # GridGain 9.1.7 Release Notes
@@ -17,7 +18,7 @@ This release features extended backwards compatibility support for bootstrap con
 
 ### Extended Critical Worker Timeouts
 
-This release increases default timeout values for [critical workers](../../administrators-guide/config/node-config.md#system-configuration). The following values are changed:
+This release increases default timeout values for [critical workers]({gridgain9}/reference/configuration/node-configuration-parameters#system-configuration). The following values are changed:
 
 - `ignite.system.criticalWorkers.livenessCheckIntervalMillis` changed from 200 to 2000 milliseconds,
 - `ignite.system.criticalWorkers.maxAllowedLagMillis` changed from 500 to 5000 milliseconds,
@@ -29,14 +30,14 @@ This release increases default timeout values for [critical workers](../../admin
 
 This release features multiple improvements to cluster monitoring:
 
-- New `ClockSkewExceedingMaxClockSkew` [metric](../../administrators-guide/metrics/metrics-list.md#clock-service) can be used to monitor clock drift.
-- A set of new [compute events](../../developers-guide/events/events-list.md#compute-job-events) allows for easier monitoring of your distributed computing jobs.
+- New `ClockSkewExceedingMaxClockSkew` [metric]({gridgain9}/reference/monitoring/metrics-list#clock-service) can be used to monitor clock drift.
+- A set of new [compute events]({gridgain9}/gridgain9-usage/events/available-events#compute-job-events) allows for easier monitoring of your distributed computing jobs.
 
 ### Improved Migration Tools
 
 This release features major changes in migration tools:
 
-- A new way of configuring mapping between caches and tables during [DCR from GridGain 8](../../migration-from-gg-8/dcr-from-gg8.md) was added. By using it, you can map key and value cache fields separately, as well as ignore the fields that are not required. The example below shows how you can configure mapping:
+- A new way of configuring mapping between caches and tables during [DCR from GridGain 8]({gridgain9}/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) was added. By using it, you can map key and value cache fields separately, as well as ignore the fields that are not required. The example below shows how you can configure mapping:
   ```
   dr-service-config = {
     cacheMapping = [
@@ -55,11 +56,11 @@ This release features major changes in migration tools:
   }
   ```
 
-- [Code adapter](../../migration-from-gg-8/codebase-migration.md) now supports migration of GridGain 8 ScanQueries.
+- [Code adapter]({gridgain9}/gridgain9-management/migration-from-gridgain-8/codebase-migration) now supports migration of GridGain 8 ScanQueries.
 
 ### Windows Support for C++ Client
 
-With this release, you can use the [C++ client](../../developers-guide/clients/cpp.md) on Windows systems with MSVC toolchain versions 2017, 2019 and 2022.
+With this release, you can use the [C++ client]({connectors}/gridgain-9/clients/cpp) on Windows systems with MSVC toolchain versions 2017, 2019 and 2022.
 
 ## Improvements and Fixed Issues
 

@@ -20,7 +20,7 @@ Clients and servers advertise their supported optional features when a connectio
 
 When application code attempts to use an optional feature that the server has not advertised, the call fails with `IgniteClientFeatureNotSupportedByServerException` naming the feature.
 
-See [Client Features](../../developers-guide/clients/overview.md#client-features) for the list of features supported by the client.
+See [Client Features]({connectors}/gridgain-9/clients/overview#client-features) for the list of features supported by the client.
 
 ## Compatibility Scenarios
 

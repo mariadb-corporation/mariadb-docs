@@ -33,7 +33,7 @@ into more advanced techniques described in this and other articles, consider the
 
 - Make sure the host OS is properly [tuned](os-tuning.md).
 
-- If you are going to run SQL with GridGain, see [SQL-related optimizations](../../_pending-merge/sql-tuning-README__from-performance-tuning.md) for more details.
+- If you are going to run SQL with GridGain, see SQL-related optimizations for more details.
 
 {% hint style="warning" %}
 Verify all performance recommendations from this paper in a test environment before delivering to the production environment.

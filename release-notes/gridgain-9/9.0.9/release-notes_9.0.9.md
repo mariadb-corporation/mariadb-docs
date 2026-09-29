@@ -2,6 +2,7 @@
 description: >-
   GridGain 9.0.9 changes CREATE TABLE syntax and adds extended system views, a
   Kafka sink connector, and disaster recovery for system RAFT groups.
+hidden: true
 ---
 
 # GridGain 9.0.9 Release Notes
@@ -40,7 +41,7 @@ In this release, the SQL `CREATE TABLE` and `CREATE CACHE` command is changed. T
   ) PRIMARY ZONE MYZONE STORAGE PROFILE 'default'
   ```
 
-The functionality of these commands remains the same. For a visual representation of the `CREATE TABLE` command, see [DDL Reference](../../sql-reference/ddl.md#create-table).
+The functionality of these commands remains the same. For a visual representation of the `CREATE TABLE` command, see [DDL Reference]({gridgain9}/reference/sql/ddl#create-table).
 
 ### Extended System Views
 
@@ -62,20 +63,20 @@ GridGain 9 Sink connector features multiple improvements over its GridGain 8 cou
 - Arbitrary mapping of Kafka topics to GridGain tables.
 - No additional steps are required to prepare GridGain for working with Kafka.
 
-For more information about Kafka Sink connector, see the [Kafka Sink Connector](../../extensions/kafka-sink.md) topic.
+For more information about Kafka Sink connector, see the [Kafka Sink Connector]({gridgain9}/integrations/kafka-sink) topic.
 
 ### Metastore and CMG Majority Loss Recovery
 
-You can now perform [disaster recovery for system RAFT groups](../../administrators-guide/system-groups-recovery.md) that are essential for the GridGain 9 cluster's normal operation:
+You can now perform [disaster recovery for system RAFT groups]({gridgain9}/gridgain9-management/disaster-recovery/system-groups-recovery) that are essential for the GridGain 9 cluster's normal operation:
 
-- [Cluster Management Group (CMG)](../../administrators-guide/lifecycle.md#cluster-management-group)
-- [Metastorage Group (MG)](../../administrators-guide/lifecycle.md#cluster-metastorage-group)
+- [Cluster Management Group (CMG)]({gridgain9}/architecture/cluster-lifecycle#cluster-management-group)
+- [Metastorage Group (MG)]({gridgain9}/architecture/cluster-lifecycle#cluster-metastorage-group)
 
-You perform disaster recovery operations on system RAFT groups when a permanent majority loss occurs. Once you have detected that majority has been lost in cluster logs in the console or in the [rotated log files](https://en.wikipedia.org/wiki/Log_rotation), you can use the [CLI commands](../../ignite-cli-tool.md#disaster-recovery-commands) or REST API calls to perform disaster recovery
+You perform disaster recovery operations on system RAFT groups when a permanent majority loss occurs. Once you have detected that majority has been lost in cluster logs in the console or in the [rotated log files](https://en.wikipedia.org/wiki/Log_rotation), you can use the [CLI commands]({gridgain9}/reference/cli-tool#disaster-recovery-commands) or REST API calls to perform disaster recovery
 
 ### Cluster-Wide Metrics Configuration
 
-Prior to this release, [metrics](../../administrators-guide/metrics/configuring-metrics.md) were configured on a per-node basis. Now, you can use the new cluster-wide CLI commands to manage your metrics for the entire cluster, for example:
+Prior to this release, [metrics]({gridgain9}/gridgain9-management/monitoring/configuring-metrics) were configured on a per-node basis. Now, you can use the new cluster-wide CLI commands to manage your metrics for the entire cluster, for example:
 
 ```bash
 cluster metric source enable jvm

@@ -35,7 +35,7 @@ If a dirty page, scheduled for checkpointing, is updated before being written to
 
 To avoid the scenario where all updates are stopped, GridGain always performs write throttling once the checkpoint buffer is two thirds full. Once the threshold is reached, checkpoint writer priority is increased, and more priority is given to checkpointing over new updates as the buffer fills more. This prevents buffer overflow while also slowing down update rate.
 
-In most cases, write throttling is caused by a slow drive, or a high update rate, and should not be a part of normal node operation. You can track write throttling by using [throttling metrics](../../../reference/monitoring/metrics-list.md#storage-aipersist-profile).
+In most cases, write throttling is caused by a slow drive, or a high update rate, and should not be a part of normal node operation. You can track write throttling by using [throttling metrics](../../../reference/monitoring/metrics-list.md#storage.aipersist.-profile).
 
 ## Storage Configuration
 

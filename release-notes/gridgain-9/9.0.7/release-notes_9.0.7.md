@@ -2,6 +2,7 @@
 description: >-
   GridGain 9.0.7 limits implicit SQL type casting and adds fair partition
   distribution, selective CSV import, and license monitoring.
+hidden: true
 ---
 
 # GridGain 9.0.7 Release Notes

@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS Person (
   ZONE zone1 SECONDARY ZONE secondary_zone SECONDARY STORAGE PROFILE 'columnar_storage' ARCHIVE AT ttl;
 ```
 
-Reads the archived data, explicitly using the secondary storage access [hint](../../_pending-merge/sql-tuning-README__from-performance-tuning.md#hints-format):
+Reads the archived data, explicitly using the secondary storage access hint:
 
 ```sql
 SELECT * FROM Person /*+ use_secondary_storage */;

@@ -2,6 +2,7 @@
 description: >-
   GridGain 9.0.8 changes BigDecimal type derivation and adds cache write-behind
   mode, system property configuration, and snapshot storage path configuration.
+hidden: true
 ---
 
 # GridGain 9.0.8 Release Notes
@@ -22,12 +23,12 @@ To store larger decimal values, cast them with custom precision, for example `CA
 
 ### Cache Write-Behind Mode
 
-When using the caches as [external storage](../../developers-guide/cache.md#caches-as-external-storage), you can now choose the write mode to better fit your needs.
+When using the caches as [external storage]({gridgain9}/gridgain9-usage/caches#caches-as-external-storage), you can now choose the write mode to better fit your needs.
 
 - If `SYNC` write mode is used, KeyValueView operations will wait until the cache store write is complete.
 - If `ASYNC` write mode is used, data will be propagated in the background. The operations will proceed before the write to the external storage is completed.
 
-For more information on using caches, see [Caches as External Storage](../../developers-guide/cache.md#caches-as-external-storage).
+For more information on using caches, see [Caches as External Storage]({gridgain9}/gridgain9-usage/caches#caches-as-external-storage).
 
 ### Configuration for System Properties
 

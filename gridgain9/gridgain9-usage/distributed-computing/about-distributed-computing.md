@@ -12,7 +12,7 @@ GridGain 9 lets you run your own code on the cluster in a distributed, balanced,
 Tasks can run on a single node, multiple nodes, or across the entire cluster, and you can choose between synchronous and asynchronous execution.
 
 {% hint style="info" %}
-GridGain 9 compute engine supports jobs implemented in Java, in .NET, and WebAssembly. As Wasm and .NET compute jobs require a bit of extra setup, see the [.NET Compute Jobs](#net-compute-jobs) subsection and [Wasm Compute Jobs](webassembly-compute-jobs.md) for more details.
+GridGain 9 compute engine supports jobs implemented in Java, in .NET, and WebAssembly. As Wasm and .NET compute jobs require a bit of extra setup, see the [.NET Compute Jobs](#.net-compute-jobs) subsection and [Wasm Compute Jobs](webassembly-compute-jobs.md) for more details.
 {% endhint %}
 
 In addition to standard compute tasks, GridGain 9 supports [Colocated Execution](#colocated-execution). This means your tasks can run directly on the nodes that store the required data, reducing network overhead and improving performance.
@@ -1299,5 +1299,5 @@ public static class PartitionPersonCountJob implements ComputeJob<Long, Long> {
 {% endcode %}
 
 {% hint style="info" %}
-`PartitionDistribution.primaryReplicas()` captures partition locations at a point in time. If a partition is reassigned between the split phase and job execution, the job may run on a non-primary node and the query will not be local. Use `BroadcastJobTarget.table()` (see [Partition-Local Queries with BroadcastJobTarget.table()](#partition-local-queries-with-broadcastjobtargettable)) when local execution must be guaranteed.
+`PartitionDistribution.primaryReplicas()` captures partition locations at a point in time. If a partition is reassigned between the split phase and job execution, the job may run on a non-primary node and the query will not be local. Use `BroadcastJobTarget.table()` (see [Partition-Local Queries with BroadcastJobTarget.table()](#partition-local-queries-with-broadcastjobtarget.table)) when local execution must be guaranteed.
 {% endhint %}

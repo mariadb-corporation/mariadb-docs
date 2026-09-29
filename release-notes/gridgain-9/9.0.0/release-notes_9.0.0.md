@@ -3,6 +3,7 @@ description: >-
   GridGain 9.0.0 is the first major release of the GridGain 9 platform, rebuilt
   with a new transactional protocol, the Apache Calcite SQL engine, and
   RAFT-based cluster management.
+hidden: true
 ---
 
 # GridGain 9.0.0 Release Notes

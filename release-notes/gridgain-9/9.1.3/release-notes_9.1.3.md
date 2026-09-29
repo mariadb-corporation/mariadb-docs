@@ -1,6 +1,7 @@
 ---
 description: >-
   GridGain 9.1.3 adds cache creation from Java and a new method to get the local node, along with multiple stability and performance improvements.
+hidden: true
 ---
 
 # GridGain 9.1.3 Release Notes
@@ -31,7 +32,7 @@ var newClusterNodes = ignite.cluster().nodes()
 
 ### Creating Caches From Java
 
-With this release, you can use the `@Cache` annotation in Java to create caches from Java classes. You can create caches from Key-Value POJOs. Once a cache is created, you can work with it as described in [cache](../../developers-guide/cache.md) documentation.
+With this release, you can use the `@Cache` annotation in Java to create caches from Java classes. You can create caches from Key-Value POJOs. Once a cache is created, you can work with it as described in [cache]({gridgain9}/gridgain9-usage/caches) documentation.
 
 ```java
 class PojoKey {
@@ -73,7 +74,7 @@ KeyValueView<PojoKey, PojoValue> view =  myTable.keyValueView(PojoKey.class, Poj
 
 ### New Method to Get Local Node
 
-With this release, you can use the new `ignite.cluster().localNode()` method to quickly get the local [embedded node](../../quick-start/embedded-mode.md).
+With this release, you can use the new `ignite.cluster().localNode()` method to quickly get the local [embedded node]({gridgain9}/gridgain9-get-started/embedded-mode).
 
 ## Improvements and Fixed Issues
 

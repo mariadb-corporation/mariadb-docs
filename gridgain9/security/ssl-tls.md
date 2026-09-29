@@ -176,7 +176,7 @@ The `ignite.jdbc.trust-store.*` and `ignite.jdbc.key-store.*` parameters secure 
 The `ignite.jdbc.ssl-enabled`, `ignite.jdbc.client-auth` and `ignite.jdbc.ciphers` parameters apply to the same connection.
 They do not apply to a JDBC URL you pass yourself.
 
-For the full list of parameters, see [CLI Configuration Parameters](../reference/configuration/cli-configuration-parameters.md#cli-configuration-parameters).
+For the full list of parameters, see [CLI Configuration Parameters](../reference/configuration/cli-configuration-parameters.md).
 
 Store the CLI security configuration in a separate file with permission settings that protect it from unauthorized read/write operations. This configuration file must match profiles from the common configuration file.
 

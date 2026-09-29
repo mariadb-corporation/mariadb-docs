@@ -66,7 +66,7 @@ Terminal('having_boolean_expression')
 
 ### Parameters
 
-- `hint_comment` - an sql [optimizer hint](../../_pending-merge/sql-tuning-README__from-performance-tuning.md#optimizer-hints).
+- `hint_comment` - an sql optimizer hint.
 - `where_boolean_expression` - an SQL expression that is run against table records and returns a boolean value. Only the records for which `TRUE` was returned will be returned. If not specified, all matching records are returned.
 - `having_boolean_expression` - an SQL expression that is run against groups and returns a boolean value. Can use [aggregate functions](operators-and-functions.md#aggregate-functions). Only the groups for which `TRUE` was returned will be returned. If not specified, all matching groups are returned.
 

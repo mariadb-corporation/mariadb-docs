@@ -3,6 +3,7 @@ description: >-
   GridGain 9.1.25 introduces row-level security, adds experimental CDC support
   for Microsoft SQL Server as a source and a new GridGain 9 sink, and improves
   client data freshness.
+hidden: true
 ---
 
 # GridGain 9.1.25 Release Notes
@@ -38,7 +39,7 @@ cdc source create --name mssql_source --type mssql --tables dbo.ACCOUNTS \
   --experimental
 ```
 
-See [Replicating from Microsoft SQL Server](../../administrators-guide/change-data-capture/change-data-capture.md#replicating-from-microsoft-sql-server-experimental) for setup steps, source parameters, and current limitations.
+See [Replicating from Microsoft SQL Server]({gridgain9}/gridgain9-management/change-data-capture#replicating-from-microsoft-sql-server-experimental) for setup steps, source parameters, and current limitations.
 
 ### GridGain 9 CDC Sink
 
@@ -56,7 +57,7 @@ The `gridgain_9` sink does not create the destination table - the table must alr
 cdc sink create --name gg9_sink --type gridgain_9 --parameters targetTable=PUBLIC.ACCOUNTS --experimental
 ```
 
-See [GridGain 9 sink](../../administrators-guide/change-data-capture/change-data-capture.md#create-the-gridgain-9-sink) for details.
+See [GridGain 9 sink]({gridgain9}/gridgain9-management/change-data-capture#create-the-gridgain-9-sink) for details.
 
 ### Row-Level Security (RLS)
 
@@ -74,9 +75,9 @@ ALTER POLICY active_only USING STATUS = 'ACTIVE' AND REGION = 'EU';
 
 Row filtering is applied consistently across read and write paths, including SQL queries, key-value and record views, table and index scans, continuous queries, the data streamer, and near caches.
 
-The configured policies are exposed through the new [`POLICIES`](../../administrators-guide/metrics/system-views.md#policies) system view (schema, table, policy name, assigned roles, and condition).
+The configured policies are exposed through the new [`POLICIES`]({gridgain9}/reference/monitoring/system-views#policies) system view (schema, table, policy name, assigned roles, and condition).
 
-See [Row-Level Security](../../administrators-guide/security/row-level-security.md) for the full policy syntax, the `POLICIES` system view, and the required privileges.
+See [Row-Level Security]({gridgain9}/security/row-level-security) for the full policy syntax, the `POLICIES` system view, and the required privileges.
 
 ### Configurable Observable Timestamp Delay
 

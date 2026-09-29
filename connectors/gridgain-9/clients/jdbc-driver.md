@@ -25,7 +25,9 @@ See also:
 
 ## Prerequisites
 
-{% include "../../../.gitbook/includes/prereqs-java.md" %}
+GridGain is tested on Oracle JDK 11, 17, 21, and 25 (LTS), as well as JDK 26 (STS). Other Java vendors are supported, but may have minor discrepancies in performance or stability.
+
+Short-term support (STS) Java versions are supported only until the next STS release, Long-term support (LTS) versions are not affected by this policy.
 
 ## Setting Up
 
@@ -66,8 +68,8 @@ jdbc:ignite:thin://host[:port][,host[:port][/schema][[?parameter1=value1][;param
     * `allowDdlInTx` - When `true`, DDL statements are allowed to run on a connection with auto-commit disabled. The DDL executes outside the explicit transaction and is not affected by `commit` or `rollback`. Enable this option for compatibility with external tools (for example, DBeaver). Default value: `false`.
     * `queryTimeoutSeconds` - Number of seconds the driver will wait for a `Statement` object to execute. 0 means there is no limit. Default value: `0`.
     * `connectionTimeoutMillis` - Number of milliseconds JDBC client will wait for server to respond. 0 means there is no limit. Default value: `0`.
-    * `transactionTimeoutMillis` - Timeout, in milliseconds, applied to transactions started on this connection. `0` means the cluster-wide default is used (see [Transaction Timeouts](../../administrators-guide/transactions.md#transaction-timeouts)). Default value: `0`.
-    * `allowFollowerReads` - Determines whether read-only SQL statements on this connection can read data from non-primary replicas. If not set, the cluster-wide [`sql.allowFollowerReads`](../../administrators-guide/config/cluster-config.md#sql-configuration) setting applies. Possible values: `true`, `false`. Default value: not set.
+    * `transactionTimeoutMillis` - Timeout, in milliseconds, applied to transactions started on this connection. `0` means the cluster-wide default is used (see [Transaction Timeouts]({gridgain9}/architecture/transactions#transaction-timeouts)). Default value: `0`.
+    * `allowFollowerReads` - Determines whether read-only SQL statements on this connection can read data from non-primary replicas. If not set, the cluster-wide [`sql.allowFollowerReads`]({gridgain9}/reference/configuration/cluster-configuration-parameters#sql-configuration) setting applies. Possible values: `true`, `false`. Default value: not set.
     * `username` - username for basic authentication to the cluster.
     * `password` - user password for basic authentication to the cluster.
     * `sslEnabled` - Determines if SSL is enabled. Possible values: `true`, `false`. Default value: `false`
@@ -90,7 +92,7 @@ If the same parameters are passed by using different means, the JDBC driver prio
 
 By default, a JDBC connection is in auto-commit mode, and in this mode all its SQL statements will be executed and committed as individual transactions.
 To be able to manage the transaction, you must switch connection to non-autocommit mode.
-In non-autocommit mode, you can perform `commit` and `rollback` transactions. For more information about transactions, see [Performing Transactions](../transactions.md).
+In non-autocommit mode, you can perform `commit` and `rollback` transactions. For more information about transactions, see [Performing Transactions]({gridgain9}/gridgain9-usage/transactions).
 
 Here is how you can commit a transaction:
 
@@ -115,7 +117,7 @@ conn.rollback();
 
 ### Setting the Transaction Timeout
 
-By default, transactions opened through the JDBC driver use the cluster-wide transaction timeout (see [Transaction Timeouts](../../administrators-guide/transactions.md#transaction-timeouts)). To override it for a single connection, set the `transactionTimeoutMillis` connection parameter:
+By default, transactions opened through the JDBC driver use the cluster-wide transaction timeout (see [Transaction Timeouts]({gridgain9}/architecture/transactions#transaction-timeouts)). To override it for a single connection, set the `transactionTimeoutMillis` connection parameter:
 
 ```java
 Connection conn = DriverManager.getConnection(

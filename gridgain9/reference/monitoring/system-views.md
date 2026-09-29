@@ -275,7 +275,7 @@ Describes available system view columns.
 | CATALOG_VERSION | INT32 | The version of the current catalog that contains this table. |
 | EXPIRE_COLUMN_ID | INT32 | The identifier of the column used for row [expiration](../../gridgain9-usage/expiry-policies.md). Returns `NULL` if the table has no expiration column. |
 | EXPIRE_COLUMN_NAME | STRING | The name of the column used for row [expiration](../../gridgain9-usage/expiry-policies.md). Returns `NULL` if the table has no expiration column. |
-| ARCHIVE_COLUMN_ID | INT32 | The identifier of the column used for [archiving](../../gridgain9-management/data-archiving.md#data-archiving). Returns `NULL` if the table has no archive column. |
+| ARCHIVE_COLUMN_ID | INT32 | The identifier of the column used for [archiving](../../gridgain9-management/data-archiving.md). Returns `NULL` if the table has no archive column. |
 | ARCHIVE_COLUMN_NAME | STRING | The name of the column used for archiving. Returns `NULL` if the table has no archive column. |
 | PROPERTIES | STRING | The table options set with the `WITH (...)` clause, in the form `MIN STALE ROWS <n>, STALE ROWS FRACTION <f>`. Tables created without these options show the defaults: `MIN STALE ROWS 500, STALE ROWS FRACTION 0.2`. |
 | TABLE_SCHEMA_VERSION | INT32 | The latest schema version of the table. The version increases every time the table's schema changes, for example when a column is added or dropped. |

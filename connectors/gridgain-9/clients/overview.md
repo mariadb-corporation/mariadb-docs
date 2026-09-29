@@ -11,11 +11,11 @@ GridGain 9 clients connect to the cluster via a standard socket connection. Unli
 
 Clients do not become a part of the cluster topology, never hold any data, and are not used as a destination for compute calculations.
 
-See which ports GridGain 9 clients use as [default ports](../../administrators-guide/config/node-config.md#default-ports).
+See which ports GridGain 9 clients use as [default ports]({gridgain9}/reference/configuration/node-configuration-parameters#default-ports).
 
 ## Client Connector Configuration
 
-Client connection parameters are controlled by the client connector configuration. By default, GridGain accepts client connections on port 10800. You can change the configuration for the node by using the [CLI tool](../../ignite-cli-tool.md) at any time.
+Client connection parameters are controlled by the client connector configuration. By default, GridGain accepts client connections on port 10800. You can change the configuration for the node by using the [CLI tool]({gridgain9}/reference/cli-tool) at any time.
 
 In GridGain 9, you can create and maintain configuration in either HOCON or JSON. The configuration file has a single root "node," called `ignite`. All configuration sections are children, grandchildren, etc., of that node. Here is what the client connector configuration looks like:
 
@@ -97,7 +97,7 @@ An inactive client sends periodic heartbeat messages to the cluster to confirm t
 
 As data in the cluster is distributed between the nodes, the client can improve throughput by immediately sending updates and read requests to target nodes holding the data.
 
-![Partition Awareness](../../../.gitbook/assets/gg9-developers-guide-partitionawareness02.png)
+![Partition Awareness](../../.gitbook/assets/gg9-developers-guide-partitionawareness02.png)
 
 For each key that needs updating, the client will get the name of the node holding its primary partition and then send an update directly to this node. If there is an active connection to this node, the update will be sent directly to it. Otherwise, the update will be sent to a random node on the list to be redirected to the target node. As such, it is recommended to list all cluster nodes in client configuration to reduce unnecessary network load.
 

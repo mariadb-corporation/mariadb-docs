@@ -2,6 +2,7 @@
 description: >-
   GridGain 9.0.4 introduces a new license format and a single ignite root
   configuration node, along with user object serialization for compute jobs.
+hidden: true
 ---
 
 # GridGain 9.0.4 Release Notes

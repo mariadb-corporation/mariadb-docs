@@ -1,6 +1,7 @@
 ---
 description: >-
   GridGain 9.1.6 adds a Python client and extended bootstrap configuration support, along with various SQL, storage, and client fixes.
+hidden: true
 ---
 
 # GridGain 9.1.6 Release Notes
@@ -57,7 +58,7 @@ async with AsyncClient(address) as client:
     print(await binary_map.get(b'1'))
 ```
 
-For more information about Python client, see [client documentation](../../developers-guide/clients/python-client.md).
+For more information about Python client, see [client documentation]({connectors}/gridgain-9/clients/python-client).
 
 ## Improvements and Fixed Issues
 

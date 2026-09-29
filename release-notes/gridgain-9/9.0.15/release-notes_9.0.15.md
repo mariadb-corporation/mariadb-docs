@@ -2,6 +2,7 @@
 description: >-
   GridGain 9.0.15 adds SQL schema support, metastorage compaction, and query and
   transaction cancellation from Java clients.
+hidden: true
 ---
 
 # GridGain 9.0.15 Release Notes
@@ -16,7 +17,7 @@ GridGain 9.0.15 is a release that brings a large number of new features and seve
 
 Prior to this release, you could only use the PUBLIC schema. You can now create other schemas and use it to create tables.
 
-To create a schema, use the [CREATE SCHEMA](../../sql-reference/ddl.md#create-schema) statement:
+To create a schema, use the [CREATE SCHEMA]({gridgain9}/reference/sql/ddl#create-schema) statement:
 
 ```sql
 CREATE SCHEMA myschema

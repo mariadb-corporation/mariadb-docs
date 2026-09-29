@@ -1,6 +1,7 @@
 ---
 description: >-
   GridGain 9.1.10 adds ADO.NET integration, ZIP-based deployment units, improved CDC monitoring, and rolling upgrade improvements.
+hidden: true
 ---
 
 # GridGain 9.1.10 Release Notes
@@ -21,7 +22,7 @@ This is only required for rolling upgrades, upgrades with downtime are not affec
 
 ### ADO.NET Integration
 
-This release adds integration with [ADO.NET](../../developers-guide/clients/ado.md). You can install it in the same way as you install the .NET client. Once installed, you execute SQL commands, read data from the cluster and manage transactions via ADO.
+This release adds integration with [ADO.NET]({connectors}/gridgain-9/clients/ado). You can install it in the same way as you install the .NET client. Once installed, you execute SQL commands, read data from the cluster and manage transactions via ADO.
 
 The example below shows how you can execute an SQL command:
 
@@ -34,13 +35,13 @@ cmd.CommandText = "DROP TABLE IF EXISTS Person";
 await cmd.ExecuteNonQueryAsync();
 ```
 
-For more information, see [ADO.NET](../../developers-guide/clients/ado.md) documentation.
+For more information, see [ADO.NET]({connectors}/gridgain-9/clients/ado) documentation.
 
 ### Deployment Units
 
 With this release, you can deploy your code in a `zip` archive preserving its folder structure. To do this, you use the new `/management/v1/deployment/units/zip/{unitId}/{unitVersion}` REST endpoint. Once GridGain receives the archive, it will unpack it and the code will be available from your compute jobs.
 
-For more information about code deployment, see [Code Deployment](../../developers-guide/code-deployment/code-deployment.md) documentation.
+For more information about code deployment, see [Code Deployment]({gridgain9}/gridgain9-usage/code-deployment) documentation.
 
 ### Deployment Unit Context in Compute Jobs
 
@@ -64,15 +65,15 @@ public class DiagnosticJob implements ComputeJob<Void, String> {
 }
 ```
 
-For more information about distributed computing, see [Compute](../../developers-guide/compute/compute.md) documentation.
+For more information about distributed computing, see [Compute]({gridgain9}/gridgain9-usage/distributed-computing/about-distributed-computing) documentation.
 
 ### Improved CDC Monitoring
 
-This release adds the new `cdc sink status` and `cdc source status` commands. These commands can be used to more accurately monitor [change data capture](../../administrators-guide/change-data-capture/change-data-capture.md).
+This release adds the new `cdc sink status` and `cdc source status` commands. These commands can be used to more accurately monitor [change data capture]({gridgain9}/gridgain9-management/change-data-capture).
 
 ### Improved CLI Tool Configuration for Docker
 
-This release adds support for the new `GRIDGAIN_CLI_WORK_DIR` environment variable that can be used to configure the directory that will be used to store the files required for the [CLI tool](../../ignite-cli-tool.md) as well as its logs.
+This release adds support for the new `GRIDGAIN_CLI_WORK_DIR` environment variable that can be used to configure the directory that will be used to store the files required for the [CLI tool]({gridgain9}/reference/cli-tool) as well as its logs.
 
 ## Improvements and Fixed Issues
 
