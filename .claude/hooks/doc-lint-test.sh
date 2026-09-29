@@ -212,6 +212,20 @@ build_sandbox() {
   printf -- '---\ntitle: latest-cpp\n---\n\n<p><strong>1.1.8</strong></p>\n'   > "$vcr/latest-cpp.md"
   printf -- '---\ntitle: latest-r2dbc\n---\n\n<p><strong>1.4.2</strong></p>\n' > "$vcr/latest-r2dbc.md"
 
+  # no-standalone register fixtures (DOCS-6734). Its own mini-repo under pd/ for the same reason
+  # vc/ is one: the audit roots itself at the nearest .codespellignore and reads the register
+  # beside it, so a register here must not be the register every other case sees.
+  mkdir -p "$SANDBOX/pd/.claude/hooks" "$SANDBOX/pd/platform/post-download" \
+           "$SANDBOX/pd/release-notes/connectors/c/3.4" \
+           "$SANDBOX/pd/release-notes/connectors/c/changelogs/3.4"
+  : > "$SANDBOX/pd/.codespellignore"
+  printf '# Clean Page\n\nNothing here trips any check.\n' > "$SANDBOX/pd/clean.md"
+  printf '# Connector/C 3.4.10 Release Notes\n' \
+    > "$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.10.md"
+  printf '# Connector/C 3.4.10 Changelog\n' \
+    > "$SANDBOX/pd/release-notes/connectors/c/changelogs/3.4/3.4.10.md"
+  printf '# Post Download\n' > "$SANDBOX/pd/platform/post-download/README.md"
+
   # Mermaid edge-label contrast fixtures (DOCS-6630). Quoted heredocs, not printf: the init
   # directive starts with `%%{`, which printf would read as a format.
   mkdir -p "$SANDBOX/server/mermaid"
@@ -514,6 +528,18 @@ al() {
   set +e
   ( cd "$root" && env -i "PATH=$MIN_PATH" "HOME=$root" \
       python3 "$SCRIPT_DIR/allowlist.py" "$@" ) > "$OUT" 2> "$ERR"
+  RC=$?
+  set -e
+}
+
+# pd <tree> -- <postdownload args...>. Roots at the tree, like the real invocation: the audit
+# resolves the repo from the working directory so it reads the register beside the pages it is
+# auditing, not the repo's own.
+pd() {
+  local root="$1"; shift
+  set +e
+  ( cd "$root" && env -i "PATH=$MIN_PATH" "HOME=$root" \
+      python3 "$SCRIPT_DIR/postdownload.py" "$@" ) > "$OUT" 2> "$ERR"
   RC=$?
   set -e
 }
@@ -1703,6 +1729,82 @@ want_err 'paired includes disagree'
 want_err '3.4.11'
 want_err '3.4.9'
 want_no_err 'stale exemption'
+end
+
+# ---- the no-standalone register (DOCS-6734) --------------------------------------------------
+
+begin 'a no-standalone entry whose release has no Post Download page is accepted'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+no-standalone:
+  - path: release-notes/connectors/c/3.4/3.4.10.md
+    reason: "shipped only inside Server; 3.4.11 is the standalone — DOCS-6732"
+ALLOW
+pd "$SANDBOX/pd" audit
+want_rc 0
+want_out '1 no-standalone entry audited, 0 stale'
+end
+
+begin 'an entry whose release has since gained a Post Download page is stale'
+# The self-pruning direction the shrink section cannot have: "no standalone package" stops being
+# true the moment the page exists, and the entry must go with it.
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+pd "$SANDBOX/pd" audit
+want_rc 1
+want_err 'stale entry'
+want_err 'mariadb-connector-c-3.4.10.md'
+rm -f "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+end
+
+begin 'an entry whose page is gone is stale'
+mv "$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.10.md" "$SANDBOX/pd/moved.md"
+pd "$SANDBOX/pd" audit
+want_rc 1
+want_err 'acknowledges a page that no'
+mv "$SANDBOX/pd/moved.md" "$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.10.md"
+end
+
+begin 'an entry naming a changelog exempts nothing and is rejected'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+no-standalone:
+  - path: release-notes/connectors/c/changelogs/3.4/3.4.10.md
+    reason: "wrong target"
+ALLOW
+pd "$SANDBOX/pd" audit
+want_rc 1
+want_err 'not a release page'
+end
+
+begin 'the naming map resolves each space spelling of a product'
+pd "$SANDBOX/pd" path release-notes/connectors/java/3.5/3.5.10.md
+want_rc 0
+want_out 'platform/post-download/mariadb-connector-j-3.5.10.md'
+pd "$SANDBOX/pd" path release-notes/community-server/11.8/11.8.9.md
+want_rc 0
+want_out 'platform/post-download/mariadb-server-11.8.9.md'
+# c++ has no Post Download pages at all, and longest-prefix matching must not read it as `c`.
+pd "$SANDBOX/pd" path 'release-notes/connectors/c++/1.1/1.1.8.md'
+want_rc 0
+want_out 'none'
+end
+
+begin 'a stale no-standalone entry fails through doc-lint.sh too'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+no-standalone:
+  - path: release-notes/connectors/c/3.4/3.4.10.md
+    reason: "shipped only inside Server — DOCS-6732"
+ALLOW
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+lint pd - "$NOFRAG" -- clean.md
+want_rc 1
+want_err 'stale entry'
+rm -f "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+rm -f "$SANDBOX/pd/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'a tree with no post-download directory SKIPs the register audit'
+pd "$SANDBOX" audit
+want_rc 0
+want_err 'not a docs checkout'
 end
 
 # ---- SKIP branches: a missing tool is a notice, never a failure ------------------------------
