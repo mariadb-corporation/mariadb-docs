@@ -205,9 +205,9 @@ Upgrading to version 10.5.8-5 or later will generally modify these privileges au
   * [log\_bin\_compress](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [log\_bin\_compress\_min\_len](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [log\_bin\_trust\_function\_creators](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
-  * [max\_binlog\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_binlog_cache_size)
-  * [max\_binlog\_stmt\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_binlog_stmt_cache_size)
-  * [max\_binlog\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_binlog_size)
+  * [max\_binlog\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_cache_size)
+  * [max\_binlog\_stmt\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_stmt_cache_size)
+  * [max\_binlog\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_size)
   * [sql\_log\_bin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [sync\_binlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
 
@@ -244,7 +244,7 @@ Upgrading to version 10.5.8-5 or later will generally modify these privileges au
   * [pseudo\_thread\_id](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#pseudo_thread_id)
   * [server\_id](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
 
-### [CONNECTION ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#connection-admi)
+### [CONNECTION ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#connection-admin)
 
 | Present in ES10.4? | Present in ES10.5.8-5? |
 | ------------------ | ---------------------- |
@@ -260,7 +260,7 @@ Upgrading to version 10.5.8-5 or later will generally modify these privileges au
 * Allows the user to set system variables:
   * [connect\_timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#connect_timeout)
   * [disconnect\_on\_expired\_password](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#disconnect_on_expired_password)
-  * [extra\_max\_connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#extra_max_connections)
+  * [extra\_max\_connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables#extra_max_connections)
   * [init\_connect](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#init_connect)
   * [max\_connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_connections)
   * [max\_connect\_errors](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_connect_errors)
@@ -292,7 +292,7 @@ Upgrading to version 10.5.8-5 or later will generally modify these privileges au
 * Allows the user to execute [ALTER SERVER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-server) statements
 * Allows the user to execute [DROP SERVER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-server) statements
 
-### [READ\_ONLY ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#readonly-admin)
+### [READ\_ONLY ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#read_only-admin)
 
 | Present in ES10.4? | Present in ES10.5.8-5? |
 | ------------------ | ---------------------- |
@@ -378,7 +378,7 @@ Upgrading to version 10.5.8-5 or later will generally modify these privileges au
 **Notes:**
 
 * Can be used as an alias for [REPLICATION REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-replica)
-* In ES10.5 REPLICATION SLAVE can no longer execute SHOW RELAYLOG EVENTS. In ES10.5 versions earlier than ES10.5.8-5, SHOW RELAYLOG EVENTS requires [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-replica-admin). In ES10.5.8-5, SHOW RELAYLOG EVENTS requires [REPLICA MONITOR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replica-monitor)
+* In ES10.5 REPLICATION SLAVE can no longer execute SHOW RELAYLOG EVENTS. In ES10.5 versions earlier than ES10.5.8-5, SHOW RELAYLOG EVENTS requires [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-slave-admin). In ES10.5.8-5, SHOW RELAYLOG EVENTS requires [REPLICA MONITOR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replica-monitor)
 * In ES10.5 REPLICATION SLAVE can no longer execute [SHOW BINLOG EVENTS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-binlog-events). SHOW BINLOG EVENTS requires [BINLOG MONITOR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#binlog-monitor)
 * If a user upgrades from ES10.4 or earlier to ES10.5.8-5 or later, any users with REPLICATION CLIENT or REPLICATION SLAVE privileges will automatically be granted the REPLICA MONITOR privilege. This privilege upgrade happens upon server startup, so mysql\_upgrade is not required
 * The upgrade behavior does not apply to minor release upgrades that upgrade from ES10.5.6-4 or earlier ES10.5.x to ES10.5.8-5 or later
@@ -451,7 +451,7 @@ Upgrading to version 10.5.8-5 or later will generally modify these privileges au
 
 **Notes:**
 
-* Alias for [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-replica-admin) see [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-replica-admin) for details
+* Alias for [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-slave-admin) see [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-slave-admin) for details
 
 ### [SET USER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#set-user)
 
@@ -464,7 +464,7 @@ Upgrading to version 10.5.8-5 or later will generally modify these privileges au
 * Allows the user to set the definer of views, triggers, stored procedures, stored functions, and events
 * Allows the user to view the definer of an object, even if the user account no longer exists. |
 
-### [SLAVE MONITOR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#slave-monitor)
+### [SLAVE MONITOR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replica-monitor)
 
 | Present in ES10.4? | Present in ES10.5.8-5? |
 | ------------------ | ---------------------- |
@@ -528,9 +528,9 @@ MariaDB Enterprise Server 10.5 adds privileges that allow operations that previo
   * [log\_bin\_compress](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [log\_bin\_compress\_min\_len](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [log\_bin\_trust\_function\_creators](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
-  * [max\_binlog\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_binlog_cache_size)
-  * [max\_binlog\_stmt\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_binlog_stmt_cache_size)
-  * [max\_binlog\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_binlog_size)
+  * [max\_binlog\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_cache_size)
+  * [max\_binlog\_stmt\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_stmt_cache_size)
+  * [max\_binlog\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_size)
   * [sql\_log\_bin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [sync\_binlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
 
@@ -567,7 +567,7 @@ MariaDB Enterprise Server 10.5 adds privileges that allow operations that previo
   * [pseudo\_thread\_id](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#pseudo_thread_id)
   * [server\_id](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
 
-### [CONNECTION ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#connection-admi)
+### [CONNECTION ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#connection-admin)
 
 | Present in ES10.4? | Present in ES10.5.8-5? |
 | ------------------ | ---------------------- |
@@ -583,7 +583,7 @@ MariaDB Enterprise Server 10.5 adds privileges that allow operations that previo
 * Allows the user to set system variables:
   * [connect\_timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#connect_timeout)
   * [disconnect\_on\_expired\_password](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#disconnect_on_expired_password)
-  * [extra\_max\_connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#extra_max_connections)
+  * [extra\_max\_connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables#extra_max_connections)
   * [init\_connect](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#init_connect)
   * [max\_connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_connections)
   * [max\_connect\_errors](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_connect_errors)
@@ -615,7 +615,7 @@ MariaDB Enterprise Server 10.5 adds privileges that allow operations that previo
 * Allows the user to execute [ALTER SERVER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-server) statements
 * Allows the user to execute [DROP SERVER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-server) statements
 
-### [READ\_ONLY ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#readonly-admin)
+### [READ\_ONLY ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#read_only-admin)
 
 | Present in ES10.4? | Present in ES10.5.8-5? |
 | ------------------ | ---------------------- |
@@ -682,12 +682,12 @@ MariaDB Enterprise Server 10.5 adds privileges that allow operations that previo
 **Notes:**
 
 * Can be used as an alias for [REPLICATION REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-replica)
-* In ES10.5 REPLICATION SLAVE can no longer execute SHOW RELAYLOG EVENTS. In ES10.5 versions earlier than ES10.5.8-5, SHOW RELAYLOG EVENTS requires [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-replica-admin). In ES10.5.8-5, SHOW RELAYLOG EVENTS requires [REPLICA MONITOR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replica-monitor)
+* In ES10.5 REPLICATION SLAVE can no longer execute SHOW RELAYLOG EVENTS. In ES10.5 versions earlier than ES10.5.8-5, SHOW RELAYLOG EVENTS requires [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-slave-admin). In ES10.5.8-5, SHOW RELAYLOG EVENTS requires [REPLICA MONITOR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replica-monitor)
 * In ES10.5 REPLICATION SLAVE can no longer execute [SHOW BINLOG EVENTS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-binlog-events). SHOW BINLOG EVENTS requires [BINLOG MONITOR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#binlog-monitor)
 * If a user upgrades from ES10.4 or earlier to ES10.5.8-5 or later, any users with REPLICATION CLIENT or REPLICATION SLAVE privileges will automatically be granted the REPLICA MONITOR privilege. This privilege upgrade happens upon server startup, so mysql\_upgrade is not required
 * The upgrade behavior does not apply to minor release upgrades that upgrade from ES10.5.6-4 or earlier ES10.5.x to ES10.5.8-5 or later
 
-### [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-replica-admin)
+### [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-slave-admin)
 
 | Present in ES10.4? | Present in ES10.5.8-5? |
 | ------------------ | ---------------------- |
@@ -755,7 +755,7 @@ MariaDB Enterprise Server 10.5 adds privileges that allow operations that previo
 
 **Notes:**
 
-* Alias for [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-replica-admin) see [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-replica-admin) for details
+* Alias for [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-slave-admin) see [REPLICATION REPLICA ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-slave-admin) for details
 
 ### [SET USER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#set-user)
 
@@ -824,9 +824,9 @@ MariaDB Enterprise Server 10.5 improves [MariaDB Replication](https://app.gitboo
   * [log\_bin\_compress](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [log\_bin\_compress\_min\_len](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [log\_bin\_trust\_function\_creators](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
-  * [max\_binlog\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_binlog_cache_size)
-  * [max\_binlog\_stmt\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_binlog_stmt_cache_size)
-  * [max\_binlog\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_binlog_size)
+  * [max\_binlog\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_cache_size)
+  * [max\_binlog\_stmt\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_stmt_cache_size)
+  * [max\_binlog\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_size)
   * [sql\_log\_bin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [sync\_binlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
 
@@ -1015,9 +1015,9 @@ MariaDB Enterprise Server 10.5 includes several [security](https://app.gitbook.c
   * [log\_bin\_compress](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [log\_bin\_compress\_min\_len](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [log\_bin\_trust\_function\_creators](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
-  * [max\_binlog\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_binlog_cache_size)
-  * [max\_binlog\_stmt\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_binlog_stmt_cache_size)
-  * [max\_binlog\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_binlog_size)
+  * [max\_binlog\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_cache_size)
+  * [max\_binlog\_stmt\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_stmt_cache_size)
+  * [max\_binlog\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_size)
   * [sql\_log\_bin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
   * [sync\_binlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
 
@@ -1045,7 +1045,7 @@ MariaDB Enterprise Server 10.5 includes several [security](https://app.gitbook.c
 * Allows the user to set system variables:
   * [connect\_timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#connect_timeout)
   * [disconnect\_on\_expired\_password](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#disconnect_on_expired_password)
-  * [extra\_max\_connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#extra_max_connections)
+  * [extra\_max\_connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables#extra_max_connections)
   * [init\_connect](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#init_connect)
   * [max\_connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_connections)
   * [max\_connect\_errors](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_connect_errors)

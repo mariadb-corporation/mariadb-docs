@@ -1718,7 +1718,7 @@ Timeout for all SQL operations done during the configuration synchronization. If
 * Dynamic: Yes
 * Default: false
 
-When enabled MaxScale sends telemetry to the OpenTelemetry Collector.
+When enabled MaxScale sends telemetry to the OpenTelemetry Collector. For the list of exported metrics, see [MaxScale Telemetry](../../../reference/maxscale-telemetry.md).
 
 #### `telemetry_attributes`
 
@@ -1737,6 +1737,33 @@ Optional global attributes to send with every metric. Example `telemetry_attribu
 * Default: `60s`
 
 Minimum interval to send metrics to the collector.
+
+#### `telemetry_sql_count`
+
+* Type: count
+* Mandatory: No
+* Dynamic: Yes
+* Default: `50`
+
+The maximum number of SQL statements whose latency is exported as the `maxscale.query.latency` metric. The most frequently executed statements are exported first. A value of `0` disables the metric. For the full list of exported metrics, see [MaxScale Telemetry](../../../reference/maxscale-telemetry.md).
+
+#### `telemetry_sql_match`
+
+* Type: [regex](maxscale-configuration-guide.md#regular-expressions)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+
+Only export latency metrics for SQL statements whose canonical form matches this regular expression.
+
+#### `telemetry_sql_exclude`
+
+* Type: [regex](maxscale-configuration-guide.md#regular-expressions)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+
+Do not export latency metrics for SQL statements whose canonical form matches this regular expression.
 
 #### `telemetry_ssl_insecure`
 

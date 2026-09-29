@@ -265,7 +265,7 @@ modified in that revision.
         * Fix for bug [Bug #944706](https://bugs.launchpad.net/bugs/944706), task [MDEV-193](https://jira.mariadb.org/browse/MDEV-193)
         * The patch enables back constant subquery execution during
           query optimization after it was disabled during the development
-          of [MWL#89](https://askmonty.org/worklog/?tid=89) (cost-based choice of IN-TO-EXISTS vs MATERIALIZATION).
+          of MWL#89 (cost-based choice of IN-TO-EXISTS vs MATERIALIZATION).
         * The main idea is that constant subqueries are allowed to be executed
           during optimization if their execution is not expensive.
         * The approach is as follows:
@@ -287,7 +287,7 @@ modified in that revision.
             examined rows are considered to be not expensive. The default is 100.
           *
         * In addition, multiple changes were needed to make this solution work
-          in the light of the changes made by [MWL#89](https://askmonty.org/worklog/?tid=89). These changes were needed
+          in the light of the changes made by MWL#89. These changes were needed
           to fix various crashes and wrong results, and legacy bugs discovered
           during development.
 * [Revision #3444](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3444)\

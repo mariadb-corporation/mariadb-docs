@@ -163,6 +163,10 @@ The third-party tools described in this section are not developed or maintained 
 [valentina-studio.md](valentina-studio.md)
 {% endcontent-ref %}
 
+{% content-ref url="visualeaf.md" %}
+[visualeaf.md](visualeaf.md)
+{% endcontent-ref %}
+
 {% content-ref url="mariadb-direct-query-adapter-for-microsoft-power-bi.md" %}
 [mariadb-direct-query-adapter-for-microsoft-power-bi.md](mariadb-direct-query-adapter-for-microsoft-power-bi.md)
 {% endcontent-ref %}

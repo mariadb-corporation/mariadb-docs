@@ -192,6 +192,77 @@ build_sandbox() {
   # Not a Markdown/HTML path, so the argument filter must drop it.
   printf 'not markdown\n' > "$SANDBOX/server/notes.txt"
 
+  # Mermaid edge-label contrast fixtures (DOCS-6630). Quoted heredocs, not printf: the init
+  # directive starts with `%%{`, which printf would read as a format.
+  mkdir -p "$SANDBOX/server/mermaid"
+  cat > "$SANDBOX/server/mermaid/unfixed.md" <<'MD'
+# Unfixed
+
+```mermaid
+flowchart TD
+    A[Start] -->|Yes| B[End]
+```
+MD
+  cat > "$SANDBOX/server/mermaid/fixed.md" <<'MD'
+# Fixed
+
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
+flowchart TD
+    A[Start] -- No --> B[End]
+    linkStyle default color:#111111
+```
+MD
+  # The one-line fix first proposed on DOCS-6630. It measured 1.44:1 in the dark theme, so it
+  # must fail: it sets no text colour.
+  cat > "$SANDBOX/server/mermaid/ticket-variant.md" <<'MD'
+# Ticket Variant
+
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff", "tertiaryTextColor": "#111111"}}}%%
+flowchart TD
+    A -->|Yes| B
+```
+MD
+  cat > "$SANDBOX/server/mermaid/low-contrast.md" <<'MD'
+# Low Contrast
+
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
+graph LR
+    A -->|Yes| B
+    linkStyle default color:#cccccc
+```
+MD
+  # Nothing to fix: no edge labels, a `--` and a `|` inside node text and the description, and a
+  # non-flowchart diagram with labelled arrows.
+  cat > "$SANDBOX/server/mermaid/unlabelled.md" <<'MD'
+# Unlabelled
+
+```mermaid
+flowchart LR
+    accTitle: Two nodes
+    accDescr { A -- to --> B, with a | in it }
+    A["a -- b --> c"] --> B[x | y]
+```
+
+```mermaid
+sequenceDiagram
+    A->>B: hello
+```
+MD
+  # The regression that shipped in the first draft: the asymmetric-node rule (`A>text]`) ate the
+  # arrowhead and the label of `-->|build| Image[image]`, hiding 13 labelled diagrams.
+  cat > "$SANDBOX/server/mermaid/pipe-before-node.md" <<'MD'
+# Pipe Before Node
+
+```mermaid
+flowchart LR
+    Dockerfile[Dockerfile] -->|build| Image[image]
+```
+MD
+  cp "$SANDBOX/server/mermaid/unfixed.md" "$SANDBOX/server/mermaid/unfixed with spaces.md"
+
   (
     cd "$SANDBOX" || exit 1
     git init -q -b main . >/dev/null 2>&1 || git init -q . >/dev/null 2>&1
@@ -636,6 +707,203 @@ set -e
 want_rc 1
 want_err 'cannot resolve GitBook includes'
 want_err 'broken checkout'
+end
+
+# ---- Mermaid edge-label contrast (DOCS-6630; gated in CI by mermaidcheck-pr.yml) -------------
+# mermaidcheck.py is driven directly, the way mermaidcheck-pr.yml drives it, plus once through
+# doc-lint.sh to prove the delegation. python3 is looked up on MIN_PATH like shrinkcheck's is.
+MERMAIDCHECK="$SCRIPT_DIR/mermaidcheck.py"
+MM_STDIN=''
+mm() {
+  set +e
+  if [ -n "$MM_STDIN" ]; then
+    ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        python3 "$MERMAIDCHECK" "$@" < "$MM_STDIN" ) > "$OUT" 2> "$ERR"
+  else
+    ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        python3 "$MERMAIDCHECK" "$@" < /dev/null ) > "$OUT" 2> "$ERR"
+  fi
+  RC=$?
+  set -e
+}
+
+begin 'mermaidcheck.py with no arguments is a usage error, not a silent pass'
+mm
+want_rc 2
+want_err 'usage:'
+end
+
+begin 'an edge-labelled flowchart with no fix fails'
+mm server/mermaid/unfixed.md
+want_rc 1
+want_err 'no init directive'
+want_err 'linkStyle default'
+end
+
+begin 'the house fix passes, and the summary counts what was checked'
+mm server/mermaid/fixed.md
+want_rc 0
+want_out '1 edge-labelled flowchart(s) in 1 file(s); 0 failing'
+end
+
+begin 'the one-line directive first proposed on the ticket fails — it sets no text colour'
+mm server/mermaid/ticket-variant.md
+want_rc 1
+want_err 'linkStyle default'
+end
+
+begin 'a fix whose colours miss 4.5:1 fails on the measured ratio'
+mm server/mermaid/low-contrast.md
+want_rc 1
+want_err 'contrast 1.44:1'
+end
+
+begin 'no edge labels, labels inside node text, and non-flowcharts need nothing'
+mm server/mermaid/unlabelled.md
+want_rc 0
+want_out '0 edge-labelled flowchart(s)'
+end
+
+begin 'a pipe label before a bracketed node is still a label (first-draft regression)'
+mm server/mermaid/pipe-before-node.md
+want_rc 1
+want_err 'no init directive'
+end
+
+begin '--fix adds the house fix, and a second run is clean and changes nothing'
+cp "$SANDBOX/server/mermaid/unfixed.md" "$SANDBOX/server/mermaid/tofix.md"
+mm --fix server/mermaid/tofix.md
+want_rc 0
+cp "$SANDBOX/server/mermaid/tofix.md" "$SANDBOX/.tofix-once"
+mm --fix server/mermaid/tofix.md
+want_rc 0
+want_out '0 failing; fixed 0 file(s)'
+if ! cmp -s "$SANDBOX/server/mermaid/tofix.md" "$SANDBOX/.tofix-once"; then
+  problem 'a second --fix run changed the file again'
+fi
+mm server/mermaid/tofix.md
+want_rc 0
+rm -f "$SANDBOX/server/mermaid/tofix.md" "$SANDBOX/.tofix-once"
+end
+
+begin 'mermaidcheck --stdin0 does not split a path containing a space'
+nul_list "$SANDBOX/.list" 'server/mermaid/unfixed with spaces.md'
+MM_STDIN="$SANDBOX/.list" mm --stdin0
+MM_STDIN=''
+want_rc 1
+want_err 'server/mermaid/unfixed with spaces.md'
+end
+
+begin 'mermaidcheck --stdin0 on empty input says so rather than claiming a clean tree'
+nul_list "$SANDBOX/.list"
+MM_STDIN="$SANDBOX/.list" mm --stdin0
+MM_STDIN=''
+want_rc 0
+want_out 'no Markdown files'
+end
+
+begin 'doc-lint.sh reaches mermaidcheck.py'
+lint . - DOC_LINT_SKIP_FRAGMENTS=1 -- server/mermaid/unfixed.md
+want_rc 1
+want_err 'no init directive'
+end
+
+# ---- railroad-diagram dark-mode card (DOCS-6637; gated in CI by railroadcheck-pr.yml) --------
+# railroadcheck.py is driven directly, the way railroadcheck-pr.yml drives it. The fixture is
+# the smallest committed diagram as RR 2.6 emits it, before the card, so --fix is exercised on
+# real generator output rather than a hand-made imitation.
+RAILROADCHECK="$SCRIPT_DIR/railroadcheck.py"
+RR_DIR="$SANDBOX/server/rr"
+mkdir -p "$RR_DIR"
+cat > "$RR_DIR/raw.svg" <<'SVG'
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="227" height="37">
+   <defs>
+      <style type="text/css">
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+  </style>
+   </defs>
+   <polygon points="9 17 1 13 1 21"/>
+   <path class="line" d="m17 17 h2 m0 0 h10"/>
+</svg>
+SVG
+sed 's|</defs>|</defs>\n   <rect width="100%" height="100%" fill="#ffffff"/>|' "$RR_DIR/raw.svg" \
+  > "$RR_DIR/attr-fill.svg"
+sed 's|</defs>|</defs>\n   <rect class="plate" width="100%" height="100%" style="fill: #666666; stroke: none"/>|' \
+  "$RR_DIR/raw.svg" > "$RR_DIR/grey-card.svg"
+RR_STDIN=''
+rr() {
+  set +e
+  ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+      python3 "$RAILROADCHECK" "$@" < "${RR_STDIN:-/dev/null}" ) > "$OUT" 2> "$ERR"
+  RC=$?
+  set -e
+}
+
+begin 'railroadcheck.py with no arguments is a usage error, not a silent pass'
+rr
+want_rc 2
+want_err 'usage:'
+end
+
+begin 'a diagram straight from the generator fails'
+rr server/rr/raw.svg
+want_rc 1
+want_err 'no background card'
+end
+
+begin 'the ticket-style fill= attribute fails — the generator CSS paints it dark brown'
+rr server/rr/attr-fill.svg
+want_rc 1
+want_err 'no background card'
+end
+
+begin 'a card whose colour misses 3:1 against the connectors fails on the measured ratio'
+rr server/rr/grey-card.svg
+want_rc 1
+want_err 'needs 3:1'
+end
+
+begin '--fix adds the card, grows the canvas by the padding, and a second run changes nothing'
+cp "$RR_DIR/raw.svg" "$RR_DIR/tofix.svg"
+rr --fix server/rr/tofix.svg
+want_rc 0
+want_out 'fixed 1 file(s)'
+if ! grep -q 'width="243" height="53"' "$RR_DIR/tofix.svg"; then
+  problem 'the canvas was not grown by 2 x 8px of padding'
+fi
+cp "$RR_DIR/tofix.svg" "$SANDBOX/.rr-once"
+rr --fix server/rr/tofix.svg
+want_rc 0
+want_out '0 failing; fixed 0 file(s)'
+if ! cmp -s "$RR_DIR/tofix.svg" "$SANDBOX/.rr-once"; then
+  problem 'a second --fix run changed the file again'
+fi
+rr server/rr/tofix.svg
+want_rc 0
+rm -f "$SANDBOX/.rr-once"
+end
+
+begin 'railroadcheck --stdin0 does not split a path containing a space'
+cp "$RR_DIR/raw.svg" "$RR_DIR/raw with spaces.svg"
+nul_list "$SANDBOX/.list" 'server/rr/raw with spaces.svg' 'server/rr/tofix.svg'
+RR_STDIN="$SANDBOX/.list" rr --stdin0
+RR_STDIN=''
+want_rc 1
+want_err 'server/rr/raw with spaces.svg'
+want_out '2 diagram(s); 1 failing'
+end
+
+begin 'railroadcheck --stdin0 on empty input says so rather than claiming a clean tree'
+nul_list "$SANDBOX/.list"
+RR_STDIN="$SANDBOX/.list" rr --stdin0
+RR_STDIN=''
+want_rc 0
+want_out 'no SVG files'
 end
 
 # ---- orphaned pages / navcheck.py (DOCS-6567; fixtures added in DOCS-6586) -------------------

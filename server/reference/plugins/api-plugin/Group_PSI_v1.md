@@ -1,11 +1,11 @@
 ---
 description: >-
-  Plugin API reference: Application Binary Interface, version 1. Generated from the MariaDB server headers by doxygen and moxygen.
+  Version 1 of the Performance Schema instrumentation ABI: the PSI_v1 interface structure, the instrument info structures, and the locker state structures.
 ---
 
 
 
-# Application Binary Interface, version 1
+# Application Binary Interface, Version 1
 
 > [`Instrumentation Interface`](Instrumentation_interface.md)
 

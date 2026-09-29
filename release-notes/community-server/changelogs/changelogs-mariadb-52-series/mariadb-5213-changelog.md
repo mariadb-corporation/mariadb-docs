@@ -340,7 +340,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
       * Bug#14238406 NEW COMPILATION WARNINGS WITH GCC 4.7 (-WERROR=NARROWING)
     * [Revision #2502.1137.209](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2502.1137.209)\
       Fri 2012-06-29 12:55:45 +0400
-      * Backport of the deprecation warning from [WL#6219](https://askmonty.org/worklog/?tid=6219): "Deprecate and remove YEAR(2) type"
+      * Backport of the deprecation warning from WL#6219: "Deprecate and remove YEAR(2) type"
     * [Revision #2502.1137.208](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2502.1137.208) \[merge]\
       Thu 2012-06-28 14:34:49 +0200
       * Merge.
@@ -458,7 +458,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
       * Backport 5.5=>5.1 Patch for Bug#13805127: Stored program cache produces wrong result in same THD.
     * [Revision #2502.1137.171](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2502.1137.171)\
       Wed 2012-04-18 10:08:01 +0100
-      * [WL#6236](https://askmonty.org/worklog/?tid=6236): Allow SHOW MASTER LOGS and SHOW BINARY LOGS with REPLICATION CLIENT
+      * WL#6236: Allow SHOW MASTER LOGS and SHOW BINARY LOGS with REPLICATION CLIENT
     * [Revision #2502.1137.170](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2502.1137.170)\
       Wed 2012-04-18 11:25:01 +0530
       * Bug#12713907:STRANGE OPTIMIZE & WRONG RESULT UNDER ORDER BY COUNT(\*) LIMIT.

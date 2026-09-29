@@ -1,6 +1,6 @@
 ---
 description: >-
-  Plugin API reference: Stage Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+  Macros that register statement execution stages, set the current stage, and report stage progress (work completed and work estimated) to the Performance Schema.
 ---
 
 

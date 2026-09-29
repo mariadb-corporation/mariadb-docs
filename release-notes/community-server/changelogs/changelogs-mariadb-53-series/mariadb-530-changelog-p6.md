@@ -55,7 +55,7 @@
 * [Revision #2827](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2827)\
   Thu 2010-10-14 11:45:46 -0700
   * Turned off the test case for [MySQL Bug #49322](https://bugs.mysql.com/bug.php?id=49322) when join\_cache\_level=6.\
-    It should be turned on back when the tree for [MWL#128](https://askmonty.org/worklog/?tid=128) is merged
+    It should be turned on back when the tree for MWL#128 is merged
     into the main 5.3 merge.
 * [Revision #2826](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2826) \[merge]\
   Thu 2010-10-14 01:50:16 +0400
@@ -147,7 +147,7 @@
       Revision Id: igor@askmonty.org-20091221022615-kx5ieiu0okmiupuc\
       Sun 2009-12-20 18:26:15 -0800
       * Backport into MariaDB-5.2 the following:
-      * [MWL#2771](https://askmonty.org/worklog/?tid=2771) "Block Nested Loop Join and Batched Key Access Join"
+      * MWL#2771 "Block Nested Loop Join and Batched Key Access Join"
 * [Revision #2805](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2805)\
   Fri 2010-07-16 14:02:15 +0300
   * Fixed a problem where the temp table of a materialized subquery
@@ -192,7 +192,7 @@
     and not before each field data.
 * [Revision #2800](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2800)<>\
   Sat 2010-07-10 13:37:30 +0300
-  * Subquery cache ([MWL#66](https://askmonty.org/worklog/?tid=66)) added.
+  * Subquery cache (MWL#66) added.
 * [Revision #2799](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2799)\
   Tue 2010-07-06 19:16:24 +0400
   * Fix buildbot valgrind failure
@@ -255,7 +255,7 @@
     invoke proper Item\_int constructor.
 * [Revision #2786](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2786)\
   Mon 2010-03-29 18:04:35 +0400
-  * [MWL#110](https://askmonty.org/worklog/?tid=110): Make EXPLAIN always show materialization separately
+  * MWL#110: Make EXPLAIN always show materialization separately
     * Add Item\_in\_subselect::get\_identifier() that returns subquery's id
     * Change select\_describe() to produce output in new format
     * Update test results (checked)
@@ -277,17 +277,17 @@
   * Merge
   * [Revision #2779.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2779.1.1)\
     Tue 2010-03-16 00:41:30 +0200
-    * [MWL#68](https://askmonty.org/worklog/?tid=68): Subquery optimization: Efficient NOT IN execution with NULLs
+    * MWL#68: Subquery optimization: Efficient NOT IN execution with NULLs
     * Fix for the PBXT copy of subselect.test.
 * [Revision #2780](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2780) \[merge]\
   Sat 2010-03-20 15:01:47 +0300
   * Merge MariaDB-5.2 -> [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 * [Revision #2779](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2779) \[merge]\
   Mon 2010-03-15 21:52:58 +0200
-  * Merge in [MWL#68](https://askmonty.org/worklog/?tid=68): Subquery optimization: Efficient NOT IN execution with NULLs
+  * Merge in MWL#68: Subquery optimization: Efficient NOT IN execution with NULLs
   * [Revision #2761.1.6](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2761.1.6)\
     Thu 2010-03-11 23:43:31 +0200
-    * [MWL#68](https://askmonty.org/worklog/?tid=68) Subquery optimization: Efficient NOT IN execution with NULLs
+    * MWL#68 Subquery optimization: Efficient NOT IN execution with NULLs
     * This patch does three things:
       * It adds the possibility to force the execution of top-level \[NOT] IN
         subquery predicates via the IN=>EXISTS transformation. This is done by
@@ -301,11 +301,11 @@
         test cases specifically test bugs in this strategy.
   * [Revision #2761.1.5](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2761.1.5) \[merge]\
     Tue 2010-03-09 12:36:15 +0200
-    * [MWL#68](https://askmonty.org/worklog/?tid=68) Subquery optimization: Efficient NOT IN execution with NULLs
+    * MWL#68 Subquery optimization: Efficient NOT IN execution with NULLs
     * Automerge with 5.3-subqueries
   * [Revision #2761.1.4](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2761.1.4)\
     Tue 2010-03-09 12:14:06 +0200
-    * [MWL#68](https://askmonty.org/worklog/?tid=68) Subquery optimization: Efficient NOT IN execution with NULLs
+    * MWL#68 Subquery optimization: Efficient NOT IN execution with NULLs
       * Implemented a second partial matching strategy via table scan.\
         This strategy is a fallback when there is no memory for rowid merging.
       * Refactored the selection and creation of partial matching strategies,
@@ -325,7 +325,7 @@
         match strategies.
   * [Revision #2761.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2761.1.3)\
     Mon 2010-02-22 17:16:55 +0200
-    * [MWL#68](https://askmonty.org/worklog/?tid=68) Subquery optimization: Efficient NOT IN execution with NULLs
+    * MWL#68 Subquery optimization: Efficient NOT IN execution with NULLs
     * This patch mainly adds sorting of all indexes for partial matching
       according to their NULL selectivity. The patch also fixes a related bug
       in subselect\_rowid\_merge\_engine::test\_null\_row() where the wrong matched
@@ -338,7 +338,7 @@
     * Automerge with 5.3-subqueries
   * [Revision #2761.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2761.1.1)\
     Fri 2010-02-19 23:55:57 +0200
-    * [MWL#68](https://askmonty.org/worklog/?tid=68) Subquery optimization: Efficient NOT IN execution with NULLs
+    * MWL#68 Subquery optimization: Efficient NOT IN execution with NULLs
     * This patch implements correct NULL semantics for materialized subquery execution.
     * The implementation has the following properties and main limitations:
       * It passes all query result tests, but fails a number of EXPLAIN tests because of
@@ -598,10 +598,10 @@
     * Add opt\_range\_mrr.cc file into source repo
   * [Revision #2738.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2738.1.3) \[merge]\
     Tue 2009-12-22 15:49:15 +0300
-    * Merge [MWL#67](https://askmonty.org/worklog/?tid=67): MRR Backport and BKA backport.
+    * Merge MWL#67: MRR Backport and BKA backport.
   * [Revision #2738.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2738.1.2)\
     Tue 2009-12-22 15:33:21 +0300
-    * [MWL#67](https://askmonty.org/worklog/?tid=67): MRR backport
+    * MWL#67: MRR backport
     * Make index condition pushdown be controlled by an @@optimizer\_switch flag,
       not by @@engine\_condition\_pushdown
       * Make MRR buffer size be controlled by @@mrr\_buffer\_size, not
@@ -620,7 +620,7 @@
     * DS-MRR backport: Update test results (checked)
 * [Revision #2739](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2739)\
   Sun 2009-12-20 18:26:15 -0800
-  * Backport into MariaDB-5.2 the following:[WL#2771](https://askmonty.org/worklog/?tid=2771) "Block Nested Loop Join and Batched Key Access Join"
+  * Backport into MariaDB-5.2 the following:WL#2771 "Block Nested Loop Join and Batched Key Access Join"
 * [Revision #2738](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2738)\
   Wed 2009-12-16 12:28:51 +0300
   * DS-MRR backport:
@@ -639,23 +639,23 @@
 * [Revision #2735](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2735)\
   Tue 2009-12-15 20:23:55 +0300
   * Backport into MariaDB-5.2 the following:
-    * [MWL#2474](https://askmonty.org/worklog/?tid=2474) "Multi Range Read: Change the default MRR implementation to implement new MRR interface"
-    * [MWL#2475](https://askmonty.org/worklog/?tid=2475) "Batched range read functions for MyISAM/InnoDb"\
+    * MWL#2474 "Multi Range Read: Change the default MRR implementation to implement new MRR interface"
+    * MWL#2475 "Batched range read functions for MyISAM/InnoDb"\
       "Index condition pushdown for MyISAM/InnoDB"
       * Adjust test results (checked)
       * Code cleanup.
 * [Revision #2734](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2734)\
   Tue 2009-12-15 17:53:30 +0300
   * Backport into MariaDB-5.2 the following:
-    * [MWL#2474](https://askmonty.org/worklog/?tid=2474) "Multi Range Read: Change the default MRR implementation to implement new MRR interface"
-    * [MWL#2475](https://askmonty.org/worklog/?tid=2475) "Batched range read functions for MyISAM/InnoDb"\
+    * MWL#2474 "Multi Range Read: Change the default MRR implementation to implement new MRR interface"
+    * MWL#2475 "Batched range read functions for MyISAM/InnoDb"\
       "Index condition pushdown for MyISAM/InnoDB"
     * Fix valgrind failures
 * [Revision #2733](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2733)\
   Tue 2009-12-15 10:16:46 +0300
   * Backport into MariaDB-5.2 the following:
-    * [MWL#2474](https://askmonty.org/worklog/?tid=2474) "Multi Range Read: Change the default MRR implementation to implement new MRR interface"
-    * [MWL#2475](https://askmonty.org/worklog/?tid=2475) "Batched range read functions for MyISAM/InnoDb"\
+    * MWL#2474 "Multi Range Read: Change the default MRR implementation to implement new MRR interface"
+    * MWL#2475 "Batched range read functions for MyISAM/InnoDb"\
       "Index condition pushdown for MyISAM/InnoDB"
     * Igor's fix from sp1r-igor@olga.mysql.com-20080330055902-07614:\
       There could be observed the following problems:

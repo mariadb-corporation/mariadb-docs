@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 #
 # doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
-# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus four checks it delegates to
-# their own scripts: a GitBook include resolver (includecheck.sh), a heading-anchor gate
-# (fragcheck.py), an orphaned-page/nav-coverage gate (navcheck.py) and a net line-loss guard
-# (shrinkcheck.py). All four are gated in CI as of DOCS-6586 — by includecheck-pr.yml,
-# fragcheck-pr.yml, navcheck-pr.yml and shrinkcheck-pr.yml respectively — so a finding here is
-# a finding CI will repeat, and none of them is "local only" any more.
+# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus five checks it delegates to
+# their own scripts: a GitBook include resolver (includecheck.sh), a Mermaid edge-label
+# contrast check (mermaidcheck.py), a heading-anchor gate (fragcheck.py), an orphaned-page/
+# nav-coverage gate (navcheck.py) and a net line-loss guard (shrinkcheck.py). All five are gated
+# in CI — by includecheck-pr.yml, mermaidcheck-pr.yml (DOCS-6630), fragcheck-pr.yml,
+# navcheck-pr.yml and shrinkcheck-pr.yml respectively — so a finding here is a finding CI will
+# repeat, and none of them is "local only" any more.
 #
 # The pre-commit hook, the /precommit command, the docs-check skill, and dev-docs/cookbook-pre-pr.md
 # all delegate here instead of re-spelling the flags, so the CI-mirroring options live in exactly
@@ -16,8 +17,9 @@
 #          (paths are filtered to existing *.md / *.html; run from the repo root so that
 #           .codespellignore resolves)
 # Exit:    0 = all runnable checks passed (a check whose tool is missing is SKIPPED, not failed)
-#          1 = a real failure (misspelling, broken link, unresolvable include, or a heading
-#              anchor this change killed)
+#          1 = a real failure (misspelling, broken link, unresolvable include, a Mermaid
+#              flowchart missing its edge-label contrast fix, or a heading anchor this change
+#              killed)
 # Output:  failures and "tool missing / SKIPPED" notices go to stderr.
 #
 # Portability: no `mapfile` here — takes files as args — so it runs under bash 3.2 (macOS) too.
@@ -219,6 +221,28 @@ if [ ! -f "$INCLUDECHECK" ]; then
   rc=1
 else
   bash "$INCLUDECHECK" "${files[@]}" >/dev/null || rc=1
+fi
+
+# --- Mermaid edge-label contrast — HAS a CI counterpart since DOCS-6630 ----------------------
+# GitBook's dark Mermaid theme draws flowchart edge labels at 4.43:1, under WCAG AA. There is no
+# site-level CSS to fix it once, so every edge-labelled flowchart carries a two-line fix, and
+# .claude/hooks/mermaidcheck.py (also what mermaidcheck-pr.yml runs) fails a diagram without it.
+# Its header has the measurements, including why the one-line variant first proposed on the
+# ticket made contrast WORSE. `mermaidcheck.py --fix <file>` adds the fix.
+#
+# Same broken-checkout-vs-missing-tool split as the shrink guard below: the script is a
+# checked-in sibling, so its absence FAILS; python3 is an external tool, so its absence SKIPs.
+MERMAIDCHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/mermaidcheck.py"
+if [ ! -f "$MERMAIDCHECK" ]; then
+  echo "doc-lint: $MERMAIDCHECK not found — cannot check Mermaid edge-label contrast." >&2
+  echo "          It is checked in beside this script, so this is a broken checkout, not a" >&2
+  echo "          missing tool." >&2
+  rc=1
+elif ! command -v python3 >/dev/null 2>&1; then
+  echo "doc-lint: python3 not installed — Mermaid contrast check SKIPPED (mermaidcheck-pr.yml" >&2
+  echo "          still gates this in CI). Install: brew install python3" >&2
+else
+  python3 "$MERMAIDCHECK" "${files[@]}" >/dev/null || rc=1
 fi
 
 # --- GitBook heading anchors — HAS a CI counterpart since DOCS-6524 --------------------------

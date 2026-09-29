@@ -1,6 +1,6 @@
 ---
 description: >-
-  Plugin API reference: Idle Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+  The MYSQL_START_IDLE_WAIT and MYSQL_END_IDLE_WAIT macros, which mark the start and end of an idle wait event for the Performance Schema.
 ---
 
 

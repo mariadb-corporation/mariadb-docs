@@ -8,15 +8,13 @@ description: >-
 
 **Worklog has been replaced, please refer to** [**JIRA - project planning and tracking**](jira.md) **for further information**.
 
-[Worklog](https://askmonty.org/worklog/index.pl) is the tool used to track all development of MariaDB.
+Worklog was the tool used to track development of MariaDB.
 
-The MariaDB Worklog is open to everyone at [index.pl](https://askmonty.org/worklog/index.pl) (a free account on [the developer wiki](https://askmonty.org/wiki) is required to suggest new tasks and add comments, votes, donations etc.). The account signup page for the wiki is [here](https://askmonty.org/w/index.php?title=Special:Userlogin\&type=signup).
+The MariaDB Worklog was open to everyone; a free account on the developer wiki was required to suggest new tasks and add comments or votes.
 
-If you find something in the worklog that you really would like to have done, you can commit to donate some money to the developer when this is done. (Search after "Make offer" on the worklog item you would like to sponsor).
+If a contributor delivered a working solution that was [accepted into the MariaDB source tree](https://kb.askmonty.org/v/community-contributing-to-the-mariadb-project#expectations-for-developers), they could receive a share of any money pledged for that task; the rest went to MariaDB Corporation Ab for managing the project, code reviews, bug fixes, testing, maintenance, and future updates and merges.
 
-If there is something in worklog which you would like to develop, you can contact us at 'maria-developers (at) lists.launchpad.com' or 'community (at) askmonty.org'. If you deliver a working solutions that is [accepted into the MariaDB source tree](https://kb.askmonty.org/v/community-contributing-to-the-mariadb-project#expectations-for-developers), you will get 60 % of the so far committed money. The rest of the money is kept by MariaDB Corporation Ab for help managing the project, code reviews, bug fixes, testing, maintenance, updates and merges to future MariaDB versions.
-
-You can also add a link in the MariaDB worklog to tasks to the MySQL worklog. Just refer to the MySQL task as #WL
+A MariaDB worklog task could also link to the corresponding MySQL worklog task, referenced as #WL.
 
 ## Source Code for Worklog
 

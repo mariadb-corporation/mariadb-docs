@@ -12,12 +12,14 @@ skill, which runs them for you; this page documents what it does and how to run 
 | Broken links | `lychee` | `link-check-pr.yml` |
 | Heading anchors | `fragcheck.py new` | `fragcheck-pr.yml` |
 | GitBook includes | `includecheck.sh --stdin0` | `includecheck-pr.yml` |
+| Mermaid edge-label contrast | `mermaidcheck.py --stdin0` | `mermaidcheck-pr.yml` |
+| Railroad-diagram dark-mode card | `railroadcheck.py --stdin0` | `railroadcheck-pr.yml` |
 | Nav coverage (orphaned pages) | `navcheck.py new` | `navcheck-pr.yml` |
 | Gutted pages (net line loss) | `shrinkcheck.py` | `shrinkcheck-pr.yml` |
 | Alias expansion | sed (auto-commit) | `expand-gitbook-aliases.yml` |
 | Help-tables regen | Python | `generate-help-tables.yml` |
 
-Only the first six can fail your PR; aliases and help-tables are regenerated automatically.
+Only the first eight can fail your PR; aliases and help-tables are regenerated automatically.
 
 The heading-anchor gate arrived in DOCS-6524 and the other three in DOCS-6586: **every check in
 the table above has a CI counterpart**, so a finding on your machine is a finding CI will repeat.
@@ -42,6 +44,11 @@ check greps for the host-and-path pair, which is why this page spells it in two 
   is **not** part of `doc-lint.sh` or any PR gate: "currently" is usually right ("the currently
   connected clients"), so a blocking check would fire on correct prose. Run
   `timeless.py check <file>` yourself when editing product-status wording.
+- **A third nightly digest (`nightly-aliascheck.yml`, DOCS-6588) reports GitBook aliases left
+  unexpanded** in a link target by the last 24 hours of commits. The PR workflow only sees files
+  a PR changed, so an alias that arrives by GitBook-UI edit or direct push would otherwise
+  publish as a 404 with nothing to report it. It runs `.claude/hooks/expand-aliases.py --base`,
+  the same script you can run locally, and it never rewrites anything.
 
 ## 1. Spelling + links + includes + orphans + gutted pages — `doc-lint.sh`
 

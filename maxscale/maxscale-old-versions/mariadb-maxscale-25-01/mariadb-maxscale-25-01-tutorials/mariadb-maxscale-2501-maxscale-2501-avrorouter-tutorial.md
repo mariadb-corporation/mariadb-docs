@@ -6,6 +6,7 @@ with the binlogrouter.
 The first part configures the services and sets them up for the binary log to Avro file conversion. The second part of this tutorial uses the client listener interface for the avrorouter and shows how to communicate with the service over the network.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: MariaDB MaxScale Avro Router Data Flow
     accDescr {
@@ -56,6 +57,7 @@ flowchart LR
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Data flow through the MariaDB MaxScale Avro router: the Primary server's binlog events are converted to Avro-formatted change data and streamed to CDC clients, Kafka, and Hadoop._
 

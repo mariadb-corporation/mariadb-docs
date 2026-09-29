@@ -10,8 +10,6 @@ description: >-
 **MariaDB tool.** The MySQL to MariaDB Migrator is proprietary MariaDB software, provided free to MariaDB customers and partners under approved usage terms. It is distributed from the [MariaDB community downloads page](https://mariadb.com/downloads/community/).
 {% endhint %}
 
-**Current release:** [1.5.0](https://mariadb.com/downloads/community/)
-
 The **MySQL to MariaDB Migrator** is a MariaDB tool that automates end-to-end migrations from MySQL to MariaDB in a repeatable, auditable way. It orchestrates schema migration, data transfer, user and privilege migration, and post-migration validation, and it drives the standard MariaDB client tools (`mariadb-dump`, the `mariadb` client, and the `mariadb-mtk` data-transfer engine) under a single launcher.
 
 {% hint style="info" %}
@@ -32,12 +30,12 @@ The migrator complements the manual workflows in the [MySQL to MariaDB Migration
 
 The launcher presents four migration modes as a numbered menu. The internal identifier in parentheses is the canonical form used in configuration files, environment variables (`MODE=...`), and the command line (`--mode <id>`).
 
-| Mode                                                                                       | Internal ID | Type    | Best For                                                               |
-| ------------------------------------------------------------------------------------------ | ----------- | ------- | ---------------------------------------------------------------------- |
-| [Serial Streaming Copy](migrate-with-serial-streaming-copy.md)                             | `one_step`  | Offline | Smaller databases and standard maintenance windows                     |
+| Mode                                                                                       | Internal ID | Type    | Best For                                                                                                 |
+| ------------------------------------------------------------------------------------------ | ----------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| [Serial Streaming Copy](migrate-with-serial-streaming-copy.md)                             | `one_step`  | Offline | Smaller databases and standard maintenance windows                                                       |
 | [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) | `two_step`  | Offline | Larger datasets: loads tables concurrently, and splits large tables that have an `AUTO_INCREMENT` column |
-| [Offline Copy](migrate-with-offline-copy.md)                                               | `staged`    | Offline | Source and target not network-reachable, or a deferred / two-host load |
-| [Replication](migrate-with-replication.md)                                                 | `binlog`    | Online  | Low-downtime cutover with ongoing replication                          |
+| [Offline Copy](migrate-with-offline-copy.md)                                               | `staged`    | Offline | Source and target not network-reachable, or a deferred / two-host load                                   |
+| [Replication](migrate-with-replication.md)                                                 | `binlog`    | Online  | Low-downtime cutover with ongoing replication                                                            |
 
 Each mode links to its step-by-step guide above. For the variable-level detail on all four modes in one place, see [Migration Modes](migration-modes.md).
 

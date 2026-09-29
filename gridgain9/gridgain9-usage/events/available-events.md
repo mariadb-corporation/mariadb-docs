@@ -1,0 +1,192 @@
+---
+description: >-
+  Reference of all event types available in GridGain 9, grouped by category,
+  with the fields carried by each event.
+---
+
+# Available Events
+
+This section lists events that are available in GridGain 9.
+
+## Connection Events
+
+These events are fired every time a client connects to the cluster, or disconnects from it.
+
+| Event Type | Description |
+| --- | --- |
+| CLIENT_CONNECTION_ESTABLISHED | Connection with the client established. Connection info contains information about the client. |
+| CLIENT_CONNECTION_CLOSED | Connection with the client closed. Connection info contains information about the client. |
+
+## Authentication Events
+
+These events are fired when the user performs an action that requires authentication.
+
+| Event Type | Description |
+| --- | --- |
+| USER_AUTHENTICATION_SUCCESS | User was authenticated on the cluster. |
+| USER_AUTHENTICATION_FAILURE | User failed to authenticate on the cluster. Get the username from the event’s `identity` field. |
+
+## Authorization Events
+
+These events are fired when the user performs an action that requires authentication. Each event body has a list of `privileges`, where every `privilege` is an object with the `action` and `selector`. For more details see [User Permissions and Roles](../../security/user-permissions-and-roles.md) section.
+
+| Event Type | Description |
+| --- | --- |
+| USER_AUTHORIZATION_SUCCESS | An action was authorized for the user on a specific object. |
+| USER_AUTHORIZATION_FAILURE | An action was denied to the user on a specific object. |
+| USER_OPERATION_REFUSED | An operation was refused after authorization succeeded, for a reason the privilege checks cannot express. The event body has a `refusalReason` field. When the refused operation assigns or revokes a [protected built-in role](../../security/user-permissions-and-roles.md#protected-built-in-roles), the reason is `BUILT_IN_ROLE` and the `deniedRoles` field lists the roles. |
+
+## License Events
+
+These events are fired when the user performs an action that is covered by license permission, or a license lifecycle event happens.
+
+| Event Type | Description |
+| --- | --- |
+| LICENSE_APPLIED | New license is applied successfully. |
+| LICENSE_REJECTED | New license was rejected. Contact the support team for help with the license. |
+| LICENSE_EXPIRED | License has expired. Cluster will shut down. |
+| LICENSE_VIOLATED | License limitations were violated. Check if the hardware used to run the cluster fits the license limitations. |
+| LICENSE_NODE_REJECTED | The node tried to enter the cluster and was rejected due to license limitations. |
+
+### License Event Structure
+
+Each license event has the following fields:
+
+| Field Name | Description |
+| --- | --- |
+| licenseId | ID of a license. |
+| name | Name of the license limit parameter violated. Applicable to the `LICENSE_VIOLATED` event type. |
+| name | Name of the license limit parameter violated. Applicable to the `LICENSE_VIOLATED` event type. |
+| message | Detailed message. Applicable to the `LICENSE_VIOLATED` event type. |
+| value | *Optional* Current parameter value. Applicable to the `LICENSE_VIOLATED` event type. |
+| bound | *Optional* Maximum parameter value allowed by the license. Applicable to the `LICENSE_VIOLATED` event type. |
+
+## Query Events
+
+These events are fired when the user performs a query.
+
+| Event Type | Description |
+| --- | --- |
+| QUERY_STARTED | A new query was started. |
+| QUERY_FINISHED | Query execution is finished. |
+
+### Query Event Structure
+
+Each query event has the following fields:
+
+| Field Name | Description |
+| --- | --- |
+| initiator | Name of a node that initiated the query. |
+| id | Query ID. |
+| schema | Name of the schema that was used to resolve non-qualified object names. |
+| sql | An original query string. Password literals in `CREATE USER` and `ALTER USER` statements are replaced with `'******'`, including statements inside a multi-statement script. The masking is applied before the statement is parsed, so it covers `QUERY_STARTED` as well. |
+| parentId | ID of the parent query, if any. |
+| statementNumber | A 0-based index of query within the script, if applicable. Returns -1 otherwise. |
+| txId | ID of the transaction, if known. |
+| startTime | Time at which query appears on server. Applicable only to `QUERY_FINISHED` events. |
+| type | *Optional* Type of the query, if known. |
+| error | *Optional* An error, if one occurred during execution and caused the query to terminate. When the statement carried a password that was masked out of the `sql` field, this field reports `Error message suppressed: the statement contains a credential` instead of the original message, so that the error cannot republish the password. |
+
+## REST API Events
+
+These events are fired when REST API requests are made to the cluster. They provide comprehensive tracking of all HTTP requests including authentication, performance metrics, and error information.
+
+| Event Type | Description |
+| --- | --- |
+| REST_API_REQUEST_STARTED | A new REST API request has started processing. |
+| REST_API_REQUEST_FINISHED | REST API request execution has finished (successfully or with an error). |
+
+### REST API Event Structure
+
+Each REST API event has the following fields:
+
+| Field Name | Description |
+| --- | --- |
+| requestId | Unique UUID identifying this specific request. |
+| timestamp | ISO-8601 formatted timestamp when the request started. |
+| method | HTTP method used (GET, POST, PUT, DELETE, PATCH, etc.). |
+| endpoint | The REST API endpoint path that was accessed. |
+| nodeName | Name of the node that processed the request. |
+| status | *Applicable to FINISHED events only.* HTTP status code returned (200, 400, 404, 500, etc.). |
+| durationMs | *Applicable to FINISHED events only.* Request processing duration in milliseconds. |
+| message | *Optional. Applicable to FINISHED events only.* Error message if the request failed with an exception. |
+
+{% hint style="info" %}
+REST API events can be disabled by setting the configuration property `ignite.endpoints.rest-events=false`. By default, REST API event logging is enabled.
+{% endhint %}
+
+## Compute Job Events
+
+These events describe the possible states of a compute job.
+
+| Event Type | Description |
+| --- | --- |
+| COMPUTE_JOB_QUEUED, | Triggered when a compute job is added to the execution queue. |
+| COMPUTE_JOB_EXECUTING, | Triggered when a compute job starts execution. |
+| COMPUTE_JOB_FAILED, | Triggered when a compute job fails and throws an exception during execution. |
+| COMPUTE_JOB_COMPLETED, | Triggered when a compute job is finished successfully. |
+| COMPUTE_JOB_CANCELING, | Triggered when a compute job cancellation is requested. |
+| COMPUTE_JOB_CANCELED, | Triggered when a compute job has been canceled. |
+
+### Compute Job Event Structure
+
+Each compute job event has the following fields:
+
+| Field Name | Description |
+| --- | --- |
+| type | Type of the compute job. Could be `SINGLE`, `BROADCAST`, `MAP_REDUCE` or `DATA_RECEIVER`. Single job is the most common type, assigned to jobs that are executed on a single node. Broadcast jobs are executed on many nodes simultaneously. Map reduce jobs are the jobs that are submitted from the map reduce task. Data receiver is an internal compute job that is used when data streamer API is used. |
+| className | Class name of a job. |
+| jobId | Compute job ID. |
+| targetNode | Name of the node where a job is executed. |
+| initiatorNode | Name of the node where a submit request is processed. |
+| taskId | *Optional* Сommon ID for all broadcast compute jobs submitted from a single invocation. |
+| tableName | *Optional* Table name for colocated jobs or partitioned broadcast jobs. |
+| clientAddress | *Optional* A socket address of a client that submitted a job. |
+
+## Map Reduce Task Events
+
+These events describe the possible states of a map reduce task.
+
+| Event Type | Description |
+| --- | --- |
+| MAP_REDUCE_TASK_QUEUED | Triggered when a map reduce task is added to the execution queue. |
+| MAP_REDUCE_TASK_EXECUTING, | Triggered when a map reduce task starts execution. |
+| MAP_REDUCE_TASK_FAILED, | Triggered when a map reduce task fails and throws an exception during execution. |
+| MAP_REDUCE_TASK_COMPLETED, | Triggered when a map reduce task is finished successfully. |
+| MAP_REDUCE_TASK_CANCELED, | Triggered when a map reduce task has been canceled. |
+
+### Map Reduce Event Structure
+
+Each task event has the following fields:
+
+| Field Name | Description |
+| --- | --- |
+| type | Type of the task. Always is a `MAP_REDUCE` event type. |
+| className | Class name of a task. |
+| taskId | ID of a map reduce task. |
+| targetNode | Name of the node where a task is executed. |
+| clientAddress | *Optional* A socket address of a client that submitted a task. |
+
+## REST API Events
+
+These events are fired on REST API calls and can be used for audit purposes.
+
+| Event Type | Description |
+| --- | --- |
+| REST_API_REQUEST_STARTED | Triggered when a REST API request is received. |
+| REST_API_REQUEST_FINISHED | Triggered when a REST API request is completed. |
+
+### REST API Event Structure
+
+The user identity is available in the standard event [`user`](working-with-events.md#event-structure) field. Each REST API event also has the following fields:
+
+| Field Name | Description |
+| --- | --- |
+| nodeName | Name of the node that received the request. |
+| method | HTTP method of the request (e.g., `GET`, `POST`). |
+| endpoint | API endpoint path (e.g., `/management/v1/license`). |
+| requestId | Unique identifier of the request. |
+| timestamp | ISO-8601 timestamp of when the request was received. |
+| status | HTTP response status code. Applicable only to `REST_API_REQUEST_FINISHED` events. |
+| durationMs | Request duration in milliseconds. Applicable only to `REST_API_REQUEST_FINISHED` events. |
+| message | Error message. Applicable only to `REST_API_REQUEST_FINISHED` events when an unhandled error occurred. |
