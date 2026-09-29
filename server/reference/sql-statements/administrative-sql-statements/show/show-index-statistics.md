@@ -18,10 +18,18 @@ The [information\_schema.INDEX\_STATISTICS](../../../system-tables/information-s
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.1.1 / 5.3:
+{% endhint %}
+
 `SHOW INDEX_STATISTICS` is replaced by the generic [SHOW TABLE STATISTICS](show-table-statistics.md) statement.
 {% endtab %}
 
 {% tab title="< 10.1.1 / 5.3" %}
+{% hint style="info" %}
+Before MariaDB 10.1.1 / 5.3:
+{% endhint %}
+
 The `SHOW INDEX_STATISTICS` statement was introduced in [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2) as part of the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) feature. It was removed as a separate statement in [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1), but effectively replaced by the generic [SHOW TABLE STATISTICS](show-table-statistics.md) statement.
 {% endtab %}
 {% endtabs %}

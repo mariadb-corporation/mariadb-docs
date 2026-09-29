@@ -98,10 +98,18 @@ For compatibility reasons, the `mysql_native_password` authentication plugin tri
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.3.11 / 10.2.19:
+{% endhint %}
+
 [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md), [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md), [GRANT](../../sql-statements/account-management-sql-statements/grant.md), and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) set the `Password` and `authentication_string` columns in the [mysql.user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) table whenever an account's password is changed.
 {% endtab %}
 
 {% tab title="< 10.3.11 / 10.2.19" %}
+{% hint style="info" %}
+Before MariaDB 10.3.11 / 10.2.19:
+{% endhint %}
+
 [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md), [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md), [GRANT](../../sql-statements/account-management-sql-statements/grant.md), and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) do **not** set the `Password` and `authentication_string` columns in the [mysql.user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) table whenever an account's password is changed.
 {% endtab %}
 {% endtabs %}

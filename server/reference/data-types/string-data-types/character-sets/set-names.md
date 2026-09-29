@@ -29,6 +29,10 @@ Quotes are optional for the character set or collation clauses.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8:
+{% endhint %}
+
 `utf8mb4` is the default for the affected variables:
 
 ```sql
@@ -52,6 +56,10 @@ SELECT VARIABLE_NAME, SESSION_VALUE
 {% endtab %}
 
 {% tab title="< 11.8" %}
+{% hint style="info" %}
+From MariaDB 10.6 to before MariaDB 11.8:
+{% endhint %}
+
 The `utf8` [character set](./) (and related collations) is an alias for `utf8mb3`, rather than the other way around. MariaDB 11.2 added the [character\_set\_collations](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_collations) variable, so the `SELECT` query is more specific in this example:
 
 ```sql
@@ -90,6 +98,10 @@ SELECT VARIABLE_NAME, SESSION_VALUE
 {% endtab %}
 
 {% tab title="< 10.6" %}
+{% hint style="info" %}
+Before MariaDB 10.6:
+{% endhint %}
+
 The utf8 [character set](./) (and related collation) is the default for the given variables:
 
 ```sql

@@ -58,6 +58,10 @@ SHOW GRANTS FOR journalist;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
+
 **FOR PUBLIC**
 
 [GRANT ... TO PUBLIC](../../account-management-sql-statements/grant.md#to-public) grants privileges to all users. `SHOW GRANTS FOR PUBLIC` shows all these grants.
@@ -73,6 +77,10 @@ SHOW GRANTS FOR public;
 {% endtab %}
 
 {% tab title="< 10.11" %}
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
 `FOR PUBLIC` is not available.
 {% endtab %}
 {% endtabs %}

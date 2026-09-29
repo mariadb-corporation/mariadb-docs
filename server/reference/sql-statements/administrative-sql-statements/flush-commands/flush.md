@@ -82,6 +82,10 @@ FLUSH RELAY LOGS 'connection_name'
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7.0:
+{% endhint %}
+
 The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical to using the channel\_name directly after the `FLUSH command`. For example, one can now use:
 
 ```sql
@@ -90,6 +94,10 @@ FLUSH RELAY LOGS FOR CHANNEL 'connection_name';
 {% endtab %}
 
 {% tab title="< 10.7.0" %}
+{% hint style="info" %}
+Before MariaDB 10.7.0:
+{% endhint %}
+
 `FOR CHANNEL` isn't available.
 {% endtab %}
 {% endtabs %}
@@ -106,11 +114,19 @@ This statement requires the [RELOAD](../../account-management-sql-statements/gra
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 Specify FLUSH GLOBAL or FLUSH SESSION. Flushing of global status variables has been moved to `FLUSH GLOBAL STATUS` which is a synonym for `FLUSH STATUS`.\
 You can use `old-mode=OLD_FLUSH_STATUS` to restore the old behavior of the `FLUSH STATUS` statement.
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 The variables flushed are mainly session, but some are global. Not all session (or global) variables are flushed - the decision was made per variable.
 {% endtab %}
 {% endtabs %}
@@ -198,14 +214,26 @@ Not all global status variables support being reset by `FLUSH STATUS`. The follo
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8.2 / 11.4.6:
+{% endhint %}
+
 `FLUSH TABLES` doesn't cause [InnoDB statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md) to be reloaded or recalculated. [RENAME TABLE](../../data-definition/rename-table.md), however, triggers a reload of the statistics.
 {% endtab %}
 
 {% tab title="< 11.8.2 / 11.4.6" %}
+{% hint style="info" %}
+Before MariaDB 11.8.2 / 11.4.6:
+{% endhint %}
+
 `FLUSH TABLES` causes [InnoDB statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md) to be reloaded or recalculated.
 {% endtab %}
 
 {% tab title="< 10.11.12" %}
+{% hint style="info" %}
+Before MariaDB 10.11.12:
+{% endhint %}
+
 `FLUSH TABLES` causes [InnoDB statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md) to be reloaded or recalculated.
 {% endtab %}
 {% endtabs %}

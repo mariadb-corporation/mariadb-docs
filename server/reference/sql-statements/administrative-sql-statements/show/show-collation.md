@@ -19,10 +19,18 @@ The output from `SHOW COLLATION` includes all available [collations](../../../da
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4.5:
+{% endhint %}
+
 Similar information, including some extra information, can be queried from the [Information Schema COLLATIONS](../../../system-tables/information-schema/information-schema-tables/information-schema-collations-table.md) table.
 {% endtab %}
 
 {% tab title="< 11.4.5" %}
+{% hint style="info" %}
+Before MariaDB 11.4.5:
+{% endhint %}
+
 No similar information or extra information can be queried from the [Information Schema COLLATIONS](../../../system-tables/information-schema/information-schema-tables/information-schema-collations-table.md) table.
 {% endtab %}
 {% endtabs %}
@@ -31,6 +39,10 @@ See [Setting Character Sets and Collations](../../../data-types/string-data-type
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.1:
+{% endhint %}
+
 The `pad_attribute` column (not shown in the examples below) has a value of `NO PAD` or `PAD SPACE`. This attribute affects whether trailing spaces are significant in string comparisons. See the [INFORMATION\_SCHEMA.COLLATIONS](../../../system-tables/information-schema/information-schema-tables/information-schema-collations-table.md) table description for more information.
 
 ```sql
@@ -44,6 +56,10 @@ SHOW COLLATION LIKE 'utf8mb4_bin';
 {% endtab %}
 
 {% tab title="< 12.1" %}
+{% hint style="info" %}
+Before MariaDB 12.1:
+{% endhint %}
+
 The `pad_attribute` column is not available.
 {% endtab %}
 {% endtabs %}

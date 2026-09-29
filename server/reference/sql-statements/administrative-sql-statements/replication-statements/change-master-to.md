@@ -63,10 +63,18 @@ Note: The value is extracted from the corresponding server option or system vari
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7.0:
+{% endhint %}
+
 The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical to using the channel\_name directly after `CHANGE MASTER`.
 {% endtab %}
 
 {% tab title="< 10.7.0" %}
+{% hint style="info" %}
+Before MariaDB 10.7.0:
+{% endhint %}
+
 `FOR CHANNEL` is not available.
 {% endtab %}
 {% endtabs %}
@@ -164,10 +172,18 @@ The `MASTER_USER` option for `CHANGE MASTER` defines the user account that the [
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.1:
+{% endhint %}
+
 This user account will need the [REPLICATION REPLICA](../../account-management-sql-statements/grant.md#replication-replica) privilege on the primary.
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
+{% hint style="info" %}
+Before MariaDB 10.5.1:
+{% endhint %}
+
 This user account will need the [REPLICATION SLAVE](../../account-management-sql-statements/grant.md#replication-slave) privilege on the primary.
 {% endtab %}
 {% endtabs %}
@@ -184,10 +200,18 @@ START SLAVE;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6:
+{% endhint %}
+
 The maximum length of the `MASTER_USER` string is 128 characters.
 {% endtab %}
 
 {% tab title="< 10.6" %}
+{% hint style="info" %}
+Before MariaDB 10.6:
+{% endhint %}
+
 The maximum length of the `MASTER_USER` string is 96 characters.
 {% endtab %}
 {% endtabs %}
@@ -217,10 +241,18 @@ The `MASTER_HOST` option for `CHANGE MASTER` defines the hostname or IP address 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 5.4:
+{% endhint %}
+
 If you set the value of the `MASTER_HOST` option to the empty string, then that is not the same as not setting the option's value at all. If you set the value of the `MASTER_HOST` option to the empty string, then the `CHANGE MASTER` command will fail with an error.
 {% endtab %}
 
 {% tab title="< 5.4" %}
+{% hint style="info" %}
+Before MariaDB 5.4:
+{% endhint %}
+
 If you set the value of the `MASTER_HOST` option to the empty string, then that is not the same as not setting the option's value at all. If you set the value of the `MASTER_HOST` option to the empty string, then the `CHANGE MASTER` command will fail with an error. In MariaDB 5.3 and before, if you set the value of the `MASTER_HOST` option to the empty string, then the `CHANGE MASTER` command would succeed, but the subsequent [START REPLICA](start-replica.md) command would fail.
 {% endtab %}
 {% endtabs %}
@@ -247,10 +279,18 @@ Replicas cannot connect to primaries using Unix socket files or Windows named pi
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6:
+{% endhint %}
+
 The maximum length of the `MASTER_HOST` string is 255 characters.
 {% endtab %}
 
 {% tab title="< 10.6" %}
+{% hint style="info" %}
+Before MariaDB 10.6:
+{% endhint %}
+
 The maximum length of the `MASTER_HOST` string is 60 characters.
 {% endtab %}
 {% endtabs %}
@@ -534,10 +574,18 @@ The maximum length of `MASTER_SSL_CIPHER` string is 511 characters.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 The `MASTER_SSL_VERIFY_SERVER_CERT` option for `CHANGE MASTER` enables [server certificate verification](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is enabled by default.
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 The `MASTER_SSL_VERIFY_SERVER_CERT` option for `CHANGE MASTER` enables [server certificate verification](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
 {% endtab %}
 {% endtabs %}
@@ -660,6 +708,10 @@ The [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS]
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.1:
+{% endhint %}
+
 The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the replica to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid.md) when connecting to a primary. The possible values are:
 
 * `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) as the position to start downloading transactions from the primary. Using this on a replica server can break replication if the replica executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
@@ -668,6 +720,10 @@ The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the re
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
+{% hint style="info" %}
+Before MariaDB 10.5.1:
+{% endhint %}
+
 The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the replica to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid.md) when connecting to a primary. The possible values are:
 
 * `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) as the position to start downloading transactions from the primary. Using this on a replica server can break replication if the replica executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
@@ -707,6 +763,10 @@ START SLAVE;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.10:
+{% endhint %}
+
 Used to transition a primary to become a replica. Replaces the old [MASTER\_USE\_GTID=current\_pos](change-master-to.md#master_use_gtid) with a safe alternative by forcing users to set `Using_Gtid=Slave_Pos` and merging `gtid_binlog_pos` into `gtid_slave_pos` once at `CHANGE MASTER TO` time. If `gtid_slave_pos` is more recent than `gtid_binlog_pos` (as in the case of chain replication), the replication state should be preserved.
 
 For example:
@@ -720,6 +780,10 @@ START SLAVE;
 {% endtab %}
 
 {% tab title="< 10.10" %}
+{% hint style="info" %}
+Before MariaDB 10.10:
+{% endhint %}
+
 `MASTER_DEMOTE_TO_SLAVE` is not available.
 {% endtab %}
 {% endtabs %}

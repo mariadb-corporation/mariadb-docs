@@ -26,6 +26,10 @@ This tool provides a production-quality, nearly non-blocking method for performi
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11.8:
+{% endhint %}
+
 MariaDB Backup supports some additional features, such as:
 
 * Minimizes locks during the backup to permit more concurrency and to enable faster backups.
@@ -35,6 +39,10 @@ MariaDB Backup supports some additional features, such as:
 {% endtab %}
 
 {% tab title="< 10.11.8" %}
+{% hint style="info" %}
+Before MariaDB 10.11.8:
+{% endhint %}
+
 MariaDB Backup does **not** support some additional features.
 {% endtab %}
 {% endtabs %}
@@ -183,6 +191,10 @@ On the first run after upgrading to MariaDB 10.11, `mariadb-backup` will attempt
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 The required privileges are:
 
 ```sql
@@ -192,6 +204,10 @@ GRANT RELOAD, PROCESS, LOCK TABLES, BINLOG MONITOR ON *.* TO 'mariadb-backup'@'l
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 The required privileges are:
 
 ```sql
@@ -211,6 +227,10 @@ To use the [--history](mariadb-backup-options.md#history) option(or the incremen
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.10:
+{% endhint %}
+
 The user needs `INSERT` to create history records and `SELECT` to read them for incremental backups:
 
 {% code overflow="wrap" %}
@@ -220,7 +240,11 @@ GRANT SELECT, INSERT, CREATE, ALTER ON mysql.mariadb_backup_history TO 'mariadb-
 {% endcode %}
 {% endtab %}
 
-{% tab title="< MariaDB 10.10" %}
+{% tab title="< 10.10" %}
+{% hint style="info" %}
+Before MariaDB 10.10:
+{% endhint %}
+
 The user needs privileges on the legacy `PERCONA_SCHEMA`:
 
 {% code overflow="wrap" %}

@@ -18,10 +18,18 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.8 / 10.4.7:
+{% endhint %}
+
 The _lock\_option_ and _password\_option_ clauses can occur in either order.
 {% endtab %}
 
-{% tab title="<10.4.7, < 10.5.8" %}
+{% tab title="< 10.5.8 / 10.4.7" %}
+{% hint style="info" %}
+Before MariaDB 10.5.8 / 10.4.7:
+{% endhint %}
+
 Prior to [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7) and [MariaDB 10.5.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.8), the _lock\_option_ must be placed before the _password\_option_.
 {% endtab %}
 {% endtabs %}

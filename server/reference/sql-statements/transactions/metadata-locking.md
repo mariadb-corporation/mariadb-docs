@@ -20,6 +20,10 @@ If the [metadata\_lock\_info](../../plugins/other-plugins/metadata-lock-info-plu
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.2:
+{% endhint %}
+
 The [Performance Schema metadata\_locks](../../system-tables/performance-schema/performance-schema-tables/performance-schema-metadata_locks-table.md) table contains metadata lock information.
 
 **Example**
@@ -61,6 +65,10 @@ Records: 1  Duplicates: 0  Warnings: 0
 {% endtab %}
 
 {% tab title="< 10.5.2" %}
+{% hint style="info" %}
+Before MariaDB 10.5.2:
+{% endhint %}
+
 The [Performance Schema metadata\_locks](../../system-tables/performance-schema/performance-schema-tables/performance-schema-metadata_locks-table.md) table does **not** contain metadata lock information.
 {% endtab %}
 {% endtabs %}

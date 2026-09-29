@@ -13,10 +13,18 @@ You can see which character sets are available in a particular version by runnin
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 It is possible to change the default collation associated with a character set. See [Changing Default Collation](setting-character-sets-and-collations.md#changing-default-collation).
 {% endtab %}
 
 {% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 It is **not** possible to change the default collation associated with a character set. See [Changing Default Collation](setting-character-sets-and-collations.md#changing-default-collation)
 {% endtab %}
 {% endtabs %}

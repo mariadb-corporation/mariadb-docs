@@ -10,6 +10,10 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 ```bnf
 REPAIR [NO_WRITE_TO_BINLOG | LOCAL] TABLE
     tbl_name [, tbl_name] ...
@@ -20,6 +24,10 @@ REPAIR [NO_WRITE_TO_BINLOG | LOCAL] TABLE
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 ```
 REPAIR [NO_WRITE_TO_BINLOG | LOCAL] TABLE
     tbl_name [, tbl_name] ...
@@ -52,10 +60,18 @@ By default, `REPAIR TABLE` statements are written to the [binary log](../../../s
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.3.19:
+{% endhint %}
+
 `REPAIR TABLE` statements are not logged to the binary log if [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) is set. See also [Read-Only Replicas](../../../ha-and-performance/standard-replication/read-only-replicas.md).
 {% endtab %}
 
 {% tab title="< 10.3.19" %}
+{% hint style="info" %}
+Before MariaDB 10.3.19:
+{% endhint %}
+
 `REPAIR TABLE` statements are logged to the binary log.
 {% endtab %}
 {% endtabs %}
@@ -78,10 +94,18 @@ For use only when the index file is missing or its header corrupted. MariaDB the
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 The `FORCE` argument allows to first run internal repair to fix damaged blocks and then follow it up with `ALTER TABLE` ([MDEV-33449](https://jira.mariadb.org/browse/MDEV-33449)).
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 The `FORCE` option is not available.
 {% endtab %}
 {% endtabs %}

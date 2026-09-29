@@ -19,10 +19,18 @@ Shows the events in the [binary log](../../../../server-management/server-monito
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.2:
+{% endhint %}
+
 This statement requires the [BINLOG MONITOR](../../account-management-sql-statements/grant.md#binlog-monitor) privilege.
 {% endtab %}
 
 {% tab title="< 10.5.2" %}
+{% hint style="info" %}
+Before MariaDB 10.5.2:
+{% endhint %}
+
 This statement requires the [REPLICATION SLAVE](../../account-management-sql-statements/grant.md#replication-slave) privilege.
 {% endtab %}
 {% endtabs %}

@@ -18,10 +18,18 @@ The data in transit are encrypted (by default or if enabled manually) using the 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 MariaDB [enables TLS automatically](zero-configuration-ssl.md). Certificates are generated on startup and only stored in memory. Certificate verification is enabled by default on the client side and certificates are verified if the authentication plugin itself is MitM safe (`mysql_native_password`, `ed25519`, `parsec`).
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 In order to enable TLS in a MariaDB server, you need to generate TLS certificates and configure the server to use them.
 
 To do that there are a number of system variables that you need to set, such as:

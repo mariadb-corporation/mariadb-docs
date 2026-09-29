@@ -30,10 +30,18 @@ SHOW SLAVE HOSTS;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 `Host`: The host name of the replica server, as configured in the server's option file, or on the command line with `--report-host=host_name` (note that this can differ from the machine name as configured in the operating system). If a replica doesn't configure `--report-host` explicitly, the value for the `Host` column is automatically extracted using the network connection's host name or IP address.
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 `Host`: The host name of the replica server, as configured in the server's option file, or on the command line with `--report-host=host_name` (note that this can differ from the machine name as configured in the operating system). If a replica doesn't configure `--report-host` explicitly, the value for the `Host` column is automatically extracted using the network connection's host name or IP address. The Host value is left blank if a replica's `--report-host` parameter is not configured.
 {% endtab %}
 {% endtabs %}
@@ -44,10 +52,18 @@ SHOW SLAVE HOSTS;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.1:
+{% endhint %}
+
 Requires the [REPLICATION MASTER ADMIN](../../account-management-sql-statements/grant.md#replication-master-admin) privilege.
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
+{% hint style="info" %}
+Before MariaDB 10.5.1:
+{% endhint %}
+
 Requires the [REPLICATION SLAVE](../../account-management-sql-statements/grant.md#replication-slave) privilege.
 {% endtab %}
 {% endtabs %}
@@ -56,10 +72,18 @@ Requires the [REPLICATION SLAVE](../../account-management-sql-statements/grant.m
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.1:
+{% endhint %}
+
 `SHOW REPLICA HOSTS` is an alias for `SHOW SLAVE HOSTS` .
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
+{% hint style="info" %}
+Before MariaDB 10.5.1:
+{% endhint %}
+
 `SHOW REPLICA HOSTS` is not available, use `SHOW SLAVE HOSTS` instead.
 {% endtab %}
 {% endtabs %}
