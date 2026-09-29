@@ -1,0 +1,163 @@
+name: Check Version Includes in PR
+
+# Gates the "two spaces, two answers" failure: the paired "most recent version" includes
+# disagreeing with each other. Every connector, and every live Community Server series, states
+# its newest version TWICE --
+#
+#   release-notes/.gitbook/includes/latest-<key>.md    banner, version link, Download button
+#   platform/.gitbook/includes/most-recent-<key>.md    one bullet, pulled into every Post
+#                                                      Download page (116 of them for Java)
+#
+# -- and until DOCS-6734 nothing compared them. Bump one and forget the other and both spaces
+# publish a different "most recent" version, with every existing gate green: both files are valid
+# Markdown, every link in them resolves, and neither page shrank. codespell, lychee, includecheck,
+# navcheck, fragcheck and shrinkcheck all pass a mismatched pair.
+#
+# The live case this landed with: most-recent-odbc.md read "3.2., released   2025" -- a truncated
+# version and a half-deleted date -- against latest-odbc.md's 3.2.9, on three published Post
+# Download pages. It had been wrong since before this gate existed and nothing could see it.
+#
+# WHY PAIR EQUALITY AND NOT "IS IT THE NEWEST RELEASE"
+#   DOCS-6408 proposed asserting the platform include against the newest release-notes page and
+#   left open whether that was "worth the false failures it will produce on a held-back release".
+#   It is not: a round can merge with `hidden: true` pending its release TODOs, and a connector
+#   version that ships only inside a Server release has no standalone package to link to at all
+#   (both Connector/C includes correctly sat at 3.4.9 while 3.3.20 and 3.4.10 shipped). Comparing
+#   the pair against EACH OTHER is silent in both of those cases and still catches the
+#   bump-one-forget-the-other mistake, which is the one that actually happened. That is also why
+#   this half of DOCS-6734 lands on its own: it needs no changed-file plumbing and no allowlist.
+#
+# WHY TREE-WIDE, AND NOT SCOPED TO THE PR'S FILES
+#   Same distinction shrinkcheck-pr.yml draws, landing on the other side of it. A finding here is
+#   never local to one file -- it is a disagreement BETWEEN two files in two different spaces, and
+#   a PR that edits only one of them is exactly the PR that causes it. A changed-files filter
+#   would blind the gate to its own failure mode. The whole scan is 44 files and runs in
+#   milliseconds, so there is nothing to gain by narrowing it.
+#
+# WHY AN EXPLICIT VACUITY ASSERTION
+#   versioncheck.py SKIPs and exits ZERO when neither includes directory exists -- right for the
+#   local hook, which doc-lint-test.sh runs against a throwaway sandbox, and wrong for a gate. A
+#   renamed space directory would otherwise leave this permanently and silently green. The script
+#   prints its pair count precisely so the step below can assert it rather than trust the exit
+#   code, exactly as includecheck-pr.yml does.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+# A second push supersedes the first.
+concurrency:
+  group: versioncheck-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  versioncheck:
+    runs-on: ubuntu-latest
+    # Milliseconds in practice -- 44 files, no git history, no network. 10 minutes is headroom
+    # for the checkout; without an explicit timeout the job inherits the 6-hour default, and a
+    # wedged run would end as *cancelled*, which `if: failure()` does not catch.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        # No fetch-depth here on purpose. The check is absolute -- it compares two files in the
+        # working tree against each other and never reads a pre-image -- so the default shallow
+        # clone is both sufficient and faster. Contrast shrinkcheck-pr.yml, which requires
+        # fetch-depth: 0 because it reads every changed page out of the base commit.
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          # versioncheck.py is standard library only, so this pins the interpreter rather than
+          # installing anything.
+          python-version: '3.12'
+
+      - name: Compare the paired version includes
+        id: versioncheck
+        run: |
+          set -uo pipefail
+          # Findings go to stderr, the counts line to stdout; capture both in order so the run
+          # summary reads the way a local run does.
+          set +e
+          python3 .claude/hooks/versioncheck.py > versioncheck.log 2>&1
+          rc=$?
+          set -e
+          cat versioncheck.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          # rc 2 is a usage error from the script itself, which can only mean this workflow is
+          # calling it wrongly. Distinct message so that is obvious from the annotation alone and
+          # nobody goes looking through the PR's diff for the cause.
+          case "$rc" in
+            0) ;;
+            1) echo "::error::The two \"most recent version\" includes for a connector or series disagree, or a connector is wired into only one of the two spaces. The site would state two different newest versions at once, and no other check can see it -- both files stay valid Markdown with every link resolving. Details in the job log and the run summary." ;;
+            2) echo "::error::versioncheck.py rejected its arguments -- this workflow is misconfigured, not the PR." ;;
+            *) echo "::error::versioncheck.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      # The gate has to be able to prove it looked at something. versioncheck.py SKIPs and exits
+      # zero when neither includes directory is present, so a renamed space directory, a moved
+      # .gitbook/includes/ folder or a wrong working directory would all read as success. The
+      # count is asserted against a floor of 1 rather than a fixed number: the point is that real
+      # pairs were compared, and any specific figure would rot the next time a series is added or
+      # ages out.
+      - name: Assert the check was not vacuous
+        if: steps.versioncheck.outputs.rc == '0'
+        run: |
+          set -euo pipefail
+          if grep -q 'SKIPPED' versioncheck.log; then
+            cat versioncheck.log
+            echo "::error::versioncheck found neither release-notes/.gitbook/includes/ nor platform/.gitbook/includes/ and SKIPPED, in a checkout that must contain both. A space directory has been renamed or moved, not the PR's pages -- and a pass here would mean nothing."
+            exit 1
+          fi
+          count="$(sed -n 's/^versioncheck: \([0-9]\{1,\}\) pair(s) compared.*/\1/p' versioncheck.log)"
+          if [[ -z "$count" || "$count" -lt 1 ]]; then
+            cat versioncheck.log
+            echo "::error::Could not read a nonzero pair count out of versioncheck's output, so this run compared no includes. Either the summary line changed shape (update this assertion with it) or the includes directories are empty."
+            exit 1
+          fi
+          echo "Compared $count version-include pair(s) -- the check ran against real content."
+
+      - name: Record the result in the run summary
+        # always(): the default is an implicit success(), which would skip exactly the runs worth
+        # recording.
+        if: always()
+        env:
+          RC: ${{ steps.versioncheck.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Version-include check"
+            echo
+            if [[ ! -s versioncheck.log ]]; then
+              echo "No output was produced -- an earlier step failed before the scan ran."
+            else
+              case "${RC:-}" in
+                0) echo "Every connector and series states the same \"most recent version\" in both spaces." ;;
+                1) echo "A \`latest-<key>.md\` and its \`most-recent-<key>.md\` name different versions, or a connector has an include in only one of the two spaces. Bump whichever is behind -- the two move together, and neither advances for a release with no standalone download. If a connector is genuinely not offered for download, add it to \`NO_PLATFORM_INCLUDE\` in \`.claude/hooks/versioncheck.py\` with the reason." ;;
+                *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              # Fenced, and with four backticks. This summary is a GFM rendering surface and the
+              # output embeds file paths and version strings from the PR, which are
+              # author-controlled: unfenced, a crafted path could forge a heading, plant a link,
+              # or open an HTML comment that swallows the rest of the page. Four backticks so
+              # content containing three cannot close the fence. Same reasoning as
+              # includecheck-pr.yml and shrinkcheck-pr.yml.
+              echo '````text'
+              cat versioncheck.log
+              echo '````'
+              echo
+              echo "Run the same check locally with:"
+              echo
+              echo '````bash'
+              echo "python3 .claude/hooks/versioncheck.py"
+              echo '````'
+              echo
+              echo "\`doc-lint.sh\` runs it too, whatever files you pass it -- the check is tree-wide and takes none."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

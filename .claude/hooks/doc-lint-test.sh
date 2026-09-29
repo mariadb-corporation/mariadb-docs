@@ -192,6 +192,26 @@ build_sandbox() {
   # Not a Markdown/HTML path, so the argument filter must drop it.
   printf 'not markdown\n' > "$SANDBOX/server/notes.txt"
 
+  # Paired version-include fixtures (DOCS-6734). A self-contained mini-repo under vc/, NOT files
+  # at the sandbox root: versioncheck.py is tree-wide and roots itself at the nearest
+  # .codespellignore, so a mismatched pair at the root would fail every other case in this suite.
+  # Its own marker confines it to the case that asks for it -- and leaves the root sandbox with no
+  # includes directories at all, which is exactly what the SKIP case needs.
+  mkdir -p "$SANDBOX/vc/release-notes/.gitbook/includes" \
+           "$SANDBOX/vc/platform/.gitbook/includes"
+  : > "$SANDBOX/vc/.codespellignore"
+  printf '# Clean Page\n\nNothing here trips any check.\n' > "$SANDBOX/vc/clean.md"
+  vcr="$SANDBOX/vc/release-notes/.gitbook/includes"
+  # One disagreeing pair: the release-notes side bumped to 3.4.11, the platform side left behind.
+  printf -- '---\ntitle: latest-c\n---\n\n<p><strong>3.4.11</strong></p>\n' > "$vcr/latest-c.md"
+  printf -- '---\ntitle: most-recent-c\n---\n\n* The most recent release is 3.4.9, released on 1 Jan 2026\n' \
+    > "$SANDBOX/vc/platform/.gitbook/includes/most-recent-c.md"
+  # The two NO_PLATFORM_INCLUDE connectors, present so the fixture reports ONLY the disagreement.
+  # Their absence is a stale-exemption finding by design -- the register prunes itself -- and
+  # leaving them out would make this case pass for three reasons instead of the one it names.
+  printf -- '---\ntitle: latest-cpp\n---\n\n<p><strong>1.1.8</strong></p>\n'   > "$vcr/latest-cpp.md"
+  printf -- '---\ntitle: latest-r2dbc\n---\n\n<p><strong>1.4.2</strong></p>\n' > "$vcr/latest-r2dbc.md"
+
   # Mermaid edge-label contrast fixtures (DOCS-6630). Quoted heredocs, not printf: the init
   # directive starts with `%%{`, which printf would read as a format.
   mkdir -p "$SANDBOX/server/mermaid"
@@ -1659,6 +1679,30 @@ want_err 'SKIPPED'
 want_no_err 'Traceback'
 want_no_err 'possible gutted page'
 rm -rf "$NOGITBIN"
+end
+
+# ---- paired version includes (DOCS-6734) -----------------------------------------------------
+
+begin 'a tree with no includes directories SKIPs the version-include check'
+# The root sandbox has neither release-notes/.gitbook/includes/ nor platform/.gitbook/includes/,
+# which is what doc-lint-test's own tree looks like to a tree-wide check. A SKIP rather than a
+# failure, so the suite is not blocked by subject matter that is simply absent; versioncheck-pr.yml
+# refuses to accept this same SKIP as a pass, which is where the vacuity risk is answered.
+lint . - -- server/clean.md
+want_rc 0
+want_err 'not a docs checkout'
+end
+
+begin 'a disagreeing version-include pair fails through doc-lint.sh'
+# vc/ is a mini-repo whose latest-c says 3.4.11 while its most-recent-c still says 3.4.9 -- the
+# bump-one-forget-the-other mistake the check exists for. Note the file argument is irrelevant:
+# the check takes no file list, so naming a clean page still surfaces the pair.
+lint vc - -- clean.md
+want_rc 1
+want_err 'paired includes disagree'
+want_err '3.4.11'
+want_err '3.4.9'
+want_no_err 'stale exemption'
 end
 
 # ---- SKIP branches: a missing tool is a notice, never a failure ------------------------------
