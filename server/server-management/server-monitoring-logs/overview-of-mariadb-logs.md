@@ -30,7 +30,7 @@ Use the [--log-basename](../starting-and-stopping-mariadb/mariadbd-options.md#lo
 
 * Records a record of when clients connect or disconnect, and every SQL statement received from clients.
 * Useful for debugging queries and monitoring client activity.
-* For security and compliance auditing, use the [MariaDB Audit Plugin](../../reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-overview.md) or [MariaDB Enterprise Audit](../../reference/plugins/mariadb-enterprise-audit.md) instead.
+* For security and compliance auditing, use the [MariaDB Audit Plugin](../../reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-overview.md) or [MariaDB Enterprise Audit](../../reference/plugins/mariadb-enterprise-audit/README.md) instead.
 
 ### [Slow Query Log](slow-query-log/)
 
