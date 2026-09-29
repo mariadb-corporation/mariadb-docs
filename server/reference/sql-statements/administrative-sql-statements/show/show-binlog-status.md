@@ -57,7 +57,7 @@ This statement requires the [SUPER](../../account-management-sql-statements/gran
 The following improved functionality is available from MariaDB 12.3.
 {% endhint %}
 
-To see information about the current [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md) in the binary log, use the [gtid\_binlog\_pos](../../../../ha-and-performance/standard-replication/gtid.md) variable. It is enabled by default, and helps find the current state of the master server. (Previously, this required two statements, `SHOW MASTER STATUS` and `SELECT @@global.gtid_binlog_pos`.)
+To see information about the current [GTIDs](../../../../ha-and-performance/standard-replication/gtid/README.md) in the binary log, use the [gtid\_binlog\_pos](../../../../ha-and-performance/standard-replication/gtid/README.md) variable. It is enabled by default, and helps find the current state of the master server. (Previously, this required two statements, `SHOW MASTER STATUS` and `SELECT @@global.gtid_binlog_pos`.)
 
 ## Example
 
@@ -107,7 +107,7 @@ SELECT @@global.gtid_binlog_pos;
 
 * [MariaDB replication](../../../../ha-and-performance/standard-replication/)
 * [Using and Maintaining the Binary Log](../../../../server-management/server-monitoring-logs/binary-log/using-and-maintaining-the-binary-log.md)
-* [The gtid\_binlog\_pos variable](../../../../ha-and-performance/standard-replication/gtid.md)
+* [The gtid\_binlog\_pos variable](../../../../ha-and-performance/standard-replication/gtid/README.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

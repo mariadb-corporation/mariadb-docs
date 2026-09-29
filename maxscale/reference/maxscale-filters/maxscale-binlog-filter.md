@@ -63,7 +63,7 @@ See the next entry, `rewrite_dest`, for more information.
 
 Both `rewrite_src` and `rewrite_dest` must be defined to enable statement rewriting.
 
-When statement rewriting is enabled [GTID-based replication](../../../server/ha-and-performance/standard-replication/gtid.md) must be used. The filter will disallow replication for all replicas that attempt to replicate with traditional file-and-position based replication.
+When statement rewriting is enabled [GTID-based replication](../../../server/ha-and-performance/standard-replication/gtid/README.md) must be used. The filter will disallow replication for all replicas that attempt to replicate with traditional file-and-position based replication.
 
 The replacement is done both on the default database as well as the SQL statement in the query event. This means that great care must be taken when defining the rewriting rules. To prevent accidental modification of the SQL into a form that is no longer valid, use database and table names that never occur in the inserted data and is never used as a constant value.
 

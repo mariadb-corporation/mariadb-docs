@@ -254,7 +254,7 @@ Leaving [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay
 ### The Case That Cannot Be Covered
 
 {% hint style="warning" %}
-A replica that connects using [GTIDs](gtid.md), with `MASTER_USE_GTID` set to `slave_pos` or `current_pos`, purges its relay logs every time the replication threads start, including after a restart of the replica, regardless of `relay_log_recovery`. Transactions that reached only the replica's relay log therefore do not survive a restart of that replica. If the primary lost them as well, they are gone, and no setting on the replica closes that window. The server-side work on this limitation is tracked in [MDEV-4698](https://jira.mariadb.org/browse/MDEV-4698).
+A replica that connects using [GTIDs](gtid/README.md), with `MASTER_USE_GTID` set to `slave_pos` or `current_pos`, purges its relay logs every time the replication threads start, including after a restart of the replica, regardless of `relay_log_recovery`. Transactions that reached only the replica's relay log therefore do not survive a restart of that replica. If the primary lost them as well, they are gone, and no setting on the replica closes that window. The server-side work on this limitation is tracked in [MDEV-4698](https://jira.mariadb.org/browse/MDEV-4698).
 {% endhint %}
 
 Losing the primary and a replica at the same time is unlikely, so in practice the exposure is narrow. It is worth stating plainly, though, because GTID-based replication is the recommended configuration, so this is the case most deployments are in. What keeps the exposure small there is the primary's own durability, rather than anything on the replica: a crashed primary that has not lost committed transactions can supply them again once it is back.
