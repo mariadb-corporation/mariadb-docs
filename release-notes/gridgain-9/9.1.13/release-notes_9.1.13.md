@@ -42,7 +42,7 @@ This issue will be resolved in the next release.
 
 ### Lazy Default Zone creation
 
-Starting with this release, the `default` [distribution zone]({gridgain9}/architecture/storage/distribution-zones) is no longer created on startup. Instead, the zone is only created when no distribution zone is specified during table creation.
+Starting with this release, the `default` [distribution zone](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/storage/distribution-zones) is no longer created on startup. Instead, the zone is only created when no distribution zone is specified during table creation.
 
 {% hint style="warning" %}
 Explicitly specifying the `default` zone during table creation will not create the `default` zone if it does not yet exist.
@@ -52,7 +52,7 @@ When migrating to GridGain 9.1.13, make sure that your scripts do not specify th
 
 ### Reworked Placement Driver Metrics
 
-This release features a rework in [placement driver metrics]({gridgain9}/reference/monitoring/metrics-list). Previously used metrics are no longer available and are replaced with the following metrics:
+This release features a rework in [placement driver metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list). Previously used metrics are no longer available and are replaced with the following metrics:
 
 - AcceptedLeases - The number of active leases.
 - LeaseNegotiations - The number of leases currently in negotiation.
@@ -82,11 +82,11 @@ String helloRes = compute.execute(target, helloDesc, "World");
 System.out.println("Python job result: " + helloRes);
 ```
 
-For more information about the command mode, see the [WASM]({gridgain9}/gridgain9-usage/distributed-computing/webassembly-compute-jobs) documentation.
+For more information about the command mode, see the [WASM](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/webassembly-compute-jobs) documentation.
 
 ### Improved Kafka Sink Configuration
 
-This release adds new [Kafka Sink]({gridgain9}/integrations/kafka-sink) configuration properties that can be used to configure how unmapped fields are handled. An unmapped field is a Kafka record field that does not have a corresponding GridGain column.
+This release adds new [Kafka Sink](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/integrations/kafka-sink) configuration properties that can be used to configure how unmapped fields are handled. An unmapped field is a Kafka record field that does not have a corresponding GridGain column.
 
 The following properties were added:
 

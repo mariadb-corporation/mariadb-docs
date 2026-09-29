@@ -116,7 +116,7 @@ SELECT * FROM Person /*+ use_secondary_storage */
 
 ### Partition Awareness for Client SQL
 
-With this release, clients will benefit from [partition awareness]({connectors}/gridgain-9/clients/overview#partition-awareness) for SQL queries, significantly improving their performance.
+With this release, clients will benefit from [partition awareness](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/overview#partition-awareness) for SQL queries, significantly improving their performance.
 
 ## Improvements and Fixed Issues
 

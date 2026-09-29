@@ -16,13 +16,13 @@ GridGain 9.1.20 is a private release that brings improved AIPersist storage and 
 
 ### Partition Statistics Metrics Disabled by Default
 
-Starting with this release, [partition modification counter metrics]({gridgain9}/reference/monitoring/metrics-list#storage-partition-table-table-id-partition-partition-id) are disabled by default. These metrics track the number of modifications to each partition and can create unexpected monitoring load in large deployments.
+Starting with this release, [partition modification counter metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#storage-partition-table-table-id-partition-partition-id) are disabled by default. These metrics track the number of modifications to each partition and can create unexpected monitoring load in large deployments.
 
 If you use these metrics, re-enable them via configuration.
 
 ### Partition Calculation in Default Zones
 
-Previously, when a distribution zone was created lazily, it was set to use 25 partitions. Starting with this release, partition count will be calculated automatically based on [default partitioning rules]({gridgain9}/architecture/storage/data-partitioning#partition-number).
+Previously, when a distribution zone was created lazily, it was set to use 25 partitions. Starting with this release, partition count will be calculated automatically based on [default partitioning rules](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/storage/data-partitioning#partition-number).
 
 ## New Features
 
@@ -30,7 +30,7 @@ Previously, when a distribution zone was created lazily, it was set to use 25 pa
 
 #### AIPersist Storage Metrics
 
-This release adds more [metrics]({gridgain9}/reference/monitoring/metrics-list) for the `aipersist` storage engine:
+This release adds more [metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list) for the `aipersist` storage engine:
 
 **New Region Metrics** (`storage.aipersist.default`):
 
@@ -63,13 +63,13 @@ This release adds two new event types for monitoring client connections:
 - `CLIENT_CONNECTION_ESTABLISHED` - Fired when a client successfully connects to the node;
 - `CLIENT_CONNECTION_CLOSED` - Fired when a client disconnects from the node.
 
-For more information on working with events, see the [Events]({gridgain9}/gridgain9-usage/events) documentation.
+For more information on working with events, see the [Events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/events) documentation.
 
 ### Paged SQL Results in CLI Tool
 
 The CLI tool now supports paged result fetching for SQL queries. Results are fetched incrementally and displayed with a pager.
 
-The following [CLI tool configuration options]({gridgain9}/reference/configuration/cli-configuration-parameters) were added:
+The following [CLI tool configuration options](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/configuration/cli-configuration-parameters) were added:
 
 - `ignite.cli.sql.display-page-size` - Number of rows to fetch per page. Default value: 1000;
 - `ignite.cli.pager.enabled` - Enable/disable pager for long outputs. Default value: `true` on Unix, `false` on Windows;
@@ -85,7 +85,7 @@ cli config set ignite.cli.sql.display-page-size=500
 
 #### MapperBuilder Inheritance Support
 
-The `MapperBuilder` now supports [mapping fields]({gridgain9}/gridgain9-usage/table-api#working-with-mappers) inherited from superclasses when using manual mapping. This enhancement allows you to work with object hierarchies more naturally:
+The `MapperBuilder` now supports [mapping fields](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/table-api#working-with-mappers) inherited from superclasses when using manual mapping. This enhancement allows you to work with object hierarchies more naturally:
 
 ```java
 Mapper<ChildClass> mapper = Mapper.builder(ChildClass.class)

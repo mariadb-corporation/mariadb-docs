@@ -35,7 +35,7 @@ SELECT count(*) FROM Person /*+ use_secondary_storage */
 
 GridGain will then automatically use the storage that can perform the operation faster.
 
-For more information, see [Columnar Storage]({gridgain9}/architecture/storage/engines/columnar-storage).
+For more information, see [Columnar Storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/storage/engines/columnar-storage).
 
 ### Automatic Host Resolution in Node Finder
 

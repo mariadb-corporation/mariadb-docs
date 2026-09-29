@@ -150,7 +150,7 @@ In this release, the default failure handler policy was changed to `stop`. Previ
 
 This change means that the failure will now stop the node if an error occurs instead of logging the error and continuing.
 
-To continue operating using the `noop` handler, set it explicitly in [failure handler configuration]({gridgain9}/reference/configuration/node-configuration-parameters#failure-handler-configuration).
+To continue operating using the `noop` handler, set it explicitly in [failure handler configuration](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/configuration/node-configuration-parameters#failure-handler-configuration).
 
 ## New Features
 
@@ -172,7 +172,7 @@ Four prediction modes are available:
 
 All prediction modes also have asynchronous variants.
 
-For more information about GridGain ML, see the [ML documentation section]({gridgain9}/gridgain9-usage/machine-learning/get-started-with-gridgain-ml).
+For more information about GridGain ML, see the [ML documentation section](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/machine-learning/get-started-with-gridgain-ml).
 
 #### Setup Requirements
 
@@ -192,7 +192,7 @@ GridGain ML uses Deep Java Library (DJL) as its runtime. The native engine libra
 
 ### Partition Awareness for .NET Client
 
-With this release, [.NET clients]({connectors}/gridgain-9/clients/dotnet#sql-partition-awareness) will benefit from partition awareness for SQL queries, significantly improving their performance.
+With this release, [.NET clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/dotnet#sql-partition-awareness) will benefit from partition awareness for SQL queries, significantly improving their performance.
 
 ### Transaction Labels
 
@@ -254,7 +254,7 @@ This release continues to add new metrics to GridGain 9. The following metrics w
 #### Data Center Replication Connector (DR Connector)  Metrics
 
 {% hint style="info" %}
-These metrics were added for [DR connector]({gridgain9}/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) only.
+These metrics were added for [DR connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) only.
 {% endhint %}
 
 Per-cache metrics (`DrReceiverCacheMetricsMxBean`):

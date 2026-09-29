@@ -35,11 +35,11 @@ Review your roles before upgrading and grant the new actions to the roles that n
 GRANT PRIVILEGES WRITE_SECURITY_CONFIG TO cluster_admin;
 ```
 
-See [GRANT]({gridgain9}/reference/sql/access-control-functions#grant-to-role) for the statement syntax, and [User Permissions and Roles]({gridgain9}/security/user-permissions-and-roles) for the full list of actions.
+See [GRANT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/access-control-functions#grant-to-role) for the statement syntax, and [User Permissions and Roles](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/user-permissions-and-roles) for the full list of actions.
 
 ### SQL Follower Reads Disabled by Default
 
-Read-only SQL queries no longer read from non-primary replicas by default. In earlier releases, every read-only SQL query could be served by any replica of a partition. Starting with this release, such queries are mapped to primary replicas only, governed by the new cluster-wide [`sql.allowFollowerReads`]({gridgain9}/reference/configuration/cluster-configuration-parameters#sql-configuration) property, which defaults to `false`.
+Read-only SQL queries no longer read from non-primary replicas by default. In earlier releases, every read-only SQL query could be served by any replica of a partition. Starting with this release, such queries are mapped to primary replicas only, governed by the new cluster-wide [`sql.allowFollowerReads`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/configuration/cluster-configuration-parameters#sql-configuration) property, which defaults to `false`.
 
 This changes how read-only queries are routed. Read load that was previously spread across all replicas now concentrates on primaries, and a query that a single node could previously serve entirely from its local replicas may now require a network hop. In exchange, these queries no longer wait for a follower replica to catch up.
 
@@ -49,13 +49,13 @@ To restore the previous behavior, enable follower reads cluster-wide:
 cluster config update ignite.sql.allowFollowerReads=true
 ```
 
-You can also allow or disallow follower reads for an individual statement or JDBC connection - see [Per-Statement Control Over Follower Reads](#per-statement-control-over-follower-reads) and [Controlling Follower Reads]({connectors}/gridgain-9/clients/jdbc-driver#controlling-follower-reads).
+You can also allow or disallow follower reads for an individual statement or JDBC connection - see [Per-Statement Control Over Follower Reads](#per-statement-control-over-follower-reads) and [Controlling Follower Reads](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/jdbc-driver#controlling-follower-reads).
 
 ## New Features
 
 ### Per-Statement Control Over Follower Reads
 
-You can now control, for an individual SQL statement, whether the SQL engine may read from non-primary replicas. The new `allowFollowerReads` [statement property]({gridgain9}/gridgain9-usage/sql/sql-api#using-statements) overrides the cluster-wide setting for that statement only, and applies to read-only statements.
+You can now control, for an individual SQL statement, whether the SQL engine may read from non-primary replicas. The new `allowFollowerReads` [statement property](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/sql/sql-api#using-statements) overrides the cluster-wide setting for that statement only, and applies to read-only statements.
 
 Enabling follower reads spreads read load across all replicas and lets a query read from a local replica, avoiding a network hop. The trade-off is latency, because reading from a follower replica may introduce delays while the replica catches up. Disabling it forces the statement to always read from primary replicas. Leaving the property unset keeps the cluster-wide setting, which is the default behavior.
 
@@ -68,7 +68,7 @@ Statement stmt = client.sql().statementBuilder()
     .build();
 ```
 
-For the JDBC equivalent, see [Controlling Follower Reads]({connectors}/gridgain-9/clients/jdbc-driver#controlling-follower-reads). For how follower reads relate to read-only transactions, see [Consistency Model]({gridgain9}/architecture/data-consistency-and-replication).
+For the JDBC equivalent, see [Controlling Follower Reads](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/jdbc-driver#controlling-follower-reads). For how follower reads relate to read-only transactions, see [Consistency Model](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/data-consistency-and-replication).
 
 ## Improvements and Fixed Issues
 

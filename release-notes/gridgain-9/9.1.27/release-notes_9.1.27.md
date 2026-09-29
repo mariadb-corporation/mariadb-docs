@@ -21,7 +21,7 @@ The `COPY` command previously authorized only the table side of a statement. A f
 
 Server-side file and object-store access is now disabled entirely by default. To re-enable it:
 
-- Set `importExport.fileAccessEnabled` to `true` in the [node configuration]({gridgain9}/reference/configuration/node-configuration-parameters).
+- Set `importExport.fileAccessEnabled` to `true` in the [node configuration](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/configuration/node-configuration-parameters).
 - List the directories `COPY` command may read from and write to in `importExport.importRoots`. An empty list allows no local file access.
 - Grant `COPY_FROM_FILE` privilege to read a server-side location, or `COPY_TO_FILE` to write one.
 
@@ -37,7 +37,7 @@ Read-write transactions now use the wound-wait deadlock prevention algorithm ins
 
 Under wait-die, a transaction that requested a lock held by an older transaction was cancelled and retried. Under wound-wait the priority runs the other way: an older transaction that needs a lock held by a younger one aborts the younger transaction and proceeds, while a younger transaction that meets an older holder waits for the lock to be released.
 
-No configuration change is required. Applications that relied on the previous behavior may see different abort patterns under contention. See [Deadlock Prevention]({gridgain9}/gridgain9-usage/transactions#deadlock-prevention).
+No configuration change is required. Applications that relied on the previous behavior may see different abort patterns under contention. See [Deadlock Prevention](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/transactions#deadlock-prevention).
 
 ### Built-In Roles Can No Longer Be Assigned, Revoked, or Dropped
 
@@ -62,15 +62,15 @@ One response shape covers every kind of statement, reporting a row set, an affec
 
 A `cursorId` is valid only on the node that issued it, so paging requests must go to that same node.
 
-See [Running SQL]({gridgain9}/reference/rest-api/overview#running-sql).
+See [Running SQL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/rest-api/overview#running-sql).
 
 ### Connect Timeout for the C++ Client
 
-The C++ client can now limit how long it waits for the handshake that follows a new connection to a server node. Set it with `set_connect_timeout`; a connection whose handshake does not complete in time is closed, so the client can re-connect instead of holding a socket that never becomes usable. There is no timeout by default. See [Connect Timeout]({connectors}/gridgain-9/clients/cpp#connect-timeout).
+The C++ client can now limit how long it waits for the handshake that follows a new connection to a server node. Set it with `set_connect_timeout`; a connection whose handshake does not complete in time is closed, so the client can re-connect instead of holding a socket that never becomes usable. There is no timeout by default. See [Connect Timeout](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/cpp#connect-timeout).
 
 ### Low Watermark Progress Metrics
 
-A new `low.watermark` metric source reports whether the low watermark is still advancing and what is holding it back: `Current`, `SinceLastUpdateMillis`, `BlockingLockCount`, and `BlockingLockLagMillis`. See [Available Metrics]({gridgain9}/reference/monitoring/metrics-list).
+A new `low.watermark` metric source reports whether the low watermark is still advancing and what is holding it back: `Current`, `SinceLastUpdateMillis`, `BlockingLockCount`, and `BlockingLockLagMillis`. See [Available Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list).
 
 ### Table Schema Version in SYSTEM.TABLES
 

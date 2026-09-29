@@ -16,7 +16,7 @@ GridGain 9.1.2 is a big milestone release with support for new storage type, big
 
 This release reintroduces support for near caches in GridGain 9. Near caches provide a way to store data locally on your clients and avoid lengthy network queries for latest data from the cluster.
 
-You can configure near cache for any [table view]({gridgain9}/gridgain9-usage/table-api#basic-table-operations). Data will be queried from the cluster when it is read, and stored locally for the configured duration for repeated access.
+You can configure near cache for any [table view](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/table-api#basic-table-operations). Data will be queried from the cluster when it is read, and stored locally for the configured duration for repeated access.
 
 Below is a simple example of configuring near cache for a table:
 
@@ -38,7 +38,7 @@ QualifiedName myTable = QualifiedName.parse("PUBLIC.accounts");
 KeyValueView<Tuple, Tuple> kvView = client.tables().table(myTable).keyValueView(tableViewOptions);
 ```
 
-For more information on near caches, as well as limitations, see [Near Cache]({gridgain9}/gridgain9-usage/near-caches) documentation.
+For more information on near caches, as well as limitations, see [Near Cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/near-caches) documentation.
 
 ### Mapping Empty Values in COPY INTO Command
 
@@ -54,7 +54,7 @@ WITH 'null'='no data'
 
 ### Cluster Topology Metrics
 
-This release includes new cluster topology metrics, that provide information about node name, id and version, as well as cluster name, id, and number of nodes in the cluster. For more information about these sources, see [Available Metrics]({gridgain9}/reference/monitoring/metrics-list).
+This release includes new cluster topology metrics, that provide information about node name, id and version, as well as cluster name, id, and number of nodes in the cluster. For more information about these sources, see [Available Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list).
 
 ## Improvements and Fixed Issues
 

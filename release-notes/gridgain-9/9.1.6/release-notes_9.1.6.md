@@ -58,7 +58,7 @@ async with AsyncClient(address) as client:
     print(await binary_map.get(b'1'))
 ```
 
-For more information about Python client, see [client documentation]({connectors}/gridgain-9/clients/python-client).
+For more information about Python client, see [client documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/python-client).
 
 ## Improvements and Fixed Issues
 

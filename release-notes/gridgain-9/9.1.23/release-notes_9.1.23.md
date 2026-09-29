@@ -35,7 +35,7 @@ ignite.raft.logStorage {
 }
 ```
 
-See [hard disk usage limits]({gridgain9}/reference/configuration/node-configuration-parameters#hard-disk-usage-limits) for details.
+See [hard disk usage limits](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/configuration/node-configuration-parameters#hard-disk-usage-limits) for details.
 
 ### Raft Log Storage Size Limits
 
@@ -50,7 +50,7 @@ ignite.raft.logStorage {
 }
 ```
 
-See [soft disk usage limits]({gridgain9}/reference/configuration/node-configuration-parameters#soft-disk-usage-limits) for details.
+See [soft disk usage limits](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/configuration/node-configuration-parameters#soft-disk-usage-limits) for details.
 
 ### C++ Client: Partition Awareness
 
@@ -65,11 +65,11 @@ auto preferred = ignite::detail::make_typed_preferred_node_fn(
 auto value = table.get(transaction, key_tuple, preferred).get();
 ```
 
-For more information, see [C++ client documentation]({connectors}/gridgain-9/clients/cpp).
+For more information, see [C++ client documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/cpp).
 
 ### Partition-Operation Backpressure
 
-A new cluster configuration [option]({gridgain9}/reference/configuration/cluster-configuration-parameters#replication-configuration) limits the percentage of node heap memory that the partition request-processing queue is allowed to occupy. When the limit is exceeded, the node stops admitting new partition operations until in-flight work drains, preventing a single hot node from accepting more requests than it can hold in memory.
+A new cluster configuration [option](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/configuration/cluster-configuration-parameters#replication-configuration) limits the percentage of node heap memory that the partition request-processing queue is allowed to occupy. When the limit is exceeded, the node stops admitting new partition operations until in-flight work drains, preventing a single hot node from accepting more requests than it can hold in memory.
 
 ```javascript
 ignite.replication {
@@ -118,13 +118,13 @@ await foreach (var batch in view.QueryContinuouslyAsync(
 
 The LINQ overload is not available in AOT-compiled .NET builds; use the SQL form there.
 
-See [remote filter]({gridgain9}/gridgain9-usage/continuous-queries#remote-filter) in the continuous queries documentation.
+See [remote filter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries#remote-filter) in the continuous queries documentation.
 
 ### Support for Listing Local Snapshot Paths
 
 The `snapshot list` CLI command can now list the locally stored snapshots. Each node reports the snapshots it holds locally and the results are aggregated for display.
 
-See [CLI tool documentation]({gridgain9}/reference/cli-tool#cluster-snapshot-list).
+See [CLI tool documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/cli-tool#cluster-snapshot-list).
 
 ### Compute Job Cancellation Token
 
@@ -142,7 +142,7 @@ public class MyJob implements ComputeJob<MyArg, MyResult> {
 }
 ```
 
-See [propagating cancellation from a job]({gridgain9}/gridgain9-usage/distributed-computing/about-distributed-computing#propagating-cancellation-from-a-job) for more information.
+See [propagating cancellation from a job](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#propagating-cancellation-from-a-job) for more information.
 
 ### Memory Quota Block Size for JDBC and .NET
 
@@ -168,27 +168,27 @@ var stmt = new SqlStatement("SELECT * FROM large_table")
 };
 ```
 
-In both clients, the default is `null` (use the node-level setting). Negative values are rejected. See [memory quota block size]({gridgain9}/gridgain9-usage/sql/sql-api#memory-quota-block-size) for more information.
+In both clients, the default is `null` (use the node-level setting). Negative values are rejected. See [memory quota block size](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/sql/sql-api#memory-quota-block-size) for more information.
 
 ### New Metrics
 
 This release adds three new metrics groups for storage, thread-pool, and Raft-log observability. The following metrics were added:
 
-- [Storage consistency]({gridgain9}/reference/monitoring/metrics-list#storage-aipersist-consistency) (`storage.aipersist.consistency`):
+- [Storage consistency](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#storage-aipersist-consistency) (`storage.aipersist.consistency`):
   - `RunConsistentlyDuration` - the time spent in `runConsistently` closures, in nanoseconds.
   - `RunConsistentlyStarted` - the total number of `runConsistently` invocations started.
   - `RunConsistentlyActiveCount` - current number of active `runConsistently` calls.
-- [Striped thread-pool aggregated metrics]({gridgain9}/reference/monitoring/metrics-list#thread-pools-thread-pool-executor-name):
+- [Striped thread-pool aggregated metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#thread-pools-thread-pool-executor-name):
   - `ConcurrencyLevel` - number of stripes in the executor.
   - `ActiveCount` - approximate total number of threads currently executing tasks across all stripes.
   - `IdleCount` - approximate number of idle threads across all stripes.
   - `QueueSize` - current total size of the execution queue across all stripes.
-- [Raft log storage]({gridgain9}/reference/monitoring/metrics-list#raft):
+- [Raft log storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#raft):
   - `PartitionsLogStorageSpilloutSize` - the number of bytes occupied on disk by the spillout of volatile-zone partition-group logs.
 
 ### .NET 10 Support in Compute Executor
 
-With this release, the .NET compute job executor supports .NET 10, so a server node can host .NET compute jobs on either runtime. See [.NET compute jobs]({gridgain9}/gridgain9-usage/distributed-computing/about-distributed-computing#net-compute-jobs) for more information.
+With this release, the .NET compute job executor supports .NET 10, so a server node can host .NET compute jobs on either runtime. See [.NET compute jobs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#net-compute-jobs) for more information.
 
 ## Improvements and Fixed Issues
 

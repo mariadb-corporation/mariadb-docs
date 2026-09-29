@@ -32,11 +32,11 @@ cursor = conn.cursor()
 cursor.execute('CREATE TABLE Person(id int primary key, name varchar, age int)')
 ```
 
-For more information on using Python DB API, see the [Python Database API Driver]({connectors}/gridgain-9/clients/python) section.
+For more information on using Python DB API, see the [Python Database API Driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/python) section.
 
 ### Point in Time Recovery
 
-With this release, you can restore data to any point in time above the [low watermark]({gridgain9}/architecture/storage/data-partitioning#version-storage). Older data below the low watermark can be restored by using [snapshots]({gridgain9}/gridgain9-management/snapshots/data-snapshots).
+With this release, you can restore data to any point in time above the [low watermark](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/storage/data-partitioning#version-storage). Older data below the low watermark can be restored by using [snapshots](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/snapshots/data-snapshots).
 
 To start point in time recovery, use the `recovery` command, for example:
 

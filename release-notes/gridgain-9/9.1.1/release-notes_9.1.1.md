@@ -25,7 +25,7 @@ You can continue using previously set up node and cluster configurations.
 
 ### CREATE ZONE Syntax Changes
 
-The  [CREATE ZONE]({gridgain9}/reference/sql/distribution-zones) and [ALTER ZONE]({gridgain9}/reference/sql/distribution-zones#alter-zone) command syntax was significantly reworked. All additional parameters (specified in the `WITH` parameter) are now part of common syntax.
+The  [CREATE ZONE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/distribution-zones) and [ALTER ZONE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/distribution-zones#alter-zone) command syntax was significantly reworked. All additional parameters (specified in the `WITH` parameter) are now part of common syntax.
 
 Below is the example of creating a distribution zone:
 
@@ -43,7 +43,7 @@ Previously used syntax is supported for backwards compatibility.
 
 ### Snapshot Encryption
 
-Starting with this release, if [data encryption]({gridgain9}/security/transparent-data-encryption) is enabled on the cluster, your snapshots will also be encrypted.
+Starting with this release, if [data encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/transparent-data-encryption) is enabled on the cluster, your snapshots will also be encrypted.
 
 You can also manually set snapshot encryption when creating then by using the `encryption-provider` parameter.
 
@@ -123,7 +123,7 @@ The `executeBatch()` and `executeBatchAsync()` methods now return cancellation t
 
 ### Logging Improvement
 
-This release features major effort in improving logging in GridGain 9. A large number of errors that previously caused unexpected exceptions are now correctly caught, categorized and reported with a [correct code]({gridgain9}/reference/error-codes).
+This release features major effort in improving logging in GridGain 9. A large number of errors that previously caused unexpected exceptions are now correctly caught, categorized and reported with a [correct code](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/error-codes).
 
 ## Improvements and Fixed Issues
 

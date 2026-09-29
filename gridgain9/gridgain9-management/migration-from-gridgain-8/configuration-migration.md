@@ -159,7 +159,7 @@ Note:
 
 #### Client Configuration
 
-All clients in GridGain 9 are "thin", and use a similar `clientConnector` configuration. See [GridGain Clients]({connectors}/gridgain-9/clients/overview) section for more information on configuring client connector.
+All clients in GridGain 9 are "thin", and use a similar `clientConnector` configuration. See [GridGain Clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/overview) section for more information on configuring client connector.
 
 #### Eviction Policies
 

@@ -43,8 +43,8 @@ using var client = await IgniteClient.StartAsync(clientCfg);
 
 The cluster API lets you inspect the cluster topology, access it through the `IIgnite.Cluster` property:
 
-- `Cluster.GetNodesAsync()` returns all nodes that are part of the [logical topology]({gridgain9}/architecture/cluster-lifecycle#logical-and-physical-topology).
-- `Cluster.LocalNode` returns the local cluster node. On the client side it is `null`; it is populated only when accessed from server-side code inside a [compute job]({gridgain9}/gridgain9-usage/distributed-computing/about-distributed-computing) (`IJobExecutionContext.Ignite`) or a [data streamer receiver]({gridgain9}/gridgain9-usage/data-streaming) (`IDataStreamerReceiverContext.Ignite`),  where it identifies the node executing that code.
+- `Cluster.GetNodesAsync()` returns all nodes that are part of the [logical topology](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/cluster-lifecycle#logical-and-physical-topology).
+- `Cluster.LocalNode` returns the local cluster node. On the client side it is `null`; it is populated only when accessed from server-side code inside a [compute job](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing) (`IJobExecutionContext.Ignite`) or a [data streamer receiver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/data-streaming) (`IDataStreamerReceiverContext.Ignite`),  where it identifies the node executing that code.
 
 Each `IClusterNode` exposes its `Id` (a `Guid` that changes after a node restart), `Name` (the consistent ID, stable across restarts), and `Address`.
 
@@ -132,7 +132,7 @@ public class Account
 
 ## SQL API
 
-GridGain 9 is focused on SQL, and SQL API is the primary way to work with the data. You can read more about supported SQL statements in the [SQL Reference]({gridgain9}/reference/sql/ddl) section. Here is how you can send SQL requests:
+GridGain 9 is focused on SQL, and SQL API is the primary way to work with the data. You can read more about supported SQL statements in the [SQL Reference](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/ddl) section. Here is how you can send SQL requests:
 
 {% code title=".NET" %}
 ```csharp

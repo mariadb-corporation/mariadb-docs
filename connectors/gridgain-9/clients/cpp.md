@@ -26,7 +26,7 @@ The C++ client is distributed as a pre-built binary for the following platforms:
 
 ## Client Connector Configuration
 
-Client connection parameters are controlled by the client connector configuration. By default, GridGain accepts client connections on port 10800. You can change the configuration for the node by using the [CLI tool]({gridgain9}/reference/cli-tool) at any time.
+Client connection parameters are controlled by the client connector configuration. By default, GridGain accepts client connections on port 10800. You can change the configuration for the node by using the [CLI tool](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/cli-tool) at any time.
 
 Here is how the client connector configuration looks like in the JSON format.
 
@@ -66,7 +66,7 @@ The table below covers the configuration for client connector:
 | port | 10800 | The port the client connector will be listening to. |
 | sendServerExceptionStackTraceToClient | `false` | Defines if cluster exceptions are sent to the client. |
 | ssl.ciphers | | The cipher used for SSL communication. |
-| ssl.clientAuth | | Type of client authentication used by clients. For more information, see [SSL/TLS]({gridgain9}/security/ssl-tls). |
+| ssl.clientAuth | | Type of client authentication used by clients. For more information, see [SSL/TLS](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/ssl-tls). |
 | ssl.enabled | | Defines if SSL is enabled. |
 | ssl.keyStore.password | | SSL keystore password. |
 | ssl.keyStore.path | | Path to the SSL keystore. |
@@ -276,7 +276,7 @@ namespace ignite {
 
 ## SQL API
 
-GridGain 9 is focused on SQL, and SQL API is the primary way to work with the data. You can read more about supported SQL statements in the [SQL Reference]({gridgain9}/reference/sql/ddl) section. Here is how you can send SQL requests:
+GridGain 9 is focused on SQL, and SQL API is the primary way to work with the data. You can read more about supported SQL statements in the [SQL Reference](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/ddl) section. Here is how you can send SQL requests:
 
 {% code title="C++" %}
 ```cpp

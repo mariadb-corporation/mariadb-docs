@@ -118,7 +118,7 @@ bin/gridgain9 node config show > node-config.conf
 }
 ```
 
-See the [Clients]({connectors}/gridgain-9/clients/overview) section for more information on configuring the client connector.
+See the [Clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/overview) section for more information on configuring the client connector.
 
 ### Compute Configuration
 
@@ -261,7 +261,7 @@ The following ports are used by GridGain 9 by default.
 - `3344`: Cluster communication port
 - `10300`: [HTTP REST](../rest-api/overview.md) endpoint
 - `10400`: [HTTPS REST](../../security/ssl-tls.md) endpoint (**when HTTPS is enabled**)
-- `10800`: Client connector ([JDBC]({connectors}/gridgain-9/clients/jdbc-driver), [ODBC]({connectors}/gridgain-9/odbc/odbc-driver), [clients]({connectors}/gridgain-9/clients/overview), [CLI](../cli-tool.md))
+- `10800`: Client connector ([JDBC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/jdbc-driver), [ODBC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/odbc/odbc-driver), [clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/overview), [CLI](../cli-tool.md))
 - `49000`: [Data Replication](../../gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8.md) (DR) connector inbound port
 
 {% hint style="info" %}

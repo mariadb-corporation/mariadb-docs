@@ -35,7 +35,7 @@ ignite.compute.dotnet {
 }
 ```
 
-See [.NET Compute Executor]({gridgain9}/gridgain9-usage/distributed-computing/about-distributed-computing#configuring-the-net-compute-executor) for more information.
+See [.NET Compute Executor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#configuring-the-net-compute-executor) for more information.
 
 ### .NET Client: Cluster API
 
@@ -49,7 +49,7 @@ IList<IClusterNode> nodes = await client.Cluster.GetNodesAsync();
 IClusterNode? local = context.Ignite.Cluster.LocalNode;
 ```
 
-See [Cluster API]({connectors}/gridgain-9/clients/dotnet#cluster-api) for more information.
+See [Cluster API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-9/clients/dotnet#cluster-api) for more information.
 
 ### CLI Command to Balance Leaseholders
 
@@ -59,7 +59,7 @@ GridGain 9 now lets you manually rebalance primary replica leaseholders across c
 distribution balance-leases
 ```
 
-See [CLI tool documentation]({gridgain9}/reference/cli-tool#distribution-commands).
+See [CLI tool documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/cli-tool#distribution-commands).
 
 ### Idempotent Cluster Initialization
 
@@ -69,7 +69,7 @@ The `cluster init` CLI command now accepts two optional flags that make it safe 
 cluster init --name=myCluster --license=/path/to/license --if-needed --if-nodes=3
 ```
 
-See [CLI tool documentation]({gridgain9}/reference/cli-tool#cluster-init).
+See [CLI tool documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/cli-tool#cluster-init).
 
 ### Data Streamer and Continuous Query Cooperation
 
@@ -81,7 +81,7 @@ var options = DataStreamerOptions.builder()
     .build();
 ```
 
-See [same-key update mode]({gridgain9}/gridgain9-usage/data-streaming#same-key-update-mode) and [continuous query events]({gridgain9}/gridgain9-usage/continuous-queries#event-generation) for more information.
+See [same-key update mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/data-streaming#same-key-update-mode) and [continuous query events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries#event-generation) for more information.
 
 ### Schema-Qualified Objects in SQL GRANT/REVOKE
 
@@ -91,7 +91,7 @@ SQL `GRANT`/`REVOKE PRIVILEGES ... ON <object>` now accepts a schema-qualified o
 GRANT PRIVILEGES CREATE_INDEX ON PUBLIC.MY_TABLE TO role1;
 ```
 
-See [GRANT]({gridgain9}/reference/sql/access-control-functions#grant-to-role) for details.
+See [GRANT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/access-control-functions#grant-to-role) for details.
 
 ## Improvements and Fixed Issues
 

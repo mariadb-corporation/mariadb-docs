@@ -67,17 +67,17 @@ When data is written to the primary storage, it will automatically be propagated
 SELECT /*+ use_secondary_storage */ * FROM Person;
 ```
 
-For more information on columnar storage, see [Columnar Storage]({gridgain9}/architecture/storage/engines/columnar-storage) documentation.
+For more information on columnar storage, see [Columnar Storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/storage/engines/columnar-storage) documentation.
 
 ### Streamer Support in Kafka Sink
 
-Kafka Sink now supports receiving data via [data streamer]({gridgain9}/gridgain9-usage/data-streaming).
+Kafka Sink now supports receiving data via [data streamer](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/data-streaming).
 
 To enable data streamer support, specify the name of the receiver class in the `ignite.streamer.receiver.class.name` kafka sink configuration property. You can specify the deployment units containing the class in the `ignite.streamer.receiver.deployment.units` property.
 
 ### Expanded COPY INTO Syntax
 
-The [COPY INTO]({gridgain9}/reference/sql/operational-commands#copy-into) command syntax is expanded with new optional parameters that help support importing data from CSV files with various syntax rules. The following parameters were added:
+The [COPY INTO](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/operational-commands#copy-into) command syntax is expanded with new optional parameters that help support importing data from CSV files with various syntax rules. The following parameters were added:
 
 - `quoteChar` - defines the quote character;
 - `escapeChar` - defines the character to use for escaping a separator or quote;

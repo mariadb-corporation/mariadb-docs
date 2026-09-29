@@ -11,11 +11,11 @@ GridGain 9 clients connect to the cluster via a standard socket connection. Unli
 
 Clients do not become a part of the cluster topology, never hold any data, and are not used as a destination for compute calculations.
 
-See which ports GridGain 9 clients use as [default ports]({gridgain9}/reference/configuration/node-configuration-parameters#default-ports).
+See which ports GridGain 9 clients use as [default ports](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/configuration/node-configuration-parameters#default-ports).
 
 ## Client Connector Configuration
 
-Client connection parameters are controlled by the client connector configuration. By default, GridGain accepts client connections on port 10800. You can change the configuration for the node by using the [CLI tool]({gridgain9}/reference/cli-tool) at any time.
+Client connection parameters are controlled by the client connector configuration. By default, GridGain accepts client connections on port 10800. You can change the configuration for the node by using the [CLI tool](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/cli-tool) at any time.
 
 In GridGain 9, you can create and maintain configuration in either HOCON or JSON. The configuration file has a single root "node," called `ignite`. All configuration sections are children, grandchildren, etc., of that node. Here is what the client connector configuration looks like:
 

@@ -15,7 +15,7 @@ GridGain 9.0.3 is focused on improving CLI reporting and cluster performance.
 
 ### Incremental Snapshots
 
-With this release, you can make incremental [snapshots]({gridgain9}/gridgain9-management/snapshots/data-snapshots). Incremental snapshots automatically find the previous snapshot for the specified tables and create a snapshot of all data since that point of time. For example:
+With this release, you can make incremental [snapshots](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/snapshots/data-snapshots). Incremental snapshots automatically find the previous snapshot for the specified tables and create a snapshot of all data since that point of time. For example:
 
 ```bash
 cluster snapshot create --type=full --all
@@ -29,7 +29,7 @@ cluster snapshot create --type=incremental --all
 
 With this release, you can create a sequence that will be incremented or decremented automatically. These sequences can then be used to automatically fill the column in your tables.
 
-To use sequences, create them with the SQL `CREATE SEQUENCE` command and then use [sequence functions]({gridgain9}/reference/sql/operators-and-functions#sequence-functions)
+To use sequences, create them with the SQL `CREATE SEQUENCE` command and then use [sequence functions](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/operators-and-functions#sequence-functions)
 
 ```sql
 CREATE SEQUENCE IF NOT EXISTS defaultSequence;
@@ -47,7 +47,7 @@ INSERT INTO Person (city_id, name, age, company) values (1, 'John', 30, 'newCorp
 
 ### Cache Expiry
 
-[Expiry policies]({gridgain9}/gridgain9-usage/expiry-policies) can now also be configured for caches. You can create the `ttl` column and use the `EXPIRE AT` clause to remove the rows at the specified time:
+[Expiry policies](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/expiry-policies) can now also be configured for caches. You can create the `ttl` column and use the `EXPIRE AT` clause to remove the rows at the specified time:
 
 ```sql
 CREATE CACHE Accounts (
