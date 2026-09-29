@@ -34,7 +34,7 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
   * For example matryoshka embeddings as produced by OpenAI are applicable
 * Namespace support was added to HashiCorp Vault in MariaDB
   * See the [Hashicorp namespaces documentation](https://developer.hashicorp.com/vault/docs/enterprise/namespaces) for details
-* [Audit logging buffer writes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit#audit-logging-buffer-writes) are possible now
+* [Audit logging buffer writes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit/mariadb-enterprise-audit-installation#audit-logging-buffer-writes) are possible now
 
 ## Backported Features
 

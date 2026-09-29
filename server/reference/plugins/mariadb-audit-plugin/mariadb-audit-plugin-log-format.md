@@ -56,7 +56,7 @@ Two changes to the log format require updates to tools that parse the audit log:
 {% hint style="info" %}
 **On MariaDB Enterprise Server**
 
-From MariaDB Enterprise Server 12.3.3-1, this plugin writes `host:unavailable` when the client did not connect over TCP/IP, instead of omitting the colon and the port. That matches [MariaDB Enterprise Audit](../mariadb-enterprise-audit.md), which has written `unavailable` since it gained the client port. Community Server is unaffected.
+From MariaDB Enterprise Server 12.3.3-1, this plugin writes `host:unavailable` when the client did not connect over TCP/IP, instead of omitting the colon and the port. That matches [MariaDB Enterprise Audit](../mariadb-enterprise-audit/README.md), which has written `unavailable` since it gained the client port. Community Server is unaffected.
 {% endhint %}
 
 ### Audit Log Format with Syslog
