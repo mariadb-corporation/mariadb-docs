@@ -357,6 +357,7 @@ jobs:
             --exclude 'cloud\.ibm\.com'
             --exclude 'www\.akamai\.com'
             --exclude 'www\.oreilly\.com'
+            --exclude 'www\.gridgain\.com/tryfree'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

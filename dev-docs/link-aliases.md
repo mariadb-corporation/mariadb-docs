@@ -39,6 +39,7 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
 | `{analytics}` | Analytics (ColumnStore) |
 | `{columnstore}` | ColumnStore |
 | `{connectors}` | Connectors (Java, ODBC, etc.) |
+| `{gridgain9}` | GridGain 9 |
 | `{skysql}` | MariaDB Cloud (legacy alias — SkySQL was renamed MariaDB Cloud) |
 | `{platform}` | MariaDB Enterprise Platform |
 | `{mariadb-cloud}` | MariaDB Cloud |

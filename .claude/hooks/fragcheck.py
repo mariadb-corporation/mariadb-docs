@@ -185,6 +185,7 @@ SPACE_DIRS = {
     'gmXC0YXB3rRhXvpg5mb1': 'home',
     'JqgUabdZsoY5EiaJmqgn': 'platform',
     'CjGYMsT2MVP4nd3IyW2L': 'connectors',
+    'BfPLkyMnD0BAfMCRhZKr': 'gridgain9',
     'kuTXWg0NDbRx6XUeYpGD': 'tools',
     'aEnK0ZXmUbJzqQrTjFyb': 'release-notes',
     'WCInJQ9cmGjq1lsTG91E': 'general-resources',
