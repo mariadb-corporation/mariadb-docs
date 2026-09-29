@@ -2842,7 +2842,7 @@
 * [MariaDB Cloud Release Notes](mariadb-cloud-release-notes/README.md)
   * [Multiple MariaDB Server Versions on Serverless](mariadb-cloud-release-notes/mariadb-cloud-serverless-multi-version.md)
   * [Enterprise Cluster General Availability](mariadb-cloud-release-notes/mariadb-cloud-2026.08.26.md)
-  * [BYOA and New Provisioning Experience](mariadb-cloud-release-notes/mariadb-cloud-2026.08.20.md)
+  * [BYOC and New Provisioning Experience](mariadb-cloud-release-notes/mariadb-cloud-2026.08.20.md)
 * [Control Center Release Notes](control-center/README.md)
   * [All Releases](control-center/all-releases.md)
   * [2026.1](control-center/2026.1.md)
