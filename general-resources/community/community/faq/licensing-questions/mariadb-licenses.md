@@ -4,7 +4,7 @@
 
 The MariaDB server is available under the terms of the GNU General Public License, version 2.
 
-The GNU project maintains an [official page](https://www.gnu.org/licenses/gpl-2.0.html) with information about the GNU GPL 2 license, including a FAQ and various translations.
+The GNU project maintains an [official page](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) with information about the GNU GPL 2 license, including a FAQ and various translations.
 
 ### The GPL License
 
