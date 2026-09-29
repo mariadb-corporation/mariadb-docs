@@ -12,7 +12,7 @@ Worklog was the tool used to track development of MariaDB.
 
 The MariaDB Worklog was open to everyone; a free account on the developer wiki was required to suggest new tasks and add comments or votes.
 
-If a contributor delivered a working solution that was [accepted into the MariaDB source tree](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E/about/readme/community/contributing-participating/contributing-to-the-mariadb-project), they could receive a share of any money pledged for that task; the rest went to MariaDB Corporation Ab for managing the project, code reviews, bug fixes, testing, maintenance, and future updates and merges.
+If a contributor delivered a working solution that was [accepted into the MariaDB source tree](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/contributing-participating/contributing-to-the-mariadb-project), they could receive a share of any money pledged for that task; the rest went to MariaDB Corporation Ab for managing the project, code reviews, bug fixes, testing, maintenance, and future updates and merges.
 
 A MariaDB worklog task could also link to the corresponding MySQL worklog task, referenced as #WL.
 
