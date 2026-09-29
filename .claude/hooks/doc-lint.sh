@@ -388,6 +388,46 @@ else
   python3 "$SHRINKCHECK" --base "$LINT_BASE" "${files[@]}" >/dev/null || rc=1
 fi
 
+# --- paired "most recent version" includes — HAS a CI counterpart since DOCS-6734 -----------
+# Every connector and every live Community Server series states its newest version TWICE, in
+# two spaces: release-notes/.gitbook/includes/latest-<key>.md (banner and Download button) and
+# platform/.gitbook/includes/most-recent-<key>.md (one bullet, pulled into every Post Download
+# page — 116 of them for Connector/J). Bump one and forget the other and the site states two
+# answers at once, with every gate here green: both files are valid Markdown, every link
+# resolves, and neither page shrank. .claude/hooks/versioncheck.py's header has the rest,
+# including why it compares the pair against EACH OTHER rather than against the newest release.
+#
+# Takes NO file list, unlike every other check in this script. The finding is a disagreement
+# BETWEEN two files in two different spaces, and the PR that edits only one of them is exactly
+# the PR that causes it — so scoping to the caller's files would blind it to its own failure
+# mode. The whole scan is 44 files and runs in milliseconds, so there is nothing to narrow.
+#
+# Resolved relative to THIS script rather than the working directory, for the reason the
+# includecheck block above records.
+VERSIONCHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/versioncheck.py"
+if [ ! -f "$VERSIONCHECK" ]; then
+  # NOT a SKIP, for the reason the includecheck block gives: this is a checked-in sibling, so
+  # its absence is a broken checkout rather than a missing tool.
+  echo "doc-lint: $VERSIONCHECK not found — cannot compare the paired version includes." >&2
+  echo "          It is checked in beside this script, so this is a broken checkout, not a" >&2
+  echo "          missing tool." >&2
+  rc=1
+elif ! command -v python3 >/dev/null 2>&1; then
+  echo "doc-lint: python3 not installed — version-include check SKIPPED (versioncheck-pr.yml" >&2
+  echo "          still gates this in CI). Install: brew install python3" >&2
+else
+  # Findings go to stderr; the counts line goes to stdout, swallowed here the same way
+  # navcheck's and shrinkcheck's are. CI reads that line to prove the run was not vacuous.
+  #
+  # No --root, so the check resolves the repo from the WORKING DIRECTORY rather than from this
+  # script's location. That is deliberate and is the opposite of how $VERSIONCHECK itself is
+  # resolved: doc-lint-test.sh runs this script from the repo while CWD is a throwaway sandbox,
+  # and anchoring on the script would make the check scan the real repo from inside that
+  # sandbox — a verdict the suite cannot control, reported as if it were the sandbox's. Rooted
+  # at CWD it finds no includes directories there and SKIPs, which is what a sandbox deserves.
+  python3 "$VERSIONCHECK" >/dev/null || rc=1
+fi
+
 # --- retired Knowledge Base links — NO CI counterpart (the last one) ------------------------
 # mariadb.com/kb/<locale>/... is the retired Knowledge Base. It still answers 200 (it 301s into
 # the current docs site), so lychee follows the redirect and reports nothing — and roughly half
