@@ -117,7 +117,7 @@ jobs:
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]tools[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]mariadb-cloud[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]release-notes[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb#g' \
-            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]general-resources[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E/about/readme#g' \
+            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]general-resources[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E#g' \
             < "$CHANGED_MD"
 
           echo "Git status after expansion:"
