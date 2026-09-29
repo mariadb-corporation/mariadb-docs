@@ -81,10 +81,14 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
   tree, so any alias that had reached `main` unexpanded was rewritten by whichever PR opened
   next, handing that author a collateral edit to someone else's file (DOCS-6401). Two things
   follow. Your PR is never blamed for an alias elsewhere in the repo — and, conversely, an
-  alias that lands on `main` without passing through a PR is never expanded and never
-  reported, because no PR changed that file. **So don't commit an aliased link directly to
-  `main`**: GitBook will publish the alias verbatim as a `github.com/...` URL that 404s. If
-  one gets there anyway, touching the file in any PR expands it.
+  alias that lands on `main` without passing through a PR is never expanded, because no PR
+  changed that file. **So don't commit an aliased link directly to `main`**: GitBook will
+  publish the alias verbatim as a `github.com/...` URL that 404s. If one gets there anyway —
+  a direct push, or a GitBook-UI edit synced back as a `GITBOOK-*` commit — the nightly
+  digest (`nightly-aliascheck.yml`, DOCS-6588) reports it to Slack the next morning, with
+  the file and line. It reports and never rewrites: fix it with
+  `python3 .claude/hooks/expand-aliases.py --write <file>` and a PR, or by touching the file
+  in any PR, which expands it.
 - **The bot's own expansion commit is never checked automatically, and that needs a manual
   approve.** The push fires a `synchronize` event, GitHub attributes the resulting runs to
   `github-actions[bot]`, and parks every one of them in `action_required` — created, but not
