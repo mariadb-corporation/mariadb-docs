@@ -45,7 +45,7 @@ Confirm successful completion of the prepare operation.
 
 ## Audit Plugin Considerations <a href="#audit-plugin-considerations" id="audit-plugin-considerations"></a>
 
-If you have the [MariaDB Audit Plugin](../../../../../reference/plugins/mariadb-audit-plugin/) installed and are upgrading from MariaDB Enterprise Server 10.2 or 10.3, the audit plugin should be removed prior to the upgrade to prevent conflicts with the MariaDB Enterprise Audit Plugin, which [MariaDB Enterprise Audit Plugin](../../../../../reference/plugins/mariadb-enterprise-audit.md) that is present in MariaDB Enterprise Server 10.4 or later. It can be removed by using the [UNINSTALL SONAME](../../../../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) statement:
+If you have the [MariaDB Audit Plugin](../../../../../reference/plugins/mariadb-audit-plugin/) installed and are upgrading from MariaDB Enterprise Server 10.2 or 10.3, the audit plugin should be removed prior to the upgrade to prevent conflicts with the MariaDB Enterprise Audit Plugin, which [MariaDB Enterprise Audit Plugin](../../../../../reference/plugins/mariadb-enterprise-audit/README.md) that is present in MariaDB Enterprise Server 10.4 or later. It can be removed by using the [UNINSTALL SONAME](../../../../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) statement:
 
 ```sql
 UNINSTALL SONAME 'server_audit';

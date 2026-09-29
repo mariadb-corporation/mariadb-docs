@@ -126,7 +126,7 @@ Note that if `MARIADB_HOME` is set, `MYSQL_HOME` is not used, even if set.
 
 ### MariaDB Enterprise Server Option File Locations
 
-MariaDB Enterprise Server includes additional configuration files that are installed with the Enterprise Server packages. Specifically, the file `mariadb-enterprise.cnf` is typically placed in a configuration include directory and enables Enterprise-specific features by default (for example, loading the [Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit.md) plugins with `plugin-load-add`, `server_audit` and other enterprise plugins):
+MariaDB Enterprise Server includes additional configuration files that are installed with the Enterprise Server packages. Specifically, the file `mariadb-enterprise.cnf` is typically placed in a configuration include directory and enables Enterprise-specific features by default (for example, loading the [Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit/README.md) plugins with `plugin-load-add`, `server_audit` and other enterprise plugins):
 
 ```
 /etc/my.cnf.d/mariadb-enterprise.cnf
@@ -583,7 +583,7 @@ loose-abort-source-on-error
 
 * [Configuring MariaDB Connector/C with Option Files](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/configuring-mariadb-connectorc-with-option-files)
 * [Troubleshooting Connection Issues](../../../mariadb-quickstart-guides/mariadb-connection-troubleshooting-guide.md)
-* [MariaDB Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit.md)
+* [MariaDB Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit/README.md)
 * [Information\_schema.SYSTEM\_VARIABLES Table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-system_variables-table.md)
 * [Configuring MariaDB for Remote Client Access](../../../mariadb-quickstart-guides/mariadb-remote-connection-guide.md)
 
