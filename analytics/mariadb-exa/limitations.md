@@ -10,109 +10,91 @@ icon: road-barrier
 
 # Limitations
 
-While MariaDB Exa (powered by Exasol) provides exceptional performance for analytical workloads, there are functional and operational limitations regarding architecture, datatype mapping, and SQL dialect compatibility.
+While MariaDB Exa (powered by Exasol) provides exceptional performance for analytical workloads, there are functional and operational limitations regarding architecture, datatype mapping, and SQL dialect compatibility. Data is kept in sync automatically, and most queries and schemas work without changes. This page covers the differences to plan for.
 
-## I. Architecture & Query Flow
+**At a glance**
 
-The MariaDB Exa environment utilizes a Hybrid Transactional and Analytical Processing (HTAP) architecture to deliver transactional consistency alongside high-performance analytics.
+* **Data types:** Most common types replicate as-is or with a straightforward mapping. A few (binary etc.) are replicated as `NULL`. See [Datatype Compatibility](#ii-datatype-compatibility-matrix).
+* **Schema:** A primary key is recommended on every replicated table. Triggers, stored procedures, and some clauses are not carried over. See [Schema & Replication](#i-schema--replication-management).
+* **SQL:** Analytical queries are translated automatically from MariaDB to Exasol syntax. Some functions and NULL and empty-string behaviors differ. See [SQL Syntax Differences](#iv-sql-syntax-differences).
 
-### 1. The Analytical Path (Read)
 
-* MaxScale SmartRouter: Acts as the intelligent entry point for client applications. It identifies read-only queries and routes them to either the MariaDB cluster or the analytical environment based on learned performance metrics.
-* ExasolRouter (MariaDB Exa Router): When analytical routing is selected, the query is passed to this specialized router. It hosts the SQLglot Preprocessor.
-* SQLglot Preprocessor: Automatically transpiles MariaDB-specific SQL dialect into Exasol-compatible dialect in real-time.
+## I. Schema & Replication Management
 
-### 2. The Replication Path (Write)
-
-* MaxScale CDC (binlogrouter): Manages background synchronization of DDL and DML changes from the MariaDB Binary Log directly to Exasol over the Exasol ODBC driver.
-* Direct Sync: This pathway is a raw data stream and does not utilize the SQLglot preprocessor.
-
-## II. Schema & Replication Management
+Exasol is kept in sync with MariaDB by MaxScale CDC (binlogrouter), which reads the MariaDB binary log and applies DDL and DML changes to Exasol in the background over the Exasol ODBC driver. This is a raw data stream that bypasses the SQL translation layer, so the behaviors below come from how CDC maps types and applies changes, not from SQL rewriting.
 
 ### Primary Key
 
 A primary key is strongly recommended for every table captured by CDC. Tables without one are still replicated, but MaxScale CDC synthesizes a key from all columns for its `MERGE`-based upsert into Exasol — which is slower and can behave incorrectly when rows are not unique.
 
-### Unsupported Schema Features
+### Schema Feature Differences
 
-The following schema features are not supported:
+| **MariaDB feature**                 | **Behavior in Exa**                                                                                                                       |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `AUTO_INCREMENT`                    | Becomes an `IDENTITY` column. Values are replicated from MariaDB, so uniqueness is preserved.                                             |
+| `COLLATE`                           | Not supported in Exasol, but data replicates. Comparisons on Exasol are case-sensitive though                                               |
+| `ON UPDATE CURRENT_TIMESTAMP`       | Not supported in Exasol, but updated values still replicate.                                                                          |
+| `ON UPDATE CASCADE / ON DELETE CASCADE`  | Not supported in Exasol and cascaded child changes are NOT replicated.                                                               |
+| Stored procedures, stored functions | Not replicated in Exasol, but their effects on table data are. Analytical queries can't call them; equivalent logic can be rebuilt as Exasol UDFs. |
+| Triggers                            | Not replicated in Exasol, but their effects on table data are.                                                                                      |
+| `LATIN1` character set              | Only UTF8 and ASCII                                                                                                                       |
 
-* `COLLATE` clause.
-* Character set `LATIN1`.
-* `ON UPDATE` clauses.
-* Triggers and stored procedures.
+## II. Datatype Compatibility Matrix
 
-### Auto-increment
+As of MaxScale 25.10.4, compatibility is tiered based on the level of automated support provided between the engines.
 
-* `AUTO_INCREMENT`: Exasol uses `IDENTITY` columns instead.
-* These can contain gaps and are not guaranteed to be unique.
-* The counter can be changed with `ALTER TABLE ... MODIFY COLUMN ... IDENTITY`.
-
-## III. Datatype Compatibility Matrix
-
-Compatibility is tiered based on the level of automated support provided between the engines.
-
-{% hint style="warning" %}
-The datatype and function compatibility tables in this page were captured during earlier MariaDB Exa testing and are pending re-validation against MaxScale-native CDC (binlogrouter → ODBC). Treat specific failure modes as indicative rather than authoritative.
-{% endhint %}
-
-| **Compatibility Tier** | **Data Types**                                                                                                                                         |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Native Compatible      | `INT`, `BIGINT`, `SMALLINT`, `DECIMAL`, `NUMERIC`, `FLOAT`, `DOUBLE`, `CHAR`, `VARCHAR`, `DATE`, `TIMESTAMP`, `BIT`, `ENUM`, `SET`, and `Binary types` |
-| Rewrite Compatible     | `TEXT`, `BOOLEAN`, `TINYINT(1)`, `DATETIME`, `TIME`, `JSON`, `ENUM`, `SET`, `UUID`                                                                     |
-| MariaDB Only           | `BLOB`, `BINARY`, `VARBINARY`, `TINYBLOB`, `Spatial types` (Geometry, Point, etc.)                                                                     |
+| **Compatibility Tier** | **Data Types**                                                                                                                |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Native Compatible      | `INT`, `BIGINT`, `SMALLINT`, `DECIMAL`, `NUMERIC`, `DOUBLE`, `CHAR`, `VARCHAR`, `DATE`, `TIMESTAMP`                           |
+| Rewrite Compatible     | `TEXT`, `BOOLEAN`, `TINYINT(1)`, `FLOAT`, `DATETIME`, `TIME`, `JSON`, `ENUM`, `SET`, `BIT`                                    |
+| Replicated as NULL     | `TINYBLOB`, `BLOB`, `MEDIUMBLOB`, `LONGBLOB`, `BINARY`, `VARBINARY`, `UUID`, `INET6`, `Spatial types` (Geometry, Point, etc.) |
 
 <details>
 
-<summary>Detailed schema mapping: expected and actual Exasol types on CREATE TABLE</summary>
+<summary>Detailed schema mapping: MariaDB -> Exasol </summary>
 
-The following details how MariaDB types are interpreted by Exasol during automated schema replication.
+The following details how MariaDB types are created in Exasol during automated schema replication.
 
-| **MariaDB Data type** | **Exasol Expected**                  | **Exasol Actual**                    | **Comment**                       |
-| --------------------- | ------------------------------------ | ------------------------------------ | --------------------------------- |
-| `INT`                 | —                                    | `DECIMAL(18,0)`                      | Expected wider type?              |
-| `BIGINT`              | `DECIMAL(36,0)`                      | `DECIMAL(36,0)`                      | ✅                                 |
-| `SMALLINT`            | `DECIMAL(5,0)`                       | `DECIMAL(9,0)`                       | ⚠️ mismatch                       |
-| `MEDIUMINT`           | `DECIMAL(8,0)`                       | `DECIMAL(18,0)`                      | ⚠️ mismatch                       |
-| `SERIAL`              | `DECIMAL(36,0) IDENTITY`             | —                                    | ❌ syntax error (IDENTIFIER\_PART) |
-| `INT UNSIGNED`        | `DECIMAL(10,0)`                      | `DECIMAL(18,0)`                      | ⚠️ mismatch                       |
-| `DECIMAL(10, 4)`      | `DECIMAL(10, 4)`                     | `DECIMAL(10,4)`                      | ✅                                 |
-| `NUMERIC(15, 2)`      | `DECIMAL(15, 2)`                     | `DECIMAL(15,2)`                      | ✅                                 |
-| `FLOAT`               | `FLOAT`                              | `DOUBLE`                             | ⚠️ mismatch                       |
-| `DOUBLE`              | `DOUBLE`                             | `DOUBLE`                             | ✅                                 |
-| `DOUBLE PRECISION`    | `DOUBLE PRECISION`                   | `DOUBLE`                             | ❓ mismatch?                       |
-| `REAL`                | `DOUBLE PRECISION`                   | `DOUBLE`                             | ❓ mismatch?                       |
-| `TINYINT(1)`          | `DECIMAL(3,0)`                       | `DECIMAL(3,0)`                       | ✅                                 |
-| `BOOLEAN`             | `BOOLEAN`                            | `BOOLEAN`                            | ✅                                 |
-| `BIT`                 | `DECIMAL(36,0)`                      | `DECIMAL(36,0)`                      | ✅                                 |
-| `CHAR(10)`            | `CHAR(10)`                           | `CHAR(10)`                           | ✅                                 |
-| `VARCHAR(255)`        | `VARCHAR(255)`                       | `VARCHAR(255)`                       | ✅                                 |
-| `NCHAR(12)`           | `CHAR(12)`                           | `CHAR(12)`                           | ✅                                 |
-| `NVARCHAR(200)`       | `VARCHAR(200)`                       | `VARCHAR(200)`                       | ✅                                 |
-| `ENUM('A', 'B', 'C')` | `VARCHAR(500)`                       | `VARCHAR(65535)`                     | ✅                                 |
-| `SET('X', 'Y', 'Z')`  | `VARCHAR(500)`                       | `VARCHAR(65535)`                     | ✅                                 |
-| `JSON`                | `VARCHAR(2000000)`                   | `VARCHAR(2000000)`                   | ✅                                 |
-| `TINYTEXT`            | `VARCHAR(255)`                       | `VARCHAR(255)`                       | ✅                                 |
-| `TEXT`                | `VARCHAR(65535)`                     | `VARCHAR(65535)`                     | ✅                                 |
-| `MEDIUMTEXT`          | `VARCHAR(2000000)`                   | `VARCHAR(2000000)`                   | ✅                                 |
-| `LONGTEXT`            | `VARCHAR(2000000)`                   | `VARCHAR(2000000)`                   | ✅                                 |
-| `TINYBLOB`            | <p><code>VARCHAR(255)</code><br></p> | <p><code>VARCHAR(255)</code><br></p> | ✅                                 |
-| `BLOB`                | `VARCHAR(65535)`                     | `VARCHAR(65535)`                     | ✅                                 |
-| `MEDIUMBLOB`          | `VARCHAR(2000000)`                   | `VARCHAR(2000000)`                   | ✅                                 |
-| `LONGBLOB`            | `VARCHAR(2000000)`                   | `VARCHAR(2000000)`                   | ✅                                 |
-| `VARBINARY(255)`      | `VARCHAR(255)`                       | `VARCHAR(255)`                       | ✅                                 |
-| `BINARY(16)`          | `CHAR(16)`                           | `CHAR(16)`                           | ✅                                 |
-| `DATE`                | `DATE`                               | `DATE`                               | ✅                                 |
-| `DATETIME`            | `TIMESTAMP`                          | `TIMESTAMP(3)`                       | ⚠️ mismatch                       |
-| `DATETIME(6)`         | `TIMESTAMP(6)`                       | `TIMESTAMP(6)`                       | ✅                                 |
-| `TIME`                | `TIMESTAMP`                          | `TIMESTAMP(3)`                       | ⚠️ mismatch                       |
-| `TIME(6)`             | `TIMESTAMP(6)`                       | `TIMESTAMP(6)`                       | ✅                                 |
-| `TIMESTAMP`           | `TIMESTAMP`                          | `TIMESTAMP(3)`                       | ⚠️ mismatch                       |
-| `TIMESTAMP(6)`        | `TIMESTAMP(6)`                       | `TIMESTAMP(6)`                       | ✅                                 |
-| `YEAR(4)`             | `DECIMAL(4,0)`                       | `DECIMAL(18,0)`                      | ⚠️ mismatch                       |
-| `INET6`               | —                                    | —                                    | 🛑 Not supported (not replicated)           |
-| `UUID`                | —                                    | —                                    | 🛑 Not supported (not replicated)           |
-| `XMLTYPE`             | —                                    | —                                    | 🛑 Not supported (not replicated)           |
+| **MariaDB Data type**                         | **Exasol Actual**  | **Comment**                                             |
+| --------------------------------------------- | ------------------ | ------------------------------------------------------- |
+| `INT`                                         | `DECIMAL(10,0)`    | ✅                                                       |
+| `BIGINT`                                      | `DECIMAL(20,0)`    | ✅                                                       |
+| `SMALLINT`                                    | `DECIMAL(5,0)`     | ✅                                                       |
+| `MEDIUMINT`                                   | `DECIMAL(8,0)`     | ✅                                                       |
+| `SERIAL`                                      | `DECIMAL(20,0)`    | ✅                                                       |
+| `INT UNSIGNED`                                | `DECIMAL(10,0)`    | ✅                                                       |
+| `DECIMAL(10,4)`                               | `DECIMAL(10,4)`    | ✅                                                       |
+| `NUMERIC(15,2)`                               | `DECIMAL(15,2)`    | ✅                                                       |
+| `FLOAT`                                       | `DOUBLE`           | ✅                                                       |
+| `DOUBLE`, `DOUBLE PRECISION`, `REAL`          | `DOUBLE`           | ✅                                                       |
+| `TINYINT(1)`                                  | `DECIMAL(3,0)`     | ✅                                                       |
+| `BOOLEAN`                                     | `DECIMAL(3,0)`     | ✅                                                       |
+| `BIT`                                         | `DECIMAL(20,0)`    | ✅                                                       |
+| `CHAR(10)`                                    | `CHAR(40)`         | ✅ Length is 4×                                          |
+| `VARCHAR(255)`                                | `VARCHAR(1020)`    | ✅ Length is 4×                                          |
+| `NCHAR(12)`                                   | `CHAR(36)`         | ✅ Length is 3×                                          |
+| `NVARCHAR(200)`                               | `VARCHAR(600)`     | ✅ Length is 3×                                          |
+| `ENUM('A','B','C')`                           | `VARCHAR(1)`       | ✅ Sized to the longest value                            |
+| `SET('X','Y','Z')`                            | `VARCHAR(5)`       | ✅ Sized to the longest combination                      |
+| `JSON`                                        | `VARCHAR(2000000)` | ✅                                                       |
+| `TINYTEXT`                                    | `VARCHAR(256)`     | ✅                                                       |
+| `TEXT`                                        | `VARCHAR(2000000)` | ✅                                                       |
+| `MEDIUMTEXT`                                  | `VARCHAR(16536)`   | ✅                                                       |
+| `LONGTEXT`                                    | `VARCHAR(2000000)` | ✅                                                       |
+| `TINYBLOB`                                    | `VARCHAR(256)`     | ⚠️ CDC inserts `NULL`                                   |
+| `BLOB`                                        | `VARCHAR(2000000)` | ⚠️ `NULL` for binary bytes; plain ASCII text replicates |
+| `MEDIUMBLOB`                                  | `VARCHAR(16536)`   | ⚠️ CDC inserts `NULL`                                   |
+| `LONGBLOB`                                    | `VARCHAR(2000000)` | ⚠️ CDC inserts `NULL`                                   |
+| `VARBINARY(255)`                              | `VARCHAR(255)`     | ⚠️ CDC inserts `NULL`                                   |
+| `BINARY(16)`                                  | `CHAR(16)`         | ⚠️ CDC inserts `NULL`                                   |
+| `DATE`                                        | `DATE`             | ✅                                                       |
+| `DATETIME`, `TIMESTAMP`                       | `TIMESTAMP(0)`     | ✅                                                       |
+| `DATETIME(6)`, `TIMESTAMP(6)`, `TIME(6)`      | `TIMESTAMP(6)`     | ✅                                                       |
+| `TIME`                                        | `TIMESTAMP(0)`     | ⚠️ Stored as a timestamp on 1970-01-01                  |
+| `YEAR(4)`                                     | `DECIMAL(4,0)`     | ✅                                                       |
+| `INET6`                                       | `CHAR(16)`         | ⚠️ CDC inserts `NULL`                                   |
+| `UUID`                                        | `CHAR(16)`         | ⚠️ CDC inserts `NULL`                                   |
+| `GEOMETRY`, `POINT`                           | `GEOMETRY`         | ⚠️ CDC inserts `NULL`                                   |
 
 </details>
 
@@ -122,64 +104,67 @@ The following details how MariaDB types are interpreted by Exasol during automat
 
 Precision shifts and engine-specific behaviors during transfer.
 
-| **Data Type**      | **MariaDB Value**          | **Exasol Value**           | **Comment**                  |
-| ------------------ | -------------------------- | -------------------------- | ---------------------------- |
-| `INT`              | `42`                       | `42`                       | ✅                            |
-| `SMALLINT`         | `32767`                    | `32767`                    | ✅                            |
-| `MEDIUMINT`        | `8388607`                  | `8388607`                  | ✅                            |
-| `INT UNSIGNED`     | `3000000000`               | `3000000000`               | ✅                            |
-| `BIGINT`           | `9223372036854775807`      | `9223372036854775807`      | ✅                            |
-| `DECIMAL(10, 4)`   | `1234.5678`                | `1234,5678`                | ✅                            |
-| `NUMERIC(15, 2)`   | `99999.99`                 | `99999,99`                 | ✅                            |
-| `FLOAT`            | `3.14159`                  | `3,14159012`               | ❌ Precision distortion       |
-| `DOUBLE`           | `2.718281828459`           | `2,71828183`               | ❌ Precision distortion       |
-| `DOUBLE PRECISION` | `123456.7890123`           | `123456,789`               | ❌ Precision distortion       |
-| `REAL`             | `-9876.54321`              | `-9876,54297`              | ❌ Precision distortion       |
-| `TINYINT(1)`       | `1`                        | `1`                        | ✅                            |
-| `BOOLEAN`          | `1`                        | `1`                        | ✅                            |
-| `CHAR(10)`         | `'test'` (len=4)           | `'test '` (len=10)         | ❌ Right-padded with spaces   |
-| `VARCHAR(255)`     | `'Hello World...'`(len=19) | `'Hello World...'`(len=19) | ✅                            |
-| `NCHAR(12)`        | `'Привет'` (len=6)         | `'Привет'` (len=12)        | ❌ Right-padded               |
-| `NVARCHAR(200)`    | `'Extended Unicode...'`    | `'Extended Unicode...'`    | ✅                            |
-| `DATE`             | `2023-10-25`               | `2023-10-25`               | ✅                            |
-| `TIMESTAMP`        | `... 14:30:00`             | `... 13:30:00.000`         | ❌ Time/Precision discrepancy |
-| `DATETIME`         | `... 14:30:00`             | `... 13:30:00.000`         | ❌ Time/Precision discrepancy |
-| `DATETIME(6)`      | `... 14:30:00.123456`      | `... 14:30:00.123456`      | ✅                            |
-| `TIME`             | `14:30:00`                 | `14:30:00`                 | ✅ Replicates as TIMESTAMP(3) |
-| `TIME(6)`          | `14:30:00.987654`          | `...`                      | ✅ Replicates as TIMESTAMP(6) |
-| `TIMESTAMP(6)`     | `... 14:30:00.555555`      | `... 13:30:00.555555`      | ❌ Time shift discrepancy     |
-| `YEAR(4)`          | `2024`                     | `2024`                     | ✅                            |
-| `JSON`             | `{"key": "value"}`         | `{"key": "value"}`         | ✅                            |
-| `TINYTEXT`         | `'tiny text data'`         | `'tiny text data'`         | ✅                            |
-| `MEDIUMTEXT`       | `'medium text data'`       | `'medium text data'`       | ✅                            |
-| `TEXT`             | `'standard text data'`     | `'standard text data'`     | ✅                            |
-| `LONGTEXT`         | `'long text data'`         | `'long text data'`         | ✅                            |
+| **Data Type**      | **MariaDB Value**          | **Exasol Value**           | **Comment**                   |
+| ------------------ | -------------------------- | -------------------------- | ----------------------------- |
+| `INT`              | `42`                       | `42`                       | ✅                             |
+| `SMALLINT`         | `32767`                    | `32767`                    | ✅                             |
+| `MEDIUMINT`        | `8388607`                  | `8388607`                  | ✅                             |
+| `INT UNSIGNED`     | `3000000000`               | `3000000000`               | ✅                             |
+| `BIGINT`           | `9223372036854775807`      | `9223372036854775807`      | ✅                             |
+| `DECIMAL(10, 4)`   | `1234.5678`                | `1234,5678`                | ✅                             |
+| `NUMERIC(15, 2)`   | `99999.99`                 | `99999,99`                 | ✅                             |
+| `FLOAT`            | `3.14159`                  | `3.141590`                 | ⚠️ Precision distortion        |
+| `DOUBLE`           | `2.718281828459`           | `2.718282`                 | ⚠️ Precision distortion        |
+| `DOUBLE PRECISION` | `123456.7890123`           | `123456.789012`            | ⚠️ Precision distortion        |
+| `REAL`             | `-9876.54321`              | `-9876.543210`             | ⚠️ Precision distortion        |
+| `TINYINT(1)`       | `1`                        | `1`                        | ✅                             |
+| `BOOLEAN`          | `1`                        | `1`                        | ✅                             |
+| `CHAR(10)`         | `'test'` (len=4)           | `'test '` (len=40)         | ⚠️ Right-padded with spaces    |
+| `VARCHAR(255)`     | `'Hello World...'`(len=14) | `'Hello World...'`(len=14) | ✅                             |
+| `NCHAR(12)`        | `'Привет'` (len=6)         | `'Привет'` (len=36)        | ⚠️ Right-padded with spaces    |
+| `NVARCHAR(200)`    | `'Extended Unicode...'`    | `'Extended Unicode...'`    | ✅                             |
+| `DATE`             | `2023-10-25`               | `2023-10-25`               | ✅                             |
+| `TIMESTAMP`        | `... 14:30:00`             | `... 14:30:00.000`         | ✅                             |
+| `DATETIME`         | `... 14:30:00`             | `... 14:30:00.000`         | ✅                             |
+| `DATETIME(6)`      | `... 14:30:00.123456`      | `... 14:30:00.123456`      | ✅                             |
+| `TIME`             | `14:30:00`                 | `1970-01-01 14:30:00`      | ⚠️ Stored with Timestamp on 1970-01-01 |
+| `TIME(6)`          | `14:30:00.987654`          | `1970-01-01 14:30:00.987654`| ⚠️ Stored with Timestamp on 1970-01-01  |
+| `TIMESTAMP(6)`     | `... 14:30:00.555555`      | `... 14:30:00.555555`      | ✅                             |
+| `YEAR(4)`          | `2024`                     | `2024`                     | ✅                             |
+| `JSON`             | `{"key": "value"}`         | `{"key": "value"}`         | ✅                             |
+| `TINYTEXT`         | `'tiny text data'`         | `'tiny text data'`         | ✅                             |
+| `MEDIUMTEXT`       | `'medium text data'`       | `'medium text data'`       | ✅                             |
+| `TEXT`             | `'standard text data'`     | `'standard text data'`     | ✅                             |
+| `LONGTEXT`         | `'long text data'`         | `'long text data'`         | ✅                             |
 
 </details>
 
-## IV. Semantic Logic & NULL Behavior
+## III. Semantic Logic & NULL Behavior
+
+Read-only queries are routed by MaxScale SmartRouter to either MariaDB or Exasol, based on learned performance. Queries sent to Exasol pass through the ExasolRouter, where the SQLglot preprocessor translates MariaDB SQL into Exasol's dialect in real time. Translation covers most syntax, but the two engines still behave differently in the cases below.
 
 Operational behaviors regarding Undefined values and empty strings differ significantly between the engines.
 
 ### 1. Comparison & Logic Tests
 
 In Exasol, `NULL` represents an undefined value rather than a special value, which leads to discrepancies in comparison and sorting.
+The following is based on using MariaDB Exa ExasolRouter with sqlglot processing as of MaxScale 25.10.4
 
 | **Query**                 | **Result MariaDB** | **Result Exasol**  | **Comment**                               |
 | ------------------------- | ------------------ | ------------------ | ----------------------------------------- |
-| `SELECT NULL = NULL;`     | `NULL`             | `(empty)`          | ✅                                         |
-| `SELECT 99 = NULL;`       | `NULL`             | `(empty)`          | ✅                                         |
-| `SELECT IFNULL(1,0);`     | `1`                | `1`                | Column header becomes `COALESCE(1,0)`     |
-| `SELECT IFNULL(NULL,10);` | `10`               | `10`               | Column header becomes `COALESCE(NULL,10)` |
-| `SELECT NULLIF(1,1);`     | `NULL`             | `(empty)`          | ✅                                         |
+| `SELECT NULL = NULL;`     | `NULL`             | `NULL`             | ✅                                         |
+| `SELECT 99 = NULL;`       | `NULL`             | `NULL`             | ✅                                         |
+| `SELECT IFNULL(1,0);`     | `1`                | `1`                | ✅ Column header becomes `COALESCE(1,0)`   |
+| `SELECT IFNULL(NULL,10);` | `10`               | `10`               | ✅ Column header becomes `COALESCE(NULL,10)` |
+| `SELECT NULLIF(1,1);`     | `NULL`             | `NULL`             | ✅                                         |
 | `SELECT NULLIF(1,2);`     | `1`                | `1`                | ✅                                         |
 | `SELECT COALESCE(N,N,1);` | `1`                | `1`                | ✅                                         |
-| `SELECT 99 <=> NULL;`     | `0`                | ❌ Syntax Error     | Exasol does not support `<=>`             |
-| `SELECT ISNULL(1);`       | `0`                | ❌ Not Found        | Use `IS NULL` instead                     |
-| `SELECT SUM(x) FROM t;`   | `10`               | `10`               | Header becomes `SUM(T.X)`                 |
-| `SELECT AVG(x) FROM t;`   | `2.7500`           | `2,75`             | ❌ Decimal point/separator differs         |
-| `SELECT COUNT(x) FROM t;` | `2`                | `2`                | Header becomes `Count(T.X)`               |
-| `ORDER BY x` (ASC)        | `NULL`s come First | `NULL`s come Last  | ❌ Opposite default sorting                |
+| `SELECT 99 <=> NULL;`     | `0`                | ❌ Syntax Error    | ❌ Exasol does not support `<=>`           |
+| `SELECT ISNULL(1);`       | `0`                | `0`                | ✅ Header becomes  `1 IS NULL`             |
+| `SELECT SUM(x) FROM t;`   | `10`               | `10`               | ✅ Header becomes `SUM(T.X)`               |
+| `SELECT AVG(x) FROM t;`   | `2.75`           | `2.75`               | ✅ Header becomes `AVG(T.X)`               |
+| `SELECT COUNT(x) FROM t;` | `2`                | `2`                | ✅ Header becomes `COUNT(T.X)`             |
+| `ORDER BY x` (ASC)        | `NULL`s come First | `NULL`s come First | ✅                                         |
 | `ORDER BY x` (DESC)       | `NULL`s come Last  | `NULL`s come First | ❌ Opposite default sorting                |
 
 ### 2. Empty Strings vs. NULL
@@ -194,43 +179,34 @@ Exasol interprets an empty string (`''`) as a `NULL` value. MariaDB alignment re
 
 * Workaround: Use `SET sql_mode = 'EMPTY_STRING_IS_NULL';` in MariaDB.
 
-## V. SQL Syntax Differences
+## IV. SQL Syntax Differences
 
 ### Reserved Words
 
-Exasol reserves over 460 keywords. Common words like `schema`, `hour`, and `year` must be quoted with double quotes (`"column"`) — not backticks (`` ` ``).
+Exasol reserves over 460 keywords. Common words like `schema`, `hour`, and `year` must be quoted with double quotes (`"column"`) — not backticks.
 
-### SET Statements
+### Session Variables
 
-The following constructs are not supported:
+User variables (`SET @x := 5`) and `SELECT ... INTO @var` are not supported on the analytical path. 
+`SET` statements sent to Exasol are accepted but ignored, with no error, so a later query that references the variable fails with a syntax error.
 
-```sql
-SET x := y;
-SET x=1, y=2;
-```
-
-Use `DEFINE` instead:
+Use literal values, a subquery, or a CTE instead:
 
 ```sql
-DEFINE x=1;
-DEFINE y=2;
-```
+-- Not supported
+SET @a = 7;
+SELECT @a;
 
-### Variable Assignment From SELECT
-
-Not supported:
-
-```sql
 SELECT 1, 2 INTO @a, @b FROM dual;
+
+-- Instead
+WITH v AS (SELECT 7 AS a) SELECT a FROM v;
 ```
 
-Instead, use:
+`DEFINE` is a client-side EXAplus command, not SQL, and does not work through the ExasolRouter.
 
-```sql
-DEFINE x = (SELECT 1 FROM dual);
-```
 
-## VI. Functional Compatibility Matrix
+## V. Functional Compatibility Matrix
 
 The analytical path uses SQLglot to bridge MariaDB and Exasol dialects.
 
@@ -333,19 +309,40 @@ The analytical path uses SQLglot to bridge MariaDB and Exasol dialects.
 
 </details>
 
-## VII. Data Import and Null Handling
+## VI. Data Import and Null Handling
 
 ### NULL Conversions
 
-MariaDB represents `NULL` values as `\N` in export files. Exasol `TIMESTAMP` columns do not accept `\N` — they must be converted explicitly (e.g., replace `\N` with `NULL` during import).
+MariaDB writes NULL as \N in export files. Importing such a file directly into Exasol with IMPORT fails on TIMESTAMP columns, so replace \N with an empty value or NULL first. 
+Loading through MariaDB and CDC needs no conversion, because NULLs replicate correctly.
+
+### Empty Strings
+
+Exasol treats an empty string ('') as NULL. The exasolrouter rewrites the literal '' to NULL, and empty strings in VARCHAR and TEXT columns arrive as NULL through CDC. As a result, CHAR_LENGTH('') returns NULL rather than 0.
+
+### Load Data
+* LOAD DATA [LOCAL] INFILE fails through the exasolrouter with a syntax error. Load into MariaDB directly and CDC will load the rows into Exasol.
 
 ### Formatting & Output Trade-offs
 
 * Implicit Aliasing: MariaDB preserves the original query string (e.g., `SUM(x)`), while Exasol generates internal aliases (e.g., `SUM(T.X)`).
-* Decimal Precision: Exasol often trims trailing zeros (e.g., `5` vs `5.0000`) and may use a comma as a separator depending on locale.
-* Case Sensitivity: The SQLglot preprocessor typically uppercases identifiers to match standard Exasol behavior.
-* Load Data: `LOAD DATA LOCAL INFILE` is not supported in the analytical pathway.
+* Decimal Precision: Results through the exasolrouter often trims trailing zeros (e.g., `5` vs `5.0000`). Stored values are unchanged.
 
-<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+### Case Sensitivity
+* Identifiers: table, column and schema names are matched case-insensitively (SQL_IDENTIFIER_COMPARISON = IGNORE CASE).
+* String data: comparisons are case-sensitive. WHERE col = 'abc' will not match 'ABC', even for columns that used a case-insensitive collation in MariaDB. Use UPPER() or LOWER() on both sides to match MariaDB.
 
-{% @marketo/form formId="4316" %}
+## VII. How It Works: Architecture & Query Flow
+
+MariaDB Exa uses a Hybrid Transactional and Analytical Processing (HTAP) architecture to deliver transactional consistency alongside high-performance analytics.
+
+### 1. The Analytical Path (Read)
+
+* MaxScale SmartRouter: Acts as the intelligent entry point for client applications. It identifies read-only queries and routes them to either the MariaDB cluster or the analytical environment based on learned performance metrics.
+* ExasolRouter (MariaDB Exa Router): When analytical routing is selected, the query is passed to this specialized router. It hosts the SQLglot Preprocessor.
+* SQLglot Preprocessor: Automatically transpiles MariaDB-specific SQL dialect into Exasol-compatible dialect in real-time.
+
+### 2. The Replication Path (Write)
+
+* MaxScale CDC (binlogrouter): Manages background synchronization of DDL and DML changes from the MariaDB Binary Log directly to Exasol over the Exasol ODBC driver.
+* Direct Sync: This pathway is a raw data stream and does not utilize the SQLglot preprocessor.
