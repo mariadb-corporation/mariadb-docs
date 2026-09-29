@@ -29,7 +29,6 @@
     * [The mariadb-backup Tool](community/community/faq/the-mariadb-backup-tool.md)
     * [Community Questions](community/community/faq/community-questions/README.md)
       * [How Can I Contribute to MariaDB?](community/community/faq/community-questions/mariadb-community-how-can-i-contribute-to-mariadb.md)
-    * [DBA Questions](community/community/faq/dba-questions.md)
     * [Developer Questions](community/community/faq/developer-questions/README.md)
       * [How can a VBA Application Connect to MariaDB?](community/community/faq/developer-questions/how-can-a-vba-application-connect-to-mariadb.md)
       * [How can I Learn about Developing MariaDB?](community/community/faq/developer-questions/how-can-i-learn-about-developing-mariadb.md)

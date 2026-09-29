@@ -4159,7 +4159,6 @@
           * [10.0.36 Release Upgrade Tests](reference/product-development/server-development/quality/innodb-upgrade-tests/10036-release-upgrade-tests.md)
           * [10.1.22 Pre-release Upgrade Tests](reference/product-development/server-development/quality/innodb-upgrade-tests/10122-pre-release-upgrade-tests.md)
           * [10.1.25 Release Upgrade Tests](reference/product-development/server-development/quality/innodb-upgrade-tests/10125-release-upgrade-tests.md)
-          * [10.1.26 Release Upgrade Tests](reference/product-development/server-development/quality/innodb-upgrade-tests/10.1.26-release-upgrade-tests.md)
           * [10.1.30 Release Upgrade Tests](reference/product-development/server-development/quality/innodb-upgrade-tests/10130-release-upgrade-tests.md)
           * [10.1.32 Release Upgrade Tests](reference/product-development/server-development/quality/innodb-upgrade-tests/10132-release-upgrade-tests.md)
           * [10.1.36 Release Upgrade Tests](reference/product-development/server-development/quality/innodb-upgrade-tests/10136-release-upgrade-tests.md)
