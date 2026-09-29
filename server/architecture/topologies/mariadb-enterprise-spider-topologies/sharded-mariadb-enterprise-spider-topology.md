@@ -29,6 +29,7 @@ The Spider Sharded topology:
 ## Sharded MariaDB Enterprise Spider Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: Sharded Spider topology
     accDescr {
@@ -51,6 +52,7 @@ flowchart LR
     classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
     class Spider,S1,S2,S3 node
     class Client client
+    linkStyle default color:#111111
 ```
 
 _Sharded Spider: a Spider Node distributes the partitions of a virtual sharded table across multiple Data Nodes (shards) via the Spider foreign data wrapper._

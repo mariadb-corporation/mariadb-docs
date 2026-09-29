@@ -203,7 +203,7 @@ With SQL Server, typically JSON documents are stored in `nvarchar` columns in a 
 
 MariaDB has a [JSON](../../../../reference/data-types/string-data-types/json.md) pseudo-type that maps to [LONGTEXT](../../../../reference/data-types/string-data-types/longtext.md). However, from [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) the `JSON` pseudo-type also checks that the value is valid a JSON document.
 
-MariaDB supports different JSON functions than SQL Server. MariaDB currently has more functions, and SQL Server syntax will not work. See [JSON functions](../../../../reference/sql-functions/special-functions/json-functions/) for more information.
+MariaDB supports different JSON functions than SQL Server. MariaDB has more functions, and SQL Server syntax will not work. See [JSON functions](../../../../reference/sql-functions/special-functions/json-functions/) for more information.
 
 ## MariaDB Specific Types
 

@@ -97,7 +97,7 @@ Then BKA join repeatedly calls the MRR function `multi_range_read_next`. The fun
 
 ## Managing Usage of Block-Based Join Algorithms
 
-Currently, 4 different types of block-based join algorithms are supported. For a particular join operation, each of them can be employed with a regular (flat) join buffer or with an incremental join buffer.
+Four different types of block-based join algorithms are supported. For a particular join operation, each of them can be employed with a regular (flat) join buffer or with an incremental join buffer.
 
 Three optimizer switches - `join_cache_incremental`, `join_cache_hashed`, `join_cache_bka` – and the system variable [join\_cache\_level](../system-variables/server-system-variables.md#join_cache_level) control which of the 8 variants of the block-based algorithms will be used for join operations.
 
@@ -128,7 +128,7 @@ By default, [join\_cache\_level](../system-variables/server-system-variables.md#
 By default, block-based algorithms can be used only for regular (inner) join operations. To allow them for outer join operations (left outer joins and right outer joins), the optimizer switch `outer_join_with_cache` has to be set to 'on'.\
 Setting the optimizer switch `semijoin_with_cache` to 'on' allows using these algorithms for semi-join operations.
 
-Currently, only incremental variants of the block-based join algorithms can be used for nested outer joins and nested semi-joins.
+Only incremental variants of the block-based join algorithms can be used for nested outer joins and nested semi-joins.
 
 ### Size of Join Buffers
 

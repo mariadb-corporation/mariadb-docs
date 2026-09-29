@@ -109,6 +109,7 @@ MariaDB ColumnStore supports multiple storage types:
 ### Deployment with S3-Compatible Storage
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MariaDB Enterprise ColumnStore using S3-compatible storage
     accDescr {
@@ -144,6 +145,7 @@ flowchart TD
     class MX1,MX2,P,R1,R2 node
     class Redis,Meta,S3 storage
     class Client client
+    linkStyle default color:#111111
 ```
 
 _MaxScale (an HA pair sharing a Redis cache) routes queries to a ColumnStore primary and two replicas; metadata lives on shared storage and data on S3-compatible object storage._
@@ -151,6 +153,7 @@ _MaxScale (an HA pair sharing a Redis cache) routes queries to a ColumnStore pri
 ### Deployment with Shared Storage
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MariaDB Enterprise ColumnStore using shared storage
     accDescr {
@@ -184,6 +187,7 @@ flowchart TD
     class MX1,MX2,P,R1,R2 node
     class Redis,Shared storage
     class Client client
+    linkStyle default color:#111111
 ```
 
 _The same topology using shared storage for both ColumnStore metadata and data._

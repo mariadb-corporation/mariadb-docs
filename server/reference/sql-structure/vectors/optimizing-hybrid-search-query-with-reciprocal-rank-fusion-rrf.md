@@ -79,6 +79,7 @@ A key advantage of RRF is that it ignores the raw scores from the search systems
 ## Building the Hybrid Query Optimization model with CTEs
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 
 graph TD
     subgraph "1. Configuration & Parameters"
@@ -99,6 +100,7 @@ graph TD
         E --> F[Final SELECT & ORDER BY total_rrf]
     end
     style F fill:#f5ddb3
+    linkStyle default color:#111111
 ```
 
 To build the model, our query uses the following Common Table Expressions (CTEs). 

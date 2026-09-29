@@ -30,10 +30,10 @@ It then presents the four modes as a numbered menu:
 ```
 Select a migration mode:
 
-  1) Serial Streaming Copy (mariadb-dump)            [OFFLINE]
-  2) Parallel Restartable Streaming Copy (sqldata)   [OFFLINE]
-  3) Offline Copy (mariadb-dump)                     [OFFLINE]
-  4) Replication (binlog)                            [ONLINE]
+  1) Serial Streaming Copy (mariadb-dump)                [OFFLINE]
+  2) Parallel Restartable Streaming Copy (mariadb-mtk)   [OFFLINE]
+  3) Offline Copy (mariadb-dump)                         [OFFLINE]
+  4) Replication (binlog)                                [ONLINE]
 ```
 
 The assess, plan, and run phases are also reachable non-interactively with the `--assess`, `--plan`, and `--run` flags; run `./mariadb-migrator --help` for the full list. Command-line flags bypass the menu.
@@ -154,6 +154,6 @@ A prompt — `Run ANALYZE TABLE on target after load? (y/n)` — appears during 
 * The migration fails by default if the target database already exists. Set `ALLOW_TARGET_DB_OVERWRITE=1` only when an overwrite is intentional. (For `staged` `load_only`, the database list comes from the manifest, and the same overwrite check applies before the load begins.)
 * `root` source and target users are blocked by default; set `ALLOW_ROOT_USERS=1` to allow them.
 * Offline Copy per-database load resume is not supported. If a multi-database load fails partway through, drop the partially loaded databases on the target and re-run with `STAGED_PHASE=load_only`.
-* The migrator is built and tested for Linux on x86-64 and ARM64. Validate it in your target environment before production use.
+* The migrator is built and tested for Linux on x86-64 and ARM64, and for macOS on ARM64 (Apple silicon). macOS hosts require bash 4.4 or newer; see [Installation and First Run](installation-and-first-run.md#prerequisites).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

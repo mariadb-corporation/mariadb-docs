@@ -25,7 +25,7 @@ MariaDB Connector/ODBC connects to MariaDB and MySQL database servers, and can b
 
 ### Supported Release Series
 
-The following MariaDB Connector/ODBC release series are currently supported:
+The following MariaDB Connector/ODBC release series are supported:
 
 | Release Series | Stable (GA) Date |
 | -------------- | ---------------- |
@@ -76,7 +76,7 @@ It is generally a good idea to download and install both the 32-bit and 64-bit [
 
 ### Installing MariaDB Connector/ODBC on Linux
 
-To install MariaDB Connector/ODBC on Linux, we currently only distribute [binary tarball packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs).
+To install MariaDB Connector/ODBC on Linux, we only distribute [binary tarball packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs).
 
 The installation process is fairly easy. First, you need to extract the files from the binary tarball. Then, you need to install the driver's shared library to the appropriate place in your system. The driver's shared library is called `libmaodbc.so` and it is located in either the `lib` directory or the `lib64` directory, depending on whether you downloaded a 32-bit or 64-bit package. The driver's shared library can be installed anywhere, but for simplicity, the instructions below will assume that you are installing it to `/usr/lib64`, which is a common directory for 64-bit shared libraries on many Linux distributions.
 
@@ -141,7 +141,7 @@ See [Building MariaDB Connector/ODBC from Source](building-mariadb-connectorodbc
 
 ## Installing UnixODBC on Linux
 
-In order to use MariaDB Connector/ODBC on Linux, you will also need to install a supported Driver Manager. The only Driver Manager that we currently support on Linux is [UnixODBC](https://www.unixodbc.org/). In most Linux distributions, you can install UnixODBC by using your Linux distribution's package manager.
+In order to use MariaDB Connector/ODBC on Linux, you will also need to install a supported Driver Manager. The only Driver Manager that we support on Linux is [UnixODBC](https://www.unixodbc.org/). In most Linux distributions, you can install UnixODBC by using your Linux distribution's package manager.
 
 For example, the following command would install the `unixODBC` package on RHEL, CentOS, and similar Linux distributions:
 
@@ -231,7 +231,7 @@ When you install the client authentication plugins, ensure that they are for the
 * `DATABASE`: default database. Aliases: `DB`
 * `PORT`: TCP/IP Port of the database server
 * `OPTION`: For MySQL Connector/ODBC compatibility. Aliases: `OPTIONS`. Here are used bits meaning:
-  * 0(1) - Currently is not used
+  * 0(1) - Not used
   * 1(2) - Tells connector to return the number of matched rows instead of number of changed rows
   * 4(16) - See `NO_PROMPT`
   * 5(32) - Forces use of dynamic cursor
@@ -417,7 +417,7 @@ Independence from the data source is one of the greatest values that using of th
 
 The values of these attribute types are defined in the sqlmariadb.h that will be included in our distribution packages and installed under include/mariadb. However application developers might consider to use attribute type literal values and not their defined names in order to avoid extra build dependency.
 
-Here is the list of currently supported attributes
+Here is the list of supported attributes
 
 * `SQL_ATTR_EXECDIRECT_ON_SERVER`=`25100` Can be set at statement or connection level.\
   It controls if SQLExecDirect should use server(if set to `SQL_TRUE`) or client side(if set to `SQL_FALSE`, the default) prepared statements. At the connection level it will define default attribute value for all statements created for the connection and is equivalent of use of the `EDSERVER` connection string option. The type of the attribute value is `SQLLEN`.

@@ -69,7 +69,7 @@ of python3. If you are using python3.10 you may need to install python3.10-dev.
 ### Which installation option should I choose for version 2.0?
 
 {% hint style="info" %}
-Version 2.0 is currently a Release Candidate (RC); version 1.1 is the latest stable (GA) release. The 2.0 commands below use the `--pre` flag because pip otherwise installs the latest stable release (1.1). Do not use non-stable (non-GA) releases in production.
+As of 2.0.0rc2, version 2.0 is a Release Candidate (RC); version 1.1 is the latest stable (GA) release. The 2.0 commands below use the `--pre` flag because pip otherwise installs the latest stable release (1.1). Do not use non-stable (non-GA) releases in production.
 {% endhint %}
 
 **Version 2.0** offers three installation options:

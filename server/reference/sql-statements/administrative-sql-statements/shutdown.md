@@ -20,10 +20,18 @@ The `SHUTDOWN` command shuts the server down.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.1:
+{% endhint %}
+
 The `WAIT FOR ALL REPLICAS` statement can be used as an alias for `WAIT FOR ALL SLAVES`.
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
+{% hint style="info" %}
+Before MariaDB 10.5.1:
+{% endhint %}
+
 The `WAIT FOR ALL SLAVES` option was first added in [MariaDB 10.4.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.4).
 {% endtab %}
 {% endtabs %}

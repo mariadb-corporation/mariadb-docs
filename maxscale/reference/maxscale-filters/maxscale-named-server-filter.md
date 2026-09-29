@@ -9,7 +9,7 @@ description: >-
 
 ## Overview
 
-The **namedserverfilter** is a MariaDB MaxScale filter module able to route queries to servers based on regular expression (regex) matches. Since it is a filter instead of a router, the NamedServerFilter only sets routing suggestions. It requires a compatible router to be effective. Currently, both**readwritesplit** and **hintrouter** take advantage of routing hints in the data packets. This filter uses the _PCRE2_ library for regular expression matching.
+The **namedserverfilter** is a MariaDB MaxScale filter module able to route queries to servers based on regular expression (regex) matches. Since it is a filter instead of a router, the NamedServerFilter only sets routing suggestions. It requires a compatible router to be effective. Routers that take advantage of routing hints in the data packets include **readwritesplit**. This filter uses the _PCRE2_ library for regular expression matching.
 
 ## Configuration
 

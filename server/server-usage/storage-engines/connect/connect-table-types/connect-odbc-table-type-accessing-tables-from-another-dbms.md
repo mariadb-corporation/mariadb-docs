@@ -60,7 +60,7 @@ This definition ignores the FIRST\_NAME, LAST\_NAME, JOB\_CODE, and JOB\_GRADE
 columns. It places the FULL\_NAME last column of the original table in second
 position. The type of the HIRE\_DATE column was changed from _timestamp_ to _date_ and the type of the DEPT\_NO column was changed from _char_ to _integer_.
 
-Currently, some restrictions apply to ODBC tables:
+Some restrictions apply to ODBC tables:
 
 1. Cursor type is forward only (sequential reading).
 2. No indexing of ODBC tables (do not specify any columns as key). However,

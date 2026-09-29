@@ -64,7 +64,7 @@ Alternatively, you can look for the builds on the [buildbot Grid View](https://b
 * Red X - one or more checks have failed
   * Action item: Look at the status of failing builds and fix potential issues
 
-Note: Only buildbot and not external CI tests (Travis, AppVeyor, etc) are currently in the protected branches criteria. Please take note of other failures, and if they are acceptable and explainable, then merge.
+Note: Only buildbot and not external CI tests (Travis, AppVeyor, etc) are in the protected branches criteria. Please take note of other failures, and if they are acceptable and explainable, then merge.
 
 ### Re-trigger Checks
 

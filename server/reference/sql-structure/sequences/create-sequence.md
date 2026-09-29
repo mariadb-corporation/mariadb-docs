@@ -10,6 +10,10 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 ```bnf
 CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
 [AS { TINYINT | SMALLINT | MEDIUMINT | INT | INTEGER | BIGINT } [SIGNED | UNSIGNED]]
@@ -26,6 +30,10 @@ CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 ```sql
 CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
 [ INCREMENT [ BY | = ] number ]
@@ -58,10 +66,18 @@ _`table_options`_ can be any of the normal table options in [CREATE TABLE](../..
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 `INT` type, that is, one of [TINYINT](../../data-types/numeric-data-types/tinyint.md), [SMALLINT](../../data-types/numeric-data-types/smallint.md), [MEDIUMINT](../../data-types/numeric-data-types/mediumint.md), [INT](../../data-types/numeric-data-types/int.md), [INTEGER](../../data-types/numeric-data-types/integer.md), [BIGINT](../../data-types/numeric-data-types/bigint.md). Can be signed or unsigned. Maximum value is based on the data type. The use of `BIGINT UNSIGNED` with this option extends the possible maximum value from `9223372036854775806` to `18446744073709551614`. Default is `BIGINT`.
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 The `AS` option is not available.
 {% endtab %}
 {% endtabs %}
@@ -112,10 +128,18 @@ Note that sequences can't generate the maximum/minimum 64 bit number because of 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6.1:
+{% endhint %}
+
 MariaDB supports [Atomic DDL](../../sql-statements/data-definition/atomic-ddl.md) and `CREATE SEQUENCE` is atomic.
 {% endtab %}
 
 {% tab title="< 10.6.1" %}
+{% hint style="info" %}
+Before MariaDB 10.6.1:
+{% endhint %}
+
 MariaDB does **not** support [Atomic DDL](../../sql-statements/data-definition/atomic-ddl.md) and `CREATE SEQUENCE` is atomic.
 {% endtab %}
 {% endtabs %}

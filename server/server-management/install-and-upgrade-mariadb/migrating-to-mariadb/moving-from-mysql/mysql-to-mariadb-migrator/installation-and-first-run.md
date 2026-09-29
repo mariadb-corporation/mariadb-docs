@@ -10,7 +10,7 @@ description: >-
 **MariaDB tool.** The MySQL to MariaDB Migrator is proprietary MariaDB software, provided free to MariaDB customers and partners under approved usage terms.
 {% endhint %}
 
-The MySQL to MariaDB Migrator is distributed as a release archive (`.tar.gz` or `.zip`) from the [MariaDB community downloads page](https://mariadb.com/downloads/community/). Download the latest version (for example, `v1.3.1-beta`), extract it, and run the launcher — it bootstraps its own Python environment, so there is no manual setup beyond the prerequisites below.
+The MySQL to MariaDB Migrator is distributed as a release archive (`.tar.gz` or `.zip`) from the [MariaDB community downloads page](https://mariadb.com/downloads/community/). Download the latest version (for example, `v1.5.0`), extract it, and run the launcher — it bootstraps its own Python environment, so there is no manual setup beyond the prerequisites below.
 
 ```bash
 tar -xzf mariadb-migrator-<version>.tar.gz
@@ -27,6 +27,7 @@ The data-transfer engine `mariadb-mtk` used by [Parallel Restartable Streaming C
 ### Required
 
 * **MariaDB must be installed and running on the target host before you run the tool.** The migrator verifies the target version during preflight, but it does not install MariaDB.
+* **bash 4.4 or later** on macOS hosts. The system `/bin/bash` on macOS is version 3.2, which the launcher rejects. Install a current bash with `brew install bash`, and invoke the launcher with it, for example `"$(brew --prefix)/bin/bash" ./mariadb-migrator`.
 * **Python 3.9 or later** on the host that runs the migrator. On the first run, the launcher creates a project-local virtual environment (`.venv`) and installs its Python dependencies into it automatically — no manual `pip install` is needed. On Debian and Ubuntu, install the venv module first: `sudo apt-get install -y python3-venv`.
 * **The `mariadb` client** on the host that runs the migrator, used for connectivity, version, and database checks. If it is missing, the launcher detects your platform and offers to install it on the first run. You can also install it manually, for example with `dnf install mariadb`, `apt-get install mariadb-client`, `zypper install mariadb-client`, or `brew install mariadb`.
 * **Network connectivity** from the host that runs the migrator to both the source MySQL server and the target MariaDB server. The exception is Offline Copy (`staged`) in its `dump_only` or `load_only` phase, which only needs connectivity to one side.

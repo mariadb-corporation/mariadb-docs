@@ -31,10 +31,18 @@ user_var_name:= expr
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.0:
+{% endhint %}
+
 The `SET` statement assigns values to different types of variables that affect the operation of the server or your client.
 {% endtab %}
 
 {% tab title="< 10.0" %}
+{% hint style="info" %}
+Before MariaDB 10.0:
+{% endhint %}
+
 The `SET` statement assigns values to different types of variables that affect the operation of the server or your client. Older versions of MySQL employed `SET OPTION`, but this syntax was deprecated in favor of `SET` without `OPTION`.
 {% endtab %}
 {% endtabs %}

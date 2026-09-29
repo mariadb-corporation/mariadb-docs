@@ -45,20 +45,36 @@ The meaning of the different options is as follows - note that this can vary a b
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.9.4 / 10.8.6 / 10.7.7 / 10.6.11:
+{% endhint %}
+
 The `EXTENDED` option is available to InnoDB, too.
 {% endtab %}
 
 {% tab title="< 10.9.4 / 10.8.6 / 10.7.7 / 10.6.11" %}
+{% hint style="info" %}
+Before MariaDB 10.9.4 / 10.8.6 / 10.7.7 / 10.6.11:
+{% endhint %}
+
 The `EXTENDED` option is ignored by InnoDB.
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8:
+{% endhint %}
+
 When the `EXTENDED` option is given, MariaDB also checks for referential integrity.
 {% endtab %}
 
 {% tab title="< 11.8" %}
+{% hint style="info" %}
+Before MariaDB 11.8:
+{% endhint %}
+
 MariaDB does not check for referential integrity, even if the `EXTENDED` option is given.
 {% endtab %}
 {% endtabs %}

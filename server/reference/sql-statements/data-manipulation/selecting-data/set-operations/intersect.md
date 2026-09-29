@@ -51,10 +51,18 @@ UNION
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.4:
+{% endhint %}
+
 Parentheses can be used to specify precedence.
 {% endtab %}
 
 {% tab title="< 10.4" %}
+{% hint style="info" %}
+Before MariaDB 10.4:
+{% endhint %}
+
 Parentheses **cannot** be used to specify precedence.
 {% endtab %}
 {% endtabs %}
@@ -65,10 +73,18 @@ Parentheses **cannot** be used to specify precedence.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 `INTERSECT ALL` and `INTERSECT DISTINCT` . The `ALL` operator leaves duplicates intact, while the `DISTINCT` operator removes duplicates. `DISTINCT` is the default behavior if neither operator is supplied.
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 `DISTINCT` is the only behavior available.
 {% endtab %}
 {% endtabs %}

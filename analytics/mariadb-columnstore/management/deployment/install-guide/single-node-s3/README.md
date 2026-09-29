@@ -45,6 +45,7 @@ The following components are deployed during this procedure:
 ## Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a three-node ColumnStore cluster on S3 storage
     accDescr {
@@ -68,6 +69,7 @@ flowchart TD
     classDef store fill:#fdf3d8,stroke:#8a6d1d,stroke-width:2px,color:#111;
     class MX,N1,N2,N3 node
     class S3 store
+    linkStyle default color:#111111
 ```
 
 _A MaxScale node routes read-write and read-only connections to three ColumnStore nodes backed by S3-compatible object storage._

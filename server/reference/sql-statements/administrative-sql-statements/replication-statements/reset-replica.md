@@ -32,10 +32,18 @@ If there is only one nameless primary, or the default primary (as specified by t
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7.0:
+{% endhint %}
+
 The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical to using the channel\_name directly after `RESET REPLICA`.
 {% endtab %}
 
 {% tab title="< 10.7.0" %}
+{% hint style="info" %}
+Before MariaDB 10.7.0:
+{% endhint %}
+
 `FOR CHANNEL` is not available.
 {% endtab %}
 {% endtabs %}
@@ -46,14 +54,26 @@ The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical a
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 `RESET REPLICA` resets the `Master`/`Slave_last_event_time` and `Connects_Tried` values (see [SHOW REPLICA STATUS](../show/show-replica-status.md)).
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+From MariaDB 11.6 to before MariaDB 12.0:
+{% endhint %}
+
 `RESET REPLICA` resets the `Master`/`Slave_last_event_time` values (see [SHOW REPLICA STATUS](../show/show-replica-status.md)).
 {% endtab %}
 
 {% tab title="< 11.6" %}
+{% hint style="info" %}
+Before MariaDB 11.6:
+{% endhint %}
+
 `RESET REPLICA` does not reset the `Master`/`Slave_last_event_time` values (see [SHOW REPLICA STATUS](../show/show-replica-status.md)).
 {% endtab %}
 {% endtabs %}

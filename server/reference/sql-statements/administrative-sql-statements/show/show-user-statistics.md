@@ -16,10 +16,18 @@ SHOW USER_STATISTICS
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.1.1:
+{% endhint %}
+
 The `SHOW USER_STATISTICS` statement is part of the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) feature. It was effectively replaced by the generic [SHOW information\_schema\_table](../../../system-tables/information-schema/information-schema-tables/README.md) statement. The [information\_schema.USER\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-user_statistics-table.md) table holds statistics about user activity. You can use this table to find out such things as which user is causing the most load and which users are being abusive. You can also use this table to measure how close to capacity the server may be.
 {% endtab %}
 
 {% tab title="< 10.1.1" %}
+{% hint style="info" %}
+Before MariaDB 10.1.1:
+{% endhint %}
+
 The `SHOW USER_STATISTICS` statement is part of the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) feature. The [information\_schema.USER\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-user_statistics-table.md) table holds statistics about user activity. You can use this table to find out such things as which user is causing the most load and which users are being abusive. You can also use this table to measure how close to capacity the server may be.
 {% endtab %}
 {% endtabs %}

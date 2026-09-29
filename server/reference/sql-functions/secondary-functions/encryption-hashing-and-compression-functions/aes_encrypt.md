@@ -10,12 +10,20 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 ```bnf
 AES_ENCRYPT(str, key, [, iv [, mode]])
 ```
 {% endtab %}
 
 {% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 ```sql
 AES_ENCRYPT(str,key_str)
 ```
@@ -40,15 +48,21 @@ Because AES is a block-level algorithm, padding is used to encode uneven length 
 
 If `AES_DECRYPT()` detects invalid data or incorrect padding, it returns `NULL`. However, it is possible for `AES_DECRYPT()` to return a non-`NULL` value (possibly garbage) if the input data or the key is invalid.
 
-**MariaDB starting with** [**11.2**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/what-is-mariadb-112)
-
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 The function supports an initialization vector, and control of the block encryption mode. The default mode is specified by the [block\_encryption\_mode](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#block_encryption_mode) system variable, which can be changed when calling the function with a mode. _mode_ is aes-{128,192,256}-{ecb,cbc,ctr} for example: "AES-128-cbc".\
 `AES_ENCRYPT(str, key)` can no longer be used in persistent virtual columns (and the like).
 {% endtab %}
 
-{% tab title="Tab 2" %}
+{% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 The function does **not** support an initialization vector.
 {% endtab %}
 {% endtabs %}
@@ -57,6 +71,10 @@ The function does **not** support an initialization vector.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 ```sql
 SELECT HEX(AES_ENCRYPT('foo', 'bar', '0123456789abcdef', 'aes-256-cbc')) AS x;
 +----------------------------------+
@@ -68,6 +86,10 @@ SELECT HEX(AES_ENCRYPT('foo', 'bar', '0123456789abcdef', 'aes-256-cbc')) AS x;
 {% endtab %}
 
 {% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 ```sql
 INSERT INTO t VALUES (AES_ENCRYPT('text',SHA2('password',512)));
 ```

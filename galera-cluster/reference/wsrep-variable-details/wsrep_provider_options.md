@@ -503,7 +503,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `protonet.backend`
 
-* Description: Deprecated option. Transport backend to use. Only ASIO is supported currently.
+* Description: Deprecated option. Transport backend to use. Only ASIO is supported.
 * Dynamic: No
 * Default: `asio`
 

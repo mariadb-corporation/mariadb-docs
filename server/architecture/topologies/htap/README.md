@@ -177,7 +177,7 @@ This implementation has not been tested with parallel replication.
 
 ### Row-Based Replication
 
-This implementation requires the [binlog\_format](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_format) system variable to be set to `STATEMENT`. Row-based replication is not currently supported.
+This implementation requires the [binlog\_format](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_format) system variable to be set to `STATEMENT`. Row-based replication is not supported.
 
 ## Quick Reference
 

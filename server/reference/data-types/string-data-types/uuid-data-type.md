@@ -46,10 +46,18 @@ This provides a sorting order, assuming a UUIDv1 (node and timestamp) is used, o
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11.5 / 10.10.6:
+{% endhint %}
+
 Taking into account that UUIDv7 and other versions are designed around time ordering, `UUID` values version >= 6 are stored without byte-swapping, and `UUID` values with version >=8 and variant=0 are now considered invalid (as the SQL standard suggests).
 {% endtab %}
 
 {% tab title="< 10.11.5 / 10.10.6" %}
+{% hint style="info" %}
+Before MariaDB 10.11.5 / 10.10.6:
+{% endhint %}
+
 `UUID` values version >= 6 are **not** stored without byte-swapping, and `UUID` values with version >=8 and variant=0 are **not** considered invalid.
 {% endtab %}
 {% endtabs %}

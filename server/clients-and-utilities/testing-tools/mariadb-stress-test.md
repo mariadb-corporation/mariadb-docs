@@ -10,10 +10,18 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.2:
+{% endhint %}
+
  `mysql-stress-test` is the symlink, and `mariadb-stress-test` the binary name.
 {% endtab %}
 
 {% tab title="< 10.5.2" %}
+{% hint style="info" %}
+Before MariaDB 10.5.2:
+{% endhint %}
+
  `mysql-stress-test` is the binary name.
 {% endtab %}
 {% endtabs %}

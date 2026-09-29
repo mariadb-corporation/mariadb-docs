@@ -124,7 +124,7 @@ When enabled, whether using `ON` or `AUTO`, `mariadb-backup` retrieves informati
 mariadb-backup --binlog-info --backup
 ```
 
-Currently, the `LOCKLESS` option depends on features unsupported by MariaDB Server. See the description of the [xtrabackup\_binlog\_pos\_innodb](files-created-by-mariadb-backup.md) file for more information. If you attempt to run `mariadb-backup` with this option, then it causes the utility to exit with an error.
+The `LOCKLESS` option depends on features unsupported by MariaDB Server. See the description of the [xtrabackup\_binlog\_pos\_innodb](files-created-by-mariadb-backup.md) file for more information. If you attempt to run `mariadb-backup` with this option, then it causes the utility to exit with an error.
 
 ### `--close-files`
 
@@ -580,6 +580,10 @@ mariadb-backup --backup --galera-info
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
+
 Defines whether you want to track backup history in the `mysql.mariadb_backup_history` table.
 
 ```
@@ -598,6 +602,10 @@ Information is written to `mysql.mariadb_backup_history`.
 {% endtab %}
 
 {% tab title="< 10.11" %}
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
 Defines whether you want to track backup history in the `PERCONA_SCHEMA.xtrabackup_history` table.
 
 ```
@@ -1660,7 +1668,7 @@ Streams backup files to stdout.
 --stream=xbstream
 ```
 
-Using this command option, you can set `mariadb-backup` to stream the backup files to `stdout` in the given format. Currently, the supported format is `xbstream`.
+Using this command option, you can set `mariadb-backup` to stream the backup files to `stdout` in the given format. The supported format is `xbstream`.
 
 ```bash
 mariadb-backup --stream=xbstream > backup.xb

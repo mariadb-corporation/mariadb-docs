@@ -54,10 +54,18 @@ ERROR 1645 (0K000): RESIGNAL when handler not active
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 5.6:
+{% endhint %}
+
 If a [HANDLER](../../sql-structure/nosql/handler/) contains a [CALL](../stored-routine-statements/call.md) to another procedure, that procedure can use `RESIGNAL`, but trying to do this raises the above error.
 {% endtab %}
 
 {% tab title="< 5.6" %}
+{% hint style="info" %}
+Before MariaDB 5.6:
+{% endhint %}
+
 If a [HANDLER](../../sql-structure/nosql/handler/) contains a [CALL](../stored-routine-statements/call.md) to another procedure, that procedure can use `RESIGNAL`.
 {% endtab %}
 {% endtabs %}

@@ -22,7 +22,10 @@ Usage:
                   expanding or an unknown alias is found.
     --write       Actually rewrite the files, expanding every known alias.
     --base REF    Scope to files changed against REF (e.g. --base origin/main) instead of
-                  the working tree's staged+unstaged set.
+                  the working tree's staged+unstaged set. nightly-aliascheck.yml runs exactly
+                  this with a rolling 24-hour base, which is how an alias that reached main
+                  outside a PR -- a GitBook-UI edit, a direct push -- still gets reported
+                  (DOCS-6588).
     paths         Check/expand exactly these files, skipping discovery.
 
 Deliberately NOT wired into pre-commit.sh as an auto-rewrite. Files changing underneath a
@@ -56,25 +59,33 @@ EXCLUDE_EXACT = ("README.md", "pdf/README.md")
 EXCLUDE_SUFFIX = ("/CONTRIBUTING.md", "/general-resources/about/readme/about-links.md")
 
 
+def die(msg):
+    """Exit 2, as the docstring promises. A bare sys.exit(msg) exits 1 -- the "found
+    something" code -- so the nightly digest would have reported a parse failure as a
+    finding and stayed green (DOCS-6588)."""
+    print(msg, file=sys.stderr)
+    sys.exit(2)
+
+
 def repo_root():
     try:
         out = subprocess.run(["git", "rev-parse", "--show-toplevel"],
                              capture_output=True, text=True, check=True)
         return pathlib.Path(out.stdout.strip())
     except (subprocess.CalledProcessError, FileNotFoundError):
-        sys.exit("expand-aliases: not inside a git work tree.")
+        die("expand-aliases: not inside a git work tree.")
 
 
 def load_aliases(root):
     """Parse the alias table out of the workflow's sed expressions."""
     wf = root / WORKFLOW
     if not wf.is_file():
-        sys.exit(f"expand-aliases: {WORKFLOW} not found — cannot read the alias table.")
+        die(f"expand-aliases: {WORKFLOW} not found — cannot read the alias table.")
     text = wf.read_text(encoding="utf-8")
     # Matches:  [{]server[}]#\1https://app.gitbook.com/o/.../s/...#g
     pairs = re.findall(r"\[\{\]([A-Za-z0-9_-]+)\[\}\]#\\1([^#]+)#g", text)
     if not pairs:
-        sys.exit(f"expand-aliases: found no alias definitions in {WORKFLOW}. The workflow's "
+        die(f"expand-aliases: found no alias definitions in {WORKFLOW}. The workflow's "
                  "sed lines may have been reformatted; update this parser rather than "
                  "hardcoding the table.")
     return dict(pairs)
@@ -83,18 +94,29 @@ def load_aliases(root):
 def excluded(rel):
     if rel.startswith(EXCLUDE_DIRS) or rel in EXCLUDE_EXACT:
         return True
-    return any(rel.endswith(s) for s in EXCLUDE_SUFFIX)
+    # Match against "/" + rel so a suffix also matches at the repo root: the workflow's
+    # ':(exclude,glob)**/CONTRIBUTING.md' covers the top-level CONTRIBUTING.md (** matches
+    # zero directories), and a bare endswith("/CONTRIBUTING.md") did not (DOCS-6588).
+    return any(("/" + rel).endswith(s) for s in EXCLUDE_SUFFIX)
 
 
 def discover(root, base):
+    # R as well as ACM: git diff detects renames by default, and a renamed page carrying an
+    # alias would otherwise drop out of scope. The workflow's own list uses
+    # --diff-filter=d (everything but deletions), which includes renames.
     if base:
-        cmds = [["git", "diff", "--name-only", "--diff-filter=ACM", f"{base}...HEAD"]]
+        cmds = [["git", "diff", "--name-only", "--diff-filter=ACMR", f"{base}...HEAD"]]
     else:
-        cmds = [["git", "diff", "--name-only", "--diff-filter=ACM"],
-                ["git", "diff", "--cached", "--name-only", "--diff-filter=ACM"]]
+        cmds = [["git", "diff", "--name-only", "--diff-filter=ACMR"],
+                ["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR"]]
     seen = []
     for cmd in cmds:
         out = subprocess.run(cmd + ["--", "*.md"], capture_output=True, text=True, cwd=root)
+        # A bad --base makes git diff fail with empty stdout, which used to read as "no
+        # Markdown files in scope" and exit 0 -- a silent pass on exactly the input a
+        # scheduled job gets wrong.
+        if out.returncode:
+            die(f"expand-aliases: {' '.join(cmd)} failed: {out.stderr.strip()}")
         for line in out.stdout.splitlines():
             if line and line not in seen:
                 seen.append(line)
@@ -134,7 +156,7 @@ def main():
         return 0
 
     expanded_total = 0
-    touched, unknown_hits = [], []
+    touched, known_hits, unknown_hits = [], [], []
 
     for rel in files:
         path = root / rel
@@ -143,6 +165,9 @@ def main():
         text = path.read_text(encoding="utf-8")
 
         new, n = known.subn(lambda m: m.group(1) + aliases[m.group(2)], text)
+        for m in known.finditer(text):
+            line = text[:m.start()].count("\n") + 1
+            known_hits.append(f"{rel}:{line}: {{{m.group(2)}}}")
         if n:
             expanded_total += n
             touched.append((rel, n))
@@ -159,14 +184,18 @@ def main():
     if touched:
         verb = "Expanded" if args.write else "Needs expanding"
         print(f"{verb}: {expanded_total} alias link target(s)")
-        for rel, n in touched:
-            print(f"  {rel}  ({n})")
+        # file:line for each one, so a report someone reads in Slack points at the line.
+        for h in known_hits:
+            print(f"  {h}")
         if not args.write:
             print("\nRe-run with --write to expand, then review the diff before committing.")
     else:
         print("expand-aliases: no known aliases in link targets.")
 
     if unknown_hits:
+        # stdout is block-buffered when piped, as the nightly digest pipes it; without this
+        # the error lands ABOVE the summary it belongs under.
+        sys.stdout.flush()
         print("\nERROR: alias left unexpanded — not a name the workflow knows:",
               file=sys.stderr)
         for h in unknown_hits:

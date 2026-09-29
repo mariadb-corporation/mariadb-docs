@@ -12,6 +12,10 @@ However, these are by default set to a long wait period. In situations where tra
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.3:
+{% endhint %}
+
 These variables help handle this situation:
 
 * [idle\_transaction\_timeout](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#idle_transaction_timeout) (all transactions)
@@ -20,6 +24,10 @@ These variables help handle this situation:
 {% endtab %}
 
 {% tab title="< 10.3" %}
+{% hint style="info" %}
+Before MariaDB 10.3:
+{% endhint %}
+
 There is no variables for more granular control.
 {% endtab %}
 {% endtabs %}

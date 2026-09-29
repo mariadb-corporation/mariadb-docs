@@ -51,12 +51,12 @@ This initializes the constant `mariadb`, which is set to use the Callback API ra
 
 ### Migrating from 2.x or mysql/mysql2 to 3.x
 
-The default behavior for decoding BIGINT/DECIMAL datatypes in 2.x versions and MySQL/MySQL2 drivers returns [BIGINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) / [DECIMAL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/decimal) datatype for 2.x versions, and When/mysql2 drivers return a JavaScript [Number](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/number) object. BIGINT/DECIMAL values might not be in the safe range, resulting in approximate results.
+In 2.x versions and in the mysql/mysql2 drivers, [BIGINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) / [DECIMAL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/decimal) values are decoded as a JavaScript [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) object by default. BIGINT/DECIMAL values might not be in the safe range, resulting in approximate results.
 
 Since the 3.x version, the driver has a reliable default, returning:
 
 * DECIMAL => JavaScript String
-* BIGINT => JavaScript [BigInt](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) object
+* BIGINT => JavaScript [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) object
 
 For compatibility with the previous version or MySQL/mysql driver, four options have been added to return BIGINT/DECIMAL as a number, as the previous defaults.
 

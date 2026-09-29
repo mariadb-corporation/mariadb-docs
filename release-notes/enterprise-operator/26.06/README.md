@@ -21,6 +21,7 @@ Multi-cluster replication is available as a **Tech Preview**. It is not recommen
 MariaDB Enterprise Kubernetes Operator 26.06 introduces multi-cluster replication, a new capability that connects independent MariaDB clusters across Kubernetes environments via replication. It builds on top of existing replication and Galera topologies, adding an inter-cluster replication layer where one cluster acts as the primary and the others as replicas—each maintaining its own internal HA mechanism. The operator manages the full replication lifecycle: provisioning clusters, bootstrapping replicas from physical backups, configuring replication connections, and performing cluster-level switchover.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TB
     accTitle: Multi-cluster replication architecture
     accDescr {A Client connects through a Load Balancer to the Primary Cluster's MaxScale Service in eu-south, which routes to maxscale-0 and maxscale-1 pods and on to the MariaDB Cluster's mariadb-0 (Primary) and mariadb-1 (Replica) pods. The Primary Cluster's mariadb-operator provisions, configures, and monitors the MariaDB Cluster, and takes physical backups from mariadb-1. The Replica Cluster in eu-central mirrors this structure with its own MaxScale Service, maxscale-0 and maxscale-1 pods, mariadb-operator, and a MariaDB Cluster containing mariadb-0 (Primary Replica) and mariadb-1 (Secondary Replica). The Replica Cluster's mariadb-0 replicates from the Primary Cluster's MaxScale Service.}
@@ -64,6 +65,7 @@ flowchart TB
     class Client,LB client;
     class PMS,PMX0,PMX1,POP,RMS,RMX0,RMX1,ROP proc;
     class PDB0,PDB1,RDB0,RDB1 node;
+    linkStyle default color:#111111
 ```
 
 _Multi-cluster replication architecture: a Client connects through a Load Balancer to the Primary Cluster's MaxScale Service; each cluster's mariadb-operator provisions, configures, and monitors its MariaDB Cluster and takes physical backups from the primary's replica pod; the Replica Cluster's mariadb-0 replicates from the Primary Cluster's MaxScale Service._

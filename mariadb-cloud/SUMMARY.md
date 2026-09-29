@@ -10,7 +10,7 @@
   * [Launch DB Using REST API](quickstart/launch-db-using-the-rest-api.md)
   * [Launch DB Using Terraform Provider](quickstart/launch-db-using-the-terraform-provider.md)
   * [Launch DB Using Python](quickstart/launch-db-using-python.md)
-  * [Bring Your Own Account (BYOA)](quickstart/bring-your-own-account-byoa.md)
+  * [Bring Your Own Cloud (BYOC)](quickstart/bring-your-own-cloud-byoc.md)
   * [Enterprise Cluster](quickstart/enterprise-cluster.md)
   * [HTAP using MariaDB Exa](quickstart/htap-mariadb-exa.md)
   * [Query Result Cache](quickstart/query-cache-gridgain-8.md)

@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Tools](README.md)
+* [Enterprise Tools](README.md)
 * [MariaDB Enterprise Manager](mariadb-enterprise-manager/README.md)
   * [Quickstart Guide](mariadb-enterprise-manager/quickstart-guide.md)
   * [Architecture Overview](mariadb-enterprise-manager/architecture-overview.md)

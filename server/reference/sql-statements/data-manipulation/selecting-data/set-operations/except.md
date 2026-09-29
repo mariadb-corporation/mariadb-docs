@@ -12,10 +12,18 @@ The result of `EXCEPT` contains all records of the left `SELECT` result set exce
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6.1:
+{% endhint %}
+
 `MINUS` is a synonym when [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.
 {% endtab %}
 
 {% tab title="< 10.6.1" %}
+{% hint style="info" %}
+Before MariaDB 10.6.1:
+{% endhint %}
+
 `MINUS` is a synonym is not available.
 {% endtab %}
 {% endtabs %}
@@ -57,10 +65,18 @@ Parentheses can be used to specify precedence.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5:
+{% endhint %}
+
 `EXCEPT ALL` and `EXCEPT DISTINCT` . The `ALL` operator leaves duplicates intact, while the `DISTINCT` operator removes duplicates. `DISTINCT` is the default behavior if neither operator is supplied.
 {% endtab %}
 
 {% tab title="< 10.5" %}
+{% hint style="info" %}
+Before MariaDB 10.5:
+{% endhint %}
+
 Only `EXCEPT DISTINCT` is available.
 {% endtab %}
 {% endtabs %}

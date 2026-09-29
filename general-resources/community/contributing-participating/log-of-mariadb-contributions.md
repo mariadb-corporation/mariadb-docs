@@ -544,7 +544,7 @@ Virtual Columns
 * [MySQL\_virtual\_columns\_ref\_manual](https://forge.mysql.com/wiki/MySQL_virtual_columns_ref_manual)
 * [mysql-6.0-wl1075-wl411](https://code.launchpad.net/~andrey-zhakov/mysql-server/mysql-6.0-wl1075-wl411)
 * Andrey Zhakov (modified by Sanja and Igor)
-* Author has [signed MCA](https://lists.askmonty.org/pipermailp/dev/2009-October/000079.html)
+* Author has signed MCA
 
 Declaring many CHARSET objects as const.
 
@@ -588,15 +588,15 @@ Microsecond precision in process list
 
 * microsec\_process.patch
 * Percona Inc
-* Patch was [licensed to Monty Program under BSD (new)](https://lists.askmonty.org/pipermailp/dev/2009-October/000075.html).
+* Patch was licensed to Monty Program under BSD (new).
 
 Slow Query Log Extended Statistics
 
 * [microslow.patch](https://www.percona.com/mysql/5.1.26/patches/microslow.patch)
 * Percona Inc
-* Patch was [licensed to Monty Program under BSD (new)](https://lists.askmonty.org/pipermailp/dev/2009-October/000075.html).
+* Patch was licensed to Monty Program under BSD (new).
 
-The [PBXT storage engine](https://kb.askmonty.org/v/about-pbxt)
+The PBXT storage engine
 
 *
 * Created by Paul McCullagh

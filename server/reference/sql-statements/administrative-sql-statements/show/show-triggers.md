@@ -17,10 +17,18 @@ SHOW TRIGGERS [FROM db_name]
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 5.1.22:
+{% endhint %}
+
 `SHOW TRIGGERS` lists the triggers currently defined for tables in a database (the default database unless a `FROM` clause is given). This statement requires the [TRIGGER](show-privileges.md) privilege.
 {% endtab %}
 
 {% tab title="< 5.1.22" %}
+{% hint style="info" %}
+Before MariaDB 5.1.22:
+{% endhint %}
+
 `SHOW TRIGGERS` lists the triggers currently defined for tables in a database (the default database unless a `FROM` clause is given). This statement requires the `SUPER` privilege.
 {% endtab %}
 {% endtabs %}
@@ -99,6 +107,10 @@ collation_connection: utf8_general_ci
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 5.1.21:
+{% endhint %}
+
 `character_set_client` is the session value of the [character\_set\_client](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_client) system variable when the trigger was created.
 
 `collation_connection` is the session value of the [collation\_connection](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#collation_connection) system variable when the trigger was created.
@@ -107,6 +119,10 @@ collation_connection: utf8_general_ci
 {% endtab %}
 
 {% tab title="< 5.1.21" %}
+{% hint style="info" %}
+Before MariaDB 5.1.21:
+{% endhint %}
+
 `character_set_client`, `collation_connection`, and`Database Collation` are not available.
 {% endtab %}
 {% endtabs %}

@@ -296,6 +296,10 @@ In the current code, evaluation of `JSON_TABLE` is deterministic, that is, for a
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6.9:
+{% endhint %}
+
 ```sql
 SELECT * FROM JSON_TABLE('{"foo": [1,2,3,4]}','$' columns( jscol json path '$.foo') ) AS T;
 +-----------+
@@ -307,6 +311,10 @@ SELECT * FROM JSON_TABLE('{"foo": [1,2,3,4]}','$' columns( jscol json path '$.fo
 {% endtab %}
 
 {% tab title="< 10.6.9" %}
+{% hint style="info" %}
+Before MariaDB 10.6.9:
+{% endhint %}
+
 `JSON_TABLE` does not allow to extract a JSON "subdocument" into a JSON column.
 
 ```sql

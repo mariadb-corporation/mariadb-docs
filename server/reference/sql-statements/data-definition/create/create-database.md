@@ -45,10 +45,18 @@ When the `IF NOT EXISTS` clause is used, MariaDB will return a warning instead o
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.5.0:
+{% endhint %}
+
 The maximum length of a comment is 1024 bytes. If the comment length exceeds this length, an error/warning code 4144 is thrown. The database comment is also added to the `db.opt` file, as well as to the [information\_schema.schemata table](../../../system-tables/information-schema/information-schema-tables/information-schema-schemata-table.md).
 {% endtab %}
 
 {% tab title="< 10.5.0" %}
+{% hint style="info" %}
+Before MariaDB 10.5.0:
+{% endhint %}
+
 Comments added for databases do not exist.
 {% endtab %}
 {% endtabs %}

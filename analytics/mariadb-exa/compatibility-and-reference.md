@@ -18,6 +18,7 @@ MariaDB Exa integrates MariaDB Enterprise Server with the Exasol analytical engi
 #### Core Components
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     User([User SQL Query]) --> MariaDB[MariaDB Server]
     
@@ -45,6 +46,7 @@ graph TD
     
     %% Behavioral Differences
     Engine -- "Logical Difference: '' is NULL" --> User
+    linkStyle default color:#111111
 ```
 
 * MariaDB Server (Source Layer): The primary environment for transactional workloads (OLTP). It records every data modification (DML) and schema change (DDL) in the Binary Log, which serves as the authoritative record of the system state.

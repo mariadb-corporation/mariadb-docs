@@ -30,6 +30,7 @@ The suggested solution is to solve all of the above and thus create a better mul
 The following picture shows the change:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TB
     accTitle: Moving to catalogs
     accDescr {
@@ -69,6 +70,7 @@ flowchart TB
     classDef schema fill:#eaeaf5,stroke:#5b4b8a,stroke-width:2px,color:#111;
     class VM1,VM2,VM3,SHDB,CATDB db
     class S1,S2,S3,S4,S5,SMY,C1,C2,C3,C4,C5,C6,W,WP,MSG,HD,AN,CMY schema
+    linkStyle default color:#111111
 ```
 
 _Moving to catalogs: instead of one VM or one schema per customer, a single MariaDB server hosts many customer catalogs, and each catalog holds all of that customer's schemas._

@@ -19,10 +19,18 @@ The `CREATE_FILE` and `CREATE_LINE` columns depend on the InnoDB/XtraDB version.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.2.2:
+{% endhint %}
+
 The table provides information about all columns listed in the previous table.
 {% endtab %}
 
 {% tab title="< 10.2.2" %}
+{% hint style="info" %}
+Before MariaDB 10.2.2:
+{% endhint %}
+
 The table provides information about `rw_lock_t`, not about any mutexes.
 {% endtab %}
 {% endtabs %}

@@ -292,10 +292,18 @@ Used for producing a dump file from a replica server that can be used to set up 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
+
 This option pauses any running SQL threads during the dump.
 {% endtab %}
 
 {% tab title="< 10.11" %}
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
 This option stops any running SQL threads before the dump, and restarts **all stopped IO and SQL** threads after completion.
 {% endtab %}
 {% endtabs %}

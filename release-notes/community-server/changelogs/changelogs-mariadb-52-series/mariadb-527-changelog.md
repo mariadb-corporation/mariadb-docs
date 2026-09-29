@@ -1,6 +1,6 @@
 # MariaDB 5.2.7 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.2.7) |[Release Notes](../../old-releases/5.2/5.2.7.md) |**Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
+[Download](https://archive.mariadb.org/mariadb-5.2.7/) |[Release Notes](../../old-releases/5.2/5.2.7.md) |**Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 14 Jun 2011
 
@@ -65,7 +65,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
     to use single COMMAND instead of 2.
 * [Revision #2984](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2984) \[merge]\
   Tue 2011-06-07 22:50:08 +0200
-  * merge [MWL#200](https://askmonty.org/worklog/?tid=200)
+  * merge MWL#200
     * [Revision #2982.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2982.1.3)\
       Thu 2011-06-02 10:06:51 +0200
       * use our libmysql.dll with HeidiSQL, if we compile 32 bit
@@ -74,7 +74,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
       * Use our libmysql.dll with Heidi, if we compile 32 bit
     * [Revision #2982.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2982.1.1)\
       Wed 2011-06-01 15:52:52 +0200
-      * [MWL#200](https://askmonty.org/worklog/?tid=200) - provide options to install 3rd party components.
+      * MWL#200 - provide options to install 3rd party components.
       * Added HeidiSQL as example, i.e cmake -DWITH\_THIRD\_PARTY=HeidiSQL
         and building MSI will bundle HeidiSQL.
 * [Revision #2983](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2983)\

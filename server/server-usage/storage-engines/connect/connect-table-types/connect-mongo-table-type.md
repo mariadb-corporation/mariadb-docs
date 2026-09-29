@@ -17,7 +17,7 @@ Accessing MongoDB from CONNECT can be done in different ways:
 
 #### Using the MongoDB C Driver
 
-This is currently not available from binary distributions but only for versions compiled from source. The preferred version of the MongoDB C Driver is 1.7, because they provide package recognition. What must be done is:
+This is not available from binary distributions but only for versions compiled from source. The preferred version of the MongoDB C Driver is 1.7, because they provide package recognition. What must be done is:
 
 1. Install libbson and the MongoDB C Driver 1.7.
 2. Configure, compile and install MariaDB.

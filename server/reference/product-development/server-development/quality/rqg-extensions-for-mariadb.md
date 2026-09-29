@@ -40,7 +40,7 @@ So, if you provide the following option:
 
 ## CheckFieldValue Validator <a href="#checkfieldvalue-validator" id="checkfieldvalue-validator"></a>
 
-A grammar can set requirements on results of a query through a specifically formatted comment. If the validator finds a comment which matches the template, it performs the requested check. The validation is defined in the comment itself: it says which field in which row in the result set should be checked, and provides the condition (currently simple numeric comparisons: `=`, `<`, `>`, `<=`, `>=`).
+A grammar can set requirements on results of a query through a specifically formatted comment. If the validator finds a comment which matches the template, it performs the requested check. The validation is defined in the comment itself: it says which field in which row in the result set should be checked, and provides the condition (simple numeric comparisons: `=`, `<`, `>`, `<=`, `>=`).
 
 It allows to do simple verification without implementing a special validator.
 

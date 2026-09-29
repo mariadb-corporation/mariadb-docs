@@ -36,6 +36,7 @@ MariaDB products can be deployed to form other topologies that leverage advanced
 ### ColumnStore with Object Storage
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a three-node ColumnStore cluster on S3 storage
     accDescr {
@@ -57,6 +58,7 @@ flowchart TD
     S3 -.-> N3
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     class MX,N1,N2,N3,S3 node
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes read/write traffic to three ES + ColumnStore nodes backed by S3 object storage._
@@ -372,6 +374,7 @@ The CMAPI server has a role in automatic failover. After MaxScale performs autom
 ## Data Loading
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: Data loading flow from an application to S3-compatible storage in MariaDB Enterprise ColumnStore
     accDescr {
@@ -415,6 +418,7 @@ flowchart LR
     class App,Client,Table,Cache,S3 node
     class CSEngine,WE,SM,CPImport proc
     class TSV file
+    linkStyle default color:#111111
 ```
 
 _Data loading with MariaDB Enterprise ColumnStore: a client query streams contacts.tsv through cpimport into the WriteEngine process, the Storage Manager, and the local cache, which appends the new data to S3-compatible storage._

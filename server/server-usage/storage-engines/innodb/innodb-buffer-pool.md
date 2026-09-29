@@ -7,7 +7,7 @@ description: >-
 
 # InnoDB Buffer Pool
 
-The InnoDB storage engine in MariaDB Enterprise Server utilizes the Buffer Pool as a crucial in-memory cache. This Buffer Pool stores recently accessed data pages, enabling faster retrieval for subsequent requests. Recognizing patterns of access, InnoDB also employs predictive prefetching, caching nearby pages when sequential access is detected. To manage memory efficiently, a least recently used (LRU) algorithm is used to evict older, less frequently accessed pages.
+The InnoDB storage engine in MariaDB Server utilizes the Buffer Pool as a crucial in-memory cache. This Buffer Pool stores recently accessed data pages, enabling faster retrieval for subsequent requests. Recognizing patterns of access, InnoDB also employs predictive prefetching, caching nearby pages when sequential access is detected. To manage memory efficiently, a least recently used (LRU) algorithm is used to evict older, less frequently accessed pages.
 
 To optimize server restarts, the Buffer Pool's contents can be preserved across shutdowns. At shutdown, the page numbers of all pages residing in the Buffer Pool are recorded. Upon the next startup, InnoDB reads this dump of page numbers and reloads the corresponding data pages from their respective data files, effectively avoiding a "cold" cache scenario.
 
@@ -51,11 +51,15 @@ The buffer pool can be set dynamically. See [Setting Innodb Buffer Pool Size Dyn
 From MariaDB 10.11.12 / 11.4.6 / 11.8.2, there are significant changes to the InnoDB buffer pool behavior.
 {% endhint %}
 
-MariaDB server deprecates and ignores the [`innodb_buffer_pool_chunk_size`](innodb-system-variables.md#innodb_buffer_pool_chunk_size) . Now, the buffer pool size is changed in arbitrary 1-megabyte increments, all the way up to [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max), which must be specified at startup.
+MariaDB Server deprecates and ignores [`innodb_buffer_pool_chunk_size`](innodb-system-variables.md#innodb_buffer_pool_chunk_size). The buffer pool size is now changed in arbitrary 1-megabyte increments, up to [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max), which is read-only and can only be set at startup.
 
-If `innodb_buffer_pool_size_max` is `0` or not specified, it defaults to the [`innodb_buffer_pool_size`](innodb-system-variables.md#innodb_buffer_pool_size) value.
+From MariaDB 10.11.17, 11.4.11, 11.8.7 and 12.3.2, `innodb_buffer_pool_size_max` defaults to 8 TiB on 64-bit systems other than IBM AIX, so `SET GLOBAL innodb_buffer_pool_size` can grow the buffer pool without anything being configured at startup. The 8 TiB is a reservation of virtual address space, not of memory. On 32-bit systems and on IBM AIX the default is `0`, which is replaced at startup by the initial [`innodb_buffer_pool_size`](innodb-system-variables.md#innodb_buffer_pool_size) rounded up to the allocation unit — on those systems the buffer pool cannot be grown beyond its initial size unless `innodb_buffer_pool_size_max` is set explicitly.
 
-The [`innodb_buffer_pool_size_auto_min`](innodb-system-variables.md#innodb_buffer_pool_size_auto_min) variable specifies the minimum size the buffer pool can be shrunk to by a memory pressure event. When a memory pressure event occurs, MariaDB server attempts to shrink `innodb_buffer_pool_size` halfway between its current value and the `innodb_buffer_pool_size_auto_min` value. If `innodb_buffer_pool_size_auto_min` is not specified or `0`, its default value is adjusted to `innodb_buffer_pool_size` — in other words, memory pressure events are disregarded by default.
+{% hint style="warning" %}
+Before MariaDB 10.11.17, 11.4.11, 11.8.7 and 12.3.2, `innodb_buffer_pool_size_max` defaulted to the initial `innodb_buffer_pool_size` on every system, so increasing the buffer pool at runtime required setting `innodb_buffer_pool_size_max` at startup ([MDEV-38671](https://jira.mariadb.org/browse/MDEV-38671)).
+{% endhint %}
+
+The [`innodb_buffer_pool_size_auto_min`](innodb-system-variables.md#innodb_buffer_pool_size_auto_min) variable specifies the minimum size the buffer pool can be shrunk to by a memory pressure event. When a memory pressure event occurs, MariaDB server attempts to shrink `innodb_buffer_pool_size` halfway between its current value and the `innodb_buffer_pool_size_auto_min` value. If `innodb_buffer_pool_size_auto_min` is not specified or `0`, it is adjusted at startup to `innodb_buffer_pool_size_max` — in other words, memory pressure events are disregarded by default. The variable is only available on Linux.
 
 The minimum `innodb_buffer_pool_size` is 320 pages (256\*5/4). With the default value of `innodb_page_size=16k`, this corresponds to 5 MiB. However, since `innodb_buffer_pool_size` includes the memory allocated for the block descriptors, the minimum is effectively `innodb_buffer_pool_size=6m`.
 
