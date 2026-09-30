@@ -28,16 +28,17 @@ The size of the InnoDB Redo Log is configurable. If your server writes data at a
 
 For the maximum capacity in the Redo Log, the Redo Log size should be the same as the [innodb\_buffer\_pool\_size](../innodb-system-variables.md#innodb_buffer_pool_size), which is configured by the [innodb\_buffer\_pool\_size](../innodb-system-variables.md#innodb_buffer_pool_size) system variable.
 
-The method to configure the Redo Log size depends on the server version and whether a server restart are performed:
+The method to configure the Redo Log size depends on the server version and whether a server restart is required:
 
-| Product Versions                    | Server Restart? | Method                               |
-| ----------------------------------- | --------------- | ------------------------------------ |
-| ES 10.5 and Later                   | No              | Configure size with SET GLOBAL       |
-| ES 10.5 and Later CS 10.5 and Later | Yes             | Configure size in configuration file |
+| Product Versions   | Server Restart? | Method                               |
+| ------------------ | --------------- | ------------------------------------ |
+| ES                 | No              | Configure size with SET GLOBAL       |
+| CS 10.9 and Later  | No              | Configure size with SET GLOBAL       |
+| CS 10.6            | Yes             | Configure size in configuration file |
 
-## Configure the InnoDB Redo Log Size with SET GLOBAL (ES 10.5 and Later)
+## Configure the InnoDB Redo Log Size with SET GLOBAL
 
-Starting in MariaDB Enterprise Server 10.5, the size of the InnoDB Redo Log can be changed dynamically by setting the [innodb\_log\_file\_size](../innodb-system-variables.md#innodb_log_file_size) system variable using the [SET GLOBAL](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) statement. The [SET GLOBAL](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) statement requires the SUPER privilege.
+In MariaDB Enterprise Server and in MariaDB Community Server 10.9 and later, the size of the InnoDB Redo Log can be changed dynamically by setting the [innodb\_log\_file\_size](../innodb-system-variables.md#innodb_log_file_size) system variable using the [SET GLOBAL](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) statement. The [SET GLOBAL](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) statement requires the SUPER privilege.
 
 The resize operation is performed asynchronously in the background. If the server is restarted before the operation completes, the request may be ignored. To ensure that the change survives server restarts, the [innodb\_log\_file\_size](../innodb-system-variables.md#innodb_log_file_size) system variable should also be set in a configuration file.
 
@@ -106,9 +107,9 @@ And to set the size to 2 GB:
 innodb_log_file_size=2G
 ```
 
-## Configure the InnoDB Redo Log Size in a Configuration File (ES 10.5) and Later
+## Configure the InnoDB Redo Log Size in a Configuration File
 
-Starting in MariaDB Enterprise Server 10.5, the size of the InnoDB Redo Log can be changed by setting the [innodb\_log\_file\_size](../innodb-system-variables.md#innodb_log_file_size) system variable in a configuration file.
+The size of the InnoDB Redo Log can be changed by setting the [innodb\_log\_file\_size](../innodb-system-variables.md#innodb_log_file_size) system variable in a configuration file.
 
 To configure the InnoDB Redo Log in a configuration file, use the following procedure:
 
@@ -145,13 +146,13 @@ And to set the size to 2 GB:
 innodb_log_file_size=2G
 ```
 
-3. Starting in MariaDB Community Server 10.5, the server must be restarted for the configuration change to take effect:
+3. On MariaDB Community Server 10.6, the server must be restarted for the configuration change to take effect:
 
 ```bash
 $ sudo systemctl restart mariadb
 ```
 
-4. Starting in MariaDB Enterprise Server 10.5, the server can use the configuration change without a restart if you use [SET GLOBAL](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md).
+4. On MariaDB Enterprise Server and on MariaDB Community Server 10.9 and later, the server can use the configuration change without a restart if you use [SET GLOBAL](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md).
 
 ## Emergency Recovery Across Major Versions
 

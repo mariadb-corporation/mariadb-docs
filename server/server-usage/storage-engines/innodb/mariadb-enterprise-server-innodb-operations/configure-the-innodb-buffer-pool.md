@@ -14,7 +14,7 @@ The contents of the Buffer Pool can be reloaded at startup, so that InnoDB does 
 
 The size of each page in the Buffer Pool depends on the value of the [innodb\_page\_size](../../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_page_size) system variable.
 
-Starting with ES 10.5 and CS 10.5, the [Buffer Pool](../innodb-system-variables.md#innodb_buffer_pool_instances) always has a single instance.
+The [Buffer Pool](../innodb-buffer-pool.md) always has a single instance.
 
 For additional information, see "[InnoDB Buffer Pool](../innodb-buffer-pool.md)".
 

@@ -174,7 +174,7 @@ A number of new [status variables](../../../ha-and-performance/optimization-and-
 +-------------------+---------------------+------+-----+---------+-------+
 ```
 
-From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), Spider installs another Information Schema table, [SPIDER\_WRAPPER\_PROTOCOLS](information-schema-spider_wrapper_protocols-table.md).
+Spider installs another Information Schema table, [SPIDER\_WRAPPER\_PROTOCOLS](information-schema-spider_wrapper_protocols-table.md).
 
 ## Performance Schema
 

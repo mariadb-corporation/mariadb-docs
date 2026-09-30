@@ -107,7 +107,7 @@ In case of a system crash, hardware failure or power outage, a page could be hal
 * If an event prevents the first page from being written, the old version of the page will still be available.
 * If an event prevents the old page from being completely overwritten by its new version, the page can still be recovered using the doublewrite buffer.
 
-The doublewrite buffer can disabled using the [innodb\_doublewrite](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_doublewrite) variable, but this usually doesn't bring big performance benefits. The doublewrite buffer location can be changed with [innodb\_doublewrite\_file](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_doublewrite_file).
+The doublewrite buffer can disabled using the [innodb\_doublewrite](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_doublewrite) variable, but this usually doesn't bring big performance benefits.
 
 ### Aria
 

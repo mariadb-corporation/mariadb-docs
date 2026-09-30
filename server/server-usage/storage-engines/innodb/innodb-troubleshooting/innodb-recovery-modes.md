@@ -14,7 +14,7 @@ Please note that recovery mode does not repair corruption. The corrupted files r
 
 Generally, it is best to start with a recovery mode of 1, and increase in single increments if needs be. With a recovery mode < 4, only corrupted pages should be lost. With 4, secondary indexes could be corrupted. With 5, results could be inconsistent and secondary indexes could be corrupted (even if they were not with 4). A value of 6 leaves pages in an obsolete state, which might cause more corruption.
 
-Until [MariaDB 10.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.7), mode `0` was the only mode permitting changes to the data. From [MariaDB 10.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.7), write transactions are permitted with mode `3` or less.
+Write transactions are permitted with mode `3` or less.
 
 To recover the tables, you can execute [SELECTs](../../../../reference/sql-statements/data-manipulation/selecting-data/select.md) to dump data, and [DROP TABLE](../../../../reference/sql-statements/data-definition/drop/drop-table.md) (when write transactions are permitted) to remove corrupted tables.
 
@@ -57,8 +57,6 @@ Before MariaDB 10.6.5:
 | 6    | (SRV\_FORCE\_NO\_LOG\_REDO) does not perform redo log roll-forward as part of recovery. Running queries that require indexes are likely to fail with this mode active. However, if a table dump still causes a crash, you can try using a SELECT \* FROM tab ORDER BY primary\_key DESC to dump all the data portion after the corrupted part.                                                                  |
 {% endtab %}
 {% endtabs %}
-
-Note also that XtraDB (<= [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)) by default will crash the server when it detects corrupted data in a single-table tablespace. This behaviour can be changed - see the [innodb\_corrupt\_table\_action](../innodb-system-variables.md) system variable.
 
 ## Fixing Things
 

@@ -83,27 +83,27 @@ See the [Differences in MariaDB Enterprise Server 10.5](../../../enterprise-serv
 
 #### InnoDB Removed or Deprecated Variables
 
-* [innodb\_buffer\_pool\_instances](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_buffer_pool_instances)
-* [innodb\_checksums](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_checksums) ([MDEV-19534](https://jira.mariadb.org/browse/MDEV-19534))
-* [innodb\_locks\_unsafe\_for\_binlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_locks_unsafe_for_binlog) ([MDEV-19544](https://jira.mariadb.org/browse/MDEV-19544))
-* [innodb\_log\_checksums](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_log_checksums) ([MDEV-19543](https://jira.mariadb.org/browse/MDEV-19543))
-* [innodb\_log\_files\_in\_group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_log_files_in_group) ([MDEV-14425](https://jira.mariadb.org/browse/MDEV-14425) & [MDEV-20907](https://jira.mariadb.org/browse/MDEV-20907))
-* [innodb\_log\_optimize\_ddl](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_page_cleaners) ([MDEV-19747](https://jira.mariadb.org/browse/MDEV-19747))
-* [innodb\_rollback\_segments](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_rollback_segments) ([MDEV-19570](https://jira.mariadb.org/browse/MDEV-19570))
-* [innodb\_scrub\_log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_scrub_log) and [innodb\_scrub\_log\_speed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_scrub_log_speed) ([MDEV-21870](https://jira.mariadb.org/browse/MDEV-21870))
+* innodb\_buffer\_pool\_instances
+* innodb\_checksums ([MDEV-19534](https://jira.mariadb.org/browse/MDEV-19534))
+* innodb\_locks\_unsafe\_for\_binlog ([MDEV-19544](https://jira.mariadb.org/browse/MDEV-19544))
+* innodb\_log\_checksums ([MDEV-19543](https://jira.mariadb.org/browse/MDEV-19543))
+* innodb\_log\_files\_in\_group ([MDEV-14425](https://jira.mariadb.org/browse/MDEV-14425) & [MDEV-20907](https://jira.mariadb.org/browse/MDEV-20907))
+* innodb\_log\_optimize\_ddl ([MDEV-19747](https://jira.mariadb.org/browse/MDEV-19747))
+* innodb\_rollback\_segments ([MDEV-19570](https://jira.mariadb.org/browse/MDEV-19570))
+* innodb\_scrub\_log and innodb\_scrub\_log\_speed ([MDEV-21870](https://jira.mariadb.org/browse/MDEV-21870))
 * Remove [INFORMATION\_SCHEMA.INNODB\_TABLESPACES\_SCRUBBING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_scrubbing-table) table and deprecate and ignore:
-* [innodb-background-scrub-data-uncompressed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_background_scrub_data_uncompressed)
-* [innodb-background-scrub-data-compressed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_background_scrub_data_compressed)
-* [innodb-background-scrub-data-interval](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_background_scrub_data_interval)
-* [innodb-background-scrub-data-check-interval](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_background_scrub_data_check_interval) ([MDEV-15528](https://jira.mariadb.org/browse/MDEV-15528))
-* [innodb\_stats\_sample\_pages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_stats_sample_pages) ([MDEV-19551](https://jira.mariadb.org/browse/MDEV-19551))
-* [innodb\_undo\_logs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_undo_logs) ([MDEV-19570](https://jira.mariadb.org/browse/MDEV-19570))
-* [innodb\_thread\_concurrency](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_thread_concurrency)
-* [innodb\_commit\_concurrency](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_commit_concurrency)
-* [innodb\_replication\_delay](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_replication_delay)
-* [innodb\_concurrency\_tickets](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_concurrency_tickets)
-* [innodb\_thread\_sleep\_delay](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_thread_sleep_delay)
-* [innodb\_adaptive\_max\_sleep\_delay](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_adaptive_max_sleep_delay) ([MDEV-23379](https://jira.mariadb.org/browse/MDEV-23379))
+* innodb-background-scrub-data-uncompressed
+* innodb-background-scrub-data-compressed
+* innodb-background-scrub-data-interval
+* innodb-background-scrub-data-check-interval ([MDEV-15528](https://jira.mariadb.org/browse/MDEV-15528))
+* innodb\_stats\_sample\_pages ([MDEV-19551](https://jira.mariadb.org/browse/MDEV-19551))
+* innodb\_undo\_logs ([MDEV-19570](https://jira.mariadb.org/browse/MDEV-19570))
+* innodb\_thread\_concurrency
+* innodb\_commit\_concurrency
+* innodb\_replication\_delay
+* innodb\_concurrency\_tickets
+* innodb\_thread\_sleep\_delay
+* innodb\_adaptive\_max\_sleep\_delay ([MDEV-23379](https://jira.mariadb.org/browse/MDEV-23379))
 
 ### Performance Schema Updates to Match MySQL 5.7 Instrumentation and Tables
 
