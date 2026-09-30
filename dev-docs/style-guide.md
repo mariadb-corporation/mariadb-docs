@@ -104,6 +104,65 @@ knows when "currently" was written, so a reader has to assume it is true today
 is a question, not a verdict, and it deliberately misses most "currently", so read the page
 too. The nightly digest (`nightly-timeless.yml`) runs the same patterns on new commits.
 
+## Version tabs (DOCS-6672)
+
+Pages use GitBook tabs to show how a feature behaves in different versions. Readers misread the
+tab titles — they take **Current** to mean "the version I'm currently running" — so every
+version tab repeats its version range at the top of its content.
+
+**Tab titles:**
+
+- The first tab is always `Current`.
+- Name every other tab after the version it ends at, with a leading `<`: `< 11.4`. With more
+  than two tabs, go from newest to oldest.
+- Abbreviate Community Server and Enterprise Server as `CS` and `ES` in titles:
+  `< CS 12.0 / ES 11.8`. Spell them out in the tab content.
+- Separate multiple versions with ` / `: `< 10.6.5 / 10.5.13 / 10.4.22`, not
+  `<10.4.7, <10.5.8`.
+- **Tab titles are link anchors** (`< 11.1` → `#less-than-11.1`). Before renaming a tab, search
+  the docs for links to its old anchor.
+
+**Tab content** — start every version tab with an info hint (`{% hint style="info" %}`) naming
+the versions it applies to:
+
+| Tab | Hint text |
+|-----|-----------|
+| `Current` | `From MariaDB 11.4:` |
+| `< 11.4`, the last tab | `Before MariaDB 11.4:` |
+| `< 11.4`, followed by `< 10.7` | `From MariaDB 10.7 to before MariaDB 11.4:` |
+| `< CS 12.0 / ES 11.8` | `Before Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:` |
+
+```
+{% tabs %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:
+{% endhint %}
+…
+{% endtab %}
+
+{% tab title="< CS 12.0 / ES 11.8" %}
+{% hint style="info" %}
+Before Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:
+{% endhint %}
+…
+{% endtab %}
+{% endtabs %}
+```
+
+- If the tab title doesn't mention `CS` or `ES`, write `MariaDB X`.
+- **Only name ES versions you have verified against ES source.** ES often gets features earlier
+  than CS, as backports, so the CS version is not a safe guess.
+- Tabs that don't differentiate versions (*Oracle Mode*, *Background*, product tabs for
+  Enterprise vs. Community install steps) get no hint.
+
+**Which version to name:** normally the release series only (CS 12.0, ES 11.8). Name a full
+version only when a feature was backported within a series to a release other than `.0`
+(preview) or `.1` (normally the first GA) — for example ES 11.8.9-6 (DOCS-6424).
+
+**Example:** `server/reference/sql-statements/data-definition/create/create-function.md`, the
+`RETURN` tab block.
+
 ## Links
 
 - Same space → relative `.md` link; other space → `{alias}` link; never raw `app.gitbook.com`

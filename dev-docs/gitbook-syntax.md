@@ -72,6 +72,9 @@ Instructions for RHEL.
 {% endtabs %}
 ```
 
+For tabs that differentiate **versions** (`Current` / `< 11.4`), follow the title and
+info-hint convention in `dev-docs/style-guide.md` › *Version tabs*.
+
 ## Code blocks with a title or line numbers
 
 For a titled or line-numbered block, wrap a fenced code block in `{% code %}`:
