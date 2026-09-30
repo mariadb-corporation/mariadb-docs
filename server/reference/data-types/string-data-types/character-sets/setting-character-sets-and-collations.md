@@ -496,15 +496,15 @@ A collation can be given either by its full name, such as `utf8mb4_uca1400_ai_ci
 
 {% tab title="< 11.5" %}
 {% hint style="info" %}
-From MariaDB 11.2.1 to before MariaDB 11.5:
+From MariaDB 11.2 to before MariaDB 11.5:
 {% endhint %}
 
 The variable exists but is empty by default, so each character set uses its compiled-in default collation, such as `utf8mb4_general_ci` for `utf8mb4`.
 {% endtab %}
 
-{% tab title="< 11.2.1" %}
+{% tab title="< 11.2" %}
 {% hint style="info" %}
-Before MariaDB 11.2.1:
+Before MariaDB 11.2:
 {% endhint %}
 
 It is **not** possible to change the default collation associated with a particular character set.

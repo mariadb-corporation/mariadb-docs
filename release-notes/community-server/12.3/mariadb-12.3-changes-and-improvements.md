@@ -17,7 +17,7 @@ MariaDB 12.3 is a [long term release](../about/release-model.md), maintained unt
 * Support for passphrase protected keys ([MDEV-14091](https://jira.mariadb.org/browse/MDEV-14091))
   * [ssl\_passphrase system](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_passphrase) variable
 * New statement [SET SESSION AUTHORIZATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/set-session-authorization) for performing actions as another user ([MDEV-20299](https://jira.mariadb.org/browse/MDEV-20299))
-* Implement SHA2 (sha256) support for the [file\_key\_management.so](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin#current-greater-than-12.0.1) plugin (TDE) — `.so` is Linux only ([MDEV-34712](https://jira.mariadb.org/browse/MDEV-34712))
+* Implement SHA2 (sha256) support for the [file\_key\_management.so](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin#current) plugin (TDE) — `.so` is Linux only ([MDEV-34712](https://jira.mariadb.org/browse/MDEV-34712))
 
 ### Compatibility Features
 

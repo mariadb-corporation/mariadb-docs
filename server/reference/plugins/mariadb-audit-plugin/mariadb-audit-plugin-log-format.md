@@ -16,15 +16,15 @@ When the MariaDB Audit Plugin (v1) writes to a dedicated file, it uses a comma-s
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 12.0.1:
+From MariaDB 12.0:
 {% endhint %}
 
 Template: `<timestamp>,<serverhost>,<username>,<host>:<port>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
 {% endtab %}
 
-{% tab title="< 12.0.1" %}
+{% tab title="< 12.0" %}
 {% hint style="info" %}
-Before MariaDB 12.0.1:
+Before MariaDB 12.0:
 {% endhint %}
 
 Template: `<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`

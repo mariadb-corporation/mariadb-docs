@@ -86,15 +86,15 @@ The order in which the columns appear depends on the MariaDB version. This means
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 11.6.0:
+From MariaDB 11.6:
 {% endhint %}
 
 These columns can also be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_STATUS](../../../system-tables/information-schema/information-schema-tables/information-schema-slave_status-table.md) table.
 {% endtab %}
 
-{% tab title="< 11.6.0" %}
+{% tab title="< 11.6" %}
 {% hint style="info" %}
-Before MariaDB 11.6.0:
+Before MariaDB 11.6:
 {% endhint %}
 
 These columns cannot be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_STATUS](../../../system-tables/information-schema/information-schema-tables/information-schema-slave_status-table.md) table.

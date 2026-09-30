@@ -139,15 +139,15 @@ A package whose specification was created by the `CREATE PACKAGE` statement, sho
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.8.0:
+From MariaDB 10.8:
 {% endhint %}
 
 The function parameter quantifiers for `IN`, `OUT`, `INOUT`, and `IN OUT` are supported anywhere.
 {% endtab %}
 
-{% tab title="< 10.8.0" %}
+{% tab title="< 10.8" %}
 {% hint style="info" %}
-Before MariaDB 10.8.0:
+Before MariaDB 10.8:
 {% endhint %}
 
 The function parameter quantifiers for `IN`, `OUT`, `INOUT`, and `IN OUT` are supported only in procedures.

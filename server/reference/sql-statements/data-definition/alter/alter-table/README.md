@@ -898,7 +898,7 @@ ALTER TABLE rooms ADD PRIMARY KEY(room_number, p WITHOUT OVERLAPS);
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.8.1:
+From MariaDB 10.8:
 {% endhint %}
 
 An `ALTER` query can be replicated faster with this statement, which must be run before the `ALTER` statement:
@@ -918,9 +918,9 @@ Binlog would contain two event groups, of which the first one gets delivered to 
 
 {% endtab %}
 
-{% tab title="< 10.8.1" %}
+{% tab title="< 10.8" %}
 {% hint style="info" %}
-Before MariaDB 10.8.1:
+Before MariaDB 10.8:
 {% endhint %}
 
 This statement is not available:

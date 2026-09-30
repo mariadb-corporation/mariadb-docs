@@ -64,15 +64,15 @@ Note: The value is extracted from the corresponding server option or system vari
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.7.0:
+From MariaDB 10.7:
 {% endhint %}
 
 The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical to using the channel\_name directly after `CHANGE MASTER`.
 {% endtab %}
 
-{% tab title="< 10.7.0" %}
+{% tab title="< 10.7" %}
 {% hint style="info" %}
-Before MariaDB 10.7.0:
+Before MariaDB 10.7:
 {% endhint %}
 
 `FOR CHANNEL` is not available.
@@ -350,11 +350,7 @@ Setting this option resets the `Connects_Tried` statistic in [SHOW REPLICA STATU
 
 The default is the [`--master-retry-count`](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-retry-count) option, which can be set either on the command-line or in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
-{% tabs %}
-{% tab title="< 12.0" %}
-The `MASTER_RETRY_COUNT` option for `CHANGE MASTER` is only supported by MariaDB 12.0.1 and later and by MySQL. Please use the [`--master-retry-count`](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-retry-count) option instead, which be set either on the command-line or in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
-{% endtab %}
-{% endtabs %}
+Before MariaDB 12.0, `CHANGE MASTER` has no `MASTER_RETRY_COUNT` option, so set the `--master-retry-count` option instead.
 
 ```ini
 [mariadb]

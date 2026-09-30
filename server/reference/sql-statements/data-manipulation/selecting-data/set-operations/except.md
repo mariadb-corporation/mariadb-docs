@@ -13,15 +13,15 @@ The result of `EXCEPT` contains all records of the left `SELECT` result set exce
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.6.1:
+From MariaDB 10.6:
 {% endhint %}
 
 `MINUS` is a synonym when [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.
 {% endtab %}
 
-{% tab title="< 10.6.1" %}
+{% tab title="< 10.6" %}
 {% hint style="info" %}
-Before MariaDB 10.6.1:
+Before MariaDB 10.6:
 {% endhint %}
 
 `MINUS` is a synonym is not available.
