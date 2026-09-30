@@ -45,11 +45,11 @@ Diagram(Start({type:'complex'}),Optional(Sequence(Terminal('SECONDARY'),Terminal
 - `ZONE` - sets the [Distribution Zone](distribution-zones.md). Can be preceded by `PRIMARY` to signify the primary distribution zone, or by `SECONDARY` to signify the secondary distribution zone. Can be specified as a case-sensitive string or case-insensitive identifier. Does not need to exist at the moment of table creation, and can be created before writing data.
 - `STORAGE PROFILE` - sets the [storage profile](../configuration/node-configuration-parameters.md#storage-configuration) that will be used to store the table. Can be preceded by `PRIMARY` to signify the primary storage, or by `SECONDARY` to signify the secondary ([columnar](../../architecture/storage/engines/columnar-storage.md)) storage profile. Must be specified as a case-sensitive string. Can be preceded by `PRIMARY` to signify the primary storage profile.
 - `EXPIRE AT` - defines when a record should be deleted based on the provided point in time. Unlike `ARCHIVE AT`, deletes the data both in primary and secondary storage when the specified time is reached.
-- `ARCHIVE AT` - defines when a record should be removed from primary storage based on the provided point in time. The data will still be available for reading in secondary storage. Currently, this condition comes with several limitations:
+- `ARCHIVE AT` - defines when a record should be removed from primary storage based on the provided point in time. The data will still be available for reading in secondary storage. This condition comes with several limitations:
   - You cannot use this condition without [secondary storage](../../architecture/storage/storage-profiles.md#secondary-storage-profiles). Table must have secondary storage attached.
   - You cannot use this condition together with `EXPIRE AT`.
   - After the `ARCHIVE AT` timestamp is reached, you cannot modify the archived data with `UPDATE` or `DELETE` operations. Only the data that exists in the primary storage can be modified.
-- `WITH` - defines the list of additional table parameters. Currently, the following parameters are supported:
+- `WITH` - defines the list of additional table parameters. The following parameters are supported:
   - `min stale rows` - number of updates since the last query plan update required to automatically recreate query execution plan. Overrides `ignite.sql.createTable.minStaleRowsCount`. Default value is `500`.
   - `stale rows fraction` - fraction of the table that must change for query execution plan to be recreated automatically. Overrides `ignite.sql.createTable.staleRowsFraction`. Default value is `0.2`.
   - `row level security` - enables (`ON`) or disables (`OFF`) [row-level security](../../security/row-level-security.md) on the table. If omitted, row-level security is disabled. This is equivalent to creating the table and then running `ALTER TABLE ... SET ROW LEVEL SECURITY ON`. Available only in GridGain 9 Enterprise and Ultimate editions; setting it requires the `MANAGE_RLS` privilege on the table.
@@ -498,7 +498,7 @@ Diagram(Start({type:'complex'}),Terminal('ALTER TABLE'),Optional(Terminal('IF EX
 **Keywords and parameters:**
 
 - `IF EXISTS` - do not throw an error if a table with the specified table name does not exist.
-- `param_name` - the name of a parameter to modify. Currently, the following parameters are supported:
+- `param_name` - the name of a parameter to modify. The following parameters are supported:
   - `stale rows fraction` - fraction of the table that must change for query execution plan to be recreated automatically. Default value is `0.2`.
   - `min stale rows` - number of updates since the last query plan update required to automatically recreate query execution plan. Default value is `500`.
 

@@ -2,6 +2,7 @@
 description: >-
   Creating, restoring, and removing snapshots for GridGain 9 clusters from the
   Control Center Snapshots screen.
+hidden: true
 ---
 
 # Snapshot Management for GridGain 9 Clusters

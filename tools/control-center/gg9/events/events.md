@@ -2,6 +2,7 @@
 description: >-
   Viewing, filtering, and inspecting GridGain 9 and Apache Ignite 3 cluster
   events on the Control Center Events screen.
+hidden: true
 ---
 
 # Events Screen

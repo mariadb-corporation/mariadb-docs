@@ -27,7 +27,7 @@ ODBC defines several Interface conformance levels. In this section you can find 
 | Prepare and execute SQL statements, by calling `SQLExecDirect`, `SQLExecute`, and `SQLPrepare`. | YES | `SQLPrepare` is not supported on SQL side. |
 | Fetch one row of a result set or multiple rows, in the forward direction only, by calling `SQLFetch` or by calling `SQLFetchScroll` with the `FetchOrientation` argument set to `SQL_FETCH_NEXT` | YES |  |
 | Obtain an unbound column in parts, by calling `SQLGetData`. | YES |  |
-| Obtain current values of all attributes, by calling `SQLGetConnectAttr`, `SQLGetEnvAttr`, and `SQLGetStmtAttr`, and set all attributes to their default values and set certain attributes to non-default values by calling `SQLSetConnectAttr`, `SQLSetEnvAttr`, and `SQLSetStmtAttr`. | PARTIALLY | Not all attributes are currently supported. See table below for details. |
+| Obtain current values of all attributes, by calling `SQLGetConnectAttr`, `SQLGetEnvAttr`, and `SQLGetStmtAttr`, and set all attributes to their default values and set certain attributes to non-default values by calling `SQLSetConnectAttr`, `SQLSetEnvAttr`, and `SQLSetStmtAttr`. | PARTIALLY | Not all attributes are supported. See table below for details. |
 | Manipulate certain fields of descriptors, by calling `SQLCopyDesc`, `SQLGetDescField`, `SQLGetDescRec`, `SQLSetDescField`, and `SQLSetDescRec`. | NO |  |
 | Obtain diagnostic information, by calling `SQLGetDiagField` and `SQLGetDiagRec`. | YES |  |
 | Detect driver capabilities, by calling `SQLGetFunctions` and `SQLGetInfo`. Also, detect the result of any text substitutions made to an SQL statement before it is sent to the data source, by calling `SQLNativeSql`. | YES |  |

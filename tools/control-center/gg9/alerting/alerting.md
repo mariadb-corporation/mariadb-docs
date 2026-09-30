@@ -2,6 +2,7 @@
 description: >-
   Configuring metric-based alerts, notification channels, and webhook payloads
   for GridGain 9 clusters in Control Center.
+hidden: true
 ---
 
 # Alerting

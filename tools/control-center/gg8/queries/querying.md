@@ -2,6 +2,7 @@
 description: >-
   Executing SQL and scan queries against GridGain 8 clusters from the Control
   Center Queries screen, plus the queries log and query statistics.
+hidden: true
 ---
 
 # Queries Screen for GridGain 8 Clusters

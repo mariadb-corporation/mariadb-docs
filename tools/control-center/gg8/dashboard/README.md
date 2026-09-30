@@ -2,6 +2,7 @@
 description: >-
   Monitoring GridGain 8 clusters with Control Center's user-configurable
   graphical dashboards.
+hidden: true
 ---
 
 # Monitoring GridGain 8 Clusters
