@@ -8,7 +8,7 @@ description: >-
 # Authentication Plugin - caching\_sha2\_password
 
 {% hint style="info" %}
-This plugin is available from these MariaDB Server 11.4 versions: MariaDB Community Server 11.4.9 / 11.8.4, MariaDB Enterprise Server 11.4.10-7 / 11.8.6-3.
+This plugin is available from these versions: MariaDB Community Server 11.4.9 / 11.8.4 / 12.1, MariaDB Enterprise Server 10.6.24-20 / 11.4.9-6 / 11.8.3-1.
 {% endhint %}
 
 ## Overview
@@ -70,7 +70,7 @@ Here, `authentication_string` is taken from the `mysql.user` table for the corre
 * Dynamic: No
 * Data Type: `string`
 * Default Value: `private_key.pem`
-* Introduced: MariaDB 11.4.9, MariaDB 11.8.4
+* Introduced: MariaDB 11.4.9, MariaDB 11.8.4, MariaDB 12.1
 
 ### `caching_sha2_password_public_key_path`
 
@@ -80,7 +80,7 @@ Here, `authentication_string` is taken from the `mysql.user` table for the corre
 * Dynamic: No
 * Data Type: `string`
 * Default Value: `public_key.pem`
-* Introduced: MariaDB 11.4.9, MariaDB 11.8.4
+* Introduced: MariaDB 11.4.9, MariaDB 11.8.4, MariaDB 12.1
 
 ### `caching_sha2_password_auto_generate_rsa_keys`
 
@@ -90,7 +90,7 @@ Here, `authentication_string` is taken from the `mysql.user` table for the corre
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: MariaDB 11.4.9, MariaDB 11.8.4
+* Introduced: MariaDB 11.4.9, MariaDB 11.8.4, MariaDB 12.1
 
 ### `caching_sha2_password_digest_rounds`
 
@@ -100,6 +100,6 @@ Here, `authentication_string` is taken from the `mysql.user` table for the corre
 * Dynamic: No
 * Data Type: `integer`
 * Default Value: `5000`
-* Introduced: MariaDB 11.4.9, MariaDB 11.8.4
+* Introduced: MariaDB 11.4.9, MariaDB 11.8.4, MariaDB 12.1
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
