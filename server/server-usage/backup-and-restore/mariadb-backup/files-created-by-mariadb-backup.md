@@ -32,7 +32,7 @@ From MariaDB 11.1:
 
 This file stores the binary log file name and position that corresponds to the backup.
 
-This file also stores the value of the [gtid\_current\_pos](../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) system variable that correspond to the backup, like this:
+This file also stores the value of the [gtid\_current\_pos](../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_current_pos) system variable that correspond to the backup, like this:
 
 ```bash
 mariadb-bin.000096 568 0-1-2
@@ -50,7 +50,7 @@ Before MariaDB 11.1:
 
 This file stores the binary log file name and position that corresponds to the backup.
 
-This file also stores the value of the [gtid\_current\_pos](../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) system variable that correspond to the backup, like this:
+This file also stores the value of the [gtid\_current\_pos](../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_current_pos) system variable that correspond to the backup, like this:
 
 ```bash
 mariadb-bin.000096 568 0-1-2
@@ -288,7 +288,7 @@ From MariaDB 11.1:
 
 If the `--slave-info` option is provided, this file contains the `CHANGE MASTER` command that can be used to set up a new server as a slave of the original server's master after the backup has been restored.
 
-`mariadb-backup` does **not** check if GTIDs are being used in replication. It takes a shortcut and assumes that if the [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) system variable is non-empty, then it writes the `CHANGE MASTER` command with the `MASTER_USE_GTID` option set to `slave_pos`. Otherwise, it writes the `CHANGE MASTER` command with the `MASTER_LOG_FILE` and `MASTER_LOG_POS` options using the master's binary log file and position. See [MDEV-19264](https://jira.mariadb.org/browse/MDEV-19264) for more information.
+`mariadb-backup` does **not** check if GTIDs are being used in replication. It takes a shortcut and assumes that if the [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos) system variable is non-empty, then it writes the `CHANGE MASTER` command with the `MASTER_USE_GTID` option set to `slave_pos`. Otherwise, it writes the `CHANGE MASTER` command with the `MASTER_LOG_FILE` and `MASTER_LOG_POS` options using the master's binary log file and position. See [MDEV-19264](https://jira.mariadb.org/browse/MDEV-19264) for more information.
 {% endtab %}
 
 {% tab title="< 11.1" %}
@@ -300,7 +300,7 @@ Before MariaDB 11.1:
 
 If the `--slave-info` option is provided, this file contains the `CHANGE MASTER` command that can be used to set up a new server as a slave of the original server's master after the backup has been restored.
 
-`mariadb-backup` does **not** check if GTIDs are being used in replication. It takes a shortcut and assumes that if the [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) system variable is non-empty, then it writes the `CHANGE MASTER` command with the `MASTER_USE_GTID` option set to `slave_pos`. Otherwise, it writes the `CHANGE MASTER` command with the `MASTER_LOG_FILE` and `MASTER_LOG_POS` options using the master's binary log file and position. See [MDEV-19264](https://jira.mariadb.org/browse/MDEV-19264) for more information.
+`mariadb-backup` does **not** check if GTIDs are being used in replication. It takes a shortcut and assumes that if the [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos) system variable is non-empty, then it writes the `CHANGE MASTER` command with the `MASTER_USE_GTID` option set to `slave_pos`. Otherwise, it writes the `CHANGE MASTER` command with the `MASTER_LOG_FILE` and `MASTER_LOG_POS` options using the master's binary log file and position. See [MDEV-19264](https://jira.mariadb.org/browse/MDEV-19264) for more information.
 {% endtab %}
 {% endtabs %}
 

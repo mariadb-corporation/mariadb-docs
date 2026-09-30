@@ -235,9 +235,9 @@ Additional behavior to be aware of:
 
 **Master\_SSL\_Crlpath:** The MASTER\_SSL\_CRLPATH option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md) statement.
 
-**Using\_Gtid:** Whether or not [global transaction ID's](../../../../ha-and-performance/standard-replication/gtid.md) are being used for replication (can be `No`, `Slave_Pos`, or `Current_Pos`).
+**Using\_Gtid:** Whether or not [global transaction ID's](../../../../ha-and-performance/standard-replication/gtid/README.md) are being used for replication (can be `No`, `Slave_Pos`, or `Current_Pos`).
 
-**Gtid\_IO\_Pos:** Current [global transaction ID](../../../../ha-and-performance/standard-replication/gtid.md) value.
+**Gtid\_IO\_Pos:** Current [global transaction ID](../../../../ha-and-performance/standard-replication/gtid/README.md) value.
 
 **Replicate\_Do\_Domain\_Ids:** List of [domain\_ids](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) that are currently being recognized for replication purposes, or an empty string for none, as specified in the `DO_DOMAIN_IDS` option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md#do_domain_ids) statement.
 
@@ -285,7 +285,7 @@ Before MariaDB 10.11:
 
 **Slave\_heartbeat\_period:** Configured (by [CHANGE MASTER TO MASTER\_HEARTBEAT\_PERIOD](../replication-statements/change-master-to.md#master_heartbeat_period)) interval in seconds between replication heartbeats. Returned with `SHOW ALL SLAVES STATUS` only.
 
-**Gtid\_Slave\_Pos:** The value of the global variable [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos), i.e. the GTID of the last event group replicated on a replica server, for each replication domain, as stored in the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md) system variable. Returned with `SHOW ALL SLAVES STATUS` only.
+**Gtid\_Slave\_Pos:** The value of the global variable [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos), i.e. the GTID of the last event group replicated on a replica server, for each replication domain, as stored in the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/README.md) system variable. Returned with `SHOW ALL SLAVES STATUS` only.
 
 {% tabs %}
 {% tab title="Current" %}

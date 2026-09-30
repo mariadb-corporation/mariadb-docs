@@ -71,7 +71,7 @@ If `START SLAVE` succeeds in starting the replica threads, it returns without an
 
 `START SLAVE UNTIL` refers to the `SQL_THREAD` replication position at which the `SQL_THREAD` replication will halt. If `SQL_THREAD` isn't specified, both threads are started.
 
-`START SLAVE UNTIL master_gtid_pos=xxx` is also supported. See [Global Transaction ID/START REPLICA UNTIL master\_gtid\_pos=xxx](../../../../ha-and-performance/standard-replication/gtid.md) for more details.
+`START SLAVE UNTIL master_gtid_pos=xxx` is also supported. See [Global Transaction ID/START REPLICA UNTIL master\_gtid\_pos=xxx](../../../../ha-and-performance/standard-replication/gtid/README.md) for more details.
 
 **MariaDB starting with** [**11.3.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
@@ -89,7 +89,7 @@ The `START SLAVE UNTIL` statement contains the options `SQL_BEFORE_GTIDS` and `S
 START SLAVE UNTIL (SQL_BEFORE_GTIDS|SQL_AFTER_GTIDS)="<gtid_list>"
 ```
 
-See [Global Transaction ID: SQL\_BEFORE\_GTIDS/SQL\_AFTER\_GTIDS](../../../../ha-and-performance/standard-replication/gtid.md#sql_before_gtids-or-sql_after_gtids) for details.
+See [Global Transaction ID: SQL\_BEFORE\_GTIDS/SQL\_AFTER\_GTIDS](../../../../ha-and-performance/standard-replication/gtid/gtid-syntax.md#sql_before_gtids-or-sql_after_gtids) for details.
 {% endtab %}
 
 {% tab title="< 11.3" %}

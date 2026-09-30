@@ -123,7 +123,7 @@ If `Slave_IO_Running` column is not `Yes` on any replica server, then check:
 
 If `Slave_SQL_Running` column is not Yes on any replica server, then check:
 
-* The GTID position in [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos)
+* The GTID position in [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos)
 * The `Last_SQL_Error` column for details on any errors
 
 If both columns are not `Yes` on any replica server, then check:

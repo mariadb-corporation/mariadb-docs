@@ -89,7 +89,7 @@ Disable binary log. This is useful if you enabled `--to-last-log` and are sendin
 
 #### --do-domain-ids=_name_
 
-A list of positive integers, separated by commas, that form a whitelist of domain ids. Any log event with a [GTID](../../../ha-and-performance/standard-replication/gtid.md) that originates from a domain id specified in this list is displayed. Cannot be used with `--ignore-domain-ids`. When used with `--ignore-server-ids` or `--do-server-ids`, the result is the intersection between the two datasets. Available from MariaDB 10.9.
+A list of positive integers, separated by commas, that form a whitelist of domain ids. Any log event with a [GTID](../../../ha-and-performance/standard-replication/gtid/README.md) that originates from a domain id specified in this list is displayed. Cannot be used with `--ignore-domain-ids`. When used with `--ignore-server-ids` or `--do-server-ids`, the result is the intersection between the two datasets. Available from MariaDB 10.9.
 
 #### --do-server-ids=_name_
 
@@ -109,7 +109,7 @@ If `mariadb-binlog` reads a binary log event that it does not recognize, it prin
 
 #### --gtid-strict-mode
 
-Process binlog according to `gtid-strict-mode` specification. The start, stop positions are verified to satisfy the start < stop comparison condition. Sequence numbers of any [GTID](../../../ha-and-performance/standard-replication/gtid.md) domain must comprise a monotonically growing sequence. Defaults to `ON`; use `--skip-gtid-strict-mode` to disable. Available from MariaDB 10.8. Default value: `TRUE`
+Process binlog according to `gtid-strict-mode` specification. The start, stop positions are verified to satisfy the start < stop comparison condition. Sequence numbers of any [GTID](../../../ha-and-performance/standard-replication/gtid/README.md) domain must comprise a monotonically growing sequence. Defaults to `ON`; use `--skip-gtid-strict-mode` to disable. Available from MariaDB 10.8. Default value: `TRUE`
 
 #### -H, --hexdump
 
@@ -121,7 +121,7 @@ Get the binlog from the MariaDB server on the given host.
 
 #### --ignore-domain-ids=_name_
 
-A list of positive integers, separated by commas, that form a blacklist of domain ids. Any log event with a [GTID](../../../ha-and-performance/standard-replication/gtid.md) that originates from a domain id specified in this list is hidden. Cannot be used with `--do-domain-ids`. When used with `--ignore-server-ids` or `--do-server-ids`, the result is the intersection between the two datasets. Available from MariaDB 10.9.
+A list of positive integers, separated by commas, that form a blacklist of domain ids. Any log event with a [GTID](../../../ha-and-performance/standard-replication/gtid/README.md) that originates from a domain id specified in this list is hidden. Cannot be used with `--do-domain-ids`. When used with `--ignore-server-ids` or `--do-server-ids`, the result is the intersection between the two datasets. Available from MariaDB 10.9.
 
 #### --ignore-server-ids=_name_
 
@@ -261,7 +261,7 @@ If specified, start reading the binlog at the first event having a datetime equa
 
 #### -j pos, --start-position=_pos_
 
-Start reading the binlog at this position. Type can either be a positive integer or, from MariaDB 10.8, a [GTID](../../../ha-and-performance/standard-replication/gtid.md) list. When using a positive integer, the value only applies to the first binlog passed on the command line. In GTID mode, multiple GTIDs can be passed as a comma-separated list, where each must have a unique domain id. The list represents the GTID binlog state that the client (another "replica" server) is aware of. Therefore, each GTID is exclusive; only events after a given sequence number are printed to allow users to receive events after their current state. Default value: `4`
+Start reading the binlog at this position. Type can either be a positive integer or, from MariaDB 10.8, a [GTID](../../../ha-and-performance/standard-replication/gtid/README.md) list. When using a positive integer, the value only applies to the first binlog passed on the command line. In GTID mode, multiple GTIDs can be passed as a comma-separated list, where each must have a unique domain id. The list represents the GTID binlog state that the client (another "replica" server) is aware of. Therefore, each GTID is exclusive; only events after a given sequence number are printed to allow users to receive events after their current state. Default value: `4`
 
 {% hint style="warning" %}
 Options `--start-position` and `--stop-position` compare Sequence Numbers only per Domain ID and ignore Server IDs. This is incorrect, as it is different from the Replication design for GTIDs, which compares per Domain–Server ID pair. [MDEV-37231](https://jira.mariadb.org/browse/MDEV-37231) tracks this bug.
@@ -287,7 +287,7 @@ The replica [server\_id](../../../ha-and-performance/standard-replication/replic
 
 #### --stop-position=_position_
 
-If specified, stop reading the binlog at this _position_. Type can either be a positive integer or, from MariaDB 10.8, a [GTID](../../../ha-and-performance/standard-replication/gtid.md) list. When using a positive integer, the value only applies to the last binlog passed on the command line. In GTID mode, multiple GTIDs can be passed as a comma-separated list, where each must have a unique domain id. Each GTID is inclusive; only events up to the given sequence numbers are printed. Ignored in `--raw` mode.
+If specified, stop reading the binlog at this _position_. Type can either be a positive integer or, from MariaDB 10.8, a [GTID](../../../ha-and-performance/standard-replication/gtid/README.md) list. When using a positive integer, the value only applies to the last binlog passed on the command line. In GTID mode, multiple GTIDs can be passed as a comma-separated list, where each must have a unique domain id. Each GTID is inclusive; only events up to the given sequence numbers are printed. Ignored in `--raw` mode.
 
 {% tabs %}
 {% tab title="≥ 10.11.14" %}
