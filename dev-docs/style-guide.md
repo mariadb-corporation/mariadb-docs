@@ -104,6 +104,16 @@ knows when "currently" was written, so a reader has to assume it is true today
 is a question, not a verdict, and it deliberately misses most "currently", so read the page
 too. The nightly digest (`nightly-timeless.yml`) runs the same patterns on new commits.
 
+## Versions before 10.6
+
+MariaDB Community Server 10.6 reached end of life in July 2026. Remove mentions of MariaDB
+versions before 10.6, and rewrite the sentence so it stands on its own: "Starting with
+MariaDB 10.3.6, MariaDB uses this feature" → "MariaDB uses this feature". Two exceptions:
+
+- **Release notes** (and *What's New* pages) keep their version mentions; they record the past.
+- **Reference pages of variables** (system and status variables) keep the version in their
+  `Introduced:` field, however old it is.
+
 ## Version tabs (DOCS-6672)
 
 Pages use GitBook tabs to show how a feature behaves in different versions. Readers misread the
@@ -117,8 +127,8 @@ version tab repeats its version range at the top of its content.
   than two tabs, go from newest to oldest.
 - Abbreviate Community Server and Enterprise Server as `CS` and `ES` in titles:
   `< CS 12.0 / ES 11.8`. Spell them out in the tab content.
-- Separate multiple versions with ` / `: `< 10.6.5 / 10.5.13 / 10.4.22`, not
-  `<10.4.7, <10.5.8`.
+- Separate multiple versions with ` / `: `< 11.4.3 / 10.11.9 / 10.6.19`, not
+  `<10.6.19, <10.11.9`.
 - **Tab titles are link anchors** (`< 11.1` → `#less-than-11.1`). Before renaming a tab, search
   the docs for links to its old anchor.
 
