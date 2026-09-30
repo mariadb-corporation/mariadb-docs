@@ -1956,7 +1956,7 @@ maxctrl call command mariadbmon fetch-cmd-result MyMonitor
 }
 ```
 
-### Settings for Columnstore commands
+### Settings for ColumnStore commands
 
 #### `cs_admin_port`
 

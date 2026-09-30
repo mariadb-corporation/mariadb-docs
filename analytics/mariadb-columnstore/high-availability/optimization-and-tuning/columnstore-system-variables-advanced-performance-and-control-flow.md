@@ -5,7 +5,7 @@ description: >-
   operations, and job and system requests.
 ---
 
-# Columnstore System Variables: Advanced Performance and Control Flow
+# ColumnStore System Variables: Advanced Performance and Control Flow
 
 MariaDB ColumnStore offers a powerful set of advanced system variables designed to give administrators fine-grained control over performance, memory management, and query execution flow. While the default settings are optimized for general use, highly concurrent workloads or complex analytical queries—such as heavy aggregations and massive joins—often require specific hardware trade-offs.
 

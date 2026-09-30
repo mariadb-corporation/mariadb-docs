@@ -150,7 +150,7 @@ type = listener
 service = RWS-Row
 socket = /tmp/rws-row.sock
 
-# Columnstore Read write split
+# ColumnStore Read write split
 [RWS-Column]
 type = service
 router = readwritesplit

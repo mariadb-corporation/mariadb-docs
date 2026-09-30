@@ -48,7 +48,7 @@ For more information on how to manually set these states via MaxCtrl, read the [
 
 A monitor module is capable of monitoring the state of a particular kind of cluster and making that state available to the routers of MaxScale.
 
-Examples of monitor modules are `mariadbmon` that is capable of monitoring a regular primary-replica cluster and in addition of performing both _switchover_ and _failover_, `galeramon` that is capable of monitoring a Galera cluster, and `csmon` that is capable of monitoring a Columnstore cluster.
+Examples of monitor modules are `mariadbmon` that is capable of monitoring a regular primary-replica cluster and in addition of performing both _switchover_ and _failover_, `galeramon` that is capable of monitoring a Galera cluster, and `csmon` that is capable of monitoring a ColumnStore cluster.
 
 Monitor modules have sections of their own in the MaxScale configuration file.
 

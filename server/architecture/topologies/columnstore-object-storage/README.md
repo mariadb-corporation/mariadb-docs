@@ -4,7 +4,7 @@ description: >-
   store that keeps data on S3-compatible object storage.
 ---
 
-# Columnstore Object Storage
+# ColumnStore Object Storage
 
 ## Overview
 

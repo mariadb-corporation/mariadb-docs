@@ -107,7 +107,7 @@
       * [Profiling Memory Usage with Heaptrack](mariadb-columnstore/high-availability/optimization-and-tuning/profiling-memory-usage-with-heaptrack.md)
       * [Analyzing Queries in ColumnStore](mariadb-columnstore/high-availability/optimization-and-tuning/analyzing-queries-in-columnstore.md)
       * [Measuring cpimport Performance Baseline with ioping](mariadb-columnstore/high-availability/optimization-and-tuning/analyzing-queries-in-columnstore-1.md)
-      * [Columnstore System Variables: Advanced Performance and Control Flow](mariadb-columnstore/high-availability/optimization-and-tuning/columnstore-system-variables-advanced-performance-and-control-flow.md)
+      * [ColumnStore System Variables: Advanced Performance and Control Flow](mariadb-columnstore/high-availability/optimization-and-tuning/columnstore-system-variables-advanced-performance-and-control-flow.md)
     * [Cluster Management](mariadb-columnstore/high-availability/cluster-management/README.md)
       * [Checking CMAPI Cluster Status](mariadb-columnstore/high-availability/cluster-management/checking-cmapi-cluster-status.md)
   * [Clients & Tools](mariadb-columnstore/clients-and-tools/README.md)
