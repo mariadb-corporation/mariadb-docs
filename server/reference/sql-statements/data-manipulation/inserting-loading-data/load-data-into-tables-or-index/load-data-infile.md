@@ -114,23 +114,7 @@ The `LOAD DATA INFILE` statement supports [progress reporting](../../../../produ
 
 ### Using mariadb-import
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 MariaDB ships with a separate utility for loading data from files: [mariadb-import](../../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md). It operates by sending `LOAD DATA INFILE` statements to the server.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-MariaDB ships with a separate utility for loading data from files: `mysqlimport` . It operates by sending `LOAD DATA INFILE` statements to the server.
-{% endtab %}
-{% endtabs %}
 
 Using [mariadb-import](../../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md) you can compress the file using the `--compress` option, to get better performance over slow networks, providing both the client and server support the compressed protocol. Use the `--local` option to load from the local file system.
 

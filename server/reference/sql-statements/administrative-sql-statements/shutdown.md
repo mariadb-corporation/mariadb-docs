@@ -18,23 +18,7 @@ The `SHUTDOWN` command shuts the server down.
 
 ## WAIT FOR ALL SLAVES / REPLICAS
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.1:
-{% endhint %}
-
 The `WAIT FOR ALL REPLICAS` statement can be used as an alias for `WAIT FOR ALL SLAVES`.
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-{% hint style="info" %}
-Before MariaDB 10.5.1:
-{% endhint %}
-
-The `WAIT FOR ALL SLAVES` option was first added in [MariaDB 10.4.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.4).
-{% endtab %}
-{% endtabs %}
 
 When a primary server is shutdown and it goes through the normal shutdown process, the primary kills client threads in random order. By default, the primary also considers its binary log dump threads to be regular client threads. As a consequence, the binary log dump threads can be killed while client threads still exist, and this means that data can be written on the primary during a normal shutdown that won't be replicated. This is true even if [semi-synchronous replication](../../../ha-and-performance/standard-replication/semisynchronous-replication.md) is being used.
 

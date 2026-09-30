@@ -25,23 +25,7 @@ If the specified statement has not been PREPAREd, an error similar to the follow
 ERROR 1243 (HY000): Unknown prepared statement handler (stmt_name) given to EXECUTE
 ```
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.2.3:
-{% endhint %}
-
 `EXECUTE` with arbitrary expression as parameters can be used, not just user variables (@var\_name).
-{% endtab %}
-
-{% tab title="< 10.2.3" %}
-{% hint style="info" %}
-Before MariaDB 10.2.3:
-{% endhint %}
-
-You can only use user variables (@var\_name) as parameters.
-{% endtab %}
-{% endtabs %}
 
 ### LOCAL Statement Names
 

@@ -43,7 +43,7 @@ From MariaDB 10.6.5:
 
 {% tab title="< 10.6.5" %}
 {% hint style="info" %}
-From MariaDB 10.5 to before MariaDB 10.6.5:
+Before MariaDB 10.6.5:
 {% endhint %}
 
 | Mode | Description                                                                                                                                                                                                                                                                                                                                                                                                     |
@@ -55,22 +55,6 @@ From MariaDB 10.5 to before MariaDB 10.6.5:
 | 4    | (SRV\_FORCE\_NO\_IBUF\_MERGE) The same as 3.                                                                                                                                                                                                                                                                                                                                                                    |
 | 5    | (SRV\_FORCE\_NO\_UNDO\_LOG\_SCAN) treats incomplete transactions as committed, and does not look at the [undo logs](../innodb-undo-log.md) when starting.                                                                                                                                                                                                                                                       |
 | 6    | (SRV\_FORCE\_NO\_LOG\_REDO) does not perform redo log roll-forward as part of recovery. Running queries that require indexes are likely to fail with this mode active. However, if a table dump still causes a crash, you can try using a SELECT \* FROM tab ORDER BY primary\_key DESC to dump all the data portion after the corrupted part.                                                                  |
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-| Mode | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 0    | The default mode while InnoDB is running normally. Until [MariaDB 10.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.7), it was the only mode permitting changes to the data. From [MariaDB 10.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.7), write transactions are permitted with innodb\_force\_recovery<=3.                                                       |
-| 1    | (SRV\_FORCE\_IGNORE\_CORRUPT) allows the server to keep running even if corrupt pages are detected. It does so by making redo log based recovery ignore certain errors, such as missing data files or corrupted data pages. Any redo log for affected files or pages are skipped. You can facilitate dumping tables by getting the SELECT \* FROM table\_name statement to jump over corrupt indexes and pages.                                                    |
-| 2    | (SRV\_FORCE\_NO\_BACKGROUND) stops the master thread from running, preventing a crash that occurs during a purge. No purge are performed, so the undo logs will keep growing.                                                                                                                                                                                                                                                                                      |
-| 3    | (SRV\_FORCE\_NO\_TRX\_UNDO) does not roll back transactions after the crash recovery. Does not affect rollback of currently active transactions. Starting with [MariaDB 10.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.7), will also prevent some undo-generating background tasks from running. These tasks could hit a lock wait due to the recovered incomplete transactions whose rollback is being prevented. |
-| 4    | (SRV\_FORCE\_NO\_IBUF\_MERGE) does not calculate tables statistics and prevents insert buffer merges.                                                                                                                                                                                                                                                                                                                                                              |
-| 5    | (SRV\_FORCE\_NO\_UNDO\_LOG\_SCAN) treats incomplete transactions as committed, and does not look at the [undo logs](../innodb-undo-log.md) when starting.                                                                                                                                                                                                                                                                                                          |
-| 6    | (SRV\_FORCE\_NO\_LOG\_REDO) does not perform redo log roll-forward as part of recovery. Running queries that require indexes are likely to fail with this mode active. However, if a table dump still causes a crash, you can try using a SELECT \* FROM tab ORDER BY primary\_key DESC to dump all the data portion after the corrupted part.                                                                                                                     |
 {% endtab %}
 {% endtabs %}
 

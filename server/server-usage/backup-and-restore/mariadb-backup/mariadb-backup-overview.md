@@ -189,33 +189,12 @@ On the first run after upgrading to MariaDB 10.11, `mariadb-backup` will attempt
 
 `mariadb-backup` needs to authenticate with the database server when it performs a backup operation (i.e. when the [--backup ](mariadb-backup-options.md#backup)option is specified). For most use cases, the user account that performs the backup needs to have the following global privileges on the database server.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 The required privileges are:
 
 ```sql
 CREATE USER 'mariadb-backup'@'localhost' IDENTIFIED BY 'mypassword';
 GRANT RELOAD, PROCESS, LOCK TABLES, BINLOG MONITOR ON *.* TO 'mariadb-backup'@'localhost';
 ```
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-The required privileges are:
-
-```sql
-CREATE USER 'mariadb-backup'@'localhost' IDENTIFIED BY 'mypassword';
-GRANT RELOAD, PROCESS, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'mariadb-backup'@'localhost';
-```
-{% endtab %}
-{% endtabs %}
 
 If your database server is also using the [MyRocks storage engine](../../storage-engines/myrocks/), then the user account that performs the backup will also need the `SUPER` [global privilege](../../../reference/sql-statements/account-management-sql-statements/grant.md#global-privileges). This is because `mariadb-backup` creates a checkpoint of this data by setting the [rocksdb\_create\_checkpoint](../../storage-engines/myrocks/myrocks-system-variables.md#rocksdb_create_checkpoint) system variable, which requires this privilege. See [MDEV-20577](https://jira.mariadb.org/browse/MDEV-20577) for more information.
 

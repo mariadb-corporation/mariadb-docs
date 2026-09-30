@@ -76,12 +76,6 @@ MariaDB Backup establishes this connection based on the user credentials specifi
 
 It is recommended that a dedicated user be created and authorized to perform backups.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 MariaDB Backup requires this user to have the `RELOAD, PROCESS, LOCK TABLES,` and `REPLICATION CLIENT` privileges.
 
 ```sql
@@ -96,29 +90,6 @@ TO 'mariadb-backup'@'localhost';
 In the above example, MariaDB Backup would run on the local system that runs MariaDB Enterprise Server. Where backups may be run against a remote server, the user authentication and authorization should be adjusted.
 
 While MariaDB Backup requires a user for backup operations, no user is required for restore operations since restores occur while MariaDB Enterprise Server is not running.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-MariaDB Backup requires this user to have the `RELOAD, PROCESS, LOCK TABLES,` and `REPLICATION CLIENT` privileges.
-
-```sql
-CREATE USER 'mariadb-backup'@'localhost'
-IDENTIFIED BY 'mbu_passwd';
-
-GRANT RELOAD, PROCESS, LOCK TABLES, REPLICATION CLIENT
-ON *.*
-TO 'mariadb-backup'@'localhost';
-```
-
-In the above example, MariaDB Backup would run on the local system that runs MariaDB Enterprise Server. Where backups may be run against a remote server, the user authentication and authorization should be adjusted.
-
-While MariaDB Backup requires a user for backup operations, no user is required for restore operations since restores occur while MariaDB Enterprise Server is not running.
-{% endtab %}
-{% endtabs %}
 
 ## Full Backup and Restore
 

@@ -47,23 +47,7 @@ The [DROP privilege](../../account-management-sql-statements/grant.md#table-priv
 
 **Note:** `DROP TABLE` automatically commits the current active transaction, unless you use the `TEMPORARY` keyword.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.4:
-{% endhint %}
-
 `DROP TABLE` reliably deletes table remnants inside a storage engine even if the `.frm` file is missing.
-{% endtab %}
-
-{% tab title="< 10.5.4" %}
-{% hint style="info" %}
-Before MariaDB 10.5.4:
-{% endhint %}
-
-`DROP TABLE` does **not** reliably delete table remnants inside a storage engine even if the `.frm` file is missing. A missing `.frm` file will result in the statement failing.
-{% endtab %}
-{% endtabs %}
 
 ### WAIT/NOWAIT
 
@@ -85,35 +69,7 @@ Set the lock wait timeout. See [WAIT and NOWAIT](../../transactions/wait-and-now
 
 ## Dropping an Internal #sql-... Table
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6:
-{% endhint %}
-
 [DROP TABLE is atomic.](drop-table.md#atomic-drop-table)
-{% endtab %}
-
-{% tab title="< 10.6" %}
-{% hint style="info" %}
-Before MariaDB 10.6:
-{% endhint %}
-
-if the [mariadbd process](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) is killed during an [ALTER TABLE](../alter/alter-table/), you may find a table named #sql-... in your data directory. These temporary tables will always be deleted automatically.
-
-If you want to delete one of these tables explicitly you can do so by using the following syntax:
-
-```
-DROP TABLE `#mysql50##sql-...`;
-```
-
-When running an `ALTER TABLE…ALGORITHM=INPLACE` that rebuilds the table, InnoDB will create an internal `#sql-ib` table.
-
-The same name as the .frm file is used for the intermediate copy of the table. The #sql-ib names are used by TRUNCATE and delayed DROP.
-
-The #sql-ib tables will be deleted automatically.
-{% endtab %}
-{% endtabs %}
 
 ## Dropping All Tables in a Database
 
@@ -131,23 +87,7 @@ WHERE TABLE_SCHEMA = 'mydb';
 
 **MariaDB starting with** [**10.6.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1)
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6:
-{% endhint %}
-
 `DROP TABLE` for a single table is atomic ([MDEV-25180](https://jira.mariadb.org/browse/MDEV-25180)) for most engines, including InnoDB, MyRocks, MyISAM and Aria. This means that if there is a crash (server down or power outage) during `DROP TABLE`, all tables that have been processed so far will be completely dropped, including related trigger files and status entries, and the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) will include a `DROP TABLE` statement for the dropped tables. Tables for which the drop had not started will be left intact.`DROP TABLE` was extended to be able to delete a table that was only partly dropped ([MDEV-11412](https://jira.mariadb.org/browse/MDEV-11412)), as explained above. Atomic `DROP TABLE` is the final piece to make `DROP TABLE` fully reliable. Dropping multiple tables is crash-safe. See [Atomic DDL](../atomic-ddl.md) for more information.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-{% hint style="info" %}
-Before MariaDB 10.6:
-{% endhint %}
-
-There is a small chance that, during a server crash happening in the middle of `DROP TABLE`, some storage engines that were using multiple storage files, like [MyISAM](../../../../server-usage/storage-engines/myisam-storage-engine/), could have only a part of its internal files dropped. In [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), `DROP TABLE` was extended to be able to delete a table that was only partly dropped ([MDEV-11412](https://jira.mariadb.org/browse/MDEV-11412)) as explained above. Atomic `DROP TABLE` is the final piece to make `DROP TABLE` fully reliable. Dropping multiple tables is crash-safe. See [Atomic DDL](../atomic-ddl.md) for more information.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

@@ -8,23 +8,7 @@ description: >-
 
 `mariadb-access` is a tool for checking access privileges, developed by Yves Carlier.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 The client tool can alternatively be called by its former name,  `mysqlaccess`, via a symlink in Linux, or an alternate binary in Windows.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-The client tool is called `mysqlaccess`.
-{% endtab %}
-{% endtabs %}
 
 It checks the access privileges for a host name, user name, and database combination. 
 

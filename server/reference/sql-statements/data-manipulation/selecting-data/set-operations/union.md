@@ -62,23 +62,7 @@ If the result is a single row, [SELECT ... INTO @var\_name](../../../programmati
 
 ### Parentheses
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.4:
-{% endhint %}
-
 Parentheses can be used to specify precedence.
-{% endtab %}
-
-{% tab title="< 10.4" %}
-{% hint style="info" %}
-Before MariaDB 10.4:
-{% endhint %}
-
-Parentheses **cannot** be used to specify precedence.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

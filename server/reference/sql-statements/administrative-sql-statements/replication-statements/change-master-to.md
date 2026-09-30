@@ -170,23 +170,7 @@ These options determine values automatically and may override `--master-*` setti
 
 The `MASTER_USER` option for `CHANGE MASTER` defines the user account that the [replica](../../../../ha-and-performance/standard-replication/setting-up-replication.md) will use to connect to the [primary](../../../../ha-and-performance/standard-replication/setting-up-replication.md).
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.1:
-{% endhint %}
-
 This user account will need the [REPLICATION REPLICA](../../account-management-sql-statements/grant.md#replication-replica) privilege on the primary.
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-{% hint style="info" %}
-Before MariaDB 10.5.1:
-{% endhint %}
-
-This user account will need the [REPLICATION SLAVE](../../account-management-sql-statements/grant.md#replication-slave) privilege on the primary.
-{% endtab %}
-{% endtabs %}
 
 For example:
 
@@ -198,23 +182,7 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6:
-{% endhint %}
-
 The maximum length of the `MASTER_USER` string is 128 characters.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-{% hint style="info" %}
-Before MariaDB 10.6:
-{% endhint %}
-
-The maximum length of the `MASTER_USER` string is 96 characters.
-{% endtab %}
-{% endtabs %}
 
 #### MASTER\_PASSWORD
 
@@ -239,23 +207,7 @@ Due to [MDEV-29994](https://jira.mariadb.org/browse/MDEV-29994), the password ca
 
 The `MASTER_HOST` option for `CHANGE MASTER` defines the hostname or IP address of the [primary](../../../../ha-and-performance/standard-replication/setting-up-replication.md).
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 5.4:
-{% endhint %}
-
 If you set the value of the `MASTER_HOST` option to the empty string, then that is not the same as not setting the option's value at all. If you set the value of the `MASTER_HOST` option to the empty string, then the `CHANGE MASTER` command will fail with an error.
-{% endtab %}
-
-{% tab title="< 5.4" %}
-{% hint style="info" %}
-Before MariaDB 5.4:
-{% endhint %}
-
-If you set the value of the `MASTER_HOST` option to the empty string, then that is not the same as not setting the option's value at all. If you set the value of the `MASTER_HOST` option to the empty string, then the `CHANGE MASTER` command will fail with an error. In MariaDB 5.3 and before, if you set the value of the `MASTER_HOST` option to the empty string, then the `CHANGE MASTER` command would succeed, but the subsequent [START REPLICA](start-replica.md) command would fail.
-{% endtab %}
-{% endtabs %}
 
 For example:
 
@@ -277,23 +229,7 @@ If you set the value of the `MASTER_HOST` option in a `CHANGE MASTER` command, t
 Replicas cannot connect to primaries using Unix socket files or Windows named pipes. The replica must connect to the primary using TCP/IP.
 {% endhint %}
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6:
-{% endhint %}
-
 The maximum length of the `MASTER_HOST` string is 255 characters.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-{% hint style="info" %}
-Before MariaDB 10.6:
-{% endhint %}
-
-The maximum length of the `MASTER_HOST` string is 60 characters.
-{% endtab %}
-{% endtabs %}
 
 #### MASTER\_PORT
 
@@ -702,36 +638,10 @@ The [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS]
 
 #### MASTER\_USE\_GTID
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.1:
-{% endhint %}
-
 The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the replica to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid/README.md) when connecting to a primary. The possible values are:
 
 * `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_current_pos) as the position to start downloading transactions from the primary. Using this on a replica server can break replication if the replica executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
 * `slave_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos) as the position to start downloading transactions from the primary. `replica_pos` is an alias for `slave_pos`.
-* `no` - Don't replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode.
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-{% hint style="info" %}
-Before MariaDB 10.5.1:
-{% endhint %}
-
-The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the replica to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid/README.md) when connecting to a primary. The possible values are:
-
-* `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_current_pos) as the position to start downloading transactions from the primary. Using this on a replica server can break replication if the replica executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
-* `slave_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos) as the position to start downloading transactions from the primary.
-* `no` - Don't replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode.
-{% endtab %}
-{% endtabs %}
-
-The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the replica to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid/README.md) when connecting to a primary. The possible values are:
-
-* `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_current_pos) as the position to start downloading transactions from the primary. Using this on a replica server can break replication if the replica executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
-* `slave_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos) as the position to start downloading transactions from the primary. From [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), `replica_pos` is an alias for `slave_pos`.
 * `no` - Don't replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode.
 
 For example:

@@ -368,12 +368,6 @@ SELECT _latin2 'Müller';
 +-----------+
 ```
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6:
-{% endhint %}
-
 ```sql
 SELECT CHARSET(N'a string');
 +----------------------+
@@ -391,23 +385,6 @@ SELECT 'Mueller' = 'Müller' COLLATE 'latin1_german2_ci';
 |                                                 1 |
 +---------------------------------------------------+
 ```
-{% endtab %}
-
-{% tab title="< 10.6" %}
-{% hint style="info" %}
-Before MariaDB 10.6:
-{% endhint %}
-
-```sql
-SELECT CHARSET(N'a string');
-+----------------------+
-| CHARSET(N'a string') |
-+----------------------+
-| utf8                 |
-+----------------------+
-```
-{% endtab %}
-{% endtabs %}
 
 ## Stored Programs and Views
 

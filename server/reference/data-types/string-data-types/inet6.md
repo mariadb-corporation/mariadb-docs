@@ -76,23 +76,7 @@ Mixing `INET6` with other data types for [LEAST](../../sql-structure/operators/c
 * The [INET6\_ATON](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_aton.md) function now understands INET6 values as an argument
 * The prototypes of the [IS\_IPV4\_COMPAT](../../sql-functions/secondary-functions/miscellaneous-functions/is_ipv4_compat.md) and I [S\_IPV4\_MAPPED](../../sql-functions/secondary-functions/miscellaneous-functions/is_ipv4_mapped.md) functions have changed from `a BINARY(16)` to `a INET6`,
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 When the argument for the aforementioned two functions is not `INET6`, automatic implicit `CAST` to `INET6` is applied. As a consequence, both functions understand arguments in both text representation and binary(16) representation.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-When the argument for the aforementioned two functions is not `INET6`, automatic implicit `CAST` to `INET6` is **not** applied.
-{% endtab %}
-{% endtabs %}
 
 ### Prepared Statement Parameters
 
@@ -100,25 +84,9 @@ INET6 understands both [text](text.md) and [binary(16)](binary.md) address repre
 
 ### Migration between BINARY(16) and INET6
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 You may have used [BINARY(16)](binary.md) as a storage for IPv6 internet addresses, in combination with [INET6\_ATON](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_aton.md) and [INET6\_NTOA](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_ntoa.md) to respectively insert and retrieve data.
 
 However, you can [ALTER](../../sql-statements/data-definition/alter/alter-table/) `BINARY(16)` columns storing IPv6 addresses to `INET6`. After such an alter, there is no a need to use `INET6_ATON()` and `INET6_NTOA()`. Addresses can be inserted and retrieved directly.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-You may use [BINARY(16)](binary.md) as a storage for IPv6 internet addresses, in combination with [INET6\_ATON](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_aton.md) and [INET6\_NTOA](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_ntoa.md) to respectively insert and retrieve data.
-{% endtab %}
-{% endtabs %}
 
 It is also possible to convert `INET6` columns to `BINARY(16)` and continue using the data in combination with `INET6_NTOA()` and `INET6_ATON()`.
 
@@ -452,12 +420,6 @@ EXECUTE IMMEDIATE 'SELECT * FROM t1 WHERE a=?' USING X'FFFF000000000000000000000
 
 ### Migration between BINARY(16) and INET6 Examples
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 ```sql
 CREATE OR REPLACE TABLE t1 (a BINARY(16));
 
@@ -486,29 +448,6 @@ SELECT * FROM t1;
 | ffff::fffe |
 +------------+
 ```
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-There's no conversion you can use:
-
-```sql
-CREATE OR REPLACE TABLE t1 (a BINARY(16));
-
-INSERT INTO t1 VALUES (INET6_ATON('ffff::ffff'));
-
-SELECT INET6_NTOA(a) FROM t1;
-+---------------+
-| INET6_NTOA(a) |
-+---------------+
-| ffff::ffff    |
-+---------------+
-```
-{% endtab %}
-{% endtabs %}
 
 Migration from `INET6` to `BINARY(16)`:
 

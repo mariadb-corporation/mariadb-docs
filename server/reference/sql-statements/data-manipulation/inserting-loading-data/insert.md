@@ -53,23 +53,7 @@ The table name can be specified in the form `db_name`.`tbl_name` or, if a defaul
 
 The PARTITION clause can be used in both the INSERT and the SELECT part. See [Partition Pruning and Selection](../../../../server-usage/partitioning-tables/partition-pruning-and-selection.md) for details.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 The `RETURNING` clause can be used.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-The `RETURNING` clause is not available.
-{% endtab %}
-{% endtabs %}
 
 The columns list is optional. It specifies which values are explicitly inserted, and in which order. If this clause is not specified, all values must be explicitly specified, in the same order they are listed in the table definition.
 

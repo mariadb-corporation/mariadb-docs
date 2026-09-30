@@ -265,51 +265,19 @@ ALTER TABLE t1 ALTER b SET DEFAULT 'hello';
 
 ### RENAME INDEX/KEY
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.3:
-{% endhint %}
-
 You can rename an index using the `RENAME INDEX` (or `RENAME KEY`) syntax:
 
 ```sql
 ALTER TABLE t1 RENAME INDEX i_old TO i_new;
 ```
-{% endtab %}
-
-{% tab title="< 10.5.3" %}
-{% hint style="info" %}
-Before MariaDB 10.5.3:
-{% endhint %}
-
-`RENAME INDEX/KEY` is not available.
-{% endtab %}
-{% endtabs %}
 
 ### RENAME COLUMN
-
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.3:
-{% endhint %}
 
 You can rename a column using the `RENAME COLUMN` syntax:
 
 ```sql
 ALTER TABLE t1 RENAME COLUMN c_old TO c_new;
 ```
-{% endtab %}
-
-{% tab title="< 10.5.3" %}
-{% hint style="info" %}
-Before MariaDB 10.5.3:
-{% endhint %}
-
-`RENAME COLUMN` is not available.
-{% endtab %}
-{% endtabs %}
 
 ### ADD PRIMARY KEY
 
@@ -791,25 +759,9 @@ Aborting `ALTER TABLE ... ALGORITHM=COPY` was made faster by removing excessive 
 
 ## Atomic ALTER TABLE
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6:
-{% endhint %}
-
 `ALTER TABLE` is atomic for most engines, including InnoDB, MyRocks, MyISAM and Aria ([MDEV-25180](https://jira.mariadb.org/browse/MDEV-25180)). This means that if there is a crash (server down or power outage) during an `ALTER TABLE` operation, after recovery, either the old table and associated triggers and status will be intact, or the new table will be active. In older MariaDB versions one could get leftover #sql-alter..', '#sql-backup..' or 'table\_name.frm˝' files if the system crashed during the `ALTER TABLE` operation.
 
 See [Atomic DDL](../../atomic-ddl.md) for more information.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-{% hint style="info" %}
-Before MariaDB 10.6:
-{% endhint %}
-
-Atomic `ALTER TABLE` is not available.
-{% endtab %}
-{% endtabs %}
 
 ## Replication
 
