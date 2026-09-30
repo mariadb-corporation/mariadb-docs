@@ -19,23 +19,7 @@ Sets the [sql\_log\_bin](../../../../ha-and-performance/standard-replication/rep
 
 Note that setting `sql_log_bin=1` has no effect if [log\_bin](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_bin) variable, which enables global binary logging, is not set.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 5.6 / 5.5:
-{% endhint %}
-
 You cannot set `sql_log_bin` as a global variable.
-{% endtab %}
-
-{% tab title="< 5.6 / 5.5" %}
-{% hint style="info" %}
-Before MariaDB 5.6 / 5.5:
-{% endhint %}
-
-You can set `sql_log_bin` as a global variable. This is considered dangerous, though, as it can damage replication.
-{% endtab %}
-{% endtabs %}
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

@@ -9,49 +9,15 @@ description: >-
 
 ## Syntax
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.2:
-{% endhint %}
-
 ```bnf
 SHOW [MASTER | BINLOG] STATUS
 ```
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-{% hint style="info" %}
-Before MariaDB 10.5.2:
-{% endhint %}
-
-```sql
-SHOW MASTER STATUS
-```
-{% endtab %}
-{% endtabs %}
 
 ## Description
 
 Provides status information about the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) files of the primary.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.2:
-{% endhint %}
-
 This statement requires the [BINLOG MONITOR](../../account-management-sql-statements/grant.md#binlog-monitor) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-{% hint style="info" %}
-Before MariaDB 10.5.2:
-{% endhint %}
-
-This statement requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege and the [REPLICATION\_CLIENT](../../account-management-sql-statements/grant.md#replication-client) privilege.
-{% endtab %}
-{% endtabs %}
 
 {% hint style="info" %}
 The following improved functionality is available from MariaDB 12.3.

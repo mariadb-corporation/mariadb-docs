@@ -31,15 +31,15 @@ Users with `SELECT` privileges on [mysql.proc](../../../system-tables/the-mysql-
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.6.5 / 10.5.13 / 10.4.22:
+From MariaDB 10.6.5:
 {% endhint %}
 
 `SHOW CREATE PROCEDURE` quotes identifiers, according to the value of the [sql\_quote\_show\_create](https://kb-archive.mariadb.net/kb/en/server-system-variables/#sql_quote_show_create) system variable.
 {% endtab %}
 
-{% tab title="< 10.6.5 / 10.5.13 / 10.4.22" %}
+{% tab title="< 10.6.5" %}
 {% hint style="info" %}
-Before MariaDB 10.6.5 / 10.5.13 / 10.4.22:
+Before MariaDB 10.6.5:
 {% endhint %}
 
 `SHOW CREATE PROCEDURE` quotes identifiers, according to the value of the [sql\_quote\_show\_create](https://kb-archive.mariadb.net/kb/en/server-system-variables/#sql_quote_show_create) system variable. The output of this statement is unreliably affected by the [sql\_quote\_show\_create](https://kb-archive.mariadb.net/kb/en/server-system-variables/#sql_quote_show_create) system variable.

@@ -58,23 +58,7 @@ This statement requires [SELECT and INSERT privileges](../account-management-sql
 
 By default, `REPAIR TABLE` statements are written to the [binary log](../../../server-management/server-monitoring-logs/binary-log/) and will be [replicated](../../../ha-and-performance/standard-replication/). The `NO_WRITE_TO_BINLOG` keyword (`LOCAL` is an alias) will ensure the statement is not written to the binary log.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.3.19:
-{% endhint %}
-
 `REPAIR TABLE` statements are not logged to the binary log if [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) is set. See also [Read-Only Replicas](../../../ha-and-performance/standard-replication/read-only-replicas.md).
-{% endtab %}
-
-{% tab title="< 10.3.19" %}
-{% hint style="info" %}
-Before MariaDB 10.3.19:
-{% endhint %}
-
-`REPAIR TABLE` statements are logged to the binary log.
-{% endtab %}
-{% endtabs %}
 
 When an index is recreated, the storage engine may use a configurable buffer in the process. Incrementing the buffer speeds up the index creation. [Aria](../../../server-usage/storage-engines/aria/) and [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) allocate a buffer whose size is defined by [aria\_sort\_buffer\_size](../../../server-usage/storage-engines/aria/aria-system-variables.md) or [myisam\_sort\_buffer\_size](../../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md), also used for [ALTER TABLE](../data-definition/alter/alter-table/).
 

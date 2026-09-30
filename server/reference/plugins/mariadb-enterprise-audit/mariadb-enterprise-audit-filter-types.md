@@ -155,23 +155,7 @@ INSERT INTO mysql.server_audit_filters (filtername, rule)
 
 The example passes the JSON object to the [JSON\_COMPACT()](../../sql-functions/special-functions/json-functions/json_compact.md) function, so that the JSON object is compacted prior to being inserted into the system table. This step is recommended, but not required.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6 / 10.5.12 / 10.4.21:
-{% endhint %}
-
 MariaDB Enterprise Audit supports [Object Filters](#object-filters) for Query Events.
-{% endtab %}
-
-{% tab title="< 10.6 / 10.5.12 / 10.4.21" %}
-{% hint style="info" %}
-Before MariaDB 10.6 / 10.5.12 / 10.4.21:
-{% endhint %}
-
-MariaDB Enterprise Audit does **not** support [Object Filters](#object-filters) for Query Events.
-{% endtab %}
-{% endtabs %}
 
 ### Table Events
 
@@ -249,23 +233,7 @@ INSERT INTO mysql.server_audit_filters (filtername, rule)
 
 The example passes the JSON object to the [JSON\_COMPACT()](../../sql-functions/special-functions/json-functions/json_compact.md) function, so that the JSON object is compacted prior to being inserted into the system table. This step is recommended, but not required.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6 / 10.5.12 / 10.4.21:
-{% endhint %}
-
 MariaDB Enterprise Audit supports [Object Filters](#object-filters) for Table Events.
-{% endtab %}
-
-{% tab title="< 10.6 / 10.5.12 / 10.4.21" %}
-{% hint style="info" %}
-Before MariaDB 10.6 / 10.5.12 / 10.4.21:
-{% endhint %}
-
-MariaDB Enterprise Audit does **not** support [Object Filters](#object-filters) for Table Events.
-{% endtab %}
-{% endtabs %}
 
 ## Logging Filter
 

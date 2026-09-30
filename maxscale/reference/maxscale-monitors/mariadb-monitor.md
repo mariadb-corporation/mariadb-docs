@@ -15,29 +15,10 @@ MariaDB Monitor monitors a Primary-Replica replication cluster. It probes the st
 
 The monitor user requires the following grant:
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 ```sql
 CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
 GRANT REPLICA MONITOR ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-```sql
-CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
-GRANT REPLICATION CLIENT ON *.* TO 'mariadbmon'@'maxscalehost';
-```
-{% endtab %}
-{% endtabs %}
 
 If the monitor needs to query server disk space (for instance, `disk_space_threshold` is set), it needs the `FILE` privilege:
 
@@ -101,29 +82,10 @@ GRANT EVENT, SHOW DATABASES ON *.* TO 'mariadbmon'@'maxscalehost';
 
 If a separate replication user is defined (with `replication_user` and`replication_password`), it requires the following grant:
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 ```sql
 CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
 GRANT REPLICATION REPLICA ON *.* TO 'replication'@'replicationhost';
 ```
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-```sql
-CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
-GRANT REPLICATION SLAVE ON *.* TO 'replication'@'replicationhost';
-```
-{% endtab %}
-{% endtabs %}
 
 ## Primary selection
 

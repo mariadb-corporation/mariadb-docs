@@ -21,15 +21,15 @@ The [TRIGGER](../../account-management-sql-statements/grant.md#table-privileges)
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.6.5 / 10.5.13 / 10.4.22:
+From MariaDB 10.6.5:
 {% endhint %}
 
 `SHOW CREATE TRIGGER` quotes identifiers, according to the value of the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable.
 {% endtab %}
 
-{% tab title="< 10.6.5 / 10.5.13 / 10.4.22" %}
+{% tab title="< 10.6.5" %}
 {% hint style="info" %}
-Before MariaDB 10.6.5 / 10.5.13 / 10.4.22:
+Before MariaDB 10.6.5:
 {% endhint %}
 
 `SHOW CREATE TRIGGER` quotes identifiers, according to the value of the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable. However, the output of this statement is unreliably affected by the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable.
@@ -56,23 +56,7 @@ END
   Created: 2016-09-29 13:53:34.35
 ```
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.2.3:
-{% endhint %}
-
 The `Created` column serves to better view multiple trigger events.
-{% endtab %}
-
-{% tab title="< 10.2.3" %}
-{% hint style="info" %}
-Before MariaDB 10.2.3:
-{% endhint %}
-
-The `Created` column is unavailable.
-{% endtab %}
-{% endtabs %}
 
 ## See Also
 

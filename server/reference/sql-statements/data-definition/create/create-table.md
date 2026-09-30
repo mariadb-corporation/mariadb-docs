@@ -214,12 +214,6 @@ constraint_definition:
 **Note:**
 {% endhint %}
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 MariaDB accepts the shortcut format with a `REFERENCES` clause only in `ALTER TABLE` and `CREATE TABLE` statements, but that syntax does nothing. For example:
 
 ```sql
@@ -227,20 +221,6 @@ CREATE TABLE b(for_key INT REFERENCES a(not_key));
 ```
 
 MariaDB will attempt to apply the constraint. See [Foreign Keys examples](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md#examples).
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-MariaDB accepts the shortcut format with a `REFERENCES` clause only in `ALTER TABLE` and `CREATE TABLE` statements, but that syntax does nothing. For example:
-
-```sql
-CREATE TABLE b(for_key INT REFERENCES a(not_key));
-```
-{% endtab %}
-{% endtabs %}
 
 Each definition either creates a column in the table or specifies an index or constraint on one or more columns. See [Indexes](create-table.md#index-definitions) below for details on creating indexes.
 
@@ -451,25 +431,9 @@ The `UNIQUE` keyword means that the index will not accept duplicated values, exc
 
 For `UNIQUE` indexes, you can specify a name for the constraint, using the `CONSTRAINT` keyword. That name will be used in error messages.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 {% hint style="info" %}
 Unique, if index type is not specified, is normally a BTREE index that can also be used by the optimizer to find rows. If the key is longer than the max key length for the used storage engine, a HASH key will be created. This enables MariaDB to enforce uniqueness for any type or number of columns.
 {% endhint %}
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-\-
-{% endtab %}
-{% endtabs %}
 
 See [Getting Started with Indexes: Unique Index](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#unique-index) for more information.
 
@@ -583,23 +547,7 @@ The `WITH PARSER` index option only applies to [FULLTEXT](../../../../ha-and-per
 
 #### VISIBLE Index Option
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.3:
-{% endhint %}
-
 Indexes can be declared visible. This is the default and it shows up in [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md).
-{% endtab %}
-
-{% tab title="< 10.5.3" %}
-{% hint style="info" %}
-Before MariaDB 10.5.3:
-{% endhint %}
-
-Indexes cannot be declared visible.
-{% endtab %}
-{% endtabs %}
 
 #### COMMENT Index Option
 
@@ -609,23 +557,7 @@ The `COMMENT` index option allows you to specify a comment with user-readable te
 
 #### IGNORED / NOT IGNORED
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6:
-{% endhint %}
-
 Indexes can be specified to be ignored by the optimizer. See [Ignored Indexes](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/ignored-indexes.md).
-{% endtab %}
-
-{% tab title="< 10.6" %}
-{% hint style="info" %}
-Before MariaDB 10.6:
-{% endhint %}
-
-Indexes can be specified to be ignored by the optimizer. See [Ignored Indexes](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/ignored-indexes.md).
-{% endtab %}
-{% endtabs %}
 
 ## Periods
 
@@ -1030,23 +962,7 @@ CREATE OR REPLACE TABLE t1 (x INT)
 
 ## Atomic DDL
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6:
-{% endhint %}
-
 MariaDB supports [Atomic DDL](../atomic-ddl.md). `CREATE TABLE` is atomic, except for `CREATE OR REPLACE`, which are only crash-safe.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-{% hint style="info" %}
-Before MariaDB 10.6:
-{% endhint %}
-
-\-
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

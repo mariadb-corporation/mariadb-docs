@@ -38,23 +38,7 @@ Only **SELECT** statements are allowed for cursors, and they cannot be contained
 {% endtab %}
 {% endtabs %}
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.3:
-{% endhint %}
-
 Cursors can have parameters. Cursor parameters can appear in any part of the [DECLARE CURSOR](declare-cursor.md) `select_statement` where a stored procedure variable is allowed (select list, `WHERE`, `HAVING`, `LIMIT` etc). See [DECLARE CURSOR](declare-cursor.md) and [OPEN](open.md) for syntax, and below for an example.
-{% endtab %}
-
-{% tab title="< 10.3" %}
-{% hint style="info" %}
-Before MariaDB 10.3:
-{% endhint %}
-
-Cursors cannot have parameters.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

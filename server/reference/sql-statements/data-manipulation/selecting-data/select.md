@@ -179,23 +179,7 @@ See [LOCK IN SHARE MODE](lock-in-share-mode.md) and [FOR UPDATE](for-update.md) 
 
 ### OFFSET ... FETCH
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6:
-{% endhint %}
-
 See [SELECT ... OFFSET ... FETCH](select-offset-fetch.md).
-{% endtab %}
-
-{% tab title="< 10.6" %}
-{% hint style="info" %}
-Before MariaDB 10.6:
-{% endhint %}
-
-The clause doesn't exist.
-{% endtab %}
-{% endtabs %}
 
 ### ORDER BY
 
@@ -211,23 +195,7 @@ Passes the whole result set to a C Procedure. See [PROCEDURE](procedure.md) and 
 
 ### SKIP LOCKED
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6:
-{% endhint %}
-
 This causes rows that couldn't be locked ([LOCK IN SHARE MODE](lock-in-share-mode.md) or [FOR UPDATE](for-update.md)) to be excluded from the result set. An explicit `NOWAIT` is implied here. This is only implemented on [InnoDB](../../../../server-usage/storage-engines/innodb/) tables and ignored otherwise.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-{% hint style="info" %}
-Before MariaDB 10.6:
-{% endhint %}
-
-The clause doesn't exist.
-{% endtab %}
-{% endtabs %}
 
 ### Optimizer Hints
 
