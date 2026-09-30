@@ -91,11 +91,6 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Default Value: `6`
 * Range: `2` to `7`
 
-#### `myisam_max_extra_sort_file_size`
-
-* Description: Removed in MySQL 5.0.6, was used as a way to force long character keys in large tables to use the key cache method.
-* Removed: MySQL 5.0.6
-
 #### `myisam_max_sort_file_size`
 
 * Description: Maximum size in bytes of the temporary file used while recreating a MyISAM index. If the this size is exceeded, the slower process of using the key cache is done instead.
@@ -131,10 +126,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Scope: Global
 * Dynamic: No
 * Data Type: `enumeration`
-* Default Value:
-  * `BACKUP,QUICK` (>= [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4))
-  * `DEFAULT` (<= [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3))
-  * `OFF`
+* Default Value: `BACKUP,QUICK`
 * Valid Values: `OFF`, `DEFAULT`, `BACKUP`, `BACKUP_ALL`, `FORCE` or `QUICK`
 
 #### `myisam_repair_threads`

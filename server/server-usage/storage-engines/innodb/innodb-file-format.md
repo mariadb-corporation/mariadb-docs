@@ -19,13 +19,9 @@ The [InnoDB](./) storage engine supports two different file formats:
 
 ### Antelope
 
-In [MariaDB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.1) and before, the default file format is `Antelope`. In [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) and later, the `Antelope` file format is deprecated.
-
 `Antelope` is the original InnoDB file format. It supports the `COMPACT` and `REDUNDANT` row formats, but not the `DYNAMIC` or `COMPRESSED` row formats.
 
 ### Barracuda
-
-In [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) and before, the `Barracuda` file format is only supported if the [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) system variable is set to `ON`. In [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) and later, the default file format is `Barracuda` and `Antelope` is deprecated.
 
 `Barracuda` is a newer InnoDB file format. It supports the `COMPACT`, `REDUNDANT`, `DYNAMIC` and `COMPRESSED` row formats. Tables with large BLOB or TEXT columns in particular could benefit from the dynamic row format.
 
@@ -43,11 +39,7 @@ A table's tablespace is tagged with the lowest InnoDB file format that supports 
 
 Each tablespace is tagged with the id of the most recent file format used by one of its tables. All versions of InnoDB can read tables that use an older file format. However, it can not read from more recent formats. For this reason, each time InnoDB opens a table it checks the tablespace's format, and returns an error if a newer format is used.
 
-This check can be skipped via the [innodb\_file\_format\_check](innodb-system-variables.md#innodb_file_format_check) variable. Beware that, is InnoDB tries to repair a table in an unknown format, the table are corrupted! This happens on restart if innodb\_file\_format\_check is disabled and the server crashed, or it was closed with fast shutdown.
-
 To downgrade a table from the Barracuda format to Antelope, the table's `ROW_FORMAT` can be set to a value supported by Antelope, via an [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) statement. This recreates the indexes.
-
-The Antelope format can be used to make sure that tables work on MariaDB and MySQL servers which are older than 5.5.
 
 ## See Also
 

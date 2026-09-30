@@ -185,7 +185,7 @@ KEY(accountName)
 ) ;
 ```
 
-With [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) the following partition clause can be used to specify a default partition for all other values, however this must be a distinct partition / shard:
+The following partition clause can be used to specify a default partition for all other values, however this must be a distinct partition / shard:
 
 ```sql
 PARTITION partition_name DEFAULT

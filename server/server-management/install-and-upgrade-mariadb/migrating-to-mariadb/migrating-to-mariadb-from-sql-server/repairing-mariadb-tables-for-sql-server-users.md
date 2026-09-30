@@ -48,7 +48,7 @@ Here we discuss how to repair tables, depending on the storage engine.
 
 ### InnoDB
 
-InnoDB follows the "fail fast" philosophy. If table corruption is detected, by default InnoDB deliberately causes MariaDB to crash to avoid corruption propagation, logging an error into the [error log](../../../server-monitoring-logs/error-log.md). This happens even if the corruption is found with a `CHECK TABLE` statement. This behavior can be changed with the [innodb\_corrupt\_table\_action](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_corrupt_table_action) server variable.
+InnoDB follows the "fail fast" philosophy. If table corruption is detected, by default InnoDB deliberately causes MariaDB to crash to avoid corruption propagation, logging an error into the [error log](../../../server-monitoring-logs/error-log.md). This happens even if the corruption is found with a `CHECK TABLE` statement.
 
 To repair an InnoDB table after a crash:
 

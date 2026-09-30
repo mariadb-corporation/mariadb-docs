@@ -43,8 +43,8 @@ This system variable can be set to one of the following values:
 
 | System Variable Value | Description                                                                                                                                                                                                                                                                                                                                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| none                  | Pages are not compressed. This is the default value in [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3) and before, and [MariaDB 10.1.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.21) and before.                                                                 |
-| zlib                  | Pages are compressed using the bundled [zlib](https://www.zlib.net/) compression algorithm. This is the default value in [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4) and later, and [MariaDB 10.1.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.22) and later. |
+| none                  | Pages are not compressed. |
+| zlib                  | Pages are compressed using the bundled [zlib](https://www.zlib.net/) compression algorithm. This is the default value. |
 | lz4                   | Pages are compressed using the [lz4](https://lz4.org/) compression algorithm.                                                                                                                                                                                                                                                                                |
 | lzo                   | Pages are compressed using the [lzo](https://www.oberhumer.com/opensource/lzo/) compression algorithm.                                                                                                                                                                                                                                                                     |
 | lzma                  | Pages are compressed using the [lzma](https://tukaani.org/xz/) compression algorithm.                                                                                                                                                                                                                                                                                      |
@@ -117,9 +117,9 @@ The general steps for compiling MariaDB are:
 * Download and unpack the source code distribution:
 
 ```bash
-wget https://downloads.mariadb.com/MariaDB/mariadb-10.4.8/source/mariadb-10.4.8.tar.gz
-tar -xvzf mariadb-10.4.8.tar.gz
-cd mariadb-10.4.8/
+wget https://downloads.mariadb.com/MariaDB/mariadb-11.4.8/source/mariadb-11.4.8.tar.gz
+tar -xvzf mariadb-11.4.8.tar.gz
+cd mariadb-11.4.8/
 ```
 
 * Configure the build using [cmake](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md):
@@ -155,13 +155,13 @@ InnoDB page compression is not enabled by default. However, InnoDB page compress
 
 InnoDB page compression is also only supported if the InnoDB table is in a [file per-table](innodb-tablespaces/innodb-file-per-table-tablespaces.md) tablespace. Therefore, the [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) system variable must be set to `ON` to use InnoDB page compression.
 
-InnoDB page compression is only supported if the InnoDB table uses the `Barracuda` [file format](innodb-file-format.md).Therefore, in [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) and before, the [innodb\_file\_format](innodb-system-variables.md#innodb_file_format) system variable must be set to `Barracuda` to use InnoDB page compression.
+InnoDB page compression is only supported if the InnoDB table uses the `Barracuda` [file format](innodb-file-format.md).
 
 InnoDB page compression is also only supported if the InnoDB table's [row format](innodb-row-formats/innodb-row-formats-overview.md) is [COMPACT](innodb-row-formats/innodb-compact-row-format.md) or [DYNAMIC](innodb-row-formats/innodb-dynamic-row-format.md).
 
 ### Enabling InnoDB Page Compression by Default
 
-In [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3) and later, InnoDB page compression can be enabled for all new InnoDB tables by default by setting the [innodb\_compression\_default](innodb-system-variables.md#innodb_compression_default) system variable to `ON`.
+InnoDB page compression can be enabled for all new InnoDB tables by default by setting the [innodb\_compression\_default](innodb-system-variables.md#innodb_compression_default) system variable to `ON`.
 
 This system variable can be set to one of the following values:
 
@@ -388,16 +388,7 @@ DeviceIoControl(file_handle, FSCTL_SET_ZERO_DATA, inbuf, inbuf_size,
 
 ### Configuring InnoDB to use Sparse Files
 
-In [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) and later, InnoDB uses the _punch hole_ technique to create sparse files used automatically when the underlying file system supports sparse files.
-
-In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) and before, InnoDB can be configured to use the _punch hole_ technique to create sparse files by configuring the [innodb\_use\_trim](innodb-system-variables.md#innodb_use_trim) and [innodb\_use\_fallocate](innodb-system-variables.md#innodb_use_fallocate) system variables. These system variables can be set in a server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server:
-
-```
-[mariadb]
-...
-innodb_use_trim=ON
-innodb_use_fallocate=ON
-```
+InnoDB uses the _punch hole_ technique to create sparse files automatically when the underlying file system supports sparse files.
 
 ## Optimized for Flash Storage
 
@@ -499,7 +490,6 @@ SHOW GLOBAL STATUS LIKE 'Innodb_num_pages_page_compressed';
 * [Atomic Write Support](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations/atomic-write-support.md)
 * [MariaDB Introduces Atomic Writes](https://blog.mariadb.org/mariadb-introduces-atomic-writes/)
 * [Small Datum: Third day with InnoDB transparent page compression](https://smalldatum.blogspot.com/2015/09/third-day-with-innodb-transparent-page.html)
-* [InnoDB holepunch compression vs the filesystem in MariaDB 10.1](https://blog.mariadb.org/innodb-holepunch-compression-vs-the-filesystem-in-mariadb-10-1/)
 * [Significant performance boost with new MariaDB page compression on FusionIO](https://blog.mariadb.org/significant-performance-boost-with-new-mariadb-page-compression-on-fusionio/)
 * [INFLOW '14: NVM Compression—Hybrid Flash-Aware Application Level Compression](https://www.usenix.org/conference/inflow14/workshop-program/presentation/das)
 

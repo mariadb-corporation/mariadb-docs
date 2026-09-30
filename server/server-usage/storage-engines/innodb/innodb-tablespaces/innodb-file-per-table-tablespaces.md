@@ -311,7 +311,7 @@ DROP TABLE test.t2_placeholder;
 
 #### Differing Storage Formats for Temporal Columns
 
-[MariaDB 10.1.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-101-series/mariadb-10-1-2-changelog) added the [mysql56\_temporal\_format](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#mysql56_temporal_format) system variable, which enables a new MySQL 5.6-compatible storage format for the [TIME](../../../../reference/data-types/date-and-time-data-types/time.md), [DATETIME](../../../../reference/data-types/date-and-time-data-types/datetime.md) and [TIMESTAMP](../../../../reference/data-types/date-and-time-data-types/timestamp.md) data types.
+The [mysql56\_temporal\_format](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#mysql56_temporal_format) system variable enables a MySQL 5.6-compatible storage format for the [TIME](../../../../reference/data-types/date-and-time-data-types/time.md), [DATETIME](../../../../reference/data-types/date-and-time-data-types/datetime.md) and [TIMESTAMP](../../../../reference/data-types/date-and-time-data-types/timestamp.md) data types.
 
 If a file-per-tablespace file contains columns that use one or more of these temporal data types and if the tablespace file's original table was created with a certain storage format for these columns, then the tablespace file can only be imported into tables that were also created with the same storage format for these columns as the original table. Otherwise, you will see errors like the following:
 
@@ -322,7 +322,7 @@ ERROR 1808 (HY000): Schema mismatch (Column dt precise type mismatch.)
 
 See [MDEV-15225](https://jira.mariadb.org/browse/MDEV-15225) for more information.
 
-See the pages for the [TIME](../../../../reference/data-types/date-and-time-data-types/time.md), [DATETIME](../../../../reference/data-types/date-and-time-data-types/datetime.md) and [TIMESTAMP](../../../../reference/data-types/date-and-time-data-types/timestamp.md) data types to determine how to update the storage format for temporal columns in tables that were created before [MariaDB 10.1.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-101-series/mariadb-10-1-2-changelog) or that were created with [mysql56\_temporal\_format=OFF](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#mysql56_temporal_format).
+See the pages for the [TIME](../../../../reference/data-types/date-and-time-data-types/time.md), [DATETIME](../../../../reference/data-types/date-and-time-data-types/datetime.md) and [TIMESTAMP](../../../../reference/data-types/date-and-time-data-types/timestamp.md) data types to determine how to update the storage format for temporal columns in tables that use the old storage format, for example because they were created with [mysql56\_temporal\_format=OFF](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#mysql56_temporal_format).
 
 #### Differing ROW\_FORMAT Values
 
@@ -335,7 +335,7 @@ ALTER TABLE t0 IMPORT TABLESPACE;
 ERROR 1808 (HY000): Schema mismatch (Expected FSP_SPACE_FLAGS=0x21, .ibd file contains 0x0.)
 ```
 
-The error message is a bit more descriptive in [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.17) and later:
+The error message is more descriptive:
 
 ```sql
 ALTER TABLE t0 IMPORT TABLESPACE;
@@ -362,10 +362,6 @@ IMPORT on the other hand does not enforce foreign key constraints. So when impor
 MariaDB supports data-at-rest encryption for the InnoDB storage engine. When enabled, the Server encrypts data before writing it to the tablespace and decrypts reads from the tablespace before returning result-sets. This means that a malicious user attempting to exfiltrate sensitive data won't be able to import the tablespace onto a different server as shown above without the encryption key.
 
 For more information on data encryption, see [Encrypting Data for InnoDB](../../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-overview.md).
-
-## See Also
-
-* [Geoff Montee:Importing InnoDB Partitions in MySQL 5.6 and MariaDB 10.0/10.1](https://web.archive.org/web/20210731145246/https://www.geoffmontee.com/importing-innodb-partitions-in-mysql-5-6-and-mariadb-10-010-1/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -6,10 +6,6 @@ description: >-
 
 # Testing Connections to S3
 
-{% hint style="info" %}
-The [S3 storage engine](./) is available from [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4).
-{% endhint %}
-
 If you can't get the S3 storage engine to work, here are some steps to help verify where the problem could be.
 
 ## S3 Connection Variables

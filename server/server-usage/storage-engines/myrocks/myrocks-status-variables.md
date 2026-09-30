@@ -273,20 +273,6 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.2.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.15), [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7)
 
-#### `Rocksdb_l0_num_files_stall_micros`
-
-* Description: Shows how long in microseconds throttled due to too many files in L0.
-* Scope: Global, Session
-* Data Type: `numeric`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
-
-#### `Rocksdb_l0_slowdown_micros`
-
-* Description: Total time spent waiting in microseconds while performing L0-L1 compactions.
-* Scope: Global, Session
-* Data Type: `numeric`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
-
 #### `Rocksdb_manual_compactions_processed`
 
 * Description:
@@ -300,13 +286,6 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Scope: Global, Session
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.18), [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10)
-
-#### `Rocksdb_memtable_compaction_micros`
-
-* Description:
-* Scope: Global, Session
-* Data Type: `numeric`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
 
 #### `Rocksdb_memtable_hit`
 

@@ -817,7 +817,7 @@ If set to `1`, statistics will be recalculated when more than 10% of the data ha
 
 ### STATS\_SAMPLE\_PAGES
 
-`STATS_SAMPLE_PAGES` indicates how many pages are used to sample index statistics. If 0 or DEFAULT, the default value, the [innodb\_stats\_sample\_pages](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_sample_pages) value is used. See [InnoDB Persistent Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md).
+`STATS_SAMPLE_PAGES` indicates how many pages are used to sample index statistics. If 0 or DEFAULT, the default value, the [innodb\_stats\_persistent\_sample\_pages](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_persistent_sample_pages) value is used. See [InnoDB Persistent Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md).
 
 ### TRANSACTIONAL
 

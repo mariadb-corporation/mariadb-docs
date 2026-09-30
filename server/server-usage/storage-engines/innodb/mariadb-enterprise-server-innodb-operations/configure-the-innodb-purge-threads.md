@@ -26,18 +26,15 @@ This page describes how to configure the InnoDB Purge Threads.
 
 The number of the InnoDB Purge Threads is configurable. If your server deletes or updates rows at a very high frequency, then you may need to increase the number of purge threads.
 
-The method to configure the number of Purge Threads depends on the server version and whether a server restart are performed:
+The method to configure the number of Purge Threads depends on the server version and whether a server restart is required:
 
-| Product Versions  | Server Restart? | Method                                                                                                                                                                        |
-| ----------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ES 10.5 and Later | No              | [Configure maximum number of asynchronous I/O requests with SET GLOBAL](configure-the-innodb-io-threads.md#configure-the-number-of-innodb-i-o-threads-in-a-configuration-file) |
-| Any ES Any CS     | Yes.            | [Configure number of I/O threads in configuration file](configure-the-innodb-io-threads.md#configure-the-number-of-innodb-i-o-threads)                                         |
+| Product Versions   | Server Restart? | Method                                                                                                                                                                 |
+| ------------------ | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ES                 | No              | [Configure the number of InnoDB purge threads with SET GLOBAL](configure-the-innodb-purge-threads.md#configure-the-number-of-innodb-purge-threads-with-set-global)       |
+| CS 10.11 and Later | No              | [Configure the number of InnoDB purge threads with SET GLOBAL](configure-the-innodb-purge-threads.md#configure-the-number-of-innodb-purge-threads-with-set-global)       |
+| CS 10.6            | Yes             | [Configure the number of InnoDB purge threads in a configuration file](configure-the-innodb-purge-threads.md#configure-the-number-of-innodb-purge-threads-in-a-configuration-file) |
 
 ## Configure the Number of InnoDB Purge Threads with SET GLOBAL
-
-{% hint style="info" %}
-This feature is available from MariaDB Enterprise Server 10.5.
-{% endhint %}
 
 The number of InnoDB purge threads can be changed dynamically by setting the [innodb\_purge\_threads](../innodb-system-variables.md#innodb_purge_threads) system variable using the [SET GLOBAL](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) statement. The [SET GLOBAL](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) statement requires the SUPER privilege.
 
