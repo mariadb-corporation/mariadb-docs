@@ -20,7 +20,7 @@ This section covers algorithms for working with features, roughly divided into t
 Usually it starts with label and feature extraction and can be complicated with other preprocessing stages.
 {% endhint %}
 
-## Normalization preprocessor
+## Normalization Preprocessor
 
 The normal flow is to extract features from Ignite data​, transform the features and then normalize them. The Trainer API allows compositions of transformers in the following way:
 
@@ -79,7 +79,7 @@ double prediction = mdl.apply(preprocessor.apply(coordinates));
 
 To see how the Normalization Preprocessor can be used in practice, try this example available on [GitHub](https://github.com/apache/ignite-extensions/tree/master/modules/ml-ext/examples/src/main/java/org/apache/ignite/examples/ml/preprocessing/NormalizationExample.java) and delivered with every Apache Ignite distribution.
 
-## Binarization preprocessor
+## Binarization Preprocessor
 
 Binarization is the process of thresholding numerical features to binary (0/1) features.
 Feature values greater than the threshold are binarized to 1.0; values equal to or less than the threshold are binarized to 0.0.
@@ -104,7 +104,7 @@ IgniteBiFunction<Integer, double[], double[]> preprocessor =
 
 To see how the Binarization Preprocessor can be used in practice, try this [example](https://github.com/apache/ignite-extensions/tree/master/modules/ml-ext/examples/src/main/java/org/apache/ignite/examples/ml/preprocessing/BinarizationExample.java).
 
-## Imputer preprocessor
+## Imputer Preprocessor
 
 The Imputer preprocessor completes missing values in a dataset, either using the mean or another statistic of the column in which the missing values are located. The missing values should be presented as Double.NaN. The input dataset column should be of Double. Currently, the Imputer preprocessor does not support categorical features and possibly creates incorrect values for columns containing categorical features.
 
@@ -133,7 +133,7 @@ IgniteBiFunction<Integer, double[], double[]> preprocessor =
 
 To see how the Imputer Preprocessor can be used in practice, try [this](https://github.com/apache/ignite-extensions/tree/master/modules/ml-ext/examples/src/main/java/org/apache/ignite/examples/ml/preprocessing/ImputingExample.java) example.
 
-## One-Hot Encoder preprocessor
+## One-Hot Encoder Preprocessor
 
 One-hot encoding maps a categorical feature, represented as a label index (Double or String value), to a binary vector with at most a single one-value indicating the presence of a specific feature value from among the set of all feature values.
 
@@ -159,7 +159,7 @@ IgniteBiFunction<Integer, Object[], Vector> oneHotEncoderPreprocessor = new Enco
 ```
 {% endcode %}
 
-## String Encoder preprocessor
+## String Encoder Preprocessor
 
 The String Encoder encodes string values (categories) to double values in the range `[0.0, amountOfCategories]` where the most popular value will be presented as 0.0 and the least popular value presented with `amountOfCategories-1` value.
 
@@ -213,7 +213,7 @@ IgniteBiFunction<Integer, Object[], Vector> strEncoderPreprocessor = new Encoder
 
 To see how the String Encoder Preprocessor can be used in practice, try this [tutorial example](https://github.com/apache/ignite-extensions/tree/master/modules/ml-ext/examples/src/main/java/org/apache/ignite/examples/ml/tutorial/Step_3_Categorial.java).
 
-## MinMax Scaler preprocessor
+## MinMax Scaler Preprocessor
 
 The MinMax Scaler transforms the given dataset, rescaling each feature to a specific range.
 

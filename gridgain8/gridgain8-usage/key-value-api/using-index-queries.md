@@ -66,7 +66,7 @@ QueryCursor<Cache.Entry<Integer, Person>> cursor = cache.query(
 
 For the empty criteria list, a full table scan is performed.
 
-## Additional filtering
+## Additional Filtering
 
 `IndexQuery` also supports an optional predicate, the same as `ScanQuery` has. It's suitable for additional cache entry
 filtering. For example, it may contain some logic or the "OR" operations.

@@ -132,7 +132,7 @@ Note the uses of [cache templates](../../../gridgain8-usage/configuring-caches/c
 2. Change the `cluster_image` to the [custom one](../operator/operator-configuration.md#cluster_image);
 3. [Deploy the operator](../operator/quick-start.md) using the custom credentials that are configured in steps 1 and 2.
 
-### Deploying GridGain without the Operator
+### Deploying GridGain Without the Operator
 
 1. Deploy GridGain per the [AWS K8 deployment guide](../kubernetes/amazon-eks-deployment.md), using the custom image and config mentioned above.
 2. [Scale the cluster](../kubernetes/generic-configuration.md#scaling-the-cluster): You should be able to see that the nodes are allocated only in the availability zones you specified.

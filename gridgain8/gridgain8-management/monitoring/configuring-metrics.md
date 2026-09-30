@@ -66,6 +66,81 @@ unsupported
 {% endtab %}
 {% endtabs %}
 
+## Enabling Cache Metrics at Runtime
+
+You can turn cache metrics on and off in a running cluster dynamically. The change takes effect immediately and does not require a restart.
+
+Use the `IgniteCache.enableStatistics()` method:
+
+{% tabs %}
+{% tab title="Java" %}
+```java
+IgniteCache<Integer, Person> cache = ignite.cache("myCache");
+
+// Start collecting metrics for this cache.
+cache.enableStatistics(true);
+
+// Stop collecting them.
+cache.enableStatistics(false);
+```
+{% endtab %}
+{% tab title="C#/.NET" %}
+```csharp
+ICache<int, Person> cache = ignite.GetCache<int, Person>("myCache");
+
+cache.EnableStatistics(true);
+```
+{% endtab %}
+{% tab title="C++" %}
+unsupported
+{% endtab %}
+{% endtabs %}
+
+You can also change several caches in a single call by using `IgniteCluster.enableStatistics()`:
+
+{% tabs %}
+{% tab title="Java" %}
+```java
+ignite.cluster().enableStatistics(Arrays.asList("myCache", "myOtherCache"), true);
+```
+{% endtab %}
+{% tab title="C#/.NET" %}
+```csharp
+ignite.GetCluster().EnableStatistics(new[] { "myCache", "myOtherCache" }, true);
+```
+{% endtab %}
+{% tab title="C++" %}
+unsupported
+{% endtab %}
+{% endtabs %}
+
+{% hint style="warning" %}
+Every cache you name must already be started on the node that makes the call, otherwise the call fails with a `Cache not found` error.
+{% endhint %}
+
+The new value is also saved to the cache configuration. For a cache in a data region with persistence enabled, the setting survives a cluster restart.
+
+## Reading Cache Metrics
+
+To read the latest metrics snapshot of a specific cache, use one of the `IgniteCache` methods:
+
+- `IgniteCache.metrics()` — gets the metrics snapshot of the whole cluster where the cache is deployed.
+- `IgniteCache.metrics(ClusterGroup grp)` — gets the metrics snapshot for the nodes that belong to the given cluster group.
+- `IgniteCache.localMetrics()` — gets the local node's metrics snapshot for the cache.
+
+```java
+IgniteCache<Integer, Person> cache = ignite.getOrCreateCache("myCache");
+
+// Get cache metrics
+CacheMetrics cm = cache.metrics();
+
+System.out.println("Avg put time: " + cm.getAveragePutTime());
+
+System.out.println("Avg get time: " + cm.getAverageGetTime());
+```
+
+To calculate the size of a cache, see [Memory Usage Calculation](monitoring-memory.md#memory-usage-calculation).
+
 ## JMX Beans
 
 For each cache on a node, GridGain creates two JMX Beans: one with cache information specific to the node, and one with global (cluster-wide) information about the cache.

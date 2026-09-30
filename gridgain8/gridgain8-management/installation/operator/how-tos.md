@@ -125,7 +125,7 @@ Save the file and apply changes
 kubectl apply -f crds/ignite_config.yaml -n apache-ignite-operator
 ```
 
-### 2. Change the image
+### 2. Change the Image
 
 Modify `ignite.yaml` and set a newer image version:
 
@@ -141,7 +141,7 @@ Save the file and apply changes
 kubectl apply -f crds/ignite.yaml -n apache-ignite-operator
 ```
 
-### 3. Check the result
+### 3. Check the Result
 
 Note, PODs are restarted one-by-one:
 
@@ -214,7 +214,7 @@ spec:
 
 Save the `ignite_config.yaml` file.
 
-### 3. Deploy modified CRs
+### 3. Deploy Modified CRs
 
 ```
 kubectl apply -f crds/ignite.yaml -n apache-ignite-operator
@@ -242,7 +242,7 @@ To make internal configuration changes, adjust the `ignite_config.yaml` file. Fo
 
 Make the changes and save the file.
 
-### 2. Apply changes
+### 2. Apply Changes
 
 Apply changes:
 
@@ -250,7 +250,7 @@ Apply changes:
 kubectl apply -f crds/ignite_config.yaml -n apache-ignite-operator
 ```
 
-### 3. Check the result
+### 3. Check the Result
 
 Nodes are restarted automatically in order to reflect new changes.
 

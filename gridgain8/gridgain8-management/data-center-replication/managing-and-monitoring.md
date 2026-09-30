@@ -143,7 +143,7 @@ Most common problems that you may want to monitor include:
 - [Problem: Sender storage is full or corrupted](#problem-sender-storage-is-full-or-corrupted)
 - [Problem: There are failed batches](#problem-there-are-failed-batches)
 
-### Problem: Size of the sender storage is growing
+### Problem: Size of the Sender Storage Is Growing
 
 If the sender storage size on a specific sender node is growing, it means that the sender is not keeping up with the load or there is a problem with the connection to the replica cluster.
 
@@ -153,7 +153,7 @@ Monitor the metric that shows the size of the storage
 **Actions:**
 Check network capacity or add more sender nodes and/or receivers.
 
-### Problem: Sender storage is full or corrupted
+### Problem: Sender Storage Is Full or Corrupted
 
 When the sender storage gets full or becomes corrupted (i.e., due to an error), the replication process will stop for all caches.
 
@@ -163,7 +163,7 @@ Listen to the `EVT_DR_STORE_OVERFLOW` or `EVT_DR_STORE_CORRUPTED` events. Refer 
 **Actions:**
 After addressing the issue that caused the sender storage to get full, you have to do a [full state transfer](#full-state-transfer).
 
-### Problem: There are failed batches
+### Problem: There Are Failed Batches
 
 {% hint style="info" %}
 This problem is only applicable to non-incremental DR. When using incremental DR, the replication is instead paused until it can be resumed.
@@ -179,7 +179,7 @@ Monitor the `GridDr.senderCacheMetrics("myCache").batchesFailed()` metric for al
 Make sure that at least one sender is available to all server nodes in the master cluster.
 You will need to do a [full state transfer](#full-state-transfer) to synchronize the cache's content with the replica cluster.
 
-### Problem: The pending queue is growing
+### Problem: The Pending Queue Is Growing
 
 Pending queue is used by incremental DR to store data has not yet been sent to a sender. This includes cases when a sender or remote datacenter returns an error and the replication cannot be confirmed.
 
@@ -259,7 +259,7 @@ The replication event types are defined in the [`org.gridgain.grid.events.EventT
 | EVT_DR_RECEIVER_UPDATE_APPLIED | The receiver node applied the update. | The receiver node. |
 | EVT_DR_RECEIVER_UPDATE_FAILED | The receiver node failed to apply the update. | The receiver node. |
 | EVT_DR_SENDER_UPDATE_SENT | The sender node sent the update. | The sender node. |
-| EVT_DR_SENDER_UPDATE_ACKED | The sender node received the update acknowledgement from the receiver node. | The sender node. |
+| EVT_DR_SENDER_UPDATE_ACKED | The sender node received the update acknowledgment from the receiver node. | The sender node. |
 | EVT_DR_SENDER_UPDATE_FAILED | The sender node failed to send the update, or the receiver node failed to apply the update. | The sender node. |
 
 ### Storage Management

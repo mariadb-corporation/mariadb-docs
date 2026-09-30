@@ -225,11 +225,11 @@ unsupported
 {% endtab %}
 {% endtabs %}
 
-## Recovering From a Partition Loss
+## Recovering from a Partition Loss
 
 The following sections explain how you can recover from a partition loss in different cluster configurations.
 
-### Pure In-memory Cluster with IGNORE policy
+### Pure In-memory Cluster with IGNORE Policy
 
 In this configuration, the `IGNORE` policy is only applicable when baseline autoadjustment is enabled with a 0 timeout, which is the default setting for in-memory clusters.
 For such configurations, partition loss is ignored.
@@ -237,7 +237,7 @@ The cache continues to be operational with the lost partitions treated as empty.
 
 When baseline autoadjustment is disabled or when the timeout is greater than 0, the `IGNORE` policy is replaced with `READ_WRITE_SAFE`.
 
-### Pure In-memory Cluster with READ_WRITE_SAFE or READ_ONLY_SAFE policy
+### Pure In-memory Cluster with READ_WRITE_SAFE or READ_ONLY_SAFE Policy
 
 User operations are blocked until you reset the lost partitions.
 After the reset, continue using the cache but the data will be lost.

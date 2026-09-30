@@ -34,18 +34,18 @@ finally {
 Remember to close the lock after you are done with it to avoid keeping it in memory.
 {% endhint %}
 
-## Protection From Failover
+## Protection from Failover
 
 Ignite locks can automatically recover from node failure, depending on the `failoverSafe` flag.
 
 - If `failoverSafe` flag is set to `true`, in case a node owning the lock fails, lock will be automatically released and become available for threads on other nodes to acquire. No exception will be thrown.
 - If `failoverSafe` flag is set to `false`, in case a node owning the lock fails, IgniteException will be thrown on every other attempt to perform any operation on this lock. No automatic recovery will be attempted, and lock will be marked as broken (i.e. unusable). You can check if the lock is broken by using the `#isBroken()` method. Broken lock cannot be reused again.
 
-## Fair and Non-fair locks
+## Fair and Non-fair Locks
 
 GridGain can handle two types of locks: fair and non-fair.
 
-- Non-fair lock assumes no ordering should be imposed on acquiring threads; in case of contention, threads from all nodes compete for the lock once the lock is released. In most cases this is the desired behaviour. However, in some cases, using the non-fair lock can lead to uneven load distribution among nodes.
+- Non-fair lock assumes no ordering should be imposed on acquiring threads; in case of contention, threads from all nodes compete for the lock once the lock is released. In most cases this is the desired behavior. However, in some cases, using the non-fair lock can lead to uneven load distribution among nodes.
 - Fair lock imposes a strict FIFO ordering policy at a cost of an additional transaction. This ordering does not guarantee fairness of thread scheduling. Thus, one of many threads on any node using a fair lock may obtain it multiple times in succession while other active threads are not progressing and not currently holding the lock.
 
 {% hint style="info" %}

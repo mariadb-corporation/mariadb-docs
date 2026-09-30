@@ -4,7 +4,7 @@ description: >-
   including custom configuration, license, authentication, and volumes.
 ---
 
-# Installing GridGain on Kubernetes using Helm Chart
+# Installing GridGain on Kubernetes Using Helm Chart
 
 Following is a step-by-step guide for deploying a GridGain cluster on Kubernetes using [Kubernetes Helm Chart](https://helm.sh/).
 

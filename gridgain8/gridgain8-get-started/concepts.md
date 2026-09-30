@@ -45,7 +45,7 @@ cache that supported both the key-value and previously existing Compute Grid API
 ASF under the new project known as Apache Ignite, GridGain supported the first SQL commands that extended existing
 capabilities of key-value caches. Later, Apache Ignite community extended SQL support introducing classical DDL and
 DML commands pulling in the concept of relational **tables**. This led to co-existence of two terms and two different
-[data modelling](../architecture/data-modeling/introduction.md) approaches in GridGain and Ignite.
+[data modeling](../architecture/data-modeling/introduction.md) approaches in GridGain and Ignite.
 
 Will this situation last forever? Certainly not.  As part of the product evolution,
 both Apache Ignite community and GridGain are working on a next version of the APIs that will amalgamate the concepts of

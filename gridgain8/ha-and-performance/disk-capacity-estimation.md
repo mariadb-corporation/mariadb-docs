@@ -18,7 +18,7 @@ The basic steps of the empirical approach are as follows:
 
 Let's look at each step in detail. For the sake of simplicity, we will consider a single cache containing key-value pairs where the key is an integer and the value is a Java object with `int`, `String`, and `Timestamp` fields. If you have multiple caches (tables) with different data structure, you should estimate the size of each cache separately.
 
-## Defining data model
+## Defining Data Model
 
 The Value class has three fields: `id (int)`, `name (String)`, and `date (Timestamp)`. The length of the name field is variable; therefore, we need to analyze the length distribution of that field and use a sample that contains objects with the average length. (You can use an upper estimate for the name field; however, using an upper estimate may lead to unnecessary over-provisioning). We will assume that the average length across the entire dataset is 10 characters. Other fields have fixed-length types.
 
@@ -52,7 +52,7 @@ class Value {
 ```
 {% endcode %}
 
-## Uploading sample into a node
+## Uploading Sample into a Node
 
 Configure a cache with a single partition and enable metrics. An example configuration is provided below.
 
@@ -171,7 +171,7 @@ If you use GridGain or Ignite via the SQL API only, you can create a table with 
 
 To find out the amount of space taken up by the data, check the value of the `DataRegionMetrics.default.TotalAllocatedSize` metric. It returns the total size of the data on disk. The code provided above will produce 271.1 MB of data.
 
-## Extrapolating to the entire data set
+## Extrapolating to the Entire Data Set
 
 When the size of the data sample is known, the total size of the entire dataset can be obtained from linear interpolation. Continuing the example considered above, if we upload 10 million records, we will have:
 

@@ -24,6 +24,18 @@ How to enable or disable GridGain metrics — cache, data region, persistence, a
 
 {% columns %}
 {% column %}
+{% content-ref url="monitoring-memory.md" %}
+[Monitoring Memory](monitoring-memory.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Read GridGain data region and data storage metrics programmatically, and calculate current node, cache, and cluster memory usage from the metric beans.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="intro.md" %}
 [Introduction: Monitoring and Metrics](intro.md)
 {% endcontent-ref %}

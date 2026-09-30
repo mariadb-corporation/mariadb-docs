@@ -14,7 +14,7 @@ To get a new license file, contact your GridGain representative.
 There are several ways you can specify a license file:
 
 * If you launch GridGain nodes by executing `ignite.sh`, you can replace the default license file in the GridGain installation directory with your license file. Place the license file in the `$GRIDGAIN_HOME/gridgain-license.xml` path.
-* You can also manually specify the path to your licence file in configuration. This url can be on a local machine, HTTP or FTP url. Specify the `GridGainConfiguration.licenseUrl` property in the node configuration file:
+* You can also manually specify the path to your license file in configuration. This url can be on a local machine, HTTP or FTP url. Specify the `GridGainConfiguration.licenseUrl` property in the node configuration file:
 
 {% tabs %}
 {% tab title="XML" %}
@@ -176,7 +176,7 @@ When you need to provide a new license to a running cluster, be it due to an upd
 
 If you can afford the cluster downtime, restart each node in cluster while updating the license file for them.
 
-### Update without Downtime
+### Update Without Downtime
 
 If downtime is not acceptable for the cluster, there are ways to update the license on the running cluster.
 

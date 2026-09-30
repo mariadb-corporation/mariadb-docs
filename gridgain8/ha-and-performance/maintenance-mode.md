@@ -8,7 +8,7 @@ description: >-
 
 This article describes the maintenance mode, the conditions when nodes may enter it, and the available operations.
 
-## What is Maintenance Mode
+## What Is Maintenance Mode
 
 Maintenance mode is a special state of the node, in which node functionality is limited. Nodes in maintenance mode do not join the cluster, and will remain isolated until it is over.
 
@@ -96,7 +96,7 @@ For more information about these commands, see [Control Script](../reference/cli
 
 You will need to restart the node after the maintenance is done to return it to the cluster.
 
-### Stale caches
+### Stale Caches
 
 If the node left a cluster for any reason (for example, to perform planned maintenance), and a cache was deleted on the cluster while the node is not available, this cache will be considered "stale", and must be removed. To keep data consistent, the node marks these "stale" caches for deletion and enters maintenance mode.
 

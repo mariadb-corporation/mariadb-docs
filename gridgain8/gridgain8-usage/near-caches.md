@@ -100,7 +100,7 @@ The parameters listed in the table below are not inherited from the underlying c
 |nearEvictionPolicy| The eviction policy for the near cache. See the [Eviction policies](memory-configuration/eviction-policies.md) page for details. | none|
 |nearStartSize| The initial capacity of the near cache (the number of entries it can hold). | 375,000|
 
-## Creating Near Cache Dynamically On Client Nodes
+## Creating Near Cache Dynamically on Client Nodes
 
 When making request from a client node to a cache that hasn't been configured to use a near cache and does not already have a local cache configured, you can create a near cache for that cache dynamically.
 This increases performance by storing "hot" data locally on the client side. 

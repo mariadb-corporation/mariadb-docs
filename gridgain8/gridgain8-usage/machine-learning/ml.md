@@ -64,7 +64,7 @@ Follow the steps below to try out the examples:
 2. Download gridgain-ml-8.10.zip from https://gridgain.com/resources/download#extensions. This package contains the ML [modules](../setup.md#enabling-modules) for GridGain.
 3. Unpack the gridgain-ml package to the directory with the GridGain installation ($IGNITE_HOME).
 
-### Get it With Maven
+### Get It with Maven
 
 Add the Maven dependency below to your project in order to include the ML functionality:
 

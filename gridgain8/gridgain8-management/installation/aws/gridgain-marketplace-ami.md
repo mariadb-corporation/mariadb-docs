@@ -46,7 +46,7 @@ Visit the product page on AWS Marketplace, corresponding to the edition you need
 | Enterprise | https://aws.amazon.com/marketplace/pp/prodview-exrjq4ox4kuim |
 | Ultimate | https://aws.amazon.com/marketplace/pp/prodview-irktgogccfkhs |
 
-## Providing a license
+## Providing a License
 
 License is included in Enterprise and Ultimate edition AMI images. BYOL (Bring Your Own License) AMI image expects a [license](../../licensing.md) at `/opt/gridgain/config/license.xml`.
 

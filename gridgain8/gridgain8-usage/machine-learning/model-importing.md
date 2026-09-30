@@ -17,7 +17,7 @@ GridGain provides an API for distributed inference for models trained in Apache 
 
 ## Model Import from Apache Spark
 
-### Model import from Apache Spark via Parquet files
+### Model Import from Apache Spark via Parquet Files
 
 GridGain supports the following models for import from Apache Spark ML:
 
@@ -47,7 +47,7 @@ DecisionTreeNode mdl = (DecisionTreeNode)SparkModelParser.parse(
 
 You can see more examples of using this API in the examples module in the package: `org.apache.ignite.examples.ml.inference.spark.modelparser`
 
-### Model import from Apache Spark via MLeap
+### Model Import from Apache Spark via MLeap
 
 In this mode you cannot update models or pipelines saved with MLeap, but you can import them and perform distributed inference.
 

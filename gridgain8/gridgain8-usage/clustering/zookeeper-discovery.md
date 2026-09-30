@@ -110,7 +110,7 @@ coordinator node creates a connectivity graph that represents the
 network situation in the cluster. Further actions depend on the type of
 network segmentation. The following sections discuss possible scenarios.
 
-### Cluster is split into several disjoint components
+### Cluster Is Split into Several Disjoint Components
 
 If the cluster is split into several independent components, each
 component (being a cluster) may think of itself as a master cluster and
@@ -128,7 +128,7 @@ The nodes from the smaller cluster (right-hand segment) are terminated.
 When there are multiple largest components, the one that has the largest
 number of clients is kept alive, and the others are shut down.
 
-### Several links between nodes are missing
+### Several Links Between Nodes Are Missing
 
 Some nodes cannot connect to some other nodes, which means the nodes are
 not completely disconnected from the cluster but can’t exchange data
@@ -145,7 +145,7 @@ solution. The nodes that are left out of the solution are shut down.
 
 ![Split-brain Resolved](../../.gitbook/assets/gg8-split_brain_resolved.png)
 
-### ZooKeeper cluster segmentation
+### ZooKeeper Cluster Segmentation
 
 In large-scale deployments where the ZooKeeper cluster can span multiple data centers and geographically diverse locations, it can split into multiple segments due to network segmentation.
 If this occurs, ZooKeeper checks if there is a segment that contains more than a half of all ZooKeeper nodes (ZooKeeper requires this many nodes to continue its operation), and, if found, this segment takes over managing the Ignite cluster, while other segments are shut down.

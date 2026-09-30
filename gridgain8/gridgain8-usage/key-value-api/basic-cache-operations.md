@@ -117,7 +117,7 @@ You may want to retry the operation if you catch this exception.
 
 To clear data from cache, use the `clear()` or `removeAll()` method. The sections below will help you choose the correct method for your environment.
 
-### Using clear Method
+### Using Clear Method
 
 The clear method removes data from the cache without notifying any listeners (for example, `CacheEntryRemovedListener`). As a result, calling this method does not delete data from [external cache storage](../persistence/external-storage.md), and deletion is not replicated via [data center replication](../../gridgain8-management/data-center-replication/introduction.md).
 

@@ -86,7 +86,7 @@ GA internally stores potential (Chromosomes) in a Chromosome cache.
 
 ![](../../.gitbook/assets/gg8-mlga03.png)
 
-### Implement a fitness function
+### Implement a Fitness Function
 
 GA is intelligent enough to perform the majority of the process of natural selection. However, GA has no knowledge of the problem domain. For this reason, we need to define a fitness function. We will need to extend GA's IFitnessFunction class to calculate a fitness score for a potential Chromosome. A fitness score is used to determine how optimal the solution is relative to other potential solutions in the population. The code below demonstrates our fitness function.
 
@@ -123,7 +123,7 @@ gaConfig.setFitnessFunction(function);
 ```
 {% endcode %}
 
-### Define terminate condition
+### Define Terminate Condition
 
 The next step is to specify a suitable terminate condition for the GA. The terminate condition will vary depending on the problem domain. For our use case, we want GA to terminate when the Chromosome's fitness score equals 11. We specify a terminate condition by implementing the `ITerminateCriteria` interface which has a single method `isTerminateConditionMet()`.
 
@@ -184,7 +184,7 @@ gaConfig.setTerminateCriteria(termCriteria);
 ```
 {% endcode %}
 
-### Evolve the population
+### Evolve the Population
 
 The final step is to initialize a GAGrid instance using our GAConfiguration and Ignite instances. Then we evolve the population by invoking GAGrid.evolve().
 

@@ -317,7 +317,7 @@ To make sure your snapshot is restored correctly, follow these guidelines:
 
 - Stop traffic to the cluster during restoration to avoid possible inconsistencies and failed operations. It is also possible that the data you get from the cache when restoring is incomplete.
 
-### Restoring From Full Snapshot
+### Restoring from Full Snapshot
 
 To restore the content of all or specific caches from a previously created snapshot, the snapshot has to be available to the `GridSnapshot` interface.
 
@@ -500,7 +500,7 @@ For instance, to create an incremental snapshot via the Snapshot Management Tool
 ```
 {% endcode %}
 
-### Restoring From Incremental Snapshot
+### Restoring from Incremental Snapshot
 
 The same API methods and commands described for full snapshots above are used to restore a cluster from an incremental snapshot. The only extra requirement is that you need to provide both the last full snapshot plus all the incremental snapshots up to the point of restoration to the snapshotting API or tool.
 

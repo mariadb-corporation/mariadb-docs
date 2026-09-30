@@ -5,7 +5,7 @@ description: >-
 
 # Logistic Regression
 
-## Binary classification
+## Binary Classification
 
 Binary Logistic Regression is a special type of regression where a binary response variable is related to a set of explanatory variables, which can be discrete and/or continuous. The important point here to note is that in linear regression, the expected values of the response variable are modeled based on a combination of values taken by the predictors. In logistic regression Probability or Odds of the response taking a particular value is modeled based on the combination of values taken by the predictors. In the Apache Ignite ML module it is implemented via `LogisticRegressionModel` that solves the binary classification problem. It is a linear method with the loss function in the formulation given by the logistic loss:
 
@@ -17,7 +17,7 @@ For binary classification problems, the algorithm outputs a binary logistic regr
 
 By default, if f(wTx)>0.5 or `\mathrm{f}(\wv^T x) > 0.5` (Tex formula), the outcome is positive, or negative otherwise. However, unlike linear SVMs, the raw output of the logistic regression model f(z) has a probabilistic interpretation (i.e., the probability that it is positive).
 
-## Multi-class classification
+## Multi-class Classification
 
 Multiclass Logistic Regression aims to assign labels to instances by using binary logistic regression, where the labels are drawn from a finite set of several elements. The implemented approach for doing so is to reduce the single multiclass problem into multiple binary classification problems via one-versus-all. The one-versus-all approach is the process of building binary classifiers which distinguish between one of the labels and the rest.
 

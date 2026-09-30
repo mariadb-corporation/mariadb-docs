@@ -536,7 +536,7 @@ without bound. Use `ContinuousQueryOptions.BufferSize` and `ContinuousQueryOptio
 control server-side batching.
 {% endhint %}
 
-### Query handle
+### Query Handle
 
 To also iterate over the entries that already exist when the query starts, pass an initial query:
 `ScanQuery`, `SqlQuery`, `TextQuery`, or `SqlFieldsQuery`.

@@ -92,7 +92,7 @@ Data compression sometimes yields only modest size savings due to data entropy. 
 
 Data compression allows saving RAM and disk space by storing compressed data in cache entries, at the cost of spending CPU time on compression and decompression. Enabling data compression leads to reduced Off-Heap utilization and checkpoint directory size, as well as slightly shorter WAL. If native persistence is used, it is possible to save space while improving performance at the same time if the load pattern is I/O bound.
 
-## ZSTD Compression configuration
+## ZSTD Compression Configuration
 
 ### Configuring Dictionary
 

@@ -64,7 +64,7 @@ GridGain Ultimate Edition adds everything in the Enterprise Edition plus cluster
 
 Production support and professional services are available for all GridGain editions, as well as for Apache Ignite deployments.
 
-## Migrating From Apache Ignite
+## Migrating from Apache Ignite
 
 For the most part, you can migrate from Apache Ignite to GridGain without major issues.
 

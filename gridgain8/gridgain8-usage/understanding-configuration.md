@@ -96,7 +96,7 @@ var igniteCfg = new IgniteConfiguration
 };
 ```
 
-See the [API docs](https://www.gridgain.com/sdk/ce/8.10/dotnetdoc/api/Apache.Ignite.Core.IgniteConfiguration.html) for details.
+See the [API docs](https://www.gridgain.com/sdk/gridgain8/latest/dotnetdoc/api/Apache.Ignite.Core.IgniteConfiguration.html) for details.
 {% endtab %}
 
 {% tab title="C++" %}

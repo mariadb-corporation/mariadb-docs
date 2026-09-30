@@ -62,7 +62,7 @@ You can find the complete list of properties in the `TcpDiscoverySpi` javadoc.
 | `reconnectCount` | The number of times the node tries to (re)establish connection to another node. | `10` |
 | `networkTimeout` | The maximum network timeout in milliseconds for network operations. | `5000` |
 | `socketTimeout` | The socket operations timeout. This timeout is used to limit connection time and write-to-socket time. | `5000` |
-| `ackTimeout` | The acknowledgement timeout for discovery messages. If an acknowledgement is not received within this timeout, the discovery SPI tries to resend the message. | `5000` |
+| `ackTimeout` | The acknowledgment timeout for discovery messages. If an acknowledgment is not received within this timeout, the discovery SPI tries to resend the message. | `5000` |
 | `joinTimeout` | The join timeout defines how much time the node waits to join a cluster. If a non-shared IP finder is used and the node fails to connect to any address from the IP finder, the node keeps trying to join within this timeout. If all addresses are unresponsive, an exception is thrown and the node terminates. `0` means waiting indefinitely. | `0` |
 | `statisticsPrintFrequency` | Defines how often the node prints discovery statistics to the log. `0` indicates no printing. If the value is greater than 0, and quiet mode is disabled, then statistics is printed out at INFO level once every period. | `0` |
 

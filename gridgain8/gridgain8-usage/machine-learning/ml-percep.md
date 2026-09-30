@@ -3,7 +3,7 @@ description: >-
   How the Multilayer Perceptron (MLP) neural network works in GridGain Machine Learning, including the model and distributed batch training.
 ---
 
-# Multilayer perceptron
+# Multilayer Perceptron
 
 ## Overview
 

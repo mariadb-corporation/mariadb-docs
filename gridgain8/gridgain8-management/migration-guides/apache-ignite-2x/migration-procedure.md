@@ -278,7 +278,7 @@ The migration is complete when data integrity, application functionality, perfor
 
 These are the problems that come up most often during this migration. If you hit something not covered here, contact your GridGain Account Executive or [GridGain Support](https://support.gridgain.com/).
 
-### Problem: GridGain starts, but the data is gone
+### Problem: GridGain Starts, but the Data Is Gone
 
 The node comes up on an empty baseline with none of your caches.
 
@@ -286,7 +286,7 @@ The node comes up on an empty baseline with none of your caches.
 
 **Fix:** Stop the node. Confirm it uses the *same `consistentId`*, and that `workDirectory` points at the migrated `db/` (step 5). Restart.
 
-### Problem: The cluster stays INACTIVE after the start
+### Problem: The Cluster Stays INACTIVE After the Start
 
 Nodes are up, but the `Topology snapshot` log line or `control.sh --state` reports `INACTIVE`.
 
@@ -294,7 +294,7 @@ Nodes are up, but the `Topology snapshot` log line or `control.sh --state` repor
 
 **Fix:** Start the remaining baseline nodes, then look for `Cluster state was changed from INACTIVE to ACTIVE` in the log or confirm with `control.sh --state`. If all nodes are up and your caches are listed but the cluster has not activated, activate it manually (step 8). If the cluster is `INACTIVE` with none of your caches, see [Problem: GridGain starts, but the data is gone](#problem-gridgain-starts-but-the-data-is-gone).
 
-### Problem: GridGain refuses to start on the persistence
+### Problem: GridGain Refuses to Start on the Persistence
 
 Startup fails while reading the existing data.
 
@@ -302,7 +302,7 @@ Startup fails while reading the existing data.
 
 **Fix:** These are preconditions, not post-fixes. Restore the pre-cutover backup, bring the Ignite cluster back, deactivate it cleanly with CDC stopped, and redo the cutover. Match `IGNITE_BINARY_SORT_OBJECT_FIELDS` to the source value (step 6).
 
-### Problem: Do I have to activate manually?
+### Problem: Do I Have to Activate Manually?
 
 The cluster is already `ACTIVE` before you run `--set-state ACTIVE`.
 
@@ -310,7 +310,7 @@ The cluster is already `ACTIVE` before you run `--set-state ACTIVE`.
 
 **Fix:** This is expected. Running `--set-state ACTIVE` against an already-active cluster is harmless; keep it as a confirmation step.
 
-### Problem: Enterprise features will not start
+### Problem: Enterprise Features Will Not Start
 
 Nodes start, but Ultimate features fail, or startup aborts on a license error.
 
@@ -318,7 +318,7 @@ Nodes start, but Ultimate features fail, or startup aborts on a license error.
 
 **Fix:** Install a valid license (see [Prerequisites](#prerequisites)).
 
-### Problem: sqlline fails to deserialize values
+### Problem: sqlline Fails to Deserialize Values
 
 Counts and column queries (including `SELECT *`) work, but selecting the `_VAL` or `_KEY` system column fails with a serialization error caused by `ClassNotFoundException` on your key or value class.
 
@@ -326,7 +326,7 @@ Counts and column queries (including `SELECT *`) work, but selecting the `_VAL` 
 
 **Fix:** Verify data through the declared columns. To select the object itself, add `keepBinary=true` to the JDBC URL; it is returned in binary form, rendered as an opaque numeric value rather than field values. If you instead fix it by adding your classes to the classpath, note that `sqlline` takes JVM options from `SQL_JVM_OPTS`, not `JVM_OPTS`.
 
-### Problem: sqlline output looks truncated or columns are missing
+### Problem: sqlline Output Looks Truncated or Columns Are Missing
 
 A wide query, such as `SELECT *`, displays fewer columns than the table has, cuts values mid-string, or shows blank column headers.
 
@@ -334,7 +334,7 @@ A wide query, such as `SELECT *`, displays fewer columns than the table has, cut
 
 **Fix:** Re-run with `--maxWidth=<n>`, or use `--outputformat=csv`, which does not truncate. Judge data integrity by row counts and `idle_verify`, never by how output renders.
 
-### Problem: Queries that worked in Ignite now fail
+### Problem: Queries That Worked in Ignite Now Fail
 
 Queries error out or behave differently after the cutover.
 

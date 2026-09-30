@@ -23,7 +23,7 @@ pin a GridGain node to a single host. This provides two benefits:
 - It might seem counter to the bullet point above but it's not enough just to put data in RAM and expect an
 order of magnitude performance improvements. Be ready to adjust your data model and existing applications if any.
 Use the [affinity colocation](../../architecture/data-modeling/affinity-colocation.md) concept during the data
-modelling phase for proper data distribution. For instance, if your data is properly colocated, you can run SQL queries with JOINs at massive scale and expect significant performance benefits.
+modeling phase for proper data distribution. For instance, if your data is properly colocated, you can run SQL queries with JOINs at massive scale and expect significant performance benefits.
 - If Native persistence is used, then follow these [persistence optimization techniques](persistence-tuning.md).
 - If you are going to run SQL with GridGain, then get to know [SQL-related optimizations](sql-tuning.md).
 - Adjust [data rebalancing settings](../../architecture/rebalancing/data-rebalancing.md) to ensure that rebalancing completes faster when your cluster topology changes.
@@ -182,7 +182,7 @@ Below is the expanded information on these parameters:
 - The `vm.overcommit_ratio` sets how much space is kept for overcommit, in percent. Set it to 100 to never commit more to memory than you have space available.
 - The `vm.swappiness` parameter configures if swap will be used. We recommend disabling it to avoid it interfering with persistence.
 
-### Read-Only For Clusters
+### Read-Only for Clusters
 
 Sometimes, you may need to keep your cluster from receiving any new data. For example, you may need this to lock a cluster in a certain date for the duration of maintenance, when a cluster restart is unadvisable, or to create a backup cluster in a read only state.
 
@@ -194,9 +194,9 @@ If a write attempt is performed on the cluster currently in read only state, it 
 
 ### Fine-Tuning Message Queue
 
-GridGain nodes constantly communicate with each other in the cluster. The messages sent to a different node in the cluster are stored in the special queue on the sender node until the acknowledgement is received, after which the messages are deleted and the memory is freed. To reduce network load, GridGain nodes confirm messages in batches instead on acknowledging individual messages. The acknowledgement is sent by the receiver node:
+GridGain nodes constantly communicate with each other in the cluster. The messages sent to a different node in the cluster are stored in the special queue on the sender node until the acknowledgment is received, after which the messages are deleted and the memory is freed. To reduce network load, GridGain nodes confirm messages in batches instead on acknowledging individual messages. The acknowledgment is sent by the receiver node:
 
-- Upon reaching `ackSendThresholdMillis` (1000 ms by default) limit since the last acknowledgement, or
+- Upon reaching `ackSendThresholdMillis` (1000 ms by default) limit since the last acknowledgment, or
 - Upon reaching `ackSendThresholdBytes` (1 Mb by default) limit of unconfirmed messages that are stored on the sender node.
 
 Additionally, the maximum queue size on the sender node is determined by the `messageQueueLimit` (4096 messages by default).
@@ -204,12 +204,12 @@ Additionally, the maximum queue size on the sender node is determined by the `me
 In most scenarios, this default configuration works well for the cluster. For fine-tuning your cluster performance, keep the following in mind:
 
 - Upon reaching `messageQueueLimit` messages in the queue, the connection will be forcibly closed by the sender node, all messages in the queue will be discarded and the queue will be deleted. This may lead to loss of data if the receiver node did not receive some of the messages.
-- The `ackSendThresholdMillis` and `ackSendThresholdBytes` limits do not lead to the connection being closed, these properties only control when acknowledgement is sent.
-- Unstable cluster may cause additional complications in sending acknowledgements, potentially leading to queue being filled up despite thresholds being properly configured. Fine-tuning the environment works best when connection between nodes is stable.
+- The `ackSendThresholdMillis` and `ackSendThresholdBytes` limits do not lead to the connection being closed, these properties only control when acknowledgment is sent.
+- Unstable cluster may cause additional complications in sending acknowledgments, potentially leading to queue being filled up despite thresholds being properly configured. Fine-tuning the environment works best when connection between nodes is stable.
 
 As such, here are general recommendations depending on your environment:
 
 - In most environments, default values are sufficient for normal performance.
-- In environments with high volumes of small messages the queue may get filled up before either acknowledgement threshold is reached and the connection is reset. In these environments, you may want to increase the limit to allow more messages to be processed before the `ackSendThresholdMillis` is triggered, or reduce the same threshold to send acknowledgements more often.
-- In environments with low to moderate volumes of large messages you may want to lower queue limit to reduce memory use. Make sure to fine-tune the `ackSendThresholdBytes` to send acknowledgements more often so that the queue does not fill up.
-- In environments with both high volume of messages and large messages, you may want to reduce both thresholds to reduce the amount of memory required to store messages in the queue at the cost of more acknowledgements being sent. In these environments, increasing the queue limit may lead to it requiring a lot of memory to store messages, and it is better to keep the queue low by other means.
+- In environments with high volumes of small messages the queue may get filled up before either acknowledgment threshold is reached and the connection is reset. In these environments, you may want to increase the limit to allow more messages to be processed before the `ackSendThresholdMillis` is triggered, or reduce the same threshold to send acknowledgments more often.
+- In environments with low to moderate volumes of large messages you may want to lower queue limit to reduce memory use. Make sure to fine-tune the `ackSendThresholdBytes` to send acknowledgments more often so that the queue does not fill up.
+- In environments with both high volume of messages and large messages, you may want to reduce both thresholds to reduce the amount of memory required to store messages in the queue at the cost of more acknowledgments being sent. In these environments, increasing the queue limit may lead to it requiring a lot of memory to store messages, and it is better to keep the queue low by other means.

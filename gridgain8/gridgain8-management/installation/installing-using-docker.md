@@ -39,7 +39,7 @@ gridgain/enterprise
 ```
 
 {% hint style="info" %}
-Starting with version 8.8.21, docker images do not include a licence. You must specify the valid licence URL with the `LICENCE_URL` parameter.
+Starting with version 8.8.21, docker images do not include a license. You must specify the valid license URL with the `LICENCE_URL` parameter.
 {% endhint %}
 
 By default, the latest version is downloaded but you can download a specific version too.
@@ -231,7 +231,7 @@ The following parameters can be passed as environment variables in the docker co
 | `OPTION_LIBS` | A list of [modules](../../gridgain8-usage/setup.md#enabling-modules) that will be enabled for the node. | ignite-log4j, ignite-spring, ignite-indexing |
 | `JVM_OPTS` | JVM arguments passed to the GridGain instance. | N/A |
 | `EXTERNAL_LIBS` | A list of URL's to external libraries. Refer to [Deploying User Libraries](#deploying-user-libraries). | N/A |
-| `LICENCE_URL` | URL to the licence file. A licence is required when you run the GridGain Ultimate or Enterprise Editions. | N/A |
+| `LICENCE_URL` | URL to the license file. A license is required when you run the GridGain Ultimate or Enterprise Editions. | N/A |
 
 ## Software Identification
 

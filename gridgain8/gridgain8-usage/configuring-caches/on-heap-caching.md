@@ -139,7 +139,7 @@ unsupported
 {% endtab %}
 {% endtabs %}
 
-### First In First Out (FIFO)
+### First in First Out (FIFO)
 
 FIFO eviction policy, based on the [First-In-First-Out (FIFO)](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)) algorithm, ensures that the entry that has been in the on-heap cache for the longest time is evicted first.
 It is different from `LruEvictionPolicy` because it ignores the order in which the entries are accessed.

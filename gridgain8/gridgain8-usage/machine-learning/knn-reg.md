@@ -9,7 +9,7 @@ The Apache Ignite Machine Learning component provides two versions of the widely
 
 This documentation reviews k-NN as a solution for the regression tasks.
 
-## Model description
+## Model Description
 
 The k-NN algorithm is a non-parametric method whose input consists of the k-closest training examples in the feature space. Each training example has a property value in a numerical form associated with the given training example.
 

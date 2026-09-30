@@ -792,7 +792,7 @@ Register name: `dr.sender.dc<ID>.<cacheName>`
 |BatchesFailedFst|int|Number of failed full state transfer (FST) batches. A subset of BatchesFailed.|Node|
 |EntriesError|long|Number of sent entries that caused an error.|Node|
 |BytesError|long|Number of sent bytes that caused an error.|Node|
-|AverageBatchAckTime|double|Total time in milliseconds between sending batches for the first time and receiving acknowledgement.|Node|
+|AverageBatchAckTime|double|Total time in milliseconds between sending batches for the first time and receiving acknowledgment.|Node|
 
 ### Cache Metrics
 

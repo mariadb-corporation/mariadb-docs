@@ -16,7 +16,7 @@ Since GridGain is built on top of Apache Ignite, GridGain reuses Ignite's system
 
 If you use Java version 11 or later, see [Running GridGain with Java 11 or later](#running-gridgain-with-java-11-or-later) for details.
 
-## Running GridGain with Java 11 or later
+## Running GridGain with Java 11 or Later
 
 {% include "../../.gitbook/includes/gg8-java9.md" %}
 

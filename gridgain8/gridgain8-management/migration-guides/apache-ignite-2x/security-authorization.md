@@ -24,7 +24,7 @@ Three differences require attention. They stem from fine-grained authorization p
 GridGain 8 accepts only its own predefined permission names. If your configuration names any retired Apache Ignite permission (or any unknown name), GridGain rejects the security configuration, and the node fails to start. *Replace or remove all nine permissions below before you start the cluster.*
 {% endhint %}
 
-## Permissions that changed
+## Permissions That Changed
 
 | Permission in your Ignite 2.x policy | What it controlled | What to do on GridGain 8 |
 |---|---|---|
@@ -38,7 +38,7 @@ GridGain 8 accepts only its own predefined permission names. If your configurati
 
 All other permission names keep the same behavior, including cache, task, service, event, and the remaining administrative permissions. For the complete list, see [Authorization and Permissions](../../../security/authorization-permissions.md).
 
-## Coarser admin permissions
+## Coarser Admin Permissions
 
 Apache Ignite 2 split cluster administration into fine-grained permissions so you could, for example, allow a role to change cluster state but not stop nodes. GridGain 8 does not have that split. Cluster-state changes, baseline changes, node start/stop, snapshot operations, and rolling-upgrade control all require `ADMIN_OPS`.
 
@@ -46,7 +46,7 @@ A role that needs any one of these actions effectively gets all of them. If your
 
 Cancellation operations are a related case. Apache Ignite grouped them under the `ADMIN_KILL` permission. GridGain 8 replaces only SQL query cancellation, with `KILL_QUERY`. Other cancellation operations (compute tasks, services, transactions, continuous and scan queries) are authorized as part of the underlying operation rather than by a dedicated kill permission. Review each cancellation workflow individually instead of assuming a single replacement permission.
 
-## User management
+## User Management
 
 In Apache Ignite 2, creating, altering, and dropping users is controlled by the `ADMIN_USER_ACCESS` permission. GridGain 8 uses a fixed rule instead. With built-in authentication:
 
@@ -58,15 +58,15 @@ This rule is not configurable and is not tied to any grant.
 
 *What to do:* remove `ADMIN_USER_ACCESS` from your policy. If your Ignite setup let a non-default administrative role manage users, that arrangement does not carry over. Perform user administration using the default `ignite` user. To delegate user administration to other roles, use GridGain enterprise security with an external identity provider rather than built-in authentication.
 
-## User-defined SQL views
+## User-defined SQL Views
 
 GridGain 8 uses the H2 SQL engine and does not support user-defined SQL views. Remove `SQL_VIEW_CREATE` and `SQL_VIEW_DROP` from your policy.
 
-## If you maintain a custom security implementation
+## If You Maintain a Custom Security Implementation
 
 Most deployments configure security through files and never touch code. If you are the exception and built a custom security provider in Java that references the removed permission names directly, that code will not compile against GridGain 8, because GridGain's `SecurityPermission` enum does not define the corresponding constants. Replace those references according to [Permissions that changed](#permissions-that-changed): use `ADMIN_OPS`, use `KILL_QUERY`, or remove the permission entirely. Only the permissions listed in [Authorization and Permissions](../../../security/authorization-permissions.md) are valid.
 
-## Migration checklist
+## Migration Checklist
 
 1. Locate permission grants in your security configuration (role definitions, permission sets) that name any of the nine changed permissions.
 2. Replace or remove them per [Permissions that changed](#permissions-that-changed): cluster, node, snapshot, and rolling-upgrade admin → `ADMIN_OPS`; SQL kill → `KILL_QUERY`; user management and SQL views → remove.

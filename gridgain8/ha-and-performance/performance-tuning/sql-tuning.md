@@ -19,7 +19,7 @@ best practices to consider before you benchmark GridGain against an RDBMS or do 
 try to compare a single-node GridGain cluster to a relational database. You should deploy a multi-node GridGain cluster with the whole copy of data in RAM.
 - Be ready to adjust your data model and existing SQL queries.
 Use the [affinity colocation](../../architecture/data-modeling/affinity-colocation.md) concept during the data
-modelling phase for proper data distribution. Remember, it's not enough just to put data in RAM. If your data is properly colocated, you can run SQL queries with JOINs at massive scale and expect significant performance benefits.
+modeling phase for proper data distribution. Remember, it's not enough just to put data in RAM. If your data is properly colocated, you can run SQL queries with JOINs at massive scale and expect significant performance benefits.
 - Define secondary indexes and use other standard, and GridGain-specific, tuning techniques described below.
 - Keep in mind that relational databases leverage local caching techniques and, depending on the total data size, an RDBMS can complete _some queries_ even faster than GridGain even in a multi-node configuration.
 If your data set is around 10-100GB and an RDBMS has enough RAM for caching data locally then it, for instance, can outperform a multi-node GridGain cluster because the latter will be utilizing the network. Store much more data in GridGain to see the difference.
@@ -27,7 +27,7 @@ If your data set is around 10-100GB and an RDBMS has enough RAM for caching data
 ## Using the EXPLAIN Statement
 
 GridGain supports the `EXPLAIN` statement which could be used to read the execution plan of a query.
-Use this command to analyse your queries for possible optimization. Note that the plan will contain multiple rows: the last one will contain a query for the reducing side (usually your application), others are for map nodes (usually server nodes). Read the [Distributed Queries](../../gridgain8-usage/sql/sql-introduction.md#distributed-queries) section to learn how queries are executed in GridGain.
+Use this command to analyze your queries for possible optimization. Note that the plan will contain multiple rows: the last one will contain a query for the reducing side (usually your application), others are for map nodes (usually server nodes). Read the [Distributed Queries](../../gridgain8-usage/sql/sql-introduction.md#distributed-queries) section to learn how queries are executed in GridGain.
 
 ```sql
 EXPLAIN SELECT name FROM Person WHERE age = 26;

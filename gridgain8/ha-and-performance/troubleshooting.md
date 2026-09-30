@@ -29,7 +29,7 @@ In some environments, the cluster may encounter a memory issue with an especiall
 
 If the metrics show that you are running low on memory, use the `maxConnectionCnt` thin client [configuration parameter]({connectors}/gridgain-8/clients/java-thin-client) to limit the number of .
 
-## Cluster Does not Start After Field Type Changes
+## Cluster Does Not Start After Field Type Changes
 
 When developing your application, you may need to change the type of a custom
 object’s field. For instance, let’s say you have object `A` with field `A.range` of
@@ -133,7 +133,7 @@ purposefully not included in the `-XX:+PrintGCDetails` setting:
 ```
 {% endcode %}
 
-### Performance Analysis With Flight Recorder
+### Performance Analysis with Flight Recorder
 
 In cases when you need to debug performance or memory issues you can use Java Flight Recorder to continuously
 collect low level runtime statistics, enabling after-the-fact incident analysis. To enable Java Flight Recorder use the
@@ -235,7 +235,7 @@ To resolve this issue, first verify the mount options for your `/tmp` directory.
 - If possible, remount `/tmp` without the `noexec` option.
 - Alternatively, redirect native library extraction by setting the `org.xerial.snappy.tempdir` system property. For example: `-Dorg.xerial.snappy.tempdir=/mystorage/tmp`.
 
-## Restoring Node With Generated Consistent ID
+## Restoring Node with Generated Consistent ID
 
 When a node goes down without a manually specified consistent ID and the node needs a restart with cleaned-up persistence folders, you cannot reintroduce it to the cluster without additional actions - the node will be introduced as a new node and require all operations for introducing a new node to the cluster.
 

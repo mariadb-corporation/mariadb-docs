@@ -135,7 +135,7 @@ setIgniteHome: command not found
   RWPAREC   50335493   83889905  - 15:22:38 ttyp0000  0:00 bash /GridGain/gridgain-zos-enterprise-8.8.5/bin/ignite.sh -v /GridGain/gridga...
   ```
 
-## Performance recommendations
+## Performance Recommendations
 
 - For nodes with a persistent storage, increase the `dataStorage.checkpointThreads` value. The default value is `4`, but we recommend you set it to a value between `16` and `32` on z/OS nodes for best checkpointing speed.
 - If your load profile includes intensive network usage, consider the following `TcpCommunicationSpi` parameters: `socketWriteTimeout=5000` (ms), `usePairedConnections=true`, pick the `connectionsPerNode` value from between `2` and `8`.

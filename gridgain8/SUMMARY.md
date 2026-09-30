@@ -1,4 +1,4 @@
-# Table of contents
+# Table of Contents
 
 * [GridGain 8](README.md)
 * [Get Started](gridgain8-get-started/README.md)
@@ -174,6 +174,7 @@
       * [Security Authorization Changes](gridgain8-management/migration-guides/apache-ignite-2x/security-authorization.md)
   * [Metrics and Monitoring](gridgain8-management/monitoring/README.md)
     * [Configuring Metrics](gridgain8-management/monitoring/configuring-metrics.md)
+    * [Monitoring Memory](gridgain8-management/monitoring/monitoring-memory.md)
     * [Introduction: Monitoring and Metrics](gridgain8-management/monitoring/intro.md)
     * [Tracing](gridgain8-management/monitoring/tracing.md)
     * [Monitoring with Grafana and Prometheus](gridgain8-management/monitoring/monitoring-with-grafana.md)

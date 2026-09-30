@@ -10,7 +10,7 @@ description: >-
 
 {% include "../.gitbook/includes/gg8-prereqs.md" %}
 
-## Running GridGain with Java 11 or later
+## Running GridGain with Java 11 or Later
 
 {% include "../.gitbook/includes/gg8-java9.md" %}
 

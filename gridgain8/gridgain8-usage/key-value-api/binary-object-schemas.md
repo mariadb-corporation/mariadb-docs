@@ -67,7 +67,7 @@ In this case you should follow the steps below (should be done before deploying 
 
 ## Examples
 
-### Adding a column
+### Adding a Column
 
 Column is added to the schema automatically.
 
@@ -75,7 +75,7 @@ Column is added to the schema automatically.
 ALTER TABLE T ADD COLUMN FOO INT
 ```
 
-### Dropping a column from SQL only
+### Dropping a Column from SQL Only
 
 Column is removed from the SQL table, but column data is kept in key-value schema.
 
@@ -83,7 +83,7 @@ Column is removed from the SQL table, but column data is kept in key-value schem
 ALTER TABLE T DROP COLUMN FOO
 ```
 
-### Dropping a column from SQL and deleting data
+### Dropping a Column from SQL and Deleting Data
 
 First you scan the table and remove the data, then you change the schema. This way no data is left in key-value schema.
 
@@ -92,7 +92,7 @@ First you scan the table and remove the data, then you change the schema. This w
 >ALTER TABLE T DROP COLUMN FOO
 ```
 
-### Adding index
+### Adding Index
 
 Adding index automatically updates both schemas.
 
@@ -100,7 +100,7 @@ Adding index automatically updates both schemas.
 CREATE INDEX IDX
 ```
 
-### Dropping index
+### Dropping Index
 
 Once index is dropped it is automatically cleaned up in background.
 
@@ -108,7 +108,7 @@ Once index is dropped it is automatically cleaned up in background.
 DROP INDEX IDX
 ```
 
-### Renaming a column
+### Renaming a Column
 
 To rename the column:
 
@@ -124,7 +124,7 @@ UPDATE T SET NEW_COL=OLD_COL, OLD_COL=NULL
 ALTER TABLE T DROP COLUMN OLD_COL
 ```
 
-### Increasing column size
+### Increasing Column Size
 
 Column size change is not supported directly, but can be achieved with two statements. Since both `DROP` and `ADD` are metadata-only changes, both statements execute instantly.
 
@@ -133,7 +133,7 @@ ALTER TABLE T DROP COLUMN FOO
 ALTER TABLE T ADD COLUMN FOO VARCHAR(20)
 ```
 
-### Decreasing column size
+### Decreasing Column Size
 
 Column size change isn’t supported directly, but can be achieved with three statements.
 
@@ -145,11 +145,11 @@ ALTER TABLE T DROP COLUMN FOO
 ALTER TABLE T ADD COLUMN FOO VARCHAR(10)
 ```
 
-### Changing column type
+### Changing Column Type
 
 Column type change isn’t supported directly. To change the type of a column, there are two options:
 
-#### Copy data to a different table
+#### Copy Data to a Different Table
 
 Create a new table and copy the data there. This allows to keep the data and change the type of the column as required, but the table name will change.
 
@@ -159,7 +159,7 @@ INSERT INTO T_VER_2 (SELECT * FROM T)
 DROP TABLE T
 ```
 
-#### Drop existing table and recreate it
+#### Drop Existing Table and Recreate It
 
 Drop the existing table with its data, and cleanup the metadata. Then,
 restore the data from a different source.
@@ -170,7 +170,7 @@ control.sh --meta remove --typeName T
 CREATE TABLE T (...)
 ```
 
-### Renaming a table
+### Renaming a Table
 
 Table rename isn’t supported directly. To rename a table, create a new table and copy the data to it.
 
@@ -180,7 +180,7 @@ INSERT INTO T_VER_2 (SELECT * FROM T)
 DROP TABLE T
 ```
 
-### Unexpected migration
+### Unexpected Migration
 
 Any unexpected migration that cannot be done with other tools can always be handled by creating a new table and moving the data from the old table to the new one. This can be done fully without downtime.
 

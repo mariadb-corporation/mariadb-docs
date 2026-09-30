@@ -18,7 +18,7 @@ control.sh --metric 'cluster.Rebalanced'
 
 This returns `true` when all partitions across the cluster are in `OWNING` state.
 
-## Monitoring With Cache-Group Metrics
+## Monitoring with Cache-Group Metrics
 
 Data rebalance metrics are available under `cacheGroups.<groupName>` registry and are updated in real time by the demander as the rebalance progresses.
 
@@ -60,7 +60,7 @@ When `RebalancingPartitionsLeft` reaches `0`, the group rebalance is complete.
 | `RebalancingEndTime` | Timestamp when rebalancing completed. Populated only after completion. |
 | `RebalancingLastCancelledTime` | Timestamp of the most recent rebalancing cancellation, if any. |
 
-## Monitoring With Cache-Level Metrics
+## Monitoring with Cache-Level Metrics
 
 You can also use the metrics accessed through the programmatic API to monitor the rebalance process on cache level. The `CacheMetrics` object is obtained per-cache via `cache.localMetrics()`. All values reflect the local node only.
 
@@ -161,7 +161,7 @@ control.sh --cache distribution null
 
 ### Log Patterns
 
-To identify which partitions are being rebalanced and via which method (full vs. historical), you can analyse the node log:
+To identify which partitions are being rebalanced and via which method (full vs. historical), you can analyze the node log:
 
 - Search for `Starting rebalance` text for information about how rebalance started.
 - Search for `Completed rebalance` text for information about how rebalance finished.

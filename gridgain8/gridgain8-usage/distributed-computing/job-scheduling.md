@@ -133,7 +133,7 @@ unsupported
 {% endtab %}
 {% endtabs %}
 
-### Changing specific task priority
+### Changing Specific Task Priority
 
 Task priorities are set in the [task session](map-reduce.md#distributed-task-session) via the `grid.task.priority` attribute. To change it, the task`s class must have the `@ComputeTaskSessionFullSupport` annotation. If no priority is assigned to a task, the default priority of 0 is used.
 

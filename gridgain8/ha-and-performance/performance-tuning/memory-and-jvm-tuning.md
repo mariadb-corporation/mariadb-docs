@@ -197,7 +197,7 @@ NUMA-aware memory allocation is only available on Linux machines.
 
 #### Using NUMA Allocation
 
-#### Simple allocation strategy
+#### Simple Allocation Strategy
 
 Simple node allocation strategy is best used to attach the data region to a specific NUMA node.
 
@@ -302,7 +302,7 @@ Interleaved allocation is best used to attach the data region to multiple NUMA n
   </property>
   ```
 
-#### Local node allocation strategy
+#### Local Node Allocation Strategy
 
 Allocation on local for process NUMA node, uses `void* numa_alloc_onnode(size_t)` under the hood.
 
