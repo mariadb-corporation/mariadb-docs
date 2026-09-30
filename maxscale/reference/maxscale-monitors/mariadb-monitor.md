@@ -494,14 +494,67 @@ server selection (i.e. *Write*-role), so a server in this list may be a valid
 target for write queries. See [servers_no_promotion](#servers_no_promotion)
 for limiting primary server selection.
 
-If a server in this list is selected as the primary server and
-cooperative monitoring is enabled, the monitor will (if it is the primary
-monitor) still acquire the *maxscale_mariadbmonitor_master* lock on the server
-to ensure other MaxScales select the same primary server.
+If a server in this list is selected as the primary server and cooperative
+monitoring is enabled, the monitor will (if it is the primary monitor) still
+acquire the *maxscale_mariadbmonitor_master* lock on the server to ensure other
+MaxScales select the same primary server. A server cannot be in both
+`servers_no_cooperative_monitoring_locks` and
+`cooperative_monitoring_arbitrator_nodes`.
 
 ```
 servers_no_cooperative_monitoring_locks=backup_dc_server1,backup_dc_server2
 ```
+
+### `cooperative_monitoring_arbitrator_nodes`
+
+* **Type**: string
+* **Mandatory**: No
+* **Dynamic**: Yes
+* **Default**: None
+
+This defines a list of arbitrator servers for
+[cooperative monitoring](mariadb-monitor.md#cooperative-monitoring). The value
+should be a comma-separated list of server names. Every listed server must be a
+monitored server, i.e. it is also in `servers`. A server cannot be in both
+`servers_no_cooperative_monitoring_locks` and
+`cooperative_monitoring_arbitrator_nodes`.
+
+MaxScale monitors arbitrators normally and will acquire cooperative monitoring
+locks on them. Arbitrators count towards the number of locks required for
+majority.
+
+Arbitrator nodes will never get *Read* or *Write*-status, nor can they be a
+target of cluster manipulation operations such as failover or switchover. An
+arbitrator node will not be promoted to primary. MariaDB Monitor will still
+monitor arbitrator nodes normally, but will not modify them other than to
+acquire and release cooperative monitoring locks. The arbitrator node should not
+replicate from any of the cluster nodes, as the monitor will ignore the
+replication and not redirect it during failover or switchover.
+
+Without *Read* or *Write*-status, most routers (such as ReadWriteSplit) will not
+route any queries to arbitrator nodes. Routers that only
+require *Running*-status, such as SchemaRouter or ReadConnRoute with
+`router_options=running`, will route queries to arbitrator nodes. Prevent this
+by not listing the arbitrator nodes in the `servers`-setting of the service.
+
+Arbitrator nodes, when running, show the label `lock arbitrator` in their status
+information (viewable e.g. with `maxctrl list servers`).
+
+```
+cooperative_monitoring_arbitrator_nodes=dc3-arbitrator-server
+```
+
+This feature is mainly meant for tiebreak resolution when using
+`cooperative_monitoring_locks=majority_of_all` in a situation where a network
+split is possible. Typically, when the network splits, neither partition has a
+sufficient number of servers for a majority, and both halves go to read-only
+mode. With an arbitrator node in a third location, whichever MaxScale can lock
+the arbitrator will have lock majority. Naturally, this only works if the
+arbitrator node itself is connectable by both network partitions.
+
+Arbitrators can be defined even when `cooperative_monitoring_locks` is not in
+use. All the role and routing rules stated above still apply, although the
+monitor will not acquire any locks.
 
 ### `script_max_replication_lag`
 
@@ -1768,6 +1821,14 @@ can be further decreased by configuring each monitor with a different
 The flowchart below illustrates the lock handling logic.
 
 ![](<../../.gitbook/assets/coop_lock_flowchart.svg (4).svg>)
+
+### Related settings
+
+Use [servers_no_cooperative_monitoring_locks](#servers_no_cooperative_monitoring_locks)
+to define servers that do not take part in cooperative monitoring.
+
+Use [cooperative_monitoring_arbitrator_nodes](#cooperative_monitoring_arbitrator_nodes)
+to define servers that only take part in cooperative monitoring.
 
 ### Releasing locks
 
