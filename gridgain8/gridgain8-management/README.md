@@ -47,85 +47,25 @@ Install and start GridGain — system requirements, the binary distribution, sta
 
 {% columns %}
 {% column %}
-{% content-ref url="versioning-and-support-lifecycle.md" %}
-[Versioning and Support Lifecycle](versioning-and-support-lifecycle.md)
+{% content-ref url="licensing-and-support/" %}
+[Licensing and Support](licensing-and-support/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-GridGain's Major.Minor.Maintenance versioning convention, the standard support lifecycle, and the release support dates for GridGain platform versions.
+Manage GridGain licenses and understand the product lifecycle — Enterprise and Ultimate license files, the versioning and support-lifecycle policy, and SWID tags.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="upgrade/" %}
-[Upgrade](upgrade/)
+{% content-ref url="backup-and-replication/" %}
+[Backup, Recovery, and Replication](backup-and-replication/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Upgrade a GridGain 8 cluster — a standard version upgrade, or a rolling upgrade that keeps the cluster available throughout.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="software-identification.md" %}
-[Software Identification (SWID)](software-identification.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-GridGain Software Identification (SWID) tags — ISO 19770-2 XML artifacts that identify the product for software asset management tools, and where to find them.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="licensing.md" %}
-[Licensing](licensing.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How to specify, switch, update, and manage GridGain Enterprise and Ultimate Edition license files, including Java dependencies and license expiration.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="snapshots/" %}
-[Snapshots and Recovery](snapshots/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Overview of GridGain snapshots and recovery: full and incremental snapshots, point-in-time recovery, network backups, heterogeneous recovery, and tooling.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="data-center-replication/" %}
-[Data Center Replication](data-center-replication/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-GridGain data center replication lets you replicate data caches between multiple data centers and recover quickly when a data center goes offline.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="conflict-resolution.md" %}
-[Conflict Resolution](conflict-resolution.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How GridGain resolves cache update conflicts, including automatic resolution and the CacheConflictResolver interface for custom conflict handling.
+Protect and replicate cluster data — snapshots and point-in-time recovery, cross-datacenter replication, and cache update conflict resolution.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -143,25 +83,13 @@ Overview of monitoring and metrics in GridGain, including the available monitori
 
 {% columns %}
 {% column %}
-{% content-ref url="resource-control.md" %}
-[GridGain Resource Control](resource-control.md)
+{% content-ref url="cluster-maintenance/" %}
+[Cluster Maintenance](cluster-maintenance/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-How to limit the CPU and memory a GridGain node uses on Linux with systemd, Docker, and taskset/cpuset to control the licensed core footprint.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="persistence-defragmentation.md" %}
-[Persistence Defragmentation](persistence-defragmentation.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How to reclaim disk space from GridGain persistent storage by scheduling and running defragmentation on cluster nodes with the control script.
+Keep a running GridGain cluster healthy — control the CPU and memory a node uses, and reclaim disk space through persistence defragmentation.
 {% endcolumn %}
 {% endcolumns %}
 

@@ -9,6 +9,10 @@ icon: chart-mixed
 
 This section covers the practices that keep a GridGain cluster fast and available: performance and tuning techniques, capacity and disk-space planning, monitoring and maintenance operations, and troubleshooting common issues.
 
+{% hint style="info" %}
+GridGain also supports cross-datacenter replication for disaster recovery and geographic high availability — see [Data Center Replication](../gridgain8-management/data-center-replication/README.md).
+{% endhint %}
+
 {% columns %}
 {% column %}
 {% content-ref url="performance-tuning/" %}

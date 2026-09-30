@@ -4,7 +4,7 @@ description: >-
   starting a node with default or custom configuration, and deployment options.
 ---
 
-# Installation and Upgrade
+# Installation
 
 This chapter explains system requirements for running GridGain, how to install GridGain, and how to start a GridGain node.
 

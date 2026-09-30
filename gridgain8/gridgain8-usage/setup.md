@@ -16,10 +16,7 @@ description: >-
 
 ## Using Binary Distribution
 
-- Download the appropriate binary package from [GridGain downloads](https://www.gridgain.com/resources/download).
-- Unzip the archive into a directory.
-- (Optional) Set the `IGNITE_HOME` environment variable to point to the
-installation folder and make sure there is no trailing `/` in the path.
+To install GridGain from the binary (ZIP) distribution, refer to the [Installing Using ZIP Archive](../gridgain8-management/installation/installing-using-zip.md) section.
 
 ## Using Maven
 
