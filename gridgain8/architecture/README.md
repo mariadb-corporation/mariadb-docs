@@ -11,13 +11,13 @@ GridGain 8 is a distributed, memory-centric platform built on Apache Ignite. Thi
 
 {% columns %}
 {% column %}
-{% content-ref url="baseline-topology.md" %}
-[Baseline Topology](baseline-topology.md)
+{% content-ref url="memory-architecture.md" %}
+[Memory Architecture](memory-architecture.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-The baseline topology is the set of server nodes that hold data and controls when data rebalancing happens, either manually or through autoadjustment.
+GridGain's multi-tiered, page-based memory architecture that stores data and indexes both in memory and on disk for in-memory speed with disk durability.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -35,37 +35,13 @@ How GridGain nodes discover each other to form a cluster, the difference between
 
 {% columns %}
 {% column %}
-{% content-ref url="memory-architecture.md" %}
-[Memory Architecture](memory-architecture.md)
+{% content-ref url="baseline-topology.md" %}
+[Baseline Topology](baseline-topology.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-GridGain's multi-tiered, page-based memory architecture that stores data and indexes both in memory and on disk for in-memory speed with disk durability.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="mvcc.md" %}
-[Multiversion Concurrency Control](mvcc.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Multiversion concurrency control (MVCC) in GridGain 8, enabled through the TRANSACTIONAL_SNAPSHOT atomicity mode, its limitations, and how to use it.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="split-brain-protection.md" %}
-[Split-Brain Protection](split-brain-protection.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How GridGain helps you detect and mitigate network segmentation (the split-brain problem) using the Topology Validator and SegmentationResolver APIs.
+The baseline topology is the set of server nodes that hold data and controls when data rebalancing happens, either manually or through autoadjustment.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -96,11 +72,35 @@ How GridGain redistributes partitions across nodes as the cluster topology chang
 {% columns %}
 {% column %}
 {% content-ref url="storage/" %}
-[Persistence](storage/)
+[Storage](storage/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
 GridGain's storage options for keeping data beyond RAM, including native persistence for durable on-disk storage and swapping as an extension of memory.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="mvcc.md" %}
+[Multiversion Concurrency Control](mvcc.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Multiversion concurrency control (MVCC) in GridGain 8, enabled through the TRANSACTIONAL_SNAPSHOT atomicity mode, its limitations, and how to use it.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="split-brain-protection.md" %}
+[Split-Brain Protection](split-brain-protection.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How GridGain helps you detect and mitigate network segmentation (the split-brain problem) using the Topology Validator and SegmentationResolver APIs.
 {% endcolumn %}
 {% endcolumns %}

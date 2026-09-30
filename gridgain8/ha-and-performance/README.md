@@ -11,25 +11,13 @@ This section covers the practices that keep a GridGain cluster fast and availabl
 
 {% columns %}
 {% column %}
-{% content-ref url="capacity-planning.md" %}
-[Capacity Planning](capacity-planning.md)
+{% content-ref url="performance-tuning/" %}
+[Performance Tuning](performance-tuning/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Techniques for planning and identifying the minimum hardware requirements for a GridGain deployment, covering memory, heap, compute, and disk usage.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="disk-capacity-estimation.md" %}
-[Empirical Estimation of Disk Capacity Usage](disk-capacity-estimation.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-An empirical approach to estimating how much disk space your data will require when loaded into GridGain's internal binary format.
+Tuning GridGain 8 for throughput and latency: general practices, memory and JVM, persistence, SQL, memory quotas, and thread pools.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -42,6 +30,18 @@ An empirical approach to estimating how much disk space your data will require w
 
 {% column %}
 Considerations for storing and processing large objects in GridGain, including multipage objects, concurrency, field counts, and schemas.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="troubleshooting.md" %}
+[Troubleshooting and Debugging](troubleshooting.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Common tips and techniques for debugging and troubleshooting GridGain and Ignite deployments, including persistence, thin clients, GC issues, and node recovery.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -71,24 +71,24 @@ Methods for tracking GridGain data rebalance progress and status using the contr
 
 {% columns %}
 {% column %}
-{% content-ref url="troubleshooting.md" %}
-[Troubleshooting and Debugging](troubleshooting.md)
+{% content-ref url="capacity-planning.md" %}
+[Capacity Planning](capacity-planning.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Common tips and techniques for debugging and troubleshooting GridGain and Ignite deployments, including persistence, thin clients, GC issues, and node recovery.
+Techniques for planning and identifying the minimum hardware requirements for a GridGain deployment, covering memory, heap, compute, and disk usage.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="performance-tuning/" %}
-[Performance Tuning](performance-tuning/)
+{% content-ref url="disk-capacity-estimation.md" %}
+[Empirical Estimation of Disk Capacity Usage](disk-capacity-estimation.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Tuning GridGain 8 for throughput and latency: general practices, memory and JVM, persistence, SQL, memory quotas, and thread pools.
+An empirical approach to estimating how much disk space your data will require when loaded into GridGain's internal binary format.
 {% endcolumn %}
 {% endcolumns %}

@@ -9,37 +9,13 @@ GridGain comes with an ANSI-99 compliant, horizontally scalable, and fault-toler
 
 {% columns %}
 {% column %}
-{% content-ref url="custom-sql-func.md" %}
-[Custom SQL Functions](custom-sql-func.md)
+{% content-ref url="sql-introduction.md" %}
+[Introduction](sql-introduction.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Extend the GridGain SQL function set with custom SQL functions written in Java and annotated with @QuerySqlFunction.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="distributed-joins.md" %}
-[SQL Joins](distributed-joins.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Understand the GridGain collocation model for SQL joins and how to run collocated and non-collocated joins correctly.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="indexes.md" %}
-[Defining Indexes](indexes.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Define GridGain SQL indexes and queryable fields using annotations or query entities, configure group indexes, inline size, and custom keys.
+An introduction to GridGain's distributed SQL database, covering simple, distributed, and local queries, distributed joins, aggregation, and timezones.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -57,6 +33,18 @@ GridGain provides default schemas and supports custom schemas, defined in config
 
 {% columns %}
 {% column %}
+{% content-ref url="indexes.md" %}
+[Defining Indexes](indexes.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Define GridGain SQL indexes and queryable fields using annotations or query entities, configure group indexes, inline size, and custom keys.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="sql-api.md" %}
 [SQL API](sql-api.md)
 {% endcontent-ref %}
@@ -69,13 +57,25 @@ Use GridGain's SQL API to configure queryable fields, run queries, execute DML a
 
 {% columns %}
 {% column %}
-{% content-ref url="sql-introduction.md" %}
-[Working with SQL](sql-introduction.md)
+{% content-ref url="distributed-joins.md" %}
+[Distributed Joins](distributed-joins.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-An introduction to GridGain's distributed SQL database, covering simple, distributed, and local queries, distributed joins, aggregation, and timezones.
+Understand the GridGain collocation model for SQL joins and how to run collocated and non-collocated joins correctly.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="custom-sql-func.md" %}
+[Custom SQL Functions](custom-sql-func.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Extend the GridGain SQL function set with custom SQL functions written in Java and annotated with @QuerySqlFunction.
 {% endcolumn %}
 {% endcolumns %}
 

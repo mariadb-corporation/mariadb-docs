@@ -23,7 +23,7 @@ A step-by-step guide to deploying a GridGain cluster on Amazon Elastic Kubernete
 {% columns %}
 {% column %}
 {% content-ref url="azure-deployment.md" %}
-[Microsoft Azure Kubernetes Service Deployment](azure-deployment.md)
+[Azure Kubernetes Service Deployment](azure-deployment.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -34,37 +34,13 @@ A step-by-step guide to deploying a GridGain cluster on Microsoft Azure Kubernet
 
 {% columns %}
 {% column %}
-{% content-ref url="generic-configuration.md" %}
-[Generic Kubernetes Instruction](generic-configuration.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-A generic, step-by-step guide to deploying and managing GridGain server nodes on Kubernetes using a StatefulSet, covering configuration, licensing, probes, activation, scaling, and connectivity.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="gke-deployment.md" %}
-[GridGain on Google Kubernetes Engine](gke-deployment.md)
+[Google Kubernetes Engine](gke-deployment.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
 How to deploy a GridGain cluster on Google Kubernetes Engine (GKE) using the gcloud command-line tool.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="helm-deployment.md" %}
-[Installing GridGain on Kubernetes using Helm Chart](helm-deployment.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How to deploy a GridGain cluster on Kubernetes using the GridGain Helm chart, including custom configuration, license, authentication, and volumes.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -77,5 +53,29 @@ How to deploy a GridGain cluster on Kubernetes using the GridGain Helm chart, in
 
 {% column %}
 How to deploy a GridGain cluster on RedHat OpenShift using the oc command-line tool.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="helm-deployment.md" %}
+[Helm Deployment](helm-deployment.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to deploy a GridGain cluster on Kubernetes using the GridGain Helm chart, including custom configuration, license, authentication, and volumes.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="generic-configuration.md" %}
+[Generic Configuration](generic-configuration.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+A generic, step-by-step guide to deploying and managing GridGain server nodes on Kubernetes using a StatefulSet, covering configuration, licensing, probes, activation, scaling, and connectivity.
 {% endcolumn %}
 {% endcolumns %}

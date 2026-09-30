@@ -14,18 +14,6 @@ The following topics provide information about configuring and managing data cen
 
 {% columns %}
 {% column %}
-{% content-ref url="configuring-replication.md" %}
-[Configuring Replication](configuring-replication.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How to configure GridGain data center replication — cluster IDs, sender and receiver nodes, cache replication, conflict resolution, and related tuning properties.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="introduction.md" %}
 [Introduction](introduction.md)
 {% endcontent-ref %}
@@ -38,8 +26,20 @@ How GridGain data center replication works, including active-passive and active-
 
 {% columns %}
 {% column %}
+{% content-ref url="configuring-replication.md" %}
+[Configuring Replication](configuring-replication.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to configure GridGain data center replication — cluster IDs, sender and receiver nodes, cache replication, conflict resolution, and related tuning properties.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="managing-and-monitoring.md" %}
-[Managing and Monitoring Replication](managing-and-monitoring.md)
+[Managing and Monitoring](managing-and-monitoring.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

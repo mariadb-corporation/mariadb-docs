@@ -12,6 +12,18 @@ The following topics are covered:
 
 {% columns %}
 {% column %}
+{% content-ref url="intro.md" %}
+[Introduction](intro.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+An overview of monitoring and metrics in GridGain: the available approaches, what to monitor at each layer, and the scope of global vs. node-specific metrics.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="configuring-metrics.md" %}
 [Configuring Metrics](configuring-metrics.md)
 {% endcontent-ref %}
@@ -36,18 +48,6 @@ Read GridGain data region and data storage metrics programmatically, and calcula
 
 {% columns %}
 {% column %}
-{% content-ref url="intro.md" %}
-[Introduction: Monitoring and Metrics](intro.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-An overview of monitoring and metrics in GridGain: the available approaches, what to monitor at each layer, and the scope of global vs. node-specific metrics.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="tracing.md" %}
 [Tracing](tracing.md)
 {% endcontent-ref %}
@@ -61,7 +61,7 @@ How to configure OpenCensus distributed tracing in GridGain, enable trace sampli
 {% columns %}
 {% column %}
 {% content-ref url="monitoring-with-grafana.md" %}
-[Monitoring with Grafana and Prometheus](monitoring-with-grafana.md)
+[Grafana and Prometheus](monitoring-with-grafana.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -73,7 +73,7 @@ Configure monitoring of a GridGain 8 cluster with Grafana and Prometheus, using 
 {% columns %}
 {% column %}
 {% content-ref url="transaction-time-tracking.md" %}
-[Tracking System and User Time Spent on Transactions](transaction-time-tracking.md)
+[Transaction Time Tracking](transaction-time-tracking.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

@@ -22,18 +22,6 @@ Reference of the SQL aggregate functions supported by GridGain — AVG, BIT_AND,
 
 {% columns %}
 {% column %}
-{% content-ref url="date-time-functions.md" %}
-[Date and Time Functions](date-time-functions.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Reference of the SQL date and time functions supported by GridGain — current date/time, DATEADD, DATEDIFF, EXTRACT, formatting, and component extraction.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="json-functions.md" %}
 [JSON Functions](json-functions.md)
 {% endcontent-ref %}
@@ -65,6 +53,18 @@ Reference of the SQL numeric functions supported by GridGain — trigonometric, 
 
 {% column %}
 Reference of the SQL string functions supported by GridGain — length, case, padding, trimming, search/replace, regular-expression, and XML functions.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="date-time-functions.md" %}
+[Date and Time Functions](date-time-functions.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Reference of the SQL date and time functions supported by GridGain — current date/time, DATEADD, DATEDIFF, EXTRACT, formatting, and component extraction.
 {% endcolumn %}
 {% endcolumns %}
 

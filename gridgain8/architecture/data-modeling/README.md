@@ -10,13 +10,13 @@ This section explains how GridGain distributes and represents data across a clus
 
 {% columns %}
 {% column %}
-{% content-ref url="affinity-colocation.md" %}
-[Affinity Colocation](affinity-colocation.md)
+{% content-ref url="introduction.md" %}
+[Introduction](introduction.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-How affinity colocation stores related cache entries together on the same node so multi-entry queries run locally, and how to configure a custom affinity key.
+How data is stored and accessed in GridGain, contrasting the physical partitioned layout with the equivalent key-value cache and SQL table views.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -34,12 +34,12 @@ How GridGain partitions data across server nodes with the affinity function, the
 
 {% columns %}
 {% column %}
-{% content-ref url="introduction.md" %}
-[Data Modeling](introduction.md)
+{% content-ref url="affinity-colocation.md" %}
+[Affinity Colocation](affinity-colocation.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-How data is stored and accessed in GridGain, contrasting the physical partitioned layout with the equivalent key-value cache and SQL table views.
+How affinity colocation stores related cache entries together on the same node so multi-entry queries run locally, and how to configure a custom affinity key.
 {% endcolumn %}
 {% endcolumns %}

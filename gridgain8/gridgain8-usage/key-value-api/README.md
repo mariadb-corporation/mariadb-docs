@@ -21,18 +21,6 @@ Perform basic GridGain cache operations, including creating and destroying cache
 
 {% columns %}
 {% column %}
-{% content-ref url="binary-object-schemas.md" %}
-[Binary Object Schemas](binary-object-schemas.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Understand how GridGain generates binary object schemas and how to modify them safely when changing SQL tables or Java classes.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="binary-objects.md" %}
 [Working with Binary Objects](binary-objects.md)
 {% endcontent-ref %}
@@ -45,25 +33,25 @@ Work directly with GridGain binary objects to read and modify cached data withou
 
 {% columns %}
 {% column %}
-{% content-ref url="metadata-management.md" %}
-[Managing Metadata Programmatically](metadata-management.md)
+{% content-ref url="binary-object-schemas.md" %}
+[Binary Object Schemas](binary-object-schemas.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Manage binary type metadata programmatically through the GridGain Java and .NET APIs to list, retrieve, and remove binary types.
+Understand how GridGain generates binary object schemas and how to modify them safely when changing SQL tables or Java classes.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="using-index-queries.md" %}
-[Executing Index Queries](using-index-queries.md)
+{% content-ref url="metadata-management.md" %}
+[Metadata Management](metadata-management.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Use IndexQuery to retrieve cache entries that match query criteria over distributed indexes.
+Manage binary type metadata programmatically through the GridGain Java and .NET APIs to list, retrieve, and remove binary types.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -76,5 +64,17 @@ Use IndexQuery to retrieve cache entries that match query criteria over distribu
 
 {% column %}
 Use scan queries to retrieve cache entries in a distributed manner, with optional predicates, transformers, and local or asynchronous execution.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="using-index-queries.md" %}
+[Using Index Queries](using-index-queries.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Use IndexQuery to retrieve cache entries that match query criteria over distributed indexes.
 {% endcolumn %}
 {% endcolumns %}

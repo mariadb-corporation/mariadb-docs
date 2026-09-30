@@ -104,13 +104,13 @@ An overview of GridGain deployment modes: cluster modes (in-memory data grid, sy
 
 {% columns %}
 {% column %}
-{% content-ref url="installing-on-zos.md" %}
-[Installation on z/OS](installing-on-zos.md)
+{% content-ref url="installing-using-zip.md" %}
+[Installing Using ZIP Archive](installing-using-zip.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-System requirements, installation steps, configuration, and startup guidance for running GridGain on z/OS.
+How to install GridGain from the ZIP archive distribution, including prerequisites and software identification.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -128,13 +128,13 @@ How to run GridGain in Docker: pulling the image, running in-memory and persiste
 
 {% columns %}
 {% column %}
-{% content-ref url="installing-using-zip.md" %}
-[Installing Using ZIP Archive](installing-using-zip.md)
+{% content-ref url="installing-on-zos.md" %}
+[Installing on z/OS](installing-on-zos.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-How to install GridGain from the ZIP archive distribution, including prerequisites and software identification.
+System requirements, installation steps, configuration, and startup guidance for running GridGain on z/OS.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -165,7 +165,7 @@ Options for deploying GridGain on Microsoft Azure.
 {% columns %}
 {% column %}
 {% content-ref url="kubernetes/" %}
-[Installation and Upgrade](kubernetes/)
+[Kubernetes](kubernetes/)
 {% endcontent-ref %}
 {% endcolumn %}
 

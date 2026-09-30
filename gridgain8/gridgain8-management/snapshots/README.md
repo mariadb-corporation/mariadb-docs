@@ -12,6 +12,18 @@ The following topics are covered:
 
 {% columns %}
 {% column %}
+{% content-ref url="snapshots-and-recovery.md" %}
+[Data Snapshots and Recovery](snapshots-and-recovery.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+GridGain Ultimate Edition snapshots and recovery for Ignite native persistence, including how they differ from Apache Ignite snapshots.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="full-incremental-snapshots.md" %}
 [Full and Incremental Snapshots](full-incremental-snapshots.md)
 {% endcontent-ref %}
@@ -19,30 +31,6 @@ The following topics are covered:
 
 {% column %}
 How to create, restore, and secure full and incremental GridGain snapshots with the Java API and the snapshot utility, including the creation flow.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="heterogeneous-recovery.md" %}
-[Heterogeneous Recovery](heterogeneous-recovery.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How to restore GridGain snapshots and continuous archives on a cluster with a different size and topology, from local snapshots, network backups, or PITR.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="network-backups.md" %}
-[Network Backups](network-backups.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How to create, restore, and remove GridGain network backups on NAS, NFS, or SFTP storage, including SFTP location configuration and JKS key setup.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -60,13 +48,25 @@ How GridGain Point-in-Time Recovery (PITR) uses continuous WAL archiving to rest
 
 {% columns %}
 {% column %}
-{% content-ref url="snapshots-and-recovery.md" %}
-[Data Snapshots and Recovery](snapshots-and-recovery.md)
+{% content-ref url="network-backups.md" %}
+[Network Backups](network-backups.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-GridGain Ultimate Edition snapshots and recovery for Ignite native persistence, including how they differ from Apache Ignite snapshots.
+How to create, restore, and remove GridGain network backups on NAS, NFS, or SFTP storage, including SFTP location configuration and JKS key setup.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="heterogeneous-recovery.md" %}
+[Heterogeneous Recovery](heterogeneous-recovery.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to restore GridGain snapshots and continuous archives on a cluster with a different size and topology, from local snapshots, network backups, or PITR.
 {% endcolumn %}
 {% endcolumns %}
 

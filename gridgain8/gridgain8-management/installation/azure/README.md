@@ -10,7 +10,7 @@ This section describes how to deploy GridGain on Microsoft Azure.
 {% columns %}
 {% column %}
 {% content-ref url="gridgain-on-azure.md" %}
-[Microsoft Azure Deployment](gridgain-on-azure.md)
+[GridGain on Azure](gridgain-on-azure.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

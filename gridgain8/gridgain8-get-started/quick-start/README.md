@@ -22,32 +22,8 @@ Choose your language or interface:
 
 {% columns %}
 {% column %}
-{% content-ref url="cpp.md" %}
-[GridGain Quick Start Guide for C++](cpp.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Install GridGain, start a cluster, build the C++ client, and run a simple Hello World example in C++.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="dotnet.md" %}
-[GridGain Quick Start Guide for .NET/C#](dotnet.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Use .NET Core to build and run a simple Hello World example that starts a node, puts a value into the cache, and then gets the value.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="java.md" %}
-[GridGain Quick Start Guide for Java](java.md)
+[Java](java.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -58,32 +34,32 @@ Install GridGain, start a cluster, and run your first Java application, from sys
 
 {% columns %}
 {% column %}
-{% content-ref url="nodejs.md" %}
-[GridGain Quick Start Guide for Node.JS](nodejs.md)
+{% content-ref url="dotnet.md" %}
+[.NET/C#](dotnet.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Install GridGain, start a cluster, and run a simple Hello World example using the Node.js thin client.
+Use .NET Core to build and run a simple Hello World example that starts a node, puts a value into the cache, and then gets the value.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="php.md" %}
-[GridGain Quick Start Guide for PHP](php.md)
+{% content-ref url="cpp.md" %}
+[C++](cpp.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Install GridGain, start a cluster, and run a simple Hello World example using the PHP thin client.
+Install GridGain, start a cluster, build the C++ client, and run a simple Hello World example in C++.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
 {% content-ref url="python.md" %}
-[GridGain Quick Start Guide for Python](python.md)
+[Python](python.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -94,24 +70,48 @@ Install GridGain, start a cluster, and run a simple Hello World example using th
 
 {% columns %}
 {% column %}
-{% content-ref url="restapi.md" %}
-[REST API for GridGain](restapi.md)
+{% content-ref url="nodejs.md" %}
+[Node.js](nodejs.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Install GridGain, start a cluster, and run a simple Hello World example using GridGain's REST API.
+Install GridGain, start a cluster, and run a simple Hello World example using the Node.js thin client.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
 {% content-ref url="sql.md" %}
-[GridGain Quick Start Guide for SQL](sql.md)
+[SQL](sql.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
 Start a local GridGain cluster and load and query data purely in SQL using the sqlline utility in less than five minutes.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="php.md" %}
+[PHP](php.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Install GridGain, start a cluster, and run a simple Hello World example using the PHP thin client.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="restapi.md" %}
+[REST API](restapi.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Install GridGain, start a cluster, and run a simple Hello World example using GridGain's REST API.
 {% endcolumn %}
 {% endcolumns %}

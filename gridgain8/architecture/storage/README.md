@@ -11,7 +11,7 @@ This section covers how GridGain stores data beyond RAM. It describes [Native Pe
 {% columns %}
 {% column %}
 {% content-ref url="native-persistence.md" %}
-[Ignite Persistence](native-persistence.md)
+[Native Persistence](native-persistence.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

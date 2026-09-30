@@ -46,25 +46,25 @@ Best practices for tuning GridGain native persistence, including page size, WAL 
 
 {% columns %}
 {% column %}
-{% content-ref url="sql-memory-management.md" %}
-[Memory Quotas for SQL Queries](sql-memory-management.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How memory quotas prevent GridGain nodes from running out of memory when SQL queries return large result sets, including global and per-query quotas and offloading.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="sql-tuning.md" %}
-[SQL Performance Tuning](sql-tuning.md)
+[SQL Tuning](sql-tuning.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
 Basic and advanced optimization techniques for GridGain SQL queries, including EXPLAIN, join order, index inline size, query parallelism, and partition pruning.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="sql-memory-management.md" %}
+[SQL Memory Management](sql-memory-management.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How memory quotas prevent GridGain nodes from running out of memory when SQL queries return large result sets, including global and per-query quotas and offloading.
 {% endcolumn %}
 {% endcolumns %}
 

@@ -18,13 +18,13 @@ The GridGain security functionality includes the following features:
 
 {% columns %}
 {% column %}
-{% content-ref url="auditing-events.md" %}
-[Auditing](auditing-events.md)
+{% content-ref url="ssl-tls.md" %}
+[SSL/TLS](ssl-tls.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Use GridGain's event-based auditing to track user actions and export event information to an external system.
+Configure SSL/TLS encryption for GridGain cluster nodes and clients, enable client certificate authentication, and manage certificates.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -54,42 +54,6 @@ GridGain authorization: the permission string format, the defaultAllow property,
 
 {% columns %}
 {% column %}
-{% content-ref url="cluster-hardening.md" %}
-[Cluster Hardening](cluster-hardening.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Harden a GridGain 8 cluster by preventing SQL injection with parameterized queries and switching to Spring 6.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="custom-authenticators.md" %}
-[Implementing Custom Authenticator](custom-authenticators.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Implement a custom GridGain authenticator, illustrated with a file-based ACL provider for PasscodeAuthenticator.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="cve.md" %}
-[Security Vulnerabilities (CVE) Fixed in GridGain 8](cve.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Full list of CVEs fixed across all GridGain 8 versions, with published dates, CVSS base scores, and the releases that contain each fix.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="multi-tenancy.md" %}
 [Multi-Tenancy](multi-tenancy.md)
 {% endcontent-ref %}
@@ -114,6 +78,18 @@ Restrict deserialization in GridGain with the IGNITE_MARSHALLER_WHITELIST and IG
 
 {% columns %}
 {% column %}
+{% content-ref url="tde.md" %}
+[Transparent Data Encryption](tde.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Transparent Data Encryption in GridGain: encrypt data at rest per cache, generate a master key, and rotate master and cache keys.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="securing-jmx.md" %}
 [Securing JMX](securing-jmx.md)
 {% endcontent-ref %}
@@ -126,24 +102,48 @@ Secure the JMX server that GridGain nodes start, by disabling remote JMX or enab
 
 {% columns %}
 {% column %}
-{% content-ref url="ssl-tls.md" %}
-[SSL/TLS](ssl-tls.md)
+{% content-ref url="auditing-events.md" %}
+[Auditing](auditing-events.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Configure SSL/TLS encryption for GridGain cluster nodes and clients, enable client certificate authentication, and manage certificates.
+Use GridGain's event-based auditing to track user actions and export event information to an external system.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="tde.md" %}
-[Transparent Data Encryption](tde.md)
+{% content-ref url="custom-authenticators.md" %}
+[Implementing Custom Authenticator](custom-authenticators.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Transparent Data Encryption in GridGain: encrypt data at rest per cache, generate a master key, and rotate master and cache keys.
+Implement a custom GridGain authenticator, illustrated with a file-based ACL provider for PasscodeAuthenticator.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="cluster-hardening.md" %}
+[Cluster Hardening](cluster-hardening.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Harden a GridGain 8 cluster by preventing SQL injection with parameterized queries and switching to Spring 6.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="cve.md" %}
+[Security Vulnerabilities (CVE)](cve.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Full list of CVEs fixed across all GridGain 8 versions, with published dates, CVSS base scores, and the releases that contain each fix.
 {% endcolumn %}
 {% endcolumns %}
