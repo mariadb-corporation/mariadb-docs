@@ -1920,7 +1920,7 @@ SELECT @@GLOBAL.innodb_log_file_write_through;
 #### `innodb_log_recovery_start`
 
 * Description: Specifies the Log Sequence Number (LSN) at which the recovery process begins. Only meaningful when recovering a backup that contains log files in the [`innodb_log_archive`](innodb-system-variables.md#innodb_log_archive)`=ON` format.
-* Usage: Set this variable to limit the scope of a recovery operation. The server expects to find an optional sequence of `FILE_MODIFY` records followed by a `FILE_CHECKPOINT` record at the specified _lsn_. This is typically used when restoring an incremental backup, by setting the variable to the end LSN of the previous restore.
+* Usage: Set this variable to limit the scope of a recovery operation. The server expects to find an optional sequence of `FILE_MODIFY` records followed by a `FILE_CHECKPOINT` record at the specified _lsn_. This is typically used when restoring a backup, by setting the variable to the LSN that points to the start checkpoint of the backup.
 * Special value: `0` (the default) means start recovery from the latest completed checkpoint. The latest checkpoint is guaranteed to live in one of the last two `ib_`_`lsn`_`.log` files in the data directory, typically the last one.
 * Property: Set at startup
 * Data Type: `numeric` (64-bit unsigned integer)
