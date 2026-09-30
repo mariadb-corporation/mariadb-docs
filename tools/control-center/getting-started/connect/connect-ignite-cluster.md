@@ -2,6 +2,7 @@
 description: >-
   Attaching an Apache Ignite 2 cluster to GridGain Control Center via the binary
   package or a Maven dependency, including Docker and embedded deployments.
+hidden: true
 ---
 
 # Attaching an Apache Ignite Cluster

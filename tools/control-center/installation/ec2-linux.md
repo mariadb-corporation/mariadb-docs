@@ -2,6 +2,7 @@
 description: >-
   Installing GridGain Control Center on an Amazon EC2 Linux instance, including
   folder layout, startup script, systemd service, and origin configuration.
+hidden: true
 ---
 
 # Control Center on AWS EC2 Linux Instances

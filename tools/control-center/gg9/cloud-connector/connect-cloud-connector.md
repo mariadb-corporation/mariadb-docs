@@ -2,6 +2,7 @@
 description: >-
   Setting up the Cloud Connector so Control Center can monitor GridGain 9
   clusters without exposing cluster ports to the internet.
+hidden: true
 ---
 
 # Setting Up Cloud Connector with GridGain 9 and Control Center

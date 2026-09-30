@@ -2,6 +2,7 @@
 description: >-
   Attaching a GridGain 9 cluster to Control Center, including secured clusters,
   Docker deployments, and NAT or load-balancer setups.
+hidden: true
 ---
 
 # Attaching a GridGain 9 Cluster

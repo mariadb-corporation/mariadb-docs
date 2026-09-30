@@ -349,7 +349,7 @@ For more information on configuring authentication, including an LDAP provider e
 |paths.default|false|If set to `true`, this path is used as the default when no `--source` or `--destination` option is specified in the snapshot command. Only one path can be marked as default. If no default is set, the system falls back to the LOCAL path `file:/snapshots` when no `--source` or `--destination` is provided.|boolean|
 |paths.name||The name of the snapshot path.|A valid string|
 |paths.type|LOCAL|The snapshot path's type. LOCAL paths are not shared between nodes; REMOTE ones are shared. The REMOTE paths use a single-copy algorithm, which saves only one copy of meta and partition files|LOCAL, REMOTE|
-|paths.uri||The base URI where snapshots will be stored. Use either `scheme:///absolute-path` for absolute paths or `scheme:/relative-path` for relative paths. Currently, only the `file` scheme is supported. If an absolute path is provided, it is treated as a REMOTE path and used "as is". For LOCAL paths, a subfolder named after the node is appended: `/absolute-path/node-name`. Relative paths are resolved from the node's working directory: `{GRIDGAIN_HOME}/work/relative-path`.|A valid URI|
+|paths.uri||The base URI where snapshots will be stored. Use either `scheme:///absolute-path` for absolute paths or `scheme:/relative-path` for relative paths. Only the `file` scheme is supported. If an absolute path is provided, it is treated as a REMOTE path and used "as is". For LOCAL paths, a subfolder named after the node is appended: `/absolute-path/node-name`. Relative paths are resolved from the node's working directory: `{GRIDGAIN_HOME}/work/relative-path`.|A valid URI|
 
 ### SQL Configuration
 

@@ -2,6 +2,7 @@
 description: >-
   Unpack and launch GridGain Control Center, create the administrator account,
   and upload your license.
+hidden: true
 ---
 
 # Install Control Center and Add License

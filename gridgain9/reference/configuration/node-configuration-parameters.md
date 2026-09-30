@@ -391,7 +391,7 @@ In GridGain 9, you can choose between two node discovery types. With `STATIC` ty
 |inbound.soLinger|0|Defines how long the closed socket should linger.|0 - 65535|
 |inbound.soReuseAddr|true|Defines if the address can be reused.|true, false|
 |inbound.tcpNoDelay|true|Defines if the TCP no delay option is used.|true, false|
-|listenAddresses||List of addresses (IPs or hostnames) to listen on. If empty, listens on all interfaces. Currently, only a single address is supported. This limitation will be lifted in a future update.|A list of valid addresses separated by comma|
+|listenAddresses||List of addresses (IPs or hostnames) to listen on. If empty, listens on all interfaces. Only a single address is supported.|A list of valid addresses separated by comma|
 |membership||Node membership configuration.||
 |membership.failurePingIntervalMillis|2000|Failure detector ping interval.|0 - inf|
 |membership.membershipSyncIntervalMillis|30000|Periodic membership data synchronization interval.|0 - inf|

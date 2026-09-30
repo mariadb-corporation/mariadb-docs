@@ -2,6 +2,7 @@
 description: >-
   Running GridGain Control Center against an external GridGain 8 cluster to
   separate Control Center data from its backend process.
+hidden: true
 ---
 
 # Running Control Center with an External GridGain 8 Cluster

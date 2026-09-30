@@ -2,6 +2,7 @@
 description: >-
   Installing the GridGain Cloud Connector on Kubernetes with a Helm chart,
   including configuration, upgrade, and uninstall.
+hidden: true
 ---
 
 # Deploying Cloud Connector on Kubernetes with a Helm Chart

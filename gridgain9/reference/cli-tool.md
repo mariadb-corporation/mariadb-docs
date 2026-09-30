@@ -127,7 +127,7 @@ $env:GRIDGAIN9_OPTS = "-Xms128m -Xmx512m"
 
 ### Default Parameter Values
 
-Some parameters are optional because the CLI can resolve their values automatically from the profile configuration or the current session state. The `--url` parameter for all `cluster` and `node` commands works this way. Currently, this is the only parameter with this resolution behavior.
+Some parameters are optional because the CLI can resolve their values automatically from the profile configuration or the current session state. The `--url` parameter for all `cluster` and `node` commands works this way. This is the only parameter with this resolution behavior.
 
 The resolution order depends on whether the CLI is running in interactive (REPL) or non-interactive mode.
 

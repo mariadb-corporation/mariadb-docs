@@ -2,6 +2,7 @@
 description: >-
   Uploading and updating a GridGain Control Center license through the UI, at
   startup, or automatically with the file watcher.
+hidden: true
 ---
 
 # Managing License

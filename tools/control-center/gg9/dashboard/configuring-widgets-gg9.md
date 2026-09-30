@@ -2,6 +2,7 @@
 description: >-
   Adding, configuring, and editing dashboard widgets for GridGain 9 clusters —
   gauges, nodes, metrics, heat maps, SQL query, and system view widgets.
+hidden: true
 ---
 
 # Configuring Widgets for GridGain 9 Clusters

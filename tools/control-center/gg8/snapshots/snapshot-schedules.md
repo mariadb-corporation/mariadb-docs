@@ -2,6 +2,7 @@
 description: >-
   Creating and managing snapshot schedules for GridGain 8 clusters — create,
   check, move, and delete operations with retention settings.
+hidden: true
 ---
 
 # Snapshot Schedule Management for GridGain 8 Clusters

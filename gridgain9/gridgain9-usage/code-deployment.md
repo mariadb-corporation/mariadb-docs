@@ -10,7 +10,7 @@ When working with GridGain, you may need to deploy user code to cluster nodes so
 
 In GridGain 9 the code is deployed as an immutable *deployment unit* with a unique ID and version.
 
-While there are no strict policies on what a deployment unit can contain, GridGain 9 currently supports compute jobs implemented in Java and .NET.
+While there are no strict policies on what a deployment unit can contain, GridGain 9 supports compute jobs implemented in Java and .NET.
 
 {% hint style="info" %}
 You can invoke compute job execution from any client (.NET, Java, C++, etc. ), but the job itself must be written in Java or .NET.
@@ -75,7 +75,7 @@ You can manage deployment units using either [CLI](../reference/cli-tool.md) com
 ## Deploying Units with Folder Structures
 
 {% hint style="info" %}
-Currently, only ZIP archives can be deployed via REST.
+Only ZIP archives can be deployed via REST.
 {% endhint %}
 
 GridGain supports deploying units that contain folder structures packaged as ZIP archives.

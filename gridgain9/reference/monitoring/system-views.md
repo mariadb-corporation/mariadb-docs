@@ -319,13 +319,13 @@ This view shows only the currently active transactions.
 | TRANSACTION_ID | STRING | The transaction ID. |
 | TRANSACTION_START_TIME | TIMESTAMP | The transaction's start time. |
 | TRANSACTION_TYPE | STRING | The transaction type: READ_ONLY or READ_WRITE. |
-| TRANSACTION_PRIORITY | STRING | The transaction priority, which is used to resolve conflicts between transactions. Currently, this value cannot be explicitly set by the user. Possible values are LOW and NORMAL (default). |
+| TRANSACTION_PRIORITY | STRING | The transaction priority, which is used to resolve conflicts between transactions. This value cannot be explicitly set by the user. Possible values are LOW and NORMAL (default). |
 | TRANSACTION_LABEL | STRING | The label of the transaction, if any. Labels are assigned to transaction creation, and persist for the lifetime. Labels are only available for read-write transactions. |
 | STATE | STRING | **Deprecated**. The transaction state. For read-only transactions, the value is always null (empty). For read-write transactions, the possible values are PENDING - the transaction is in progress - and FINISHING - the transaction is in the process of being finished. |
 | ID | STRING | **Deprecated**. The transaction ID. |
 | START_TIME | TIMESTAMP | **Deprecated**. The transaction's start time. |
 | TYPE | STRING | **Deprecated**. The transaction type: READ_ONLY or READ_WRITE. |
-| PRIORITY | STRING | **Deprecated**. The transaction priority, which is used to resolve conflicts between transactions. Currently, this value cannot be explicitly set by the user. Possible values are LOW and NORMAL (default). |
+| PRIORITY | STRING | **Deprecated**. The transaction priority, which is used to resolve conflicts between transactions. This value cannot be explicitly set by the user. Possible values are LOW and NORMAL (default). |
 
 ### ZONES
 

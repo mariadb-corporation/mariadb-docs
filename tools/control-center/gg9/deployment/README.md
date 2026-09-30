@@ -1,6 +1,7 @@
 ---
 description: >-
   Deploying your code to a GridGain 9 cluster using GridGain Control Center.
+hidden: true
 ---
 
 # Code Deployment

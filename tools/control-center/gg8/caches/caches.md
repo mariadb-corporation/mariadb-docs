@@ -2,6 +2,7 @@
 description: >-
   The Cache list tab — monitoring active GridGain 8 caches, their replication
   state, and the cache management actions available from Control Center.
+hidden: true
 ---
 
 # Cache List

@@ -97,10 +97,10 @@ This sink prints information to the log, using the configured logging level.
 | --- | --- |
 | channel | The name of the event channel the data sink logs data for. |
 | criteria | Logging criteria. By default, only EventLog messages are logged. |
-| format | Output format. Currently, only `JSON` messages are supported. |
+| format | Output format. Only `JSON` messages are supported. |
 | level | The level the messages are posted to the log at. Supported values: `ALL`, `TRACE`, `DEBUG`, `INFO`, `WARNING`, `ERROR`, `OFF`. Default value: `INFO`. |
 | name | Arbitrary sink name. |
-| type | Type of event sink. Currently, only `log` sink is supported, and is used to write events to log. |
+| type | Type of event sink. Only `log` sink is supported, and is used to write events to log. |
 
 ### Webhook Sink
 
