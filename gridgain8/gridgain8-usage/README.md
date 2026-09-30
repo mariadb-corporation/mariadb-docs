@@ -133,6 +133,18 @@ Use the GridGain key-value cache API to perform basic cache operations, work wit
 
 {% columns %}
 {% column %}
+{% content-ref url="sql/" %}
+[Working with SQL](sql/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Work with GridGain's distributed SQL database, including the SQL API, schemas, indexes, joins, custom functions, and combined SQL and key-value access.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="cross-platform-interoperability.md" %}
 [Cross-Platform Interoperability](cross-platform-interoperability.md)
 {% endcontent-ref %}
@@ -200,18 +212,6 @@ How to implement, deploy, access, and re-deploy GridGain services, including dep
 
 {% column %}
 Topic-based, cluster-wide messaging in GridGain using the IgniteMessaging interface to publish and subscribe to messages.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="sql/" %}
-[Working with SQL](sql/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Work with GridGain's distributed SQL database, including the SQL API, schemas, indexes, joins, custom functions, and combined SQL and key-value access.
 {% endcolumn %}
 {% endcolumns %}
 
