@@ -206,9 +206,9 @@ See the [Differences in MariaDB Enterprise Server 10.5](../../../enterprise-serv
 * The [Information Schema SYSTEM\_VARIABLES Table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-system_variables-table) has a new column showing from which config file a variable derives its value ([MDEV-12684](https://jira.mariadb.org/browse/MDEV-12684)).
 * Columns that use the [old temporal format](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/datetime#internal-format) (created with a pre-10.0 version of MariaDB) are now marked with a `/* mariadb-5.3 */` comment in `SHOW CREATE TABLE`, `DESCRIBE` and `INFORMATION_SCHEMA.COLUMNS`. This is the behavior of MySQL 5.6's `show_old_temporals`, but MariaDB always shows the comment, with no variable to control it ([MDEV-19906](https://jira.mariadb.org/browse/MDEV-19906)).
 * Numerous deprecated variables removed ([MDEV-18650](https://jira.mariadb.org/browse/MDEV-18650))
-  * [multi\_range\_count](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#multi_range_count)
-  * [thread\_concurrency](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#thread_concurrency)
-  * [timed\_mutexes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#timed_mutexes)
+  * multi\_range\_count
+  * thread\_concurrency
+  * timed\_mutexes
 
 ## Security Vulnerabilities Fixed in [MariaDB 10.5](what-is-mariadb-105.md)
 

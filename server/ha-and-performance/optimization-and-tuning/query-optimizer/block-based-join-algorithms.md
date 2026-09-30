@@ -6,9 +6,7 @@ description: >-
 
 # Block-Based Join Algorithms
 
-In the versions of MariaDB/MySQL before 5.3, only one block-based join algorithm was implemented: the Block Nested Loops (BNL) join algorithm, which could only be used for inner joins.
-
-[MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3) enhanced the implementation of BNL joins and provides a variety of block-based join algorithms that can be used for inner joins, outer joins, and semi-joins. Block-based join algorithms in MariaDB employ a join buffer to accumulate records of the first join operand before they start looking for matches in the second join operand.
+MariaDB provides a variety of block-based join algorithms that can be used for inner joins, outer joins, and semi-joins. Block-based join algorithms in MariaDB employ a join buffer to accumulate records of the first join operand before they start looking for matches in the second join operand.
 
 This page documents the various block-based join algorithms.
 
@@ -19,9 +17,8 @@ This page documents the various block-based join algorithms.
 
 ## Block Nested Loop Join
 
-The major difference between the implementation of BNL join in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3)
-compared to earlier versions of MariaDB/MySQL is that the former uses a new
-format for records written into join buffers. This new format allows:
+The implementation of BNL join in MariaDB uses a special
+format for records written into join buffers. This format allows:
 
 * More efficient use of buffer space for null field values and field values of
   flexible length types (like the varchar type)
@@ -62,7 +59,7 @@ is performed with a block-based join algorithm. When this match flag is set to o
 
 ## Block Hash Join
 
-Block-based hash join algorithm is a new option to be used for join operations in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3). It can be employed in cases when there are equi-join sub-conditions for the joined tables, in other words, when equalities of the form t2.f1= e1(t1),...,t2.fn=en(t1) can be extracted from the full join condition. Like any block-based join algorithm, this one used a join buffer filled with the records of
+The block-based hash join algorithm can be used for join operations. It can be employed in cases when there are equi-join sub-conditions for the joined tables, in other words, when equalities of the form t2.f1= e1(t1),...,t2.fn=en(t1) can be extracted from the full join condition. Like any block-based join algorithm, this one used a join buffer filled with the records of
 the first operand and looked through the records of the second operand to find matches for the records in the buffer.
 
 ### How Block Hash Join Works
@@ -79,7 +76,7 @@ The Batch Keys Access join algorithm performs index look-ups when looking for po
 
 ### How Batch Keys Access Join Works
 
-The implementation of the algorithm in 5.3 heavily exploits the multi-range-read interface and its properties. The interface hides the actual mechanism of fetching possible candidates for matching records from the table to be joined.\
+The implementation of the algorithm heavily exploits the multi-range-read interface and its properties. The interface hides the actual mechanism of fetching possible candidates for matching records from the table to be joined.\
 Like any block-based join algorithm, the BKA join repeatedly fills the join buffer with records of the first operand, and for each refill, it finds records from the join table that could match the records in the buffer.\
 \
 To find such records, it asks the MRR interface to perform index look-ups with the keys constructed over all records from the buffer. Together with each key, the interface receives a return address - a reference to the record over which this key has been constructed. The actual implementation functions of the MRR interface organize and optimize the process of fetching the records of the joined table by the received keys. Each fetched record r2 is appended with the return address associated with the key by which the record has been found, and the result is passed to the BKA join procedure. \
@@ -135,13 +132,13 @@ Only incremental variants of the block-based join algorithms can be used for nes
 The maximum size of join buffers used by block-based algorithms is controlled by setting the [join\_buffer\_size](../system-variables/server-system-variables.md#join_buffer_size) system variable.\
 This value must be large enough in order for the join buffer employed for a join operation to contain all relevant fields for at least one joined record.
 
-[MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3) introduced the system variable [join\_buffer\_space\_limit](../system-variables/server-system-variables.md#join_buffer_space_limit) that limits the total memory used for join buffers in a query.
+The system variable [join\_buffer\_space\_limit](../system-variables/server-system-variables.md#join_buffer_space_limit) limits the total memory used for join buffers in a query.
 
 To optimize the usage of the join buffers within the limit set by `join_buffer_space_limit`, one should use the [optimizer switch ](../query-optimizations/optimizer-switch.md)`optimize_join_buffer_size=on`.\
 \
-When this flag is set to 'off' (default until [MariaDB 10.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.2)), the size of the used join buffer is taken directly from the [join\_buffer\_size](../system-variables/server-system-variables.md#join_buffer_size) system variable. \
+When this flag is set to 'off', the size of the used join buffer is taken directly from the [join\_buffer\_size](../system-variables/server-system-variables.md#join_buffer_size) system variable. \
 \
-When this flag is set to 'on' (default from [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3)) then the size of the buffer depends on the estimated number of rows in the partial join whose records are to be stored in the buffer.
+When this flag is set to 'on' (the default) then the size of the buffer depends on the estimated number of rows in the partial join whose records are to be stored in the buffer.
 
 ### Related MRR Settings
 

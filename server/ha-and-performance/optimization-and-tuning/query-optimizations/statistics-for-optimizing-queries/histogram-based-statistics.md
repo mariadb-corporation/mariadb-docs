@@ -4,7 +4,7 @@ Histogram-based statistics are a mechanism to improve the query plan chosen by t
 
 Histogram statistics are stored in the [mysql.column\_stats](../../../../reference/system-tables/the-mysql-database-tables/mysql-column_stats-table.md) table, which stores data for [engine-independent table statistics](engine-independent-table-statistics.md), and so are essentially a subset of engine-independent table statistics.
 
-Histograms are used by default from [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) if they are available. However, histogram statistics are not automatically collected, as collection is expensive, requiring a full table scan. See [Collecting Statistics with the ANALYZE TABLE Statement](engine-independent-table-statistics.md#collecting-statistics-with-the-analyze-table-statement) for details.
+Histograms are used by default if they are available. However, histogram statistics are not automatically collected, as collection is expensive, requiring a full table scan. See [Collecting Statistics with the ANALYZE TABLE Statement](engine-independent-table-statistics.md#collecting-statistics-with-the-analyze-table-statement) for details.
 
 Consider this example, using the following query:
 
@@ -43,11 +43,11 @@ There are a number of system variables that affect histograms.
 
 ### histogram\_size
 
-The [histogram\_size](../../system-variables/server-system-variables.md#histogram_size) variable determines the size, in bytes, from 0 to 255, used for a histogram. This is effectively the number of bins for `histogram_type=SINGLE_PREC_HB` or number of bins/2 for `histogram_type=DOUBLE_PREC_HB`. If it is set to 0 (the default for [MariaDB 10.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.2) and below), no histograms are created when running an [ANALYZE TABLE](../../../../reference/sql-statements/table-statements/analyze-table.md).
+The [histogram\_size](../../system-variables/server-system-variables.md#histogram_size) variable determines the size, in bytes, from 0 to 255, used for a histogram. This is effectively the number of bins for `histogram_type=SINGLE_PREC_HB` or number of bins/2 for `histogram_type=DOUBLE_PREC_HB`. If it is set to 0, no histograms are created when running an [ANALYZE TABLE](../../../../reference/sql-statements/table-statements/analyze-table.md).
 
 ### histogram\_type
 
-The [histogram\_type](../../system-variables/server-system-variables.md#histogram_type) variable determines whether single precision (`SINGLE_PREC_HB`) or double precision (`DOUBLE_PREC_HB`) height-balanced histograms are created. From [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3), double precision is the default. For [MariaDB 10.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.2) and below, single precision is the default.
+The [histogram\_type](../../system-variables/server-system-variables.md#histogram_type) variable determines whether single precision (`SINGLE_PREC_HB`) or double precision (`DOUBLE_PREC_HB`) height-balanced histograms are created. Double precision is the default.
 
 From [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108), `JSON_HB`, JSON-format histograms, are accepted.
 
@@ -55,13 +55,13 @@ From [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 
 The [optimizer\_use\_condition\_selectivity](../../system-variables/server-system-variables.md#optimizer_use_condition_selectivity) controls which statistics can be used by the optimizer when looking for the best query execution plan.
 
-* `1` Use selectivity of predicates as in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5).
+* `1` Use selectivity of index-backed range predicates only if the last joined table is accessed by a full table scan or an index scan.
 * `2` Use selectivity of all range predicates supported by indexes.
 * `3` Use selectivity of all range predicates estimated without histogram.
 * `4` Use selectivity of all range predicates estimated with histogram.
 * `5` Additionally use selectivity of certain non-range predicates calculated on record sample.
 
-From [MariaDB 10.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.1), the default is `4`. Until [MariaDB 10.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.0), the default is `1`.
+The default is `4`.
 
 ## Example
 

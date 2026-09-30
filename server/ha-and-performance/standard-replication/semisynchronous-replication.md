@@ -340,7 +340,6 @@ Either way, the point is that the primary can supply transactions again after a 
     3. Commits the transaction to the storage engine.
     4. Waits for acknowledgement from the replica.
     5. Returns an acknowledgement to the client.
-  * In [MariaDB 10.1.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.2) and before, this system variable does not exist. However, in those versions, the primary waits for the acknowledgement from replicas at a point that is equivalent to `AFTER_COMMIT`.
   * See [Configuring the Primary Wait Point](semisynchronous-replication.md#configuring-the-primary-wait-point) for more information.
 * Command line: `--rpl-semi-sync-master-wait-point=value`
 * Scope: Global

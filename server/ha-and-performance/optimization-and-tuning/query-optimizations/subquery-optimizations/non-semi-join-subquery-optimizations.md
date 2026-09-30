@@ -151,13 +151,13 @@ In the above cases, the server reverts to the [IN-TO-EXISTS](non-semi-join-subqu
 
 ## The IN-TO-EXISTS transformation
 
-This optimization is the only subquery execution strategy that existed in older versions of MariaDB and MySQL prior to [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3). We have made various changes and fixed a number of bugs in this code as well, but in essence it remains the same.
+This optimization is the traditional subquery execution strategy, also used by MySQL. We have made various changes and fixed a number of bugs in this code as well, but in essence it remains the same.
 
 ## Performance discussion
 
-### Example speedup over MySQL 5.x and [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.1/changes-improvements-in-mariadb-5-1)/5.2
+### Example Speedup over MySQL 5.x
 
-Depending on the query and data, either of the two strategies described here may result in orders of magnitude better/worse plan than the other strategy. Older versions of MariaDB and any current MySQL version (including MySQL 5.5, and MySQL 5.6 DMR as of July 2011) implement only the IN-TO-EXISTS transformation. As illustrated below, this strategy is inferior in many common cases to subquery materialization.
+Depending on the query and data, either of the two strategies described here may result in orders of magnitude better/worse plan than the other strategy. MySQL 5.5 and MySQL 5.6 DMR (as of July 2011) implement only the IN-TO-EXISTS transformation. As illustrated below, this strategy is inferior in many common cases to subquery materialization.
 
 Consider the following query over the data of the DBT3 benchmark scale 10. Find customers with top balance in their nations:
 
@@ -171,7 +171,7 @@ ORDER BY p_retailprice DESC LIMIT 10;
 
 The times to run this query is as follows:
 
-* Execution time in [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2)/MySQL 5.x (any MySQL): > 1 h\
+* Execution time in MySQL 5.x: > 1 h\
   The query takes more than one hour (we didn't wait longer), which makes it impractical to use subqueries in such cases. The EXPLAIN below shows that the subquery was transformed into a correlated one, which indicates an IN-TO-EXISTS transformation.
 
 ```sql
@@ -183,8 +183,8 @@ The times to run this query is as follows:
 +--+------------------+--------+--------------+-------------------+----+------+---------------------------+
 ```
 
-* Execution time in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3): 43 sec\
-  In [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3) it takes less than a minute to run the same query. The EXPLAIN shows that the subquery remains uncorrelated, which is an indication that it is being executed via subquery materialization.
+* Execution time in MariaDB: 43 sec\
+  In MariaDB it takes less than a minute to run the same query. The EXPLAIN shows that the subquery remains uncorrelated, which is an indication that it is being executed via subquery materialization.
 
 ```sql
 +--+------------+-----------+------+------------------+----+------+-------------------------------+
@@ -196,7 +196,7 @@ The times to run this query is as follows:
 +--+------------+-----------+------+------------------+----+------+-------------------------------+
 ```
 
-The speedup here is practically infinite, because both MySQL and older MariaDB versions cannot complete the query in any reasonable time.
+The speedup here is practically infinite, because MySQL 5.x cannot complete the query in any reasonable time.
 
 In order to show the benefits of partial matching we extended the _customer_ table from the DBT3 benchmark with two extra columns:
 
@@ -221,8 +221,8 @@ WHERE (c_custkey, c_pref_nationkey_05, c_pref_brand_05) NOT IN
          o_orderdate >= '1996-04-01' AND o_orderdate < '1996-04-05');
 ```
 
-* Execution time in [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2)/MySQL 5.x (any MySQL): 40 sec
-* Execution time in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3): 2 sec
+* Execution time in MySQL 5.x: 40 sec
+* Execution time in MariaDB: 2 sec
 
 The speedup for this query is 20 times.
 

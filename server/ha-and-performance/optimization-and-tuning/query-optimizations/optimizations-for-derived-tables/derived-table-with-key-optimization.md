@@ -4,7 +4,7 @@
 
 If a derived table cannot be merged into its parent SELECT, it will be materialized in a temporary table, and then parent select will treat it as a regular base table.
 
-Before [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3)/MySQL 5.6, the temporary table would never have any indexes, and the only way to read records from it would be a full table scan. Starting from the mentioned versions of the server, the optimizer has an option to create an index and use it for joins with other tables.
+The optimizer can create an index on the temporary table and use it for joins with other tables. (Before MySQL 5.6, the temporary table never had any indexes, and the only way to read records from it was a full table scan.)
 
 ## Example
 
@@ -58,7 +58,6 @@ SET optimizer_switch='derived_with_keys=off'
 ## See Also
 
 * [Optimizing Subqueries in the FROM Clause](https://dev.mysql.com/doc/refman/5.6/en/from-clause-subquery-optimization.html) in MySQL 5.6 manual
-* [What is MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3)
 * [Subquery Optimizations Map](../subquery-optimizations/subquery-optimizations-map.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

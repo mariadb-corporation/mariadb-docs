@@ -121,20 +121,6 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
 
-#### `Com_show_master_status`
-
-* Description: Number of [SHOW MASTER STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-binlog-status.md) commands executed.
-* Scope: Global, Session
-* Data Type: `numeric`
-* Removed: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
-
-#### `Com_show_new_master`
-
-* Description:
-* Scope: Global, Session
-* Data Type: `numeric`
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
-
 #### `Com_show_slave_hosts`
 
 * Description: Number of [SHOW SLAVE HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) commands executed.
@@ -147,20 +133,6 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 * Scope: Global, Session
 * Data Type: `numeric`
 
-#### `Com_slave_start`
-
-* Description: Number of [START SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md) commands executed. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0), see [Com\_start\_slave](replication-and-binary-log-status-variables.md#com_start_slave).
-* Scope: Global, Session
-* Data Type: `numeric`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-
-#### `Com_slave_stop`
-
-* Description: Number of [STOP SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) commands executed. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0), see [Com\_stop\_slave](replication-and-binary-log-status-variables.md#com_stop_slave).
-* Scope: Global, Session
-* Data Type: `numeric`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-
 #### `Com_start_all_slaves`
 
 * Description: Number of [START ALL SLAVES](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md) commands executed.
@@ -169,7 +141,7 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 
 #### `Com_start_slave`
 
-* Description: Number of [START SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md) commands executed. Replaces the old [Com\_slave\_start](replication-and-binary-log-status-variables.md#com_slave_start).
+* Description: Number of [START SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md) commands executed.
 * Scope: Global, Session
 * Data Type: `numeric`
 
@@ -181,7 +153,7 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 
 #### `Com_stop_slave`
 
-* Description: Number of [STOP SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) commands executed. Replaces the old [Com\_slave\_stop](replication-and-binary-log-status-variables.md#com_slave_stop).
+* Description: Number of [STOP SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) commands executed.
 * Scope: Global, Session
 * Data Type: `numeric`
 
@@ -205,7 +177,7 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 
 #### `Rpl_status`
 
-* Description: For showing the status of fail-safe replication. Removed in MySQL 5.6, still present in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0).
+* Description: For showing the status of fail-safe replication. Removed in MySQL 5.6, but still present in MariaDB.
 
 #### `Rpl_transactions_multi_engine`
 

@@ -135,36 +135,6 @@ FLUSH INDEX_STATISTICS
 FLUSH TABLE_STATISTICS
 ```
 
-## Versions
-
-### USER\_STATISTICS
-
-| Version | Status | Introduced                                                                                                   |
-| ------- | ------ | ------------------------------------------------------------------------------------------------------------ |
-| 2.0     | Stable | [MariaDB 10.1.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.18) |
-| 2.0     | Gamma  | [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1)   |
-
-### CLIENT\_STATISTICS
-
-| Version | Status | Introduced                                                                                                   |
-| ------- | ------ | ------------------------------------------------------------------------------------------------------------ |
-| 2.0     | Stable | [MariaDB 10.1.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.13) |
-| 2.0     | Gamma  | [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1)   |
-
-### INDEX\_STATISTICS
-
-| Version | Status | Introduced                                                                                                   |
-| ------- | ------ | ------------------------------------------------------------------------------------------------------------ |
-| 2.0     | Stable | [MariaDB 10.1.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.13) |
-| 2.0     | Gamma  | [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1)   |
-
-### TABLE\_STATISTICS
-
-| Version | Status | Introduced                                                                                                   |
-| ------- | ------ | ------------------------------------------------------------------------------------------------------------ |
-| 2.0     | Stable | [MariaDB 10.1.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.18) |
-| 2.0     | Gamma  | [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1)   |
-
 ## System Variables
 
 ### `userstat`

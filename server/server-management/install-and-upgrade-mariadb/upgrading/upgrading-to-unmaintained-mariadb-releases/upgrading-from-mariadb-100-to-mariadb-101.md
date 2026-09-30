@@ -89,7 +89,7 @@ The following options should be removed or renamed if you use them in your confi
 
 | Option                                                                                                                                      | Reason         |
 | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| [rpl\_recovery\_rank](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#rpl_recovery_rank) | Unused in 10.0 |
+| rpl\_recovery\_rank | Unused in 10.0 |
 
 #### Other Issues
 
