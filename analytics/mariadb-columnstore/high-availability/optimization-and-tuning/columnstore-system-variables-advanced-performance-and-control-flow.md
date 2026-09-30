@@ -34,10 +34,18 @@ Control Flow attempts to prevent ExeMgr facility overload. Multiple primprocs bo
 
 ## Memory and Cache Settings
 
-* `NumBlocksPct`: Specifies the percentage of physical memory to utilize for disk block caching. The sum of NumBlocksPct and TotalUmMemory should typically not exceed 75% of physical memory. The default is `50`.
-* `TotalUmMemory`: Specifies the percentage of physical memory to utilize for joins, intermediate results, and set operations. The default is 25%.
+*   `NumBlocksPct` (in the `DBBC` section): Sets the size of the disk block cache as a percentage of physical memory. To set an absolute size instead, add a size suffix such as `m` (megabytes) or `g` (gigabytes), for example `16g`. The default is `20`, as set in the shipped `Columnstore.xml`; if you remove the entry, ColumnStore uses `70`. Leave enough memory for `TotalUmMemory`, `mariadbd`, and the operating system.
+
+    ```bash
+    sudo mcsSetConfig DBBC NumBlocksPct 30
+    ```
+* `TotalUmMemory` (in the `HashJoin` section): Specifies the percentage of physical memory to utilize for joins, intermediate results, and set operations. The default is `65%`.
 * `MemoryCheckPercent`: The max real memory to limit the growth of buffers to, after which the system will self-shut down. The default is `95`.
 * `NumCaches`: The number of concurrent query caches used by PM to reduce contention accessing block cache resources. The default is `1`.
+
+{% hint style="info" %}
+ColumnStore 23.10.4 changed the shipped defaults of `NumBlocksPct` from `50` to `20` and `TotalUmMemory` from `25%` to `65%`. An upgrade keeps your existing `Columnstore.xml`, so a system upgraded from an earlier version keeps its previous values.
+{% endhint %}
 
 ## Disk-Based Operation Variables
 
