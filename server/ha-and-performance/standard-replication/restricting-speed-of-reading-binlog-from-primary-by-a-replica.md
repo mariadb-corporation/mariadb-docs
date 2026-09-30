@@ -21,8 +21,6 @@ download. Since the I/O thread is often much faster to download events than
 the SQL thread is at applying them, an appropriate value for**read\_binlog\_speed\_limit** may reduce load spikes on the primary without
 much limit in the speed of the replica.
 
-The option **read\_binlog\_speed\_limit** is available starting from [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3).
-
 #### `read_binlog_speed_limit`
 
 * Description: Maximum speed(KB/s) to read binlog from primary.

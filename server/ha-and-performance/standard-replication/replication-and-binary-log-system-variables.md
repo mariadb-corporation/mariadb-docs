@@ -162,7 +162,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_format`
 
-* Description: Determines whether [replication](./) is row-based, statement-based or mixed. Statement-based was the default until [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3). Be careful of changing the binary log format when a replication environment is already running. See [Binary Log Formats](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md). A replica applies any events it gets from the primary, regardless of the binary log format. `binlog_format` only applies to normal (not replicated) updates.
+* Description: Determines whether [replication](./) is row-based, statement-based or mixed. Be careful of changing the binary log format when a replication environment is already running. See [Binary Log Formats](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md). A replica applies any events it gets from the primary, regardless of the binary log format. `binlog_format` only applies to normal (not replicated) updates.
 * Command line: `--binlog-format=format`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -614,7 +614,6 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
-* Note: In MySQL and in MariaDB before version 10.0.8 this variable was silently changed if you did [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md).
 
 #### `relay_log_recovery`
 
@@ -965,7 +964,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `enum`
-* Default Value: `optimistic` (>= [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)), `conservative` (<= [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0))
+* Default Value: `optimistic`
 * Valid Values: `conservative`, `optimistic`, `none`, `aggressive` and `minimal`
 
 #### `slave_parallel_threads`
@@ -996,7 +995,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Dynamic: Yes
 * Data Type: `enum`
 * Default Value: `NO`
-* Valid Values: `NO`, `YES`, `LOGGING`, or `ENFORCE` (>= [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2))
+* Valid Values: `NO`, `YES`, `LOGGING`, or `ENFORCE`
 
 #### `slave_skip_errors`
 
@@ -1037,7 +1036,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Data Type: `string`
 * Default Value:
   * `1158,1159,1160,1161,1205,1213,1020,1429,2013,12701` (>= [MariaDB 10.6.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.18), [MariaDB 10.11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.8), [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.6), [MariaDB 11.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.5), [MariaDB 11.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.4), [MariaDB 11.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.2))
-  * `1158,1159,1160,1161,1205,1213,1429,2013,12701` (>= [MariaDB 10.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.5))
+  * `1158,1159,1160,1161,1205,1213,1429,2013,12701` (< [MariaDB 10.6.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.18))
 * Valid Values: _`comma-separated list of error codes`_
 * Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
 

@@ -1476,7 +1476,7 @@ Before this change, a non-minus-one system variable value would override the tab
 #### `spider_use_pushdown_udf`
 
 * Description:\
-  When using a UDF function in a condition and the [engine\_condition\_pushdown](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#engine_condition_pushdown) system variable is set to `1`, whether to execute the UDF function locally or push it down.
+  When using a UDF function in a condition, whether to execute the UDF function locally or push it down to the remote server.
   * `-1` Falls back to the default value, if the [table parameter](spider-table-parameters.md) is not set.
   * `0` Doesn't transmit the UDF
   * `1` Transmits the UDF.

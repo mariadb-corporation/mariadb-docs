@@ -35,7 +35,7 @@ MariaDB is not using Oracle's fix (we believe `make_join_select` is not the righ
 
 ## See Also
 
-* Blog post [MariaDB 10.1: Better query optimization for ORDER BY … LIMIT](https://s.petrunia.net/blog/?p=103)
+* Blog post [Better query optimization for ORDER BY … LIMIT](https://s.petrunia.net/blog/?p=103)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
