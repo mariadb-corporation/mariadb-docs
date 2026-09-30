@@ -695,7 +695,7 @@ Execute superuser statements: [CHANGE MASTER TO](../administrative-sql-statement
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 11.0.1:
+From MariaDB 11.0:
 {% endhint %}
 
 The SUPER privilege has been split into multiple smaller privileges to allow for more fine-grained privileges ([MDEV-21743](https://jira.mariadb.org/browse/MDEV-21743)). The privileges are:
@@ -716,9 +716,9 @@ These grants are no longer a part of SUPER and need to be granted separately.
 The [READ\_ONLY ADMIN](grant.md#read_only-admin) privilege has been removed from `SUPER`. The benefit of this is that one can remove the READ\_ONLY ADMIN privilege from all users and ensure that no one can make any changes on any non-temporary tables. This is useful on replicas when one wants to ensure that the replica is kept identical to the primary ([MDEV-29596](https://jira.mariadb.org/browse/MDEV-29596)).
 {% endtab %}
 
-{% tab title="< 11.0.1" %}
+{% tab title="< 11.0" %}
 {% hint style="info" %}
-From MariaDB 10.5 to before MariaDB 11.0.1:
+From MariaDB 10.5 to before MariaDB 11.0:
 {% endhint %}
 
 The SUPER privilege has been split into multiple smaller privileges to allow for more fine-grained privileges ([MDEV-21743](https://jira.mariadb.org/browse/MDEV-21743)). The privileges are:
@@ -1160,7 +1160,7 @@ GRANT select, insert on db.* TO alice;
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.11.0:
+From MariaDB 10.11:
 {% endhint %}
 
 **Syntax**
@@ -1202,9 +1202,9 @@ MariaDB [(none)]> SHOW GRANTS FOR PUBLIC;
 For more details, and information on the background of this feature, refer to this [blog post](https://mariadb.org/grant-to-public-in-mariadb/).
 {% endtab %}
 
-{% tab title="< 10.11.0" %}
+{% tab title="< 10.11" %}
 {% hint style="info" %}
-Before MariaDB 10.11.0:
+Before MariaDB 10.11:
 {% endhint %}
 
 TO PUBLIC is unavailable.

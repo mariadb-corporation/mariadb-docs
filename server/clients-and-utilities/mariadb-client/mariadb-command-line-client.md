@@ -608,15 +608,15 @@ You can force which protocol are used to connect to the `mariadbd` server, by gi
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.6.1:
+From MariaDB 10.6:
 {% endhint %}
 
 A connection property specified via the command line (e.g. `--port=3306`) forces its type. The protocol that matches the respective connection property is used. For instance, a TCP/IP connection is created when `--port` is specified.
 {% endtab %}
 
-{% tab title="< 10.6.1" %}
+{% tab title="< 10.6" %}
 {% hint style="info" %}
-Before MariaDB 10.6.1:
+Before MariaDB 10.6:
 {% endhint %}
 
 If `protocol` is not specified, command-line connection properties that do not force protocol are ignored.

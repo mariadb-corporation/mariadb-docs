@@ -101,7 +101,7 @@ Before MariaDB 10.7:
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 12.0.1:
+From MariaDB 12.0:
 {% endhint %}
 
 By default, temporary tables are only created on the replica if the primary is using the [STATEMENT binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging).
@@ -113,9 +113,9 @@ The new deterministic rules for logging of temporary tables are:
 * `DROP TEMPORARY` is binlogged only if the `CREATE` was binlogged.
 {% endtab %}
 
-{% tab title="< 12.0.1" %}
+{% tab title="< 12.0" %}
 {% hint style="info" %}
-Before MariaDB 12.0.1:
+Before MariaDB 12.0:
 {% endhint %}
 
 In some contexts, temporary tables on the primary and replica can become inconsistent.\
@@ -612,15 +612,15 @@ The `COMMENT` index option allows you to specify a comment with user-readable te
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.6.0:
+From MariaDB 10.6:
 {% endhint %}
 
 Indexes can be specified to be ignored by the optimizer. See [Ignored Indexes](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/ignored-indexes.md).
 {% endtab %}
 
-{% tab title="< 10.6.0" %}
+{% tab title="< 10.6" %}
 {% hint style="info" %}
-Before MariaDB 10.6.0:
+Before MariaDB 10.6:
 {% endhint %}
 
 Indexes can be specified to be ignored by the optimizer. See [Ignored Indexes](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/ignored-indexes.md).
@@ -974,7 +974,7 @@ Also see [Partitioning Types Overview](../../../../server-usage/partitioning-tab
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.7.1:
+From MariaDB 10.7:
 {% endhint %}
 
 The `PARTITION` keyword is optional as part of the partition definition. Instead of this:
@@ -1004,9 +1004,9 @@ CREATE OR REPLACE TABLE t1 (x INT)
 ```
 {% endtab %}
 
-{% tab title="< 10.7.1" %}
+{% tab title="< 10.7" %}
 {% hint style="info" %}
-Before MariaDB 10.7.1:
+Before MariaDB 10.7:
 {% endhint %}
 
 The `PARTITION` keyword is not optional as part of the partition definition. You must use this syntax:
@@ -1033,15 +1033,15 @@ CREATE OR REPLACE TABLE t1 (x INT)
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.6.1:
+From MariaDB 10.6:
 {% endhint %}
 
 MariaDB supports [Atomic DDL](../atomic-ddl.md). `CREATE TABLE` is atomic, except for `CREATE OR REPLACE`, which are only crash-safe.
 {% endtab %}
 
-{% tab title="< 10.6.1" %}
+{% tab title="< 10.6" %}
 {% hint style="info" %}
-Before MariaDB 10.6.1:
+Before MariaDB 10.6:
 {% endhint %}
 
 \-

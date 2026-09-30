@@ -93,7 +93,7 @@ Executing the `RENAME TABLE` statement requires the [ALTER](../account-managemen
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.6.1:
+From MariaDB 10.6:
 {% endhint %}
 
 `RENAME TABLE` is atomic for most storage engines, including InnoDB, MyRocks, MyISAM and Aria ([MDEV-23842](https://jira.mariadb.org/browse/MDEV-23842)).
@@ -103,9 +103,9 @@ This means that if there is a crash (server down or power outage) during `RENAME
 See [Atomic DDL](atomic-ddl.md) for more information.
 {% endtab %}
 
-{% tab title="< 10.6.1" %}
+{% tab title="< 10.6" %}
 {% hint style="info" %}
-Before MariaDB 10.6.1:
+Before MariaDB 10.6:
 {% endhint %}
 
 `RENAME TABLE` is **not** atomic.

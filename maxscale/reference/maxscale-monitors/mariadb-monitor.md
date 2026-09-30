@@ -68,7 +68,7 @@ If [cluster manipulation operations](mariadb-monitor.md#cluster-manipulation-ope
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 11.0.1:
+From MariaDB 11.0:
 {% endhint %}
 
 ```sql
@@ -79,9 +79,9 @@ GRANT SELECT ON mysql.global_priv TO 'mariadbmon'@'maxscalehost';
 ```
 {% endtab %}
 
-{% tab title="< 11.0.1" %}
+{% tab title="< 11.0" %}
 {% hint style="info" %}
-Before MariaDB 11.0.1:
+Before MariaDB 11.0:
 {% endhint %}
 
 ```sql

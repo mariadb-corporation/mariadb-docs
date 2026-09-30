@@ -198,7 +198,11 @@ $ sudo openssl rand -hex 128 > /etc/mysql/encryption/keyfile.key
 Encrypt the key file using the [openssl enc](https://www.openssl.org/docs/man1.1.1/man1/enc.html) command. To encrypt the key file with the encryption password created in the previous step, execute for example one of the following commands:
 
 {% tabs %}
-{% tab title="Current (>= 12.0.1)" %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 ```bash
 $ sudo openssl enc -aes-256-cbc -md sha256 -pbkdf2 \
    -pass file:/etc/mysql/encryption/keyfile.key \
@@ -220,7 +224,11 @@ To use `-pbkdf2` effectively, specify the iteration count on the MariaDB Server 
 {% endhint %}
 {% endtab %}
 
-{% tab title="< 12.0.1" %}
+{% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 {% code overflow="wrap" %}
 ```bash
 $ sudo openssl enc -aes-256-cbc -md sha1 \
@@ -248,7 +256,11 @@ The `file_key_management_filekey` variable can be provided in two forms:
 These variables can be specified as command-line arguments to `mariadbd`, or they can be specified in a relevant server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
 {% tabs %}
-{% tab title="Current (>= 12.0.1)" %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 ```ini
 [mariadb]
 ...
@@ -259,7 +271,11 @@ loose_file_key_management_use_pbkdf2 = 20000
 ```
 {% endtab %}
 
-{% tab title="< 12.0.1" %}
+{% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 ```ini
 [mariadb]
 ...
@@ -395,7 +411,7 @@ The File Key Management plugin does not support [key rotation](encryption-key-ma
 * Data type: enumerated
 * Default value: sha1
 * Valid values: sha1, sha224, sha256, sha384, sha512
-* Available from MariaDB 12.0.1
+* Available from MariaDB 12.0
 
 ### `file_key_management_filekey`
 
@@ -428,7 +444,7 @@ The File Key Management plugin does not support [key rotation](encryption-key-ma
 * Data type: `numeric`
 * Default value: 0
 * Valid values: integers ≥ 0 (reasonable value: 600000 for sha256, less for sha512)
-* Available from MariaDB 12.0.1
+* Available from MariaDB 12.0
 
 ## Options
 

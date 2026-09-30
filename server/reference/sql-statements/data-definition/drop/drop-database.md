@@ -27,7 +27,7 @@ Use `IF EXISTS` to prevent an error from occurring for databases that do not exi
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.6.1:
+From MariaDB 10.6:
 {% endhint %}
 
 [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1) supports [Atomic DDL](../atomic-ddl.md).`DROP DATABASE` is implemented as
@@ -40,9 +40,9 @@ LOOP OVER ALL tables
 Each individual [DROP TABLE](drop-table.md) is atomic while `DROP DATABASE` as a whole is crash-safe.
 {% endtab %}
 
-{% tab title="< 10.6.1" %}
+{% tab title="< 10.6" %}
 {% hint style="info" %}
-Before MariaDB 10.6.1:
+Before MariaDB 10.6:
 {% endhint %}
 
 Atomic `DROP` is not available.

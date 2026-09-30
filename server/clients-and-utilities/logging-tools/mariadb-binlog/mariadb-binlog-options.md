@@ -271,11 +271,7 @@ Options `--start-position` and `--stop-position` compare Sequence Numbers only p
 
 If specified, stop reading the binlog at the first event having a datetime equal to or posterior to the argument; the argument must be a date and time in the local time zone, in any format accepted by the MariaDB server for `DATETIME` and `TIMESTAMP` types, for example: `2014-12-25 11:25:56` (you should probably use quotes for your shell to set it properly). Ignored in `--raw` mode.
 
-{% tabs %}
-{% tab title="≥ 10.11.14" %}
-Emit a warning if the specified time is not found within the specified binlogs.
-{% endtab %}
-{% endtabs %}
+`mariadb-binlog` emits a warning if it reaches the end of its input before the specified time. It does so from MariaDB 10.6.20, 10.11.10, 11.4.4, and 11.7.1, and with `--read-from-remote-server` from MariaDB 10.6.21, 10.11.11, 11.4.5, and 11.7.2.
 
 #### --stop-never
 
@@ -289,15 +285,10 @@ The replica [server\_id](../../../ha-and-performance/standard-replication/replic
 
 If specified, stop reading the binlog at this _position_. Type can either be a positive integer or, from MariaDB 10.8, a [GTID](../../../ha-and-performance/standard-replication/gtid/README.md) list. When using a positive integer, the value only applies to the last binlog passed on the command line. In GTID mode, multiple GTIDs can be passed as a comma-separated list, where each must have a unique domain id. Each GTID is inclusive; only events up to the given sequence numbers are printed. Ignored in `--raw` mode.
 
-{% tabs %}
-{% tab title="≥ 10.11.14" %}
-Emit a warning if the specified position or GTID is not within the specified binlogs.
-{% endtab %}
+`mariadb-binlog` emits a warning if it reaches the end of its input before the specified position:
 
-{% tab title="≥ 10.5.27" %}
-Emit a warning if the specified position is beyond the end of the last binlog.
-{% endtab %}
-{% endtabs %}
+* **Position:** from MariaDB 10.6.20, 10.11.10, 11.4.4, and 11.7.1, and with `--read-from-remote-server` from MariaDB 10.11.12, 11.4.6, and 11.8.2.
+* **GTID list:** from MariaDB 10.11.14, 11.4.8, 11.8.3, and 12.0.2.
 
 {% hint style="warning" %}
 Options `--start-position` and `--stop-position` compare Sequence Numbers only per Domain ID and ignore Server IDs. This is incorrect, as it is different from the Replication design for GTIDs, which compares per Domain–Server ID pair. [MDEV-37231](https://jira.mariadb.org/browse/MDEV-37231) tracks this bug.
