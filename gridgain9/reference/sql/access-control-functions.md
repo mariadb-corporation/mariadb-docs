@@ -29,7 +29,7 @@ CREATE USER [IF NOT EXISTS] user_name IDENTIFIED WITH auth_type BY pass
 Parameters:
 
 - `user_name` - the name of the user.
-- `auth_type` - type of authentication for the user. Currently, only `plain_password` is available.
+- `auth_type` - type of authentication for the user. Only `plain_password` is available.
 - `pass` - user password.
 
 Examples:
@@ -410,7 +410,7 @@ Parameters:
 The following restrictions apply:
   - The expression must evaluate to the `BOOLEAN` type.
   - Only columns that exist in the target table may be referenced.
-  - The following temporal SQL functions are currently not supported: `LOCALTIME`, `LOCALTIMESTAMP`, `CURRENT_DATE`.
+  - The following temporal SQL functions are not supported: `LOCALTIME`, `LOCALTIMESTAMP`, `CURRENT_DATE`.
 
 Examples:
 

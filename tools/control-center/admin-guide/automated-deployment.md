@@ -3,6 +3,7 @@ description: >-
   Fully automated, Infrastructure-as-Code deployment of GridGain Control Center
   using its REST API, with JSON configuration files for users, teams, clusters,
   notifications, and alerts.
+hidden: true
 ---
 
 # Automated Deployment

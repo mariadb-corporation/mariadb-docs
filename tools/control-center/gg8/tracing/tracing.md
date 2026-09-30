@@ -2,6 +2,7 @@
 description: >-
   Tracing SQL transactions on GridGain 8 clusters — the Tracing screen,
   configuring scopes and sampling rate, and viewing spans.
+hidden: true
 ---
 
 # Tracing SQL Transactions with Control Center

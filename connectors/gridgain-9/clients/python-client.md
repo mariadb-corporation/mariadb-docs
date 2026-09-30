@@ -156,7 +156,7 @@ async def connect_with_authentication():
 The Python client provides an API for working with [distributed maps](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/data-structures/distributed-maps).
 
 {% hint style="info" %}
-Currently, Python client only works with binary data.
+The Python client only works with binary data.
 {% endhint %}
 
 ### Creating or Getting Map

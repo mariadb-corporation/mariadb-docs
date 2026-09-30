@@ -216,6 +216,6 @@ This process is called *data rebalance*.
 
 GridGain 9.1.4 introduced *Zone-based Replication* and uses it by default. GridGain 9.1.3 and earlier used *Table-based Replication*, so clusters created on 9.1.3 and earlier and upgraded to 9.1.4+ will still use *Table-based Replication*.
 
-*Table-based Replication* is deprecated in 9.1.11 and was removed in GridGain 9.1.15. If your cluster still uses *Table-based Replication*, you must migrate to new replication mode. Currently, there is no automatic migration tool, so you will need to create a new cluster and move your data there.
+*Table-based Replication* is deprecated in 9.1.11 and was removed in GridGain 9.1.15. If your cluster still uses *Table-based Replication*, you must migrate to new replication mode. There is no automatic migration tool, so you must create a new cluster and move your data there.
 
 If the 9.1.15+ node is still using *Table-based Replication* for persistent storage, it will not start with the `UNSUPPORTED_TABLE_BASED_REPLICATION_ERR` error.

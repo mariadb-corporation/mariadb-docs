@@ -2,6 +2,7 @@
 description: >-
   How to run GridGain Control Center with Docker, using docker-compose to start
   the Control Center Frontend and Backend containers.
+hidden: true
 ---
 
 # Control Center Docker Image

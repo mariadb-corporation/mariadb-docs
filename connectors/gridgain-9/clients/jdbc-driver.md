@@ -210,7 +210,7 @@ See [Partition Awareness Overview](overview.md#partition-awareness) for more det
 
 ## Unsupported Mandatory JDBC Features
 
-The following mandatory JDBC features are currently not supported (sorted alphabetically):
+The following mandatory JDBC features are not supported (sorted alphabetically):
 
 * java.sql.Connection#clearWarnings
 * java.sql.Connection#getWarnings
@@ -233,7 +233,7 @@ The following mandatory JDBC features are currently not supported (sorted alphab
 
 ## Unsupported Optional JDBC Features
 
-The following optional JDBC features are currently not supported (sorted alphabetically):
+The following optional JDBC features are not supported (sorted alphabetically):
 
 * java.sql.Connection#createArrayOf
 * java.sql.Connection#createBlob

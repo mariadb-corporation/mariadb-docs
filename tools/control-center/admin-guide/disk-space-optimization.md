@@ -2,6 +2,7 @@
 description: >-
   Optimizing GridGain Control Center disk space usage by limiting saved data,
   throttling collection, and cleaning up oversized tables.
+hidden: true
 ---
 
 # Disk Space Optimization

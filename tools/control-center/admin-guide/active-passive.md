@@ -2,6 +2,7 @@
 description: >-
   Deploying GridGain Control Center across two data centers in an active-passive
   configuration, so that monitoring survives the loss of one data center.
+hidden: true
 ---
 
 # Active-Passive Deployment

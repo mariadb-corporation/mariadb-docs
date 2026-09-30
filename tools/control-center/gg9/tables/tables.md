@@ -2,6 +2,7 @@
 description: >-
   Viewing partition distribution for GridGain 9 tables and distribution zones,
   and recovering lost partitions from the Disaster Recovery tab.
+hidden: true
 ---
 
 # Tables

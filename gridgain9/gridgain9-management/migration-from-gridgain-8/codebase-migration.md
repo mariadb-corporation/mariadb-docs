@@ -53,7 +53,7 @@ In the above code:
 
 - Setting `allowExtraFields` to `true` (default) allows extra fields in the Java client adapter. If you [migrate a cache in the PACK_EXTRA mode](persistent-data-migration.md#migrating-persistent-data), you can access additional fields in that cache - those that were not converted directly to columns.
 - Setting `allowNonDefaultConstructors` to `true` (`false by default`) enables mapping Java classes that do not define a default constructor. This is not supported natively in GridGain 9. Therefore, we encourage you to implement default constructors in your data classes instead of allowing non-default constructors. The latter relies on unsafe mechanisms and introduces a modest performance penalty.
-- `tableTypeRegistry` provides mappings between tables and the corresponding Java classes. In GridGain 8, this information is persisted to a system view, which can be overridden locally by individual records. Currently, the default implementation is stored in a persistent table.
+- `tableTypeRegistry` provides mappings between tables and the corresponding Java classes. In GridGain 8, this information is persisted to a system view, which can be overridden locally by individual records. The default implementation is stored in a persistent table.
 
 Now you can use the `thinClient` or `thickClient` the same way as you would use an instance of the GridGain 8 client.
 

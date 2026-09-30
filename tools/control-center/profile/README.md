@@ -2,6 +2,7 @@
 description: >-
   Viewing and editing your Control Center profile data, managing teams, and
   switching between dark and light themes.
+hidden: true
 ---
 
 # Profile and Teams Management
