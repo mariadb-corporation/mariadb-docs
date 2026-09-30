@@ -208,7 +208,7 @@ The following modules are available:
 |control-center-agent| Connects the cluster to [GridGain Control Center]({tools}/control-center) for monitoring and management. Must be enabled on all server nodes. Requires Java 17 or later.|
 |gridgain-bulkload|Support for SQL `COPY FROM INTO` statement that can be used to import or export data in csv, parquet, and iceberg formats. See [COPY INTO](../reference/sql/operational-commands.md#copy-into) for details.|
 |gridgain-sql| Support for JSON functions.  See [JSON Functions](../reference/sql/functions/json-functions.md) for details.|
-|gridgain-vector-query| Support for vector storage and indexing. See [Vector Storage](vector-search.md) for details.|
+|gridgain-vector-query| Support for vector storage and indexing. See [Vector Storage](vector-search/README.md) for details.|
 |ignite-aop | GridGain AOP module provides capability to turn any Java method to a distributed closure by adding @Gridify annotation to it.|
 |ignite-aws |Cluster discovery on AWS S3. Refer to [Amazon S3 IP Finder](clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) for details.|
 |ignite-cassandra-serializers | The GridGain Cassandra Serializers module provides additional serializers to store objects as BLOBs in Cassandra. The module could be used as in conjunction with the GridGain Cassandra Store module.|

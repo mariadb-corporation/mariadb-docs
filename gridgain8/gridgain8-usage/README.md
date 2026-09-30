@@ -145,6 +145,18 @@ Work with GridGain's distributed SQL database, including the SQL API, schemas, i
 
 {% columns %}
 {% column %}
+{% content-ref url="vector-search/" %}
+[Vector Search](vector-search/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Index and search vectors stored in cache fields in GridGain — vector fields, vector queries, and configurable similarity functions.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="cross-platform-interoperability.md" %}
 [Cross-Platform Interoperability](cross-platform-interoperability.md)
 {% endcontent-ref %}
@@ -236,18 +248,6 @@ GridGain distributes computations across cluster nodes in a balanced and fault-t
 
 {% column %}
 GridGain provides distributed implementations of common data structures, including atomic types, sequences, latches, locks, semaphores, queues, and sets.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="vector-search.md" %}
-[Vector Search](vector-search.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How to index and search vectors stored in cache fields in GridGain, including vector fields, vector queries, and similarity functions.
 {% endcolumn %}
 {% endcolumns %}
 
