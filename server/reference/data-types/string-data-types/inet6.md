@@ -6,10 +6,6 @@ description: >-
 
 # INET6
 
-{% hint style="info" %}
-`INET6` is available from MariaDB 10.5.
-{% endhint %}
-
 ## Syntax
 
 ```bnf

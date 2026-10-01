@@ -29,7 +29,7 @@ layout:
 
 | Software Version                                                                                       | Diagram                                                                      | Features                                                                                                                                                                                                                                                                                                                                     |
 | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <ul><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul> | See the topology diagram below. | <p>Columnar storage engine with S3-compatible object storage</p><ul><li>Highly available</li><li>Automatic failover via MaxScale and CMAPI</li><li>Scales read via MaxScale</li><li>Bulk data import</li><li>Enterprise Server 10.5, ColumnStore 5, MaxScale 2.5</li><li>Enterprise Server 10.6, ColumnStore 23.02, MaxScale 22.08</li></ul> |
+| <ul><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul> | See the topology diagram below. | <p>Columnar storage engine with S3-compatible object storage</p><ul><li>Highly available</li><li>Automatic failover via MaxScale and CMAPI</li><li>Scales read via MaxScale</li><li>Bulk data import</li><li>Enterprise Server 10.6, ColumnStore 23.02, MaxScale 22.08</li></ul> |
 
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
@@ -67,9 +67,9 @@ flowchart TD
 
 _MaxScale routes ro/rw traffic to three Enterprise Server and ColumnStore nodes sharing NFS storage._
 
-This procedure describes the deployment of the ColumnStore Shared Local Storage topology with MariaDB Enterprise Server 10.5, MariaDB ColumnStore 5, and MariaDB MaxScale 2.5.
+This procedure describes the deployment of the ColumnStore Shared Local Storage topology with MariaDB Enterprise Server, MariaDB ColumnStore, and MariaDB MaxScale.
 
-MariaDB ColumnStore 5 is a columnar storage engine for MariaDB Enterprise Server 10.5. ColumnStore is suitable for Online Analytical Processing (OLAP) workloads.
+MariaDB ColumnStore is a columnar storage engine for MariaDB Enterprise Server. ColumnStore is suitable for Online Analytical Processing (OLAP) workloads.
 
 This procedure has 9 steps, which are executed in sequence.
 
@@ -120,7 +120,7 @@ The ColumnStore nodes:
 
 ## Requirements
 
-These requirements are for the ColumnStore Object Storage topology when deployed with MariaDB Enterprise Server 10.5, MariaDB ColumnStore 5, and MariaDB MaxScale 2.5.
+These requirements are for the ColumnStore Shared Local Storage topology when deployed with MariaDB Enterprise Server, MariaDB ColumnStore, and MariaDB MaxScale.
 
 * Node Count
 * Operating System
@@ -141,14 +141,17 @@ These requirements are for the ColumnStore Object Storage topology when deployed
 
 ### Operating System
 
-In alignment to the [enterprise lifecycle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/enterprise-server-lifecycle), the ColumnStore Object Storage topology with MariaDB Enterprise Server 10.5, MariaDB ColumnStore 5, and MariaDB MaxScale 2.5 is provided for:
+In alignment to the [enterprise lifecycle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/enterprise-server-lifecycle), the ColumnStore Shared Local Storage topology with MariaDB Enterprise Server, MariaDB ColumnStore, and MariaDB MaxScale is provided for:
 
-* CentOS Linux 7 (x86\_64)
-* Debian 10 (x86\_64)
-* Red Hat Enterprise Linux 7 (x86\_64)
-* Red Hat Enterprise Linux 8 (x86\_64)
-* Ubuntu 18.04 LTS (x86\_64)
-* Ubuntu 20.04 LTS (x86\_64)
+* Debian 11 (x86\_64, ARM64)
+* Debian 12 (x86\_64, ARM64)
+* Red Hat Enterprise Linux 8 (x86\_64, ARM64)
+* Red Hat Enterprise Linux 9 (x86\_64, ARM64)
+* Rocky Linux 8 (x86\_64, ARM64)
+* Rocky Linux 9 (x86\_64, ARM64)
+* Ubuntu 20.04 LTS (x86\_64, ARM64)
+* Ubuntu 22.04 LTS (x86\_64, ARM64)
+* Ubuntu 24.04 LTS (x86\_64, ARM64)
 
 ### Minimum Hardware Requirements
 

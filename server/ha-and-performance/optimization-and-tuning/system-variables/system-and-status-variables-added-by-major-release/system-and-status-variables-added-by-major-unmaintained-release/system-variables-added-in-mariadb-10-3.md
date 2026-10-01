@@ -26,7 +26,7 @@ This is a list of [system variables](../../server-system-variables.md) that have
 | [slave\_transaction\_retry\_interval](../../../../standard-replication/replication-and-binary-log-system-variables.md)                                                       | [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)   |
 | [system\_versioning\_alter\_history](../../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_alter_history)                      | [MariaDB 10.3.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.4)   |
 | [system\_versioning\_asof](../../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_asof)                                         | [MariaDB 10.3.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.4)   |
-| [system\_versioning\_innodb\_algorithm\_simple](../../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_innodb_algorithm_simple) | [MariaDB 10.3.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.4)   |
+| system\_versioning\_innodb\_algorithm\_simple | [MariaDB 10.3.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.4)   |
 | [tcp\_keepalive\_interval](../../server-system-variables.md#tcp_keepalive_interval)                                                                                          | [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)   |
 | [tcp\_keepalive\_probes](../../server-system-variables.md#tcp_keepalive_probes)                                                                                              | [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)   |
 | [tcp\_keepalive\_time](../../server-system-variables.md#tcp_keepalive_time)                                                                                                  | [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)   |
@@ -34,7 +34,7 @@ This is a list of [system variables](../../server-system-variables.md) that have
 | [wsrep\_certification\_rules](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_certification_rules)                            | [MariaDB 10.3.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.13) |
 | [wsrep\_reject\_queries](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_reject_queries)                                      | [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.6)   |
 
-For system variables that have been removed or deprecated, see [Upgrading from MariaDB 10.2 to MariaDB 10.3](../../../../../server-management/install-and-upgrade-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-102-to-mariadb-103.md).
+For system variables that have been removed or deprecated, see Upgrading from MariaDB 10.2 to MariaDB 10.3.
 
 ## See Also
 

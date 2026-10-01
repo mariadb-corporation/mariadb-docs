@@ -101,21 +101,21 @@ servers=MyServer1
 ```
 
 There is a service `MyService` that uses a single server `MyServer1`,
-which, for this example, is assumed to run MariaDB 10.5.
+which, for this example, is assumed to run MariaDB 10.11.
 
-Suppose that the server should be upgraded to 11.2 and we want
+Suppose that the server should be upgraded to 11.8 and we want
 to find out whether there would be some issues with that.
 
 #### Prerequisites
 
-In order to use Diff for comparing the behaviour of MariaDB 10.5
-and MariaDB 11.2, the following steps must be taken.
+In order to use Diff for comparing the behaviour of MariaDB 10.11
+and MariaDB 11.8, the following steps must be taken.
 
-* Install MariaDB 11.2 on a host that performance wise is
-  similar to the host on which MariaDB 10.5 is running.
-* Configure the MariaDB 11.2 server to replicate from the\
-  MariaDB 10.5 server.
-* Create a server entry for the MariaDB 11.2 server in
+* Install MariaDB 11.8 on a host that performance wise is
+  similar to the host on which MariaDB 10.11 is running.
+* Configure the MariaDB 11.8 server to replicate from the\
+  MariaDB 10.11 server.
+* Create a server entry for the MariaDB 11.8 server in
   the MaxScale configuration.
 
 The created entry could be something like:

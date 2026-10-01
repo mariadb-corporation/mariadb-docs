@@ -106,7 +106,6 @@ Download a free 30-day trial of dbForge Query Builder for MariaDB [here](https:/
 | dbForge Query Builder 10.0 | MariaDB 11.4, Implemented support for the `JSON_TABLE()` table function in MariaDB.                                                                                    |
 | dbForge Query Builder 5.2  | MariaDB 11.3.                                                                                                                                                          |
 | dbForge Query Builder 5.1  | MariaDB 10.9, MariaDB 10.10.                                                                                                                                           |
-| dbForge Query Builder 4.5  | MariaDB 10.5.                                                                                                                                                          |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

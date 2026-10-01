@@ -155,8 +155,6 @@ InnoDB page compression is not enabled by default. However, InnoDB page compress
 
 InnoDB page compression is also only supported if the InnoDB table is in a [file per-table](innodb-tablespaces/innodb-file-per-table-tablespaces.md) tablespace. Therefore, the [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) system variable must be set to `ON` to use InnoDB page compression.
 
-InnoDB page compression is only supported if the InnoDB table uses the `Barracuda` [file format](innodb-file-format.md).
-
 InnoDB page compression is also only supported if the InnoDB table's [row format](innodb-row-formats/innodb-row-formats-overview.md) is [COMPACT](innodb-row-formats/innodb-compact-row-format.md) or [DYNAMIC](innodb-row-formats/innodb-dynamic-row-format.md).
 
 ### Enabling InnoDB Page Compression by Default

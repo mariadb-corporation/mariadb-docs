@@ -59,8 +59,8 @@ MariaDB renamed its client programs and scripts to `mariadb-*` names, keeping th
 
 | Historical name          | Current name             | Renamed in          |
 | ------------------------ | ------------------------ | ------------------- |
-| `mysqltest`              | `mariadb-test`           | MariaDB Server 10.5.2 |
-| `mysqltest_embedded`     | `mariadb-test-embedded`  | MariaDB Server 10.5.2 |
+| `mysqltest`              | `mariadb-test`           | Before MariaDB Server 10.6 |
+| `mysqltest_embedded`     | `mariadb-test-embedded`  | Before MariaDB Server 10.6 |
 | `mysql-test-run.pl`      | `mariadb-test-run.pl`    | MariaDB Server 10.6.2 |
 | `mysql-stress-test.pl`   | `mariadb-stress-test.pl` | MariaDB Server 10.6.2 |
 

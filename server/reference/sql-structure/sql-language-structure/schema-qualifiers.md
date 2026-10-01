@@ -31,10 +31,7 @@ For example, in Oracle mode, the data type [DATE](../../data-types/date-and-time
 
 ### Version Support
 
-* `mariadb_schema` for data type qualification is supported since:
-  * [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.24)
-  * [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.14)
-  * [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5)
+* `mariadb_schema` for data type qualification is supported.
 * `oracle_schema` is supported as part of the same schema qualifier mechanism.
 * Functional qualification using schema qualifiers is supported since:
   * [MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.17) (see [MDEV-27744](https://jira.mariadb.org/browse/MDEV-27744))

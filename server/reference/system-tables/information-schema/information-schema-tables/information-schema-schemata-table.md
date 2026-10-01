@@ -17,7 +17,7 @@ It contains the following columns:
 | DEFAULT\_CHARACTER\_SET\_NAME | Default [character set](../../../data-types/string-data-types/character-sets/) for the database.                                   |
 | DEFAULT\_COLLATION\_NAME      | Default [collation](../../../data-types/string-data-types/character-sets/).                                                        |
 | SQL\_PATH                     | Always NULL.                                                                                                                       |
-| SCHEMA\_COMMENT               | Database comment. From [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0). |
+| SCHEMA\_COMMENT               | Database comment. |
 
 ## Example
 

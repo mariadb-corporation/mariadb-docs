@@ -45,7 +45,7 @@ The following options should be removed or renamed if you use them in your [opti
 
 | Option                                                                                                                                             | Reason                                         |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| [wsrep\_load\_data\_splitting](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_load_data_splitting) | Deprecated in MariaDB 10.4, defaults to `OFF`. |
+| [wsrep\_load\_data\_splitting](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_load_data_splitting) | Removed in MariaDB 11.8, defaulted to `OFF`. |
 
 #### Options That Have Changed Default Values
 

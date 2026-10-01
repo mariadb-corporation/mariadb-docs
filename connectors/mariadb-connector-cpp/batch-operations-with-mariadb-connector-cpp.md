@@ -176,7 +176,7 @@ MariaDB Connector/C++ has several ways to send a batch to the server, and the st
 
 | Parameter | Default | Description |
 | --------- | ------- | ----------- |
-| `useBulkStmts` | `false` | Uses the dedicated MariaDB bulk execution protocol, which sends the whole batch as a single command and can be much faster. Requires MariaDB Server 10.2.7 or later. |
+| `useBulkStmts` | `false` | Uses the dedicated MariaDB bulk execution protocol, which sends the whole batch as a single command and can be much faster. Requires MariaDB Server. |
 | `rewriteBatchedStatements` | `false` | Rewrites a batch of `INSERT` statements into a single multi-values `INSERT`, or, where that is not possible, into semicolon-separated statements. Takes precedence over `useBulkStmts`. |
 | `useBatchMultiSend` | `false` | Sends the batch to the server in groups, reading the results afterward, instead of waiting for each result before sending the next command. The group size is set by `useBatchMultiSendNumber`, which defaults to `100`. Mainly useful when the client is distant from the server. |
 | `continueBatchOnError` | `true` | Controls whether the connector executes the rest of the batch after a command fails, or stops at the first failure. |

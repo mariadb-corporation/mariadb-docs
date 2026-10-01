@@ -130,16 +130,16 @@ These are for when you already installed MariaDB from a MariaDB mirror.
 For Ubuntu an additional repository step is needed:
 
 ```
-sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el,s390x]  https://ftp.osuosl.org/pub/mariadb/repo/10.5/ubuntu focal main/debug'
+sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el,s390x]  https://ftp.osuosl.org/pub/mariadb/repo/11.4/ubuntu jammy main/debug'
 ```
 
-Adjust `10.5` to the major version you are debugging and `focal` to the required distribution.
+Adjust `11.4` to the major version you are debugging and `jammy` to the required distribution.
 
 ```
-apt-get update && apt-get install -y mariadb-server-core-10.5-dbgsym
+apt-get update && apt-get install -y mariadb-server-core-dbgsym
 ```
 
-From [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109) the version isn't included in the package name and `mariadb-server-core-dbgsym` can be used as the package name.
+On MariaDB 10.6, the package name includes the major version: `mariadb-server-core-10.6-dbgsym`.
 
 #### Installing Debug Info Packages packaged by Ubuntu or Debian
 
@@ -275,7 +275,7 @@ For example, to open a core file with [gdb](https://www.gnu.org/software/gdb/doc
 sudo gdb /usr/sbin/mariadbd  /var/lib/mysql/core.932
 ```
 
-Be sure to replace `/usr/sbin/mariadbd` with the path to your `mariadbd` binary (might be `mysqld` on [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and earlier) and to also replace `/var/lib/mysql/core.932` with the path to your core file.
+Be sure to replace `/usr/sbin/mariadbd` with the path to your `mariadbd` binary and to also replace `/var/lib/mysql/core.932` with the path to your core file.
 
 Once [gdb](https://www.gnu.org/software/gdb/documentation) has opened the core file, if you want to [log all output to a file](https://sourceware.org/gdb/current/onlinedocs/gdb/Logging-Output.html#Logging-Output), then you could execute the following commands:
 

@@ -2583,7 +2583,7 @@ as `transaction_replay` in readwritesplit. `session_track_trx_state` should only
 be enabled if the default transaction tracking done by MaxScale does not produce
 the desired outcome.
 
-This is only supported by MariaDB versions 10.3 or newer. The following must be
+ The following must be
 configured in the MariaDB server in order for this feature to work. Not
 configuring the MariaDB server with it can result in the transaction state being
 wrong in MaxScale which can result in data inconsistency.
@@ -3321,8 +3321,7 @@ protocol in front of a MaxScale, you need to configure [proxy\_protocol\_network
 to be done whenever one MaxScale may connect to another Maxscale and the
 connecting MaxScale has `proxy_protocol` enabled.
 
-PROXY protocol will be supported by MariaDB 10.3, which this feature has been
-tested with. To use it, enable the PROXY protocol in MaxScale for every
+MariaDB Server supports the PROXY protocol. To use it, enable the PROXY protocol in MaxScale for every
 compatible server and configure the MariaDB servers themselves to accept the
 protocol headers from MaxScale's IP address. On the server side, the protocol
 should be enabled only for trusted IPs, as it allows the sender to spoof the
@@ -3337,8 +3336,7 @@ a given IP. MaxScale requires normal connections to backends for monitoring and
 authentication data queries, which would be blocked. To bypass this restriction,
 the server monitor needs to be disabled and the service listener needs to be
 configured to disregard authentication errors (`skip_authentication=true`).\
-Server states also need to be set manually in MaxCtrl. These steps are _not_
-required for MariaDB 10.3, since its implementation is more flexible and allows
+Server states also need to be set manually in MaxCtrl. These steps are _not_ required for MariaDB Server, since its implementation is more flexible and allows
 both PROXY-headered and headerless connections from a proxy-enabled IP.
 
 #### `disk_space_threshold`
@@ -3349,12 +3347,9 @@ both PROXY-headered and headerless connections from a proxy-enabled IP.
 * Default: None
 
 This parameter specifies how full a disk may be, before MaxScale should start
-logging warnings or take other actions (e.g. perform a switchover). This
-functionality will only work with MariaDB server versions 10.1.32, 10.2.14 and\
-10.3.6 onwards, if the `DISKS` _information schema plugin_ has been installed.
+logging warnings or take other actions (e.g. perform a switchover). This functionality only works if the `DISKS` _information schema plugin_ has been installed.
 
-**NOTE**: Since MariaDB 10.4.7, MariaDB 10.3.17 and MariaDB 10.2.26, the
-information will be available _only_ if the monitor user has the `FILE`
+**NOTE**: The information is available _only_ if the monitor user has the `FILE`
 privilege.
 
 A limit is specified as a path followed by a colon and a percentage specifying

@@ -64,7 +64,7 @@ If `Aria_pagecache_reads` is much smaller than `Aria_pagecache_read_request` and
 
 ## [MyISAM](../../../../server-usage/storage-engines/myisam-storage-engine/)
 
-* If you don't use MyISAM tables explicitly (true for most [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104)+ users), you can set [key\_buffer\_size](../../../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) to a very low value, like 64K.
+* If you don't use MyISAM tables explicitly (true for most users), you can set [key\_buffer\_size](../../../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) to a very low value, like 64K.
 
 ## Using in memory temporary tables
 
@@ -95,7 +95,7 @@ You can increase the storage for internal temporary tables by setting [max\_heap
 
 ### A Lot of Fast Connections + Small Set of Queries + Disconnects
 
-* If you are doing a lot of fast connections / disconnects, you should increase [back\_log](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#back_log) and if you are running [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) or below [thread\_cache\_size](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_cache_size).
+* If you are doing a lot of fast connections / disconnects, you should increase [back\_log](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#back_log).
 * If you have a lot (> 128) of simultaneous running fast queries, you should consider setting [thread\_handling](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md) to `pool_of_threads`.
 
 ### Connecting From a Lot of Different Machines

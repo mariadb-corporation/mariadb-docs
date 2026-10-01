@@ -704,7 +704,7 @@ All limitations that apply to `transaction_replay` also apply to`optimistic_trx`
 * Values: `none`, `local`, `global`, `fast`, `fast_global`, `universal`, `fast_universal`
 * Default: `none`
 
-Enable causal reads. This feature requires MariaDB 10.2.16 or newer to function.
+Enable causal reads.
 
 If a client connection modifies the database and `causal_reads` is enabled, any
 subsequent reads performed on replica servers will be done in a manner that

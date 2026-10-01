@@ -256,8 +256,7 @@ $ sudo cpimport -s ',' -E "'" \
 
 The cpimport tool writes logs to different directories, depending on the Enterprise ColumnStore version:
 
-* In Enterprise ColumnStore 5.5.2 and later, logs are written to `/var/log/mariadb/columnstore/bulk/`
-* In Enterprise ColumnStore 5 releases before 5.5.2, logs are written to `/var/lib/columnstore/data/bulk/`
+* Logs are written to `/var/log/mariadb/columnstore/bulk/`
 * In Enterprise ColumnStore 1.4, logs are written to `/usr/local/mariadb/columnstore/bulk/`
 
 ## Special Handling

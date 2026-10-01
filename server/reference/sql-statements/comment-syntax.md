@@ -62,7 +62,7 @@ For example, if you want to embed some code that should only execute on MySQL or
 /*!50100 MySQL and MariaDB 5.1.0 (and above) code goes here. */
 ```
 
-MariaDB-only executable comment syntax (starting from [MariaDB 5.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/5.3.1)):
+MariaDB-only executable comment syntax:
 
 ```sql
 /*M! MariaDB-specific code */

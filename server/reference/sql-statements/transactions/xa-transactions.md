@@ -251,7 +251,7 @@ See [Transaction Coordinator Log Overview: MariaDB Galera Cluster](../../../serv
 ### Incompatibility with XA behavior
 
 {% hint style="warning" %}
-From MariaDB 10.5, `XA PREPARE` persists the XA transaction following the XA Specification. If an existing application relies on the previous behavior, upgrading to 10.5 or later can leave XA transactions in the `PREPARE`d state indefinitely after disconnect, causing such applications to no longer function correctly.
+`XA PREPARE` persists the XA transaction following the XA Specification. If an application disconnects after `XA PREPARE`, the XA transaction stays in the `PREPARE`d state until it is committed or rolled back, and does not roll back automatically.
 {% endhint %}
 
 If rollback-at-disconnect is desired, it is better to use a normal (non-XA) transaction rather than XA.

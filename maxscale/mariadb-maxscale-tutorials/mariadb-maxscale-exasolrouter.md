@@ -136,7 +136,7 @@ mariadb -e "GRANT SELECT ON mysql.procs_priv TO maxuser@'%'"
 mariadb -e "GRANT SELECT ON mysql.global_priv TO maxuser@'%'"
 ```
 
-On MariaDB 10.4.1 and later, the `mysql.global_priv` grant lets MaxScale read the authentication data of each account. Without it, MaxScale logs a warning when it loads users, and accounts that have more than one authentication mechanism cannot authenticate.
+The `mysql.global_priv` grant lets MaxScale read the authentication data of each account. Without it, MaxScale logs a warning when it loads users, and accounts that have more than one authentication mechanism cannot authenticate.
 
 **Exasol User**\
 \

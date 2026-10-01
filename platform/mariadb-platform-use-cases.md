@@ -1,6 +1,6 @@
 # MariaDB Platform Use Cases
 
-_This section outlines various topologies for MariaDB deployment, emphasizing flexibility and configurations to meet diverse use cases. Key topologies include Primary/Replica for transactional workloads with features like asynchronous replication and failover management, and Galera Cluster offering a multi-primary architecture with synchronous replication. Both topologies leverage MaxScale for scaling and are compatible with Enterprise Server 10.3+ and MaxScale 2.5+. The guide also introduces the ColumnStore Object Storage for analytical processing, focusing on OLAP and data warehousing needs._
+_This section outlines various topologies for MariaDB deployment, emphasizing flexibility and configurations to meet diverse use cases. Key topologies include Primary/Replica for transactional workloads with features like asynchronous replication and failover management, and Galera Cluster offering a multi-primary architecture with synchronous replication. Both topologies leverage MaxScale for scaling and are compatible with Enterprise Server and MaxScale 2.5+. The guide also introduces the ColumnStore Object Storage for analytical processing, focusing on OLAP and data warehousing needs._
 
 MariaDB products can be deployed in many different topologies, arrangements of products and components to achieve a purpose. MariaDB products can also be deployed to form other topologies, leverage advanced product capabilities, or combine the capabilities of multiple topologies.
 
@@ -22,7 +22,7 @@ In the diagrams, ES is short for Enterprise Server.
 
 ### Primary/Replica
 
-MariaDB Replication offers high availability through asynchronous or semi-synchronous methods. It supports automatic failover via MaxScale (2.5+) and read scaling. New nodes require manual provisioning from backup. This solution is available with Enterprise Server 10.3+.
+MariaDB Replication offers high availability through asynchronous or semi-synchronous methods. It supports automatic failover via MaxScale (2.5+) and read scaling. New nodes require manual provisioning from backup. This solution is available with Enterprise Server.
 
 **Add note about primary/replica vs. master/slave**
 
@@ -54,11 +54,11 @@ flowchart TD
 
 _MaxScale routes reads to two replicas and writes to a primary, which replicates to both replicas._
 
-<ul><li><strong>MariaDB Replication</strong></li><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales reads via MaxScale</li><li>Enterprise Server 10.3+, MaxScale 2.5+</li></ul>
+<ul><li><strong>MariaDB Replication</strong></li><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales reads via MaxScale</li><li>Enterprise Server, MaxScale 2.5+</li></ul>
 
 ### Galera Cluster
 
-MariaDB Enterprise Cluster, powered by Galera, provides a highly available, multi-primary solution for transactional/OLTP workloads using the InnoDB storage engine. It features virtually synchronous, certification-based replication, automated node provisioning (IST/SST), and scales reads via MaxScale. It's compatible with Enterprise Server 10.3+ and MaxScale 2.5+.
+MariaDB Enterprise Cluster, powered by Galera, provides a highly available, multi-primary solution for transactional/OLTP workloads using the InnoDB storage engine. It features virtually synchronous, certification-based replication, automated node provisioning (IST/SST), and scales reads via MaxScale. It's compatible with Enterprise Server and MaxScale 2.5+.
 
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
@@ -87,7 +87,7 @@ flowchart TD
 
 _MaxScale routes to three ES nodes that replicate synchronously with each other as a Galera cluster._
 
-<ul><li><strong>Multi-Master Cluster Powered by Galera for Transactional/OLTP Workloads</strong></li><li>InnoDB Storage Engine</li><li>Highly available</li><li>Virtually synchronous, certification-based replication</li><li>Automated provisioning of new nodes (IST/SST)</li><li>Scales reads via MaxScale</li><li><p>Enterprise Server 10.3+, MariaDB Enterprise Cluster</p><p>(powered by Galera), MaxScale 2.5+</p></li></ul>
+<ul><li><strong>Multi-Master Cluster Powered by Galera for Transactional/OLTP Workloads</strong></li><li>InnoDB Storage Engine</li><li>Highly available</li><li>Virtually synchronous, certification-based replication</li><li>Automated provisioning of new nodes (IST/SST)</li><li>Scales reads via MaxScale</li><li><p>Enterprise Server, MariaDB Enterprise Cluster</p><p>(powered by Galera), MaxScale 2.5+</p></li></ul>
 
 ### Analytical (OLAP, Data Warehousing, DSS)
 

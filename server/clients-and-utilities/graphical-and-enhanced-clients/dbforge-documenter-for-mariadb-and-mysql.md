@@ -61,7 +61,6 @@ Download a free 30-day trial of dbForge Documenter for MariaDB and MySQL [here](
 | dbForge Documenter 10.0 | Support for MariaDB 11.4. Added support for temporal tables in MariaDB.                                                                                                |
 | dbForge Documenter 2.2  | Support for MariaDB 11.3.                                                                                                                                              |
 | dbForge Documenter 2.1  | Support for MariaDB 10.9 and 10.10.                                                                                                                                    |
-| dbForge Documenter 2.0  | Connectivity support for MariaDB 10.5.                                                                                                                                 |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

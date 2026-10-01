@@ -59,7 +59,7 @@ unsigned int params= 5;
 rc= mysql_stmt_attr_set(stmt, STMT_ATTR_PREBIND_PARAMS, ¶ms);
 ```
 
-* `STMT_ATTR_ARRAY_SIZE`: number of array elements. This option was added in Connector/C 3.0 and requires [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) or later
+* `STMT_ATTR_ARRAY_SIZE`: number of array elements. This option was added in Connector/C 3.0 and requires MariaDB Server
 
 ```c
 unsigned int array_size= 5;
@@ -68,7 +68,7 @@ rc= mysql_stmt_attr_set(stmt, STMT_ATTR_ARRAY_SIZE, &array_size);
 
 * `STMT_ATTR_ROW_SIZE`: specifies size of a structure for row wise binding. This length must include space for all of the bound parameters and any padding of the structure or buffer to ensure that when the address of a bound parameter is incremented with the specified length, the result will point to the beginning of the same parameter in the next set of parameters. When using the sizeof operator in ANSI C, this behavior is guaranteed.\
   If the value is zero column-wise binding will be used (default).\
-  This option was added in Connector/C 3.0 and requires [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) or later
+  This option was added in Connector/C 3.0 and requires MariaDB Server
 
 ```c
 size_t row_size= sizeof(struct st_customer);

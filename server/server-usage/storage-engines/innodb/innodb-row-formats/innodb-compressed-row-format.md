@@ -53,8 +53,6 @@ The value of the [innodb\_page\_size](../innodb-system-variables.md#innodb_page_
 
 The `COMPRESSED` row format cannot be set as the default row format with the [innodb\_default\_row\_format](../innodb-system-variables.md#innodb_default_row_format) system variable.
 
-The `COMPRESSED` row format is only supported by the `Barracuda` [file format](../innodb-file-format.md).
-
 In earlier versions, the `COMPRESSED` row format is also only supported if the table is in a [file per-table](../innodb-tablespaces/innodb-file-per-table-tablespaces.md) tablespace. Therefore, the [innodb\_file\_per\_table](../innodb-system-variables.md#innodb_file_per_table) system variable must be set to `ON` to use this row format in those versions.
 
 It is also recommended to set the [innodb\_strict\_mode](../innodb-system-variables.md#innodb_strict_mode) system variable to `ON` when using this row format.

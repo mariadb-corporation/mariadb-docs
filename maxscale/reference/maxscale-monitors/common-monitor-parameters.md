@@ -149,7 +149,7 @@ backend_connect_attempts=1
 
 This parameter duplicates the `disk_space_threshold` [server parameter](../maxscale-servers.md#disk_space_threshold). If the parameter has _not_ been specified for a server, then the one specified for the monitor is applied.
 
-**NOTE**: Since MariaDB 10.4.7, MariaDB 10.3.17 and MariaDB 10.2.26, the information will be available _only_ if the monitor user has the `FILE` privilege.
+**NOTE**: The information is available _only_ if the monitor user has the `FILE` privilege.
 
 That is, if the disk configuration is the same on all servers monitored by the monitor, it is sufficient (and more convenient) to specify the disk space threshold in the monitor section, but if the disk configuration is different on all or some servers, then the disk space threshold can be specified individually for each server.
 

@@ -6,7 +6,7 @@ The most recent release of [MariaDB 10.3](what-is-mariadb-103.md) is:[**MariaDB 
 
 [MariaDB 10.3](what-is-mariadb-103.md) is a previous major stable version. The first stable release was in May 2018, and it was [maintained until](https://mariadb.org/about/#maintenance-policy) May 2023.
 
-For details on upgrading from [MariaDB 10.2](../10.2/what-is-mariadb-102.md), see [Upgrading from MariaDB 10.2 to 10.3](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-102-to-mariadb-103).
+For details on upgrading from [MariaDB 10.2](../10.2/what-is-mariadb-102.md), see Upgrading from MariaDB 10.2 to 10.3.
 
 MariaDB Server 10.3 is included in MariaDB TX 3.0. [Watch the webinar recording](https://go.mariadb.com/mariadbtx3.0_webinar_registration-LP.html?utm_source=kb\&utm_campaign=mariadbtx-ondemand-webinar-kb-changes-improvements) to learn more about the new features included in this release.
 

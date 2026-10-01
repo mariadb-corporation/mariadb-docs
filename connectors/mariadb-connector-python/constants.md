@@ -301,7 +301,7 @@ column type is GEOMETRY
 ## INDICATORS
 
 Indicator values are used in executemany() method of cursor class to
-indicate special values when connected to a MariaDB server 10.2 or newer.
+indicate special values when connected to a MariaDB server.
 
 #### INDICATOR.NULL
 

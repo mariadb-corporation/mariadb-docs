@@ -29,7 +29,7 @@ If you use/have a lot of MyISAM files, increase the above to 4 or 8. See [Segmen
 thread-handling=pool-of-threads
 ```
 
-Threadpool is a great way to increase performance in situations where queries are relatively short and the load is CPU bound (e.g. OLTP workloads). To enable it, add the above to your my.cnf file. See [Threadpool in 5.5](../buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb.md) for more information.
+Threadpool is a great way to increase performance in situations where queries are relatively short and the load is CPU bound (e.g. OLTP workloads). To enable it, add the above to your my.cnf file. See [Thread Pool in MariaDB](../buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb.md) for more information.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -117,9 +117,6 @@ The following options have been deprecated. They have not yet been removed, but 
 
 * [Features in MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106)
 * [Upgrading from MariaDB 10.5 to MariaDB 10.6 with Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster/upgrading-from-mariadb-10-5-to-mariadb-10-6-with-galera-cluster)
-* [Upgrading from MariaDB 10.4 to MariaDB 10.5](../upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-4-to-mariadb-10-5.md)
-* [Upgrading from MariaDB 10.3 to MariaDB 10.4](../upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-103-to-mariadb-104.md)
-* [Upgrading from MariaDB 10.2 to MariaDB 10.3](../upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-102-to-mariadb-103.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

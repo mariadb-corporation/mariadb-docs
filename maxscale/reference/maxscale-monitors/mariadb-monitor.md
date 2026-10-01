@@ -339,10 +339,10 @@ See [operation details](mariadb-monitor.md#operation-details) for more informati
 
 MariaDB Monitor also supports backup operations that copy or overwrite the entire contents of a server: `rebuild-server` (run with the `async-rebuild-server` command), `create-backup` (`async-create-backup`), and `restore-from-backup` (`async-restore-from-backup`). These are described in the [Backup operations](mariadb-monitor.md#backup-operations) section.
 
-The cluster operations require that the monitor user (`user`) has the following privileges:
+Before MariaDB Server 11.0.1, the cluster operations require that the monitor user (`user`) has the following privileges:
 
 * SUPER, to modify replica connections, set globals such as read\_only and kill connections from other super-users
-* REPLICATION CLIENT (REPLICATION SLAVE ADMIN in MariaDB Server 10.5), to list replica connections
+* REPLICA MONITOR, to list replica connections
 * RELOAD, to flush binary logs
 * PROCESS, to check if the event\_scheduler process is running
 * SHOW DATABASES and EVENT, to list and modify server events
@@ -350,8 +350,6 @@ The cluster operations require that the monitor user (`user`) has the following 
 * SELECT on mysql.global\_priv so see to see which users have READ\_ONLY ADMIN
 
 A list of the grants can be found in the [Required Grants](mariadb-monitor.md#required-grants) section.
-
-The privilege system was changed in MariaDB Server 10.5. The effects of this on the MaxScale monitor user are minor, as the SUPER-privilege contains many of the required privileges and is still required to kill connections from other super-users.
 
 In MariaDB Server 11.0.1 and later, SUPER no longer contains all the required grants. The monitor requires:
 
@@ -1320,7 +1318,7 @@ Monitor cooperation depends on the server locks. The locks are connection-specif
 
 If the primary MaxScale or its monitor is stopped normally, the monitor connections are properly closed, releasing the locks. This allows the secondary MaxScale to quickly claim the locks. However, if the primary simply vanishes (broken network), the connection may just look idle. In this case, the MariaDB Server may take a long time before it considers the monitor connection lost. This time ultimately depends on TCP keepalive settings on the machines running MariaDB Server.
 
-On MariaDB Server 10.3.3 and later, the TCP keepalive settings can be configured for just the server process. See [Server System Variables](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_keepalive_interval) for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ and _tcp\_keepalive\_time_. These settings can also be set on the operating system level, as described [here](https://www.tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html).
+The TCP keepalive settings can be configured for just the server process. See [Server System Variables](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_keepalive_interval) for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ and _tcp\_keepalive\_time_. These settings can also be set on the operating system level, as described [here](https://www.tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html).
 
 As of MaxScale 6.4.16, 22.08.13, 23.02.10, 23.08.6 and 24.02.2, configuring TCP keepalive is no longer necessary as the monitor sets the session _wait\_timeout_ variable when acquiring a lock. This causes the MariaDB Server to close the monitor connection if the connection appears idle for too long. The value of _wait\_timeout_ used depends on the monitor interval and connection timeout settings, and is logged at MaxScale startup.
 

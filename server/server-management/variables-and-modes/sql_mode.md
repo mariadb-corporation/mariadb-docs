@@ -23,11 +23,7 @@ SELECT @@SQL_MODE, @@GLOBAL.SQL_MODE;
 
 ### Defaults
 
-| From version                                                                                                  | Default sql\_mode setting                                                                                |
-| ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4)    | STRICT\_TRANS\_TABLES, ERROR\_FOR\_DIVISION\_BY\_ZERO , NO\_AUTO\_CREATE\_USER, NO\_ENGINE\_SUBSTITUTION |
-| [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.7)    | NO\_ENGINE\_SUBSTITUTION, NO\_AUTO\_CREATE\_USER                                                         |
-| <= [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.6) | No value                                                                                                 |
+The default `sql_mode` setting is `STRICT_TRANS_TABLES`, `ERROR_FOR_DIVISION_BY_ZERO`, `NO_AUTO_CREATE_USER`, and `NO_ENGINE_SUBSTITUTION`.
 
 You can set the `SQL_MODE` either from the [command line](../starting-and-stopping-mariadb/mariadbd-options.md) (the `--sql-mode` option) or by setting the [sql\_mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_mode) system variable.
 
@@ -74,7 +70,7 @@ Oracle-compatibility option that translates Item\_string created in the parser t
 
 #### ERROR\_FOR\_DIVISION\_BY\_ZERO
 
-If not set, division by zero returns NULL. If set returns an error if one tries to update a column with 1/0 and returns a warning as well. Also see [MDEV-8319](https://jira.mariadb.org/browse/MDEV-8319). Default since [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4).
+If not set, division by zero returns NULL. If set returns an error if one tries to update a column with 1/0 and returns a warning as well. Also see [MDEV-8319](https://jira.mariadb.org/browse/MDEV-8319). Default.
 
 #### HIGH\_NOT\_PRECEDENCE
 
@@ -82,7 +78,7 @@ Compatibility option for MySQL 5.0.1 and before; This changes `NOT a BETWEEN b A
 
 #### IGNORE\_BAD\_TABLE\_OPTIONS
 
-If this is set generate a warning (not an error) for wrong table option in CREATE TABLE. Also, since 10.0.13, do not comment out these wrong table options in [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-statements/show/show-create-table.md).
+If this is set generate a warning (not an error) for wrong table option in CREATE TABLE. Also, do not comment out these wrong table options in [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-statements/show/show-create-table.md).
 
 #### IGNORE\_SPACE
 
@@ -100,7 +96,7 @@ If set, [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-st
 
 Additionally implies the following: [PIPES\_AS\_CONCAT](sql_mode.md#pipes_as_concat), [ANSI\_QUOTES](sql_mode.md#ansi_quotes), [IGNORE\_SPACE](sql_mode.md#ignore_space), [NO\_KEY\_OPTIONS](sql_mode.md#no_key_options), [NO\_TABLE\_OPTIONS](sql_mode.md#no_table_options), [NO\_FIELD\_OPTIONS](sql_mode.md#no_field_options).
 
-Additionally from [MariaDB 10.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.5), implements a limited subset of Microsoft SQL Server's language. See [SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql) for more.
+Additionally, implements a limited subset of Microsoft SQL Server's language. See [SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql) for more.
 
 If set, [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-statements/show/show-create-table.md) output will not display MariaDB-specific table attributes.
 
@@ -114,7 +110,7 @@ Same as: [NO\_FIELD\_OPTIONS](sql_mode.md#no_field_options), [HIGH\_NOT\_PRECEDE
 
 #### NO\_AUTO\_CREATE\_USER
 
-Don't automatically create users with `GRANT` unless authentication information is specified. If none is provided, will produce a 1133 error: "Can't find any matching row in the user table". Default since [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.7).
+Don't automatically create users with `GRANT` unless authentication information is specified. If none is provided, will produce a 1133 error: "Can't find any matching row in the user table". Default.
 
 #### NO\_AUTO\_VALUE\_ON\_ZERO
 
@@ -130,7 +126,7 @@ Ignore all INDEX DIRECTORY and DATA DIRECTORY directives when creating a table. 
 
 #### NO\_ENGINE\_SUBSTITUTION
 
-If not set, if the available storage engine specified by a CREATE TABLE or ALTER TABLE is not available, a warning is given and the default storage engine is used instead. If set, generate a 1286 error when creating a table if the specified [storage engine](../../server-usage/storage-engines/) is not available. See also [enforce\_storage\_engine](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#enforce_storage_engine). Default since [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.7).
+If not set, if the available storage engine specified by a CREATE TABLE or ALTER TABLE is not available, a warning is given and the default storage engine is used instead. If set, generate a 1286 error when creating a table if the specified [storage engine](../../server-usage/storage-engines/) is not available. See also [enforce\_storage\_engine](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#enforce_storage_engine). Default.
 
 #### NO\_FIELD\_OPTIONS
 
@@ -162,9 +158,9 @@ For [SELECT ... GROUP BY](../../reference/sql-statements/data-manipulation/selec
 
 #### ORACLE
 
-In all versions of MariaDB up to [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), this sets `sql_mode` that is equivalent to: [PIPES\_AS\_CONCAT](sql_mode.md#pipes_as_concat), [ANSI\_QUOTES](sql_mode.md#ansi_quotes), [IGNORE\_SPACE](sql_mode.md#ignore_space), [NO\_KEY\_OPTIONS](sql_mode.md#no_key_options), [NO\_TABLE\_OPTIONS](sql_mode.md#no_table_options), [NO\_FIELD\_OPTIONS](sql_mode.md#no_field_options), [NO\_AUTO\_CREATE\_USER](sql_mode.md#no_auto_create_user)
+This mode sets `sql_mode` to the equivalent of: [PIPES\_AS\_CONCAT](sql_mode.md#pipes_as_concat), [ANSI\_QUOTES](sql_mode.md#ansi_quotes), [IGNORE\_SPACE](sql_mode.md#ignore_space), [NO\_KEY\_OPTIONS](sql_mode.md#no_key_options), [NO\_TABLE\_OPTIONS](sql_mode.md#no_table_options), [NO\_FIELD\_OPTIONS](sql_mode.md#no_field_options), [NO\_AUTO\_CREATE\_USER](sql_mode.md#no_auto_create_user).
 
-From [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103), this mode also sets [SIMULTANEOUS\_ASSIGNMENT](sql_mode.md#simultaneous_assignment) and configures the server to understand a large subset of Oracle's PL/SQL language instead of MariaDB's traditional syntax for stored routines. See [SQL\_MODE=ORACLE From MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
+This mode also sets [SIMULTANEOUS\_ASSIGNMENT](sql_mode.md#simultaneous_assignment) and configures the server to understand a large subset of Oracle's PL/SQL language instead of MariaDB's traditional syntax for stored routines. See [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
 
 If set, [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-statements/show/show-create-table.md) output will not display MariaDB-specific table attributes.
 
@@ -188,7 +184,7 @@ If set, [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-st
 
 #### SIMULTANEOUS\_ASSIGNMENT
 
-Setting this makes the SET part of the [UPDATE](../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) statement evaluate all assignments simultaneously, not left-to-right. From [MariaDB 10.3.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.5).
+Setting this makes the SET part of the [UPDATE](../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) statement evaluate all assignments simultaneously, not left-to-right.
 
 #### STRICT\_ALL\_TABLES
 
@@ -196,11 +192,11 @@ Strict mode. Statements with invalid or missing data are aborted and rolled back
 
 #### STRICT\_TRANS\_TABLES
 
-Strict mode. Statements with invalid or missing data are aborted and rolled back, except that for non-transactional storage engines and statements affecting multiple rows where the invalid or missing data is not the first row, MariaDB will convert the invalid value to the closest valid value, or, if a value is missing, insert the column default value. Default since [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4).
+Strict mode. Statements with invalid or missing data are aborted and rolled back, except that for non-transactional storage engines and statements affecting multiple rows where the invalid or missing data is not the first row, MariaDB will convert the invalid value to the closest valid value, or, if a value is missing, insert the column default value. Default.
 
 #### TIME\_ROUND\_FRACTIONAL
 
-With this mode unset, MariaDB truncates fractional seconds when changing precision to smaller. When set, MariaDB will round when converting to TIME, DATETIME and TIMESTAMP, and truncate when converting to DATE. Since [MariaDB 10.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.1)
+With this mode unset, MariaDB truncates fractional seconds when changing precision to smaller. When set, MariaDB will round when converting to TIME, DATETIME and TIMESTAMP, and truncate when converting to DATE.
 
 #### TRADITIONAL
 
@@ -210,9 +206,9 @@ Makes MariaDB work like a traditional SQL server. Same as: [STRICT\_TRANS\_TABLE
 
 A mode where at least one of `STRICT_TRANS_TABLES` or `STRICT_ALL_TABLES` is enabled is called _strict mode_.
 
-With strict mode set (default from [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4)), statements that modify tables (either transactional for `STRICT_TRANS_TABLES` or all for `STRICT_ALL_TABLES`) will fail, and an error will be returned instead. The IGNORE keyword can be used when strict mode is set to convert the error to a warning.
+With strict mode set (default), statements that modify tables (either transactional for `STRICT_TRANS_TABLES` or all for `STRICT_ALL_TABLES`) will fail, and an error will be returned instead. The IGNORE keyword can be used when strict mode is set to convert the error to a warning.
 
-With strict mode not set (default in version <= [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3)), MariaDB will automatically adjust invalid values, for example, truncating strings that are too long, or adjusting numeric values that are out of range, and produce a warning.
+With strict mode not set, MariaDB will automatically adjust invalid values, for example, truncating strings that are too long, or adjusting numeric values that are out of range, and produce a warning.
 
 Statements that don't modify data will return a warning when adjusted regardless of mode.
 

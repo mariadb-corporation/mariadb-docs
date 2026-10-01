@@ -8,7 +8,7 @@ MariaDB 10.5 is no longer maintained. Please use a [more recent release](../../.
 
 ## Upgrading
 
-* See [Upgrading Between Major MariaDB Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/platform-specific-upgrade-guides/upgrading-on-linux/upgrading-between-major-mariadb-versions) and [Upgrading from MariaDB 10.4 to MariaDB 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-4-to-mariadb-10-5).
+* See [Upgrading Between Major MariaDB Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/platform-specific-upgrade-guides/upgrading-on-linux/upgrading-between-major-mariadb-versions) and Upgrading from MariaDB 10.4 to MariaDB 10.5.
 
 ## Implemented Features
 
@@ -91,7 +91,7 @@ See the [Differences in MariaDB Enterprise Server 10.5](../../../enterprise-serv
 * innodb\_log\_optimize\_ddl ([MDEV-19747](https://jira.mariadb.org/browse/MDEV-19747))
 * innodb\_rollback\_segments ([MDEV-19570](https://jira.mariadb.org/browse/MDEV-19570))
 * innodb\_scrub\_log and innodb\_scrub\_log\_speed ([MDEV-21870](https://jira.mariadb.org/browse/MDEV-21870))
-* Remove [INFORMATION\_SCHEMA.INNODB\_TABLESPACES\_SCRUBBING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_scrubbing-table) table and deprecate and ignore:
+* Remove INFORMATION\_SCHEMA.INNODB\_TABLESPACES\_SCRUBBING table and deprecate and ignore:
 * innodb-background-scrub-data-uncompressed
 * innodb-background-scrub-data-compressed
 * innodb-background-scrub-data-interval

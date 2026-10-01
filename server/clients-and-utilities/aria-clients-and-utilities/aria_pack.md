@@ -32,13 +32,13 @@ The following variables can be set as command line options to `aria_pack`, or se
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | -b, --backup                | Make a backup of the table as _`table_name`_`.OLD`.                                                                                |
 | --character-sets-dir=_name_ | Directory where character sets are located.                                                                                        |
-| -h, --datadir               | <p>Path for control file (and logs if <code>--logdir</code> is not used). </p><p>This option is available from MariaDB 10.5.3.</p> |
+| -h, --datadir               | Path for control file (and logs if `--logdir` is not used). |
 | -#, --debug\[=name]         | Output debug log. Often this is `d:t:o,filename`.                                                                                  |
 | -?, --help                  | Display help and exit.                                                                                                             |
 | -f, --force                 | Force packing of table even if it gets bigger or if a temporary file exists.                                                       |
-| --ignore-control-file       | <p>Ignore the control file. </p><p>This option is available from MariaDB 10.5.3.</p>                                               |
+| --ignore-control-file       | Ignore the control file. |
 | -j, --join=_name_           | Join all given tables into _name_. All tables must have identical layouts.                                                         |
-| --require-control-file      | <p>Abort if the tool cannot find the control file.</p><p>This option is available from MariaDB 10.5.3.</p>                         |
+| --require-control-file      | Abort if the tool cannot find the control file. |
 | -s, --silent                | Only write output when an error occurs.                                                                                            |
 | -t, --test                  | Don't pack table, only test packing it.                                                                                            |
 | -T, --tmpdir=name           | Use temporary directory to store temporary table.                                                                                  |

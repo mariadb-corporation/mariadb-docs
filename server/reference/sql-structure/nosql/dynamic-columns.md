@@ -93,7 +93,7 @@ This is a complete reference of dynamic columns in MariaDB.
 
 {% hint style="success" %}
 **Column can be referred to by name (column\_name in the following code blocks). This is the preferred method.**\
-If you need support for old (< 10.0) MariaDB versions, you have to refer to columns by number. In that case, replace _column\_name_ with _column\_nr_. This method is not recommended.
+You can also refer to columns by number. In that case, replace _column\_name_ with _column\_nr_. This method is not recommended.
 {% endhint %}
 
 ### Dynamic Columns Functions

@@ -21,18 +21,7 @@ The instructions below show how to perform a backup using [MariaDB Backup](../..
 
 1.  Take a full backup.
 
-    On MariaDB Enterprise Server 10.4 and later:
-
     ```bash
-    $ sudo mariadb-backup --backup \
-          --user=mariadb-backup_user \
-          --password=mariadb-backup_passwd \
-          --target-dir=/data/backup/preupgrade_backup
-    ```
-
-    On MariaDB Enterprise Server 10.3 and earlier:
-
-    ```
     $ sudo mariadb-backup --backup \
           --user=mariadb-backup_user \
           --password=mariadb-backup_passwd \
@@ -41,15 +30,6 @@ The instructions below show how to perform a backup using [MariaDB Backup](../..
 
     Confirm successful completion of the backup operation.
 2.  The backup must be prepared.
-
-    On MariaDB Enterprise Server 10.4 and later:
-
-    ```bash
-    $ sudo mariadb-backup --prepare \
-          --target-dir=/data/backup/preupgrade_backup
-    ```
-
-    On MariaDB Enterprise Server 10.3 and earlier:
 
     ```bash
     $ sudo mariadb-backup --prepare \
@@ -92,7 +72,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, AlmaLinux, Cent
 **Install via YUM (RHEL, AlmaLinux, CentOS, Rocky Linux)**
 
 1. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
-2.  Configure the YUM package repository. Installable versions of MariaDB Enterprise Server are `11.4`, `10.6`, `10.5`, `10.4`, and `10.3`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts). The following directions reference `11.4`.
+2.  Configure the YUM package repository. Installable versions of MariaDB Enterprise Server are `11.4` and `10.6`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts). The following directions reference `11.4`.
 
     To configure YUM package repositories:
 
@@ -132,7 +112,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, AlmaLinux, Cent
 1. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 2.  Configure the APT package repository.
 
-    Installable versions of MariaDB Enterprise Server are `11.4`, `10.6`, `10.5`, `10.4`, and `10.3`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts). The following directions reference `11.4`.
+    Installable versions of MariaDB Enterprise Server are `11.4` and `10.6`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts). The following directions reference `11.4`.
 
     To configure APT package repositories:
 
@@ -176,7 +156,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, AlmaLinux, Cent
 1. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 2.  Configure the ZYpp package repository.
 
-    Installable versions of MariaDB Enterprise Server are `11.4`, `10.6`, `10.5`, `10.4`, and `10.3`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts). The following directions reference `11.4`.
+    Installable versions of MariaDB Enterprise Server are `11.4` and `10.6`. Pass the version to install using the `--mariadb-server-version` flag to [mariadb\_es\_repo\_setup](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts). The following directions reference `11.4`.
 
     To configure ZYpp package repositories:
 
@@ -252,16 +232,10 @@ For distributions that use systemd, you can manage the Server process using the 
 
 MariaDB Enterprise Server ships with a utility that can be used to identify and correct compatibility issues in the new version. After you upgrade your Server and start the server process, run this utility to upgrade the data directory.
 
-The utility is called [mariadb-upgrade](../../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) in MariaDB Enterprise Server 10.4 and later:
+The utility is called [mariadb-upgrade](../../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md):
 
 ```bash
 $ sudo mariadb-upgrade
-```
-
-And the utility is called [mysql\_upgrade](../../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) in MariaDB Enterprise Server 10.3 and 10.2:
-
-```bash
-$ sudo mysql_upgrade
 ```
 
 ### Testing
@@ -270,7 +244,7 @@ When MariaDB Enterprise Server is up and running on your system, you should test
 
 1.  Connect to the server using MariaDB Client using the `root@localhost` user account.
 
-    MariaDB Client is called [mariadb](../../../../../clients-and-utilities/mariadb-client/) (ES10.4 and later) or `mysql` (ES10.3, ES10.2):
+    MariaDB Client is called [mariadb](../../../../../clients-and-utilities/mariadb-client/):
 
     ```bash
     $ sudo mariadb

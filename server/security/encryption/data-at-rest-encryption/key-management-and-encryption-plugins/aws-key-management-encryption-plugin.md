@@ -155,14 +155,6 @@ Or to rotate all keys, set the value to -1:
 SET GLOBAL aws_key_management_rotate_key=-1;
 ```
 
-## Versions
-
-| Version | Status       | Introduced                                                                                                                                                                                                                                       |
-| ------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1.0     | Stable       | [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6), [MariaDB 10.1.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.24)                         |
-| 1.0     | Beta         | [MariaDB 10.1.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.18)                                                                                                                                     |
-| 1.0     | Experimental | MariaDB 10.1.13 |
-
 ## System Variables
 
 ### `aws_key_management_key_spec`
