@@ -126,7 +126,6 @@ The list excludes the following variables, related to storage engines and plugin
 
 * [Status Variables Added in MariaDB 10.0](status-variables-added-in-mariadb-100.md)
 * [System Variables Added in MariaDB 10.1](system-variables-added-in-mariadb-101.md)
-* [Upgrading from MariaDB 5.5 to MariaDB 10.0](../../../../../server-management/install-and-upgrade-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-4-to-mariadb-10-5.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
