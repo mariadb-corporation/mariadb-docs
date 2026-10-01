@@ -1,7 +1,7 @@
 ---
 description: >-
   Instructions on how to verify your S3 configuration using tools like
-  `aria_s3_copy` and the `mysql-test-run` suite to ensure proper connectivity.
+  aria_s3_copy and the mysql-test-run suite to ensure proper connectivity.
 ---
 
 # Testing Connections to S3

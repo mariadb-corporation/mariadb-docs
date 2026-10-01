@@ -1,7 +1,7 @@
 ---
 description: >-
-  Explains how to check and repair tables in MariaDB using `CHECK TABLE` and
-  `REPAIR TABLE`, noting that InnoDB typically handles corruption by crashing to
+  Explains how to check and repair tables in MariaDB using CHECK TABLE and
+  REPAIR TABLE, noting that InnoDB typically handles corruption by crashing to
   prevent data loss.
 ---
 

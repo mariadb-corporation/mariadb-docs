@@ -1,7 +1,7 @@
 ---
 description: >-
   Lists and describes the standard Ansible modules available for managing
-  MariaDB, such as `mysql_db`, `mysql_user`, and `mysql_variables`, highlighting
+  MariaDB, such as mysql_db, mysql_user, and mysql_variables, highlighting
   their idempotent nature.
 ---
 

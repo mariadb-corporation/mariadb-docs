@@ -1,6 +1,6 @@
 ---
 description: >-
-  A reference for the `aria_s3_copy` tool, which is used to manually copy Aria
+  A reference for the aria_s3_copy tool, which is used to manually copy Aria
   tables to and from S3 storage for testing and data migration.
 ---
 

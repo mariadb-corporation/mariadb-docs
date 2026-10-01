@@ -1,5 +1,8 @@
 ---
-description: 'Step 5: Test MariaDB Enterprise Server'
+description: >-
+  Step 5 of the multi-node MariaDB ColumnStore install with shared local
+  storage: test the Enterprise Server service, client connections, the
+  ColumnStore plugin and status, DDL, and DML.
 hidden: true
 ---
 

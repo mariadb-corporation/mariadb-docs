@@ -1,5 +1,8 @@
 ---
-description: 'Step 1: Prepare ColumnStore Nodes'
+description: >-
+  Step 1 of the multi-node MariaDB ColumnStore install with shared local
+  storage: tune kernel parameters and set up security modules, firewall,
+  encoding, and DNS.
 hidden: true
 ---
 

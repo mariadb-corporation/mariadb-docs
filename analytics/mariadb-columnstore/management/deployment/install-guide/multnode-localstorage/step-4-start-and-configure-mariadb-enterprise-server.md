@@ -1,5 +1,8 @@
 ---
-description: 'Step 4: Start and Configure MariaDB Enterprise Server'
+description: >-
+  Step 4 of the multi-node MariaDB ColumnStore install with shared local
+  storage: configure ColumnStore, create user accounts, and set up replication
+  with CMAPI.
 hidden: true
 ---
 

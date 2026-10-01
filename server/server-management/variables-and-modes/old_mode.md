@@ -1,6 +1,6 @@
 ---
 description: >-
-  Describes the `OLD_MODE` system variable, used to revert specific behaviors to
+  Describes the OLD_MODE system variable, used to revert specific behaviors to
   match older MariaDB or MySQL versions for compatibility purposes during
   upgrades.
 ---

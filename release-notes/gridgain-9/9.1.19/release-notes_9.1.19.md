@@ -1,8 +1,8 @@
 ---
 description: >-
   GridGain 9.1.19 brings more monitoring improvements, an experimental ML
-  inference framework, a reworked distributed map API, and fixes for known
-  issues, including the data center replication issue from 9.1.18.
+  inference framework, a reworked distributed map API, and fixes including the
+  9.1.18 data center replication issue.
 hidden: true
 ---
 

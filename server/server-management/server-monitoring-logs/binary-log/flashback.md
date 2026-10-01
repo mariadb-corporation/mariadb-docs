@@ -1,7 +1,7 @@
 ---
 description: >-
-  Explains how to use the Flashback feature (via `mysqlbinlog --flashback`) to
-  rollback transactions by reversing the binary log events, useful for
+  Explains how to use the Flashback feature (via mariadb-binlog --flashback) to
+  roll back transactions by reversing the binary log events, useful for
   recovering from accidental data modifications.
 ---
 

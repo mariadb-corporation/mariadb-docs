@@ -1,7 +1,7 @@
 ---
 description: >-
   Guide to initializing a MariaDB server with catalog support using
-  `mariadb-install-db --catalogs` and adding new catalogs to a running instance.
+  mariadb-install-db --catalogs and adding new catalogs to a running instance.
 ---
 
 # Starting with Catalogs

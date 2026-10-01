@@ -1,8 +1,8 @@
 ---
 description: >-
-  Compare the ways of coordinating failover between multiple MariaDB MaxScale
-  instances. Walk through how an active/passive pair can diverge a cluster and
-  lose transactions, and how cooperative locking prevents it.
+  Compare ways to coordinate failover between MariaDB MaxScale instances: how an
+  active/passive pair can diverge a cluster and lose transactions, and how
+  cooperative locking prevents it.
 ---
 
 # Failover With Multiple MaxScales

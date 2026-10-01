@@ -1,6 +1,6 @@
 ---
 description: >-
-  Details the `mariadbd-safe` wrapper script, which adds safety features like
+  Details the mariadbd-safe wrapper script, which adds safety features like
   auto-restart upon crash and error logging to syslog.
 ---
 

@@ -1,8 +1,8 @@
 ---
 description: >-
-  The tls_certificate authentication plugin authenticates an account from its
-  TLS client certificate alone, with no password, by requiring the certificate
-  subject to match the account's REQUIRE SUBJECT clause.
+  The tls_certificate authentication plugin authenticates an account by its TLS
+  client certificate alone, with no password, requiring the certificate subject
+  to match REQUIRE SUBJECT.
 ---
 
 # Authentication Plugin - tls\_certificate

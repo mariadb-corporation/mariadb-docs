@@ -1,6 +1,6 @@
 ---
 description: >-
-  Instructions for running the `mariadb-install-db` script on Unix-like systems
+  Instructions for running the mariadb-install-db script on Unix-like systems
   to initialize the MariaDB data directory and system tables.
 ---
 
