@@ -28,23 +28,7 @@ It is possible to use `LIMIT` (or [ORDER BY](order-by.md)) in a multi-table [UPD
 
 ### GROUP\_CONCAT
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.3.3:
-{% endhint %}
-
 It is possible to use `LIMIT` with [GROUP\_CONCAT()](../../../sql-functions/aggregate-functions/group_concat.md).
-{% endtab %}
-
-{% tab title="< 10.3.3" %}
-{% hint style="info" %}
-Before MariaDB 10.3.3:
-{% endhint %}
-
-It is **not** possible to use `LIMIT` with [GROUP\_CONCAT()](../../../sql-functions/aggregate-functions/group_concat.md).
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

@@ -4,10 +4,6 @@
 
 {% tabs %}
 {% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.3:
-{% endhint %}
-
 ```bnf
 OPEN cursor_name [[USING variable[,...]] | [expression[,...]]];
 ```
@@ -26,16 +22,6 @@ OPEN cursor_variable FOR PREPARE stmt_name;
 OPEN cursor_variable FOR LOCAL spvar;
 ```
 {% endcode %}
-{% endtab %}
-
-{% tab title="< 10.3" %}
-{% hint style="info" %}
-Before MariaDB 10.3:
-{% endhint %}
-
-```sql
-OPEN cursor_name
-```
 {% endtab %}
 {% endtabs %}
 

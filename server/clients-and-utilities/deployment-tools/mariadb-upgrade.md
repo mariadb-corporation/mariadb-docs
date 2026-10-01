@@ -19,7 +19,7 @@ You should run `mariadb-upgrade` after upgrading from one major MariaDB release 
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.7.2 / 10.6.6 / 10.5.14:
+From MariaDB 10.7.2 / 10.6.6:
 {% endhint %}
 
 `mariadb-upgrade` needs to be run as a user with write access to the data directory.
@@ -27,9 +27,9 @@ From MariaDB 10.7.2 / 10.6.6 / 10.5.14:
 Starting from [mariadb-upgrade 2.0](mariadb-upgrade.md#mariadb-upgrade-2.0), the user running the upgrade tool must have write access to `datadir/mysql_upgrade_info`, so that the tool can write the current MariaDB version into the file.
 {% endtab %}
 
-{% tab title="< 10.7.2 / 10.6.6 / 10.5.14" %}
+{% tab title="< 10.7.2 / 10.6.6" %}
 {% hint style="info" %}
-Before MariaDB 10.7.2 / 10.6.6 / 10.5.14:
+Before MariaDB 10.7.2 / 10.6.6:
 {% endhint %}
 
 `mariadb-upgrade` needs to be run as a user with write access to the data directory.
@@ -254,23 +254,7 @@ Run this program only if its 'server version' matches the version of the server 
 
 #### --write-binlog
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.0.6:
-{% endhint %}
-
 All commands, including those run by [mariadb-check](../table-tools/mariadb-check.md), are written to the [binary log](../../server-management/server-monitoring-logs/binary-log/). Disabled by default.
-{% endtab %}
-
-{% tab title="< 10.0.6" %}
-{% hint style="info" %}
-Before MariaDB 10.0.6:
-{% endhint %}
-
-All commands, including those run by [mariadb-check](../table-tools/mariadb-check.md), are written to the [binary log](../../server-management/server-monitoring-logs/binary-log/). Enabled by default. The `--skip-write-binlog` option must be used when commands should not be sent to replication replicas.
-{% endtab %}
-{% endtabs %}
 
 ### Option Files
 

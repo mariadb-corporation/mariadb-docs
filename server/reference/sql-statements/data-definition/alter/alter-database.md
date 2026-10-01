@@ -56,27 +56,9 @@ From [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-s
 
 ## Examples
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 ```sql
 ALTER DATABASE p COMMENT='Presentations';
 ```
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-```sql
-ALTER DATABASE test CHARACTER SET='utf8'  COLLATE='utf8_bin';
-```
-{% endtab %}
-{% endtabs %}
 
 ## See Also
 

@@ -57,7 +57,7 @@ SELECT VARIABLE_NAME, SESSION_VALUE
 
 {% tab title="< 11.8" %}
 {% hint style="info" %}
-From MariaDB 10.6 to before MariaDB 11.8:
+Before MariaDB 11.8:
 {% endhint %}
 
 The `utf8` [character set](./) (and related collations) is an alias for `utf8mb3`, rather than the other way around. MariaDB 11.2 added the [character\_set\_collations](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_collations) variable, so the `SELECT` query is more specific in this example:
@@ -94,78 +94,6 @@ SELECT VARIABLE_NAME, SESSION_VALUE
 | CHARACTER_SET_CLIENT     | utf8mb4            |
 | COLLATION_CONNECTION     | utf8mb4_general_ci |
 +--------------------------+--------------------+
-```
-{% endtab %}
-
-{% tab title="< 10.6" %}
-{% hint style="info" %}
-Before MariaDB 10.6:
-{% endhint %}
-
-The utf8 [character set](./) (and related collation) is the default for the given variables:
-
-```sql
-SELECT VARIABLE_NAME, SESSION_VALUE 
-  FROM INFORMATION_SCHEMA.SYSTEM_VARIABLES WHERE 
-  VARIABLE_NAME LIKE 'character_set_c%' OR 
-  VARIABLE_NAME LIKE 'character_set_re%' OR 
-  VARIABLE_NAME LIKE 'collation_c%';
-+--------------------------+-----------------+
-| VARIABLE_NAME            | SESSION_VALUE   |
-+--------------------------+-----------------+
-| CHARACTER_SET_RESULTS    | utf8            |
-| CHARACTER_SET_CONNECTION | utf8            |
-| CHARACTER_SET_CLIENT     | utf8            |
-| COLLATION_CONNECTION     | utf8_general_ci |
-+--------------------------+-----------------+
-
-SET NAMES big5;
-
-SELECT VARIABLE_NAME, SESSION_VALUE 
-  FROM INFORMATION_SCHEMA.SYSTEM_VARIABLES WHERE 
-  VARIABLE_NAME LIKE 'character_set_c%' OR 
-  VARIABLE_NAME LIKE 'character_set_re%' OR 
-  VARIABLE_NAME LIKE 'collation_c%';
-+--------------------------+-----------------+
-| VARIABLE_NAME            | SESSION_VALUE   |
-+--------------------------+-----------------+
-| CHARACTER_SET_RESULTS    | big5            |
-| CHARACTER_SET_CONNECTION | big5            |
-| CHARACTER_SET_CLIENT     | big5            |
-| COLLATION_CONNECTION     | big5_chinese_ci |
-+--------------------------+-----------------+
-
-SET NAMES 'latin1' COLLATE 'latin1_bin';
-
-SELECT VARIABLE_NAME, SESSION_VALUE 
-  FROM INFORMATION_SCHEMA.SYSTEM_VARIABLES WHERE 
-  VARIABLE_NAME LIKE 'character_set_c%' OR 
-  VARIABLE_NAME LIKE 'character_set_re%' OR 
-  VARIABLE_NAME LIKE 'collation_c%';
-+--------------------------+---------------+
-| VARIABLE_NAME            | SESSION_VALUE |
-+--------------------------+---------------+
-| CHARACTER_SET_RESULTS    | latin1        |
-| CHARACTER_SET_CONNECTION | latin1        |
-| CHARACTER_SET_CLIENT     | latin1        |
-| COLLATION_CONNECTION     | latin1_bin    |
-+--------------------------+---------------+
-
-SET NAMES DEFAULT;
-
-SELECT VARIABLE_NAME, SESSION_VALUE 
-  FROM INFORMATION_SCHEMA.SYSTEM_VARIABLES WHERE 
-  VARIABLE_NAME LIKE 'character_set_c%' OR 
-  VARIABLE_NAME LIKE 'character_set_re%' OR 
-  VARIABLE_NAME LIKE 'collation_c%';
-+--------------------------+-------------------+
-| VARIABLE_NAME            | SESSION_VALUE     |
-+--------------------------+-------------------+
-| CHARACTER_SET_RESULTS    | latin1            |
-| CHARACTER_SET_CONNECTION | latin1            |
-| CHARACTER_SET_CLIENT     | latin1            |
-| COLLATION_CONNECTION     | latin1_swedish_ci |
-+--------------------------+-------------------+
 ```
 {% endtab %}
 {% endtabs %}

@@ -22,41 +22,9 @@ Duplicated entries in the `ORDER BY` clause are removed.
 
 `ORDER BY` can also be used to order the activities of a [DELETE](../changing-deleting-data/delete.md) or [UPDATE](../changing-deleting-data/update.md) statement (usually with the [LIMIT](limit.md) clause).
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.3.2:
-{% endhint %}
-
 It is possible to use `ORDER BY` (or [LIMIT](limit.md)) in a multi-table [UPDATE](../changing-deleting-data/update.md) statement.
-{% endtab %}
-
-{% tab title="< 10.3.2" %}
-{% hint style="info" %}
-Before MariaDB 10.3.2:
-{% endhint %}
-
-It is **not** possible to use `ORDER BY` (or [LIMIT](limit.md)) in a multi-table [UPDATE](../changing-deleting-data/update.md) statement.
-{% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
 
 MariaDB allows packed sort keys and values of non-sorted fields in the sort buffer. This can make filesort temporary files much smaller when `VARCHAR`, `CHAR` or `BLOB` columns are used, notably speeding up some `ORDER BY` sorts.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-MariaDB does not allow packed sort keys and values of non-sorted fields in the sort buffer.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

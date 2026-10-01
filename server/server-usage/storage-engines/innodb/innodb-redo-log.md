@@ -18,7 +18,7 @@ InnoDB periodically performs **checkpoints**. During a checkpoint operation, Inn
 
 In the event of a server crash, InnoDB utilizes the Redo Log for **crash recovery** during the subsequent server startup. It locates the last checkpoint within the Redo Log and then replays the Redo Log records generated since that checkpoint, effectively flushing these pending changes to the InnoDB tablespace files.
 
-The redo log is a single file named `ib_logfile0`. Its location is determined by the `innodb_log_group_home_dir` system variable, if configured. If this variable is not set, the file is created in the directory specified by the `datadir` system variable. Before [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), the log was spread over several files named `ib_logfileN`, where `N` is an integer, which InnoDB treated as one large circular file. A second file, `ib_logfile101`, appears only while the log is being resized, rebuilt, or upgraded; InnoDB renames it over `ib_logfile0` once the replacement is complete. The redo log plays a crucial role during crash recovery and in the background process of flushing transactions to the tablespaces.
+The redo log is a single file named `ib_logfile0`. Its location is determined by the `innodb_log_group_home_dir` system variable, if configured. If this variable is not set, the file is created in the directory specified by the `datadir` system variable. A second file, `ib_logfile101`, appears only while the log is being resized, rebuilt, or upgraded; InnoDB renames it over `ib_logfile0` once the replacement is complete. The redo log plays a crucial role during crash recovery and in the background process of flushing transactions to the tablespaces.
 
 ## Feature Summary
 
@@ -29,7 +29,7 @@ The redo log is a single file named `ib_logfile0`. Its location is determined by
 | Purpose         | Crash Safety                                                                                                                                                                                                                  |                                                                                                               |
 | Availability    | All ES and CS versions                                                                                                                                                                                                        | [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn/)           |
 | Location        | Set by [innodb\_log\_group\_home\_dir](innodb-system-variables.md#innodb_log_group_home_dir) (Defaults to [datadir](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir)) |                                                                                                               |
-| Quantity        | 1 (ES 10.5+, CS 10.5+)                                                                                                                                                                                                        | [Configure the InnoDB Redo Log](mariadb-enterprise-server-innodb-operations/configure-the-innodb-redo-log.md) |
+| Quantity        | 1                                                                                                                                                                                                                             | [Configure the InnoDB Redo Log](mariadb-enterprise-server-innodb-operations/configure-the-innodb-redo-log.md) |
 | Size            | Set by [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) (default varies)                                                                                                                            | [Configure the InnoDB Redo Log](mariadb-enterprise-server-innodb-operations/configure-the-innodb-redo-log.md) |
 
 ## Basic Configuration
@@ -77,8 +77,6 @@ For example, with [innodb\_log\_file\_size](innodb-system-variables.md#innodb_lo
 
 InnoDB begins forcing checkpoints and flushing dirty pages well before the checkpoint age reaches that figure. The threshold at which it does so is derived from the same capacity, less a reserve proportional to [innodb\_page\_size](innodb-system-variables.md#innodb_page_size).
 
-Before [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), the redo log was spread over `innodb_log_files_in_group` files and the capacity was the combined size of all of them. That system variable was deprecated and ignored in [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2) and removed in [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0).
-
 ### Sizing the Redo Log
 
 A larger redo log defers page writes. InnoDB can leave a page dirty in the buffer pool across many changes and write it out once, instead of flushing it repeatedly to hold the checkpoint age down. On write-heavy workloads that modify the same pages over and over, that reduces write amplification and the storage wear which comes with it. Where the workload calls for it, the redo log can be set to several times the size of the buffer pool.
@@ -125,9 +123,7 @@ The checkpoint age is the amount of data written to the InnoDB redo log since th
 
 #### Determining the Checkpoint Age in InnoDB
 
-**MariaDB starting with** [**10.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)
-
-[MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) reintroduced the [Innodb\_checkpoint\_age](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_checkpoint_age) status variable for determining the checkpoint age.
+The [Innodb\_checkpoint\_age](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_checkpoint_age) status variable shows the checkpoint age.
 
 The checkpoint age can also be determined by the process shown below.
 

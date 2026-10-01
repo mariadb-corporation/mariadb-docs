@@ -54,9 +54,9 @@ Before MariaDB 11.4.1 / 11.3.2 / 11.2.3 / 11.1.4 / 11.0.5:
 BACKUP LOCK requires the [RELOAD](../../account-management-sql-statements/grant.md#reload) privilege.
 {% endtab %}
 
-{% tab title="< 10.11.7 / 10.6.17 / 10.5.24" %}
+{% tab title="< 10.11.7 / 10.6.17" %}
 {% hint style="info" %}
-Before MariaDB 10.11.7 / 10.6.17 / 10.5.24:
+Before MariaDB 10.11.7 / 10.6.17:
 {% endhint %}
 
 BACKUP LOCK requires the [RELOAD](../../account-management-sql-statements/grant.md#reload) privilege.

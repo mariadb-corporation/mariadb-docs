@@ -134,7 +134,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_available_undo_logs`
 
-* Description: Total number available InnoDB [undo logs](../../../server-usage/storage-engines/innodb/innodb-undo-log.md). Differs from the [innodb\_undo\_logs](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_undo_logs) system variable, which specifies the number of active undo logs.
+* Description: Total number available InnoDB [undo logs](../../../server-usage/storage-engines/innodb/innodb-undo-log.md).
 * Scope: Global
 * Data Type: `numeric`
 

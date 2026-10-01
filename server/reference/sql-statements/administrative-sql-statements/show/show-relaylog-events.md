@@ -30,23 +30,7 @@ This command does not return events related to setting user and system variables
 
 On the primary, this command does nothing.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.9:
-{% endhint %}
-
 Requires the [REPLICA MONITOR](../../account-management-sql-statements/grant.md#replica-monitor) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.9" %}
-{% hint style="info" %}
-Before MariaDB 10.5.9:
-{% endhint %}
-
-Requires the [REPLICA MONITOR](../../account-management-sql-statements/grant.md#replica-monitor) privilege (>= [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9)), the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#replication-slave-admin) privilege (>= [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)) or the [REPLICATION SLAVE](../../account-management-sql-statements/grant.md#replication-slave) privilege (<= [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)).
-{% endtab %}
-{% endtabs %}
 
 #### connection\_name
 
@@ -55,15 +39,15 @@ If there is only one nameless primary, or the default primary (as specified by t
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.7.0:
+From MariaDB 10.7:
 {% endhint %}
 
 The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical as using the `channel_name` directly after `SHOW RELAYLOG`.
 {% endtab %}
 
-{% tab title="< 10.7.0" %}
+{% tab title="< 10.7" %}
 {% hint style="info" %}
-Before MariaDB 10.7.0:
+Before MariaDB 10.7:
 {% endhint %}
 
 `FOR CHANNEL` is not available.

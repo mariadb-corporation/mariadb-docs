@@ -139,23 +139,7 @@ SELECT trigger_name, action_order FROM information_schema.triggers
 
 ### Atomic DDL
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6:
-{% endhint %}
-
 MariaDB supports [Atomic DDL](../../../reference/sql-statements/data-definition/atomic-ddl.md), and `CREATE TRIGGER` is atomic.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-{% hint style="info" %}
-Before MariaDB 10.6:
-{% endhint %}
-
-MariaDB does **not** support [Atomic DDL](../../../reference/sql-statements/data-definition/atomic-ddl.md).
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

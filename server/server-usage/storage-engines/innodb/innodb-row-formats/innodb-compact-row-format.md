@@ -21,7 +21,7 @@ The easiest way to create an InnoDB table that uses the `COMPACT` row format is 
 
 It is recommended to set the [innodb\_strict\_mode](../innodb-system-variables.md#innodb_strict_mode) system variable to `ON` when using this row format.
 
-The `COMPACT` row format is supported by both the `Antelope` and the `Barracuda` [file formats](../innodb-file-format.md), so tables with this row format can be created regardless of the value of the [innodb\_file\_format](../innodb-system-variables.md#innodb_file_format) system variable.
+The `COMPACT` row format is supported by both the `Antelope` and the `Barracuda` [file formats](../innodb-file-format.md).
 
 For example:
 

@@ -53,7 +53,7 @@ The value of the [innodb\_page\_size](../innodb-system-variables.md#innodb_page_
 
 The `COMPRESSED` row format cannot be set as the default row format with the [innodb\_default\_row\_format](../innodb-system-variables.md#innodb_default_row_format) system variable.
 
-The `COMPRESSED` row format is only supported by the `Barracuda` [file format](../innodb-file-format.md). In earlier versions, the `COMPRESSED` row format is only supported if the [InnoDB file format](../innodb-file-format.md) is `Barracuda`. Therefore, the [innodb\_file\_format](../innodb-system-variables.md#innodb_file_format) system variable must be set to `Barracuda` to use these row formats in those versions.
+The `COMPRESSED` row format is only supported by the `Barracuda` [file format](../innodb-file-format.md).
 
 In earlier versions, the `COMPRESSED` row format is also only supported if the table is in a [file per-table](../innodb-tablespaces/innodb-file-per-table-tablespaces.md) tablespace. Therefore, the [innodb\_file\_per\_table](../innodb-system-variables.md#innodb_file_per_table) system variable must be set to `ON` to use this row format in those versions.
 
@@ -249,7 +249,7 @@ The following `INFORMATION_SCHEMA` tables can be used to monitor the performance
 
 ## Index Prefixes with the `COMPRESSED` Row Format
 
-The `COMPRESSED` row format supports index prefixes up to 3072 bytes. In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) and before, the [innodb\_large\_prefix](../innodb-system-variables.md#innodb_large_prefix) system variable is used to configure the maximum index prefix length. In these versions, if [innodb\_large\_prefix](../innodb-system-variables.md#innodb_large_prefix) is set to `ON`, then the maximum prefix length is 3072 bytes, and if it is set to `OFF`, then the maximum prefix length is 767 bytes.
+The `COMPRESSED` row format supports index prefixes up to 3072 bytes.
 
 ## Overflow Pages with the `COMPRESSED` Row Format
 

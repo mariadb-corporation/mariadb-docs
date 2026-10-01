@@ -181,7 +181,6 @@ One can also use this syntax to set `replicate-rewrite-db` for a given connectio
 * Each active connection will create 2 threads (as is normal for MariaDB replication).
 * You should ensure that all primaries have different `server-id`'s. If you don't do this, you get into trouble if you try to replicate from the multi-source replica back to your primaries.
 * One can change [max\_relay\_log\_size](replication-and-binary-log-system-variables.md) for any active connection, but new connections will always use the server startup value for `max_relay_log_size`, which can't be changed at runtime.
-* Option [innodb-recovery-update-relay-log](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_recovery_update_relay_log) (xtradb feature to store and restore relay log position for replicas) only works for the default connection ''. As this option is not really safe and can easily cause loss of data if you use storage engines other than InnoDB, we don't recommend using this option.
 * [slave\_net\_timeout](replication-and-binary-log-system-variables.md) affects all connections. We don't check anymore if it's less than [Slave\_heartbeat\_period](replication-and-binary-log-status-variables.md), as this doesn't make sense in a multi-source setup.
 
 ## See Also

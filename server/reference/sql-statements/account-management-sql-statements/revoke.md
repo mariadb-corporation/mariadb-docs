@@ -151,23 +151,7 @@ REVOKE ADMIN OPTION FOR role FROM grantee [, grantee2]
 
 `REVOKE` is also used to remove a [role](../../../security/user-account-management/roles/) from a user or another role that it's previously been assigned to. If a role has previously been set as a [default role](set-default-role.md), `REVOKE` does not remove the record of the default role from the [mysql.user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) table. If the role is subsequently granted again, it will again be the user's default. Use [SET DEFAULT ROLE NONE](set-default-role.md) to explicitly remove this.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.1.13:
-{% endhint %}
-
 `REVOKE role` is also permitted in [prepared statements](../prepared-statements/).
-{% endtab %}
-
-{% tab title="< 10.1.13" %}
-{% hint style="info" %}
-Before MariaDB 10.1.13:
-{% endhint %}
-
-`REVOKE role` is not permitted in [prepared statements](../prepared-statements/).
-{% endtab %}
-{% endtabs %}
 
 ### Example
 

@@ -73,23 +73,7 @@ lock_option:
 
 The `CREATE USER` statement creates new MariaDB accounts. To use it, you must have the global [CREATE USER](grant.md#create-user) privilege or the [INSERT](grant.md#table-privileges) privilege for the [mysql](../../system-tables/the-mysql-database-tables/) database.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.4:
-{% endhint %}
-
 For each account, `CREATE USER` creates a new row in the [mysql.user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) view (and the underlying [mysql.global\_priv](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md) table) that has no privileges.
-{% endtab %}
-
-{% tab title="< 10.4" %}
-{% hint style="info" %}
-Before MariaDB 10.4:
-{% endhint %}
-
-For each account, `CREATE USER` creates a new row in [mysql.user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) table that has no privileges.
-{% endtab %}
-{% endtabs %}
 
 If any of the specified accounts, or any permissions for the specified accounts, already exist, then the server returns `ERROR 1396 (HY000)`. If an error occurs, `CREATE USER` will still create the accounts that do not result in an error. Only one error is produced for all users which have not been created:
 
@@ -495,23 +479,7 @@ CREATE USER 'marijn'@'localhost' ACCOUNT LOCK;
 
 See [Account Locking](../../../security/user-account-management/account-locking.md) for more details.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.8 / 10.4.7:
-{% endhint %}
-
 The _lock\_option_ and _password\_option_ clauses can occur in either order.
-{% endtab %}
-
-{% tab title="< 10.5.8 / 10.4.7" %}
-{% hint style="info" %}
-Before MariaDB 10.5.8 / 10.4.7:
-{% endhint %}
-
-Prior to [MariaDB 10.4.7](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7) and [MariaDB 10.5.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.8), the _lock\_option_ must be placed before the _password\_option_.
-{% endtab %}
-{% endtabs %}
 
 From [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7) and [MariaDB 10.5.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.8), the _lock\_option_ and _password\_option_ clauses can occur in either order.
 

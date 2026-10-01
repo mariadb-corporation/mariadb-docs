@@ -51,6 +51,12 @@
 orphan:
 
 shrink:
+  - path: server/reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md
+    reason: "three pre-10.5 version tabs removed, current text kept — DOCS-6750"
+  - path: server/reference/system-tables/information-schema/information-schema-tables/information-schema-schemata-table.md
+    reason: "pre-10.5 example tab removed, current example kept — DOCS-6750"
+  - path: server/server-usage/storage-engines/innodb/innodb-monitors.md
+    reason: "pre-10.0.14 CREATE TABLE methods and the nonexistent Table/Tablespace Monitors removed — DOCS-6755"
 
 # Both entries are the August 2026 Connector/C round (DOCS-6732). Each version
 # was built only as part of a Server release, so mariadb.com offers no download

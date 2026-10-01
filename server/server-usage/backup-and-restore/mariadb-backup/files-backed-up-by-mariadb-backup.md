@@ -21,23 +21,7 @@ mariadb-backup backs up the following InnoDB data files:
 
 ### MyRocks Data Files
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.3.8 / 10.2.16:
-{% endhint %}
-
 `mariadb-backup` will back up tables that use the [MyRocks](../../storage-engines/myrocks/) storage engine. This data is located in the directory defined by the [rocksdb\_datadir](../../storage-engines/myrocks/myrocks-system-variables.md#rocksdb_datadir) system variable. `mariadb-backup` backs this data up by performing a checkpoint using the [rocksdb\_create\_checkpoint](../../storage-engines/myrocks/myrocks-system-variables.md#rocksdb_create_checkpoint) system variable.
-{% endtab %}
-
-{% tab title="< 10.3.8 / 10.2.16" %}
-{% hint style="info" %}
-Before MariaDB 10.3.8 / 10.2.16:
-{% endhint %}
-
-`mariadb-backup` will back up tables that use the MyRocks storage engine.
-{% endtab %}
-{% endtabs %}
 
 ### Other Data Files
 

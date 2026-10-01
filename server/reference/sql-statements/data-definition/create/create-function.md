@@ -107,7 +107,7 @@ It is possible to create stored aggregate functions as well. See [Stored Aggrega
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.8.0:
+From MariaDB 10.8:
 {% endhint %}
 
 `OUT`, `INOUT` and its equivalent `IN OUT`, are only valid if called from `SET` and not `SELECT`. These quantifiers are especially useful for creating functions with more than one return value. This allows functions to be more complex and nested.
@@ -154,9 +154,9 @@ SELECT add_func4(1,2,3);
 ```
 {% endtab %}
 
-{% tab title="< 10.8.0" %}
+{% tab title="< 10.8" %}
 {% hint style="info" %}
-Before MariaDB 10.8.0:
+Before MariaDB 10.8:
 {% endhint %}
 
 Quantifiers are not available.

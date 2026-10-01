@@ -40,24 +40,24 @@ However, there are some things that have changed which could affect an upgrade:
 | Option                                                                                                                                   | Old value | New value |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- |
 | [innodb\_change\_buffering](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_change_buffering)          | inserts   | all       |
-| [innodb\_flush\_neighbor\_pages](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_neighbor_pages) | 1         | area      |
+| innodb\_flush\_neighbor\_pages | 1         | area      |
 
 #### Options that have been removed or renamed
 
 Percona, the provider of [XtraDB](../../../../server-usage/storage-engines/innodb/innodb-unmaintained/about-xtradb.md), does not provide all earlier XtraDB features in the 5.5 code base. Because of that, [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) can't provide them either. The following options are not supported by XtraDB 5.5. If you are using them in any of your my.cnf files, you should remove them before upgrading to 5.5.
 
-* [innodb\_adaptive\_checkpoint](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_checkpoint); Use [innodb\_adaptive\_flushing\_method](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_flushing_method) instead.
-* [innodb\_auto\_lru\_dump](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_auto_lru_dump); Use [innodb\_buffer\_pool\_restore\_at\_startup](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_restore_at_startup) instead (and [innodb\_buffer\_pool\_load\_at\_startup](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_load_at_startup) in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)).
-* innodb\_blocking\_lru\_restore; Use [innodb\_blocking\_buffer\_pool\_restore](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_blocking_buffer_pool_restore) instead.
-* [innodb\_enable\_unsafe\_group\_commit](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_enable_unsafe_group_commit)
-* innodb\_expand\_import; Use [innodb\_import\_table\_from\_xtrabackup](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_import_table_from_xtrabackup) instead.
-* [innodb\_extra\_rsegments](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_extra_rsegments); Use [innodb\_rollback\_segments](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_rollback_segments) instead.
-* [innodb\_extra\_undoslots](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_extra_undoslots)
+* innodb\_adaptive\_checkpoint; Use innodb\_adaptive\_flushing\_method instead.
+* innodb\_auto\_lru\_dump; Use innodb\_buffer\_pool\_restore\_at\_startup instead (and [innodb\_buffer\_pool\_load\_at\_startup](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_load_at_startup) in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)).
+* innodb\_blocking\_lru\_restore; Use innodb\_blocking\_buffer\_pool\_restore instead.
+* innodb\_enable\_unsafe\_group\_commit
+* innodb\_expand\_import; Use innodb\_import\_table\_from\_xtrabackup instead.
+* innodb\_extra\_rsegments; Use innodb\_rollback\_segments instead.
+* innodb\_extra\_undoslots
 * innodb\_fast\_recovery
 * innodb\_flush\_log\_at\_trx\_commit\_session
-* [innodb\_overwrite\_relay\_log\_info](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_recovery_update_relay_log); Use [innodb\_recovery\_update\_relay\_log](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_recovery_update_relay_log) instead.
-* [innodb\_pass\_corrupt\_table](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_pass_corrupt_table); Use [innodb\_corrupt\_table\_action](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_corrupt_table_action) instead.
-* [innodb\_use\_purge\_thread](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_use_purge_thread)
+* innodb\_overwrite\_relay\_log\_info; Use innodb\_recovery\_update\_relay\_log instead.
+* innodb\_pass\_corrupt\_table; Use innodb\_corrupt\_table\_action instead.
+* innodb\_use\_purge\_thread
 
 ## Notes
 

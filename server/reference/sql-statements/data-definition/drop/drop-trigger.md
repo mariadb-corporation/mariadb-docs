@@ -22,23 +22,7 @@ Use `IF EXISTS` to prevent an error from occurring for a trigger that does not e
 
 ### Atomic DDL
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6.1:
-{% endhint %}
-
 `DROP TRIGGER` is [atomic](../atomic-ddl.md).
-{% endtab %}
-
-{% tab title="< 10.6.1" %}
-{% hint style="info" %}
-Before MariaDB 10.6.1:
-{% endhint %}
-
-`DROP TRIGGER` is **not** [atomic](../atomic-ddl.md).
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

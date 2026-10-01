@@ -23,12 +23,6 @@ It contains the following columns:
 
 The [SHOW COLLATION](../../../sql-statements/administrative-sql-statements/show/show-collation.md) statement returns the same results and both can be reduced in a similar way.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 The following two statements return the same results:
 
 ```sql
@@ -39,25 +33,6 @@ SHOW COLLATION WHERE Charset LIKE 'utf8mb3';
 SELECT * FROM information_schema.COLLATIONS 
 WHERE CHARACTER_SET_NAME LIKE 'utf8mb3';
 ```
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-The following two statements return the same results:
-
-```sql
-SHOW COLLATION WHERE Charset LIKE 'utf8';
-```
-
-```sql
-SELECT * FROM information_schema.COLLATIONS 
-WHERE CHARACTER_SET_NAME LIKE 'utf8';
-```
-{% endtab %}
-{% endtabs %}
 
 ## NO PAD Collations
 

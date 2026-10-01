@@ -24,23 +24,7 @@ If a connection is terminated that has an active transaction, the transaction  i
 
 If you have the [PROCESS](../account-management-sql-statements/grant.md#process) privilege, you can see all threads.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.2:
-{% endhint %}
-
 If you have the [CONNECTION ADMIN](../account-management-sql-statements/grant.md#connection-admin) privilege, you can kill all threads and statements. Otherwise, you can see and kill only your own threads and statements.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-{% hint style="info" %}
-Before MariaDB 10.5.2:
-{% endhint %}
-
-If you have the [SUPER](../account-management-sql-statements/grant.md#super) privilege, the [CONNECTION ADMIN](../account-management-sql-statements/grant.md#connection-admin) privilege, you can kill all threads and statements. Otherwise, you can see and kill only your own threads and statements.
-{% endtab %}
-{% endtabs %}
 
 {% hint style="warning" %}
 Killing queries that repair or create indexes on MyISAM and Aria tables may result in corrupted tables. Use the `SOFT` option to avoid this.

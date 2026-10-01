@@ -65,7 +65,7 @@ Some restrictions apply to ODBC tables:
 1. Cursor type is forward only (sequential reading).
 2. No indexing of ODBC tables (do not specify any columns as key). However,
    because CONNECT can often add a where clause to the query sent to the data
-   source, indexing are used by the data source if it supports it. (Remote indexing is available with version 1.04, released with [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.6))
+   source, indexing are used by the data source if it supports it.
 3. CONNECT ODBC supports [SELECT](../../../../reference/sql-statements/data-manipulation/selecting-data/select.md) and [INSERT](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md). [UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) are also supported
    in a somewhat restricted way (see below). For other operations, use an ODBC
    table with the EXECSRC option (see below) to directly send proper commands
@@ -73,7 +73,7 @@ Some restrictions apply to ODBC tables:
 
 ## Random Access of ODBC Tables
 
-In CONNECT version 1.03 (until [MariaDB 10.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.5)) ODBC tables are not indexable. Version 1.04 (from [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.6)) adds remote indexing facility to the ODBC table type.
+The ODBC table type has a remote indexing facility.
 
 However, some queries require random access to an ODBC table; for instance when it is joined to another table or used in an order by queries applied to a long column or large tables.
 
@@ -97,7 +97,7 @@ Note that the best way to handle ORDER BY is to set the max\_length\_for\_sort\_
 
 For tables too large to be stored in memory another possibility is to make your table to use a scrollable cursor. In this case each randomly accessed row can be retrieved from the data source specifying its cursor position, which is reasonably fast. However, scrollable cursors are not supported by all data sources.
 
-With CONNECT version 1.04 (from [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.6)), another way to provide random access is to specify some columns to be indexed. This should be done only when the corresponding column of the source table is also indexed. This should be used for tables too large to be stored in memory and is similar to the remote indexing used by the [MYSQL table type](connect-mysql-table-type-accessing-mysqlmariadb-tables.md) and by the [FEDERATED engine](../../federatedx-storage-engine/).
+Another way to provide random access is to specify some columns to be indexed. This should be done only when the corresponding column of the source table is also indexed. This should be used for tables too large to be stored in memory and is similar to the remote indexing used by the [MYSQL table type](connect-mysql-table-type-accessing-mysqlmariadb-tables.md) and by the [FEDERATED engine](../../federatedx-storage-engine/).
 
 There remains the possibility to extract data from the external table and to construct
 another table of any file format from the data source. For instance to construct

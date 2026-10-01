@@ -33,8 +33,7 @@ A feature of MariaDB Enterprise Backup and MariaDB Enterprise Server, non-blocki
 Non-blocking backup functionality differs from historical backup functionality in the following ways:
 
 * MariaDB Enterprise Backup in MariaDB Enterprise Server includes enterprise-only optimizations to backup staging, including DDL statement tracking, which reduces lock-time during backups.
-* MariaDB Backup in MariaDB Community Server 10.4 and later will block writes, log tables, and statistics.
-* Older MariaDB Community Server releases used FLUSH TABLES WITH READ LOCK, which closed open tables and only allowed tables to be reopened with a read lock during the duration of backups.
+* MariaDB Backup will block writes, log tables, and statistics.
 
 ## Understanding Recovery
 
@@ -76,12 +75,6 @@ MariaDB Backup establishes this connection based on the user credentials specifi
 
 It is recommended that a dedicated user be created and authorized to perform backups.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5:
-{% endhint %}
-
 MariaDB Backup requires this user to have the `RELOAD, PROCESS, LOCK TABLES,` and `REPLICATION CLIENT` privileges.
 
 ```sql
@@ -96,29 +89,6 @@ TO 'mariadb-backup'@'localhost';
 In the above example, MariaDB Backup would run on the local system that runs MariaDB Enterprise Server. Where backups may be run against a remote server, the user authentication and authorization should be adjusted.
 
 While MariaDB Backup requires a user for backup operations, no user is required for restore operations since restores occur while MariaDB Enterprise Server is not running.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-{% hint style="info" %}
-Before MariaDB 10.5:
-{% endhint %}
-
-MariaDB Backup requires this user to have the `RELOAD, PROCESS, LOCK TABLES,` and `REPLICATION CLIENT` privileges.
-
-```sql
-CREATE USER 'mariadb-backup'@'localhost'
-IDENTIFIED BY 'mbu_passwd';
-
-GRANT RELOAD, PROCESS, LOCK TABLES, REPLICATION CLIENT
-ON *.*
-TO 'mariadb-backup'@'localhost';
-```
-
-In the above example, MariaDB Backup would run on the local system that runs MariaDB Enterprise Server. Where backups may be run against a remote server, the user authentication and authorization should be adjusted.
-
-While MariaDB Backup requires a user for backup operations, no user is required for restore operations since restores occur while MariaDB Enterprise Server is not running.
-{% endtab %}
-{% endtabs %}
 
 ## Full Backup and Restore
 

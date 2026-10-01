@@ -484,15 +484,15 @@ This can happen on operating system setups that are configured to prevent memory
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.7.4 / 10.6.8 / 10.5.16:
+From MariaDB 10.7.4 / 10.6.8:
 {% endhint %}
 
 Current MariaDB version use `posix_spawn()` instead of the classic `fork();exec()` to prevent memory overcommit issues. However, operating systems with older glibc versions (< 2.26) still use `fork();exec()` to implement `posix_spawn()` internally. Therefore, they are still affected; this is for example still the case on RedHat Enterprise Linux 7.
 {% endtab %}
 
-{% tab title="< 10.7.4 / 10.6.8 / 10.5.16" %}
+{% tab title="< 10.7.4 / 10.6.8" %}
 {% hint style="info" %}
-Before MariaDB 10.7.4 / 10.6.8 / 10.5.16:
+Before MariaDB 10.7.4 / 10.6.8:
 {% endhint %}
 
 Older MariaDB versions still use `fork();exec()` , which means they are affected by the memory overcommit issue.

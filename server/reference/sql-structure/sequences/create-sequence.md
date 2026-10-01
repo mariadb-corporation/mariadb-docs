@@ -126,23 +126,7 @@ Note that sequences can't generate the maximum/minimum 64 bit number because of 
 
 ### Atomic DDL
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6.1:
-{% endhint %}
-
 MariaDB supports [Atomic DDL](../../sql-statements/data-definition/atomic-ddl.md) and `CREATE SEQUENCE` is atomic.
-{% endtab %}
-
-{% tab title="< 10.6.1" %}
-{% hint style="info" %}
-Before MariaDB 10.6.1:
-{% endhint %}
-
-MariaDB does **not** support [Atomic DDL](../../sql-statements/data-definition/atomic-ddl.md) and `CREATE SEQUENCE` is atomic.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

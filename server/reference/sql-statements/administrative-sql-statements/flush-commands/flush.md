@@ -83,7 +83,7 @@ FLUSH RELAY LOGS 'connection_name'
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.7.0:
+From MariaDB 10.7:
 {% endhint %}
 
 The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical to using the channel\_name directly after the `FLUSH command`. For example, one can now use:
@@ -93,9 +93,9 @@ FLUSH RELAY LOGS FOR CHANNEL 'connection_name';
 ```
 {% endtab %}
 
-{% tab title="< 10.7.0" %}
+{% tab title="< 10.7" %}
 {% hint style="info" %}
-Before MariaDB 10.7.0:
+Before MariaDB 10.7:
 {% endhint %}
 
 `FOR CHANNEL` isn't available.

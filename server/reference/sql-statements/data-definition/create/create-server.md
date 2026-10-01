@@ -36,23 +36,7 @@ option: >= MariaDB Enterprise Server 11.4 / Community Server 11.7
 
 ## Description
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.2:
-{% endhint %}
-
 This statement creates the definition of a server for use with the [Spider](../../../../server-usage/storage-engines/spider/), [Connect](../../../../server-usage/storage-engines/connect/), [FEDERATED](../../../../server-usage/storage-engines/federated-storage-engine.md), or [FederatedX](../../../../server-usage/storage-engines/federatedx-storage-engine/) storage engine. The `CREATE SERVER` statement creates a new row in the [servers](../../../system-tables/the-mysql-database-tables/mysql-servers-table.md) table within the mysql database. This statement requires the [FEDERATED ADMIN](../../account-management-sql-statements/grant.md#federated-admin) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-{% hint style="info" %}
-Before MariaDB 10.5.2:
-{% endhint %}
-
-This statement creates the definition of a server for use with the [Spider](../../../../server-usage/storage-engines/spider/), [Connect](../../../../server-usage/storage-engines/connect/), [FEDERATED](../../../../server-usage/storage-engines/federated-storage-engine.md), or [FederatedX](../../../../server-usage/storage-engines/federatedx-storage-engine/) storage engine. The `CREATE SERVER` statement creates a new row in the [servers](../../../system-tables/the-mysql-database-tables/mysql-servers-table.md) table within the mysql database. This statement requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege.
-{% endtab %}
-{% endtabs %}
 
 The server\_name should be a unique reference to the server. Server definitions are global within the scope of the server, it is not possible to qualify the server definition to a specific database. server\_name has a maximum length of 64 characters (names longer than 64 characters are silently truncated), and is case-insensitive. You may specify the name as a quoted string.
 
@@ -73,23 +57,7 @@ Note: When used with the Spider storage engine, connection information provided 
 
 `CREATE SERVER` is not written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/), irrespective of the [binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) being used and therefore will not replicate.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.1.13:
-{% endhint %}
-
 [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) replicates the `CREATE SERVER`, [ALTER SERVER](../alter/alter-server.md) and [DROP SERVER](../drop/drop-server.md) statements.
-{% endtab %}
-
-{% tab title="< 10.1.13" %}
-{% hint style="info" %}
-Before MariaDB 10.1.13:
-{% endhint %}
-
-[Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) does not replicate the `CREATE SERVER`, [ALTER SERVER](../alter/alter-server.md) and [DROP SERVER](../drop/drop-server.md) statements.
-{% endtab %}
-{% endtabs %}
 
 For valid identifiers to use as server names, see [Identifier Names](../../../sql-structure/sql-language-structure/identifier-names.md).
 

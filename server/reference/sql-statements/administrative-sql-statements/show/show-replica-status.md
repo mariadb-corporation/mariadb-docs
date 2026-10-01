@@ -23,53 +23,13 @@ SHOW ALL { SLAVES | REPLICAS } STATUS
 
 This statement is to be run on a replica and provides status information on essential parameters of the [replica](../../../../ha-and-performance/standard-replication/replication-overview.md) threads.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.9:
-{% endhint %}
-
 This statement requires the [REPLICA MONITOR](../../account-management-sql-statements/grant.md#replica-monitor) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.9" %}
-{% hint style="info" %}
-From MariaDB 10.5.2 to before MariaDB 10.5.9:
-{% endhint %}
-
-This statement requires the [REPLICA MONITOR](../../account-management-sql-statements/grant.md#replica-monitor) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-{% hint style="info" %}
-Before MariaDB 10.5.2:
-{% endhint %}
-
-This statement requires the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#binlog-monitor) privilege.
-{% endtab %}
-{% endtabs %}
 
 ### Multi-Source
 
 The `ALL` and `"connection_name"` options allow you to connect to [many primaries at the same time](../../../../ha-and-performance/standard-replication/multi-source-replication.md).
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.1:
-{% endhint %}
-
 `ALL SLAVES` or `ALL REPLICAS` gives you a list of all connections to the primary nodes.
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-{% hint style="info" %}
-Before MariaDB 10.5.1:
-{% endhint %}
-
-`ALL SLAVES` gives you a list of all connections to the primary nodes.
-{% endtab %}
-{% endtabs %}
 
 The rows are sorted according to `Connection_name`.
 
@@ -86,42 +46,24 @@ The order in which the columns appear depends on the MariaDB version. This means
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 11.6.0:
+From MariaDB 11.6:
 {% endhint %}
 
 These columns can also be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_STATUS](../../../system-tables/information-schema/information-schema-tables/information-schema-slave_status-table.md) table.
 {% endtab %}
 
-{% tab title="< 11.6.0" %}
+{% tab title="< 11.6" %}
 {% hint style="info" %}
-Before MariaDB 11.6.0:
+Before MariaDB 11.6:
 {% endhint %}
 
 These columns cannot be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_STATUS](../../../system-tables/information-schema/information-schema-tables/information-schema-slave_status-table.md) table.
 {% endtab %}
 {% endtabs %}
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.5.1:
-{% endhint %}
-
 **Connection\_name:** Name of the primary connection. Returned with SHOW ALL SLAVES/REPLICAS STATUS only.
 
 **Slave\_SQL\_State:** State of SQL thread. Returned with SHOW ALL SLAVES/REPLICAS STATUS only. See [Replica SQL Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/slave-sql-thread-states.md). Slave\_IO\_State: State of I/O thread. See [Replica I/O Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/replica-io-thread-states.md).
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-{% hint style="info" %}
-Before MariaDB 10.5.1:
-{% endhint %}
-
-**Connection\_name:** Name of the primary connection. Returned with SHOW ALL REPLICAS STATUS only.
-
-**Slave\_SQL\_State:** State of SQL thread. Returned with SHOW ALL REPLICAS STATUS only. See [Replica SQL Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/slave-sql-thread-states.md). Slave\_IO\_State: State of I/O thread. See [Replica I/O Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/replica-io-thread-states.md).
-{% endtab %}
-{% endtabs %}
 
 **Master\_host:** Primary host that the replica is connected to.
 
@@ -188,7 +130,7 @@ Before MariaDB 10.5.1:
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12 / 10.5.19:
+From MariaDB 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12:
 {% endhint %}
 
 **Seconds\_Behind\_Master:** Difference between the timestamp logged on the primary for the event that the replica is currently processing, and the current timestamp on the replica. Zero if the replica is not currently processing an event. With serial replication, seconds\_behind\_master is updated when the SQL thread begins executing a transaction. With [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md), seconds\_behind\_master is updated only after transactions commit. As a special case, the parallel replica additionally updates `seconds_behind_master` when the first transaction received after idling is queued to a worker for execution, to provide a reliable initial value for the duration until a transaction commits.
@@ -201,9 +143,9 @@ Additional behavior to be aware of:
 4. There is a known issue, tracked by [MDEV-17516](https://jira.mariadb.org/browse/MDEV-17516), such that `Seconds_Behind_Master` will initially present as 0 on replica restart until a replicated transaction begins executing, even if the last replica session was lagging behind when stopped.
 {% endtab %}
 
-{% tab title="< 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12 / 10.5.19" %}
+{% tab title="< 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12" %}
 {% hint style="info" %}
-Before MariaDB 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12 / 10.5.19:
+Before MariaDB 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12:
 {% endhint %}
 
 **Seconds\_Behind\_Master:** Difference between the timestamp logged on the primary for the event that the replica is currently processing, and the current timestamp on the replica. Zero if the replica is not currently processing an event. With serial replication, seconds\_behind\_master is updated when the SQL thread begins executing a transaction. With [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md), seconds\_behind\_master is updated only after transactions commit.

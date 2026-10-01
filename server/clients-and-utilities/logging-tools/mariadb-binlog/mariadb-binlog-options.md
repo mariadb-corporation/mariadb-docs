@@ -19,27 +19,9 @@ The following options are supported by [mariadb-binlog](./). They can be specifi
 
 Display a help statement.
 
-{% tabs %}
-{% tab title="Current" %}
-{% hint style="info" %}
-From MariaDB 10.6 / 10.5.10:
-{% endhint %}
-
 **--base64-output=**_**name**_
 
 Determine when the output statements should be base64-encoded `BINLOG` statements. Options (case-insensitive) include `auto`, `unspec`, `never` ,and `decode-rows`. `never` neither prints base64 encodings nor verbose event data, and exits on error if a [row-based event](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) is found. This option is useful for binlogs that are entirely statement-based. `decode-rows` decodes row events into commented SQL statements if the `--verbose` option is also given. It can enhance the debugging experience with large binary log files, as the raw data is omitted. Unlike `never`, mariadb-binlog does not exit with an error if a row event is found. `auto` (synonymous with `unspec`) outputs base64 encoded entries for [row-based](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) and format description events; it should be used when `ROW`-format events are processed for re-executing on the MariaDB server. This behavior is presumed, such that `auto` is the default value when no option specification is provided. The other option values are intended only for debugging or testing purposes because they may produce output that does not include all events in executable form.
-{% endtab %}
-
-{% tab title="< 10.6 / 10.5.10" %}
-{% hint style="info" %}
-Before MariaDB 10.6 / 10.5.10:
-{% endhint %}
-
-**--base64-output\[=**_**name**_**]**
-
-Determine when the output statements should be base64-encoded BINLOG statements. Options (case-insensitive) include `auto`, `unspec`, `always` (deprecated), `never` , and `decode-rows`. `never` disables it and works only for binlogs without [row-based events](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md); `decode-rows` decodes row events into commented SQL statements if the `--verbose` option is also given. Unlike `never`, `mariadb-binlog` does not exit with an error if a row event is found `auto` or `unspec`, the default, prints base64 only when necessary (for instance, for [row-based events](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) and format description events), and is the only safe behavior if you intend to use the output of `mariadb-binlog` to re-execute binary log file contents. The other option values are intended only for debugging or testing purposes, because they may produce output that does not include all events in executable form. `always` prints base64 whenever possible, and is for debugging only and should not be used in a production system. If this option is not given, the default is `auto`; if it is given with no argument, `always` is used.
-{% endtab %}
-{% endtabs %}
 
 Default value: `auto`.
 
@@ -271,11 +253,7 @@ Options `--start-position` and `--stop-position` compare Sequence Numbers only p
 
 If specified, stop reading the binlog at the first event having a datetime equal to or posterior to the argument; the argument must be a date and time in the local time zone, in any format accepted by the MariaDB server for `DATETIME` and `TIMESTAMP` types, for example: `2014-12-25 11:25:56` (you should probably use quotes for your shell to set it properly). Ignored in `--raw` mode.
 
-{% tabs %}
-{% tab title="≥ 10.11.14" %}
-Emit a warning if the specified time is not found within the specified binlogs.
-{% endtab %}
-{% endtabs %}
+`mariadb-binlog` emits a warning if it reaches the end of its input before the specified time. It does so from MariaDB 10.6.20, 10.11.10, 11.4.4, and 11.7.1, and with `--read-from-remote-server` from MariaDB 10.6.21, 10.11.11, 11.4.5, and 11.7.2.
 
 #### --stop-never
 
@@ -289,15 +267,10 @@ The replica [server\_id](../../../ha-and-performance/standard-replication/replic
 
 If specified, stop reading the binlog at this _position_. Type can either be a positive integer or, from MariaDB 10.8, a [GTID](../../../ha-and-performance/standard-replication/gtid/README.md) list. When using a positive integer, the value only applies to the last binlog passed on the command line. In GTID mode, multiple GTIDs can be passed as a comma-separated list, where each must have a unique domain id. Each GTID is inclusive; only events up to the given sequence numbers are printed. Ignored in `--raw` mode.
 
-{% tabs %}
-{% tab title="≥ 10.11.14" %}
-Emit a warning if the specified position or GTID is not within the specified binlogs.
-{% endtab %}
+`mariadb-binlog` emits a warning if it reaches the end of its input before the specified position:
 
-{% tab title="≥ 10.5.27" %}
-Emit a warning if the specified position is beyond the end of the last binlog.
-{% endtab %}
-{% endtabs %}
+* **Position:** from MariaDB 10.6.20, 10.11.10, 11.4.4, and 11.7.1, and with `--read-from-remote-server` from MariaDB 10.11.12, 11.4.6, and 11.8.2.
+* **GTID list:** from MariaDB 10.11.14, 11.4.8, 11.8.3, and 12.0.2.
 
 {% hint style="warning" %}
 Options `--start-position` and `--stop-position` compare Sequence Numbers only per Domain ID and ignore Server IDs. This is incorrect, as it is different from the Replication design for GTIDs, which compares per Domain–Server ID pair. [MDEV-37231](https://jira.mariadb.org/browse/MDEV-37231) tracks this bug.
