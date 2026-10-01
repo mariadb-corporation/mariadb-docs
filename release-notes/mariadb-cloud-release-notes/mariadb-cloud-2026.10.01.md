@@ -1,11 +1,11 @@
 ---
 description: >-
-  Release notes for MariaDB Cloud 2026.10.01, introducing Query Result Cache as
-  a Tech Preview add-on for MariaDB Provisioned services.
+  MariaDB Cloud 2026.10.01, released on 2026-10-01, introduces Query Result
+  Cache as a Tech Preview add-on for MariaDB Provisioned services.
 icon: rocket-launch
 ---
 
-# Query Result Cache
+# MariaDB Cloud 2026.10.01 Release Notes
 
 **Release Date:** 1 October 2026
 

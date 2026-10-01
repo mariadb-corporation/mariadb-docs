@@ -1,27 +1,23 @@
 ---
 description: >-
   Release notes for MariaDB Cloud, covering new features, changes, and
-  limitations in each release of the managed service.
+  limitations in each release of the managed service, grouped by month.
 ---
 
 # MariaDB Cloud Release Notes
 
-MariaDB Cloud is continuously delivered, so releases are identified by date rather than by a version number.
+MariaDB Cloud is continuously delivered, so releases are identified by date rather than by a version number. For a table of every release, see [All Releases](all-releases.md).
 
-{% content-ref url="mariadb-cloud-2026.10.01.md" %}
-[mariadb-cloud-2026.10.01.md](mariadb-cloud-2026.10.01.md)
-{% endcontent-ref %}
+## October 2026
 
-{% content-ref url="mariadb-cloud-2026.09.30.md" %}
-[mariadb-cloud-2026.09.30.md](mariadb-cloud-2026.09.30.md)
-{% endcontent-ref %}
+* [MariaDB Cloud 2026.10.01](mariadb-cloud-2026.10.01.md): Query Result Cache (Tech Preview)
 
-{% content-ref url="mariadb-cloud-2026.08.26.md" %}
-[mariadb-cloud-2026.08.26.md](mariadb-cloud-2026.08.26.md)
-{% endcontent-ref %}
+## September 2026
 
-{% content-ref url="mariadb-cloud-2026.08.20.md" %}
-[mariadb-cloud-2026.08.20.md](mariadb-cloud-2026.08.20.md)
-{% endcontent-ref %}
+* [MariaDB Cloud 2026.09.30](mariadb-cloud-2026.09.30.md): Multiple MariaDB Server versions on Serverless
+
+## August 2026
+
+* [MariaDB Cloud 2026.08.26](mariadb-cloud-2026.08.26.md): Enterprise Cluster general availability
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

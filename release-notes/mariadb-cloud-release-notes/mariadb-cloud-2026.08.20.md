@@ -1,12 +1,13 @@
 ---
 description: >-
-  Release notes for MariaDB Cloud 2026.08.20, introducing Bring Your Own Cloud
-  (BYOC) on Google Cloud as a Tech Preview and a redesigned service provisioning
-  experience.
+  MariaDB Cloud 2026.08.20, released on 2026-08-20, introduces Bring Your Own
+  Cloud (BYOC) on Google Cloud as a Tech Preview and a redesigned service
+  provisioning experience.
+icon: rocket-launch
 hidden: true
 ---
 
-# BYOC and New Provisioning Experience
+# MariaDB Cloud 2026.08.20 Release Notes
 
 **Release Date:** 20 August 2026
 

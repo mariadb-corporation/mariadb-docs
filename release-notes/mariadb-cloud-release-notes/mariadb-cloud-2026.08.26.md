@@ -1,12 +1,12 @@
 ---
 description: >-
-  Release notes for MariaDB Cloud Enterprise Cluster general availability,
-  covering the synchronous replication topology on the PowerPlus tier,
-  cluster-aware monitoring and alerts, and snapshot backups
+  MariaDB Cloud 2026.08.26, released on 2026-08-26, makes Enterprise Cluster
+  generally available on the PowerPlus tier, with cluster-aware monitoring and
+  alerts, and snapshot backups.
 icon: rocket-launch
 ---
 
-# Enterprise Cluster General Availability
+# MariaDB Cloud 2026.08.26 Release Notes
 
 **Release Date:** 26 August 2026
 

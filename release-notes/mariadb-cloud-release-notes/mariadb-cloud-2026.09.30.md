@@ -1,11 +1,11 @@
 ---
 description: >-
-  Release notes for MariaDB Cloud 2026.09.30, adding support for multiple
+  MariaDB Cloud 2026.09.30, released on 2026-09-30, adds support for multiple
   MariaDB Server versions on MariaDB Cloud Serverless.
 icon: rocket-launch
 ---
 
-# Multiple MariaDB Server Versions on Serverless
+# MariaDB Cloud 2026.09.30 Release Notes
 
 **Release Date:** 30 September 2026
 
