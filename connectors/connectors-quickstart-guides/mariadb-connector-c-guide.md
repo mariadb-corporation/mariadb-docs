@@ -39,7 +39,7 @@ You can download MariaDB Connector/C packages directly:
 
 #### Install with a Package Manager (Recommended for Linux)
 
-If you're using Linux, the simplest way to install MariaDB Connector/C is via your system's package manager. Your system needs to be configured to install from a MariaDB repository (version 10.2 or later).
+If you're using Linux, the simplest way to install MariaDB Connector/C is via your system's package manager. Your system needs to be configured to install from a MariaDB repository.
 
 You can set up your repository using:
 

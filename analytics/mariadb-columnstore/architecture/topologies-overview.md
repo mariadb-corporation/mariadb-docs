@@ -56,7 +56,7 @@ _MaxScale routes reads to two replicas and writes to one primary, which replicat
 
 <p><strong>MariaDB Replication</strong></p>
 
-<ul><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales read via MaxScale.</li><li>Enterprise Server 10.3+, MaxScale 2.5+</li></ul>
+<ul><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales read via MaxScale.</li><li>Enterprise Server, MaxScale 2.5+</li></ul>
 
 ### Galera Cluster Topology
 
@@ -90,7 +90,7 @@ _MaxScale routes to three Galera Cluster nodes that replicate virtually synchron
 
 <p><strong>Galera Cluster Topology Multi-Primary Cluster Powered by Galera for Transactional/OLTP Workloads</strong></p>
 
-<ul><li>InnoDB Storage Engine</li><li>Highly available</li><li>Virtually synchronous, certification-based replication</li><li>Automated provisioning of new nodes (IST/SST)</li><li>Scales reads via MaxScale Enterprise Server 10.3+, MariaDB Enterprise Cluster (powered by Galera), MaxScale 2.5+</li></ul>
+<ul><li>InnoDB Storage Engine</li><li>Highly available</li><li>Virtually synchronous, certification-based replication</li><li>Automated provisioning of new nodes (IST/SST)</li><li>Scales reads via MaxScale</li><li>Enterprise Server, MariaDB Enterprise Cluster (powered by Galera), MaxScale 2.5+</li></ul>
 
 ## Analytical (OLAP, Data Warehousing, DSS)
 

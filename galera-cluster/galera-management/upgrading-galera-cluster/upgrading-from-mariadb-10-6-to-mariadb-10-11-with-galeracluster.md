@@ -36,7 +36,7 @@ Then, for each node, perform the following steps:
 
 {% stepper %}
 {% step %}
-Modify the repository configuration, so the system's package manager installs [MariaDB 10.6.](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106)
+Modify the repository configuration, so the system's package manager installs [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011).
 
 {% tabs %}
 {% tab title="Debian, Ubuntu, ..." %}

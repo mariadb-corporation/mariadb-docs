@@ -71,7 +71,7 @@ MariaDB Connector/C is distributed in [binary tarballs](https://app.gitbook.com/
 
 #### Installing with a Package Manager
 
-Since MariaDB Connector/C is now integrated with MariaDB Server, it can also be installed via a package manager on Linux. In order to do so, your system needs to be configured to install from one of the MariaDB repositories. The repository needs to be configured for [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) or later.
+Since MariaDB Connector/C is now integrated with MariaDB Server, it can also be installed via a package manager on Linux. In order to do so, your system needs to be configured to install from one of the MariaDB repositories.
 
 You can configure your package manager to install it from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
 
