@@ -1,6 +1,6 @@
 ---
 description: >-
-  Intelligently route queries by workload type. SmartRouter directs
+  Route queries by workload type. SmartRouter directs
   transactional queries to MariaDB and analytical queries to an analytical
   backend such as ColumnStore or Exasol, for hybrid (HTAP) processing.
 ---
