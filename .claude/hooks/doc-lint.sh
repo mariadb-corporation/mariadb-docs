@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 #
 # doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
-# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus seven checks it delegates to
+# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus eight checks it delegates to
 # their own scripts: a GitBook include resolver (includecheck.sh), a Mermaid edge-label
-# contrast check (mermaidcheck.py), a heading-anchor gate (fragcheck.py), an orphaned-page/
+# contrast check (mermaidcheck.py), a page-description check (desccheck.py, DOCS-6763, gated
+# by desccheck-pr.yml), a heading-anchor gate (fragcheck.py), an orphaned-page/
 # nav-coverage gate (navcheck.py), a net line-loss guard (shrinkcheck.py), a paired
 # version-include guard (versioncheck.py) and the no-standalone register audit
-# (postdownload.py). All seven are gated in CI — by includecheck-pr.yml, mermaidcheck-pr.yml
+# (postdownload.py). All eight are gated in CI — by includecheck-pr.yml, mermaidcheck-pr.yml
 # (DOCS-6630), fragcheck-pr.yml, navcheck-pr.yml, shrinkcheck-pr.yml, versioncheck-pr.yml and
 # postdownload-pr.yml (both DOCS-6734) respectively — so a finding here is a finding CI will
 # repeat, and none of them is "local only" any more.
@@ -252,6 +253,26 @@ elif ! command -v python3 >/dev/null 2>&1; then
   echo "          still gates this in CI). Install: brew install python3" >&2
 else
   python3 "$MERMAIDCHECK" "${files[@]}" >/dev/null || rc=1
+fi
+
+# --- Page descriptions — HAS a CI counterpart since DOCS-6763 --------------------------------
+# GitBook cuts a frontmatter `description:` at exactly 200 characters, in the on-page subtitle
+# as well as the meta tags and with no ellipsis, and renders it as PLAIN TEXT, so backticks and
+# other Markdown show literally. .claude/hooks/desccheck.py (also what desccheck-pr.yml runs)
+# fails a description that is too long, split by a blank line, carries Markdown, or just repeats
+# the H1. Its header has the live measurements. Same missing-script/missing-python3 split as
+# the Mermaid check above.
+DESCCHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/desccheck.py"
+if [ ! -f "$DESCCHECK" ]; then
+  echo "doc-lint: $DESCCHECK not found — cannot check page descriptions." >&2
+  echo "          It is checked in beside this script, so this is a broken checkout, not a" >&2
+  echo "          missing tool." >&2
+  rc=1
+elif ! command -v python3 >/dev/null 2>&1; then
+  echo "doc-lint: python3 not installed — page-description check SKIPPED (desccheck-pr.yml" >&2
+  echo "          still gates this in CI). Install: brew install python3" >&2
+else
+  python3 "$DESCCHECK" "${files[@]}" >/dev/null || rc=1
 fi
 
 # --- GitBook heading anchors — HAS a CI counterpart since DOCS-6524 --------------------------
