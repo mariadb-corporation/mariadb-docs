@@ -216,7 +216,7 @@ parameters are described in the [ColumnStore commands-section](#settings).
 
 ### `assume_unique_hostnames`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -272,7 +272,7 @@ separated to different network interfaces.
 
 ### `master_conditions`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `connecting_slave`, `connected_slave`, `running_slave`, `primary_monitor_master`, `disk_space_ok`
@@ -323,7 +323,7 @@ master_conditions=connected_slave,running_slave
 
 ### `slave_conditions`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `linked_master`, `running_master`, `writable_master`, `primary_monitor_master`
@@ -389,7 +389,7 @@ multiplying that by `failcount`:
 
 ### `enforce_writable_master`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -411,7 +411,7 @@ prefers to select a writable server as primary if possible.
 
 ### `enforce_read_only_slaves`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -432,7 +432,7 @@ marked \[Slave].
 
 ### `enforce_read_only_servers`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -449,7 +449,7 @@ unclear which servers should be altered.
 
 ### `maintenance_on_low_disk_space`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -475,7 +475,7 @@ maxctrl clear server server2 Maint
 
 ### `cooperative_monitoring_locks`
 
-* Type: [enum](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `majority_of_all`, `majority_of_running`
@@ -911,7 +911,7 @@ e.g. *MyMonitor-server3*.
 
 A server can only be removed if it is not explicitly used by any other module,
 e.g. a service. Thus, this command is best used when services are configured with the
-[cluster](../../maxscale-management/deployment/maxscale-configuration-guide.md#cluster)-setting as the
+[cluster](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#cluster)-setting as the
 services will then automatically match any changes in the set of monitored
 servers.
 
@@ -920,7 +920,7 @@ maxctrl call command mariadbmon discover-replicas monitor=MyMonitor remove=true
 ```
 
 Discover-replicas is incompatible with
-[configuration synchronization](../../maxscale-management/deployment/maxscale-configuration-guide.md#configuration-synchronization)
+[configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#configuration-synchronization)
 and will refuse to run if it is enabled.
 
 #### Bootstrap
@@ -952,7 +952,7 @@ values returned by `SHOW REPLICA HOSTS` or `SHOW REPLICA STATUS`.  Other
 settings are copied from the server given in the *template*-setting, so that the
 discovered servers inherit e.g. TLS settings. If no server template is given,
 discovered servers will use
-[server default settings](../../maxscale-management/deployment/maxscale-configuration-guide.md#server-1).
+[server default settings](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#server-1).
 The server template must be a valid, existing server in MaxScale configuration.
 It need not be monitored by any monitor and its *address* and *port*-settings
 can point to a non-existing (but theoretically valid) network address. It can be
@@ -972,7 +972,7 @@ maxctrl call command mariadbmon bootstrap monitor=MyMonitor template=MyServerTem
 ```
 
 Bootstrap is incompatible with
-[configuration synchronization](../../maxscale-management/deployment/maxscale-configuration-guide.md#configuration-synchronization)
+[configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#configuration-synchronization)
 and will refuse to run if it is enabled.
 
 ### Manual activation
@@ -1249,7 +1249,7 @@ primary.
 
 #### `auto_failover`
 
-* Type: [enum](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `true`, `on`, `yes`, `1`, `false`, `off`, `no`, `0`, `safe`
@@ -1262,7 +1262,7 @@ When automatic failover is enabled, MaxScale
 will elect a new primary server for the cluster if the old primary goes down. A
 server is assumed _Down_ if it cannot be connected to, even if this is caused by
 incorrect credentials. Failover triggers if the primary stays down for [failcount](#failcount) monitor intervals. Failover will not take place if MaxScale is set
-[passive](../../maxscale-management/deployment/maxscale-configuration-guide.md#passive).
+[passive](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#passive).
 
 As failover alters replication, it requires more privileges than normal
 monitoring. See [here](#cluster-manipulation-grants) for a list of grants.
@@ -1274,7 +1274,7 @@ setups.
 
 #### `auto_rejoin`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -1309,7 +1309,7 @@ cluster if possible.
 
 #### `auto_failback_switchover`
 
-- **Type**: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+- **Type**: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 - **Mandatory**: No
 - **Dynamic**: Yes
 - **Default**: `false`
@@ -1350,7 +1350,7 @@ the monitor runs switchover to restore P as primary.
 
 #### `switchover_on_low_disk_space`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -1361,7 +1361,7 @@ done if a replica without disk space issues is found. If`maintenance_on_low_disk
 will be put to maintenance during the next monitor iteration.
 
 For this parameter to have any effect, `disk_space_threshold` must be specified
-for the [server](../../maxscale-management/deployment/maxscale-configuration-guide.md#disk_space_threshold)
+for the [server](../maxscale-servers.md#disk_space_threshold)
 or the [monitor](common-monitor-parameters.md#disk_space_threshold).
 Also, [disk\_space\_check\_interval](common-monitor-parameters.md#disk_space_check_interval)
 must be defined for the monitor.
@@ -1372,7 +1372,7 @@ switchover_on_low_disk_space=true
 
 #### `enforce_simple_topology`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -1515,7 +1515,7 @@ See [replication\_user](#replication_user)
 
 #### `replication_master_ssl`
 
-* Type: [enum](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `auto`
@@ -1576,7 +1576,7 @@ replication_custom_options=MASTER_SSL_CERT = '/tmp/certs/client-cert.pem',
 
 #### `failover_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `90s`
@@ -1591,7 +1591,7 @@ further automatic modifications to the misbehaving cluster.
 
 #### `switchover_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `90s`
@@ -1622,7 +1622,7 @@ will proceed regardless of this.
 
 #### `verify_master_failure`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -1648,16 +1648,17 @@ met.
 
 #### `master_failure_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10s`
 
-`master_failure_timeout` is specified as documented [here](../../maxscale-management/deployment/maxscale-configuration-guide.md). If no explicit unit
-is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent
-versions a value without a unit may be rejected. Note that since the granularity
-of the timeout is seconds, a timeout specified in milliseconds will be rejected,
-even if the duration is longer than a second.
+`master_failure_timeout` is specified as
+documented [here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md).
+If no explicit unit is provided, the value is interpreted as seconds in MaxScale
+2.4. In subsequent versions a value without a unit may be rejected. Note that
+since the granularity of the timeout is seconds, a timeout specified in
+milliseconds will be rejected, even if the duration is longer than a second.
 
 #### `servers_no_promotion`
 
@@ -1732,7 +1733,7 @@ See [promotion\_sql\_file](#promotion_sql_file).
 
 #### `handle_events`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -1925,7 +1926,7 @@ configure this feature.
 
 #### `write_test_interval`
 
-* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Dynamic: Yes
 * Default: 0s
 
@@ -1971,7 +1972,7 @@ write_test_table=mxs.my_write_test_table
 
 #### `write_test_fail_action`
 
-* Type: [enum](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Default: `log`
 * Values: `log`, `failover`
 * Dynamic: Yes
@@ -2340,7 +2341,7 @@ run commands.
 
 #### `ssh_check_host_key`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -2350,7 +2351,7 @@ already listed in the known\_hosts-file of the user running MaxScale.
 
 #### `ssh_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10s`
@@ -2391,7 +2392,7 @@ starting, MaxScale will attempt to kill the process.
 
 Given as is to`mariadb-backup --prepare --use-memory=<mariadb_backup_use_memory>`. If set to empty,
 no `--use-memory` is set and mariadb-backup will use its internal default. See
-[here](../../../server/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options.md#--use-memory) for more
+[here](../../../server/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options.md#use-memory) for more
 information.
 
 ```
@@ -2411,7 +2412,7 @@ and will continue working as an alias.
 
 Given as is to`mariadb-backup --backup --parallel=<val>`.
 Defines the number of threads used for parallel data file transfer. See
-[here](../../../server/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options.md#--parallel)
+[here](../../../server/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options.md#parallel)
 for more information.
 
 ```
@@ -2810,7 +2811,7 @@ continues until the total time for a failover or switchover has been spent. If t
 shows warnings or errors about commands timing out, increasing the backend timeout
 settings of the monitor should help. Other settings to look at are `query_retries` and
 `query_retry_timeout`. These are general MaxScale settings described in the
-[Configuration guide](../../maxscale-management/deployment/maxscale-configuration-guide.md).
+[Configuration guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md).
 Setting `query_retries` to 2 is a reasonable first try.
 
 If switchover causes the old primary (now replica) to fail replication, then most
