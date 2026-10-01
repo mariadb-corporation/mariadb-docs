@@ -384,8 +384,13 @@ can be estimated by summing up the timeout values and `monitor_interval` and
 multiplying that by `failcount`:
 
 ```
-(monitor_interval + backend_connect_timeout) * failcount
+(monitor_interval + backend_timeout) * failcount
 ```
+
+If [cooperative monitoring](mariadb-monitor.md#cooperative-monitoring) is
+enabled, `failcount` also has a smallest safe value, so that stale locks left
+behind by a network outage expire before a failover begins.
+See [Failover With Multiple MaxScales](../../mariadb-maxscale-tutorials/failover-with-multiple-maxscales.md).
 
 ### `enforce_writable_master`
 
@@ -619,6 +624,12 @@ topology. The supported operations are:
 See [operation details](#operation-details) for more information on the
 implementation of the commands.
 
+MariaDB Monitor also supports backup operations that copy or overwrite the
+entire contents of a server: `rebuild-server` (run with the
+`async-rebuild-server` command), `create-backup` (`async-create-backup`), and
+`restore-from-backup` (`async-restore-from-backup`). These are described in
+the [Backup operations](mariadb-monitor.md#backup-operations) section.
+
 The cluster operations require that the monitor user (`user`) has the following
 privileges:
 
@@ -680,27 +691,27 @@ call command mariadbmon failover MONITOR
 **Failover** replaces a failed primary with a running replica. It does the
 following:
 
-1. Select the most up-to-date replica of the old primary to be the new primary. The
-   selection criteria is as follows in descending priority:
-2. gtid\_IO\_pos (latest event in relay log)
-3. gtid\_current\_pos (most processed events)
-4. log\_slave\_updates is on
-5. disk space is not low
-6. If the new primary has unprocessed relay log items, cancel and try again
+1. Select the most up-to-date replica of the old primary to be the new primary.
+   The selection criteria is as follows in descending priority:
+   * `gtid_IO_pos` (latest event in relay log)
+   * `gtid_current_pos` (most processed events)
+   * `log_slave_updates` is on
+   * disk space is not low
+2. If the new primary has unprocessed relay log items, cancel and try again
    later.
-7. Prepare the new primary:
-8. Remove the replica connection the new primary used to replicate from the
-   old primary.
-9. Disable the read\_only-flag.
-10. Enable scheduled server events (if event handling is on). Only events
-    that were enabled on the old primary are enabled.
-11. Run the commands in `promotion_sql_file`.
-12. Start replication from external primary if one existed.
-13. Redirect all other replicas to replicate from the new primary:
-14. STOP SLAVE
-15. CHANGE MASTER TO
-16. START SLAVE
-17. Check that all replicas are replicating.
+3. Prepare the new primary:
+   * Remove the replica connection the new primary used to replicate from the
+     old primary.
+   * Disable the `read_only`-flag.
+   * Enable scheduled server events (if event handling is on). Only events that
+     were enabled on the old primary are enabled.
+   * Run the commands in `promotion_sql_file`.
+   * Start replication from external primary if one exists.
+4. Redirect all other replicas to replicate from the new primary:
+   * `STOP SLAVE`
+   * `CHANGE MASTER TO`
+   * `START SLAVE`
+5. Check that all replicas are replicating.
 
 Failover is considered successful if steps 1 to 3 succeed, as the cluster then
 has at least a valid primary server.
@@ -730,20 +741,20 @@ call command mariadbmon switchover MONITOR [NEW_PRIMARY] [OLD_PRIMARY]
 following:
 
 1. Prepare the old primary for demotion:
-2. If `backend_read_timeout` is short, extend it and reconnect.
-3. Stop any external replication.
-4. Enable the read\_only-flag to stop writes from normal users.
-5. Kill connections from super and read-only admin users since
-   read\_only does not affect them. During this step, all writes are
-   blocked with "FLUSH TABLES WITH READ LOCK".
-6. Disable scheduled server events (if event handling is on).
-7. Run the commands in `demotion_sql_file`.
-8. Flush the binary log ("flush logs") so that all events are on disk.
-9. Wait a moment to check that gtid is stable.
-10. Wait for the new primary to catch up with the old primary.
-11. Promote new primary and redirect replicas as in failover steps 3 and 4. Also
-    redirect the demoted old primary.
-12. Check that all replicas are replicating.
+   * If `backend_timeout` is short, extend it and reconnect.
+   * Stop any external replication.
+   * Enable the read\_only-flag to stop writes from normal users.
+   * Kill connections from super and read-only admin users since read\_only does
+     not affect them. During this step, all writes are blocked with "FLUSH
+     TABLES WITH READ LOCK".
+   * Disable scheduled server events (if event handling is on).
+   * Run the commands in `demotion_sql_file`.
+   * Flush the binary log ("flush logs") so that all events are on disk.
+   * Wait a moment to check that gtid is stable.
+2. Wait for the new primary to catch up with the old primary.
+3. Promote new primary and redirect replicas as in failover steps 3 and 4. Also
+   redirect the demoted old primary.
+4. Check that all replicas are replicating.
 
 Similar to failover, switchover is considered successful if the new primary was
 successfully promoted.
