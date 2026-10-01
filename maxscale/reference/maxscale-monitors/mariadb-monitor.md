@@ -1775,6 +1775,22 @@ the monitor rejoins the server and disables the events. This should only be an
 issue for events running more often than the monitor interval or events that run
 immediately after the server has restarted.
 
+#### `check_repl_on_stop_slave_timeout`
+
+* **Type**: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* **Mandatory**: No
+* **Dynamic**: Yes
+* **Default**: `false`
+
+Enables additional checks when a `STOP SLAVE` command times out during a cluster
+manipulation operation such as failover or switchover. Normally, if `STOP SLAVE`
+times out, the monitor just tries again until time runs out. With this setting
+enabled, the monitor additionally checks replication connection status with
+`SHOW ALL SLAVES STATUS`. If replication has properly ended, the monitor assumes
+`STOP SLAVE` completed successfully and continues with the operation. If
+replication is still ongoing, the monitor prints the slave thread running states
+and retries `STOP SLAVE`.
+
 ## Cooperative monitoring
 
 MariaDB-Monitor supports cooperative monitoring. This means that multiple
