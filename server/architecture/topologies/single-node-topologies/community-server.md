@@ -6,7 +6,7 @@ description: Deploy MariaDB Community Server
 
 ## Overview
 
-These instructions detail the deployment of **MariaDB Community Server 10.5** in a **Single Standalone Server** configuration on a range of supported Operating Systems.
+These instructions detail the deployment of **MariaDB Community Server** in a **Single Standalone Server** configuration on a range of supported Operating Systems.
 
 These instructions detail how to deploy a single-node row database, which is suited for a transactional or OLTP workload that does not require high availability (HA). This deployment type is generally for non-production use cases, such as for development and testing.
 

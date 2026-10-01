@@ -70,7 +70,7 @@ Create a command line execution file for running database documentation tasks
 
 ### 11. Broad compatibility options
 
-MariaDB server versions 5.5-11.4
+MariaDB server versions 10.6-11.4
 
 Various cloud services: Amazon RDS, Amazon Aurora, Google Cloud, Oracle MySQL Cloud, Alibaba Cloud
 
@@ -86,10 +86,6 @@ Download a free 30-day trial of dbForge Data Generator [here](https://www.devart
 | dbForge Data Generator 10.0 | Support for [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114), Added support for temporal tables in MariaDB                                                                                                                    |
 | dbForge Data Generator 2.6  | Support for [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113)                                                                                                                                                     |
 | dbForge Data Generator 2.5  | Support for [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109), Support for [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)               |
-| dbForge Data Generator 2.4  | Connectivity support for [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) is added                                                                                                                               |
-| dbForge Data Generator 2.2  | Support for [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104)                                                                                                                                                     |
-| dbForge Data Generator 2.1  | Support for [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103)                                                                                                                                                     |
-| dbForge Data Generator 2.0  | Support for [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), Support for [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

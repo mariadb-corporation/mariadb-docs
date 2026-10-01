@@ -75,7 +75,7 @@ For a minor release upgrade, the existing MariaDB Enterprise Server packages do 
 
 1\. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 
-2\. Configure the YUM package repository. Installable versions of MariaDB Enterprise Server are `11.8, 11.4, 10.6, 10.5, 10.4, and 10.3`. Pass the version to install using the `--mariadb-server-version` flag to `mariadb_es_repo_setup`. The following directions reference 11.8.
+2\. Configure the YUM package repository. Installable versions of MariaDB Enterprise Server are `11.8, 11.4, and 10.6`. Pass the version to install using the `--mariadb-server-version` flag to `mariadb_es_repo_setup`. The following directions reference 11.8.
 
 To configure YUM package repositories:
 
@@ -113,7 +113,7 @@ sudo yum update "MariaDB-*" "galera*"
 
 1\. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 
-2\. Configure the APT package repository. Installable versions of MariaDB Enterprise Server are `11.8, 11.4, 10.6, 10.5, 10.4, and 10.3`. Pass the version to install using the `--mariadb-server-version` flag to `mariadb_es_repo_setup`. The following directions reference 11.8.
+2\. Configure the APT package repository. Installable versions of MariaDB Enterprise Server are `11.8, 11.4, and 10.6`. Pass the version to install using the `--mariadb-server-version` flag to `mariadb_es_repo_setup`. The following directions reference 11.8.
 
 To configure APT package repositories:
 
@@ -155,7 +155,7 @@ sudo apt install --only-upgrade "mariadb-*" "galera*"
 
 1\. Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 
-2\. Configure the ZYpp package repository. Installable versions of MariaDB Enterprise Server are `11.8, 11.4, 10.6, 10.5, 10.4, and 10.3`. Pass the version to install using the `--mariadb-server-version` flag to `mariadb_es_repo_setup`. The following directions reference 11.8.
+2\. Configure the ZYpp package repository. Installable versions of MariaDB Enterprise Server are `11.8, 11.4, and 10.6`. Pass the version to install using the `--mariadb-server-version` flag to `mariadb_es_repo_setup`. The following directions reference 11.8.
 
 To configure ZYpp package repositories:
 

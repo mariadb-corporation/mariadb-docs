@@ -6,7 +6,7 @@ description: >-
 
 # mariadbd Options
 
-This page lists all of the options for `mariadbd` (called mysqld before [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)), ordered by topic. For a full alphabetical list of all mariadbd options, as well as server and status variables, see [Full list of MariaDB options, system and status variables](../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
+This page lists all of the options for `mariadbd`, ordered by topic. For a full alphabetical list of all mariadbd options, as well as server and status variables, see [Full list of MariaDB options, system and status variables](../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
 
 In many cases, the entry here is a summary, and links to the full description.
 
@@ -95,7 +95,7 @@ other MariaDB and MySQL versions. Options that are also system variables are lis
 
 #### `--safe-mode`
 
-* Description: Disable some potential unsafe optimizations. For 5.2, [INSERT DELAYED](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert-delayed.md) is disabled, [myisam\_recover\_options](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#myisam_recover_options) is set to DEFAULT (automatically recover crashed MyISAM files) and the [query cache](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/query-cache.md) is disabled. For [Aria](../../server-usage/storage-engines/aria/) tables, disable bulk insert optimization to enable one to use [aria\_read\_log](../../clients-and-utilities/aria-clients-and-utilities/aria_read_log.md) to recover tables even if tables are deleted (good for testing recovery).
+* Description: Disable some potential unsafe optimizations. [INSERT DELAYED](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert-delayed.md) is disabled, [myisam\_recover\_options](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#myisam_recover_options) is set to DEFAULT (automatically recover crashed MyISAM files) and the [query cache](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/query-cache.md) is disabled. For [Aria](../../server-usage/storage-engines/aria/) tables, disable bulk insert optimization to enable one to use [aria\_read\_log](../../clients-and-utilities/aria-clients-and-utilities/aria_read_log.md) to recover tables even if tables are deleted (good for testing recovery).
 
 #### `--skip-new`
 
@@ -117,11 +117,6 @@ Options that are also system variables are listed after:
 
 * Command line: `--character-set-client-handshake`
 * Description: Don't ignore client side character set value sent during handshake. `--skip-character-set-client-handshake` will ignore the client value and use the default server value.
-
-#### `--default-character-set`
-
-* Command line: `--default-character-set=name`
-* Description: Still available as an option for setting the default character set for clients and their connections, it was deprecated and removed in [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) as a server option. Use [character-set-server](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_server) instead.
 
 #### `--language`
 
@@ -269,7 +264,7 @@ The following options are related to [replication](../../ha-and-performance/stan
 
 * Command line: `--master-retry-count=#`
 * Description: Number of times a replica will attempt to connect to a primary before giving up. The retry interval is determined by the MASTER\_CONNECT\_RETRY option for the CHANGE MASTER statement. A value of 0 means the replica will not stop attempting to reconnect. Reconnects are triggered when a replica has timed out. See [slave\_net\_timeout](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md).
-* Default Value: `86400` through 10.5, `100000` as of 10.6
+* Default Value: `100000`
 * Range - 32 bit: `0 to 4294967295`
 * Range - 64 bit: `0 to 18446744073709551615`
 
@@ -340,17 +335,10 @@ The options and system variables related to [Semisynchronous Replication](../../
 
 Options that are also system variables are listed after:
 
-#### `--record-buffer`
-
-* Command line: `--record-buffer=#`
-* Description: Old alias for [read\_buffer\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_buffer_size).
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
-
 #### `--table-cache`
 
-* Command line: `--table-open-cache=#`
-* Description: Removed; use [--table-open-cache](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache) instead.
-* Removed: [MariaDB 5.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/5.3.1)
+* Command line: `--table-cache=#`
+* Description: Deprecated alias for [--table-open-cache](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache). Use `--table-open-cache` instead.
 
 ### Optimizer Options and System Variables
 
@@ -396,16 +384,10 @@ Options that are also system variables are listed after:
 
 ## Storage Engine Options
 
-#### `--skip-bdb`
-
-* Command line: `----skip-bdb`
-* Description: Deprecated option; Exists only for compatibility with very old my.cnf files.
-* Removed: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)
-
 #### `--external-locking`
 
 * Command line: `--external-locking`
-* Description: Use system (external) locking (disabled by default). With this option enabled you can run [myisamchk](../../clients-and-utilities/myisam-clients-and-utilities/myisamchk.md) to test (not repair) tables while the server is running. Disable with [--skip-external-locking](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_external_locking). From [MariaDB 10.2.40](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.40), [MariaDB 10.3.31](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.31), [MariaDB 10.4.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.21), [MariaDB 10.5.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.12), [MariaDB 10.6.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.4) and all later version, this effects InnoDB and can be used to prevent multiple instances running on the same data.
+* Description: Use system (external) locking (disabled by default). With this option enabled you can run [myisamchk](../../clients-and-utilities/myisam-clients-and-utilities/myisamchk.md) to test (not repair) tables while the server is running. Disable with [--skip-external-locking](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_external_locking). This affects InnoDB and can be used to prevent multiple instances running on the same data.
 
 ### MyISAM Storage Engine Options
 
@@ -448,7 +430,7 @@ The options related to the [InnoDB](../../server-usage/storage-engines/innodb/in
 #### `--innodb`
 
 * Command line: `--innodb=value`, `--skip-innodb`
-* Description: This variable controls whether or not to load the InnoDB storage engine. Possible values are `ON`, `OFF`, `FORCE` or `FORCE_PLUS_PERMANENT` (from [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)). If set to `OFF` (the same as --skip-innodb), since InnoDB is the default storage engine, the server will not start unless another storage engine has been chosen with [--default-storage-engine](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine). `FORCE` means that the storage engine must be successfully loaded, or else the server won't start. `FORCE_PLUS_PERMANENT` enables the plugin, but if plugin cannot initialize, the server will not start. In addition, the plugin cannot be uninstalled while the server is running.
+* Description: This variable controls whether or not to load the InnoDB storage engine. Possible values are `ON`, `OFF`, `FORCE` or `FORCE_PLUS_PERMANENT`. If set to `OFF` (the same as --skip-innodb), since InnoDB is the default storage engine, the server will not start unless another storage engine has been chosen with [--default-storage-engine](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine). `FORCE` means that the storage engine must be successfully loaded, or else the server won't start. `FORCE_PLUS_PERMANENT` enables the plugin, but if plugin cannot initialize, the server will not start. In addition, the plugin cannot be uninstalled while the server is running.
 
 #### `--innodb-cmp`
 
@@ -474,20 +456,6 @@ The options related to the [InnoDB](../../server-usage/storage-engines/innodb/in
 * Description:
 * Default: `ON`
 
-#### `--innodb-file-io-threads`
-
-* Command line: `--innodb-file-io-threads`
-* Description:
-* Default: `4`
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `--innodb-index-stats`
-
-* Command line: `--innodb-index-stats`
-* Description:
-* Default: `ON`
-* Removed: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.0)
-
 #### `--innodb-lock-waits`
 
 * Command line: `--innodb-lock-waits`
@@ -499,13 +467,6 @@ The options related to the [InnoDB](../../server-usage/storage-engines/innodb/in
 * Command line: `--innodb-locks`
 * Description:
 * Default: `ON`
-
-#### `--innodb-rseg`
-
-* Command line: `--innodb-rseg`
-* Description:
-* Default: `ON`
-* Removed: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.0)
 
 #### `--innodb-status-file`
 
@@ -519,25 +480,11 @@ The options related to the [InnoDB](../../server-usage/storage-engines/innodb/in
 * Description:
 * Default: `ON`
 
-#### `--innodb-sys-stats`
-
-* Command line: `--innodb-sys-stats`
-* Description:
-* Default: `ON`
-* Removed: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.0)
-
 #### `--innodb-sys-tables`
 
 * Command line: `--innodb-sys-tables`
 * Description:
 * Default: `ON`
-
-#### `--innodb-table-stats`
-
-* Command line: `--innodb-table-stats`
-* Description:
-* Default: `ON`
-* Removed: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.0)
 
 #### `--innodb-trx`
 
@@ -993,11 +940,6 @@ Some options and system variables related to [Galera Cluster](../../architecture
 
 * Description: Don't print Notes to the [error log](../server-monitoring-logs/error-log.md) during startup.
 
-#### `--sync-sys`
-
-* Description: Enable/disable system sync calls. Syncs should only be turned off (`--disable-sync-sys`) when running tests or debugging! Replaced by [debug-no-sync](mariadbd-options.md#debug-no-sync) from [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5).
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
-
 #### `--thread-alarm`
 
 * Description: Enable/disable system thread alarm calls. Should only be turned off (`--disable-thread-alarm`) when running tests or debugging!
@@ -1081,7 +1023,9 @@ Options that are also system variables are listed after:
 #### `--master-connect-retry`
 
 * Command line: `--master-connect-retry=#`
-* Description: Deprecated in 5.1.17 and removed in 5.5. The number of seconds the replica thread will sleep before retrying to connect to the master, in case the master goes down or the connection is lost.
+* Description: The default value for the [CHANGE MASTER TO](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) option `MASTER_CONNECT_RETRY`: the interval, in seconds, between attempts to connect to the primary.
+* Default Value: `60`
+* Introduced: MariaDB 12.3.1
 
 #### `--memlock`
 
@@ -1092,12 +1036,6 @@ Options that are also system variables are listed after:
 
 * Command line: `--ndb-use-copying-alter-table`
 * Description: Force ndbcluster to always copy tables at alter table (should only be used if on-line alter table fails).
-
-#### `--one-thread`
-
-* Command line: `--one-thread`
-* Description: (Deprecated): Only use one thread (for debugging under Linux). Use [thread-handling=no-threads](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md) instead.
-* Removed: [MariaDB 10.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.4)
 
 #### `--plugin-load`
 
@@ -1166,24 +1104,6 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * Command line: `--skip-ssl`
 * Description: Disable [TLS connections](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md).
 
-#### `--skip-symlink`
-
-* Command line: `--skip-symlink`
-* Description: Don't allow symlinking of tables. Deprecated and removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5). Use [symbolic-links](mariadbd-options.md#symbolic-links) with the `skip` [option prefix](mariadbd-options.md#option-prefixes) instead.
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
-
-#### `--skip-thread-priority`
-
-* Command line: `--skip-thread-priority`
-* Description: Don't give threads different priorities. Deprecated and removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0).
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-
-#### `--sql-bin-update-same`
-
-* Command line: `--sql-bin-update-same=#`
-* Description: The update log was deprecated in version 5.0 and replaced by the [binary log](../server-monitoring-logs/binary-log/), so this option did nothing since then. Deprecated and removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5).
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
-
 #### `--ssl`
 
 * Command line: `--ssl`
@@ -1208,7 +1128,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 
 * Command line: `--temp-pool`
 * Description: Using this option will cause most temporary files created to use a small set of names, rather than a unique name for each new file. This behavior works around a bug in old Linux kernels where the kernel appeared to "leak" memory. In a Docker environment it might look like an unbounded working-set memory growth.\
-  Defaults to `1` until [MariaDB 10.5.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.6), use `--skip-temp-pool` to disable. Defaults to `0` from [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7), as benchmarking shows it causes a heavy mutex contention.
+  Defaults to `0`, as benchmarking shows that `1` causes heavy mutex contention.
 
 #### `--test-expect-abort`
 

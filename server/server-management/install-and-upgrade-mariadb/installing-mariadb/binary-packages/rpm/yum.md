@@ -211,7 +211,7 @@ MariaDB-server.x86_64  12.1.2-1.el8                               mariadb-main
 mariadb-server.x86_64  3:10.3.39-1.module+el8.8.0+1452+2a7eab68   appstream
 ```
 
-The MariaDB repository in this example contains MariaDB 12.1.2, 12.0.2, and 11.8.2; and the appstream repository contains MariaDB 10.3.39.
+The MariaDB repository in this example contains MariaDB 12.1.2, 12.0.2, and 11.8.2; and the appstream repository contains the distribution's own `mariadb-server` package.
 
 To install an older version of a package instead of the latest version we just need to specify the package name, a dash, and then the version number. And we only need to specify enough of the version number for it to be unique from the other available versions.
 

@@ -279,7 +279,7 @@ The following options relate to how MariaDB command line tools handles option fi
 | Group              | Description                                                                                                                                                                     |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | \[mysql\_upgrade]  | Options read by mariadb-upgrade, which includes both MariaDB Server and MySQL Server.                                                                                           |
-| \[mariadb-upgrade] | Options read by mariadb-upgrade. Available starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.6).            |
+| \[mariadb-upgrade] | Options read by mariadb-upgrade.                                                                                                                                       |
 | \[client]          | Options read by all MariaDB and MySQL client programs, which includes both MariaDB and MySQL clients. For example, mysqldump.                                                   |
 | \[client-server]   | Options read by all MariaDB [client programs](../) and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |
 | \[client-mariadb]  | Options read by all MariaDB client programs.                                                                                                                                    |
@@ -288,7 +288,7 @@ The following options relate to how MariaDB command line tools handles option fi
 
 * MariaDB converts long [table names](../../reference/sql-structure/sql-language-structure/identifier-names.md) properly.
 * MariaDB converts [InnoDB](../../server-usage/storage-engines/innodb/) tables (no need to do a dump/restore or [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/)).
-* MariaDB converts old archive tables to the new 5.1 format.
+* MariaDB upgrades [ARCHIVE](../../server-usage/storage-engines/archive.md) tables that use an older archive format.
 * `mysql_upgrade --verbose` runs `mariadb-check --verbose`, so that you get more information of what is happening. Running with 3 times --verbose prints out all `CHECK`, `RENAME` and `ALTER TABLE` statements executed.
 * The [mysql.event table](../../reference/system-tables/the-mysql-database-tables/mysql-event-table.md) is upgraded live. There is no need to restart the server to use events if the event table has changed.
 * More descriptive output.
@@ -300,9 +300,7 @@ The following options relate to how MariaDB command line tools handles option fi
 The main reason to run `mariadb-upgrade` on all your tables is to allow it to check that:
 
 * There has not been any change in table formats between versions.
-* This has not happened since MariaDB 5.1.
 * If some of the tables are using an index for which we have changed sort order.
-* This has not happened since MariaDB 5.5.
 
 {% hint style="warning" %}
 If you are sure this applies to your situation, you can just run `mariadb-upgrade` with the `---upgrade-system-tables` option.
@@ -315,7 +313,7 @@ If you are sure this applies to your situation, you can just run `mariadb-upgrad
 ## mariadb-upgrade 2.0
 
 {% hint style="info" %}
-`mariadb-upgrate/mysql_upgrade 2.0` was introduced in MariaDB 10.5.14 / 10.6.6 / 10.7.2.
+`mariadb-upgrade/mysql_upgrade 2.0` was introduced in MariaDB 10.6.6 / 10.7.2.
 {% endhint %}
 
 Previously, the tool first ran the upgrade process and then created the `datadir/mysql_upgrade_info` file. If the file could not be created because of permissions (`mariadb-upgrade` did not have rights to create the file), `mariadb-upgrad` gave an error, but this was often ignored. One effect of not being able to create the `mysql_upgrade_info` file was that every new `mariadb-upgrade` run would have to do a full upgrade check, which can take a while if there are a lot of tables.
@@ -324,7 +322,7 @@ Previously, the tool first ran the upgrade process and then created the `datadir
 
 * The `datadir/mysql_upgrade_info` is now created at the start of the upgrade process and locked. This ensures that two `mariadb-upgrade` processes cannot be run in parallel, which can cause deadlocks ([MDEV-27068](https://jira.mariadb.org/browse/MDEV-27068)). One side effect of this is that `mariadb-upgrade` has to have write access to `datadir`, which means it has to be run as the user that installed MariaDB, normally 'mysql' or 'root' .
 * One can use `mariadb-upgrade --force --force` to force the upgrade to be run, even if there was no version change or if one doesn't have write access to `datadir`. Note that if this option is used, the next `mariadb-upgrade` run will assume that there is a major version change and the upgrade must be done (again).
-* The upgrade is done only if there is a major server version change (for instance, from MariaDB 10.5 to 10.6). This avoids unnecessary upgrades.
+* The upgrade is done only if there is a major server version change (for instance, from MariaDB 10.6 to 10.11). This avoids unnecessary upgrades.
 * New option added: `--check-if-upgrade-is-needed`. If this is used, `mariadb-upgrade` will return `0` if there has been a major version change and you should run `mariadb-upgrade`. If not upgrade is needed, `1` is returned.
 * `--verbose` writes more information, including from which version to which version the upgrade is done.
 * Better messages when there is no need to run `mariadb-upgrade`.

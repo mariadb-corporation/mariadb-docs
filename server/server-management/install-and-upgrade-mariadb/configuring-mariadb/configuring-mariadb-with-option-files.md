@@ -380,9 +380,7 @@ WHERE VARIABLE_NAME = 'innodb_buffer_pool_size';   -- replace with your variable
 * `GLOBAL_VALUE_PATH`: Full path to the configuration file that set this value (e.g. `/etc/my.cnf.d/mariadb-enterprise.cnf`). Returns `NULL` if not set in any config file.
 * `GLOBAL_VALUE_ORIGIN`: Shows the origin (config file, a compile-time default, or a command line, etc.).
 
-The `global_value_path` column, introduced in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.5/whats-new-in-mariadb-enterprise-server-10-5), shows the full path to the configuration file from which the variable's value was loaded. This is especially helpful in environments with multiple option files as it enables you to determine which configuration file is currently in effect for a given system setting.
-
-**Note**: The `global_value_path` column requires MariaDB ES Server 10.5.0 or later. On previous versions, this column doesn't exist.
+The `global_value_path` column shows the full path to the configuration file from which the variable's value was loaded. This is especially helpful in environments with multiple option files as it enables you to determine which configuration file is currently in effect for a given system setting.
 
 **View all variable set from configuration files**
 

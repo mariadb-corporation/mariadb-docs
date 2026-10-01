@@ -332,10 +332,6 @@ Fields in the output file are optionally enclosed by the given _character_. Used
 
 Fields in the output file are escaped by the given _character_. Used with the --tab option and has the same meaning as the corresponding `FIELDS` clause for [LOAD DATA INFILE](../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md).
 
-#### --first-slave
-
-Removed in MariaDB 5.5. Use `--lock-all-tables` instead.
-
 #### -F, --flush-logs
 
 Flush the MariaDB server log files before starting the dump. This option requires the [RELOAD privilege](../../reference/sql-statements/account-management-sql-statements/grant.md#reload). If you use this option in combination with the `--databases=` or `--all-databases` option, the logs are flushed for each database dumped. The exception is when using `--lock-all-tables` or `--master-data`: In this case, the logs are flushed only once, corresponding to the moment all tables are locked. If you want your dump and the log flush to happen at the same exact moment, you should use `--flush-logs` together with either `--lock-all-tables` or `--master-data`.

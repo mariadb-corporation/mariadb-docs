@@ -643,7 +643,7 @@ There are also a number of commands that can be run inside the client. Note that
 
 | Command            | Description                                                                                                                                                                                           |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| -                  | Enables sandbox mode until EOF (current file or the session, if interactive). From MariaDB 10.5.25, MariaDB 10.6.18, MariaDB 10.11.8, MariaDB 11.0.6, MariaDB 11.1.5, MariaDB 11.2.4, MariaDB 11.4.2. |
+| -                  | Enables sandbox mode until EOF (current file or the session, if interactive). From MariaDB 10.6.18, MariaDB 10.11.8, MariaDB 11.0.6, MariaDB 11.1.5, MariaDB 11.2.4, MariaDB 11.4.2. |
 | ?, ?               | Synonym for \`help'.                                                                                                                                                                                  |
 | clear, \c          | Clear the current input statement.                                                                                                                                                                    |
 | connect,           | Reconnect to the server. Optional arguments are db and host.                                                                                                                                          |

@@ -384,10 +384,6 @@ The File Key Management plugin does not support [key rotation](encryption-key-ma
 {% endtab %}
 {% endtabs %}
 
-## Versions
-
-<table><thead><tr><th width="108">Version</th><th width="151">Status</th><th>Introduced</th></tr></thead><tbody><tr><td>1.0</td><td>Stable</td><td>From MariaDB 10.1.18</td></tr></tbody></table>
-
 ## System Variables
 
 ### `file_key_management_encryption_algorithm`
