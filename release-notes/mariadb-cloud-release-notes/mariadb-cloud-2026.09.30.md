@@ -6,7 +6,7 @@ description: >-
 icon: rocket-launch
 ---
 
-# MariaDB Cloud 2026.09.30: Serverless
+# MariaDB Cloud 2026.09.30 Release Notes: Serverless
 
 **Release Date:** 30 September 2026
 
