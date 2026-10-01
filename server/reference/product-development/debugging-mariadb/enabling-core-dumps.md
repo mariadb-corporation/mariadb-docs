@@ -10,7 +10,7 @@ description: >-
 
 ## Enabling in an Option File
 
-Core dumps are enabled by default on **Windows**, so **this step can be skipped on Windows** in those versions. See [MDEV-18439](https://jira.mariadb.org/browse/MDEV-18439) for more information.
+Core dumps are enabled by default on **Windows**, so **this step can be skipped on Windows**. See [MDEV-18439](https://jira.mariadb.org/browse/MDEV-18439) for more information.
 
 In order to enable core dumps, you need to set the [core\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file) system variable either on the command-line or in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). For example:
 
@@ -301,7 +301,6 @@ In those cases, the core dump may exclude some additional data. If that is not a
 
 * [How to Produce a Full Stack Trace for mariadbd](how-to-produce-a-full-stack-trace-for-mariadbd.md)
 * [HowTo: Debug Crashed Linux Application Core Files Like A Pro](https://www.cyberciti.biz/tips/linux-core-dumps.html)
-* [A Nice Feature in MariaDB 10.3: no InnoDB Buffer Pool in Core Dumps](https://www.percona.com/community-blog/2018/06/28/nice-feature-in-mariadb-103-no-innodb-buffer-pool-in-coredumps/)
 * [Getting MySQL Core file on Linux](https://www.percona.com/blog/2011/08/26/getting-mysql-core-file-on-linux/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -374,7 +374,7 @@ This plugin is available from MariaDB Community Server 11.4.9 / 11.8.4 / 12.1 an
 * [GRANT](../../sql-statements/account-management-sql-statements/grant.md)
 * [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md)
 * [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md)
-* [Authentication from MariaDB 10.4](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
+* [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
 * [Who are you? The history of MySQL and MariaDB authentication protocols from 1997 to 2017](https://mariadb.org/history-of-mysql-mariadb-authentication-protocols/)
 * [MySQL 5.6 Reference Manual: Pluggable Authentication](https://dev.mysql.com/doc/refman/5.6/en/pluggable-authentication.html)
 * [MySQL 5.6 Reference Manual: Writing Authentication Plugins](https://dev.mysql.com/doc/refman/5.6/en/writing-authentication-plugins.html)

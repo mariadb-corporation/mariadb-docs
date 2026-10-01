@@ -94,9 +94,9 @@ ALTER USER CURRENT_USER() IDENTIFIED BY 'mariadb';
 
 ## Authentication Options
 
-From MariaDB 10.4, it is possible to use more than one authentication plugin for each user account. For example, this can be useful to slowly migrate users to the more secure ed25519 authentication plugin over time, while allowing the old mysql\_native\_password authentication plugin as an alternative for the transitional period. See [Authentication from MariaDB 10.4](../../../security/user-account-management/authentication-from-mariadb-10-4.md) for more.
+It is possible to use more than one authentication plugin for each user account. For example, this can be useful to slowly migrate users to the more secure ed25519 authentication plugin over time, while allowing the old mysql\_native\_password authentication plugin as an alternative for the transitional period. See [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md) for more.
 
-When running `ALTER USER`, not specifying an authentication option in the IDENTIFIED VIA clause will remove that authentication method. (However this was not the case before [MariaDB 10.4.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.13), see [MDEV-21928](https://jira.mariadb.org/browse/MDEV-21928))
+When running `ALTER USER`, not specifying an authentication option in the IDENTIFIED VIA clause will remove that authentication method.
 
 For example, a user is created with the ability to authenticate via both a password and unix\_socket:
 
@@ -289,7 +289,7 @@ See [Account Locking](../../../security/user-account-management/account-locking.
 
 The _lock\_option_ and _password\_option_ clauses can occur in either order.
 
-* [Authentication from MariaDB 10.4](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
+* [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
 * [GRANT](grant.md)
 * [CREATE USER](create-user.md)
 * [DROP USER](drop-user.md)

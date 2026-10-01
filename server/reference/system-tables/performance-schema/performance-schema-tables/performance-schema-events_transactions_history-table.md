@@ -6,10 +6,6 @@ description: >-
 
 # Performance Schema events\_transactions\_history Table
 
-{% hint style="info" %}
-The `events_transactions_history` table is available from MariaDB 10.5.2.
-{% endhint %}
-
 The `events_transactions_history` table contains the most recent completed transaction events for each thread.
 
 The number of records stored per thread in the table is determined by the [performance\_schema\_events\_transactions\_history\_size](../performance-schema-system-variables.md#performance_schema_events_transactions_history_size) system variable, which is autosized on startup.

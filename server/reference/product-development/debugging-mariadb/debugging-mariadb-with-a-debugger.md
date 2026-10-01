@@ -23,20 +23,14 @@ Execute:
 mariadbd --debug --help
 ```
 
-If you are using MariaDB before 10.5, then you should use `mysqld` instead of `mariadbd`!
-
 If you get an error `unknown option '--debug`, then MariaDB is not compiled
 for debugging and tracing.
 
-### Building MariaDB for Debugging Starting from 5.5
+### Building MariaDB for Debugging
 
 On Unix you need to pass `-DCMAKE_BUILD_TYPE=Debug` to cmake to compile with debug information.
 
-### Building [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3) and Older
-
-Here is how you compile with debug on older versions:
-
-Use the scripts in the BUILD directory that will compile MariaDB with most common debug options and plugins, for example:
+Alternatively, use the scripts in the BUILD directory that will compile MariaDB with most common debug options and plugins, for example:
 
 ```
 ./BUILD/compile-pentium64-debug-max
@@ -57,19 +51,19 @@ BUILD/compile-pentium64-debug-max
 BUILD/compile-pentium64-valgrind-max
 ```
 
-This is an example of how to compile MariaDB for debugging in your home directory with [MariaDB 5.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/5.2.9) as an example:
+This is an example of how to compile MariaDB for debugging in your home directory from a source tarball:
 
 ```
 cd ~
 mkdir mariadb
 cd mariadb
-tar xvf mariadb-5.2.9.tar.gz
-ln -s mariadb-5.2.9 current
+tar xvf mariadb-11.4.8.tar.gz
+ln -s mariadb-11.4.8 current
 cd current
 ./BUILD/compile-pentium64-debug-max
 ```
 
-The last command will produce a debug version of `sql/mysqld`.
+The last command produces a debug version of `sql/mariadbd`.
 
 ### Debugging MariaDB From the Source Directory
 
@@ -98,7 +92,7 @@ run --datadir=/data --language=./share/english --gdb
 
 You can [set the options in your /.my.cnf file](../../../server-management/starting-and-stopping-mariadb/running-mariadb-from-the-build-directory.md) so as not to have to repeat them on the `run` line.
 
-If you run `mysqld` with `--debug`, you will get a [trace file](creating-a-trace-file.md) in /tmp/mysqld.trace that shows what is happening.
+If you run `mariadbd` with `--debug`, you get a [trace file](creating-a-trace-file.md) in `/tmp/mariadbd.trace` that shows what is happening.
 
 Note that you can have different options in the configuration file for each MariaDB version (like having a specific language directory).
 
@@ -132,17 +126,17 @@ loose-debug-mutex-deadlock-detector
 max-connections=20
 lc-messages=en_us
 
-[mariadb-10.0]
-lc-messages-dir=/my/maria-10.0/sql/share
+[mariadb-10.11]
+lc-messages-dir=/my/maria-10.11/sql/share
 
-[mariadb-10.1]
-lc-messages-dir=/my/maria-10.1/sql/share
+[mariadb-11.4]
+lc-messages-dir=/my/maria-11.4/sql/share
 
-[mariadb-10.2]
-lc-messages-dir=/my/maria-10.2/sql/share
+[mariadb-11.8]
+lc-messages-dir=/my/maria-11.8/sql/share
 
-[mariadb-10.3]
-lc-messages-dir=/my/maria-10.3/sql/share
+[mariadb-12.0]
+lc-messages-dir=/my/maria-12.0/sql/share
 ```
 
 The above `.my.cnf` file:

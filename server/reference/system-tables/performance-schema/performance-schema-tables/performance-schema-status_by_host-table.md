@@ -6,10 +6,6 @@ description: >-
 
 # Performance Schema status\_by\_host Table
 
-{% hint style="info" %}
-The `status_by_host` table is available from MariaDB 10.5.2.
-{% endhint %}
-
 The `status_by_host` table contains status variable information by host. The table does not collect statistics for `Com_xxx` variables.
 
 The table contains the following columns:

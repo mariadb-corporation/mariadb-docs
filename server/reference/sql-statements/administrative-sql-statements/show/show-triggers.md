@@ -95,10 +95,6 @@ collation_connection: utf8_general_ci
 
 `Database Collation` is the collation of the database with which the trigger is associated.
 
-{% hint style="info" %}
-Old triggers created before MySQL 5.7 and MariaDB 10.2.3 have NULL in the `Created` column.
-{% endhint %}
-
 ## See also
 
 * [Trigger Overview](../../../../server-usage/triggers-events/triggers/trigger-overview.md)

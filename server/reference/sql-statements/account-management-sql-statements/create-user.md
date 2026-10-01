@@ -328,9 +328,7 @@ the [LIKE](../../sql-functions/string-functions/like.md) clause. If you need to 
 match a domain name with an underscore), prefix the character with a backslash. See `LIKE`
 for more information on escaping wildcard characters.
 
-Before [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog), when multiple host patterns could match a connecting client, the sort order among wildcard patterns was determined only by the position of the first wildcard character. This approach often produced incorrect results or made the outcome dependent on insertion order.
-
-Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog) ([MDEV-14735](https://jira.mariadb.org/browse/MDEV-14735)), the matching algorithm correctly ranks host patterns by specificity, the number of hosts a pattern can match, ensuring deterministic and accurate privilege resolution.
+The matching algorithm ranks host patterns by specificity, the number of hosts a pattern can match, ensuring deterministic and accurate privilege resolution.
 
 Host name matches are case-insensitive. Host names can match either domain names or IP
 addresses. Use `'localhost'` as the host name to allow only local client connections. On Linux, the loopback interface (127.0.0.1) will not match 'localhost' as it is not considered a local connection: this means that only connections via UNIX-domain sockets will match 'localhost'.
@@ -368,9 +366,7 @@ the first matching account after sorting according to the following criteria:
 
 * Accounts with an exact host name are sorted before accounts using a wildcard in the
   host name. Host names using a netmask are considered to be exact for sorting.
-* Accounts with a wildcard in the host name are sorted by specificity: a hostname that can match fewer hosts is considered more specific and is sorted first. Exact hostnames (no wildcards) are most specific; a bare `%` (matches any host) is least specific. Among patterns with wildcards, those that can match a narrower set of hosts sort before those that match a broader set. For example, `%.foo.bar` sorts before `%.bar` because it matches fewer hosts. \
-  \
-  Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog), this ordering is handled correctly by the improved `get_sort()` algorithm ([MDEV-14735](https://jira.mariadb.org/browse/MDEV-14735)). In earlier versions, sorting was based only on the length of the prefix before the first wildcard, which led to indeterminate ordering for patterns such as `%.bar` versus `%.foo.bar`.
+* Accounts with a wildcard in the host name are sorted by specificity: a hostname that can match fewer hosts is considered more specific and is sorted first. Exact hostnames (no wildcards) are most specific; a bare `%` (matches any host) is least specific. Among patterns with wildcards, those that can match a narrower set of hosts sort before those that match a broader set. For example, `%.foo.bar` sorts before `%.bar` because it matches fewer hosts.
 * Accounts with a non-empty user name sort before accounts with an empty user name.
 * Accounts with an empty user name are sorted last. As mentioned previously, these are known as anonymous accounts. These are described more in the next section.
 
@@ -404,7 +400,7 @@ If the matching account has no grant at all at a given level, a grant belonging 
 
 Usernames can be up to 80 characters long before 10.6 and starting from 10.6 it can be 128 characters long.
 
-Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog),  patterns are ranked according to how many hosts they can match; those that match fewer hosts are considered more specific and take precedence in the ordering. The following example shows how domain-name wildcard patterns are sorted by specificity.
+Patterns are ranked according to how many hosts they can match; those that match fewer hosts are considered more specific and take precedence in the ordering. The following example shows how domain-name wildcard patterns are sorted by specificity.
 
 ```sql
 +---------+-------------+
@@ -416,8 +412,6 @@ Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/co
 | alice   | %           |  <- least specific, matched last
 +---------+-------------+
 ```
-
-**Note:** The ordering of wildcard host patterns shown above reflects the behavior introduced in [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog) ([MDEV-14735](https://jira.mariadb.org/browse/MDEV-14735)). In earlier versions, `%.foo.bar` and `%.bar` could sort indeterminately because the algorithm only compared the length of the prefix before the first wildcard character, both patterns have an empty prefix, so their relative order was undefined and could depend on insertion order in `mysql.user`. &#x20;
 
 ### Anonymous Accounts
 
@@ -481,8 +475,6 @@ See [Account Locking](../../../security/user-account-management/account-locking.
 
 The _lock\_option_ and _password\_option_ clauses can occur in either order.
 
-From [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7) and [MariaDB 10.5.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.8), the _lock\_option_ and _password\_option_ clauses can occur in either order.
-
 ## See Also
 
 * [GRANT](grant.md)
@@ -493,7 +485,7 @@ From [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-s
 * [SET PASSWORD](set-password.md)
 * [SHOW CREATE USER](../administrative-sql-statements/show/show-create-user.md)
 * [Troubleshooting Connection Issues](../../../mariadb-quickstart-guides/mariadb-connection-troubleshooting-guide.md)
-* [Authentication from MariaDB 10.4](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
+* [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
 * [Identifier Names](../../sql-structure/sql-language-structure/identifier-names.md)
 * [mysql.user table](../../system-tables/the-mysql-database-tables/mysql-user-table.md)
 * [mysql.global\_priv\_table](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md)

@@ -107,7 +107,7 @@ The visibility check is itself subject to denies: an account with `SELECT` on `m
 
 ## See Also
 
-* [Authentication from MariaDB 10.4](../../../../security/user-account-management/authentication-from-mariadb-10-4.md)
+* [Authentication](../../../../security/user-account-management/authentication-from-mariadb-10-4.md)
 * [SHOW CREATE USER](show-create-user.md) shows how the user was created.
 * [SHOW PRIVILEGES](show-privileges.md) shows the privileges supported by MariaDB.
 * [DENY](../../account-management-sql-statements/deny.md) blocks a privilege so that no `GRANT` can restore it.

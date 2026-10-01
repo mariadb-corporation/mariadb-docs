@@ -6,10 +6,6 @@ description: >-
 
 # Performance Schema events\_transactions\_current Table
 
-{% hint style="info" %}
-The `events_transactions_current` table is available from MariaDB 10.5.2.
-{% endhint %}
-
 The `events_transactions_current` table contains current transaction events for each thread.
 
 The table size cannot be figured, and always stores one row for each thread, showing the current status of the thread's most recent monitored transaction event.
