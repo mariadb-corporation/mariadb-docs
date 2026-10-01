@@ -19,7 +19,7 @@ SHOW PRIVILEGES
 ## Example
 
 {% hint style="info" %}
-The output is for MariaDB version from 10.5.9. In previous versions, it might look differently.
+The output below is an example. The exact list of privileges depends on the server version.
 {% endhint %}
 
 ```sql

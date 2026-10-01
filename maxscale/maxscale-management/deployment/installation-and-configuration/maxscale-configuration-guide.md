@@ -2213,7 +2213,7 @@ Enable transaction state tracking by offloading it to the backend servers. Getti
 
 In general, it is better to avoid using this type of SQL as tracking the transaction state via the server responses is not compatible with features such as `transaction_replay` in readwritesplit. `session_track_trx_state` should only be enabled if the default transaction tracking done by MaxScale does not produce the desired outcome.
 
-This is only supported by MariaDB versions 10.3 or newer. The following must be configured in the MariaDB server in order for this feature to work. Not configuring the MariaDB server with it can result in the transaction state being wrong in MaxScale which can result in data inconsistency.
+ The following must be configured in the MariaDB server in order for this feature to work. Not configuring the MariaDB server with it can result in the transaction state being wrong in MaxScale which can result in data inconsistency.
 
 ```
 session_track_state_change = ON
