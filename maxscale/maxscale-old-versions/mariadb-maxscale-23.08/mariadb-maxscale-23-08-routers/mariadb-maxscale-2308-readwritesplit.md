@@ -782,8 +782,7 @@ should only be used when the workload is mostly read-only with only occasional
 writes. If used with a mixed or a write-heavy workload, the traffic will end up
 being routed almost exclusively to the primary server.
 
-**Note:** This feature requires MariaDB 10.2.16 or newer to function. In
-addition to this, the `session_track_system_variables` parameter must include`last_gtid` in its list of tracked system variables.
+**Note:** The `session_track_system_variables` parameter must include`last_gtid` in its list of tracked system variables.
 
 **Note:** This feature also enables multi-statement execution of SQL in the
 protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-j/about-mariadb-connector-j#allowmultiqueries)

@@ -26,7 +26,7 @@ use.
 
 ### Security limitations
 
-#### MariaDB 10.2
+#### WITH Statements
 
 The parser of MaxScale correctly parses `WITH` statements, but fails to
 collect columns, functions and tables used in the `SELECT` defining the`WITH` clause.

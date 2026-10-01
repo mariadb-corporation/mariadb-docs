@@ -65,12 +65,6 @@ CREATE USER 'maxscale'@'maxscalehost' IDENTIFIED BY 'maxscale-password';
 GRANT REPLICA MONITOR ON *.* TO 'maxscale-user'@'maxscalehost';
 ```
 
-With MariaDB Server 10.4 and earlier, `REPLICATION CLIENT` is required instead.
-
-```
-GRANT REPLICATION CLIENT ON *.* TO 'maxscale-user'@'maxscalehost';
-```
-
 If `set_donor_nodes` is configured, the `SUPER` grant is required:
 
 ```
