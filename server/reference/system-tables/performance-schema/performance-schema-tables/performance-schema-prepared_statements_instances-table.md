@@ -6,10 +6,6 @@ description: >-
 
 # Performance Schema prepared\_statements\_instances Table
 
-{% hint style="info" %}
-The `prepared_statements_instances` table is available from MariaDB 10.5.2.
-{% endhint %}
-
 The `prepared_statements_instances` table contains aggregated statistics of prepared statements.
 
 The maximum number of rows in the table is determined by the [performance\_schema\_max\_prepared\_statement\_instances](../performance-schema-system-variables.md#performance_schema_max_prepared_statement_instances) system variable, which is by default autosized on startup.

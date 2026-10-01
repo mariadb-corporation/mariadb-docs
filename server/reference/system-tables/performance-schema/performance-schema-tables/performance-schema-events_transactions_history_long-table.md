@@ -6,10 +6,6 @@ description: >-
 
 # Performance Schema events\_transactions\_history\_long Table
 
-{% hint style="info" %}
-The `events_transactions_history_long` table is available from MariaDB 10.5.2.
-{% endhint %}
-
 The `events_transactions_history_long` table contains the most recent completed transaction events that have ended globally, across all threads.
 
 The number of records stored in the table is determined by the [performance\_schema\_events\_transactions\_history\_long\_size](../performance-schema-system-variables.md#performance_schema_events_transactions_history_long_size) system variable, which is autosized on startup.

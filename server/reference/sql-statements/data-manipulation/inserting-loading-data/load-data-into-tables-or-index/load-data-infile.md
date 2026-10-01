@@ -59,14 +59,6 @@ If you don't want to permit this operation (perhaps for security reasons), you c
 If the `LOAD DATA LOCAL INFILE` statement is disabled by either the server or the client and if the user attempts to execute it, then the server will cause the statement to fail with the following error message:
 
 ```
-The used command is not allowed with this MariaDB version
-```
-
-Note that it is not entirely accurate to say that the MariaDB version does not support the command. It would be more accurate to say that the MariaDB configuration does not support the command. See [MDEV-20500](https://jira.mariadb.org/browse/MDEV-20500) for more information.
-
-From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the error message is more accurate:
-
-```
 The used command is not allowed because the MariaDB server or client 
   has disabled the local infile capability
 ```

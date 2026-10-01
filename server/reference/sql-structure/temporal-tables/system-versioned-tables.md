@@ -462,10 +462,6 @@ CREATE TABLE t (x INT) WITH SYSTEM VERSIONING
 
 #### Default Partitions
 
-{% hint style="info" %}
-Default Partitions are available from MariaDB 10.5.
-{% endhint %}
-
 Since partitioning by current and historical data is such a typical use case, it is possible to use a simplified statement to do so. Instead of the following statement:
 
 ```sql

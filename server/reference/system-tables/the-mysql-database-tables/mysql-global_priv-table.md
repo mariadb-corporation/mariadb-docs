@@ -18,7 +18,7 @@ The `mysql.global_priv` table contains the following fields:
 | User  | char(80) | NO   | PRI |         | User (together with Host makes up the unique identifier for this account). |
 | Priv  | longtext | NO   |     |         | Global privileges, granted to the account and other account properties     |
 
-From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), in order to help the server understand which version a privilege record was written by, the `priv` field contains a new JSON field, `version_id` ([MDEV-21704](https://jira.mariadb.org/browse/MDEV-21704)).
+In order to help the server understand which version a privilege record was written by, the `priv` field contains a JSON field, `version_id` ([MDEV-21704](https://jira.mariadb.org/browse/MDEV-21704)).
 
 From [MariaDB 13.1](https://jira.mariadb.org/browse/MDEV-14443), the `Priv` field also holds a `denies` array, recording the negative privileges created with [DENY](../../sql-statements/account-management-sql-statements/deny.md). Denies are stored here for every privilege level, not in `mysql.db`, `mysql.tables_priv`, or `mysql.columns_priv`. See [The denies Field](mysql-global_priv-table.md#the-denies-field).
 
@@ -78,8 +78,6 @@ SELECT CONCAT(user, '@', host, ' => ', JSON_DETAILED(priv)) FROM mysql.global_pr
 } |
 +--------------------------------------------------------------------------------------+
 ```
-
-From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2):
 
 ```sql
 GRANT FILE ON *.* TO user1@localhost;

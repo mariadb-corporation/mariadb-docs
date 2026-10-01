@@ -56,7 +56,7 @@ Connection is done by many exchanges:
 * If (`server_capabilities` & `CLIENT_MYSQL`):
   * [string<4>](../protocol-data-types.md#fixed-length-strings) filler.
 * Else:
-  * [int<4>](../protocol-data-types.md#fixed-length-integers) server capabilities 3rd part. MariaDB specific flags `/*` [`MariaDB 10.2`](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) `or later */`.
+  * [int<4>](../protocol-data-types.md#fixed-length-integers) server capabilities 3rd part. MariaDB specific flags.
 * If (`server_capabilities` & `CLIENT_SECURE_CONNECTION`):
   * [string\<n>](../protocol-data-types.md#fixed-length-strings) authentication plugin data 2nd part. Length = max(12, plugin data length - 9).
   * [string<1>](../protocol-data-types.md#fixed-length-strings) reserved byte.

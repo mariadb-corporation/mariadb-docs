@@ -21,7 +21,7 @@ thread_type: IO_THREAD | SQL_THREAD
 
 ## Description
 
-Stops the replica threads. `STOP SLAVE` requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege, or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#replication-slave-admin) privilege.
+Stops the replica threads. `STOP SLAVE` requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege, or the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#replication-slave-admin) privilege.
 
 Like [START REPLICA](start-replica.md), this statement may be used with the `IO_THREAD` and`SQL_THREAD` options to name the thread or threads to be stopped. In almost all cases, one never need to use the `thread_type` options.
 
