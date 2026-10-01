@@ -31,10 +31,8 @@ The downgrade will not succeed if any features introduced in the higher version 
 
 Common version-specific features that may prevent downgrading include:
 
-* **Instant ADD/DROP COLUMN** (`ALTER TABLE ALGORITHM=INSTANT` ): Introduced across versions 10.3 and 10.4.
-* **New InnoDB redo log formats**: Changed across multiple versions 10.2, 10.3, 10.5, 10.8, 11.0.
-* `mysql.global_priv` table: Replaced `mysql.user` in MariaDB 10.4; incompatible with 10.3.
-* **InnoDB change buffer removal**: MariaDB 11.0 removed it; cannot downgrade to 10.4 or earlier.
+* **New InnoDB redo log formats**: Changed across multiple versions, including 10.8 and 11.0.
+* **InnoDB change buffer removal**: MariaDB 11.0 removed it; downgrading to an earlier release is only possible if `innodb_change_buffering=none`.
 
 See [Version-Specific Considerations](downgrading-between-major-versions-of-mariadb.md#version-specific-considerations) for the full list.
 
@@ -46,15 +44,15 @@ In such circumstances, configuration variables may need to be modified to match 
 
 #### Maintenance Releases
 
-Downgrades within the same release series are generally possible, but compatibility should be verified, especially if changes affecting storage formats or system tables are involved. There are relatively few exceptions; for example, [MariaDB 10.1.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.21) fixed a file format bug that prevented downgrading to previous [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) versions.
+Downgrades within the same release series are generally possible, but compatibility should be verified, especially if changes affecting storage formats or system tables are involved.
 
 #### Why Major Version Downgrades Break
 
 The main reasons for a major version downgrade failure are:
 
 * **System table schema changes**: As the privilege system improves, the privilege and status tables in the [mysql schema](../../reference/system-tables/the-mysql-database-tables/) change between most major versions.
-* **Format changes on on-disk data**: These are less common and generally table-specific, but when they occur (e.g., using [Instant add column](../../server-usage/storage-engines/innodb/innodb-online-ddl/instant-add-column-for-innodb.md) in [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103)), the affected tables cannot be opened in earlier versions.
-* **Internal changes to storage engines**: Both [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) and [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103), for example, introduced new versions of the InnoDB redo log that are not backward-compatible.
+* **Format changes on on-disk data**: These are less common and generally table-specific, but when they occur (e.g., using [Instant add column](../../server-usage/storage-engines/innodb/innodb-online-ddl/instant-add-column-for-innodb.md)), the affected tables cannot be opened in earlier versions.
+* **Internal changes to storage engines**: For example, MariaDB 10.8 introduced a new version of the InnoDB redo log that is not backward-compatible.
 
 ### Generic Downgrade Process
 
@@ -120,19 +118,9 @@ Many of the examples that follow use outdated MariaDB versions that are End of L
 The following is an incomplete list of cases where a table or component cannot be used in an earlier major version. Before proceeding, always check the [Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/) and Changes and Improvements pages for your target version to ensure that there are no additional incompatibilities specific to your version pair.
 
 * [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) or later
-  * A downgrade to [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) or earlier is not possible, because [MDEV-29694](https://jira.mariadb.org/browse/MDEV-29694) removed the InnoDB change buffer. making the format incompatible.
-  * A downgrade to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) or later is only possible if [innodb\_change\_buffering=none](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_change_buffering) (the default starting with [MDEV-27734](https://jira.mariadb.org/browse/MDEV-27734)).
+  * A downgrade to MariaDB 10.6 or 10.11 is only possible if [innodb\_change\_buffering=none](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_change_buffering) (the default starting with [MDEV-27734](https://jira.mariadb.org/browse/MDEV-27734)).
 * [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108) or later
-  * The InnoDB redo log file `ib_logfile0` would need to be replaced with a logically equivalent file, or the shutdown LSN written to the `FIL_PAGE_FILE_FLUSH_LSN` field in the system tablespace (see [MDEV-27199](https://jira.mariadb.org/browse/MDEV-27199)), or the data may be accessed read-only when using [innodb\_force\_recovery=6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104).
-* [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) → [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104)
-  * The InnoDB redo log file `ib_logfile0` must be deleted between a clean shutdown of the 10.5 and a startup of 10.4. This is **not recommended**.
-* [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) → [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103)
-  * Any InnoDB table where `ALTER TABLE ALGORITHM=INSTANT DROP COLUMN` was used while [innodb\_instant\_alter\_column\_allowed=add\_drop\_reorder](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_instant_alter_column_allowed).
-  * Any InnoDB table created or rebuilt while [innodb\_checksum\_algorithm=full\_crc32](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_checksum_algorithm).
-  * In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104), the `mysql.user` table was replaced by the [mysql.global\_priv](../../reference/system-tables/the-mysql-database-tables/mysql-user-table.md) table, which may cause problems if one wants to downgrade to 10.3.
-* [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) → [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102)
-  * Any InnoDB table where `ALTER TABLE…ADD COLUMN` was used (unless [innodb\_instant\_alter\_column\_allowed=never](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_instant_alter_column_allowed)).
-  * A prior shutdown with [innodb\_fast\_shutdown=0](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_shutdown) is required in order to empty the undo logs whose format changed in [MDEV-12288](https://jira.mariadb.org/browse/MDEV-12288). Even then, setting [innodb\_force\_recovery=3](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_force_recovery) may be necessary.
+  * The InnoDB redo log file `ib_logfile0` would need to be replaced with a logically equivalent file, or the shutdown LSN written to the `FIL_PAGE_FILE_FLUSH_LSN` field in the system tablespace (see [MDEV-27199](https://jira.mariadb.org/browse/MDEV-27199)), or the data may be accessed read-only when using [innodb\_force\_recovery=6](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_force_recovery).
 
 ### MariaDB Enterprise Server Considerations
 

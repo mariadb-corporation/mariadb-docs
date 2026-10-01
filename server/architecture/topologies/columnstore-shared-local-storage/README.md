@@ -43,13 +43,13 @@ flowchart TD
 
 _MaxScale routes to a three-node ColumnStore cluster sharing NFS storage._
 
-<ul><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul>
+<ul><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul>
 
-<p>Columnar storage engine with S3-compatible object storage</p><ul><li>Highly available</li><li>Automatic failover via MaxScale and CMAPI</li><li>Scales reads via MaxScale</li><li>Bulk data import</li><li>Enterprise Server 10.5, Enterprise ColumnStore 5, MaxScale 2.5</li><li>Enterprise Server 10.6, Enterprise ColumnStore 23.02, MaxScale 22.08</li></ul>
+<p>Columnar storage engine with S3-compatible object storage</p><ul><li>Highly available</li><li>Automatic failover via MaxScale and CMAPI</li><li>Scales reads via MaxScale</li><li>Bulk data import</li><li>Enterprise Server 10.6, Enterprise ColumnStore 23.02, MaxScale 22.08</li></ul>
 
-This procedure describes the deployment of the ColumnStore Shared Local Storage topology with MariaDB Enterprise Server 10.5, MariaDB Enterprise ColumnStore 5, and MariaDB MaxScale 2.5.
+This procedure describes the deployment of the ColumnStore Shared Local Storage topology.
 
-MariaDB Enterprise ColumnStore 5 is a columnar storage engine for MariaDB Enterprise Server 10.5. Enterprise ColumnStore is suitable for Online Analytical Processing (OLAP) workloads.
+MariaDB Enterprise ColumnStore is a columnar storage engine for MariaDB Enterprise Server. Enterprise ColumnStore is suitable for Online Analytical Processing (OLAP) workloads.
 
 This procedure has 9 steps, which are executed in sequence.
 
@@ -125,7 +125,7 @@ The ColumnStore nodes:
 
 ## Requirements
 
-These requirements are for the ColumnStore Object Storage topology when deployed with MariaDB Enterprise Server 10.5, MariaDB Enterprise ColumnStore 5, and MariaDB MaxScale 2.5.
+These requirements are for the ColumnStore Object Storage topology.
 
 * Node Count
 * Operating System
@@ -146,7 +146,7 @@ These requirements are for the ColumnStore Object Storage topology when deployed
 
 ### Operating System
 
-In alignment to the [enterprise lifecycle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/enterprise-server-lifecycle), the ColumnStore Object Storage topology with MariaDB Enterprise Server 10.5, MariaDB Enterprise ColumnStore 5, and MariaDB MaxScale 2.5 is provided for:
+In alignment to the [enterprise lifecycle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/enterprise-server-lifecycle), the ColumnStore Object Storage topology is provided for:
 
 * CentOS Linux 7 (x86\_64)
 * Debian 10 (x86\_64)
