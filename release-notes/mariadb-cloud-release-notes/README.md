@@ -12,6 +12,10 @@ MariaDB Cloud is continuously delivered, so releases are identified by date rath
 [mariadb-cloud-2026.10.01.md](mariadb-cloud-2026.10.01.md)
 {% endcontent-ref %}
 
+{% content-ref url="mariadb-cloud-2026.09.30.md" %}
+[mariadb-cloud-2026.09.30.md](mariadb-cloud-2026.09.30.md)
+{% endcontent-ref %}
+
 {% content-ref url="mariadb-cloud-2026.08.26.md" %}
 [mariadb-cloud-2026.08.26.md](mariadb-cloud-2026.08.26.md)
 {% endcontent-ref %}

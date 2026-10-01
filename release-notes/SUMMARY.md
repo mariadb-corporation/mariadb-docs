@@ -2841,7 +2841,7 @@
   * [MariaDB MCP Server 1.0.0 Release Notes](mcp-server-release-notes/mariadb-mcp-server-1.0.0-release-notes.md)
 * [MariaDB Cloud Release Notes](mariadb-cloud-release-notes/README.md)
   * [Query Result Cache](mariadb-cloud-release-notes/mariadb-cloud-2026.10.01.md)
-  * [Multiple MariaDB Server Versions on Serverless](mariadb-cloud-release-notes/mariadb-cloud-serverless-multi-version.md)
+  * [Multiple MariaDB Server Versions on Serverless](mariadb-cloud-release-notes/mariadb-cloud-2026.09.30.md)
   * [Enterprise Cluster General Availability](mariadb-cloud-release-notes/mariadb-cloud-2026.08.26.md)
   * [BYOC and New Provisioning Experience](mariadb-cloud-release-notes/mariadb-cloud-2026.08.20.md)
 * [Control Center Release Notes](control-center/README.md)
