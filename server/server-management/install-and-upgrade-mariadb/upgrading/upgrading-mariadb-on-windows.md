@@ -18,7 +18,7 @@ The rest of the article is dedicated to _major_ upgrades, e.g 10.1.x to 10.2.y.
 
 This section assumes MSI installations.
 
-First, check everything listed in the Incompatibilities section of the article relating to the version you are upgrading, for example, [Upgrading from MariaDB 10.1 to MariaDB 10.2](upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-101-to-mariadb-102.md), to make sure you are prepared for the upgrade.
+First, check everything listed in the Incompatibilities section of the article relating to the version you are upgrading, for example, [Upgrading from MariaDB 10.11 to MariaDB 11.4](upgrading-from-to-specific-versions/upgrading-from-mariadb-10-11-to-mariadb-11-4.md), to make sure you are prepared for the upgrade.
 
 MariaDB (and also MySQL) allows different versions of the product to co-exist
 on the same machine, as long as these versions are different either in major or

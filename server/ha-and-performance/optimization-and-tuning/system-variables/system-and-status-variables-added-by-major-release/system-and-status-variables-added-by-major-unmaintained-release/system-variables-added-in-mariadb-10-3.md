@@ -34,7 +34,7 @@ This is a list of [system variables](../../server-system-variables.md) that have
 | [wsrep\_certification\_rules](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_certification_rules)                            | [MariaDB 10.3.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.13) |
 | [wsrep\_reject\_queries](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_reject_queries)                                      | [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.6)   |
 
-For system variables that have been removed or deprecated, see [Upgrading from MariaDB 10.2 to MariaDB 10.3](../../../../../server-management/install-and-upgrade-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-102-to-mariadb-103.md).
+For system variables that have been removed or deprecated, see Upgrading from MariaDB 10.2 to MariaDB 10.3.
 
 ## See Also
 
