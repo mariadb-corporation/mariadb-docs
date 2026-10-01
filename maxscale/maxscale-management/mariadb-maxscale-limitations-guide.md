@@ -23,7 +23,7 @@ Starting with MaxScale 2.4.0, on systems with Linux kernels 3.9 or newer due to 
 
 ### Security limitations
 
-#### MariaDB 10.2
+#### WITH Statements
 
 The parser of MaxScale correctly parses `WITH` statements, but fails to collect columns, functions and tables used in the `SELECT` defining the`WITH` clause.
 

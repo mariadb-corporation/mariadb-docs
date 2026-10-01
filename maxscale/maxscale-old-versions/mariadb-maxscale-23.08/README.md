@@ -74,7 +74,7 @@ The routing module is the core of a MariaDB MaxScale service. The router documen
 
 | Page | Description |
 | --- | --- |
-| [Avrorouter](mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-avrorouter.md) | The avrorouter is a MariaDB 10.0 binary log to Avro file converter. |
+| [Avrorouter](mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-avrorouter.md) | The avrorouter is a MariaDB binary log to Avro file converter. |
 | [Binlogrouter](mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-binlogrouter.md) | The binlogrouter is a router that acts as a replication proxy for MariaDB primary-replica replication. |
 | [Cat](mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-cat.md) | The cat router is a special router that concatenates result sets. |
 | [KafkaCDC](mariadb-maxscale-23-08-routers/mariadb-maxscale-2308-kafkacdc.md) | The KafkaCDC module reads data changes in MariaDB via replication and converts them into JSON objects that are then streamed to a Kafka broker. |

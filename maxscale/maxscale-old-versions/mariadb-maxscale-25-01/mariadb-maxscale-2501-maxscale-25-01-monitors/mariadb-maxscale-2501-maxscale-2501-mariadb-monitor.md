@@ -5,9 +5,7 @@
 MariaDB Monitor monitors a Primary-Replica replication cluster. It probes the
 state of the backends and assigns server roles such as primary and replica, which
 are used by the routers when deciding where to route a query. It can also modify
-the replication cluster by performing failover, switchover and rejoin. Backend
-server versions older than MariaDB/MySQL 5.5 are not supported. Failover and
-other similar operations require MariaDB 10.4 or later.
+the replication cluster by performing failover, switchover and rejoin.
 
 Up until MariaDB MaxScale 2.2.0, this monitor was called _MySQL Monitor_.
 
@@ -17,31 +15,17 @@ The monitor user requires the following grant:
 
 ```
 CREATE USER 'maxscale'@'maxscalehost' IDENTIFIED BY 'maxscale-password';
-GRANT REPLICATION CLIENT ON *.* TO 'maxscale'@'maxscalehost';
-```
-
-In MariaDB Server versions 10.5.0 to 10.5.8, the monitor user instead requires\
-REPLICATION SLAVE ADMIN:
-
-```
-GRANT REPLICATION SLAVE ADMIN ON *.* TO 'maxscale'@'maxscalehost';
-```
-
-In MariaDB Server 10.5.9 and later, REPLICA MONITOR is required:
-
-```
 GRANT REPLICA MONITOR ON *.* TO 'maxscale'@'maxscalehost';
 ```
 
 If the monitor needs to query server disk space (i.e. `disk_space_threshold` is\
-set), then the FILE-grant is required with MariaDB Server versions 10.4.7,\
-10.3.17, 10.2.26 and 10.1.41 and later.
+set), then the FILE-grant is required.
 
 ```
 GRANT FILE ON *.* TO 'maxscale'@'maxscalehost';
 ```
 
-MariaDB Server 10.5.2 introduces CONNECTION ADMIN. This is recommended since it
+CONNECTION ADMIN is recommended since it
 allows the monitor to log in even if server connection limit has been reached.
 
 ```
@@ -58,7 +42,7 @@ GRANT SUPER, RELOAD, PROCESS, SHOW DATABASES, EVENT ON *.* TO 'maxscale'@'maxsca
 GRANT SELECT ON mysql.user TO 'maxscale'@'maxscalehost';
 ```
 
-MariaDB 10.5.2 and later require read access to _mysql.global\_priv_:
+Read access to _mysql.global\_priv_ is also required:
 
 ```
 GRANT SELECT ON mysql.global_priv TO 'maxscale'@'maxscalehost';
@@ -471,13 +455,11 @@ topology. The supported operations are:
 See [operation details](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#operation-details) for more information on the
 implementation of the commands.
 
-The cluster operations require that the monitor user (`user`) has the following
-privileges:
+Before MariaDB Server 11.0.1, the cluster operations require that the monitor user (`user`) has the following privileges:
 
 * SUPER, to modify replica connections, set globals such as read\_only and kill
   connections from other super-users
-* REPLICATION CLIENT (REPLICATION SLAVE ADMIN in MariaDB Server 10.5), to list
-  replica connections
+* REPLICA MONITOR, to list replica connections
 * RELOAD, to flush binary logs
 * PROCESS, to check if the event\_scheduler process is running
 * SHOW DATABASES and EVENT, to list and modify server events
@@ -486,11 +468,6 @@ privileges:
 
 A list of the grants can be found in the [Required Grants](mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md#required-grants)
 section.
-
-The privilege system was changed in MariaDB Server 10.5. The effects of this on
-the MaxScale monitor user are minor, as the SUPER-privilege contains many of the
-required privileges and is still required to kill connections from other
-super-users.
 
 In MariaDB Server 11.0.1 and later, SUPER no longer contains all the required
 grants. The monitor requires:
@@ -1460,7 +1437,7 @@ MariaDB Server may take a long time before it considers the monitor connection
 lost. This time ultimately depends on TCP keepalive settings on the machines
 running MariaDB Server.
 
-On MariaDB Server 10.3.3 and later, the TCP keepalive settings can be configured\
+The TCP keepalive settings can be configured\
 for just the server process. See [Server System Variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#tcp_keepalive_interval)\
 for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ and\_tcp\_keepalive\_time\_. These settings can also be set on the operating system\
 level, as described [here](https://www.tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html).

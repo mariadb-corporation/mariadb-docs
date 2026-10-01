@@ -117,7 +117,7 @@ To downgrade from MaxScale 24.02 to an older MaxScale major release:
 
 ## Upgrading MariaDB MaxScale from 23.02 to 23.08
 
-MariaDB Monitor switchover requires an additional grant on MariaDB Server 10.5 and later. See [Cluster Manipulation Grants](../../../reference/maxscale-monitors/mariadb-monitor.md#cluster-manipulation-grants) for more information.
+MariaDB Monitor switchover requires an additional grant. See [Cluster Manipulation Grants](../../../reference/maxscale-monitors/mariadb-monitor.md#cluster-manipulation-grants) for more information.
 
 ## Upgrading MariaDB MaxScale from 22.08 to 23.02
 
