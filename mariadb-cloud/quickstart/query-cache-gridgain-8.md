@@ -3,7 +3,6 @@ description: >-
   Query Result Cache adds an in-memory query result cache alongside your
   transactional MariaDB Cloud workload, serving repeated reads from memory
   behind MaxScale with no application changes.
-hidden: true
 icon: bolt
 ---
 

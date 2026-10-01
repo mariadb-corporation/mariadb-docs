@@ -1,44 +1,13 @@
 ---
 description: >-
-  Release notes for MariaDB Cloud YYYY.MM.DD, introducing Query Result Cache as
+  Release notes for MariaDB Cloud 2026.10.01, introducing Query Result Cache as
   a Tech Preview add-on for MariaDB Provisioned services.
 icon: rocket-launch
-hidden: true
 ---
-
-<!--
-  HIDDEN DRAFT — DOCS-6392. Supersedes PR #829 (close it unmerged: it creates a
-  second release-notes/mariadb-cloud/ section alongside this one).
-
-  Listed in SUMMARY.md but kept out of the published nav by `hidden: true` in
-  the frontmatter above. The page still resolves by direct URL, for review.
-
-  Keep the frontmatter at line 1: an HTML comment above it makes GitBook render
-  the frontmatter as page text and silently breaks `hidden: true`.
-
-  Blocked on, before reveal:
-    1. Release date — the production flip. QA and Support gave "go" as of
-       2026-09-30; date to come from Matvei (#sky-uat).
-    2. Reveal together with the feature page
-       mariadb-cloud/quickstart/query-cache-gridgain-8.md (DOCS-6403), which is
-       also `hidden: true`.
-
-  Deliberately NOT claimed below: performance figures from the QA reports,
-  internal pod names, and the internal hop between MaxScale and the cache.
-
-  At reveal:
-    1. Set the date in the description and the Release Date line; rename this
-       file from mariadb-cloud-YYYY.MM.DD.md to the real date and update the
-       SUMMARY.md path.
-    2. Remove `hidden: true` above, and add the {% content-ref %} entry to
-       mariadb-cloud-release-notes/README.md (newest first). The card is held
-       back until then: that README is live, so a card here would surface an
-       unreleased feature.
--->
 
 # Query Result Cache
 
-**Release Date:** D Month YYYY
+**Release Date:** 1 October 2026
 
 ## New Features
 
