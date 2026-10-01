@@ -5,7 +5,7 @@ description: >-
 icon: rocket-launch
 ---
 
-# MariaDB Cloud 2026.10.01 Release Notes
+# MariaDB Cloud 2026.10.01: Query Result Cache
 
 **Release Date:** 1 October 2026
 

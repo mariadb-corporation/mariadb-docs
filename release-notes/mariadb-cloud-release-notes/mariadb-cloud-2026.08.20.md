@@ -7,7 +7,7 @@ icon: rocket-launch
 hidden: true
 ---
 
-# MariaDB Cloud 2026.08.20 Release Notes
+# MariaDB Cloud 2026.08.20: BYOC and New Provisioning Experience
 
 **Release Date:** 20 August 2026
 
