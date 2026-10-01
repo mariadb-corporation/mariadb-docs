@@ -14,10 +14,10 @@ MariaDB Cloud is continuously delivered, so releases are identified by date rath
 
 ## September 2026
 
-* [MariaDB Cloud 2026.09.30](mariadb-cloud-2026.09.30.md): Multiple MariaDB Server versions on Serverless
+* [MariaDB Cloud 2026.09.30](mariadb-cloud-2026.09.30.md): Multiple MariaDB Server versions on Serverless (GA)
 
 ## August 2026
 
-* [MariaDB Cloud 2026.08.26](mariadb-cloud-2026.08.26.md): Enterprise Cluster general availability
+* [MariaDB Cloud 2026.08.26](mariadb-cloud-2026.08.26.md): Enterprise Cluster (GA)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

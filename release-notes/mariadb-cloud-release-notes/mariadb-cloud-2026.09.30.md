@@ -1,13 +1,16 @@
 ---
 description: >-
-  MariaDB Cloud 2026.09.30, released on 2026-09-30, adds support for multiple
-  MariaDB Server versions on MariaDB Cloud Serverless.
+  MariaDB Cloud 2026.09.30 is a GA release, released on 2026-09-30. It
+  adds support for multiple MariaDB Server versions on MariaDB Cloud
+  Serverless.
 icon: rocket-launch
 ---
 
 # MariaDB Cloud 2026.09.30: Serverless
 
 **Release Date:** 30 September 2026
+
+Release 2026.09.30 is a GA release.
 
 ## New Features
 
