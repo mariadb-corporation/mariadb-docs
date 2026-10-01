@@ -168,7 +168,7 @@ changed significantly and the primary should be re-selected, although the old
 primary may still be the best choice.
 
 The primary change described above is different from failover and switchover
-described in section [Cluster Manipulation Operartions](#cluster-manipulation-operations)
+described in section [Cluster Manipulation Operations](#cluster-manipulation-operations)
 A primary change only modifies the server roles inside MaxScale but does not
 modify the cluster other than changing the targets of read and write queries.
 Failover and switchover perform a primary change on their own.
@@ -197,7 +197,7 @@ password=mypwd
 
 From MaxScale 2.2.1 onwards, the module name is `mariadbmon` instead of`mysqlmon`. The old name can still be used.
 
-The grants required by `user` depend on which monitor features are used. A full
+The grants required by the `user` depend on which monitor features are used. A full
 list of the grants can be found in the [Required Grants](#required-grants)
 section.
 
@@ -286,7 +286,7 @@ setting is an enum\_mask, allowing multiple conditions to be set simultaneously.
 Conditions 2, 3 and 4 refer to replica servers. A single replica must
 fulfill all of the given conditions for the primary to be viable.
 
-If the primary candidate fails _master\_conditions_ but fulfill
+If the primary candidate fails _master\_conditions_ but fulfills
 _slave\_conditions_, it may be designated _Slave_ instead.
 
 The available conditions are:
@@ -310,7 +310,7 @@ The available conditions are:
    is enabled. Added in MaxScale 23.08.5.
 
 The default value of this setting is
-`master_requirements=primary_monitor_master,disk_space_ok` to ensure that both
+`master_conditions=primary_monitor_master,disk_space_ok` to ensure that both
 monitors use the same primary server when cooperating and that the primary is
 not out of disk space.
 
@@ -369,7 +369,7 @@ slave_conditions=running_master,writable_master
 * Dynamic: Yes
 * Default: `5`
 
-Number of consecutive monitor passes a primary server must be down before it is
+The number of consecutive monitor passes a primary server must be down before it is
 considered failed. If automatic failover is enabled (`auto_failover=true`), it
 may be performed at this time. A value of 0 or 1 enables immediate failover.
 
@@ -593,9 +593,9 @@ monitor will not acquire any locks.
 
 Defines a replication lag limit in seconds for
 launching the monitor script configured in the _script_-parameter. If the
-replication lag of a server goes above this limit, the script is ran with the
+replication lag of a server goes above this limit, the script is run with the
 $EVENT-placeholder replaced by "rlag\_above". If the lag goes back below the
-limit, the script is ran again with replacement "rlag\_below".
+limit, the script is run again with replacement "rlag\_below".
 
 Negative values disable this feature. For more information on monitor scripts,
 see [general monitor documentation](common-monitor-parameters.md#script).
@@ -830,7 +830,7 @@ operation proceeds as follows:
 
 #### Scan topology
 
-**Scan-topology** (added in MaxScale 25.08.0) scans the replication topology and
+**Scan-topology** (added in MaxScale 25.10) scans the replication topology and
 outputs the results in json format. Topology scan begins by running `SHOW ALL
 REPLICAS STATUS` and `SHOW REPLICA HOSTS` on any existing monitored servers.
 These queries show connected primary and replica servers. The monitor then
@@ -885,7 +885,7 @@ its name and monitor is listed.
 
 #### Discover replicas
 
-**Discover-replicas** (added in MaxScale 25.08.0) scans the replication topology
+**Discover-replicas** (added in MaxScale 25.10) scans the replication topology
 (as in *scan-topology*) and adds any new discovered servers to MaxScale and the
 monitor. Only servers directly replicating from the current primary server are
 added, i.e. any external primaries or replicas behind relays are ignored. The
@@ -925,7 +925,7 @@ and will refuse to run if it is enabled.
 
 #### Bootstrap
 
-**Bootstrap** (added in MaxScale 25.08.0) bootstraps an empty monitor (no
+**Bootstrap** (added in MaxScale 25.10) bootstraps an empty monitor (no
 servers), adding servers to it. Bootstrap requires the address of a server in
 the cluster to start from. The monitor connects to the address given and scans
 the replication topology as in *scan-topology*. Any server successfully
@@ -947,7 +947,7 @@ Any discovered servers are added to MaxScale as if created via runtime
 `maxctrl create server ...`. The servers are thus similar to any other runtime
 configured server and are visible in the GUI and `maxctrl list servers`.
 
-The *address* and *port*-settings of the discovered servers are set to the
+The _address_ and _port_-settings of the discovered servers are set to the
 values returned by `SHOW REPLICA HOSTS` or `SHOW REPLICA STATUS`.  Other
 settings are copied from the server given in the *template*-setting, so that the
 discovered servers inherit e.g. TLS settings. If no server template is given,
@@ -986,8 +986,8 @@ logs.
 
 All commands require the monitor instance name as the first parameter. Failover
 selects the new primary server automatically and does not require additional
-parameters. Rejoin requires the name of the joining server as second parameter.
-Replication reset accepts the name of the new primary server as second parameter.
+parameters. Rejoin requires the name of the joining server as the second parameter.
+Replication reset accepts the name of the new primary server as the second parameter.
 If not given, the current primary is selected.
 
 Switchover takes one to three parameters. If only the monitor name is given,
@@ -1334,21 +1334,21 @@ The failback primary must stay online and replicate without interruption for
 [failcount](#failcount) monitor ticks. It must also catch up with the current
 primary server, at least to the gtid the current primary had when the failback
 primary rejoined. Replication delay must also be low, typically at most five
-seconds. Once these conditions are met, monitor runs switchover to restore the
+seconds. Once these conditions are met, the monitor runs a switchover to restore the
 failback primary to the primary role.
 
 The following series of events demonstrates failback switchover:
 
 1. Cluster includes primary P, replicas R1 and R2.
-2. P goes down and stays down long enough for failover to trigger. R1 is new primary.
+2. P goes down and stays down long enough for a failover to trigger. R1 is the new primary.
 3. R1 also goes down, failover triggers again. R2 is now primary and the only server left running.
 4. R1 comes back up. Monitor rejoins it to the cluster, so that R1 replicates from R2.
 5. Failback switchover does not trigger, as P is still the failback primary and it's down.
 6. Some time later, P comes back online. Monitor rejoins it to the cluster.
 7. If P successfully replicates from R2 (no diverged histories) and catches up,
-monitor runs switchover to restore P as primary.
+the monitor runs switchover to restore P as primary.
 
-#### `switchover_on_low_disk_space`**
+#### `switchover_on_low_disk_space`
 
 * Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -1700,16 +1700,16 @@ or rejoin to continue. The monitor user may require additional privileges and
 grants for the custom commands to succeed.
 
 When promoting a replica to primary during switchover or failover, the`promotion_sql_file` is read and executed on the new primary server after its
-read-only flag is disabled. The commands are ran _before_ starting replication
+read-only flag is disabled. The commands are run _before_ starting replication
 from an external primary if any.
 
-`demotion_sql_file` is ran on an old primary during demotion to replica, before the
-old primary starts replicating from the new primary. The file is also ran before
+`demotion_sql_file` is run on an old primary during demotion to replica, before the
+old primary starts replicating from the new primary. The file is also run before
 rejoining a standalone server to the cluster, as the standalone server is
 typically a former primary server. When redirecting a replica replicating from a
 wrong primary, the sql-file is not executed.
 
-Since the queries in the files are ran during operations which modify
+Since the queries in the files are run during operations which modify
 replication topology, care is required. If `promotion_sql_file` contains data
 modification (DML) queries, the new primary server may not be able to
 successfully replicate from an external primary. `demotion_sql_file` should never
@@ -1883,7 +1883,7 @@ _tcp\_keepalive\_time_. These settings can also be set on the operating system
 level, as described [here](https://www.tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html).
 
 As of MaxScale 22.08.13, 23.02.10, 23.08.6 and 24.02.2, configuring
-TCP keepalive is no longer necessary as monitor sets the session _wait\_timeout_
+TCP keepalive is no longer necessary as the monitor sets the session _wait\_timeout_
 variable when acquiring a lock. This causes the MariaDB Server to close the
 monitor connection if the connection appears idle for too long. The value of
 _wait\_timeout_ used depends on the monitor interval and connection timeout
@@ -1976,7 +1976,7 @@ write_test_table=mxs.my_write_test_table
 * Values: `log`, `failover`
 * Dynamic: Yes
 
-Which action to take if primary server fails the write test. `log` means that
+Which action to take if the primary server fails the write test. `log` means that
 MaxScale will simply log the failure but perform no other action. This is mainly
 useful for testing the feature.
 
@@ -2141,13 +2141,17 @@ defined by the _backup\_storage\_address_ and _backup\_storage\_path_ settings.
 Normal ssh-settings are used to access the storage server. The backup storage
 machine does not need to have a MariaDB Server installed.
 
+Run this operation with the `async-create-backup` command. In the MaxScale log
+and in `fetch-cmd-result` output it is referred to by its operation name,
+`create-backup`.
+
 Backup creation runs somewhat similar to rebuild-server. The main difference
 is that the backup data is simply saved to a directory and not prepared or
 used to start a MariaDB Server. If any step fails, the operation is stopped
 and the backup storage directory will be left in an unspecified state.
 
 1. Init. See rebuild-server.
-2. Check listen port on backup storage machine. See rebuild-server.
+2. Check listen port on the backup storage machine. See rebuild-server.
 3. Check that the backup storage main directory exists. Check that it does not
    contain a backup with the same name as the one being created. Create the final
    backup directory.
@@ -2210,13 +2214,17 @@ operation by transferring the backup contents as a tar archive and overwriting
 the target server data directory. The backup storage is defined in monitor
 settings similar to create-backup.
 
+Run this operation with the `async-restore-from-backup` command. In the MaxScale
+log and in `fetch-cmd-result` output it is referred to by its operation name,
+`restore-from-backup`.
+
 The restore-operation runs somewhat similar to rebuild-server. The main
 difference is that the backup data is copied with _tar_ instead of mariadb-backup.
 If any step fails, the operation is stopped and the target server will be
 left in an unspecified state.
 
 1. Init. See rebuild-server.
-2. Check listen port on target machine. See rebuild-server.
+2. Check listen port on the target machine. See rebuild-server.
 3. Check that the backup storage main directory exists and that it contains
    a backup with the name requested.
 4. Test the connection by streaming a short message from the backup storage to
@@ -2240,8 +2248,8 @@ Server restoration is a monitor module command and takes four arguments.
 3. Backup name. This parameter defines the subdirectory where the backup is
    read from and should be an existing directory on the backup storage host.
 4. Data directory on target server. This parameter is optional. If not
-   specified, the monitor will ask the target server. If target server is
-   not running, monitor will assume /var/lib/mysql. Thus, this only needs to be
+   specified, the monitor will ask the target server. If the target server is
+   not running, the monitor will assume /var/lib/mysql. Thus, this only needs to be
    defined with non-standard directory setups.
 
 The command
@@ -2698,7 +2706,7 @@ maxctrl call command mariadbmon fetch-cmd-result MyMonitor
 }
 ```
 
-### Settings for Columnstore commands
+### Settings for ColumnStore commands
 
 #### `cs_admin_port`
 
@@ -2806,7 +2814,7 @@ settings of the monitor should help. Other settings to look at are `query_retrie
 Setting `query_retries` to 2 is a reasonable first try.
 
 If switchover causes the old primary (now replica) to fail replication, then most
-likely a user or perhaps a scheduled event performed a write while monitor
+likely a user or perhaps a scheduled event performed a write while the monitor
 had set `read_only=1`. This is possible if the user performing the write has
 "SUPER" or "READ\_ONLY ADMIN" privileges. The switchover-operation tries to kick
 out SUPER-users but this is not certain to succeed. Remove these privileges
@@ -2827,7 +2835,7 @@ If a replica is shown in _maxctrl_ as "Slave of External Server" instead of
 "Slave", the reason is likely that the "Master\_Host"-setting of the replication connection
 does not match the MaxScale server definition. As of 2.3.2, the MariaDB Monitor by default
 assumes that the replica connections (as shown by `SHOW ALL SLAVES STATUS`) use the exact
-same "Master\_Host" as used the MaxScale configuration file server definitions. This is
+same "Master\_Host" as used in the MaxScale configuration file server definitions. This is
 controlled by the setting [assume\_unique\_hostnames](#assume_unique_hostnames).
 
 ## Using the MariaDB Monitor With Binlogrouter
