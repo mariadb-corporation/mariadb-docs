@@ -230,6 +230,22 @@ journalctl -u mariadb-columnstore-cmapi # only with the CMAPI package installed
 
 Errors raised at the SQL layer (including ColumnStore plugin messages) go to the regular MariaDB Server [error log](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/error-log), configured with the [`log_error`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#log_error) system variable.
 
+## Checking Cluster Status
+
+To check the state of a node or cluster that doesn't start or doesn't respond, use `mcs status`. The `mcs` command requires CMAPI to be installed:
+
+```bash
+mcs status
+```
+
+By default, `mcs status` returns JSON. In ColumnStore 25.10.5 and later, add `-h` (`--human-readable`) to get plain-text output:
+
+```bash
+mcs status -h
+```
+
+For the full `mcs` command reference, run `mcs help-all` or `man mcs`. For help on a single command, run `mcs <command> --help`. For the underlying API call, see [Checking CMAPI Cluster Status](../high-availability/cluster-management/checking-cmapi-cluster-status.md).
+
 ## Gathering Logs for Support Tickets
 
 When opening a support ticket, use `mcs review --logs` to collect all relevant logs and diagnostic information in one archive:
