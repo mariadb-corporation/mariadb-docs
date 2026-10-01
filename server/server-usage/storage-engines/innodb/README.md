@@ -255,7 +255,7 @@ Complete guide to InnoDB system variables for MariaDB. Complete reference for bu
 {% endcolumn %}
 
 {% column %}
-This page is outdated. It's left in place because release notes for old MariaDB versions refer to it (MariaDB < 10.3).
+This page is outdated. It's left in place because release notes for old MariaDB versions refer to it.
 {% endcolumn %}
 {% endcolumns %}
 

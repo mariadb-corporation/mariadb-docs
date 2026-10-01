@@ -2435,7 +2435,7 @@ as `transaction_replay` in readwritesplit. `session_track_trx_state` should only
 be enabled if the default transaction tracking done by MaxScale does not produce
 the desired outcome.
 
-This is only supported by MariaDB versions 10.3 or newer. The following must be
+ The following must be
 configured in the MariaDB server in order for this feature to work. Not
 configuring the MariaDB server with it can result in the transaction state being
 wrong in MaxScale which can result in data inconsistency.
