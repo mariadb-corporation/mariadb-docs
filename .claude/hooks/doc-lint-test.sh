@@ -297,6 +297,60 @@ flowchart LR
 MD
   cp "$SANDBOX/server/mermaid/unfixed.md" "$SANDBOX/server/mermaid/unfixed with spaces.md"
 
+  # Page-description fixtures (DOCS-6763). GitBook cuts a description at 200 characters and
+  # renders it as plain text, so each of these is a defect a reader would see.
+  mkdir -p "$SANDBOX/server/desc" "$SANDBOX/agent-skills/desc"
+  cat > "$SANDBOX/server/desc/clean.md" <<'MD'
+---
+description: >-
+  A short, plain description that says what the page covers, well under the
+  limit.
+---
+
+# Clean Description
+MD
+  # 201 characters once folded: one over the limit, so the boundary itself is tested.
+  { printf -- '---\ndescription: >-\n  '; printf 'x%.0s' $(seq 1 201); printf '\n---\n\n# Long\n'; } \
+    > "$SANDBOX/server/desc/long.md"
+  { printf -- '---\ndescription: >-\n  '; printf 'x%.0s' $(seq 1 200); printf '\n---\n\n# Exactly 200\n'; } \
+    > "$SANDBOX/server/desc/exactly-200.md"
+  # The MaxScale Exasolrouter shape before #1184: a blank line inside the folded scalar.
+  cat > "$SANDBOX/server/desc/blank-line.md" <<'MD'
+---
+description: >-
+  First paragraph.
+
+  Second paragraph.
+---
+
+# Blank Line
+MD
+  cat > "$SANDBOX/server/desc/backtick.md" <<'MD'
+---
+description: Load time zones with the `mariadb-tzinfo-to-sql` utility.
+---
+
+# Backtick
+MD
+  cat > "$SANDBOX/server/desc/title.md" <<'MD'
+---
+description: 'Step 9: Import Data'
+---
+
+# Step 9: Import Data
+MD
+  # `<` and `&` are HTML-escaped by GitBook and render as written, so they must NOT fail.
+  cat > "$SANDBOX/server/desc/angle.md" <<'MD'
+---
+description: Delete a restore with a DELETE call to /restores/<ID> & an API key.
+---
+
+# Angle
+MD
+  # Outside every GitBook space: a SKILL.md description is agent-trigger text, long on purpose.
+  cp "$SANDBOX/server/desc/long.md" "$SANDBOX/agent-skills/desc/SKILL.md"
+  cp "$SANDBOX/server/desc/long.md" "$SANDBOX/server/desc/long with spaces.md"
+
   (
     cd "$SANDBOX" || exit 1
     git init -q -b main . >/dev/null 2>&1 || git init -q . >/dev/null 2>&1
@@ -852,6 +906,95 @@ begin 'doc-lint.sh reaches mermaidcheck.py'
 lint . - DOC_LINT_SKIP_FRAGMENTS=1 -- server/mermaid/unfixed.md
 want_rc 1
 want_err 'no init directive'
+end
+
+# ---- page descriptions (DOCS-6763; gated in CI by desccheck-pr.yml) ------------------------
+# desccheck.py is driven directly, the way desccheck-pr.yml drives it, plus once through
+# doc-lint.sh to prove the delegation.
+DESCCHECK="$SCRIPT_DIR/desccheck.py"
+DC_STDIN=''
+dc() {
+  set +e
+  if [ -n "$DC_STDIN" ]; then
+    ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        python3 "$DESCCHECK" "$@" < "$DC_STDIN" ) > "$OUT" 2> "$ERR"
+  else
+    ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        python3 "$DESCCHECK" "$@" < /dev/null ) > "$OUT" 2> "$ERR"
+  fi
+  RC=$?
+  set -e
+}
+
+begin 'desccheck.py with no arguments is a usage error, not a silent pass'
+dc
+want_rc 2
+want_err 'usage:'
+end
+
+begin 'a short plain description passes, and the summary counts what was checked'
+dc server/desc/clean.md
+want_rc 0
+want_out '1 description(s) in 1 published file(s) (1 given, 0 exempt or not Markdown); 0 failing'
+end
+
+begin 'exactly 200 characters passes; 201 fails'
+dc server/desc/exactly-200.md
+want_rc 0
+dc server/desc/long.md
+want_rc 1
+want_err '201 characters'
+end
+
+begin 'a blank line inside a folded description fails (the Exasolrouter shape)'
+dc server/desc/blank-line.md
+want_rc 1
+want_err 'blank line inside the block scalar'
+end
+
+begin 'a backtick fails, because GitBook shows it literally'
+dc server/desc/backtick.md
+want_rc 1
+want_err 'contains a backtick'
+end
+
+begin 'a description that repeats the H1 fails'
+dc server/desc/title.md
+want_rc 1
+want_err 'repeats the page title'
+end
+
+begin 'angle brackets and ampersands pass: GitBook escapes them'
+dc server/desc/angle.md
+want_rc 0
+end
+
+begin 'agent-skills/ is exempt: SKILL.md descriptions are not page descriptions'
+dc agent-skills/desc/SKILL.md
+want_rc 0
+want_out '(1 given, 1 exempt or not Markdown)'
+end
+
+begin 'desccheck --stdin0 does not split a path containing a space'
+nul_list "$SANDBOX/.list" 'server/desc/long with spaces.md'
+DC_STDIN="$SANDBOX/.list" dc --stdin0
+DC_STDIN=''
+want_rc 1
+want_err 'server/desc/long with spaces.md'
+end
+
+begin 'desccheck --stdin0 on empty input reports zero given rather than claiming a clean set'
+nul_list "$SANDBOX/.list"
+DC_STDIN="$SANDBOX/.list" dc --stdin0
+DC_STDIN=''
+want_rc 0
+want_out '(0 given,'
+end
+
+begin 'doc-lint.sh reaches desccheck.py'
+lint . - DOC_LINT_SKIP_FRAGMENTS=1 -- server/desc/backtick.md
+want_rc 1
+want_err 'contains a backtick'
 end
 
 # ---- railroad-diagram dark-mode card (DOCS-6637; gated in CI by railroadcheck-pr.yml) --------

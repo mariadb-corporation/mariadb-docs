@@ -7,9 +7,10 @@ Code. It contains:
 |------|------------|
 | `settings.json` | Project settings, incl. the `PreToolUse(Bash)` hook wiring |
 | `settings.local.json` | **Personal** overrides — gitignored, never committed |
-| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus five checks it delegates to their own scripts: includes (`includecheck.sh`), Mermaid edge-label contrast (`mermaidcheck.py`), heading anchors (`fragcheck.py`), orphaned pages (`navcheck.py`) and gutted pages (`shrinkcheck.py`). All five are gated in CI too |
+| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus five checks it delegates to their own scripts: includes (`includecheck.sh`), Mermaid edge-label contrast (`mermaidcheck.py`), page descriptions (`desccheck.py`), heading anchors (`fragcheck.py`), orphaned pages (`navcheck.py`) and gutted pages (`shrinkcheck.py`). All five are gated in CI too |
 | `hooks/includecheck.sh` | Resolves every relative GitBook `{% include %}`; fails on a dead or cross-space target. Also the entry point for `includecheck-pr.yml` (DOCS-6586), which runs it tree-wide |
 | `hooks/mermaidcheck.py` | Fails a Mermaid flowchart whose edge labels miss WCAG AA contrast in GitBook's dark theme (DOCS-6630); `--fix` adds the house fix. Called by `doc-lint.sh` and, tree-wide, by `mermaidcheck-pr.yml` |
+| `hooks/desccheck.py` | Fails a frontmatter `description:` that GitBook renders broken — over 200 characters, split by a blank line, containing Markdown, or repeating the H1 (DOCS-6763). Called by `doc-lint.sh` and, on changed pages, by `desccheck-pr.yml` |
 | `hooks/railroadcheck.py` | Fails a railroad-diagram SVG without the white background card that keeps its connector lines visible in GitBook's dark theme (DOCS-6637); `--fix` adds it, and is the last step of every regeneration (`dev-docs/railroad-diagrams.md`). Run tree-wide by `railroadcheck-pr.yml`. Not called by `doc-lint.sh`, which checks Markdown |
 | `hooks/fragcheck.py` | GitBook-accurate heading-anchor checker, called by `doc-lint.sh` and by `fragcheck-pr.yml` |
 | `hooks/timeless.py` | High-precision finder for undated product claims ("currently in beta", "coming soon", "at the time of writing"), the check behind the style guide's *Timeless wording* rule (DOCS-6640). **Advisory only** — called by `nightly-timeless.yml` and the `style-apply` skill, never by `doc-lint.sh` or a PR gate |
@@ -152,8 +153,11 @@ unlabelled cases, the one-line directive first proposed on that ticket (which mu
 detector regression its first draft shipped, `--fix` idempotence, `--stdin0`, and the
 `doc-lint.sh` delegation. DOCS-6637 added 7 for `railroadcheck.py`: raw generator output, the
 `fill=` attribute that the generator's CSS overrides, a card that misses 3:1, `--fix` padding
-and idempotence, and `--stdin0`. Run the suite after any change to `doc-lint.sh`,
-`includecheck.sh`, `mermaidcheck.py`, `railroadcheck.py`, `navcheck.py`, `shrinkcheck.py` or
+and idempotence, and `--stdin0`. DOCS-6763 added 11 for `desccheck.py`: the 200/201-character
+boundary, a blank line in a folded scalar, a backtick, a title repeat, the `<`/`&` case that must
+pass, the `agent-skills/` exemption, `--stdin0` with a space and with empty input, its usage
+error, and the `doc-lint.sh` delegation. Run the suite after any change to `doc-lint.sh`,
+`includecheck.sh`, `mermaidcheck.py`, `desccheck.py`, `railroadcheck.py`, `navcheck.py`, `shrinkcheck.py` or
 `allowlist.py`:
 
 ```bash
