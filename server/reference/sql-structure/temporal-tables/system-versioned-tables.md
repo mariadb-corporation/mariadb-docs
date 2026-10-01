@@ -649,17 +649,6 @@ A number of system variables are related to system-versioned tables:
 * Type: Varchar
 * Default Value: `DEFAULT`
 
-#### system\_versioning\_innodb\_algorithm\_simple
-
-* Description: Never fully implemented and removed in the following release.
-* Command line: `--system-versioning-innodb-algorithm-simple[={0|1}]`
-* Scope: Global, Session
-* Dynamic: Yes
-* Type: Boolean
-* Default Value: `ON`
-* Introduced: MariaDB 10.3.4
-* Removed: MariaDB 10.3.5
-
 #### system\_versioning\_insert\_history
 
 * Description: Allows direct inserts into ROW\_START and ROW\_END columns if [secure\_timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_timestamp) allows changing [timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#timestamp).

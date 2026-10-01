@@ -816,7 +816,7 @@ Before MariaDB 11.0:
 
 #### `innodb_flush_neighbors`
 
-* Description: Determines whether flushing a page from the [buffer pool](innodb-buffer-pool.md) will flush other dirty pages in the same group of pages (extent). In high write environments, if flushing is not aggressive enough, it can fall behind resulting in higher memory usage, or if flushing is too aggressive, cause excess I/O activity. SSD devices, with low seek times, would be less likely to require dirty neighbor flushing to be set. An attempt is made under Windows and Linux to determine SSD status which was exposed in [information\_schema.innodb\_tablespaces\_scrubbing\_table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_scrubbing-table.md). This variable is ignored for table spaces that are detected as stored on SSD (and the `0` behavior applies).
+* Description: Determines whether flushing a page from the [buffer pool](innodb-buffer-pool.md) will flush other dirty pages in the same group of pages (extent). In high write environments, if flushing is not aggressive enough, it can fall behind resulting in higher memory usage, or if flushing is too aggressive, cause excess I/O activity. SSD devices, with low seek times, would be less likely to require dirty neighbor flushing to be set. An attempt is made under Windows and Linux to determine SSD status. This variable is ignored for table spaces that are detected as stored on SSD (and the `0` behavior applies).
   * `1`: The default, flushes contiguous dirty pages in the same extent from the buffer pool.
   * `0`: No other dirty pages are flushed.
   * `2`: Flushes dirty pages in the same extent from the buffer pool.
