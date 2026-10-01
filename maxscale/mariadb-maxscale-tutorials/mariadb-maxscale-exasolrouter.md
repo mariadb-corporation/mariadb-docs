@@ -212,6 +212,14 @@ Replace the following placeholders with values that match your actual environmen
 * `UID` and `PWD`: The Exasol user credentials created in Step 2
 * `targets`: The MariaDB server that the Exasolrouter service uses to authenticate clients. The Exasolrouter never routes queries to this server — Exasol is reached only through `connection_string` — but the service needs it to load user accounts, so that you can also connect to the Exasolrouter service directly, as in Step 7
 
+With `preprocessor=internal`, the Exasolrouter translates MariaDB SQL to Exasol SQL using the `maria_preprocessor.py` script that ships with the `maxscale-exasol` package, so no further setup is needed. To use a different or newer version of the script, give its path as an argument:
+
+```
+preprocessor=internal:/path/to/maria_preprocessor.py
+```
+
+The latest script is available from the [exasol-mariadb-compat](https://github.com/mariadb-corporation/exasol-mariadb-compat/blob/main/preprocessor/maria_preprocessor.sql) repository. That file is written as an Exasol `CREATE OR REPLACE PYTHON3 PREPROCESSOR SCRIPT` statement, so remove its first line before saving it as `maria_preprocessor.py`. A relative path is interpreted relative to the MaxScale share directory. For details, see [`preprocessor`](../reference/maxscale-routers/maxscale-exasolrouter.md#preprocessor).
+
 ### Step 5. Configure the MaxScale SmartRouter.
 
 The SmartRouter integrates the MariaDB server with the Exasolrouter and is responsible for distributing queries between the two backends.\
