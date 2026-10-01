@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""allowlist.py — the checked-in acknowledgment register for doc-lint's two
+"""allowlist.py — the checked-in acknowledgment register for doc-lint's
 acknowledgeable guards, and the ONLY parser for it.
 
 WHY A FILE AND NOT AN ENVIRONMENT VARIABLE
@@ -21,9 +21,10 @@ WHY A FILE AND NOT AN ENVIRONMENT VARIABLE
     before stops working.
 
 FORMAT
-    Two sections, because a page can be legitimately unlisted without being
-    gutted and vice versa. Every entry needs a `reason`, and the ticket it
-    traces to where one exists:
+    Three sections, one per guard, because the conditions are independent: a
+    page can be legitimately unlisted without being gutted, and a release can
+    legitimately have no Post Download page while being neither. Every entry
+    needs a `reason`, and the ticket it traces to where one exists:
 
         orphan:
           - path: release-notes/enterprise-server/12.3/whats-new.md
@@ -32,6 +33,14 @@ FORMAT
         shrink:
           - path: tools/debian/README.md
             reason: "3 of 5 child pages retired -- DOCS-5976"
+
+        no-standalone:
+          - path: release-notes/connectors/c/3.4/3.4.10.md
+            reason: "shipped only inside Server; 3.4.11 is the standalone -- DOCS-6732"
+
+    A section name is written the way YAML reads best, so it may contain `-`.
+    The matching environment variable normalizes that to `_`, because
+    DOC_LINT_ALLOW_NO-STANDALONE is not a name a shell can export.
 
 WHY A HAND-WRITTEN PARSER AND NOT PyYAML
     Every checker in .claude/hooks/ is standard library only, deliberately: they
@@ -68,7 +77,9 @@ STALE ENTRIES
     whose page is now listed in SUMMARY.md (Daniel's self-pruning requirement)
     or whose page is gone; shrinkcheck.py fails on a shrink entry whose page is
     gone. There is no "un-shrink" signal, so that half cannot self-prune
-    further.
+    further. postdownload.py fails on a no-standalone entry whose page is gone
+    OR whose release has since gained a Post Download page -- that second signal
+    exists, so that section prunes itself in both directions.
 
 MODES
     allowlist.py validate [<file>]   parse and report the counts (exit 2 if bad)
@@ -83,7 +94,7 @@ import pathlib
 import sys
 
 REL_PATH = os.path.join('.claude', 'hooks', 'doc-lint-allow.yml')
-SECTIONS = ('orphan', 'shrink')
+SECTIONS = ('orphan', 'shrink', 'no-standalone')
 
 
 class AllowlistError(Exception):
@@ -131,7 +142,8 @@ def _check_path(value, lineno, section, seen):
             f'line {lineno}: `all` is not accepted in the allowlist file -- it '
             f'would disable the {section} guard for the whole repository, '
             f'permanently. Name the individual paths. (DOC_LINT_ALLOW_'
-            f'{section.upper()}=all still works for a one-off local run.)')
+            f'{section.upper().replace("-", "_")}=all still works for a one-off '
+            f'local run.)')
     if value.startswith('/') or (len(value) > 2 and value[0].isalpha()
                                  and value[1] == ':'):
         raise AllowlistError(f'line {lineno}: {value!r} is absolute; paths are '
@@ -185,7 +197,7 @@ def parse(text):
             if name not in SECTIONS:
                 raise AllowlistError(
                     f'line {lineno}: unknown section {name!r} (expected '
-                    f'{" or ".join(SECTIONS)})')
+                    f'{", ".join(SECTIONS[:-1])} or {SECTIONS[-1]})')
             if name in opened:
                 raise AllowlistError(f'line {lineno}: section {name!r} appears twice')
             close()
@@ -273,7 +285,10 @@ def env_paths(section):
     one-off for an interactive run, not a checked-in decision.
     """
     import re
-    raw = os.environ.get(f'DOC_LINT_ALLOW_{section.upper()}', '')
+    # `-` -> `_`: a section name is written the way YAML reads best
+    # (`no-standalone`), but DOC_LINT_ALLOW_NO-STANDALONE is not a name a shell
+    # can export, so the variable spelling normalizes it.
+    raw = os.environ.get(f'DOC_LINT_ALLOW_{section.upper().replace("-", "_")}', '')
     return {t for t in re.split(r'[\s,]+', raw) if t}
 
 
@@ -309,7 +324,8 @@ def main(argv):
         if mode in ('paths', 'entries'):
             if len(argv) < 3 or argv[2] not in SECTIONS:
                 print(f'allowlist: `{mode}` needs a section '
-                      f'({" or ".join(SECTIONS)})', file=sys.stderr)
+                      f'({", ".join(SECTIONS[:-1])} or {SECTIONS[-1]})',
+                      file=sys.stderr)
                 return 2
             data = load()[argv[2]]
             for e in data:

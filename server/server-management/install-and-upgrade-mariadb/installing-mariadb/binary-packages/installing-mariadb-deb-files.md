@@ -14,7 +14,7 @@ This page walks you through the simple installation steps using `apt`.
 
 ### Adding the MariaDB APT repository
 
-We currently have APT repositories for the following Linux distributions:
+MariaDB provides APT repositories for the following Linux distributions:
 
 * Debian 11 (Bullseye)
 * Debian 12 (Bookworm)
@@ -35,7 +35,7 @@ To use the script, execute the following command:
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 ```
 
-Note that this script also configures a repository for MariaDB MaxScale and a repository for MariaDB Tools, which currently only contains [Percona XtraBackup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) and its dependencies.
+Note that this script also configures a repository for MariaDB MaxScale and a repository for MariaDB Tools, which only contains [Percona XtraBackup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) and its dependencies.
 
 See [MariaDB Package Repository Setup and Usage](../../mariadb-package-repository-setup-and-usage.md) for more information.
 

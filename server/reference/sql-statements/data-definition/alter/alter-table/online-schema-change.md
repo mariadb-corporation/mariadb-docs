@@ -35,6 +35,7 @@ If the `INSERT` statement starts after the `ALTER TABLE` statement, it is not bl
 `ALTER TABLE` always allows concurrent [SELECT](../../../data-manipulation/selecting-data/select.md) statements. If the `LOCK=NONE` locking strategy is chosen, it allows concurrent modifications via DML[^1] statements like `INSERT`, `DELETE`, or `UPDATE`. `LOCK=NONE` is supported by the InnoDB and the Partition engine when `ALGORITHM=NOCOPY` is chosen, and is a default locking strategy when available.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     subgraph "Legacy Behavior (Blocking)"
         direction TB
@@ -60,6 +61,7 @@ graph TD
     style L2 fill:#fdd,stroke:#900,stroke-width:2px
     style O2 fill:#ddf,stroke:#009,stroke-width:2px
     style DML fill:#dfd,stroke:#060,stroke-width:2px
+    linkStyle default color:#111111
 ```
 
 ### New Behavior
@@ -88,13 +90,13 @@ While all copying and online changes application happens without blocking concur
 ### Online Change Buffer Details
 
 * Storage and Scope: Despite the name, the buffer is not purely in-memory; it is implemented as a temporary file on the filesystem using MariaDB's `create_temp_file` function. It is created on a per-table basis, rather than globally or per-session. The file is typically stored in the directory defined by the `TMPDIR` environment variable, or the OS default temporary path (like `GetTempPath` on Windows).
-* Size Limits: The online schema change reuses the temporary buffer mechanism used in the binlog for transaction/statement caches. There is currently no way to explicitly limit its maximum size via a system variable; it is only bounded by available disk space and OS-specific limits, such as a 4GB limit on a 32-bit machine.
+* Size Limits: The online schema change reuses the temporary buffer mechanism used in the binlog for transaction/statement caches. There is no way to explicitly limit its maximum size via a system variable; it is only bounded by available disk space and OS-specific limits, such as a 4GB limit on a 32-bit machine.
 * Disk Full Risks: Because there is no explicit size limit, heavy concurrent DML during a long schema change can fill up the disk hosting the temporary directory. This behaves similarly to a sort buffer for unindexed `SELECT`statements causing a disk full event, which could hang operations.
 * Crash Behavior: If the server crashes during the `ALTER` statement, no manual cleanup is required. The temporary files are created with OS-level ephemeral flags (like `O_TMPFILE` on supported Linux systems or `O_TEMPORARY | O_SHORT_LIVED` on Windows) or are unlinked immediately upon creation. This ensures the operating system automatically reclaims the file space.
 
 ## Monitoring and Troubleshooting
 
-* Currently, MariaDB does not provide a native mechanism to monitor or troubleshoot the online change buffer.
+* MariaDB does not provide a native mechanism to monitor or troubleshoot the online change buffer.
 * There are no specific `STATUS` variables available to track the size or usage of this buffer.
 * Furthermore, there are no corresponding tables in the `information_schema` or `performance_schema` to collect this data from a running server.
 * Administrators must proactively monitor the available disk space of the filesystem hosting the temporary directory (`tmpdir`) during large `ALTER TABLE` operations to prevent disk exhaustion.
@@ -157,6 +159,10 @@ The following limitations apply:
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 Online copy is the default mode whenever `NOCOPY` does not apply. In case of any problem with it, it can be disabled by specifying `LOCK=SHARED` to force the usual `COPY` algorithm.
 
 Additionally, to better support existing workflows, there is a new `old_mode` flag. The following statement disables online copy by default:
@@ -171,6 +177,10 @@ Server-wide online schema change expands MariaDB Server’s capability for the `
 {% endtab %}
 
 {% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 Online copy is **not** the default mode.
 {% endtab %}
 {% endtabs %}

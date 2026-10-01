@@ -34,7 +34,7 @@ These messages are raised in the following cases:
 
 ## Does the Problem Affect me?
 
-The cause of the problem is described [here](troubleshooting-row-size-too-large-errors-with-innodb.md#root-cause-of-the-problem). In very short, it affected old MariaDB versions (up to 10.2.26, 10.3.17, and 10.4.7). If you're on a newer version, the problem could yet still come up if the following applies:
+The cause of the problem is described [here](troubleshooting-row-size-too-large-errors-with-innodb.md#root-cause-of-the-problem). In very short, it affected only old, unsupported MariaDB versions. If you're on a supported version, the problem could yet still come up if the following applies:
 
 * You created tables with a MariaDB version that has the problem.
 * The tables weren't changed by any DML[^1] statements in a newer MariaDB version since then.
@@ -280,7 +280,7 @@ The InnoDB row formats work around this limit by storing certain kinds of variab
 
 ## Checking Existing Tables for the Problem
 
-InnoDB does not currently have an easy way to check all existing tables to determine which tables have this problem. See [MDEV-20400](https://jira.mariadb.org/browse/MDEV-20400) for more information.
+InnoDB does not have an easy way to check all existing tables to determine which tables have this problem. See [MDEV-20400](https://jira.mariadb.org/browse/MDEV-20400) for more information.
 
 One method to check a single existing table for this problem is to enable [InnoDB strict mode](../innodb-strict-mode.md), and then try to create a duplicate of the table with [CREATE TABLE ... LIKE](../../../../reference/sql-statements/data-definition/create/create-table.md#create-table-...-like). If the table has this problem, then the operation fails:
 
@@ -360,7 +360,7 @@ If the table is using either the [REDUNDANT](innodb-redundant-row-format.md) or 
 
 If your tables were originally created on an older version of MariaDB or MySQL, then your table may be using one of InnoDB's older row formats:
 
-* In [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) and before, and in MySQL 5.6 and before, the [COMPACT](innodb-compact-row-format.md) row format was the default row format.
+* In MySQL 5.6 and before, the [COMPACT](innodb-compact-row-format.md) row format was the default row format.
 * In MySQL 4.1 and before, the [REDUNDANT](innodb-redundant-row-format.md) row format was the default row format.
 
 The [DYNAMIC](innodb-dynamic-row-format.md) row format can store more data on overflow pages than these older row formats, so this row format may actually be able to store the table's data safely. See [InnoDB DYNAMIC Row Format: Overflow Pages with the DYNAMIC Row Format](innodb-dynamic-row-format.md#overflow-pages-with-the-dynamic-row-format) for more information.
@@ -380,7 +380,7 @@ WHERE ROW_FORMAT IN('Redundant', 'Compact')
 AND NAME NOT IN('SYS_DATAFILES', 'SYS_FOREIGN', 'SYS_FOREIGN_COLS', 'SYS_TABLESPACES', 'SYS_VIRTUAL', 'SYS_ZIP_DICT', 'SYS_ZIP_DICT_COLS');
 ```
 
-In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) and later, the [DYNAMIC](innodb-dynamic-row-format.md) row format is the default row format. If your tables were originally created on one of these newer versions, then they may already be using this row format. In that case, you may need to try the next solution.
+The [DYNAMIC](innodb-dynamic-row-format.md) row format is the default row format. If your tables were originally created on a recent version, then they may already be using this row format. In that case, you may need to try the next solution.
 
 ### Fitting More Columns on Overflow Pages
 

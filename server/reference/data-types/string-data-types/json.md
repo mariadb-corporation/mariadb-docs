@@ -138,7 +138,7 @@ There are a few different ways to move the table to MariaDB:
 ## See Also
 
 * [JSON Functions](../../sql-functions/special-functions/json-functions/)
-* [CONNECT JSON Table Type](../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type.md)
+* [CONNECT JSON Table Type](../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type/README.md)
 * [MDEV-9144](https://jira.mariadb.org/browse/MDEV-9144)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -2,6 +2,7 @@
 description: >-
   Managing a GridGain Control Center installation: version upgrades,
   configuration options, and automated deployment using the REST API.
+hidden: true
 ---
 
 # Administrator's Guide

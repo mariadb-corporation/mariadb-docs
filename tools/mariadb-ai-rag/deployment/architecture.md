@@ -14,6 +14,7 @@ MariaDB AI RAG 1.1 follows a modular, client-server architecture deployed as a m
 The system is organized into a primary Docker layer that orchestrates communication between external world entry points, internal processing services, and external AI models.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     subgraph External_World [External World]
         Users[Web Apps / Users]
@@ -60,6 +61,7 @@ graph TD
     Worker -- Reads Source Files --> Volume
     Worker -- Writes Vectors --> MariaDB
     API -- Generative Context --> Models
+    linkStyle default color:#111111
 ```
 
 ### External World & Entry Points

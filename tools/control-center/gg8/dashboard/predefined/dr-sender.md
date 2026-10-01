@@ -2,6 +2,7 @@
 description: >-
   The DR sender dashboard — statistics for the sender nodes participating in
   GridGain 8 Data Center Replication.
+hidden: true
 ---
 
 # DR Sender Tab for GridGain 8 Clusters

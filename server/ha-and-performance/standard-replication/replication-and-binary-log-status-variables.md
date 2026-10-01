@@ -72,14 +72,14 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 
 #### `Binlog_gtid_index_hit`
 
-* Description: Incremented for each successful lookup in a [GTID index](gtid.md#binlog-indexing).
+* Description: Incremented for each successful lookup in a [GTID index](gtid/README.md#binlog-indexing).
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
 
 #### `Binlog_gtid_index_miss`
 
-* Description: Incremented when a [GTID index](gtid.md#binlog-indexing) lookup is not possible, which indicates that the index file is missing (eg. binlog written by old server version without GTID index support), or corrupt.
+* Description: Incremented when a [GTID index](gtid/README.md#binlog-indexing) lookup is not possible, which indicates that the index file is missing (eg. binlog written by old server version without GTID index support), or corrupt.
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
@@ -269,13 +269,13 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 
 #### `Transactions_gtid_foreign_engine`
 
-* Description: Number of replicated transactions where the update of the `gtid_slave_pos` table had to choose a storage engine that did not otherwise participate in the transaction. This can indicate that setting [gtid\_pos\_auto\_engines](gtid.md) might be useful. The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
+* Description: Number of replicated transactions where the update of the `gtid_slave_pos` table had to choose a storage engine that did not otherwise participate in the transaction. This can indicate that setting [gtid\_pos\_auto\_engines](gtid/README.md) might be useful. The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
 * Scope: Global
 * Data Type: `numeric`
 
 #### `Transactions_multi_engine`
 
-* Description: Number of transactions that changed data in multiple (transactional) storage engines. If this is significantly larger than [Rpl\_transactions\_multi\_engine](replication-and-binary-log-status-variables.md#rpl_transactions_multi_engine), it indicates that setting [gtid\_pos\_auto\_engines](gtid.md#gtid_pos_auto_engines) could reduce the need for cross-engine transactions. The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
+* Description: Number of transactions that changed data in multiple (transactional) storage engines. If this is significantly larger than [Rpl\_transactions\_multi\_engine](replication-and-binary-log-status-variables.md#rpl_transactions_multi_engine), it indicates that setting [gtid\_pos\_auto\_engines](gtid/gtid-system-variables.md#gtid_pos_auto_engines) could reduce the need for cross-engine transactions. The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
 * Scope: Global
 * Data Type: `numeric`
 

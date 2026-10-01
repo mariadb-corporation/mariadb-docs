@@ -2,6 +2,7 @@
 description: >-
   Snapshot management operations and screens for GridGain 8 clusters in Control
   Center.
+hidden: true
 ---
 
 # Snapshots

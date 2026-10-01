@@ -12,7 +12,7 @@ This guide walks through a complete MySQL to MariaDB migration in **Offline Copy
 Offline Copy is the right mode when the source and target cannot reach each other directly, for example across an air gap or between separate networks, or when you simply want a verifiable checkpoint between the dump and the load. It uses the same `mariadb-dump` and `mariadb` tooling as Serial Streaming Copy, but writes to disk in between instead of streaming through a single pipe.
 
 {% hint style="info" %}
-The migrator is in **beta**. Run this procedure against a non-production target first, and validate the result before you migrate a production database.
+Rehearse this procedure against a non-production target first, and validate the result before you migrate a production database.
 {% endhint %}
 
 This guide uses the `sakila` sample database as the example. Substitute your own database name wherever `sakila` appears.

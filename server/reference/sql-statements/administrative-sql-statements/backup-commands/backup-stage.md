@@ -78,14 +78,26 @@ The `END` stage is designed for the following tasks:
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2.4 / 11.1.5 / 11.0.6:
+{% endhint %}
+
 The `BACKUP STAGE` statements are a set of statements that make it possible to make an efficient external backup tool.
 {% endtab %}
 
 {% tab title="< 11.2.4 / 11.1.5 / 11.0.6" %}
+{% hint style="info" %}
+Before MariaDB 11.2.4 / 11.1.5 / 11.0.6:
+{% endhint %}
+
 The `BACKUP STAGE` statements are a set of statements that make it possible to make an efficient external backup tool. How [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) uses these statements depends on which version you are using. It depends on whether you are using the version that is bundled with MariaDB Community Server or the version that is bundled with MariaDB Enterprise Server.
 {% endtab %}
 
 {% tab title="< 10.11.8" %}
+{% hint style="info" %}
+Before MariaDB 10.11.8:
+{% endhint %}
+
 The `BACKUP STAGE` statements are a set of statements that make it possible to make an efficient external backup tool. How [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) uses these statements depends on which version you are using. It depends on whether you are using the version that is bundled with MariaDB Community Server or the version that is bundled with MariaDB Enterprise Server.
 {% endtab %}
 {% endtabs %}

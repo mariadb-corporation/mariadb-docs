@@ -34,8 +34,6 @@ The following procedure shows how to take a consistent backup of a Spider Node a
 
 1. On the Spider Node and on each Data Node, create a user account to perform the backup using the [CREATE USER](../../../../../../reference/sql-statements/account-management-sql-statements/create-user.md) and [GRANT](../../../../../../reference/sql-statements/account-management-sql-statements/grant.md) statements.
 
-For MariaDB Enterprise Server 10.5 and later:
-
 ```sql
 CREATE USER 'mariadb-backup'@'localhost'
    IDENTIFIED BY 'mb_passwd';
@@ -77,7 +75,7 @@ The read lock will propagate to the Data Tables on each Data Node as well. The r
 
 4. On each Data Node, perform the backup using [MariaDB Backup](../../../../../backup-and-restore/mariadb-backup/mariadb-backup-options.md) .
 
-With MariaDB Backup 10.5 and later, use the mariadb-backup command:
+Use the mariadb-backup command:
 
 ```bash
 $ sudo mariadb-backup --backup \
@@ -88,7 +86,7 @@ $ sudo mariadb-backup --backup \
 
 5. On the Spider Node, after backing up each Data Node, perform a backup with [MariaDB Backup](../../../../../backup-and-restore/mariadb-backup/mariadb-backup-overview.md) .
 
-With MariaDB Backup 10.5 and later, use the mariadb-backup command:
+Use the mariadb-backup command:
 
 ```bash
 $ sudo mariadb-backup --backup \
@@ -105,7 +103,7 @@ UNLOCK TABLES;
 
 7. On the Spider Node and each of the Data Nodes, prepare each of the backups using MariaDB Backup.
 
-With MariaDB Backup 10.5 and later, use the mariadb-backup command:
+Use the mariadb-backup command:
 
 ```bash
 $ sudo mariadb-backup --prepare \
@@ -132,7 +130,7 @@ $ sudo rm -fr /var/lib/mysql/*
 
 3. On the Spider Node and on each Data Node, restore the backup for that server using MariaDB Backup.
 
-With MariaDB Backup 10.5 and later, use the mariadb-backup command:
+Use the mariadb-backup command:
 
 ```bash
 $ sudo mariadb-backup --copy-back \
@@ -239,7 +237,7 @@ Keep this session open during the rest of the procedure.
 The read lock will propagate to the Data Tables on each Data Node as well. The read locks will prevent the Data Tables from changing during the backup, so the backups of the Spider Node and Data Nodes are consistent.
 
 4. On each Data Node, perform the backup using MariaDB Dump.\
-   With MariaDB Dump 10.5 and later, use the mariadb-dump command:
+   Use the mariadb-dump command:
 
 ```bash
 $ mariadb-dump \
@@ -255,7 +253,7 @@ $ mariadb-dump \
 
 5. On the Spider Node, once the Data Nodes are backed up, perform a backup using MariaDB Dump.
 
-With MariaDB Dump 10.5 and later, use the mariadb-dump command:
+Use the mariadb-dump command:
 
 ```bash
 $ mariadb-dump \
@@ -284,7 +282,7 @@ MariaDB Client can restore a Sharded MariaDB Enterprise Spider topology from a b
 1. Stop all traffic to the Spider Node and each Data Node.
 2. On the Spider Node, restore the backup for that server using MariaDB Client.
 
-With MariaDB Client 10.5 and later, use the mariadb command:
+Use the mariadb command:
 
 ```bash
 $ mariadb \
@@ -298,7 +296,7 @@ $ mariadb \
 
 3. On the Data Node, restore the backup for that server using MariaDB Client.
 
-With MariaDB Client 10.5 and later, use the mariadb command:
+Use the mariadb command:
 
 ```bash
 $ mariadb \

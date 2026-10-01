@@ -12,7 +12,7 @@ This guide walks through a complete MySQL to MariaDB migration in **Replication*
 This is the mode to use when downtime must be minimal. Unlike the offline modes, it does not finish in a single pass; it establishes ongoing replication that you cut over when you are ready.
 
 {% hint style="info" %}
-The migrator is in **beta**. Run this procedure against a non-production target first, and validate the result before you migrate a production database.
+Rehearse this procedure against a non-production target first, and validate the result before you migrate a production database.
 {% endhint %}
 
 This guide uses the `sakila` sample database as the example. Substitute your own database name wherever `sakila` appears.
@@ -27,7 +27,7 @@ You need a source **MySQL 8.0 or 8.4** server and a target **MariaDB** server al
 
 You need **admin credentials** on both servers (not `root`, which is blocked by default), plus a **replication user** the migrator will use; you supply its name and password as `REPL_USER` and `REPL_PASS`, and the migrator creates it on the source if it does not exist. The migrator host needs **Python 3.9 or later** and the **`mariadb` client**.
 
-### Source requirements
+### Source Requirements
 
 {% hint style="warning" %}
 Replication requires `binlog_format=ROW` on the source and does not support schemas that contain JSON columns. Both conditions are enforced at the launcher, the assessment, and preflight, so a source with either is blocked upfront and routed to an offline mode. To use Replication, set `binlog_format = ROW` under `[mysqld]` in the source `my.cnf` and restart the source MySQL server.
@@ -74,7 +74,7 @@ Checking source master/binary-log status visibility...
 Preflight complete.
 ```
 
-### Seed the target
+### Seed the Target
 
 A consistent snapshot is taken with `mariadb-dump --single-transaction --master-data=2`, which embeds the binlog coordinates, and is restored to the target. The coordinates are saved for the next step.
 
@@ -92,7 +92,7 @@ SRC_BINLOG_FILE=mysql-bin.000004
 SRC_BINLOG_POS=66378596
 ```
 
-### Start replication
+### Start Replication
 
 The migrator ensures the replication user exists on the source (created `WITH mysql_native_password`, which cross-vendor replication requires), assigns the target a distinct `server_id` if it collides with the source, and points MariaDB at the captured coordinates.
 

@@ -17,11 +17,11 @@ See also a detailed breakdown of [System variable differences between MariaDB 5.
 ## New Features
 
 * Significantly more efficient [thread pool](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb), comparable in functionality to the closed source feature in MySQL Enterprise.
-* [Non-blocking client API Library](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/non-blocking-client-library) ([MWL#192](https://askmonty.org/worklog/?tid=192))
-* [@@skip\_replication option](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/selectively-skipping-replication-of-binlog-events) ([MWL#234](https://askmonty.org/worklog/?tid=234))
+* [Non-blocking client API Library](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/non-blocking-client-library) (MWL#192)
+* [@@skip\_replication option](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/selectively-skipping-replication-of-binlog-events) (MWL#234)
 * [SphinxSE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sphinx-storage-engine) updated to version 2.0.4.
 * [Extended Keys](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/extended-keys) support for XtraDB and InnoDB
-* New [INSTALL SONAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname) statement ([MWL#77](https://askmonty.org/worklog/?tid=77))
+* New [INSTALL SONAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname) statement (MWL#77)
 * New [LIMIT ROWS EXAMINED](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/limit-rows-examined) optimization ([MDEV-28](https://jira.mariadb.org/browse/MDEV-28))
 * `mysql_real_connect()` Changes
   * In MySQL, and in MariaDB versions before 5.5.21, `mysql_real_connect()` removes from the MYSQL object any options set with `mysql_option()` when it fails. Beginning with [MariaDB 5.5.21](5.5.21.md), options are preserved by a failing `mysql_real_connect();` use `mysql_close()`, as normal, to clear them.

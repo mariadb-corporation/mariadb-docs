@@ -9,15 +9,7 @@ description: >-
 
 `mariadb` is a simple SQL shell with GNU readline capabilities.
 
-{% tabs %}
-{% tab title="Current" %}
 The command-line client is called `mariadb`. On Unix system, a symlink named `mysql` is available. On Windows, an alternative binary named `mysql.exe` is available.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-The command-line client is called `mysql`.
-{% endtab %}
-{% endtabs %}
 
 ## Overview
 
@@ -267,10 +259,18 @@ Don't cache result, print it row by row. This may slow down the server if the ou
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.7.1 / 11.6.2 / 11.4.4 / 10.11.10 / 10.6.20:
+{% endhint %}
+
 Maximal field length limit in case of `--quick`.
 {% endtab %}
 
-{% tab title="< 11.7.1 / 11.6.2 / 11.4.4 / 10.11.10 / 10.6.20 / 10.5.27" %}
+{% tab title="< 11.7.1 / 11.6.2 / 11.4.4 / 10.11.10 / 10.6.20" %}
+{% hint style="info" %}
+Before MariaDB 11.7.1 / 11.6.2 / 11.4.4 / 10.11.10 / 10.6.20:
+{% endhint %}
+
 This option is not available.
 {% endtab %}
 {% endtabs %}
@@ -291,10 +291,18 @@ Allow only those [UPDATE](../../reference/sql-statements/data-manipulation/chang
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4.2 / 11.2.4 / 11.1.5 / 11.0.6 / 10.11.8 / 10.6.18:
+{% endhint %}
+
 Disallow commands that access the file system (except `\P` without an argument and `\e`). Disabled commands include system (`\!`), tee (`\T`), pager with an argument(` \P`` `` `_`foo`_), source (`\.`). Using a disabled command is an error, which can be ignored with `--force`. A sandbox command (`\-`) enables the sandbox mode until EOF (current file or the session, if interactive).
 {% endtab %}
 
-{% tab title="< 11.4.2 / 11.2.4 / 11.1.5 / 11.0.6 / 10.11.8 / 10.6.18 / 10.5.25" %}
+{% tab title="< 11.4.2 / 11.2.4 / 11.1.5 / 11.0.6 / 10.11.8 / 10.6.18" %}
+{% hint style="info" %}
+Before MariaDB 11.4.2 / 11.2.4 / 11.1.5 / 11.0.6 / 10.11.8 / 10.6.18:
+{% endhint %}
+
 This option is not available.
 {% endtab %}
 {% endtabs %}
@@ -303,10 +311,18 @@ This option is not available.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 Sets an alternative directory path for searching scripts invoked via the source command.
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 This option is not available.
 {% endtab %}
 {% endtabs %}
@@ -380,12 +396,20 @@ For connections to localhost, the Unix socket file to use, or, on Windows, the n
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.10:
+{% endhint %}
+
 Enables [TLS](../../security/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option.
 
 TLS with `--ssl` is enabled by default.
 {% endtab %}
 
 {% tab title="< 10.10" %}
+{% hint style="info" %}
+Before MariaDB 10.10:
+{% endhint %}
+
 Enables [TLS](../../security/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option.
 {% endtab %}
 {% endtabs %}
@@ -422,10 +446,18 @@ Defines a path to a private key file to use for [TLS](../../security/encryption/
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 Enables [server certificate verification](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is enabled by default. Use `--disable-ssl` or `--disable-ssl-verify-server-cert` to revert this behavior.
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 Enables [server certificate verification](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
 {% endtab %}
 {% endtabs %}
@@ -557,15 +589,7 @@ At the end, the delimiter is restored to the default semicolon. The `\g` and `\G
 
 You can force which protocol are used to connect to the `mariadbd` server, by giving the `protocol` option one of the following values: `tcp`, `socket`, `pipe` , or `memory`.
 
-{% tabs %}
-{% tab title="Current" %}
 A connection property specified via the command line (e.g. `--port=3306`) forces its type. The protocol that matches the respective connection property is used. For instance, a TCP/IP connection is created when `--port` is specified.
-{% endtab %}
-
-{% tab title="< 10.6.1" %}
-If `protocol` is not specified, command-line connection properties that do not force protocol are ignored.
-{% endtab %}
-{% endtabs %}
 
 If multiple or no connection properties are specified via the command line, the following happens on Unix and Windows systems:
 

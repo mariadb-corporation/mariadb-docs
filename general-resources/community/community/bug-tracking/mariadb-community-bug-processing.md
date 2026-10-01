@@ -10,7 +10,7 @@ To make sure your bug report will be confirmed and moved forward faster, please 
 
 ## Bug Verification Routine
 
-As of today, initial bug processing routine in MariaDB is not strictly formalized. This section describes the de-facto status rather than any policy.
+The initial bug processing routine in MariaDB is not strictly formalized. This section describes the de-facto status rather than any policy.
 
 The process is different for bug reports (_Bug_ type in JIRA) vs feature requests (_Task_ type). The process described below is related to bug reports.
 
@@ -103,7 +103,7 @@ Sometimes it seems hard to understand from the outside how MariaDB development t
 
 ### Sprint Model for Bug Fixing
 
-MariaDB currently uses 1- or 2-week sprint model for server development and bugfixing. It needs a separate article to describe it in more detail, but for bugfixing, in a nutshell it means the following.
+MariaDB uses a 1- or 2-week sprint model for server development and bugfixing. It needs a separate article to describe it in more detail, but for bugfixing, in a nutshell it means the following.
 
 * one or two weeks before a scheduled release the team creates a new sprint and evaluates existing bugs which affect this release;
 * the selected bugs are added to the new sprint;
@@ -165,7 +165,7 @@ After the bug is confirmed or otherwise acknowledged, this field is populated wi
 
 To some extent, you can influence the initial plans: if you see that the fix is not targeted for versions where you think it should be, you can comment on the report, and if you provide convincing arguments and make your case, it can be reconsidered.
 
-The value of the field is not a promise to fix the bug in the mentioned releases. It can be changed both ways: during further analysis, the developer can find out that it can be safely fixed in an earlier release, or, on the contrary, that it cannot be safely fixed in the GA release, and the fix can only go to the next versions which are currently under development.
+The value of the field is not a promise to fix the bug in the mentioned releases. It can be changed both ways: during further analysis, the developer can find out that it can be safely fixed in an earlier release, or, on the contrary, that it cannot be safely fixed in the GA release, and the fix can only go to the next versions, which are under development.
 
 After the bug is fixed, the value of the field is changed to the exact versions, e.g. `10.0.25 10.1.14`. It means that the patch has been pushed into the 10.0 branch, and will be released with 10.0.25 release; it also means that the patch _will be_ merged to 10.1 tree and released with 10.1.14 release, but it does not mean that it is already in the 10.1 branch.
 

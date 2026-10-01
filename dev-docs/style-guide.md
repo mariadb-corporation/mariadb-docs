@@ -73,6 +73,106 @@ Discovery (informational for the unchangeable cases):
 indicated by an MDEV ticket with a **Fix Version** filled in. (This is exactly what
 `doc-from-ticket` verifies before asserting behavior.)
 
+## Timeless wording (DOCS-6640)
+
+Avoid *currently*, *at this time*, *at present*, *at the moment*, *for now*, *right now*,
+*as of now*, *as of today*, *soon*, *in the future*, *upcoming*, *recently*, and *as of
+this writing* when they date a claim about the **product**. Nobody
+knows when "currently" was written, so a reader has to assume it is true today
+([Google: timeless documentation](https://developers.google.com/style/timeless-documentation)).
+
+- **Fix — product state.** What the product supports, its maturity, a limitation:
+  "Row-based replication is not currently supported" → "Row-based replication is not
+  supported", or tie it to a version: "From MariaDB 11.4, …". **Verify the claim against
+  source before rewording** — a "not currently supported" is often no longer true, and then
+  the fact is what needs fixing, not the adverb.
+- **Anchor, don't delete — a true, time-bound claim.** "Version 2.0 is currently a Release
+  Candidate" is correct today and wrong the day 2.0 goes GA. Dropping *currently* makes it a
+  timeless falsehood; "As of 2.0.0rc2, version 2.0 is a Release Candidate" stays true and
+  shows its age. Use a version, or a month and year for claims with no version ("As of
+  September 2026, there are no known CVEs …").
+- **Leave alone — runtime state.** "The number of currently connected clients", "the server
+  currently acting as primary", "least recently used". Here the word means *at this moment,
+  while the server runs*, and it is the right word.
+- **Also fine:** fixed phrases ("as soon as", "at the moment the snapshot was taken",
+  "at some time in the future" describing a scheduled event), tutorial asides ("for now,
+  let's use …"), quoted output and error-message text, and dated records such as release
+  notes and the year-stamped Google Summer of Code pages.
+
+**Check:** `python3 .claude/hooks/timeless.py check <file>` lists the high-precision cases
+(maturity and support status, "coming soon", "at the time of writing"). It is advisory: a hit
+is a question, not a verdict, and it deliberately misses most "currently", so read the page
+too. The nightly digest (`nightly-timeless.yml`) runs the same patterns on new commits.
+
+## Versions before 10.6
+
+MariaDB Community Server 10.6 reached end of life in July 2026. Remove mentions of MariaDB
+versions before 10.6, and rewrite the sentence so it stands on its own: "Starting with
+MariaDB 10.3.6, MariaDB uses this feature" → "MariaDB uses this feature". Two exceptions:
+
+- **Release notes** (and *What's New* pages) keep their version mentions; they record the past.
+- **Reference pages of variables** (system and status variables) keep the version in their
+  `Introduced:` field, however old it is.
+
+## Version tabs (DOCS-6672)
+
+Pages use GitBook tabs to show how a feature behaves in different versions. Readers misread the
+tab titles — they take **Current** to mean "the version I'm currently running" — so every
+version tab repeats its version range at the top of its content.
+
+**Tab titles:**
+
+- The first tab is always `Current`.
+- Name every other tab after the version it ends at, with a leading `<`: `< 11.4`. With more
+  than two tabs, go from newest to oldest.
+- Abbreviate Community Server and Enterprise Server as `CS` and `ES` in titles:
+  `< CS 12.0 / ES 11.8`. Spell them out in the tab content.
+- Separate multiple versions with ` / `: `< 11.4.3 / 10.11.9 / 10.6.19`, not
+  `<10.6.19, <10.11.9`.
+- **Tab titles are link anchors** (`< 11.1` → `#less-than-11.1`). Before renaming a tab, search
+  the docs for links to its old anchor.
+
+**Tab content** — start every version tab with an info hint (`{% hint style="info" %}`) naming
+the versions it applies to:
+
+| Tab | Hint text |
+|-----|-----------|
+| `Current` | `From MariaDB 11.4:` |
+| `< 11.4`, the last tab | `Before MariaDB 11.4:` |
+| `< 11.4`, followed by `< 10.7` | `From MariaDB 10.7 to before MariaDB 11.4:` |
+| `< CS 12.0 / ES 11.8` | `Before Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:` |
+
+```
+{% tabs %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:
+{% endhint %}
+…
+{% endtab %}
+
+{% tab title="< CS 12.0 / ES 11.8" %}
+{% hint style="info" %}
+Before Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:
+{% endhint %}
+…
+{% endtab %}
+{% endtabs %}
+```
+
+- If the tab title doesn't mention `CS` or `ES`, write `MariaDB X`.
+- **Only name ES versions you have verified against ES source.** ES often gets features earlier
+  than CS, as backports, so the CS version is not a safe guess.
+- Tabs that don't differentiate versions (*Oracle Mode*, *Background*, product tabs for
+  Enterprise vs. Community install steps) get no hint.
+
+**Which version to name:** normally the release series only (CS 12.0, ES 11.8). Name a full
+version only when a feature was backported within a series to a release other than `.0`
+(preview) or `.1` (normally the first GA) — for example ES 11.8.9-6 (DOCS-6424).
+
+**Example:** `server/reference/sql-statements/data-definition/create/create-function.md`, the
+`RETURN` tab block.
+
 ## Links
 
 - Same space → relative `.md` link; other space → `{alias}` link; never raw `app.gitbook.com`

@@ -1,6 +1,6 @@
 ---
 description: >-
-  Plugin API reference: Instrumentation Interface. Generated from the MariaDB server headers by doxygen and moxygen.
+  The Performance Schema instrumentation interface (PSI) that the server and plugins use to report locks, I/O, statements, and other events, with links to each instrumentation group.
 ---
 
 

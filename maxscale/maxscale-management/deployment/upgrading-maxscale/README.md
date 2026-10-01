@@ -210,9 +210,9 @@ The encrypted passwords feature has been updated to be more secure. Users are re
 
 The default state of servers in 2.4 was `Running` and in 2.5 it is now`Down`. This was done to prevent newly added servers from being accidentally used before they were monitored.
 
-### Columnstore Monitor
+### ColumnStore Monitor
 
-It is now mandatory to specify in the configuration what version the monitored Columnstore cluster is.
+It is now mandatory to specify in the configuration what version the monitored ColumnStore cluster is.
 
 ```
 [CSMonitor]

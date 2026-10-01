@@ -20,10 +20,18 @@ Represents JSON in the most understandable way emphasizing nested structures.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.10.3 / 10.9.5 / 10.8.7 / 10.7.8 / 10.6.12:
+{% endhint %}
+
 `JSON_PRETTY` is an alias for `JSON_DETAILED` .
 {% endtab %}
 
-{% tab title="< 10.10.3 / 10.9.5 / 10.8.7 / 10.7.8 / 10.6.12 / 10.5.19 / 10.4.28" %}
+{% tab title="< 10.10.3 / 10.9.5 / 10.8.7 / 10.7.8 / 10.6.12" %}
+{% hint style="info" %}
+Before MariaDB 10.10.3 / 10.9.5 / 10.8.7 / 10.7.8 / 10.6.12:
+{% endhint %}
+
 `JSON_PRETTY` is **not** available as an alias for `JSON_DETAILED` .
 {% endtab %}
 {% endtabs %}

@@ -2,6 +2,7 @@
 description: >-
   Practical tips for diagnosing and resolving common cluster issues with
   GridGain Control Center.
+hidden: true
 ---
 
 # Control Center Tips

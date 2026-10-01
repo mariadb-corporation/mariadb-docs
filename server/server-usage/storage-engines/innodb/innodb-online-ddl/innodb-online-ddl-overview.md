@@ -120,7 +120,7 @@ If the `COPY` algorithm is specified with the [ALGORITHM](../../../../reference/
 
 If the `COPY` algorithm is used with an [InnoDB](../) table, then the following statements apply:
 
-* The table are rebuilt using the current values of the [innodb\_file\_per\_table](../innodb-system-variables.md#innodb_file_per_table), [innodb\_file\_format](../innodb-system-variables.md#innodb_file_format), and [innodb\_default\_row\_format](../innodb-system-variables.md#innodb_default_row_format) system variables.
+* The table are rebuilt using the current values of the [innodb\_file\_per\_table](../innodb-system-variables.md#innodb_file_per_table) and [innodb\_default\_row\_format](../innodb-system-variables.md#innodb_default_row_format) system variables.
 * The operation will have to create a temporary table to perform the table copy. This temporary table are in the same directory as the original table, and it's file name are in the format `#sql${PID}_${THREAD_ID}_${TMP_TABLE_COUNT}`, where `${PID}` is the process ID of `mysqld`, `${THREAD_ID}` is the connection ID, and `${TMP_TABLE_COUNT}` is the number of temporary tables that the connection has open. Therefore, the [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) may contain files with file names like `#sql1234_12_1.ibd`.
 * The operation inserts one record at a time into each index, which is very inefficient.
 * InnoDB does not use a sort buffer.
@@ -159,7 +159,7 @@ If the `INPLACE` algorithm is used with an [InnoDB](../) table, then the followi
   * It may have to create a temporary intermediate table for the actual table rebuild operation.
     * This temporary table are in the same directory as the original table, and it's file name are in the format `#sql${PID}_${THREAD_ID}_${TMP_TABLE_COUNT}`, where `${PID}` is the process ID of `mysqld`, `${THREAD_ID}` is the connection ID, and `${TMP_TABLE_COUNT}` is the number of temporary tables that the connection has open. Therefore, the [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) may contain files with file names like `#sql1234_12_1.ibd`.
   * When it replaces the original table with the rebuilt table, it may also have to rename the original table using a temporary table name.
-    * The [innodb\_safe\_truncate](../innodb-system-variables.md#innodb_safe_truncate) system variable is set to `OFF`, then the format will actually be `#sql-ib${TABLESPACE_ID}-${RAND}`, where `${TABLESPACE_ID}` is the table's tablespace ID within InnoDB and `${RAND}` is a randomly initialized number. Therefore, the [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) may contain files with file names like `#sql-ib230291-1363966925.ibd`.
+    * The temporary table name is in the format `#sql-ib${TABLE_ID}`, where `${TABLE_ID}` is the table's ID within InnoDB. Therefore, the [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) may contain files with file names like `#sql-ib230291.ibd`.
 * The storage needed for the above items can add up to the size of the original table, or more in some cases.
 * Some operations are instantaneous, if they only require the table's metadata to be changed. This includes operations such as renaming a column, changing a column's [DEFAULT](../../../../reference/sql-statements/data-definition/create/create-table.md#default-column-option) value, etc.
 

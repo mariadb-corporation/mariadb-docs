@@ -2,6 +2,7 @@
 description: >-
   The default dashboard for GridGain 8 clusters — widgets, templates, time
   periods, filtering, garbage collection, and thread dumps.
+hidden: true
 ---
 
 # Dashboard Overview for GridGain 8 Clusters

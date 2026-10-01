@@ -2,6 +2,7 @@
 description: >-
   Attaching Apache Ignite, GridGain 8, and GridGain 9 clusters to GridGain
   Control Center.
+hidden: true
 ---
 
 # Attaching Clusters

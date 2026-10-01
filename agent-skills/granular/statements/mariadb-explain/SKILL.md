@@ -110,7 +110,7 @@ EXPLAIN SELECT * FROM employees_example WHERE home_phone = '326-555-3492';
 +------+-------------+-------------------+------+---------------+------+---------+------+------+-------------+
 | id   | select_type | table             | type | possible_keys | key  | key_len | ref  | rows | Extra       |
 +------+-------------+-------------------+------+---------------+------+---------+------+------+-------------+
-|    1 | SIMPLE      | employees_example | ALL  | NULL          | NULL | NULL    | NULL |    6 | Using where |
+|    1 | SIMPLE      | employees_example | ALL  | NULL          | NULL | NULL    | NULL | 6    | Using where |
 +------+-------------+-------------------+------+---------------+------+---------+------+------+-------------+
 
 -- Estimate + actual: ANALYZE runs the query and adds r_rows / r_filtered
@@ -124,7 +124,7 @@ possible_keys: key1
       key_len: 5
           ref: NULL
          rows: 181
-       r_rows: 181
+       r_rows: 181.00
      filtered: 100.00
    r_filtered: 10.50
         Extra: Using index condition; Using where

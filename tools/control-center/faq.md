@@ -2,6 +2,7 @@
 description: >-
   Answers to common GridGain Control Center questions — preserving cluster IDs,
   automating cluster connection, SSL proxying, limited clusters, and mail setup.
+hidden: true
 ---
 
 # Frequently Asked Questions

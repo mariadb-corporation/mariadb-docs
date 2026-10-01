@@ -25,7 +25,7 @@ Doublewrites, controlled by the [innodb\_doublewrite](../../../../server-usage/s
 
 ## Atomic Write - a Faster Alternative to `innodb_doublewrite`
 
-A better solution is to directly ask the filesystem to provide an atomic (all or nothing) write guarantee. Currently this is only available on [a few SSD cards](atomic-write-support.md#devices-that-support-atomic-writes-with-mariadb).
+A better solution is to directly ask the filesystem to provide an atomic (all or nothing) write guarantee. This is only available on [a few SSD cards](atomic-write-support.md#devices-that-support-atomic-writes-with-mariadb).
 
 ## Enabling Atomic Writes from [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102)
 
@@ -59,6 +59,7 @@ The following happens when atomic writes are enabled
 Here is a flowchart showing how atomic writes work inside InnoDB:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: InnoDB atomic write support internals
     accDescr {
@@ -108,13 +109,14 @@ flowchart TD
     class IA,OE action
     class IC,OC terminal
     class OF fail
+    linkStyle default color:#111111
 ```
 
 _Initialization checks the atomic-writes setting before continuing, while opening a data file checks the ioctl result, treating a failed ibdata1 open as fatal and any other file as a closable error._
 
 ## Devices that Support Atomic Writes with MariaDB
 
-MariaDB currently supports atomic writes on the following devices:
+MariaDB supports atomic writes on the following devices:
 
 * [Fusion-io devices with the NVMFS file system](fusion-io/fusion-io-introduction.md#atomic-writes) . [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) and above.
 * [Shannon SSD](https://www.shannon-sys.com). [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) and above.

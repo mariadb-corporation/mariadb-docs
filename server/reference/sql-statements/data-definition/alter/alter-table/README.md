@@ -207,7 +207,7 @@ See [CREATE TABLE: Table Options](../../create/create-table.md#table-options) fo
 
 Adds a column to the table. The syntax is the same as in [CREATE TABLE](../../create/create-table.md). If you are using `IF NOT_EXISTS` the column will not be added if it was not there already. This is very useful when doing scripts to modify tables.
 
-The `FIRST` and `AFTER` clauses affect the physical order of columns in the datafile. Use `FIRST` to add a column in the first (leftmost) position, or `AFTER` followed by a column name to add the new column in any other position. Note that, nowadays, the physical position of a column is usually irrelevant.
+The `FIRST` and `AFTER` clauses affect the physical order of columns in the datafile. Use `FIRST` to add a column in the first (leftmost) position, or `AFTER` followed by a column name to add the new column in any other position. The physical position of a column is usually irrelevant.
 
 See also [Instant ADD COLUMN for InnoDB](../../../../../server-usage/storage-engines/innodb/innodb-online-ddl/instant-add-column-for-innodb.md).
 
@@ -265,35 +265,19 @@ ALTER TABLE t1 ALTER b SET DEFAULT 'hello';
 
 ### RENAME INDEX/KEY
 
-{% tabs %}
-{% tab title="Current" %}
 You can rename an index using the `RENAME INDEX` (or `RENAME KEY`) syntax:
 
 ```sql
 ALTER TABLE t1 RENAME INDEX i_old TO i_new;
 ```
-{% endtab %}
-
-{% tab title="< 10.5.3" %}
-`RENAME INDEX/KEY` is not available.
-{% endtab %}
-{% endtabs %}
 
 ### RENAME COLUMN
 
-{% tabs %}
-{% tab title="Current" %}
 You can rename a column using the `RENAME COLUMN` syntax:
 
 ```sql
 ALTER TABLE t1 RENAME COLUMN c_old TO c_new;
 ```
-{% endtab %}
-
-{% tab title="< 10.5.3" %}
-`RENAME COLUMN` is not available.
-{% endtab %}
-{% endtabs %}
 
 ### ADD PRIMARY KEY
 
@@ -501,6 +485,10 @@ Reduces the number of HASH or KEY partitions in a table. See [Partitioning Overv
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 `CONVERT PARTITION` can be used to remove a partition from a table and make this an ordinary table. For example:
 
 ```sql
@@ -520,6 +508,10 @@ See [Partitioning Overview: Converting Partitions to/from Tables](../../../../..
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+From MariaDB 10.7 to before MariaDB 11.4:
+{% endhint %}
+
 `CONVERT PARTITION` can be used to remove a partition from a table and make this an ordinary table. For example:
 
 ```sql
@@ -539,6 +531,10 @@ See [Partitioning Overview: Converting Partitions to/from Tables](../../../../..
 {% endtab %}
 
 {% tab title="< 10.7" %}
+{% hint style="info" %}
+Before MariaDB 10.7:
+{% endhint %}
+
 `CONVERT PARTITION` and `CONVERT TABLE` are not available.
 {% endtab %}
 {% endtabs %}
@@ -551,6 +547,10 @@ Used to drop specific partitions (and discard all data within the specified part
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 This clause is used to exchange the contents of a partition with another table. This is performed by swapping the tablespaces of the partition with the other table.
 
 The optional `[{WITH | WITHOUT} VALIDATION]` is permitted.
@@ -561,6 +561,10 @@ See also [copying InnoDB's transportable tablespaces](../../../../../server-usag
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 This clause is used to exchange the contents of a partition with another table. This is performed by swapping the tablespaces of the partition with the other table.
 
 The optional `[{WITH | WITHOUT} VALIDATION]` is not permitted.
@@ -654,10 +658,18 @@ If `ALGORITHM=COPY` is specified, then the copy algorithm will be used even if i
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 `ALTER TABLE` can perform most operations with `ALGORITHM=COPY`, `LOCK=NONE`. See [LOCK=NONE](./#none).
 {% endtab %}
 
 {% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 `ALTER TABLE` cannot perform operations with `ALGORITHM=COPY`, `LOCK=NONE`.
 {% endtab %}
 {% endtabs %}
@@ -747,26 +759,26 @@ Aborting `ALTER TABLE ... ALGORITHM=COPY` was made faster by removing excessive 
 
 ## Atomic ALTER TABLE
 
-{% tabs %}
-{% tab title="Current" %}
 `ALTER TABLE` is atomic for most engines, including InnoDB, MyRocks, MyISAM and Aria ([MDEV-25180](https://jira.mariadb.org/browse/MDEV-25180)). This means that if there is a crash (server down or power outage) during an `ALTER TABLE` operation, after recovery, either the old table and associated triggers and status will be intact, or the new table will be active. In older MariaDB versions one could get leftover #sql-alter..', '#sql-backup..' or 'table\_name.frm˝' files if the system crashed during the `ALTER TABLE` operation.
 
 See [Atomic DDL](../../atomic-ddl.md) for more information.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-Atomic `ALTER TABLE` is not available.
-{% endtab %}
-{% endtabs %}
 
 ## Replication
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.8:
+{% endhint %}
+
 `ALTER TABLE` got fully executed on the primary first, and only then was it replicated and started executing on replicas. [An option](../../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_alter_two_phase) was added to replicate sooner and begin executing on replicas, directly when it _starts_ executing on the primary, not when it _finishes_. This way the replication lag caused by a heavy `ALTER TABLE` can be completely eliminated ([MDEV-11675](https://jira.mariadb.org/browse/MDEV-11675)).
 {% endtab %}
 
 {% tab title="< 10.8" %}
+{% hint style="info" %}
+Before MariaDB 10.8:
+{% endhint %}
+
 The [binlog\_alter\_two\_phase](../../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_alter_two_phase) option is not available.
 {% endtab %}
 {% endtabs %}
@@ -837,6 +849,10 @@ ALTER TABLE rooms ADD PRIMARY KEY(room_number, p WITHOUT OVERLAPS);
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.8:
+{% endhint %}
+
 An `ALTER` query can be replicated faster with this statement, which must be run before the `ALTER` statement:
 
 ```sql
@@ -854,7 +870,11 @@ Binlog would contain two event groups, of which the first one gets delivered to 
 
 {% endtab %}
 
-{% tab title="< 10.8.1" %}
+{% tab title="< 10.8" %}
+{% hint style="info" %}
+Before MariaDB 10.8:
+{% endhint %}
+
 This statement is not available:
 
 ```sql

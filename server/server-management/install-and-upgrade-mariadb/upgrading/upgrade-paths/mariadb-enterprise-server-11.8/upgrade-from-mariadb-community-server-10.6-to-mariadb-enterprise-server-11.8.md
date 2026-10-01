@@ -69,7 +69,7 @@ MariaDB Enterprise Server 10.6 and later changed the `COMPRESSED` InnoDB row for
 
 ### Audit Plugin Considerations
 
-If you have the [MariaDB Audit Plugin](../../../../../reference/plugins/mariadb-audit-plugin/) (`server_audit.so`) installed on your Community Server, remove it before upgrading. Otherwise it will conflict with the [MariaDB Enterprise Audit Plugin](../../../../../reference/plugins/mariadb-enterprise-audit.md) that ships with MariaDB Enterprise Server 10.4 and later.
+If you have the [MariaDB Audit Plugin](../../../../../reference/plugins/mariadb-audit-plugin/) (`server_audit.so`) installed on your Community Server, remove it before upgrading. Otherwise it will conflict with the [MariaDB Enterprise Audit Plugin](../../../../../reference/plugins/mariadb-enterprise-audit/README.md) that ships with MariaDB Enterprise Server 10.4 and later.
 
 Remove the plugin by using the [UNINSTALL SONAME](../../../../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) statement:
 

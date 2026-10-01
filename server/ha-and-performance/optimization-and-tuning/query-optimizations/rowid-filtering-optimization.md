@@ -89,8 +89,8 @@ Note the `rowid_filter` element. It has a `range` element inside it. `selectivit
 ## Details
 
 * The optimizer makes a cost-based decision about when the filter should be used.
-* The filter data structure is currently an ordered array of rowids. (a Bloom filter would be better here and will probably be introduced in the future versions).
-* The optimization needs to be supported by the storage engine. At the moment, it is supported by [InnoDB](../../../server-usage/storage-engines/innodb/) and [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/). It is not supported in [partitioned tables](../../../server-usage/partitioning-tables/).
+* The filter data structure is an ordered array of rowids.
+* The optimization needs to be supported by the storage engine. It is supported by [InnoDB](../../../server-usage/storage-engines/innodb/), [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/), and, from MariaDB 11.0, [Aria](../../../server-usage/storage-engines/aria/). It is not supported in [partitioned tables](../../../server-usage/partitioning-tables/).
 
 ## Limitations
 

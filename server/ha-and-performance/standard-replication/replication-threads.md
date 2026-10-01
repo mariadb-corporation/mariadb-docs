@@ -45,7 +45,7 @@ SHUTDOWN WAIT FOR ALL SLAVES;
 
 When one of these special options is provided, the server only kills its binary log dump threads after all client threads have been killed, and it only completes the shutdown after the last [binary log](../../server-management/server-monitoring-logs/binary-log/) has been sent to all connected replicas.
 
-In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later, it is still not possible to enable this behavior by default. This means that this behavior is currently inaccessible when shutting down the server using tools like [systemd](../../server-management/starting-and-stopping-mariadb/systemd/README.md) or [sysVinit](../../server-management/starting-and-stopping-mariadb/sysvinit.md).
+In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later, it is still not possible to enable this behavior by default in MariaDB Community Server. This means that this behavior is inaccessible when shutting down the server using tools like [systemd](../../server-management/starting-and-stopping-mariadb/systemd/README.md) or [sysVinit](../../server-management/starting-and-stopping-mariadb/sysvinit.md).
 
 In [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) and before, it is recommended to manually switchover replicas to a new primary before shutting down the old primary.
 
@@ -89,9 +89,9 @@ The corresponding [binary log](../../server-management/server-monitoring-logs/bi
 
 #### GTID Position
 
-If the replica is replicating [binary log](../../server-management/server-monitoring-logs/binary-log/) events that contain [GTIDs](gtid.md), then the [replica's's SQL thread](replication-threads.md#replica-sql-thread) will write every GTID that it applies to the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This GTID can be inspected and modified through the [gtid\_slave\_pos](gtid.md#gtid_slave_pos) system variable.
+If the replica is replicating [binary log](../../server-management/server-monitoring-logs/binary-log/) events that contain [GTIDs](gtid/README.md), then the [replica's's SQL thread](replication-threads.md#replica-sql-thread) will write every GTID that it applies to the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This GTID can be inspected and modified through the [gtid\_slave\_pos](gtid/gtid-system-variables.md#gtid_slave_pos) system variable.
 
-If the replica has the [log\_slave\_updates](replication-and-binary-log-system-variables.md#log_slave_updates) system variable enabled and if the replica has the [binary log](../../server-management/server-monitoring-logs/binary-log/) enabled, then every write by the [replica's SQL thread](replication-threads.md#replica-sql-thread) will also go into the replica's [binary log](../../server-management/server-monitoring-logs/binary-log/). This means that [GTIDs](gtid.md) of replicated transactions would be reflected in the value of the [gtid\_binlog\_pos](gtid.md#gtid_binlog_pos) system variable.
+If the replica has the [log\_slave\_updates](replication-and-binary-log-system-variables.md#log_slave_updates) system variable enabled and if the replica has the [binary log](../../server-management/server-monitoring-logs/binary-log/) enabled, then every write by the [replica's SQL thread](replication-threads.md#replica-sql-thread) will also go into the replica's [binary log](../../server-management/server-monitoring-logs/binary-log/). This means that [GTIDs](gtid/README.md) of replicated transactions would be reflected in the value of the [gtid\_binlog\_pos](gtid/gtid-system-variables.md#gtid_binlog_pos) system variable.
 
 See [CHANGE MASTER TO: GTID Persistence](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#gtid-persistence) for more information.
 

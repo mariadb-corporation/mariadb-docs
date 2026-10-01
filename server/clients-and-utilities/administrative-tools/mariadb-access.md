@@ -8,15 +8,7 @@ description: >-
 
 `mariadb-access` is a tool for checking access privileges, developed by Yves Carlier.
 
-{% tabs %}
-{% tab title="Current" %}
 The client tool can alternatively be called by its former name,  `mysqlaccess`, via a symlink in Linux, or an alternate binary in Windows.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-The client tool is called `mysqlaccess`.
-{% endtab %}
-{% endtabs %}
 
 It checks the access privileges for a host name, user name, and database combination. 
 

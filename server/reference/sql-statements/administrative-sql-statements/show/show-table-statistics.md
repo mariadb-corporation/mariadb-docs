@@ -14,15 +14,7 @@ SHOW TABLE_STATISTICS
 
 ## Description
 
-{% tabs %}
-{% tab title="Current" %}
 The `SHOW TABLE_STATISTICS` statement is part of the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) feature. It was effectively replaced by the generic `SHOW TABLE STATISTICS` statement. The [information\_schema.TABLE\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-table_statistics-table.md) table shows statistics on table usage.
-{% endtab %}
-
-{% tab title="< 10.1.1" %}
-The `SHOW TABLE_STATISTICS` statement is part of the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) feature. The [information\_schema.TABLE\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-table_statistics-table.md) table shows statistics on table usage.
-{% endtab %}
-{% endtabs %}
 
 The [userstat](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md#userstat) system variable must be set to 1 to activate this feature. See the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) and [information\_schema.TABLE\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-table_statistics-table.md) articles for more information.
 

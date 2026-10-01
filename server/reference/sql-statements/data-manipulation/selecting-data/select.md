@@ -71,32 +71,56 @@ The SELECT grammar is broken out into named sub-clauses for readability. Each cl
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8:
+{% endhint %}
+
 `[/*+ hints */]` syntax is available.
 {% endtab %}
 
 {% tab title="< 11.8" %}
+{% hint style="info" %}
+Before MariaDB 11.8:
+{% endhint %}
+
 `[/*+ hints */]` syntax is **not** available.
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 Available join order hints [can be found here](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/expanded-optimizer-hints.md#join-order-hints).
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 Join order hints are **not** available.
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 `[/*+ MAX_EXECUTION_TIME(`_`milliseconds`_`) */]` syntax is available.
 
 The hint limits the time of statement execution to the number of milliseconds given in the hint argument.
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 `[/*+ MAX_EXECUTION_TIME(`_`milliseconds`_`) */]` syntax is **not** available.
 {% endtab %}
 {% endtabs %}
@@ -155,15 +179,7 @@ See [LOCK IN SHARE MODE](lock-in-share-mode.md) and [FOR UPDATE](for-update.md) 
 
 ### OFFSET ... FETCH
 
-{% tabs %}
-{% tab title="Current" %}
 See [SELECT ... OFFSET ... FETCH](select-offset-fetch.md).
-{% endtab %}
-
-{% tab title="< 10.6" %}
-The clause doesn't exist.
-{% endtab %}
-{% endtabs %}
 
 ### ORDER BY
 
@@ -179,15 +195,7 @@ Passes the whole result set to a C Procedure. See [PROCEDURE](procedure.md) and 
 
 ### SKIP LOCKED
 
-{% tabs %}
-{% tab title="Current" %}
 This causes rows that couldn't be locked ([LOCK IN SHARE MODE](lock-in-share-mode.md) or [FOR UPDATE](for-update.md)) to be excluded from the result set. An explicit `NOWAIT` is implied here. This is only implemented on [InnoDB](../../../../server-usage/storage-engines/innodb/) tables and ignored otherwise.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-The clause doesn't exist.
-{% endtab %}
-{% endtabs %}
 
 ### Optimizer Hints
 

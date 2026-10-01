@@ -2,6 +2,7 @@
 description: >-
   Creating, deploying, updating, and versioning code deployment units for
   GridGain 9 compute tasks from Control Center.
+hidden: true
 ---
 
 # Code Deployment with GridGain 9

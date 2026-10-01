@@ -46,6 +46,7 @@ Although multiple topologies are listed on this page, the listed topologies are 
 ### ColumnStore Shared Local Storage Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a three-node ColumnStore cluster on shared NFS storage
     accDescr {
@@ -74,6 +75,7 @@ flowchart TD
     classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
     class MX,E1,E2,E3,C1,C2,C3 node
     class NFS storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes to a three-node ColumnStore cluster sharing NFS storage._

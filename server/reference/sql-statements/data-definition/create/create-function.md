@@ -63,7 +63,7 @@ The `RETURN` clause can return a function body. In newer versions of MariaDB, it
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From Community Server (CS) 12.0 / Enterprise Server (ES) 11.4:
+From Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:
 {% endhint %}
 
 **RETURN `func_body`**
@@ -106,6 +106,10 @@ It is possible to create stored aggregate functions as well. See [Stored Aggrega
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.8:
+{% endhint %}
+
 `OUT`, `INOUT` and its equivalent `IN OUT`, are only valid if called from `SET` and not `SELECT`. These quantifiers are especially useful for creating functions with more than one return value. This allows functions to be more complex and nested.
 
 ```sql
@@ -150,13 +154,21 @@ SELECT add_func4(1,2,3);
 ```
 {% endtab %}
 
-{% tab title="< 10.8.0" %}
+{% tab title="< 10.8" %}
+{% hint style="info" %}
+Before MariaDB 10.8:
+{% endhint %}
+
 Quantifiers are not available.
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:
+{% endhint %}
+
 A cursor can be returned, like this:
 
 ```sql
@@ -188,7 +200,11 @@ CALL p1();
 ```
 {% endtab %}
 
-{% tab title="< Community Server 12.0 / Enterprise Server 11.8" %}
+{% tab title="< CS 12.0 / ES 11.8" %}
+{% hint style="info" %}
+Before Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:
+{% endhint %}
+
 This feature is not available.
 {% endtab %}
 {% endtabs %}
@@ -248,7 +264,7 @@ The `[NOT] DETERMINISTIC` clause also affects [binary logging](../../../../serve
 
 ### NO SQL
 
-`NO SQL` means nothing, because MariaDB does not currently support any language other than SQL.
+`NO SQL` means nothing, because MariaDB does not support any language other than SQL.
 
 ### Oracle Mode
 

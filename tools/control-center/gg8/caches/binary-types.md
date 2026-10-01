@@ -2,6 +2,7 @@
 description: >-
   Viewing, downloading, removing, and restoring binary type metadata on
   GridGain 8 clusters.
+hidden: true
 ---
 
 # Binary Type Management

@@ -4,6 +4,10 @@
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.8:
+{% endhint %}
+
 ```bnf
 DECLARE cursor_name CURSOR [(cursor_formal_parameter[,...])] FOR {select_statement | prepared_statement_name}
 
@@ -13,6 +17,10 @@ cursor_formal_parameter:
 {% endtab %}
 
 {% tab title="< 10.8" %}
+{% hint style="info" %}
+Before MariaDB 10.8:
+{% endhint %}
+
 ```sql
 DECLARE cursor_name CURSOR [(cursor_formal_parameter[,...])] FOR select_statement
 
@@ -85,10 +93,18 @@ Cursors can have parameters. This is a non-standard SQL extension. Cursor parame
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.8:
+{% endhint %}
+
 The `IN` qualifier is supported in the `cursor_formal_parameter` part of the syntax.
 {% endtab %}
 
 {% tab title="< 10.8" %}
+{% hint style="info" %}
+Before MariaDB 10.8:
+{% endhint %}
+
 The `IN` qualifier is **not** supported in the `cursor_formal_parameter` part of the syntax.
 {% endtab %}
 {% endtabs %}

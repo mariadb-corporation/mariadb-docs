@@ -35,7 +35,7 @@ This architecture allows applications to use a single connection endpoint for bo
   See the [getting started guide](../maxscale-quickstart-guides/maxscale-getting-started-guide.md) if required.
 * MaxScale running on x86\_64 architecture
   * The Exasolrouter module uses the Exasol ODBC driver to establish communication with Exasol.
-  * The Exasol ODBC driver currently requires x86\_64.
+  * The Exasol ODBC driver requires x86\_64.
   * So, MaxScale must run on x86\_64 when using `exasolrouter`.
 * The `maxscale-exasol` package, which contains the Exasolrouter module and the Exasol ODBC driver, and is installed separately from `maxscale`. See Step 1 below.
 * A Linux distribution that provides Python 3.13 or later, which the Exasolrouter's internal SQL preprocessor requires. Python 3.12 is sufficient on Ubuntu 24.04. In practice, this means one of:
@@ -177,7 +177,7 @@ These privileges cover the full integration:
 
 Narrow the list if your deployment does not use all of it. For example, an Exasolrouter service that only reads and does not use CDC or the external preprocessor does not need the script, `ALTER SYSTEM`, or table-modification privileges.
 
-**Important**: For all connections to Exasol, the Exasolrouter uses a **single service user**. Exasol does not currently receive user‑level authentication from MariaDB clients.
+**Important**: For all connections to Exasol, the Exasolrouter uses a **single service user**. Exasol does not receive user‑level authentication from MariaDB clients.
 
 ### Step 3. Configure the MaxScale server and monitor.
 
@@ -312,6 +312,7 @@ The Exasolrouter does not replicate data — it only routes queries. To keep Exa
 binlogrouter connects to the MariaDB cluster as a replica and reads its binary log. Committed changes are compacted, batched, and bulk-loaded into Exasol staging tables, then applied to the target tables with a `MERGE` in GTID order, so Exasol reflects committed writes with minimal lag. Replication is asynchronous.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     App["Application<br/>MariaDB connector"]
     subgraph MS["MaxScale"]
@@ -333,6 +334,7 @@ flowchart LR
     class MDB maria;
     class EXA exa;
     style MS fill:#eef2f7,color:#0e2a3b,stroke:#0e2a3b;
+    linkStyle default color:#111111
 ```
 
 _Solid arrows show the synchronous write path; dotted arrows show asynchronous CDC replication._

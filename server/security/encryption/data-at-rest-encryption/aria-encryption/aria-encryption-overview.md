@@ -32,9 +32,9 @@ encrypt_tmp_disk_tables=ON
 
 ## Determining Whether a Table is Encrypted
 
-The [InnoDB storage engine](../../../../server-usage/storage-engines/innodb/) has the [information\_schema.INNODB\_TABLESPACES\_ENCRYPTION table](../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_encryption-table.md) that can be used to get information about which tables are encrypted. Aria does not currently have anything like that (see [MDEV-17324](https://jira.mariadb.org/browse/MDEV-17324) about that).
+The [InnoDB storage engine](../../../../server-usage/storage-engines/innodb/) has the [information\_schema.INNODB\_TABLESPACES\_ENCRYPTION table](../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_encryption-table.md) that can be used to get information about which tables are encrypted. Aria does not have anything like that (see [MDEV-17324](https://jira.mariadb.org/browse/MDEV-17324) about that).
 
-To determine whether an Aria table is encrypted, you currently have to search the data file for some plain text that you know is in the data.
+To determine whether an Aria table is encrypted, you have to search the data file for some plain text that you know is in the data.
 
 For example, let's say that we have the following table:
 
@@ -59,7 +59,7 @@ If you can find the plain text of the string, then you know that the table is no
 
 ## Encryption and the Aria Log
 
-Only Aria tables are currently encrypted. The [Aria log](../../../../server-usage/storage-engines/aria/aria-faq.md#differences-between-aria-and-myisam) is not yet encrypted. See [MDEV-8587](https://jira.mariadb.org/browse/MDEV-8587).
+Only Aria tables are encrypted. The [Aria log](../../../../server-usage/storage-engines/aria/aria-faq.md#differences-between-aria-and-myisam) is not yet encrypted. See [MDEV-8587](https://jira.mariadb.org/browse/MDEV-8587).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

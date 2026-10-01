@@ -7,7 +7,7 @@ description: Differences between variants of the MyRocks storage engine.
 MyRocks is available in
 
 * Facebook's (FB) MySQL branch (originally based on MySQL 5.6)
-* MariaDB (from 10.2 and 10.3)
+* MariaDB
 * Percona Server from 5.7
 
 This page lists differences between these variants.
@@ -43,7 +43,7 @@ Author: Andrew Kryczka <andrewkr@fb.com>
 Date:   Fri Jan 12 11:03:55 2018 -0800
 ```
 
-* MariaDB currently uses 5.8.0
+* MariaDB uses RocksDB 6.29 from MariaDB 10.11.12 and 11.4.6 ([MDEV-16523](https://jira.mariadb.org/browse/MDEV-16523)), and 5.8.0 before that
 
 ```
 commit 9a970c81af9807071bd690f4c808c5045866291a
@@ -85,7 +85,7 @@ or rewrite to single-table, single-statement transaction.  Query: insert into tb
 ## Generated Columns
 
 * Both MariaDB and Percona Server support [generated columns](../../../reference/sql-statements/data-definition/create/generated-columns.md), but neither one supports them for the MyRocks storage engine (attempts to create a table will produce an error).
-* [Invisible columns](../../../reference/sql-statements/data-definition/create/invisible-columns.md) in [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) are supported (as they are an SQL layer feature).
+* [Invisible columns](../../../reference/sql-statements/data-definition/create/invisible-columns.md) are supported (as they are an SQL layer feature).
 
 ## rpl\_skip\_tx\_api
 
@@ -97,7 +97,6 @@ The above comparison was made using
 
 * FB/MySQL 5.6.35
 * Percona Server 5.7.20-19-log
-* [MariaDB 10.2.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.13) (MyRocks is beta)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

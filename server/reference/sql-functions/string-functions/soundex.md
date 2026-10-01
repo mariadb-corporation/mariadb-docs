@@ -18,7 +18,7 @@ Returns a soundex string from _`str`_. Two strings that sound almost the same sh
 
 **Important:** When using `SOUNDEX()`, you should be aware of the following details:
 
-* This function, as currently implemented, is intended to work well with strings that are in the English language only. Strings in other languages may not produce reasonable results.
+* This function is intended to work well with strings that are in the English language only. Strings in other languages may not produce reasonable results.
 * This function implements the original Soundex algorithm, not the more popular enhanced version (also described by D. Knuth). The difference is that original version discards vowels first and duplicates second, whereas the enhanced version discards duplicates first and vowels second.
 
 ## Examples

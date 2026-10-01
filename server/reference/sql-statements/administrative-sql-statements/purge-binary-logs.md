@@ -31,29 +31,13 @@ The server clears that state when a replica moves on to a new binary log file, o
 
 This statement has no effect if the server was not started with the [--log-bin](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_bin) option to enable binary logging.
 
-{% tabs %}
-{% tab title="Current" %}
 To list the binary log files on the server, use [SHOW BINARY LOGS](show/show-binary-logs.md). To see which files they are reading, use [SHOW REPLICA STATUS](show/show-replica-status.md). You can only delete the files that are older than the oldest file that is used by the slaves.
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-To list the binary log files on the server, use [SHOW BINARY LOGS](show/show-binary-logs.md). To see which files they are reading, use [SHOW SLAVE STATUS](show/show-replica-status.md). You can only delete the files that are older than the oldest file that is used by the slaves.
-{% endtab %}
-{% endtabs %}
 
 To delete all binary log files, use [RESET MASTER](replication-statements/reset-master.md). To move to a new log file (for example if you want to remove the current log file), use [FLUSH LOGS](flush-commands/flush.md) before you execute `PURGE LOGS`.
 
 If the [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) server system variable is not set to 0, the server automatically deletes binary log files after the given number of days. From MariaDB 10.6, the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion, and takes precedence if both are non-zero.
 
-{% tabs %}
-{% tab title="Current" %}
 Requires the [BINLOG ADMIN](../account-management-sql-statements/grant.md#binlog-admin) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-Requires the SUPER privilege.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

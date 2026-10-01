@@ -36,7 +36,7 @@ MariaDB provides nine server-side authentication plugins:
 * [unix\_socket](authentication-plugin-unix-socket.md) (Unix only)
 * [named\_pipe](authentication-plugin-named-pipe.md) (Windows only)
 * [PARSEC](authentication-plugin-parsec.md) (from MariaDB Community Server 11.6 and MariaDB Enterprise Server 11.8)
-* [caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) (from MariaDB Community Server 12.1 and MariaDB Enterprise Server 11.8)
+* [caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) (from MariaDB Community Server 11.4.9 / 11.8.4 / 12.1 and MariaDB Enterprise Server 10.6.24-20 / 11.4.9-6 / 11.8.3-1)
 
 ### Supported Client Authentication Plugins
 
@@ -202,9 +202,9 @@ If the client uses either the `libmysqlclient` or [MariaDB Connector/C](https://
 
 ### Default Server Authentication Plugin
 
-The [mysql\_native\_password](authentication-plugin-mysql_native_password.md) authentication plugin is currently the default authentication plugin in all versions of MariaDB if the [old\_passwords](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) system variable is set to `0`, which is the default.
+The [mysql\_native\_password](authentication-plugin-mysql_native_password.md) authentication plugin is the default authentication plugin in all versions of MariaDB if the [old\_passwords](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) system variable is set to `0`, which is the default.
 
-On a system with the [old\_passwords](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) system variable set to `0`, this means that if you create a user account with either the [GRANT](../../sql-statements/account-management-sql-statements/grant.md) or [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md)`statements, and if you do not specify an authentication plugin with the`IDENTIFIED VIA`clause, then MariaDB will use the [mysql_native_password](authentication-plugin-mysql_native_password.md) authentication plugin for the user account.`
+On a system with the [old\_passwords](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) system variable set to `0`, this means that if you create a user account with either the [GRANT](../../sql-statements/account-management-sql-statements/grant.md) or [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md) statements, and if you do not specify an authentication plugin with the `IDENTIFIED VIA` clause, then MariaDB will use the [`mysql_native_password`](authentication-plugin-mysql_native_password.md) authentication plugin for the user account.
 
 Creating a user account like this, it uses the [mysql\_native\_password](authentication-plugin-mysql_native_password.md) authentication plugin:
 
@@ -367,7 +367,7 @@ This plugin is available from MariaDB Community Server 11.6 and MariaDB Enterpri
 
 The [caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) authentication plugin provides MySQL-compatible authentication and allows users to be moved from MySQL to MariaDB without changing their passwords. It is intended primarily as a migration aid; for new accounts the more secure [PARSEC](authentication-plugin-parsec.md) authentication plugin is recommended.
 
-This plugin is available from MariaDB Community Server 12.1 and MariaDB Enterprise Server 11.8, and is not installed by default — see [Authentication Plugin - caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) for installation instructions.
+This plugin is available from MariaDB Community Server 11.4.9 / 11.8.4 / 12.1 and MariaDB Enterprise Server 10.6.24-20 / 11.4.9-6 / 11.8.3-1, and is not installed by default — see [Authentication Plugin - caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) for installation instructions.
 
 ## See Also
 

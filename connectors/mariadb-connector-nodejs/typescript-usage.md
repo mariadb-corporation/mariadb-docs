@@ -54,7 +54,7 @@ main();
 
 ## Typing Query Results
 
-`connection.query()` and `connection.execute()` accept a generic type parameter for the result type, and an optional second parameter for the values array (added in 3.5.1).
+`connection.query()` and `connection.execute()` accept a generic type parameter for the result type, and an optional second generic type parameter for the values array (added in 3.5.1).
 
 ```ts
 interface Animal {

@@ -29,15 +29,11 @@ The other most important InnoDB variables are:
 
 * [innodb\_log\_file\_size](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_file_size)
 * [innodb\_flush\_method](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_method)
-* [innodb\_thread\_sleep\_delay](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_thread_sleep_delay)
 
 Some other important InnoDB variables:
 
 * [innodb\_max\_dirty\_pages\_pct\_lwm](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_max_dirty_pages_pct_lwm)
 * [innodb\_read\_ahead\_threshold](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_read_ahead_threshold)
-* [innodb\_buffer\_pool\_instances](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_instances). Deprecated and ignored from [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1).
-* [innodb\_adaptive\_max\_sleep\_delay](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_max_sleep_delay). Deprecated and ignored from [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5).
-* [innodb\_thread\_concurrency](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_thread_concurrency). Deprecated and ignored from [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5).
 
 ## [Aria](../../../../server-usage/storage-engines/aria/aria-storage-engine.md) Storage Engine
 

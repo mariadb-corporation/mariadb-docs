@@ -92,7 +92,7 @@ Please see the configuration parameter \[treat\_string\_arg\_as\_field(#treat\_s
 
 The masking filter can _only_ be used for masking columns of the following types: `BINARY`, `VARBINARY`, `CHAR`, `VARCHAR`, `BLOB`, `TINYBLOB`,`MEDIUMBLOB`, `LONGBLOB`, `TEXT`, `TINYTEXT`, `MEDIUMTEXT`, `LONGTEXT`,`ENUM` and `SET`. If the type of the column is something else, then no masking will be performed.
 
-Currently, the masking filter can only work on packets whose payload is less than 16MB. If the masking filter encounters a packet whose payload is exactly that, thus indicating a situation where the payload is delivered in multiple packets, the value of the parameter `large_payloads` specifies how the masking filter should handle the situation.
+The masking filter can only work on packets whose payload is less than 16MB. If the masking filter encounters a packet whose payload is exactly that, thus indicating a situation where the payload is delivered in multiple packets, the value of the parameter `large_payloads` specifies how the masking filter should handle the situation.
 
 ## Configuration
 
@@ -378,7 +378,7 @@ SELECT name from db1.tbl1;`
 
 ### `with`
 
-The value of this key is an object that specifies what the value of the matched column should be replaced with for the `replace` rule. Currently, the object is expected to contain either the key `value` or the key `fill`. The value of both must be a string with length greater than zero. If both keys are specified, `value` takes precedence. If `fill` is not specified, the default `X` is used as its value.
+The value of this key is an object that specifies what the value of the matched column should be replaced with for the `replace` rule. The object is expected to contain either the key `value` or the key `fill`. The value of both must be a string with length greater than zero. If both keys are specified, `value` takes precedence. If `fill` is not specified, the default `X` is used as its value.
 
 If `value` is specified, then its value is used to replace the actual value verbatim and the length of the specified value must match the actual returned value (from the server) exactly. If the lengths do not match, the value of`fill` is used to mask the actual value.
 

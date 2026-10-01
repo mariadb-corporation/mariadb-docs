@@ -1,6 +1,6 @@
 ---
 description: >-
-  Plugin API reference: Statement Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+  Macros that register statement instruments and report a statement's start, text, digest, lock time, rows sent and examined, and end to the Performance Schema.
 ---
 
 

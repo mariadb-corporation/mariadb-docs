@@ -192,7 +192,7 @@ Whether _ExasolRouter_ should quote identifiers. This applies always
 when a `COM_INIT_DB` packet is converted to an `OPEN SCHEMA ...`
 statement and when the value of `preprocessor` is `disabled`.
 
-In the latter case, currently it only affects whether 'USE db' becomes
+In the latter case, it only affects whether 'USE db' becomes
 'OPEN SCHEMA db' or 'OPEN SCHEMA \"db\"'.
 
 ## Transformations
@@ -207,7 +207,7 @@ is changed, is transformed into the statement `OPEN SCHEMA <db>`.
 If the value of `preprocessor` is `disabled`, _ExasolRouter_ itself
 translates some MariaDB constructs to equivalent Exasol constructs.
 
-Currently a transformation will be made _only_ if there is an **exact** match
+A transformation will be made _only_ if there is an **exact** match
 (apart from case and differences in whitespace) with the MariaDb SQL.
 
 | MariaDb                           | Exasol                                                                                                              |

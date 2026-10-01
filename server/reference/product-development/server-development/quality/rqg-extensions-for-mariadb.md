@@ -40,7 +40,7 @@ So, if you provide the following option:
 
 ## CheckFieldValue Validator <a href="#checkfieldvalue-validator" id="checkfieldvalue-validator"></a>
 
-A grammar can set requirements on results of a query through a specifically formatted comment. If the validator finds a comment which matches the template, it performs the requested check. The validation is defined in the comment itself: it says which field in which row in the result set should be checked, and provides the condition (currently simple numeric comparisons: `=`, `<`, `>`, `<=`, `>=`).
+A grammar can set requirements on results of a query through a specifically formatted comment. If the validator finds a comment which matches the template, it performs the requested check. The validation is defined in the comment itself: it says which field in which row in the result set should be checked, and provides the condition (simple numeric comparisons: `=`, `<`, `>`, `<=`, `>=`).
 
 It allows to do simple verification without implementing a special validator.
 
@@ -67,7 +67,7 @@ _Usage example: investigation of the sporadic failure_ [_MDEV-4578_](https://jir
 
 ## MariadbGtidCrashSafety Reporter <a href="#mariadbgtidcrashsafety-reporter" id="mariadbgtidcrashsafety-reporter"></a>
 
-The reporter was created to test slave crash-safety with [MariaDB implementation of GTID](../../../../ha-and-performance/standard-replication/gtid.md). It is similar to [SlaveCrashRecovery reporter](rqg-extensions-for-mariadb.md#slavecrashrecovery-reporter), but is adjusted to check GTID-specific aspects:
+The reporter was created to test slave crash-safety with [MariaDB implementation of GTID](../../../../ha-and-performance/standard-replication/gtid/README.md). It is similar to [SlaveCrashRecovery reporter](rqg-extensions-for-mariadb.md#slavecrashrecovery-reporter), but is adjusted to check GTID-specific aspects:
 
 * It restarts the slave with `--skip-slave-start`, and executes these statements:
 
@@ -88,7 +88,7 @@ The reporter itself does not check consistency of the data, but it can be used t
 
 It is supposed to be used with `runall-new.pl`, so that the server is started without MTR involvement.
 
-_Usage example: testing of_ [_GTID in MariaDB_](../../../../ha-and-performance/standard-replication/gtid.md)_._
+_Usage example: testing of_ [_GTID in MariaDB_](../../../../ha-and-performance/standard-replication/gtid/README.md)_._
 
 ## BinlogConsistency Reporter <a href="#binlogconsistency-reporter" id="binlogconsistency-reporter"></a>
 

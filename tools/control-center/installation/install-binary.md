@@ -2,6 +2,7 @@
 description: >-
   Installing GridGain Control Center from the binary package, including work
   folder, URI, port, and SSL configuration.
+hidden: true
 ---
 
 # Control Center Binary Package

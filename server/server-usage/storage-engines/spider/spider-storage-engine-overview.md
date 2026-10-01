@@ -56,24 +56,7 @@ The Spider storage engine is a [storage engine](../) with built-in sharding feat
 
 When a table is created with the Spider storage engine, the table links to the table on a remote server. The remote table can be of any storage engine. The table link is concretely achieved by the establishment of the connection from a local MariaDB server to a remote MariaDB server. The link is shared for all tables that are part of a the same transaction.
 
-The Spider documentation on the MariaDB documentation is currently incomplete. See the Spider website for more:, as well as the spider-1.0-doc and spider-2.0-doc repositories.
-
-## Spider Versions in MariaDB
-
-| Spider Version | Introduced                                                                                                                                                                                                                 | Maturity |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| Spider 3.3.15  | [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7), [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.6)     | Stable   |
-| Spider 3.3.15  | [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4)                                                                                                                 | Gamma    |
-| Spider 3.3.14  | [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3), [MariaDB 10.3.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.13)   | Stable   |
-| Spider 3.3.13  | [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7)                                                                                                                 | Stable   |
-| Spider 3.3.13  | [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)                                                                                                                 | Gamma    |
-| Spider 3.2.37  | [MariaDB 10.1.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.10), [MariaDB 10.0.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.23) | Gamma    |
-| Spider 3.2.21  | [MariaDB 10.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.5), [MariaDB 10.0.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.18)   | Gamma    |
-| Spider 3.2.18  | [MariaDB 10.0.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.17)                                                                                                               | Gamma    |
-| Spider 3.2.11  | [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.14)                                                                                                               | Gamma    |
-| Spider 3.2.4   | [MariaDB 10.0.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.12)                                                                                                               | Gamma    |
-| Spider 3.2     | [MariaDB 10.0.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.11)                                                                                                               | Gamma    |
-| Spider 3.0     | [MariaDB 10.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.4)                                                                                                                 | Beta     |
+The Spider documentation on the MariaDB documentation is incomplete. See the Spider website for more:, as well as the spider-1.0-doc and spider-2.0-doc repositories.
 
 ## Usage
 
@@ -283,6 +266,7 @@ Without connection pool or MariaDB thread pool, HaProxy and Spider have been pro
 #### Sharding Setup
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Spider single-node sharded topology across two backends
     accDescr { A single Spider node, SPIDER1 at 192.168.0.201, shards the sbtest table into two partitions. Part 1 is routed to Backend1 at 192.168.0.202, and Part 2 is routed to Backend2 at 192.168.0.203. The two backend servers coordinate an XA two-phase commit (XA 2PC) between themselves so that writes spanning both shards stay consistent. }
@@ -310,6 +294,7 @@ flowchart TD
     class CLIENT clientNode
     class SPIDER1 spiderNode
     class BACKEND1,BACKEND2 backendNode
+    linkStyle default color:#111111
 ```
 
 _A single Spider node (SPIDER1) shards sbtest across two backends, Backend1 (Part 1) and Backend2 (Part 2), coordinated by XA 2PC._
@@ -417,7 +402,7 @@ We need to increase the concurrency to get better throughput.
 
 #### Background Setup
 
-We have no background search available in MariaDB. It won't be available before [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), but the next table definition mainly enables improving the performance of a single complex query plan with background search that can be found via the upstream spiral binaries MariaDB branch.
+The next table definition mainly enables improving the performance of a single complex query plan with background search that can be found via the upstream spiral binaries MariaDB branch.
 
 We have 4 cores per backend and 2 backends .
 
@@ -594,6 +579,7 @@ mysql> SELECT sum(k) FROM sbtest;
 Spider's high availability feature has been deprecated ([MDEV-28479](https://jira.mariadb.org/browse/MDEV-28479)), and are deleted. Please use other high availability solutions like [replication](../../../ha-and-performance/standard-replication/) or [galera-cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide).
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Spider sharded topology with cross-backend replication for high availability
     accDescr { A single Spider node, SPIDER1 at 192.168.0.201, shards the sbtest table into two partitions, Part 1 and Part 2. Backend1, at 192.168.0.202, holds Part 1 as primary and keeps a replica of Part 2; Backend2, at 192.168.0.203, holds Part 2 as primary and keeps a replica of Part 1. The two backends coordinate an XA two-phase commit (XA 2PC) and replicate each other's shard, so that if one backend fails, the other still holds a full replica of both partitions. }
@@ -631,6 +617,7 @@ flowchart TD
     class SPIDER1 spiderNode
     class BACKEND1,BACKEND2 backendNode
     class B1P1,B1P2,B2P2,B2P1 tableNode
+    linkStyle default color:#111111
 ```
 
 _For high availability, Backend1 and Backend2 each hold their own primary shard plus a replica of the other's shard, kept in sync via XA 2PC._
@@ -760,6 +747,7 @@ Checking the state of the nodes:
 ```
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Spider link monitoring during a backend failure
     accDescr { A SQL client sends queries into the Spider node SPIDER1 at 192.168.0.201. Inside SPIDER1, the SPIDER_TABLES catalog tracks PART1 with link_status 1 and PART2 with link_status 3. The SBTEST table's PART 1 and PART 2 are linked to two backend servers. SPIDER_LINK_MON_SERVER lists SPIDER1 itself as the monitoring node, and exchanges MAJORITY quorum votes with SBTEST to decide link status. A MONITORING process runs background checks with monitoring_bg_kind 1 calling mysql_ping, monitoring_bg_kind 2 running select 1 from SBTEST limit 1, and monitoring_bg_kind 3 running select 1 from SBTEST where a condition. Backend1 at 192.168.0.202 holds SBTEST PART 1 and PART 2 and is reachable, but an ERROR is reported between SBTEST and Backend1. Backend2 at 192.168.0.203 has failed, shown crossed out, and the MONITORING process reports an ERROR trying to reach Backend2's SBTEST PART 2. }
@@ -788,6 +776,7 @@ flowchart TD
     class SQL client
     class SPIDER_TABLES,SBTEST_S,LINKMON,MONITORING proc
     class BACKEND1,BACKEND2 node
+    linkStyle default color:#111111
 ```
 
 _Spider's link monitoring: SPIDER1 tracks link\_status for each partition, uses SPIDER\_LINK\_MON\_SERVER and MAJORITY quorum voting to detect Backend1 vs. the failed Backend2, while a background MONITORING process pings and probes SBTEST on each backend._

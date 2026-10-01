@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
 #
 # doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
-# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus four checks it delegates to
-# their own scripts: a GitBook include resolver (includecheck.sh), a heading-anchor gate
-# (fragcheck.py), an orphaned-page/nav-coverage gate (navcheck.py) and a net line-loss guard
-# (shrinkcheck.py). All four are gated in CI as of DOCS-6586 — by includecheck-pr.yml,
-# fragcheck-pr.yml, navcheck-pr.yml and shrinkcheck-pr.yml respectively — so a finding here is
-# a finding CI will repeat, and none of them is "local only" any more.
+# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus seven checks it delegates to
+# their own scripts: a GitBook include resolver (includecheck.sh), a Mermaid edge-label
+# contrast check (mermaidcheck.py), a heading-anchor gate (fragcheck.py), an orphaned-page/
+# nav-coverage gate (navcheck.py), a net line-loss guard (shrinkcheck.py), a paired
+# version-include guard (versioncheck.py) and the no-standalone register audit
+# (postdownload.py). All seven are gated in CI — by includecheck-pr.yml, mermaidcheck-pr.yml
+# (DOCS-6630), fragcheck-pr.yml, navcheck-pr.yml, shrinkcheck-pr.yml, versioncheck-pr.yml and
+# postdownload-pr.yml (both DOCS-6734) respectively — so a finding here is a finding CI will
+# repeat, and none of them is "local only" any more.
+#
+# The last two take NO file list: their findings are not local to a changed file (a version
+# include disagrees with its pair in another space; a register entry stops being true because a
+# page elsewhere appeared), so they are tree-wide and ignore the arguments.
 #
 # The pre-commit hook, the /precommit command, the docs-check skill, and dev-docs/cookbook-pre-pr.md
 # all delegate here instead of re-spelling the flags, so the CI-mirroring options live in exactly
@@ -16,8 +23,9 @@
 #          (paths are filtered to existing *.md / *.html; run from the repo root so that
 #           .codespellignore resolves)
 # Exit:    0 = all runnable checks passed (a check whose tool is missing is SKIPPED, not failed)
-#          1 = a real failure (misspelling, broken link, unresolvable include, or a heading
-#              anchor this change killed)
+#          1 = a real failure (misspelling, broken link, unresolvable include, a Mermaid
+#              flowchart missing its edge-label contrast fix, or a heading anchor this change
+#              killed)
 # Output:  failures and "tool missing / SKIPPED" notices go to stderr.
 #
 # Portability: no `mapfile` here — takes files as args — so it runs under bash 3.2 (macOS) too.
@@ -221,6 +229,28 @@ else
   bash "$INCLUDECHECK" "${files[@]}" >/dev/null || rc=1
 fi
 
+# --- Mermaid edge-label contrast — HAS a CI counterpart since DOCS-6630 ----------------------
+# GitBook's dark Mermaid theme draws flowchart edge labels at 4.43:1, under WCAG AA. There is no
+# site-level CSS to fix it once, so every edge-labelled flowchart carries a two-line fix, and
+# .claude/hooks/mermaidcheck.py (also what mermaidcheck-pr.yml runs) fails a diagram without it.
+# Its header has the measurements, including why the one-line variant first proposed on the
+# ticket made contrast WORSE. `mermaidcheck.py --fix <file>` adds the fix.
+#
+# Same broken-checkout-vs-missing-tool split as the shrink guard below: the script is a
+# checked-in sibling, so its absence FAILS; python3 is an external tool, so its absence SKIPs.
+MERMAIDCHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/mermaidcheck.py"
+if [ ! -f "$MERMAIDCHECK" ]; then
+  echo "doc-lint: $MERMAIDCHECK not found — cannot check Mermaid edge-label contrast." >&2
+  echo "          It is checked in beside this script, so this is a broken checkout, not a" >&2
+  echo "          missing tool." >&2
+  rc=1
+elif ! command -v python3 >/dev/null 2>&1; then
+  echo "doc-lint: python3 not installed — Mermaid contrast check SKIPPED (mermaidcheck-pr.yml" >&2
+  echo "          still gates this in CI). Install: brew install python3" >&2
+else
+  python3 "$MERMAIDCHECK" "${files[@]}" >/dev/null || rc=1
+fi
+
 # --- GitBook heading anchors — HAS a CI counterpart since DOCS-6524 --------------------------
 # A link to `page.md#some-heading` can rot in two ways that every other gate here is blind
 # to: the heading is renamed, or the anchor was hand-written in the wrong dialect. CI passes
@@ -362,6 +392,78 @@ else
   # Findings go to stderr; the counts line goes to stdout, which is swallowed here the same way
   # navcheck's clean line is. CI reads that line to prove the run was not vacuous.
   python3 "$SHRINKCHECK" --base "$LINT_BASE" "${files[@]}" >/dev/null || rc=1
+fi
+
+# --- paired "most recent version" includes — HAS a CI counterpart since DOCS-6734 -----------
+# Every connector and every live Community Server series states its newest version TWICE, in
+# two spaces: release-notes/.gitbook/includes/latest-<key>.md (banner and Download button) and
+# platform/.gitbook/includes/most-recent-<key>.md (one bullet, pulled into every Post Download
+# page — 116 of them for Connector/J). Bump one and forget the other and the site states two
+# answers at once, with every gate here green: both files are valid Markdown, every link
+# resolves, and neither page shrank. .claude/hooks/versioncheck.py's header has the rest,
+# including why it compares the pair against EACH OTHER rather than against the newest release.
+#
+# Takes NO file list, unlike every other check in this script. The finding is a disagreement
+# BETWEEN two files in two different spaces, and the PR that edits only one of them is exactly
+# the PR that causes it — so scoping to the caller's files would blind it to its own failure
+# mode. The whole scan is 44 files and runs in milliseconds, so there is nothing to narrow.
+#
+# Resolved relative to THIS script rather than the working directory, for the reason the
+# includecheck block above records.
+VERSIONCHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/versioncheck.py"
+if [ ! -f "$VERSIONCHECK" ]; then
+  # NOT a SKIP, for the reason the includecheck block gives: this is a checked-in sibling, so
+  # its absence is a broken checkout rather than a missing tool.
+  echo "doc-lint: $VERSIONCHECK not found — cannot compare the paired version includes." >&2
+  echo "          It is checked in beside this script, so this is a broken checkout, not a" >&2
+  echo "          missing tool." >&2
+  rc=1
+elif ! command -v python3 >/dev/null 2>&1; then
+  echo "doc-lint: python3 not installed — version-include check SKIPPED (versioncheck-pr.yml" >&2
+  echo "          still gates this in CI). Install: brew install python3" >&2
+else
+  # Findings go to stderr; the counts line goes to stdout, swallowed here the same way
+  # navcheck's and shrinkcheck's are. CI reads that line to prove the run was not vacuous.
+  #
+  # No --root, so the check resolves the repo from the WORKING DIRECTORY rather than from this
+  # script's location. That is deliberate and is the opposite of how $VERSIONCHECK itself is
+  # resolved: doc-lint-test.sh runs this script from the repo while CWD is a throwaway sandbox,
+  # and anchoring on the script would make the check scan the real repo from inside that
+  # sandbox — a verdict the suite cannot control, reported as if it were the sandbox's. Rooted
+  # at CWD it finds no includes directories there and SKIPs, which is what a sandbox deserves.
+  python3 "$VERSIONCHECK" >/dev/null || rc=1
+fi
+
+# --- the no-standalone register — HAS a CI counterpart since DOCS-6734 ----------------------
+# A connector release that shipped only INSIDE a Server release has no standalone package, so
+# there is no download for a reader to land on and correctly no platform/post-download/ page.
+# DOCS-6408's gate would block that legitimate PR, so the round needs a way to say "on purpose".
+# That signal is the `no-standalone:` section of .claude/hooks/doc-lint-allow.yml — a register
+# entry rather than page frontmatter, because .claude/ is not a GitBook space and so cannot be
+# silently rewritten by a web-app edit the way a page can (GITBOOK-1636 dropped HTML comments).
+# .claude/hooks/postdownload.py's header carries the full reasoning, and owns the naming map.
+#
+# What runs here is the register AUDIT: an entry whose page is gone, or whose release has since
+# gained a Post Download page, records something no longer true and fails. The other direction —
+# a newly added release notes page MUST have its Post Download page — is DOCS-6408's gate and is
+# not here yet.
+#
+# Takes no file list, for the same reason the version-include check above does not.
+POSTDOWNLOAD="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/postdownload.py"
+if [ ! -f "$POSTDOWNLOAD" ]; then
+  # NOT a SKIP, for the reason the includecheck block gives: this is a checked-in sibling, so
+  # its absence is a broken checkout rather than a missing tool.
+  echo "doc-lint: $POSTDOWNLOAD not found — cannot audit the no-standalone register." >&2
+  echo "          It is checked in beside this script, so this is a broken checkout, not a" >&2
+  echo "          missing tool." >&2
+  rc=1
+elif ! command -v python3 >/dev/null 2>&1; then
+  echo "doc-lint: python3 not installed — no-standalone audit SKIPPED (postdownload-pr.yml" >&2
+  echo "          still gates this in CI). Install: brew install python3" >&2
+else
+  # Rooted at the WORKING DIRECTORY, like the version-include check above and for the same
+  # reason: doc-lint-test.sh runs this script from the repo while CWD is a throwaway sandbox.
+  python3 "$POSTDOWNLOAD" audit >/dev/null || rc=1
 fi
 
 # --- retired Knowledge Base links — NO CI counterpart (the last one) ------------------------

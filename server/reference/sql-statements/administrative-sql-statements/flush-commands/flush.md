@@ -48,9 +48,9 @@ By default, `FLUSH` statements are written to the [binary log](../../../../serve
 | HOSTS                                               | Flush the hostname cache (used for converting ip to host names and for unblocking blocked hosts. See [max\_connect\_errors](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_connect_errors) and [performance\_schema.host\_cache](../../../system-tables/performance-schema/performance-schema-tables/performance-schema-host_cache-table.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | INDEX\_STATISTICS                                   | Reset index statistics (see [SHOW INDEX\_STATISTICS](../show/show-index-statistics.md)).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | ERROR                                               | Closes and reopens the error log file to which the server is writing.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| \[ERROR \| ENGINE \| GENERAL \| SLOW \| RELAY] LOGS | Close and reopen the specified log type, or all log types if none are specified. `FLUSH RELAY LOGS [connection-name]` can be used to flush the relay logs for a specific connection. Only one connection can be specified per `FLUSH` command. See [multi-source replication](../../../../ha-and-performance/standard-replication/multi-source-replication.md). `FLUSH ENGINE LOGS` deletes all unneeded [Aria](../../../../server-usage/storage-engines/aria/aria-storage-engine.md) redo logs. `FLUSH BINARY LOGS DELETE_DOMAIN_ID=(list-of-domains)` can be used to discard obsolete [GTID](../../../../ha-and-performance/standard-replication/gtid.md) domains from the server's [binary log](../../../../server-management/server-monitoring-logs/binary-log/) state. In order for this to be successful, no event group from the listed GTID domains can be present in existing binary log files. If some still exist, then they must be purged prior to executing this statement. If the statement completes successfully,  it also rotates the binary log. |
+| \[ERROR \| ENGINE \| GENERAL \| SLOW \| RELAY] LOGS | Close and reopen the specified log type, or all log types if none are specified. `FLUSH RELAY LOGS [connection-name]` can be used to flush the relay logs for a specific connection. Only one connection can be specified per `FLUSH` command. See [multi-source replication](../../../../ha-and-performance/standard-replication/multi-source-replication.md). `FLUSH ENGINE LOGS` deletes all unneeded [Aria](../../../../server-usage/storage-engines/aria/aria-storage-engine.md) redo logs. `FLUSH BINARY LOGS DELETE_DOMAIN_ID=(list-of-domains)` can be used to discard obsolete [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) domains from the server's [binary log](../../../../server-management/server-monitoring-logs/binary-log/) state. In order for this to be successful, no event group from the listed GTID domains can be present in existing binary log files. If some still exist, then they must be purged prior to executing this statement. If the statement completes successfully,  it also rotates the binary log. |
 | BINARY LOGS                                         | `FLUSH BINARY LOGS` rotates the current [binary log](../../../../server-management/server-monitoring-logs/binary-log/).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| BINARY LOGS DELETE\_DOMAIN\_ID=_list-of-domains_    | `FLUSH BINARY LOGS DELETE_DOMAIN_ID` can be used to discard obsolete [GTID](../../../../ha-and-performance/standard-replication/gtid.md) domains from the server's [binary log](../../../../server-management/server-monitoring-logs/binary-log/) state. In order for this to be successful, no event group from the listed GTID domains can be present in existing binary log files. If some still exist, then they must be purged prior to executing this command. If the command completes successfully, then it also rotates the binary log.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| BINARY LOGS DELETE\_DOMAIN\_ID=_list-of-domains_    | `FLUSH BINARY LOGS DELETE_DOMAIN_ID` can be used to discard obsolete [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) domains from the server's [binary log](../../../../server-management/server-monitoring-logs/binary-log/) state. In order for this to be successful, no event group from the listed GTID domains can be present in existing binary log files. If some still exist, then they must be purged prior to executing this command. If the command completes successfully, then it also rotates the binary log.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | MASTER                                              | Deprecated option, use [RESET MASTER](../reset.md) instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | PRIVILEGES                                          | Reload all privileges from the privilege tables in the mysql database. If the server is started with --skip-grant-table option, this will activate the privilege tables again.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | QUERY CACHE                                         | Defragment the [query cache](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/query-cache.md) to better utilize its memory. If you want to reset the query cache, you can do it with [RESET QUERY CACHE](../reset.md).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -82,6 +82,10 @@ FLUSH RELAY LOGS 'connection_name'
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7:
+{% endhint %}
+
 The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical to using the channel\_name directly after the `FLUSH command`. For example, one can now use:
 
 ```sql
@@ -89,7 +93,11 @@ FLUSH RELAY LOGS FOR CHANNEL 'connection_name';
 ```
 {% endtab %}
 
-{% tab title="< 10.7.0" %}
+{% tab title="< 10.7" %}
+{% hint style="info" %}
+Before MariaDB 10.7:
+{% endhint %}
+
 `FOR CHANNEL` isn't available.
 {% endtab %}
 {% endtabs %}
@@ -106,11 +114,19 @@ This statement requires the [RELOAD](../../account-management-sql-statements/gra
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 Specify FLUSH GLOBAL or FLUSH SESSION. Flushing of global status variables has been moved to `FLUSH GLOBAL STATUS` which is a synonym for `FLUSH STATUS`.\
 You can use `old-mode=OLD_FLUSH_STATUS` to restore the old behavior of the `FLUSH STATUS` statement.
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 The variables flushed are mainly session, but some are global. Not all session (or global) variables are flushed - the decision was made per variable.
 {% endtab %}
 {% endtabs %}
@@ -198,14 +214,26 @@ Not all global status variables support being reset by `FLUSH STATUS`. The follo
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8.2 / 11.4.6:
+{% endhint %}
+
 `FLUSH TABLES` doesn't cause [InnoDB statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md) to be reloaded or recalculated. [RENAME TABLE](../../data-definition/rename-table.md), however, triggers a reload of the statistics.
 {% endtab %}
 
 {% tab title="< 11.8.2 / 11.4.6" %}
+{% hint style="info" %}
+Before MariaDB 11.8.2 / 11.4.6:
+{% endhint %}
+
 `FLUSH TABLES` causes [InnoDB statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md) to be reloaded or recalculated.
 {% endtab %}
 
 {% tab title="< 10.11.12" %}
+{% hint style="info" %}
+Before MariaDB 10.11.12:
+{% endhint %}
+
 `FLUSH TABLES` causes [InnoDB statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md) to be reloaded or recalculated.
 {% endtab %}
 {% endtabs %}
@@ -224,7 +252,7 @@ In the following, the purpose of specific `FLUSH TABLES` statements is detailed.
 
 Note that it's up to the user to ensure that no one is accessing the table between issuing the `FLUSH TABLES` statement and the time the table is copied to or from the server. This can be secured by using [LOCK TABLES](../../transactions/lock-tables.md).
 
-If there are any tables locked by the connection that is using `FLUSH TABLES` all the locked tables will be closed as part of the flush and reopened and relocked before `FLUSH TABLES` returns. This allows one to copy the table after `FLUSH TABLES` returns without having any writes on the table. For now this works with most tables, except InnoDB as InnoDB may do background purges on the table even while it's write locked.
+If there are any tables locked by the connection that is using `FLUSH TABLES` all the locked tables will be closed as part of the flush and reopened and relocked before `FLUSH TABLES` returns. This allows one to copy the table after `FLUSH TABLES` returns without having any writes on the table. This works with most tables, except InnoDB, as InnoDB may do background purges on the table even while it's write locked.
 
 ### FLUSH TABLES _table\_list_ WITH READ LOCK
 

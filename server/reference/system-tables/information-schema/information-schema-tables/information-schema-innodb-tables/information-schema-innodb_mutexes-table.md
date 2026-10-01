@@ -17,15 +17,7 @@ The `INNODB_MUTEXES` table monitors mutex and rw locks waits. It has the followi
 
 The `CREATE_FILE` and `CREATE_LINE` columns depend on the InnoDB/XtraDB version.
 
-{% tabs %}
-{% tab title="Current" %}
 The table provides information about all columns listed in the previous table.
-{% endtab %}
-
-{% tab title="< 10.2.2" %}
-The table provides information about `rw_lock_t`, not about any mutexes.
-{% endtab %}
-{% endtabs %}
 
 The [SHOW ENGINE INNODB STATUS](../../../../sql-statements/administrative-sql-statements/show/show-engine.md#show-engine-innodb-mutex) statement provides similar information.
 

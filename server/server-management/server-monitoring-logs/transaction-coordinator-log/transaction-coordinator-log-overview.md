@@ -11,7 +11,7 @@ The transaction coordinator log (tc\_log) is used to coordinate transactions tha
 
 ## Types of Transaction Coordinator Logs
 
-There are currently two implementations of the transaction coordinator log:
+There are two implementations of the transaction coordinator log:
 
 * Binary log-based transaction coordinator log
 * Memory-mapped file-based transaction coordinator log

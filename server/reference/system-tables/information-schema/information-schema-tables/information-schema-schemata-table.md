@@ -21,8 +21,6 @@ It contains the following columns:
 
 ## Example
 
-{% tabs %}
-{% tab title="Current" %}
 ```sql
 SELECT * FROM INFORMATION_SCHEMA.SCHEMATA\G
 ...
@@ -35,39 +33,6 @@ DEFAULT_CHARACTER_SET_NAME: latin1
             SCHEMA_COMMENT: Presentations for conferences
 ...
 ```
-{% endtab %}
-
-{% tab title="< 10.5.0" %}
-```sql
-SELECT * FROM INFORMATION_SCHEMA.SCHEMATA\G
-*************************** 1. row ***************************
-              CATALOG_NAME: def
-               SCHEMA_NAME: information_schema
-DEFAULT_CHARACTER_SET_NAME: utf8
-    DEFAULT_COLLATION_NAME: utf8_general_ci
-                  SQL_PATH: NULL
-*************************** 2. row ***************************
-              CATALOG_NAME: def
-               SCHEMA_NAME: mysql
-DEFAULT_CHARACTER_SET_NAME: latin1
-    DEFAULT_COLLATION_NAME: latin1_swedish_ci
-                  SQL_PATH: NULL
-*************************** 3. row ***************************
-              CATALOG_NAME: def
-               SCHEMA_NAME: performance_schema
-DEFAULT_CHARACTER_SET_NAME: utf8
-    DEFAULT_COLLATION_NAME: utf8_general_ci
-                  SQL_PATH: NULL
-*************************** 4. row ***************************
-              CATALOG_NAME: def
-               SCHEMA_NAME: test
-DEFAULT_CHARACTER_SET_NAME: latin1
-    DEFAULT_COLLATION_NAME: latin1_swedish_ci
-                  SQL_PATH: NULL
-...
-```
-{% endtab %}
-{% endtabs %}
 
 ## See Also
 

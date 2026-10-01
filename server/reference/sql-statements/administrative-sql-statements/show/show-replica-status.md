@@ -23,33 +23,13 @@ SHOW ALL { SLAVES | REPLICAS } STATUS
 
 This statement is to be run on a replica and provides status information on essential parameters of the [replica](../../../../ha-and-performance/standard-replication/replication-overview.md) threads.
 
-{% tabs %}
-{% tab title="Current" %}
 This statement requires the [REPLICA MONITOR](../../account-management-sql-statements/grant.md#replica-monitor) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.9" %}
-This statement requires the [REPLICA MONITOR](../../account-management-sql-statements/grant.md#replica-monitor) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-This statement requires the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#binlog-monitor) privilege.
-{% endtab %}
-{% endtabs %}
 
 ### Multi-Source
 
 The `ALL` and `"connection_name"` options allow you to connect to [many primaries at the same time](../../../../ha-and-performance/standard-replication/multi-source-replication.md).
 
-{% tabs %}
-{% tab title="Current" %}
 `ALL SLAVES` or `ALL REPLICAS` gives you a list of all connections to the primary nodes.
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-`ALL SLAVES` gives you a list of all connections to the primary nodes.
-{% endtab %}
-{% endtabs %}
 
 The rows are sorted according to `Connection_name`.
 
@@ -65,27 +45,25 @@ The order in which the columns appear depends on the MariaDB version. This means
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.6:
+{% endhint %}
+
 These columns can also be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_STATUS](../../../system-tables/information-schema/information-schema-tables/information-schema-slave_status-table.md) table.
 {% endtab %}
 
-{% tab title="< 11.6.0" %}
+{% tab title="< 11.6" %}
+{% hint style="info" %}
+Before MariaDB 11.6:
+{% endhint %}
+
 These columns cannot be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_STATUS](../../../system-tables/information-schema/information-schema-tables/information-schema-slave_status-table.md) table.
 {% endtab %}
 {% endtabs %}
 
-{% tabs %}
-{% tab title="Current" %}
 **Connection\_name:** Name of the primary connection. Returned with SHOW ALL SLAVES/REPLICAS STATUS only.
 
 **Slave\_SQL\_State:** State of SQL thread. Returned with SHOW ALL SLAVES/REPLICAS STATUS only. See [Replica SQL Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/slave-sql-thread-states.md). Slave\_IO\_State: State of I/O thread. See [Replica I/O Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/replica-io-thread-states.md).
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-**Connection\_name:** Name of the primary connection. Returned with SHOW ALL REPLICAS STATUS only.
-
-**Slave\_SQL\_State:** State of SQL thread. Returned with SHOW ALL REPLICAS STATUS only. See [Replica SQL Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/slave-sql-thread-states.md). Slave\_IO\_State: State of I/O thread. See [Replica I/O Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/replica-io-thread-states.md).
-{% endtab %}
-{% endtabs %}
 
 **Master\_host:** Primary host that the replica is connected to.
 
@@ -151,6 +129,10 @@ These columns cannot be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_ST
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12:
+{% endhint %}
+
 **Seconds\_Behind\_Master:** Difference between the timestamp logged on the primary for the event that the replica is currently processing, and the current timestamp on the replica. Zero if the replica is not currently processing an event. With serial replication, seconds\_behind\_master is updated when the SQL thread begins executing a transaction. With [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md), seconds\_behind\_master is updated only after transactions commit. As a special case, the parallel replica additionally updates `seconds_behind_master` when the first transaction received after idling is queued to a worker for execution, to provide a reliable initial value for the duration until a transaction commits.
 
 Additional behavior to be aware of:
@@ -161,7 +143,11 @@ Additional behavior to be aware of:
 4. There is a known issue, tracked by [MDEV-17516](https://jira.mariadb.org/browse/MDEV-17516), such that `Seconds_Behind_Master` will initially present as 0 on replica restart until a replicated transaction begins executing, even if the last replica session was lagging behind when stopped.
 {% endtab %}
 
-{% tab title="< 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12 / 10.5.19" %}
+{% tab title="< 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12" %}
+{% hint style="info" %}
+Before MariaDB 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12:
+{% endhint %}
+
 **Seconds\_Behind\_Master:** Difference between the timestamp logged on the primary for the event that the replica is currently processing, and the current timestamp on the replica. Zero if the replica is not currently processing an event. With serial replication, seconds\_behind\_master is updated when the SQL thread begins executing a transaction. With [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md), seconds\_behind\_master is updated only after transactions commit.
 
 Additional behavior to be aware of:
@@ -191,9 +177,9 @@ Additional behavior to be aware of:
 
 **Master\_SSL\_Crlpath:** The MASTER\_SSL\_CRLPATH option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md) statement.
 
-**Using\_Gtid:** Whether or not [global transaction ID's](../../../../ha-and-performance/standard-replication/gtid.md) are being used for replication (can be `No`, `Slave_Pos`, or `Current_Pos`).
+**Using\_Gtid:** Whether or not [global transaction ID's](../../../../ha-and-performance/standard-replication/gtid/README.md) are being used for replication (can be `No`, `Slave_Pos`, or `Current_Pos`).
 
-**Gtid\_IO\_Pos:** Current [global transaction ID](../../../../ha-and-performance/standard-replication/gtid.md) value.
+**Gtid\_IO\_Pos:** Current [global transaction ID](../../../../ha-and-performance/standard-replication/gtid/README.md) value.
 
 **Replicate\_Do\_Domain\_Ids:** List of [domain\_ids](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) that are currently being recognized for replication purposes, or an empty string for none, as specified in the `DO_DOMAIN_IDS` option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md#do_domain_ids) statement.
 
@@ -215,10 +201,18 @@ Additional behavior to be aware of:
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
+
 **Replicate\_Rewrite\_DB:** Databases specified for replicating and [rewriting](../../../../ha-and-performance/standard-replication/replication-filters.md#replicate_rewrite_db) with the [`replicate_rewrite_db`](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable/option.
 {% endtab %}
 
 {% tab title="< 10.11" %}
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
 **Replicate\_Rewrite\_DB** is not available.
 {% endtab %}
 {% endtabs %}
@@ -233,10 +227,14 @@ Additional behavior to be aware of:
 
 **Slave\_heartbeat\_period:** Configured (by [CHANGE MASTER TO MASTER\_HEARTBEAT\_PERIOD](../replication-statements/change-master-to.md#master_heartbeat_period)) interval in seconds between replication heartbeats. Returned with `SHOW ALL SLAVES STATUS` only.
 
-**Gtid\_Slave\_Pos:** The value of the global variable [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos), i.e. the GTID of the last event group replicated on a replica server, for each replication domain, as stored in the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md) system variable. Returned with `SHOW ALL SLAVES STATUS` only.
+**Gtid\_Slave\_Pos:** The value of the global variable [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos), i.e. the GTID of the last event group replicated on a replica server, for each replication domain, as stored in the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/README.md) system variable. Returned with `SHOW ALL SLAVES STATUS` only.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.6:
+{% endhint %}
+
 **Master\_last\_event\_time:** Timestamp of the last event read from the primary by the IO thread. NULL until the replica has started and has read one query event from the primary that changes data.
 
 **Slave\_last\_event\_time:** Timestamp, from the primary, of the last event committed on the replica. NULL until the replica has started and has read one query event from the primary that changes data.
@@ -245,18 +243,30 @@ Additional behavior to be aware of:
 {% endtab %}
 
 {% tab title="< 11.6" %}
+{% hint style="info" %}
+Before MariaDB 11.6:
+{% endhint %}
+
 **Master\_last\_event\_time**, **Slave\_last\_event\_time**, and **Master\_Slave\_time\_diff** are not available.
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 **Connects\_Tried:** The number of attempts done to connect to the primary. It starts from 0 with [START REPLICA](../replication-statements/start-replica.md) (but not [STOP REPLICA](../replication-statements/stop-replica.md)), [RESET REPLICA](../replication-statements/reset-replica.md) or [`CHANGE MASTER TO MASTER_RETRY_COUNT`](../replication-statements/change-master-to.md#master_retry_count), and increments after each connection attempt until one succeeds or, after this reaches `Master_Retry_Count`, aborts the connection.
 
 **Master\_Retry\_Count:** The limit to `Connects_Tried` as configured by [`CHANGE MASTER TO MASTER_RETRY_COUNT`](../replication-statements/change-master-to.md#master_retry_count).
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 **Connects\_Tried:** and **Master\_Retry\_Count:** are not available. If the Performance Schema is enabled, [`replication_connection_configuration`](../../../system-tables/performance-schema/performance-schema-tables/performance-schema-replication_connection_configuration-table.md) has `CONNECTION_RETRY_COUNT` available as an older alternative to `Master_Retry_Count`.
 {% endtab %}
 {% endtabs %}

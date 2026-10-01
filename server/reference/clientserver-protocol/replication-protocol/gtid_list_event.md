@@ -6,9 +6,9 @@ description: >-
 
 # GTID\_LIST\_EVENT
 
-Logged in every binlog to record the current [replication](../../../ha-and-performance/standard-replication/) state. Consists of the last [GTID](../../../ha-and-performance/standard-replication/gtid.md) seen for each replication domain.
+Logged in every binlog to record the current [replication](../../../ha-and-performance/standard-replication/) state. Consists of the last [GTID](../../../ha-and-performance/standard-replication/gtid/README.md) seen for each replication domain.
 
-The Global Transaction ID, [GTID](../../../ha-and-performance/standard-replication/gtid.md) for short, consists of three components:
+The Global Transaction ID, [GTID](../../../ha-and-performance/standard-replication/gtid/README.md) for short, consists of three components:
 
 * Replication domain ID;
 * Master server ID;

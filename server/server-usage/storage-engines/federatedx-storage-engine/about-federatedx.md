@@ -13,11 +13,11 @@ This storage engine has been deprecated.
 
 The FederatedX storage engine is a fork of MySQL's [Federated storage engine](https://dev.mysql.com/doc/refman/5.5/en/federated-storage-engine.html), which is no longer being developed by Oracle. The original purpose of FederatedX was to keep this storage engine's development progressing-- to both add new features as well as fix old bugs.
 
-Since [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0), the [CONNECT](../connect/) storage engine also allows access to a remote database via MySQL or ODBC connection (table types: [MYSQL](../connect/connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md), [ODBC](../connect/connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md)). However, in the current implementation there are several limitations.
+The [CONNECT](../connect/) storage engine also allows access to a remote database via MySQL or ODBC connection (table types: [MYSQL](../connect/connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md), [ODBC](../connect/connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md)). However, in the current implementation there are several limitations.
 
 ## What is the FederatedX storage engine?
 
-The FederatedX Storage Engine is a storage engine that works with both MariaDB and MySQL. Where other storage engines are built as interfaces to lower-level file-based data stores, FederatedX uses libmysql to talk to the data source, the data source being a remote RDBMS. Currently, since FederatedX only uses libmysql, it can only talk to another MariaDB or MySQL RDBMS. The plan is of course to be able to use other RDBMS systems as a data source. There is an existing project Federated ODBC which was able to use PostgreSQL as a remote data source, and it is this type of functionality which are brought to FederatedX in subsequent versions.
+The FederatedX Storage Engine is a storage engine that works with both MariaDB and MySQL. Where other storage engines are built as interfaces to lower-level file-based data stores, FederatedX uses libmysql to talk to the data source, the data source being a remote RDBMS. Because FederatedX only uses libmysql, it can only talk to another MariaDB or MySQL RDBMS. To use other RDBMS systems as a data source, see the [CONNECT](../connect/README.md) storage engine.
 
 ## History
 
@@ -30,7 +30,7 @@ When MySQL 5.1 became the production release of MySQL, Federated had more featur
 * Various bugs that needed to be fixed from MySQL 5.0
 * Plugin capability
 
-In [MariaDB 10.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.2) FederatedX got support for assisted [table discovery](../../../reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md).
+FederatedX supports assisted [table discovery](../../../reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md).
 
 ## Installing the Plugin
 
@@ -269,7 +269,7 @@ database so that it is indeed on port 9306, and your FederatedX
 database on a port other than that. In my setup, I use port 5554
 for FederatedX, and port 5555 for the foreign database.
 
-Alternatively (or if you're using MariaDB before version 10.0.2) you specify the federated table structure explicitly:
+Alternatively, you can specify the federated table structure explicitly:
 
 ```sql
 CREATE TABLE federated_test_table (
@@ -390,7 +390,7 @@ FederatedX from a user point of view is the same for the most part. What is diff
 
 ## Where can I get FederatedX
 
-FederatedX is part of [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.1/changes-improvements-in-mariadb-5-1) and later. MariaDB merged with the latest FederatedX when there is a need to get a bug fixed. You can get the latest code/follow/participate in the project from the [FederatedX home page](https://launchpad.net/federatedx).
+FederatedX is part of MariaDB. MariaDB merged with the latest FederatedX when there is a need to get a bug fixed. You can get the latest code/follow/participate in the project from the [FederatedX home page](https://launchpad.net/federatedx).
 
 ### What are the plans for FederatedX?
 

@@ -29,6 +29,8 @@
   * [MariaDB Connector/J 3.4.3](post-download/mariadb-connector-j-3.4.3.md)
   * [MariaDB Connector/J 3.3.5](post-download/mariadb-connector-j-3.3.5.md)
   * [MariaDB Connector/J 2.7.14](post-download/mariadb-connector-j-2.7.14.md)
+  * [MariaDB Connector/C 3.4.11](post-download/mariadb-connector-c-3.4.11.md)
+  * [MariaDB Connector/C 3.3.21](post-download/mariadb-connector-c-3.3.21.md)
   * [MariaDB Connector/C 3.4.9](post-download/mariadb-connector-c-3.4.9.md)
   * [MariaDB Connector/C 3.3.19](post-download/mariadb-connector-c-3.3.19.md)
   * [MariaDB Connector/Node.js 3.5.3](post-download/mariadb-connector-node.js-3.5.3.md)

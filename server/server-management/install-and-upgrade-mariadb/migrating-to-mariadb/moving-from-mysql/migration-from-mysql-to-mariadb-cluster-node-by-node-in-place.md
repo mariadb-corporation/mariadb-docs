@@ -371,7 +371,7 @@ The `mysql.user` table structure is not fully compatible and cannot be migrated 
 
 #### 2. `regexp-time-limit` Parameter
 
-MariaDB currently does not support the `regexp-time-limit` parameter.
+MariaDB does not support the `regexp-time-limit` parameter.
 
 * **Impact:** If this variable exists in your configuration or scripts, the server may fail to start or throw errors.
 * **Reference:** [MySQL Sysvar: regexp\_time\_limit](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_regexp_time_limit), [MDEV-37403](https://jira.mariadb.org/browse/MDEV-37403)
@@ -391,7 +391,7 @@ Replication from MariaDB → MySQL is **not supported**.
 
 #### 5. Testing Scope
 
-Currently, migration from 8.0.x has been verified to work on a simple `sysbench` database workload.
+Migration from 8.0.x has been verified to work on a simple `sysbench` database workload.
 
 #### Required Code Changes (References)
 
