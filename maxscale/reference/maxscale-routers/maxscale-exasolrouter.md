@@ -131,6 +131,16 @@ The values mean:
   providing it as an argument. Unless an absolute path is used, it is
   interpreted relative to the _share_ directory.
 
+The bundled `maria_preprocessor.py` is installed by the `maxscale-exasol`
+package. The latest version of the script is available from the
+[exasol-mariadb-compat](https://github.com/mariadb-corporation/exasol-mariadb-compat/blob/main/preprocessor/maria_preprocessor.sql)
+repository. That file is written as an Exasol
+`CREATE OR REPLACE PYTHON3 PREPROCESSOR SCRIPT` statement, so remove its
+first line before using it with `internal`. For example:
+```
+preprocessor=internal:/path/to/maria_preprocessor.py
+```
+
 _Internal_ transpilation is performed using Python, but it is supported only
 if the Linux distribution supports a sufficiently new version of Python.
 On Ubuntu 24.04, Python 3.12 is sufficient, but on all other distributions
