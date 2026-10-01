@@ -432,7 +432,7 @@ Specific options for pools are:
 |           **`minimumIdle`** | Permit to set a minimum number of connection in pool. **Recommendation is to use fixed pool, so not setting this value**.                                                                                                                                                                                                                        | _integer_ |   _set to connectionLimit value_   |
 |    **`minDelayValidation`** | When asking a connection to pool, the pool will validate the connection state. "minDelayValidation" permits disabling this validation if the connection has been borrowed recently avoiding useless verifications in case of frequent reuse of connections. In milliseconds. 0 means validation is done each time the connection is asked.       | _integer_ |                 500                |
 |     **`noControlAfterUse`** | After giving back connection to pool (connection.end) connector will reset or rollback connection to ensure a valid state. This option permit to disable those controls                                                                                                                                                                          | _boolean_ |                false               |
-|         **`resetAfterUse`** | When a connection is given back to pool, reset the connection if the server allows it (only for MariaDB version >= 10.2.22 /10.3.13). If disabled or server version doesn't allows reset, pool will only rollback open transaction if any                                                                                                        | _boolean_ | true before version 3, false since |
+|         **`resetAfterUse`** | When a connection is given back to pool, reset the connection if the server allows it. If disabled or server version doesn't allows reset, pool will only rollback open transaction if any                                                                                                        | _boolean_ | true before version 3, false since |
 |  **`leakDetectionTimeout`** | Permit to indicate a timeout to log connection borrowed from pool. When a connection is borrowed from pool and this timeout is reached, a message will be logged to console indicating a possible connection leak. Another message will tell if the possible logged leak has been released. In milliseconds. 0 means leak detection is disabled. | _integer_ |                  0                 |
 |           **`pingTimeout`** | Validation timeout (ping) for checking an connection not used recently from pool. In milliseconds.                                                                                                                                                                                                                                               | _integer_ |                 500                |
 
@@ -656,7 +656,7 @@ The following options can be set at either the query level or the connection lev
 
 _number, timeout in ms_
 
-Sets a timeout for query execution. Only available for MariaDB server >= 10.1.2.
+Sets a timeout for query execution. Only available for MariaDB servers.
 
 The driver implements this using `SET STATEMENT max_statement_time=<timeout> FOR <command>`, which allows the server to cancel operations that exceed the specified timeout.
 
@@ -1104,7 +1104,7 @@ const res = await conn.execute('SELECT * FROM mytable WHERE someVal = ? and othe
 > * resolves with a JSON object.
 > * rejects with an [Error](connector-nodejs-promise-api.md#error).
 
-Implementation depends on the server type and version. for MariaDB server version 10.2.7+, the implementation uses dedicated bulk protocol.
+Implementation depends on the server type. For MariaDB servers, the implementation uses dedicated bulk protocol.
 
 For other, insert queries will be rewritten for optimization. example: insert into ab (i) values (?) with first batch values = 1, second = 2 will be rewritten insert into ab (i) values (1), (2).
 
@@ -1164,7 +1164,7 @@ The `fullResult` option is particularly useful when:
 
 **Performance considerations**
 
-For MariaDB servers that support it (version 10.2.7+), the connector will use the optimized `COM_STMT_BULK_EXECUTE` protocol for better performance when possible. The `fullResult` option with bulk protocol requires 11.5.1.
+For MariaDB servers, the connector will use the optimized `COM_STMT_BULK_EXECUTE` protocol for better performance when possible. The `fullResult` option with bulk protocol requires 11.5.1.
 
 #### `connection.beginTransaction() → Promise`
 
@@ -1754,7 +1754,7 @@ async function getRecentOrders(options) {
 
 Executes a batch operation using a connection from the pool. The pool automatically handles connection acquisition and release.
 
-For MariaDB server version 10.2.7+, this implementation uses a dedicated bulk protocol for improved performance.
+For MariaDB servers, this implementation uses a dedicated bulk protocol for improved performance.
 
 **Example: Batch insert with generated IDs**
 

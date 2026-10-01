@@ -136,7 +136,7 @@ Prior to the General Availability (GA) releases of [MariaDB 10.4](what-is-mariad
 
 These bugs have been fixed in more recent versions, and rolling upgrades from Galera 3 to Galera 4 are supported. In order to perform a rolling upgrade, it is recommended to upgrade to [MariaDB 10.4.6](10.4.6.md) or later and Galera 26.4.2 or later. However, as a general rule, users should try to ensure that they are upgrading to the latest versions of [MariaDB 10.4](what-is-mariadb-104.md) and Galera 4.
 
-For more detailed information on how to upgrade, see [Upgrading from MariaDB 10.3 to MariaDB 10.4 with Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster/upgrading-from-mariadb-10-3-to-mariadb-10-4-with-galera-cluster).
+For more detailed information on how to upgrade, see [Upgrading Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster).
 
 ### General
 

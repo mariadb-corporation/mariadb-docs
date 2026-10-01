@@ -453,7 +453,7 @@ pool = await mariadb.create_async_pool(
 ### Server Compatibility
 
 Both versions support:
-- MariaDB Server 10.3+
+- MariaDB Server 10.6+
 - MySQL Server 5.7+
 
 ### API Compatibility

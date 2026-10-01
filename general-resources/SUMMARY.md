@@ -53,7 +53,6 @@
     * [Migrating to MariaDB Questions](community/community/faq/migrating-to-mariadb-questions/README.md)
       * [How can I Import Only a Table's Structure?](community/community/faq/migrating-to-mariadb-questions/how-can-i-import-only-a-tables-structure.md)
       * [How do I migrate a MySQL database to Amazon RDS?](community/community/faq/migrating-to-mariadb-questions/how-do-i-migrate-a-mysql-database-to-amazon-rds.md)
-      * [Red Hat 6 Process Limit a Errors](community/community/faq/migrating-to-mariadb-questions/red-hat-6-process-limit-a-errors.md)
     * [Public Questions](community/community/faq/public-questions.md)
     * [Getting Help With MariaDB](community/community/faq/getting-help-with-mariadb.md)
     * [Supported Software & Features](community/community/faq/supported-software-features.md)

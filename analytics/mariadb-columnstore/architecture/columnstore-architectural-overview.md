@@ -124,15 +124,11 @@ MariaDB ColumnStore is a columnar storage engine that is optimized for analytica
 
 ### MariaDB Enterprise Server
 
-MariaDB ColumnStore is built on top of [MariaDB Enterprise Server](columnstore-architectural-overview.md#mariadb-enterprise-server). MariaDB ColumnStore 5 is included with the standard MariaDB Enterprise Server 10.5 releases, while MariaDB ColumnStore 6 is included with the standard MariaDB Enterprise Server 10.6 releases.
+MariaDB ColumnStore is built on top of [MariaDB Enterprise Server](columnstore-architectural-overview.md#mariadb-enterprise-server) and is included with the standard MariaDB Enterprise Server releases.
 
 ColumnStore interfaces with the Enterprise Server SQL engine through the ColumnStore storage engine plugin.
 
-MariaDB has been continually improving the integration of MariaDB ColumnStore with MariaDB Enterprise Server:
-
-* MariaDB ColumnStore required special custom-built releases of MariaDB Server.
-* MariaDB ColumnStore was included with the standard MariaDB Enterprise Server 10.5 releases up to ES 10.5.5-3. It was the first release to replace the Operations/Administration/Maintenance (OAM) API with the more modern Cluster Management API (CMAPI), which is still in use.
-* Starting with ES 10.5.6-4, MariaDB ColumnStore is included with the standard MariaDB Enterprise Server 10.5 releases.
+ColumnStore clusters are managed through the Cluster Management API (CMAPI), which replaced the older Operations/Administration/Maintenance (OAM) API.
 
 ### ColumnStore Storage Engine Plugin
 

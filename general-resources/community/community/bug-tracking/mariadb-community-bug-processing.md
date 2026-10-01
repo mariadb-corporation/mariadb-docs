@@ -161,7 +161,7 @@ It might come as counter-intuitive, but in the existing JIRA structure, the `Sta
 #### Fix Versions
 
 This is an important field for progress tracking.\
-After the bug is confirmed or otherwise acknowledged, this field is populated with a set of major versions where we intend to fix it. E.g. if the field is set to `10.0 10.1`, it means that at the moment we consider it for fixing in some future 10.0 release (not necessarily the next one), and the bugfix will be merged into the next 10.1 release after that; but we do not consider it for fixing in 5.5, even if it is affected to.
+After the bug is confirmed or otherwise acknowledged, this field is populated with a set of major versions where we intend to fix it. E.g. if the field is set to `10.11 11.4`, it means that at the moment we consider it for fixing in some future 10.11 release (not necessarily the next one), and the bugfix will be merged into the next 11.4 release after that; but we do not consider it for fixing in 10.6, even if it is affected too.
 
 To some extent, you can influence the initial plans: if you see that the fix is not targeted for versions where you think it should be, you can comment on the report, and if you provide convincing arguments and make your case, it can be reconsidered.
 

@@ -191,7 +191,7 @@ struct st_mariadb_start_encryption_event {
 
 `event_type` value= 15 (`0x0F`)
 
-Written at the beginning of every binary log file, at position 4. This event describes the format of all subsequent events in the file. For MariaDB 10.0 and later, the format field is always set to `4`.
+Written at the beginning of every binary log file, at position 4. This event describes the format of all subsequent events in the file. The format field is always set to `4`.
 
 ```
 struct st_mariadb_rpl_format_description_event
@@ -205,7 +205,7 @@ struct st_mariadb_rpl_format_description_event
 };
 ```
 
-* `format` → Binary log format version. Always `4` for MariaDB 10.0 and later.
+* `format` → Binary log format version. Always `4`.
 * `server_version` → Version string of the server that created the binary log.
 * `timestamp` → Unix timestamp of when the binary log file was created.
 * `header_len` → Length of the fixed event header in bytes.
