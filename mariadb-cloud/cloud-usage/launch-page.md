@@ -3,7 +3,6 @@ description: >-
   The MariaDB Cloud Provision Cloud Database page creates a new database service
   from a single page: topology, high availability, add-ons, provider and region,
   instance resources, connectivity, and adva
-hidden: true
 ---
 
 # Launch Page
