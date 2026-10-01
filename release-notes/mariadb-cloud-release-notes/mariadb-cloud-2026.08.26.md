@@ -6,7 +6,7 @@ description: >-
 icon: rocket-launch
 ---
 
-# MariaDB Cloud 2026.08.26: Enterprise Cluster General Availability
+# MariaDB Cloud 2026.08.26: Enterprise Cluster
 
 **Release Date:** 26 August 2026
 
