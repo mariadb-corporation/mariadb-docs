@@ -19,5 +19,6 @@ MariaDB Cloud is continuously delivered, so releases are identified by date rath
 ## August 2026
 
 * [MariaDB Cloud 2026.08.26](mariadb-cloud-2026.08.26.md): Enterprise Cluster (GA)
+* [MariaDB Cloud 2026.08.20](mariadb-cloud-2026.08.20.md): BYOC on Google Cloud (Tech Preview)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

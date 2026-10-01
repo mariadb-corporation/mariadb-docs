@@ -21,5 +21,6 @@ description: A list of all MariaDB Cloud releases, grouped by month
 | Version                                   | Release Date | Highlights                                     | Release Status |
 | ----------------------------------------- | ------------ | ---------------------------------------------- | -------------- |
 | [2026.08.26](mariadb-cloud-2026.08.26.md) | 2026-08-26   | Enterprise Cluster                             | Stable (GA)    |
+| [2026.08.20](mariadb-cloud-2026.08.20.md) | 2026-08-20   | BYOC on Google Cloud                           | Tech Preview   |
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
