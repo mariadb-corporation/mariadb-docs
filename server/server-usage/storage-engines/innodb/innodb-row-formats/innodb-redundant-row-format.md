@@ -20,8 +20,6 @@ The easiest way to create an InnoDB table that uses the `REDUNDANT` row format i
 
 It is recommended to set the [innodb\_strict\_mode](../innodb-system-variables.md#innodb_strict_mode) system variable to `ON` when using this format.
 
-The `REDUNDANT` row format is supported by both the `Antelope` and the `Barracuda` [file formats](../innodb-file-format.md).
-
 For example:
 
 ```sql

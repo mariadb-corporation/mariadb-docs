@@ -1843,7 +1843,6 @@ description: >-
 * [system\_time\_zone](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#system_time_zone)
 * [system\_versioning\_alter\_history](sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_alter_history)
 * [system\_versioning\_asof](sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_asof)
-* [system\_versioning\_innodb\_algorithm\_simple](sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_innodb_algorithm_simple)
 * [system\_versioning\_insert\_history](sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_insert_history)
 * \--[table-cache](../server-management/starting-and-stopping-mariadb/mariadbd-options.md)
 * [table\_definition\_cache](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#table_definition_cache)

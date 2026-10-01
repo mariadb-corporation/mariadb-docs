@@ -21,18 +21,6 @@ An overview of the InnoDB storage engine, detailing its support for ACID transac
 
 {% columns %}
 {% column %}
-{% content-ref url="innodb-file-format.md" %}
-[innodb-file-format.md](innodb-file-format.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Learn about the different file formats supported by InnoDB, such as Antelope and Barracuda, and how they impact table features and storage.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="innodb-limitations.md" %}
 [innodb-limitations.md](innodb-limitations.md)
 {% endcontent-ref %}
