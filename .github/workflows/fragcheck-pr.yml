@@ -110,7 +110,7 @@ jobs:
 
       - name: Set up Python
         if: steps.changes.outputs.any_changed == 'true'
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           # fragcheck.py is standard library only, so this pins the interpreter
           # rather than installing anything.

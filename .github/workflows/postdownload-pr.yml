@@ -61,7 +61,7 @@ jobs:
         # No fetch-depth. The audit is absolute -- it asks only what exists in the working tree.
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           # postdownload.py and allowlist.py are standard library only, so this pins the
           # interpreter rather than installing anything.

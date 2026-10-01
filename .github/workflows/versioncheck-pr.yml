@@ -69,7 +69,7 @@ jobs:
         # fetch-depth: 0 because it reads every changed page out of the base commit.
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           # versioncheck.py is standard library only, so this pins the interpreter rather than
           # installing anything.
