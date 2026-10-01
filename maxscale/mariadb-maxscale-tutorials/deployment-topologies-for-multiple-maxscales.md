@@ -1,9 +1,8 @@
 ---
 description: >-
-  Compare the deployment topologies for running two MariaDB MaxScale instances
-  over the same cluster. Covers what each one costs in hardware, what it
-  survives, and how a co-located tiebreaker or Galera arbitrator buys
-  three-node safety at two-node cost.
+  Compare topologies for two MariaDB MaxScale instances over one cluster:
+  hardware cost, failures survived, and how a co-located tiebreaker or Galera
+  arbitrator gives three-node safety.
 ---
 
 # Deployment Topologies for Multiple MaxScales

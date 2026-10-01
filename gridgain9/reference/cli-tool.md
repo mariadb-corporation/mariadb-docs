@@ -1,8 +1,8 @@
 ---
 description: >-
-  Reference for the GridGain 9 command line interface: interactive and
-  non-interactive modes and the full command set for managing SQL, clusters,
-  nodes, snapshots, recovery, security, replication, and change data capture.
+  Reference for the GridGain 9 CLI: interactive and non-interactive modes, and
+  commands for managing SQL, clusters, nodes, snapshots, recovery, security,
+  replication, and CDC.
 ---
 
 # GridGain CLI Tool

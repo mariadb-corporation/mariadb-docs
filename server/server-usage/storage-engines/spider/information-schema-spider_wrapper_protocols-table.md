@@ -1,7 +1,7 @@
 ---
 description: >-
   Describes the SPIDER_WRAPPER_PROTOCOLS table, which lists the available
-  foreign data wrappers (like `mysql`) that Spider can use to connect to remote
+  foreign data wrappers (like mysql) that Spider can use to connect to remote
   servers.
 ---
 

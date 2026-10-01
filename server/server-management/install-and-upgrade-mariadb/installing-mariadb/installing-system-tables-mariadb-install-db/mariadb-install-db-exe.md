@@ -1,6 +1,6 @@
 ---
 description: >-
-  Details the use of `mariadb-install-db.exe` on Windows to create new database
+  Details the use of mariadb-install-db.exe on Windows to create new database
   instances, set the root password, and register Windows services.
 ---
 

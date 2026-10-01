@@ -1,6 +1,6 @@
 ---
 description: >-
-  Explains how to use `mariadbd-multi` to manage multiple MariaDB server
+  Explains how to use mariadbd-multi to manage multiple MariaDB server
   processes on a single host using GNR groups in the configuration file.
 ---
 

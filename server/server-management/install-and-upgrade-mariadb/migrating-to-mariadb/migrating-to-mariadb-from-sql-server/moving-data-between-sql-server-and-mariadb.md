@@ -1,7 +1,7 @@
 ---
 description: >-
   Provides methods for transferring data from SQL Server to MariaDB, including
-  generating CSV files, using `mariadb-dump`, or leveraging the CONNECT storage
+  generating CSV files, using mariadb-dump, or leveraging the CONNECT storage
   engine with ODBC.
 ---
 

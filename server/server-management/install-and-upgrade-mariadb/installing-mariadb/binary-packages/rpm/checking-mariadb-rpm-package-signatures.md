@@ -1,7 +1,7 @@
 ---
 description: >-
   Instructions on how to verify the integrity of MariaDB RPM packages using GPG
-  signatures, including importing the public key and running `rpm --checksig`.
+  signatures, including importing the public key and running rpm --checksig.
 ---
 
 # Checking MariaDB RPM Package Signatures

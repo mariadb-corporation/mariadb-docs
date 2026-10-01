@@ -1,7 +1,7 @@
 ---
 description: >-
   Best practices for handling sensitive information like database passwords and
-  SSH keys within Ansible, recommending the use of `ansible-vault` to encrypt
+  SSH keys within Ansible, recommending the use of ansible-vault to encrypt
   secrets.
 ---
 

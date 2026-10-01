@@ -1,6 +1,6 @@
 ---
 description: >-
-  A reference list of command-line options available for the `mariadbd` server
+  A reference list of command-line options available for the mariadbd server
   binary, covering configuration, replication, and service installation.
 ---
 

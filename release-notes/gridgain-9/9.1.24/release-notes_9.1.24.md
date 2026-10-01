@@ -1,9 +1,8 @@
 ---
 description: >-
-  GridGain 9.1.24 adds leaseholder balancing and improves the .NET cluster API.
-  It also extends SQL system views, improves SQL planning and transaction
-  handling, and fixes a number of issues across the SQL engine, thin clients,
-  and continuous queries.
+  GridGain 9.1.24 adds leaseholder balancing, improves the .NET cluster API, SQL
+  system views, SQL planning, and transactions, and fixes issues in SQL, thin
+  clients, and continuous queries.
 hidden: true
 ---
 

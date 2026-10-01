@@ -1,7 +1,7 @@
 ---
 description: >-
   Instructions for upgrading to MariaDB 10.6, noting significant changes like
-  the default character set switch to `utf8mb3` and atomic DDL support.
+  the default character set switch to utf8mb3 and atomic DDL support.
 ---
 
 # Upgrading from MariaDB 10.5 to MariaDB 10.6

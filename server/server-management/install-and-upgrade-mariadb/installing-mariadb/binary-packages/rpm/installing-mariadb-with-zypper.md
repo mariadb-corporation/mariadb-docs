@@ -1,6 +1,6 @@
 ---
 description: >-
-  Detailed steps for installing MariaDB on SLES and OpenSUSE using the `zypper`
+  Detailed steps for installing MariaDB on SLES and OpenSUSE using the zypper
   package manager, including repository configuration and package installation.
 ---
 

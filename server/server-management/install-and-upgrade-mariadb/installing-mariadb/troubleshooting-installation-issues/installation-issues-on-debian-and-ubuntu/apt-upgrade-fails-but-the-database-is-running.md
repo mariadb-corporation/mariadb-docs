@@ -1,6 +1,6 @@
 ---
 description: >-
-  Solutions for when `apt-get upgrade` hangs or fails because the MariaDB
+  Solutions for when apt-get upgrade hangs or fails because the MariaDB
   service takes too long to start, triggering a timeout in the init script.
 ---
 

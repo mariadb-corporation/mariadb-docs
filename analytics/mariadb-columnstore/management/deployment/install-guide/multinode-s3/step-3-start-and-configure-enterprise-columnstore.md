@@ -1,5 +1,8 @@
 ---
-description: 'Step 3: Start and Configure ColumnStore'
+description: >-
+  Step 3 of the multi-node MariaDB ColumnStore install with object storage:
+  configure ColumnStore and the S3 Storage Manager, start the services, and
+  create the utility user.
 hidden: true
 ---
 

@@ -1,8 +1,8 @@
 ---
 description: >-
-  MariaDB ColumnStore file system paths: where binaries, data files,
-  configuration files, and logs are located, which paths can be configured
-  with mcsSetConfig, and how to gather logs for support tickets.
+  MariaDB ColumnStore file system paths: where binaries, data, configuration
+  files, and logs live, which paths mcsSetConfig can change, and how to gather
+  logs for support tickets.
 ---
 
 # ColumnStore System Paths and Logs

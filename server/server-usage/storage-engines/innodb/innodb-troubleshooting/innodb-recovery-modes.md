@@ -1,6 +1,6 @@
 ---
 description: >-
-  Understand the different `innodb_force_recovery` levels, which allow you to
+  Understand the different innodb_force_recovery levels, which allow you to
   start the server in read-only modes to recover data after a crash.
 ---
 

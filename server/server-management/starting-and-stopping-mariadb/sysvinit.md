@@ -1,7 +1,7 @@
 ---
 description: >-
   Describes how to manage MariaDB using SysVinit scripts (mysql.server), common
-  on older Linux distributions, using commands like `service` and `chkconfig`.
+  on older Linux distributions, using commands like service and chkconfig.
 ---
 
 # sysVinit

@@ -1,7 +1,7 @@
 ---
 description: >-
-  A guide to installing MariaDB using the low-level `rpm` command, suitable for
-  situations where package managers like `yum` or `dnf` are not available or
+  A guide to installing MariaDB using the low-level rpm command, suitable for
+  situations where package managers like yum or dnf are not available or
   preferred.
 ---
 

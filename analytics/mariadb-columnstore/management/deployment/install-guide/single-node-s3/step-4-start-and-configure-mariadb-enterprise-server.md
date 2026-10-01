@@ -1,5 +1,8 @@
 ---
-description: 'Step 4: Start and Configure MariaDB Enterprise Server'
+description: >-
+  Step 4 of the MariaDB ColumnStore install with object storage: configure
+  ColumnStore and the S3 Storage Manager, create user accounts, and set up
+  replication with CMAPI.
 hidden: true
 ---
 

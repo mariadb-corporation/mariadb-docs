@@ -2,7 +2,7 @@
 description: >-
   GridGain 9.1.23 adds disk-usage write protection, C++ client partition
   awareness, server-side continuous query filters, compute job cancellation
-  tokens, and new metrics for storage, thread pools, and the Raft log.
+  tokens, and storage, thread pool, and Raft metrics.
 hidden: true
 ---
 

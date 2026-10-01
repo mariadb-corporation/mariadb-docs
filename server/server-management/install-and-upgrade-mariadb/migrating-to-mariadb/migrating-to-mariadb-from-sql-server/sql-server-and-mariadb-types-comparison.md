@@ -1,6 +1,6 @@
 ---
 description: >-
-  A reference guide mapping SQL Server data types (e.g., `money`, `bit`) to
+  A reference guide mapping SQL Server data types (e.g., money, bit) to
   their MariaDB equivalents, highlighting differences in precision and storage.
 ---
 

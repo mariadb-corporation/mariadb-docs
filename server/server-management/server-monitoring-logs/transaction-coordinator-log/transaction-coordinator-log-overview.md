@@ -1,6 +1,6 @@
 ---
 description: >-
-  Explains the purpose of the Transaction Coordinator (TC) log (`tc.log`), which
+  Explains the purpose of the Transaction Coordinator (TC) log (tc.log), which
   maintains consistency for XA transactions that affect multiple storage
   engines, and how to configure it.
 ---

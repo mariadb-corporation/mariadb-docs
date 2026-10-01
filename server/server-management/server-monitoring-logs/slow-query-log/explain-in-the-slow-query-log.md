@@ -1,7 +1,7 @@
 ---
 description: >-
-  Describes how to configure MariaDB to automatically write the `EXPLAIN` plan
-  for slow queries to the log using the `log_slow_verbosity` system variable.
+  Describes how to configure MariaDB to automatically write the EXPLAIN plan
+  for slow queries to the log using the log_slow_verbosity system variable.
 ---
 
 # EXPLAIN in the Slow Query Log

@@ -1,8 +1,8 @@
 ---
 description: >-
-  LibreDB Studio is an open source, web-based SQL IDE that runs next to the
-  database as a container. It manages MariaDB through the MySQL protocol, along
-  with other relational, document, and analytics databases.
+  LibreDB Studio is an open source, web-based SQL IDE that runs beside the
+  database as a container. It manages MariaDB over the MySQL protocol, along
+  with other kinds of databases.
 ---
 
 # LibreDB Studio

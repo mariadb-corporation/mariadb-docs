@@ -1,8 +1,8 @@
 ---
 description: >-
   Documentation for server status variables, which provide information about the
-  server's current state and operation (e.g., `Aborted_connects`, `Uptime`),
-  accessed via `SHOW STATUS`.
+  server's current state and operation (e.g., Aborted_connects, Uptime),
+  accessed via SHOW STATUS.
 ---
 
 # Server Status Variables
