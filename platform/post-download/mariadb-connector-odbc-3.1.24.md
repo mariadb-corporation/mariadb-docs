@@ -5,7 +5,7 @@
 ## About this Release
 
 * MariaDB Connector/ODBC 3.1.24 was released on 5 Oct 2026
-* [What's new in this release?]({release-notes}/connectors/odbc/3.1/3.1.24)
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/connectors/odbc/3.1/3.1.24)
 * This release is Stable (GA) maturity
 * For more information, see the [product documentation](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc)
 
