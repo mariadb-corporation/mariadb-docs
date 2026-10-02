@@ -58,6 +58,8 @@
   * [MariaDB Server 10.11.16](post-download/mariadb-server-10.11.16.md)
   * [MariaDB Server 10.6.25](post-download/mariadb-server-10.6.25.md)
   * [MariaDB Server 12.3.0](post-download/mariadb-server-12.3.0.md)
+  * [MariaDB Connector/ODBC 3.2.10](post-download/mariadb-connector-odbc-3.2.10.md)
+  * [MariaDB Connector/ODBC 3.1.24](post-download/mariadb-connector-odbc-3.1.24.md)
   * [MariaDB Connector/ODBC 3.2.8](post-download/mariadb-connector-odbc-3.2.8.md)
   * [MariaDB Connector/J 3.5.7](post-download/mariadb-connector-j-3.5.7.md)
   * [MariaDB Connector/J 2.7.13](post-download/mariadb-connector-j-2.7.13.md)
