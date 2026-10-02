@@ -33,13 +33,23 @@ WHAT IT GATES TODAY
         product this map knows is rejected, rather than silently exempting
         nothing
 
-    It does NOT yet assert the other direction -- that a newly added release
-    notes page HAS its Post Download page. That is DOCS-6408's gate, it needs
-    the changed-files plumbing, and it is why this module exports
-    `post_download_for()` rather than keeping it private. It cannot be run
-    tree-wide: 67 existing connector releases have no Post Download page, only
-    two of which are acknowledged, and the rest are a mix of pages predating the
-    system (Connector/J 1.1.x is from 2013) and gaps nobody has triaged.
+    The other direction -- that a newly added release notes page HAS its Post
+    Download page -- is `new <rev>` (DOCS-6408). It cannot be run tree-wide: 67
+    existing connector releases have no Post Download page, only two of which
+    are acknowledged, and the rest are a mix of pages predating the system
+    (Connector/J 1.1.x is from 2013) and gaps nobody has triaged. So it reads
+    only pages that are absent at <rev>, the way `navcheck.py new` does, and
+    requires of each:
+
+      * the Post Download page exists
+      * platform/SUMMARY.md links to it
+      * or the release is acknowledged in the `no-standalone:` register
+
+    A page counts as new by PATH, so a pure move of released notes looks new
+    and needs a register entry if it never had a download page. `hidden: true`
+    notes are held to the same rule: a held-back round still ships its
+    platform page (DOCS-6405). The `most-recent-<x>` include is not checked
+    here; versioncheck.py owns it.
 
 WHY THE EXEMPTION IS A REGISTER ENTRY AND NOT PAGE FRONTMATTER
     Decided on DOCS-6734 after checking both. GitBook's frontmatter set is
@@ -62,14 +72,25 @@ WHY THE EXEMPTION IS A REGISTER ENTRY AND NOT PAGE FRONTMATTER
 
 USAGE
     postdownload.py audit          check the no-standalone register (default)
+    postdownload.py new <rev> [--advisory] [file ...]
+                                   release-notes pages added since <rev> that
+                                   lack a Post Download page (the DOCS-6408
+                                   gate); files, if given, scope the check.
+                                   --advisory only rewords the findings for the
+                                   docs team instead of the PR author, for a
+                                   fork PR whose contributor cannot be asked to
+                                   write platform pages; the exit code is the
+                                   same, and the caller decides what it means
     postdownload.py path <file>    print the Post Download page a release-notes
                                    page maps to, or why it maps to none
 
-Exit: 0 = register clean (or SKIPPED), 1 = a finding, 2 = a usage error.
+Exit: 0 = clean (or SKIPPED), 1 = a finding, 2 = a usage error.
 """
 
 import os
 import pathlib
+import re
+import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -218,10 +239,138 @@ def audit(root):
     return findings, len(entries)
 
 
+LINK_RE = re.compile(r'\]\(\s*<?([^)>\s]+)')
+
+
+def git(root, *args):
+    """Run git, returning (ok, stdout)."""
+    p = subprocess.run(['git', '-C', str(root)] + list(args),
+                       capture_output=True, text=True)
+    return p.returncode == 0, p.stdout
+
+
+def summary_refs(root):
+    """Repo-relative paths platform/SUMMARY.md links to."""
+    f = pathlib.Path(root) / 'platform' / 'SUMMARY.md'
+    if not f.is_file():
+        return set()
+    text = f.read_text(encoding='utf-8', errors='replace')
+    return {'platform/' + t.split('#', 1)[0].lstrip('./')
+            for t in LINK_RE.findall(text)}
+
+
+def new_pages(root, rev, scope):
+    """Release-notes pages present now and absent at `rev`, sorted.
+
+    Present = tracked or untracked-but-not-ignored AND on disk, so a page you
+    have only just written is seen before it is staged, and one deleted in the
+    working tree is not. Absent at `rev` is read from the object store.
+    """
+    ok, now = git(root, 'ls-files', '--cached', '--others', '--exclude-standard',
+                  '-z', '--', 'release-notes/')
+    if not ok:
+        return None
+    ok, then = git(root, 'ls-tree', '-r', '--name-only', '-z', rev, '--',
+                   'release-notes/')
+    if not ok:
+        return None
+    before = {p for p in then.split('\0') if p}
+    out = set()
+    for p in (x for x in now.split('\0') if x):
+        if p in before or not p.endswith('.md'):
+            continue
+        if not (pathlib.Path(root) / p).is_file():
+            continue
+        if scope is not None and p not in scope:
+            continue
+        out.add(p)
+    return sorted(out)
+
+
+def check_new(root, rev, files, advisory=False):
+    """Gate: every new release page has its Post Download page.
+
+    Returns (findings, checked) or None for a SKIP.
+    """
+    try:
+        exempt = {e['path'] for e in allowlist.load(root)[SECTION]}
+    except allowlist.AllowlistError as exc:
+        print(f'postdownload: {allowlist.allowlist_path(root)} is malformed — '
+              f'{exc}', file=sys.stderr)
+        return None
+    if not (pathlib.Path(root) / POST_DOWNLOAD).is_dir():
+        print(f'postdownload: no {POST_DOWNLOAD}/ — SKIPPED (not a docs checkout)',
+              file=sys.stderr)
+        return None
+    # The base side is read from the object store of the repo `root` belongs
+    # to; if this tree is nested in another repo, git answers for the outer one
+    # and every page would read as new. navcheck.py carries the same guard.
+    ok, top = git(root, 'rev-parse', '--show-toplevel')
+    if ok and pathlib.Path(top.strip()).resolve() != pathlib.Path(root).resolve():
+        print(f'postdownload: {root} is not the top of its git repository '
+              f'({top.strip()} is) — SKIPPED', file=sys.stderr)
+        return None
+    ok, _ = git(root, 'rev-parse', '--verify', '-q', rev + '^{commit}')
+    if not ok:
+        print(f'postdownload: base revision {rev!r} not found — SKIPPED',
+              file=sys.stderr)
+        return None
+
+    scope = {f.replace('\\', '/') for f in files} if files else None
+    pages = new_pages(root, rev, scope)
+    if pages is None:
+        print('postdownload: git could not list the release notes — SKIPPED',
+              file=sys.stderr)
+        return None
+
+    refs = summary_refs(root)
+    findings = checked = 0
+    for page in pages:
+        expected = post_download_for(page)
+        if expected is None:
+            continue
+        checked += 1
+        if page in exempt:
+            continue
+        if not (pathlib.Path(root) / expected).is_file():
+            findings += 1
+            if advisory:
+                print(f'postdownload: Post Download page owed — {page}',
+                      file=sys.stderr)
+                print(f'              expected {expected}\n              A '
+                      f'docs-team member adds this page and its '
+                      f'platform/SUMMARY.md entry; the\n              '
+                      f'contributor does not need to. If this version shipped '
+                      f'only inside a\n              Server release, add a '
+                      f'`no-standalone:` entry with a reason to\n              '
+                      f'{allowlist.REL_PATH}.', file=sys.stderr)
+            else:
+                print(f'postdownload: missing Post Download page — {page}',
+                      file=sys.stderr)
+                print(f'              expected {expected}\n              Add it '
+                      f'(and its platform/SUMMARY.md entry) in this PR. If '
+                      f'this\n              version shipped only inside a '
+                      f'Server release and has no standalone\n              '
+                      f'package, add a `no-standalone:` entry with a reason to '
+                      f'{allowlist.REL_PATH}.', file=sys.stderr)
+        elif expected not in refs:
+            findings += 1
+            who = ('A docs-team member adds the entry.' if advisory
+                   else 'Add the entry.')
+            print(f'postdownload: Post Download page not in the nav — '
+                  f'{expected}', file=sys.stderr)
+            print(f'              {page} has its page, but platform/SUMMARY.md '
+                  f'does not link it, so it\n              would publish '
+                  f'nowhere. {who}', file=sys.stderr)
+    return findings, checked
+
+
 def main(argv):
     args = argv[1:]
     mode = 'audit'
     target = None
+    files = []
+    advisory = False
     if args and args[0] in ('-h', '--help'):
         print(__doc__.rstrip(), file=sys.stderr)
         return 2
@@ -233,9 +382,17 @@ def main(argv):
                       file=sys.stderr)
                 return 2
             target = args.pop(0)
+        elif mode == 'new':
+            if not args:
+                print('postdownload: `new` needs a base revision',
+                      file=sys.stderr)
+                return 2
+            target = args.pop(0)
+            advisory = '--advisory' in args
+            files, args = [a for a in args if a != '--advisory'], []
         elif mode != 'audit':
-            print(f'postdownload: unknown mode {mode!r} (expected audit or path)',
-                  file=sys.stderr)
+            print(f'postdownload: unknown mode {mode!r} (expected audit, new or '
+                  f'path)', file=sys.stderr)
             return 2
     if args:
         print(f'postdownload: unexpected argument {args[0]!r}', file=sys.stderr)
@@ -253,6 +410,18 @@ def main(argv):
         print(expected if expected else
               f'none — {rel} maps to no Post Download page')
         return 0
+
+    if mode == 'new':
+        result = check_new(root, target, files, advisory)
+        if result is None:
+            return 0
+        findings, n = result
+        # Always printed, on stdout, for the same reason the audit line is: zero
+        # new pages is legitimate, but "checked none" and "never ran" must not
+        # share an exit code. postdownload-pr.yml asserts this line.
+        print(f'postdownload: {n} new release page{"" if n == 1 else "s"} '
+              f'checked vs {target}, {findings} without a Post Download page')
+        return 1 if findings else 0
 
     result = audit(root)
     if result is None:
