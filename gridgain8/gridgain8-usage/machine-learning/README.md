@@ -10,7 +10,7 @@ GridGain Machine Learning is a set of simple, scalable, and efficient tools that
 {% columns %}
 {% column %}
 {% content-ref url="ml.md" %}
-[Machine Learning](ml.md)
+[Overview](ml.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -21,216 +21,72 @@ Introduction to GridGain Machine Learning, its zero-ETL and fault-tolerant desig
 
 {% columns %}
 {% column %}
-{% content-ref url="preprocessing.md" %}
-[Preprocessing](preprocessing.md)
+{% content-ref url="preprocessing-and-datasets/" %}
+[Preprocessing and Datasets](preprocessing-and-datasets/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-The preprocessing algorithms available in GridGain Machine Learning, including normalization, binarization, imputing, encoders, and scalers.
+Prepare data for GridGain Machine Learning — preprocessing (normalization, encoders, scalers) and the partition-based dataset abstraction.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="part-based-dataset.md" %}
-[Partition Based Dataset](part-based-dataset.md)
+{% content-ref url="classification/" %}
+[Classification](classification/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-How the partition-based dataset abstraction underpins GridGain Machine Learning algorithms with zero-ETL, fault-tolerant, MapReduce-style computation.
+Classification algorithms in GridGain Machine Learning — logistic regression, k-NN, SVM, multilayer perceptron, and approximate nearest neighbor.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="line-reg.md" %}
-[Linear Regression](line-reg.md)
+{% content-ref url="regression/" %}
+[Regression](regression/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-How the ordinary least squares Linear Regression algorithm works in GridGain Machine Learning, with the LSQR and SGD trainers.
+Regression algorithms in GridGain Machine Learning — linear regression and k-NN regression.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="k-means.md" %}
-[K-Means Clustering](k-means.md)
+{% content-ref url="clustering-and-optimization/" %}
+[Clustering and Optimization](clustering-and-optimization/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-How the K-Means clustering algorithm works in GridGain Machine Learning, including the model and trainer parameters.
+Unsupervised and optimization algorithms in GridGain Machine Learning — K-Means clustering and genetic algorithms.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="genetic-alg.md" %}
-[Genetic Algorithms](genetic-alg.md)
+{% content-ref url="trees-and-ensembles/" %}
+[Trees and Ensembles](trees-and-ensembles/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-How to solve optimization problems with Genetic Algorithms in GridGain Machine Learning, with a HelloWorld example and Apache Zeppelin integration.
+Tree-based and ensemble algorithms in GridGain Machine Learning — decision trees, random forest, and gradient boosting.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="ml-percep.md" %}
-[Multilayer Perceptron](ml-percep.md)
+{% content-ref url="model-selection-and-deployment/" %}
+[Model Selection and Deployment](model-selection-and-deployment/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-How the Multilayer Perceptron (MLP) neural network works in GridGain Machine Learning, including the model and distributed batch training.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="decision-trees.md" %}
-[Decision Trees](decision-trees.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How decision tree classification and regression work in GridGain Machine Learning, including the model, trainers, and examples.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="knn-class.md" %}
-[k-NN Classification](knn-class.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How the k-NN (k-nearest neighbors) classification algorithm works in GridGain Machine Learning, including its parameters and an example.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="knn-reg.md" %}
-[k-NN Regression](knn-reg.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How the k-NN (k-nearest neighbors) regression algorithm works in GridGain Machine Learning, including its parameters and an example.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="svm-binary.md" %}
-[SVM Binary Classification](svm-binary.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How the linear SVM binary classification algorithm works in GridGain Machine Learning, including the model and trainer parameters.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="svm-multi.md" %}
-[SVM Multi-class Classification](svm-multi.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How the linear SVM multi-class classification algorithm works in GridGain Machine Learning, using a one-versus-all approach.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="model-cross.md" %}
-[Model Cross Validation](model-cross.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How model cross validation works in GridGain Machine Learning, using the CrossValidation class and k-fold validation.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="log-reg.md" %}
-[Logistic Regression](log-reg.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How binary and multi-class Logistic Regression work in GridGain Machine Learning, including the model, its parameters, and the trainer.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="random-forest.md" %}
-[Random Forest](random-forest.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How the Random Forest ensemble algorithm works in GridGain Machine Learning, including aggregators, the model, and trainer parameters.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="grad-boost.md" %}
-[Gradient Boosting](grad-boost.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How gradient boosting (GDB) works in GridGain Machine Learning, including the model, trainer parameters, and convergence checkers.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="ann.md" %}
-[ANN (Approximate Nearest Neighbor)](ann.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How the Approximate Nearest Neighbor (ANN) classification algorithm works in GridGain Machine Learning, including its model and trainer parameters.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="model-updating.md" %}
-[Model Updating](model-updating.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How online and batch online model updating works per algorithm in GridGain Machine Learning, using an already trained model as a starting point.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="model-importing.md" %}
-[Model Importing](model-importing.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How to import pre-trained Machine Learning models from Apache Spark ML and XGBoost into GridGain for distributed inference.
+Evaluate, update, and import models in GridGain Machine Learning — cross validation, online model updating, and importing pre-trained models.
 {% endcolumn %}
 {% endcolumns %}

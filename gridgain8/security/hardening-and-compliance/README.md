@@ -5,8 +5,6 @@ description: >-
 
 # Hardening, Auditing, and CVEs
 
-This section groups the following topics:
-
 {% columns %}
 {% column %}
 {% content-ref url="../cluster-hardening.md" %}

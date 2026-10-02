@@ -5,8 +5,6 @@ description: >-
 
 # Cluster Maintenance
 
-This section groups the following topics:
-
 {% columns %}
 {% column %}
 {% content-ref url="../resource-control.md" %}

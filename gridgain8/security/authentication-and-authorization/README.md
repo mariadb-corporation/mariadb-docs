@@ -5,8 +5,6 @@ description: >-
 
 # Authentication and Authorization
 
-This section groups the following topics:
-
 {% columns %}
 {% column %}
 {% content-ref url="../authentication.md" %}

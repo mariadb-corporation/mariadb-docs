@@ -5,8 +5,6 @@ description: >-
 
 # Backup, Recovery, and Replication
 
-This section groups the following topics:
-
 {% columns %}
 {% column %}
 {% content-ref url="../snapshots/" %}

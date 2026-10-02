@@ -5,8 +5,6 @@ description: >-
 
 # Encryption and Transport Security
 
-This section groups the following topics:
-
 {% columns %}
 {% column %}
 {% content-ref url="../ssl-tls.md" %}

@@ -5,8 +5,6 @@ description: >-
 
 # Licensing and Support
 
-This section groups the following topics:
-
 {% columns %}
 {% column %}
 {% content-ref url="../licensing.md" %}
