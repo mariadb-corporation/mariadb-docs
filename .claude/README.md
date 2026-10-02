@@ -16,6 +16,7 @@ Code. It contains:
 | `hooks/timeless.py` | High-precision finder for undated product claims ("currently in beta", "coming soon", "at the time of writing"), the check behind the style guide's *Timeless wording* rule (DOCS-6640). **Advisory only** — called by `nightly-timeless.yml` and the `style-apply` skill, never by `doc-lint.sh` or a PR gate |
 | `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` and by `navcheck-pr.yml` |
 | `hooks/shrinkcheck.py` | Net line-loss ("gutted page") guard, called by `doc-lint.sh` and by `shrinkcheck-pr.yml`. Was an inline block in `doc-lint.sh` until DOCS-6586 |
+| `hooks/postdownload.py` | The Post Download page map, plus two checks: `audit` keeps the `no-standalone:` register true, and `new <rev>` fails a release-notes page added since `<rev>` that lacks its `platform/post-download/` page or its `platform/SUMMARY.md` entry (DOCS-6408). Called by `doc-lint.sh` and by `postdownload-pr.yml` |
 | `hooks/doc-lint-allow.yml` | The acknowledgment register: `orphan:` and `shrink:` entries, each with a reason, for the two guards that have legitimate exceptions. A checked-in file rather than an environment variable so the acknowledgment is a diff line the reviewer reads |
 | `hooks/allowlist.py` | The **only** parser for that register — a strict subset of YAML, standard library only. Both guards read it through this one script |
 | `hooks/pre-commit.sh` | PreToolUse hook: gates Claude-made `git commit`s by calling `doc-lint.sh` |

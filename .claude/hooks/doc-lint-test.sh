@@ -436,6 +436,20 @@ build_navbox() {
     git add -A >/dev/null
     git commit -q -m 'nav fixtures' >/dev/null
   ) || return 1
+
+  # pd/ is its own repo, initialised AFTER the sandbox commit above so the outer repo never
+  # sees it as embedded. The new-page gate reads its base side from the object store of the repo
+  # it is rooted at, and refuses to run if that is not the top of the tree (a nested tree would
+  # answer for the outer repo and call every page new) -- so the gate cases need a real HEAD here.
+  (
+    cd "$SANDBOX/pd" || exit 1
+    git init -q -b main . >/dev/null 2>&1 || git init -q . >/dev/null 2>&1
+    git config user.name  'doc-lint test'
+    git config user.email 'doc-lint-test@example.invalid'
+    git config commit.gpgsign false
+    git add -A >/dev/null
+    git commit -q -m 'post-download fixtures' >/dev/null
+  ) || return 1
 }
 
 # --- assertions ------------------------------------------------------------------------------
@@ -1942,6 +1956,134 @@ want_rc 1
 want_err 'stale entry'
 rm -f "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
 rm -f "$SANDBOX/pd/.claude/hooks/doc-lint-allow.yml"
+end
+
+# ---- the new-page gate (DOCS-6408) -----------------------------------------------------------
+# Each case adds its pages to the working tree, untracked, against the fixture commit as base,
+# and removes them again so the next case starts from the same tree.
+
+PD_NEW="$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.11.md"
+pd_new_page() {
+  printf -- '---\ndescription: Connector/C 3.4.11 release notes.\n---\n\n# Connector/C 3.4.11\n' > "$PD_NEW"
+}
+pd_clean() {
+  rm -f "$PD_NEW" "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.11.md" \
+        "$SANDBOX/pd/platform/SUMMARY.md" "$SANDBOX/pd/.claude/hooks/doc-lint-allow.yml" \
+        "$SANDBOX/pd/release-notes/connectors/c/changelogs/3.4/3.4.11.md"
+  rm -rf "$SANDBOX/pd/release-notes/connectors/c++"
+}
+
+begin 'a new release page with no Post Download page fails the new-page gate'
+pd_new_page
+pd "$SANDBOX/pd" new HEAD
+want_rc 1
+want_err 'missing Post Download page'
+want_err 'mariadb-connector-c-3.4.11.md'
+want_err 'no-standalone'
+want_out '1 new release page checked'
+pd_clean
+end
+
+begin 'a Post Download page that platform/SUMMARY.md does not link fails the gate'
+pd_new_page
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.11.md"
+printf '# Table of contents\n\n* [Post Download](post-download/README.md)\n' > "$SANDBOX/pd/platform/SUMMARY.md"
+pd "$SANDBOX/pd" new HEAD
+want_rc 1
+want_err 'not in the nav'
+pd_clean
+end
+
+begin 'a new release page with its page and nav entry passes the gate'
+pd_new_page
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.11.md"
+printf '# Table of contents\n\n* [Post Download](post-download/README.md)\n  * [Connector/C 3.4.11](post-download/mariadb-connector-c-3.4.11.md)\n' \
+  > "$SANDBOX/pd/platform/SUMMARY.md"
+pd "$SANDBOX/pd" new HEAD
+want_rc 0
+want_out '1 new release page checked'
+want_out '0 without a Post Download page'
+pd_clean
+end
+
+begin 'a no-standalone entry satisfies the gate for a new release page'
+pd_new_page
+write_allow "$SANDBOX/pd" <<'ALLOW'
+no-standalone:
+  - path: release-notes/connectors/c/3.4/3.4.11.md
+    reason: "shipped only inside Server — DOCS-6408 fixture"
+ALLOW
+pd "$SANDBOX/pd" new HEAD
+want_rc 0
+want_out '1 new release page checked'
+pd_clean
+end
+
+begin '--advisory rewords the findings for the docs team without changing the exit code'
+# A fork PR's author cannot be asked to write platform pages, so postdownload-pr.yml demotes the
+# gate to a warning there. The script's half is only the wording: same finding, same exit 1, but
+# addressed to the team rather than telling the contributor to "add it in this PR".
+pd_new_page
+pd "$SANDBOX/pd" new HEAD --advisory
+want_rc 1
+want_err 'Post Download page owed'
+want_err 'docs-team member'
+want_no_err 'in this PR'
+want_out '1 new release page checked'
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.11.md"
+printf '# Table of contents\n\n* [Post Download](post-download/README.md)\n' > "$SANDBOX/pd/platform/SUMMARY.md"
+pd "$SANDBOX/pd" new HEAD --advisory
+want_rc 1
+want_err 'not in the nav'
+want_err 'docs-team member adds the entry'
+pd_clean
+end
+
+begin 'a changelog and a product with no Post Download pages are not gated'
+mkdir -p "$SANDBOX/pd/release-notes/connectors/c++/1.1"
+printf '# Connector/C++ 1.1.9\n' > "$SANDBOX/pd/release-notes/connectors/c++/1.1/1.1.9.md"
+printf '# Connector/C 3.4.11 Changelog\n' > "$SANDBOX/pd/release-notes/connectors/c/changelogs/3.4/3.4.11.md"
+pd "$SANDBOX/pd" new HEAD
+want_rc 0
+want_out '0 new release pages checked'
+pd_clean
+end
+
+begin 'file arguments scope the new-page gate'
+pd_new_page
+pd "$SANDBOX/pd" new HEAD clean.md
+want_rc 0
+want_out '0 new release pages checked'
+pd_clean
+end
+
+begin 'an unresolvable base revision SKIPs the new-page gate'
+pd_new_page
+pd "$SANDBOX/pd" new refs/heads/no-such-branch
+want_rc 0
+want_err 'not found'
+want_err 'SKIPPED'
+pd_clean
+end
+
+begin 'a nested tree SKIPs the new-page gate rather than calling every page new'
+# $SANDBOX/pd/sub is not the top of any repo of its own: git answers for pd/, which has never
+# heard of the pages, so without the guard every release page here would read as added.
+mkdir -p "$SANDBOX/pd/sub/platform/post-download" "$SANDBOX/pd/sub/release-notes/connectors/c/3.4"
+: > "$SANDBOX/pd/sub/.codespellignore"
+printf '# x\n' > "$SANDBOX/pd/sub/release-notes/connectors/c/3.4/3.4.10.md"
+pd "$SANDBOX/pd/sub" new HEAD
+want_rc 0
+want_err 'not the top of its git repository'
+rm -rf "$SANDBOX/pd/sub"
+end
+
+begin 'the new-page gate runs through doc-lint.sh'
+pd_new_page
+lint pd - "$NOFRAG" DOC_LINT_BASE=HEAD -- release-notes/connectors/c/3.4/3.4.11.md
+want_rc 1
+want_err 'missing Post Download page'
+pd_clean
 end
 
 begin 'a tree with no post-download directory SKIPs the register audit'
