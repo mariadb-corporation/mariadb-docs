@@ -188,6 +188,8 @@ A CVE identifier has been assigned, but the CVE record has not yet been publishe
 
 This page provides a cross-reference for all CVEs addressed through a release of MariaDB Enterprise Server.
 
+Vulnerabilities fixed in MariaDB MaxScale are listed separately, in [Security Vulnerabilities Fixed in MariaDB MaxScale]({maxscale}/maxscale-security/fixed-security-vulnerabilities).
+
 ## Enterprise Server Benefits
 
 MariaDB Enterprise Server is an enhanced, hardened, and secured product with:
