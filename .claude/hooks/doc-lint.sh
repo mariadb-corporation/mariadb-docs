@@ -6,15 +6,17 @@
 # contrast check (mermaidcheck.py), a page-description check (desccheck.py, DOCS-6763, gated
 # by desccheck-pr.yml), a heading-anchor gate (fragcheck.py), an orphaned-page/
 # nav-coverage gate (navcheck.py), a net line-loss guard (shrinkcheck.py), a paired
-# version-include guard (versioncheck.py) and the no-standalone register audit
-# (postdownload.py). All eight are gated in CI — by includecheck-pr.yml, mermaidcheck-pr.yml
+# version-include guard (versioncheck.py) and the Post Download checks (postdownload.py: the
+# no-standalone register audit, and the DOCS-6408 gate that a newly added release notes page
+# has its platform/post-download/ page). All eight are gated in CI — by includecheck-pr.yml, mermaidcheck-pr.yml
 # (DOCS-6630), fragcheck-pr.yml, navcheck-pr.yml, shrinkcheck-pr.yml, versioncheck-pr.yml and
 # postdownload-pr.yml (both DOCS-6734) respectively — so a finding here is a finding CI will
 # repeat, and none of them is "local only" any more.
 #
-# The last two take NO file list: their findings are not local to a changed file (a version
-# include disagrees with its pair in another space; a register entry stops being true because a
-# page elsewhere appeared), so they are tree-wide and ignore the arguments.
+# The version-include guard and the register audit take NO file list: their findings are not
+# local to a changed file (a version include disagrees with its pair in another space; a
+# register entry stops being true because a page elsewhere appeared), so they are tree-wide and
+# ignore the arguments. The Post Download new-page gate is diffed against $LINT_BASE instead.
 #
 # The pre-commit hook, the /precommit command, the docs-check skill, and dev-docs/cookbook-pre-pr.md
 # all delegate here instead of re-spelling the flags, so the CI-mirroring options live in exactly
@@ -467,12 +469,12 @@ fi
 # silently rewritten by a web-app edit the way a page can (GITBOOK-1636 dropped HTML comments).
 # .claude/hooks/postdownload.py's header carries the full reasoning, and owns the naming map.
 #
-# What runs here is the register AUDIT: an entry whose page is gone, or whose release has since
-# gained a Post Download page, records something no longer true and fails. The other direction —
-# a newly added release notes page MUST have its Post Download page — is DOCS-6408's gate and is
-# not here yet.
-#
-# Takes no file list, for the same reason the version-include check above does not.
+# Two things run here. The register AUDIT: an entry whose page is gone, or whose release has
+# since gained a Post Download page, records something no longer true and fails. And the NEW-PAGE
+# gate (DOCS-6408): a release notes page added since $LINT_BASE MUST have its Post Download page,
+# linked from platform/SUMMARY.md, unless the register acknowledges it. The audit takes no file
+# list, for the same reason the version-include check above does not; the new-page gate is
+# diffed against $LINT_BASE like the orphan check, since 67 older releases would fail it.
 POSTDOWNLOAD="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/postdownload.py"
 if [ ! -f "$POSTDOWNLOAD" ]; then
   # NOT a SKIP, for the reason the includecheck block gives: this is a checked-in sibling, so
@@ -488,6 +490,14 @@ else
   # Rooted at the WORKING DIRECTORY, like the version-include check above and for the same
   # reason: doc-lint-test.sh runs this script from the repo while CWD is a throwaway sandbox.
   python3 "$POSTDOWNLOAD" audit >/dev/null || rc=1
+  # The new-page gate needs a base revision; without one it is SKIPPED, never a silent pass.
+  if ! command -v git >/dev/null 2>&1 || ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "doc-lint: not a git work tree — Post Download new-page check SKIPPED (needs a base revision)" >&2
+  elif ! git rev-parse --verify -q "$LINT_BASE" >/dev/null 2>&1; then
+    echo "doc-lint: base revision '$LINT_BASE' not found — Post Download new-page check SKIPPED" >&2
+  else
+    python3 "$POSTDOWNLOAD" new "$LINT_BASE" "${files[@]}" >/dev/null || rc=1
+  fi
 fi
 
 # --- retired Knowledge Base links — NO CI counterpart (the last one) ------------------------
