@@ -2609,7 +2609,7 @@ Defined in plugin_audit.h:30
 ### MYSQL_AUDIT_INTERFACE_VERSION
 
 ```cpp
-#define MYSQL_AUDIT_INTERFACE_VERSION 0x0303
+#define MYSQL_AUDIT_INTERFACE_VERSION 0x0304
 ```
 
 Defined in plugin_audit.h:32
@@ -2692,7 +2692,7 @@ Defined in plugin_audit.h:51
 #define MYSQL_AUDIT_CONNECTION_CLASS 1
 ```
 
-Defined in plugin_audit.h:83
+Defined in plugin_audit.h:91
 
 ---
 
@@ -2702,7 +2702,7 @@ Defined in plugin_audit.h:83
 #define MYSQL_AUDIT_CONNECTION_CLASSMASK (1 << MYSQL_AUDIT_CONNECTION_CLASS)
 ```
 
-Defined in plugin_audit.h:84
+Defined in plugin_audit.h:92
 
 ---
 
@@ -2712,7 +2712,7 @@ Defined in plugin_audit.h:84
 #define MYSQL_AUDIT_CONNECTION_CONNECT 0
 ```
 
-Defined in plugin_audit.h:85
+Defined in plugin_audit.h:93
 
 ---
 
@@ -2722,7 +2722,7 @@ Defined in plugin_audit.h:85
 #define MYSQL_AUDIT_CONNECTION_DISCONNECT 1
 ```
 
-Defined in plugin_audit.h:86
+Defined in plugin_audit.h:94
 
 ---
 
@@ -2732,7 +2732,7 @@ Defined in plugin_audit.h:86
 #define MYSQL_AUDIT_CONNECTION_CHANGE_USER 2
 ```
 
-Defined in plugin_audit.h:87
+Defined in plugin_audit.h:95
 
 ---
 
@@ -2742,7 +2742,7 @@ Defined in plugin_audit.h:87
 #define MYSQL_AUDIT_TABLE_CLASS 15
 ```
 
-Defined in plugin_audit.h:126
+Defined in plugin_audit.h:134
 
 ---
 
@@ -2752,7 +2752,7 @@ Defined in plugin_audit.h:126
 #define MYSQL_AUDIT_TABLE_CLASSMASK (1 << MYSQL_AUDIT_TABLE_CLASS)
 ```
 
-Defined in plugin_audit.h:127
+Defined in plugin_audit.h:135
 
 ---
 
@@ -2762,7 +2762,7 @@ Defined in plugin_audit.h:127
 #define MYSQL_AUDIT_TABLE_LOCK 0
 ```
 
-Defined in plugin_audit.h:128
+Defined in plugin_audit.h:136
 
 ---
 
@@ -2772,7 +2772,7 @@ Defined in plugin_audit.h:128
 #define MYSQL_AUDIT_TABLE_CREATE 1
 ```
 
-Defined in plugin_audit.h:129
+Defined in plugin_audit.h:137
 
 ---
 
@@ -2782,7 +2782,7 @@ Defined in plugin_audit.h:129
 #define MYSQL_AUDIT_TABLE_DROP 2
 ```
 
-Defined in plugin_audit.h:130
+Defined in plugin_audit.h:138
 
 ---
 
@@ -2792,7 +2792,7 @@ Defined in plugin_audit.h:130
 #define MYSQL_AUDIT_TABLE_RENAME 3
 ```
 
-Defined in plugin_audit.h:131
+Defined in plugin_audit.h:139
 
 ---
 
@@ -2802,7 +2802,7 @@ Defined in plugin_audit.h:131
 #define MYSQL_AUDIT_TABLE_ALTER 4
 ```
 
-Defined in plugin_audit.h:132
+Defined in plugin_audit.h:140
 
 ---
 
@@ -13345,7 +13345,7 @@ Defined in service_sql.h:49
 struct st_mysql_audit
 ```
 
-Defined in plugin_audit.h:175
+Defined in plugin_audit.h:183
 
 
 
@@ -13507,7 +13507,7 @@ Defined in service_logger.h:63
 struct mysql_event_table
 ```
 
-Defined in plugin_audit.h:134
+Defined in plugin_audit.h:142
 
 
 
@@ -13747,7 +13747,7 @@ Defined in service_thd_alloc.h:59
 struct mysql_event_connection
 ```
 
-Defined in plugin_audit.h:89
+Defined in plugin_audit.h:97
 
 
 
