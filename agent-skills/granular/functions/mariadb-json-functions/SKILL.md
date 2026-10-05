@@ -40,7 +40,7 @@ Returns a JSON array containing the listed values.
 
 ### JSON_ARRAYAGG
 `JSON_ARRAYAGG(column_or_expression)`  
-`JSON_ARRAYAGG` returns a JSON array containing an element for each value in a given set of JSON or SQL values. *(since 10.5)*
+`JSON_ARRAYAGG` returns a JSON array containing an element for each value in a given set of JSON or SQL values.
 
 ### JSON_ARRAY_APPEND
 `JSON_ARRAY_APPEND(json_doc, path, value[, path, value] ...)`  
@@ -128,7 +128,7 @@ Returns a JSON object containing the given key/value pairs.
 
 ### JSON_OBJECTAGG
 `JSON_OBJECTAGG(key, value)`  
-`JSON_OBJECTAGG` returns a JSON object containing key-value pairs. *(since 10.5)*
+`JSON_OBJECTAGG` returns a JSON object containing key-value pairs.
 
 ### JSON_OBJECT_FILTER_KEYS
 `JSON_OBJECT_FILTER_KEYS(obj, array_keys)`  

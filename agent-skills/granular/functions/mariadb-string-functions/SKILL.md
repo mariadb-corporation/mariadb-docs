@@ -252,7 +252,7 @@ Converts the string argument `str` to its base-64 encoded form, returning the re
 
 ### TO_CHAR
 `TO_CHAR(expr[, fmt])`  
-{% tabs %} {% tab title="Current" %} The `TO_CHAR` function converts an _expr_ of type date, datetime, time or timestamp to a string.
+{% tabs %} {% tab title="Current" %}
 
 ### TRIM
 `TRIM_ORACLE([{BOTH | LEADING | TRAILING} [remstr] FROM] str), TRIM([remstr FROM] str)`  

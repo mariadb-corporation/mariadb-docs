@@ -44,7 +44,7 @@ Auto-generated from the canonical `server/reference/sql-functions/numeric-functi
 
 <!-- BEGIN GENERATED -->
 <!-- Extracted from server/reference/sql-functions/numeric-functions -->
-<!-- 36 functions, 0 pages skipped on extraction failure -->
+<!-- 35 functions, 1 pages skipped on extraction failure -->
 
 ### ABS
 `ABS(X)`  
@@ -85,10 +85,6 @@ Returns the cosine of X, where X is given in radians.
 ### COT
 `COT(X)`  
 Returns the cotangent of X.
-
-### CRC32
-`CRC32([par,]expr)`  
-Computes a cyclic redundancy check (CRC) value and returns a 32-bit unsigned value.
 
 ### CRC32C
 `CRC32C([par,]expr)`  

@@ -107,7 +107,7 @@ This function is a synonym for DATABASE().
 
 ### SESSION_USER
 `SESSION_USER()`  
-{% tabs %} {% tab title="Current" %} Shows the value of CURRENT_USER() when the session was created, that is, it shows a `user@host` pair from the mysql.global_priv table, like `CURRENT_USER()`, but unlike `CURRENT_USER()` it will not change inside stored routines and views.
+{% tabs %} {% tab title="Current" %}
 
 ### SYSTEM_USER
 `SYSTEM_USER()`  

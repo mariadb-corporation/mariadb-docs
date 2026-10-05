@@ -31,15 +31,7 @@ back to the canonical reference at
 
 <!-- BEGIN GENERATED -->
 <!-- Extracted from server/reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions -->
-<!-- 17 functions, 0 pages skipped on extraction failure -->
-
-### AES_DECRYPT
-`AES_ENCRYPT(crypt_str, key_str, [, iv [, mode]])`  
-This function allows decryption of data using the official AES (Advanced Encryption Standard) algorithm.
-
-### AES_ENCRYPT
-`AES_ENCRYPT(str, key, [, iv [, mode]])`  
-`AES_ENCRYPT()` and AES_DECRYPT() allow encryption and decryption of data using the official AES (Advanced Encryption Standard) algorithm, previously known as "Rijndael." Encoding with a 128-bit key length is used (from MariaDB 11.2.0, this is the default, and can be changed).
+<!-- 15 functions, 2 pages skipped on extraction failure -->
 
 ### COMPRESS
 `COMPRESS(string_to_compress)`  
