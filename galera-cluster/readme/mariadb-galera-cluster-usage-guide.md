@@ -63,6 +63,10 @@ The most common replication architecture is Primary/Replica (also known as Maste
 flowchart TD
     accTitle: Multi-primary (synchronous) replication
     accDescr {
+        Three boxes labelled Client sit in a Clients group. Each client is joined to its
+        own DBMS node by a line with arrows in both directions, and each of the three
+        DBMS nodes is joined by a line with arrows in both directions to one Replication
+        box.
         Client applications connect transparently to any of three DBMS nodes. Every node
         is a primary and accepts writes. All nodes are kept consistent by a synchronous
         replication layer that applies each transaction on every node, so a commit is
