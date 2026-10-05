@@ -32,50 +32,58 @@ Catalog of MariaDB's dedicated window functions and the `OVER (...)` clause, wit
 
 <!-- BEGIN GENERATED -->
 <!-- Extracted from server/reference/sql-functions/special-functions/window-functions -->
-<!-- 11 functions, 5 pages skipped on extraction failure -->
+<!-- 13 functions, 3 pages skipped on extraction failure -->
 
 ### CUME_DIST
-`CUME_DIST() OVER (`  
+`CUME_DIST() OVER ( [ PARTITION BY partition_expression ] ORDER BY order_list )`  
 `CUME_DIST()` is a window function that returns the cumulative distribution of a given row.
 
 ### DENSE_RANK
-`DENSE_RANK() OVER (`  
+`DENSE_RANK() OVER ( [ PARTITION BY partition_expression ] ORDER BY order_list )`  
 `DENSE_RANK()` is a window function that displays the number of a given row, starting at one and following the ORDER BY sequence of the window function, with identical values receiving the same result.
 
 ### FIRST_VALUE
-`FIRST_VALUE(expr) OVER (`  
+`FIRST_VALUE(expr) OVER ( [ PARTITION BY partition_expression ] [ ORDER BY order_list ] )`  
 `FIRST_VALUE` returns the first result from an ordered set, or NULL if no such result exists.
 
 ### LAG
-`LAG (expr[, offset]) OVER (`  
+`LAG (expr[, offset]) OVER ( [ PARTITION BY partition_expression ] ORDER BY order_list )`  
 The `LAG` function accesses data from a previous row according to the `ORDER BY` clause without the need for a self-join.
 
 ### LEAD
-`LEAD (expr[, offset]) OVER (`  
+`LEAD (expr[, offset]) OVER ( [ PARTITION BY partition_expression ] ORDER BY order_list )`  
 The `LEAD` function accesses data from a following row in the same result set without the need for a self-join.
 
 ### MEDIAN
-`MEDIAN(median expression) OVER (`  
+`MEDIAN(median expression) OVER ( [ PARTITION BY partition_expression ] )`  
 `MEDIAN()` is a window function that returns the median value of a range of values.
 
 ### NTH_VALUE
-`NTH_VALUE (expr[, num_row]) OVER (`  
+`NTH_VALUE (expr[, num_row]) OVER ( [ PARTITION BY partition_expression ] [ ORDER BY order_list ] )`  
 The `NTH_VALUE` function returns the value evaluated at row number `num_row` of the window frame, starting from 1, or `NULL` if the row does not exist.
 
 ### NTILE
-`NTILE (expr) OVER (`  
+`NTILE (expr) OVER ( [ PARTITION BY partition_expression ] [ ORDER BY order_list ] )`  
 `NTILE()` is a window function that returns an integer indicating which group a given row falls into.
 
+### PERCENTILE_CONT
+`PERCENTILE_CONT(percentile) WITHIN GROUP (ORDER BY expression [ASC | DESC]) OVER ( [ PARTITION BY partition_expression ] )`  
+`PERCENTILE_CONT()` (standing for continuous percentile) is a window function which returns a value which corresponds to the given fraction in the sort order.
+
+### PERCENTILE_DISC
+`PERCENTILE_DISC(percentile) WITHIN GROUP (ORDER BY expression [ASC | DESC]) OVER ( [ PARTITION BY partition_expression ] )`  
+`PERCENTILE_DISC()` (standing for discrete percentile) is a window function which returns the first value in the set whose ordered position is the same or more than the specified fraction.
+
 ### PERCENT_RANK
-`PERCENT_RANK() OVER (`  
+`PERCENT_RANK() OVER ( [ PARTITION BY partition_expression ] ORDER BY order_list )`  
 `PERCENT_RANK()` is a window function that returns the relative percent rank of a given row.
 
 ### RANK
-`RANK() OVER (`  
+`RANK() OVER ( [ PARTITION BY partition_expression ] ORDER BY order_list )`  
 RANK() is a window function that displays the number of a given row, starting at one and following the ORDER BY sequence of the window function, with identical values receiving the same result.
 
 ### ROW_NUMBER
-`ROW_NUMBER() OVER (`  
+`ROW_NUMBER() OVER ( [ PARTITION BY partition_expression ] [ ORDER BY order_list ] )`  
 `ROW_NUMBER()` is a window function that displays the number of a given row, starting at one and following the ORDER BY sequence of the window function, with identical values receiving different row numbers.
 <!-- END GENERATED -->
 

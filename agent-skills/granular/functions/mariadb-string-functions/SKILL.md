@@ -45,7 +45,7 @@ Auto-generated from the canonical `server/reference/sql-functions/string-functio
 
 <!-- BEGIN GENERATED -->
 <!-- Extracted from server/reference/sql-functions/string-functions -->
-<!-- 58 functions, 8 pages skipped on extraction failure -->
+<!-- 59 functions, 7 pages skipped on extraction failure -->
 
 ### ASCII
 `ASCII(str)`  
@@ -223,6 +223,10 @@ Returns the string `str`, right-padded with the string `padstr` to a length of `
 `RTRIM(str)`  
 Returns the string `str` with trailing space characters removed.
 
+### SFORMAT
+`SFORMAT(format, value[, value ...])`  
+The `SFORMAT` function takes an input string and a formatting specification and returns the string formatted using the rules the user passed in the specification. *(since 10.7)*
+
 ### SOUNDEX
 `SOUNDEX(str)`  
 Returns a soundex string from _`str`_.
@@ -252,7 +256,7 @@ Converts the string argument `str` to its base-64 encoded form, returning the re
 
 ### TO_CHAR
 `TO_CHAR(expr[, fmt])`  
-{% tabs %} {% tab title="Current" %} The `TO_CHAR` function converts an _expr_ of type date, datetime, time or timestamp to a string.
+The `TO_CHAR` function converts an _expr_ of type date, datetime, time or timestamp to a string.
 
 ### TRIM
 `TRIM_ORACLE([{BOTH | LEADING | TRAILING} [remstr] FROM] str), TRIM([remstr FROM] str)`  
