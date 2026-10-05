@@ -320,6 +320,15 @@ This is the most common and recommended architecture. MaxScale's `readwritesplit
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: MaxScale read/write split across a Galera cluster
+    accDescr {
+        The user application sends requests to MariaDB MaxScale, the read/write
+        split router. MaxScale sends all writes to Node 1, the Primary, and sends
+        reads to Node 2 and to Node 3, the Replicas. The three nodes sit inside
+        the MariaDB Galera Cluster box, and each pair of nodes is joined by a line
+        with arrows in both directions: Node 1 and Node 2, Node 1 and Node 3, and
+        Node 2 and Node 3.
+    }
     App[User Application] --> Proxy["MariaDB MaxScale<br>(Read/Write Split Router)"]
 
     subgraph "MariaDB Galera Cluster"
