@@ -41,7 +41,7 @@ Auto-generated from the canonical `server/reference/sql-functions/date-time-func
 
 <!-- BEGIN GENERATED -->
 <!-- Extracted from server/reference/sql-functions/date-time-functions -->
-<!-- 64 functions, 3 pages skipped on extraction failure -->
+<!-- 65 functions, 2 pages skipped on extraction failure -->
 
 ### ADDDATE
 `ADDDATE(date,INTERVAL expr unit), ADDDATE(expr,days)`  
@@ -179,6 +179,10 @@ Returns the month for `date` in the range 1 to 12 for January to December, or 0 
 `MONTHNAME(date)`  
 Returns the full name of the month for date.
 
+### MONTHS_BETWEEN
+`MONTHS_BETWEEN(date1, date2)`  
+`MONTHS_BETWEEN` returns the number of months between two dates.
+
 ### NOW
 `NOW([precision])`  
 Returns the current date and time as a value in `YYYY-MM-DD HH:MM:SS` or `YYYYMMDDHHMMSS.uuuuuu` format, depending on whether the function is used in a string or numeric context.
@@ -248,7 +252,7 @@ This is used like the DATE_FORMAT() function, but the format string may contain 
 Returns the time argument, converted to seconds.
 
 ### TO_DATE
-`TO_DATE(string_expression [DEFAULT string_expression ON CONVERSION ERROR],`  
+`TO_DATE(string_expression [DEFAULT string_expression ON CONVERSION ERROR], format_string [,NLS_FORMAT_STRING])`  
 `TO_DATE` was added for Oracle support. *(since 12.3)*
 
 ### TO_DAYS

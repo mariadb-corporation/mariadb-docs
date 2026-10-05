@@ -38,6 +38,14 @@ jobs:
         with:
           python-version: '3.x'
 
+      # Before regenerating, not after: a failure here stops the run before create-pull-request,
+      # so a broken extractor cannot open or refresh the bot PR with a degraded catalog -- the
+      # failure mode DOCS-6889 caught on #1193 by reading the diff, with every gate green.
+      - name: Test the extractor against the current pages
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 -m unittest discover -s agent-skills/extractor -p 'test_*.py' -v
+
       - name: Regenerate Tier 2 function-skill catalogs
         run: python3 agent-skills/extractor/regenerate.py
 
