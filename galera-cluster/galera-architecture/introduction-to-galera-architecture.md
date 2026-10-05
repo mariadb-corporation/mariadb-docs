@@ -13,6 +13,15 @@ MariaDB Galera Cluster provides a synchronous replication system that uses an ap
 
 ```mermaid
 graph TD
+    accTitle: Layers of the wsrep API stack
+    accDescr {
+        A top-to-bottom stack of five boxes joined by single arrows. The DBMS
+        points to wsrep hooks, wsrep hooks point to dlopen, dlopen points to the
+        Galera Replication Plugin, and the Galera Replication Plugin points to
+        gcomm. The wsrep hooks, dlopen and Galera Replication Plugin boxes sit
+        together inside a larger box labelled wsrep API. The DBMS and gcomm boxes
+        are outside it.
+    }
     A[DBMS]
 
     subgraph wsrep API
