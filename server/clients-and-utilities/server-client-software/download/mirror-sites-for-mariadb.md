@@ -229,8 +229,8 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 ### Iran
 
 - Kernel.ir (Tehran)
-- Mobinhost (Tehran)
 - Parsvds (Tehran)
+- Sindad (Tehran)
 
 ### Ireland
 
