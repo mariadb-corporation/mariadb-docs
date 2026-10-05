@@ -15,7 +15,7 @@ From MariaDB 11.2:
 {% endhint %}
 
 ```bnf
-AES_ENCRYPT(crypt_str, key_str, [, iv [, mode]])
+AES_DECRYPT(crypt_str, key_str [, iv [, mode]])
 ```
 {% endtab %}
 

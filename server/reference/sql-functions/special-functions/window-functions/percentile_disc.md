@@ -8,6 +8,12 @@ description: >-
 
 ## Syntax
 
+```bnf
+PERCENTILE_DISC(percentile) WITHIN GROUP (ORDER BY expression [ASC | DESC]) OVER (
+  [ PARTITION BY partition_expression ]
+)
+```
+
 ## Description
 
 `PERCENTILE_DISC()` (standing for discrete percentile) is a [window function](./) which returns the first value in the set whose ordered position is the same or more than the specified fraction.
