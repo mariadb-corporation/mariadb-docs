@@ -108,6 +108,14 @@ quantifier) and `note that`; **neutral action verbs** — flag `kill`/`abort`/`h
 
 List these for the user with file:line; propose a rewrite but don't apply without go-ahead:
 
+- **Plain language** (`dev-docs/style-guide.md` › *Plain language*) — read that section; its
+  *Habits to cut* list is the single source, so don't keep a copy here. Surface the habits it
+  names: an explaining sentence (*This means*, *In other words*, *which means*) that repeats the
+  previous one, signposts (*Note that*, *It is worth noting*), more than one em dash in a
+  paragraph, a mid-sentence colon that announces an explanation, semicolons between clauses,
+  and sentences over 35 words. Every one of these has legitimate uses, so propose a rewrite per
+  hit and let the author decide. Never touch code, quoted output, or error-message text.
+
 - **Product vs common noun** — `MariaDB server` / `Galera cluster` written where the **branded
   product** (*MariaDB Server* / *Galera Cluster*) is meant. Most occurrences are correct common
   nouns; only flag the branded-context ones (titles, "the MariaDB Server product"), and let the
