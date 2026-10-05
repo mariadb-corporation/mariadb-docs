@@ -142,7 +142,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 ### Australia
 
 - AARNet (Brisbane)
-- Digital Pacific (Sydney)
 - Real World Group (Sydney)
 
 ### Austria
@@ -218,10 +217,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 ### Hungary
 
 - Budapest University of Technology and Economics (Budapest)
-
-### India
-
-- Indian Institute Of Technology Delhi (New Delhi)
 
 ### Indonesia
 
