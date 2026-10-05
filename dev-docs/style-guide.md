@@ -95,13 +95,15 @@ These are the patterns that grew. Each one has legitimate uses, so treat a hit a
   on a running server."
 - **Signposts.** *Note that*, *It is worth noting that*, *It is important to note*, *Keep in
   mind that*. State the fact. If the reader must not miss it, put it in a hint block.
-- **Em dashes.** They are allowed, but use at most one per paragraph, and never to attach a
-  second thought to a finished sentence. A period, a comma, or parentheses usually work better.
+- **Em dashes.** They are allowed. Aim for no more than one per paragraph, and make an
+  exception only when it is justified. Never use one to attach a second thought to a finished
+  sentence. A period, a comma, or parentheses usually work better.
 - **A colon in the middle of a sentence that announces an explanation.** "The reason is
   simple: the server reads the file only at startup." → "The server reads the file only at
   startup." Use colons to introduce lists, code blocks, and examples.
 - **Semicolons between clauses.** Write two sentences.
-- **Long sentences.** Aim for 25 words or fewer, and split a sentence over 35 words.
+- **Long sentences.** Aim for 15 to 20 words per sentence. A longer sentence needs a reason,
+  such as a list of options that belongs together.
 - **Contrast framing.** *rather than*, *not X but Y*, *X, not Y*. Say what something is. Name
   the alternative only when the reader would otherwise expect it.
 - **Announcing.** *Here is how*, *The following explains*, *There are a few things to
@@ -129,8 +131,10 @@ These are the patterns that grew. Each one has legitimate uses, so treat a hit a
 
 ### Outside the page: reviews, pull requests, Jira
 
-The same rules apply to what we write about the docs. Two more apply there:
+The same rules apply to what we write about the docs. A few more apply there:
 
+- **Headings in sentence case.** Jira tickets and pull request descriptions use sentence case
+  ("What changes"). Published pages keep Title Case (see *Headings*).
 - **Agree plainly.** "Agreed", "Yes, changed", "You're right, fixed." Not "I concede", not
   "scratch that", not "my mistake" followed by a paragraph. State the correct position and stop.
 - **Answer a numbered review by number**, and don't offer work nobody asked for.
