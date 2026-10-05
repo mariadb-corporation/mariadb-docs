@@ -54,6 +54,98 @@ The `style-apply` skill enforces the checkable parts of this digest.
 - **Neutral action verbs:** avoid violent metaphors — `kill`/`abort`/`hang` → `terminate` /
   `stop` / `cancel` / `unresponsive`.
 
+## Plain language (DOCS-6890)
+
+Readers notice machine-written prose, and once they notice it, they trust the page less. In
+October 2026 we counted writing habits in the prose added since June 2026 and compared it with
+the docs as they stood in June. The words usually blamed for that impression are not the
+problem: *robust*, *seamless*, *leverage* and filler such as *simply* are rarer in the new prose
+than in the old. What grew is an explaining voice. Compared with the June docs, the new prose
+has:
+
+- 4.5 times as many em dashes
+- 3.3 times as many colons in mid-sentence that announce an explanation
+- 1.9 times as many *This means* and *In other words*
+- 1.7 times as many *Note that*
+- twice as many sentences over 35 words (16% of all sentences, up from 8%)
+
+### The test
+
+Read each sentence as if you were saying it to a colleague at your desk.
+
+1. **Would you say it out loud?** If it only works on paper, write the spoken version.
+2. **Does every word carry information?** Delete a word and read the sentence again. If the
+   meaning is the same, leave the word out.
+3. **Is it literal?** Replace a metaphor or an idiom with the thing itself.
+4. **Is it one idea?** Split a sentence that stacks clauses with semicolons, dashes, or a colon.
+5. **Does it add something, or only announce what comes next?** Cut the announcement.
+6. **Does the reader learn something?** Cut what they already know.
+
+When a sentence reads wrong, try deleting it before you reword it. Often nothing is lost,
+because the sentence only introduced or repeated another one.
+
+### Habits to cut
+
+These are the patterns that grew. Each one has legitimate uses, so treat a hit as a question.
+
+- **Explaining the previous sentence.** *This means*, *In other words*, *That is*, *which
+  means*. Usually the second sentence repeats the first one in other words. Keep the sentence
+  that states the fact the reader acts on, and delete the other. "Changes take effect without a
+  restart. This means you can tune the value on a running server." → "You can change the value
+  on a running server."
+- **Signposts.** *Note that*, *It is worth noting that*, *It is important to note*, *Keep in
+  mind that*. State the fact. If the reader must not miss it, put it in a hint block.
+- **Em dashes.** They are allowed, but use at most one per paragraph, and never to attach a
+  second thought to a finished sentence. A period, a comma, or parentheses usually work better.
+- **A colon in the middle of a sentence that announces an explanation.** "The reason is
+  simple: the server reads the file only at startup." → "The server reads the file only at
+  startup." Use colons to introduce lists, code blocks, and examples.
+- **Semicolons between clauses.** Write two sentences.
+- **Long sentences.** Aim for 25 words or fewer, and split a sentence over 35 words.
+- **Contrast framing.** *rather than*, *not X but Y*, *X, not Y*. Say what something is. Name
+  the alternative only when the reader would otherwise expect it.
+- **Announcing.** *Here is how*, *The following explains*, *There are a few things to
+  consider*. Start with the first thing.
+- **Emphasis adverbs.** *deliberately*, *genuinely*, *explicitly*, *precisely*, *exactly*,
+  *entirely*. Keep the word when it carries a fact (an *explicit* `COMMIT`, *exactly* one row).
+  Delete it when it only adds weight.
+- **Marketing words and hyperbole.** *robust*, *seamless*, *comprehensive*, *powerful*,
+  *leverage*, *crucial*, *vital*, *easily*, *obviously*, *clearly*, *trivially*. These are rare
+  in our docs. Keep them rare. (Filler words are covered under *Grammar & word choice* above.)
+
+### Plain words
+
+- Use the common word when it does the same job: *use* (not *utilize* or *leverage*),
+  *returns an error* or *fails with an error* (not *raises*, *throws*, or *emits*), *check*
+  (not *sanity-check*), *start* (not *kick off*).
+- Replace idioms with what they mean: *out of the box* → *by default*; *under the hood* →
+  *internally*, or name the component; *low-hanging fruit*, *rabbit hole*, *belt and braces* →
+  say what happens.
+- Replace dramatic words with what happens: *catastrophic*, *severe*, *must never*. A security
+  warning can be firm, but it still states the consequence: "Anyone who can read this file can
+  log in as `root`."
+- Keep a term exact when it is the product's own word, even if a plainer word exists:
+  *execute* in "`EXECUTE` a prepared statement", *validate* where an option is named that way.
+
+### Outside the page: reviews, pull requests, Jira
+
+The same rules apply to what we write about the docs. Two more apply there:
+
+- **Agree plainly.** "Agreed", "Yes, changed", "You're right, fixed." Not "I concede", not
+  "scratch that", not "my mistake" followed by a paragraph. State the correct position and stop.
+- **Answer a numbered review by number**, and don't offer work nobody asked for.
+
+### Where these rules come from
+
+This section adapts the writing rules in the `mariadb-qa` Claude writing kit
+(`claude/writing/`), evaluated in DOCS-6642. These kit rules conflict with this guide, so we
+did not adopt them:
+
+- **ASCII only, no em dashes.** Our docs use em dashes, and Google style allows them.
+- **Jira wiki markup.** DOCS Jira is Jira Cloud. Wiki markup applies only on jira.mariadb.org.
+- **No version lines.** Docs carry version notes.
+- **No line numbers.** Fact-check reports cite `file:line`.
+
 ## Inclusive terminology (DOCS-5606)
 
 In core docs (Server, MaxScale, ColumnStore, Connectors): **master → primary**, **slave →
