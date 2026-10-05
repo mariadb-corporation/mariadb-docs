@@ -14,6 +14,17 @@ To understand these use cases, it helps to see how Galera's core features are re
 
 ```mermaid
 flowchart LR
+    accTitle: How Galera Cluster features relate to its use cases
+    accDescr {
+        MariaDB Galera Cluster is joined by plain lines, with no direction, to
+        three core features: Synchronous Replication, Multi-Master Architecture
+        and Automatic Node Failover. Arrows then lead from the features to four
+        benefits. High Availability receives arrows from Synchronous Replication
+        and Multi-Master Architecture. Data Consistency and DR receives arrows
+        from Synchronous Replication and Multi-Master Architecture. Zero-Downtime
+        Maintenance receives arrows from Multi-Master Architecture and Automatic
+        Node Failover. Scalable Reads receives arrows from all three features.
+    }
     %% 1. Define all nodes first
     A[MariaDB Galera Cluster]
     B[Synchronous Replication]
@@ -63,6 +74,16 @@ This diagram shows how a proxy like MaxScale handles a node failure. The applica
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: MaxScale routing around a failed Galera node
+    accDescr {
+        The user application sends requests to MariaDB MaxScale. Inside the Galera
+        Cluster, MaxScale sends active traffic to Node 1 and to Node 2. Node 3 has
+        failed and is drawn with a dashed red outline. A dotted arrow labelled
+        Re-routes traffic leads from MaxScale to Node 3. Node 1 and Node 2 are
+        joined to each other by a solid line with arrows in both directions. Node
+        3 is joined to each of them by a dotted line with arrows in both
+        directions.
+    }
     App[User Application] --> Proxy[MariaDB MaxScale]
 
     subgraph "Galera Cluster"
@@ -136,6 +157,15 @@ This flowchart shows the "rolling" process for a 3-node cluster.
 
 ```mermaid
 graph TD
+    accTitle: Rolling maintenance of a three-node cluster
+    accDescr {
+        A top-to-bottom sequence that starts at Start Maintenance and ends at End
+        Maintenance. Node 1 is handled first in four steps: isolate it from the
+        proxy, stop, patch and restart it, let it sync using IST (Incremental
+        State Transfer), and add it back to the proxy. The same four steps are
+        then repeated for Node 2. The last step before the end is to repeat the
+        process for Node 3.
+    }
     A[Start Maintenance] --> B["1. Isolate Node 1 from Proxy"]
     B --> C["2. Stop, Patch & Restart Node 1"]
     C --> D["3. Node 1 Syncs (IST)"]
@@ -198,6 +228,15 @@ This is a single Galera cluster with nodes stretched across multiple data center
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Synchronous Galera cluster across two data centers
+    accDescr {
+        The application connects to Node 1. Node 1 and Node 2 are in the DC 1 New
+        York data center, and Node 3 is in the DC 2 London data center. All three
+        nodes are joined to each other by synchronous links with arrows in both
+        directions. The link between Node 1 and Node 2 is labelled Sync (Local).
+        The links from Node 1 to Node 3 and from Node 2 to Node 3 are labelled
+        Sync (WAN) and are drawn thick, red and dashed.
+    }
     subgraph "DC 1: New York"
         N1[Node 1]
         N2[Node 2]
@@ -225,6 +264,15 @@ This is the more common setup. A primary cluster in DC-1 runs at full speed. It 
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Asynchronous replication to a disaster recovery data center
+    accDescr {
+        In DC 1, the primary data center, the application sends requests to
+        MaxScale, and MaxScale sends them to a Galera cluster of three nodes. In
+        DC 2, the disaster recovery data center, there is a single DR node or
+        cluster. An arrow labelled Async Replication, drawn thick, green and
+        dashed, leads from the Galera cluster in DC 1 to the DR node or cluster in
+        DC 2.
+    }
     subgraph "DC 1: Primary"
         App[Application] --> Proxy[MaxScale]
         Proxy --> Cluster1["Galera Cluster<br>(3 Nodes)"]
