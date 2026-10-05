@@ -14,6 +14,23 @@ With BYOC, the Control Plane (UI, API, Monitoring) remains in MariaDB Cloud, whi
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
+    accTitle: BYOC control plane and data plane
+    accDescr {
+        A left-to-right diagram of two groups and two outside actors. The MariaDB
+        Cloud Control Plane group holds Portal and API, Orchestrator and Secure
+        Bastion. The Your Cloud Account Data Plane group holds an IAM Role /
+        Service Account and a nested group, Your Private VPC, which holds a
+        Database Node and Storage. The DevOps Team and the Application are outside
+        both groups. Five numbered arrows: 1 Request, from the DevOps Team to
+        Portal and API. 2 Trigger, from Portal and API to the Orchestrator. 3
+        Provision, from the Orchestrator to the IAM Role / Service Account. 4
+        Manage (TLS), from the Secure Bastion to the Database Node. 5 Connect
+        (private), from the Application to the Database Node. Three arrows are not
+        numbered: a dotted arrow labelled creates, from the IAM Role / Service
+        Account to Your Private VPC, a dotted arrow labelled internal, from the
+        Orchestrator to the Secure Bastion, and a two-way arrow between the
+        Database Node and Storage.
+    }
     classDef control fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1;
     classDef data fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c;
     classDef external fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#263238;
@@ -55,6 +72,13 @@ A BYOC environment is a secure, isolated set of resources within your own cloud 
 
 ```mermaid
 flowchart LR
+    accTitle: BYOC setup in four steps
+    accDescr {
+        A left-to-right sequence of four steps joined by arrows. Step 1, Account
+        Linking (IAM handshake), leads to step 2, Provisioning (Compute, storage,
+        network). Step 2 leads to step 3, Management (Patching and health). Step 3
+        leads to step 4, Connectivity (Private access).
+    }
     classDef step fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1;
 
     S1["1. Account Linking<br/>IAM handshake"]:::step
@@ -100,6 +124,16 @@ The BYOC setup splits your costs into two separate components. This model ensure
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
+    accTitle: BYOC costs split across two invoices
+    accDescr {
+        Your Organization sends two arrows. An arrow labelled service fees leads
+        to a box in the group Invoice 1, MariaDB Cloud, which lists Management
+        fee, Support (Remote DBA) and Software licenses. An arrow labelled
+        infrastructure costs leads to a box in the group Invoice 2, Your Cloud
+        Provider, which lists Compute, Storage and Data transfer. A dotted arrow
+        labelled apply committed spend and discounts leads from the Invoice 2 box
+        back to Your Organization.
+    }
     classDef maria fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
     classDef cloud fill:#fff8e1,stroke:#f9a825,stroke-width:2px,color:#f57f17;
     classDef customer fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#263238;
