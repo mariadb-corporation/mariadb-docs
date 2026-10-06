@@ -130,7 +130,7 @@ _Appears in:_
 | Field | Description | Default | Validation |
 | --- | --- | --- | --- |
 | `containerName` _string_ | ContainerName is the name of the storage container. |  | Required: \{\} <br /> |
-| `serviceURL` _string_ | ServiceURL is the full URL for connecting to Azure, usually in the form: http(s)://<account>.blob.core.windows.net/. |  | Required: \{\} <br /> |
+| `serviceURL` _string_ | ServiceURL is the full URL for connecting to Azure, usually in the form: `http(s)://<account>.blob.core.windows.net/`. |  | Required: \{\} <br /> |
 | `prefix` _string_ | Prefix indicates a folder/subfolder in the container. For example: mariadb/ or mariadb/backups. A trailing slash '/' is added if not provided. |  |  |
 | `storageAccountName` _string_ | StorageAccountName is the name of the storage account. Pairs with StorageAccountKey for static credential authentication |  |  |
 | `storageAccountKey` _[SecretKeySelector](#secretkeyselector)_ | StorageAccountKey is a reference to a Secret key containing the Azure Blob Storage Storage account Key. Pairs with StorageAccountKey for static credential authentication |  |  |

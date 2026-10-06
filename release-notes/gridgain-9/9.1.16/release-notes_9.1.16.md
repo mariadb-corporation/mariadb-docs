@@ -181,7 +181,7 @@ SELECT id, name, __PARTITION_ID FROM my_table;
 | IGN-28702 | General | Data node history is now compacted. |
 | IGN-28689 | General | You can now provide node configuration as a string when starting node in embedded mode. |
 | IGN-27992 | General | Fixed possible data loss with explicit transactions in aipersist engine. |
-| IGN-22878 | General | .NET: Added custom object mapping to table view APIs with IMapper<T>. |
+| IGN-22878 | General | .NET: Added custom object mapping to table view APIs with `IMapper<T>`. |
 | GG-46406 | Cluster SQL Engine | SCHEMA DROP command now also takes sequences into account. |
 | GG-46358 | Cluster SQL Engine | Improved error message for RBAC commands. |
 | GG-46312 | CLI Tool | Syntax highlighting is now correctly disabled on unsupported platforms. |

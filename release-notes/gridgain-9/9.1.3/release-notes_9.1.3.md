@@ -93,7 +93,7 @@ With this release, you can use the new `ignite.cluster().localNode()` method to 
 | IGN-27724 | Platforms and Clients | C++ client now supports heartbeats. |
 | IGN-27702 | SQL | Added support for EXPLAIN MAPPING FOR command. |
 | IGN-27676 | Data Streamer | Data Streamer: fixed the receiver API. Added `payloadMarshaller`, `argumentMarshaller`, `resultMarshaller`. Added `DataStreamerReceiverDescriptor<T, A, R>`. Deprecated `ReceiverDescriptor<A>`. Added new `DataStreamerTarget#streamData` overload with `DataStreamerReceiverDescriptor` and deprecated the old one. |
-| IGN-27650 | SQL | Fixed incorrect parsing of DATE, TIME, TIMESTAMP, and TIMESTAMP WITH LOCAL TIME ZONE in the CAST(string AS <datetime type> FORMAT 'format-string') operation. |
+| IGN-27650 | SQL | Fixed incorrect parsing of DATE, TIME, TIMESTAMP, and TIMESTAMP WITH LOCAL TIME ZONE in the `CAST(string AS <datetime type> FORMAT 'format-string')` operation. |
 | IGN-27631 | SQL | You now need to commit the explicit transaction in the script for it to be executed. |
 | IGN-25829 | Platforms and Clients | .NET: Added overloads with `CancellationToken` to SQL and Compute APIs. |
 | GG-43835 | Cluster Data Snapshots and Recovery | Fixed an issue that could lead to some data not being restored from snapshots. |

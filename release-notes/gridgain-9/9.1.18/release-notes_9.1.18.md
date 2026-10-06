@@ -310,7 +310,7 @@ This release improves performance of correlated SQL queries by automatically con
 | IGN-30116 | General | Expected exceptions are no longer logged on connection attempt. |
 | IGN-30073 | CLI Tool | Added theme configuration for CLI tool. |
 | IGN-30072 | General | Extended log coverage for Placement Driver mechanism to track some edge cases during its recovery. |
-| IGN-30054 | Platforms and Clients | .NET: Added predefined mappers for simple types, so that reflection and runtime codegen are not required for things like table.GetRecordView<long>() and table.GetKeyValueView<Guid, string>(). |
+| IGN-30054 | Platforms and Clients | .NET: Added predefined mappers for simple types, so that reflection and runtime codegen are not required for things like `table.GetRecordView<long>()` and `table.GetKeyValueView<Guid, string>()`. |
 | IGN-30053 | General | Optimized read-only sql requests. |
 | IGN-30052 | General | Fixed an issue where a critical system error was triggered when a command observed an unexpected but legitimate state change. |
 | IGN-30051 | Cluster SQL Engine | Fixed an issue that caused queries to return result with duplicated rows when LEFT JOIN is performed. |

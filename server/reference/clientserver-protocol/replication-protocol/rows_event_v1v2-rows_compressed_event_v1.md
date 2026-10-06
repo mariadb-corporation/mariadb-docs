@@ -43,7 +43,7 @@ A `ROWS_EVENT` (version 2) is written for row based replication if data is inser
 * If `rows_event` is version 2:
   * [uint<2>](../protocol-data-types.md#fixed-length-integers) Extra data length.
   * [string\<len>](../protocol-data-types.md#fixed-length-strings) Extra data.
-* [uint<lenenc>](../protocol-data-types.md#length-encoded-integers) Number of columns.
+* [uint\<lenenc>](../protocol-data-types.md#length-encoded-integers) Number of columns.
 * [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Columns used. n = (number\_of\_columns + 7)/8.
 * If (event\_type == `UPDATE_ROWS_EVENT_v1`):
   * [byte](../protocol-data-types.md#fixed-length-bytes) Columns used (Update). n = (number\_of\_columns + 7)/8.
