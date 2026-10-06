@@ -88,7 +88,7 @@ The plugin supports the following parameters, which must be set in advance and c
 
 #### `hashicorp-key-management-token`
 
-* Description: An Authentication token that is passed to the Hashicorp Vault in the request header. By default, this parameter contains an empty string, so you must specify the correct value for it, otherwise the Hashicorp Vault server will refuse authorization. Alternatively, you can define an environment variable `VAULT_TOKEN` and store the token there. `mariadb-backup` only reads the environment variable. See [Using mariadb-backup](hashicorp-key-management-plugin.md#using-mariadb-backup).
+* Description: An Authentication token that is passed to the Hashicorp Vault in the request header. By default, this parameter contains an empty string, so you must specify the correct value for it, otherwise the Hashicorp Vault server will refuse authorization. Alternatively, you can define an environment variable `VAULT_TOKEN` and store the token there. `mariadb-backup` doesn't read this option from configuration files and doesn't get it from the server, so it usually needs the environment variable. See [Using mariadb-backup](hashicorp-key-management-plugin.md#using-mariadb-backup).
 * Command line: `--[loose-]hashicorp-key-management-token="<token>"`
 
 #### `hashicorp-key-management-vault-ca`
@@ -153,6 +153,8 @@ export VAULT_TOKEN="<token>"
 mariadb-backup --backup --target-dir=/var/mariadb/backup --user=mariadb-backup --password=mypassword
 mariadb-backup --prepare --target-dir=/var/mariadb/backup
 ```
+
+For `--prepare` only, you can pass the token on the command line instead, with the `loose-` prefix: `--loose-hashicorp-key-management-token="<token>"`. `mariadb-backup` prints an "unknown variable" warning but passes the option on to the plugin. Without the prefix, `mariadb-backup` rejects the option as an unknown variable and exits. During `--backup`, the plugin gets only the settings read from the server, so this option has no effect there. Other users can see command-line arguments in the process list, so prefer `VAULT_TOKEN`. Configuration files don't work for either step.
 
 Because `--prepare` contacts Vault at the URL recorded in `backup-my.cnf`, Vault must be reachable from the host where you prepare the backup. If no token is available, loading the plugin fails with this error:
 
