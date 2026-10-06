@@ -101,9 +101,12 @@ python help-tables/markdown_extractor.py
 | `find_line_range()` | Finds the content range in a file: from the `# Title` heading to the first `## See Also`, `<sub>`, or `{% @marketo` marker |
 | `extract_sections()` | Splits content into syntax, description, and examples by matching `## Syntax`, `## Description`/`## Overview`, and `## Example(s)` headings |
 | `extract_code_block()` | Extracts content from the first `` ```sql `` fenced code block |
-| `strip_markdown()` | Converts Markdown to plain text: strips links, backticks, bold/italic, template tags (`{% %}`), escaped underscores |
-| `build_output()` | Assembles the final description with `Syntax`, `Description`, and `Examples` section headers (with underlines), appends the URL, and applies truncation |
-| `truncate_to_bytes()` | Ensures description fits within MariaDB's `TEXT` column limit (60,000 bytes, conservative vs 65,535 max) |
+| `strip_markdown()` | Converts Markdown **prose** to plain text: strips links, bold/italic, template tags (`{% %}`) and heading markers; code spans and backslash escapes are kept verbatim |
+| `strip_description()` | Converts a Description section: prose through `strip_markdown()`, fenced code blocks verbatim without their fence lines, Mermaid blocks dropped |
+| `unescape_markdown()` | Removes Markdown backslash escapes from topic names (`AUTO\_INCREMENT` → `AUTO_INCREMENT`), which `HELP` matches with `LIKE` |
+| `fit_utf8mb3()` | Spells out characters outside the Basic Multilingual Plane (emoji), which the `utf8mb3` help tables cannot store |
+| `build_output()` | Assembles the final description with `Syntax`, `Description`, and `Examples` section headers (with underlines), appends the URL, and applies truncation. Syntax and Examples are code and go in verbatim; only the Description is stripped of Markdown |
+| `truncate_to_bytes()` | Truncates a description to 15,000 bytes, so the escaped `INSERT` stays under the bootstrap parser's 20,000-byte `MAX_BOOTSTRAP_QUERY_SIZE` |
 | `escape_sql()` | Escapes backslashes, single quotes, and newlines for safe SQL insertion |
 | `process_single_file()` | End-to-end processing of one `.md` file into a topic dict |
 | `process_batch()` | Processes all files with case-insensitive deduplication of topic names |
@@ -298,17 +301,27 @@ These constraints match the MariaDB `mysql.help_topic` table schema:
 python help-tables/markdown_extractor.py
 ```
 
-Expected output:
+Expected output (the counts grow with the docs):
 ```
-Found 1246 files to process
-Processed: 1009 files
-Failed: 237 files
-Written to fill_help_tables.sql
+Nav entries resolved from server/SUMMARY.md: 4195
+Found 1106 files to process
+Processed: 1106 files
+Failed: 0 files
+Duplicate-name losers: 0 files
+Written to .../help-tables/fill_help_tables.sql
   Categories: 39
-  Topics: 1009
-  Keywords: 975
-  Relations: 1685
+  Topics: 1106
+  Keywords: 1033
+  Relations: 1924
 ```
+
+### Run the unit tests
+
+```bash
+python3 -m unittest discover -s help-tables -p 'test_*.py' -v
+```
+
+`test_markdown_extractor.py` pins how code, fences, escapes and emoji come out, and builds every topic from the real pages to check that no `SELECT  FROM`, leftover fence line, escaped topic name or 4-byte character reaches the output (DOCS-6894). CI runs it on every pull request, in the `extractor-test` job of `doc-lint-test.yml`.
 
 ### Validate the output
 

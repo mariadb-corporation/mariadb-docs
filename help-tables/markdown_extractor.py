@@ -1,4 +1,5 @@
 import re
+import unicodedata
 from pathlib import Path
 
 # Resolve paths relative to this script's location so the script works
@@ -401,28 +402,134 @@ def extract_code_block(lines: list):
     return []
 
 
+# A CommonMark backslash escape: a backslash before ASCII punctuation. Anything
+# else after a backslash (\n, \d, \G in prose about strings and regexps) is
+# literal text and must survive.
+MD_PUNCTUATION = r'[!"#$%&\'()*+,\-./:;<=>?@\[\\\]^_`{|}~]'
+MD_ESCAPE = re.compile(r'\\(' + MD_PUNCTUATION + r')')
+
+# A code span (any run of backticks, closed by a run of the same length) or a
+# backslash escape, whichever starts first.
+CODE_SPAN_OR_ESCAPE = re.compile(
+    r'(?<!`)(`+)(?!`)(.+?)(?<!`)\1(?!`)|\\(' + MD_PUNCTUATION + r')')
+
+# An opening or closing code fence, possibly indented (inside a list item).
+FENCE = re.compile(r'^(\s*)(`{3,}|~{3,})\s*([\w+-]*)')
+
+# Fenced blocks dropped from HELP output entirely: diagram source is not
+# readable as text.
+DROPPED_FENCE_LANGUAGES = {"mermaid"}
+
+
+def unescape_markdown(text: str) -> str:
+    """Turn CommonMark backslash escapes into the characters they stand for.
+
+    Pages escape characters that GitBook would otherwise read as markup, most
+    often `\\_` in names such as AUTO\\_INCREMENT. HELP shows raw text, so the
+    backslash has to go -- and in a topic name it also breaks HELP's lookup,
+    which matches names with LIKE, where `\\_` is a literal underscore preceded
+    by a backslash.
+    """
+    return MD_ESCAPE.sub(r'\1', text)
+
+
 def strip_markdown(text: str) -> str:
-    """Convert markdown to plain text for clean HELP output.
+    """Convert markdown prose to plain text for clean HELP output.
 
     The MariaDB HELP command displays raw text, so markdown syntax like
     links, backticks, bold, and template tags must be stripped out.
+
+    Only for prose: code must never reach these rules (DOCS-6894), since the
+    italic rule alone turns `SELECT * FROM t` into `SELECT  FROM t`. Code
+    spans and backslash escapes are therefore swapped out for placeholders
+    first and restored verbatim at the end; fenced blocks are handled by
+    strip_description().
     """
+    protected = []
+
+    def protect(value: str) -> str:
+        protected.append(value)
+        return f"\x00{len(protected) - 1}\x00"
+
+    # Code spans and backslash escapes in one left-to-right pass, as
+    # CommonMark reads them: an escaped \` cannot open a span, and nothing
+    # inside a span is an escape. `COUNT(*)` → COUNT(*), \* → *.
+    text = CODE_SPAN_OR_ESCAPE.sub(
+        lambda m: protect(m.group(2).strip() if m.group(1) else m.group(3)),
+        text)
     # Remove GitBook/Marketo template tags: {% hint %}, {% @marketo %}, etc.
     text = re.sub(r'\{%.*?%\}', '', text)
     # Convert [link text](url) → link text
     text = re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', text)
-    # Remove backtick code formatting: `value` → value
-    text = re.sub(r'`([^`]+)`', r'\1', text)
-    # Remove escaped underscores (common in MariaDB docs for function names)
-    text = text.replace('\\_', '_')
-    # Remove bold and italic markers
-    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
-    text = re.sub(r'\*([^*]+)\*', r'\1', text)
+    # Remove bold and italic markers. Emphasis stays on one line and cannot
+    # open or close on whitespace, so list bullets (`* item`) are left alone.
+    # Repeated until stable for nesting: **Marked *Open request***.
+    previous = None
+    while previous != text:
+        previous = text
+        text = re.sub(r'\*\*(?=\S)([^*\n]+?)(?<=\S)\*\*', r'\1', text)
+        text = re.sub(r'\*(?=\S)([^*\n]+?)(?<=\S)\*', r'\1', text)
     # Remove heading markers (## headings become plain text in HELP output)
     text = re.sub(r'^#{1,6}\s+', '', text, flags=re.MULTILINE)
     # Collapse 3+ blank lines into 2 to keep output readable
     text = re.sub(r'\n{3,}', '\n\n', text)
+    text = re.sub(r'\x00(\d+)\x00', lambda m: protected[int(m.group(1))], text)
     return text.strip()
+
+
+def strip_description(text: str) -> str:
+    """Convert a Description section to plain text, keeping its code intact.
+
+    Prose goes through strip_markdown(). A fenced code block keeps its
+    contents verbatim and loses only the fence lines -- before DOCS-6894 the
+    fences went through the inline-code rule and came out as ``sql ... ``.
+    An indented fence (inside a list item) has its indent removed from the
+    code lines it encloses.
+    """
+    chunks = []
+    prose = []
+    lines = text.split('\n')
+    i = 0
+    while i < len(lines):
+        opening = FENCE.match(lines[i])
+        if not opening:
+            prose.append(lines[i])
+            i += 1
+            continue
+        indent, marker, language = opening.groups()
+        code = []
+        i += 1
+        while i < len(lines):
+            closing = FENCE.match(lines[i])
+            if (closing and closing.group(2)[0] == marker[0]
+                    and len(closing.group(2)) >= len(marker)
+                    and not closing.group(3)):
+                i += 1
+                break
+            line = lines[i]
+            code.append(line[len(indent):] if line.startswith(indent) else line.lstrip())
+            i += 1
+        if language.lower() in DROPPED_FENCE_LANGUAGES:
+            continue
+        chunks.append(strip_markdown('\n'.join(prose)))
+        prose = []
+        chunks.append('\n'.join(code).strip('\n'))
+    chunks.append(strip_markdown('\n'.join(prose)))
+    return '\n\n'.join(chunk for chunk in chunks if chunk)
+
+
+def fit_utf8mb3(text: str) -> str:
+    """Spell out characters the help tables cannot store.
+
+    mysql.help_topic is utf8mb3 (scripts/mariadb_system_tables.sql in the
+    server), which holds no character outside the Basic Multilingual Plane.
+    One emoji used to stop a strict-mode load at its row, losing every later
+    topic, keyword and relation; a non-strict bootstrap cut the description
+    off there instead. So 👍 becomes [thumbs up sign].
+    """
+    return re.sub(r'[\U00010000-\U0010FFFF]',
+                  lambda m: f"[{unicodedata.name(m.group(), 'symbol').lower()}]",
+                  text)
 
 
 def truncate_to_bytes(text: str, max_bytes: int = 15000) -> str:
@@ -456,16 +563,21 @@ def build_output(name, syntax: str, desc: str, example: list, path: str):
     The 'example' field in the INSERT is left empty — all content lives in
     'description', matching how the original fill_help_tables.sql is structured.
     """
+    # Syntax and Examples are the contents of fenced code blocks and go in
+    # verbatim; only the Description is Markdown (DOCS-6894).
     parts = []
+    # strip("\n"), not strip(): a code block's first line may be indented.
+    syntax = syntax.strip("\n")
     if syntax:
         parts.append(f"Syntax\n------\n\n{syntax}")
-    if desc.strip():
+    desc = strip_description(desc)
+    if desc:
         parts.append(f"Description\n-----------\n\n{desc}")
     if example:
-        example_str = "\n".join(example)
+        example_str = "\n".join(example).strip("\n")
         parts.append(f"Examples\n--------\n\n{example_str}")
-    desc_str = "\n\n".join(parts) if parts else ""
-    desc_str = strip_markdown(desc_str)
+    desc_str = fit_utf8mb3("\n\n".join(parts) if parts else "")
+    name = fit_utf8mb3(unescape_markdown(name))
     url_path = published_url_path(path)
     url = f"https://mariadb.com/docs/{url_path}"
     desc_str += f"\n\nURL: {url}"
