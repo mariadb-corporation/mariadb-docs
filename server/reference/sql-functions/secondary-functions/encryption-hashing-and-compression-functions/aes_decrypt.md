@@ -10,12 +10,20 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 ```bnf
-AES_ENCRYPT(crypt_str, key_str, [, iv [, mode]])
+AES_DECRYPT(crypt_str, key_str [, iv [, mode]])
 ```
 {% endtab %}
 
 {% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 ```sql
 AES_DECRYPT(crypt_str,key_str)
 ```
@@ -28,6 +36,10 @@ This function allows decryption of data using the official AES (Advanced Encrypt
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 The function supports an initialization vector, and control of the block encryption mode. The default mode is specified by the [block\_encryption\_mode](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#block_encryption_mode) system variable, which can be changed when calling the function with a mode. _mode_ is aes-{128,192,256}-{ecb,cbc,ctr} for example: "AES-128-cbc".
 
 For modes that require it, the initialization\_vector _iv_ should be 16 bytes (it can be longer, but the extra bytes are ignored). A shorter _iv_, where one is required, results in the function returning `NULL`. Calling [RANDOM\_BYTES(16)](random_bytes.md) will generate a random series of bytes that can be used for the _iv_.
@@ -53,6 +65,10 @@ SELECT AES_DECRYPT(x'C57C4B', 'bar', '0123456789abcdef', 'aes-128-ctr');
 {% endtab %}
 
 {% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 The function does **not** support an initialization vector.
 {% endtab %}
 {% endtabs %}

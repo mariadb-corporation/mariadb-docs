@@ -21,7 +21,9 @@ The `PURGE BINARY LOGS` statement deletes all the [binary log](../../../server-m
 
 The datetime expression is in the format `YYYY-MM-DD hh:mm:ss`.
 
-If a replica is active but has yet to read from a binary log file you attempt to delete, the statement will fail with an error. However, if the replica is not connected and has yet to read from a log file you delete, the file will be deleted, but the replica will be unable to continue replicating once it connects again.
+If a connected replica is still reading one of the binary log files that the statement would delete, the statement stops at that file. Older files are deleted, and that file and all later ones are kept. The statement does not fail. From [MariaDB 11.4.3](https://jira.mariadb.org/browse/MDEV-34504), it returns note 1375, which names the first file it kept, for example `Binary log 'mariadb-bin.000005' is not purged because it is in use by a slave thread`. Earlier releases stop without any message. Use [SHOW BINARY LOGS](show/show-binary-logs.md) to check which files remain.
+
+However, if the replica is not connected and has yet to read from a log file you delete, the file will be deleted, but the replica will be unable to continue replicating once it connects again.
 
 From [MariaDB 11.4.3](https://jira.mariadb.org/browse/MDEV-34504), `PURGE BINARY LOGS` ignores [slave\_connections\_needed\_for\_purge](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#slave_connections_needed_for_purge), the minimum number of connected replicas that [automatic purging](../../../server-management/server-monitoring-logs/binary-log/using-and-maintaining-the-binary-log.md#purging-log-files) requires. In MariaDB 11.4.1 and 11.4.2, `PURGE BINARY LOGS BEFORE` observed that limit while `PURGE BINARY LOGS TO` did not.
 
@@ -31,29 +33,13 @@ The server clears that state when a replica moves on to a new binary log file, o
 
 This statement has no effect if the server was not started with the [--log-bin](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_bin) option to enable binary logging.
 
-{% tabs %}
-{% tab title="Current" %}
 To list the binary log files on the server, use [SHOW BINARY LOGS](show/show-binary-logs.md). To see which files they are reading, use [SHOW REPLICA STATUS](show/show-replica-status.md). You can only delete the files that are older than the oldest file that is used by the slaves.
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-To list the binary log files on the server, use [SHOW BINARY LOGS](show/show-binary-logs.md). To see which files they are reading, use [SHOW SLAVE STATUS](show/show-replica-status.md). You can only delete the files that are older than the oldest file that is used by the slaves.
-{% endtab %}
-{% endtabs %}
 
 To delete all binary log files, use [RESET MASTER](replication-statements/reset-master.md). To move to a new log file (for example if you want to remove the current log file), use [FLUSH LOGS](flush-commands/flush.md) before you execute `PURGE LOGS`.
 
 If the [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) server system variable is not set to 0, the server automatically deletes binary log files after the given number of days. From MariaDB 10.6, the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion, and takes precedence if both are non-zero.
 
-{% tabs %}
-{% tab title="Current" %}
 Requires the [BINLOG ADMIN](../account-management-sql-statements/grant.md#binlog-admin) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-Requires the SUPER privilege.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

@@ -153,7 +153,7 @@ try {
 
 Caches need to be connected to an external storage to store data permanently. When connected, you can read data directly from the external storage if required data is not available in the cache, or write data that was sent to cache into the persistent storage.
 
-Currently, GridGain supports the *JDBC cache store*, which allows to connect a cache and a relational database contents. Support for more storages will be added later.
+GridGain supports the *JDBC cache store*, which allows to connect a cache and a relational database contents.
 
 You can use tuples or POJOs to work with the database. In the examples below we will use the following POJOs:
 
@@ -353,4 +353,4 @@ kvView.put(null, key, value);
 
 The [`cacheWriteBehindParallelOperations`](https://www.gridgain.com/sdk/gridgain9/latest/javadoc/org/apache/ignite/client/ClientCacheConfiguration.html#cacheWriteBehindParallelOperations\(\)) client configuration option defines the maximum number of parallel write behind operations for the cache (1024 by default). If the write-behind queue is full, new tasks will be performed in `SYNC` mode.
 
-Currently, only operations made from GridGain clients are be propagated in asynchronous mode.
+Only operations made from GridGain clients are propagated in asynchronous mode.

@@ -10,6 +10,10 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8:
+{% endhint %}
+
 ```bnf
 CREATE
     [OR REPLACE]
@@ -45,6 +49,10 @@ The `IN OUT` parameter works only in [Oracle mode](create-procedure.md#oracle-mo
 {% endtab %}
 
 {% tab title="< 11.8" %}
+{% hint style="info" %}
+Before MariaDB 11.8:
+{% endhint %}
+
 ```sql
 CREATE
     [OR REPLACE]

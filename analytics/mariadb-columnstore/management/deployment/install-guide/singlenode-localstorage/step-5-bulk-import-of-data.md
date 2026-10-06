@@ -1,5 +1,7 @@
 ---
-description: 'Step 5: Bulk Import of Data'
+description: >-
+  Step 5 of the single-node MariaDB ColumnStore install with local storage:
+  import the schema and bulk-import data into ColumnStore.
 hidden: true
 ---
 

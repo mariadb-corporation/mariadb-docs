@@ -490,7 +490,7 @@ mariadb-backup --backup \
 
 ### `--ftwrl-wait-timeout`
 
-Defines the timeout to wait for queries before trying to acquire the global lock. The global lock refers to `BACKUP STAGE BLOCK_COMMIT`. The global lock refers to `FLUSH TABLES WITH READ LOCK` (FTWRL).
+Defines the timeout to wait for queries before trying to acquire the global lock. The global lock refers to `BACKUP STAGE BLOCK_COMMIT`.
 
 ```bash
 --ftwrl-wait-timeout=#
@@ -512,15 +512,7 @@ mariadb-backup --backup \
 
 The `--ftwrl-wait-timeout` option specifies the maximum time that `mariadb-backup` will wait to obtain the global lock required to begin a consistent backup.
 
-{% tabs %}
-{% tab title="From MariaDB 10.4" %}
-this lock is acquired with **`BACKUP STAGE BLOCK_COMMIT`**.
-{% endtab %}
-
-{% tab title="Before 10.4" %}
-this lock is acquired with **`FLUSH TABLES WITH READ LOCK (FTWRL)`**.
-{% endtab %}
-{% endtabs %}
+This lock is acquired with **`BACKUP STAGE BLOCK_COMMIT`**.
 
 If the lock cannot be obtained within the configured timeout, the backup process fails.
 
@@ -580,6 +572,10 @@ mariadb-backup --backup --galera-info
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
+
 Defines whether you want to track backup history in the `mysql.mariadb_backup_history` table.
 
 ```
@@ -598,6 +594,10 @@ Information is written to `mysql.mariadb_backup_history`.
 {% endtab %}
 
 {% tab title="< 10.11" %}
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
 Defines whether you want to track backup history in the `PERCONA_SCHEMA.xtrabackup_history` table.
 
 ```
@@ -1343,16 +1343,6 @@ Using this option, `mariadb-backup` prints to stdout the MariaDB Server options 
 ```bash
 mariadb-backup --print-param
 ```
-
-### `--rollback-xa`
-
-By default, mariadb-backup will not commit or rollback uncommitted XA transactions, and when the backup is restored, any uncommitted XA transactions must be manually committed using `XA COMMIT` or manually rolled back using `XA ROLLBACK`.
-
-**MariaDB starting with** [**10.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)
-
-mariadb-backup's `--rollback-xa` option is not present because the server has more robust ways of handling uncommitted XA transactions.
-
-This is an experimental option. Do not use this option in older versions. Older implementation can cause corruption of InnoDB data.
 
 ### `--rsync`
 

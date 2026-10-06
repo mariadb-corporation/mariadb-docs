@@ -1,0 +1,1 @@
+["Com_backup_table", "Com_load_master_data", "Com_load_master_table", "Com_restore_table", "Com_show_client_statistics", "Com_show_column_types", "Com_show_index_statistics", "Com_show_table_statistics", "Com_show_user_statistics", "Flush_commands"]

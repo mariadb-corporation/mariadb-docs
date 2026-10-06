@@ -26,7 +26,7 @@ Connecting to a server that doesn't support TLS with the TLS option set, an exce
 
 ### TLS Protocol Version Selection
 
-The MariaDB Java driver by default uses Java's default supported protocols. If the servers are MariaDB on Unix or version >= 10.2, consider adding the TLSv1.2 protocol. This can be set using the "enabledSslProtocolSuites" option (example: enabledSslProtocolSuites=TLSv1.2, TLSv1.3).
+The MariaDB Java driver by default uses Java's default supported protocols. If the servers are MariaDB, consider adding the TLSv1.2 protocol. This can be set using the "enabledSslProtocolSuites" option (example: enabledSslProtocolSuites=TLSv1.2, TLSv1.3).
 
 In addition to the protocol, the driver relies on the Java default cipher list. The Java default enabled ciphers are [listed here](https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SupportedCipherSuites). JAVA allows cipher suites to be removed/excluded from use in the security policy using the Java system property "jdk.tls.disabledAlgorithms." The specific list of ciphers to be used can be set using the "enabledSslCipherSuites" driver option (example: "enabledSSLCipherSuites=TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CBC\_SHA256,...")
 

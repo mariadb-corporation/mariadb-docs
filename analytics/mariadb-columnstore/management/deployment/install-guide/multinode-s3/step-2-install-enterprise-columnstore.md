@@ -1,5 +1,8 @@
 ---
-description: 'Step 2: Install ColumnStore'
+description: >-
+  Step 2 of the multi-node MariaDB ColumnStore install with object storage:
+  retrieve a download token, set up the repository, and install Enterprise
+  Server and ColumnStore.
 hidden: true
 ---
 

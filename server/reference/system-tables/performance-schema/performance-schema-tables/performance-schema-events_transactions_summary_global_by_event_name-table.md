@@ -6,10 +6,6 @@ description: >-
 
 # Performance Schema events\_transactions\_summary\_global\_by\_event\_name Table
 
-{% hint style="info" %}
-The `events_transactions_summary_global_by_event_name` table is available from MariaDB 10.5.2.
-{% endhint %}
-
 The `events_transactions_summary_global_by_event_name` table contains information on transaction events aggregated by event name.
 
 The table contains the following columns:

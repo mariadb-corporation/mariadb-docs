@@ -136,15 +136,7 @@ XA PREPARE xid
 
 `XA PREPARE` prepares an `IDLE` transaction for commit, changing its state to `PREPARED`. Prepared transactions are stored persistently and will survive disconnects and server crashes, and must be explicitly committed or rolled back.
 
-{% tabs %}
-{% tab title="Current" %}
 Prepared transactions were automatically rolled back on client disconnect, but were not rolled back if the server was crashed or killed. This violated XA guarantees and could have caused inconsistent data, if the transaction in question was already irrevocably committed in another XA participant.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-Prepared transactions are automatically rolled back on client disconnect, but are not rolled back if the server was crashed or killed. This violated XA guarantees and can cause inconsistent data, if the transaction in question was already irrevocably committed in another XA participant.
-{% endtab %}
-{% endtabs %}
 
 ### XA COMMIT
 
@@ -259,7 +251,7 @@ See [Transaction Coordinator Log Overview: MariaDB Galera Cluster](../../../serv
 ### Incompatibility with XA behavior
 
 {% hint style="warning" %}
-From MariaDB 10.5, `XA PREPARE` persists the XA transaction following the XA Specification. If an existing application relies on the previous behavior, upgrading to 10.5 or later can leave XA transactions in the `PREPARE`d state indefinitely after disconnect, causing such applications to no longer function correctly.
+`XA PREPARE` persists the XA transaction following the XA Specification. If an application disconnects after `XA PREPARE`, the XA transaction stays in the `PREPARE`d state until it is committed or rolled back, and does not roll back automatically.
 {% endhint %}
 
 If rollback-at-disconnect is desired, it is better to use a normal (non-XA) transaction rather than XA.

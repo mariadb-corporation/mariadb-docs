@@ -7,7 +7,7 @@
 The Avrorouter was deprecated in MaxScale 25.01 and will be removed
 in the next major release. [KafkaCDC](mariadb-maxscale-2501-maxscale-2501-kafkacdc.md) can be used instead.
 
-The avrorouter is a MariaDB 10.0 binary log to Avro file converter. It consumes
+The avrorouter is a MariaDB binary log to Avro file converter. It consumes
 binary logs from a local directory and transforms them into a set of Avro files.\
 These files can then be queried by clients for various purposes.
 

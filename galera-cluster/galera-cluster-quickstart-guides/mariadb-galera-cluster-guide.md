@@ -41,7 +41,7 @@ sudo apt update
 **b. Install MariaDB Server and Galera:**
 
 ```bash
-sudo apt install mariadb-server mariadb-client galera-4 -y # For MariaDB 10.4+ or later, galera-4 is the provider.
+sudo apt install mariadb-server mariadb-client galera-4 -y # galera-4 is the Galera provider.
                                                            # For older versions (e.g., 10.3), use galera-3.
 ```
 

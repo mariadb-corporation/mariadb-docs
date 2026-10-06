@@ -8,7 +8,7 @@ MariaDB 10.5 is no longer maintained. Please use a [more recent release](../../.
 
 ## Upgrading
 
-* See [Upgrading Between Major MariaDB Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/platform-specific-upgrade-guides/upgrading-on-linux/upgrading-between-major-mariadb-versions) and [Upgrading from MariaDB 10.4 to MariaDB 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-4-to-mariadb-10-5).
+* See [Upgrading Between Major MariaDB Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/platform-specific-upgrade-guides/upgrading-on-linux/upgrading-between-major-mariadb-versions) and Upgrading from MariaDB 10.4 to MariaDB 10.5.
 
 ## Implemented Features
 
@@ -83,27 +83,27 @@ See the [Differences in MariaDB Enterprise Server 10.5](../../../enterprise-serv
 
 #### InnoDB Removed or Deprecated Variables
 
-* [innodb\_buffer\_pool\_instances](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_buffer_pool_instances)
-* [innodb\_checksums](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_checksums) ([MDEV-19534](https://jira.mariadb.org/browse/MDEV-19534))
-* [innodb\_locks\_unsafe\_for\_binlog](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_locks_unsafe_for_binlog) ([MDEV-19544](https://jira.mariadb.org/browse/MDEV-19544))
-* [innodb\_log\_checksums](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_log_checksums) ([MDEV-19543](https://jira.mariadb.org/browse/MDEV-19543))
-* [innodb\_log\_files\_in\_group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_log_files_in_group) ([MDEV-14425](https://jira.mariadb.org/browse/MDEV-14425) & [MDEV-20907](https://jira.mariadb.org/browse/MDEV-20907))
-* [innodb\_log\_optimize\_ddl](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_page_cleaners) ([MDEV-19747](https://jira.mariadb.org/browse/MDEV-19747))
-* [innodb\_rollback\_segments](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_rollback_segments) ([MDEV-19570](https://jira.mariadb.org/browse/MDEV-19570))
-* [innodb\_scrub\_log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_scrub_log) and [innodb\_scrub\_log\_speed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_scrub_log_speed) ([MDEV-21870](https://jira.mariadb.org/browse/MDEV-21870))
-* Remove [INFORMATION\_SCHEMA.INNODB\_TABLESPACES\_SCRUBBING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_scrubbing-table) table and deprecate and ignore:
-* [innodb-background-scrub-data-uncompressed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_background_scrub_data_uncompressed)
-* [innodb-background-scrub-data-compressed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_background_scrub_data_compressed)
-* [innodb-background-scrub-data-interval](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_background_scrub_data_interval)
-* [innodb-background-scrub-data-check-interval](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_background_scrub_data_check_interval) ([MDEV-15528](https://jira.mariadb.org/browse/MDEV-15528))
-* [innodb\_stats\_sample\_pages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_stats_sample_pages) ([MDEV-19551](https://jira.mariadb.org/browse/MDEV-19551))
-* [innodb\_undo\_logs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_undo_logs) ([MDEV-19570](https://jira.mariadb.org/browse/MDEV-19570))
-* [innodb\_thread\_concurrency](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_thread_concurrency)
-* [innodb\_commit\_concurrency](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_commit_concurrency)
-* [innodb\_replication\_delay](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_replication_delay)
-* [innodb\_concurrency\_tickets](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_concurrency_tickets)
-* [innodb\_thread\_sleep\_delay](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_thread_sleep_delay)
-* [innodb\_adaptive\_max\_sleep\_delay](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_adaptive_max_sleep_delay) ([MDEV-23379](https://jira.mariadb.org/browse/MDEV-23379))
+* innodb\_buffer\_pool\_instances
+* innodb\_checksums ([MDEV-19534](https://jira.mariadb.org/browse/MDEV-19534))
+* innodb\_locks\_unsafe\_for\_binlog ([MDEV-19544](https://jira.mariadb.org/browse/MDEV-19544))
+* innodb\_log\_checksums ([MDEV-19543](https://jira.mariadb.org/browse/MDEV-19543))
+* innodb\_log\_files\_in\_group ([MDEV-14425](https://jira.mariadb.org/browse/MDEV-14425) & [MDEV-20907](https://jira.mariadb.org/browse/MDEV-20907))
+* innodb\_log\_optimize\_ddl ([MDEV-19747](https://jira.mariadb.org/browse/MDEV-19747))
+* innodb\_rollback\_segments ([MDEV-19570](https://jira.mariadb.org/browse/MDEV-19570))
+* innodb\_scrub\_log and innodb\_scrub\_log\_speed ([MDEV-21870](https://jira.mariadb.org/browse/MDEV-21870))
+* Remove INFORMATION\_SCHEMA.INNODB\_TABLESPACES\_SCRUBBING table and deprecate and ignore:
+* innodb-background-scrub-data-uncompressed
+* innodb-background-scrub-data-compressed
+* innodb-background-scrub-data-interval
+* innodb-background-scrub-data-check-interval ([MDEV-15528](https://jira.mariadb.org/browse/MDEV-15528))
+* innodb\_stats\_sample\_pages ([MDEV-19551](https://jira.mariadb.org/browse/MDEV-19551))
+* innodb\_undo\_logs ([MDEV-19570](https://jira.mariadb.org/browse/MDEV-19570))
+* innodb\_thread\_concurrency
+* innodb\_commit\_concurrency
+* innodb\_replication\_delay
+* innodb\_concurrency\_tickets
+* innodb\_thread\_sleep\_delay
+* innodb\_adaptive\_max\_sleep\_delay ([MDEV-23379](https://jira.mariadb.org/browse/MDEV-23379))
 
 ### Performance Schema Updates to Match MySQL 5.7 Instrumentation and Tables
 
@@ -206,9 +206,9 @@ See the [Differences in MariaDB Enterprise Server 10.5](../../../enterprise-serv
 * The [Information Schema SYSTEM\_VARIABLES Table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-system_variables-table) has a new column showing from which config file a variable derives its value ([MDEV-12684](https://jira.mariadb.org/browse/MDEV-12684)).
 * Columns that use the [old temporal format](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/datetime#internal-format) (created with a pre-10.0 version of MariaDB) are now marked with a `/* mariadb-5.3 */` comment in `SHOW CREATE TABLE`, `DESCRIBE` and `INFORMATION_SCHEMA.COLUMNS`. This is the behavior of MySQL 5.6's `show_old_temporals`, but MariaDB always shows the comment, with no variable to control it ([MDEV-19906](https://jira.mariadb.org/browse/MDEV-19906)).
 * Numerous deprecated variables removed ([MDEV-18650](https://jira.mariadb.org/browse/MDEV-18650))
-  * [multi\_range\_count](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#multi_range_count)
-  * [thread\_concurrency](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#thread_concurrency)
-  * [timed\_mutexes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#timed_mutexes)
+  * multi\_range\_count
+  * thread\_concurrency
+  * timed\_mutexes
 
 ## Security Vulnerabilities Fixed in [MariaDB 10.5](what-is-mariadb-105.md)
 

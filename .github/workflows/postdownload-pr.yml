@@ -1,0 +1,168 @@
+name: Check Post Download Pages in PR
+
+# Gates the `no-standalone:` acknowledgment register: the signal that says a connector release
+# legitimately has NO platform/post-download/ page, because that version shipped only inside a
+# Server release and no standalone package was ever published. There is no download for a reader
+# to land on, so there is no page to write.
+#
+# WHY THE SIGNAL NEEDS A GATE OF ITS OWN
+#   DOCS-6408 proposes requiring a Post Download page whenever a PR adds connector release notes.
+#   That check, as specified, would have blocked PR #1011 -- Connector/C 3.3.20 and 3.4.10, both
+#   correct, both with no standalone package. So the gate needs an exemption, and an exemption
+#   nothing verifies is not a signal, it is a comment. This workflow is what verifies it.
+#
+# WHY A REGISTER ENTRY AND NOT PAGE FRONTMATTER
+#   Decided on DOCS-6734 after checking both. GitBook's frontmatter set is closed (description,
+#   icon, hidden, vars, if, layout), so a bare `standalone: false` is not something GitBook
+#   promises to preserve, and the sanctioned `vars:` escape hatch is used by no page in this repo
+#   -- its survival across a web-app round-trip is unproven, and the web app is already known to
+#   silently drop what it does not model (GITBOOK-1636 deleted HTML comments). An exemption that
+#   someone can switch off by editing prose in a browser is worse than none. `.claude/` is not a
+#   GitBook space and never syncs, so a register entry cannot be touched that way.
+#
+#   The prose sentence on the page stays -- it is what tells a READER why there is no download
+#   link. It is not the signal, and cannot be: of the 67 connector releases with no Post Download
+#   page, two carry such a sentence and the two are worded differently from each other.
+#
+# WHAT THIS GATES TODAY, AND WHAT IT DOES NOT
+#   Today: the register audits itself. An entry whose page is gone, whose release has since
+#   gained a Post Download page, or which names something that could never need one (a changelog,
+#   a landing page, a product with no Post Download pages) fails. That is self-pruning in both
+#   directions -- unlike the `shrink:` section, which has no "un-shrink" signal.
+#
+#   NOT yet: the other direction, that a newly added release notes page HAS its Post Download
+#   page. That is DOCS-6408's gate; it needs changed-files plumbing, and it belongs in this
+#   workflow and postdownload.py when it lands rather than in a new pair. It cannot be run
+#   tree-wide -- 67 existing releases would fail it, and the backlog is a mix of pages predating
+#   the system (Connector/J 1.1.x is from 2013) and untriaged gaps.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+# A second push supersedes the first.
+concurrency:
+  group: postdownload-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  postdownload:
+    runs-on: ubuntu-latest
+    # Milliseconds -- it stats one file per register entry. 10 minutes is headroom for the
+    # checkout; without an explicit timeout the job inherits the 6-hour default, and a wedged run
+    # would end as *cancelled*, which `if: failure()` does not catch.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        # No fetch-depth. The audit is absolute -- it asks only what exists in the working tree.
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          # postdownload.py and allowlist.py are standard library only, so this pins the
+          # interpreter rather than installing anything.
+          python-version: '3.12'
+
+      # Its own step, and before the audit, so a malformed register is reported as a register
+      # problem rather than surfacing as whatever the audit happens to do next. Same shape as
+      # shrinkcheck-pr.yml and navcheck-pr.yml.
+      - name: Validate the acknowledgment register
+        run: |
+          set -uo pipefail
+          set +e
+          python3 .claude/hooks/allowlist.py validate
+          rc=$?
+          set -e
+          if [[ "$rc" != "0" ]]; then
+            echo "::error::.claude/hooks/doc-lint-allow.yml is malformed -- see the message above for the line. The accepted shape is in .claude/hooks/allowlist.py's header."
+            exit "$rc"
+          fi
+
+      - name: Audit the no-standalone register
+        id: postdownload
+        run: |
+          set -uo pipefail
+          # Findings go to stderr, the counts line to stdout; capture both in order so the run
+          # summary reads the way a local run does.
+          set +e
+          python3 .claude/hooks/postdownload.py audit > postdownload.log 2>&1
+          rc=$?
+          set -e
+          cat postdownload.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          case "$rc" in
+            0) ;;
+            1) echo "::error::An entry in the no-standalone section of .claude/hooks/doc-lint-allow.yml no longer records something true -- its page is gone, its release has since gained a Post Download page, or it names something that could never need one. The register is meant to prune itself at the point someone forgets. Details in the job log and the run summary." ;;
+            2) echo "::error::postdownload.py rejected its arguments, or could not read the acknowledgment register -- this workflow or that file is at fault, not necessarily the PR." ;;
+            *) echo "::error::postdownload.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      # The gate has to be able to prove it looked at something. postdownload.py SKIPs and exits
+      # zero when platform/post-download/ is absent, so a renamed space directory would read as
+      # success. An EMPTY register is legitimate, though -- every exemption may genuinely have
+      # been retired -- so the assertion here is on the SKIP and on the summary line being
+      # present at all, not on a nonzero entry count.
+      - name: Assert the audit was not vacuous
+        if: steps.postdownload.outputs.rc == '0'
+        run: |
+          set -euo pipefail
+          if grep -q 'SKIPPED' postdownload.log; then
+            cat postdownload.log
+            echo "::error::postdownload found no platform/post-download/ directory and SKIPPED, in a checkout that must contain one. A space directory has been renamed or moved, not the PR's pages -- and a pass here would mean nothing."
+            exit 1
+          fi
+          if ! grep -qE '^postdownload: [0-9]+ no-standalone entr(y|ies) audited' postdownload.log; then
+            cat postdownload.log
+            echo "::error::Could not read the audited-entry count out of postdownload's output. Either the summary line changed shape (update this assertion with it) or the script never got to print it."
+            exit 1
+          fi
+          echo "Register audited: $(cat postdownload.log)"
+
+      - name: Record the result in the run summary
+        # always(): the default is an implicit success(), which would skip exactly the runs worth
+        # recording.
+        if: always()
+        env:
+          RC: ${{ steps.postdownload.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Post Download register check"
+            echo
+            if [[ ! -s postdownload.log ]]; then
+              echo "No output was produced -- an earlier step failed before the audit ran."
+            else
+              case "${RC:-}" in
+                0) echo "Every \`no-standalone:\` acknowledgment still records something true." ;;
+                1) echo "An acknowledgment has gone stale. If the release now has a Post Download page, or its notes were removed, delete the entry -- the register prunes itself at the point someone forgets rather than piling up entries nobody dares remove." ;;
+                *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              # Fenced, and with four backticks. This summary is a GFM rendering surface and the
+              # output embeds paths and reasons from the register, which are author-controlled:
+              # unfenced, a crafted path could forge a heading, plant a link, or open an HTML
+              # comment that swallows the rest of the page. Four backticks so content containing
+              # three cannot close the fence. Same reasoning as includecheck-pr.yml.
+              echo '````text'
+              cat postdownload.log
+              echo '````'
+              echo
+              echo "Run the same audit locally with:"
+              echo
+              echo '````bash'
+              echo "python3 .claude/hooks/postdownload.py audit"
+              echo '````'
+              echo
+              echo "To see which Post Download page a release-notes page maps to:"
+              echo
+              echo '````bash'
+              echo "python3 .claude/hooks/postdownload.py path release-notes/connectors/c/3.4/3.4.11.md"
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -55,7 +55,7 @@ Explains how to lock and unlock user accounts using CREATE USER and ALTER USER s
 {% endcolumn %}
 
 {% column %}
-Details the authentication changes introduced in MariaDB 10.4, including multiple authentication plugins per user, the mysql.global_priv table, and the default unix_socket authentication for root.
+Describes MariaDB authentication, including multiple authentication plugins per user, the mysql.global_priv table, and the default unix_socket authentication for root.
 {% endcolumn %}
 {% endcolumns %}
 

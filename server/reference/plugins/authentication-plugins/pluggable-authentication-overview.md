@@ -36,7 +36,7 @@ MariaDB provides nine server-side authentication plugins:
 * [unix\_socket](authentication-plugin-unix-socket.md) (Unix only)
 * [named\_pipe](authentication-plugin-named-pipe.md) (Windows only)
 * [PARSEC](authentication-plugin-parsec.md) (from MariaDB Community Server 11.6 and MariaDB Enterprise Server 11.8)
-* [caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) (from MariaDB Community Server 12.1 and MariaDB Enterprise Server 11.8)
+* [caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) (from MariaDB Community Server 11.4.9 / 11.8.4 / 12.1 and MariaDB Enterprise Server 10.6.24-20 / 11.4.9-6 / 11.8.3-1)
 
 ### Supported Client Authentication Plugins
 
@@ -367,14 +367,14 @@ This plugin is available from MariaDB Community Server 11.6 and MariaDB Enterpri
 
 The [caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) authentication plugin provides MySQL-compatible authentication and allows users to be moved from MySQL to MariaDB without changing their passwords. It is intended primarily as a migration aid; for new accounts the more secure [PARSEC](authentication-plugin-parsec.md) authentication plugin is recommended.
 
-This plugin is available from MariaDB Community Server 12.1 and MariaDB Enterprise Server 11.8, and is not installed by default — see [Authentication Plugin - caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) for installation instructions.
+This plugin is available from MariaDB Community Server 11.4.9 / 11.8.4 / 12.1 and MariaDB Enterprise Server 10.6.24-20 / 11.4.9-6 / 11.8.3-1, and is not installed by default — see [Authentication Plugin - caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) for installation instructions.
 
 ## See Also
 
 * [GRANT](../../sql-statements/account-management-sql-statements/grant.md)
 * [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md)
 * [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md)
-* [Authentication from MariaDB 10.4](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
+* [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
 * [Who are you? The history of MySQL and MariaDB authentication protocols from 1997 to 2017](https://mariadb.org/history-of-mysql-mariadb-authentication-protocols/)
 * [MySQL 5.6 Reference Manual: Pluggable Authentication](https://dev.mysql.com/doc/refman/5.6/en/pluggable-authentication.html)
 * [MySQL 5.6 Reference Manual: Writing Authentication Plugins](https://dev.mysql.com/doc/refman/5.6/en/writing-authentication-plugins.html)

@@ -19,11 +19,11 @@ The key differentiator between a Fusion-io and a legacy SSD/HDD is the following
 3. In some cases, Fusion-io devices allow for atomic writes, which allows the server to safely disable the [doublewrite buffer](../../../../../server-usage/storage-engines/innodb/innodb-doublewrite-buffer.md).
 4. Use ioDrive as a write-through read cache. This is possible on server level with Fusion-io directCache software or in VMware environments using ioTurbine software or the ioCache bundle product. Reads happen from ioDrive and all writes go directly to your SAN or disk.
 5. Highly Available shared storage with ION. Have two different hosts, Fusion-io cards in them and share/replicate data with Fusion-io's ION software.
-6. The luxurious Platinum setup: [MariaDB Galera Cluster](https://kb.askmonty.org/en/what-is-mariadb-galera-cluster/) running on Fusion-io SLC cards on several hosts.
+6. The luxurious Platinum setup: [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide) running on Fusion-io SLC cards on several hosts.
 
 ## Atomic Writes
 
-Starting with [MariaDB 5.5.31](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.31), MariaDB Server supports atomic writes on Fusion-io devices that use the NVMFS (formerly called DirectFS) file system. Unfortunately, NVMFS was never offered under ‘General Availability’, and SanDisk declared that NVMFS would reach end-of-life in December 2015. Therefore, NVMFS support is no longer offered by SanDisk.
+MariaDB Server supports atomic writes on Fusion-io devices that use the NVMFS (formerly called DirectFS) file system. Unfortunately, NVMFS was never offered under ‘General Availability’, and SanDisk declared that NVMFS would reach end-of-life in December 2015. Therefore, NVMFS support is no longer offered by SanDisk.
 
 MariaDB Server does not support atomic writes on Fusion-io devices with any other file systems.
 

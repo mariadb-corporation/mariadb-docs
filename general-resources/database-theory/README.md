@@ -1,5 +1,8 @@
 ---
-description: Move up a level
+description: >-
+  Database theory for MariaDB users: relational concepts, keys, views, and
+  normalization, and how the relational model compares with the hierarchical and
+  network models before it.
 ---
 
 # Database Theory

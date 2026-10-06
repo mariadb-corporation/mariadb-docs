@@ -18,8 +18,6 @@ ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction
 
 If the [metadata\_lock\_info](../../plugins/other-plugins/metadata-lock-info-plugin.md) plugin is installed, the [Information Schema](../../system-tables/information-schema/) [metadata\_lock\_info](../../system-tables/information-schema/information-schema-tables/information-schema-metadata_lock_info-table.md) table stores information about existing metadata locks.
 
-{% tabs %}
-{% tab title="Current" %}
 The [Performance Schema metadata\_locks](../../system-tables/performance-schema/performance-schema-tables/performance-schema-metadata_locks-table.md) table contains metadata lock information.
 
 **Example**
@@ -58,12 +56,6 @@ COMMIT;
 Query OK, 1 row affected (35.23 sec)
 Records: 1  Duplicates: 0  Warnings: 0
 ```
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-The [Performance Schema metadata\_locks](../../system-tables/performance-schema/performance-schema-tables/performance-schema-metadata_locks-table.md) table does **not** contain metadata lock information.
-{% endtab %}
-{% endtabs %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

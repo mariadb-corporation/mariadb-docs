@@ -1,14 +1,14 @@
 ---
 description: >-
-  Describes how to configure MariaDB to automatically write the `EXPLAIN` plan
-  for slow queries to the log using the `log_slow_verbosity` system variable.
+  Describes how to configure MariaDB to automatically write the EXPLAIN plan
+  for slow queries to the log using the log_slow_verbosity system variable.
 ---
 
 # EXPLAIN in the Slow Query Log
 
-### Additional Columns in MariaDB 10.1 and Later
+### Additional Columns
 
-Starting from MariaDB 10.1.0, the `EXPLAIN` output in the slow query log includes two additional columns: `r_rows` and `r_filtered`
+The `EXPLAIN` output in the slow query log includes two additional columns: `r_rows` and `r_filtered`
 
 When a user manually executes the standard `EXPLAIN` statement, these columns are not displayed. Instead, they come from the `ANALYZE` statement, which runs the query and returns actual runtime statistics.
 

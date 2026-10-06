@@ -10,6 +10,7 @@ description: A list of all MariaDB Connector/C releases
 
 | Release               | Release Date | Release Status |
 | --------------------- | ------------ | -------------- |
+| [3.4.11](3.4/3.4.11.md) | 2026-09-29   | Stable (GA)    |
 | [3.4.10](3.4/3.4.10.md) | 2026-08-24   | Stable (GA)    |
 | [3.4.9](3.4/3.4.9.md) | 2026-06-10   | Stable (GA)    |
 | [3.4.8](3.4/3.4.8.md) | 2025-11-21   | Stable (GA)    |
@@ -24,6 +25,7 @@ description: A list of all MariaDB Connector/C releases
 
 | Release                 | Release Date | Release Status |
 | ----------------------- | ------------ | -------------- |
+| [3.3.21](3.3/3.3.21.md) | 2026-09-29   | Stable (GA)    |
 | [3.3.20](3.3/3.3.20.md) | 2026-08-13   | Stable (GA)    |
 | [3.3.19](3.3/3.3.19.md) | 2026-06-10   | Stable (GA)    |
 | [3.3.18](3.3/3.3.18.md) | 2025-11-21   | Stable (GA)    |

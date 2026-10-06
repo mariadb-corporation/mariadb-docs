@@ -1,6 +1,6 @@
 # MariaDB 5.1.38 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.38) | [Release Notes](../../old-releases/5.1/5.1.38.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
+[Download](https://archive.mariadb.org/mariadb-5.1.38/) | [Release Notes](../../old-releases/5.1/5.1.38.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 29 Oct 2009
 
@@ -25,7 +25,7 @@ and bug fixes:
   plugin version 1.0.3, with enhancements. XtraDB is developed by Percona.
 * Performance improvements for common cases of character set conversion. See [Character Sets and Collations](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets/supported-character-sets-and-collations) for a list of
   the character sets and collations included with MariaDB.
-* [Pool-of-threads](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb-51-53), allowing to map a high number of simultaneous connections
+* Pool-of-threads, allowing to map a high number of simultaneous connections
   onto a lower number of operating system treads, to reduce overhead with using
   large number of threads.
 * New handler call prepare\_index\_scan() and other small improvements to the

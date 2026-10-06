@@ -29,7 +29,7 @@ Command arguments:
 | name |  | The name the CDC source. This name will be used to reference it. |
 | type |  | Data source type. Supported values: `gridgain`; `mssql` (experimental, requires `--experimental`). |
 | tables |  | Comma-separated list of tables that will be replicated. |
-| parameters |  | Optional additional parameters. Currently, the following parameters are supported:<br>- page-size - the size of each page sent via replication.<br>- poll-interval - the interval at which GridGain checks for updates in source tables. |
+| parameters |  | Optional additional parameters. The following parameters are supported:<br>- page-size - the size of each page sent via replication.<br>- poll-interval - the interval at which GridGain checks for updates in source tables. |
 | experimental | false | Optional. Enables experimental source types, such as `mssql`. Creating or updating a source with an experimental type fails unless this flag is set. |
 
 Below is an example of a CDC data source:

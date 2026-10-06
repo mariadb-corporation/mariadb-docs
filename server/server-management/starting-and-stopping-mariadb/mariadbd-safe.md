@@ -1,6 +1,6 @@
 ---
 description: >-
-  Details the `mariadbd-safe` wrapper script, which adds safety features like
+  Details the mariadbd-safe wrapper script, which adds safety features like
   auto-restart upon crash and error logging to syslog.
 ---
 
@@ -86,7 +86,7 @@ The following options relate to how MariaDB command-line tools handles option fi
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | \[mysqld\_safe]  | Options read by mysqld\_safe, which includes both MariaDB Server and MySQL Server.                                                                                                            |
 | \[safe\_mysqld]  | Options read by mysqld\_safe, which includes both MariaDB Server and MySQL Server.                                                                                                            |
-| \[mariadbd-safe] | Options read by mariadbd\_safe\_safe from MariaDB Server. Available starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.6). |
+| \[mariadbd-safe] | Options read by mariadbd\_safe\_safe from MariaDB Server. |
 | \[mariadb-safe]  | Options read by mysqld\_safe from MariaDB Server. Deprecated, please avoid using this.                                                                                                        |
 
 The `[safe_mariadbd]` option group is primarily supported for backward compatibility. You should rename such option groups to `[mariadbd-safe]` in MariaDB installations to prevent breakage if this compatibility is removed.
@@ -97,7 +97,7 @@ The `[safe_mariadbd]` option group is primarily supported for backward compatibi
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | \[mysqld]        | Options read by mysqld, which includes both MariaDB Server and MySQL Server.                                                                                                                                            |
 | \[server]        | Options read by MariaDB Server.                                                                                                                                                                                         |
-| \[mysqld-X.Y]    | Options read by a specific version of mysqld, which includes both MariaDB Server and MySQL Server. For example, \[mysqld-5.5].                                                                                          |
+| \[mysqld-X.Y]    | Options read by a specific version of mysqld, which includes both MariaDB Server and MySQL Server. For example, \[mysqld-10.6].                                                                                          |
 | \[mariadb]       | Options read by MariaDB Server.                                                                                                                                                                                         |
 | \[mariadb-X.Y]   | Options read by a specific version of MariaDB Server.                                                                                                                                                                   |
 | \[client-server] | Options read by all MariaDB [client programs](../../clients-and-utilities/mariadb-client/) and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |

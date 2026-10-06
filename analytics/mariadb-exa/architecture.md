@@ -1,8 +1,8 @@
 ---
 description: >-
-  MariaDB Exa architecture: MaxScale routes reads and writes while MaxScale CDC
-  (binlogrouter) tails the MariaDB binary log and bulk-loads changes into Exasol
-  for near real-time analytics on operational data.
+  MariaDB Exa architecture: MaxScale routes reads and writes, while MaxScale CDC
+  (binlogrouter) tails the binary log and bulk-loads changes into Exasol for
+  near real-time analytics.
 icon: house-blank
 ---
 

@@ -15,9 +15,7 @@ MariaDB supports the following types of replication:
 * Semi-synchronous replication.
 * Galera Cluster.
 
-**MariaDB starting with** [**10.5.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)
-
-Note: in the snippets in this page, several SQL statements use the keyword `SLAVE`. This word is considered inappropriate by some persons or cultures, so from [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) it is possible to use the `REPLICA` keyword, as a synonym.\
+Note: in the snippets in this page, several SQL statements use the keyword `SLAVE`. This word is considered inappropriate by some persons or cultures, so it is possible to use the `REPLICA` keyword, as a synonym.\
 Similar synonyms for status variables and system variables are tracked in [MDEV-18777](https://jira.mariadb.org/browse/MDEV-18777).
 
 ## Asynchronous Replication
@@ -32,7 +30,7 @@ The events can be written in two formats: as an SQL statement (_statement-based 
 
 For more details on replication formats, see [binary log formats](../../../server-monitoring-logs/binary-log/binary-log-formats.md).
 
-The replicas have an [I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-i-o-thread) that receives the binary log events and writes them to the [relay log](../../../server-monitoring-logs/binary-log/relay-log.md). These events are then read by the [SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread). This thread could directly apply the changes to the local databases, and this was the only option before [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.5). If [parallel replication](mariadb-replication-overview-for-sql-server-users.md#parallel-replication-and-group-commit) is enabled, the SQL thread hands the events to the worker thread, that apply them to the databases. The latter method is recommended for performance reasons.
+The replicas have an [I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-i-o-thread) that receives the binary log events and writes them to the [relay log](../../../server-monitoring-logs/binary-log/relay-log.md). These events are then read by the [SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread). This thread can apply the changes directly to the local databases. If [parallel replication](mariadb-replication-overview-for-sql-server-users.md#parallel-replication-and-group-commit) is enabled, the SQL thread hands the events to the worker thread, that apply them to the databases. The latter method is recommended for performance reasons.
 
 When a replica cannot apply an event to the local data, the SQL thread stops. This happens, for example, if the event is a row deletion but that row doesn't exist on the replica. There can be several reasons for this, for example non-deterministic statements, or a user deleted the row in the replica. To reduce the risk, it is recommended to set [read\_only](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) to 1 in the replicas.
 
@@ -56,7 +54,7 @@ To easily find out how far the replica is lagging behind the primary, we can loo
 
 Coordinates represented in this way have a problem: they are different on each server. Each server can use files with different (or the same) names, depending on its configuration. And files can be rotated at different times, including when a user runs [FLUSH LOGS](../../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md). By enabling the GTID (global transaction id) an event will have the same id on the primary and on all the replicas.
 
-When [GTID](../../../../ha-and-performance/standard-replication/gtid.md) is enabled, `SHOW SLAVE STATUS` shows two GTIDs: `Gtid_IO_Pos` is the last event written into the relay log, and `Gtid_Slave_Pos` is the last event applied by the SQL thread. There is no need for a column identifying the same event in the primary, because the id is the same.
+When [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) is enabled, `SHOW SLAVE STATUS` shows two GTIDs: `Gtid_IO_Pos` is the last event written into the relay log, and `Gtid_Slave_Pos` is the last event applied by the SQL thread. There is no need for a column identifying the same event in the primary, because the id is the same.
 
 ### Provisioning a Replica
 
@@ -86,7 +84,7 @@ See [Setting Up Replication](../../../../ha-and-performance/standard-replication
 
 MariaDB uses [group commit](../../../server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md), which means that a group of events are physically written in the binary log altogether. This reduces the number of IOPS (input/output operations per second). Group commit cannot be disabled, but it can be tuned with variables like [binlog\_commit\_wait\_count](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_commit_wait_count) and [binlog\_commit\_wait\_usec](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_commit_wait_usec).
 
-Replicas can apply the changes using multiple threads. This is known as [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md). Before [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.5) only one thread was used to apply changes. Since a primary can use many threads to write data, mono-thread replication is a well-known bottleneck. Parallel replication is not enabled by default. To use it, set the [slave\_parallel\_threads](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#slave_parallel_threads) variable to a number greater than 1. If replication is running, the replica threads must be stopped in order to change this value:
+Replicas can apply the changes using multiple threads. This is known as [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md). Since a primary can use many threads to write data, mono-thread replication is a well-known bottleneck. Parallel replication is not enabled by default. To use it, set the [slave\_parallel\_threads](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#slave_parallel_threads) variable to a number greater than 1. If replication is running, the replica threads must be stopped in order to change this value:
 
 ```sql
 STOP SLAVE SQL_THREAD;
@@ -104,7 +102,7 @@ There are different parallel replication styles available: in-order and out-of-o
 
 `minimal` applies commits together, but all other events are applied in order.
 
-Out-of-order replication cannot be enabled automatically by changing a variable in the replica. Instead, it must be enabled by the applications that run transactions in the primary. They can do this if the GTID is enabled. They can set different values for the [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) variable in different transactions. This shifts a lot of responsibility to the application layer; however, if the application is aware of which transactions are not going to conflict and this information allows one to sensibly increase the parallelism, and using out-of-order replication can be a good idea.
+Out-of-order replication cannot be enabled automatically by changing a variable in the replica. Instead, it must be enabled by the applications that run transactions in the primary. They can do this if the GTID is enabled. They can set different values for the [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_domain_id) variable in different transactions. This shifts a lot of responsibility to the application layer; however, if the application is aware of which transactions are not going to conflict and this information allows one to sensibly increase the parallelism, and using out-of-order replication can be a good idea.
 
 Even if out-of-order replication is not normally used, it can be a good idea to use it for long running transactions or [ALTER TABLEs](../../../../reference/sql-statements/data-definition/alter/alter-table/), so they can be applied at the same time as normal operations that are not conflicting.
 
@@ -126,7 +124,7 @@ An open source third party tool is available to check if the primary and a repli
 
 If a replication outage occurs because an inconsistency is found, sometimes we want to quickly bring the replica up again as quickly as possible, and solve the core problem later. If GTID is not used, a way to do this is to run [SET GLOBAL SQL\_SLAVE\_SKIP\_COUNTER = 1](../../../../reference/sql-statements/administrative-sql-statements/replication-statements/set-global-sql_slave_skip_counter.md), which skips the problematic replication event.
 
-If GTID is used, the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) variable can be used instead. See the link for an explanation of how it works.
+If GTID is used, the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos) variable can be used instead. See the link for an explanation of how it works.
 
 There are ways to have different data on the replicas. For example:
 
@@ -186,7 +184,7 @@ See Sveta Smirnova's slides at MariaDB Day 2020: "[How Safe is Asynchronous Mast
 
 ## Semi-Synchronous Replication
 
-Semi-synchronous replication was initially implemented as a plugin, in MySQL. Two different plugins needed to be used, one on the primary and the other on the replicas. Starting from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3) it is built-in, which improved its performance.
+Semi-synchronous replication was initially implemented as a plugin, in MySQL. Two different plugins needed to be used, one on the primary and the other on the replicas. In MariaDB it is built in, which improves its performance.
 
 The problem with standard replication is that there is no guarantee that it will not lag, even by long amounts of time. [Semi-synchronous replication](../../../../ha-and-performance/standard-replication/semisynchronous-replication.md) reduces this problem, at the cost of reducing the speed of the primary.
 
@@ -275,7 +273,7 @@ Flow control and the receive queue can and should be monitored. The most useful 
 
 ### Configuration
 
-Galera is implemented as a plugin. Starting from version 10.1, MariaDB comes with Galera pre-installed, but not in use by default. To enable it one has to set the [wsrep\_on](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_on) system variable.
+Galera is implemented as a plugin. MariaDB comes with Galera pre-installed, but not in use by default. To enable it one has to set the [wsrep\_on](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_on) system variable.
 
 Like asynchronous replication, Galera uses the binary log. It also requires that data changes are logged in the `ROW` format.
 

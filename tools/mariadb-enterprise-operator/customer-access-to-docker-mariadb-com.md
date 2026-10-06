@@ -92,7 +92,7 @@ metadata:
   name: maxscale
 spec:
   # [...]
-  image: docker.mariadb.com/maxscale-enterprise:25.01.1
+  image: docker.mariadb.com/maxscale:25.01.1
   imagePullPolicy: IfNotPresent
   imagePullSecrets:
     - name: mariadb-enterprise

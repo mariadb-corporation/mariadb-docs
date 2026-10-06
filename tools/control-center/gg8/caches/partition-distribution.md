@@ -2,6 +2,7 @@
 description: >-
   Monitoring the distribution of cache partitions across GridGain 8 cluster
   nodes, and recovering lost partitions.
+hidden: true
 ---
 
 # Partition Distribution

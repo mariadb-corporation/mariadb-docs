@@ -127,7 +127,7 @@ MariaDB can't directly access MySQL's `JSON` format.
 
 There are a few different ways to move the table to MariaDB:
 
-* From [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7), you can use the [mysql\_json](../../plugins/other-plugins/mysql_json.md) plugin. See [Making MariaDB understand MySQL JSON](https://mariadb.org/making-mariadb-understand-mysql-json/) (blog post).
+* You can use the [mysql\_json](../../plugins/other-plugins/mysql_json.md) plugin. See [Making MariaDB understand MySQL JSON](https://mariadb.org/making-mariadb-understand-mysql-json/) (blog post).
 * Change the JSON column to type `TEXT` in MySQL. After this, MariaDB can directly use the table without any need for a dump and restore.
 * [Use mysqldump to copy the table](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#examples).
 
@@ -138,7 +138,7 @@ There are a few different ways to move the table to MariaDB:
 ## See Also
 
 * [JSON Functions](../../sql-functions/special-functions/json-functions/)
-* [CONNECT JSON Table Type](../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type.md)
+* [CONNECT JSON Table Type](../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type/README.md)
 * [MDEV-9144](https://jira.mariadb.org/browse/MDEV-9144)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

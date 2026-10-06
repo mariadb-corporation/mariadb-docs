@@ -62,15 +62,7 @@ If the result is a single row, [SELECT ... INTO @var\_name](../../../programmati
 
 ### Parentheses
 
-{% tabs %}
-{% tab title="Current" %}
 Parentheses can be used to specify precedence.
-{% endtab %}
-
-{% tab title="< 10.4" %}
-Parentheses **cannot** be used to specify precedence.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

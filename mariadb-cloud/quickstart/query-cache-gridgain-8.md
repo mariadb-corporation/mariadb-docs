@@ -3,7 +3,6 @@ description: >-
   Query Result Cache adds an in-memory query result cache alongside your
   transactional MariaDB Cloud workload, serving repeated reads from memory
   behind MaxScale with no application changes.
-hidden: true
 icon: bolt
 ---
 
@@ -271,7 +270,7 @@ _Manage - Caching rules, Raw JSON_
 {% hint style="info" %}
 Saving rules does not restart your service, and the cache is not emptied — MaxScale rereads the rules in place. Allow a few minutes for new rules to take effect.
 
-**Reset to default** clears the rules rather than restoring the exclusion a new service starts with. After using it the service caches every cacheable query, volatile results included. To put the exclusion back, paste the document from [Rule Examples](query-cache-gridgain-8.md#rule-examples). Resetting does not disable the cache or remove any nodes.
+**Reset to default** restores the volatile-result exclusion a new service starts with, replacing any rules you have saved. It does not disable the cache or remove any nodes.
 {% endhint %}
 
 ### What the Default Excludes

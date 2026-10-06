@@ -78,6 +78,12 @@ on the file set, from the repo root:
   `python3 .claude/hooks/mermaidcheck.py --fix <file>`; the convention is in
   `dev-docs/gitbook-syntax.md`. Gated tree-wide in CI by `mermaidcheck-pr.yml` (DOCS-6630). Needs
   python3, and SKIPs locally without it.
+- It also fails a **frontmatter `description:` GitBook will render broken**: over 200 characters
+  (GitBook cuts the subtitle and meta description there, mid-word, with no ellipsis), split by a
+  blank line inside the `>-` block, containing Markdown such as backticks (descriptions are plain
+  text, so they show literally), or just repeating the H1. Run by `desccheck.py`; gated on
+  changed pages in CI by `desccheck-pr.yml` (DOCS-6763). Needs python3, and SKIPs locally
+  without it.
 - It also gates **GitBook heading anchors** — a link to `page.md#some-heading` whose anchor no
   longer exists. Gated in CI by `fragcheck-pr.yml` since DOCS-6524 (and `nightly-fragcheck.yml`
   catches the write paths that never open a PR — GitBook-UI syncs, the alias-expansion bot), so

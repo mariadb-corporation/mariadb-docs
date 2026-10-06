@@ -56,7 +56,7 @@ InnoDB handles such comparison much better than ColumnStore in general, and in Q
 
 Query Accelerator has the same limitations as ColumnStore in general, in that it has a limited set of [functions](../reference/columnstore-distributed-functions.md) and [data types](../reference/columnstore-data-types.md) it can handle. Therefore, be aware of
 
-* syntax or functions that Columnstore does not support;
+* syntax or functions that ColumnStore does not support;
 * data types ColumnStore does not support.
 
 ## Enabling Query Accelerator

@@ -6,10 +6,6 @@ description: >-
 
 # JSON\_ARRAYAGG
 
-{% hint style="info" %}
-`JSON_ARRAYAGG` is available from MariaDB 10.5.
-{% endhint %}
-
 ## Syntax
 
 ```bnf

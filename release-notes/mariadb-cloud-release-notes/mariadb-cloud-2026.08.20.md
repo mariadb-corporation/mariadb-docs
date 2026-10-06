@@ -1,14 +1,15 @@
 ---
 description: >-
-  Release notes for MariaDB Cloud 2026.08.20, introducing Bring Your Own Cloud
-  (BYOC) on Google Cloud as a Tech Preview and a redesigned service provisioning
-  experience.
-hidden: true
+  MariaDB Cloud 2026.08.20 is a Tech Preview release, released on 2026-08-20.
+  It introduces Bring Your Own Cloud (BYOC) on Google Cloud.
+icon: rocket-launch
 ---
 
-# BYOC and New Provisioning Experience
+# MariaDB Cloud 2026.08.20 Release Notes: BYOC
 
 **Release Date:** 20 August 2026
+
+Release 2026.08.20 is a Tech Preview release.
 
 ## New Features
 
@@ -30,22 +31,5 @@ Availability and limitations:
 * Regions are enabled per account rather than from a fixed list. See the available regions on the service launch page in the Cloud Portal, or [MariaDB Cloud Region Choices](https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd/reference/region-choices).
 
 For details, see [Bring Your Own Cloud (BYOC)](https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd/quickstart/bring-your-own-cloud-byoc).
-
-### Redesigned service provisioning
-
-The Cloud Portal introduces a new **Provision Cloud Database** page that replaces the previous step-by-step launch wizard with a single-page form, giving you a full view of your configuration and its cost as you build it.
-
-The new page includes:
-
-* **Topology selection** — choose **MariaDB Serverless** (pay-per-use) or **MariaDB Provisioned** (production-ready).
-* **High Availability** — for provisioned services, select **Semi-sync** (a MaxScale proxy with automatic failover and read/write splitting) or **Insync** (Galera synchronous replication for zero-data-loss failover).
-* **Analytics (HTAP) add-on** — add the MariaDB Exa engine for real-time analytical queries alongside your transactional workload.
-* **Cloud provider & region** — select Google Cloud, AWS, or Azure, with region and availability-zone options.
-* **Instance resources** — node-size selection, replicas, and horizontal or vertical auto-scaling for provisioned services; MCU thresholds (including scale-to-zero when idle) for serverless services; and storage capacity with auto-scaling.
-* **Secure connectivity** — restrict access with an IP allowlist, or connect privately using AWS Private Link, Google Cloud Private Service Connect, or Azure Private Link.
-* **Advanced options** — storage type, provisioned IOPS and throughput, MaxScale redundancy, NoSQL (MongoDB®-compatible) support, an SSL/TLS toggle, and the maintenance window.
-* **Live cost estimate** — a sticky footer shows the estimated hourly and monthly cost as you configure the service.
-
-For details, see [Launch Page](https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd/cloud-usage/launch-page).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

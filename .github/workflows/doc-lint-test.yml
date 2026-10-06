@@ -281,6 +281,39 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
+  # The Tier 2 function-skill extractor (agent-skills/extractor/) feeds a bot PR whose content
+  # gates all passed while five catalog entries were dropped or garbled (DOCS-6889): no gate
+  # reads generated content. Its tests run here, on every PR and without a paths: filter,
+  # because what breaks the extractor is usually a change to the PAGES it reads -- DOCS-6672
+  # added a hint inside every version tab and touched no extractor code at all.
+  extractor-test:
+    runs-on: ubuntu-latest
+    # Well under a second of Python. Explicit for the same reason as the jobs above.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Run the extractor tests
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          set -uo pipefail
+          python3 --version
+          python3 -m unittest discover -s agent-skills/extractor -p 'test_*.py' -v > extractor-test.log 2>&1
+          rc=$?
+          cat extractor-test.log
+          if [[ "$rc" != "0" ]]; then
+            echo "::error::The Tier 2 function-skill extractor tests failed. If a page-format change caused it, fix the extractor rather than the test -- the next scheduled regeneration would otherwise ship the broken catalog."
+            exit "$rc"
+          fi
+          # unittest exits 0 on "Ran 0 tests" -- a renamed file or a broken -p pattern would pass
+          # silently, so require a nonzero count.
+          if ! grep -qE '^Ran [1-9][0-9]* tests? in ' extractor-test.log; then
+            echo "::error::unittest discovered no extractor tests, so this pass would mean nothing. Check the file name still matches test_*.py."
+            exit 1
+          fi
+
   # actionlint covers what no other gate here can see: the shell inside `run:` blocks, plus
   # workflow-specific checks -- untrusted-input interpolation above all. DOCS-6401's third defect
   # was `github.event.pull_request.head.ref`, attacker-controlled on a public repo, interpolated

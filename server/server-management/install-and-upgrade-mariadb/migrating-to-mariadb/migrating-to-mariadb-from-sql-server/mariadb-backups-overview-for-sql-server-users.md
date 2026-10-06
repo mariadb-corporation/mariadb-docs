@@ -1,7 +1,7 @@
 ---
 description: >-
   Maps SQL Server backup concepts like differential and transaction log backups
-  to MariaDB equivalents such as `mariadb-backup` (hot backups) and binary logs
+  to MariaDB equivalents such as mariadb-backup (hot backups) and binary logs
   for incremental recovery.
 ---
 

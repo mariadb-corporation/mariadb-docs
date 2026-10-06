@@ -6,10 +6,6 @@ description: >-
 
 # Information Schema THREAD\_POOL\_GROUPS Table
 
-{% hint style="info" %}
-This table is available as of MariaDB 10.5.
-{% endhint %}
-
 The table provides information about [thread pool](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb.md) groups, and contains the following columns:
 
 | Column           | Description                                                                                                                                                                                                                                                                            |

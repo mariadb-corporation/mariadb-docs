@@ -48,7 +48,7 @@ For more information on how to manually set these states via MaxCtrl, read the [
 
 A monitor module is capable of monitoring the state of a particular kind of cluster and making that state available to the routers of MaxScale.
 
-Examples of monitor modules are `mariadbmon` that is capable of monitoring a regular primary-replica cluster and in addition of performing both _switchover_ and _failover_, `galeramon` that is capable of monitoring a Galera cluster, and `csmon` that is capable of monitoring a Columnstore cluster.
+Examples of monitor modules are `mariadbmon` that is capable of monitoring a regular primary-replica cluster and in addition of performing both _switchover_ and _failover_, `galeramon` that is capable of monitoring a Galera cluster, and `csmon` that is capable of monitoring a ColumnStore cluster.
 
 Monitor modules have sections of their own in the MaxScale configuration file.
 
@@ -2213,7 +2213,7 @@ Enable transaction state tracking by offloading it to the backend servers. Getti
 
 In general, it is better to avoid using this type of SQL as tracking the transaction state via the server responses is not compatible with features such as `transaction_replay` in readwritesplit. `session_track_trx_state` should only be enabled if the default transaction tracking done by MaxScale does not produce the desired outcome.
 
-This is only supported by MariaDB versions 10.3 or newer. The following must be configured in the MariaDB server in order for this feature to work. Not configuring the MariaDB server with it can result in the transaction state being wrong in MaxScale which can result in data inconsistency.
+ The following must be configured in the MariaDB server in order for this feature to work. Not configuring the MariaDB server with it can result in the transaction state being wrong in MaxScale which can result in data inconsistency.
 
 ```
 session_track_state_change = ON

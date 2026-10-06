@@ -63,7 +63,7 @@ For a list of all new variables, see [System Variables Added in MariaDB 10.4](ht
 * Added to the [tcp\_nodelay](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#tcp_nodelay) system variable ([MDEV-16277](https://jira.mariadb.org/browse/MDEV-16277))
 * Removed the [Innodb\_pages0\_read](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables) status variable ([MDEV-15705](https://jira.mariadb.org/browse/MDEV-15705)).
 * New [sql-mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) setting, `TIME_ROUND_FRACTIONAL` ([MDEV-16991](https://jira.mariadb.org/browse/MDEV-16991))
-* New variable [gtid\_cleanup\_batch\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid#gtid_cleanup_batch_size) for determining how many old rows must accumulate in the [mysql.gtid\_slave\_pos](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table) table before a background job will be run to delete them.
+* New variable [gtid\_cleanup\_batch\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_cleanup_batch_size) for determining how many old rows must accumulate in the [mysql.gtid\_slave\_pos](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table) table before a background job will be run to delete them.
 * The default for [eq\_range\_index\_dive\_limit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#eq_range_index_dive_limit) is now `200` (previously `0`) ([MDEV-18551](https://jira.mariadb.org/browse/MDEV-18551))
 * [core\_file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#core_file) on Windows now defaults to `ON` ([MDEV-18439](https://jira.mariadb.org/browse/MDEV-18439))
 
@@ -136,7 +136,7 @@ Prior to the General Availability (GA) releases of [MariaDB 10.4](what-is-mariad
 
 These bugs have been fixed in more recent versions, and rolling upgrades from Galera 3 to Galera 4 are supported. In order to perform a rolling upgrade, it is recommended to upgrade to [MariaDB 10.4.6](10.4.6.md) or later and Galera 26.4.2 or later. However, as a general rule, users should try to ensure that they are upgrading to the latest versions of [MariaDB 10.4](what-is-mariadb-104.md) and Galera 4.
 
-For more detailed information on how to upgrade, see [Upgrading from MariaDB 10.3 to MariaDB 10.4 with Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster/upgrading-from-mariadb-10-3-to-mariadb-10-4-with-galera-cluster).
+For more detailed information on how to upgrade, see [Upgrading Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster).
 
 ### General
 

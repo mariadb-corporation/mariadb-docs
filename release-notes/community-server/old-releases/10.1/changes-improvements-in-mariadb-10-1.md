@@ -6,7 +6,7 @@ The most recent release of [MariaDB 10.1](changes-improvements-in-mariadb-10-1.m
 
 [MariaDB 10.1](changes-improvements-in-mariadb-10-1.md) is a previous stable version of MariaDB. The first stable release was in October 2014.
 
-For details on upgrading from [MariaDB 10.0](../10.0/changes-improvements-in-mariadb-10-0.md), see [Upgrading from MariaDB 10.0 to 10.1](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-100-to-mariadb-101).
+For details on upgrading from [MariaDB 10.0](../10.0/changes-improvements-in-mariadb-10-0.md), see Upgrading from MariaDB 10.0 to 10.1.
 
 The following lists the major new features in [MariaDB 10.1](changes-improvements-in-mariadb-10-1.md):
 

@@ -6,7 +6,7 @@ The most recent release of [MariaDB 10.2](what-is-mariadb-102.md) is:[**MariaDB 
 
 [MariaDB 10.2](what-is-mariadb-102.md) is a previous major stable version. The first stable release was in May 2017.
 
-For details on upgrading from [MariaDB 10.1](../10.1/changes-improvements-in-mariadb-10-1.md), see [Upgrading from MariaDB 10.1 to 10.2](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-101-to-mariadb-102).
+For details on upgrading from [MariaDB 10.1](../10.1/changes-improvements-in-mariadb-10-1.md), see Upgrading from MariaDB 10.1 to 10.2.
 
 The following lists the major new features in [MariaDB 10.2](what-is-mariadb-102.md):
 
@@ -14,7 +14,7 @@ The following lists the major new features in [MariaDB 10.2](what-is-mariadb-102
 
 ### InnoDB as Default
 
-* [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) is now the default storage engine. Until [MariaDB 10.1](../10.1/changes-improvements-in-mariadb-10-1.md), MariaDB used the XtraDB storage engine as default. XtraDB in 10.2 is not up to date with the latest features of InnoDB and cannot be used. As the InnoDB on disk format is identical to XtraDB's this will not cause any problems when upgrading to [MariaDB 10.2](what-is-mariadb-102.md). See [Why does MariaDB 10.2 use InnoDB instead of XtraDB?](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-101-to-mariadb-102#innodb-instead-of-xtradb)
+* [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) is now the default storage engine. Until [MariaDB 10.1](../10.1/changes-improvements-in-mariadb-10-1.md), MariaDB used the XtraDB storage engine as default. XtraDB in 10.2 is not up to date with the latest features of InnoDB and cannot be used. As the InnoDB on disk format is identical to XtraDB's this will not cause any problems when upgrading to [MariaDB 10.2](what-is-mariadb-102.md). See Why does MariaDB 10.2 use InnoDB instead of XtraDB?
 
 ### Syntax / General Features
 
@@ -106,11 +106,11 @@ The following lists the major new features in [MariaDB 10.2](what-is-mariadb-102
 For a list of all new system variables, see [System Variables Added in MariaDB 10.2](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-and-status-variables-added-by-major-unmaintained-release/system-variables-added-in-mariadb-102). Variable changes include:
 
 * New variable to disable deadlock detection [innodb\_deadlock\_detect](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables)
-* [aria\_recover](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-system-variables#aria_recover) has been renamed to [aria\_recover\_options](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-system-variables#aria_recover_options) ([MDEV-8542](https://jira.mariadb.org/browse/MDEV-8542))
-* Default values of the [aria\_recover](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-system-variables#aria_recover) and [myisam\_recover\_options](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine/myisam-system-variables#myisam_recover_options) system variables changed to `BACKUP,QUICK`
+* aria\_recover has been renamed to [aria\_recover\_options](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-system-variables#aria_recover_options) ([MDEV-8542](https://jira.mariadb.org/browse/MDEV-8542))
+* Default values of the aria\_recover and [myisam\_recover\_options](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine/myisam-system-variables#myisam_recover_options) system variables changed to `BACKUP,QUICK`
 * The server version can now be faked to work around dated applications that require a particular [version string](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/information-functions/version) ([MDEV-7780](https://jira.mariadb.org/browse/MDEV-7780))
 * [slave\_parallel\_workers](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables) is now an alias for slave\_parallel\_threads
-* New status variables [com\_alter\_user](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#com_alter_user), [com\_multi](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#com_multi) and [com\_show\_create\_user](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#com_show_create_user)
+* New status variables [com\_alter\_user](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#com_alter_user), com\_multi and [com\_show\_create\_user](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#com_show_create_user)
 * New variable for setting a directory for storing temporary non-tablespace InnoDB files, [innodb\_tmpdir](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables)
 * New variable [read\_binlog\_speed\_limit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables) permits restricting the speed at which the slave reads the binlog from the master ([MDEV-11064](https://jira.mariadb.org/browse/MDEV-11064))
 * [innodb\_log\_files\_in\_group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables) can now be set to `1` ([MDEV-12061](https://jira.mariadb.org/browse/MDEV-12061))

@@ -6,7 +6,7 @@ The most recent release in the [MariaDB 5.5](changes-improvements-in-mariadb-5-5
 
 [MariaDB 5.5](changes-improvements-in-mariadb-5-5.md) is [MariaDB 5.3](../5.3/changes-improvements-in-mariadb-5-3.md) + MySQL 5.5, with added features. The first stable release was in April 2012, and the final release in May 2020.
 
-For upgrading to [MariaDB 10.0](../10.0/changes-improvements-in-mariadb-10-0.md), the more recent stable release, see [Upgrading from MariaDB 5.5 to MariaDB 10.0](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-4-to-mariadb-10-5).
+For upgrading to [MariaDB 10.0](../10.0/changes-improvements-in-mariadb-10-0.md), the more recent stable release, see Upgrading from MariaDB 5.5 to MariaDB 10.0.
 
 ## Feature Comparison Matrix
 
@@ -176,7 +176,7 @@ The following CVEs are also fixed in [MariaDB 5.5](changes-improvements-in-maria
 
 ## See Also
 
-* [Upgrading from MariaDB 5.3 to MariaDB 5.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-53-to-mariadb-55)
+* Upgrading from MariaDB 5.3 to MariaDB 5.5
 * [Getting, Installing, and Upgrading MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb)
 
 {% include "../../../.gitbook/includes/announce.md" %}

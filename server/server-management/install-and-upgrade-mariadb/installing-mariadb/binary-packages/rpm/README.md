@@ -97,18 +97,6 @@ Specific instructions for installing MariaDB RPMs on servers running the DirectA
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb-installation-version-10121-via-rpms-on-centos-7.md" %}
-[mariadb-installation-version-10121-via-rpms-on-centos-7.md](mariadb-installation-version-10121-via-rpms-on-centos-7.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-A detailed walkthrough for installing a specific legacy version of MariaDB (10.1.21) on CentOS 7 using individual RPM packages, including dependency resolution.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="troubleshooting-mariadb-installs-on-rhel-centos.md" %}
 [troubleshooting-mariadb-installs-on-rhel-centos.md](troubleshooting-mariadb-installs-on-rhel-centos.md)
 {% endcontent-ref %}

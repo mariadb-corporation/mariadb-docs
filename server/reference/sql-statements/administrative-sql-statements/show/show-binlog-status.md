@@ -9,44 +9,30 @@ description: >-
 
 ## Syntax
 
-{% tabs %}
-{% tab title="Current" %}
 ```bnf
 SHOW [MASTER | BINLOG] STATUS
 ```
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-```sql
-SHOW MASTER STATUS
-```
-{% endtab %}
-{% endtabs %}
 
 ## Description
 
 Provides status information about the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) files of the primary.
 
-{% tabs %}
-{% tab title="Current" %}
 This statement requires the [BINLOG MONITOR](../../account-management-sql-statements/grant.md#binlog-monitor) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-This statement requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege and the [REPLICATION\_CLIENT](../../account-management-sql-statements/grant.md#replication-client) privilege.
-{% endtab %}
-{% endtabs %}
 
 {% hint style="info" %}
 The following improved functionality is available from MariaDB 12.3.
 {% endhint %}
 
-To see information about the current [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md) in the binary log, use the [gtid\_binlog\_pos](../../../../ha-and-performance/standard-replication/gtid.md) variable. It is enabled by default, and helps find the current state of the master server. (Previously, this required two statements, `SHOW MASTER STATUS` and `SELECT @@global.gtid_binlog_pos`.)
+To see information about the current [GTIDs](../../../../ha-and-performance/standard-replication/gtid/README.md) in the binary log, use the [gtid\_binlog\_pos](../../../../ha-and-performance/standard-replication/gtid/README.md) variable. It is enabled by default, and helps find the current state of the master server. (Previously, this required two statements, `SHOW MASTER STATUS` and `SELECT @@global.gtid_binlog_pos`.)
 
 ## Example
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.3:
+{% endhint %}
+
 From MariaDB 12.3, `SHOW BINLOG STATUS` includes the `Gtid_Binlog_Pos` column, so a separate `SELECT @@global.gtid_binlog_pos` statement is no longer required to see the current GTID position:
 
 ```sql
@@ -60,6 +46,10 @@ SHOW BINLOG STATUS;
 {% endtab %}
 
 {% tab title="< 12.3" %}
+{% hint style="info" %}
+Before MariaDB 12.3:
+{% endhint %}
+
 Before MariaDB 12.3, `SHOW BINLOG STATUS` (or `SHOW MASTER STATUS`) does not include the `Gtid_Binlog_Pos` column. To see the current GTID position, run an additional `SELECT @@global.gtid_binlog_pos`:
 
 ```sql
@@ -83,7 +73,7 @@ SELECT @@global.gtid_binlog_pos;
 
 * [MariaDB replication](../../../../ha-and-performance/standard-replication/)
 * [Using and Maintaining the Binary Log](../../../../server-management/server-monitoring-logs/binary-log/using-and-maintaining-the-binary-log.md)
-* [The gtid\_binlog\_pos variable](../../../../ha-and-performance/standard-replication/gtid.md)
+* [The gtid\_binlog\_pos variable](../../../../ha-and-performance/standard-replication/gtid/README.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

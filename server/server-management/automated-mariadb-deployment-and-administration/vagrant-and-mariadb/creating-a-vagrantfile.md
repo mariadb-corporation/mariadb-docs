@@ -1,6 +1,6 @@
 ---
 description: >-
-  A guide on creating and configuring a `Vagrantfile` to define the
+  A guide on creating and configuring a Vagrantfile to define the
   characteristics of a MariaDB virtual machine, including box selection and
   provisioning steps.
 ---

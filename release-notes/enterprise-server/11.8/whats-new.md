@@ -34,7 +34,7 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
   * For example matryoshka embeddings as produced by OpenAI are applicable
 * Namespace support was added to HashiCorp Vault in MariaDB
   * See the [Hashicorp namespaces documentation](https://developer.hashicorp.com/vault/docs/enterprise/namespaces) for details
-* [Audit logging buffer writes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit#audit-logging-buffer-writes) are possible now
+* [Audit logging buffer writes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit/mariadb-enterprise-audit-installation#audit-logging-buffer-writes) are possible now
 
 ## Backported Features
 
@@ -287,6 +287,7 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 | [CVE-2026-85748](https://www.cve.org/CVERecord?id=CVE-2026-85748) | 9.9                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-85985](https://www.cve.org/CVERecord?id=CVE-2026-85985) | 5.4                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-86047](https://www.cve.org/CVERecord?id=CVE-2026-86047) | 7.7                    | [11.8.9-6](11.8.9-6.md)        |
+| [CVE-2026-92262](https://www.cve.org/CVERecord?id=CVE-2026-92262) | 9.9                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064) | 6.5                    | [11.8.8-5](11.8.8-5.md)        |
 | [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)   | 4.3                    | [11.8.8-5](11.8.8-5.md)        |
 | [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                    | [11.8.8-5](11.8.8-5.md)        |

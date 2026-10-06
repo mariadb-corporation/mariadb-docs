@@ -8,7 +8,7 @@ description: >-
 
 ## Overview
 
-Starting with MariaDB Enterprise Server 10.5 and MariaDB Community Server 10.5, the InnoDB I/O Threads were replaced by the asynchronous I/O functionality in the [InnoDB Background Thread Pool](mariadb-enterprise-server-innodb-background-thread-pool.md).
+The InnoDB I/O Threads are replaced by the asynchronous I/O functionality in the [InnoDB Background Thread Pool](mariadb-enterprise-server-innodb-background-thread-pool.md).
 
 ## Feature Summary
 

@@ -83,7 +83,7 @@ On Windows, if the [console](../starting-and-stopping-mariadb/mariadbd-options.m
 
 On Windows, error log messages are also written to the Windows Event Viewer. You can find MariaDB's error log messages by browsing **Windows Logs**, then selecting **Application** or **Application Log**, depending on the Windows version.
 
-You can find MariaDB's error log messages by searching for the **Source** `MariaDB` (prior to [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4), this was `MySQL`).
+You can find MariaDB's error log messages by searching for the **Source** `MariaDB`.
 
 ## Finding the Error Log
 
@@ -145,7 +145,7 @@ However, if [InnoDB strict mode](../../server-usage/storage-engines/innodb/innod
 
 ### Verbosity Level 1
 
-Default until [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3). If [log\_warnings](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_warnings) is `1`, many types of warnings are logged. Some useful warnings are:
+If [log\_warnings](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_warnings) is `1`, many types of warnings are logged. Some useful warnings are:
 
 * Replication-related messages:
 
@@ -186,7 +186,7 @@ Frequent warnings about [unsafe statements for statement-based replication](../.
 
 ### Verbosity Level 2
 
-Default from [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4). If [log\_warnings](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_warnings) is `2`, a couple other different kinds of warnings are printed. For example:
+Default. If [log\_warnings](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_warnings) is `2`, a couple other different kinds of warnings are printed. For example:
 
 * Messages related to access denied errors:
 
@@ -332,7 +332,7 @@ If [log\_warnings](../../ha-and-performance/optimization-and-tuning/system-varia
 
 ### MySQL's log\_error\_verbosity
 
-MariaDB does not support the [log\_error\_verbosity](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_log_error_verbosity) system variable added in MySQL 5.7.
+MariaDB does not support MySQL's [log\_error\_verbosity](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_log_error_verbosity) system variable.
 
 ## Format
 
@@ -348,13 +348,7 @@ Then, each item (note, warning or error) consists of a single line, containing t
 2016-06-15 16:53:33 139651251140544 [Note] InnoDB: The InnoDB memory heap is disabled
 ```
 
-Until [MariaDB 10.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.4), the format only consisted of the date (yymmdd) and time, followed by the type of error (Note, Warning or Error) and the error message, for example:
-
-```
-160615 16:53:08 [Note] InnoDB: The InnoDB memory heap is disabled
-```
-
-The first item will always contain the source revision, a unique server id (from [MariaDB 10.5.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.26), [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.19), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.9), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.6), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.5), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.3), [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/11.5.2), [MariaDB 11.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.1)) and the process\_id, for example:
+The first item will always contain the source revision, a unique server id (from [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.19), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.9), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.6), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.5), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.3), [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/11.5.2), [MariaDB 11.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.1)) and the process\_id, for example:
 
 ```
 2024-09-19 22:58:50 0 [Note] Starting MariaDB 11.7.0-preview-MariaDB source revision 
@@ -371,7 +365,7 @@ or
 
 ### Formal Specification
 
-For modern MariaDB versions (10.1.5 and later), the standard file-based error log follows this strict anatomy:
+The standard file-based error log follows this strict anatomy:
 
 **Template:** `YYYY-MM-DD HH:MM:SS ThreadID [Level] Message`
 

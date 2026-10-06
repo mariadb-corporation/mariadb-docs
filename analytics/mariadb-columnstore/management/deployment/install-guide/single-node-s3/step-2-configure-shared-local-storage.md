@@ -1,5 +1,8 @@
 ---
-description: 'Step 2: Configure Shared Local Storage'
+description: >-
+  Step 2 of the MariaDB ColumnStore install with object storage: choose and
+  configure shared local storage, such as EBS Multi-Attach, EFS, Filestore,
+  GlusterFS, or NFS.
 hidden: true
 ---
 

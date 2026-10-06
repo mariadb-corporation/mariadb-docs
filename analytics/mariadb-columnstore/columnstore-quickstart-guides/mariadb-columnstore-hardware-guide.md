@@ -1,9 +1,8 @@
 ---
 description: >-
-  MariaDB ColumnStore hardware requirements for development and production:
-  CPU cores, RAM, storage type (HDD vs SSD), filesystem and DBRoot drive
-  layout, network, and bare-metal vs virtual deployment guidance.
-
+  MariaDB ColumnStore hardware requirements for development and production: CPU,
+  RAM, storage type, filesystem and DBRoot layout, network, and bare-metal vs
+  virtual deployment.
 ---
 
 # MariaDB ColumnStore Hardware Guide

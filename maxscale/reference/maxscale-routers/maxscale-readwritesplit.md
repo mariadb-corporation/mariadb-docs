@@ -480,9 +480,9 @@ This feature has been moved into the [OptimisticTrx](../maxscale-filters/maxscal
 * Values: `none`, `local`, `global`, `fast`, `fast_global`, `universal`, `fast_universal`
 * Default: `none`
 
-Enable causal reads. This feature requires MariaDB 10.2.16 or newer to function.
+Enable causal reads.
 
-Starting with MaxScale 24.02, `causal_reads` no longer requires [`session_track_system_variables`](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#session_track_system_variables) to be configured on the backend servers: MaxScale adds [`last_gtid`](../../../server/ha-and-performance/standard-replication/gtid.md#last_gtid) to the variable automatically for each new backend connection. In older versions, `session_track_system_variables` had to be set to include `last_gtid` on all backend MariaDB servers for `causal_reads` to function at all.
+Starting with MaxScale 24.02, `causal_reads` no longer requires [`session_track_system_variables`](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#session_track_system_variables) to be configured on the backend servers: MaxScale adds [`last_gtid`](../../../server/ha-and-performance/standard-replication/gtid/gtid-system-variables.md#last_gtid) to the variable automatically for each new backend connection. In older versions, `session_track_system_variables` had to be set to include `last_gtid` on all backend MariaDB servers for `causal_reads` to function at all.
 
 There is still a benefit to configuring `session_track_system_variables` to include `last_gtid` (or setting it to `*`) on the backend servers: starting with MaxScale 25.10, MaxScale checks whether the server already tracks `last_gtid` before opening a new backend connection and skips sending the `SET` statement that adds it if it's already present, making the connection setup more efficient. In older versions, the `SET` statement is sent unconditionally on every new backend connection.
 

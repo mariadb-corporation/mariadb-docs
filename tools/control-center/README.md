@@ -3,6 +3,7 @@ description: >-
   GridGain Control Center is a management and monitoring tool for GridGain
   clusters, with a graphical interface for administrative tasks and cluster
   monitoring.
+hidden: true
 ---
 
 # GridGain Control Center Overview

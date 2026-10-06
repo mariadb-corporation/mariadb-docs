@@ -13,6 +13,10 @@ To see a list of [audit plugin-related variables](mariadb-audit-plugin-options-a
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.1:
+{% endhint %}
+
 ```sql
 SHOW GLOBAL VARIABLES LIKE 'server_audit%';
 +-------------------------------+-----------------------+
@@ -41,6 +45,10 @@ SHOW GLOBAL VARIABLES LIKE 'server_audit%';
 {% endtab %}
 
 {% tab title="< 12.1" %}
+{% hint style="info" %}
+Before MariaDB 12.1:
+{% endhint %}
+
 ```sql
 SHOW GLOBAL VARIABLES LIKE 'server_audit%';
 

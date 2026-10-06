@@ -1223,7 +1223,7 @@ MariaDB Enterprise Server 10.5 includes several [Information Schema](https://app
   * [THREAD\_POOL\_QUEUES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-thread_pool_queues-table)
   * [THREAD\_POOL\_STATS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-thread_pool_stats-table)
   * [THREAD\_POOL\_WAITS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-thread_pool_waits-table)
-* It removes the [information\_schema.INNODB\_TABLESPACES\_SCRUBBING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_scrubbing-table) table.
+* It removes the information\_schema.INNODB\_TABLESPACES\_SCRUBBING table.
 * It changes some other InnoDB-related [Information Schema](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema) tables in minor ways.
 
 ## Thread Pool

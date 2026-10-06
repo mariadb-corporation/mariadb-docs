@@ -2,6 +2,7 @@
 description: >-
   Connecting to a GridGain 8 cluster from the Java, .NET, C++, Python, and
   Node.js thin clients, JDBC, ODBC, the Java thick client, and the REST API.
+hidden: true
 ---
 
 # Connecting to Your Cluster

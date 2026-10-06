@@ -101,14 +101,14 @@ It is called for all rows belonging to the same group, and should be used to add
 
 ### x\_remove()
 
-_x\_remove()_ was added in [MariaDB 10.4](../../security/user-account-management/authentication-from-mariadb-10-4.md) and is declared as follows (same as _x\_add()_):
+_x\_remove()_ is declared as follows (same as _x\_add()_):
 
 ```
 void x_remove(UDF_INIT* initid, UDF_ARGS* args,
                char* is_null, char *error );
 ```
 
-It adds more efficient support of aggregate UDFs as [window functions](../../reference/sql-functions/special-functions/window-functions/). _x\_remove()_ should "subtract" the row (reverse _x\_add()_). In [MariaDB 10.4](../../security/user-account-management/authentication-from-mariadb-10-4.md) aggregate UDFs will work as WINDOW functions without _x\_remove()_ but it will not be so efficient.
+It adds more efficient support of aggregate UDFs as [window functions](../../reference/sql-functions/special-functions/window-functions/). _x\_remove()_ should "subtract" the row (reverse _x\_add()_). Aggregate UDFs work as WINDOW functions without _x\_remove()_, but they are not as efficient.
 
 If _x\_remove()_ supported (defined) detected automatically.
 

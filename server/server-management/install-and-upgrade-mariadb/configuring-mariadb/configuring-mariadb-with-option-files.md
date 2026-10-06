@@ -126,7 +126,7 @@ Note that if `MARIADB_HOME` is set, `MYSQL_HOME` is not used, even if set.
 
 ### MariaDB Enterprise Server Option File Locations
 
-MariaDB Enterprise Server includes additional configuration files that are installed with the Enterprise Server packages. Specifically, the file `mariadb-enterprise.cnf` is typically placed in a configuration include directory and enables Enterprise-specific features by default (for example, loading the [Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit.md) plugins with `plugin-load-add`, `server_audit` and other enterprise plugins):
+MariaDB Enterprise Server includes additional configuration files that are installed with the Enterprise Server packages. Specifically, the file `mariadb-enterprise.cnf` is typically placed in a configuration include directory and enables Enterprise-specific features by default (for example, loading the [Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit/README.md) plugins with `plugin-load-add`, `server_audit` and other enterprise plugins):
 
 ```
 /etc/my.cnf.d/mariadb-enterprise.cnf
@@ -309,10 +309,18 @@ All option file names must end in `.cnf` on Unix-like operating systems. On Wind
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8.6 / 11.4.10:
+{% endhint %}
+
 If a `.cnf` file cannot be read an executable (a MariaDB server or a client tool) will exit with an error. One can use `?includedir` to skip unreadable files without failing out.
 {% endtab %}
 
-{% tab title="< 11.4.10, < 11.8.6" %}
+{% tab title="< 11.8.6 / 11.4.10" %}
+{% hint style="info" %}
+Before MariaDB 11.8.6 / 11.4.10:
+{% endhint %}
+
 If a `.cnf` file cannot be read an executable (a MariaDB server or a client tool) will exit with an error.
 {% endtab %}
 {% endtabs %}
@@ -372,9 +380,7 @@ WHERE VARIABLE_NAME = 'innodb_buffer_pool_size';   -- replace with your variable
 * `GLOBAL_VALUE_PATH`: Full path to the configuration file that set this value (e.g. `/etc/my.cnf.d/mariadb-enterprise.cnf`). Returns `NULL` if not set in any config file.
 * `GLOBAL_VALUE_ORIGIN`: Shows the origin (config file, a compile-time default, or a command line, etc.).
 
-The `global_value_path` column, introduced in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.5/whats-new-in-mariadb-enterprise-server-10-5), shows the full path to the configuration file from which the variable's value was loaded. This is especially helpful in environments with multiple option files as it enables you to determine which configuration file is currently in effect for a given system setting.
-
-**Note**: The `global_value_path` column requires MariaDB ES Server 10.5.0 or later. On previous versions, this column doesn't exist.
+The `global_value_path` column shows the full path to the configuration file from which the variable's value was loaded. This is especially helpful in environments with multiple option files as it enables you to determine which configuration file is currently in effect for a given system setting.
 
 **View all variable set from configuration files**
 
@@ -575,7 +581,7 @@ loose-abort-source-on-error
 
 * [Configuring MariaDB Connector/C with Option Files](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/configuring-mariadb-connectorc-with-option-files)
 * [Troubleshooting Connection Issues](../../../mariadb-quickstart-guides/mariadb-connection-troubleshooting-guide.md)
-* [MariaDB Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit.md)
+* [MariaDB Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit/README.md)
 * [Information\_schema.SYSTEM\_VARIABLES Table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-system_variables-table.md)
 * [Configuring MariaDB for Remote Client Access](../../../mariadb-quickstart-guides/mariadb-remote-connection-guide.md)
 

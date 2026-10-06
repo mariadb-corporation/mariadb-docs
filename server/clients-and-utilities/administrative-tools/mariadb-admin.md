@@ -20,15 +20,7 @@ description: >-
 * Start and stop replicas;
 * Check if the server is alive (ping).
 
-{% tabs %}
-{% tab title="Current" %}
 The client tool name is `mariadb-admin`. However, it can still be accessed under the old name, `mysqladmin`, via a symlink on Linux or an alternate binary on Windows.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-The name of the client tool is `mysqladmin`.
-{% endtab %}
-{% endtabs %}
 
 ## Usage
 

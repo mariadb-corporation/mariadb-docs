@@ -35,23 +35,7 @@ SHOW ENGINE SPHINX STATUS
 
 ### SHOW ENGINE INNODB MUTEX
 
-`SHOW ENGINE INNODB MUTEX` displays InnoDB mutex statistics.
-
-The statement displays the following output fields:
-
-* Type: Always InnoDB.
-* Name: The source file where the mutex is implemented, and the line number in the file where the mutex is created. The line number is dependent on the MariaDB version.
-* Status: This field displays the following values if `UNIV_DEBUG` was defined at compilation time (for example, in include/univ.h in the InnoDB part of the source tree). Only the `os_waits` value is displayed if `UNIV_DEBUG` was not defined. Without `UNIV_DEBUG`, the information on which the output is based is insufficient to distinguish regular mutexes and mutexes that protect rw-locks (which allow multiple readers or a single writer). Consequently, the output may appear to contain multiple rows for the same mutex.
-  * count indicates how many times the mutex was requested.
-  * spin\_waits indicates how many times the spinlock had to run.
-  * spin\_rounds indicates the number of spinlock rounds. (spin\_rounds divided by spin\_waits provides the average round count.)
-  * os\_waits indicates the number of operating system waits. This occurs when the spinlock did not work (the mutex was not locked during the spinlock and it was necessary to yield to the operating system and wait).
-  * os\_yields indicates the number of times a the thread trying to lock a mutex gave up its timeslice and yielded to the operating system (on the presumption that allowing other threads to run will free the mutex so that it can be locked).
-  * os\_wait\_times indicates the amount of time (in ms) spent in operating system waits, if the timed\_mutexes system variable is 1 (ON). If timed\_mutexes is 0 (OFF), timing is disabled, so os\_wait\_times is 0. timed\_mutexes is off by default.
-
-Information from this statement can be used to diagnose system problems. For example, large values of spin\_waits and spin\_rounds may indicate scalability problems.
-
-The [information\_schema](../../../system-tables/information-schema/).[INNODB\_MUTEXES](../../../system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_mutexes-table.md) table provides similar information.
+`SHOW ENGINE INNODB MUTEX` is accepted for compatibility, but InnoDB returns no rows. To monitor InnoDB mutex and rw-lock waits, use the [Performance Schema](../../../system-tables/performance-schema/).
 
 ### SHOW ENGINE PERFORMANCE\_SCHEMA STATUS
 

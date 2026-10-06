@@ -1,6 +1,6 @@
 ---
 description: >-
-  Documentation for the `log_slow_always_query_time` variable, which forces
+  Documentation for the log_slow_always_query_time variable, which forces
   queries executed by a specific function or user to be logged regardless of
   their execution time.
 ---

@@ -52,7 +52,7 @@ If the node is properly in maintenance mode, then the `State` column will show `
 
 This action is performed **on each replica server**.
 
-The [gtid\_strict\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid#gtid_strict_mode) system variable must be disabled for this upgrade procedure. If the `gtid_strict_mode` system variable is enabled in any configuration files, disable it temporarily until the upgrade procedure is complete.
+The [gtid\_strict\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_strict_mode) system variable must be disabled for this upgrade procedure. If the `gtid_strict_mode` system variable is enabled in any configuration files, disable it temporarily until the upgrade procedure is complete.
 
 You can check if the `gtid_strict_mode` system variable is set in a configuration file by executing `my_print_defaults` command with the `mysqld` option:
 
@@ -254,7 +254,7 @@ mcs cluster start
 
 This action is performed **on each replica server**.
 
-If you temporarily disabled the [gtid\_strict\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid#gtid_strict_mode) system variable in the [Disable GTID Strict Mode](upgrade-multi-node-mariadb-enterprise-columnstore-from-6-to-23.10.md#disable-gtid-strict-mode) step, it can be re-enabled. If the `gtid_strict_mode` system variable was temporarily disabled in any configuration files, re-enable it.
+If you temporarily disabled the [gtid\_strict\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_strict_mode) system variable in the [Disable GTID Strict Mode](upgrade-multi-node-mariadb-enterprise-columnstore-from-6-to-23.10.md#disable-gtid-strict-mode) step, it can be re-enabled. If the `gtid_strict_mode` system variable was temporarily disabled in any configuration files, re-enable it.
 
 ## Confirm ColumnStore Version
 

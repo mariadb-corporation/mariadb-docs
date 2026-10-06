@@ -278,7 +278,7 @@ Now let's create a sample `products.json` file like this:
 }]
 ```
 
-We can then bulk load data from JSON into Columnstore by first piping the data to [jq](https://stedolan.github.io/jq/manual/v1.6/) and then to [cpimport](columnstore-bulk-data-loading.md) using a one-line command.
+We can then bulk load data from JSON into ColumnStore by first piping the data to [jq](https://stedolan.github.io/jq/manual/v1.6/) and then to [cpimport](columnstore-bulk-data-loading.md) using a one-line command.
 
 Example:
 

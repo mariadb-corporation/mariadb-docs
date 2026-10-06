@@ -1,6 +1,6 @@
 ---
 description: >-
-  Documentation for the `ORACLE` SQL mode, which provides extensive
+  Documentation for the ORACLE SQL mode, which provides extensive
   compatibility with Oracle Database PL/SQL syntax, data types, and sequences,
   facilitating migration.
 ---

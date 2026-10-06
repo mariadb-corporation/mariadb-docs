@@ -159,6 +159,10 @@ The following limitations apply:
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 Online copy is the default mode whenever `NOCOPY` does not apply. In case of any problem with it, it can be disabled by specifying `LOCK=SHARED` to force the usual `COPY` algorithm.
 
 Additionally, to better support existing workflows, there is a new `old_mode` flag. The following statement disables online copy by default:
@@ -173,6 +177,10 @@ Server-wide online schema change expands MariaDB Server’s capability for the `
 {% endtab %}
 
 {% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 Online copy is **not** the default mode.
 {% endtab %}
 {% endtabs %}

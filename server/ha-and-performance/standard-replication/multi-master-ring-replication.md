@@ -56,8 +56,8 @@ First, follow the instructions in [setup replication](setting-up-replication.md)
 The main things that are different for Multi-Master Ring Replication are:
 
 * Give every master and slave in the replication setup a unique server\_id. This can be a number from 1 to 4294967295 or 1-255 if one is using [uuid\_short()](../../reference/sql-functions/secondary-functions/miscellaneous-functions/uuid_short.md). It is a good practice to ensure that you do not have any servers in your system with the same server\_id!
-* Use [global transaction id](gtid.md) (as described above)
-* Give each master a unique [gtid\_domain\_id](gtid.md#gtid_domain_id). This will allow replication to apply transactions from a different master in parallel independent from other masters.
+* Use [global transaction id](gtid/README.md) (as described above)
+* Give each master a unique [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id). This will allow replication to apply transactions from a different master in parallel independent from other masters.
 
 Add the following into your [my.cnf](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) file for **all masters** and restart the servers.
 
@@ -118,7 +118,7 @@ When used correctly, Multi-Master Ring Replication is as resilient to errors as 
 
 If the slave is **not up to date** and one cannot access any information of the old master, then one can continue the following way:
 
-* Enable the option [--gtid-ignore-duplicates](gtid.md#gtid_ignore_duplicates) on the servers.
+* Enable the option [--gtid-ignore-duplicates](gtid/gtid-system-variables.md#gtid_ignore_duplicates) on the servers.
 * Add the slave to the replication ring.
 * The two masters (one of which is the old slave now added to the ring) will each replicate the events they are missing from one another. The `--gtid-ignore-duplicates` option is needed to allow the two masters in the ring to start replicating from each other when each server is ahead of the other in one domain and behind in another.
 

@@ -22,15 +22,7 @@ Use `IF EXISTS` to prevent an error from occurring for a trigger that does not e
 
 ### Atomic DDL
 
-{% tabs %}
-{% tab title="Current" %}
 `DROP TRIGGER` is [atomic](../atomic-ddl.md).
-{% endtab %}
-
-{% tab title="< 10.6.1" %}
-`DROP TRIGGER` is **not** [atomic](../atomic-ddl.md).
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

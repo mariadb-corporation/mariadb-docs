@@ -192,6 +192,40 @@ build_sandbox() {
   # Not a Markdown/HTML path, so the argument filter must drop it.
   printf 'not markdown\n' > "$SANDBOX/server/notes.txt"
 
+  # Paired version-include fixtures (DOCS-6734). A self-contained mini-repo under vc/, NOT files
+  # at the sandbox root: versioncheck.py is tree-wide and roots itself at the nearest
+  # .codespellignore, so a mismatched pair at the root would fail every other case in this suite.
+  # Its own marker confines it to the case that asks for it -- and leaves the root sandbox with no
+  # includes directories at all, which is exactly what the SKIP case needs.
+  mkdir -p "$SANDBOX/vc/release-notes/.gitbook/includes" \
+           "$SANDBOX/vc/platform/.gitbook/includes"
+  : > "$SANDBOX/vc/.codespellignore"
+  printf '# Clean Page\n\nNothing here trips any check.\n' > "$SANDBOX/vc/clean.md"
+  vcr="$SANDBOX/vc/release-notes/.gitbook/includes"
+  # One disagreeing pair: the release-notes side bumped to 3.4.11, the platform side left behind.
+  printf -- '---\ntitle: latest-c\n---\n\n<p><strong>3.4.11</strong></p>\n' > "$vcr/latest-c.md"
+  printf -- '---\ntitle: most-recent-c\n---\n\n* The most recent release is 3.4.9, released on 1 Jan 2026\n' \
+    > "$SANDBOX/vc/platform/.gitbook/includes/most-recent-c.md"
+  # The two NO_PLATFORM_INCLUDE connectors, present so the fixture reports ONLY the disagreement.
+  # Their absence is a stale-exemption finding by design -- the register prunes itself -- and
+  # leaving them out would make this case pass for three reasons instead of the one it names.
+  printf -- '---\ntitle: latest-cpp\n---\n\n<p><strong>1.1.8</strong></p>\n'   > "$vcr/latest-cpp.md"
+  printf -- '---\ntitle: latest-r2dbc\n---\n\n<p><strong>1.4.2</strong></p>\n' > "$vcr/latest-r2dbc.md"
+
+  # no-standalone register fixtures (DOCS-6734). Its own mini-repo under pd/ for the same reason
+  # vc/ is one: the audit roots itself at the nearest .codespellignore and reads the register
+  # beside it, so a register here must not be the register every other case sees.
+  mkdir -p "$SANDBOX/pd/.claude/hooks" "$SANDBOX/pd/platform/post-download" \
+           "$SANDBOX/pd/release-notes/connectors/c/3.4" \
+           "$SANDBOX/pd/release-notes/connectors/c/changelogs/3.4"
+  : > "$SANDBOX/pd/.codespellignore"
+  printf '# Clean Page\n\nNothing here trips any check.\n' > "$SANDBOX/pd/clean.md"
+  printf '# Connector/C 3.4.10 Release Notes\n' \
+    > "$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.10.md"
+  printf '# Connector/C 3.4.10 Changelog\n' \
+    > "$SANDBOX/pd/release-notes/connectors/c/changelogs/3.4/3.4.10.md"
+  printf '# Post Download\n' > "$SANDBOX/pd/platform/post-download/README.md"
+
   # Mermaid edge-label contrast fixtures (DOCS-6630). Quoted heredocs, not printf: the init
   # directive starts with `%%{`, which printf would read as a format.
   mkdir -p "$SANDBOX/server/mermaid"
@@ -262,6 +296,60 @@ flowchart LR
 ```
 MD
   cp "$SANDBOX/server/mermaid/unfixed.md" "$SANDBOX/server/mermaid/unfixed with spaces.md"
+
+  # Page-description fixtures (DOCS-6763). GitBook cuts a description at 200 characters and
+  # renders it as plain text, so each of these is a defect a reader would see.
+  mkdir -p "$SANDBOX/server/desc" "$SANDBOX/agent-skills/desc"
+  cat > "$SANDBOX/server/desc/clean.md" <<'MD'
+---
+description: >-
+  A short, plain description that says what the page covers, well under the
+  limit.
+---
+
+# Clean Description
+MD
+  # 201 characters once folded: one over the limit, so the boundary itself is tested.
+  { printf -- '---\ndescription: >-\n  '; printf 'x%.0s' $(seq 1 201); printf '\n---\n\n# Long\n'; } \
+    > "$SANDBOX/server/desc/long.md"
+  { printf -- '---\ndescription: >-\n  '; printf 'x%.0s' $(seq 1 200); printf '\n---\n\n# Exactly 200\n'; } \
+    > "$SANDBOX/server/desc/exactly-200.md"
+  # The MaxScale Exasolrouter shape before #1184: a blank line inside the folded scalar.
+  cat > "$SANDBOX/server/desc/blank-line.md" <<'MD'
+---
+description: >-
+  First paragraph.
+
+  Second paragraph.
+---
+
+# Blank Line
+MD
+  cat > "$SANDBOX/server/desc/backtick.md" <<'MD'
+---
+description: Load time zones with the `mariadb-tzinfo-to-sql` utility.
+---
+
+# Backtick
+MD
+  cat > "$SANDBOX/server/desc/title.md" <<'MD'
+---
+description: 'Step 9: Import Data'
+---
+
+# Step 9: Import Data
+MD
+  # `<` and `&` are HTML-escaped by GitBook and render as written, so they must NOT fail.
+  cat > "$SANDBOX/server/desc/angle.md" <<'MD'
+---
+description: Delete a restore with a DELETE call to /restores/<ID> & an API key.
+---
+
+# Angle
+MD
+  # Outside every GitBook space: a SKILL.md description is agent-trigger text, long on purpose.
+  cp "$SANDBOX/server/desc/long.md" "$SANDBOX/agent-skills/desc/SKILL.md"
+  cp "$SANDBOX/server/desc/long.md" "$SANDBOX/server/desc/long with spaces.md"
 
   (
     cd "$SANDBOX" || exit 1
@@ -494,6 +582,18 @@ al() {
   set +e
   ( cd "$root" && env -i "PATH=$MIN_PATH" "HOME=$root" \
       python3 "$SCRIPT_DIR/allowlist.py" "$@" ) > "$OUT" 2> "$ERR"
+  RC=$?
+  set -e
+}
+
+# pd <tree> -- <postdownload args...>. Roots at the tree, like the real invocation: the audit
+# resolves the repo from the working directory so it reads the register beside the pages it is
+# auditing, not the repo's own.
+pd() {
+  local root="$1"; shift
+  set +e
+  ( cd "$root" && env -i "PATH=$MIN_PATH" "HOME=$root" \
+      python3 "$SCRIPT_DIR/postdownload.py" "$@" ) > "$OUT" 2> "$ERR"
   RC=$?
   set -e
 }
@@ -806,6 +906,95 @@ begin 'doc-lint.sh reaches mermaidcheck.py'
 lint . - DOC_LINT_SKIP_FRAGMENTS=1 -- server/mermaid/unfixed.md
 want_rc 1
 want_err 'no init directive'
+end
+
+# ---- page descriptions (DOCS-6763; gated in CI by desccheck-pr.yml) ------------------------
+# desccheck.py is driven directly, the way desccheck-pr.yml drives it, plus once through
+# doc-lint.sh to prove the delegation.
+DESCCHECK="$SCRIPT_DIR/desccheck.py"
+DC_STDIN=''
+dc() {
+  set +e
+  if [ -n "$DC_STDIN" ]; then
+    ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        python3 "$DESCCHECK" "$@" < "$DC_STDIN" ) > "$OUT" 2> "$ERR"
+  else
+    ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        python3 "$DESCCHECK" "$@" < /dev/null ) > "$OUT" 2> "$ERR"
+  fi
+  RC=$?
+  set -e
+}
+
+begin 'desccheck.py with no arguments is a usage error, not a silent pass'
+dc
+want_rc 2
+want_err 'usage:'
+end
+
+begin 'a short plain description passes, and the summary counts what was checked'
+dc server/desc/clean.md
+want_rc 0
+want_out '1 description(s) in 1 published file(s) (1 given, 0 exempt or not Markdown); 0 failing'
+end
+
+begin 'exactly 200 characters passes; 201 fails'
+dc server/desc/exactly-200.md
+want_rc 0
+dc server/desc/long.md
+want_rc 1
+want_err '201 characters'
+end
+
+begin 'a blank line inside a folded description fails (the Exasolrouter shape)'
+dc server/desc/blank-line.md
+want_rc 1
+want_err 'blank line inside the block scalar'
+end
+
+begin 'a backtick fails, because GitBook shows it literally'
+dc server/desc/backtick.md
+want_rc 1
+want_err 'contains a backtick'
+end
+
+begin 'a description that repeats the H1 fails'
+dc server/desc/title.md
+want_rc 1
+want_err 'repeats the page title'
+end
+
+begin 'angle brackets and ampersands pass: GitBook escapes them'
+dc server/desc/angle.md
+want_rc 0
+end
+
+begin 'agent-skills/ is exempt: SKILL.md descriptions are not page descriptions'
+dc agent-skills/desc/SKILL.md
+want_rc 0
+want_out '(1 given, 1 exempt or not Markdown)'
+end
+
+begin 'desccheck --stdin0 does not split a path containing a space'
+nul_list "$SANDBOX/.list" 'server/desc/long with spaces.md'
+DC_STDIN="$SANDBOX/.list" dc --stdin0
+DC_STDIN=''
+want_rc 1
+want_err 'server/desc/long with spaces.md'
+end
+
+begin 'desccheck --stdin0 on empty input reports zero given rather than claiming a clean set'
+nul_list "$SANDBOX/.list"
+DC_STDIN="$SANDBOX/.list" dc --stdin0
+DC_STDIN=''
+want_rc 0
+want_out '(0 given,'
+end
+
+begin 'doc-lint.sh reaches desccheck.py'
+lint . - DOC_LINT_SKIP_FRAGMENTS=1 -- server/desc/backtick.md
+want_rc 1
+want_err 'contains a backtick'
 end
 
 # ---- railroad-diagram dark-mode card (DOCS-6637; gated in CI by railroadcheck-pr.yml) --------
@@ -1659,6 +1848,106 @@ want_err 'SKIPPED'
 want_no_err 'Traceback'
 want_no_err 'possible gutted page'
 rm -rf "$NOGITBIN"
+end
+
+# ---- paired version includes (DOCS-6734) -----------------------------------------------------
+
+begin 'a tree with no includes directories SKIPs the version-include check'
+# The root sandbox has neither release-notes/.gitbook/includes/ nor platform/.gitbook/includes/,
+# which is what doc-lint-test's own tree looks like to a tree-wide check. A SKIP rather than a
+# failure, so the suite is not blocked by subject matter that is simply absent; versioncheck-pr.yml
+# refuses to accept this same SKIP as a pass, which is where the vacuity risk is answered.
+lint . - -- server/clean.md
+want_rc 0
+want_err 'not a docs checkout'
+end
+
+begin 'a disagreeing version-include pair fails through doc-lint.sh'
+# vc/ is a mini-repo whose latest-c says 3.4.11 while its most-recent-c still says 3.4.9 -- the
+# bump-one-forget-the-other mistake the check exists for. Note the file argument is irrelevant:
+# the check takes no file list, so naming a clean page still surfaces the pair.
+lint vc - -- clean.md
+want_rc 1
+want_err 'paired includes disagree'
+want_err '3.4.11'
+want_err '3.4.9'
+want_no_err 'stale exemption'
+end
+
+# ---- the no-standalone register (DOCS-6734) --------------------------------------------------
+
+begin 'a no-standalone entry whose release has no Post Download page is accepted'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+no-standalone:
+  - path: release-notes/connectors/c/3.4/3.4.10.md
+    reason: "shipped only inside Server; 3.4.11 is the standalone — DOCS-6732"
+ALLOW
+pd "$SANDBOX/pd" audit
+want_rc 0
+want_out '1 no-standalone entry audited, 0 stale'
+end
+
+begin 'an entry whose release has since gained a Post Download page is stale'
+# The self-pruning direction the shrink section cannot have: "no standalone package" stops being
+# true the moment the page exists, and the entry must go with it.
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+pd "$SANDBOX/pd" audit
+want_rc 1
+want_err 'stale entry'
+want_err 'mariadb-connector-c-3.4.10.md'
+rm -f "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+end
+
+begin 'an entry whose page is gone is stale'
+mv "$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.10.md" "$SANDBOX/pd/moved.md"
+pd "$SANDBOX/pd" audit
+want_rc 1
+want_err 'acknowledges a page that no'
+mv "$SANDBOX/pd/moved.md" "$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.10.md"
+end
+
+begin 'an entry naming a changelog exempts nothing and is rejected'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+no-standalone:
+  - path: release-notes/connectors/c/changelogs/3.4/3.4.10.md
+    reason: "wrong target"
+ALLOW
+pd "$SANDBOX/pd" audit
+want_rc 1
+want_err 'not a release page'
+end
+
+begin 'the naming map resolves each space spelling of a product'
+pd "$SANDBOX/pd" path release-notes/connectors/java/3.5/3.5.10.md
+want_rc 0
+want_out 'platform/post-download/mariadb-connector-j-3.5.10.md'
+pd "$SANDBOX/pd" path release-notes/community-server/11.8/11.8.9.md
+want_rc 0
+want_out 'platform/post-download/mariadb-server-11.8.9.md'
+# c++ has no Post Download pages at all, and longest-prefix matching must not read it as `c`.
+pd "$SANDBOX/pd" path 'release-notes/connectors/c++/1.1/1.1.8.md'
+want_rc 0
+want_out 'none'
+end
+
+begin 'a stale no-standalone entry fails through doc-lint.sh too'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+no-standalone:
+  - path: release-notes/connectors/c/3.4/3.4.10.md
+    reason: "shipped only inside Server — DOCS-6732"
+ALLOW
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+lint pd - "$NOFRAG" -- clean.md
+want_rc 1
+want_err 'stale entry'
+rm -f "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+rm -f "$SANDBOX/pd/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'a tree with no post-download directory SKIPs the register audit'
+pd "$SANDBOX" audit
+want_rc 0
+want_err 'not a docs checkout'
 end
 
 # ---- SKIP branches: a missing tool is a notice, never a failure ------------------------------

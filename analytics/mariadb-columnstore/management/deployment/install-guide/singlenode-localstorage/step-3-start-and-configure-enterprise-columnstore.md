@@ -1,5 +1,7 @@
 ---
-description: 'Step 3: Start and Configure ColumnStore'
+description: >-
+  Step 3 of the single-node MariaDB ColumnStore install with local storage:
+  configure ColumnStore, start its services, and create the utility user.
 hidden: true
 ---
 

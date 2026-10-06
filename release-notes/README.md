@@ -56,6 +56,10 @@ Release dates for upcoming MariaDB Enterprise Server releases can be found [here
 [mcp-server-release-notes](mcp-server-release-notes/)
 {% endcontent-ref %}
 
+{% content-ref url="mariadb-cloud-release-notes/" %}
+[mariadb-cloud-release-notes](mariadb-cloud-release-notes/)
+{% endcontent-ref %}
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

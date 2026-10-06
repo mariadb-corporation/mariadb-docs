@@ -19,14 +19,14 @@ A storage engine is a type of [plugin](../../reference/plugins/) for MariaDB:
 
 | Engine                                                                    | Target          | Optimization         | Availability |
 | ------------------------------------------------------------------------- | --------------- | -------------------- | ------------ |
-| [Aria](aria/)                                                             | Read-Heavy      | Reads                | ES 10.5+     |
-| [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) | Analytics, HTAP | Big Data, Analytical | ES 10.5+     |
-| [InnoDB](innodb/)                                                         | General Purpose | Mixed Read/Write     | ES 10.5+     |
-| [Memory](memory-storage-engine.md)                                        | Cache, Temp     | Temporary Data       | ES 10.5+     |
-| [MyISAM](myisam-storage-engine/)                                          | Reads           | Reads                | ES 10.5+     |
-| [MyRocks](myrocks/)                                                       | Write-Heavy     | I/O Reduction, SSD   | ES 10.5+     |
-| [S3](s3-storage-engine/)                                                  | Cloud           | Read-Only            | ES 10.5+     |
-| [Spider](spider/)                                                         | Federation      | Sharding, Interlink  | ES 10.5+     |
+| [Aria](aria/)                                                             | Read-Heavy      | Reads                | ES           |
+| [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) | Analytics, HTAP | Big Data, Analytical | ES           |
+| [InnoDB](innodb/)                                                         | General Purpose | Mixed Read/Write     | ES           |
+| [Memory](memory-storage-engine.md)                                        | Cache, Temp     | Temporary Data       | ES           |
+| [MyISAM](myisam-storage-engine/)                                          | Reads           | Reads                | ES           |
+| [MyRocks](myrocks/)                                                       | Write-Heavy     | I/O Reduction, SSD   | ES           |
+| [S3](s3-storage-engine/)                                                  | Cloud           | Read-Only            | ES           |
+| [Spider](spider/)                                                         | Federation      | Sharding, Interlink  | ES           |
 
 ## Examples
 

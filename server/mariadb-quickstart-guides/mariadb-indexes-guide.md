@@ -69,7 +69,7 @@ A unique index ensures that all values in the indexed column (or combination of 
 
 Each key value uniquely identifies a row, but not every row needs to be represented if `NULL`s are allowed.
 
-**Behavior (MariaDB 10.5+):**
+**Behavior:**
 
 * If the index type is not specified, `UNIQUE` typically creates a BTREE index, usable by the optimizer.
 * If a key exceeds the maximum length for the storage engine and the engine supports long unique indexes, a HASH key might be created to enforce uniqueness.
@@ -163,7 +163,7 @@ CREATE TABLE Table_1 (
 
 **Trailing Pad Characters:** If a unique index is on a column where trailing pad characters are stripped or ignored (e.g., `CHAR` vs `VARCHAR` behavior), inserts where values differ only by the number of trailing pad characters can result in duplicate-key errors.
 
-**Long Keys and HASH Indexes (MariaDB 10.4+):** For engines like InnoDB, `UNIQUE` can be used with various column types and numbers. If a key's length exceeds the engine's maximum, a HASH key may be created.
+**Long Keys and HASH Indexes:** For engines like InnoDB, `UNIQUE` can be used with various column types and numbers. If a key's length exceeds the engine's maximum, a HASH key may be created.
 
 ```sql
 -- Example table definition (simplified for brevity)

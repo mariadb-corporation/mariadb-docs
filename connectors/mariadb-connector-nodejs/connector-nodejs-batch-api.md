@@ -50,10 +50,7 @@ Some benchmark to do some 100 inserts with one parameter of 100 characters:
 There is one thing to pay attention to: MySQL / MariaDB servers have a global option [max_allowed_packet](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_allowed_packet) that limit the maximum packet exchange size.
 If the connector sends more data than these limits, the socket will be immediately dropped.
 
-default server values :
-- since MariaDB 10.2.4 : 16M
-- since MariaDB 10.1.7 : 4M
-- before MariaDB 10.1.7 : 1M
+The default server value is 16M.
 
 You can check server value using query `select @@max_allowed_packet`.
 

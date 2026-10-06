@@ -116,10 +116,6 @@ Some things are not on the map:
   * [Derived table merge](../optimizations-for-derived-tables/derived-table-merge-optimization.md)
   * [Derived table with keys](../optimizations-for-derived-tables/derived-table-with-key-optimization.md)
 
-## See also
-
-* [Subquery optimizations in MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3#subquery-optimizations)
-
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

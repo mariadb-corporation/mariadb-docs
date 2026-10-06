@@ -275,6 +275,11 @@ jobs:
           # www.akamai.com and cloud.ibm.com above. The URLs are resolved to the form
           # O'Reilly itself redirects to, so the citations point at the publisher's own
           # canonical page.
+          #
+          # DOCS-6755 (2026-10-01): bugs.openjdk.org, cited from the Connector/J
+          # GSSAPI page. The JDK bug tracker answers 403 to lychee and to a browser
+          # User-Agent but 200 to plain curl, so it is User-Agent-based bot
+          # protection, not a dead page. Same class as www.reddit.com above.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -358,6 +363,7 @@ jobs:
             --exclude 'www\.akamai\.com'
             --exclude 'www\.oreilly\.com'
             --exclude 'www\.gridgain\.com/tryfree'
+            --exclude 'bugs\.openjdk\.org'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

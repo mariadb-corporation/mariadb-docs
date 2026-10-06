@@ -78,7 +78,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           # navcheck.py and allowlist.py are standard library only, so this pins the interpreter
           # rather than installing anything.

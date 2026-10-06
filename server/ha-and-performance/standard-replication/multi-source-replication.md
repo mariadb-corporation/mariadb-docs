@@ -102,7 +102,7 @@ If `@@default_master_connection` contains a non existing name, you will get a wa
 
 All other primary-related variables are global and affect either only the default (`''`) connections or all connections. For example, [Slave\_retried\_transactions](replication-and-binary-log-status-variables.md#slave_retried_transactions) now shows the total number of retried transactions over all replicas.
 
-If you need to set [gtid\_slave\_pos](gtid.md), you need to set this for all primaries at the same time.
+If you need to set [gtid\_slave\_pos](gtid/README.md), you need to set this for all primaries at the same time.
 
 New status variables:
 
@@ -181,13 +181,12 @@ One can also use this syntax to set `replicate-rewrite-db` for a given connectio
 * Each active connection will create 2 threads (as is normal for MariaDB replication).
 * You should ensure that all primaries have different `server-id`'s. If you don't do this, you get into trouble if you try to replicate from the multi-source replica back to your primaries.
 * One can change [max\_relay\_log\_size](replication-and-binary-log-system-variables.md) for any active connection, but new connections will always use the server startup value for `max_relay_log_size`, which can't be changed at runtime.
-* Option [innodb-recovery-update-relay-log](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_recovery_update_relay_log) (xtradb feature to store and restore relay log position for replicas) only works for the default connection ''. As this option is not really safe and can easily cause loss of data if you use storage engines other than InnoDB, we don't recommend using this option.
 * [slave\_net\_timeout](replication-and-binary-log-system-variables.md) affects all connections. We don't check anymore if it's less than [Slave\_heartbeat\_period](replication-and-binary-log-status-variables.md), as this doesn't make sense in a multi-source setup.
 
 ## See Also
 
 * [Multi-master ring replication](multi-master-ring-replication.md).
-* Using multi-source with [global transaction id](gtid.md).
+* Using multi-source with [global transaction id](gtid/README.md).
 * The work in MariaDB is based on the project description at [MDEV-253](https://jira.mariadb.org/browse/MDEV-253).
 * The original code base comes from [Taobao, developed by Peng Lixun](https://mysql.taobao.org/index.php/Patch_source_code#Multi-master_replication). A big thanks to them for this important feature!
 

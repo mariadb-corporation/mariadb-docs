@@ -6,10 +6,6 @@ description: >-
 
 # JSON\_OBJECTAGG
 
-{% hint style="info" %}
-`JSON_OBJECTAGG` is available from MariaDB 10.5.
-{% endhint %}
-
 ## Syntax
 
 ```bnf

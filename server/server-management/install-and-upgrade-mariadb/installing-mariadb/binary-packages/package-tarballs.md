@@ -29,9 +29,7 @@ MariaDB database products can be deployed with package tarballs to support use c
 
 The following MariaDB database products can be deployed using package tarballs:
 
-* MariaDB Community Server 10.5
 * MariaDB Community Server 10.6
-* MariaDB Enterprise Server 10.5
 * MariaDB Enterprise Server 10.6
 * MariaDB Enterprise Server 11.4
 * MariaDB MaxScale 22.08

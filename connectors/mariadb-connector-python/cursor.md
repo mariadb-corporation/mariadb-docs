@@ -200,7 +200,7 @@ To insert special values like NULL or a column default, you need to specify indi
 
 #### NOTE
 - All values for a column must have the same data type.
-- Indicators can only be used when connecting to a MariaDB Server 10.2 or newer. MySQL servers don’t support this feature.
+- Indicators can only be used when connecting to MariaDB Server. MySQL servers don’t support this feature.
 
 #### Cursor.fetchall() -> List[Any]
 

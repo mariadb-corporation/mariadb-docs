@@ -33,9 +33,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value:
-  * > \= [MariaDB 10.4.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.8): `1024`
-  * <= [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7): `8192`
+* Default Value: `1024`
 * Range: `0` to `65500`
 
 #### `connect_default_depth`
@@ -62,14 +60,13 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `connect_enable_mongo`
 
-* Description: Enable the [Mongo table type](connect-table-types/connect-mongo-table-type.md).
+* Description: Enable the [Mongo table type](connect-table-types/connect-mongo-table-type.md). Available only in builds with Java or MongoDB C Driver support.
 * Command line: `--connect-enable-mongo={0|1}`
 * Scope: Global, Session
 * Dynamic:
 * Data Type: `boolean`
-* Default Value: `OFF`
+* Default Value: `ON`
 * Introduced: [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9)
-* Removed: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
 
 #### `connect_exact_info`
 

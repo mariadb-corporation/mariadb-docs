@@ -238,6 +238,7 @@
   * [Connector/Node.js Promise API](mariadb-connector-nodejs/connector-nodejs-promise-api.md)
   * [Getting Started With the Node.js Connector](mariadb-connector-nodejs/getting-started-with-the-node-js-connector.md)
   * [Node.js Connection Options](mariadb-connector-nodejs/node-js-connection-options.md)
+  * [TypeScript Usage](mariadb-connector-nodejs/typescript-usage.md)
   * [Other Node.js Connectors](mariadb-connector-nodejs/other-nodejs-connectors/README.md)
     * [JavaScript - mariasql for node.js](mariadb-connector-nodejs/other-nodejs-connectors/javascript-mariasql-for-nodejs.md)
 * [Connector/ODBC](mariadb-connector-odbc/README.md)

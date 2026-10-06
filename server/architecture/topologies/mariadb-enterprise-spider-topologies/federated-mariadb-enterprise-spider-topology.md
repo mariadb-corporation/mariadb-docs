@@ -17,7 +17,7 @@ In the Federated MariaDB Enterprise Spider topology, a Spider Node contains one 
 MariaDB Enterprise Spider:
 
 * Supports a MariaDB foreign data wrapper. The MariaDB foreign data wrapper can be used to replace the older Federated and FederatedX storage engines.
-* Supports an ODBC foreign data wrapper in MariaDB Enterprise Server 10.5 and later. The ODBC foreign data wrapper is beta maturity. The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
+* Supports an ODBC foreign data wrapper. The ODBC foreign data wrapper is beta maturity. The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
 
 The Spider Federated topology:
 
@@ -99,7 +99,7 @@ INSERT INTO innodb_tab
 
 ## Examples
 
-### Load Spider with Configuration File (ES 10.4+)
+### Load Spider with Configuration File
 
 ```ini
 [mariadb]
@@ -107,13 +107,13 @@ INSERT INTO innodb_tab
 plugin_load_add = "ha_spider"
 ```
 
-### Load Spider with INSTALL SONAME (ES 10.4+)
+### Load Spider with INSTALL SONAME
 
 ```sql
 INSTALL SONAME "ha_spider";
 ```
 
-### View Foreign Data Wrappers (ES 10.5+)
+### View Foreign Data Wrappers
 
 ```sql
 SELECT * FROM information_schema.SPIDER_WRAPPER_PROTOCOLS;

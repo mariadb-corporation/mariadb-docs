@@ -26,10 +26,18 @@ It is an [aggregate function](./), and so can be used with the [GROUP BY](../../
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 Not only ascending, but also [descending indexes](../../sql-statements/data-definition/create/create-table.md#index-types) can be used to optimize `MIN`.
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 Only ascending indexes can be used to optimize `MIN`.
 {% endtab %}
 {% endtabs %}
