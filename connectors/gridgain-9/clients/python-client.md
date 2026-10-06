@@ -277,4 +277,3 @@ async with await connect_simple() as client:
     is_empty = await binary_map.empty()
     print(f"Map is empty: {is_empty}")
 ```
-</content>
