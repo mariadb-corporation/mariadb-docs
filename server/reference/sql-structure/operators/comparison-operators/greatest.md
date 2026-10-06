@@ -8,7 +8,7 @@ GREATEST(value1,value2,...)
 
 ## Description
 
-With two or more arguments, returns the largest (maximum-valued) argument. The arguments are compared using the same rules as for [LEAST()](least.md).
+With two or more arguments, returns the largest (maximum-valued) argument. The arguments are compared using the same rules as for [LEAST()](least.md). This includes how `NULL` and invalid temporal arguments such as `DATE('')` are handled.
 
 ## Examples
 
@@ -37,6 +37,17 @@ SELECT GREATEST('B','A','C');
 +-----------------------+
 | C                     |
 +-----------------------+
+```
+
+`DATE('')` is `NULL` on its own, but `GREATEST()` compares it as the zero date, so the other argument wins:
+
+```sql
+SELECT GREATEST(DATE(''), '2026-10-05');
++----------------------------------+
+| GREATEST(DATE(''), '2026-10-05') |
++----------------------------------+
+| 2026-10-05                       |
++----------------------------------+
 ```
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
