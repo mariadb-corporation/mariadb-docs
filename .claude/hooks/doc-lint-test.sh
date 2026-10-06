@@ -2057,6 +2057,21 @@ want_out '0 new release pages checked'
 pd_clean
 end
 
+begin 'a ./ or absolute file argument still scopes the gate to that page'
+# The scope used to be compared as spelled, so either form matched no page and the gate passed
+# having checked nothing. CI passes no file list, but docs-check passes whatever it is given.
+pd_new_page
+pd "$SANDBOX/pd" new HEAD ./release-notes/connectors/c/3.4/3.4.11.md
+want_rc 1
+want_out '1 new release page checked'
+want_err 'missing Post Download page'
+pd "$SANDBOX/pd" new HEAD "$PD_NEW"
+want_rc 1
+want_out '1 new release page checked'
+want_err 'missing Post Download page'
+pd_clean
+end
+
 begin 'an unresolvable base revision SKIPs the new-page gate'
 pd_new_page
 pd "$SANDBOX/pd" new refs/heads/no-such-branch

@@ -21,7 +21,7 @@ name: Check Post Download Pages in PR
 #   GitBook space and never syncs, so a register entry cannot be touched that way.
 #
 #   The prose sentence on the page stays -- it is what tells a READER why there is no download
-#   link. It is not the signal, and cannot be: of the 67 connector releases with no Post Download
+#   link. It is not the signal, and cannot be: of the dozens of releases with no Post Download
 #   page, two carry such a sentence and the two are worded differently from each other.
 #
 # WHAT THIS GATES
@@ -34,7 +34,7 @@ name: Check Post Download Pages in PR
 #
 #   2. A release notes page ADDED by the PR must have its Post Download page, linked from
 #      platform/SUMMARY.md, unless the register acknowledges it (`new <base>`, DOCS-6408). It
-#      reads only pages absent at the base, because it cannot run tree-wide -- 67 existing
+#      reads only pages absent at the base, because it cannot run tree-wide -- dozens of existing
 #      releases would fail it, a mix of pages predating the system (Connector/J 1.1.x is from
 #      2013) and untriaged gaps. `hidden: true` notes are held to the same rule.
 #
