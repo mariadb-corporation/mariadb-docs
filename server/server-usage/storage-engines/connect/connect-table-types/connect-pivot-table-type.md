@@ -180,7 +180,7 @@ The **options** and **sub-options** available for Pivot tables are:
 | Groupby\*  | Boolean          | Set it to True (1 or Yes) if the table already has a GROUP BY format.                                                      |
 | Accept\*   | Boolean          | To accept non matching Pivot column values.                                                                                |
 
-* : These options must be specified in the OPTION\_LIST.
+Options marked with an asterisk (\*) must be specified in the OPTION\_LIST.
 
 ### Additional Access Options
 
