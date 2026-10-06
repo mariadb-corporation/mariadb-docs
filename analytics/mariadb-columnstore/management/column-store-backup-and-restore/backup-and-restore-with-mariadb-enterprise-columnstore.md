@@ -46,7 +46,8 @@ flowchart TD
         A MaxScale proxy routes client connections to three MariaDB Enterprise
         Server and ColumnStore nodes: one read-write route and two read-only
         routes. All three nodes use a shared S3-compatible object storage
-        backend for their table data.
+        backend for their table data. Arrows lead from the S3-compatible object
+        storage box to each of the three nodes.
     }
     MX["MariaDB MaxScale"]
     N1[("ES + ColumnStore")]
@@ -76,7 +77,8 @@ flowchart TD
         A MaxScale proxy routes client connections to three MariaDB Enterprise
         Server and ColumnStore nodes: one read-write route and two read-only
         routes. All three nodes share their table data over an NFS shared
-        storage backend.
+        storage backend. Arrows lead from the NFS shared storage box to each of
+        the three nodes.
     }
     MX["MariaDB MaxScale"]
     N1[("ES + ColumnStore")]
