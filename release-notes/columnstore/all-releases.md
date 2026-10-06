@@ -28,6 +28,7 @@ description: A list of all MariaDB ColumnStore releases
 
 | Version                       | Release Date | Release Status |
 | ----------------------------- | ------------ | -------------- |
+| [23.02.24](23.02/23.02.24.md) | 2026-09-28   | Stable (GA)    |
 | [23.02.17](23.02/23.02.17.md) | 2025-12-19   | Stable (GA)    |
 | [23.02.16](23.02/23.02.16.md) | 2025-10-14   | Stable (GA)    |
 | [23.02.15](23.02/23.02.15.md) | 2025-07-03   | Stable (GA)    |
