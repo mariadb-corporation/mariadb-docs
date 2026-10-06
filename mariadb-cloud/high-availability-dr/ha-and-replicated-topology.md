@@ -159,9 +159,9 @@ flowchart TD
     accTitle: Failover when an entire region or cloud provider fails
     accDescr {
       Architecture diagram of MariaDB Cloud disaster recovery across cloud regions, cloud providers, and on-premises environments.
-      An AWS region hosts the primary MariaDB Server (running as multiple pods, one active). It replicates data (relationship 1) to a MariaDB Server in a Google Cloud region and to a MariaDB Server pod in an on-premises data center.
-      A shield-and-flame icon positioned between the AWS and Google Cloud regions represents the region- or cloud-provider-outage event the diagram illustrates.
-      The primary SkySQL Intelligent Proxy connects bidirectionally to a MariaDB Connector / APPLICATION Client box. A second, standby SkySQL Intelligent Proxy connects to the same client via a dotted failover path (relationship 2): when a region or cloud goes offline, the client fails over to another cloud using DNS or the client connector, following the example JDBC connection string shown alongside: jdbc:mariadb:[sequential://&lt;primary-endpoint&gt;,&lt;alternate-endpoint&gt;...]/[database].
+      An AWS region hosts the primary MariaDB Server. It replicates data (relationship 1) to a MariaDB Server in a Google Cloud region and to a MariaDB Server in an on-premises data center.
+      A box labelled Region / cloud provider outage event is drawn outside the three region groups.
+      The primary SkySQL Intelligent Proxy connects bidirectionally to a MariaDB Connector / APPLICATION Client box. A second, standby SkySQL Intelligent Proxy connects to the same client via a dotted failover path (relationship 2): when a region or cloud goes offline, the client fails over to another cloud using DNS or the client connector, following the example JDBC connection string in a box joined to the client box by a line with no arrowhead: jdbc:mariadb:[sequential://&lt;primary-endpoint&gt;,&lt;alternate-endpoint&gt;...]/[database].
     }
 
     subgraph AWSRegion["AWS Region"]
