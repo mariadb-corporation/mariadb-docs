@@ -286,6 +286,9 @@ jobs:
   # reads generated content. Its tests run here, on every PR and without a paths: filter,
   # because what breaks the extractor is usually a change to the PAGES it reads -- DOCS-6672
   # added a hint inside every version tab and touched no extractor code at all.
+  # The HELP-table extractor (help-tables/) runs here for the same reason: its
+  # Markdown stripping had been turning `SELECT * FROM t` into `SELECT  FROM t`
+  # in fill_help_tables.sql, which ships with the server (DOCS-6894).
   extractor-test:
     runs-on: ubuntu-latest
     # Well under a second of Python. Explicit for the same reason as the jobs above.
@@ -311,6 +314,23 @@ jobs:
           # silently, so require a nonzero count.
           if ! grep -qE '^Ran [1-9][0-9]* tests? in ' extractor-test.log; then
             echo "::error::unittest discovered no extractor tests, so this pass would mean nothing. Check the file name still matches test_*.py."
+            exit 1
+          fi
+
+      - name: Run the HELP-table extractor tests
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          set -uo pipefail
+          python3 -m unittest discover -s help-tables -p 'test_*.py' -v > help-tables-test.log 2>&1
+          rc=$?
+          cat help-tables-test.log
+          if [[ "$rc" != "0" ]]; then
+            echo "::error::The HELP-table extractor tests failed. Its output ships with the server as fill_help_tables.sql; fix the extractor (or the page) rather than the test."
+            exit "$rc"
+          fi
+          if ! grep -qE '^Ran [1-9][0-9]* tests? in ' help-tables-test.log; then
+            echo "::error::unittest discovered no HELP-table extractor tests, so this pass would mean nothing. Check the file name still matches test_*.py."
             exit 1
           fi
 
