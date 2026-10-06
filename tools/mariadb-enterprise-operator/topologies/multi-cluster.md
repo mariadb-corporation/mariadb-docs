@@ -71,7 +71,7 @@ flowchart TD
       maxscale-1 pods, which route into its MariaDB Cluster containing
       mariadb-0 (Primary Replica) and mariadb-1 (Secondary Replica). Its own
       mariadb-operator pod provisions, configures, and monitors that MariaDB
-      Cluster, but takes no backups there. The Replica Cluster's mariadb-0
+      Cluster. The Replica Cluster's mariadb-0
       (Primary Replica) pod replicates from the Primary Cluster's MaxScale
       Service, forming the cross-cluster replication connection.
     }

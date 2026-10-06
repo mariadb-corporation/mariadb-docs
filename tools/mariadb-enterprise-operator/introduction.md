@@ -28,7 +28,7 @@ Kubernetes has been designed with flexibility in mind, allowing developers to ex
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
   accTitle: MariaDB Enterprise Operator reconciliation loop
-  accDescr { A user creates MariaDB and MaxScale resources that define the desired state. The MariaDB Enterprise Operator watches those resources and continuously watches the current state of the cluster's compute, storage, and network resources. When the desired state changes, or the current state drifts from it, the Operator updates the compute, storage, and network resources so the current state matches the desired state again. }
+  accDescr { A user creates MariaDB resources that define the desired state. The MariaDB Enterprise Operator watches those resources (arrows labelled Watch run both ways between the resources and the Operator) and continuously watches the current state of the cluster's compute, storage, and network resources. When the desired state changes, or the current state drifts from it, the Operator updates the compute, storage, and network resources so the current state matches the desired state again. }
 
   classDef actorStyle fill:#ffffff,stroke:#333333,stroke-width:1.5px,color:#111;
   classDef resourceStyle fill:#e8f0fe,stroke:#1a73e8,stroke-width:1.5px,color:#111;
