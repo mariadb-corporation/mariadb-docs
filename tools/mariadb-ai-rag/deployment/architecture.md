@@ -16,6 +16,30 @@ The system is organized into a primary Docker layer that orchestrates communicat
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: RAG deployment architecture in a Docker network
+    accDescr {
+        Three top-level groups are drawn: External World, Docker Layer:
+        rag-network and AI Models. External World holds Web Apps / Users and AI
+        Agent / IDE (e.g., Windsurf/Cursor). Docker Layer: rag-network holds three
+        numbered groups. 1. Entry Points holds mcp-server (AI Protocol Gateway -
+        Port 8002) and rag-api (Main REST API - Port 8000). 2. Asynchronous
+        Processing holds rag-redis (Message Queue - Port 6379), rag-celery-worker
+        (Background Heavy Lifter) and rag-docling-ray (Document Specialist - Port
+        8003). 3. Storage Layer holds MariaDB (Relational + Vector Store, Port
+        3306) and Shared Volume (Local Files or AWS S3). AI Models holds External
+        Models (OpenAI, Gemini, etc., Port 443). Thirteen one-way arrows connect
+        the boxes. Entry points: Web Apps / Users to rag-api, labelled REST/JSON.
+        AI Agent / IDE to mcp-server, labelled MCP Requests. mcp-server to
+        rag-api, labelled Proxies Requests. Processing: rag-api to rag-redis,
+        labelled Pushes Tasks. rag-redis to rag-celery-worker, labelled Pulls
+        Tasks. rag-celery-worker to rag-docling-ray, labelled Sends PDFs.
+        rag-docling-ray back to rag-celery-worker, labelled Returns Parsed Text.
+        rag-celery-worker to External Models, labelled Gets Vectors. rag-api to
+        MariaDB, labelled Vector Queries. Storage: rag-api to Shared Volume,
+        labelled Writes/Reads Files. rag-celery-worker to Shared Volume, labelled
+        Reads Source Files. rag-celery-worker to MariaDB, labelled Writes Vectors.
+        rag-api to External Models, labelled Generative Context.
+    }
     subgraph External_World [External World]
         Users[Web Apps / Users]
         Agents[AI Agent / IDE<br/>e.g., Windsurf/Cursor]
