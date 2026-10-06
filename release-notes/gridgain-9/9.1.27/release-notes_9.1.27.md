@@ -107,7 +107,7 @@ The `SYSTEM.TABLES` system view now has a `TABLE_SCHEMA_VERSION` column reportin
 | GG-50388 | Platforms & Clients | Fixed: A malformed client message could use up all of a node's memory. |
 | GG-50379 | Cluster Security | Built-in roles (system, gridgain-system-bypass) can no longer be granted or revoked via SQL, REST or the Java API, in any letter case. Appointing or removing a cluster administrator now requires a security configuration update. |
 | GG-50378 | Cluster Security | `CREATE USER` and `ALTER USER` password literals are now masked in the `SYSTEM.SQL_QUERIES` view and in query event records. The event error field is suppressed for such statements so it cannot republish the password. |
-| GG-50361 | General | ignite.nodeAttributes.nodeAttributes.<name> is deprecated in favor of the new flat ignite.userAttributes.<name>, with existing configs migrated automatically. |
+| GG-50361 | General | `ignite.nodeAttributes.nodeAttributes.<name>` is deprecated in favor of the new flat `ignite.userAttributes.<name>`, with existing configs migrated automatically. |
 | GG-50359 | Cluster Storage Engine | Fixed calculation of partition state health |
 | GG-50245 | Cluster Data Snapshots and Recovery | Primary replicas are now awaited in assignments during snapshot restore. |
 | GG-50158 | Cluster Security | Hardened machine learning marshaller deserialization with a strict object input filter. |

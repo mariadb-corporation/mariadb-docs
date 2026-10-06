@@ -85,7 +85,7 @@ GridGain 9 stores cluster metainformation in the cluster catalog. Prior to this 
 | IGN-26259 | General | Node is now stopped gracefully when the process is terminated. |
 | IGN-26230 | Platforms and Clients | Java thin: removed legacy reconnectThrottlingPeriod and reconnectThrottlingRetries config properties. Use RetryPolicy instead. |
 | IGN-25799 | General | Accelerated rollback abandoned transactions on a lock conflict with another transaction. |
-| IGN-25517 | Distributed Computing | Added Collection<Tuple> support as a Compute job argument and result. |
+| IGN-25517 | Distributed Computing | Added `Collection<Tuple>` support as a Compute job argument and result. |
 | GG-41601 | CLI Tool | Fixed an issue preventing failed DCR replication from being stopped. |
 | GG-41583 | Cluster Data Snapshots and Recovery | Snapshots now lock low watermark until data is no longer required. |
 | GG-41543 | GridGain Integrations | Kafka sink: added configurable temporal types handling. |

@@ -124,7 +124,7 @@ See [GRANT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZK
 | GG-47788 | General | Fixed a memory leak in Raft. |
 | GG-47737 | Cluster SQL Engine | Added the DEFAULT_VALUE column to the TABLE_COLUMNS system view. |
 | GG-47636 | Platforms & Clients | C++ client: fixed continuous query duplicate events when the enable_empty_batches option is enabled. |
-| GG-46610 | CLI Tool | Added the --if-needed and --if-nodes=<N> flags for cluster initialization. |
+| GG-46610 | CLI Tool | Added the `--if-needed` and `--if-nodes=<N>` flags for cluster initialization. |
 | GG-46148 | Platforms & Clients | Added DataStreamerOptions.sameKeyUpdateMode with SQUASH (default, existing behavior) and PRESERVE modes. |
 
 ## Upgrade Information

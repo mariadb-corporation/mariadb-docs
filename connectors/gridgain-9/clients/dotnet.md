@@ -724,7 +724,7 @@ The following APIs are not supported in Native AOT mode:
 
 - Automatic object mapping without `IMapper<T>`
 
-**Workaround**: use overloads that explicitly accept IMapper<T>.
+**Workaround**: use overloads that explicitly accept `IMapper<T>`.
 
 - LINQ-based APIs (`IRecordView.AsQueryable`, `IKeyValueView.AsQueryable`)
 

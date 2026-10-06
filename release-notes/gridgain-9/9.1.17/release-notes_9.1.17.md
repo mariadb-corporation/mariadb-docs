@@ -126,7 +126,7 @@ var watermark = IContinuousQueryWatermark.AfterTransaction(tx);
 | IGN-29735 | CLI Tool | Added CLI-only Docker image. |
 | IGN-29718 | Cluster REST API | Fixed resource leak in a rare scenario of deploying multiple files with wrong version format. |
 | IGN-29708 | Cluster SQL Engine | Fixed an issue when wrong result is returned if result of aggregation is used in division. |
-| IGN-29699 | Cluster Storage Engine | Added new metrics under "storage.<aipersist/aimem>.checkpoint" source. |
+| IGN-29699 | Cluster Storage Engine | Added new metrics under `storage.<aipersist/aimem>.checkpoint` source. |
 | IGN-29694 | Platforms & Clients | Fixed a rare deadlock in C++ client during compute job execution. |
 | IGN-29688 | General | Fixed NPE if write intent switch happens after the table is already dropped. |
 | IGN-29678 | Distributed Data Streamer | Thin clients (all): Fixed data streamer changes not being immediately visible. |
@@ -135,7 +135,7 @@ var watermark = IContinuousQueryWatermark.AfterTransaction(tx);
 | IGN-29642 | CLI Tool | CLI tool maximum heap size is now limited to 256 Mb. |
 | IGN-29639 | General | Fixed an issue that could lead to an error during the registration of table metrics when a node restarts. |
 | IGN-29631 | General | Fixed command timestamp reordering in raft state machine on unstable group topology. |
-| IGN-29621 | Platforms & Clients | .NET: Added custom object mapping to Compute, SQL, and PartitionManager APIs with IMapper<T>. |
+| IGN-29621 | Platforms & Clients | .NET: Added custom object mapping to Compute, SQL, and PartitionManager APIs with `IMapper<T>`. |
 | IGN-29599 | General | Multi node disaster recovery operations are completed when all participating nodes finish processing. |
 | IGN-29596 | General | Fixed possible TxIdMismatchException in case of primary replica switch. |
 | IGN-29541 | Cluster REST API | Added a new /management/v1/deployment/node/units/structure/{unitId}/{unitVersion} REST endpoint that can be used to fetch deployment unit file structure on the node. |

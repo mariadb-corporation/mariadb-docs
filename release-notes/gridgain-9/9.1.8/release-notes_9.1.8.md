@@ -561,7 +561,7 @@ The following improvements have been implemented in one of the releases between 
 | IGN-27609 | SQL | Fixed an issue that caused inconsistent behavior of the JOIN command that has sub-queries in the ON clause referencing the right table of the JOIN. |
 | IGN-27631 | SQL | You now need to commit the explicit transaction in the script for it to be executed. |
 | IGN-27632 | Platforms and Clients | Added support for .NET data streamer receiver implementations. |
-| IGN-27650 | SQL | Fixed incorrect parsing of DATE, TIME, TIMESTAMP, and TIMESTAMP WITH LOCAL TIME ZONE in the CAST(string AS <datetime type> FORMAT 'format-string') operation. |
+| IGN-27650 | SQL | Fixed incorrect parsing of DATE, TIME, TIMESTAMP, and TIMESTAMP WITH LOCAL TIME ZONE in the `CAST(string AS <datetime type> FORMAT 'format-string')` operation. |
 | IGN-27676 | Data Streamer | Data Streamer: fixed the receiver API. Added `payloadMarshaller`, `argumentMarshaller`, `resultMarshaller`. Added `DataStreamerReceiverDescriptor<T, A, R>`. Deprecated `ReceiverDescriptor<A>`. Added new `DataStreamerTarget#streamData` overload with `DataStreamerReceiverDescriptor` and deprecated the old one. |
 | IGN-27677 | Distributed Data Streamer | .NET: Added payload, argument and result marshallers to data streamer APIs. |
 | IGN-27702 | SQL | Added support for EXPLAIN MAPPING FOR command. |
