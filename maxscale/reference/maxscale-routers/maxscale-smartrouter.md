@@ -164,6 +164,29 @@ What to do with a read when the cluster has not caught up within
     intended for cases where an up-to-date result is essential but running the
     read on the master would take too long.
 
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
+
+### `eviction_schedule`
+
+* Type: stringlist of [durations](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `2m,5m,10m,20m`
+
+The eviction schedule for the performance measurements. At each step, the query performance is measured again and if the same target responds the fastest, the query is kept in the performance cache. By default, the query is measured at 2 minutes, 7 minutes (2 + 5), 17 minutes (2 + 5 + 10) and 37 minutes (2 + 5 + 10 + 20) of being in the cache.
+
+At most 64 values can be defined and the values must be sorted from the smallest value to the largest value.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
+
 ## Cluster selection - how queries are routed
 
 SmartRouter keeps track of the performance, or the execution time, of queries to the clusters. Measurements are stored with the canonical of a query as the key. The canonical of a query is the sql with all user-defined constants replaced with question marks. When SmartRouter sees a read-query whose canonical has not been seen before, it will send the query to all clusters. The first response from a cluster will designate that cluster as the best one for that canonical. Also, when the first response is received, the other queries are cancelled. The response is sent to the client once all clusters have responded to the query or the cancel.
@@ -235,6 +258,32 @@ causal_reads = local
 causal_reads_timeout = 5s
 causal_reads_on_timeout = error
 ```
+
+### Limitations of causal reads
+
+* Only `none` and `local` are supported.
+* The value of `causal_reads` is fixed when a session is created. A change
+  affects only new sessions.
+* If the master does not report a GTID for a write, for example because the
+  binary log is disabled, there is nothing to wait for and reads are not held.
+* MaxScale must be able to learn the GTID position of a cluster. The MariaDB
+  Monitor and the Galera Monitor report it for servers. If a cluster never
+  reports a position, every read to it is held for the entire
+  `causal_reads_timeout`, so `causal_reads` should not be enabled for it.
+* A held read adds latency of up to `causal_reads_timeout`. This also applies
+  to the first execution of a query that SmartRouter has not seen before.
+
+## Routing Hints
+
+SmartRouter supports routing hints. Only `route to master` and
+`route to server` hints are supported. In order for hints to be used, you must
+use either the `hintfilter` or the `namedserverfilter`.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
 
 ## Limitations
 

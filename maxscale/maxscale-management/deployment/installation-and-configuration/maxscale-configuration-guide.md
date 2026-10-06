@@ -401,6 +401,29 @@ This parameter specifies the hard limit for the number of worker threads, which 
 
 At startup, if the value of `threads` is larger than that of `threads_max`, the value of `threads` will be reduced to that. At runtime, an attempt to increase the value of `threads` beyond that of `threads_max` is an error.
 
+#### `worker_assignment`
+
+* Type: [enum](maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `local`, `roundrobin`
+* Default: `local`
+
+Control the way in which client sessions are assigned to worker threads. The supported values are:
+
+* `local`: The session is assigned to the worker thread that accepts the connection.
+* `roundrobin`: The sessions are assigned in a round-robin fashion across all worker threads.
+
+For workloads with connections that have short to moderate lifetimes, the default `local` is the best approach as it balances the load based on how busy each worker thread is. Threads that have heavier sessions that do a lot naturally get less connections while threads that have many light sessions that are idle get more.
+
+If the workload consists of a small number of connections with very long lifetimes, for example when client-side connection pooling is used, the `roundrobin` approach guarantees an even distribution of connections.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
+
 #### `rebalance_period`
 
 * Type: [duration](maxscale-configuration-guide.md#durations)
@@ -570,6 +593,27 @@ The following functionality is disabled when passive mode is enabled:
 * Default: `false`
 
 Enable or disable the high precision timestamps in logfiles. Enabling this adds millisecond precision to all logfile timestamps.
+
+#### `log_timestamp_format`
+
+* Type: [enum](maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `default`, `iso_8601`, `datetime`
+* Default: `default`
+
+The timestamp format used by MaxScale in log messages.
+
+* `iso_8601`: ISO 8601 timestamps with timezone and optional millisecond precision: `YYYY-MM-DDTHH:MM:SS[.sss]+HH:MM`
+* `datetime`: Date and time with optional millisecond precision: `YYYY-MM-DD HH:MM:SS[.sss]`
+* `default`: Same as `iso_8601` but causes warnings to be logged if the log contains messages with the `datetime` format.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later. Older versions
+always use the `datetime` format.
+{% endtab %}
+{% endtabs %}
 
 #### `syslog`
 
@@ -934,6 +978,23 @@ Using `maxctrl show threads` it is possible to check what the actual size of the
 | QC cache misses    | How many times the classification result has not been found from the cache, but the classification had to be performed. |
 | QC cache evictions | How many times a cache entry has had to be removed from the cache, in order to make place for another.                  |
 
+#### `statistics`
+
+* Type: [boolean](maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `true`
+
+Whether to enable or disable collection of statistics in MaxScale. By default, MaxScale collects statistics about query execution and how long each query type takes. These statistics are visible in the new `maxctrl show query_statistics` command.
+
+Disabling the statistics reduces memory usage and lowers the CPU usage. If the statistics are not of use, they can be disabled as they're currently only informational.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
+
 #### `query_classifier_args`
 
 Deprecated since MariaDB MaxScale 23.08.
@@ -1204,11 +1265,43 @@ All runtime configuration changes are persisted in generated configuration files
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `10`
+* Default: `0`
 
-The maximum number of authentication failures that are tolerated before a host is temporarily blocked. The default value is 10 failures. After a host is blocked, connections from it are rejected for 60 seconds. To disable this feature, set the value to 0.
+The maximum number of authentication failures that are tolerated before a host is temporarily blocked. After a host is blocked, connections from it are rejected for 60 seconds. To disable this feature, set the value to 0.
+
+{% tabs %}
+{% tab title="Current" %}
+By default, this feature is disabled.
+{% endtab %}
+
+{% tab title="< 26.10" %}
+The default value is `10`.
+{% endtab %}
+{% endtabs %}
 
 Note that the configured value is not a hard limit. The number of tolerated failures is between `max_auth_errors_until_block` and `threads * max_auth_errors_until_block` where `max_auth_errors_until_block` is the configured value of this parameter and `threads` is the number of configured threads.
+
+#### `max_connect_errors`
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `100`
+
+Maximum number of connection attempt errors before the host is blocked for 60 seconds. After a host is blocked, connections from it are rejected for 60 seconds. To disable this feature, set the value to 0.
+
+This setting is similar to the `max_connect_errors` feature in the MariaDB server.
+This parameter was added in MaxScale 25.10.
+
+{% tabs %}
+{% tab title="Current" %}
+The default value is `100`.
+{% endtab %}
+
+{% tab title="< 26.10" %}
+The default value is `0`, which disables the feature.
+{% endtab %}
+{% endtabs %}
 
 #### `debug`
 
@@ -1830,9 +1923,68 @@ When enable and SSL certificates are defined, MaxScale OpenTelemetry uses insecu
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `http://localhost:4318/v1/metrics`
+* Default: `http://localhost:4318`
 
-The OpenTelemetrymetrics URL where MaxScale pushes metrics.
+{% tabs %}
+{% tab title="Current" %}
+The OpenTelemetry base URL where MaxScale pushes metrics and logs. The
+metrics and logs paths are appended to this URL. If the value ends in
+`/v1/metrics`, as the old default value `http://localhost:4318/v1/metrics`
+does, the suffix is automatically dropped.
+{% endtab %}
+
+{% tab title="< 26.10" %}
+The OpenTelemetry metrics URL where MaxScale pushes metrics. The default
+value is `http://localhost:4318/v1/metrics`.
+{% endtab %}
+{% endtabs %}
+
+#### `telemetry_metrics_url`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+
+URL where OpenTelemetry metrics are sent. This overrides the value that's automatically derived from `telemetry_url`. Use this if you want to send metrics to a separate or non-standard location.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
+
+#### `telemetry_logs_url`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+
+URL where OpenTelemetry logs are sent. This overrides the value that's automatically derived from `telemetry_url`. Use this if you want to send logs to a separate or non-standard location.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
+
+#### `telemetry_signals`
+
+* Type: [enum\_mask](maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `metrics`, `logs`
+* Default: `metrics,logs`
+
+The telemetry signals to send. By default both metrics and logs are sent if telemetry is enabled.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later. Older versions
+only send metrics.
+{% endtab %}
+{% endtabs %}
 
 #### `telemetry_ssl_key`
 
@@ -2004,7 +2156,7 @@ This event is available from MaxScale 26.10.
 This event occurs when a client session is successfully started.
 ```
 event_session_start_facility=LOG_AUTH
-event_session_start_level=LOG_CRIT
+event_session_start_level=LOG_NOTICE
 ```
 
 #### `session_stop`
@@ -2016,8 +2168,28 @@ This event is available from MaxScale 26.10.
 This event occurs when a client disconnects.
 ```
 event_session_stop_facility=LOG_AUTH
-event_session_stop_level=LOG_CRIT
+event_session_stop_level=LOG_NOTICE
 ```
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
+
+#### `transaction_replay_failure`
+
+This event occurs when a readwritesplit service with `transaction_replay=true` fails to replay a transaction.
+
+```
+event_transaction_replay_failure_level=LOG_INFO
+```
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
 
 ### Service
 
