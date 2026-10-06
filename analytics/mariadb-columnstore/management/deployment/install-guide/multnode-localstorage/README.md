@@ -38,8 +38,9 @@ flowchart TD
     accDescr {
         A MariaDB MaxScale proxy sits above three MariaDB Enterprise Server nodes, each running
         ColumnStore. MaxScale routes read-only traffic to the first and third nodes and
-        read-write traffic to the middle node. Each node's ColumnStore layer reads and writes
-        data through a shared NFS storage volume.
+        read-write traffic to the middle node. Each node's ColumnStore layer uses a shared
+        NFS storage volume. Arrows lead from the NFS box to each of the three ColumnStore
+        boxes.
     }
     MX["MariaDB MaxScale"]
     ES1["ES"]
