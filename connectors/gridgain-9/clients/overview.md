@@ -218,5 +218,3 @@ The following table outlines features supported by each client.
 | Heartbeats | ✅ | ✅ | ✅ |
 | Data Streamer | ✅ | ✅ | No |
 | Continuous Query | ✅ | No | ✅ |
-</content>
-</invoke>

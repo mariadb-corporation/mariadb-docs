@@ -275,4 +275,3 @@ with conn.cursor() as cursor:
 {% hint style="info" %}
 The `rollback` command rolls back all uncommitted data.
 {% endhint %}
-</content>

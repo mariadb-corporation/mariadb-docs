@@ -169,4 +169,3 @@ try (IgniteClient client = IgniteClient.builder()
 | operationTimeout | Operation timeout, in milliseconds. |
 | backgroundReconnectInterval | Background reconnect interval, in milliseconds. |
 | retryPolicy | Retry policy. By default, all read operations are retried up to 16 times, and write operations are not retried. |
-</content>
