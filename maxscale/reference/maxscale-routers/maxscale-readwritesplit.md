@@ -695,6 +695,8 @@ This is the maximum time that a transaction will wait for synchronization. In th
 
 For example, with `sync_transaction=soft` and `sync_transaction_timeout=3s`, the synchronization of a `COMMIT` will take at most 3 seconds after which the result is always returned to the client, regardless of whether it was synchronized or not.
 
+Unlike modifications to most readwritesplit settings that only affect new sessions started after the modification, modifying this setting at runtime also affects existing sessions. This allows the transaction synchronization characteristics to be adjusted at runtime for all open sessions.
+
 ### `sync_transaction_max_lag`
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
@@ -711,6 +713,48 @@ When `sync_transaction_max_lag` is configured, a single transaction is used to p
 When the value of `sync_transaction_max_lag` is higher than the value of `sync_transaction_timeout`, the replication lag as reported by the monitor is used to determine when to start synchronizing all transactions.
 
 Very high values of `sync_transaction_max_lag` combined with high values of `sync_transaction_timeout` may cause oscillations in the commit times of transactions and thus it's recommended to keep the maximum lag relatively low.
+
+Unlike modifications to most readwritesplit settings that only affect new sessions started after the modification, modifying this setting at runtime also affects existing sessions. This allows the transaction synchronization characteristics to be adjusted at runtime for all open sessions.
+
+### `sync_transaction_percent`
+
+* Type: [percent](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#percent)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `100%`
+
+The percentage of transactions that are synchronized. By default all transactions are synchronized.
+
+Lowering the synchronization percentage and sync timeout to a low value and then gradually increasing the percentage to 100% and only then increasing the timeout allows for a very gradual throttling of transactions when used with `sync_transaction=soft`.
+
+This parameter was added in MaxScale 26.10.
+
+### `sync_transaction_throttle_rate`
+
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Min: `1ms`
+* Default: `5ms`
+
+The rate at which transactions are throttled when a server is set into the `throttle` state with `maxctrl set server <name> throttle`. Transaction throttling is enabled even if `sync_transaction` is not in use.
+
+The rate is calculated over a minute and with the default 5ms throttling rate, transactions will wait for at most 5ms before committing after one minute of throttling. At one hour of throttling, transactions will wait for at most 300ms and at 8 hours, they wait for 2400ms. The throttling is limited to `sync_transaction_timeout` and transactions will not wait for longer than that.
+
+This parameter was added in MaxScale 26.10.
+
+### `sync_transaction_probe`
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `true`
+
+Whether to probe transaction lag by doing synchronizing a transaction even if the maximum lag is not reached.
+
+Disabling the lag probes gives a more consistent performance but it comes at the cost of not knowing the true replication lag of the system. If a server is being throttled with `sync_transaction=none`, lag probes are not done to keep the commit latency predictable.
+
+This parameter was added in MaxScale 26.10.
 
 ## Router Diagnostics
 

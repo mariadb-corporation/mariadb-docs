@@ -628,6 +628,36 @@ The response contains a resource collection with all available drivers.
 }
 ```
 
+### Install ODBC Driver
+
+```
+POST /v1/sql/odbc/drivers/install
+```
+
+Automatically install ODBC drivers. Currently only MariaDB ODBC drivers can be installed automatically.
+
+* `type`
+  * Driver type. Currently only `mariadb` is supported.
+* `version`
+  * Optional user-defined version to install. By default the newest version is installed.
+* `arch`
+  * Optional CPU architecture. By default the host CPU architecture is used.
+* `os_type`
+  * Optional OS type override. By default the OS type is inferred from the contents of `/etc/os-release`.
+* `os_version`
+  * Optional OS version override. By default the OS version is inferred from the contents of `/etc/os-release`.
+
+```
+{
+    "type": "mariadb",
+    "version": "3.2.9"
+}
+```
+
+#### Response
+
+`Status: 200 OK`
+
 ### Prepare ETL Operation
 
 ```

@@ -899,6 +899,17 @@ If no successful failover takes place within the configured time period, a messa
 
 Time limit for switchover operations. The timeout is also used as the time limit for a rejoin operation. Rejoin should rarely time out, since it is a faster operation than switchover. Note that since the granularity of the timeouts is seconds, a timeout specified in milliseconds will be rejected, even if the duration is longer than a second.
 
+#### `switchover_wait_for_trx`
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `true`
+
+Wait for transactions to commit before starting switchover. In MaxScale 26.10, the switchover operation will wait for open transactions to commit before blocking new transactions. The switchover will wait for at most a third of the `switchover_timeout` before proceeding with the operation if there still are open transactions that haven't finished.
+
+This parameter was added in MaxScale 26.10.
+
 #### `verify_master_failure`
 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)

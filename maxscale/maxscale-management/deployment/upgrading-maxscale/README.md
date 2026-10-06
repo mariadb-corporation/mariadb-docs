@@ -31,6 +31,18 @@ For example, when upgrading from 23.08.9 to 25.10.3 and you have configured
 * Enable and then disable `log_info` with `maxctrl alter maxscale log_info=true` followed by `maxctrl alter maxscale log_info=false`
 * Upgrade MaxScale from 23.08.14 to 25.10.3
 
+## Upgrading MariaDB MaxScale from 25.10 to 26.10
+
+### Log Timestamp Format
+
+The default timestamp format in MaxScale 26.10 change to a standard ISO 8601 timestamp with timezone. The new timestamp format is interoperable with other log management systems and includes the system timezone which makes log analysis easier. To use the old format, add `log_timestamp_format=datetime` under the `[maxscale]` section.
+
+### Host Blocking
+
+The default value of `max_auth_errors_until_block` was changed from 10 to 0.
+
+The default value of `max_connect_errors` was changed from 0 to 100.
+
 ## Upgrading MariaDB MaxScale from 25.01 to 25.10
 
 ### Service User Grants

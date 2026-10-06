@@ -88,6 +88,19 @@ Note that the SmartQuery listener listens on a port, while the Row and Column se
 
 A complete configuration example can be found at the end of this document.
 
+### `eviction_schedule`
+
+* Type: stringlist of [durations](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `2m,5m,10m,20m`
+
+The eviction schedule for the performance measurements. At each step, the query performance is measured again and if the same target responds the fastest, the query is kept in the performance cache. By default, the query is measured at 2 minutes, 7 minutes (2 + 5), 17 minutes (2 + 5 + 10) and 37 minutes (2 + 5 + 10 + 20) of being in the cache.
+
+At most 64 values can be defined and the values must be sorted from the smallest value to the largest value.
+
+This parameter was added in MaxScale 26.10.
+
 ## Cluster selection - how queries are routed
 
 SmartRouter keeps track of the performance, or the execution time, of queries to the clusters. Measurements are stored with the canonical of a query as the key. The canonical of a query is the sql with all user-defined constants replaced with question marks. When SmartRouter sees a read-query whose canonical has not been seen before, it will send the query to all clusters. The first response from a cluster will designate that cluster as the best one for that canonical. Also, when the first response is received, the other queries are cancelled. The response is sent to the client once all clusters have responded to the query or the cancel.
@@ -95,6 +108,10 @@ SmartRouter keeps track of the performance, or the execution time, of queries to
 There is obviously overhead when a new canonical is seen. This means that queries after a MaxScale start will be slightly slower than normal. The execution time of a query depends on the database engine, and on the contents of the tables being queried. As a result, MaxScale will periodically re-measure queries.
 
 The performance behavior of queries under dynamic conditions, and their effect on different storage engines is being studied at MariaDB. As we learn more, we will be able to better categorize queries and move that knowledge into SmartRouter.
+
+## Routing Hints
+
+Starting with MaxScale 26.10, the smartrouter supports routing hints. Only `route to master` and `route to server` hints are supported. In order for hints to be used, you must use either the `hintfilter` or the `namedserverfilter`.
 
 ## Limitations
 
