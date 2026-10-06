@@ -439,7 +439,7 @@ var counterService = ignite.GetServices()
 counterService.Increment();
 ```
 
-The .NET thin client can also call services. See [Calling Services]({connectors}/gridgain-8/clients/dotnet-thin-client#calling-services) for details, including how to invoke a service asynchronously.
+The .NET thin client can also call services. See [Calling Services](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/dotnet-thin-client#calling-services) for details, including how to invoke a service asynchronously.
 {% endtab %}
 
 {% tab title="C++" %}

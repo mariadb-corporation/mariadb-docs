@@ -21,7 +21,7 @@ The following Ignite APIs are instrumented for tracing:
 * Transactions
 * SQL
 
-To view traces, export them into external system (see the [Control Center]({tools}/control-center) documentation).
+To view traces, export them into external system (see the [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) documentation).
 You can use one of the OpenCensus exporters or write your own, but in any case, you need to write code that registers an exporter in Ignite.
 
 ## Configuring Tracing

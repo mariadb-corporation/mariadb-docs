@@ -572,10 +572,10 @@ Not supported.
 Client configuration only requires enabling SSL with an appropriate certificate:
 
 * [control.(sh|bat)](../reference/cli-tool/README.md)
-* [JDBC]({connectors}/gridgain-8/sql/jdbc/jdbc-driver#using-ssl)
+* [JDBC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/jdbc/jdbc-driver#using-ssl)
 * [REST](../reference/rest-api/README.md)
-* [ODBC]({connectors}/gridgain-8/sql/odbc/connection-string-dsn)
-* [thin clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients)
+* [ODBC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/connection-string-dsn)
+* [thin clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/getting-started-with-thin-clients)
 
 ### JAAS Authentication
 
@@ -753,7 +753,7 @@ Client configuration in these scenarios should be configured for the authenticat
 ## Control Center OpenID Authentication
 
 {% hint style="info" %}
-This authenticator is designed to work with [Control Center]({tools}/control-center) and is part of Control Center Agent [optional module](../gridgain8-usage/setup.md#enabling-modules).
+This authenticator is designed to work with [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) and is part of Control Center Agent [optional module](../gridgain8-usage/setup.md#enabling-modules).
 {% endhint %}
 
 The OpenID Authenticator allows users who logged in to Control Center via OpenID Connect to work with the cluster under the same user.
@@ -1339,7 +1339,7 @@ The example above results in a user running under the server account with all th
 
 When authentication is configured in the cluster, all client applications must provide user credentials. Refer to the following pages for the information about specific clients:
 
-* [Thin clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients#authentication)
-* [JDBC driver]({connectors}/gridgain-8/sql/jdbc/jdbc-driver#parameters)
-* [ODBC driver]({connectors}/gridgain-8/sql/odbc/connection-string-dsn#supported-arguments)
+* [Thin clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/getting-started-with-thin-clients#authentication)
+* [JDBC driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/jdbc/jdbc-driver#parameters)
+* [ODBC driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/connection-string-dsn#supported-arguments)
 * [REST API](../reference/rest-api/README.md#security)

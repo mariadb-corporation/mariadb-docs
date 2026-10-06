@@ -20,7 +20,7 @@ Depending on your environment and what your plan is, you may want to open additi
 
 - 47100-47200 — ports used by GridGain nodes to communicate. Specific ports used depend on node configuration.
 - 47500-47600 — ports used by GridGain nodes to discover other nodes in the network. Specific ports used depend on node configuration.
-- 10800 — the port used for [thin clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients), [JDBC]({connectors}/gridgain-8/sql/jdbc/jdbc-driver) and [ODBC]({connectors}/gridgain-8/sql/odbc/odbc-driver) connections.
+- 10800 — the port used for [thin clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/getting-started-with-thin-clients), [JDBC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/jdbc/jdbc-driver) and [ODBC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/odbc-driver) connections.
 - 8080 — the port used for [REST API](../../reference/rest-api/README.md).
 - 11211 — the port used by [control script](../../reference/cli-tool/README.md) calls. This port should only be opened on nodes that need to send control script messages to other nodes.
 
@@ -30,7 +30,7 @@ Depending on your environment and what your plan is, you may want to open additi
 GridGain for .NET supports a thick client and a thin client. As this guide focuses on the _thick_ client, you can run the example below after adding the GridGain-Ignite library package.
 You do not need to download and install the GridGain distribution to run the example. See [Thick vs. Thin Clients section](../concepts.md#thick-vs.-thin-clients) for more information about the differences between thick and thin clients in GridGain.
 
-For information about the .NET thin client, see [.NET Thin Client]({connectors}/gridgain-8/clients/dotnet-thin-client).
+For information about the .NET thin client, see [.NET Thin Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/dotnet-thin-client).
 {% endhint %}
 
 {% hint style="warning" %}
@@ -97,4 +97,4 @@ As a result, you should see a node launch and the "Hello, World" text displayed 
 From here, you may want to:
 
 - Read more about using GridGain: [Developers Guide](../../gridgain8-usage/README.md), [Administrators Guide](../../gridgain8-management/README.md)
-- Use [GridGain Control Center]({tools}/control-center) to monitor your cluster
+- Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) to monitor your cluster

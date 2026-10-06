@@ -6,7 +6,7 @@ description: >-
 
 # Migrating from Apache Ignite 2 to GridGain 8
 
-This guide provides step-by-step instructions for migrating from Apache Ignite 2.18 to the [GridGain 8.10 Ultimate release]({release-notes}/8.10/release-notes_8.10). The procedure covers the cluster and its data, client applications and operational tooling.
+This guide provides step-by-step instructions for migrating from Apache Ignite 2.18 to the [GridGain 8.10 Ultimate release](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/8.10/release-notes_8.10). The procedure covers the cluster and its data, client applications and operational tooling.
 
 Before you start, read [What to Know Before Migrating](before-you-migrate.md). It covers the compatibility model, the features you need to migrate, and the artifact, configuration, and SQL changes this guide refers to.
 

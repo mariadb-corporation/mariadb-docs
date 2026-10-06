@@ -392,7 +392,7 @@ To learn more about colocating data in GridGain, see the [Affinity colocation](.
 
 ## Binary Objects
 
-Both, GridGain and Coherence allow for dynamic structure changes and cross-platform interoperability between Java, .NET, and C++. GridGain also allows accessing data from other languages, such as Python, Node.JS, and PHP via [thin clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients).
+Both, GridGain and Coherence allow for dynamic structure changes and cross-platform interoperability between Java, .NET, and C++. GridGain also allows accessing data from other languages, such as Python, Node.JS, and PHP via [thin clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/getting-started-with-thin-clients).
 
 In GridGain, a concept similar to Coherence's Portable Objects is called BinaryObjects. GridGain serializes objects in a binary format and stores them in caches as `BinaryObjects`. There are several advantages to this binary format:
 

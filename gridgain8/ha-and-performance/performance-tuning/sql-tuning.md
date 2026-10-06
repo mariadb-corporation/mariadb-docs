@@ -132,8 +132,8 @@ AND c.name NOT LIKE 'O%';
 
 The force join order hint can be specified as follows:
 
-- [JDBC driver connection parameter]({connectors}/gridgain-8/sql/jdbc/jdbc-driver#parameters)
-- [ODBC driver connection attribute]({connectors}/gridgain-8/sql/odbc/connection-string-dsn#supported-arguments)
+- [JDBC driver connection parameter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/jdbc/jdbc-driver#parameters)
+- [ODBC driver connection attribute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/connection-string-dsn#supported-arguments)
 - If you use [SqlFieldsQuery](../../gridgain8-usage/sql/sql-api.md) to execute SQL queries, you can set the enforce join order hint by calling the `SqlFieldsQuery.setEnforceJoinOrder(true)` method.
 
 ## Increasing Index Inline Size

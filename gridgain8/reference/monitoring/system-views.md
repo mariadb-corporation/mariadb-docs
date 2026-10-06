@@ -888,7 +888,7 @@ select CUR_CPU_LOAD * 100 from NODE_METRICS where NODE_ID = 'a1b77663-b37f-4ddf-
 
 ```
 
-The same example using [Java Thin Client]({connectors}/gridgain-8/clients/java-thin-client):
+The same example using [Java Thin Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/java-thin-client):
 
 ```java
 ClientConfiguration cfg = new ClientConfiguration().setAddresses("127.0.0.1:10800");

@@ -301,9 +301,9 @@ Ignite fully supports this feature.
 
 Ignite provides partial support for this feature implementing a subset of standard error codes and introducing custom ones. A full list of errors​ supported by Ignite can be found here:
 
-[JDBC Error Codes]({connectors}/gridgain-8/sql/jdbc/jdbc-driver#error-codes)
+[JDBC Error Codes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/jdbc/jdbc-driver#error-codes)
 
-[ODBC Error Codes]({connectors}/gridgain-8/sql/odbc/error-codes)
+[ODBC Error Codes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/error-codes)
 
 ## `E182` Host language Binding (previously "Module Language")
 

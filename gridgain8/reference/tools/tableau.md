@@ -17,9 +17,9 @@ GridGain and Apache Ignite are shipped with their own implementation of the ODBC
 To connect to your cluster from Tableau, you need to do the following:
 
 - Download and install Tableau Desktop. Refer to an official Tableau documentation located on the product's [main website](http://www.tableau.com).
-- Install the ODBC driver on a Windows or Unix-based operating system. The detailed instructions can be found on the driver's [configuration page]({connectors}/gridgain-8/sql/odbc/odbc-driver).
-- Finalize the driver configuration by [setting up a (Data Source Name)]({connectors}/gridgain-8/sql/odbc/connection-string-dsn). Tableau will connect to the DSN configured at this step.
-- The ODBC driver communicates to the cluster over an `ODBC processor`. Make sure that this component is enabled on the [cluster side]({connectors}/gridgain-8/sql/odbc/odbc-driver#cluster-configuration).
+- Install the ODBC driver on a Windows or Unix-based operating system. The detailed instructions can be found on the driver's [configuration page](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/odbc-driver).
+- Finalize the driver configuration by [setting up a (Data Source Name)](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/connection-string-dsn). Tableau will connect to the DSN configured at this step.
+- The ODBC driver communicates to the cluster over an `ODBC processor`. Make sure that this component is enabled on the [cluster side](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/odbc-driver#cluster-configuration).
 
 Once that's done, it's time to connect to the cluster and analyze data located there.
 
