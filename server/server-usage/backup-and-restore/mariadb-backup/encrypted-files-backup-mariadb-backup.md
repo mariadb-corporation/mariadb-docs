@@ -65,7 +65,7 @@ The restore phase simply moves the encrypted files back to the target server's d
 
 To ensure a restorable backup of an encrypted MariaDB instance, you must:
 
-1. **Access to encryption information:** Ensure that `mariadb-backup` has the same access to encryption information as the server does.
+1. **Access to encryption information:** Ensure that `mariadb-backup` has the same access to encryption information as the server does. For the HashiCorp Key Management plugin, set the `VAULT_TOKEN` environment variable for both `--backup` and `--prepare`; see [Using mariadb-backup](../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md#using-mariadb-backup).
 2. **Back up the keys:** The encryption keys themselves are **not** stored inside the backup. You must manually back up your `keyfile.txt`, AWS KMS credentials, or HashiCorp Vault tokens separately.
 3. **Synchronize target keys:** Before running `mariadb-backup --copy-back`, verify that the destination server’s configuration points to the identical keys used during the backup.
 
