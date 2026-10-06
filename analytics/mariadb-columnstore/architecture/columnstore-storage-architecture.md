@@ -116,7 +116,8 @@ flowchart TD
         Client and application queries reach a highly available pair of MaxScale instances,
         which coordinate their configuration through a shared Redis cache. MaxScale routes
         queries and handles failover to a ColumnStore cluster made up of one primary node and
-        two replica nodes. The cluster stores Enterprise ColumnStore metadata on shared storage
+        two replica nodes, with an arrow from the primary node to each replica node.
+        The cluster stores Enterprise ColumnStore metadata on shared storage
         and stores the ColumnStore data on S3-compatible object storage.
     }
     Client["Client"]
@@ -160,7 +161,8 @@ flowchart TD
         Client and application queries reach a highly available pair of MaxScale instances,
         which coordinate their configuration through a shared Redis cache. MaxScale routes
         queries and handles failover to a ColumnStore cluster made up of one primary node and
-        two replica nodes. The cluster stores both Enterprise ColumnStore metadata and data on
+        two replica nodes, with an arrow from the primary node to each replica node.
+        The cluster stores both Enterprise ColumnStore metadata and data on
         shared storage.
     }
     Client["Client"]

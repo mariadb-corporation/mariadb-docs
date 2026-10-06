@@ -42,8 +42,9 @@ flowchart TD
     accDescr {
         A MaxScale proxy routes client connections to three MariaDB Enterprise
         Server and ColumnStore nodes: one read-write route and two read-only
-        routes. All three nodes use a shared Amazon S3 object storage backend
-        for their table data.
+        routes. All three nodes use a shared S3 object storage backend
+        for their table data. Arrows lead from the S3 object storage box to
+        each of the three nodes.
     }
     MX["MariaDB MaxScale"]
     N1[("ES + ColumnStore")]
