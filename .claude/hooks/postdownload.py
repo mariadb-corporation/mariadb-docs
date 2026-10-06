@@ -34,8 +34,8 @@ WHAT IT GATES TODAY
         nothing
 
     The other direction -- that a newly added release notes page HAS its Post
-    Download page -- is `new <rev>` (DOCS-6408). It cannot be run tree-wide: 67
-    existing connector releases have no Post Download page, only two of which
+    Download page -- is `new <rev>` (DOCS-6408). It cannot be run tree-wide:
+    dozens of existing releases have no Post Download page, only two of which
     are acknowledged, and the rest are a mix of pages predating the system
     (Connector/J 1.1.x is from 2013) and gaps nobody has triaged. So it reads
     only pages that are absent at <rev>, the way `navcheck.py new` does, and
@@ -67,8 +67,8 @@ WHY THE EXEMPTION IS A REGISTER ENTRY AND NOT PAGE FRONTMATTER
 
     The prose sentence on the page stays -- it is what tells a READER why there
     is no download link. It is not the signal, because it cannot be one: of the
-    67 releases with no Post Download page, two carry such a sentence and they
-    are worded differently from each other.
+    dozens of releases with no Post Download page, two carry such a sentence and
+    they are worded differently from each other.
 
 USAGE
     postdownload.py audit          check the no-standalone register (default)
@@ -141,6 +141,24 @@ def repo_root(start='.'):
         if (cand / '.codespellignore').is_file() or (cand / '.git').exists():
             return cand
     return d
+
+
+def repo_relative(root, path):
+    """`path` as the repo-relative POSIX path the rest of this module compares.
+
+    A `./` prefix or an absolute path otherwise matches nothing, so a scoped
+    gate would check no pages and pass. Normalized the way navcheck.py's
+    spaces_for() does it; a path outside `root` keeps its spelling, minus any
+    leading `./`.
+    """
+    p = str(path).replace('\\', '/')
+    try:
+        return (pathlib.Path(p).resolve()
+                .relative_to(pathlib.Path(root).resolve()).as_posix())
+    except (ValueError, OSError):
+        while p.startswith('./'):
+            p = p[2:]
+        return p
 
 
 def product_for(rel_path):
@@ -316,7 +334,7 @@ def check_new(root, rev, files, advisory=False):
               file=sys.stderr)
         return None
 
-    scope = {f.replace('\\', '/') for f in files} if files else None
+    scope = {repo_relative(root, f) for f in files} if files else None
     pages = new_pages(root, rev, scope)
     if pages is None:
         print('postdownload: git could not list the release notes — SKIPPED',
@@ -401,11 +419,7 @@ def main(argv):
     root = repo_root()
 
     if mode == 'path':
-        rel = target
-        try:
-            rel = pathlib.Path(target).resolve().relative_to(root).as_posix()
-        except (ValueError, OSError):
-            pass
+        rel = repo_relative(root, target)
         expected = post_download_for(rel)
         print(expected if expected else
               f'none — {rel} maps to no Post Download page')

@@ -474,7 +474,7 @@ fi
 # gate (DOCS-6408): a release notes page added since $LINT_BASE MUST have its Post Download page,
 # linked from platform/SUMMARY.md, unless the register acknowledges it. The audit takes no file
 # list, for the same reason the version-include check above does not; the new-page gate is
-# diffed against $LINT_BASE like the orphan check, since 67 older releases would fail it.
+# diffed against $LINT_BASE like the orphan check, since dozens of older releases would fail it.
 POSTDOWNLOAD="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/postdownload.py"
 if [ ! -f "$POSTDOWNLOAD" ]; then
   # NOT a SKIP, for the reason the includecheck block gives: this is a checked-in sibling, so
