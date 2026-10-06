@@ -161,7 +161,7 @@ The --hashicorp-key-management-token option value or the value of the correspond
 ```
 
 {% hint style="info" %}
-When the server reads the token from `hashicorp-key-management-token`, the plugin also sets `VAULT_TOKEN` in the server's environment. Programs the server starts inherit it, such as `mariadb-backup` during a Galera Cluster [state snapshot transfer]({galera}/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method). A `mariadb-backup` that you start yourself doesn't inherit it.
+When the server reads the token from `hashicorp-key-management-token`, the plugin also sets `VAULT_TOKEN` in the server's environment. Programs the server starts inherit it, such as `mariadb-backup` during a Galera Cluster [state snapshot transfer](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method). A `mariadb-backup` that you start yourself doesn't inherit it.
 {% endhint %}
 
 ## Required Vault Token Permissions
