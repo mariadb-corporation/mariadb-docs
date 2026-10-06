@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Extend GridGain.NET with custom plugins using the plugin configuration and provider
   APIs, and interact with Java plugins through the platform target interfaces.

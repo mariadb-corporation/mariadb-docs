@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Overview of GridGain 8 thin clients: the features each client supports,
   connection failover, partition awareness, authentication, and how to configure

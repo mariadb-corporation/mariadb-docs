@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   How thin client authorization is configured in a GridGain 8 cluster, available
   in the Enterprise and Ultimate editions.

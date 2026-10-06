@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Run GridGain.NET on Windows, Linux, and macOS with .NET Framework and .NET
   Core, including Java detection and known issues.

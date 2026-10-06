@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Overview of the GridGain features, configuration approaches, and architectural
   nuances that are specific to C# and .NET applications.

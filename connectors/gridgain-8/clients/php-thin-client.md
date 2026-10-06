@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   How to install and use the GridGain 8 PHP thin client: creating a client
   instance, connecting to a cluster, key-value operations, scan and SQL queries,

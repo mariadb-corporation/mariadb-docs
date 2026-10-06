@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   How to install and use the GridGain 8 C++ thin client: creating a client
   instance, key-value operations, partition awareness, SSL/TLS, authentication,

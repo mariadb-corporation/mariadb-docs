@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   SQL drivers for GridGain 8 — the JDBC and ODBC drivers that let SQL
   applications and tools connect to and query a cluster.

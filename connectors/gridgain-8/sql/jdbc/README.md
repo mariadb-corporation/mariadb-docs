@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Overview of the GridGain JDBC drivers for processing distributed data with
   standard SQL, covering the JDBC Thin Driver and the JDBC Client Driver.

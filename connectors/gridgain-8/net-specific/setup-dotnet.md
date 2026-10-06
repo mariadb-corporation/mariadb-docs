@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   How to set up GridGain for C#/.NET, including prerequisites and installation
   through NuGet or the binary distribution.

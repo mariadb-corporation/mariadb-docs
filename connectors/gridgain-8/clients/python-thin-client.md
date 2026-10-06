@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   How to install and use the GridGain 8 Python thin client (pygridgain):
   connecting to a cluster, failover, partition awareness, creating caches,

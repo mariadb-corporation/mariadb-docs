@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Configure the GridGain.NET platform cache, an experimental CLR-heap caching layer
   that keeps deserialized cache entries to speed up reads.

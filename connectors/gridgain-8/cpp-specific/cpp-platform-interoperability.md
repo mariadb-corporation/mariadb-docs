@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   How to make GridGain C++ and Java nodes interoperate in a single cluster,
   covering binary marshaller configuration, basic and custom type compatibility,

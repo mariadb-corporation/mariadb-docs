@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Serialization options in GridGain.NET, including IBinarizable, IBinarySerializer,
   ISerializable, and Ignite reflective serialization.

@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   The ODBC connection string format, the connection string and DSN arguments
   supported by the GridGain ODBC driver, and how to configure a DSN.

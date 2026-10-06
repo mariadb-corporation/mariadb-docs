@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   GridGain 8 thin clients are lightweight clients that connect to a cluster over
   a socket connection, available for Java, .NET/C#, C++, Python, Node.js, and PHP.

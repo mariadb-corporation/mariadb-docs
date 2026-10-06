@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   How to install and use the GridGain 8 Node.js thin client: creating a client
   instance, connecting to a cluster, key-value operations, type mapping, scan and

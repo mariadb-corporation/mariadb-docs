@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   The GridGain ODBC driver lets applications query and modify distributed cache
   data using standard SQL and the native ODBC API.

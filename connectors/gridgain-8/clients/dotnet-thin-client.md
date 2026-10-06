@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   How to install and use the GridGain 8 .NET/C# thin client: connecting to a
   cluster, server discovery, partition awareness, key-value and async APIs, scan

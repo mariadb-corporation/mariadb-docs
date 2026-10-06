@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Reference for the GridGain JDBC Client Driver, which connects to the cluster
   through a client node, including supported parameters and streaming mode.
