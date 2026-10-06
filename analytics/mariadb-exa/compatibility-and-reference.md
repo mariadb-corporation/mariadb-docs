@@ -20,6 +20,23 @@ MariaDB Exa integrates MariaDB Enterprise Server with the Exasol analytical engi
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Exasol core components: query and replication paths
+    accDescr {
+        User SQL Query leads to MariaDB Server. From MariaDB Server, an arrow
+        labelled DQL (SELECT) leads to MaxScale Exasolrouter, and an arrow
+        labelled DDL/DML (Changes) leads to MariaDB Binary Log. MaxScale
+        Exasolrouter leads to Exasol Preprocessor (SQLglot), labelled Analytical
+        Routing. MariaDB Binary Log leads to MaxScale CDC binlogrouter. From
+        MaxScale CDC binlogrouter, an arrow labelled Unsupported: INET6, UUID,
+        XMLTYPE leads to Not replicated, and an arrow labelled Supported data
+        (bulk load) leads to Exasol In-Memory Engine. The Exasol Environment group
+        holds Exasol Preprocessor (SQLglot), Exasol In-Memory Engine and ERROR:
+        Function Not Found. From Exasol Preprocessor (SQLglot), an arrow labelled
+        Translation Gap: BIN(), HEX(), etc. leads to ERROR: Function Not Found,
+        and an arrow labelled Translated Syntax leads to Exasol In-Memory Engine.
+        An arrow labelled Logical Difference: '' is NULL leads from Exasol
+        In-Memory Engine back to User SQL Query.
+    }
     User([User SQL Query]) --> MariaDB[MariaDB Server]
     
     %% The Routing Path
