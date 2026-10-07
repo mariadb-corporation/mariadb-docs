@@ -1,11 +1,23 @@
 ---
 description: >-
-  Documentation for GridGain 8, the previous generation of the GridGain
-  in-memory computing platform.
+  GridGain 8 documentation — an in-memory computing platform built on Apache
+  Ignite. Get started, then explore architecture, usage, management, security,
+  performance, and reference material.
+icon: layer-group
 ---
 
-# GridGain 8
+# GridGain 8 Documentation
 
-{% hint style="info" %}
-This section is a placeholder. GridGain 8 documentation is being migrated here, and the pages below will be filled in as that work lands.
-{% endhint %}
+GridGain 8 is an in-memory computing platform, built on Apache Ignite, that stores and processes data across a distributed cluster with in-memory speed and disk durability. This documentation covers installation, development, operations, and reference material for GridGain 8.
+
+{% columns %}
+{% column %}
+{% content-ref url="gridgain8-get-started/" %}
+[gridgain8-get-started](gridgain8-get-started/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Install GridGain, start a cluster, and run your first application — plus the core concepts you need to understand the platform.
+{% endcolumn %}
+{% endcolumns %}

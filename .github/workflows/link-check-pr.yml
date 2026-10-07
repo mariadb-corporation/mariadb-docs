@@ -102,6 +102,17 @@ jobs:
           # The 429 is host-level rate limiting, so replacing the URLs with
           # their resolved /projects/ansible/ form would not help.
           #
+          # DOCS-6723 adds seven more of the same kind, surfaced by the GridGain 8
+          # docs migration. All serve 200 to a normal browser but are unreachable
+          # from the runners: gridgain.com/resources/download (Cloudflare 403,
+          # 301 -> /tryfree, which is already excluded), bugs.openjdk.java.net
+          # (Atlassian 403, the old domain of the already-excluded
+          # bugs.openjdk.org), docs.openshift.com (403, 301 -> docs.redhat.com,
+          # which is already excluded), unix.stackexchange.com (403, same class
+          # as the excluded stackoverflow/dba.stackexchange), www.tableau.com
+          # (403), lists.apache.org (mailing-list archive, 302), and
+          # www.javatpoint.com (times out from the runners).
+          #
           # Note for editors: the args block below is a YAML folded scalar, so
           # a '#' line inside it is NOT a comment -- it would be passed to
           # lychee as arguments. Document new excludes up here.
@@ -364,6 +375,13 @@ jobs:
             --exclude 'www\.oreilly\.com'
             --exclude 'www\.gridgain\.com/tryfree'
             --exclude 'bugs\.openjdk\.org'
+            --exclude 'gridgain\.com/resources/download'
+            --exclude 'bugs\.openjdk\.java\.net'
+            --exclude 'docs\.openshift\.com'
+            --exclude 'unix\.stackexchange\.com'
+            --exclude 'www\.tableau\.com'
+            --exclude 'lists\.apache\.org'
+            --exclude 'www\.javatpoint\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
