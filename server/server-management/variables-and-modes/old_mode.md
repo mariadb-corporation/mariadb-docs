@@ -83,7 +83,11 @@ From MariaDB 13.1, `UTF8_IS_UTF8MB3` is no longer set by default. The default `o
 
 ### X509\_LENIENT\_COMPARE
 
-From MariaDB 10.11.20, 11.4.14, 11.8.10, 12.3.4, and 13.1.2, and MariaDB Enterprise Server 10.6.29-25. Lets accounts that use [`REQUIRE ISSUER` or `REQUIRE SUBJECT`](../../reference/sql-statements/account-management-sql-statements/create-user.md#tls-options) keep matching after the server switches to a different TLS library.
+{% hint style="info" %}
+This feature is available from MariaDB 10.11.20, 11.4.14, 11.8.10, 12.3.4, and 13.1.2, and from MariaDB Enterprise Server 10.6.29-25.
+{% endhint %}
+
+`X509_LENIENT_COMPARE` lets accounts that use [`REQUIRE ISSUER` or `REQUIRE SUBJECT`](../../reference/sql-statements/account-management-sql-statements/create-user.md#tls-options) keep matching after the server switches to a different TLS library.
 
 The server compares these values with the certificate's issuer and subject as the TLS library renders them, and the libraries differ. OpenSSL 3.0 and later escape a literal `/` or `+` inside a field value with a backslash (`/CN=a\/b\+c`). OpenSSL 1.1 and WolfSSL don't (`/CN=a/b+c`). The comparison is exact by default, so an account written in one form stops matching when the server moves to a library that uses the other.
 
