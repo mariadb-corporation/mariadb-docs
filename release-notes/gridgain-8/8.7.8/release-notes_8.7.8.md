@@ -188,7 +188,7 @@ Repeat this procedure for all nodes in the cluster.
 ## Related Information
 
 Need more details? Please don't hesitate to reach out to the
-[GridGain Customer Support](https://gridgain.freshdesk.com/support/login) team.
+GridGain Customer Support team.
 
 ### We Value Your Feedback
 

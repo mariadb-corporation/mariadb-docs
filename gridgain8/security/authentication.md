@@ -116,7 +116,7 @@ How to enable authentication:
    * [provide a list of users explicitly in the node configuration](#passcode-authentication).
    * Authentication through [Configure Control Center](#control-center-openid-authentication) via OpenID.
    * use a [JAASAuthenticator](#jaas-authentication) that delegates authentication to an externally configured JAAS login module.
-   * implement your own `Authenticator`. Refer to the [Authenticator](https://www.gridgain.com/sdk/8.10/javadoc/org/gridgain/grid/security/Authenticator.html) javadoc.
+   * implement your own `Authenticator`. Refer to the [Authenticator](https://www.gridgain.com/sdk/8.9.38/javadoc/org/gridgain/grid/security/Authenticator.html) javadoc.
 
 2. Specify the username and password (of one of the existing users) in every node that connects to the cluster.
 This is done by using a security credentials provider.
@@ -337,7 +337,7 @@ If the client's certificate does not match any predicate, the client is rejected
 
 For example, you can define a list of permissions that are granted only if the client's certificate subject contains "O=CustomerOrganization".
 
-Certificate-based authentication is provided by the [CertificateAuthenticator](https://www.gridgain.com/sdk/8.10/javadoc/org/gridgain/grid/security/certificate/CertificateAuthenticator.html) class.
+Certificate-based authentication is provided by the [CertificateAuthenticator](https://www.gridgain.com/sdk/8.9.38/javadoc/org/gridgain/grid/security/certificate/CertificateAuthenticator.html) class.
 
 In the following example, we configure SSL in the cluster and enable certificate-based client authentication.
 Please refer to the [Authorization and Permissions](authorization-permissions.md) for the full list of supported permissions.

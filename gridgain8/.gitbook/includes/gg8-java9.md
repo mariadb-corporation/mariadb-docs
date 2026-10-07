@@ -59,7 +59,7 @@ To resolve this issue, add the appropriate JVM option (--add-opens) for the modu
 ```
 
 {% hint style="info" %}
-The specific option depends on the opject types used by the application.
+The specific option depends on the object types used by the application.
 {% endhint %}
 
 Then, restart each node where you updated access permission.

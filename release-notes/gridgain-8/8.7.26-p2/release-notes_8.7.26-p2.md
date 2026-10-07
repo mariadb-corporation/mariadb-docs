@@ -54,6 +54,6 @@ or `org.eclipse.jetty.util.ssl.SslContextFactory$Client`.
 For a configuration example, see [Client Certificate Authentication](https://www.gridgain.com/docs/latest/administrators-guide/security/authentication#client-certificate-authentication).
 
 ## We Value Your Feedback
-Your comments and suggestions are always welcome. You can reach us here: https://gridgain.freshdesk.com/support/login or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.

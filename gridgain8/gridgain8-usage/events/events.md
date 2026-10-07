@@ -8,7 +8,7 @@ description: >-
 
 This page describes different event types, when and where they are generated, and how you can use them.
 
-You can always find the most complete and up to date list of events in the javadocs: [Ignite events](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/EventType.html) and [GridGain Enterprise events](https://www.gridgain.com/sdk/8.10/javadoc/org/gridgain/grid/events/EventType.html).
+You can always find the most complete and up to date list of events in the javadocs: [Ignite events](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/EventType.html) and [GridGain Enterprise events](https://www.gridgain.com/sdk/8.9.38/javadoc/org/gridgain/grid/events/EventType.html).
 
 ## General Information
 
@@ -54,7 +54,7 @@ This capability can be used for [auditing purposes](../../security/auditing-even
 
 ## Cluster Activation Events
 
-Cluster activation events are instances of the [ClusterActivationEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/ClusterActivationEvent.html) class.
+Cluster activation events are instances of the [ClusterActivationEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/ClusterActivationEvent.html) class.
 Cluster activation events are generated when the cluster is activated or deactivated. They contain the list of baseline nodes at the moment of the event.
 
 |Event Type | Event Description | Where Event Is Fired|
@@ -64,7 +64,7 @@ Cluster activation events are generated when the cluster is activated or deactiv
 
 ## Baseline Autoadjustment Events
 
-Baseline autoadjustment events are instances of the [BaselineConfigurationChangedEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/BaselineConfigurationChangedEvent.html) class.
+Baseline autoadjustment events are instances of the [BaselineConfigurationChangedEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/BaselineConfigurationChangedEvent.html) class.
 They are generated when the baseline autoadjustment configuration changes. Each event carries the auto-adjust "enabled" flag (`isAutoAdjustEnabled()`) and the timeout in milliseconds (`autoAdjustTimeout()`) for the affected scale direction.
 
 |Event Type | Event Description | Where Event Is Fired|
@@ -76,7 +76,7 @@ They are generated when the baseline autoadjustment configuration changes. Each 
 
 ## Cache Lifecycle Events
 
-Cache Lifecycle events are instances of the [CacheEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/CacheEvent.html) class.
+Cache Lifecycle events are instances of the [CacheEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/CacheEvent.html) class.
 Each cache lifecycle event is associated with a specific cache and has a field that contains the name of the cache.
 
 | Event Type | Event Description | Where Event Is Fired|
@@ -87,7 +87,7 @@ Each cache lifecycle event is associated with a specific cache and has a field t
 
 ## Cache Events
 
-Cache events are instances of the [CacheEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/CacheEvent.html) class and
+Cache events are instances of the [CacheEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/CacheEvent.html) class and
 represent the operations on cache objects, such as 'get', 'put', 'remove', 'lock', etc.
 
 Each event contains the information about the cache, the key that is accessed by the operation, the value before and after the operation (if applicable), etc.
@@ -109,8 +109,8 @@ Cache events are also generated when you use DML commands.
 
 There are two types of events that are related to cache queries:
 
-- Cache query object read events, which are instances of the [CacheQueryReadEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/CacheQueryReadEvent.html) class.
-- Cache query executed events, which are instances of the [CacheQueryExecutedEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/CacheQueryExecutedEvent.html) class.
+- Cache query object read events, which are instances of the [CacheQueryReadEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/CacheQueryReadEvent.html) class.
+- Cache query executed events, which are instances of the [CacheQueryExecutedEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/CacheQueryExecutedEvent.html) class.
 
 | Event Type | Event Description | Where Event Is Fired|
 |---|---|---|
@@ -119,7 +119,7 @@ There are two types of events that are related to cache queries:
 
 ## Class and Task Deployment Events
 
-Deployment events are instances of the [DeploymentEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/DeploymentEvent.html) class.
+Deployment events are instances of the [DeploymentEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/DeploymentEvent.html) class.
 
 | Event Type | Event Description | Where Event Is Fired|
 |---|---|---|
@@ -134,7 +134,7 @@ Deployment events are instances of the [DeploymentEvent](https://www.gridgain.co
 
 Discovery events occur when nodes (both servers and clients) join or leave the cluster, including cases when nodes leave due to a failure.
 
-Discovery events are instances of the [DiscoveryEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/DiscoveryEvent.html) class.
+Discovery events are instances of the [DiscoveryEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/DiscoveryEvent.html) class.
 
 | Event Type | Event Description | Where Event Is Fired|
 |---|---|---|
@@ -150,7 +150,7 @@ Discovery events are instances of the [DiscoveryEvent](https://www.gridgain.com/
 Task execution events are associated with different stages of [task execution](../distributed-computing/map-reduce.md).
 They are also generated when you execute [simple closures](../distributed-computing/distributed-computing.md) because internally a closure is treated as a task that produces a single job.
 
-Task Execution events are instances of the [TaskEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/TaskEvent.html) class.
+Task Execution events are instances of the [TaskEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/TaskEvent.html) class.
 
 | Event Type | Event Description | Where Event Is Fired|
 |---|---|---|
@@ -161,7 +161,7 @@ Task Execution events are instances of the [TaskEvent](https://www.gridgain.com/
 | EVT_TASK_TIMEDOUT |  The execution of the task timed out. This can happen when `Ignite.compute().withTimeout(...)` to execute tasks. When a task times out, it cancels all jobs that are being executed. It also generates the `EVT_TASK_FAILED` event.| The node where the task was started.|
 | EVT_TASK_SESSION_ATTR_SET | A job sets an attribute in the [session](../distributed-computing/map-reduce.md#distributed-task-session). | The node where the job is executed.|
 
-Job Execution events are instances of the [JobEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/JobEvent.html) class.
+Job Execution events are instances of the [JobEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/JobEvent.html) class.
 The job execution events are generated at different stages of job execution and are associated with particular instances of the job.
 The event contains information about the task that produced the job (task name, task class, etc.).
 
@@ -180,7 +180,7 @@ The event contains information about the task that produced the job (task name, 
 
 ## Cache Rebalancing Events
 
-Cache Rebalancing events (all except for `EVT_CACHE_REBALANCE_OBJECT_LOADED` and `EVT_CACHE_REBALANCE_OBJECT_UNLOADED`) are instances of the [CacheRebalancingEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/CacheRebalancingEvent.html) class.
+Cache Rebalancing events (all except for `EVT_CACHE_REBALANCE_OBJECT_LOADED` and `EVT_CACHE_REBALANCE_OBJECT_UNLOADED`) are instances of the [CacheRebalancingEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/CacheRebalancingEvent.html) class.
 
 Rebalancing occurs on a per cache basis; therefore, each rebalancing event corresponds to a specific cache.
 The event contains the name of the cache.
@@ -204,7 +204,7 @@ The process of moving a single cache partition from Node A to Node B consists of
 
 ## Transaction Events
 
-Transaction events are instances of the [TransactionStateChangedEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/TransactionStateChangedEvent.html) class.
+Transaction events are instances of the [TransactionStateChangedEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/TransactionStateChangedEvent.html) class.
 They allow you to get notification about different stages of transaction execution. Each event contains the `Transaction` object this event is associated with.
 
 | Event Type | Event Description | Where Event Is Fired|
@@ -217,7 +217,7 @@ They allow you to get notification about different stages of transaction executi
 
 ## SQL Query Finish Events
 
-These events are instances of the [QueryExecutionFinishedEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/QueryExecutionFinishedEvent.html) class.
+These events are instances of the [QueryExecutionFinishedEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/QueryExecutionFinishedEvent.html) class.
 They allow you to get notification when query execution finishes, regardless of query success or failure.
 
 | Event Type | Event Description | Where Event Is Fired|
@@ -226,7 +226,7 @@ They allow you to get notification when query execution finishes, regardless of 
 
 ## Partition State Validation Events
 
-Partition state validation events are instances of the [PartitionsStateValidationEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/events/PartitionsStateValidationEvent.html) class.
+Partition state validation events are instances of the [PartitionsStateValidationEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/events/PartitionsStateValidationEvent.html) class.
 They are generated when the cluster coordinator validates partition states during a partition map exchange (PME) and report whether partition states are consistent across the cluster.
 
 | Event Type | Event Description | Where Event Is Fired|
@@ -240,7 +240,7 @@ They are generated when the cluster coordinator validates partition states durin
 Available only in GridGain Enterprise and Ultimate Editions.
 {% endhint %}
 
-License events are instances of the [LicenseEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/gridgain/grid/events/LicenseEvent.html) class.
+License events are instances of the [LicenseEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/gridgain/grid/events/LicenseEvent.html) class.
 
 | Event Type | Event Description | Where Event Is Fired|
 |---|---|---|
@@ -257,7 +257,7 @@ Available only in GridGain Enterprise and Ultimate Editions.
 Authentication events are generated when a user tries to connect to the cluster protected by authentication.
 There are two types of authentication events, each type indicating whether the user was authenticated successfully or not.
 
-Authentication events are instances of the [AuthenticationEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/gridgain/grid/events/AuthenticationEvent.html) class.
+Authentication events are instances of the [AuthenticationEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/gridgain/grid/events/AuthenticationEvent.html) class.
 Each event contains the type of the user (`AuthenticationEvent.subjectType()`), which can be either a remote node or a remote client, and the user name that was used to log in.
 
 | Event Type | Event Description | Where Event Is Fired|
@@ -274,7 +274,7 @@ Available only in GridGain Enterprise and Ultimate Editions.
 Authorization events represent authorization checks performed when a user tries to execute an operation.
 The check either succeeds or fails.
 
-Authorization events are instances of the [AuthorizationEvent](https://www.gridgain.com/sdk/8.10/javadoc/org/gridgain/grid/events/AuthorizationEvent.html) class.
+Authorization events are instances of the [AuthorizationEvent](https://www.gridgain.com/sdk/8.9.38/javadoc/org/gridgain/grid/events/AuthorizationEvent.html) class.
 Each event contains information about the user and the operation that was performed (`AuthorizationEvent.operation()`).
 Refer to the [authorization and permissions](../../security/authorization-permissions.md) page for the list of operations that could require authorization.
 

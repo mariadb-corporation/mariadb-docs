@@ -221,6 +221,6 @@ Rolling upgrades from GridGain 8.7.9 and earlier to current GridGain version fai
 To work around this issue, you can first upgrade to GridGain 8.7.21, or a later 8.7.x version, and then to current version.
 
 ## We Value Your Feedback
-Your comments and suggestions are always welcome. You can reach us here: https://gridgain.freshdesk.com/support/login or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.

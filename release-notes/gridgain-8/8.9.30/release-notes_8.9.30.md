@@ -103,7 +103,7 @@ If you are on a version that is not listed, contact GridGain for information on 
 Compatibility with the previous version entails:
 
 - Persistent Data Storage compatibility - data written on a older version can be read after starting the cluster on this version without additional operations or requiring rolling upgrade;
-- Rolling upgrades - you can perform a [rolling upgrade](https://www.gridgain.com/docs/gridgain8/latest/installation/update/rolling-upgrades) to this version;
+- Rolling upgrades - you can perform a [rolling upgrade](../../../gridgain8/gridgain8-management/upgrade/rolling-upgrades.md) to this version;
 - Snapshot compatibility - snapshots created on an older version can be restored on this version;
 - Old ODBC and JDBC client compatibility - ODBC and JDBC clients working with a cluster running an older version will continue working with this version without additional changes;
 - Thick Java client compatibility - thick Java clients have both backwards and forwards compatibility between the older versions and this version.

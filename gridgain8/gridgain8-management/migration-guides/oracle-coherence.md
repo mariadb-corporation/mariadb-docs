@@ -370,7 +370,7 @@ public class PersonKey implements KeyAssociation {
 ```
 {% endcode %}
 
-GridGain requires that the [`@AffinityKeyMapped`](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/cache/affinity/AffinityKeyMapped.html) annotation be attached to the alternate affinity key field.
+GridGain requires that the [`@AffinityKeyMapped`](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/cache/affinity/AffinityKeyMapped.html) annotation be attached to the alternate affinity key field.
 
 **GridGain**
 

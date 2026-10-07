@@ -127,7 +127,7 @@ GROUP_CONCAT([DISTINCT] expression || [expression || [expression ...]]
 - `SEPARATOR` - overrides a string separator; by default, the separator character is the comma ','
 
 {% hint style="info" %}
-The `DISTINCT` and `ORDER BY` expressions inside the GROUP_CONCAT function are only supported if you group the results by the primary or affinity key (i.e., use `GROUP BY`). Moreover, you have declare that your data is colocated by specifying the `collocated=true` property in the connection string or by calling `SqlFieldsQuery.setCollocated(true)` if you use the [Java API](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/cache/query/SqlFieldsQuery.html#setCollocated-boolean-).
+The `DISTINCT` and `ORDER BY` expressions inside the GROUP_CONCAT function are only supported if you group the results by the primary or affinity key (i.e., use `GROUP BY`). Moreover, you have declare that your data is colocated by specifying the `collocated=true` property in the connection string or by calling `SqlFieldsQuery.setCollocated(true)` if you use the [Java API](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/cache/query/SqlFieldsQuery.html#setCollocated-boolean-).
 {% endhint %}
 
 ### Example

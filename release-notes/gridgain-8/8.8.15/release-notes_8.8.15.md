@@ -16,7 +16,7 @@ This patch enables monitoring [Distributed Computing](https://www.gridgain.com/d
 - Dynamically change task priority
 - Cancel tasks.
 
-Try the changes for yourself with [GridGain Nebula](https://portal.gridgain.com).
+Try the changes for yourself with GridGain Nebula.
 
 ### Control Center Agent Changes
 
@@ -177,6 +177,6 @@ bin/ignite.sh
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://gridgain.freshdesk.com/support/login or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.

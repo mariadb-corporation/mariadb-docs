@@ -160,8 +160,6 @@ See the [Rolling Upgrades](https://docs.gridgain.com/docs/rolling-upgrades) page
 
 ## Related Information
 
-[Customer Support](https://gridgain.freshdesk.com/support/login)
-
 ### We Value Your Feedback
 
 The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com

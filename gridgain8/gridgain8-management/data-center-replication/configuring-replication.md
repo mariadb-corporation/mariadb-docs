@@ -514,7 +514,7 @@ To configure replication for a specific cache, you must complete the following s
 - In the replica cluster: Create a cache with the same name.
 - Repeat this procedure for all caches you want to replicate.
 
-Below is an example configuration of a cache in the master cluster. The cache will be replicated through the sender group ("group1") that we defined in the [2. Configure Connection Between Clusters](#2-configure-connection-between-clusters) section.
+Below is an example configuration of a cache in the master cluster. The cache will be replicated through the sender group ("group1") that we defined in the [2. Configure Connection Between Clusters](#id-2.-configure-connection-between-clusters) section.
 
 {% tabs %}
 {% tab title="XML" %}

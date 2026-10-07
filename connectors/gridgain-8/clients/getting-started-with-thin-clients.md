@@ -141,7 +141,7 @@ The following table describes some parameters that you may want to change.
 | `sslEnabled` | Set this property to `true` to enable SSL for thin client connections. | `false` |
 | `sessionOutboundMessageQueueLimit` | Limits the number of outbound messages the server queues for a single client connection while they wait to be sent. If the limit is exceeded, GridGain closes that client's connection, protecting the server from unbounded memory growth caused by a slow or unresponsive client. `0` means no limit is applied. | `0` |
 
-See the complete list of parameters in the [ClientConnectorConfiguration](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/configuration/ClientConnectorConfiguration.html) javadoc.
+See the complete list of parameters in the [ClientConnectorConfiguration](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/configuration/ClientConnectorConfiguration.html) javadoc.
 
 {% hint style="info" %}
 In addition to the node-level connector parameters above, you can cap the number of active thin client, ODBC, and thin JDBC connections per node cluster-wide using the [`thinClientProperty.maxConnectionsPerNode`](https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/control-script#cluster-properties) cluster property. This limit is set at runtime through the control script and applies to every server in the cluster.
@@ -155,5 +155,5 @@ Refer to the [SSL for Thin Clients and JDBC/ODBC](https://www.gridgain.com/docs/
 
 Distributed computing on thin clients has a number of limitations:
 
-- The [ClientCompute API](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/client/ClientCompute.html) can only be used to execute existing tasks by class name;
+- The [ClientCompute API](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/client/ClientCompute.html) can only be used to execute existing tasks by class name;
 - [Peer class loading](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/peer-class-loading) is not available.

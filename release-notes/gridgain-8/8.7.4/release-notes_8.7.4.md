@@ -1,8 +1,6 @@
 ---
 description: >-
-  GridGain 8.7.4 is a maintenance release that adds on-the-fly service
-  redeployment, cluster activation and deactivation events, JMX node exclusion,
-  and JAR support in UriDeploymentSpi, along with many fixes across all editions.
+  GridGain 8.7.4 is a maintenance release that adds on-the-fly service redeployment, cluster activation and deactivation events, JMX node exclusion, and JAR support in UriDeploymentSpi.
 hidden: true
 ---
 
@@ -183,8 +181,6 @@ perform automated upgrades and for details about version compatibility.
 | GG-18097 | WebConsole | Added confirmation on changing snapshot schedule enabled state. |
 
 ## Related Information
-
-[Customer Support](https://gridgain.freshdesk.com/support/login)
 
 ### We Value Your Feedback
 

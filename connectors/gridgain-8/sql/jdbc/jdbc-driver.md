@@ -339,7 +339,7 @@ The DataSource object is used as a deployed object that can be located by logica
 
 In addition to generic DataSource properties, `IgniteJdbcThinDataSource` supports all the Ignite-specific properties that can be passed into a JDBC connection string. For instance, the `distributedJoins` property can be (re)set via the `IgniteJdbcThinDataSource#setDistributedJoins()` method.
 
-Refer to the [JavaDocs](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/IgniteJdbcThinDataSource.html) for more details.
+Refer to the [JavaDocs](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/IgniteJdbcThinDataSource.html) for more details.
 
 ## Examples
 

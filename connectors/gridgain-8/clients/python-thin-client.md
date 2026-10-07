@@ -1,10 +1,7 @@
 ---
 hidden: true
 description: >-
-  How to install and use the GridGain 8 Python thin client (pygridgain):
-  connecting to a cluster, failover, partition awareness, creating caches,
-  key-value operations, transactions, scan, vector, and SQL queries, SSL/TLS, and
-  authentication.
+  How to install and use the GridGain 8 Python thin client: connecting to a cluster, partition awareness, key-value operations, transactions, scan, vector, and SQL queries, SSL/TLS, and authentication.
 ---
 
 # Python Thin Client
@@ -204,7 +201,7 @@ The list of property keys that you can specify are provided in the `prop_codes` 
 | PROP_DATA_REGION_NAME | str | [Data region](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/memory-configuration/data-regions) name. |
 | PROP_IS_ONHEAP_CACHE_ENABLED | bool | Enable [on-heap caching](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/configuring-caches/on-heap-caching) for the cache. |
 | PROP_QUERY_ENTITIES | list | A list of query entities. See the [Query Entities](#query-entities) section below for details.) |
-| PROP_QUERY_PARALLELISM | int | [Query parallelism](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/configuration/CacheConfiguration.html#getQueryParallelism) |
+| PROP_QUERY_PARALLELISM | int | [Query parallelism](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/configuration/CacheConfiguration.html#getQueryParallelism) |
 | PROP_QUERY_DETAIL_METRIC_SIZE | int | Query detail metric size |
 | PROP_SQL_SCHEMA | str | SQL Schema |
 | PROP_SQL_INDEX_INLINE_MAX_SIZE | int | SQL index inline maximum size |

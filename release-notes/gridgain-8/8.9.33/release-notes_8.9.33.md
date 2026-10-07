@@ -1,6 +1,6 @@
 ---
 description: >-
-  GridGain 8.9.33 introduces an OpenTelemetry metrics exporter, tunable binary configuration for the JDBC thin driver, SWID tags in release packages, and S3-compatible storage support for the COPY INTO command, alongside stability fixes and dependency updates.
+  GridGain 8.9.33 introduces an OpenTelemetry metrics exporter, tunable binary configuration for the JDBC thin driver, SWID tags in release packages, and S3-compatible storage support for COPY INTO.
 hidden: true
 ---
 

@@ -187,7 +187,7 @@ Note that attributes can also be set via environment variables.
 ## Backup Filter
 
 A backup filter allows you to control how backup copies of the partitions are distributed between the nodes.
-The backup filter is set via the [RendezvousAffinityFunction.setAffinityBackupFilter(IgniteBiPredicate<ClusterNode,List<ClusterNode>> affinityBackupFilter)](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/cache/affinity/rendezvous/RendezvousAffinityFunction.html#setAffinityBackupFilter-org.apache.ignite.lang.IgniteBiPredicate-) method.
+The backup filter is set via the [RendezvousAffinityFunction.setAffinityBackupFilter(IgniteBiPredicate<ClusterNode,List<ClusterNode>> affinityBackupFilter)](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/cache/affinity/rendezvous/RendezvousAffinityFunction.html#setAffinityBackupFilter-org.apache.ignite.lang.IgniteBiPredicate-) method.
 A given partition is assigned to the first node that passes the filter.
 The filter is invoked every time GridGain calculates partition distribution (which happens every time the cluster topology changes).
 

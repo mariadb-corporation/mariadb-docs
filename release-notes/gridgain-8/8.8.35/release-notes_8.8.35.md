@@ -151,6 +151,6 @@ Add the `GridGain.Ignite` dependency to your project, so that jars from it are i
 To run .NET SDK commands, install the .NET SDK. For more details, click [here](https://docs.microsoft.com/en-us/dotnet/core/install/windows?tabs=net60#dependencies).
 
 ## We Value Your Feedback
-Your comments and suggestions are always welcome. You can reach us here: https://gridgain.freshdesk.com/support/login or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.

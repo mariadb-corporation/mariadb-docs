@@ -117,7 +117,7 @@ Using the "force" option is not recommended. Trying to join a node with an old v
 
 ### Perform the Rolling Upgrade
 
-Once you have [activated a rolling upgrade](), you can upgrade a multi-node cluster to a new GridGain version without stopping the whole cluster:
+Once you have [activated a rolling upgrade](#start-a-rolling-upgrade), you can upgrade a multi-node cluster to a new GridGain version without stopping the whole cluster:
 
 1. Download the new GridGain version.
 2. If you are using persistence: Configure `storagePath`, `walPath` and `walArchivePath` properties. If these properties are explicitly configured in the current version of GridGain you are using, then provide the same value of these properties to the new GridGain version's configuration. If these properties are not set, provide the default location used by these properties.

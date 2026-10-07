@@ -242,7 +242,7 @@ IgnitePredicate<DrCacheReplicationEvent> localListener = evt -> {
 events.localListen(localListener, org.gridgain.grid.events.EventType.EVT_DR_CACHE_REPLICATION_STOPPED);
 ```
 
-The replication event types are defined in the [`org.gridgain.grid.events.EventType`](https://www.gridgain.com/sdk/8.10/javadoc/org/gridgain/grid/events/EventType.html) class and are listed in the following table.
+The replication event types are defined in the [`org.gridgain.grid.events.EventType`](https://www.gridgain.com/sdk/8.9.38/javadoc/org/gridgain/grid/events/EventType.html) class and are listed in the following table.
 
 | Event Type | Event Description | Where Event Occurred |
 |---|---|---|

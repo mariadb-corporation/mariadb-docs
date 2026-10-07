@@ -1,6 +1,6 @@
 GridGain Web Console is an interactive configuration, management, and monitoring tool, built on top of Apache Ignite Web Console.
 
-1. Go to https://console.gridgain.com and create an account.
+1. Go to the GridGain Web Console and create an account.
 2. Log in with your new account and go to the "Monitoring Dashboard" screen. Click the three horizontal lines at the top in order to expand the left-hand menu:
 
    ![Web Console Left Nav](../assets/gg8-qsgwebconlogin.png)

@@ -1,8 +1,6 @@
 ---
 description: >-
-  GridGain 8.9.16-p2 is a patch release that adds a new
-  IGNITE_PDS_FORCED_CHECKPOINT_ON_NODE_STOP property. You can use this system
-  property to force the node to always perform a checkpoint before stopping.
+  GridGain 8.9.16-p2 is a patch release that adds the IGNITE_PDS_FORCED_CHECKPOINT_ON_NODE_STOP system property to force a node to always perform a checkpoint before stopping.
 hidden: true
 ---
 

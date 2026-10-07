@@ -29,8 +29,8 @@ If a step in the cutover fails and you cannot fix it quickly, fall back to [Roll
 The procedure covers clusters that use [Native Persistence](../../../architecture/storage/native-persistence.md) and clusters that keep data only in memory. The phases are the same for both. The difference is what happens to the data at the cutover:
 
 - *Persistent cluster.* GridGain starts directly on Ignite's persistence files. Follow the steps marked _persistent only_: leave the data in a clean state and back it up first, because once GridGain writes to it, the migration is one-way.
-- *In-memory cluster.* GridGain starts empty. Skip the steps marked _persistent only_ and reload the data at [step 9]().
-- *Mixed cluster.* Follow the persistent path, including every step marked _persistent only_, and additionally reload the in-memory caches at [step 9]().
+- *In-memory cluster.* GridGain starts empty. Skip the steps marked _persistent only_ and reload the data at [step 9](#id-9.-reload-the-data-in-memory-only).
+- *Mixed cluster.* Follow the persistent path, including every step marked _persistent only_, and additionally reload the in-memory caches at [step 9](#id-9.-reload-the-data-in-memory-only).
 
 ## Which Phases Apply to You
 
@@ -111,9 +111,9 @@ Start only once [preparation is complete](#when-is-preparation-complete). Do the
 
 The cutover has three parts:
 
-- [steps 1–4]() take the cluster down cleanly and secure your way back;
-- [steps 5–7]() switch it to GridGain;
-- [steps 8–11]() bring the service back: verify the cluster, reload the data if nothing was carried over, reconnect clients, and smoke-test. On a persistent cluster, the point of no return is [step 7](): once GridGain writes to the data, the migration is irreversible.
+- [steps 1–4](#id-1.-stop-running-applications) take the cluster down cleanly and secure your way back;
+- [steps 5–7](#id-5.-configure-gridgain-8) switch it to GridGain;
+- [steps 8–11](#id-8.-activate-and-verify) bring the service back: verify the cluster, reload the data if nothing was carried over, reconnect clients, and smoke-test. On a persistent cluster, the point of no return is [step 7](#id-7.-start-gridgain): once GridGain writes to the data, the migration is irreversible.
 
 ### 1. Stop Running Applications
 

@@ -211,6 +211,6 @@ To workaround this issue, change the configuration of the server nodes to rebala
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://gridgain.freshdesk.com/support/login or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
 
 Please visit the [documentation](https://gridgain.com/docs) page for more information.

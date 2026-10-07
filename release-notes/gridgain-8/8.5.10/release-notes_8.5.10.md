@@ -1,8 +1,6 @@
 ---
 description: >-
-  GridGain 8.5.10 introduces substantial improvements to Data Center Replication,
-  including a disk-based sender store, new start/stop and pause/resume semantics,
-  replication events, and JMX management, along with multiple bug fixes.
+  GridGain 8.5.10 introduces substantial improvements to Data Center Replication, including a disk-based sender store, new start/stop and pause/resume semantics, replication events, and JMX management.
 hidden: true
 ---
 
@@ -253,8 +251,6 @@ If you want to enable Data Center Replication during the upgrade, below is a mod
 | GG-22879 | DR | DR: delete files with successfully sent (ACK is received) data. |
 
 ## Related Information
-
-[Customer Support](https://gridgain.freshdesk.com/support/login)
 
 ### We Value Your Feedback
 

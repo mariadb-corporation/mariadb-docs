@@ -54,11 +54,11 @@ The following features are not supported for the MVCC-enabled caches. These limi
 - [Near Caches](../gridgain8-usage/near-caches.md)
 - [Expiry Policies](../gridgain8-usage/configuring-caches/expiry-policies.md)
 - [Events](../gridgain8-usage/events/listening-to-events.md)
-- [Cache Interceptors](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/cache/CacheInterceptor.html)
+- [Cache Interceptors](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/cache/CacheInterceptor.html)
 - [External Storage](../gridgain8-usage/persistence/external-storage.md)
 - [On-Heap Caching](../gridgain8-usage/configuring-caches/on-heap-caching.md)
-- [Explicit Locks](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/IgniteCache.html#lock-K-)
-- The [localEvict()](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/IgniteCache.html#localEvict-java.util.Collection-) and [localPeek()](https://www.gridgain.com/sdk/8.10/javadoc/org/apache/ignite/IgniteCache.html#localPeek-K-org.apache.ignite.cache.CachePeekMode...-) methods
+- [Explicit Locks](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/IgniteCache.html#lock-K-)
+- The [localEvict()](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/IgniteCache.html#localEvict-java.util.Collection-) and [localPeek()](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/IgniteCache.html#localPeek-K-org.apache.ignite.cache.CachePeekMode...-) methods
 
 ## Multiversion Concurrency Control
 

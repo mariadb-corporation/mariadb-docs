@@ -26,7 +26,7 @@ When [service events](https://www.gridgain.com/docs/gridgain8/latest/developers-
 
 ### New SQL_JVM_OPTS Parameter for Sqlline
 
-With GridGain 8.9.3, the [`sqlline` script](https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/tool-analytics/sqlline) that is shipped with GridGain no longer uses the `JVM_OPTS` environment variable, and instead uses the `SQL_JVM_OPTS`. This way, you can specify different JVM parameters for your sqlline requests and GridGain.
+With GridGain 8.9.3, the [`sqlline` script](../../../gridgain8/reference/tools/sqlline.md) that is shipped with GridGain no longer uses the `JVM_OPTS` environment variable, and instead uses the `SQL_JVM_OPTS`. This way, you can specify different JVM parameters for your sqlline requests and GridGain.
 
 ## Changes in Behavior
 
@@ -247,6 +247,6 @@ Starting with GridGain 8.8.17, the `GridGain.Ignite` dependency is not included 
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://gridgain.freshdesk.com/support/login or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.

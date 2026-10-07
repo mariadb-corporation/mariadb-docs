@@ -1,8 +1,6 @@
 ---
 description: >-
-  GridGain 8.7.14 adds transaction support and certificate-based authentication
-  to thin clients, baseline topology autoadjustment, and the FIRSTVALUE and
-  LASTVALUE SQL functions, and removes the ML modules from the distribution.
+  GridGain 8.7.14 adds transaction support and certificate-based authentication to thin clients, baseline topology autoadjustment, and the FIRSTVALUE and LASTVALUE SQL functions.
 hidden: true
 ---
 
@@ -110,8 +108,6 @@ The issue will be fixed in a future version.
 If your cluster is affected and you're planning to upgrade to this version, please contact GridGain Support for details.
 
 ## Related Information
-
-[Customer Support](https://gridgain.freshdesk.com/support/login)
 
 ### We Value Your Feedback
 

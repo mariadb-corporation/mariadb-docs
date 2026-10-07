@@ -86,6 +86,6 @@ For a configuration example, see [Client Certificate Authentication](https://www
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://gridgain.freshdesk.com/support/login or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
