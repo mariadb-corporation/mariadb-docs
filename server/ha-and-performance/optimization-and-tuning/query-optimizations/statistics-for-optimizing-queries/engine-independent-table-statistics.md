@@ -105,6 +105,18 @@ This section visually explains how MariaDB decides which statistics to use, and 
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Optimizer statistics selection at query execution time
+    accDescr {
+        A top-to-bottom decision flow with seven boxes. Incoming SQL Query leads
+        to a decision box, use_stat_tables value? Two branches leave it. The
+        branch labelled use_stat_tables = NEVER leads to Optimizer ignores EITS
+        entirely, which leads to Use InnoDB statistics from innodb_table_stats and
+        innodb_index_stats. The branch labelled use_stat_tables = PREFERABLY /
+        PREFERABLY_FOR_QUERIES leads to a second decision box, Are EITS present
+        for this table? Its branch labelled Yes leads to Use EITS from
+        mysql.table_stats, column_stats, and index_stats. Its branch labelled No
+        leads to Fallback to InnoDB stats 'EITS not collected yet'.
+    }
     Start([Incoming SQL Query]) --> Eval{use_stat_tables value?}
     
     Eval -- "use_stat_tables = NEVER" --> Ignore[Optimizer ignores EITS entirely]
@@ -125,6 +137,17 @@ graph TD
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: ANALYZE TABLE statistics collection flow
+    accDescr {
+        A top-to-bottom flow with six boxes. ANALYZE TABLE issued leads to Check
+        use_stat_tables value at runtime. Two branches leave that box. The branch
+        labelled NEVER leads to InnoDB samples data — fast, approximate, which
+        leads to Updates only: mysql.innodb_table_stats, mysql.innodb_index_stats.
+        The branch labelled PREFERABLY / PERSISTENT leads to Full scan or sampled
+        scan — based on analyze_sample_percentage, which leads to Updates BOTH:
+        mysql.innodb_table_stats, mysql.table_stats, mysql.column_stats
+        histograms, mysql.index_stats.
+    }
     Start[ANALYZE TABLE issued] --> Eval[Check use_stat_tables value at runtime]
     
     Eval -- "NEVER" --> InnoDB[InnoDB samples data<br/>— fast, approximate]
@@ -143,6 +166,17 @@ graph TD
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Column statistics collection and analyze_max_length
+    accDescr {
+        A top-to-bottom decision flow with seven boxes. Column encountered during
+        EITS collection leads to a decision box, Is column type CHAR or VARCHAR?
+        Its branch labelled No leads to Non-string column: Always collected. Its
+        branch labelled Yes leads to Calculate byte length: characters x charset
+        bytes, which leads to a second decision box, Is length less than or equal
+        to analyze_max_length? Its branch labelled Yes leads to Column stats
+        stored in mysql.column_stats. Its branch labelled No leads to Column
+        skipped with warning to prevent long ANALYZE runtime.
+    }
     Start[Column encountered during EITS collection] --> TypeCheck{Is column type CHAR or VARCHAR?}
     
     TypeCheck -- No --> Always[Non-string column: Always collected]
