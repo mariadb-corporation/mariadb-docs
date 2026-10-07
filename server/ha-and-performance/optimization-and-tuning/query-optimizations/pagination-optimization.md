@@ -19,7 +19,7 @@ SELECT  *
         OFFSET  $M  LIMIT $N
 ```
 
-Note that the problem requirement needs a \[Next] link on each page so that the user can 'page' through the data. He does not really need "GoTo Page #". Jump to the \[First] or \[Last] page may be useful.
+Note that the problem requirement needs a \[Next] link on each page so that the user can 'page' through the data. They do not really need "GoTo Page #". Jump to the \[First] or \[Last] page may be useful.
 
 ## The Problem
 
