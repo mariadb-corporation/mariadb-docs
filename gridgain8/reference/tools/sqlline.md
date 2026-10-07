@@ -21,7 +21,7 @@ The `sqlline` script uses the JVM parameters specified in the `SQL_JVM_OPTS` env
 From your `{gridgain_dir}/bin` directory, run `sqlline.sh -u jdbc:ignite:thin:[host]` to connect SQLLine to the cluster.
 
 {% hint style="info" %}
-For a more detailed description, see the [JDBC thin driver]({connectors}/gridgain-8/sql/jdbc/jdbc-driver#jdbc-thin-driver) documentation.
+For a more detailed description, see the [JDBC thin driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/jdbc/jdbc-driver#jdbc-thin-driver) documentation.
 {% endhint %}
 
 Substitute [host] with your actual value. For example:

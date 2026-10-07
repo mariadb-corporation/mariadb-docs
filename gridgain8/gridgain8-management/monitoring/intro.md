@@ -12,7 +12,7 @@ This chapter covers monitoring and metrics in GridGain, starting with an overvie
 
 The basic monitoring task in GridGain involves metrics. There are several approaches to accessing metrics:
 
-- via [Control Center]({tools}/control-center)
+- via [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center)
 - via [JMX](../../reference/monitoring/jmx-metrics.md)
 - Programmatically
 - [System views](../../reference/monitoring/system-views.md)

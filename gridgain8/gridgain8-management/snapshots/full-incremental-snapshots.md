@@ -180,7 +180,7 @@ Once you enabled snapshotting, use one of the following approaches for snapshot 
 
 - Java API - Snapshots related API is provided through the `GridSnapshot` interface. To see how to use this API in practice, refer to `org.gridgain.examples.snapshots.SnapshotsExample`, included with the GridGain Ultimate Edition examples.
 - [Snapshots Management Tool](snapshots-management-tool.md)
-- [Control Center Snapshots Management]({tools}/control-center/gg8/snapshots/snapshots)
+- [Control Center Snapshots Management](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/gg8/snapshots/snapshots)
 
 {% hint style="info" %}
 Snapshots are very much tied to your cluster topography and shutting down any node could cause issues. If you plan on removing or shutting down nodes from you cluster, first [move your snapshots to the network](network-backups.md).

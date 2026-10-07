@@ -202,7 +202,7 @@ The following modules are available:
 
 |Module’s artifactId |Description|
 |---|---|
-|control-center-agent| Connects the cluster to [GridGain Control Center]({tools}/control-center) for monitoring and management. Must be enabled on all server nodes. Requires Java 17 or later.|
+|control-center-agent| Connects the cluster to [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) for monitoring and management. Must be enabled on all server nodes. Requires Java 17 or later.|
 |gridgain-bulkload|Support for SQL `COPY FROM INTO` statement that can be used to import or export data in csv, parquet, and iceberg formats. See [COPY INTO](../reference/sql/operational-commands.md#copy-into) for details.|
 |gridgain-sql| Support for JSON functions.  See [JSON Functions](../reference/sql/functions/json-functions.md) for details.|
 |gridgain-vector-query| Support for vector storage and indexing. See [Vector Storage](vector-search/README.md) for details.|

@@ -16,7 +16,7 @@ Client nodes join the topology as regular nodes but they do not store data. Clie
 
 To form a cluster, each node must be able to connect to all other nodes. To ensure that, a proper discovery mechanism must be configured.
 
-In addition to client nodes, you can use [Thin Clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients) to define and manipulate data in the cluster.
+In addition to client nodes, you can use [Thin Clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/getting-started-with-thin-clients) to define and manipulate data in the cluster.
 GridGain provides thin clients for a variety of languages, such as java, .NET, C++, Node.JS, python, and PHP.
 Unlike regular client nodes, thin clients do not join the cluster topology (i.e. do not start a node); instead, they simply establish a socket connection to one of the cluster nodes​ and perform all operations via the [binary protocol](https://apacheignite.readme.io/docs/binary-client-protocol).
 
@@ -58,7 +58,7 @@ Following are the options for first-time activation of persistent clusters.
 Because this operation is performed once, it's often convenient to activate a cluster manually. After making sure that all nodes have started and joined the cluster, an administrator can:
 
 - Run a [set-state control.sh command](../reference/cli-tool/README.md#set-state), or
-- Initiate activation via the [Control Center GUI]({tools}/control-center/gg8/dashboard/my-cluster#activating-and-deactivating-cluster).
+- Initiate activation via the [Control Center GUI](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/gg8/dashboard/my-cluster#activating-and-deactivating-cluster).
 
 #### Automated with a Deployment or Orchestration Tool
 

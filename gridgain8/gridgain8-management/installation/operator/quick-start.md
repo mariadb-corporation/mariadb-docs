@@ -65,7 +65,7 @@ apache-ignite-cluster-1   1/1     Running   0          1m
 
 ### Access Control Center Integration
 
-The default stateful set is preconfigured to include all necessary libraries for accessing Control Center, which is free and cloud-based. If your environment can access external websites, then, after the pods started to run, you can find the connection link to [Control Center]({tools}/control-center). The link expires within five minutes.
+The default stateful set is preconfigured to include all necessary libraries for accessing Control Center, which is free and cloud-based. If your environment can access external websites, then, after the pods started to run, you can find the connection link to [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center). The link expires within five minutes.
 
 ```
 kubectl logs apache-ignite-cluster-0 -n apache-ignite | grep  https://control.gridgain.com

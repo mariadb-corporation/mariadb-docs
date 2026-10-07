@@ -27,7 +27,7 @@ In some environments, the cluster may encounter a memory issue with an especiall
 - Use [Java Metrics](../reference/monitoring/jmx-metrics.md) to keep track of memory usage on the node.
 - Increase the amount of direct memory by setting the `MaxDirectMemorySize` JVM parameter. Specific memory requirement heavily depends on the amount of clients and the load performed by them.
 
-If the metrics show that you are running low on memory, use the `maxConnectionCnt` thin client [configuration parameter]({connectors}/gridgain-8/clients/java-thin-client) to limit the number of .
+If the metrics show that you are running low on memory, use the `maxConnectionCnt` thin client [configuration parameter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/java-thin-client) to limit the number of .
 
 ## Cluster Does Not Start After Field Type Changes
 

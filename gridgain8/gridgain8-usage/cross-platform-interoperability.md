@@ -31,7 +31,7 @@ The following .NET functionality is not supported when there is at least one non
 
 Services are an exception to the restrictions above: a .NET service deployed in a mixed cluster can be called from Java nodes.
 The service instance still runs on .NET nodes, so the assembly that contains it must be loaded on those nodes.
-See [Standalone Nodes]({connectors}/gridgain-8/net-specific/net-standalone-nodes) for how to load user assemblies, and [Services](services/services.md) for deployment options.
+See [Standalone Nodes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/net-specific/net-standalone-nodes) for how to load user assemblies, and [Services](services/services.md) for deployment options.
 
 To call the service from Java, declare a Java interface that mirrors the methods you want to call.
 Because .NET and Java use different naming conventions, map each method to its .NET counterpart with the `@PlatformServiceMethod` annotation.

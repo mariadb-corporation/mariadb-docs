@@ -30,7 +30,7 @@ As a rule of thumb, follow this logic if you are in doubt over which client to u
 
 - Java, .NET, and C++ developers - use thin clients for most APIs including key-value, SQL, continuous queries, transactions, and compute tasks. Use thick clients for more sophisticated compute grid APIs, machine learning capabilities, etc.
 - JDBC thin vs JDBC thick - use the thin version by default. Fallback to the thick client only if you need faster performance and enabling partition-awareness for the thin driver hasn't improved performance enough for your use case.
-- Python, Node.JS, PHP, and other programming languages developers - you don't have any alternatives so your choice is simple: use the existing [thin clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients).
+- Python, Node.JS, PHP, and other programming languages developers - you don't have any alternatives so your choice is simple: use the existing [thin clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/getting-started-with-thin-clients).
 
 ### Thin Client Proxy and Partition Awareness
 

@@ -195,9 +195,9 @@ The impact can get more noticeable if the system handles a comparatively larger 
 
 ## Rolling Upgrade Monitoring in Control Center
 
-GridGain [Control Center]({tools}/control-center) allows you to monitor the process of Rolling Upgrades as you move to a newer version of GridGain.
+GridGain [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) allows you to monitor the process of Rolling Upgrades as you move to a newer version of GridGain.
 
-The [Rebalance widget]({tools}/control-center/gg8/dashboard/configuring-widgets#rebalance-widget) in Control Center displays the cluster nodes and their versions. As you perform node-by-node migration to a newer version, watch the status of the rebalancing progress and proceed to the next node when it is finished.
+The [Rebalance widget](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/gg8/dashboard/configuring-widgets#rebalance-widget) in Control Center displays the cluster nodes and their versions. As you perform node-by-node migration to a newer version, watch the status of the rebalancing progress and proceed to the next node when it is finished.
 
 ## Guidelines and Incompatible Versions
 

@@ -8,7 +8,7 @@ icon: shield-halved
 # Security and Auditing
 
 GridGain's security features allow you to perform security activities, such as encrypting communications, configuring authentication and authorization methods, and performing audits. For example, you can secure the communications between cluster nodes by using SSL/TLS encryption.
-What is more, GridGain provides a convenient and flexible way for managing user roles and permissions. For example, Control Center allows to share its features between team members using the [Teams]({tools}/control-center/profile/teams) functionality.
+What is more, GridGain provides a convenient and flexible way for managing user roles and permissions. For example, Control Center allows to share its features between team members using the [Teams](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/profile/teams) functionality.
 
 {% hint style="info" %}
 Some of the security features explained in this topic are the features of the GridGain Enterprise and Ultimate editions.

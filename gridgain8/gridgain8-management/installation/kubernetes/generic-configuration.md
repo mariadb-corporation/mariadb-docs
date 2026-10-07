@@ -360,7 +360,7 @@ You need to configure the discovery mechanism to use `TcpDiscoveryKubernetesIpFi
 
 ### Connecting with Thin Clients
 
-The following code snippet illustrates how to connect to your cluster using the [java thin client]({connectors}/gridgain-8/clients/java-thin-client). You can use other thin clients in the same way.
+The following code snippet illustrates how to connect to your cluster using the [java thin client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/java-thin-client). You can use other thin clients in the same way.
 Note that we use the external IP address (LoadBalancer Ingress) of the service.
 
 ```java

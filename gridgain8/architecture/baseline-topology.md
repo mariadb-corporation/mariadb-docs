@@ -196,4 +196,4 @@ You can use the following tools to monitor and/or manage the baseline topology:
 
 - [Control Script](../reference/cli-tool/README.md)
 - [JMX Beans](../reference/monitoring/jmx-metrics.md#monitoring-topology)
-- [Control Center]({tools}/control-center/gg8/dashboard/my-cluster)
+- [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/gg8/dashboard/my-cluster)

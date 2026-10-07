@@ -31,7 +31,7 @@ Depending on your environment and what your plan is, you may want to open additi
 
 - 47100-47200 — ports used by GridGain nodes to communicate. Specific ports used depend on node configuration.
 - 47500-47600 — ports used by GridGain nodes to discover other nodes in the network. Specific ports used depend on node configuration.
-- 10800 — the port used for [thin clients]({connectors}/gridgain-8/clients/getting-started-with-thin-clients), [JDBC]({connectors}/gridgain-8/sql/jdbc/jdbc-driver) and [ODBC]({connectors}/gridgain-8/sql/odbc/odbc-driver) connections.
+- 10800 — the port used for [thin clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/getting-started-with-thin-clients), [JDBC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/jdbc/jdbc-driver) and [ODBC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/odbc-driver) connections.
 - 8080 — the port used for [REST API](../../reference/rest-api/README.md).
 - 11211 — the port used by [control script](../../reference/cli-tool/README.md) calls. This port should only be opened on nodes that need to send control script messages to other nodes.
 
@@ -134,4 +134,4 @@ Proceed as follows:
 From here, you may want to:
 
 - Read more about using [GridGain](../../gridgain8-usage/README.md)
-- Use [Control Center]({tools}/control-center) to monitor your cluster
+- Use [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) to monitor your cluster

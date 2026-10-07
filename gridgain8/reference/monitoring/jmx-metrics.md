@@ -9,7 +9,7 @@ description: >-
 ## Overview
 
 GridGain exposes a large number of metrics useful for monitoring your cluster or application.
-You can use JMX and a monitoring tool, such as JConsole, or [GridGain Control Center]({tools}/control-center) to access these metrics via JMX.
+You can use JMX and a monitoring tool, such as JConsole, or [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) to access these metrics via JMX.
 You can also access them programmatically.
 
 On this page, we've collected the most useful metrics and grouped them into various common categories based on the monitoring task.
