@@ -265,16 +265,21 @@ See [Securing Connections for Client and Server](../../../security/encryption/da
 
 ### Matching the Certificate Subject
 
-The subject comparison is a byte-for-byte string comparison. Two consequences follow, and both bite in practice:
+The subject comparison is a byte-for-byte string comparison. Three consequences follow, and all of them bite in practice:
 
 * **Case matters.** `/CN=alice` and `/CN=Alice` are different subjects.
 * **Field order matters.** `/CN=alice/O=Example Ltd` and `/O=Example Ltd/CN=alice` are different subjects.
+* **The TLS library matters.** OpenSSL 3.0 and later render a literal `/` or `+` inside a field value with a backslash escape. OpenSSL 1.1 and WolfSSL don't. An account created for one form stops matching when the server moves to the other library. See [`X509_LENIENT_COMPARE`](../../../server-management/variables-and-modes/old_mode.md#x509_lenient_compare).
 
-Copy the DN exactly as the server renders it rather than retyping it. You can read the subject of a certificate with:
+In an SQL string literal, double the backslash: `REQUIRE SUBJECT '/CN=a\\/b\\+c'`.
+
+Copy the DN exactly as the server renders it rather than retyping it. You can print it in the server's format with:
 
 ```bash
-openssl x509 -noout -subject -in alice-cert.pem
+openssl x509 -noout -subject -nameopt compat -in alice-cert.pem
 ```
+
+When a certificate doesn't match, the server writes both strings to the error log, for example `X509 subject mismatch: should be '/CN=alice' but is '/CN=Alice'`.
 
 {% hint style="warning" %}
 `REQUIRE SUBJECT` matches the subject only — not the issuer. An account therefore accepts any certificate with a matching subject signed by **any** CA the server trusts. If `--ssl-ca` trusts more than one CA, add a `REQUIRE ISSUER` clause to pin the issuer as well.
