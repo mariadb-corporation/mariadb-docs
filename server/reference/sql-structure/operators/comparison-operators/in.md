@@ -71,6 +71,7 @@ SELECT 5 IN (1, 2, NULL);
 ## See Also
 
 * [Conversion of Big IN Predicates Into Subqueries](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/subquery-optimizations/conversion-of-big-in-predicates-into-subqueries.md)
+* [Row Constructor Optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/row-constructor-optimization.md)
 * [Operator Precedence](../operator-precedence.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
