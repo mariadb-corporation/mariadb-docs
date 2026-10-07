@@ -48,8 +48,9 @@ commands. What you *do* set up is the per-user, gitignored pieces below.
    ```bash
    claude mcp list          # look for an Atlassian entry
    ```
-   If the account-level **`claude.ai Atlassian Rovo`** connection is present and authenticated to
-   your MariaDB account, you're done. Only if you need MariaDB *alongside* another Atlassian
+   If the account-level **`claude.ai Atlassian MCP`** connection (v2, preferred) or the older
+   **`claude.ai Atlassian Rovo`** connection is present and authenticated to your MariaDB account,
+   you're done. Only if you need MariaDB *alongside* another Atlassian
    account (e.g. GridGain) in the same session, add a second, separately-authenticated server:
    ```bash
    claude mcp add --transport http atlassian-mariadb https://mcp.atlassian.com/v1/mcp
