@@ -37,6 +37,19 @@ If the `INSERT` statement starts after the `ALTER TABLE` statement, it is not bl
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Blocking and online ALTER TABLE behavior
+    accDescr {
+        Two groups are drawn. Legacy Behavior (Blocking) holds five boxes. 1.
+        Start ALTER TABLE leads to SHARED LOCK. Connection B: DML leads to SHARED
+        LOCK, labelled Wait... SHARED LOCK leads to 2. Finish ALTER TABLE, which
+        leads to 3. Connection B: DML Resumes. Online Behavior (Non-Blocking)
+        holds 1. Start ALTER TABLE, 2. Apply Buffer Changes, 3. Finish ALTER TABLE
+        and a nested group, Concurrent Processing, which holds Online Change
+        Buffer and Connection B: DML. 1. Start ALTER TABLE leads to Online Change
+        Buffer. Online Change Buffer and Connection B: DML are joined by a line
+        with no direction. Connection B: DML leads to 2. Apply Buffer Changes,
+        which leads to 3. Finish ALTER TABLE.
+    }
     subgraph "Legacy Behavior (Blocking)"
         direction TB
         L1[1. Start ALTER TABLE] --> L2(fa:fa-lock SHARED LOCK)

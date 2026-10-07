@@ -82,6 +82,21 @@ A key advantage of RRF is that it ignores the raw scores from the search systems
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 
 graph TD
+    accTitle: Hybrid search query built from CTEs with reciprocal rank fusion
+    accDescr {
+        Four numbered groups are drawn. 1. Configuration & Parameters holds
+        Parameter: k (e.g., 60). 2. Initial Searches (CTEs) holds CTE:
+        vector_limit_search, CTE: fulltext_limit_search, CTE: vector_score and
+        CTE: fulltext_score. 3. Score Calculation & Merging (CTEs) holds CTE:
+        full_outer_join_output, Implemented with UNION. 4. Final Output holds
+        Final SELECT & ORDER BY total_rrf. CTE: vector_limit_search leads to CTE:
+        vector_score, labelled Outputs 'dist' score. CTE: fulltext_limit_search
+        leads to CTE: fulltext_score, labelled Outputs 'match_score'. Parameter: k
+        leads to CTE: vector_score and to CTE: fulltext_score. CTE: vector_score
+        and CTE: fulltext_score each lead to CTE: full_outer_join_output, each
+        labelled Calculates partial_rrf. CTE: full_outer_join_output leads to
+        Final SELECT & ORDER BY total_rrf.
+    }
     subgraph "1. Configuration & Parameters"
         param_k[/"Parameter: k (e.g., 60)"/]
     end
