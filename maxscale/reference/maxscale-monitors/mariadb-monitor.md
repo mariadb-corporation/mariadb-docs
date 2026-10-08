@@ -1062,6 +1062,15 @@ _MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds (or ca
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Cooperative locking - majority with one server remaining (majority_of_running)
+    accDescr {
+        Three servers, Server 1, Server 2 and Server 3, and two MaxScales,
+        MaxScale A and MaxScale B. Each MaxScale has an arrow to each server. The
+        arrow from MaxScale A to Server 1 is labelled locked. The arrow from
+        MaxScale B to Server 1 is labelled reachable. The four arrows from the two
+        MaxScales to Server 2 and Server 3 are labelled unreachable. The boxes
+        show the outcome: MaxScale A is primary, MaxScale B is secondary, Server 1
+        is read-write, and Server 2 and Server 3 are down.
+    }
 
     MXA["MaxScale A<br/>primary"]:::node
     MXB["MaxScale B<br/>secondary"]:::node
@@ -1086,6 +1095,16 @@ _Both MaxScales maintain a connection to Server 1. All other servers are down. M
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Cooperative locking - split-brain scenario (majority_of_running)
+    accDescr {
+        Two datacenters. Datacenter A holds Server 1, Server 2 and MaxScale A.
+        Datacenter B holds Server 3, Server 4 and MaxScale B. Arrows labelled
+        locked lead from MaxScale A to Server 1 and Server 2, and from MaxScale B
+        to Server 3 and Server 4. Dotted arrows lead from each MaxScale to the two
+        servers in the other datacenter. Dotted arrows show servers that the
+        MaxScale cannot reach, as the page caption explains. The boxes show the
+        outcome: MaxScale A and MaxScale B are both primary. Server 1 and Server 3
+        are read-write, and Server 2 and Server 4 are read-only.
+    }
 
     subgraph DCB["Datacenter B"]
       MXB["MaxScale B<br/>primary"]:::warn
@@ -1119,6 +1138,15 @@ _The link between datacenters A and B is broken. MaxScale A holds locks on Serve
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - network partition (majority_of_all)
+    accDescr {
+        Three datacenters. Datacenter A holds Server 1 and MaxScale A, Datacenter
+        B holds Server 2 and MaxScale B, and Datacenter C holds Server 3 and
+        MaxScale C. Each MaxScale has an arrow labelled reachable to the server in
+        its own datacenter, and dotted arrows to the servers in the other two
+        datacenters. Dotted arrows show servers that the MaxScale cannot reach, as
+        the page caption explains. The boxes show the outcome: all three MaxScales
+        are secondary and all three servers are read-only.
+    }
 
     subgraph DCC["Datacenter C"]
       MXC["MaxScale C<br/>secondary"]:::node
@@ -1157,6 +1185,15 @@ The downside of `majority_of_all` is that it can lead to a read-only cluster in 
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - no majority (majority_of_all)
+    accDescr {
+        Four servers, Server 1, Server 2, Server 3 and Server 4, and two
+        MaxScales, MaxScale A and MaxScale B. Arrows labelled reachable lead from
+        each MaxScale to Server 1 and Server 2. Dotted arrows lead from each
+        MaxScale to Server 3 and Server 4. Dotted arrows show servers that the
+        MaxScale cannot reach, as the page caption explains. The boxes show the
+        outcome: both MaxScales are secondary, Server 1 and Server 2 are
+        read-only, and Server 3 and Server 4 are down.
+    }
 
     MXA["MaxScale A<br/>secondary"]:::node
     MXB["MaxScale B<br/>secondary"]:::node
@@ -1182,6 +1219,15 @@ _Both MaxScales maintain a connection to Server 1 and Server 2. Server 3 and Ser
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - majority datacenter down (majority_of_all)
+    accDescr {
+        Two datacenters. Datacenter A holds Server 1 and MaxScale A. Datacenter B
+        holds Server 2, Server 3 and MaxScale B. An arrow labelled reachable leads
+        from MaxScale A to Server 1, and dotted arrows lead from MaxScale A to
+        Server 2 and Server 3. Dotted arrows show servers that the MaxScale cannot
+        reach, as the page caption explains. MaxScale B has no arrows. The boxes
+        show the outcome: MaxScale B, Server 2 and Server 3 are down. MaxScale A
+        is secondary and Server 1 is read-only.
+    }
 
     subgraph DCB["Datacenter B"]
       MXB["MaxScale B<br/>down"]:::warn
@@ -1212,6 +1258,17 @@ Resistance to datacenter-wide failures requires at least three datacenters, so t
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - one datacenter down (majority_of_all)
+    accDescr {
+        Three datacenters. Datacenter A holds Server 1 and MaxScale A, Datacenter
+        B holds Server 2 and MaxScale B, and Datacenter C holds Server 3 and
+        MaxScale C. Arrows labelled locked lead from MaxScale A to Server 1 and
+        Server 2. Arrows labelled reachable lead from MaxScale B to Server 1 and
+        Server 2. Dotted arrows lead from MaxScale A and MaxScale B to Server 3.
+        Dotted arrows show servers that the MaxScale cannot reach, as the page
+        caption explains. MaxScale C has no arrows. The boxes show the outcome:
+        MaxScale C and Server 3 are down. MaxScale A is primary and Server 1 is
+        read-write. MaxScale B is secondary and Server 2 is read-only.
+    }
     subgraph DCC["Datacenter C"]
       MXC["MaxScale C<br/>down"]:::warn
       SC1["Server 3<br/>down"]:::warn
